@@ -1,0 +1,51 @@
+<!--
+ Copyright (c) 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="wkt-nested-tab-frame">
+  <oj-tab-bar id="codetabs" class="oj-sm-condense wkt-tab-bar-nested"
+              selection="{{selectedSubview}}" data="[[subviewsDP]]" edge="top">
+    <template slot="itemTemplate" data-oj-as="item">
+      <li :class="[[{'oj-disabled' : item.data.disabled}]]">
+        <a href="#">
+          <oj-bind-text value="[[item.data.name]]"></oj-bind-text>
+        </a>
+      </li>
+    </template>
+  </oj-tab-bar>
+
+  <oj-switcher id="codeviews"
+               class="wkt-code-view-switcher"
+               value="{{selectedSubview}}">
+
+    <div slot="installScript" class="oj-panel wkt-code-view-platform-frame">
+      <oj-form-layout max-columns="1" direction="row">
+        <oj-select-single label-hint="[[shellLabelMapper('selector-label')]]"
+                          value="{{shellScriptType}}"
+                          data="{{shellScriptTypesDP}}"
+                          help.instruction="[[shellLabelMapper('selector-help')]]">
+        </oj-select-single>
+      </oj-form-layout>
+      <oj-text-area class="wkt-code-view" max-rows="-1" value="{{installScriptText}}" readonly="true">
+      </oj-text-area>
+    </div>
+
+    <div slot="addRoutesScript" class="oj-panel wkt-code-view-platform-frame">
+      <oj-form-layout max-columns="1" direction="row">
+        <oj-select-single label-hint="[[shellLabelMapper('selector-label')]]"
+                          value="{{shellScriptType}}"
+                          data="{{shellScriptTypesDP}}"
+                          help.instruction="[[shellLabelMapper('selector-help')]]">
+        </oj-select-single>
+      </oj-form-layout>
+      <oj-text-area class="wkt-code-view" max-rows="-1" value="{{addRoutesScriptText}}" readonly="true">
+      </oj-text-area>
+    </div>
+
+    <div slot="routesYaml" class="oj-panel wkt-code-view-platform-frame">
+      <oj-text-area class="wkt-code-view" max-rows="-1" value="{{ingressRoutesYamlText}}" readonly="true">
+      </oj-text-area>
+    </div>
+
+  </oj-switcher>
+</div>

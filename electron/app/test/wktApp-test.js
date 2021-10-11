@@ -1,0 +1,113 @@
+/**
+ * @license
+ * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
+ * @ignore
+ */
+"use strict";
+const proxyquire = require('proxyquire');
+const path = require('path');
+
+const chai = require('chai');
+const expect = require('chai').expect;
+const chaiAsPromised = require('chai-as-promised');
+chai.use(chaiAsPromised);
+
+const packageJson = require('../../package.json');
+
+const wktLoggerMock = {
+    getLogger: () => {
+        return console;
+    }
+}
+
+const WktApp = proxyquire('../js/wktApp', { './wktLogging': wktLoggerMock });
+
+const baseDir = path.normalize(path.join(path.join(__dirname, '..', '..', '..')));
+
+ const electronStub = { 
+    app: {
+        getAppPath: () => {
+            return path.join(baseDir, 'Electron');
+        },
+        getPath: (type) => {
+            let result = baseDir;
+            if (process.platform === 'darwin') {
+                result = path.join(result, 'someMacOsDirectory');
+            }
+            return path.join(result, 'WebLogic Kubernetes Toolkit UI');
+        }
+    } 
+};
+
+const WktMode = proxyquire('../js/wktMode', { electron: electronStub });
+
+it('make sure application name works', () => {
+    const wktMode = new WktMode(path.join(__dirname, 'Electron'));
+    const wktApp = new WktApp(wktMode);
+
+    expect(wktApp.getApplicationName()).to.equal(packageJson.productName);
+});
+
+it('make sure application version works', () => {
+    const wktMode = new WktMode(path.join(__dirname, 'Electron'));
+    const wktApp = new WktApp(wktMode);
+
+    expect(wktApp.getApplicationVersion()).to.equal(packageJson.version);
+});
+
+// In Jenkins, the build version is generated and the Jenkinsfile stores it the
+// version_number environment variable.  As such, to make the unit test work properly
+// in both Jenkins and development, we have to compute the expected default based on
+// the presence or absence of the version_number environment variable.
+//
+const expectedVersion = process.env['version_number'] ? process.env['version_number'] : '1.0.0-SNAPSHOT';
+
+it('make sure application build version works in development mode', async () => {
+    const wktMode = new WktMode(path.join(__dirname, 'Electron'));
+    const wktApp = new WktApp(wktMode);
+
+    const promise = getWktAppBuildVersion(wktApp);
+    return expect(promise).to.eventually.equal(expectedVersion);
+});
+
+it('make sure application build version works in executable mode', () => {
+    const wktMode = new WktMode(path.join(__dirname, 'WebLogic Kubernetes Toolkit UI'));
+    const wktApp = new WktApp(wktMode);
+
+    const promise = getWktAppBuildVersion(wktApp);
+    return expect(promise).to.eventually.equal(expectedVersion);
+});
+
+it('make sure application copyright works', () => {
+    const wktMode = new WktMode(path.join(__dirname, 'Electron'));
+    const wktApp = new WktApp(wktMode);
+
+    expect(wktApp.getApplicationCopyright()).to.equal(packageJson.copyright);
+});
+
+it('make sure that application website works', () => {
+    const wktMode = new WktMode(path.join(__dirname, 'Electron'));
+    const wktApp = new WktApp(wktMode);
+
+    expect(wktApp.getApplicationWebsite()).to.equal(packageJson.homepage);
+});
+
+function timeout(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function getWktAppBuildVersion(wktApp) {
+    // The application build version is initialized using an async method.  As such,
+    // we need to wait to give it time to complete...
+    //
+    let buildVersion = wktApp.getApplicationBuildVersion();
+    let count = 1;
+    while (buildVersion === undefined && count < 50) {
+        await timeout(10);
+        buildVersion = wktApp.getApplicationBuildVersion();
+        count++;
+    }
+    console.log(`Had to wait ${(count - 1) * 10}ms for buildVersion to be populated.`);
+    return Promise.resolve(buildVersion);
+}

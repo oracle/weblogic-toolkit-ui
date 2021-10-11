@@ -1,0 +1,219 @@
+<!--
+ Copyright (c) 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('title')]]"></oj-bind-text></h6>
+<div class="oj-panel" id="wko">
+  <oj-form-layout max-columns="2" direction="row">
+    <oj-input-text label-hint="[[labelMapper('k8s-namespace-label')]]"
+                   value="{{project.wko.k8sNamespace.observable}}"
+                   validators="[[project.wko.k8sNamespace.validators()]]"
+                   help.instruction="[[labelMapper('k8s-namespace-help')]]">
+    </oj-input-text>
+    <oj-input-text label-hint="[[labelMapper('k8s-service-account-label')]]"
+                   value="{{project.wko.k8sServiceAccount.observable}}"
+                   validators="[[project.wko.k8sServiceAccount.validators()]]"
+                   help.instruction="[[labelMapper('k8s-service-account-help')]]">
+    </oj-input-text>
+    <oj-input-text label-hint="[[labelMapper('wko-deploy-name-label')]]"
+                   value="{{project.wko.wkoDeployName.observable}}"
+                   validators="[[project.wko.wkoDeployName.validators()]]"
+                   help.instruction="[[labelMapper('wko-deploy-name-help')]]">
+    </oj-input-text>
+  </oj-form-layout>
+</div>
+
+<oj-collapsible expanded='false'>
+  <h6 slot='header' class="wkt-subheading"><oj-bind-text value="[[labelMapper('page-design-advanced-label')]]"></oj-bind-text></h6>
+  <div class="oj-panel">
+    <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('image-tag-title')]]"></oj-bind-text></h6>
+    <oj-form-layout max-columns="2" direction="row">
+      <oj-input-text label-hint="[[labelMapper('image-tag-label')]]"
+                     value="{{project.wko.operatorImage.observable}}"
+                     validators="[[project.wko.operatorImage.validators()]]"
+                     help.instruction="[[labelMapper('image-tag-help')]]">
+      </oj-input-text>
+      <oj-select-single label-hint="[[labelMapper('image-pull-policy-label')]]"
+                        data="{{imagePullPoliciesDP}}"
+                        value="{{project.wko.operatorImagePullPolicy.observable}}"
+                        help.instruction="[[labelMapper('image-pull-policy-help')]]">
+      </oj-select-single>
+      <oj-switch label-hint="[[labelMapper('image-pull-requires-authentication-label')]]"
+                 value="{{project.wko.operatorImagePullRequiresAuthentication.observable}}"
+                 help.instruction="[[labelMapper('image-pull-requires-authentication-help')]]">
+      </oj-switch>
+    </oj-form-layout>
+  </div>
+
+  <div>
+    <oj-bind-if test="[[project.wko.operatorImagePullRequiresAuthentication.observable() === true]]">
+      <div class="oj-panel">
+        <h6 class="wkt-subheading"><oj-bind-text  value="[[labelMapper('image-pull-secret-title')]]"></oj-bind-text></h6>
+        <oj-form-layout max-columns="2" direction="row">
+          <oj-switch label-hint="[[labelMapper('use-existing-secret-label')]]"
+                     value="{{project.wko.operatorImagePullUseExistingSecret.observable}}"
+                     help.instruction="[[labelMapper('use-existing-secret-help')]]">
+          </oj-switch>
+          <oj-input-text label-hint="[[labelMapper('image-pull-secret-name-label')]]"
+                         value="{{project.wko.operatorImagePullSecretName.observable}}"
+                         validators="[[project.wko.operatorImagePullSecretName.validators()]]"
+                         help.instruction="[[labelMapper('image-pull-secret-name-help')]]">
+          </oj-input-text>
+          <oj-bind-if test="[[project.wko.operatorImagePullUseExistingSecret.observable() === false]]">
+            <oj-input-text class="wkt-can-readonly-field"
+                           id="wko-image-registry-address"
+                           label-hint="[[labelMapper('image-registry-address-label')]]"
+                           value="{{project.wko.internal.operatorImagePullRegistryAddress.observable}}"
+                           readonly="true"
+                           help.instruction="[[labelMapper('image-registry-address-help')]]">
+            </oj-input-text>
+          </oj-bind-if>
+          <oj-bind-if test="[[project.wko.operatorImagePullUseExistingSecret.observable() === false]]">
+            <oj-input-text label-hint="[[labelMapper('image-registry-email-label')]]"
+                           value="{{project.wko.operatorImagePullRegistryEmailAddress.observable}}"
+                           validators="[[project.wko.operatorImagePullRegistryEmailAddress.validators()]]"
+                           help.instruction="[[labelMapper('image-registry-email-help')]]">
+            </oj-input-text>
+          </oj-bind-if>
+          <oj-bind-if test="[[project.wko.operatorImagePullUseExistingSecret.observable() === false]]">
+            <oj-input-password label-hint="[[labelMapper('image-registry-username-label')]]"
+                               value="{{project.wko.operatorImagePullRegistryUsername.observable}}"
+                               mask-icon="visible"
+                               help.instruction="[[labelMapper('image-registry-username-help')]]">
+            </oj-input-password>
+          </oj-bind-if>
+          <oj-bind-if test="[[project.wko.operatorImagePullUseExistingSecret.observable() === false]]">
+            <oj-input-password label-hint="[[labelMapper('image-registry-password-label')]]"
+                               value="{{project.wko.operatorImagePullRegistryPassword.observable}}"
+                               mask-icon="visible"
+                               help.instruction="[[labelMapper('image-registry-password-help')]]">
+            </oj-input-password>
+          </oj-bind-if>
+        </oj-form-layout>
+      </div>
+    </oj-bind-if>
+  </div>
+
+  <div class="oj-panel">
+    <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('k8s-namespace-selection-strategy-title')]]"></oj-bind-text></h6>
+    <oj-form-layout max-columns="2" direction="row">
+      <oj-select-single id="domain-namespace-selection-strategy"
+                        label-hint="[[labelMapper('k8s-namespace-selection-strategy-label')]]"
+                        data="{{domainNamespaceSelectionStrategiesDP}}"
+                        value="{{project.wko.operatorDomainNamespaceSelectionStrategy.observable}}"
+                        help.instruction="[[labelMapper('k8s-namespace-selection-strategy-help')]]">
+      </oj-select-single>
+      <div>
+        <oj-bind-if test="[[project.wko.operatorDomainNamespaceSelectionStrategy.observable() === 'List']]">
+          <oj-text-area id="domain-namespaces-list"
+                        label-hint="[[labelMapper('k8s-namespace-selection-list-label')]]"
+                        value="{{project.wko.operatorDomainNamespacesList.observable}}"
+                        help.instruction="[[labelMapper('k8s-namespace-selection-list-help')]]">
+          </oj-text-area>
+        </oj-bind-if>
+        <oj-bind-if test="[[project.wko.operatorDomainNamespaceSelectionStrategy.observable() === 'LabelSelector']]">
+          <oj-input-text id="domain-namespace-label-selector"
+                         label-hint="[[labelMapper('k8s-namespace-selection-selector-label')]]"
+                         value="{{project.wko.operatorDomainNamespaceSelector.observable}}"
+                         help.instruction="[[labelMapper('k8s-namespace-selection-selector-help')]]">
+          </oj-input-text>
+        </oj-bind-if>
+        <oj-bind-if test="[[project.wko.operatorDomainNamespaceSelectionStrategy.observable() === 'RegExp']]">
+          <oj-input-text id="domain-namespace-reg-exp"
+                         label-hint="[[labelMapper('k8s-namespace-selection-regexp-label')]]"
+                         value="{{project.wko.operatorDomainNamespaceRegex.observable}}"
+                         help.instruction="[[labelMapper('k8s-namespace-selection-regexp-help')]]">
+          </oj-input-text>
+        </oj-bind-if>
+      </div>
+    </oj-form-layout>
+  </div>
+
+  <div class="oj-panel">
+    <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('k8s-role-binding-title')]]"></oj-bind-text></h6>
+    <oj-form-layout>
+      <oj-switch label-hint="[[labelMapper('k8s-role-binding-label')]]"
+                 value="{{project.wko.enableClusterRoleBinding.observable}}"
+                 help.instruction="[[labelMapper('k8s-role-binding-help')]]">
+      </oj-switch>
+    </oj-form-layout>
+  </div>
+
+  <div class="oj-panel">
+    <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('external-rest-title')]]"></oj-bind-text></h6>
+    <oj-form-layout max-columns="2" direction="column">
+      <oj-switch label-hint="[[labelMapper('external-rest-expose-label')]]"
+                 value="{{project.wko.externalRestEnabled.observable}}"
+                 help.instruction="[[labelMapper('external-rest-expose-help')]]">
+      </oj-switch>
+      <oj-bind-if test="[[project.wko.externalRestEnabled.observable() === true]]">
+        <oj-input-number label-hint="[[labelMapper('external-rest-port-label')]]"
+                         converter="[[portNumberConverter]]"
+                         value="{{project.wko.externalRestHttpsPort.observable}}"
+                         validators="[[project.wko.externalRestHttpsPort.validators()]]"
+                         help.instruction="[[labelMapper('external-rest-port-help')]]">
+        </oj-input-number>
+      </oj-bind-if>
+      <oj-bind-if test="[[project.wko.externalRestEnabled.observable() === true]]">
+        <oj-input-text label-hint="[[labelMapper('external-rest-secret-label')]]"
+                       value="{{project.wko.externalRestIdentitySecret.observable}}"
+                       validators="[[project.wko.externalRestIdentitySecret.validators()]]"
+                       help.instruction="[[labelMapper('external-rest-secret-help')]]">
+        </oj-input-text>
+      </oj-bind-if>
+    </oj-form-layout>
+  </div>
+
+  <div class="oj-panel">
+    <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('3rd-party-title')]]"></oj-bind-text></h6>
+    <oj-form-layout max-columns="2" direction="row">
+      <oj-switch label-hint="[[labelMapper('3rd-party-elk-enabled-label')]]"
+                 value="{{project.wko.elkIntegrationEnabled.observable}}"
+                 help.instruction="[[labelMapper('3rd-party-elk-enabled-help')]]">
+      </oj-switch>
+      <oj-bind-if test="[[project.wko.elkIntegrationEnabled.observable() === true]]">
+        <oj-input-text label-hint="[[labelMapper('3rd-party-logstash-image-label')]]"
+                       value="{{project.wko.logStashImage.observable}}"
+                       validators="[[project.wko.logStashImage.validators()]]"
+                       help.instruction="[[labelMapper('3rd-party-logstash-image-help')]]">
+        </oj-input-text>
+      </oj-bind-if>
+      <oj-bind-if test="[[project.wko.elkIntegrationEnabled.observable() === true]]">
+        <oj-input-text label-hint="[[labelMapper('3rd-party-elastic-host-label')]]"
+                       value="{{project.wko.elasticSearchHost.observable}}"
+                       validators="[[project.wko.elasticSearchHost.validators()]]"
+                       help.instruction="[[labelMapper('3rd-party-elastic-host-help')]]">
+        </oj-input-text>
+      </oj-bind-if>
+      <oj-bind-if test="[[project.wko.elkIntegrationEnabled.observable() === true]]">
+        <oj-input-number label-hint="[[labelMapper('3rd-party-elastic-port-label')]]"
+                         converter="[[portNumberConverter]]"
+                         value="{{project.wko.elasticSearchPort.observable}}"
+                         validators="[[project.wko.elasticSearchPort.validators()]]"
+                         help.instruction="[[labelMapper('3rd-party-elastic-port-help')]]">
+        </oj-input-number>
+      </oj-bind-if>
+    </oj-form-layout>
+  </div>
+
+  <div class="oj-panel">
+    <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('logging-title')]]"></oj-bind-text></h6>
+    <oj-form-layout max-columns="2" direction="column">
+      <oj-select-single label-hint="[[labelMapper('logging-level-label')]]"
+                        value="{{project.wko.javaLoggingLevel.observable}}"
+                        data="{{logLevelsDP}}"
+                        help.instruction="[[labelMapper('logging-level-help')]]">
+      </oj-select-single>
+      <oj-input-number label-hint="[[labelMapper('logging-file-size-limit-label')]]"
+                       converter="[[integerConverter]]"
+                       value="{{project.wko.javaLoggingFileSizeLimit.observable}}"
+                       help.instruction="[[labelMapper('logging-file-size-limit-help')]]">
+      </oj-input-number>
+      <oj-input-number label-hint="[[labelMapper('logging-file-count-limit-label')]]"
+                       converter="[[integerConverter]]"
+                       value="{{project.wko.javaLoggingFileCount.observable}}"
+                       help.instruction="[[labelMapper('logging-file-count-limit-help')]]">
+      </oj-input-number>
+    </oj-form-layout>
+  </div>
+</oj-collapsible>

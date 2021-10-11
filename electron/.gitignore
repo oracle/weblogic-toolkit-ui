@@ -1,0 +1,9 @@
+/node_modules
+/app/web
+/app/staged-themes
+/wktui.log
+/wktui-*.log
+/.docker
+/.kube
+/Library
+/.env

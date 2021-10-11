@@ -1,0 +1,104 @@
+<!--
+ Copyright (c) 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<oj-dialog id="routeEditDialog" class="wkt-route-edit-dialog" initial-visibility="hide">
+  <div slot="header">
+    <span id="dialog-title-id" class="oj-dialog-title">
+      <oj-bind-text value="[[labelMapper('route-dialog-title')]]"></oj-bind-text>
+    </span>
+  </div>
+  <div slot="body">
+    <oj-validation-group id="ingressTracker">
+    <div class="oj-panel">
+      <oj-form-layout max-columns="3" direction="row">
+        <oj-input-text label-hint="[[labelMapper('route-name-label')]]"
+                       value="{{name.observable}}"
+                       help.instruction="[[labelMapper('route-name-help')]]"
+                       validators="[[project.ingress.validators.k8sNameValidator]]">
+        </oj-input-text>
+        <oj-input-text label-hint="[[labelMapper('route-virtualhost-label')]]"
+                       value="{{virtualHost.observable}}"
+                       help.instruction="[[labelMapper('route-virtualhost-help')]]"
+                       validators="[[project.ingress.validators.VirtualHostNameValidator]]">
+        </oj-input-text>
+        <oj-input-text label-hint="[[labelMapper('route-path-label')]]"
+                       value="{{path.observable}}"
+                       help.instruction="[[labelMapper('route-path-help')]]"
+                       validators="[[project.ingress.validators.IngressPathValidator]]">
+        </oj-input-text>
+        <oj-input-text class="wkt-can-readonly-field"
+                       label-hint="[[labelMapper('route-targetservicenamespace-label')]]"
+                       value="{{targetServiceNameSpace.observable}}"
+                       readonly="true"
+                       help.instruction="[[labelMapper('route-targetservicenamespace-help')]]">
+        </oj-input-text>
+        <oj-input-text label-hint="[[labelMapper('route-targetservice-label')]]"
+                       help.instruction="[[labelMapper('route-targetservice-help')]]"
+                       value="{{targetService.observable}}">
+        </oj-input-text>
+        <oj-input-number label-hint="[[labelMapper('route-targetport-label')]]"
+                         converter="[[portNumberConverter]]"
+                         value="{{targetPort.observable}}"
+                         help.instruction="[[labelMapper('route-targetport-help')]]"
+                         validators="[[project.ingress.validators.TargetPortValidator]]">
+        </oj-input-number>
+        <oj-switch label-hint="[[labelMapper('route-tls-label')]]"
+                   value="{{tlsEnabled.observable}}">
+        </oj-switch>
+      </oj-form-layout>
+
+      <h6 class="wkt-subheading">
+        <oj-bind-text value="[[labelMapper('route-annotations-table-title')]]"></oj-bind-text>
+      </h6>
+      <oj-table class="wkt-model-properties-table"
+                aria-label="Ingress Routes Table"
+                data="[[annotationsProvider]]"
+                edit-mode="rowEdit"
+                columns='[[annotationColumns]]'>
+        <template slot="rowTemplate" data-oj-as="row">
+          <tr>
+            <oj-bind-if test='[[row.mode=="navigation"]]'>
+              <td><oj-bind-text value="[[row.data.key]]"></oj-bind-text></td>
+              <td><oj-bind-text value="[[row.data.value]]"></oj-bind-text></td>
+            </oj-bind-if>
+            <oj-bind-if test='[[row.mode=="edit"]]'>
+              <td>
+                <oj-input-text value="{{row.data.key}}" required="true"
+                               help.instruction="[[labelMapper('route-annotation-key-help')]]">
+                </oj-input-text>
+              </td>
+              <td>
+                <oj-input-text value="{{row.data.value}}" required="true"
+                               help.instruction="[[labelMapper('route-annotation-value-help')]]">
+                </oj-input-text>
+              </td>
+            </oj-bind-if>
+            <td>
+              <oj-button display="icons" chroming="borderless" on-oj-action="[[handleDeleteAnnotation]]">
+                <span slot="endIcon" class="oj-ux-ico-trash"></span>
+                <oj-bind-text value="{{labelMapper('route-annotation-delete-row')}}"></oj-bind-text>
+              </oj-button>
+            </td>
+          </tr>
+        </template>
+        <template slot="headerTemplate" data-oj-as="header">
+          <oj-button display="icons" chroming="borderless" on-oj-action="[[handleAddAnnotation]]">
+            <span slot="endIcon" class="oj-ux-ico-plus"></span>
+            <oj-bind-text value="{{labelMapper('route-annotation-add-row')}}"></oj-bind-text>
+          </oj-button>
+        </template>
+      </oj-table>
+    </div>
+    </oj-validation-group>
+  </div>
+
+  <div slot="footer">
+    <oj-button id="okButton" on-oj-action="[[okInput]]">
+      <span><oj-bind-text value="[[anyLabelMapper('dialog-button-ok')]]"></oj-bind-text></span>
+    </oj-button>
+    <oj-button id="cancelButton" on-oj-action="[[cancelInput]]">
+      <span><oj-bind-text value="[[anyLabelMapper('dialog-button-cancel')]]"></oj-bind-text></span>
+    </oj-button>
+  </div>
+</oj-dialog>

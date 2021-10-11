@@ -1,0 +1,95 @@
+<!--
+ Copyright (c) 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="wkt-content" id="projectSettings">
+  <h6><oj-bind-text value="[[labelMapper('title')]]"></oj-bind-text></h6>
+
+  <div class="oj-panel">
+    <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('credential-store-policy-question')]]"></oj-bind-text></h6>
+    <oj-form-layout max-columns="2" direction="row">
+      <oj-select-single label-hint="[[labelMapper('credential-store-policy-label')]]"
+                        value="{{project.settings.credentialStorePolicy.observable}}"
+                        data="{{credentialStorePoliciesDP}}"
+                        help.instruction="[[labelMapper('credential-store-policy-help')]]">
+      </oj-select-single>
+    </oj-form-layout>
+    <p><oj-bind-text value="[[labelMapper('credential-store-policy-answer-message')]]"></oj-bind-text></p>
+  </div>
+
+  <div class="oj-panel">
+    <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('domain-location-question')]]"></oj-bind-text></h6>
+    <oj-form-layout max-columns="1" direction="row">
+      <oj-radioset label-hint=""
+                   value="{{project.settings.targetDomainLocation.observable}}"
+                   help.instruction="[[labelMapper('domain-location-help')]]">
+        <oj-bind-for-each data="[[targetDomainLocations]]">
+          <template>
+            <oj-option value="[[$current.data.value]]">
+              <oj-bind-text value="[[$current.data.label]]"></oj-bind-text>
+            </oj-option>
+          </template>
+        </oj-bind-for-each>
+      </oj-radioset>
+    </oj-form-layout>
+    <p><oj-bind-text value="[[getTargetDomainLocationMessage()]]"></oj-bind-text></p>
+  </div>
+
+  <oj-bind-if test="[[targetDomainLocationIsPV() === false]]">
+    <div class="oj-panel">
+      <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('wdt-target-type-question')]]"></oj-bind-text></h6>
+      <oj-form-layout max-columns="1" direction="row">
+        <oj-select-single label-hint="[[labelMapper('wdt-target-type-label')]]"
+                          value="{{project.settings.wdtTargetType.observable}}"
+                          data="{{wdtTargetTypesDP}}"
+                          help.instruction="[[labelMapper('wdt-target-type-help')]]">
+        </oj-select-single>
+      </oj-form-layout>
+      <p><oj-bind-text value="[[labelMapper('wdt-target-type-answer-message')]]"></oj-bind-text></p>
+    </div>
+  </oj-bind-if>
+
+  <oj-bind-if test="[[requiresJavaAndOracleHome() === true]]">
+    <div class="oj-panel">
+      <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('directory-locations-question')]]"></oj-bind-text></h6>
+      <oj-form-layout max-columns="2" direction="row">
+        <oj-input-text label-hint="[[labelMapper('java-home-label')]]"
+                       value="{{project.settings.javaHome.observable}}"
+                       help.instruction="[[labelMapper('java-home-help')]]">
+          <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[chooseJavaHome]]">
+            <span slot="endIcon" class="oj-ux-ico-folder" role="img"></span>
+          </oj-button>
+        </oj-input-text>
+        <oj-input-text label-hint="[[labelMapper('oracle-home-label')]]"
+                       value="{{project.settings.oracleHome.observable}}"
+                       help.instruction="[[labelMapper('oracle-home-help')]]">
+          <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[chooseOracleHome]]">
+            <span slot="endIcon" class="oj-ux-ico-folder" role="img"></span>
+          </oj-button>
+        </oj-input-text>
+      </oj-form-layout>
+      <p><oj-bind-text value="[[labelMapper('directory-locations-answer-message')]]"></oj-bind-text></p>
+    </div>
+  </oj-bind-if>
+
+  <oj-bind-if test="[[usingImageTool() === true]]">
+    <div class="oj-panel">
+      <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('build-tool-type-question')]]"></oj-bind-text></h6>
+      <oj-form-layout max-columns="2" direction="row">
+        <oj-select-single label-hint="[[labelMapper('build-tool-type-label')]]"
+                          value="{{project.settings.builderType.observable}}"
+                          data="{{builderTypesDP}}"
+                          help.instruction="[[labelMapper('build-tool-type-help')]]">
+        </oj-select-single>
+        <oj-input-text label-hint="[[getBuilderExecutableFilePathLabel()]]"
+                       value="{{project.settings.builderExecutableFilePath.observable}}"
+                       help.instruction="[[labelMapper('build-tool-help')]]">
+          <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[chooseBuilder]]">
+            <span slot="endIcon" class="oj-ux-ico-file-text" role="img"></span>
+          </oj-button>
+        </oj-input-text>
+      </oj-form-layout>
+      <p><oj-bind-text value="[[labelMapper('build-tool-type-answer-message')]]"></oj-bind-text></p>
+    </div>
+  </oj-bind-if>
+</div>

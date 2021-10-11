@@ -1,0 +1,35 @@
+<!--
+ Copyright (c) 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<oj-dialog id="wktValidationErrorDialog" class="wkt-validation-error-dialog" initial-visibility="hide">
+  <div slot="header">
+    <span class="oj-dialog-title"><oj-bind-text value="[[getTitle()]]"></oj-bind-text></span>
+  </div>
+
+  <div slot="body">
+    <div class="oj-panel wkt-notop">
+      <p><oj-bind-text value="[[getMessage()]]"></oj-bind-text></p>
+      <oj-bind-for-each data="[[validationErrorFields]]">
+        <template data-oj-as="validationErrorField">
+          <div class="validationErrorBlock">
+            <oj-bind-text value="[[validationErrorField.data.fieldName]]"></oj-bind-text>
+            <ul>
+              <oj-bind-for-each data="[[validationErrorField.data.fieldErrors]]">
+                <template data-oj-as="fieldError">
+                  <li><oj-bind-text value="[[fieldError.data]]"></oj-bind-text></li>
+                </template>
+              </oj-bind-for-each>
+            </ul>
+          </div>
+        </template>
+      </oj-bind-for-each>
+    </div>
+  </div>
+
+  <div slot="footer">
+    <oj-button id="okButton" on-oj-action="[[dismissDialog]]">
+      <span><oj-bind-text value="[[i18n.t('dialog-button-ok')]]"></oj-bind-text></span>
+    </oj-button>
+  </div>
+</oj-dialog>

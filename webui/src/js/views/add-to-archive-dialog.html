@@ -1,0 +1,32 @@
+<!--
+ Copyright (c) 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<oj-dialog id="addToArchiveDialog" class="wkt-add-to-archive-dialog" initial-visibility="hide">
+  <div slot="header">
+    <span id="dialog-title-id" class="oj-dialog-title"><oj-bind-text value="[[labelMapper('title')]]"></oj-bind-text></span>
+  </div>
+  <div slot="body">
+    <oj-validation-group id="tracker">
+    <div class="oj-panel">
+      <oj-form-layout max-columns="1" direction="row">
+        <oj-select-single label-hint="[[labelMapper('entry-type-label')]]"
+                          data="{{archiveEntryTypesProvider}}"
+                          value="{{archiveEntryType}}"
+                          help.instruction="[[labelMapper('entry-type-help')]]"
+                          required="true">
+        </oj-select-single>
+      </oj-form-layout>
+    </div>
+    </oj-validation-group>
+  </div>
+
+  <div slot="footer">
+    <oj-button id="okButton" on-oj-action="[[addToArchive]]">
+      <span><oj-bind-text value="[[anyLabelMapper('dialog-button-ok')]]"></oj-bind-text></span>
+    </oj-button>
+    <oj-button id="cancelButton" on-oj-action="[[cancelAdd]]">
+      <span><oj-bind-text value="[[anyLabelMapper('dialog-button-cancel')]]"></oj-bind-text></span>
+    </oj-button>
+  </div>
+</oj-dialog>

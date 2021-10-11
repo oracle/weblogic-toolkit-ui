@@ -1,0 +1,31 @@
+<!--
+ Copyright (c) 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="wkt-content-layout">
+  <div class="wkt-content-top-bar">
+    <oj-tab-bar class="oj-sm-condense oj-tabbar wkt-tab-bar"
+                selection="{{selectedItem}}"
+                data="[[dataProvider]]" edge="top" display="all">
+      <template slot="itemTemplate" data-oj-as="item">
+        <li :class="[[{'oj-disabled' : item.data.detail.disabled === 'true'}]]">
+          <a href="#">
+            <oj-bind-text value="[[item.data.detail.label]]"></oj-bind-text>
+          </a>
+        </li>
+      </template>
+    </oj-tab-bar>
+    <oj-button id="installOperatorButton"
+               disabled="[[disableInstallOperator]]"
+               chroming="callToAction"
+               on-oj-action="[[installOperator]]"
+               :title="[[labelMapper('hints-installOperator')]]">
+          <span>
+            <oj-bind-text value="[[labelMapper('button-installOperator')]]"></oj-bind-text>
+          </span>
+    </oj-button>
+  </div>
+
+  <oj-module role="main" class="wkt-content" config="[[moduleAdapter.koObservableConfig]]">
+  </oj-module>
+</div>

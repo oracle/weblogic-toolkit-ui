@@ -1,0 +1,51 @@
+<!--
+ Copyright (c) 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<oj-dialog id="wktQuickStartDialog" class="wkt-user-settings-dialog" initial-visibility="show">
+  <div slot="header">
+    <span class="oj-dialog-title"><oj-bind-text value="[[labelMapper('title')]]"></oj-bind-text></span>
+  </div>
+  <div slot="body" class="wkt-quickstart-body">
+    <div id="filmStripDiv" class="oj-panel wkt-quickstart-filmstrip-panel">
+      <oj-film-strip id="wktQuickStartFilmStrip"
+                     class="wkt-quickstart-filmstrip"
+                     arrow-placement="adjacent"
+                     arrow-visibility="auto"
+                     aria-label="WebLogic Kubernetes Toolkit UI Tutorial"
+                     max-items-per-page="1">
+        <oj-bind-for-each data="[[quickstartPagesConfig]]">
+          <template>
+            <oj-defer class="wkt-quickstart-filmstrip-item">
+              <oj-module role="main" class="wkt-quickstart-filmstrip-module" config="[[$current.data]]">
+              </oj-module>
+            </oj-defer>
+          </template>
+        </oj-bind-for-each>
+      </oj-film-strip>
+      <div class="wkt-quickstart-paging-control-container">
+        <div class="wkt-quickstart-paging-control">
+          <oj-paging-control id="quickstartPagingControl"
+                             data="[[quickstartPagingModel]]"
+                             page-size="1"
+                             page-options='{"type": "dots"}'>
+          </oj-paging-control>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div slot="footer">
+    <oj-form-layout max-columns="1" direction="row">
+      <oj-checkboxset value="{{stopShowingQuickstart}}">
+        <oj-option value="true">
+          <oj-bind-text value="[[labelMapper('stop-showing-quickstart-message')]]"></oj-bind-text>
+        </oj-option>
+      </oj-checkboxset>
+    </oj-form-layout>
+    <oj-button id="okButton" on-oj-action="[[closeQuickstart]]">
+      <span><oj-bind-text value="[[i18n.t('dialog-button-ok')]]"></oj-bind-text></span>
+    </oj-button>
+  </div>
+</oj-dialog>

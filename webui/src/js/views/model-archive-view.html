@@ -1,0 +1,38 @@
+<!--
+ Copyright (c) 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
+ -->
+
+<div id="wkt-model-archive" class="wkt-model-archive">
+  <oj-toolbar id='myToolbar1' aria-label='Editing Toolbar' aria-controls='controlled'
+              class="wkt-archive-toolbar" :class="oj-toolbar-bottom-border">
+
+    <div class="wkt-archive-label"><oj-bind-text value="[[archiveLabel]]"></oj-bind-text></div>
+
+    <span role="separator1" aria-orientation="vertical" class="oj-toolbar-separator"></span>
+
+    <oj-button id='archive-add' display='icons' on-oj-action="[[addFile]]">
+      <span slot='startIcon' class='oj-ux-ico-plus'></span>
+      <oj-bind-text value="[[labelMapper('add-label')]]"></oj-bind-text>
+    </oj-button>
+
+    <oj-button id='archive-delete' display='icons' disabled="[[!selectedItem()]]" on-oj-action="[[deleteSelected]]">
+      <span slot='startIcon' class='oj-ux-ico-minus'></span>
+      <oj-bind-text value="[[labelMapper('delete-label')]]"></oj-bind-text>
+    </oj-button>
+  </oj-toolbar>
+
+  <oj-tree-view id="treeview"
+                class="wkt-tree-view"
+                data="[[archiveDataProvider]]"
+                selection-mode="single"
+                on-selected-changed="[[selectionChanged]]"
+                aria-label="Tree View with JSON Data">
+    <template slot="itemTemplate" data-oj-as="row">
+      <span class="oj-treeview-item-icon"></span>
+      <span class="oj-treeview-item-text">
+          <oj-bind-text value="[[row.data.title]]"></oj-bind-text>
+      </span>
+    </template>
+  </oj-tree-view>
+</div>

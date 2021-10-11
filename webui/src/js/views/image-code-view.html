@@ -1,0 +1,19 @@
+<!--
+ Copyright (c) 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-panel wkt-code-view-platform-frame">
+  <oj-form-layout max-columns="1" direction="row">
+    <oj-select-single label-hint="Script Language"
+                      on-value-changed="[[codeViewScriptLanguageSelectValueChangedHandler]]"
+                      value="{{codeViewScriptLanguage}}"
+                      data="[[codeViewScriptLanguagesDP]]"
+                      help.instruction="The scripting language to show.">
+    </oj-select-single>
+  </oj-form-layout>
+  <oj-text-area class="wkt-code-view"
+                max-rows="-1"
+                value="{{codeText}}"
+                readonly="true">
+  </oj-text-area>
+</div>
