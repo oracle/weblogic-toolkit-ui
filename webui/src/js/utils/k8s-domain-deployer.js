@@ -24,11 +24,6 @@ function (project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, K8sDoma
         options = {};
       }
 
-      // FIXME - this is an ugly hack to work around a timing problem in the way that the observable properties
-      //         handle Promise resolution for default values...
-      // eslint-disable-next-line no-unused-vars
-      let operatorImage = this.project.wko.operatorImage.value;
-
       let errTitle = i18n.t('k8s-domain-deployer-aborted-error-title');
       const validatableObject = this.getValidatableObject('flow-deploy-domain-name');
       if (validatableObject.hasValidationErrors()) {
@@ -271,11 +266,11 @@ function (project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, K8sDoma
             }
             wktLogger.debug('Creating secret %s', secretName);
 
-            const secretResults =
+            const createSecretResults =
               await window.api.ipc.invoke('k8s-create-generic-secret', kubectlExe, domainNamespace, secretName, secretData, kubectlOptions);
-            if (!secretResults.isSuccess) {
+            if (!createSecretResults.isSuccess) {
               const errMessage = i18n.t('k8s-domain-deployer-create-secret-failed-error-message',
-                {secretName: secretName, namespace: domainNamespace, error: secretResults.reason});
+                {secretName: secretName, namespace: domainNamespace, error: createSecretResults.reason});
               dialogHelper.closeBusyDialog();
               await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
               return Promise.resolve(false);
@@ -427,8 +422,8 @@ function (project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, K8sDoma
       }
 
       if (!this.project.k8sDomain.configMapIsEmpty()) {
-        validationObject.addField('', this.project.k8sDomain.modelConfigMapName.validate(true));
-        // TODO - Not sure the fields in the table require validation since no empty override values should be in this computed table.
+        validationObject.addField('domain-design-configmap-label', this.project.k8sDomain.modelConfigMapName.validate(true));
+        // The fields in the table should not require validation since no empty override values should be in this computed table.
       }
 
       return validationObject;
@@ -580,9 +575,6 @@ function (project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, K8sDoma
         const conditions = status['conditions'];
         // default status
         result['domainOverallStatus'] = i18n.t('domain-design-domain-status-unknown');
-
-        // Take the first one or sort to get the latest ? or loop through TODO??
-
         conditions.sort((a, b) => {
           if (a.lastTransitionTime < b.lastTransitionTime) {
             return 1;
@@ -637,7 +629,6 @@ function (project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, K8sDoma
           const hasErrors = this.hasErrorConditions(conditions);
           const completeCondition = this.getCompletedCondition(conditions);
           const availableCondition = this.getAvailableCondition(conditions);
-          const noAvailableConditions = this.noAvailableCondition(conditions);
 
           if (hasErrors.error) {
             result['domainOverallStatus'] = i18n.t('domain-design-domain-status-failed', {reason: hasErrors.reason});
@@ -645,7 +636,7 @@ function (project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, K8sDoma
             result['domainOverallStatus'] = i18n.t('domain-design-domain-status-complete');
           } else {
             // Assume this is introspection progressing
-            if (completeCondition.status === 'False' && noAvailableConditions) {
+            if (completeCondition.status === 'False' && !this.hasAvailableCondition(conditions)) {
               result['domainOverallStatus'] = i18n.t('domain-design-domain-status-progressing');
             } else if (completeCondition.status === 'False' && availableCondition.status === 'False') {
               result['domainOverallStatus'] = i18n.t('domain-design-domain-status-available');
@@ -653,9 +644,7 @@ function (project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, K8sDoma
               // should never happened?
               result['domainOverallStatus'] = i18n.t('domain-design-domain-status-unknown');
             }
-
           }
-
         }
 
       } else {
@@ -666,38 +655,37 @@ function (project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, K8sDoma
     };
 
     this.hasErrorConditions = (conditions) => {
-      for (var i = 0; i < conditions.length; i++) {
-        if (conditions[i].type === 'Failed') {
-          return {error: true, reason: conditions[i].reason};
+      for (const condition of conditions) {
+        if (condition.type === 'Failed') {
+          return {error: true, reason: condition.reason};
         }
       }
       return {error: false, reason: ''};
     };
 
     this.getCompletedCondition = (conditions) => {
-      const condition = {type: 'Completed', status: 'False'};
-
-      for (var i = 0; i < conditions.length; i++) {
-        if (conditions[i].type === 'Completed') {
-          return conditions[i];
+      const defaultCondition = {type: 'Completed', status: 'False'};
+      for (const condition of conditions) {
+        if (condition.type === 'Completed') {
+          return condition;
         }
       }
-      return condition;
+      return defaultCondition;
     };
 
     this.getAvailableCondition = (conditions) => {
-      const condition = {type: 'Available', status: 'False'};
-      for (var i = 0; i < conditions.length; i++) {
-        if (conditions[i].type === 'Available') {
-          return conditions[i];
+      const defaultCondition = {type: 'Available', status: 'False'};
+      for (const condition of conditions) {
+        if (condition.type === 'Available') {
+          return condition;
         }
       }
-      return condition;
+      return defaultCondition;
     };
 
-    this.noAvailableCondition = (conditions) => {
-      for (var i = 0; i < conditions.length; i++) {
-        if (conditions[i].type === 'Available') {
+    this.hasAvailableCondition = (conditions) => {
+      for (const condition of conditions) {
+        if (condition.type === 'Available') {
           return true;
         }
       }

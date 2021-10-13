@@ -22,9 +22,6 @@ define(['js-yaml', 'ace'],
         mode: _aceMode
       });
 
-      // eslint-disable-next-line no-unused-vars
-      let _modelFileName = null;
-      let _modelFileSavedContent = '';
       const _listeners = [];
 
       let getYamlCodeValidationErrors = (code) => {
@@ -67,10 +64,6 @@ define(['js-yaml', 'ace'],
         _aceEditor.setTheme(getAceTheme(theme));
       };
 
-      this.hasUnsavedChanges = () => {
-        return _aceEditor.session.getValue() !== _modelFileSavedContent;
-      };
-
       this.getContent = () => {
         return _aceEditor.session.getValue();
       };
@@ -78,36 +71,6 @@ define(['js-yaml', 'ace'],
       this.showContent = (content) => {
         _aceEditor.session.setValue(content);
       };
-
-      // // Handle save-model from a menu
-      // //
-      // window.api.ipc.receive('save-model', () => {
-      //   let modelFileCurrentContent = _aceEditor.session.getValue();
-      //   if (_modelFileName && modelFileCurrentContent !== _modelFileSavedContent) {
-      //     window.api.ipc.send('save-model-file', _modelFileName, modelFileCurrentContent);
-      //   }
-      // });
-      //
-      // // Handle model-file-opened message
-      // //
-      // window.api.ipc.receive('model-file-opened', (file, content) => {
-      //   // TODO - test to see if currentWindow.isDocumentEdited() is true and prompt the user if they want to discard their unsaved changes
-      //   renderFile(file, content);
-      // });
-      //
-      // // Handle model-file-changed message
-      // //
-      // window.api.ipc.receive('model-file-changed', (file, content) => {
-      //   // TODO - another application/window has changed this file, prompt the user if they want to discard their unsaved changes
-      //
-      // });
-
-      // Handle model-file-saved message
-      //
-      // window.api.ipc.receive('model-file-saved', (file, content) => {
-      //   _modelFileName = file;
-      //   _modelFileSavedContent = content;
-      // });
 
       // the editor may need to be explicitly resized if its container size changes,
       // but the window size does not (such as UI console open / close).
@@ -126,14 +89,6 @@ define(['js-yaml', 'ace'],
         if (index > -1) {
           _listeners.splice(index, 1);
         }
-      };
-
-      // eslint-disable-next-line no-unused-vars
-      const renderFile = (file, content) => {
-        _modelFileName = file;
-        _modelFileSavedContent = content;
-
-        _aceEditor.session.setValue(content);
       };
     }
     return ModelEditor;

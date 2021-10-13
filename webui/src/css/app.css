@@ -265,9 +265,6 @@
   min-width: 400px;
 }
 
-.wkt-empty-table-icon {
-}
-
 /* readonly-hint should override hiding on no-focus */
 .wkt-readonly-hint {
   display: block !important

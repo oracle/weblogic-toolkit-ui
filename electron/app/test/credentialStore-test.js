@@ -81,19 +81,17 @@ if (!skipTestsInJenkins) {
     }
   });
 
-  if (!skipTestsInJenkins) {
-    it('find credentials to work', async () => {
-      try {
-        const credentials = await credStore.findCredentials();
-        expect(credentials).to.not.be.null;
-        expect(credentials).to.have.length(1);
-        expect(credentials[0].name).to.equal('test1');
-        expect(credentials[0].value).to.equal('8e7rty9wrfhofhd98@92382093ue09udjo8dfsyu');
-      } catch (err) {
-        assert.fail(`Failed to get credentials: ${err}`);
-      }
-    });
-  }
+  it('find credentials to work', async () => {
+    try {
+      const credentials = await credStore.findCredentials();
+      expect(credentials).to.not.be.null;
+      expect(credentials).to.have.length(1);
+      expect(credentials[0].name).to.equal('test1');
+      expect(credentials[0].value).to.equal('8e7rty9wrfhofhd98@92382093ue09udjo8dfsyu');
+    } catch (err) {
+      assert.fail(`Failed to get credentials: ${err}`);
+    }
+  });
 
   it('delete non-existent credential works as expected', async () => {
     try {

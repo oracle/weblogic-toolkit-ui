@@ -495,7 +495,7 @@ class Main {
 
     ipcMain.handle('save-project',async (event, projectFile, projectContents,
       externalFileContents) => {
-      return await project.saveProject(event.sender.getOwnerBrowserWindow(), projectFile, projectContents, externalFileContents);
+      return project.saveProject(event.sender.getOwnerBrowserWindow(), projectFile, projectContents, externalFileContents);
     });
 
     ipcMain.handle('close-project', async (event, keepWindow) => {
@@ -666,12 +666,12 @@ class Main {
       return helmUtils.upgradeWko(helmExe, operatorName, operatorNamespace, helmChartValues, helmOptions);
     });
 
-    ipcMain.handle('helm-list-all-namespaces', async (event, helmExe, helmChartValues, helmOptions) => {
-      return helmUtils.helmListAllNamespaces(helmExe, helmChartValues, helmOptions);
+    ipcMain.handle('helm-list-all-namespaces', async (event, helmExe, helmOptions) => {
+      return helmUtils.helmListAllNamespaces(helmExe, helmOptions);
     });
 
-    ipcMain.handle('helm-add-update-repo', async (event, helmExe, repoName, repoUrl, helmChartValues, helmOptions) => {
-      return helmUtils.addOrUpdateHelmChart(helmExe, repoName, repoUrl, helmChartValues, helmOptions);
+    ipcMain.handle('helm-add-update-repo', async (event, helmExe, repoName, repoUrl, helmOptions) => {
+      return helmUtils.addOrUpdateHelmChart(helmExe, repoName, repoUrl, helmOptions);
     });
 
     ipcMain.handle('helm-install-ingress-controller', async (event, helmExe, ingressControllerName, ingressChartName, ingressControllerNamespace, valuesData, helmChartValues, helmOptions) => {

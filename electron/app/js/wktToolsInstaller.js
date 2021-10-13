@@ -242,14 +242,9 @@ async function installTool(ghReleaseObj, outputPath, directoryToDelete, proxyAge
               }).catch(err => reject(`Failed to extract ${archiveFileName}: ${err}`));
           } else {
             console.log(`preparing to open .tar.gz file ${archiveFileName} in ${outputPath}`);
-            try {
-              openTarGzFile(archiveFileName, outputPath)
-                .then(() => {
-                  deleteArchiveFile(archiveFileName).then(() => resolve());
-                }).catch(err => reject(`Failed to extract ${archiveFileName}: ${err}`));
-            } catch (err) {
-              console.log(err);
-            }
+            openTarGzFile(archiveFileName, outputPath).then(() => {
+              deleteArchiveFile(archiveFileName).then(() => resolve());
+            }).catch(err => reject(`Failed to extract ${archiveFileName}: ${err}`));
           }
         }).catch(err => reject(`Failed to remove ${directoryToDelete}: ${err}`));
       }).catch(err => reject(`Failed to download ${archiveAssetUrl} to ${archiveFileName}: ${err}`));
@@ -350,6 +345,5 @@ module.exports = {
   installWitRelease,
   getWdtLatestReleaseName,
   getWitLatestReleaseName,
-  getWkoLatestReleaseImageName,
-  openTarGzFile                     // TODO -remove me
+  getWkoLatestReleaseImageName
 };

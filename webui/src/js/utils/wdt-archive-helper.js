@@ -16,13 +16,13 @@ define([],
 
       // select the entry of the specified type to be added.
       // update the archive tree, and add an archive update entry to the model.
-      this.chooseArchiveEntry = async(fileType) => {
-        return await window.api.ipc.invoke('choose-archive-entry', fileType);
+      this.chooseArchiveEntry = async (fileType) => {
+        return window.api.ipc.invoke('choose-archive-entry', fileType);
       };
 
       // return available archive entry types and names
-      this.getEntryTypes = async() => {
-        return await window.api.ipc.invoke('get-archive-entry-types');
+      this.getEntryTypes = async () => {
+        return window.api.ipc.invoke('get-archive-entry-types');
       };
     }
 

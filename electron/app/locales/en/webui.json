@@ -588,6 +588,7 @@
 
   "ingress-installer-aborted-error-title": "Ingress Controller Installation Aborted",
   "ingress-installer-checking-already-installed-in-progress": "Checking to see if the Ingress Controller {{ingressControllerName}} is already installed in Kubernetes namespace {{ingressControllerNamespace}}.",
+  "ingress-installer-checking-already-installed-error-message": "Failed to determine if the Ingress Controller {{ingressControllerName}} is already installed: {{error}}",
   "ingress-installer-already-installed-error-message": "The Ingress Controller Provider: {{ingressProvider}} already installed as name: {{installedName}}, chart: {{chartName}}, namespace: {{namespace}}, status: {{status}}.",
   "ingress-installer-create-ns-in-progress": "Creating namespace for the ingress controller: {{ingressControllerNamespace}}",
   "ingress-installer-create-ns-error-message": "Unable to install Ingress Controller because an error occurred while creating the namespace {{ingressControllerNamespace}}: {{error}}.",

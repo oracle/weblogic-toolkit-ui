@@ -59,7 +59,7 @@ class BufferedLoggerForStartup {
 
 async function initializeLoggingSystem(wktMode, wktApp, tempDir) {
   if (_logger) {
-    return new Promise(resolve => resolve(_logger));
+    return Promise.resolve(_logger);
   } else if (_startupLogger) {
     return Promise.resolve(_startupLogger);
   }

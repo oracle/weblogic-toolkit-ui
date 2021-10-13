@@ -61,7 +61,7 @@ it('make sure application version works', () => {
 // in both Jenkins and development, we have to compute the expected default based on
 // the presence or absence of the version_number environment variable.
 //
-const expectedVersion = process.env['version_number'] ? process.env['version_number'] : '1.0.0-SNAPSHOT';
+const expectedVersion = process.env['version_number'] ? process.env['version_number'] : '0.8.0-SNAPSHOT';
 
 it('make sure application build version works in development mode', async () => {
     const wktMode = new WktMode(path.join(__dirname, 'Electron'));

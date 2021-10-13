@@ -91,7 +91,7 @@ if (process.platform === 'linux') {
 
 it('try to find Java Home works', async () => {
   try {
-    const javaHome = await javaUtils.tryToComputeJavaHome();
+    await javaUtils.tryToComputeJavaHome();
   } catch (err) {
     assert.fail(`Expected tryToComputeJavaHome() not to fail: ${err}`);
   }

@@ -76,9 +76,9 @@ define([],
           document.onmousemove = document.onmouseup = null;
 
           const oneSize = vertical ? onePane.offsetHeight : onePane.offsetWidth;
-          const percent = oneSize / lastDown.parentSize;
-          thisUtil.sliderPositions[name] = percent;
-          window.api.ipc.send('set-divider-location', name, percent);
+          const mouseUpPercent = oneSize / lastDown.parentSize;
+          thisUtil.sliderPositions[name] = mouseUpPercent;
+          window.api.ipc.send('set-divider-location', name, mouseUpPercent);
         }
 
         new ResizeObserver(() => {
