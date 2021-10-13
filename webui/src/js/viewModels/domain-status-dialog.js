@@ -42,10 +42,7 @@ function(accUtils, ko, jsyaml, i18n, project) {
     this.makeYamlOutput = (data) => {
       let result = '';
       if (typeof data !== 'undefined') {
-        for (var i=0; i < data.length; i++) {
-          result += jsyaml.dump([data[i]]);
-          result += '\n';
-        }
+        result = data.map(item => { return jsyaml.dump(item); }).join('\n');
       }
       return result;
     };
@@ -73,9 +70,9 @@ function(accUtils, ko, jsyaml, i18n, project) {
         return 0;
       });
 
-      for (var i = 0 ; i < conditions.length; i++) {
-        if (conditions[i].type === 'Failed' && typeof conditions[i].message !== 'undefined') {
-          this.domainErrorMessage = conditions[i].message;
+      for (const condition of conditions) {
+        if (condition.type === 'Failed' && typeof condition.message !== 'undefined') {
+          this.domainErrorMessage = condition.message;
           this.domainHasError = true;
           break;
         }

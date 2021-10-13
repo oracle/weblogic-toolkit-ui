@@ -48,7 +48,11 @@ async function validateHelmExe(helmExe) {
 }
 
 async function addOrUpdateWkoHelmChart(helmExe, helmOptions) {
-  const args = [ 'repo', 'add', _wkoHelmChartRepoName, _wkoHelmChartUrl, '--force-update' ];
+  return addOrUpdateHelmChart(helmExe, _wkoHelmChartRepoName, _wkoHelmChartUrl, helmOptions);
+}
+
+async function addOrUpdateHelmChart(helmExe, repoName, repoUrl, helmOptions) {
+  const args = [ 'repo', 'add', repoName, repoUrl, '--force-update' ];
   const httpsProxyUrl = await getHttpsProxyUrl();
   const bypassProxyHosts = await getBypassProxyHosts();
   const env = getHelmEnv(httpsProxyUrl, bypassProxyHosts, helmOptions);
@@ -60,28 +64,7 @@ async function addOrUpdateWkoHelmChart(helmExe, helmOptions) {
     executeFileCommand(helmExe, args, env).then(() => resolve(results)).catch(err => {
       results.isSuccess = false;
       results.reason = i18n.t('helm-repo-add-failed-error-message',
-        { helmRepo: _wkoHelmChartRepoName, error: getErrorMessage(err) });
-      getLogger().error(results.reason);
-      getLogger().error(err);
-      resolve(results);
-    });
-  });
-}
-
-async function addOrUpdateHelmChart(helmExe, repoName, repoUrl) {
-  const args = [ 'repo', 'add', repoName, repoUrl, '--force-update' ];
-  const httpsProxyUrl = await getHttpsProxyUrl();
-  const bypassProxyHosts = await getBypassProxyHosts();
-  const env = getHelmEnv(httpsProxyUrl, bypassProxyHosts);
-  const results = {
-    isSuccess: true
-  };
-
-  return new Promise(resolve => {
-    executeFileCommand(helmExe, args, env).then(() => resolve(results)).catch(err => {
-      results.isSuccess = false;
-      results.reason = i18n.t('helm-repo-add-failed-error-message',
-        { helmRepo: _wkoHelmChartRepoName, error: getErrorMessage(err) });
+        { helmRepo: repoName, error: getErrorMessage(err) });
       getLogger().error(results.reason);
       getLogger().error(err);
       resolve(results);
@@ -140,14 +123,13 @@ async function upgradeWko(helmExe, name, namespace, helmChartValues, helmOptions
   return _runHelmWko(helmExe, name, namespace, args, helmOptions, 'helm-upgrade-wko-failed-error-message');
 }
 
-async function helmListAllNamespaces(helmExe, helmChartValues, helmOptions) {
+async function helmListAllNamespaces(helmExe, helmOptions) {
   const args = [ 'list', '--all-namespaces' ];
-  processHelmChartValues(args, helmChartValues);
   processHelmOptions(args, helmOptions);
   args.push('-o');
   args.push('json');
 
-  return _runHelmWko2(helmExe, '', '', args, helmOptions, 'helm-list-failed-error-message');
+  return _runHelmCommand(helmExe, args, helmOptions, 'helm-list-failed-error-message');
 }
 
 async function _runHelmWko(helmExe, name, namespace, args, helmOptions, errorKey) {
@@ -170,7 +152,7 @@ async function _runHelmWko(helmExe, name, namespace, args, helmOptions, errorKey
   });
 }
 
-async function _runHelmWko2(helmExe, name, namespace, args, helmOptions, errorKey) {
+async function _runHelmCommand(helmExe, args, helmOptions, errorKey) {
   const httpsProxyUrl = await getHttpsProxyUrl();
   const bypassProxyHosts = await getBypassProxyHosts();
   const env = getHelmEnv(httpsProxyUrl, bypassProxyHosts, helmOptions);
@@ -181,10 +163,11 @@ async function _runHelmWko2(helmExe, name, namespace, args, helmOptions, errorKe
   return new Promise(resolve => {
     executeFileCommand(helmExe, args, env).then(stdout => {
       getLogger().debug(stdout);
-      resolve(stdout);
+      results.stdout = stdout;
+      resolve(results);
     }).catch(err => {
       results.isSuccess = false;
-      results.reason = i18n.t(errorKey, { name: name, helmChart: _wkoHelmChartName, namespace: namespace, error: getErrorMessage(err) });
+      results.reason = i18n.t(errorKey, { error: getErrorMessage(err) });
       resolve(results);
     });
   });

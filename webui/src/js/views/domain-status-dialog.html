@@ -67,23 +67,6 @@
       <oj-bind-text value="{{labelMapper('domain-status-serverstatus')}}"></oj-bind-text>
     </oj-label>
     <br>
-<!--
-        <oj-table class="wkt-model-properties-table"
-                  aria-label="Server Status"
-                  data="[[serverStatusProvider]]"
-                  edit-mode="none"
-                  columns='[[serverStatusColumns]]'>
-          <template slot="rowTemplate" data-oj-as="row">
-            <tr>
-              <oj-bind-if test='[[row.mode=="navigation"]]'>
-                <td><oj-bind-text value="[[row.data.key]]"></oj-bind-text></td>
-                <td><oj-text-area value="[[row.data.value]]" readOnly="true"></oj-text-area></td>
-              </oj-bind-if>
-            </tr>
-          </template>
-        </oj-table>
--->
-
     <oj-text-area id="serverstatus" max-rows="-1" value="{{domainServerStatus}}" readonly="true">
     </oj-text-area>
   </div>

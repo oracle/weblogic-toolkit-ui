@@ -137,7 +137,6 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
 
           if (this.project.ingress.generateTLSFiles.value === true) {
             // Generate TLS files with openssl
-            const openSSLExe = this.project.ingress.opensslExecutableFilePath.value;
             const subject = this.project.ingress.ingressTLSSubject.value;
 
             if (typeof subject === 'undefined' || subject === '' ) {
@@ -146,13 +145,13 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
               await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
               return Promise.resolve(false);
             } else {
-              const results = await window.api.ipc.invoke('openssl-generate-certs',
+              const certGenResults = await window.api.ipc.invoke('openssl-generate-certs',
                 openSSLExe, tlsKeyFile, tlsCertFile, subject);
 
-              if (!results.isSuccess) {
+              if (!certGenResults.isSuccess) {
                 const errMessage = i18n.t('ingress-installer-generate-tls-files-error-message',
                   {
-                    error: results.reason
+                    error: certGenResults.reason
                   });
                 dialogHelper.closeBusyDialog();
                 await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
@@ -202,9 +201,7 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
             await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
             return Promise.resolve(false);
           }
-
         }
-
 
         if (ingressRoutesArrayLength > 0) {
           let k8sCluster = '';
@@ -214,8 +211,6 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
           }
 
           let existingServiceList = [];
-          //let syntaxError = false;
-
           for (let i = 0; i < ingressRoutesArrayLength ; i++) {
             const item = this.project.ingress.ingressRoutes.value[i];
             const serviceDetail = await this.getIngressServiceDetails(kubectlExe,
@@ -322,9 +317,7 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
       } finally {
         dialogHelper.closeBusyDialog();
       }
-
       return Promise.resolve(true);
-
     };
 
     this.getValidatableObject = (flowNameKey) => {
@@ -369,8 +362,6 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
         validationObject.addField('ingress-design-tls-secret-name-label',
           validationHelper.validateRequiredField(this.project.ingress.ingressTLSSecretName.value));
       }
-
-
       return validationObject;
     };
 
@@ -389,12 +380,6 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
 
     this.checkIngressData =  (data, validationObject)=> {
       const items = ['name', 'targetServiceNameSpace', 'targetService', 'targetPort', 'path'];
-
-      // if (data['tlsEnabled'] === true) {
-      //   validationObject.addField(data['name'] + '.' + 'virtualHost',
-      //     validationHelper.validateRequiredField(data['virtualHost']));
-      // }
-
       items.forEach(attribute => {
         let errFieldMessage = 'route name: ';
         if (attribute === 'targetServiceNameSpace') {
@@ -432,8 +417,7 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
 
     this.checkIngressControllerService = async (kubectlExe, serviceName, namespace,
       kubectlOptions) => {
-      return await window.api.ipc.invoke('k8s-get-service-details',
-        kubectlExe, namespace, serviceName, kubectlOptions);
+      return window.api.ipc.invoke('k8s-get-service-details', kubectlExe, namespace, serviceName, kubectlOptions);
     };
 
     this.checkTargetService = async (kubectlExe, ingressDefinition, kubectlOptions) => {
@@ -526,9 +510,9 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
           // find the service that has type load balancer to determine the standard ports
           //
           let found = false;
-          for ( let i =0 ; i < results.serviceDetails.items.length; i++) {
-            if (results.serviceDetails.items[i].spec['type'] === 'LoadBalancer') {
-              serviceDetail = results.serviceDetails.items[0];
+          for (const item of results.serviceDetails.items) {
+            if (item.spec['type'] === 'LoadBalancer') {
+              serviceDetail = item;
               found = true;
               break;
             }
@@ -540,7 +524,7 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
         }
         // For Voyager it may be a nodepot service if the voyagerProvider is 'baremetal'
         if (serviceDetail.spec['type'] === 'LoadBalancer' ||
-          ((ingressControllerProvider === 'voyager' && serviceDetail.spec['type'] === 'NodePort'))) {
+          (ingressControllerProvider === 'voyager' && serviceDetail.spec['type'] === 'NodePort')) {
           if ('loadBalancer' in serviceDetail.status) {
             if (JSON.stringify(serviceDetail.status['loadBalancer']) === '{}') {
               useNodePort = true;

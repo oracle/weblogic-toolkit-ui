@@ -587,7 +587,6 @@ async function checkAddModelFile(targetWindow, filePath) {
       // copy
       const wktWindow = require('./wktWindow');
       const modelsPath = _getDefaultModelsPath(targetWindow);
-      const projectDir = _getProjectDirectory(targetWindow);
       const targetDir = path.join(projectDir, modelsPath);
       try {
         await mkdir(targetDir, {recursive: true});

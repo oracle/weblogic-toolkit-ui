@@ -108,8 +108,8 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
           const k8sDomainJson = json[name];
           if (k8sDomainJson && k8sDomainJson.hasOwnProperty('modelConfigMap')) {
             const modelConfigMap = k8sDomainJson['modelConfigMap'];
-            for (const [name, override] of Object.entries(modelConfigMap)) {
-              wdtModel.setPropertyOverrideValue(name, override);
+            for (const [propName, override] of Object.entries(modelConfigMap)) {
+              wdtModel.setPropertyOverrideValue(propName, override);
             }
           }
         };

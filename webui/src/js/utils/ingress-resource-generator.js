@@ -37,7 +37,7 @@ define(['models/wkt-project', 'js-yaml'],
           lines.pop();
         }
         return lines;
-      };
+      }
 
       createVoyagerRoutesAsYaml(item, wktProject) {
         const namespace = item['targetServiceNameSpace'] || 'default';
@@ -74,45 +74,14 @@ define(['models/wkt-project', 'js-yaml'],
       }
 
       createNginxRoutesAsYaml(item, wktProject) {
-        const namespace = item['targetServiceNameSpace'] || 'default';
-
-        const result = {
-          apiVersion: 'networking.k8s.io/v1',
-          kind: 'Ingress',
-          metadata: {
-            name: item['name'],
-            namespace: namespace,
-          },
-          spec: {
-            rules: [
-              {
-                http: {
-                  paths: [
-                    {
-                      backend: {
-                        service : {
-                          name: item['targetService'],
-                          port: {
-                            number: Number(item['targetPort'])
-                          }
-                        }
-                      },
-                      path: item['path'],
-                      pathType: 'Prefix'
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        };
-        this.addTlsSpec(result, item, wktProject);
-        this.addVirtualHost(result, item);
-        this.addAnnotations(result, item);
-        return jsYaml.dump(result);
+        return this._createStandardRoutesAsYaml(item, wktProject);
       }
 
       createTraefikRoutesAsYaml(item, wktProject) {
+        return this._createStandardRoutesAsYaml(item, wktProject);
+      }
+
+      _createStandardRoutesAsYaml(item, wktProject) {
         const namespace = item['targetServiceNameSpace'] || 'default';
 
         const result = {

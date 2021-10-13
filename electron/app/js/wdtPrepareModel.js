@@ -15,6 +15,7 @@ const fsUtils = require('./fsUtils');
 const { getLogger } = require('./wktLogging');
 const { getPrepareModelShellScript, getWdtCustomConfigDirectory, isWdtErrorExitCode } = require('./wktTools');
 const { getModelFileContent } = require('./project');
+const errorUtils = require('./errorUtils');
 
 const _secretsFileName = 'k8s_secrets.json';
 const _wkoDomainSpecFileName = 'wko-domain.yaml';
@@ -289,13 +290,13 @@ async function getJsonSecretsContent(outputDirectory) {
           resolve(formatSecretsData(jsonContent));
         } catch (err) {
           const error = new Error(i18n.t('prepare-model-secrets-file-parse-error-message',
-            { fileName: secretsFileName, error: err.message || err }));
+            { fileName: secretsFileName, error: errorUtils.getErrorMessage(err) }));
           error.cause = err;
           reject(err);
         }
       }).catch(err => {
         const error = new Error(i18n.t('prepare-model-secrets-file-read-error-message',
-          { fileName: secretsFileName, error: err.message || err }));
+          { fileName: secretsFileName, error: errorUtils.getErrorMessage(err) }));
         error.cause = err;
         reject(err);
       });
@@ -371,22 +372,17 @@ async function getWkoSpecContent(outputDirectory) {
           resolve(formatWkoDomainSpecData(yamlDoc));
         } catch (err) {
           const error = new Error(i18n.t('prepare-model-spec-file-parse-error-message',
-            { targetType: _wkoTargetTypeName, fileName: specFile, error: err.message || err }));
+            { targetType: _wkoTargetTypeName, fileName: specFile, error: errorUtils.getErrorMessage(err) }));
           error.cause = err;
           reject(error);
         }
       }).catch(err => {
         const error = new Error(i18n.t('prepare-model-spec-file-read-error-message',
-          { targetType: _wkoTargetTypeName, fileName: specFile, error: err.message || err }));
+          { targetType: _wkoTargetTypeName, fileName: specFile, error: errorUtils.getErrorMessage(err) }));
         error.cause = err;
         reject(error);
       });
-    }).catch(err => {
-      const error = new Error(i18n.t('prepare-model-spec-file-exists-error-message',
-        { targetType: _wkoTargetTypeName, fileName: specFile, error: err.message || err }));
-      error.cause = err;
-      reject(error);
-    });
+    }).catch(err => reject(getFileExistsErrorMessage(_wkoTargetTypeName, specFile, err)));
   });
 }
 
@@ -429,7 +425,7 @@ async function getVzSpecContent(outputDirectory) {
           yamlDocs = jsYaml.loadAll(data, { filename: specFile, json: true });
         } catch (err) {
           const error = new Error(i18n.t('prepare-model-spec-file-parse-error-message',
-            { targetType: _vzTargetTypeName, fileName: specFile, error: err.message || err }));
+            { targetType: _vzTargetTypeName, fileName: specFile, error: errorUtils.getErrorMessage(err) }));
           error.cause = err;
           reject(error);
         }
@@ -441,17 +437,19 @@ async function getVzSpecContent(outputDirectory) {
         }
       }).catch(err => {
         const error = new Error(i18n.t('prepare-model-spec-file-read-error-message',
-          { targetType: _vzTargetTypeName, fileName: specFile, error: err.message || err }));
+          { targetType: _vzTargetTypeName, fileName: specFile, error: errorUtils.getErrorMessage(err) }));
         error.cause = err;
         reject(error);
       });
-    }).catch(err => {
-      const error = new Error(i18n.t('prepare-model-spec-file-exists-error-message',
-        { targetType: _wkoTargetTypeName, fileName: specFile, error: err.message || err }));
-      error.cause = err;
-      reject(error);
-    });
+    }).catch(err => reject(getFileExistsErrorMessage(_wkoTargetTypeName, specFile, err)));
   });
+}
+
+function getFileExistsErrorMessage(targetType, fileName, err) {
+  const error = new Error(i18n.t('prepare-model-spec-file-exists-error-message',
+    { targetType: targetType, fileName: fileName, error: errorUtils.getErrorMessage(err) }));
+  error.cause = err;
+  return error;
 }
 
 function formatVzApplicationSpecData(specFile, yamlDocs) {

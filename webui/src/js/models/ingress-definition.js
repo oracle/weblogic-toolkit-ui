@@ -44,7 +44,7 @@ define(['knockout', 'utils/observable-properties', 'utils/validation-helper'],
         ];
         this.ingressRoutes = props.createListProperty(this.ingressRouteKeys).persistByKey('uid');
 
-        this.opensslExecutableFilePath =  props.createProperty(window.api.k8s.getOpenSSLFilePath()),
+        this.opensslExecutableFilePath =  props.createProperty(window.api.k8s.getOpenSSLFilePath());
 
         this.validators = { TargetPortValidator: validationHelper.getPortNumberValidators(),
           k8sNameValidator: validationHelper.getK8sNameValidators(),
