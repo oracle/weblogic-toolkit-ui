@@ -9,7 +9,7 @@
 
 const chai = require('chai');
 const expect = chai.expect;
-const {after, before, beforeEach, describe, it} = require('mocha');
+const { after, before, beforeEach, describe, it } = require('mocha');
 const requirejs = require('requirejs');
 const testHelper = require('./test-helper');
 
@@ -261,7 +261,7 @@ describe('observable-properties-support', function () {
     });
 
     it('converts null default to empty string', function() {
-      const nullInitializer = function() { return null; }
+      const nullInitializer = function() { return null; };
       const property = utils.createProperty(nullInitializer());
 
       expect(property.observable()).to.equal('');
@@ -313,10 +313,10 @@ describe('observable-properties-support', function () {
     function PropertySource() {
       this.computeInitialProperty = () => {
         return 'bad property';
-      }
+      };
       this.getInitialProperty = () => {
         return this.computeInitialProperty();
-      }
+      };
     }
 
     let propertySource;
@@ -364,7 +364,7 @@ describe('observable-properties-support', function () {
     it('before observable set may be cleared without invoking initializer', function () {
       propertySource.computeInitialProperty = () => {
         throw new Error('initializer called');
-      }
+      };
 
       property.clear();
 
@@ -384,7 +384,6 @@ describe('observable-properties-support', function () {
 
     let propertySource;
     let property;
-    let success = true;
     let promiseSupport = new PromiseTestSupport();
 
     beforeEach(function () {
@@ -408,7 +407,7 @@ describe('observable-properties-support', function () {
       resolvePromise();
 
       property.getPromise().then(() => {
-        expect(property.observable()).to.equal('good property')
+        expect(property.observable()).to.equal('good property');
       });
     });
 
@@ -1013,13 +1012,6 @@ describe('observable-properties-support', function () {
       {name: 'Barry', age: '14', skill: 'Dogs'}
     ];
 
-    /** The new state after replacing the default data. */
-    const COMBINED_DATA = [
-      {name: 'George', age: '18', skill: 'Go'},
-      {name: 'Stuart', age: '17', skill: 'Pascal'},
-      {name: 'Barry', age: '14', skill: 'Dogs'}
-    ];
-
     let property;
 
     beforeEach(function() {
@@ -1129,10 +1121,10 @@ describe('observable-properties-support', function () {
         size: utils.createProperty(7),
         eventual: utils.createProperty(() => new Promise((resolve) => resolve('Yay!'))),
         ignore: utils.createProperty(() => {
-          throw new Error('called initializer')
+          throw new Error('called initializer');
         }),
         execs: utils.createListProperty(['name', 'title'])
-                   .withDefaultValue([{name: 'George', title: 'POTUS'}, {name: 'John', title: 'VEEP'}]),
+          .withDefaultValue([{name: 'George', title: 'POTUS'}, {name: 'John', title: 'VEEP'}]),
         doIt: function () {
         }
       };
@@ -1184,7 +1176,7 @@ describe('observable-properties-support', function () {
     it('on write, strings are trimmed', function () {
       const group = utils.createGroup('stuff', anObject);
       anObject.color.observable('  blue   ');
-      anObject.friends.observable(['joe ', '  sue'])
+      anObject.friends.observable(['joe ', '  sue']);
 
       const result = {};
       group.writeTo(result);
@@ -1250,7 +1242,7 @@ describe('observable-properties-support', function () {
       const group = utils.createGroup('stuff', anObject);
       anObject.getCredentialFields = function() {
         return ['one', 'two'];
-      }
+      };
 
       const result = {credentialPaths:['existing']};
       group.writeTo(result);
