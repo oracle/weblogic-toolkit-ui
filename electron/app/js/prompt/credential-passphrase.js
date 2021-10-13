@@ -19,51 +19,25 @@ function promptCancel() {
 }
 
 function promptSubmit() {
-  let data = null;
-
-  if(promptOptions.fields) {
-    data = {};
-    promptOptions.fields.forEach(field => {
-      const inputElement = document.getElementById(field.id);
-      data[field.id] = inputElement.value;
-    });
-
-  } else {
-    const dataElement = document.querySelector('#data');
-
-    if (promptOptions.type === 'input') {
-      data = dataElement.value;
-    } else if (promptOptions.type === 'select') {
-      if (promptOptions.selectMultiple) {
-        data = dataElement.querySelectorAll('option[selected]').map(o => o.getAttribute('value'));
-      } else {
-        data = dataElement.value;
-      }
-    }
-  }
-
+  const dataElement = document.querySelector('#data');
+  const data = dataElement.value;
   window.api.ipc.sendSync('prompt-post-data:' + promptId, data);
 }
 
-function promptCreateInput(promptOptions) {
-  const dataElement = document.createElement('input');
-  dataElement.setAttribute('type', 'text');
+function promptRegister() {
+  promptId = document.location.hash.replace('#', '');
 
-  if (promptOptions.value) {
-    dataElement.value = promptOptions.value;
-  } else {
-    dataElement.value = '';
+  try {
+    promptOptions = JSON.parse(window.api.ipc.sendSync('prompt-get-options:' + promptId));
+  } catch (error) {
+    return promptError(error);
   }
 
-  if (promptOptions.inputAttrs && typeof (promptOptions.inputAttrs) === 'object') {
-    for (const k in promptOptions.inputAttrs) {
-      if (!Object.prototype.hasOwnProperty.call(promptOptions.inputAttrs, k)) {
-        continue;
-      }
+  document.querySelector('#form').addEventListener('submit', promptSubmit);
+  document.querySelector('#cancel').addEventListener('click', promptCancel);
 
-      dataElement.setAttribute(k, promptOptions.inputAttrs[k]);
-    }
-  }
+  const dataElement = document.querySelector('#data');
+  dataElement.value = promptOptions.value ? promptOptions.value : '';
 
   dataElement.addEventListener('keyup', event => {
     if (event.key === 'Escape') {
@@ -78,114 +52,17 @@ function promptCreateInput(promptOptions) {
     }
   });
 
-  return dataElement;
-}
+  dataElement.focus();
+  dataElement.select();
 
-function promptCreateSelect() {
-  const dataElement = document.createElement('select');
-  let optionElement;
+  window.api.i18n.ready.then(() => {
+    document.querySelector('#ok').textContent = window.api.i18n.t('dialog-button-ok');
+    document.querySelector('#cancel').textContent = window.api.i18n.t('dialog-button-cancel');
+    document.querySelector('#label').textContent = window.api.i18n.t('dialog-passphrase-prompt-label');
 
-  for (const k in promptOptions.selectOptions) {
-    if (!Object.prototype.hasOwnProperty.call(promptOptions.selectOptions, k)) {
-      continue;
-    }
-
-    optionElement = document.createElement('option');
-    optionElement.setAttribute('value', k);
-    optionElement.textContent = promptOptions.selectOptions[k];
-    if (k === promptOptions.value) {
-      optionElement.setAttribute('selected', 'selected');
-    }
-
-    dataElement.append(optionElement);
-  }
-
-  return dataElement;
-}
-
-function promptRegister() {
-  promptId = document.location.hash.replace('#', '');
-
-  try {
-    promptOptions = JSON.parse(window.api.ipc.sendSync('prompt-get-options:' + promptId));
-  } catch (error) {
-    return promptError(error);
-  }
-
-  const labelContainer = document.querySelector('#label');
-  if (labelContainer) {
-    if (promptOptions.useHtmlLabel) {
-      labelContainer.innerHTML = promptOptions.label;
-    } else {
-      labelContainer.textContent = promptOptions.label;
-    }
-  }
-
-  if (promptOptions.buttonLabels && promptOptions.buttonLabels.ok) {
-    document.querySelector('#ok').textContent = promptOptions.buttonLabels.ok;
-  }
-
-  if (promptOptions.buttonLabels && promptOptions.buttonLabels.cancel) {
-    document.querySelector('#cancel').textContent = promptOptions.buttonLabels.cancel;
-  }
-
-  document.querySelector('#form').addEventListener('submit', promptSubmit);
-  document.querySelector('#cancel').addEventListener('click', promptCancel);
-
-  if (promptOptions.fields) {
-    const formElement = document.querySelector('#form');
-    const buttonContainer = document.querySelector('#buttons');
-
-    promptOptions.fields.forEach(field => {
-      if(field.label) {
-        const labelContainer = document.createElement('div');
-        labelContainer.setAttribute('class', 'label');
-        labelContainer.innerHTML = field.label;
-        formElement.insertBefore(labelContainer, buttonContainer);
-      }
-
-      const dataElement = createDataElement(field);
-      if(dataElement) {
-        dataElement.setAttribute('id', field.id);
-        dataElement.setAttribute('class', 'data');
-        const dataContainer = document.createElement('div');
-        dataContainer.setAttribute('class', 'data-container');
-        dataContainer.append(dataElement);
-        formElement.insertBefore(dataContainer, buttonContainer);
-      }
-    });
-
-  } else {
-    const dataContainerElement = document.querySelector('#data-container');
-
-    const dataElement = createDataElement(promptOptions);
-    if(!dataElement) {
-      return promptError(`Unhandled input type '${promptOptions.type}'`);
-    }
-
-    dataContainerElement.append(dataElement);
-    dataElement.setAttribute('id', 'data');
-
-    dataElement.focus();
-    if (promptOptions.type === 'input') {
-      dataElement.select();
-    }
-  }
-
-  const height = document.querySelector('body').offsetHeight;
-  window.api.ipc.sendSync('prompt-size:' + promptId, height);
-}
-
-function createDataElement(promptOptions) {
-  let dataElement;
-  if (promptOptions.type === 'input') {
-    dataElement = promptCreateInput(promptOptions);
-  } else if (promptOptions.type === 'select') {
-    dataElement = promptCreateSelect();
-  } else {
-    dataElement = null;
-  }
-  return dataElement;
+    const height = document.querySelector('body').offsetHeight;
+    window.api.ipc.sendSync('prompt-size:' + promptId, height);
+  });
 }
 
 window.addEventListener('error', error => {

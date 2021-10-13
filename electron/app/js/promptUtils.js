@@ -18,18 +18,6 @@ async function getCredentialPassphrase(parentWindow) {
   const MIN_HEIGHT = 120;  // needs to be smaller than content height
 
   return new Promise((resolve, reject) => {
-    const options = {
-      inputAttrs: { type: 'password', required: true },
-      label: i18n.t('dialog-passphrase-prompt-label'),
-      type: 'input',
-      value: null,
-      useHtmlLabel: false,
-      customStylesheet: null,
-      buttonLabels: {
-        ok: i18n.t('button-ok'),
-        cancel: i18n.t('button-cancel')
-      }
-    };
 
     let promptWindow = new BrowserWindow({
       width: WIDTH,
@@ -60,7 +48,7 @@ async function getCredentialPassphrase(parentWindow) {
     promptWindow.setMenuBarVisibility(false);
 
     const getOptionsListener = event => {
-      event.returnValue = JSON.stringify(options);
+      event.returnValue = JSON.stringify({});
     };
 
     const sizeListener = (event, value) => {
@@ -112,8 +100,7 @@ async function getCredentialPassphrase(parentWindow) {
       resolve(null);
     });
 
-    promptWindow.loadFile(pageFile,{hash: id})
-      .then(() => promptWindow.webContents.toggleDevTools());
+    promptWindow.loadFile(pageFile,{hash: id});
   });
 }
 

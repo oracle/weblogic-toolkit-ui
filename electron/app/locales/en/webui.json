@@ -144,6 +144,8 @@
   "user-settings-dialog-quickstart-skip-label": "Skip Showing Introduction at Startup",
   "user-settings-dialog-quickstart-skip-help": "Whether or not to skip showing the WebLogic Kubernetes Toolkit UI Introduction at application startup.",
 
+  "dialog-passphrase-prompt-label": "Please enter the passphrase to use to encrypt the project credential.",
+
   "model-design-coming-soon": "Coming Soon...",
 
   "image-page-hints-createImage": "Create Image",
