@@ -88,7 +88,6 @@ async function saveContentsOfArchiveFiles(projectDirectory, archiveUpdates) {
   }
   const archiveFiles = Object.getOwnPropertyNames(archiveUpdates);
   const archiveContents = await getContentsOfArchiveFiles(projectDirectory, archiveFiles);
-  // getLogger().debug('saveContentsOfArchiveFiles() returning %s', JSON.stringify(archiveContents, null, 2));
   return Promise.resolve(archiveContents);
 }
 
@@ -224,33 +223,33 @@ async function _openArchiveFile(archiveFile) {
 }
 
 async function _performAddOperation(archiveFile, zip, operation) {
-  const path = operation.path;
+  const opPath = operation.path;
   const filePath = operation.filePath ? operation.filePath : undefined;
 
-  if (path.endsWith('/')) {
+  if (opPath.endsWith('/')) {
     if (filePath) {
       return new Promise((resolve, reject) => {
-        _validateFilePathForArchivePath(archiveFile, path, filePath).then(() => {
-          _addDirectoryToArchiveFile(archiveFile, zip, path, filePath).then(() => resolve()).catch(err => reject(err));
+        _validateFilePathForArchivePath(archiveFile, opPath, filePath).then(() => {
+          _addDirectoryToArchiveFile(archiveFile, zip, opPath, filePath).then(() => resolve()).catch(err => reject(err));
         }).catch(err => reject(err));
       });
     } else {
       return new Promise((resolve, reject) => {
-        _addEmptyDirectoryToArchive(archiveFile, zip, path).then(() => resolve()).catch(err => reject(err));
+        _addEmptyDirectoryToArchive(archiveFile, zip, opPath).then(() => resolve()).catch(err => reject(err));
       });
     }
   } else {
     if (filePath) {
       return new Promise((resolve, reject) => {
-        _validateFilePathForArchivePath(archiveFile, path, filePath).then(() => {
-          _addFileToArchive(archiveFile, zip, path, filePath).then(() => {
+        _validateFilePathForArchivePath(archiveFile, opPath, filePath).then(() => {
+          _addFileToArchive(archiveFile, zip, opPath, filePath).then(() => {
             resolve();
           }).catch(err => reject(err));
         }).catch(err => reject(err));
       });
     } else {
       const errMessage = i18n.t('model-archive-add-file-path-empty-error-message',
-        { archiveFile: archiveFile, path: path });
+        { archiveFile: archiveFile, path: opPath });
       return Promise.reject(new Error(errMessage));
     }
   }
@@ -308,31 +307,31 @@ async function _saveArchiveFile(zip, archiveFile) {
   });
 }
 
-async function _addFileToArchive(archiveFile, zip, path, filePath) {
+async function _addFileToArchive(archiveFile, zip, zipPath, filePath) {
   return new Promise((resolve, reject) => {
     fsPromises.readFile(filePath).then(buffer => {
       try {
-        zip.file(path, buffer, { createFolders: false });
+        zip.file(zipPath, buffer, { createFolders: false });
         resolve();
       } catch (err) {
         reject(err);
       }
     }).catch(err => {
       const errMessage = i18n.t('model-archive-add-file-read-failed-error-message',
-        {archiveFile: archiveFile, path: path, filePath: filePath, error: getErrorMessage(err) });
+        {archiveFile: archiveFile, path: zipPath, filePath: filePath, error: getErrorMessage(err) });
       reject(new Error(errMessage));
     });
   });
 }
 
-async function _addEmptyDirectoryToArchive(archiveFile, zip, path) {
+async function _addEmptyDirectoryToArchive(archiveFile, zip, zipPath) {
   return new Promise((resolve, reject) => {
     try {
-      zip.folder(path);
+      zip.folder(zipPath);
       resolve();
     } catch (err) {
       const errMessage = i18n.t('model-archive-add-folder-failed-error-message',
-        {archiveFile: archiveFile, path: path, error: getErrorMessage(err) });
+        {archiveFile: archiveFile, path: zipPath, error: getErrorMessage(err) });
       reject(new Error(errMessage));
     }
   });
@@ -381,17 +380,17 @@ function getCollapsedOperations(userOperations) {
   }
 
   const operations = [];
-  for (const [ path, operation ] of pathOperationMap.entries()) {
-    operations.push(...getOperationsForPath(path, operation));
+  for (const [ zipPath, operation ] of pathOperationMap.entries()) {
+    operations.push(...getOperationsForPath(zipPath, operation));
   }
   return operations;
 }
 
-function getOperationsForPath(path, operation) {
+function getOperationsForPath(zipPath, operation) {
   const results = [ operation ];
-  if (operation.op === 'add' && path.endsWith('/')) {
+  if (operation.op === 'add' && zipPath.endsWith('/')) {
     // Insert this operation ahead of the add operation.
-    results.unshift({ op: 'remove', path: path });
+    results.unshift({ op: 'remove', path: zipPath });
   }
   return results;
 }

@@ -20,11 +20,6 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
         options = {};
       }
 
-      // FIXME - this is an ugly hack to work around a timing problem in the way that the observable properties
-      //         handle Promise resolution for default values...
-      // eslint-disable-next-line no-unused-vars
-      let operatorImage = this.project.wko.operatorImage.value;
-
       let errTitle = i18n.t('wko-installer-aborted-error-title');
       const validatableObject = this.getValidatableObject('flow-install-operator-name');
       if (validatableObject.hasValidationErrors()) {
@@ -348,81 +343,6 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
       addHelmChartValueIfSet(helmChartValues, 'javaLoggingFileCount', this.project.wko.javaLoggingFileCount);
 
       return helmChartValues;
-    };
-    this.getValidatableObject = (flowNameKey) => {
-      const validationObject = validationHelper.createValidatableObject(flowNameKey);
-      const kubectlFormConfig = validationObject.getDefaultConfigObject();
-      kubectlFormConfig.formName = 'kubectl-title';
-
-      validationObject.addField('kubectl-exe-file-path-label',
-        validationHelper.validateRequiredField(this.project.kubectl.executableFilePath.value), kubectlFormConfig);
-      validationObject.addField('kubectl-helm-exe-file-path-label',
-        validationHelper.validateRequiredField(this.project.kubectl.helmExecutableFilePath.value), kubectlFormConfig);
-
-      validationObject.addField('wko-design-wko-deploy-name-label',
-        validationHelper.validateRequiredField(this.project.wko.wkoDeployName.value));
-      validationObject.addField('wko-design-k8s-namespace-label',
-        validationHelper.validateRequiredField(this.project.wko.k8sNamespace.value));
-      validationObject.addField('wko-design-k8s-service-account-label',
-        validationHelper.validateRequiredField(this.project.wko.k8sServiceAccount.value));
-      validationObject.addField('wko-design-image-tag-title',
-        this.project.wko.operatorImage.validate(true));
-
-      if (this.project.wko.operatorImagePullRequiresAuthentication.value) {
-        validationObject.addField('wko-design-image-pull-secret-title',
-          this.project.wko.operatorImagePullSecretName.validate(true));
-        if (!this.project.wko.operatorImagePullUseExistingSecret.value) {
-          validationObject.addField('wko-design-image-registry-username-label',
-            validationHelper.validateRequiredField(this.project.wko.operatorImagePullRegistryUsername.value));
-          validationObject.addField('wko-design-image-registry-email-label',
-            validationHelper.validateRequiredField(this.project.wko.operatorImagePullRegistryEmailAddress.value));
-          validationObject.addField('wko-design-image-registry-password-label',
-            validationHelper.validateRequiredField(this.project.wko.operatorImagePullRegistryPassword.value));
-        }
-      }
-
-      switch(this.project.wko.operatorDomainNamespaceSelectionStrategy.value) {
-        case 'LabelSelector':
-          validationObject.addField('wko-design-k8s-namespace-selection-selector-label',
-            validationHelper.validateRequiredField(this.project.wko.operatorDomainNamespaceSelector.value));
-          break;
-
-        case 'Regexp':
-          validationObject.addField('wko-design-k8s-namespace-selection-regexp-label',
-            validationHelper.validateRequiredField(this.project.wko.operatorDomainNamespaceRegex.value));
-          break;
-
-        case 'List':
-          // Allow an empty list since operator cannot handle non-existent namespaces anyway...
-          //
-          // If there are namespaces, make sure that they are valid Kubernetes names.
-          //
-          for (const namespace of this.project.wko.operatorDomainNamespacesList.value) {
-            const listConfig = validationObject.getDefaultConfigObject();
-            listConfig.fieldNamePayload = { namespace: namespace };
-            validationObject.addField('wko-design-k8s-namespace-selection-list-label-ns',
-              validationHelper.validateK8sName(namespace, false), listConfig);
-          }
-          break;
-      }
-
-      if (this.project.wko.externalRestEnabled.value) {
-        validationObject.addField('wko-design-external-rest-port-label',
-          this.project.wko.externalRestHttpsPort.validate(false));
-        validationObject.addField('wko-design-external-rest-secret-label',
-          this.project.wko.externalRestIdentitySecret.validate(false));
-      }
-
-      if (this.project.wko.elkIntegrationEnabled.value) {
-        validationObject.addField('wko-design-3rd-party-logstash-image-label',
-          this.project.wko.logStashImage.validate(false));
-        validationObject.addField('wko-design-3rd-party-elastic-host-label',
-          this.project.wko.elasticSearchHost.validate(false));
-        validationObject.addField('wko-design-3rd-party-elastic-port-label',
-          this.project.wko.elasticSearchPort.validate(false));
-      }
-
-      return validationObject;
     };
 
     this.getValidatableObject = (flowNameKey) => {

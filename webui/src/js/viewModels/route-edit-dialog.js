@@ -146,12 +146,12 @@ function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDa
       });
 
       // add annotations if any value has changed
-      const annotations = {};
+      const changedAnnotations = {};
       this.annotations.observable().forEach(annotation => {
-        annotations[annotation.key] = annotation.value ? annotation.value : '';
+        changedAnnotations[annotation.key] = annotation.value ? annotation.value : '';
       });
-      if(compareObjects(annotations, this.savedAnnotations)) {
-        result['annotations'] = annotations;
+      if(compareObjects(changedAnnotations, this.savedAnnotations)) {
+        result['annotations'] = changedAnnotations;
       }
 
       args.setValue(result);

@@ -96,7 +96,7 @@ function getEntryTypes() {
 async function chooseArchiveEntry(targetWindow, entryType) {
   const typeDetail = getEntryTypes()[entryType];
   if(!typeDetail) {
-    throw('Unknown archive entry type: ' + entryType);
+    throw new Error(`Unknown archive entry type: ${entryType}`);
   }
 
   // the full file system path, ex. /home/me/abc.jar
@@ -127,7 +127,7 @@ async function chooseArchiveEntry(targetWindow, entryType) {
       break;
     default:
       // note: emptyDir subtype is currently handled on client side
-      throw('Unrecognized archive entry subtype: ' + subtype);
+      throw new Error(`Unrecognized archive entry subtype: ${subtype}`);
   }
 
   return {filePath: filePath, archivePath: archivePath, archiveUpdatePath: archiveUpdatePath, childPaths: childPaths};
@@ -155,7 +155,7 @@ async function chooseArchiveFileEntry(targetWindow, typeDetail) {
   }
 
   const wktWindow = require('./wktWindow');
-  return await wktWindow.chooseFromFileSystem(targetWindow, options);
+  return wktWindow.chooseFromFileSystem(targetWindow, options);
 }
 
 async function chooseArchiveDirEntry(targetWindow, typeDetail) {
@@ -172,7 +172,7 @@ async function chooseArchiveDirEntry(targetWindow, typeDetail) {
   };
 
   const wktWindow = require('./wktWindow');
-  return await wktWindow.chooseFromFileSystem(targetWindow, options);
+  return wktWindow.chooseFromFileSystem(targetWindow, options);
 }
 
 // get a list of paths for all the files and folders in the specified directory.
@@ -187,13 +187,13 @@ async function _addDirectoryPaths(directory, paths, pathPrefix) {
   const dirContents = await fsPromises.readdir(directory, {withFileTypes: true});
   for (const entry of dirContents) {
     let name = entry.name;
-    let path = pathPrefix ? pathPrefix + '/' + name : name;
-    let fullPath = entry.isDirectory() ? path + '/' : path;
+    let entryPath = pathPrefix ? pathPrefix + '/' + name : name;
+    let fullPath = entry.isDirectory() ? entryPath + '/' : entryPath;
     paths.push(fullPath);
 
     if(entry.isDirectory()) {
       const subdirectory = directory + '/' + name;
-      await _addDirectoryPaths(subdirectory, paths, path);
+      await _addDirectoryPaths(subdirectory, paths, entryPath);
     }
   }
 }

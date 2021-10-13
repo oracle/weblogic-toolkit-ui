@@ -253,7 +253,7 @@
   "helm-install-ingress-failed-error-message": "Unable to install Helm release {{name}} in Kubernetes namespace {{namespace}} using Helm chart {{helmChart}}: {{error}}",
   "helm-install-wko-failed-error-message": "Unable to install Helm release {{name}} in Kubernetes namespace {{namespace}} using Helm chart {{helmChart}}: {{error}}",
   "helm-upgrade-wko-failed-error-message": "Unable to upgrade Helm release {{name}} in Kubernetes namespace {{namespace}} using Helm chart {{helmChart}}: {{error}}",
-  "helm-list-failed-error-message": "Helm list failed {{error}}",
+  "helm-list-failed-error-message": "Helm list --all-namespaces failed: {{error}}",
   "helm-write-values-file-failed-error-message": "Unable to run helm install due to an error writing the data to a temporary file: {{error}}",
   "helm-install-ingress-controller-failed-error-message": "Unable to install Ingress Controller {{controllerName}} in Kubernetes namespace {{namespace}}: {{error}}",
 

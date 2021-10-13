@@ -358,7 +358,7 @@ define(['knockout', 'utils/common-utilities', 'utils/validation-helper', 'utils/
       }
 
       set value(newValue) {
-        return this.observable(newValue);
+        this.observable(newValue);
       }
 
       get persistedValue() {
@@ -551,16 +551,12 @@ define(['knockout', 'utils/common-utilities', 'utils/validation-helper', 'utils/
             for (const key of keys) {
               if (values[key] !== undefined) {
                 if (values[key] !== null) {
-                  switch (typeof values[key]) {
-                    case 'string':
-                      if (values[key]) {
-                        result[key] = values[key];
-                      }
-                      break;
-
-                    default:
+                  if (typeof values[key] === 'string') {
+                    if (values[key]) {
                       result[key] = values[key];
-                      break;
+                    }
+                  } else {
+                    result[key] = values[key];
                   }
                 } else {
                   // we really only want to allow this for numeric fields but there is no way to tell...
@@ -578,8 +574,8 @@ define(['knockout', 'utils/common-utilities', 'utils/validation-helper', 'utils/
           let values = this._defaultValue;
           if (newValue && Object.keys(newValue).length > 0) {
             const updatedValues = [];
-            for (const [key, values] of Object.entries(newValue)) {
-              const updatedValue = getNewValue(this._primaryKey, key, values, this._keys);
+            for (const [entryKey, entryValues] of Object.entries(newValue)) {
+              const updatedValue = getNewValue(this._primaryKey, entryKey, entryValues, this._keys);
               if (updatedValue) {
                 updatedValues.push(updatedValue);
               }
@@ -745,17 +741,25 @@ define(['knockout', 'utils/common-utilities', 'utils/validation-helper', 'utils/
         const start = re.lastIndex;
         re.exec(string);
         if (re.lastIndex === 0) {
-          const token = string.substring(start, string.length);
-          if (token.length > 0) result.push(token.trim());
+          const lastToken = string.substring(start, string.length);
+          if (lastToken.length > 0) {
+            result.push(lastToken.trim());
+          }
           break;
         }
         const token = string.substring(start, re.lastIndex - 1);
-        if (token.length > 0) result.push(token);
+        if (token.length > 0) {
+          result.push(token);
+        }
         const c = string.charAt(re.lastIndex - 1);
-        if (c === '\'' || c === '"' | c === '`') {
+        if (c === '\'' || c === '"' || c === '`') {
           let end = string.indexOf(c, re.lastIndex);
-          if (end < 0) end = string.length;
-          if (end > re.lastIndex + 1) result.push(string.substring(re.lastIndex, end).trim());
+          if (end < 0) {
+            end = string.length;
+          }
+          if (end > re.lastIndex + 1) {
+            result.push(string.substring(re.lastIndex, end).trim());
+          }
           re.lastIndex = end + 1;
         }
       }

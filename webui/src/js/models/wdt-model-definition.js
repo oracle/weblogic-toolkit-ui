@@ -65,8 +65,7 @@ define(['knockout', 'utils/observable-properties', 'js-yaml', 'utils/validation-
               errors.push(emptyFieldError);
             } else {
               try {
-                // eslint-disable-next-line no-unused-vars
-                const parsedData = jsYaml.load(this.modelContent());
+                jsYaml.load(this.modelContent());
               } catch (err) {
                 errors.push(err.toString());
               }
@@ -107,7 +106,7 @@ define(['knockout', 'utils/observable-properties', 'js-yaml', 'utils/validation-
         this.getModelSecretsData = (includeWebLogicCredentials) => {
           const secretsMap = new Map();
 
-          [...this.modelContent().matchAll(SECRET_PATTERN)].map(matches => {
+          [...this.modelContent().matchAll(SECRET_PATTERN)].forEach(matches => {
             if (matches.groups.name !== ADMIN_SECRET_INTERNAL_NAME || includeWebLogicCredentials) {
               const secretName = matches.groups.name;
               const secretEnvVar = matches.groups.envvar;
@@ -194,16 +193,16 @@ define(['knockout', 'utils/observable-properties', 'js-yaml', 'utils/validation-
             const yaml = jsYaml.load(modelContent);
 
             const modelName = getElement(yaml, 'topology.Name');
-            const name = (modelName && (typeof modelName === 'string')) ? modelName : defaultDomainName;
-            this.domainName(name);
+            const domainName = (modelName && (typeof modelName === 'string')) ? modelName : defaultDomainName;
+            this.domainName(domainName);
 
           } catch (e) {
             // unable to parse model, don't update any fields
           }
         };
 
-        this.recordModelFile = (name, yaml) => {
-          this.modelFileContents[name] = yaml;
+        this.recordModelFile = (modelFileName, yaml) => {
+          this.modelFileContents[modelFileName] = yaml;
         };
 
         function createPropertiesObject(propertiesMap) {
@@ -219,8 +218,8 @@ define(['knockout', 'utils/observable-properties', 'js-yaml', 'utils/validation-
           return props.createListProperty(['uid', 'Name', 'Value', 'Override']).withDefaultValue(result);
         }
 
-        this.recordPropertyFile = (name, propertiesMap) => {
-          this.propertyFileContents[name] = createPropertiesObject(propertiesMap);
+        this.recordPropertyFile = (propertiesFileName, propertiesMap) => {
+          this.propertyFileContents[propertiesFileName] = createPropertiesObject(propertiesMap);
         };
 
         // used to provide default names for model files

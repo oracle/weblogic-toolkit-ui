@@ -205,7 +205,7 @@
               <a data-bind="attr: { href: row.data.accessPoint }">click</a>
             </td>
           </oj-bind-if>
-          <!--                    <td><oj-bind-text value="[[getEnabledText(row.data.tlsEnabled)]]"></oj-bind-text></td>-->
+
           <td>
             <oj-button display="icons" chroming="borderless" on-oj-action="[[handleEditRoute]]">
               <span slot="endIcon" class="oj-ux-ico-edit"></span>
@@ -222,7 +222,7 @@
       </template>
       <template slot="chooseHeaderTemplate" data-oj-as="header">
         <oj-button display="icons" chroming="borderless" disabled="true">
-          <span slot="endIcon" class="wkt-empty-table-icon"></span>
+          <span slot="endIcon"></span>
         </oj-button>
       </template>
       <template slot="headerTemplate" data-oj-as="header">

@@ -98,24 +98,29 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
           }
         }
 
-
         // Start Real install here
         if (this.project.ingress.installIngressController.value === true) {
           const ingressControllerName = this.project.ingress.ingressControllerName.value;
           const ingressControllerNamespace = this.project.ingress.ingressControllerNamespace.value;
           const ingressControllerProvider = this.project.ingress.ingressControllerProvider.value;
           const voyagerProvider = this.project.ingress.voyagerProviderMappedValue(this.project.ingress.voyagerProvider.value);
-          const helmChartValues = {};
           const helmOptions = this.getHelmOptions();
 
           busyDialogMessage = i18n.t('ingress-installer-checking-already-installed-in-progress',
             {ingressControllerName: ingressControllerName, ingressControllerNamespace: ingressControllerNamespace});
           dialogHelper.updateBusyDialog(busyDialogMessage, 4 / totalSteps);
           if (!options.skipCheckAlreadyInstalled) {
-            const helmListResults = await window.api.ipc.invoke('helm-list-all-namespaces',
-              helmExe, helmChartValues, helmOptions);
+            const helmListResults = await window.api.ipc.invoke('helm-list-all-namespaces', helmExe, helmOptions);
 
-            const helmChartList = JSON.parse(helmListResults);
+            if (!helmListResults.isSuccess) {
+              const errMessage = i18n.t('ingress-installer-checking-already-installed-error-message',
+                {ingressControllerName: ingressControllerName, error: helmListResults.reason});
+              dialogHelper.closeBusyDialog();
+              await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
+              return Promise.resolve(false);
+            }
+
+            const helmChartList = JSON.parse(helmListResults.stdout);
             let ingressChartNamePrefix = 'ingress-nginx-';
             if (ingressControllerProvider === 'traefik') {
               ingressChartNamePrefix = 'traefik-';
@@ -123,8 +128,7 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
               ingressChartNamePrefix = 'voyager-';
             }
 
-            for (let i = 0; i < helmChartList.length; i++){
-              let obj = helmChartList[i];
+            for (const obj of helmChartList) {
               if (obj['chart'].startsWith(ingressChartNamePrefix) === true && obj['namespace'] === ingressControllerNamespace) {
                 dialogHelper.closeBusyDialog();
                 const errMessage = i18n.t('ingress-installer-already-installed-error-message',
@@ -137,7 +141,6 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
                   });
                 await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
                 return Promise.resolve(false);
-
               }
             }
           }
@@ -164,7 +167,7 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
             let ingressRepoUrl = helmChartData.chartUrl;
 
             const helmResults = await window.api.ipc.invoke('helm-add-update-repo',
-              helmExe, ingressRepoName, ingressRepoUrl, helmChartValues, helmOptions);
+              helmExe, ingressRepoName, ingressRepoUrl, helmOptions);
             if (!helmResults.isSuccess) {
               const errMessage = i18n.t('ingress-installer-add-repo-error-message',
                 {
@@ -190,7 +193,7 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
 
             if (ingressControllerProvider === 'traefik' || ingressControllerProvider === 'voyager' ) {
               // create image pull secret for pulling Traefik or Voyager images.
-              if (this.project.ingress.createDockerRegSecret.value == true &&
+              if (this.project.ingress.createDockerRegSecret.value === true &&
                 typeof this.project.ingress.dockerRegSecretName.value !== 'undefined') {
                 const regSecretResult = await window.api.ipc.invoke('k8s-create-pull-secret', kubectlExe, ingressControllerNamespace,
                   this.project.ingress.dockerRegSecretName.value, secretData, kubectlOptions);
