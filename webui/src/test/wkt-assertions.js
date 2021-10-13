@@ -5,8 +5,7 @@
  * as shown at https://oss.oracle.com/licenses/upl/
  * @ignore
  */
-
-const chai = require('chai');
+'use strict';
 
 // Returns the index of the first element in sourceArray which includes the specified string, or -1 if none does.
 function firstLineIncluding(sourceArray, string) {
@@ -39,6 +38,6 @@ module.exports = function(chai, utils) {
       'expected #{act} not to contain strings',
       strings.slice(linesFound).toString(),
       array.toString()
-    )
-  })
-}
+    );
+  });
+};

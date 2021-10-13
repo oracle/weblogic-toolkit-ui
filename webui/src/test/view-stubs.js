@@ -5,12 +5,13 @@
  * as shown at https://oss.oracle.com/licenses/upl/
  * @ignore
  */
+'use strict';
 
 function AccUtilsStub() {
   this.announce = (announcement, level) => {
     this.announcement = announcement;
     this.level = level;
-  }
+  };
 }
 
 function ArrayDataProviderStub(data) {
@@ -19,7 +20,7 @@ function ArrayDataProviderStub(data) {
 }
 
 function ArrayTreeDataProviderStub(data) {
-  this.data = (typeof data === "function") ? data() : data;
+  this.data = (typeof data === 'function') ? data() : data;
   this.arrayTreeDataProviderHack = true;
 }
 

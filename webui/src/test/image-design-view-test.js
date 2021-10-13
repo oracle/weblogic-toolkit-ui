@@ -6,9 +6,10 @@
  * @ignore
  */
 'use strict';
-const {AccUtilsStub, ArrayDataProviderStub} = require('./view-stubs')
+
+const { AccUtilsStub, ArrayDataProviderStub } = require('./view-stubs');
 const expect = require('chai').expect;
-const {after, before, beforeEach, describe, it} = require("mocha");
+const { after, before, beforeEach, describe, it } = require('mocha');
 const requirejs = require('requirejs');
 const testHelper = require('./test-helper');
 
@@ -37,20 +38,18 @@ describe('image-design-view', function () {
 
   after(function() {
     testHelper.remove();
-  })
+  });
 
   beforeEach(function () {
     viewModel = new ImageViewModel(i18next, project, accUtilsStub, ko, dialogHelper, ArrayDataProviderStub);
-  })
+  });
 
   describe('when connected() is called', function () {
-
     it('should announce that it was loaded', function () {
       viewModel.connected();
 
       expect(accUtilsStub.announcement).to.equal('Image Design View page loaded.');
       expect(accUtilsStub.level).to.equal('assertive');
     });
-
-  })
+  });
 });

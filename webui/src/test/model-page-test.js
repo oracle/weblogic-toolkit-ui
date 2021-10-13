@@ -6,9 +6,10 @@
  * @ignore
  */
 'use strict';
-const {AccUtilsStub, ArrayDataProviderStub} = require('./view-stubs')
+
+const { AccUtilsStub, ArrayDataProviderStub } = require('./view-stubs');
 const expect = require('chai').expect;
-const {after, before, beforeEach, describe, it} = require("mocha");
+const { after, before, beforeEach, describe, it, xit } = require('mocha');
 const requirejs = require('requirejs');
 const testHelper = require('./test-helper');
 
@@ -16,19 +17,16 @@ describe('model-page', function () {
   const accUtilsStub = new AccUtilsStub();
 
   let ModelPageImpl;
-  let project;
   let ko;
   let i18next;
-
   let viewModel;
 
   before(function (done) {
     testHelper.install();
-    requirejs(['viewModels/model-page-impl', 'knockout', 'models/wkt-project', 'utils/i18n'],
-      function (viewModelConstructor, knockout, loadedProject, i18n) {
+    requirejs(['viewModels/model-page-impl', 'knockout', 'utils/i18n'],
+      function (viewModelConstructor, knockout, i18n) {
         ModelPageImpl = viewModelConstructor;
         ko = knockout;
-        project = loadedProject;
         i18next = i18n;
         done();
       });
@@ -44,13 +42,14 @@ describe('model-page', function () {
         return {
           sync: function() {},
           go: function() {}
-        }
+        };
       }
     }
-  }
+  };
 
   function ModuleRouterAdapterStub() {
   }
+
   beforeEach(function () {
     viewModel = new ModelPageImpl(args, accUtilsStub, ko, i18next, ModuleRouterAdapterStub, ArrayDataProviderStub);
   });
@@ -68,11 +67,11 @@ describe('model-page', function () {
 
   it('the initial selection is the code view', function () {
     expect(viewModel.selectedItem()).to.equal('model-code-view');
-  })
+  });
 
   xit('offers view choices choices', function () {
     const navData = viewModel.dataProvider.data;
     expect(entry(navData, 'path', 'model-design-view')).to.have.property('label', 'page-design-view');
     expect(entry(navData, 'path', 'model-code-view')).to.have.property('label', 'page-code-view');
-  })
+  });
 });
