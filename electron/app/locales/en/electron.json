@@ -125,7 +125,6 @@
   "dialog-invalid-oracle-home-title": "Invalid Oracle Home Directory",
   "dialog-invalid-oracle-home-not-specified": "Oracle Home is not specified.",
   "dialog-invalid-oracle-home-not-valid": "Specified Oracle Home {{oracleHome}} is not valid.",
-  "dialog-passphrase-prompt-title": "Credential Encryption Passphrase",
   "dialog-https-proxy-url-label": "HTTPS Proxy URL",
   "dialog-bypass-proxy-hosts-label": "Bypass Proxy Hosts",
 

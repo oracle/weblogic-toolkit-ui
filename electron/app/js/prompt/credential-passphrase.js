@@ -59,6 +59,7 @@ function promptRegister() {
     document.querySelector('#ok').textContent = window.api.i18n.t('dialog-button-ok');
     document.querySelector('#cancel').textContent = window.api.i18n.t('dialog-button-cancel');
     document.querySelector('#label').textContent = window.api.i18n.t('dialog-passphrase-prompt-label');
+    document.querySelector('#title').textContent = window.api.i18n.t('dialog-passphrase-prompt-title');
 
     const height = document.querySelector('body').offsetHeight;
     window.api.ipc.sendSync('prompt-size:' + promptId, height);

@@ -5,7 +5,6 @@
  */
 const path = require('path');
 const { BrowserWindow, ipcMain } = require('electron');
-const i18n = require('./i18next.config');
 
 /* global __dirname */
 
@@ -33,7 +32,6 @@ async function getCredentialPassphrase(parentWindow) {
       alwaysOnTop: false,
       useContentSize: true,
       modal: Boolean(parentWindow),
-      title: i18n.t('dialog-passphrase-prompt-title'),
       menuBarVisible: false,
       webPreferences: {
         nodeIntegration: false,
