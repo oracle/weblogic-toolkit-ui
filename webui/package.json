@@ -10,15 +10,15 @@
     "jet-audit": "ojaf"
   },
   "dependencies": {
-    "@oracle/oraclejet": "^11.0.2",
+    "@oracle/oraclejet": "^11.1.0",
     "i18next": "^20.4.0",
     "jquery": "^3.6.0",
     "js-yaml": "^4.1.0"
   },
   "devDependencies": {
-    "@oracle/ojet-cli": "^11.0.1",
-    "@oracle/oraclejet-audit": "^11.0.0",
-    "@oracle/oraclejet-tooling": "^11.0.2",
+    "@oracle/ojet-cli": "^11.1.0",
+    "@oracle/oraclejet-audit": "^11.1.0",
+    "@oracle/oraclejet-tooling": "^11.1.0",
     "chai": "^4.3.4",
     "chai-as-promised": "^7.1.1",
     "eslint": "^7.32.0",

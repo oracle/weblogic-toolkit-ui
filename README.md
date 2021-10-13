@@ -16,9 +16,8 @@ necessary to deploy and access the domain in your Kubernetes cluster.
 
 ## Get Started
 
-Download the latest WebLogic Kubernetes Toolkit UI application here.
-
-(How to install and whatever else is needed to get started can go either here (if brief) or in a separate doc.)
+Download the latest WebLogic Kubernetes Toolkit UI (WKT UI) application installers [here](https://github.com/oracle/weblogic-toolkit-ui/releases).
+Simply run the appropriate installer for your operating system.
 
 Initial launch of the application displays a thorough "Introduction" to the WKT UI. Step through
 it or dismiss it; you can peruse it at any time using `Help > Show Introduction`.
