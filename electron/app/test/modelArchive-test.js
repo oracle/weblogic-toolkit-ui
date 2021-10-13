@@ -7,8 +7,8 @@
 'use strict';
 
 const proxyquire = require('proxyquire');
-const { after, before, describe } = require('mocha');
 const chai = require('chai');
+const { after, before, describe, it } = require('mocha');
 const expect = require('chai').expect;
 const chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
@@ -22,11 +22,12 @@ const wktLoggerMock = {
   getLogger: () => {
     return console;
   }
-}
+};
 
 const modelArchive = proxyquire('../js/modelArchive', { './wktLogging': wktLoggerMock });
 
-describe('model archive module tests', function () {
+/* global __dirname */
+describe('Model Archive tests', function () {
   this.timeout(15000);
 
   const readOnlyRelativePath = path.join('resources', 'wdt-archive.zip');
@@ -96,7 +97,7 @@ describe('model archive module tests', function () {
           'todo.war': ''
         }
       }
-    }
+    };
 
     const promise = modelArchive.saveContentsOfArchiveFiles(__dirname, archiveUpdates);
     return expect(promise).to.eventually.deep.equal(expected);

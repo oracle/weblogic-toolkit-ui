@@ -12,7 +12,7 @@
     "build": "npm run build:jet && npm run install-tools && npm run build:installer",
     "build:jet": "cd ../webui && npm run build:release && cd ../electron",
     "build:installer": "electron-builder",
-    "eslint": "npx eslint app/main.js app/js/**/*.js",
+    "eslint": "npx eslint app/main.js app/js/**/*.js app/test/*-test.js",
     "test": "mocha --reporter spec app/test/*-test.js"
   },
   "repository": {

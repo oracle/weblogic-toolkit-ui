@@ -8,7 +8,7 @@
 'use strict';
 
 const path = require('path');
-const {WindowStub} = require('./window-stub');
+const { WindowStub } = require('./window-stub');
 const { JSDOM } = require('jsdom');
 const requirejs = require('requirejs');
 

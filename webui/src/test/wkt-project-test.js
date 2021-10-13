@@ -7,19 +7,17 @@
  */
 'use strict';
 const expect = require('chai').expect;
-const {after, before, beforeEach, describe, it} = require('mocha');
+const { after, before, beforeEach, describe, it } = require('mocha');
 const requirejs = require('requirejs');
 const testHelper = require('./test-helper');
 
 describe('wkt-project', function () {
   let project;
-  let ko;
 
   before(function (done) {
     testHelper.install();
-    requirejs(['knockout', 'models/wkt-project'],
-      function (knockout, module) {
-        ko = knockout;
+    requirejs(['models/wkt-project'],
+      function (module) {
         project = module;
         project.updateModels = () => {
         };

@@ -5,6 +5,7 @@
  * as shown at https://oss.oracle.com/licenses/upl/
  * @ignore
  */
+'use strict';
 
 const os = require('os');
 
@@ -16,7 +17,7 @@ class WindowStub {
 
   static install(jsDom) {
     this._isWindows = false;
-    this.setOSWindows = isWindows => { this._isWindows = isWindows };
+    this.setOSWindows = isWindows => { this._isWindows = isWindows; };
 
     function getValueFrom(channelFunction) {
       return channelFunction ? channelFunction() : undefined;
@@ -24,7 +25,7 @@ class WindowStub {
 
     global._wktExecutionMode = 'dev';
     global._isWindows = false;
-    global.setOSWindows = isWindows => { global._isWindows = isWindows };
+    global.setOSWindows = isWindows => { global._isWindows = isWindows; };
     const api = {
       k8s : {
         getKubeConfig: () => {
@@ -49,6 +50,7 @@ class WindowStub {
           const value = getValueFrom(this.channels[channel]);
           return Promise.resolve(value);
         },
+        // eslint-disable-next-line no-unused-vars
         send: function(channel) {
           // do nothing
         }
@@ -58,7 +60,7 @@ class WindowStub {
           return _isWindows;
         },
         isMac: () => {
-          return os.platform() === 'darwin'
+          return os.platform() === 'darwin';
         },
         argv: [ 'abc', '--mode=dev']
       },
@@ -68,6 +70,7 @@ class WindowStub {
         }
       },
       i18n: {
+        // eslint-disable-next-line no-unused-vars
         t: (key, options) => {
           return key;
         }
@@ -116,8 +119,6 @@ class WindowStub {
   static defineChannel(channelName, callBack) {
     window.api.ipc.channels[channelName] = callBack;
   }
-
 }
 
-module.exports = {WindowStub}
-
+module.exports = { WindowStub };

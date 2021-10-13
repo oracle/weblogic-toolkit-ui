@@ -8,22 +8,20 @@
 'use strict';
 
 const { assert, expect } = require('chai');
-const {after, before, describe, it} = require("mocha");
+const { after, before, describe, it } = require('mocha');
 const requirejs = require('requirejs');
 const testHelper = require('./test-helper');
 
 describe('validation-helper', function() {
   let validationHelper;
   let utils;
-  let i18n;
 
   before(function(done) {
     testHelper.install();
-    requirejs(['utils/validation-helper', 'utils/observable-properties', 'utils/i18n'],
-      function(testValidationHelper, props, testI18n) {
+    requirejs(['utils/validation-helper', 'utils/observable-properties'],
+      function(testValidationHelper, props) {
         validationHelper = testValidationHelper;
         utils = props;
-        i18n = testI18n;
         done();
       }
     );
@@ -145,7 +143,7 @@ describe('validation-helper', function() {
     });
 
     it('image tag with 256 characters has validation errors', function() {
-      const longName = "a".repeat(256);
+      const longName = 'a'.repeat(256);
       const myProp = getImageTagProperty(longName);
       const expected = [
         'Enter no more than 255 characters.'
