@@ -4,7 +4,7 @@
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const {app, dialog} = require('electron');
-const prompt = require('electron-prompt');
+const {getCredentialPassphrase} = require('./promptUtils');
 const {copyFile, mkdir, readFile, writeFile} = require('fs/promises');
 const path = require('path');
 const uuid = require('uuid');
@@ -691,21 +691,17 @@ async function _createCredentialManager(targetWindow, projectFileJsonContent) {
   let credentialStorePolicy = _getProjectCredentialStorePolicy(projectFileJsonContent);
   return new Promise((resolve, reject) => {
     if (credentialStorePolicy === 'passphrase') {
-      prompt({
-        title: i18n.t('dialog-passphrase-prompt-title'),
-        label: i18n.t('dialog-passphrase-prompt-label'),
-        inputAttrs: { type: 'password', required: true },
-        resizable: true,
-        alwaysOnTop: true
-      }, targetWindow).then(passphrase => {
-        if (passphrase) {
-          const credentialManager = new EncryptedCredentialManager(passphrase);
-          _setCredentialManager(targetWindow, credentialManager);
-          resolve(credentialManager);
-        } else {
-          reject(new Error('Passphrase is required but the user did not provide one.'));
-        }
-      }).catch(err => reject(new Error(`Failed to create passphrase credential manager: ${err}`)));
+      getCredentialPassphrase(targetWindow)
+        .then(passphrase => {
+          if (passphrase) {
+            const credentialManager = new EncryptedCredentialManager(passphrase);
+            _setCredentialManager(targetWindow, credentialManager);
+            resolve(credentialManager);
+          } else {
+            reject(new Error('Passphrase is required but the user did not provide one.'));
+          }
+        })
+        .catch(err => reject(new Error(`Failed to create passphrase credential manager: ${err}`)));
     } else {
       let credentialManager;
       if (credentialStorePolicy === 'native') {

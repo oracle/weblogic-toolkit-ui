@@ -125,8 +125,6 @@
   "dialog-invalid-oracle-home-title": "Invalid Oracle Home Directory",
   "dialog-invalid-oracle-home-not-specified": "Oracle Home is not specified.",
   "dialog-invalid-oracle-home-not-valid": "Specified Oracle Home {{oracleHome}} is not valid.",
-  "dialog-passphrase-prompt-title": "Credential Encryption Passphrase",
-  "dialog-passphrase-prompt-label": "Please enter the passphrase to use to encrypt the project credential.",
 
   "dialog-title-closeProject": "Close Project",
 
