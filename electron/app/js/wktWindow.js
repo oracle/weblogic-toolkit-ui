@@ -420,7 +420,7 @@ class WktAppMenu {
             label: i18n.t('menu-help-visitWebsite'),
             enabled: !this._hasOpenDialog,
             click() {
-              shell.openExternal('https://orahub.oci.oraclecorp.com/weblogic-cloud/wktui').then();
+              shell.openExternal('https://github.com/oracle/weblogic-toolkit-ui').then();
             }
           },
           {
