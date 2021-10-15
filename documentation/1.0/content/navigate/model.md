@@ -1,4 +1,12 @@
-## Contents
+---
+title: "Model"
+date: 2019-02-22T15:44:42-05:00
+draft: false
+weight: 2
+---
+
+
+### Contents
 - [Model](#model)
 - [Design View](#design-view)
 - [Code View](#code-view)
@@ -8,7 +16,7 @@
 - [Prepare Model](#prepare-model)
 
 
-## Model
+### Model
 The `Model` section helps you work with WebLogic Deploy Tooling models for a WebLogic domain.  A WebLogic
 Deploy Tooling model for a domain can include the following file types:
 
@@ -21,12 +29,12 @@ For more information about WebLogic Deploy Tooling models, see [Metadata Model](
 and [Archive File](https://oracle.github.io/weblogic-deploy-tooling/concepts/archive/) in the WebLogic Deploy
 Tooling documentation.
 
-## Design View
+### Design View
 In the current release, the `Design View` is empty.  Our intention is to eventually provide a WebLogic
 console-like set of pages that will make it easier to create or edit a model using an interface more familiar to
 WebLogic administrators and developers.
 
-## Code View
+### Code View
 Using an IDE-like layout, the `Code View` provides editor panes for editing the model, variables, and archive files,
 each of which support creating and editing the domain's WDT files. When working with an editor, there are several things
 to keep in mind:
@@ -42,11 +50,13 @@ menu supports adding existing files or using the WebLogic Deploy Tooling's
 [Discover Domain Tool](https://oracle.github.io/weblogic-deploy-tooling/userguide/tools/discover/)
 to create a model of an existing domain.
 
-**Note**: While WebLogic Deploy Tooling supports using multiple model, variables, or archive files to describe a single
+{{% notice note %}}
+While WebLogic Deploy Tooling supports using multiple model, variables, or archive files to describe a single
 domain, the current release of WKT supports _only_ one WDT model file, one WDT variables file, and one WDT archive file for
 describing the domain.
+{{% /notice %}}
 
-### Model Editor
+#### Model Editor
 In `Code View`, the model editor is just to the right of the navigation pane.  This editor displays the current
 model file associated with the WKT Project file.  Typing model content into the editor will
 result in a new model file being added to the project the next time the project is saved.
@@ -56,7 +66,7 @@ The current release has the following limitations:
 - Model files must be in YAML format.
 - Model files must exist directly on the file system and not inside an archive, such as in a ZIP file; any model file inside an archive is ignored by the application.
 
-### Variables Editor
+#### Variables Editor
 The WDT variables editor is in the upper right pane of the `Code View` page.  It supports editing any existing
 name-value pairs, as well as adding or removing name-value pairs.
 
@@ -87,7 +97,7 @@ variables file, as shown here:
 httpPort = 7001
 ```
 
-### Archive Editor
+#### Archive Editor
 The WDT archive editor is in the lower right pane of the `Code View` page.  It supports adding content to and
 removing content from the archive file.  While updating content in the archive is not supported directly by the archive
 editor, the archive editor safely supports multiple operations on the same entry.  As such, combining a
@@ -106,8 +116,10 @@ At this point, the application has not created or modified the archive file; it 
 the data it needs about the archive path to the added entry and the file path where the content is found.  Saving the
 WKT Project will update the archive to reflect the buffered operations performed in the editor.  
 
-**NOTE**: Don't forget to add the application to the model and set its `SourcePath` attribute to the path in the archive where it can be found,
+{{% notice note %}}
+Don't forget to add the application to the model and set its `SourcePath` attribute to the path in the archive where it can be found,
 as shown in the following model file snippet.
+{{% /notice %}}
 
 ```yaml
 appDeployments:
@@ -121,7 +133,7 @@ appDeployments:
 To remove content from the archive file, select the content to remove in the archive editor pane and click the minus (`-`)
 button in the archive editor title bar.  _Don't forget to remove any reference to this content from the model file._
 
-### Prepare Model
+#### Prepare Model
 `Prepare Model` invokes the WDT [Prepare Model Tool](https://oracle.github.io/weblogic-deploy-tooling/userguide/tools/prepare/)
 to modify the model to work in a Kubernetes cluster with WebLogic Kubernetes Operator or Verrazzano installed.  This
 action is available by using the `Prepare Model` button on the `Model` and `Kubernetes WebLogic Domain` pages and by selecting
@@ -141,7 +153,7 @@ For more information, see the WDT [model tokens](https://oracle.github.io/weblog
 documentation.
 
 In replacing credential values, `Prepare Model` must handle the replacement differently for the "Domain in Image" and
-"Model in Image" [domain locations](project-settings.md#choosing-a-domain-location).
+"Model in Image" [domain locations]({{< relref "/navigate/project-settings#choosing-a-domain-location" >}}).
 
 With "Domain in Image", the WebLogic Image Tool creates the domain while creating the image.  As such, it has no
 knowledge of Kubernetes so the token replacement uses variable tokens so that domain creation has access to the actual
@@ -150,8 +162,10 @@ credential values.  You must ensure that all variables have valid values prior t
 For "Model in Image", the domain is created at runtime by the WebLogic Kubernetes Operator running in a Kubernetes
 cluster.  As such, token replacement uses secret tokens for all credential fields.  You must to be sure to provide
 values for all secret reference fields using the `WebLogic Domain` section's `Secrets` pane so that the required secrets
-get populated correctly during domain deployment.  For more information, see [WebLogic Domain](site/k8s-weblogic-domain.md).
+get populated correctly during domain deployment.  For more information, see [WebLogic Domain]({{< relref "/navigate/kubernetes/k8s-weblogic-domain.md" >}}).
 
-**Note**: The application tries to preserve any values from the model and variable files that `Prepare Model` replaces
+{{% notice note %}}
+The application tries to preserve any values from the model and variable files that `Prepare Model` replaces
 with secret tokens.  The current release is limited by the behavior of the underlying WDT Prepare Model Tool in that
 all passwords are not retained and must be re-entered in the appropriate location.
+{{% /notice %}}

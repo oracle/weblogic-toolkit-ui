@@ -1,4 +1,11 @@
-# Prerequisites
+---
+title: "Prerequisites"
+date: 2019-02-22T15:44:42-05:00
+draft: false
+weight: 1
+description: "Install the prerequisite requirements."
+---
+
 
 WebLogic Kubernetes Toolkit UI has a number of prerequisites that must be installed locally to fully use the
 WKT UI application functionality.  
@@ -26,8 +33,3 @@ In addition to these local software dependencies, you will need a Kubernetes clu
 containerized WebLogic Server domain and its applications.  If you do not already have a model, then you can either write
 one by hand using the WKT UI application or discover the model from an existing domain.  Most likely, you'll want to start
 with a WebLogic domain that can be used to discover the model from the domain.
-
-## Next Steps
-
-- Set up the [WKT UI application](site/setup.md) for your environment.  
-- Get started in the UI with [WKT Project Settings](project-settings.md#project-settings).

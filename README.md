@@ -24,17 +24,10 @@ Initial launch of the application displays a thorough "Introduction" to the WKT 
 it or dismiss it; you can peruse it at any time using `Help > Show Introduction`.
 
 ## About the Documentation
-For detailed user information, read the following:
 
-- WebLogic Kubernetes Toolkit UI [Prerequisites](site/prerequisites.md)
-- About the [WKT UI Application](site/setup.md)
-- [Navigate the WKT UI](site/project-settings.md)
-    - [Model](site/model.md)
-    - [Image](site/image.md)
-    - [Kubernetes](site/k8s-client-config.md)
-    - [Verrazzano](site/verrazzano.md)
+Documentation for WebLogic Kubernetes Toolkit UI is available here.
 
-For developer information, see [WebLogic Kubernetes Toolkit UI Project](site/developer.md).
+This documentation includes information for users and for developers.
 
 ## Get Help
 

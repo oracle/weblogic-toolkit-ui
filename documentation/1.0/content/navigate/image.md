@@ -1,4 +1,11 @@
-## Contents
+---
+title: "Image"
+date: 2019-02-22T15:44:42-05:00
+draft: false
+weight: 3
+---
+
+### Contents
 - [Image](#image)
 - [Design View](#design-view)
     - [Target Image Name and Registry Credentials](#target-image-name-and-registr-credentials)
@@ -11,11 +18,11 @@
 - [Create Image](#create-image)
 - [Push Image](#push-image)
 
-## Image
+### Image
 The `Image` section helps you build container images for deploying WebLogic-based applications
 in a Kubernetes environment using the [WebLogic Image Tool](https://oracle.github.io/weblogic-image-tool/).
 
-## Design View
+### Design View
 The `Design View` helps you specify the necessary data needed to run the WebLogic Image Tool to build an image for
 running the WebLogic domain with all resources configured and applications deployed.  This page is divided into several
 primary panes and a few advanced panes that include:
@@ -27,7 +34,7 @@ primary panes and a few advanced panes that include:
 - [WebLogic Deploy Tooling Configuration](#weblogic-deploy-tooling-configuration)
 - [Image Build Configuration](#image-build-configuration)
 
-### Target Image Name and Registry Credentials
+#### Target Image Name and Registry Credentials
 The most important field in this pane is the `Image Tag` field.  This is the name to give to the newly created image,
 which must conform to the [image naming standards](https://docs.docker.com/engine/reference/commandline/tag/#extended-description).
 Because most Kubernetes environments will need to pull the image from a container image registry (for example, Docker Hub),
@@ -44,7 +51,7 @@ image registry prior to pushing the newly-created image.  If explicit authentica
 `Specify Image Push Credentials` option.  If `Specify Image Push Credentials` is enabled, then any attempts to push the
 image will fail unless the `Image Registry Push Username` and `Image Registry Push Password` fields are specified.
 
-### Base Image to Use
+#### Base Image to Use
 By default, the WebLogic Image Tool uses an Oracle Linux base image when building the new image.  To specify a different
 base image, enable `Use Custom Base Image` and provide the base image's tag in the `Custom Base Image to Use`
 field.  Any container image registry address found in the base image tag will be displayed in the read-only
@@ -64,7 +71,7 @@ the image.  As such, it is better to either create the base image with the lates
 the WebLogic Image Tool's multistage build to install and patch the Oracle Fusion Middleware installation while
 minimizing the resulting image size.
 
-### Installers for Building the Image
+#### Installers for Building the Image
 This pane will contain form fields for up to three installers (depending on the base image being used); they are:
 
 - JDK Installer
@@ -94,7 +101,7 @@ other installers' version number fields, the best practice it to use the actual 
 latest capabilities, many of which are exposed by this application.  As such, using the latest version is strongly
 recommended.
 
-### Patch Oracle Home
+#### Patch Oracle Home
 Oracle strongly recommends patching all Oracle Fusion Middleware installations with the latest Patch Set Updates (PSUs)
 and other recommended patches to ensure that the latest security fixes are applied.  This pane configures the WebLogic
 Image Tool to apply the specified patches to the Oracle Home during the image creation process.  There are two mechanisms
@@ -122,15 +129,15 @@ As a last resort, if no valid Oracle Support credentials are available, the patc
 the `Apply Patches` option.  _To make sure your WebLogic-based applications are
 as secure as possible, this really should be a last resort._
 
-### WebLogic Deploy Tooling Configuration
-This `Advanced` pane applies only to images using either the "Model in Image" or "Domain in Image" [domain locations](project-settings.md#choosing-a-domain-location).
+#### WebLogic Deploy Tooling Configuration
+This `Advanced` pane applies only to images using either the "Model in Image" or "Domain in Image" [domain locations]({{< relref "/navigate/project-settings#choosing-a-domain-location" >}}).
 
 The `Domain Type` field tells WebLogic Deploy Tooling what type of domain to create. Use the `Domain Home Directory`
 to change the location of the WebLogic domain directory inside the container.  The `Model Home Directory` field
 specifies the directory where the WDT model files are stored in the image.  Typically, there is no need to override
 these directory locations because the application defaults follow the recommended best practices.
 
-### Image Build Configuration
+#### Image Build Configuration
 This `Advanced` pane supports altering the default behavior of the WebLogic Image Tool, as well as extending the image
 build process to include custom build steps that might be required by particular applications or environments.
 
@@ -158,7 +165,7 @@ containing the additional commands in the `Additional Build Commands File` field
 additional files to be present in the build context directory, then provide the list of those required files in the
 `Additional Build Files` field.
 
-## Code View
+### Code View
 The `Image` page's `Code View` displays a shell script that you can use as a starting point for automating the image
 creation process.
 
@@ -170,7 +177,7 @@ set environment variables to specify any credentials required by the script to e
 the script itself.  This change is left as an exercise for you because different environments typically will have
 existing standards for securely handling such credentials.
 
-## Create Image
+### Create Image
 `Create Image` invokes the [WebLogic Image Tool](https://oracle.github.io/weblogic-image-tool/) to
 create a new container image for running a WebLogic domain in a Kubernetes environment.  You can access this action using
 the `Create Image` button on the `Image` page or the `Go` menu.
@@ -184,7 +191,7 @@ At a high level, `Create Image` performs the following steps:
 4. Builds the image on the local machine using the WebLogic Image Tool
    [Create](https://oracle.github.io/weblogic-image-tool/userguide/tools/create-image/) command.
 
-## Push Image
+### Push Image
 `Push Image` uses the specified Image Builder program to upload (that is, push) the newly-built image
 to the image registry specified by its image tag.  You can access it by using the `Push Image` button on the `Image`
 page or `Go` > `Push Image to Registry`.

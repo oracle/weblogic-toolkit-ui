@@ -1,28 +1,10 @@
-# Navigating the WKT UI
+---
+title: "Project Settings"
+date: 2019-02-22T15:44:42-05:00
+draft: false
+weight: 1
+---
 
-To help you understand how to use the WKT UI, we will step you through it, section by section,
-describing the important decisions to make and fields to populate.  The sections are listed in
-the left side navigation pane.  Depending on the `Kubernetes Environment Target Type` field
-on the `Project Settings` page, you will see either the `Kubernetes` or `Verrazzano` section.  
-
-The UI sections are:
-
-- [Project Settings](#project-settings)
-- [Model](site/model.md)
-- [Image](site/image.md)
-- [Kubernetes](k8s-client-config.md#kubernetes)
-  - [Client Configuration](k8s-client-config.md#client-configuration)
-  - [WebLogic Operator](site/k8s-wko.md)
-  - [WebLogic Domain](site/k8s-weblogic-domain.md)
-  - [Ingress Controller](site/k8s-ingress-controller.md)
-- [Verrazzano](site/verrazzano.md)
-  - Client Configuration
-  - Application
-
-At the bottom of the page, the collapsed `Console` panel automatically appears and displays the `stdout` and `stderr`
-streams when running certain actions, such as `Prepare Model`.
-
-## Project Settings
 The first stop for every new project is `Project Settings`.  In this section, you make decisions and provide
 input for the project on:
 
@@ -32,7 +14,7 @@ input for the project on:
 - [JDK and WebLogic Server Installation Directories](#choosing-the-java-and-oracle-installation-directories)
 - [Image Build Tool Type and Executable Location](#choosing-the-image-build-tool)
 
-### Choosing a Credential Storage Scheme
+#### Choosing a Credential Storage Scheme
 The WKT UI application can securely store credentials for your project or not store them at all.  The three choices
 are to:
 
@@ -46,11 +28,13 @@ storing credentials that most users already understand.  The only downside to th
 stored only on the local machine.  Anyone trying to share their project with others users will have to have the other users
 re-enter the credentials so that they get saved to their local machine's credential store.
 
-**Note**: The WKT UI application can require storing a dozen or more credentials, depending on your WebLogic Server
+{{% notice note %}}
+The WKT UI application can require storing a dozen or more credentials, depending on your WebLogic Server
 domain configuration. Upon first access by the WKT UI to load credentials from the credential store, the OS will prompt
 whether you want to allow the application access to each credential, prompting you once for each credential.  This
 can get annoying, but on some platforms (for example, MacOS), you have the option of telling the OS to always allow access to
 the credential by the WKT UI application.
+{{% /notice %}}
 
 The other choice to store credentials, `Store Encrypted in Project File`, uses a passphrase-based encryption built into the application that allows
 the credentials to be stored inline in the WKT Project file.  The algorithms and techniques used follow the current
@@ -72,7 +56,7 @@ The final choice, `Not Stored`, is to not store the credentials at all. While th
 need to run any of the actions that require credentials, you will need to re-enter the value of every credential in the
 project.
 
-### Choosing a Domain Location
+#### Choosing a Domain Location
 When getting started with a new WKT Project, one of the first things to consider is where you want the domain to reside.
 Domains can reside in a container, in an image, or in a persistent volume.  Your choice will expose and hide different
 fields across most sections of the UI.  The following describe the implications of the three locations.
@@ -98,7 +82,7 @@ your only supported choice for running the domain in Kubernetes.  The WKT UI app
 you create the persistent volume, the necessary persistent volume claim, or the domain.  After those things exist, the
 application will allow you to use them to deploy new domains stored in a persistent volume.
 
-#### Choosing a Kubernetes Environment Target Type
+##### Choosing a Kubernetes Environment Target Type
 The target type tells the application what sort of Kubernetes environment that you plan to use.  Currently, `WebLogic
 Kubernetes Operator` and `Verrazzano` are the only two choices.  The application uses the target type to:
 
@@ -109,13 +93,13 @@ For example, the `Kubernetes` pages are relevant to the WebLogic Kubernetes Oper
 and their associated actions are hidden when the Verrazzano target type is selected; instead, the `Verrazzano`
 pages are displayed.  Note that in the current release, Verrazzano support is limited to the `Model` and `Image` sections.
 
-### Choosing the Java and Oracle Installation Directories
+#### Choosing the Java and Oracle Installation Directories
 The application uses these directories when invoking the WebLogic Deploy Tooling and WebLogic Image Tool; it does not
 use them for any other purpose.  When selecting these directories, make sure to select the same directory you would use
 to set the `JAVA_HOME` and `ORACLE_HOME` (or `MW_HOME`) environment variables.  These are generally the top-level
 installation directories.
 
-### Choosing the Image Build Tool
+#### Choosing the Image Build Tool
 To build new images, inspect images, and interact with image repositories, the WKT UI application uses an image build
 tool, which defaults to `docker`.  The image build tool must be installed locally, as mentioned in the [Prerequisites](site/prerequisites.md).
 While `docker` is currently the most popular tool, many vendors (for example, Oracle, IBM RedHat, Google) are moving to

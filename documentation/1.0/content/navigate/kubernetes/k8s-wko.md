@@ -1,4 +1,14 @@
-## Contents
+---
+title: "WebLogic Kubernetes Operator"
+date: 2019-02-22T15:44:42-05:00
+draft: false
+weight: 2
+description: "Install the WebLogic Kubernetes Operator in the target Kubernetes cluster."
+---
+
+
+
+### Contents
 - [WebLogic Kubernetes Operator](#weblogic-kubernetes-operator)
 - [Design View](#design-view)
     - [WebLogic Kubernetes Operator Image](#weblogic-kubernetes-operator-image)
@@ -11,12 +21,12 @@
 - [Code View](#code-view)
 - [Install Operator](#install-operator)
 
-## WebLogic Kubernetes Operator
+### WebLogic Kubernetes Operator
 This section provides support for installing the WebLogic Kubernetes Operator (the "operator") in the target Kubernetes cluster.
 For detailed information about the operator, see the
 [WebLogic Kubernetes Operator](https://oracle.github.io/weblogic-kubernetes-operator/) documentation.
 
-## Design View
+### Design View
 The `Design View` helps you specify the necessary data needed to install the WebLogic Kubernetes Operator to manage
 WebLogic domains in one or more Kubernetes namespaces.  To install the operator using the default settings, simply
 provide values for the following three fields:
@@ -26,11 +36,13 @@ provide values for the following three fields:
   requests.
 - `Helm Release Name to Use for Operator Installation` - The Helm release name to use to identify this installation.
 
-**Note**: The WKT UI application overrides a few default values in the operator Helm Chart.  Read the details of the parameters descriptions in
+{{% notice note %}}
+The WKT UI application overrides a few default values in the operator Helm Chart.  Read the details of the parameters descriptions in
 [Kubernetes Namespace Selection Strategy](#kubernetes-namespace-selection-strategy).  These panes and their fields are made visible by expanding the
 `Advanced` portion of the page.
+{{% /notice %}}
 
-### WebLogic Kubernetes Operator Image
+#### WebLogic Kubernetes Operator Image
 By default, the operator's `Image Tag to Use` field is set to the image tag corresponding to the latest operator
 release version on the GitHub Container Registry.  The `Image Pull Policy` field configures the operator deployment in
 Kubernetes to tell it when to pull the image from the specified registry:
@@ -45,7 +57,7 @@ operator image is being used from a container image registry that requires pull 
 and complete the appropriate fields described in the [Image Pull Secret](#image-pull-secret)
 pane that follows.
 
-### Image Pull Secret
+#### Image Pull Secret
 This pane is hidden unless the `Image Pull Requires Authentication` from the WebLogic Kubernetes Operator Image pane
 is enabled.  To allow Kubernetes to pull the custom operator image requiring pull authentication, use the
 `Kubernetes Image Pull Secret Name` field to provide the name of the Kubernetes secret to use for the credentials.  To
@@ -60,7 +72,7 @@ The read-only `Image Registry Address` field is parsed from the `Image Tag to Us
 `Image Registry Address` field is empty, then the application will assume that Docker Hub is the target container image
 registry to use when creating the pull secret.
 
-### Kubernetes Namespace Selection Strategy
+#### Kubernetes Namespace Selection Strategy
 The operator needs to know which WebLogic domains in the Kubernetes cluster that it will manage.  It does this at the
 Kubernetes namespace level, so any WebLogic domain in a Kubernetes namespace the operator is configured to manage, will
 be managed by the operator instance being installed.  Use the `Kubernetes Namespace Selection Strategy` field to choose
@@ -91,7 +103,7 @@ application will automatically add the new domain's Kubernetes namespace to the 
 such, specifying an empty list will not prevent your WebLogic domain from being managed by the operator.
 - `Dedicated` is self-defining so no additional fields are necessary.
 
-### WebLogic Kubernetes Operator Role Bindings
+#### WebLogic Kubernetes Operator Role Bindings
 When installing the operator, the operator Helm chart default is to create a Kubernetes Role and a Kubernetes RoleBinding
 in each Kubernetes namespace being managed by the operator.  By enabling `Enable Cluster Role Binding`, the
 operator installation will create a Kubernetes ClusterRole and ClusterRoleBinding that the operator will use for all managed
@@ -113,14 +125,14 @@ need to rerun the operator Helm chart.
 As previously mentioned, the WKT UI application automatically reruns the operator Helm chart when deploying new WebLogic
 domains to ensure that the new domain's namespace is being managed by the operator.
 
-### External REST API Access
+#### External REST API Access
 By default, the operator's REST API is not exposed outside the Kubernetes cluster.  To enable the REST API to be
 exposed, enable `Expose REST API Externally`, set the desired HTTPS port using the
 `External REST API HTTPS Port` field, and name of the Kubernetes TLS secret to use in the
 `External REST API Identity Secret Name` field.  For more information, see the WebLogic Kubernetes Operator
 [Rest API](https://oracle.github.io/weblogic-kubernetes-operator/userguide/managing-operators/the-rest-api/) documentation.
 
-### Third Party Integrations
+#### Third Party Integrations
 To enable integration with the Elasticsearch, Logstash, and Kibana (ELK) stack, enable `ELK Integration Enabled` and provide values for the
 following fields.
 
@@ -131,7 +143,7 @@ following fields.
 For more information, see [Elastic Stack integration](https://oracle.github.io/weblogic-kubernetes-operator/userguide/managing-operators/#optional-elastic-stack-elasticsearch-logstash-and-kibana-integration)
 in the WebLogic Kubernetes Operator documentation.
 
-### Java Logging
+#### Java Logging
 This pane lets you override the operator's Java logging configuration, which can be useful when debugging issues
 with the operator.  Use the `Logging Level` field to customize the minimum log level written to the log file.  The
 `Log File Size Limit` field sets the maximum size of a single operator log file while the `Log File Count` limits the
@@ -139,7 +151,7 @@ maximum number of retained log files.  For more information, see
 [Operator Helm configuration values](https://oracle.github.io/weblogic-kubernetes-operator/userguide/managing-operators/using-helm/#operator-helm-configuration-values)
 in the WebLogic Kubernetes Operator documentation.
 
-## Code View
+### Code View
 The `WebLogic Operator` page's `Code View` displays a shell script that you can use as a starting point for automating the
 operator installation process.  
 
@@ -151,7 +163,7 @@ set environment variables to specify any credentials required by the script to e
 the script itself.  This change is left as an exercise for you because different environments typically will have
 existing standards for securely handling such credentials.
 
-## Install Operator
+### Install Operator
 `Push Image` uses the specified Image Builder program to upload (that is, push) the newly-built image
 to the image registry specified by its image tag.  You can access it by using the `Install Operator` button on the
 `WebLogic Operator` page or `Go` > `Install WebLogic Kubernetes Operator`.

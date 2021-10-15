@@ -1,25 +1,20 @@
-## Contents
-- [Kubernetes](#kubernetes)
+---
+title: "Client Configuration"
+date: 2019-02-22T15:44:42-05:00
+draft: false
+weight: 1
+description: "Client Configuration helps you get the necessary connectivity to your Kubernetes cluster."
+---
+
+
+
+### Contents
+
 - [Client Configuration](#client-configuration)
     - [Authentication with Managed Kubernetes Clusters](#authentication-with-managed-kubernetes-clusters)
     - [Verify Connectivity](#verify-connectivity)
-- [WebLogic Kubernetes Operator](site/k8s-wko.md)
-- [WebLogic Domain](site/k8s-weblogic-domain.md)
-- [Ingress Controller](site/k8s-ingress-controller.md)
 
-
-## Kubernetes
-The `Kubernetes` section and its four subsections support deploying a WebLogic-based application to a
-Kubernetes cluster where the WebLogic domain will be managed by the WebLogic Kubernetes Operator.  It includes sections
-to help you:
-
-1. [Configure](#client-configuration) your Kubernetes client (`kubectl`) to connect to the Kubernetes cluster.
-2. [Install](k8s-wko.md#install-operator) the WebLogic Kubernetes Operator.
-3. [Deploy](k8s-weblogic-domain.md#deploy-domain) the WebLogic domain's `Domain` resource configuration used by WebLogic Kubernetes Operator.
-4. [Install](k8s-ingress-controller.md#install-ingress-controller) an ingress controller, if needed, and add ingress routes to allow access to the WebLogic domain from
-   outside the Kubernetes cluster.
-
-## Client Configuration
+### Client Configuration
 `Client Configuration` helps you get the necessary connectivity to your Kubernetes
 cluster.  Use the `Kubernetes Cluster Type` field to select the target Kubernetes cluster type to show instructions for
 configuring `kubectl` to successfully connect to the cluster.
@@ -33,7 +28,7 @@ specify the configuration file's context associated with the cluster to which yo
 Kubernetes Operator and ingress controllers.  For more information
 about Helm, see the [Helm](https://helm.sh/) documentation.
 
-### Authentication with Managed Kubernetes Clusters
+#### Authentication with Managed Kubernetes Clusters
 Most cloud vendors require the use of their command-line tooling to authenticate `kubectl` connections to their managed
 Kubernetes clusters.  For example, after `kubectl` is configured to connect to a Kubernetes cluster managed by the
 Oracle Kubernetes Engine (OKE), the Kubernetes client configuration file will have a section that looks similar to the
@@ -85,7 +80,7 @@ provides the `Extra Kubernetes Client Path Directories` field to explicitly add 
 command-line tooling is installed, to the `PATH` that the application uses to invoke `kubectl`.  Note that this field
 is only visible when running the application on MacOS.
 
-### Verify Connectivity
+#### Verify Connectivity
 To verify the application configuration for connecting to the specified Kubernetes cluster,
 use the `Verify Connectivity` button on the `Client Configuration` page or
 `Go` > `Verify Kubernetes Client Connection`.

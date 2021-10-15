@@ -1,5 +1,13 @@
-## Contents
-- [Ingress Controller](#Ingress Controller)
+---
+title: "Ingress Controller"
+date: 2019-02-22T15:44:42-05:00
+draft: false
+weight: 4
+description: "Install and configure an ingress controller."
+---
+
+### Contents
+- [Ingress Controller](#ingress-controller)
 - [Design View](#design-view)
     - [Ingress Controller Configuration](#ingress-controller-configuration)
     - [TLS Secret for Ingress Routes](#tls-secret-for-ingress-routes)
@@ -8,12 +16,12 @@
 - [Install Ingress Controller](#install-ingress-controller)
 - [Update Ingress Routes](#update-ingress-routes)
 
-## Ingress Controller
+### Ingress Controller
 This section supports two distinct functions related to an ingress controller.  First, it supports installing an ingress
 controller to a Kubernetes cluster.  Second, it supports adding the necessary routes to an ingress controller to make
 a deployed WebLogic domain's end-points accessible.
 
-### Design View
+#### Design View
 `Design View` helps you specify the data needed to install an ingress controller, if desired, and
 specify the data needed to expose one or more endpoints for a deployed WebLogic domain.  This page contains three panes:
 
@@ -21,7 +29,7 @@ specify the data needed to expose one or more endpoints for a deployed WebLogic 
 - [TLS Secret for Ingress Routes](#tls-secret-for-ingress-routes)
 - [Ingress Routes Configuration](#ingress-routes-configuration)
 
-### Ingress Controller Configuration
+#### Ingress Controller Configuration
 The most important field in this pane is the `Ingress Provider` field.  This fields tells the WKT UI application with which of the
 supported ingress controllers it will need to work.  The current release supports two ingress
 controllers:
@@ -41,7 +49,7 @@ cluster attempts to pull the image and start the container.
 To create this secret, enable `Create Docker Hub Secret` and fill in the pull secret data in the `Docker Hub Username`, `Docker Hub Password`,
 and `Docker Hub Email Address` fields.
 
-### TLS Secret for Ingress Routes
+#### TLS Secret for Ingress Routes
 Use this pane to configure the Transport Layer Security (TLS) secret containing the certificate and private key data that will be used by the
 ingress controller when establishing HTTPS connections from clients to the ingress controller.  The TLS connection will be
 terminated at the ingress controller, so traffic between the ingress controller and services/pods will not be encrypted.
@@ -62,7 +70,7 @@ to put into the subject of the certificate.
       - The subject data will support multiple
 key/value pairs using a comma-separated syntax, like `/key1=value1,/key2=value2,/key3=value3`.
 
-### Ingress Routes Configuration
+#### Ingress Routes Configuration
 Use the table in this section to define the ingress routes to be added by the application.  _Note that this table does
 not currently display existing routes already defined._  Any routes defined in or removed from the table will happen in
 the WKT Project object.  When applying or updating the routes, only the fields currently in the table will be considered.
@@ -83,7 +91,7 @@ information must be provided in the `TLS Secret for Ingress Routes` pane. Differ
 - Use the `Ingress Route Annotations` table to
 add annotations to the ingress route, as needed.
 
-## Code View
+### Code View
 The `Code View` displays shell scripts for installing an ingress controller and for updating ingress routes.  It also
 displays the YAML definitions of the routes to be added, if applicable.
 
@@ -95,12 +103,12 @@ set environment variables to specify any credentials required by the script to e
 the script itself.  This change is left as an exercise for you because different environments typically will have
 existing standards for securely handling such credentials.
 
-## Install Ingress Controller
+### Install Ingress Controller
 `Install Ingress Controller` creates any namespace and secret specified and runs the ingress controller's Helm
 chart to install the ingress controller.  You can access it by using the `Install Ingress Controller` button on the
 `Ingress Controller` page or `Go` > `Install Ingress Controller`.
 
-## Update Ingress Routes
+### Update Ingress Routes
 `Update Ingress Routes` creates the TLS secret, if needed, and adds or updates the specified ingress routes. You can access it
 by using the `Update Ingress Routes` button on the `Ingress Controller` page or
 `Go` > `Update Ingress Routes to Domain`.

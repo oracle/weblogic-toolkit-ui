@@ -1,5 +1,14 @@
-## Contents
-- [About the WKT UI Application](#about-the-wkt-ui-application)
++++
+title = "About the WKT UI Application"
+date = 2019-02-22T15:27:38-05:00
+weight = 1
+pre = "<b> </b>"
++++
+
+
+
+### Contents
+
 - [WKT Project File](#wkt-project-file)
 - [Settings Outside the WKT Project File](#settings-outside-the-wkt-project-file)
     - [Environment Variables](#environment-variables)
@@ -9,9 +18,9 @@
         - [WebLogic Kubernetes Toolkit UI Introduction Configuration](#weblogic-kubernetes-toolkit-ui-introduction-configuration)
     - [External Applications](#external-applications)
     - [Bundled WKT Applications](#bundled-wkt-applications)
-- [Next Steps](#next-steps)
 
-## About the WKT UI Application
+
+
 Before giving you the whirlwind tour of the WKT UI application, it is important to know that the application is a native,
 desktop application.  It uses native operating system features, such as:
 
@@ -25,7 +34,7 @@ desktop application.  It uses native operating system features, such as:
   display the recently used `.wktproj` files and selecting one will open an application window and load the contents
   of the `.wktproj` file.
 
-## WKT Project File
+### WKT Project File
 What is a `.wktproj` file?  Simply put, it is the application's equivalent of an Integrated Development Environment
 (IDE) project file.  It stores:
 
@@ -45,7 +54,7 @@ The WKT UI application uses a one project per window paradigm and most everythin
 affected by the project data, either stored directly in the project file or in the WDT model-related files referenced
 by the project.  However, there are a few exceptions that are covered in [Settings Outside the WKT Project File](#settings-outside-the-wkt-project-file).
 
-## Settings Outside the WKT Project File
+### Settings Outside the WKT Project File
 
 Multiple factors influence the behavior of the WKT UI application in a particular environment.  Other than the WKT Project file,
 those include:
@@ -56,7 +65,7 @@ those include:
 - [External Applications](#external-applications) - The application or its components depend on an application being available and properly configured.
 - [Bundled WKT Applications](#bundled-wkt-applications) - The application bundles its own copies of WebLogic Deploy Tooling and WebLogic Image Tool.
 
-### Environment Variables
+#### Environment Variables
 Some of the application's behavior is influenced by environment variables it inherits when it is started.  Environment
 variables affect the behavior of the WKT UI application when computing default values for application form fields.  Some
 examples are:
@@ -65,12 +74,14 @@ examples are:
 - `JAVA_HOME` - Used as one way to find the directory where the Java Development Kit (JDK) is installed.
 - `ORACLE_HOME` and `MW_HOME` - Used to find the Oracle Fusion Middleware installation directory.
 
-**NOTE**: On Windows and Linux platforms, this tends to be the user's environment that they have configured to be used when
+{{% notice note %}}
+On Windows and Linux platforms, this tends to be the user's environment that they have configured to be used when
 they log in. On MacOS, native applications do not inherit the user's login environment.  Instead, the application
 inherits the environment configured by the `launchd` daemon process.  If you are running on MacOS, then you should keep this in mind
 when the application doesn't behave as you expect.
+{{% /notice %}}
 
-### User Preferences
+#### User Preferences
 
 The `Preferences` menu lets you configure settings that affect the behavior of the WKT UI application for the user
 across all instances of the application on the machine.  These user-visible settings include the following categories:
@@ -83,7 +94,7 @@ Settings are also used to store internally used values that impact the appearanc
 Window size is stored so that the application will open the window with your last known window size.  The list of
 such appearance-related settings will likely grow over time.
 
-#### Proxy Configuration
+##### Proxy Configuration
 
 If the WKT UI application is to be run from an environment where a proxy server is required to access the Internet, then you
 must configure the proxy server settings to allow Internet access.  Currently, the UI depends on access to
@@ -102,7 +113,7 @@ following fields, as needed:
   For example, a value of `.us.mycompany.com,.emea.mycompany.com,.apac.mycompany.com` will skip the proxy for any
   DNS name that ends in one of the three domain names.
 
-#### Logging Configuration
+##### Logging Configuration
 
 Using this section, you can configure the logging output level and control the log file directory.  The defaults are:
 
@@ -111,12 +122,12 @@ Using this section, you can configure the logging output level and control the l
 - `Log File Directory` - The directory to which log files are written.  The default is the user's temporary directory, as
   defined by the operating system.
 
-#### WebLogic Kubernetes Toolkit UI Introduction Configuration
+##### WebLogic Kubernetes Toolkit UI Introduction Configuration
 
 This setting lets you turn on or off the in-application introductory information being displayed at startup.  `Show Introduction` is always
 accessible from the `Help` menu.
 
-### External Applications
+#### External Applications
 
 The WKT UI application depends on several external applications for its functionality.  As such, it is important to install and
 configure these external applications properly on the local machine on which the application is running.
@@ -130,7 +141,7 @@ configure these external applications properly on the local machine on which the
 - `openssl` - Used to generate X.509 TLS certificates, should you ask the application to
   generate one for your ingress route(s), only if you ask the application to generate it for you.
 
-### Bundled WKT Applications
+#### Bundled WKT Applications
 
 [WebLogic Deploy Tooling](https://oracle.github.io/weblogic-deploy-tooling/) (WDT) and [WebLogic Image Tool](https://oracle.github.io/weblogic-image-tool/) (WIT) are bundled with the WKT UI application.  These tools are:
 
@@ -141,8 +152,3 @@ configure these external applications properly on the local machine on which the
 
 Use `Help` > `Check For Updates` periodically to make sure you are using the latest versions of these
 bundled tools.
-
-## Next Steps
-
-- Get started in the [WKT UI](site/project-settings.md).
-- Learn about [WKT Project](project-settings.md#project-settings) Settings.

@@ -1,11 +1,19 @@
-## Contents
+---
+title: "WebLogic Domain"
+date: 2019-02-22T15:44:42-05:00
+draft: false
+weight: 3
+description: "Create and deploy the Kubernetes custom resource for the WebLogic domain."
+---
+
+### Contents
 - [WebLogic Domain](#weblogic-domain)
 - [Design View](#design-view)
     - [Image to Use for the Domain](#image-to-use-for-the-domain)
     - [Clusters](#clusters)
     - [Model Variables Overrides](#model-variables-overrides)
     - [Secrets](#secrets)
-    - [Runtime Encryption Secret](#Runtime Encryption Secret)
+    - [Runtime Encryption Secret](#runtime-encryption-secret)
     - [WebLogic Kubernetes Operator Introspection Configuration](#weblogic-kubernetes-operator-introspection-configuration)
     - [Domain-Wide Server Settings](#domain-wide-server-settings)
 - [Code View](#code-view)
@@ -13,13 +21,13 @@
 - [Deploy Domain](#deploy-domain)
 - [Get Domain Status](#get-domain-status)
 
-## WebLogic Domain
+### WebLogic Domain
 The `WebLogic Domain` section provides support for creating and deploying the Kubernetes custom resource for the WebLogic domain as
 defined by the WebLogic Kubernetes Operator.  For more information, see
 [Domain Resource](https://oracle.github.io/weblogic-kubernetes-operator/userguide/managing-domains/domain-resource/)
 in the WebLogic Kubernetes Operator documentation.
 
-## Design View
+### Design View
 The `Design View` helps you specify the necessary data needed to generate the Domain resource definition and deploy
 that resource into a Kubernetes cluster.
 
@@ -28,7 +36,7 @@ within the Kubernetes namespace where it will be created, which is controlled by
 
 The default value of the `Domain UID` field is based on the WebLogic domain's name, as defined by the WDT model:  
 
-- When using either "Model in Image" or "Domain in Image" [domain location](project-settings.md#choosing-a-domain-location),
+- When using either "Model in Image" or "Domain in Image" [domain location]({{< relref "/navigate/project-settings#choosing-a-domain-location" >}}),
 the `Domain Home Path` field is read-only and its value is set using the `Domain Home Directory` field under `Advanced`.  
 - When using "Domain in PV", this field must be set to the fully
 qualified path to the domain home directory in the persistent volume.  For example, if the persistent volume mount
@@ -66,9 +74,9 @@ The following sections describe the other panes that support configuring the gen
 - [WebLogic Kubernetes Operator Introspection Configuration](#weblogic-kubernetes-operator-introspection-configuration)
 - [Domain-Wide Server Settings](#domain-wide-server-settings)
 
-### Image to Use for the Domain
+#### Image to Use for the Domain
 This pane focuses on the container image to use to run the WebLogic Server domain in a container.   
-- When using either "Model in Image" or "Domain in Image" [domain location](project-settings.md#choosing-a-domain-location), the `Image Tag` field is read-only; its value is set using the
+- When using either "Model in Image" or "Domain in Image" [domain location]({{< relref "/navigate/project-settings#choosing-a-domain-location" >}}), the `Image Tag` field is read-only; its value is set using the
 `Image Tag` field in the `Image` section.  
 - In the case of "Domain in PV", the `Image Tag` field is not read-only and _is_
 the place to specify the image to use to run the WebLogic domain's containers.  
@@ -88,7 +96,7 @@ whether to use an existing image pull secret or create a new one.  Specify the i
 `Image Pull Secret Name` field.  When creating a new secret, specify the secret data using the
 `Image Registry Pull Username`, `Image Registry Pull Email Address`, and `Image Registry Pull Password` fields.  
 
-### Clusters
+#### Clusters
 The Clusters pane lists the names of each cluster in the model and lets you adjust the WebLogic Server
 startup configuration and Kubernetes resource requests and limits.  It is currently populated when `Prepare Model` is run,
 which means that projects using "Domain in PV" will not have access to adjust the configuration at the cluster level.
@@ -131,7 +139,7 @@ these values to be specified:
 
 For more information about these fields and setting their values, see the [Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-memory).
 
-### Model Variables Overrides
+#### Model Variables Overrides
 Use this pane to override values of model variables when using "Model in Image" to customize the model data already set
 in the image.  For example, the image may contain a variable whose value refers to a JDBC URL to connect to a database.
 Because the image may be used across development, test, and production environments, overriding the JDBC URL to point to
@@ -146,14 +154,14 @@ reach this page, both the `Model Variable Name` and the `Model Variable File Val
 `Model Variable Override Value` for any variable whose `Model Variable File Value` should be overridden.  Note that the
 ConfigMap will only be created if one or more variables have an override value specified.
 
-### Secrets
+#### Secrets
 When using "Model in Image", use this pane to set the value of any secrets referenced in the model (other than the WebLogic administrator credentials
 secret).  The secrets that appear in the table are pulled from the model file directly;
 as such, the `Secret Name` field is read-only.  Set the appropriate `Username` and `Password` field values for each
 secret in the table.  These values are required and will be used to create or update the secret with the specified
 values.
 
-### Runtime Encryption Secret
+#### Runtime Encryption Secret
 When using "Model in Image", the WebLogic Kubernetes Operator requires a runtime encryption secret it uses to encrypt
 sensitive WebLogic Server domain data stored in Kubernetes.  For more information, see
 [Required runtime encryption secret](https://oracle.github.io/weblogic-kubernetes-operator/userguide/managing-domains/model-in-image/usage/#required-runtime-encryption-secret)
@@ -163,14 +171,14 @@ Use the `Runtime Encryption Secret Name` field to control the name of the secret
 name is sufficient.  The `Runtime Encryption Secret Value` field's default value is generated but may be changed, if
 desired.  
 
-### WebLogic Kubernetes Operator Introspection Configuration
+#### WebLogic Kubernetes Operator Introspection Configuration
 This pane controls the WebLogic Kubernetes Operator introspection job configuration.  Use the
 `Introspection Job Active Deadline Seconds` field to control how long the operator waits for the introspection job to
 complete.  The application sets the default to 900 seconds (15 minutes); this overrides the underlying default of 120
 seconds (2 minutes) built into the operator.  As such, clearing the value of this field will cause the effective value
 to be set to 120 seconds.
 
-### Domain-Wide Server Settings
+#### Domain-Wide Server Settings
 This pane lets you adjust the WebLogic Server startup configuration and Kubernetes resource requests and
 limits default values for every WebLogic Server container in the WebLogic Server domain.  Any fields set here will be
 applied only if they are not overridden elsewhere.  For example, setting the `Minimum Heap Size` will set
@@ -181,7 +189,7 @@ to use this section to configure the Administration Server and use the `Clusters
 The fields in this pane have similar meaning to the equivalent fields previously described in
 [Clusters](#clusters); refer to that section for more information.
 
-## Code View
+### Code View
 The `Code View` displays a shell script for deploying the domain and creating its dependent resources as well as
 the YAML definition for the Kubernetes custom resource (that is, the Domain resource) and the Model Variables Overrides
 ConfigMap, if applicable.
@@ -194,11 +202,11 @@ set environment variables to specify any credentials required by the script to e
 the script itself.  This change is left as an exercise for you because different environments typically will have
 existing standards for securely handling such credentials.
 
-## Prepare Model
+### Prepare Model
 `Prepare Model` is the same as was previously described in the [`Model`](model.md#prepare-model) section.  It is only
 surfaced here because the `Clusters` pane of the `Design View` is populated only when `Prepare Model` is run.
 
-## Deploy Domain
+### Deploy Domain
 `Deploy Domain` creates the Domain custom resource object and any of its dependent objects (for example,
 namespace, secrets, ConfigMap) in Kubernetes.  You can access it by using the `Deploy Domain` button on the
 `WebLogic Domain` page or `Go` > `Deploy WebLogic Domain to Kubernetes`.  As previously
@@ -210,7 +218,7 @@ after the action completes, the operator will detect a new (or updated) version 
 start a new introspection job to create the domain and start or restart the WebLogic Server containers.  `Get Domain Status`
 provides the current status of the last `Deploy Domain` action.
 
-## Get Domain Status
+### Get Domain Status
 To view the current status of the last domain deployment, use the `Get Domain Status` button or the
 `Go` > `Get WebLogic Domain Status`.  This action retrieves and displays the domain deployment
 status, as provided by the WebLogic Kubernetes Operator.
