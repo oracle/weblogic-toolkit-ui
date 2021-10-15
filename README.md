@@ -25,7 +25,7 @@ it or dismiss it; you can peruse it at any time using `Help > Show Introduction`
 
 ## About the Documentation
 
-Documentation for WebLogic Kubernetes Toolkit UI is available here.
+Documentation for WebLogic Kubernetes Toolkit UI is available [here](https://oracle.github.io/weblogic-toolkit-ui/).
 
 This documentation includes information for users and for developers.
 
