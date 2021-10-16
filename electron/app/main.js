@@ -3,7 +3,7 @@
  * Copyright (c) 2021, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
-const {app, BrowserWindow, dialog, ipcMain, shell} = require('electron');
+const { app, BrowserWindow, dialog, ipcMain, shell } = require('electron');
 const path = require('path');
 
 const WktMode = require('./js/wktMode');
@@ -30,6 +30,7 @@ const witCreate = require('./js/witCreate');
 const kubectlUtils = require('./js/kubectlUtils');
 const helmUtils = require('./js/helmUtils');
 const openSSLUtils = require('./js/openSSLUtils');
+const { initializeAutoUpdater, registerAutoUpdateListeners } = require('./js/appUpdater');
 
 const { getHttpsProxyUrl, getBypassProxyHosts } = require('./js/userSettings');
 const {sendToWindow} = require('./js/windowUtils');
@@ -52,6 +53,8 @@ class Main {
   }
 
   runApp(argv) {
+    initializeAutoUpdater(getLogger());
+    registerAutoUpdateListeners();
     this.registerAppListeners(argv);
     this.registerIpcListeners();
     this.registerIpcHandlers();

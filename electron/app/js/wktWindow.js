@@ -13,6 +13,7 @@ const wdtDiscovery = require('./wdtDiscovery');
 const wktTools = require('./wktTools');
 const osUtils = require('./osUtils');
 const { getLogger, getDefaultLogDirectory } = require('./wktLogging');
+const { checkForUpdates } = require('./appUpdater');
 
 const appDir = path.normalize(path.join(__dirname, '..'));
 
@@ -386,8 +387,16 @@ class WktAppMenu {
         role: 'help',
         submenu: [
           {
-            id: 'checkForUpdates',
-            label: i18n.t('menu-help-checkForUpdates'),
+            id: 'checkForAppUpdates',
+            label: i18n.t('menu-help-checkForAppUpdates'),
+            enabled: !this._hasOpenDialog,
+            click(item, focusedWindow, event) {
+              checkForUpdates(item, focusedWindow, event);
+            }
+          },
+          {
+            id: 'checkForToolUpdates',
+            label: i18n.t('menu-help-checkForToolUpdates'),
             enabled: !this._hasOpenDialog,
             async click(item, focusedWindow) {
               if (focusedWindow) {
@@ -862,6 +871,18 @@ async function promptUserForOkOrCancelAnswer(targetWindow, title, message) {
   });
 }
 
+function getCheckForAppUpdatesMenuItem() {
+  let checkForAppUpdatesMenuItem;
+  const menu = Menu.getApplicationMenu();
+  if (menu) {
+    const helpMenu = menu.items.find(item => item.id === 'help');
+    if (helpMenu && helpMenu.submenu) {
+      checkForAppUpdatesMenuItem = helpMenu.submenu.items.find(item => item.id === 'checkForAppUpdates');
+    }
+  }
+  return checkForAppUpdatesMenuItem;
+}
+
 // Arguments added here should be passed to the browser's window.process.argv array.
 function _getAdditionalArguments() {
   let extraArgs = [];
@@ -883,6 +904,7 @@ module.exports = {
   clearWindow,
   closeWindow,
   createWindow,
+  getCheckForAppUpdatesMenuItem,
   initialize,
   isSingleWindow,
   setTitleFileName,

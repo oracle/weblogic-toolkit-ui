@@ -61,7 +61,8 @@
   "menu-window-bringAllToFront": "Bring All to Front",
 
   "menu-help": "Help",
-  "menu-help-checkForUpdates": "Check for Updates",
+  "menu-help-checkForAppUpdates": "Check for WKT UI Updates",
+  "menu-help-checkForToolUpdates": "Check for WKT Tools Updates",
   "menu-help-showQuickstart": "Show Introduction",
   "menu-help-visitWebsite": "Visit Website",
   "menu-help-toggleDevTools": "Toggle Developer Tools",
@@ -74,6 +75,15 @@
   "menu-app-hideOthers": "Hide Others",
   "menu-app-showAll": "Show All",
   "menu-app-quit": "Quit",
+
+  "auto-updater-error-title": "Auto-Updater Aborted",
+  "auto-updater-error-message": "Application auto-updater failed: {{error}}",
+  "auto-updater-update-available-title": "Application Update Available",
+  "auto-updater-update-available-question": "Would you like to update the application to {{version}}?",
+  "auto-updater-update-not-available-title": "Application Up-To-Date",
+  "auto-updater-update-not-available-message": "Version {{version}} is the latest available version.",
+  "auto-updater-install-title": "Update Application",
+  "auto-updater-install-question": "Update the application now or on exit?",
 
   "dialog-chooseArchiveFile": "Select an Archive File",
   "dialog-chooseModelFile": "Select a Model File",
@@ -155,6 +165,8 @@
   "button-updateTools": "Update Tool(s)",
   "button-copyToProjectDirectory":"Copy to Project Directory",
   "button-useExistingLocation": "Use Existing Location",
+  "button-update-now": "Update and Restart Now",
+  "button-update-on-exit": "Update when Application Exits",
 
   "tools-docker-hub": "Docker Hub",
 
