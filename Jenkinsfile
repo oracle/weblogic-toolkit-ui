@@ -20,7 +20,6 @@
         version_number = VersionNumber([versionNumberString: '-${BUILD_YEAR}${BUILD_MONTH,XX}${BUILD_DAY,XX}${BUILDS_TODAY_Z,XX}', versionPrefix: "${version_prefix}"])
 
         git_url = "https://github.com/oracle/weblogic-toolkit-ui.git"
-        github_creds = "wktui-github"
         dockerhub_creds = "wktui-dockerhub"
         branch = sh(returnStdout: true, script: 'echo $GIT_BRANCH | sed --expression "s:origin/::"')
     }
@@ -47,7 +46,7 @@
                         }
                         stage('Linux Checkout') {
                             steps {
-                                 git url: "${git_url}", credentialsId: "${github_creds}", branch: "${branch}"
+                                 git url: "${git_url}", branch: "${branch}"
                                  sh 'echo ${version_number} > ${WORKSPACE}/WKTUI_VERSION.txt'
                             }
                         }
@@ -145,7 +144,7 @@
                         }
                         stage('MacOS Checkout') {
                             steps {
-                                 git url: "${git_url}", credentialsId: "${github_creds}", branch: "${branch}"
+                                 git url: "${git_url}", branch: "${branch}"
                                  sh 'echo ${version_number} > ${WORKSPACE}/WKTUI_VERSION.txt'
                             }
                         }
@@ -244,7 +243,7 @@
                         }
                         stage('Windows Checkout') {
                             steps {
-                                 git url: "${git_url}", credentialsId: "${github_creds}", branch: "${branch}"
+                                 git url: "${git_url}", branch: "${branch}"
                                  bat 'echo %version_number% > "%WORKSPACE%/WKTUI_VERSION.txt"'
                             }
                         }
