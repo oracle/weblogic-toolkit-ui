@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.88.1" />
+    <meta name="description" content="">
+
+
+    <link rel="icon" href="/weblogic-toolikit-ui/images/favicon.png" type="image/png">
+
+    <title>Project Settings :: WebLogic Kubernetes Toolkit UI</title>
+
+    
+    <link href="/weblogic-toolikit-ui/css/nucleus.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/fontawesome-all.min.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/hybrid.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/featherlight.min.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/perfect-scrollbar.min.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/auto-complete.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/atom-one-dark-reasonable.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/theme.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/tabs.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/hugo-theme.css?1634394870" rel="stylesheet">
+    
+    
+
+    <script src="/weblogic-toolikit-ui/js/jquery-3.3.1.min.js?1634394870"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+        :not(pre) > code + span.copy-to-clipboard {
+            display: none;
+        }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/weblogic-toolikit-ui/navigate/project-settings/">
+    <nav id="sidebar" class="">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="/weblogic-toolikit-ui/">
+  <img src="/weblogic-toolikit-ui//images/logo.png" height="90"><br/>
+  WebLogic Kubernetes Toolkit UI
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/weblogic-toolikit-ui/js/lunr.min.js?1634394870"></script>
+<script type="text/javascript" src="/weblogic-toolikit-ui/js/auto-complete.js?1634394870"></script>
+<script type="text/javascript">
+    
+        var baseurl = "\/weblogic-toolikit-ui\/";
+    
+</script>
+<script type="text/javascript" src="/weblogic-toolikit-ui/js/search.js?1634394870"></script>
+
+    
+  </div>
+  
+    <section id="homelinks">
+      <ul>
+        <li>
+            <a class="padding" href='/weblogic-toolikit-ui/'><i class='fas fa-home'></i> Home</a>
+        </li>
+      </ul>
+    </section>
+  
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/weblogic-toolikit-ui/concepts/" title="About the WKT UI Application" class="dd-item
+        
+        
+        
+        ">
+      <a href="/weblogic-toolikit-ui/concepts/">
+          <b> </b>About the WKT UI Application
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/weblogic-toolikit-ui/setup/" title="Get Started" class="dd-item
+        
+        
+        
+        ">
+      <a href="/weblogic-toolikit-ui/setup/">
+          <b> </b>Get Started
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/setup/prerequisites/" title="Prerequisites" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/setup/prerequisites/">
+        Prerequisites
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/setup/install/" title="Install WKT UI" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/setup/install/">
+        Install WKT UI
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/weblogic-toolikit-ui/navigate/" title="Navigate the UI" class="dd-item
+        parent
+        
+        
+        ">
+      <a href="/weblogic-toolikit-ui/navigate/">
+          <b> </b>Navigate the UI
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/navigate/project-settings/" title="Project Settings" class="dd-item active">
+        <a href="/weblogic-toolikit-ui/navigate/project-settings/">
+        Project Settings
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/navigate/model/" title="Model" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/navigate/model/">
+        Model
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/navigate/image/" title="Image" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/navigate/image/">
+        Image
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/weblogic-toolikit-ui/navigate/kubernetes/" title="Kubernetes" class="dd-item
+        
+        
+        
+        ">
+      <a href="/weblogic-toolikit-ui/navigate/kubernetes/">
+          <b> </b>Kubernetes
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/navigate/kubernetes/k8s-client-config/" title="Client Configuration" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/navigate/kubernetes/k8s-client-config/">
+        Client Configuration
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/navigate/kubernetes/k8s-wko/" title="WebLogic Kubernetes Operator" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/navigate/kubernetes/k8s-wko/">
+        WebLogic Kubernetes Operator
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/navigate/kubernetes/k8s-weblogic-domain/" title="WebLogic Domain" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/navigate/kubernetes/k8s-weblogic-domain/">
+        WebLogic Domain
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/navigate/kubernetes/k8s-ingress-controller/" title="Ingress Controller" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/navigate/kubernetes/k8s-ingress-controller/">
+        Ingress Controller
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/navigate/verrazzano/" title="Verrazzano" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/navigate/verrazzano/">
+        Verrazzano
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/weblogic-toolikit-ui/developer/" title="Developer Guide" class="dd-item
+        
+        
+        
+        ">
+      <a href="/weblogic-toolikit-ui/developer/">
+          <b> </b>Developer Guide
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+          
+        
+    </ul>
+
+    
+    
+
+    
+    <section id="footer">
+      <p>Created with <i class="fas fa-heart"></i> from <a href="https://www.oracle.com">Oracle</a></p>
+<p>&nbsp</p>
+<p><a href="https://github.com/oracle/weblogic-toolkit-ui"><i class="fab fa-github"></i> GitHub repo</a></p>
+<p><a href="https://weblogic-slack-inviter.herokuapp.com/"><i class="fab fa-slack"></i> Public Slack #weblogic</a></p>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/weblogic-toolikit-ui/'></a> > <a href='/weblogic-toolikit-ui/navigate/'>Navigate the UI</a> > Project Settings
+          
+        
+          
+        
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              Project Settings
+            </h1>
+          
+
+        
+
+
+<p>The first stop for every new project is <code>Project Settings</code>.  In this section, you make decisions and provide
+input for the project on:</p>
+<ul>
+<li><a href="#choosing-a-credential-storage-scheme">Credential Storage</a></li>
+<li><a href="#choosing-a-domain-location">Domain Location</a></li>
+<li><a href="#choosing-a-kubernetes-environment-target-type">Kubernetes Environment Target Type</a></li>
+<li><a href="#choosing-the-java-and-oracle-installation-directories">JDK and WebLogic Server Installation Directories</a></li>
+<li><a href="#choosing-the-image-build-tool">Image Build Tool Type and Executable Location</a></li>
+</ul>
+<h4 id="choosing-a-credential-storage-scheme">Choosing a Credential Storage Scheme</h4>
+<p>The WKT UI application can securely store credentials for your project or not store them at all.  The three choices
+are to:</p>
+<ul>
+<li>Use the Native OS Credential Store</li>
+<li>Store Encrypted Credentials in the WKT Project File</li>
+<li>Not Store Credentials</li>
+</ul>
+<p>If you choose <code>Store in Native OS Credential Store</code>, then you will be using the Windows Credential Manager, the MacOS Keychain,
+or the Linux <code>libsecret</code> library&rsquo;s credential store.  These credential stores offer a well-known, secure mechanism for
+storing credentials that most users already understand.  The only downside to this scheme is that the credentials are
+stored only on the local machine.  Anyone trying to share their project with others users will have to have the other users
+re-enter the credentials so that they get saved to their local machine&rsquo;s credential store.</p>
+
+<div class="notices note" ><p>The WKT UI application can require storing a dozen or more credentials, depending on your WebLogic Server
+domain configuration. Upon first access by the WKT UI to load credentials from the credential store, the OS will prompt
+whether you want to allow the application access to each credential, prompting you once for each credential.  This
+can get annoying, but on some platforms (for example, MacOS), you have the option of telling the OS to always allow access to
+the credential by the WKT UI application.</p>
+</div>
+
+<p>The other choice to store credentials, <code>Store Encrypted in Project File</code>, uses a passphrase-based encryption built into the application that allows
+the credentials to be stored inline in the WKT Project file.  The algorithms and techniques used follow the current
+industry standards and recommendations; however, because this project is open source, you can look at the details,
+if you are interested.  The only downside to this approach is that, because the passphrase itself is
+never stored, you must share the passphrase with any other users that should be able to use the WKT Project file.</p>
+<p>A creative person might realize that they can use the passphrase-based encryption to move credentials normally stored
+in the native OS credential store to another machine.  The steps to accomplish this would be:</p>
+<ol>
+<li>Open the project using the native OS credential store on the machine where the credentials are stored.</li>
+<li>Change the credential storage option to passphrase-based encryption and enter a passphrase.</li>
+<li>Save the project file.</li>
+<li>Open the project file on a different machine, supplying the passphrase entered in step 2.</li>
+<li>Change the credential storage option to native OS credential store.</li>
+<li>Save the project file.</li>
+</ol>
+<p>The final choice, <code>Not Stored</code>, is to not store the credentials at all. While this is a viable option, it also means that whenever you
+need to run any of the actions that require credentials, you will need to re-enter the value of every credential in the
+project.</p>
+<h4 id="choosing-a-domain-location">Choosing a Domain Location</h4>
+<p>When getting started with a new WKT Project, one of the first things to consider is where you want the domain to reside.
+Domains can reside in a container, in an image, or in a persistent volume.  Your choice will expose and hide different
+fields across most sections of the UI.  The following describe the implications of the three locations.</p>
+<p><code>Created in the container from the model in the image</code>  - The newest and most popular location for a domain is in the container.  This is known as &ldquo;Model in Image&rdquo; but also
+referred to as a &ldquo;From Model&rdquo; in the underlying WKT tooling.  In this case, the set of model-related files are added to
+the image.  When the WebLogic Kubernetes Operator domain object is deployed, its inspector process runs and creates the
+WebLogic Server domain inside a running container on-the-fly.  While this process adds a small amount of overhead at
+startup, it also makes it easier to maintain the image.  For example, you can have a common WebLogic Server image that
+is updated periodically to pick up the latest Patch Set Updates (PSUs).  Then, you use that image to add the
+most recent version of the WebLogic Deploy Tooling and your domain model files as a layer on top.</p>
+<p><code>Created as part of the image</code> - This selection stores the domain in the image.  This is known as &ldquo;Domain in Image&rdquo; but also is referred to as &ldquo;Image&rdquo;
+in the WebLogic Kubernetes Operator configuration.  Using this option, the domain is created from the model by the
+WebLogic Image Tool (using the WebLogic Deploy Tooling) and baked into the image.  While this saves a little overhead
+at startup, it is more expensive to maintain due to the need to recreate the domain every time a new WebLogic
+Server image is created.</p>
+<p><code>Externally created in a Kubernetes persistent volume</code> - This selection stores the domain in a Kubernetes persistent volume; this is known as &ldquo;Domain in PV&rdquo;.
+This closely approximates the traditional way of maintaining a domain where the domain is created on disk and then
+used and maintained for as long as necessary. Depending on which Fusion Middleware products you are using, this may be
+your only supported choice for running the domain in Kubernetes.  The WKT UI application currently doesn&rsquo;t do anything to help
+you create the persistent volume, the necessary persistent volume claim, or the domain.  After those things exist, the
+application will allow you to use them to deploy new domains stored in a persistent volume.</p>
+<h5 id="choosing-a-kubernetes-environment-target-type">Choosing a Kubernetes Environment Target Type</h5>
+<p>The target type tells the application what sort of Kubernetes environment that you plan to use.  Currently, <code>WebLogic Kubernetes Operator</code> and <code>Verrazzano</code> are the only two choices.  The application uses the target type to:</p>
+<ul>
+<li>Tell WDT how to prepare the model for deployment.</li>
+<li>Determine what sections and their associated actions within the application, to display.</li>
+</ul>
+<p>For example, the <code>Kubernetes</code> pages are relevant to the WebLogic Kubernetes Operator target type, so those pages
+and their associated actions are hidden when the Verrazzano target type is selected; instead, the <code>Verrazzano</code>
+pages are displayed.  Note that in the current release, Verrazzano support is limited to the <code>Model</code> and <code>Image</code> sections.</p>
+<h4 id="choosing-the-java-and-oracle-installation-directories">Choosing the Java and Oracle Installation Directories</h4>
+<p>The application uses these directories when invoking the WebLogic Deploy Tooling and WebLogic Image Tool; it does not
+use them for any other purpose.  When selecting these directories, make sure to select the same directory you would use
+to set the <code>JAVA_HOME</code> and <code>ORACLE_HOME</code> (or <code>MW_HOME</code>) environment variables.  These are generally the top-level
+installation directories.</p>
+<h4 id="choosing-the-image-build-tool">Choosing the Image Build Tool</h4>
+<p>To build new images, inspect images, and interact with image repositories, the WKT UI application uses an image build
+tool, which defaults to <code>docker</code>.  The image build tool must be installed locally, as mentioned in the <a href="site/prerequisites.md">Prerequisites</a>.
+While <code>docker</code> is currently the most popular tool, many vendors (for example, Oracle, IBM RedHat, Google) are moving to
+use <code>podman</code> by default.</p>
+
+
+<footer class="footline">
+	
+</footer>
+
+        
+        </div>
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="/weblogic-toolikit-ui/navigate/" title="Navigate the UI"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="/weblogic-toolikit-ui/navigate/model/" title="Model" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/weblogic-toolikit-ui/js/clipboard.min.js?1634394870"></script>
+    <script src="/weblogic-toolikit-ui/js/perfect-scrollbar.min.js?1634394870"></script>
+    <script src="/weblogic-toolikit-ui/js/perfect-scrollbar.jquery.min.js?1634394870"></script>
+    <script src="/weblogic-toolikit-ui/js/jquery.sticky.js?1634394870"></script>
+    <script src="/weblogic-toolikit-ui/js/featherlight.min.js?1634394870"></script>
+    <script src="/weblogic-toolikit-ui/js/highlight.pack.js?1634394870"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/weblogic-toolikit-ui/js/modernizr.custom-3.6.0.js?1634394870"></script>
+    <script src="/weblogic-toolikit-ui/js/learn.js?1634394870"></script>
+    <script src="/weblogic-toolikit-ui/js/hugo-learn.js?1634394870"></script>
+    
+        
+            <script src="/weblogic-toolikit-ui/mermaid/mermaid.js?1634394870"></script>
+        
+        <script>
+            mermaid.initialize({ startOnLoad: true });
+        </script>
+    
+    
+
+  </body>
+</html>
+

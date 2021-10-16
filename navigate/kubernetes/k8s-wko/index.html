@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.88.1" />
+    <meta name="description" content="Install the WebLogic Kubernetes Operator in the target Kubernetes cluster.">
+
+
+    <link rel="icon" href="/weblogic-toolikit-ui/images/favicon.png" type="image/png">
+
+    <title>WebLogic Kubernetes Operator :: WebLogic Kubernetes Toolkit UI</title>
+
+    
+    <link href="/weblogic-toolikit-ui/css/nucleus.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/fontawesome-all.min.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/hybrid.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/featherlight.min.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/perfect-scrollbar.min.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/auto-complete.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/atom-one-dark-reasonable.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/theme.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/tabs.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/hugo-theme.css?1634394870" rel="stylesheet">
+    
+    
+
+    <script src="/weblogic-toolikit-ui/js/jquery-3.3.1.min.js?1634394870"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+        :not(pre) > code + span.copy-to-clipboard {
+            display: none;
+        }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/weblogic-toolikit-ui/navigate/kubernetes/k8s-wko/">
+    <nav id="sidebar" class="">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="/weblogic-toolikit-ui/">
+  <img src="/weblogic-toolikit-ui//images/logo.png" height="90"><br/>
+  WebLogic Kubernetes Toolkit UI
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/weblogic-toolikit-ui/js/lunr.min.js?1634394870"></script>
+<script type="text/javascript" src="/weblogic-toolikit-ui/js/auto-complete.js?1634394870"></script>
+<script type="text/javascript">
+    
+        var baseurl = "\/weblogic-toolikit-ui\/";
+    
+</script>
+<script type="text/javascript" src="/weblogic-toolikit-ui/js/search.js?1634394870"></script>
+
+    
+  </div>
+  
+    <section id="homelinks">
+      <ul>
+        <li>
+            <a class="padding" href='/weblogic-toolikit-ui/'><i class='fas fa-home'></i> Home</a>
+        </li>
+      </ul>
+    </section>
+  
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/weblogic-toolikit-ui/concepts/" title="About the WKT UI Application" class="dd-item
+        
+        
+        
+        ">
+      <a href="/weblogic-toolikit-ui/concepts/">
+          <b> </b>About the WKT UI Application
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/weblogic-toolikit-ui/setup/" title="Get Started" class="dd-item
+        
+        
+        
+        ">
+      <a href="/weblogic-toolikit-ui/setup/">
+          <b> </b>Get Started
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/setup/prerequisites/" title="Prerequisites" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/setup/prerequisites/">
+        Prerequisites
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/setup/install/" title="Install WKT UI" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/setup/install/">
+        Install WKT UI
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/weblogic-toolikit-ui/navigate/" title="Navigate the UI" class="dd-item
+        parent
+        
+        
+        ">
+      <a href="/weblogic-toolikit-ui/navigate/">
+          <b> </b>Navigate the UI
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/navigate/project-settings/" title="Project Settings" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/navigate/project-settings/">
+        Project Settings
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/navigate/model/" title="Model" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/navigate/model/">
+        Model
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/navigate/image/" title="Image" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/navigate/image/">
+        Image
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/weblogic-toolikit-ui/navigate/kubernetes/" title="Kubernetes" class="dd-item
+        parent
+        
+        
+        ">
+      <a href="/weblogic-toolikit-ui/navigate/kubernetes/">
+          <b> </b>Kubernetes
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/navigate/kubernetes/k8s-client-config/" title="Client Configuration" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/navigate/kubernetes/k8s-client-config/">
+        Client Configuration
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/navigate/kubernetes/k8s-wko/" title="WebLogic Kubernetes Operator" class="dd-item active">
+        <a href="/weblogic-toolikit-ui/navigate/kubernetes/k8s-wko/">
+        WebLogic Kubernetes Operator
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/navigate/kubernetes/k8s-weblogic-domain/" title="WebLogic Domain" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/navigate/kubernetes/k8s-weblogic-domain/">
+        WebLogic Domain
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/navigate/kubernetes/k8s-ingress-controller/" title="Ingress Controller" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/navigate/kubernetes/k8s-ingress-controller/">
+        Ingress Controller
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/navigate/verrazzano/" title="Verrazzano" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/navigate/verrazzano/">
+        Verrazzano
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/weblogic-toolikit-ui/developer/" title="Developer Guide" class="dd-item
+        
+        
+        
+        ">
+      <a href="/weblogic-toolikit-ui/developer/">
+          <b> </b>Developer Guide
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+          
+        
+    </ul>
+
+    
+    
+
+    
+    <section id="footer">
+      <p>Created with <i class="fas fa-heart"></i> from <a href="https://www.oracle.com">Oracle</a></p>
+<p>&nbsp</p>
+<p><a href="https://github.com/oracle/weblogic-toolkit-ui"><i class="fab fa-github"></i> GitHub repo</a></p>
+<p><a href="https://weblogic-slack-inviter.herokuapp.com/"><i class="fab fa-slack"></i> Public Slack #weblogic</a></p>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/weblogic-toolikit-ui/'></a> > <a href='/weblogic-toolikit-ui/navigate/'>Navigate the UI</a> > <a href='/weblogic-toolikit-ui/navigate/kubernetes/'>Kubernetes</a> > WebLogic Kubernetes Operator
+          
+        
+          
+        
+          
+        
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#contents">Contents</a></li>
+        <li><a href="#weblogic-kubernetes-operator">WebLogic Kubernetes Operator</a></li>
+        <li><a href="#design-view">Design View</a></li>
+        <li><a href="#code-view">Code View</a></li>
+        <li><a href="#install-operator">Install Operator</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              WebLogic Kubernetes Operator
+            </h1>
+          
+
+        
+
+
+<h3 id="contents">Contents</h3>
+<ul>
+<li><a href="#weblogic-kubernetes-operator">WebLogic Kubernetes Operator</a></li>
+<li><a href="#design-view">Design View</a>
+<ul>
+<li><a href="#weblogic-kubernetes-operator-image">WebLogic Kubernetes Operator Image</a></li>
+<li><a href="#image-pull-secret">Image Pull Secret</a></li>
+<li><a href="#kubernetes-namespace-selection-strategy">Kubernetes Namespace Selection Strategy</a></li>
+<li><a href="#weblogic-kubernetes-operator-role-bindings">WebLogic Kubernetes Operator Role Bindings</a></li>
+<li><a href="#external-rest-api-access">External REST API Access</a></li>
+<li><a href="#third-party-integrations">Third Party Integrations</a></li>
+<li><a href="#java-logging">Java Logging</a></li>
+</ul>
+</li>
+<li><a href="#code-view">Code View</a></li>
+<li><a href="#install-operator">Install Operator</a></li>
+</ul>
+<h3 id="weblogic-kubernetes-operator">WebLogic Kubernetes Operator</h3>
+<p>This section provides support for installing the WebLogic Kubernetes Operator (the &ldquo;operator&rdquo;) in the target Kubernetes cluster.
+For detailed information about the operator, see the
+<a href="https://oracle.github.io/weblogic-kubernetes-operator/">WebLogic Kubernetes Operator</a> documentation.</p>
+<h3 id="design-view">Design View</h3>
+<p>The <code>Design View</code> helps you specify the necessary data needed to install the WebLogic Kubernetes Operator to manage
+WebLogic domains in one or more Kubernetes namespaces.  To install the operator using the default settings, simply
+provide values for the following three fields:</p>
+<ul>
+<li><code>Kubernetes Namespace</code> - The Kubernetes namespace to which to install the operator.</li>
+<li><code>Kubernetes Service Account</code> - The Kubernetes service account for the operator to use when making Kubernetes API
+requests.</li>
+<li><code>Helm Release Name to Use for Operator Installation</code> - The Helm release name to use to identify this installation.</li>
+</ul>
+
+<div class="notices note" ><p>The WKT UI application overrides a few default values in the operator Helm Chart.  Read the details of the parameters descriptions in
+<a href="#kubernetes-namespace-selection-strategy">Kubernetes Namespace Selection Strategy</a>.  These panes and their fields are made visible by expanding the
+<code>Advanced</code> portion of the page.</p>
+</div>
+
+<h4 id="weblogic-kubernetes-operator-image">WebLogic Kubernetes Operator Image</h4>
+<p>By default, the operator&rsquo;s <code>Image Tag to Use</code> field is set to the image tag corresponding to the latest operator
+release version on the GitHub Container Registry.  The <code>Image Pull Policy</code> field configures the operator deployment in
+Kubernetes to tell it when to pull the image from the specified registry:</p>
+<ul>
+<li><code>If Not Present</code> (default) - Only pull the image if it is not already present on the Kubernetes node.</li>
+<li><code>Always</code> - Pull the image every time the image is needed to start a container.</li>
+<li><code>Never</code> - Never pull the image; this will result in an error if the image is not already present on the Kubernetes node.</li>
+</ul>
+<p>Because the GitHub Container Registry does not require image pull authentication to pull the official WebLogic Kubernetes
+Operator image, <code>Image Pull Requires Authentication</code> is disabled by default.  If a custom
+operator image is being used from a container image registry that requires pull authentication, then enable the option
+and complete the appropriate fields described in the <a href="#image-pull-secret">Image Pull Secret</a>
+pane that follows.</p>
+<h4 id="image-pull-secret">Image Pull Secret</h4>
+<p>This pane is hidden unless the <code>Image Pull Requires Authentication</code> from the WebLogic Kubernetes Operator Image pane
+is enabled.  To allow Kubernetes to pull the custom operator image requiring pull authentication, use the
+<code>Kubernetes Image Pull Secret Name</code> field to provide the name of the Kubernetes secret to use for the credentials.  To
+have the application create this secret, disable <code>Use Existing Secret</code> and provide the values for the following
+fields:</p>
+<ul>
+<li><code>Image Pull Secret Email Address</code> - The email address of the user.</li>
+<li><code>Image Pull Secret Username</code> - The user name to use when authenticating to the container image registry.</li>
+<li><code>Image Pull Secret Password</code> - The user&rsquo;s password to use when authenticating to the container image registry.</li>
+</ul>
+<p>The read-only <code>Image Registry Address</code> field is parsed from the <code>Image Tag to Use</code> field.  If the
+<code>Image Registry Address</code> field is empty, then the application will assume that Docker Hub is the target container image
+registry to use when creating the pull secret.</p>
+<h4 id="kubernetes-namespace-selection-strategy">Kubernetes Namespace Selection Strategy</h4>
+<p>The operator needs to know which WebLogic domains in the Kubernetes cluster that it will manage.  It does this at the
+Kubernetes namespace level, so any WebLogic domain in a Kubernetes namespace the operator is configured to manage, will
+be managed by the operator instance being installed.  Use the <code>Kubernetes Namespace Selection Strategy</code> field to choose
+the desired namespace selection strategy from one of the supported values:</p>
+<ul>
+<li><code>Label Selector</code> (default) - Any Kubernetes namespace with a specified label will be managed by this operator.</li>
+<li><code>List</code> - Any Kubernetes namespace in the provided list will be managed by this operator.</li>
+<li><code>Regular Expression</code> - Any Kubernetes namespace whose name matches the provided regular expression will be managed
+by this operator.</li>
+<li><code>Dedicated</code> - Only the Kubernetes namespace where the operator is installed will be managed by this operator.</li>
+</ul>
+<p><em>Note that the operator Helm chart default is <code>List</code> but the application overrides this to specify <code>Label Selector</code> as
+the default value.</em></p>
+<p>Each namespace selection strategy takes different input values; the form fields will change based on the strategy
+selected:</p>
+<ul>
+<li>When using the <code>Label Selector</code> strategy, the <code>Kubernetes Namespace Label Selector</code> field will appear with a default
+value that aligns with the Helm chart default value.</li>
+<li>The <code>Regular Expression</code> strategy uses the required
+<code>Kubernetes Namespaces Regular Expression</code> field to specify the regular expression to use for matching the Kubernetes
+namespaces that the operator should manage.</li>
+<li>Selecting the <code>List</code> strategy will cause the <code>Kubernetes Namespaces to Manage</code> field to appear with a list containing
+the <code>default</code> namespace; this aligns with the default value in the Helm chart.
+<ul>
+<li>Removing the <code>default</code> namespace is fine and will result in an empty list.</li>
+<li>Note that when deploying the domain with an operator using the <code>List</code> strategy, the
+application will automatically add the new domain&rsquo;s Kubernetes namespace to the list specified list, if needed.  As
+such, specifying an empty list will not prevent your WebLogic domain from being managed by the operator.</li>
+</ul>
+</li>
+<li><code>Dedicated</code> is self-defining so no additional fields are necessary.</li>
+</ul>
+<h4 id="weblogic-kubernetes-operator-role-bindings">WebLogic Kubernetes Operator Role Bindings</h4>
+<p>When installing the operator, the operator Helm chart default is to create a Kubernetes Role and a Kubernetes RoleBinding
+in each Kubernetes namespace being managed by the operator.  By enabling <code>Enable Cluster Role Binding</code>, the
+operator installation will create a Kubernetes ClusterRole and ClusterRoleBinding that the operator will use for all managed
+namespaces.  This ClusterRole and ClusterRoleBinding will be shared across all operator installations in the Kubernetes
+cluster (assuming that those installations also enable cluster role binding).</p>
+<p>Using the default namespace-specific roles and role bindings, the administrator follows the Principle of Least
+Privilege to guarantee that the operator cannot perform any actions on other, non-managed namespaces.  The implication
+of this configuration is that because the operator service account does not have permission to create roles and role
+bindings, any new namespace added for the operator to manage does not have the necessary role and role binding needed
+for the operator to manage the namespace.  Rerunning the operator Helm chart with the operator configured to manage the
+new namespaces will cause the Helm chart to create the necessary Role and RoleBinding objects in each namespace,
+as needed.</p>
+<p>If the operator is using the ClusterRole and ClusterRoleBinding, then the new namespaces will be automatically picked up by
+the operator when using either the <code>Label Selector</code> or <code>Regular Expression</code> namespace selection strategy without any
+need to rerun the operator Helm chart.</p>
+<p>As previously mentioned, the WKT UI application automatically reruns the operator Helm chart when deploying new WebLogic
+domains to ensure that the new domain&rsquo;s namespace is being managed by the operator.</p>
+<h4 id="external-rest-api-access">External REST API Access</h4>
+<p>By default, the operator&rsquo;s REST API is not exposed outside the Kubernetes cluster.  To enable the REST API to be
+exposed, enable <code>Expose REST API Externally</code>, set the desired HTTPS port using the
+<code>External REST API HTTPS Port</code> field, and name of the Kubernetes TLS secret to use in the
+<code>External REST API Identity Secret Name</code> field.  For more information, see the WebLogic Kubernetes Operator
+<a href="https://oracle.github.io/weblogic-kubernetes-operator/userguide/managing-operators/the-rest-api/">Rest API</a> documentation.</p>
+<h4 id="third-party-integrations">Third Party Integrations</h4>
+<p>To enable integration with the Elasticsearch, Logstash, and Kibana (ELK) stack, enable <code>ELK Integration Enabled</code> and provide values for the
+following fields.</p>
+<ul>
+<li><code>Logstash Image Tag to Use</code> - The container image of <code>logstash</code> to use.</li>
+<li><code>Elasticsearch Host Name</code> - The DNS name of IP address of the Elasticsearch server.</li>
+<li><code>Elasticsearch Port</code> - The port number for the Elasticsearch server.</li>
+</ul>
+<p>For more information, see <a href="https://oracle.github.io/weblogic-kubernetes-operator/userguide/managing-operators/#optional-elastic-stack-elasticsearch-logstash-and-kibana-integration">Elastic Stack integration</a>
+in the WebLogic Kubernetes Operator documentation.</p>
+<h4 id="java-logging">Java Logging</h4>
+<p>This pane lets you override the operator&rsquo;s Java logging configuration, which can be useful when debugging issues
+with the operator.  Use the <code>Logging Level</code> field to customize the minimum log level written to the log file.  The
+<code>Log File Size Limit</code> field sets the maximum size of a single operator log file while the <code>Log File Count</code> limits the
+maximum number of retained log files.  For more information, see
+<a href="https://oracle.github.io/weblogic-kubernetes-operator/userguide/managing-operators/using-helm/#operator-helm-configuration-values">Operator Helm configuration values</a>
+in the WebLogic Kubernetes Operator documentation.</p>
+<h3 id="code-view">Code View</h3>
+<p>The <code>WebLogic Operator</code> page&rsquo;s <code>Code View</code> displays a shell script that you can use as a starting point for automating the
+operator installation process.</p>
+<p>If it is not already selected, then use the <code>Script Language</code> drop-down menu to choose the desired scripting language.  Note
+that the application is providing a working sample script to show how the process might be automated.  Before
+using the script, review the script and make any changes necessary for your environment. One typical change that
+would be considered a best practice would be to change the script to accept either command-line arguments or externally
+set environment variables to specify any credentials required by the script to eliminate hard-coding the credentials in
+the script itself.  This change is left as an exercise for you because different environments typically will have
+existing standards for securely handling such credentials.</p>
+<h3 id="install-operator">Install Operator</h3>
+<p><code>Push Image</code> uses the specified Image Builder program to upload (that is, push) the newly-built image
+to the image registry specified by its image tag.  You can access it by using the <code>Install Operator</code> button on the
+<code>WebLogic Operator</code> page or <code>Go</code> &gt; <code>Install WebLogic Kubernetes Operator</code>.</p>
+<p>At a high level, <code>Push Image</code> performs the following steps:</p>
+<ol>
+<li>Validates the input values necessary for running the action based on your selections.</li>
+<li>Saves the WKT Project, if needed.</li>
+<li>Creates the Kubernetes namespace for installing the operator, if needed.</li>
+<li>Creates the Kubernetes service account for the operator to use, if needed.</li>
+<li>Creates the operator image pull secret, if needed.</li>
+<li>Adds the latest operator Helm chart to the local Helm repository.</li>
+<li>Runs Helm to install the operator using the specified configuration.</li>
+</ol>
+
+
+<footer class="footline">
+	
+</footer>
+
+        
+        </div>
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="/weblogic-toolikit-ui/navigate/kubernetes/k8s-client-config/" title="Client Configuration"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="/weblogic-toolikit-ui/navigate/kubernetes/k8s-weblogic-domain/" title="WebLogic Domain" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/weblogic-toolikit-ui/js/clipboard.min.js?1634394870"></script>
+    <script src="/weblogic-toolikit-ui/js/perfect-scrollbar.min.js?1634394870"></script>
+    <script src="/weblogic-toolikit-ui/js/perfect-scrollbar.jquery.min.js?1634394870"></script>
+    <script src="/weblogic-toolikit-ui/js/jquery.sticky.js?1634394870"></script>
+    <script src="/weblogic-toolikit-ui/js/featherlight.min.js?1634394870"></script>
+    <script src="/weblogic-toolikit-ui/js/highlight.pack.js?1634394870"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/weblogic-toolikit-ui/js/modernizr.custom-3.6.0.js?1634394870"></script>
+    <script src="/weblogic-toolikit-ui/js/learn.js?1634394870"></script>
+    <script src="/weblogic-toolikit-ui/js/hugo-learn.js?1634394870"></script>
+    
+        
+            <script src="/weblogic-toolikit-ui/mermaid/mermaid.js?1634394870"></script>
+        
+        <script>
+            mermaid.initialize({ startOnLoad: true });
+        </script>
+    
+    
+
+  </body>
+</html>
+

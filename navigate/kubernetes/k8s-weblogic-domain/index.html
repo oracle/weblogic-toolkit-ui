@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.88.1" />
+    <meta name="description" content="Create and deploy the Kubernetes custom resource for the WebLogic domain.">
+
+
+    <link rel="icon" href="/weblogic-toolikit-ui/images/favicon.png" type="image/png">
+
+    <title>WebLogic Domain :: WebLogic Kubernetes Toolkit UI</title>
+
+    
+    <link href="/weblogic-toolikit-ui/css/nucleus.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/fontawesome-all.min.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/hybrid.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/featherlight.min.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/perfect-scrollbar.min.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/auto-complete.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/atom-one-dark-reasonable.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/theme.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/tabs.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/hugo-theme.css?1634394870" rel="stylesheet">
+    
+    
+
+    <script src="/weblogic-toolikit-ui/js/jquery-3.3.1.min.js?1634394870"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+        :not(pre) > code + span.copy-to-clipboard {
+            display: none;
+        }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/weblogic-toolikit-ui/navigate/kubernetes/k8s-weblogic-domain/">
+    <nav id="sidebar" class="">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="/weblogic-toolikit-ui/">
+  <img src="/weblogic-toolikit-ui//images/logo.png" height="90"><br/>
+  WebLogic Kubernetes Toolkit UI
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/weblogic-toolikit-ui/js/lunr.min.js?1634394870"></script>
+<script type="text/javascript" src="/weblogic-toolikit-ui/js/auto-complete.js?1634394870"></script>
+<script type="text/javascript">
+    
+        var baseurl = "\/weblogic-toolikit-ui\/";
+    
+</script>
+<script type="text/javascript" src="/weblogic-toolikit-ui/js/search.js?1634394870"></script>
+
+    
+  </div>
+  
+    <section id="homelinks">
+      <ul>
+        <li>
+            <a class="padding" href='/weblogic-toolikit-ui/'><i class='fas fa-home'></i> Home</a>
+        </li>
+      </ul>
+    </section>
+  
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/weblogic-toolikit-ui/concepts/" title="About the WKT UI Application" class="dd-item
+        
+        
+        
+        ">
+      <a href="/weblogic-toolikit-ui/concepts/">
+          <b> </b>About the WKT UI Application
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/weblogic-toolikit-ui/setup/" title="Get Started" class="dd-item
+        
+        
+        
+        ">
+      <a href="/weblogic-toolikit-ui/setup/">
+          <b> </b>Get Started
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/setup/prerequisites/" title="Prerequisites" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/setup/prerequisites/">
+        Prerequisites
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/setup/install/" title="Install WKT UI" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/setup/install/">
+        Install WKT UI
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/weblogic-toolikit-ui/navigate/" title="Navigate the UI" class="dd-item
+        parent
+        
+        
+        ">
+      <a href="/weblogic-toolikit-ui/navigate/">
+          <b> </b>Navigate the UI
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/navigate/project-settings/" title="Project Settings" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/navigate/project-settings/">
+        Project Settings
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/navigate/model/" title="Model" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/navigate/model/">
+        Model
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/navigate/image/" title="Image" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/navigate/image/">
+        Image
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/weblogic-toolikit-ui/navigate/kubernetes/" title="Kubernetes" class="dd-item
+        parent
+        
+        
+        ">
+      <a href="/weblogic-toolikit-ui/navigate/kubernetes/">
+          <b> </b>Kubernetes
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/navigate/kubernetes/k8s-client-config/" title="Client Configuration" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/navigate/kubernetes/k8s-client-config/">
+        Client Configuration
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/navigate/kubernetes/k8s-wko/" title="WebLogic Kubernetes Operator" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/navigate/kubernetes/k8s-wko/">
+        WebLogic Kubernetes Operator
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/navigate/kubernetes/k8s-weblogic-domain/" title="WebLogic Domain" class="dd-item active">
+        <a href="/weblogic-toolikit-ui/navigate/kubernetes/k8s-weblogic-domain/">
+        WebLogic Domain
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/navigate/kubernetes/k8s-ingress-controller/" title="Ingress Controller" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/navigate/kubernetes/k8s-ingress-controller/">
+        Ingress Controller
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/navigate/verrazzano/" title="Verrazzano" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/navigate/verrazzano/">
+        Verrazzano
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/weblogic-toolikit-ui/developer/" title="Developer Guide" class="dd-item
+        
+        
+        
+        ">
+      <a href="/weblogic-toolikit-ui/developer/">
+          <b> </b>Developer Guide
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+          
+        
+    </ul>
+
+    
+    
+
+    
+    <section id="footer">
+      <p>Created with <i class="fas fa-heart"></i> from <a href="https://www.oracle.com">Oracle</a></p>
+<p>&nbsp</p>
+<p><a href="https://github.com/oracle/weblogic-toolkit-ui"><i class="fab fa-github"></i> GitHub repo</a></p>
+<p><a href="https://weblogic-slack-inviter.herokuapp.com/"><i class="fab fa-slack"></i> Public Slack #weblogic</a></p>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/weblogic-toolikit-ui/'></a> > <a href='/weblogic-toolikit-ui/navigate/'>Navigate the UI</a> > <a href='/weblogic-toolikit-ui/navigate/kubernetes/'>Kubernetes</a> > WebLogic Domain
+          
+        
+          
+        
+          
+        
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#contents">Contents</a></li>
+        <li><a href="#weblogic-domain">WebLogic Domain</a></li>
+        <li><a href="#design-view">Design View</a></li>
+        <li><a href="#code-view">Code View</a></li>
+        <li><a href="#prepare-model">Prepare Model</a></li>
+        <li><a href="#deploy-domain">Deploy Domain</a></li>
+        <li><a href="#get-domain-status">Get Domain Status</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              WebLogic Domain
+            </h1>
+          
+
+        
+
+
+<h3 id="contents">Contents</h3>
+<ul>
+<li><a href="#weblogic-domain">WebLogic Domain</a></li>
+<li><a href="#design-view">Design View</a>
+<ul>
+<li><a href="#image-to-use-for-the-domain">Image to Use for the Domain</a></li>
+<li><a href="#clusters">Clusters</a></li>
+<li><a href="#model-variables-overrides">Model Variables Overrides</a></li>
+<li><a href="#secrets">Secrets</a></li>
+<li><a href="#runtime-encryption-secret">Runtime Encryption Secret</a></li>
+<li><a href="#weblogic-kubernetes-operator-introspection-configuration">WebLogic Kubernetes Operator Introspection Configuration</a></li>
+<li><a href="#domain-wide-server-settings">Domain-Wide Server Settings</a></li>
+</ul>
+</li>
+<li><a href="#code-view">Code View</a></li>
+<li><a href="#prepare-model">Prepare Model</a></li>
+<li><a href="#deploy-domain">Deploy Domain</a></li>
+<li><a href="#get-domain-status">Get Domain Status</a></li>
+</ul>
+<h3 id="weblogic-domain">WebLogic Domain</h3>
+<p>The <code>WebLogic Domain</code> section provides support for creating and deploying the Kubernetes custom resource for the WebLogic domain as
+defined by the WebLogic Kubernetes Operator.  For more information, see
+<a href="https://oracle.github.io/weblogic-kubernetes-operator/userguide/managing-domains/domain-resource/">Domain Resource</a>
+in the WebLogic Kubernetes Operator documentation.</p>
+<h3 id="design-view">Design View</h3>
+<p>The <code>Design View</code> helps you specify the necessary data needed to generate the Domain resource definition and deploy
+that resource into a Kubernetes cluster.</p>
+<p>The <code>Domain UID</code> field defines the name of the Kubernetes Domain custom resource object.  This name must be unique
+within the Kubernetes namespace where it will be created, which is controlled by the <code>Kubernetes Namespace</code> field.</p>
+<p>The default value of the <code>Domain UID</code> field is based on the WebLogic domain&rsquo;s name, as defined by the WDT model:</p>
+<ul>
+<li>When using either &ldquo;Model in Image&rdquo; or &ldquo;Domain in Image&rdquo; <a href="/weblogic-toolikit-ui/navigate/project-settings/#choosing-a-domain-location">domain location</a>,
+the <code>Domain Home Path</code> field is read-only and its value is set using the <code>Domain Home Directory</code> field under <code>Advanced</code>.</li>
+<li>When using &ldquo;Domain in PV&rdquo;, this field must be set to the fully
+qualified path to the domain home directory in the persistent volume.  For example, if the persistent volume mount
+path is set to <code>/shared</code> and the domain home is located in <code>/domains/mydomain</code> in the persistent volume, then the
+<code>Domain Home Path</code> field must be set to <code>/shared/domains/mydomain</code>.</li>
+</ul>
+<p>Set the Kubernetes secret name where the WebLogic domain credentials will be stored using the
+<code>WebLogic Credentials Secret Name</code> field.  Set the value of the WebLogic Server administration credentials using the
+<code>WebLogic Admin Username</code> and <code>WebLogic Admin Password</code> fields.  Remember that these fields must be set appropriately
+for the selected domain location:</p>
+<ul>
+<li>For &ldquo;Model in Image&rdquo;, these fields are used to set the WebLogic Server credentials used to create the domain, and
+by the operator at runtime to perform actions on the domain (for example, start a server).</li>
+<li>For &ldquo;Domain in Image&rdquo;, the domain was created using the WebLogic Image Tool using the credentials specified in the
+model.  These values must match the ones used during the image creation process.</li>
+<li>For &ldquo;Domain in PV&rdquo;, the domain was created outside the application so the values provided in these fields must match
+the ones used when the domain was created.</li>
+</ul>
+<p>When using &ldquo;Domain in PV&rdquo;, three additional fields associated with the persistent volume will be shown:</p>
+<ul>
+<li><code>Persistent Volume Name</code> - The name of the persistent volume to use in the Domain resource file.</li>
+<li><code>Persistent Volume Claim Name</code> - The persistent volume claim to associate with the persistent volume.</li>
+<li><code>Persistent Volume Mount Path</code> - The path to the persistent volume within the container(s).</li>
+<li><code>Enable Log Home</code> - Enables the ability to separate the logs directory from the domain directory on the persistent
+volume.</li>
+<li><code>Log Home Path</code> - The path to use for the log home when <code>Enable Log Home</code> is enabled.</li>
+</ul>
+<p>The following sections describe the other panes that support configuring the generated Domain resource; they are:</p>
+<ul>
+<li><a href="#image-to-use-for-the-domain">Image to Use for the Domain</a></li>
+<li><a href="#clusters">Clusters</a></li>
+<li><a href="#model-variables-overrides">Model Variables Overrides</a></li>
+<li><a href="#secrets">Secrets</a></li>
+<li><a href="#runtime-encryption-secret">Runtime Encryption Secret</a></li>
+<li><a href="#weblogic-kubernetes-operator-introspection-configuration">WebLogic Kubernetes Operator Introspection Configuration</a></li>
+<li><a href="#domain-wide-server-settings">Domain-Wide Server Settings</a></li>
+</ul>
+<h4 id="image-to-use-for-the-domain">Image to Use for the Domain</h4>
+<p>This pane focuses on the container image to use to run the WebLogic Server domain in a container.</p>
+<ul>
+<li>When using either &ldquo;Model in Image&rdquo; or &ldquo;Domain in Image&rdquo; <a href="/weblogic-toolikit-ui/navigate/project-settings/#choosing-a-domain-location">domain location</a>, the <code>Image Tag</code> field is read-only; its value is set using the
+<code>Image Tag</code> field in the <code>Image</code> section.</li>
+<li>In the case of &ldquo;Domain in PV&rdquo;, the <code>Image Tag</code> field is not read-only and <em>is</em>
+the place to specify the image to use to run the WebLogic domain&rsquo;s containers.</li>
+<li>The read-only <code>Image Registry Address</code> field is populated by parsing the value of the <code>Image Tag</code> field
+to extract any container image registry address.  If the tag has no image registry address, then it is assumed to reside on Docker Hub.</li>
+</ul>
+<p>Use the <code>Image Pull Policy</code> field to specify when Kubernetes should pull the image from the specified image registry.
+The choices are:</p>
+<ul>
+<li><code>If Not Present</code> (default) - Only pull the image if it is not already present on the Kubernetes node.</li>
+<li><code>Always</code> - Pull the image every time the image is needed to start a container.</li>
+<li><code>Never</code> - Never pull the image; this will result in an error if the image is not already present on the Kubernetes node.</li>
+</ul>
+<p>If pulling the image from the specified image registry does not require authentication,
+then <code>Specify Image Pull Credentials</code> should be disabled.  When enabled, use the <code>Use Existing Image Pull Secret</code> field to tell the application
+whether to use an existing image pull secret or create a new one.  Specify the image pull secret name in the
+<code>Image Pull Secret Name</code> field.  When creating a new secret, specify the secret data using the
+<code>Image Registry Pull Username</code>, <code>Image Registry Pull Email Address</code>, and <code>Image Registry Pull Password</code> fields.</p>
+<h4 id="clusters">Clusters</h4>
+<p>The Clusters pane lists the names of each cluster in the model and lets you adjust the WebLogic Server
+startup configuration and Kubernetes resource requests and limits.  It is currently populated when <code>Prepare Model</code> is run,
+which means that projects using &ldquo;Domain in PV&rdquo; will not have access to adjust the configuration at the cluster level.
+&ldquo;Domain in PV&rdquo; projects can still use the <code>Domain-Wide Server Settings</code> pane under <code>Advanced</code>.</p>
+<p>To view or edit the settings for a cluster, select the edit icon at the right end of the cluster&rsquo;s row in the
+table.  This opens a dialog that shows all the cluster-related fields and their values.  The read-only
+<code>Cluster Name</code> field shows the name of the cluster, as specified in the underlying model.</p>
+<p>Use the <code>Replicas</code> field to adjust the number of managed servers that the WebLogic Kubernetes Operator should start when the domain is deployed.
+The default value for the <code>Replicas</code> field is set based on the maximum number of servers specified by the model:</p>
+<ul>
+<li>In the case of a static cluster, it will be the number of servers that are configured to be part of the cluster.</li>
+<li>When using a dynamic cluster, the value is set based on the maximum number of servers that the dynamic cluster allows.</li>
+<li>This default value also serves as the upper limit for the <code>Replicas</code> field. In other words, you may only reduce the number of
+replicas.  It is not possible to increase the replica count above the maximum limit defined by the model.</li>
+</ul>
+<p>Use the <code>Minimum Heap Size</code> and <code>Maximum Heap Size</code> fields to control the amount of Java heap space available for each
+server in the cluster.  Specify any additional Java command-line options with the <code>Additional Java Options</code>
+field.</p>
+<p><code>Disable debug logging to standard out</code> disables WebLogic Server debug log messages from being
+written to standard out.  In WebLogic Server 12.2.1.3.0, there is an issue that impacts the Oracle JDBC driver
+processing FAN (Fast Application Notification) events from an Oracle Database.  To work around this issue, enable
+<code>Disable Oracle JDBC Support for FAN Events</code>.</p>
+<p><code>Use pseudo-random number generator</code> controls whether
+WebLogic Server uses the pseudo-random number generator (that is, <code>/dev/urandom</code>) or the regular random number generator
+(that is, <code>/dev/random</code>).  Because the latter is impacted by the available entropy, it can negatively impact performance when
+running WebLogic Server on a virtual machine or in a container.  Because the servers being configured by this application
+will always be running in a container, the default is set to use the pseudo-random number generator.</p>
+<p>The Kubernetes resource requests and limits values help the Kubernetes scheduler determine which node to use to start
+a container (to ensure there are sufficient resources available for the container to run).  The following fields allow
+these values to be specified:</p>
+<ul>
+<li><code>Kubernetes CPU Request</code> - The requested amount of CPU for each managed server&rsquo;s container.</li>
+<li><code>Kubernetes CPU Limit</code> - The maximum amount of CPU each managed server&rsquo;s container is allowed to use.</li>
+<li><code>Kubernetes Memory Request</code> - The requested amount of memory for each managed server&rsquo;s container.</li>
+<li><code>Kubernetes Memory Limit</code> - The maximum amount of memory each managed server&rsquo;s container is allowed to use.</li>
+</ul>
+<p>For more information about these fields and setting their values, see the <a href="https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-memory">Kubernetes documentation</a>.</p>
+<h4 id="model-variables-overrides">Model Variables Overrides</h4>
+<p>Use this pane to override values of model variables when using &ldquo;Model in Image&rdquo; to customize the model data already set
+in the image.  For example, the image may contain a variable whose value refers to a JDBC URL to connect to a database.
+Because the image may be used across development, test, and production environments, overriding the JDBC URL to point to
+the correct database for the environment helps make the same image usable across all three environments.  All override
+values are added to a Kubernetes ConfigMap that is passed to the WebLogic Kubernetes Operator so that it creates the
+underlying WebLogic Server domain with the correct values for the environment.</p>
+<p>If the model has one or more variables, then the <code>Kubernetes Config Map Name</code> field is visible and allows the name of the
+Kubernetes ConfigMap name to be controlled.  The table will be populated with the model variables, as defined by the
+model variables file.  Because the model variables file is typically already set in the image by the time you
+reach this page, both the <code>Model Variable Name</code> and the <code>Model Variable File Value</code> entries are read-only.  Enter an
+<code>Model Variable Override Value</code> for any variable whose <code>Model Variable File Value</code> should be overridden.  Note that the
+ConfigMap will only be created if one or more variables have an override value specified.</p>
+<h4 id="secrets">Secrets</h4>
+<p>When using &ldquo;Model in Image&rdquo;, use this pane to set the value of any secrets referenced in the model (other than the WebLogic administrator credentials
+secret).  The secrets that appear in the table are pulled from the model file directly;
+as such, the <code>Secret Name</code> field is read-only.  Set the appropriate <code>Username</code> and <code>Password</code> field values for each
+secret in the table.  These values are required and will be used to create or update the secret with the specified
+values.</p>
+<h4 id="runtime-encryption-secret">Runtime Encryption Secret</h4>
+<p>When using &ldquo;Model in Image&rdquo;, the WebLogic Kubernetes Operator requires a runtime encryption secret it uses to encrypt
+sensitive WebLogic Server domain data stored in Kubernetes.  For more information, see
+<a href="https://oracle.github.io/weblogic-kubernetes-operator/userguide/managing-domains/model-in-image/usage/#required-runtime-encryption-secret">Required runtime encryption secret</a>
+in the WebLogic Kubernetes Operator documentation.</p>
+<p>Use the <code>Runtime Encryption Secret Name</code> field to control the name of the secret, if needed.  Typically, the default
+name is sufficient.  The <code>Runtime Encryption Secret Value</code> field&rsquo;s default value is generated but may be changed, if
+desired.</p>
+<h4 id="weblogic-kubernetes-operator-introspection-configuration">WebLogic Kubernetes Operator Introspection Configuration</h4>
+<p>This pane controls the WebLogic Kubernetes Operator introspection job configuration.  Use the
+<code>Introspection Job Active Deadline Seconds</code> field to control how long the operator waits for the introspection job to
+complete.  The application sets the default to 900 seconds (15 minutes); this overrides the underlying default of 120
+seconds (2 minutes) built into the operator.  As such, clearing the value of this field will cause the effective value
+to be set to 120 seconds.</p>
+<h4 id="domain-wide-server-settings">Domain-Wide Server Settings</h4>
+<p>This pane lets you adjust the WebLogic Server startup configuration and Kubernetes resource requests and
+limits default values for every WebLogic Server container in the WebLogic Server domain.  Any fields set here will be
+applied only if they are not overridden elsewhere.  For example, setting the <code>Minimum Heap Size</code> will set
+WebLogic Server&rsquo;s minimum heap size to the specified value only if the cluster to which the server belongs does not
+override the minimum heap size.  For typical domains with an Administration Server and one or more clusters, the best practice is
+to use this section to configure the Administration Server and use the <code>Clusters</code> pane to configure each cluster explicitly.</p>
+<p>The fields in this pane have similar meaning to the equivalent fields previously described in
+<a href="#clusters">Clusters</a>; refer to that section for more information.</p>
+<h3 id="code-view">Code View</h3>
+<p>The <code>Code View</code> displays a shell script for deploying the domain and creating its dependent resources as well as
+the YAML definition for the Kubernetes custom resource (that is, the Domain resource) and the Model Variables Overrides
+ConfigMap, if applicable.</p>
+<p>If it is not already selected, then use the <code>Script Language</code> drop-down menu to choose the desired scripting language.  Note
+that the application is providing a working sample script simply to show how the process might be automated.  Before
+using the script, review the script and make any changes necessary for your environment. One typical change that
+would be considered a best practice would be to change the script to accept either command-line arguments or externally
+set environment variables to specify any credentials required by the script to eliminate hard-coding the credentials in
+the script itself.  This change is left as an exercise for you because different environments typically will have
+existing standards for securely handling such credentials.</p>
+<h3 id="prepare-model">Prepare Model</h3>
+<p><code>Prepare Model</code> is the same as was previously described in the <a href="model.md#prepare-model"><code>Model</code></a> section.  It is only
+surfaced here because the <code>Clusters</code> pane of the <code>Design View</code> is populated only when <code>Prepare Model</code> is run.</p>
+<h3 id="deploy-domain">Deploy Domain</h3>
+<p><code>Deploy Domain</code> creates the Domain custom resource object and any of its dependent objects (for example,
+namespace, secrets, ConfigMap) in Kubernetes.  You can access it by using the <code>Deploy Domain</code> button on the
+<code>WebLogic Domain</code> page or <code>Go</code> &gt; <code>Deploy WebLogic Domain to Kubernetes</code>.  As previously
+mentioned, this action also updates the operator configuration, if needed, and reruns the operator Helm chart to ensure
+that the new namespace is manageable by the WebLogic Kubernetes Operator configured for this project.</p>
+<p><code>Deploy Domain</code> completes as soon as the objects are created and the operator Helm chart execution completes.  At some point
+after the action completes, the operator will detect a new (or updated) version of the Domain custom resource object and
+start a new introspection job to create the domain and start or restart the WebLogic Server containers.  <code>Get Domain Status</code>
+provides the current status of the last <code>Deploy Domain</code> action.</p>
+<h3 id="get-domain-status">Get Domain Status</h3>
+<p>To view the current status of the last domain deployment, use the <code>Get Domain Status</code> button or the
+<code>Go</code> &gt; <code>Get WebLogic Domain Status</code>.  This action retrieves and displays the domain deployment
+status, as provided by the WebLogic Kubernetes Operator.</p>
+
+
+<footer class="footline">
+	
+</footer>
+
+        
+        </div>
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="/weblogic-toolikit-ui/navigate/kubernetes/k8s-wko/" title="WebLogic Kubernetes Operator"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="/weblogic-toolikit-ui/navigate/kubernetes/k8s-ingress-controller/" title="Ingress Controller" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/weblogic-toolikit-ui/js/clipboard.min.js?1634394870"></script>
+    <script src="/weblogic-toolikit-ui/js/perfect-scrollbar.min.js?1634394870"></script>
+    <script src="/weblogic-toolikit-ui/js/perfect-scrollbar.jquery.min.js?1634394870"></script>
+    <script src="/weblogic-toolikit-ui/js/jquery.sticky.js?1634394870"></script>
+    <script src="/weblogic-toolikit-ui/js/featherlight.min.js?1634394870"></script>
+    <script src="/weblogic-toolikit-ui/js/highlight.pack.js?1634394870"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/weblogic-toolikit-ui/js/modernizr.custom-3.6.0.js?1634394870"></script>
+    <script src="/weblogic-toolikit-ui/js/learn.js?1634394870"></script>
+    <script src="/weblogic-toolikit-ui/js/hugo-learn.js?1634394870"></script>
+    
+        
+            <script src="/weblogic-toolikit-ui/mermaid/mermaid.js?1634394870"></script>
+        
+        <script>
+            mermaid.initialize({ startOnLoad: true });
+        </script>
+    
+    
+
+  </body>
+</html>
+

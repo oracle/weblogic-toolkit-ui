@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.88.1" />
+    <meta name="description" content="Client Configuration helps you get the necessary connectivity to your Kubernetes cluster.">
+
+
+    <link rel="icon" href="/weblogic-toolikit-ui/images/favicon.png" type="image/png">
+
+    <title>Client Configuration :: WebLogic Kubernetes Toolkit UI</title>
+
+    
+    <link href="/weblogic-toolikit-ui/css/nucleus.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/fontawesome-all.min.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/hybrid.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/featherlight.min.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/perfect-scrollbar.min.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/auto-complete.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/atom-one-dark-reasonable.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/theme.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/tabs.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/hugo-theme.css?1634394870" rel="stylesheet">
+    
+    
+
+    <script src="/weblogic-toolikit-ui/js/jquery-3.3.1.min.js?1634394870"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+        :not(pre) > code + span.copy-to-clipboard {
+            display: none;
+        }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/weblogic-toolikit-ui/navigate/kubernetes/k8s-client-config/">
+    <nav id="sidebar" class="">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="/weblogic-toolikit-ui/">
+  <img src="/weblogic-toolikit-ui//images/logo.png" height="90"><br/>
+  WebLogic Kubernetes Toolkit UI
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/weblogic-toolikit-ui/js/lunr.min.js?1634394870"></script>
+<script type="text/javascript" src="/weblogic-toolikit-ui/js/auto-complete.js?1634394870"></script>
+<script type="text/javascript">
+    
+        var baseurl = "\/weblogic-toolikit-ui\/";
+    
+</script>
+<script type="text/javascript" src="/weblogic-toolikit-ui/js/search.js?1634394870"></script>
+
+    
+  </div>
+  
+    <section id="homelinks">
+      <ul>
+        <li>
+            <a class="padding" href='/weblogic-toolikit-ui/'><i class='fas fa-home'></i> Home</a>
+        </li>
+      </ul>
+    </section>
+  
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/weblogic-toolikit-ui/concepts/" title="About the WKT UI Application" class="dd-item
+        
+        
+        
+        ">
+      <a href="/weblogic-toolikit-ui/concepts/">
+          <b> </b>About the WKT UI Application
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/weblogic-toolikit-ui/setup/" title="Get Started" class="dd-item
+        
+        
+        
+        ">
+      <a href="/weblogic-toolikit-ui/setup/">
+          <b> </b>Get Started
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/setup/prerequisites/" title="Prerequisites" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/setup/prerequisites/">
+        Prerequisites
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/setup/install/" title="Install WKT UI" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/setup/install/">
+        Install WKT UI
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/weblogic-toolikit-ui/navigate/" title="Navigate the UI" class="dd-item
+        parent
+        
+        
+        ">
+      <a href="/weblogic-toolikit-ui/navigate/">
+          <b> </b>Navigate the UI
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/navigate/project-settings/" title="Project Settings" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/navigate/project-settings/">
+        Project Settings
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/navigate/model/" title="Model" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/navigate/model/">
+        Model
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/navigate/image/" title="Image" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/navigate/image/">
+        Image
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/weblogic-toolikit-ui/navigate/kubernetes/" title="Kubernetes" class="dd-item
+        parent
+        
+        
+        ">
+      <a href="/weblogic-toolikit-ui/navigate/kubernetes/">
+          <b> </b>Kubernetes
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/navigate/kubernetes/k8s-client-config/" title="Client Configuration" class="dd-item active">
+        <a href="/weblogic-toolikit-ui/navigate/kubernetes/k8s-client-config/">
+        Client Configuration
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/navigate/kubernetes/k8s-wko/" title="WebLogic Kubernetes Operator" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/navigate/kubernetes/k8s-wko/">
+        WebLogic Kubernetes Operator
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/navigate/kubernetes/k8s-weblogic-domain/" title="WebLogic Domain" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/navigate/kubernetes/k8s-weblogic-domain/">
+        WebLogic Domain
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/navigate/kubernetes/k8s-ingress-controller/" title="Ingress Controller" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/navigate/kubernetes/k8s-ingress-controller/">
+        Ingress Controller
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/navigate/verrazzano/" title="Verrazzano" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/navigate/verrazzano/">
+        Verrazzano
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/weblogic-toolikit-ui/developer/" title="Developer Guide" class="dd-item
+        
+        
+        
+        ">
+      <a href="/weblogic-toolikit-ui/developer/">
+          <b> </b>Developer Guide
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+          
+        
+    </ul>
+
+    
+    
+
+    
+    <section id="footer">
+      <p>Created with <i class="fas fa-heart"></i> from <a href="https://www.oracle.com">Oracle</a></p>
+<p>&nbsp</p>
+<p><a href="https://github.com/oracle/weblogic-toolkit-ui"><i class="fab fa-github"></i> GitHub repo</a></p>
+<p><a href="https://weblogic-slack-inviter.herokuapp.com/"><i class="fab fa-slack"></i> Public Slack #weblogic</a></p>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/weblogic-toolikit-ui/'></a> > <a href='/weblogic-toolikit-ui/navigate/'>Navigate the UI</a> > <a href='/weblogic-toolikit-ui/navigate/kubernetes/'>Kubernetes</a> > Client Configuration
+          
+        
+          
+        
+          
+        
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#contents">Contents</a></li>
+        <li><a href="#client-configuration">Client Configuration</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              Client Configuration
+            </h1>
+          
+
+        
+
+
+<h3 id="contents">Contents</h3>
+<ul>
+<li><a href="#client-configuration">Client Configuration</a>
+<ul>
+<li><a href="#authentication-with-managed-kubernetes-clusters">Authentication with Managed Kubernetes Clusters</a></li>
+<li><a href="#verify-connectivity">Verify Connectivity</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="client-configuration">Client Configuration</h3>
+<p><code>Client Configuration</code> helps you get the necessary connectivity to your Kubernetes
+cluster.  Use the <code>Kubernetes Cluster Type</code> field to select the target Kubernetes cluster type to show instructions for
+configuring <code>kubectl</code> to successfully connect to the cluster.</p>
+<ul>
+<li>The <code>Kubectl Executable to Use</code> field tells the WKT UI application where to find the correct version of <code>kubectl</code> to use.</li>
+<li>By using the <code>Kubernetes Client Config File(s)</code> field, you can specify a different Kubernetes client configuration
+file instead of, or in addition to, the default <code>.kube/config</code> file from your home directory.</li>
+<li>For environments where the client is configured to connect to multiple clusters, use the <code>Kubernetes Config Context to Use</code> field to
+specify the configuration file&rsquo;s context associated with the cluster to which you want to connect.</li>
+<li>The <code>Helm Executable to Use</code> field tells the application where to find Helm, which is used to install the WebLogic
+Kubernetes Operator and ingress controllers.  For more information
+about Helm, see the <a href="https://helm.sh/">Helm</a> documentation.</li>
+</ul>
+<h4 id="authentication-with-managed-kubernetes-clusters">Authentication with Managed Kubernetes Clusters</h4>
+<p>Most cloud vendors require the use of their command-line tooling to authenticate <code>kubectl</code> connections to their managed
+Kubernetes clusters.  For example, after <code>kubectl</code> is configured to connect to a Kubernetes cluster managed by the
+Oracle Kubernetes Engine (OKE), the Kubernetes client configuration file will have a section that looks similar to the
+one shown here.</p>
+<pre tabindex="0"><code>users:
+- name: user-abcdefghi8d
+  user:
+    exec:
+      apiVersion: client.authentication.k8s.io/v1beta1
+      command: oci
+      args:
+      - ce
+      - cluster
+      - generate-token
+      - --cluster-id
+      - ocid1.cluster.oc1.phx.aaaaaaaaahdirjdmcjfpogfkdhjsdhshssk2abcdefghijk2d
+      - --region
+      - us-phoenix-1
+      env: []
+</code></pre><p>This configuration causes each <code>kubectl</code> invocation that references this user definition to execute the <code>oci</code> command
+(the Oracle Cloud command-line tool) to get the credentials necessary to successfully authenticate to the cluster.
+If the <code>oci</code> executable is not in a directory in the <code>PATH</code> environment variable when the <code>kubectl</code> command is executed,
+then an error similar to the one shown here will occur.</p>
+<pre tabindex="0"><code>Failed to verify Kubernetes client connectivity: Unable to verify Kubernetes client connectivity:
+Command failed: /Users/rpatrick/bin/kubectl version --short
+Unable to connect to the server: getting credentials: exec: executable oci not found
+
+It looks like you are trying to use a client-go credential plugin that is not installed.
+
+To learn more about this feature, consult the documentation available at:
+https://kubernetes.io/docs/reference/access-authn-authz/authentication/#client-go-credential-plugins.
+</code></pre><p>When running the application on Windows or Linux, add the appropriate directory to the <code>PATH</code> environment variable and make sure to
+run the application with that environment.  On MacOS, things are a bit more complicated.</p>
+<p>When running the WKT UI application on MacOS, the application inherits the environment of a daemon process called <code>launchd</code> instead
+of your environment.  By default, the <code>launchd</code> environment contains only a few core directories on the <code>PATH</code>
+(that is, <code>/usr/bin</code>, <code>/bin</code>, <code>/usr/sbin</code>, and <code>/sbin</code>).  This will cause <code>kubectl</code> invocations requiring access to one of
+the cloud providers' command-line tooling to fail if the tool is not found in one of those locations.  While it is
+possible for an administrative user to change the environment that <code>launchd</code> uses to address this issue, the application
+provides the <code>Extra Kubernetes Client Path Directories</code> field to explicitly add the directory where the cloud providers'
+command-line tooling is installed, to the <code>PATH</code> that the application uses to invoke <code>kubectl</code>.  Note that this field
+is only visible when running the application on MacOS.</p>
+<h4 id="verify-connectivity">Verify Connectivity</h4>
+<p>To verify the application configuration for connecting to the specified Kubernetes cluster,
+use the <code>Verify Connectivity</code> button on the <code>Client Configuration</code> page or
+<code>Go</code> &gt; <code>Verify Kubernetes Client Connection</code>.</p>
+
+
+<footer class="footline">
+	
+</footer>
+
+        
+        </div>
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="/weblogic-toolikit-ui/navigate/kubernetes/" title="Kubernetes"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="/weblogic-toolikit-ui/navigate/kubernetes/k8s-wko/" title="WebLogic Kubernetes Operator" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/weblogic-toolikit-ui/js/clipboard.min.js?1634394870"></script>
+    <script src="/weblogic-toolikit-ui/js/perfect-scrollbar.min.js?1634394870"></script>
+    <script src="/weblogic-toolikit-ui/js/perfect-scrollbar.jquery.min.js?1634394870"></script>
+    <script src="/weblogic-toolikit-ui/js/jquery.sticky.js?1634394870"></script>
+    <script src="/weblogic-toolikit-ui/js/featherlight.min.js?1634394870"></script>
+    <script src="/weblogic-toolikit-ui/js/highlight.pack.js?1634394870"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/weblogic-toolikit-ui/js/modernizr.custom-3.6.0.js?1634394870"></script>
+    <script src="/weblogic-toolikit-ui/js/learn.js?1634394870"></script>
+    <script src="/weblogic-toolikit-ui/js/hugo-learn.js?1634394870"></script>
+    
+        
+            <script src="/weblogic-toolikit-ui/mermaid/mermaid.js?1634394870"></script>
+        
+        <script>
+            mermaid.initialize({ startOnLoad: true });
+        </script>
+    
+    
+
+  </body>
+</html>
+

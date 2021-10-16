@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Navigate the UI on WebLogic Kubernetes Toolkit UI</title>
+    <link>/weblogic-toolikit-ui/navigate/</link>
+    <description>Recent content in Navigate the UI on WebLogic Kubernetes Toolkit UI</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 22 Feb 2019 15:27:38 -0500</lastBuildDate><atom:link href="/weblogic-toolikit-ui/navigate/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Project Settings</title>
+      <link>/weblogic-toolikit-ui/navigate/project-settings/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>/weblogic-toolikit-ui/navigate/project-settings/</guid>
+      <description>The first stop for every new project is Project Settings. In this section, you make decisions and provide input for the project on:
+ Credential Storage Domain Location Kubernetes Environment Target Type JDK and WebLogic Server Installation Directories Image Build Tool Type and Executable Location  Choosing a Credential Storage Scheme The WKT UI application can securely store credentials for your project or not store them at all. The three choices are to:</description>
+    </item>
+    
+    <item>
+      <title>Model</title>
+      <link>/weblogic-toolikit-ui/navigate/model/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>/weblogic-toolikit-ui/navigate/model/</guid>
+      <description>Contents  Model Design View Code View  Model Editor Variables Editor Archive Editor   Prepare Model  Model The Model section helps you work with WebLogic Deploy Tooling models for a WebLogic domain. A WebLogic Deploy Tooling model for a domain can include the following file types:
+ Model file - A declarative definition of the domain configuration. Variable file - A property file that maps names to values.</description>
+    </item>
+    
+    <item>
+      <title>Image</title>
+      <link>/weblogic-toolikit-ui/navigate/image/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>/weblogic-toolikit-ui/navigate/image/</guid>
+      <description>Contents  Image Design View  Target Image Name and Registry Credentials Base Image to Use Installers for Building the Image Patch Oracle Home WebLogic Deploy Tooling Configuration Image Build Configuration   Code View Create Image Push Image  Image The Image section helps you build container images for deploying WebLogic-based applications in a Kubernetes environment using the WebLogic Image Tool.
+Design View The Design View helps you specify the necessary data needed to run the WebLogic Image Tool to build an image for running the WebLogic domain with all resources configured and applications deployed.</description>
+    </item>
+    
+    <item>
+      <title>Verrazzano</title>
+      <link>/weblogic-toolikit-ui/navigate/verrazzano/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>/weblogic-toolikit-ui/navigate/verrazzano/</guid>
+      <description>In the current release, this is a placeholder for pages that will provide similar functionality to the Kubernetes section when using Verrazzano.</description>
+    </item>
+    
+  </channel>
+</rss>

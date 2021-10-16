@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>WebLogic Kubernetes Toolkit UI</title>
+    <link>/weblogic-toolikit-ui/</link>
+    <description>Recent content on WebLogic Kubernetes Toolkit UI</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 22 Feb 2019 15:44:42 -0500</lastBuildDate><atom:link href="/weblogic-toolikit-ui/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Client Configuration</title>
+      <link>/weblogic-toolikit-ui/navigate/kubernetes/k8s-client-config/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>/weblogic-toolikit-ui/navigate/kubernetes/k8s-client-config/</guid>
+      <description>Contents  Client Configuration  Authentication with Managed Kubernetes Clusters Verify Connectivity    Client Configuration Client Configuration helps you get the necessary connectivity to your Kubernetes cluster. Use the Kubernetes Cluster Type field to select the target Kubernetes cluster type to show instructions for configuring kubectl to successfully connect to the cluster.
+ The Kubectl Executable to Use field tells the WKT UI application where to find the correct version of kubectl to use.</description>
+    </item>
+    
+    <item>
+      <title>Prerequisites</title>
+      <link>/weblogic-toolikit-ui/setup/prerequisites/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>/weblogic-toolikit-ui/setup/prerequisites/</guid>
+      <description>WebLogic Kubernetes Toolkit UI has a number of prerequisites that must be installed locally to fully use the WKT UI application functionality.
+These include:
+ Java Development Kit (JDK) - Required by both WebLogic Deploy Tooling and WebLogic Image Tool. Install a JDK version that is compatible with your local WebLogic Server installation. WebLogic Server (WLS) - Required by WebLogic Deploy Tooling. Install a WebLogic Server version 12.2.1.3.0 or later; it is a best practice to install the latest Patch Set Updates (PSUs) and other recommended patches.</description>
+    </item>
+    
+    <item>
+      <title>Project Settings</title>
+      <link>/weblogic-toolikit-ui/navigate/project-settings/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>/weblogic-toolikit-ui/navigate/project-settings/</guid>
+      <description>The first stop for every new project is Project Settings. In this section, you make decisions and provide input for the project on:
+ Credential Storage Domain Location Kubernetes Environment Target Type JDK and WebLogic Server Installation Directories Image Build Tool Type and Executable Location  Choosing a Credential Storage Scheme The WKT UI application can securely store credentials for your project or not store them at all. The three choices are to:</description>
+    </item>
+    
+    <item>
+      <title>Install WKT UI</title>
+      <link>/weblogic-toolikit-ui/setup/install/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>/weblogic-toolikit-ui/setup/install/</guid>
+      <description>Download the latest WebLogic Kubernetes Toolkit UI (WKT UI) application installers from the Github Releases section of this repository. Simply run the appropriate installer for your operating system.
+Initial launch of the application displays a thorough &amp;ldquo;Introduction&amp;rdquo; to the WKT UI. Step through it or dismiss it; you can peruse it at any time using Help &amp;gt; Show Introduction.</description>
+    </item>
+    
+    <item>
+      <title>Model</title>
+      <link>/weblogic-toolikit-ui/navigate/model/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>/weblogic-toolikit-ui/navigate/model/</guid>
+      <description>Contents  Model Design View Code View  Model Editor Variables Editor Archive Editor   Prepare Model  Model The Model section helps you work with WebLogic Deploy Tooling models for a WebLogic domain. A WebLogic Deploy Tooling model for a domain can include the following file types:
+ Model file - A declarative definition of the domain configuration. Variable file - A property file that maps names to values.</description>
+    </item>
+    
+    <item>
+      <title>WebLogic Kubernetes Operator</title>
+      <link>/weblogic-toolikit-ui/navigate/kubernetes/k8s-wko/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>/weblogic-toolikit-ui/navigate/kubernetes/k8s-wko/</guid>
+      <description>Contents  WebLogic Kubernetes Operator Design View  WebLogic Kubernetes Operator Image Image Pull Secret Kubernetes Namespace Selection Strategy WebLogic Kubernetes Operator Role Bindings External REST API Access Third Party Integrations Java Logging   Code View Install Operator  WebLogic Kubernetes Operator This section provides support for installing the WebLogic Kubernetes Operator (the &amp;ldquo;operator&amp;rdquo;) in the target Kubernetes cluster. For detailed information about the operator, see the WebLogic Kubernetes Operator documentation.</description>
+    </item>
+    
+    <item>
+      <title>Image</title>
+      <link>/weblogic-toolikit-ui/navigate/image/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>/weblogic-toolikit-ui/navigate/image/</guid>
+      <description>Contents  Image Design View  Target Image Name and Registry Credentials Base Image to Use Installers for Building the Image Patch Oracle Home WebLogic Deploy Tooling Configuration Image Build Configuration   Code View Create Image Push Image  Image The Image section helps you build container images for deploying WebLogic-based applications in a Kubernetes environment using the WebLogic Image Tool.
+Design View The Design View helps you specify the necessary data needed to run the WebLogic Image Tool to build an image for running the WebLogic domain with all resources configured and applications deployed.</description>
+    </item>
+    
+    <item>
+      <title>WebLogic Domain</title>
+      <link>/weblogic-toolikit-ui/navigate/kubernetes/k8s-weblogic-domain/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>/weblogic-toolikit-ui/navigate/kubernetes/k8s-weblogic-domain/</guid>
+      <description>Contents  WebLogic Domain Design View  Image to Use for the Domain Clusters Model Variables Overrides Secrets Runtime Encryption Secret WebLogic Kubernetes Operator Introspection Configuration Domain-Wide Server Settings   Code View Prepare Model Deploy Domain Get Domain Status  WebLogic Domain The WebLogic Domain section provides support for creating and deploying the Kubernetes custom resource for the WebLogic domain as defined by the WebLogic Kubernetes Operator. For more information, see Domain Resource in the WebLogic Kubernetes Operator documentation.</description>
+    </item>
+    
+    <item>
+      <title>Ingress Controller</title>
+      <link>/weblogic-toolikit-ui/navigate/kubernetes/k8s-ingress-controller/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>/weblogic-toolikit-ui/navigate/kubernetes/k8s-ingress-controller/</guid>
+      <description>Contents  Ingress Controller Design View  Ingress Controller Configuration TLS Secret for Ingress Routes Ingress Routes Configuration   Code View Install Ingress Controller Update Ingress Routes  Ingress Controller This section supports two distinct functions related to an ingress controller. First, it supports installing an ingress controller to a Kubernetes cluster. Second, it supports adding the necessary routes to an ingress controller to make a deployed WebLogic domain&amp;rsquo;s end-points accessible.</description>
+    </item>
+    
+    <item>
+      <title>Verrazzano</title>
+      <link>/weblogic-toolikit-ui/navigate/verrazzano/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>/weblogic-toolikit-ui/navigate/verrazzano/</guid>
+      <description>In the current release, this is a placeholder for pages that will provide similar functionality to the Kubernetes section when using Verrazzano.</description>
+    </item>
+    
+  </channel>
+</rss>

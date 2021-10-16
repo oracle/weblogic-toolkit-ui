@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.88.1" />
+    <meta name="description" content="">
+
+
+    <link rel="icon" href="/weblogic-toolikit-ui/images/favicon.png" type="image/png">
+
+    <title> :: WebLogic Kubernetes Toolkit UI</title>
+
+    
+    <link href="/weblogic-toolikit-ui/css/nucleus.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/fontawesome-all.min.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/hybrid.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/featherlight.min.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/perfect-scrollbar.min.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/auto-complete.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/atom-one-dark-reasonable.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/theme.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/tabs.css?1634394870" rel="stylesheet">
+    <link href="/weblogic-toolikit-ui/css/hugo-theme.css?1634394870" rel="stylesheet">
+    
+    
+
+    <script src="/weblogic-toolikit-ui/js/jquery-3.3.1.min.js?1634394870"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+        :not(pre) > code + span.copy-to-clipboard {
+            display: none;
+        }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/weblogic-toolikit-ui/">
+    <nav id="sidebar" class="">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="/weblogic-toolikit-ui/">
+  <img src="/weblogic-toolikit-ui//images/logo.png" height="90"><br/>
+  WebLogic Kubernetes Toolkit UI
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/weblogic-toolikit-ui/js/lunr.min.js?1634394870"></script>
+<script type="text/javascript" src="/weblogic-toolikit-ui/js/auto-complete.js?1634394870"></script>
+<script type="text/javascript">
+    
+        var baseurl = "\/weblogic-toolikit-ui\/";
+    
+</script>
+<script type="text/javascript" src="/weblogic-toolikit-ui/js/search.js?1634394870"></script>
+
+    
+  </div>
+  
+    <section id="homelinks">
+      <ul>
+        <li>
+            <a class="padding" href='/weblogic-toolikit-ui/'><i class='fas fa-home'></i> Home</a>
+        </li>
+      </ul>
+    </section>
+  
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/weblogic-toolikit-ui/concepts/" title="About the WKT UI Application" class="dd-item
+        
+        
+        
+        ">
+      <a href="/weblogic-toolikit-ui/concepts/">
+          <b> </b>About the WKT UI Application
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/weblogic-toolikit-ui/setup/" title="Get Started" class="dd-item
+        
+        
+        
+        ">
+      <a href="/weblogic-toolikit-ui/setup/">
+          <b> </b>Get Started
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/setup/prerequisites/" title="Prerequisites" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/setup/prerequisites/">
+        Prerequisites
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/setup/install/" title="Install WKT UI" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/setup/install/">
+        Install WKT UI
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/weblogic-toolikit-ui/navigate/" title="Navigate the UI" class="dd-item
+        
+        
+        
+        ">
+      <a href="/weblogic-toolikit-ui/navigate/">
+          <b> </b>Navigate the UI
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/navigate/project-settings/" title="Project Settings" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/navigate/project-settings/">
+        Project Settings
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/navigate/model/" title="Model" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/navigate/model/">
+        Model
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/navigate/image/" title="Image" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/navigate/image/">
+        Image
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/weblogic-toolikit-ui/navigate/kubernetes/" title="Kubernetes" class="dd-item
+        
+        
+        
+        ">
+      <a href="/weblogic-toolikit-ui/navigate/kubernetes/">
+          <b> </b>Kubernetes
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/navigate/kubernetes/k8s-client-config/" title="Client Configuration" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/navigate/kubernetes/k8s-client-config/">
+        Client Configuration
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/navigate/kubernetes/k8s-wko/" title="WebLogic Kubernetes Operator" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/navigate/kubernetes/k8s-wko/">
+        WebLogic Kubernetes Operator
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/navigate/kubernetes/k8s-weblogic-domain/" title="WebLogic Domain" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/navigate/kubernetes/k8s-weblogic-domain/">
+        WebLogic Domain
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/navigate/kubernetes/k8s-ingress-controller/" title="Ingress Controller" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/navigate/kubernetes/k8s-ingress-controller/">
+        Ingress Controller
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolikit-ui/navigate/verrazzano/" title="Verrazzano" class="dd-item ">
+        <a href="/weblogic-toolikit-ui/navigate/verrazzano/">
+        Verrazzano
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/weblogic-toolikit-ui/developer/" title="Developer Guide" class="dd-item
+        
+        
+        
+        ">
+      <a href="/weblogic-toolikit-ui/developer/">
+          <b> </b>Developer Guide
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+          
+        
+    </ul>
+
+    
+    
+
+    
+    <section id="footer">
+      <p>Created with <i class="fas fa-heart"></i> from <a href="https://www.oracle.com">Oracle</a></p>
+<p>&nbsp</p>
+<p><a href="https://github.com/oracle/weblogic-toolkit-ui"><i class="fab fa-github"></i> GitHub repo</a></p>
+<p><a href="https://weblogic-slack-inviter.herokuapp.com/"><i class="fab fa-slack"></i> Public Slack #weblogic</a></p>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+
+        
+
+<span id="sidebar-toggle-span">
+<a href="#" id="sidebar-toggle" data-sidebar-toggle=""><i class="fas fa-bars"></i> navigation</a>
+</span>
+
+ 
+<h2 id="weblogic-kubernetes-toolkit-ui-documentation">WebLogic Kubernetes Toolkit UI Documentation</h2>
+<p>The WebLogic Kubernetes Toolkit (WKT) is a collection of open source tools that help you provision WebLogic-based
+applications to run in Linux containers on a Kubernetes cluster.  WKT includes the following tools:</p>
+<ul>
+<li><a href="https://github.com/oracle/weblogic-deploy-tooling">WebLogic Deploy Tooling (WDT)</a> - A set of single-purpose,
+lifecycle tools that operate off of a single metadata model representation of a WebLogic domain.</li>
+<li><a href="https://github.com/oracle/weblogic-image-tool">WebLogic Image Tool (WIT)</a> - A tool for creating Linux container
+images for running WebLogic domains.</li>
+<li><a href="https://github.com/oracle/weblogic-kubernetes-operator">WebLogic Kubernetes Operator (WKO)</a> - A Kubernetes operator
+that allows WebLogic domains to run natively in a Kubernetes cluster.</li>
+</ul>
+<p>The WKT UI provides a graphical user interface that wraps the WKT tools, Docker, Helm, and the Kubernetes client
+(<code>kubectl</code>) and helps guide you through the process of creating and modifying a model of your WebLogic domain, creating
+a Linux container image to use to run the domain, and setting up and deploying the software and configuration
+necessary to deploy and access the domain in your Kubernetes cluster.</p>
+<h3 id="current-release">Current release</h3>
+<p>WebLogic Kubernetes Toolkit UI version and release information can be found <a href="https://github.com/oracle/weblogic-toolkit-ui/releases">here</a>.</p>
+<h3 id="about-the-documentation">About the Documentation</h3>
+<p>For detailed user information, read the following:</p>
+<ul>
+<li><a href="/weblogic-toolikit-ui/concepts/">About the WKT UI Application</a></li>
+<li>WebLogic Kubernetes Toolkit UI <a href="/weblogic-toolikit-ui/setup/prerequisites/">Prerequisites</a> and <a href="/weblogic-toolikit-ui/setup/install/">Installation</a></li>
+<li><a href="/weblogic-toolikit-ui/navigate/">Navigate the WKT UI</a>
+<ul>
+<li><a href="/weblogic-toolikit-ui/navigate/model/">Model</a></li>
+<li><a href="/weblogic-toolikit-ui/navigate/image/">Image</a></li>
+<li><a href="/weblogic-toolikit-ui/navigate/kubernetes/">Kubernetes</a></li>
+<li><a href="/weblogic-toolikit-ui/navigate/verrazzano/">Verrazzano</a></li>
+</ul>
+</li>
+</ul>
+<p>For developer information, see <a href="/weblogic-toolikit-ui/developer/">WebLogic Kubernetes Toolkit UI Project</a></p>
+<h3 id="get-help">Get Help</h3>
+<p>We have a closely monitored public Slack channel where you can get in touch with us to ask questions about using the
+WebLogic Toolkit UI or give us feedback or suggestions about what features and improvements you would like to see.
+We would love to hear from you.</p>
+<h3 id="related-projects">Related Projects</h3>
+<p>For detailed documentation and access to WebLogic Toolkit-related projects, see:</p>
+<ul>
+<li><a href="https://oracle.github.io/weblogic-kubernetes-operator/">WebLogic Kubernetes Operator</a></li>
+<li><a href="https://oracle.github.io/weblogic-deploy-tooling/">WebLogic Deploy Tooling</a></li>
+<li><a href="https://oracle.github.io/weblogic-image-tool/">WebLogic Image Tool</a></li>
+</ul>
+	
+  
+        
+        </div>
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+
+        
+
+
+	 
+	 
+		
+		
+			<a class="nav nav-next" href="/weblogic-toolikit-ui/concepts/" title="About the WKT UI Application" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/weblogic-toolikit-ui/js/clipboard.min.js?1634394870"></script>
+    <script src="/weblogic-toolikit-ui/js/perfect-scrollbar.min.js?1634394870"></script>
+    <script src="/weblogic-toolikit-ui/js/perfect-scrollbar.jquery.min.js?1634394870"></script>
+    <script src="/weblogic-toolikit-ui/js/jquery.sticky.js?1634394870"></script>
+    <script src="/weblogic-toolikit-ui/js/featherlight.min.js?1634394870"></script>
+    <script src="/weblogic-toolikit-ui/js/highlight.pack.js?1634394870"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/weblogic-toolikit-ui/js/modernizr.custom-3.6.0.js?1634394870"></script>
+    <script src="/weblogic-toolikit-ui/js/learn.js?1634394870"></script>
+    <script src="/weblogic-toolikit-ui/js/hugo-learn.js?1634394870"></script>
+    
+        
+            <script src="/weblogic-toolikit-ui/mermaid/mermaid.js?1634394870"></script>
+        
+        <script>
+            mermaid.initialize({ startOnLoad: true });
+        </script>
+    
+    
+
+  </body>
+</html>
+
