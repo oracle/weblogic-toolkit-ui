@@ -52,9 +52,20 @@ class Main {
   }
 
   runApp(argv) {
-    this.registerAppListeners(argv);
-    this.registerIpcListeners();
-    this.registerIpcHandlers();
+    // enforce a single instance of the application
+    const gotTheLock = app.requestSingleInstanceLock();
+
+    if (!gotTheLock) {
+      // if this isn't the first instance, quit now.
+      // the parameters were passed to the first instance with the requestSingleInstanceLock() call.
+      // the first instance will receive these in the second-instance event (see below).
+      app.quit();
+
+    } else {
+      this.registerAppListeners(argv);
+      this.registerIpcListeners();
+      this.registerIpcHandlers();
+    }
   }
 
   registerAppListeners(argv) {
@@ -77,6 +88,29 @@ class Main {
             });
           });
         }
+      }
+    });
+
+    // if a second instance of the app attempted to start, that instance has quit,
+    // and its parameters are received by this event.
+    // use the command-line to open the requested project file, if present.
+    app.on('second-instance', (event, commandLine) => {
+      getLogger().debug(`Received second-instance event: ${JSON.stringify(commandLine)}`);
+
+      const filePath = this.getFileArgFromCommandLine(commandLine);
+      if (filePath) {
+        getLogger().info(`File argument from second instance: ${filePath}`);
+        const existingProjectWindow = project.getWindowForProject(filePath);
+        if (existingProjectWindow) {
+          project.showExistingProjectWindow(existingProjectWindow);
+          return;
+        }
+
+        createWindow(this._isJetDevMode, this._wktApp).then(win => {
+          win.once('ready-to-show', () => {
+            this.openProjectFileInWindow(win, filePath);
+          });
+        });
       }
     });
 
@@ -754,7 +788,9 @@ class Main {
   getFileArgFromCommandLine(argv) {
     let fileArg;
     if (this._wktMode.isExecutableMode() && argv.length > 1) {
-      fileArg = argv[1];
+      // app.requestSingleInstanceLock() may have inserted --xxx arguments
+      const lastArg = argv[argv.length - 1];
+      fileArg = lastArg.startsWith('--') ? fileArg : lastArg;
     }
     return fileArg;
   }
