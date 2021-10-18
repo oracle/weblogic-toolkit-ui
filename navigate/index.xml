@@ -14,7 +14,7 @@
       
       <guid>https://oracle.github.io/weblogic-toolkit-ui/navigate/project-settings/</guid>
       <description>The first stop for every new project is Project Settings. In this section, you make decisions and provide input for the project on:
- Credential Storage Domain Location Kubernetes Environment Target Type JDK and WebLogic Server Installation Directories Image Build Tool Type and Executable Location  Choosing a Credential Storage Scheme The WKT UI application can securely store credentials for your project or not store them at all. The three choices are to:</description>
+ Credential Storage Domain Location Kubernetes Environment Target Type JDK and WebLogic Server Installation Directories Image Build Tool Type and Executable Location  Choosing a Credential Storage Scheme The WKT UI application can securely store credentials for your project or not store them at all. The three choices are:</description>
     </item>
     
     <item>

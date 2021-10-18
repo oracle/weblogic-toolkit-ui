@@ -41,7 +41,7 @@
       <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
       
       <guid>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/k8s-ingress-controller/</guid>
-      <description>Contents  Ingress Controller Design View  Ingress Controller Configuration TLS Secret for Ingress Routes Ingress Routes Configuration   Code View Install Ingress Controller Update Ingress Routes  Ingress Controller This section supports two distinct functions related to an ingress controller. First, it supports installing an ingress controller to a Kubernetes cluster. Second, it supports adding the necessary routes to an ingress controller to make a deployed WebLogic domain&amp;rsquo;s end-points accessible.</description>
+      <description>Contents  Ingress Controller Design View  Ingress Controller Configuration TLS Secret for Ingress Routes Ingress Routes Configuration   Code View Install Ingress Controller Update Ingress Routes  Ingress Controller This section supports two distinct functions related to an ingress controller. First, it supports installing an ingress controller to a Kubernetes cluster. Second, it supports adding the necessary routes to an ingress controller to make a deployed WebLogic domain&amp;rsquo;s endpoints accessible.</description>
     </item>
     
   </channel>

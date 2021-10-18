@@ -35,7 +35,7 @@ These include:
       
       <guid>https://oracle.github.io/weblogic-toolkit-ui/navigate/project-settings/</guid>
       <description>The first stop for every new project is Project Settings. In this section, you make decisions and provide input for the project on:
- Credential Storage Domain Location Kubernetes Environment Target Type JDK and WebLogic Server Installation Directories Image Build Tool Type and Executable Location  Choosing a Credential Storage Scheme The WKT UI application can securely store credentials for your project or not store them at all. The three choices are to:</description>
+ Credential Storage Domain Location Kubernetes Environment Target Type JDK and WebLogic Server Installation Directories Image Build Tool Type and Executable Location  Choosing a Credential Storage Scheme The WKT UI application can securely store credentials for your project or not store them at all. The three choices are:</description>
     </item>
     
     <item>
@@ -92,7 +92,7 @@ Design View The Design View helps you specify the necessary data needed to run t
       <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
       
       <guid>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/k8s-ingress-controller/</guid>
-      <description>Contents  Ingress Controller Design View  Ingress Controller Configuration TLS Secret for Ingress Routes Ingress Routes Configuration   Code View Install Ingress Controller Update Ingress Routes  Ingress Controller This section supports two distinct functions related to an ingress controller. First, it supports installing an ingress controller to a Kubernetes cluster. Second, it supports adding the necessary routes to an ingress controller to make a deployed WebLogic domain&amp;rsquo;s end-points accessible.</description>
+      <description>Contents  Ingress Controller Design View  Ingress Controller Configuration TLS Secret for Ingress Routes Ingress Routes Configuration   Code View Install Ingress Controller Update Ingress Routes  Ingress Controller This section supports two distinct functions related to an ingress controller. First, it supports installing an ingress controller to a Kubernetes cluster. Second, it supports adding the necessary routes to an ingress controller to make a deployed WebLogic domain&amp;rsquo;s endpoints accessible.</description>
     </item>
     
     <item>
