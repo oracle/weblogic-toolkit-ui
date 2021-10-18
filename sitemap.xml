@@ -2,57 +2,57 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>/weblogic-toolkit-ui/navigate/kubernetes/k8s-client-config/</loc>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/k8s-client-config/</loc>
     <lastmod>2019-02-22T15:44:42-05:00</lastmod>
   </url><url>
-    <loc>/weblogic-toolkit-ui/setup/prerequisites/</loc>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/setup/prerequisites/</loc>
     <lastmod>2019-02-22T15:44:42-05:00</lastmod>
   </url><url>
-    <loc>/weblogic-toolkit-ui/navigate/project-settings/</loc>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/navigate/project-settings/</loc>
     <lastmod>2019-02-22T15:44:42-05:00</lastmod>
   </url><url>
-    <loc>/weblogic-toolkit-ui/concepts/</loc>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/concepts/</loc>
     <lastmod>2019-02-22T15:27:38-05:00</lastmod>
   </url><url>
-    <loc>/weblogic-toolkit-ui/setup/install/</loc>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/setup/install/</loc>
     <lastmod>2019-02-22T15:44:42-05:00</lastmod>
   </url><url>
-    <loc>/weblogic-toolkit-ui/navigate/model/</loc>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/navigate/model/</loc>
     <lastmod>2019-02-22T15:44:42-05:00</lastmod>
   </url><url>
-    <loc>/weblogic-toolkit-ui/navigate/kubernetes/k8s-wko/</loc>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/k8s-wko/</loc>
     <lastmod>2019-02-22T15:44:42-05:00</lastmod>
   </url><url>
-    <loc>/weblogic-toolkit-ui/setup/</loc>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/setup/</loc>
     <lastmod>2019-02-22T15:27:38-05:00</lastmod>
   </url><url>
-    <loc>/weblogic-toolkit-ui/navigate/image/</loc>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/navigate/image/</loc>
     <lastmod>2019-02-22T15:44:42-05:00</lastmod>
   </url><url>
-    <loc>/weblogic-toolkit-ui/navigate/kubernetes/k8s-weblogic-domain/</loc>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/k8s-weblogic-domain/</loc>
     <lastmod>2019-02-22T15:44:42-05:00</lastmod>
   </url><url>
-    <loc>/weblogic-toolkit-ui/navigate/</loc>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/navigate/</loc>
     <lastmod>2019-02-22T15:27:38-05:00</lastmod>
   </url><url>
-    <loc>/weblogic-toolkit-ui/navigate/kubernetes/k8s-ingress-controller/</loc>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/k8s-ingress-controller/</loc>
     <lastmod>2019-02-22T15:44:42-05:00</lastmod>
   </url><url>
-    <loc>/weblogic-toolkit-ui/developer/</loc>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/developer/</loc>
     <lastmod>2019-02-22T15:27:38-05:00</lastmod>
   </url><url>
-    <loc>/weblogic-toolkit-ui/navigate/kubernetes/</loc>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/</loc>
     <lastmod>2019-02-22T15:27:38-05:00</lastmod>
   </url><url>
-    <loc>/weblogic-toolkit-ui/navigate/verrazzano/</loc>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/navigate/verrazzano/</loc>
     <lastmod>2019-02-22T15:44:42-05:00</lastmod>
   </url><url>
-    <loc>/weblogic-toolkit-ui/</loc>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/</loc>
     <lastmod>2019-02-22T15:44:42-05:00</lastmod>
     <priority>0</priority>
   </url><url>
-    <loc>/weblogic-toolkit-ui/categories/</loc>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/categories/</loc>
   </url><url>
-    <loc>/weblogic-toolkit-ui/tags/</loc>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/tags/</loc>
   </url>
 </urlset>
