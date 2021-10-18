@@ -153,13 +153,13 @@ For more information, see the WDT [model tokens](https://oracle.github.io/weblog
 documentation.
 
 In replacing credential values, `Prepare Model` must handle the replacement differently for the "Domain in Image" and
-"Model in Image" [domain locations]({{< relref "/navigate/project-settings#choosing-a-domain-location" >}}).
+"Model in Image" [domain locations]({{< relref "/navigate/project-settings#choosing-a-domain-location" >}}):
 
-With "Domain in Image", the WebLogic Image Tool creates the domain while creating the image.  As such, it has no
+- With "Domain in Image", the WebLogic Image Tool creates the domain while creating the image.  As such, it has no
 knowledge of Kubernetes so the token replacement uses variable tokens so that domain creation has access to the actual
 credential values.  You must ensure that all variables have valid values prior to running `Create Image`.
 
-For "Model in Image", the domain is created at runtime by the WebLogic Kubernetes Operator running in a Kubernetes
+- For "Model in Image", the domain is created at runtime by the WebLogic Kubernetes Operator running in a Kubernetes
 cluster.  As such, token replacement uses secret tokens for all credential fields.  You must to be sure to provide
 values for all secret reference fields using the `WebLogic Domain` section's `Secrets` pane so that the required secrets
 get populated correctly during domain deployment.  For more information, see [WebLogic Domain]({{< relref "/navigate/kubernetes/k8s-weblogic-domain.md" >}}).

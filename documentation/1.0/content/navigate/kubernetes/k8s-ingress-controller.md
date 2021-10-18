@@ -19,7 +19,7 @@ description: "Install and configure an ingress controller."
 ### Ingress Controller
 This section supports two distinct functions related to an ingress controller.  First, it supports installing an ingress
 controller to a Kubernetes cluster.  Second, it supports adding the necessary routes to an ingress controller to make
-a deployed WebLogic domain's end-points accessible.
+a deployed WebLogic domain's endpoints accessible.
 
 #### Design View
 `Design View` helps you specify the data needed to install an ingress controller, if desired, and

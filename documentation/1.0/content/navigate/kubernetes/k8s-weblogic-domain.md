@@ -203,7 +203,7 @@ the script itself.  This change is left as an exercise for you because different
 existing standards for securely handling such credentials.
 
 ### Prepare Model
-`Prepare Model` is the same as was previously described in the [`Model`](model.md#prepare-model) section.  It is only
+`Prepare Model` is the same as was previously described in the [`Model`]({{< relref "/navigate/model#prepare-model" >}})  section.  It is only
 surfaced here because the `Clusters` pane of the `Design View` is populated only when `Prepare Model` is run.
 
 ### Deploy Domain

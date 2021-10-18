@@ -84,7 +84,7 @@ the desired namespace selection strategy from one of the supported values:
     by this operator.
 - `Dedicated` - Only the Kubernetes namespace where the operator is installed will be managed by this operator.
 
-_Note that the operator Helm chart default is `List` but the application overrides this to specify `Label Selector` as
+_**Note** that the operator Helm chart default is `List` but the application overrides this to specify `Label Selector` as
 the default value._
 
 Each namespace selection strategy takes different input values; the form fields will change based on the strategy

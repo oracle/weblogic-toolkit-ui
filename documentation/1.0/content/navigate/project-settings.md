@@ -16,7 +16,7 @@ input for the project on:
 
 #### Choosing a Credential Storage Scheme
 The WKT UI application can securely store credentials for your project or not store them at all.  The three choices
-are to:
+are:
 
 - Use the Native OS Credential Store
 - Store Encrypted Credentials in the WKT Project File
@@ -59,9 +59,9 @@ project.
 #### Choosing a Domain Location
 When getting started with a new WKT Project, one of the first things to consider is where you want the domain to reside.
 Domains can reside in a container, in an image, or in a persistent volume.  Your choice will expose and hide different
-fields across most sections of the UI.  The following describe the implications of the three locations.
+fields across most sections of the UI.  The following describe the implications of the three locations:
 
-`Created in the container from the model in the image`  - The newest and most popular location for a domain is in the container.  This is known as "Model in Image" but also
+- `Created in the container from the model in the image`  - The newest and most popular location for a domain is in the container.  This is known as "Model in Image" but also
 referred to as a "From Model" in the underlying WKT tooling.  In this case, the set of model-related files are added to
 the image.  When the WebLogic Kubernetes Operator domain object is deployed, its inspector process runs and creates the
 WebLogic Server domain inside a running container on-the-fly.  While this process adds a small amount of overhead at
@@ -69,13 +69,13 @@ startup, it also makes it easier to maintain the image.  For example, you can ha
 is updated periodically to pick up the latest Patch Set Updates (PSUs).  Then, you use that image to add the
 most recent version of the WebLogic Deploy Tooling and your domain model files as a layer on top.
 
-`Created as part of the image` - This selection stores the domain in the image.  This is known as "Domain in Image" but also is referred to as "Image"
+- `Created as part of the image` - This selection stores the domain in the image.  This is known as "Domain in Image" but also is referred to as "Image"
 in the WebLogic Kubernetes Operator configuration.  Using this option, the domain is created from the model by the
 WebLogic Image Tool (using the WebLogic Deploy Tooling) and baked into the image.  While this saves a little overhead
 at startup, it is more expensive to maintain due to the need to recreate the domain every time a new WebLogic
 Server image is created.
 
-`Externally created in a Kubernetes persistent volume` - This selection stores the domain in a Kubernetes persistent volume; this is known as "Domain in PV".
+- `Externally created in a Kubernetes persistent volume` - This selection stores the domain in a Kubernetes persistent volume; this is known as "Domain in PV".
 This closely approximates the traditional way of maintaining a domain where the domain is created on disk and then
 used and maintained for as long as necessary. Depending on which Fusion Middleware products you are using, this may be
 your only supported choice for running the domain in Kubernetes.  The WKT UI application currently doesn't do anything to help
@@ -101,6 +101,6 @@ installation directories.
 
 #### Choosing the Image Build Tool
 To build new images, inspect images, and interact with image repositories, the WKT UI application uses an image build
-tool, which defaults to `docker`.  The image build tool must be installed locally, as mentioned in the [Prerequisites](site/prerequisites.md).
+tool, which defaults to `docker`.  The image build tool must be installed locally, as mentioned in the [Prerequisites]({{< relref "/setup/prerequisites.md" >}}).
 While `docker` is currently the most popular tool, many vendors (for example, Oracle, IBM RedHat, Google) are moving to
 use `podman` by default.
