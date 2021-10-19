@@ -13,8 +13,8 @@ const { getHttpsProxyUrl, getBypassProxyHosts } = require('./userSettings');
 const { executeChildShellScript } = require('./childProcessExecutor');
 
 async function createImage(currentWindow, stdoutChannel, stderrChannel, createConfig) {
-  const httpsProxyUrl = await getHttpsProxyUrl();
-  const bypassProxyHosts = await getBypassProxyHosts();
+  const httpsProxyUrl = getHttpsProxyUrl();
+  const bypassProxyHosts = getBypassProxyHosts();
 
   const imageToolScript = getImagetoolShellScript();
   const [ args, argsContainCredentials ] = buildArgumentsList(createConfig, httpsProxyUrl);

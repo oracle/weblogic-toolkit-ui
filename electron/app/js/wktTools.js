@@ -239,15 +239,16 @@ function getToolsUpdateSuccessfulText(releaseNames) {
 
 async function getOptions() {
   return new Promise((resolve, reject) => {
-    require('./userSettings').getHttpsProxyUrl()
-      .then(httpsProxyUrl => {
-        if (httpsProxyUrl) {
-          resolve({ httpsProxyUrl: httpsProxyUrl });
-        } else {
-          resolve();
-        }
-      })
-      .catch(err => reject(err));
+    try {
+      const httpsProxyUrl = require('./userSettings').getHttpsProxyUrl();
+      if (httpsProxyUrl) {
+        resolve({ httpsProxyUrl: httpsProxyUrl });
+      } else {
+        resolve();
+      }
+    } catch (err) {
+      reject(err);
+    }
   });
 }
 

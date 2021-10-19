@@ -30,7 +30,8 @@ const witCreate = require('./js/witCreate');
 const kubectlUtils = require('./js/kubectlUtils');
 const helmUtils = require('./js/helmUtils');
 const openSSLUtils = require('./js/openSSLUtils');
-const { initializeAutoUpdater, registerAutoUpdateListeners } = require('./js/appUpdater');
+const osUtils = require('./js/osUtils');
+const { initializeAutoUpdater, registerAutoUpdateListeners, checkForUpdates } = require('./js/appUpdater');
 
 const { getHttpsProxyUrl, getBypassProxyHosts } = require('./js/userSettings');
 const {sendToWindow} = require('./js/windowUtils');
@@ -50,14 +51,25 @@ class Main {
     wktTools.initialize(this._wktMode);
     initialize(this._isJetDevMode, this._wktApp, this._wktMode);    // wktWindow.js
     this._quickstartShownAlready = false;
+    initializeAutoUpdater(getLogger(), this._isJetDevMode);
   }
 
   runApp(argv) {
-    initializeAutoUpdater(getLogger());
-    registerAutoUpdateListeners();
-    this.registerAppListeners(argv);
-    this.registerIpcListeners();
-    this.registerIpcHandlers();
+    // enforce a single instance of the application
+    const gotTheLock = app.requestSingleInstanceLock();
+
+    if (!gotTheLock) {
+      // if this isn't the first instance, quit now.
+      // the parameters were passed to the first instance with the requestSingleInstanceLock() call.
+      // the first instance will receive these in the second-instance event (see below).
+      app.quit();
+    } else {
+      registerAutoUpdateListeners();
+      this.registerAppListeners(argv);
+      this.registerIpcListeners();
+      this.registerIpcHandlers();
+      checkForUpdates();
+    }
   }
 
   registerAppListeners(argv) {
@@ -80,6 +92,29 @@ class Main {
             });
           });
         }
+      }
+    });
+
+    // if a second instance of the app attempted to start, that instance has quit,
+    // and its parameters are received by this event.
+    // use the command-line to open the requested project file, if present.
+    app.on('second-instance', (event, commandLine) => {
+      getLogger().debug(`Received second-instance event: ${JSON.stringify(commandLine)}`);
+
+      const filePath = this.getFileArgFromCommandLine(commandLine);
+      if (filePath) {
+        getLogger().info(`File argument from second instance: ${filePath}`);
+        const existingProjectWindow = project.getWindowForProject(filePath);
+        if (existingProjectWindow) {
+          project.showExistingProjectWindow(existingProjectWindow);
+          return;
+        }
+
+        createWindow(this._isJetDevMode, this._wktApp).then(win => {
+          win.once('ready-to-show', () => {
+            this.openProjectFileInWindow(win, filePath);
+          });
+        });
       }
     });
 
@@ -207,12 +242,12 @@ class Main {
 
   registerIpcHandlers() {
     // eslint-disable-next-line no-unused-vars
-    ipcMain.handle('get-https-proxy-url', async (event) => {
+    ipcMain.handle('get-https-proxy-url', (event) => {
       return getHttpsProxyUrl();
     });
 
     // eslint-disable-next-line no-unused-vars
-    ipcMain.handle('get-bypass-proxy-hosts', async (event) => {
+    ipcMain.handle('get-bypass-proxy-hosts', (event) => {
       return getBypassProxyHosts();
     });
 
@@ -757,7 +792,9 @@ class Main {
   getFileArgFromCommandLine(argv) {
     let fileArg;
     if (this._wktMode.isExecutableMode() && argv.length > 1) {
-      fileArg = argv[1];
+      // app.requestSingleInstanceLock() may have inserted --xxx arguments
+      const lastArg = argv[argv.length - 1];
+      fileArg = lastArg.startsWith('--') ? fileArg : lastArg;
     }
     return fileArg;
   }
@@ -775,6 +812,17 @@ class Main {
   }
 }
 
-new Main(process.argv[3] === 'dev').runApp(process.argv);
+const me = new Main(process.argv[3] === 'dev');
+if (osUtils.isLinux()) {
+  const httpsProxyUrl = getHttpsProxyUrl();
+  if (httpsProxyUrl) {
+    app.commandLine.appendSwitch('--proxy-server', httpsProxyUrl);
+    const bypassProxyHosts = getBypassProxyHosts();
+    if (bypassProxyHosts) {
+      app.commandLine.appendSwitch('--proxy-bypass-list', bypassProxyHosts);
+    }
+  }
+}
+me.runApp(process.argv);
 
 // DO NOT export anything from this file.

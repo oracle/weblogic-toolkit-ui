@@ -18,7 +18,8 @@ const userSettableFieldNames = [
 ];
 
 const appPrivateFieldNames = [
-  'window'
+  'window',
+  'dividers'
 ];
 
 let _userSettingsDirectory;
@@ -50,6 +51,10 @@ let _userSettingsFileName;
 //       "width": 1693,
 //       "height": 856
 //     }
+//   },
+//   "dividers": {
+//     "modelMain": 0.68,
+//     "modelRight": 0.48
 //   }
 // }
 //
@@ -99,17 +104,13 @@ async function applyUserSettingsFromRemote(remoteUserSettingsJson) {
   });
 }
 
-async function getHttpsProxyUrl() {
-  return new Promise((resolve, reject) => {
-    _getUserSettings().then(userSettingsObj => {
-      if ('proxy' in userSettingsObj  && 'httpsProxyUrl' in userSettingsObj['proxy']) {
-        const httpsProxyUrl = userSettingsObj['proxy']['httpsProxyUrl'];
-        resolve(httpsProxyUrl);
-      } else {
-        resolve(null);
-      }
-    }).catch(err => reject(err));
-  });
+function getHttpsProxyUrl() {
+  let httpsProxyUrl;
+  const userSettingsObj = _getUserSettingsSync();
+  if ('proxy' in userSettingsObj  && 'httpsProxyUrl' in userSettingsObj['proxy']) {
+    httpsProxyUrl = userSettingsObj['proxy']['httpsProxyUrl'];
+  }
+  return httpsProxyUrl;
 }
 
 async function setHttpsProxyUrl(httpsProxyUrl) {
@@ -128,17 +129,13 @@ async function setHttpsProxyUrl(httpsProxyUrl) {
   });
 }
 
-async function getBypassProxyHosts() {
-  return new Promise((resolve, reject) => {
-    _getUserSettings().then(userSettingsObj => {
-      if ('proxy' in userSettingsObj  && 'bypassProxyHosts' in userSettingsObj['proxy']) {
-        const bypassProxyHosts = userSettingsObj['proxy']['bypassProxyHosts'];
-        resolve(bypassProxyHosts);
-      } else {
-        resolve(null);
-      }
-    }).catch(err => reject(err));
-  });
+function getBypassProxyHosts() {
+  let bypassProxyHosts;
+  const userSettingsObj = _getUserSettingsSync();
+  if ('proxy' in userSettingsObj  && 'bypassProxyHosts' in userSettingsObj['proxy']) {
+    bypassProxyHosts = userSettingsObj['proxy']['bypassProxyHosts'];
+  }
+  return bypassProxyHosts;
 }
 
 async function setBypassProxyHosts(bypassProxyHosts) {
@@ -293,6 +290,43 @@ async function _getUserSettings() {
       .catch(err => reject(i18n.t('user-settings-file-exists-checked-failed-error-message',
         { userSettingsFile: userSettingsFileName, error: getErrorMessage(err) })));
   });
+}
+
+function _getUserSettingsSync() {
+  const i18n = require('./i18next.config');
+
+  if (_userSettingsObject) {
+    return _userSettingsObject;
+  }
+
+  const userSettingsFileName = getUserSettingsFileName();
+  let fileExists;
+  try {
+    fileExists = fs.existsSync(userSettingsFileName);
+  } catch (err) {
+    throw new Error(i18n.t('user-settings-file-exists-checked-failed-error-message',
+      { userSettingsFile: userSettingsFileName, error: getErrorMessage(err) }));
+  }
+
+  if (fileExists) {
+    let userSettingsFileContent;
+    try {
+      userSettingsFileContent = fs.readFileSync(userSettingsFileName, { encoding: 'utf8' });
+    } catch (err) {
+      throw new Error(`Failed to read file ${userSettingsFileName}: ${err}`)
+    }
+
+    if (userSettingsFileContent && userSettingsFileContent.length > 0) {
+      try {
+        _userSettingsObject = JSON.parse(userSettingsFileContent);
+      } catch (err) {
+        throw new Error(`Failed to parse ${userSettingsFileName}: ${err}`);
+      }
+    } else {
+      _userSettingsObject = { };
+    }
+  }
+  return _userSettingsObject;
 }
 
 function verifyRemoteUserSettingsObject(remoteUserSettingsObject) {

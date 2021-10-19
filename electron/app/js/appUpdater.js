@@ -9,12 +9,13 @@ const { dialog, Menu } = require('electron');
 const { autoUpdater } = require('electron-updater');
 const i18n = require('./i18next.config');
 const { getLogger } = require('./wktLogging');
-const { getCheckForAppUpdatesMenuItem } = require('./wktWindow');
 const errorUtils = require('./errorUtils');
 
-let _appUpdater;
+let _appUpdaterMenuItem;
+let _isDevMode;
 
-function initializeAutoUpdater(logger) {
+function initializeAutoUpdater(logger, isDevMode) {
+  _isDevMode = isDevMode;
   autoUpdater.logger = logger;
   autoUpdater.autoDownload = false;
   autoUpdater.autoInstallOnAppQuit = true;
@@ -83,25 +84,35 @@ function registerAutoUpdateListeners() {
   });
 }
 
+// eslint-disable-next-line no-unused-vars
 function checkForUpdates(menuItem, focusedWindow, event) {
-  disableCheckForAppUpdatesMenuItem(menuItem);
-  autoUpdater.checkForUpdates().then();
+  if (!_isDevMode) {
+    disableCheckForAppUpdatesMenuItem(menuItem);
+    autoUpdater.checkForUpdates().then();
+  } else if (!!menuItem) {
+    // Only show the prompt if the user used the menu to trigger checkForUpdates()
+    // If triggered on startup, no need to display...
+    //
+    dialog.showErrorBox(i18n.t('auto-updater-disabled-dev-mode-title'),
+      i18n.t('auto-updater-disabled-dev-mode-message'));
+  }
 }
 
 function enableCheckForAppUpdatesMenuItem() {
-  if (_appUpdater) {
-    _appUpdater.enabled = true;
-    _appUpdater = null;
+  if (_appUpdaterMenuItem) {
+    _appUpdaterMenuItem.enabled = true;
+    _appUpdaterMenuItem = null;
   }
 }
 
 function disableCheckForAppUpdatesMenuItem(menuItem) {
+  const { getCheckForAppUpdatesMenuItem } = require('./wktWindow');
   if (!menuItem) {
     menuItem = getCheckForAppUpdatesMenuItem();
   }
   if (menuItem) {
-    _appUpdater = menuItem;
-    _appUpdater.enabled = false;
+    _appUpdaterMenuItem = menuItem;
+    _appUpdaterMenuItem.enabled = false;
   }
 }
 

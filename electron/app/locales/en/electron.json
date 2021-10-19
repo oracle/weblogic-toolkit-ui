@@ -84,6 +84,8 @@
   "auto-updater-update-not-available-message": "Version {{version}} is the latest available version.",
   "auto-updater-install-title": "Update Application",
   "auto-updater-install-question": "Update the application now or on exit?",
+  "auto-updater-disabled-dev-mode-title": "Auto-Updater Disabled",
+  "auto-updater-disabled-dev-mode-message": "Auto-Updater is disabled when running in development mode.",
 
   "dialog-chooseArchiveFile": "Select an Archive File",
   "dialog-chooseModelFile": "Select a Model File",

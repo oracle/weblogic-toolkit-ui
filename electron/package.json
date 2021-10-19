@@ -137,9 +137,6 @@
         },
         {
           "target": "deb"
-        },
-        {
-          "target": "tar.gz"
         }
       ]
     },

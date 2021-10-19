@@ -14,27 +14,12 @@ The WKT UI provides a graphical user interface that wraps the WKT tools, Docker,
 a Linux container image to use to run the domain, and setting up and deploying the software and configuration
 necessary to deploy and access the domain in your Kubernetes cluster.
 
-## Get Started
-
-Download the latest WebLogic Kubernetes Toolkit UI (WKT UI) application installers from the [Github Releases section](https://github.com/oracle/weblogic-toolkit-ui/releases) of this repository.
-Simply run the appropriate installer for your operating system.
-
-
-Initial launch of the application displays a thorough "Introduction" to the WKT UI. Step through
-it or dismiss it; you can peruse it at any time using `Help > Show Introduction`.
 
 ## About the Documentation
-For detailed user information, read the following:
 
-- WebLogic Kubernetes Toolkit UI [Prerequisites](site/prerequisites.md)
-- About the [WKT UI Application](site/setup.md)
-- [Navigate the WKT UI](site/project-settings.md)
-    - [Model](site/model.md)
-    - [Image](site/image.md)
-    - [Kubernetes](site/k8s-client-config.md)
-    - [Verrazzano](site/verrazzano.md)
+Documentation for WebLogic Kubernetes Toolkit UI is available [here](https://oracle.github.io/weblogic-toolkit-ui/).
 
-For developer information, see [WebLogic Kubernetes Toolkit UI Project](site/developer.md).
+This documentation includes information for users and for developers.
 
 ## Get Help
 

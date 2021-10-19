@@ -666,9 +666,9 @@ async function createWindow() {
   });
 
   const { getHttpsProxyUrl, getBypassProxyHosts } = require('./userSettings');
-  const httpsProxyUrl = await getHttpsProxyUrl();
+  const httpsProxyUrl = getHttpsProxyUrl();
   if (httpsProxyUrl) {
-    const proxyBypassHosts = await getBypassProxyHosts();
+    const proxyBypassHosts = getBypassProxyHosts();
     await newWindow.webContents.session.setProxy({
       proxyRules: httpsProxyUrl,
       proxyBypassRules: proxyBypassHosts
