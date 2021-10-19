@@ -4,9 +4,6 @@
  */
  pipeline {
     agent { label 'linux' }
-    options {
-        skipDefaultCheckout()
-    }
     environment {
         WKTUI_PROXY = "${env.ORACLE_HTTP_PROXY}"
         ELECTRON_GET_USE_PROXY = "true"
@@ -32,9 +29,6 @@
             parallel {
                 stage('Linux Build') {
                     agent { label 'linux' }
-                    options {
-                        skipDefaultCheckout()
-                    }
                     environment {
                         linux_node_dir_name = "node-v${node_version}-linux-x64"
                         linux_node_installer = "${linux_node_dir_name}.tar.gz"
@@ -56,79 +50,79 @@
                                  sh 'echo ${version_number} > ${WORKSPACE}/WKTUI_VERSION.txt'
                             }
                         }
-//                         stage('Linux Node.js Installation') {
+                        stage('Linux Node.js Installation') {
+                            steps {
+                                sh 'curl -x ${WKTUI_PROXY} ${linux_node_url} --output /tmp/${linux_node_installer}'
+                                sh 'tar xzf /tmp/${linux_node_installer}'
+                            }
+                        }
+                        stage('Linux Node.js Configuration') {
+                            steps {
+                                echo 'Removing any existing .npm cache directory'
+                                sh 'rm -rf ~/.npm ${WORKSPACE}/.npm'
+                                echo 'Removing all existing .npmrc files'
+                                sh 'rm -f ~/.npmrc ${WORKSPACE}/.npmrc ${WORKSPACE}/webui/.npmrc ${WORKSPACE}/electron/.npmrc'
+                                echo 'Creating .npmrc configuration file'
+                                sh 'echo registry=${npm_registry} > ${WORKSPACE}/.npmrc'
+                                sh 'echo noproxy=${npm_noproxy} >> ${WORKSPACE}/.npmrc'
+                                sh 'echo cache=${WORKSPACE}/.npm  >> ${WORKSPACE}/.npmrc'
+                                sh 'mkdir ${WORKSPACE}/.npm'
+                                echo 'New .npmrc file contents'
+                                sh 'cat ${WORKSPACE}/.npmrc'
+                                echo 'Copying .npmrc file to project subdirectories'
+                                sh 'cp ${WORKSPACE}/.npmrc ${WORKSPACE}/webui/.npmrc'
+                                sh 'cp ${WORKSPACE}/.npmrc ${WORKSPACE}/electron/.npmrc'
+                            }
+                        }
+                        stage('Linux Update NPM') {
+                            steps {
+                                sh 'cp -f ${WORKSPACE}/.npmrc ${linux_node_dir}/lib/.npmrc'
+                                sh 'cd ${linux_node_dir}/lib; PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} install npm; cd ${WORKSPACE}'
+                                sh 'rm -f ${linux_node_dir}/lib/.npmrc'
+                                sh 'PATH="${linux_node_dir}/bin:$PATH" ${linux_node_exe} --version'
+                                sh 'PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} --version'
+                            }
+                        }
+                        stage('Linux Install Project Dependencies') {
+                            steps {
+                                sh 'cat ${WORKSPACE}/webui/.npmrc'
+                                sh 'cd ${WORKSPACE}/webui; PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} install; cd ${WORKSPACE}'
+                                sh 'cat ${WORKSPACE}/electron/.npmrc'
+                                sh 'cd ${WORKSPACE}/electron; PATH="${linux_node_dir}/bin:$PATH"  HTTPS_PROXY=${ORACLE_HTTP_PROXY} ${linux_npm_exe} install; cd ${WORKSPACE}'
+                                // keytar depends on libsecret-devel...
+                                // sh 'sudo yum install -y libsecret-devel'
+                            }
+                        }
+                        stage('Linux Install Tools Dependencies') {
+                            steps {
+                                sh 'cd ${WORKSPACE}/electron; PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} run install-tools; cd ${WORKSPACE}'
+                            }
+                        }
+//                         stage('Linux Run Unit Tests') {
 //                             steps {
-//                                 sh 'curl -x ${WKTUI_PROXY} ${linux_node_url} --output /tmp/${linux_node_installer}'
-//                                 sh 'tar xzf /tmp/${linux_node_installer}'
+//                                 sh 'cd ${WORKSPACE}/electron; PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} test; cd ${WORKSPACE}'
+//                                 sh 'cd ${WORKSPACE}/webui; PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} test; cd ${WORKSPACE}'
 //                             }
 //                         }
-//                         stage('Linux Node.js Configuration') {
-//                             steps {
-//                                 echo 'Removing any existing .npm cache directory'
-//                                 sh 'rm -rf ~/.npm ${WORKSPACE}/.npm'
-//                                 echo 'Removing all existing .npmrc files'
-//                                 sh 'rm -f ~/.npmrc ${WORKSPACE}/.npmrc ${WORKSPACE}/webui/.npmrc ${WORKSPACE}/electron/.npmrc'
-//                                 echo 'Creating .npmrc configuration file'
-//                                 sh 'echo registry=${npm_registry} > ${WORKSPACE}/.npmrc'
-//                                 sh 'echo noproxy=${npm_noproxy} >> ${WORKSPACE}/.npmrc'
-//                                 sh 'echo cache=${WORKSPACE}/.npm  >> ${WORKSPACE}/.npmrc'
-//                                 sh 'mkdir ${WORKSPACE}/.npm'
-//                                 echo 'New .npmrc file contents'
-//                                 sh 'cat ${WORKSPACE}/.npmrc'
-//                                 echo 'Copying .npmrc file to project subdirectories'
-//                                 sh 'cp ${WORKSPACE}/.npmrc ${WORKSPACE}/webui/.npmrc'
-//                                 sh 'cp ${WORKSPACE}/.npmrc ${WORKSPACE}/electron/.npmrc'
-//                             }
-//                         }
-//                         stage('Linux Update NPM') {
-//                             steps {
-//                                 sh 'cp -f ${WORKSPACE}/.npmrc ${linux_node_dir}/lib/.npmrc'
-//                                 sh 'cd ${linux_node_dir}/lib; PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} install npm; cd ${WORKSPACE}'
-//                                 sh 'rm -f ${linux_node_dir}/lib/.npmrc'
-//                                 sh 'PATH="${linux_node_dir}/bin:$PATH" ${linux_node_exe} --version'
-//                                 sh 'PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} --version'
-//                             }
-//                         }
-//                         stage('Linux Install Project Dependencies') {
-//                             steps {
-//                                 sh 'cat ${WORKSPACE}/webui/.npmrc'
-//                                 sh 'cd ${WORKSPACE}/webui; PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} install; cd ${WORKSPACE}'
-//                                 sh 'cat ${WORKSPACE}/electron/.npmrc'
-//                                 sh 'cd ${WORKSPACE}/electron; PATH="${linux_node_dir}/bin:$PATH"  HTTPS_PROXY=${ORACLE_HTTP_PROXY} ${linux_npm_exe} install; cd ${WORKSPACE}'
-//                                 // keytar depends on libsecret-devel...
-//                                 // sh 'sudo yum install -y libsecret-devel'
-//                             }
-//                         }
-//                         stage('Linux Install Tools Dependencies') {
-//                             steps {
-//                                 sh 'cd ${WORKSPACE}/electron; PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} run install-tools; cd ${WORKSPACE}'
-//                             }
-//                         }
-// //                         stage('Linux Run Unit Tests') {
-// //                             steps {
-// //                                 sh 'cd ${WORKSPACE}/electron; PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} test; cd ${WORKSPACE}'
-// //                                 sh 'cd ${WORKSPACE}/webui; PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} test; cd ${WORKSPACE}'
-// //                             }
-// //                         }
-//                         stage('Linux Run eslint') {
-//                             // No need to run this on other platforms since the results will be the same...
-//                             steps {
-//                                 sh 'cd ${WORKSPACE}/electron; PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} run eslint; cd ${WORKSPACE}'
-//                                 sh 'cd ${WORKSPACE}/webui; PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} run eslint; cd ${WORKSPACE}'
-//                             }
-//                         }
-//                         stage('Linux Build Installers') {
-//                             steps {
-//                                 sh 'cd ${WORKSPACE}/webui; PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} run build:release; cd ${WORKSPACE}'
-//                                 withCredentials([usernamePassword(credentialsId: "${dockerhub_creds}", usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-//                                     sh 'echo ${PASSWORD} | docker login --username ${USERNAME} --password-stdin'
-//                                 }
-//                                 sh '${WORKSPACE}/scripts/linuxInstallers.sh'
-//                                 sh 'docker logout'
-//                                 archiveArtifacts "dist/wktui*.*"
-//                                 archiveArtifacts "dist/*.AppImage"
-//                             }
-//                         }
+                        stage('Linux Run eslint') {
+                            // No need to run this on other platforms since the results will be the same...
+                            steps {
+                                sh 'cd ${WORKSPACE}/electron; PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} run eslint; cd ${WORKSPACE}'
+                                sh 'cd ${WORKSPACE}/webui; PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} run eslint; cd ${WORKSPACE}'
+                            }
+                        }
+                        stage('Linux Build Installers') {
+                            steps {
+                                sh 'cd ${WORKSPACE}/webui; PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} run build:release; cd ${WORKSPACE}'
+                                withCredentials([usernamePassword(credentialsId: "${dockerhub_creds}", usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                                    sh 'echo ${PASSWORD} | docker login --username ${USERNAME} --password-stdin'
+                                }
+                                sh '${WORKSPACE}/scripts/linuxInstallers.sh'
+                                sh 'docker logout'
+                                archiveArtifacts "dist/wktui*.*"
+                                archiveArtifacts "dist/*.AppImage"
+                            }
+                        }
                     }
                 }
 //                 stage('MacOS Build') {
