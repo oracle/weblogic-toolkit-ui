@@ -54,6 +54,8 @@
                                 NO_PROXY = "${env.ORACLE_NO_PROXY}"
                             }
                             steps {
+                                 sh 'export http_proxy, https_proxy, no_proxy, HTTP_PROXY, HTTPS_PROXY, NO_PROXY'
+                                 sh 'env'
                                  git url: "${git_url}", branch: "${branch}"
                                  sh 'echo ${version_number} > ${WORKSPACE}/WKTUI_VERSION.txt'
                             }
