@@ -512,8 +512,8 @@ class WktAppMenu {
             type: 'separator'
           },
           {
-            id: 'quit',
-            label: `${i18n.t('menu-app-quit', { appName: this._wktApp.getApplicationName() })}`,
+            id: 'exit',
+            label: `${i18n.t('menu-app-exit', { appName: this._wktApp.getApplicationName() })}`,
             accelerator: 'Command+Q',
             async click() { await executeAppQuit(); }
           }
@@ -587,7 +587,7 @@ class WktAppMenu {
           },
           { type: 'separator' },
           {
-            id: 'quit',
+            id: 'exit',
             label: i18n.t('menu-file-exit'),
             accelerator: 'Alt+X',
             async click() { await executeAppQuit(); }          }

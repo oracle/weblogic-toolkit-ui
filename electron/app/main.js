@@ -115,6 +115,7 @@ class Main {
     });
 
     app.on('ready', () => {
+      getLogger().debug('Received ready event');
       if (!this._openFileCreateWindowAlreadyCalled) {
         let filePath;
         if (process.platform !== 'darwin') {
