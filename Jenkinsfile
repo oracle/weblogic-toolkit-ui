@@ -43,6 +43,7 @@
                         stage('Linux Echo Environment') {
                             steps {
                                 sh 'env'
+                                sh "git config --global http.https://github.com.proxy ${WKTUI_PROXY}"
                             }
                         }
                         stage('Linux Checkout') {
@@ -141,6 +142,7 @@
                         stage('MacOS Echo Environment') {
                             steps {
                                 sh 'env'
+                                sh "git config --global http.https://github.com.proxy ${WKTUI_PROXY}"
                             }
                         }
                         stage('MacOS Checkout') {
@@ -240,6 +242,7 @@
                         stage('Windows Echo Environment') {
                             steps {
                                 bat 'set'
+                                bat "git config --global http.https://github.com.proxy ${WKTUI_PROXY}"
                             }
                         }
                         stage('Windows Checkout') {
