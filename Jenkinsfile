@@ -242,7 +242,7 @@
                         stage('Windows Echo Environment') {
                             steps {
                                 bat 'set'
-                                bat "git config --global http.https://github.com.proxy ${WKTUI_PROXY}"
+                                bat "git config --global http.https://github.com.proxy %WKTUI_PROXY%"
                             }
                         }
                         stage('Windows Checkout') {
