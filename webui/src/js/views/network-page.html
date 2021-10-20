@@ -1,0 +1,31 @@
+<!--
+ Copyright (c) 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="wkt-dialog-content" id="projectSettings">
+  <h6><oj-bind-text value="[[labelMapper('title')]]"></oj-bind-text></h6>
+
+  <div class="oj-panel wkt-notop wkt-dialog-middle">
+    <p class="wkt-warning"><oj-bind-text value="[[labelMapper('warning')]]"></oj-bind-text></p>
+
+    <oj-form-layout max-columns="1" direction="row">
+      <oj-input-text label-hint="[[settingsLabelMapper('https-proxy-url-label')]]"
+                     value="{{proxyUrl}}"
+                     help.instruction="[[settingsLabelMapper('https-proxy-url-help')]]">
+      </oj-input-text>
+      <oj-input-text label-hint="[[settingsLabelMapper('bypass-proxy-hosts-label')]]"
+                     value="{{bypassProxyHosts}}"
+                     help.instruction="[[settingsLabelMapper('bypass-proxy-hosts-help')]]">
+      </oj-input-text>
+    </oj-form-layout>
+  </div>
+
+  <div class="wkt-dialog-footer">
+    <oj-button id="Connect" on-oj-action="[[tryConnect]]">
+      <span><oj-bind-text value="[[labelMapper('button-connect')]]"></oj-bind-text></span>
+    </oj-button>
+    <oj-button id="Exit" on-oj-action="[[exitApp]]">
+      <span><oj-bind-text value="[[labelMapper('button-exit')]]"></oj-bind-text></span>
+    </oj-button>
+  </div>
+</div>

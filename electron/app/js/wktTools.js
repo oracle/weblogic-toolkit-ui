@@ -256,6 +256,7 @@ module.exports = {
   downloadLatestWdtInstaller,
   getDiscoverDomainShellScript,
   getImagetoolShellScript,
+  getOptions,
   getPrepareModelShellScript,
   getInstalledWdtReleaseName,
   getInstalledWitReleaseName,

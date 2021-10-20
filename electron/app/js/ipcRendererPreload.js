@@ -17,6 +17,7 @@ const wktApp = new WktApp();
 
 const exeMode = osUtils.getArgv('--wktMode');
 const language = osUtils.getArgv('--lang');
+const mainModule = osUtils.getArgv('--mainModule');
 
 i18n.changeLanguage(language).then();
 
@@ -214,7 +215,8 @@ contextBridge.exposeInMainWorld(
       }
     },
     'utils': {
-      generateUuid: () => uuid.v4()
+      generateUuid: () => uuid.v4(),
+      mainModule: mainModule
     }
   }
 );
