@@ -49,6 +49,7 @@ class Main {
     wktTools.initialize(this._wktMode);
     initialize(this._isJetDevMode, this._wktApp, this._wktMode);    // wktWindow.js
     this._quickstartShownAlready = false;
+    this._forceQuit = false;
   }
 
   runApp(argv) {
@@ -152,13 +153,20 @@ class Main {
 
     // eslint-disable-next-line no-unused-vars
     app.on('window-all-closed', (event) => {
-      if (process.platform === 'darwin') {
+      getLogger().debug('Received window-all-closed event');
+      if (process.platform === 'darwin' && !this._forceQuit) {
         return false;
       }
       app.quit();
     });
 
+    app.on('before-quit', () => {
+      getLogger().debug('Received before-quit event');
+      this._forceQuit = true;
+    });
+
     app.on('will-quit', (event) => {
+      getLogger().debug('Received will-quit event');
       event.preventDefault();
       userSettings.saveUserSettings()
         .then(() => {
