@@ -5,11 +5,11 @@
  pipeline {
     agent { label 'linux' }
     environment {
-         WKTUI_PROXY = "${env.ORACLE_HTTP_PROXY}"
-         ELECTRON_GET_USE_PROXY = "true"
-         GLOBAL_AGENT_HTTPS_PROXY = "${WKTUI_PROXY}"
-         WKTUI_DEV_PROXY = "${WKTUI_PROXY}"
-         WKTUI_BUILD_EMAIL = sh(returnStdout: true, script: "echo ${env.WKTUI_BUILD_NOTIFY_EMAIL} | sed -e 's/^[[:space:]]*//'")
+        WKTUI_PROXY = "${env.ORACLE_HTTP_PROXY}"
+        ELECTRON_GET_USE_PROXY = "true"
+        GLOBAL_AGENT_HTTPS_PROXY = "${WKTUI_PROXY}"
+        WKTUI_DEV_PROXY = "${WKTUI_PROXY}"
+        WKTUI_BUILD_EMAIL = sh(returnStdout: true, script: "echo ${env.WKTUI_BUILD_NOTIFY_EMAIL} | sed -e 's/^[[:space:]]*//'")
 
         npm_registry = "${env.ARTIFACTORY_NPM_REPO}"
         npm_noproxy = "${env.ORACLE_NO_PROXY}"
@@ -19,7 +19,8 @@
         version_prefix = "0.8.0"
         version_number = VersionNumber([versionNumberString: '-${BUILD_YEAR}${BUILD_MONTH,XX}${BUILD_DAY,XX}${BUILDS_TODAY_Z,XX}', versionPrefix: "${version_prefix}"])
 
-        git_url = "https://github.com/oracle/weblogic-toolkit-ui.git"
+        github_url = "${env.GIT_URL}"
+        github_creds = "wktui-github"
         dockerhub_creds = "wktui-dockerhub"
         branch = sh(returnStdout: true, script: 'echo $GIT_BRANCH | sed --expression "s:origin/::"')
     }
@@ -42,11 +43,12 @@
                         stage('Linux Echo Environment') {
                             steps {
                                 sh 'env'
+                                sh "git config --global http.https://github.com.proxy ${WKTUI_PROXY}"
                             }
                         }
                         stage('Linux Checkout') {
                             steps {
-                                 git url: "${git_url}", branch: "${branch}"
+                                 git url: "${github_url}", credentialsId: "${github_creds}", branch: "${branch}"
                                  sh 'echo ${version_number} > ${WORKSPACE}/WKTUI_VERSION.txt'
                             }
                         }
@@ -140,11 +142,12 @@
                         stage('MacOS Echo Environment') {
                             steps {
                                 sh 'env'
+                                sh "git config --global http.https://github.com.proxy ${WKTUI_PROXY}"
                             }
                         }
                         stage('MacOS Checkout') {
                             steps {
-                                 git url: "${git_url}", branch: "${branch}"
+                                 git url: "${github_url}", credentialsId: "${github_creds}", branch: "${branch}"
                                  sh 'echo ${version_number} > ${WORKSPACE}/WKTUI_VERSION.txt'
                             }
                         }
@@ -186,7 +189,7 @@
                                 sh 'cat ${WORKSPACE}/webui/.npmrc'
                                 sh 'cd ${WORKSPACE}/webui; PATH="${mac_node_dir}/bin:$PATH" ${mac_npm_exe} install; cd ${WORKSPACE}'
                                 sh 'cat ${WORKSPACE}/electron/.npmrc'
-                                sh 'cd ${WORKSPACE}/electron; PATH="${mac_node_dir}/bin:$PATH"  HTTPS_PROXY=${ORACLE_HTTP_PROXY} ${mac_npm_exe} install; cd ${WORKSPACE}'
+                                sh 'cd ${WORKSPACE}/electron; PATH="${mac_node_dir}/bin:$PATH" HTTPS_PROXY=${ORACLE_HTTP_PROXY} ${mac_npm_exe} install; cd ${WORKSPACE}'
                             }
                         }
                         stage('MacOS Install Tools Dependencies') {
@@ -216,7 +219,7 @@
                         }
                         stage('MacOS Build Installers') {
                             steps {
-                                sh 'cd ${WORKSPACE}/electron; PATH="${mac_node_dir}/bin:$PATH" HTTPS_PROXY=${WKTUI_PROXY} ${mac_npm_exe} run build'
+                                sh 'cd ${WORKSPACE}/electron; PATH="${mac_node_dir}/bin:$PATH" HTTPS_PROXY=${WKTUI_PROXY} CSC_IDENTITY_AUTO_DISCOVERY=false ${mac_npm_exe} run build'
                                 archiveArtifacts 'dist/*.dmg'
                                 sh 'ditto -c -k --sequesterRsrc --keepParent "$WORKSPACE/dist/mac/WebLogic Kubernetes Toolkit UI.app" "WebLogic Kubernetes Toolkit UI.app.zip"'
                                 archiveArtifacts "WebLogic Kubernetes Toolkit UI.app.zip"
@@ -239,11 +242,12 @@
                         stage('Windows Echo Environment') {
                             steps {
                                 bat 'set'
+                                bat "git config --global http.https://github.com.proxy %WKTUI_PROXY%"
                             }
                         }
                         stage('Windows Checkout') {
                             steps {
-                                 git url: "${git_url}", branch: "${branch}"
+                                 git url: "${github_url}", credentialsId: "${github_creds}", branch: "${branch}"
                                  bat 'echo %version_number% > "%WORKSPACE%/WKTUI_VERSION.txt"'
                             }
                         }

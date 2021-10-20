@@ -512,7 +512,7 @@ class WktAppMenu {
             type: 'separator'
           },
           {
-            id: 'quit',
+            id: 'exit',
             label: `${i18n.t('menu-app-quit', { appName: this._wktApp.getApplicationName() })}`,
             accelerator: 'Command+Q',
             async click() { await executeAppQuit(); }
@@ -587,7 +587,7 @@ class WktAppMenu {
           },
           { type: 'separator' },
           {
-            id: 'quit',
+            id: 'exit',
             label: i18n.t('menu-file-exit'),
             accelerator: 'Alt+X',
             async click() { await executeAppQuit(); }          }
@@ -688,6 +688,7 @@ async function createWindow() {
   });
 
   newWindow.on('close', (event) => {
+    getLogger().debug('Received window close event on Window ID %s', newWindow.id);
     if (!newWindow.skipDirtyCheck) {
       event.preventDefault();
       sendToWindow(newWindow, 'start-window-close');
@@ -696,6 +697,7 @@ async function createWindow() {
 
   // eslint-disable-next-line no-unused-vars
   newWindow.on('closed', (event) => {
+    getLogger().debug('Received window closed event');
     const { removeProjectWindowFromCache } = require('./project');
     removeProjectWindowFromCache(newWindow);
     delete windowStatus[thisWindowId];
