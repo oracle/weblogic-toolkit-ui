@@ -13,7 +13,6 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider,
 
     this.connected = async () => {
       accUtils.announce('Domain Design View page loaded.', 'assertive');
-      this.project.k8sDomain.updateSecrets();
     };
 
     this.labelMapper = (labelId, payload) => {
