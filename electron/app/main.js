@@ -780,6 +780,27 @@ class Main {
       });
     });
 
+    ipcMain.handle('get-network-settings', async () => {
+      const proxyUrl = await getHttpsProxyUrl();
+      const bypassHosts = await getBypassProxyHosts();
+      return {
+        proxyUrl: proxyUrl,
+        bypassHosts: bypassHosts
+      };
+    });
+
+    ipcMain.handle('try-network-settings', async (event, settings) => {
+      await userSettings.setHttpsProxyUrl(settings['proxyUrl']);
+      await userSettings.setBypassProxyHosts(settings['bypassHosts']);
+      await userSettings.saveUserSettings();
+      app.relaunch();
+      app.quit();
+    });
+
+    ipcMain.handle('exit-app', async () => {
+      // called before any projects opened, no need for extra checks
+      app.quit();
+    });
   }
 
   async getLatestWdtInstaller(targetWindow) {

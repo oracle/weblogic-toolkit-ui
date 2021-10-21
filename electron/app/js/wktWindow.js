@@ -708,8 +708,8 @@ async function createWindow() {
 }
 
 function createNetworkWindow() {
-  let width = 640;
-  let height = 480;
+  const width = _isJetDevMode ? 1000 : 640;
+  const height = 480;
   const additionalArguments = _getAdditionalArguments();
   additionalArguments.push('--mainModule=network-page');
 
@@ -718,6 +718,7 @@ function createNetworkWindow() {
     width: width,
     height: height,
     menuBarVisible: false,
+    useContentSize: true,
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
@@ -753,7 +754,6 @@ function _initializeWindow(newWindow) {
     newWindow.setTitle(_wktApp.getApplicationName());
     newWindow.show();
   });
-
 }
 
 function setTitleFileName(currentWindow, projectFileName, isEdited) {

@@ -10,6 +10,12 @@ function(accUtils, ko, i18n, project) {
 
     this.connected = () => {
       accUtils.announce('Network page loaded.', 'assertive');
+
+      window.api.ipc.invoke('get-network-settings')
+        .then(settings => {
+          this.proxyUrl(settings.proxyUrl);
+          this.bypassProxyHosts(settings.bypassHosts);
+        });
     };
 
     this.project = project;
@@ -26,11 +32,17 @@ function(accUtils, ko, i18n, project) {
     this.bypassProxyHosts = ko.observable();
 
     this.tryConnect = () => {
-      console.log('try connect');
+      const settings = {
+        proxyUrl: this.proxyUrl(),
+        bypassHosts: this.bypassProxyHosts()
+      };
+
+      // this will restart the app with success or failure, so no need to close.
+      window.api.ipc.invoke('try-network-settings', settings).then();
     };
 
     this.exitApp = () => {
-      console.log('exit app');
+      window.api.ipc.invoke('exit-app').then();
     };
   }
 
