@@ -13,7 +13,7 @@
 
         npm_registry = "${env.ARTIFACTORY_NPM_REPO}"
         npm_noproxy = "${env.ORACLE_NO_PROXY}"
-        node_version = "14.18.0"
+        node_version = "14.18.1"
 
         project_name = "$JOB_NAME"
         version_prefix = "0.8.0"
@@ -42,7 +42,7 @@
                     stages {
                         stage('Linux Echo Environment') {
                             steps {
-                                sh 'env'
+                                sh 'env|sort'
                                 sh "git config --global http.https://github.com.proxy ${WKTUI_PROXY}"
                             }
                         }
@@ -141,7 +141,7 @@
                     stages {
                         stage('MacOS Echo Environment') {
                             steps {
-                                sh 'env'
+                                sh 'env|sort'
                                 sh "git config --global http.https://github.com.proxy ${WKTUI_PROXY}"
                             }
                         }
@@ -242,7 +242,6 @@
                     stages {
                         stage('Windows Echo Environment') {
                             steps {
-                                bat "set PATH=%windows_git_path%;%PATH%"
                                 bat 'set'
                                 bat "git config --global http.https://github.com.proxy %WKTUI_PROXY%"
                             }
