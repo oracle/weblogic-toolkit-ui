@@ -237,10 +237,12 @@
                         windows_node_exe = "${windows_node_dir}\\node"
                         windows_npm_modules_dir = "${windows_node_dir}"
                         windows_npm_exe = "${windows_node_dir}\\npm"
+                        windows_git_path = "C:\\jenkins\\tools\\git\\PortableGit\\bin"
                     }
                     stages {
                         stage('Windows Echo Environment') {
                             steps {
+                                bat "set PATH=%windows_git_path%;%PATH%"
                                 bat 'set'
                                 bat "git config --global http.https://github.com.proxy %WKTUI_PROXY%"
                             }
