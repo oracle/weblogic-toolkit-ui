@@ -73,8 +73,9 @@ class WktApp {
           if (doesExist) {
             fsPromises.readFile(versionFilePath, 'utf8')
               .then(contents => {
-                if (!contents || contents.startsWith('This empty file')) {
-                  resolve(defaultVersion);
+                if (!contents || contents.startsWith('-')) {
+                  // dev build so concatenate the app version with the qualifier from the file
+                  resolve(`${defaultVersion}${contents.trim()}`);
                 } else {
                   resolve(contents.trim());
                 }

@@ -16,7 +16,7 @@
         node_version = "14.18.1"
 
         project_name = "$JOB_NAME"
-        version_prefix = "0.8.0"
+        version_prefix = sh(returnStdout: true, script: "cat ${WORKSPACE}/weblogic-toolkit-ui/electron/package.json | grep version | awk 'match($0, /[0-9]+.[0-9]+.[0-9]+/) { print substr( $0, RSTART, RLENGTH )}'")
         version_number = VersionNumber([versionNumberString: '-${BUILD_YEAR}${BUILD_MONTH,XX}${BUILD_DAY,XX}${BUILDS_TODAY_Z,XX}', versionPrefix: "${version_prefix}"])
 
         github_url = "${env.GIT_URL}"
@@ -43,7 +43,6 @@
                         stage('Linux Echo Environment') {
                             steps {
                                 sh 'env|sort'
-                                sh "git config --global http.https://github.com.proxy ${WKTUI_PROXY}"
                             }
                         }
                         stage('Linux Checkout') {
@@ -142,7 +141,6 @@
                         stage('MacOS Echo Environment') {
                             steps {
                                 sh 'env|sort'
-                                sh "git config --global http.https://github.com.proxy ${WKTUI_PROXY}"
                             }
                         }
                         stage('MacOS Checkout') {
