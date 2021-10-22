@@ -16,7 +16,7 @@
         node_version = "14.18.1"
 
         project_name = "$JOB_NAME"
-        version_prefix = sh(returnStdout: true, script: "cat ${WORKSPACE}/weblogic-toolkit-ui/electron/package.json | grep version | awk 'match($0, /[0-9]+.[0-9]+.[0-9]+/) { print substr( $0, RSTART, RLENGTH )}'")
+        version_prefix = sh(returnStdout: true, script: "cat electron/package.json | grep version | awk 'match($0, /[0-9]+.[0-9]+.[0-9]+/) { print substr( $0, RSTART, RLENGTH )}'")
         version_number = VersionNumber([versionNumberString: '-${BUILD_YEAR}${BUILD_MONTH,XX}${BUILD_DAY,XX}${BUILDS_TODAY_Z,XX}', versionPrefix: "${version_prefix}"])
 
         github_url = "${env.GIT_URL}"
