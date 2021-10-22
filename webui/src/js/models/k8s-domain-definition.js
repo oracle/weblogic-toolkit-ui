@@ -84,6 +84,11 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
         this.memoryLimit = props.createProperty();
         this.memoryLimit.addValidator(...validationHelper.getK8sMemoryValidators());
 
+        // update the secrets list when the uid changes.
+        this.uid.observable.subscribe(() => {
+          this.updateSecrets();
+        });
+
         // update the secrets list when any model content changes.
         wdtModel.modelContentChanged.subscribe(() => {
           this.updateSecrets();
