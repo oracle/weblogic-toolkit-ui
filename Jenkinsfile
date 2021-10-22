@@ -25,6 +25,20 @@
         branch = sh(returnStdout: true, script: 'echo $GIT_BRANCH | sed --expression "s:origin/::"')
     }
     stages {
+        stage {
+            steps {
+                when {
+                    not {
+                        tag "v${version_prefix}"
+                    }
+                }
+                steps {
+                    script {
+                        file_version = ${env.version_number}.replaceFirst(${env.version_prefix}, ${env.version_prefix} + '-SNAPSHOT')
+                    }
+                }
+            }
+        }
         stage('Parallel Builds') {
             failFast true
             parallel {
@@ -48,7 +62,7 @@
                         stage('Linux Checkout') {
                             steps {
                                  git url: "${github_url}", credentialsId: "${github_creds}", branch: "${branch}"
-                                 sh 'echo ${version_number} > ${WORKSPACE}/WKTUI_VERSION.txt'
+                                 sh 'echo ${file_version} > ${WORKSPACE}/WKTUI_VERSION.txt'
                             }
                         }
                         stage('Linux Node.js Installation') {
@@ -146,7 +160,7 @@
                         stage('MacOS Checkout') {
                             steps {
                                  git url: "${github_url}", credentialsId: "${github_creds}", branch: "${branch}"
-                                 sh 'echo ${version_number} > ${WORKSPACE}/WKTUI_VERSION.txt'
+                                 sh 'echo ${file_version} > ${WORKSPACE}/WKTUI_VERSION.txt'
                             }
                         }
                         stage('MacOS Node.js Installation') {
@@ -246,7 +260,7 @@
                         stage('Windows Checkout') {
                             steps {
                                  git url: "${github_url}", credentialsId: "${github_creds}", branch: "${branch}"
-                                 bat 'echo %version_number% > "%WORKSPACE%/WKTUI_VERSION.txt"'
+                                 bat 'echo %file_version% > "%WORKSPACE%/WKTUI_VERSION.txt"'
                             }
                         }
                         stage('Windows Node.js Installation') {

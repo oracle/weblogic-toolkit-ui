@@ -1,7 +1,5 @@
 {
-  "name": "web",
-  "version": "0.8.0",
-  "description": "WebLogic Kubernetes Toolkit UI",
+  "private": true,
   "scripts": {
     "test": "mocha --reporter spec src/test/*-test.js",
     "start": "ojet serve web --server-only",
@@ -29,6 +27,5 @@
   },
   "engines": {
     "node": ">=10.13.0"
-  },
-  "private": true
+  }
 }
