@@ -25,7 +25,7 @@
         branch = sh(returnStdout: true, script: 'echo $GIT_BRANCH | sed --expression "s:origin/::"')
     }
     stages {
-        stage {
+        stage('Compute file version') {
             steps {
                 when {
                     not {
@@ -36,6 +36,7 @@
                     script {
                         file_version = ${env.version_number}.replaceFirst(${env.version_prefix}, ${env.version_prefix} + '-SNAPSHOT')
                     }
+                    echo "file version = ${file_version}"
                 }
             }
         }
