@@ -26,18 +26,16 @@
     }
     stages {
         stage('Compute file version') {
+            when {
+                not {
+                    tag "v${version_prefix}"
+                }
+            }
             steps {
-                when {
-                    not {
-                        tag "v${version_prefix}"
-                    }
+                script {
+                    file_version = ${env.version_number}.replaceFirst(${env.version_prefix}, ${env.version_prefix} + '-SNAPSHOT')
                 }
-                steps {
-                    script {
-                        file_version = ${env.version_number}.replaceFirst(${env.version_prefix}, ${env.version_prefix} + '-SNAPSHOT')
-                    }
-                    echo "file version = ${file_version}"
-                }
+                echo "file version = ${file_version}"
             }
         }
         stage('Parallel Builds') {
