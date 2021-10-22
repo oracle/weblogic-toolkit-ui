@@ -40,7 +40,8 @@ async function testInternetConnectivity() {
         logger.error('Internet connectivity test failed: %s', errorUtils.getErrorMessage(err));
       }
       resolve(false);
-    })
+    });
+    httpsRequest.end();
   });
 }
 
