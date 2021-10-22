@@ -823,22 +823,14 @@ class Main {
   }
 
   // Verify that the network is available, show proxy setup if there are problems.
-  // TODO: Check if the application has a newer version available.
+  //
   async checkSetup() {
-    try {
-      const options = await wktTools.getOptions();
-      await wktToolsInstaller.getWdtLatestReleaseName(options);
-
-      // TODO: Check if the application has a newer version available.
-
-      return true;
-
-    } catch(error) {
-      // display the network setup window, and don't continue starting application.
-      // network setup will either configure and restart the app, or give up and quit.
+    const { testInternetConnectivity } = require('./js/connectivityUtils');
+    const connected = await testInternetConnectivity();
+    if (!connected) {
       createNetworkWindow();
-      return false;
     }
+    return connected;
   }
 
   getFileArgFromCommandLine(argv) {
