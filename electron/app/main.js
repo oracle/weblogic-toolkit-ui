@@ -129,7 +129,7 @@ class Main {
           let filePath = this._initialProjectFile;
 
           // check the command line for project file
-          if (!filePath && (process.platform !== 'darwin')) {
+          if (!filePath) {
             filePath = this.getFileArgFromCommandLine(argv);
             if (filePath) {
               getLogger().debug(`Found file argument on command-line: ${filePath}`);
