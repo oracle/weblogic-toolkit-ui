@@ -44,7 +44,7 @@
             failFast true
             parallel {
                 stage('Linux Build') {
-                    agent { label 'ol8' }
+                    agent { label 'linux' }
                     environment {
                         linux_node_dir_name = "node-v${node_version}-linux-x64"
                         linux_node_installer = "${linux_node_dir_name}.tar.gz"
