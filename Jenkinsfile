@@ -44,7 +44,7 @@
             failFast true
             parallel {
                 stage('Linux Build') {
-                    agent { label 'linux' }
+                    agent { label 'ol8' }
                     environment {
                         linux_node_dir_name = "node-v${node_version}-linux-x64"
                         linux_node_installer = "${linux_node_dir_name}.tar.gz"
@@ -58,7 +58,6 @@
                         stage('Linux Echo Environment') {
                             steps {
                                 sh 'env|sort'
-                                sh 'java -version'
                                 echo "file version = ${file_version}"
                             }
                         }
@@ -159,7 +158,6 @@
                         stage('MacOS Echo Environment') {
                             steps {
                                 sh 'env|sort'
-                                sh 'java -version'
                                 echo "file version = ${file_version}"
                             }
                         }
@@ -264,7 +262,6 @@
                         stage('Windows Echo Environment') {
                             steps {
                                 bat 'set'
-                                bat 'java -version'
                                 echo "file version = ${file_version}"
                             }
                         }
