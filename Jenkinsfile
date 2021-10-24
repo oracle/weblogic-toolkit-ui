@@ -18,6 +18,7 @@
         project_name = "$JOB_NAME"
         version_prefix = sh(returnStdout: true, script: 'cat electron/package.json | grep version | awk \'match($0, /[0-9]+.[0-9]+.[0-9]+/) { print substr( $0, RSTART, RLENGTH )}\'').trim()
         version_number = VersionNumber([versionNumberString: '-${BUILD_YEAR}${BUILD_MONTH,XX}${BUILD_DAY,XX}${BUILDS_TODAY_Z,XX}', versionPrefix: "${version_prefix}"])
+        file_version = "${version_number}"
 
         github_url = "${env.GIT_URL}"
         github_creds = "wktui-github"
@@ -35,7 +36,6 @@
                 script {
                     env.file_version = version_number.replaceFirst(version_prefix, version_prefix + '-SNAPSHOT')
                 }
-                echo "file version = ${file_version}"
             }
         }
         stage('Parallel Builds') {
@@ -56,6 +56,8 @@
                         stage('Linux Echo Environment') {
                             steps {
                                 sh 'env|sort'
+                                sh 'which java'
+                                echo "file version = ${file_version}"
                             }
                         }
                         stage('Linux Checkout') {
@@ -135,6 +137,8 @@
                                 sh 'docker logout'
                                 archiveArtifacts "dist/wktui*.*"
                                 archiveArtifacts "dist/*.AppImage"
+                                archiveArtifacts "dist/*.blockmap"
+                                archiveArtifacts "dist/latest-linux.yml"
                             }
                         }
                     }
@@ -154,6 +158,8 @@
                         stage('MacOS Echo Environment') {
                             steps {
                                 sh 'env|sort'
+                                sh 'which java'
+                                echo "file version = ${file_version}"
                             }
                         }
                         stage('MacOS Checkout') {
@@ -232,6 +238,9 @@
                             steps {
                                 sh 'cd ${WORKSPACE}/electron; PATH="${mac_node_dir}/bin:$PATH" HTTPS_PROXY=${WKTUI_PROXY} CSC_IDENTITY_AUTO_DISCOVERY=false ${mac_npm_exe} run build'
                                 archiveArtifacts 'dist/*.dmg'
+                                archiveArtifacts 'dist/*.zip'
+                                archiveArtifacts "dist/*.blockmap"
+                                archiveArtifacts "dist/latest-mac.yml"
                                 sh 'ditto -c -k --sequesterRsrc --keepParent "$WORKSPACE/dist/mac/WebLogic Kubernetes Toolkit UI.app" "WebLogic Kubernetes Toolkit UI.app.zip"'
                                 archiveArtifacts "WebLogic Kubernetes Toolkit UI.app.zip"
                             }
@@ -254,6 +263,8 @@
                         stage('Windows Echo Environment') {
                             steps {
                                 bat 'set'
+                                bat 'where java'
+                                echo "file version = ${file_version}"
                             }
                         }
                         stage('Windows Checkout') {
@@ -325,6 +336,8 @@
                             steps {
                                 bat 'cd "%WORKSPACE%\\electron" & set "PATH=%windows_node_dir%;%PATH%" & set "HTTPS_PROXY=%WKTUI_PROXY%" & "%windows_npm_exe%" run build & cd "%WORKSPACE%"'
                                 archiveArtifacts 'dist/*.exe'
+                                archiveArtifacts "dist/*.blockmap"
+                                archiveArtifacts "dist/latest.yml"
                             }
                         }
                     }
