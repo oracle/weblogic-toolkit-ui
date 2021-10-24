@@ -139,7 +139,6 @@
                                 sh 'docker logout'
                                 archiveArtifacts "dist/wktui*.*"
                                 archiveArtifacts "dist/*.AppImage"
-                                archiveArtifacts "dist/*.blockmap"
                                 archiveArtifacts "dist/latest-linux.yml"
                             }
                         }
