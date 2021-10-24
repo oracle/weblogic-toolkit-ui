@@ -34,8 +34,10 @@
             }
             steps {
                 script {
-                    env.file_version = version_number.replaceFirst(version_prefix, version_prefix + '-SNAPSHOT')
+                    file_version = version_number.replaceFirst(version_prefix, version_prefix + '-SNAPSHOT')
+                    env.file_version = file_version
                 }
+                echo "file_version = ${file_version}"
             }
         }
         stage('Parallel Builds') {
@@ -56,7 +58,7 @@
                         stage('Linux Echo Environment') {
                             steps {
                                 sh 'env|sort'
-                                sh 'which java'
+                                sh 'java -version'
                                 echo "file version = ${file_version}"
                             }
                         }
@@ -158,7 +160,7 @@
                         stage('MacOS Echo Environment') {
                             steps {
                                 sh 'env|sort'
-                                sh 'which java'
+                                sh 'java -version'
                                 echo "file version = ${file_version}"
                             }
                         }
@@ -263,7 +265,7 @@
                         stage('Windows Echo Environment') {
                             steps {
                                 bat 'set'
-                                bat 'where java'
+                                bat 'java -version'
                                 echo "file version = ${file_version}"
                             }
                         }
