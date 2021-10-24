@@ -18,7 +18,6 @@
         project_name = "$JOB_NAME"
         version_prefix = sh(returnStdout: true, script: 'cat electron/package.json | grep version | awk \'match($0, /[0-9]+.[0-9]+.[0-9]+/) { print substr( $0, RSTART, RLENGTH )}\'').trim()
         version_number = VersionNumber([versionNumberString: '-${BUILD_YEAR}${BUILD_MONTH,XX}${BUILD_DAY,XX}${BUILDS_TODAY_Z,XX}', versionPrefix: "${version_prefix}"])
-        file_version = "${version_number}"
 
         github_url = "${env.GIT_URL}"
         github_creds = "wktui-github"
@@ -26,7 +25,7 @@
         branch = sh(returnStdout: true, script: 'echo $GIT_BRANCH | sed --expression "s:origin/::"')
     }
     stages {
-        stage('Compute file version') {
+        stage('Compute file version number') {
             when {
                 not {
                     tag "v${version_prefix}"
@@ -34,10 +33,10 @@
             }
             steps {
                 script {
-                    file_version = version_number.replaceFirst(version_prefix, version_prefix + '-SNAPSHOT')
-                    env.file_version = file_version
+                    version_number = version_number.replaceFirst(version_prefix, version_prefix + '-SNAPSHOT')
+                    env.version_number = version_number
                 }
-                echo "file_version = ${file_version}"
+                echo "file version number = ${version_number}"
             }
         }
         stage('Parallel Builds') {
@@ -58,13 +57,13 @@
                         stage('Linux Echo Environment') {
                             steps {
                                 sh 'env|sort'
-                                echo "file version = ${file_version}"
+                                echo "file version = ${version_number}"
                             }
                         }
                         stage('Linux Checkout') {
                             steps {
                                  git url: "${github_url}", credentialsId: "${github_creds}", branch: "${branch}"
-                                 sh 'echo ${file_version} > ${WORKSPACE}/WKTUI_VERSION.txt'
+                                 sh 'echo ${version_number} > ${WORKSPACE}/WKTUI_VERSION.txt'
                             }
                         }
                         stage('Linux Node.js Installation') {
@@ -158,13 +157,13 @@
                         stage('MacOS Echo Environment') {
                             steps {
                                 sh 'env|sort'
-                                echo "file version = ${file_version}"
+                                echo "file version = ${version_number}"
                             }
                         }
                         stage('MacOS Checkout') {
                             steps {
                                  git url: "${github_url}", credentialsId: "${github_creds}", branch: "${branch}"
-                                 sh 'echo ${file_version} > ${WORKSPACE}/WKTUI_VERSION.txt'
+                                 sh 'echo ${version_number} > ${WORKSPACE}/WKTUI_VERSION.txt'
                             }
                         }
                         stage('MacOS Node.js Installation') {
@@ -262,13 +261,13 @@
                         stage('Windows Echo Environment') {
                             steps {
                                 bat 'set'
-                                echo "file version = ${file_version}"
+                                echo "file version = ${version_number}"
                             }
                         }
                         stage('Windows Checkout') {
                             steps {
                                  git url: "${github_url}", credentialsId: "${github_creds}", branch: "${branch}"
-                                 bat 'echo %file_version% > "%WORKSPACE%/WKTUI_VERSION.txt"'
+                                 bat 'echo %version_number% > "%WORKSPACE%/WKTUI_VERSION.txt"'
                             }
                         }
                         stage('Windows Node.js Installation') {
