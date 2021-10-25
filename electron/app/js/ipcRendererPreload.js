@@ -157,6 +157,7 @@ contextBridge.exposeInMainWorld(
           'k8s-get-service-details',
           'k8s-get-operator-version-from-dm',
           'k8s-get-k8s-config',
+          'k8s-get-k8s-cluster-info',
           'k8s-get-wko-domain-status',
           'k8s-get-operator-status',
           'k8s-get-operator-log',

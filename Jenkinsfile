@@ -13,10 +13,10 @@
 
         npm_registry = "${env.ARTIFACTORY_NPM_REPO}"
         npm_noproxy = "${env.ORACLE_NO_PROXY}"
-        node_version = "14.18.0"
+        node_version = "14.18.1"
 
         project_name = "$JOB_NAME"
-        version_prefix = "0.8.0"
+        version_prefix = sh(returnStdout: true, script: 'cat electron/package.json | grep version | awk \'match($0, /[0-9]+.[0-9]+.[0-9]+/) { print substr( $0, RSTART, RLENGTH )}\'').trim()
         version_number = VersionNumber([versionNumberString: '-${BUILD_YEAR}${BUILD_MONTH,XX}${BUILD_DAY,XX}${BUILDS_TODAY_Z,XX}', versionPrefix: "${version_prefix}"])
 
         github_url = "${env.GIT_URL}"
@@ -25,6 +25,20 @@
         branch = sh(returnStdout: true, script: 'echo $GIT_BRANCH | sed --expression "s:origin/::"')
     }
     stages {
+        stage('Compute file version number') {
+            when {
+                not {
+                    tag "v${version_prefix}"
+                }
+            }
+            steps {
+                script {
+                    version_number = version_number.replaceFirst(version_prefix, version_prefix + '-SNAPSHOT')
+                    env.version_number = version_number
+                }
+                echo "file version number = ${version_number}"
+            }
+        }
         stage('Parallel Builds') {
             failFast true
             parallel {
@@ -42,8 +56,8 @@
                     stages {
                         stage('Linux Echo Environment') {
                             steps {
-                                sh 'env'
-                                sh "git config --global http.https://github.com.proxy ${WKTUI_PROXY}"
+                                sh 'env|sort'
+                                echo "file version = ${version_number}"
                             }
                         }
                         stage('Linux Checkout') {
@@ -123,6 +137,7 @@
                                 sh 'docker logout'
                                 archiveArtifacts "dist/wktui*.*"
                                 archiveArtifacts "dist/*.AppImage"
+                                archiveArtifacts "dist/latest-linux.yml"
                             }
                         }
                     }
@@ -141,8 +156,8 @@
                     stages {
                         stage('MacOS Echo Environment') {
                             steps {
-                                sh 'env'
-                                sh "git config --global http.https://github.com.proxy ${WKTUI_PROXY}"
+                                sh 'env|sort'
+                                echo "file version = ${version_number}"
                             }
                         }
                         stage('MacOS Checkout') {
@@ -221,6 +236,9 @@
                             steps {
                                 sh 'cd ${WORKSPACE}/electron; PATH="${mac_node_dir}/bin:$PATH" HTTPS_PROXY=${WKTUI_PROXY} CSC_IDENTITY_AUTO_DISCOVERY=false ${mac_npm_exe} run build'
                                 archiveArtifacts 'dist/*.dmg'
+                                archiveArtifacts 'dist/*.zip'
+                                archiveArtifacts "dist/*.blockmap"
+                                archiveArtifacts "dist/latest-mac.yml"
                                 sh 'ditto -c -k --sequesterRsrc --keepParent "$WORKSPACE/dist/mac/WebLogic Kubernetes Toolkit UI.app" "WebLogic Kubernetes Toolkit UI.app.zip"'
                                 archiveArtifacts "WebLogic Kubernetes Toolkit UI.app.zip"
                             }
@@ -237,12 +255,13 @@
                         windows_node_exe = "${windows_node_dir}\\node"
                         windows_npm_modules_dir = "${windows_node_dir}"
                         windows_npm_exe = "${windows_node_dir}\\npm"
+                        windows_git_path = "C:\\jenkins\\tools\\git\\PortableGit\\bin"
                     }
                     stages {
                         stage('Windows Echo Environment') {
                             steps {
                                 bat 'set'
-                                bat "git config --global http.https://github.com.proxy %WKTUI_PROXY%"
+                                echo "file version = ${version_number}"
                             }
                         }
                         stage('Windows Checkout') {
@@ -314,6 +333,8 @@
                             steps {
                                 bat 'cd "%WORKSPACE%\\electron" & set "PATH=%windows_node_dir%;%PATH%" & set "HTTPS_PROXY=%WKTUI_PROXY%" & "%windows_npm_exe%" run build & cd "%WORKSPACE%"'
                                 archiveArtifacts 'dist/*.exe'
+                                archiveArtifacts "dist/*.blockmap"
+                                archiveArtifacts "dist/latest.yml"
                             }
                         }
                     }

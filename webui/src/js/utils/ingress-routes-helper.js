@@ -455,30 +455,16 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
     };
 
     this.getk8sClusterAddress = async (kubectlExe, currentContext, kubectlOptions) => {
-      const results = await window.api.ipc.invoke('k8s-get-k8s-config',
+      const results = await window.api.ipc.invoke('k8s-get-k8s-cluster-info',
         kubectlExe, kubectlOptions);
-      let cluster = '';
-      let server = '';
-      if (results.isSuccess) {
-        const configView = results.configView;
-        for (const item of configView.contexts) {
-          if (item.name === configView['current-context']) {
-            cluster = item.context.cluster;
-            break;
-          }
-        }
-        if (cluster !== '') {
-          for (const item of configView.clusters) {
-            if (item.name === cluster) {
-              server = item.cluster.server;
-              const address = server.split(':');
-              results['server'] = address[1];
-              break;
-            }
-          }
-        }
-        return Promise.resolve(results);
 
+      if (results.isSuccess) {
+        // Get the first line of kubectl cluster-info and parse the control pane url
+        const controlPaneLine = results.clusterInfo.split('\n',1)[0];
+        const tokens = controlPaneLine.split(' ');
+        const clusterUrl = tokens[tokens.length - 1].split(':')[1];
+        results['server'] = clusterUrl;
+        return Promise.resolve(results);
       } else {
         return Promise.resolve(results);
       }
