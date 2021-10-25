@@ -737,6 +737,10 @@ class Main {
       return kubectlUtils.getK8sConfigView(kubectlExe, options);
     });
 
+    ipcMain.handle('k8s-get-k8s-cluster-info', async (event, kubectlExe, options) => {
+      return kubectlUtils.getK8sClusterInfo(kubectlExe, options);
+    });
+
     ipcMain.handle('k8s-get-wko-domain-status', async (event, kubectlExe, domainUID, domainNamespace, options) => {
       return kubectlUtils.getWkoDomainStatus(kubectlExe, domainUID, domainNamespace, options);
     });
