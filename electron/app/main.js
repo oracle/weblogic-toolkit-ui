@@ -17,12 +17,12 @@ const { chooseFromFileSystem, createNetworkWindow, createWindow, initialize, set
   showErrorMessage, promptUserForOkOrCancelAnswer, promptUserForYesOrNoAnswer } = require('./js/wktWindow');
 const project = require('./js/project');
 const wktTools = require('./js/wktTools');
-const wktToolsInstaller = require('./js/wktToolsInstaller');
 const wdtArchive = require('./js/wdtArchive');
 const wdtDiscovery = require('./js/wdtDiscovery');
 const javaUtils = require('./js/javaUtils');
 const oracleHomeUtils = require('./js/oracleHomeUtils');
 const domainHomeUtils = require('./js/domainHomeUtils');
+const connectivityUtils = require('./js/connectivityUtils');
 const fsUtils = require('./js/fsUtils');
 const witInspect = require('./js/witInspect');
 const witCache = require('./js/witCache');
@@ -790,6 +790,10 @@ class Main {
     });
 
     ipcMain.handle('try-network-settings', async (event, settings) => {
+      return connectivityUtils.testInternetConnectivity(settings['proxyUrl']);
+    });
+
+    ipcMain.handle('restart-network-settings', async (event, settings) => {
       await userSettings.setHttpsProxyUrl(settings['proxyUrl']);
       await userSettings.setBypassProxyHosts(settings['bypassHosts']);
       await userSettings.saveUserSettings();
@@ -822,11 +826,11 @@ class Main {
     });
   }
 
-  // Verify that the network is available, show proxy setup if there are problems.
+  // Verify that the network is available with user settings, show proxy setup if there are problems.
   //
   async checkSetup() {
-    const { testInternetConnectivity } = require('./js/connectivityUtils');
-    const connected = await testInternetConnectivity();
+    const { testConfiguredInternetConnectivity } = require('./js/connectivityUtils');
+    const connected = await testConfiguredInternetConnectivity();
     if (!connected) {
       createNetworkWindow();
     }

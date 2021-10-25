@@ -108,6 +108,7 @@ contextBridge.exposeInMainWorld(
           'choose-oracle-home',
           'choose-variable-file',
           'choose-extra-path-directory',
+          'restart-network-settings',
           'try-network-settings',
           'is-dev-mode',
           'open-external-link',

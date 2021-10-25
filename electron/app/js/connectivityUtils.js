@@ -12,9 +12,16 @@ const { getLogger } = require('./wktLogging');
 const errorUtils = require('./errorUtils');
 
 const CONNECT_TIMEOUT = 5000;
-async function testInternetConnectivity() {
+
+// test connectivity for user settings configuration
+async function testConfiguredInternetConnectivity() {
   const userSettings = require('./userSettings');
   const httpsProxyUrl = await userSettings.getHttpsProxyUrl();
+  return testInternetConnectivity(httpsProxyUrl);
+}
+
+// test connectivity using supplied arguments
+async function testInternetConnectivity(httpsProxyUrl) {
   const options = {
     timeout: CONNECT_TIMEOUT,
     method: 'HEAD'
@@ -24,7 +31,7 @@ async function testInternetConnectivity() {
   }
 
   const logger = getLogger();
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     let timeout = false;
     const httpsRequest = https.request(homepage, options, (res) => {
       logger.debug('Internet connectivity test required HTTP status code %s', res.statusCode);
@@ -46,5 +53,6 @@ async function testInternetConnectivity() {
 }
 
 module.exports = {
+  testConfiguredInternetConnectivity,
   testInternetConnectivity
 };

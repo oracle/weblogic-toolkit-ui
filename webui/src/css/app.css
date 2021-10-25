@@ -570,6 +570,7 @@ h6.wkt-subheading {
   display: flex;
   flex-direction: column;
   height: 100%;
+  width: 100%;
   padding: 1em;
 }
 
@@ -584,6 +585,19 @@ h6.wkt-subheading {
 
 .wkt-dialog-footer .oj-button {
   margin-left: 0.25em;
+}
+
+.wkt-network-try-block {
+  align-items: center;
+  display: flex;
+}
+
+.wkt-network-try-message {
+  padding-left: 0.75em;
+}
+
+.wkt-proceed {
+  font-weight: bold;
 }
 
 .wkt-warning {

@@ -30,15 +30,41 @@ function(accUtils, ko, i18n, project) {
 
     this.proxyUrl = ko.observable();
     this.bypassProxyHosts = ko.observable();
+    this.connectOk = ko.observable(false);
+    this.tryMessage = ko.observable();
+
+    this.topMessage = ko.computed(() => {
+      const messageKey = this.connectOk() ? 'proceed' : 'warning';
+      return this.labelMapper(messageKey);
+    });
+
+    this.topClass = ko.computed(() => {
+      return this.connectOk() ? 'wkt-proceed' : 'wkt-warning';
+    });
 
     this.tryConnect = () => {
+      this.tryMessage(this.labelMapper('trying'));
+
+      const settings = {
+        proxyUrl: this.proxyUrl(),
+        bypassHosts: this.bypassProxyHosts()
+      };
+
+      window.api.ipc.invoke('try-network-settings', settings).then(success => {
+        const messageKey = success ? 'try-success' : 'try-failure';
+        this.tryMessage(this.labelMapper(messageKey));
+        this.connectOk(success);
+      });
+    };
+
+    this.restartApp = () => {
       const settings = {
         proxyUrl: this.proxyUrl(),
         bypassHosts: this.bypassProxyHosts()
       };
 
       // this will restart the app with success or failure, so no need to close.
-      window.api.ipc.invoke('try-network-settings', settings).then();
+      window.api.ipc.invoke('restart-network-settings', settings).then();
     };
 
     this.exitApp = () => {

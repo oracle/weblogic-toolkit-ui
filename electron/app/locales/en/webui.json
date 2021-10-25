@@ -897,8 +897,13 @@
   "save-all-catch-all-error-message": "Failed to save all: {{error}}",
 
   "network-page-title": "Network Configuration",
+  "network-page-proceed": "Connection was established. Click Restart Application to save these settings and restart the application.",
   "network-page-warning": "This application requires internet connectivity, and is unable to connect. Please update any network settings that are required.",
-  "network-page-button-connect": "Retry Connection",
+  "network-page-button-connect": "Try Connection",
+  "network-page-trying": "Trying...",
+  "network-page-try-failure": "Connection failed",
+  "network-page-try-success": "Connection successful",
+  "network-page-button-restart": "Restart Application",
   "network-page-button-exit": "Exit Application",
 
   "validation-helper-validation-error-fields-message": "{{fieldCount}} field(s) were invalid:",
