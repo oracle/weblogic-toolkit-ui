@@ -16,7 +16,7 @@ const CONNECT_TIMEOUT = 5000;
 // test connectivity for user settings configuration
 async function testConfiguredInternetConnectivity() {
   const userSettings = require('./userSettings');
-  const httpsProxyUrl = await userSettings.getHttpsProxyUrl();
+  const httpsProxyUrl = userSettings.getHttpsProxyUrl();
   return testInternetConnectivity(httpsProxyUrl);
 }
 

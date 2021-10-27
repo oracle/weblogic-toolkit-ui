@@ -111,8 +111,8 @@ async function getK8sConfigView(kubectlExe, options) {
 
 async function getK8sClusterInfo(kubectlExe, options) {
   const args = [ 'cluster-info'];
-  const httpsProxyUrl = await getHttpsProxyUrl();
-  const bypassProxyHosts = await getBypassProxyHosts();
+  const httpsProxyUrl = getHttpsProxyUrl();
+  const bypassProxyHosts = getBypassProxyHosts();
   const env = getKubectlEnvironment(options, httpsProxyUrl, bypassProxyHosts);
   const results = {
     isSuccess: true

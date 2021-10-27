@@ -789,8 +789,8 @@ class Main {
     });
 
     ipcMain.handle('get-network-settings', async () => {
-      const proxyUrl = await getHttpsProxyUrl();
-      const bypassHosts = await getBypassProxyHosts();
+      const proxyUrl = getHttpsProxyUrl();
+      const bypassHosts = getBypassProxyHosts();
       return {
         proxyUrl: proxyUrl,
         bypassHosts: bypassHosts
