@@ -109,6 +109,28 @@ async function getK8sConfigView(kubectlExe, options) {
   });
 }
 
+async function getK8sClusterInfo(kubectlExe, options) {
+  const args = [ 'cluster-info'];
+  const httpsProxyUrl = await getHttpsProxyUrl();
+  const bypassProxyHosts = await getBypassProxyHosts();
+  const env = getKubectlEnvironment(options, httpsProxyUrl, bypassProxyHosts);
+  const results = {
+    isSuccess: true
+  };
+
+  return new Promise(resolve => {
+    executeFileCommand(kubectlExe, args, env).then(clusterInfo => {
+      results['clusterInfo'] = clusterInfo;
+      resolve(results);
+    }).catch(err => {
+      results.isSuccess = false;
+      results.reason =
+        i18n.t('kubectl-config-view-error-message',{ error: getErrorMessage(err) });
+      resolve(results);
+    });
+  });
+}
+
 async function getWkoDomainStatus(kubectlExe, domainUID, domainNamespace, options) {
   const args = [ 'get', 'domain', domainUID, '-n', domainNamespace, '-o', 'json'];
   const httpsProxyUrl = getHttpsProxyUrl();
@@ -752,6 +774,7 @@ module.exports = {
   deleteObjectIfExists,
   getServiceDetails,
   getK8sConfigView,
+  getK8sClusterInfo,
   getWkoDomainStatus,
   getOperatorStatus,
   getOperatorVersionFromDomainCM,

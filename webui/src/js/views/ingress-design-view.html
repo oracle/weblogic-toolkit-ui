@@ -202,7 +202,9 @@
           </oj-bind-if>
           <oj-bind-if test="[[isAccessPointDefined(row.data.accessPoint)]]">
             <td class="wkt-link-container" data-bind="attr: { title: row.data.accessPoint }">
-              <a data-bind="attr: { href: row.data.accessPoint }">click</a>
+              <a data-bind="attr: { href: row.data.accessPoint }">
+                <oj-bind-text value="[[row.data.accessPoint]]"></oj-bind-text>
+              </a>
             </td>
           </oj-bind-if>
 

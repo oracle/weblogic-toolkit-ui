@@ -521,7 +521,7 @@ class WktAppMenu {
             type: 'separator'
           },
           {
-            id: 'quit',
+            id: 'exit',
             label: `${i18n.t('menu-app-quit', { appName: this._wktApp.getApplicationName() })}`,
             accelerator: 'Command+Q',
             async click() { await executeAppQuit(); }
@@ -596,7 +596,7 @@ class WktAppMenu {
           },
           { type: 'separator' },
           {
-            id: 'quit',
+            id: 'exit',
             label: i18n.t('menu-file-exit'),
             accelerator: 'Alt+X',
             async click() { await executeAppQuit(); }          }
@@ -682,16 +682,7 @@ async function createWindow() {
   newWindow.isReady = false;
   newWindow.skipDirtyCheck = false;
 
-  if (_isJetDevMode) {
-    newWindow.loadURL('http://localhost:8000/').then(() => newWindow.webContents.toggleDevTools());
-  } else {
-    newWindow.loadFile(path.join(appDir, 'web/index.html')).then();
-  }
-
-  newWindow.on('ready-to-show', () => {
-    newWindow.setTitle(_wktApp.getApplicationName());
-    newWindow.show();
-  });
+  _initializeWindow(newWindow);
 
   newWindow.on('focus', () => {
     createApplicationMenu(newWindow);
@@ -706,6 +697,7 @@ async function createWindow() {
   });
 
   newWindow.on('close', (event) => {
+    getLogger().debug('Received window close event on Window ID %s', newWindow.id);
     if (!newWindow.skipDirtyCheck) {
       event.preventDefault();
       sendToWindow(newWindow, 'start-window-close');
@@ -714,6 +706,7 @@ async function createWindow() {
 
   // eslint-disable-next-line no-unused-vars
   newWindow.on('closed', (event) => {
+    getLogger().debug('Received window closed event');
     const { removeProjectWindowFromCache } = require('./project');
     removeProjectWindowFromCache(newWindow);
     delete windowStatus[thisWindowId];
@@ -721,6 +714,55 @@ async function createWindow() {
   });
 
   return newWindow;
+}
+
+function createNetworkWindow() {
+  const width = _isJetDevMode ? 1000 : 640;
+  const height = 480;
+  const additionalArguments = _getAdditionalArguments();
+  additionalArguments.push('--mainModule=network-page');
+
+  let newWindow = new BrowserWindow({
+    show: false,
+    width: width,
+    height: height,
+    menuBarVisible: false,
+    useContentSize: true,
+    webPreferences: {
+      nodeIntegration: false,
+      contextIsolation: true,
+      enableRemoteModule: false,
+      webviewTag: false,
+      additionalArguments: additionalArguments,
+      preload: path.join(__dirname, 'ipcRendererPreload.js')
+    }
+  });
+
+  newWindow.setMenu(null);
+  newWindow.setMenuBarVisibility(false);
+
+  const thisWindowId = newWindow.id;
+  windowStatus[thisWindowId] = { noMenu: true };
+
+  _initializeWindow(newWindow);
+
+  newWindow.on('closed', () => {
+    delete windowStatus[thisWindowId];
+    newWindow = null;
+  });
+}
+
+function _initializeWindow(newWindow) {
+  if (_isJetDevMode) {
+    newWindow.loadURL('http://localhost:8000/').then(() => newWindow.webContents.toggleDevTools());
+  } else {
+    newWindow.loadFile(path.join(appDir, 'web/index.html')).then();
+  }
+
+  newWindow.on('ready-to-show', () => {
+    newWindow.setTitle(_wktApp.getApplicationName());
+    newWindow.show();
+  });
 }
 
 function setTitleFileName(currentWindow, projectFileName, isEdited) {
@@ -824,6 +866,11 @@ async function showErrorMessage(currentWindow, title, message, messageType) {
 }
 
 function createApplicationMenu(newWindow) {
+  const noMenu = getWindowStatus(newWindow, 'noMenu');
+  if(noMenu) {
+    return Menu.setApplicationMenu(null);
+  }
+
   const hasOpenDialog = getWindowStatus(newWindow, 'hasOpenDialog');
   const targetType = getWindowStatus(newWindow, 'targetType');
   const appMenuTemplate = new WktAppMenu(hasOpenDialog, targetType).appMenuTemplate;
@@ -903,6 +950,7 @@ module.exports = {
   chooseFromFileSystem,
   clearWindow,
   closeWindow,
+  createNetworkWindow,
   createWindow,
   getCheckForAppUpdatesMenuItem,
   initialize,

@@ -564,3 +564,43 @@ h6.wkt-subheading {
 .domainError .oj-text-field-readonly {
   color: red !important;
 }
+
+.wkt-dialog-content {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  padding: 1em;
+}
+
+.wkt-dialog-middle {
+  flex: 1 1 100%;
+}
+
+.wkt-dialog-footer {
+  padding: 1em 0 0 0;
+  text-align: end;
+}
+
+.wkt-dialog-footer .oj-button {
+  margin-left: 0.25em;
+}
+
+.wkt-network-try-block {
+  align-items: center;
+  display: flex;
+}
+
+.wkt-network-try-message {
+  padding-left: 0.75em;
+}
+
+.wkt-proceed {
+  font-weight: bold;
+}
+
+.wkt-warning {
+  color: red;
+  font-weight: bold;
+}

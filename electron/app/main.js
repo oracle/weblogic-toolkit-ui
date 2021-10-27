@@ -13,8 +13,8 @@ const WktApp = require('./js/wktApp');
 const i18n = require('./js/i18next.config');
 const { getLogger, initializeLoggingSystem, logRendererMessage } = require('./js/wktLogging');
 const userSettings = require('./js/userSettings');
-const { chooseFromFileSystem, createWindow, initialize, setHasOpenDialog, setTargetType, showErrorMessage,
-  promptUserForOkOrCancelAnswer, promptUserForYesOrNoAnswer } = require('./js/wktWindow');
+const { chooseFromFileSystem, createNetworkWindow, createWindow, initialize, setHasOpenDialog, setTargetType,
+  showErrorMessage, promptUserForOkOrCancelAnswer, promptUserForYesOrNoAnswer } = require('./js/wktWindow');
 const project = require('./js/project');
 const wktTools = require('./js/wktTools');
 const wdtArchive = require('./js/wdtArchive');
@@ -22,6 +22,7 @@ const wdtDiscovery = require('./js/wdtDiscovery');
 const javaUtils = require('./js/javaUtils');
 const oracleHomeUtils = require('./js/oracleHomeUtils');
 const domainHomeUtils = require('./js/domainHomeUtils');
+const connectivityUtils = require('./js/connectivityUtils');
 const fsUtils = require('./js/fsUtils');
 const witInspect = require('./js/witInspect');
 const witCache = require('./js/witCache');
@@ -45,13 +46,15 @@ class Main {
     this._isJetDevMode = isJetDevMode;
     this._wktMode = new WktMode(process.argv[0]);
     this._wktApp = new WktApp(this._wktMode);
-    this._openFileCreateWindowAlreadyCalled = false;
+    // the project file to be opened when the app is ready (command-line, double-click, etc.)
+    this._initialProjectFile = null;
     this._tempDir = app.getPath('temp');
     initializeLoggingSystem(this._wktMode, this._wktApp, this._tempDir).then();
     wktTools.initialize(this._wktMode);
     initialize(this._isJetDevMode, this._wktApp, this._wktMode);    // wktWindow.js
     this._quickstartShownAlready = false;
     initializeAutoUpdater(getLogger(), this._isJetDevMode);
+    this._forceQuit = false;
   }
 
   runApp(argv) {
@@ -73,6 +76,7 @@ class Main {
   }
 
   registerAppListeners(argv) {
+    // The open-file event is MacOS only.
     // This needs to be at the top level to catch OS requests to open the app with a file on MacOS.
     //
     app.on('open-file', (event, filePath) => {
@@ -80,12 +84,15 @@ class Main {
       if (project.isWktProjectFile(filePath)) {
         const existingProjectWindow = project.getWindowForProject(filePath);
         if (existingProjectWindow) {
-          // since MacOS fires both this event and ready, make sure we only open one window...
-          this._openFileCreateWindowAlreadyCalled = true;
           project.showExistingProjectWindow(existingProjectWindow);
+
+        } else if(!app.isReady()) {
+          // when the app is started by double-clicking on a project file,
+          // the open-file event fires before ready, so remember this file to open on ready.
+          this._initialProjectFile = filePath;
+
         } else {
-          // since MacOS fires both this event and ready, make sure we only open one window...
-          this._openFileCreateWindowAlreadyCalled = true;
+          // if the app is ready, open a new window for this project file
           createWindow(this._isJetDevMode, this._wktApp).then(win => {
             win.once('ready-to-show', () => {
               this.openProjectFileInWindow(win, filePath);
@@ -119,32 +126,34 @@ class Main {
     });
 
     app.on('ready', () => {
-      if (!this._openFileCreateWindowAlreadyCalled) {
-        let filePath;
-        if (process.platform !== 'darwin') {
-          filePath = this.getFileArgFromCommandLine(argv);
-          if (filePath) {
-            getLogger().debug(`Found file argument on command-line: ${filePath}`);
-            const existingProjectWindow = project.getWindowForProject(filePath);
-            if (existingProjectWindow) {
-              project.showExistingProjectWindow(existingProjectWindow);
-              return;
+      getLogger().debug('Received ready event');
+      this.checkSetup().then(setupOk => {
+        if(setupOk) {
+          // this may have been set in open-file event
+          let filePath = this._initialProjectFile;
+
+          // check the command line for project file
+          if (!filePath) {
+            filePath = this.getFileArgFromCommandLine(argv);
+            if (filePath) {
+              getLogger().debug(`Found file argument on command-line: ${filePath}`);
+              const existingProjectWindow = project.getWindowForProject(filePath);
+              if (existingProjectWindow) {
+                project.showExistingProjectWindow(existingProjectWindow);
+                return;
+              }
             }
           }
-        }
 
-        createWindow(this._isJetDevMode, this._wktApp).then(win => {
-          if (process.platform !== 'darwin') {
+          createWindow(this._isJetDevMode, this._wktApp).then(win => {
             if (filePath) {
               win.once('ready-to-show', () => {
                 this.openProjectFileInWindow(win, filePath);
               });
             }
-          }
-        });
-      } else {
-        this._openFileCreateWindowAlreadyCalled = false;
-      }
+          });
+        }
+      });
     });
 
     app.on('activate', async (event, hasVisibleWindows) => {
@@ -155,13 +164,20 @@ class Main {
 
     // eslint-disable-next-line no-unused-vars
     app.on('window-all-closed', (event) => {
-      if (process.platform === 'darwin') {
+      getLogger().debug('Received window-all-closed event');
+      if (process.platform === 'darwin' && !this._forceQuit) {
         return false;
       }
       app.quit();
     });
 
+    app.on('before-quit', () => {
+      getLogger().debug('Received before-quit event');
+      this._forceQuit = true;
+    });
+
     app.on('will-quit', (event) => {
+      getLogger().debug('Received will-quit event');
       event.preventDefault();
       userSettings.saveUserSettings()
         .then(() => {
@@ -732,6 +748,10 @@ class Main {
       return kubectlUtils.getK8sConfigView(kubectlExe, options);
     });
 
+    ipcMain.handle('k8s-get-k8s-cluster-info', async (event, kubectlExe, options) => {
+      return kubectlUtils.getK8sClusterInfo(kubectlExe, options);
+    });
+
     ipcMain.handle('k8s-get-wko-domain-status', async (event, kubectlExe, domainUID, domainNamespace, options) => {
       return kubectlUtils.getWkoDomainStatus(kubectlExe, domainUID, domainNamespace, options);
     });
@@ -768,6 +788,31 @@ class Main {
       });
     });
 
+    ipcMain.handle('get-network-settings', async () => {
+      const proxyUrl = await getHttpsProxyUrl();
+      const bypassHosts = await getBypassProxyHosts();
+      return {
+        proxyUrl: proxyUrl,
+        bypassHosts: bypassHosts
+      };
+    });
+
+    ipcMain.handle('try-network-settings', async (event, settings) => {
+      return connectivityUtils.testInternetConnectivity(settings['proxyUrl']);
+    });
+
+    ipcMain.handle('restart-network-settings', async (event, settings) => {
+      await userSettings.setHttpsProxyUrl(settings['proxyUrl']);
+      await userSettings.setBypassProxyHosts(settings['bypassHosts']);
+      await userSettings.saveUserSettings();
+      app.relaunch();
+      app.quit();
+    });
+
+    ipcMain.handle('exit-app', async () => {
+      // called before any projects opened, no need for extra checks
+      app.quit();
+    });
   }
 
   async getLatestWdtInstaller(targetWindow) {
@@ -787,6 +832,17 @@ class Main {
         }
       }).catch(err => reject(new Error(err)));
     });
+  }
+
+  // Verify that the network is available with user settings, show proxy setup if there are problems.
+  //
+  async checkSetup() {
+    const { testConfiguredInternetConnectivity } = require('./js/connectivityUtils');
+    const connected = await testConfiguredInternetConnectivity();
+    if (!connected) {
+      createNetworkWindow();
+    }
+    return connected;
   }
 
   getFileArgFromCommandLine(argv) {
