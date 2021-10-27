@@ -39,8 +39,11 @@ function(ko, Context, ResponsiveUtils, ResponsiveKnockoutUtils, ModuleElementUti
 
     document.getElementById('globalBody').addEventListener('click', this.clickHandler);
 
+    let mainModule = window.api.utils.mainModule;
+    mainModule = mainModule ? mainModule: 'app-main';
+
     this.mainModuleConfig = ModuleElementUtils.createConfig({
-      name: 'app-main',
+      name: mainModule,
       params: {}
     });
   }

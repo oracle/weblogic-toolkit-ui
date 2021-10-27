@@ -17,6 +17,7 @@ const wktApp = new WktApp();
 
 const exeMode = osUtils.getArgv('--wktMode');
 const language = osUtils.getArgv('--lang');
+const mainModule = osUtils.getArgv('--mainModule');
 
 i18n.changeLanguage(language).then();
 
@@ -98,6 +99,7 @@ contextBridge.exposeInMainWorld(
           'get-kube-config-files',
           'get-latest-wko-image-name',
           'get-archive-entry-types',
+          'get-network-settings',
           'choose-archive-file',
           'choose-archive-entry',
           'choose-domain-home',
@@ -106,6 +108,8 @@ contextBridge.exposeInMainWorld(
           'choose-oracle-home',
           'choose-variable-file',
           'choose-extra-path-directory',
+          'restart-network-settings',
+          'try-network-settings',
           'is-dev-mode',
           'open-external-link',
           'save-user-settings',
@@ -117,6 +121,7 @@ contextBridge.exposeInMainWorld(
           'prompt-save-before-close',
           'close-project',
           'save-project',
+          'exit-app',
           'run-offline-discover',
           'run-online-discover',
           'validate-domain-home',
@@ -215,7 +220,8 @@ contextBridge.exposeInMainWorld(
       }
     },
     'utils': {
-      generateUuid: () => uuid.v4()
+      generateUuid: () => uuid.v4(),
+      mainModule: mainModule
     }
   }
 );
