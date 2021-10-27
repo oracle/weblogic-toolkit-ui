@@ -5,7 +5,7 @@
  */
 'use strict';
 
-const { dialog, Menu } = require('electron');
+const { dialog } = require('electron');
 const { autoUpdater } = require('electron-updater');
 const i18n = require('./i18next.config');
 const { getLogger } = require('./wktLogging');
@@ -66,7 +66,7 @@ function registerAutoUpdateListeners() {
     getLogger().debug('download-progress = %s', JSON.stringify(progressObj, null, 2));
   });
 
-  autoUpdater.on('update-downloaded', () => {
+  autoUpdater.on('update-downloaded', (updateInfo) => {
     dialog.showMessageBox({
       title: i18n.t('auto-updater-install-title'),
       message: i18n.t('auto-updater-install-question', updateInfo.version),
@@ -89,7 +89,7 @@ function checkForUpdates(menuItem, focusedWindow, event) {
   if (!_isDevMode) {
     disableCheckForAppUpdatesMenuItem(menuItem);
     autoUpdater.checkForUpdates().then();
-  } else if (!!menuItem) {
+  } else if (menuItem) {
     // Only show the prompt if the user used the menu to trigger checkForUpdates()
     // If triggered on startup, no need to display...
     //
@@ -120,4 +120,4 @@ module.exports = {
   checkForUpdates,
   initializeAutoUpdater,
   registerAutoUpdateListeners
-}
+};

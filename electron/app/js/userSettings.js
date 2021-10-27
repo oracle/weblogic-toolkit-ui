@@ -4,6 +4,7 @@
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const { app } = require('electron');
+const fs = require('fs');
 const fsPromises = require('fs/promises');
 const path = require('path');
 
@@ -313,7 +314,7 @@ function _getUserSettingsSync() {
     try {
       userSettingsFileContent = fs.readFileSync(userSettingsFileName, { encoding: 'utf8' });
     } catch (err) {
-      throw new Error(`Failed to read file ${userSettingsFileName}: ${err}`)
+      throw new Error(`Failed to read file ${userSettingsFileName}: ${err}`);
     }
 
     if (userSettingsFileContent && userSettingsFileContent.length > 0) {
