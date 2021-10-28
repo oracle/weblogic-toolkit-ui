@@ -19,8 +19,7 @@ const userSettableFieldNames = [
 ];
 
 const appPrivateFieldNames = [
-  'window',
-  'dividers'
+  'window'
 ];
 
 let _userSettingsDirectory;
@@ -52,10 +51,10 @@ let _userSettingsFileName;
 //       "width": 1693,
 //       "height": 856
 //     }
-//   },
-//   "dividers": {
-//     "modelMain": 0.68,
-//     "modelRight": 0.48
+//     "dividers": {
+//       "modelMain": 0.68,
+//       "modelRight": 0.48
+//     }
 //   }
 // }
 //
@@ -194,9 +193,14 @@ async function setSkipQuickstartAtStartup(value) {
 
 async function setDividerLocation(name, percent) {
   _getUserSettings().then(userSettings => {
-    let dividers = userSettings['dividers'];
-    if(!dividers) {
-      dividers = userSettings['dividers'] = {};
+    let window = userSettings['window'];
+    if (!window) {
+      window = userSettings['window'] = {};
+    }
+
+    let dividers = window['dividers'];
+    if (!dividers) {
+      dividers = {};
     }
     dividers[name] = parseFloat(percent.toFixed(2));
   });
@@ -204,7 +208,11 @@ async function setDividerLocation(name, percent) {
 
 async function getDividerLocations() {
   const userSettings = await _getUserSettings();
-  let dividers = userSettings['dividers'];
+  let dividers;
+  let window = userSettings['window'];
+  if (window) {
+    dividers = window['dividers'];
+  }
   return dividers ? dividers : {};
 }
 
@@ -273,7 +281,7 @@ async function _getUserSettings() {
             .then(fileContents => {
               if (fileContents && fileContents.length > 0) {
                 try {
-                  _userSettingsObject = JSON.parse(fileContents);
+                  _userSettingsObject = _updateSettings(JSON.parse(fileContents));
                 } catch (err) {
                   reject(`Failed to parse ${userSettingsFileName}: ${err}`);
                 }
@@ -319,7 +327,9 @@ function _getUserSettingsSync() {
 
     if (userSettingsFileContent && userSettingsFileContent.length > 0) {
       try {
-        _userSettingsObject = JSON.parse(userSettingsFileContent);
+        const userSettingsObject = JSON.parse(userSettingsFileContent);
+        console.log('parsed userSettings object = %s', userSettingsObject);
+        _userSettingsObject = _updateSettings(userSettingsObject);
       } catch (err) {
         throw new Error(`Failed to parse ${userSettingsFileName}: ${err}`);
       }
@@ -384,6 +394,21 @@ function _constructFilteredCopy(settings) {
     }
   }
   return objCopy;
+}
+
+// This function is in place to take an existing user settings file and
+// update its structure to the currently used structure.
+//
+function _updateSettings(settings) {
+  if (settings['dividers']) {
+    if (!settings['window']) {
+      settings['window'] = {};
+    }
+    settings['window']['dividers'] = {};
+    Object.assign(settings['window']['dividers'], settings['dividers']);
+    delete settings['dividers'];
+  }
+  return settings;
 }
 
 module.exports = {
