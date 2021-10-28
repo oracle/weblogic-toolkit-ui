@@ -73,7 +73,7 @@
   "menu-app-hide": "Hide {{appName}}",
   "menu-app-hideOthers": "Hide Others",
   "menu-app-showAll": "Show All",
-  "menu-app-quit": "Quit",
+  "menu-app-quit": "Quit {{appName}}",
 
   "dialog-chooseArchiveFile": "Select an Archive File",
   "dialog-chooseModelFile": "Select a Model File",
