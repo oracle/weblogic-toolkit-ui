@@ -130,7 +130,7 @@
   "user-settings-dialog-title": "User Preferences",
   "user-settings-dialog-proxy-section-title": "Proxy Configuration",
   "user-settings-dialog-https-proxy-url-label": "HTTPS Proxy URL",
-  "user-settings-dialog-https-proxy-url-help": "The proxy server URL to use for all outbound HTTPS requests.",
+  "user-settings-dialog-https-proxy-url-help": "The proxy server URL to use for all outbound HTTPS requests (e.g., http://myproxy:80)",
   "user-settings-dialog-bypass-proxy-hosts-label": "Bypass Proxy Hosts",
   "user-settings-dialog-bypass-proxy-hosts-help": "The list of hostnames or patterns to use to set the NO_PROXY environment variable.  Please see NO_PROXY documentation for legal values.",
   "user-settings-dialog-logging-section-title": "Logging Configuration",
