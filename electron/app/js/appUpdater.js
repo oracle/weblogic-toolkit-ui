@@ -12,7 +12,6 @@ const { getLogger } = require('./wktLogging');
 const errorUtils = require('./errorUtils');
 const { sendToWindow } = require('./windowUtils');
 
-let _appUpdaterMenuItem;
 let _isDevMode;
 let _downloadWindow;
 
@@ -94,13 +93,6 @@ async function installUpdates(window, installType) {
 
     dialog.showErrorBox(i18n.t('auto-updater-error-title'),
       i18n.t('auto-updater-error-message', { error: error }));
-  }
-}
-
-function enableCheckForAppUpdatesMenuItem() {
-  if (_appUpdaterMenuItem) {
-    _appUpdaterMenuItem.enabled = true;
-    _appUpdaterMenuItem = null;
   }
 }
 
