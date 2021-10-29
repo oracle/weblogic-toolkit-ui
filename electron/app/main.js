@@ -32,10 +32,10 @@ const kubectlUtils = require('./js/kubectlUtils');
 const helmUtils = require('./js/helmUtils');
 const openSSLUtils = require('./js/openSSLUtils');
 const osUtils = require('./js/osUtils');
-const { initializeAutoUpdater, registerAutoUpdateListeners, checkForUpdates } = require('./js/appUpdater');
+const { initializeAutoUpdater, registerAutoUpdateListeners, installUpdates } = require('./js/appUpdater');
 
 const { getHttpsProxyUrl, getBypassProxyHosts } = require('./js/userSettings');
-const {sendToWindow} = require('./js/windowUtils');
+const { sendToWindow } = require('./js/windowUtils');
 
 const WKT_CONSOLE_STDOUT_CHANNEL = 'show-console-out-line';
 const WKT_CONSOLE_STDERR_CHANNEL = 'show-console-err-line';
@@ -71,7 +71,6 @@ class Main {
       this.registerAppListeners(argv);
       this.registerIpcListeners();
       this.registerIpcHandlers();
-      checkForUpdates();
     }
   }
 
@@ -807,6 +806,11 @@ class Main {
       await userSettings.saveUserSettings();
       app.relaunch();
       app.quit();
+    });
+
+    ipcMain.handle('install-app-update', async (event, installType) => {
+      const window = event.sender.getOwnerBrowserWindow();
+      return installUpdates(window, installType);
     });
 
     ipcMain.handle('exit-app', async () => {

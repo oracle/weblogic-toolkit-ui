@@ -1,0 +1,27 @@
+<!--
+ Copyright (c) 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<oj-dialog id="wktAppUpdateDialog" class="wkt-app-update-dialog" initial-visibility="hide">
+  <div slot="header">
+    <span class="oj-dialog-title"><oj-bind-text value="[[labelMapper('title')]]"></oj-bind-text></span>
+  </div>
+  <div slot="body" class="wkt-quickstart-body">
+    <p><oj-bind-text value="[[releaseText]]"></oj-bind-text></p>
+    <h6 class="wkt-panel-heading"><oj-bind-text value="[[labelMapper('release-notes')]]"></oj-bind-text></h6>
+    <div class="oj-panel wkt-app-update-notes" data-bind="html: releaseNotes">
+    </div>
+  </div>
+
+  <div slot="footer">
+    <oj-button id="okButton" on-oj-action="[[installNow]]">
+      <span><oj-bind-text value="[[labelMapper('button-install-now')]]"></oj-bind-text></span>
+    </oj-button>
+    <oj-button id="okButton" on-oj-action="[[installOnExit]]">
+      <span><oj-bind-text value="[[labelMapper('button-install-on-exit')]]"></oj-bind-text></span>
+    </oj-button>
+    <oj-button id="okButton" on-oj-action="[[closeDialog]]">
+      <span><oj-bind-text value="[[labelMapper('button-ignore-update')]]"></oj-bind-text></span>
+    </oj-button>
+  </div>
+</oj-dialog>

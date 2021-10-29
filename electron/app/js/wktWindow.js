@@ -390,8 +390,15 @@ class WktAppMenu {
             id: 'checkForAppUpdates',
             label: i18n.t('menu-help-checkForAppUpdates'),
             enabled: !this._hasOpenDialog,
-            click(item, focusedWindow, event) {
-              checkForUpdates(item, focusedWindow, event);
+            async click(item, focusedWindow) {
+              if (focusedWindow) {
+                return checkForUpdates(focusedWindow, true);
+              }
+
+              const newWindow = await createWindow();
+              newWindow.on('show', () => {
+                checkForUpdates(focusedWindow, true);
+              });
             }
           },
           {

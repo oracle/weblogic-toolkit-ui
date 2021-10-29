@@ -352,7 +352,7 @@ h6:first-child {
 }
 
 .wkt-busy-dialog .oj-dialog-header {
-  padding: 0.75rem 2rem;
+  padding: 2rem 2rem 0.75rem
 }
 
 .wkt-busy-body {
@@ -387,6 +387,16 @@ h6:first-child {
 .wkt-cluster-edit-dialog {
   width: 85%;
   height: 85vh;
+}
+
+.wkt-app-update-dialog {
+  width: 600px;
+  height: auto;
+}
+
+.wkt-app-update-notes {
+  max-height: 200px;
+  overflow: auto;
 }
 
 .wkt-validation-error-dialog {
@@ -450,6 +460,11 @@ h6:first-child {
 
 h6.wkt-subheading {
   font-size: 1em;
+}
+
+h6.wkt-panel-heading {
+  font-size: 1em;
+  margin-bottom: 0;
 }
 
 /* no default scroll bar on html body */
