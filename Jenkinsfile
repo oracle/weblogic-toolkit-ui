@@ -37,8 +37,7 @@
             steps {
                 script {
                     version_number = version_number.replaceFirst(version_prefix, version_prefix + '-SNAPSHOT')
-                    env.version_number = version_number
-                    env.is_release = "false"
+                    is_release = "false"
                 }
                 echo "file version number = ${version_number}"
             }
