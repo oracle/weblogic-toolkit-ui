@@ -74,7 +74,7 @@
   "menu-app-hide": "Hide {{appName}}",
   "menu-app-hideOthers": "Hide Others",
   "menu-app-showAll": "Show All",
-  "menu-app-quit": "Quit",
+  "menu-app-quit": "Quit {{appName}}",
 
   "auto-updater-error-title": "Auto-Updater Aborted",
   "auto-updater-error-message": "Application auto-updater failed: {{error}}",

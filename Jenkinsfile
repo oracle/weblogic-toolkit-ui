@@ -20,9 +20,11 @@
         version_number = VersionNumber([versionNumberString: '-${BUILD_YEAR}${BUILD_MONTH,XX}${BUILD_DAY,XX}${BUILDS_TODAY_Z,XX}', versionPrefix: "${version_prefix}"])
 
         github_url = "${env.GIT_URL}"
-        github_creds = "wktui-github"
         dockerhub_creds = "wktui-dockerhub"
         branch = sh(returnStdout: true, script: 'echo $GIT_BRANCH | sed --expression "s:origin/::"')
+
+        downstream_job_name = "wktui-sign"
+        is_release = "true"
     }
     stages {
         stage('Compute file version number') {
@@ -34,7 +36,7 @@
             steps {
                 script {
                     version_number = version_number.replaceFirst(version_prefix, version_prefix + '-SNAPSHOT')
-                    env.version_number = version_number
+                    is_release = "false"
                 }
                 echo "file version number = ${version_number}"
             }
@@ -58,11 +60,12 @@
                             steps {
                                 sh 'env|sort'
                                 echo "file version = ${version_number}"
+                                echo "is_release = ${is_release}"
                             }
                         }
                         stage('Linux Checkout') {
                             steps {
-                                 git url: "${github_url}", credentialsId: "${github_creds}", branch: "${branch}"
+                                 git url: "${github_url}", branch: "${branch}"
                                  sh 'echo ${version_number} > ${WORKSPACE}/WKTUI_VERSION.txt'
                             }
                         }
@@ -158,11 +161,12 @@
                             steps {
                                 sh 'env|sort'
                                 echo "file version = ${version_number}"
+                                echo "is_release = ${is_release}"
                             }
                         }
                         stage('MacOS Checkout') {
                             steps {
-                                 git url: "${github_url}", credentialsId: "${github_creds}", branch: "${branch}"
+                                 git url: "${github_url}", branch: "${branch}"
                                  sh 'echo ${version_number} > ${WORKSPACE}/WKTUI_VERSION.txt'
                             }
                         }
@@ -262,11 +266,12 @@
                             steps {
                                 bat 'set'
                                 echo "file version = ${version_number}"
+                                echo "is_release = ${is_release}"
                             }
                         }
                         stage('Windows Checkout') {
                             steps {
-                                 git url: "${github_url}", credentialsId: "${github_creds}", branch: "${branch}"
+                                 git url: "${github_url}", branch: "${branch}"
                                  bat 'echo %version_number% > "%WORKSPACE%/WKTUI_VERSION.txt"'
                             }
                         }
@@ -340,14 +345,26 @@
                     }
                 }
             }
-            post {
-                failure {
-                  echo "mail to address is ${WKTUI_BUILD_EMAIL}"
-                  mail to: "${WKTUI_BUILD_EMAIL}", from: 'noreply@oracle.com',
-                       subject: "WKTUI: ${env.JOB_NAME} - Failed",
-                       body: "Job Failed - \"${env.JOB_NAME}\" build: ${env.BUILD_NUMBER}\n\nView the log at:\n ${env.BUILD_URL}\n"
-                }
+        }
+        stage('Call Downstream Job') {
+            steps {
+                build job: "${downstream_job_name}", propagate: false, parameters: [
+                    string(name: "wktui_git_commit", value: "${GIT_COMMIT}"),
+                    string(name: "parent_job_name", value: "${JOB_NAME}"),
+                    string(name: "parent_release_version", value: "${version_prefix}"),
+                    string(name: "parent_build_version", value: "${version_number}"),
+                    string(name: "is_release", value: "${is_release}"),
+                    string(name: "node_version", value: "${node_version}")
+                ]
             }
+        }
+    }
+    post {
+        failure {
+          echo "mail to address is ${WKTUI_BUILD_EMAIL}"
+          mail to: "${WKTUI_BUILD_EMAIL}", from: 'noreply@oracle.com',
+               subject: "WKTUI: ${env.JOB_NAME} - Failed",
+               body: "Job Failed - \"${env.JOB_NAME}\" build: ${env.BUILD_NUMBER}\n\nView the log at:\n ${env.BUILD_URL}\n"
         }
     }
 }
