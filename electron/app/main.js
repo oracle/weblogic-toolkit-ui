@@ -196,7 +196,7 @@ class Main {
       const currentWindow = event.sender.getOwnerBrowserWindow();
       currentWindow.isReady = true;
       project.sendProjectOpened(currentWindow).then(async () => {
-        if (! await userSettings.getSkipQuickstartAtStartup()) {
+        if (! userSettings.getSkipQuickstartAtStartup()) {
           if (!this._quickstartShownAlready) {
             sendToWindow(currentWindow, 'show-quickstart');
             this._quickstartShownAlready = true;
@@ -232,7 +232,7 @@ class Main {
 
     // eslint-disable-next-line no-unused-vars
     ipcMain.on('skip-quickstart-at-startup', async (event) => {
-      await userSettings.setSkipQuickstartAtStartup(true);
+      userSettings.setSkipQuickstartAtStartup(true);
     });
 
     ipcMain.on('set-has-open-dialog', (event, hasOpenDialogs) => {
@@ -266,7 +266,7 @@ class Main {
       return getBypassProxyHosts();
     });
 
-    ipcMain.handle('get-divider-locations', async () => {
+    ipcMain.handle('get-divider-locations', () => {
       return userSettings.getDividerLocations();
     });
 
@@ -801,8 +801,8 @@ class Main {
     });
 
     ipcMain.handle('restart-network-settings', async (event, settings) => {
-      await userSettings.setHttpsProxyUrl(settings['proxyUrl']);
-      await userSettings.setBypassProxyHosts(settings['bypassHosts']);
+      userSettings.setHttpsProxyUrl(settings['proxyUrl']);
+      userSettings.setBypassProxyHosts(settings['bypassHosts']);
       await userSettings.saveUserSettings();
       app.relaunch();
       app.quit();

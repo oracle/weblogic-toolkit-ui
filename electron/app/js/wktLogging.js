@@ -57,6 +57,7 @@ class BufferedLoggerForStartup {
   }
 }
 
+// TODO - make sync
 async function initializeLoggingSystem(wktMode, wktApp, tempDir) {
   if (_logger) {
     return Promise.resolve(_logger);
@@ -71,16 +72,16 @@ async function initializeLoggingSystem(wktMode, wktApp, tempDir) {
   const devMode = _wktMode.isDevelopmentMode();
 
   return new Promise((resolve, reject) => {
-    getLoggingConfiguration().then(logConfig => {
-      const transports = getTransports(logConfig, devMode);
-      _getBaseLogger(devMode, logConfig, transports).then(baseLogger => {
-        // Create initial log messages with useful info about the application.
-        //
-        writeInitialLogEntries(baseLogger, wktApp, transports);
-        _logger = baseLogger;
-        _startupLogger = null;
-        resolve(_logger);
-      }).catch(err => reject(err));
+    const logConfig = getLoggingConfiguration();
+
+    const transports = getTransports(logConfig, devMode);
+    _getBaseLogger(devMode, logConfig, transports).then(baseLogger => {
+      // Create initial log messages with useful info about the application.
+      //
+      writeInitialLogEntries(baseLogger, wktApp, transports);
+      _logger = baseLogger;
+      _startupLogger = null;
+      resolve(_logger);
     }).catch(err => reject(err));
   });
 }
@@ -131,6 +132,7 @@ function getLogFileName() {
   return _logFileName;
 }
 
+// TODO - make sync
 async function _getBaseLogger(devMode, logConfig, transports) {
   return new Promise((resolve) => {
     const logLevel = getLogLevel(logConfig);

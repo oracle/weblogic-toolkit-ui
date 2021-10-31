@@ -474,7 +474,7 @@ class WktAppMenu {
             enabled: !this._hasOpenDialog,
             async click(item, focusedWindow) {
               if (focusedWindow) {
-                const remoteUserSettings = await userSettings.getUserSettingsForRemote();
+                const remoteUserSettings = userSettings.getUserSettingsForRemote();
                 const payload = {
                   userSettingsJson: remoteUserSettings,
                   defaults: {
@@ -583,7 +583,7 @@ class WktAppMenu {
             enabled: !this._hasOpenDialog,
             async click(item, focusedWindow) {
               if (focusedWindow) {
-                const remoteUserSettings = await userSettings.getUserSettingsForRemote();
+                const remoteUserSettings = userSettings.getUserSettingsForRemote();
                 const payload = {
                   userSettingsJson: remoteUserSettings,
                   defaults: {
@@ -648,7 +648,7 @@ async function createWindow() {
     y = currentWindowY + 10;
   }
 
-  const windowSize = await userSettings.getWindowSize();
+  const windowSize = userSettings.getWindowSize();
   let width = 1024;
   let height = 768;
   if (windowSize) {
