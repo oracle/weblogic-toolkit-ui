@@ -13,7 +13,7 @@
 
         npm_registry = "${env.ARTIFACTORY_NPM_REPO}"
         npm_noproxy = "${env.ORACLE_NO_PROXY}"
-        node_version = "14.18.1"
+        node_version = "16.13.0"
 
         project_name = "$JOB_NAME"
         version_prefix = sh(returnStdout: true, script: 'cat electron/package.json | grep version | awk \'match($0, /[0-9]+.[0-9]+.[0-9]+/) { print substr( $0, RSTART, RLENGTH )}\'').trim()
@@ -300,18 +300,18 @@
                                 bat 'copy /Y "%WORKSPACE%\\.npmrc" "%WORKSPACE%\\electron\\.npmrc"'
                             }
                         }
-//
+
 // FIXME - NPM is unable to update itself automatically on Windows.
 // Because we are not installing it and simply unzipping it, none of
 // the documented procedures for manually updating NPM seem to work.
-//
-//                         stage('Windows Update NPM') {
-//                             steps {
-//                                 bat 'copy /Y "%WORKSPACE%\\.npmrc" "%windows_node_dir%\\.npmrc"'
-//                                 bat 'cd "%windows_node_dir%" & set "PATH=%windows_node_dir%;%PATH%" & "%windows_npm_exe%" install npm & cd "%WORKSPACE%"'
-//                                 bat 'del /F /Q "%windows_node_dir%\\.npmrc"'
-//                             }
-//                         }
+
+                        stage('Windows Update NPM') {
+                            steps {
+                                bat 'copy /Y "%WORKSPACE%\\.npmrc" "%windows_node_dir%\\.npmrc"'
+                                bat 'cd "%windows_node_dir%" & set "PATH=%windows_node_dir%;%PATH%" & "%windows_npm_exe%" install npm@latest & cd "%WORKSPACE%"'
+                                bat 'del /F /Q "%windows_node_dir%\\.npmrc"'
+                            }
+                        }
                         stage('Windows Install Project Dependencies') {
                             steps {
                                 bat 'cd "%WORKSPACE%\\electron" & set "PATH=%windows_node_dir%;%PATH%" & set HTTPS_PROXY=%ORACLE_HTTP_PROXY% & "%windows_npm_exe%" install & cd "%WORKSPACE%"'
