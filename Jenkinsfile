@@ -59,8 +59,10 @@
                         stage('Linux Echo Environment') {
                             steps {
                                 sh 'env|sort'
+                                sh 'which rpmbuild'
                                 echo "file version = ${version_number}"
                                 echo "is_release = ${is_release}"
+                                sh 'yum list installed'
                             }
                         }
                         stage('Linux Checkout') {
@@ -131,16 +133,8 @@
                             }
                         }
                         stage('Linux Build Installers') {
-                            environment {
-                                DOCKER = "podman"
-                            }
                             steps {
-                                sh 'cd ${WORKSPACE}/webui; PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} run build:release; cd ${WORKSPACE}'
-                                withCredentials([usernamePassword(credentialsId: "${dockerhub_creds}", usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                                    sh 'echo "${PASSWORD}" | "${DOCKER}" login --username "${USERNAME}" --password-stdin'
-                                }
-                                sh "USE_PODMAN=true; ${WORKSPACE}/scripts/linuxInstallers.sh"
-                                sh "${DOCKER} logout"
+                                sh 'cd ${WORKSPACE}/electron; PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} run build; cd ${WORKSPACE}'
                                 archiveArtifacts "dist/wktui*.*"
                                 archiveArtifacts "dist/*.AppImage"
                                 archiveArtifacts "dist/latest-linux.yml"
