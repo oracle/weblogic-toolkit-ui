@@ -110,8 +110,6 @@
                                 sh 'cd ${WORKSPACE}/webui; PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} install; cd ${WORKSPACE}'
                                 sh 'cat ${WORKSPACE}/electron/.npmrc'
                                 sh 'cd ${WORKSPACE}/electron; PATH="${linux_node_dir}/bin:$PATH"  HTTPS_PROXY=${ORACLE_HTTP_PROXY} ${linux_npm_exe} install; cd ${WORKSPACE}'
-                                // keytar depends on libsecret-devel...
-                                // sh 'sudo yum install -y libsecret-devel'
                             }
                         }
                         stage('Linux Install Tools Dependencies') {
