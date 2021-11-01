@@ -166,6 +166,10 @@ function(wktProject, wktConsole, wktDiscoverer,
     dialogHelper.openDialog('quickstart-dialog');
   });
 
+  window.api.ipc.receive('show-startup-dialogs', async(startupInformation) => {
+    return appUpdater.showStartupDialogs(startupInformation);
+  });
+
   async function doDirtyCheck(responseChannel) {
     return new Promise(resolve => {
       if (wktProject.isDirty()) {

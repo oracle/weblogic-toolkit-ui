@@ -59,6 +59,7 @@ contextBridge.exposeInMainWorld(
           'show-console-out-line',
           'show-console-err-line',
           'show-quickstart',
+          'show-startup-dialogs',
           'app-update-available',
           'blur-focused-item',
           'start-prepare-model',

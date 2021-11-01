@@ -32,7 +32,7 @@ const kubectlUtils = require('./js/kubectlUtils');
 const helmUtils = require('./js/helmUtils');
 const openSSLUtils = require('./js/openSSLUtils');
 const osUtils = require('./js/osUtils');
-const { initializeAutoUpdater, registerAutoUpdateListeners, installUpdates } = require('./js/appUpdater');
+const { initializeAutoUpdater, registerAutoUpdateListeners, installUpdates, getUpdateInformation } = require('./js/appUpdater');
 
 const { getHttpsProxyUrl, getBypassProxyHosts } = require('./js/userSettings');
 const { sendToWindow } = require('./js/windowUtils');
@@ -52,7 +52,8 @@ class Main {
     this._logger = initializeLoggingSystem(this._wktMode, this._wktApp, this._tempDir);
     wktTools.initialize(this._wktMode);
     initialize(this._isJetDevMode, this._wktApp, this._wktMode);    // wktWindow.js
-    this._quickstartShownAlready = false;
+    this._startupDialogsShownAlready = false;
+    this._appUpdatePromise = null;
     initializeAutoUpdater(this._logger, this._isJetDevMode);
     this._forceQuit = false;
   }
@@ -71,6 +72,7 @@ class Main {
       this.registerAppListeners(argv);
       this.registerIpcListeners();
       this.registerIpcHandlers();
+      this._appUpdatePromise = getUpdateInformation(false);
     }
   }
 
@@ -196,11 +198,20 @@ class Main {
       const currentWindow = event.sender.getOwnerBrowserWindow();
       currentWindow.isReady = true;
       project.sendProjectOpened(currentWindow).then(async () => {
-        if (! userSettings.getSkipQuickstartAtStartup()) {
-          if (!this._quickstartShownAlready) {
-            sendToWindow(currentWindow, 'show-quickstart');
-            this._quickstartShownAlready = true;
-          }
+        if (!this._startupDialogsShownAlready) {
+          const startupInformation = {
+            skipQuickstart: userSettings.getSkipQuickstartAtStartup()
+          };
+
+          this._appUpdatePromise.then(updateResult => {
+            if (updateResult) {
+              startupInformation.update = updateResult;
+            }
+
+            sendToWindow(currentWindow, 'show-startup-dialogs', startupInformation);
+          });
+
+          this._startupDialogsShownAlready = true;
         }
       });
     });

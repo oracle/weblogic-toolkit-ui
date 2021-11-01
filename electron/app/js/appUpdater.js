@@ -30,48 +30,60 @@ function registerAutoUpdateListeners() {
   });
 }
 
-function checkForUpdates(focusedWindow, fromMenu) {
+// returns a Promise that may resolve to information about a new app update.
+// if app is in dev mode, the Promise resolves to null without any check.
+// if the application is current with the latest version, or an error occurs, the Promise resolves to null.
+// if notifyOnFailures is true, dialogs are displayed when no result is provided.
+async function getUpdateInformation(notifyOnFailures) {
   if (!_isDevMode) {
-    autoUpdater.checkForUpdates()
-      .then(checkResult => {
-        const updateAvailable = Object.prototype.hasOwnProperty.call(checkResult, 'downloadPromise');
-        const releaseName = checkResult.updateInfo.releaseName;
-        const releaseNotes = checkResult.updateInfo.releaseNotes;
-
-        if (updateAvailable) {
-          const updateInfo = { releaseName, releaseNotes };
-          sendToWindow(focusedWindow, 'app-update-available', updateInfo);
-
-        } else if (fromMenu) {
-          dialog.showMessageBox({
-            title: i18n.t('auto-updater-update-not-available-title'),
-            message: i18n.t('auto-updater-update-not-available-message', {version: releaseName}),
-            type: 'info',
-            buttons: [i18n.t('button-ok')],
-            defaultId: 0,
-            cancelId: 0
-          }).then();
-        }
-      })
-      .catch(error => {
-        const errorMessage = errorUtils.getErrorMessage(error);
-        getLogger().error('Application auto-updater failed: %s', errorMessage);
-        if (error.stack) {
-          getLogger().error(error.stack.toString());
-        }
-        if (fromMenu) {
-          dialog.showErrorBox(i18n.t('auto-updater-error-title'),
-            i18n.t('auto-updater-error-message', { error: errorMessage }));
-        }
-      });
-
-  } else if (fromMenu) {
+    try {
+      const checkResult = await autoUpdater.checkForUpdates();
+      const releaseName = checkResult.updateInfo.releaseName;
+      const updateAvailable = Object.prototype.hasOwnProperty.call(checkResult, 'downloadPromise');
+      if (updateAvailable) {
+        return {
+          releaseName,
+          releaseNotes: checkResult.updateInfo.releaseNotes
+        };
+      } else if (notifyOnFailures) {
+        dialog.showMessageBox({
+          title: i18n.t('auto-updater-update-not-available-title'),
+          message: i18n.t('auto-updater-update-not-available-message', {version: releaseName}),
+          type: 'info',
+          buttons: [i18n.t('button-ok')],
+          defaultId: 0,
+          cancelId: 0
+        }).then();
+      }
+    } catch(error) {
+      const errorMessage = errorUtils.getErrorMessage(error);
+      getLogger().error('Application auto-updater failed: %s', errorMessage);
+      if (error.stack) {
+        getLogger().error(error.stack.toString());
+      }
+      if (notifyOnFailures) {
+        dialog.showErrorBox(i18n.t('auto-updater-error-title'),
+          i18n.t('auto-updater-error-message', { error: errorMessage }));
+      }
+    }
+  } else if (notifyOnFailures) {
     // Only show the prompt if the user used the menu to trigger checkForUpdates()
     // If triggered on startup, no need to display...
     //
     dialog.showErrorBox(i18n.t('auto-updater-disabled-dev-mode-title'),
       i18n.t('auto-updater-disabled-dev-mode-message'));
   }
+
+  return null;
+}
+
+// check for updates and send information to the renderer if an update is available.
+function checkForUpdates(focusedWindow, notifyOnFailures) {
+  getUpdateInformation(notifyOnFailures).then(updateResult => {
+    if (updateResult) {
+      sendToWindow(focusedWindow, 'app-update-available', updateResult);
+    }
+  });
 }
 
 async function installUpdates(window, installType) {
@@ -98,6 +110,7 @@ async function installUpdates(window, installType) {
 
 module.exports = {
   checkForUpdates,
+  getUpdateInformation,
   initializeAutoUpdater,
   installUpdates,
   registerAutoUpdateListeners
