@@ -23,7 +23,7 @@ describe('Credential Store tests', () => {
   let credStore;
 
   let skipTestsInJenkins = false;
-  if (osUtils.isMac() && 'JENKINS_NODE_COOKIE' in process.env) {
+  if (!osUtils.isWindows() && 'JENKINS_NODE_COOKIE' in process.env) {
     skipTestsInJenkins = true;
   }
 
