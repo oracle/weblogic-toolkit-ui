@@ -6,8 +6,6 @@
 const { homepage, productName, version, copyright } = require('../../package.json');
 const path = require('path');
 const fs = require('fs');
-const fsPromises = require('fs/promises');
-const fsUtils = require('./fsUtils');
 const errorUtils = require('./errorUtils');
 
 class WktApp {

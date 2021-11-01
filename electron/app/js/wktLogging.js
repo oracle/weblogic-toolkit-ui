@@ -6,7 +6,6 @@ const {getLoggingConfiguration} = require('./userSettings');
 const fsUtils = require('./fsUtils');
 
 let _logger;
-let _startupLogger;
 let _logFileName;
 let _wktMode;
 // eslint-disable-next-line no-unused-vars
