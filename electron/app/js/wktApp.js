@@ -71,7 +71,7 @@ class WktApp {
     try {
       contents = fs.readFileSync(versionFilePath, 'utf8');
     } catch (err) {
-      throw new Error(`Failed to read version file ${versionFilePath}: ${errorUtils.getErrorMessage(err)}`)
+      throw new Error(`Failed to read version file ${versionFilePath}: ${errorUtils.getErrorMessage(err)}`);
     }
 
     let version;
