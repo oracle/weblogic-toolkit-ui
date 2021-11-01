@@ -300,11 +300,6 @@
                                 bat 'copy /Y "%WORKSPACE%\\.npmrc" "%WORKSPACE%\\electron\\.npmrc"'
                             }
                         }
-
-// FIXME - NPM is unable to update itself automatically on Windows.
-// Because we are not installing it and simply unzipping it, none of
-// the documented procedures for manually updating NPM seem to work.
-
                         stage('Windows Update NPM') {
                             steps {
                                 bat 'copy /Y "%WORKSPACE%\\.npmrc" "%windows_node_dir%\\.npmrc"'
