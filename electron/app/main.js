@@ -11,7 +11,7 @@ const WktApp = require('./js/wktApp');
 
 // The i18n package is required here to ensure it is initialized before the logging system.
 const i18n = require('./js/i18next.config');
-const { getLogger, initializeLoggingSystem, logRendererMessage } = require('./js/wktLogging');
+const { initializeLoggingSystem, logRendererMessage } = require('./js/wktLogging');
 const userSettings = require('./js/userSettings');
 const { chooseFromFileSystem, createNetworkWindow, createWindow, initialize, setHasOpenDialog, setTargetType,
   showErrorMessage, promptUserForOkOrCancelAnswer, promptUserForYesOrNoAnswer } = require('./js/wktWindow');
@@ -49,11 +49,11 @@ class Main {
     // the project file to be opened when the app is ready (command-line, double-click, etc.)
     this._initialProjectFile = null;
     this._tempDir = app.getPath('temp');
-    initializeLoggingSystem(this._wktMode, this._wktApp, this._tempDir).then();
+    this._logger = initializeLoggingSystem(this._wktMode, this._wktApp, this._tempDir);
     wktTools.initialize(this._wktMode);
     initialize(this._isJetDevMode, this._wktApp, this._wktMode);    // wktWindow.js
     this._quickstartShownAlready = false;
-    initializeAutoUpdater(getLogger(), this._isJetDevMode);
+    initializeAutoUpdater(this._logger, this._isJetDevMode);
     this._forceQuit = false;
   }
 
@@ -79,7 +79,7 @@ class Main {
     // This needs to be at the top level to catch OS requests to open the app with a file on MacOS.
     //
     app.on('open-file', (event, filePath) => {
-      getLogger().debug(`Received open-file event for ${filePath}`);
+      this._logger.debug(`Received open-file event for ${filePath}`);
       if (project.isWktProjectFile(filePath)) {
         const existingProjectWindow = project.getWindowForProject(filePath);
         if (existingProjectWindow) {
@@ -105,11 +105,11 @@ class Main {
     // and its parameters are received by this event.
     // use the command-line to open the requested project file, if present.
     app.on('second-instance', (event, commandLine) => {
-      getLogger().debug(`Received second-instance event: ${JSON.stringify(commandLine)}`);
+      this._logger.debug(`Received second-instance event: ${JSON.stringify(commandLine)}`);
 
       const filePath = this.getFileArgFromCommandLine(commandLine);
       if (filePath) {
-        getLogger().info(`File argument from second instance: ${filePath}`);
+        this._logger.info(`File argument from second instance: ${filePath}`);
         const existingProjectWindow = project.getWindowForProject(filePath);
         if (existingProjectWindow) {
           project.showExistingProjectWindow(existingProjectWindow);
@@ -125,7 +125,7 @@ class Main {
     });
 
     app.on('ready', () => {
-      getLogger().debug('Received ready event');
+      this._logger.debug('Received ready event');
       this.checkSetup().then(setupOk => {
         if(setupOk) {
           // this may have been set in open-file event
@@ -135,7 +135,7 @@ class Main {
           if (!filePath) {
             filePath = this.getFileArgFromCommandLine(argv);
             if (filePath) {
-              getLogger().debug(`Found file argument on command-line: ${filePath}`);
+              this._logger.debug(`Found file argument on command-line: ${filePath}`);
               const existingProjectWindow = project.getWindowForProject(filePath);
               if (existingProjectWindow) {
                 project.showExistingProjectWindow(existingProjectWindow);
@@ -163,7 +163,7 @@ class Main {
 
     // eslint-disable-next-line no-unused-vars
     app.on('window-all-closed', (event) => {
-      getLogger().debug('Received window-all-closed event');
+      this._logger.debug('Received window-all-closed event');
       if (process.platform === 'darwin' && !this._forceQuit) {
         return false;
       }
@@ -171,20 +171,20 @@ class Main {
     });
 
     app.on('before-quit', () => {
-      getLogger().debug('Received before-quit event');
+      this._logger.debug('Received before-quit event');
       this._forceQuit = true;
     });
 
     app.on('will-quit', (event) => {
-      getLogger().debug('Received will-quit event');
+      this._logger.debug('Received will-quit event');
       event.preventDefault();
       userSettings.saveUserSettings()
         .then(() => {
-          getLogger().info('User Settings saved');
+          this._logger.info('User Settings saved');
           process.exit();
         })
         .catch(err => {
-          getLogger().error(`User settings save failed: ${err}`);
+          this._logger.error(`User settings save failed: ${err}`);
           process.exit();
         });
     });
@@ -192,7 +192,7 @@ class Main {
 
   registerIpcListeners() {
     ipcMain.on('window-is-ready', (event) => {
-      getLogger().debug('Received window-is-ready for window %d', event.sender.getOwnerBrowserWindow().id);
+      this._logger.debug('Received window-is-ready for window %d', event.sender.getOwnerBrowserWindow().id);
       const currentWindow = event.sender.getOwnerBrowserWindow();
       currentWindow.isReady = true;
       project.sendProjectOpened(currentWindow).then(async () => {
@@ -210,7 +210,7 @@ class Main {
         const currentWindow = event.sender.getOwnerBrowserWindow();
         await project.openProjectFile(currentWindow, projectFile);
       } catch (e) {
-        getLogger().error(e);
+        this._logger.error(e);
       }
     });
 
@@ -392,9 +392,9 @@ class Main {
 
     ipcMain.handle('choose-domain-home', async (event, oracleHome) => {
       const title = i18n.t('dialog-chooseDomainHome');
-      getLogger().debug('Choosing domain home with oracle home %s', oracleHome);
+      this._logger.debug('Choosing domain home with oracle home %s', oracleHome);
       const defaultLocation = await oracleHomeUtils.findDomainsDefaultDirectory(oracleHome);
-      getLogger().debug('Choosing domain home with default location %s', defaultLocation);
+      this._logger.debug('Choosing domain home with default location %s', defaultLocation);
 
       return chooseFromFileSystem(event.sender.getOwnerBrowserWindow(), {
         title: title,
@@ -512,7 +512,7 @@ class Main {
 
     // eslint-disable-next-line no-unused-vars
     ipcMain.handle('get-url-catalog', async (event) => {
-      const catalogJsonFile = path.join(this._wktMode.getExtraFilesDirectory(getLogger()), 'url-catalog.json');
+      const catalogJsonFile = path.join(this._wktMode.getExtraFilesDirectory(this._logger), 'url-catalog.json');
       return new Promise((resolve, reject) => {
         fsUtils.exists(catalogJsonFile).then(doesExist => {
           if (!doesExist) {
@@ -593,7 +593,7 @@ class Main {
     });
 
     ipcMain.handle('verify-files-exist', async (event, baseDirectory, ...files) => {
-      getLogger().debug(...files);
+      this._logger.debug(...files);
       return fsUtils.verifyFilesExist(baseDirectory, ...files);
     });
 
@@ -861,14 +861,14 @@ class Main {
 
   openExternalLink(link) {
     if (link) {
-      shell.openExternal(link).then().catch(err => getLogger().error(`Failed to open ${link} in external application: ${err}`));
+      shell.openExternal(link).then().catch(err => this._logger.error(`Failed to open ${link} in external application: ${err}`));
     }
   }
 
   openProjectFileInWindow(win, filePath) {
-    getLogger().debug(`preparing to open project file ${filePath}`);
+    this._logger.debug(`preparing to open project file ${filePath}`);
     project._openProjectFile(win, filePath)
-      .then(() => getLogger().debug(`open project for file ${filePath} returned`));
+      .then(() => this._logger.debug(`open project for file ${filePath} returned`));
   }
 }
 

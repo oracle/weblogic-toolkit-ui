@@ -14,87 +14,28 @@ let _wktApp;
 let _tempDir;
 
 /* global process */
-class BufferedLoggerForStartup {
-  constructor() {
-    this.bufferEntries = [];
-  }
-
-  error(message, ...args) {
-    this.log('error', message, ...args);
-  }
-
-  warn(message, ...args) {
-    this.log('warn', message, ...args);
-  }
-
-  notice(message, ...args) {
-    this.log('notice', message, ...args);
-  }
-
-  info(message, ...args) {
-    this.log('info', message, ...args);
-  }
-
-  debug(message, ...args) {
-    this.log('debug', message, ...args);
-  }
-
-  log(level, message, ...args) {
-    this.bufferEntries.push({
-      level: level,
-      message: message,
-      args: args
-    });
-  }
-
-  dumpLog(winstonLogger) {
-    let count = 0;
-    for (const bufferedEntry of this.bufferEntries) {
-      winstonLogger.log(bufferedEntry.level, bufferedEntry.message, ...bufferedEntry.args);
-      count++;
-    }
-    return count;
-  }
-}
-
-// TODO - make sync
-async function initializeLoggingSystem(wktMode, wktApp, tempDir) {
+function initializeLoggingSystem(wktMode, wktApp, tempDir) {
   if (_logger) {
-    return Promise.resolve(_logger);
-  } else if (_startupLogger) {
-    return Promise.resolve(_startupLogger);
+    return _logger;
   }
 
   _wktMode = wktMode;
   _wktApp = wktApp;
   _tempDir = tempDir;
-  _startupLogger = new BufferedLoggerForStartup();
   const devMode = _wktMode.isDevelopmentMode();
-
-  return new Promise((resolve, reject) => {
-    const logConfig = getLoggingConfiguration();
-
-    const transports = getTransports(logConfig, devMode);
-    _getBaseLogger(devMode, logConfig, transports).then(baseLogger => {
-      // Create initial log messages with useful info about the application.
-      //
-      writeInitialLogEntries(baseLogger, wktApp, transports);
-      _logger = baseLogger;
-      _startupLogger = null;
-      resolve(_logger);
-    }).catch(err => reject(err));
-  });
+  const logConfig = getLoggingConfiguration();
+  const transports = getTransports(logConfig, devMode);
+  const baseLogger = _getBaseLogger(devMode, logConfig, transports);
+  writeInitialLogEntries(baseLogger, wktApp, transports);
+  _logger = baseLogger;
+  return _logger;
 }
 
 function getLogger() {
-  let result = _logger;
   if (!_logger) {
-    if (!_startupLogger) {
-      throw new Error('getLogger() cannot be called until initializeLoggingSystem() has been called');
-    }
-    result = _startupLogger;
+    throw new Error('getLogger() cannot be called until initializeLoggingSystem() has been called');
   }
-  return result;
+  return _logger;
 }
 
 function logRendererMessage(windowId, level, message, ...args) {
@@ -132,27 +73,23 @@ function getLogFileName() {
   return _logFileName;
 }
 
-// TODO - make sync
-async function _getBaseLogger(devMode, logConfig, transports) {
-  return new Promise((resolve) => {
-    const logLevel = getLogLevel(logConfig);
-    if (!transports) {
-      transports = getTransports(logConfig, devMode);
-    }
+function _getBaseLogger(devMode, logConfig, transports) {
+  const logLevel = getLogLevel(logConfig);
+  if (!transports) {
+    transports = getTransports(logConfig, devMode);
+  }
 
-    const baseLogger = winston.createLogger({
-      level: logLevel,
-      exitOnError: false,
-      format: winston.format.combine(
-        winston.format.splat(),
-        winston.format.simple()
-      ),
-      levels: winston.config.syslog.levels,
-      transports: transports,
-      exceptionHandlers: transports,
-      rejectionHandlers: transports
-    });
-    resolve(baseLogger);
+  return winston.createLogger({
+    level: logLevel,
+    exitOnError: false,
+    format: winston.format.combine(
+      winston.format.splat(),
+      winston.format.simple()
+    ),
+    levels: winston.config.syslog.levels,
+    transports: transports,
+    exceptionHandlers: transports,
+    rejectionHandlers: transports
   });
 }
 
@@ -171,9 +108,7 @@ function writeInitialLogEntries(baseLogger, wktApp, transports) {
     baseLogger.notice(`${transport.name} transport initialized with logging level ${_getLevelMessage(transport.level)}`);
   }
 
-  baseLogger.debug('Logging system initialization complete...starting process to switch loggers');
-  const numberOfMessages = _startupLogger.dumpLog(baseLogger);
-  baseLogger.debug('Logger switch complete after writing %s messages', numberOfMessages);
+  baseLogger.debug('Logging system initialization complete');
 }
 
 function getLogLevel(logConfig) {
