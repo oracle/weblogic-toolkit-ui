@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "test": "mocha --reporter spec src/test/*-test.js",
+    "test": "mocha --timeout 10000 --reporter spec src/test/*-test.js",
     "start": "ojet serve web --server-only",
     "build:release": "ojet build web --release",
     "eslint": "npx eslint src/js/*.js src/js/models/*.js src/js/utils/*.js src/js/viewModels/**/*.js src/test/*.js",

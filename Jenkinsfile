@@ -117,12 +117,12 @@
                                 sh 'cd ${WORKSPACE}/electron; PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} run install-tools; cd ${WORKSPACE}'
                             }
                         }
-//                         stage('Linux Run Unit Tests') {
-//                             steps {
-//                                 sh 'cd ${WORKSPACE}/electron; PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} test; cd ${WORKSPACE}'
-//                                 sh 'cd ${WORKSPACE}/webui; PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} test; cd ${WORKSPACE}'
-//                             }
-//                         }
+                        stage('Linux Run Unit Tests') {
+                            steps {
+                                sh 'cd ${WORKSPACE}/electron; PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} test; cd ${WORKSPACE}'
+                                sh 'cd ${WORKSPACE}/webui; PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} test; cd ${WORKSPACE}'
+                            }
+                        }
                         stage('Linux Run eslint') {
                             // No need to run this on other platforms since the results will be the same...
                             steps {
