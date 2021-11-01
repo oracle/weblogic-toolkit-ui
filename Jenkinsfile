@@ -3,7 +3,7 @@
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
  pipeline {
-    agent { label 'linux' }
+    agent { label 'ol8' }
     environment {
         WKTUI_PROXY = "${env.ORACLE_HTTP_PROXY}"
         ELECTRON_GET_USE_PROXY = "true"
@@ -45,7 +45,7 @@
             failFast true
             parallel {
                 stage('Linux Build') {
-                    agent { label 'linux' }
+                    agent { label 'ol8' }
                     environment {
                         linux_node_dir_name = "node-v${node_version}-linux-x64"
                         linux_node_installer = "${linux_node_dir_name}.tar.gz"
@@ -131,13 +131,16 @@
                             }
                         }
                         stage('Linux Build Installers') {
+                            environment {
+                                DOCKER = "podman"
+                            }
                             steps {
                                 sh 'cd ${WORKSPACE}/webui; PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} run build:release; cd ${WORKSPACE}'
                                 withCredentials([usernamePassword(credentialsId: "${dockerhub_creds}", usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                                    sh 'echo ${PASSWORD} | docker login --username ${USERNAME} --password-stdin'
+                                    sh 'echo "${PASSWORD}" | "${DOCKER}" login --username "${USERNAME}" --password-stdin'
                                 }
-                                sh '${WORKSPACE}/scripts/linuxInstallers.sh'
-                                sh 'docker logout'
+                                sh "USE_PODMAN=true; ${WORKSPACE}/scripts/linuxInstallers.sh"
+                                sh "${DOCKER} logout"
                                 archiveArtifacts "dist/wktui*.*"
                                 archiveArtifacts "dist/*.AppImage"
                                 archiveArtifacts "dist/latest-linux.yml"

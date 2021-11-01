@@ -27,4 +27,9 @@ if [ -n "${WKTUI_PROXY}" ]; then
   echo "HTTPS_PROXY=${WKTUI_PROXY}" >> "${WKTUI_ENV_FILE}"
 fi
 
-docker run --rm -v "${WORKSPACE}:/project" --env-file "${WKTUI_ENV_FILE}" electronuserland/builder:${BUILDER_VERSION} /project/scripts/linuxInstallersInDocker.sh
+DOCKER=docker
+if [ "${USE_PODMAN}" = "true" ];
+  DOCKER=podman
+fi
+
+${DOCKER} run --rm -v "${WORKSPACE}:/project" --env-file "${WKTUI_ENV_FILE}" electronuserland/builder:${BUILDER_VERSION} /project/scripts/linuxInstallersInDocker.sh
