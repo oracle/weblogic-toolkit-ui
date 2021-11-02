@@ -2,7 +2,7 @@
  * Copyright (c) 2021, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
- pipeline {
+pipeline {
     agent { label 'ol8' }
     environment {
         WKTUI_PROXY = "${env.ORACLE_HTTP_PROXY}"
@@ -18,12 +18,13 @@
         project_name = "$JOB_NAME"
         version_prefix = sh(returnStdout: true, script: 'cat electron/package.json | grep version | awk \'match($0, /[0-9]+.[0-9]+.[0-9]+/) { print substr( $0, RSTART, RLENGTH )}\'').trim()
         version_number = VersionNumber([versionNumberString: '-${BUILD_YEAR}${BUILD_MONTH,XX}${BUILD_DAY,XX}${BUILDS_TODAY_Z,XX}', versionPrefix: "${version_prefix}"])
-
         github_url = "${env.GIT_URL}"
+        github_creds = "fa369a2b-8c50-43ea-8956-71764cbcbe3d"
         dockerhub_creds = "wktui-dockerhub"
         branch = sh(returnStdout: true, script: 'echo $GIT_BRANCH | sed --expression "s:origin/::"')
 
         downstream_job_name = "wktui-sign"
+        TAG_NAME = sh(returnStdout: true, script: 'git describe --abbrev=0 --tags').trim()
         is_release = "true"
     }
     stages {
