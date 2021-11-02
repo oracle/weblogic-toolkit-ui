@@ -5,8 +5,8 @@
  */
 const { homepage, productName, version, copyright } = require('../../package.json');
 const path = require('path');
-const fsPromises = require('fs/promises');
-const fsUtils = require('./fsUtils');
+const fs = require('fs');
+const errorUtils = require('./errorUtils');
 
 class WktApp {
   constructor(wktMode) {
@@ -16,9 +16,7 @@ class WktApp {
     this._appBuildVersion = undefined;
     // Skip calculating the build version if the wktMode object was not passed in...
     if (wktMode !== undefined) {
-      (async() => {
-        this._appBuildVersion = await this._getWktuiBuildVersion(this._appVersion);
-      })();
+      this._appBuildVersion = this._getWktuiBuildVersion(this._appVersion);
     }
     this._appCopyright = this.getApplicationCopyright();
     this._appWebSite = this.getApplicationWebsite();
@@ -39,15 +37,6 @@ class WktApp {
   }
 
   getApplicationBuildVersion() {
-    // There is a race condition because the code that initializes this variable in the constructor is asynchronous.
-    // Rather than throwing an error or returning an incorrect value, recalculate it here...
-    //
-    if (!this._appBuildVersion) {
-      (async() => {
-        this._appBuildVersion = await this._getWktuiBuildVersion(this._appVersion);
-        return this._appBuildVersion;
-      })();
-    }
     return this._appBuildVersion;
   }
 
@@ -65,28 +54,36 @@ class WktApp {
     return this._appWebSite;
   }
 
-  async _getWktuiBuildVersion(defaultVersion) {
+  _getWktuiBuildVersion(defaultVersion) {
     const versionFilePath = path.join(this._wktMode.getExtraFilesDirectory(), 'WKTUI_VERSION.txt');
-    return new Promise((resolve, reject) => {
-      fsUtils.exists(versionFilePath)
-        .then(doesExist => {
-          if (doesExist) {
-            fsPromises.readFile(versionFilePath, 'utf8')
-              .then(contents => {
-                if (!contents || contents.startsWith('-')) {
-                  // dev build so concatenate the app version with the qualifier from the file
-                  resolve(`${defaultVersion}${contents.trim()}`);
-                } else {
-                  resolve(contents.trim());
-                }
-              })
-              .catch(err => reject(`Failed to read version file ${versionFilePath}: ${err}`));
-          } else {
-            reject(`Version file ${versionFilePath} does not exist!`);
-          }
-        })
-        .catch(err => reject(`Failed to determine if the version file ${versionFilePath} exists: ${err}`));
-    });
+
+    let exists;
+    try {
+      exists = fs.existsSync(versionFilePath);
+    } catch (err) {
+      throw new Error(`Failed to determine if the version file ${versionFilePath} exists: ${errorUtils.getErrorMessage(err)}`);
+    }
+    if (!exists) {
+      throw new Error(`Version file ${versionFilePath} does not exist!`);
+    }
+
+    let contents;
+    try {
+      contents = fs.readFileSync(versionFilePath, 'utf8');
+    } catch (err) {
+      throw new Error(`Failed to read version file ${versionFilePath}: ${errorUtils.getErrorMessage(err)}`);
+    }
+
+    let version;
+    if (!contents) {
+      version = defaultVersion;
+    } else if (contents.startsWith('-')) {
+      // dev build so concatenate the app version with the qualifier from the file
+      version = `${defaultVersion}${contents.trim()}`;
+    } else {
+      return contents.trim();
+    }
+    return version;
   }
 }
 

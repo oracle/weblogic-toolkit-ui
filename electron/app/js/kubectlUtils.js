@@ -45,8 +45,8 @@ async function validateKubectlExe(kubectlExe) {
 
 async function getCurrentContext(kubectlExe, options) {
   const args = [ 'config', 'current-context' ];
-  const httpsProxyUrl = await getHttpsProxyUrl();
-  const bypassProxyHosts = await getBypassProxyHosts();
+  const httpsProxyUrl = getHttpsProxyUrl();
+  const bypassProxyHosts = getBypassProxyHosts();
   const env = getKubectlEnvironment(options, httpsProxyUrl, bypassProxyHosts);
   const results = {
     isSuccess: true
@@ -68,8 +68,8 @@ async function getCurrentContext(kubectlExe, options) {
 
 async function setCurrentContext(kubectlExe, context, options) {
   const args = [ 'config', 'use-context', context ];
-  const httpsProxyUrl = await getHttpsProxyUrl();
-  const bypassProxyHosts = await getBypassProxyHosts();
+  const httpsProxyUrl = getHttpsProxyUrl();
+  const bypassProxyHosts = getBypassProxyHosts();
   const env = getKubectlEnvironment(options, httpsProxyUrl, bypassProxyHosts);
   const results = {
     isSuccess: true
@@ -89,8 +89,8 @@ async function setCurrentContext(kubectlExe, context, options) {
 
 async function getK8sConfigView(kubectlExe, options) {
   const args = [ 'config', 'view', '-o', 'json'];
-  const httpsProxyUrl = await getHttpsProxyUrl();
-  const bypassProxyHosts = await getBypassProxyHosts();
+  const httpsProxyUrl = getHttpsProxyUrl();
+  const bypassProxyHosts = getBypassProxyHosts();
   const env = getKubectlEnvironment(options, httpsProxyUrl, bypassProxyHosts);
   const results = {
     isSuccess: true
@@ -111,8 +111,8 @@ async function getK8sConfigView(kubectlExe, options) {
 
 async function getK8sClusterInfo(kubectlExe, options) {
   const args = [ 'cluster-info'];
-  const httpsProxyUrl = await getHttpsProxyUrl();
-  const bypassProxyHosts = await getBypassProxyHosts();
+  const httpsProxyUrl = getHttpsProxyUrl();
+  const bypassProxyHosts = getBypassProxyHosts();
   const env = getKubectlEnvironment(options, httpsProxyUrl, bypassProxyHosts);
   const results = {
     isSuccess: true
@@ -133,8 +133,8 @@ async function getK8sClusterInfo(kubectlExe, options) {
 
 async function getWkoDomainStatus(kubectlExe, domainUID, domainNamespace, options) {
   const args = [ 'get', 'domain', domainUID, '-n', domainNamespace, '-o', 'json'];
-  const httpsProxyUrl = await getHttpsProxyUrl();
-  const bypassProxyHosts = await getBypassProxyHosts();
+  const httpsProxyUrl = getHttpsProxyUrl();
+  const bypassProxyHosts = getBypassProxyHosts();
   const env = getKubectlEnvironment(options, httpsProxyUrl, bypassProxyHosts);
   const results = {
     isSuccess: true
@@ -155,8 +155,8 @@ async function getWkoDomainStatus(kubectlExe, domainUID, domainNamespace, option
 
 async function getOperatorStatus(kubectlExe, operatorNamespace, options) {
   const args = [ 'get', 'pods', '-n', operatorNamespace, '-o', 'json'];
-  const httpsProxyUrl = await getHttpsProxyUrl();
-  const bypassProxyHosts = await getBypassProxyHosts();
+  const httpsProxyUrl = getHttpsProxyUrl();
+  const bypassProxyHosts = getBypassProxyHosts();
   const env = getKubectlEnvironment(options, httpsProxyUrl, bypassProxyHosts);
   const results = {
     isSuccess: true
@@ -177,8 +177,8 @@ async function getOperatorStatus(kubectlExe, operatorNamespace, options) {
 
 async function getOperatorLogs(kubectlExe, operatorNamespace, options) {
   const args = [ 'logs', '-n', operatorNamespace, '-c', 'weblogic-operator', 'deployments/weblogic-operator'];
-  const httpsProxyUrl = await getHttpsProxyUrl();
-  const bypassProxyHosts = await getBypassProxyHosts();
+  const httpsProxyUrl = getHttpsProxyUrl();
+  const bypassProxyHosts = getBypassProxyHosts();
   const env = getKubectlEnvironment(options, httpsProxyUrl, bypassProxyHosts);
   const results = {
     isSuccess: true
@@ -201,8 +201,8 @@ async function getOperatorLogs(kubectlExe, operatorNamespace, options) {
 async function getOperatorVersionFromDomainCM(kubectlExe, domainNamespace, options) {
   const args = [ 'get', 'configmap', 'weblogic-scripts-cm', '-n', domainNamespace, '-o', 'jsonpath={.metadata.labels.weblogic\\.operatorVersion}'];
 
-  const httpsProxyUrl = await getHttpsProxyUrl();
-  const bypassProxyHosts = await getBypassProxyHosts();
+  const httpsProxyUrl = getHttpsProxyUrl();
+  const bypassProxyHosts = getBypassProxyHosts();
   const env = getKubectlEnvironment(options, httpsProxyUrl, bypassProxyHosts);
 
   const results = {
@@ -225,8 +225,8 @@ async function getOperatorVersionFromDomainCM(kubectlExe, domainNamespace, optio
 
 async function verifyClusterConnectivity(kubectlExe, options) {
   const args = [ 'version', '--short' ];
-  const httpsProxyUrl = await getHttpsProxyUrl();
-  const bypassProxyHosts = await getBypassProxyHosts();
+  const httpsProxyUrl = getHttpsProxyUrl();
+  const bypassProxyHosts = getBypassProxyHosts();
 
   const env = getKubectlEnvironment(options, httpsProxyUrl, bypassProxyHosts);
   const results = {
@@ -255,8 +255,8 @@ async function verifyClusterConnectivity(kubectlExe, options) {
 }
 
 async function validateNamespacesExist(kubectlExe, options, ...namespaces) {
-  const httpsProxyUrl = await getHttpsProxyUrl();
-  const bypassProxyHosts = await getBypassProxyHosts();
+  const httpsProxyUrl = getHttpsProxyUrl();
+  const bypassProxyHosts = getBypassProxyHosts();
   const env = getKubectlEnvironment(options, httpsProxyUrl, bypassProxyHosts);
 
   const result = {
@@ -285,8 +285,8 @@ async function validateNamespacesExist(kubectlExe, options, ...namespaces) {
 }
 
 async function validateDomainExist(kubectlExe, options, domain, namespace) {
-  const httpsProxyUrl = await getHttpsProxyUrl();
-  const bypassProxyHosts = await getBypassProxyHosts();
+  const httpsProxyUrl = getHttpsProxyUrl();
+  const bypassProxyHosts = getBypassProxyHosts();
   const env = getKubectlEnvironment(options, httpsProxyUrl, bypassProxyHosts);
 
   const result = {
@@ -314,8 +314,8 @@ async function isOperatorAlreadyInstalled(kubectlExe, operatorName, operatorName
   // name is always weblogic-operator...
   //
   const args = [ 'get', 'deployment', 'weblogic-operator', '-n', operatorNamespace, '--output=json' ];
-  const httpsProxyUrl = await getHttpsProxyUrl();
-  const bypassProxyHosts = await getBypassProxyHosts();
+  const httpsProxyUrl = getHttpsProxyUrl();
+  const bypassProxyHosts = getBypassProxyHosts();
 
   const env = getKubectlEnvironment(options, httpsProxyUrl, bypassProxyHosts);
   const results = {
@@ -358,8 +358,8 @@ async function createNamespacesIfNotExists(kubectlExe, options, ...namespaces) {
 async function createNamespaceIfNotExists(kubectlExe, namespace, options) {
   const getArgs = [ 'get', 'namespaces', '--output=json' ];
   const createArgs = [ 'create', 'namespace', namespace ];
-  const httpsProxyUrl = await getHttpsProxyUrl();
-  const bypassProxyHosts = await getBypassProxyHosts();
+  const httpsProxyUrl = getHttpsProxyUrl();
+  const bypassProxyHosts = getBypassProxyHosts();
 
   const env = getKubectlEnvironment(options, httpsProxyUrl, bypassProxyHosts);
   const results = {
@@ -390,8 +390,8 @@ async function createNamespaceIfNotExists(kubectlExe, namespace, options) {
 async function deleteObjectIfExists(kubectlExe, namespace, object, kind, options) {
   const getArgs = [ 'get', '-n', namespace, kind, object, '--output=json' ];
   const deleteArgs = [ 'delete', kind, object, '-n', namespace ];
-  const httpsProxyUrl = await getHttpsProxyUrl();
-  const bypassProxyHosts = await getBypassProxyHosts();
+  const httpsProxyUrl = getHttpsProxyUrl();
+  const bypassProxyHosts = getBypassProxyHosts();
 
   const env = getKubectlEnvironment(options, httpsProxyUrl, bypassProxyHosts);
   const results = {
@@ -425,8 +425,8 @@ async function createNamespaceLabelIfNotExists(kubectlExe, namespace, label, opt
   const getArgs = [ 'get', 'namespace', namespace, '--output=json' ];
   // overwrite is needed since our detection of the label existing only returns true if both the key and value matches.
   const createArgs = [ 'label', '--overwrite', 'namespace', namespace, label ];
-  const httpsProxyUrl = await getHttpsProxyUrl();
-  const bypassProxyHosts = await getBypassProxyHosts();
+  const httpsProxyUrl = getHttpsProxyUrl();
+  const bypassProxyHosts = getBypassProxyHosts();
 
   const env = getKubectlEnvironment(options, httpsProxyUrl, bypassProxyHosts);
   const results = {
@@ -457,8 +457,8 @@ async function createNamespaceLabelIfNotExists(kubectlExe, namespace, label, opt
 async function createServiceAccountIfNotExists(kubectlExe, namespace, serviceAccount, options) {
   const getArgs = [ 'get', 'serviceaccounts', '-n', namespace, '--output=json' ];
   const createArgs = [ 'create', 'serviceaccount', serviceAccount, '-n', namespace ];
-  const httpsProxyUrl = await getHttpsProxyUrl();
-  const bypassProxyHosts = await getBypassProxyHosts();
+  const httpsProxyUrl = getHttpsProxyUrl();
+  const bypassProxyHosts = getBypassProxyHosts();
 
   const env = getKubectlEnvironment(options, httpsProxyUrl, bypassProxyHosts);
   const results = {
@@ -537,8 +537,8 @@ async function getServiceDetails(kubectlExe, ingressNamespace, serviceName, opti
   } else {
     getArgs = [ 'get', 'services', serviceName, '-n', ingressNamespace, '--output=json' ];
   }
-  const httpsProxyUrl = await getHttpsProxyUrl();
-  const bypassProxyHosts = await getBypassProxyHosts();
+  const httpsProxyUrl = getHttpsProxyUrl();
+  const bypassProxyHosts = getBypassProxyHosts();
 
   const env = getKubectlEnvironment(options, httpsProxyUrl, bypassProxyHosts);
   const results = {
@@ -559,8 +559,8 @@ async function getServiceDetails(kubectlExe, ingressNamespace, serviceName, opti
 }
 
 async function apply(kubectlExe, fileData, options) {
-  const httpsProxyUrl = await getHttpsProxyUrl();
-  const bypassProxyHosts = await getBypassProxyHosts();
+  const httpsProxyUrl = getHttpsProxyUrl();
+  const bypassProxyHosts = getBypassProxyHosts();
 
   const env = getKubectlEnvironment(options, httpsProxyUrl, bypassProxyHosts);
 
@@ -706,8 +706,8 @@ async function createOrReplaceSecret(kubectlExe, namespace, secret, createArgs, 
   const getArgs = [ 'get', 'secrets', '-n', namespace, '--output=json' ];
   const deleteArgs = [ 'delete', 'secret', secret, '-n', namespace ];
 
-  const httpsProxyUrl = await getHttpsProxyUrl();
-  const bypassProxyHosts = await getBypassProxyHosts();
+  const httpsProxyUrl = getHttpsProxyUrl();
+  const bypassProxyHosts = getBypassProxyHosts();
 
   const env = getKubectlEnvironment(options, httpsProxyUrl, bypassProxyHosts);
   const results = {

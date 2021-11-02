@@ -8,7 +8,7 @@
 # This should never happen if the Jenkins job is cleaning the workspace prior to checkout.
 #
 rm -rf /project/dist
-
+export DEBUG=electron-builder
 #
 # When building the installers inside the docker image and writing the files
 # to the bind-mounted volume, the files are owned by root.  This prevents

@@ -4,6 +4,7 @@
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const { app } = require('electron');
+const fs = require('fs');
 const fsPromises = require('fs/promises');
 const path = require('path');
 
@@ -50,21 +51,18 @@ let _userSettingsFileName;
 //       "width": 1693,
 //       "height": 856
 //     }
+//     "dividers": {
+//       "modelMain": 0.68,
+//       "modelRight": 0.48
+//     }
 //   }
 // }
 //
 let _userSettingsObject;
 
-async function getUserSettingsForRemote() {
-  return new Promise((resolve, reject) => {
-    _getUserSettings().then(settings => {
-      try {
-        resolve(JSON.stringify(_constructFilteredCopy(settings)));
-      } catch (err) {
-        reject(err);
-      }
-    }).catch(err => reject(err));
-  });
+function getUserSettingsForRemote() {
+  const settings = _getUserSettings();
+  return JSON.stringify(_constructFilteredCopy(settings));
 }
 
 async function applyUserSettingsFromRemote(remoteUserSettingsJson) {
@@ -77,166 +75,146 @@ async function applyUserSettingsFromRemote(remoteUserSettingsJson) {
   }
 
   return new Promise((resolve, reject) => {
-    _getUserSettings().then(currentSettings => {
-      const { getLogger } = require('./wktLogging');
-      const logger = getLogger();
-      for (const privateField of appPrivateFieldNames) {
-        logger.debug(`privateField = ${privateField}`);
-        if (Object.prototype.hasOwnProperty.call(currentSettings, privateField)) {
-          logger.debug(`adding private field ${privateField} to new user settings object`);
-          remoteUserSettingsObject[privateField] = currentSettings[privateField];
-        } else {
-          logger.debug(`currentSettings doesn't have private field ${privateField}`);
-        }
-      }
-      logger.debug(`new user settings are: ${JSON.stringify(remoteUserSettingsObject)}`);
-      _userSettingsObject = remoteUserSettingsObject;
-      saveUserSettings().then(() => {
-        logger.debug('user settings saved...restart the application to pick up logger settings changes');
-        resolve();
-      }).catch(err => reject(err));
-    }).catch(err => reject(err));
-  });
-}
-
-async function getHttpsProxyUrl() {
-  return new Promise((resolve, reject) => {
-    _getUserSettings().then(userSettingsObj => {
-      if ('proxy' in userSettingsObj  && 'httpsProxyUrl' in userSettingsObj['proxy']) {
-        const httpsProxyUrl = userSettingsObj['proxy']['httpsProxyUrl'];
-        resolve(httpsProxyUrl);
+    const currentSettings = _getUserSettings();
+    const { getLogger } = require('./wktLogging');
+    const logger = getLogger();
+    for (const privateField of appPrivateFieldNames) {
+      logger.debug(`privateField = ${privateField}`);
+      if (Object.prototype.hasOwnProperty.call(currentSettings, privateField)) {
+        logger.debug(`adding private field ${privateField} to new user settings object`);
+        remoteUserSettingsObject[privateField] = currentSettings[privateField];
       } else {
-        resolve(null);
+        logger.debug(`currentSettings doesn't have private field ${privateField}`);
       }
-    }).catch(err => reject(err));
-  });
-}
-
-async function setHttpsProxyUrl(httpsProxyUrl) {
-  return new Promise((resolve, reject) => {
-    _getUserSettings().then(userSettingsObj => {
-      if ('proxy' in userSettingsObj) {
-        userSettingsObj['proxy']['httpsProxyUrl'] = httpsProxyUrl;
-      } else {
-        userSettingsObj['proxy'] = {
-          httpsProxyUrl: httpsProxyUrl
-        };
-      }
-      _userSettingsObject = userSettingsObj;
-      resolve();
-    }).catch(err => reject(err));
-  });
-}
-
-async function getBypassProxyHosts() {
-  return new Promise((resolve, reject) => {
-    _getUserSettings().then(userSettingsObj => {
-      if ('proxy' in userSettingsObj  && 'bypassProxyHosts' in userSettingsObj['proxy']) {
-        const bypassProxyHosts = userSettingsObj['proxy']['bypassProxyHosts'];
-        resolve(bypassProxyHosts);
-      } else {
-        resolve(null);
-      }
-    }).catch(err => reject(err));
-  });
-}
-
-async function setBypassProxyHosts(bypassProxyHosts) {
-  return new Promise((resolve, reject) => {
-    _getUserSettings().then(userSettingsObj => {
-      if ('proxy' in userSettingsObj) {
-        userSettingsObj['proxy']['bypassProxyHosts'] = bypassProxyHosts;
-      } else {
-        userSettingsObj['proxy'] = {
-          bypassProxyHosts: bypassProxyHosts
-        };
-      }
-      _userSettingsObject = userSettingsObj;
-      resolve();
-    }).catch(err => reject(err));
-  });
-}
-
-async function getLoggingConfiguration() {
-  return new Promise((resolve) => {
-    _getUserSettings().then(userSettingsObj => {
-      if ('logging' in userSettingsObj) {
-        resolve(userSettingsObj['logging']);
-      } else {
-        // return am empty logging config
-        resolve({});
-      }
-    });
-  });
-}
-
-async function getSkipQuickstartAtStartup() {
-  return new Promise((resolve) => {
-    _getUserSettings().then(userSettingsObj => {
-      if ('skipQuickstartAtStartup' in userSettingsObj) {
-        resolve(userSettingsObj['skipQuickstartAtStartup']);
-      } else {
-        // return false since the user has not said to not show the quickstart at startup yet
-        resolve(false);
-      }
-    });
-  });
-}
-
-async function setSkipQuickstartAtStartup(value) {
-  const valueToSet = value === undefined ? true : !!value;
-  return new Promise((resolve, reject) => {
-    _getUserSettings().then(userSettingsObj => {
-      userSettingsObj['skipQuickstartAtStartup'] = valueToSet;
-      _userSettingsObject = userSettingsObj;
-      resolve();
-    }).catch(err => reject(err));
-  });
-}
-
-async function setDividerLocation(name, percent) {
-  _getUserSettings().then(userSettings => {
-    let dividers = userSettings['dividers'];
-    if(!dividers) {
-      dividers = userSettings['dividers'] = {};
     }
-    dividers[name] = parseFloat(percent.toFixed(2));
+    logger.debug(`new user settings are: ${JSON.stringify(remoteUserSettingsObject)}`);
+    _userSettingsObject = remoteUserSettingsObject;
+    saveUserSettings().then(() => {
+      logger.debug('user settings saved...restart the application to pick up logger settings changes');
+      resolve();
+    }).catch(err => reject(err));
   });
 }
 
-async function getDividerLocations() {
-  const userSettings = await _getUserSettings();
-  let dividers = userSettings['dividers'];
+function getHttpsProxyUrl() {
+  let httpsProxyUrl;
+  const userSettingsObj = _getUserSettings();
+  if ('proxy' in userSettingsObj  && 'httpsProxyUrl' in userSettingsObj['proxy']) {
+    httpsProxyUrl = userSettingsObj['proxy']['httpsProxyUrl'];
+  }
+  return httpsProxyUrl;
+}
+
+function setHttpsProxyUrl(httpsProxyUrl) {
+  const settings = _getUserSettings();
+
+  if ('proxy' in settings) {
+    settings['proxy']['httpsProxyUrl'] = httpsProxyUrl;
+  } else {
+    settings['proxy'] = {
+      httpsProxyUrl: httpsProxyUrl
+    };
+  }
+  _userSettingsObject = settings;
+}
+
+function getBypassProxyHosts() {
+  let bypassProxyHosts;
+  const userSettingsObj = _getUserSettings();
+  if ('proxy' in userSettingsObj  && 'bypassProxyHosts' in userSettingsObj['proxy']) {
+    bypassProxyHosts = userSettingsObj['proxy']['bypassProxyHosts'];
+  }
+  return bypassProxyHosts;
+}
+
+function setBypassProxyHosts(bypassProxyHosts) {
+  const settings = _getUserSettings();
+
+  if ('proxy' in settings) {
+    settings['proxy']['bypassProxyHosts'] = bypassProxyHosts;
+  } else {
+    settings['proxy'] = {
+      bypassProxyHosts: bypassProxyHosts
+    };
+  }
+  _userSettingsObject = settings;
+}
+
+function getLoggingConfiguration() {
+  const settings = _getUserSettings();
+
+  if ('logging' in settings) {
+    return settings['logging'];
+  } else {
+    // return am empty logging config
+    return {};
+  }
+}
+
+function getSkipQuickstartAtStartup() {
+  const settings = _getUserSettings();
+  if ('skipQuickstartAtStartup' in settings) {
+    return settings['skipQuickstartAtStartup'];
+  } else {
+    // return false since the user has not said to not show the quickstart at startup yet
+    return false;
+  }
+}
+
+function setSkipQuickstartAtStartup(value) {
+  const valueToSet = value === undefined ? true : !!value;
+  const settings = _getUserSettings();
+  settings['skipQuickstartAtStartup'] = valueToSet;
+  _userSettingsObject = settings;
+}
+
+function setDividerLocation(name, percent) {
+  const settings = _getUserSettings();
+
+  let window = settings['window'];
+  if (!window) {
+    window = settings['window'] = {};
+  }
+
+  let dividers = window['dividers'];
+  if (!dividers) {
+    dividers = {};
+  }
+  dividers[name] = parseFloat(percent.toFixed(2));
+}
+
+function getDividerLocations() {
+  const settings = _getUserSettings();
+
+  let dividers;
+  let window = settings['window'];
+  if (window) {
+    dividers = window['dividers'];
+  }
   return dividers ? dividers : {};
 }
 
-async function getWindowSize() {
-  return new Promise((resolve, reject) => {
-    _getUserSettings().then(userSettingsObj => {
-      if ('window' in userSettingsObj && 'size' in userSettingsObj['window']) {
-        const windowSize = userSettingsObj['window']['size'];
-        resolve(windowSize);
-      } else {
-        resolve();
-      }
-    }).catch(err => reject(err));
-  });
+function getWindowSize() {
+  const settings = _getUserSettings();
+
+  let windowSize;
+  if ('window' in settings && 'size' in settings['window']) {
+    windowSize = settings['window']['size'];
+  }
+  return windowSize;
 }
 
-async function setWindowSize(windowSize) {
-  return new Promise((resolve, reject) => {
-    _getUserSettings().then(userSettingsObj => {
-      if ('window' in userSettingsObj) {
-        userSettingsObj['window']['size'] = windowSize;
-      } else {
-        userSettingsObj['window'] = {
-          size: windowSize
-        };
-      }
-      _userSettingsObject = userSettingsObj;
-      resolve();
-    }).catch(err => reject(err));
-  });
+function setWindowSize(windowSize) {
+  const settings = _getUserSettings();
+
+  if ('window' in settings) {
+    settings['window']['size'] = windowSize;
+  } else {
+    settings['window'] = {
+      size: windowSize
+    };
+  }
+  _userSettingsObject = settings;
 }
 
 function getUserSettingsDirectory() {
@@ -259,40 +237,43 @@ function getUserSettingsFileName() {
   return _userSettingsFileName;
 }
 
-async function _getUserSettings() {
+function _getUserSettings() {
   const i18n = require('./i18next.config');
 
   if (_userSettingsObject) {
-    return Promise.resolve(_userSettingsObject);
+    return _userSettingsObject;
   }
 
-  return new Promise((resolve, reject) => {
-    const userSettingsFileName = getUserSettingsFileName();
-    fsUtils.exists(userSettingsFileName)
-      .then(doesExist => {
-        if (doesExist) {
-          fsPromises.readFile(userSettingsFileName, 'utf8')
-            .then(fileContents => {
-              if (fileContents && fileContents.length > 0) {
-                try {
-                  _userSettingsObject = JSON.parse(fileContents);
-                } catch (err) {
-                  reject(`Failed to parse ${userSettingsFileName}: ${err}`);
-                }
-              } else {
-                _userSettingsObject = { };
-              }
-              resolve(_userSettingsObject);
-            })
-            .catch(err => reject(`Failed to read file ${userSettingsFileName}: ${err}`));
-        } else {
-          _userSettingsObject = { };
-          resolve(_userSettingsObject);
-        }
-      })
-      .catch(err => reject(i18n.t('user-settings-file-exists-checked-failed-error-message',
-        { userSettingsFile: userSettingsFileName, error: getErrorMessage(err) })));
-  });
+  const userSettingsFileName = getUserSettingsFileName();
+  let fileExists;
+  try {
+    fileExists = fs.existsSync(userSettingsFileName);
+  } catch (err) {
+    throw new Error(i18n.t('user-settings-file-exists-checked-failed-error-message',
+      { userSettingsFile: userSettingsFileName, error: getErrorMessage(err) }));
+  }
+
+  if (fileExists) {
+    let userSettingsFileContent;
+    try {
+      userSettingsFileContent = fs.readFileSync(userSettingsFileName, { encoding: 'utf8' });
+    } catch (err) {
+      throw new Error(`Failed to read file ${userSettingsFileName}: ${err}`);
+    }
+
+    if (userSettingsFileContent && userSettingsFileContent.length > 0) {
+      try {
+        const userSettingsObject = JSON.parse(userSettingsFileContent);
+        console.log('parsed userSettings object = %s', userSettingsObject);
+        _userSettingsObject = _updateSettings(userSettingsObject);
+      } catch (err) {
+        throw new Error(`Failed to parse ${userSettingsFileName}: ${err}`);
+      }
+    } else {
+      _userSettingsObject = { };
+    }
+  }
+  return _userSettingsObject;
 }
 
 function verifyRemoteUserSettingsObject(remoteUserSettingsObject) {
@@ -349,6 +330,21 @@ function _constructFilteredCopy(settings) {
     }
   }
   return objCopy;
+}
+
+// This function is in place to take an existing user settings file and
+// update its structure to the currently used structure.
+//
+function _updateSettings(settings) {
+  if (settings['dividers']) {
+    if (!settings['window']) {
+      settings['window'] = {};
+    }
+    settings['window']['dividers'] = {};
+    Object.assign(settings['window']['dividers'], settings['dividers']);
+    delete settings['dividers'];
+  }
+  return settings;
 }
 
 module.exports = {

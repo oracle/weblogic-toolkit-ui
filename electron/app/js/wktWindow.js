@@ -13,6 +13,7 @@ const wdtDiscovery = require('./wdtDiscovery');
 const wktTools = require('./wktTools');
 const osUtils = require('./osUtils');
 const { getLogger, getDefaultLogDirectory } = require('./wktLogging');
+const { checkForUpdates } = require('./appUpdater');
 
 const appDir = path.normalize(path.join(__dirname, '..'));
 
@@ -386,8 +387,23 @@ class WktAppMenu {
         role: 'help',
         submenu: [
           {
-            id: 'checkForUpdates',
-            label: i18n.t('menu-help-checkForUpdates'),
+            id: 'checkForAppUpdates',
+            label: i18n.t('menu-help-checkForAppUpdates'),
+            enabled: !this._hasOpenDialog,
+            async click(item, focusedWindow) {
+              if (focusedWindow) {
+                return checkForUpdates(focusedWindow, true);
+              }
+
+              const newWindow = await createWindow();
+              newWindow.on('show', () => {
+                checkForUpdates(focusedWindow, true);
+              });
+            }
+          },
+          {
+            id: 'checkForToolUpdates',
+            label: i18n.t('menu-help-checkForToolUpdates'),
             enabled: !this._hasOpenDialog,
             async click(item, focusedWindow) {
               if (focusedWindow) {
@@ -458,7 +474,7 @@ class WktAppMenu {
             enabled: !this._hasOpenDialog,
             async click(item, focusedWindow) {
               if (focusedWindow) {
-                const remoteUserSettings = await userSettings.getUserSettingsForRemote();
+                const remoteUserSettings = userSettings.getUserSettingsForRemote();
                 const payload = {
                   userSettingsJson: remoteUserSettings,
                   defaults: {
@@ -567,7 +583,7 @@ class WktAppMenu {
             enabled: !this._hasOpenDialog,
             async click(item, focusedWindow) {
               if (focusedWindow) {
-                const remoteUserSettings = await userSettings.getUserSettingsForRemote();
+                const remoteUserSettings = userSettings.getUserSettingsForRemote();
                 const payload = {
                   userSettingsJson: remoteUserSettings,
                   defaults: {
@@ -632,7 +648,7 @@ async function createWindow() {
     y = currentWindowY + 10;
   }
 
-  const windowSize = await userSettings.getWindowSize();
+  const windowSize = userSettings.getWindowSize();
   let width = 1024;
   let height = 768;
   if (windowSize) {
@@ -657,9 +673,9 @@ async function createWindow() {
   });
 
   const { getHttpsProxyUrl, getBypassProxyHosts } = require('./userSettings');
-  const httpsProxyUrl = await getHttpsProxyUrl();
+  const httpsProxyUrl = getHttpsProxyUrl();
   if (httpsProxyUrl) {
-    const proxyBypassHosts = await getBypassProxyHosts();
+    const proxyBypassHosts = getBypassProxyHosts();
     await newWindow.webContents.session.setProxy({
       proxyRules: httpsProxyUrl,
       proxyBypassRules: proxyBypassHosts
@@ -909,6 +925,18 @@ async function promptUserForOkOrCancelAnswer(targetWindow, title, message) {
   });
 }
 
+function getCheckForAppUpdatesMenuItem() {
+  let checkForAppUpdatesMenuItem;
+  const menu = Menu.getApplicationMenu();
+  if (menu) {
+    const helpMenu = menu.items.find(item => item.id === 'help');
+    if (helpMenu && helpMenu.submenu) {
+      checkForAppUpdatesMenuItem = helpMenu.submenu.items.find(item => item.id === 'checkForAppUpdates');
+    }
+  }
+  return checkForAppUpdatesMenuItem;
+}
+
 // Arguments added here should be passed to the browser's window.process.argv array.
 function _getAdditionalArguments() {
   let extraArgs = [];
@@ -931,6 +959,7 @@ module.exports = {
   closeWindow,
   createNetworkWindow,
   createWindow,
+  getCheckForAppUpdatesMenuItem,
   initialize,
   isSingleWindow,
   setTitleFileName,

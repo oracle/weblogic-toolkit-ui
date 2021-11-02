@@ -38,8 +38,8 @@ async function inspectImage(imageTag, options) {
 }
 
 async function callImageToolInspect(javaHome, imageTag, options) {
-  const httpsProxyUrl = await userSettings.getHttpsProxyUrl();
-  const bypassProxyHosts = await userSettings.getBypassProxyHosts();
+  const httpsProxyUrl = userSettings.getHttpsProxyUrl();
+  const bypassProxyHosts = userSettings.getBypassProxyHosts();
 
   return new Promise((resolve, reject) => {
     const env = { JAVA_HOME: javaHome };

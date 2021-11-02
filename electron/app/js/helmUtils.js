@@ -53,8 +53,8 @@ async function addOrUpdateWkoHelmChart(helmExe, helmOptions) {
 
 async function addOrUpdateHelmChart(helmExe, repoName, repoUrl, helmOptions) {
   const args = [ 'repo', 'add', repoName, repoUrl, '--force-update' ];
-  const httpsProxyUrl = await getHttpsProxyUrl();
-  const bypassProxyHosts = await getBypassProxyHosts();
+  const httpsProxyUrl = getHttpsProxyUrl();
+  const bypassProxyHosts = getBypassProxyHosts();
   const env = getHelmEnv(httpsProxyUrl, bypassProxyHosts, helmOptions);
   const results = {
     isSuccess: true
@@ -74,8 +74,8 @@ async function addOrUpdateHelmChart(helmExe, repoName, repoUrl, helmOptions) {
 
 async function installIngressController(helmExe, ingressControllerName, ingressChartName,  ingressControllerNamespace, valuesData, helmChartValues, helmOptions) {
 
-  const httpsProxyUrl = await getHttpsProxyUrl();
-  const bypassProxyHosts = await getBypassProxyHosts();
+  const httpsProxyUrl = getHttpsProxyUrl();
+  const bypassProxyHosts = getBypassProxyHosts();
   const env = getHelmEnv(httpsProxyUrl, bypassProxyHosts, helmOptions);
   const results = {
     isSuccess: true
@@ -133,8 +133,8 @@ async function helmListAllNamespaces(helmExe, helmOptions) {
 }
 
 async function _runHelmWko(helmExe, name, namespace, args, helmOptions, errorKey) {
-  const httpsProxyUrl = await getHttpsProxyUrl();
-  const bypassProxyHosts = await getBypassProxyHosts();
+  const httpsProxyUrl = getHttpsProxyUrl();
+  const bypassProxyHosts = getBypassProxyHosts();
   const env = getHelmEnv(httpsProxyUrl, bypassProxyHosts, helmOptions);
   const results = {
     isSuccess: true
@@ -153,8 +153,8 @@ async function _runHelmWko(helmExe, name, namespace, args, helmOptions, errorKey
 }
 
 async function _runHelmCommand(helmExe, args, helmOptions, errorKey) {
-  const httpsProxyUrl = await getHttpsProxyUrl();
-  const bypassProxyHosts = await getBypassProxyHosts();
+  const httpsProxyUrl = getHttpsProxyUrl();
+  const bypassProxyHosts = getBypassProxyHosts();
   const env = getHelmEnv(httpsProxyUrl, bypassProxyHosts, helmOptions);
   const results = {
     isSuccess: true

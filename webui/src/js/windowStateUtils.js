@@ -7,11 +7,11 @@
 define(['models/wkt-project', 'models/wkt-console', 'utils/wdt-discoverer',
   'utils/dialog-helper', 'utils/project-io', 'utils/common-utilities', 'utils/wdt-preparer', 'utils/i18n',
   'utils/wit-creator', 'utils/image-pusher', 'utils/k8s-helper', 'utils/wko-installer', 'utils/k8s-domain-deployer',
-  'utils/ingress-controller-installer', 'utils/ingress-routes-helper', 'utils/wkt-logger'],
+  'utils/ingress-controller-installer', 'utils/ingress-routes-helper', 'utils/app-updater', 'utils/wkt-logger'],
 function(wktProject, wktConsole, wktDiscoverer,
   dialogHelper, projectIO, utils, wktModelPreparer, i18n,
   wktImageCreator, imagePusher, k8sHelper, wkoInstaller,
-  k8sDomainDeployer, ingressControllerInstaller, ingressRoutesHelper,
+  k8sDomainDeployer, ingressControllerInstaller, ingressRoutesHelper, appUpdater,
   wktLogger) {
 
   async function displayCatchAllError(i18nPrefix, err) {
@@ -150,12 +150,24 @@ function(wktProject, wktConsole, wktDiscoverer,
     return doDirtyCheck('close-window');
   });
 
+  window.api.ipc.receive('app-update-available', async (updateInfo) => {
+    return appUpdater.updateApplication(updateInfo);
+  });
+
+  window.api.ipc.receive('app-download-progress', async (percent) => {
+    appUpdater.updateProgress(percent);
+  });
+
   window.api.ipc.receive('start-app-quit', async () => {
     return doDirtyCheck('window-app-quit');
   });
 
   window.api.ipc.receive('show-quickstart', async() => {
     dialogHelper.openDialog('quickstart-dialog');
+  });
+
+  window.api.ipc.receive('show-startup-dialogs', async(startupInformation) => {
+    return appUpdater.showStartupDialogs(startupInformation);
   });
 
   async function doDirtyCheck(responseChannel) {

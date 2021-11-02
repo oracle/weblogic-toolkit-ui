@@ -936,6 +936,14 @@
   "vz-application-title": "Verrazzano Application",
   "vz-application-coming-soon": "Coming Soon...",
 
+  "app-update-title": "Application Update",
+  "app-update-new-release": "A new release is available: {{releaseName}}",
+  "app-update-release-notes": "Release Notes",
+  "app-update-button-install-now": "Install Now",
+  "app-update-button-install-on-exit": "Install on Exit",
+  "app-update-button-ignore-update": "Ignore Update",
+  "app-update-downloading": "Downloading update...",
+
   "quickstart-dialog-title": "WebLogic Kubernetes Toolkit (WKT) UI Introduction",
   "quickstart-dialog-stop-showing-quickstart-message": "Stop showing this introduction at startup.",
 

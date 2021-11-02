@@ -64,8 +64,8 @@ async function validateImageExistsLocally(imageBuilderExe, imageTag) {
 
 async function doLogin(imageBuilderExe, options) {
   const i18n = require('./i18next.config');
-  const httpsProxyUrl = await getHttpsProxyUrl();
-  const bypassProxyHosts = await getBypassProxyHosts();
+  const httpsProxyUrl = getHttpsProxyUrl();
+  const bypassProxyHosts = getBypassProxyHosts();
 
   const result = { isSuccess: true };
   if (!options.requiresLogin) {
@@ -101,8 +101,8 @@ async function doLogin(imageBuilderExe, options) {
 
 async function doPushImage(currentWindow, stdoutChannel, stderrChannel, imageBuilderExe, imageTag, options) {
   const i18n = require('./i18next.config');
-  const httpsProxyUrl = await getHttpsProxyUrl();
-  const bypassProxyHosts = await getBypassProxyHosts();
+  const httpsProxyUrl = getHttpsProxyUrl();
+  const bypassProxyHosts = getBypassProxyHosts();
 
   const result = { isSuccess: true };
   if (options.requiresLogin) {

@@ -11,10 +11,7 @@ const path = require('path');
 const { readFileSync } = require('fs');
 
 const { describe, it } = require('mocha');
-const chai = require('chai');
-const expect = require('chai').expect;
-const chaiAsPromised = require('chai-as-promised');
-chai.use(chaiAsPromised);
+const { expect } = require('chai');
 
 const packageJson = require('../../package.json');
 
@@ -77,20 +74,20 @@ describe('WKT App tests', () => {
   //
   const expectedVersion = process.env['version_number'] ? process.env['version_number'] : getDefaultVersionNumber();
 
-  it('make sure application build version works in development mode', async () => {
+  it('make sure application build version works in development mode', () => {
     const wktMode = new WktMode(path.join(__dirname, 'Electron'));
     const wktApp = new WktApp(wktMode);
 
-    const promise = getWktAppBuildVersion(wktApp);
-    return expect(promise).to.eventually.equal(expectedVersion);
+    const actual = wktApp.getApplicationBuildVersion();
+    expect(actual).to.equal(expectedVersion);
   });
 
   it('make sure application build version works in executable mode', () => {
     const wktMode = new WktMode(path.join(__dirname, 'WebLogic Kubernetes Toolkit UI'));
     const wktApp = new WktApp(wktMode);
 
-    const promise = getWktAppBuildVersion(wktApp);
-    return expect(promise).to.eventually.equal(expectedVersion);
+    const actual = wktApp.getApplicationBuildVersion();
+    return expect(actual).to.equal(expectedVersion);
   });
 
   it('make sure application copyright works', () => {
@@ -106,23 +103,4 @@ describe('WKT App tests', () => {
 
     expect(wktApp.getApplicationWebsite()).to.equal(packageJson.homepage);
   });
-
-  function timeout(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
-  async function getWktAppBuildVersion(wktApp) {
-    // The application build version is initialized using an async method.  As such,
-    // we need to wait to give it time to complete...
-    //
-    let buildVersion = wktApp.getApplicationBuildVersion();
-    let count = 1;
-    while (buildVersion === undefined && count < 50) {
-      await timeout(10);
-      buildVersion = wktApp.getApplicationBuildVersion();
-      count++;
-    }
-    console.log(`Had to wait ${(count - 1) * 10}ms for buildVersion to be populated.`);
-    return Promise.resolve(buildVersion);
-  }
 });

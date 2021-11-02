@@ -3,7 +3,7 @@
  * Copyright (c) 2021, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
-const {app, BrowserWindow, dialog, ipcMain, shell} = require('electron');
+const { app, BrowserWindow, dialog, ipcMain, shell } = require('electron');
 const path = require('path');
 
 const WktMode = require('./js/wktMode');
@@ -11,7 +11,7 @@ const WktApp = require('./js/wktApp');
 
 // The i18n package is required here to ensure it is initialized before the logging system.
 const i18n = require('./js/i18next.config');
-const { getLogger, initializeLoggingSystem, logRendererMessage } = require('./js/wktLogging');
+const { initializeLoggingSystem, logRendererMessage } = require('./js/wktLogging');
 const userSettings = require('./js/userSettings');
 const { chooseFromFileSystem, createNetworkWindow, createWindow, initialize, setHasOpenDialog, setTargetType,
   showErrorMessage, promptUserForOkOrCancelAnswer, promptUserForYesOrNoAnswer } = require('./js/wktWindow');
@@ -31,9 +31,11 @@ const witCreate = require('./js/witCreate');
 const kubectlUtils = require('./js/kubectlUtils');
 const helmUtils = require('./js/helmUtils');
 const openSSLUtils = require('./js/openSSLUtils');
+const osUtils = require('./js/osUtils');
+const { initializeAutoUpdater, registerAutoUpdateListeners, installUpdates, getUpdateInformation } = require('./js/appUpdater');
 
 const { getHttpsProxyUrl, getBypassProxyHosts } = require('./js/userSettings');
-const {sendToWindow} = require('./js/windowUtils');
+const { sendToWindow } = require('./js/windowUtils');
 
 const WKT_CONSOLE_STDOUT_CHANNEL = 'show-console-out-line';
 const WKT_CONSOLE_STDERR_CHANNEL = 'show-console-err-line';
@@ -47,10 +49,12 @@ class Main {
     // the project file to be opened when the app is ready (command-line, double-click, etc.)
     this._initialProjectFile = null;
     this._tempDir = app.getPath('temp');
-    initializeLoggingSystem(this._wktMode, this._wktApp, this._tempDir).then();
+    this._logger = initializeLoggingSystem(this._wktMode, this._wktApp, this._tempDir);
     wktTools.initialize(this._wktMode);
     initialize(this._isJetDevMode, this._wktApp, this._wktMode);    // wktWindow.js
-    this._quickstartShownAlready = false;
+    this._startupDialogsShownAlready = false;
+    this._appUpdatePromise = null;
+    initializeAutoUpdater(this._logger, this._isJetDevMode);
     this._forceQuit = false;
   }
 
@@ -63,11 +67,12 @@ class Main {
       // the parameters were passed to the first instance with the requestSingleInstanceLock() call.
       // the first instance will receive these in the second-instance event (see below).
       app.quit();
-
     } else {
+      registerAutoUpdateListeners();
       this.registerAppListeners(argv);
       this.registerIpcListeners();
       this.registerIpcHandlers();
+      this._appUpdatePromise = getUpdateInformation(false);
     }
   }
 
@@ -76,7 +81,7 @@ class Main {
     // This needs to be at the top level to catch OS requests to open the app with a file on MacOS.
     //
     app.on('open-file', (event, filePath) => {
-      getLogger().debug(`Received open-file event for ${filePath}`);
+      this._logger.debug(`Received open-file event for ${filePath}`);
       if (project.isWktProjectFile(filePath)) {
         const existingProjectWindow = project.getWindowForProject(filePath);
         if (existingProjectWindow) {
@@ -102,11 +107,11 @@ class Main {
     // and its parameters are received by this event.
     // use the command-line to open the requested project file, if present.
     app.on('second-instance', (event, commandLine) => {
-      getLogger().debug(`Received second-instance event: ${JSON.stringify(commandLine)}`);
+      this._logger.debug(`Received second-instance event: ${JSON.stringify(commandLine)}`);
 
       const filePath = this.getFileArgFromCommandLine(commandLine);
       if (filePath) {
-        getLogger().info(`File argument from second instance: ${filePath}`);
+        this._logger.info(`File argument from second instance: ${filePath}`);
         const existingProjectWindow = project.getWindowForProject(filePath);
         if (existingProjectWindow) {
           project.showExistingProjectWindow(existingProjectWindow);
@@ -122,7 +127,7 @@ class Main {
     });
 
     app.on('ready', () => {
-      getLogger().debug('Received ready event');
+      this._logger.debug('Received ready event');
       this.checkSetup().then(setupOk => {
         if(setupOk) {
           // this may have been set in open-file event
@@ -132,7 +137,7 @@ class Main {
           if (!filePath) {
             filePath = this.getFileArgFromCommandLine(argv);
             if (filePath) {
-              getLogger().debug(`Found file argument on command-line: ${filePath}`);
+              this._logger.debug(`Found file argument on command-line: ${filePath}`);
               const existingProjectWindow = project.getWindowForProject(filePath);
               if (existingProjectWindow) {
                 project.showExistingProjectWindow(existingProjectWindow);
@@ -160,7 +165,7 @@ class Main {
 
     // eslint-disable-next-line no-unused-vars
     app.on('window-all-closed', (event) => {
-      getLogger().debug('Received window-all-closed event');
+      this._logger.debug('Received window-all-closed event');
       if (process.platform === 'darwin' && !this._forceQuit) {
         return false;
       }
@@ -168,20 +173,20 @@ class Main {
     });
 
     app.on('before-quit', () => {
-      getLogger().debug('Received before-quit event');
+      this._logger.debug('Received before-quit event');
       this._forceQuit = true;
     });
 
     app.on('will-quit', (event) => {
-      getLogger().debug('Received will-quit event');
+      this._logger.debug('Received will-quit event');
       event.preventDefault();
       userSettings.saveUserSettings()
         .then(() => {
-          getLogger().info('User Settings saved');
+          this._logger.info('User Settings saved');
           process.exit();
         })
         .catch(err => {
-          getLogger().error(`User settings save failed: ${err}`);
+          this._logger.error(`User settings save failed: ${err}`);
           process.exit();
         });
     });
@@ -189,15 +194,24 @@ class Main {
 
   registerIpcListeners() {
     ipcMain.on('window-is-ready', (event) => {
-      getLogger().debug('Received window-is-ready for window %d', event.sender.getOwnerBrowserWindow().id);
+      this._logger.debug('Received window-is-ready for window %d', event.sender.getOwnerBrowserWindow().id);
       const currentWindow = event.sender.getOwnerBrowserWindow();
       currentWindow.isReady = true;
       project.sendProjectOpened(currentWindow).then(async () => {
-        if (! await userSettings.getSkipQuickstartAtStartup()) {
-          if (!this._quickstartShownAlready) {
-            sendToWindow(currentWindow, 'show-quickstart');
-            this._quickstartShownAlready = true;
-          }
+        if (!this._startupDialogsShownAlready) {
+          const startupInformation = {
+            skipQuickstart: userSettings.getSkipQuickstartAtStartup()
+          };
+
+          this._appUpdatePromise.then(updateResult => {
+            if (updateResult) {
+              startupInformation.update = updateResult;
+            }
+
+            sendToWindow(currentWindow, 'show-startup-dialogs', startupInformation);
+          });
+
+          this._startupDialogsShownAlready = true;
         }
       });
     });
@@ -207,7 +221,7 @@ class Main {
         const currentWindow = event.sender.getOwnerBrowserWindow();
         await project.openProjectFile(currentWindow, projectFile);
       } catch (e) {
-        getLogger().error(e);
+        this._logger.error(e);
       }
     });
 
@@ -229,7 +243,7 @@ class Main {
 
     // eslint-disable-next-line no-unused-vars
     ipcMain.on('skip-quickstart-at-startup', async (event) => {
-      await userSettings.setSkipQuickstartAtStartup(true);
+      userSettings.setSkipQuickstartAtStartup(true);
     });
 
     ipcMain.on('set-has-open-dialog', (event, hasOpenDialogs) => {
@@ -254,16 +268,16 @@ class Main {
 
   registerIpcHandlers() {
     // eslint-disable-next-line no-unused-vars
-    ipcMain.handle('get-https-proxy-url', async (event) => {
+    ipcMain.handle('get-https-proxy-url', (event) => {
       return getHttpsProxyUrl();
     });
 
     // eslint-disable-next-line no-unused-vars
-    ipcMain.handle('get-bypass-proxy-hosts', async (event) => {
+    ipcMain.handle('get-bypass-proxy-hosts', (event) => {
       return getBypassProxyHosts();
     });
 
-    ipcMain.handle('get-divider-locations', async () => {
+    ipcMain.handle('get-divider-locations', () => {
       return userSettings.getDividerLocations();
     });
 
@@ -389,9 +403,9 @@ class Main {
 
     ipcMain.handle('choose-domain-home', async (event, oracleHome) => {
       const title = i18n.t('dialog-chooseDomainHome');
-      getLogger().debug('Choosing domain home with oracle home %s', oracleHome);
+      this._logger.debug('Choosing domain home with oracle home %s', oracleHome);
       const defaultLocation = await oracleHomeUtils.findDomainsDefaultDirectory(oracleHome);
-      getLogger().debug('Choosing domain home with default location %s', defaultLocation);
+      this._logger.debug('Choosing domain home with default location %s', defaultLocation);
 
       return chooseFromFileSystem(event.sender.getOwnerBrowserWindow(), {
         title: title,
@@ -509,7 +523,7 @@ class Main {
 
     // eslint-disable-next-line no-unused-vars
     ipcMain.handle('get-url-catalog', async (event) => {
-      const catalogJsonFile = path.join(this._wktMode.getExtraFilesDirectory(getLogger()), 'url-catalog.json');
+      const catalogJsonFile = path.join(this._wktMode.getExtraFilesDirectory(this._logger), 'url-catalog.json');
       return new Promise((resolve, reject) => {
         fsUtils.exists(catalogJsonFile).then(doesExist => {
           if (!doesExist) {
@@ -590,7 +604,7 @@ class Main {
     });
 
     ipcMain.handle('verify-files-exist', async (event, baseDirectory, ...files) => {
-      getLogger().debug(...files);
+      this._logger.debug(...files);
       return fsUtils.verifyFilesExist(baseDirectory, ...files);
     });
 
@@ -785,8 +799,8 @@ class Main {
     });
 
     ipcMain.handle('get-network-settings', async () => {
-      const proxyUrl = await getHttpsProxyUrl();
-      const bypassHosts = await getBypassProxyHosts();
+      const proxyUrl = getHttpsProxyUrl();
+      const bypassHosts = getBypassProxyHosts();
       return {
         proxyUrl: proxyUrl,
         bypassHosts: bypassHosts
@@ -798,11 +812,16 @@ class Main {
     });
 
     ipcMain.handle('restart-network-settings', async (event, settings) => {
-      await userSettings.setHttpsProxyUrl(settings['proxyUrl']);
-      await userSettings.setBypassProxyHosts(settings['bypassHosts']);
+      userSettings.setHttpsProxyUrl(settings['proxyUrl']);
+      userSettings.setBypassProxyHosts(settings['bypassHosts']);
       await userSettings.saveUserSettings();
       app.relaunch();
       app.quit();
+    });
+
+    ipcMain.handle('install-app-update', async (event, installType) => {
+      const window = event.sender.getOwnerBrowserWindow();
+      return installUpdates(window, installType);
     });
 
     ipcMain.handle('exit-app', async () => {
@@ -853,17 +872,28 @@ class Main {
 
   openExternalLink(link) {
     if (link) {
-      shell.openExternal(link).then().catch(err => getLogger().error(`Failed to open ${link} in external application: ${err}`));
+      shell.openExternal(link).then().catch(err => this._logger.error(`Failed to open ${link} in external application: ${err}`));
     }
   }
 
   openProjectFileInWindow(win, filePath) {
-    getLogger().debug(`preparing to open project file ${filePath}`);
+    this._logger.debug(`preparing to open project file ${filePath}`);
     project._openProjectFile(win, filePath)
-      .then(() => getLogger().debug(`open project for file ${filePath} returned`));
+      .then(() => this._logger.debug(`open project for file ${filePath} returned`));
   }
 }
 
-new Main(process.argv[3] === 'dev').runApp(process.argv);
+const me = new Main(process.argv[3] === 'dev');
+if (osUtils.isLinux()) {
+  const httpsProxyUrl = getHttpsProxyUrl();
+  if (httpsProxyUrl) {
+    app.commandLine.appendSwitch('--proxy-server', httpsProxyUrl);
+    const bypassProxyHosts = getBypassProxyHosts();
+    if (bypassProxyHosts) {
+      app.commandLine.appendSwitch('--proxy-bypass-list', bypassProxyHosts);
+    }
+  }
+}
+me.runApp(process.argv);
 
 // DO NOT export anything from this file.
