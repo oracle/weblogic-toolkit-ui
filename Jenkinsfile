@@ -24,7 +24,7 @@ pipeline {
         branch = sh(returnStdout: true, script: 'echo $GIT_BRANCH | sed --expression "s:origin/::"')
 
         downstream_job_name = "wktui-sign"
-        TAG_NAME = sh(returnStdout: true, script: 'git describe --abbrev=0 --tags').trim()
+        TAG_NAME = sh(returnStdout: true, script: '/usr/bin/git describe --abbrev=0 --tags').trim()
         is_release = "true"
     }
     stages {
