@@ -344,7 +344,7 @@ pipeline {
                     string(name: "parent_job_name", value: "${JOB_NAME}"),
                     string(name: "parent_release_version", value: "${version_prefix}"),
                     string(name: "parent_build_version", value: "${version_number}"),
-                    string(name: "parent_job_number", value: "${BUILD_NUMBER}")
+                    string(name: "parent_job_number", value: "${BUILD_NUMBER}"),
                     string(name: "is_release", value: "${is_release}"),
                     string(name: "node_version", value: "${node_version}")
                 ]
