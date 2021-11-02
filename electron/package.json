@@ -1,7 +1,7 @@
 {
   "name": "wktui",
   "productName": "WebLogic Kubernetes Toolkit UI",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "WebLogic Kubernetes Toolkit UI",
   "copyright": "Copyright (c) 2021, Oracle and/or its affiliates.",
   "homepage": "https://github.com/oracle/weblogic-toolkit-ui",
