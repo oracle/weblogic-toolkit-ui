@@ -14,6 +14,7 @@ const { sendToWindow } = require('./windowUtils');
 
 let _isDevMode;
 let _downloadWindow;
+let _installType;
 
 function initializeAutoUpdater(logger, isDevMode) {
   _isDevMode = isDevMode;
@@ -26,6 +27,14 @@ function registerAutoUpdateListeners() {
   autoUpdater.on('download-progress', progressObj => {
     if(_downloadWindow) {
       sendToWindow(_downloadWindow, 'app-download-progress', progressObj.percent);
+    }
+  });
+
+  autoUpdater.on('update-downloaded', () => {
+    autoUpdater.logger.info('Download complete, install type: ' + _installType);
+    // quit and install in this handler so MacOS updater can process the event first
+    if(_installType === 'now') {
+      autoUpdater.quitAndInstall();
     }
   });
 }
@@ -88,13 +97,11 @@ function checkForUpdates(focusedWindow, notifyOnFailures) {
 
 async function installUpdates(window, installType) {
   try {
+    _installType = installType;
     _downloadWindow = window;
     await autoUpdater.downloadUpdate();
     _downloadWindow = null;
 
-    if(installType === 'now') {
-      autoUpdater.quitAndInstall();
-    }
   } catch (error) {
     _downloadWindow = null;
 
