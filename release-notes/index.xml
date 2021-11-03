@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Release notes on WebLogic Kubernetes Toolkit UI</title>
+    <link>https://oracle.github.io/weblogic-toolkit-ui/release-notes/</link>
+    <description>Recent content in Release notes on WebLogic Kubernetes Toolkit UI</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 22 Feb 2019 15:44:42 -0500</lastBuildDate><atom:link href="https://oracle.github.io/weblogic-toolkit-ui/release-notes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Known Issues</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/release-notes/release-notes/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/release-notes/release-notes/</guid>
+      <description> On Windows, the Application Update dialog Install on Exit works only if you installed the application for the current user only. If the application was installed for all users, Install on Exit will cause the older version of the application to be uninstalled but the new version will not be installed. This is due to issue https://github.com/electron-userland/electron-builder/issues/6329.  </description>
+    </item>
+    
+  </channel>
+</rss>

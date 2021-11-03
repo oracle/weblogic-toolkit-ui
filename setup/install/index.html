@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="Hugo 0.88.1" />
-    <meta name="description" content="Install the WKT UI application.">
+    <meta name="description" content="Install the WKT UI application and check for updates.">
 
 
     <link rel="icon" href="/weblogic-toolkit-ui/images/favicon.png" type="image/png">
@@ -12,20 +12,20 @@
     <title>Install WKT UI :: WebLogic Kubernetes Toolkit UI</title>
 
     
-    <link href="/weblogic-toolkit-ui/css/nucleus.css?1635375803" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/fontawesome-all.min.css?1635375803" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/hybrid.css?1635375803" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/featherlight.min.css?1635375803" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/perfect-scrollbar.min.css?1635375803" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/auto-complete.css?1635375803" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/atom-one-dark-reasonable.css?1635375803" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/theme.css?1635375803" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/tabs.css?1635375803" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/hugo-theme.css?1635375803" rel="stylesheet">
+    <link href="/weblogic-toolkit-ui/css/nucleus.css?1635971381" rel="stylesheet">
+    <link href="/weblogic-toolkit-ui/css/fontawesome-all.min.css?1635971381" rel="stylesheet">
+    <link href="/weblogic-toolkit-ui/css/hybrid.css?1635971381" rel="stylesheet">
+    <link href="/weblogic-toolkit-ui/css/featherlight.min.css?1635971381" rel="stylesheet">
+    <link href="/weblogic-toolkit-ui/css/perfect-scrollbar.min.css?1635971381" rel="stylesheet">
+    <link href="/weblogic-toolkit-ui/css/auto-complete.css?1635971381" rel="stylesheet">
+    <link href="/weblogic-toolkit-ui/css/atom-one-dark-reasonable.css?1635971381" rel="stylesheet">
+    <link href="/weblogic-toolkit-ui/css/theme.css?1635971381" rel="stylesheet">
+    <link href="/weblogic-toolkit-ui/css/tabs.css?1635971381" rel="stylesheet">
+    <link href="/weblogic-toolkit-ui/css/hugo-theme.css?1635971381" rel="stylesheet">
     
     
 
-    <script src="/weblogic-toolkit-ui/js/jquery-3.3.1.min.js?1635375803"></script>
+    <script src="/weblogic-toolkit-ui/js/jquery-3.3.1.min.js?1635971381"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -59,14 +59,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/weblogic-toolkit-ui/js/lunr.min.js?1635375803"></script>
-<script type="text/javascript" src="/weblogic-toolkit-ui/js/auto-complete.js?1635375803"></script>
+<script type="text/javascript" src="/weblogic-toolkit-ui/js/lunr.min.js?1635971381"></script>
+<script type="text/javascript" src="/weblogic-toolkit-ui/js/auto-complete.js?1635971381"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/oracle.github.io\/weblogic-toolkit-ui";
     
 </script>
-<script type="text/javascript" src="/weblogic-toolkit-ui/js/search.js?1635375803"></script>
+<script type="text/javascript" src="/weblogic-toolkit-ui/js/search.js?1635971381"></script>
 
     
   </div>
@@ -449,6 +449,61 @@
  
 
           
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/weblogic-toolkit-ui/release-notes/" title="Release notes" class="dd-item
+        
+        
+        
+        ">
+      <a href="/weblogic-toolkit-ui/release-notes/">
+          Release notes
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/weblogic-toolkit-ui/release-notes/release-notes/" title="Known Issues" class="dd-item ">
+        <a href="/weblogic-toolkit-ui/release-notes/release-notes/">
+        Known Issues
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+          
         
     </ul>
 
@@ -513,7 +568,15 @@
                 
                     <div class="progress">
     <div class="wrapper">
-<nav id="TableOfContents"></nav>
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#version-updates">Version Updates</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
     </div>
 </div>
 
@@ -542,6 +605,20 @@
 </ol>
 <p>Application startup detects Internet connectivity to GitHub. If it fails to connect, a <code>Network Configuration</code> dialog appears in which you can set or modify your proxy settings, test your changes, and then restart the application.</p>
 <p>Launching the application displays a thorough &ldquo;Introduction&rdquo; to the WKT UI. Step through it or dismiss it; you can peruse it at any time using <code>Help &gt; Show Introduction</code>.</p>
+<h3 id="version-updates">Version Updates</h3>
+<p>Upon application startup, if a more recent version exists, an Application Update dialog appears with these choices:</p>
+<ul>
+<li><code>Install Now</code></li>
+<li><code>Install on Exit</code>
+<ul>
+<li>Not available on MacOS.</li>
+<li>Downloads the application and installs it after you exit.</li>
+</ul>
+</li>
+<li><code>Ignore Update</code></li>
+</ul>
+<p>At anytime, you can check for application updates using <code>Help &gt; Check for WKT UI Updates</code>.</p>
+<p>For updates to in-application versions of WKT Tools (WebLogic Deploy Tooling and WebLogic Image Tool), select <code>Help &gt; Check for WKT Tool Updates</code>.</p>
 
 
 <footer class="footline">
@@ -827,6 +904,38 @@
             
         
                     
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
             
         
 
@@ -849,19 +958,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/weblogic-toolkit-ui/js/clipboard.min.js?1635375803"></script>
-    <script src="/weblogic-toolkit-ui/js/perfect-scrollbar.min.js?1635375803"></script>
-    <script src="/weblogic-toolkit-ui/js/perfect-scrollbar.jquery.min.js?1635375803"></script>
-    <script src="/weblogic-toolkit-ui/js/jquery.sticky.js?1635375803"></script>
-    <script src="/weblogic-toolkit-ui/js/featherlight.min.js?1635375803"></script>
-    <script src="/weblogic-toolkit-ui/js/highlight.pack.js?1635375803"></script>
+    <script src="/weblogic-toolkit-ui/js/clipboard.min.js?1635971381"></script>
+    <script src="/weblogic-toolkit-ui/js/perfect-scrollbar.min.js?1635971381"></script>
+    <script src="/weblogic-toolkit-ui/js/perfect-scrollbar.jquery.min.js?1635971381"></script>
+    <script src="/weblogic-toolkit-ui/js/jquery.sticky.js?1635971381"></script>
+    <script src="/weblogic-toolkit-ui/js/featherlight.min.js?1635971381"></script>
+    <script src="/weblogic-toolkit-ui/js/highlight.pack.js?1635971381"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/weblogic-toolkit-ui/js/modernizr.custom-3.6.0.js?1635375803"></script>
-    <script src="/weblogic-toolkit-ui/js/learn.js?1635375803"></script>
-    <script src="/weblogic-toolkit-ui/js/hugo-learn.js?1635375803"></script>
+    <script src="/weblogic-toolkit-ui/js/modernizr.custom-3.6.0.js?1635971381"></script>
+    <script src="/weblogic-toolkit-ui/js/learn.js?1635971381"></script>
+    <script src="/weblogic-toolkit-ui/js/hugo-learn.js?1635971381"></script>
     
         
-            <script src="/weblogic-toolkit-ui/mermaid/mermaid.js?1635375803"></script>
+            <script src="/weblogic-toolkit-ui/mermaid/mermaid.js?1635971381"></script>
         
         <script>
             mermaid.initialize({ startOnLoad: true });

@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/weblogic-toolkit-ui/images/favicon.png" type="image/png">
 
-    <title>Developer Guide :: WebLogic Kubernetes Toolkit UI</title>
+    <title>Release notes :: WebLogic Kubernetes Toolkit UI</title>
 
     
     <link href="/weblogic-toolkit-ui/css/nucleus.css?1635971381" rel="stylesheet">
@@ -39,7 +39,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/weblogic-toolkit-ui/developer/">
+  <body class="" data-url="/weblogic-toolkit-ui/release-notes/">
     <nav id="sidebar" class="">
 
 
@@ -434,8 +434,8 @@
   
     
     <li data-nav-id="/weblogic-toolkit-ui/developer/" title="Developer Guide" class="dd-item
-        parent
-        active
+        
+        
         
         ">
       <a href="/weblogic-toolkit-ui/developer/">
@@ -458,8 +458,8 @@
   
     
     <li data-nav-id="/weblogic-toolkit-ui/release-notes/" title="Release notes" class="dd-item
-        
-        
+        parent
+        active
         
         ">
       <a href="/weblogic-toolkit-ui/release-notes/">
@@ -551,7 +551,7 @@
             
           
           
-            <a href='/weblogic-toolkit-ui/'></a> > Developer Guide
+            <a href='/weblogic-toolkit-ui/'></a> > Release notes
           
         
           
@@ -562,13 +562,7 @@
                 
                     <div class="progress">
     <div class="wrapper">
-<nav id="TableOfContents">
-  <ul>
-    <li><a href="#setting-up-your-development-environment">Setting up your development environment</a></li>
-    <li><a href="#building-a-windows-or-macos-installer">Building a Windows or MacOS installer</a></li>
-    <li><a href="#building-a-linux-installer">Building a Linux installer</a></li>
-  </ul>
-</nav>
+
     </div>
 </div>
 
@@ -584,7 +578,7 @@
           
             <h1>
               
-              Developer Guide
+              Release notes
             </h1>
           
 
@@ -592,65 +586,7 @@
 
 
 
-	<p>The WebLogic Kubernetes Toolkit UI is a desktop application designed to help WebLogic users move their applications to run in a Kubernetes environment.</p>
-<h2 id="setting-up-your-development-environment">Setting up your development environment</h2>
-<ol>
-<li>
-<p>Download and install the latest LTS version of node.js from <a href="https://nodejs.org/en/download/">https://nodejs.org/en/download/</a>.</p>
-</li>
-<li>
-<p>If you rely on a proxy server to reach the Internet, set these 5 environment variables to configure the proxy correctly:</p>
-<pre tabindex="0"><code>ELECTRON_GET_USE_PROXY=true
-GLOBAL_AGENT_HTTPS_PROXY=&lt;proxy-url&gt;
-WKTUI_DEV_PROXY=&lt;proxy-url&gt;
-HTTPS_PROXY=&lt;proxy-url&gt;
-NO_PROXY=&lt;list-of-no-proxy-hosts&gt;
-</code></pre></li>
-<li>
-<p>Open a command line window are run the following command to update the version of npm to the latest:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo npm install --global npm
-</code></pre></div><p>Note: If developing on Windows, run the following commands from a shell running as Administrator instead:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">npm install --global --production npm-windows-upgrade
-npm-windows-upgrade --npm-version latest
-</code></pre></div></li>
-<li>
-<p>Set up your global git configuration by running the following commands:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git config --global user.name <span style="color:#e6db74">&#34;&lt;your real name&gt;&#34;</span>
-git config --global user.email <span style="color:#e6db74">&#34;&lt;your-oracle-email-address&gt;&#34;</span>
-git config --global core.ignoreCase false
-</code></pre></div><p><strong>This last command is critical if you are developing on either Windows or MacOS.  Yes, the MacOS file system
-is, by default, case-insensitive!</strong></p>
-</li>
-<li>
-<p>Clone the git repository on GitHub at <a href="https://github.com/oracle/weblogic-toolkit-ui">https://github.com/oracle/weblogic-toolkit-ui</a>.</p>
-</li>
-<li>
-<p>Open a command-line in the <code>wktui</code> directory and run <code>npm install</code> to download and install the JavaScript dependencies required by the project.</p>
-</li>
-<li>
-<p>Open a command-line in the <code>wktui/electron</code> directory and run <code>npm run install-tools</code>.</p>
-</li>
-<li>
-<p>Open a command-line in the <code>wktui/webui</code> directory and run <code>npm start</code>.</p>
-</li>
-<li>
-<p>Once the server from the previous step is fully running, open a command-line in the <code>wktui/electron</code> directory and run <code>npm start</code>.</p>
-</li>
-</ol>
-<h2 id="building-a-windows-or-macos-installer">Building a Windows or MacOS installer</h2>
-<ol start="0">
-<li>Set up your development environment and verify that the application is working properly from it.</li>
-<li>Open a command-line in the <code>wktui/electron</code> directory and run <code>npm run build</code>.</li>
-<li>Find the executable and installer(s) in the <code>wktui/dist</code> directory.</li>
-</ol>
-<h2 id="building-a-linux-installer">Building a Linux installer</h2>
-<ol start="0">
-<li>Set up your development environment and verify that the application is working properly from it.</li>
-<li>Open a command-line in the <code>wktui/webui</code> directory and run <code>npm run build:release</code>.</li>
-<li>From the command-line in the <code>wktui/scripts</code> directory, run <code>./devBuildLinuxInstallers.sh</code>.</li>
-<li>Find the executable and installer(s) in the <code>wktui/dist</code> directory.</li>
-</ol>
-
+	
 
 
 
@@ -919,7 +855,6 @@ is, by default, case-insensitive!</strong></p>
             
                 
                     
-                    
                 
                 
 
@@ -936,8 +871,6 @@ is, by default, case-insensitive!</strong></p>
             
                 
                     
-                        
-                        
                     
                 
                 
@@ -951,6 +884,9 @@ is, by default, case-insensitive!</strong></p>
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -975,10 +911,10 @@ is, by default, case-insensitive!</strong></p>
 	 
 	 
 		
-			<a class="nav nav-prev" href="/weblogic-toolkit-ui/navigate/verrazzano/" title="Verrazzano"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/weblogic-toolkit-ui/developer/" title="Developer Guide"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/weblogic-toolkit-ui/release-notes/" title="Release notes" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/weblogic-toolkit-ui/release-notes/release-notes/" title="Known Issues" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
