@@ -12,3 +12,17 @@ description: "Install the WKT UI application."
 Application startup detects Internet connectivity to GitHub. If it fails to connect, a `Network Configuration` dialog appears in which you can set or modify your proxy settings, test your changes, and then restart the application.  
 
 Launching the application displays a thorough "Introduction" to the WKT UI. Step through it or dismiss it; you can peruse it at any time using `Help > Show Introduction`.
+
+### Version Updates
+
+Upon application startup, if a more recent version exists, an Application Update dialog appears with these choices:
+
+- `Install Now`
+- `Install on Exit`
+    - Not available on MacOS.
+    - Downloads the application and installs it after you exit.
+- `Ignore Update`
+
+At anytime, you can check for application updates using `Help > Check for WKT UI Updates`.
+
+For updates to in-application versions of WKT Tools (WebLogic Deploy Tooling and WebLogic Image Tool), select `Help > Check for WKT Tool Updates`.
