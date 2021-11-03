@@ -24,9 +24,8 @@ function initializeLoggingSystem(wktMode, wktApp, tempDir) {
   const devMode = _wktMode.isDevelopmentMode();
   const logConfig = getLoggingConfiguration();
   const transports = getTransports(logConfig, devMode);
-  const baseLogger = _getBaseLogger(devMode, logConfig, transports);
-  writeInitialLogEntries(baseLogger, wktApp, transports);
-  _logger = baseLogger;
+  _logger = _getBaseLogger(devMode, logConfig, transports);
+  writeInitialLogEntries(_logger, wktApp, transports);
   return _logger;
 }
 
@@ -85,7 +84,7 @@ function _getBaseLogger(devMode, logConfig, transports) {
       winston.format.splat(),
       winston.format.simple()
     ),
-    levels: winston.config.syslog.levels,
+    levels: winston.config.npm.levels,
     transports: transports,
     exceptionHandlers: transports,
     rejectionHandlers: transports
@@ -94,17 +93,17 @@ function _getBaseLogger(devMode, logConfig, transports) {
 
 function writeInitialLogEntries(baseLogger, wktApp, transports) {
   if (_logFileName) {
-    baseLogger.notice(`Writing ${wktApp.getApplicationName()} log file to ${_logFileName}`);
+    baseLogger.info(`Writing ${wktApp.getApplicationName()} log file to ${_logFileName}`);
   }
-  baseLogger.notice(`${wktApp.getApplicationName()} version ${wktApp.getApplicationVersion()} (${wktApp.getApplicationBuildVersion()})`);
-  baseLogger.notice(`command-line arguments: ${process.argv.join()}`);
-  baseLogger.notice('environment:');
+  baseLogger.info(`${wktApp.getApplicationName()} version ${wktApp.getApplicationVersion()} (${wktApp.getApplicationBuildVersion()})`);
+  baseLogger.info(`command-line arguments: ${process.argv.join()}`);
+  baseLogger.info('environment:');
   for (const key of Object.keys(process.env)) {
-    baseLogger.notice('%s = %s', key, process.env[key]);
+    baseLogger.info('%s = %s', key, process.env[key]);
   }
-  baseLogger.notice(`${packageJson.productName} logging system initialized with logging level ${_getLevelMessage(baseLogger.level)}`);
+  baseLogger.info(`${packageJson.productName} logging system initialized with logging level ${_getLevelMessage(baseLogger.level)}`);
   for (let transport of transports) {
-    baseLogger.notice(`${transport.name} transport initialized with logging level ${_getLevelMessage(transport.level)}`);
+    baseLogger.info(`${transport.name} transport initialized with logging level ${_getLevelMessage(transport.level)}`);
   }
 
   baseLogger.debug('Logging system initialization complete');
