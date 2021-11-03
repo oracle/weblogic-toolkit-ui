@@ -30,9 +30,9 @@ function(accUtils, ko, i18n, viewHelper) {
     this.releaseText = this.labelMapper('new-release', {releaseName: updateInfo.releaseName});
     this.releaseNotes = updateInfo.releaseNotes;
 
-    this.allowInstallOnExit = ko.computed(() => {
+    this.allowInstallOnExit = () => {
       return !window.api.process.isMac();
-    });
+    };
 
     this.installNow = () => {
       updateInfo.setValue('now');
