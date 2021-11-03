@@ -3,7 +3,7 @@ title: "Install WKT UI"
 date: 2019-02-22T15:44:42-05:00
 draft: false
 weight: 2
-description: "Install the WKT UI application."
+description: "Install the WKT UI application and check for updates."
 ---
 
 1. Download the latest WebLogic Kubernetes Toolkit UI (WKT UI) application installers from the [Github Releases section](https://github.com/oracle/weblogic-toolkit-ui/releases) of this repository.
