@@ -183,11 +183,11 @@ class Main {
       userSettings.saveUserSettings()
         .then(() => {
           this._logger.info('User Settings saved');
-          process.exit();
+          app.exit();
         })
         .catch(err => {
           this._logger.error(`User settings save failed: ${err}`);
-          process.exit();
+          app.exit();
         });
     });
   }
