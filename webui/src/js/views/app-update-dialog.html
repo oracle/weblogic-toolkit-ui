@@ -17,9 +17,11 @@
     <oj-button id="okButton" on-oj-action="[[installNow]]">
       <span><oj-bind-text value="[[labelMapper('button-install-now')]]"></oj-bind-text></span>
     </oj-button>
-    <oj-button id="okButton" on-oj-action="[[installOnExit]]">
-      <span><oj-bind-text value="[[labelMapper('button-install-on-exit')]]"></oj-bind-text></span>
-    </oj-button>
+    <oj-bind-if test="[[allowInstallOnExit]]">
+      <oj-button id="okButton" on-oj-action="[[installOnExit]]">
+        <span><oj-bind-text value="[[labelMapper('button-install-on-exit')]]"></oj-bind-text></span>
+      </oj-button>
+    </oj-bind-if>
     <oj-button id="okButton" on-oj-action="[[closeDialog]]">
       <span><oj-bind-text value="[[labelMapper('button-ignore-update')]]"></oj-bind-text></span>
     </oj-button>
