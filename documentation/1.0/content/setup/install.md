@@ -23,6 +23,6 @@ Upon application startup, if a more recent version exists, an Application Update
     - Downloads the application and installs it after you exit.
 - `Ignore Update`
 
-At anytime, you can check for application updates using `Help > Check for WKT UI Updates`.
+At any time, you can check for application updates using `Help > Check for WKT UI Updates`.
 
 For updates to in-application versions of WKT Tools (WebLogic Deploy Tooling and WebLogic Image Tool), select `Help > Check for WKT Tool Updates`.
