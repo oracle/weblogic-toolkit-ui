@@ -17,6 +17,22 @@ function getErrorMessage(err) {
   return results;
 }
 
+function getMaskedErrorMessage(err, textToMask) {
+  let results = '';
+  if (err) {
+    if (err.message) {
+      results = err.message;
+    } else {
+      results = err.toString().trim();
+    }
+  }
+  if (results && textToMask) {
+    results = results.toString().replace(textToMask, '********');
+  }
+  return results;
+}
+
 module.exports = {
-  getErrorMessage
+  getErrorMessage,
+  getMaskedErrorMessage
 };

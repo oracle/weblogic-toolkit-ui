@@ -101,7 +101,6 @@ async function installUpdates(window, installType) {
     _downloadWindow = window;
     await autoUpdater.downloadUpdate();
     _downloadWindow = null;
-
   } catch (error) {
     _downloadWindow = null;
 

@@ -7,8 +7,9 @@ const fsUtils = require('./fsUtils');
 const { getLogger } = require('./wktLogging');
 const { getHttpsProxyUrl, getBypassProxyHosts } = require('./userSettings');
 const { executeChildProcess, executeFileCommand } = require('./childProcessExecutor');
-const { getErrorMessage } = require('./errorUtils');
+const { getErrorMessage, getMaskedErrorMessage} = require('./errorUtils');
 const osUtils = require('./osUtils');
+const i18n = require("./i18next.config");
 
 /* global process */
 async function validateImageBuilderExecutable(imageBuilderExe) {
@@ -93,7 +94,9 @@ async function doLogin(imageBuilderExe, options) {
     }).catch(err => {
       const host = options.host ? options.host : i18n.t('tools-docker-hub');
       result.isSuccess = false;
-      result.reason = i18n.t('image-builder-registry-login-failed',{ imageRegistry: host, error: getErrorMessage(err) });
+      const message = i18n.t('image-builder-registry-login-failed',
+        { imageRegistry: host, error: getMaskedErrorMessage(err, options.password) });
+      result.reason = message.
       resolve(result);
     });
   });

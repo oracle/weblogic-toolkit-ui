@@ -29,7 +29,7 @@ describe('Child Process Executor tests', () => {
     expect(output.trim()).is.equal(process.version);
   });
 
-  it('verify spaces in file path work', async() => {
+  it('verify spaces in file path work', async () => {
     const scriptPath = path.join(__dirname, 'dir with spaces', 'testScript') + (osUtils.isWindows() ? '.cmd' : '.sh');
     const argList = [ '-v', 'some args with lots of spaces' ];
 
