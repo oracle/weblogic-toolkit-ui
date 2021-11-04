@@ -206,13 +206,16 @@ class Main {
             skipQuickstart: userSettings.getSkipQuickstartAtStartup()
           };
 
-          this._appUpdatePromise.then(updateResult => {
-            if (updateResult) {
-              startupInformation.update = updateResult;
-            }
+          // This should never be null by the time it gets to this point but check anyway...
+          if (this._appUpdatePromise) {
+            this._appUpdatePromise.then(updateResult => {
+              if (updateResult) {
+                startupInformation.update = updateResult;
+              }
 
-            sendToWindow(currentWindow, 'show-startup-dialogs', startupInformation);
-          });
+              sendToWindow(currentWindow, 'show-startup-dialogs', startupInformation);
+            });
+          }
 
           this._startupDialogsShownAlready = true;
         }
@@ -860,8 +863,9 @@ class Main {
     if (!connected) {
       this._logger.debug('Not connected to Internet...creating network window');
       createNetworkWindow();
+    } else {
+      this._appUpdatePromise = getUpdateInformation(false);
     }
-    this._appUpdatePromise = getUpdateInformation(false);
     return connected;
   }
 
