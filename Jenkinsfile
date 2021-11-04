@@ -20,8 +20,6 @@ pipeline {
         version_number = VersionNumber([versionNumberString: '-${BUILD_YEAR}${BUILD_MONTH,XX}${BUILD_DAY,XX}${BUILDS_TODAY_Z,XX}', versionPrefix: "${version_prefix}"])
         github_url = "${env.GIT_URL}"
         github_creds = "fa369a2b-8c50-43ea-8956-71764cbcbe3d"
-        dockerhub_creds = "wktui-dockerhub"
-        branch = sh(returnStdout: true, script: 'echo $GIT_BRANCH | sed --expression "s:origin/::"')
 
         downstream_job_name = "wktui-sign"
         TAG_NAME = sh(returnStdout: true, script: '/usr/bin/git describe --abbrev=0 --tags').trim()
@@ -68,8 +66,11 @@ pipeline {
                         }
                         stage('Linux Checkout') {
                             steps {
-                                 git url: "${github_url}", branch: "${branch}"
-                                 sh 'echo ${version_number} > ${WORKSPACE}/WKTUI_VERSION.txt'
+                                checkout([$class: 'GitSCM', branches: [[name: "${GIT_COMMIT}"]],
+                                          doGenerateSubmoduleConfigurations: false,
+                                          extensions: [], submoduleCfg: [],
+                                          userRemoteConfigs: [[credentialsId: "${github_creds}", url: "${github_url}"]]])
+                                sh 'echo ${version_number} > ${WORKSPACE}/WKTUI_VERSION.txt'
                             }
                         }
                         stage('Linux Node.js Installation') {
@@ -162,8 +163,11 @@ pipeline {
                         }
                         stage('MacOS Checkout') {
                             steps {
-                                 git url: "${github_url}", branch: "${branch}"
-                                 sh 'echo ${version_number} > ${WORKSPACE}/WKTUI_VERSION.txt'
+                                checkout([$class: 'GitSCM', branches: [[name: "${GIT_COMMIT}"]],
+                                          doGenerateSubmoduleConfigurations: false,
+                                          extensions: [], submoduleCfg: [],
+                                          userRemoteConfigs: [[credentialsId: "${github_creds}", url: "${github_url}"]]])
+                                sh 'echo ${version_number} > ${WORKSPACE}/WKTUI_VERSION.txt'
                             }
                         }
                         stage('MacOS Node.js Installation') {
@@ -267,8 +271,11 @@ pipeline {
                         }
                         stage('Windows Checkout') {
                             steps {
-                                 git url: "${github_url}", branch: "${branch}"
-                                 bat 'echo %version_number% > "%WORKSPACE%/WKTUI_VERSION.txt"'
+                                checkout([$class: 'GitSCM', branches: [[name: "${GIT_COMMIT}"]],
+                                          doGenerateSubmoduleConfigurations: false,
+                                          extensions: [], submoduleCfg: [],
+                                          userRemoteConfigs: [[credentialsId: "${github_creds}", url: "${github_url}"]]])
+                                bat 'echo %version_number% > "%WORKSPACE%/WKTUI_VERSION.txt"'
                             }
                         }
                         stage('Windows Node.js Installation') {
