@@ -272,6 +272,8 @@ function _getUserSettings() {
     } else {
       _userSettingsObject = { };
     }
+  } else {
+    _userSettingsObject = { };
   }
   return _userSettingsObject;
 }
