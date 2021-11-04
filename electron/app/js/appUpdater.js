@@ -11,6 +11,7 @@ const i18n = require('./i18next.config');
 const { getLogger } = require('./wktLogging');
 const errorUtils = require('./errorUtils');
 const { sendToWindow } = require('./windowUtils');
+const osUtils = require('./osUtils');
 
 let _isDevMode;
 let _downloadWindow;
@@ -20,7 +21,8 @@ function initializeAutoUpdater(logger, isDevMode) {
   _isDevMode = isDevMode;
   autoUpdater.logger = logger;
   autoUpdater.autoDownload = false;
-  autoUpdater.autoInstallOnAppQuit = true;
+  // Turn this off on MacOS and on for other platforms.
+  autoUpdater.autoInstallOnAppQuit = !osUtils.isMac();
 }
 
 function registerAutoUpdateListeners() {

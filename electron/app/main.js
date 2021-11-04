@@ -72,7 +72,6 @@ class Main {
       this.registerAppListeners(argv);
       this.registerIpcListeners();
       this.registerIpcHandlers();
-      this._appUpdatePromise = getUpdateInformation(false);
     }
   }
 
@@ -81,13 +80,13 @@ class Main {
     // This needs to be at the top level to catch OS requests to open the app with a file on MacOS.
     //
     app.on('open-file', (event, filePath) => {
-      this._logger.debug(`Received open-file event for ${filePath}`);
+      this._logger.debug('Received open-file event for %s', filePath);
       if (project.isWktProjectFile(filePath)) {
         const existingProjectWindow = project.getWindowForProject(filePath);
         if (existingProjectWindow) {
           project.showExistingProjectWindow(existingProjectWindow);
 
-        } else if(!app.isReady()) {
+        } else if (!app.isReady()) {
           // when the app is started by double-clicking on a project file,
           // the open-file event fires before ready, so remember this file to open on ready.
           this._initialProjectFile = filePath;
@@ -107,11 +106,11 @@ class Main {
     // and its parameters are received by this event.
     // use the command-line to open the requested project file, if present.
     app.on('second-instance', (event, commandLine) => {
-      this._logger.debug(`Received second-instance event: ${JSON.stringify(commandLine)}`);
+      this._logger.debug('Received second-instance event: %s', JSON.stringify(commandLine));
 
       const filePath = this.getFileArgFromCommandLine(commandLine);
       if (filePath) {
-        this._logger.info(`File argument from second instance: ${filePath}`);
+        this._logger.info('File argument from second instance: %s', filePath);
         const existingProjectWindow = project.getWindowForProject(filePath);
         if (existingProjectWindow) {
           project.showExistingProjectWindow(existingProjectWindow);
@@ -137,7 +136,7 @@ class Main {
           if (!filePath) {
             filePath = this.getFileArgFromCommandLine(argv);
             if (filePath) {
-              this._logger.debug(`Found file argument on command-line: ${filePath}`);
+              this._logger.debug('Found file argument on command-line: %s', filePath);
               const existingProjectWindow = project.getWindowForProject(filePath);
               if (existingProjectWindow) {
                 project.showExistingProjectWindow(existingProjectWindow);
@@ -158,8 +157,12 @@ class Main {
     });
 
     app.on('activate', async (event, hasVisibleWindows) => {
-      if (!hasVisibleWindows) {
+      this._logger.debug('Received activate event when app is %s: hasVisibleWindows = %s',
+        app.isReady() ? 'ready': 'not ready', hasVisibleWindows);
+      if (app.isReady() && !hasVisibleWindows) {
         await createWindow(this._isJetDevMode);
+      } else {
+        this._logger.warning('Skipping activate event action');
       }
     });
 
@@ -186,7 +189,7 @@ class Main {
           app.exit();
         })
         .catch(err => {
-          this._logger.error(`User settings save failed: ${err}`);
+          this._logger.error('User settings save failed: %s', err);
           app.exit();
         });
     });
@@ -855,8 +858,10 @@ class Main {
     const { testConfiguredInternetConnectivity } = require('./js/connectivityUtils');
     const connected = await testConfiguredInternetConnectivity();
     if (!connected) {
+      this._logger.debug('Not connected to Internet...creating network window');
       createNetworkWindow();
     }
+    this._appUpdatePromise = getUpdateInformation(false);
     return connected;
   }
 
@@ -865,7 +870,9 @@ class Main {
     if (this._wktMode.isExecutableMode() && argv.length > 1) {
       // app.requestSingleInstanceLock() may have inserted --xxx arguments
       const lastArg = argv[argv.length - 1];
-      fileArg = lastArg.startsWith('--') ? fileArg : lastArg;
+      if (project.isWktProjectFile(lastArg)) {
+        fileArg = lastArg;
+      }
     }
     return fileArg;
   }
