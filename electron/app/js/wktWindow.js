@@ -13,6 +13,7 @@ const wdtDiscovery = require('./wdtDiscovery');
 const wktTools = require('./wktTools');
 const osUtils = require('./osUtils');
 const { getLogger, getDefaultLogDirectory } = require('./wktLogging');
+const { showAboutDialog } = require('./promptUtils');
 const { checkForUpdates } = require('./appUpdater');
 
 const appDir = path.normalize(path.join(__dirname, '..'));
@@ -610,20 +611,23 @@ class WktAppMenu {
         );
       }
 
-      // Electron has no built-in About menu for Linux...
-      if (!osUtils.isLinux()) {
-        const helpMenu = appMenuTemplate.find(item => item.id === 'help');
-        if (helpMenu) {
-          helpMenu.submenu.push(
-            { type: 'separator' },
-            {
-              id: 'about',
-              label: i18n.t('menu-help-about'),
-              role: 'about',
-              accelerator: 'Alt+A'
+      // Use custom About dialog for non-MacOS platforms.
+      // Built-in About menu not supported for Linux (in current version).
+      // Built-in About menu for Windows lacks build version, has title and modal issues.
+      const helpMenu = appMenuTemplate.find(item => item.id === 'help');
+      if (helpMenu) {
+        const wktApp = this._wktApp;
+        helpMenu.submenu.push(
+          { type: 'separator' },
+          {
+            id: 'about',
+            label: i18n.t('menu-help-about'),
+            accelerator: 'Alt+A',
+            click(item, focusedWindow) {
+              showAboutDialog(wktApp, focusedWindow);
             }
-          );
-        }
+          }
+        );
       }
     }
 
