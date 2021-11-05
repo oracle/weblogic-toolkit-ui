@@ -512,7 +512,7 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
         if (serviceDetail.spec['type'] === 'LoadBalancer' ||
           (ingressControllerProvider === 'voyager' && serviceDetail.spec['type'] === 'NodePort')) {
           if ('loadBalancer' in serviceDetail.status) {
-            if (JSON.stringify(serviceDetail.status['loadBalancer']) === '{}') {
+            if (JSON.stringify(serviceDetail.status.loadBalancer) === '{}') {
               useNodePort = true;
               if (typeof k8sCluster === 'undefined' || k8sCluster === '') {
                 externalLoadBalancerHost = '//<k8s cluster address>';
@@ -520,12 +520,20 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
                 externalLoadBalancerHost = k8sCluster;
               }
             } else {
-              if ('hostname' in serviceDetail.status['loadBalancer'].ingress) {
-                externalLoadBalancerHost = '//' + serviceDetail.status['loadBalancer'].ingress.hostname;
-              } else if ('ip' in serviceDetail.status['loadBalancer'].ingress) {
-                externalLoadBalancerHost = '//' + serviceDetail.status['loadBalancer'].ingress.ip;
-              } else {
-                // should never be here...
+              let foundIngress = false;
+              if ('ingress' in serviceDetail.status.loadBalancer) {
+                const ing0 = serviceDetail.status.loadBalancer.ingress[0];
+                if ('hostname' in ing0 ) {
+                  externalLoadBalancerHost = '//' + ing0.hostname;
+                  foundIngress = true;
+                } else if ('ip' in ing0) {
+                  externalLoadBalancerHost = '//' + ing0.ip;
+                  foundIngress = true;
+                }
+              }
+
+              if (!foundIngress) {
+                // should never happen, just incase.
                 if (typeof k8sCluster === 'undefined' || k8sCluster === '') {
                   externalLoadBalancerHost = '//<k8s cluster address>';
                 } else {
@@ -558,9 +566,9 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
           }
         } else {
           if (ingressDefinition['tLSEnabled'] === true) {
-            results['accessPoint'] = 'https:' + externalLoadBalancerHost + '/' + ingressDefinition.path;
+            results['accessPoint'] = 'https:' + externalLoadBalancerHost + ingressDefinition.path;
           } else {
-            results['accessPoint'] = 'http:' + externalLoadBalancerHost + '/' + ingressDefinition.path;
+            results['accessPoint'] = 'http:' + externalLoadBalancerHost +  ingressDefinition.path;
           }
         }
 
