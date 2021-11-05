@@ -19,8 +19,7 @@ function promptCancel() {
 }
 
 function promptSubmit() {
-  const dataElement = document.querySelector('#data');
-  const data = dataElement.value;
+  const data = {};
   window.api.ipc.sendSync('prompt-post-data:' + promptId, data);
 }
 
@@ -33,33 +32,30 @@ function promptRegister() {
     return promptError(error);
   }
 
-  document.querySelector('#form').addEventListener('submit', promptSubmit);
-  document.querySelector('#cancel').addEventListener('click', promptCancel);
+  const okButton = document.querySelector('#ok');
 
-  const dataElement = document.querySelector('#data');
-  dataElement.value = promptOptions.value ? promptOptions.value : '';
-
-  dataElement.addEventListener('keyup', event => {
+  okButton.addEventListener('keyup', event => {
     if (event.key === 'Escape') {
       promptCancel();
     }
   });
 
-  dataElement.addEventListener('keypress', event => {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      document.querySelector('#ok').click();
-    }
-  });
+  document.querySelector('#form').addEventListener('submit', promptSubmit);
 
-  dataElement.focus();
-  dataElement.select();
+  okButton.focus();
 
   window.api.i18n.ready.then(() => {
-    document.querySelector('#ok').textContent = window.api.i18n.t('dialog-button-ok');
-    document.querySelector('#cancel').textContent = window.api.i18n.t('dialog-button-cancel');
-    document.querySelector('#label').textContent = window.api.i18n.t('dialog-passphrase-prompt-label');
-    document.querySelector('#title').textContent = window.api.i18n.t('dialog-passphrase-prompt-title');
+    const versionText = window.api.i18n.t('dialog-about-version', {
+      version: promptOptions.applicationVersion,
+      buildVersion: promptOptions.version
+    });
+
+    document.querySelector('#title').textContent = promptOptions.applicationName;
+    document.querySelector('#appName').textContent = promptOptions.applicationName;
+    document.querySelector('#version').textContent = versionText;
+    document.querySelector('#copyright').textContent = promptOptions.copyright;
+
+    okButton.textContent = window.api.i18n.t('dialog-button-ok');
 
     const height = document.querySelector('body').offsetHeight;
     window.api.ipc.sendSync('prompt-size:' + promptId, height);
@@ -69,7 +65,7 @@ function promptRegister() {
 window.addEventListener('error', error => {
   if (promptId) {
     const text = error.message ? error.message : error;
-    promptError('An error has occurred on the prompt window: \n' + text);
+    promptError('An error has occurred on the about window: \n' + text);
   }
 });
 
