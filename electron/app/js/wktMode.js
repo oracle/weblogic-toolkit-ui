@@ -14,6 +14,7 @@ class WktMode {
   constructor(argv0) {
     this._devMode = argv0 !== undefined ? this.isDevelopmentMode(argv0) : undefined;
     this._extraFilesDirectory = undefined;
+    this._extraResourcesDirectory = undefined;
   }
 
   isDevelopmentMode(argv0) {
@@ -65,6 +66,36 @@ class WktMode {
       logger.debug(`extraFilesDirectory = ${this._extraFilesDirectory}`);
     }
     return this._extraFilesDirectory;
+  }
+
+  getExtraResourcesDirectory(logger) {
+    if (this._extraResourcesDirectory) {
+      return this._extraResourcesDirectory;
+    } else if (!app) {
+      throw new Error('electron app not yet initialized!');
+    }
+
+    if (this.isDevelopmentMode()) {
+      if (logger) {
+        logger.info('Running app in development mode');
+      }
+      this._extraResourcesDirectory = path.normalize(path.join(app.getAppPath(), '..'));
+    } else {
+      if (logger) {
+        logger.info('Running app from executable');
+      }
+      const exeDir = path.dirname(app.getPath('exe'));
+      if (osUtils.isMac()) {
+        this._extraResourcesDirectory = path.normalize(path.join(exeDir, '..', 'Resources'));
+      } else {
+        this._extraResourcesDirectory = path.normalize(path.join(exeDir, 'resources'));
+      }
+    }
+    if (logger) {
+      logger.debug(`extraResourcesDirectory = ${this._extraResourcesDirectory}`);
+    }
+    return this._extraResourcesDirectory;
+
   }
 }
 

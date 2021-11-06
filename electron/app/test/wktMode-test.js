@@ -10,8 +10,9 @@ const proxyquire = require('proxyquire');
 const expect = require('chai').expect;
 const { describe, it } = require('mocha');
 const path = require('path');
+const osUtils = require('./../js/osUtils');
 
-/* global __dirname, process */
+/* global __dirname */
 describe('WKT Mode tests', () => {
   const electronStub = {
     app: {
@@ -21,7 +22,7 @@ describe('WKT Mode tests', () => {
       // eslint-disable-next-line no-unused-vars
       getPath: (type) => {
         let result = __dirname;
-        if (process.platform === 'darwin') {
+        if (osUtils.isMac()) {
           result = path.join(result, 'someMacOsDirectory');
         }
         return path.join(result, 'WebLogic Kubernetes Toolkit UI');
@@ -69,5 +70,21 @@ describe('WKT Mode tests', () => {
     const wktMode = new WktMode(path.join(__dirname, 'WebLogic Kubernetes Toolkit UI'));
 
     expect(wktMode.getExtraFilesDirectory()).to.equal(__dirname);
+  });
+
+  it('get extra resources directory works in development mode', () => {
+    const wktMode = new WktMode(path.join(__dirname, 'Electron'));
+
+    expect(wktMode.getExtraFilesDirectory()).to.equal(__dirname);
+  });
+
+  it('get extra resources directory works in executable mode', () => {
+    const wktMode = new WktMode(path.join(__dirname, 'WebLogic Kubernetes Toolkit UI'));
+
+    let expected = path.join(__dirname, 'resources');
+    if (osUtils.isMac()) {
+      expected = path.normalize(path.join(__dirname, 'Resources'));
+    }
+    expect(wktMode.getExtraResourcesDirectory()).to.equal(expected);
   });
 });

@@ -55,7 +55,7 @@ class WktApp {
   }
 
   _getWktuiBuildVersion(defaultVersion) {
-    const versionFilePath = path.join(this._wktMode.getExtraFilesDirectory(), 'WKTUI_VERSION.txt');
+    const versionFilePath = path.join(this._wktMode.getExtraResourcesDirectory(), 'WKTUI_VERSION.txt');
 
     let exists;
     try {
