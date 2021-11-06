@@ -529,7 +529,7 @@ class Main {
 
     // eslint-disable-next-line no-unused-vars
     ipcMain.handle('get-url-catalog', async (event) => {
-      const catalogJsonFile = path.join(this._wktMode.getExtraFilesDirectory(this._logger), 'url-catalog.json');
+      const catalogJsonFile = path.join(this._wktMode.getExtraResourcesDirectory(this._logger), 'url-catalog.json');
       return new Promise((resolve, reject) => {
         fsUtils.exists(catalogJsonFile).then(doesExist => {
           if (!doesExist) {
