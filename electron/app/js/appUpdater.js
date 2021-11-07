@@ -11,7 +11,6 @@ const i18n = require('./i18next.config');
 const { getLogger } = require('./wktLogging');
 const errorUtils = require('./errorUtils');
 const { sendToWindow } = require('./windowUtils');
-const osUtils = require('./osUtils');
 
 let _isDevMode;
 let _downloadWindow;

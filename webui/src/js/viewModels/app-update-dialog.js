@@ -30,10 +30,6 @@ function(accUtils, ko, i18n, viewHelper) {
     this.releaseText = this.labelMapper('new-release', {releaseName: updateInfo.releaseName});
     this.releaseNotes = updateInfo.releaseNotes;
 
-    this.allowInstallOnExit = () => {
-      return true;
-    };
-
     this.installNow = () => {
       updateInfo.setValue('now');
       this.dialogContainer.close();
