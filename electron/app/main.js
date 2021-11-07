@@ -159,11 +159,13 @@ class Main {
     app.on('activate', async (event, hasVisibleWindows) => {
       this._logger.debug('Received activate event when app is %s: hasVisibleWindows = %s',
         app.isReady() ? 'ready': 'not ready', hasVisibleWindows);
+      // activate is also called to bring window to the front...
       if (app.isReady() && !hasVisibleWindows) {
         await createWindow(this._isJetDevMode);
-      } else {
-        this._logger.warning('Skipping activate event action');
+      } else if (!app.isReady()) {
+        this._logger.warn('activate called before app was ready');
       }
+      // else bring window to front default behavior...
     });
 
     // eslint-disable-next-line no-unused-vars
