@@ -31,7 +31,7 @@ function(accUtils, ko, i18n, viewHelper) {
     this.releaseNotes = updateInfo.releaseNotes;
 
     this.allowInstallOnExit = () => {
-      return !window.api.process.isMac();
+      return true;
     };
 
     this.installNow = () => {

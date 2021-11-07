@@ -21,8 +21,7 @@ function initializeAutoUpdater(logger, isDevMode) {
   _isDevMode = isDevMode;
   autoUpdater.logger = logger;
   autoUpdater.autoDownload = false;
-  // Turn this off on MacOS and on for other platforms.
-  autoUpdater.autoInstallOnAppQuit = !osUtils.isMac();
+  autoUpdater.autoInstallOnAppQuit = true;
 }
 
 function registerAutoUpdateListeners() {
