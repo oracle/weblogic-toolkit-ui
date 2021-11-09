@@ -9,7 +9,6 @@ const { getHttpsProxyUrl, getBypassProxyHosts } = require('./userSettings');
 const { executeChildProcess, executeFileCommand } = require('./childProcessExecutor');
 const { getErrorMessage, getMaskedErrorMessage} = require('./errorUtils');
 const osUtils = require('./osUtils');
-const i18n = require("./i18next.config");
 
 /* global process */
 async function validateImageBuilderExecutable(imageBuilderExe) {
@@ -96,7 +95,7 @@ async function doLogin(imageBuilderExe, options) {
       result.isSuccess = false;
       const message = i18n.t('image-builder-registry-login-failed',
         { imageRegistry: host, error: getMaskedErrorMessage(err, options.password) });
-      result.reason = message.
+      result.reason = message;
       resolve(result);
     });
   });
