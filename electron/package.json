@@ -1,7 +1,7 @@
 {
   "name": "wktui",
   "productName": "WebLogic Kubernetes Toolkit UI",
-  "version": "0.8.20",
+  "version": "1.0.0",
   "description": "WebLogic Kubernetes Toolkit UI",
   "copyright": "Copyright (c) 2021, Oracle and/or its affiliates.",
   "homepage": "https://github.com/oracle/weblogic-toolkit-ui",
@@ -12,7 +12,7 @@
     "build": "npm run build:jet && npm run install-tools && npm run build:installer",
     "build:jet": "cd ../webui && npm run build:release && cd ../electron",
     "build:installer": "electron-builder -p never",
-    "eslint": "npx eslint app/main.js app/js/**/*.js app/test/*-test.js",
+    "eslint": "npx eslint app/main.js app/js/*.js app/js/prompt/*.js app/test/*.js",
     "test": "mocha --timeout 10000 --reporter spec app/test/*-test.js"
   },
   "repository": {
