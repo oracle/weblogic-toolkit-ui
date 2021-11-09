@@ -32,6 +32,7 @@ async function getCredentialPassphrase(parentWindow) {
       alwaysOnTop: false,
       useContentSize: true,
       modal: Boolean(parentWindow),
+      autoHideMenuBar: true,
       menuBarVisible: false,
       webPreferences: {
         nodeIntegration: false,
@@ -42,7 +43,9 @@ async function getCredentialPassphrase(parentWindow) {
       },
     });
 
+    // hide app menu for various platforms
     promptWindow.setMenu(null);
+    promptWindow.removeMenu();
     promptWindow.setMenuBarVisibility(false);
 
     const getOptionsListener = event => {
@@ -128,7 +131,8 @@ async function showAboutDialog(wktApp, parentWindow) {
       skipTaskbar: true,
       alwaysOnTop: false,
       useContentSize: true,
-      modal: Boolean(parentWindow),
+      modal: Boolean(parentWindow),  // false causes problems with app menu appearing
+      autoHideMenuBar: true,
       menuBarVisible: false,
       webPreferences: {
         nodeIntegration: false,
@@ -139,7 +143,9 @@ async function showAboutDialog(wktApp, parentWindow) {
       },
     });
 
+    // hide app menu for various platforms
     promptWindow.setMenu(null);
+    promptWindow.removeMenu();
     promptWindow.setMenuBarVisibility(false);
 
     const getOptionsListener = event => {
