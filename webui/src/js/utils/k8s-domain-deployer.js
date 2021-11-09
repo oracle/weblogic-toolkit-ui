@@ -247,52 +247,56 @@ function (project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, K8sDoma
           return Promise.resolve(false);
         }
 
-        // Create Secrets
-        busyDialogMessage = i18n.t('k8s-domain-deployer-create-secrets-in-progress',
-          {domainName: domainUid, namespace: domainNamespace});
-        dialogHelper.updateBusyDialog(busyDialogMessage, 10 / totalSteps);
-        const secrets = this.project.k8sDomain.secrets.value;
-        if (secrets && secrets.length > 0) {
-          for (const secret of secrets) {
-            let secretName = '';
-            const secretData = {};
-            for (const [key, value] of Object.entries(secret)) {
-              if (key === 'name') {
-                secretName = value;
-              } else if (key !== 'uid') {
-                // skip artificial uid field...
-                secretData[key] = value;
+        // Create Secrets, if needed
+        if (this.project.settings.targetDomainLocation.value === 'mii') {
+          busyDialogMessage = i18n.t('k8s-domain-deployer-create-secrets-in-progress',
+            {domainName: domainUid, namespace: domainNamespace});
+          dialogHelper.updateBusyDialog(busyDialogMessage, 10 / totalSteps);
+          const secrets = this.project.k8sDomain.secrets.value;
+          if (secrets && secrets.length > 0) {
+            for (const secret of secrets) {
+              let secretName = '';
+              const secretData = {};
+              for (const [key, value] of Object.entries(secret)) {
+                if (key === 'name') {
+                  secretName = value;
+                } else if (key !== 'uid') {
+                  // skip artificial uid field...
+                  secretData[key] = value;
+                }
               }
-            }
-            wktLogger.debug('Creating secret %s', secretName);
+              wktLogger.debug('Creating secret %s', secretName);
 
-            const createSecretResults =
-              await window.api.ipc.invoke('k8s-create-generic-secret', kubectlExe, domainNamespace, secretName, secretData, kubectlOptions);
-            if (!createSecretResults.isSuccess) {
-              const errMessage = i18n.t('k8s-domain-deployer-create-secret-failed-error-message',
-                {secretName: secretName, namespace: domainNamespace, error: createSecretResults.reason});
-              dialogHelper.closeBusyDialog();
-              await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
-              return Promise.resolve(false);
+              const createSecretResults =
+                await window.api.ipc.invoke('k8s-create-generic-secret', kubectlExe, domainNamespace, secretName, secretData, kubectlOptions);
+              if (!createSecretResults.isSuccess) {
+                const errMessage = i18n.t('k8s-domain-deployer-create-secret-failed-error-message',
+                  {secretName: secretName, namespace: domainNamespace, error: createSecretResults.reason});
+                dialogHelper.closeBusyDialog();
+                await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
+                return Promise.resolve(false);
+              }
             }
           }
         }
 
         // Create ConfigMap, if needed
-        if (!this.project.k8sDomain.configMapIsEmpty()) {
-          const configMapData = this.k8sDomainConfigMapGenerator.generate().join('\n');
-          wktLogger.debug(configMapData);
-          busyDialogMessage = i18n.t('k8s-domain-deployer-create-config-map-in-progress',
-            {domainName: domainUid, domainNamespace: domainNamespace});
-          dialogHelper.updateBusyDialog(busyDialogMessage, 11 / totalSteps);
-          const mapResults = await (window.api.ipc.invoke('k8s-apply', kubectlExe, configMapData, kubectlOptions));
-          if (!mapResults.isSuccess) {
-            const configMapName = this.project.k8sDomain.modelConfigMapName.value;
-            const errMessage = i18n.t('k8s-domain-deployer-create-config-map-failed-error-message',
-              {configMapName: configMapName, domainNamespace: domainNamespace, error: mapResults.reason});
-            dialogHelper.closeBusyDialog();
-            await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
-            return Promise.resolve(false);
+        if (this.project.settings.targetDomainLocation.value === 'mii') {
+          if (!this.project.k8sDomain.configMapIsEmpty()) {
+            const configMapData = this.k8sDomainConfigMapGenerator.generate().join('\n');
+            wktLogger.debug(configMapData);
+            busyDialogMessage = i18n.t('k8s-domain-deployer-create-config-map-in-progress',
+              {domainName: domainUid, domainNamespace: domainNamespace});
+            dialogHelper.updateBusyDialog(busyDialogMessage, 11 / totalSteps);
+            const mapResults = await (window.api.ipc.invoke('k8s-apply', kubectlExe, configMapData, kubectlOptions));
+            if (!mapResults.isSuccess) {
+              const configMapName = this.project.k8sDomain.modelConfigMapName.value;
+              const errMessage = i18n.t('k8s-domain-deployer-create-config-map-failed-error-message',
+                {configMapName: configMapName, domainNamespace: domainNamespace, error: mapResults.reason});
+              dialogHelper.closeBusyDialog();
+              await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
+              return Promise.resolve(false);
+            }
           }
         }
 

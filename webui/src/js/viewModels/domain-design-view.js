@@ -35,6 +35,10 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider,
       return this.project.settings.targetDomainLocation.observable() === 'pv';
     });
 
+    this.isModelInImage = ko.computed(() => {
+      return this.project.settings.targetDomainLocation.observable() === 'mii';
+    });
+
     this.domainHomeHelpLabel = ko.computed(() => {
       const domainHomeHelpKey = this.isDomainInPV() ? 'domain-home-help' : 'domain-home-readonly-help';
       return this.labelMapper(domainHomeHelpKey);
@@ -143,7 +147,7 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider,
       {keyAttributes: 'uid', sortComparators: propertyComparators}));
 
     this.hasEncryptionSecret = () => {
-      return this.project.settings.targetDomainLocation.value === 'mii';
+      return this.isModelInImage();
     };
 
     this.secretsTableColumnMetadata = () => {
