@@ -36,7 +36,6 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
           }
         };
 
-        logger.debug('Domain home path: %s', this.project.k8sDomain.domainHome.value)
         if (this.project.k8sDomain.domainHome.value) {
           domainResource.spec.domainHome = this.project.k8sDomain.domainHome.value;
         }
