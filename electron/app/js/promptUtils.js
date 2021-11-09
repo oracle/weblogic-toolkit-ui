@@ -113,7 +113,7 @@ async function showAboutDialog(wktApp, parentWindow) {
   const preloadFile = path.join(__dirname, 'prompt', 'preload.js');
 
   const WIDTH = 400;
-  const HEIGHT = 234; // renderer will send IPC to adjust this
+  const HEIGHT = 186; // renderer will send IPC to adjust this
   const MIN_HEIGHT = 120;  // needs to be smaller than content height
 
   return new Promise((resolve, reject) => {

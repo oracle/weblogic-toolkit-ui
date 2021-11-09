@@ -32,17 +32,13 @@ function promptRegister() {
     return promptError(error);
   }
 
-  const okButton = document.querySelector('#ok');
-
-  okButton.addEventListener('keyup', event => {
+  document.addEventListener('keyup', event => {
     if (event.key === 'Escape') {
       promptCancel();
     }
   });
 
   document.querySelector('#form').addEventListener('submit', promptSubmit);
-
-  okButton.focus();
 
   window.api.i18n.ready.then(() => {
     const versionText = window.api.i18n.t('dialog-about-version', {
@@ -54,8 +50,6 @@ function promptRegister() {
     document.querySelector('#appName').textContent = promptOptions.applicationName;
     document.querySelector('#version').textContent = versionText;
     document.querySelector('#copyright').textContent = promptOptions.copyright;
-
-    okButton.textContent = window.api.i18n.t('dialog-button-ok');
 
     const height = document.querySelector('body').offsetHeight;
     window.api.ipc.sendSync('prompt-size:' + promptId, height);
