@@ -6,7 +6,7 @@
 'use strict';
 
 define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml', 'utils/i18n', 'utils/wkt-logger'],
-  function(project, K8sDomainConfigMapGenerator, jsYaml, i18n, logger) {
+  function(project, K8sDomainConfigMapGenerator, jsYaml, i18n) {
     class K8sDomainResourceGenerator {
       constructor() {
         this.project = project;
