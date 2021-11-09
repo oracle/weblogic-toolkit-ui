@@ -176,80 +176,84 @@
   </oj-table>
 </div>
 
-<div class="oj-panel">
-  <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('configmap-title')]]"></oj-bind-text></h6>
-  <oj-bind-if test="[[modelHasNoProperties() === false]]">
-    <oj-form-layout max-columns="1">
-      <oj-input-text label-hint="[[labelMapper('configmap-label')]]"
-                    value="{{project.k8sDomain.modelConfigMapName.observable}}"
-                    help.instruction="[[labelMapper('configmap-help')]]">
-     </oj-input-text>
-    </oj-form-layout>
-  </oj-bind-if>
+<oj-bind-if test="[[isModelInImage() === true]]">
+  <div class="oj-panel">
+    <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('configmap-title')]]"></oj-bind-text></h6>
+    <oj-bind-if test="[[modelHasNoProperties() === false]]">
+      <oj-form-layout max-columns="1">
+        <oj-input-text label-hint="[[labelMapper('configmap-label')]]"
+                      value="{{project.k8sDomain.modelConfigMapName.observable}}"
+                      help.instruction="[[labelMapper('configmap-help')]]">
+       </oj-input-text>
+      </oj-form-layout>
+    </oj-bind-if>
 
-  <oj-table id="properties-table"
-            class="wkt-domain-properties-table"
-            aria-label="ConfigMap Properties Table"
-            data="{{configMapDP}}"
-            display="grid"
-            horizontal-grid-visible="enabled"
-            vertical-grid-visible="enabled"
-            edit-mode="rowEdit"
-            layout="fixed"
-            columns='[[propertyTableColumnMetadata()]]'>
-    <template slot="rowTemplate" data-oj-as="row">
-        <tr data-bind="attr: {'data-uid': row.data.uid}">
-          <oj-bind-if test='[[row.mode=="navigation"]]'>
-            <td><oj-bind-text value="[[row.data.Name]]"></oj-bind-text></td>
-            <td><oj-bind-text value="[[row.data.Value]]"></oj-bind-text></td>
-            <td><oj-bind-text value="[[row.data.Override]]"></oj-bind-text></td>
-          </oj-bind-if>
-          <oj-bind-if test='[[row.mode=="edit"]]'>
-            <td><oj-input-text value="[[row.data.Name]]" disabled="true"></oj-input-text></td>
-            <td><oj-input-text value="[[row.data.Value]]" disabled="true"></oj-input-text></td>
-            <td><oj-input-text value="{{row.data.Override}}"></oj-input-text></td>
-          </oj-bind-if>
-        </tr>
-    </template>
-  </oj-table>
-</div>
+    <oj-table id="properties-table"
+              class="wkt-domain-properties-table"
+              aria-label="ConfigMap Properties Table"
+              data="{{configMapDP}}"
+              display="grid"
+              horizontal-grid-visible="enabled"
+              vertical-grid-visible="enabled"
+              edit-mode="rowEdit"
+              layout="fixed"
+              columns='[[propertyTableColumnMetadata()]]'>
+      <template slot="rowTemplate" data-oj-as="row">
+          <tr data-bind="attr: {'data-uid': row.data.uid}">
+            <oj-bind-if test='[[row.mode=="navigation"]]'>
+              <td><oj-bind-text value="[[row.data.Name]]"></oj-bind-text></td>
+              <td><oj-bind-text value="[[row.data.Value]]"></oj-bind-text></td>
+              <td><oj-bind-text value="[[row.data.Override]]"></oj-bind-text></td>
+            </oj-bind-if>
+            <oj-bind-if test='[[row.mode=="edit"]]'>
+              <td><oj-input-text value="[[row.data.Name]]" disabled="true"></oj-input-text></td>
+              <td><oj-input-text value="[[row.data.Value]]" disabled="true"></oj-input-text></td>
+              <td><oj-input-text value="{{row.data.Override}}"></oj-input-text></td>
+            </oj-bind-if>
+          </tr>
+      </template>
+    </oj-table>
+  </div>
+</oj-bind-if>
 
-<div class="oj-panel">
-  <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('secrets-title')]]"></oj-bind-text></h6>
-  <oj-table id="secrets-table"
-            class="wkt-domain-secrets-table"
-            aria-label="Secrets Table"
-            data="[[secretsDP]]"
-            display="grid"
-            horizontal-grid-visible="enabled"
-            vertical-grid-visible="enabled"
-            edit-mode="rowEdit"
-            layout="fixed"
-            columns='[[secretsTableColumnMetadata()]]'>
-    <template slot="rowTemplate" data-oj-as="row">
-        <tr>
-          <oj-bind-if test='[[row.mode=="navigation"]]'>
-            <td><oj-bind-text value="[[row.data.name]]"></oj-bind-text></td>
-          </oj-bind-if>
-          <oj-bind-if test='[[row.mode=="edit"]]'>
-            <td><oj-input-text value="{{row.data.name}}" disabled="true"></oj-input-text></td>
-          </oj-bind-if>
-          <td>
-            <oj-input-password value="{{row.data.username}}"
-                               mask-icon="visible"
-                               readonly='[[row.mode=="navigation"]]' >
-            </oj-input-password>
-          </td>
-          <td>
-            <oj-input-password value="{{row.data.password}}"
-                               mask-icon="visible"
-                               readonly='[[row.mode=="navigation"]]' >
-            </oj-input-password>
-          </td>
-        </tr>
-    </template>
-  </oj-table>
-</div>
+<oj-bind-if test="[[isModelInImage() === true]]">
+  <div class="oj-panel">
+    <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('secrets-title')]]"></oj-bind-text></h6>
+    <oj-table id="secrets-table"
+              class="wkt-domain-secrets-table"
+              aria-label="Secrets Table"
+              data="[[secretsDP]]"
+              display="grid"
+              horizontal-grid-visible="enabled"
+              vertical-grid-visible="enabled"
+              edit-mode="rowEdit"
+              layout="fixed"
+              columns='[[secretsTableColumnMetadata()]]'>
+      <template slot="rowTemplate" data-oj-as="row">
+          <tr>
+            <oj-bind-if test='[[row.mode=="navigation"]]'>
+              <td><oj-bind-text value="[[row.data.name]]"></oj-bind-text></td>
+            </oj-bind-if>
+            <oj-bind-if test='[[row.mode=="edit"]]'>
+              <td><oj-input-text value="{{row.data.name}}" disabled="true"></oj-input-text></td>
+            </oj-bind-if>
+            <td>
+              <oj-input-password value="{{row.data.username}}"
+                                 mask-icon="visible"
+                                 readonly='[[row.mode=="navigation"]]' >
+              </oj-input-password>
+            </td>
+            <td>
+              <oj-input-password value="{{row.data.password}}"
+                                 mask-icon="visible"
+                                 readonly='[[row.mode=="navigation"]]' >
+              </oj-input-password>
+            </td>
+          </tr>
+      </template>
+    </oj-table>
+  </div>
+</oj-bind-if>
 
 <oj-collapsible expanded='false'>
   <h6 slot="header" class="wkt-subheading"><oj-bind-text value="[[labelMapper('page-design-advanced-label')]]"></oj-bind-text></h6>

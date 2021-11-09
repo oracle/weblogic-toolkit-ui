@@ -5,8 +5,8 @@
  */
 'use strict';
 
-define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml', 'utils/i18n'],
-  function(project, K8sDomainConfigMapGenerator, jsYaml, i18n) {
+define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml', 'utils/i18n', 'utils/wkt-logger'],
+  function(project, K8sDomainConfigMapGenerator, jsYaml, i18n, logger) {
     class K8sDomainResourceGenerator {
       constructor() {
         this.project = project;
@@ -36,7 +36,8 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
           }
         };
 
-        if (this.project.k8sDomain.domainHome.hasValue()) {
+        logger.debug('Domain home path: %s', this.project.k8sDomain.domainHome.value)
+        if (this.project.k8sDomain.domainHome.value) {
           domainResource.spec.domainHome = this.project.k8sDomain.domainHome.value;
         }
 
