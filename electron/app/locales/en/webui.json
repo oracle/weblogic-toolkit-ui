@@ -675,6 +675,7 @@
   "discover-dialog-online-discovery-failed-error-prefix": "Unable to discover domain {{adminUrl}} in online mode",
 
   "wdt-preparer-aborted-error-title": "Prepare Model Aborted",
+  "wdt-preparer-domain-in-pv-message": "Prepare Model has no meaning when the target domain location is an externally created Kubernetes persistent volume.",
   "wdt-preparer-invalid-java-home-error-prefix": "Unable to prepare model due to the Java Home being invalid",
   "wdt-preparer-invalid-oracle-home-error-prefix": "Unable to prepare model due to the Oracle Home being invalid",
   "wdt-preparer-project-not-saved-error-prefix": "Unable to prepare model because project save failed",
