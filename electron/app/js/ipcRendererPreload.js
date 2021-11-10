@@ -33,6 +33,7 @@ contextBridge.exposeInMainWorld(
           'window-is-ready',
           'set-has-open-dialog',
           'set-divider-location',
+          'set-navigation-collapsed',
           'set-target-type',
           'skip-quickstart-at-startup',
           'log-remote-message'
@@ -87,6 +88,7 @@ contextBridge.exposeInMainWorld(
           'get-https-proxy-url',
           'get-bypass-proxy-hosts',
           'get-divider-locations',
+          'get-navigation-collapsed',
           'get-additional-image-build-commands-file',
           'get-additional-image-build-files',
           'get-java-home',

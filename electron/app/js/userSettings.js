@@ -169,29 +169,28 @@ function setSkipQuickstartAtStartup(value) {
 }
 
 function setDividerLocation(name, percent) {
-  const settings = _getUserSettings();
-
-  let window = settings['window'];
-  if (!window) {
-    window = settings['window'] = {};
-  }
-
+  const window = getOrCreateWindowSettings();
   let dividers = window['dividers'];
   if (!dividers) {
-    dividers = {};
+    dividers = window['dividers'] = {};
   }
   dividers[name] = parseFloat(percent.toFixed(2));
 }
 
 function getDividerLocations() {
-  const settings = _getUserSettings();
-
-  let dividers;
-  let window = settings['window'];
-  if (window) {
-    dividers = window['dividers'];
-  }
+  const window = getWindowSettings();
+  let dividers = window['dividers'];
   return dividers ? dividers : {};
+}
+
+function setNavigationCollapsed(collapsed) {
+  const window = getOrCreateWindowSettings();
+  window['navCollapsed'] = collapsed;
+}
+
+function getNavigationCollapsed() {
+  const window = getWindowSettings();
+  return Boolean(window['navCollapsed']);
 }
 
 function getWindowSize() {
@@ -215,6 +214,21 @@ function setWindowSize(windowSize) {
     };
   }
   _userSettingsObject = settings;
+}
+
+function getWindowSettings() {
+  const settings = _getUserSettings();
+  const window = settings['window'];
+  return window ? window : {};
+}
+
+function getOrCreateWindowSettings() {
+  const settings = _getUserSettings();
+  let window = settings['window'];
+  if (!window) {
+    window = settings['window'] = {};
+  }
+  return window;
 }
 
 function getUserSettingsDirectory() {
@@ -353,8 +367,10 @@ module.exports = {
   applyUserSettingsFromRemote,
   getDividerLocations,
   getHttpsProxyUrl,
+  getNavigationCollapsed,
   setDividerLocation,
   setHttpsProxyUrl,
+  setNavigationCollapsed,
   getSkipQuickstartAtStartup,
   setSkipQuickstartAtStartup,
   getBypassProxyHosts,

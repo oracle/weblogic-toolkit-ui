@@ -202,7 +202,15 @@ function(accUtils, ko, i18n, project, wktConsole, dialogHelper, viewHelper, Arra
 
     this.collapseNav = () => {
       this.navCollapsed(!this.navCollapsed());
+
+      // update user setting only when nav collapsed is explicitly set.
+      window.api.ipc.send('set-navigation-collapsed', this.navCollapsed());
     };
+
+    // load this once, when app is initialized
+    window.api.ipc.invoke('get-navigation-collapsed').then(collapsed => {
+      this.navCollapsed(collapsed);
+    });
 
     // console section
 

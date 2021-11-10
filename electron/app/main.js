@@ -263,6 +263,10 @@ class Main {
       return userSettings.setDividerLocation(name, percent);
     });
 
+    ipcMain.on('set-navigation-collapsed', (event, collapsed) => {
+      return userSettings.setNavigationCollapsed(collapsed);
+    });
+
     ipcMain.on('set-target-type', (event, targetType) => {
       const window = event.sender.getOwnerBrowserWindow();
       return setTargetType(window, targetType);
@@ -287,6 +291,10 @@ class Main {
 
     ipcMain.handle('get-divider-locations', () => {
       return userSettings.getDividerLocations();
+    });
+
+    ipcMain.handle('get-navigation-collapsed', () => {
+      return userSettings.getNavigationCollapsed();
     });
 
     ipcMain.handle('open-external-link', async (event, link) => {
