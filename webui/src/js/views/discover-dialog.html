@@ -30,11 +30,12 @@
                            help.instruction="[[labelMapper('admin-url-help')]]"
                            required="true">
             </oj-input-text>
-            <oj-input-text label-hint="[[labelMapper('admin-user-label')]]"
+            <oj-input-password label-hint="[[labelMapper('admin-user-label')]]"
                            value="{{adminUser}}"
+                           mask-icon="visible"
                            help.instruction="[[labelMapper('admin-user-help')]]"
                            required="true">
-            </oj-input-text>
+            </oj-input-password>
             <oj-input-password label-hint="[[labelMapper('admin-password-label')]]"
                            value="{{adminPassword}}"
                            mask-icon="visible"
