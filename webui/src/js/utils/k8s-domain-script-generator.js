@@ -64,17 +64,18 @@ define(['models/wkt-project', 'utils/script-generator-base', 'utils/k8s-domain-c
         this.adapter.addVariableDefinition('PULL_SECRET_PASS', this.credentialMask);
         this.adapter.addEmptyLine();
 
-        this.adapter.addVariableDefinition('TARGET_DOMAIN_LOCATION', this.project.settings.targetDomainLocation.value);
-        this.adapter.addVariableDefinition('RUNTIME_SECRET_NAME', this.project.k8sDomain.runtimeSecretName.value);
-        this.adapter.addVariableDefinition('RUNTIME_SECRET_PASS', this.project.k8sDomain.runtimeSecretValue.value);
-        this.adapter.addEmptyLine();
+        if (this.isModelInImage()) {
+          this.adapter.addVariableDefinition('RUNTIME_SECRET_NAME', this.project.k8sDomain.runtimeSecretName.value);
+          this.adapter.addVariableDefinition('RUNTIME_SECRET_PASS', this.project.k8sDomain.runtimeSecretValue.value);
+          this.adapter.addEmptyLine();
+        }
 
         this.adapter.addVariableDefinition('DOMAIN_SECRET_NAME', this.project.k8sDomain.credentialsSecretName.value);
         this.adapter.addVariableDefinition('DOMAIN_SECRET_USER', this.credentialMask);
         this.adapter.addVariableDefinition('DOMAIN_SECRET_PASS', this.credentialMask);
         this.adapter.addEmptyLine();
 
-        if (this.project.k8sDomain.secrets.value && this.project.k8sDomain.secrets.value.length > 0) {
+        if (this.isModelInImage() && this.project.k8sDomain.secrets.value && this.project.k8sDomain.secrets.value.length > 0) {
           for (const secretEntry of this.project.k8sDomain.secrets.value) {
             const name = secretEntry.name;
             const user = this.credentialMask;
@@ -86,7 +87,7 @@ define(['models/wkt-project', 'utils/script-generator-base', 'utils/k8s-domain-c
           }
         }
 
-        if (this.configMapGenerator.shouldCreateConfigMap()) {
+        if (this.isModelInImage() && this.configMapGenerator.shouldCreateConfigMap()) {
           this.adapter.addVariableDefinition('DOMAIN_CONFIG_MAP_YAML', this.fillInFileNameMask);
         }
         this.adapter.addVariableDefinition('DOMAIN_RESOURCE_YAML', this.fillInFileNameMask);
@@ -144,17 +145,19 @@ define(['models/wkt-project', 'utils/script-generator-base', 'utils/k8s-domain-c
         this.adapter.addCreatePullSecretBlock(comment, kubectlExe, pullSecretName, k8sDomainNamespace, pullSecretData,
           createErrorMessage, deleteErrorMessage, replaceMessage, pullRequiresAuthentication, useExistingPullSecret);
 
-        comment = [ 'Create runtime encryption secret, if needed.' ];
-        const targetDomainLocation = this.adapter.getVariableReference('TARGET_DOMAIN_LOCATION');
-        const runtimeSecretName = this.adapter.getVariableReference('RUNTIME_SECRET_NAME');
-        const runtimeSecretData = {
-          password: this.adapter.getVariableReference('RUNTIME_SECRET_PASS')
-        };
-        createErrorMessage = `Failed to create runtime encryption secret ${runtimeSecretName} in namespace ${k8sDomainNamespace}`;
-        replaceMessage = `Replacing existing runtime encryption secret ${runtimeSecretName} in namespace ${k8sDomainNamespace}`;
-        deleteErrorMessage = `Failed to delete runtime encryption secret ${runtimeSecretName} in namespace ${k8sDomainNamespace}`;
-        this.adapter.addCreateRuntimeSecretBlock(comment, kubectlExe, targetDomainLocation, runtimeSecretName,
-          k8sDomainNamespace, runtimeSecretData, createErrorMessage, deleteErrorMessage, replaceMessage);
+        if (this.isModelInImage()) {
+          comment = ['Create runtime encryption secret, if needed.'];
+          const targetDomainLocation = this.adapter.getVariableReference('TARGET_DOMAIN_LOCATION');
+          const runtimeSecretName = this.adapter.getVariableReference('RUNTIME_SECRET_NAME');
+          const runtimeSecretData = {
+            password: this.adapter.getVariableReference('RUNTIME_SECRET_PASS')
+          };
+          createErrorMessage = `Failed to create runtime encryption secret ${runtimeSecretName} in namespace ${k8sDomainNamespace}`;
+          replaceMessage = `Replacing existing runtime encryption secret ${runtimeSecretName} in namespace ${k8sDomainNamespace}`;
+          deleteErrorMessage = `Failed to delete runtime encryption secret ${runtimeSecretName} in namespace ${k8sDomainNamespace}`;
+          this.adapter.addCreateRuntimeSecretBlock(comment, kubectlExe, targetDomainLocation, runtimeSecretName,
+            k8sDomainNamespace, runtimeSecretData, createErrorMessage, deleteErrorMessage, replaceMessage);
+        }
 
         comment = [ 'Create WebLogic domain credentials secret.' ];
         const domainSecretName = this.adapter.getVariableReference('DOMAIN_SECRET_NAME');
@@ -168,7 +171,7 @@ define(['models/wkt-project', 'utils/script-generator-base', 'utils/k8s-domain-c
         this.adapter.addCreateGenericSecretBlock(comment, kubectlExe, domainSecretName, k8sDomainNamespace,
           domainSecretData, createErrorMessage, deleteErrorMessage, replaceMessage);
 
-        if (this.project.k8sDomain.secrets.value && this.project.k8sDomain.secrets.value.length > 0) {
+        if (this.isModelInImage() && this.project.k8sDomain.secrets.value && this.project.k8sDomain.secrets.value.length > 0) {
           for (const secretEntry of this.project.k8sDomain.secrets.value) {
             const name = this.adapter.getVariableReference(getSecretVariableName(secretEntry.name, 'NAME'));
             const data = {
@@ -184,7 +187,7 @@ define(['models/wkt-project', 'utils/script-generator-base', 'utils/k8s-domain-c
           }
         }
 
-        if (this.configMapGenerator.shouldCreateConfigMap()) {
+        if (this.isModelInImage() && this.configMapGenerator.shouldCreateConfigMap()) {
           const configMapName = this.project.k8sDomain.modelConfigMapName.value;
           const yamlFile = this.adapter.getVariableReference('DOMAIN_CONFIG_MAP_YAML');
           const errorMessage = `Failed to create domain ConfigMap ${configMapName}`;

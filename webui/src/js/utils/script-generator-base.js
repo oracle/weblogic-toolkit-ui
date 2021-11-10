@@ -30,6 +30,14 @@ define(['models/wkt-project', 'utils/sh-script-adapter', 'utils/powershell-scrip
         return this.adapter.getEnvironmentVariableReference(tempDirVariableName);
       }
 
+      isModelInImage() {
+        return this.project.settings.targetDomainLocation.value === 'mii';
+      }
+
+      isDomainInPV() {
+        return this.project.settings.targetDomainLocation.value === 'pv';
+      }
+
       _getAdapter(scriptType) {
         switch (scriptType) {
           case 'sh':
