@@ -182,8 +182,11 @@ function(i18n, accUtils, ko, ArrayDataProvider, BufferingDataProvider, project, 
       // if controller is Voyager and provider is baremetal only nodeport is supported, set the default in the UI
       if (project.ingress.ingressControllerProvider.value === 'voyager' &&
         this.project.ingress.voyagerProviderMappedValue(this.project.ingress.voyagerProvider.value) === 'baremetal') {
-
         newRoute.annotations = {'ingress.appscode.com/type': 'NodePort'};
+      }
+      // nginx 1.0.0 and above requires setting ingressClassName either at ingress object spec level or annotation.
+      if (project.ingress.ingressControllerProvider.value === 'nginx') {
+        newRoute.annotations = {'kubernetes.io/ingress.class': 'nginx'};
       }
 
       project.ingress.ingressRoutes.addNewItem(newRoute);
