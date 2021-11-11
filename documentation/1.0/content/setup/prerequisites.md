@@ -25,7 +25,7 @@ These include:
   provider's managed Kubernetes services, then you will need to download and install the cloud provider's CLI.  This is
   typically required to configure `kubectl` to properly authenticate to the Kubernetes cluster. Again, see the Kubernetes
   `Client Configuration` page for more information about configuring `kubectl` to work with your cluster.
-- `helm` - Required to install the WebLogic Kubernetes Operator and to install an ingress controller.
+- `helm` - Helm version 3.3.2 or later. Required to install the WebLogic Kubernetes Operator and to install an ingress controller.
 - `openssl` - Used to generate an X.509 TLS certificate for ingress routes, should you ask the application
   to generate one for you.
 
