@@ -567,7 +567,7 @@
   "ingress-design-ingress-route-annotation-delete-row": "Delete Annotation",
 
   "ingress-design-ingress-route-name-field-validation-error": "Route {{routeName}}",
-  "ingress-design-ingress-route-field-validation-error": "Route {{routeName}}, Field \"{{fieldName}}\"",
+  "ingress-design-ingress-route-field-validation-error": "Route: {{routeName}}, Field: {{fieldName}}",
   "ingress-design-ingress-route-field-tls-config-error": "The route {{routeName}} has the {{fieldName}} field enabled but the {{specifyTlsSecretFieldName}} field is disabled.",
 
   "ingress-design-ingress-tls-secret-title": "TLS Secret for Ingress Routes",
