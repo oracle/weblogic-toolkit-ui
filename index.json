@@ -91,18 +91,18 @@
 	"content": "The WebLogic Kubernetes Toolkit UI is a desktop application designed to help WebLogic users move their applications to run in a Kubernetes environment.\nSetting up your development environment   Download and install the latest LTS version of node.js from https://nodejs.org/en/download/.\n  If you rely on a proxy server to reach the Internet, set these 5 environment variables to configure the proxy correctly:\nELECTRON_GET_USE_PROXY=true GLOBAL_AGENT_HTTPS_PROXY=\u0026lt;proxy-url\u0026gt; WKTUI_DEV_PROXY=\u0026lt;proxy-url\u0026gt; HTTPS_PROXY=\u0026lt;proxy-url\u0026gt; NO_PROXY=\u0026lt;list-of-no-proxy-hosts\u0026gt;   Open a command line window are run the following command to update the version of npm to the latest:\nsudo npm install --global npm Note: If developing on Windows, run the following commands from a shell running as Administrator instead:\nnpm install --global --production npm-windows-upgrade npm-windows-upgrade --npm-version latest   Set up your global git configuration by running the following commands:\ngit config --global user.name \u0026#34;\u0026lt;your real name\u0026gt;\u0026#34; git config --global user.email \u0026#34;\u0026lt;your-oracle-email-address\u0026gt;\u0026#34; git config --global core.ignoreCase false This last command is critical if you are developing on either Windows or MacOS. Yes, the MacOS file system is, by default, case-insensitive!\n  Clone the git repository on GitHub at https://github.com/oracle/weblogic-toolkit-ui.\n  Open a command-line in the wktui directory and run npm install to download and install the JavaScript dependencies required by the project.\n  Open a command-line in the wktui/electron directory and run npm run install-tools.\n  Open a command-line in the wktui/webui directory and run npm start.\n  Once the server from the previous step is fully running, open a command-line in the wktui/electron directory and run npm start.\n  Building a Windows or MacOS installer Set up your development environment and verify that the application is working properly from it. Open a command-line in the wktui/electron directory and run npm run build. Find the executable and installer(s) in the wktui/dist directory.  Building a Linux installer Set up your development environment and verify that the application is working properly from it. Open a command-line in the wktui/webui directory and run npm run build:release. From the command-line in the wktui/scripts directory, run ./devBuildLinuxInstallers.sh. Find the executable and installer(s) in the wktui/dist directory.  "
 },
 {
-	"uri": "https://oracle.github.io/weblogic-toolkit-ui/release-notes/release-notes/",
-	"title": "Known Issues",
-	"tags": [],
-	"description": "",
-	"content": " On Windows, the Application Update dialog Install on Exit works only if you installed the application for the current user only. If the application was installed for all users, Install on Exit will cause the older version of the application to be uninstalled but the new version will not be installed. This is due to issue https://github.com/electron-userland/electron-builder/issues/6329.  "
-},
-{
 	"uri": "https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/",
 	"title": "Kubernetes",
 	"tags": [],
 	"description": "",
 	"content": "The Kubernetes section and its four subsections support deploying a WebLogic-based application to a Kubernetes cluster where the WebLogic domain will be managed by the WebLogic Kubernetes Operator. It includes sections to help you:\n Configure your Kubernetes client (kubectl) to connect to the Kubernetes cluster. Install the WebLogic Kubernetes Operator. Deploy the WebLogic domain\u0026rsquo;s Domain resource configuration used by WebLogic Kubernetes Operator. Install an ingress controller, if needed, and add ingress routes to allow access to the WebLogic domain from outside the Kubernetes cluster.   Client Configuration  Client Configuration helps you get the necessary connectivity to your Kubernetes cluster.\n WebLogic Kubernetes Operator  Install the WebLogic Kubernetes Operator in the target Kubernetes cluster.\n WebLogic Domain  Create and deploy the Kubernetes custom resource for the WebLogic domain.\n Ingress Controller  Install and configure an ingress controller.\n "
+},
+{
+	"uri": "https://oracle.github.io/weblogic-toolkit-ui/release-notes/",
+	"title": "Release Notes",
+	"tags": [],
+	"description": "",
+	"content": "Known Issues   On Windows, the Application Update dialog Install on Exit works only if you installed the application for the current user only. If the application was installed for all users, Install on Exit will cause the older version of the application to be uninstalled but the new version will not be installed. This is due to issue https://github.com/electron-userland/electron-builder/issues/6329.\n  When running the WKT UI application on Windows, the image builder tool (docker or podman) also must be directly executable in Windows. For example, there is currently no support for running the WKT UI application in Windows and running podman under the Windows Subsystem for Linux (WSL2). However, running Docker Desktop for Windows with a WSL2 backend is fully supported because the docker command is executable directly in Windows (without having to call WSL2). If you need to use podman on Windows, then refer to the podman blog entries at https://podman.io/blogs/2021/09/06/podman-on-macs.html and https://podman.io/blogs/2020/09/02/running_windows_or_mac.html for more information about downloading, installing, and configuring the Windows Remote Client.\n  "
 },
 {
 	"uri": "https://oracle.github.io/weblogic-toolkit-ui/navigate/verrazzano/",
@@ -117,13 +117,6 @@
 	"tags": [],
 	"description": "",
 	"content": "WebLogic Kubernetes Toolkit UI Documentation The WebLogic Kubernetes Toolkit (WKT) is a collection of open source tools that help you provision WebLogic-based applications to run in Linux containers on a Kubernetes cluster. WKT includes the following tools:\n WebLogic Deploy Tooling (WDT) - A set of single-purpose, lifecycle tools that operate off of a single metadata model representation of a WebLogic domain. WebLogic Image Tool (WIT) - A tool for creating Linux container images for running WebLogic domains. WebLogic Kubernetes Operator (WKO) - A Kubernetes operator that allows WebLogic domains to run natively in a Kubernetes cluster.  The WKT UI provides a graphical user interface that wraps the WKT tools, Docker, Helm, and the Kubernetes client (kubectl) and helps guide you through the process of creating and modifying a model of your WebLogic domain, creating a Linux container image to use to run the domain, and setting up and deploying the software and configuration necessary to deploy and access the domain in your Kubernetes cluster.\nCurrent release WebLogic Kubernetes Toolkit UI version and release information can be found here.\nAbout the Documentation For detailed user information, read the following:\n About the WKT UI Application WebLogic Kubernetes Toolkit UI Prerequisites and Installation Navigate the WKT UI  Model Image Kubernetes Verrazzano    For developer information, see WebLogic Kubernetes Toolkit UI Project\nGet Help We have a closely monitored public Slack channel where you can get in touch with us to ask questions about using the WebLogic Toolkit UI or give us feedback or suggestions about what features and improvements you would like to see. We would love to hear from you.\nRelated Projects For detailed documentation and access to WebLogic Toolkit-related projects, see:\n WebLogic Kubernetes Operator WebLogic Deploy Tooling WebLogic Image Tool  "
-},
-{
-	"uri": "https://oracle.github.io/weblogic-toolkit-ui/release-notes/",
-	"title": "Release notes",
-	"tags": [],
-	"description": "",
-	"content": ""
 },
 {
 	"uri": "https://oracle.github.io/weblogic-toolkit-ui/categories/",
