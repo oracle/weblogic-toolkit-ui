@@ -101,11 +101,11 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
         // Best effort sanity check to see if ingress controller has been installed
         // If user install their own ingress controller then we are not going to scan all namespaces for
         // controller to verify it.
-
+        //
         if (this.project.ingress.installIngressController.value === true) {
           busyDialogMessage = i18n.t('ingress-installer-check-ingress-controller-service',
             {});
-          dialogHelper.updateBusyDialog(busyDialogMessage, 4 / totalSteps);
+          dialogHelper.updateBusyDialog(busyDialogMessage, 4/totalSteps);
           let serviceName = '';
           if (this.project.ingress.ingressControllerProvider.value === 'nginx') {
             serviceName = this.project.ingress.ingressControllerName.value + '-ingress-nginx-controller';
@@ -116,21 +116,21 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
           const result = await this.checkIngressControllerService(kubectlExe, serviceName,
             this.project.ingress.ingressControllerNamespace.value, kubectlOptions);
           if (!result.isSuccess) {
-            const errMessage = i18n.t('ingress-installer-check-ingress-controller-service-not-installed',
-              {error: result.reason,
-                serviceName: serviceName,
-                ingressControllerName: this.project.ingress.ingressControllerName.value,
-                namespace: this.project.ingress.ingressControllerNamespace.value});
+            const errMessage = i18n.t('ingress-installer-check-ingress-controller-service-not-installed', {
+              error: result.reason,
+              serviceName: serviceName,
+              ingressControllerName: this.project.ingress.ingressControllerName.value,
+              namespace: this.project.ingress.ingressControllerNamespace.value
+            });
             dialogHelper.closeBusyDialog();
             await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
             return Promise.resolve(false);
           }
         }
 
-
         if (this.project.ingress.createTLSSecret.value === true) {
           busyDialogMessage = i18n.t('ingress-installer-create-tls-secret-in-progress', {});
-          dialogHelper.updateBusyDialog(busyDialogMessage, 4 / totalSteps);
+          dialogHelper.updateBusyDialog(busyDialogMessage, 5/totalSteps);
 
           let tlsKeyFile = 'tls1.key';
           let tlsCertFile = 'tls1.crt';
@@ -150,15 +150,12 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
 
               if (!certGenResults.isSuccess) {
                 const errMessage = i18n.t('ingress-installer-generate-tls-files-error-message',
-                  {
-                    error: certGenResults.reason
-                  });
+                  { error: certGenResults.reason });
                 dialogHelper.closeBusyDialog();
                 await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
                 return Promise.resolve(false);
               }
             }
-
           } else {
             tlsKeyFile = this.project.ingress.ingressTLSKeyFile.value;
             tlsCertFile = this.project.ingress.ingressTLSCertFile.value;
@@ -268,7 +265,7 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
 
             busyDialogMessage = i18n.t('ingress-installer-create-ingress-route-in-progress',
               {ingressRoute: item['name']});
-            dialogHelper.updateBusyDialog(busyDialogMessage, 5 / totalSteps);
+            dialogHelper.updateBusyDialog(busyDialogMessage, 6/totalSteps);
 
             const ingressRouteResult = await (window.api.ipc.invoke('k8s-apply', kubectlExe, ingressRouteData,
               kubectlOptions));
@@ -291,7 +288,6 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
                   item['accessPoint'] = 'Route has been created but cannot determine access point at the moment';
                 }
               }
-
             } else {
               errTitle = i18n.t('ingress-installer-create-ingress-route-error-title');
               const errMessage = i18n.t('ingress-installer-create-ingress-route-error-message',
@@ -299,21 +295,14 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
               await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
               return Promise.resolve(false);
             }
-
           }
           const title = i18n.t('ingress-installer-routes-update-complete-title');
           const message = i18n.t('ingress-installer-routes-update-complete-message');
           await window.api.ipc.invoke('show-info-message', title, message);
-
-          dialogHelper.closeBusyDialog();
-
-        } else {
-          dialogHelper.closeBusyDialog();
         }
-
       } catch(err) {
         dialogHelper.closeBusyDialog();
-        throw err;
+        return Promise.reject(err);
       } finally {
         dialogHelper.closeBusyDialog();
       }
@@ -336,68 +325,122 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
       validationObject.addField('ingress-design-ingress-provider-label',
         validationHelper.validateRequiredField(this.project.ingress.ingressControllerProvider.value));
 
-      const  ingressRoutesArrayLength = this.project.ingress.ingressRoutes.value.length;
-      let hasTLSRoutes = false;
-      for (let i = 0; i < ingressRoutesArrayLength ; i++) {
-        const item = this.project.ingress.ingressRoutes.value[i];
-        if (item['tlsEnabled'] === true) {
-          hasTLSRoutes = true;
-        }
-        this.checkIngressData(item, validationObject, settingsFormConfig);
-      }
-
       if (this.project.ingress.specifyIngressTLSSecret.value === true) {
         validationObject.addField('ingress-design-tls-secret-name-label',
-          validationHelper.validateRequiredField(this.project.ingress.ingressTLSSecretName.value));
+          this.project.ingress.ingressTLSSecretName.validate(true));
+
+        if (this.project.ingress.createTLSSecret.value === true) {
+          if (this.project.ingress.generateTLSFiles.value === true) {
+            validationObject.addField('ingress-design-openssl-exe-file-path-label',
+              validationHelper.validateRequiredField(this.project.ingress.opensslExecutableFilePath.value));
+            validationObject.addField('ingress-design-generate-tls-subject-label',
+              validationHelper.validateRequiredField(this.project.ingress.ingressTLSSubject.value));
+          } else {
+            validationObject.addField('ingress-design-ingress-tlskeyfile-label',
+              validationHelper.validateRequiredField(this.project.ingress.ingressTLSKeyFile.value));
+            validationObject.addField('ingress-design-ingress-tlscertfile-label',
+              validationHelper.validateRequiredField(this.project.ingress.ingressTLSCertFile.value));
+          }
+        }
       }
 
-      if (this.project.ingress.createTLSSecret.value === true && this.project.ingress.generateTLSFiles.value === false) {
-        validationObject.addField('ingress-design-ingress-tlskeyfile-label',
-          validationHelper.validateRequiredField(this.project.ingress.ingressTLSKeyFile.value));
-        validationObject.addField('ingress-design-ingress-tlscertfile-label',
-          validationHelper.validateRequiredField(this.project.ingress.ingressTLSCertFile.value));
-      }
-
-      if (hasTLSRoutes) {
-        validationObject.addField('ingress-design-tls-secret-name-label',
-          validationHelper.validateRequiredField(this.project.ingress.ingressTLSSecretName.value));
+      const ingressRoutesArrayLength = this.project.ingress.ingressRoutes.value.length;
+      for (let i = 0; i < ingressRoutesArrayLength ; i++) {
+        const item = this.project.ingress.ingressRoutes.value[i];
+        this.checkIngressData(item, validationObject, this.project.ingress.specifyIngressTLSSecret.value);
       }
       return validationObject;
     };
 
-    this.checkTLSFileExists =  async (file)=> {
-      if (typeof file !== 'undefined' && file !== '') {
-        const result = await window.api.ipc.invoke('verify-file-exists', file);
-
-        if (result.isValid) {
-          return Promise.resolve(true);
+    this.checkTLSFileExists =  async (file) => {
+      return new Promise(resolve => {
+        if (file) {
+          window.api.ipc.invoke('verify-file-exists', file).then(result => {
+            if (result.isValid) {
+              resolve(true);
+            } else {
+              resolve(false);
+            }
+          });
         } else {
-          return Promise.resolve(false);
+          resolve(false);
         }
-      }
-      return Promise.resolve(false);
+      });
     };
 
-    this.checkIngressData =  (data, validationObject)=> {
-      const items = ['name', 'targetServiceNameSpace', 'targetService', 'targetPort', 'path'];
-      items.forEach(attribute => {
-        let errFieldMessage = 'route name: ';
-        if (attribute === 'targetServiceNameSpace') {
-          errFieldMessage += data['name'] + ' ' + i18n.t('ingress-design-ingress-route-targetservicenamespace-label');
-        }
-        if (attribute === 'targetService') {
-          errFieldMessage += data['name'] + ' ' + i18n.t('ingress-design-ingress-route-targetservice-label');
-        }
-        if (attribute === 'targetPort') {
-          errFieldMessage += data['name'] + ' ' + i18n.t('ingress-design-ingress-route-targetport-label');
-        }
-        if (attribute === 'path') {
-          errFieldMessage += data['name'] + ' ' + i18n.t('ingress-design-ingress-route-targetport-label');
-        }
+    this.checkIngressData =  (data, validationObject, tlsSecretSpecified) => {
+      const routeConfig = validationObject.getDefaultConfigObject();
+      routeConfig.fieldNameIsKey = false;
 
+      const items = ['name', 'targetServiceNameSpace', 'targetService', 'targetPort', 'path', 'virtualHost'];
+      let errFieldMessage;
+
+      items.forEach(attribute => {
+        let validators;
+        let isRequired = true;
+        switch (attribute) {
+          case 'name':
+            errFieldMessage = i18n.t('ingress-design-ingress-route-name-field-validation-error', { routeName: data['name'] });
+            validators = this.project.ingress.validators.k8sNameValidator;
+            break;
+
+          case 'targetServiceNameSpace':
+            errFieldMessage = i18n.t('ingress-design-ingress-route-field-validation-error', {
+              routeName: data['name'],
+              fieldName: i18n.t('ingress-design-ingress-route-targetservicenamespace-label')
+            });
+            validators = this.project.ingress.validators.k8sNameValidator;
+            break;
+
+          case 'targetService':
+            errFieldMessage = i18n.t('ingress-design-ingress-route-field-validation-error', {
+              routeName: data['name'],
+              fieldName: i18n.t('ingress-design-ingress-route-targetservice-label')
+            });
+            validators = this.project.ingress.validators.k8sNameValidator;
+            break;
+
+          case 'targetPort':
+            errFieldMessage = i18n.t('ingress-design-ingress-route-field-validation-error', {
+              routeName: data['name'],
+              fieldName: i18n.t('ingress-design-ingress-route-targetport-label')
+            });
+            validators = this.project.ingress.validators.targetPortValidator;
+            break;
+
+          case 'path':
+            errFieldMessage = i18n.t('ingress-design-ingress-route-field-validation-error', {
+              routeName: data['name'],
+              fieldName: i18n.t('ingress-design-ingress-route-path-label')
+            });
+            validators = this.project.ingress.validators.ingressPathValidator;
+            break;
+
+          case 'virtualHost':
+            errFieldMessage = i18n.t('ingress-design-ingress-route-field-validation-error', {
+              routeName: data['name'],
+              fieldName: i18n.t('ingress-design-ingress-route-virtualhost-label')
+            });
+            validators = this.project.ingress.validators.virtualHostNameValidator;
+            isRequired = false;
+            break;
+        }
         validationObject.addField(errFieldMessage,
-          validationHelper.validateRequiredField(data[attribute]));
+          validationHelper.validateField(validators, data[attribute], isRequired), routeConfig);
       });
+
+      if (data['tlsEnabled'] && !tlsSecretSpecified) {
+        errFieldMessage = i18n.t('ingress-design-ingress-route-field-validation-error', {
+          routeName: data['name'],
+          fieldName: i18n.t('ingress-design-ingress-route-tls-label')
+        });
+        const errMessage = i18n.t('ingress-design-ingress-route-field-tls-config-error', {
+          routeName: data['name'],
+          fieldName: i18n.t('ingress-design-ingress-route-tls-label'),
+          specifyTlsSecretFieldName: i18n.t('ingress-design-specify-tls-secret-label')
+        });
+        validationObject.addField(errFieldMessage, errMessage, routeConfig);
+      }
     };
 
     this.getHelmOptions = () => {

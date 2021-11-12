@@ -228,7 +228,6 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
             if (ingressControllerProvider === 'traefik' && dockerSecretName) {
               args['deployment.imagePullSecrets[0].name'] = dockerSecretName;
             }
-
             if (ingressControllerProvider === 'traefik' || ingressControllerProvider === 'nginx') {
               args['kubernetes.namespaces'] = '{' + ingressControllerNamespace + ',' + this.project.k8sDomain.kubernetesNamespace.value +  '}';
             }
@@ -256,13 +255,8 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
               await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
               return Promise.resolve(false);
             }
-
           }
-
-
         }
-
-
       } catch(err) {
         dialogHelper.closeBusyDialog();
         throw err;
@@ -270,7 +264,6 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
         dialogHelper.closeBusyDialog();
       }
     };
-
 
     this.getHelmOptions = () => {
       const options = {};
@@ -303,40 +296,31 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
         validationHelper.validateRequiredField(this.project.ingress.ingressControllerProvider.value));
 
       if (this.project.ingress.installIngressController.value === true) {
-
         validationObject.addField('ingress-design-ingress-namespace-label',
-          validationHelper.validateRequiredField(this.project.ingress.ingressControllerNamespace.value));
+          this.project.ingress.ingressControllerNamespace.validate(true));
         validationObject.addField('ingress-design-ingress-name-label',
-          validationHelper.validateRequiredField(this.project.ingress.ingressControllerName.value));
+          this.project.ingress.ingressControllerName.validate(true));
 
         const ingressControllerProvider = this.project.ingress.ingressControllerProvider.value;
-
         if (ingressControllerProvider === 'traefik' || ingressControllerProvider === 'voyager' ) {
-
           if (this.project.ingress.specifyDockerRegSecret.value === true) {
             validationObject.addField('ingress-design-ingress-docker-reg-secret-name',
-              validationHelper.validateRequiredField(this.project.ingress.dockerRegSecretName.value));
-          }
+              this.project.ingress.dockerRegSecretName.validate(true));
 
-          if (this.project.ingress.createDockerRegSecret.value == true) {
-            validationObject.addField('ingress-design-ingress-docker-reg-secret-useremail',
-              validationHelper.validateRequiredField(this.project.ingress.dockerRegSecretUserEmail.value));
-            validationObject.addField('ingress-design-ingress-docker-reg-secret-useremail',
-              validationHelper.validateEmailAddress(this.project.ingress.dockerRegSecretUserEmail.value));
-            validationObject.addField('ingress-design-ingress-docker-reg-secret-userid',
-              validationHelper.validateRequiredField(this.project.ingress.dockerRegSecretUserId.value));
-            validationObject.addField('ingress-design-ingress-docker-reg-secret-userpwd',
-              validationHelper.validateRequiredField(this.project.ingress.dockerRegSecretUserPwd.value));
+            if (this.project.ingress.createDockerRegSecret.value === true) {
+              validationObject.addField('ingress-design-ingress-docker-reg-secret-useremail',
+                this.project.ingress.dockerRegSecretUserEmail.validate(true));
+              validationObject.addField('ingress-design-ingress-docker-reg-secret-userid',
+                validationHelper.validateRequiredField(this.project.ingress.dockerRegSecretUserId.value));
+              validationObject.addField('ingress-design-ingress-docker-reg-secret-userpwd',
+                validationHelper.validateRequiredField(this.project.ingress.dockerRegSecretUserPwd.value));
+            }
           }
-
         }
       }
-
       return validationObject;
     };
-
   }
-
   return new IngressInstaller();
 });
 

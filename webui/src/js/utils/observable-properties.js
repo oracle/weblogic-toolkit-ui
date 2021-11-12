@@ -204,42 +204,7 @@ define(['knockout', 'utils/common-utilities', 'utils/validation-helper', 'utils/
       }
 
       validate(isRequired) {
-        const currentValue = this.value;
-        let errMessages = [];
-
-        function toErrorMessage(err) {
-          if (err instanceof Error) {
-            return err.message;
-          } else if (err instanceof String) {
-            return err;
-          } else {
-            return err.toString();
-          }
-        }
-
-        // Optional fields whose value is empty should not be validated.
-        if (isRequired || (currentValue && currentValue.toString().length > 0)) {
-          for (const validator of this._validators) {
-            try {
-              validator.validate(currentValue);
-            } catch (err) {
-              // Another option might be to try to get the hint, messageSummary, or messageDetail fields from the validator...
-              errMessages.push(toErrorMessage(err));
-            }
-          }
-        }
-
-        if (isRequired) {
-          const requiredMessage = validationHelper.validateRequiredField(currentValue);
-          if (requiredMessage) {
-            errMessages.push(requiredMessage);
-          }
-        }
-
-        if (errMessages.length === 0) {
-          errMessages = undefined;
-        }
-        return errMessages;
+        return validationHelper.validateField(this._validators, this.value, isRequired);
       }
 
       validators() {

@@ -34,6 +34,8 @@ define(['knockout', 'utils/observable-properties', 'utils/validation-helper'],
         this.dockerRegSecretUserId = props.createProperty('').asCredential();
         this.dockerRegSecretUserPwd = props.createProperty('').asCredential();
         this.dockerRegSecretUserEmail = props.createProperty('');
+        this.dockerRegSecretUserEmail.addValidator(...validationHelper.getEmailAddressValidators());
+
         this.createDockerRegSecret = props.createProperty(false);
         this.specifyDockerRegSecret = props.createProperty(false);
         this.specifyIngressTLSSecret = props.createProperty(false);
@@ -46,10 +48,11 @@ define(['knockout', 'utils/observable-properties', 'utils/validation-helper'],
 
         this.opensslExecutableFilePath =  props.createProperty(window.api.k8s.getOpenSSLFilePath());
 
-        this.validators = { TargetPortValidator: validationHelper.getPortNumberValidators(),
+        this.validators = {
+          targetPortValidator: validationHelper.getPortNumberValidators(),
           k8sNameValidator: validationHelper.getK8sNameValidators(),
-          VirtualHostNameValidator: validationHelper.getHostNameValidators(),
-          IngressPathValidator: validationHelper.getIngressPathValidators()
+          virtualHostNameValidator: validationHelper.getHostNameValidators(),
+          ingressPathValidator: validationHelper.getIngressPathValidators()
         };
 
         this.voyagerProvider = props.createProperty('OKE');

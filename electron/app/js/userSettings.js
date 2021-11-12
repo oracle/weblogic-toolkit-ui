@@ -54,7 +54,8 @@ let _userSettingsFileName;
 //     "dividers": {
 //       "modelMain": 0.68,
 //       "modelRight": 0.48
-//     }
+//     },
+//     "navCollapsed": true
 //   }
 // }
 //
@@ -185,7 +186,7 @@ function getDividerLocations() {
 
 function setNavigationCollapsed(collapsed) {
   const window = getOrCreateWindowSettings();
-  window['navCollapsed'] = collapsed;
+  window['navCollapsed'] = Boolean(collapsed);
 }
 
 function getNavigationCollapsed() {

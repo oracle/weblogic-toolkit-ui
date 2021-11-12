@@ -19,15 +19,15 @@ define(['models/wkt-project', 'js-yaml'],
           for (const route of this.project.ingress.ingressRoutes.value) {
             switch (this.project.ingress.ingressControllerProvider.value) {
               case 'voyager':
-                ingressRouteData = this.createVoyagerRoutesAsYaml(route, this.project);
+                ingressRouteData = this.createVoyagerRoutesAsYaml(route);
                 break;
 
               case 'traefik':
-                ingressRouteData = this.createTraefikRoutesAsYaml(route, this.project);
+                ingressRouteData = this.createTraefikRoutesAsYaml(route);
                 break;
 
               case 'nginx':
-                ingressRouteData = this.createNginxRoutesAsYaml(route, this.project);
+                ingressRouteData = this.createNginxRoutesAsYaml(route);
                 break;
             }
             lines.push(ingressRouteData, '');
@@ -39,7 +39,7 @@ define(['models/wkt-project', 'js-yaml'],
         return lines;
       }
 
-      createVoyagerRoutesAsYaml(item, wktProject) {
+      createVoyagerRoutesAsYaml(item) {
         const namespace = item['targetServiceNameSpace'] || 'default';
 
         const result = {
@@ -67,21 +67,21 @@ define(['models/wkt-project', 'js-yaml'],
             ]
           }
         };
-        this.addTlsSpec(result, item, wktProject);
+        this.addTlsSpec(result, item);
         this.addVirtualHost(result, item);
         this.addAnnotations(result, item);
         return jsYaml.dump(result);
       }
 
-      createNginxRoutesAsYaml(item, wktProject) {
-        return this._createStandardRoutesAsYaml(item, wktProject);
+      createNginxRoutesAsYaml(item) {
+        return this._createStandardRoutesAsYaml(item);
       }
 
-      createTraefikRoutesAsYaml(item, wktProject) {
-        return this._createStandardRoutesAsYaml(item, wktProject);
+      createTraefikRoutesAsYaml(item) {
+        return this._createStandardRoutesAsYaml(item);
       }
 
-      _createStandardRoutesAsYaml(item, wktProject) {
+      _createStandardRoutesAsYaml(item) {
         const namespace = item['targetServiceNameSpace'] || 'default';
 
         const result = {
@@ -114,16 +114,17 @@ define(['models/wkt-project', 'js-yaml'],
             ]
           }
         };
-        this.addTlsSpec(result, item, wktProject);
+        this.addTlsSpec(result, item);
         this.addVirtualHost(result, item);
         this.addAnnotations(result, item);
         return jsYaml.dump(result);
       }
 
-      addTlsSpec(result, item, wktProject) {
-        if (item && item['tlsEnabled'] === true) {
+      addTlsSpec(result, item) {
+        // If the Ingress TLS secret is not enabled, do not add the ingress TLS secret name even if it exists.
+        if (this.project.ingress.specifyIngressTLSSecret.value && item && item['tlsEnabled'] === true) {
           if (!item['tlsSecretName']) {
-            item['tlsSecretName'] = wktProject.ingress.ingressTLSSecretName.value;
+            item['tlsSecretName'] = this.project.ingress.ingressTLSSecretName.value;
           }
 
           const obj = { secretName: item['tlsSecretName'] };
