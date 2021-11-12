@@ -543,6 +543,7 @@
 
   "ingress-design-ingress-routes-title": "Ingress Routes Configuration",
   "ingress-design-ingress-route-virtualhost-label": "Virtual Host",
+  "ingress-design-ingress-route-name-label": "Route Name: {{name}} ",
   "ingress-design-ingress-route-targetservicenamespace-label": "Target Service Namespace",
   "ingress-design-ingress-route-targetservicenamespace-help": "The target service namespace value points to the namespace where the domain is running.",
   "ingress-design-ingress-route-accesspoint-label": "Access Point",
