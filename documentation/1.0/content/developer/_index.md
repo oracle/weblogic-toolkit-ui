@@ -7,7 +7,7 @@ pre = "<b> </b>"
 
 The WebLogic Kubernetes Toolkit UI is a desktop application designed to help WebLogic users move their applications to run in a Kubernetes environment.
 
-## Setting up your development environment
+### Setting up your development environment
 1. Download and install the latest LTS version of node.js from [https://nodejs.org/en/download/](https://nodejs.org/en/download/).
 2. If you rely on a proxy server to reach the Internet, set these 5 environment variables to configure the proxy correctly:
    ```
@@ -41,12 +41,12 @@ The WebLogic Kubernetes Toolkit UI is a desktop application designed to help Web
 8. Open a command-line in the `wktui/webui` directory and run `npm start`.
 9. Once the server from the previous step is fully running, open a command-line in the `wktui/electron` directory and run `npm start`.
 
-## Building a Windows or MacOS installer
+### Building a Windows or MacOS installer
 0. Set up your development environment and verify that the application is working properly from it.
 1. Open a command-line in the `wktui/electron` directory and run `npm run build`.
 2. Find the executable and installer(s) in the `wktui/dist` directory.
 
-## Building a Linux installer
+### Building a Linux installer
 0. Set up your development environment and verify that the application is working properly from it.
 1. Open a command-line in the `wktui/webui` directory and run `npm run build:release`.
 2. From the command-line in the `wktui/scripts` directory, run `./devBuildLinuxInstallers.sh`.
