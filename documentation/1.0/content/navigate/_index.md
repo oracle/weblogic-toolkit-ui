@@ -5,11 +5,11 @@ weight = 3
 pre = "<b> </b>"
 +++
 
-#### Before you begin
+### Before you begin
 
 Make sure you have read [About the WKT UI Application]({{< relref "/concepts/_index.md" >}}).
 
-#### About the UI
+### About the UI
 
 To help you understand how to use the WKT UI, we will step you through it, section by section,
 describing the important decisions to make and fields to populate.  The sections are listed in
