@@ -381,18 +381,18 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
     this.checkIngressData =  (data, validationObject)=> {
       const items = ['name', 'targetServiceNameSpace', 'targetService', 'targetPort', 'path'];
       items.forEach(attribute => {
-        let errFieldMessage = 'route name: ';
+        let errFieldMessage = i18n.t('ingress-design-ingress-route-name-label', {name: data['name']});
         if (attribute === 'targetServiceNameSpace') {
-          errFieldMessage += data['name'] + ' ' + i18n.t('ingress-design-ingress-route-targetservicenamespace-label');
+          errFieldMessage += i18n.t('ingress-design-ingress-route-targetservicenamespace-label');
         }
         if (attribute === 'targetService') {
-          errFieldMessage += data['name'] + ' ' + i18n.t('ingress-design-ingress-route-targetservice-label');
+          errFieldMessage += i18n.t('ingress-design-ingress-route-targetservice-label');
         }
         if (attribute === 'targetPort') {
-          errFieldMessage += data['name'] + ' ' + i18n.t('ingress-design-ingress-route-targetport-label');
+          errFieldMessage += i18n.t('ingress-design-ingress-route-targetport-label');
         }
         if (attribute === 'path') {
-          errFieldMessage += data['name'] + ' ' + i18n.t('ingress-design-ingress-route-targetport-label');
+          errFieldMessage +=  i18n.t('ingress-design-ingress-route-path-label');
         }
 
         validationObject.addField(errFieldMessage,
