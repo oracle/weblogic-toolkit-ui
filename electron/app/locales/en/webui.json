@@ -566,6 +566,10 @@
   "ingress-design-ingress-route-annotation-add-row": "Add Annotation",
   "ingress-design-ingress-route-annotation-delete-row": "Delete Annotation",
 
+  "ingress-design-ingress-route-name-field-validation-error": "Route {{routeName}}",
+  "ingress-design-ingress-route-field-validation-error": "Route {{routeName}}, Field \"{{fieldName}}\"",
+  "ingress-design-ingress-route-field-tls-config-error": "The route {{routeName}} has the {{fieldName}} field enabled but the {{specifyTlsSecretFieldName}} field is disabled.",
+
   "ingress-design-ingress-tls-secret-title": "TLS Secret for Ingress Routes",
   "ingress-design-specify-tls-secret-label": "Use Ingress TLS Secret",
   "ingress-design-specify-tls-secret-help": "To secure traffic to the ingress controller with TLS, specify the secret that contains the TLS private key and certificate. The Ingress resource only supports a single TLS port, 443, and assumes TLS termination at the ingress (traffic between the ingress and the service and its pods is in clear text).",
@@ -933,6 +937,8 @@
   "validation-helper-ingress-path-message-detail": "The path expression must start with / and not having any white space in it",
   "validation-helper-ingress-annotation-hint": "Enter a valid annotation name value pair",
   "validation-helper-ingress-annotation-message-detail": "The annotation ({{annotation}}) must be a name value pair separate by colon",
+
+  "validation-error-dialog-default-title": "Unknown action failed",
 
   "vz-config-title": "Kubernetes Client Configuration for Verrazzano",
   "vz-config-coming-soon": "Coming Soon...",

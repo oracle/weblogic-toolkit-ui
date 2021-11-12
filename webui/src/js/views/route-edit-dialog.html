@@ -20,12 +20,12 @@
         <oj-input-text label-hint="[[labelMapper('route-virtualhost-label')]]"
                        value="{{virtualHost.observable}}"
                        help.instruction="[[labelMapper('route-virtualhost-help')]]"
-                       validators="[[project.ingress.validators.VirtualHostNameValidator]]">
+                       validators="[[project.ingress.validators.virtualHostNameValidator]]">
         </oj-input-text>
         <oj-input-text label-hint="[[labelMapper('route-path-label')]]"
                        value="{{path.observable}}"
                        help.instruction="[[labelMapper('route-path-help')]]"
-                       validators="[[project.ingress.validators.IngressPathValidator]]">
+                       validators="[[project.ingress.validators.ingressPathValidator]]">
         </oj-input-text>
         <oj-input-text class="wkt-can-readonly-field"
                        label-hint="[[labelMapper('route-targetservicenamespace-label')]]"
@@ -35,13 +35,14 @@
         </oj-input-text>
         <oj-input-text label-hint="[[labelMapper('route-targetservice-label')]]"
                        help.instruction="[[labelMapper('route-targetservice-help')]]"
-                       value="{{targetService.observable}}">
+                       value="{{targetService.observable}}"
+                       validators="[[project.ingress.validators.k8sNameValidator]]">
         </oj-input-text>
         <oj-input-number label-hint="[[labelMapper('route-targetport-label')]]"
                          converter="[[portNumberConverter]]"
                          value="{{targetPort.observable}}"
                          help.instruction="[[labelMapper('route-targetport-help')]]"
-                         validators="[[project.ingress.validators.TargetPortValidator]]">
+                         validators="[[project.ingress.validators.targetPortValidator]]">
         </oj-input-number>
         <oj-switch label-hint="[[labelMapper('route-tls-label')]]"
                    value="{{tlsEnabled.observable}}">

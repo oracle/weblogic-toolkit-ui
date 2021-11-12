@@ -91,18 +91,21 @@ function(i18n, Validator, ojvalidationError, RegExpValidator, LengthValidator, N
       return new ValidatableObject(flowName);
     };
 
-    this.validateRequiredField = (currentValue) => {
-      let requiredMessage;
-      if (currentValue === undefined || currentValue === null) {
-        requiredMessage = i18n.t('validation-helper-validate-field-value-is-not-defined');
-      } else if (currentValue === '') {
-        requiredMessage = i18n.t('validation-helper-validate-string-field-value-is-empty');
-      } else if (Array.isArray(currentValue) && currentValue.length === 0) {
-        requiredMessage = i18n.t('validation-helper-validate-array-field-value-is-empty');
-      }
-      return requiredMessage;
+    this.validateField = (validators, currentValue, isRequired = false) => {
+      return this._validateSpecialField(validators, currentValue, isRequired);
     };
 
+    this.validateRequiredField = (currentValue) => {
+      return _validateRequiredFieldValue(currentValue);
+    };
+
+    this.getRequiredFieldValidators = () => {
+      return [
+        {
+          validate: _validateRequiredFieldValue
+        }
+      ];
+    };
 
     this.getK8sCpuValidators = () => {
       return [
@@ -328,6 +331,18 @@ function(i18n, Validator, ojvalidationError, RegExpValidator, LengthValidator, N
         }
       }
       return message;
+    }
+
+    function _validateRequiredFieldValue(value) {
+      let requiredMessage;
+      if (value === undefined || value === null) {
+        requiredMessage = i18n.t('validation-helper-validate-field-value-is-not-defined');
+      } else if (value === '') {
+        requiredMessage = i18n.t('validation-helper-validate-string-field-value-is-empty');
+      } else if (Array.isArray(value) && value.length === 0) {
+        requiredMessage = i18n.t('validation-helper-validate-array-field-value-is-empty');
+      }
+      return requiredMessage;
     }
 
     const K8S_CPU_REGEX = [ /^[1-9]\d*[Mm]?$/, /^\d+(\.\d{1,3})?$/, /^0\.\d{1,3}$/ ];
