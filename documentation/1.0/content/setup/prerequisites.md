@@ -29,6 +29,8 @@ These include:
 - `openssl` - Used to generate an X.509 TLS certificate for ingress routes, should you ask the application
   to generate one for you.
 
+The WKT UI application is built using the Electron framework and as such, we support only the platforms and versions supported by [Electron](https://www.electronjs.org/docs/latest/tutorial/support#supported-platforms).  For example, because of the Electron requirement for Fedora 24 or newer, we support only versions 8.0 and higher of Oracle Linux, RedHat Linux, and CentOS Linux.
+
 In addition to these local software dependencies, you will need a Kubernetes cluster to which you can deploy your
 containerized WebLogic Server domain and its applications.  If you do not already have a model, then you can either write
 one by hand using the WKT UI application or discover the model from an existing domain.  Most likely, you'll want to start
