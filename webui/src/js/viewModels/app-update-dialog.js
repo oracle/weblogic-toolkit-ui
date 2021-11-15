@@ -21,6 +21,8 @@ function(accUtils, ko, i18n, viewHelper) {
       viewHelper.componentReady(this.dialogContainer).then(() => {
         this.dialogContainer.open();
       });
+
+      this.dialogContainer.addEventListener('click', this.clickHandler);
     };
 
     this.labelMapper = (labelId, args) => {
@@ -43,6 +45,16 @@ function(accUtils, ko, i18n, viewHelper) {
     this.closeDialog = () => {
       updateInfo.setValue('ignore');
       this.dialogContainer.close();
+    };
+
+    this.clickHandler = (event) => {
+      if (event.target.matches('.wkt-app-update-notes a')) {
+        event.preventDefault();
+        let link = event.target.href;
+        if (link) {
+          window.api.ipc.invoke('open-external-link', link).then();
+        }
+      }
     };
   }
 
