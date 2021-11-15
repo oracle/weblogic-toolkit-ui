@@ -66,6 +66,12 @@ class Main {
       // if this isn't the first instance, quit now.
       // the parameters were passed to the first instance with the requestSingleInstanceLock() call.
       // the first instance will receive these in the second-instance event (see below).
+      const fileArg = this.getFileArgFromCommandLine(argv);
+      if (fileArg) {
+        this._logger.info('Opening file %s in the already running instance; this instance will exit.', fileArg);
+      } else {
+        this._logger.warn('Unable to get the instance lock so exiting.');
+      }
       app.quit();
     } else {
       registerAutoUpdateListeners();
@@ -172,6 +178,7 @@ class Main {
     app.on('window-all-closed', (event) => {
       this._logger.debug('Received window-all-closed event');
       if (process.platform === 'darwin' && !this._forceQuit) {
+        this._logger.debug('window-all-closed event does not have force quit flag set');
         return false;
       }
       app.quit();
@@ -241,12 +248,21 @@ class Main {
 
     ipcMain.on('window-app-quit', async (event) => {
       const currentWindow = event.sender.getOwnerBrowserWindow();
+      // Closing the window does not immediately remove it from the BrowserWindow.getAllWindows()
+      // call so register a window listener on the 'closed' event to determine when all windows
+      // have closed.
+      //
+      currentWindow.on('closed', () => {
+        const numWindows = BrowserWindow.getAllWindows().length;
+        this._logger.debug('Received window closed event, %s remaining window(s)', numWindows);
+        if (numWindows === 0) {
+          this._forceQuit = true;
+          app.quit();
+        }
+      });
+
       currentWindow.skipDirtyCheck = true;
       await currentWindow.close();
-      const numWindows = BrowserWindow.getAllWindows().length;
-      if (numWindows === 0) {
-        app.quit();
-      }
     });
 
     // eslint-disable-next-line no-unused-vars
