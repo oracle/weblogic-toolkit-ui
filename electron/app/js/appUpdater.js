@@ -35,7 +35,11 @@ function registerAutoUpdateListeners() {
     autoUpdater.logger.info('Download complete, install type: ' + _installType);
     // quit and install in this handler so MacOS updater can process the event first
     if(_installType === 'now') {
-      // Working around https://github.com/electron-userland/electron-builder/issues/6418
+      // Working around https://github.com/electron-userland/electron-builder/issues/6418.
+      //
+      // This issue is fixed in electron-updater@4.6.2 but that version suffers from
+      // https://github.com/electron-userland/electron-builder/issues/6425, which causes
+      // a Windows installer regression.
       //
       if (osUtils.isMac()) {
         autoUpdater.autoInstallOnAppQuit = false;
