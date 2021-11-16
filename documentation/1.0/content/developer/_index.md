@@ -36,18 +36,18 @@ The WebLogic Kubernetes Toolkit UI is a desktop application designed to help Web
    is, by default, case-insensitive!**
 
 5. Clone the git repository on GitHub at [https://github.com/oracle/weblogic-toolkit-ui](https://github.com/oracle/weblogic-toolkit-ui).
-6. Open a command-line in the `wktui` directory and run `npm install` to download and install the JavaScript dependencies required by the project.
-7. Open a command-line in the `wktui/electron` directory and run `npm run install-tools`.
-8. Open a command-line in the `wktui/webui` directory and run `npm start`.
-9. Once the server from the previous step is fully running, open a command-line in the `wktui/electron` directory and run `npm start`.
+6. Open a command-line in the `weblogic-toolkit-ui` directory and run `npm install` to download and install the JavaScript dependencies required by the project.
+7. Open a command-line in the `weblogic-toolkit-ui/electron` directory and run `npm run install-tools`.
+8. Open a command-line in the `weblogic-toolkit-ui/webui` directory and run `npm start`.
+9. Once the server from the previous step is fully running, open a command-line in the `weblogic-toolkit-ui/electron` directory and run `npm start`.
 
 ### Building a Windows or MacOS installer
 0. Set up your development environment and verify that the application is working properly from it.
-1. Open a command-line in the `wktui/electron` directory and run `npm run build`.
-2. Find the executable and installer(s) in the `wktui/dist` directory.
+1. Open a command-line in the `weblogic-toolkit-ui/electron` directory and run `npm run build`.
+2. Find the executable and installer(s) in the `weblogic-toolkit-ui/dist` directory.
 
 ### Building a Linux installer
 0. Set up your development environment and verify that the application is working properly from it.
-1. Open a command-line in the `wktui/webui` directory and run `npm run build:release`.
-2. From the command-line in the `wktui/scripts` directory, run `./devBuildLinuxInstallers.sh`.
-3. Find the executable and installer(s) in the `wktui/dist` directory.
+1. Open a command-line in the `weblogic-toolkit-ui/webui` directory and run `npm run build:release`.
+2. From the command-line in the `weblogic-toolkit-ui/scripts` directory, run `./devBuildLinuxInstallers.sh`.
+3. Find the executable and installer(s) in the `weblogic-toolkit-ui/dist` directory.
