@@ -51,4 +51,3 @@ The WebLogic Kubernetes Toolkit UI is a desktop application designed to help Web
 1. Open a command-line in the `weblogic-toolkit-ui/webui` directory and run `npm run build:release`.
 2. From the command-line in the `weblogic-toolkit-ui/scripts` directory, run `./devBuildLinuxInstallers.sh`.
 3. Find the executable and installer(s) in the `weblogic-toolkit-ui/dist` directory.
-
