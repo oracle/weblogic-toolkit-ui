@@ -171,9 +171,9 @@ to the image registry specified by its image tag.  You can access it by using th
 At a high level, `Push Image` performs the following steps:
 
 1. Validates the input values necessary for running the action based on your selections.
-2. Saves the WKT Project, if needed.
-3. Creates the Kubernetes namespace for installing the operator, if needed.
-4. Creates the Kubernetes service account for the operator to use, if needed.
-5. Creates the operator image pull secret, if needed.
-6. Adds the latest operator Helm chart to the local Helm repository.
-7. Runs Helm to install the operator using the specified configuration.
+1. Saves the WKT Project, if needed.
+1. Creates the Kubernetes namespace for installing the operator, if needed.
+1. Creates the Kubernetes service account for the operator to use, if needed.
+1. Creates the operator image pull secret, if needed.
+1. Adds the latest operator Helm chart to the local Helm repository.
+1. Runs Helm to install the operator using the specified configuration.

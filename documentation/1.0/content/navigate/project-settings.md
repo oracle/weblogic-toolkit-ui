@@ -46,11 +46,11 @@ A creative person might realize that they can use the passphrase-based encryptio
 in the native OS credential store to another machine.  The steps to accomplish this would be:
 
 1. Open the project using the native OS credential store on the machine where the credentials are stored.
-2. Change the credential storage option to passphrase-based encryption and enter a passphrase.
-3. Save the project file.
-4. Open the project file on a different machine, supplying the passphrase entered in step 2.
-5. Change the credential storage option to native OS credential store.
-6. Save the project file.
+1. Change the credential storage option to passphrase-based encryption and enter a passphrase.
+1. Save the project file.
+1. Open the project file on a different machine, supplying the passphrase entered in step 2.
+1. Change the credential storage option to native OS credential store.
+1. Save the project file.
 
 The final choice, `Not Stored`, is to not store the credentials at all. While this is a viable option, it also means that whenever you
 need to run any of the actions that require credentials, you will need to re-enter the value of every credential in the

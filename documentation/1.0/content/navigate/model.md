@@ -108,8 +108,8 @@ title bar and follow the prompts to choose the type of content to add and select
 For example, to add a WAR file called `todo.war` to the archive, do the following:
 
 1. On the archive editor title bar, click `+`.
-2. In the resulting dialog, choose `Application File` from the list and click `OK`.
-3. In the resulting file chooser dialog, select the `todo.war` file and click `Select`.
+1. In the resulting dialog, choose `Application File` from the list and click `OK`.
+1. In the resulting file chooser dialog, select the `todo.war` file and click `Select`.
 
 This will result in the file structure `wlsdeploy/applications/todo.war` being added to the archive editor pane.
 At this point, the application has not created or modified the archive file; it is simply storing
@@ -144,10 +144,10 @@ Image` action, though typically it is best to run `Prepare Model` explicitly, pr
 `Prepare Model` does the following:
 
 1. Removes model sections and fields that are not compatible with the target environment.
-2. Replaces endpoint values with model tokens that reference variables.
-3. Replaces credential values with model tokens that reference either a field in a Kubernetes secret or a variable.
-4. Provides default values for fields displayed in the application's variable, variable overrides, and secret editors.
-5. Extracts topology information to the application that it uses to generate the resource file used to deploy the domain.
+1. Replaces endpoint values with model tokens that reference variables.
+1. Replaces credential values with model tokens that reference either a field in a Kubernetes secret or a variable.
+1. Provides default values for fields displayed in the application's variable, variable overrides, and secret editors.
+1. Extracts topology information to the application that it uses to generate the resource file used to deploy the domain.
 
 For more information, see the WDT [model tokens](https://oracle.github.io/weblogic-deploy-tooling/concepts/model/#model-tokens)
 documentation.
