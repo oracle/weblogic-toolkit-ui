@@ -7,7 +7,7 @@ description: "Install the WKT UI application and check for updates."
 ---
 
 1. Download the latest WebLogic Kubernetes Toolkit UI (WKT UI) application installers from the [GitHub Releases section](https://github.com/oracle/weblogic-toolkit-ui/releases) of this repository.
-1. Simply run the appropriate installer for your operating system.
+2. Simply run the appropriate installer for your operating system.
 
 Application startup detects Internet connectivity to GitHub. If it fails to connect, a `Network Configuration` dialog appears in which you can set or modify your proxy settings, test your changes, and then restart the application.  
 

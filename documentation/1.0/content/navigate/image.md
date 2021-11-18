@@ -185,10 +185,10 @@ the `Create Image` button on the `Image` page or the `Go` menu.
 At a high level, `Create Image` performs the following steps:
 
 1. Validates the input values necessary for running the action based on your selections.
-1. Saves the WKT Project, if needed.
-1. Adds the installers to the WIT cache on the local machine using the WebLogic Image Tool
+2. Saves the WKT Project, if needed.
+3. Adds the installers to the WIT cache on the local machine using the WebLogic Image Tool
    [Cache](https://oracle.github.io/weblogic-image-tool/userguide/tools/cache/) command.
-1. Builds the image on the local machine using the WebLogic Image Tool
+4. Builds the image on the local machine using the WebLogic Image Tool
    [Create](https://oracle.github.io/weblogic-image-tool/userguide/tools/create-image/) command.
 
 ### Push Image
@@ -200,6 +200,6 @@ At a high level, `Push Image` performs the following steps:
 
 1. Validates the input values necessary for running the action based on your selections.  This includes making
    sure that an image with the specified `Image Tag` value exists in the local machine's image cache.
-1. Saves the WKT Project, if needed.
-1. Logs in to the container image registry, if specified.
-1. Pushes the image to the container image registry.
+2. Saves the WKT Project, if needed.
+3. Logs in to the container image registry, if specified.
+4. Pushes the image to the container image registry.
