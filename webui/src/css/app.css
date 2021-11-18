@@ -195,7 +195,9 @@
 
 /* container for model design view, currently text */
 .wkt-model-edit-design {
-  margin: 10px;
+  display: flex;
+  width: 100%;
+  height: 100%;
 }
 
 /* container for model design view, currently text */
@@ -570,6 +572,20 @@ h6.wkt-panel-heading {
   text-decoration-style: solid;
   font-size: 1em;
   font-weight: bold;
+}
+
+.wkt-model-nav-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #c3b2ab;
+}
+
+.wkt-model-nav {
+}
+
+.wkt-model-design-content {
+  flex: 1 1 auto;
+  padding: 0 0.5em;
 }
 
 .validationErrorBlock {

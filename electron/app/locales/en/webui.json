@@ -1068,5 +1068,17 @@
   "quickstart-page9-list4-item-2": "Code view provides a shell script that shows how you can automate the installation as well as the YAML resource definitions.",
   "quickstart-page9-list4-item-3": "The Install Ingress Controller and Update Ingress Routing buttons (and Go menu items) perform the necessary actions to install the ingress controller and update routes on an existing ingress controller.",
 
-  "quickstart-page10-title": "Verrazzano-Specific Sections"
+  "quickstart-page10-title": "Verrazzano-Specific Sections",
+
+  "model-design-environment": "Environment",
+  "model-design-scheduling": "Scheduling",
+  "model-design-deployments": "Deployments",
+  "model-design-services": "Services",
+  "model-design-security": "Security",
+  "model-design-interoperability": "Interoperability",
+  "model-design-diagnostics": "Diagnostics",
+  "model-design-tbd": "TBD",
+  "model-design-domain": "Domain",
+  "model-design-servers": "Servers",
+  "model-design-coherence-cluster-system-resources": "Coherence Cluster System Resources"
 }

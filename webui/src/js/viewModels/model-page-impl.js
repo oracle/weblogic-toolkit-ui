@@ -14,7 +14,7 @@ define([],
       // Setup for Design / Code tab selection.
 
       let navData = [
-        {path: '', redirect: 'model-code-view'},
+        {path: '', redirect: 'model-design-view'},
         {path: 'model-design-view', detail: {label: i18n.t('page-design-view')}},
         {path: 'model-code-view', detail: {label: i18n.t('page-code-view')}}
       ];
@@ -28,7 +28,7 @@ define([],
         preparer.startPrepareModel().then();
       };
 
-      this.selectedItem = ko.observable('model-code-view');
+      this.selectedItem = ko.observable('model-design-view');
       this.dataProvider = new ArrayDataProvider(navData.slice(1), {keyAttributes: 'path'});
 
       let router = args.parentRouter.createChildRouter(navData, {history: 'skip'});

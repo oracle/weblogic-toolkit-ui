@@ -2,8 +2,27 @@
  Copyright (c) 2021, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
+<!-- Template for rendering navigation items shared between nav bar and nav list -->
+<script type="text/html" id="modelNavTemplate">
+  <li>
+    <a href="#">
+      <span :class="[['oj-navigationlist-item-icon ' + $data.icon]]"></span>
+      <oj-bind-text value="[[$data.name]]"> </oj-bind-text>
+    </a>
+  </li>
+</script>
+
 <div class="wkt-model-edit-design">
-  <div class="oj-panel">
-    <p><oj-bind-text value="[[labelMapper('coming-soon')]]"></oj-bind-text></p>
+  <div class="wkt-model-nav-container">
+    <oj-navigation-list aria-label="Choose a navigation item"
+                        class="wkt-model-nav"
+                        data="[[navDataProvider]]"
+                        display="all"
+                        drill-mode="collapsible"
+                        item.renderer="[[KnockoutTemplateUtils.getRenderer('modelNavTemplate', true)]]"
+                        selection="{{selection.path}}">
+    </oj-navigation-list>
   </div>
+  <oj-module role="main" id="wktModelDesignModule" class="wkt-model-design-content" config="[[moduleAdapter.koObservableConfig]]">
+  </oj-module>
 </div>
