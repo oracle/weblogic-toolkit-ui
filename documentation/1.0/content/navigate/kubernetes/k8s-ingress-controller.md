@@ -21,7 +21,7 @@ This section supports two distinct functions related to an ingress controller.  
 controller to a Kubernetes cluster.  Second, it supports adding the necessary routes to an ingress controller to make
 a deployed WebLogic domain's endpoints accessible.
 
-#### Design View
+### Design View
 `Design View` helps you specify the data needed to install an ingress controller, if desired, and
 specify the data needed to expose one or more endpoints for a deployed WebLogic domain.  This page contains three panes:
 
