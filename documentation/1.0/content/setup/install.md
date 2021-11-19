@@ -50,7 +50,7 @@ If so, then run:
 ```
 sudo apt-get install -f
 ```
-If you run `wktui` from an OS terminal shell. You may see this:
+If you run `wktui` from an OS terminal shell, then you may see this:
 ```
 wktui
 libGL error: No matching fbConfigs or visuals found
