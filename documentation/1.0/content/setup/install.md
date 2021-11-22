@@ -9,57 +9,68 @@ description: "Install the WKT UI application and check for updates."
 1. Download the latest WebLogic Kubernetes Toolkit UI (WKT UI) application installers from the [GitHub Releases section](https://github.com/oracle/weblogic-toolkit-ui/releases) of this repository.
 2. Simply run the appropriate installer for your operating system.
 
-**NOTE**: On Linux, to get _all_ the dependencies and have them installed in the correct order, you need to use the package manager to install the `rpm` or `deb` file.
+{{% notice note %}}
+On Linux, to get _all_ the dependencies and have them installed in the correct order, you need to use the package manager to install the `rpm` or `deb` file.
+{{% /notice %}}
 
-- On Oracle/RedHat/CentOS (and some others), use either `yum` or `dnf`; for example:
+### Prerequisites
+
+For RPM-based systems, such as Oracle, RedHat, CentOS, and some others:
+
+For storing credentials in the OS native credentials store, you must have a desktop environment. If your system does not have a graphical desktop environment,
+you can install one; for example, installing GNOME Desktop on Oracle Linux:
+
+https://support.oracle.com/knowledge/Oracle%20Linux%20and%20Virtualization/2717454_1.html
+
+For storing credentials as an encrypted project file, and for a minimum GUI requirement, make sure the following packages are installed in your system:
 ```
-sudo yum localinstall wktui-1.0.0.x86_64.rpm
+sudo dnf update
+sudo dnf install libxshmfence libdrm.x86_64 libgbm alsa-lib xauth atk-devel.x86_64 java-atk-wrapper.x86_64
+sudo reboot
+```
+For Debian-based systems, such as Ubuntu and Debian:
+
+For storing credentials in the OS native credentials store, you must have a desktop environment. If your system does not have a graphical desktop environment,
+you can install one; for example, installing GNOME on Ubuntu 20x:
+```
+sudo apt install gnome-session gdm3
+sudo reboot
 ```
 
-- On Ubuntu, use `apt-get`; for example:
+### Installation
+For RPM-based systems, download the latest `wktui` `rpm` package from https://github.com/oracle/weblogic-toolkit-ui/releases, then use either `yum` or `dnf`; for example:
 ```
-sudo dpkg -i wktui_1.0.0_amd64.deb
+sudo yum -y localinstall wktui_1.0.0_amd64.rpm
 ```
-You may see output like the following:
-```
-Selecting previously unselected package wktui.
-(Reading database ... 70158 files and directories currently installed.)
-Preparing to unpack wktui_1.0.0_amd64.deb ...
-Unpacking wktui (1.0.0-784) ...
-dpkg: dependency problems prevent configuration of wktui:
- wktui depends on gconf2; however:
-  Package gconf2 is not installed.
- wktui depends on gconf-service; however:
-  Package gconf-service is not installed.
- wktui depends on libnotify4; however:
-  Package libnotify4 is not installed.
- wktui depends on libappindicator1; however:
-  Package libappindicator1 is not installed.
- wktui depends on libxtst6; however:
-  Package libxtst6 is not installed.
- wktui depends on libsecret-1-dev; however:
-  Package libsecret-1-dev is not installed.
 
-dpkg: error processing package wktui (--install):
- dependency problems - leaving unconfigured
-Processing triggers for shared-mime-info (1.15-1) ...
-Processing triggers for mime-support (3.64ubuntu1) ...
-Errors were encountered while processing:
- wktui
+For Debian-based systems, download the latest `wktui` `deb` package from https://github.com/oracle/weblogic-toolkit-ui/releases, then run:
 ```
-If so, then run:
+sudo apt install ./wktui_1.0.0_amd64.deb
 ```
-sudo apt-get install -f
-```
-If you run `wktui` from an OS terminal shell, then you may see this:
-```
-wktui
-libGL error: No matching fbConfigs or visuals found
-libGL error: failed to load driver: swrast```
-```
-This is harmless and can be removed by setting this environment variable before launching `wktui`:
 
-`export LIBGL_ALWAYS_INDIRECT=1`
+#### Helpful Hints
+
+- When launching `wktui`, if you see this:
+    ```
+    libGL error: No matching fbConfigs or visuals found
+    libGL error: failed to load driver: swrast
+    ```
+    This is harmless and can be removed by setting the environment variable:
+
+    `export LIBGL_ALWAYS_INDIRECT=1`
+
+
+- If you are storing credentials in the OS native store, and you see this failure message:
+    ```
+    Error occurred in handler for 'save-project': Error: Failed to save credential for image.
+    imageRegistryPushUser: Error: No such interface "org.freedesktop.Secret.Collection" on object at path /
+    org/freedesktop/secrets/collection/login
+        at /tmp/.mount_WebLogpIPFto/resources/app.asar/app/js/credentialManager.js:92:32
+    ```
+    You can solve it by running this command (only once) before launching `wktui`:
+
+    `dbus-update-activation-environment --systemd DBUS_SESSION_BUS_ADDRESS DISPLAY XAUTHORITY`
+
 
 
 ### Application Startup
