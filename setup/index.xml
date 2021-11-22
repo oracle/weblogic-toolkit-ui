@@ -24,8 +24,8 @@ These include:
       <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
       
       <guid>https://oracle.github.io/weblogic-toolkit-ui/setup/install/</guid>
-      <description>Download the latest WebLogic Kubernetes Toolkit UI (WKT UI) application installers from the GitHub Releases section of this repository. Simply run the appropriate installer for your operating system.  Application startup detects Internet connectivity to GitHub. If it fails to connect, a Network Configuration dialog appears in which you can set or modify your proxy settings, test your changes, and then restart the application.
-Launching the application displays a thorough &amp;ldquo;Introduction&amp;rdquo; to the WKT UI.</description>
+      <description>Download the latest WebLogic Kubernetes Toolkit UI (WKT UI) application installers from the GitHub Releases section of this repository. Simply run the appropriate installer for your operating system.  If you download and run the AppImage file, you get the added benefits of 1.) Not requiring an installation or root access and 2.) Being able to participate in the auto-update functionality like MacOS and Windows.
+NOTE: On Linux, to get all the dependencies and have them installed in the correct order, you need to use the package manager to install the rpm or deb file.</description>
     </item>
     
   </channel>
