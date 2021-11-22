@@ -35,3 +35,27 @@ In addition to these local software dependencies, you will need a Kubernetes clu
 containerized WebLogic Server domain and its applications.  If you do not already have a model, then you can either write
 one by hand using the WKT UI application or discover the model from an existing domain.  Most likely, you'll want to start
 with a WebLogic domain that can be used to discover the model from the domain.
+
+#### Linux Prerequisites
+
+For RPM-based systems, such as Oracle, RedHat, CentOS, and some others:
+
+For storing credentials in the OS native credentials store, you must have a desktop environment. If your system does not have a graphical desktop environment,
+you can install one; for example, installing GNOME Desktop on Oracle Linux:
+
+https://support.oracle.com/knowledge/Oracle%20Linux%20and%20Virtualization/2717454_1.html
+
+For storing credentials as an encrypted project file, and for a minimum GUI requirement, make sure the following packages are installed in your system:
+```
+sudo dnf update
+sudo dnf install libxshmfence libdrm.x86_64 libgbm alsa-lib xauth atk-devel.x86_64 java-atk-wrapper.x86_64
+sudo reboot
+```
+For Debian-based systems, such as Ubuntu and Debian:
+
+For storing credentials in the OS native credentials store, you must have a desktop environment. If your system does not have a graphical desktop environment,
+you can install one; for example, installing GNOME on Ubuntu 20x:
+```
+sudo apt install gnome-session gdm3
+sudo reboot
+```
