@@ -9,6 +9,8 @@ description: "Install the WKT UI application and check for updates."
 1. Download the latest WebLogic Kubernetes Toolkit UI (WKT UI) application installers from the [GitHub Releases section](https://github.com/oracle/weblogic-toolkit-ui/releases) of this repository.
 2. Simply run the appropriate installer for your operating system.
 
+If you download and run the `AppImage` file, you get the added benefits of 1.) Not requiring an installation or root access and 2.) Being able to participate in the auto-update functionality like MacOS and Windows.
+
 
 **NOTE**: On Linux, to get _all_ the dependencies and have them installed in the correct order, you need to use the package manager to install the `rpm` or `deb` file.
 First, be sure to review the Linux prerequisites [here]({{< relref "/setup/prerequisites.md" >}}).
