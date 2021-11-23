@@ -27,6 +27,8 @@ We have a closely monitored public Slack channel where you can get in touch with
 WebLogic Toolkit UI or give us feedback or suggestions about what features and improvements you would like to see.
 We would love to hear from you.
 
+To join our public channel, please visit this [site](https://weblogic-slack-inviter.herokuapp.com/) to get an invitation. The invitation email will include details of how to access our Slack workspace. After you are logged in, please come to `#general` and say, “hello!”
+
 ## Related Projects
 For detailed documentation and access to WebLogic Toolkit-related projects, see:
 

@@ -9,21 +9,26 @@ description: "Install the WKT UI application and check for updates."
 1. Download the latest WebLogic Kubernetes Toolkit UI (WKT UI) application installers from the [GitHub Releases section](https://github.com/oracle/weblogic-toolkit-ui/releases) of this repository.
 2. Simply run the appropriate installer for your operating system.
 
-If you download and run the `AppImage` file, you get the added benefits of 1.) Not requiring an installation or root access and 2.) Being able to participate in the auto-update functionality like MacOS and Windows.
 
+**NOTE**: On Linux, to get _all_ the dependencies and have them installed in the correct order, you need to use the package manager to install the `rpm` or `deb` file. First, be sure to review the Linux prerequisites [here]({{< relref "/setup/prerequisites.md" >}}).
 
-**NOTE**: On Linux, to get _all_ the dependencies and have them installed in the correct order, you need to use the package manager to install the `rpm` or `deb` file.
-First, be sure to review the Linux prerequisites [here]({{< relref "/setup/prerequisites.md" >}}).
-
-- For RPM-based systems, download the latest `wktui` `rpm` package from https://github.com/oracle/weblogic-toolkit-ui/releases, then use either `yum` or `dnf`; for example:
+- For RPM-based systems, use either `yum` or `dnf`; for example:
     ```
     sudo yum -y localinstall wktui_1.0.0_amd64.rpm
     ```
 
-- For Debian-based systems, download the latest `wktui` `deb` package from https://github.com/oracle/weblogic-toolkit-ui/releases, then run:
+- For Debian-based systems, use:
     ```
     sudo apt install ./wktui_1.0.0_amd64.deb
     ```
+Alternatively, you can download the `AppImage` file, copy it to your local file system, then either:
+- Open a terminal, navigate to the directory where the file exists, and make it executable; for example:
+
+    `chmod u+x <AppImage Name>`
+
+- Use your file manager, right click on the file, edit the properties, and change the permissions to  make it executable.
+
+If you download and run the `AppImage` file, you get the added benefits of 1.) Not requiring an installation or root access and 2.) Being able to participate in the auto-update functionality, like MacOS and Windows.
 
 #### Helpful Hints
 
