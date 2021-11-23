@@ -65,8 +65,8 @@ describe('model-page', function () {
     return getEntry(array, key, value);
   }
 
-  it('the initial selection is the code view', function () {
-    expect(viewModel.selectedItem()).to.equal('model-code-view');
+  it('the initial selection is the design view', function () {
+    expect(viewModel.selectedItem()).to.equal('model-design-view');
   });
 
   xit('offers view choices choices', function () {

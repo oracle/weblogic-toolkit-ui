@@ -1080,5 +1080,7 @@
   "model-design-tbd": "TBD",
   "model-design-domain": "Domain",
   "model-design-servers": "Servers",
-  "model-design-coherence-cluster-system-resources": "Coherence Cluster System Resources"
+  "model-design-coherence-cluster-system-resources": "Coherence Cluster System Resources",
+  "model-design-channels": "Channels",
+  "model-design-serverFailureTrigger": "Server Failure Trigger"
 }

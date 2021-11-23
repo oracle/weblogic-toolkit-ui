@@ -60,6 +60,22 @@
   padding-left: var(--oj-navigation-list-item-padding) !important;
 }
 
+.oj-navigationlist-depth-2 .oj-navigationlist-item-content {
+  padding-left: calc(2 * var(--oj-navigation-list-item-padding)) !important;
+}
+
+.oj-navigationlist-depth-3 .oj-navigationlist-item-content {
+  padding-left: calc(3 * var(--oj-navigation-list-item-padding)) !important;
+}
+
+.oj-navigationlist-depth-4 .oj-navigationlist-item-content {
+  padding-left: calc(4 * var(--oj-navigation-list-item-padding)) !important;
+}
+
+.oj-navigationlist-depth-5 .oj-navigationlist-item-content {
+  padding-left: calc(5 * var(--oj-navigation-list-item-padding)) !important;
+}
+
 /* this gets hidden in vertical flex layout */
 .oj-tabbar-element li {
   box-sizing: border-box;

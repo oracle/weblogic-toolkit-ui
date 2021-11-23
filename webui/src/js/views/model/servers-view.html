@@ -3,3 +3,15 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 <h6>Servers</h6>
+
+<oj-bind-for-each data="[[servers]]">
+  <template>
+    <oj-button chroming="callToAction"
+               on-oj-action="[[showServerFunction($current.data)]]">
+          <span>
+            <oj-bind-text value="[[$current.data]]"></oj-bind-text>
+          </span>
+    </oj-button>
+  </template>
+</oj-bind-for-each>
+
