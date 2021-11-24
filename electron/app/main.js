@@ -189,18 +189,14 @@ class Main {
       this._forceQuit = true;
     });
 
-    app.on('will-quit', (event) => {
+    app.on('will-quit', () => {
       this._logger.debug('Received will-quit event');
-      event.preventDefault();
-      userSettings.saveUserSettings()
-        .then(() => {
-          this._logger.info('User Settings saved');
-          app.exit();
-        })
-        .catch(err => {
-          this._logger.error('User settings save failed: %s', err);
-          app.exit();
-        });
+      try {
+        userSettings.saveUserSettings();
+        this._logger.info('User Settings saved');
+      } catch (err) {
+        this._logger.error('User settings save failed: %s', err);
+      }
     });
   }
 
@@ -524,33 +520,30 @@ class Main {
 
     ipcMain.handle('save-user-settings', async (event, userSettingsObj) => {
       const currentWindow = event.sender.getOwnerBrowserWindow();
-      return new Promise(resolve => {
-        userSettings.applyUserSettingsFromRemote(userSettingsObj)
-          .then(() => {
-            dialog.showMessageBox(currentWindow, {
-              type: 'info',
-              title: i18n.t('dialog-preference-save-success-title'),
-              message: i18n.t('dialog-preference-save-success-message'),
-              buttons: [
-                i18n.t('button-ok')
-              ],
-              defaultId: 0,
-              cancelId: 0
-            }).then(() => resolve());
-          })
-          .catch(err => {
-            dialog.showMessageBox(currentWindow, {
-              type: 'error',
-              title: i18n.t('dialog-preference-save-error-title'),
-              message: i18n.t('dialog-preference-save-error-message', { error: err }),
-              buttons: [
-                i18n.t('button-ok')
-              ],
-              defaultId: 0,
-              cancelId: 0
-            }).then(() => resolve());
-          });
-      });
+      try {
+        userSettings.applyUserSettingsFromRemote(userSettingsObj);
+        dialog.showMessageBox(currentWindow, {
+          type: 'info',
+          title: i18n.t('dialog-preference-save-success-title'),
+          message: i18n.t('dialog-preference-save-success-message'),
+          buttons: [
+            i18n.t('button-ok')
+          ],
+          defaultId: 0,
+          cancelId: 0
+        }).then();
+      } catch (err) {
+        dialog.showMessageBox(currentWindow, {
+          type: 'error',
+          title: i18n.t('dialog-preference-save-error-title'),
+          message: i18n.t('dialog-preference-save-error-message', { error: err }),
+          buttons: [
+            i18n.t('button-ok')
+          ],
+          defaultId: 0,
+          cancelId: 0
+        }).then();
+      }
     });
 
     // eslint-disable-next-line no-unused-vars
@@ -846,7 +839,7 @@ class Main {
     ipcMain.handle('restart-network-settings', async (event, settings) => {
       userSettings.setHttpsProxyUrl(settings['proxyUrl']);
       userSettings.setBypassProxyHosts(settings['bypassHosts']);
-      await userSettings.saveUserSettings();
+      userSettings.saveUserSettings();
       app.relaunch();
       app.quit();
     });

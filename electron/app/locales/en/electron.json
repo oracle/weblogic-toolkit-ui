@@ -299,6 +299,7 @@
   "user-settings-directory-not-initialized-error-message": "Unable to get the user settings directory because electron is not yet initialized",
   "user-settings-file-exists-checked-failed-error-message": "Existence check for user settings file {{userSettingsFile}} failed: {{error}}",
   "user-settings-illegal-fields-error-message": "Remote User Settings object contains illegal fields: {{fieldNames}}",
+  "user-settings-check-directory-failed-error-message": "Failed to test the existence of {{userSettingsDirectory}} directory: {{error}}",
   "user-settings-make-directory-failed-error-message": "Failed to create {{userSettingsDirectory}} directory: {{error}}",
   "user-settings-file-save-failed-error-message": "Failed to save file {{userSettingsFile}}: {{error}}",
   "user-settings-deep-copy-failed-error-message": "Failed to make a deep copy of the user settings object: {{error}}",
