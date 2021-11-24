@@ -8,8 +8,9 @@
 define(['accUtils'],
   function(accUtils) {
     function ServersView(args) {
-      this.model = args.routerState.detail.model;
-      this.servers = args.routerState.detail.servers;
+      this.nav = args.nav;
+      this.model = args.model;
+      this.servers = args.servers;
 
       this.connected = () => {
         accUtils.announce('Servers design view loaded.', 'assertive');
@@ -17,7 +18,7 @@ define(['accUtils'],
 
       this.showServerFunction = (key) => {
         return () => {
-          console.log('show server: ' + key);
+          this.nav.selectServer(key);
         };
       };
     }

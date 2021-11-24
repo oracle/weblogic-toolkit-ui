@@ -7,7 +7,8 @@
 
 define([],
   function() {
-    function DomainView() {
+    function DomainView(args) {
+      console.log('DomainView: ' + args + ' ' + JSON.stringify(args));
 
     }
 

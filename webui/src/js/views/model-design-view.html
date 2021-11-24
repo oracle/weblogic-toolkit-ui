@@ -20,9 +20,10 @@
                         display="all"
                         drill-mode="collapsible"
                         item.renderer="[[KnockoutTemplateUtils.getRenderer('modelNavTemplate', true)]]"
-                        selection="{{selection.path}}">
+                        selection="{{selection}}"
+                        expanded="{{expanded}}">
     </oj-navigation-list>
   </div>
-  <oj-module role="main" id="wktModelDesignModule" class="wkt-model-design-content" config="[[moduleAdapter.koObservableConfig]]">
+  <oj-module role="main" id="wktModelDesignModule" class="wkt-model-design-content" config="[[moduleConfig]]">
   </oj-module>
 </div>

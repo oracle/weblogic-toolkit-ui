@@ -5,11 +5,11 @@
  */
 define(['accUtils', 'knockout', 'js-yaml', 'utils/i18n', 'utils/model-helper', 'models/wkt-project',
   'ojs/ojarraytreedataprovider', 'ojs/ojmodulerouter-adapter', 'ojs/ojknockoutrouteradapter',
-  'ojs/ojknockouttemplateutils'],
+  'ojs/ojmodule-element-utils', 'ojs/ojknockouttemplateutils', 'ojs/ojknockout-keyset'],
 function(accUtils, ko, jsYaml, i18n, modelHelper, project,
-  ArrayTreeDataProvider, ModuleRouterAdapter, KnockoutRouterAdapter, KnockoutTemplateUtils) {
-
-  function ModelDesignViewModel(args) {
+  ArrayTreeDataProvider, ModuleRouterAdapter, KnockoutRouterAdapter, ModuleElementUtils, KnockoutTemplateUtils,
+  KnockoutKeyset) {
+  function ModelDesignViewModel() {
     this.KnockoutTemplateUtils = KnockoutTemplateUtils;
 
     this.connected = () => {
@@ -50,17 +50,18 @@ function(accUtils, ko, jsYaml, i18n, modelHelper, project,
     this.servers.subscribe(servers => {
       this.navServers.removeAll();
       servers.forEach((serverName, index) => {
+        const id = 'model-design-server-' + index;
         const navServer = {
           name: serverName,
-          id: 'model-design-server-' + index,
+          id: id,
           icon: 'oj-ux-ico-server',
           children:[
             { name: this.labelMapper('channels'),
-              id: 'model-design-server-channels' + index,
+              id: 'model-design-server-channels-' + index,
               icon: 'oj-ux-ico-collections'
             },
             { name: this.labelMapper('serverFailureTrigger'),
-              id: 'model-design-server-trigger' + index,
+              id: 'model-design-server-trigger-' + index,
               icon: 'oj-ux-ico-assets'
             },
           ]
@@ -69,28 +70,41 @@ function(accUtils, ko, jsYaml, i18n, modelHelper, project,
       });
     });
 
-    const detail = {
-      model: this.modelObject
+    const pageMap = {
+      'design-view': { model: this.modelObject },
+      'domain-view': { model: this.modelObject },
+      'server-view': { model: this.modelObject, servers: this.servers },
+      'servers-view': { nav: this, model: this.modelObject, servers: this.servers }
     };
 
-    let routeData = [
-      { path: '', redirect: 'design-view' },
-      { path: 'design-view', detail: detail},
-      { path: 'domain-view', detail: detail},
-      { path: 'servers-view', detail: { model: this.modelObject, servers: this.servers } },
-      { path: 'server-view', detail: detail}
-    ];
+    // this.selection = new KnockoutRouterAdapter(router);
+    this.selection = new ko.observable();
+    this.selection.subscribe(selection => {
+      let pageKey = selection;
+      let pageParams = { };
 
-    // Router setup
-    let router = args.parentRouter.createChildRouter(routeData, { history: 'skip' });
-    router.sync();
+      const regex = /model-design-server-(\d*)/;
+      const found = selection.match(regex);
+      if(found) {
+        pageKey = 'server-view';
+        const index = parseInt(found[1]);
+        const navServer = this.navServers()[index];
+        pageParams = { serverName: navServer ? navServer.name : 'unknown' };
+      }
 
-    this.moduleAdapter = new ModuleRouterAdapter(router, {
-      viewPath: 'views/model/',
-      viewModelPath: 'viewModels/model/',
+      const params = pageMap[pageKey];
+      if(params != null) {
+        Object.assign(pageParams, params);
+
+        this.moduleConfig(ModuleElementUtils.createConfig({
+          viewPath: `views/model/${pageKey}.html`,
+          viewModelPath: `viewModels/model/${pageKey}`,
+          params: pageParams
+        }));
+      }
     });
 
-    this.selection = new KnockoutRouterAdapter(router);
+    this.expanded = new KnockoutKeyset.ObservableKeySet();
 
     this.navServers = ko.observableArray();
 
@@ -179,11 +193,28 @@ function(accUtils, ko, jsYaml, i18n, modelHelper, project,
     this.navDataProvider = new ArrayTreeDataProvider(navData, {
       keyAttributes: 'id'
     });
+
+    this.moduleConfig = ko.observable(ModuleElementUtils.createConfig({
+      viewPath: 'views/model/design-view.html',
+      viewModelPath: 'viewModels/model/design-view',
+      params: {}
+    }));
+
+    this.selectServer = serverName => {
+      this.navServers().forEach(navServer => {
+        if(navServer.name === serverName) {
+          this.selection(navServer.id);
+        }
+      });
+
+      if (!this.expanded().has('servers-view')) {
+        this.expanded.add(['servers-view']);
+      }
+    };
   }
 
   /*
    * Returns a constructor for the ViewModel.
    */
   return ModelDesignViewModel;
-}
-);
+});

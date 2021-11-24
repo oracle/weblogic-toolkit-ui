@@ -7,8 +7,12 @@
 
 define([],
   function() {
-    function ServerView() {
+    function ServerView(args) {
+      this.model = args.model;
+      this.servers = args.servers;
+      this.serverName = args.serverName;
 
+      console.log('server model: ' + JSON.stringify(this.model()));
     }
 
     return ServerView;
