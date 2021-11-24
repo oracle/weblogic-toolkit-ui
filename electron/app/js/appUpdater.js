@@ -46,6 +46,11 @@ function registerAutoUpdateListeners() {
       }
       autoUpdater.quitAndInstall();
     }
+    // On Windows, when _installType = 'onExit' and the app is installed for all users, electron-updater@4.3.9
+    // doesn't work.  This is fixed in electron-updater@4.6.2 but that version suffers from
+    // https://github.com/electron-userland/electron-builder/issues/6425, which causes
+    // a Windows installer regression.
+    //
   });
 }
 
