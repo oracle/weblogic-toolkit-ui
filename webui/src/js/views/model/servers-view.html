@@ -4,14 +4,21 @@
  -->
 <h6>Servers</h6>
 
+<div class="wkt-gridButtonContainer">
 <oj-bind-for-each data="[[servers]]">
   <template>
-    <oj-button chroming="callToAction"
-               on-oj-action="[[showServerFunction($current.data)]]">
-          <span>
-            <oj-bind-text value="[[$current.data]]"></oj-bind-text>
-          </span>
+    <oj-button class="wkt-gridButton" on-oj-action="[[showServerFunction($current.data.id)]]">
+      <span>
+        <oj-bind-text value="[[$current.data.name]]"></oj-bind-text>
+      </span>
     </oj-button>
   </template>
 </oj-bind-for-each>
-
+</div>
+<div class="wkt-gridButtonContainer">
+  <oj-button chroming="callToAction" class="wkt-gridButton"  on-oj-action="[[addNewServer]]">
+    <span>
+      <oj-bind-text value="[[labelMapper('addNewServer')]]"></oj-bind-text>
+    </span>
+  </oj-button>
+</div>

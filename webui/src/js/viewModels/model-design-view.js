@@ -37,44 +37,20 @@ function(accUtils, ko, jsYaml, i18n, modelHelper, project,
         const serverMap = modelHelper.navigate(this.modelObject(), 'topology', 'Server');
         // console.log('serverMap: ' + JSON.stringify(serverMap));
 
-        this.servers.removeAll();
+        this.servers([]);
         for(const key in serverMap) {
-          this.servers.push(key);
+          this.addServer(key);
         }
       } catch (e) {
         console.log('Unable to parse model');
       }
     };
 
-    // if server list changes, rebuild the navigation servers list
-    this.servers.subscribe(servers => {
-      this.navServers.removeAll();
-      servers.forEach((serverName, index) => {
-        const id = 'model-design-server-' + index;
-        const navServer = {
-          name: serverName,
-          id: id,
-          icon: 'oj-ux-ico-server',
-          children:[
-            { name: this.labelMapper('channels'),
-              id: 'model-design-server-channels-' + index,
-              icon: 'oj-ux-ico-collections'
-            },
-            { name: this.labelMapper('serverFailureTrigger'),
-              id: 'model-design-server-trigger-' + index,
-              icon: 'oj-ux-ico-assets'
-            },
-          ]
-        };
-        this.navServers.push(navServer);
-      });
-    });
-
     const pageMap = {
       'design-view': { model: this.modelObject },
       'domain-view': { model: this.modelObject },
-      'server-view': { model: this.modelObject, servers: this.servers },
-      'servers-view': { nav: this, model: this.modelObject, servers: this.servers }
+      'server-view': { nav: this },
+      'servers-view': { nav: this }
     };
 
     // this.selection = new KnockoutRouterAdapter(router);
@@ -83,13 +59,19 @@ function(accUtils, ko, jsYaml, i18n, modelHelper, project,
       let pageKey = selection;
       let pageParams = { };
 
-      const regex = /model-design-server-(\d*)/;
-      const found = selection.match(regex);
-      if(found) {
-        pageKey = 'server-view';
-        const index = parseInt(found[1]);
-        const navServer = this.navServers()[index];
-        pageParams = { serverName: navServer ? navServer.name : 'unknown' };
+      if(selection == null) {
+        pageKey = 'design-view';
+
+      } else {
+        const regex = /model-design-server-(\d+)/;
+        if(selection.match(regex)) {
+          this.servers().forEach(thisServer => {
+            if(thisServer.id === selection) {
+              pageKey = 'server-view';
+              pageParams = { server: thisServer };
+            }
+          });
+        }
       }
 
       const params = pageMap[pageKey];
@@ -106,8 +88,6 @@ function(accUtils, ko, jsYaml, i18n, modelHelper, project,
 
     this.expanded = new KnockoutKeyset.ObservableKeySet();
 
-    this.navServers = ko.observableArray();
-
     const navData = ko.observableArray([
       { name: this.labelMapper('environment'),
         id: 'model-no-page-1',
@@ -120,7 +100,7 @@ function(accUtils, ko, jsYaml, i18n, modelHelper, project,
           { name: this.labelMapper('servers'),
             id: 'servers-view',
             icon: 'oj-ux-ico-collections',
-            children: this.navServers
+            children: this.servers
           },
           { name: this.labelMapper('coherence-cluster-system-resources'),
             id: 'coherence-cluster-view',
@@ -200,16 +180,64 @@ function(accUtils, ko, jsYaml, i18n, modelHelper, project,
       params: {}
     }));
 
-    this.selectServer = serverName => {
-      this.navServers().forEach(navServer => {
-        if(navServer.name === serverName) {
-          this.selection(navServer.id);
-        }
-      });
+    this.selectServer = navId => {
+      this.selection(navId);
 
       if (!this.expanded().has('servers-view')) {
         this.expanded.add(['servers-view']);
       }
+    };
+
+    this.addServer = serverName => {
+      const index = this.servers().length;
+      const navId = 'model-design-server-' + index;
+
+      const server = {
+        name: serverName,
+        id: navId,
+        icon: 'oj-ux-ico-server',
+        children:[
+          { name: this.labelMapper('channels'),
+            id: 'model-design-server-channels-' + index,
+            icon: 'oj-ux-ico-collections'
+          },
+          { name: this.labelMapper('serverFailureTrigger'),
+            id: 'model-design-server-trigger-' + index,
+            icon: 'oj-ux-ico-assets'
+          },
+        ]
+      };
+      this.servers.push(server);
+      return navId;
+    };
+
+    this.addNewServer = () => {
+      const names = [];
+      this.servers().forEach(server => {
+        names.push(server.name);
+      });
+
+      let nextName;
+      let index = 0;
+      while(!nextName) {
+        const thisName = 'Server-' + index;
+        if(!names.includes(thisName)) {
+          nextName = thisName;
+        }
+        index++;
+      }
+
+      const serverName = nextName;
+      const navId = this.addServer(serverName);
+      this.selectServer(navId);
+    };
+
+    this.deleteServer = server => {
+      this.servers().forEach(thisServer => {
+        if(thisServer.id === server.id) {
+          this.servers.remove(thisServer);
+        }
+      });
     };
   }
 

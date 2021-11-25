@@ -5,21 +5,28 @@
  */
 'use strict';
 
-define(['accUtils'],
-  function(accUtils) {
+define(['accUtils', 'utils/i18n'],
+  function(accUtils, i18n) {
     function ServersView(args) {
       this.nav = args.nav;
-      this.model = args.model;
-      this.servers = args.servers;
+      this.servers = this.nav.servers;
 
       this.connected = () => {
         accUtils.announce('Servers design view loaded.', 'assertive');
       };
 
-      this.showServerFunction = (key) => {
+      this.labelMapper = (labelId, payload) => {
+        return i18n.t(`model-design-${labelId}`, payload);
+      };
+
+      this.showServerFunction = (navId) => {
         return () => {
-          this.nav.selectServer(key);
+          this.nav.selectServer(navId);
         };
+      };
+
+      this.addNewServer = () => {
+        this.nav.addNewServer();
       };
     }
 

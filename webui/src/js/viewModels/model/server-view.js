@@ -5,14 +5,23 @@
  */
 'use strict';
 
-define([],
-  function() {
+define(['accUtils', 'utils/i18n'],
+  function(accUtils, i18n) {
     function ServerView(args) {
-      this.model = args.model;
-      this.servers = args.servers;
-      this.serverName = args.serverName;
+      this.nav = args.nav;
+      this.server = args.server;
 
-      console.log('server model: ' + JSON.stringify(this.model()));
+      this.connected = () => {
+        accUtils.announce('Server design view loaded.', 'assertive');
+      };
+
+      this.labelMapper = (labelId, payload) => {
+        return i18n.t(`model-design-${labelId}`, payload);
+      };
+
+      this.deleteServer = () => {
+        this.nav.deleteServer(this.server);
+      };
     }
 
     return ServerView;

@@ -604,6 +604,18 @@ h6.wkt-panel-heading {
   padding: 0 0.5em;
 }
 
+.wkt-gridButton {
+  margin-top: 0.5em;
+}
+
+.wkt-gridButtonContainer {
+  margin-top: -0.5em;
+}
+
+.wkt-gridButtonContainer + .wkt-gridButtonContainer {
+  margin-top: 0.5em;
+}
+
 .validationErrorBlock {
   margin-top: 1em;
 }

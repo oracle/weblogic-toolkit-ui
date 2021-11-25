@@ -1082,5 +1082,7 @@
   "model-design-servers": "Servers",
   "model-design-coherence-cluster-system-resources": "Coherence Cluster System Resources",
   "model-design-channels": "Channels",
-  "model-design-serverFailureTrigger": "Server Failure Trigger"
+  "model-design-serverFailureTrigger": "Server Failure Trigger",
+  "model-design-addNewServer": "Add New Server",
+  "model-design-deleteServer": "Delete Server"
 }

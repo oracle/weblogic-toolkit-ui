@@ -2,4 +2,12 @@
  Copyright (c) 2021, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
-<h6>Server <oj-bind-text value="[[serverName]]"></oj-bind-text></h6>
+<h6>Server <oj-bind-text value="[[server.name]]"></oj-bind-text></h6>
+
+<div class="wkt-gridButtonContainer">
+  <oj-button chroming="callToAction" class="wkt-gridButton"  on-oj-action="[[deleteServer]]">
+    <span>
+      <oj-bind-text value="[[labelMapper('deleteServer')]]"></oj-bind-text>
+    </span>
+  </oj-button>
+</div>
