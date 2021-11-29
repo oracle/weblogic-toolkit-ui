@@ -12,12 +12,24 @@ function(accUtils, ko, jsYaml, i18n, modelHelper, project,
   function ModelDesignViewModel() {
     this.KnockoutTemplateUtils = KnockoutTemplateUtils;
 
+    let subscriptions = [];
+
     this.connected = () => {
       accUtils.announce('Model design view loaded.', 'assertive');
 
       this.loadModelObject(project.wdtModel.modelContent());
-      project.wdtModel.modelContent.subscribe(modelContent => {
-        this.loadModelObject(modelContent);
+
+      // don't listen for changes to modelContent,
+      // since this page will update it and cause a feedback loop.
+      // just listen for the case where a new project is loaded.
+      subscriptions.push(project.postOpen.subscribe(() => {
+        this.loadModelObject(project.wdtModel.modelContent());
+      }));
+    };
+
+    this.disconnected = () => {
+      subscriptions.forEach((subscription) => {
+        subscription.dispose();
       });
     };
 
@@ -31,11 +43,11 @@ function(accUtils, ko, jsYaml, i18n, modelHelper, project,
 
     this.loadModelObject = modelContent => {
       try {
-        this.modelObject(jsYaml.load(modelContent));
-        // console.log('modelObject: ' + this.modelObject());
+        let modelObject = jsYaml.load(modelContent);
+        modelObject = modelObject ? modelObject : {};
+        this.modelObject(modelObject);
 
-        const serverMap = modelHelper.navigate(this.modelObject(), 'topology', 'Server');
-        // console.log('serverMap: ' + JSON.stringify(serverMap));
+        const serverMap = modelHelper.getFolder(this.modelObject(), 'topology', 'Server');
 
         this.servers([]);
         for(const key in serverMap) {
@@ -208,26 +220,33 @@ function(accUtils, ko, jsYaml, i18n, modelHelper, project,
         ]
       };
       this.servers.push(server);
+
+      // sometimes duplicate entries show up in navigation - this seems to resolve it:
+      this.servers(this.servers());
       return navId;
     };
 
     this.addNewServer = () => {
+      // get an unused name for the server
       const names = [];
       this.servers().forEach(server => {
         names.push(server.name);
       });
 
-      let nextName;
+      let serverName;
       let index = 0;
-      while(!nextName) {
+      while(!serverName) {
         const thisName = 'Server-' + index;
         if(!names.includes(thisName)) {
-          nextName = thisName;
+          serverName = thisName;
         }
         index++;
       }
 
-      const serverName = nextName;
+      // add to the object model and update the text model
+      modelHelper.addFolder(this.modelObject(), 'topology', 'Server', serverName);
+
+      // add to the navigation list and select
       const navId = this.addServer(serverName);
       this.selectServer(navId);
     };
@@ -238,6 +257,9 @@ function(accUtils, ko, jsYaml, i18n, modelHelper, project,
           this.servers.remove(thisServer);
         }
       });
+
+      // remove from the object model and update the text model
+      modelHelper.removeFolder(this.modelObject(), 'topology', 'Server', server.name);
     };
   }
 
