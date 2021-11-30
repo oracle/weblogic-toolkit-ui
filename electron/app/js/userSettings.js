@@ -5,10 +5,8 @@
  */
 const { app } = require('electron');
 const fs = require('fs');
-const fsPromises = require('fs/promises');
 const path = require('path');
 
-const fsUtils = require('./fsUtils');
 const { getErrorMessage } = require('./errorUtils');
 
 // eslint-disable-next-line no-unused-vars
@@ -66,35 +64,26 @@ function getUserSettingsForRemote() {
   return JSON.stringify(_constructFilteredCopy(settings));
 }
 
-async function applyUserSettingsFromRemote(remoteUserSettingsJson) {
-  let remoteUserSettingsObject;
-  try {
-    remoteUserSettingsObject = JSON.parse(remoteUserSettingsJson);
-    verifyRemoteUserSettingsObject(remoteUserSettingsObject);
-  } catch (err) {
-    return Promise.reject(err);
-  }
+function applyUserSettingsFromRemote(remoteUserSettingsJson) {
+  const { getLogger } = require('./wktLogging');
+  const logger = getLogger();
 
-  return new Promise((resolve, reject) => {
-    const currentSettings = _getUserSettings();
-    const { getLogger } = require('./wktLogging');
-    const logger = getLogger();
-    for (const privateField of appPrivateFieldNames) {
-      logger.debug(`privateField = ${privateField}`);
-      if (Object.prototype.hasOwnProperty.call(currentSettings, privateField)) {
-        logger.debug(`adding private field ${privateField} to new user settings object`);
-        remoteUserSettingsObject[privateField] = currentSettings[privateField];
-      } else {
-        logger.debug(`currentSettings doesn't have private field ${privateField}`);
-      }
+  let remoteUserSettingsObject = JSON.parse(remoteUserSettingsJson);
+  verifyRemoteUserSettingsObject(remoteUserSettingsObject);
+  const currentSettings = _getUserSettings();
+  for (const privateField of appPrivateFieldNames) {
+    logger.debug(`privateField = ${privateField}`);
+    if (Object.prototype.hasOwnProperty.call(currentSettings, privateField)) {
+      logger.debug(`adding private field ${privateField} to new user settings object`);
+      remoteUserSettingsObject[privateField] = currentSettings[privateField];
+    } else {
+      logger.debug(`currentSettings doesn't have private field ${privateField}`);
     }
-    logger.debug(`new user settings are: ${JSON.stringify(remoteUserSettingsObject)}`);
-    _userSettingsObject = remoteUserSettingsObject;
-    saveUserSettings().then(() => {
-      logger.debug('user settings saved...restart the application to pick up logger settings changes');
-      resolve();
-    }).catch(err => reject(err));
-  });
+  }
+  logger.debug(`new user settings are: ${JSON.stringify(remoteUserSettingsObject)}`);
+  _userSettingsObject = remoteUserSettingsObject;
+  saveUserSettings();
+  logger.debug('user settings saved...restart the application to pick up logger settings changes');
 }
 
 function getHttpsProxyUrl() {
@@ -307,28 +296,42 @@ function verifyRemoteUserSettingsObject(remoteUserSettingsObject) {
   }
 }
 
-async function saveUserSettings() {
+function saveUserSettings() {
   const i18n = require('./i18next.config');
 
   if (!_userSettingsObject) {
     // nothing to save
-    return new Promise(resolve => resolve());
+    return;
   }
   const userSettingsJson = JSON.stringify(_userSettingsObject, null, 2);
 
-  return new Promise((resolve, reject) => {
-    const userSettingsDirectory = getUserSettingsDirectory();
-    const userSettingsFileName = getUserSettingsFileName();
-    fsUtils.makeDirectoryIfNotExists(userSettingsDirectory)
-      .then(() => {
-        fsPromises.writeFile(userSettingsFileName, userSettingsJson, { encoding: 'utf8' })
-          .then(() => resolve())
-          .catch(err => reject(new Error(i18n.t('user-settings-file-save-failed-error-message',
-            { userSettingsFile: userSettingsFileName, error: getErrorMessage(err) }))));
-      })
-      .catch(err => reject(new Error(i18n.t('user-settings-make-directory-failed-error-message',
-        { userSettingsDirectory: userSettingsDirectory, error: getErrorMessage(err) }))));
-  });
+  const userSettingsDirectory = getUserSettingsDirectory();
+  let dirExists;
+  try {
+    dirExists = fs.existsSync(userSettingsDirectory);
+  } catch (err) {
+    throw new Error(i18n.t('user-settings-check-directory-failed-error-message',
+      { userSettingsDirectory: userSettingsDirectory, error: getErrorMessage(err) }));
+  }
+
+  if (!dirExists) {
+    try {
+      fs.mkdirSync(userSettingsDirectory, {
+        recursive: true
+      });
+    } catch (err) {
+      throw new Error(i18n.t('user-settings-make-directory-failed-error-message',
+        { userSettingsDirectory: userSettingsDirectory, error: getErrorMessage(err) }));
+    }
+  }
+
+  const userSettingsFileName = getUserSettingsFileName();
+  try {
+    fs.writeFileSync(userSettingsFileName, userSettingsJson, { encoding: 'utf8' });
+  } catch (err) {
+    throw new Error(i18n.t('user-settings-file-save-failed-error-message',
+      { userSettingsFile: userSettingsFileName, error: getErrorMessage(err) }));
+  }
 }
 
 function _constructFilteredCopy(settings) {
