@@ -34,8 +34,8 @@ async function testInternetConnectivity(httpsProxyUrl) {
   return new Promise((resolve) => {
     let timeout = false;
     const httpsRequest = https.request(homepage, options, (res) => {
-      logger.debug('Internet connectivity test required HTTP status code %s', res.statusCode);
-      resolve(true);
+      logger.debug('Internet connectivity test request to %s returned HTTP status code %s', homepage, res.statusCode);
+      resolve(res.statusCode === 200);
     });
     httpsRequest.on('timeout', () => {
       logger.error('Internet connectivity test timed out after %s ms', CONNECT_TIMEOUT);
