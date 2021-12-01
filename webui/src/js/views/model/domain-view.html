@@ -3,3 +3,25 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 <h6>Domain</h6>
+
+<div class="oj-panel">
+  <oj-form-layout max-columns="2" direction="column">
+    <oj-input-text label-hint="[[labelMapper('name-label')]]"
+                   value="{{domainName.observable}}"
+                   help.instruction="[[labelMapper('name-help')]]">
+    </oj-input-text>
+    <oj-switch label-hint="[[labelMapper('production-mode-label')]]"
+               value="{{productionMode.observable}}">
+    </oj-switch>
+    <oj-switch label-hint="[[labelMapper('admin-port-enabled-label')]]"
+               value="{{adminPortEnabled.observable}}">
+    </oj-switch>
+    <oj-input-number label-hint="[[labelMapper('admin-port-label')]]"
+                     converter="[[portNumberConverter]]"
+                     value="{{adminPort.observable}}"
+                     disabled="[[!adminPortEnabled.value]]"
+                     help.instruction="[[labelMapper('admin-port-help')]]"
+                     validators="[[adminPortValidator]]">
+    </oj-input-number>
+  </oj-form-layout>
+</div>

@@ -60,7 +60,7 @@ function(accUtils, ko, jsYaml, i18n, modelHelper, project,
 
     const pageMap = {
       'design-view': { model: this.modelObject },
-      'domain-view': { model: this.modelObject },
+      'domain-view': { nav: this },
       'server-view': { nav: this },
       'servers-view': { nav: this }
     };

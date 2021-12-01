@@ -8,8 +8,8 @@
 /**
  * Utilities to navigate and update the model object.
  */
-define(['js-yaml', 'models/wkt-project'],
-  function (jsYaml, project) {
+define(['js-yaml', 'utils/observable-properties', 'models/wkt-project'],
+  function (jsYaml, props, project) {
     function ModelHelper() {
 
       // navigate to the path specified by args.
@@ -74,8 +74,11 @@ define(['js-yaml', 'models/wkt-project'],
 
       // convert the model object to text, and replace the model editor content.
       this.updateTextModel = model => {
-        this.cleanFolder(model);
-        const textModel = jsYaml.dump(model, {
+        // probably a more efficient way to clone this
+        const writeModel = JSON.parse(JSON.stringify(model));
+        this.cleanFolder(writeModel);
+
+        const textModel = jsYaml.dump(writeModel, {
           'styles': {
             '!!null': 'empty' // dump null as nothing
           },
@@ -97,6 +100,37 @@ define(['js-yaml', 'models/wkt-project'],
             }
           }
         }
+      };
+
+      // create properties on the viewModel for each field in the fields object.
+      // set the initial values for the properties from the model object.
+      this.createUpdateProperties = (viewModel, modelObject, fields) => {
+        for (let field in fields) {
+          let values = fields[field];
+          viewModel[field] = this.createUpdateProperty(values.attribute, values.defaultValue, modelObject,
+            ...values.folderPath);
+
+          const folder = this.getFolder(modelObject, ...values.folderPath);
+          if (folder[values.attribute]) {
+            viewModel[field].value = folder[values.attribute];
+          }
+        }
+      };
+
+      // create a property based on a field object entry.
+      // this property will update the text model when its value changes.
+      this.createUpdateProperty = (attribute, defaultValue, modelObject, ...folderPath) => {
+        const updateProperty = props.createProperty(defaultValue);
+        updateProperty.observable.subscribe(value => {
+          const domainFolder = this.addFolder(modelObject, ...folderPath);
+          if(value === defaultValue) {
+            delete domainFolder[attribute];
+          } else {
+            domainFolder[attribute] = value;
+          }
+          this.updateTextModel(modelObject);
+        });
+        return updateProperty;
       };
     }
 
