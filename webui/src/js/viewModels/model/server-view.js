@@ -5,14 +5,11 @@
  */
 'use strict';
 
-define(['accUtils', 'utils/i18n', 'utils/model-helper', 'utils/validation-helper', 'ojs/ojconverter-number',
-  'ojs/ojinputtext',  'ojs/ojinputnumber',  'ojs/ojlabel', 'ojs/ojformlayout'],
-function(accUtils, i18n, modelHelper, validationHelper, ojConverterNumber) {
+define(['accUtils', 'knockout', 'utils/i18n', 'ojs/ojarraydataprovider', 'ojs/ojmodule-element-utils',
+  'ojs/ojbutton',  'ojs/ojnavigationlist'],
+function(accUtils, ko, i18n, ArrayDataProvider, ModuleElementUtils) {
   function ServerView(args) {
-    const defaultListenPort = 7001;
-
     this.nav = args.nav;
-    this.modelObject = this.nav.modelObject;
     this.server = args.server;
 
     this.connected = () => {
@@ -20,55 +17,30 @@ function(accUtils, i18n, modelHelper, validationHelper, ojConverterNumber) {
     };
 
     this.labelMapper = (labelId, payload) => {
-      return i18n.t(`model-design-${labelId}`, payload);
-    };
-
-    this.serverLabelMapper = (labelId, payload) => {
       return i18n.t(`model-design-server-${labelId}`, payload);
     };
 
-    const folderPath = ['topology', 'Server', this.server.name];
+    let navData = [
+      { path: 'server-general-view', detail: { label: this.labelMapper('general-tab') } },
+      { path: 'server-health-view', detail: { label: this.labelMapper('health-tab') } }
+    ];
 
-    const fields = {
-      autoRestart: {
-        attribute: 'AutoRestart',
-        defaultValue: true,
-        folderPath: folderPath,
-        type: 'boolean'
-      },
-      listenAddress: {
-        attribute: 'ListenAddress',
-        defaultValue: null,
-        folderPath: folderPath
-      },
-      listenPort: {
-        attribute: 'ListenPort',
-        defaultValue: defaultListenPort,
-        folderPath: folderPath
-      },
-      restartDelay: {
-        attribute: 'RestartDelaySeconds',
-        defaultValue: 0,
-        folderPath: folderPath
-      }
+    this.getModuleConfig = name => {
+      return ModuleElementUtils.createConfig({
+        viewPath: `views/model/${name}.html`,
+        viewModelPath: `viewModels/model/${name}`,
+        params: { nav: this.nav, server: this.server }
+      });
     };
 
-    modelHelper.createUpdateProperties(this, this.modelObject(), fields);
-
-    this.listenPortValidator = validationHelper.getPortNumberValidators();
-
-    this.portNumberConverter = new ojConverterNumber.IntlNumberConverter({
-      style: 'decimal',
-      roundingMode: 'HALF_DOWN',
-      maximumFractionDigits: 0,
-      useGrouping: false
+    this.selectedItem = ko.observable(navData[0].path);
+    this.selectedItem.subscribe(selection => {
+      this.moduleConfig(this.getModuleConfig(selection));
     });
 
-    this.delayNumberConverter = new ojConverterNumber.IntlNumberConverter({
-      style: 'decimal',
-      roundingMode: 'HALF_DOWN',
-      maximumFractionDigits: 0
-    });
+    this.dataProvider = new ArrayDataProvider(navData, { keyAttributes: 'path' });
+
+    this.moduleConfig = ko.observable(this.getModuleConfig(this.selectedItem()));
 
     this.deleteServer = () => {
       this.nav.deleteServer(this.server);

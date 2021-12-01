@@ -1,0 +1,16 @@
+<!--
+ Copyright (c) 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-panel">
+  <oj-form-layout max-columns="2" direction="column">
+    <oj-switch label-hint="[[labelMapper('auto-restart-label')]]"
+               value="{{autoRestart.observable}}">
+    </oj-switch>
+    <oj-input-number label-hint="[[labelMapper('restart-delay-label')]]"
+                     converter="[[delayNumberConverter]]"
+                     value="{{restartDelay.observable}}"
+                     help.instruction="[[labelMapper('restart-delay-help')]]">
+    </oj-input-number>
+  </oj-form-layout>
+</div>

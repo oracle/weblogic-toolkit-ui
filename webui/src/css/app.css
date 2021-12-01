@@ -485,6 +485,10 @@ h6.wkt-panel-heading {
   margin-bottom: 0;
 }
 
+h6.wkt-model-design-with-tabs {
+  margin-bottom: 0;
+}
+
 /* no default scroll bar on html body */
 .oj-web-applayout-body {
   overflow-y: auto;

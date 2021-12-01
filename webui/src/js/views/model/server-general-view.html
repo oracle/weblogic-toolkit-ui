@@ -1,0 +1,18 @@
+<!--
+ Copyright (c) 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-panel">
+  <oj-form-layout max-columns="2" direction="column">
+    <oj-input-text label-hint="[[labelMapper('listen-address-label')]]"
+                   value="{{listenAddress.observable}}"
+                   help.instruction="[[labelMapper('listen-address-help')]]">
+    </oj-input-text>
+    <oj-input-number label-hint="[[labelMapper('listen-port-label')]]"
+                     converter="[[portNumberConverter]]"
+                     value="{{listenPort.observable}}"
+                     help.instruction="[[labelMapper('listen-port-help')]]"
+                     validators="[[listenPortValidator]]">
+    </oj-input-number>
+  </oj-form-layout>
+</div>
