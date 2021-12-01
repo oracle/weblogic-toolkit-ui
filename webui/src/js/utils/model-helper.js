@@ -106,27 +106,26 @@ define(['js-yaml', 'utils/observable-properties', 'models/wkt-project'],
       // set the initial values for the properties from the model object.
       this.createUpdateProperties = (viewModel, modelObject, fields) => {
         for (let field in fields) {
-          let values = fields[field];
-          viewModel[field] = this.createUpdateProperty(values.attribute, values.defaultValue, modelObject,
-            ...values.folderPath);
+          let config = fields[field];
+          viewModel[field] = this.createUpdateProperty(config, modelObject);
 
-          const folder = this.getFolder(modelObject, ...values.folderPath);
-          if (folder[values.attribute]) {
-            viewModel[field].value = folder[values.attribute];
+          const folder = this.getFolder(modelObject, ...config.folderPath);
+          if (folder.hasOwnProperty(config.attribute)) {
+            viewModel[field].value = folder[config.attribute];
           }
         }
       };
 
       // create a property based on a field object entry.
       // this property will update the text model when its value changes.
-      this.createUpdateProperty = (attribute, defaultValue, modelObject, ...folderPath) => {
-        const updateProperty = props.createProperty(defaultValue);
+      this.createUpdateProperty = (config, modelObject) => {
+        const updateProperty = props.createProperty(config.defaultValue);
         updateProperty.observable.subscribe(value => {
-          const domainFolder = this.addFolder(modelObject, ...folderPath);
-          if(value === defaultValue) {
-            delete domainFolder[attribute];
+          const domainFolder = this.addFolder(modelObject, ...config.folderPath);
+          if(value === config.defaultValue) {
+            delete domainFolder[config.attribute];
           } else {
-            domainFolder[attribute] = value;
+            domainFolder[config.attribute] = value;
           }
           this.updateTextModel(modelObject);
         });

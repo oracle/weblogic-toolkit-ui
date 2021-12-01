@@ -4,7 +4,30 @@
  -->
 <h6>Server <oj-bind-text value="[[server.name]]"></oj-bind-text></h6>
 
-<div class="wkt-gridButtonContainer">
+<div class="oj-panel">
+  <oj-form-layout max-columns="2" direction="column">
+    <oj-input-text label-hint="[[serverLabelMapper('listen-address-label')]]"
+                   value="{{listenAddress.observable}}"
+                   help.instruction="[[serverLabelMapper('listen-address-help')]]">
+    </oj-input-text>
+    <oj-input-number label-hint="[[serverLabelMapper('listen-port-label')]]"
+                     converter="[[portNumberConverter]]"
+                     value="{{listenPort.observable}}"
+                     help.instruction="[[serverLabelMapper('listen-port-help')]]"
+                     validators="[[listenPortValidator]]">
+    </oj-input-number>
+    <oj-input-number label-hint="[[serverLabelMapper('connect-timeout-label')]]"
+                     converter="[[timeoutNumberConverter]]"
+                     value="{{connectTimeout.observable}}"
+                     help.instruction="[[serverLabelMapper('connect-timeout-help')]]">
+    </oj-input-number>
+    <oj-switch label-hint="[[serverLabelMapper('auto-restart-label')]]"
+               value="{{autoRestart.observable}}">
+    </oj-switch>
+  </oj-form-layout>
+</div>
+
+<div class="wkt-gridButtonContainer wkt-top-margin">
   <oj-button chroming="callToAction" class="wkt-gridButton"  on-oj-action="[[deleteServer]]">
     <span>
       <oj-bind-text value="[[labelMapper('deleteServer')]]"></oj-bind-text>

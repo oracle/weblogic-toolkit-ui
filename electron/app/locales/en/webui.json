@@ -1090,5 +1090,12 @@
   "model-design-domain-production-mode-label": "Production Mode",
   "model-design-domain-admin-port-enabled-label": "Admin Port Enabled",
   "model-design-domain-admin-port-label": "Admin Port",
-  "model-design-domain-admin-port-help": "Help for admin port"
+  "model-design-domain-admin-port-help": "Help for admin port",
+  "model-design-server-listen-address-label": "Listen Address",
+  "model-design-server-listen-address-help": "Help for listen address",
+  "model-design-server-auto-restart-label": "Auto Restart",
+  "model-design-server-listen-port-label": "Listen Port",
+  "model-design-server-listen-port-help": "Help for listen port",
+  "model-design-server-connect-timeout-label": "Connect Timeout",
+  "model-design-server-connect-timeout-help": "Help for connect timeout"
 }

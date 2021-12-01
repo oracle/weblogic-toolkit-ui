@@ -612,7 +612,8 @@ h6.wkt-panel-heading {
   margin-top: -0.5em;
 }
 
-.wkt-gridButtonContainer + .wkt-gridButtonContainer {
+.wkt-gridButtonContainer + .wkt-gridButtonContainer,
+.wkt-gridButtonContainer.wkt-top-margin {
   margin-top: 0.5em;
 }
 
