@@ -1096,6 +1096,6 @@
   "model-design-server-auto-restart-label": "Auto Restart",
   "model-design-server-listen-port-label": "Listen Port",
   "model-design-server-listen-port-help": "Help for listen port",
-  "model-design-server-connect-timeout-label": "Connect Timeout",
-  "model-design-server-connect-timeout-help": "Help for connect timeout"
+  "model-design-server-restart-delay-label": "Restart Delay",
+  "model-design-server-restart-delay-help": "Help for restart delay"
 }

@@ -16,10 +16,10 @@
                      help.instruction="[[serverLabelMapper('listen-port-help')]]"
                      validators="[[listenPortValidator]]">
     </oj-input-number>
-    <oj-input-number label-hint="[[serverLabelMapper('connect-timeout-label')]]"
-                     converter="[[timeoutNumberConverter]]"
-                     value="{{connectTimeout.observable}}"
-                     help.instruction="[[serverLabelMapper('connect-timeout-help')]]">
+    <oj-input-number label-hint="[[serverLabelMapper('restart-delay-label')]]"
+                     converter="[[delayNumberConverter]]"
+                     value="{{restartDelay.observable}}"
+                     help.instruction="[[serverLabelMapper('restart-delay-help')]]">
     </oj-input-number>
     <oj-switch label-hint="[[serverLabelMapper('auto-restart-label')]]"
                value="{{autoRestart.observable}}">

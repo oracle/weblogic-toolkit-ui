@@ -46,8 +46,8 @@ function(accUtils, i18n, modelHelper, validationHelper, ojConverterNumber) {
         defaultValue: defaultListenPort,
         folderPath: folderPath
       },
-      connectTimeout: {
-        attribute: 'ConnectTimeout',
+      restartDelay: {
+        attribute: 'RestartDelaySeconds',
         defaultValue: 0,
         folderPath: folderPath
       }
@@ -64,7 +64,7 @@ function(accUtils, i18n, modelHelper, validationHelper, ojConverterNumber) {
       useGrouping: false
     });
 
-    this.timeoutNumberConverter = new ojConverterNumber.IntlNumberConverter({
+    this.delayNumberConverter = new ojConverterNumber.IntlNumberConverter({
       style: 'decimal',
       roundingMode: 'HALF_DOWN',
       maximumFractionDigits: 0
