@@ -62,6 +62,11 @@ function(accUtils, ko, jsYaml, i18n, modelHelper, project,
         for(const key in serverMap) {
           this.addServer(key);
         }
+
+        // sometimes duplicate entries show up in navigation with multiple additions.
+        // this seems to resolve it:
+        this.servers(this.servers());
+
       } catch (e) {
         console.log('Unable to parse model');
       }
@@ -234,10 +239,6 @@ function(accUtils, ko, jsYaml, i18n, modelHelper, project,
         ]
       };
       this.servers.push(server);
-
-      // sometimes duplicate entries show up in navigation with additions.
-      // this seems to resolve it:
-      this.servers(this.servers());
       return navId;
     };
 
