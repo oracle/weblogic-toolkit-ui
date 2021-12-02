@@ -4,21 +4,29 @@
  -->
 <h6>Servers</h6>
 
-<div class="wkt-gridButtonContainer">
-<oj-bind-for-each data="[[servers]]">
-  <template>
-    <oj-button class="wkt-gridButton" on-oj-action="[[showServerFunction($current.data.id)]]">
-      <span>
-        <oj-bind-text value="[[$current.data.name]]"></oj-bind-text>
-      </span>
+<oj-table class="wkt-model-design-table"
+          aria-label="Servers Table"
+          data="[[serversTableProvider]]"
+          display="grid"
+          horizontal-grid-visible="enabled"
+          vertical-grid-visible="enabled"
+          layout="fixed"
+          columns='[[columnData]]'>
+  <template slot="rowTemplate" data-oj-as="row">
+    <tr data-bind="attr: {'data-uid': row.data.uid}">
+      <td><oj-bind-text value="[[row.data.name]]"></oj-bind-text></td>
+      <td>
+        <oj-button display="icons" chroming="borderless" on-oj-action="[[handleDeleteRow]]">
+          <span slot="endIcon" class="oj-ux-ico-trash"></span>
+          <oj-bind-text value="[[labelMapper('delete-server')]]"></oj-bind-text>
+        </oj-button>
+      </td>
+    </tr>
+  </template>
+  <template slot="headerTemplate" data-oj-as="header">
+    <oj-button display="icons" chroming="borderless" on-oj-action="[[handleAddRow]]">
+      <span slot="endIcon" class="oj-ux-ico-plus"></span>
+      <oj-bind-text value="[[labelMapper('add-new-server')]]"></oj-bind-text>
     </oj-button>
   </template>
-</oj-bind-for-each>
-</div>
-<div class="wkt-gridButtonContainer">
-  <oj-button chroming="callToAction" class="wkt-gridButton"  on-oj-action="[[addNewServer]]">
-    <span>
-      <oj-bind-text value="[[labelMapper('addNewServer')]]"></oj-bind-text>
-    </span>
-  </oj-button>
-</div>
+</oj-table>

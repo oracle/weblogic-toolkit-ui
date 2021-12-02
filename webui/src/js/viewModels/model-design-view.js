@@ -251,9 +251,8 @@ function(accUtils, ko, jsYaml, i18n, modelHelper, project,
       // add to the object model and update the text model
       modelHelper.addFolder(this.modelObject(), 'topology', 'Server', serverName);
 
-      // add to the navigation list and select
-      const navId = this.addServer(serverName);
-      this.selectServer(navId);
+      // add to the navigation list
+      this.addServer(serverName);
     };
 
     this.deleteServer = server => {

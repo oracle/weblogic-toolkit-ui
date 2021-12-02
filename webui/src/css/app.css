@@ -596,6 +596,7 @@ h6.wkt-model-design-with-tabs {
 
 .wkt-model-nav-container {
   display: flex;
+  flex: 1 1 auto;
   flex-direction: column;
   background-color: #c3b2ab;
 }
@@ -604,8 +605,17 @@ h6.wkt-model-design-with-tabs {
 }
 
 .wkt-model-design-content {
-  flex: 1 1 auto;
+  box-sizing: border-box;
+  flex: 1 1 100%;
+  min-width: 1px;
   padding: 0 0.5em;
+}
+
+.wkt-model-design-table {
+  max-width: 600px;
+  min-width: 1px;
+  width: 100%;
+  border-top: 1px solid var(--oj-collection-border-color);
 }
 
 .wkt-gridButton {
@@ -616,7 +626,6 @@ h6.wkt-model-design-with-tabs {
   margin-top: -0.5em;
 }
 
-.wkt-gridButtonContainer + .wkt-gridButtonContainer,
 .wkt-gridButtonContainer.wkt-top-margin {
   margin-top: 0.5em;
 }
