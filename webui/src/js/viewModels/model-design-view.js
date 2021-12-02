@@ -206,7 +206,16 @@ function(accUtils, ko, jsYaml, i18n, modelHelper, project,
     };
 
     this.addServer = serverName => {
-      const index = this.servers().length;
+      // get an unused id for the server
+      const ids = [];
+      this.servers().forEach(server => {
+        ids.push(server.id);
+      });
+
+      let index = 0;
+      while(ids.includes('model-design-server-' + index)) {
+        index++;
+      }
       const navId = 'model-design-server-' + index;
 
       const server = {
@@ -226,7 +235,8 @@ function(accUtils, ko, jsYaml, i18n, modelHelper, project,
       };
       this.servers.push(server);
 
-      // sometimes duplicate entries show up in navigation - this seems to resolve it:
+      // sometimes duplicate entries show up in navigation with additions.
+      // this seems to resolve it:
       this.servers(this.servers());
       return navId;
     };
@@ -238,15 +248,11 @@ function(accUtils, ko, jsYaml, i18n, modelHelper, project,
         names.push(server.name);
       });
 
-      let serverName;
       let index = 0;
-      while(!serverName) {
-        const thisName = 'Server-' + index;
-        if(!names.includes(thisName)) {
-          serverName = thisName;
-        }
+      while(names.includes('Server-' + index)) {
         index++;
       }
+      const serverName = 'Server-' + index;
 
       // add to the object model and update the text model
       modelHelper.addFolder(this.modelObject(), 'topology', 'Server', serverName);
@@ -261,6 +267,10 @@ function(accUtils, ko, jsYaml, i18n, modelHelper, project,
           this.servers.remove(thisServer);
         }
       });
+
+      // sometimes deletion gets the table rows out of sync.
+      // this seems to resolve it:
+      this.servers(this.servers());
 
       // remove from the object model and update the text model
       modelHelper.removeFolder(this.modelObject(), 'topology', 'Server', server.name);

@@ -16,17 +16,20 @@ function(accUtils, ko, i18n, viewHelper, ArrayDataProvider) {
     this.connected = () => {
       accUtils.announce('Servers design view loaded.', 'assertive');
 
-      this.updateServersTable(this.servers());
-      this.servers.subscribe(servers => {
-        this.updateServersTable(servers);
-      });
+      document.getElementById('wkt-servers-table').addEventListener('click', this.clickHandler);
     };
 
     this.labelMapper = (labelId, payload) => {
       return i18n.t(`model-design-server-${labelId}`, payload);
     };
 
-    this.observableServers = ko.observableArray();
+    this.clickHandler = (event) => {
+      if (event.target.matches('a')) {
+        event.preventDefault();
+        const serverId = event.target.getAttribute('data-server-id');
+        this.nav.selectServer(serverId);
+      }
+    };
 
     this.columnData = [
       {
@@ -46,18 +49,8 @@ function(accUtils, ko, i18n, viewHelper, ArrayDataProvider) {
 
     const sortComparators = viewHelper.getSortComparators(this.columnData);
 
-    this.serversTableProvider = new ArrayDataProvider(this.observableServers,
-      { keyAttributes: 'uid', sortComparators: sortComparators });
-
-    this.updateServersTable = servers => {
-      let uid = 0;
-      const serverList = [];
-      servers.forEach(server => {
-        serverList.push({ uid: uid, name: server.name });
-        uid++;
-      });
-      this.observableServers(serverList);
-    };
+    this.serversTableProvider = new ArrayDataProvider(this.servers,
+      { keyAttributes: 'id', sortComparators: sortComparators });
 
     this.handleAddRow = () => {
       this.nav.addNewServer();
@@ -66,12 +59,6 @@ function(accUtils, ko, i18n, viewHelper, ArrayDataProvider) {
     this.handleDeleteRow = (event, context) => {
       const index = context.item.index;
       this.nav.deleteServer(this.servers()[index]);
-    };
-
-    this.showServerFunction = (navId) => {
-      return () => {
-        this.nav.selectServer(navId);
-      };
     };
   }
 

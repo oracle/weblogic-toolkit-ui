@@ -4,7 +4,8 @@
  -->
 <h6>Servers</h6>
 
-<oj-table class="wkt-model-design-table"
+<oj-table id="wkt-servers-table"
+          class="wkt-model-design-table"
           aria-label="Servers Table"
           data="[[serversTableProvider]]"
           display="grid"
@@ -14,7 +15,7 @@
           columns='[[columnData]]'>
   <template slot="rowTemplate" data-oj-as="row">
     <tr data-bind="attr: {'data-uid': row.data.uid}">
-      <td><oj-bind-text value="[[row.data.name]]"></oj-bind-text></td>
+      <td><a href="#" :data-server-id="[[row.data.id]]"><oj-bind-text value="[[row.data.name]]"></oj-bind-text></a></td>
       <td>
         <oj-button display="icons" chroming="borderless" on-oj-action="[[handleDeleteRow]]">
           <span slot="endIcon" class="oj-ux-ico-trash"></span>
