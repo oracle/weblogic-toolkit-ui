@@ -8,11 +8,15 @@
 /**
  * Utilities to navigate and update the model object.
  */
-define(['js-yaml', 'utils/observable-properties', 'models/wkt-project'],
-  function (jsYaml, props, project) {
+define(['knockout', 'js-yaml', 'utils/observable-properties', 'models/wkt-project', 'ojs/ojknockout-keyset'],
+  function (ko, jsYaml, props, project, KnockoutKeyset) {
     function ModelHelper() {
 
-      // navigate to the path specified by args.
+      // make these persistent when nav view model is reloaded
+      this.navSelection = ko.observable();
+      this.navExpanded = new KnockoutKeyset.ObservableKeySet();
+
+      // return the folder at the path specified by args.
       // if the path doesn't exist, return an empty map.
       this.getFolder = (map, ...args) => {
         let thisMap = map;

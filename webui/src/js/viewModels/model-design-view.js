@@ -5,12 +5,11 @@
  */
 define(['accUtils', 'knockout', 'js-yaml', 'utils/i18n', 'utils/model-helper', 'models/wkt-project',
   'ojs/ojarraytreedataprovider', 'ojs/ojmodulerouter-adapter', 'ojs/ojknockoutrouteradapter',
-  'ojs/ojmodule-element-utils', 'ojs/ojknockouttemplateutils', 'ojs/ojknockout-keyset'],
+  'ojs/ojmodule-element-utils', 'ojs/ojknockouttemplateutils'],
 function(accUtils, ko, jsYaml, i18n, modelHelper, project,
-  ArrayTreeDataProvider, ModuleRouterAdapter, KnockoutRouterAdapter, ModuleElementUtils, KnockoutTemplateUtils,
-  KnockoutKeyset) {
+  ArrayTreeDataProvider, ModuleRouterAdapter, KnockoutRouterAdapter, ModuleElementUtils, KnockoutTemplateUtils) {
   function ModelDesignViewModel() {
-    this.KnockoutTemplateUtils = KnockoutTemplateUtils;
+    const DEFAULT_PAGE_KEY = 'design-view';
 
     let subscriptions = [];
 
@@ -23,7 +22,15 @@ function(accUtils, ko, jsYaml, i18n, modelHelper, project,
       // since this page will update it and cause a feedback loop.
       // just listen for the case where a new project is loaded.
       subscriptions.push(project.postOpen.subscribe(() => {
+        // clear the page selection
+        this.selection(DEFAULT_PAGE_KEY);
         this.loadModelObject(project.wdtModel.modelContent());
+      }));
+
+      this.selectPage(this.selection());
+
+      subscriptions.push(this.selection.subscribe(selection => {
+        this.selectPage(selection);
       }));
     };
 
@@ -36,6 +43,8 @@ function(accUtils, ko, jsYaml, i18n, modelHelper, project,
     this.labelMapper = (labelId, payload) => {
       return i18n.t(`model-design-${labelId}`, payload);
     };
+
+    this.KnockoutTemplateUtils = KnockoutTemplateUtils;
 
     this.modelObject = ko.observable({ });
 
@@ -65,41 +74,41 @@ function(accUtils, ko, jsYaml, i18n, modelHelper, project,
       'servers-view': { nav: this }
     };
 
-    // this.selection = new KnockoutRouterAdapter(router);
-    this.selection = new ko.observable();
-    this.selection.subscribe(selection => {
-      let pageKey = selection;
+    this.selectPage = (selection) => {
+      this.moduleConfig(this.getModuleConfig(selection));
+    };
+
+    this.getModuleConfig = (pageKey) => {
       let pageParams = { };
 
-      if(selection == null) {
-        pageKey = 'design-view';
-
-      } else {
-        const regex = /model-design-server-(\d+)/;
-        if(selection.match(regex)) {
-          this.servers().forEach(thisServer => {
-            if(thisServer.id === selection) {
-              pageKey = 'server-view';
-              pageParams = { server: thisServer };
-            }
-          });
-        }
+      // page keys for multiple elements, such as Server,
+      // are translated to a shared page key, and additional parameters are passed.
+      const regex = /model-design-server-(\d+)/;
+      if(pageKey && pageKey.match(regex)) {
+        this.servers().forEach(thisServer => {
+          if(thisServer.id === pageKey) {
+            pageKey = 'server-view';
+            pageParams = { server: thisServer };
+          }
+        });
       }
 
+      pageKey = pageMap.hasOwnProperty(pageKey) ? pageKey : DEFAULT_PAGE_KEY;
       const params = pageMap[pageKey];
-      if(params != null) {
-        Object.assign(pageParams, params);
+      Object.assign(pageParams, params);
 
-        this.moduleConfig(ModuleElementUtils.createConfig({
-          viewPath: `views/model/${pageKey}.html`,
-          viewModelPath: `viewModels/model/${pageKey}`,
-          params: pageParams
-        }));
-      }
-    });
+      return ModuleElementUtils.createConfig({
+        viewPath: `views/model/${pageKey}.html`,
+        viewModelPath: `viewModels/model/${pageKey}`,
+        params: pageParams
+      });
+    };
 
-    this.expanded = new KnockoutKeyset.ObservableKeySet();
+    this.selection = modelHelper.navSelection;
 
+    this.expanded = modelHelper.navExpanded;
+
+    // every item in the nav tree must have a unique ID
     const navData = ko.observableArray([
       { name: this.labelMapper('environment'),
         id: 'model-no-page-1',
@@ -186,11 +195,7 @@ function(accUtils, ko, jsYaml, i18n, modelHelper, project,
       keyAttributes: 'id'
     });
 
-    this.moduleConfig = ko.observable(ModuleElementUtils.createConfig({
-      viewPath: 'views/model/design-view.html',
-      viewModelPath: 'viewModels/model/design-view',
-      params: {}
-    }));
+    this.moduleConfig = ko.observable(this.getModuleConfig(DEFAULT_PAGE_KEY));
 
     this.selectServer = navId => {
       this.selection(navId);
