@@ -5,19 +5,22 @@
  */
 'use strict';
 
-define(['accUtils', 'knockout', 'utils/i18n', 'ojs/ojinputtext', 'ojs/ojlabel',
+define(['accUtils', 'knockout', 'utils/i18n', 'utils/view-helper', 'ojs/ojinputtext', 'ojs/ojlabel',
   'ojs/ojbutton', 'ojs/ojdialog', 'ojs/ojformlayout', 'ojs/ojvalidationgroup'],
-function(accUtils, ko, i18n) {
+function(accUtils, ko, i18n, viewHelper) {
   function TextInputDialogModel(args) {
+    const DIALOG_ID = 'textInputDialog';
 
     this.connected = () => {
       accUtils.announce('Text input dialog loaded.', 'assertive');
 
-      // open the dialog after the current thread, which is loading this view model.
+      this.dialogContainer = document.getElementById(DIALOG_ID);
+
+      // open the dialog when the container is ready.
       // using oj-dialog initial-visibility="show" causes vertical centering issues.
-      setTimeout(function() {
-        $('#textInputDialog')[0].open();
-      }, 1);
+      viewHelper.componentReady(this.dialogContainer).then(() => {
+        this.dialogContainer.open();
+      });
     };
 
     this.anyLabelMapper = (labelId, arg) => {
@@ -28,15 +31,24 @@ function(accUtils, ko, i18n) {
     this.label = args.label;
     this.help = args.help;
 
-    this.textValue = ko.observable();
+    this.textValue = ko.observable(args.defaultValue);
 
     this.okInput = () => {
-      $('#textInputDialog')[0].close();
-      args.setValue(this.textValue());
+      let tracker = document.getElementById('textInputTracker');
+      if (tracker.valid !== 'valid') {
+        // show messages on all the components that have messages hidden.
+        tracker.showMessages();
+        tracker.focusOn('@firstInvalidShown');
+        return;
+      }
+
+      this.dialogContainer.close();
+      const value = this.textValue().trim();
+      args.setValue(value);
     };
 
     this.cancelInput = () => {
-      $('#textInputDialog')[0].close();
+      this.dialogContainer.close();
       args.setValue();
     };
   }
