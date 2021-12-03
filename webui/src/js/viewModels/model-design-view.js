@@ -3,17 +3,19 @@
  * Copyright (c) 2021, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
-define(['accUtils', 'knockout', 'js-yaml', 'utils/i18n', 'utils/model-helper', 'models/wkt-project',
-  'ojs/ojarraytreedataprovider', 'ojs/ojmodulerouter-adapter', 'ojs/ojknockoutrouteradapter',
+define(['accUtils', 'knockout', 'js-yaml', 'utils/i18n', 'utils/dialog-helper', 'utils/model-helper',
+  'models/wkt-project', 'ojs/ojarraytreedataprovider', 'ojs/ojmodulerouter-adapter', 'ojs/ojknockoutrouteradapter',
   'ojs/ojmodule-element-utils', 'ojs/ojknockouttemplateutils'],
-function(accUtils, ko, jsYaml, i18n, modelHelper, project,
-  ArrayTreeDataProvider, ModuleRouterAdapter, KnockoutRouterAdapter, ModuleElementUtils, KnockoutTemplateUtils) {
+function(accUtils, ko, jsYaml, i18n, dialogHelper, modelHelper,
+  project, ArrayTreeDataProvider, ModuleRouterAdapter, KnockoutRouterAdapter, ModuleElementUtils,
+  KnockoutTemplateUtils) {
+
   function ModelDesignViewModel() {
     const DEFAULT_PAGE_KEY = 'design-view';
     const SERVER_ID_PREFIX = 'model-design-server-';
-    const SERVER_NAME_PREFIX = 'Server-';
     const SERVER_CHANNELS_ID_PREFIX = 'model-design-server-channels-';
     const SERVER_TRIGGER_ID_PREFIX = 'model-design-server-trigger-';
+    const SERVER_NAME_PREFIX = 'Server-';
 
     let subscriptions = [];
 
@@ -259,11 +261,16 @@ function(accUtils, ko, jsYaml, i18n, modelHelper, project,
       }
       const serverName = SERVER_NAME_PREFIX + index;
 
-      // add to the object model and update the text model
-      modelHelper.addFolder(this.modelObject(), 'topology', 'Server', serverName);
+      this.promptForName(this.labelMapper('server-type'), serverName)
+        .then(newServerName => {
+          if(newServerName) {
+            // add to the object model and update the text model
+            modelHelper.addFolder(this.modelObject(), 'topology', 'Server', newServerName);
 
-      // add to the navigation list
-      this.addServer(serverName);
+            // add to the navigation list
+            this.addServer(newServerName);
+          }
+        });
     };
 
     this.deleteServer = server => {
@@ -279,6 +286,16 @@ function(accUtils, ko, jsYaml, i18n, modelHelper, project,
 
       // remove from the object model and update the text model
       modelHelper.removeFolder(this.modelObject(), 'topology', 'Server', server.name);
+    };
+
+    // this can be used by all named types (Server, Cluster, etc.)
+    this.promptForName = (typeName, defaultValue) => {
+      return dialogHelper.promptDialog('text-input-dialog', {
+        title: this.labelMapper('name-prompt', { typeName: typeName }),
+        label: this.labelMapper('name-label'),
+        help: this.labelMapper('name-help'),
+        defaultValue: defaultValue
+      });
     };
   }
 
