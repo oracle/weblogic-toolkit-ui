@@ -10,6 +10,10 @@ function(accUtils, ko, jsYaml, i18n, modelHelper, project,
   ArrayTreeDataProvider, ModuleRouterAdapter, KnockoutRouterAdapter, ModuleElementUtils, KnockoutTemplateUtils) {
   function ModelDesignViewModel() {
     const DEFAULT_PAGE_KEY = 'design-view';
+    const SERVER_ID_PREFIX = 'model-design-server-';
+    const SERVER_NAME_PREFIX = 'Server-';
+    const SERVER_CHANNELS_ID_PREFIX = 'model-design-server-channels-';
+    const SERVER_TRIGGER_ID_PREFIX = 'model-design-server-trigger-';
 
     let subscriptions = [];
 
@@ -73,7 +77,7 @@ function(accUtils, ko, jsYaml, i18n, modelHelper, project,
     };
 
     const pageMap = {
-      'design-view': { model: this.modelObject },
+      'design-view': { nav: this },
       'domain-view': { nav: this },
       'server-view': { nav: this },
       'servers-view': { nav: this }
@@ -88,7 +92,7 @@ function(accUtils, ko, jsYaml, i18n, modelHelper, project,
 
       // page keys for multiple elements, such as Server,
       // are translated to a shared page key, and additional parameters are passed.
-      const regex = /model-design-server-(\d+)/;
+      const regex = new RegExp(SERVER_ID_PREFIX + '(\\d+)');
       if(pageKey && pageKey.match(regex)) {
         this.servers().forEach(thisServer => {
           if(thisServer.id === pageKey) {
@@ -218,10 +222,10 @@ function(accUtils, ko, jsYaml, i18n, modelHelper, project,
       });
 
       let index = 0;
-      while(ids.includes('model-design-server-' + index)) {
+      while(ids.includes(SERVER_ID_PREFIX + index)) {
         index++;
       }
-      const navId = 'model-design-server-' + index;
+      const navId = SERVER_ID_PREFIX + index;
 
       const server = {
         name: serverName,
@@ -229,11 +233,11 @@ function(accUtils, ko, jsYaml, i18n, modelHelper, project,
         icon: 'oj-ux-ico-server',
         children:[
           { name: this.labelMapper('channels'),
-            id: 'model-design-server-channels-' + index,
+            id: SERVER_CHANNELS_ID_PREFIX + index,
             icon: 'oj-ux-ico-collections'
           },
           { name: this.labelMapper('serverFailureTrigger'),
-            id: 'model-design-server-trigger-' + index,
+            id: SERVER_TRIGGER_ID_PREFIX + index,
             icon: 'oj-ux-ico-assets'
           },
         ]
@@ -250,10 +254,10 @@ function(accUtils, ko, jsYaml, i18n, modelHelper, project,
       });
 
       let index = 0;
-      while(names.includes('Server-' + index)) {
+      while(names.includes(SERVER_NAME_PREFIX + index)) {
         index++;
       }
-      const serverName = 'Server-' + index;
+      const serverName = SERVER_NAME_PREFIX + index;
 
       // add to the object model and update the text model
       modelHelper.addFolder(this.modelObject(), 'topology', 'Server', serverName);
