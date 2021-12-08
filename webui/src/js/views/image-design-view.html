@@ -532,7 +532,7 @@
                          help.instruction="[[labelMapper('extend-image-build-help')]]">
               </oj-switch>
               <div>
-                <oj-bind-if test="[[project.image.extendBuild.observable() === true]]">
+                <oj-bind-if test="[[project.image.auxExtendBuild.observable() === true]]">
                   <oj-input-text label-hint="[[labelMapper('additional-build-commands-file-label')]]"
                                  value="{{project.image.auxAdditionalBuildCommandsFile.observable}}"
                                  help.instruction="[[labelMapper('additional-build-commands-file-help')]]">
@@ -542,7 +542,7 @@
                     </oj-button>
                   </oj-input-text>
                 </oj-bind-if>
-                <oj-bind-if test="[[project.image.extendBuild.observable() === true]]">
+                <oj-bind-if test="[[project.image.auxExtendBuild.observable() === true]]">
                   <oj-input-text label-hint="[[labelMapper('additional-build-files-label')]]"
                                  value="{{project.image.auxAdditionalBuildFiles.observable}}"
                                  help.instruction="[[labelMapper('additional-build-files-help')]]">
