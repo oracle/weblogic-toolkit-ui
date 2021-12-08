@@ -270,6 +270,34 @@ class WktAppMenu {
             }
           },
           {
+            id: 'createAuxImage',
+            label: i18n.t('menu-go-create-aux-image'),
+            enabled: !this._hasOpenDialog,
+            click(item, focusedWindow) {
+              if (!focusedWindow) {
+                return dialog.showErrorBox(
+                  i18n.t('menu-go-create-aux-image-error-title'),
+                  i18n.t('menu-go-create-aux-image-error-message')
+                );
+              }
+              sendToWindow(focusedWindow,'start-create-aux-image');
+            }
+          },
+          {
+            id: 'pushAuxImage',
+            label: i18n.t('menu-go-push-aux-image'),
+            enabled: !this._hasOpenDialog,
+            click(item, focusedWindow) {
+              if (!focusedWindow) {
+                return dialog.showErrorBox(
+                  i18n.t('menu-go-push-aux-image-error-title'),
+                  i18n.t('menu-go-push-aux-image-error-message')
+                );
+              }
+              sendToWindow(focusedWindow,'start-push-aux-image');
+            }
+          },
+          {
             id: 'verifyConnectivity',
             label: i18n.t('menu-go-kubectl-verify-connectivity'),
             visible: this._isWkoTarget,

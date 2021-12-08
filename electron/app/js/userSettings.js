@@ -268,7 +268,6 @@ function _getUserSettings() {
     if (userSettingsFileContent && userSettingsFileContent.length > 0) {
       try {
         const userSettingsObject = JSON.parse(userSettingsFileContent);
-        console.log('parsed userSettings object = %s', userSettingsObject);
         _userSettingsObject = _updateSettings(userSettingsObject);
       } catch (err) {
         throw new Error(`Failed to parse ${userSettingsFileName}: ${err}`);
