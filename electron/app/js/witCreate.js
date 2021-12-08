@@ -17,7 +17,7 @@ async function createImage(currentWindow, stdoutChannel, stderrChannel, createCo
   const bypassProxyHosts = getBypassProxyHosts();
 
   const imageToolScript = getImagetoolShellScript();
-  const [ args, argsContainCredentials ] = buildArgumentsList(createConfig, httpsProxyUrl);
+  const [ args, argsContainCredentials ] = buildArgumentsListForCreate(createConfig, httpsProxyUrl);
   const env = {
     JAVA_HOME: createConfig.javaHome,
     DOCKER_BUILDKIT: '0',
@@ -35,9 +35,8 @@ async function createImage(currentWindow, stdoutChannel, stderrChannel, createCo
   };
 
   return new Promise(resolve => {
-    if (!argsContainCredentials) {
-      getLogger().debug('Executing %s shell script with args %s and environment %s', imageToolScript, args, JSON.stringify(env));
-    }
+    const filteredArgs = argsContainCredentials ? filterArgsForLogging(args) : args;
+    getLogger().debug('Executing %s shell script with args %s and environment %s', imageToolScript, filteredArgs, JSON.stringify(env));
     executeChildShellScript(currentWindow, imageToolScript, args, env, stdoutChannel,
       { stderrEventName: stderrChannel })
       .then(exitCode => {
@@ -56,7 +55,47 @@ async function createImage(currentWindow, stdoutChannel, stderrChannel, createCo
   });
 }
 
-function buildArgumentsList(createConfig, httpsProxyUrl) {
+async function createAuxImage(currentWindow, stdoutChannel, stderrChannel, createConfig) {
+  const httpsProxyUrl = getHttpsProxyUrl();
+  const bypassProxyHosts = getBypassProxyHosts();
+
+  const imageToolScript = getImagetoolShellScript();
+  const args = buildArgumentsListForCreateAuxImage(createConfig, httpsProxyUrl);
+  const env = {
+    JAVA_HOME: createConfig.javaHome,
+    DOCKER_BUILDKIT: '0',
+    WLSIMG_BLDDIR: app.getPath('temp')
+  };
+  if (httpsProxyUrl) {
+    env['HTTPS_PROXY'] = httpsProxyUrl;
+  }
+  if (bypassProxyHosts) {
+    env['NO_PROXY'] = bypassProxyHosts;
+  }
+
+  const result = {
+    isSuccess: true
+  };
+
+  return new Promise(resolve => {
+    getLogger().debug('Executing %s shell script with args %s and environment %s', imageToolScript, args, JSON.stringify(env));
+    executeChildShellScript(currentWindow, imageToolScript, args, env, stdoutChannel,
+      { stderrEventName: stderrChannel }).then(exitCode => {
+      if (exitCode !== 0) {
+        result.isSuccess = false;
+        result.reason = i18n.t('wit-create-create-aux-image-exit-code-error-message', { exitCode: exitCode });
+      }
+      resolve(result);
+    }).catch(err => {
+      getLogger().error(err);
+      result.isSuccess = false;
+      result.reason = i18n.t('wit-create-create-aux-image-error-message', { error: err.message || err });
+      resolve(result);
+    });
+  });
+}
+
+function buildArgumentsListForCreate(createConfig, httpsProxyUrl) {
   const args = [ 'create' ];
 
   if (createConfig.imageBuilderExe) {
@@ -79,6 +118,30 @@ function buildArgumentsList(createConfig, httpsProxyUrl) {
   addWdtArgs(args, createConfig);
   addAdvancedArgs(args, createConfig);
   return [ args, argsContainCredentials ];
+}
+
+function buildArgumentsListForCreateAuxImage(createConfig, httpsProxyUrl) {
+  const args = [ 'createAuxImage' ];
+
+  if (createConfig.imageBuilderExe) {
+    args.push('--builder', createConfig.imageBuilderExe);
+  }
+  args.push('--tag', createConfig.imageTag);
+
+  if (httpsProxyUrl) {
+    args.push('--httpsProxyUrl', httpsProxyUrl);
+  }
+
+  if (createConfig.baseImage) {
+    args.push('--fromImage', createConfig.baseImage);
+  }
+  if (createConfig.alwaysPullBaseImage) {
+    args.push('--pull');
+  }
+  addInstallerArgs(args, createConfig);
+  addWdtArgs(args, createConfig);
+  addAdvancedArgs(args, createConfig);
+  return args;
 }
 
 function addInstallerArgs(args, createConfig) {
@@ -148,6 +211,10 @@ function addWdtArgs(args, createConfig) {
     args.push('--wdtDomainHome', createConfig.domainHome);
   }
 
+  if (createConfig.wdtHome) {
+    args.push('--wdtHome', createConfig.wdtHome);
+  }
+
   if (createConfig.modelHome) {
     args.push('--wdtModelHome', createConfig.modelHome);
   }
@@ -166,14 +233,33 @@ function addAdvancedArgs(args, createConfig) {
     args.push('--buildNetwork', createConfig.buildNetwork);
   }
 
-  if (createConfig.chownOwner || createConfig.chownGroup) {
-    const owner = createConfig.chownOwner || 'oracle';
-    const group = createConfig.chownGroup || 'oracle';
+  if (createConfig.target) {
+    args.push('--target', createConfig.target);
+  }
 
-    args.push('--chown', `${owner}:${group}`);
+  if (createConfig.chownOwner && createConfig.chownGroup) {
+    args.push('--chown', `${createConfig.chownOwner}:${createConfig.chownGroup}`);
   }
 }
 
+function filterArgsForLogging(args) {
+  const filteredArgs = [];
+  let filterNextArg = false;
+  for (const arg of args) {
+    if (filterNextArg) {
+      filteredArgs.push('********');
+      filterNextArg = false;
+    } else {
+      filteredArgs.push(arg);
+      if (arg === '--user' || arg === '--password') {
+        filterNextArg = true;
+      }
+    }
+  }
+  return filteredArgs;
+}
+
 module.exports = {
-  createImage
+  createImage,
+  createAuxImage
 };

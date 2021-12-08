@@ -666,6 +666,11 @@ class Main {
         WKT_CONSOLE_STDOUT_CHANNEL, createConfig);
     });
 
+    ipcMain.handle('wit-create-aux-image', async (event, createConfig) => {
+      return witCreate.createAuxImage(event.sender.getOwnerBrowserWindow(), WKT_CONSOLE_STDOUT_CHANNEL,
+        WKT_CONSOLE_STDOUT_CHANNEL, createConfig);
+    });
+
     ipcMain.handle('validate-image-exists-locally', async (event, imageBuilderExe, imageTag) => {
       return imageBuilderUtils.validateImageExistsLocally(imageBuilderExe, imageTag);
     });
