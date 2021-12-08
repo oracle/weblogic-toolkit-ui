@@ -56,7 +56,7 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
           }
         }
 
-        const serverPod = this._getServerPod(domainResource);
+        const serverPod = this._getServerPod();
         if (serverPod) {
           domainResource.spec.serverPod = serverPod;
         }
@@ -168,7 +168,7 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
         return jsYaml.dump(domainResource, {}).split('\n');
       }
 
-      _getServerPod(domainResource) {
+      _getServerPod() {
         const serverPod = _getServerPod(getJavaOptions(this.project.k8sDomain), getUserMemArgs(this.project.k8sDomain),
           getKubernetesResources(this.project.k8sDomain));
 
@@ -226,7 +226,7 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
     function getAuxImageCopyCommand(wdtRelatedPaths) {
       const auxImageInternalTarget = '$AUXILIARY_IMAGE_TARGET_PATH';
 
-      return `cp -R ${wdtRelatedPaths.sourceWdtHome} ${auxImageInternalTarget}; cp -R ${wdtRelatedPaths.sourceModelHome} ${auxImageInternalTarget}`
+      return `cp -R ${wdtRelatedPaths.sourceWdtHome} ${auxImageInternalTarget}; cp -R ${wdtRelatedPaths.sourceModelHome} ${auxImageInternalTarget}`;
     }
 
     function getOperatorNameForTargetDomainLocation(targetDomainLocation) {

@@ -34,7 +34,7 @@ function(accUtils, ko, i18n, project, ImageScriptGenerator, ArrayDataProvider) {
 
     this.labelMapper = (labelId) => {
       return i18n.t(`image-code-${labelId}`);
-    }
+    };
 
     this.shellLabelMapper = (labelId) => {
       return i18n.t(`script-${labelId}`);

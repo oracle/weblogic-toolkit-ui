@@ -8,7 +8,7 @@ define(['models/wkt-project', 'accUtils', 'utils/common-utilities', 'knockout', 
   'utils/view-helper', 'utils/wkt-logger', 'ojs/ojmessaging', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojformlayout',
   'ojs/ojcollapsible', 'ojs/ojselectsingle', 'ojs/ojlistview', 'ojs/ojtable', 'ojs/ojswitch', 'ojs/ojinputnumber'],
 function (project, accUtils, utils, ko, i18n, BufferingDataProvider,
-  ArrayDataProvider, ojConverterNumber, dialogHelper, k8sHelper, viewHelper, wktLogger) {
+  ArrayDataProvider, ojConverterNumber, dialogHelper, k8sHelper, viewHelper) {
   function DomainDesignViewModel() {
 
     this.connected = async () => {

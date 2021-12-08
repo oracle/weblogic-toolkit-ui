@@ -883,7 +883,9 @@ function (project, wktConsole, wktModelPreparer, i18n, projectIo, dialogHelper, 
             result = !this.project.image.useAuxImage.value;
             break;
 
-          // dii case is always true
+          case 'dii':
+            result = true;
+            break;
 
           case 'pv':
             result = false;
