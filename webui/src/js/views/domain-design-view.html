@@ -22,17 +22,41 @@
                        mask-icon="visible"
                        help.instruction="[[labelMapper('wls-credential-username-help')]]">
     </oj-input-password>
-    <oj-input-text class="wkt-can-readonly-field"
-                   label-hint="[[labelMapper('domain-home-label')]]"
-                   value="{{project.k8sDomain.domainHome.observable}}"
-                   readonly="[[isDomainInPV() === false]]"
-                   help.instruction="[[domainHomeHelpLabel]]">
-    </oj-input-text>
+    <oj-bind-if test="[[isDomainInImage() === true]]">
+      <oj-input-text class="wkt-can-readonly-field"
+                     label-hint="[[labelMapper('domain-home-label')]]"
+                     value="{{project.k8sDomain.domainHome.observable}}"
+                     readonly="true"
+                     help.instruction="[[labelMapper('domain-home-readonly-help')]]">
+      </oj-input-text>
+    </oj-bind-if>
+    <oj-bind-if test="[[isDomainInImage() === false]]">
+      <oj-input-text label-hint="[[labelMapper('domain-home-label')]]"
+                     value="{{project.k8sDomain.domainHome.observable}}"
+                     help.instruction="[[labelMapper('domain-home-help')]]">
+      </oj-input-text>
+    </oj-bind-if>
     <oj-input-password label-hint="[[labelMapper('wls-credential-password-label')]]"
                        value="{{project.k8sDomain.credentialsPassword.observable}}"
                        mask-icon="visible"
                        help.instruction="[[labelMapper('wls-credential-password-help')]]">
     </oj-input-password>
+    <oj-bind-if test="[[isDomainInImage() === true]]">
+      <oj-select-single class="wkt-can-readonly-field"
+                        label-hint="[[labelMapper('domain-type-label')]]"
+                        value="{{project.k8sDomain.domainType.observable}}"
+                        data="{{wdtDomainTypesDP}}"
+                        readonly="true"
+                        help.instruction="[[labelMapper('domain-type-readonly-help')]]">
+      </oj-select-single>
+    </oj-bind-if>
+    <oj-bind-if test="[[isModelInImage() === true]]">
+      <oj-select-single label-hint="[[labelMapper('domain-type-label')]]"
+                        value="{{project.k8sDomain.domainType.observable}}"
+                        data="{{wdtDomainTypesDP}}"
+                        help.instruction="[[labelMapper('domain-type-help')]]">
+      </oj-select-single>
+    </oj-bind-if>
   </oj-form-layout>
 </div>
 
@@ -132,6 +156,76 @@
         </oj-input-password>
       </oj-bind-if>
     </oj-form-layout>
+  </oj-bind-if>
+</div>
+
+<div>
+  <oj-bind-if test="[[usingAuxImage]]">
+    <div class="oj-panel">
+      <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('aux-image-title')]]"></oj-bind-text></h6>
+      <oj-form-layout max-columns="2" direction="row">
+        <oj-input-text class="wkt-can-readonly-field"
+                       label-hint="[[labelMapper('aux-image-tag-label')]]"
+                       value="{{project.image.auxImageTag.observable}}"
+                       readonly="true"
+                       help.instruction="[[labelMapper('aux-image-tag-help')]]">
+        </oj-input-text>
+        <oj-input-text class="wkt-can-readonly-field"
+                       label-hint="[[labelMapper('aux-image-registry-address-label')]]"
+                       value="{{project.image.internal.auxImageRegistryAddress.observable}}"
+                       readonly="true"
+                       help.instruction="[[labelMapper('aux-image-registry-address-help')]]">
+        </oj-input-text>
+        <oj-select-single label-hint="[[labelMapper('aux-image-pull-policy-label')]]"
+                          value="{{project.k8sDomain.auxImagePullPolicy.observable}}"
+                          data="{{imagePullPoliciesDP}}"
+                          help.instruction="[[labelMapper('aux-image-pull-policy-help')]]">
+        </oj-select-single>
+      </oj-form-layout>
+      <oj-form-layout max-columns="2" direction="row">
+        <oj-switch label-hint="[[labelMapper('aux-image-registry-pull-requires-authentication-label')]]"
+                   value="{{project.k8sDomain.auxImageRegistryPullRequireAuthentication.observable}}"
+                   help.instruction="[[labelMapper('aux-image-registry-pull-requires-authentication-help')]]">
+        </oj-switch>
+      </oj-form-layout>
+
+      <oj-bind-if test="[[auxImageRegistryPullRequiresAuthentication() === true]]">
+        <oj-form-layout max-columns="2" direction="row">
+          <oj-switch label-hint="[[labelMapper('aux-image-registry-use-existing-pull-secret-label')]]"
+                     value="{{project.k8sDomain.auxImageRegistryUseExistingPullSecret.observable}}"
+                     help.instruction="[[labelMapper('aux-image-registry-use-existing-pull-secret-help')]]">
+          </oj-switch>
+          <oj-bind-if test="[[auxImageRegistryPullRequiresAuthentication() === true]]">
+            <oj-input-text label-hint="[[labelMapper('aux-image-registry-pull-secret-name-label')]]"
+                           value="{{project.k8sDomain.auxImageRegistryPullSecretName.observable}}"
+                           validators="[[project.k8sDomain.auxImageRegistryPullSecretName.validators()]]"
+                           help.instruction="[[labelMapper('aux-image-registry-pull-secret-name-help')]]">
+            </oj-input-text>
+          </oj-bind-if>
+          <oj-bind-if test="[[project.k8sDomain.auxImageRegistryUseExistingPullSecret.observable() === false]]">
+            <oj-input-password label-hint="[[labelMapper('aux-image-registry-pull-username-label')]]"
+                               mask-icon="visible"
+                               value="{{project.k8sDomain.auxImageRegistryPullUser.observable}}"
+                               help.instruction="[[labelMapper('aux-image-registry-pull-username-help')]]">
+            </oj-input-password>
+          </oj-bind-if>
+          <oj-bind-if test="[[project.k8sDomain.auxImageRegistryUseExistingPullSecret.observable() === false]]">
+            <oj-input-text label-hint="[[labelMapper('aux-image-registry-pull-email-label')]]"
+                           value="{{project.k8sDomain.auxImageRegistryPullEmail.observable}}"
+                           validators="[[project.k8sDomain.auxImageRegistryPullEmail.validators()]]"
+                           help.instruction="[[labelMapper('aux-image-registry-pull-email-help')]]">
+            </oj-input-text>
+          </oj-bind-if>
+          <oj-bind-if test="[[project.k8sDomain.auxImageRegistryUseExistingPullSecret.observable() === false]]">
+            <oj-input-password label-hint="[[labelMapper('aux-image-registry-pull-password-label')]]"
+                               mask-icon="visible"
+                               value="{{project.k8sDomain.auxImageRegistryPullPassword.observable}}"
+                               help.instruction="[[labelMapper('aux-image-registry-pull-password-help')]]">
+            </oj-input-password>
+          </oj-bind-if>
+        </oj-form-layout>
+      </oj-bind-if>
+    </div>
   </oj-bind-if>
 </div>
 

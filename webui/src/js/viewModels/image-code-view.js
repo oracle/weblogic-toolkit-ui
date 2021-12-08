@@ -15,10 +15,13 @@ function(accUtils, ko, i18n, project, ImageScriptGenerator, ArrayDataProvider) {
 
       // update code text if project changes
       subscriptions.push(project.postOpen.subscribe(() => {
-        this.renderScript(this.codeViewScriptLanguage());
+        this.renderSubviewScript(this.selectedSubview(), this.codeViewScriptLanguage());
       }));
 
-      this.renderScript(this.codeViewScriptLanguage());
+      if (!this.project.image.createPrimaryImage.value) {
+        this.selectedSubview('auxiliaryImageScript');
+      }
+      this.renderSubviewScript(this.selectedSubview(), this.codeViewScriptLanguage());
     };
 
     this.disconnected = () => {
@@ -27,9 +30,46 @@ function(accUtils, ko, i18n, project, ImageScriptGenerator, ArrayDataProvider) {
       });
     };
 
+    this.project = project;
+
+    this.labelMapper = (labelId) => {
+      return i18n.t(`image-code-${labelId}`);
+    }
+
     this.shellLabelMapper = (labelId) => {
       return i18n.t(`script-${labelId}`);
     };
+
+    this.disablePrimaryImageScript = ko.computed(() => {
+      return !this.project.image.createPrimaryImage.value;
+    });
+
+    this.disableAuxiliaryImageScript = ko.computed(() => {
+      return !(this.project.settings.targetDomainLocation.value === 'mii' &&
+        this.project.image.useAuxImage.value && this.project.image.createAuxImage.value);
+    });
+
+    this.subviews = [
+      {
+        id: 'primaryImageScript',
+        name: this.labelMapper('primary-image-script-tab'),
+        disabled: this.disablePrimaryImageScript
+      },
+      {
+        id: 'auxiliaryImageScript',
+        name: this.labelMapper('auxiliary-image-script-tab'),
+        disabled: this.disableAuxiliaryImageScript
+      }
+    ];
+    this.subviewsDP = new ArrayDataProvider(this.subviews, {keyAttributes: 'id'});
+    this.selectedSubview = ko.observable('primaryImageScript');
+    this.selectedSubview.subscribe((subview) => {
+      this.renderSubviewScript(subview);
+    });
+
+    this.tabsStatus = ko.computed(() => {
+      return this.disablePrimaryImageScript() && this.disableAuxiliaryImageScript() ? 'disabled' : 'enabled';
+    });
 
     this.codeViewScriptLanguage = ko.observable(ImageScriptGenerator.getDefaultScriptingLanguage());
     this.codeViewScriptLanguages = [
@@ -40,13 +80,39 @@ function(accUtils, ko, i18n, project, ImageScriptGenerator, ArrayDataProvider) {
     this.codeViewScriptLanguagesDP = new ArrayDataProvider(this.codeViewScriptLanguages, { keyAttributes: 'key' });
     this.codeViewScriptLanguageSelectValueChangedHandler = (event) =>  {
       this.codeViewScriptLanguage(event.detail.value);
-      this.renderScript(event.detail.value);
+      this.renderSubviewScript(this.selectedSubview(), event.detail.value);
     };
 
-    this.renderScript = (scriptType) => {
-      const imageScriptGenerator = new ImageScriptGenerator(scriptType);
-      const lines = imageScriptGenerator.generate();
-      this.codeText(lines.join('\n'));
+    this.renderPrimaryImageScript = (scriptType) => {
+      if (this.disablePrimaryImageScript()) {
+        this.codeText(this.labelMapper('primary-image-script-no-content'));
+      } else {
+        const imageScriptGenerator = new ImageScriptGenerator(scriptType);
+        const lines = imageScriptGenerator.generatePrimary();
+        this.codeText(lines.join('\n'));
+      }
+    };
+
+    this.renderAuxiliaryImageScript = (scriptType) => {
+      if (this.disableAuxiliaryImageScript()) {
+        this.codeText(this.labelMapper('auxiliary-image-script-no-content'));
+      } else {
+        const imageScriptGenerator = new ImageScriptGenerator(scriptType);
+        const lines = imageScriptGenerator.generateAuxiliary();
+        this.codeText(lines.join('\n'));
+      }
+    };
+
+    this.renderSubviewScript = (subview, scriptType = this.codeViewScriptLanguage()) => {
+      switch (subview) {
+        case 'primaryImageScript':
+          this.renderPrimaryImageScript(scriptType);
+          break;
+
+        case 'auxiliaryImageScript':
+          this.renderAuxiliaryImageScript(scriptType);
+          break;
+      }
     };
 
     this.codeText = ko.observable();

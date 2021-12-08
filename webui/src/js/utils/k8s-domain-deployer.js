@@ -32,7 +32,7 @@ function (project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, K8sDoma
         return Promise.resolve(false);
       }
 
-      const totalSteps = 13.0;
+      const totalSteps = 14.0;
       const domainUid = this.project.k8sDomain.uid.value;
       const domainNamespace = this.project.k8sDomain.kubernetesNamespace.value;
       try {
@@ -208,6 +208,28 @@ function (project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, K8sDoma
           }
         }
 
+        if (this.project.k8sDomain.auxImageRegistryPullRequireAuthentication.value && !this.project.k8sDomain.auxImageRegistryUseExistingPullSecret.value) {
+          const secret = this.project.k8sDomain.auxImageRegistryPullSecretName.value;
+          const secretData = {
+            server: this.project.image.internal.auxImageRegistryAddress.value,
+            username: this.project.k8sDomain.auxImageRegistryPullUser.value,
+            email: this.project.k8sDomain.auxImageRegistryPullEmail.value,
+            password: this.project.k8sDomain.auxImageRegistryPullPassword.value
+          };
+          busyDialogMessage = i18n.t('k8s-domain-deployer-create-image-pull-secret-in-progress',
+            {domainNamespace: domainNamespace, secretName: secret});
+          dialogHelper.updateBusyDialog(busyDialogMessage, 8 / totalSteps);
+          const createResults =
+            await window.api.ipc.invoke('k8s-create-pull-secret', kubectlExe, domainNamespace, secret, secretData, kubectlOptions);
+          if (!createResults.isSuccess) {
+            const errMessage = i18n.t('k8s-domain-deployer-create-image-pull-secret-error-message',
+              {domainNamespace: domainNamespace, secretName: secret, error: createResults.reason});
+            dialogHelper.closeBusyDialog();
+            await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
+            return Promise.resolve(false);
+          }
+        }
+
         // Create the MII runtime encryption secret, if needed.
         if (this.project.settings.targetDomainLocation.value === 'mii') {
           const secret = this.project.k8sDomain.runtimeSecretName.value;
@@ -216,7 +238,7 @@ function (project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, K8sDoma
           };
           busyDialogMessage = i18n.t('k8s-domain-deployer-create-runtime-secret-in-progress',
             {domainNamespace: domainNamespace, secretName: secret});
-          dialogHelper.updateBusyDialog(busyDialogMessage, 8 / totalSteps);
+          dialogHelper.updateBusyDialog(busyDialogMessage, 9 / totalSteps);
           const createResults =
             await window.api.ipc.invoke('k8s-create-generic-secret', kubectlExe, domainNamespace, secret, secretData, kubectlOptions);
           if (!createResults.isSuccess) {
@@ -232,7 +254,7 @@ function (project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, K8sDoma
         const wlSecretName = this.project.k8sDomain.credentialsSecretName.value;
         busyDialogMessage = i18n.t('k8s-domain-deployer-create-wl-secret-in-progress',
           {secretName: wlSecretName, domainName: domainUid, namespace: domainNamespace});
-        dialogHelper.updateBusyDialog(busyDialogMessage, 9 / totalSteps);
+        dialogHelper.updateBusyDialog(busyDialogMessage, 10 / totalSteps);
         const wlSecretData = {
           username: this.project.k8sDomain.credentialsUserName.value,
           password: this.project.k8sDomain.credentialsPassword.value
@@ -251,7 +273,7 @@ function (project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, K8sDoma
         if (this.project.settings.targetDomainLocation.value === 'mii') {
           busyDialogMessage = i18n.t('k8s-domain-deployer-create-secrets-in-progress',
             {domainName: domainUid, namespace: domainNamespace});
-          dialogHelper.updateBusyDialog(busyDialogMessage, 10 / totalSteps);
+          dialogHelper.updateBusyDialog(busyDialogMessage, 11 / totalSteps);
           const secrets = this.project.k8sDomain.secrets.value;
           if (secrets && secrets.length > 0) {
             for (const secret of secrets) {
@@ -287,7 +309,7 @@ function (project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, K8sDoma
             wktLogger.debug(configMapData);
             busyDialogMessage = i18n.t('k8s-domain-deployer-create-config-map-in-progress',
               {domainName: domainUid, domainNamespace: domainNamespace});
-            dialogHelper.updateBusyDialog(busyDialogMessage, 11 / totalSteps);
+            dialogHelper.updateBusyDialog(busyDialogMessage, 12 / totalSteps);
             const mapResults = await (window.api.ipc.invoke('k8s-apply', kubectlExe, configMapData, kubectlOptions));
             if (!mapResults.isSuccess) {
               const configMapName = this.project.k8sDomain.modelConfigMapName.value;
@@ -303,7 +325,7 @@ function (project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, K8sDoma
         // Deploy domain
         busyDialogMessage = i18n.t('k8s-domain-deployer-deploy-in-progress',
           {domainName: domainUid, domainNamespace: domainNamespace});
-        dialogHelper.updateBusyDialog(busyDialogMessage, 12 / totalSteps);
+        dialogHelper.updateBusyDialog(busyDialogMessage, 13 / totalSteps);
         const domainSpecData = this.k8sDomainResourceGenerator.generate().join('\n');
         const domainResult = await (window.api.ipc.invoke('k8s-apply', kubectlExe, domainSpecData, kubectlOptions));
         dialogHelper.closeBusyDialog();
@@ -336,20 +358,22 @@ function (project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, K8sDoma
 
     this.getValidatableObject = (flowNameKey) => {
       const validationObject = validationHelper.createValidatableObject(flowNameKey);
+      const domainFormConfig = validationObject.getDefaultConfigObject();
+      domainFormConfig.formName = 'domain-design-form-name';
 
-      validationObject.addField('domain-design-uid-label', this.project.k8sDomain.uid.validate(true));
+      validationObject.addField('domain-design-uid-label', this.project.k8sDomain.uid.validate(true), domainFormConfig);
       validationObject.addField('domain-design-namespace-label',
-        this.project.k8sDomain.kubernetesNamespace.validate(true));
+        this.project.k8sDomain.kubernetesNamespace.validate(true), domainFormConfig);
 
       const kubectlFormConfig = validationObject.getDefaultConfigObject();
-      kubectlFormConfig.formName = 'kubectl-title';
+      kubectlFormConfig.formName = 'kubectl-form-name';
       validationObject.addField('kubectl-exe-file-path-label',
         validationHelper.validateRequiredField(this.project.kubectl.executableFilePath.value), kubectlFormConfig);
       validationObject.addField('kubectl-helm-exe-file-path-label',
         validationHelper.validateRequiredField(this.project.kubectl.helmExecutableFilePath.value), kubectlFormConfig);
 
       const wkoFormConfig = validationObject.getDefaultConfigObject();
-      wkoFormConfig.formName = 'wko-design-title';
+      wkoFormConfig.formName = 'wko-design-form-name';
       validationObject.addField('wko-design-wko-deploy-name-label',
         validationHelper.validateRequiredField(this.project.wko.wkoDeployName.value), wkoFormConfig);
       validationObject.addField('wko-design-k8s-namespace-label',
@@ -368,43 +392,66 @@ function (project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, K8sDoma
           break;
       }
 
-      const settingsFormConfig = validationObject.getDefaultConfigObject();
-      settingsFormConfig.formName = 'project-settings-title';
-      validationObject.addField('image-design-image-tag-label',
-        this.project.image.imageTag.validate(true), settingsFormConfig);
+      validationObject.addField('domain-design-image-tag-label',
+        this.project.image.imageTag.validate(true), domainFormConfig);
 
       if (this.project.k8sDomain.imageRegistryPullRequireAuthentication.value) {
         validationObject.addField('domain-design-image-registry-pull-secret-name-label',
-          this.project.k8sDomain.imageRegistryPullSecretName.validate(true), settingsFormConfig);
+          this.project.k8sDomain.imageRegistryPullSecretName.validate(true), domainFormConfig);
 
         if (!this.project.k8sDomain.imageRegistryUseExistingPullSecret.value) {
-          validationObject.addField('image-design-image-registry-address-label',
+          validationObject.addField('domain-design-image-registry-address-label',
             validationHelper.validateHostName(this.project.image.internal.imageRegistryAddress.value, false),
-            settingsFormConfig);
+            domainFormConfig);
           validationObject.addField('domain-design-image-registry-pull-username-label',
             validationHelper.validateRequiredField(this.project.k8sDomain.imageRegistryPullUser.value),
-            settingsFormConfig);
+            domainFormConfig);
           validationObject.addField('domain-design-image-registry-pull-email-label',
             this.project.k8sDomain.imageRegistryPullEmail.validate(true),
-            settingsFormConfig);
+            domainFormConfig);
           validationObject.addField('domain-design-image-registry-pull-password-label',
             validationHelper.validateRequiredField(this.project.k8sDomain.imageRegistryPullPassword.value),
-            settingsFormConfig);
+            domainFormConfig);
+        }
+      }
+
+      if (this.project.settings.targetDomainLocation.value === 'mii' && this.project.image.useAuxImage.value) {
+        validationObject.addField('domain-design-aux-image-tag-label',
+          this.project.image.auxImageTag.validate(true), domainFormConfig);
+
+        if (this.project.k8sDomain.auxImageRegistryPullRequireAuthentication.value) {
+          validationObject.addField('domain-design-aux-image-registry-pull-secret-name-label',
+            this.project.k8sDomain.auxImageRegistryPullSecretName.validate(true), domainFormConfig);
+
+          if (!this.project.k8sDomain.auxImageRegistryUseExistingPullSecret.value) {
+            validationObject.addField('domain-design-aux-image-registry-address-label',
+              validationHelper.validateHostName(this.project.image.internal.auxImageRegistryAddress.value, false),
+              domainFormConfig);
+            validationObject.addField('domain-design-aux-image-registry-pull-username-label',
+              validationHelper.validateRequiredField(this.project.k8sDomain.auxImageRegistryPullUser.value),
+              domainFormConfig);
+            validationObject.addField('domain-design-aux-image-registry-pull-email-label',
+              this.project.k8sDomain.auxImageRegistryPullEmail.validate(true),
+              domainFormConfig);
+            validationObject.addField('domain-design-aux-image-registry-pull-password-label',
+              validationHelper.validateRequiredField(this.project.k8sDomain.auxImageRegistryPullPassword.value),
+              domainFormConfig);
+          }
         }
       }
 
       if (this.project.settings.targetDomainLocation.value === 'mii') {
         validationObject.addField('domain-design-encryption-secret-label',
-          this.project.k8sDomain.runtimeSecretName.validate(true));
+          this.project.k8sDomain.runtimeSecretName.validate(true), domainFormConfig);
         validationObject.addField('domain-design-encryption-value-label',
-          validationHelper.validateRequiredField(this.project.k8sDomain.runtimeSecretValue.value));
+          validationHelper.validateRequiredField(this.project.k8sDomain.runtimeSecretValue.value), domainFormConfig);
       }
       validationObject.addField('domain-design-wls-credential-label',
-        this.project.k8sDomain.credentialsSecretName.validate(true));
+        this.project.k8sDomain.credentialsSecretName.validate(true), domainFormConfig);
       validationObject.addField('domain-design-wls-credential-username-label',
-        validationHelper.validateRequiredField(this.project.k8sDomain.credentialsUserName.value));
+        validationHelper.validateRequiredField(this.project.k8sDomain.credentialsUserName.value), domainFormConfig);
       validationObject.addField('domain-design-wls-credential-password-label',
-        validationHelper.validateRequiredField(this.project.k8sDomain.credentialsPassword.value));
+        validationHelper.validateRequiredField(this.project.k8sDomain.credentialsPassword.value), domainFormConfig);
 
       if (this.project.k8sDomain.secrets.value && this.project.k8sDomain.secrets.value.length > 0) {
         let i = 0;
@@ -426,7 +473,8 @@ function (project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, K8sDoma
       }
 
       if (!this.project.k8sDomain.configMapIsEmpty()) {
-        validationObject.addField('domain-design-configmap-label', this.project.k8sDomain.modelConfigMapName.validate(true));
+        validationObject.addField('domain-design-configmap-label',
+          this.project.k8sDomain.modelConfigMapName.validate(true), domainFormConfig);
         // The fields in the table should not require validation since no empty override values should be in this computed table.
       }
 

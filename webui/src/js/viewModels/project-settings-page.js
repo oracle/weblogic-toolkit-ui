@@ -3,10 +3,10 @@
  * Copyright (c) 2021, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
-define(['accUtils', 'knockout', 'utils/i18n', 'models/wkt-project', 'ojs/ojarraydataprovider',
+define(['accUtils', 'knockout', 'utils/i18n', 'models/wkt-project', 'ojs/ojarraydataprovider', 'utils/wkt-logger',
   'utils/url-catalog', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojformlayout', 'ojs/ojradioset',
   'ojs/ojswitch', 'ojs/ojselectsingle' ],
-function(accUtils, ko, i18n, project, ArrayDataProvider) {
+function(accUtils, ko, i18n, project, ArrayDataProvider, wktLogger) {
   function ProjectSettingsViewModel() {
 
     this.connected = () => {
@@ -49,8 +49,16 @@ function(accUtils, ko, i18n, project, ArrayDataProvider) {
     ];
     this.wdtTargetTypesDP = new ArrayDataProvider(this.wdtTargetTypes, { keyAttributes: 'key' });
 
-    this.requiresJavaAndOracleHome = () => {
-      return this.usingImageTool();
+    this.javaDirectoryLocationAnswer = ko.computed(() => {
+      let key = 'java-directory-location-answer-message';
+      if (this.project.settings.targetDomainLocation.value === 'pv') {
+        key = 'java-directory-location-with-pv-answer-message';
+      }
+      return this.labelMapper(key);
+    });
+
+    this.requiresOracleHome = () => {
+      return this.project.settings.targetDomainLocation.value !== 'pv';
     };
 
     this.chooseJavaHome = () => {
@@ -73,10 +81,6 @@ function(accUtils, ko, i18n, project, ArrayDataProvider) {
         });
     };
 
-    this.usingImageTool = () => {
-      return (this.project.settings.targetDomainLocation.observable() !== 'pv' || this.project.image.createCustomImageForPV.observable());
-    };
-
     this.builderTypes = [
       { key: 'docker', label: 'Docker' },
       { key: 'podman', label: 'Podman' }
@@ -92,6 +96,14 @@ function(accUtils, ko, i18n, project, ArrayDataProvider) {
       }
       return label;
     };
+
+    this.buildToolTypeAnswer = ko.computed(() => {
+      let key = 'build-tool-type-answer-message';
+      if (this.project.settings.targetDomainLocation.value === 'pv') {
+        key = 'build-tool-type-with-pv-answer-message';
+      }
+      return this.labelMapper(key);
+    });
 
     this.getBuilderExecutableFilePathLabel = () => {
       let name = this.getDockerLabelForBuilderType(this.project.settings.builderType.value) || '<Unknown>';

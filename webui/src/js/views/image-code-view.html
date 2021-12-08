@@ -2,18 +2,38 @@
  Copyright (c) 2021, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
-<div class="oj-panel wkt-code-view-platform-frame">
-  <oj-form-layout max-columns="1" direction="row">
-    <oj-select-single label-hint="Script Language"
-                      on-value-changed="[[codeViewScriptLanguageSelectValueChangedHandler]]"
-                      value="{{codeViewScriptLanguage}}"
-                      data="[[codeViewScriptLanguagesDP]]"
-                      help.instruction="The scripting language to show.">
-    </oj-select-single>
-  </oj-form-layout>
-  <oj-text-area class="wkt-code-view"
-                max-rows="-1"
-                value="{{codeText}}"
-                readonly="true">
-  </oj-text-area>
+<div class="wkt-nested-tab-frame">
+  <oj-tab-bar id="codetabs" class="oj-sm-condense wkt-tab-bar-nested"
+              selection="{{selectedSubview}}" data="[[subviewsDP]]" edge="top">
+    <template slot="itemTemplate" data-oj-as="item">
+      <li :class="[[{'oj-disabled' : item.data.disabled}]]">
+        <a href="#">
+          <oj-bind-text value="[[item.data.name]]"></oj-bind-text>
+        </a>
+      </li>
+    </template>
+  </oj-tab-bar>
+
+  <oj-switcher id="codeviews"
+               class="wkt-code-view-switcher"
+               value="{{tabsStatus}}">
+    <div slot="enabled" class="oj-panel wkt-code-view-platform-frame">
+      <oj-form-layout max-columns="1" direction="row">
+        <oj-select-single label-hint="Script Language"
+                          on-value-changed="[[codeViewScriptLanguageSelectValueChangedHandler]]"
+                          value="{{codeViewScriptLanguage}}"
+                          data="[[codeViewScriptLanguagesDP]]"
+                          help.instruction="The scripting language to show.">
+        </oj-select-single>
+      </oj-form-layout>
+      <oj-text-area class="wkt-code-view"
+                    max-rows="-1"
+                    value="{{codeText}}"
+                    readonly="true">
+      </oj-text-area>
+    </div>
+
+    <div slot="disabled" class="oj-panel wkt-code-view-platform-frame">
+      <p class="wkt-center-text-in-frame"><oj-bind-text value="[[labelMapper('not-creating-images-no-content')]]"></oj-bind-text></p>
+  </oj-switcher>
 </div>

@@ -7,8 +7,30 @@ define(['utils/wkt-logger'],
   function (wktLogger) {
     function ImageDesignViewModel(i18n, project, accUtils, ko, dialogHelper, ArrayDataProvider, wktImageInspector) {
 
+      let subscriptions = [];
+
       this.connected = async () => {
         accUtils.announce('Image Design View page loaded.', 'assertive');
+
+        subscriptions.push(project.image.createPrimaryImage.observable.subscribe(() => {
+          document.getElementById('create-image-switch').refresh();
+          document.getElementById('primary-image-tag').refresh();
+        }));
+
+        subscriptions.push(project.image.useAuxImage.observable.subscribe(() => {
+          document.getElementById('designtabs').refresh();
+          document.getElementById('primary-image-tag').refresh();
+        }));
+
+        subscriptions.push(project.image.createAuxImage.observable.subscribe(() => {
+          document.getElementById('aux-image-tag').refresh();
+        }));
+      };
+
+      this.disconnected = () => {
+        subscriptions.forEach((subscription) => {
+          subscription.dispose();
+        });
       };
 
       this.labelMapper = (labelId) => {
@@ -20,20 +42,142 @@ define(['utils/wkt-logger'],
 
       this.project = project;
 
+      this.targetDomainLocationIsMII = () => {
+        return this.project.settings.targetDomainLocation.value === 'mii';
+      };
+
+      this.targetDomainLocationIsDII = () => {
+        return this.project.settings.targetDomainLocation.value === 'dii';
+      };
+
       this.targetDomainLocationIsPV = () => {
         return this.project.settings.targetDomainLocation.value === 'pv';
       };
 
-      this.requiresWdt = () => {
-        return !this.targetDomainLocationIsPV();
+      this.useAuxiliaryImage = () => {
+        return this.project.image.useAuxImage.value;
+      };
+
+      this.disableAuxImage = ko.computed(() => {
+        return !(this.targetDomainLocationIsMII() && this.project.image.useAuxImage.value);
+      });
+
+      this.mainCreateImageSwitchHelp = ko.computed(() => {
+        if (this.project.image.useAuxImage.value) {
+          return this.labelMapper('create-image-aux-help');
+        } else {
+          return this.labelMapper('create-image-help');
+        }
+      });
+
+      this.mainImageTagHelpMII = () => {
+        let key = 'image-tag-mii-use-help';
+        if (this.project.image.createPrimaryImage.value) {
+          key = 'image-tag-mii-create-help';
+          if (this.project.image.useAuxImage.value) {
+            key = 'image-tag-mii-create-with-aux-help';
+          }
+        } else if (this.project.image.useAuxImage.value) {
+          key = 'image-tag-mii-use-with-aux-help';
+        }
+        return key;
+      };
+
+      this.mainImageTagHelpDII = () => {
+        let key = 'image-tag-dii-use-help';
+        if (this.project.image.createPrimaryImage.value) {
+          key = 'image-tag-dii-create-help';
+        }
+        return key;
+      };
+
+      this.mainImageTagHelpPV = () => {
+        let key = 'image-tag-pv-use-help';
+        if (this.project.image.createPrimaryImage.value) {
+          key = 'image-tag-pv-create-help';
+        }
+        return key;
+      };
+
+      this.mainImageTagHelp = ko.computed(() => {
+        let key = 'use-image-tag-help';
+
+        switch (this.project.settings.targetDomainLocation.value) {
+          case 'mii':
+            key = this.mainImageTagHelpMII();
+            break;
+
+          case 'dii':
+            key = this.mainImageTagHelpDII();
+            break;
+
+          case 'pv':
+            key = this.mainImageTagHelpPV();
+            break;
+        }
+        return this.labelMapper(key);
+      });
+
+      this.auxImageTagHelp = ko.computed(() => {
+        if (this.project.image.createAuxImage.value) {
+          return this.labelMapper('aux-image-tag-create-help');
+        } else {
+          return this.labelMapper('aux-image-tag-use-help');
+        }
+      });
+
+      this.subviews = [
+        {id: 'fmwImage', name: this.labelMapper('image-tab')},
+        {id: 'auxImage', name: this.labelMapper('aux-image-tab'), disabled: this.disableAuxImage}
+      ];
+
+      this.subviewsDP = new ArrayDataProvider(this.subviews, {keyAttributes: 'id'});
+      this.selectedSubview = ko.observable('fmwImage');
+      this.selectedSubviewValueChangedHandler = (event) => {
+        wktLogger.debug('selectedSubviewValueChangedHandler() called for %s', event.detail.value);
+        this.selectedSubview(event.detail.value);
+      };
+
+      this.mainImagePageTitle = ko.computed(() => {
+        if (this.disableAuxImage()) {
+          return this.labelMapper('title');
+        } else {
+          return this.labelMapper('fmw-title');
+        }
+      });
+
+      this.mainImageRequiresWdt = () => {
+        let result = false;
+        switch (this.project.settings.targetDomainLocation.value) {
+          case 'pv':
+            result = false;
+            break;
+
+          case 'dii':
+            result = true;
+            break;
+
+          case 'mii':
+            result = !this.project.image.useAuxImage.value;
+            break;
+        }
+        return result;
       };
 
       this.isBuildingImage = () => {
-        return !this.targetDomainLocationIsPV() || this.project.image.createCustomImageForPV.value;
+        return this.project.image.createPrimaryImage.value;
+      };
+
+      this.isBuildingAuxImage = () => {
+        return this.project.image.createAuxImage.value;
       };
 
       this.imageRegistryPushRequiresAuthentication = () => {
         return this.project.image.imageRegistryPushRequireAuthentication.observable();
+      };
+
+      this.auxImageRegistryPushRequiresAuthentication = () => {
+        return this.project.image.auxImageRegistryPushRequireAuthentication.observable();
       };
 
       this.inspectBaseImage = () => {

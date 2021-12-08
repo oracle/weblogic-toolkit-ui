@@ -13,7 +13,7 @@
 define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'utils/validation-helper', 'utils/wkt-logger'],
   function (ko, props, utils, validationHelper, wktLogger) {
 
-    return function(name, wdtModel, imageDomainHomePathProperty) {
+    return function(name, wdtModel, imageDomainHomePathProperty, imageDomainTypeProperty) {
       function asLegalK8sName(observable) {
         return utils.toLegalK8sName(observable());
       }
@@ -25,6 +25,7 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
         this.kubernetesNamespace = props.createProperty('${1}-ns', this.uid.observable);
         this.kubernetesNamespace.addValidator(...validationHelper.getK8sNameValidators());
         this.domainHome = imageDomainHomePathProperty;
+        this.domainType = imageDomainTypeProperty;
 
         this.domainPersistentVolumeName = props.createProperty('weblogic-domain-storage-volume');
         this.domainPersistentVolumeMountPath = props.createProperty('/shared');
@@ -44,6 +45,17 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
         this.imageRegistryPullEmail.addValidator(...validationHelper.getEmailAddressValidators());
 
         this.imagePullPolicy = props.createProperty('IfNotPresent');
+
+        // Auxiliary image-related properties
+        this.auxImageRegistryPullRequireAuthentication = props.createProperty(false);
+        this.auxImageRegistryUseExistingPullSecret = props.createProperty(true);
+        this.auxImageRegistryPullSecretName = props.createProperty();
+        this.auxImageRegistryPullSecretName.addValidator(...validationHelper.getK8sNameValidators());
+        this.auxImageRegistryPullUser = props.createProperty().asCredential();
+        this.auxImageRegistryPullPassword = props.createProperty().asCredential();
+        this.auxImageRegistryPullEmail = props.createProperty();
+        this.auxImageRegistryPullEmail.addValidator(...validationHelper.getEmailAddressValidators());
+        this.auxImagePullPolicy = props.createProperty('IfNotPresent');
 
         this.clusterKeys = [
           'name', 'maxServers', 'replicas', 'minHeap', 'maxHeap', 'cpuRequest', 'cpuLimit', 'memoryRequest',

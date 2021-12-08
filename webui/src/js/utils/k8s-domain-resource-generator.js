@@ -40,6 +40,15 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
           domainResource.spec.domainHome = this.project.k8sDomain.domainHome.value;
         }
 
+        if (usingAuxImage()) {
+          domainResource.spec.auxiliaryImageVolumes = [
+            {
+              name: `${domainResource.spec.domainUID}-aux-image-volume`,
+              mountPath: '/auxiliary'
+            }
+          ];
+        }
+
         if (this.project.settings.targetDomainLocation.value === 'pv') {
           if (this.project.k8sDomain.domainPersistentVolumeLogHomeEnabled.value) {
             domainResource.spec.logHomeEnabled = true;
@@ -47,9 +56,24 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
           }
         }
 
-        const serverPod = this._getServerPod();
+        const serverPod = this._getServerPod(domainResource);
         if (serverPod) {
           domainResource.spec.serverPod = serverPod;
+        }
+
+        const wdtRelatedPaths = this._getWdtRelatedPaths(domainResource);
+        if (usingAuxImage()) {
+          const volumeName = domainResource.spec.auxiliaryImageVolumes[0].name;
+          const command = getAuxImageCopyCommand(wdtRelatedPaths);
+          const auxiliaryImage = {
+            image: this.project.image.auxImageTag.value,
+            command: command,
+            volume: volumeName
+          };
+          if (this.project.k8sDomain.auxImagePullPolicy.hasValue()) {
+            auxiliaryImage.imagePullPolicy = this.project.k8sDomain.auxImagePullPolicy.value;
+          }
+          serverPod.auxiliaryImages = [ auxiliaryImage ];
         }
 
         if (this.project.k8sDomain.clusters.value.length === 0) {
@@ -71,19 +95,56 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
             domainResource.spec.clusters = specClusters;
           }
         }
+
+        const imagePullSecrets = [];
         if (this.project.k8sDomain.imageRegistryPullRequireAuthentication.value && this.project.k8sDomain.imageRegistryPullSecretName.value) {
-          domainResource.spec.imagePullSecrets = [ { name: this.project.k8sDomain.imageRegistryPullSecretName.value } ];
+          imagePullSecrets.push({ name: this.project.k8sDomain.imageRegistryPullSecretName.value });
         }
+        if (usingAuxImage()) {
+          if (this.project.k8sDomain.auxImageRegistryPullRequireAuthentication.value && this.project.k8sDomain.auxImageRegistryPullSecretName.value) {
+            const auxImagePullSecretName = this.project.k8sDomain.auxImageRegistryPullSecretName.value;
+
+            let secretNotAlreadyAdded = true;
+            for (const imagePullSecret of imagePullSecrets) {
+              if (auxImagePullSecretName === imagePullSecret.name) {
+                secretNotAlreadyAdded = false;
+                break;
+              }
+            }
+
+            if (secretNotAlreadyAdded) {
+              imagePullSecrets.push({ name:  auxImagePullSecretName });
+            }
+          }
+        }
+        if (imagePullSecrets.length > 0) {
+          domainResource.spec.imagePullSecrets = imagePullSecrets;
+        }
+
         if (this.project.settings.targetDomainLocation.value === 'mii') {
           domainResource.spec.configuration = { };
           domainResource.spec.configuration.model = {
-            domainType: this.project.image.targetDomainType.value,
+            domainType: this.project.k8sDomain.domainType.value,
             runtimeEncryptionSecret: this.project.k8sDomain.runtimeSecretName.value
           };
 
-          if (this.project.image.modelHomePath.hasValue()) {
-            domainResource.spec.configuration.model.modelHome = this.project.image.modelHomePath.value;
+          if (usingAuxImage()) {
+            const mountPoint = domainResource.spec.auxiliaryImageVolumes[0].mountPath;
+            // Always set these since WKO aux image support makes these required
+            domainResource.spec.configuration.model.wdtInstallHome =
+              window.api.path.join(mountPoint, wdtRelatedPaths.targetWdtHomeDirName);
+            domainResource.spec.configuration.model.modelHome =
+              window.api.path.join(mountPoint, wdtRelatedPaths.targetModelHomeDirName);
+          } else {
+            // Only set these if they are specified; otherwise, rely on the default values
+            if (wdtRelatedPaths.wdtHome) {
+              domainResource.spec.configuration.model.wdtHome = wdtRelatedPaths.wdtHome;
+            }
+            if (wdtRelatedPaths.modelHome) {
+              domainResource.spec.configuration.model.modelHome = wdtRelatedPaths.modelHome;
+            }
           }
+
           if (this.k8sConfigMapGenerator.shouldCreateConfigMap()) {
             domainResource.spec.configuration.model.configMap = this.project.k8sDomain.modelConfigMapName.value;
           }
@@ -104,10 +165,10 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
               this.project.k8sDomain.introspectorJobActiveDeadlineSeconds.value;
           }
         }
-        return jsYaml.dump(domainResource).split('\n');
+        return jsYaml.dump(domainResource, {}).split('\n');
       }
 
-      _getServerPod() {
+      _getServerPod(domainResource) {
         const serverPod = _getServerPod(getJavaOptions(this.project.k8sDomain), getUserMemArgs(this.project.k8sDomain),
           getKubernetesResources(this.project.k8sDomain));
 
@@ -130,6 +191,42 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
         }
         return serverPod;
       }
+
+      _getWdtRelatedPaths() {
+        let result;
+
+        if (this.project.settings.targetDomainLocation.value === 'mii') {
+
+          result = { };
+          if (usingAuxImage()) {
+            const wdtHome = this.project.image.wdtHomePath.value;
+            const modelHome = this.project.image.modelHomePath.value;
+            result.targetWdtHomeDirName = 'weblogic-deploy';
+            result.sourceWdtHome = window.api.path.join(wdtHome, result.targetWdtHomeDirName);
+            result.sourceModelHome = modelHome;
+            result.targetModelHomeDirName = window.api.path.basename(modelHome);
+          } else {
+            // Only set these if they are not the default
+            if (this.project.image.wdtHomePath.hasValue()) {
+              result.wdtHome = this.project.image.wdtHomePath.value;
+            }
+            if (this.project.image.modelHomePath.hasValue()) {
+              result.modelHome = this.project.image.modelHomePath.value;
+            }
+          }
+        }
+        return result;
+      }
+    }
+
+    function usingAuxImage() {
+      return project.settings.targetDomainLocation.value === 'mii' && project.image.useAuxImage.value;
+    }
+
+    function getAuxImageCopyCommand(wdtRelatedPaths) {
+      const auxImageInternalTarget = '$AUXILIARY_IMAGE_TARGET_PATH';
+
+      return `cp -R ${wdtRelatedPaths.sourceWdtHome} ${auxImageInternalTarget}; cp -R ${wdtRelatedPaths.sourceModelHome} ${auxImageInternalTarget}`
     }
 
     function getOperatorNameForTargetDomainLocation(targetDomainLocation) {

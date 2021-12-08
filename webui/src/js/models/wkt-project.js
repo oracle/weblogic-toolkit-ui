@@ -77,7 +77,7 @@ function (ko, wdtConstructor, imageConstructor, kubectlConstructor, domainConstr
     this.image = imageConstructor('image', this.wdtModel);
     this.ingress = ingressConstructor('ingress');
     this.kubectl = kubectlConstructor('kubectl');
-    this.k8sDomain = domainConstructor('k8sDomain', this.wdtModel, this.image.domainHomePath);
+    this.k8sDomain = domainConstructor('k8sDomain', this.wdtModel, this.image.domainHomePath, this.image.targetDomainType);
     this.wko = wkoConstructor('wko');
     this.pages = [this.wdtModel, this.image, this.kubectl, this.k8sDomain, this.wko, this.settings, this.ingress];
 

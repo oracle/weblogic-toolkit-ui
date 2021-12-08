@@ -5,10 +5,10 @@
  */
 define(['models/wkt-project', 'accUtils', 'utils/common-utilities', 'knockout', 'utils/i18n',
   'ojs/ojbufferingdataprovider', 'ojs/ojarraydataprovider', 'ojs/ojconverter-number', 'utils/dialog-helper', 'utils/k8s-helper',
-  'utils/view-helper','ojs/ojmessaging', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojformlayout',
+  'utils/view-helper', 'utils/wkt-logger', 'ojs/ojmessaging', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojformlayout',
   'ojs/ojcollapsible', 'ojs/ojselectsingle', 'ojs/ojlistview', 'ojs/ojtable', 'ojs/ojswitch', 'ojs/ojinputnumber'],
 function (project, accUtils, utils, ko, i18n, BufferingDataProvider,
-  ArrayDataProvider, ojConverterNumber, dialogHelper, k8sHelper, viewHelper) {
+  ArrayDataProvider, ojConverterNumber, dialogHelper, k8sHelper, viewHelper, wktLogger) {
   function DomainDesignViewModel() {
 
     this.connected = async () => {
@@ -35,17 +35,30 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider,
       return this.project.settings.targetDomainLocation.observable() === 'pv';
     });
 
+    this.isDomainInImage = ko.computed(() => {
+      return this.project.settings.targetDomainLocation.observable() === 'dii';
+    });
+
     this.isModelInImage = ko.computed(() => {
       return this.project.settings.targetDomainLocation.observable() === 'mii';
     });
 
-    this.domainHomeHelpLabel = ko.computed(() => {
-      const domainHomeHelpKey = this.isDomainInPV() ? 'domain-home-help' : 'domain-home-readonly-help';
-      return this.labelMapper(domainHomeHelpKey);
-    });
+    // Disable JRF as the domain type since the application does not (yet?) provide the mechanisms required
+    // to specify the JRF schemas or the database connectivity and credential information needed to run RCU.
+    //
+    this.wdtDomainTypes = [
+      { key: 'WLS', label: i18n.t('image-design-wls-domain-type-label') },
+      { key: 'RestrictedJRF', label: i18n.t('image-design-restricted-jrf-domain-type-label') },
+      // { key: 'JRF', label: i18n.t('image-design-jrf-domain-type-label') },
+    ];
+    this.wdtDomainTypesDP = new ArrayDataProvider(this.wdtDomainTypes, { keyAttributes: 'key' });
 
     this.imageRegistryPullRequiresAuthentication = () => {
       return this.project.k8sDomain.imageRegistryPullRequireAuthentication.observable();
+    };
+
+    this.auxImageRegistryPullRequiresAuthentication = () => {
+      return this.project.k8sDomain.auxImageRegistryPullRequireAuthentication.observable();
     };
 
     this.imagePullPolicies = [
@@ -54,6 +67,10 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider,
       {key: 'Never', label: i18n.t('wko-design-image-pull-never-label')}
     ];
     this.imagePullPoliciesDP = new ArrayDataProvider(this.imagePullPolicies, {keyAttributes: 'key'});
+
+    this.usingAuxImage = ko.computed(() => {
+      return this.isModelInImage() && this.project.image.useAuxImage.value;
+    });
 
     this.hasNoClusters = () => {
       return this.project.k8sDomain.clusters.value.length === 0;

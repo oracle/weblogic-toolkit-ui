@@ -64,6 +64,19 @@ define(['models/wkt-project', 'utils/script-generator-base', 'utils/k8s-domain-c
         this.adapter.addVariableDefinition('PULL_SECRET_PASS', this.credentialMask);
         this.adapter.addEmptyLine();
 
+        if (this.usingAuxImage()) {
+          this.adapter.addVariableDefinition('AUX_PULL_REQUIRES_AUTHENTICATION',
+            this.project.k8sDomain.auxImageRegistryPullRequireAuthentication.value);
+          this.adapter.addVariableDefinition('AUX_USE_EXISTING_PULL_SECRET',
+            this.project.k8sDomain.auxImageRegistryUseExistingPullSecret.value);
+          this.adapter.addVariableDefinition('AUX_PULL_SECRET_NAME', this.project.k8sDomain.auxImageRegistryPullSecretName.value);
+          this.adapter.addVariableDefinition('AUX_PULL_SECRET_HOST', this.project.image.internal.auxImageRegistryAddress.value);
+          this.adapter.addVariableDefinition('AUX_PULL_SECRET_EMAIL', this.project.k8sDomain.auxImageRegistryPullEmail.value);
+          this.adapter.addVariableDefinition('AUX_PULL_SECRET_USER', this.credentialMask);
+          this.adapter.addVariableDefinition('AUX_PULL_SECRET_PASS', this.credentialMask);
+          this.adapter.addEmptyLine();
+        }
+
         if (this.isModelInImage()) {
           this.adapter.addVariableDefinition('RUNTIME_SECRET_NAME', this.project.k8sDomain.runtimeSecretName.value);
           this.adapter.addVariableDefinition('RUNTIME_SECRET_PASS', this.project.k8sDomain.runtimeSecretValue.value);
@@ -144,6 +157,24 @@ define(['models/wkt-project', 'utils/script-generator-base', 'utils/k8s-domain-c
         let deleteErrorMessage = `Failed to delete pull secret ${pullSecretName} in namespace ${k8sDomainNamespace}`;
         this.adapter.addCreatePullSecretBlock(comment, kubectlExe, pullSecretName, k8sDomainNamespace, pullSecretData,
           createErrorMessage, deleteErrorMessage, replaceMessage, pullRequiresAuthentication, useExistingPullSecret);
+
+        if (this.usingAuxImage()) {
+          comment = [ 'Create auxiliary image pull secret, if needed.' ];
+          const auxPullRequiresAuthentication = this.adapter.getVariableReference('AUX_PULL_REQUIRES_AUTHENTICATION');
+          const auxUseExistingPullSecret = this.adapter.getVariableReference('AUX_USE_EXISTING_PULL_SECRET');
+          const auxPullSecretName = this.adapter.getVariableReference('AUX_PULL_SECRET_NAME');
+          const auxPullSecretData = {
+            host: this.adapter.getVariableReference('AUX_PULL_SECRET_HOST'),
+            username: this.adapter.getVariableReference('AUX_PULL_SECRET_USER'),
+            password: this.adapter.getVariableReference('AUX_PULL_SECRET_PASS'),
+            email: this.adapter.getVariableReference('AUX_PULL_SECRET_EMAIL')
+          };
+          createErrorMessage = `Failed to create pull secret ${auxPullSecretName} in namespace ${k8sDomainNamespace}`;
+          replaceMessage = `Replacing existing pull secret ${auxPullSecretName} in namespace ${k8sDomainNamespace}`;
+          deleteErrorMessage = `Failed to delete pull secret ${auxPullSecretName} in namespace ${k8sDomainNamespace}`;
+          this.adapter.addCreatePullSecretBlock(comment, kubectlExe, auxPullSecretName, k8sDomainNamespace, auxPullSecretData,
+            createErrorMessage, deleteErrorMessage, replaceMessage, auxPullRequiresAuthentication, auxUseExistingPullSecret);
+        }
 
         if (this.isModelInImage()) {
           comment = ['Create runtime encryption secret, if needed.'];

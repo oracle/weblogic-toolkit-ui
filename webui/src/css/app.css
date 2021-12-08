@@ -403,7 +403,12 @@ h6:first-child {
   width: 75%;
   height: auto;
   max-height: 85vh;
-  max-width: 800px;
+  max-width: 850px;
+}
+
+.wkt-center-text-in-frame {
+  vertical-align: center;
+  text-align: center;
 }
 
 /* typically the oj-panel on the code view tab */
@@ -417,6 +422,11 @@ h6:first-child {
 
 /* the oj-switcher in the code view should use the remaining height */
 .wkt-code-view-switcher {
+  min-height: 1px;
+  height: 100%;
+}
+
+.wkt-design-view-switcher {
   min-height: 1px;
   height: 100%;
 }

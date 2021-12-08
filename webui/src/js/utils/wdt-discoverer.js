@@ -130,20 +130,26 @@ function (ko, project, wktConsole, dialogHelper, projectIO, i18n, validationHelp
 
     this.getValidationObject = (flowNameKey, discoverConfig, online) => {
       const validationObject = validationHelper.createValidatableObject(flowNameKey);
+      const settingsFormConfig = validationObject.getDefaultConfigObject();
+      settingsFormConfig.formName = 'project-settings-form-name';
+
       validationObject.addField('project-settings-java-home-label',
-        validationHelper.validateRequiredField(discoverConfig.javaHome));
+        validationHelper.validateRequiredField(discoverConfig.javaHome), settingsFormConfig);
       validationObject.addField('project-settings-oracle-home-label',
-        validationHelper.validateRequiredField(discoverConfig.oracleHome));
+        validationHelper.validateRequiredField(discoverConfig.oracleHome), settingsFormConfig);
+
+      const discoverFormConfig = validationObject.getDefaultConfigObject();
+      discoverFormConfig.formName = online ? 'discover-dialog-online-form-name' : 'discover-dialog-offline-form-name';
       validationObject.addField('discover-dialog-domain-label',
-        validationHelper.validateRequiredField(discoverConfig.domainHome));
+        validationHelper.validateRequiredField(discoverConfig.domainHome), discoverFormConfig);
 
       if (online) {
         validationObject.addField('discover-dialog-admin-url-label',
-          validationHelper.validateRequiredField(discoverConfig.adminUrl));
+          validationHelper.validateRequiredField(discoverConfig.adminUrl), discoverFormConfig);
         validationObject.addField('discover-dialog-admin-user-label',
-          validationHelper.validateRequiredField(discoverConfig.adminUser));
+          validationHelper.validateRequiredField(discoverConfig.adminUser), discoverFormConfig);
         validationObject.addField('discover-dialog-admin-password-label',
-          validationHelper.validateRequiredField(discoverConfig.adminPass));
+          validationHelper.validateRequiredField(discoverConfig.adminPass), discoverFormConfig);
       }
       return validationObject;
     };

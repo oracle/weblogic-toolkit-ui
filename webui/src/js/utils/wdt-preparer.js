@@ -173,12 +173,18 @@ function(project, wktConsole, i18n, projectIo, dialogHelper, validationHelper, w
 
     this.getValidationObject = (flowNameKey) => {
       const validationObject = validationHelper.createValidatableObject(flowNameKey);
+      const settingsFormConfig = validationObject.getDefaultConfigObject();
+      settingsFormConfig.formName = 'project-settings-form-name';
+
       validationObject.addField('project-settings-java-home-label',
-        validationHelper.validateRequiredField(this.project.settings.javaHome.value));
+        validationHelper.validateRequiredField(this.project.settings.javaHome.value), settingsFormConfig);
       validationObject.addField('project-settings-oracle-home-label',
-        validationHelper.validateRequiredField(this.project.settings.oracleHome.value));
+        validationHelper.validateRequiredField(this.project.settings.oracleHome.value), settingsFormConfig);
+
+      const modelFormConfig = validationObject.getDefaultConfigObject();
+      modelFormConfig.formName = 'model-design-form-name';
       validationObject.addField('model-page-model-editor-contents',
-        this.project.wdtModel.validateModel(true));
+        this.project.wdtModel.validateModel(true), modelFormConfig);
       return validationObject;
     };
 

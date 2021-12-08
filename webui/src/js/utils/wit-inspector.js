@@ -129,27 +129,29 @@ define(['models/wkt-project', 'utils/i18n', 'utils/project-io', 'utils/dialog-he
       this.getValidatableObject = (flowNameKey) => {
         const validationObject = validationHelper.createValidatableObject(flowNameKey);
         const settingsFormConfig = validationObject.getDefaultConfigObject();
-        settingsFormConfig.formName = 'project-settings-title';
+        settingsFormConfig.formName = 'project-settings-form-name';
 
         validationObject.addField('project-settings-java-home-label',
           validationHelper.validateRequiredField(this.project.settings.javaHome.value), settingsFormConfig);
 
         const settingsFormBuilderConfig = validationObject.getDefaultConfigObject();
-        settingsFormBuilderConfig.formName = 'project-settings-title';
+        settingsFormBuilderConfig.formName = 'project-settings-form-name';
         settingsFormBuilderConfig.fieldNamePayload = { toolName: this.project.settings.builderType.value };
         validationObject.addField('project-settings-build-tool-label',
           validationHelper.validateRequiredField(this.project.settings.builderExecutableFilePath.value),
           settingsFormBuilderConfig);
 
+        const imageFormConfig = validationObject.getDefaultConfigObject();
+        imageFormConfig.formName = 'image-design-form-name';
         validationObject.addField('image-design-custom-base-image-label',
-          this.project.image.baseImage.validate(true));
+          this.project.image.baseImage.validate(true), imageFormConfig);
 
         if (this.project.image.baseImagePullRequiresAuthentication.value) {
           // skip validating the host portion of the base image tag since it may be empty for Docker Hub...
           validationObject.addField('image-design-base-image-pull-username-label',
-            validationHelper.validateRequiredField(this.project.image.baseImagePullUsername.value));
+            validationHelper.validateRequiredField(this.project.image.baseImagePullUsername.value), imageFormConfig);
           validationObject.addField('image-design-base-image-pull-password-label',
-            validationHelper.validateRequiredField(this.project.image.baseImagePullPassword.value));
+            validationHelper.validateRequiredField(this.project.image.baseImagePullPassword.value), imageFormConfig);
         }
 
         return validationObject;

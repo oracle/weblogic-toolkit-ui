@@ -134,9 +134,11 @@ define(['models/wkt-project', 'models/wkt-console', 'utils/i18n', 'utils/project
 
       this.getValidatableObject = (flowNameKey) => {
         const validationObject = validationHelper.createValidatableObject(flowNameKey);
+        const kubectlFormConfig = validationObject.getDefaultConfigObject();
+        kubectlFormConfig.formName = 'kubectl-form-name';
 
         validationObject.addField('kubectl-exe-file-path-label',
-          validationHelper.validateRequiredField(this.project.kubectl.executableFilePath.value));
+          validationHelper.validateRequiredField(this.project.kubectl.executableFilePath.value), kubectlFormConfig);
 
         return validationObject;
       };

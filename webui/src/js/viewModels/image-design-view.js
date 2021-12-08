@@ -10,7 +10,8 @@
  */
 define(['viewModels/image-design-view-impl', 'accUtils', 'utils/i18n', 'models/wkt-project', 'knockout',
   'utils/dialog-helper', 'ojs/ojarraydataprovider', 'utils/wit-inspector', 'ojs/ojformlayout',
-  'ojs/ojinputtext', 'ojs/ojcollapsible', 'ojs/ojselectsingle', 'ojs/ojswitch', 'ojs/ojradioset'
+  'ojs/ojinputtext', 'ojs/ojcollapsible', 'ojs/ojselectsingle', 'ojs/ojswitch', 'ojs/ojradioset',
+  'ojs/ojswitcher', 'ojs/ojknockout'
 ],
 function (ImageDesignViewModel, accUtils, i18n, project, ko,
   dialogHelper, ArrayDataProvider, WktImageInspector) {

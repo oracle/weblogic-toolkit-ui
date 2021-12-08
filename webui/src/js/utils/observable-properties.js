@@ -468,7 +468,8 @@ define(['knockout', 'utils/common-utilities', 'utils/validation-helper', 'utils/
       }
 
       set value(newValue) {
-        this.observable(this.createList(newValue));
+        const updatedList = this.createList(newValue);
+        this.observable(updatedList);
       }
 
       getDefaultWithKey(key) {

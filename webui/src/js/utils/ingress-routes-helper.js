@@ -311,11 +311,11 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
 
     this.getValidatableObject = (flowNameKey) => {
       const validationObject = validationHelper.createValidatableObject(flowNameKey);
-      const settingsFormConfig = validationObject.getDefaultConfigObject();
-      settingsFormConfig.formName = 'ingress-design-title';
+      const ingressFormConfig = validationObject.getDefaultConfigObject();
+      ingressFormConfig.formName = 'ingress-design-form-name';
 
       const kubectlFormConfig = validationObject.getDefaultConfigObject();
-      kubectlFormConfig.formName = 'kubectl-title';
+      kubectlFormConfig.formName = 'kubectl-form-name';
       validationObject.addField('kubectl-exe-file-path-label',
         validationHelper.validateRequiredField(this.project.kubectl.executableFilePath.value), kubectlFormConfig);
       validationObject.addField('kubectl-helm-exe-file-path-label',
@@ -323,23 +323,23 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
 
 
       validationObject.addField('ingress-design-ingress-provider-label',
-        validationHelper.validateRequiredField(this.project.ingress.ingressControllerProvider.value));
+        validationHelper.validateRequiredField(this.project.ingress.ingressControllerProvider.value), ingressFormConfig);
 
       if (this.project.ingress.specifyIngressTLSSecret.value === true) {
         validationObject.addField('ingress-design-tls-secret-name-label',
-          this.project.ingress.ingressTLSSecretName.validate(true));
+          this.project.ingress.ingressTLSSecretName.validate(true), ingressFormConfig);
 
         if (this.project.ingress.createTLSSecret.value === true) {
           if (this.project.ingress.generateTLSFiles.value === true) {
             validationObject.addField('ingress-design-openssl-exe-file-path-label',
-              validationHelper.validateRequiredField(this.project.ingress.opensslExecutableFilePath.value));
+              validationHelper.validateRequiredField(this.project.ingress.opensslExecutableFilePath.value), ingressFormConfig);
             validationObject.addField('ingress-design-generate-tls-subject-label',
-              validationHelper.validateRequiredField(this.project.ingress.ingressTLSSubject.value));
+              validationHelper.validateRequiredField(this.project.ingress.ingressTLSSubject.value), ingressFormConfig);
           } else {
             validationObject.addField('ingress-design-ingress-tlskeyfile-label',
-              validationHelper.validateRequiredField(this.project.ingress.ingressTLSKeyFile.value));
+              validationHelper.validateRequiredField(this.project.ingress.ingressTLSKeyFile.value), ingressFormConfig);
             validationObject.addField('ingress-design-ingress-tlscertfile-label',
-              validationHelper.validateRequiredField(this.project.ingress.ingressTLSCertFile.value));
+              validationHelper.validateRequiredField(this.project.ingress.ingressTLSCertFile.value), ingressFormConfig);
           }
         }
       }
@@ -370,6 +370,7 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
 
     this.checkIngressData =  (data, validationObject, tlsSecretSpecified) => {
       const routeConfig = validationObject.getDefaultConfigObject();
+      routeConfig.formName = 'ingress-design-form-name';
       routeConfig.fieldNameIsKey = false;
 
       const items = ['name', 'targetServiceNameSpace', 'targetService', 'targetPort', 'path', 'virtualHost'];

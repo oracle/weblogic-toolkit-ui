@@ -29,9 +29,14 @@ function(wktProject, wktConsole, wktDiscoverer,
 
   window.api.ipc.receive('project-opened', (file, projectContents, modelContents) => {
     // Don't log the project contents because it can contain clear text credentials...
-    wktProject.setProjectFileName(file);
-    wktProject.setFromJson(projectContents, modelContents);
-    wktProject.setNotDirty();
+    try {
+      wktProject.setProjectFileName(file);
+      wktProject.setFromJson(projectContents, modelContents);
+      wktProject.setNotDirty();
+    } catch (err) {
+      wktLogger.error('project-opened failed: %s', err);
+      displayCatchAllError('project-open', err).then();
+    }
   });
 
   window.api.ipc.receive('start-save-project', () => {
@@ -86,9 +91,15 @@ function(wktProject, wktConsole, wktDiscoverer,
     });
   });
 
-  window.api.ipc.receive('start-push-image', async () => {
+  window.api.ipc.receive('start-create-aux-image', async () => {
+    wktImageCreator.startCreateAuxImage().then(() => Promise.resolve()).catch(err => {
+      displayCatchAllError('wit-creator-create-aux', err).then(() => Promise.resolve());
+    });
+  });
+
+  window.api.ipc.receive('start-push-aux-image', async () => {
     imagePusher.startPushImage().then(() => Promise.resolve()).catch(err => {
-      displayCatchAllError('image-pusher-push', err).then(() => Promise.resolve());
+      displayCatchAllError('image-pusher-push-aux', err).then(() => Promise.resolve());
     });
   });
 

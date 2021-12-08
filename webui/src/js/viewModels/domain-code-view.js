@@ -55,8 +55,7 @@ function (accUtils, ko, project, K8sDomainScriptGenerator, K8sDomainConfigMapGen
 
 
     this.isConfigMapDisabled = () => {
-      // FIX ME
-      return false;
+      return this.project.k8sDomain.configMapIsEmpty();
     };
 
     this.subviews = [

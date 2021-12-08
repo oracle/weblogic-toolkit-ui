@@ -179,7 +179,7 @@ define([],
       }
 
       addWitCreateWdtArgs(collectVarName, comment, wdtVersion, wdtTargetType, wdtDomainType, wdtDomainHome,
-        wdtModelHome, modelFile, variableFile, archiveFile) {
+        wdtHome, wdtModelHome, modelFile, variableFile, archiveFile) {
         if (comment) {
           this.addComment(comment);
         }
@@ -187,6 +187,19 @@ define([],
         this.addIfEqualCollectArgsBlock(collectVarName, wdtTargetType, 'mii', '--wdtModelOnly');
         this.addNotEmptyCollectArgsBlock(collectVarName, wdtDomainType, '--wdtDomainType=');
         this.addNotEmptyCollectArgsBlock(collectVarName, wdtDomainHome, '--wdtDomainHome=');
+        this.addNotEmptyCollectArgsBlock(collectVarName, wdtHome, '--wdtHome=');
+        this.addNotEmptyCollectArgsBlock(collectVarName, wdtModelHome, '--wdtModelHome=');
+        this.addNotEmptyCollectArgsBlock(collectVarName, modelFile, '--wdtModel=');
+        this.addNotEmptyCollectArgsBlock(collectVarName, variableFile, '--wdtVariables=');
+        this.addNotEmptyCollectArgsBlock(collectVarName, archiveFile, '--wdtArchive=');
+      }
+
+      addWitCreateAuxImageWdtArgs(collectVarName, comment, wdtVersion, wdtHome, wdtModelHome, modelFile, variableFile, archiveFile) {
+        if (comment) {
+          this.addComment(comment);
+        }
+        this.addCollectArgs(collectVarName, `--wdtVersion=${wdtVersion}`);
+        this.addNotEmptyCollectArgsBlock(collectVarName, wdtHome, '--wdtHome=');
         this.addNotEmptyCollectArgsBlock(collectVarName, wdtModelHome, '--wdtModelHome=');
         this.addNotEmptyCollectArgsBlock(collectVarName, modelFile, '--wdtModel=');
         this.addNotEmptyCollectArgsBlock(collectVarName, variableFile, '--wdtVariables=');

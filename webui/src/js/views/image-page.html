@@ -33,6 +33,24 @@
             <oj-bind-text value="[[labelMapper('button-pushImage')]]"></oj-bind-text>
           </span>
     </oj-button>
+    <oj-button id="createAuxImageButton"
+               disabled="[[disableCreateAuxImage]]"
+               chroming="callToAction"
+               on-oj-action="[[createAuxImage]]"
+               :title="[[labelMapper('hints-createAuxImage')]]">
+          <span>
+            <oj-bind-text value="[[labelMapper('button-createAuxImage')]]"></oj-bind-text>
+          </span>
+    </oj-button>
+    <oj-button id="pushAuxImageButton"
+               disabled="[[disablePushAuxImage]]"
+               chroming="callToAction"
+               on-oj-action="[[pushAuxImage]]"
+               :title="[[labelMapper('hints-pushAuxImage')]]">
+          <span>
+            <oj-bind-text value="[[labelMapper('button-pushAuxImage')]]"></oj-bind-text>
+          </span>
+    </oj-button>
   </div>
 
   <oj-module role="main" class="wkt-content" config="[[moduleAdapter.koObservableConfig]]">

@@ -10,8 +10,8 @@
  *
  * Returns a constructor for the object.
  */
-define(['utils/observable-properties', 'utils/validation-helper'],
-  function (props, validationHelper) {
+define(['knockout', 'utils/observable-properties', 'utils/validation-helper'],
+  function (ko, props, validationHelper) {
     /**
      * The object constructor.
      */
@@ -19,7 +19,10 @@ define(['utils/observable-properties', 'utils/validation-helper'],
       function ImageModel() {
         this.imageTag = props.createProperty();
         this.imageTag.addValidator(...validationHelper.getImageTagValidators());
-        this.createCustomImageForPV = props.createProperty(true);
+        this.createPrimaryImage = props.createProperty(false);
+
+        // deprecated and no longer used as of version 1.1.0
+        this.createCustomImageForPV = props.createProperty(false);
 
         this.imageRegistryPushRequireAuthentication = props.createProperty(true);
         this.imageRegistryPushUser = props.createProperty().asCredential();
@@ -56,19 +59,56 @@ define(['utils/observable-properties', 'utils/validation-helper'],
         this.targetDomainType = props.createProperty('WLS');
         this.domainHomePath = props.createProperty('/u01/domains/${1}', wdtModel.domainName);
         this.modelHomePath = props.createProperty('/u01/wdt/models');
+        this.wdtHomePath = props.createProperty('/u01/wdt');
+
+        this.targetOpenShift = props.createProperty(false);
+        this.defaultGroupName = ko.computed(() => {
+          return this.targetOpenShift.value ? 'root' : 'oracle';
+        });
 
         this.fileOwner = props.createProperty('oracle');
-        this.fileGroup = props.createProperty('oracle');
+        this.fileGroup = props.createProperty('${1}', this.defaultGroupName);
         this.alwaysPullBaseImage = props.createProperty(false);
         this.builderNetworkName = props.createProperty();
-
         this.extendBuild = props.createProperty(false);
         this.additionalBuildCommandsFile = props.createProperty();
         this.additionalBuildFiles = props.createArrayProperty([]);
 
+        // aux image versions of the variables
+        this.useAuxImage = props.createProperty(true);
+        this.auxImageTag = props.createProperty();
+        this.auxImageTag.addValidator(...validationHelper.getImageTagValidators());
+        this.createAuxImage = props.createProperty(true);
+
+        this.auxImageRegistryPushRequireAuthentication = props.createProperty(true);
+        this.auxImageRegistryPushUser = props.createProperty().asCredential();
+        this.auxImageRegistryPushPassword = props.createProperty().asCredential();
+
+        this.auxUseCustomBaseImage = props.createProperty(false);
+        this.auxBaseImage = props.createProperty();
+        this.auxBaseImage.addValidator(...validationHelper.getImageTagValidators());
+        this.auxBaseImagePullRequiresAuthentication = props.createProperty(false);
+        this.auxBaseImagePullUsername = props.createProperty().asCredential();
+        this.auxBaseImagePullPassword = props.createProperty().asCredential();
+
+        this.auxTargetOpenShift = props.createProperty(false);
+        this.auxDefaultGroupName = ko.computed(() => {
+          return this.auxTargetOpenShift.value ? 'root' : 'oracle';
+        });
+
+        this.auxFileOwner = props.createProperty('oracle');
+        this.auxFileGroup = props.createProperty('${1}', this.auxDefaultGroupName);
+        this.auxAlwaysPullBaseImage = props.createProperty(false);
+        this.auxBuilderNetworkName = props.createProperty();
+        this.auxExtendBuild = props.createProperty(false);
+        this.auxAdditionalBuildCommandsFile = props.createProperty();
+        this.auxAdditionalBuildFiles = props.createArrayProperty([]);
+
         // internal fields that should not be read or written to the project file.
         this.internal = {
+          auxImageRegistryAddress: props.createProperty(),
           imageRegistryAddress: props.createProperty(),
+          auxBaseImageRegistryAddress: props.createProperty(),
           baseImageRegistryAddress: props.createProperty()
         };
 
@@ -81,12 +121,28 @@ define(['utils/observable-properties', 'utils/validation-helper'],
           this.internal.imageRegistryAddress.observable(host);
         });
 
+        this.auxImageTag.observable.subscribe(value => {
+          let host;
+          if (value && value.length > 0) {
+            host = window.api.k8s.getRegistryAddressFromImageTag(value);
+          }
+          this.internal.auxImageRegistryAddress.observable(host);
+        });
+
         this.baseImage.observable.subscribe(value => {
           let host;
           if (value && value.length > 0) {
             host = window.api.k8s.getRegistryAddressFromImageTag(value);
           }
           this.internal.baseImageRegistryAddress.observable(host);
+        });
+
+        this.auxBaseImage.observable.subscribe(value => {
+          let host;
+          if (value && value.length > 0) {
+            host = window.api.k8s.getRegistryAddressFromImageTag(value);
+          }
+          this.internal.auxBaseImageRegistryAddress.observable(host);
         });
 
         this.readFrom = (json) => {

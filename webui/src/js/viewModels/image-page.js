@@ -22,6 +22,8 @@ function(i18n, accUtils, ko, CoreRouter, ModuleRouterAdapter, ArrayDataProvider,
 
     this.disableCreateImage = ko.observable(false);
     this.disablePushImage = ko.observable(false);
+    this.disableCreateAuxImage = ko.observable(false);
+    this.disablePushAuxImage = ko.observable(false);
 
     this.createImage = async () => {
       await witCreator.startCreateImage();
@@ -29,6 +31,14 @@ function(i18n, accUtils, ko, CoreRouter, ModuleRouterAdapter, ArrayDataProvider,
 
     this.pushImage = async () => {
       await imagePusher.startPushImage();
+    };
+
+    this.createAuxImage = async () => {
+      await witCreator.startCreateAuxImage();
+    };
+
+    this.pushAuxImage = async () => {
+      await imagePusher.startPushAuxImage();
     };
 
     let navData = [

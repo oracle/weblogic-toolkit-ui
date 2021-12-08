@@ -38,6 +38,10 @@ define(['models/wkt-project', 'utils/sh-script-adapter', 'utils/powershell-scrip
         return this.project.settings.targetDomainLocation.value === 'pv';
       }
 
+      usingAuxImage() {
+        return this.project.settings.targetDomainLocation.value === 'mii' && this.project.image.useAuxImage.value;
+      }
+
       _getAdapter(scriptType) {
         switch (scriptType) {
           case 'sh':

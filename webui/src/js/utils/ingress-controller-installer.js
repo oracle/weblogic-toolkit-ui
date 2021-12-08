@@ -282,38 +282,38 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
 
     this.getValidatableObject = (flowNameKey) => {
       const validationObject = validationHelper.createValidatableObject(flowNameKey);
-      const settingsFormConfig = validationObject.getDefaultConfigObject();
-      settingsFormConfig.formName = 'ingress-design-title';
+      const ingressFormConfig = validationObject.getDefaultConfigObject();
+      ingressFormConfig.formName = 'ingress-design-form-name';
 
       const kubectlFormConfig = validationObject.getDefaultConfigObject();
-      kubectlFormConfig.formName = 'kubectl-title';
+      kubectlFormConfig.formName = 'kubectl-form-name';
       validationObject.addField('kubectl-exe-file-path-label',
         validationHelper.validateRequiredField(this.project.kubectl.executableFilePath.value), kubectlFormConfig);
       validationObject.addField('kubectl-helm-exe-file-path-label',
         validationHelper.validateRequiredField(this.project.kubectl.helmExecutableFilePath.value), kubectlFormConfig);
 
       validationObject.addField('ingress-design-ingress-provider-label',
-        validationHelper.validateRequiredField(this.project.ingress.ingressControllerProvider.value));
+        validationHelper.validateRequiredField(this.project.ingress.ingressControllerProvider.value), ingressFormConfig);
 
       if (this.project.ingress.installIngressController.value === true) {
         validationObject.addField('ingress-design-ingress-namespace-label',
-          this.project.ingress.ingressControllerNamespace.validate(true));
+          this.project.ingress.ingressControllerNamespace.validate(true), ingressFormConfig);
         validationObject.addField('ingress-design-ingress-name-label',
-          this.project.ingress.ingressControllerName.validate(true));
+          this.project.ingress.ingressControllerName.validate(true), ingressFormConfig);
 
         const ingressControllerProvider = this.project.ingress.ingressControllerProvider.value;
         if (ingressControllerProvider === 'traefik' || ingressControllerProvider === 'voyager' ) {
           if (this.project.ingress.specifyDockerRegSecret.value === true) {
             validationObject.addField('ingress-design-ingress-docker-reg-secret-name',
-              this.project.ingress.dockerRegSecretName.validate(true));
+              this.project.ingress.dockerRegSecretName.validate(true), ingressFormConfig);
 
             if (this.project.ingress.createDockerRegSecret.value === true) {
               validationObject.addField('ingress-design-ingress-docker-reg-secret-useremail',
-                this.project.ingress.dockerRegSecretUserEmail.validate(true));
+                this.project.ingress.dockerRegSecretUserEmail.validate(true), ingressFormConfig);
               validationObject.addField('ingress-design-ingress-docker-reg-secret-userid',
-                validationHelper.validateRequiredField(this.project.ingress.dockerRegSecretUserId.value));
+                validationHelper.validateRequiredField(this.project.ingress.dockerRegSecretUserId.value), ingressFormConfig);
               validationObject.addField('ingress-design-ingress-docker-reg-secret-userpwd',
-                validationHelper.validateRequiredField(this.project.ingress.dockerRegSecretUserPwd.value));
+                validationHelper.validateRequiredField(this.project.ingress.dockerRegSecretUserPwd.value), ingressFormConfig);
             }
           }
         }

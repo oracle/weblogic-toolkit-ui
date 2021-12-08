@@ -348,44 +348,46 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
     this.getValidatableObject = (flowNameKey) => {
       const validationObject = validationHelper.createValidatableObject(flowNameKey);
       const kubectlFormConfig = validationObject.getDefaultConfigObject();
-      kubectlFormConfig.formName = 'kubectl-title';
+      kubectlFormConfig.formName = 'kubectl-form-name';
 
       validationObject.addField('kubectl-exe-file-path-label',
         validationHelper.validateRequiredField(this.project.kubectl.executableFilePath.value), kubectlFormConfig);
       validationObject.addField('kubectl-helm-exe-file-path-label',
         validationHelper.validateRequiredField(this.project.kubectl.helmExecutableFilePath.value), kubectlFormConfig);
 
+      const wkoFormConfig = validationObject.getDefaultConfigObject();
+      wkoFormConfig.formName = 'wko-design-form-name';
       validationObject.addField('wko-design-wko-deploy-name-label',
-        validationHelper.validateRequiredField(this.project.wko.wkoDeployName.value));
+        validationHelper.validateRequiredField(this.project.wko.wkoDeployName.value), wkoFormConfig);
       validationObject.addField('wko-design-k8s-namespace-label',
-        validationHelper.validateRequiredField(this.project.wko.k8sNamespace.value));
+        validationHelper.validateRequiredField(this.project.wko.k8sNamespace.value), wkoFormConfig);
       validationObject.addField('wko-design-k8s-service-account-label',
-        validationHelper.validateRequiredField(this.project.wko.k8sServiceAccount.value));
+        validationHelper.validateRequiredField(this.project.wko.k8sServiceAccount.value), wkoFormConfig);
       validationObject.addField('wko-design-image-tag-title',
-        this.project.wko.operatorImage.validate(true));
+        this.project.wko.operatorImage.validate(true), wkoFormConfig);
 
       if (this.project.wko.operatorImagePullRequiresAuthentication.value) {
         validationObject.addField('wko-design-image-pull-secret-title',
-          this.project.wko.operatorImagePullSecretName.validate(true));
+          this.project.wko.operatorImagePullSecretName.validate(true), wkoFormConfig);
         if (!this.project.wko.operatorImagePullUseExistingSecret.value) {
           validationObject.addField('wko-design-image-registry-username-label',
-            validationHelper.validateRequiredField(this.project.wko.operatorImagePullRegistryUsername.value));
+            validationHelper.validateRequiredField(this.project.wko.operatorImagePullRegistryUsername.value), wkoFormConfig);
           validationObject.addField('wko-design-image-registry-email-label',
-            validationHelper.validateRequiredField(this.project.wko.operatorImagePullRegistryEmailAddress.value));
+            validationHelper.validateRequiredField(this.project.wko.operatorImagePullRegistryEmailAddress.value), wkoFormConfig);
           validationObject.addField('wko-design-image-registry-password-label',
-            validationHelper.validateRequiredField(this.project.wko.operatorImagePullRegistryPassword.value));
+            validationHelper.validateRequiredField(this.project.wko.operatorImagePullRegistryPassword.value), wkoFormConfig);
         }
       }
 
       switch(this.project.wko.operatorDomainNamespaceSelectionStrategy.value) {
         case 'LabelSelector':
           validationObject.addField('wko-design-k8s-namespace-selection-selector-label',
-            validationHelper.validateRequiredField(this.project.wko.operatorDomainNamespaceSelector.value));
+            validationHelper.validateRequiredField(this.project.wko.operatorDomainNamespaceSelector.value), wkoFormConfig);
           break;
 
         case 'Regexp':
           validationObject.addField('wko-design-k8s-namespace-selection-regexp-label',
-            validationHelper.validateRequiredField(this.project.wko.operatorDomainNamespaceRegex.value));
+            validationHelper.validateRequiredField(this.project.wko.operatorDomainNamespaceRegex.value), wkoFormConfig);
           break;
 
         case 'List':
@@ -395,6 +397,7 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
           //
           for (const namespace of this.project.wko.operatorDomainNamespacesList.value) {
             const listConfig = validationObject.getDefaultConfigObject();
+            listConfig.formName = 'wko-design-form-name';
             listConfig.fieldNamePayload = { namespace: namespace };
             validationObject.addField('wko-design-k8s-namespace-selection-list-label-ns',
               validationHelper.validateK8sName(namespace, false), listConfig);
@@ -404,18 +407,18 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
 
       if (this.project.wko.externalRestEnabled.value) {
         validationObject.addField('wko-design-external-rest-port-label',
-          this.project.wko.externalRestHttpsPort.validate(false));
+          this.project.wko.externalRestHttpsPort.validate(false), wkoFormConfig);
         validationObject.addField('wko-design-external-rest-secret-label',
-          this.project.wko.externalRestIdentitySecret.validate(false));
+          this.project.wko.externalRestIdentitySecret.validate(false), wkoFormConfig);
       }
 
       if (this.project.wko.elkIntegrationEnabled.value) {
         validationObject.addField('wko-design-3rd-party-logstash-image-label',
-          this.project.wko.logStashImage.validate(false));
+          this.project.wko.logStashImage.validate(false), wkoFormConfig);
         validationObject.addField('wko-design-3rd-party-elastic-host-label',
-          this.project.wko.elasticSearchHost.validate(false));
+          this.project.wko.elasticSearchHost.validate(false), wkoFormConfig);
         validationObject.addField('wko-design-3rd-party-elastic-port-label',
-          this.project.wko.elasticSearchPort.validate(false));
+          this.project.wko.elasticSearchPort.validate(false), wkoFormConfig);
       }
 
       return validationObject;

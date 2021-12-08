@@ -45,7 +45,11 @@ function(i18n, Validator, ojvalidationError, RegExpValidator, LengthValidator, N
             fieldNameIsKey: true,
             fieldNamePayload: undefined,
             formName: undefined,
-            formNameIsKey: true
+            formNameIsKey: true,
+            tabName: undefined,
+            tabNameIsKey: true,
+            subTabName: undefined,
+            subTabNameIsKey: true
           };
         }
 
@@ -392,12 +396,31 @@ function(i18n, Validator, ojvalidationError, RegExpValidator, LengthValidator, N
     }
 
     if (fieldData.config.formName) {
+      let resultKey = 'validation-helper-form-and-field-name-message';
       if (fieldData.config.formNameIsKey) {
         messagePayload['formName'] = i18n.t(fieldData.config.formName);
       } else {
         messagePayload['formName'] = fieldData.config.formName;
       }
-      result = i18n.t('validation-helper-form-and-field-name-message', messagePayload);
+
+      if (fieldData.config.tabName) {
+        resultKey = 'validation-helper-form-tab-and-field-name-message';
+        if (fieldData.config.tabNameIsKey) {
+          messagePayload['tabName'] = i18n.t(fieldData.config.tabName);
+        } else {
+          messagePayload['tabName'] = fieldData.config.tabName;
+        }
+
+        if (fieldData.config.subTabName) {
+          resultKey = 'validation-helper-form-tab-sub-tab-and-field-name-message';
+          if (fieldData.config.subTabNameIsKey) {
+            messagePayload['subTabName'] = i18n.t(fieldData.config.subTabName);
+          } else {
+            messagePayload['subTabName'] = fieldData.config.subTabName;
+          }
+        }
+      }
+      result = i18n.t(resultKey, messagePayload);
     } else {
       result = messagePayload['fieldName'];
     }
