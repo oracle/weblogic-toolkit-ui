@@ -388,14 +388,14 @@
                        help.instruction="[[labelMapper('aux-image-registry-push-requires-authentication-help')]]">
             </oj-switch>
             <div>
-              <oj-bind-if test="[[auxImageRegistryPushRequiresAuthentication]]">
+              <oj-bind-if test="[[auxImageRegistryPushRequiresAuthentication() === true]]">
                 <oj-input-password label-hint="[[labelMapper('aux-image-registry-push-username-label')]]"
                                    mask-icon="visible"
                                    value="{{project.image.auxImageRegistryPushUser.observable}}"
                                    help.instruction="[[labelMapper('aux-image-registry-push-username-help')]]">
                 </oj-input-password>
               </oj-bind-if>
-              <oj-bind-if test="[[auxImageRegistryPushRequiresAuthentication]]">
+              <oj-bind-if test="[[auxImageRegistryPushRequiresAuthentication() === true]]">
                 <oj-input-password label-hint="[[labelMapper('aux-image-registry-push-password-label')]]"
                                    mask-icon="visible"
                                    value="{{project.image.auxImageRegistryPushPassword.observable}}"
