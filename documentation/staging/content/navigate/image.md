@@ -24,10 +24,8 @@ in a Kubernetes environment using the [WebLogic Image Tool](https://oracle.githu
 
 ### Design View
 The `Design View` helps you specify the necessary data needed to run the WebLogic Image Tool to build an image for
-running the WebLogic domain with all resources configured and applications deployed.  
-
-Use the design view to create a new or use an existing (the default) `Primary Image` and, depending on your choice of [domain location]({{< relref "/navigate/project-settings#choosing-a-domain-location" >}}),
-an `Auxiliary Image`. Auxiliary images are available for "Model in Image" domains _only_.
+running the WebLogic domain with all resources configured and applications deployed. The `Design View` page is divided into `Primary Image` and `Auxiliary Image` pages.
+Auxiliary images are available for the "Model in Image" [domain location]({{< relref "/navigate/project-settings#choosing-a-domain-location" >}}) _only_.
 
 - `Primary Image` - The image containing the Oracle Fusion Middleware software. It is used as the basis of all containers that run WebLogic Servers for the domain.
 - `Auxiliary Image` - The image that supplies the WebLogic Deploy Tooling software and the model files. At runtime, the auxiliary image's content is merged with the primary image's content.
@@ -35,9 +33,9 @@ an `Auxiliary Image`. Auxiliary images are available for "Model in Image" domain
 One primary image can be reused for hundreds of domains whereas an auxiliary image is domain-specific. When using auxiliary images,
 the primary image contains the OS, JDK, and FMW software installations; the auxiliary image supplies the specifics for a single domain.
 
-
-The `Design View` page for the `Primary Image` and the `Auxiliary Image` is divided into several primary panes and a few advanced panes.
-Note that not all the fields described for the `Primary Image` are relevant for an `Auxiliary Image`, such as the JDK and Oracle installers, and patching. The exceptions will be called out.
+Use the `Design View` to create a new or use an existing (the default) `Primary Image` and, for Model in Image domains only, an `Auxiliary Image`.
+The `Design View` page for the `Primary Image` and the `Auxiliary Image` has several panes and a few advanced panes.
+Note that _not all_ the fields described for the `Primary Image` are relevant for an `Auxiliary Image`, such as the JDK and Oracle installers, and patching. The exceptions are noted.
 
 - [Target Image Name and Registry Credentials](#target-image-name-and-registry-credentials)
 - [Base Image to Use](#base-image-to-use)
@@ -72,7 +70,7 @@ field.  Any container image registry address found in the base image tag will be
 `Custom Base Image Pull Username` and `Custom Base Image Pull Password` fields.
 
 When using a custom base image, the application requires the image to be inspected using the WebLogic Image Tool's
-[Inspect Image](https://oracle.github.io/weblogic-image-tool/userguide/tools/inspect-image/) command. Note that this
+[Inspect Image](https://oracle.github.io/weblogic-image-tool/userguide/tools/inspect-image/) command. **Note**: This
 action is relevant for `Primary Images` only. To invoke this inspection, click
 `Inspect Custom Base Image`.  This inspection tells the application if Java or the
 Oracle Fusion Middleware software is already installed in the image.  If it finds either of these software packages
@@ -115,7 +113,7 @@ latest capabilities, many of which are exposed by this application.  As such, us
 recommended.
 
 #### Patch Oracle Home
-This pane is relevant for `Primary Images` only. Oracle strongly recommends patching all Oracle Fusion Middleware installations with the latest Patch Set Updates (PSUs)
+**NOTE**: This pane is relevant for `Primary Images` only. Oracle strongly recommends patching all Oracle Fusion Middleware installations with the latest Patch Set Updates (PSUs)
 and other recommended patches to ensure that the latest security fixes are applied.  This pane configures the WebLogic
 Image Tool to apply the specified patches to the Oracle Home during the image creation process.  There are two mechanisms
 for specifying that patches should be applied:

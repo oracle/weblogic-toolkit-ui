@@ -81,7 +81,7 @@ The following sections describe the other panes that support configuring the gen
 #### Primary Image to Use for the Domain
 This pane focuses on the container primary image to use to run the WebLogic Server domain in a container.   
 - When using either "Model in Image" or "Domain in Image" [domain location]({{< relref "/navigate/project-settings#choosing-a-domain-location" >}}), the `Primary Image Tag` field is read-only; its value is set using the
-`Image Tag` field in the `Primary Image` section.  
+`Image Tag` field in the `Image` section.  
 - In the case of "Domain in PV", the `Image Tag` field is not read-only and _is_
 the place to specify the image to use to run the WebLogic domain's containers.  
 - The read-only `Image Registry Address` field is populated by parsing the value of the `Image Tag` field
@@ -95,7 +95,7 @@ The choices are:
 - `Never` - Never pull the image; this will result in an error if the image is not already present on the Kubernetes node.
 
 If pulling the image from the specified image registry does not require authentication,
-then `Specify Auxiliary Image Pull Credentials` should be disabled.  When enabled, use the `Use Existing Image Pull Secret` field to tell the application
+then `Specify Image Pull Credentials` should be disabled.  When enabled, use the `Use Existing Image Pull Secret` field to tell the application
 whether to use an existing image pull secret or create a new one.  Specify the image pull secret name in the
 `Image Pull Secret Name` field.  When creating a new secret, specify the secret data using the
 `Image Registry Pull Username`, `Image Registry Pull Email Address`, and `Image Registry Pull Password` fields.  
@@ -104,7 +104,7 @@ whether to use an existing image pull secret or create a new one.  Specify the i
 
 For "Model in Image" domains only, this pane focuses on the container auxiliary image to use for the domain.
 - The `Auxiliary Image Tag` field is read-only; its value is set using the
-`Auxiliary Image Tag` field in the `Auxiliary Image` section of the Image page.
+`Auxiliary Image Tag` field in the `Auxiliary Image` page of the `Image` section.
 - Use the `Auxiliary Image Pull Policy` field to specify when to pull the domain's auxiliary image from the image registry. The choices are:
 
    - `If Not Present` (default) - Only pull the image if it is not already present.
