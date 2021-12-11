@@ -61,7 +61,7 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
         if (!options.skipOpenSSLValidation) {
           const exeResults = await window.api.ipc.invoke('validate-openssl-exe', openSSLExe);
           if (!exeResults.isValid) {
-            const errMessage = i18n.t('wko-installer-openssl-exe-invalid-error-message', {error: exeResults.reason});
+            const errMessage = i18n.t('ingress-installer-routes-openssl-exe-invalid-error-message', {error: exeResults.reason});
             await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
             return Promise.resolve(false);
           }

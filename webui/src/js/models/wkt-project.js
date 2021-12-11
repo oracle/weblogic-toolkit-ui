@@ -45,7 +45,10 @@ function (ko, wdtConstructor, imageConstructor, kubectlConstructor, domainConstr
     //
     this.httpsProxyUrl = ko.observable();
     window.api.ipc.invoke('get-https-proxy-url').then(url => {
-      wktLogger.debug('HTTPS Proxy URL resolved to %s', url ? url : 'not set');
+      if (!url) {
+        url = 'not set';
+      }
+      wktLogger.debug('HTTPS Proxy URL resolved to %s', url);
       this.httpsProxyUrl(url);
     });
     this.getHttpsProxyUrl = () => this.httpsProxyUrl();
@@ -53,7 +56,10 @@ function (ko, wdtConstructor, imageConstructor, kubectlConstructor, domainConstr
 
     this.bypassProxyHosts = ko.observable();
     window.api.ipc.invoke('get-bypass-proxy-hosts').then(hosts => {
-      wktLogger.debug('Bypass Proxy Hosts resolved to %s', hosts ? hosts : 'not set');
+      if (!hosts) {
+        hosts = 'not set';
+      }
+      wktLogger.debug('Bypass Proxy Hosts resolved to %s', hosts);
       this.bypassProxyHosts(hosts);
     });
     this.getBypassProxyHosts = () => this.bypassProxyHosts();
@@ -61,7 +67,10 @@ function (ko, wdtConstructor, imageConstructor, kubectlConstructor, domainConstr
 
     this.imageToolScript = ko.observable();
     window.api.ipc.invoke('get-image-tool-shell-script-location').then(script => {
-      wktLogger.debug('WebLogic Image Tool script resolved to %s', script ? script : 'not set');
+      if (!script) {
+        script = 'not set';
+      }
+      wktLogger.debug('WebLogic Image Tool script resolved to %s', script);
       this.imageToolScript(script);
     });
     this.getImageToolScript = () => this.imageToolScript();

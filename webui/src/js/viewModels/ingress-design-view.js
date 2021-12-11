@@ -5,15 +5,15 @@
  */
 
 define(['viewModels/ingress-design-view-impl','utils/i18n', 'accUtils', 'knockout', 'ojs/ojarraydataprovider',
-  'ojs/ojbufferingdataprovider', 'models/wkt-project', 'utils/dialog-helper', 'utils/k8s-helper', 'utils/view-helper',
+  'ojs/ojbufferingdataprovider', 'models/wkt-project', 'utils/dialog-helper', 'utils/view-helper',
   'ojs/ojtreeview', 'ojs/ojformlayout', 'ojs/ojinputtext',
   'ojs/ojcollapsible', 'ojs/ojselectsingle', 'ojs/ojswitch', 'ojs/ojtable', 'ojs/ojcheckboxset'
 ],
 function(IngressDesignViewModel, i18n, accUtils, ko, ArrayDataProvider, BufferingDataProvider, project, dialogHelper,
-  k8sHelper, viewHelper) {
+  viewHelper) {
 
   return function() {
     return new IngressDesignViewModel(i18n, accUtils, ko, ArrayDataProvider, BufferingDataProvider, project,
-      dialogHelper, k8sHelper, viewHelper);
+      dialogHelper, viewHelper);
   };
 });

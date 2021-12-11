@@ -14,6 +14,7 @@ const { getLogger } = require('./wktLogging');
 const { getHttpsProxyUrl, getBypassProxyHosts } = require('./userSettings');
 const { getErrorMessage } = require('./errorUtils');
 const osUtils = require('./osUtils');
+const k8sUtils = require('./k8sUtils');
 
 /* global process */
 async function validateKubectlExe(kubectlExe) {
@@ -198,7 +199,7 @@ async function getOperatorLogs(kubectlExe, operatorNamespace, options) {
   });
 }
 
-async function getOperatorVersionFromDomainCM(kubectlExe, domainNamespace, options) {
+async function getOperatorVersionFromDomainConfigMap(kubectlExe, domainNamespace, options) {
   const args = [ 'get', 'configmap', 'weblogic-scripts-cm', '-n', domainNamespace, '-o', 'jsonpath={.metadata.labels.weblogic\\.operatorVersion}'];
 
   const httpsProxyUrl = getHttpsProxyUrl();
@@ -221,7 +222,6 @@ async function getOperatorVersionFromDomainCM(kubectlExe, domainNamespace, optio
     });
   });
 }
-
 
 async function verifyClusterConnectivity(kubectlExe, options) {
   const args = [ 'version', '--short' ];
@@ -644,23 +644,13 @@ function getOperatorImageTag(operatorDeployment) {
 }
 
 function getOperatorImageWithoutVersion(imageTag) {
-  let imageName = imageTag;
-  if (imageTag) {
-    imageName = imageTag.split(':')[0];
-  }
-  return imageName;
+  const imageComponents = k8sUtils.splitImageNameAndVersion(imageTag);
+  return imageComponents.name;
 }
 
 function getOperatorImageVersion(imageTag) {
-  let version;
-  if (imageTag) {
-    if (imageTag.indexOf(':') !== -1) {
-      version = imageTag.split(':')[1];
-    } else {
-      version = 'latest';
-    }
-  }
-  return version;
+  const imageComponents = k8sUtils.splitImageNameAndVersion(imageTag);
+  return imageComponents.version;
 }
 
 function doesNamedObjectExist(objectListJson, name) {
@@ -777,7 +767,7 @@ module.exports = {
   getK8sClusterInfo,
   getWkoDomainStatus,
   getOperatorStatus,
-  getOperatorVersionFromDomainCM,
+  getOperatorVersionFromDomainConfigMap,
   getOperatorLogs,
   validateNamespacesExist,
   validateDomainExist,

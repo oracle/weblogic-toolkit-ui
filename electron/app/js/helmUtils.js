@@ -114,7 +114,7 @@ async function installWko(helmExe, name, namespace, helmChartValues, helmOptions
   return _runHelmWko(helmExe, name, namespace, args, helmOptions, 'helm-install-wko-failed-error-message');
 }
 
-async function upgradeWko(helmExe, name, namespace, helmChartValues, helmOptions) {
+async function updateWko(helmExe, name, namespace, helmChartValues, helmOptions) {
   const args = [ 'upgrade', name, _wkoHelmChartName, '--namespace', namespace, '--reuse-values' ];
   processHelmChartValues(args, helmChartValues);
   processHelmOptions(args, helmOptions);
@@ -122,6 +122,14 @@ async function upgradeWko(helmExe, name, namespace, helmChartValues, helmOptions
 
   return _runHelmWko(helmExe, name, namespace, args, helmOptions, 'helm-upgrade-wko-failed-error-message');
 }
+
+async function uninstallWko(helmExe, name, namespace, helmOptions) {
+  const args = [ 'uninstall', name, '--namespace', namespace ];
+  processHelmOptions(args, helmOptions);
+
+  return _runHelmWko(helmExe, name, namespace, args, helmOptions, 'helm-uninstall-wko-failed-error-message');
+}
+
 
 async function helmListAllNamespaces(helmExe, helmOptions) {
   const args = [ 'list', '--all-namespaces' ];
@@ -245,7 +253,8 @@ function formatArrayOfObjectsSetArgument(name, objectArray) {
 module.exports = {
   addOrUpdateWkoHelmChart,
   installWko,
-  upgradeWko,
+  uninstallWko,
+  updateWko,
   helmListAllNamespaces,
   installIngressController,
   addOrUpdateHelmChart,

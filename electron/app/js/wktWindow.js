@@ -328,6 +328,36 @@ class WktAppMenu {
             }
           },
           {
+            id: 'updateOperator',
+            label: i18n.t('menu-go-update-operator'),
+            visible: this._isWkoTarget,
+            enabled: !this._hasOpenDialog,
+            click(item, focusedWindow) {
+              if (!focusedWindow) {
+                return dialog.showErrorBox(
+                  i18n.t('menu-go-update-operator-error-title'),
+                  i18n.t('menu-go-update-operator-error-message')
+                );
+              }
+              sendToWindow(focusedWindow,'start-wko-update');
+            }
+          },
+          {
+            id: 'uninstallOperator',
+            label: i18n.t('menu-go-uninstall-operator'),
+            visible: this._isWkoTarget,
+            enabled: !this._hasOpenDialog,
+            click(item, focusedWindow) {
+              if (!focusedWindow) {
+                return dialog.showErrorBox(
+                  i18n.t('menu-go-uninstall-operator-error-title'),
+                  i18n.t('menu-go-uninstall-operator-error-message')
+                );
+              }
+              sendToWindow(focusedWindow,'start-wko-uninstall');
+            }
+          },
+          {
             id: 'deployDomain',
             label: i18n.t('menu-go-deploy-domain'),
             visible: this._isWkoTarget,
