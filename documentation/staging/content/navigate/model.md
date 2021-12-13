@@ -157,7 +157,7 @@ In replacing credential values, `Prepare Model` must handle the replacement diff
 
 - With "Domain in Image", the WebLogic Image Tool creates the domain while creating the image.  As such, it has no
 knowledge of Kubernetes so the token replacement uses variable tokens so that domain creation has access to the actual
-credential values.  You must ensure that all variables have valid values prior to running `Create Image`.
+credential values.  You must ensure that all variables have valid values prior to running `Create Primary Image`.
 
 - For "Model in Image", the domain is created at runtime by the WebLogic Kubernetes Operator running in a Kubernetes
 cluster.  As such, token replacement uses secret tokens for all credential fields.  You must to be sure to provide
