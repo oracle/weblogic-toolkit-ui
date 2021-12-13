@@ -7,14 +7,15 @@
 define(['models/wkt-project', 'models/wkt-console', 'utils/wdt-discoverer', 'utils/dialog-helper', 'utils/project-io',
   'utils/common-utilities', 'utils/wdt-preparer', 'utils/i18n', 'utils/wit-creator', 'utils/wit-aux-creator',
   'utils/image-pusher', 'utils/aux-image-pusher', 'utils/k8s-helper', 'utils/wko-installer', 'utils/wko-uninstaller',
-  'utils/wko-updater', 'utils/k8s-domain-deployer', 'utils/k8s-domain-status-checker',
-  'utils/ingress-controller-installer', 'utils/ingress-routes-helper', 'utils/app-updater', 'utils/wkt-logger'],
-function(wktProject, wktConsole, wktDiscoverer, dialogHelper, projectIO,
-  utils, wktModelPreparer, i18n, witImageCreator, witAuxImageCreator,
+  'utils/wko-updater', 'utils/k8s-domain-deployer', 'utils/k8s-domain-status-checker', 'utils/k8s-domain-undeployer',
+  'utils/ingress-controller-installer', 'utils/ingress-routes-updater', 'utils/ingress-controller-uninstaller',
+  'utils/app-updater', 'utils/wkt-logger'],
+function(wktProject, wktConsole, wdtDiscoverer, dialogHelper, projectIO,
+  utils, wdtModelPreparer, i18n, witImageCreator, witAuxImageCreator,
   imagePusher, auxImagePusher, k8sHelper, wkoInstaller,
   wkoUninstaller, wkoUpdater, k8sDomainDeployer, k8sDomainStatusChecker,
-  ingressControllerInstaller,
-  ingressRoutesHelper, appUpdater, wktLogger) {
+  k8sDomainUndeployer, ingressControllerInstaller, ingressRoutesUpdater,
+  ingressControllerUninstaller, appUpdater, wktLogger) {
 
   async function displayCatchAllError(i18nPrefix, err) {
     return dialogHelper.displayCatchAllError(i18nPrefix, err);
@@ -56,13 +57,13 @@ function(wktProject, wktConsole, wktDiscoverer, dialogHelper, projectIO,
   });
 
   window.api.ipc.receive('start-offline-discover', () => {
-    wktDiscoverer.startDiscoverDomain(false).catch(err => {
+    wdtDiscoverer.startDiscoverDomain(false).catch(err => {
       displayCatchAllError('discover', err).then();
     });
   });
 
   window.api.ipc.receive('start-online-discover', () => {
-    wktDiscoverer.startDiscoverDomain(true).catch(err => {
+    wdtDiscoverer.startDiscoverDomain(true).catch(err => {
       displayCatchAllError('discover', err).then();
     });
   });
@@ -82,7 +83,7 @@ function(wktProject, wktConsole, wktDiscoverer, dialogHelper, projectIO,
   });
 
   window.api.ipc.receive('start-prepare-model', async () => {
-    wktModelPreparer.startPrepareModel().then(() => Promise.resolve()).catch(err => {
+    wdtModelPreparer.startPrepareModel().then(() => Promise.resolve()).catch(err => {
       displayCatchAllError('wdt-preparer-prepare', err).then(() => Promise.resolve());
     });
   });
@@ -141,6 +142,12 @@ function(wktProject, wktConsole, wktDiscoverer, dialogHelper, projectIO,
     });
   });
 
+  window.api.ipc.receive('start-k8s-domain-undeploy', async () => {
+    k8sDomainUndeployer.startUndeployDomain().then(() => Promise.resolve()).catch(err => {
+      displayCatchAllError('k8s-domain-undeployer-undeploy', err).then(() => Promise.resolve());
+    });
+  });
+
   window.api.ipc.receive('start-add-model-file', async () => {
     projectIO.startAddModelFile().catch(err => {
       displayCatchAllError('add-model-file', err).then();
@@ -161,13 +168,19 @@ function(wktProject, wktConsole, wktDiscoverer, dialogHelper, projectIO,
 
   window.api.ipc.receive('start-ingress-install', async () => {
     ingressControllerInstaller.startInstallIngressController().then(() => Promise.resolve()).catch(err => {
-      displayCatchAllError('ingress-installer', err).then(() => Promise.resolve());
+      displayCatchAllError('ingress-installer-install', err).then(() => Promise.resolve());
+    });
+  });
+
+  window.api.ipc.receive('start-ingress-uninstall', async () => {
+    ingressControllerUninstaller.startUninstallIngressController().then(() => Promise.resolve()).catch(err => {
+      displayCatchAllError('ingress-uninstaller-uninstall', err).then(() => Promise.resolve());
     });
   });
 
   window.api.ipc.receive('add-ingress-routes', async () => {
-    ingressRoutesHelper.startIngressRoutesUpdate().then(() => Promise.resolve()).catch(err => {
-      displayCatchAllError('add-ingress-routes', err).then(() => Promise.resolve());
+    ingressRoutesUpdater.startIngressRoutesUpdate().then(() => Promise.resolve()).catch(err => {
+      displayCatchAllError('ingress-routes-updater-update-routes', err).then(() => Promise.resolve());
     });
   });
 

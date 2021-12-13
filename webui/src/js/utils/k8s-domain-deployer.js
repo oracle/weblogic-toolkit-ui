@@ -132,7 +132,7 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
 
         // Run helm upgrade so that operator picks up the new namespace.
         const helmOptions = helmHelper.getHelmOptions();
-        const upgradeResults = await window.api.ipc.invoke('helm-upgrade-wko', helmExe, operatorName,
+        const upgradeResults = await window.api.ipc.invoke('helm-update-wko', helmExe, operatorName,
           operatorNamespace, helmChartValues, helmOptions);
         if (!upgradeResults.isSuccess) {
           const errMessage = i18n.t('k8s-domain-deployer-add-domain-error-message',
@@ -148,11 +148,11 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
         }
 
         // Create the image pull secret, if needed.
-        busyDialogMessage = i18n.t('k8s-domain-deployer-create-image-pull-secret-in-progress',
-          {domainNamespace: domainNamespace, secretName: secret});
-        dialogHelper.updateBusyDialog(busyDialogMessage, 7 / totalSteps);
         if (this.project.k8sDomain.imageRegistryPullRequireAuthentication.value && !this.project.k8sDomain.imageRegistryUseExistingPullSecret.value) {
           const secret = this.project.k8sDomain.imageRegistryPullSecretName.value;
+          busyDialogMessage = i18n.t('k8s-domain-deployer-create-image-pull-secret-in-progress',
+            {domainNamespace: domainNamespace, secretName: secret});
+          dialogHelper.updateBusyDialog(busyDialogMessage, 7 / totalSteps);
           const secretData = {
             server: this.project.image.internal.imageRegistryAddress.value,
             username: this.project.k8sDomain.imageRegistryPullUser.value,
@@ -166,12 +166,12 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
           }
         }
 
-        busyDialogMessage = i18n.t('k8s-domain-deployer-create-image-pull-secret-in-progress',
-          {domainNamespace: domainNamespace, secretName: secret});
-        dialogHelper.updateBusyDialog(busyDialogMessage, 8 / totalSteps);
         if (this.project.k8sDomain.auxImageRegistryPullRequireAuthentication.value &&
           !this.project.k8sDomain.auxImageRegistryUseExistingPullSecret.value) {
           const secret = this.project.k8sDomain.auxImageRegistryPullSecretName.value;
+          busyDialogMessage = i18n.t('k8s-domain-deployer-create-image-pull-secret-in-progress',
+            {domainNamespace: domainNamespace, secretName: secret});
+          dialogHelper.updateBusyDialog(busyDialogMessage, 8 / totalSteps);
           const secretData = {
             server: this.project.image.internal.auxImageRegistryAddress.value,
             username: this.project.k8sDomain.auxImageRegistryPullUser.value,
@@ -186,11 +186,11 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
         }
 
         // Create the MII runtime encryption secret, if needed.
-        busyDialogMessage = i18n.t('k8s-domain-deployer-create-runtime-secret-in-progress',
-          {domainNamespace: domainNamespace, secretName: secret});
-        dialogHelper.updateBusyDialog(busyDialogMessage, 9 / totalSteps);
         if (this.project.settings.targetDomainLocation.value === 'mii') {
           const secret = this.project.k8sDomain.runtimeSecretName.value;
+          busyDialogMessage = i18n.t('k8s-domain-deployer-create-runtime-secret-in-progress',
+            {domainNamespace: domainNamespace, secretName: secret});
+          dialogHelper.updateBusyDialog(busyDialogMessage, 9 / totalSteps);
           const secretData = {
             password: this.project.k8sDomain.runtimeSecretValue.value
           };

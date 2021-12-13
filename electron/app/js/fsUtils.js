@@ -221,7 +221,7 @@ async function verifyFilesExist(baseDirectory, ...files) {
   const invalidFiles = [];
   for (const file of files) {
     let absolutePath = file;
-    if (!path.isAbsolute(file)) {
+    if (baseDirectory && !path.isAbsolute(file)) {
       absolutePath = path.join(baseDirectory, file);
     }
     const fileExists = await exists(absolutePath);

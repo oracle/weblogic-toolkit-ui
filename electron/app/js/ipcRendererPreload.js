@@ -73,9 +73,11 @@ contextBridge.exposeInMainWorld(
           'start-wko-uninstall',
           'start-wko-update',
           'start-ingress-install',
+          'start-ingress-uninstall',
           'add-ingress-routes',
           'app-download-progress',
           'start-k8s-domain-deploy',
+          'start-k8s-domain-undeploy',
           'get-wko-domain-status',
           'start-app-quit',
           'start-window-close'
@@ -181,6 +183,7 @@ contextBridge.exposeInMainWorld(
           'helm-list-all-namespaces',
           'helm-add-update-repo',
           'helm-install-ingress-controller',
+          'helm-uninstall-ingress-controller',
           'validate-openssl-exe',
           'k8s-create-tls-secret',
           'get-tls-keyfile',
@@ -188,7 +191,8 @@ contextBridge.exposeInMainWorld(
           'k8s-delete-object',
           'openssl-generate-certs',
           'validate-k8s-namespaces-exist',
-          'validate-wko-domain-exist'
+          'validate-wko-domain-exist',
+          'domain-undeploy-scope-prompt'
         ];
         return new Promise((resolve, reject) => {
           if (validChannels.includes(channel)) {

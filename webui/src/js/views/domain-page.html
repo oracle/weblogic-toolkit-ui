@@ -33,12 +33,21 @@
             </span>
     </oj-button>
     <oj-button id="domainStatusButton"
-               disabled="[[disableDeployDomain]]"
+               disabled="[[disableGetDomainStatus]]"
                chroming="callToAction"
                on-oj-action="[[getDomainStatus]]"
                :title="[[labelMapper('hints-domainStatus')]]">
             <span>
               <oj-bind-text value="[[labelMapper('button-domainStatus')]]"></oj-bind-text>
+            </span>
+    </oj-button>
+    <oj-button id="undeployDomainButton"
+               disabled="[[disableUndeployDomain]]"
+               chroming="callToAction"
+               on-oj-action="[[undeployDomain]]"
+               :title="[[labelMapper('hints-undeployDomain')]]">
+            <span>
+              <oj-bind-text value="[[labelMapper('button-undeployDomain')]]"></oj-bind-text>
             </span>
     </oj-button>
   </div>

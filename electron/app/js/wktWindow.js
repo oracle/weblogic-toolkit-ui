@@ -388,6 +388,21 @@ class WktAppMenu {
             }
           },
           {
+            id: 'undeployDomain',
+            label: i18n.t('menu-go-undeploy-domain'),
+            visible: this._isWkoTarget,
+            enabled: !this._hasOpenDialog,
+            click(item, focusedWindow) {
+              if (!focusedWindow) {
+                return dialog.showErrorBox(
+                  i18n.t('menu-go-undeploy-domain-error-title'),
+                  i18n.t('menu-go-undeploy-domain-error-message')
+                );
+              }
+              sendToWindow(focusedWindow, 'start-k8s-domain-undeploy');
+            }
+          },
+          {
             id: 'installIngress',
             label: i18n.t('menu-go-install-ingress'),
             visible: this._isWkoTarget,
@@ -415,6 +430,21 @@ class WktAppMenu {
                 );
               }
               sendToWindow(focusedWindow,'add-ingress-routes');
+            }
+          },
+          {
+            id: 'uninstallIngress',
+            label: i18n.t('menu-go-uninstall-ingress'),
+            visible: this._isWkoTarget,
+            enabled: !this._hasOpenDialog,
+            click(item, focusedWindow) {
+              if (!focusedWindow) {
+                return dialog.showErrorBox(
+                  i18n.t('menu-go-uninstall-ingress-error-title'),
+                  i18n.t('menu-go-uninstall-ingress-error-message')
+                );
+              }
+              sendToWindow(focusedWindow,'start-ingress-uninstall');
             }
           }
         ]
@@ -972,6 +1002,36 @@ async function promptUserForYesOrNoAnswer(targetWindow, title, message) {
   });
 }
 
+async function promptUserForK8sDomainRemovalScope(targetWindow, title, question, details) {
+  return new Promise(resolve => {
+    dialog.showMessageBox(targetWindow, {
+      title: title,
+      message: question,
+      detail: details,
+      type: 'question',
+      buttons: [ i18n.t('button-cancel'), i18n.t('button-domain-only'), i18n.t('button-domain-namespace') ],
+      defaultId: 1,
+      cancelId: 0
+    }).then(dialogResponse => {
+      let response;
+      switch (dialogResponse.response) {
+        case 2:
+          response = 'namespace';
+          break;
+
+        case 1:
+          response = 'domain';
+          break;
+
+        case 0:
+          response = 'cancel';
+          break;
+      }
+      resolve(response);
+    });
+  });
+}
+
 async function promptUserForOkOrCancelAnswer(targetWindow, title, message) {
   return new Promise(resolve => {
     dialog.showMessageBox(targetWindow, {
@@ -1028,6 +1088,7 @@ module.exports = {
   setHasOpenDialog,
   setTargetType,
   showErrorMessage,
+  promptUserForK8sDomainRemovalScope,
   promptUserForOkOrCancelAnswer,
   promptUserForYesOrNoAnswer
 };

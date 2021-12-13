@@ -7,79 +7,10 @@
 
 define(['utils/wkt-actions-base', 'models/wkt-project', 'models/wkt-console', 'utils/wdt-preparer', 'utils/i18n',
   'utils/project-io', 'utils/dialog-helper', 'utils/validation-helper', 'utils/common-utilities', 'utils/wkt-logger'],
-function (WktActionsBase, project, wktConsole, wktModelPreparer, i18n, projectIo, dialogHelper, validationHelper, utils, wktLogger) {
+function (WktActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo, dialogHelper, validationHelper, utils, wktLogger) {
   class WitActionsBase extends WktActionsBase {
     constructor() {
       super();
-    }
-
-    async validateModelFiles(projectDirectory, modelFiles, errTitle) {
-      try {
-        if (!modelFiles || modelFiles.length === 0) {
-          const errMessage = i18n.t('wit-actions-base-no-model-to-use-message', {projectFile: this.project.getProjectFileName()});
-          dialogHelper.closeBusyDialog();
-          await window.api.ipc.invoke('show-info-message', errTitle, errMessage);
-          return Promise.resolve(false);
-        } else {
-          const existsResult = await window.api.ipc.invoke('verify-files-exist', projectDirectory, ...modelFiles);
-          if (!existsResult.isValid) {
-            const invalidFiles = existsResult.invalidFiles.join(', ');
-            const errMessage = i18n.t('wit-actions-base-invalid-model-file-message',
-              {projectFile: this.project.getProjectFileName(), invalidFileList: invalidFiles});
-            dialogHelper.closeBusyDialog();
-            await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
-            return Promise.resolve(false);
-          }
-        }
-      } catch (err) {
-        return Promise.reject(err);
-      }
-      return Promise.resolve(true);
-    }
-
-    getVariableFilesCount() {
-      let count = 0;
-      if (Array.isArray(this.project.wdtModel.propertiesFiles.value)) {
-        count = this.project.wdtModel.propertiesFiles.value.length;
-      }
-      return count;
-    }
-
-    async validateVariableFiles(projectDirectory, variableFiles, errTitle) {
-      try {
-        if (variableFiles && variableFiles.length > 0) {
-          const existsResult = await window.api.ipc.invoke('verify-files-exist', projectDirectory, ...variableFiles);
-          if (!existsResult.isValid) {
-            const invalidFiles = existsResult.invalidFiles.join(', ');
-            const errMessage = i18n.t('wit-actions-base-invalid-variable-file-message',
-              {projectFile: this.project.getProjectFileName(), invalidFileList: invalidFiles});
-            await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
-            return Promise.resolve(false);
-          }
-        }
-      } catch (err) {
-        return Promise.reject(err);
-      }
-      return Promise.resolve(true);
-    }
-
-    async validateArchiveFiles(projectDirectory, archiveFiles, errTitle) {
-      try {
-        if (archiveFiles && archiveFiles.length > 0) {
-          const existsResult = await window.api.ipc.invoke('verify-files-exist', projectDirectory, ...archiveFiles);
-          if (!existsResult.isValid) {
-            const invalidFiles = existsResult.invalidFiles.join(', ');
-            const errMessage = i18n.t('wit-actions-base-invalid-archive-file-message',
-              {projectFile: this.project.getProjectFileName(), invalidFileList: invalidFiles});
-            dialogHelper.closeBusyDialog();
-            await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
-            return Promise.resolve(false);
-          }
-        }
-      } catch (err) {
-        return Promise.reject(err);
-      }
-      return Promise.resolve(true);
     }
 
     async downloadOrValidateWdtInstaller(projectDirectory, stepPercentage, errTitle, errPrefix) {
@@ -137,7 +68,7 @@ function (WktActionsBase, project, wktConsole, wktModelPreparer, i18n, projectIo
           prepareOptions.skipClearAndShowConsole = true;
           prepareOptions.skipCompleteDialog = true;
           prepareOptions.skipBusyDialog = true;
-          const success = await wktModelPreparer.callPrepareModel(prepareOptions);
+          const success = await wdtModelPreparer.callPrepareModel(prepareOptions);
           if (!success) {
             wktLogger.error(`${actionName} failed because nested Prepare Model call returned a failure.`);
             dialogHelper.closeBusyDialog();

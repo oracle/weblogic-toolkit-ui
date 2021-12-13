@@ -14,7 +14,7 @@ const i18n = require('./js/i18next.config');
 const { initializeLoggingSystem, logRendererMessage } = require('./js/wktLogging');
 const userSettings = require('./js/userSettings');
 const { chooseFromFileSystem, createNetworkWindow, createWindow, initialize, setHasOpenDialog, setTargetType,
-  showErrorMessage, promptUserForOkOrCancelAnswer, promptUserForYesOrNoAnswer } = require('./js/wktWindow');
+  showErrorMessage, promptUserForOkOrCancelAnswer, promptUserForYesOrNoAnswer, promptUserForK8sDomainRemovalScope } = require('./js/wktWindow');
 const project = require('./js/project');
 const wktTools = require('./js/wktTools');
 const wdtArchive = require('./js/wdtArchive');
@@ -745,7 +745,12 @@ class Main {
     });
 
     ipcMain.handle('k8s-delete-object', async (event, kubectlExe, namespace, object, kind, kubectlOptions) => {
+      this._logger.debug('k8s-delete-object called for %s %s %s', kind, object, namespace ? `from namespace ${namespace}` : '');
       return kubectlUtils.deleteObjectIfExists(kubectlExe, namespace, object, kind, kubectlOptions);
+    });
+
+    ipcMain.handle('domain-undeploy-scope-prompt', async (event, title, question, details) => {
+      return promptUserForK8sDomainRemovalScope(event.sender.getOwnerBrowserWindow(), title, question, details);
     });
 
     ipcMain.handle('helm-add-wko-chart', async (event, helmExe, helmOptions) => {
@@ -772,8 +777,14 @@ class Main {
       return helmUtils.addOrUpdateHelmChart(helmExe, repoName, repoUrl, helmOptions);
     });
 
-    ipcMain.handle('helm-install-ingress-controller', async (event, helmExe, ingressControllerName, ingressChartName, ingressControllerNamespace, valuesData, helmChartValues, helmOptions) => {
-      return helmUtils.installIngressController(helmExe, ingressControllerName, ingressChartName, ingressControllerNamespace, valuesData, helmChartValues, helmOptions);
+    ipcMain.handle('helm-install-ingress-controller',
+      async (event, helmExe, ingressControllerName, ingressChartName, ingressControllerNamespace, helmChartValues, helmOptions) => {
+        return helmUtils.installIngressController(helmExe, ingressControllerName, ingressChartName, ingressControllerNamespace, helmChartValues, helmOptions);
+      }
+    );
+
+    ipcMain.handle('helm-uninstall-ingress-controller', async (event, helmExe, ingressControllerName, ingressControllerNamespace, helmOptions) => {
+      return helmUtils.uninstallIngressController(helmExe, ingressControllerName, ingressControllerNamespace, helmOptions);
     });
 
     ipcMain.handle('openssl-generate-certs', async (event, openSSLExe, keyOut, certOut, subject) => {

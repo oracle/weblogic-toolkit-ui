@@ -7,7 +7,7 @@
 
 define(['utils/wit-actions-base', 'models/wkt-project', 'models/wkt-console', 'utils/wdt-preparer', 'utils/i18n',
   'utils/project-io', 'utils/dialog-helper', 'utils/validation-helper', 'utils/common-utilities', 'utils/wkt-logger'],
-function (WitActionsBase, project, wktConsole, wktModelPreparer, i18n, projectIo, dialogHelper, validationHelper, utils) {
+function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo, dialogHelper, validationHelper, utils) {
   class WitAuxImageCreator extends WitActionsBase {
     constructor() {
       super();
@@ -71,7 +71,7 @@ function (WitActionsBase, project, wktConsole, wktModelPreparer, i18n, projectIo
         dialogHelper.updateBusyDialog(busyDialogMessage, 2 / totalSteps);
         const modelFiles = this.project.wdtModel.modelFiles.value;
         if (!options.skipModelFileValidation) {
-          if (! await this.validateModelFiles(projectDirectory, modelFiles, errTitle)) {
+          if (! await this.validateModelFiles(projectDirectory, modelFiles, errTitle, errPrefix)) {
             return Promise.resolve(false);
           }
         }
@@ -82,7 +82,7 @@ function (WitActionsBase, project, wktConsole, wktModelPreparer, i18n, projectIo
         dialogHelper.updateBusyDialog(busyDialogMessage, 3 / totalSteps);
         let variableFiles = this.project.wdtModel.propertiesFiles.value;
         const variableFileCountBeforePrepareModel = this.getVariableFilesCount();
-        if (! await this.validateVariableFiles(projectDirectory, variableFiles, errTitle)) {
+        if (! await this.validateVariableFiles(projectDirectory, variableFiles, errTitle, errPrefix)) {
           return Promise.resolve(false);
         }
 
@@ -90,7 +90,7 @@ function (WitActionsBase, project, wktConsole, wktModelPreparer, i18n, projectIo
         dialogHelper.updateBusyDialog(busyDialogMessage, 4 / totalSteps);
         const archiveFiles = this.project.wdtModel.archiveFiles.value;
         if (!options.skipArchiveFileValidation) {
-          if (! await this.validateArchiveFiles(projectDirectory, archiveFiles, errTitle)) {
+          if (! await this.validateArchiveFiles(projectDirectory, archiveFiles, errTitle, errPrefix)) {
             return Promise.resolve(false);
           }
         }

@@ -4,10 +4,10 @@
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 define(['accUtils', 'knockout', 'ojs/ojcorerouter', 'ojs/ojmodulerouter-adapter', 'ojs/ojarraydataprovider',
-  'utils/k8s-domain-deployer', 'utils/k8s-domain-status-checker', 'utils/i18n', 'utils/wdt-preparer',
-  'ojs/ojarraytreedataprovider', 'models/wkt-project', 'ojs/ojtreeview'],
+  'utils/k8s-domain-deployer', 'utils/k8s-domain-status-checker', 'utils/k8s-domain-undeployer', 'utils/i18n',
+  'utils/wdt-preparer', 'ojs/ojarraytreedataprovider', 'models/wkt-project', 'ojs/ojtreeview'],
 function(accUtils, ko, CoreRouter, ModuleRouterAdapter, ArrayDataProvider, k8sDomainDeployer,
-  k8sDomainStatusChecker, i18n, wdtPreparer) {
+  k8sDomainStatusChecker, k8sDomainUndeployer, i18n, wdtPreparer) {
   function DomainViewModel(args) {
 
     this.connected = () => {
@@ -23,6 +23,8 @@ function(accUtils, ko, CoreRouter, ModuleRouterAdapter, ArrayDataProvider, k8sDo
     };
 
     this.disableDeployDomain = ko.observable(false);
+    this.disableGetDomainStatus = ko.observable(false);
+    this.disableUndeployDomain = ko.observable(false);
 
     this.prepareModel = () => {
       wdtPreparer.startPrepareModel().then();
@@ -34,6 +36,10 @@ function(accUtils, ko, CoreRouter, ModuleRouterAdapter, ArrayDataProvider, k8sDo
 
     this.getDomainStatus = async () => {
       await k8sDomainStatusChecker.startCheckDomainStatus();
+    };
+
+    this.undeployDomain = async () => {
+      await k8sDomainUndeployer.startUndeployDomain();
     };
 
     // Setup for Design / Code View tab selection.

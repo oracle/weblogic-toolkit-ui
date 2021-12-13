@@ -8,7 +8,7 @@
 define(['accUtils', 'knockout', 'utils/i18n', 'ojs/ojarraydataprovider', 'models/wkt-project',
   'utils/wdt-discoverer', 'ojs/ojknockout', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton',
   'ojs/ojdialog', 'ojs/ojformlayout', 'ojs/ojselectsingle', 'ojs/ojvalidationgroup'],
-function(accUtils, ko, i18n, ArrayDataProvider, project, discoverer) {
+function(accUtils, ko, i18n, ArrayDataProvider, project, wdtDiscoverer) {
   function DiscoverDialogModel(config) {
 
     this.connected = () => {
@@ -83,8 +83,7 @@ function(accUtils, ko, i18n, ArrayDataProvider, project, discoverer) {
         }
 
         $('#discoverDialog')[0].close();
-        discoverer.executeDiscover(discoverConfig, this.online);
-
+        wdtDiscoverer.executeDiscover(discoverConfig, this.online).then();
       } else {
         // show messages on all the components that have messages hidden.
         tracker.showMessages();

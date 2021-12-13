@@ -81,8 +81,7 @@ async function setCurrentContext(kubectlExe, context, options) {
       resolve(results);
     }).catch(err => {
       results.isSuccess = false;
-      results.reason = i18n.t('kubectl-use-context-error-message',
-        { context: context, error: getErrorMessage(err) });
+      results.reason = i18n.t('kubectl-use-context-error-message', { context: context, error: getErrorMessage(err) });
       resolve(results);
     });
   });
@@ -104,7 +103,7 @@ async function getK8sConfigView(kubectlExe, options) {
     }).catch(err => {
       results.isSuccess = false;
       results.reason =
-        i18n.t('kubectl-config-view-error-message',{ error: getErrorMessage(err) });
+        i18n.t('kubectl-config-view-error-message', { error: getErrorMessage(err) });
       resolve(results);
     });
   });
@@ -126,7 +125,7 @@ async function getK8sClusterInfo(kubectlExe, options) {
     }).catch(err => {
       results.isSuccess = false;
       results.reason =
-        i18n.t('kubectl-config-view-error-message',{ error: getErrorMessage(err) });
+        i18n.t('kubectl-cluster-info-error-message', { error: getErrorMessage(err) });
       resolve(results);
     });
   });
@@ -148,7 +147,7 @@ async function getWkoDomainStatus(kubectlExe, domainUID, domainNamespace, option
     }).catch(err => {
       results.isSuccess = false;
       results.reason =
-        i18n.t('kubectl-get-wko-domain-status-error-message',{ error: getErrorMessage(err) });
+        i18n.t('kubectl-get-wko-domain-status-error-message', { error: getErrorMessage(err) });
       resolve(results);
     });
   });
@@ -170,7 +169,7 @@ async function getOperatorStatus(kubectlExe, operatorNamespace, options) {
     }).catch(err => {
       results.isSuccess = false;
       results.reason =
-        i18n.t('kubectl-get-operator-status-error-message',{ error: getErrorMessage(err) });
+        i18n.t('kubectl-get-operator-status-error-message', { error: getErrorMessage(err) });
       resolve(results);
     });
   });
@@ -193,7 +192,7 @@ async function getOperatorLogs(kubectlExe, operatorNamespace, options) {
     }).catch(err => {
       results.isSuccess = false;
       results.reason =
-        i18n.t('kubectl-get-operator-logs-error-message',{ error: getErrorMessage(err) });
+        i18n.t('kubectl-get-operator-logs-error-message', { error: getErrorMessage(err) });
       resolve(results);
     });
   });
@@ -388,8 +387,16 @@ async function createNamespaceIfNotExists(kubectlExe, namespace, options) {
 }
 
 async function deleteObjectIfExists(kubectlExe, namespace, object, kind, options) {
-  const getArgs = [ 'get', '-n', namespace, kind, object, '--output=json' ];
-  const deleteArgs = [ 'delete', kind, object, '-n', namespace ];
+  let getArgs;
+  let deleteArgs;
+  if (kind === 'namespace') {
+    getArgs = [ 'get', kind, object, '--output=json' ];
+    deleteArgs = [ 'delete', kind, object ];
+  } else {
+    getArgs = [ 'get', '-n', namespace, kind, object, '--output=json' ];
+    deleteArgs = [ 'delete', kind, object, '-n', namespace ];
+  }
+
   const httpsProxyUrl = getHttpsProxyUrl();
   const bypassProxyHosts = getBypassProxyHosts();
 

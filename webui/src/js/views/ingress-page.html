@@ -33,6 +33,15 @@
             <oj-bind-text value="[[labelMapper('button-updateRouting')]]"></oj-bind-text>
           </span>
     </oj-button>
+    <oj-button id="uninstallIngressButton"
+               disabled="[[disableUninstallIngress]]"
+               chroming="callToAction"
+               on-oj-action="[[uninstallIngress]]"
+               :title="[[labelMapper('hints-uninstallIngress')]]">
+          <span>
+            <oj-bind-text value="[[labelMapper('button-uninstallIngress')]]"></oj-bind-text>
+          </span>
+    </oj-button>
   </div>
 
   <oj-module role="main" class="wkt-content" config="[[moduleAdapter.koObservableConfig]]">
