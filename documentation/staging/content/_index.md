@@ -30,7 +30,7 @@ For detailed user information, read the following:
     - [Kubernetes]({{< relref "/navigate/kubernetes/_index.md" >}})
     - [Verrazzano]({{< relref "/navigate/verrazzano.md" >}})
 
-For developer information, see [WebLogic Kubernetes Toolkit UI Project]({{< relref "/developer/_index.md" >}})
+For developer information, see [WebLogic Kubernetes Toolkit UI Project]({{< relref "/developer/_index.md" >}}).
 
 ### Get Help
 

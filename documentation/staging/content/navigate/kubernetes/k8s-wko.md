@@ -164,11 +164,11 @@ the script itself.  This change is left as an exercise for you because different
 existing standards for securely handling such credentials.
 
 ### Install Operator
-`Push Image` uses the specified Image Builder program to upload (that is, push) the newly-built image
-to the image registry specified by its image tag.  You can access it by using the `Install Operator` button on the
+The `Install Operator` action installs the WebLogic Kubernetes Operator in the target Kubernetes cluster. 
+You can access it by using the `Install Operator` button on the
 `WebLogic Operator` page or `Go` > `Install WebLogic Kubernetes Operator`.
 
-At a high level, `Push Image` performs the following steps:
+At a high level, `Install Operator` performs the following steps:
 
 1. Validates the input values necessary for running the action based on your selections.
 2. Saves the WKT Project, if needed.

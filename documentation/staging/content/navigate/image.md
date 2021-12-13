@@ -15,8 +15,8 @@ weight: 3
     - [WebLogic Deploy Tooling Configuration](#weblogic-deploy-tooling-configuration)
     - [Image Build Configuration](#image-build-configuration)
 - [Code View](#code-view)
-- [Create Image](#create-image)
-- [Push Image](#push-image)
+- [Create Images](#create-images)
+- [Push Images](#push-images)
 
 ### Image
 The `Image` section helps you build container images for deploying WebLogic-based applications
@@ -33,9 +33,10 @@ Auxiliary images are available for the "Model in Image" [domain location]({{< re
 One primary image can be reused for hundreds of domains whereas an auxiliary image is domain-specific. When using auxiliary images,
 the primary image contains the OS, JDK, and FMW software installations; the auxiliary image supplies the specifics for a single domain.
 
-Use the `Design View` to create a new or use an existing (the default) `Primary Image` and, for Model in Image domains only, an `Auxiliary Image`.
-The `Design View` page for the `Primary Image` and the `Auxiliary Image` has several panes and a few advanced panes.
-Note that _not all_ the fields described for the `Primary Image` are relevant for an `Auxiliary Image`, such as the JDK and Oracle installers, and patching. The exceptions are noted.
+Use the `Design View` page to create a new or use an existing (the default) `Primary Image` and,
+for "Model in Image" domains only, create a new (the default) or use an existing `Auxiliary Image`.
+The `Design View` page has the following basic panes and a few advanced panes.
+Note that _not all_ the fields described for the `Primary Image` are relevant for an `Auxiliary Image`. The exceptions are noted.
 
 - [Target Image Name and Registry Credentials](#target-image-name-and-registry-credentials)
 - [Base Image to Use](#base-image-to-use)
@@ -143,7 +144,7 @@ as secure as possible, this really should be a last resort._
 #### WebLogic Deploy Tooling Configuration
 This `Advanced` pane applies only to images using either the "Model in Image" or "Domain in Image" [domain locations]({{< relref "/navigate/project-settings#choosing-a-domain-location" >}}).
 
-For "Domain in Image" only, the `Domain Type` field tells WebLogic Deploy Tooling what type of domain to create and you use the `Domain Home Directory`
+For "Domain in Image" only, the `Domain Type` field tells WebLogic Deploy Tooling what type of domain to create. Use the `Domain Home Directory`
 to change the location of the WebLogic domain directory inside the container.  For "Model in Image" and "Domain in Image", the `Model Home Directory` field
 specifies the directory where the WDT model files are stored in the image and `WDT Home Directory` specifies the WDT home directory inside the image.
 Typically, there is no need to override these directory locations because the application defaults follow the recommended best practices.
@@ -192,7 +193,7 @@ set environment variables to specify any credentials required by the script to e
 the script itself.  This change is left as an exercise for you because different environments typically will have
 existing standards for securely handling such credentials.
 
-### Create Primary Image and Create Auxiliary Image
+### Create Images
 The `Create Primary Image` and `Create Auxiliary Image` actions invoke the [WebLogic Image Tool](https://oracle.github.io/weblogic-image-tool/) to
 create a new container image for running a WebLogic domain in a Kubernetes environment.  You can access these actions using
 the `Create Primary Image` or `Create Auxiliary Image` button on the `Image` page or from the `Go` menu.
@@ -206,7 +207,7 @@ At a high level, the action performs the following steps:
 4. Builds the image on the local machine using the WebLogic Image Tool
    [Create](https://oracle.github.io/weblogic-image-tool/userguide/tools/create-image/) command.
 
-### Push Primary Image and Push Auxiliary Image
+### Push Images
 The `Push Primary Image` and `Push Auxiliary Image` actions use the specified Image Builder program to upload (that is, push) the newly-built image
 to the image registry specified by its image tag.  You can access these actions by using the `Push Primary Image` or `Push Auxiliary Image` button on the `Image`
 page or from the `Go` menu.
