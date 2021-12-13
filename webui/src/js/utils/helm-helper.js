@@ -23,8 +23,8 @@ define(['models/wkt-project', 'utils/k8s-helper'],
     const traefikChartName = 'ingress-traefik/traefik';
     const traefikChartUrl = 'https://helm.traefik.io/traefik';
 
-    function HelmHelper() {
-      this.getHelmOptions = () => {
+    class HelmHelper {
+      getHelmOptions() {
         const options = {};
         if (project.kubectl.kubeConfig.value) {
           options.kubeConfig = project.kubectl.kubeConfig.value;
@@ -37,17 +37,17 @@ define(['models/wkt-project', 'utils/k8s-helper'],
           options.extraPathDirectories = k8sHelper.getExtraPathDirectoriesArray(extraPathDirectories);
         }
         return options;
-      };
+      }
 
-      this.getOperatorHelmChartData = () => {
+      getOperatorHelmChartData() {
         return {
           repoName: operatorRepoName,
           chartName: operatorChartName,
           chartUrl: operatorHelmChartUrl
         };
-      };
+      }
 
-      this.getIngressHelmChartData = (ingressControllerType) => {
+      getIngressHelmChartData(ingressControllerType) {
         let result;
         switch (ingressControllerType) {
           case 'traefik':
@@ -75,7 +75,7 @@ define(['models/wkt-project', 'utils/k8s-helper'],
             break;
         }
         return result;
-      };
+      }
     }
 
     return new HelmHelper();

@@ -5,22 +5,27 @@
  */
 'use strict';
 
-define(['models/wkt-project', 'models/wkt-console', 'utils/i18n', 'utils/project-io', 'utils/dialog-helper',
-  'utils/validation-helper', 'utils/wkt-logger'],
-function(project, wktConsole, i18n, projectIo, dialogHelper, validationHelper, wktLogger) {
-  function WktModelPreparer() {
-    this.project = project;
+define(['utils/wdt-actions-base', 'models/wkt-project', 'models/wkt-console', 'utils/i18n', 'utils/project-io',
+  'utils/dialog-helper', 'utils/validation-helper', 'utils/wkt-logger'],
+function(WdtActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, validationHelper, wktLogger) {
+  class WdtModelPreparer extends WdtActionsBase {
+    constructor() {
+      super();
+    }
 
-    this.startPrepareModel = async () => {
+    async startPrepareModel() {
       return this.callPrepareModel();
-    };
+    }
 
-    this.callPrepareModel = async (options) => {
+    async callPrepareModel(options) {
       if (!options) {
         options = {};
       }
 
       let errTitle = i18n.t('wdt-preparer-aborted-error-title');
+      const errPrefix = 'wdt-preparer';
+      const shouldCloseBusyDialog = !options.skipBusyDialog;
+
       if (this.project.settings.targetDomainLocation.value === 'pv') {
         const errMessage = i18n.t('wdt-preparer-domain-in-pv-message');
         await window.api.ipc.invoke('show-info-message', errTitle, errMessage);
@@ -41,14 +46,8 @@ function(project, wktConsole, i18n, projectIo, dialogHelper, validationHelper, w
         const javaHome = project.settings.javaHome.value;
         const oracleHome = project.settings.oracleHome.value;
 
-        let errContext = i18n.t('wdt-preparer-invalid-java-home-error-prefix');
         if (!options.skipJavaHomeValidation) {
-          const javaHomeValidationResult =
-            await window.api.ipc.invoke('validate-java-home', javaHome, errContext);
-          if (!javaHomeValidationResult.isValid) {
-            const errMessage = javaHomeValidationResult.reason;
-            this.closeBusyDialog(options);
-            await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
+          if (! await this.validateJavaHome(javaHome, errTitle, errPrefix, shouldCloseBusyDialog)) {
             return Promise.resolve(false);
           }
         }
@@ -56,12 +55,7 @@ function(project, wktConsole, i18n, projectIo, dialogHelper, validationHelper, w
         busyDialogMessage = i18n.t('flow-validate-oracle-home-in-progress');
         this.updateBusyDialog(options, busyDialogMessage, 1/totalSteps);
         if (!options.skipOracleHomeValidation) {
-          errContext = i18n.t('wdt-preparer-invalid-oracle-home-error-prefix');
-          const oracleHomeValidationResult = await window.api.ipc.invoke('validate-oracle-home', oracleHome, errContext);
-          if (!oracleHomeValidationResult.isValid) {
-            const errMessage = oracleHomeValidationResult.reason;
-            this.closeBusyDialog(options);
-            await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
+          if (! await this.validateOracleHome(oracleHome, errTitle, errPrefix, shouldCloseBusyDialog)) {
             return Promise.resolve(false);
           }
         }
@@ -69,11 +63,7 @@ function(project, wktConsole, i18n, projectIo, dialogHelper, validationHelper, w
         busyDialogMessage = i18n.t('flow-save-project-in-progress');
         this.updateBusyDialog(options, busyDialogMessage, 2/totalSteps);
         if (!options.skipProjectSave) {
-          const saveResult = await projectIo.saveProject();
-          if (!saveResult.saved) {
-            const errMessage = `${i18n.t('wdt-preparer-project-not-saved-error-prefix')}: ${saveResult.reason}`;
-            this.closeBusyDialog(options);
-            await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
+          if (! await this.saveProject(errTitle, errPrefix, shouldCloseBusyDialog)) {
             return Promise.resolve(false);
           }
         }
@@ -85,21 +75,8 @@ function(project, wktConsole, i18n, projectIo, dialogHelper, validationHelper, w
         this.updateBusyDialog(options, busyDialogMessage, 3/totalSteps);
         const modelFiles = this.project.wdtModel.modelFiles.value;
         if (!options.skipModelFileValidation) {
-          if (!modelFiles || modelFiles.length === 0) {
-            const errMessage = i18n.t('wdt-preparer-no-model-to-prepare-message', {projectFile: this.project.getProjectFileName()});
-            this.closeBusyDialog(options);
-            await window.api.ipc.invoke('show-info-message', errTitle, errMessage);
+          if (! await this.validateModelFiles(projectDirectory, modelFiles, errTitle, errPrefix, shouldCloseBusyDialog)) {
             return Promise.resolve(false);
-          } else {
-            const existsResult = await window.api.ipc.invoke('verify-files-exist', projectDirectory, ...modelFiles);
-            if (!existsResult.isValid) {
-              const invalidFiles = existsResult.invalidFiles.join(', ');
-              const errMessage = i18n.t('wdt-preparer-invalid-model-file-message',
-                {projectFile: this.project.getProjectFileName(), invalidFileList: invalidFiles});
-              this.closeBusyDialog(options);
-              await window.api.ipc.invoke('show-info-message', errTitle, errMessage);
-              return Promise.resolve(false);
-            }
           }
         }
 
@@ -107,16 +84,8 @@ function(project, wktConsole, i18n, projectIo, dialogHelper, validationHelper, w
         this.updateBusyDialog(options, busyDialogMessage, 4/totalSteps);
         const variableFiles = this.project.wdtModel.propertiesFiles.value;
         if (!options.skipVariableFileValidation) {
-          if (variableFiles && variableFiles.length > 0) {
-            const existsResult = await window.api.ipc.invoke('verify-files-exist', projectDirectory, ...variableFiles);
-            if (!existsResult.isValid) {
-              const invalidFiles = existsResult.invalidFiles.join(', ');
-              const errMessage = i18n.t('wdt-preparer-invalid-variable-file-message',
-                {projectFile: this.project.getProjectFileName(), invalidFileList: invalidFiles});
-              this.closeBusyDialog(options);
-              await window.api.ipc.invoke('show-info-message', errTitle, errMessage);
-              return Promise.resolve(false);
-            }
+          if (! await this.validateVariableFiles(projectDirectory, variableFiles, errTitle, errPrefix, shouldCloseBusyDialog)) {
+            return Promise.resolve(false);
           }
         }
 
@@ -143,7 +112,7 @@ function(project, wktConsole, i18n, projectIo, dialogHelper, validationHelper, w
           // apply the results to the project object.
           this.project.wdtModel.setSpecifiedModelFiles(prepareResult.model);
 
-          // Currently only supporting Verrazzano for Model and Image so skip this step.
+          // Currently, Verrazzano support is limited to Model and Image only, so skip this step.
           //
           if (this.project.settings.wdtTargetType.value === 'wko') {
             this.project.k8sDomain.loadPrepareModelResults(prepareResult);
@@ -169,9 +138,9 @@ function(project, wktConsole, i18n, projectIo, dialogHelper, validationHelper, w
       } finally {
         this.closeBusyDialog(options);
       }
-    };
+    }
 
-    this.getValidationObject = (flowNameKey) => {
+    getValidationObject(flowNameKey) {
       const validationObject = validationHelper.createValidatableObject(flowNameKey);
       const settingsFormConfig = validationObject.getDefaultConfigObject();
       settingsFormConfig.formName = 'project-settings-form-name';
@@ -186,26 +155,26 @@ function(project, wktConsole, i18n, projectIo, dialogHelper, validationHelper, w
       validationObject.addField('model-page-model-editor-contents',
         this.project.wdtModel.validateModel(true), modelFormConfig);
       return validationObject;
-    };
+    }
 
-    this.openBusyDialog = (options, message) => {
+    openBusyDialog(options, message) {
       if (!options.skipBusyDialog) {
         dialogHelper.openBusyDialog(message, 'bar', 0.0);
       }
-    };
+    }
 
-    this.updateBusyDialog = (options, message, progress) => {
+    updateBusyDialog(options, message, progress) {
       if (!options.skipBusyDialog) {
         dialogHelper.updateBusyDialog(message, progress);
       }
-    };
+    }
 
-    this.closeBusyDialog = (options) => {
+    closeBusyDialog(options) {
       if (!options.skipBusyDialog) {
         dialogHelper.closeBusyDialog();
       }
-    };
+    }
   }
 
-  return new WktModelPreparer();
+  return new WdtModelPreparer();
 });

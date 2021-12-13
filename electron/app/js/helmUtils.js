@@ -72,7 +72,12 @@ async function addOrUpdateHelmChart(helmExe, repoName, repoUrl, helmOptions) {
   });
 }
 
-async function installIngressController(helmExe, ingressControllerName, ingressChartName,  ingressControllerNamespace, valuesData, helmChartValues, helmOptions) {
+async function installIngressController(helmExe, ingressControllerName, ingressChartName,  ingressControllerNamespace,
+  helmChartValues, helmOptions) {
+  const args = [ 'install', ingressControllerName, ingressChartName, '--namespace', ingressControllerNamespace ];
+  processHelmChartValues(args, helmChartValues);
+  processHelmOptions(args, helmOptions);
+  args.push('--wait');
 
   const httpsProxyUrl = getHttpsProxyUrl();
   const bypassProxyHosts = getBypassProxyHosts();
@@ -81,28 +86,39 @@ async function installIngressController(helmExe, ingressControllerName, ingressC
     isSuccess: true
   };
   return new Promise(resolve => {
-    fsUtils.writeTempFile(valuesData, { baseName: 'values', extension: '.yaml' }).then(fileName => {
-      let args = [ 'install', ingressControllerName, ingressChartName, '--namespace', ingressControllerNamespace, '--values', fileName];
-      processHelmChartValues(args, helmChartValues);
-      processHelmOptions(args, helmOptions);
-      executeFileCommand(helmExe, args, env).then(() => resolve(results)).catch(err => {
-        results.isSuccess = false;
-        results.reason = i18n.t('helm-install-ingress-controller-failed-error-message',
-          { namespace: ingressControllerNamespace, controllerName: ingressControllerName, error: getErrorMessage(err) });
-        getLogger().error(results.reason);
-        getLogger().error(err);
-        resolve(results);
-      });
-    }).catch(err => {
+    executeFileCommand(helmExe, args, env).then(() => resolve(results)).catch(err => {
       results.isSuccess = false;
-      results.reason = i18n.t('helm-write-values-file-failed-error-message', { error: getErrorMessage(err) });
+      results.reason = i18n.t('helm-install-ingress-controller-failed-error-message',
+        { namespace: ingressControllerNamespace, controllerName: ingressControllerName, error: getErrorMessage(err) });
       getLogger().error(results.reason);
       getLogger().error(err);
       resolve(results);
     });
-
   });
+}
 
+async function uninstallIngressController(helmExe, ingressName, ingressNamespace, helmOptions) {
+  const args = [ 'uninstall', ingressName, '--namespace', ingressNamespace ];
+  const httpsProxyUrl = getHttpsProxyUrl();
+  const bypassProxyHosts = getBypassProxyHosts();
+  const env = getHelmEnv(httpsProxyUrl, bypassProxyHosts, helmOptions);
+
+  processHelmOptions(args, helmOptions);
+  const results = {
+    isSuccess: true
+  };
+
+  return new Promise(resolve => {
+    executeFileCommand(helmExe, args, env).then(stdout => {
+      getLogger().debug(stdout);
+      resolve(results);
+    }).catch(err => {
+      results.isSuccess = false;
+      results.reason = i18n.t('helm-uninstall-ingress-failed-error-message',
+        { controllerName: ingressName, namespace: ingressNamespace, error: getErrorMessage(err) });
+      resolve(results);
+    });
+  });
 }
 
 async function installWko(helmExe, name, namespace, helmChartValues, helmOptions) {
@@ -114,7 +130,7 @@ async function installWko(helmExe, name, namespace, helmChartValues, helmOptions
   return _runHelmWko(helmExe, name, namespace, args, helmOptions, 'helm-install-wko-failed-error-message');
 }
 
-async function upgradeWko(helmExe, name, namespace, helmChartValues, helmOptions) {
+async function updateWko(helmExe, name, namespace, helmChartValues, helmOptions) {
   const args = [ 'upgrade', name, _wkoHelmChartName, '--namespace', namespace, '--reuse-values' ];
   processHelmChartValues(args, helmChartValues);
   processHelmOptions(args, helmOptions);
@@ -122,6 +138,14 @@ async function upgradeWko(helmExe, name, namespace, helmChartValues, helmOptions
 
   return _runHelmWko(helmExe, name, namespace, args, helmOptions, 'helm-upgrade-wko-failed-error-message');
 }
+
+async function uninstallWko(helmExe, name, namespace, helmOptions) {
+  const args = [ 'uninstall', name, '--namespace', namespace ];
+  processHelmOptions(args, helmOptions);
+
+  return _runHelmWko(helmExe, name, namespace, args, helmOptions, 'helm-uninstall-wko-failed-error-message');
+}
+
 
 async function helmListAllNamespaces(helmExe, helmOptions) {
   const args = [ 'list', '--all-namespaces' ];
@@ -245,9 +269,11 @@ function formatArrayOfObjectsSetArgument(name, objectArray) {
 module.exports = {
   addOrUpdateWkoHelmChart,
   installWko,
-  upgradeWko,
+  uninstallWko,
+  updateWko,
   helmListAllNamespaces,
   installIngressController,
+  uninstallIngressController,
   addOrUpdateHelmChart,
   validateHelmExe
 };

@@ -5,52 +5,49 @@
  */
 'use strict';
 
-define(['models/wkt-project', 'models/wkt-console', 'utils/k8s-helper', 'utils/i18n', 'utils/project-io',
+define(['utils/ingress-actions-base', 'models/wkt-project', 'models/wkt-console', 'utils/k8s-helper', 'utils/i18n',
   'utils/dialog-helper', 'utils/validation-helper', 'utils/helm-helper'],
-function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validationHelper, helmHelper) {
-  function IngressInstaller() {
-    this.project = project;
+function(IngressActionsBase, project, wktConsole, k8sHelper, i18n, dialogHelper, validationHelper, helmHelper) {
+  class IngressControllerInstaller extends IngressActionsBase {
+    constructor() {
+      super();
+    }
 
-    this.startInstallIngressController = async () => {
+    async startInstallIngressController() {
       return this.callInstallIngressController();
-    };
+    }
 
-    this.callInstallIngressController = async (options) => {
+    async callInstallIngressController(options) {
       if (!options) {
         options = {};
       }
 
+      let errTitle = i18n.t('ingress-installer-aborted-error-title');
+      let errPrefix = 'ingress-installer';
       if (this.project.ingress.installIngressController.value === false) {
-        const title = i18n.t('ingress-installer-install-complete-title');
-        const message = i18n.t('ingress-installer-install-complete-noaction-message');
+        const message = i18n.t('ingress-installer-not-install-message');
         await window.api.ipc.invoke('show-info-message', title, message);
         return Promise.resolve(true);
       }
 
       // Check data
 
-      const validatableObject = this.getValidatableObject('flow-ingress-controller-installation-name');
+      const validatableObject = this.getValidatableObject('flow-install-ingress-name');
       if (validatableObject.hasValidationErrors()) {
-        const errTitle = i18n.t('ingress-installer-install-controller-error-title');
         const validationErrorDialogConfig = validatableObject.getValidationErrorDialogConfig(errTitle);
         dialogHelper.openDialog('validation-error-dialog', validationErrorDialogConfig);
         return Promise.resolve(false);
       }
 
-      const totalSteps = 8.0;
+      const totalSteps = 9.0;
       try {
         let busyDialogMessage = i18n.t('flow-validate-kubectl-exe-in-progress');
         dialogHelper.openBusyDialog(busyDialogMessage, 'bar');
         dialogHelper.updateBusyDialog(busyDialogMessage, 0/totalSteps);
 
-        let errTitle = i18n.t('ingress-installer-aborted-error-title');
         const kubectlExe = k8sHelper.getKubectlExe();
         if (!options.skipKubectlExeValidation) {
-          const exeResults = await window.api.ipc.invoke('validate-kubectl-exe', kubectlExe);
-          if (!exeResults.isValid) {
-            const errMessage = i18n.t('wko-installer-kubectl-exe-invalid-error-message', {error: exeResults.reason});
-            dialogHelper.closeBusyDialog();
-            await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
+          if (! await this.validateKubectlExe(kubectlExe, errTitle, errPrefix)) {
             return Promise.resolve(false);
           }
         }
@@ -59,10 +56,7 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
         dialogHelper.updateBusyDialog(busyDialogMessage, 1/totalSteps);
         const helmExe = k8sHelper.getHelmExe();
         if (!options.skipHelmExeValidation) {
-          const exeResults = await window.api.ipc.invoke('validate-helm-exe', helmExe);
-          if (!exeResults.isValid) {
-            const errMessage = i18n.t('wko-installer-helm-exe-invalid-error-message', {error: exeResults.reason});
-            await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
+          if (! await this.validateHelmExe(helmExe, errTitle, errPrefix)) {
             return Promise.resolve(false);
           }
         }
@@ -72,11 +66,7 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
         busyDialogMessage = i18n.t('flow-save-project-in-progress');
         dialogHelper.updateBusyDialog(busyDialogMessage, 2/totalSteps);
         if (!options.skipProjectSave) {
-          const saveResult = await projectIo.saveProject();
-          if (!saveResult.saved) {
-            const errMessage = `${i18n.t('wko-installer-project-not-saved-error-prefix')}: ${saveResult.reason}`;
-            dialogHelper.closeBusyDialog();
-            await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
+          if (! await this.saveProject(errTitle, errPrefix)) {
             return Promise.resolve(false);
           }
         }
@@ -86,201 +76,118 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
         const kubectlContext = k8sHelper.getKubectlContext();
         const kubectlOptions = k8sHelper.getKubectlOptions();
         if (!options.skipKubectlSetContext) {
-          if (kubectlContext) {
-            const setResults =
-            await window.api.ipc.invoke('kubectl-set-current-context', kubectlExe, kubectlContext, kubectlOptions);
-            if (!setResults.isSuccess) {
-              const errMessage = i18n.t('wko-installer-set-context-error-message', {error: setResults.reason});
-              dialogHelper.closeBusyDialog();
-              await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
-              return Promise.resolve(false);
-            }
+          if (! await this.useKubectlContext(kubectlExe, kubectlOptions, kubectlContext, errTitle, errPrefix)) {
+            return Promise.resolve(false);
           }
         }
 
-        // Start Real install here
-        if (this.project.ingress.installIngressController.value === true) {
-          const ingressControllerName = this.project.ingress.ingressControllerName.value;
-          const ingressControllerNamespace = this.project.ingress.ingressControllerNamespace.value;
-          const ingressControllerProvider = this.project.ingress.ingressControllerProvider.value;
-          const voyagerProvider = this.project.ingress.voyagerProviderMappedValue(this.project.ingress.voyagerProvider.value);
-          const helmOptions = this.getHelmOptions();
+        const ingressControllerName = this.project.ingress.ingressControllerName.value;
+        const ingressControllerNamespace = this.project.ingress.ingressControllerNamespace.value;
+        const ingressControllerProvider = this.project.ingress.ingressControllerProvider.value;
+        const voyagerProvider = this.project.ingress.voyagerProviderMappedValue(this.project.ingress.voyagerProvider.value);
+        const helmOptions = helmHelper.getHelmOptions();
 
-          busyDialogMessage = i18n.t('ingress-installer-checking-already-installed-in-progress',
-            {ingressControllerName: ingressControllerName, ingressControllerNamespace: ingressControllerNamespace});
-          dialogHelper.updateBusyDialog(busyDialogMessage, 4 / totalSteps);
-          if (!options.skipCheckAlreadyInstalled) {
-            const helmListResults = await window.api.ipc.invoke('helm-list-all-namespaces', helmExe, helmOptions);
-
-            if (!helmListResults.isSuccess) {
-              const errMessage = i18n.t('ingress-installer-checking-already-installed-error-message',
-                {ingressControllerName: ingressControllerName, error: helmListResults.reason});
+        busyDialogMessage = i18n.t('ingress-installer-checking-already-installed-in-progress',
+          { name: ingressControllerName, namespace: ingressControllerNamespace });
+        dialogHelper.updateBusyDialog(busyDialogMessage, 4 / totalSteps);
+        if (!options.skipCheckAlreadyInstalled) {
+          const isInstalledResults = await this.isIngressControllerInstalled(helmExe, helmOptions,
+            ingressControllerProvider, ingressControllerName, ingressControllerNamespace, errTitle, errPrefix);
+          if (isInstalledResults) {
+            if (isInstalledResults.isInstalled) {
               dialogHelper.closeBusyDialog();
-              await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
-              return Promise.resolve(false);
-            }
-
-            const helmChartList = JSON.parse(helmListResults.stdout);
-            let ingressChartNamePrefix = 'ingress-nginx-';
-            if (ingressControllerProvider === 'traefik') {
-              ingressChartNamePrefix = 'traefik-';
-            } else if (ingressControllerProvider === 'voyager') {
-              ingressChartNamePrefix = 'voyager-';
-            }
-
-            for (const obj of helmChartList) {
-              if (obj['chart'].startsWith(ingressChartNamePrefix) === true && obj['namespace'] === ingressControllerNamespace) {
-                dialogHelper.closeBusyDialog();
-                const errMessage = i18n.t('ingress-installer-already-installed-error-message',
-                  {
-                    ingressProvider: ingressControllerProvider,
-                    chartName: obj['chart'],
-                    namespace: obj['namespace'],
-                    installedName: obj['name'],
-                    status: obj['status']
-                  });
-                await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
-                return Promise.resolve(false);
-              }
-            }
-          }
-
-          busyDialogMessage = i18n.t('ingress-installer-create-ns-in-progress', {ingressControllerNamespace: ingressControllerNamespace});
-          dialogHelper.updateBusyDialog(busyDialogMessage, 5 / totalSteps);
-          if (!options.skipCreateOperatorNamespace) {
-            const createNsResults = await window.api.ipc.invoke('k8s-create-namespace', kubectlExe, ingressControllerNamespace, kubectlOptions);
-            if (!createNsResults.isSuccess) {
-              const errMessage = i18n.t('ingress-installer-create-ns-error-message',
-                {operatorNamespace: ingressControllerNamespace, error: createNsResults.reason});
-              dialogHelper.closeBusyDialog();
-              await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
-              return Promise.resolve(false);
-            }
-          }
-
-          const helmChartData = helmHelper.getIngressHelmChartData(ingressControllerProvider);
-          busyDialogMessage = i18n.t('ingress-installer-add-repo-in-progress',
-            {ingressControllerName: ingressControllerName});
-          dialogHelper.updateBusyDialog(busyDialogMessage, 6 / totalSteps);
-          if (!options.skipCheckAlreadyInstalled) {
-            let ingressRepoName = helmChartData.repoName;
-            let ingressRepoUrl = helmChartData.chartUrl;
-
-            const helmResults = await window.api.ipc.invoke('helm-add-update-repo',
-              helmExe, ingressRepoName, ingressRepoUrl, helmOptions);
-            if (!helmResults.isSuccess) {
-              const errMessage = i18n.t('ingress-installer-add-repo-error-message',
+              const errMessage = i18n.t('ingress-installer-already-installed-error-message',
                 {
-                  repoName: ingressRepoName,
-                  error: helmResults.reason
+                  ingressProvider: ingressControllerProvider,
+                  chartName: isInstalledResults['chart'],
+                  namespace: isInstalledResults['namespace'],
+                  installedName: isInstalledResults['name'],
+                  status: isInstalledResults['status']
                 });
-              dialogHelper.closeBusyDialog();
               await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
               return Promise.resolve(false);
             }
+          } else {
+            return Promise.resolve(false);
           }
+        }
 
-          busyDialogMessage = i18n.t('ingress-installer-install-controller-in-progress',
-            {ingressControllerName: ingressControllerName, ingressControllerNamespace: ingressControllerNamespace});
-          dialogHelper.updateBusyDialog(busyDialogMessage, 7 / totalSteps);
-          if (!options.skipCheckAlreadyInstalled) {
+        busyDialogMessage = i18n.t('ingress-installer-create-ns-in-progress', { namespace: ingressControllerNamespace });
+        dialogHelper.updateBusyDialog(busyDialogMessage, 5 / totalSteps);
+        if (!options.skipCreateIngressNamespace) {
+          if (! await this.createKubernetesNamespace(kubectlExe, kubectlOptions, ingressControllerNamespace, errTitle, errPrefix)) {
+            return Promise.resolve(false);
+          }
+        }
+
+        busyDialogMessage = i18n.t('ingress-installer-add-repo-in-progress', { name: ingressControllerName });
+        dialogHelper.updateBusyDialog(busyDialogMessage, 6 / totalSteps);
+        if (!options.skipCheckAlreadyInstalled) {
+          if (! await this.addIngressControllerHelmChart(helmExe, helmOptions, ingressControllerProvider, errTitle, errPrefix)) {
+            return Promise.resolve(false);
+          }
+        }
+
+        busyDialogMessage = i18n.t('ingress-installer-create-pull-secret-in-progress');
+        dialogHelper.updateBusyDialog(busyDialogMessage, 7 / totalSteps);
+        const secretName = this.project.ingress.dockerRegSecretName.value;
+        if (ingressControllerProvider === 'traefik' || ingressControllerProvider === 'voyager' ) {
+          // create image pull secret for pulling Traefik or Voyager images.
+          if (this.project.ingress.createDockerRegSecret.value === true && secretName) {
             const secretData = {
               server: 'docker.io',
               username: this.project.ingress.dockerRegSecretUserId.value,
               email: this.project.ingress.dockerRegSecretUserEmail.value,
               password: this.project.ingress.dockerRegSecretUserPwd.value
             };
-
-            if (ingressControllerProvider === 'traefik' || ingressControllerProvider === 'voyager' ) {
-              // create image pull secret for pulling Traefik or Voyager images.
-              if (this.project.ingress.createDockerRegSecret.value === true &&
-                typeof this.project.ingress.dockerRegSecretName.value !== 'undefined') {
-                const regSecretResult = await window.api.ipc.invoke('k8s-create-pull-secret', kubectlExe, ingressControllerNamespace,
-                  this.project.ingress.dockerRegSecretName.value, secretData, kubectlOptions);
-
-                if (!regSecretResult.isSuccess) {
-                  const errMessage = i18n.t('ingress-installer-install-controller-error-message',
-                    {
-                      ingressControllerName: ingressControllerName,
-                      error: regSecretResult.reason
-                    });
-                  dialogHelper.closeBusyDialog();
-                  await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
-                  return Promise.resolve(false);
-                }
-              }
-            }
-
-            const ingressChartName = helmChartData.chartName;
-
-            /// Change to setup values for chart
-            let args = {};
-            const dockerSecretName = this.project.ingress.dockerRegSecretName.value;
-            if (ingressControllerProvider === 'voyager') {
-              args['cloudProvider'] = voyagerProvider;
-              args['apiserver.healthcheck.enabled'] = false;
-              args['apiserver.enableValidatingWebhook'] = false;
-              if (typeof dockerSecretName !== 'undefined') {
-                args['imagePullSecrets[0].name'] = dockerSecretName;
-              }
-            }
-
-            if (ingressControllerProvider === 'traefik' && dockerSecretName) {
-              args['deployment.imagePullSecrets[0].name'] = dockerSecretName;
-            }
-            if (ingressControllerProvider === 'traefik' || ingressControllerProvider === 'nginx') {
-              args['kubernetes.namespaces'] = '{' + ingressControllerNamespace + ',' + this.project.k8sDomain.kubernetesNamespace.value +  '}';
-            }
-
-            const installResults = await window.api.ipc.invoke('helm-install-ingress-controller',
-              helmExe, ingressControllerName, ingressChartName, ingressControllerNamespace,
-              '#future', args, helmOptions);
-            dialogHelper.closeBusyDialog();
-            if (installResults.isSuccess) {
-              // Traefik and Nginx has fixed loadbalancer, Voyager is in each ingress object
-
-              const title = i18n.t('ingress-installer-install-complete-title');
-              const message = i18n.t('ingress-installer-install-complete-message',
-                { ingressControllerName: ingressControllerName, ingressControllerNamespace: ingressControllerNamespace });
-
-              await window.api.ipc.invoke('show-info-message', title, message);
-              return Promise.resolve(true);
-            } else {
-              const errMessage = i18n.t('ingress-installer-install-controller-error-message',
-                {
-                  ingressControllerName: ingressControllerName,
-                  error: installResults.reason
-                });
-              dialogHelper.closeBusyDialog();
-              await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
+            const secretStatus = await this.createPullSecret(kubectlExe, kubectlOptions, ingressControllerNamespace,
+              secretName, secretData, errTitle, errPrefix);
+            if (!secretStatus) {
               return Promise.resolve(false);
             }
           }
         }
-      } catch(err) {
+
+        busyDialogMessage = i18n.t('ingress-installer-install-in-progress', { name: ingressControllerName });
+        dialogHelper.updateBusyDialog(busyDialogMessage, 8 / totalSteps);
+
+        const ingressChartName = this.getIngressControllerHelmChartName(ingressControllerProvider);
+        const helmChartValues =
+          this.getHelmChartValues(ingressControllerProvider, ingressControllerNamespace, voyagerProvider, secretName);
+
+        const installResults = await window.api.ipc.invoke('helm-install-ingress-controller',
+          helmExe, ingressControllerName, ingressChartName, ingressControllerNamespace, helmChartValues, helmOptions);
+        dialogHelper.closeBusyDialog();
+        if (installResults.isSuccess) {
+          // Traefik and Nginx has fixed loadbalancer, Voyager is in each ingress object
+
+          const title = i18n.t('ingress-installer-install-complete-title');
+          const message = i18n.t('ingress-installer-install-complete-message',
+            { name: ingressControllerName, namespace: ingressControllerNamespace });
+
+          await window.api.ipc.invoke('show-info-message', title, message);
+          return Promise.resolve(true);
+        } else {
+          errTitle = i18n.t('ingress-installer-install-failed-title');
+          const errMessage = i18n.t('ingress-installer-install-failed-error-message',
+            {
+              name: ingressControllerName,
+              namespace: ingressControllerNamespace,
+              error: installResults.reason
+            });
+          dialogHelper.closeBusyDialog();
+          await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
+          return Promise.resolve(false);
+        }
+      } catch (err) {
         dialogHelper.closeBusyDialog();
         throw err;
       } finally {
         dialogHelper.closeBusyDialog();
       }
-    };
+    }
 
-    this.getHelmOptions = () => {
-      const options = {};
-      if (this.project.kubectl.kubeConfig.value) {
-        options.kubeConfig = this.project.kubectl.kubeConfig.value;
-      }
-      if (this.project.kubectl.kubeConfigContextToUse.value) {
-        options.kubeContext = this.project.kubectl.kubeConfigContextToUse.value;
-      }
-      const extraPathDirectories = this.project.kubectl.extraPathDirectories.value;
-      if (extraPathDirectories && extraPathDirectories.length > 0) {
-        options.extraPathDirectories = k8sHelper.getExtraPathDirectoriesArray(extraPathDirectories);
-      }
-      return options;
-    };
-
-    this.getValidatableObject = (flowNameKey) => {
+    getValidatableObject(flowNameKey) {
       const validationObject = validationHelper.createValidatableObject(flowNameKey);
       const ingressFormConfig = validationObject.getDefaultConfigObject();
       ingressFormConfig.formName = 'ingress-design-form-name';
@@ -319,8 +226,30 @@ function(project, wktConsole, k8sHelper, i18n, projectIo, dialogHelper, validati
         }
       }
       return validationObject;
-    };
+    }
+
+    getHelmChartValues(ingressControllerProvider, ingressControllerNamespace, voyagerProvider, secretName) {
+      let helmChartData = {};
+      if (ingressControllerProvider === 'voyager') {
+        helmChartData['cloudProvider'] = voyagerProvider;
+        helmChartData['apiserver.healthcheck.enabled'] = false;
+        helmChartData['apiserver.enableValidatingWebhook'] = false;
+        if (secretName) {
+          helmChartData['imagePullSecrets[0].name'] = secretName;
+        }
+      }
+
+      if (ingressControllerProvider === 'traefik' && secretName) {
+        helmChartData['deployment.imagePullSecrets[0].name'] = secretName;
+      }
+      if (ingressControllerProvider === 'traefik' || ingressControllerProvider === 'nginx') {
+        helmChartData['kubernetes.namespaces'] =
+          `{${ingressControllerNamespace},${this.project.k8sDomain.kubernetesNamespace.value}}`;
+      }
+      return helmChartData;
+    }
   }
-  return new IngressInstaller();
+
+  return new IngressControllerInstaller();
 });
 

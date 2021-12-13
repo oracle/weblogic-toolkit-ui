@@ -5,33 +5,32 @@
  */
 'use strict';
 
-define(['models/wkt-project', 'models/wkt-console', 'utils/wdt-preparer', 'utils/i18n', 'utils/project-io',
-  'utils/dialog-helper', 'utils/validation-helper', 'utils/common-utilities', 'utils/wkt-logger'],
-function (project, wktConsole, wktModelPreparer, i18n, projectIo, dialogHelper, validationHelper, utils, wktLogger) {
-  function WktImageCreator() {
-    this.project = project;
+define(['utils/wit-actions-base', 'models/wkt-project', 'models/wkt-console', 'utils/wdt-preparer', 'utils/i18n',
+  'utils/project-io', 'utils/dialog-helper', 'utils/validation-helper', 'utils/common-utilities', 'utils/wkt-logger'],
+function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo, dialogHelper, validationHelper, utils, wktLogger) {
+  class WitImageCreator extends WitActionsBase {
+    constructor() {
+      super();
+    }
 
-    this.startCreateImage = async () => {
+    async startCreateImage() {
       return this.callCreateImage();
-    };
+    }
 
-    this.startCreateAuxImage = async () => {
-      return this.callCreateAuxImage();
-    };
-
-    this.callCreateImage = async (options) => {
+    async callCreateImage(options) {
       if (!options) {
         options = {};
       }
 
       let errTitle = i18n.t('wit-creator-aborted-error-title');
+      const errPrefix = 'wit-creator';
       if (!this.project.image.createPrimaryImage.value) {
         const errMessage = i18n.t('wit-creator-image-not-create-message');
         await window.api.ipc.invoke('show-info-message', errTitle, errMessage);
         return Promise.resolve(false);
       }
 
-      const validatableObject = this.getValidatableObjectForPrimary('flow-create-image-name');
+      const validatableObject = this.getValidatableObject('flow-create-image-name');
       if (validatableObject.hasValidationErrors()) {
         const validationErrorDialogConfig = validatableObject.getValidationErrorDialogConfig(errTitle);
         dialogHelper.openDialog('validation-error-dialog', validationErrorDialogConfig);
@@ -45,13 +44,7 @@ function (project, wktConsole, wktModelPreparer, i18n, projectIo, dialogHelper, 
 
         const javaHome = project.settings.javaHome.value;
         if (!options.skipJavaHomeValidation) {
-          let errContext = i18n.t('wit-creator-invalid-java-home-error-prefix');
-          const javaHomeValidationResult =
-            await window.api.ipc.invoke('validate-java-home', javaHome, errContext);
-          if (!javaHomeValidationResult.isValid) {
-            const errMessage = javaHomeValidationResult.reason;
-            dialogHelper.closeBusyDialog();
-            await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
+          if (! await this.validateJavaHome(javaHome, errTitle, errPrefix)) {
             return Promise.resolve(false);
           }
         }
@@ -59,11 +52,7 @@ function (project, wktConsole, wktModelPreparer, i18n, projectIo, dialogHelper, 
         busyDialogMessage = i18n.t('flow-save-project-in-progress');
         dialogHelper.updateBusyDialog(busyDialogMessage, 1/totalSteps);
         if (!options.skipProjectSave) {
-          const saveResult = await projectIo.saveProject();
-          if (!saveResult.saved) {
-            const errMessage = `${i18n.t('wit-creator-project-not-saved-error-prefix')}: ${saveResult.reason}`;
-            dialogHelper.closeBusyDialog();
-            await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
+          if (! await this.saveProject(errTitle, errPrefix)) {
             return Promise.resolve(false);
           }
         }
@@ -77,21 +66,8 @@ function (project, wktConsole, wktModelPreparer, i18n, projectIo, dialogHelper, 
           dialogHelper.updateBusyDialog(busyDialogMessage, 2 / totalSteps);
           const modelFiles = this.project.wdtModel.modelFiles.value;
           if (!options.skipModelFileValidation) {
-            if (!modelFiles || modelFiles.length === 0) {
-              const errMessage = i18n.t('wit-creator-no-model-to-use-message', {projectFile: this.project.getProjectFileName()});
-              dialogHelper.closeBusyDialog();
-              await window.api.ipc.invoke('show-info-message', errTitle, errMessage);
+            if (! await this.validateModelFiles(projectDirectory, modelFiles, errTitle, errPrefix)) {
               return Promise.resolve(false);
-            } else {
-              const existsResult = await window.api.ipc.invoke('verify-files-exist', projectDirectory, ...modelFiles);
-              if (!existsResult.isValid) {
-                const invalidFiles = existsResult.invalidFiles.join(', ');
-                const errMessage = i18n.t('wit-creator-invalid-model-file-message',
-                  {projectFile: this.project.getProjectFileName(), invalidFileList: invalidFiles});
-                dialogHelper.closeBusyDialog();
-                await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
-                return Promise.resolve(false);
-              }
             }
           }
 
@@ -100,9 +76,8 @@ function (project, wktConsole, wktModelPreparer, i18n, projectIo, dialogHelper, 
           busyDialogMessage = i18n.t('flow-validate-variable-files-in-progress');
           dialogHelper.updateBusyDialog(busyDialogMessage, 3 / totalSteps);
           let variableFiles = this.project.wdtModel.propertiesFiles.value;
-          const variableValidationResult = await this.validateVariableFiles(projectDirectory, variableFiles, options, errTitle);
-          if (!variableValidationResult.isSuccess) {
-            dialogHelper.closeBusyDialog();
+          const variableFileCountBeforePrepare = this.getVariableFilesCount();
+          if (! await this.validateVariableFiles(projectDirectory, variableFiles, errTitle, errPrefix)) {
             return Promise.resolve(false);
           }
 
@@ -110,16 +85,8 @@ function (project, wktConsole, wktModelPreparer, i18n, projectIo, dialogHelper, 
           dialogHelper.updateBusyDialog(busyDialogMessage, 4 / totalSteps);
           const archiveFiles = this.project.wdtModel.archiveFiles.value;
           if (!options.skipArchiveFileValidation) {
-            if (archiveFiles && archiveFiles.length > 0) {
-              const existsResult = await window.api.ipc.invoke('verify-files-exist', projectDirectory, ...archiveFiles);
-              if (!existsResult.isValid) {
-                const invalidFiles = existsResult.invalidFiles.join(', ');
-                const errMessage = i18n.t('wit-creator-invalid-archive-file-message',
-                  {projectFile: this.project.getProjectFileName(), invalidFileList: invalidFiles});
-                dialogHelper.closeBusyDialog();
-                await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
-                return Promise.resolve(false);
-              }
+            if (! await this.validateArchiveFiles(projectDirectory, archiveFiles, errTitle, errPrefix)) {
+              return Promise.resolve(false);
             }
           }
 
@@ -132,41 +99,17 @@ function (project, wktConsole, wktModelPreparer, i18n, projectIo, dialogHelper, 
           // Prompt user for running inline prepare model flow.
           busyDialogMessage = i18n.t('wdt-preparer-prepare-in-progress');
           dialogHelper.updateBusyDialog(busyDialogMessage, 5 / totalSteps);
-          const promptTitle = i18n.t('wit-creator-run-prepare-model-prompt-title');
-          const promptQuestion = i18n.t('wit-creator-run-prepare-model-prompt-question');
-          const runPrepareModelPromptResult =
-            await window.api.ipc.invoke('yes-or-no-prompt', promptTitle, promptQuestion);
-          if (runPrepareModelPromptResult) {
-            // Make a private copy of the options object that can be shared with the prepareModel flow.
-            const prepareOptions = JSON.parse(JSON.stringify(options));
-            prepareOptions.skipJavaHomeValidation = true;
-            prepareOptions.skipProjectSave = true;
-            prepareOptions.skipModelFileValidation = true;
-            prepareOptions.skipVariableFileValidation = true;
-            prepareOptions.skipArchiveFileValidation = true;
-            prepareOptions.skipClearAndShowConsole = true;
-            prepareOptions.skipCompleteDialog = true;
-            prepareOptions.skipBusyDialog = true;
-            const success = await wktModelPreparer.callPrepareModel(prepareOptions);
-            if (!success) {
-              wktLogger.error('Create Primary Image failed because nested Prepare Model call returned a failure.');
-              dialogHelper.closeBusyDialog();
-              return Promise.resolve(false);
-            } else {
-              wktLogger.info('Create Primary Image continuing after nested Prepare Model call returned success.');
-            }
+          if (! await this.runPrepareModel(options, errPrefix, i18n.t('flow-create-image-name'))) {
+            return Promise.resolve(false);
           }
 
           // If there were previously no variable files and prepareModel was run, validate the variable files again...
           //
           busyDialogMessage = i18n.t('wit-creator-validate-variable-file-in-progress');
           dialogHelper.updateBusyDialog(busyDialogMessage, 6 / totalSteps);
-          if (runPrepareModelPromptResult && variableValidationResult.noVariableFiles) {
+          if (variableFileCountBeforePrepare === 0 && this.getVariableFilesCount() > 0) {
             variableFiles = this.project.wdtModel.propertiesFiles.value;
-            const newVariableValidationResult =
-              await this.validateVariableFiles(projectDirectory, variableFiles, options, errTitle);
-            if (!newVariableValidationResult.isSuccess) {
-              dialogHelper.closeBusyDialog();
+            if (! await this.validateVariableFiles(projectDirectory, variableFiles, errTitle, errPrefix)) {
               return Promise.resolve(false);
             }
           }
@@ -184,10 +127,7 @@ function (project, wktConsole, wktModelPreparer, i18n, projectIo, dialogHelper, 
           jdkInstaller = this.project.image.jdkInstaller.value;
           jdkInstallerVersion = this.project.image.jdkInstallerVersion.value;
 
-          const jdkInstallerIsValid =
-            await this.validateFile(projectDirectory, jdkInstaller, errTitle, 'wit-creator-invalid-jdk-installer-file-message');
-          if (!jdkInstallerIsValid) {
-            dialogHelper.closeBusyDialog();
+          if (! await this.validateJdkInstaller(projectDirectory, jdkInstaller, errTitle, errPrefix)) {
             return Promise.resolve(false);
           }
         }
@@ -202,10 +142,7 @@ function (project, wktConsole, wktModelPreparer, i18n, projectIo, dialogHelper, 
           oracleInstallerVersion = this.project.image.oracleInstallerVersion.value;
           oracleInstallerType = this.project.image.oracleInstallerType.value;
 
-          const oracleInstallerIsValid =
-            await this.validateFile(projectDirectory, oracleInstaller, errTitle, 'wit-creator-invalid-oracle-installer-file-message');
-          if (!oracleInstallerIsValid) {
-            dialogHelper.closeBusyDialog();
+          if (! await this.validateOracleInstaller(projectDirectory, oracleInstaller, errTitle, errPrefix)) {
             return Promise.resolve(false);
           }
         }
@@ -213,33 +150,13 @@ function (project, wktConsole, wktModelPreparer, i18n, projectIo, dialogHelper, 
         let wdtInstaller;
         let wdtInstallerVersion;
         if (this.requiresInstaller('wdtHome')) {
-          if (this.project.image.useLatestWdtVersion.value) {
-            busyDialogMessage = i18n.t('wit-creator-download-wdt-installer-in-progress');
-            dialogHelper.updateBusyDialog(busyDialogMessage, 9 / totalSteps);
-            // download the installer
-            //
-            try {
-              const latestWdtInstallerResult = await window.api.ipc.invoke('get-latest-wdt-installer');
-              wdtInstaller = latestWdtInstallerResult.fileName;
-              wdtInstallerVersion = latestWdtInstallerResult.version;
-            } catch (err) {
-              const errMessage = i18n.t('wit-creator-wdt-download-error-message', {error: err.message || err});
-              dialogHelper.closeBusyDialog();
-              await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
-              return Promise.resolve(false);
-            }
+          const wdtInstallerResult = await this.downloadOrValidateWdtInstaller(projectDirectory,
+            9 / totalSteps, errTitle, errPrefix);
+          if (wdtInstallerResult) {
+            wdtInstaller = wdtInstallerResult.wdtInstaller;
+            wdtInstallerVersion = wdtInstallerResult.wdtInstallerVersion;
           } else {
-            busyDialogMessage = i18n.t('wit-creator-validate-wdt-installer-file-in-progress');
-            dialogHelper.updateBusyDialog(busyDialogMessage, 9 / totalSteps);
-            wdtInstaller = this.project.image.wdtInstaller.value;
-            wdtInstallerVersion = this.project.image.wdtInstallerVersion.value;
-
-            const wdtInstallerIsValid =
-              await this.validateFile(projectDirectory, wdtInstaller, errTitle, 'wit-creator-invalid-wdt-installer-file-message');
-            if (!wdtInstallerIsValid) {
-              dialogHelper.closeBusyDialog();
-              return Promise.resolve(false);
-            }
+            return Promise.resolve(false);
           }
         }
 
@@ -249,13 +166,7 @@ function (project, wktConsole, wktModelPreparer, i18n, projectIo, dialogHelper, 
         dialogHelper.updateBusyDialog(busyDialogMessage, 10/ totalSteps);
         // Validate the image builder executable
         const imageBuilderExe = this.project.settings.builderExecutableFilePath.value;
-        const imageBuilderExeResults =
-          await window.api.ipc.invoke('validate-image-builder-exe', imageBuilderExe);
-        if (!imageBuilderExeResults.isValid) {
-          const errMessage = i18n.t('wit-creator-image-builder-invalid-error-message',
-            {fileName: imageBuilderExe, error: imageBuilderExeResults.reason});
-          dialogHelper.closeBusyDialog();
-          await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
+        if (! await this.validateImageBuilderExe(imageBuilderExe, errTitle, errPrefix)) {
           return Promise.resolve(false);
         }
 
@@ -273,11 +184,7 @@ function (project, wktConsole, wktModelPreparer, i18n, projectIo, dialogHelper, 
           wdtInstaller: wdtInstaller,
           wdtInstallerVersion: wdtInstallerVersion
         };
-        const cacheResult = await window.api.ipc.invoke('wit-cache-installers', cacheConfig);
-        if (!cacheResult.isSuccess) {
-          const errMessage = i18n.t('wit-creator-cache-installers-error-message', {error: cacheResult.reason});
-          dialogHelper.closeBusyDialog();
-          await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
+        if (! await this.addInstallersToCache(cacheConfig, errTitle, errPrefix)) {
           return Promise.resolve(false);
         }
 
@@ -292,15 +199,7 @@ function (project, wktConsole, wktModelPreparer, i18n, projectIo, dialogHelper, 
             username: this.project.image.baseImagePullUsername.value,
             password: this.project.image.baseImagePullPassword.value
           };
-          const loginResults = await window.api.ipc.invoke('do-image-registry-login', imageBuilderExe, loginConfig);
-          if (!loginResults.isSuccess) {
-            const imageRegistry = loginConfig.host || i18n.t('docker-hub');
-            const errMessage = i18n.t('wit-creator-registry-login-failed-error-message', {
-              host: imageRegistry,
-              error: loginResults.reason
-            });
-            await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
-            dialogHelper.closeBusyDialog();
+          if (! await this.loginToImageRegistry(imageBuilderExe, loginConfig, errTitle, errPrefix)) {
             return Promise.resolve(false);
           }
         }
@@ -315,299 +214,17 @@ function (project, wktConsole, wktModelPreparer, i18n, projectIo, dialogHelper, 
         dialogHelper.updateBusyDialog(busyDialogMessage, 13 / totalSteps);
         const createConfig = this.buildCreateConfigObject(projectDirectory, javaHome, imageBuilderExe,
           jdkInstallerVersion, oracleInstallerType, oracleInstallerVersion, wdtInstallerVersion);
-        let createResult = await window.api.ipc.invoke('wit-create-image', createConfig);
-        dialogHelper.closeBusyDialog();
-        if (createResult.isSuccess) {
-          const title = i18n.t('wit-creator-create-complete-title');
-          const message = i18n.t('wit-creator-create-complete-message', {imageTag: createConfig.imageTag});
-          await window.api.ipc.invoke('show-info-message', title, message);
-          return Promise.resolve(true);
-        } else {
-          errTitle = i18n.t('wit-creator-create-failed-title');
-          const errMessage = i18n.t('wit-creator-create-failed-error-message',
-            {imageTag: createConfig.imageTag, error: createResult.reason});
-          await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
-          return Promise.resolve(false);
-        }
+        const imageToolResult = await this.runImageTool(false, createConfig, errPrefix);
+        return Promise.resolve(imageToolResult);
       } catch (err) {
         dialogHelper.closeBusyDialog();
         throw err;
       } finally {
         dialogHelper.closeBusyDialog();
       }
-    };
+    }
 
-    this.callCreateAuxImage = async (options) => {
-      if (!options) {
-        options = {};
-      }
-
-      let errTitle = i18n.t('wit-creator-aborted-error-title');
-      let abortErrorMessage;
-      if (this.project.settings.targetDomainLocation.value !== 'mii') {
-        abortErrorMessage = i18n.t('wit-creator-aux-image-not-mii-message');
-      } else if (!this.project.image.useAuxImage.value) {
-        abortErrorMessage = i18n.t('wit-creator-aux-image-not-use-message');
-      } else if (!this.project.image.createAuxImage.value) {
-        abortErrorMessage = i18n.t('wit-creator-aux-image-not-create-message');
-      }
-      if (abortErrorMessage) {
-        await window.api.ipc.invoke('show-info-message', errTitle, abortErrorMessage);
-        return Promise.resolve(false);
-      }
-
-      const validatableObject = this.getValidatableObjectForAuxiliary('flow-create-aux-image-name');
-      if (validatableObject.hasValidationErrors()) {
-        const validationErrorDialogConfig = validatableObject.getValidationErrorDialogConfig(errTitle);
-        dialogHelper.openDialog('validation-error-dialog', validationErrorDialogConfig);
-        return Promise.resolve(false);
-      }
-
-      const totalSteps = 12.0;
-      try {
-        let busyDialogMessage = i18n.t('flow-validate-java-home-in-progress');
-        dialogHelper.openBusyDialog(busyDialogMessage, 'bar', 0/totalSteps);
-
-        const javaHome = project.settings.javaHome.value;
-        if (!options.skipJavaHomeValidation) {
-          let errContext = i18n.t('wit-creator-invalid-java-home-error-prefix');
-          const javaHomeValidationResult =
-            await window.api.ipc.invoke('validate-java-home', javaHome, errContext);
-          if (!javaHomeValidationResult.isValid) {
-            const errMessage = javaHomeValidationResult.reason;
-            dialogHelper.closeBusyDialog();
-            await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
-            return Promise.resolve(false);
-          }
-        }
-
-        busyDialogMessage = i18n.t('flow-save-project-in-progress');
-        dialogHelper.updateBusyDialog(busyDialogMessage, 1/totalSteps);
-        if (!options.skipProjectSave) {
-          const saveResult = await projectIo.saveProject();
-          if (!saveResult.saved) {
-            const errMessage = `${i18n.t('wit-creator-project-not-saved-error-prefix')}: ${saveResult.reason}`;
-            dialogHelper.closeBusyDialog();
-            await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
-            return Promise.resolve(false);
-          }
-        }
-
-        // after save, in case model path was not established
-        const projectDirectory = window.api.path.dirname(this.project.getProjectFileName());
-
-        busyDialogMessage = i18n.t('flow-validate-model-files-in-progress');
-        dialogHelper.updateBusyDialog(busyDialogMessage, 2 / totalSteps);
-        const modelFiles = this.project.wdtModel.modelFiles.value;
-        if (!options.skipModelFileValidation) {
-          if (!modelFiles || modelFiles.length === 0) {
-            const errMessage = i18n.t('wit-creator-no-model-to-use-message', {projectFile: this.project.getProjectFileName()});
-            dialogHelper.closeBusyDialog();
-            await window.api.ipc.invoke('show-info-message', errTitle, errMessage);
-            return Promise.resolve(false);
-          } else {
-            const existsResult = await window.api.ipc.invoke('verify-files-exist', projectDirectory, ...modelFiles);
-            if (!existsResult.isValid) {
-              const invalidFiles = existsResult.invalidFiles.join(', ');
-              const errMessage = i18n.t('wit-creator-invalid-model-file-message',
-                {projectFile: this.project.getProjectFileName(), invalidFileList: invalidFiles});
-              dialogHelper.closeBusyDialog();
-              await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
-              return Promise.resolve(false);
-            }
-          }
-        }
-
-        // This is a little tricky because the variables file(s) may or may not exist at this point.
-        //
-        busyDialogMessage = i18n.t('flow-validate-variable-files-in-progress');
-        dialogHelper.updateBusyDialog(busyDialogMessage, 3 / totalSteps);
-        let variableFiles = this.project.wdtModel.propertiesFiles.value;
-        const variableValidationResult = await this.validateVariableFiles(projectDirectory, variableFiles, options, errTitle);
-        if (!variableValidationResult.isSuccess) {
-          dialogHelper.closeBusyDialog();
-          return Promise.resolve(false);
-        }
-
-        busyDialogMessage = i18n.t('flow-validate-archive-files-in-progress');
-        dialogHelper.updateBusyDialog(busyDialogMessage, 4 / totalSteps);
-        const archiveFiles = this.project.wdtModel.archiveFiles.value;
-        if (!options.skipArchiveFileValidation) {
-          if (archiveFiles && archiveFiles.length > 0) {
-            const existsResult = await window.api.ipc.invoke('verify-files-exist', projectDirectory, ...archiveFiles);
-            if (!existsResult.isValid) {
-              const invalidFiles = existsResult.invalidFiles.join(', ');
-              const errMessage = i18n.t('wit-creator-invalid-archive-file-message',
-                {projectFile: this.project.getProjectFileName(), invalidFileList: invalidFiles});
-              dialogHelper.closeBusyDialog();
-              await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
-              return Promise.resolve(false);
-            }
-          }
-        }
-
-        if (!options.skipClearAndShowConsole) {
-          wktConsole.clear();
-          wktConsole.show(true);
-        }
-
-        // Prompt user for running inline prepare model flow.
-        busyDialogMessage = i18n.t('wdt-preparer-prepare-in-progress');
-        dialogHelper.updateBusyDialog(busyDialogMessage, 5 / totalSteps);
-        const promptTitle = i18n.t('wit-creator-run-prepare-model-prompt-title');
-        const promptQuestion = i18n.t('wit-creator-run-prepare-model-prompt-question');
-        const runPrepareModelPromptResult =
-          await window.api.ipc.invoke('yes-or-no-prompt', promptTitle, promptQuestion);
-        if (runPrepareModelPromptResult) {
-          // Make a private copy of the options object that can be shared with the prepareModel flow.
-          const prepareOptions = JSON.parse(JSON.stringify(options));
-          prepareOptions.skipJavaHomeValidation = true;
-          prepareOptions.skipProjectSave = true;
-          prepareOptions.skipModelFileValidation = true;
-          prepareOptions.skipVariableFileValidation = true;
-          prepareOptions.skipArchiveFileValidation = true;
-          prepareOptions.skipClearAndShowConsole = true;
-          prepareOptions.skipCompleteDialog = true;
-          prepareOptions.skipBusyDialog = true;
-          const success = await wktModelPreparer.callPrepareModel(prepareOptions);
-          if (!success) {
-            wktLogger.error('Create Auxiliary Image failed because nested Prepare Model call returned a failure.');
-            dialogHelper.closeBusyDialog();
-            return Promise.resolve(false);
-          } else {
-            wktLogger.info('Create Auxiliary Image continuing after nested Prepare Model call returned success.');
-          }
-        }
-
-        // If there were previously no variable files and prepareModel was run, validate the variable files again...
-        //
-        busyDialogMessage = i18n.t('wit-creator-validate-variable-file-in-progress');
-        dialogHelper.updateBusyDialog(busyDialogMessage, 6 / totalSteps);
-        if (runPrepareModelPromptResult && variableValidationResult.noVariableFiles) {
-          variableFiles = this.project.wdtModel.propertiesFiles.value;
-          const newVariableValidationResult =
-            await this.validateVariableFiles(projectDirectory, variableFiles, options, errTitle);
-          if (!newVariableValidationResult.isSuccess) {
-            dialogHelper.closeBusyDialog();
-            return Promise.resolve(false);
-          }
-        }
-
-        let wdtInstaller;
-        let wdtInstallerVersion;
-        if (this.project.image.useLatestWdtVersion.value) {
-          busyDialogMessage = i18n.t('wit-creator-download-wdt-installer-in-progress');
-          dialogHelper.updateBusyDialog(busyDialogMessage, 7 / totalSteps);
-          // download the installer
-          //
-          try {
-            const latestWdtInstallerResult = await window.api.ipc.invoke('get-latest-wdt-installer');
-            wdtInstaller = latestWdtInstallerResult.fileName;
-            wdtInstallerVersion = latestWdtInstallerResult.version;
-          } catch (err) {
-            const errMessage = i18n.t('wit-creator-wdt-download-error-message', {error: err.message || err});
-            dialogHelper.closeBusyDialog();
-            await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
-            return Promise.resolve(false);
-          }
-        } else {
-          busyDialogMessage = i18n.t('wit-creator-validate-wdt-installer-file-in-progress');
-          dialogHelper.updateBusyDialog(busyDialogMessage, 7 / totalSteps);
-          wdtInstaller = this.project.image.wdtInstaller.value;
-          wdtInstallerVersion = this.project.image.wdtInstallerVersion.value;
-
-          const wdtInstallerIsValid =
-            await this.validateFile(projectDirectory, wdtInstaller, errTitle, 'wit-creator-invalid-wdt-installer-file-message');
-          if (!wdtInstallerIsValid) {
-            dialogHelper.closeBusyDialog();
-            return Promise.resolve(false);
-          }
-        }
-
-        const imageBuilderType = this.project.settings.builderType.value;
-        busyDialogMessage = i18n.t('wit-creator-validate-image-builder-exe-in-progress',
-          {builderName: imageBuilderType});
-        dialogHelper.updateBusyDialog(busyDialogMessage, 8/ totalSteps);
-        // Validate the image builder executable
-        const imageBuilderExe = this.project.settings.builderExecutableFilePath.value;
-        const imageBuilderExeResults =
-          await window.api.ipc.invoke('validate-image-builder-exe', imageBuilderExe);
-        if (!imageBuilderExeResults.isValid) {
-          const errMessage = i18n.t('wit-creator-image-builder-invalid-error-message',
-            {fileName: imageBuilderExe, error: imageBuilderExeResults.reason});
-          dialogHelper.closeBusyDialog();
-          await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
-          return Promise.resolve(false);
-        }
-
-        busyDialogMessage = i18n.t('wit-creator-cache-installers-in-progress');
-        dialogHelper.updateBusyDialog(busyDialogMessage, 9 / totalSteps);
-        // Populate the cache
-        //
-        const cacheConfig = {
-          wdtInstaller: wdtInstaller,
-          wdtInstallerVersion: wdtInstallerVersion
-        };
-        const cacheResult = await window.api.ipc.invoke('wit-cache-installers', cacheConfig);
-        if (!cacheResult.isSuccess) {
-          const errMessage = i18n.t('wit-creator-cache-installers-error-message', {error: cacheResult.reason});
-          dialogHelper.closeBusyDialog();
-          await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
-          return Promise.resolve(false);
-        }
-
-        // if using custom base image and requires authentication, do build-tool login.
-        busyDialogMessage = i18n.t('wit-creator-builder-login-in-progress',
-          {builderName: imageBuilderType, imageTag: this.project.image.auxBaseImage.value});
-        dialogHelper.updateBusyDialog(busyDialogMessage, 10 / totalSteps);
-        if (this.project.image.auxUseCustomBaseImage.value &&
-          this.project.image.auxBaseImage.value && this.project.image.auxBaseImagePullRequiresAuthentication.value) {
-          const loginConfig = {
-            requiresLogin: this.project.image.auxBaseImagePullRequiresAuthentication.value,
-            host: this.project.image.internal.auxBaseImageRegistryAddress.value,
-            username: this.project.image.auxBaseImagePullUsername.value,
-            password: this.project.image.auxBaseImagePullPassword.value
-          };
-          const loginResults = await window.api.ipc.invoke('do-image-registry-login', imageBuilderExe, loginConfig);
-          if (!loginResults.isSuccess) {
-            const imageRegistry = loginConfig.host || i18n.t('docker-hub');
-            const errMessage = i18n.t('wit-creator-registry-login-failed-error-message', {
-              host: imageRegistry,
-              error: loginResults.reason
-            });
-            await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
-            dialogHelper.closeBusyDialog();
-            return Promise.resolve(false);
-          }
-        }
-
-        // run the image tool
-        busyDialogMessage = i18n.t('wit-creator-create-in-progress');
-        dialogHelper.updateBusyDialog(busyDialogMessage, 11 / totalSteps);
-        const createConfig = this.buildCreateAuxImageConfigObject(projectDirectory, javaHome, imageBuilderExe, wdtInstallerVersion);
-        let createResult = await window.api.ipc.invoke('wit-create-aux-image', createConfig);
-        dialogHelper.closeBusyDialog();
-        if (createResult.isSuccess) {
-          const title = i18n.t('wit-creator-create-complete-title');
-          const message = i18n.t('wit-creator-create-complete-message', {imageTag: createConfig.imageTag});
-          await window.api.ipc.invoke('show-info-message', title, message);
-          return Promise.resolve(true);
-        } else {
-          errTitle = i18n.t('wit-creator-create-failed-title');
-          const errMessage = i18n.t('wit-creator-create-failed-error-message',
-            {imageTag: createConfig.imageTag, error: createResult.reason});
-          await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
-          return Promise.resolve(false);
-        }
-      } catch (err) {
-        dialogHelper.closeBusyDialog();
-        throw err;
-      } finally {
-        dialogHelper.closeBusyDialog();
-      }
-    };
-
-    this.getValidatableObjectForPrimary = (flowNameKey) => {
+    getValidatableObject(flowNameKey) {
       const validationObject = validationHelper.createValidatableObject(flowNameKey);
       const settingsFormConfig = validationObject.getDefaultConfigObject();
       settingsFormConfig.formName = 'project-settings-form-name';
@@ -676,84 +293,38 @@ function (project, wktConsole, wktModelPreparer, i18n, projectIo, dialogHelper, 
         }
       }
       return validationObject;
-    };
+    }
 
-    this.getValidatableObjectForAuxiliary = (flowNameKey) => {
-      const validationObject = validationHelper.createValidatableObject(flowNameKey);
-      const settingsFormConfig = validationObject.getDefaultConfigObject();
-      settingsFormConfig.formName = 'project-settings-form-name';
-
-      validationObject.addField('project-settings-java-home-label',
-        validationHelper.validateRequiredField(this.project.settings.javaHome.value), settingsFormConfig);
-      validationObject.addField('project-settings-build-tool-type-label',
-        validationHelper.validateRequiredField(this.project.settings.builderType.value), settingsFormConfig);
-
-      const settingsFormBuilderConfig = validationObject.getDefaultConfigObject();
-      settingsFormBuilderConfig.formName = 'project-settings-form-name';
-      settingsFormBuilderConfig.fieldNamePayload =
-        { toolName: utils.capitalizeFirstLetter(this.project.settings.builderType.value) };
-      validationObject.addField('project-settings-build-tool-label',
-        validationHelper.validateRequiredField(this.project.settings.builderExecutableFilePath.value),
-        settingsFormBuilderConfig);
-
-      const imageFormConfig = validationObject.getDefaultConfigObject();
-      imageFormConfig.formName = 'image-design-form-name';
-      imageFormConfig.tabName = 'image-design-form-auxiliary-tab-name';
-
-      validationObject.addField('image-design-aux-image-tag-label',
-        this.project.image.auxImageTag.validate(true), imageFormConfig);
-      if (!this.project.image.useLatestWdtVersion.value) {
-        validationObject.addField('image-design-wdt-installer-label',
-          validationHelper.validateRequiredField(this.project.image.wdtInstaller.value), imageFormConfig);
-        validationObject.addField('image-design-wdt-installer-version-label',
-          validationHelper.validateRequiredField(this.project.image.wdtInstallerVersion.value), imageFormConfig);
-      }
-
-      if (this.project.image.auxUseCustomBaseImage.value) {
-        validationObject.addField('image-design-custom-base-image-label',
-          this.project.image.auxBaseImage.validate(true), imageFormConfig);
-
-        if (this.project.image.auxBaseImagePullRequiresAuthentication.value) {
-          // skip validating the host portion of the base image tag since it may be empty for Docker Hub...
-          validationObject.addField('image-design-aux-base-image-pull-username-label',
-            validationHelper.validateRequiredField(this.project.image.auxBaseImagePullUsername.value), imageFormConfig);
-          validationObject.addField('image-design-aux-base-image-pull-password-label',
-            validationHelper.validateRequiredField(this.project.image.auxBaseImagePullPassword.value), imageFormConfig);
+    async validateJdkInstaller(projectDirectory, jdkInstaller, errTitle, errPrefix) {
+      try {
+        const jdkInstallerIsValid =
+          await this.validateFile(projectDirectory, jdkInstaller, errTitle, `${errPrefix}-invalid-jdk-installer-file-message`);
+        if (!jdkInstallerIsValid) {
+          dialogHelper.closeBusyDialog();
+          return Promise.resolve(false);
         }
-      }
-      return validationObject;
-    };
-
-    this.validateVariableFiles = async (projectDirectory, variableFiles, options, errTitle) => {
-      let noVariableFiles = true;
-      if (!options.skipVariableFileValidation) {
-        if (variableFiles && variableFiles.length > 0) {
-          noVariableFiles = false;
-          const existsResult = await window.api.ipc.invoke('verify-files-exist', projectDirectory, ...variableFiles);
-          if (!existsResult.isValid) {
-            const invalidFiles = existsResult.invalidFiles.join(', ');
-            const errMessage = i18n.t('wit-creator-invalid-variable-file-message',
-              {projectFile: this.project.getProjectFileName(), invalidFileList: invalidFiles});
-            await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
-            return Promise.resolve({isSuccess: false, noVariableFiles: noVariableFiles});
-          }
-        }
-      }
-      return Promise.resolve({isSuccess: true, noVariableFiles: noVariableFiles});
-    };
-
-    this.validateFile = async (projectDirectory, file, errTitle, errMessageKey) => {
-      const existsResult = await window.api.ipc.invoke('verify-files-exist', projectDirectory, file);
-      if (!existsResult.isValid) {
-        const errMessage = i18n.t(errMessageKey, {projectFile: this.project.getProjectFileName(), invalidFile: file});
-        await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
-        return Promise.resolve(false);
+      } catch (err) {
+        return Promise.reject(err);
       }
       return Promise.resolve(true);
-    };
+    }
 
-    this.buildCreateConfigObject = (projectDirectory, javaHome, imageBuilderExe, jdkInstallerVersion,
-      oracleInstallerType, oracleInstallerVersion, wdtInstallerVersion) => {
+    async validateOracleInstaller(projectDirectory, oracleInstaller, errTitle, errPrefix) {
+      try {
+        const oracleInstallerIsValid = await this.validateFile(projectDirectory, oracleInstaller,
+          errTitle, `${errPrefix}-invalid-oracle-installer-file-message`);
+        if (!oracleInstallerIsValid) {
+          dialogHelper.closeBusyDialog();
+          return Promise.resolve(false);
+        }
+      } catch (err) {
+        return Promise.reject(err);
+      }
+      return Promise.resolve(true);
+    }
+
+    buildCreateConfigObject(projectDirectory, javaHome, imageBuilderExe, jdkInstallerVersion,
+      oracleInstallerType, oracleInstallerVersion, wdtInstallerVersion) {
       const createConfig = {
         javaHome: javaHome,
         imageBuilderExe: imageBuilderExe,
@@ -793,40 +364,9 @@ function (project, wktConsole, wktModelPreparer, i18n, projectIo, dialogHelper, 
         this.addWdtConfigForCreate(projectDirectory, createConfig);
       }
       return createConfig;
-    };
+    }
 
-    this.buildCreateAuxImageConfigObject = (projectDirectory, javaHome, imageBuilderExe, wdtInstallerVersion) => {
-      const createConfig = {
-        javaHome: javaHome,
-        imageBuilderExe: imageBuilderExe,
-        imageTag: this.project.image.auxImageTag.value,
-        wdtInstallerVersion: wdtInstallerVersion,
-        additionalBuildCommandsFile: this.project.image.auxAdditionalBuildCommandsFile.value,
-        additionalBuildFiles: this.project.image.auxAdditionalBuildFiles.value,
-        buildNetwork: this.project.image.auxBuilderNetworkName.value,
-        chownOwner: undefined,
-        chownGroup: undefined,
-        alwaysPullBaseImage: this.project.image.auxAlwaysPullBaseImage.value,
-      };
-
-      if (this.project.image.auxUseCustomBaseImage.value) {
-        createConfig.baseImage = this.project.image.auxBaseImage.value;
-      }
-
-      if (this.project.image.auxTargetOpenShift.value) {
-        createConfig.target = 'OpenShift';
-      }
-
-      if (this.project.image.auxFileOwner.hasValue() || this.project.image.auxFileGroup.hasValue()) {
-        createConfig.chownOwner = this.project.image.auxFileOwner.value;
-        createConfig.chownGroup = this.project.image.auxFileGroup.value;
-      }
-
-      this.addWdtConfigForCreateAuxImage(projectDirectory, createConfig);
-      return createConfig;
-    };
-
-    this.addPatchingConfigForCreate = (createConfig) => {
+    addPatchingConfigForCreate(createConfig) {
       if (this.supportsPatching()) {
         if (this.project.image.applyOraclePatches.value) {
           createConfig.username = this.project.image.oracleSupportUserName.value;
@@ -846,9 +386,9 @@ function (project, wktConsole, wktModelPreparer, i18n, projectIo, dialogHelper, 
           }
         }
       }
-    };
+    }
 
-    this.addWdtConfigForCreate = (projectDirectory, createConfig) => {
+    addWdtConfigForCreate(projectDirectory, createConfig) {
       createConfig.modelFiles = this.getAbsoluteModelFiles(projectDirectory, this.project.wdtModel.modelFiles.value);
       createConfig.variableFiles = this.getAbsoluteModelFiles(projectDirectory, this.project.wdtModel.propertiesFiles.value);
       createConfig.archiveFiles = this.getAbsoluteModelFiles(projectDirectory, this.project.wdtModel.archiveFiles.value);
@@ -858,24 +398,9 @@ function (project, wktConsole, wktModelPreparer, i18n, projectIo, dialogHelper, 
       if (this.project.image.modelHomePath.hasValue()) {
         createConfig.modelHome = this.project.image.modelHomePath.value;
       }
-    };
+    }
 
-    this.addWdtConfigForCreateAuxImage = (projectDirectory, createConfig) => {
-      createConfig.modelFiles = this.getAbsoluteModelFiles(projectDirectory, this.project.wdtModel.modelFiles.value);
-      createConfig.variableFiles = this.getAbsoluteModelFiles(projectDirectory, this.project.wdtModel.propertiesFiles.value);
-      createConfig.archiveFiles = this.getAbsoluteModelFiles(projectDirectory, this.project.wdtModel.archiveFiles.value);
-      // Because we are overriding the defaults for these next two options,
-      // we should always include them if they have a value.
-      //
-      if (this.project.image.wdtHomePath.value) {
-        createConfig.wdtHome = this.project.image.wdtHomePath.value;
-      }
-      if (this.project.image.modelHomePath.value) {
-        createConfig.modelHome = this.project.image.modelHomePath.value;
-      }
-    };
-
-    this.requiresInstaller = (type) => {
+    requiresInstaller(type) {
       let result = true;
       if (type === 'wdtHome') {
         switch (this.project.settings.targetDomainLocation.value) {
@@ -898,32 +423,18 @@ function (project, wktConsole, wktModelPreparer, i18n, projectIo, dialogHelper, 
         }
       }
       return result;
-    };
+    }
 
-    this.usingWdt = () => {
+    usingWdt() {
       return !this.project.image.useAuxImage.value && this.requiresInstaller('wdtHome');
-    };
+    }
 
-    this.supportsPatching = () => {
+    supportsPatching() {
       // We are currently not allowing users to patch a base image with an Oracle Home since we want to encourage
       // them to patch the Oracle Home while creating the image with the Oracle Home to keep the size down.
       return this.requiresInstaller('oracleHome');
-    };
-
-    this.getAbsoluteModelFiles = (projectDirectory, modelFiles) => {
-      const absoluteFiles = [];
-      if (modelFiles && modelFiles.length > 0) {
-        for (const modelFile of modelFiles) {
-          if (window.api.path.isAbsolute(modelFile)) {
-            absoluteFiles.push(modelFile);
-          } else {
-            absoluteFiles.push(window.api.path.join(projectDirectory, modelFile));
-          }
-        }
-      }
-      return absoluteFiles;
-    };
+    }
   }
 
-  return new WktImageCreator();
+  return new WitImageCreator();
 });

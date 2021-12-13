@@ -4,11 +4,11 @@
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 define(['models/wkt-project', 'accUtils', 'utils/common-utilities', 'knockout', 'utils/i18n',
-  'ojs/ojbufferingdataprovider', 'ojs/ojarraydataprovider', 'ojs/ojconverter-number', 'utils/dialog-helper', 'utils/k8s-helper',
+  'ojs/ojbufferingdataprovider', 'ojs/ojarraydataprovider', 'ojs/ojconverter-number', 'utils/dialog-helper',
   'utils/view-helper', 'utils/wkt-logger', 'ojs/ojmessaging', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojformlayout',
   'ojs/ojcollapsible', 'ojs/ojselectsingle', 'ojs/ojlistview', 'ojs/ojtable', 'ojs/ojswitch', 'ojs/ojinputnumber'],
 function (project, accUtils, utils, ko, i18n, BufferingDataProvider,
-  ArrayDataProvider, ojConverterNumber, dialogHelper, k8sHelper, viewHelper) {
+  ArrayDataProvider, ojConverterNumber, dialogHelper, viewHelper) {
   function DomainDesignViewModel() {
 
     this.connected = async () => {

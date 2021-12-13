@@ -70,10 +70,14 @@ contextBridge.exposeInMainWorld(
           'start-push-aux-image',
           'start-k8s-verify-connection',
           'start-wko-install',
+          'start-wko-uninstall',
+          'start-wko-update',
           'start-ingress-install',
+          'start-ingress-uninstall',
           'add-ingress-routes',
           'app-download-progress',
           'start-k8s-domain-deploy',
+          'start-k8s-domain-undeploy',
           'get-wko-domain-status',
           'start-app-quit',
           'start-window-close'
@@ -164,7 +168,7 @@ contextBridge.exposeInMainWorld(
           'k8s-apply',
           'k8s-label-namespace',
           'k8s-get-service-details',
-          'k8s-get-operator-version-from-dm',
+          'k8s-get-operator-version-from-domain-config-map',
           'k8s-get-k8s-config',
           'k8s-get-k8s-cluster-info',
           'k8s-get-wko-domain-status',
@@ -172,12 +176,14 @@ contextBridge.exposeInMainWorld(
           'k8s-get-operator-log',
           'helm-add-wko-chart',
           'helm-install-wko',
-          'helm-upgrade-wko',
+          'helm-uninstall-wko',
+          'helm-update-wko',
           'get-ingress-tlskeyfile',
           'get-ingress-tlscertfile',
           'helm-list-all-namespaces',
           'helm-add-update-repo',
           'helm-install-ingress-controller',
+          'helm-uninstall-ingress-controller',
           'validate-openssl-exe',
           'k8s-create-tls-secret',
           'get-tls-keyfile',
@@ -185,7 +191,8 @@ contextBridge.exposeInMainWorld(
           'k8s-delete-object',
           'openssl-generate-certs',
           'validate-k8s-namespaces-exist',
-          'validate-wko-domain-exist'
+          'validate-wko-domain-exist',
+          'domain-undeploy-scope-prompt'
         ];
         return new Promise((resolve, reject) => {
           if (validChannels.includes(channel)) {
@@ -211,6 +218,7 @@ contextBridge.exposeInMainWorld(
       getDockerFilePath: () => fsUtils.getExecutableFilePath('docker', exeMode),
       getPodmanFilePath: () => fsUtils.getExecutableFilePath('podman', exeMode),
       getKubeConfig: () => k8sUtils.getKubeConfig(),
+      getImageTagComponents: (imageTag) => k8sUtils.splitImageNameAndVersion(imageTag),
       getKubectlFilePath: () => fsUtils.getExecutableFilePath('kubectl'),
       getHelmFilePath: () => fsUtils.getExecutableFilePath('helm', exeMode),
       getOpenSSLFilePath: () => fsUtils.getExecutableFilePath('openssl'),

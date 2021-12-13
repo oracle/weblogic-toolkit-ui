@@ -14,6 +14,7 @@ const { getLogger } = require('./wktLogging');
 const { getHttpsProxyUrl, getBypassProxyHosts } = require('./userSettings');
 const { getErrorMessage } = require('./errorUtils');
 const osUtils = require('./osUtils');
+const k8sUtils = require('./k8sUtils');
 
 /* global process */
 async function validateKubectlExe(kubectlExe) {
@@ -80,8 +81,7 @@ async function setCurrentContext(kubectlExe, context, options) {
       resolve(results);
     }).catch(err => {
       results.isSuccess = false;
-      results.reason = i18n.t('kubectl-use-context-error-message',
-        { context: context, error: getErrorMessage(err) });
+      results.reason = i18n.t('kubectl-use-context-error-message', { context: context, error: getErrorMessage(err) });
       resolve(results);
     });
   });
@@ -103,7 +103,7 @@ async function getK8sConfigView(kubectlExe, options) {
     }).catch(err => {
       results.isSuccess = false;
       results.reason =
-        i18n.t('kubectl-config-view-error-message',{ error: getErrorMessage(err) });
+        i18n.t('kubectl-config-view-error-message', { error: getErrorMessage(err) });
       resolve(results);
     });
   });
@@ -125,7 +125,7 @@ async function getK8sClusterInfo(kubectlExe, options) {
     }).catch(err => {
       results.isSuccess = false;
       results.reason =
-        i18n.t('kubectl-config-view-error-message',{ error: getErrorMessage(err) });
+        i18n.t('kubectl-cluster-info-error-message', { error: getErrorMessage(err) });
       resolve(results);
     });
   });
@@ -147,7 +147,7 @@ async function getWkoDomainStatus(kubectlExe, domainUID, domainNamespace, option
     }).catch(err => {
       results.isSuccess = false;
       results.reason =
-        i18n.t('kubectl-get-wko-domain-status-error-message',{ error: getErrorMessage(err) });
+        i18n.t('kubectl-get-wko-domain-status-error-message', { error: getErrorMessage(err) });
       resolve(results);
     });
   });
@@ -169,7 +169,7 @@ async function getOperatorStatus(kubectlExe, operatorNamespace, options) {
     }).catch(err => {
       results.isSuccess = false;
       results.reason =
-        i18n.t('kubectl-get-operator-status-error-message',{ error: getErrorMessage(err) });
+        i18n.t('kubectl-get-operator-status-error-message', { error: getErrorMessage(err) });
       resolve(results);
     });
   });
@@ -192,13 +192,13 @@ async function getOperatorLogs(kubectlExe, operatorNamespace, options) {
     }).catch(err => {
       results.isSuccess = false;
       results.reason =
-        i18n.t('kubectl-get-operator-logs-error-message',{ error: getErrorMessage(err) });
+        i18n.t('kubectl-get-operator-logs-error-message', { error: getErrorMessage(err) });
       resolve(results);
     });
   });
 }
 
-async function getOperatorVersionFromDomainCM(kubectlExe, domainNamespace, options) {
+async function getOperatorVersionFromDomainConfigMap(kubectlExe, domainNamespace, options) {
   const args = [ 'get', 'configmap', 'weblogic-scripts-cm', '-n', domainNamespace, '-o', 'jsonpath={.metadata.labels.weblogic\\.operatorVersion}'];
 
   const httpsProxyUrl = getHttpsProxyUrl();
@@ -221,7 +221,6 @@ async function getOperatorVersionFromDomainCM(kubectlExe, domainNamespace, optio
     });
   });
 }
-
 
 async function verifyClusterConnectivity(kubectlExe, options) {
   const args = [ 'version', '--short' ];
@@ -388,8 +387,16 @@ async function createNamespaceIfNotExists(kubectlExe, namespace, options) {
 }
 
 async function deleteObjectIfExists(kubectlExe, namespace, object, kind, options) {
-  const getArgs = [ 'get', '-n', namespace, kind, object, '--output=json' ];
-  const deleteArgs = [ 'delete', kind, object, '-n', namespace ];
+  let getArgs;
+  let deleteArgs;
+  if (kind === 'namespace') {
+    getArgs = [ 'get', kind, object, '--output=json' ];
+    deleteArgs = [ 'delete', kind, object ];
+  } else {
+    getArgs = [ 'get', '-n', namespace, kind, object, '--output=json' ];
+    deleteArgs = [ 'delete', kind, object, '-n', namespace ];
+  }
+
   const httpsProxyUrl = getHttpsProxyUrl();
   const bypassProxyHosts = getBypassProxyHosts();
 
@@ -644,23 +651,13 @@ function getOperatorImageTag(operatorDeployment) {
 }
 
 function getOperatorImageWithoutVersion(imageTag) {
-  let imageName = imageTag;
-  if (imageTag) {
-    imageName = imageTag.split(':')[0];
-  }
-  return imageName;
+  const imageComponents = k8sUtils.splitImageNameAndVersion(imageTag);
+  return imageComponents.name;
 }
 
 function getOperatorImageVersion(imageTag) {
-  let version;
-  if (imageTag) {
-    if (imageTag.indexOf(':') !== -1) {
-      version = imageTag.split(':')[1];
-    } else {
-      version = 'latest';
-    }
-  }
-  return version;
+  const imageComponents = k8sUtils.splitImageNameAndVersion(imageTag);
+  return imageComponents.version;
 }
 
 function doesNamedObjectExist(objectListJson, name) {
@@ -777,7 +774,7 @@ module.exports = {
   getK8sClusterInfo,
   getWkoDomainStatus,
   getOperatorStatus,
-  getOperatorVersionFromDomainCM,
+  getOperatorVersionFromDomainConfigMap,
   getOperatorLogs,
   validateNamespacesExist,
   validateDomainExist,

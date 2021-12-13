@@ -6,7 +6,7 @@
 define(['accUtils', 'knockout', 'utils/i18n', 'models/wkt-project', 'ojs/ojarraydataprovider', 'utils/wkt-logger',
   'utils/url-catalog', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojformlayout', 'ojs/ojradioset',
   'ojs/ojswitch', 'ojs/ojselectsingle' ],
-function(accUtils, ko, i18n, project, ArrayDataProvider, wktLogger) {
+function(accUtils, ko, i18n, project, ArrayDataProvider) {
   function ProjectSettingsViewModel() {
 
     this.connected = () => {

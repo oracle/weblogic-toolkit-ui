@@ -4,15 +4,18 @@
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 
-define(['models/wkt-project', 'models/wkt-console', 'utils/wdt-discoverer',
-  'utils/dialog-helper', 'utils/project-io', 'utils/common-utilities', 'utils/wdt-preparer', 'utils/i18n',
-  'utils/wit-creator', 'utils/image-pusher', 'utils/k8s-helper', 'utils/wko-installer', 'utils/k8s-domain-deployer',
-  'utils/ingress-controller-installer', 'utils/ingress-routes-helper', 'utils/app-updater', 'utils/wkt-logger'],
-function(wktProject, wktConsole, wktDiscoverer,
-  dialogHelper, projectIO, utils, wktModelPreparer, i18n,
-  wktImageCreator, imagePusher, k8sHelper, wkoInstaller,
-  k8sDomainDeployer, ingressControllerInstaller, ingressRoutesHelper, appUpdater,
-  wktLogger) {
+define(['models/wkt-project', 'models/wkt-console', 'utils/wdt-discoverer', 'utils/dialog-helper', 'utils/project-io',
+  'utils/common-utilities', 'utils/wdt-preparer', 'utils/i18n', 'utils/wit-creator', 'utils/wit-aux-creator',
+  'utils/image-pusher', 'utils/aux-image-pusher', 'utils/k8s-helper', 'utils/wko-installer', 'utils/wko-uninstaller',
+  'utils/wko-updater', 'utils/k8s-domain-deployer', 'utils/k8s-domain-status-checker', 'utils/k8s-domain-undeployer',
+  'utils/ingress-controller-installer', 'utils/ingress-routes-updater', 'utils/ingress-controller-uninstaller',
+  'utils/app-updater', 'utils/wkt-logger'],
+function(wktProject, wktConsole, wdtDiscoverer, dialogHelper, projectIO,
+  utils, wdtModelPreparer, i18n, witImageCreator, witAuxImageCreator,
+  imagePusher, auxImagePusher, k8sHelper, wkoInstaller,
+  wkoUninstaller, wkoUpdater, k8sDomainDeployer, k8sDomainStatusChecker,
+  k8sDomainUndeployer, ingressControllerInstaller, ingressRoutesUpdater,
+  ingressControllerUninstaller, appUpdater, wktLogger) {
 
   async function displayCatchAllError(i18nPrefix, err) {
     return dialogHelper.displayCatchAllError(i18nPrefix, err);
@@ -54,13 +57,13 @@ function(wktProject, wktConsole, wktDiscoverer,
   });
 
   window.api.ipc.receive('start-offline-discover', () => {
-    wktDiscoverer.startDiscoverDomain(false).catch(err => {
+    wdtDiscoverer.startDiscoverDomain(false).catch(err => {
       displayCatchAllError('discover', err).then();
     });
   });
 
   window.api.ipc.receive('start-online-discover', () => {
-    wktDiscoverer.startDiscoverDomain(true).catch(err => {
+    wdtDiscoverer.startDiscoverDomain(true).catch(err => {
       displayCatchAllError('discover', err).then();
     });
   });
@@ -80,25 +83,25 @@ function(wktProject, wktConsole, wktDiscoverer,
   });
 
   window.api.ipc.receive('start-prepare-model', async () => {
-    wktModelPreparer.startPrepareModel().then(() => Promise.resolve()).catch(err => {
+    wdtModelPreparer.startPrepareModel().then(() => Promise.resolve()).catch(err => {
       displayCatchAllError('wdt-preparer-prepare', err).then(() => Promise.resolve());
     });
   });
 
   window.api.ipc.receive('start-create-image', async () => {
-    wktImageCreator.startCreateImage().then(() => Promise.resolve()).catch(err => {
+    witImageCreator.startCreateImage().then(() => Promise.resolve()).catch(err => {
       displayCatchAllError('wit-creator-create', err).then(() => Promise.resolve());
     });
   });
 
   window.api.ipc.receive('start-create-aux-image', async () => {
-    wktImageCreator.startCreateAuxImage().then(() => Promise.resolve()).catch(err => {
+    witAuxImageCreator.startCreateAuxImage().then(() => Promise.resolve()).catch(err => {
       displayCatchAllError('wit-creator-create-aux', err).then(() => Promise.resolve());
     });
   });
 
   window.api.ipc.receive('start-push-aux-image', async () => {
-    imagePusher.startPushImage().then(() => Promise.resolve()).catch(err => {
+    auxmagePusher.startPushImage().then(() => Promise.resolve()).catch(err => {
       displayCatchAllError('image-pusher-push-aux', err).then(() => Promise.resolve());
     });
   });
@@ -115,6 +118,18 @@ function(wktProject, wktConsole, wktDiscoverer,
     });
   });
 
+  window.api.ipc.receive('start-wko-update', async () => {
+    wkoUpdater.startUpdateOperator().then(() => Promise.resolve()).catch(err => {
+      displayCatchAllError('wko-updater-update', err).then(() => Promise.resolve());
+    });
+  });
+
+  window.api.ipc.receive('start-wko-uninstall', async () => {
+    wkoUninstaller.startUninstallOperator().then(() => Promise.resolve()).catch(err => {
+      displayCatchAllError('wko-uninstaller-install', err).then(() => Promise.resolve());
+    });
+  });
+
   window.api.ipc.receive('start-k8s-domain-deploy', async () => {
     k8sDomainDeployer.startDeployDomain().then(() => Promise.resolve()).catch(err => {
       displayCatchAllError('k8s-domain-deployer-deploy', err).then(() => Promise.resolve());
@@ -122,8 +137,14 @@ function(wktProject, wktConsole, wktDiscoverer,
   });
 
   window.api.ipc.receive('get-wko-domain-status', async () => {
-    k8sDomainDeployer.getDomainStatus().then(() => {Promise.resolve();}).catch(err => {
-      displayCatchAllError('k8s-domain-deployer-deploy', err).then(() => Promise.resolve());
+    k8sDomainStatusChecker.startCheckDomainStatus().then(() => {Promise.resolve();}).catch(err => {
+      displayCatchAllError('k8s-domain-status-checker-get-status', err).then(() => Promise.resolve());
+    });
+  });
+
+  window.api.ipc.receive('start-k8s-domain-undeploy', async () => {
+    k8sDomainUndeployer.startUndeployDomain().then(() => Promise.resolve()).catch(err => {
+      displayCatchAllError('k8s-domain-undeployer-undeploy', err).then(() => Promise.resolve());
     });
   });
 
@@ -147,13 +168,19 @@ function(wktProject, wktConsole, wktDiscoverer,
 
   window.api.ipc.receive('start-ingress-install', async () => {
     ingressControllerInstaller.startInstallIngressController().then(() => Promise.resolve()).catch(err => {
-      displayCatchAllError('ingress-installer', err).then(() => Promise.resolve());
+      displayCatchAllError('ingress-installer-install', err).then(() => Promise.resolve());
+    });
+  });
+
+  window.api.ipc.receive('start-ingress-uninstall', async () => {
+    ingressControllerUninstaller.startUninstallIngressController().then(() => Promise.resolve()).catch(err => {
+      displayCatchAllError('ingress-uninstaller-uninstall', err).then(() => Promise.resolve());
     });
   });
 
   window.api.ipc.receive('add-ingress-routes', async () => {
-    ingressRoutesHelper.startIngressRoutesUpdate().then(() => Promise.resolve()).catch(err => {
-      displayCatchAllError('add-ingress-routes', err).then(() => Promise.resolve());
+    ingressRoutesUpdater.startIngressRoutesUpdate().then(() => Promise.resolve()).catch(err => {
+      displayCatchAllError('ingress-routes-updater-update-routes', err).then(() => Promise.resolve());
     });
   });
 

@@ -4,10 +4,10 @@
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 define(['utils/i18n', 'accUtils', 'knockout', 'ojs/ojcorerouter', 'ojs/ojmodulerouter-adapter',
-  'ojs/ojarraydataprovider', 'utils/wit-creator', 'utils/image-pusher'
+  'ojs/ojarraydataprovider', 'utils/wit-creator', 'utils/wit-aux-creator', 'utils/image-pusher', 'utils/aux-image-pusher'
 ],
 function(i18n, accUtils, ko, CoreRouter, ModuleRouterAdapter, ArrayDataProvider,
-  witCreator, imagePusher) {
+  witImageCreator, witAuxImageCreator, imagePusher, auxImagePusher) {
   function ImageViewModel(args) {
 
     this.connected = () => {
@@ -26,7 +26,7 @@ function(i18n, accUtils, ko, CoreRouter, ModuleRouterAdapter, ArrayDataProvider,
     this.disablePushAuxImage = ko.observable(false);
 
     this.createImage = async () => {
-      await witCreator.startCreateImage();
+      await witImageCreator.startCreateImage();
     };
 
     this.pushImage = async () => {
@@ -34,11 +34,11 @@ function(i18n, accUtils, ko, CoreRouter, ModuleRouterAdapter, ArrayDataProvider,
     };
 
     this.createAuxImage = async () => {
-      await witCreator.startCreateAuxImage();
+      await witAuxImageCreator.startCreateAuxImage();
     };
 
     this.pushAuxImage = async () => {
-      await imagePusher.startPushAuxImage();
+      await auxImagePusher.startPushAuxImage();
     };
 
     let navData = [

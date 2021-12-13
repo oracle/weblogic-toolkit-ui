@@ -24,6 +24,24 @@
             <oj-bind-text value="[[labelMapper('button-installOperator')]]"></oj-bind-text>
           </span>
     </oj-button>
+    <oj-button id="updateOperatorButton"
+               disabled="[[disableUpdateOperator]]"
+               chroming="callToAction"
+               on-oj-action="[[updateOperator]]"
+               :title="[[labelMapper('hints-updateOperator')]]">
+          <span>
+            <oj-bind-text value="[[labelMapper('button-updateOperator')]]"></oj-bind-text>
+          </span>
+    </oj-button>
+    <oj-button id="uninstallOperatorButton"
+               disabled="[[disableUninstallOperator]]"
+               chroming="callToAction"
+               on-oj-action="[[uninstallOperator]]"
+               :title="[[labelMapper('hints-uninstallOperator')]]">
+          <span>
+            <oj-bind-text value="[[labelMapper('button-uninstallOperator')]]"></oj-bind-text>
+          </span>
+    </oj-button>
   </div>
 
   <oj-module role="main" class="wkt-content" config="[[moduleAdapter.koObservableConfig]]">

@@ -8,29 +8,37 @@
 define(['utils/image-registry-actions-base', 'models/wkt-project', 'models/wkt-console', 'utils/i18n', 'utils/project-io',
   'utils/dialog-helper', 'utils/validation-helper'],
 function(ImageRegistryActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, validationHelper) {
-  class ImagePusher extends ImageRegistryActionsBase {
+  class AuxImagePusher extends ImageRegistryActionsBase {
     constructor() {
       super();
     }
 
-    async startPushImage() {
-      return this.callPushImage();
+    async startPushAuxImage() {
+      return this.callPushAuxImage();
     }
 
-    async callPushImage(options) {
+    async callPushAuxImage(options) {
       if (!options) {
         options = {};
       }
 
-      let errTitle = i18n.t('image-pusher-push-aborted-title');
-      const errPrefix = 'image-pusher';
-      if (!this.project.image.createPrimaryImage.value) {
-        const errMessage = i18n.t('image-pusher-image-not-create-message');
-        await window.api.ipc.invoke('show-info-message', errTitle, errMessage);
+      let errTitle = i18n.t('aux-image-pusher-push-aborted-title');
+      const errPrefix = 'aux-image-pusher';
+      let abortErrorMessage;
+      if (this.project.settings.targetDomainLocation.value !== 'mii') {
+        abortErrorMessage = i18n.t('aux-image-pusher-image-not-mii-message');
+      } else if (!this.project.image.useAuxImage.value) {
+        abortErrorMessage = i18n.t('aux-image-pusher-image-not-use-message');
+      } else if (!this.project.image.createAuxImage.value) {
+        abortErrorMessage = i18n.t('aux-image-pusher-image-not-create-message');
+      }
+      if (abortErrorMessage) {
+        await window.api.ipc.invoke('show-info-message', errTitle, abortErrorMessage);
         return Promise.resolve(false);
       }
 
-      const validatableObject = this.getValidatableObject('flow-push-image-name');
+
+      const validatableObject = this.getValidatableObject('flow-push-aux-image-name');
       if (validatableObject.hasValidationErrors()) {
         const validationErrorDialogConfig = validatableObject.getValidationErrorDialogConfig(errTitle);
         dialogHelper.openDialog('validation-error-dialog', validationErrorDialogConfig);
@@ -38,7 +46,7 @@ function(ImageRegistryActionsBase, project, wktConsole, i18n, projectIo, dialogH
       }
 
       const totalSteps = 4.0;
-      const imageTag = this.project.image.imageTag.value;
+      const imageTag = this.project.image.auxImageTag.value;
 
       let busyDialogMessage = i18n.t('flow-image-builder-validation-in-progress', {imageTag: imageTag});
       dialogHelper.openBusyDialog(busyDialogMessage, 'bar');
@@ -51,7 +59,7 @@ function(ImageRegistryActionsBase, project, wktConsole, i18n, projectIo, dialogH
           }
         }
 
-        busyDialogMessage = i18n.t('image-pusher-image-exists-in-progress', {imageTag: imageTag});
+        busyDialogMessage = i18n.t('aux-image-pusher-image-exists-in-progress', {imageTag: imageTag});
         dialogHelper.updateBusyDialog(busyDialogMessage, 1/totalSteps);
         if (!options.skipLocalImageExistsValidation) {
           if (! await this.validateImageExistsLocally(imageBuilderExe, imageTag, errTitle, errPrefix)) {
@@ -75,10 +83,10 @@ function(ImageRegistryActionsBase, project, wktConsole, i18n, projectIo, dialogH
         busyDialogMessage = i18n.t('image-pusher-push-in-progress', {imageTag: imageTag});
         dialogHelper.updateBusyDialog(busyDialogMessage, 3/totalSteps);
         const pushOptions = {
-          requiresLogin: this.project.image.imageRegistryPushRequireAuthentication.value,
-          host: this.project.image.internal.imageRegistryAddress.value,
-          username: this.project.image.imageRegistryPushUser.value,
-          password: this.project.image.imageRegistryPushPassword.value
+          requiresLogin: this.project.image.auxImageRegistryPushRequireAuthentication.value,
+          host: this.project.image.internal.auxImageRegistryAddress.value,
+          username: this.project.image.auxImageRegistryPushUser.value,
+          password: this.project.image.auxImageRegistryPushPassword.value
         };
         const imagePushResult =
           await this.pushImage(imageBuilderExe, imageTag, pushOptions, errTitle, errPrefix, options.skipCompleteDialog);
@@ -89,37 +97,35 @@ function(ImageRegistryActionsBase, project, wktConsole, i18n, projectIo, dialogH
       } finally {
         dialogHelper.closeBusyDialog();
       }
-    };
+    }
 
     getValidatableObject(flowNameKey) {
       const validationObject = validationHelper.createValidatableObject(flowNameKey);
       const imageFormConfig = validationObject.getDefaultConfigObject();
       imageFormConfig.formName = 'image-design-form-name';
-      imageFormConfig.tabName = 'image-design-form-primary-tab-name';
+      imageFormConfig.tabName = 'image-design-form-auxiliary-tab-name';
 
       validationObject.addField('image-design-image-tag-label',
-        this.project.image.imageTag.validate(true), imageFormConfig);
+        this.project.image.auxImageTag.validate(true), imageFormConfig);
 
       const settingsFormConfig = validationObject.getDefaultConfigObject();
-      settingsFormConfig.formName = 'project-settings-title';
+      settingsFormConfig.formName = 'project-settings-form-name';
       settingsFormConfig.fieldNamePayload = { toolName: this.project.settings.builderType.value };
       validationObject.addField('project-settings-build-tool-label',
         validationHelper.validateRequiredField(this.project.settings.builderExecutableFilePath.value),
         settingsFormConfig);
 
-      if (this.project.image.imageRegistryPushRequireAuthentication.value) {
+      if (this.project.image.auxImageRegistryPushRequireAuthentication.value) {
         // skip validating the host portion of the image tag since it may be empty for Docker Hub...
-        validationObject.addField('image-design-image-registry-push-username-label',
-          validationHelper.validateRequiredField(this.project.image.imageRegistryPushUser.value),
-          imageFormConfig);
-        validationObject.addField('image-design-image-registry-push-password-label',
-          validationHelper.validateRequiredField(this.project.image.imageRegistryPushPassword.value),
-          imageFormConfig);
+        validationObject.addField('image-design-aux-image-registry-push-username-label',
+          validationHelper.validateRequiredField(this.project.image.auxImageRegistryPushUser.value), imageFormConfig);
+        validationObject.addField('image-design-aux-image-registry-push-password-label',
+          validationHelper.validateRequiredField(this.project.image.auxImageRegistryPushPassword.value), imageFormConfig);
       }
 
       return validationObject;
     }
   }
 
-  return new ImagePusher();
+  return new AuxImagePusher();
 });

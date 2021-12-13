@@ -14,7 +14,7 @@ const i18n = require('./js/i18next.config');
 const { initializeLoggingSystem, logRendererMessage } = require('./js/wktLogging');
 const userSettings = require('./js/userSettings');
 const { chooseFromFileSystem, createNetworkWindow, createWindow, initialize, setHasOpenDialog, setTargetType,
-  showErrorMessage, promptUserForOkOrCancelAnswer, promptUserForYesOrNoAnswer } = require('./js/wktWindow');
+  showErrorMessage, promptUserForOkOrCancelAnswer, promptUserForYesOrNoAnswer, promptUserForK8sDomainRemovalScope } = require('./js/wktWindow');
 const project = require('./js/project');
 const wktTools = require('./js/wktTools');
 const wdtArchive = require('./js/wdtArchive');
@@ -745,7 +745,12 @@ class Main {
     });
 
     ipcMain.handle('k8s-delete-object', async (event, kubectlExe, namespace, object, kind, kubectlOptions) => {
+      this._logger.debug('k8s-delete-object called for %s %s %s', kind, object, namespace ? `from namespace ${namespace}` : '');
       return kubectlUtils.deleteObjectIfExists(kubectlExe, namespace, object, kind, kubectlOptions);
+    });
+
+    ipcMain.handle('domain-undeploy-scope-prompt', async (event, title, question, details) => {
+      return promptUserForK8sDomainRemovalScope(event.sender.getOwnerBrowserWindow(), title, question, details);
     });
 
     ipcMain.handle('helm-add-wko-chart', async (event, helmExe, helmOptions) => {
@@ -756,8 +761,12 @@ class Main {
       return helmUtils.installWko(helmExe, helmReleaseName, operatorNamespace, helmChartValues, helmOptions);
     });
 
-    ipcMain.handle('helm-upgrade-wko', async (event, helmExe, operatorName, operatorNamespace, helmChartValues, helmOptions) => {
-      return helmUtils.upgradeWko(helmExe, operatorName, operatorNamespace, helmChartValues, helmOptions);
+    ipcMain.handle('helm-uninstall-wko', async (event, helmExe, helmReleaseName, operatorNamespace, helmOptions) => {
+      return helmUtils.uninstallWko(helmExe, helmReleaseName, operatorNamespace, helmOptions);
+    });
+
+    ipcMain.handle('helm-update-wko', async (event, helmExe, operatorName, operatorNamespace, helmChartValues, helmOptions) => {
+      return helmUtils.updateWko(helmExe, operatorName, operatorNamespace, helmChartValues, helmOptions);
     });
 
     ipcMain.handle('helm-list-all-namespaces', async (event, helmExe, helmOptions) => {
@@ -768,8 +777,14 @@ class Main {
       return helmUtils.addOrUpdateHelmChart(helmExe, repoName, repoUrl, helmOptions);
     });
 
-    ipcMain.handle('helm-install-ingress-controller', async (event, helmExe, ingressControllerName, ingressChartName, ingressControllerNamespace, valuesData, helmChartValues, helmOptions) => {
-      return helmUtils.installIngressController(helmExe, ingressControllerName, ingressChartName, ingressControllerNamespace, valuesData, helmChartValues, helmOptions);
+    ipcMain.handle('helm-install-ingress-controller',
+      async (event, helmExe, ingressControllerName, ingressChartName, ingressControllerNamespace, helmChartValues, helmOptions) => {
+        return helmUtils.installIngressController(helmExe, ingressControllerName, ingressChartName, ingressControllerNamespace, helmChartValues, helmOptions);
+      }
+    );
+
+    ipcMain.handle('helm-uninstall-ingress-controller', async (event, helmExe, ingressControllerName, ingressControllerNamespace, helmOptions) => {
+      return helmUtils.uninstallIngressController(helmExe, ingressControllerName, ingressControllerNamespace, helmOptions);
     });
 
     ipcMain.handle('openssl-generate-certs', async (event, openSSLExe, keyOut, certOut, subject) => {
@@ -804,8 +819,8 @@ class Main {
       return kubectlUtils.getOperatorLogs(kubectlExe, operatorNamespace, options);
     });
 
-    ipcMain.handle('k8s-get-operator-version-from-dm', async (event, kubectlExe, domainNamespace, options) => {
-      return kubectlUtils.getOperatorVersionFromDomainCM(kubectlExe, domainNamespace, options);
+    ipcMain.handle('k8s-get-operator-version-from-domain-config-map', async (event, kubectlExe, domainNamespace, options) => {
+      return kubectlUtils.getOperatorVersionFromDomainConfigMap(kubectlExe, domainNamespace, options);
     });
 
     ipcMain.handle('get-tls-keyfile', async (event) => {

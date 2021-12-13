@@ -5,13 +5,13 @@
  */
 
 define(['utils/i18n', 'accUtils', 'knockout', 'ojs/ojarraydataprovider',
-  'ojs/ojbufferingdataprovider', 'models/wkt-project', 'utils/dialog-helper', 'utils/k8s-helper',
-  'utils/ingress-routes-helper', 'utils/view-helper', 'ojs/ojtreeview',
+  'ojs/ojbufferingdataprovider', 'models/wkt-project', 'utils/dialog-helper',
+  'utils/ingress-routes-updater', 'utils/view-helper', 'ojs/ojtreeview',
   'ojs/ojformlayout', 'ojs/ojinputtext', 'ojs/ojcollapsible', 'ojs/ojselectsingle', 'ojs/ojswitch', 'ojs/ojtable',
   'ojs/ojcheckboxset'
 ],
-function(i18n, accUtils, ko, ArrayDataProvider, BufferingDataProvider, project, dialogHelper, k8sHelper,
-  ingressRouteHelper, viewHelper) {
+function(i18n, accUtils, ko, ArrayDataProvider, BufferingDataProvider, project, dialogHelper,
+  ingressRouteUpdater, viewHelper) {
 
   function IngressDesignViewModel() {
 
