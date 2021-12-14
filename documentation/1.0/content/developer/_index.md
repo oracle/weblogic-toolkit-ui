@@ -21,11 +21,6 @@ The WebLogic Kubernetes Toolkit UI is a desktop application designed to help Web
    ```bash
    sudo npm install --global npm
    ```
-   **Note**: If developing on Windows, run the following commands from a shell running as Administrator instead:
-   ```cmd
-   npm install --global --production npm-windows-upgrade
-   npm-windows-upgrade --npm-version latest
-   ```
 4. Set up your global git configuration by running the following commands:
    ```bash
    git config --global user.name "<your real name>"
