@@ -525,7 +525,7 @@ class WktAppMenu {
             label: i18n.t('menu-help-visitWebsite'),
             enabled: !this._hasOpenDialog,
             click() {
-              shell.openExternal('https://github.com/oracle/weblogic-toolkit-ui').then();
+              shell.openExternal('https://oracle.github.io/weblogic-toolkit-ui/').then();
             }
           },
           {
