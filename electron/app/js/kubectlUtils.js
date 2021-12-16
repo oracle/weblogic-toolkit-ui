@@ -601,13 +601,14 @@ async function apply(kubectlExe, fileData, options) {
 }
 
 function getKubectlEnvironment(options, httpsProxyUrl, bypassProxyHosts) {
-  const env = {};
+  const env = {
+    PATH: process.env.PATH
+  };
   if (options) {
     if (options.kubeConfig && Array.isArray(options.kubeConfig) && options.kubeConfig.length > 0) {
       env['KUBECONFIG'] = options.kubeConfig.join(path.delimiter);
       getLogger().debug('Set KUBECONFIG environment variable to %s', env['KUBECONFIG']);
     }
-    env['PATH'] = process.env.PATH;
     if (options.extraPathDirectories && Array.isArray(options.extraPathDirectories) && options.extraPathDirectories.length > 0) {
       env['PATH'] = env['PATH'] + path.delimiter + options.extraPathDirectories.join(path.delimiter);
     }

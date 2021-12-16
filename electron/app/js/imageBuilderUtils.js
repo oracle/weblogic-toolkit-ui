@@ -137,7 +137,9 @@ async function doPushImage(currentWindow, stdoutChannel, stderrChannel, imageBui
 
 function getDockerEnv(httpsProxyUrl, bypassProxyHosts) {
   let env = {
-    DOCKER_BUILDKIT: '0'
+    DOCKER_BUILDKIT: '0',
+    // podman relies on the PATH including other executables (e.g., newuidmap)...
+    PATH: process.env.PATH
   };
 
   if (httpsProxyUrl) {
