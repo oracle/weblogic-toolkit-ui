@@ -142,11 +142,18 @@ function getDockerEnv(httpsProxyUrl, bypassProxyHosts) {
     PATH: process.env.PATH
   };
 
+  // podman-specific environment variable
+  if (process.env.STORAGE_DRIVER) {
+    env['STORAGE_DRIVER'] = process.env.STORAGE_DRIVER;
+  }
+
   if (httpsProxyUrl) {
     env['HTTPS_PROXY'] = httpsProxyUrl;
+    env['https_proxy'] = httpsProxyUrl;
   }
   if (bypassProxyHosts) {
     env['NO_PROXY'] = bypassProxyHosts;
+    env['no_proxy'] = bypassProxyHosts;
   }
 
   if (!osUtils.isWindows()) {
@@ -161,6 +168,7 @@ function getDockerEnv(httpsProxyUrl, bypassProxyHosts) {
 module.exports = {
   doLogin,
   doPushImage,
+  getDockerEnv,
   validateImageBuilderExecutable,
   validateImageExistsLocally
 };

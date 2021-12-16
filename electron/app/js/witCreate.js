@@ -11,6 +11,7 @@ const { getLogger } = require('./wktLogging');
 const { getImagetoolShellScript } = require('./wktTools');
 const { getHttpsProxyUrl, getBypassProxyHosts } = require('./userSettings');
 const { executeChildShellScript } = require('./childProcessExecutor');
+const { getDockerEnv } = require('./imageBuilderUtils');
 
 async function createImage(currentWindow, stdoutChannel, stderrChannel, createConfig) {
   const httpsProxyUrl = getHttpsProxyUrl();
@@ -18,20 +19,7 @@ async function createImage(currentWindow, stdoutChannel, stderrChannel, createCo
 
   const imageToolScript = getImagetoolShellScript();
   const [ args, argsContainCredentials ] = buildArgumentsListForCreate(createConfig, httpsProxyUrl);
-  const env = {
-    JAVA_HOME: createConfig.javaHome,
-    DOCKER_BUILDKIT: '0',
-    WLSIMG_BLDDIR: app.getPath('temp')
-  };
-  // imagetool only honors the lower-cased versions of these variables...
-  if (httpsProxyUrl) {
-    env['HTTPS_PROXY'] = httpsProxyUrl;
-    env['https_proxy'] = httpsProxyUrl;
-  }
-  if (bypassProxyHosts) {
-    env['NO_PROXY'] = bypassProxyHosts;
-    env['no_proxy'] = bypassProxyHosts;
-  }
+  const env = getCreateEnvironment(createConfig, httpsProxyUrl, bypassProxyHosts);
 
   const result = {
     isSuccess: true
@@ -64,18 +52,7 @@ async function createAuxImage(currentWindow, stdoutChannel, stderrChannel, creat
 
   const imageToolScript = getImagetoolShellScript();
   const args = buildArgumentsListForCreateAuxImage(createConfig, httpsProxyUrl);
-  const env = {
-    JAVA_HOME: createConfig.javaHome,
-    DOCKER_BUILDKIT: '0',
-    WLSIMG_BLDDIR: app.getPath('temp')
-  };
-  if (httpsProxyUrl) {
-    env['HTTPS_PROXY'] = httpsProxyUrl;
-  }
-  if (bypassProxyHosts) {
-    env['NO_PROXY'] = bypassProxyHosts;
-  }
-
+  const env = getCreateEnvironment(createConfig, httpsProxyUrl, bypassProxyHosts);
   const result = {
     isSuccess: true
   };
@@ -96,6 +73,13 @@ async function createAuxImage(currentWindow, stdoutChannel, stderrChannel, creat
       resolve(result);
     });
   });
+}
+
+function getCreateEnvironment(createConfig, httpsProxyUrl, bypassProxyHosts) {
+  const env = getDockerEnv(httpsProxyUrl, bypassProxyHosts);
+  env['JAVA_HOME'] = createConfig.javaHome;
+  env['WLSIMG_BLDDIR'] = app.getPath('temp');
+  return env;
 }
 
 function buildArgumentsListForCreate(createConfig, httpsProxyUrl) {

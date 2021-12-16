@@ -5,12 +5,14 @@
  */
 'use strict';
 
+const { app } = require('electron');
 const i18n = require('./i18next.config');
 const { executeScriptCommand } = require('./childProcessExecutor');
 const userSettings = require('./userSettings');
 const { getImagetoolShellScript } = require('./wktTools');
 const { getLogger } = require('./wktLogging');
 const { getErrorMessage } = require('./errorUtils');
+const { getDockerEnv } = require('./imageBuilderUtils');
 
 async function inspectImage(imageTag, options) {
   const inspectResults = {
@@ -42,9 +44,7 @@ async function callImageToolInspect(javaHome, imageTag, options) {
   const bypassProxyHosts = userSettings.getBypassProxyHosts();
 
   return new Promise((resolve, reject) => {
-    const env = { JAVA_HOME: javaHome };
-    getProxyEnvironment(env, options, httpsProxyUrl, bypassProxyHosts);
-
+    const env = getInspectEnvironment(javaHome, options, httpsProxyUrl, bypassProxyHosts);
     const scriptName = getImagetoolShellScript();
     const args = getImageToolInspectArgs(imageTag, options);
     executeScriptCommand(scriptName, args, env).then(results => {
@@ -53,18 +53,14 @@ async function callImageToolInspect(javaHome, imageTag, options) {
   });
 }
 
-function getProxyEnvironment(env, options, httpsProxyUrl, bypassProxyHosts) {
-  if (options && 'useProxy' in options && options.useProxy) {
-    if (httpsProxyUrl) {
-      env['HTTPS_PROXY'] = httpsProxyUrl;
-    } else {
-      throw new Error('Image tool inspection called with useProxy option but user settings has no proxy URL set.');
-    }
-
-    if (bypassProxyHosts) {
-      env['NO_POXY'] = bypassProxyHosts;
-    }
+function getInspectEnvironment(javaHome, options, httpsProxyUrl, bypassProxyHosts) {
+  if (options && 'useProxy' in options && options.useProxy && !httpsProxyUrl) {
+    throw new Error('Image tool inspection called with useProxy option but user settings has no proxy URL set.');
   }
+  const env = getDockerEnv(httpsProxyUrl, bypassProxyHosts);
+  env['JAVA_HOME'] = javaHome;
+  env['WLSIMG_BLDDIR'] = app.getPath('temp');
+  return env;
 }
 
 function getImageToolInspectArgs(imageTag, options) {
