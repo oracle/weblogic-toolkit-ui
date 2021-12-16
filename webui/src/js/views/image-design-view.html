@@ -379,6 +379,30 @@
                          readonly="true"
                          help.instruction="[[labelMapper('aux-image-registry-address-help')]]">
           </oj-input-text>
+          <oj-bind-if test="[[project.image.auxUseCustomBaseImage.observable() === false]]">
+            <oj-switch label-hint="[[labelMapper('aux-default-base-image-use-authentication-label')]]"
+                       value="{{project.image.auxDefaultBaseImagePullRequiresAuthentication.observable}}"
+                       help.instruction="[[labelMapper('aux-default-base-image-use-authentication-help')]]">
+            </oj-switch>
+          </oj-bind-if>
+          <div>
+            <oj-bind-if test="[[project.image.auxUseCustomBaseImage.observable() === false &&
+                                project.image.auxDefaultBaseImagePullRequiresAuthentication.observable() == true]]">
+              <oj-input-password label-hint="[[labelMapper('aux-default-base-image-pull-username-label')]]"
+                                 mask-icon="visible"
+                                 value="{{project.image.auxDefaultBaseImagePullUsername.observable}}"
+                                 help.instruction="[[labelMapper('aux-default-base-image-pull-username-help')]]">
+              </oj-input-password>
+            </oj-bind-if>
+            <oj-bind-if test="[[project.image.auxUseCustomBaseImage.observable() === false &&
+                                project.image.auxDefaultBaseImagePullRequiresAuthentication.observable() == true]]">
+              <oj-input-password label-hint="[[labelMapper('aux-default-base-image-pull-password-label')]]"
+                                 mask-icon="visible"
+                                 value="{{project.image.auxDefaultBaseImagePullPassword.observable}}"
+                                 help.instruction="[[labelMapper('aux-default-base-image-pull-password-help')]]">
+              </oj-input-password>
+            </oj-bind-if>
+          </div>
         </oj-form-layout>
 
         <oj-bind-if test="[[isBuildingAuxImage() === true]]">
