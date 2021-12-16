@@ -159,7 +159,7 @@
               </div>
             </oj-bind-if>
 
-            <oj-bind-if test="[[customImageDoesNotContainsOracleHome]]">
+            <oj-bind-if test="[[customImageDoesNotContainsOracleHome() == true]]">
               <div class="oj-panel">
                 <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('fmw-installer-title')]]"></oj-bind-text></h6>
                 <oj-form-layout max-columns="1" direction="row">
@@ -187,7 +187,7 @@
           </div>
 
           <div>
-            <oj-bind-if test="[[customImageDoesNotContainsOracleHome]]">
+            <oj-bind-if test="[[customImageDoesNotContainsOracleHome() === true]]">
               <div class="oj-panel">
                 <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('patches-title')]]"></oj-bind-text></h6>
                 <oj-form-layout max-columns="1" direction="row">

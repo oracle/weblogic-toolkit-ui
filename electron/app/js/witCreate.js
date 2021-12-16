@@ -23,11 +23,14 @@ async function createImage(currentWindow, stdoutChannel, stderrChannel, createCo
     DOCKER_BUILDKIT: '0',
     WLSIMG_BLDDIR: app.getPath('temp')
   };
+  // imagetool only honors the lower-cased versions of these variables...
   if (httpsProxyUrl) {
     env['HTTPS_PROXY'] = httpsProxyUrl;
+    env['https_proxy'] = httpsProxyUrl;
   }
   if (bypassProxyHosts) {
     env['NO_PROXY'] = bypassProxyHosts;
+    env['no_proxy'] = bypassProxyHosts;
   }
 
   const result = {

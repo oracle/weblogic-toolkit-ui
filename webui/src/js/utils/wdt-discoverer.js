@@ -21,7 +21,7 @@ function (WdtActionsBase, ko, project, wktConsole, dialogHelper, projectIO, i18n
     // open the discover configuration dialog.
     async startDiscoverDomain(online) {
       const discoverConfig = {'online': online};
-      dialogHelper.openDialog('wdt-discover', discoverConfig);
+      dialogHelper.openDialog('discover-dialog', discoverConfig);
     }
 
     // the dialog will call this when the OK button is clicked.
