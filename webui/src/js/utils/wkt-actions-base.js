@@ -416,7 +416,7 @@ function(project, wktConsole, i18n, projectIo, dialogHelper) {
     
     _closeBusyDialog(shouldCloseBusyDialog) {
       if (shouldCloseBusyDialog) {
-        dialogHelper._closeBusyDialog();
+        dialogHelper.closeBusyDialog();
       }
     }
   }

@@ -333,8 +333,13 @@ define(['models/wkt-project', 'utils/script-generator-base'],
             this.adapter.addVariableDefinition('BASE_IMAGE_REGISTRY_PULL_USER', this.credentialMask);
             this.adapter.addVariableDefinition('BASE_IMAGE_REGISTRY_PULL_PASS', this.credentialMask);
           }
-          this.adapter.addEmptyLine();
+        } else {
+          this.adapter.addVariableDefinition('USE_LOGIN_FOR_DOCKER_HUB',
+            this.project.image.auxDefaultBaseImagePullRequiresAuthentication.value);
+          this.adapter.addVariableDefinition('DOCKER_HUB_USER', this.credentialMask);
+          this.adapter.addVariableDefinition('DOCKER_HUB_PASS', this.credentialMask);
         }
+        this.adapter.addEmptyLine();
 
         const wdtInstallerValue = this.project.image.wdtInstaller.value || this.fillMeInMask;
         const wdtInstallerVersion = this.project.image.wdtInstallerVersion.value || this.fillMeInMask;
@@ -390,8 +395,15 @@ define(['models/wkt-project', 'utils/script-generator-base'],
           const loginErrorMessage = `Failed to log into the base image registry ${baseImageRegistryName}`;
           this.adapter.addWitBaseImageArgsBlock('WIT_CREATE_AUX_IMAGE_ARGS', 'Handle Custom Base Image, if needed.',
             baseImageTag, baseImagePullRequiresAuthentication, host, user, password, builder, loginErrorMessage);
+        } else {
+          const loginToDockerHub = this.adapter.getVariableReference('USE_LOGIN_FOR_DOCKER_HUB');
+          const user = this.adapter.getVariableReference('DOCKER_HUB_USER');
+          const password = this.adapter.getVariableReference('DOCKER_HUB_PASS');
+          const loginErrorMessage = 'Failed to log into Docker Hub';
+          this.adapter.addDockerLoginBlock(loginToDockerHub, '', user, password, builder, loginErrorMessage)
         }
-
+        this.adapter.addEmptyLine();
+        
         this.adapter.addIfEqualCollectArgsBlock('WIT_CREATE_AUX_IMAGE_ARGS',
           this.adapter.getVariableReference('ALWAYS_PULL_BASE_IMAGE'), 'true', '--pull');
         const wdtHome = this.adapter.getVariableReference('WDT_HOME');

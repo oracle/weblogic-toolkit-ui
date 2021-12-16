@@ -80,6 +80,10 @@ define(['knockout', 'utils/observable-properties', 'utils/validation-helper'],
         this.auxImageTag.addValidator(...validationHelper.getImageTagValidators());
         this.createAuxImage = props.createProperty(true);
 
+        this.auxDefaultBaseImagePullRequiresAuthentication = props.createProperty(true);
+        this.auxDefaultBaseImagePullUsername = props.createProperty().asCredential();
+        this.auxDefaultBaseImagePullPassword = props.createProperty().asCredential();
+
         this.auxImageRegistryPushRequireAuthentication = props.createProperty(true);
         this.auxImageRegistryPushUser = props.createProperty().asCredential();
         this.auxImageRegistryPushPassword = props.createProperty().asCredential();

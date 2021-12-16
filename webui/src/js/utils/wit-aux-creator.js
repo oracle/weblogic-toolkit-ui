@@ -140,6 +140,7 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
         // Populate the cache
         //
         const cacheConfig = {
+          javaHome: javaHome,
           wdtInstaller: wdtInstaller,
           wdtInstallerVersion: wdtInstallerVersion
         };
@@ -147,17 +148,28 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
           return Promise.resolve(false);
         }
 
-        // if using custom base image and requires authentication, do build-tool login.
         busyDialogMessage = i18n.t('wit-aux-creator-builder-login-in-progress',
           {builderName: imageBuilderType, imageTag: this.project.image.auxBaseImage.value});
         dialogHelper.updateBusyDialog(busyDialogMessage, 10 / totalSteps);
-        if (this.project.image.auxUseCustomBaseImage.value && this.project.image.auxBaseImage.value &&
+        if (this.project.image.auxUseCustomBaseImage.value &&
           this.project.image.auxBaseImagePullRequiresAuthentication.value) {
+          // if using custom base image and requires authentication, do build-tool login.
           const loginConfig = {
             requiresLogin: this.project.image.auxBaseImagePullRequiresAuthentication.value,
             host: this.project.image.internal.auxBaseImageRegistryAddress.value,
             username: this.project.image.auxBaseImagePullUsername.value,
             password: this.project.image.auxBaseImagePullPassword.value
+          };
+          if (! await this.loginToImageRegistry(imageBuilderExe, loginConfig, errTitle, errPrefix)) {
+            return Promise.resolve(false);
+          }
+        } else if (!this.project.image.auxUseCustomBaseImage.value &&
+          this.project.image.auxDefaultBaseImagePullRequiresAuthentication.value) {
+          // if using default base image and requires authentication, do build-tool login to Docker Hub.
+          const loginConfig = {
+            requiresLogin: this.project.image.auxDefaultBaseImagePullRequiresAuthentication.value,
+            username: this.project.image.auxDefaultBaseImagePullUsername.value,
+            password: this.project.image.auxDefaultBaseImagePullPassword.value
           };
           if (! await this.loginToImageRegistry(imageBuilderExe, loginConfig, errTitle, errPrefix)) {
             return Promise.resolve(false);
@@ -202,6 +214,7 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
 
       validationObject.addField('image-design-aux-image-tag-label',
         this.project.image.auxImageTag.validate(true), imageFormConfig);
+
       if (!this.project.image.useLatestWdtVersion.value) {
         validationObject.addField('image-design-wdt-installer-label',
           validationHelper.validateRequiredField(this.project.image.wdtInstaller.value), imageFormConfig);
@@ -220,6 +233,13 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
           validationObject.addField('image-design-aux-base-image-pull-password-label',
             validationHelper.validateRequiredField(this.project.image.auxBaseImagePullPassword.value), imageFormConfig);
         }
+      } else if (this.project.image.auxDefaultBaseImagePullRequiresAuthentication.value) {
+        validationObject.addField('image-design-aux-default-base-image-pull-username-label',
+          validationHelper.validateRequiredField(this.project.image.auxDefaultBaseImagePullUsername.value),
+          imageFormConfig);
+        validationObject.addField('image-design-aux-default-base-image-pull-password-label',
+          validationHelper.validateRequiredField(this.project.image.auxDefaultBaseImagePullPassword.value),
+          imageFormConfig);
       }
       return validationObject;
     }
