@@ -400,7 +400,7 @@ define(['models/wkt-project', 'utils/script-generator-base'],
           const user = this.adapter.getVariableReference('DOCKER_HUB_USER');
           const password = this.adapter.getVariableReference('DOCKER_HUB_PASS');
           const loginErrorMessage = 'Failed to log into Docker Hub';
-          this.adapter.addDockerLoginBlock(loginToDockerHub, '', user, password, builder, loginErrorMessage)
+          this.adapter.addDockerLoginBlock(loginToDockerHub, '', user, password, builder, loginErrorMessage);
         }
         this.adapter.addEmptyLine();
         
