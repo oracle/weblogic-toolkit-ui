@@ -14,7 +14,8 @@ const i18n = require('./js/i18next.config');
 const { initializeLoggingSystem, logRendererMessage } = require('./js/wktLogging');
 const userSettings = require('./js/userSettings');
 const { chooseFromFileSystem, createNetworkWindow, createWindow, initialize, setHasOpenDialog, setTargetType,
-  showErrorMessage, promptUserForOkOrCancelAnswer, promptUserForYesOrNoAnswer, promptUserForK8sDomainRemovalScope } = require('./js/wktWindow');
+  showErrorMessage, promptUserForOkOrCancelAnswer, promptUserForYesOrNoAnswer, promptUserForYesNoOrCancelAnswer } =
+  require('./js/wktWindow');
 const project = require('./js/project');
 const wktTools = require('./js/wktTools');
 const wdtArchive = require('./js/wdtArchive');
@@ -641,6 +642,10 @@ class Main {
       return promptUserForYesOrNoAnswer(event.sender.getOwnerBrowserWindow(), title, question);
     });
 
+    ipcMain.handle('yes-no-or-cancel-prompt', async (event, title, question, details) => {
+      return promptUserForYesNoOrCancelAnswer(event.sender.getOwnerBrowserWindow(), title, question, details);
+    });
+
     ipcMain.handle('ok-or-cancel-prompt', async (event, title, question) => {
       return promptUserForOkOrCancelAnswer(event.sender.getOwnerBrowserWindow(), title, question);
     });
@@ -747,10 +752,6 @@ class Main {
     ipcMain.handle('k8s-delete-object', async (event, kubectlExe, namespace, object, kind, kubectlOptions) => {
       this._logger.debug('k8s-delete-object called for %s %s %s', kind, object, namespace ? `from namespace ${namespace}` : '');
       return kubectlUtils.deleteObjectIfExists(kubectlExe, namespace, object, kind, kubectlOptions);
-    });
-
-    ipcMain.handle('domain-undeploy-scope-prompt', async (event, title, question, details) => {
-      return promptUserForK8sDomainRemovalScope(event.sender.getOwnerBrowserWindow(), title, question, details);
     });
 
     ipcMain.handle('helm-add-wko-chart', async (event, helmExe, helmOptions) => {
