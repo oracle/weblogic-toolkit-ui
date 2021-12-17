@@ -1032,36 +1032,6 @@ async function promptUserForYesNoOrCancelAnswer(targetWindow, title, question, d
   });
 }
 
-async function promptUserForK8sDomainRemovalScope(targetWindow, title, question, details) {
-  return new Promise(resolve => {
-    dialog.showMessageBox(targetWindow, {
-      title: title,
-      message: question,
-      detail: details,
-      type: 'question',
-      buttons: [ i18n.t('button-cancel'), i18n.t('button-domain-only'), i18n.t('button-domain-namespace') ],
-      defaultId: 1,
-      cancelId: 0
-    }).then(dialogResponse => {
-      let response;
-      switch (dialogResponse.response) {
-        case 2:
-          response = 'namespace';
-          break;
-
-        case 1:
-          response = 'domain';
-          break;
-
-        case 0:
-          response = 'cancel';
-          break;
-      }
-      resolve(response);
-    });
-  });
-}
-
 async function promptUserForOkOrCancelAnswer(targetWindow, title, message) {
   return new Promise(resolve => {
     dialog.showMessageBox(targetWindow, {
@@ -1118,7 +1088,6 @@ module.exports = {
   setHasOpenDialog,
   setTargetType,
   showErrorMessage,
-  promptUserForK8sDomainRemovalScope,
   promptUserForOkOrCancelAnswer,
   promptUserForYesOrNoAnswer,
   promptUserForYesNoOrCancelAnswer

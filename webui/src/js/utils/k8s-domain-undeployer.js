@@ -27,31 +27,6 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
       let errTitle = i18n.t('k8s-domain-undeployer-aborted-error-title');
       const errPrefix = 'k8s-domain-undeployer';
 
-      // Prompt user to remove just the domain or the entire domain namespace.
-      const domainUid = this.project.k8sDomain.uid.value;
-      const domainNamespace = this.project.k8sDomain.kubernetesNamespace.value;
-
-      // Only prompt if the UID and namespace are provided.
-      // Otherwise, let it fall through for validation to detect
-      // and alert the user to all missing required fields.
-      //
-      let promptResult = 'cancel';
-      if (domainUid && domainNamespace) {
-        const promptTitle = i18n.t('k8s-domain-undeployer-scope-prompt-title');
-        const promptQuestion = i18n.t('k8s-domain-undeployer-scope-prompt-question',
-          { domainUid: domainUid, domainNamespace: domainNamespace });
-        const promptDetails = i18n.t('k8s-domain-undeployer-scope-prompt-details',
-          { domainUid: domainUid, domainNamespace: domainNamespace });
-
-        promptResult = await window.api.ipc.invoke('domain-undeploy-scope-prompt',
-          promptTitle, promptQuestion, promptDetails);
-
-        // If the user chose to cancel, then simply return.
-        if (promptResult === 'cancel') {
-          return Promise.resolve('false');
-        }
-      }
-
       const validatableObject = this.getValidatableObject('flow-undeploy-domain-name');
       if (validatableObject.hasValidationErrors()) {
         const validationErrorDialogConfig = validatableObject.getValidationErrorDialogConfig(errTitle);
@@ -59,12 +34,20 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
         return Promise.resolve(false);
       }
 
-      // This is a sanity check.  It should never be true!
-      if (promptResult === 'cancel') {
-        const errMessage = i18n.t('k8s-domain-undeployer-prompt-result-assertion-error-message');
-        await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
+      // Prompt user to remove just the domain or the entire domain namespace.
+      const domainUid = this.project.k8sDomain.uid.value;
+      const domainNamespace = this.project.k8sDomain.kubernetesNamespace.value;
+
+      const promptTitle = i18n.t('k8s-domain-undeployer-remove-namespace-prompt-title');
+      const promptQuestion = i18n.t('k8s-domain-undeployer-remove-namespace-prompt-question',
+        { name: domainUid, namespace: domainNamespace });
+      const promptDetails = i18n.t('k8s-domain-undeployer-remove-namespace-prompt-details',
+        { name: domainUid, namespace: domainNamespace });
+      const removeNamespacePromptResult = await this.removeNamespacePrompt(promptTitle, promptQuestion, promptDetails);
+      if (removeNamespacePromptResult === 'cancel') {
         return Promise.resolve(false);
       }
+      const removeNamespace = removeNamespacePromptResult === 'yes';
 
       const totalSteps = 4.0;
       try {
@@ -101,16 +84,16 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
         }
 
         let deleteResult;
-        if (promptResult === 'domain') {
-          busyDialogMessage = i18n.t('flow-undeploy-domain-in-progress', { domainUid: domainUid });
-          dialogHelper.updateBusyDialog(busyDialogMessage, 2 / totalSteps);
-          deleteResult = await this.deleteKubernetesObjectIfExists(kubectlExe, kubectlOptions,
-            domainNamespace, 'domain', domainUid, errTitle, errPrefix);
-        } else {
+        if (removeNamespace) {
           busyDialogMessage = i18n.t('flow-undeploy-namespace-in-progress', { domainNamespace: domainNamespace });
           dialogHelper.updateBusyDialog(busyDialogMessage, 2 / totalSteps);
           deleteResult = await this.deleteKubernetesObjectIfExists(kubectlExe, kubectlOptions,
             null, 'namespace', domainNamespace, errTitle, errPrefix);
+        } else {
+          busyDialogMessage = i18n.t('flow-undeploy-domain-in-progress', { domainUid: domainUid });
+          dialogHelper.updateBusyDialog(busyDialogMessage, 2 / totalSteps);
+          deleteResult = await this.deleteKubernetesObjectIfExists(kubectlExe, kubectlOptions,
+            domainNamespace, 'domain', domainUid, errTitle, errPrefix);
         }
 
         wktLogger.debug('deleteResult = %s', deleteResult);
@@ -118,11 +101,11 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
           dialogHelper.closeBusyDialog();
           const title = i18n.t('k8s-domain-undeployer-undeploy-complete-title');
           let message;
-          if (promptResult === 'domain') {
-            message = i18n.t('k8s-domain-undeployer-undeploy-domain-complete-message',
+          if (removeNamespace) {
+            message = i18n.t('k8s-domain-undeployer-undeploy-namespace-complete-message',
               {domainName: domainUid, domainNamespace: domainNamespace});
           } else {
-            message = i18n.t('k8s-domain-undeployer-undeploy-namespace-complete-message',
+            message = i18n.t('k8s-domain-undeployer-undeploy-domain-complete-message',
               {domainName: domainUid, domainNamespace: domainNamespace});
           }
           await window.api.ipc.invoke('show-info-message', title, message);

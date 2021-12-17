@@ -187,8 +187,6 @@
   "button-useExistingLocation": "Use Existing Location",
   "button-update-now": "Update and Restart Now",
   "button-update-on-exit": "Update when Application Exits",
-  "button-domain-only": "Remove Domain Only",
-  "button-domain-namespace": "Remove Entire Namespace",
 
   "tools-docker-hub": "Docker Hub",
 

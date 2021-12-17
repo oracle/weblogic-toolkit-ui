@@ -1045,10 +1045,9 @@
   "k8s-domain-script-generator-invalid-target-domain-location": "Unknown value for target domain location {{targetDomainLocation}}",
 
   "k8s-domain-undeployer-aborted-error-title": "Undeploying WebLogic Domain from Kubernetes Aborted",
-  "k8s-domain-undeployer-scope-prompt-title": "Undeploy WebLogic Domain from Kubernetes Scope",
-  "k8s-domain-undeployer-scope-prompt-question": "Would you like to undeploy the just WebLogic domain {{domainUid}} or the entire WebLogic domain's namespace {{domainNamespace}} (and all of its data) from Kubernetes?",
-  "k8s-domain-undeployer-scope-prompt-details": "Removing the WebLogic domain will remove the WebLogic Kubernetes Operator's domain custom resource {{domainUid}} and will cause any running pods associated with the domain to be shut down and removed.  Removing the WebLogic domain's namespace {{domainNamespace}} will, in addition to removing the WebLogic domain {{domainUid}}, remove all secrets, config maps, ingress routes, and other Kubernetes objects that exist in the Kubernetes namespace.",
-  "k8s-domain-undeployer-prompt-result-assertion-error-message": "Unexpected prompt action 'cancel' while undeploying the Kubernetes WebLogic domain.  Please report an issue on GitHub.",
+  "k8s-domain-undeployer-remove-namespace-prompt-title": "Undeploy WebLogic Domain from Kubernetes Scope",
+  "k8s-domain-undeployer-remove-namespace-prompt-question": "After undeploying the WebLogic domain {{name}}, would you like to also delete the Kubernetes namespace {{namespace}} (and all of its data)?",
+  "k8s-domain-undeployer-remove-namespace-prompt-details": "UUndeploying the WebLogic domain will remove the WebLogic Kubernetes Operator's domain custom resource {{domainUid}} and will cause any running pods associated with the domain to be shut down and removed.  Removing the WebLogic domain's namespace {{domainNamespace}} will remove all secrets, config maps, ingress routes, and other Kubernetes objects that exist in the Kubernetes namespace.",
   "k8s-domain-undeployer-kubectl-exe-invalid-error-message": "Unable to undeploy the domain because the Kubernetes client executable is invalid: {{error}}.",
   "k8s-domain-undeployer-project-not-saved-error-prefix": "Unable to undeploy the domain because project save failed",
   "k8s-domain-undeployer-set-context-error-message": "Unable to undeploy the domain because setting the Kubernetes client content failed: {{error}}.",
