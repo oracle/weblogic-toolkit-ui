@@ -145,6 +145,7 @@ contextBridge.exposeInMainWorld(
           'verify-file-exists',
           'ok-or-cancel-prompt',
           'yes-or-no-prompt',
+          'yes-no-or-cancel-prompt',
           'install-app-update',
           'get-latest-wdt-installer',
           'wit-cache-installers',

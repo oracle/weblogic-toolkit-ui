@@ -14,7 +14,8 @@ const i18n = require('./js/i18next.config');
 const { initializeLoggingSystem, logRendererMessage } = require('./js/wktLogging');
 const userSettings = require('./js/userSettings');
 const { chooseFromFileSystem, createNetworkWindow, createWindow, initialize, setHasOpenDialog, setTargetType,
-  showErrorMessage, promptUserForOkOrCancelAnswer, promptUserForYesOrNoAnswer, promptUserForK8sDomainRemovalScope } = require('./js/wktWindow');
+  showErrorMessage, promptUserForOkOrCancelAnswer, promptUserForYesOrNoAnswer, promptUserForK8sDomainRemovalScope,
+  promptUserForYesNoOrCancelAnswer } = require('./js/wktWindow');
 const project = require('./js/project');
 const wktTools = require('./js/wktTools');
 const wdtArchive = require('./js/wdtArchive');
@@ -639,6 +640,10 @@ class Main {
 
     ipcMain.handle('yes-or-no-prompt', async (event, title, question) => {
       return promptUserForYesOrNoAnswer(event.sender.getOwnerBrowserWindow(), title, question);
+    });
+
+    ipcMain.handle('yes-no-or-cancel-prompt', async (event, title, question, details) => {
+      return promptUserForYesNoOrCancelAnswer(event.sender.getOwnerBrowserWindow(), title, question, details);
     });
 
     ipcMain.handle('ok-or-cancel-prompt', async (event, title, question) => {

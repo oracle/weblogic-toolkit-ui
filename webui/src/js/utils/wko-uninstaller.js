@@ -31,10 +31,22 @@ function(WkoActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, val
         return Promise.resolve(false);
       }
 
-      const totalSteps = 7.0;
+      const helmReleaseName = this.project.wko.wkoDeployName.value;
+      const operatorNamespace = this.project.wko.k8sNamespace.value;
+
+      const promptTitle = i18n.t('wko-uninstaller-remove-namespace-prompt-title');
+      const promptQuestion = i18n.t('wko-uninstaller-remove-namespace-prompt-question',
+        { name: helmReleaseName, namespace: operatorNamespace });
+      const promptDetails = i18n.t('wko-uninstaller-remove-namespace-prompt-details',
+        { name: helmReleaseName, namespace: operatorNamespace });
+      const removeNamespacePromptResult = await this.removeNamespacePrompt(promptTitle, promptQuestion, promptDetails);
+      if (removeNamespacePromptResult === 'cancel') {
+        return Promise.resolve(false);
+      }
+      const removeNamespace = removeNamespacePromptResult === 'yes';
+
+      const totalSteps = removeNamespace ? 8.0 : 7.0;
       try {
-        const helmReleaseName = this.project.wko.wkoDeployName.value;
-        const operatorNamespace = this.project.wko.k8sNamespace.value;
         let busyDialogMessage = i18n.t('flow-validate-kubectl-exe-in-progress');
         dialogHelper.openBusyDialog(busyDialogMessage, 'bar');
         dialogHelper.updateBusyDialog(busyDialogMessage, 0/totalSteps);
@@ -99,21 +111,38 @@ function(WkoActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, val
         const installResults = await window.api.ipc.invoke('helm-uninstall-wko', helmExe, helmReleaseName,
           operatorNamespace, helmOptions);
 
-        dialogHelper.closeBusyDialog();
-
-        if (installResults.isSuccess) {
-          const title = i18n.t('wko-uninstaller-uninstall-complete-title');
-          const message = i18n.t('wko-uninstaller-uninstall-complete-message',
-            { operatorName: helmReleaseName, operatorNamespace: operatorNamespace });
-          await window.api.ipc.invoke('show-info-message', title, message);
-          return Promise.resolve(true);
-        } else {
+        if (!installResults.isSuccess) {
           errTitle = i18n.t('wko-uninstaller-uninstall-failed-title');
           const errMessage = i18n.t('wko-uninstaller-uninstall-failed-error-message',
             { operatorName: helmReleaseName, operatorNamespace: operatorNamespace, error: installResults.reason });
+          dialogHelper.closeBusyDialog();
           await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
           return Promise.resolve(false);
         }
+
+        if (removeNamespace) {
+          busyDialogMessage = i18n.t('wko-uninstaller-remove-namespace-in-progress', {namespace: operatorNamespace});
+          dialogHelper.updateBusyDialog(busyDialogMessage, 7 / totalSteps);
+          const deleteResults = await this.deleteKubernetesObjectIfExists(kubectlExe, kubectlOptions,
+            null, 'namespace', operatorNamespace, errTitle, errPrefix);
+          if (!deleteResults) {
+            return Promise.resolve(false);
+          }
+        }
+
+        dialogHelper.closeBusyDialog();
+
+        const title = i18n.t('wko-uninstaller-uninstall-complete-title');
+        let message;
+        if (removeNamespace) {
+          message = i18n.t('wko-uninstaller-uninstall-with-namespace-complete-message',
+            { operatorName: helmReleaseName, operatorNamespace: operatorNamespace });
+        } else {
+          message = i18n.t('wko-uninstaller-uninstall-complete-message',
+            { operatorName: helmReleaseName, operatorNamespace: operatorNamespace });
+        }
+        await window.api.ipc.invoke('show-info-message', title, message);
+        return Promise.resolve(true);
       } catch(err) {
         dialogHelper.closeBusyDialog();
         throw err;

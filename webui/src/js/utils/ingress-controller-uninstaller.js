@@ -37,7 +37,24 @@ function(IngressActionsBase, project, wktConsole, k8sHelper, i18n, dialogHelper,
         return Promise.resolve(false);
       }
 
-      const totalSteps = 6.0;
+      const ingressControllerProvider = this.project.ingress.ingressControllerProvider.value;
+      const ingressControllerNamespace = this.project.ingress.ingressControllerNamespace.value;
+      const ingressControllerName = this.project.ingress.ingressControllerName.value;
+
+      const providerName = i18n.t(`ingress-design-type-${ingressControllerProvider}-label`);
+      const promptTitle = i18n.t('ingress-uninstaller-remove-namespace-prompt-title',
+        { provider: providerName });
+      const promptQuestion = i18n.t('ingress-uninstaller-remove-namespace-prompt-question',
+        { provider: providerName, name: ingressControllerName, namespace: ingressControllerNamespace });
+      const promptDetails = i18n.t('ingress-uninstaller-remove-namespace-prompt-details',
+        { provider: providerName, name: ingressControllerName, namespace: ingressControllerNamespace });
+      const removeNamespacePromptResult = await this.removeNamespacePrompt(promptTitle, promptQuestion, promptDetails);
+      if (removeNamespacePromptResult === 'cancel') {
+        return Promise.resolve(false);
+      }
+      const removeNamespace = removeNamespacePromptResult === 'yes';
+
+      const totalSteps = removeNamespace ? 7.0 : 6.0;
       try {
         let busyDialogMessage = i18n.t('flow-validate-kubectl-exe-in-progress');
         dialogHelper.openBusyDialog(busyDialogMessage, 'bar');
@@ -80,9 +97,6 @@ function(IngressActionsBase, project, wktConsole, k8sHelper, i18n, dialogHelper,
         }
 
         const helmOptions = helmHelper.getHelmOptions();
-        const ingressControllerProvider = this.project.ingress.ingressControllerProvider.value;
-        const ingressControllerNamespace = this.project.ingress.ingressControllerNamespace.value;
-        const ingressControllerName = this.project.ingress.ingressControllerName.value;
 
         busyDialogMessage = i18n.t('ingress-uninstaller-checking-installed-in-progress',
           { name: ingressControllerName, namespace: ingressControllerNamespace });
@@ -103,21 +117,17 @@ function(IngressActionsBase, project, wktConsole, k8sHelper, i18n, dialogHelper,
         }
 
         busyDialogMessage = i18n.t('ingress-uninstaller-uninstall-in-progress',
-          { name: ingressControllerName, namespace: ingressControllerNamespace });
+          { provider: providerName, name: ingressControllerName, namespace: ingressControllerNamespace });
         dialogHelper.updateBusyDialog(busyDialogMessage, 5/totalSteps);
         const uninstallResults = await window.api.ipc.invoke('helm-uninstall-ingress-controller',
           helmExe, ingressControllerName, ingressControllerNamespace, helmOptions);
-        if (uninstallResults.isSuccess) {
-          const title = i18n.t('ingress-uninstaller-uninstall-complete-title');
-          const message = i18n.t('ingress-uninstaller-uninstall-complete-message',
-            { name: ingressControllerName, namespace: ingressControllerNamespace });
-          dialogHelper.closeBusyDialog();
-          await window.api.ipc.invoke('show-info-message', title, message);
-          return Promise.resolve(true);
-        } else {
-          errTitle = i18n.t('ingress-uninstaller-uninstall-failed-title');
+
+
+        if (!uninstallResults.isSuccess) {
+          errTitle = i18n.t('ingress-uninstaller-uninstall-failed-title', { provider: providerName });
           const errMessage = i18n.t('ingress-uninstaller-uninstall-failed-error-message',
             {
+              provider: providerName,
               name: ingressControllerName,
               namespace: ingressControllerNamespace,
               error: uninstallResults.reason
@@ -126,6 +136,30 @@ function(IngressActionsBase, project, wktConsole, k8sHelper, i18n, dialogHelper,
           await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
           return Promise.resolve(false);
         }
+
+        if (removeNamespace) {
+          busyDialogMessage = i18n.t('ingress-uninstaller-remove-namespace-in-progress',
+            { namespace: ingressControllerNamespace });
+          dialogHelper.updateBusyDialog(busyDialogMessage, 7 / totalSteps);
+          const deleteResults = await this.deleteKubernetesObjectIfExists(kubectlExe, kubectlOptions,
+            null, 'namespace', ingressControllerNamespace, errTitle, errPrefix);
+          if (!deleteResults) {
+            return Promise.resolve(false);
+          }
+        }
+
+        const title = i18n.t('ingress-uninstaller-uninstall-complete-title', { provider: providerName });
+        let message;
+        if (removeNamespace) {
+          message = i18n.t('ingress-uninstaller-uninstall-complete-with-namespace-message',
+            {provider: providerName, name: ingressControllerName, namespace: ingressControllerNamespace});
+        } else {
+          message = i18n.t('ingress-uninstaller-uninstall-complete-message',
+            {provider: providerName, name: ingressControllerName, namespace: ingressControllerNamespace});
+        }
+        dialogHelper.closeBusyDialog();
+        await window.api.ipc.invoke('show-info-message', title, message);
+        return Promise.resolve(true);
       } catch (err) {
         dialogHelper.closeBusyDialog();
         throw err;
