@@ -194,8 +194,8 @@ the script itself.  This change is left as an exercise for you because different
 existing standards for securely handling such credentials.
 
 ### Create Images
-The `Create Primary Image` and `Create Auxiliary Image` actions invoke the [WebLogic Image Tool](https://oracle.github.io/weblogic-image-tool/) to
-create a new container image for running a WebLogic domain in a Kubernetes environment.  You can access these actions using
+`Create Primary Image` and `Create Auxiliary Image` invoke the [WebLogic Image Tool](https://oracle.github.io/weblogic-image-tool/) to
+create a new container image for running a WebLogic domain in a Kubernetes environment.  You access these actions using
 the `Create Primary Image` or `Create Auxiliary Image` button on the `Image` page or from the `Go` menu.
 
 At a high level, the action performs the following steps:
@@ -208,8 +208,8 @@ At a high level, the action performs the following steps:
    [Create](https://oracle.github.io/weblogic-image-tool/userguide/tools/create-image/) command.
 
 ### Push Images
-The `Push Primary Image` and `Push Auxiliary Image` actions use the specified Image Builder program to upload (that is, push) the newly-built image
-to the image registry specified by its image tag.  You can access these actions by using the `Push Primary Image` or `Push Auxiliary Image` button on the `Image`
+`Push Primary Image` and `Push Auxiliary Image` use the specified Image Builder program to upload (that is, push) the newly-built image
+to the image registry specified by its image tag.  You access these actions by using the `Push Primary Image` or `Push Auxiliary Image` button on the `Image`
 page or from the `Go` menu.
 
 At a high level, the action performs the following steps:

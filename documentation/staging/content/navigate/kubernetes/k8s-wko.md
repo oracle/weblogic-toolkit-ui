@@ -20,6 +20,8 @@ description: "Install the WebLogic Kubernetes Operator in the target Kubernetes 
     - [Java Logging](#java-logging)
 - [Code View](#code-view)
 - [Install Operator](#install-operator)
+- [Update Operator](#update-operator)
+- [Uninstall Operator](#uninstall-operator)
 
 ### WebLogic Kubernetes Operator
 This section provides support for installing the WebLogic Kubernetes Operator (the "operator") in the target Kubernetes cluster.
@@ -164,9 +166,9 @@ the script itself.  This change is left as an exercise for you because different
 existing standards for securely handling such credentials.
 
 ### Install Operator
-The `Install Operator` action installs the WebLogic Kubernetes Operator in the target Kubernetes cluster. 
-You can access it by using the `Install Operator` button on the
-`WebLogic Operator` page or `Go` > `Install WebLogic Kubernetes Operator`.
+`Install Operator` installs the WebLogic Kubernetes Operator in the target Kubernetes cluster.
+You access this action by using the `Install Operator` button on the
+`WebLogic Operator` page or the `Go` > `Install WebLogic Kubernetes Operator` menu item.
 
 At a high level, `Install Operator` performs the following steps:
 
@@ -177,3 +179,23 @@ At a high level, `Install Operator` performs the following steps:
 5. Creates the operator image pull secret, if needed.
 6. Adds the latest operator Helm chart to the local Helm repository.
 7. Runs Helm to install the operator using the specified configuration.
+
+### Update Operator
+
+`Update Operator` updates the settings on a running WebLogic Kubernetes Operator by using the `helm upgrade` command.
+You access this action by using the `Update Operator` button on the
+`WebLogic Operator` page or the `Go` > `Update WebLogic Kubernetes Operator` menu item.
+
+`Update Operator` applies all the changes to the operator that you have specified on the page. For example,
+you can change the operator image version, the domain namespace selection strategy, Java logging level,
+or the value of any field in the WebLogic Kubernetes Operator section.   
+
+### Uninstall Operator
+
+`Uninstall Operator` uses the `helm uninstall` command to remove the WebLogic Kubernetes Operator and its associated
+resources from the Kubernetes cluster. You access this action by using the `Uninstall Operator` button on the
+`WebLogic Operator` page or the `Go` > `Uninstall WebLogic Kubernetes Operator` menu item.
+
+Note that if you uninstall an operator, then any domains that it is managing will continue running; however,
+any changes to a domain resource that was managed by the operator will not be detected or automatically handled,
+and, if you want to clean up such a domain, then you will need to manually delete all of the domain's resources (domain, pods, services, and such).

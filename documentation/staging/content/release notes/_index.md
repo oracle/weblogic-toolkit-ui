@@ -16,7 +16,7 @@ pre = "<b> </b>"
 
 - When trying to run the application on a Linux machine and display it on a Windows machine, do not use the Xming X server.  There appears to be a bug (presumably with their OpenGL support) that prevents applications using Electron 13.x or later from working (for example, Microsoft VS Code doesn't work either).
 
-- On Linux when running the application that was installed using the `rpm` or `deb` installers, the following error messages will appear in the log.  These are expected and can safely be ignored.  The errors are due to the fact that the electron-updater package being used to perform application updates only supports upgrading Linux applications when run using an `AppImage` binary.
+- On Linux, when running the application that was installed using the `rpm` or `deb` installers, the following error messages will appear in the log.  These are expected and can safely be ignored.  The errors are due to the fact that the electron-updater package being used to perform application updates supports only upgrading Linux applications when run using an `AppImage` binary.
   ```
     info: Checking for update
     error: Error: Error: ENOENT: no such file or directory, open '/opt/WebLogic Kubernetes Toolkit UI/resources/app-update.yml'
