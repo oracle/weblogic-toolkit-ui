@@ -283,6 +283,22 @@ define(['utils/wkt-logger'],
         });
       };
 
+      this.chooseAuxAdditionalBuildCommandsFile = () => {
+        window.api.ipc.invoke('get-additional-image-build-commands-file').then(filePath => {
+          if (filePath) {
+            this.project.image.auxAdditionalBuildCommandsFile.observable(filePath);
+          }
+        });
+      };
+
+      this.chooseAuxAdditionalBuildFiles = () => {
+        window.api.ipc.invoke('get-additional-image-build-files').then(fileList => {
+          if (fileList && fileList.length > 0) {
+            this.project.image.auxAdditionalBuildFiles.observable(fileList);
+          }
+        });
+      };
+
       this.chooseAdditionalBuildFiles = () => {
         window.api.ipc.invoke('get-additional-image-build-files').then(fileList => {
           if (fileList && fileList.length > 0) {

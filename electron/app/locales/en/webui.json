@@ -1009,7 +1009,7 @@
   "wko-uninstaller-remove-namespace-in-progress": "Removing Kubernetes namespace {{namespace}}",
   "wko-uninstaller-uninstall-complete-title": "WebLogic Kubernetes Operator Uninstall Complete",
   "wko-uninstaller-uninstall-complete-message": "WebLogic Kubernetes Operator {{operatorName}} successfully uninstalled from Kubernetes namespace {{operatorNamespace}}.",
-  "wko-uninstaller-uninstall-complete-with-namespace-message": "WebLogic Kubernetes Operator {{operatorName}} successfully uninstalled and Kubernetes namespace {{operatorNamespace}} was deleted.",
+  "wko-uninstaller-uninstall-with-namespace-complete-message": "WebLogic Kubernetes Operator {{operatorName}} successfully uninstalled and Kubernetes namespace {{operatorNamespace}} was deleted.",
   "wko-uninstaller-uninstall-failed-title": "WebLogic Kubernetes Operator Uninstall Failed",
   "wko-uninstaller-uninstall-failed-error-message":"Unable to uninstall WebLogic Kubernetes Operator {{operatorName}} from Kubernetes namespace {{operatorNamespace}}: {{error}}.",
   "wko-uninstaller-uninstall-catch-all-error-message": "WebLogic Kubernetes Operator uninstall failed with an unexpected error: {{error}}",
