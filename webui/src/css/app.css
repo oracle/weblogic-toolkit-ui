@@ -406,6 +406,11 @@ h6:first-child {
   max-width: 850px;
 }
 
+.wkt-inspect-dialog-content {
+  max-height: 20vh;
+  overflow: auto;
+}
+
 .wkt-center-text-in-frame {
   vertical-align: center;
   text-align: center;
