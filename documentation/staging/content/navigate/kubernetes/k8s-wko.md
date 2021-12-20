@@ -193,7 +193,8 @@ or the value of any field in the WebLogic Kubernetes Operator section.
 ### Uninstall Operator
 
 `Uninstall Operator` uses the `helm uninstall` command to remove the WebLogic Kubernetes Operator and its associated
-resources from the Kubernetes cluster. You access this action by using the `Uninstall Operator` button on the
+resources from the Kubernetes cluster. In addition, you can choose whether to also delete the corresponding namespace.
+You access these actions by using the `Uninstall Operator` button on the
 `WebLogic Operator` page or the `Go` > `Uninstall WebLogic Kubernetes Operator` menu item.
 
 Note that if you uninstall an operator, then any domains that it is managing will continue running; however,
