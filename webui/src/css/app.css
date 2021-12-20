@@ -406,8 +406,38 @@ h6:first-child {
   max-width: 850px;
 }
 
+.wkt-inspect-grid-container {
+  display: grid;
+  grid-column-gap: 1em;
+  grid-auto-columns: min-content auto;
+}
+
+.wkt-inspect-grid-message {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+.wkt-inspect-grid-title {
+  font-weight: bold;
+  margin-top: 0.75em;
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+.wkt-inspect-grid-name {
+  margin-left: 1em;
+  grid-column-start: 1;
+  grid-column-end: 1;
+  white-space: nowrap;
+}
+
+.wkt-inspect-grid-value {
+  grid-column-start: 2;
+  grid-column-end: 3;
+}
+
 .wkt-inspect-dialog-content {
-  max-height: 20vh;
+  max-height: 50vh;
   overflow: auto;
 }
 

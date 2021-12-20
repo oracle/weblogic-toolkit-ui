@@ -9,96 +9,54 @@
 
   <div slot="body">
     <div class="oj-panel wkt-notop wkt-inspect-dialog-content">
-      <p><oj-bind-text value="[[getMessage()]]"></oj-bind-text></p>
-      <oj-bind-if test="[[hasOsInfo() === true]]">
-        <table>
-          <tr>
-            <td colspan="3"><oj-bind-text value="[[labelMapper('os-section-title')]]"></oj-bind-text></td>
-          </tr>
-          <tr>
-            <td>&nbsp;</td>
-            <td><oj-bind-text value="[[labelMapper('os-name-label')]]"></td>
-            <td><oj-bind-text value="[[getOsName()]]"></oj-bind-text></td>
-          </tr>
-          <tr>
-            <td>&nbsp;</td>
-            <td><oj-bind-text value="[[labelMapper('os-version-label')]]"></td>
-            <td><oj-bind-text value="[[getOsVersion()]]"></oj-bind-text></td>
-          </tr>
-        </table>
-      </oj-bind-if>
+      <div class="wkt-inspect-grid-container">
+        <div class="wkt-inspect-grid-message"><oj-bind-text value="[[getMessage()]]"></oj-bind-text></div>
+        <oj-bind-if test="[[hasOsInfo() === true]]">
+          <div class="wkt-inspect-grid-title"><oj-bind-text value="[[labelMapper('os-section-title')]]"></oj-bind-text></div>
+          <div class="wkt-inspect-grid-name"><oj-bind-text value="[[labelMapper('os-name-label')]]"></oj-bind-text></div>
+          <div class="wkt-inspect-grid-value"><oj-bind-text value="[[getOsName()]]"></oj-bind-text></div>
+          <div class="wkt-inspect-grid-name"><oj-bind-text value="[[labelMapper('os-version-label')]]"></oj-bind-text></div>
+          <div class="wkt-inspect-grid-value"><oj-bind-text value="[[getOsVersion()]]"></oj-bind-text></div>
+        </oj-bind-if>
 
-      <oj-bind-if test="[[hasJavaHome() === true]]">
-        <table>
-          <tr>
-            <td colspan="3"><oj-bind-text value="[[labelMapper('java-home-section-title')]]"></oj-bind-text></td>
-          </tr>
-          <tr>
-            <td>&nbsp;</td>
-            <td><oj-bind-text value="[[labelMapper('java-home-path-label')]]"></td>
-            <td><oj-bind-text value="[[getJavaHome()]]"></oj-bind-text></td>
-          </tr>
-          <tr>
-            <td>&nbsp;</td>
-            <td><oj-bind-text value="[[labelMapper('java-home-version-label')]]"></td>
-            <td><oj-bind-text value="[[getJavaVersion()]]"></oj-bind-text></td>
-          </tr>
-        </table>
-      </oj-bind-if>
+        <oj-bind-if test="[[hasJavaHome() === true]]">
+          <div class="wkt-inspect-grid-title"><oj-bind-text value="[[labelMapper('java-home-section-title')]]"></oj-bind-text></div>
+          <div class="wkt-inspect-grid-name"><oj-bind-text value="[[labelMapper('java-home-path-label')]]"></oj-bind-text></div>
+          <div class="wkt-inspect-grid-value"><oj-bind-text value="[[getJavaHome()]]"></oj-bind-text></div>
+          <div class="wkt-inspect-grid-name"><oj-bind-text value="[[labelMapper('java-home-version-label')]]"></oj-bind-text></div>
+          <div class="wkt-inspect-grid-value"><oj-bind-text value="[[getJavaVersion()]]"></oj-bind-text></div>
+        </oj-bind-if>
 
-      <oj-bind-if test="[[hasOracleHome() === true]]">
-        <table>
-          <tr>
-            <td colspan="3"><oj-bind-text value="[[labelMapper('oracle-home-section-title')]]"></oj-bind-text></td>
-          </tr>
-          <tr>
-            <td>&nbsp;</td>
-            <td><oj-bind-text value="[[labelMapper('oracle-home-path-label')]]"></td>
-            <td><oj-bind-text value="[[getOracleHome()]]"></oj-bind-text></td>
-          </tr>
-          <tr>
-            <td>&nbsp;</td>
-            <td><oj-bind-text value="[[labelMapper('oracle-home-version-label')]]"></td>
-            <td><oj-bind-text value="[[getWlsVersion()]]"></oj-bind-text></td>
-          </tr>
-          <tr>
-            <td>&nbsp;</td>
-            <td><oj-bind-text value="[[labelMapper('opatch-version-label')]]"></td>
-            <td><oj-bind-text value="[[getOpatchVersion()]]"></oj-bind-text></td>
-          </tr>
+        <oj-bind-if test="[[hasOracleHome() === true]]">
+          <div class="wkt-inspect-grid-title"><oj-bind-text value="[[labelMapper('oracle-home-section-title')]]"></oj-bind-text></div>
+          <div class="wkt-inspect-grid-name"><oj-bind-text value="[[labelMapper('oracle-home-path-label')]]"></oj-bind-text></div>
+          <div class="wkt-inspect-grid-value"><oj-bind-text value="[[getOracleHome()]]"></oj-bind-text></div>
+          <div class="wkt-inspect-grid-name"><oj-bind-text value="[[labelMapper('oracle-home-version-label')]]"></oj-bind-text></div>
+          <div class="wkt-inspect-grid-value"><oj-bind-text value="[[getWlsVersion()]]"></oj-bind-text></div>
+          <div class="wkt-inspect-grid-name"><oj-bind-text value="[[labelMapper('opatch-version-label')]]"></oj-bind-text></div>
+          <div class="wkt-inspect-grid-value"><oj-bind-text value="[[getOpatchVersion()]]"></oj-bind-text></div>
+
           <oj-bind-if test="[[hasOraclePatches() === true]]">
-            <tr>
-              <td colspan="3"><oj-bind-text value="[[labelMapper('oracle-patches-section-title')]]"></oj-bind-text></td>
-            </tr>
+            <div class="wkt-inspect-grid-title"><oj-bind-text value="[[labelMapper('oracle-patches-section-title')]]"></oj-bind-text></div>
             <oj-bind-if test="[[hasNamedPatches() === true]]">
               <oj-bind-for-each data="[[getNamedPatches()]]">
                 <template data-oj-as="namedPatch">
-                  <tr>
-                    <td>&nbsp;</td>
-                    <td><oj-bind-text value="[[namedPatch.data.name]]"></td>
-                    <td><oj-bind-text value="[[namedPatch.data.version]]"></oj-bind-text></td>
-                  </tr>
+                  <div class="wkt-inspect-grid-name"><oj-bind-text value="[[namedPatch.data.number]]"></oj-bind-text></div>
+                  <div class="wkt-inspect-grid-value"><oj-bind-text value="[[namedPatch.data.name]]"></oj-bind-text></div>
                 </template>
               </oj-bind-for-each>
             </oj-bind-if>
             <oj-bind-if test="[[hasOneOffPatches() === true]]">
-              <tr>
-                <td>&nbsp;</td>
-                <td colspan="2"><oj-bind-text value="[[labelMapper('oracle-one-off-patches-label')]]"></oj-bind-text></td>
-              </tr>
+              <div class="wkt-inspect-grid-title"><oj-bind-text value="[[labelMapper('oracle-one-off-patches-label')]]"></oj-bind-text></div>
               <oj-bind-for-each data="[[getOneOffPatches()]]">
                 <template data-oj-as="oneOffPatch">
-                  <tr>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td><oj-bind-text value="[[oneOffPatch.data.version]]"></oj-bind-text></td>
-                  </tr>
+                  <div class="wkt-inspect-grid-name"><oj-bind-text value="[[oneOffPatch.data.number]]"></oj-bind-text></div>
                 </template>
               </oj-bind-for-each>
             </oj-bind-if>
           </oj-bind-if>
-        </table>
-      </oj-bind-if>
+        </oj-bind-if>
+      </div>
     </div>
   </div>
 
