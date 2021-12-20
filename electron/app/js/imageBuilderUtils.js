@@ -146,6 +146,12 @@ function getDockerEnv(httpsProxyUrl, bypassProxyHosts) {
   if (process.env.DOCKER_HOST) {
     env['DOCKER_HOST'] = process.env.DOCKER_HOST;
   }
+  if (process.env.DOCKER_TLS_VERIFY) {
+    env['DOCKER_TLS_VERIFY'] = process.env.DOCKER_TLS_VERIFY;
+  }
+  if (process.env.DOCKER_CERT_PATH) {
+    env['DOCKER_CERT_PATH'] = process.env.DOCKER_CERT_PATH;
+  }
 
   // podman-specific environment variables that should be passed on
   if(process.env.CONTAINER_HOST) {
