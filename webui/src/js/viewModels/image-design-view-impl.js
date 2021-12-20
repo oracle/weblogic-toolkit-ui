@@ -210,6 +210,10 @@ define(['utils/wkt-logger'],
         return !this.project.image.baseImageContentsIncludesMiddleware();
       };
 
+      this.needsInstallers = () => {
+
+      };
+
       this.chooseJDK = () => {
         window.api.ipc.invoke('get-jdk-installer-location')
           .then(jdkInstaller => {

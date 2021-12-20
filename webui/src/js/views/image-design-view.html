@@ -138,126 +138,128 @@
         </div>
 
         <oj-bind-if test="[[waitForCustomBaseImageInspection() === false]]">
-          <div class="oj-panel">
-            <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('installers-title')]]"></oj-bind-text></h6>
-            <oj-bind-if test="[[customImageDoesNotContainJDK() === true]]">
-              <div class="oj-panel">
-                <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('jdk-installer-title')]]"></oj-bind-text></h6>
-                <oj-form-layout max-columns="2" direction="row">
-                  <oj-input-text label-hint="[[labelMapper('jdk-installer-label')]]"
-                                 value="{{project.image.jdkInstaller.observable}}"
-                                 help.instruction="[[labelMapper('jdk-installer-help')]]">
-                    <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[chooseJDK]]">
-                      <span slot="endIcon" class="oj-ux-ico-file-text" role="img"></span>
-                    </oj-button>
-                  </oj-input-text>
-                  <oj-input-text label-hint="[[labelMapper('jdk-installer-version-label')]]"
-                                 value="{{project.image.jdkInstallerVersion.observable}}"
-                                 help.instruction="[[labelMapper('jdk-installer-version-help')]]">
-                  </oj-input-text>
-                </oj-form-layout>
-              </div>
-            </oj-bind-if>
-
-            <oj-bind-if test="[[customImageDoesNotContainsOracleHome() == true]]">
-              <div class="oj-panel">
-                <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('fmw-installer-title')]]"></oj-bind-text></h6>
-                <oj-form-layout max-columns="1" direction="row">
-                  <oj-select-single label-hint="[[labelMapper('fmw-installer-type-label')]]"
-                                    value="{{project.image.oracleInstallerType.observable}}"
-                                    data="{{oracleInstallerTypesDP}}"
-                                    help.instruction="[[labelMapper('fmw-installer-type-help')]]">
-                  </oj-select-single>
-                </oj-form-layout>
-                <oj-form-layout max-columns="2" direction="row">
-                  <oj-input-text label-hint="[[labelMapper('fmw-installer-label')]]"
-                                 value="{{project.image.oracleInstaller.observable}}"
-                                 help.instruction="[[labelMapper('fmw-installer-help')]]">
-                    <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[chooseFMW]]">
-                      <span slot="endIcon" class="oj-ux-ico-file-text" role="img"></span>
-                    </oj-button>
-                  </oj-input-text>
-                  <oj-input-text label-hint="[[labelMapper('fmw-installer-version-label')]]"
-                                 value="{{project.image.oracleInstallerVersion.observable}}"
-                                 help.instruction="[[labelMapper('fmw-installer-version-help')]]">
-                  </oj-input-text>
-                </oj-form-layout>
-              </div>
-            </oj-bind-if>
-          </div>
-
-          <div>
-            <oj-bind-if test="[[customImageDoesNotContainsOracleHome() === true]]">
-              <div class="oj-panel">
-                <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('patches-title')]]"></oj-bind-text></h6>
-                <oj-form-layout max-columns="1" direction="row">
-                  <oj-switch label-hint="[[labelMapper('apply-patches-label')]]"
-                             value="{{project.image.applyOraclePatches.observable}}"
-                             help.instruction="[[labelMapper('apply-patches-help')]]">
-                  </oj-switch>
-                </oj-form-layout>
-
-                <oj-bind-if test="[[project.image.applyOraclePatches.observable() === true]]">
+          <oj-bind-if test="[[needsInstallers() === true]]">
+            <div class="oj-panel">
+              <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('installers-title')]]"></oj-bind-text></h6>
+              <oj-bind-if test="[[customImageDoesNotContainJDK() === true]]">
+                <div class="oj-panel">
+                  <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('jdk-installer-title')]]"></oj-bind-text></h6>
                   <oj-form-layout max-columns="2" direction="row">
-                    <oj-input-password label-hint="[[labelMapper('support-username-label')]]"
-                                       mask-icon="visible"
-                                       value="{{project.image.oracleSupportUserName.observable}}"
-                                       help.instruction="[[labelMapper('support-username-help')]]">
-                    </oj-input-password>
-                    <oj-input-password label-hint="[[labelMapper('support-password-label')]]"
-                                       mask-icon="visible"
-                                       value="{{project.image.oracleSupportPassword.observable}}"
-                                       help.instruction="[[labelMapper('support-password-help')]]">
-                    </oj-input-password>
-                    <div>
-                      <oj-radioset label-hint=""
-                                   value="{{project.image.oraclePatchOptions.observable}}"
-                                   help.instruction="[[labelMapper('psu-rec-help')]]">
-                        <oj-bind-for-each data="[[patchOptions]]">
-                          <template>
-                            <oj-option value="[[$current.data.value]]">
-                              <oj-bind-text value="[[$current.data.label]]"></oj-bind-text>
-                            </oj-option>
-                          </template>
-                        </oj-bind-for-each>
-                      </oj-radioset>
-                    </div>
-                    <oj-text-area label-hint="[[labelMapper('patches-label')]]" rows="6"
-                                  value="{{project.image.oraclePatchesToApply.observable}}"
-                                  help.instruction="[[labelMapper('patches-help')]]">
-                    </oj-text-area>
-                  </oj-form-layout>
-                </oj-bind-if>
-              </div>
-            </oj-bind-if>
-
-            <oj-bind-if test="[[mainImageRequiresWdt() === true]]">
-              <div class="oj-panel">
-                <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('wdt-installer-title')]]"></oj-bind-text></h6>
-                <oj-form-layout max-columns="1" direction="row">
-                  <oj-switch label-hint="[[labelMapper('use-wdt-installer-label')]]"
-                             value="{{project.image.useLatestWdtVersion.observable}}"
-                             help.instruction="[[labelMapper('use-wdt-installer-help')]]">
-                  </oj-switch>
-                </oj-form-layout>
-                <oj-bind-if test="[[project.image.useLatestWdtVersion.observable() === false]]">
-                  <oj-form-layout max-columns="2" direction="row">
-                    <oj-input-text label-hint="[[labelMapper('wdt-installer-label')]]"
-                                   value="{{project.image.wdtInstaller.observable}}"
-                                   help.instruction="[[labelMapper('wdt-installer-help')]]">
-                      <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[chooseWDT]]">
+                    <oj-input-text label-hint="[[labelMapper('jdk-installer-label')]]"
+                                   value="{{project.image.jdkInstaller.observable}}"
+                                   help.instruction="[[labelMapper('jdk-installer-help')]]">
+                      <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[chooseJDK]]">
                         <span slot="endIcon" class="oj-ux-ico-file-text" role="img"></span>
                       </oj-button>
                     </oj-input-text>
-                    <oj-input-text label-hint="[[labelMapper('wdt-installer-version-label')]]"
-                                   value="{{project.image.wdtInstallerVersion.observable}}"
-                                   help.instruction="[[labelMapper('wdt-installer-version-help')]]">
+                    <oj-input-text label-hint="[[labelMapper('jdk-installer-version-label')]]"
+                                   value="{{project.image.jdkInstallerVersion.observable}}"
+                                   help.instruction="[[labelMapper('jdk-installer-version-help')]]">
                     </oj-input-text>
                   </oj-form-layout>
-                </oj-bind-if>
-              </div>
-            </oj-bind-if>
-          </div>
+                </div>
+              </oj-bind-if>
+
+              <oj-bind-if test="[[customImageDoesNotContainsOracleHome() == true]]">
+                <div class="oj-panel">
+                  <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('fmw-installer-title')]]"></oj-bind-text></h6>
+                  <oj-form-layout max-columns="1" direction="row">
+                    <oj-select-single label-hint="[[labelMapper('fmw-installer-type-label')]]"
+                                      value="{{project.image.oracleInstallerType.observable}}"
+                                      data="{{oracleInstallerTypesDP}}"
+                                      help.instruction="[[labelMapper('fmw-installer-type-help')]]">
+                    </oj-select-single>
+                  </oj-form-layout>
+                  <oj-form-layout max-columns="2" direction="row">
+                    <oj-input-text label-hint="[[labelMapper('fmw-installer-label')]]"
+                                   value="{{project.image.oracleInstaller.observable}}"
+                                   help.instruction="[[labelMapper('fmw-installer-help')]]">
+                      <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[chooseFMW]]">
+                        <span slot="endIcon" class="oj-ux-ico-file-text" role="img"></span>
+                      </oj-button>
+                    </oj-input-text>
+                    <oj-input-text label-hint="[[labelMapper('fmw-installer-version-label')]]"
+                                   value="{{project.image.oracleInstallerVersion.observable}}"
+                                   help.instruction="[[labelMapper('fmw-installer-version-help')]]">
+                    </oj-input-text>
+                  </oj-form-layout>
+                </div>
+              </oj-bind-if>
+            </div>
+
+            <div>
+              <oj-bind-if test="[[customImageDoesNotContainsOracleHome() === true]]">
+                <div class="oj-panel">
+                  <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('patches-title')]]"></oj-bind-text></h6>
+                  <oj-form-layout max-columns="1" direction="row">
+                    <oj-switch label-hint="[[labelMapper('apply-patches-label')]]"
+                               value="{{project.image.applyOraclePatches.observable}}"
+                               help.instruction="[[labelMapper('apply-patches-help')]]">
+                    </oj-switch>
+                  </oj-form-layout>
+
+                  <oj-bind-if test="[[project.image.applyOraclePatches.observable() === true]]">
+                    <oj-form-layout max-columns="2" direction="row">
+                      <oj-input-password label-hint="[[labelMapper('support-username-label')]]"
+                                         mask-icon="visible"
+                                         value="{{project.image.oracleSupportUserName.observable}}"
+                                         help.instruction="[[labelMapper('support-username-help')]]">
+                      </oj-input-password>
+                      <oj-input-password label-hint="[[labelMapper('support-password-label')]]"
+                                         mask-icon="visible"
+                                         value="{{project.image.oracleSupportPassword.observable}}"
+                                         help.instruction="[[labelMapper('support-password-help')]]">
+                      </oj-input-password>
+                      <div>
+                        <oj-radioset label-hint=""
+                                     value="{{project.image.oraclePatchOptions.observable}}"
+                                     help.instruction="[[labelMapper('psu-rec-help')]]">
+                          <oj-bind-for-each data="[[patchOptions]]">
+                            <template>
+                              <oj-option value="[[$current.data.value]]">
+                                <oj-bind-text value="[[$current.data.label]]"></oj-bind-text>
+                              </oj-option>
+                            </template>
+                          </oj-bind-for-each>
+                        </oj-radioset>
+                      </div>
+                      <oj-text-area label-hint="[[labelMapper('patches-label')]]" rows="6"
+                                    value="{{project.image.oraclePatchesToApply.observable}}"
+                                    help.instruction="[[labelMapper('patches-help')]]">
+                      </oj-text-area>
+                    </oj-form-layout>
+                  </oj-bind-if>
+                </div>
+              </oj-bind-if>
+
+              <oj-bind-if test="[[mainImageRequiresWdt() === true]]">
+                <div class="oj-panel">
+                  <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('wdt-installer-title')]]"></oj-bind-text></h6>
+                  <oj-form-layout max-columns="1" direction="row">
+                    <oj-switch label-hint="[[labelMapper('use-wdt-installer-label')]]"
+                               value="{{project.image.useLatestWdtVersion.observable}}"
+                               help.instruction="[[labelMapper('use-wdt-installer-help')]]">
+                    </oj-switch>
+                  </oj-form-layout>
+                  <oj-bind-if test="[[project.image.useLatestWdtVersion.observable() === false]]">
+                    <oj-form-layout max-columns="2" direction="row">
+                      <oj-input-text label-hint="[[labelMapper('wdt-installer-label')]]"
+                                     value="{{project.image.wdtInstaller.observable}}"
+                                     help.instruction="[[labelMapper('wdt-installer-help')]]">
+                        <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[chooseWDT]]">
+                          <span slot="endIcon" class="oj-ux-ico-file-text" role="img"></span>
+                        </oj-button>
+                      </oj-input-text>
+                      <oj-input-text label-hint="[[labelMapper('wdt-installer-version-label')]]"
+                                     value="{{project.image.wdtInstallerVersion.observable}}"
+                                     help.instruction="[[labelMapper('wdt-installer-version-help')]]">
+                      </oj-input-text>
+                    </oj-form-layout>
+                  </oj-bind-if>
+                </div>
+              </oj-bind-if>
+            </div>
+          </oj-bind-if>
 
           <oj-collapsible expanded='false'>
             <h6 slot="header" class="wkt-subheading"><oj-bind-text value="[[labelMapper('page-design-advanced-label')]]"></oj-bind-text></h6>

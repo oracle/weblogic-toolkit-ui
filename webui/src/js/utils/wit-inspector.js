@@ -88,7 +88,12 @@ define(['utils/wit-actions-base', 'models/wkt-project', 'utils/i18n', 'utils/pro
             this.project.image.setBaseImageContents(inspectResults.contents);
             const title = i18n.t('wit-inspector-inspect-complete-title');
             const message = this.getInspectSuccessMessage(baseImageTag, inspectResults.contents);
-            await window.api.ipc.invoke('show-info-message', title, message);
+            const dialogOptions = {
+              title: title,
+              message: message,
+              contents: inspectResults.contents
+            };
+            dialogHelper.openDialog('inspect-dialog', dialogOptions);
             return Promise.resolve(true);
           } else {
             errTitle = i18n.t('wit-inspector-inspect-failed-title');

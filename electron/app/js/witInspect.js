@@ -64,7 +64,7 @@ function getInspectEnvironment(javaHome, options, httpsProxyUrl, bypassProxyHost
 }
 
 function getImageToolInspectArgs(imageTag, options) {
-  const args = [ 'inspect', `--image=${imageTag}`, '--format=JSON' ];
+  const args = [ 'inspect', `--image=${imageTag}`, '--patches', '--format=JSON' ];
   if ('buildEngine' in options && options.buildEngine) {
     args.push(`--builder=${options['buildEngine']}`);
   }

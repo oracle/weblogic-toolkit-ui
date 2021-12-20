@@ -817,6 +817,21 @@
   "wit-inspect-results-java-message": "Inspection of image {{imageTag}} found {{javaMessage}}.",
   "wit-inspector-empty-contents-message": "Inspection of image {{imageTag}} did not find Java or Oracle Fusion Middleware installations",
 
+  "inspect-dialog-default-title": "Image Contents",
+  "inspect-dialog-default-message": "Unknown image contents",
+  "inspect-dialog-os-section-title": "Operating System:",
+  "inspect-dialog-os-name-label": "Name:",
+  "inspect-dialog-os-version-label": "Version:",
+  "inspect-dialog-java-home-section-title": "Java Development Kit:",
+  "inspect-dialog-java-home-path-label": "Location:",
+  "inspect-dialog-java-home-version-label": "Version:",
+  "inspect-dialog-oracle-home-section-title": "Oracle Fusion Middleware:",
+  "inspect-dialog-oracle-home-path-label": "Location:",
+  "inspect-dialog-oracle-home-version-label": "Version:",
+  "inspect-dialog-opatch-version-label": "OPatch Version:",
+  "inspect-dialog-oracle-patches-section-title": "Oracle Patches Found:",
+  "inspect-dialog-oracle-one-off-patches-label": "One-Off Patches:",
+
   "wit-creator-image-not-create-message": "The Create New Primary Image option is off so there is nothing to do.",
   "wit-creator-aborted-error-title": "Create Image Aborted",
   "wit-creator-invalid-java-home-error-prefix": "Unable to create image due to the Java Home being invalid",
@@ -1120,7 +1135,6 @@
   "flow-get-domain-status-name": "Get Domain Status",
   "flow-getting-k8s-domain-status-in-progress": "Getting domain {{domain}} status",
   "flow-checking-operator-version-in-progress": "Checking operator version",
-
 
   "add-archive-file-title": "Add Archive File",
   "add-archive-file-replace-message": "This will replace the existing archive, continue?",
