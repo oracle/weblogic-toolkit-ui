@@ -142,11 +142,29 @@ function getDockerEnv(httpsProxyUrl, bypassProxyHosts) {
     PATH: process.env.PATH
   };
 
-  // podman-specific environment variable
+  // Docker-specific environment variables that should be passed on
+  if (process.env.DOCKER_HOST) {
+    env['DOCKER_HOST'] = process.env.DOCKER_HOST;
+  }
+  if (process.env.DOCKER_TLS_VERIFY) {
+    env['DOCKER_TLS_VERIFY'] = process.env.DOCKER_TLS_VERIFY;
+  }
+  if (process.env.DOCKER_CERT_PATH) {
+    env['DOCKER_CERT_PATH'] = process.env.DOCKER_CERT_PATH;
+  }
+
+  // podman-specific environment variables that should be passed on
+  if(process.env.CONTAINER_HOST) {
+    env['CONTAINER_HOST'] = process.env.CONTAINER_HOST;
+  }
   if (process.env.STORAGE_DRIVER) {
     env['STORAGE_DRIVER'] = process.env.STORAGE_DRIVER;
   }
+  if (process.env.STORAGE_OPTS) {
+    env['STORAGE_OPTS'] = process.env.STORAGE_OPTS;
+  }
 
+  // proxy-related environment variables
   if (httpsProxyUrl) {
     env['HTTPS_PROXY'] = httpsProxyUrl;
     env['https_proxy'] = httpsProxyUrl;

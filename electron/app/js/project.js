@@ -356,6 +356,14 @@ async function _openProjectFile(targetWindow, projectFileName) {
 }
 
 async function _saveProjectFile(targetWindow, projectFile, projectContents) {
+  // Just in case the name or uuid were empty, make sure that they have a proper value.
+  if (!projectContents.name) {
+    projectContents.name = _generateProjectName(projectFile);
+  }
+  if (!projectContents.uuid) {
+    projectContents.uuid = _generateProjectUuid();
+  }
+
   return new Promise((resolve, reject) => {
     _getCredentialManagerForSavingProject(targetWindow, projectContents)
       .then(credentialManager => {
