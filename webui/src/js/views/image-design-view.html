@@ -231,66 +231,70 @@
                   </oj-bind-if>
                 </div>
               </oj-bind-if>
-
-              <oj-bind-if test="[[mainImageRequiresWdt() === true]]">
-                <div class="oj-panel">
-                  <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('wdt-installer-title')]]"></oj-bind-text></h6>
-                  <oj-form-layout max-columns="1" direction="row">
-                    <oj-switch label-hint="[[labelMapper('use-wdt-installer-label')]]"
-                               value="{{project.image.useLatestWdtVersion.observable}}"
-                               help.instruction="[[labelMapper('use-wdt-installer-help')]]">
-                    </oj-switch>
-                  </oj-form-layout>
-                  <oj-bind-if test="[[project.image.useLatestWdtVersion.observable() === false]]">
-                    <oj-form-layout max-columns="2" direction="row">
-                      <oj-input-text label-hint="[[labelMapper('wdt-installer-label')]]"
-                                     value="{{project.image.wdtInstaller.observable}}"
-                                     help.instruction="[[labelMapper('wdt-installer-help')]]">
-                        <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[chooseWDT]]">
-                          <span slot="endIcon" class="oj-ux-ico-file-text" role="img"></span>
-                        </oj-button>
-                      </oj-input-text>
-                      <oj-input-text label-hint="[[labelMapper('wdt-installer-version-label')]]"
-                                     value="{{project.image.wdtInstallerVersion.observable}}"
-                                     help.instruction="[[labelMapper('wdt-installer-version-help')]]">
-                      </oj-input-text>
-                    </oj-form-layout>
-                  </oj-bind-if>
-                </div>
-              </oj-bind-if>
             </div>
           </oj-bind-if>
 
-          <oj-collapsible expanded='false'>
-            <h6 slot="header" class="wkt-subheading"><oj-bind-text value="[[labelMapper('page-design-advanced-label')]]"></oj-bind-text></h6>
+          <div>
             <oj-bind-if test="[[mainImageRequiresWdt() === true]]">
               <div class="oj-panel">
-                <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('wdt-section-title')]]"></oj-bind-text></h6>
-                <oj-form-layout max-columns="2" direction="row">
-                  <oj-bind-if test="[[targetDomainLocationIsDII() === true]]">
-                    <oj-select-single label-hint="[[labelMapper('domain-type-label')]]"
-                                      value="{{project.image.targetDomainType.observable}}"
-                                      data="{{wdtDomainTypesDP}}"
-                                      help.instruction="[[labelMapper('domain-type-help')]]">
-                    </oj-select-single>
-                  </oj-bind-if>
-                  <oj-bind-if test="[[targetDomainLocationIsDII() === true]]">
-                    <oj-input-text label-hint="[[labelMapper('wdt-domain-home-label')]]"
-                                   value="{{project.image.domainHomePath.observable}}"
-                                   help.instruction="[[labelMapper('wdt-domain-home-help')]]">
-                    </oj-input-text>
-                  </oj-bind-if>
-                  <oj-input-text label-hint="[[labelMapper('wdt-home-label')]]"
-                                 value="{{project.image.wdtHomePath.observable}}"
-                                 help.instruction="[[labelMapper('wdt-home-help')]]">
-                  </oj-input-text>
-                  <oj-input-text label-hint="[[labelMapper('wdt-model-home-label')]]"
-                                 value="{{project.image.modelHomePath.observable}}"
-                                 help.instruction="[[labelMapper('wdt-model-home-help')]]">
-                  </oj-input-text>
+                <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('wdt-installer-title')]]"></oj-bind-text></h6>
+                <oj-form-layout max-columns="1" direction="row">
+                  <oj-switch label-hint="[[labelMapper('use-wdt-installer-label')]]"
+                             value="{{project.image.useLatestWdtVersion.observable}}"
+                             help.instruction="[[labelMapper('use-wdt-installer-help')]]">
+                  </oj-switch>
                 </oj-form-layout>
+                <oj-bind-if test="[[project.image.useLatestWdtVersion.observable() === false]]">
+                  <oj-form-layout max-columns="2" direction="row">
+                    <oj-input-text label-hint="[[labelMapper('wdt-installer-label')]]"
+                                   value="{{project.image.wdtInstaller.observable}}"
+                                   help.instruction="[[labelMapper('wdt-installer-help')]]">
+                      <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[chooseWDT]]">
+                        <span slot="endIcon" class="oj-ux-ico-file-text" role="img"></span>
+                      </oj-button>
+                    </oj-input-text>
+                    <oj-input-text label-hint="[[labelMapper('wdt-installer-version-label')]]"
+                                   value="{{project.image.wdtInstallerVersion.observable}}"
+                                   help.instruction="[[labelMapper('wdt-installer-version-help')]]">
+                    </oj-input-text>
+                  </oj-form-layout>
+                </oj-bind-if>
               </div>
             </oj-bind-if>
+          </div>
+
+          <oj-collapsible expanded='false'>
+            <h6 slot="header" class="wkt-subheading"><oj-bind-text value="[[labelMapper('page-design-advanced-label')]]"></oj-bind-text></h6>
+            <div>
+              <oj-bind-if test="[[mainImageRequiresWdt() === true]]">
+                <div class="oj-panel">
+                  <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('wdt-section-title')]]"></oj-bind-text></h6>
+                  <oj-form-layout max-columns="2" direction="row">
+                    <oj-bind-if test="[[targetDomainLocationIsDII() === true]]">
+                      <oj-select-single label-hint="[[labelMapper('domain-type-label')]]"
+                                        value="{{project.image.targetDomainType.observable}}"
+                                        data="{{wdtDomainTypesDP}}"
+                                        help.instruction="[[labelMapper('domain-type-help')]]">
+                      </oj-select-single>
+                    </oj-bind-if>
+                    <oj-bind-if test="[[targetDomainLocationIsDII() === true]]">
+                      <oj-input-text label-hint="[[labelMapper('wdt-domain-home-label')]]"
+                                     value="{{project.image.domainHomePath.observable}}"
+                                     help.instruction="[[labelMapper('wdt-domain-home-help')]]">
+                      </oj-input-text>
+                    </oj-bind-if>
+                    <oj-input-text label-hint="[[labelMapper('wdt-home-label')]]"
+                                   value="{{project.image.wdtHomePath.observable}}"
+                                   help.instruction="[[labelMapper('wdt-home-help')]]">
+                    </oj-input-text>
+                    <oj-input-text label-hint="[[labelMapper('wdt-model-home-label')]]"
+                                   value="{{project.image.modelHomePath.observable}}"
+                                   help.instruction="[[labelMapper('wdt-model-home-help')]]">
+                    </oj-input-text>
+                  </oj-form-layout>
+                </div>
+              </oj-bind-if>
+            </div>
 
             <div class="oj-panel">
               <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('build-config-title')]]"></oj-bind-text></h6>
