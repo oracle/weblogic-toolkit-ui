@@ -30,7 +30,8 @@ Auxiliary images are available for the "Model in Image" [domain location]({{< re
 - `Primary Image` - The image containing the Oracle Fusion Middleware software. It is used as the basis of all containers that run WebLogic Servers for the domain.
 - `Auxiliary Image` - The image that supplies the WebLogic Deploy Tooling software and the model files. At runtime, the auxiliary image's content is merged with the primary image's content.
 
-One primary image can be reused for hundreds of domains whereas an auxiliary image is domain-specific. When using auxiliary images,
+The primary image is the one used for running the domain and the auxiliary contains the data that defines the domain. One primary image can be
+reused for hundreds of domains whereas an auxiliary image is domain-specific. When using auxiliary images,
 the primary image contains the OS, JDK, and FMW software installations; the auxiliary image supplies the specifics for a single domain.
 
 Use the `Design View` page to create a new or use an existing (the default) `Primary Image` and,
@@ -112,6 +113,11 @@ other installers' version number fields, the best practice it to use the actual 
 (for example, `1.9.17`).  Note that new WDT versions often contain bug fixes or enhancements required to work with the
 latest capabilities, many of which are exposed by this application.  As such, using the latest version is strongly
 recommended.
+
+{{% notice note %}} For "Model in Image" or "Domain in Image" [domain locations]({{< relref "/navigate/project-settings#choosing-a-domain-location" >}}),
+when building your primary or auxiliary image, we highly recommend using WDT 2.0 to take advantage of enhanced capabilities that reduce the chance of deploy-time errors created due to a bad model.    
+{{% /notice %}}
+
 
 #### Patch Oracle Home
 **NOTE**: This pane is relevant for `Primary Images` only. Oracle strongly recommends patching all Oracle Fusion Middleware installations with the latest Patch Set Updates (PSUs)

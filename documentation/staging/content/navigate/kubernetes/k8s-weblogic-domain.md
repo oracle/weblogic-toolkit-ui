@@ -247,6 +247,7 @@ To view the current status of the last domain deployment, use the `Get Domain St
 status, as provided by the WebLogic Kubernetes Operator.
 
 ### Undeploy Domain
-`Undeploy Domain` removes the Kubernetes custom resource for the WebLogic domain and its dependent objects in Kubernetes.
-You access this action by using the `Undeploy Domain` button on the
+`Undeploy Domain` removes the Kubernetes custom resource for the WebLogic domain and its
+dependent objects in Kubernetes. In addition, you can choose whether to also delete the corresponding namespace.
+You access these actions by using the `Undeploy Domain` button on the
 `WebLogic Domain` page or the `Go` > `Undeploy WebLogic Domain to Kubernetes` menu item.

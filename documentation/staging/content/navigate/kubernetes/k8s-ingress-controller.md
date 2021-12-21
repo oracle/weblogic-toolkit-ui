@@ -115,6 +115,7 @@ by using the `Update Ingress Routes` button on the `Ingress Controller` page or
 the `Go` > `Update Ingress Routes to Domain` menu item.
 
 ### Uninstall Ingress Controller
-`Uninstall Ingress Controller` uses the `helm uninstall` command to remove all the ingress resources and uninstall the ingress controller.
-You access this action by using the `Uninstall Ingress Controller` button on the
+`Uninstall Ingress Controller` uses the `helm uninstall` command to remove all the ingress resources
+and uninstall the ingress controller. In addition, you can choose whether to also delete the corresponding namespace.
+You access these actions by using the `Uninstall Ingress Controller` button on the
 `Ingress Controller` page or the `Go` > `Uninstall Ingress Controller` menu item.
