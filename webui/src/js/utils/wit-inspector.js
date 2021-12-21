@@ -88,7 +88,12 @@ define(['utils/wit-actions-base', 'models/wkt-project', 'utils/i18n', 'utils/pro
             this.project.image.setBaseImageContents(inspectResults.contents);
             const title = i18n.t('wit-inspector-inspect-complete-title');
             const message = this.getInspectSuccessMessage(baseImageTag, inspectResults.contents);
-            await window.api.ipc.invoke('show-info-message', title, message);
+            const dialogOptions = {
+              title: title,
+              message: message,
+              contents: inspectResults.contents
+            };
+            dialogHelper.openDialog('inspect-dialog', dialogOptions);
             return Promise.resolve(true);
           } else {
             errTitle = i18n.t('wit-inspector-inspect-failed-title');
@@ -137,39 +142,15 @@ define(['utils/wit-actions-base', 'models/wkt-project', 'utils/i18n', 'utils/pro
       }
 
       getInspectSuccessMessage(imageTag, imageContents) {
-        const hasJdk = 'javaHome' in imageContents;
-        const jdkPath = imageContents.javaHome;
-        const jdkVersion = imageContents.javaVersion;
-        const hasFmw = 'oracleHome' in imageContents;
-        const fmwPath = imageContents.oracleHome;
-        const fmwVersion = imageContents.wlsVersion;
-
-        const fmwMessage = this.getMessage('wit-inspector-fmw', hasFmw, fmwPath, fmwVersion);
-        const javaMessage = this.getMessage('wit-inspector-java', hasJdk, jdkPath, jdkVersion);
-
-        let message;
-        if (fmwMessage) {
-          message = i18n.t('wit-inspect-results-fmw-message',
-            { imageTag: imageTag, javaMessage: javaMessage, fmwMessage: fmwMessage });
-        } else if (javaMessage) {
-          message = i18n.t('wit-inspect-results-java-message',
-            { imageTag: imageTag, javaMessage: javaMessage });
+        let key;
+        if ('oracleHome' in imageContents) {
+          key = 'wit-inspect-results-fmw-message';
+        } else if ('javaHome' in imageContents) {
+          key = 'wit-inspect-results-java-message';
         } else {
-          message = i18n.t('wit-inspector-empty-contents-message', { imageTag: imageTag });
+          key = 'wit-inspector-empty-contents-message';
         }
-        return message;
-      }
-
-      getMessage(i18nPrefix, isInstalled, path, version) {
-        let message;
-        if (isInstalled) {
-          if (version) {
-            message = i18n.t(`${i18nPrefix}-version-message`, { path: path, version: version });
-          } else {
-            message = i18n.t(`${i18nPrefix}-message`, { path: path });
-          }
-        }
-        return message;
+        return i18n.t(key, { imageTag: imageTag });
       }
     }
 

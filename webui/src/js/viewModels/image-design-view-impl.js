@@ -60,7 +60,7 @@ define(['utils/wkt-logger'],
 
       this.disableAuxImage = ko.computed(() => {
         return !(this.targetDomainLocationIsMII() && this.project.image.useAuxImage.value);
-      });
+      }, this);
 
       this.mainCreateImageSwitchHelp = ko.computed(() => {
         if (this.project.image.useAuxImage.value) {
@@ -68,7 +68,7 @@ define(['utils/wkt-logger'],
         } else {
           return this.labelMapper('create-image-help');
         }
-      });
+      }, this);
 
       this.mainImageTagHelpMII = () => {
         let key = 'image-tag-mii-use-help';
@@ -116,7 +116,7 @@ define(['utils/wkt-logger'],
             break;
         }
         return this.labelMapper(key);
-      });
+      }, this);
 
       this.auxImageTagHelp = ko.computed(() => {
         if (this.project.image.createAuxImage.value) {
@@ -124,7 +124,7 @@ define(['utils/wkt-logger'],
         } else {
           return this.labelMapper('aux-image-tag-use-help');
         }
-      });
+      }, this);
 
       this.subviews = [
         {id: 'fmwImage', name: this.labelMapper('image-tab')},
@@ -144,7 +144,7 @@ define(['utils/wkt-logger'],
         } else {
           return this.labelMapper('fmw-title');
         }
-      });
+      }, this);
 
       this.mainImageRequiresWdt = () => {
         let result = false;
@@ -209,6 +209,16 @@ define(['utils/wkt-logger'],
       this.customImageDoesNotContainsOracleHome = () => {
         return !this.project.image.baseImageContentsIncludesMiddleware();
       };
+
+      this.needsInstallers = ko.computed(function() {
+        let result = true;
+        if (this.project.image.useCustomBaseImage.observable()) {
+          if (this.project.image.baseImageContentsIncludesMiddleware()) {
+            result = false;
+          }
+        }
+        return result;
+      }, this);
 
       this.chooseJDK = () => {
         window.api.ipc.invoke('get-jdk-installer-location')

@@ -33,15 +33,15 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider,
 
     this.isDomainInPV = ko.computed(() => {
       return this.project.settings.targetDomainLocation.observable() === 'pv';
-    });
+    }, this);
 
     this.isDomainInImage = ko.computed(() => {
       return this.project.settings.targetDomainLocation.observable() === 'dii';
-    });
+    }, this);
 
     this.isModelInImage = ko.computed(() => {
       return this.project.settings.targetDomainLocation.observable() === 'mii';
-    });
+    }, this);
 
     // Disable JRF as the domain type since the application does not (yet?) provide the mechanisms required
     // to specify the JRF schemas or the database connectivity and credential information needed to run RCU.
@@ -70,7 +70,7 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider,
 
     this.usingAuxImage = ko.computed(() => {
       return this.isModelInImage() && this.project.image.useAuxImage.value;
-    });
+    }, this);
 
     this.hasNoClusters = () => {
       return this.project.k8sDomain.clusters.value.length === 0;

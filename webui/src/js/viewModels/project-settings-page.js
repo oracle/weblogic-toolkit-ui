@@ -55,7 +55,7 @@ function(accUtils, ko, i18n, project, ArrayDataProvider) {
         key = 'java-directory-location-with-pv-answer-message';
       }
       return this.labelMapper(key);
-    });
+    }, this);
 
     this.requiresOracleHome = () => {
       return this.project.settings.targetDomainLocation.value !== 'pv';
@@ -103,7 +103,7 @@ function(accUtils, ko, i18n, project, ArrayDataProvider) {
         key = 'build-tool-type-with-pv-answer-message';
       }
       return this.labelMapper(key);
-    });
+    }, this);
 
     this.getBuilderExecutableFilePathLabel = () => {
       let name = this.getDockerLabelForBuilderType(this.project.settings.builderType.value) || '<Unknown>';
