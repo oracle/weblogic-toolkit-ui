@@ -44,9 +44,33 @@
                          help.instruction="[[labelMapper('route-targetport-help')]]"
                          validators="[[project.ingress.validators.targetPortValidator]]">
         </oj-input-number>
-        <oj-switch label-hint="[[labelMapper('route-tls-label')]]"
-                   value="{{tlsEnabled.observable}}">
-        </oj-switch>
+
+        <oj-radioset id="tlsOptionId"
+                     label-hint="[[labelMapper('route-tls-label')]]"
+                     label-edge="inside"
+                     value="{{tlsOption.observable}}">
+          <oj-bind-for-each data="[[tlsOptions]]">
+            <template>
+              <oj-option value="[[$current.data.value]]">
+                <oj-bind-text value="[[$current.data.text]]"></oj-bind-text>
+              </oj-option>
+            </template>
+          </oj-bind-for-each>
+        </oj-radioset>
+
+        <oj-checkboxset id="isConsoleSetId"
+                        label-hint="[[labelMapper('route-is-console-svc-label')]]"
+                        label-edge="inside"
+                        value="{{isConsoleService.observable}}">
+          <oj-bind-for-each data="[[isConsoleOptions]]">
+            <template>
+              <oj-option value="[[$current.data.value]]">
+                <oj-bind-text value="[[$current.data.text]]"></oj-bind-text>
+              </oj-option>
+            </template>
+          </oj-bind-for-each>
+        </oj-checkboxset>
+
       </oj-form-layout>
 
       <h6 class="wkt-subheading">

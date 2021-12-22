@@ -191,7 +191,7 @@ function(IngressActionsBase, project, wktConsole, k8sHelper, i18n, projectIo, di
             // Currently UI for tls secret is created/assumed in the same namespace of the domain to avoid too many
             // inputs and handling another table.  Once we moved to dialog format, then this can be accomplished.
             //
-            if (route['tlsEnabled'] === true) {
+            if (route['tlsOption'] === 'ssl_terminate_ingress') {
               route['tlsSecretName'] = this.project.ingress.ingressTLSSecretName.value;
             }
             let ingressRouteData = {};
@@ -491,15 +491,15 @@ function(IngressActionsBase, project, wktConsole, k8sHelper, i18n, projectIo, di
             });
           }
         }
-
+        console.log(ingressDefinition);
         if (useNodePort) {
-          if (ingressDefinition['tLSEnabled'] === true) {
+          if (ingressDefinition['tlsOption'] !== 'plain') {
             results['accessPoint'] = 'https:' + externalLoadBalancerHost + ':' + ingressSSLPort  + ingressDefinition.path;
           } else {
             results['accessPoint'] = 'http:' + externalLoadBalancerHost + ':' + ingressPlainPort  + ingressDefinition.path;
           }
         } else {
-          if (ingressDefinition['tLSEnabled'] === true) {
+          if (ingressDefinition['tlsOption'] !== 'plain') {
             results['accessPoint'] = 'https:' + externalLoadBalancerHost + ingressDefinition.path;
           } else {
             results['accessPoint'] = 'http:' + externalLoadBalancerHost +  ingressDefinition.path;
@@ -619,7 +619,7 @@ function(IngressActionsBase, project, wktConsole, k8sHelper, i18n, projectIo, di
           validationHelper.validateField(validators, data[attribute], isRequired), routeConfig);
       });
 
-      if (data['tlsEnabled'] && !tlsSecretSpecified) {
+      if (data['tlsOption'] === 'ssl_terminate_ingress' && !tlsSecretSpecified) {
         errFieldMessage = i18n.t('ingress-design-ingress-route-field-validation-error', {
           routeName: data['name'],
           fieldName: i18n.t('ingress-design-ingress-route-tls-label')

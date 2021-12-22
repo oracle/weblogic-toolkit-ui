@@ -38,8 +38,19 @@ function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDa
 
     this.project = project;
     this.route = args.route;
+    this.route.isConsoleService = [];
 
     this.savedAnnotations = args.route.annotations || {};
+
+    this.tlsOptions = [
+      { id: 'plain', value: 'plain', text: this.labelMapper('route-tlsoption-plain') },
+      { id: 'ssl_terminate_ingress', value: 'ssl_terminate_ingress', text: this.labelMapper('route-tlsoption-ssl-terminate-ingress') },
+      { id: 'ssl_passthrough', value: 'ssl_passthrough', text: this.labelMapper('route-tlsoption-ssl-passthrough') },
+    ];
+
+    this.isConsoleOptions = [
+      { id: 'isConsole', value: 'yes', text: this.labelMapper('route-yes-console-svc') }
+    ];
 
     // this is dynamic to allow i18n fields to load correctly
     this.annotationColumns = [
@@ -124,6 +135,19 @@ function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDa
       return Object.entries(one).sort().toString() !== Object.entries(two).sort().toString();
     }
 
+    function addOrDeleteAnnotation(annotations, addAction, key, value, deleteKey) {
+      if (addAction) {
+        annotations[key] = value;
+      } else {
+        if (key in annotations) {
+          delete annotations[key];
+        }
+      }
+      if (deleteKey in annotations) {
+        delete annotations[deleteKey];
+      }
+    }
+
     this.okInput = () => {
       let tracker = document.getElementById('ingressTracker');
       if (tracker.valid !== 'valid') {
@@ -144,12 +168,36 @@ function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDa
           result[propertyName] = property.value;
         }
       });
+      console.log(result);
 
       // add annotations if any value has changed
       const changedAnnotations = {};
       this.annotations.observable().forEach(annotation => {
         changedAnnotations[annotation.key] = annotation.value ? annotation.value : '';
       });
+
+      if (this.project.ingress.ingressControllerProvider.value === 'traefik') {
+        const sslKey = 'traefik.ingress.kubernetes.io/router.tls';
+        const tlsOption = result['tlsOption'];
+        addOrDeleteAnnotation(changedAnnotations, (tlsOption !== 'plain'),
+          sslKey, 'true', '');
+        // if user switched to plain
+        if (tlsOption === 'plain') {
+          if (sslKey in changedAnnotations) {
+            delete changedAnnotations[sslKey];
+          }
+        }
+      }
+
+      if (this.project.ingress.ingressControllerProvider.value === 'nginx') {
+        const sslKey = 'nginx.ingress.kubernetes.io/backend-protocol';
+        const sslPassThroughKey = 'nginx.ingress.kubernetes.io/ssl-passthrough';
+        const tlsOption = result['tlsOption'];
+        addOrDeleteAnnotation(changedAnnotations, (tlsOption === 'ssl_terminate_ingress'),
+          sslKey, 'HTTPS', sslPassThroughKey);
+        addOrDeleteAnnotation(changedAnnotations, (tlsOption === 'ssl_passthrough'), 'true', sslKey);
+      }
+
       if(compareObjects(changedAnnotations, this.savedAnnotations)) {
         result['annotations'] = changedAnnotations;
       }
@@ -161,6 +209,7 @@ function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDa
       $(DIALOG_SELECTOR)[0].close();
       args.setValue();
     };
+
   }
 
   /*

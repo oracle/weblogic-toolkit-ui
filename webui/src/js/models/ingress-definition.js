@@ -42,7 +42,7 @@ define(['knockout', 'utils/observable-properties', 'utils/validation-helper'],
 
         this.ingressRouteKeys = [
           'uid', 'name', 'virtualHost', 'targetServiceNameSpace', 'targetService', 'targetPort',
-          'path', 'tlsEnabled', 'annotations', 'accessPoint', 'markedForDeletion'
+          'path', 'annotations', 'accessPoint', 'tlsOption', 'markedForDeletion', 'isConsoleService'
         ];
         this.ingressRoutes = props.createListProperty(this.ingressRouteKeys).persistByKey('uid');
 
