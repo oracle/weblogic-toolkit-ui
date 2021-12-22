@@ -42,12 +42,12 @@ function(accUtils, ko, i18n, project, ImageScriptGenerator, ArrayDataProvider) {
 
     this.disablePrimaryImageScript = ko.computed(() => {
       return !this.project.image.createPrimaryImage.value;
-    });
+    }, this);
 
     this.disableAuxiliaryImageScript = ko.computed(() => {
       return !(this.project.settings.targetDomainLocation.value === 'mii' &&
         this.project.image.useAuxImage.value && this.project.image.createAuxImage.value);
-    });
+    }, this);
 
     this.subviews = [
       {
@@ -69,7 +69,7 @@ function(accUtils, ko, i18n, project, ImageScriptGenerator, ArrayDataProvider) {
 
     this.tabsStatus = ko.computed(() => {
       return this.disablePrimaryImageScript() && this.disableAuxiliaryImageScript() ? 'disabled' : 'enabled';
-    });
+    }, this);
 
     this.codeViewScriptLanguage = ko.observable(ImageScriptGenerator.getDefaultScriptingLanguage());
     this.codeViewScriptLanguages = [

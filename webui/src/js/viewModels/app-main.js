@@ -198,7 +198,7 @@ function(accUtils, ko, i18n, project, wktConsole, dialogHelper, viewHelper, Arra
 
     this.collapseArrowClass = ko.computed(() => {
       return this.navCollapsed() ? 'oj-ux-ico-arrow-right' : 'oj-ux-ico-arrow-left';
-    });
+    }, this);
 
     this.collapseNav = () => {
       this.navCollapsed(!this.navCollapsed());

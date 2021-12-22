@@ -36,11 +36,11 @@ function(accUtils, ko, i18n, project) {
     this.topMessage = ko.computed(() => {
       const messageKey = this.connectOk() ? 'proceed' : 'warning';
       return this.labelMapper(messageKey);
-    });
+    }, this);
 
     this.topClass = ko.computed(() => {
       return this.connectOk() ? 'wkt-proceed' : 'wkt-warning';
-    });
+    }, this);
 
     this.tryConnect = () => {
       this.tryMessage(this.labelMapper('trying'));

@@ -1,0 +1,68 @@
+<!--
+ Copyright (c) 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<oj-dialog id="wktInspectDialog" class="wkt-validation-error-dialog" initial-visibility="hide">
+  <div slot="header">
+    <span class="oj-dialog-title"><oj-bind-text value="[[getTitle()]]"></oj-bind-text></span>
+  </div>
+
+  <div slot="body">
+    <div class="oj-panel wkt-notop wkt-inspect-dialog-content">
+      <div class="wkt-inspect-grid-container">
+        <div class="wkt-inspect-grid-message"><oj-bind-text value="[[getMessage()]]"></oj-bind-text></div>
+        <oj-bind-if test="[[hasOsInfo() === true]]">
+          <div class="wkt-inspect-grid-title"><oj-bind-text value="[[labelMapper('os-section-title')]]"></oj-bind-text></div>
+          <div class="wkt-inspect-grid-name"><oj-bind-text value="[[labelMapper('os-name-label')]]"></oj-bind-text></div>
+          <div class="wkt-inspect-grid-value"><oj-bind-text value="[[getOsName()]]"></oj-bind-text></div>
+          <div class="wkt-inspect-grid-name"><oj-bind-text value="[[labelMapper('os-version-label')]]"></oj-bind-text></div>
+          <div class="wkt-inspect-grid-value"><oj-bind-text value="[[getOsVersion()]]"></oj-bind-text></div>
+        </oj-bind-if>
+
+        <oj-bind-if test="[[hasJavaHome() === true]]">
+          <div class="wkt-inspect-grid-title"><oj-bind-text value="[[labelMapper('java-home-section-title')]]"></oj-bind-text></div>
+          <div class="wkt-inspect-grid-name"><oj-bind-text value="[[labelMapper('java-home-path-label')]]"></oj-bind-text></div>
+          <div class="wkt-inspect-grid-value"><oj-bind-text value="[[getJavaHome()]]"></oj-bind-text></div>
+          <div class="wkt-inspect-grid-name"><oj-bind-text value="[[labelMapper('java-home-version-label')]]"></oj-bind-text></div>
+          <div class="wkt-inspect-grid-value"><oj-bind-text value="[[getJavaVersion()]]"></oj-bind-text></div>
+        </oj-bind-if>
+
+        <oj-bind-if test="[[hasOracleHome() === true]]">
+          <div class="wkt-inspect-grid-title"><oj-bind-text value="[[labelMapper('oracle-home-section-title')]]"></oj-bind-text></div>
+          <div class="wkt-inspect-grid-name"><oj-bind-text value="[[labelMapper('oracle-home-path-label')]]"></oj-bind-text></div>
+          <div class="wkt-inspect-grid-value"><oj-bind-text value="[[getOracleHome()]]"></oj-bind-text></div>
+          <div class="wkt-inspect-grid-name"><oj-bind-text value="[[labelMapper('oracle-home-version-label')]]"></oj-bind-text></div>
+          <div class="wkt-inspect-grid-value"><oj-bind-text value="[[getWlsVersion()]]"></oj-bind-text></div>
+          <div class="wkt-inspect-grid-name"><oj-bind-text value="[[labelMapper('opatch-version-label')]]"></oj-bind-text></div>
+          <div class="wkt-inspect-grid-value"><oj-bind-text value="[[getOpatchVersion()]]"></oj-bind-text></div>
+
+          <oj-bind-if test="[[hasOraclePatches() === true]]">
+            <div class="wkt-inspect-grid-title"><oj-bind-text value="[[labelMapper('oracle-patches-section-title')]]"></oj-bind-text></div>
+            <oj-bind-if test="[[hasNamedPatches() === true]]">
+              <oj-bind-for-each data="[[getNamedPatches()]]">
+                <template data-oj-as="namedPatch">
+                  <div class="wkt-inspect-grid-name"><oj-bind-text value="[[namedPatch.data.number]]"></oj-bind-text></div>
+                  <div class="wkt-inspect-grid-value"><oj-bind-text value="[[namedPatch.data.name]]"></oj-bind-text></div>
+                </template>
+              </oj-bind-for-each>
+            </oj-bind-if>
+            <oj-bind-if test="[[hasOneOffPatches() === true]]">
+              <div class="wkt-inspect-grid-title"><oj-bind-text value="[[labelMapper('oracle-one-off-patches-label')]]"></oj-bind-text></div>
+              <oj-bind-for-each data="[[getOneOffPatches()]]">
+                <template data-oj-as="oneOffPatch">
+                  <div class="wkt-inspect-grid-name"><oj-bind-text value="[[oneOffPatch.data.number]]"></oj-bind-text></div>
+                </template>
+              </oj-bind-for-each>
+            </oj-bind-if>
+          </oj-bind-if>
+        </oj-bind-if>
+      </div>
+    </div>
+  </div>
+
+  <div slot="footer">
+    <oj-button id="okButton" on-oj-action="[[dismissDialog]]">
+      <span><oj-bind-text value="[[i18n.t('dialog-button-ok')]]"></oj-bind-text></span>
+    </oj-button>
+  </div>
+</oj-dialog>

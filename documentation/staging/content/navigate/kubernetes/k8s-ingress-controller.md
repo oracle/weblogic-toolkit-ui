@@ -15,6 +15,7 @@ description: "Install and configure an ingress controller."
 - [Code View](#code-view)
 - [Install Ingress Controller](#install-ingress-controller)
 - [Update Ingress Routes](#update-ingress-routes)
+- [Uninstall Ingress Controller](#uninstall-ingress-controller)
 
 ### Ingress Controller
 This section supports two distinct functions related to an ingress controller.  First, it supports installing an ingress
@@ -105,10 +106,16 @@ existing standards for securely handling such credentials.
 
 ### Install Ingress Controller
 `Install Ingress Controller` creates any namespace and secret specified and runs the ingress controller's Helm
-chart to install the ingress controller.  You can access it by using the `Install Ingress Controller` button on the
-`Ingress Controller` page or `Go` > `Install Ingress Controller`.
+chart to install the ingress controller.  You access this action by using the `Install Ingress Controller` button on the
+`Ingress Controller` page or the `Go` > `Install Ingress Controller` menu item.
 
 ### Update Ingress Routes
-`Update Ingress Routes` creates the TLS secret, if needed, and adds or updates the specified ingress routes. You can access it
+`Update Ingress Routes` creates the TLS secret, if needed, and adds or updates the specified ingress routes. You access this action
 by using the `Update Ingress Routes` button on the `Ingress Controller` page or
-`Go` > `Update Ingress Routes to Domain`.
+the `Go` > `Update Ingress Routes to Domain` menu item.
+
+### Uninstall Ingress Controller
+`Uninstall Ingress Controller` uses the `helm uninstall` command to remove all the ingress resources
+and uninstall the ingress controller. In addition, you can choose whether to also delete the corresponding namespace.
+You access these actions by using the `Uninstall Ingress Controller` button on the
+`Ingress Controller` page or the `Go` > `Uninstall Ingress Controller` menu item.

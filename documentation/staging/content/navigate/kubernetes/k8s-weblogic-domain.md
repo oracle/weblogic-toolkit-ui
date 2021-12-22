@@ -21,6 +21,7 @@ description: "Create and deploy the Kubernetes custom resource for the WebLogic 
 - [Prepare Model](#prepare-model)
 - [Deploy Domain](#deploy-domain)
 - [Get Domain Status](#get-domain-status)
+- [Undeploy Domain](#undeploy-domain)
 
 ### WebLogic Domain
 The `WebLogic Domain` section provides support for creating and deploying the Kubernetes custom resource for the WebLogic domain as
@@ -230,8 +231,8 @@ surfaced here because the `Clusters` pane of the `Design View` is populated only
 
 ### Deploy Domain
 `Deploy Domain` creates the Domain custom resource object and any of its dependent objects (for example,
-namespace, secrets, ConfigMap) in Kubernetes.  You can access it by using the `Deploy Domain` button on the
-`WebLogic Domain` page or `Go` > `Deploy WebLogic Domain to Kubernetes`.  As previously
+namespace, secrets, ConfigMap) in Kubernetes.  You access this action by using the `Deploy Domain` button on the
+`WebLogic Domain` page or the `Go` > `Deploy WebLogic Domain to Kubernetes` menu item.  As previously
 mentioned, this action also updates the operator configuration, if needed, and reruns the operator Helm chart to ensure
 that the new namespace is manageable by the WebLogic Kubernetes Operator configured for this project.  
 
@@ -244,3 +245,9 @@ provides the current status of the last `Deploy Domain` action.
 To view the current status of the last domain deployment, use the `Get Domain Status` button or the
 `Go` > `Get WebLogic Domain Status`.  This action retrieves and displays the domain deployment
 status, as provided by the WebLogic Kubernetes Operator.
+
+### Undeploy Domain
+`Undeploy Domain` removes the Kubernetes custom resource for the WebLogic domain and its
+dependent objects in Kubernetes. In addition, you can choose whether to also delete the corresponding namespace.
+You access these actions by using the `Undeploy Domain` button on the
+`WebLogic Domain` page or the `Go` > `Undeploy WebLogic Domain to Kubernetes` menu item.

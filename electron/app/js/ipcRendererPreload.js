@@ -145,6 +145,7 @@ contextBridge.exposeInMainWorld(
           'verify-file-exists',
           'ok-or-cancel-prompt',
           'yes-or-no-prompt',
+          'yes-no-or-cancel-prompt',
           'install-app-update',
           'get-latest-wdt-installer',
           'wit-cache-installers',
@@ -191,8 +192,7 @@ contextBridge.exposeInMainWorld(
           'k8s-delete-object',
           'openssl-generate-certs',
           'validate-k8s-namespaces-exist',
-          'validate-wko-domain-exist',
-          'domain-undeploy-scope-prompt'
+          'validate-wko-domain-exist'
         ];
         return new Promise((resolve, reject) => {
           if (validChannels.includes(channel)) {

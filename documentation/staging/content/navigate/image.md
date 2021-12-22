@@ -30,7 +30,8 @@ Auxiliary images are available for the "Model in Image" [domain location]({{< re
 - `Primary Image` - The image containing the Oracle Fusion Middleware software. It is used as the basis of all containers that run WebLogic Servers for the domain.
 - `Auxiliary Image` - The image that supplies the WebLogic Deploy Tooling software and the model files. At runtime, the auxiliary image's content is merged with the primary image's content.
 
-One primary image can be reused for hundreds of domains whereas an auxiliary image is domain-specific. When using auxiliary images,
+The primary image is the one used for running the domain and the auxiliary contains the data that defines the domain. One primary image can be
+reused for hundreds of domains whereas an auxiliary image is domain-specific. When using auxiliary images,
 the primary image contains the OS, JDK, and FMW software installations; the auxiliary image supplies the specifics for a single domain.
 
 Use the `Design View` page to create a new or use an existing (the default) `Primary Image` and,
@@ -113,6 +114,11 @@ other installers' version number fields, the best practice it to use the actual 
 latest capabilities, many of which are exposed by this application.  As such, using the latest version is strongly
 recommended.
 
+{{% notice note %}} For "Model in Image" or "Domain in Image" [domain locations]({{< relref "/navigate/project-settings#choosing-a-domain-location" >}}),
+when building your primary or auxiliary image, we highly recommend using WDT 2.0 to take advantage of enhanced capabilities that reduce the chance of deploy-time errors created due to a bad model.    
+{{% /notice %}}
+
+
 #### Patch Oracle Home
 **NOTE**: This pane is relevant for `Primary Images` only. Oracle strongly recommends patching all Oracle Fusion Middleware installations with the latest Patch Set Updates (PSUs)
 and other recommended patches to ensure that the latest security fixes are applied.  This pane configures the WebLogic
@@ -194,8 +200,8 @@ the script itself.  This change is left as an exercise for you because different
 existing standards for securely handling such credentials.
 
 ### Create Images
-The `Create Primary Image` and `Create Auxiliary Image` actions invoke the [WebLogic Image Tool](https://oracle.github.io/weblogic-image-tool/) to
-create a new container image for running a WebLogic domain in a Kubernetes environment.  You can access these actions using
+`Create Primary Image` and `Create Auxiliary Image` invoke the [WebLogic Image Tool](https://oracle.github.io/weblogic-image-tool/) to
+create a new container image for running a WebLogic domain in a Kubernetes environment.  You access these actions using
 the `Create Primary Image` or `Create Auxiliary Image` button on the `Image` page or from the `Go` menu.
 
 At a high level, the action performs the following steps:
@@ -208,8 +214,8 @@ At a high level, the action performs the following steps:
    [Create](https://oracle.github.io/weblogic-image-tool/userguide/tools/create-image/) command.
 
 ### Push Images
-The `Push Primary Image` and `Push Auxiliary Image` actions use the specified Image Builder program to upload (that is, push) the newly-built image
-to the image registry specified by its image tag.  You can access these actions by using the `Push Primary Image` or `Push Auxiliary Image` button on the `Image`
+`Push Primary Image` and `Push Auxiliary Image` use the specified Image Builder program to upload (that is, push) the newly-built image
+to the image registry specified by its image tag.  You access these actions by using the `Push Primary Image` or `Push Auxiliary Image` button on the `Image`
 page or from the `Go` menu.
 
 At a high level, the action performs the following steps:

@@ -80,6 +80,10 @@ define(['knockout', 'utils/observable-properties', 'utils/validation-helper'],
         this.auxImageTag.addValidator(...validationHelper.getImageTagValidators());
         this.createAuxImage = props.createProperty(true);
 
+        this.auxDefaultBaseImagePullRequiresAuthentication = props.createProperty(true);
+        this.auxDefaultBaseImagePullUsername = props.createProperty().asCredential();
+        this.auxDefaultBaseImagePullPassword = props.createProperty().asCredential();
+
         this.auxImageRegistryPushRequireAuthentication = props.createProperty(true);
         this.auxImageRegistryPushUser = props.createProperty().asCredential();
         this.auxImageRegistryPushPassword = props.createProperty().asCredential();
@@ -135,6 +139,10 @@ define(['knockout', 'utils/observable-properties', 'utils/validation-helper'],
             host = window.api.k8s.getRegistryAddressFromImageTag(value);
           }
           this.internal.baseImageRegistryAddress.observable(host);
+
+          // any time the baseImage changes, reset these fields...
+          this.baseImageInspected.observable(false);
+          this.customBaseImageContents.observable([]);
         });
 
         this.auxBaseImage.observable.subscribe(value => {
@@ -183,12 +191,14 @@ define(['knockout', 'utils/observable-properties', 'utils/validation-helper'],
           }
         };
 
+        // Ignore the customBaseImageContents field if using custom base image is turned off...
         this.baseImageContentsIncludesJava = () => {
-          return this.customBaseImageContents.value.includes('javaHome');
+          return this.useCustomBaseImage.value && this.customBaseImageContents.value.includes('javaHome');
         };
 
+        // Ignore the customBaseImageContents field if using custom base image is turned off...
         this.baseImageContentsIncludesMiddleware = () => {
-          return this.customBaseImageContents.value.includes('oracleHome');
+          return this.useCustomBaseImage.value && this.customBaseImageContents.value.includes('oracleHome');
         };
       }
 

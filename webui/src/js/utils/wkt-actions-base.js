@@ -42,6 +42,10 @@ function(project, wktConsole, i18n, projectIo, dialogHelper) {
       return results;
     }
 
+    async removeNamespacePrompt(promptTitle, promptQuestion, promptDetails) {
+      return window.api.ipc.invoke('yes-no-or-cancel-prompt', promptTitle, promptQuestion, promptDetails);
+    }
+
     async saveProject(errTitle, errPrefix, shouldCloseBusyDialog = true) {
       try {
         const saveResult = await projectIo.saveProject();
@@ -416,7 +420,7 @@ function(project, wktConsole, i18n, projectIo, dialogHelper) {
     
     _closeBusyDialog(shouldCloseBusyDialog) {
       if (shouldCloseBusyDialog) {
-        dialogHelper._closeBusyDialog();
+        dialogHelper.closeBusyDialog();
       }
     }
   }
