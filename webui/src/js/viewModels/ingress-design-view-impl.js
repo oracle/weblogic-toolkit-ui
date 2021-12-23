@@ -52,6 +52,10 @@ function(i18n, accUtils, ko, ArrayDataProvider, BufferingDataProvider, project, 
       return this.project.ingress.ingressControllerProvider.value === 'voyager';
     };
 
+    this.isNginx = () => {
+      return this.project.ingress.ingressControllerProvider.value === 'nginx';
+    };
+
     this.imageOnDockerHub = () => {
       return (this.project.ingress.ingressControllerProvider.value === 'voyager') ||
         (this.project.ingress.ingressControllerProvider.value === 'traefik');
@@ -178,7 +182,7 @@ function(i18n, accUtils, ko, ArrayDataProvider, BufferingDataProvider, project, 
         targetServiceNameSpace: this.project.k8sDomain.kubernetesNamespace.value,
         accessPoint: '',
         tlsOption: 'plain',
-        isConsoleService: []
+        isConsoleService: false
       };
 
       // if controller is Voyager and provider is baremetal only nodeport is supported, set the default in the UI

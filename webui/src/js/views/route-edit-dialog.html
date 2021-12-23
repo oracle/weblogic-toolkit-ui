@@ -48,6 +48,7 @@
         <oj-radioset id="tlsOptionId"
                      label-hint="[[labelMapper('route-tls-label')]]"
                      label-edge="inside"
+                     on-value-changed = "[[transportValueChanged]]"
                      value="{{tlsOption.observable}}">
           <oj-bind-for-each data="[[tlsOptions]]">
             <template>
@@ -58,18 +59,12 @@
           </oj-bind-for-each>
         </oj-radioset>
 
-        <oj-checkboxset id="isConsoleSetId"
-                        label-hint="[[labelMapper('route-is-console-svc-label')]]"
-                        label-edge="inside"
-                        value="{{isConsoleService.observable}}">
-          <oj-bind-for-each data="[[isConsoleOptions]]">
-            <template>
-              <oj-option value="[[$current.data.value]]">
-                <oj-bind-text value="[[$current.data.text]]"></oj-bind-text>
-              </oj-option>
-            </template>
-          </oj-bind-for-each>
-        </oj-checkboxset>
+        <oj-bind-if test="[[askIfConsoleService() === true]]">
+          <oj-switch label-hint="[[labelMapper('route-is-console-svc-label')]]"
+                     value="{{isConsoleService.observable}}"
+                     help.instruction="[[labelMapper('route-is-console-svc-help')]]">
+          </oj-switch>
+        </oj-bind-if>
 
       </oj-form-layout>
 

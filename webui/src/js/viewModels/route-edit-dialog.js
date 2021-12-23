@@ -38,7 +38,7 @@ function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDa
 
     this.project = project;
     this.route = args.route;
-    this.route.isConsoleService = [];
+    this.askIfConsoleSvc = ko.observable(this.route.isConsoleService);
 
     this.savedAnnotations = args.route.annotations || {};
 
@@ -46,10 +46,6 @@ function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDa
       { id: 'plain', value: 'plain', text: this.labelMapper('route-tlsoption-plain') },
       { id: 'ssl_terminate_ingress', value: 'ssl_terminate_ingress', text: this.labelMapper('route-tlsoption-ssl-terminate-ingress') },
       { id: 'ssl_passthrough', value: 'ssl_passthrough', text: this.labelMapper('route-tlsoption-ssl-passthrough') },
-    ];
-
-    this.isConsoleOptions = [
-      { id: 'isConsole', value: 'yes', text: this.labelMapper('route-yes-console-svc') }
     ];
 
     // this is dynamic to allow i18n fields to load correctly
@@ -148,6 +144,18 @@ function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDa
       }
     }
 
+    this.askIfConsoleService = () => {
+      return this.askIfConsoleSvc();
+    };
+
+    this.transportValueChanged = (event) => {
+      if (event.detail.value === 'ssl_terminate_ingress') {
+        this.askIfConsoleSvc(true);
+      } else {
+        this.askIfConsoleSvc(false);
+      }
+    };
+
     this.okInput = () => {
       let tracker = document.getElementById('ingressTracker');
       if (tracker.valid !== 'valid') {
@@ -175,9 +183,16 @@ function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDa
         changedAnnotations[annotation.key] = annotation.value ? annotation.value : '';
       });
 
+      const ingressClassKey = 'kubernetes.io/ingress.class';
+      let tlsOption = result['tlsOption'];
+
+      if (typeof tlsOption === 'undefined') {
+        tlsOption = this.route.tlsOption;
+      }
+
       if (this.project.ingress.ingressControllerProvider.value === 'traefik') {
         const sslKey = 'traefik.ingress.kubernetes.io/router.tls';
-        const tlsOption = result['tlsOption'];
+        changedAnnotations[ingressClassKey] = 'traefik';
         addOrDeleteAnnotation(changedAnnotations, (tlsOption !== 'plain'),
           sslKey, 'true', '');
         // if user switched to plain
@@ -191,10 +206,12 @@ function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDa
       if (this.project.ingress.ingressControllerProvider.value === 'nginx') {
         const sslKey = 'nginx.ingress.kubernetes.io/backend-protocol';
         const sslPassThroughKey = 'nginx.ingress.kubernetes.io/ssl-passthrough';
-        const tlsOption = result['tlsOption'];
+        changedAnnotations[ingressClassKey] = 'nginx';
         addOrDeleteAnnotation(changedAnnotations, (tlsOption === 'ssl_terminate_ingress'),
           sslKey, 'HTTPS', sslPassThroughKey);
-        addOrDeleteAnnotation(changedAnnotations, (tlsOption === 'ssl_passthrough'), 'true', sslKey);
+        // passthrough require both
+        addOrDeleteAnnotation(changedAnnotations, (tlsOption === 'ssl_passthrough'), sslPassThroughKey, 'true', '');
+        addOrDeleteAnnotation(changedAnnotations, (tlsOption === 'ssl_passthrough'), sslKey, 'HTTPS', '');
       }
 
       if(compareObjects(changedAnnotations, this.savedAnnotations)) {

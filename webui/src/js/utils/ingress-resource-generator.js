@@ -75,10 +75,55 @@ define(['models/wkt-project', 'js-yaml'],
       }
 
       createNginxRoutesAsYaml(item) {
-        return this._createStandardRoutesAsYaml(item);
+        const namespace = item['targetServiceNameSpace'] || 'default';
+
+        const result = {
+          apiVersion: 'networking.k8s.io/v1',
+          kind: 'Ingress',
+          metadata: {
+            name: item['name'],
+            namespace: namespace,
+          },
+          spec: {
+            rules: [
+              {
+                http: {
+                  paths: [
+                    {
+                      backend: {
+                        service : {
+                          name: item['targetService'],
+                          port: {
+                            number: Number(item['targetPort'])
+                          }
+                        }
+                      },
+                      path: item['path'],
+                      pathType: 'Prefix'
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        };
+        this.addTlsSpec(result, item);
+        this.addVirtualHost(result, item);
+        this.addAnnotations(result, item);
+
+        if (this.isSSLTerminateAtIngress(item)) {
+          if (item['isConsoleService']) {
+            const snippet = 'more_clear_input_headers "WL-Proxy-Client-IP" "WL-Proxy-SSL";\n'
+              + 'more_set_input_headers "X-Forwarded-Proto: https";\n'
+              + 'more_set_input_headers "WL-Proxy-SSL: true";\n';  // must have nl at the end
+            result.metadata.annotations['nginx.ingress.kubernetes.io/configuration-snippet'] = snippet;
+            result.metadata.annotations['nginx.ingress.kubernetes.io/ingress.allow-http'] = 'false';
+          }
+        }
+        return jsYaml.dump(result);
       }
 
-      isTraefikSSLTerminateAtIngress(item) {
+      isSSLTerminateAtIngress(item) {
         if (item && item['tlsOption'] === 'ssl_terminate_ingress') {
           return true;
         } else {
@@ -115,8 +160,8 @@ define(['models/wkt-project', 'js-yaml'],
           }
         };
 
-        if (this.isTraefikSSLTerminateAtIngress(item)) {
-          if (item['isConsoleService'].includes('yes')) {
+        if (this.isSSLTerminateAtIngress(item)) {
+          if (item['isConsoleService']) {
             result.spec = {
               headers: {
                 sslRedirect: true,
@@ -133,7 +178,6 @@ define(['models/wkt-project', 'js-yaml'],
           }
 
           if (item['path'].indexOf('.') < 0) {
-            console.log('at here');
             result.spec = { replacePathRegex: { regex: '^' + item['path'] + '(.*)'}, replacement: item['path'] + '/$1'};
             return jsYaml.dump(result);
           }
@@ -190,7 +234,7 @@ define(['models/wkt-project', 'js-yaml'],
         result.spec.routes[0].match = matchExpression;
 
         // if SSL terminate at ingress
-        if (this.project.ingress.specifyIngressTLSSecret.value && this.isTraefikSSLTerminateAtIngress(item)) {
+        if (this.project.ingress.specifyIngressTLSSecret.value && this.isSSLTerminateAtIngress(item)) {
           if (!item['tlsSecretName']) {
             item['tlsSecretName'] = this.project.ingress.ingressTLSSecretName.value;
           }
@@ -220,45 +264,6 @@ define(['models/wkt-project', 'js-yaml'],
         }
         yaml += jsYaml.dump(result);
         return yaml;
-      }
-
-      _createStandardRoutesAsYaml(item) {
-        const namespace = item['targetServiceNameSpace'] || 'default';
-
-        const result = {
-          apiVersion: 'networking.k8s.io/v1',
-          kind: 'Ingress',
-          metadata: {
-            name: item['name'],
-            namespace: namespace,
-          },
-          spec: {
-            rules: [
-              {
-                http: {
-                  paths: [
-                    {
-                      backend: {
-                        service : {
-                          name: item['targetService'],
-                          port: {
-                            number: Number(item['targetPort'])
-                          }
-                        }
-                      },
-                      path: item['path'],
-                      pathType: 'Prefix'
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        };
-        this.addTlsSpec(result, item);
-        this.addVirtualHost(result, item);
-        this.addAnnotations(result, item);
-        return jsYaml.dump(result);
       }
 
       addTlsSpec(result, item) {

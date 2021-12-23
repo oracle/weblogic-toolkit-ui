@@ -491,7 +491,6 @@ function(IngressActionsBase, project, wktConsole, k8sHelper, i18n, projectIo, di
             });
           }
         }
-        console.log(ingressDefinition);
         if (useNodePort) {
           if (ingressDefinition['tlsOption'] !== 'plain') {
             results['accessPoint'] = 'https:' + externalLoadBalancerHost + ':' + ingressSSLPort  + ingressDefinition.path;
