@@ -772,6 +772,8 @@
   "discover-dialog-admin-password-label": "Administration Server Password",
   "discover-dialog-admin-password-help": "The login password for the Administration Server.",
 
+  "wdt-discoverer-replace-title": "Replace Existing Model Content",
+  "wdt-discoverer-replace-message": "This will replace the project's existing model content, continue?",
   "wdt-discoverer-online-aborted-error-title": "Discover Domain Online Aborted",
   "wdt-discoverer-offline-aborted-error-title": "Discover Domain Offline Aborted",
   "wdt-discoverer-invalid-java-home-error-prefix": "Unable to discover domain due to the Java Home being invalid",
