@@ -168,7 +168,6 @@ function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDa
           result[propertyName] = property.value;
         }
       });
-      console.log(result);
 
       // add annotations if any value has changed
       const changedAnnotations = {};

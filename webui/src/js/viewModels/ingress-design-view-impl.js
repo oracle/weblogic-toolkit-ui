@@ -218,8 +218,6 @@ function(i18n, accUtils, ko, ArrayDataProvider, BufferingDataProvider, project, 
           // no result indicates operation was cancelled
           if (result) {
             let changed = false;
-            console.log('after calls');
-            console.log(result);
             project.ingress.ingressRouteKeys.forEach(key => {
               if ((key !== 'uid') && result.hasOwnProperty(key)) {
                 route[key] = result[key];

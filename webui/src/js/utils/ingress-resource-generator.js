@@ -23,14 +23,7 @@ define(['models/wkt-project', 'js-yaml'],
                 break;
 
               case 'traefik':
-                let ingressTraefikMiddlewares = this.createTraefikMiddlewaresAsYaml(route);
-                let useMiddlewares = false;
-                if (ingressTraefikMiddlewares) {
-                  lines.push(ingressTraefikMiddlewares, '');
-                  lines.push('---');
-                  useMiddlewares = true;
-                }
-                ingressRouteData = this.createTraefikRoutesAsYaml(route, useMiddlewares);
+                ingressRouteData = this.createTraefikRoutesAsYaml(route);
                 break;
 
               case 'nginx':
@@ -124,10 +117,9 @@ define(['models/wkt-project', 'js-yaml'],
 
         if (this.isTraefikSSLTerminateAtIngress(item)) {
           if (item['isConsoleService'].includes('yes')) {
-            console.log('at tthere');
             result.spec = {
-              sslRedirct: true,
               headers: {
+                sslRedirect: true,
                 customRequestHeaders: {
                   'X-Custom-Request-Header': '',
                   'X-Forwarded-For': '',
@@ -150,7 +142,14 @@ define(['models/wkt-project', 'js-yaml'],
 
       }
 
-      createTraefikRoutesAsYaml(item, useMiddlewares) {
+      createTraefikRoutesAsYaml(item) {
+
+        let ingressTraefikMiddlewares = this.createTraefikMiddlewaresAsYaml(item);
+        let useMiddlewares = false;
+        if (ingressTraefikMiddlewares) {
+          useMiddlewares = true;
+        }
+
         const namespace = item['targetServiceNameSpace'] || 'default';
 
         const result = {
@@ -198,7 +197,6 @@ define(['models/wkt-project', 'js-yaml'],
           result.spec.tls = { secretName: item['tlsSecretName'] };
         }
         // SSL passthrough
-        console.log(item);
         if (this.project.ingress.specifyIngressTLSSecret.value && this.isTraefikSSLPassThrough(item)) {
           const obj = { passthrough: true };
           result.spec.tls = [ obj ];
@@ -210,11 +208,18 @@ define(['models/wkt-project', 'js-yaml'],
         }
 
         if (useMiddlewares) {
-          result.spec.routes[0].middleware = item['name'] + '-middleware';
+          result.spec.routes[0].middlewares = [ {name: item['name'] + '-middleware'} ];
         }
 
         this.addAnnotations(result, item);
-        return jsYaml.dump(result);
+
+        let yaml = '';
+        if (ingressTraefikMiddlewares) {
+          yaml = ingressTraefikMiddlewares;
+          yaml += '\n---\n';
+        }
+        yaml += jsYaml.dump(result);
+        return yaml;
       }
 
       _createStandardRoutesAsYaml(item) {

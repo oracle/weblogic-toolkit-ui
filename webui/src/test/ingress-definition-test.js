@@ -57,7 +57,7 @@ describe('ingress-definition', function () {
     it('generate traefik ingress', function () {
       const yaml = ingressResource.createTraefikRoutesAsYaml(genericIngress);
       const json = jsyaml.load(yaml);
-      expect(json['apiVersion']).to.equal('networking.k8s.io/v1');
+      expect(json['apiVersion']).to.equal('traefik.containo.us/v1alpha1');
     });
   });
 });
