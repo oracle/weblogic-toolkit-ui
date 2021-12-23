@@ -104,6 +104,8 @@
   "auto-updater-install-question": "Update the application now or on exit?",
   "auto-updater-disabled-dev-mode-title": "Auto-Updater Disabled",
   "auto-updater-disabled-dev-mode-message": "Auto-Updater is disabled when running in development mode.",
+  "auto-updater-disabled-unsupported-title": "Auto-Updater Not Supported",
+  "auto-updater-disabled-unsupported-message": "Auto-Updater is not supported on Linux when not running from the AppImage executable.",
 
   "dialog-chooseArchiveFile": "Select an Archive File",
   "dialog-chooseModelFile": "Select a Model File",
