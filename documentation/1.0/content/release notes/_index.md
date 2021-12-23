@@ -25,3 +25,5 @@ pre = "<b> </b>"
     error: Application auto-updater failed: ENOENT: no such file or directory, open '/opt/WebLogic Kubernetes Toolkit UI/resources/app-update.yml'
     error: Error: ENOENT: no such file or directory, open '/opt/WebLogic Kubernetes Toolkit UI/resources/app-update.yml'
   ```
+
+- The application is limited to working with archive files whose size is less than 2 GB.
