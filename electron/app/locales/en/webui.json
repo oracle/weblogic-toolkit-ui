@@ -671,6 +671,8 @@
   "ingress-design-add-route-label": "Add Route",
   "ingress-design-edit-route-label": "Edit Route",
   "ingress-design-delete-route-label": "Delete Route",
+  "ingress-design-delete-route-warning-title": "Deleting Ingress Route",
+  "ingress-design-delete-route-warning-message": "Ingress route is only deleted from the table. If it already exists in the Kubernetes cluster, you must manually delete it from the cluster",
 
   "ingress-installer-aborted-error-title": "Ingress Controller Installation Aborted",
   "ingress-installer-not-install-message": "The Install Ingress Controller option is off so there is nothing to do.",

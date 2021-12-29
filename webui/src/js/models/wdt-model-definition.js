@@ -111,8 +111,24 @@ define(['knockout', 'utils/observable-properties', 'js-yaml', 'utils/validation-
               const secretName = matches.groups.name;
               const secretEnvVar = matches.groups.envvar;
               const secretField = matches.groups.field;
+              wktLogger.debug('found matching secret %s with envVar = %s and field = %s', secretName, secretEnvVar, secretField);
 
-              const secretKey = secretEnvVar ? `${secretEnvVar}-${secretName}` : secretName;
+              // While this key is never used outside this function, we need the key to
+              // match the resolved secret name.  For example, if the DOMAIN_UID is mydomain,
+              // the following two secret fields should be part of the same secret:
+              //
+              //                 JDBCDriverParams:
+              //                     URL: '@@PROP:JDBC.myds.URL@@'
+              //                     PasswordEncrypted: '@@SECRET:@@ENV:DOMAIN_UID@@-jdbc-myds:password@@'
+              //                     DriverName: com.mysql.cj.jdbc.Driver
+              //                     Properties:
+              //                         user:
+              //                             Value: '@@SECRET:mydomain-jdbc-myds:username@@'
+              //
+              let secretKey = secretName;
+              if (secretEnvVar) {
+                secretKey = secretName.startsWith('-') ? `${secretEnvVar}${secretName}` : `${secretEnvVar}-${secretName}`;
+              }
 
               let secretData;
               if (secretsMap.has(secretKey)) {
@@ -125,6 +141,8 @@ define(['knockout', 'utils/observable-properties', 'js-yaml', 'utils/validation-
               }
               secretData[secretField] = '';
               secretsMap.set(secretKey, secretData);
+            } else {
+              wktLogger.debug('skipping matching secret %s', matches.groups.name);
             }
           });
           return [...secretsMap.values()];
@@ -287,14 +305,19 @@ define(['knockout', 'utils/observable-properties', 'js-yaml', 'utils/validation-
          */
         this.setModelFileContents = modelContent => {
           this.modelFileContents = {};
-          this.modelContent('');
 
           const models = modelContent['models'];
-          if(models) {
+          if (models) {
             for (const [file, contents] of Object.entries(models)) {
               this.recordModelFile(file, contents);
             }
             this.modelContent(this.getCurrentModelFileContents() || '');
+          } else {
+            // Only empty the model content where explicitly told to do so
+            // since setting this field generates an event that triggers
+            // other code to run (e.g., k8s-domain-definition.updateSecrets()).
+            //
+            this.modelContent('');
           }
         };
 

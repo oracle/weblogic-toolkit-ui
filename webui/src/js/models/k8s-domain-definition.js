@@ -103,6 +103,7 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
 
         // update the secrets list when any model content changes.
         wdtModel.modelContentChanged.subscribe(() => {
+          wktLogger.debug('modelContentChanged event calling updateSecrets()');
           this.updateSecrets();
         });
 
@@ -132,15 +133,20 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
         };
 
         this.setCredentialPathsForSecretsTable = (json) => {
+          wktLogger.debug('entering setCredentialPathsForSecretsTable() with secrets table length = %s', this.secrets.value.length);
           if (this.secrets.value.length > 0) {
             if (!json.credentialPaths) {
+              wktLogger.debug('creating credentialPaths array');
               json.credentialPaths = [];
             }
             for (const secret of this.secrets.value) {
+              wktLogger.debug('working on secret path %s', `${name}.secrets.${secret.uid}`);
               if (secret.username) {
+                wktLogger.debug('setting secret %s', `${name}.secrets.${secret.uid}.username`);
                 json.credentialPaths.push(`${name}.secrets.${secret.uid}.username`);
               }
               if (secret.password) {
+                wktLogger.debug('setting secret %s', `${name}.secrets.${secret.uid}.password`);
                 json.credentialPaths.push(`${name}.secrets.${secret.uid}.password`);
               }
             }
@@ -207,10 +213,18 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
 
         this.handlePrepareModelSecrets = (secrets) => {
           if (secrets && secrets.secrets && secrets.secrets.length) {
+            wktLogger.debug('handlePrepareModelSecrets() working on %d secrets', secrets.secrets.length);
             for (const secret of secrets.secrets) {
-              const existingSecretObject = findSecretByName(secret.name, this.secrets.observable());
+              wktLogger.debug('working on secret %s', secret.name);
+
+              // The secret should always exist already because prepare model updated the model first,
+              // which triggers updating the secrets ListProperty.  If not, something is broken...
+              //
+              const existingSecretObject = findSecretByName(this.uid.value, secret.name, this.secrets.observable());
               updateSecretFromPrepareModelResults(existingSecretObject, secret.keys);
             }
+          } else {
+            wktLogger.debug('handlePrepareModelSecrets() has nothing to do');
           }
         };
 
@@ -222,7 +236,7 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
 
         this.getFieldValueFromExistingSecrets = (uid, fieldName, defaultValue) => {
           let result = defaultValue;
-          for (const domainSecret of this.secrets.value) {
+          for (const domainSecret of this.secrets.observable()) {
             if (domainSecret.uid === uid) {
               if (domainSecret[fieldName]) {
                 result = domainSecret[fieldName];
@@ -269,10 +283,11 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
         }
       }
 
-      function findSecretByName(secretName, secretsList) {
+      function findSecretByName(domainUid, secretName, secretsList) {
         let result;
+        const domainQualifiedSecretName = `${domainUid}-${secretName}`;
         for (const secret of secretsList) {
-          if (secret.name === secretName) {
+          if (secret.name === domainQualifiedSecretName || secret.name === secretName) {
             result = secret;
             break;
           }
