@@ -6,6 +6,7 @@
 
 const path = require('path');
 const fsPromises = require('fs/promises');
+const i18n = require("./i18next.config");
 
 function getEntryTypes() {
   // lazy load to allow initialization
@@ -21,6 +22,12 @@ function getEntryTypes() {
       name: i18n.t('wdt-archiveType-applicationFile'),
       subtype: 'file',
       extensions: ['ear', 'war'],
+      pathPrefix: 'wlsdeploy/applications/'
+    },
+    'applicationDeploymentPlan': {
+      name: i18n.t('wdt-archiveType-applicationDeploymentPlan'),
+      subtype: 'file',
+      extensions: ['xml'],
       pathPrefix: 'wlsdeploy/applications/'
     },
     'atpWallet': {
@@ -39,6 +46,16 @@ function getEntryTypes() {
       name: i18n.t('wdt-archiveType-coherenceStore'),
       subtype: 'emptyDir',
       pathPrefix: 'wlsdeploy/coherence/'
+    },
+    'customFile': {
+      name: i18n.t('wdt-archiveType-customFile'),
+      subtype: 'file',
+      pathPrefix: 'wlsdeploy/custom/'
+    },
+    'customDirectory': {
+      name: i18n.t('wdt-archiveType-customDirectory'),
+      subtype: 'dir',
+      pathPrefix: 'wlsdeploy/custom/'
     },
     'domainBin': {
       name: i18n.t('wdt-archiveType-domainBin'),
