@@ -6,7 +6,6 @@
 
 const path = require('path');
 const fsPromises = require('fs/promises');
-const i18n = require("./i18next.config");
 
 function getEntryTypes() {
   // lazy load to allow initialization
