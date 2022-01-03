@@ -116,8 +116,8 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
         step++;
 
         let deleteResult;
+        let operatorInstalled;
         if (removeNamespace) {
-          let operatorInstalled;
           const operatorName = this.project.wko.wkoDeployName.value;
           const operatorNamespace = this.project.wko.k8sNamespace.value;
 
