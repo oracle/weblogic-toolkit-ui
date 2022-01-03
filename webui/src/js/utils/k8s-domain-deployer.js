@@ -120,8 +120,7 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
             break;
 
           case 'List':
-            const list = this.project.wko.operatorDomainNamespacesList.value;
-            this.addDomainNamespaceToList(list, this.project.k8sDomain.kubernetesNamespace.value);
+            const list = this.addDomainNamespaceToList(this.project.k8sDomain.kubernetesNamespace.value);
             helmChartValues.domainNamespaces = `{${list.join(',')}}`;
             break;
 
@@ -293,10 +292,13 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
       }
     }
 
-    addDomainNamespaceToList(domainNamespaceList, domainNamespace) {
+    addDomainNamespaceToList(domainNamespace) {
+      const domainNamespaceList = this.project.wko.operatorDomainNamespacesList.value;
       if (!domainNamespaceList.includes(domainNamespace)) {
         domainNamespaceList.push(domainNamespace);
+        this.project.wko.operatorDomainNamespacesList.value = domainNamespaceList;
       }
+      return this.project.wko.operatorDomainNamespacesList.value;
     }
 
     getValidatableObject(flowNameKey) {

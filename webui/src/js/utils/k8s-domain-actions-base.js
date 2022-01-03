@@ -27,10 +27,8 @@ function (WktActionsBase, project, wktConsole, i18n, projectIo, dialogHelper) {
           await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
           return Promise.resolve(false);
         } else if (!validationResults.isValid) {
-          const errMessage = i18n.t(`${errPrefix}-domain-not-exist-error-message`, {
-            domain: this.project.k8sDomain.uid.value,
-            error: validationResults.reason
-          });
+          const errMessage = i18n.t(`${errPrefix}-domain-not-exist-error-message`,
+            { domain: this.project.k8sDomain.uid.value });
           dialogHelper.closeBusyDialog();
           await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
           return Promise.resolve(false);

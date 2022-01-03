@@ -296,10 +296,7 @@ function(project, wktConsole, i18n, projectIo, dialogHelper) {
             await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
             return Promise.resolve(false);
           } else if (!validationResults.isValid) {
-            const errMessage = i18n.t(`${errPrefix}-ns-not-exist-error-message`, {
-              namespace: namespace,
-              error: validationResults.reason
-            });
+            const errMessage = i18n.t(`${errPrefix}-ns-not-exist-error-message`, { namespace: namespace });
             this._closeBusyDialog(shouldCloseBusyDialog);
             await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
             return Promise.resolve(false);
