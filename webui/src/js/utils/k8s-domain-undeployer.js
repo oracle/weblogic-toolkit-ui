@@ -116,11 +116,11 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
         step++;
 
         let deleteResult;
-        let operatorInstalled;
         if (removeNamespace) {
           const operatorName = this.project.wko.wkoDeployName.value;
           const operatorNamespace = this.project.wko.k8sNamespace.value;
 
+          let operatorInstalled;
           if (updateOperatorList) {
             busyDialogMessage = i18n.t('flow-checking-operator-installed-in-progress',
               {operatorName: operatorName, Namespace: operatorNamespace});
