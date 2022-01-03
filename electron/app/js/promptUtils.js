@@ -117,7 +117,6 @@ async function showAboutDialog(wktApp, parentWindow) {
   const MIN_HEIGHT = 120;  // needs to be smaller than content height
 
   return new Promise((resolve, reject) => {
-
     let promptWindow = new BrowserWindow({
       width: WIDTH,
       height: HEIGHT,
@@ -131,9 +130,6 @@ async function showAboutDialog(wktApp, parentWindow) {
       skipTaskbar: true,
       alwaysOnTop: false,
       useContentSize: true,
-      modal: Boolean(parentWindow),  // false causes problems with app menu appearing
-      autoHideMenuBar: true,
-      menuBarVisible: false,
       webPreferences: {
         nodeIntegration: false,
         contextIsolation: true,
@@ -142,10 +138,7 @@ async function showAboutDialog(wktApp, parentWindow) {
         preload: preloadFile
       },
     });
-
-    // hide app menu for various platforms
-    promptWindow.setMenu(null);
-    promptWindow.removeMenu();
+    // hide app menu for Windows and Linux
     promptWindow.setMenuBarVisibility(false);
 
     const getOptionsListener = event => {
