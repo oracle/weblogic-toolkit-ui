@@ -48,8 +48,11 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
         return Promise.resolve(false);
       }
       const removeNamespace = removeNamespacePromptResult === 'yes';
+      const updateOperatorList = removeNamespace &&
+        this.project.wko.operatorDomainNamespaceSelectionStrategy.value === 'List' &&
+        this.project.wko.operatorDomainNamespacesList.observable().includes(domainNamespace);
 
-      const totalSteps = 4.0;
+      const totalSteps = updateOperatorList ? 8.0 : 5.0;
       try {
         let busyDialogMessage = i18n.t('flow-validate-kubectl-exe-in-progress');
         dialogHelper.openBusyDialog(busyDialogMessage, 'bar');
@@ -62,19 +65,31 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
           }
         }
 
+        let step = 1;
+        const helmExe = this.getHelmExe();
+        if (updateOperatorList && !options.skipHelmExeValidation) {
+          busyDialogMessage = i18n.t('flow-validate-helm-exe-in-progress');
+          dialogHelper.updateBusyDialog(busyDialogMessage, step / totalSteps);
+          if (! await this.validateHelmExe(helmExe, errTitle, errPrefix)) {
+            return Promise.resolve(false);
+          }
+          step++;
+        }
+
         // While technically not required, we force saving the project for Go Menu item behavior consistency.
         //
         busyDialogMessage = i18n.t('flow-save-project-in-progress');
-        dialogHelper.updateBusyDialog(busyDialogMessage, 1 / totalSteps);
+        dialogHelper.updateBusyDialog(busyDialogMessage, step / totalSteps);
         if (!options.skipProjectSave) {
           if (! await this.saveProject(errTitle, errPrefix)) {
             return Promise.resolve(false);
           }
         }
+        step++;
 
         // Set the Kubernetes context, if needed
         busyDialogMessage = i18n.t('flow-kubectl-use-context-in-progress');
-        dialogHelper.updateBusyDialog(busyDialogMessage, 2 / totalSteps);
+        dialogHelper.updateBusyDialog(busyDialogMessage, step / totalSteps);
         const kubectlContext = this.getKubectlContext();
         const kubectlOptions = this.getKubectlOptions();
         if (!options.skipKubectlSetContext) {
@@ -82,16 +97,80 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
             return Promise.resolve(false);
           }
         }
+        step++;
+
+        // Make sure that the domain or namespace exists
+        if (removeNamespace) {
+          busyDialogMessage = i18n.t('flow-namespace-exists-check-in-progress', { namespace: domainNamespace });
+          dialogHelper.updateBusyDialog(busyDialogMessage, step / totalSteps);
+          if (!await this.validateKubernetesNamespaceExists(kubectlExe, kubectlOptions, domainNamespace, errTitle, errPrefix)) {
+            return Promise.resolve(false);
+          }
+        } else {
+          busyDialogMessage = i18n.t('flow-domain-exists-check-in-progress', {domainUid: domainUid});
+          dialogHelper.updateBusyDialog(busyDialogMessage, step / totalSteps);
+          if (!await this.validateDomainExists(kubectlExe, kubectlOptions, errTitle, errPrefix)) {
+            return Promise.resolve(false);
+          }
+        }
+        step++;
 
         let deleteResult;
         if (removeNamespace) {
+          let operatorInstalled;
+          const operatorName = this.project.wko.wkoDeployName.value;
+          const operatorNamespace = this.project.wko.k8sNamespace.value;
+
+          if (updateOperatorList) {
+            busyDialogMessage = i18n.t('flow-checking-operator-installed-in-progress',
+              {operatorName: operatorName, Namespace: operatorNamespace});
+            dialogHelper.updateBusyDialog(busyDialogMessage, step / totalSteps);
+            if (!options.skipCheckOperatorAlreadyInstalled) {
+              const isInstalledResult = await this.checkOperatorIsInstalled(kubectlExe, kubectlOptions,
+                operatorName, operatorNamespace, errTitle);
+              if (!isInstalledResult) {
+                return Promise.resolve(false);
+              }
+              operatorInstalled = isInstalledResult.isInstalled;
+            }
+            step++;
+          }
+
           busyDialogMessage = i18n.t('flow-undeploy-namespace-in-progress', { domainNamespace: domainNamespace });
-          dialogHelper.updateBusyDialog(busyDialogMessage, 2 / totalSteps);
+          dialogHelper.updateBusyDialog(busyDialogMessage, step / totalSteps);
           deleteResult = await this.deleteKubernetesObjectIfExists(kubectlExe, kubectlOptions,
             null, 'namespace', domainNamespace, errTitle, errPrefix);
+
+          if (deleteResult && updateOperatorList) {
+            step++;
+            busyDialogMessage = i18n.t('k8s-domain-undeployer-update-operator-config-in-progress',
+              {operatorName: operatorName, operatorNamespace: operatorNamespace, domainNamespace: domainNamespace});
+            dialogHelper.updateBusyDialog(busyDialogMessage, step / totalSteps);
+            if (operatorInstalled) {
+              const list = this.removeDomainNamespaceFromList(domainNamespace);
+              const helmChartValues = {
+                domainNamespaces: `{${list.join(',')}}`
+              };
+
+              const upgradeResults = await window.api.ipc.invoke('helm-update-wko', helmExe, operatorName,
+                operatorNamespace, helmChartValues, helmHelper.getHelmOptions());
+              if (!upgradeResults.isSuccess) {
+                const errMessage = i18n.t('k8s-domain-undeployer-remove-domain-error-message',
+                  {
+                    domainNamespace: domainNamespace,
+                    operatorName: operatorName,
+                    operatorNamespace: operatorNamespace,
+                    error: upgradeResults.reason
+                  });
+                dialogHelper.closeBusyDialog();
+                await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
+                return Promise.resolve(false);
+              }
+            }
+          }
         } else {
           busyDialogMessage = i18n.t('flow-undeploy-domain-in-progress', { domainUid: domainUid });
-          dialogHelper.updateBusyDialog(busyDialogMessage, 2 / totalSteps);
+          dialogHelper.updateBusyDialog(busyDialogMessage, step / totalSteps);
           deleteResult = await this.deleteKubernetesObjectIfExists(kubectlExe, kubectlOptions,
             domainNamespace, 'domain', domainUid, errTitle, errPrefix);
         }
@@ -134,6 +213,40 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
         validationHelper.validateRequiredField(this.project.kubectl.executableFilePath.value), kubectlFormConfig);
 
       return validationObject;
+    }
+
+    async checkOperatorIsInstalled(kubectlExe, kubectlOptions, operatorName, operatorNamespace, errTitle) {
+      const results = { isInstalled: true };
+      try {
+        const isInstalledResults =
+          await window.api.ipc.invoke('is-wko-installed', kubectlExe, operatorName, operatorNamespace, kubectlOptions);
+        if (!isInstalledResults.isInstalled) {
+          if (isInstalledResults.reason) {
+            // error from backend
+            const errMessage = i18n.t('k8s-domain-undeployer-operator-installed-check-failed-error-message',
+              {operatorName: operatorName, operatorNamespace: operatorNamespace, error: isInstalledResults.reason});
+            wktLogger.error(errMessage);
+            dialogHelper.closeBusyDialog();
+            await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
+            return Promise.resolve(false);
+          } else {
+            results.isInstalled = false;
+          }
+        }
+      } catch (err) {
+        return Promise.reject(err);
+      }
+      return Promise.resolve(results);
+    }
+
+    removeDomainNamespaceFromList(domainNamespace) {
+      const domainNamespaceList = this.project.wko.operatorDomainNamespacesList.value;
+      const position = domainNamespaceList.indexOf(domainNamespace);
+      if (position >= 0) {
+        domainNamespaceList.splice(position, 1);
+        this.project.wko.operatorDomainNamespacesList.value = domainNamespaceList;
+      }
+      return this.project.wko.operatorDomainNamespacesList.value;
     }
   }
 
