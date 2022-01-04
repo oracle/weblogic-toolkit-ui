@@ -12,10 +12,11 @@ const expect = chai.expect;
 const wkt_assertions = require('./wkt-assertions');
 chai.use(wkt_assertions);
 
-const { after, before, describe, it } = require('mocha');
+const { after, before, beforeEach, describe, it } = require('mocha');
 const requirejs = require('requirejs');
 const testHelper = require('./test-helper');
 const jsyaml = require('js-yaml');
+const {WindowStub} = require('./window-stub');
 
 describe('ingress-definition', function () {
   let ingressResource;
@@ -30,6 +31,7 @@ describe('ingress-definition', function () {
 
   before(function (done) {
     testHelper.install();
+    WindowStub.install();
     requirejs(['utils/ingress-resource-generator'],
       function (IngressResourceGenerator) {
         ingressResource = new IngressResourceGenerator();
@@ -37,8 +39,13 @@ describe('ingress-definition', function () {
       });
   });
 
+  beforeEach(function () {
+    WindowStub.initialize();
+  });
+
   after(function() {
     testHelper.remove();
+    WindowStub.remove();
   });
 
   describe('generate', function() {

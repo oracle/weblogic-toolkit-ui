@@ -41,13 +41,14 @@ define(['models/wkt-project', 'js-yaml'],
 
       createVoyagerRoutesAsYaml(item) {
         const namespace = item['targetServiceNameSpace'] || 'default';
-
+        const version = window.api.process.getVersion();
         const result = {
           apiVersion: 'voyager.appscode.com/v1beta1',
           kind: 'Ingress',
           metadata: {
             name: item['name'],
             namespace: namespace,
+            labels: { createdByWtkUIVersion: version}
           },
           spec: {
             rules: [
@@ -76,6 +77,7 @@ define(['models/wkt-project', 'js-yaml'],
 
       createNginxRoutesAsYaml(item) {
         const namespace = item['targetServiceNameSpace'] || 'default';
+        const version = window.api.process.getVersion();
 
         const result = {
           apiVersion: 'networking.k8s.io/v1',
@@ -83,6 +85,7 @@ define(['models/wkt-project', 'js-yaml'],
           metadata: {
             name: item['name'],
             namespace: namespace,
+            labels: { createdByWtkUIVersion: version}
           },
           spec: {
             rules: [
@@ -109,17 +112,22 @@ define(['models/wkt-project', 'js-yaml'],
         };
         this.addTlsSpec(result, item);
         this.addVirtualHost(result, item);
-        this.addAnnotations(result, item);
 
         if (this.isSSLTerminateAtIngress(item)) {
           if (item['isConsoleService']) {
-            const snippet = 'more_clear_input_headers "WL-Proxy-Client-IP" "WL-Proxy-SSL";\n'
+            if (!('annotations' in item)) {
+              item['annotations'] = {};
+            }
+            // must have nl at the end
+            item.annotations['nginx.ingress.kubernetes.io/configuration-snippet'] = 'more_clear_input_headers' +
+              ' "WL-Proxy-Client-IP" "WL-Proxy-SSL";\n'
               + 'more_set_input_headers "X-Forwarded-Proto: https";\n'
-              + 'more_set_input_headers "WL-Proxy-SSL: true";\n';  // must have nl at the end
-            result.metadata.annotations['nginx.ingress.kubernetes.io/configuration-snippet'] = snippet;
-            result.metadata.annotations['nginx.ingress.kubernetes.io/ingress.allow-http'] = 'false';
+              + 'more_set_input_headers "WL-Proxy-SSL: true";\n';
+            item.annotations['nginx.ingress.kubernetes.io/ingress.allow-http'] = 'false';
           }
         }
+
+        this.addAnnotations(result, item);
         return jsYaml.dump(result);
       }
 
@@ -150,6 +158,7 @@ define(['models/wkt-project', 'js-yaml'],
       createTraefikMiddlewaresAsYaml(item) {
 
         const namespace = item['targetServiceNameSpace'] || 'default';
+        const version = window.api.process.getVersion();
 
         const result = {
           apiVersion: 'traefik.containo.us/v1alpha1',
@@ -157,6 +166,7 @@ define(['models/wkt-project', 'js-yaml'],
           metadata: {
             name: item['name'] + '-middleware',
             namespace: namespace,
+            labels: { createdByWtkUIVersion: version}
           }
         };
 
