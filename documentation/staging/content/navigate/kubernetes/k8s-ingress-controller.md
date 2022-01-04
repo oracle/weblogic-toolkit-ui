@@ -49,6 +49,8 @@ cluster attempts to pull the image and start the container.
 - The `Docker Registry Secret Name` field specifies the name of the Kubernetes pull secret to use when pulling the image.
 To create this secret, enable `Create Docker Hub Secret` and fill in the pull secret data in the `Docker Hub Username`, `Docker Hub Password`,
 and `Docker Hub Email Address` fields.
+- For NGINX ingress controller, if you desire to have SSL pass through ingress route, enable `
+  Allow SSL pass through to target service`.
 
 #### TLS Secret for Ingress Routes
 Use this pane to configure the Transport Layer Security (TLS) secret containing the certificate and private key data that will be used by the
@@ -86,11 +88,17 @@ When editing a route:
 - Use the `Virtual Host` and `Path Expression` fields to define the matching rules that determine which requests match this route.  
 - All requests in the defined rules are routed to the service specified by the `Target Service` field that resides in the namespace specified by the read-only
 `Target Service Namespace` field and the port specified by the `Target Port` field.  
-- To enable TLS between the client
-and the ingress controller, enable the `Enable TLS` option.  Remember, enabling TLS means that the TLS secret
-information must be provided in the `TLS Secret for Ingress Routes` pane. Different ingress controllers support advanced ingress route configuration using ingress controller-specific annotations.  
+- Specify transport option for the ingress route.
+    * Select `Plain HTTP` for unencrypted traffic from client through ingress controller to the target service
+    * Select `SSL terminate at ingress controller` for SSL 
+      terminate 
+      at ingress controller and then unencrypted traffic from ingress controller to target service.  Check `Is 
+      target service WebLogic Console?
+      ` if the target service is `WebLogic Console` service.  
+    * Select `SSL pass through` for SSL traffic pass through ingress 
+      controller and terminate at target service.  Make sure the `Target Port` is SSL port.
 - Use the `Ingress Route Annotations` table to
-add annotations to the ingress route, as needed.
+add annotations to the ingress route, as needed.  Do not remove any pre-populated annotations.
 
 ### Code View
 The `Code View` displays shell scripts for installing an ingress controller and for updating ingress routes.  It also
