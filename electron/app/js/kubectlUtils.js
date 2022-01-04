@@ -199,7 +199,8 @@ async function getOperatorLogs(kubectlExe, operatorNamespace, options) {
 }
 
 async function getOperatorVersionFromDomainConfigMap(kubectlExe, domainNamespace, options) {
-  const args = [ 'get', 'configmap', 'weblogic-scripts-cm', '-n', domainNamespace, '-o', 'jsonpath={.metadata.labels.weblogic\\.operatorVersion}'];
+  const args = [ 'get', 'configmap', 'weblogic-scripts-cm', '-n', domainNamespace, '-o',
+    'jsonpath={.metadata.labels.weblogic\\.operatorVersion}'];
 
   const httpsProxyUrl = getHttpsProxyUrl();
   const bypassProxyHosts = getBypassProxyHosts();

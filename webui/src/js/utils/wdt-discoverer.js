@@ -20,8 +20,17 @@ function (WdtActionsBase, ko, project, wktConsole, dialogHelper, projectIO, i18n
     // save the current project (electron will select a new file if needed).
     // open the discover configuration dialog.
     async startDiscoverDomain(online) {
-      const discoverConfig = {'online': online};
-      dialogHelper.openDialog('discover-dialog', discoverConfig);
+      let proceed = true;
+      if (this.hasModelContext()) {
+        const title = i18n.t('wdt-discoverer-replace-title');
+        const message = i18n.t('wdt-discoverer-replace-message');
+        proceed = await window.api.ipc.invoke('ok-or-cancel-prompt', title, message);
+      }
+
+      if (proceed) {
+        const discoverConfig = {'online': online};
+        dialogHelper.openDialog('discover-dialog', discoverConfig);
+      }
     }
 
     // the dialog will call this when the OK button is clicked.
@@ -142,6 +151,11 @@ function (WdtActionsBase, ko, project, wktConsole, dialogHelper, projectIO, i18n
           validationHelper.validateRequiredField(discoverConfig.adminPass), discoverFormConfig);
       }
       return validationObject;
+    }
+
+    hasModelContext() {
+      return !!project.wdtModel.modelContent() ||
+        project.wdtModel.internal.propertiesContent.value.length || project.wdtModel.archiveRoots().length;
     }
   }
 

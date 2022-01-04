@@ -204,8 +204,8 @@ function(i18n, accUtils, ko, ArrayDataProvider, BufferingDataProvider, project, 
     this.handleDeleteRoute = (event, context) => {
       const index = context.item.index;
       this.routes.observable.splice(index, 1);
-      const title = i18n.t('ingress-installer-delete-route-warning-title');
-      const message = i18n.t('ingress-installer-delete-route-warning-message');
+      const title = i18n.t('ingress-design-delete-route-warning-title');
+      const message = i18n.t('ingress-design-delete-route-warning-message');
       window.api.ipc.invoke('show-error-message', title, message);
     };
 
@@ -244,7 +244,6 @@ function(i18n, accUtils, ko, ArrayDataProvider, BufferingDataProvider, project, 
     this.getEnabledText = (value) => {
       return this.anyLabelMapper(value ? 'dialog-button-yes' : 'dialog-button-no');
     };
-
   }
 
   /*

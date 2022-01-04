@@ -922,8 +922,28 @@ async function chooseFromFileSystem(targetWindow, options, joinListChar) {
 }
 
 async function executeAppQuit() {
-  for (const window of BrowserWindow.getAllWindows()) {
-    sendToWindow(window, 'start-app-quit');
+  const windows = BrowserWindow.getAllWindows();
+  getLogger().debug('Quit called with %d window(s) open', windows.length);
+  if (windows.length > 0) {
+    for (const window of windows) {
+      // Only send the start-app-quit message to full-fledged project windows.
+      // Any other windows aren't listening for the start-app-quit message
+      // and therefore, will never respond with window-app-close message.
+      //
+      if (Object.prototype.hasOwnProperty.call(window,'isReady')) {
+        getLogger().debug('sending start-app-quit to window id %d', window.id);
+        sendToWindow(window, 'start-app-quit');
+      } else {
+        getLogger().debug('skipping start-app-close message for window id %d', window.id);
+        window.close();
+      }
+    }
+  } else {
+    // If Quit is called with no open windows, just quit.  This handles the case where,
+    // on MacOS, the About Window is the last window open.  It is a special dialog window
+    // that is not included in the BrowserWindow.getAllWindows()...
+    //
+    app.quit();
   }
 }
 
@@ -1047,18 +1067,6 @@ async function promptUserForOkOrCancelAnswer(targetWindow, title, message) {
   });
 }
 
-function getCheckForAppUpdatesMenuItem() {
-  let checkForAppUpdatesMenuItem;
-  const menu = Menu.getApplicationMenu();
-  if (menu) {
-    const helpMenu = menu.items.find(item => item.id === 'help');
-    if (helpMenu && helpMenu.submenu) {
-      checkForAppUpdatesMenuItem = helpMenu.submenu.items.find(item => item.id === 'checkForAppUpdates');
-    }
-  }
-  return checkForAppUpdatesMenuItem;
-}
-
 // Arguments added here should be passed to the browser's window.process.argv array.
 function _getAdditionalArguments() {
   let extraArgs = [];
@@ -1081,7 +1089,6 @@ module.exports = {
   closeWindow,
   createNetworkWindow,
   createWindow,
-  getCheckForAppUpdatesMenuItem,
   initialize,
   isSingleWindow,
   setTitleFileName,

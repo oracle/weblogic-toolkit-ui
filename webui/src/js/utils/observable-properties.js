@@ -438,8 +438,8 @@ define(['knockout', 'utils/common-utilities', 'utils/validation-helper', 'utils/
         }
       }
 
-      addNewItem() {
-        this.observable.push(this.createArrayItem(this, arguments.length === 0 ? {} : arguments[0]));
+      addNewItem(item) {
+        this.observable.push(this.createArrayItem(this, !!item ? item : {}));
       }
 
       get observable() {

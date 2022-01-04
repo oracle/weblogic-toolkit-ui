@@ -8,7 +8,7 @@
     "jet-audit": "ojaf"
   },
   "dependencies": {
-    "@oracle/oraclejet": "^11.1.3",
+    "@oracle/oraclejet": "^11.1.4",
     "i18next": "^21.6.3",
     "jquery": "^3.6.0",
     "js-yaml": "^4.1.0"

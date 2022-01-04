@@ -11,13 +11,17 @@ const i18n = require('./i18next.config');
 const { getLogger } = require('./wktLogging');
 const errorUtils = require('./errorUtils');
 const { sendToWindow } = require('./windowUtils');
+const osUtils = require('./osUtils');
 
 let _isDevMode;
+let _supportsAutoUpdate;
 let _downloadWindow;
 let _installType;
 
+/* global process */
 function initializeAutoUpdater(logger, isDevMode) {
   _isDevMode = isDevMode;
+  _supportsAutoUpdate = !(osUtils.isLinux() && !process.env.APPIMAGE);
   autoUpdater.logger = logger;
   autoUpdater.autoDownload = false;
   autoUpdater.autoInstallOnAppQuit = true;
@@ -44,7 +48,7 @@ function registerAutoUpdateListeners() {
 // if the application is current with the latest version, or an error occurs, the Promise resolves to null.
 // if notifyOnFailures is true, dialogs are displayed when no result is provided.
 async function getUpdateInformation(notifyOnFailures) {
-  if (!_isDevMode) {
+  if (!_isDevMode && _supportsAutoUpdate) {
     try {
       const checkResult = await autoUpdater.checkForUpdates();
       const releaseName = checkResult.updateInfo.releaseName;
@@ -79,8 +83,13 @@ async function getUpdateInformation(notifyOnFailures) {
     // Only show the prompt if the user used the menu to trigger checkForUpdates()
     // If triggered on startup, no need to display...
     //
-    dialog.showErrorBox(i18n.t('auto-updater-disabled-dev-mode-title'),
-      i18n.t('auto-updater-disabled-dev-mode-message'));
+    if (_isDevMode) {
+      dialog.showErrorBox(i18n.t('auto-updater-disabled-dev-mode-title'),
+        i18n.t('auto-updater-disabled-dev-mode-message'));
+    } else {
+      dialog.showErrorBox(i18n.t('auto-updater-disabled-unsupported-title'),
+        i18n.t('auto-updater-disabled-unsupported-message'));
+    }
   }
 
   return null;

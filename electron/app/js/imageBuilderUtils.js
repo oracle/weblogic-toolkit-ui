@@ -79,7 +79,11 @@ async function doLogin(imageBuilderExe, options) {
 
   if (options.host) {
     args.push(options.host);
+  } else {
+    // podman does not always default to docker hub when logging in without a host.
+    args.push('docker.io');
   }
+
   if (options.username) {
     args.push('-u', options.username);
   }
