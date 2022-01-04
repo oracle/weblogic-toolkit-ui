@@ -25,9 +25,33 @@ describe('ingress-definition', function () {
     'targetServiceNameSpace' : 'domain1-ns', 'targetService' : 'domain1-cluster-cluster-1', 'targetPort' : '8109',
     'path': '/myapp', 'ssl' : false };
 
-  const genericIngress = {'name': 'Route1', 'virtualHost' : 'domain1.org',
-    'targetServiceNameSpace' : 'domain1-ns', 'targetService' : 'domain1-cluster-cluster-1', 'targetPort' : '8109',
-    'path': '/myapp', 'ssl' : true, 'tlsSecretName': 'mytls' };
+  const traefikIngress = {
+    'name': 'console',
+    'targetServiceNameSpace': 'sample-domain1-ns',
+    'targetService': 'sample-domain1-admin-server',
+    'targetPort': 7002,
+    'path': '/console',
+    'annotations': {
+      'kubernetes.io/ingress.class': 'traefik',
+      'traefik.ingress.kubernetes.io/router.tls': 'true'
+    },
+    'tlsOption': 'ssl_terminate_ingress',
+    'isConsoleService': true
+  };
+
+
+  const nginxIngress = {
+    'name': 'console',
+    'targetServiceNameSpace': 'sample-domain1-ns',
+    'targetService': 'sample-domain1-admin-server',
+    'targetPort': 7001,
+    'path': '/console',
+    'annotations': {
+      'kubernetes.io/ingress.class': 'nginx'
+    },
+    'tlsOption': 'ssl_terminate_ingress',
+    'isConsoleService': true
+  };
 
   before(function (done) {
     testHelper.install();
@@ -56,15 +80,55 @@ describe('ingress-definition', function () {
     });
 
     it('generate nginx ingress', function () {
-      const yaml = ingressResource.createNginxRoutesAsYaml(genericIngress);
+      const yaml = ingressResource.createNginxRoutesAsYaml(nginxIngress);
       const json = jsyaml.load(yaml);
+      const expectedAnnotation = 'more_clear_input_headers "WL-Proxy-Client-IP" "WL-Proxy-SSL";\n' +
+        'more_set_input_headers "X-Forwarded-Proto: https";\n' +
+        'more_set_input_headers "WL-Proxy-SSL: true";\n';
+
+      expect(json.metadata.annotations['nginx.ingress.kubernetes.io/configuration-snippet']).to.equal(expectedAnnotation);
       expect(json['apiVersion']).to.equal('networking.k8s.io/v1');
     });
 
     it('generate traefik ingress', function () {
-      const yaml = ingressResource.createTraefikRoutesAsYaml(genericIngress);
-      const json = jsyaml.load(yaml);
-      expect(json['apiVersion']).to.equal('traefik.containo.us/v1alpha1');
+      const yaml = ingressResource.createTraefikRoutesAsYaml(traefikIngress);
+      const expectedYaml = 'apiVersion: traefik.containo.us/v1alpha1\n' +
+        'kind: Middleware\n' +
+        'metadata:\n' +
+        '  name: console-middleware\n' +
+        '  namespace: sample-domain1-ns\n' +
+        '  labels:\n' +
+        '    createdByWtkUIVersion: 1.1.0\n' +
+        'spec:\n' +
+        '  headers:\n' +
+        '    sslRedirect: true\n' +
+        '    customRequestHeaders:\n' +
+        '      X-Custom-Request-Header: \'\'\n' +
+        '      X-Forwarded-For: \'\'\n' +
+        '      WL-Proxy-Client-IP: \'\'\n' +
+        '      WL-Proxy-SSL: \'true\'\n' +
+        '\n' +
+        '---\n' +
+        'apiVersion: traefik.containo.us/v1alpha1\n' +
+        'kind: IngressRoute\n' +
+        'metadata:\n' +
+        '  name: console\n' +
+        '  namespace: sample-domain1-ns\n' +
+        '  annotations:\n' +
+        '    kubernetes.io/ingress.class: traefik\n' +
+        '    traefik.ingress.kubernetes.io/router.tls: \'true\'\n' +
+        'spec:\n' +
+        '  routes:\n' +
+        '    - kind: Rule\n' +
+        '      match: PathPrefix(`/console`)\n' +
+        '      services:\n' +
+        '        - kind: Service\n' +
+        '          name: sample-domain1-admin-server\n' +
+        '          port: 7002\n' +
+        '      middlewares:\n' +
+        '        - name: console-middleware\n';
+
+      expect(yaml).to.equal(expectedYaml);
     });
   });
 });
