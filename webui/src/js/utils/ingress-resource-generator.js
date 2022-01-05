@@ -194,7 +194,7 @@ define(['models/wkt-project', 'js-yaml'],
           }
 
           if (item['path'].indexOf('.') < 0) {
-            result.spec = { replacePathRegex: { regex: '^' + item['path'] + '(.*)'}, replacement: item['path'] + '/$1'};
+            result.spec = { replacePathRegex: { regex: '^' + item['path'] + '(.*)', replacement: item['path'] + '/$1'}};
             return jsYaml.dump(result);
           }
 
@@ -259,7 +259,12 @@ define(['models/wkt-project', 'js-yaml'],
         // SSL passthrough
         if (this.project.ingress.specifyIngressTLSSecret.value && this.isSSLPassThrough(item)) {
           const obj = { passthrough: true };
-          result.spec.tls = [ obj ];
+          result.spec.tls =  obj;
+
+          // passthrough is a different kind!
+          result.kind = 'IngressRouteTCP';
+          delete result.spec.routes[0].kind;
+          delete result.spec.routes[0].services[0].kind;
 
           // Set HostSNI
           if (item && item['virtualHost']) {
