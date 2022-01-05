@@ -50,7 +50,7 @@ cluster attempts to pull the image and start the container.
 To create this secret, enable `Create Docker Hub Secret` and fill in the pull secret data in the `Docker Hub Username`, `Docker Hub Password`,
 and `Docker Hub Email Address` fields.
 - For NGINX ingress controller, if you desire to have SSL pass through ingress route, enable `
-  Allow SSL pass through to target service`.
+  Allow SSL pass through to target service`.  
 
 #### TLS Secret for Ingress Routes
 Use this pane to configure the Transport Layer Security (TLS) secret containing the certificate and private key data that will be used by the
@@ -91,12 +91,13 @@ When editing a route:
 - Specify transport option for the ingress route.
     * Select `Plain HTTP` for unencrypted traffic from client through ingress controller to the target service
     * Select `SSL terminate at ingress controller` for SSL 
-      terminate 
+      terminating 
       at ingress controller and then unencrypted traffic from ingress controller to target service.  Check `Is 
       target service WebLogic Console?
       ` if the target service is `WebLogic Console` service.  
     * Select `SSL pass through` for SSL traffic pass through ingress 
-      controller and terminate at target service.  Make sure the `Target Port` is SSL port.
+      controller and terminate at target service.  If you select this option, all SSL traffic from the `Virtual Host` 
+      will be routed to the target service.  Make sure the `Target Port` supports SSL.
 - Use the `Ingress Route Annotations` table to
 add annotations to the ingress route, as needed.  Do not remove any pre-populated annotations.
 

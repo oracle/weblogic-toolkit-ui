@@ -78,6 +78,10 @@ define(['models/wkt-project', 'js-yaml'],
       createNginxRoutesAsYaml(item) {
         const namespace = item['targetServiceNameSpace'] || 'default';
         const version = window.api.process.getVersion();
+        let path = item['path'];
+        if (this.isSSLPassThrough(item)) {
+          path = '/';
+        }
 
         const result = {
           apiVersion: 'networking.k8s.io/v1',
@@ -101,7 +105,7 @@ define(['models/wkt-project', 'js-yaml'],
                           }
                         }
                       },
-                      path: item['path'],
+                      path: path,
                       pathType: 'Prefix'
                     }
                   ]
@@ -110,21 +114,23 @@ define(['models/wkt-project', 'js-yaml'],
             ]
           }
         };
-        this.addTlsSpec(result, item);
+        // No need to set TLS if passthrough
+        if (!this.isSSLPassThrough(item)) {
+          this.addTlsSpec(result, item);
+        }
+
         this.addVirtualHost(result, item);
 
         if (this.isSSLTerminateAtIngress(item)) {
-          if (item['isConsoleService']) {
-            if (!('annotations' in item)) {
-              item['annotations'] = {};
-            }
-            // must have nl at the end
-            item.annotations['nginx.ingress.kubernetes.io/configuration-snippet'] = 'more_clear_input_headers' +
+          if (!('annotations' in item)) {
+            item['annotations'] = {};
+          }
+          // must have nl at the end
+          item.annotations['nginx.ingress.kubernetes.io/configuration-snippet'] = 'more_clear_input_headers' +
               ' "WL-Proxy-Client-IP" "WL-Proxy-SSL";\n'
               + 'more_set_input_headers "X-Forwarded-Proto: https";\n'
               + 'more_set_input_headers "WL-Proxy-SSL: true";\n';
-            item.annotations['nginx.ingress.kubernetes.io/ingress.allow-http'] = 'false';
-          }
+          item.annotations['nginx.ingress.kubernetes.io/ingress.allow-http'] = 'false';
         }
 
         this.addAnnotations(result, item);
@@ -139,7 +145,7 @@ define(['models/wkt-project', 'js-yaml'],
         }
       }
 
-      isTraefikSSLPassThrough(item) {
+      isSSLPassThrough(item) {
         if (item && item['tlsOption'] === 'ssl_passthrough') {
           return true;
         } else {
@@ -147,7 +153,7 @@ define(['models/wkt-project', 'js-yaml'],
         }
       }
 
-      isTraefikPlain(item) {
+      isPlainHTTP(item) {
         if (item && item['tlsOption'] === 'plain') {
           return true;
         } else {
@@ -251,7 +257,7 @@ define(['models/wkt-project', 'js-yaml'],
           result.spec.tls = { secretName: item['tlsSecretName'] };
         }
         // SSL passthrough
-        if (this.project.ingress.specifyIngressTLSSecret.value && this.isTraefikSSLPassThrough(item)) {
+        if (this.project.ingress.specifyIngressTLSSecret.value && this.isSSLPassThrough(item)) {
           const obj = { passthrough: true };
           result.spec.tls = [ obj ];
 
@@ -278,14 +284,14 @@ define(['models/wkt-project', 'js-yaml'],
 
       addTlsSpec(result, item) {
         // If the Ingress TLS secret is not enabled, do not add the ingress TLS secret name even if it exists.
-        if (this.project.ingress.specifyIngressTLSSecret.value && !this.isTraefikPlain(item)) {
+        if (this.project.ingress.specifyIngressTLSSecret.value && !this.isPlainHTTP(item)) {
           if (!item['tlsSecretName']) {
             item['tlsSecretName'] = this.project.ingress.ingressTLSSecretName.value;
           }
 
           const obj = { secretName: item['tlsSecretName'] };
           if (item['virtualHost']) {
-            obj['hosts'] = item['virtualHost'];
+            obj['hosts'] = [ item['virtualHost'] ];
           }
           result.spec.tls = [ obj ];
         }
