@@ -95,8 +95,8 @@ When editing a route:
       * Enable `Is target service WebLogic Console?` if the target service is the `WebLogic Console` service.  
     * Select `SSL pass through` for SSL traffic to pass through the ingress
       controller and then terminate at the target service.  
-      * If you select this option, then all SSL traffic from the `Virtual Host`
-      will be routed to the target service.  
+      * If you select this option, you must also specify a valid DNS value in 'Virtual Host', and all SSL traffic from 
+        the`Virtual Host` will be routed to the target service.  
       * Make sure that the `Target Port` supports SSL.
 - Use the `Ingress Route Annotations` table to
 add annotations to the ingress route, as needed.  Do not remove any pre-populated annotations.
