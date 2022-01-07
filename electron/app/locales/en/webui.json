@@ -658,7 +658,8 @@
 
   "ingress-design-ingress-route-name-field-validation-error": "Route {{routeName}}",
   "ingress-design-ingress-route-field-validation-error": "Route: {{routeName}}, Field: {{fieldName}}",
-  "ingress-design-ingress-route-field-tls-config-error": "The route {{routeName}} has the {{fieldName}} field enabled but the {{specifyTlsSecretFieldName}} field is disabled.",
+  "ingress-design-ingress-route-field-tls-config-error": "The route '{{routeName}}' has the '{{fieldName}}' set to '{{tlsOption}}' but the '{{specifyTlsSecretFieldName}}' field is disabled.",
+  "ingress-design-ingress-route-field-tls-config-passthrough-error": "The route '{{routeName}}' has the '{{fieldName}}' set to '{{tlsOption}}' but the '{{virtualHostFieldName}}' field is not set, you must provide an valid DNS name in '{{virtualHostFieldName}}'",
 
   "ingress-design-ingress-tls-secret-title": "TLS Secret for Ingress Routes",
   "ingress-design-specify-tls-secret-label": "Use Ingress TLS Secret",

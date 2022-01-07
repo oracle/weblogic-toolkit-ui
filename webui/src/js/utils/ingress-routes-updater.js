@@ -491,6 +491,11 @@ function(IngressActionsBase, project, wktConsole, k8sHelper, i18n, projectIo, di
             });
           }
         }
+
+        if (ingressDefinition['virtualHost']) {
+          externalLoadBalancerHost = '//' + ingressDefinition['virtualHost'];
+        }
+
         if (useNodePort) {
           if (ingressDefinition['tlsOption'] !== 'plain') {
             results['accessPoint'] = 'https:' + externalLoadBalancerHost + ':' + ingressSSLPort  + ingressDefinition.path;
@@ -625,11 +630,27 @@ function(IngressActionsBase, project, wktConsole, k8sHelper, i18n, projectIo, di
         });
         const errMessage = i18n.t('ingress-design-ingress-route-field-tls-config-error', {
           routeName: data['name'],
+          tlsOption: i18n.t('ingress-design-ingress-route-tlsoption-ssl-terminate-ingress'),
           fieldName: i18n.t('ingress-design-ingress-route-tls-label'),
           specifyTlsSecretFieldName: i18n.t('ingress-design-specify-tls-secret-label')
         });
         validationObject.addField(errFieldMessage, errMessage, routeConfig);
       }
+
+      if (data['tlsOption'] === 'ssl_passthrough' && !data['virtualHost']) {
+        errFieldMessage = i18n.t('ingress-design-ingress-route-field-validation-error', {
+          routeName: data['name'],
+          fieldName: i18n.t('ingress-design-ingress-route-virtualhost-label')
+        });
+        const errMessage = i18n.t('ingress-design-ingress-route-field-tls-config-passthrough-error', {
+          routeName: data['name'],
+          tlsOption: i18n.t('ingress-design-ingress-route-tlsoption-ssl-passthrough'),
+          fieldName: i18n.t('ingress-design-ingress-route-virtualhost-label'),
+          virtualHostFieldName: i18n.t('ingress-design-ingress-route-virtualhost-label')
+        });
+        validationObject.addField(errFieldMessage, errMessage, routeConfig);
+      }
+
     }
   }
 
