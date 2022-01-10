@@ -52,6 +52,10 @@ function(i18n, accUtils, ko, ArrayDataProvider, BufferingDataProvider, project, 
       return this.project.ingress.ingressControllerProvider.value === 'voyager';
     };
 
+    this.isNginx = () => {
+      return this.project.ingress.ingressControllerProvider.value === 'nginx';
+    };
+
     this.imageOnDockerHub = () => {
       return (this.project.ingress.ingressControllerProvider.value === 'voyager') ||
         (this.project.ingress.ingressControllerProvider.value === 'traefik');
@@ -176,7 +180,9 @@ function(i18n, accUtils, ko, ArrayDataProvider, BufferingDataProvider, project, 
         uid: getAnnotationUid(nextIndex),
         name: `new-route-${nextIndex}`,
         targetServiceNameSpace: this.project.k8sDomain.kubernetesNamespace.value,
-        accessPoint: ''
+        accessPoint: '',
+        tlsOption: 'plain',
+        isConsoleService: false
       };
 
       // if controller is Voyager and provider is baremetal only nodeport is supported, set the default in the UI
@@ -187,6 +193,9 @@ function(i18n, accUtils, ko, ArrayDataProvider, BufferingDataProvider, project, 
       // nginx 1.0.0 and above requires setting ingressClassName either at ingress object spec level or annotation.
       if (project.ingress.ingressControllerProvider.value === 'nginx') {
         newRoute.annotations = {'kubernetes.io/ingress.class': 'nginx'};
+      }
+      if (project.ingress.ingressControllerProvider.value === 'traefik') {
+        newRoute.annotations = {'kubernetes.io/ingress.class': 'traefik'};
       }
 
       project.ingress.ingressRoutes.addNewItem(newRoute);
