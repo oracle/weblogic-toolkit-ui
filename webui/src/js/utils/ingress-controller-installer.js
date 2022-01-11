@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -14,7 +14,7 @@ function(IngressActionsBase, project, wktConsole, k8sHelper, i18n, dialogHelper,
     }
 
     async startInstallIngressController() {
-      return this.callInstallIngressController();
+      await this.executeAction(this.callInstallIngressController);
     }
 
     async callInstallIngressController(options) {
