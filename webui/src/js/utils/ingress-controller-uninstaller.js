@@ -26,7 +26,7 @@ function(IngressActionsBase, project, wktConsole, k8sHelper, i18n, dialogHelper,
       let errPrefix = 'ingress-uninstaller';
       if (this.project.ingress.installIngressController.value === false) {
         const message = i18n.t('ingress-uninstaller-not-install-message');
-        await window.api.ipc.invoke('show-info-message', title, message);
+        await window.api.ipc.invoke('show-info-message', errTitle, message);
         return Promise.resolve(true);
       }
 
