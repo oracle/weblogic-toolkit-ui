@@ -246,6 +246,9 @@ function(IngressActionsBase, project, wktConsole, k8sHelper, i18n, dialogHelper,
         helmChartData['kubernetes.namespaces'] =
           `{${ingressControllerNamespace},${this.project.k8sDomain.kubernetesNamespace.value}}`;
       }
+      if (ingressControllerProvider === 'nginx' && this.project.ingress.allowNginxSSLPassThrough) {
+        helmChartData['controller.extraArgs.enable-ssl-passthrough'] = true;
+      }
       return helmChartData;
     }
   }

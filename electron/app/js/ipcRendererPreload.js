@@ -229,6 +229,7 @@ contextBridge.exposeInMainWorld(
       isMac: () => osUtils.isMac(),
       isLinux: () => osUtils.isLinux(),
       getApplicationName: () => wktApp.getApplicationName(),
+      getVersion: () => wktApp.getApplicationVersion(),
       getArgv: (name) => osUtils.getArgv(name)
     },
     'i18n': {

@@ -42,7 +42,7 @@ define(['knockout', 'utils/observable-properties', 'utils/validation-helper'],
 
         this.ingressRouteKeys = [
           'uid', 'name', 'virtualHost', 'targetServiceNameSpace', 'targetService', 'targetPort',
-          'path', 'tlsEnabled', 'annotations', 'accessPoint', 'markedForDeletion'
+          'path', 'annotations', 'accessPoint', 'tlsOption', 'markedForDeletion', 'isConsoleService'
         ];
         this.ingressRoutes = props.createListProperty(this.ingressRouteKeys).persistByKey('uid');
 
@@ -59,7 +59,7 @@ define(['knockout', 'utils/observable-properties', 'utils/validation-helper'],
         this.createTLSSecret = props.createProperty(false);
         this.ingressTLSSecretName = props.createProperty('');
         this.ingressTLSSecretName.addValidator(...validationHelper.getK8sNameValidators());
-
+        this.allowNginxSSLPassThrough = props.createProperty(false);
         this.generateTLSFiles = props.createProperty(false);
         this.ingressTLSSubject = props.createProperty('');
 

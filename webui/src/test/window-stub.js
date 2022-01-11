@@ -56,6 +56,9 @@ class WindowStub {
         }
       },
       process: {
+        getVersion: () => {
+          return '1.1.0';
+        },
         isWindows: () => {
           return _isWindows;
         },

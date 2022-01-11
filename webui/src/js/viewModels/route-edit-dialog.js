@@ -38,8 +38,15 @@ function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDa
 
     this.project = project;
     this.route = args.route;
+    this.askIfConsoleSvc = ko.observable(this.route.isConsoleService);
 
     this.savedAnnotations = args.route.annotations || {};
+
+    this.tlsOptions = [
+      { id: 'plain', value: 'plain', text: this.labelMapper('route-tlsoption-plain') },
+      { id: 'ssl_terminate_ingress', value: 'ssl_terminate_ingress', text: this.labelMapper('route-tlsoption-ssl-terminate-ingress') },
+      { id: 'ssl_passthrough', value: 'ssl_passthrough', text: this.labelMapper('route-tlsoption-ssl-passthrough') },
+    ];
 
     // this is dynamic to allow i18n fields to load correctly
     this.annotationColumns = [
@@ -124,6 +131,31 @@ function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDa
       return Object.entries(one).sort().toString() !== Object.entries(two).sort().toString();
     }
 
+    function addOrDeleteAnnotation(annotations, addAction, key, value, deleteKey) {
+      if (addAction) {
+        annotations[key] = value;
+      } else {
+        if (key in annotations) {
+          delete annotations[key];
+        }
+      }
+      if (deleteKey in annotations) {
+        delete annotations[deleteKey];
+      }
+    }
+
+    this.askIfConsoleService = () => {
+      return this.askIfConsoleSvc();
+    };
+
+    this.transportValueChanged = (event) => {
+      if (event.detail.value === 'ssl_terminate_ingress') {
+        this.askIfConsoleSvc(true);
+      } else {
+        this.askIfConsoleSvc(false);
+      }
+    };
+
     this.okInput = () => {
       let tracker = document.getElementById('ingressTracker');
       if (tracker.valid !== 'valid') {
@@ -150,6 +182,38 @@ function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDa
       this.annotations.observable().forEach(annotation => {
         changedAnnotations[annotation.key] = annotation.value ? annotation.value : '';
       });
+
+      const ingressClassKey = 'kubernetes.io/ingress.class';
+      let tlsOption = result['tlsOption'];
+
+      if (typeof tlsOption === 'undefined') {
+        tlsOption = this.route.tlsOption;
+      }
+
+      if (this.project.ingress.ingressControllerProvider.value === 'traefik') {
+        const sslKey = 'traefik.ingress.kubernetes.io/router.tls';
+        changedAnnotations[ingressClassKey] = 'traefik';
+        addOrDeleteAnnotation(changedAnnotations, (tlsOption !== 'plain'),
+          sslKey, 'true', '');
+        // if user switched to plain
+        if (tlsOption === 'plain') {
+          if (sslKey in changedAnnotations) {
+            delete changedAnnotations[sslKey];
+          }
+        }
+      }
+
+      if (this.project.ingress.ingressControllerProvider.value === 'nginx') {
+        const sslKey = 'nginx.ingress.kubernetes.io/backend-protocol';
+        const sslPassThroughKey = 'nginx.ingress.kubernetes.io/ssl-passthrough';
+        changedAnnotations[ingressClassKey] = 'nginx';
+        addOrDeleteAnnotation(changedAnnotations, (tlsOption === 'ssl_terminate_ingress'),
+          sslKey, 'HTTPS', sslPassThroughKey);
+        // passthrough require both
+        addOrDeleteAnnotation(changedAnnotations, (tlsOption === 'ssl_passthrough'), sslPassThroughKey, 'true', '');
+        addOrDeleteAnnotation(changedAnnotations, (tlsOption === 'ssl_passthrough'), sslKey, 'HTTPS', '');
+      }
+
       if(compareObjects(changedAnnotations, this.savedAnnotations)) {
         result['annotations'] = changedAnnotations;
       }
@@ -161,6 +225,7 @@ function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDa
       $(DIALOG_SELECTOR)[0].close();
       args.setValue();
     };
+
   }
 
   /*

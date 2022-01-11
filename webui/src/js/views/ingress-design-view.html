@@ -39,6 +39,12 @@
                             help.instruction="[[labelMapper('voyager-provider-help')]]">
           </oj-select-single>
         </oj-bind-if>
+        <oj-bind-if test="[[isNginx() === true]]">
+          <oj-switch label-hint="[[labelMapper('nginx-allow-passthrough-label')]]"
+                     value="{{project.ingress.allowNginxSSLPassThrough.observable}}"
+                     help.instruction="[[labelMapper('nginx-allow-passthrough-help')]]">
+          </oj-switch>
+        </oj-bind-if>
       </oj-form-layout>
 
 
