@@ -40,7 +40,6 @@
   "kubectl-config-context-help": "The Kubernetes config file context name for the cluster to which you want to connect.  The default is to use whatever the current context is, if any.",
   "kubectl-add-row-icon-text": "Add Extra Kubernetes Client Path Directory",
   "kubectl-choose-path-icon-text": "Choose Extra Kubernetes Client Path Directory",
-  "kubectl-choose-path-icon-text": "Choose Extra Kubernetes Client Path Directory",
   "kubectl-delete-row-icon-text": "Remove Extra Kubernetes Client Path Directory",
   "kubectl-extra-path-directory-header": "Extra Kubernetes Client Path Directories",
   "kubectl-helm-exe-file-path-label": "Helm Executable to Use",
