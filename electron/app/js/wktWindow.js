@@ -1000,6 +1000,7 @@ function createApplicationMenu(newWindow) {
   for(let key in menu.items) {
     let item = menu.items[key];
     item.submenu.on('menu-will-show', () => {
+      getLogger().debug('got menu-will-show event');
       sendToWindow(newWindow, 'blur-focused-item');
     });
   }
