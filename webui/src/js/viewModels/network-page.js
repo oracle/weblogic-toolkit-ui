@@ -15,6 +15,12 @@ function(accUtils, ko, i18n, project) {
         .then(settings => {
           this.proxyUrl(settings.proxyUrl);
           this.bypassProxyHosts(settings.bypassHosts);
+
+          let timeoutSeconds = settings.timeout / 1000;
+          if (timeoutSeconds < 1) {
+            timeoutSeconds = 1;
+          }
+          this.requestTimeoutSeconds(timeoutSeconds);
         });
     };
 

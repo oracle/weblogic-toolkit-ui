@@ -845,11 +845,10 @@ class Main {
     });
 
     ipcMain.handle('get-network-settings', async () => {
-      const proxyUrl = getHttpsProxyUrl();
-      const bypassHosts = getBypassProxyHosts();
       return {
-        proxyUrl: proxyUrl,
-        bypassHosts: bypassHosts
+        proxyUrl: getHttpsProxyUrl(),
+        bypassHosts: getBypassProxyHosts(),
+        timeout: userSettings.getConnectivityTestTimeout()
       };
     });
 
