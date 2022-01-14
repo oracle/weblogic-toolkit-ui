@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -156,6 +156,19 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
         this.writeTo = (json) => {
           this.setCredentialPathsForSecretsTable(json);
           props.createGroup(name, this).writeTo(json);
+
+          // Force the generated runtime secret to be written to the project.
+          // This will allow us to keep the same generated password for the life
+          // of the project (assuming the user doesn't intentionally change it).
+          // See JIRA WKTUI-300 for details.
+          //
+          if (!json[name]) {
+            json[name] = {
+              runtimeSecretValue: this.runtimeSecretValue.value
+            };
+          } else if (!json[name].runtimeSecretValue) {
+            json[name].runtimeSecretValue = this.runtimeSecretValue.value;
+          }
 
           const modelConfigMap = {};
           for (const entry of wdtModel.getMergedPropertiesContent().value) {

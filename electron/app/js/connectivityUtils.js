@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -11,19 +11,18 @@ const { homepage } = require('../../package.json');
 const { getLogger } = require('./wktLogging');
 const errorUtils = require('./errorUtils');
 
-const CONNECT_TIMEOUT = 5000;
-
 // test connectivity for user settings configuration
 async function testConfiguredInternetConnectivity() {
   const userSettings = require('./userSettings');
   const httpsProxyUrl = userSettings.getHttpsProxyUrl();
-  return testInternetConnectivity(httpsProxyUrl);
+  const connectivityTimeout = userSettings.getConnectivityTestTimeout();
+  return testInternetConnectivity(httpsProxyUrl, connectivityTimeout);
 }
 
 // test connectivity using supplied arguments
-async function testInternetConnectivity(httpsProxyUrl) {
+async function testInternetConnectivity(httpsProxyUrl, connectivityTimeout = 5000) {
   const options = {
-    timeout: CONNECT_TIMEOUT,
+    timeout: connectivityTimeout,
     method: 'HEAD'
   };
   if (httpsProxyUrl) {
@@ -33,12 +32,13 @@ async function testInternetConnectivity(httpsProxyUrl) {
   const logger = getLogger();
   return new Promise((resolve) => {
     let timeout = false;
+    logger.debug('Starting Internet connectivity test request to %s with a timeout of %s ms', homepage, connectivityTimeout);
     const httpsRequest = https.request(homepage, options, (res) => {
       logger.debug('Internet connectivity test request to %s returned HTTP status code %s', homepage, res.statusCode);
       resolve(res.statusCode === 200);
     });
     httpsRequest.on('timeout', () => {
-      logger.error('Internet connectivity test timed out after %s ms', CONNECT_TIMEOUT);
+      logger.error('Internet connectivity test timed out after %s ms', connectivityTimeout);
       timeout = true;
       httpsRequest.destroy();
     });

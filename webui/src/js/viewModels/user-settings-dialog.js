@@ -1,13 +1,13 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
 
 define(['accUtils', 'knockout', 'utils/observable-properties', 'utils/i18n', 'ojs/ojarraydataprovider', 'models/wkt-project',
   'utils/wkt-logger', 'ojs/ojknockout', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojdialog', 'ojs/ojformlayout',
-  'ojs/ojswitch', 'ojs/ojselectsingle', 'ojs/ojvalidationgroup'],
+  'ojs/ojswitch', 'ojs/ojselectsingle', 'ojs/ojvalidationgroup', 'ojs/ojinputnumber'],
 function(accUtils, ko, utils, i18n, ArrayDataProvider, project, wktLogger) {
   function UserSettingsDialogModel(payload) {
 
@@ -46,6 +46,8 @@ function(accUtils, ko, utils, i18n, ArrayDataProvider, project, wktLogger) {
     this.consoleLogLevel = ko.observable(payload.defaults.level);
     this.fileLogLevel = ko.observable(payload.defaults.level);
     this.fileLogDir = ko.observable(payload.defaults.logDir);
+    this.connectivityTestTimeoutSeconds = ko.observable(payload.defaults.connectivityTestTimeoutMilliseconds / 1000);
+    this.internalConnectivityTestTimeoutMilliseconds = ko.observable(payload.defaults.connectivityTestTimeoutMilliseconds);
     this.skipQuickstart = ko.observable(false);
 
     this.loadUserSettings = () => {
@@ -74,6 +76,10 @@ function(accUtils, ko, utils, i18n, ArrayDataProvider, project, wktLogger) {
         }
       }
 
+      if ('connectivityTestTimeoutMilliseconds' in this.userSettings) {
+        this.connectivityTestTimeoutSeconds(this.userSettings.connectivityTestTimeoutMilliseconds / 1000);
+      }
+
       if ('skipQuickstartAtStartup' in this.userSettings) {
         this.skipQuickstart(this.userSettings.skipQuickstartAtStartup);
       }
@@ -91,6 +97,11 @@ function(accUtils, ko, utils, i18n, ArrayDataProvider, project, wktLogger) {
       this._storeSetting('logging.file.level', this.fileLogLevel, payload.defaults.level);
       this._storeSetting('logging.file.logDir', this.fileLogDir, payload.defaults.level);
       this._storeSetting('logging.console.level', this.consoleLogLevel, payload.defaults.level);
+      if (this.connectivityTestTimeoutSeconds() >= 0) {
+        this.internalConnectivityTestTimeoutMilliseconds(this.connectivityTestTimeoutSeconds() * 1000);
+        this._storeSetting('connectivityTestTimeoutMilliseconds',
+          this.internalConnectivityTestTimeoutMilliseconds, payload.defaults.connectivityTestTimeoutMilliseconds);
+      }
       this._storeSetting('skipQuickstartAtStartup', this.skipQuickstart, false);
     };
 

@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const { app, BrowserWindow, dialog, ipcMain, shell } = require('electron');
@@ -854,12 +854,13 @@ class Main {
     });
 
     ipcMain.handle('try-network-settings', async (event, settings) => {
-      return connectivityUtils.testInternetConnectivity(settings['proxyUrl']);
+      return connectivityUtils.testInternetConnectivity(settings['proxyUrl'], settings['timeout']);
     });
 
     ipcMain.handle('restart-network-settings', async (event, settings) => {
       userSettings.setHttpsProxyUrl(settings['proxyUrl']);
       userSettings.setBypassProxyHosts(settings['bypassHosts']);
+      userSettings.setConnectivityTestTimeout(settings['timeout']);
       userSettings.saveUserSettings();
       app.relaunch();
       app.quit();
