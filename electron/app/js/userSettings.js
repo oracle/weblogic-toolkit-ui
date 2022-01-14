@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const { app } = require('electron');
@@ -13,7 +13,8 @@ const { getErrorMessage } = require('./errorUtils');
 const userSettableFieldNames = [
   'proxy',
   'logging',
-  'skipQuickstartAtStartup'
+  'skipQuickstartAtStartup',
+  'connectivityTestTimeoutMilliseconds'
 ];
 
 const appPrivateFieldNames = [
@@ -54,7 +55,9 @@ let _userSettingsFileName;
 //       "modelRight": 0.48
 //     },
 //     "navCollapsed": true
-//   }
+//   },
+//   "skipQuickstartAtStartup": true,
+//   "connectivityTestTimeoutMilliseconds": 10000
 // }
 //
 let _userSettingsObject;
@@ -156,6 +159,31 @@ function setSkipQuickstartAtStartup(value) {
   const settings = _getUserSettings();
   settings['skipQuickstartAtStartup'] = valueToSet;
   _userSettingsObject = settings;
+}
+
+
+function getConnectivityTestTimeout() {
+  const settings = _getUserSettings();
+  if ('connectivityTestTimeoutMilliseconds' in settings) {
+    return settings['connectivityTestTimeoutMilliseconds'];
+  } else {
+    return getDefaultConnectivityTestTimeout();
+  }
+}
+
+function getDefaultConnectivityTestTimeout() {
+  return 5000;
+}
+
+function setConnectivityTestTimeout(value) {
+  const settings = _getUserSettings();
+  if (value === undefined || value === null || Number(value) === getDefaultConnectivityTestTimeout()) {
+    if ('connectivityTestTimeoutMilliseconds' in settings) {
+      delete settings['connectivityTestTimeoutMilliseconds'];
+    }
+  } else {
+    settings['connectivityTestTimeoutMilliseconds'] = Number(value);
+  }
 }
 
 function setDividerLocation(name, percent) {
@@ -376,6 +404,9 @@ module.exports = {
   setNavigationCollapsed,
   getSkipQuickstartAtStartup,
   setSkipQuickstartAtStartup,
+  getConnectivityTestTimeout,
+  getDefaultConnectivityTestTimeout,
+  setConnectivityTestTimeout,
   getBypassProxyHosts,
   setBypassProxyHosts,
   getWindowSize,

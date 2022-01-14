@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0
  * as shown at https://oss.oracle.com/licenses/upl/
  * @ignore
@@ -74,11 +74,14 @@ describe('wkt-project', function () {
     const PROJECT_DATA = {
       name: 'foo',
       uuid: '88888888-4444-4444-4444-123456789abc',
-      credentialPaths: [],
+      credentialPaths: [ 'k8sDomain.runtimeSecretValue' ],
       model: {
         modelFiles: ['wdt-model2.yaml'],
         propertiesFiles: ['wdt-variables.properties'],
         archiveFiles: ['wdt-archive.zip']
+      },
+      k8sDomain: {
+        runtimeSecretValue: '11111111-2222-3333-4444-123456789abc'
       }
     };
 

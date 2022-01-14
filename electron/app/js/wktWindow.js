@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const { app, BrowserWindow, dialog, Menu, shell } = require('electron');
@@ -568,7 +568,8 @@ class WktAppMenu {
                   userSettingsJson: remoteUserSettings,
                   defaults: {
                     logDir: getDefaultLogDirectory(_wktMode),
-                    level: 'info'
+                    level: 'info',
+                    connectivityTestTimeoutMilliseconds: userSettings.getDefaultConnectivityTestTimeout()
                   },
                   isDevMode: _wktMode.isDevelopmentMode(),
                 };
@@ -817,7 +818,7 @@ async function createWindow() {
 
 function createNetworkWindow() {
   const width = _isJetDevMode ? 1000 : 640;
-  const height = 480;
+  const height = 560;
   const additionalArguments = _getAdditionalArguments();
   additionalArguments.push('--mainModule=network-page');
 

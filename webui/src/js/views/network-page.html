@@ -1,8 +1,8 @@
 <!--
- Copyright (c) 2021, Oracle and/or its affiliates.
+ Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
-<div class="wkt-dialog-content" id="projectSettings">
+<div class="wkt-dialog-content" id="networkSettings">
   <h6><oj-bind-text value="[[labelMapper('title')]]"></oj-bind-text></h6>
 
   <div class="oj-panel wkt-notop wkt-dialog-middle">
@@ -17,6 +17,11 @@
                      value="{{bypassProxyHosts}}"
                      help.instruction="[[settingsLabelMapper('bypass-proxy-hosts-help')]]">
       </oj-input-text>
+      <oj-input-number label-hint="[[settingsLabelMapper('startup-connectivity-timeout-label')]]"
+                       min="1" max="60" step="1"
+                       value="{{requestTimeoutSeconds}}"
+                       help.instruction="[[settingsLabelMapper('startup-connectivity-timeout-help')]]">
+      </oj-input-number>
       <div class="wkt-network-try-block">
         <oj-button chroming="callToAction" on-oj-action="[[tryConnect]]">
           <span><oj-bind-text value="[[labelMapper('button-connect')]]"></oj-bind-text></span>
