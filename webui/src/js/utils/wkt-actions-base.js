@@ -1,18 +1,43 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
 
 define(['models/wkt-project', 'models/wkt-console', 'utils/i18n', 'utils/project-io', 'utils/dialog-helper',
-  'utils/validation-helper', 'utils/wkt-logger'],
-function(project, wktConsole, i18n, projectIo, dialogHelper) {
+  'utils/wkt-logger'],
+function(project, wktConsole, i18n, projectIo, dialogHelper,
+  wktLogger) {
+
+  // Name of the current action that is running.
+  // No other action should start if this is a non-null value.
+  // Acts as a static singleton, since it's inside this module, but outside the WktActionsBase class.
+  let actionInProgress = null;
+
   class WktActionsBase {
     constructor() {
       this.project = project;
     }
-    
+
+    // Execute the specified async action method if no other action is in progress.
+    // If another action is in progress, log a message and cancel the new action.
+    async executeAction(asyncMethod) {
+      const description = asyncMethod.name;
+      if (actionInProgress) {
+        wktLogger.info('Cancelling action ' + description + ' because ' + actionInProgress + ' is in progress');
+      } else {
+        wktLogger.debug('starting action ' + description);
+        actionInProgress = description;
+        try {
+          await asyncMethod.call(this);
+        } finally {
+          wktLogger.debug('action ' + description + ' complete');
+          actionInProgress = null;
+        }
+      }
+    }
+
     getKubectlExe() {
       return this.project.kubectl.executableFilePath.value;
     }
@@ -95,7 +120,7 @@ function(project, wktConsole, i18n, projectIo, dialogHelper) {
       }
       return Promise.resolve(true);
     }
-    
+
     async validateImageBuilderExe(imageBuilderExe, errTitle, errPrefix, shouldCloseBusyDialog = true) {
       try {
         const imageBuilderExeResults =
@@ -414,7 +439,7 @@ function(project, wktConsole, i18n, projectIo, dialogHelper) {
       }
       return Promise.resolve(true);
     }
-    
+
     _closeBusyDialog(shouldCloseBusyDialog) {
       if (shouldCloseBusyDialog) {
         dialogHelper.closeBusyDialog();

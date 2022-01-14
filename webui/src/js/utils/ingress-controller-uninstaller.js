@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -14,7 +14,7 @@ function(IngressActionsBase, project, wktConsole, k8sHelper, i18n, dialogHelper,
     }
 
     async startUninstallIngressController() {
-      return this.callUninstallIngressController();
+      await this.executeAction(this.callUninstallIngressController);
     }
 
     async callUninstallIngressController(options) {
@@ -26,7 +26,7 @@ function(IngressActionsBase, project, wktConsole, k8sHelper, i18n, dialogHelper,
       let errPrefix = 'ingress-uninstaller';
       if (this.project.ingress.installIngressController.value === false) {
         const message = i18n.t('ingress-uninstaller-not-install-message');
-        await window.api.ipc.invoke('show-info-message', title, message);
+        await window.api.ipc.invoke('show-info-message', errTitle, message);
         return Promise.resolve(true);
       }
 

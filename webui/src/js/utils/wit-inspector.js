@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -13,7 +13,7 @@ define(['utils/wit-actions-base', 'models/wkt-project', 'utils/i18n', 'utils/pro
       }
 
       async startInspectImage() {
-        return this.callInspectImage();
+        await this.executeAction(this.callInspectImage);
       }
 
       async callInspectImage(options) {
