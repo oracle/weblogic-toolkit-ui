@@ -77,7 +77,11 @@ function(accUtils, ko, utils, i18n, ArrayDataProvider, project, wktLogger) {
       }
 
       if ('connectivityTestTimeoutMilliseconds' in this.userSettings) {
-        this.connectivityTestTimeoutSeconds(this.userSettings.connectivityTestTimeoutMilliseconds / 1000);
+        let timeoutSecs = this.userSettings.connectivityTestTimeoutMilliseconds / 1000;
+        if (timeoutSecs < 1) {
+          timeoutSecs = 1;
+        }
+        this.connectivityTestTimeoutSeconds(timeoutSecs);
       }
 
       if ('skipQuickstartAtStartup' in this.userSettings) {
