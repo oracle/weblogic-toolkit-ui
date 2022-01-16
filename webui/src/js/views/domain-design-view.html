@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2021, Oracle and/or its affiliates.
+ Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('title')]]"></oj-bind-text></h6>
@@ -354,7 +354,7 @@
   <oj-bind-if test="[[hasEncryptionSecret()]]">
     <div class="oj-panel">
       <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('encryption-secret-title')]]"></oj-bind-text></h6>
-      <oj-form-layout max-columns="2" direction="row">
+      <oj-form-layout max-columns="3" direction="row">
         <oj-input-text label-hint="[[labelMapper('encryption-secret-label')]]"
                        value="{{project.k8sDomain.runtimeSecretName.observable}}"
                        help.instruction="[[labelMapper('encryption-secret-help')]]">
@@ -364,6 +364,10 @@
                            mask-icon="visible"
                            help.instruction="[[labelMapper('encryption-value-help')]]">
         </oj-input-password>
+        <oj-button display="icons" chroming="borderless" on-oj-action="[[handleRegenerateEncryptionValue]]">
+          <oj-bind-text value="[[labelMapper('regenerate-encryption-value-label')]]"></oj-bind-text>
+          <span slot='startIcon' class="oj-ux-ico-replay"></span>
+        </oj-button>
       </oj-form-layout>
     </div>
   </oj-bind-if>

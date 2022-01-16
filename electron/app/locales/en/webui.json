@@ -1,4 +1,6 @@
 {
+  "copyright-footer-text": "Copyright (c) 2021, {{currentYear}}, Oracle and/or its affiliates. Licensed under The Universal Permissive License (UPL), Version 1.0, as shown at",
+
   "nav-model": "Model",
   "nav-project-settings": "Project Settings",
   "nav-image": "Image",
@@ -551,6 +553,7 @@
   "domain-design-encryption-secret-help": "The name of the Kubernetes secret which holds the password used to encrypt the domain.",
   "domain-design-encryption-value-label": "Runtime Encryption Secret Value",
   "domain-design-encryption-value-help": "The password used to encrypt the domain.",
+  "domain-design-regenerate-encryption-value-label": "Regenerate Runtime Encryption Secret Value",
   "domain-design-introspection-title": "WebLogic Kubernetes Operator Introspection Configuration",
   "domain-design-introspector-job-active-deadline-label": "Introspection Job Active Deadline Seconds",
   "domain-design-introspector-job-active-deadline-help": "The WebLogic Kubernetes Operator introspection job timeout value, measured in seconds.  The default value is 120 seconds, if not specified",
