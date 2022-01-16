@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -30,7 +30,7 @@ async function prepareModel(currentWindow, stdoutChannel, stderrChannel, prepare
   const logger = getLogger();
   const { javaHome, oracleHome, projectDirectory, modelsSubdirectory, modelFiles, variableFiles, wdtTargetType } = prepareConfig;
   const outputDirectory = await fsUtils.createTemporaryDirectory(projectDirectory, 'prepareModel');
-  const absoluteModelFiles = getAbsolutePathFileList(projectDirectory, modelFiles);
+  const absoluteModelFiles = fsUtils.getAbsolutePathsList(modelFiles, projectDirectory);
 
   const argList = [
     '-oracle_home', oracleHome,
@@ -39,7 +39,7 @@ async function prepareModel(currentWindow, stdoutChannel, stderrChannel, prepare
     '-target', wdtTargetType
   ];
 
-  const absoluteVariableFiles = getAbsolutePathFileList(projectDirectory, variableFiles);
+  const absoluteVariableFiles = fsUtils.getAbsolutePathsList(variableFiles, projectDirectory);
   if (absoluteVariableFiles.length > 0) {
     argList.push('-variable_file', absoluteVariableFiles.join(','));
   }
@@ -186,20 +186,6 @@ async function removeTempDirectory(outputDirectory) {
       resolve();
     }
   });
-}
-
-function getAbsolutePathFileList(projectDirectory, fileList) {
-  const resultArray = [];
-  if (fileList) {
-    for (const file of fileList) {
-      if (path.isAbsolute(file)) {
-        resultArray.push(file);
-      } else {
-        resultArray.push(path.join(projectDirectory, file));
-      }
-    }
-  }
-  return resultArray;
 }
 
 async function moveModelFiles(projectDirectory, modelsSubdirectory, outputDirectory, modelFiles) {

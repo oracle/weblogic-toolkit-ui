@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const fsPromises = require('fs/promises');
@@ -164,6 +164,20 @@ function getAbsolutePath(pathToCheck, baseDirectory) {
   return path.normalize(path.join(baseDirectory, pathToCheck));
 }
 
+function getAbsolutePathsList(pathsToCheckList, baseDirectory) {
+  const resultArray = [];
+  if (pathsToCheckList) {
+    for (const file of pathsToCheckList) {
+      if (path.isAbsolute(file)) {
+        resultArray.push(file);
+      } else {
+        resultArray.push(path.join(baseDirectory, file));
+      }
+    }
+  }
+  return resultArray;
+}
+
 // returns the relative path for childPath, only if it is below parentPath.
 // returns null for any other case.
 function getRelativePath(parentPath, childPath) {
@@ -300,6 +314,7 @@ async function _processDirectoryListing(directory, listing, fileList) {
 module.exports = {
   exists,
   getAbsolutePath,
+  getAbsolutePathsList,
   getRelativePath,
   getExecutableFilePath,
   getFilesRecursivelyFromDirectory,

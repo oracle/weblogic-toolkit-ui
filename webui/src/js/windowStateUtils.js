@@ -1,21 +1,22 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 
 define(['models/wkt-project', 'models/wkt-console', 'utils/wdt-discoverer', 'utils/dialog-helper', 'utils/project-io',
-  'utils/common-utilities', 'utils/wdt-preparer', 'utils/i18n', 'utils/wit-creator', 'utils/wit-aux-creator',
-  'utils/image-pusher', 'utils/aux-image-pusher', 'utils/k8s-helper', 'utils/wko-installer', 'utils/wko-uninstaller',
-  'utils/wko-updater', 'utils/k8s-domain-deployer', 'utils/k8s-domain-status-checker', 'utils/k8s-domain-undeployer',
-  'utils/ingress-controller-installer', 'utils/ingress-routes-updater', 'utils/ingress-controller-uninstaller',
-  'utils/app-updater', 'utils/wkt-logger'],
+  'utils/common-utilities', 'utils/wdt-preparer', 'utils/wdt-validator', 'utils/i18n', 'utils/wit-creator',
+  'utils/wit-aux-creator', 'utils/image-pusher', 'utils/aux-image-pusher', 'utils/k8s-helper', 'utils/wko-installer',
+  'utils/wko-uninstaller', 'utils/wko-updater', 'utils/k8s-domain-deployer', 'utils/k8s-domain-status-checker',
+  'utils/k8s-domain-undeployer', 'utils/ingress-controller-installer', 'utils/ingress-routes-updater',
+  'utils/ingress-controller-uninstaller', 'utils/app-updater', 'utils/wkt-logger'],
 function(wktProject, wktConsole, wdtDiscoverer, dialogHelper, projectIO,
-  utils, wdtModelPreparer, i18n, witImageCreator, witAuxImageCreator,
-  imagePusher, auxImagePusher, k8sHelper, wkoInstaller,
-  wkoUninstaller, wkoUpdater, k8sDomainDeployer, k8sDomainStatusChecker,
-  k8sDomainUndeployer, ingressControllerInstaller, ingressRoutesUpdater,
-  ingressControllerUninstaller, appUpdater, wktLogger) {
+  utils, wdtModelPreparer, wdtModelValidator, i18n, witImageCreator,
+  witAuxImageCreator, imagePusher, auxImagePusher, k8sHelper,
+  wkoInstaller, wkoUninstaller, wkoUpdater, k8sDomainDeployer,
+  k8sDomainStatusChecker, k8sDomainUndeployer, ingressControllerInstaller,
+  ingressRoutesUpdater, ingressControllerUninstaller, appUpdater,
+  wktLogger) {
 
   async function displayCatchAllError(i18nPrefix, err) {
     return dialogHelper.displayCatchAllError(i18nPrefix, err);
@@ -88,6 +89,12 @@ function(wktProject, wktConsole, wdtDiscoverer, dialogHelper, projectIO,
     });
   });
 
+  window.api.ipc.receive('start-validate-model', async () => {
+    wdtModelValidator.startValidateModel().then(() => Promise.resolve()).catch(err => {
+      displayCatchAllError('wdt-validator-validate', err).then(() => Promise.resolve());
+    });
+  });
+
   window.api.ipc.receive('start-create-image', async () => {
     witImageCreator.startCreateImage().then(() => Promise.resolve()).catch(err => {
       displayCatchAllError('wit-creator-create', err).then(() => Promise.resolve());
@@ -101,7 +108,7 @@ function(wktProject, wktConsole, wdtDiscoverer, dialogHelper, projectIO,
   });
 
   window.api.ipc.receive('start-push-aux-image', async () => {
-    auxmagePusher.startPushImage().then(() => Promise.resolve()).catch(err => {
+    auxImagePusher.startPushAuxImage().then(() => Promise.resolve()).catch(err => {
       displayCatchAllError('image-pusher-push-aux', err).then(() => Promise.resolve());
     });
   });
