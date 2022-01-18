@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const { dialog } = require('electron');
@@ -47,8 +47,12 @@ function getPrepareModelShellScript() {
   return path.join(getWdtDirectory(), 'bin', 'prepareModel' + scriptExtension);
 }
 
-function getWdtCustomConfigDirectory(prepareConfig) {
-  const targetDomainLocation = prepareConfig.targetDomainLocation || 'mii';
+function getValidateModelShellScript() {
+  return path.join(getWdtDirectory(), 'bin', 'validateModel' + scriptExtension);
+}
+
+function getWdtCustomConfigDirectory(config) {
+  const targetDomainLocation = config.targetDomainLocation || 'mii';
   return path.join(getToolsDirectory(), 'wdt-config', targetDomainLocation);
 }
 
@@ -262,6 +266,7 @@ module.exports = {
   getInstalledWdtReleaseName,
   getInstalledWitReleaseName,
   getLatestWkoImageName,
+  getValidateModelShellScript,
   getWdtCustomConfigDirectory,
   getWdtSupportedDomainTypes,
   initialize,

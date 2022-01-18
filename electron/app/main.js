@@ -629,6 +629,11 @@ class Main {
       return prepareModel(event.sender.getOwnerBrowserWindow(), WKT_CONSOLE_STDOUT_CHANNEL, WKT_CONSOLE_STDERR_CHANNEL, prepareConfig);
     });
 
+    ipcMain.handle('validate-model', async (event, validateConfig) => {
+      const { validateModel } = require('./js/wdtValidateModel');
+      return validateModel(event.sender.getOwnerBrowserWindow(), WKT_CONSOLE_STDOUT_CHANNEL, WKT_CONSOLE_STDERR_CHANNEL, validateConfig);
+    });
+
     ipcMain.handle('verify-files-exist', async (event, baseDirectory, ...files) => {
       this._logger.debug(...files);
       return fsUtils.verifyFilesExist(baseDirectory, ...files);

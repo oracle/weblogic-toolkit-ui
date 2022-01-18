@@ -27,7 +27,10 @@
   "menu-edit-selectAll": "Select All",
 
   "menu-go": "Go",
-  "menu-go-prep-model-for-k8s": "Prepare Model for Kubernetes",
+  "menu-go-validate-model": "Validate Model Files",
+  "menu-go-validate-model-error-title": "No Active Project Window",
+  "menu-go-validate-model-error-message": "Cannot run Validate Model since there is no active window, and therefore no project with a model to validate.",
+  "menu-go-prepare-model-for-k8s": "Prepare Model for Kubernetes",
   "menu-go-prepare-model-error-title": "No Active Project Window",
   "menu-go-prepare-model-error-message": "Cannot run Prepare Model since there is no active window, and therefore no project with a model to prepare.",
   "menu-go-create-image": "Create Primary Image",
@@ -204,6 +207,9 @@
 
   "wdt-discovery-non-zero-exit-code-error-message": "Discover domain script {{script}} exited with non-zero exit code: {{exitCode}}.",
   "wdt-discovery-failed-error-message": "Discover domain script {{script}} failed: {{error}};",
+
+  "validate-model-error-exit-code-error-message": "Validate Model script exited with {{exitCode}}, which indicates an error.",
+  "validate-model-execution-failed-error-message": "Validate Model script failed: {{error}}",
 
   "prepare-model-unknown-target-type-error-message": "Unable to prepare model with unknown target type: {{wdtTargetType}}.",
   "prepare-model-empty-target-type-error-message": "Unable to prepare model with an unspecified target type.",

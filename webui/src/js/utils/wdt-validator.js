@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2022, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -8,38 +8,38 @@
 define(['utils/wdt-actions-base', 'models/wkt-project', 'models/wkt-console', 'utils/i18n', 'utils/project-io',
   'utils/dialog-helper', 'utils/validation-helper', 'utils/wkt-logger'],
 function(WdtActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, validationHelper, wktLogger) {
-  class WdtModelPreparer extends WdtActionsBase {
+  class WdtModelValidator extends WdtActionsBase {
     constructor() {
       super();
     }
 
-    async startPrepareModel() {
-      await this.executeAction(this.callPrepareModel);
+    async startValidateModel() {
+      await this.executeAction(this.callValidateModel);
     }
 
-    async callPrepareModel(options) {
+    async callValidateModel(options) {
       if (!options) {
         options = {};
       }
 
-      let errTitle = i18n.t('wdt-preparer-aborted-error-title');
-      const errPrefix = 'wdt-preparer';
+      let errTitle = i18n.t('wdt-validator-aborted-error-title');
+      const errPrefix = 'wdt-validator';
       const shouldCloseBusyDialog = !options.skipBusyDialog;
 
       if (this.project.settings.targetDomainLocation.value === 'pv') {
-        const errMessage = i18n.t('wdt-preparer-domain-in-pv-message');
+        const errMessage = i18n.t('wdt-validator-domain-in-pv-message');
         await window.api.ipc.invoke('show-info-message', errTitle, errMessage);
         return Promise.resolve(false);
       }
 
-      const validationObject = this.getValidationObject('flow-prepare-model-name');
+      const validationObject = this.getValidationObject('flow-validate-model-name');
       if (validationObject.hasValidationErrors()) {
         const validationErrorDialogConfig = validationObject.getValidationErrorDialogConfig(errTitle);
         dialogHelper.openDialog('validation-error-dialog', validationErrorDialogConfig);
         return Promise.resolve(false);
       }
 
-      const totalSteps = 6.0;
+      const totalSteps = 7.0;
       try {
         let busyDialogMessage = i18n.t('flow-validate-java-home-in-progress');
         this.openBusyDialog(options, busyDialogMessage);
@@ -89,16 +89,24 @@ function(WdtActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, val
           }
         }
 
-        busyDialogMessage = i18n.t('wdt-preparer-prepare-in-progress');
+        busyDialogMessage = i18n.t('flow-validate-archive-files-in-progress');
         this.updateBusyDialog(options, busyDialogMessage, 5/totalSteps);
-        const prepareConfig = {
+        const archiveFiles = this.project.wdtModel.archiveFiles.value;
+        if (!options.skipArchiveFileValidation) {
+          if (! await this.validateArchiveFiles(projectDirectory, archiveFiles, errTitle, errPrefix, shouldCloseBusyDialog)) {
+            return Promise.resolve(false);
+          }
+        }
+
+        busyDialogMessage = i18n.t('wdt-validator-validate-in-progress');
+        this.updateBusyDialog(options, busyDialogMessage, 6/totalSteps);
+        const validateConfig = {
           javaHome: javaHome,
           oracleHome: oracleHome,
           projectDirectory: projectDirectory,
-          modelsSubdirectory: this.project.wdtModel.getDefaultModelDirectory(),
           modelFiles: modelFiles,
           variableFiles: variableFiles,
-          wdtTargetType: this.project.settings.wdtTargetType.value,
+          archiveFiles: archiveFiles,
           targetDomainLocation: this.project.settings.targetDomainLocation.value
         };
 
@@ -106,29 +114,20 @@ function(WdtActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, val
           wktConsole.clear();
           wktConsole.show(true);
         }
-        const prepareResult = await window.api.ipc.invoke('prepare-model', prepareConfig);
+        const validateResult = await window.api.ipc.invoke('validate-model', validateConfig);
         this.closeBusyDialog(options);
-        if (prepareResult.isSuccess) {
-          // apply the results to the project object.
-          this.project.wdtModel.setSpecifiedModelFiles(prepareResult.model);
-
-          // Currently, Verrazzano support is limited to Model and Image only, so skip this step.
-          //
-          if (this.project.settings.wdtTargetType.value === 'wko') {
-            this.project.k8sDomain.loadPrepareModelResults(prepareResult);
-          }
-
+        if (validateResult.isSuccess) {
           if (!options.skipCompleteDialog) {
-            const title = i18n.t('wdt-preparer-prepare-complete-title');
-            const message = i18n.t('wdt-preparer-prepare-complete-message');
+            const title = i18n.t('wdt-validator-validate-complete-title');
+            const message = i18n.t('wdt-validator-validate-complete-message');
             await window.api.ipc.invoke('show-info-message', title, message);
           }
           return Promise.resolve(true);
         } else {
-          errTitle = i18n.t('wdt-preparer-prepare-failed-error-title');
-          const errMessage = i18n.t('wdt-preparer-prepare-failed-error-message',
-            {error: prepareResult.reason});
-          wktLogger.error(errMessage + (prepareResult.error ? ': ' + prepareResult.error : ''));
+          errTitle = i18n.t('wdt-validator-validate-failed-error-title');
+          const errMessage = i18n.t('wdt-validator-validate-failed-error-message',
+            {error: validateResult.reason});
+          wktLogger.error(errMessage + (validateResult.error ? ': ' + validateResult.error : ''));
           await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
           return Promise.resolve(false);
         }
@@ -141,5 +140,5 @@ function(WdtActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, val
     }
   }
 
-  return new WdtModelPreparer();
+  return new WdtModelValidator();
 });

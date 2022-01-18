@@ -228,8 +228,22 @@ class WktAppMenu {
         label: `&${i18n.t('menu-go')}`,
         submenu: [
           {
+            id: 'validateModel',
+            label: i18n.t('menu-go-validate-model'),
+            enabled: !this._hasOpenDialog,
+            click(item, focusedWindow) {
+              if (!focusedWindow) {
+                return dialog.showErrorBox(
+                  i18n.t('menu-go-validate-model-error-title'),
+                  i18n.t('menu-go-validate-model-error-message')
+                );
+              }
+              sendToWindow(focusedWindow,'start-validate-model');
+            }
+          },
+          {
             id: 'prepareModel',
-            label: i18n.t('menu-go-prep-model-for-k8s'),
+            label: i18n.t('menu-go-prepare-model-for-k8s'),
             enabled: !this._hasOpenDialog,
             click(item, focusedWindow) {
               if (!focusedWindow) {

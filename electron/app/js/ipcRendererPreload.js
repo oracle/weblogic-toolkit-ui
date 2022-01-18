@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const { contextBridge, ipcRenderer } = require('electron');
@@ -64,6 +64,7 @@ contextBridge.exposeInMainWorld(
           'app-update-available',
           'blur-focused-item',
           'start-prepare-model',
+          'start-validate-model',
           'start-create-image',
           'start-create-aux-image',
           'start-push-image',
@@ -141,6 +142,7 @@ contextBridge.exposeInMainWorld(
           'show-error-message',
           'show-info-message',
           'prepare-model',
+          'validate-model',
           'verify-files-exist',
           'verify-file-exists',
           'ok-or-cancel-prompt',
