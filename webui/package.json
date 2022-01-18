@@ -1,5 +1,6 @@
 {
   "private": true,
+  "copyright": "Copyright (c) 2021, 2022, Oracle and/or its affiliates.",
   "scripts": {
     "test": "mocha --timeout 10000 --reporter spec src/test/*-test.js",
     "start": "ojet serve web --server-only",
@@ -8,7 +9,7 @@
     "jet-audit": "ojaf"
   },
   "dependencies": {
-    "@oracle/oraclejet": "^11.1.4",
+    "@oracle/oraclejet": "^11.1.5",
     "i18next": "^21.6.3",
     "jquery": "^3.6.0",
     "js-yaml": "^4.1.0"

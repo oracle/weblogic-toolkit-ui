@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
@@ -60,6 +60,9 @@ function(accUtils, ko, i18n, project, wktConsole, dialogHelper, viewHelper, Arra
     this.mdScreen.subscribe(isWide => {
       this.navCollapsed(!isWide);
     });
+
+    this.copyrightTextForFooter = ko.observable(i18n.t('copyright-footer-text',
+      { currentYear: new Date().getUTCFullYear() }));
 
     // route data for page content views
 

@@ -3,7 +3,7 @@
   "productName": "WebLogic Kubernetes Toolkit UI",
   "version": "1.1.0",
   "description": "WebLogic Kubernetes Toolkit UI",
-  "copyright": "Copyright (c) 2021, Oracle and/or its affiliates.",
+  "copyright": "Copyright (c) 2021, 2022, Oracle and/or its affiliates.",
   "homepage": "https://github.com/oracle/weblogic-toolkit-ui",
   "main": "app/main.js",
   "scripts": {
