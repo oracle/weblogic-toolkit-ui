@@ -110,6 +110,13 @@ function(wktProject, wktConsole, wdtDiscoverer, dialogHelper, projectIO,
     });
   });
 
+  window.api.ipc.receive('start-push-image', async () => {
+    blurSelection();
+    imagePusher.startPushImage().then(() => Promise.resolve()).catch(err => {
+      displayCatchAllError('image-pusher-push', err).then(() => Promise.resolve());
+    });
+  });
+
   window.api.ipc.receive('start-create-aux-image', async () => {
     blurSelection();
     witAuxImageCreator.startCreateAuxImage().then(() => Promise.resolve()).catch(err => {
@@ -120,7 +127,7 @@ function(wktProject, wktConsole, wdtDiscoverer, dialogHelper, projectIO,
   window.api.ipc.receive('start-push-aux-image', async () => {
     blurSelection();
     auxImagePusher.startPushAuxImage().then(() => Promise.resolve()).catch(err => {
-      displayCatchAllError('image-pusher-push-aux', err).then(() => Promise.resolve());
+      displayCatchAllError('aux-image-pusher-push', err).then(() => Promise.resolve());
     });
   });
 
