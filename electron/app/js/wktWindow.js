@@ -692,7 +692,8 @@ class WktAppMenu {
                   userSettingsJson: remoteUserSettings,
                   defaults: {
                     logDir: getDefaultLogDirectory(_wktMode),
-                    level: 'info'
+                    level: 'info',
+                    connectivityTestTimeoutMilliseconds: userSettings.getDefaultConnectivityTestTimeout()
                   },
                   isDevMode: _wktMode.isDevelopmentMode(),
                 };
