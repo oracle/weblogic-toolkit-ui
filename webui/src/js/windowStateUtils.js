@@ -166,7 +166,7 @@ function(wktProject, wktConsole, wdtDiscoverer, dialogHelper, projectIO,
     });
   });
 
-  window.api.ipc.receive('get-wko-domain-status', async () => {
+  window.api.ipc.receive('start-get-k8s-domain-status', async () => {
     blurSelection();
     k8sDomainStatusChecker.startCheckDomainStatus().then(() => {Promise.resolve();}).catch(err => {
       displayCatchAllError('k8s-domain-status-checker-get-status', err).then(() => Promise.resolve());
@@ -215,7 +215,7 @@ function(wktProject, wktConsole, wdtDiscoverer, dialogHelper, projectIO,
     });
   });
 
-  window.api.ipc.receive('add-ingress-routes', async () => {
+  window.api.ipc.receive('start-update-ingress-routes', async () => {
     blurSelection();
     ingressRoutesUpdater.startIngressRoutesUpdate().then(() => Promise.resolve()).catch(err => {
       displayCatchAllError('ingress-routes-updater-update-routes', err).then(() => Promise.resolve());
