@@ -268,14 +268,14 @@ function(wktProject, wktConsole, wdtDiscoverer, dialogHelper, projectIO,
   }
 
   /**
-   * Remove keyboard focus from the active DOM element.
+   * Remove keyboard focus from the active DOM element (macOS only).
    * This causes Ace editor and Jet controls to persist their current values.
    * This workaround is required because the menu-will-show event on the application menu
-   * does not fire correctly on MacOS, so the blur-focused-item IPC is not sent to the renderer.
+   * does not fire correctly on macOS, so the blur-focused-item IPC is not sent to the renderer.
    * See GitHub electron issue 31915.
    */
   function blurSelection() {
-    if(document.activeElement) {
+    if(window.api.process.isMac() && document.activeElement) {
       document.activeElement.blur();
     }
   }
