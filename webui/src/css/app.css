@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 .sendOffScreen {
@@ -250,7 +250,7 @@
   z-index: 2;
 }
 
-.wkt-paths-table, .wkt-domain-properties-table,
+.wkt-env-vars-table, .wkt-paths-table, .wkt-domain-properties-table,
 .wkt-domain-clusters-table, .wkt-domain-secrets-table {
   border: 1px solid var(--oj-collection-border-color);
 }
@@ -261,7 +261,7 @@
   width: 100%;
 }
 
-.wkt-table-path-cell, .wkt-table-path-header {
+.wkt-table-env-vars-cell, .wkt-table-path-cell, .wkt-table-env-vars-header, .wkt-table-path-header {
   min-width: 400px;
 }
 
@@ -439,6 +439,11 @@ h6:first-child {
 .wkt-inspect-dialog-content {
   max-height: 50vh;
   overflow: auto;
+}
+
+.wkt-macos-path-directories-dialog {
+  width: 85%;
+  height: 85vh;
 }
 
 .wkt-center-text-in-frame {

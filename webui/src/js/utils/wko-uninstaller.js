@@ -92,7 +92,7 @@ function(WkoActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, val
           {operatorNamespace: operatorNamespace});
         dialogHelper.updateBusyDialog(busyDialogMessage, 4 / totalSteps);
         if (!options.skipCheckOperatorAlreadyInstalled) {
-          const status = this.checkOperatorIsInstalled(kubectlExe, kubectlOptions, helmReleaseName,
+          const status = await this.checkOperatorIsInstalled(kubectlExe, kubectlOptions, helmReleaseName,
             operatorNamespace, errTitle, errPrefix);
           if (!status) {
             return Promise.resolve(false);

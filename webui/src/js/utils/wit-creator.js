@@ -188,6 +188,7 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
           return Promise.resolve(false);
         }
 
+        const imageBuilderOptions = this.getImageBuilderOptions();
         // if using custom base image and requires authentication, do build-tool login.
         busyDialogMessage = i18n.t('wit-creator-builder-login-in-progress',
           {builderName: imageBuilderType, imageTag: this.project.image.baseImage.value});
@@ -199,7 +200,7 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
             username: this.project.image.baseImagePullUsername.value,
             password: this.project.image.baseImagePullPassword.value
           };
-          if (! await this.loginToImageRegistry(imageBuilderExe, loginConfig, errTitle, errPrefix)) {
+          if (! await this.loginToImageRegistry(imageBuilderOptions, loginConfig, errTitle, errPrefix)) {
             return Promise.resolve(false);
           }
         }
@@ -212,8 +213,8 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
         // run the image tool
         busyDialogMessage = i18n.t('wit-creator-create-in-progress');
         dialogHelper.updateBusyDialog(busyDialogMessage, 13 / totalSteps);
-        const createConfig = this.buildCreateConfigObject(projectDirectory, javaHome, imageBuilderExe,
-          jdkInstallerVersion, oracleInstallerType, oracleInstallerVersion, wdtInstallerVersion);
+        const createConfig = this.buildCreateConfigObject(projectDirectory, javaHome,  jdkInstallerVersion,
+          oracleInstallerType, oracleInstallerVersion, wdtInstallerVersion, imageBuilderOptions);
         const imageToolResult = await this.runImageTool(false, createConfig, errPrefix);
         return Promise.resolve(imageToolResult);
       } catch (err) {
@@ -323,11 +324,10 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
       return Promise.resolve(true);
     }
 
-    buildCreateConfigObject(projectDirectory, javaHome, imageBuilderExe, jdkInstallerVersion,
-      oracleInstallerType, oracleInstallerVersion, wdtInstallerVersion) {
-      const createConfig = {
+    buildCreateConfigObject(projectDirectory, javaHome, jdkInstallerVersion, oracleInstallerType,
+      oracleInstallerVersion, wdtInstallerVersion, imageBuilderOptions) {
+      const createConfig = Object.assign({
         javaHome: javaHome,
-        imageBuilderExe: imageBuilderExe,
         imageTag: this.project.image.imageTag.value,
         jdkInstallerVersion: jdkInstallerVersion,
         oracleInstallerType: oracleInstallerType,
@@ -337,7 +337,7 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
         additionalBuildFiles: this.project.image.additionalBuildFiles.value,
         buildNetwork: this.project.image.builderNetworkName.value,
         alwaysPullBaseImage: this.project.image.alwaysPullBaseImage.value,
-      };
+      }, imageBuilderOptions);
 
       // If using aux image, remove the targetDomainLocation so that --wdtModelOnly flag is not added
       if (this.project.settings.targetDomainLocation.value === 'mii' && this.project.image.useAuxImage.value) {

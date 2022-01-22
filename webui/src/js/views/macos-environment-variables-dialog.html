@@ -1,0 +1,41 @@
+<!--
+ Copyright (c) 2022, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<oj-dialog id="wktMacosEnvironmentVariablesDialog" class="wkt-macos-path-directories-dialog" initial-visibility="hide">
+  <div slot="header">
+    <span class="oj-dialog-title"><oj-bind-text value="[[labelMapper('title')]]"></oj-bind-text></span>
+  </div>
+
+  <div slot="body">
+    <div class="oj-panel wkt-notop">
+      <oj-table id="macos-environment-variables-table"
+                class="wkt-env-vars-table"
+                aria-label="Inherited Environment Variables Table"
+                data="[[environmentVariablesDataProvider]]"
+                display="grid"
+                horizontal-grid-visible="enabled"
+                vertical-grid-visible="enabled"
+                edit-mode="none"
+                columns='[[environmentVariablesColumnData]]'>
+        <template slot="rowTemplate" data-oj-as="row">
+          <tr>
+              <td>
+                <oj-bind-text value="[[row.data.name]]"></oj-bind-text>
+              </td>
+              <td>
+                <oj-bind-text value="[[row.data.value]]"></oj-bind-text>
+              </td>
+          </tr>
+        </template>
+        <template slot="headerTemplate" data-oj-as="header"></template>
+      </oj-table>
+    </div>
+  </div>
+
+  <div slot="footer">
+    <oj-button id="okButton" on-oj-action="[[dismissDialog]]">
+      <span><oj-bind-text value="[[i18n.t('dialog-button-ok')]]"></oj-bind-text></span>
+    </oj-button>
+  </div>
+</oj-dialog>

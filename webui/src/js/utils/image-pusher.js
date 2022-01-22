@@ -53,8 +53,9 @@ function(ImageRegistryActionsBase, project, wktConsole, i18n, projectIo, dialogH
 
         busyDialogMessage = i18n.t('image-pusher-image-exists-in-progress', {imageTag: imageTag});
         dialogHelper.updateBusyDialog(busyDialogMessage, 1/totalSteps);
+        const imageBuilderOptions = this.getImageBuilderOptions();
         if (!options.skipLocalImageExistsValidation) {
-          if (! await this.validateImageExistsLocally(imageBuilderExe, imageTag, errTitle, errPrefix)) {
+          if (! await this.validateImageExistsLocally(imageBuilderOptions, imageTag, errTitle, errPrefix)) {
             return Promise.resolve(false);
           }
         }
@@ -81,7 +82,7 @@ function(ImageRegistryActionsBase, project, wktConsole, i18n, projectIo, dialogH
           password: this.project.image.imageRegistryPushPassword.value
         };
         const imagePushResult =
-          await this.pushImage(imageBuilderExe, imageTag, pushOptions, errTitle, errPrefix, options.skipCompleteDialog);
+          await this.pushImage(imageBuilderOptions, imageTag, pushOptions, errTitle, errPrefix, options.skipCompleteDialog);
         return Promise.resolve(imagePushResult);
       } catch (err) {
         dialogHelper.closeBusyDialog();
