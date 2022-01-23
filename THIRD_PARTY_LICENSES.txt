@@ -246,7 +246,7 @@ Copyright (c) 2016 Lukas Geiger
 node-addon-api@1.7.2
 Copyright (c) 2017 Node.js API collaborators
 
-node-fetch@2.6.6
+node-fetch@2.6.7
 Copyright (c) 2016 David Frank
 
 object-assign@4.1.1
