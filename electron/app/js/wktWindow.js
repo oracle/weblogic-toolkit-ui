@@ -398,7 +398,7 @@ class WktAppMenu {
                   i18n.t('menu-go-domain=status-error-message')
                 );
               }
-              sendToWindow(focusedWindow, 'get-wko-domain-status');
+              sendToWindow(focusedWindow, 'start-get-k8s-domain-status');
             }
           },
           {
@@ -443,7 +443,7 @@ class WktAppMenu {
                   i18n.t('menu-go-add-routes-error-message')
                 );
               }
-              sendToWindow(focusedWindow,'add-ingress-routes');
+              sendToWindow(focusedWindow,'start-update-ingress-routes');
             }
           },
           {
@@ -692,7 +692,8 @@ class WktAppMenu {
                   userSettingsJson: remoteUserSettings,
                   defaults: {
                     logDir: getDefaultLogDirectory(_wktMode),
-                    level: 'info'
+                    level: 'info',
+                    connectivityTestTimeoutMilliseconds: userSettings.getDefaultConnectivityTestTimeout()
                   },
                   isDevMode: _wktMode.isDevelopmentMode(),
                 };

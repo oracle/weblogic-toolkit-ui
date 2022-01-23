@@ -75,11 +75,11 @@ contextBridge.exposeInMainWorld(
           'start-wko-update',
           'start-ingress-install',
           'start-ingress-uninstall',
-          'add-ingress-routes',
+          'start-update-ingress-routes',
           'app-download-progress',
           'start-k8s-domain-deploy',
           'start-k8s-domain-undeploy',
-          'get-wko-domain-status',
+          'start-get-k8s-domain-status',
           'start-app-quit',
           'start-window-close'
         ];

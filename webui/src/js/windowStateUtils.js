@@ -44,6 +44,7 @@ function(wktProject, wktConsole, wdtDiscoverer, dialogHelper, projectIO,
   });
 
   window.api.ipc.receive('start-save-project', () => {
+    blurSelection();
     projectIO.saveProject(true).catch(err => {
       displayCatchAllError('save-all', err).then();
     });
@@ -58,18 +59,21 @@ function(wktProject, wktConsole, wdtDiscoverer, dialogHelper, projectIO,
   });
 
   window.api.ipc.receive('start-offline-discover', () => {
+    blurSelection();
     wdtDiscoverer.startDiscoverDomain(false).catch(err => {
       displayCatchAllError('discover', err).then();
     });
   });
 
   window.api.ipc.receive('start-online-discover', () => {
+    blurSelection();
     wdtDiscoverer.startDiscoverDomain(true).catch(err => {
       displayCatchAllError('discover', err).then();
     });
   });
 
   window.api.ipc.receive('start-close-project', () => {
+    blurSelection();
     projectIO.closeProject(false).catch(err => {
       displayCatchAllError('close-project', err).then();
     });
@@ -80,118 +84,146 @@ function(wktProject, wktConsole, wdtDiscoverer, dialogHelper, projectIO,
   });
 
   window.api.ipc.receive('blur-focused-item', () => {
-    document.activeElement.blur();
+    if(document.activeElement) {
+      document.activeElement.blur();
+    }
   });
 
   window.api.ipc.receive('start-prepare-model', async () => {
+    blurSelection();
     wdtModelPreparer.startPrepareModel().then(() => Promise.resolve()).catch(err => {
       displayCatchAllError('wdt-preparer-prepare', err).then(() => Promise.resolve());
     });
   });
 
   window.api.ipc.receive('start-validate-model', async () => {
+    blurSelection();
     wdtModelValidator.startValidateModel().then(() => Promise.resolve()).catch(err => {
       displayCatchAllError('wdt-validator-validate', err).then(() => Promise.resolve());
     });
   });
 
   window.api.ipc.receive('start-create-image', async () => {
+    blurSelection();
     witImageCreator.startCreateImage().then(() => Promise.resolve()).catch(err => {
       displayCatchAllError('wit-creator-create', err).then(() => Promise.resolve());
     });
   });
 
+  window.api.ipc.receive('start-push-image', async () => {
+    blurSelection();
+    imagePusher.startPushImage().then(() => Promise.resolve()).catch(err => {
+      displayCatchAllError('image-pusher-push', err).then(() => Promise.resolve());
+    });
+  });
+
   window.api.ipc.receive('start-create-aux-image', async () => {
+    blurSelection();
     witAuxImageCreator.startCreateAuxImage().then(() => Promise.resolve()).catch(err => {
       displayCatchAllError('wit-creator-create-aux', err).then(() => Promise.resolve());
     });
   });
 
   window.api.ipc.receive('start-push-aux-image', async () => {
+    blurSelection();
     auxImagePusher.startPushAuxImage().then(() => Promise.resolve()).catch(err => {
-      displayCatchAllError('image-pusher-push-aux', err).then(() => Promise.resolve());
+      displayCatchAllError('aux-image-pusher-push', err).then(() => Promise.resolve());
     });
   });
 
   window.api.ipc.receive('start-k8s-verify-connection', async () => {
+    blurSelection();
     k8sHelper.startVerifyClusterConnectivity().then(() => Promise.resolve()).catch(err => {
       displayCatchAllError('kubectl-helper-verify-connect', err).then(() => Promise.resolve());
     });
   });
 
   window.api.ipc.receive('start-wko-install', async () => {
+    blurSelection();
     wkoInstaller.startInstallOperator().then(() => Promise.resolve()).catch(err => {
       displayCatchAllError('wko-installer-install', err).then(() => Promise.resolve());
     });
   });
 
   window.api.ipc.receive('start-wko-update', async () => {
+    blurSelection();
     wkoUpdater.startUpdateOperator().then(() => Promise.resolve()).catch(err => {
       displayCatchAllError('wko-updater-update', err).then(() => Promise.resolve());
     });
   });
 
   window.api.ipc.receive('start-wko-uninstall', async () => {
+    blurSelection();
     wkoUninstaller.startUninstallOperator().then(() => Promise.resolve()).catch(err => {
       displayCatchAllError('wko-uninstaller-install', err).then(() => Promise.resolve());
     });
   });
 
   window.api.ipc.receive('start-k8s-domain-deploy', async () => {
+    blurSelection();
     k8sDomainDeployer.startDeployDomain().then(() => Promise.resolve()).catch(err => {
       displayCatchAllError('k8s-domain-deployer-deploy', err).then(() => Promise.resolve());
     });
   });
 
-  window.api.ipc.receive('get-wko-domain-status', async () => {
+  window.api.ipc.receive('start-get-k8s-domain-status', async () => {
+    blurSelection();
     k8sDomainStatusChecker.startCheckDomainStatus().then(() => {Promise.resolve();}).catch(err => {
       displayCatchAllError('k8s-domain-status-checker-get-status', err).then(() => Promise.resolve());
     });
   });
 
   window.api.ipc.receive('start-k8s-domain-undeploy', async () => {
+    blurSelection();
     k8sDomainUndeployer.startUndeployDomain().then(() => Promise.resolve()).catch(err => {
       displayCatchAllError('k8s-domain-undeployer-undeploy', err).then(() => Promise.resolve());
     });
   });
 
   window.api.ipc.receive('start-add-model-file', async () => {
+    blurSelection();
     projectIO.startAddModelFile().catch(err => {
       displayCatchAllError('add-model-file', err).then();
     });
   });
 
   window.api.ipc.receive('start-add-variable-file', async () => {
+    blurSelection();
     projectIO.startAddVariableFile().catch(err => {
       displayCatchAllError('add-variable-file', err).then();
     });
   });
 
   window.api.ipc.receive('start-add-archive-file', async () => {
+    blurSelection();
     projectIO.startAddArchiveFile().catch(err => {
       displayCatchAllError('add-archive-file', err).then();
     });
   });
 
   window.api.ipc.receive('start-ingress-install', async () => {
+    blurSelection();
     ingressControllerInstaller.startInstallIngressController().then(() => Promise.resolve()).catch(err => {
       displayCatchAllError('ingress-installer-install', err).then(() => Promise.resolve());
     });
   });
 
   window.api.ipc.receive('start-ingress-uninstall', async () => {
+    blurSelection();
     ingressControllerUninstaller.startUninstallIngressController().then(() => Promise.resolve()).catch(err => {
       displayCatchAllError('ingress-uninstaller-uninstall', err).then(() => Promise.resolve());
     });
   });
 
-  window.api.ipc.receive('add-ingress-routes', async () => {
+  window.api.ipc.receive('start-update-ingress-routes', async () => {
+    blurSelection();
     ingressRoutesUpdater.startIngressRoutesUpdate().then(() => Promise.resolve()).catch(err => {
       displayCatchAllError('ingress-routes-updater-update-routes', err).then(() => Promise.resolve());
     });
   });
 
   window.api.ipc.receive('start-window-close', async () => {
+    blurSelection();
     return doDirtyCheck('close-window');
   });
 
@@ -204,6 +236,7 @@ function(wktProject, wktConsole, wdtDiscoverer, dialogHelper, projectIO,
   });
 
   window.api.ipc.receive('start-app-quit', async () => {
+    blurSelection();
     return doDirtyCheck('window-app-quit');
   });
 
@@ -232,6 +265,19 @@ function(wktProject, wktConsole, wdtDiscoverer, dialogHelper, projectIO,
         resolve();
       }
     });
+  }
+
+  /**
+   * Remove keyboard focus from the active DOM element (macOS only).
+   * This causes Ace editor and Jet controls to persist their current values.
+   * This workaround is required because the menu-will-show event on the application menu
+   * does not fire correctly on macOS, so the blur-focused-item IPC is not sent to the renderer.
+   * See GitHub electron issue 31915.
+   */
+  function blurSelection() {
+    if(window.api.process.isMac() && document.activeElement) {
+      document.activeElement.blur();
+    }
   }
 
   //////////////////////////////////////////////////////////////////////////////
