@@ -59,6 +59,11 @@ function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDa
     this.askIfConsoleSvc = ko.observable(this.route.isConsoleService);
     this.targetSvcNames = this.buildTargetSvcNames();
     this.targetSvcPorts = ko.observableArray([] );
+
+    if (this.route.targetService) {
+      this.targetSvcPorts = this.buildTargetSvcPorts(this.route.targetService);
+    }
+
     this.savedAnnotations = args.route.annotations || {};
     this.targetServicePorts = new ArrayDataProvider(this.targetSvcPorts, {keyAttributes: 'id'});
 
