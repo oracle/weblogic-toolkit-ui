@@ -232,7 +232,9 @@ contextBridge.exposeInMainWorld(
       isLinux: () => osUtils.isLinux(),
       getApplicationName: () => wktApp.getApplicationName(),
       getVersion: () => wktApp.getApplicationVersion(),
-      getArgv: (name) => osUtils.getArgv(name)
+      getArgv: (name) => osUtils.getArgv(name),
+      getPathDirectories: () => osUtils.getPathDirectories(),
+      getEnvironmentVariables: () => osUtils.getEnvironmentVariables()
     },
     'i18n': {
       t: (keys, options) => {

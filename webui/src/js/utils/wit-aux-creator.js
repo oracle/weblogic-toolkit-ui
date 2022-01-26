@@ -148,6 +148,7 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
           return Promise.resolve(false);
         }
 
+        const imageBuilderOptions = this.getImageBuilderOptions();
         busyDialogMessage = i18n.t('wit-aux-creator-builder-login-in-progress',
           {builderName: imageBuilderType, imageTag: this.project.image.auxBaseImage.value});
         dialogHelper.updateBusyDialog(busyDialogMessage, 10 / totalSteps);
@@ -160,7 +161,7 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
             username: this.project.image.auxBaseImagePullUsername.value,
             password: this.project.image.auxBaseImagePullPassword.value
           };
-          if (! await this.loginToImageRegistry(imageBuilderExe, loginConfig, errTitle, errPrefix)) {
+          if (! await this.loginToImageRegistry(imageBuilderOptions, loginConfig, errTitle, errPrefix)) {
             return Promise.resolve(false);
           }
         } else if (!this.project.image.auxUseCustomBaseImage.value &&
@@ -171,7 +172,7 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
             username: this.project.image.auxDefaultBaseImagePullUsername.value,
             password: this.project.image.auxDefaultBaseImagePullPassword.value
           };
-          if (! await this.loginToImageRegistry(imageBuilderExe, loginConfig, errTitle, errPrefix)) {
+          if (! await this.loginToImageRegistry(imageBuilderOptions, loginConfig, errTitle, errPrefix)) {
             return Promise.resolve(false);
           }
         }
@@ -179,7 +180,8 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
         // run the image tool
         busyDialogMessage = i18n.t('wit-aux-creator-create-in-progress');
         dialogHelper.updateBusyDialog(busyDialogMessage, 11 / totalSteps);
-        const createConfig = this.buildCreateConfigObject(projectDirectory, javaHome, imageBuilderExe, wdtInstallerVersion);
+        const createConfig =
+          this.buildCreateConfigObject(projectDirectory, javaHome, wdtInstallerVersion, imageBuilderOptions);
         const imageToolStatus = await this.runImageTool(true, createConfig, errPrefix);
         return Promise.resolve(imageToolStatus);
       } catch (err) {
@@ -244,10 +246,9 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
       return validationObject;
     }
 
-    buildCreateConfigObject(projectDirectory, javaHome, imageBuilderExe, wdtInstallerVersion) {
-      const createConfig = {
+    buildCreateConfigObject(projectDirectory, javaHome, wdtInstallerVersion, imageBuilderOptions) {
+      const createConfig = Object.assign({
         javaHome: javaHome,
-        imageBuilderExe: imageBuilderExe,
         imageTag: this.project.image.auxImageTag.value,
         wdtInstallerVersion: wdtInstallerVersion,
         additionalBuildCommandsFile: this.project.image.auxAdditionalBuildCommandsFile.value,
@@ -256,7 +257,7 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
         chownOwner: undefined,
         chownGroup: undefined,
         alwaysPullBaseImage: this.project.image.auxAlwaysPullBaseImage.value,
-      };
+      }, imageBuilderOptions);
 
       if (this.project.image.auxUseCustomBaseImage.value) {
         createConfig.baseImage = this.project.image.auxBaseImage.value;

@@ -1,12 +1,17 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
-define(['accUtils', 'knockout', 'utils/i18n', 'models/wkt-project', 'ojs/ojarraydataprovider', 'utils/wkt-logger',
-  'utils/url-catalog', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojformlayout', 'ojs/ojradioset',
-  'ojs/ojswitch', 'ojs/ojselectsingle' ],
-function(accUtils, ko, i18n, project, ArrayDataProvider) {
+'use strict';
+
+define(['accUtils', 'knockout', 'utils/i18n', 'models/wkt-project', 'ojs/ojarraydataprovider',
+  'ojs/ojbufferingdataprovider', 'utils/common-utilities', 'utils/dialog-helper', 'utils/view-helper',
+  'utils/wkt-logger', 'utils/url-catalog', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojformlayout',
+  'ojs/ojradioset', 'ojs/ojswitch', 'ojs/ojselectsingle', 'ojs/ojtable' ],
+function(accUtils, ko, i18n, project, ArrayDataProvider,
+  BufferingDataProvider, utils, dialogHelper, viewHelper) {
+
   function ProjectSettingsViewModel() {
 
     this.connected = () => {
@@ -17,6 +22,127 @@ function(accUtils, ko, i18n, project, ArrayDataProvider) {
 
     this.labelMapper = (labelId) => {
       return i18n.t(`project-settings-${labelId}`);
+    };
+
+    this.isMac = () => {
+      return window.api.process.isMac();
+    };
+
+    this.extraPathColumnData = [
+      {
+        'className': 'wkt-table-path-cell',
+        'headerClassName': 'wkt-table-path-header',
+        'headerText': this.labelMapper('extra-path-directory-header'),
+        'sortable': 'disable'
+      },
+      {
+        'className': 'wkt-table-delete-cell',
+        'headerClassName': 'wkt-table-add-header',
+        'headerTemplate': 'chooseHeaderTemplate',
+        'template': 'actionTemplate',
+        'sortable': 'disable',
+        width: viewHelper.BUTTON_COLUMN_WIDTH
+      },
+      {
+        'className': 'wkt-table-delete-cell',
+        'headerClassName': 'wkt-table-add-header',
+        'headerTemplate': 'headerTemplate',
+        'template': 'actionTemplate',
+        'sortable': 'disable',
+        width: viewHelper.BUTTON_COLUMN_WIDTH
+      }
+    ];
+
+    this.extraPathDirsObservable = this.project.settings.extraPathDirectories.observable;
+    this.extraPathDirectoriesDataProvider =
+      new BufferingDataProvider(new ArrayDataProvider(this.extraPathDirsObservable, { keyAttributes: 'uid' }));
+
+    this.showPathDirectories = () => {
+      const pathDirectories = window.api.process.getPathDirectories();
+      dialogHelper.openDialog('macos-path-directories-dialog', { pathDirectories: pathDirectories});
+    };
+
+    this.extraEnvironmentVariablesColumnData = [
+      {
+        'className': 'wkt-table-env-vars-cell',
+        'headerClassName': 'wkt-table-env-vars-header',
+        'headerText': this.labelMapper('extra-environment-variable-name-header'),
+        'sortProperty': 'name'
+      },
+      {
+        'className': 'wkt-table-env-vars-cell',
+        'headerClassName': 'wkt-table-env-vars-header',
+        'headerText': this.labelMapper('extra-environment-variable-value-header'),
+        'sortable': 'disable'
+      },
+      {
+        'className': 'wkt-table-delete-cell',
+        'headerClassName': 'wkt-table-add-header',
+        'headerTemplate': 'headerTemplate',
+        'template': 'actionTemplate',
+        'sortable': 'disable',
+        width: viewHelper.BUTTON_COLUMN_WIDTH
+      }
+    ];
+
+    this.extraEnvironmentVarsObservable = this.project.settings.extraEnvironmentVariables.observable;
+    this.extraEnvironmentVariablesDataProvider =
+      new BufferingDataProvider(new ArrayDataProvider(this.extraEnvironmentVarsObservable, { keyAttributes: 'uid' }));
+
+    this.showEnvironmentVariables = () => {
+      const environmentVariables = window.api.process.getEnvironmentVariables();
+      dialogHelper.openDialog('macos-environment-variables-dialog',
+        { environmentVariables: environmentVariables});
+    };
+
+    this.handleExtraPathDirectoryAddRow = () => {
+      const dirs = [];
+      this.extraPathDirsObservable().forEach(item => {
+        dirs.push(item.value);
+      });
+
+      let nextIndex = 0;
+      while (dirs.indexOf(`new-directory-${nextIndex + 1}`) !== -1) {
+        nextIndex++;
+      }
+
+      this.project.settings.extraPathDirectories.addNewItem({
+        uid: utils.getShortUuid(),
+        value: `new-directory-${nextIndex + 1}`
+      });
+    };
+
+    this.handleExtraEnvironmentVariableAddRow = () => {
+      const envVarNames = [];
+      this.extraEnvironmentVarsObservable().forEach(item => {
+        envVarNames.push(item.name);
+      });
+
+      let nextIndex = 0;
+      while (envVarNames.indexOf(`new-variable-${nextIndex + 1}`) !== -1) {
+        nextIndex++;
+      }
+
+      this.project.settings.extraEnvironmentVariables.addNewItem({
+        uid: utils.getShortUuid(),
+        name: `new-variable-${nextIndex + 1}`,
+        value: ''
+      });
+    };
+
+    this.chooseExtraPathDirectory = async (event, data) => {
+      const index = data.item.index;
+      const directory = this.project.settings.extraPathDirectories.observable()[index];
+
+      return new Promise(resolve => {
+        window.api.ipc.invoke('choose-extra-path-directory').then(newValue => {
+          if (newValue && newValue !== directory.value) {
+            directory.value = newValue;
+            this.project.settings.extraPathDirectories.observable.replace(directory, directory);
+          }
+          resolve();
+        });
+      });
     };
 
     this.credentialStorePolicies = [

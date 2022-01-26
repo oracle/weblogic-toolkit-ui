@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -602,7 +602,7 @@ async function apply(kubectlExe, fileData, options) {
 }
 
 function getKubectlEnvironment(options, httpsProxyUrl, bypassProxyHosts) {
-  const env = {
+  let env = {
     PATH: process.env.PATH
   };
   if (options) {
@@ -630,6 +630,12 @@ function getKubectlEnvironment(options, httpsProxyUrl, bypassProxyHosts) {
   } else {
     env['USERPROFILE'] = process.env.USERPROFILE;
     env['PROGRAMDATA'] = process.env.PROGRAMDATA;
+  }
+
+  if (options && options.extraEnvironmentVariables) {
+    const extraEnvironmentVariables =
+      osUtils.removeProtectedEnvironmentVariables(options.extraEnvironmentVariables);
+    env = Object.assign(env, extraEnvironmentVariables);
   }
   return env;
 }
