@@ -7,11 +7,13 @@
 
 const fsUtils = require('./fsUtils');
 const { getLogger } = require('./wktLogging');
-const { getWdtCustomConfigDirectory, getValidateModelShellScript, isWdtErrorExitCode} = require('./wktTools');
+const { getWdtCustomConfigDirectory, getValidateModelShellScript, isWdtErrorExitCode, isWdtVersionCompatible} = require('./wktTools');
 const childProcessExecutor = require('./childProcessExecutor');
 const { getErrorMessage } = require('./errorUtils');
 
 const i18n = require('./i18next.config');
+
+const MINIMUM_WDT_VALIDATE_VERSION = '2.0.0';
 
 async function validateModel(currentWindow, stdoutChannel, stderrChannel, validateConfig) {
   const logger = getLogger();
@@ -48,6 +50,11 @@ async function validateModel(currentWindow, stdoutChannel, stderrChannel, valida
     isSuccess: true
   };
   try {
+    const versionCheckResult = await isWdtVersionCompatible(MINIMUM_WDT_VALIDATE_VERSION);
+    if (!versionCheckResult.isSuccess) {
+      return Promise.resolve(versionCheckResult);
+    }
+
     const exitCode = await childProcessExecutor.executeChildShellScript(currentWindow, getValidateModelShellScript(),
       argList, env, stdoutChannel, { stderrEventName: stderrChannel });
 

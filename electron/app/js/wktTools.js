@@ -6,21 +6,15 @@
 const { dialog } = require('electron');
 const path = require('path');
 const fsPromises = require('fs/promises');
+
+const fsUtils = require('./fsUtils');
 const i18n = require('./i18next.config');
 const osUtils = require('./osUtils');
-
-/* global __dirname */
-const jsDir = __dirname;
-
-const fsUtils = require(path.join(jsDir, 'fsUtils'));
-const {
-  downloadWdtRelease,
-  getWdtLatestReleaseName,
-  getWitLatestReleaseName,
-  getWkoLatestReleaseImageName,
-  updateTools
-} = require(path.join(jsDir, 'wktToolsInstaller'));
-const { getLogger } = require(path.join(jsDir, 'wktLogging'));
+const WktApp = require('./wktApp');
+const { getLogger } = require('./wktLogging');
+const { getErrorMessage } = require('./errorUtils');
+const { downloadWdtRelease, getWdtLatestReleaseName, getWitLatestReleaseName, getWkoLatestReleaseImageName,
+  updateTools } = require('./wktToolsInstaller');
 
 const scriptExtension = osUtils.isWindows() ? '.cmd' : '.sh';
 const VERSION_FILE_NAME = 'VERSION.txt';
@@ -62,6 +56,45 @@ function isWdtErrorExitCode(exitCode) {
 
 function isWitErrorExitCode(exitCode) {
   return exitCode !== 0;
+}
+
+async function isWdtVersionCompatible(minimumVersion) {
+  const wdtVersionFileName = path.join(getWdtDirectory(), 'VERSION.txt');
+  const versionRegex = /^WebLogic Deploy Tooling (?<version>[\d]+.[\d]+.[\d]+(-SNAPSHOT)?)$/;
+  const result = {
+    isSuccess: true
+  };
+
+  return new Promise(resolve => {
+    fsUtils.exists(wdtVersionFileName).then(doesExist => {
+      if (!doesExist) {
+        result.isSuccess = false;
+        result.reason = i18n.t('wkt-tools-wdt-version-file-missing-error', { file: wdtVersionFileName });
+        return resolve(result);
+      }
+      fsPromises.readFile(wdtVersionFileName, {encoding: 'utf8'}).then(contents => {
+        const matches = contents.trim().match(versionRegex);
+        const version = matches.groups.version;
+        if (!version) {
+          result.isSuccess = false;
+          result.reason = i18n.t('wkt-tools-wdt-version-file-format-error', { file: wdtVersionFileName });
+          return resolve(result);
+        }
+
+        if (compareVersions(version, minimumVersion) < 0) {
+          const wktApp = new WktApp(_wktMode);
+          result.isSuccess = false;
+          result.reason = i18n.t('wkt-tools-wdt-version-not-compatible-error',
+            { version: version, minimumVersion: minimumVersion, wktuiVersion: wktApp.getApplicationVersion() });
+        }
+        resolve(result);
+      }).catch(err => {
+        result.isSuccess = false;
+        result.reason = i18n.t('wkt-tools-wdt-version-file-read-error', { file: wdtVersionFileName, error: getErrorMessage(err) });
+        return resolve(result);
+      });
+    });
+  });
 }
 
 async function getWdtSupportedDomainTypes() {
@@ -256,6 +289,52 @@ async function getOptions() {
   });
 }
 
+function compareVersions(version, minimumVersion) {
+  const versionComponents = version.split(/[.-]/);
+  const minimumVersionComponents = minimumVersion.split(/[.-]/);
+
+  // Fix up the minimum version components to have the correct number of places...
+  if (minimumVersionComponents.length !== 4) {
+    const len = minimumVersionComponents.length;
+    const isSnapshot = minimumVersionComponents[len - 1] === 'SNAPSHOT';
+    if (len !== 3 || isSnapshot) {
+      const missingDigits = isSnapshot ? 4 - len : 3 - len;
+      const insertPosition = isSnapshot ? len - 2 : len - 1;
+      for (let i = 0; i < missingDigits; i++) {
+        minimumVersionComponents.splice(insertPosition, 0, '0');
+      }
+    }
+  }
+
+  // Iterate over the version elements now that the minimum version elements is fully specified...
+  let result = 0;
+  for (let i = 0; i < 3; i++) {
+    const versionNumber = Number(versionComponents[i]);
+    const minVersionNumber = Number(minimumVersionComponents[i]);
+
+    if (versionNumber < minVersionNumber) {
+      result = -1;
+      break;
+    } else if (versionNumber > minVersionNumber) {
+      result = 1;
+      break;
+    }
+  }
+
+  if (result === 0) {
+    const versionIsSnapshot = versionComponents.length === 4;
+    const minimumVersionIsSnapshot = minimumVersionComponents.length === 4;
+    if (versionIsSnapshot && !minimumVersionIsSnapshot) {
+      result = -1;
+    } else if (!versionIsSnapshot && minimumVersionIsSnapshot) {
+      result = 1;
+    }
+  }
+
+  getLogger().debug('compareVersion(%s, %s) returned %d', version, minimumVersion, result);
+  return result;
+}
+
 module.exports = {
   checkForUpdates,
   downloadLatestWdtInstaller,
@@ -271,5 +350,6 @@ module.exports = {
   getWdtSupportedDomainTypes,
   initialize,
   isWdtErrorExitCode,
-  isWitErrorExitCode
+  isWitErrorExitCode,
+  isWdtVersionCompatible
 };

@@ -208,7 +208,7 @@
   "wdt-discovery-non-zero-exit-code-error-message": "Discover domain script {{script}} exited with non-zero exit code: {{exitCode}}.",
   "wdt-discovery-failed-error-message": "Discover domain script {{script}} failed: {{error}};",
 
-  "validate-model-error-exit-code-error-message": "Validate Model script exited with {{exitCode}}, which indicates an error.",
+  "validate-model-error-exit-code-error-message": "Validate Model script exited with {{exitCode}}, which indicates an error",
   "validate-model-execution-failed-error-message": "Validate Model script failed: {{error}}",
 
   "prepare-model-unknown-target-type-error-message": "Unable to prepare model with unknown target type: {{wdtTargetType}}.",
@@ -350,6 +350,11 @@
   "wdt-archiveType-sharedLibraryFile": "Shared Library File",
   "wdt-archiveType-sharedLibraryDir": "Shared Library Directory",
   "wdt-archiveType-fileStore": "File Store Directory",
+
+  "wkt-tools-wdt-version-file-missing-error": "Unable to determine the version of WebLogic Deploy Tooling installed because the {{file}} file is not found",
+  "wkt-tools-wdt-version-file-read-error": "Unable to determine the version of WebLogic Deploy Tooling installed because an error occurred while reading the {{file}} file: {{error}}",
+  "wkt-tools-wdt-version-file-format-error": "Unable to determine the version of WebLogic Deploy Tooling installed because the {{file}} file is not in the expected format",
+  "wkt-tools-wdt-version-not-compatible-error": "The installed WebLogic Deploy Tooling version {{version}} does not meet the minimum compatible version {{minimumVersion}} required by WebLogic Kubernetes Toolkit UI version {{wktuiVersion}}",
 
   "project-save-file-already-open-title": "Project File Already Open",
   "project-save-file-already-open-message": "The project file {{projectFile}} is already open in another window.  Please either close the existing window or select a different project file and try again."
