@@ -6,10 +6,12 @@
 'use strict';
 
 define(['accUtils', 'knockout', 'utils/i18n', 'models/wkt-project', 'ojs/ojarraydataprovider',
-  'ojs/ojbufferingdataprovider', 'utils/common-utilities', 'utils/dialog-helper', 'utils/wkt-logger',
-  'utils/url-catalog', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojformlayout', 'ojs/ojradioset',
-  'ojs/ojswitch', 'ojs/ojselectsingle', 'ojs/ojtable' ],
-function(accUtils, ko, i18n, project, ArrayDataProvider, BufferingDataProvider, utils, dialogHelper) {
+  'ojs/ojbufferingdataprovider', 'utils/common-utilities', 'utils/dialog-helper', 'utils/view-helper',
+  'utils/wkt-logger', 'utils/url-catalog', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojformlayout',
+  'ojs/ojradioset', 'ojs/ojswitch', 'ojs/ojselectsingle', 'ojs/ojtable' ],
+function(accUtils, ko, i18n, project, ArrayDataProvider,
+  BufferingDataProvider, utils, dialogHelper, viewHelper) {
+
   function ProjectSettingsViewModel() {
 
     this.connected = () => {
@@ -38,14 +40,16 @@ function(accUtils, ko, i18n, project, ArrayDataProvider, BufferingDataProvider, 
         'headerClassName': 'wkt-table-add-header',
         'headerTemplate': 'chooseHeaderTemplate',
         'template': 'actionTemplate',
-        'sortable': 'disable'
+        'sortable': 'disable',
+        width: viewHelper.BUTTON_COLUMN_WIDTH
       },
       {
         'className': 'wkt-table-delete-cell',
         'headerClassName': 'wkt-table-add-header',
         'headerTemplate': 'headerTemplate',
         'template': 'actionTemplate',
-        'sortable': 'disable'
+        'sortable': 'disable',
+        width: viewHelper.BUTTON_COLUMN_WIDTH
       }
     ];
 
@@ -76,7 +80,8 @@ function(accUtils, ko, i18n, project, ArrayDataProvider, BufferingDataProvider, 
         'headerClassName': 'wkt-table-add-header',
         'headerTemplate': 'headerTemplate',
         'template': 'actionTemplate',
-        'sortable': 'disable'
+        'sortable': 'disable',
+        width: viewHelper.BUTTON_COLUMN_WIDTH
       }
     ];
 

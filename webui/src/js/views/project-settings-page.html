@@ -8,12 +8,13 @@
   <oj-bind-if test="[[isMac()]]">
     <div class="oj-panel" id="kubectl-mac-only">
       <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('mac-environment-question')]]"></oj-bind-text></h6>
-      <oj-form-layout max-columns="1" direction="row">
+      <div class="wkt-table-button-grid">
         <oj-table id="extra-path-directories-table"
                   class="wkt-paths-table"
                   aria-label="Extra Path Directories Table"
                   data="[[extraPathDirectoriesDataProvider]]"
                   display="grid"
+                  layout="fixed"
                   horizontal-grid-visible="enabled"
                   vertical-grid-visible="enabled"
                   edit-mode="rowEdit"
@@ -73,6 +74,7 @@
                   aria-label="Extra Environment Variables Table"
                   data="[[extraEnvironmentVariablesDataProvider]]"
                   display="grid"
+                  layout="fixed"
                   horizontal-grid-visible="enabled"
                   vertical-grid-visible="enabled"
                   edit-mode="rowEdit"
@@ -119,7 +121,7 @@
             <oj-bind-text value="[[labelMapper('button-macos-environment-variables')]]"></oj-bind-text>
           </span>
         </oj-button>
-      </oj-form-layout>
+      </div>
       <p><oj-bind-text value="[[labelMapper('mac-environment-answer-message')]]"></oj-bind-text></p>
     </div>
   </oj-bind-if>

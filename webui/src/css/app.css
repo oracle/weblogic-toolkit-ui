@@ -460,6 +460,25 @@ h6:first-child {
   margin: 0;
 }
 
+/* container for oj-tables with a button beside each */
+.wkt-table-button-grid {
+  display: grid;
+  grid-column-gap: 1em;
+  grid-row-gap: 1em;
+  grid-auto-columns: auto auto;
+  margin-bottom: var(--oj-form-layout-margin-bottom);
+}
+
+.wkt-table-button-grid .oj-table {
+  grid-column-start: 1;
+  grid-column-end: 1;
+}
+
+.wkt-table-button-grid .oj-button {
+  grid-column-start: 2;
+  grid-column-end: 2;
+}
+
 /* the oj-switcher in the code view should use the remaining height */
 .wkt-code-view-switcher {
   min-height: 1px;
