@@ -6,12 +6,12 @@
 
 define(['utils/i18n', 'accUtils', 'knockout', 'ojs/ojarraydataprovider',
   'ojs/ojbufferingdataprovider', 'models/wkt-project', 'utils/dialog-helper',
-  'utils/ingress-routes-updater', 'utils/view-helper', 'ojs/ojtreeview',
+  'utils/ingress-routes-updater', 'utils/view-helper', 'utils/k8s-helper', 'ojs/ojtreeview',
   'ojs/ojformlayout', 'ojs/ojinputtext', 'ojs/ojcollapsible', 'ojs/ojselectsingle', 'ojs/ojswitch', 'ojs/ojtable',
   'ojs/ojcheckboxset'
 ],
 function(i18n, accUtils, ko, ArrayDataProvider, BufferingDataProvider, project, dialogHelper,
-  ingressRouteUpdater, viewHelper) {
+  ingressRouteUpdater, viewHelper, k8sHelper) {
 
   function IngressDesignViewModel() {
 
@@ -209,31 +209,50 @@ function(i18n, accUtils, ko, ArrayDataProvider, BufferingDataProvider, project, 
       window.api.ipc.invoke('show-error-message', title, message);
     };
 
-    this.handleEditRoute = (event, context) => {
+    async function getTargetServiceDetails (project) {
+
+      const kubectlExe = k8sHelper.getKubectlExe();
+      const kubectlOptions = k8sHelper.getKubectlOptions();
+      const results = await window.api.ipc.invoke('k8s-get-service-details',
+        kubectlExe, project.k8sDomain.kubernetesNamespace.value, '', kubectlOptions);
+      let serviceLists = {};
+      if (results.isSuccess) {
+        for (const item of results.serviceDetails.items) {
+          serviceLists[item.metadata.name] = { ports: item.spec.ports};
+        }
+      }
+      return Promise.resolve( { serviceList: serviceLists});
+    };
+
+    this.handleEditRoute = async (event, context) => {
       // using context.item.data directly was causing problems
       // when project data was reloaded with matching UIDs.
       const index = context.item.index;
       let route = this.routes.observable()[index];
-      const options = {route: route};
+      getTargetServiceDetails(this.project).then( svc => {
+        const options = {route: route, serviceList: svc.serviceList};
+        dialogHelper.promptDialog('route-edit-dialog', options)
+          .then(result => {
 
-      dialogHelper.promptDialog('route-edit-dialog', options)
-        .then(result => {
+            // no result indicates operation was cancelled
+            if (result) {
+              let changed = false;
+              project.ingress.ingressRouteKeys.forEach(key => {
+                if ((key !== 'uid') && result.hasOwnProperty(key)) {
+                  route[key] = result[key];
+                  changed = true;
+                }
+              });
 
-          // no result indicates operation was cancelled
-          if (result) {
-            let changed = false;
-            project.ingress.ingressRouteKeys.forEach(key => {
-              if ((key !== 'uid') && result.hasOwnProperty(key)) {
-                route[key] = result[key];
-                changed = true;
+              if (changed) {
+                this.routes.observable.replace(route, route);
               }
-            });
-
-            if (changed) {
-              this.routes.observable.replace(route, route);
             }
-          }
-        });
+          });
+      }
+      );
+
+
     };
 
     this.handleCancel = () => {

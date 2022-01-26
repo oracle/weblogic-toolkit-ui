@@ -5,9 +5,9 @@
  */
 'use strict';
 
-define(['accUtils', 'knockout', 'utils/i18n', 'models/wkt-project', 'utils/view-helper', 'ojs/ojarraydataprovider',
+define(['accUtils', 'knockout', 'utils/i18n', 'models/wkt-project',  'utils/view-helper', 'ojs/ojarraydataprovider',
   'ojs/ojbufferingdataprovider', 'utils/observable-properties', 'ojs/ojconverter-number', 'ojs/ojinputtext',
-  'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojdialog', 'ojs/ojformlayout', 'ojs/ojvalidationgroup'],
+  'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojdialog', 'ojs/ojformlayout', 'ojs/ojvalidationgroup', 'ojs/ojselectcombobox'],
 function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDataProvider, props, ojConverterNumber) {
   function RouteEditDialogModel(args) {
     const DIALOG_SELECTOR = '#routeEditDialog';
@@ -38,9 +38,29 @@ function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDa
 
     this.project = project;
     this.route = args.route;
-    this.askIfConsoleSvc = ko.observable(this.route.isConsoleService);
+    this.serviceList = args.serviceList;
 
+    this.buildTargetSvcNames = () => {
+      let options = [];
+      for(var name in this.serviceList){
+        options.push( { id : name, value: name, text: name});
+      }
+      return options;
+    };
+
+    this.buildTargetSvcPorts = (svcName) => {
+      let options = [];
+      for (const port of this.serviceList[svcName].ports) {
+        options.push( { id : port.port, value: port.port, text: port.port});
+      }
+      return options;
+    };
+
+    this.askIfConsoleSvc = ko.observable(this.route.isConsoleService);
+    this.targetSvcNames = this.buildTargetSvcNames();
+    this.targetSvcPorts = ko.observableArray([] );
     this.savedAnnotations = args.route.annotations || {};
+    this.targetServicePorts = new ArrayDataProvider(this.targetSvcPorts, {keyAttributes: 'id'});
 
     this.tlsOptions = [
       { id: 'plain', value: 'plain', text: this.labelMapper('route-tlsoption-plain') },
@@ -153,6 +173,14 @@ function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDa
         this.askIfConsoleSvc(true);
       } else {
         this.askIfConsoleSvc(false);
+      }
+    };
+
+    this.targetSvcNameChanged = (event) => {
+      this.targetSvcPorts.removeAll();
+      const list = this.buildTargetSvcPorts(event.detail.value);
+      for (const item of list) {
+        this.targetSvcPorts.push(item);
       }
     };
 
