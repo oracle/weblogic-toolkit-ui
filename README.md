@@ -32,6 +32,6 @@ To join our public channel, please visit this [site](https://weblogic-slack-invi
 ## Related Projects
 For detailed documentation and access to WebLogic Toolkit-related projects, see:
 
-- [WebLogic Kubernetes Operator](https://oracle.github.io/weblogic-kubernetes-operator/)
-- [WebLogic Deploy Tooling](https://oracle.github.io/weblogic-deploy-tooling/)
-- [WebLogic Image Tool](https://oracle.github.io/weblogic-image-tool/)
+* [WebLogic Kubernetes Operator](https://github.com/oracle/weblogic-kubernetes-operator)
+* [WebLogic Deploy Tooling](https://github.com/oracle/weblogic-deploy-tooling)
+* [WebLogic Image Tool](https://github.com/oracle/weblogic-image-tool)
