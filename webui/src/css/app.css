@@ -441,6 +441,7 @@ h6:first-child {
   overflow: auto;
 }
 
+.wkt-macos-env-variables-dialog,
 .wkt-macos-path-directories-dialog {
   width: 85%;
   height: 85vh;
@@ -477,6 +478,25 @@ h6:first-child {
 .wkt-table-button-grid .oj-button {
   grid-column-start: 2;
   grid-column-end: 2;
+}
+
+/* some dialogs need 100% height / width body content */
+
+.wkt-fixed-body-dialog .oj-dialog-body,
+.wkt-fixed-body-dialog .oj-dialog-content,
+.wkt-fixed-body-dialog .oj-dialog-content > div {
+  width: 100%;
+  height: 100%;
+}
+
+.wkt-full-height {
+  height: 100%;
+  overflow: auto;
+}
+
+.wkt-macos-env-variables-dialog .oj-table {
+  width: 100%;
+  height: 100%;
 }
 
 /* the oj-switcher in the code view should use the remaining height */
