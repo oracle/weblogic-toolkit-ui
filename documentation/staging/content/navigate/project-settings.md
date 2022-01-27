@@ -14,8 +14,20 @@ input for the project on:
 - [JDK and WebLogic Server Installation Directories](#choosing-the-java-and-oracle-installation-directories)
 - [Image Build Tool Type and Executable Location](#choosing-the-image-build-tool)
 
-{{% notice note %}}If you are running macOS, the WKT UI application might not have the environment necessary to invoke Docker/Podman, kubectl, and Helm. Use the initial section to add extra directories to the PATH and define the extra environment variables as needed. Note that this extra environment configuration is used _only_ when invoking Docker/Podman, kubectl, and Helm.
-{{% /notice %}}
+When running the WKT UI application on Windows or Linux, the application inherits its environment from the user. For example,
+adding a directory to the PATH used by the application is just a matter of changing your
+PATH environment variable and restarting the application. On macOS, things are a bit more complicated.
+
+When running the application on macOS, the application inherits the environment of a daemon process called `launchd` instead
+of your environment.  By default, the `launchd` environment contains only a few core directories on the `PATH`
+(that is, `/usr/bin`, `/bin`, `/usr/sbin`, and `/sbin`).  This will cause `kubectl` invocations requiring access to one of
+the cloud providers' command-line tooling to fail if the tool is not found in one of those locations.  While it is
+possible for an administrative user to change the environment that `launchd` uses to address this issue, the WKT UI application
+provides the `Extra Path Directories` field to explicitly add the directory where the cloud providers'
+command-line tooling is installed, to the `PATH` that the application uses to invoke `kubectl`. Also, use the
+`Extra Environment Variable Names/Extra Environment Variable Values` fields to define extra environment variables as
+needed. Note that this extra environment configuration is used _only_ when invoking Docker/Podman, kubectl, and Helm.
+This section is visible only when running the application on macOS.
 
 
 #### Choosing a Credential Storage Scheme

@@ -27,5 +27,3 @@ pre = "<b> </b>"
 - When trying to run the application on a Linux machine and display it on a Windows machine, do not use the Xming X server.  There appears to be a bug (presumably with their OpenGL support) that prevents applications using Electron 13.x or later from working (for example, Microsoft VS Code doesn't work either).
 
 - The application is limited to working with archive files whose size is less than 2 GB.
-
-- On macOS, after editing a model in the Model Code View's model editor pane, you must click outside the editor pane prior to using the Menu to save or perform other actions that need the latest model content.  This is due to Electron bug [31915](https://github.com/electron/electron/issues/31915) that fails to generate the proper events when the Menu is selected on macOS.
