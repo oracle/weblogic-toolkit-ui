@@ -14,6 +14,10 @@ input for the project on:
 - [JDK and WebLogic Server Installation Directories](#choosing-the-java-and-oracle-installation-directories)
 - [Image Build Tool Type and Executable Location](#choosing-the-image-build-tool)
 
+{{% notice note %}}If you are running macOS, the WKT UI application might not have the environment necessary to invoke Docker/Podman, kubectl, and Helm. Use the initial section to add extra directories to the PATH and define the extra environment variables as needed. Note that this extra environment configuration is used _only_ when invoking Docker/Podman, kubectl, and Helm.
+{{% /notice %}}
+
+
 #### Choosing a Credential Storage Scheme
 The WKT UI application can securely store credentials for your project or not store them at all.  The three choices
 are:
@@ -22,7 +26,7 @@ are:
 - Store Encrypted Credentials in the WKT Project File
 - Not Store Credentials
 
-If you choose `Store in Native OS Credential Store`, then you will be using the Windows Credential Manager, the MacOS Keychain,
+If you choose `Store in Native OS Credential Store`, then you will be using the Windows Credential Manager, the macOS Keychain,
 or the Linux `libsecret` library's credential store.  These credential stores offer a well-known, secure mechanism for
 storing credentials that most users already understand.  The only downside to this scheme is that the credentials are
 stored only on the local machine.  Anyone trying to share their project with others users will have to have the other users
@@ -32,7 +36,7 @@ re-enter the credentials so that they get saved to their local machine's credent
 The WKT UI application can require storing a dozen or more credentials, depending on your WebLogic Server
 domain configuration. Upon first access by the WKT UI to load credentials from the credential store, the OS will prompt
 whether you want to allow the application access to each credential, prompting you once for each credential.  This
-can get annoying, but on some platforms (for example, MacOS), you have the option of telling the OS to always allow access to
+can get annoying, but on some platforms (for example, macOS), you have the option of telling the OS to always allow access to
 the credential by the WKT UI application.
 {{% /notice %}}
 

@@ -13,6 +13,7 @@ weight: 2
     - [Model Editor](#model-editor)
     - [Variables Editor](#variables-editor)
     - [Archive Editor](#archive-editor)
+- [Validate Model](#validate-model)
 - [Prepare Model](#prepare-model)
 
 
@@ -132,6 +133,12 @@ appDeployments:
 
 To remove content from the archive file, select the content to remove in the archive editor pane and click the minus (`-`)
 button in the archive editor title bar.  _Don't forget to remove any reference to this content from the model file._
+
+#### Validate Model
+`Validate Model` invokes the WDT [Validate Model Tool](https://oracle.github.io/weblogic-deploy-tooling/userguide/tools/validate/),
+which validates that the model and its related artifacts are well-formed and provides help on the valid attributes and subfolders
+for a particular model location. This action is available by using the `Validate Model` button on the `Model` page and by selecting
+`Go` > `Validate Model Files`.
 
 #### Prepare Model
 `Prepare Model` invokes the WDT [Prepare Model Tool](https://oracle.github.io/weblogic-deploy-tooling/userguide/tools/prepare/)

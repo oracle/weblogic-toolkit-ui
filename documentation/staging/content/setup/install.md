@@ -28,7 +28,7 @@ Alternatively, you can download the `AppImage` file, copy it to your local file 
 
 - Use your file manager, right click on the file, edit the properties, and change the permissions to  make it executable.
 
-If you download and run the `AppImage` file, you get the added benefits of 1.) Not requiring an installation or root access and 2.) Being able to participate in the auto-update functionality, like MacOS and Windows.
+If you download and run the `AppImage` file, you get the added benefits of 1.) Not requiring an installation or root access and 2.) Being able to participate in the auto-update functionality, like macOS and Windows.
 
 #### Helpful Hints
 
@@ -66,7 +66,7 @@ Upon application startup, if a more recent version exists, an Application Update
 - `Install Now`
 - `Install on Exit`
     - Downloads the application and installs it after you exit.
-    - Not available on MacOS.
+    - Not available on macOS.
 - `Ignore Update`
 
 At any time, you can check for application updates using `Help > Check for WKT UI Updates`.
