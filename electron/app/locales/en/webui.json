@@ -663,7 +663,7 @@
   "ingress-design-ingress-route-traefik-mw-help": "Customize Traefik Middlewares Object",
 
   "ingress-design-ingress-routes-getting-target-service-title" : "Retrieving existing target service details",
-  "ingress-design-ingress-routes-getting-target-service-error-message": "Error in getting existing service details: {{error}}",
+  "ingress-design-ingress-routes-getting-target-service-error-message": "Error in getting existing service details: {{error}} from namespace {{namespace}}",
 
   "ingress-design-ingress-route-name-field-validation-error": "Route {{routeName}}",
   "ingress-design-ingress-route-field-validation-error": "Route: {{routeName}}, Field: {{fieldName}}",
