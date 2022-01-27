@@ -50,9 +50,12 @@ function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDa
 
     this.buildTargetSvcPorts = (svcName) => {
       let options = [];
-      for (const port of this.serviceList[svcName].ports) {
-        options.push( { id : port.port, value: port.port, text: port.port});
+      if (this.serviceList[svcName]) {
+        for (const port of this.serviceList[svcName].ports) {
+          options.push( { id : port.port, value: port.port, text: port.port});
+        }
       }
+
       return options;
     };
 

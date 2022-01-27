@@ -220,6 +220,14 @@ function(i18n, accUtils, ko, ArrayDataProvider, BufferingDataProvider, project, 
         for (const item of results.serviceDetails.items) {
           serviceLists[item.metadata.name] = { ports: item.spec.ports};
         }
+      } else {
+        const errTitle = i18n.t('ingress-design-ingress-routes-getting-target-service-title');
+        const errMessage = i18n.t('ingress-design-ingress-routes-getting-target-service-error-message', {
+          error: results.reason,
+          namespace: namespace
+        });
+        await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
+        return Promise.resolve(false);
       }
       return Promise.resolve( { serviceList: serviceLists});
     };
