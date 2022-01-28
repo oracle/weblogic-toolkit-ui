@@ -86,7 +86,7 @@ When editing a route:
 - Use the `Name` field to set the route name.  
 - Use the `Virtual Host` and `Path Expression` fields to define the matching rules that determine which requests match this route.  
 - All requests in the defined rules are routed to the service specified by the `Target Service` field that resides in the namespace specified by the read-only
-`Target Service Namespace` field and the port specified by the `Target Port` field.  
+`Target Service Namespace` field and the port specified by the `Target Port` field. Once the domain has been deployed, you can also select the values from the drop down list. 
 - Specify the `Transport Option` for the ingress route:
     * Select `Plain HTTP` for unencrypted traffic from the client through the ingress controller to the target service.
     * Select `SSL terminate at ingress controller` for SSL

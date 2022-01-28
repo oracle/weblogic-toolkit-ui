@@ -678,6 +678,9 @@
   "ingress-design-ingress-route-traefik-mw-label": "Traefik Middleware",
   "ingress-design-ingress-route-traefik-mw-help": "Customize Traefik Middlewares Object",
 
+  "ingress-design-ingress-routes-getting-target-service-title" : "Retrieving existing domain service details",
+  "ingress-design-ingress-routes-getting-target-service-error-message": "Failed to get existing domain service details from Kubernetes namespace {{namespace}}: {{error}}.",
+
   "ingress-design-ingress-route-name-field-validation-error": "Route {{routeName}}",
   "ingress-design-ingress-route-field-validation-error": "Route: {{routeName}}, Field: {{fieldName}}",
   "ingress-design-ingress-route-field-tls-config-error": "The route '{{routeName}}' has the '{{fieldName}}' set to '{{tlsOption}}' but the '{{specifyTlsSecretFieldName}}' field is disabled.",
