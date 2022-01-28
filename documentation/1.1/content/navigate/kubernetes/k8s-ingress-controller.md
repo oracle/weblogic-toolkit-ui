@@ -86,7 +86,9 @@ When editing a route:
 - Use the `Name` field to set the route name.  
 - Use the `Virtual Host` and `Path Expression` fields to define the matching rules that determine which requests match this route.  
 - All requests in the defined rules are routed to the service specified by the `Target Service` field that resides in the namespace specified by the read-only
-`Target Service Namespace` field and the port specified by the `Target Port` field.  
+`Target Service Namespace` field and the port specified by the `Target Port` field. After the domain has been deployed, you can select the `Target Service`
+ value from the drop-down list of available services in the WebLogic Kubernetes Operator domain's namespace. After the `Target Service` is selected,
+ you can select the `Target Port` from the list of available ports in the selected target service. 
 - Specify the `Transport Option` for the ingress route:
     * Select `Plain HTTP` for unencrypted traffic from the client through the ingress controller to the target service.
     * Select `SSL terminate at ingress controller` for SSL

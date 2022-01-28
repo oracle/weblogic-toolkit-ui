@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const {app, dialog} = require('electron');
@@ -91,7 +91,15 @@ async function openProject(targetWindow) {
     return;
   }
 
-  await openProjectFile(targetWindow, openResponse.filePaths[0]);
+  const projectFileName = openResponse.filePaths[0];
+  await openProjectFile(targetWindow, projectFileName)
+    .catch(err => {
+      dialog.showErrorBox(
+        i18n.t('dialog-openProjectFileErrorTitle'),
+        i18n.t('dialog-openProjectFileErrorMessage', { projectFileName: projectFileName, err: err }),
+      );
+      getLogger().error('Failed to open project file %s: %s', projectFileName, err);
+    });
 }
 
 async function openProjectFile(targetWindow, projectFile) {
@@ -133,10 +141,27 @@ async function confirmProjectFile(targetWindow) {
   return [projectFile, projectName, projectUuid];
 }
 
+// choose a new project file for save.
+// return null values if no project file was established or selected.
+// usually called by the choose-project-file IPC invocation.
+async function chooseProjectFile(targetWindow) {
+  const projectFile = await _chooseProjectSaveFile(targetWindow);
+  const projectName = projectFile ? _generateProjectName(projectFile) : null;
+  const projectUuid = projectFile ? _generateProjectUuid() : null;
+  app.addRecentDocument(projectFile);
+  return [projectFile, projectName, projectUuid];
+}
+
 // initiate the save process by sending a message to the web app.
 // usually called from a menu click.
 function startSaveProject(targetWindow) {
   sendToWindow(targetWindow, 'start-save-project');
+}
+
+// initiate the save-as process by sending a message to the web app.
+// usually called from a menu click.
+function startSaveProjectAs(targetWindow) {
+  sendToWindow(targetWindow, 'start-save-project-as');
 }
 
 // save the specified project and model contents to the project file.
@@ -252,6 +277,21 @@ async function promptSaveBeforeClose(targetWindow) {
 
   const responses = ['yes', 'no', 'cancel'];
   return responses[result.response];
+}
+
+// export the archive file to the default location for a different project file
+async function exportArchiveFile(targetWindow, archivePath, projectFile) {
+  if(!path.isAbsolute(archivePath)) {
+    const sourceProjectDir = _getProjectDirectory(targetWindow);
+    archivePath = path.join(sourceProjectDir, archivePath);
+  }
+
+  const targetDirectoryName = _getDefaultModelsDirectoryName(projectFile);
+  const targetPath = path.join(path.dirname(projectFile), targetDirectoryName, 'archive.zip');
+  await mkdir(path.dirname(targetPath), {recursive: true});
+
+  getLogger().debug('Copying archive ' + archivePath + ' to ' + targetPath);
+  await copyFile(archivePath, targetPath);
 }
 
 // Private helper methods
@@ -765,6 +805,10 @@ function _getProjectFilePath(targetWindow) {
 
 function _getDefaultModelsPath(targetWindow) {
   const projectFilePath = _getProjectFilePath(targetWindow);
+  return _getDefaultModelsDirectoryName(projectFilePath);
+}
+
+function _getDefaultModelsDirectoryName(projectFilePath) {
   const projectFilePrefix = path.basename(projectFilePath, path.extname(projectFilePath));
   return projectFilePrefix + '-models';
 }
@@ -809,12 +853,14 @@ function getProjectFileName(dialogReturnedFileName) {
 module.exports = {
   chooseArchiveFile,
   chooseModelFile,
+  chooseProjectFile,
   chooseVariableFile,
   closeProject,
   confirmProjectFile,
   createNewProject,
   getModelFileContent,
   getWindowForProject,
+  exportArchiveFile,
   isWktProjectFile,
   openProject,
   openProjectFile,
@@ -825,5 +871,6 @@ module.exports = {
   sendProjectOpened,
   showExistingProjectWindow,
   startCloseProject,
-  startSaveProject
+  startSaveProject,
+  startSaveProjectAs
 };

@@ -583,6 +583,10 @@ class Main {
       return project.confirmProjectFile(event.sender.getOwnerBrowserWindow());
     });
 
+    ipcMain.handle('choose-project-file',async (event) => {
+      return project.chooseProjectFile(event.sender.getOwnerBrowserWindow());
+    });
+
     ipcMain.handle('save-project',async (event, projectFile, projectContents,
       externalFileContents) => {
       return project.saveProject(event.sender.getOwnerBrowserWindow(), projectFile, projectContents, externalFileContents);
@@ -594,6 +598,10 @@ class Main {
 
     ipcMain.handle('prompt-save-before-close',async (event) => {
       return project.promptSaveBeforeClose(event.sender.getOwnerBrowserWindow());
+    });
+
+    ipcMain.handle('export-archive-file', async (event, archivePath, projectFile) => {
+      return project.exportArchiveFile(event.sender.getOwnerBrowserWindow(), archivePath, projectFile);
     });
 
     ipcMain.handle('run-offline-discover',async (event, discoverConfig) => {

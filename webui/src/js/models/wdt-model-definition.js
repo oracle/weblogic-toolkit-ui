@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -285,6 +285,17 @@ define(['knockout', 'utils/observable-properties', 'js-yaml', 'utils/validation-
             this.archiveFiles.value = Object.keys(archiveFiles);
             this.setArchiveContents(modelContent);
           }
+        };
+
+        /**
+         * Clear the model file names (model, properties, and archive) so they will revert to default names.
+         * This is useful when saving a project and its files with a different name.
+         */
+        this.clearModelFileNames = () => {
+          this.modelFileContents = {};
+          this.modelFiles.value = [];
+          this.propertiesFiles.value = [];
+          this.archiveFiles.value = [];
         };
 
         /**

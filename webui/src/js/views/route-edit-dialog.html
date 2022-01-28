@@ -33,17 +33,22 @@
                        readonly="true"
                        help.instruction="[[labelMapper('route-targetservicenamespace-help')]]">
         </oj-input-text>
-        <oj-input-text label-hint="[[labelMapper('route-targetservice-label')]]"
-                       help.instruction="[[labelMapper('route-targetservice-help')]]"
-                       value="{{targetService.observable}}"
-                       validators="[[project.ingress.validators.k8sNameValidator]]">
-        </oj-input-text>
-        <oj-input-number label-hint="[[labelMapper('route-targetport-label')]]"
-                         converter="[[portNumberConverter]]"
-                         value="{{targetPort.observable}}"
+
+        <oj-combobox-one id="targetsvc" value="{{targetService.observable}}"
+                         label-hint="[[labelMapper('route-targetservice-label')]]"
+                         help.instruction="[[labelMapper('route-targetservice-help')]]"
+                         validators="[[project.ingress.validators.k8sNameValidator]]"
+                         options="[[targetSvcNames]]"
+                         on-value-changed = "[[targetSvcNameChanged]]">
+        </oj-combobox-one>
+
+        <oj-combobox-one id="targetport" value="{{targetPort.observable}}"
+                         label-hint="[[labelMapper('route-targetport-label')]]"
+                         validators="[[project.ingress.validators.targetPortValidator]]"
                          help.instruction="[[labelMapper('route-targetport-help')]]"
-                         validators="[[project.ingress.validators.targetPortValidator]]">
-        </oj-input-number>
+                         options="[[targetServicePorts]]"
+                         >
+        </oj-combobox-one>
 
         <oj-radioset id="tlsOptionId"
                      label-hint="[[labelMapper('route-tls-label')]]"

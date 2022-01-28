@@ -538,13 +538,12 @@ async function createOrReplaceTLSSecret(kubectlExe, namespace, secret, key, cert
   return createOrReplaceSecret(kubectlExe, namespace, secret, createArgs, errorKeys, options);
 }
 
-async function getServiceDetails(kubectlExe, ingressNamespace, serviceName, options) {
-  let getArgs = [];
-  if (serviceName === '') {
-    getArgs = [ 'get', 'services', '-n', ingressNamespace, '--output=json' ];
-  } else {
-    getArgs = [ 'get', 'services', serviceName, '-n', ingressNamespace, '--output=json' ];
+async function getServiceDetails(kubectlExe, namespace, serviceName, options) {
+  const getArgs = [ 'get', 'services' ];
+  if (serviceName) {
+    getArgs.push(serviceName);
   }
+  getArgs.push('-n', namespace, '--output=json');
   const httpsProxyUrl = getHttpsProxyUrl();
   const bypassProxyHosts = getBypassProxyHosts();
 
@@ -554,13 +553,13 @@ async function getServiceDetails(kubectlExe, ingressNamespace, serviceName, opti
   };
 
   return new Promise(resolve => {
-    executeFileCommand(kubectlExe, getArgs, env).then((serviceDetails) => {
-      results.serviceDetails = JSON.parse(serviceDetails);
+    executeFileCommand(kubectlExe, getArgs, env).then((serviceDetailsJson) => {
+      results.serviceDetails = JSON.parse(serviceDetailsJson);
       resolve(results);
     }).catch(err => {
       results.isSuccess = false;
       results.reason = i18n.t('kubectl-get-service-details-error-message',
-        {namespace: ingressNamespace, error: getErrorMessage(err) });
+        {namespace: namespace, error: getErrorMessage(err) });
       resolve(results);
     });
   });

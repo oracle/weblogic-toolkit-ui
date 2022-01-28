@@ -168,6 +168,20 @@ class WktAppMenu {
               }
               project.startSaveProject(focusedWindow);
             }
+          },
+          {
+            id: 'saveAs',
+            label: i18n.t('menu-file-saveAs'),
+            enabled: !this._hasOpenDialog,
+            click(item, focusedWindow) {
+              if (!focusedWindow) {
+                return dialog.showErrorBox(
+                  i18n.t('menu-file-saveAs-errorTitle'),
+                  i18n.t('menu-file-saveAs-errorContent')
+                );
+              }
+              project.startSaveProjectAs(focusedWindow);
+            }
           }
         ]
       },
