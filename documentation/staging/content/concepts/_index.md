@@ -30,7 +30,7 @@ desktop application.  It uses native operating system features, such as:
   have the application start and open the selected project.
 - Recent files integration - As you work with `.wktproj` files, the application adds those files to the OS-maintained
   list of recently used files.  This causes these files to show up in OS-specific locations to provide shortcuts for
-  opening the file with the application.  For example, on MacOS, right-clicking on the application icon in the dock will
+  opening the file with the application.  For example, on macOS, right-clicking on the application icon in the dock will
   display the recently used `.wktproj` files and selecting one will open an application window and load the contents
   of the `.wktproj` file.
 
@@ -76,8 +76,8 @@ examples are:
 
 {{% notice note %}}
 On Windows and Linux platforms, this tends to be the user's environment that they have configured to be used when
-they log in. On MacOS, native applications do not inherit the user's login environment.  Instead, the application
-inherits the environment configured by the `launchd` daemon process.  If you are running on MacOS, then you should keep this in mind
+they log in. On macOS, native applications do not inherit the user's login environment.  Instead, the application
+inherits the environment configured by the `launchd` daemon process.  If you are running on macOS, then you should keep this in mind
 when the application doesn't behave as you expect.
 {{% /notice %}}
 

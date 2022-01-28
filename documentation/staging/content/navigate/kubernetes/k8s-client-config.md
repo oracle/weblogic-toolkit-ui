@@ -68,18 +68,6 @@ To learn more about this feature, consult the documentation available at:
 https://kubernetes.io/docs/reference/access-authn-authz/authentication/#client-go-credential-plugins.
 ```
 
-When running the application on Windows or Linux, add the appropriate directory to the `PATH` environment variable and make sure to
-run the application with that environment.  On MacOS, things are a bit more complicated.
-
-When running the WKT UI application on MacOS, the application inherits the environment of a daemon process called `launchd` instead
-of your environment.  By default, the `launchd` environment contains only a few core directories on the `PATH`
-(that is, `/usr/bin`, `/bin`, `/usr/sbin`, and `/sbin`).  This will cause `kubectl` invocations requiring access to one of
-the cloud providers' command-line tooling to fail if the tool is not found in one of those locations.  While it is
-possible for an administrative user to change the environment that `launchd` uses to address this issue, the application
-provides the `Extra Kubernetes Client Path Directories` field to explicitly add the directory where the cloud providers'
-command-line tooling is installed, to the `PATH` that the application uses to invoke `kubectl`.  Note that this field
-is only visible when running the application on MacOS.
-
 #### Verify Connectivity
 To verify the application configuration for connecting to the specified Kubernetes cluster,
 use the `Verify Connectivity` button on the `Client Configuration` page or

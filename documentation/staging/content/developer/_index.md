@@ -27,7 +27,7 @@ The WebLogic Kubernetes Toolkit UI is a desktop application designed to help Web
    git config --global user.email "<your-oracle-email-address>"
    git config --global core.ignoreCase false
    ```
-   **This last command is critical if you are developing on either Windows or MacOS.  Yes, the MacOS file system
+   **This last command is critical if you are developing on either Windows or macOS.  Yes, the macOS file system
    is, by default, case-insensitive!**
 
 5. Clone the git repository on GitHub at [https://github.com/oracle/weblogic-toolkit-ui](https://github.com/oracle/weblogic-toolkit-ui).
@@ -36,7 +36,7 @@ The WebLogic Kubernetes Toolkit UI is a desktop application designed to help Web
 8. Open a command line in the `weblogic-toolkit-ui/webui` directory and run `npm start`.
 9. After the server from the previous step is fully running, open a command line in the `weblogic-toolkit-ui/electron` directory and run `npm start`.
 
-### Building a Windows or MacOS installer
+### Building a Windows or macOS installer
 0. Set up your development environment and verify that the application is working properly from it.
 1. Open a command line in the `weblogic-toolkit-ui/electron` directory and run `npm run build`.
 2. Find the executable and installer(s) in the `weblogic-toolkit-ui/dist` directory.

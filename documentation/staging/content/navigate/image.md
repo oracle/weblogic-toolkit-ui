@@ -115,7 +115,8 @@ latest capabilities, many of which are exposed by this application.  As such, us
 recommended.
 
 {{% notice note %}} For "Model in Image" or "Domain in Image" [domain locations]({{< relref "/navigate/project-settings#choosing-a-domain-location" >}}),
-when building your primary or auxiliary image, we highly recommend using WDT 2.0 to take advantage of enhanced capabilities that reduce the chance of deploy-time errors created due to a bad model.    
+when building your primary or auxiliary image, Oracle strongly recommends using [WDT 2.0](https://github.com/oracle/weblogic-deploy-tooling/releases).
+Certain WKT UI actions, such as `Prepare Model`, may rewrite the model into a format that earlier WDT versions cannot parse.    
 {{% /notice %}}
 
 

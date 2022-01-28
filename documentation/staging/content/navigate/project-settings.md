@@ -14,6 +14,22 @@ input for the project on:
 - [JDK and WebLogic Server Installation Directories](#choosing-the-java-and-oracle-installation-directories)
 - [Image Build Tool Type and Executable Location](#choosing-the-image-build-tool)
 
+When running the WKT UI application on Windows or Linux, the application inherits its environment from the user. For example,
+adding a directory to the PATH used by the application is just a matter of changing your
+PATH environment variable and restarting the application. On macOS, things are a bit more complicated.
+
+When running the application on macOS, the application inherits the environment of a daemon process called `launchd` instead
+of your environment.  By default, the `launchd` environment contains only a few core directories on the `PATH`
+(that is, `/usr/bin`, `/bin`, `/usr/sbin`, and `/sbin`).  This will cause `kubectl` invocations requiring access to one of
+the cloud providers' command-line tooling to fail if the tool is not found in one of those locations.  While it is
+possible for an administrative user to change the environment that `launchd` uses to address this issue, the WKT UI application
+provides the `Extra Path Directories` field to explicitly add the directory where the cloud providers'
+command-line tooling is installed, to the `PATH` that the application uses to invoke `kubectl`. Also, use the
+`Extra Environment Variable Names/Extra Environment Variable Values` fields to define extra environment variables as
+needed. Note that this extra environment configuration is used _only_ when invoking Docker/Podman, kubectl, and Helm.
+This section is visible only when running the application on macOS.
+
+
 #### Choosing a Credential Storage Scheme
 The WKT UI application can securely store credentials for your project or not store them at all.  The three choices
 are:
@@ -22,7 +38,7 @@ are:
 - Store Encrypted Credentials in the WKT Project File
 - Not Store Credentials
 
-If you choose `Store in Native OS Credential Store`, then you will be using the Windows Credential Manager, the MacOS Keychain,
+If you choose `Store in Native OS Credential Store`, then you will be using the Windows Credential Manager, the macOS Keychain,
 or the Linux `libsecret` library's credential store.  These credential stores offer a well-known, secure mechanism for
 storing credentials that most users already understand.  The only downside to this scheme is that the credentials are
 stored only on the local machine.  Anyone trying to share their project with others users will have to have the other users
@@ -32,7 +48,7 @@ re-enter the credentials so that they get saved to their local machine's credent
 The WKT UI application can require storing a dozen or more credentials, depending on your WebLogic Server
 domain configuration. Upon first access by the WKT UI to load credentials from the credential store, the OS will prompt
 whether you want to allow the application access to each credential, prompting you once for each credential.  This
-can get annoying, but on some platforms (for example, MacOS), you have the option of telling the OS to always allow access to
+can get annoying, but on some platforms (for example, macOS), you have the option of telling the OS to always allow access to
 the credential by the WKT UI application.
 {{% /notice %}}
 
