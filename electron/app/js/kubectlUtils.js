@@ -539,12 +539,11 @@ async function createOrReplaceTLSSecret(kubectlExe, namespace, secret, key, cert
 }
 
 async function getServiceDetails(kubectlExe, namespace, serviceName, options) {
-  let getArgs = [];
-  if (serviceName === '') {
-    getArgs = [ 'get', 'services', '-n', namespace, '--output=json' ];
-  } else {
-    getArgs = [ 'get', 'services', serviceName, '-n', namespace, '--output=json' ];
+  const getArgs = [ 'get', 'services' ];
+  if (serviceName) {
+    getArgs.push(serviceName);
   }
+  getArgs.push('-n', namespace, '--output=json');
   const httpsProxyUrl = getHttpsProxyUrl();
   const bypassProxyHosts = getBypassProxyHosts();
 
@@ -554,8 +553,8 @@ async function getServiceDetails(kubectlExe, namespace, serviceName, options) {
   };
 
   return new Promise(resolve => {
-    executeFileCommand(kubectlExe, getArgs, env).then((serviceDetails) => {
-      results.serviceDetails = JSON.parse(serviceDetails);
+    executeFileCommand(kubectlExe, getArgs, env).then((serviceDetailsJson) => {
+      results.serviceDetails = JSON.parse(serviceDetailsJson);
       resolve(results);
     }).catch(err => {
       results.isSuccess = false;
