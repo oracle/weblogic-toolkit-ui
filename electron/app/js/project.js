@@ -279,6 +279,19 @@ async function promptSaveBeforeClose(targetWindow) {
   return responses[result.response];
 }
 
+// export the archive file to the default location for a different project file
+async function exportArchiveFile(targetWindow, archivePath, projectFile) {
+  const sourceProjectDir = _getProjectDirectory(targetWindow);
+  const sourcePath = path.join(sourceProjectDir, archivePath);
+
+  const targetDirectoryName = _getDefaultModelsDirectoryName(projectFile);
+  const targetPath = path.join(path.dirname(projectFile), targetDirectoryName, 'archive.zip');
+  await mkdir(path.dirname(targetPath), {recursive: true});
+
+  getLogger().debug('Copying archive ' + archivePath + ' to ' + targetPath);
+  await copyFile(sourcePath, targetPath);
+}
+
 // Private helper methods
 //
 async function _createNewProjectFile(targetWindow, projectFileName) {
@@ -790,6 +803,10 @@ function _getProjectFilePath(targetWindow) {
 
 function _getDefaultModelsPath(targetWindow) {
   const projectFilePath = _getProjectFilePath(targetWindow);
+  return _getDefaultModelsDirectoryName(projectFilePath);
+}
+
+function _getDefaultModelsDirectoryName(projectFilePath) {
   const projectFilePrefix = path.basename(projectFilePath, path.extname(projectFilePath));
   return projectFilePrefix + '-models';
 }
@@ -841,6 +858,7 @@ module.exports = {
   createNewProject,
   getModelFileContent,
   getWindowForProject,
+  exportArchiveFile,
   isWktProjectFile,
   openProject,
   openProjectFile,

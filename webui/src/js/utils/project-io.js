@@ -41,7 +41,15 @@ define(['knockout', 'models/wkt-project', 'utils/i18n'],
           return {saved: false, reason: i18n.t('project-io-user-cancelled-save-message')};
         }
 
+        // copy the archive file before archive updates are applied during save
+        const currentArchiveFile = project.wdtModel.archiveFile();
+        if(currentArchiveFile) {
+          await window.api.ipc.invoke('export-archive-file', currentArchiveFile, projectFile);
+        }
+
+        // this will cause the model files to be written with new names
         project.wdtModel.clearModelFileNames();
+
         return saveToFile(projectFile, projectName, projectUuid);
       };
 

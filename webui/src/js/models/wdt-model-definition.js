@@ -292,6 +292,7 @@ define(['knockout', 'utils/observable-properties', 'js-yaml', 'utils/validation-
          * This is useful when saving a project and its files with a different name.
          */
         this.clearModelFileNames = () => {
+          this.modelFileContents = {};
           this.modelFiles.value = [];
           this.propertiesFiles.value = [];
           this.archiveFiles.value = [];

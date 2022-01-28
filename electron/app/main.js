@@ -600,6 +600,10 @@ class Main {
       return project.promptSaveBeforeClose(event.sender.getOwnerBrowserWindow());
     });
 
+    ipcMain.handle('export-archive-file', async (event, archivePath, projectFile) => {
+      return project.exportArchiveFile(event.sender.getOwnerBrowserWindow(), archivePath, projectFile);
+    });
+
     ipcMain.handle('run-offline-discover',async (event, discoverConfig) => {
       return wdtDiscovery.runOfflineDiscover(event.sender.getOwnerBrowserWindow(), discoverConfig);
     });
