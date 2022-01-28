@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const {app, dialog} = require('electron');
@@ -95,8 +95,10 @@ async function saveContentsOfModelFiles(projectDirectory, models) {
 
 async function _getModelFileContent(projectDirectory, modelFile) {
   const effectiveModelFile = fsUtils.getAbsolutePath(modelFile, projectDirectory);
-  return new Promise(resolve => {
-    readFile(effectiveModelFile, {encoding: 'utf8'}).then(data => resolve(data));
+  return new Promise((resolve, reject) => {
+    readFile(effectiveModelFile, {encoding: 'utf8'})
+      .then(data => resolve(data))
+      .catch(err => reject(err));
   });
 }
 

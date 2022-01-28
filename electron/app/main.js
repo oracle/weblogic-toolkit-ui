@@ -583,6 +583,10 @@ class Main {
       return project.confirmProjectFile(event.sender.getOwnerBrowserWindow());
     });
 
+    ipcMain.handle('choose-project-file',async (event) => {
+      return project.chooseProjectFile(event.sender.getOwnerBrowserWindow());
+    });
+
     ipcMain.handle('save-project',async (event, projectFile, projectContents,
       externalFileContents) => {
       return project.saveProject(event.sender.getOwnerBrowserWindow(), projectFile, projectContents, externalFileContents);

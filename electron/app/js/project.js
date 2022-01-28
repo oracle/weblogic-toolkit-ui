@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const {app, dialog} = require('electron');
@@ -91,7 +91,15 @@ async function openProject(targetWindow) {
     return;
   }
 
-  await openProjectFile(targetWindow, openResponse.filePaths[0]);
+  const projectFileName = openResponse.filePaths[0];
+  await openProjectFile(targetWindow, projectFileName)
+    .catch(err => {
+      dialog.showErrorBox(
+        i18n.t('dialog-openProjectFileErrorTitle'),
+        i18n.t('dialog-openProjectFileErrorMessage', { projectFileName: projectFileName, err: err }),
+      );
+      getLogger().error('Failed to open project file %s: %s', projectFileName, err);
+    });
 }
 
 async function openProjectFile(targetWindow, projectFile) {
@@ -133,10 +141,27 @@ async function confirmProjectFile(targetWindow) {
   return [projectFile, projectName, projectUuid];
 }
 
+// choose a new project file for save.
+// return null values if no project file was established or selected.
+// usually called by the choose-project-file IPC invocation.
+async function chooseProjectFile(targetWindow) {
+  const projectFile = await _chooseProjectSaveFile(targetWindow);
+  const projectName = projectFile ? _generateProjectName(projectFile) : null;
+  const projectUuid = projectFile ? _generateProjectUuid() : null;
+  app.addRecentDocument(projectFile);
+  return [projectFile, projectName, projectUuid];
+}
+
 // initiate the save process by sending a message to the web app.
 // usually called from a menu click.
 function startSaveProject(targetWindow) {
   sendToWindow(targetWindow, 'start-save-project');
+}
+
+// initiate the save-as process by sending a message to the web app.
+// usually called from a menu click.
+function startSaveProjectAs(targetWindow) {
+  sendToWindow(targetWindow, 'start-save-project-as');
 }
 
 // save the specified project and model contents to the project file.
@@ -809,6 +834,7 @@ function getProjectFileName(dialogReturnedFileName) {
 module.exports = {
   chooseArchiveFile,
   chooseModelFile,
+  chooseProjectFile,
   chooseVariableFile,
   closeProject,
   confirmProjectFile,
@@ -825,5 +851,6 @@ module.exports = {
   sendProjectOpened,
   showExistingProjectWindow,
   startCloseProject,
-  startSaveProject
+  startSaveProject,
+  startSaveProjectAs
 };
