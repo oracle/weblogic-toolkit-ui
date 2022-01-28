@@ -50,6 +50,13 @@ function(wktProject, wktConsole, wdtDiscoverer, dialogHelper, projectIO,
     });
   });
 
+  window.api.ipc.receive('start-save-project-as', () => {
+    blurSelection();
+    projectIO.saveProjectAs().catch(err => {
+      displayCatchAllError('save-as', err).then();
+    });
+  });
+
   window.api.ipc.receive('show-console-out-line', (line) => {
     wktConsole.addLine(line, 'out');
   });

@@ -16,6 +16,9 @@
   "menu-file-saveAll": "Save All",
   "menu-file-saveAll-errorTitle": "Cannot Save",
   "menu-file-saveAll-errorContent": "There are currently no active projects to save",
+  "menu-file-saveAs": "Save As...",
+  "menu-file-saveAs-errorTitle": "Cannot Save As",
+  "menu-file-saveAs-errorContent": "There are currently no active projects to save",
   "menu-file-exit": "Exit",
 
   "menu-edit": "Edit",
@@ -129,6 +132,8 @@
   "dialog-openProjectWindow": "Open WebLogic Kubernetes Toolkit Project",
   "dialog-saveProjectFileErrorTitle": "Project File Save Error",
   "dialog-saveProjectFileErrorMessage": "Failed to write the project file {{projectFileName}}: {{err}}",
+  "dialog-openProjectFileErrorTitle": "Failed to Open Project File",
+  "dialog-openProjectFileErrorMessage": "Unable to open the project file {{projectFileName}}: {{err}}",
   "dialog-openProjectFileParseErrorTitle": "Failed to Parse Project File",
   "dialog-openProjectFileParseErrorMessage": "Unable to read the project file {{projectFileName}} as JSON: {{err}}",
   "dialog-openProjectFileReadErrorTitle": "Failed to Read Project File",

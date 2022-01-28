@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -14,9 +14,8 @@ define(['knockout', 'models/wkt-project', 'utils/i18n'],
   function (ko, project, i18n) {
     function ProjectIo() {
 
-      // verify that a project file is assigned to this project, assigning if necessary.
+      // verify that a project file is assigned to this project, choosing if necessary.
       // save the project contents to the specified file.
-      // if project name and UUID are specified, this is a new file, so assign those.
       this.saveProject = async(forceSave) => {
         const projectNotSaved = !project.getProjectFileName();
 
@@ -28,30 +27,60 @@ define(['knockout', 'models/wkt-project', 'utils/i18n'],
             return {saved: false, reason: i18n.t('project-io-user-cancelled-save-message')};
           }
 
-          project.setProjectFileName(projectFile);
-
-          // if project name or UUID are null, they were previously assigned.
-          if(projectName) {
-            project.setProjectName(projectName);
-          }
-          if(projectUuid) {
-            project.setProjectUuid(projectUuid);
-          }
-
-          let projectContents = project.getProjectContents();
-          let modelContents = project.wdtModel.getModelContents();
-          const saveResult = await window.api.ipc.invoke('save-project', projectFile, projectContents,
-            modelContents);
-
-          if(saveResult['model']) {
-            project.wdtModel.setSpecifiedModelFiles(saveResult['model']);
-          }
-
-          project.setNotDirty();
+          return saveToFile(projectFile, projectName, projectUuid);
         }
 
         return {saved: true};
       };
+
+      // select a new project file for the project, and save the project contents to the specified file.
+      this.saveProjectAs = async() => {
+        const [projectFile, projectName, projectUuid] = await window.api.ipc.invoke('choose-project-file');
+        // if the project file is null, the user cancelled when selecting a new file.
+        if(!projectFile) {
+          return {saved: false, reason: i18n.t('project-io-user-cancelled-save-message')};
+        }
+
+        // copy the archive file before archive updates are applied during save
+        const currentArchiveFile = project.wdtModel.archiveFile();
+        if(currentArchiveFile) {
+          await window.api.ipc.invoke('export-archive-file', currentArchiveFile, projectFile);
+        }
+
+        // this will cause the model files to be written with new names
+        project.wdtModel.clearModelFileNames();
+
+        return saveToFile(projectFile, projectName, projectUuid);
+      };
+
+      // save the project to the specified project file with name and UUID.
+      // if project file is null, do not save.
+      // if project name and UUID are specified, this is a new file, so assign those.
+      // return object with saved status and reason if not saved.
+      async function saveToFile(projectFile, projectName, projectUuid) {
+
+        project.setProjectFileName(projectFile);
+
+        // if project name or UUID are null, they were previously assigned.
+        if(projectName) {
+          project.setProjectName(projectName);
+        }
+        if(projectUuid) {
+          project.setProjectUuid(projectUuid);
+        }
+
+        let projectContents = project.getProjectContents();
+        let modelContents = project.wdtModel.getModelContents();
+        const saveResult = await window.api.ipc.invoke('save-project', projectFile, projectContents,
+          modelContents);
+
+        if(saveResult['model']) {
+          project.wdtModel.setSpecifiedModelFiles(saveResult['model']);
+        }
+
+        project.setNotDirty();
+        return {saved: true};
+      }
 
       // close the project in this window.
       // if the project is dirty, ask the user if they want to save the project.
