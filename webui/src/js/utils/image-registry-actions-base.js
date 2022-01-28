@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -13,10 +13,10 @@ function(WktActionsBase, project, wktConsole, i18n, projectIo, dialogHelper) {
       super();
     }
 
-    async validateImageExistsLocally(imageBuilderExe, imageTag, errTitle, errPrefix) {
+    async validateImageExistsLocally(imageBuilderOptions, imageTag, errTitle, errPrefix) {
       try {
         const imageExistsResults =
-          await window.api.ipc.invoke('validate-image-exists-locally', imageBuilderExe, imageTag);
+          await window.api.ipc.invoke('validate-image-exists-locally', imageBuilderOptions, imageTag);
         let errMessage;
         if (imageExistsResults.isSuccess && !imageExistsResults.imageExists) {
           errMessage = i18n.t(`${errPrefix}-image-not-exists-error-message`, {imageTag: imageTag});
@@ -34,9 +34,9 @@ function(WktActionsBase, project, wktConsole, i18n, projectIo, dialogHelper) {
       return Promise.resolve(true);
     }
 
-    async pushImage(imageBuilderExe, imageTag, pushOptions, errTitle, errPrefix, skipCompleteDialog) {
+    async pushImage(imageBuilderOptions, imageTag, pushOptions, errTitle, errPrefix, skipCompleteDialog) {
       try {
-        let pushResults = await window.api.ipc.invoke('do-push-image', imageBuilderExe, imageTag, pushOptions);
+        let pushResults = await window.api.ipc.invoke('do-push-image', imageBuilderOptions, imageTag, pushOptions);
         dialogHelper.closeBusyDialog();
         if (pushResults.isSuccess) {
           if (!skipCompleteDialog) {

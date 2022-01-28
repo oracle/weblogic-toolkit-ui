@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const fsUtils = require('./fsUtils');
@@ -36,18 +36,20 @@ async function validateImageBuilderExecutable(imageBuilderExe) {
   });
 }
 
-async function validateImageExistsLocally(imageBuilderExe, imageTag) {
+async function validateImageExistsLocally(imageBuilderOptions, imageTag) {
+  const imageBuilderExe = imageBuilderOptions.imageBuilderExe;
   const args = [
     'images',
     '-q',
     imageTag
   ];
+  const env = getDockerEnv(null, null, imageBuilderOptions);
   const result = {
     isSuccess: true,
     imageExists: true
   };
   return new Promise(resolve => {
-    executeFileCommand(imageBuilderExe, args).then(stdoutMessage => {
+    executeFileCommand(imageBuilderExe, args, env).then(stdoutMessage => {
       if (!/\S/.test(stdoutMessage.toString())) {
         result.imageExists = false;
       }
@@ -62,17 +64,18 @@ async function validateImageExistsLocally(imageBuilderExe, imageTag) {
   });
 }
 
-async function doLogin(imageBuilderExe, options) {
+async function doLogin(imageBuilderOptions, options) {
   const i18n = require('./i18next.config');
   const httpsProxyUrl = getHttpsProxyUrl();
   const bypassProxyHosts = getBypassProxyHosts();
+  const imageBuilderExe = imageBuilderOptions.imageBuilderExe;
 
   const result = { isSuccess: true };
   if (!options.requiresLogin) {
     return Promise.resolve({ isSuccess: true });
   }
 
-  const env = getDockerEnv(httpsProxyUrl, bypassProxyHosts);
+  const env = getDockerEnv(httpsProxyUrl, bypassProxyHosts, imageBuilderOptions);
   const args = [
     'login'
   ];
@@ -105,14 +108,15 @@ async function doLogin(imageBuilderExe, options) {
   });
 }
 
-async function doPushImage(currentWindow, stdoutChannel, stderrChannel, imageBuilderExe, imageTag, options) {
+async function doPushImage(currentWindow, stdoutChannel, stderrChannel, imageBuilderOptions, imageTag, options) {
   const i18n = require('./i18next.config');
   const httpsProxyUrl = getHttpsProxyUrl();
   const bypassProxyHosts = getBypassProxyHosts();
+  const imageBuilderExe = imageBuilderOptions.imageBuilderExe;
 
   const result = { isSuccess: true };
   if (options.requiresLogin) {
-    const loginResult = await doLogin(imageBuilderExe, options);
+    const loginResult = await doLogin(imageBuilderOptions, options);
     if (!loginResult.isSuccess) {
       result.isSuccess = false;
       result.reason = loginResult.reason;
@@ -121,7 +125,7 @@ async function doPushImage(currentWindow, stdoutChannel, stderrChannel, imageBui
   }
 
   const args = [ 'push', imageTag ];
-  const env = getDockerEnv(httpsProxyUrl, bypassProxyHosts);
+  const env = getDockerEnv(httpsProxyUrl, bypassProxyHosts, imageBuilderOptions);
 
   return new Promise(resolve => {
     executeChildProcess(currentWindow, imageBuilderExe, args, env, stdoutChannel,
@@ -139,11 +143,17 @@ async function doPushImage(currentWindow, stdoutChannel, stderrChannel, imageBui
   });
 }
 
-function getDockerEnv(httpsProxyUrl, bypassProxyHosts) {
+function getDockerEnv(httpsProxyUrl, bypassProxyHosts, imageBuilderOptions) {
+  let path = process.env.PATH;
+  if (imageBuilderOptions && imageBuilderOptions.extraPathDirectories) {
+    const extraPathDirectories = imageBuilderOptions.extraPathDirectories.join(path.delimiter);
+    path += `${path.delimiter}${extraPathDirectories}`;
+  }
+
   let env = {
     DOCKER_BUILDKIT: '0',
     // podman relies on the PATH including other executables (e.g., newuidmap)...
-    PATH: process.env.PATH
+    PATH: path
   };
 
   // Docker-specific environment variables that should be passed on
@@ -167,8 +177,18 @@ function getDockerEnv(httpsProxyUrl, bypassProxyHosts) {
   if (process.env.STORAGE_OPTS) {
     env['STORAGE_OPTS'] = process.env.STORAGE_OPTS;
   }
+  if (process.env.TMPDIR) {
+    env['TMPDIR'] = process.env.TMPDIR;
+  }
 
-  // proxy-related environment variables
+  if (!osUtils.isWindows()) {
+    env['HOME'] = process.env.HOME;
+  } else {
+    env['USERPROFILE'] = process.env.USERPROFILE;
+    env['PROGRAMDATA'] = process.env.PROGRAMDATA;
+  }
+
+  // Proxy-related environment variables
   if (httpsProxyUrl) {
     env['HTTPS_PROXY'] = httpsProxyUrl;
     env['https_proxy'] = httpsProxyUrl;
@@ -178,12 +198,12 @@ function getDockerEnv(httpsProxyUrl, bypassProxyHosts) {
     env['no_proxy'] = bypassProxyHosts;
   }
 
-  if (!osUtils.isWindows()) {
-    env['HOME'] = process.env.HOME;
-  } else {
-    env['USERPROFILE'] = process.env.USERPROFILE;
-    env['PROGRAMDATA'] = process.env.PROGRAMDATA;
+  if (imageBuilderOptions && imageBuilderOptions.extraEnvironmentVariables) {
+    const extraEnvironmentVariables =
+      osUtils.removeProtectedEnvironmentVariables(imageBuilderOptions.extraEnvironmentVariables);
+    env = Object.assign(env, extraEnvironmentVariables);
   }
+
   return env;
 }
 

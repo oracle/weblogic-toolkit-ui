@@ -1,12 +1,14 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
+'use strict';
+
 define(['accUtils', 'knockout', 'models/wkt-project', 'utils/i18n', 'ojs/ojarraydataprovider',
-  'ojs/ojbufferingdataprovider', 'utils/url-catalog', 'utils/k8s-helper', 'utils/wkt-logger', 'ojs/ojformlayout',
-  'ojs/ojinputtext', 'ojs/ojselectsingle', 'ojs/ojtable'],
-function(accUtils, ko, project, i18n, ArrayDataProvider, BufferingDataProvider, urlCatalog, k8sHelper, wktLogger) {
+  'ojs/ojbufferingdataprovider', 'utils/url-catalog', 'utils/k8s-helper', 'utils/common-utilities', 'utils/wkt-logger',
+  'ojs/ojformlayout', 'ojs/ojinputtext', 'ojs/ojselectsingle', 'ojs/ojtable'],
+function(accUtils, ko, project, i18n, ArrayDataProvider, BufferingDataProvider, urlCatalog, k8sHelper, utils, wktLogger) {
   function KubectlViewModel() {
 
     this.connected = () => {
@@ -33,64 +35,8 @@ function(accUtils, ko, project, i18n, ArrayDataProvider, BufferingDataProvider, 
       return window.api.process.isMac();
     };
 
-    this.columnData = [
-      {
-        'className': 'wkt-table-path-cell',
-        'headerClassName': 'wkt-table-path-header',
-        'headerText': this.labelMapper('extra-path-directory-header'),
-        'sortable': 'disable'
-      },
-      {
-        'className': 'wkt-table-delete-cell',
-        'headerClassName': 'wkt-table-add-header',
-        'headerTemplate': 'chooseHeaderTemplate',
-        'template': 'actionTemplate',
-        'sortable': 'disable'
-      },
-      {
-        'className': 'wkt-table-delete-cell',
-        'headerClassName': 'wkt-table-add-header',
-        'headerTemplate': 'headerTemplate',
-        'template': 'actionTemplate',
-        'sortable': 'disable'
-      }
-    ];
-
-    this.extraPathDirsObservable = this.project.kubectl.extraPathDirectories.observable;
-    this.extraPathDirectoriesDataProvider =
-      new BufferingDataProvider(new ArrayDataProvider(this.extraPathDirsObservable, { keyAttributes: 'Value' }));
-
     this.createLink = function (url, label) {
       return '<a href="' + url + '">' + label + '</a>';
-    };
-
-    this.handleAddRow = () => {
-      const dirs = [];
-      this.extraPathDirsObservable().forEach(item => {
-        dirs.push(item.value);
-      });
-
-      let nextIndex = 0;
-      while (dirs.indexOf(`new-directory-${nextIndex + 1}`) !== -1) {
-        nextIndex++;
-      }
-
-      this.project.kubectl.extraPathDirectories.addNewItem({ value: `new-directory-${nextIndex + 1}`});
-    };
-
-    this.chooseExtraPathDirectory = async (event, data) => {
-      const index = data.item.index;
-      const directory = this.project.kubectl.extraPathDirectories.observable()[index];
-
-      return new Promise(resolve => {
-        window.api.ipc.invoke('choose-extra-path-directory').then(newValue => {
-          if (newValue && newValue !== directory.value) {
-            directory.value = newValue;
-            this.project.kubectl.extraPathDirectories.observable.replace(directory, directory);
-          }
-          resolve();
-        });
-      });
     };
 
     // build an instruction message with one link substitution

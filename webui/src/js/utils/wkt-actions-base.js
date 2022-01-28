@@ -46,10 +46,19 @@ function(project, wktConsole, i18n, projectIo, dialogHelper,
       return this.project.kubectl.helmExecutableFilePath.value;
     }
 
+    getImageBuilderOptions() {
+      return {
+        imageBuilderExe: this.project.settings.builderExecutableFilePath.value,
+        extraPathDirectories: this.getExtraPathDirectoriesArray(this.project.settings.extraPathDirectories.value),
+        extraEnvironmentVariables: this.getExtraEnvironmentVariablesObject(this.project.settings.extraEnvironmentVariables.value)
+      };
+    }
+
     getKubectlOptions() {
       return {
         kubeConfig: this.project.kubectl.kubeConfig.value,
-        extraPathDirectories: this.getExtraPathDirectoriesArray(this.project.kubectl.extraPathDirectories.value)
+        extraPathDirectories: this.getExtraPathDirectoriesArray(this.project.settings.extraPathDirectories.value),
+        extraEnvironmentVariables: this.getExtraEnvironmentVariablesObject(this.project.settings.extraEnvironmentVariables.value)
       };
     }
 
@@ -65,6 +74,16 @@ function(project, wktConsole, i18n, projectIo, dialogHelper,
         }
       }
       return results;
+    }
+
+    getExtraEnvironmentVariablesObject(extraEnvironmentVariablesList) {
+      const result = {};
+      if (extraEnvironmentVariablesList) {
+        for (const item of extraEnvironmentVariablesList) {
+          result[item.name] = item.value;
+        }
+      }
+      return result;
     }
 
     async removeNamespacePrompt(promptTitle, promptQuestion, promptDetails) {
@@ -390,9 +409,9 @@ function(project, wktConsole, i18n, projectIo, dialogHelper,
       return Promise.resolve(true);
     }
 
-    async loginToImageRegistry(imageBuilderExe, loginConfig, errTitle, errPrefix, shouldCloseBusyDialog = true) {
+    async loginToImageRegistry(imageBuilderOptions, loginConfig, errTitle, errPrefix, shouldCloseBusyDialog = true) {
       try {
-        const loginResults = await window.api.ipc.invoke('do-image-registry-login', imageBuilderExe, loginConfig);
+        const loginResults = await window.api.ipc.invoke('do-image-registry-login', imageBuilderOptions, loginConfig);
         if (!loginResults.isSuccess) {
           const imageRegistry = loginConfig.host || i18n.t('docker-hub');
 

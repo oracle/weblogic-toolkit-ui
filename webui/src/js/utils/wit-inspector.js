@@ -61,6 +61,7 @@ define(['utils/wit-actions-base', 'models/wkt-project', 'utils/i18n', 'utils/pro
             }
           }
 
+          const imageBuilderOptions = this.getImageBuilderOptions();
           busyDialogMessage = i18n.t('flow-image-builder-login-in-progress', {builderName: imageBuilderType});
           dialogHelper.updateBusyDialog(busyDialogMessage, 3 / totalSteps);
           if (this.project.image.useCustomBaseImage.value &&
@@ -72,7 +73,7 @@ define(['utils/wit-actions-base', 'models/wkt-project', 'utils/i18n', 'utils/pro
               username: this.project.image.baseImagePullUsername.value,
               password: this.project.image.baseImagePullPassword.value
             };
-            if (! await this.loginToImageRegistry(imageBuilderExe, loginConfig, errTitle, errPrefix)) {
+            if (! await this.loginToImageRegistry(imageBuilderOptions, loginConfig, errTitle, errPrefix)) {
               return Promise.resolve(false);
             }
           }
@@ -82,7 +83,7 @@ define(['utils/wit-actions-base', 'models/wkt-project', 'utils/i18n', 'utils/pro
           busyDialogMessage = i18n.t('wit-inspector-inspect-in-process', {imageTag: baseImageTag});
           dialogHelper.updateBusyDialog(busyDialogMessage, 4 / totalSteps);
           const inspectResults = await window.api.ipc.invoke('get-image-contents', javaHome, baseImageTag,
-            { imageBuilder: imageBuilderExe });
+            this.getImageBuilderOptions());
           dialogHelper.closeBusyDialog();
           if (inspectResults.isSuccess) {
             this.project.image.setBaseImageContents(inspectResults.contents);

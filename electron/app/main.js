@@ -573,10 +573,10 @@ class Main {
 
     ipcMain.handle('get-image-contents',
       async (event, javaHome, imageTag, options) => {
-        return witInspect.inspectImage(imageTag, {
-          javaHome: javaHome,
-          imageBuilder: options.imageBuilder
-        });
+        const myOptions = Object.assign({}, options);
+        myOptions['javaHome'] = javaHome;
+
+        return witInspect.inspectImage(imageTag, myOptions);
       });
 
     ipcMain.handle('confirm-project-file',async (event) => {
@@ -663,8 +663,8 @@ class Main {
       return witCache.cacheInstallers(cacheConfig);
     });
 
-    ipcMain.handle('do-image-registry-login', async (event, imageBuilderExe, loginConfig) => {
-      return imageBuilderUtils.doLogin(imageBuilderExe, loginConfig);
+    ipcMain.handle('do-image-registry-login', async (event, imageBuilderOptions, loginConfig) => {
+      return imageBuilderUtils.doLogin(imageBuilderOptions, loginConfig);
     });
 
     ipcMain.handle('validate-image-builder-exe', async (event, imageBuilderExe) => {
@@ -681,13 +681,13 @@ class Main {
         WKT_CONSOLE_STDOUT_CHANNEL, createConfig);
     });
 
-    ipcMain.handle('validate-image-exists-locally', async (event, imageBuilderExe, imageTag) => {
-      return imageBuilderUtils.validateImageExistsLocally(imageBuilderExe, imageTag);
+    ipcMain.handle('validate-image-exists-locally', async (event, imageBuilderOptions, imageTag) => {
+      return imageBuilderUtils.validateImageExistsLocally(imageBuilderOptions, imageTag);
     });
 
-    ipcMain.handle('do-push-image', async (event, imageBuilderExe, imageTag, options) => {
+    ipcMain.handle('do-push-image', async (event, imageBuilderOptions, imageTag, options) => {
       return imageBuilderUtils.doPushImage(event.sender.getOwnerBrowserWindow(), WKT_CONSOLE_STDOUT_CHANNEL,
-        WKT_CONSOLE_STDERR_CHANNEL, imageBuilderExe, imageTag, options);
+        WKT_CONSOLE_STDERR_CHANNEL, imageBuilderOptions, imageTag, options);
     });
 
     ipcMain.handle('kubectl-get-current-context', async (event, kubectlExe, kubectlOptions) => {

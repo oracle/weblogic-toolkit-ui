@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -12,9 +12,9 @@
  */
 define(['knockout', 'models/wdt-model-definition', 'models/image-definition', 'models/kubectl-definition',
   'models/k8s-domain-definition', 'models/wko-definition', 'models/project-settings-definition',
-  'models/ingress-definition', 'utils/wkt-logger'],
+  'models/ingress-definition', 'utils/common-utilities', 'utils/wkt-logger'],
 function (ko, wdtConstructor, imageConstructor, kubectlConstructor, domainConstructor, wkoConstructor,
-  settingsConstructor, ingressConstructor, wktLogger) {
+  settingsConstructor, ingressConstructor, utils, wktLogger) {
   function WktProject() {
     let projectFileName = null;
 
@@ -90,6 +90,29 @@ function (ko, wdtConstructor, imageConstructor, kubectlConstructor, domainConstr
     this.wko = wkoConstructor('wko');
     this.pages = [this.wdtModel, this.image, this.kubectl, this.k8sDomain, this.wko, this.settings, this.ingress];
 
+    this.convertOldProjectFormat = (wktProjectJson) => {
+      // Version 1.1.0 moved extraPathDirectories from kubectl to settings...
+      //
+      if ('kubectl' in wktProjectJson && 'extraPathDirectories' in wktProjectJson.kubectl) {
+        if (!wktProjectJson.settings) {
+          wktProjectJson.settings = {};
+          wktProjectJson.settings.extraPathDirectories = [];
+        } else if (!wktProjectJson.settings.extraPathDirectories) {
+          wktProjectJson.settings.extraPathDirectories = [];
+        }
+
+        for (const oldExtraPathDirectory of wktProjectJson.kubectl.extraPathDirectories) {
+          const value = oldExtraPathDirectory.value;
+          const uid = utils.getShortUuid();
+          wktProjectJson.settings.extraPathDirectories.push({
+            uid: uid,
+            value: value
+          });
+        }
+        delete wktProjectJson.kubectl.extraPathDirectories;
+      }
+    };
+
     this.setFromJson = (wktProjectJson, modelContentsJson) => {
       if (wktProjectJson.domainInfo) {
         this.domainInfo = wktProjectJson.domainInfo;
@@ -98,6 +121,10 @@ function (ko, wdtConstructor, imageConstructor, kubectlConstructor, domainConstr
       }
       this.setProjectName(wktProjectJson.name);
       this.setProjectUuid(wktProjectJson.uuid);
+
+      // Update the project structure prior to loading...
+      this.convertOldProjectFormat(wktProjectJson);
+
       this.pages.forEach(page => page.readFrom(wktProjectJson));
       this.wdtModel.setModelContents(modelContentsJson);
       this.k8sDomain.loadPropertyOverrideValues(wktProjectJson);

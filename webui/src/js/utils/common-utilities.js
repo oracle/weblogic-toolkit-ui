@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -111,6 +111,11 @@ define([],
         h1 = Math.imul(h1 ^ (h1>>>16), 2246822507) ^ Math.imul(h2 ^ (h2>>>13), 3266489909);
         h2 = Math.imul(h2 ^ (h2>>>16), 2246822507) ^ Math.imul(h1 ^ (h1>>>13), 3266489909);
         return ntob(4294967296 * (2097151 & h2) + (h1>>>0));
+      },
+
+      getShortUuid() {
+        const uuid = window.api.utils.generateUuid();
+        return this.hashIt(uuid);
       },
 
       capitalizeFirstLetter(str) {

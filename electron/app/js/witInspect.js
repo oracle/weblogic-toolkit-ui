@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -19,7 +19,7 @@ async function inspectImage(imageTag, options) {
     isSuccess: true
   };
   return new Promise(resolve => {
-    callImageToolInspect(options.javaHome, imageTag, { buildEngine: options.imageBuilder }).then(response => {
+    callImageToolInspect(options.javaHome, imageTag, options).then(response => {
       getLogger().debug('inspectResponse is a %s and equals: %s', typeof response, response);
       try {
         inspectResults['contents'] = JSON.parse(response);
@@ -57,7 +57,7 @@ function getInspectEnvironment(javaHome, options, httpsProxyUrl, bypassProxyHost
   if (options && 'useProxy' in options && options.useProxy && !httpsProxyUrl) {
     throw new Error('Image tool inspection called with useProxy option but user settings has no proxy URL set.');
   }
-  const env = getDockerEnv(httpsProxyUrl, bypassProxyHosts);
+  const env = getDockerEnv(httpsProxyUrl, bypassProxyHosts, options);
   env['JAVA_HOME'] = javaHome;
   env['WLSIMG_BLDDIR'] = app.getPath('temp');
   return env;
@@ -65,8 +65,8 @@ function getInspectEnvironment(javaHome, options, httpsProxyUrl, bypassProxyHost
 
 function getImageToolInspectArgs(imageTag, options) {
   const args = [ 'inspect', `--image=${imageTag}`, '--patches', '--format=JSON' ];
-  if ('buildEngine' in options && options.buildEngine) {
-    args.push(`--builder=${options['buildEngine']}`);
+  if ('imageBuilderExe' in options && options.imageBuilderExe) {
+    args.push(`--builder=${options['imageBuilderExe']}`);
   }
   return args;
 }

@@ -1,16 +1,18 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
 
 define(['utils/observable-properties'],
   function (props) {
-
     return function(name) {
       function ProjectSettingsModel() {
         // Question-related fields
+        this.extraPathDirectories = props.createListProperty(['uid', 'value']);
+        this.extraEnvironmentVariables = props.createListProperty(['uid', 'name', 'value']);
+
         this.credentialStorePolicy = props.createProperty('native');
 
         this.targetDomainLocation = props.createProperty('mii');

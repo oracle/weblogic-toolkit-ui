@@ -13,9 +13,11 @@ const i18n = require('./i18next.config');
 const childProcessExecutor = require('./childProcessExecutor');
 const fsUtils = require('./fsUtils');
 const { getLogger } = require('./wktLogging');
-const { getPrepareModelShellScript, getWdtCustomConfigDirectory, isWdtErrorExitCode } = require('./wktTools');
+const { getPrepareModelShellScript, getWdtCustomConfigDirectory, isWdtErrorExitCode, isWdtVersionCompatible} = require('./wktTools');
 const { getModelFileContent } = require('./project');
 const errorUtils = require('./errorUtils');
+
+const MINIMUM_WDT_PREPARE_VERSION = '2.0.0';
 
 const _secretsFileName = 'k8s_secrets.json';
 const _wkoDomainSpecFileName = 'wko-domain.yaml';
@@ -56,6 +58,11 @@ async function prepareModel(currentWindow, stdoutChannel, stderrChannel, prepare
     isSuccess: true
   };
   try {
+    const versionCheckResult = await isWdtVersionCompatible(MINIMUM_WDT_PREPARE_VERSION);
+    if (!versionCheckResult.isSuccess) {
+      return Promise.resolve(versionCheckResult);
+    }
+
     const exitCode = await childProcessExecutor.executeChildShellScript(currentWindow, getPrepareModelShellScript(),
       argList, env, stdoutChannel, { stderrEventName: stderrChannel });
 
