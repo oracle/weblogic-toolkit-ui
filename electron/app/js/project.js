@@ -281,15 +281,17 @@ async function promptSaveBeforeClose(targetWindow) {
 
 // export the archive file to the default location for a different project file
 async function exportArchiveFile(targetWindow, archivePath, projectFile) {
-  const sourceProjectDir = _getProjectDirectory(targetWindow);
-  const sourcePath = path.join(sourceProjectDir, archivePath);
+  if(!path.isAbsolute(archivePath)) {
+    const sourceProjectDir = _getProjectDirectory(targetWindow);
+    archivePath = path.join(sourceProjectDir, archivePath);
+  }
 
   const targetDirectoryName = _getDefaultModelsDirectoryName(projectFile);
   const targetPath = path.join(path.dirname(projectFile), targetDirectoryName, 'archive.zip');
   await mkdir(path.dirname(targetPath), {recursive: true});
 
   getLogger().debug('Copying archive ' + archivePath + ' to ' + targetPath);
-  await copyFile(sourcePath, targetPath);
+  await copyFile(archivePath, targetPath);
 }
 
 // Private helper methods
