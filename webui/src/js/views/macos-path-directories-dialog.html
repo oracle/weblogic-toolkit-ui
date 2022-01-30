@@ -9,15 +9,23 @@
 
   <div slot="body">
     <div class="oj-panel wkt-notop wkt-full-height">
-      <div>
-        <ol>
-          <oj-bind-for-each data="[[pathDirectories]]">
-            <template data-oj-as="pathDirectory">
-              <li><oj-bind-text value="[[pathDirectory.data.value]]"></oj-bind-text></li>
-            </template>
-          </oj-bind-for-each>
-        </ol>
-      </div>
+      <oj-table id="macos-path-variable-table"
+                class="wkt-paths-table"
+                aria-label="Inherited PATH Environment Variable Table"
+                data="[[pathDirectoriesDataProvider]]"
+                display="grid"
+                horizontal-grid-visible="enabled"
+                vertical-grid-visible="enabled"
+                edit-mode="none"
+                columns='[[pathDirectoriesColumnData]]'>
+        <template slot="rowTemplate" data-oj-as="row">
+          <tr>
+            <td>
+              <oj-bind-text value="[[row.data.value]]"></oj-bind-text>
+            </td>
+          </tr>
+        </template>
+      </oj-table>
     </div>
   </div>
 

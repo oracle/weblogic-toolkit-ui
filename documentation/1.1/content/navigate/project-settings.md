@@ -20,14 +20,14 @@ PATH environment variable and restarting the application. On macOS, things are a
 
 When running the application on macOS, the application inherits the environment of a daemon process called `launchd` instead
 of your environment.  By default, the `launchd` environment contains only a few core directories on the `PATH`
-(that is, `/usr/bin`, `/bin`, `/usr/sbin`, and `/sbin`).  This will cause `kubectl` invocations requiring access to one of
-the cloud providers' command-line tooling to fail if the tool is not found in one of those locations.  While it is
-possible for an administrative user to change the environment that `launchd` uses to address this issue, the WKT UI application
-provides the `Extra Path Directories` field to explicitly add the directory where the cloud providers'
-command-line tooling is installed, to the `PATH` that the application uses to invoke `kubectl`. Also, use the
-`Extra Environment Variable Names/Extra Environment Variable Values` fields to define extra environment variables as
-needed. Note that this extra environment configuration is used _only_ when invoking Docker/Podman, kubectl, and Helm.
-This section is visible only when running the application on macOS.
+(that is, `/usr/bin`, `/bin`, `/usr/sbin`, and `/sbin`).  This will, for example, cause `kubectl` invocations requiring
+access to one of the cloud providers' command-line tooling to fail if the tool is not found in one of those locations.
+While it is possible for an administrative user to change the environment that `launchd` uses to address this issue, the
+WKT UI application provides the `Extra Path Directory` table to explicitly add the directory where the cloud providers'
+command-line tooling is installed, to the `PATH` that the application uses to invoke `docker`, `podman`, `kubectl`, and
+`helm`. Also, use the `Extra Environment Variable Name/Extra Environment Variable Value` table to define extra
+environment variables as needed. Note that this extra environment configuration is used _only_ when invoking 
+Docker/Podman, kubectl, and Helm. This section is visible only when running the application on macOS.
 
 
 #### Choosing a Credential Storage Scheme
