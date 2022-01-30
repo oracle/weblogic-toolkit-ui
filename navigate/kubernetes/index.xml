@@ -23,7 +23,7 @@
       <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
       
       <guid>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/k8s-wko/</guid>
-      <description>Contents  WebLogic Kubernetes Operator Design View  WebLogic Kubernetes Operator Image Image Pull Secret Kubernetes Namespace Selection Strategy WebLogic Kubernetes Operator Role Bindings External REST API Access Third Party Integrations Java Logging   Code View Install Operator  WebLogic Kubernetes Operator This section provides support for installing the WebLogic Kubernetes Operator (the &amp;ldquo;operator&amp;rdquo;) in the target Kubernetes cluster. For detailed information about the operator, see the WebLogic Kubernetes Operator documentation.</description>
+      <description>Contents  WebLogic Kubernetes Operator Design View  WebLogic Kubernetes Operator Image Image Pull Secret Kubernetes Namespace Selection Strategy WebLogic Kubernetes Operator Role Bindings External REST API Access Third Party Integrations Java Logging   Code View Install Operator Update Operator Uninstall Operator  WebLogic Kubernetes Operator This section provides support for installing the WebLogic Kubernetes Operator (the &amp;ldquo;operator&amp;rdquo;) in the target Kubernetes cluster. For detailed information about the operator, see the WebLogic Kubernetes Operator documentation.</description>
     </item>
     
     <item>
@@ -32,7 +32,7 @@
       <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
       
       <guid>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/k8s-weblogic-domain/</guid>
-      <description>Contents  WebLogic Domain Design View  Image to Use for the Domain Clusters Model Variables Overrides Secrets Runtime Encryption Secret WebLogic Kubernetes Operator Introspection Configuration Domain-Wide Server Settings   Code View Prepare Model Deploy Domain Get Domain Status  WebLogic Domain The WebLogic Domain section provides support for creating and deploying the Kubernetes custom resource for the WebLogic domain as defined by the WebLogic Kubernetes Operator. For more information, see Domain Resource in the WebLogic Kubernetes Operator documentation.</description>
+      <description>Contents  WebLogic Domain Design View  Primary Image to Use for the Domain Auxiliary Image to Use for the Domain Clusters Model Variables Overrides Secrets Runtime Encryption Secret WebLogic Kubernetes Operator Introspection Configuration Domain-Wide Server Settings   Code View Prepare Model Deploy Domain Get Domain Status Undeploy Domain  WebLogic Domain The WebLogic Domain section provides support for creating and deploying the Kubernetes custom resource for the WebLogic domain as defined by the WebLogic Kubernetes Operator.</description>
     </item>
     
     <item>
@@ -41,7 +41,7 @@
       <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
       
       <guid>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/k8s-ingress-controller/</guid>
-      <description>Contents  Ingress Controller Design View  Ingress Controller Configuration TLS Secret for Ingress Routes Ingress Routes Configuration   Code View Install Ingress Controller Update Ingress Routes  Ingress Controller This section supports two distinct functions related to an ingress controller. First, it supports installing an ingress controller to a Kubernetes cluster. Second, it supports adding the necessary routes to an ingress controller to make a deployed WebLogic domain&amp;rsquo;s endpoints accessible.</description>
+      <description>Contents  Ingress Controller Design View  Ingress Controller Configuration TLS Secret for Ingress Routes Ingress Routes Configuration   Code View Install Ingress Controller Update Ingress Routes Uninstall Ingress Controller  Ingress Controller This section supports two distinct functions related to an ingress controller. First, it supports installing an ingress controller to a Kubernetes cluster. Second, it supports adding the necessary routes to an ingress controller to make a deployed WebLogic domain&amp;rsquo;s endpoints accessible.</description>
     </item>
     
   </channel>

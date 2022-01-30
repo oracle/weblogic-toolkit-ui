@@ -14,7 +14,7 @@
       
       <guid>https://oracle.github.io/weblogic-toolkit-ui/navigate/project-settings/</guid>
       <description>The first stop for every new project is Project Settings. In this section, you make decisions and provide input for the project on:
- Credential Storage Domain Location Kubernetes Environment Target Type JDK and WebLogic Server Installation Directories Image Build Tool Type and Executable Location  Choosing a Credential Storage Scheme The WKT UI application can securely store credentials for your project or not store them at all. The three choices are:</description>
+ Credential Storage Domain Location Kubernetes Environment Target Type JDK and WebLogic Server Installation Directories Image Build Tool Type and Executable Location  When running the WKT UI application on Windows or Linux, the application inherits its environment from the user. For example, adding a directory to the PATH used by the application is just a matter of changing your PATH environment variable and restarting the application.</description>
     </item>
     
     <item>
@@ -23,7 +23,7 @@
       <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
       
       <guid>https://oracle.github.io/weblogic-toolkit-ui/navigate/model/</guid>
-      <description>Contents  Model Design View Code View  Model Editor Variables Editor Archive Editor   Prepare Model  Model The Model section helps you work with WebLogic Deploy Tooling models for a WebLogic domain. A WebLogic Deploy Tooling model for a domain can include the following file types:
+      <description>Contents  Model Design View Code View  Model Editor Variables Editor Archive Editor   Validate Model Prepare Model  Model The Model section helps you work with WebLogic Deploy Tooling models for a WebLogic domain. A WebLogic Deploy Tooling model for a domain can include the following file types:
  Model file - A declarative definition of the domain configuration. Variable file - A property file that maps names to values.</description>
     </item>
     
@@ -33,7 +33,7 @@
       <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
       
       <guid>https://oracle.github.io/weblogic-toolkit-ui/navigate/image/</guid>
-      <description>Contents  Image Design View  Target Image Name and Registry Credentials Base Image to Use Installers for Building the Image Patch Oracle Home WebLogic Deploy Tooling Configuration Image Build Configuration   Code View Create Image Push Image  Image The Image section helps you build container images for deploying WebLogic-based applications in a Kubernetes environment using the WebLogic Image Tool.
+      <description>Contents  Image Design View  Target Image Name and Registry Credentials Base Image to Use Installers for Building the Image Patch Oracle Home WebLogic Deploy Tooling Configuration Image Build Configuration   Code View Create Images Push Images  Image The Image section helps you build container images for deploying WebLogic-based applications in a Kubernetes environment using the WebLogic Image Tool.
 Design View The Design View helps you specify the necessary data needed to run the WebLogic Image Tool to build an image for running the WebLogic domain with all resources configured and applications deployed.</description>
     </item>
     

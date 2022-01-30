@@ -12,20 +12,20 @@
     <title>Image :: WebLogic Kubernetes Toolkit UI</title>
 
     
-    <link href="/weblogic-toolkit-ui/css/nucleus.css?1643388268" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/fontawesome-all.min.css?1643388268" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/hybrid.css?1643388268" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/featherlight.min.css?1643388268" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/perfect-scrollbar.min.css?1643388268" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/auto-complete.css?1643388268" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/atom-one-dark-reasonable.css?1643388268" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/theme.css?1643388268" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/tabs.css?1643388268" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/hugo-theme.css?1643388268" rel="stylesheet">
+    <link href="/weblogic-toolkit-ui/css/nucleus.css?1643553258" rel="stylesheet">
+    <link href="/weblogic-toolkit-ui/css/fontawesome-all.min.css?1643553258" rel="stylesheet">
+    <link href="/weblogic-toolkit-ui/css/hybrid.css?1643553258" rel="stylesheet">
+    <link href="/weblogic-toolkit-ui/css/featherlight.min.css?1643553258" rel="stylesheet">
+    <link href="/weblogic-toolkit-ui/css/perfect-scrollbar.min.css?1643553258" rel="stylesheet">
+    <link href="/weblogic-toolkit-ui/css/auto-complete.css?1643553258" rel="stylesheet">
+    <link href="/weblogic-toolkit-ui/css/atom-one-dark-reasonable.css?1643553258" rel="stylesheet">
+    <link href="/weblogic-toolkit-ui/css/theme.css?1643553258" rel="stylesheet">
+    <link href="/weblogic-toolkit-ui/css/tabs.css?1643553258" rel="stylesheet">
+    <link href="/weblogic-toolkit-ui/css/hugo-theme.css?1643553258" rel="stylesheet">
     
     
 
-    <script src="/weblogic-toolkit-ui/js/jquery-3.3.1.min.js?1643388268"></script>
+    <script src="/weblogic-toolkit-ui/js/jquery-3.3.1.min.js?1643553258"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -59,14 +59,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/weblogic-toolkit-ui/js/lunr.min.js?1643388268"></script>
-<script type="text/javascript" src="/weblogic-toolkit-ui/js/auto-complete.js?1643388268"></script>
+<script type="text/javascript" src="/weblogic-toolkit-ui/js/lunr.min.js?1643553258"></script>
+<script type="text/javascript" src="/weblogic-toolkit-ui/js/auto-complete.js?1643553258"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/oracle.github.io\/weblogic-toolkit-ui";
     
 </script>
-<script type="text/javascript" src="/weblogic-toolkit-ui/js/search.js?1643388268"></script>
+<script type="text/javascript" src="/weblogic-toolkit-ui/js/search.js?1643553258"></script>
 
     
   </div>
@@ -545,8 +545,8 @@
         <li><a href="#image">Image</a></li>
         <li><a href="#design-view">Design View</a></li>
         <li><a href="#code-view">Code View</a></li>
-        <li><a href="#create-image">Create Image</a></li>
-        <li><a href="#push-image">Push Image</a></li>
+        <li><a href="#create-images">Create Images</a></li>
+        <li><a href="#push-images">Push Images</a></li>
       </ul>
     </li>
   </ul>
@@ -587,16 +587,27 @@
 </ul>
 </li>
 <li><a href="#code-view">Code View</a></li>
-<li><a href="#create-image">Create Image</a></li>
-<li><a href="#push-image">Push Image</a></li>
+<li><a href="#create-images">Create Images</a></li>
+<li><a href="#push-images">Push Images</a></li>
 </ul>
 <h3 id="image">Image</h3>
 <p>The <code>Image</code> section helps you build container images for deploying WebLogic-based applications
 in a Kubernetes environment using the <a href="https://oracle.github.io/weblogic-image-tool/">WebLogic Image Tool</a>.</p>
 <h3 id="design-view">Design View</h3>
 <p>The <code>Design View</code> helps you specify the necessary data needed to run the WebLogic Image Tool to build an image for
-running the WebLogic domain with all resources configured and applications deployed.  This page is divided into several
-primary panes and a few advanced panes that include:</p>
+running the WebLogic domain with all resources configured and applications deployed. The <code>Design View</code> page is divided into <code>Primary Image</code> and <code>Auxiliary Image</code> pages.
+Auxiliary images are available for the &ldquo;Model in Image&rdquo; <a href="/weblogic-toolkit-ui/navigate/project-settings/#choosing-a-domain-location">domain location</a> <em>only</em>.</p>
+<ul>
+<li><code>Primary Image</code> - The image containing the Oracle Fusion Middleware software. It is used as the basis of all containers that run WebLogic Servers for the domain.</li>
+<li><code>Auxiliary Image</code> - The image that supplies the WebLogic Deploy Tooling software and the model files. At runtime, the auxiliary image&rsquo;s content is merged with the primary image&rsquo;s content.</li>
+</ul>
+<p>The primary image is the one used for running the domain and the auxiliary contains the data that defines the domain. One primary image can be
+reused for hundreds of domains whereas an auxiliary image is domain-specific. When using auxiliary images,
+the primary image contains the OS, JDK, and FMW software installations; the auxiliary image supplies the specifics for a single domain.</p>
+<p>Use the <code>Design View</code> page to create a new or use an existing (the default) <code>Primary Image</code> and,
+for &ldquo;Model in Image&rdquo; domains only, create a new (the default) or use an existing <code>Auxiliary Image</code>.
+The <code>Design View</code> page has the following basic panes and a few advanced panes.
+Note that <em>not all</em> the fields described for the <code>Primary Image</code> are relevant for an <code>Auxiliary Image</code>. The exceptions are noted.</p>
 <ul>
 <li><a href="#target-image-name-and-registry-credentials">Target Image Name and Registry Credentials</a></li>
 <li><a href="#base-image-to-use">Base Image to Use</a></li>
@@ -628,7 +639,8 @@ field.  Any container image registry address found in the base image tag will be
 <code>Custom Base Image Pull Requires Login</code> and provide the necessary credentials in the
 <code>Custom Base Image Pull Username</code> and <code>Custom Base Image Pull Password</code> fields.</p>
 <p>When using a custom base image, the application requires the image to be inspected using the WebLogic Image Tool&rsquo;s
-<a href="https://oracle.github.io/weblogic-image-tool/userguide/tools/inspect-image/">Inspect Image</a> command.  To invoke this inspection, click
+<a href="https://oracle.github.io/weblogic-image-tool/userguide/tools/inspect-image/">Inspect Image</a> command. <strong>Note</strong>: This
+action is relevant for <code>Primary Images</code> only. To invoke this inspection, click
 <code>Inspect Custom Base Image</code>.  This inspection tells the application if Java or the
 Oracle Fusion Middleware software is already installed in the image.  If it finds either of these software packages
 installed, then fields in the <code>Installers for Building the Image</code> pane will disappear because they are unneeded.</p>
@@ -640,8 +652,8 @@ minimizing the resulting image size.</p>
 <h4 id="installers-for-building-the-image">Installers for Building the Image</h4>
 <p>This pane will contain form fields for up to three installers (depending on the base image being used); they are:</p>
 <ul>
-<li>JDK Installer</li>
-<li>Oracle Fusion Middleware Installer</li>
+<li>JDK Installer (<code>Primary Images</code> only)</li>
+<li>Oracle Fusion Middleware Installer (<code>Primary Images</code> only)</li>
 <li>WebLogic Deploy Tooling Installer</li>
 </ul>
 <p>When specifying the <code>JDK Installer</code>, it is important to remember that this installer will be used to install the JDK inside
@@ -664,8 +676,14 @@ other installers' version number fields, the best practice it to use the actual 
 (for example, <code>1.9.17</code>).  Note that new WDT versions often contain bug fixes or enhancements required to work with the
 latest capabilities, many of which are exposed by this application.  As such, using the latest version is strongly
 recommended.</p>
+
+<div class="notices note" ><p>For &ldquo;Model in Image&rdquo; or &ldquo;Domain in Image&rdquo; <a href="/weblogic-toolkit-ui/navigate/project-settings/#choosing-a-domain-location">domain locations</a>,
+when building your primary or auxiliary image, Oracle strongly recommends using <a href="https://github.com/oracle/weblogic-deploy-tooling/releases">WDT 2.0</a>.
+Certain WKT UI actions, such as <code>Prepare Model</code>, may rewrite the model into a format that earlier WDT versions cannot parse.</p>
+</div>
+
 <h4 id="patch-oracle-home">Patch Oracle Home</h4>
-<p>Oracle strongly recommends patching all Oracle Fusion Middleware installations with the latest Patch Set Updates (PSUs)
+<p><strong>NOTE</strong>: This pane is relevant for <code>Primary Images</code> only. Oracle strongly recommends patching all Oracle Fusion Middleware installations with the latest Patch Set Updates (PSUs)
 and other recommended patches to ensure that the latest security fixes are applied.  This pane configures the WebLogic
 Image Tool to apply the specified patches to the Oracle Home during the image creation process.  There are two mechanisms
 for specifying that patches should be applied:</p>
@@ -691,18 +709,20 @@ the <code>Apply Patches</code> option.  <em>To make sure your WebLogic-based app
 as secure as possible, this really should be a last resort.</em></p>
 <h4 id="weblogic-deploy-tooling-configuration">WebLogic Deploy Tooling Configuration</h4>
 <p>This <code>Advanced</code> pane applies only to images using either the &ldquo;Model in Image&rdquo; or &ldquo;Domain in Image&rdquo; <a href="/weblogic-toolkit-ui/navigate/project-settings/#choosing-a-domain-location">domain locations</a>.</p>
-<p>The <code>Domain Type</code> field tells WebLogic Deploy Tooling what type of domain to create. Use the <code>Domain Home Directory</code>
-to change the location of the WebLogic domain directory inside the container.  The <code>Model Home Directory</code> field
-specifies the directory where the WDT model files are stored in the image.  Typically, there is no need to override
-these directory locations because the application defaults follow the recommended best practices.</p>
+<p>For &ldquo;Domain in Image&rdquo; only, the <code>Domain Type</code> field tells WebLogic Deploy Tooling what type of domain to create. Use the <code>Domain Home Directory</code>
+to change the location of the WebLogic domain directory inside the container.  For &ldquo;Model in Image&rdquo; and &ldquo;Domain in Image&rdquo;, the <code>Model Home Directory</code> field
+specifies the directory where the WDT model files are stored in the image and <code>WDT Home Directory</code> specifies the WDT home directory inside the image.
+Typically, there is no need to override these directory locations because the application defaults follow the recommended best practices.</p>
 <h4 id="image-build-configuration">Image Build Configuration</h4>
 <p>This <code>Advanced</code> pane supports altering the default behavior of the WebLogic Image Tool, as well as extending the image
 build process to include custom build steps that might be required by particular applications or environments.</p>
 <p>The <code>JDK/FMW Installation Owner</code> and <code>JDK/FMW Installation Group</code> fields specify the Linux user and group that should
 own the JDK and Oracle Fusion Middleware installation directories.  The default values are generally fine for most
-environments.  Any images intended to run in an OpenShift environment, where the configured Security Context Constraints
-cause the containers to run as a random user in the <code>root</code> group, will require changing the <code>JDK/FMW Installation Group</code>
-field from its default value to <code>root</code>.  For more information, see
+environments.</p>
+<p>For any images intended to run in an OpenShift environment, where the configured Security Context Constraints cause the containers
+to run as a random user in the root group, select <code>Make Image Compatible with OpenShift</code>.
+This option changes the default group name to root and gives the group file system write access, as required by OpenShift.
+For more information, see
 <a href="https://docs.openshift.com/container-platform/4.8/authentication/managing-security-context-constraints.html">Managing security context constraints</a>
 in the OpenShift documentation.</p>
 <p>If the base image is expected to change without the image tag changing, then enable <code>Always Pull Base Image</code>.  With
@@ -719,8 +739,9 @@ containing the additional commands in the <code>Additional Build Commands File</
 additional files to be present in the build context directory, then provide the list of those required files in the
 <code>Additional Build Files</code> field.</p>
 <h3 id="code-view">Code View</h3>
-<p>The <code>Image</code> page&rsquo;s <code>Code View</code> displays a shell script that you can use as a starting point for automating the image
-creation process.</p>
+<p>For the <code>Primary Image</code>, the <code>Code View</code> displays a shell script that you can use as a starting point for automating the image
+creation process. For the &ldquo;Model in Image&rdquo; <a href="/weblogic-toolkit-ui/navigate/project-settings/#choosing-a-domain-location">domain location</a>, there is a
+similar <code>Code View</code> page for the <code>Auxiliary Image</code>. Each page shows the script for creating and pushing its image.</p>
 <p>If it is not already selected, then use the <code>Script Language</code> drop-down menu to choose the desired scripting language.  Note
 that the application is providing a working sample script simply to show how the process might be automated.  Before
 using the script, review the script and make any changes necessary for your environment. One typical change that
@@ -728,11 +749,11 @@ would be considered a best practice would be to change the script to accept eith
 set environment variables to specify any credentials required by the script to eliminate hard-coding the credentials in
 the script itself.  This change is left as an exercise for you because different environments typically will have
 existing standards for securely handling such credentials.</p>
-<h3 id="create-image">Create Image</h3>
-<p><code>Create Image</code> invokes the <a href="https://oracle.github.io/weblogic-image-tool/">WebLogic Image Tool</a> to
-create a new container image for running a WebLogic domain in a Kubernetes environment.  You can access this action using
-the <code>Create Image</code> button on the <code>Image</code> page or the <code>Go</code> menu.</p>
-<p>At a high level, <code>Create Image</code> performs the following steps:</p>
+<h3 id="create-images">Create Images</h3>
+<p><code>Create Primary Image</code> and <code>Create Auxiliary Image</code> invoke the <a href="https://oracle.github.io/weblogic-image-tool/">WebLogic Image Tool</a> to
+create a new container image for running a WebLogic domain in a Kubernetes environment.  You access these actions using
+the <code>Create Primary Image</code> or <code>Create Auxiliary Image</code> button on the <code>Image</code> page or from the <code>Go</code> menu.</p>
+<p>At a high level, the action performs the following steps:</p>
 <ol>
 <li>Validates the input values necessary for running the action based on your selections.</li>
 <li>Saves the WKT Project, if needed.</li>
@@ -741,11 +762,11 @@ the <code>Create Image</code> button on the <code>Image</code> page or the <code
 <li>Builds the image on the local machine using the WebLogic Image Tool
 <a href="https://oracle.github.io/weblogic-image-tool/userguide/tools/create-image/">Create</a> command.</li>
 </ol>
-<h3 id="push-image">Push Image</h3>
-<p><code>Push Image</code> uses the specified Image Builder program to upload (that is, push) the newly-built image
-to the image registry specified by its image tag.  You can access it by using the <code>Push Image</code> button on the <code>Image</code>
-page or <code>Go</code> &gt; <code>Push Image to Registry</code>.</p>
-<p>At a high level, <code>Push Image</code> performs the following steps:</p>
+<h3 id="push-images">Push Images</h3>
+<p><code>Push Primary Image</code> and <code>Push Auxiliary Image</code> use the specified Image Builder program to upload (that is, push) the newly-built image
+to the image registry specified by its image tag.  You access these actions by using the <code>Push Primary Image</code> or <code>Push Auxiliary Image</code> button on the <code>Image</code>
+page or from the <code>Go</code> menu.</p>
+<p>At a high level, the action performs the following steps:</p>
 <ol>
 <li>Validates the input values necessary for running the action based on your selections.  This includes making
 sure that an image with the specified <code>Image Tag</code> value exists in the local machine&rsquo;s image cache.</li>
@@ -1076,19 +1097,19 @@ sure that an image with the specified <code>Image Tag</code> value exists in the
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/weblogic-toolkit-ui/js/clipboard.min.js?1643388268"></script>
-    <script src="/weblogic-toolkit-ui/js/perfect-scrollbar.min.js?1643388268"></script>
-    <script src="/weblogic-toolkit-ui/js/perfect-scrollbar.jquery.min.js?1643388268"></script>
-    <script src="/weblogic-toolkit-ui/js/jquery.sticky.js?1643388268"></script>
-    <script src="/weblogic-toolkit-ui/js/featherlight.min.js?1643388268"></script>
-    <script src="/weblogic-toolkit-ui/js/highlight.pack.js?1643388268"></script>
+    <script src="/weblogic-toolkit-ui/js/clipboard.min.js?1643553258"></script>
+    <script src="/weblogic-toolkit-ui/js/perfect-scrollbar.min.js?1643553258"></script>
+    <script src="/weblogic-toolkit-ui/js/perfect-scrollbar.jquery.min.js?1643553258"></script>
+    <script src="/weblogic-toolkit-ui/js/jquery.sticky.js?1643553258"></script>
+    <script src="/weblogic-toolkit-ui/js/featherlight.min.js?1643553258"></script>
+    <script src="/weblogic-toolkit-ui/js/highlight.pack.js?1643553258"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/weblogic-toolkit-ui/js/modernizr.custom-3.6.0.js?1643388268"></script>
-    <script src="/weblogic-toolkit-ui/js/learn.js?1643388268"></script>
-    <script src="/weblogic-toolkit-ui/js/hugo-learn.js?1643388268"></script>
+    <script src="/weblogic-toolkit-ui/js/modernizr.custom-3.6.0.js?1643553258"></script>
+    <script src="/weblogic-toolkit-ui/js/learn.js?1643553258"></script>
+    <script src="/weblogic-toolkit-ui/js/hugo-learn.js?1643553258"></script>
     
         
-            <script src="/weblogic-toolkit-ui/mermaid/mermaid.js?1643388268"></script>
+            <script src="/weblogic-toolkit-ui/mermaid/mermaid.js?1643553258"></script>
         
         <script>
             mermaid.initialize({ startOnLoad: true });

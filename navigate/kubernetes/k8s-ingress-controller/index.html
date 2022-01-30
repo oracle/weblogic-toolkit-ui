@@ -12,20 +12,20 @@
     <title>Ingress Controller :: WebLogic Kubernetes Toolkit UI</title>
 
     
-    <link href="/weblogic-toolkit-ui/css/nucleus.css?1643388268" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/fontawesome-all.min.css?1643388268" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/hybrid.css?1643388268" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/featherlight.min.css?1643388268" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/perfect-scrollbar.min.css?1643388268" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/auto-complete.css?1643388268" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/atom-one-dark-reasonable.css?1643388268" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/theme.css?1643388268" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/tabs.css?1643388268" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/hugo-theme.css?1643388268" rel="stylesheet">
+    <link href="/weblogic-toolkit-ui/css/nucleus.css?1643553258" rel="stylesheet">
+    <link href="/weblogic-toolkit-ui/css/fontawesome-all.min.css?1643553258" rel="stylesheet">
+    <link href="/weblogic-toolkit-ui/css/hybrid.css?1643553258" rel="stylesheet">
+    <link href="/weblogic-toolkit-ui/css/featherlight.min.css?1643553258" rel="stylesheet">
+    <link href="/weblogic-toolkit-ui/css/perfect-scrollbar.min.css?1643553258" rel="stylesheet">
+    <link href="/weblogic-toolkit-ui/css/auto-complete.css?1643553258" rel="stylesheet">
+    <link href="/weblogic-toolkit-ui/css/atom-one-dark-reasonable.css?1643553258" rel="stylesheet">
+    <link href="/weblogic-toolkit-ui/css/theme.css?1643553258" rel="stylesheet">
+    <link href="/weblogic-toolkit-ui/css/tabs.css?1643553258" rel="stylesheet">
+    <link href="/weblogic-toolkit-ui/css/hugo-theme.css?1643553258" rel="stylesheet">
     
     
 
-    <script src="/weblogic-toolkit-ui/js/jquery-3.3.1.min.js?1643388268"></script>
+    <script src="/weblogic-toolkit-ui/js/jquery-3.3.1.min.js?1643553258"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -59,14 +59,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/weblogic-toolkit-ui/js/lunr.min.js?1643388268"></script>
-<script type="text/javascript" src="/weblogic-toolkit-ui/js/auto-complete.js?1643388268"></script>
+<script type="text/javascript" src="/weblogic-toolkit-ui/js/lunr.min.js?1643553258"></script>
+<script type="text/javascript" src="/weblogic-toolkit-ui/js/auto-complete.js?1643553258"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/oracle.github.io\/weblogic-toolkit-ui";
     
 </script>
-<script type="text/javascript" src="/weblogic-toolkit-ui/js/search.js?1643388268"></script>
+<script type="text/javascript" src="/weblogic-toolkit-ui/js/search.js?1643553258"></script>
 
     
   </div>
@@ -553,6 +553,7 @@
         <li><a href="#code-view">Code View</a></li>
         <li><a href="#install-ingress-controller">Install Ingress Controller</a></li>
         <li><a href="#update-ingress-routes">Update Ingress Routes</a></li>
+        <li><a href="#uninstall-ingress-controller">Uninstall Ingress Controller</a></li>
       </ul>
     </li>
   </ul>
@@ -592,6 +593,7 @@
 <li><a href="#code-view">Code View</a></li>
 <li><a href="#install-ingress-controller">Install Ingress Controller</a></li>
 <li><a href="#update-ingress-routes">Update Ingress Routes</a></li>
+<li><a href="#uninstall-ingress-controller">Uninstall Ingress Controller</a></li>
 </ul>
 <h3 id="ingress-controller">Ingress Controller</h3>
 <p>This section supports two distinct functions related to an ingress controller.  First, it supports installing an ingress
@@ -626,6 +628,7 @@ cluster attempts to pull the image and start the container.</p>
 <li>The <code>Docker Registry Secret Name</code> field specifies the name of the Kubernetes pull secret to use when pulling the image.
 To create this secret, enable <code>Create Docker Hub Secret</code> and fill in the pull secret data in the <code>Docker Hub Username</code>, <code>Docker Hub Password</code>,
 and <code>Docker Hub Email Address</code> fields.</li>
+<li>For the NGINX ingress controller, if you want to have SSL pass through the ingress route, enable <code>Allow SSL pass through to target service</code>.</li>
 </ul>
 <h4 id="tls-secret-for-ingress-routes">TLS Secret for Ingress Routes</h4>
 <p>Use this pane to configure the Transport Layer Security (TLS) secret containing the certificate and private key data that will be used by the
@@ -667,12 +670,31 @@ route row.  To remove a route, use the delete icon on the corresponding route ro
 <li>Use the <code>Name</code> field to set the route name.</li>
 <li>Use the <code>Virtual Host</code> and <code>Path Expression</code> fields to define the matching rules that determine which requests match this route.</li>
 <li>All requests in the defined rules are routed to the service specified by the <code>Target Service</code> field that resides in the namespace specified by the read-only
-<code>Target Service Namespace</code> field and the port specified by the <code>Target Port</code> field.</li>
-<li>To enable TLS between the client
-and the ingress controller, enable the <code>Enable TLS</code> option.  Remember, enabling TLS means that the TLS secret
-information must be provided in the <code>TLS Secret for Ingress Routes</code> pane. Different ingress controllers support advanced ingress route configuration using ingress controller-specific annotations.</li>
+<code>Target Service Namespace</code> field and the port specified by the <code>Target Port</code> field. After the domain has been deployed, you can select the <code>Target Service</code>
+value from the drop-down list of available services in the WebLogic Kubernetes Operator domain&rsquo;s namespace. After the <code>Target Service</code> is selected,
+you can select the <code>Target Port</code> from the list of available ports in the selected target service.</li>
+<li>Specify the <code>Transport Option</code> for the ingress route:
+<ul>
+<li>Select <code>Plain HTTP</code> for unencrypted traffic from the client through the ingress controller to the target service.</li>
+<li>Select <code>SSL terminate at ingress controller</code> for SSL
+terminating
+at the ingress controller and then unencrypted traffic from the ingress controller to the target service.
+<ul>
+<li>Enable <code>Is target service WebLogic Console?</code> if the target service is the <code>WebLogic Console</code> service.</li>
+</ul>
+</li>
+<li>Select <code>SSL pass through</code> for SSL traffic to pass through the ingress
+controller and then terminate at the target service.
+<ul>
+<li>If you select this option, you must also specify a valid DNS value in &lsquo;Virtual Host&rsquo;, and all SSL traffic from
+the<code>Virtual Host</code> will be routed to the target service.</li>
+<li>Make sure that the <code>Target Port</code> supports SSL.</li>
+</ul>
+</li>
+</ul>
+</li>
 <li>Use the <code>Ingress Route Annotations</code> table to
-add annotations to the ingress route, as needed.</li>
+add annotations to the ingress route, as needed.  Do not remove any pre-populated annotations.</li>
 </ul>
 <h3 id="code-view">Code View</h3>
 <p>The <code>Code View</code> displays shell scripts for installing an ingress controller and for updating ingress routes.  It also
@@ -686,12 +708,17 @@ the script itself.  This change is left as an exercise for you because different
 existing standards for securely handling such credentials.</p>
 <h3 id="install-ingress-controller">Install Ingress Controller</h3>
 <p><code>Install Ingress Controller</code> creates any namespace and secret specified and runs the ingress controller&rsquo;s Helm
-chart to install the ingress controller.  You can access it by using the <code>Install Ingress Controller</code> button on the
-<code>Ingress Controller</code> page or <code>Go</code> &gt; <code>Install Ingress Controller</code>.</p>
+chart to install the ingress controller.  You access this action by using the <code>Install Ingress Controller</code> button on the
+<code>Ingress Controller</code> page or the <code>Go</code> &gt; <code>Install Ingress Controller</code> menu item.</p>
 <h3 id="update-ingress-routes">Update Ingress Routes</h3>
-<p><code>Update Ingress Routes</code> creates the TLS secret, if needed, and adds or updates the specified ingress routes. You can access it
+<p><code>Update Ingress Routes</code> creates the TLS secret, if needed, and adds or updates the specified ingress routes. You access this action
 by using the <code>Update Ingress Routes</code> button on the <code>Ingress Controller</code> page or
-<code>Go</code> &gt; <code>Update Ingress Routes to Domain</code>.</p>
+the <code>Go</code> &gt; <code>Update Ingress Routes to Domain</code> menu item.</p>
+<h3 id="uninstall-ingress-controller">Uninstall Ingress Controller</h3>
+<p><code>Uninstall Ingress Controller</code> uses the <code>helm uninstall</code> command to remove all the ingress resources
+and uninstall the ingress controller. In addition, you can choose whether to also delete the corresponding namespace.
+You access these actions by using the <code>Uninstall Ingress Controller</code> button on the
+<code>Ingress Controller</code> page or the <code>Go</code> &gt; <code>Uninstall Ingress Controller</code> menu item.</p>
 
 
 <footer class="footline">
@@ -1019,19 +1046,19 @@ by using the <code>Update Ingress Routes</code> button on the <code>Ingress Cont
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/weblogic-toolkit-ui/js/clipboard.min.js?1643388268"></script>
-    <script src="/weblogic-toolkit-ui/js/perfect-scrollbar.min.js?1643388268"></script>
-    <script src="/weblogic-toolkit-ui/js/perfect-scrollbar.jquery.min.js?1643388268"></script>
-    <script src="/weblogic-toolkit-ui/js/jquery.sticky.js?1643388268"></script>
-    <script src="/weblogic-toolkit-ui/js/featherlight.min.js?1643388268"></script>
-    <script src="/weblogic-toolkit-ui/js/highlight.pack.js?1643388268"></script>
+    <script src="/weblogic-toolkit-ui/js/clipboard.min.js?1643553258"></script>
+    <script src="/weblogic-toolkit-ui/js/perfect-scrollbar.min.js?1643553258"></script>
+    <script src="/weblogic-toolkit-ui/js/perfect-scrollbar.jquery.min.js?1643553258"></script>
+    <script src="/weblogic-toolkit-ui/js/jquery.sticky.js?1643553258"></script>
+    <script src="/weblogic-toolkit-ui/js/featherlight.min.js?1643553258"></script>
+    <script src="/weblogic-toolkit-ui/js/highlight.pack.js?1643553258"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/weblogic-toolkit-ui/js/modernizr.custom-3.6.0.js?1643388268"></script>
-    <script src="/weblogic-toolkit-ui/js/learn.js?1643388268"></script>
-    <script src="/weblogic-toolkit-ui/js/hugo-learn.js?1643388268"></script>
+    <script src="/weblogic-toolkit-ui/js/modernizr.custom-3.6.0.js?1643553258"></script>
+    <script src="/weblogic-toolkit-ui/js/learn.js?1643553258"></script>
+    <script src="/weblogic-toolkit-ui/js/hugo-learn.js?1643553258"></script>
     
         
-            <script src="/weblogic-toolkit-ui/mermaid/mermaid.js?1643388268"></script>
+            <script src="/weblogic-toolkit-ui/mermaid/mermaid.js?1643553258"></script>
         
         <script>
             mermaid.initialize({ startOnLoad: true });
