@@ -2,6 +2,9 @@
 *#
 .#*
 
+# Hugo-related files
+**/.hugo_build.lock
+
 # Dependency directories
 **/node_modules/
 **/bower_components/

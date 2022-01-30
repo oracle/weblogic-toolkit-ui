@@ -250,9 +250,14 @@
   z-index: 2;
 }
 
-.wkt-env-vars-table, .wkt-paths-table, .wkt-domain-properties-table,
+.wkt-env-vars-table, .wkt-domain-properties-table,
 .wkt-domain-clusters-table, .wkt-domain-secrets-table {
   border: 1px solid var(--oj-collection-border-color);
+}
+
+.wkt-paths-table {
+  .wkt-env-vars-table;
+  width: 100%;
 }
 
 .wkt-domain-clusters-table,

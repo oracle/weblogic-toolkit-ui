@@ -7,7 +7,7 @@
 
 define(['accUtils', 'knockout', 'utils/i18n', 'utils/view-helper', 'ojs/ojarraydataprovider', 'ojs/ojknockout',
   'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojdialog', 'ojs/ojformlayout' ],
-function(accUtils, ko, i18n, viewHelper) {
+function(accUtils, ko, i18n, viewHelper, ArrayDataProvider) {
   function PathDirectoriesDialogModel(config) {
     const DIALOG_SELECTOR = '#wktMacosPathDirectoriesDialog';
 
@@ -41,6 +41,17 @@ function(accUtils, ko, i18n, viewHelper) {
 
     this.i18n = i18n;
     this.pathDirectories = this.formatPathDirectoriesData();
+    this.pathDirectoriesDataProvider = new ArrayDataProvider(this.pathDirectories, {  keyAttributes: 'value' })
+
+    this.pathDirectoriesColumnData = [
+      {
+        'className': 'wkt-table-env-vars-cell',
+        'headerClassName': 'wkt-table-env-vars-header',
+        'headerText': this.labelMapper('name-header'),
+        'field': 'value',
+        'sortable': 'disable'
+      }
+    ];
 
     this.dismissDialog = () => {
       const dialog = this.dialogContainer;
