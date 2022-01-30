@@ -41,7 +41,7 @@ function(accUtils, ko, i18n, viewHelper, ArrayDataProvider) {
 
     this.i18n = i18n;
     this.pathDirectories = this.formatPathDirectoriesData();
-    this.pathDirectoriesDataProvider = new ArrayDataProvider(this.pathDirectories, {  keyAttributes: 'value' })
+    this.pathDirectoriesDataProvider = new ArrayDataProvider(this.pathDirectories, {  keyAttributes: 'value' });
 
     this.pathDirectoriesColumnData = [
       {
