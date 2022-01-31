@@ -13,7 +13,7 @@ This release contains the following changes and bug fixes.
 - Bundling WebLogic Deploy Tooling 2.0.0. See [WDT release notes](https://github.com/oracle/weblogic-deploy-tooling/releases/tag/release-2.0.0) for details.
 - New Validate Model action that leverages WDT 2.0 changes to validate the model files and reports any validation errors it finds.
 - Updated Prepare Model action that leverages WDT 2.0 changes to improve model preparation for deploying with WebLogic Kubernetes Operator.
-- Added support for splitting the FMW (WebLogic or FMW Infrastructure) and WDT model images (aka. auxiliary images).
+- Added support for splitting the FMW (WebLogic or FMW Infrastructure) and WDT model images (also known as auxiliary images).
   - New Create Auxiliary Image action to create an auxiliary image.
   - New Push Auxiliary Image action to push an auxiliary image to an image registry.
 - New Update Operator action to apply changes such as a version upgrade to an existing WebLogic Kubernetes Operator installation.
@@ -31,7 +31,7 @@ This release contains the following changes and bug fixes.
 - Relocated the older, macOS-specific `Extra Path Directories` functionality from the Kubernetes Client Configuration page to the
   Project Settings page to better align with new macOS environment settings and the scope to which they apply.
 - Replaced `Help` menu's `Visit Website` menu item with a `View Documentation` menu item that opens the WebLogic Kubernetes Toolkit UI
-  documentation is the user's browser.
+  documentation in the user's browser.
 - Added a result dialog to display the Primary Image's custom base image's content found by the Inspect Image action.
 - Added a warning message to the Discover Model action if the project has existing model files that will be overwritten by the action.
 - Changed the Windows and Linux About dialog to not be modal.
@@ -44,7 +44,7 @@ This release contains the following changes and bug fixes.
   was the last window open.
 - Resolved application update dialog issue where the Release Notes link was not opening in the user's browser.
 - Resolved all known issues with application update functionality on all platforms.
-- Resolved Podman-related issues to pass key environment variables down to all podman executions.
+- Resolved Podman-related issues to pass key environment variables down to all `podman` executions.
 - Resolved Podman-related issue with pushing to Docker Hub.
 - Resolved issues with the Primary Image tab's Inspect Image button.
 - Resolved issue with Prepare Model action's secret handling whereby domain secret values were being lost.
