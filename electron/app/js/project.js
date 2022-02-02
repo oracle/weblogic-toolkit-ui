@@ -170,7 +170,7 @@ async function saveProject(targetWindow, projectFile, projectContents, externalF
   // the result will contain only sections that were updated due to save, such as model.archiveFiles
   const saveResult = {};
 
-  _addOpenProjectIfNotExist(targetWindow, projectFile);
+  _addOpenProject(targetWindow, projectFile, false);
   saveResult['model'] = await _saveExternalFileContents(_getProjectDirectory(targetWindow), externalFileContents);
   await _saveProjectFile(targetWindow, projectFile, projectContents);
   const wktWindow = require('./wktWindow');
@@ -727,12 +727,6 @@ function _addOpenProject(targetWindow, file, pending, credentialManager) {
     credentialManager: credentialManager
   };
   openProjects.set(targetWindow, value);
-}
-
-function _addOpenProjectIfNotExist(targetWindow, projectFile) {
-  if (!openProjects.has(targetWindow)) {
-    _addOpenProject(targetWindow, projectFile, false);
-  }
 }
 
 async function _createCredentialManager(targetWindow, projectFileJsonContent) {
