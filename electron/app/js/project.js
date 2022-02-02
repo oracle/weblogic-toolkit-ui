@@ -170,7 +170,7 @@ async function saveProject(targetWindow, projectFile, projectContents, externalF
   // the result will contain only sections that were updated due to save, such as model.archiveFiles
   const saveResult = {};
 
-  _addOpenProject(targetWindow, projectFile, false);
+  _assignProjectFile(targetWindow, projectFile);
   saveResult['model'] = await _saveExternalFileContents(_getProjectDirectory(targetWindow), externalFileContents);
   await _saveProjectFile(targetWindow, projectFile, projectContents);
   const wktWindow = require('./wktWindow');
@@ -727,6 +727,17 @@ function _addOpenProject(targetWindow, file, pending, credentialManager) {
     credentialManager: credentialManager
   };
   openProjects.set(targetWindow, value);
+}
+
+// assign project file to window if none is assigned, or file path changes.
+// avoid unnecessary reassignments in order to keep credential manager between saves.
+function _assignProjectFile(targetWindow, projectFile) {
+  const openProject = openProjects.get(targetWindow);
+  const oldFile = openProject ? openProject.projectDirectory + '|' + openProject.projectFile : '';
+  const newFile = path.resolve(path.dirname(projectFile)) + '|' + path.basename(projectFile);
+  if (newFile !== oldFile) {
+    _addOpenProject(targetWindow, projectFile, false);
+  }
 }
 
 async function _createCredentialManager(targetWindow, projectFileJsonContent) {
