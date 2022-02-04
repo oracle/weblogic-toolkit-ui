@@ -14,11 +14,14 @@ description: "Install the WKT UI application and check for updates."
 
 - For RPM-based systems, use either `yum` or `dnf`; for example:
     ```
+    yum update
     sudo yum -y localinstall wktui_1.0.0_amd64.rpm
     ```
 
 - For Debian-based systems, use:
     ```
+    sudo apt update
+    sudo apt upgrade
     sudo apt install ./wktui_1.0.0_amd64.deb
     ```
 
