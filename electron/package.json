@@ -150,7 +150,14 @@
     "rpm": {
       "depends": [
         "libXScrnSaver",
-        "libsecret-devel"
+        "libsecret-devel",
+        "libxshmfence",
+        "libdrm.x86_64",
+        "libgbm",
+        "alsa-lib",
+        "xauth",
+        "atk-devel.x86_64",
+        "java-atk-wrapper.x86_64"
       ],
       "fpm": [
         "--rpm-rpmbuild-define",

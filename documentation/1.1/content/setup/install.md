@@ -21,6 +21,9 @@ description: "Install the WKT UI application and check for updates."
     ```
     sudo apt install ./wktui_1.0.0_amd64.deb
     ```
+
+If the installation is on a server machine, you should `logout` from the current terminal session and use X11 forwarding mechanism or any remote desktop application to the remote terminal for launching the WKT UI application.
+
 Alternatively, you can download the `AppImage` file, copy it to your local file system, then either:
 - Open a terminal, navigate to the directory where the file exists, and make it executable; for example:
 
