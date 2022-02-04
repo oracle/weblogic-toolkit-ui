@@ -152,12 +152,12 @@
         "libXScrnSaver",
         "libsecret-devel",
         "libxshmfence",
-        "libdrm.x86_64",
+        "libdrm",
         "libgbm",
         "alsa-lib",
         "xauth",
-        "atk-devel.x86_64",
-        "java-atk-wrapper.x86_64"
+        "atk-devel",
+        "java-atk-wrapper"
       ],
       "fpm": [
         "--rpm-rpmbuild-define",
