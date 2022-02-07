@@ -174,6 +174,7 @@ contextBridge.exposeInMainWorld(
           'k8s-apply',
           'k8s-label-namespace',
           'k8s-get-service-details',
+          'k8s-get-ingresses',
           'k8s-get-operator-version-from-domain-config-map',
           'k8s-get-k8s-config',
           'k8s-get-k8s-cluster-info',

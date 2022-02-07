@@ -813,6 +813,10 @@ class Main {
       return kubectlUtils.getServiceDetails(kubectlExe, ingressNamespace, serviceName, options);
     });
 
+    ipcMain.handle('k8s-get-ingresses', async (event, kubectlExe, namespace, serviceType, options) => {
+      return kubectlUtils.getIngresses(kubectlExe, namespace, serviceType, options);
+    });
+
     ipcMain.handle('k8s-get-k8s-config', async (event, kubectlExe, options) => {
       return kubectlUtils.getK8sConfigView(kubectlExe, options);
     });

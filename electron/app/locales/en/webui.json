@@ -770,6 +770,7 @@
   "ingress-routes-updater-already-exists-title": "Update Existing Ingress Routes",
   "ingress-routes-updater-routes-prompt-question": "The following routes `{{routes}}` already exist in the Kubernetes cluster, are you sure you want to overwrite them?",
   "ingress-routes-updater-get-service-details-error-message": "Unable to update ingress routes because an error occurred getting the ingress service details in Kubernetes namespace {{namespace}}: {{error}}.",
+  "ingress-routes-updater-get-ingresses-error-message": "Unable to getting ingress details in Kubernetes namespace {{namespace}}: {{error}}.",
   "ingress-routes-updater-route-target-service-not-exists-error-message": "Unable to update ingress routes because the application was unable to get the details for the target service {{targetService}} specified in route {{name}}: {{error}}.",
   "ingress-routes-updater-route-target-port-not-exists-error-message": "Unable to update ingress routes because the target port {{targetPort}} specified in route {{name}} does not exists.",
   "ingress-routes-updater-check-route-target-service-in-progress": "Validating target services and ports for routes",
