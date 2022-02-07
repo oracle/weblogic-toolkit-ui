@@ -565,6 +565,30 @@ async function getServiceDetails(kubectlExe, namespace, serviceName, options) {
   });
 }
 
+async function getIngresses(kubectlExe, namespace, serviceType, options) {
+  const getArgs = [ 'get', serviceType ];
+  getArgs.push('-n', namespace, '--output=json');
+  const httpsProxyUrl = getHttpsProxyUrl();
+  const bypassProxyHosts = getBypassProxyHosts();
+
+  const env = getKubectlEnvironment(options, httpsProxyUrl, bypassProxyHosts);
+  const results = {
+    isSuccess: true
+  };
+
+  return new Promise(resolve => {
+    executeFileCommand(kubectlExe, getArgs, env).then((serviceDetailsJson) => {
+      results.serviceDetails = JSON.parse(serviceDetailsJson);
+      resolve(results);
+    }).catch(err => {
+      results.isSuccess = false;
+      results.reason = i18n.t('kubectl-get-ingresses-error-message',
+        {namespace: namespace, error: getErrorMessage(err), type: serviceType });
+      resolve(results);
+    });
+  });
+}
+
 async function apply(kubectlExe, fileData, options) {
   const httpsProxyUrl = getHttpsProxyUrl();
   const bypassProxyHosts = getBypassProxyHosts();
@@ -777,6 +801,7 @@ module.exports = {
   validateKubectlExe,
   deleteObjectIfExists,
   getServiceDetails,
+  getIngresses,
   getK8sConfigView,
   getK8sClusterInfo,
   getWkoDomainStatus,

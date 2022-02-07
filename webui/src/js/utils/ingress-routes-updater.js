@@ -154,8 +154,8 @@ function(IngressActionsBase, project, wktConsole, k8sHelper, i18n, projectIo, di
           let k8sClusterAddress;
           try {
             k8sClusterAddress = await this._getK8sClusterAddress(kubectlExe, kubectlOptions);
-            overlappingRoutes = await this.getOverlappingRoutes(kubectlExe, kubectlOptions, k8sClusterAddress,
-              ingressControllerProvider, ingressControllerNamespace, routes);
+            overlappingRoutes = await this.getOverlappingRoutes(kubectlExe, kubectlOptions,
+              ingressControllerProvider, this.project.k8sDomain.kubernetesNamespace.value, routes);
           } catch (err) {
             dialogHelper.closeBusyDialog();
             await window.api.ipc.invoke('show-error-message', errTitle, err.message);
@@ -366,18 +366,29 @@ function(IngressActionsBase, project, wktConsole, k8sHelper, i18n, projectIo, di
       return Promise.resolve(true);
     }
 
-    async getOverlappingRoutes(kubectlExe, kubectlOptions, k8sClusterAddress, provider, namespace, routes) {
+    async getOverlappingRoutes(kubectlExe, kubectlOptions, provider, namespace, routes) {
       try {
         let existingRouteList = [];
+        const results =
+          await this.getIngresses(kubectlExe, provider, namespace, kubectlOptions);
+        if (!results.isSuccess) {
+          const errMessage = i18n.t('ingress-routes-updater-get-ingresses-error-message',
+            { namespace: namespace, error: results.reason});
+          throw new Error(errMessage);
+        }
         for (const route of routes) {
-          const serviceDetail =
-            await this.getIngressServiceDetails(kubectlExe, provider, namespace, route, k8sClusterAddress, kubectlOptions);
-          if (!serviceDetail.isSuccess) {
-            const errMessage = i18n.t('ingress-routes-updater-get-service-details-error-message',
-              { namespace: this.project.ingress.ingressControllerNamespace.value, error: serviceDetail.reason });
-            throw new Error(errMessage);
+          results.serviceDetails.items.map( item => {
+            if (item.metadata.name === route['name']) {
+              existingRouteList.push(route['name']);
+            }
+          });
+          if (results.serviceTCPDetails) {
+            results.serviceTCPDetails.items.map( item => {
+              if (item.metadata.name === route['name']) {
+                existingRouteList.push(route['name']);
+              }
+            });
           }
-          existingRouteList.push(route['name']);
         }
         return Promise.resolve(existingRouteList.length > 0 ? existingRouteList : false);
       } catch (err) {
@@ -511,6 +522,30 @@ function(IngressActionsBase, project, wktConsole, k8sHelper, i18n, projectIo, di
         }
         wktLogger.debug('getIngressServiceDetails() returning accessPoint: %s', results['accessPoint']);
       }
+      return Promise.resolve(results);
+    }
+
+    async getIngresses(kubectlExe, ingressControllerProvider, namespace, kubectlOptions) {
+      let serviceType = 'Ingress';
+      if (ingressControllerProvider === 'traefik') {
+        serviceType = 'IngressRoute';
+      }
+
+      const results = await window.api.ipc.invoke('k8s-get-ingresses',
+        kubectlExe, namespace, serviceType, kubectlOptions);
+
+      if (results.isSuccess && ingressControllerProvider === 'traefik') {
+        serviceType = 'IngressRouteTCP';
+        const resultsTCP = await window.api.ipc.invoke('k8s-get-ingresses',
+          kubectlExe, namespace, serviceType, kubectlOptions);
+        if (resultsTCP.isSuccess) {
+          results.serviceTCPDetails = resultsTCP.serviceDetails;
+        } else {
+          return Promise.resolve(resultsTCP);
+        }
+
+      }
+
       return Promise.resolve(results);
     }
 
