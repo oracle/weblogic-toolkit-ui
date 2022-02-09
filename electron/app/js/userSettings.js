@@ -11,6 +11,7 @@ const { getErrorMessage } = require('./errorUtils');
 
 // eslint-disable-next-line no-unused-vars
 const userSettableFieldNames = [
+  'webLogicRemoteConsoleHome',
   'proxy',
   'logging',
   'skipQuickstartAtStartup',
@@ -31,6 +32,7 @@ let _userSettingsFileName;
 // Here is an example with every possible field specified:
 //
 // {
+//   "webLogicRemoteConsoleHome": "The path to the WebLogic Remote Console installation",
 //   "proxy": {
 //     "httpsProxyUrl": "The proxy to use for the application's all https outbound communication",
 //     "bypassProxyHosts: "The value to use to set the NO_PROXY environment variable for child processes"
@@ -87,6 +89,20 @@ function applyUserSettingsFromRemote(remoteUserSettingsJson) {
   _userSettingsObject = remoteUserSettingsObject;
   saveUserSettings();
   logger.debug('user settings saved...restart the application to pick up logger settings changes');
+}
+
+function getWebLogicRemoteConsoleHome() {
+  let wlRemoteConsoleHome;
+  const userSettingsObj = _getUserSettings();
+  if ('webLogicRemoteConsoleHome' in userSettingsObj) {
+    wlRemoteConsoleHome = userSettingsObj['webLogicRemoteConsoleHome'];
+  }
+  return wlRemoteConsoleHome;
+}
+
+function setWebLogicRemoteConsoleHome(wlRemoteConsoleHome) {
+  const settings = _getUserSettings();
+  settings['webLogicRemoteConsoleHome'] = wlRemoteConsoleHome;
 }
 
 function getHttpsProxyUrl() {
@@ -413,5 +429,7 @@ module.exports = {
   setWindowSize,
   getLoggingConfiguration,
   getUserSettingsForRemote,
-  saveUserSettings
+  saveUserSettings,
+  getWebLogicRemoteConsoleHome,
+  setWebLogicRemoteConsoleHome
 };

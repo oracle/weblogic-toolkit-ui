@@ -22,6 +22,10 @@ function(accUtils, ko, utils, i18n, ArrayDataProvider, project, wktLogger) {
       return i18n.t(`user-settings-dialog-${labelId}`);
     };
 
+    this.isLinux = () => {
+      return window.api.process.isLinux();
+    };
+
     this.userSettings = {};
     try {
       this.userSettings = JSON.parse(payload['userSettingsJson']);
@@ -49,6 +53,7 @@ function(accUtils, ko, utils, i18n, ArrayDataProvider, project, wktLogger) {
     this.connectivityTestTimeoutSeconds = ko.observable(payload.defaults.connectivityTestTimeoutMilliseconds / 1000);
     this.internalConnectivityTestTimeoutMilliseconds = ko.observable(payload.defaults.connectivityTestTimeoutMilliseconds);
     this.skipQuickstart = ko.observable(false);
+    this.wlRemoteConsoleHome = ko.observable();
 
     this.loadUserSettings = () => {
       if ('proxy' in this.userSettings) {
@@ -87,10 +92,40 @@ function(accUtils, ko, utils, i18n, ArrayDataProvider, project, wktLogger) {
       if ('skipQuickstartAtStartup' in this.userSettings) {
         this.skipQuickstart(this.userSettings.skipQuickstartAtStartup);
       }
+
+      if ('webLogicRemoteConsoleHome' in this.userSettings) {
+        this.wlRemoteConsoleHome(this.userSettings.webLogicRemoteConsoleHome);
+      }
     };
 
     this.chooseLogFileDir = async () => {
       this.fileLogDir(await window.api.ipc.invoke('get-log-file-directory-location'));
+    };
+
+    this.chooseWebLogicRemoteConsoleHomeDirectory = async () => {
+      const rcHome = await window.api.ipc.invoke('get-wrc-home-directory');
+      if (rcHome) {
+        this.wlRemoteConsoleHome(rcHome);
+      }
+    };
+
+    this.chooseWebLogicRemoteConsoleAppImage = async () => {
+      const rcHome = await window.api.ipc.invoke('get-wrc-app-image');
+      if (rcHome) {
+        this.wlRemoteConsoleHome(rcHome);
+      }
+    };
+
+    this.getWebLogicRemoteConsoleHomeHelp = () => {
+      let helpKey;
+      if (window.api.process.isMac()) {
+        helpKey = 'wrc-home-macos-help';
+      } else if (window.api.process.isWindows()) {
+        helpKey = 'wrc-home-windows-help';
+      } else {
+        helpKey = 'wrc-home-linux-help';
+      }
+      return this.labelMapper(helpKey);
     };
 
     this.storeUserSettings = () => {
@@ -107,12 +142,12 @@ function(accUtils, ko, utils, i18n, ArrayDataProvider, project, wktLogger) {
           this.internalConnectivityTestTimeoutMilliseconds, payload.defaults.connectivityTestTimeoutMilliseconds);
       }
       this._storeSetting('skipQuickstartAtStartup', this.skipQuickstart, false);
+      this._storeSetting('webLogicRemoteConsoleHome', this.wlRemoteConsoleHome);
     };
 
     this._storeSetting = (key, observable, defaultValue) => {
       const keyPath = key.split('.');
       if (defaultValue === undefined || defaultValue !== observable()) {
-
         let currentObj = this.userSettings;
         for (let i = 0; i < keyPath.length - 1; i++) {
           if (!(keyPath[i] in currentObj)) {

@@ -247,12 +247,16 @@ function(wktProject, wktConsole, wdtDiscoverer, dialogHelper, projectIO,
     return doDirtyCheck('window-app-quit');
   });
 
-  window.api.ipc.receive('show-quickstart', async() => {
+  window.api.ipc.receive('show-quickstart', async () => {
     dialogHelper.openDialog('quickstart-dialog');
   });
 
   window.api.ipc.receive('show-startup-dialogs', async(startupInformation) => {
     return appUpdater.showStartupDialogs(startupInformation);
+  });
+
+  window.api.ipc.receive('set-wrc-backend-port', (port) => {
+    wktProject.wdtModel.internal.wlRemoteConsolePort(port);
   });
 
   async function doDirtyCheck(responseChannel) {

@@ -1,9 +1,43 @@
 <!--
- Copyright (c) 2021, Oracle and/or its affiliates.
+ Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 <div class="wkt-model-edit-design">
-  <div class="oj-panel">
-    <p><oj-bind-text value="[[labelMapper('coming-soon')]]"></oj-bind-text></p>
-  </div>
+  <oj-bind-if test="[[showRemoteConsoleComponent() === true]]">
+    <div class="oj-panel">
+      <p><oj-bind-text value="[[labelMapper('coming-soon')]]"></oj-bind-text></p>
+    </div>
+  </oj-bind-if>
+
+  <oj-bind-if test="[[showRemoteConsoleConfigForm() === true]]">
+    <div class="oj-panel">
+      <h6 class="wkt-subheading">
+        <oj-bind-text value="[[labelMapper('wrc-form-title')]]"></oj-bind-text>
+      </h6>
+      <p id="model-design-wrc-install" class="wkt-link-container" data-bind="html: wrcInstallInstructions"></p>
+      <oj-form-layout max-columns="1" direction="row">
+        <oj-input-text label-hint="[[i18n.t('user-settings-dialog-wrc-home-label')]]"
+                       value="{{project.wdtModel.internal.wlRemoteConsoleHome.observable}}"
+                       help.instruction="[[getWebLogicRemoteConsoleHomeHelpText()]]">
+          <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[chooseWebLogicRemoteConsoleHomeDirectory]]">
+            <span slot="endIcon" class="oj-ux-ico-folder" role="img"></span>
+          </oj-button>
+          <oj-bind-if test="[[isLinux() === true]]">
+            <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[chooseWebLogicRemoteConsoleAppImage]]">
+              <span slot="endIcon" class="oj-ux-ico-file-bin" role="img"></span>
+            </oj-button>
+          </oj-bind-if>
+        </oj-input-text>
+        <oj-button id="start-wrc-button"
+                   disabled="[[disableStartButton]]"
+                   chroming="callToAction"
+                   on-oj-action="[[startWebLogicRemoteConsole]]"
+                   :title="[[labelMapper('hints-startWebLogicRemoteConsole')]]">
+          <span>
+            <oj-bind-text value="[[labelMapper('button-startWebLogicRemoteConsole')]]"></oj-bind-text>
+          </span>
+        </oj-button>
+      </oj-form-layout>
+    </div>
+  </oj-bind-if>
 </div>

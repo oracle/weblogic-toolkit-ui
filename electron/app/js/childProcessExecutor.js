@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const { exec, execFile, spawn } = require('child_process');
@@ -45,7 +45,20 @@ async function executeChildProcess(currentWindow, executable, argList, env, stdo
   return child.exitCode;
 }
 
-function getSpawnOptions(env, shell, detached, windowsHide) {
+function spawnChildDaemonProcess(executable, argList, env, extraOptions = {}, {
+  shell = false,
+  detached = false,
+  windowHime: windowHide = true,
+} = {}) {
+  const command = workaroundNodeJsIssue38490(shell, executable, argList);
+  const options = getSpawnOptions(env, shell, detached, windowHide, extraOptions);
+
+  getLogger().debug('Spawning daemon process %s with arguments %s and options %s',
+    command.executable, command.argList, JSON.stringify(options));
+  return spawn(command.executable, command.argList, options);
+}
+
+function getSpawnOptions(env, shell, detached, windowsHide, extraOptions = {}) {
   const options = {
     stdio: [ 'pipe', 'pipe', 'pipe' ],
     shell: shell,
@@ -55,6 +68,10 @@ function getSpawnOptions(env, shell, detached, windowsHide) {
 
   if (envIsNotEmpty(env)) {
     options['env'] = env;
+  }
+
+  for (const [key, value] of Object.entries(extraOptions)) {
+    options[key] = value;
   }
   return options;
 }
@@ -199,5 +216,6 @@ module.exports = {
   executeChildProcess,
   executeChildShellScript,
   executeFileCommand,
-  executeScriptCommand
+  executeScriptCommand,
+  spawnChildDaemonProcess
 };
