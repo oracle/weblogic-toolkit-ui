@@ -29,7 +29,8 @@ These include:
 - `openssl` - Used to generate an X.509 TLS certificate for ingress routes, should you ask the application
   to generate one for you.
 
-The WKT UI application is built using the Electron framework and as such, we support only the platforms and versions supported by [Electron](https://www.electronjs.org/docs/latest/tutorial/support#supported-platforms).  For example, because of the Electron requirement for Fedora 24 or newer, we support only versions 8.0 and higher of Oracle Linux, RedHat Linux, and CentOS Linux.
+{{% notice note %}} The WKT UI application is built using the Electron framework and as such, we support only the platforms and versions supported by [Electron](https://www.electronjs.org/docs/latest/tutorial/support#supported-platforms).  For example, because of the Electron requirement for Fedora 24 or newer, we support _only_ versions 8.0 and higher of Oracle Linux, RedHat Linux, and CentOS Linux.
+{{% /notice %}}
 
 In addition to these local software dependencies, you will need a Kubernetes cluster to which you can deploy your
 containerized WebLogic Server domain and its applications.  If you do not already have a model, then you can either write
@@ -45,14 +46,14 @@ with a WebLogic domain that can be used to discover the model from the domain.
    https://support.oracle.com/knowledge/Oracle%20Linux%20and%20Virtualization/2717454_1.html
 
    - For running the WKT UI on a remote machine without desktop environment and accessing it through X forwarding, you need to ensure X forwarding is working properly.  For example,
-  
+
     ```
     sudo dnf install xterm
     logout
     ssh -X ...
     xterm
     ```
-  
+
 - For Debian-based systems, such as Ubuntu and Debian:
 
    - For storing credentials in the OS native credentials store, you must have a desktop environment. If your system does not have a graphical desktop environment, then you can install one; for example, installing GNOME on Ubuntu 20x:
@@ -60,7 +61,7 @@ with a WebLogic domain that can be used to discover the model from the domain.
    sudo apt install gnome-session gdm3
    sudo reboot
    ```
-  
+
   - For running the WKT UI on a remote machine without desktop environment and accessing it through X forwarding, you need to ensure X forwarding is working properly.  For example,
 
     ```
