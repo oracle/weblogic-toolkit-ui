@@ -48,7 +48,7 @@ async function executeChildProcess(currentWindow, executable, argList, env, stdo
 function spawnDaemonChildProcess(executable, argList, env, extraOptions = {}, {
   shell = false,
   detached = false,
-  windowHime: windowHide = true,
+  windowHide = true,
 } = {}) {
   const command = workaroundNodeJsIssue38490(shell, executable, argList);
   const options = getSpawnOptions(env, shell, detached, windowHide, extraOptions);
