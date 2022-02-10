@@ -369,8 +369,6 @@
 
   "wrc-home-error-title": "Invalid WebLogic Remote Console Location",
   "wrc-init-error-title": "Initializing WebLogic Remote Console Backend Failed",
-
-
   "wrc-location-existence-check-failed": "Unable to start the WebLogic Remote Console backend at {{location}} due to an error while trying to determine its existence: {{error}}.",
   "wrc-dev-executable-directory-not-exists": "Unable to start the WebLogic Remote Console backend in development mode at {{rcHome}} because the expected directory {{location}} does not exist.",
   "wrc-dev-executable-not-exists": "Unable to start the WebLogic Remote Console backend in development mode at {{rcHome}} because the executable file {{executable}} does not exist.",

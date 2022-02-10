@@ -39,7 +39,7 @@ async function startWebLogicRemoteConsoleBackend(currentWindow, skipVersionCheck
         const executable = result['executable'];
         const argList = result['arguments'];
         const options = result['options'];
-        
+
         _wlRemoteConsoleChildProcess = spawnDaemonChildProcess(executable, argList, null, options);
         _wlRemoteConsoleChildProcess.on('error', (err) => {
           const title = i18n.t('wrc-spawn-error-title');
