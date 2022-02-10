@@ -18,7 +18,11 @@ const { getLogger } = require('./wktLogging');
 const osUtils = require('./osUtils');
 const {sendToWindow} = require('./windowUtils');
 
+// TODO - Change this to the correct version once the RC version changes to 2.3.0...
+const MIN_VERSION = '2.2.0';
+const MIN_VERSION_COMPONENTS = MIN_VERSION.split('.').map((item) => { return Number(item); });
 let _wlRemoteConsoleChildProcess;
+
 
 async function startWebLogicRemoteConsoleBackend(currentWindow) {
   if (_wlRemoteConsoleChildProcess) {
@@ -228,9 +232,12 @@ async function _getInstalledExecutablePath(rcHome) {
     exists: true
   };
 
+  let packageJsonFile;
   if (osUtils.isMac()) {
+    packageJsonFile = path.join(rcHome, 'Contents', 'MacOS', 'package.json');
     result['executable'] = path.join(rcHome, 'Contents', 'MacOS', 'WebLogic Remote Console');
   } else if (osUtils.isWindows()) {
+    packageJsonFile = path.join(rcHome, 'package.json');
     result['executable'] = path.join(rcHome, 'WebLogic Remote Console.exe');
   } else {
     // For Linux, the rcHome is either a directory or a path to an AppImage file.
@@ -245,6 +252,7 @@ async function _getInstalledExecutablePath(rcHome) {
     }
 
     if (isDirectory) {
+      packageJsonFile = path.join(rcHome, 'package.json');
       result['executable'] = path.join(rcHome, 'weblogic-remote-console');
     } else {
       result['executable'] = rcHome;
@@ -254,13 +262,87 @@ async function _getInstalledExecutablePath(rcHome) {
   return new Promise((resolve, reject) => {
     fsUtils.exists(result['executable']).then(doesExist => {
       result['exists'] = doesExist;
-      resolve(result);
+      _verifyVersionCompatibility(packageJsonFile, result['executable']).then(versionResult => {
+        if (versionResult['isCompatible']) {
+          getLogger().debug('WebLogic Remote Console version %s is compatible', versionResult['version']);
+          resolve(result);
+        } else {
+          const message = i18n.t('wrc-version-incompatible-message',
+            { rcVersion: versionResult['version'], minVersion: MIN_VERSION });
+          reject(new Error(message));
+        }
+      }).catch(err => {
+        const message = i18n.t('wrc-version-verification-failed', { error: getErrorMessage(err) });
+        reject(new Error(message));
+      });
     }).catch(err => {
       const message = i18n.t('wrc-executable-existence-check-failed',
         {rcHome: rcHome, executable: result['executable'], error: getErrorMessage(err) });
       reject(new Error(message));
     });
   });
+}
+
+async function _verifyVersionCompatibility(packageJsonFile, executablePath) {
+  const result = {
+    isCompatible: false
+  };
+
+  if (packageJsonFile) {
+    return new Promise((resolve, reject) => {
+      fsUtils.exists(packageJsonFile).then(doesExist => {
+        if (doesExist) {
+          const packageJson =
+            require(path.join(path.dirname(packageJsonFile), path.basename(packageJsonFile, '.json')));
+          if (packageJson.version) {
+            result['version'] = packageJson.version;
+            result['isCompatible'] = _verifyVersionNumberCompatibility(packageJson.version);
+            resolve(result);
+          } else {
+            const message = i18n.t('wrc-package-json-missing-version', { packageJsonFile: packageJsonFile });
+            reject(new Error(message));
+          }
+        } else {
+          const message = i18n.t('wrc-package-json-file-missing', { packageJsonFile: packageJsonFile });
+          reject(new Error(message));
+        }
+      }).catch(err => {
+        const message = i18n.t('wrc-package-json-existence-check-failed',
+          {packageJsonFile: packageJsonFile, error: getErrorMessage(err)});
+        reject(new Error(message));
+      });
+    });
+  }
+
+  // If we get here, that means the user is using the AppImage file.
+  // All we can really do is try to look at the file name for the
+  // version number and hope that they didn't change the file name...
+  //
+  const appImageRegex = /^WebLogic.Remote.Console-(\d+\.\d+\.\d+)\.AppImage$/;
+  const executableFileName = path.basename(executablePath);
+  const matcher = executableFileName.match(appImageRegex);
+  if (matcher) {
+    result['version'] = matcher[1];
+    result['isCompatible'] = _verifyVersionNumberCompatibility(matcher[1]);
+    return Promise.resolve(result);
+  } else {
+    const message = i18n.t('wrc-app-image-file-version-no-match',
+      { rcHone: executablePath, filename: executableFileName });
+    return Promise.reject(new Error(message));
+  }
+}
+
+function _verifyVersionNumberCompatibility(actualVersion) {
+  const versionComponents = actualVersion.split('.').map((item) => { return Number(item); });
+
+  let versionIsCompatible = true;
+  for (let i = 0; i < 3; i++) {
+    if (versionComponents[i] < MIN_VERSION_COMPONENTS[i]) {
+      versionIsCompatible = false;
+      break;
+    }
+  }
+  return versionIsCompatible;
 }
 
 async function _getLocationFromPreferencesFile() {

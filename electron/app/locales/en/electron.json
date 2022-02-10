@@ -378,5 +378,11 @@
   "wrc-spawn-error-title": "Starting WebLogic Remote Console Backend Failed",
   "wrc-set-home-not-exists": "Unable to set the WebLogic Remote Console Home because {{rcHome}} does not exist.",
   "wrc-set-home-existence-check-failed": "Unable to set the WebLogic Remote Console Home because the existence check for {{rcHome}} failed: {{error}}.",
-  "wrc-set-and-start-error-title": "Starting WebLogic Remote Console Backend Failed"
+  "wrc-set-and-start-error-title": "Starting WebLogic Remote Console Backend Failed",
+  "wrc-package-json-file-missing": "Unable to determine the WebLogic Remote Console version because the {{packageJsonFile}} file was missing.",
+  "wrc-package-json-missing-version": "Unable to determine the WebLogic Remote Console version because the {{packageJsonFile}} file was missing the version element.",
+  "wrc-package-json-existence-check-failed": "Unable to determine the WebLogic Remote Console version because the existence check for {{packageJsonFile}} failed: {{error}}.",
+  "wrc-app-image-file-version-no-match": "Unable to determine the WebLogic Remote Console version because the location {{rcHome}} AppImage file name {{filename}} does not match the expected filename pattern needed to extract the version number.",
+  "wrc-version-incompatible-message": "The WebLogic Remote Console version {{rcVersion}} does not meet the minimum version requirement of {{minVersion}}.",
+  "wrc-version-verification-failed": "Unable to start the WebLogic Remote Console backend because an error occurred while trying to determine the version compatibility: {{error}}"
 }

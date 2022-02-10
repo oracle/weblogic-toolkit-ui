@@ -210,6 +210,7 @@ class Main {
       this._logger.debug('Received window-is-ready for window %d', event.sender.getOwnerBrowserWindow().id);
       const currentWindow = event.sender.getOwnerBrowserWindow();
       currentWindow.isReady = true;
+
       project.sendProjectOpened(currentWindow).then(async () => {
         if (!this._startupDialogsShownAlready) {
           const startupInformation = {
