@@ -14,6 +14,8 @@ The WKT UI provides a graphical user interface that wraps the WKT tools, Docker,
 a Linux container image to use to run the domain, and setting up and deploying the software and configuration
 necessary to deploy and access the domain in your Kubernetes cluster.
 
+**NOTE**: The WKT UI application is built using the Electron framework and as such, we support only the platforms and versions supported by [Electron](https://www.electronjs.org/docs/latest/tutorial/support#supported-platforms).  For example, because of the Electron requirement for Fedora 24 or newer, we support _only_ versions 8.0 and higher of Oracle Linux, RedHat Linux, and CentOS Linux.
+
 
 ## About the Documentation
 
