@@ -16,7 +16,8 @@ const i18n = require('./i18next.config');
 const { getErrorMessage } = require('./errorUtils');
 const { getLogger } = require('./wktLogging');
 const osUtils = require('./osUtils');
-const {sendToWindow} = require('./windowUtils');
+const { sendToWindow } = require('./windowUtils');
+const { spawnDaemonChildProcess } = require('./childProcessExecutor');
 
 // TODO - Change this to the correct version once the RC version changes to 2.3.0...
 const MIN_VERSION = '2.2.0';
@@ -24,22 +25,21 @@ const MIN_VERSION_COMPONENTS = MIN_VERSION.split('.').map((item) => { return Num
 let _wlRemoteConsoleChildProcess;
 
 
-async function startWebLogicRemoteConsoleBackend(currentWindow) {
+async function startWebLogicRemoteConsoleBackend(currentWindow, skipVersionCheck = false) {
   if (_wlRemoteConsoleChildProcess) {
     return Promise.resolve();
   }
 
   return new Promise((resolve) => {
-    _getWebLogicRemoteConsoleHome().then(rcHome => {
+    _getWebLogicRemoteConsoleHome(skipVersionCheck).then(rcHome => {
       if (!rcHome) {
         return resolve();
       }
       _getWebLogicRemoteConsoleExecutableData(rcHome).then(result => {
-        const { spawnDaemonChildProcess } = require('./childProcessExecutor');
         const executable = result['executable'];
         const argList = result['arguments'];
         const options = result['options'];
-
+        
         _wlRemoteConsoleChildProcess = spawnDaemonChildProcess(executable, argList, null, options);
         _wlRemoteConsoleChildProcess.on('error', (err) => {
           const title = i18n.t('wrc-spawn-error-title');
@@ -71,7 +71,12 @@ async function startWebLogicRemoteConsoleBackend(currentWindow) {
       }).catch(err => {
         const title = i18n.t('wrc-init-error-title');
         dialog.showErrorBox(title, getErrorMessage(err));
+        resolve();
       });
+    }).catch(err => {
+      const title = i18n.t('wrc-home-error-title');
+      dialog.showErrorBox(title, getErrorMessage(err));
+      resolve();
     });
   });
 }
@@ -85,12 +90,21 @@ async function setWebLogicRemoteConsoleHomeAndStart(currentWindow, rcHome) {
         dialog.showErrorBox(title, message);
         return resolve();
       }
-      userSettings.setWebLogicRemoteConsoleHome(rcHome);
-      startWebLogicRemoteConsoleBackend(currentWindow).then(() => {
-        resolve();
+
+      _isCompatibleVersion(rcHome).then(isCompatibleResult => {
+        getLogger().debug('_isCompatibleVersion() returned %s', JSON.stringify(isCompatibleResult));
+        if (isCompatibleResult.isCompatible) {
+          userSettings.setWebLogicRemoteConsoleHome(rcHome);
+          startWebLogicRemoteConsoleBackend(currentWindow, true).then(() => resolve() );
+        } else {
+          const message = i18n.t('wrc-version-incompatible-message',
+            { rcVersion: isCompatibleResult['version'], minVersion: MIN_VERSION });
+          dialog.showErrorBox(title, message);
+          return resolve();
+        }
       }).catch(err => {
         dialog.showErrorBox(title, getErrorMessage(err));
-        resolve();
+        return resolve();
       });
     }).catch(err => {
       const message = i18n.t('wrc-set-home-existence-check-failed', { rcHome: rcHome, error: getErrorMessage(err) });
@@ -138,7 +152,7 @@ function getDefaultDirectoryForOpenDialog(isAppImage = false) {
   return result;
 }
 
-async function _getWebLogicRemoteConsoleHome() {
+async function _getWebLogicRemoteConsoleHome(skipVersionCheck = false) {
   const rcHome = userSettings.getWebLogicRemoteConsoleHome();
   if (!rcHome) {
     return Promise.resolve();
@@ -146,9 +160,59 @@ async function _getWebLogicRemoteConsoleHome() {
 
   return new Promise((resolve, reject) => {
     fsUtils.exists(rcHome).then(doesExist => {
-      resolve(doesExist ? rcHome : undefined);
+      if (doesExist) {
+        if (!skipVersionCheck) {
+          _isCompatibleVersion(rcHome).then(isCompatibleResult => {
+            if (isCompatibleResult['isCompatible']) {
+              resolve(rcHome);
+            } else {
+              const message = i18n.t('wrc-version-incompatible-message',
+                { rcVersion: isCompatibleResult['version'], minVersion: MIN_VERSION });
+              reject(new Error(message));
+            }
+          }).catch(err => reject(err));
+        } else {
+          resolve(rcHome);
+        }
+      } else {
+        const message = i18n.t('wrc-home-not-exist', { rcHome: rcHome });
+        reject(new Error(message));
+      }
     }).catch(err => {
       const message = i18n.t('wrc-location-existence-check-failed', { location: rcHome, error: getErrorMessage(err) });
+      reject(new Error(message));
+    });
+  });
+}
+
+async function _isCompatibleVersion(rcHome) {
+  let packageJsonFile;
+  if (osUtils.isMac()) {
+    packageJsonFile = path.join(rcHome, 'Contents', 'MacOS', 'package.json');
+  } else if (osUtils.isWindows()) {
+    packageJsonFile = path.join(rcHome, 'package.json');
+  } else {
+    // For Linux, the rcHome is either a directory or a path to an AppImage file.
+    //
+    let isDirectory;
+    try {
+      isDirectory = await fsUtils.isDirectory(rcHome);
+    } catch (err) {
+      const message = i18n.t('wrc-linux-executable-directory-check-failed',
+        { rcHome: rcHome, error: getErrorMessage(err) });
+      return Promise.reject(new Error(message));
+    }
+
+    if (isDirectory) {
+      packageJsonFile = path.join(rcHome, 'package.json');
+    }
+  }
+
+  return new Promise((resolve, reject) => {
+    _verifyVersionCompatibility(packageJsonFile, rcHome).then(versionResult => {
+      resolve(versionResult);
+    }).catch(err => {
+      const message = i18n.t('wrc-version-verification-failed', { error: getErrorMessage(err) });
       reject(new Error(message));
     });
   });
@@ -232,12 +296,9 @@ async function _getInstalledExecutablePath(rcHome) {
     exists: true
   };
 
-  let packageJsonFile;
   if (osUtils.isMac()) {
-    packageJsonFile = path.join(rcHome, 'Contents', 'MacOS', 'package.json');
     result['executable'] = path.join(rcHome, 'Contents', 'MacOS', 'WebLogic Remote Console');
   } else if (osUtils.isWindows()) {
-    packageJsonFile = path.join(rcHome, 'package.json');
     result['executable'] = path.join(rcHome, 'WebLogic Remote Console.exe');
   } else {
     // For Linux, the rcHome is either a directory or a path to an AppImage file.
@@ -252,7 +313,6 @@ async function _getInstalledExecutablePath(rcHome) {
     }
 
     if (isDirectory) {
-      packageJsonFile = path.join(rcHome, 'package.json');
       result['executable'] = path.join(rcHome, 'weblogic-remote-console');
     } else {
       result['executable'] = rcHome;
@@ -262,19 +322,7 @@ async function _getInstalledExecutablePath(rcHome) {
   return new Promise((resolve, reject) => {
     fsUtils.exists(result['executable']).then(doesExist => {
       result['exists'] = doesExist;
-      _verifyVersionCompatibility(packageJsonFile, result['executable']).then(versionResult => {
-        if (versionResult['isCompatible']) {
-          getLogger().debug('WebLogic Remote Console version %s is compatible', versionResult['version']);
-          resolve(result);
-        } else {
-          const message = i18n.t('wrc-version-incompatible-message',
-            { rcVersion: versionResult['version'], minVersion: MIN_VERSION });
-          reject(new Error(message));
-        }
-      }).catch(err => {
-        const message = i18n.t('wrc-version-verification-failed', { error: getErrorMessage(err) });
-        reject(new Error(message));
-      });
+      resolve(result);
     }).catch(err => {
       const message = i18n.t('wrc-executable-existence-check-failed',
         {rcHome: rcHome, executable: result['executable'], error: getErrorMessage(err) });
@@ -292,8 +340,7 @@ async function _verifyVersionCompatibility(packageJsonFile, executablePath) {
     return new Promise((resolve, reject) => {
       fsUtils.exists(packageJsonFile).then(doesExist => {
         if (doesExist) {
-          const packageJson =
-            require(path.join(path.dirname(packageJsonFile), path.basename(packageJsonFile, '.json')));
+          const packageJson = require(packageJsonFile);
           if (packageJson.version) {
             result['version'] = packageJson.version;
             result['isCompatible'] = _verifyVersionNumberCompatibility(packageJson.version);

@@ -45,7 +45,7 @@ async function executeChildProcess(currentWindow, executable, argList, env, stdo
   return child.exitCode;
 }
 
-function spawnChildDaemonProcess(executable, argList, env, extraOptions = {}, {
+function spawnDaemonChildProcess(executable, argList, env, extraOptions = {}, {
   shell = false,
   detached = false,
   windowHime: windowHide = true,
@@ -217,5 +217,5 @@ module.exports = {
   executeChildShellScript,
   executeFileCommand,
   executeScriptCommand,
-  spawnChildDaemonProcess
+  spawnDaemonChildProcess
 };
