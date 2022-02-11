@@ -11,7 +11,7 @@
     <div class="oj-panel wkt-notop wkt-full-height">
       <oj-table id="macos-environment-variables-table"
                 class="wkt-env-vars-table"
-                aria-label="Inherited Environment Variables Table"
+                :aria-label="[[labelMapper('table-aria-label')]]"
                 data="[[environmentVariablesDataProvider]]"
                 display="grid"
                 layout="fixed"

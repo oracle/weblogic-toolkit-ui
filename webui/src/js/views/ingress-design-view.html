@@ -176,7 +176,7 @@
     </h6>
     <oj-table id="routes-table"
               class="wkt-model-properties-table"
-              aria-label="Editable Properties Table"
+              :aria-label="[[labelMapper('routes-table-aria-label')]]"
               data="[[routesDataProvider]]"
               display="grid"
               horizontal-grid-visible="enabled"

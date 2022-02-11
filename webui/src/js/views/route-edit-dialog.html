@@ -79,7 +79,7 @@
         <oj-bind-text value="[[labelMapper('route-annotations-table-title')]]"></oj-bind-text>
       </h6>
       <oj-table class="wkt-model-properties-table"
-                aria-label="Ingress Routes Table"
+                :aria-label="[[labelMapper('route-annotations-table-aria-label')]]"
                 data="[[annotationsProvider]]"
                 edit-mode="rowEdit"
                 columns='[[annotationColumns]]'>
