@@ -34,6 +34,8 @@ const helmUtils = require('./js/helmUtils');
 const openSSLUtils = require('./js/openSSLUtils');
 const osUtils = require('./js/osUtils');
 const { initializeAutoUpdater, registerAutoUpdateListeners, installUpdates, getUpdateInformation } = require('./js/appUpdater');
+const { startWebLogicRemoteConsoleBackend, getDefaultDirectoryForOpenDialog, setWebLogicRemoteConsoleHomeAndStart,
+  getDefaultWebLogicRemoteConsoleHome } = require('./js/wlRemoteConsoleUtils');
 
 const { getHttpsProxyUrl, getBypassProxyHosts } = require('./js/userSettings');
 const { sendToWindow } = require('./js/windowUtils');
@@ -153,6 +155,8 @@ class Main {
           }
 
           createWindow(this._isJetDevMode, this._wktApp).then(win => {
+            startWebLogicRemoteConsoleBackend(win).then();
+
             if (filePath) {
               win.once('ready-to-show', () => {
                 this.openProjectFileInWindow(win, filePath);
@@ -206,6 +210,7 @@ class Main {
       this._logger.debug('Received window-is-ready for window %d', event.sender.getOwnerBrowserWindow().id);
       const currentWindow = event.sender.getOwnerBrowserWindow();
       currentWindow.isReady = true;
+
       project.sendProjectOpened(currentWindow).then(async () => {
         if (!this._startupDialogsShownAlready) {
           const startupInformation = {
@@ -890,6 +895,41 @@ class Main {
     ipcMain.handle('exit-app', async () => {
       // called before any projects opened, no need for extra checks
       app.quit();
+    });
+
+    ipcMain.handle('get-wrc-home-directory', async (event) => {
+      const title = i18n.t('dialog-getWebLogicRemoteConsoleHome');
+      const properties = osUtils.isMac() ? [ 'openFile', 'dontAddToRecent' ] : [ 'openDirectory', 'dontAddToRecent' ];
+      return chooseFromFileSystem(event.sender.getOwnerBrowserWindow(), {
+        title: title,
+        defaultPath: getDefaultDirectoryForOpenDialog(),
+        message: title,
+        buttonLabel: i18n.t('button-select'),
+        properties: properties
+      });
+    });
+
+    ipcMain.handle('get-wrc-app-image', async (event) => {
+      const title = i18n.t('dialog-getWebLogicRemoteConsoleAppImage');
+      return chooseFromFileSystem(event.sender.getOwnerBrowserWindow(), {
+        title: title,
+        defaultPath: getDefaultDirectoryForOpenDialog(true),
+        message: title,
+        buttonLabel: i18n.t('button-select'),
+        properties: [ 'openFile', 'dontAddToRecent' ],
+        filters: [
+          { name: 'AppImage Files', extensions: ['AppImage'] }
+        ]
+      });
+    });
+
+    ipcMain.handle('wrc-set-home-and-start', async (event, wlRemoteConsoleHome) => {
+      return setWebLogicRemoteConsoleHomeAndStart(event.sender.getOwnerBrowserWindow(), wlRemoteConsoleHome);
+    });
+
+    // eslint-disable-next-line no-unused-vars
+    ipcMain.handle('wrc-get-home-default-value', async (event) => {
+      return getDefaultWebLogicRemoteConsoleHome();
     });
   }
 

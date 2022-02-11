@@ -40,6 +40,8 @@ define(['knockout', 'utils/observable-properties', 'js-yaml', 'utils/validation-
         // internal values that are implemented as properties, but are excluded from default serialization
 
         this.internal = {
+          wlRemoteConsolePort: ko.observable(),
+          wlRemoteConsoleHome: props.createProperty(window.api.ipc.invoke('wrc-get-home-default-value')),
           propertiesContent: createPropertiesObject({})
         };
 

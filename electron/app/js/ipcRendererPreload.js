@@ -50,6 +50,7 @@ contextBridge.exposeInMainWorld(
           'project-created',
           'project-opened',
           'project-saved',
+          'set-wrc-backend-port',
           'start-add-model-file',
           'start-add-variable-file',
           'start-add-archive-file',
@@ -198,7 +199,11 @@ contextBridge.exposeInMainWorld(
           'k8s-delete-object',
           'openssl-generate-certs',
           'validate-k8s-namespaces-exist',
-          'validate-wko-domain-exist'
+          'validate-wko-domain-exist',
+          'get-wrc-home-directory',
+          'get-wrc-app-image',
+          'wrc-get-home-default-value',
+          'wrc-set-home-and-start'
         ];
         return new Promise((resolve, reject) => {
           if (validChannels.includes(channel)) {

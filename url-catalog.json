@@ -1,4 +1,7 @@
 {
+  "model": {
+    "weblogicRemoteConsoleLatestRelease": "https://github.com/oracle/weblogic-remote-console/releases/latest"
+  },
   "image": {
     "imageTagFormat": "https://docs.docker.com/engine/reference/commandline/tag/#extended-description"
   },
