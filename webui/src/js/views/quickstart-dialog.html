@@ -12,7 +12,7 @@
                      class="wkt-quickstart-filmstrip"
                      arrow-placement="adjacent"
                      arrow-visibility="auto"
-                     aria-label="WebLogic Kubernetes Toolkit UI Tutorial"
+                     :aria-label="[[labelMapper('filmstrip-aria-label')]]"
                      max-items-per-page="1">
         <oj-bind-for-each data="[[quickstartPagesConfig]]">
           <template>

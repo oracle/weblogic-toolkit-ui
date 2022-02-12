@@ -16,7 +16,7 @@
 <div id="pageContent" class="oj-web-applayout-page">
   <div id="wkt-container" class="oj-sm-flex-wrap-nowrap oj-flex">
     <div id="navlistcontainer" class="oj-bg-neutral-170 oj-color-invert" :class="[[{collapsed : navCollapsed}]]">
-      <oj-navigation-list aria-label="Choose a navigation item"
+      <oj-navigation-list :aria-label="[[labelMapper('aria-label')]]"
                           class="oj-bg-neutral-170 oj-color-invert wkt-navigation-list"
                           data="[[navDataProvider]]"
                           display="[[navDisplay]]"

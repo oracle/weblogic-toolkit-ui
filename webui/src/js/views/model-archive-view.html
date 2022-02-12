@@ -4,7 +4,7 @@
  -->
 
 <div id="wkt-model-archive" class="wkt-model-archive">
-  <oj-toolbar id='myToolbar1' aria-label='Editing Toolbar' aria-controls='controlled'
+  <oj-toolbar id='myToolbar1' :aria-label="[[labelMapper('toolbar-aria-label')]]" aria-controls='controlled'
               class="wkt-archive-toolbar" :class="oj-toolbar-bottom-border">
 
     <div class="wkt-archive-label"><oj-bind-text value="[[archiveLabel]]"></oj-bind-text></div>
@@ -27,7 +27,7 @@
                 data="[[archiveDataProvider]]"
                 selection-mode="single"
                 on-selected-changed="[[selectionChanged]]"
-                aria-label="Tree View with JSON Data">
+                :aria-label="[[labelMapper('tree-view-aria-label')]]">
     <template slot="itemTemplate" data-oj-as="row">
       <span class="oj-treeview-item-icon"></span>
       <span class="oj-treeview-item-text">
