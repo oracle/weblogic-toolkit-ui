@@ -12,6 +12,9 @@ const fsPromises = require('fs/promises');
 const { copyFile, lstat, mkdir, readdir } = require('fs/promises');
 const path = require('path');
 
+const purgeLocations = [
+  path.normalize(path.join(__dirname, '..', '..', 'web', 'test'))
+];
 const sourceDirectories = [
   path.normalize(path.join(__dirname, '..', '..', 'web'))
   // path.normalize(path.join(__dirname, '..', '..', 'staged-themes'))
@@ -21,6 +24,13 @@ const targetDirectory = path.normalize(path.join(__dirname, '..', '..', '..', 'e
 module.exports = function (configObj) {
   return new Promise(async (resolve, reject) => {
   	console.log("Running after_build hook.");
+    console.log('Purging unnecessary files created by the build...');
+    for (const purgeLocation of purgeLocations) {
+      if (fs.existsSync(purgeLocation)) {
+        fs.rmSync(purgeLocation, { force: true, recursive: true });
+      }
+    }
+
   	if (configObj.buildType === 'release') {
   	  console.log('Consolidating files for building the release');
   	  for (const sourceDirectory of sourceDirectories) {
