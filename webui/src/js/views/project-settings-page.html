@@ -11,7 +11,7 @@
       <div class="wkt-table-button-grid">
         <oj-table id="extra-path-directories-table"
                   class="wkt-paths-table"
-                  aria-label="Extra Path Directories Table"
+                  :aria-label="[[labelMapper('mac-path-table-aria-label')]]"
                   data="[[extraPathDirectoriesDataProvider]]"
                   display="grid"
                   layout="fixed"
@@ -71,7 +71,7 @@
 
         <oj-table id="extra-environment-variables-table"
                   class="wkt-env-vars-table"
-                  aria-label="Extra Environment Variables Table"
+                  :aria-label="[[labelMapper('mac-env-var-table-aria-label')]]"
                   data="[[extraEnvironmentVariablesDataProvider]]"
                   display="grid"
                   layout="fixed"
