@@ -6,9 +6,11 @@
 'use strict';
 
 define(['accUtils', 'knockout', 'utils/i18n', 'models/wkt-project',  'utils/view-helper', 'ojs/ojarraydataprovider',
-  'ojs/ojbufferingdataprovider', 'utils/observable-properties', 'ojs/ojconverter-number', 'ojs/ojinputtext',
-  'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojdialog', 'ojs/ojformlayout', 'ojs/ojvalidationgroup', 'ojs/ojselectcombobox'],
-function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDataProvider, props, ojConverterNumber) {
+  'ojs/ojbufferingdataprovider', 'utils/observable-properties', 'ojs/ojconverter-number', 'utils/wkt-logger',
+  'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojdialog', 'ojs/ojformlayout', 'ojs/ojvalidationgroup',
+  'ojs/ojselectcombobox'],
+function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDataProvider, props,
+  ojConverterNumber, wktLogger) {
   function RouteEditDialogModel(args) {
     const DIALOG_SELECTOR = '#routeEditDialog';
 
@@ -18,9 +20,12 @@ function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDa
     let EXCLUDE_PROPERTIES = ['uid', 'annotations'];
     let SIMPLE_PROPERTIES = project.ingress.ingressRouteKeys.filter(key => !EXCLUDE_PROPERTIES.includes(key));
 
-    this.connected = () => {
-      accUtils.announce('Route edit dialog loaded.', 'assertive');
+    this.project = project;
+    this.route = args.route;
+    this.serviceList = args.serviceList;
 
+    this.connected = async () => {
+      accUtils.announce('Route edit dialog loaded.', 'assertive');
       // open the dialog after the current thread, which is loading this view model.
       // using oj-dialog initial-visibility="show" causes vertical centering issues.
       setTimeout(function() {
@@ -35,10 +40,6 @@ function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDa
     this.anyLabelMapper = (labelId, arg) => {
       return i18n.t(labelId, arg);
     };
-
-    this.project = project;
-    this.route = args.route;
-    this.serviceList = args.serviceList;
 
     this.buildTargetSvcNames = () => {
       let options = [];
