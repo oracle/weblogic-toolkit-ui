@@ -12,7 +12,7 @@ function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDa
   function RouteEditDialogModel(args) {
     const DIALOG_SELECTOR = '#routeEditDialog';
 
-    const DEFAULT_ROUTE_PORT = 0;
+    const DEFAULT_ROUTE_PORT = undefined;
 
     // SIMPLE_PROPERTIES - names matching simple route fields
     let EXCLUDE_PROPERTIES = ['uid', 'annotations'];
@@ -42,7 +42,7 @@ function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDa
 
     this.buildTargetSvcNames = () => {
       let options = [];
-      for(var name in this.serviceList){
+      for (const name in this.serviceList) {
         options.push( { id : name, value: name, text: name});
       }
       return options;
@@ -52,7 +52,7 @@ function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDa
       let options = [];
       if (this.serviceList[svcName]) {
         for (const port of this.serviceList[svcName].ports) {
-          options.push( { id : port.port, value: port.port, text: port.port});
+          options.push( { id : port.port, value: port.port, text: port.port} );
         }
       }
 
@@ -64,7 +64,7 @@ function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDa
     this.targetSvcPorts = ko.observableArray([] );
 
     if (this.route.targetService) {
-      this.targetSvcPorts = this.buildTargetSvcPorts(this.route.targetService);
+      this.buildTargetSvcPorts(this.route.targetService).forEach(port => this.targetSvcPorts.push(port));
     }
 
     this.savedAnnotations = args.route.annotations || {};
@@ -144,6 +144,24 @@ function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDa
       this[propertyName] = props.createProperty(defaultValue);
     });
 
+    this.getTargetServicePlaceholder = ko.computed(() => {
+      if (Array.isArray(this.targetSvcNames) && this.targetSvcNames.length > 0) {
+        return this.labelMapper('route-targetservice-placeholder');
+      } else {
+        return this.labelMapper('route-targetservice-placeholder-empty');
+      }
+    });
+
+    this.getTargetPortPlaceholder = ko.computed(() => {
+      console.log('targetSvcPorts is a ' + typeof(this.targetSvcPorts));
+      const ports = this.targetSvcPorts();
+      if (Array.isArray(ports) && ports.length > 0) {
+        return this.labelMapper('route-targetport-placeholder');
+      } else {
+        return this.labelMapper('route-targetport-placeholder-empty');
+      }
+    });
+
     this.handleAddAnnotation = () => {
       const nextIndex = this.nextAnnotationIndex();
       const annotation = {uid: getAnnotationUid(nextIndex), key: `annotation-${nextIndex}`};
@@ -186,10 +204,7 @@ function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDa
 
     this.targetSvcNameChanged = (event) => {
       this.targetSvcPorts.removeAll();
-      const list = this.buildTargetSvcPorts(event.detail.value);
-      for (const item of list) {
-        this.targetSvcPorts.push(item);
-      }
+      this.buildTargetSvcPorts(event.detail.value).forEach(port => this.targetSvcPorts.push(port));
     };
 
     this.okInput = () => {
