@@ -236,8 +236,13 @@ function(i18n, accUtils, ko, ArrayDataProvider, BufferingDataProvider, project, 
       // when project data was reloaded with matching UIDs.
       const index = context.item.index;
       let route = this.routes.observable()[index];
-      getTargetServiceDetails(this.project).then( svc => {
-        const options = {route: route, serviceList: svc.serviceList};
+
+      dialogHelper.openBusyDialog(this.labelMapper('route-get-services-title',
+        { namespace: this.project.k8sDomain.kubernetesNamespace.value }));
+      const targetServiceDetails = await getTargetServiceDetails(this.project);
+      dialogHelper.closeBusyDialog();
+      if (targetServiceDetails) {
+        const options = {route: route, serviceList: targetServiceDetails.serviceList};
         dialogHelper.promptDialog('route-edit-dialog', options).then(result => {
           // no result indicates operation was cancelled
           if (result) {
@@ -254,7 +259,7 @@ function(i18n, accUtils, ko, ArrayDataProvider, BufferingDataProvider, project, 
             }
           }
         });
-      });
+      }
     };
 
     this.handleCancel = () => {

@@ -652,6 +652,7 @@
   "ingress-design-ingress-docker-reg-secret-userpwd-help": "The password used to log in to Docker Hub.",
   "ingress-design-ingress-docker-reg-secret-useremail": "Docker Hub Email Address",
   "ingress-design-ingress-docker-reg-secret-useremail-help": "The email address of the user logging in to Docker Hub.",
+  "ingress-design-route-get-services-title": "Getting services for namespace {{namespace}}",
 
   "ingress-design-ingress-routes-title": "Ingress Routes Configuration",
   "ingress-design-ingress-route-virtualhost-label": "Virtual Host",
