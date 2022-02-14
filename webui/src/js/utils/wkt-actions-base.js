@@ -459,6 +459,41 @@ function(project, wktConsole, i18n, projectIo, dialogHelper,
       return Promise.resolve(true);
     }
 
+    async getDetailsForService(kubectlExe, kubectlOptions, objectName, serviceNamespace, serviceName, errTitle, errPrefix,
+      shouldCloseBusyDialog = true) {
+      const results = await window.api.ipc.invoke('k8s-get-service-details', kubectlExe, serviceNamespace,
+        serviceName, kubectlOptions);
+
+      if (!results.isSuccess) {
+        const errMessage = i18n.t(`${errPrefix}-service-not-exists-error-message`, {
+          name: objectName,
+          namespace: serviceNamespace,
+          serviceName: serviceName,
+          error:results.reason
+        });
+        this._closeBusyDialog(shouldCloseBusyDialog);
+        await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
+        return Promise.resolve(false);
+      }
+      return Promise.resolve(results.serviceDetails);
+    }
+
+    async getServicesDetailsForNamespace(kubectlExe, kubectlOptions, serviceNamespace, errTitle, errPrefix,
+      shouldCloseBusyDialog = true) {
+      const results = await window.api.ipc.invoke('k8s-get-service-details', kubectlExe, serviceNamespace,
+        '', kubectlOptions);
+      if (!results.isSuccess) {
+        const errMessage = i18n.t(`${errPrefix}-get-services-in-namespace-error-message`, {
+          error: results.reason,
+          namespace: namespace
+        });
+        this._closeBusyDialog(shouldCloseBusyDialog);
+        await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
+        return Promise.resolve(false);
+      }
+      return Promise.resolve(results.serviceDetails);
+    }
+
     _closeBusyDialog(shouldCloseBusyDialog) {
       if (shouldCloseBusyDialog) {
         dialogHelper.closeBusyDialog();

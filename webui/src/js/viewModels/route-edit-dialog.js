@@ -53,7 +53,7 @@ function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDa
       let options = [];
       if (this.serviceList[svcName]) {
         for (const port of this.serviceList[svcName].ports) {
-          options.push( { id : port.port, value: port.port, text: port.port} );
+          options.push( { id : port.port, value: port.port, text: port.port.toString()} );
         }
       }
 
@@ -154,7 +154,6 @@ function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDa
     });
 
     this.getTargetPortPlaceholder = ko.computed(() => {
-      console.log('targetSvcPorts is a ' + typeof(this.targetSvcPorts));
       const ports = this.targetSvcPorts();
       if (Array.isArray(ports) && ports.length > 0) {
         return this.labelMapper('route-targetport-placeholder');
@@ -204,8 +203,35 @@ function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDa
     };
 
     this.targetSvcNameChanged = (event) => {
+      const newServiceName = event.detail.value;
       this.targetSvcPorts.removeAll();
-      this.buildTargetSvcPorts(event.detail.value).forEach(port => this.targetSvcPorts.push(port));
+      this.buildTargetSvcPorts(newServiceName).forEach(port => this.targetSvcPorts.push(port));
+
+      // If the new service name is a known service and the current target port value is not
+      // associated with the service, clear the target port selection.
+      //
+      let foundService = false;
+      for (const name in this.serviceList) {
+        if (name === newServiceName) {
+          foundService = true;
+          break;
+        }
+      }
+      if (foundService) {
+        const currentPortValue = this['targetPort'].observable();
+        if (currentPortValue !== DEFAULT_ROUTE_PORT) {
+          let foundPort = false;
+          for (const port of this.targetSvcPorts()) {
+            if (currentPortValue === port.text) {
+              foundPort = true;
+              break;
+            }
+          }
+          if (!foundPort) {
+            this['targetPort'].observable(DEFAULT_ROUTE_PORT);
+          }
+        }
+      }
     };
 
     this.okInput = () => {
