@@ -111,7 +111,7 @@ function(IngressActionsBase, project, wktConsole, k8sHelper, i18n, projectIo, di
             const ingressControllerNamespace = this.project.ingress.ingressControllerNamespace.value;
 
             const results = await this.doesIngressServiceExist(kubectlExe, kubectlOptions, ingressControllerProvider,
-              ingressControllerName, ingressControllerNamespace, errTitle);
+              ingressControllerName, ingressControllerNamespace, errTitle, errPrefix);
             if (!results) {
               return Promise.resolve(false);
             }
@@ -179,7 +179,7 @@ function(IngressActionsBase, project, wktConsole, k8sHelper, i18n, projectIo, di
           busyDialogMessage = i18n.t('ingress-routes-updater-check-route-target-service-in-progress');
           dialogHelper.updateBusyDialog(busyDialogMessage, 7/totalSteps);
           for (const route of routes) {
-            if (! await this.checkTargetService(kubectlExe, route, kubectlOptions)) {
+            if (! await this.checkTargetService(kubectlExe, route, kubectlOptions, errTitle, errPrefix)) {
               return Promise.resolve(false);
             }
           }
@@ -328,24 +328,12 @@ function(IngressActionsBase, project, wktConsole, k8sHelper, i18n, projectIo, di
       return Promise.resolve(true);
     }
 
-    async doesIngressServiceExist(kubectlExe, kubectlOptions, provider, name, namespace, errTitle) {
-      try {
-        const serviceName = provider === 'nginx' ? `${name}-ingress-nginx-controller` : name;
-        const result = await window.api.ipc.invoke('k8s-get-service-details', kubectlExe, namespace,
-          serviceName, kubectlOptions);
-        if (!result.isSuccess) {
-          const errMessage = i18n.t('ingress-routes-updater-service-not-installed-error-message', {
-            error: result.reason,
-            serviceName: serviceName,
-            name: name,
-            namespace: namespace
-          });
-          dialogHelper.closeBusyDialog();
-          await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
-          return Promise.resolve(false);
-        }
-      } catch (err) {
-        return Promise.reject(err);
+    async doesIngressServiceExist(kubectlExe, kubectlOptions, provider, name, namespace, errTitle, errPrefix) {
+      const serviceName = provider === 'nginx' ? `${name}-ingress-nginx-controller` : name;
+      const result = await k8sHelper.getDetailsForService(kubectlExe, kubectlOptions, name, namespace, serviceName,
+        errTitle, errPrefix);
+      if (!result) {
+        return Promise.resolve(false);
       }
       return Promise.resolve(true);
     }
@@ -412,12 +400,15 @@ function(IngressActionsBase, project, wktConsole, k8sHelper, i18n, projectIo, di
       return Promise.resolve(clusterAddress);
     }
 
+    // TODO - this code should be refactored to use k8sHelper's getDetailsForService()/getServiceDetailsForNamespace()
+    //        between the complexity of this code and the code calling it, I left this as is for now... --rpatrick
+    //
     async getIngressServiceDetails(kubectlExe, ingressControllerProvider, ingressControllerNamespace,
       ingressDefinition, k8sCluster, kubectlOptions) {
       // serviceName == '' for Nginx and Traefik for all ingress routes created by the UI
       // serviceName = 'voyager-<ingress route name>' for each ingress route if it's provider is
       // voyagerProviderMappedValue is baremetal
-
+      //
       let serviceName = '';
       if (ingressControllerProvider === 'voyager') {
         serviceName = 'voyager-' + ingressDefinition.name;
@@ -426,8 +417,6 @@ function(IngressActionsBase, project, wktConsole, k8sHelper, i18n, projectIo, di
 
       const results = await window.api.ipc.invoke('k8s-get-service-details',
         kubectlExe, ingressControllerNamespace, serviceName, kubectlOptions);
-      wktLogger.debug('k8s-get-service-details for service %s returned: %s', serviceName,
-        JSON.stringify(results, 0, null));
       if (results.isSuccess) {
         let ingressPlainPort = 80;
         let ingressSSLPort = 443;
@@ -549,33 +538,25 @@ function(IngressActionsBase, project, wktConsole, k8sHelper, i18n, projectIo, di
       return Promise.resolve(results);
     }
 
-    async checkTargetService(kubectlExe, ingressDefinition, kubectlOptions, errTitle) {
-      const results = await window.api.ipc.invoke('k8s-get-service-details',
-        kubectlExe, ingressDefinition.targetServiceNameSpace, ingressDefinition.targetService, kubectlOptions);
+    async checkTargetService(kubectlExe, ingressDefinition, kubectlOptions, errTitle, errPrefix) {
+      const results = await k8sHelper.getDetailsForService(kubectlExe, kubectlOptions, ingressDefinition.name,
+        ingressDefinition.targetServiceNameSpace, ingressDefinition.targetService, errTitle, errPrefix);
+      if (!results) {
+        return Promise.resolve(false);
+      }
 
-      if (results.isSuccess) {
-        const serviceDetail = results.serviceDetails;
-        let found = false;
-        serviceDetail.spec['ports'].forEach((port) => {
-          if (Number(port.port) === Number(ingressDefinition.targetPort)) {
-            found = true;
-          }
-        });
-
-        if (!found) {
-          const errMessage = i18n.t('ingress-routes-updater-route-target-port-not-exists-error-message', {
-            name: ingressDefinition['name'],
-            targetPort: ingressDefinition['targetPort']
-          });
-          dialogHelper.closeBusyDialog();
-          await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
-          return Promise.resolve(false);
+      const serviceDetail = results;
+      let found = false;
+      serviceDetail.spec['ports'].forEach((port) => {
+        if (Number(port.port) === Number(ingressDefinition.targetPort)) {
+          found = true;
         }
-      } else {
-        const errMessage = i18n.t('ingress-routes-updater-route-target-service-not-exists-error-message', {
+      });
+
+      if (!found) {
+        const errMessage = i18n.t('ingress-routes-updater-route-target-port-not-exists-error-message', {
           name: ingressDefinition['name'],
-          targetService: ingressDefinition['targetService'],
-          error:results.reason
+          targetPort: ingressDefinition['targetPort']
         });
         dialogHelper.closeBusyDialog();
         await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
