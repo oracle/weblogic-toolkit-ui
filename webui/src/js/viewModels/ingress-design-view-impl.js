@@ -212,23 +212,23 @@ function(i18n, accUtils, ko, ArrayDataProvider, BufferingDataProvider, project, 
     async function getTargetServiceDetails(myProject) {
       const kubectlExe = k8sHelper.getKubectlExe();
       const kubectlOptions = k8sHelper.getKubectlOptions();
-      const results = await window.api.ipc.invoke('k8s-get-service-details',
-        kubectlExe, myProject.k8sDomain.kubernetesNamespace.value, '', kubectlOptions);
-      let serviceLists = {};
-      if (results.isSuccess) {
-        for (const item of results.serviceDetails.items) {
-          serviceLists[item.metadata.name] = { ports: item.spec.ports};
+      const namespace = myProject.k8sDomain.kubernetesNamespace.value;
+      const errTitle = i18n.t('ingress-design-ingress-routes-get-services-in-namespace-title');
+      const errPrefix = 'ingress-design-ingress-routes';
+
+      dialogHelper.openBusyDialog(i18n.t('ingress-design-route-get-services-title', { namespace: namespace }));
+      const results =
+        await k8sHelper.getServicesDetailsForNamespace(kubectlExe, kubectlOptions, namespace, errTitle, errPrefix);
+      if (results) {
+        const servicesList = {};
+        console.log('results.items is a ' + typeof(results.items));
+        for (const item of results.items) {
+          servicesList[item.metadata.name] = { ports: item.spec.ports };
         }
-      } else {
-        const errTitle = i18n.t('ingress-design-ingress-routes-getting-target-service-title');
-        const errMessage = i18n.t('ingress-design-ingress-routes-getting-target-service-error-message', {
-          error: results.reason,
-          namespace: namespace
-        });
-        await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
-        return Promise.resolve(false);
+        dialogHelper.closeBusyDialog();
+        return Promise.resolve({ serviceList: servicesList });
       }
-      return Promise.resolve( { serviceList: serviceLists});
+      return Promise.resolve(false);
     }
 
     this.handleEditRoute = async (event, context) => {
@@ -237,10 +237,7 @@ function(i18n, accUtils, ko, ArrayDataProvider, BufferingDataProvider, project, 
       const index = context.item.index;
       let route = this.routes.observable()[index];
 
-      dialogHelper.openBusyDialog(this.labelMapper('route-get-services-title',
-        { namespace: this.project.k8sDomain.kubernetesNamespace.value }));
       const targetServiceDetails = await getTargetServiceDetails(this.project);
-      dialogHelper.closeBusyDialog();
       if (targetServiceDetails) {
         const options = {route: route, serviceList: targetServiceDetails.serviceList};
         dialogHelper.promptDialog('route-edit-dialog', options).then(result => {

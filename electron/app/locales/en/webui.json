@@ -692,8 +692,8 @@
   "ingress-design-ingress-route-traefik-mw-label": "Traefik Middleware",
   "ingress-design-ingress-route-traefik-mw-help": "Customize Traefik Middlewares Object",
 
-  "ingress-design-ingress-routes-getting-target-service-title" : "Retrieving existing domain service details",
-  "ingress-design-ingress-routes-getting-target-service-error-message": "Failed to get existing domain service details from Kubernetes namespace {{namespace}}: {{error}}.",
+  "ingress-design-ingress-routes-get-services-in-namespace-title" : "Retrieving existing domain service details",
+  "ingress-design-ingress-routes-get-services-in-namespace-error-message": "Failed to get existing domain services from Kubernetes namespace {{namespace}}: {{error}}.",
 
   "ingress-design-ingress-route-name-field-validation-error": "Route {{routeName}}",
   "ingress-design-ingress-route-field-validation-error": "Route: {{routeName}}, Field: {{fieldName}}",
@@ -775,7 +775,7 @@
   "ingress-routes-updater-tls-key-invalid-error-message": "Unable to update ingress routes because the TLS Private Key File '{{file}}' does not exist.",
   "ingress-routes-updater-project-not-saved-error-prefix": "Unable to update ingress routes because project save failed",
   "ingress-routes-updater-check-ingress-service-exists": "Checking ingress controller service exists",
-  "ingress-routes-updater-service-not-installed-error-message": "Unable to update ingress routes because the ingress controller service {{serviceName}} for ingress controller {{name}} was not found in Kubernetes namespace {{namespace}}. The ingress controller may not have been installed correctly: {{error}}.",
+  "ingress-routes-updater-service-not-exists-error-message": "Unable to update ingress routes because the ingress controller service {{serviceName}} for ingress controller {{name}} was not found in Kubernetes namespace {{namespace}}. The ingress controller may not have been installed correctly: {{error}}.",
   "ingress-routes-updater-create-tls-secret-in-progress": "Creating ingress TLS secret",
   "ingress-routes-updater-generate-tls-files-error-message": "Unable to update ingress routes because an error occurred while generating the TLS certificate and private key files: {{error}}.",
   "ingress-routes-updater-create-tls-secret-error-message": "Unable to update ingress routes because an error occurred while creating the TLS secret {{name}} in Kubernetes namespace {{namespace}}: {{error}}",
@@ -785,7 +785,7 @@
   "ingress-routes-updater-routes-prompt-question": "The following routes `{{routes}}` already exist in the Kubernetes cluster, are you sure you want to overwrite them?",
   "ingress-routes-updater-get-service-details-error-message": "Unable to update ingress routes because an error occurred getting the ingress service details in Kubernetes namespace {{namespace}}: {{error}}.",
   "ingress-routes-updater-get-ingresses-error-message": "Unable to getting ingress details in Kubernetes namespace {{namespace}}: {{error}}.",
-  "ingress-routes-updater-route-target-service-not-exists-error-message": "Unable to update ingress routes because the application was unable to get the details for the target service {{targetService}} specified in route {{name}}: {{error}}.",
+  "ingress-routes-updater-target-service-not-exists-error-message": "Unable to update ingress routes because the application was unable to get the details for the target service {{serviceName}} specified in route {{name}}: {{error}}.",
   "ingress-routes-updater-route-target-port-not-exists-error-message": "Unable to update ingress routes because the target port {{targetPort}} specified in route {{name}} does not exists.",
   "ingress-routes-updater-check-route-target-service-in-progress": "Validating target services and ports for routes",
   "ingress-routes-updater-update-route-in-progress": "Updating ingress route {{routeName}}",
