@@ -36,6 +36,7 @@
 
         <oj-combobox-one id="targetsvc" value="{{targetService.observable}}"
                          label-hint="[[labelMapper('route-targetservice-label')]]"
+                         placeholder="{{getTargetServicePlaceholder}}"
                          help.instruction="[[labelMapper('route-targetservice-help')]]"
                          validators="[[project.ingress.validators.k8sNameValidator]]"
                          options="[[targetSvcNames]]"
@@ -44,10 +45,10 @@
 
         <oj-combobox-one id="targetport" value="{{targetPort.observable}}"
                          label-hint="[[labelMapper('route-targetport-label')]]"
+                         placeholder="{{getTargetPortPlaceholder}}"
                          validators="[[project.ingress.validators.targetPortValidator]]"
                          help.instruction="[[labelMapper('route-targetport-help')]]"
-                         options="[[targetServicePorts]]"
-                         >
+                         options="[[targetServicePorts]]">
         </oj-combobox-one>
 
         <oj-radioset id="tlsOptionId"
@@ -79,7 +80,7 @@
         <oj-bind-text value="[[labelMapper('route-annotations-table-title')]]"></oj-bind-text>
       </h6>
       <oj-table class="wkt-model-properties-table"
-                aria-label="Ingress Routes Table"
+                :aria-label="[[labelMapper('route-annotations-table-aria-label')]]"
                 data="[[annotationsProvider]]"
                 edit-mode="rowEdit"
                 columns='[[annotationColumns]]'>

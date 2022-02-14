@@ -209,12 +209,11 @@ function(i18n, accUtils, ko, ArrayDataProvider, BufferingDataProvider, project, 
       window.api.ipc.invoke('show-error-message', title, message);
     };
 
-    async function getTargetServiceDetails (project) {
-
+    async function getTargetServiceDetails(myProject) {
       const kubectlExe = k8sHelper.getKubectlExe();
       const kubectlOptions = k8sHelper.getKubectlOptions();
       const results = await window.api.ipc.invoke('k8s-get-service-details',
-        kubectlExe, project.k8sDomain.kubernetesNamespace.value, '', kubectlOptions);
+        kubectlExe, myProject.k8sDomain.kubernetesNamespace.value, '', kubectlOptions);
       let serviceLists = {};
       if (results.isSuccess) {
         for (const item of results.serviceDetails.items) {
@@ -230,37 +229,37 @@ function(i18n, accUtils, ko, ArrayDataProvider, BufferingDataProvider, project, 
         return Promise.resolve(false);
       }
       return Promise.resolve( { serviceList: serviceLists});
-    };
+    }
 
     this.handleEditRoute = async (event, context) => {
       // using context.item.data directly was causing problems
       // when project data was reloaded with matching UIDs.
       const index = context.item.index;
       let route = this.routes.observable()[index];
-      getTargetServiceDetails(this.project).then( svc => {
-        const options = {route: route, serviceList: svc.serviceList};
-        dialogHelper.promptDialog('route-edit-dialog', options)
-          .then(result => {
 
-            // no result indicates operation was cancelled
-            if (result) {
-              let changed = false;
-              project.ingress.ingressRouteKeys.forEach(key => {
-                if ((key !== 'uid') && result.hasOwnProperty(key)) {
-                  route[key] = result[key];
-                  changed = true;
-                }
-              });
-
-              if (changed) {
-                this.routes.observable.replace(route, route);
+      dialogHelper.openBusyDialog(this.labelMapper('route-get-services-title',
+        { namespace: this.project.k8sDomain.kubernetesNamespace.value }));
+      const targetServiceDetails = await getTargetServiceDetails(this.project);
+      dialogHelper.closeBusyDialog();
+      if (targetServiceDetails) {
+        const options = {route: route, serviceList: targetServiceDetails.serviceList};
+        dialogHelper.promptDialog('route-edit-dialog', options).then(result => {
+          // no result indicates operation was cancelled
+          if (result) {
+            let changed = false;
+            project.ingress.ingressRouteKeys.forEach(key => {
+              if ((key !== 'uid') && result.hasOwnProperty(key)) {
+                route[key] = result[key];
+                changed = true;
               }
+            });
+
+            if (changed) {
+              this.routes.observable.replace(route, route);
             }
-          });
+          }
+        });
       }
-      );
-
-
     };
 
     this.handleCancel = () => {

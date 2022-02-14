@@ -1,6 +1,7 @@
 {
   "copyright-footer-text": "Copyright (c) 2021, {{currentYear}}, Oracle and/or its affiliates. Licensed under The Universal Permissive License (UPL), Version 1.0, as shown at",
 
+  "nav-aria-label": "Choose a navigation item",
   "nav-model": "Model",
   "nav-project-settings": "Project Settings",
   "nav-image": "Image",
@@ -81,12 +82,14 @@
   "project-settings-form-name": "Project Settings",
   "project-settings-title": "Project Settings",
   "project-settings-mac-environment-question": "For macOS, do you need to add directories to the PATH or define other environment variables for Docker/Podman or Kubernetes?",
+  "project-settings-mac-path-table-aria-label": "macOS Extra Path Directories Table",
   "project-settings-add-path-row-icon-text": "Add Extra Path Directory",
   "project-settings-choose-path-icon-text": "Choose Extra Path Directory",
   "project-settings-delete-path-row-icon-text": "Remove Extra Path Directory",
   "project-settings-extra-path-directory-header": "Extra Path Directory",
   "project-settings-hints-macos-path-directories": "Show System Path Directories",
   "project-settings-button-macos-path-directories": "Show System Path",
+  "project-settings-mac-env-var-table-aria-label": "macOS Extra Environment Variables Table",
   "project-settings-add-env-var-row-icon-text": "Add Extra Environment Variable",
   "project-settings-delete-env-var-row-icon-text": "Remove Extra Environment Variable",
   "project-settings-extra-environment-variable-name-header": "Extra Environment Variable Name",
@@ -144,9 +147,11 @@
   "project-settings-credential-store-policy-answer-message": "The Credential Store Policy controls how credentials are handled when the project is saved and loaded.  The options are to store them in the machine's native credential store, store them in the project file encrypted with a passphrase, or not store them at all.",
 
   "macos-path-directories-dialog-title": "System Path",
+  "macos-path-directories-dialog-table-aria-label": "System Path Environment Variable Directories",
   "macos-path-directories-dialog-name-header": "Path Directory",
 
   "macos-environment-variables-dialog-title": "System Environment Variables",
+  "macos-environment-variables-dialog-table-aria-label": "System Environment Variables Table",
   "macos-environment-variables-dialog-name-header": "Environment Variable Name",
   "macos-environment-variables-dialog-value-header": "Environment Variable Value",
 
@@ -563,6 +568,7 @@
   "domain-design-cluster-additional-java-options-label": "Additional Java Options",
   "domain-design-cluster-additional-java-options-help": "A list of additional Java runtime options, separated by spaces, tabs, or commas.",
 
+  "domain-design-configmap-table-aria-label": "ConfigMap Properties Table",
   "domain-design-configmap-title": "Model Variables Overrides",
   "domain-design-configmap-label": "Kubernetes ConfigMap Name",
   "domain-design-configmap-help": "The name of the Kubernetes ConfigMap that holds the model variable overrides.",
@@ -599,6 +605,7 @@
   "domain-design-propname-header": "Model Variable Name",
   "domain-design-propvalue-header": "Model Variable File Value",
   "domain-design-propoverride-header": "Model Variable Override Value",
+  "domain-design-secrets-table-aria-label": "Secrets Table",
   "domain-design-secretname-header": "Secret Name",
   "domain-design-username-header": "Username",
   "domain-design-password-header": "Password",
@@ -645,6 +652,7 @@
   "ingress-design-ingress-docker-reg-secret-userpwd-help": "The password used to log in to Docker Hub.",
   "ingress-design-ingress-docker-reg-secret-useremail": "Docker Hub Email Address",
   "ingress-design-ingress-docker-reg-secret-useremail-help": "The email address of the user logging in to Docker Hub.",
+  "ingress-design-route-get-services-title": "Getting services for namespace {{namespace}}",
 
   "ingress-design-ingress-routes-title": "Ingress Routes Configuration",
   "ingress-design-ingress-route-virtualhost-label": "Virtual Host",
@@ -652,7 +660,11 @@
   "ingress-design-ingress-route-targetservicenamespace-help": "The target service namespace value points to the namespace where the domain is running.",
   "ingress-design-ingress-route-accesspoint-label": "Access Point",
   "ingress-design-ingress-route-targetservice-label": "Target Service",
+  "ingress-design-ingress-route-targetservice-placeholder": "Select Domain Service",
+  "ingress-design-ingress-route-targetservice-placeholder-empty": "No Domain Services Available",
   "ingress-design-ingress-route-targetport-label": "Target Port",
+  "ingress-design-ingress-route-targetport-placeholder": "Select Target Service Port",
+  "ingress-design-ingress-route-targetport-placeholder-empty": "No Target Service Selected",
   "ingress-design-ingress-route-path-label": "Path Expression",
   "ingress-design-ingress-route-tls-label": "Transport Options",
   "ingress-design-ingress-route-tls-help": "Select the transport option for this ingress route",
@@ -663,6 +675,7 @@
   "ingress-design-ingress-route-is-console-svc-help": "For SSL terminating at ingress and accessing WebLogic Console Service, turn on this option. Your domain must have 'WeblogicPluginEnabled: true' in the 'resources->WebAppContainer' section",
   "ingress-design-ingress-route-name-label": "Name",
   "ingress-design-ingress-route-dialog-title": "Edit Ingress Route",
+  "ingress-design-ingress-route-annotations-table-aria-label": "Ingress Route Annotations Table",
   "ingress-design-ingress-route-annotation-label": "Annotation",
   "ingress-design-ingress-route-annotationValue-label": "Value",
   "ingress-design-ingress-annotations": "Optional Annotations",
@@ -705,6 +718,7 @@
   "ingress-design-generate-tls-subject-label": "Subject to Use for the Generated TLS Certificate",
   "ingress-design-generate-tls-subject-help": "The Subject (e.g., /CN=www.mydomain.org) to use when generating TLS certificate. The format must be /type0=value0/type1=value1/type2=...",
 
+  "ingress-design-routes-table-aria-label": "Ingress Routes Table",
   "ingress-design-add-route-label": "Add Route",
   "ingress-design-edit-route-label": "Edit Route",
   "ingress-design-delete-route-label": "Delete Route",
@@ -989,10 +1003,14 @@
   "model-page-hints-prepareModel": "Prepare Model for Kubernetes",
   "model-page-model-editor-contents": "Model Editor Contents",
 
+  "model-properties-table-aria-label": "Model Variables Editable Table",
   "model-properties-name-header": "Variable Name",
   "model-properties-value-header": "Variable Value",
   "model-properties-add-label": "Add Variable",
   "model-properties-delete-label": "Delete",
+
+  "model-archive-toolbar-aria-label": "Archive Editing Toolbar",
+  "model-archive-tree-view-aria-label": "Archive Editor Tree View",
   "model-archive-add-label": "Add",
   "model-archive-delete-label": "Delete",
   "model-archive-no-archive-label": "(no archive)",
@@ -1284,6 +1302,7 @@
   "quickstart-dialog-title": "WebLogic Kubernetes Toolkit (WKT) UI Introduction",
   "quickstart-dialog-stop-showing-quickstart-message": "Stop showing this introduction at startup.",
 
+  "quickstart-dialog-filmstrip-aria-label": "WebLogic Kubernetes Toolkit UI Tutorial",
   "quickstart-page1-title": "Introduction",
   "quickstart-page1-paragraph-1": "Ready to get your WebLogic Server domain running in Kubernetes?",
   "quickstart-page1-paragraph-2": "This application will guide you through the process of creating a WebLogic Server domain in Kubernetes.",

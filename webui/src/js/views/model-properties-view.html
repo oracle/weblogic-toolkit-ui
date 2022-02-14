@@ -4,7 +4,7 @@
  -->
 <oj-table id="properties-table"
           class="wkt-model-properties-table"
-          aria-label="Editable Properties Table"
+          :aria-label="[[labelMapper('table-aria-label')]]"
           data="[[propertiesDataProvider]]"
           edit-mode="rowEdit"
           display="grid"

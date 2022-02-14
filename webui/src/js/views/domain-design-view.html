@@ -284,7 +284,7 @@
 
     <oj-table id="properties-table"
               class="wkt-domain-properties-table"
-              aria-label="ConfigMap Properties Table"
+              :aria-label="[[labelMapper('configmap-table-aria-label')]]"
               data="{{configMapDP}}"
               display="grid"
               horizontal-grid-visible="enabled"
@@ -315,7 +315,7 @@
     <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('secrets-title')]]"></oj-bind-text></h6>
     <oj-table id="secrets-table"
               class="wkt-domain-secrets-table"
-              aria-label="Secrets Table"
+              :aria-label="[[labelMapper('secrets-table-aria-label')]]"
               data="[[secretsDP]]"
               display="grid"
               horizontal-grid-visible="enabled"
