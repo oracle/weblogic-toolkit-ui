@@ -3,16 +3,52 @@
  * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
-define(['models/wkt-project', 'accUtils', 'utils/common-utilities', 'knockout', 'utils/i18n',
+define(['models/wkt-project', 'accUtils', 'utils/common-utilities', 'knockout', 'utils/i18n', 'utils/screen-utils',
   'ojs/ojbufferingdataprovider', 'ojs/ojarraydataprovider', 'ojs/ojconverter-number', 'utils/dialog-helper',
-  'utils/view-helper', 'utils/wkt-logger', 'ojs/ojmessaging', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojformlayout',
-  'ojs/ojcollapsible', 'ojs/ojselectsingle', 'ojs/ojlistview', 'ojs/ojtable', 'ojs/ojswitch', 'ojs/ojinputnumber'],
-function (project, accUtils, utils, ko, i18n, BufferingDataProvider,
-  ArrayDataProvider, ojConverterNumber, dialogHelper, viewHelper) {
+  'utils/view-helper', 'utils/wkt-logger', 'ojs/ojmessaging', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton',
+  'ojs/ojformlayout', 'ojs/ojcollapsible', 'ojs/ojselectsingle', 'ojs/ojlistview', 'ojs/ojtable', 'ojs/ojswitch',
+  'ojs/ojinputnumber', 'ojs/ojradioset'],
+function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider, ArrayDataProvider,
+  ojConverterNumber, dialogHelper, viewHelper) {
   function DomainDesignViewModel() {
 
-    this.connected = async () => {
+    let subscriptions = [];
+
+    this.connected = () => {
       accUtils.announce('Domain Design View page loaded.', 'assertive');
+
+      subscriptions.push(this.auxImageConfig.subscribe((newValue) => {
+        this.applyAuxImageConfig(newValue);
+      }));
+
+      subscriptions.push(project.image.createPrimaryImage.observable.subscribe(() => {
+        document.getElementById('create-image-switch').refresh();
+        const primaryImageTag = document.getElementById('primary-image-tag');
+        if (primaryImageTag) {
+          primaryImageTag.refresh();
+        }
+      }));
+
+      subscriptions.push(project.image.useAuxImage.observable.subscribe(() => {
+        // change the primary image tag's help text based on the value of the switch?
+        const primaryImageTag = document.getElementById('primary-image-tag');
+        if (primaryImageTag) {
+          primaryImageTag.refresh();
+        }
+      }));
+
+      subscriptions.push(project.image.createAuxImage.observable.subscribe(() => {
+        const auxImageTag = document.getElementById('aux-image-tag');
+        if (auxImageTag) {
+          auxImageTag.refresh();
+        }
+      }));
+    };
+
+    this.disconnected = () => {
+      subscriptions.forEach((subscription) => {
+        subscription.dispose();
+      });
     };
 
     this.labelMapper = (labelId, payload) => {
@@ -22,8 +58,134 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider,
       return i18n.t(`domain-design-${labelId}`, payload);
     };
 
+    this.imageLabelMapper = (labelId, payload) => {
+      return i18n.t(`image-design-${labelId}`, payload);
+    };
+
     this.project = project;
     this.i18n = i18n;
+
+    this.mainCreateImageSwitchHelp = ko.computed(() => {
+      if (this.project.image.useAuxImage.value) {
+        return this.imageLabelMapper('create-image-aux-help');
+      } else {
+        return this.imageLabelMapper('create-image-help');
+      }
+    }, this);
+
+    this.mainImageTagHelpMII = () => {
+      let key = 'image-tag-mii-use-help';
+      if (this.project.image.createPrimaryImage.value) {
+        key = 'image-tag-mii-create-help';
+        if (this.project.image.useAuxImage.value) {
+          key = 'image-tag-mii-create-with-aux-help';
+        }
+      } else if (this.project.image.useAuxImage.value) {
+        key = 'image-tag-mii-use-with-aux-help';
+      }
+      return key;
+    };
+
+    this.mainImageTagHelpDII = () => {
+      let key = 'image-tag-dii-use-help';
+      if (this.project.image.createPrimaryImage.value) {
+        key = 'image-tag-dii-create-help';
+      }
+      return key;
+    };
+
+    this.mainImageTagHelpPV = () => {
+      let key = 'image-tag-pv-use-help';
+      if (this.project.image.createPrimaryImage.value) {
+        key = 'image-tag-pv-create-help';
+      }
+      return key;
+    };
+
+    this.mainImageTagHelp = ko.computed(() => {
+      let key = 'use-image-tag-help';
+
+      switch (this.project.settings.targetDomainLocation.value) {
+        case 'mii':
+          key = this.mainImageTagHelpMII();
+          break;
+
+        case 'dii':
+          key = this.mainImageTagHelpDII();
+          break;
+
+        case 'pv':
+          key = this.mainImageTagHelpPV();
+          break;
+      }
+      return this.labelMapper(key);
+    }, this);
+
+    this.isPrimaryImageTagReadOnly = ko.computed(() => {
+      return this.project.image.createPrimaryImage.observable();
+    }, this);
+
+    this.isAuxImageTagReadOnly = ko.computed(() => {
+      return this.project.image.createAuxImage.observable();
+    }, this);
+
+    this.auxImageTagHelp = ko.computed(() => {
+      let key = 'use-aux-image-tag-help';
+      if (this.project.image.createAuxImage.observable()) {
+        key = 'create-aux-image-tag-help';
+      }
+      return this.labelMapper(key);
+    });
+
+    this.targetDomainLocationIsMII = () => {
+      return this.project.settings.targetDomainLocation.value === 'mii';
+    };
+
+    this.gotoCreateImage = () => {
+      screenUtils.gotoImageDesignPrimaryImageScreen();
+    };
+
+    this.gotoCreateAuxImage = () => {
+      screenUtils.gotoImageDesignAuxiliaryImageScreen();
+    };
+
+    this.auxImageConfigData = [
+      { id: 'offOption', value: 'off', label: this.imageLabelMapper('aux-image-config-off-label')},
+      { id: 'useOption', value: 'use', label: this.imageLabelMapper('aux-image-config-use-label')},
+      { id: 'createOption', value: 'create', label: this.imageLabelMapper('aux-image-config-create-label')}
+    ];
+
+    this.applyAuxImageConfig = (newValue) => {
+      switch (newValue) {
+        case 'off':
+          project.image.useAuxImage.observable(false);
+          break;
+
+        case 'use':
+          project.image.useAuxImage.observable(true);
+          project.image.createAuxImage.observable(false);
+          break;
+
+        case 'create':
+          project.image.useAuxImage.observable(true);
+          project.image.createAuxImage.observable(true);
+          break;
+      }
+    };
+
+    this.computeAuxImageConfig = () => {
+      let value = 'off';
+      if (this.project.image.useAuxImage.value) {
+        value = 'use';
+        if (this.project.image.createAuxImage.value) {
+          value = 'create';
+        }
+      }
+      return value;
+    };
+
+    this.auxImageConfigDP = new ArrayDataProvider(this.auxImageConfigData, { keyAttributes: 'id' });
+    this.auxImageConfig = ko.observable(this.computeAuxImageConfig());
 
     this.integerConverter = new ojConverterNumber.IntlNumberConverter({
       style: 'decimal',

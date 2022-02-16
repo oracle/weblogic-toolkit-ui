@@ -5,10 +5,13 @@
  */
 'use strict';
 
-define([],
-  function() {
+define(['knockout', 'ojs/ojcorerouter'],
+  function(ko, CoreRouter) {
     function ScreenUtils() {
       const thisUtil = this;
+      const imageDesignViewSelectedSubview = ko.observable();
+      let pendingImageDesignViewSubviewSelection;
+      let mainNavigationRouter;
 
       this.sliderPositions = {};
 
@@ -99,6 +102,45 @@ define([],
             }
           }
         }).observe(parentElement);
+      };
+
+      this.createMainNavigationRouter = (routeData, routeOptions) => {
+        mainNavigationRouter = new CoreRouter(routeData, routeOptions);
+      };
+
+      this.getMainNavigationRouter = () => {
+        return mainNavigationRouter;
+      };
+
+      this.gotoMainPage = (path) => {
+        mainNavigationRouter.go({ path: path });
+      };
+
+      this.setImageDesignViewSelectedSubview = (view, honorPendingTabChange = false) => {
+        if (honorPendingTabChange && pendingImageDesignViewSubviewSelection) {
+          imageDesignViewSelectedSubview(pendingImageDesignViewSubviewSelection);
+          pendingImageDesignViewSubviewSelection = undefined;
+        } else {
+          imageDesignViewSelectedSubview(view);
+        }
+      };
+
+      this.getImageDesignViewSelectedSubviewObservable = () => {
+        return imageDesignViewSelectedSubview;
+      };
+
+      this.setPendingImageDesignViewSubviewSelection = (view) => {
+        pendingImageDesignViewSubviewSelection = view;
+      };
+
+      this.gotoImageDesignPrimaryImageScreen = () => {
+        this.setPendingImageDesignViewSubviewSelection('primaryImage');
+        this.gotoMainPage('image-page');
+      };
+
+      this.gotoImageDesignAuxiliaryImageScreen = () => {
+        this.setPendingImageDesignViewSubviewSelection('auxiliaryImage');
+        this.gotoMainPage('image-page');
       };
     }
 

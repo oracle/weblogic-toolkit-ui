@@ -18,7 +18,7 @@
                class="wkt-design-view-switcher"
                on-value-changed="[[selectedSubviewValueChangedHandler]]"
                value="{{selectedSubview}}">
-    <div slot="fmwImage">
+    <div slot="primaryImage">
       <h6 slot="header" class="wkt-subheading"><oj-bind-text value="[[mainImagePageTitle]]"></oj-bind-text></h6>
       <div class="oj-panel">
         <oj-form-layout max-columns="2" direction="row">
@@ -28,27 +28,31 @@
                      help.instruction="[[mainCreateImageSwitchHelp]]">
           </oj-switch>
           <oj-bind-if test="[[targetDomainLocationIsMII() === true]]">
-            <oj-switch label-hint="[[labelMapper('use-aux-image-label')]]"
-                       value="{{project.image.useAuxImage.observable}}"
-                       help.instruction="[[labelMapper('use-aux-image-help')]]">
-            </oj-switch>
+            <oj-radioset id="aux-image-radio"
+                         label-hint="[[labelMapper('aux-image-settings-label')]]"
+                         value="{{auxImageConfig}}"
+                         options="{{auxImageConfigDP}}">
+            </oj-radioset>
           </oj-bind-if>
         </oj-form-layout>
-        <oj-form-layout max-columns="2" direction="row">
-          <oj-input-text id="primary-image-tag"
-                         label-hint="[[labelMapper('image-tag-label')]]"
-                         value="{{project.image.imageTag.observable}}"
-                         validators="[[project.image.imageTag.validators()]]"
-                         help.instruction="[[mainImageTagHelp]]">
-          </oj-input-text>
-          <oj-input-text class="wkt-can-readonly-field"
-                         id="image-registry-address"
-                         label-hint="[[labelMapper('image-registry-address-label')]]"
-                         value="{{project.image.internal.imageRegistryAddress.observable}}"
-                         readonly="true"
-                         help.instruction="[[labelMapper('image-registry-address-help')]]">
-          </oj-input-text>
-        </oj-form-layout>
+
+        <oj-bind-if test="[[isBuildingImage() === true]]">
+          <oj-form-layout max-columns="2" direction="row">
+            <oj-input-text id="primary-image-tag"
+                           label-hint="[[labelMapper('image-tag-label')]]"
+                           value="{{project.image.imageTag.observable}}"
+                           validators="[[project.image.imageTag.validators()]]"
+                           help.instruction="[[mainImageTagHelp]]">
+            </oj-input-text>
+            <oj-input-text class="wkt-can-readonly-field"
+                           id="image-registry-address"
+                           label-hint="[[labelMapper('image-registry-address-label')]]"
+                           value="{{project.image.internal.imageRegistryAddress.observable}}"
+                           readonly="true"
+                           help.instruction="[[labelMapper('image-registry-address-help')]]">
+            </oj-input-text>
+          </oj-form-layout>
+        </oj-bind-if>
 
         <oj-bind-if test="[[isBuildingImage() === true]]">
           <oj-form-layout max-columns="2" direction="row">
@@ -361,22 +365,15 @@
       |                            Aux Image Tab                            |
       ----------------------------------------------------------------------->
 
-    <div slot="auxImage">
+    <div slot="auxiliaryImage">
       <h6 slot="header" class="wkt-subheading"><oj-bind-text value="[[labelMapper('aux-title')]]"></oj-bind-text></h6>
       <div class="oj-panel">
-        <oj-form-layout max-columns="1" direction="row">
-          <oj-switch label-hint="[[labelMapper('create-aux-image-label')]]"
-                     value="{{project.image.createAuxImage.observable}}"
-                     help.instruction="[[labelMapper('create-aux-image-help')]]">
-          </oj-switch>
-        </oj-form-layout>
-
         <oj-form-layout max-columns="2" direction="row">
           <oj-input-text id="aux-image-tag"
                          label-hint="[[labelMapper('aux-image-tag-label')]]"
                          value="{{project.image.auxImageTag.observable}}"
                          validators="[[project.image.auxImageTag.validators()]]"
-                         help.instruction="[[auxImageTagHelp]]">
+                         help.instruction="[[labelMapper('aux-image-tag-create-help')]]">
           </oj-input-text>
           <oj-input-text class="wkt-can-readonly-field"
                          id="aux-image-registry-address"
@@ -385,99 +382,97 @@
                          readonly="true"
                          help.instruction="[[labelMapper('aux-image-registry-address-help')]]">
           </oj-input-text>
-          <oj-bind-if test="[[project.image.auxUseCustomBaseImage.observable() === false]]">
-            <oj-switch label-hint="[[labelMapper('aux-default-base-image-use-authentication-label')]]"
-                       value="{{project.image.auxDefaultBaseImagePullRequiresAuthentication.observable}}"
-                       help.instruction="[[labelMapper('aux-default-base-image-use-authentication-help')]]">
-            </oj-switch>
-          </oj-bind-if>
+        </oj-form-layout>
+
+        <oj-form-layout max-columns="2" direction="row">
+          <oj-switch label-hint="[[labelMapper('aux-image-registry-push-requires-authentication-label')]]"
+                     value="{{project.image.auxImageRegistryPushRequireAuthentication.observable}}"
+                     help.instruction="[[labelMapper('aux-image-registry-push-requires-authentication-help')]]">
+          </oj-switch>
           <div>
-            <oj-bind-if test="[[project.image.auxUseCustomBaseImage.observable() === false &&
-                                project.image.auxDefaultBaseImagePullRequiresAuthentication.observable() == true]]">
-              <oj-input-password label-hint="[[labelMapper('aux-default-base-image-pull-username-label')]]"
+            <oj-bind-if test="[[auxImageRegistryPushRequiresAuthentication() === true]]">
+              <oj-input-password label-hint="[[labelMapper('aux-image-registry-push-username-label')]]"
                                  mask-icon="visible"
-                                 value="{{project.image.auxDefaultBaseImagePullUsername.observable}}"
-                                 help.instruction="[[labelMapper('aux-default-base-image-pull-username-help')]]">
+                                 value="{{project.image.auxImageRegistryPushUser.observable}}"
+                                 help.instruction="[[labelMapper('aux-image-registry-push-username-help')]]">
               </oj-input-password>
             </oj-bind-if>
-            <oj-bind-if test="[[project.image.auxUseCustomBaseImage.observable() === false &&
-                                project.image.auxDefaultBaseImagePullRequiresAuthentication.observable() == true]]">
-              <oj-input-password label-hint="[[labelMapper('aux-default-base-image-pull-password-label')]]"
+            <oj-bind-if test="[[auxImageRegistryPushRequiresAuthentication() === true]]">
+              <oj-input-password label-hint="[[labelMapper('aux-image-registry-push-password-label')]]"
                                  mask-icon="visible"
-                                 value="{{project.image.auxDefaultBaseImagePullPassword.observable}}"
-                                 help.instruction="[[labelMapper('aux-default-base-image-pull-password-help')]]">
+                                 value="{{project.image.auxImageRegistryPushPassword.observable}}"
+                                 help.instruction="[[labelMapper('aux-image-registry-push-password-help')]]">
               </oj-input-password>
             </oj-bind-if>
           </div>
         </oj-form-layout>
+      </div>
 
-        <oj-bind-if test="[[isBuildingAuxImage() === true]]">
+      <div class="oj-panel">
+        <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('base-image-title')]]"></oj-bind-text></h6>
+        <oj-form-layout max-columns="2" direction="row">
+          <oj-switch label-hint="[[labelMapper('use-custom-base-image-label')]]"
+                     value="{{project.image.auxUseCustomBaseImage.observable}}"
+                     help.instruction="[[labelMapper('use-custom-base-image-help')]]">
+          </oj-switch>
+          <div>
+            <oj-bind-if test="[[project.image.auxUseCustomBaseImage.observable() === true]]">
+              <oj-input-text label-hint="[[labelMapper('custom-base-image-label')]]"
+                             value="{{project.image.auxBaseImage.observable}}"
+                             validators="[[project.image.auxBaseImage.validators()]]"
+                             help.instruction="[[labelMapper('custom-base-image-help')]]">
+              </oj-input-text>
+              <oj-input-text class="wkt-can-readonly-field"
+                             id="base-image-registry-address"
+                             label-hint="[[labelMapper('custom-base-image-registry-address-label')]]"
+                             value="{{project.image.internal.auxBaseImageRegistryAddress.observable}}"
+                             readonly="true"
+                             help.instruction="[[labelMapper('custom-base-image-registry-address-help')]]">
+              </oj-input-text>
+            </oj-bind-if>
+          </div>
+        </oj-form-layout>
+
+        <oj-bind-if test="[[project.image.auxUseCustomBaseImage.observable() === false]]">
           <oj-form-layout max-columns="2" direction="row">
-            <oj-switch label-hint="[[labelMapper('aux-image-registry-push-requires-authentication-label')]]"
-                       value="{{project.image.auxImageRegistryPushRequireAuthentication.observable}}"
-                       help.instruction="[[labelMapper('aux-image-registry-push-requires-authentication-help')]]">
+            <oj-switch label-hint="[[labelMapper('aux-default-base-image-use-authentication-label')]]"
+                       value="{{project.image.auxDefaultBaseImagePullRequiresAuthentication.observable}}"
+                       help.instruction="[[labelMapper('aux-default-base-image-use-authentication-help')]]">
             </oj-switch>
             <div>
-              <oj-bind-if test="[[auxImageRegistryPushRequiresAuthentication() === true]]">
-                <oj-input-password label-hint="[[labelMapper('aux-image-registry-push-username-label')]]"
+              <oj-bind-if test="[[project.image.auxDefaultBaseImagePullRequiresAuthentication.observable() == true]]">
+                <oj-input-password label-hint="[[labelMapper('aux-default-base-image-pull-username-label')]]"
                                    mask-icon="visible"
-                                   value="{{project.image.auxImageRegistryPushUser.observable}}"
-                                   help.instruction="[[labelMapper('aux-image-registry-push-username-help')]]">
+                                   value="{{project.image.auxDefaultBaseImagePullUsername.observable}}"
+                                   help.instruction="[[labelMapper('aux-default-base-image-pull-username-help')]]">
                 </oj-input-password>
               </oj-bind-if>
-              <oj-bind-if test="[[auxImageRegistryPushRequiresAuthentication() === true]]">
-                <oj-input-password label-hint="[[labelMapper('aux-image-registry-push-password-label')]]"
+              <oj-bind-if test="[[project.image.auxDefaultBaseImagePullRequiresAuthentication.observable() == true]]">
+                <oj-input-password label-hint="[[labelMapper('aux-default-base-image-pull-password-label')]]"
                                    mask-icon="visible"
-                                   value="{{project.image.auxImageRegistryPushPassword.observable}}"
-                                   help.instruction="[[labelMapper('aux-image-registry-push-password-help')]]">
+                                   value="{{project.image.auxDefaultBaseImagePullPassword.observable}}"
+                                   help.instruction="[[labelMapper('aux-default-base-image-pull-password-help')]]">
                 </oj-input-password>
               </oj-bind-if>
             </div>
           </oj-form-layout>
         </oj-bind-if>
-      </div>
 
-      <oj-bind-if test="[[isBuildingAuxImage() === true]]">
-        <div class="oj-panel">
-          <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('base-image-title')]]"></oj-bind-text></h6>
+        <oj-bind-if test="[[project.image.auxUseCustomBaseImage.observable() === true]]">
           <oj-form-layout max-columns="2" direction="row">
-            <oj-switch label-hint="[[labelMapper('use-custom-base-image-label')]]"
-                       value="{{project.image.auxUseCustomBaseImage.observable}}"
-                       help.instruction="[[labelMapper('use-custom-base-image-help')]]">
+            <oj-switch label-hint="[[labelMapper('base-image-use-authentication-label')]]"
+                       value="{{project.image.auxBaseImagePullRequiresAuthentication.observable}}"
+                       help.instruction="[[labelMapper('base-image-use-authentication-help')]]">
             </oj-switch>
             <div>
-              <oj-bind-if test="[[project.image.auxUseCustomBaseImage.observable() === true]]">
-                <oj-input-text label-hint="[[labelMapper('custom-base-image-label')]]"
-                               value="{{project.image.auxBaseImage.observable}}"
-                               validators="[[project.image.auxBaseImage.validators()]]"
-                               help.instruction="[[labelMapper('custom-base-image-help')]]">
-                </oj-input-text>
-                <oj-input-text class="wkt-can-readonly-field"
-                               id="base-image-registry-address"
-                               label-hint="[[labelMapper('custom-base-image-registry-address-label')]]"
-                               value="{{project.image.internal.auxBaseImageRegistryAddress.observable}}"
-                               readonly="true"
-                               help.instruction="[[labelMapper('custom-base-image-registry-address-help')]]">
-                </oj-input-text>
-              </oj-bind-if>
-            </div>
-            <oj-bind-if test="[[project.image.auxUseCustomBaseImage.observable() === true]]">
-              <oj-switch label-hint="[[labelMapper('base-image-use-authentication-label')]]"
-                         value="{{project.image.auxBaseImagePullRequiresAuthentication.observable}}"
-                         help.instruction="[[labelMapper('base-image-use-authentication-help')]]">
-              </oj-switch>
-            </oj-bind-if>
-            <div>
-              <oj-bind-if test="[[project.image.auxUseCustomBaseImage.observable() === true &&
-                                  project.image.auxBaseImagePullRequiresAuthentication.observable() == true]]">
+              <oj-bind-if test="[[project.image.auxBaseImagePullRequiresAuthentication.observable() == true]]">
                 <oj-input-password label-hint="[[labelMapper('base-image-pull-username-label')]]"
                                    mask-icon="visible"
                                    value="{{project.image.auxBaseImagePullUsername.observable}}"
                                    help.instruction="[[labelMapper('base-image-pull-username-help')]]">
                 </oj-input-password>
               </oj-bind-if>
-              <oj-bind-if test="[[project.image.auxUseCustomBaseImage.observable() === true &&
-                                  project.image.auxBaseImagePullRequiresAuthentication.observable() == true]]">
+              <oj-bind-if test="[[project.image.auxBaseImagePullRequiresAuthentication.observable() == true]]">
                 <oj-input-password label-hint="[[labelMapper('base-image-pull-password-label')]]"
                                    mask-icon="visible"
                                    value="{{project.image.auxBaseImagePullPassword.observable}}"
@@ -486,107 +481,107 @@
               </oj-bind-if>
             </div>
           </oj-form-layout>
+        </oj-bind-if>
+      </div>
+
+      <div class="oj-panel">
+        <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('wdt-installer-title')]]"></oj-bind-text></h6>
+        <oj-form-layout max-columns="1" direction="row">
+          <oj-switch label-hint="[[labelMapper('use-wdt-installer-label')]]"
+                     value="{{project.image.useLatestWdtVersion.observable}}"
+                     help.instruction="[[labelMapper('use-wdt-installer-help')]]">
+          </oj-switch>
+        </oj-form-layout>
+        <oj-bind-if test="[[project.image.useLatestWdtVersion.observable() === false]]">
+          <oj-form-layout max-columns="2" direction="row">
+            <oj-input-text label-hint="[[labelMapper('wdt-installer-label')]]"
+                           value="{{project.image.wdtInstaller.observable}}"
+                           help.instruction="[[labelMapper('wdt-installer-help')]]">
+              <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[chooseWDT]]">
+                <span slot="endIcon" class="oj-ux-ico-file-text" role="img"></span>
+              </oj-button>
+            </oj-input-text>
+            <oj-input-text label-hint="[[labelMapper('wdt-installer-version-label')]]"
+                           value="{{project.image.wdtInstallerVersion.observable}}"
+                           help.instruction="[[labelMapper('wdt-installer-version-help')]]">
+            </oj-input-text>
+          </oj-form-layout>
+        </oj-bind-if>
+      </div>
+
+      <oj-collapsible expanded='false'>
+        <h6 slot="header" class="wkt-subheading"><oj-bind-text value="[[labelMapper('page-design-advanced-label')]]"></oj-bind-text></h6>
+        <div class="oj-panel">
+          <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('wdt-section-title')]]"></oj-bind-text></h6>
+          <oj-form-layout max-columns="2" direction="row">
+            <oj-input-text label-hint="[[labelMapper('wdt-home-label')]]"
+                           value="{{project.image.wdtHomePath.observable}}"
+                           help.instruction="[[labelMapper('wdt-home-help')]]">
+            </oj-input-text>
+            <oj-input-text label-hint="[[labelMapper('wdt-model-home-label')]]"
+                           value="{{project.image.modelHomePath.observable}}"
+                           help.instruction="[[labelMapper('wdt-model-home-help')]]">
+            </oj-input-text>
+          </oj-form-layout>
         </div>
 
         <div class="oj-panel">
-          <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('wdt-installer-title')]]"></oj-bind-text></h6>
+          <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('build-config-title')]]"></oj-bind-text></h6>
           <oj-form-layout max-columns="1" direction="row">
-            <oj-switch label-hint="[[labelMapper('use-wdt-installer-label')]]"
-                       value="{{project.image.useLatestWdtVersion.observable}}"
-                       help.instruction="[[labelMapper('use-wdt-installer-help')]]">
+            <oj-switch label-hint="[[labelMapper('target-open-shift-label')]]"
+                       value="{{project.image.auxTargetOpenShift.observable}}"
+                       help.instruction="[[labelMapper('target-open-shift-help')]]">
             </oj-switch>
           </oj-form-layout>
-          <oj-bind-if test="[[project.image.useLatestWdtVersion.observable() === false]]">
-            <oj-form-layout max-columns="2" direction="row">
-              <oj-input-text label-hint="[[labelMapper('wdt-installer-label')]]"
-                             value="{{project.image.wdtInstaller.observable}}"
-                             help.instruction="[[labelMapper('wdt-installer-help')]]">
-                <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[chooseWDT]]">
-                  <span slot="endIcon" class="oj-ux-ico-file-text" role="img"></span>
-                </oj-button>
-              </oj-input-text>
-              <oj-input-text label-hint="[[labelMapper('wdt-installer-version-label')]]"
-                             value="{{project.image.wdtInstallerVersion.observable}}"
-                             help.instruction="[[labelMapper('wdt-installer-version-help')]]">
-              </oj-input-text>
-            </oj-form-layout>
-          </oj-bind-if>
+          <oj-form-layout max-columns="2" direction="row">
+            <oj-input-text label-hint="[[labelMapper('files-owner-label')]]"
+                           value="{{project.image.auxFileOwner.observable}}"
+                           help.instruction="[[labelMapper('files-owner-help')]]">
+            </oj-input-text>
+            <oj-input-text label-hint="[[labelMapper('files-group-label')]]"
+                           value="{{project.image.auxFileGroup.observable}}"
+                           help.instruction="[[labelMapper('files-group-help')]]">
+            </oj-input-text>
+            <oj-switch label-hint="[[labelMapper('always-pull-base-image-label')]]"
+                       value="{{project.image.auxAlwaysPullBaseImage.observable}}"
+                       help.instruction="[[labelMapper('always-pull-base-image-help')]]">
+            </oj-switch>
+            <oj-input-text label-hint="[[labelMapper('build-network-name-label')]]"
+                           value="{{project.image.auxBuilderNetworkName.observable}}"
+                           help.instruction="[[labelMapper('build-network-name-help')]]">
+            </oj-input-text>
+          </oj-form-layout>
+
+          <oj-form-layout max-columns="2" direction="row">
+            <oj-switch label-hint="[[labelMapper('extend-image-build-label')]]"
+                       value="{{project.image.auxExtendBuild.observable}}"
+                       help.instruction="[[labelMapper('extend-image-build-help')]]">
+            </oj-switch>
+            <div>
+              <oj-bind-if test="[[project.image.auxExtendBuild.observable() === true]]">
+                <oj-input-text label-hint="[[labelMapper('additional-build-commands-file-label')]]"
+                               value="{{project.image.auxAdditionalBuildCommandsFile.observable}}"
+                               help.instruction="[[labelMapper('additional-build-commands-file-help')]]">
+                  <oj-button slot="end" display="icons" chroming="borderless"
+                             on-oj-action="[[chooseAuxAdditionalBuildCommandsFile]]">
+                    <span slot="endIcon" class="oj-ux-ico-file-text" role="img"></span>
+                  </oj-button>
+                </oj-input-text>
+              </oj-bind-if>
+              <oj-bind-if test="[[project.image.auxExtendBuild.observable() === true]]">
+                <oj-input-text label-hint="[[labelMapper('additional-build-files-label')]]"
+                               value="{{project.image.auxAdditionalBuildFiles.observable}}"
+                               help.instruction="[[labelMapper('additional-build-files-help')]]">
+                  <oj-button slot="end" display="icons" chroming="borderless"
+                             on-oj-action="[[chooseAuxAdditionalBuildFiles]]">
+                    <span slot="endIcon" class="oj-ux-ico-file-text" role="img"></span>
+                  </oj-button>
+                </oj-input-text>
+              </oj-bind-if>
+            </div>
+          </oj-form-layout>
         </div>
-
-        <oj-collapsible expanded='false'>
-          <h6 slot="header" class="wkt-subheading"><oj-bind-text value="[[labelMapper('page-design-advanced-label')]]"></oj-bind-text></h6>
-          <div class="oj-panel">
-            <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('wdt-section-title')]]"></oj-bind-text></h6>
-            <oj-form-layout max-columns="2" direction="row">
-              <oj-input-text label-hint="[[labelMapper('wdt-home-label')]]"
-                             value="{{project.image.wdtHomePath.observable}}"
-                             help.instruction="[[labelMapper('wdt-home-help')]]">
-              </oj-input-text>
-              <oj-input-text label-hint="[[labelMapper('wdt-model-home-label')]]"
-                             value="{{project.image.modelHomePath.observable}}"
-                             help.instruction="[[labelMapper('wdt-model-home-help')]]">
-              </oj-input-text>
-            </oj-form-layout>
-          </div>
-
-          <div class="oj-panel">
-            <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('build-config-title')]]"></oj-bind-text></h6>
-            <oj-form-layout max-columns="1" direction="row">
-              <oj-switch label-hint="[[labelMapper('target-open-shift-label')]]"
-                         value="{{project.image.auxTargetOpenShift.observable}}"
-                         help.instruction="[[labelMapper('target-open-shift-help')]]">
-              </oj-switch>
-            </oj-form-layout>
-            <oj-form-layout max-columns="2" direction="row">
-              <oj-input-text label-hint="[[labelMapper('files-owner-label')]]"
-                             value="{{project.image.auxFileOwner.observable}}"
-                             help.instruction="[[labelMapper('files-owner-help')]]">
-              </oj-input-text>
-              <oj-input-text label-hint="[[labelMapper('files-group-label')]]"
-                             value="{{project.image.auxFileGroup.observable}}"
-                             help.instruction="[[labelMapper('files-group-help')]]">
-              </oj-input-text>
-              <oj-switch label-hint="[[labelMapper('always-pull-base-image-label')]]"
-                         value="{{project.image.auxAlwaysPullBaseImage.observable}}"
-                         help.instruction="[[labelMapper('always-pull-base-image-help')]]">
-              </oj-switch>
-              <oj-input-text label-hint="[[labelMapper('build-network-name-label')]]"
-                             value="{{project.image.auxBuilderNetworkName.observable}}"
-                             help.instruction="[[labelMapper('build-network-name-help')]]">
-              </oj-input-text>
-            </oj-form-layout>
-
-            <oj-form-layout max-columns="2" direction="row">
-              <oj-switch label-hint="[[labelMapper('extend-image-build-label')]]"
-                         value="{{project.image.auxExtendBuild.observable}}"
-                         help.instruction="[[labelMapper('extend-image-build-help')]]">
-              </oj-switch>
-              <div>
-                <oj-bind-if test="[[project.image.auxExtendBuild.observable() === true]]">
-                  <oj-input-text label-hint="[[labelMapper('additional-build-commands-file-label')]]"
-                                 value="{{project.image.auxAdditionalBuildCommandsFile.observable}}"
-                                 help.instruction="[[labelMapper('additional-build-commands-file-help')]]">
-                    <oj-button slot="end" display="icons" chroming="borderless"
-                               on-oj-action="[[chooseAuxAdditionalBuildCommandsFile]]">
-                      <span slot="endIcon" class="oj-ux-ico-file-text" role="img"></span>
-                    </oj-button>
-                  </oj-input-text>
-                </oj-bind-if>
-                <oj-bind-if test="[[project.image.auxExtendBuild.observable() === true]]">
-                  <oj-input-text label-hint="[[labelMapper('additional-build-files-label')]]"
-                                 value="{{project.image.auxAdditionalBuildFiles.observable}}"
-                                 help.instruction="[[labelMapper('additional-build-files-help')]]">
-                    <oj-button slot="end" display="icons" chroming="borderless"
-                               on-oj-action="[[chooseAuxAdditionalBuildFiles]]">
-                      <span slot="endIcon" class="oj-ux-ico-file-text" role="img"></span>
-                    </oj-button>
-                  </oj-input-text>
-                </oj-bind-if>
-              </div>
-            </oj-form-layout>
-          </div>
-        </oj-collapsible>
-      </oj-bind-if>
+      </oj-collapsible>
     </div>
   </oj-switcher>
 </div>
