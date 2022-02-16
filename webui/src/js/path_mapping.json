@@ -332,6 +332,97 @@
         "path": "libs/ace/ace.js",
         "cdnPath": ""
       }
+    },
+
+    "wrc-translations": {
+      "cdn": "3rdparty",
+      "cwd": "node_modules/@oracle/wrc-jet-pack/dist/resources",
+      "debug": {
+        "src": ["**"],
+        "path": "resources",
+        "cdnPath": ""
+      },
+      "release": {
+        "src": ["**"],
+        "path": "resources",
+        "cdnPath": ""
+      }
+    },
+
+    "wrc-frontend": {
+      "cdn": "3rdparty",
+      "cwd": "node_modules/@oracle/wrc-jet-pack/dist/jet-composites/wrc-frontend",
+      "debug": {
+        "src": ["**"],
+        "path": "jet-composites/wrc-frontend/1.0.0",
+        "cdnPath": ""
+      },
+      "release": {
+        "src": ["**"],
+        "path": "jet-composites/wrc-frontend/1.0.0",
+        "cdnPath": ""
+      }
+    },
+
+    "wdt-model-builder": {
+      "cdn": "3rdparty",
+      "cwd": "node_modules/@oracle/wrc-jet-pack/dist/jet-composites/wdt-model-builder",
+      "debug": {
+        "src": ["**"],
+        "path": "jet-composites/wdt-model-builder/1.0.0",
+        "cdnPath": ""
+      },
+      "release": {
+        "src": ["**"],
+        "path": "jet-composites/wdt-model-builder/1.0.0",
+        "cdnPath": ""
+      }
+    },
+
+    "cfe-navtree": {
+      "cdn": "3rdparty",
+      "cwd": "node_modules/@oracle/wrc-jet-pack/dist/jet-composites/cfe-navtree",
+      "debug": {
+        "src": ["**"],
+        "path": "jet-composites/cfe-navtree/1.0.0",
+        "cdnPath": ""
+      },
+      "release": {
+        "src": ["**"],
+        "path": "jet-composites/cfe-navtree/1.0.0",
+        "cdnPath": ""
+      }
+    },
+
+    "cfe-multi-select": {
+      "cdn": "3rdparty",
+      "cwd": "node_modules/@oracle/wrc-jet-pack/dist/jet-composites/cfe-multi-select",
+      "debug": {
+        "src": ["**"],
+        "path": "jet-composites/cfe-multi-select/1.0.0",
+        "cdnPath": ""
+      },
+      "release": {
+        "src": ["**"],
+        "path": "jet-composites/cfe-multi-select/1.0.0",
+        "cdnPath": ""
+      }
+    },
+
+    "cfe-property-list-editor": {
+      "cdn": "3rdparty",
+      "cwd": "node_modules/@oracle/wrc-jet-pack/dist/jet-composites/cfe-property-list-editor",
+      "debug": {
+        "src": ["**"],
+        "path": "jet-composites/cfe-property-list-editor/1.0.0",
+        "cdnPath": ""
+      },
+      "release": {
+        "src": ["**"],
+        "path": "jet-composites/cfe-property-list-editor/1.0.0",
+        "cdnPath": ""
+      }
     }
+
   }
 }

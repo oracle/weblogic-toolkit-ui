@@ -194,16 +194,32 @@
 }
 
 /* container for model design view, currently text */
+.wkt-model-edit-design,
+.wkt-model-code-view 
+{
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.wkt-model-edit-design > a > img {
+  margin: 0 3px 0 0; 
+  height: 24px; 
+  width: 18px;
+}
+
+/* 
+///MLW
 .wkt-model-edit-design {
   margin: 10px;
 }
 
-/* container for model design view, currently text */
 .wkt-model-code-view {
   display: flex;
   height: 100%;
   width: 100%;
 }
+*/
 
 /* the ace editor pane */
 #model-editor {

@@ -2,11 +2,15 @@
  Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
-<div class="wkt-model-edit-design">
+<div class="wkt-model-edit-design" data-runtime-role="tool">
   <oj-bind-if test="[[showRemoteConsoleComponent() === true]]">
-    <div class="oj-panel">
-      <p><oj-bind-text value="[[labelMapper('coming-soon')]]"></oj-bind-text></p>
-    </div>
+    <wdt-model-builder
+      id="WdtModelBuilder"
+      on-provider-activated="[[providerActivated]]"
+      on-provider-deactivated="[[providerDeactivated]]"
+      on-changes-auto-downloaded="[[changesAutoDownloaded]]"
+    >
+    </wdt-model-builder>
   </oj-bind-if>
 
   <oj-bind-if test="[[showRemoteConsoleConfigForm() === true]]">
