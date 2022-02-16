@@ -30,6 +30,7 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       }));
 
       subscriptions.push(project.image.useAuxImage.observable.subscribe(() => {
+        this.auxImageConfig(this.computeAuxImageConfig());
         // change the primary image tag's help text based on the value of the switch?
         const primaryImageTag = document.getElementById('primary-image-tag');
         if (primaryImageTag) {
@@ -38,9 +39,12 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       }));
 
       subscriptions.push(project.image.createAuxImage.observable.subscribe(() => {
+        this.auxImageConfig(this.computeAuxImageConfig());
         const auxImageTag = document.getElementById('aux-image-tag');
         if (auxImageTag) {
-          auxImageTag.refresh();
+          viewHelper.componentReady(auxImageTag).then(() => {
+            auxImageTag.refresh();
+          });
         }
       }));
     };
