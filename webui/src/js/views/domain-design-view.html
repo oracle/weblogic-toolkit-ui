@@ -96,11 +96,30 @@
 <div class="oj-panel">
   <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('image-title')]]"></oj-bind-text></h6>
   <oj-form-layout max-columns="2" direction="row">
-    <oj-input-text class="wkt-can-readonly-field"
+    <oj-switch id="create-image-switch"
+               label-hint="[[imageLabelMapper('create-image-label')]]"
+               value="{{project.image.createPrimaryImage.observable}}"
+               help.instruction="[[mainCreateImageSwitchHelp]]">
+    </oj-switch>
+    <oj-bind-if test="[[project.image.createPrimaryImage.observable() === true]]">
+      <oj-button id="createPrimaryImageNavButton"
+                 chroming="callToAction"
+                 on-oj-action="[[gotoCreateImage]]"
+                 :title="[[labelMapper('hints-goto-create-image')]]">
+            <span>
+              <oj-bind-text value="[[labelMapper('goto-create-image-button-label')]]"></oj-bind-text>
+            </span>
+      </oj-button>
+    </oj-bind-if>
+  </oj-form-layout>
+
+  <oj-form-layout max-columns="2" direction="row">
+    <oj-input-text id="primary-image-tag"
+                   class="wkt-can-readonly-field"
                    label-hint="[[labelMapper('image-tag-label')]]"
                    value="{{project.image.imageTag.observable}}"
-                   readonly="true"
-                   help.instruction="[[labelMapper('image-tag-help')]]">
+                   readonly="[[isPrimaryImageTagReadOnly]]"
+                   help.instruction="[[mainImageTagHelp]]">
     </oj-input-text>
     <oj-input-text class="wkt-can-readonly-field"
                    label-hint="[[labelMapper('image-registry-address-label')]]"
@@ -157,18 +176,41 @@
       </oj-bind-if>
     </oj-form-layout>
   </oj-bind-if>
+  <oj-bind-if test="[[targetDomainLocationIsMII() === true]]">
+    <oj-form-layout max-columns="1" direction="row">
+      <oj-radioset id="aux-image-radio"
+                   label-hint="[[imageLabelMapper('aux-image-settings-label')]]"
+                   value="{{auxImageConfig}}"
+                   options="{{auxImageConfigDP}}">
+      </oj-radioset>
+    </oj-form-layout>
+  </oj-bind-if>
 </div>
 
 <div>
   <oj-bind-if test="[[usingAuxImage]]">
     <div class="oj-panel">
       <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('aux-image-title')]]"></oj-bind-text></h6>
+      <oj-form-layout max-columns="1" direction="row">
+        <oj-bind-if test="[[project.image.createAuxImage.observable() === true]]">
+          <oj-button id="createAuxImageNavButton"
+                     chroming="callToAction"
+                     on-oj-action="[[gotoCreateAuxImage]]"
+                     :title="[[labelMapper('hints-goto-create-aux-image')]]">
+            <span>
+              <oj-bind-text value="[[labelMapper('goto-create-aux-image-button-label')]]"></oj-bind-text>
+            </span>
+          </oj-button>
+        </oj-bind-if>
+      </oj-form-layout>
+
       <oj-form-layout max-columns="2" direction="row">
-        <oj-input-text class="wkt-can-readonly-field"
+        <oj-input-text id="aux-image-tag"
+                       class="wkt-can-readonly-field"
                        label-hint="[[labelMapper('aux-image-tag-label')]]"
                        value="{{project.image.auxImageTag.observable}}"
-                       readonly="true"
-                       help.instruction="[[labelMapper('aux-image-tag-help')]]">
+                       readonly="[[isAuxImageTagReadOnly]]"
+                       help.instruction="[[auxImageTagHelp]]">
         </oj-input-text>
         <oj-input-text class="wkt-can-readonly-field"
                        label-hint="[[labelMapper('aux-image-registry-address-label')]]"

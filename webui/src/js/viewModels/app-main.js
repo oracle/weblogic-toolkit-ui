@@ -6,15 +6,14 @@
 'use strict';
 
 define(['accUtils', 'knockout', 'utils/i18n', 'models/wkt-project', 'models/wkt-console', 'utils/dialog-helper',
-  'utils/view-helper', 'ojs/ojarraydataprovider', 'ojs/ojarraytreedataprovider', 'ojs/ojcorerouter',
+  'utils/view-helper', 'utils/screen-utils', 'ojs/ojarraydataprovider', 'ojs/ojarraytreedataprovider', 'ojs/ojcorerouter',
   'ojs/ojmodule-element-utils', 'ojs/ojmodulerouter-adapter', 'ojs/ojknockoutrouteradapter', 'ojs/ojurlparamadapter',
   'ojs/ojoffcanvas', 'ojs/ojknockouttemplateutils', 'ojs/ojresponsiveutils', 'ojs/ojresponsiveknockoututils',
-  'utils/wkt-logger',
-  'ojs/ojknockout', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojdialog', 'ojs/ojformlayout',
-  'ojs/ojselectsingle', 'ojs/ojvalidationgroup', 'ojs/ojcollapsible'],
-function(accUtils, ko, i18n, project, wktConsole, dialogHelper, viewHelper, ArrayDataProvider, ArrayTreeDataProvider,
-  CoreRouter, ModuleElementUtils, ModuleRouterAdapter, KnockoutRouterAdapter, UrlParamAdapter, OffCanvasUtils,
-  KnockoutTemplateUtils, ResponsiveUtils, ResponsiveKnockoutUtils, wktLogger) {
+  'utils/wkt-logger', 'ojs/ojknockout', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojdialog',
+  'ojs/ojformlayout', 'ojs/ojselectsingle', 'ojs/ojvalidationgroup', 'ojs/ojcollapsible'],
+function(accUtils, ko, i18n, project, wktConsole, dialogHelper, viewHelper, screenUtils, ArrayDataProvider,
+  ArrayTreeDataProvider, CoreRouter, ModuleElementUtils, ModuleRouterAdapter, KnockoutRouterAdapter, UrlParamAdapter,
+  OffCanvasUtils, KnockoutTemplateUtils, ResponsiveUtils, ResponsiveKnockoutUtils, wktLogger) {
 
   function AppMainModel() {
 
@@ -81,10 +80,11 @@ function(accUtils, ko, i18n, project, wktConsole, dialogHelper, viewHelper, Arra
     ];
 
     // Router setup
-    let router = new CoreRouter(routeData, {
+    screenUtils.createMainNavigationRouter(routeData, {
       urlAdapter: new UrlParamAdapter(),
       history: 'skip'
     });
+    const router = screenUtils.getMainNavigationRouter();
     router.sync();
 
     this.moduleAdapter = new ModuleRouterAdapter(router);
