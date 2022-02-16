@@ -40,7 +40,9 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       subscriptions.push(project.image.createAuxImage.observable.subscribe(() => {
         const auxImageTag = document.getElementById('aux-image-tag');
         if (auxImageTag) {
-          auxImageTag.refresh();
+          viewHelper.componentReady(auxImageTag).then(() => {
+            auxImageTag.refresh();
+          });
         }
       }));
     };
