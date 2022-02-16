@@ -84,7 +84,7 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
         const operatorName = this.project.wko.wkoDeployName.value;
         const operatorNamespace = this.project.wko.k8sNamespace.value;
         busyDialogMessage = i18n.t('flow-checking-operator-installed-in-progress',
-          {operatorName: operatorName, Namespace: operatorNamespace});
+          {operatorName: operatorName, operatorNamespace: operatorNamespace});
         dialogHelper.updateBusyDialog(busyDialogMessage, 4 / totalSteps);
         if (!options.skipCheckOperatorAlreadyInstalled) {
           if (! await this.checkOperatorIsInstalled(kubectlExe, kubectlOptions, operatorName, operatorNamespace, errTitle)) {
