@@ -26,6 +26,7 @@ define(['utils/wkt-logger', 'utils/screen-utils'],
         }));
 
         subscriptions.push(project.image.useAuxImage.observable.subscribe(() => {
+          this.auxImageConfig(this.computeAuxImageConfig());
           document.getElementById('designtabs').refresh();
           // change the primary image tag's help text based on the value of the switch?
           const primaryImageTag = document.getElementById('primary-image-tag');
@@ -35,6 +36,7 @@ define(['utils/wkt-logger', 'utils/screen-utils'],
         }));
 
         subscriptions.push(project.image.createAuxImage.observable.subscribe(() => {
+          this.auxImageConfig(this.computeAuxImageConfig());
           const auxImageTag = document.getElementById('aux-image-tag');
           if (auxImageTag) {
             auxImageTag.refresh();
