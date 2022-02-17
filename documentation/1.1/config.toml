@@ -17,3 +17,4 @@ publishDir = "docs"
 [params]
   # disable the copy to clipboard links
   disableInlineCopyToClipBoard = true
+  custom_css = [ "css/theme-wktui.css" ]
