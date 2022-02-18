@@ -34,6 +34,10 @@ The primary image is the one used for running the domain and the auxiliary image
 reused for hundreds of domains whereas an auxiliary image is domain-specific. When using auxiliary images,
 the primary image contains the OS, JDK, and FMW software installations; the auxiliary image supplies the specifics for a single domain.
 
+![](/weblogic-toolkit-ui/images/primary-image.png)
+![](/weblogic-toolkit-ui/images/auxiliary-image.png)
+
+
 - `Primary Image` - The image containing the Oracle Fusion Middleware software. It is used as the basis of all containers that run WebLogic Servers for the domain.
 - `Auxiliary Image` - The image that supplies the WebLogic Deploy Tooling software and the model files. At runtime, the auxiliary image's content is merged with the primary image's content.
 
