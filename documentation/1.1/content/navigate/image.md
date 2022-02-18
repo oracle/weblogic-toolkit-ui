@@ -30,17 +30,16 @@ Use the `Design View` page to specify whether to create a new or use an existing
 whether or not (the default) to use an `Auxiliary Image` (an existing one or create a new one).
 **Note** that auxiliary images are available for the "Model in Image" [domain location]({{< relref "/navigate/project-settings#choosing-a-domain-location" >}}) _only_.
 
+
+- **Primary Image** - The image containing the Oracle Fusion Middleware software. It is used as the basis of all containers that run WebLogic Servers for the domain.
+- **Auxiliary Image** - The image that supplies the WebLogic Deploy Tooling software and the model files. At runtime, the auxiliary image's content is merged with the primary image's content.
+
+
+{{< himg "Primary image diagram" "images/primary-image.png" "Auxiliary image diagram" "images/auxiliary-image.png" >}}
+
 The primary image is the one used for running the domain and the auxiliary image contains the data that defines the domain. One primary image can be
 reused for hundreds of domains whereas an auxiliary image is domain-specific. When using auxiliary images,
 the primary image contains the OS, JDK, and FMW software installations; the auxiliary image supplies the specifics for a single domain.
-
-![](/weblogic-toolkit-ui/images/primary-image.png)
-![](/weblogic-toolkit-ui/images/auxiliary-image.png)
-
-
-- `Primary Image` - The image containing the Oracle Fusion Middleware software. It is used as the basis of all containers that run WebLogic Servers for the domain.
-- `Auxiliary Image` - The image that supplies the WebLogic Deploy Tooling software and the model files. At runtime, the auxiliary image's content is merged with the primary image's content.
-
 
 If you select to create a new primary image, you'll see the following basic panes and a few advanced panes on the `Primary Image` Design View page.
 If you select to create a new auxiliary image, you must select the `Auxiliary Image` Design View page, to configure it.
