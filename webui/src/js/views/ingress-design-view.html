@@ -200,8 +200,7 @@
           <td>
             <oj-bind-text value="[[row.data.targetPort]]"></oj-bind-text>
           </td>
-          <oj-bind-if
-                  test="[[!isAccessPointDefined(row.data.accessPoint)]]">
+          <oj-bind-if test="[[!isAccessPointDefined(row.data.accessPoint)]]">
             <td>
               <oj-bind-text value="[[row.data.accessPoint]]"></oj-bind-text>
             </td>

@@ -58,10 +58,10 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
         this.auxImagePullPolicy = props.createProperty('IfNotPresent');
 
         this.clusterKeys = [
-          'name', 'maxServers', 'replicas', 'minHeap', 'maxHeap', 'cpuRequest', 'cpuLimit', 'memoryRequest',
+          'uid', 'name', 'maxServers', 'replicas', 'minHeap', 'maxHeap', 'cpuRequest', 'cpuLimit', 'memoryRequest',
           'memoryLimit', 'disableDebugStdout', 'disableFan', 'useUrandom', 'additionalArguments'
         ];
-        this.clusters = props.createListProperty(this.clusterKeys).persistByKey('name');
+        this.clusters = props.createListProperty(this.clusterKeys).persistByKey('uid');
 
         this.modelConfigMapName = props.createProperty('${1}-config-map', this.uid.observable);
         this.modelConfigMapName.addValidator(...validationHelper.getK8sNameValidators());
@@ -204,19 +204,22 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
         };
 
         this.setClusterRow = (prepareModelCluster) => {
-          let found;
+          let cluster;
           for (const row of this.clusters.observable()) {
             if (row.name === prepareModelCluster.clusterName) {
               row.maxServers = prepareModelCluster.replicas;
               if (row.replicas === undefined || row.replicas > row.maxServers) {
                 row.replicas = row.maxServers;
               }
-              found = true;
+              cluster = row;
               break;
             }
           }
-          if (!found) {
+          if (cluster) {
+            this.clusters.observable.replace(cluster, cluster);
+          } else {
             this.clusters.addNewItem({
+              uid: utils.getShortUuid(),
               name: prepareModelCluster.clusterName,
               maxServers: prepareModelCluster.replicas,
               replicas: prepareModelCluster.replicas

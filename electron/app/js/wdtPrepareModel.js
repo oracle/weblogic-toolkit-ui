@@ -30,7 +30,8 @@ const _vzTargetTypeName = i18n.t('prepare-model-wko-target-type-name');
 
 async function prepareModel(currentWindow, stdoutChannel, stderrChannel, prepareConfig) {
   const logger = getLogger();
-  const { javaHome, oracleHome, projectDirectory, modelsSubdirectory, modelFiles, variableFiles, wdtTargetType } = prepareConfig;
+  const { javaHome, oracleHome, projectDirectory, modelsSubdirectory, modelFiles,
+    variableFiles, wdtTargetType, targetDomainLocation } = prepareConfig;
   const outputDirectory = await fsUtils.createTemporaryDirectory(projectDirectory, 'prepareModel');
   const absoluteModelFiles = fsUtils.getAbsolutePathsList(modelFiles, projectDirectory);
 
@@ -38,7 +39,7 @@ async function prepareModel(currentWindow, stdoutChannel, stderrChannel, prepare
     '-oracle_home', oracleHome,
     '-model_file', absoluteModelFiles.join(','),
     '-output_dir', outputDirectory,
-    '-target', wdtTargetType
+    '-target', getToolTargetType(wdtTargetType, targetDomainLocation)
   ];
 
   const absoluteVariableFiles = fsUtils.getAbsolutePathsList(variableFiles, projectDirectory);
@@ -50,7 +51,7 @@ async function prepareModel(currentWindow, stdoutChannel, stderrChannel, prepare
   //
   const env = {
     JAVA_HOME: javaHome,
-    WDT_CUSTOM_CONFIG: getWdtCustomConfigDirectory(prepareConfig)
+    WDT_CUSTOM_CONFIG: getWdtCustomConfigDirectory()
   };
   getLogger().debug(`Invoking ${getPrepareModelShellScript()} with args ${JSON.stringify(argList)} and environment ${JSON.stringify(env)}`);
 
@@ -75,7 +76,7 @@ async function prepareModel(currentWindow, stdoutChannel, stderrChannel, prepare
     }
   } catch (err) {
     results.isSuccess = false;
-    results.reason = i18n.t('prepare-model-execution-failed-error-message', { error: getErrorMessage(err) });
+    results.reason = i18n.t('prepare-model-execution-failed-error-message', { error: errorUtils.getErrorMessage(err) });
     results.error = err;
     logger.error(results.reason);
     removeTempDirectory(outputDirectory).then().catch();
@@ -114,7 +115,7 @@ async function prepareModel(currentWindow, stdoutChannel, stderrChannel, prepare
       await getModelFileContent(currentWindow, updatedModelFiles, updatedVariableFiles, []);
   } catch (err) {
     results.isSuccess = false;
-    results.reason = i18n.t('prepare-model-move-files-failed-error-message', { error: getErrorMessage(err) });
+    results.reason = i18n.t('prepare-model-move-files-failed-error-message', { error: errorUtils.getErrorMessage(err) });
     results.error = err;
     logger.error(results.reason);
     removeTempDirectory(outputDirectory).then().catch();
@@ -128,7 +129,7 @@ async function prepareModel(currentWindow, stdoutChannel, stderrChannel, prepare
       results['secrets'] = await getJsonSecretsContent(outputDirectory);
     } catch (err) {
       results.isSuccess = false;
-      results.reason = getErrorMessage(err);
+      results.reason = errorUtils.getErrorMessage(err);
       results.error = err;
       logger.error(results.reason);
       removeTempDirectory(outputDirectory).then().catch();
@@ -139,7 +140,7 @@ async function prepareModel(currentWindow, stdoutChannel, stderrChannel, prepare
       results['domain'] = await getTargetSpecContent(wdtTargetType, outputDirectory);
     } catch (err) {
       results.isSuccess = false;
-      results.reason = getErrorMessage(err);
+      results.reason = errorUtils.getErrorMessage(err);
       results.error = err;
       logger.error(results.reason);
       removeTempDirectory(outputDirectory).then().catch();
@@ -165,18 +166,6 @@ async function prepareModel(currentWindow, stdoutChannel, stderrChannel, prepare
   }
   removeTempDirectory(outputDirectory).then().catch();
   return Promise.resolve(results);
-}
-
-function getErrorMessage(err) {
-  let errorMessage;
-  if (!err) {
-    errorMessage = 'Unknown Error';
-  } else if (!err.message) {
-    errorMessage = err.toString();
-  } else {
-    errorMessage = err.message;
-  }
-  return errorMessage;
 }
 
 async function removeTempDirectory(outputDirectory) {
@@ -436,6 +425,11 @@ async function getVzSpecContent(outputDirectory) {
       });
     }).catch(err => reject(getFileExistsErrorMessage(_wkoTargetTypeName, specFile, err)));
   });
+}
+
+function getToolTargetType(wdtTargetType, targetDomainLocation) {
+  const suffix = targetDomainLocation === 'mii' ? '' : `-${targetDomainLocation}`;
+  return `${wdtTargetType}${suffix}`;
 }
 
 function getFileExistsErrorMessage(targetType, fileName, err) {
