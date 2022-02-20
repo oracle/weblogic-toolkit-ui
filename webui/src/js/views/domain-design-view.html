@@ -277,6 +277,7 @@
   </div>
   <oj-table id="clusters-table"
             class="wkt-domain-clusters-table"
+            :aria-label="[[labelMapper('clusters-table-aria-label')]]"
             data="[[clustersDP]]"
             display="grid"
             horizontal-grid-visible="enabled"
@@ -297,11 +298,29 @@
             <oj-bind-text value="[[labelMapper('edit-cluster-label')]]"></oj-bind-text>
           </oj-button>
         </td>
+        <td>
+          <oj-button display="icons"
+                     chroming="borderless"
+                     disabled="[[isDomainInPV() === false]]"
+                     on-oj-action="[[handleDeleteCluster]]">
+            <span slot="endIcon" class="oj-ux-ico-trash"></span>
+            <oj-bind-text value="[[labelMapper('delete-cluster-label')]]"></oj-bind-text>
+          </oj-button>
+        </td>
       </tr>
     </template>
-    <template slot="headerTemplate">
+    <template slot="chooseHeaderTemplate">
       <oj-button display="icons" chroming="borderless" disabled="true">
         <span slot="endIcon"></span>
+      </oj-button>
+    </template>
+    <template slot="headerTemplate" data-oj-as="header">
+      <oj-button display="icons"
+                 chroming="borderless"
+                 disabled="[[isDomainInPV() === false]]"
+                 on-oj-action="[[handleAddCluster]]">
+        <span slot="endIcon" class="oj-ux-ico-plus"></span>
+        <oj-bind-text value="[[labelMapper('add-cluster-label')]]"></oj-bind-text>
       </oj-button>
     </template>
     <template slot="noData">

@@ -45,9 +45,8 @@ function getValidateModelShellScript() {
   return path.join(getWdtDirectory(), 'bin', 'validateModel' + scriptExtension);
 }
 
-function getWdtCustomConfigDirectory(config) {
-  const targetDomainLocation = config.targetDomainLocation || 'mii';
-  return path.join(getToolsDirectory(), 'wdt-config', targetDomainLocation);
+function getWdtCustomConfigDirectory() {
+  return path.join(getToolsDirectory(), 'wdt-config');
 }
 
 function isWdtErrorExitCode(exitCode) {

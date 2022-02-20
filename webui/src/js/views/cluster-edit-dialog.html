@@ -13,7 +13,8 @@
           <oj-input-text class="wkt-can-readonly-field"
                          label-hint="[[labelMapper('name-label')]]"
                          value="{{name.observable}}"
-                         readonly="true"
+                         readonly="[[isDomainInPV === false]]"
+                         validators="[[[nameIsUnique]]]"
                          help.instruction="[[labelMapper('name-help')]]">
           </oj-input-text>
 
