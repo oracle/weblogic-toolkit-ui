@@ -74,7 +74,7 @@ These include:
       
       <guid>https://oracle.github.io/weblogic-toolkit-ui/navigate/image/</guid>
       <description>Contents  Image Design View  Target Image Name and Registry Credentials Base Image to Use Installers for Building the Image Patch Oracle Home WebLogic Deploy Tooling Configuration Image Build Configuration   Code View Create Images Push Images  Image The Image section helps you build container images for deploying WebLogic-based applications in a Kubernetes environment using the WebLogic Image Tool.
-Design View The Design View helps you specify the necessary data needed to run the WebLogic Image Tool to build an image for running the WebLogic domain with all resources configured and applications deployed.</description>
+Design View The Design View helps you specify the necessary data needed to run the WebLogic Image Tool to build an image for running the WebLogic domain.</description>
     </item>
     
     <item>
