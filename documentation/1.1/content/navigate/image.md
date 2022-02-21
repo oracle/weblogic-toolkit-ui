@@ -24,7 +24,7 @@ in a Kubernetes environment using the [WebLogic Image Tool](https://oracle.githu
 
 ### Design View
 The `Design View` helps you specify the necessary data needed to run the WebLogic Image Tool to build an image for
-running the WebLogic domain with all resources configured and applications deployed.
+running the WebLogic domain.
 
 Use the `Design View` page to specify whether to create a new or use an existing (the default) `Primary Image` and
 whether or not (the default) to use an `Auxiliary Image` (an existing one or create a new one).
