@@ -80,7 +80,9 @@ The following sections describe the other panes that support configuring the gen
 - [Domain-Wide Server Settings](#domain-wide-server-settings)
 
 #### Primary Image to Use for the Domain
-This pane focuses on the container primary image to use to run the WebLogic Server domain in a container.   
+This pane focuses on the container primary image to use to run the WebLogic Server domain in a container. If you select `Create a New Primary Image`,
+then click `Go To Create Primary Image Page` to configure the image. For detailed information, see the [Image]({{< relref "/navigate/image.md" >}}) section.
+
 - When using either "Model in Image" or "Domain in Image" [domain location]({{< relref "/navigate/project-settings#choosing-a-domain-location" >}}), the `Primary Image Tag` field is read-only; its value is set using the
 `Image Tag` field in the `Image` section.  
 - In the case of "Domain in PV", the `Image Tag` field is not read-only and _is_
@@ -102,6 +104,10 @@ whether to use an existing image pull secret or create a new one.  Specify the i
 `Image Registry Pull Username`, `Image Registry Pull Email Address`, and `Image Registry Pull Password` fields.  
 
 #### Auxiliary Image to Use for the Domain
+
+Under `Auxiliary Image Configuration`, use the radio buttons to specify whether or not to use an Auxiliary Image (an existing one) or create a new one (the default).
+If you select `Create a New Auxiliary Image`, then click `Go To Create Auxiliary Image Page` to configure the image. For detailed information,
+see the [Image]({{< relref "/navigate/image.md" >}}) section.
 
 For "Model in Image" domains only, this pane focuses on the container auxiliary image to use for the domain.
 - The `Auxiliary Image Tag` field is read-only; its value is set using the
