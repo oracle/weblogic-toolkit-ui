@@ -1,12 +1,17 @@
-+++
-title = "Release Notes"
-date = 2022-01-30T12:48:00-05:00
-weight = 5
-pre = "<b> </b>"
-+++
+---
+title: "Release 1.1.0"
+date: 2019-02-22T15:44:42-05:00
+draft: false
+weight: 2
+description: "Install the WKT UI application and check for updates."
+---
 
 ### Changes in Release 1.1.0
-This release contains the following changes and bug fixes.
+- [Major New Features](#major-new-features)
+- [Other Changes](#other-changes)
+- [Bugs Fixes](#bug-fixes)
+- [Known Issues](#known-issues)
+
 
 #### Major New Features
 - Updated macOS environment control to specify extra environment settings to pass down to Docker/Podman, kubectl, and Helm invocations.
@@ -14,8 +19,8 @@ This release contains the following changes and bug fixes.
 - New Validate Model action that leverages WDT 2.0 changes to validate the model files and reports any validation errors it finds.
 - Updated Prepare Model action that leverages WDT 2.0 changes to improve model preparation for deploying with WebLogic Kubernetes Operator.
 - Added support for splitting the FMW (WebLogic or FMW Infrastructure) and WDT model images (also known as auxiliary images).
-  - New Create Auxiliary Image action to create an auxiliary image.
-  - New Push Auxiliary Image action to push an auxiliary image to an image registry.
+    - New Create Auxiliary Image action to create an auxiliary image.
+    - New Push Auxiliary Image action to push an auxiliary image to an image registry.
 - New Update Operator action to apply changes such as a version upgrade to an existing WebLogic Kubernetes Operator installation.
 - New Uninstall Operator action to uninstall the WebLogic Kubernetes Operator installation and optionally, its Kubernetes namespace.
 - New Undeploy Domain action to undeploy an existing domain  and optionally, its Kubernetes namespace.
@@ -52,13 +57,13 @@ This release contains the following changes and bug fixes.
 - Worked around macOS-specific Electron issue that caused the model editor to not receive a blur event when using the
   application menus.
 
-### Known Issues in Release 1.1.0
+#### Known Issues
 
-- When running the WKT UI application on Windows, the image builder tool (Docker or Podman) also must be directly 
+- When running the WKT UI application on Windows, the image builder tool (Docker or Podman) also must be directly
   executable in Windows.  For example, there is currently no support for running the WKT UI application in Windows and
   running Podman under the Windows Subsystem for Linux (WSL2).  However, running Docker Desktop for Windows with a WSL2
   backend _is_ fully supported because the `docker` command is executable directly in Windows (without having to call
-  WSL2). If you need to use Podman on Windows, then refer to the Podman blog entries at 
+  WSL2). If you need to use Podman on Windows, then refer to the Podman blog entries at
   https://podman.io/blogs/2021/09/06/podman-on-macs.html and https://podman.io/blogs/2020/09/02/running_windows_or_mac.html
   for more information about downloading, installing, and configuring the Windows Remote Client.
 
