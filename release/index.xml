@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Release Notes on WebLogic Kubernetes Toolkit UI</title>
+    <link>https://oracle.github.io/weblogic-toolkit-ui/release/</link>
+    <description>Recent content in Release Notes on WebLogic Kubernetes Toolkit UI</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 30 Jan 2022 12:48:00 -0500</lastBuildDate><atom:link href="https://oracle.github.io/weblogic-toolkit-ui/release/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Release 1.1.0</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.1.0/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.1.0/</guid>
+      <description>Changes in Release 1.1.0  Major New Features Other Changes Bugs Fixes Known Issues  Major New Features  Updated macOS environment control to specify extra environment settings to pass down to Docker/Podman, kubectl, and Helm invocations. Bundling WebLogic Deploy Tooling 2.0.0. See WDT release notes for details. New Validate Model action that leverages WDT 2.0 changes to validate the model files and reports any validation errors it finds. Updated Prepare Model action that leverages WDT 2.</description>
+    </item>
+    
+  </channel>
+</rss>

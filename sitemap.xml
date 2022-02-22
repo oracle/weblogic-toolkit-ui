@@ -20,6 +20,9 @@
     <loc>https://oracle.github.io/weblogic-toolkit-ui/navigate/model/</loc>
     <lastmod>2019-02-22T15:44:42-05:00</lastmod>
   </url><url>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.1.0/</loc>
+    <lastmod>2019-02-22T15:44:42-05:00</lastmod>
+  </url><url>
     <loc>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/k8s-wko/</loc>
     <lastmod>2019-02-22T15:44:42-05:00</lastmod>
   </url><url>
@@ -41,7 +44,7 @@
     <loc>https://oracle.github.io/weblogic-toolkit-ui/developer/</loc>
     <lastmod>2019-02-22T15:27:38-05:00</lastmod>
   </url><url>
-    <loc>https://oracle.github.io/weblogic-toolkit-ui/release-notes/</loc>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/release/</loc>
     <lastmod>2022-01-30T12:48:00-05:00</lastmod>
   </url><url>
     <loc>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/</loc>

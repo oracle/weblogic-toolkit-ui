@@ -59,6 +59,15 @@ These include:
     </item>
     
     <item>
+      <title>Release 1.1.0</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.1.0/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.1.0/</guid>
+      <description>Changes in Release 1.1.0  Major New Features Other Changes Bugs Fixes Known Issues  Major New Features  Updated macOS environment control to specify extra environment settings to pass down to Docker/Podman, kubectl, and Helm invocations. Bundling WebLogic Deploy Tooling 2.0.0. See WDT release notes for details. New Validate Model action that leverages WDT 2.0 changes to validate the model files and reports any validation errors it finds. Updated Prepare Model action that leverages WDT 2.</description>
+    </item>
+    
+    <item>
       <title>WebLogic Kubernetes Operator</title>
       <link>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/k8s-wko/</link>
       <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>

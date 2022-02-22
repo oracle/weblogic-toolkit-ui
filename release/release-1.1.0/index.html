@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="Hugo 0.88.1" />
-    <meta name="description" content="">
+    <meta name="description" content="Install the WKT UI application and check for updates.">
 
 
     <link rel="icon" href="/weblogic-toolkit-ui/images/favicon.png" type="image/png">
 
-    <title>Categories :: WebLogic Kubernetes Toolkit UI</title>
+    <title>Release 1.1.0 :: WebLogic Kubernetes Toolkit UI</title>
 
     
     <link href="/weblogic-toolkit-ui/css/nucleus.css?1645572176" rel="stylesheet">
@@ -39,7 +39,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/weblogic-toolkit-ui/categories/">
+  <body class="" data-url="/weblogic-toolkit-ui/release/release-1.1.0/">
     <nav id="sidebar" class="">
 
 
@@ -458,7 +458,7 @@
   
     
     <li data-nav-id="/weblogic-toolkit-ui/release/" title="Release Notes" class="dd-item
-        
+        parent
         
         
         ">
@@ -484,7 +484,7 @@
  
   
     
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.1.0/" title="Release 1.1.0" class="dd-item ">
+      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.1.0/" title="Release 1.1.0" class="dd-item active">
         <a href="/weblogic-toolkit-ui/release/release-1.1.0/">
         Release 1.1.0
         
@@ -551,7 +551,13 @@
             
           
           
-            <a href='/weblogic-toolkit-ui/'></a> > Categories
+            
+            
+          
+          
+            <a href='/weblogic-toolkit-ui/'></a> > <a href='/weblogic-toolkit-ui/release/'>Release Notes</a> > Release 1.1.0
+          
+        
           
         
           
@@ -562,7 +568,15 @@
                 
                     <div class="progress">
     <div class="wrapper">
-
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#changes-in-release-110">Changes in Release 1.1.0</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
     </div>
 </div>
 
@@ -578,24 +592,99 @@
           
             <h1>
               
-                category ::
-              
-              Categories
+              Release 1.1.0
             </h1>
           
 
         
 
 
-
-
-
+<h3 id="changes-in-release-110">Changes in Release 1.1.0</h3>
 <ul>
-	
+<li><a href="#major-new-features">Major New Features</a></li>
+<li><a href="#other-changes">Other Changes</a></li>
+<li><a href="#bug-fixes">Bugs Fixes</a></li>
+<li><a href="#known-issues">Known Issues</a></li>
+</ul>
+<h4 id="major-new-features">Major New Features</h4>
+<ul>
+<li>Updated macOS environment control to specify extra environment settings to pass down to Docker/Podman, kubectl, and Helm invocations.</li>
+<li>Bundling WebLogic Deploy Tooling 2.0.0. See <a href="https://github.com/oracle/weblogic-deploy-tooling/releases/tag/release-2.0.0">WDT release notes</a> for details.</li>
+<li>New Validate Model action that leverages WDT 2.0 changes to validate the model files and reports any validation errors it finds.</li>
+<li>Updated Prepare Model action that leverages WDT 2.0 changes to improve model preparation for deploying with WebLogic Kubernetes Operator.</li>
+<li>Added support for splitting the FMW (WebLogic or FMW Infrastructure) and WDT model images (also known as auxiliary images).
+<ul>
+<li>New Create Auxiliary Image action to create an auxiliary image.</li>
+<li>New Push Auxiliary Image action to push an auxiliary image to an image registry.</li>
+</ul>
+</li>
+<li>New Update Operator action to apply changes such as a version upgrade to an existing WebLogic Kubernetes Operator installation.</li>
+<li>New Uninstall Operator action to uninstall the WebLogic Kubernetes Operator installation and optionally, its Kubernetes namespace.</li>
+<li>New Undeploy Domain action to undeploy an existing domain  and optionally, its Kubernetes namespace.</li>
+<li>New Uninstall Ingress Controller action to uninstall the ingress controller installation and optionally, its Kubernetes namespace.</li>
+<li>Updated Ingress Route editing to improve control for SSL and provide lists of available target services and target ports.</li>
+</ul>
+<h4 id="other-changes">Other Changes</h4>
+<ul>
+<li>Added the <code>Save As</code> menu item to allowing saving a project and any model files to a new name/location.</li>
+<li>Improved Internet connectivity check mechanism and added configurable timeout settings to address issues some users were
+having with the default OCI DNS settings causing extra long DNS name resolution times that were triggering the hard-coded timeout.</li>
+<li>Upgraded Electron to version 16.</li>
+<li>Upgraded the Model Code View page&rsquo;s embedded ACE editor to 1.4.13.</li>
+<li>Relocated the older, macOS-specific <code>Extra Path Directories</code> functionality from the Kubernetes Client Configuration page to the
+Project Settings page to better align with new macOS environment settings and the scope to which they apply.</li>
+<li>Replaced <code>Help</code> menu&rsquo;s <code>Visit Website</code> menu item with a <code>View Documentation</code> menu item that opens the WebLogic Kubernetes Toolkit UI
+documentation in the user&rsquo;s browser.</li>
+<li>Added a result dialog to display the Primary Image&rsquo;s custom base image&rsquo;s content found by the Inspect Image action.</li>
+<li>Added a warning message to the Discover Model action if the project has existing model files that will be overwritten by the action.</li>
+<li>Changed the Windows and Linux About dialog to not be modal.</li>
+<li>Added <code>Application Deployment Plan</code>, <code>Custom File</code>, and <code>Custom Directory</code> option types to the Archive editor&rsquo;s Add dialog.</li>
+</ul>
+<h4 id="bug-fixes">Bug Fixes</h4>
+<ul>
+<li>Resolved macOS-specific issue with <code>Quit WebLogic Kubernetes Toolkit UI</code> where it required invoking it multiple times
+to exit the application.</li>
+<li>Resolved macOS-specific issue where <code>Quit WebLogic Kubernetes Toolkit UI</code> was not working if the About dialog window
+was the last window open.</li>
+<li>Resolved application update dialog issue where the Release Notes link was not opening in the user&rsquo;s browser.</li>
+<li>Resolved all known issues with application update functionality on all platforms.</li>
+<li>Resolved Podman-related issues to pass key environment variables down to all <code>podman</code> executions.</li>
+<li>Resolved Podman-related issue with pushing to Docker Hub.</li>
+<li>Resolved issues with the Primary Image tab&rsquo;s Inspect Image button.</li>
+<li>Resolved issue with Prepare Model action&rsquo;s secret handling whereby domain secret values were being lost.</li>
+<li>Resolved an issue where double-clicking on an action button was causing multiple actions to run simultaneously.</li>
+<li>Worked around macOS-specific Electron issue that caused the model editor to not receive a blur event when using the
+application menus.</li>
+</ul>
+<h4 id="known-issues">Known Issues</h4>
+<ul>
+<li>
+<p>When running the WKT UI application on Windows, the image builder tool (Docker or Podman) also must be directly
+executable in Windows.  For example, there is currently no support for running the WKT UI application in Windows and
+running Podman under the Windows Subsystem for Linux (WSL2).  However, running Docker Desktop for Windows with a WSL2
+backend <em>is</em> fully supported because the <code>docker</code> command is executable directly in Windows (without having to call
+WSL2). If you need to use Podman on Windows, then refer to the Podman blog entries at
+<a href="https://podman.io/blogs/2021/09/06/podman-on-macs.html">https://podman.io/blogs/2021/09/06/podman-on-macs.html</a> and <a href="https://podman.io/blogs/2020/09/02/running_windows_or_mac.html">https://podman.io/blogs/2020/09/02/running_windows_or_mac.html</a>
+for more information about downloading, installing, and configuring the Windows Remote Client.</p>
+</li>
+<li>
+<p>On Linux, the application depends on libGL being installed.  libGL is not currently listed in the dependencies list
+for the <code>rpm</code> (or <code>deb</code>) installers.  Therefore, you will need to install libGL using your package manager.
+For example:</p>
+<pre tabindex="0"><code>  sudo yum install libGL
+</code></pre></li>
+<li>
+<p>When trying to run the application on a Linux machine and display it on a Windows machine, do not use the Xming X
+server.  There appears to be a bug (presumably with their OpenGL support) that prevents applications using Electron
+13.x or later from working (for example, Microsoft VS Code doesn&rsquo;t work either).</p>
+</li>
+<li>
+<p>The application is limited to working with archive files whose size is less than 2 GB.</p>
+</li>
 </ul>
 
 
-<footer class=" footline" >
+<footer class="footline">
 	
 </footer>
 
@@ -875,6 +964,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -888,6 +978,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -910,6 +1001,8 @@
 
 	 
 	 
+		
+			<a class="nav nav-prev" href="/weblogic-toolkit-ui/release/" title="Release Notes"> <i class="fa fa-chevron-left"></i></a>
 		
 		
 			<a class="nav nav-next" href="/weblogic-toolkit-ui/concepts/" title="About the WKT UI Application" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
@@ -944,3 +1037,4 @@
 
   </body>
 </html>
+
