@@ -111,6 +111,30 @@ function (ko, wdtConstructor, imageConstructor, kubectlConstructor, domainConstr
         }
         delete wktProjectJson.kubectl.extraPathDirectories;
       }
+
+      // Version 1.1.1 changes domain clusters to be persisted by UID instead of name
+      // to allow us to support adding new clusters on the domain page for the
+      // Domain in PV use case...
+      //
+      if ('k8sDomain' in wktProjectJson && 'clusters' in wktProjectJson.k8sDomain) {
+        const currentClusters = wktProjectJson.k8sDomain.clusters;
+        const newClusters = {};
+        for (const clusterName in currentClusters) {
+          const cluster = currentClusters[clusterName];
+          // This is tricky because the only way to tell if the cluster is in
+          // the old format is if there is no name field...
+          //
+          if (cluster.name) {
+            break;
+          }
+          cluster.name = clusterName;
+          const uid = utils.getShortUuid();
+          newClusters[uid] = cluster;
+        }
+        if (Object.keys(newClusters).length > 0) {
+          wktProjectJson.k8sDomain.clusters = newClusters;
+        }
+      }
     };
 
     this.setFromJson = (wktProjectJson, modelContentsJson) => {

@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2021, Oracle and/or its affiliates.
+ Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('title')]]"></oj-bind-text></h6>
@@ -200,8 +200,7 @@
           <td>
             <oj-bind-text value="[[row.data.targetPort]]"></oj-bind-text>
           </td>
-          <oj-bind-if
-                  test="[[!isAccessPointDefined(row.data.accessPoint)]]">
+          <oj-bind-if test="[[!isAccessPointDefined(row.data.accessPoint)]]">
             <td>
               <oj-bind-text value="[[row.data.accessPoint]]"></oj-bind-text>
             </td>

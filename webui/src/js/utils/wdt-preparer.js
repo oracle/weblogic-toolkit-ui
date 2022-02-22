@@ -26,12 +26,6 @@ function(WdtActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, val
       const errPrefix = 'wdt-preparer';
       const shouldCloseBusyDialog = !options.skipBusyDialog;
 
-      if (this.project.settings.targetDomainLocation.value === 'pv') {
-        const errMessage = i18n.t('wdt-preparer-domain-in-pv-message');
-        await window.api.ipc.invoke('show-info-message', errTitle, errMessage);
-        return Promise.resolve(false);
-      }
-
       const validationObject = this.getValidationObject('flow-prepare-model-name');
       if (validationObject.hasValidationErrors()) {
         const validationErrorDialogConfig = validationObject.getValidationErrorDialogConfig(errTitle);
