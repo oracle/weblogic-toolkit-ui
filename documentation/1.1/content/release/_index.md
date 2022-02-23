@@ -20,7 +20,7 @@ No new features
   - Add placeholders to the `Target Service` and `Target Port` fields to clarify the current state of these fields when no value is selected.
   - Add logic to reset the `Target Port` field selection when the `Target Service` field changes and the selected port is not valid for the new service selected.
 - Rework the Image page and related fields on the Domain page to improve usability.  With these changes, a user not needing to create new images can bypass the Image page completely.
-  - Convert `Use Auxiliary Image` and `Create New Auxiliary Image` switched to radio buttons to make the three options a user has clearer.
+  - Convert `Use Auxiliary Image` and `Create New Auxiliary Image` switches to radio buttons to make the three options a user has clearer.
   - Move the `Image Tag` and `Image Registry Address` fields from the Image page tabs to the Domain page when not creating a new image.
   - Replicate the `Create New Primary Image` and `Auxiliary Image Configuration` controls from the Image page to the Domain page.
   - Add navigation buttons on the Domain page to direct the user to go back to the Image page when creating a new image.
