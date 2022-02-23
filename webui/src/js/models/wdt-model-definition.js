@@ -460,9 +460,9 @@ define(['knockout', 'utils/observable-properties', 'js-yaml', 'utils/validation-
             this.propertiesFiles.value = [defaultPath];
           }
 
-          // if there are archive updates present, but no archive file name,
+          // if there are archive roots present, but no archive file name,
           // use the file prefix to create a default file location.
-          if(this.archiveUpdates.length && (this.archiveFiles.value.length < 1)) {
+          if(this.archiveRoots().length && (this.archiveFiles.value.length < 1)) {
             let defaultPath = this.getDefaultArchiveFile();
             this.archiveFiles.value = [defaultPath];
           }
