@@ -3,27 +3,44 @@
  * Copyright (c) 2021, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
-define(['utils/wkt-logger'],
-  function (wktLogger) {
+define(['utils/wkt-logger', 'utils/screen-utils'],
+  function (wktLogger, screenUtils) {
     function ImageDesignViewModel(i18n, project, accUtils, ko, dialogHelper, ArrayDataProvider, wktImageInspector) {
 
       let subscriptions = [];
 
-      this.connected = async () => {
+      this.connected = () => {
         accUtils.announce('Image Design View page loaded.', 'assertive');
+
+        subscriptions.push(this.auxImageConfig.subscribe((newValue) => {
+          this.applyAuxImageConfig(newValue);
+          document.getElementById('designtabs').refresh();
+        }));
 
         subscriptions.push(project.image.createPrimaryImage.observable.subscribe(() => {
           document.getElementById('create-image-switch').refresh();
-          document.getElementById('primary-image-tag').refresh();
+          const primaryImageTag = document.getElementById('primary-image-tag');
+          if (primaryImageTag) {
+            primaryImageTag.refresh();
+          }
         }));
 
         subscriptions.push(project.image.useAuxImage.observable.subscribe(() => {
+          this.auxImageConfig(this.computeAuxImageConfig());
           document.getElementById('designtabs').refresh();
-          document.getElementById('primary-image-tag').refresh();
+          // change the primary image tag's help text based on the value of the switch?
+          const primaryImageTag = document.getElementById('primary-image-tag');
+          if (primaryImageTag) {
+            primaryImageTag.refresh();
+          }
         }));
 
         subscriptions.push(project.image.createAuxImage.observable.subscribe(() => {
-          document.getElementById('aux-image-tag').refresh();
+          this.auxImageConfig(this.computeAuxImageConfig());
+          const auxImageTag = document.getElementById('aux-image-tag');
+          if (auxImageTag) {
+            auxImageTag.refresh();
+          }
         }));
       };
 
@@ -59,7 +76,7 @@ define(['utils/wkt-logger'],
       };
 
       this.disableAuxImage = ko.computed(() => {
-        return !(this.targetDomainLocationIsMII() && this.project.image.useAuxImage.value);
+        return !(this.targetDomainLocationIsMII() && this.project.image.useAuxImage.value && this.project.image.createAuxImage.value);
       }, this);
 
       this.mainCreateImageSwitchHelp = ko.computed(() => {
@@ -118,31 +135,61 @@ define(['utils/wkt-logger'],
         return this.labelMapper(key);
       }, this);
 
-      this.auxImageTagHelp = ko.computed(() => {
-        if (this.project.image.createAuxImage.value) {
-          return this.labelMapper('aux-image-tag-create-help');
-        } else {
-          return this.labelMapper('aux-image-tag-use-help');
+      this.auxImageConfigData = [
+        { id: 'offOption', value: 'off', label: this.labelMapper('aux-image-config-off-label')},
+        { id: 'useOption', value: 'use', label: this.labelMapper('aux-image-config-use-label')},
+        { id: 'createOption', value: 'create', label: this.labelMapper('aux-image-config-create-label')}
+      ];
+
+      this.applyAuxImageConfig = (newValue) => {
+        switch (newValue) {
+          case 'off':
+            project.image.useAuxImage.observable(false);
+            break;
+
+          case 'use':
+            project.image.useAuxImage.observable(true);
+            project.image.createAuxImage.observable(false);
+            break;
+
+          case 'create':
+            project.image.useAuxImage.observable(true);
+            project.image.createAuxImage.observable(true);
+            break;
         }
-      }, this);
+      };
+
+      this.computeAuxImageConfig = () => {
+        let value = 'off';
+        if (this.project.image.useAuxImage.value) {
+          value = 'use';
+          if (this.project.image.createAuxImage.value) {
+            value = 'create';
+          }
+        }
+        return value;
+      };
+
+      this.auxImageConfigDP = new ArrayDataProvider(this.auxImageConfigData, { keyAttributes: 'id' });
+      this.auxImageConfig = ko.observable(this.computeAuxImageConfig());
 
       this.subviews = [
-        {id: 'fmwImage', name: this.labelMapper('image-tab')},
-        {id: 'auxImage', name: this.labelMapper('aux-image-tab'), disabled: this.disableAuxImage}
+        {id: 'primaryImage', name: this.labelMapper('image-tab')},
+        {id: 'auxiliaryImage', name: this.labelMapper('aux-image-tab'), disabled: this.disableAuxImage}
       ];
 
       this.subviewsDP = new ArrayDataProvider(this.subviews, {keyAttributes: 'id'});
-      this.selectedSubview = ko.observable('fmwImage');
+      screenUtils.setImageDesignViewSelectedSubview('primaryImage', true);
+      this.selectedSubview = screenUtils.getImageDesignViewSelectedSubviewObservable();
       this.selectedSubviewValueChangedHandler = (event) => {
-        wktLogger.debug('selectedSubviewValueChangedHandler() called for %s', event.detail.value);
-        this.selectedSubview(event.detail.value);
+        screenUtils.setImageDesignViewSelectedSubview(event.detail.value);
       };
 
       this.mainImagePageTitle = ko.computed(() => {
-        if (this.disableAuxImage()) {
-          return this.labelMapper('title');
-        } else {
+        if (this.targetDomainLocationIsMII() && this.project.image.useAuxImage.value || this.targetDomainLocationIsPV()) {
           return this.labelMapper('fmw-title');
+        } else {
+          return this.labelMapper('title');
         }
       }, this);
 

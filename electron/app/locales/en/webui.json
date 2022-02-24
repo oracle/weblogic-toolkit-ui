@@ -231,6 +231,11 @@
   "image-design-create-image-help": "Whether you want to create a new primary image or use an existing image.",
   "image-design-create-image-aux-help": "Whether you want to create a new primary image or use an existing image, such as one of the standard images in the Oracle Container Registry.",
 
+  "image-design-aux-image-settings-label": "Auxiliary Image Configuration",
+  "image-design-aux-image-config-off-label": "Do not use an auxiliary image",
+  "image-design-aux-image-config-use-label": "Use an existing auxiliary image",
+  "image-design-aux-image-config-create-label": "Create a new auxiliary image",
+
   "image-design-image-tag-label": "Image Tag",
   "image-design-image-tag-mii-create-help": "The tag to use to identify the new image containing the Oracle Fusion Middleware installation and WebLogic Deploy Tooling model to use to create and run the domain.",
   "image-design-image-tag-mii-create-with-aux-help": "The tag to use to identify the new image containing the Oracle Fusion Middleware installation to use to run the domain.",
@@ -265,10 +270,6 @@
   "image-design-custom-base-image-inspect-label": "Inspect Custom Base Image",
   "image-design-custom-base-image-inspect-busy-title": "Inspecting Image...Please Wait",
 
-  "image-design-use-aux-image-label": "Use Auxiliary Image",
-  "image-design-use-aux-image-help": "Split the Fusion Middleware software and the WebLogic Deploy Tooling software and model into two separate images that will be combined at runtime.",
-  "image-design-create-aux-image-label": "Create New Auxiliary Image Containing WebLogic Deploy Tooling Model",
-  "image-design-create-aux-image-help": "Whether you want to create a new auxiliary image for the WebLogic Deploy Tooling software and model or use an existing image.",
   "image-design-aux-image-tag-label": "Auxiliary Image Tag",
   "image-design-aux-image-tag-create-help": "The tag to use to identify the new image containing the WebLogic Deploy Tooling installation and model to use to create the domain.",
   "image-design-aux-image-tag-use-help": "The tag to use to identify the existing image containing the WebLogic Deploy Tooling installation and model to use to create the domain.",
@@ -491,8 +492,18 @@
   "domain-design-pv-volume-log-home-help": "The path to use to write the WebLogic Server log files.",
 
   "domain-design-image-title": "Primary Image to Use for the Domain",
+  "domain-design-hints-goto-create-image": "Go To Create Primary Image Page",
+  "domain-design-goto-create-image-button-label": "Go To Create Primary Image Page",
   "domain-design-image-tag-label": "Primary Image Tag",
-  "domain-design-image-tag-help": "The tag of the primary image to use for the domain.  This field is set by the Image Tag field on the Primary Image tab of the Image page so go there to change its value, if needed.",
+
+  "domain-design-image-tag-mii-create-help": "The tag to use to identify the new image containing the Oracle Fusion Middleware installation and WebLogic Deploy Tooling model to use to create and run the domain.  This field is set by the Image Tag field on the Primary Image tab of the Image page so go there to change its value, if needed.",
+  "domain-design-image-tag-mii-create-with-aux-help": "The tag to use to identify the new image containing the Oracle Fusion Middleware installation to use to run the domain.  This field is set by the Image Tag field on the Primary Image tab of the Image page so go there to change its value, if needed.",
+  "domain-design-image-tag-mii-use-help": "The tag to use to identify the existing image containing the Oracle Fusion Middleware installation and WebLogic Deploy Tooling model to use to create and run the domain.",
+  "domain-design-image-tag-mii-use-with-aux-help": "The tag to use to identify the existing image containing the Oracle Fusion Middleware installation to use to run the domain.",
+  "domain-design-image-tag-dii-create-help": "The tag to use to identify the new image containing the Oracle Fusion Middleware installation and domain to use.  This field is set by the Image Tag field on the Primary Image tab of the Image page so go there to change its value, if needed.",
+  "domain-design-image-tag-dii-use-help": "The tag to use to identify the existing image containing the Oracle Fusion Middleware installation and domain to use.",
+  "domain-design-image-tag-pv-create-help": "The tag to use to identify the new image containing the Oracle Fusion Middleware installation to use to run the domain that already exists on the external Kubernetes persistent volume.  This field is set by the Image Tag field on the Primary Image tab of the Image page so go there to change its value, if needed.",
+  "domain-design-image-tag-pv-use-help": "The tag to use to identify the existing image containing the Oracle Fusion Middleware installation to use to run the domain that already exists on the external Kubernetes persistent volume.",
   "domain-design-image-registry-address-label": "Image Registry Address",
   "domain-design-image-registry-address-help": "The image registry hostname and port to use to log in to the registry, if required.  This field's value is parsed from the Primary Image Tag field and an empty value assumes Docker Hub is the registry being used.",
   "domain-design-image-pull-policy-label": "Primary Image Pull Policy",
@@ -511,8 +522,11 @@
   "domain-design-image-registry-pull-email-help": "The image registry user's email address used to create the Kubernetes image pull secret.",
 
   "domain-design-aux-image-title": "Auxiliary Image to Use for the Domain",
+  "domain-design-hints-goto-create-aux-image": "Go To Create Auxiliary Image Page",
+  "domain-design-goto-create-aux-image-button-label": "Go To Create Auxiliary Image Page",
   "domain-design-aux-image-tag-label": "Auxiliary Image Tag",
-  "domain-design-aux-image-tag-help": "The tag of the auxiliary image to use for the domain.  This field is set by the Image Tag field on the Auxiliary Image tab of the Image page so go there to change its value, if needed.",
+  "domain-design-create-aux-image-tag-help": "The tag of the auxiliary image to use for the domain.  This field is set by the Image Tag field on the Auxiliary Image tab of the Image page so go there to change its value, if needed.",
+  "domain-design-use-aux-image-tag-help": "The tag of the auxiliary image to use for the domain.",
   "domain-design-aux-image-registry-address-label": "Image Registry Address",
   "domain-design-aux-image-registry-address-help": "The image registry hostname and port to use to log in to the registry, if required.  This field's value is parsed from the Auxiliary Image Tag field and an empty value assumes Docker Hub is the registry being used.",
   "domain-design-aux-image-pull-policy-label": "Auxiliary Image Pull Policy",
@@ -531,6 +545,7 @@
   "domain-design-aux-image-registry-pull-email-help": "The image registry user's email address used to create the Kubernetes image pull secret for the auxiliary image.",
 
   "domain-design-clusters-title": "Clusters",
+  "domain-design-clusters-table-aria-label": "Clusters configuration table",
   "domain-design-no-clusters-message": "No clusters found for this domain. If your project has a model that defines clusters, please run Prepare Model to populate the clusters tables.",
   "domain-design-clusters-name-heading": "Cluster Name",
   "domain-design-clusters-replicas-heading": "Replicas",
@@ -540,6 +555,8 @@
   "domain-design-clusters-memory-request-heading": "Kubernetes Memory Request",
   "domain-design-edit-cluster-label": "Edit Cluster Settings",
   "domain-design-cluster-dialog-title": "Edit Cluster Settings",
+  "domain-design-add-cluster-label": "Add Cluster",
+  "domain-design-delete-cluster-label": "Delete Cluster",
 
   "domain-design-get-domain-status": "Get Domain Status",
   "domain-design-domain-status-label": "Domain Status: ",
@@ -560,6 +577,8 @@
 
   "domain-design-cluster-name-label": "Cluster Name",
   "domain-design-cluster-name-help": "The cluster name in the domain for which to enter settings.",
+  "domain-design-cluster-name-is-empty-error": "Cluster Name cannot be empty",
+  "domain-design-cluster-name-not-unique-error": "{{name}} is already present in cluster list [{{existingNames}}]",
   "domain-design-cluster-replicas-label": "Replicas",
   "domain-design-cluster-replicas-help": "The number of managed servers to start for the cluster.",
   "domain-design-cluster-min-heap-label": "Minimum Heap Size",
@@ -853,7 +872,6 @@
   "wdt-discoverer-online-discovery-failed-error-prefix": "Unable to discover domain {{adminUrl}} in online mode",
 
   "wdt-validator-aborted-error-title": "Validate Model Aborted",
-  "wdt-validator-domain-in-pv-message": "Validate Model has no meaning when the target domain location is an externally created Kubernetes persistent volume.",
   "wdt-validator-invalid-java-home-error-prefix": "Unable to validate model due to the Java Home being invalid",
   "wdt-validator-invalid-oracle-home-error-prefix": "Unable to validate model due to the Oracle Home being invalid",
   "wdt-validator-project-not-saved-error-prefix": "Unable to validate model because project save failed",
@@ -869,7 +887,6 @@
   "wdt-validator-validate-complete-message": "Validate Model successfully validated the model.",
 
   "wdt-preparer-aborted-error-title": "Prepare Model Aborted",
-  "wdt-preparer-domain-in-pv-message": "Prepare Model has no meaning when the target domain location is an externally created Kubernetes persistent volume.",
   "wdt-preparer-invalid-java-home-error-prefix": "Unable to prepare model due to the Java Home being invalid",
   "wdt-preparer-invalid-oracle-home-error-prefix": "Unable to prepare model due to the Oracle Home being invalid",
   "wdt-preparer-project-not-saved-error-prefix": "Unable to prepare model because project save failed",
@@ -949,8 +966,8 @@
   "wit-creator-builder-login-in-progress": "Performing {{builderName}} log in to allow pulling the base image {{imageTag}}",
 
   "wit-aux-creator-image-not-mii-message": "The Target Domain Location type on the Project Settings page is not using Model-in-Image so there is no auxiliary image to create.",
-  "wit-aux-creator-image-not-use-message": "The Use Auxiliary Image option on the Primary Image tab of the Image page is turned off so there is no auxiliary image to create.",
-  "wit-aux-creator-image-not-create-message": "The Create New Auxiliary Image option on the Auxiliary Image tab of the Image page is off so there is no auxiliary image to create.",
+  "wit-aux-creator-image-not-use-message": "The Do not use an auxiliary image option on the Primary Image tab of the Image page is selected so there is no auxiliary image to create.",
+  "wit-aux-creator-image-not-create-message": "The Use an existing auxiliary image option on the Auxiliary Image tab of the Image page is selected so there is no auxiliary image to create.",
   "wit-aux-creator-aborted-error-title": "Create Auxiliary Image Aborted",
   "wit-aux-creator-invalid-java-home-error-prefix": "Unable to create auxiliary image due to the Java Home being invalid",
   "wit-aux-creator-invalid-wdt-installer-file-message": "Unable to create auxiliary image due to invalid WebLogic Deploy Tooling Installer file",
@@ -994,8 +1011,8 @@
   "image-pusher-create-failed-error-message":"Unable to push image {{imageTag}}: {{error}}.",
 
   "aux-image-pusher-image-not-mii-message": "The Target Domain Location type on the Project Settings page is not using Model-in-Image so there is no image to push.",
-  "aux-image-pusher-image-not-use-message": "The Use Auxiliary Image option on the Primary Image tab of the Image page is turned off so there is no image to push.",
-  "aux-image-pusher-image-not-create-message": "The Create New Primary Image option on the Auxiliary Image tab of the Image page is off so there is no image to push.",
+  "aux-image-pusher-image-not-use-message": "The Do not use an auxiliary image option on the Primary Image tab of the Image page is selected so there is no image to push.",
+  "aux-image-pusher-image-not-create-message": "The Use an existing auxiliary image option on the Primary Image tab of the Image page is selected so there is no image to push.",
   "aux-image-pusher-push-aborted-title": "Push Image Aborted",
   "aux-image-pusher-push-in-progress": "Pushing auxiliary image {{imageTag}}",
   "aux-image-pusher-image-builder-invalid-error-message": "The image builder executable {{fileName}} is not valid: {{error}}.",

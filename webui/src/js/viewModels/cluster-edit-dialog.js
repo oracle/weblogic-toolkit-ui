@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
@@ -36,14 +36,28 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
 
     this.project = project;
     this.cluster = args.cluster;
+    this.existingClusterNames = args.existingNames;
+    this.isDomainInPV = args.isDomainInPV;
     this.i18n = i18n;
 
+    this.nameIsUnique = {
+      validate: (value) => {
+        const existingNames = this.existingClusterNames;
+        if (!value) {
+          throw new Error(this.labelMapper('name-is-empty-error'));
+        } else if (Array.isArray(existingNames) && existingNames.length > 0 && existingNames.includes(value)) {
+          throw new Error(this.labelMapper('name-not-unique-error',
+            { name: value, existingNames: existingNames.join(',')}));
+        }
+      },
+    };
     this.integerConverter = new ojConverterNumber.IntlNumberConverter({
       style: 'decimal',
       roundingMode: 'HALF_DOWN',
       maximumFractionDigits: 0,
       useGrouping: false
     });
+
 
     // create an observable property for each simple field
     this['maxServers'] = this.cluster.maxServers;
