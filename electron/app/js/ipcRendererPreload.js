@@ -203,7 +203,8 @@ contextBridge.exposeInMainWorld(
           'get-wrc-home-directory',
           'get-wrc-app-image',
           'wrc-get-home-default-value',
-          'wrc-set-home-and-start'
+          'wrc-set-home-and-start',
+          'get-wrc-port'
         ];
         return new Promise((resolve, reject) => {
           if (validChannels.includes(channel)) {

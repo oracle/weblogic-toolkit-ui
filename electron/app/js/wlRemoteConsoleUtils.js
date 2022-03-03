@@ -23,7 +23,7 @@ const { spawnDaemonChildProcess } = require('./childProcessExecutor');
 const MIN_VERSION = '2.2.0';
 const MIN_VERSION_COMPONENTS = MIN_VERSION.split('.').map((item) => { return Number(item); });
 let _wlRemoteConsoleChildProcess;
-
+let _wlRemoteConsolePort;
 
 async function startWebLogicRemoteConsoleBackend(currentWindow, skipVersionCheck = false) {
   if (_wlRemoteConsoleChildProcess) {
@@ -47,6 +47,8 @@ async function startWebLogicRemoteConsoleBackend(currentWindow, skipVersionCheck
         });
         _wlRemoteConsoleChildProcess.on('exit', (code) => {
           getLogger().info('WebLogic Remote Console backend process exited with code %s', code);
+          _wlRemoteConsoleChildProcess = undefined;
+          _wlRemoteConsolePort = undefined;
         });
 
         const stdoutLines = readline.createInterface({ input: _wlRemoteConsoleChildProcess.stdout });
@@ -60,6 +62,9 @@ async function startWebLogicRemoteConsoleBackend(currentWindow, skipVersionCheck
             const matcher = line.match(portRegex);
             if (matcher) {
               foundPort = true;
+              // The exported getWebLogicRemoteConsolePort function returns
+              // the current port, so we need to save it.
+              _wlRemoteConsolePort = matcher[1];
               sendToWindow(currentWindow, 'set-wrc-backend-port', matcher[1]);
             }
           }
@@ -152,6 +157,10 @@ function getDefaultDirectoryForOpenDialog(isAppImage = false) {
   return result;
 }
 
+function getWebLogicRemoteConsolePort() {
+  return _wlRemoteConsolePort;
+}
+
 async function _getWebLogicRemoteConsoleHome(skipVersionCheck = false) {
   const rcHome = userSettings.getWebLogicRemoteConsoleHome();
   if (!rcHome) {
@@ -238,7 +247,7 @@ async function _getWebLogicRemoteConsoleExecutableData(rcHome) {
         _getDevExecutablePath(rcHome, pathToDirectoryWithExecutable).then(exeResult => {
           if (exeResult.exists) {
             results['executable'] = exeResult.executable;
-            results['arguments'] = ['.', 'dev', '--showPort', '--stdin', '--quiet', '--headless'];
+            results['arguments'] = ['.', 'dev', '--showPort', `--check-pid=${process.pid}`, '--quiet', '--headless', '--useTokenNotCookie'];
             results['options'] = { cwd: rcHome };
           } else {
             const message = i18n.t('wrc-dev-executable-existence-check-failed',
@@ -256,7 +265,7 @@ async function _getWebLogicRemoteConsoleExecutableData(rcHome) {
     _getInstalledExecutablePath(rcHome).then(exeResult => {
       if (exeResult['exists']) {
         results['executable'] = exeResult['executable'];
-        results['arguments'] = ['--showPort', '--stdin', '--quiet', '--headless'];
+        results['arguments'] = ['--showPort', '--useTokenNotCookie', `--check-pid=${process.pid}`, '--quiet', '--headless'];
         resolve(results);
       } else {
         const message = i18n.t('wrc-executable-not-exists', { rcHome: rcHome, executable: results['executable'] });
@@ -484,5 +493,6 @@ module.exports = {
   getDefaultDirectoryForOpenDialog,
   getDefaultWebLogicRemoteConsoleHome,
   setWebLogicRemoteConsoleHomeAndStart,
-  startWebLogicRemoteConsoleBackend
+  startWebLogicRemoteConsoleBackend,
+  getWebLogicRemoteConsolePort
 };

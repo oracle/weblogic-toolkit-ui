@@ -364,17 +364,17 @@
       }
     },
 
-    "wdt-model-builder": {
+    "wdt-model-designer": {
       "cdn": "3rdparty",
-      "cwd": "node_modules/@oracle/wrc-jet-pack/dist/jet-composites/wdt-model-builder",
+      "cwd": "node_modules/@oracle/wrc-jet-pack/dist/jet-composites/wdt-model-designer",
       "debug": {
         "src": ["**"],
-        "path": "jet-composites/wdt-model-builder/1.0.0",
+        "path": "jet-composites/wdt-model-designer/1.0.0",
         "cdnPath": ""
       },
       "release": {
         "src": ["**"],
-        "path": "jet-composites/wdt-model-builder/1.0.0",
+        "path": "jet-composites/wdt-model-designer/1.0.0",
         "cdnPath": ""
       }
     },

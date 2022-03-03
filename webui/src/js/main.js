@@ -43,7 +43,7 @@
         'ace': 'libs/ace/ace',
         'wrc-translations': 'resources',
         'wrc-frontend': 'jet-composites/wrc-frontend/1.0.0',
-        'wdt-model-builder': 'jet-composites/wrc-frontend/1.0.0',
+        'wdt-model-designer': 'jet-composites/wdt-model-designer/1.0.0',
         'cfe-navtree': 'jet-composites/cfe-navtree/1.0.0',
         'cfe-multi-select': 'jet-composites/cfe-multi-select/1.0.0',
         'cfe-property-list-editor': 'jet-composites/cfe-property-list-editor/1.0.0'

@@ -3,15 +3,14 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 <div class="wkt-model-edit-design" data-runtime-role="tool">
-  <oj-bind-if test="[[showRemoteConsoleComponent() === true]]">
-    <wdt-model-builder
-      id="WdtModelBuilder"
-      on-provider-activated="[[providerActivated]]"
-      on-provider-deactivated="[[providerDeactivated]]"
-      on-changes-auto-downloaded="[[changesAutoDownloaded]]"
-    >
-    </wdt-model-builder>
-  </oj-bind-if>
+  <wdt-model-designer
+    id="WdtModelDesigner"
+    on-provider-activated="[[providerActivated]]"
+    on-provider-deactivated="[[providerDeactivated]]"
+    on-changes-auto-downloaded="[[changesAutoDownloaded]]"
+    on-connection-lost-refused="[[connectionLostRefused]]"
+  >
+  </wdt-model-designer>
 
   <oj-bind-if test="[[showRemoteConsoleConfigForm() === true]]">
     <div class="oj-panel">

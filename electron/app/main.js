@@ -35,7 +35,7 @@ const openSSLUtils = require('./js/openSSLUtils');
 const osUtils = require('./js/osUtils');
 const { initializeAutoUpdater, registerAutoUpdateListeners, installUpdates, getUpdateInformation } = require('./js/appUpdater');
 const { startWebLogicRemoteConsoleBackend, getDefaultDirectoryForOpenDialog, setWebLogicRemoteConsoleHomeAndStart,
-  getDefaultWebLogicRemoteConsoleHome } = require('./js/wlRemoteConsoleUtils');
+  getDefaultWebLogicRemoteConsoleHome, getWebLogicRemoteConsolePort } = require('./js/wlRemoteConsoleUtils');
 
 const { getHttpsProxyUrl, getBypassProxyHosts } = require('./js/userSettings');
 const { sendToWindow } = require('./js/windowUtils');
@@ -930,6 +930,11 @@ class Main {
     // eslint-disable-next-line no-unused-vars
     ipcMain.handle('wrc-get-home-default-value', async (event) => {
       return getDefaultWebLogicRemoteConsoleHome();
+    });
+
+    // eslint-disable-next-line no-unused-vars
+    ipcMain.handle('get-wrc-port', async (event) => {
+      return getWebLogicRemoteConsolePort();
     });
   }
 
