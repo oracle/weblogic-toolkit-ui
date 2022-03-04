@@ -18,10 +18,8 @@ const { getLogger } = require('./wktLogging');
 const osUtils = require('./osUtils');
 const { sendToWindow } = require('./windowUtils');
 const { spawnDaemonChildProcess } = require('./childProcessExecutor');
+const { wlRemoteConsoleFrontendVersion } = require('../webui.json');
 
-// TODO - Change this to the correct version once the RC version changes to 2.3.0...
-const MIN_VERSION = '2.2.0';
-const MIN_VERSION_COMPONENTS = MIN_VERSION.split('.').map((item) => { return Number(item); });
 let _wlRemoteConsoleChildProcess;
 
 
@@ -98,7 +96,7 @@ async function setWebLogicRemoteConsoleHomeAndStart(currentWindow, rcHome) {
           startWebLogicRemoteConsoleBackend(currentWindow, true).then(() => resolve() );
         } else {
           const message = i18n.t('wrc-version-incompatible-message',
-            { rcVersion: isCompatibleResult['version'], minVersion: MIN_VERSION });
+            { rcVersion: isCompatibleResult['version'], minVersion: wlRemoteConsoleFrontendVersion });
           dialog.showErrorBox(title, message);
           return resolve();
         }
@@ -167,7 +165,7 @@ async function _getWebLogicRemoteConsoleHome(skipVersionCheck = false) {
               resolve(rcHome);
             } else {
               const message = i18n.t('wrc-version-incompatible-message',
-                { rcVersion: isCompatibleResult['version'], minVersion: MIN_VERSION });
+                { backendVersion: isCompatibleResult['version'], frontendVersion: wlRemoteConsoleFrontendVersion });
               reject(new Error(message));
             }
           }).catch(err => reject(err));
@@ -344,6 +342,8 @@ async function _verifyVersionCompatibility(packageJsonFile, executablePath) {
           if (packageJson.version) {
             result['version'] = packageJson.version;
             result['isCompatible'] = _verifyVersionNumberCompatibility(packageJson.version);
+            getLogger().debug('Remote Console Compatibility check found wrc-jet-pack %s and backend version %s to %s compatible.',
+              wlRemoteConsoleFrontendVersion, packageJson.version, result['isCompatible'] ? 'be' : 'not be');
             resolve(result);
           } else {
             const message = i18n.t('wrc-package-json-missing-version', { packageJsonFile: packageJsonFile });
@@ -379,17 +379,28 @@ async function _verifyVersionCompatibility(packageJsonFile, executablePath) {
   }
 }
 
-function _verifyVersionNumberCompatibility(actualVersion) {
-  const versionComponents = actualVersion.split('.').map((item) => { return Number(item); });
+// The agreed contract with the WebLogic Remote Console team is that the
+// frontend and backend version numbers <major>.<minor> versions must be the
+// same.  As such, we will ignore the patch level and any qualifiers.
+//
+function _verifyVersionNumberCompatibility(backendVersion) {
+  const frontendVersionComponents =
+    _stripVersionQualifiers(wlRemoteConsoleFrontendVersion).split('.').map((item) => { return Number(item); });
+  const backendVersionComponents =
+    _stripVersionQualifiers(backendVersion).split('.').map((item) => { return Number(item); });
 
   let versionIsCompatible = true;
-  for (let i = 0; i < 3; i++) {
-    if (versionComponents[i] < MIN_VERSION_COMPONENTS[i]) {
+  for (let i = 0; i < 2; i++) {
+    if (backendVersionComponents[i] !== frontendVersionComponents[i]) {
       versionIsCompatible = false;
       break;
     }
   }
   return versionIsCompatible;
+}
+
+function _stripVersionQualifiers(version) {
+  return version.split('-')[0];
 }
 
 async function _getLocationFromPreferencesFile() {
