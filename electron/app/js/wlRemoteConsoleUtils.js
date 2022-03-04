@@ -96,7 +96,7 @@ async function setWebLogicRemoteConsoleHomeAndStart(currentWindow, rcHome) {
           startWebLogicRemoteConsoleBackend(currentWindow, true).then(() => resolve() );
         } else {
           const message = i18n.t('wrc-version-incompatible-message',
-            { rcVersion: isCompatibleResult['version'], minVersion: wlRemoteConsoleFrontendVersion });
+            { backendVersion: isCompatibleResult['version'], frontendVersion: wlRemoteConsoleFrontendVersion });
           dialog.showErrorBox(title, message);
           return resolve();
         }
