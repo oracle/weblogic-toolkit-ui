@@ -22,7 +22,7 @@ const { wlRemoteConsoleFrontendVersion } = require('../webui.json');
 
 let _wlRemoteConsoleChildProcess;
 
-
+/* global process */
 async function startWebLogicRemoteConsoleBackend(currentWindow, skipVersionCheck = false) {
   if (_wlRemoteConsoleChildProcess) {
     return Promise.resolve();
