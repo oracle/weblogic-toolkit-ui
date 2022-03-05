@@ -4,13 +4,37 @@
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 define(['accUtils', 'utils/i18n', 'knockout', 'models/wkt-project', 'utils/url-catalog', 'utils/wkt-logger',
-  'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojformlayout' ],
-function(accUtils, i18n, ko, project, urlCatalog) {
+    'wrc-frontend/core/parsers/yaml', 'wrc-frontend/integration/viewModels/utils',
+    'wdt-model-designer/loader', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojformlayout'],
+function(accUtils, i18n, ko, project, urlCatalog, wktLogger, YamlParser, ViewModelUtils) {
   function ModelDesignViewModel() {
+
+    let subscriptions = [];
 
     this.connected = () => {
       accUtils.announce('Model design view loaded.', 'assertive');
-      // Implement further logic if needed
+      subscriptions.push(this.project.wdtModel.internal.wlRemoteConsolePort.subscribe((newValue) => {
+        wktLogger.debug('Model Design View connected to Remote Console backend on port %s', newValue);
+        this.showWdtModelDesigner(newValue);
+      }));
+
+      // The subscription won't trigger if the backend port has already been set so handle it here.
+      //
+      if (this.project.wdtModel.internal.wlRemoteConsolePort()) {
+        wktLogger.debug('Model Design View using Remote Console backend port %s',
+          this.project.wdtModel.internal.wlRemoteConsolePort());
+        this.showWdtModelDesigner(this.project.wdtModel.internal.wlRemoteConsolePort());
+      }
+    };
+
+    this.disconnected = function() {
+      subscriptions.forEach((subscription) => {
+        subscription.dispose();
+      });
+
+      if (this.designer) {
+        this.designer.deactivateProvider(self.dataProvider);
+      }
     };
 
     this.labelMapper = (labelId, payload) => {
@@ -23,8 +47,99 @@ function(accUtils, i18n, ko, project, urlCatalog) {
 
     this.project = project;
     this.i18n = i18n;
-
+    this.designer = undefined;
+    this.dataProvider = {};
     this.disableStartButton = ko.observable(false);
+
+    function showWdtModelDesigner(backendPort) {
+      wktLogger.info('showWdtModelDesigner using backendPort %s', backendPort);
+      if (!backendPort) {
+        return;
+      }
+
+      self.designer = document.getElementById('wdt-model-designer');
+
+      // We cannot use <oj-bind-if> to control the visibility of
+      // the <wdt-model-designer> JET composite, because it prevents
+      // JET from fully baking a JET composite. Being "half-baked"
+      // means that the JET composite exists, but custom methods
+      // on it are not callable, because of the <oj-bind-if>. So,
+      // the wdt-model-designer JET composite has a visible property
+      // that controls it's visibility. The default value for that
+      // property is false.
+      //
+      self.designer.visible = self.showRemoteConsoleComponent();
+      self.designer.setBackendUrlPort(backendPort);
+
+      // ResizeObserver needs to be set on the parent element
+      // of the <wdt-model-designer> tag.
+      //
+      const parentElement = self.designer.parentElement;
+      new ResizeObserver(() => {
+        this.designer.resize();
+      }).observe(parentElement);
+
+      // We need to support several use cases:
+      //
+      //  UC-1: User clicks "Design View" tab, but no WKT project has been loaded.
+      //  UC-2: User clicks "Design View" tab with a WKT project loaded, but the model editor is empty.
+      //  UC-3: User clicks "Design View" tab with a WKT project loaded, and the model editor is not empty.
+      //
+      // The project.wdtModel.modelContent knockout observable is used to determine the use case. The latest value
+      // of that observable is used to create (and activate) WDT Model File provider session, in the WRC backend.
+      //
+      const providerOptions = {
+        fileContents: project.wdtModel.modelContent()
+      };
+
+      if (!providerOptions.fileContents) {
+        const modelTemplates = self.designer.getProperty('modelTemplate');
+        providerOptions.fileContents = modelTemplates.sparse;
+      }
+
+      // A name is needed to create a WDT Model File provider.
+      //
+      providerOptions['name'] = self.project.wdtModel.getDefaultModelFile();
+
+      // TODO - Do we need to use the Remote Console parser or can you just use js-yaml?
+      //
+      YamlParser.parse(providerOptions.fileContents).then(data => {
+          self.designer.createProvider(providerOptions.name, data);
+      }).catch(err => {
+        ViewModelUtils.failureResponseDefaultHandling(err);
+      });
+    }
+
+    // Triggered when WDT Model File provider has been activated with the WRC backend.
+    //
+    this.providerActivated = (event) => {
+      self.dataProvider = event.detail.value;
+      self.designer.selectLastVisitedSlice();
+    };
+
+    // Triggered when changes have been downloaded from the WRC backend, for the active WDT Model File provider.
+    //
+    this.changesAutoDownloaded = (event) => {
+      project.wdtModel.modelContent(event.detail.value);
+    };
+
+    // Triggered when WDT Model File provider has been deactivated with the WRC backend.
+    //
+    this.providerDeactivated = (event) => {
+      const result = event.detail.value;
+      delete result.data;
+      self.dataProvider = {state: 'disconnected'};
+    };
+
+    // Triggered when WDT Model Designer has lost its connection to the WRC backend.
+    //
+    this.connectionLostRefused  = (event) => {
+      wktLogger.debug('connectionLostRefused: backendUrl=%s', event.detail.value);
+      if (self.designer) {
+        self.designer.visible = false;
+      }
+      project.wdtModel.internal.wlRemoteConsolePort(undefined);
+    };
 
     const wrcInitialText = this.labelMapper('wrc-install-description');
     const wrcInstallLocation = '<a href=' +
@@ -71,7 +186,9 @@ function(accUtils, i18n, ko, project, urlCatalog) {
 
     this.startWebLogicRemoteConsole = async () => {
       const rcHome = this.project.wdtModel.internal.wlRemoteConsoleHome.observable();
-      // TODO - do we need a busy dialog?
+      // Set cursor to BUSY and let the designer set it back to default.
+      //
+      document.querySelector('oj-button#start-wrc-button span').style.cursor = 'wait';
       return window.api.ipc.invoke('wrc-set-home-and-start', rcHome);
     };
   }
