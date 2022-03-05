@@ -417,7 +417,16 @@ async function _getLocationFromPreferencesFile() {
       fsPromises.readFile(autoPrefsLocation, { encoding: 'utf8' }).then(contents => {
         try {
           const props = JSON.parse(contents);
-          resolve(props.location);
+
+          let location;
+          if (props.location) {
+            if (osUtils.isMac()) {
+              location = path.normalize(path.join(path.dirname(props.location), '..', '..'));
+            } else {
+              location = path.dirname(props.location);
+            }
+          }
+          resolve(location);
         } catch (err) {
           getLogger().debug('Failed to parse file %s: %s', autoPrefsLocation, getErrorMessage(err));
           resolve();
