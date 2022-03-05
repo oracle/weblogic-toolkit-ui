@@ -384,7 +384,7 @@
   "wrc-package-json-missing-version": "Unable to determine the WebLogic Remote Console version because the {{packageJsonFile}} file was missing the version element.",
   "wrc-package-json-existence-check-failed": "Unable to determine the WebLogic Remote Console version because the existence check for {{packageJsonFile}} failed: {{error}}.",
   "wrc-app-image-file-version-no-match": "Unable to determine the WebLogic Remote Console version because the location {{rcHome}} AppImage file name {{filename}} does not match the expected filename pattern needed to extract the version number.",
-  "wrc-version-incompatible-message": "The WebLogic Remote Console version {{rcVersion}} does not meet the minimum version requirement of {{minVersion}}.",
+  "wrc-version-incompatible-message": "The installed WebLogic Remote Console version {{backendVersion}} is not compatible with the WebLogic Kubernetes Toolkit UI embedded Model Design view component version {{frontendVersion}} because the major and minor versions do not match.",
   "wrc-version-verification-failed": "Unable to start the WebLogic Remote Console backend because an error occurred while trying to determine the version compatibility: {{error}}",
   "wrc-home-not-exist": "Unable to start the WebLogic Remote Console backend because the configured location {{rcHome}} does not exist."
 }

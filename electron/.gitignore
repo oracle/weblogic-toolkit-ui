@@ -1,6 +1,7 @@
 /node_modules
 /app/web
 /app/staged-themes
+/app/webui.json
 /wktui.log
 /wktui-*.log
 /.docker
