@@ -81,7 +81,7 @@ function(accUtils, i18n, ko, project, urlCatalog, wktLogger, YamlParser, ViewMod
       // means that the JET composite exists, but custom methods
       // on it are not callable, because of the <oj-bind-if>. So,
       // the wdt-model-designer JET composite has a visible property
-      // that controls it's visibility. The default value for that
+      // that controls its visibility. The default value for that
       // property is false.
       //
       self.designer.visible = this.showRemoteConsoleComponent();
