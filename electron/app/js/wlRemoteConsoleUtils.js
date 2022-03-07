@@ -22,7 +22,7 @@ const { wlRemoteConsoleFrontendVersion } = require('../webui.json');
 
 let _wlRemoteConsoleChildProcess;
 
-
+/* global process */
 async function startWebLogicRemoteConsoleBackend(currentWindow, skipVersionCheck = false) {
   if (_wlRemoteConsoleChildProcess) {
     return Promise.resolve();
@@ -236,7 +236,8 @@ async function _getWebLogicRemoteConsoleExecutableData(rcHome) {
         _getDevExecutablePath(rcHome, pathToDirectoryWithExecutable).then(exeResult => {
           if (exeResult.exists) {
             results['executable'] = exeResult.executable;
-            results['arguments'] = ['.', 'dev', '--showPort', '--stdin', '--quiet', '--headless'];
+            results['arguments'] =
+              ['.', 'dev', '--showPort', `--check-pid=${process.pid}`, '--quiet', '--headless', '--useTokenNotCookie'];
             results['options'] = { cwd: rcHome };
           } else {
             const message = i18n.t('wrc-dev-executable-existence-check-failed',
@@ -254,7 +255,8 @@ async function _getWebLogicRemoteConsoleExecutableData(rcHome) {
     _getInstalledExecutablePath(rcHome).then(exeResult => {
       if (exeResult['exists']) {
         results['executable'] = exeResult['executable'];
-        results['arguments'] = ['--showPort', '--stdin', '--quiet', '--headless'];
+        results['arguments'] =
+          ['--showPort', `--check-pid=${process.pid}`, '--quiet', '--headless', '--useTokenNotCookie'];
         resolve(results);
       } else {
         const message = i18n.t('wrc-executable-not-exists', { rcHome: rcHome, executable: results['executable'] });
@@ -415,7 +417,16 @@ async function _getLocationFromPreferencesFile() {
       fsPromises.readFile(autoPrefsLocation, { encoding: 'utf8' }).then(contents => {
         try {
           const props = JSON.parse(contents);
-          resolve(props.location);
+
+          let location;
+          if (props.location) {
+            if (osUtils.isMac()) {
+              location = path.normalize(path.join(path.dirname(props.location), '..', '..'));
+            } else {
+              location = path.dirname(props.location);
+            }
+          }
+          resolve(location);
         } catch (err) {
           getLogger().debug('Failed to parse file %s: %s', autoPrefsLocation, getErrorMessage(err));
           resolve();
