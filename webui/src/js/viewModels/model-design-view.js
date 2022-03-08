@@ -3,10 +3,10 @@
  * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
-define(['accUtils', 'utils/i18n', 'knockout', 'models/wkt-project', 'utils/url-catalog', 'utils/wkt-logger',
-  'wrc-frontend/core/parsers/yaml', 'wrc-frontend/integration/viewModels/utils','wdt-model-designer/loader',
-  'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojformlayout'],
-function(accUtils, i18n, ko, project, urlCatalog, wktLogger, YamlParser, ViewModelUtils) {
+define(['accUtils', 'utils/i18n', 'knockout', 'models/wkt-project', 'utils/url-catalog', 'utils/view-helper',
+  'utils/wkt-logger', 'wrc-frontend/core/parsers/yaml', 'wrc-frontend/integration/viewModels/utils',
+  'wdt-model-designer/loader', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojformlayout'],
+function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, YamlParser, ViewModelUtils) {
   function ModelDesignViewModel() {
 
     let subscriptions = [];
@@ -18,19 +18,18 @@ function(accUtils, i18n, ko, project, urlCatalog, wktLogger, YamlParser, ViewMod
 
     this.connected = () => {
       accUtils.announce('Model design view loaded.', 'assertive');
+      this.designer = document.getElementById('WdtModelDesigner');
+
       subscriptions.push(this.project.wdtModel.internal.wlRemoteConsolePort.subscribe((newValue) => {
         wktLogger.debug('Model Design View got event for Remote Console backend port change to %s', newValue);
-        this.showWdtModelDesigner(newValue, this);
+        this.showWdtModelDesigner(newValue, this.designer);
       }, this));
 
-      // eslint-disable-next-line no-unused-vars
-      subscriptions.push(this.project.wdtModel.modelContent.subscribe((newValue) => {
+      subscriptions.push(this.project.wdtModel.modelContent.subscribe(() => {
         wktLogger.debug('Model Design View got event for Model contents changed');
 
         if (this.designer) {
-          // FIXME - There doesn't seem to be a way to update the data of the data provider.
-          //         Please fix this accordingly and delete this comment...
-          //
+          this.createRemoteConsoleProvider(this.designer, true);
         }
       }, this));
 
@@ -40,12 +39,11 @@ function(accUtils, i18n, ko, project, urlCatalog, wktLogger, YamlParser, ViewMod
       if (typeof port !== 'undefined') {
         wktLogger.debug('direct connected: port=%s', port);
 
-        // FIXME - There seems to be a race condition where the JET component does not seem to
-        //         be fully loaded by the time we get to this point.  Working around it for now...
-        //
-        setTimeout( () => {
-          this.showWdtModelDesigner(port);
-        }, 1000);
+        if (this.designer) {
+          viewHelper.componentReady(this.designer).then(() => {
+            this.showWdtModelDesigner(port, this.designer);
+          });
+        }
       }
     };
 
@@ -55,7 +53,8 @@ function(accUtils, i18n, ko, project, urlCatalog, wktLogger, YamlParser, ViewMod
       });
 
       if (this.designer) {
-        this.designer.deactivateProvider(self.dataProvider);
+        wktLogger.debug('disconnected() dataProvider = %s', JSON.stringify(this.dataProvider));
+        this.designer.deactivateProvider(this.dataProvider);
       }
     };
 
@@ -67,13 +66,15 @@ function(accUtils, i18n, ko, project, urlCatalog, wktLogger, YamlParser, ViewMod
       return window.api.process.isLinux();
     };
 
-    this.showWdtModelDesigner = (backendPort) => {
+    this.showWdtModelDesigner = (backendPort, wdtModelDesigner) => {
       wktLogger.info('showWdtModelDesigner using backendPort %s', backendPort);
       if (!backendPort) {
         return;
       }
 
-      self.designer = document.getElementById('WdtModelDesigner');
+      if (!wdtModelDesigner) {
+        return;
+      }
 
       // We cannot use <oj-bind-if> to control the visibility of
       // the <wdt-model-designer> JET composite, because it prevents
@@ -84,25 +85,18 @@ function(accUtils, i18n, ko, project, urlCatalog, wktLogger, YamlParser, ViewMod
       // that controls its visibility. The default value for that
       // property is false.
       //
-      self.designer.visible = this.showRemoteConsoleComponent();
-      self.designer.setBackendUrlPort(backendPort);
+      wdtModelDesigner.visible = this.showRemoteConsoleComponent();
+      wdtModelDesigner.setBackendUrlPort(backendPort);
 
       // ResizeObserver needs to be set on the parent element
       // of the <wdt-model-designer> tag.
       //
-      const parentElement = self.designer.parentElement;
+      const parentElement = wdtModelDesigner.parentElement;
       new ResizeObserver(() => {
-        self.designer.resize();
+        wdtModelDesigner.resize();
       }).observe(parentElement);
 
-      // TODO - Do we need to use the Remote Console parser or can we just use js-yaml?
-      //
-      const providerOptions = this.getRemoteConsoleProviderOptions();
-      YamlParser.parse(providerOptions.fileContents).then(data => {
-        self.designer.createProvider(providerOptions.name, data);
-      }).catch(err => {
-        ViewModelUtils.failureResponseDefaultHandling(err);
-      });
+      this.createRemoteConsoleProvider(wdtModelDesigner);
     };
 
     // We need to support several use cases:
@@ -120,7 +114,7 @@ function(accUtils, i18n, ko, project, urlCatalog, wktLogger, YamlParser, ViewMod
       };
 
       if (!providerOptions.fileContents) {
-        const modelTemplates = self.designer.getProperty('modelTemplate');
+        const modelTemplates = this.designer.getProperty('modelTemplate');
         providerOptions.fileContents = modelTemplates.sparse;
       }
 
@@ -130,17 +124,37 @@ function(accUtils, i18n, ko, project, urlCatalog, wktLogger, YamlParser, ViewMod
       return providerOptions;
     };
 
+    this.createRemoteConsoleProvider = (wdtModelDesigner, resetExistingDataProvider = false) => {
+      if (!wdtModelDesigner) {
+        return;
+      }
+
+      if (resetExistingDataProvider) {
+        wdtModelDesigner.deactivateProvider(this.dataProvider);
+      }
+
+      const providerOptions = this.getRemoteConsoleProviderOptions();
+      // TODO - Do we need to use the Remote Console parser or can we just use js-yaml?
+      //
+      YamlParser.parse(providerOptions.fileContents).then(data => {
+        wdtModelDesigner.createProvider(providerOptions.name, data);
+      }).catch(err => {
+        ViewModelUtils.failureResponseDefaultHandling(err);
+      });
+    };
+
     // Triggered when WDT Model File provider has been activated with the WRC backend.
     //
     this.providerActivated = (event) => {
-      self.dataProvider = event.detail.value;
-      self.designer.selectLastVisitedSlice();
+      this.dataProvider = event.detail.value;
+      this.designer.selectLastVisitedSlice();
     };
 
     // Triggered when changes have been downloaded from the WRC backend, for the active WDT Model File provider.
     //
     this.changesAutoDownloaded = (event) => {
-      self.project.wdtModel.modelContent(event.detail.value);
+      wktLogger.debug('changesAutoDownloaded event: %s', event.detail.value);
+      this.project.wdtModel.modelContent(event.detail.value);
     };
 
     // Triggered when WDT Model File provider has been deactivated with the WRC backend.
@@ -148,17 +162,17 @@ function(accUtils, i18n, ko, project, urlCatalog, wktLogger, YamlParser, ViewMod
     this.providerDeactivated = (event) => {
       const result = event.detail.value;
       delete result.data;
-      self.dataProvider = {state: 'disconnected'};
+      this.dataProvider = {state: 'disconnected'};
     };
 
     // Triggered when WDT Model Designer has lost its connection to the WRC backend.
     //
     this.connectionLostRefused  = (event) => {
       wktLogger.debug('connectionLostRefused: backendUrl=%s', event.detail.value);
-      if (self.designer) {
-        self.designer.visible = false;
+      if (this.designer) {
+        this.designer.visible = false;
       }
-      self.project.wdtModel.internal.wlRemoteConsolePort(undefined);
+      this.project.wdtModel.internal.wlRemoteConsolePort(undefined);
     };
 
     const wrcInitialText = this.labelMapper('wrc-install-description');

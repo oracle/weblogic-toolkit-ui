@@ -258,7 +258,7 @@
 }
 
 .wkt-paths-table {
-  .wkt-env-vars-table;
+  border: 1px solid var(--oj-collection-border-color);
   width: 100%;
 }
 
