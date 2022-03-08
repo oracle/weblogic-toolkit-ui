@@ -7,7 +7,7 @@
 
 const path = require('path');
 const readline = require('readline');
-const { app, dialog } = require('electron');
+const { app, BrowserWindow, dialog } = require('electron');
 const fsPromises = require('fs/promises');
 
 const userSettings = require('./userSettings');
@@ -21,8 +21,13 @@ const { spawnDaemonChildProcess } = require('./childProcessExecutor');
 const { wlRemoteConsoleFrontendVersion } = require('../webui.json');
 
 let _wlRemoteConsoleChildProcess;
+let _wlRemoteConsolePort;
 
 /* global process */
+function getWebLogicRemoteConsoleBackendPort() {
+  return _wlRemoteConsolePort;
+}
+
 async function startWebLogicRemoteConsoleBackend(currentWindow, skipVersionCheck = false) {
   if (_wlRemoteConsoleChildProcess) {
     return Promise.resolve();
@@ -45,6 +50,11 @@ async function startWebLogicRemoteConsoleBackend(currentWindow, skipVersionCheck
         });
         _wlRemoteConsoleChildProcess.on('exit', (code) => {
           getLogger().info('WebLogic Remote Console backend process exited with code %s', code);
+          _wlRemoteConsolePort = undefined;
+          BrowserWindow.getAllWindows().forEach(win => {
+            getLogger().debug('Sending new Remote Console backend port %s to Window ID %s', _wlRemoteConsolePort, win.id);
+            sendToWindow(win, 'set-wrc-backend-port', _wlRemoteConsolePort);
+          });
         });
 
         const stdoutLines = readline.createInterface({ input: _wlRemoteConsoleChildProcess.stdout });
@@ -58,7 +68,11 @@ async function startWebLogicRemoteConsoleBackend(currentWindow, skipVersionCheck
             const matcher = line.match(portRegex);
             if (matcher) {
               foundPort = true;
-              sendToWindow(currentWindow, 'set-wrc-backend-port', matcher[1]);
+              _wlRemoteConsolePort = matcher[1];
+              BrowserWindow.getAllWindows().forEach(win => {
+                getLogger().debug('Sending new Remote Console backend port %s to Window ID %s', _wlRemoteConsolePort, win.id);
+                sendToWindow(win, 'set-wrc-backend-port', _wlRemoteConsolePort);
+              });
             }
           }
         });
@@ -505,6 +519,7 @@ async function _getDefaultLocationForLinux() {
 module.exports = {
   getDefaultDirectoryForOpenDialog,
   getDefaultWebLogicRemoteConsoleHome,
+  getWebLogicRemoteConsoleBackendPort,
   setWebLogicRemoteConsoleHomeAndStart,
   startWebLogicRemoteConsoleBackend
 };

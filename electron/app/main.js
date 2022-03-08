@@ -35,7 +35,8 @@ const openSSLUtils = require('./js/openSSLUtils');
 const osUtils = require('./js/osUtils');
 const { initializeAutoUpdater, registerAutoUpdateListeners, installUpdates, getUpdateInformation } = require('./js/appUpdater');
 const { startWebLogicRemoteConsoleBackend, getDefaultDirectoryForOpenDialog, setWebLogicRemoteConsoleHomeAndStart,
-  getDefaultWebLogicRemoteConsoleHome } = require('./js/wlRemoteConsoleUtils');
+  getDefaultWebLogicRemoteConsoleHome, getWebLogicRemoteConsoleBackendPort
+} = require('./js/wlRemoteConsoleUtils');
 
 const { getHttpsProxyUrl, getBypassProxyHosts } = require('./js/userSettings');
 const { sendToWindow } = require('./js/windowUtils');
@@ -225,10 +226,17 @@ class Main {
               }
 
               sendToWindow(currentWindow, 'show-startup-dialogs', startupInformation);
+              const port = getWebLogicRemoteConsoleBackendPort();
+              this._logger.debug('Sending Remote Console backend port %s to Window ID %s', port, currentWindow.id);
+              sendToWindow(currentWindow, 'set-wrc-backend-port', port);
             });
           }
 
           this._startupDialogsShownAlready = true;
+        } else {
+          const port = getWebLogicRemoteConsoleBackendPort();
+          this._logger.debug('Sending Remote Console backend port %s to Window ID %s', port, currentWindow.id);
+          sendToWindow(currentWindow, 'set-wrc-backend-port', port);
         }
       });
     });
