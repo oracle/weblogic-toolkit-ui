@@ -51,7 +51,10 @@ async function startWebLogicRemoteConsoleBackend(currentWindow, skipVersionCheck
         _wlRemoteConsoleChildProcess.on('exit', (code) => {
           getLogger().info('WebLogic Remote Console backend process exited with code %s', code);
           _wlRemoteConsolePort = undefined;
-          BrowserWindow.getAllWindows().forEach(win => sendToWindow(win, 'set-wrc-backend-port', _wlRemoteConsolePort));
+          BrowserWindow.getAllWindows().forEach(win => {
+            getLogger().debug('Sending new Remote Console backend port %s to Window ID %s', _wlRemoteConsolePort, win.id);
+            sendToWindow(win, 'set-wrc-backend-port', _wlRemoteConsolePort);
+          });
         });
 
         const stdoutLines = readline.createInterface({ input: _wlRemoteConsoleChildProcess.stdout });
@@ -66,7 +69,10 @@ async function startWebLogicRemoteConsoleBackend(currentWindow, skipVersionCheck
             if (matcher) {
               foundPort = true;
               _wlRemoteConsolePort = matcher[1];
-              BrowserWindow.getAllWindows().forEach(win => sendToWindow(win, 'set-wrc-backend-port', _wlRemoteConsolePort));
+              BrowserWindow.getAllWindows().forEach(win => {
+                getLogger().debug('Sending new Remote Console backend port %s to Window ID %s', _wlRemoteConsolePort, win.id);
+                sendToWindow(win, 'set-wrc-backend-port', _wlRemoteConsolePort);
+              });
             }
           }
         });

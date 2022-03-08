@@ -256,6 +256,7 @@ function(wktProject, wktConsole, wdtDiscoverer, dialogHelper, projectIO,
   });
 
   window.api.ipc.receive('set-wrc-backend-port', (port) => {
+    wktLogger.debug('Received Remote Console backend port %s', port);
     wktProject.wdtModel.internal.wlRemoteConsolePort(port);
   });
 
