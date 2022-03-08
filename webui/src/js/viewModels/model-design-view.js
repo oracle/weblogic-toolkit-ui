@@ -4,9 +4,9 @@
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 define(['accUtils', 'utils/i18n', 'knockout', 'models/wkt-project', 'utils/url-catalog', 'utils/view-helper',
-  'utils/wkt-logger', 'wrc-frontend/core/parsers/yaml', 'wrc-frontend/integration/viewModels/utils',
-  'wdt-model-designer/loader', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojformlayout'],
-function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, YamlParser, ViewModelUtils) {
+  'utils/wkt-logger', 'js-yaml', 'wrc-frontend/integration/viewModels/utils', 'wdt-model-designer/loader',
+  'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojformlayout'],
+function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, jsYaml, ViewModelUtils) {
   function ModelDesignViewModel() {
 
     let subscriptions = [];
@@ -15,6 +15,7 @@ function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, YamlPar
     this.designer = undefined;
     this.dataProvider = {};
     this.disableStartButton = ko.observable(false);
+    this.wrcBackendTriggerChange = false;
 
     this.connected = () => {
       accUtils.announce('Model design view loaded.', 'assertive');
@@ -29,7 +30,11 @@ function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, YamlPar
         wktLogger.debug('Model Design View got event for Model contents changed');
 
         if (this.designer) {
-          this.createRemoteConsoleProvider(this.designer, true);
+          if (this.wrcBackendTriggerChange) {
+            this.wrcBackendTriggerChange = false;
+          } else {
+            this.createRemoteConsoleProvider(this.designer, true);
+          }
         }
       }, this));
 
@@ -134,26 +139,27 @@ function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, YamlPar
       }
 
       const providerOptions = this.getRemoteConsoleProviderOptions();
-      // TODO - Do we need to use the Remote Console parser or can we just use js-yaml?
-      //
-      YamlParser.parse(providerOptions.fileContents).then(data => {
+      try {
+        const data = jsYaml.load(providerOptions.fileContents);
         wdtModelDesigner.createProvider(providerOptions.name, data);
-      }).catch(err => {
+      } catch (err) {
         ViewModelUtils.failureResponseDefaultHandling(err);
-      });
+      }
     };
 
     // Triggered when WDT Model File provider has been activated with the WRC backend.
     //
     this.providerActivated = (event) => {
       this.dataProvider = event.detail.value;
+      wktLogger.debug('Received providerActivated event with dataProvider = %s', JSON.stringify(this.dataProvider));
       this.designer.selectLastVisitedSlice();
     };
 
     // Triggered when changes have been downloaded from the WRC backend, for the active WDT Model File provider.
     //
     this.changesAutoDownloaded = (event) => {
-      wktLogger.debug('changesAutoDownloaded event: %s', event.detail.value);
+      wktLogger.debug('Received changesAutoDownloaded event with modelContent = %s', event.detail.value);
+      this.wrcBackendTriggerChange = true;
       this.project.wdtModel.modelContent(event.detail.value);
     };
 
@@ -161,6 +167,7 @@ function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, YamlPar
     //
     this.providerDeactivated = (event) => {
       const result = event.detail.value;
+      wktLogger.debug('Received providerDeactivated event with dataProvider = %s', JSON.stringify(result));
       delete result.data;
       this.dataProvider = {state: 'disconnected'};
     };
@@ -168,10 +175,13 @@ function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, YamlPar
     // Triggered when WDT Model Designer has lost its connection to the WRC backend.
     //
     this.connectionLostRefused  = (event) => {
-      wktLogger.debug('connectionLostRefused: backendUrl=%s', event.detail.value);
+      wktLogger.debug('Received connectionLostRefused event with backendUrl = %s', event.detail.value);
       if (this.designer) {
         this.designer.visible = false;
       }
+      // Technically, this should not be needed since the electron side should be pushing this port
+      // change to the window when the backend process exits, but it doesn't hurt anything.
+      //
       this.project.wdtModel.internal.wlRemoteConsolePort(undefined);
     };
 

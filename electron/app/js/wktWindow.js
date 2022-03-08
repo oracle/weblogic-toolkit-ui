@@ -825,6 +825,11 @@ async function createWindow() {
     userSettings.setWindowSize(winSize);
   });
 
+  newWindow.once('ready-to-show', () => {
+    const { getWebLogicRemoteConsoleBackendPort } = require('./wlRemoteConsoleUtils');
+    sendToWindow('set-wrc-backend-port', getWebLogicRemoteConsoleBackendPort());
+  });
+
   newWindow.on('close', (event) => {
     getLogger().debug('Received window close event on Window ID %s', newWindow.id);
     if (!newWindow.skipDirtyCheck) {
