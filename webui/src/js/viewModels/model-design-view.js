@@ -74,6 +74,9 @@ function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, jsYaml,
     this.showWdtModelDesigner = (backendPort, wdtModelDesigner) => {
       wktLogger.info('showWdtModelDesigner using backendPort %s', backendPort);
       if (!backendPort) {
+        if (wdtModelDesigner) {
+          wdtModelDesigner.visible = false;
+        }
         return;
       }
 
