@@ -50,6 +50,7 @@ async function startWebLogicRemoteConsoleBackend(currentWindow, skipVersionCheck
         });
         _wlRemoteConsoleChildProcess.on('exit', (code) => {
           getLogger().info('WebLogic Remote Console backend process exited with code %s', code);
+          _wlRemoteConsoleChildProcess = undefined;
           _wlRemoteConsolePort = undefined;
           BrowserWindow.getAllWindows().forEach(win => {
             getLogger().debug('Sending new Remote Console backend port %s to Window ID %s', _wlRemoteConsolePort, win.id);
