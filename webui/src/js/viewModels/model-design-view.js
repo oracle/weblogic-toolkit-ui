@@ -53,7 +53,8 @@ function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, YamlPar
       });
 
       if (this.designer) {
-        this.designer.deactivateProvider(self.dataProvider);
+        wktLogger.debug('disconnected() dataProvider = %s', JSON.stringify(this.dataProvider));
+        this.designer.deactivateProvider(this.dataProvider);
       }
     };
 
@@ -152,6 +153,7 @@ function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, YamlPar
     // Triggered when changes have been downloaded from the WRC backend, for the active WDT Model File provider.
     //
     this.changesAutoDownloaded = (event) => {
+      wktLogger.debug('changesAutoDownloaded event: %s', event.detail.value);
       this.project.wdtModel.modelContent(event.detail.value);
     };
 
