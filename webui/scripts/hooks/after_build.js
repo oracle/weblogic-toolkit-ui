@@ -9,7 +9,7 @@
 
 const fs = require('fs');
 const fsPromises = require('fs/promises');
-const { copyFile, lstat, mkdir, readdir } = require('fs/promises');
+const { rename, mkdir, readdir } = require('fs/promises');
 const path = require('path');
 
 const purgeLocations = [
@@ -39,6 +39,9 @@ module.exports = function (configObj) {
     // that the electron side needs during startup.
     //
     const webuiJsonCreated = await generateWebuiJsonFile(webuiJsonDirectory);
+    if (webuiJsonCreated) {
+      await moveFileToDirectory(webuiJsonFile, targetDirectory);
+    }
 
   	if (configObj.buildType === 'release') {
   	  console.log('Consolidating files for building the release');
@@ -48,14 +51,7 @@ module.exports = function (configObj) {
           await copyDirectoryRecursively(sourceDirectory, targetDirectory);
         }
       }
-    } else {
-      if (webuiJsonCreated) {
-        await copyFileToDirectory(webuiJsonFile, targetDirectory);
-      }
     }
-
-
-
   	resolve(configObj);
   });
 };
@@ -75,7 +71,7 @@ async function copyDirectoryRecursively(source, target) {
       if (await isDirectory(currentSource)) {
         await copyDirectoryRecursively(currentSource, targetDirectory);
       } else {
-        await copyFileToDirectory(currentSource, targetDirectory);
+        await moveFileToDirectory(currentSource, targetDirectory);
       }
     }
   } else {
@@ -83,12 +79,12 @@ async function copyDirectoryRecursively(source, target) {
   }
 }
 
-async function copyFileToDirectory(source, target) {
+async function moveFileToDirectory(source, target) {
   let targetFile = target;
   if (await isDirectory(target)) {
     targetFile = path.join(target, path.basename(source));
   }
-  await copyFile(source, targetFile);
+  await rename(source, targetFile);
 }
 
 async function isDirectory(path) {
