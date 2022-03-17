@@ -1,15 +1,14 @@
 /**
-  Copyright (c) 2015, 2021, Oracle and/or its affiliates.
-  Licensed under The Universal Permissive License (UPL), Version 1.0
-  as shown at https://oss.oracle.com/licenses/upl/
-
-*/
+ Copyright (c) 2015, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ */
 
 'use strict';
 
 const fs = require('fs');
 const fsPromises = require('fs/promises');
-const { copyFile, lstat, mkdir, readdir } = require('fs/promises');
+const { copyFile, mkdir, readdir } = require('fs/promises');
 const path = require('path');
 
 const purgeLocations = [
@@ -22,8 +21,8 @@ const sourceDirectories = [
 const targetDirectory = path.normalize(path.join(__dirname, '..', '..', '..', 'electron', 'app'));
 
 module.exports = function (configObj) {
-  return new Promise(async (resolve, reject) => {
-  	console.log("Running after_build hook.");
+  return new Promise(async (resolve) => {
+    console.log("Running after_build hook.");
     console.log('Purging unnecessary files created by the build...');
     for (const purgeLocation of purgeLocations) {
       if (fs.existsSync(purgeLocation)) {
@@ -31,25 +30,25 @@ module.exports = function (configObj) {
       }
     }
 
-  	if (configObj.buildType === 'release') {
-  	  console.log('Consolidating files for building the release');
-  	  for (const sourceDirectory of sourceDirectories) {
-  	    if (fs.existsSync(sourceDirectory)) {
+    if (configObj.buildType === 'release') {
+      console.log('Consolidating files for building the release');
+      for (const sourceDirectory of sourceDirectories) {
+        if (fs.existsSync(sourceDirectory)) {
           console.log(`Copying ${sourceDirectory} to ${targetDirectory}`)
           await copyDirectoryRecursively(sourceDirectory, targetDirectory);
         }
       }
     }
-  	resolve(configObj);
+    resolve(configObj);
   });
 };
 
 async function copyDirectoryRecursively(source, target) {
   let files = []
 
-  let targetDirectory = path.join(target, path.basename(source));
-  if (!fs.existsSync(targetDirectory)) {
-    await mkdir(targetDirectory);
+  let _targetDirectory = path.join(target, path.basename(source));
+  if (!fs.existsSync(_targetDirectory)) {
+    await mkdir(_targetDirectory);
   }
 
   if (await isDirectory(source)) {
@@ -57,9 +56,9 @@ async function copyDirectoryRecursively(source, target) {
     for (const file of files) {
       const currentSource = path.join(source, file);
       if (await isDirectory(currentSource)) {
-        await copyDirectoryRecursively(currentSource, targetDirectory);
+        await copyDirectoryRecursively(currentSource, _targetDirectory);
       } else {
-        await copyFileToDirectory(currentSource, targetDirectory);
+        await copyFileToDirectory(currentSource, _targetDirectory);
       }
     }
   } else {
@@ -75,8 +74,8 @@ async function copyFileToDirectory(source, target) {
   await copyFile(source, targetFile);
 }
 
-async function isDirectory(path) {
-  const result = await fsPromises.lstat(path).catch(err => {
+async function isDirectory(testPath) {
+  const result = await fsPromises.lstat(testPath).catch(err => {
     if (err.code === 'ENOENT') {
       return false;
     }

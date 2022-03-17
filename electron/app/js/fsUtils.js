@@ -55,19 +55,15 @@ async function removeDirectoryRecursively(directoryToDelete) {
     exists(directoryToDelete)
       .then(doesExist => {
         if (doesExist) {
-          fsPromises.rm(directoryToDelete, {
-            force: true,
-            recursive: true
-          })
-            .then(() => {
-              exists(directoryToDelete).then(stillExists => {
-                if (!stillExists) {
-                  resolve(!stillExists);
-                } else {
-                  reject(`Failed to completely remove directory ${directoryToDelete}`);
-                }
-              }).catch(err => reject(err));
+          fsPromises.rm(directoryToDelete, { force: true, recursive: true }).then(() => {
+            exists(directoryToDelete).then(stillExists => {
+              if (!stillExists) {
+                resolve(true);
+              } else {
+                reject(`Failed to completely remove directory ${directoryToDelete}`);
+              }
             }).catch(err => reject(err));
+          }).catch(err => reject(err));
         } else {
           resolve(false);
         }

@@ -369,7 +369,7 @@ function(i18n, Validator, ojvalidationError, RegExpValidator, LengthValidator, N
       }
     }
 
-    const K8S_MEMORY_REGEX = /^[1-9]\d*((E|P|T|G|M|K)i?)?$/;
+    const K8S_MEMORY_REGEX = /^[1-9]\d*([EPTGMK]i?)?$/;
     const K8S_MEMORY_HELP_URL = 'https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-memory';
     function _validateK8sMemoryValue(value) {
       if (value && !K8S_MEMORY_REGEX.test(value)) {
@@ -377,7 +377,7 @@ function(i18n, Validator, ojvalidationError, RegExpValidator, LengthValidator, N
       }
     }
 
-    const JAVA_MEMORY_REGEX = /^[1-9]\d*(k|K|m|M|g|G)?$/;
+    const JAVA_MEMORY_REGEX = /^[1-9]\d*[kKmMgG]?$/;
     const JAVA_MEMORY_HELP_URL = 'https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html#BABDJJFI';
     function _validateJavaMemoryValue(value) {
       if (value && !JAVA_MEMORY_REGEX.test(value)) {

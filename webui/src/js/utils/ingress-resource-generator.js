@@ -138,27 +138,15 @@ define(['models/wkt-project', 'js-yaml'],
       }
 
       isSSLTerminateAtIngress(item) {
-        if (item && item['tlsOption'] === 'ssl_terminate_ingress') {
-          return true;
-        } else {
-          return false;
-        }
+        return (item && item['tlsOption'] === 'ssl_terminate_ingress');
       }
 
       isSSLPassThrough(item) {
-        if (item && item['tlsOption'] === 'ssl_passthrough') {
-          return true;
-        } else {
-          return false;
-        }
+        return (item && item['tlsOption'] === 'ssl_passthrough');
       }
 
       isPlainHTTP(item) {
-        if (item && item['tlsOption'] === 'plain') {
-          return true;
-        } else {
-          return false;
-        }
+        return (item && item['tlsOption'] === 'plain');
       }
 
       createTraefikMiddlewaresAsYaml(item) {
