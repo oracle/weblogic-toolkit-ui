@@ -693,7 +693,7 @@ define(['knockout', 'utils/common-utilities', 'utils/validation-helper', 'utils/
     }
 
     function escape(s) {
-      return /[,;\n\s]/.test(s) ? `"${s}"` : s;
+      return /[,;\s]/.test(s) ? `"${s}"` : s;
     }
 
     function arrayToString(array) {

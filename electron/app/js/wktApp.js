@@ -74,16 +74,16 @@ class WktApp {
       throw new Error(`Failed to read version file ${versionFilePath}: ${errorUtils.getErrorMessage(err)}`);
     }
 
-    let version;
+    let buildVersion;
     if (!contents) {
-      version = defaultVersion;
+      buildVersion = defaultVersion;
     } else if (contents.startsWith('-')) {
       // dev build so concatenate the app version with the qualifier from the file
-      version = `${defaultVersion}${contents.trim()}`;
+      buildVersion = `${defaultVersion}${contents.trim()}`;
     } else {
       return contents.trim();
     }
-    return version;
+    return buildVersion;
   }
 }
 

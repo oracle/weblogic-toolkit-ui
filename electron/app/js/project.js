@@ -732,9 +732,9 @@ function _addOpenProject(targetWindow, file, pending, credentialManager) {
 // assign project file to window if none is assigned, or file path changes.
 // avoid unnecessary reassignments in order to keep credential manager between saves.
 function _assignProjectFile(targetWindow, projectFile) {
-  const openProject = openProjects.get(targetWindow);
-  const oldFile = openProject ? openProject.projectDirectory + '|' + openProject.projectFile : '';
-  const newFile = path.resolve(path.dirname(projectFile)) + '|' + path.basename(projectFile);
+  const existingProject = openProjects.get(targetWindow);
+  const oldFile = existingProject ? `${existingProject.projectDirectory}|${existingProject.projectFile}` : '';
+  const newFile = `${path.resolve(path.dirname(projectFile))}|${path.basename(projectFile)}`;
   if (newFile !== oldFile) {
     _addOpenProject(targetWindow, projectFile, false);
   }

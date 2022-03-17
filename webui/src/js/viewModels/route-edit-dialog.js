@@ -122,11 +122,11 @@ function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDa
       return nextIndex;
     });
 
-    const annotations = this.route.annotations;
-    if (annotations) {
-      Object.keys(annotations).forEach(key => {
+    const routeAnnotations = this.route.annotations;
+    if (routeAnnotations) {
+      Object.keys(routeAnnotations).forEach(key => {
         const nextUid = getAnnotationUid(this.nextAnnotationIndex());
-        const annotation = {uid: nextUid, key: key, value: annotations[key]};
+        const annotation = {uid: nextUid, key: key, value: routeAnnotations[key]};
         this.annotations.addNewItem(annotation);
       });
     }
@@ -177,16 +177,16 @@ function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDa
       return Object.entries(one).sort().toString() !== Object.entries(two).sort().toString();
     }
 
-    function addOrDeleteAnnotation(annotations, addAction, key, value, deleteKey) {
+    function addOrDeleteAnnotation(currentAnnotations, addAction, key, value, deleteKey) {
       if (addAction) {
-        annotations[key] = value;
+        currentAnnotations[key] = value;
       } else {
-        if (key in annotations) {
-          delete annotations[key];
+        if (key in currentAnnotations) {
+          delete currentAnnotations[key];
         }
       }
-      if (deleteKey in annotations) {
-        delete annotations[deleteKey];
+      if (deleteKey in currentAnnotations) {
+        delete currentAnnotations[deleteKey];
       }
     }
 

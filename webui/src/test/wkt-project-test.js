@@ -19,8 +19,7 @@ describe('wkt-project', function () {
     requirejs(['models/wkt-project'],
       function (module) {
         project = module;
-        project.updateModels = () => {
-        };
+        project.updateModels = () => { /* This is intentionally empty */ };
         done();
       });
   });

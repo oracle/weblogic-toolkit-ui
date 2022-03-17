@@ -61,7 +61,7 @@ function getAppId(context) {
 }
 
 exports.default = async function notarizing(context) {
-  const { electronPlatformName, appOutDir } = context;
+  const { electronPlatformName } = context;
   if (electronPlatformName !== 'darwin' || process.env.CSC_IDENTITY_AUTO_DISCOVERY === 'false') {
     return;
   }

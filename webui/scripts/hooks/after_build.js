@@ -26,7 +26,7 @@ const sourceDirectories = [
 const targetDirectory = path.normalize(path.join(__dirname, '..', '..', '..', 'electron', 'app'));
 
 module.exports = function (configObj) {
-  return new Promise(async (resolve, reject) => {
+  return new Promise(async (resolve) => {
   	console.log("Running after_build hook.");
     console.log('Purging unnecessary files created by the build...');
     for (const purgeLocation of purgeLocations) {
@@ -38,7 +38,7 @@ module.exports = function (configObj) {
     // Write the webui.json file that contains data
     // that the electron side needs during startup.
     //
-    const webuiJsonCreated = await generateWebuiJsonFile(webuiJsonDirectory);
+    const webuiJsonCreated = await generateWebuiJsonFile();
     if (webuiJsonCreated) {
       await moveFileToDirectory(webuiJsonFile, targetDirectory);
     }
@@ -59,9 +59,9 @@ module.exports = function (configObj) {
 async function copyDirectoryRecursively(source, target) {
   let files = []
 
-  let targetDirectory = path.join(target, path.basename(source));
-  if (!fs.existsSync(targetDirectory)) {
-    await mkdir(targetDirectory);
+  let _targetDirectory = path.join(target, path.basename(source));
+  if (!fs.existsSync(_targetDirectory)) {
+    await mkdir(_targetDirectory);
   }
 
   if (await isDirectory(source)) {
@@ -69,9 +69,9 @@ async function copyDirectoryRecursively(source, target) {
     for (const file of files) {
       const currentSource = path.join(source, file);
       if (await isDirectory(currentSource)) {
-        await copyDirectoryRecursively(currentSource, targetDirectory);
+        await copyDirectoryRecursively(currentSource, _targetDirectory);
       } else {
-        await moveFileToDirectory(currentSource, targetDirectory);
+        await moveFileToDirectory(currentSource, _targetDirectory);
       }
     }
   } else {
@@ -87,8 +87,8 @@ async function moveFileToDirectory(source, target) {
   await rename(source, targetFile);
 }
 
-async function isDirectory(path) {
-  const result = await fsPromises.lstat(path).catch(err => {
+async function isDirectory(testPath) {
+  const result = await fsPromises.lstat(testPath).catch(err => {
     if (err.code === 'ENOENT') {
       return false;
     }
@@ -108,7 +108,7 @@ async function generateWebuiJsonFile() {
     await mkdir(targetDirectory);
   }
 
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     fsPromises.writeFile(webuiJsonFile, JSON.stringify(contents, null, 2), {
       encoding: 'utf8',
       mode: 0o644

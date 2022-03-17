@@ -11,9 +11,10 @@ const os = require('os');
 
 class WindowStub {
   constructor() {
+    // This is intentionally empty
   }
 
-  trial() {}
+  trial() { /* This is intentionally empty */ }
 
   static install(jsDom) {
     this._isWindows = false;

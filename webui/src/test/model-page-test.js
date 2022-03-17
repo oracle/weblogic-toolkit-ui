@@ -40,25 +40,27 @@ describe('model-page', function () {
     parentRouter: {
       createChildRouter: function() {
         return {
-          sync: function() {},
-          go: function() {}
+          sync: function() { /* This is intentionally empty */ },
+          go: function() { /* This is intentionally empty */ }
         };
       }
     }
   };
 
-  function ModuleRouterAdapterStub() {
-  }
+  function ModuleRouterAdapterStub() { /* This is intentionally empty */ }
 
   beforeEach(function () {
     viewModel = new ModelPageImpl(args, accUtilsStub, ko, i18next, ModuleRouterAdapterStub, ArrayDataProviderStub);
   });
 
   function getEntry(array, key, value) {
-    for (let i = 0; i < array.length; i++) {
-      if (array[i][key] === value) return array[i];
+    let result = undefined;
+    for (const item of array) {
+      if (item[key] === value) {
+        result = item;
+      }
     }
-    return undefined;
+    return result;
   }
 
   function entry(array, key, value) {

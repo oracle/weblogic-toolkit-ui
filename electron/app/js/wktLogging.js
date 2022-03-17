@@ -284,7 +284,7 @@ function _getLogFileMaxFiles(fileLogConfig) {
 
 function _getMustacheVariables(text) {
   const mustacheVariables = [];
-  const mustacheRegex = /{{([a-zA-Z0-9\\_\\-\\.]+)}}/g;
+  const mustacheRegex = /{{([a-zA-Z0-9_.-]+)}}/g;
 
   if (text) {
     let match = mustacheRegex.exec(text);
