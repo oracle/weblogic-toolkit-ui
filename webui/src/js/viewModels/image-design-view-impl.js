@@ -194,7 +194,7 @@ define(['utils/wkt-logger', 'utils/screen-utils'],
       }, this);
 
       this.mainImageRequiresWdt = () => {
-        let result = false;
+        let result;
         switch (this.project.settings.targetDomainLocation.value) {
           case 'pv':
             result = false;
