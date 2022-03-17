@@ -90,7 +90,7 @@ function(ImageRegistryActionsBase, project, wktConsole, i18n, projectIo, dialogH
       } finally {
         dialogHelper.closeBusyDialog();
       }
-    };
+    }
 
     getValidatableObject(flowNameKey) {
       const validationObject = validationHelper.createValidatableObject(flowNameKey);

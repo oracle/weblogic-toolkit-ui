@@ -180,7 +180,7 @@ define(['models/wkt-project', 'utils/script-generator-base'],
         if (usingWdt) {
           comment = 'Add WebLogic Deploy Tooling installer to the WebLogic Image Tool cache';
           const wdtInstaller = this.adapter.getVariableReference('WDT_INSTALLER');
-          let errMessage = `Failed to add WebLogic Deploy Tooling installer ${wdtInstaller} with version ` +
+          const errMessage = `Failed to add WebLogic Deploy Tooling installer ${wdtInstaller} with version ` +
             `${wdtVersion} to the WebLogic Image Tool cache`;
           this.adapter.addWitCacheCommandBlock(comment, script, 'wdt', wdtInstaller, wdtVersion, errMessage);
         }
@@ -435,7 +435,7 @@ define(['models/wkt-project', 'utils/script-generator-base'],
           const imagePushRequiresAuthentication = this.adapter.getVariableReference('IMAGE_PUSH_REQUIRES_AUTH');
           const user = this.adapter.getVariableReference('IMAGE_REGISTRY_PUSH_USER');
           const password = this.adapter.getVariableReference('IMAGE_REGISTRY_PUSH_PASS');
-          const errMessage = `Failed to log in to the image registry ${imageRegistryName}`;
+          errMessage = `Failed to log in to the image registry ${imageRegistryName}`;
           this.adapter.addDockerLoginBlock(imagePushRequiresAuthentication, imageRegistryHost, user, password, builder, errMessage);
         }
 
