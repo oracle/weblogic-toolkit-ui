@@ -7,3 +7,4 @@
 /.kube
 /Library
 /.env
+/app/webui.json
