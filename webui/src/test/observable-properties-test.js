@@ -510,7 +510,7 @@ describe('observable-properties-support', function () {
     });
 
     it('if not set, changes when source object changes', function () {
-      property.value;
+      property.value = undefined;
 
       sourceProperty1.observable('BAZ');
 
@@ -572,7 +572,7 @@ describe('observable-properties-support', function () {
     });
 
     it('if not set, changes when source object changes', function () {
-      property.value;
+      property.value = undefined;
 
       sourceProperty1.observable('BAZ');
 
