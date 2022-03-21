@@ -4,7 +4,6 @@
   as shown at https://oss.oracle.com/licenses/upl/
 
 */
-
 'use strict';
 
 const fs = require('fs');
