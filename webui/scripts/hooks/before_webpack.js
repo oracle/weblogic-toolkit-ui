@@ -4,11 +4,10 @@
   as shown at https://oss.oracle.com/licenses/upl/
 
 */
-
 'use strict';
 
 module.exports = function (configObj) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
   	console.log("Running before_webpack hook.");
     // const { config } = configObj.webpack;
   	resolve(configObj);
