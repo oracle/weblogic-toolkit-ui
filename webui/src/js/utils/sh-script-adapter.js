@@ -134,6 +134,12 @@ define(['utils/script-adapter-base'],
         }
 
         const variableRef = this.getVariableReference(variableName);
+        const serviceAccountLines = [
+          `if [ "${helmChartValues.serviceAccount}" != "" ]; then`,
+          `${this.indent(1)}${variableName}="${variableRef} --set serviceAccount=${helmChartValues.serviceAccount}"`,
+          'fi'
+        ];
+
         const strategyLines = [
           `if [ "${helmChartValues.domainNamespaceSelectionStrategy}" = "LabelSelector" ]; then`,
           `${this.indent(1)}${variableName}="${variableRef} --set domainNamespaceLabelSelector=${helmChartValues.domainNamespaceLabelSelector}"`,
@@ -205,6 +211,8 @@ define(['utils/script-adapter-base'],
         this.addVariableDefinition(variableName, initialValue);
         this._lines.push(
           ...strategyLines,
+          '',
+          ...serviceAccountLines,
           '',
           ...pullSecretsLines,
           '',
