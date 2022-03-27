@@ -207,6 +207,7 @@ define(['models/wkt-project', 'utils/script-generator-base', 'utils/helm-helper'
 
       _gatherHelmChartArgs() {
         return {
+          serviceAccount: this.adapter.getVariableReference('WKO_SERVICE_ACCOUNT'),
           domainNamespaceSelectionStrategy: this.adapter.getVariableReference('WKO_DOMAIN_NAMESPACE_SELECTION_STRATEGY'),
           domainNamespaceLabelSelector: this.adapter.getVariableReference('WKO_DOMAIN_NAMESPACE_LABEL_SELECTOR'),
           domainNamespaces: this.adapter.getVariableReference('WKO_DOMAIN_NAMESPACES'),
