@@ -18,17 +18,7 @@ define(['utils/observable-properties'],
     return function (name) {
       return {
         k8sFlavor: props.createProperty('OKE'),
-        kubeConfig: props.createArrayProperty(() => {
-          const kubeConfig = window.api.k8s.getKubeConfig();
-          if (kubeConfig) {
-            if (Array.isArray(kubeConfig)) {
-              return kubeConfig;
-            } else {
-              return [ kubeConfig ];
-            }
-          }
-          return [];
-        }),
+        kubeConfig: props.createArrayProperty(window.api.k8s.getKubeConfig()),
         executableFilePath: props.createProperty(window.api.k8s.getKubectlFilePath()),
         kubeConfigContextToUse: props.createProperty(),
         helmExecutableFilePath: props.createProperty(window.api.k8s.getHelmFilePath()),
