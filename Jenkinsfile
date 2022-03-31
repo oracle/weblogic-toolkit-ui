@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 pipeline {
@@ -24,6 +24,13 @@ pipeline {
         downstream_job_name = "wktui-sign"
         TAG_NAME = sh(returnStdout: true, script: '/usr/bin/git describe --abbrev=0 --tags').trim()
         is_release = "true"
+
+        sonarscanner_version = '4.7.0.2747'
+        sonarscanner_zip_file = "sonar-scanner-cli-${sonarscanner_version}.zip"
+        sonarscanner_download_url = "https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/${sonarscanner_zip_file}"
+
+        sonar_org = 'oracle'
+        sonar_project_key = "${sonar_org}_weblogic-toolkit-ui"
     }
     stages {
         stage('Compute file version number') {
@@ -53,6 +60,9 @@ pipeline {
                         linux_node_exe = "${linux_node_dir}/bin/node"
                         linux_npm_modules_dir = "${linux_node_dir}/lib"
                         linux_npm_exe = "${linux_node_dir}/bin/npm"
+
+                        sonarscanner_install_dir = "${WORKSPACE}/sonar-scanner-${sonarscanner_version}"
+                        sonarscanner_exe = "${sonarscanner_install_dir}/bin/sonar-scanner"
                     }
                     stages {
                         stage('Linux Echo Environment') {
@@ -119,10 +129,43 @@ pipeline {
                                 sh 'cd ${WORKSPACE}/electron; PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} run install-tools; cd ${WORKSPACE}'
                             }
                         }
-                        stage('Linux Run Unit Tests') {
+                        stage('Install SonarScanner') {
                             steps {
-                                sh 'cd ${WORKSPACE}/electron; PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} test; cd ${WORKSPACE}'
-                                sh 'cd ${WORKSPACE}/webui; PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} test; cd ${WORKSPACE}'
+                                sh "curl -x ${WKTUI_PROXY} ${sonarscanner_download_url} --output ${WORKSPACE}/${sonarscanner_zip_file}"
+                                sh "unzip ${WORKSPACE}/${sonarscanner_zip_file}"
+                                sh "rm -f ${WORKSPACE}/${sonarscanner_zip_file}"
+                            }
+                        }
+                        stage('Linux Run Unit Tests with Coverage') {
+                            steps {
+                                sh 'cd ${WORKSPACE}/electron; PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} run coverage; cd ${WORKSPACE}'
+                                sh 'cd ${WORKSPACE}/webui; PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} run coverage; cd ${WORKSPACE}'
+                            }
+                        }
+                        stage('Run Sonar Analysis') {
+                            tools {
+                                jdk "JDK 11.0.9"
+                            }
+                            environment {
+                                electron_coverage = "${WORKSPACE}/electron/coverage/lcov.info"
+                                webui_coverage = "${WORKSPACE}/webui/coverage/lcov.info"
+                                lcov_report_paths = "${electron_coverage},${webui_coverage}"
+                            }
+                            steps {
+                                echo "JAVA_HOME = ${JAVA_HOME}"
+                                sh "which java"
+                                sh "java -version"
+                                withSonarQubeEnvironment('SonarCloud') {
+                                    sh """
+                                        SONAR_SCANNER_OPTS="-server"; export SONAR_SCANNER_OPTS
+                                        ${sonarscanner_exe} \
+                                            -Dsonar.organization=${sonar_org} \
+                                            -Dsonar.projectKey=${sonar_project_key} \
+                                            -Dsonar.projectVersion=${version_prefix} \
+                                            -Dsonar.branch.name=${BRANCH_NAME} \
+                                            -Dsonar.javascript.lcov.reportPaths=${lcov_report_paths}
+                                    """
+                                }
                             }
                         }
                         stage('Linux Run eslint') {
