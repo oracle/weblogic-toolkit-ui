@@ -29,8 +29,6 @@ pipeline {
         sonarscanner_zip_file = "sonar-scanner-cli-${sonarscanner_version}.zip"
         sonarscanner_download_url = "https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/${sonarscanner_zip_file}"
 
-        sonar_url = 'https://sonarcloud.io'
-        sonar_creds = 'ecnj_sonar_token'
         sonar_org = 'oracle'
         sonar_project_key = "${sonar_org}_weblogic-toolkit-ui"
     }
@@ -149,7 +147,6 @@ pipeline {
                                 jdk "JDK 11.0.9"
                             }
                             environment {
-                                sonar_login = credentials("${sonar_creds}")
                                 electron_coverage = "${WORKSPACE}/electron/coverage/lcov.info"
                                 webui_coverage = "${WORKSPACE}/webui/coverage/lcov.info"
                                 lcov_report_paths = "${electron_coverage},${webui_coverage}"
@@ -162,8 +159,10 @@ pipeline {
                                     echo "Inside withSonarQubeEnv('SonarCloud') block"
                                     sh "env|sort"
                                     sh """
-                                            SONAR_SCANNER_OPTS="-server ${SONAR_SCANNER_OPTS}"; export SONAR_SCANNER_OPTS
+                                            SONAR_SCANNER_OPTS="-server"; export SONAR_SCANNER_OPTS
                                             ${sonarscanner_exe} \
+                                                -Dsonar.host.url=${SONAR_HOST_URL} \
+                                                -Dsonar.login=${SONAR_AUTH_TOKEN} \
                                                 -Dsonar.organization=${sonar_org} \
                                                 -Dsonar.projectKey=${sonar_project_key} \
                                                 -Dsonar.projectVersion=${version_prefix} \
