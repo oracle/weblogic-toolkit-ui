@@ -9,3 +9,4 @@
 /Library
 /.env
 /app/webui.json
+/coverage
