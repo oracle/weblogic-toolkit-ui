@@ -3,6 +3,7 @@
     "build": "cd electron && npm run build && cd ..",
     "install": "cd electron && npm install && cd ../webui && npm install && cd ..",
     "test": "pushd webui && npm test && cd ../electron && npm test && popd",
+    "coverage": "pushd webui && npm run coverage && cd ../electron && npm run coverage && popd",
     "start-jet": "cd webui && npm start",
     "start-app": "cd electron && npm start",
     "eslint": "cd electron && npm run eslint && cd ../webui && npm run eslint && cd ..",
