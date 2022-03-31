@@ -11,8 +11,8 @@ pipeline {
         WKTUI_DEV_PROXY = "${WKTUI_PROXY}"
         WKTUI_BUILD_EMAIL = sh(returnStdout: true, script: "echo ${env.WKTUI_BUILD_NOTIFY_EMAIL} | sed -e 's/^[[:space:]]*//'")
         WKTUI_PROXY_HOSTPORT = sh(returnStdout: true, script: "echo ${env.WKTUI_PROXY} | sed -e 's,http://,,'")
-        WKTUI_PROXY_HOST = sh(returnStdout: true, script: "echo ${env.WKTUI_PROXY_HOSTPORT} | sed -e 's/:.*//'")
-        WKTUI_PROXY_PORT = sh(returnStdout: true, script: "echo ${env.WKTUI_PROXY_HOSTPORT} | sed -e 's/.*://'")
+        WKTUI_PROXY_HOST = "${env.ORACLE_HTTP_PROXY_HOST}"
+        WKTUI_PROXY_PORT = "${env.ORACLE_HTTP_PROXY_PORT}"
 
         npm_registry = "${env.ARTIFACTORY_NPM_REPO}"
         npm_noproxy = "${env.ORACLE_NO_PROXY}"
@@ -161,23 +161,19 @@ pipeline {
                                 sh "java -version"
 
                                 withSonarQubeEnv('SonarCloud') {
-                                    echo "Inside withSonarQubeEnv('SonarCloud') block"
-                                    sh "env|sort"
                                     sh """
-                                       echo "http.proxyHost=${WKTUI_PROXY_HOST}"                     >> ${sonarscanner_config_file}
-                                       echo "http.proxyPort=${WKTUI_PROXY_PORT}"                     >> ${sonarscanner_config_file}
-                                       echo "sonar.host.url=${SONAR_HOST_URL}"                       >> ${sonarscanner_config_file}
-                                       echo "sonar.sourceEncoding=UTF-8"                             >> ${sonarscanner_config_file}
-                                       echo "sonar.organization=${sonar_org}"                        >> ${sonarscanner_config_file}
-                                       echo "sonar.projectKey=${sonar_project_key}"                  >> ${sonarscanner_config_file}
-                                       echo "sonar.projectVersion=${version_prefix}"                 >> ${sonarscanner_config_file}
-                                       echo "sonar.javascript.lcov.reportPaths=${lcov_report_paths}" >> ${sonarscanner_config_file}
-                                       cat "${sonarscanner_config_file}"
+                                        echo "sonar.host.url=${SONAR_HOST_URL}"                       >> ${sonarscanner_config_file}
+                                        echo "sonar.sourceEncoding=UTF-8"                             >> ${sonarscanner_config_file}
+                                        echo "sonar.organization=${sonar_org}"                        >> ${sonarscanner_config_file}
+                                        echo "sonar.projectKey=${sonar_project_key}"                  >> ${sonarscanner_config_file}
+                                        echo "sonar.projectVersion=${version_prefix}"                 >> ${sonarscanner_config_file}
+                                        echo "sonar.javascript.lcov.reportPaths=${lcov_report_paths}" >> ${sonarscanner_config_file}
+                                        cat "${sonarscanner_config_file}"
+
+                                        SONAR_SCANNER_OPTS="-server -Dhttp.proxyHost=${WKTUI_PROXY_HOST} -Dhttp.proxyPort=${WKTUI_PROXY_PORT}"
+                                        export SONAR_SCANNER_OPTS
+                                        ${sonarscanner_exe}
                                     """
-                                    sh """
-                                            SONAR_SCANNER_OPTS="-server"; export SONAR_SCANNER_OPTS
-                                            ${sonarscanner_exe}
-                                        """
                                 }
                             }
                         }
