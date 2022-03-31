@@ -10,6 +10,9 @@ pipeline {
         GLOBAL_AGENT_HTTPS_PROXY = "${WKTUI_PROXY}"
         WKTUI_DEV_PROXY = "${WKTUI_PROXY}"
         WKTUI_BUILD_EMAIL = sh(returnStdout: true, script: "echo ${env.WKTUI_BUILD_NOTIFY_EMAIL} | sed -e 's/^[[:space:]]*//'")
+        WKTUI_PROXY_HOSTPORT = sh(returnStdout: true, script: "echo ${env.WKTUI_PROXY} | sed -e 's,http://,,'")
+        WKTUI_PROXY_HOST = sh(returnStdout: true, script: "echo ${env.WKTUI_PROXY_HOSTPORT} | awk '{split(\$0,a,\":\"); print a[1]}'")
+        WKTUI_PROXY_PORT = sh(returnStdout: true, script: "echo ${env.WKTUI_PROXY_HOSTPORT} | awk '{split(\$0,a,\":\"); print a[2]}'")
 
         npm_registry = "${env.ARTIFACTORY_NPM_REPO}"
         npm_noproxy = "${env.ORACLE_NO_PROXY}"
@@ -161,11 +164,8 @@ pipeline {
                                     echo "Inside withSonarQubeEnv('SonarCloud') block"
                                     sh "env|sort"
                                     sh """
-                                       hostport=\$(echo ${WKTUI_PROXY} | sed -e 's,http://,,')
-                                       host=\$(echo ${hostport} | awk '{split(\$0,a,":"); print a[1]}')
-                                       port=\$(echo ${hostport} | awk '{split(\$0,a,":"); print a[2]}')
-                                       echo "http.proxyHost=${host}"                                 >> ${sonarscanner_config_file}
-                                       echo "http.proxyPort=${port}"                                 >> ${sonarscanner_config_file}
+                                       echo "http.proxyHost=${WKTUI_PROXY_HOST}"                     >> ${sonarscanner_config_file}
+                                       echo "http.proxyPort=${WKTUI_PROXY_PORT}"                     >> ${sonarscanner_config_file}
                                        echo "sonar.host.url=${SONAR_HOST_URL}"                       >> ${sonarscanner_config_file}
                                        echo "sonar.sourceEncoding=UTF-8"                             >> ${sonarscanner_config_file}
                                        echo "sonar.organization=${sonar_org}"                        >> ${sonarscanner_config_file}
