@@ -10,6 +10,8 @@ pipeline {
         GLOBAL_AGENT_HTTPS_PROXY = "${WKTUI_PROXY}"
         WKTUI_DEV_PROXY = "${WKTUI_PROXY}"
         WKTUI_BUILD_EMAIL = sh(returnStdout: true, script: "echo ${env.WKTUI_BUILD_NOTIFY_EMAIL} | sed -e 's/^[[:space:]]*//'")
+        WKTUI_PROXY_HOST = "${env.ORACLE_HTTP_PROXY_HOST}"
+        WKTUI_PROXY_PORT = "${env.ORACLE_HTTP_PROXY_PORT}"
 
         npm_registry = "${env.ARTIFACTORY_NPM_REPO}"
         npm_noproxy = "${env.ORACLE_NO_PROXY}"
@@ -147,23 +149,37 @@ pipeline {
                                 jdk "JDK 11.0.9"
                             }
                             environment {
+                                sonarscanner_config_file = "${sonarscanner_install_dir}/conf/sonar-scanner.properties"
                                 electron_coverage = "${WORKSPACE}/electron/coverage/lcov.info"
                                 webui_coverage = "${WORKSPACE}/webui/coverage/lcov.info"
+                                electron_sources = "${WORKSPACE}/electron"
+                                webui_sources = "${WORKSPACE}/webui"
+                                wktui_sources = "${electron_sources},${webui_sources}"
                                 lcov_report_paths = "${electron_coverage},${webui_coverage}"
                             }
                             steps {
                                 echo "JAVA_HOME = ${JAVA_HOME}"
                                 sh "which java"
                                 sh "java -version"
-                                withSonarQubeEnvironment('SonarCloud') {
+
+                                withSonarQubeEnv('SonarCloud') {
                                     sh """
-                                        SONAR_SCANNER_OPTS="-server"; export SONAR_SCANNER_OPTS
-                                        ${sonarscanner_exe} \
-                                            -Dsonar.organization=${sonar_org} \
-                                            -Dsonar.projectKey=${sonar_project_key} \
-                                            -Dsonar.projectVersion=${version_prefix} \
-                                            -Dsonar.branch.name=${BRANCH_NAME} \
-                                            -Dsonar.javascript.lcov.reportPaths=${lcov_report_paths}
+                                        echo "sonar.host.url=${SONAR_HOST_URL}"                       >> ${sonarscanner_config_file}
+                                        echo "sonar.sourceEncoding=UTF-8"                             >> ${sonarscanner_config_file}
+                                        echo "sonar.organization=${sonar_org}"                        >> ${sonarscanner_config_file}
+                                        echo "sonar.projectKey=${sonar_project_key}"                  >> ${sonarscanner_config_file}
+                                        echo "sonar.projectVersion=${version_prefix}"                 >> ${sonarscanner_config_file}
+                                        echo "sonar.javascript.lcov.reportPaths=${lcov_report_paths}" >> ${sonarscanner_config_file}
+                                        echo "sonar.c.file.suffixes=-"                                >> ${sonarscanner_config_file}
+                                        echo "sonar.cpp.file.suffixes=-"                              >> ${sonarscanner_config_file}
+                                        echo "sonar.objc.file.suffixes=-"                             >> ${sonarscanner_config_file}
+                                        echo "sonar.sources=${wktui_sources}"                         >> ${sonarscanner_config_file}
+                                        cat "${sonarscanner_config_file}"
+
+                                        PATH="${linux_node_dir}/bin:${PATH}"; export PATH
+                                        SONAR_SCANNER_OPTS="-server -Dhttps.proxyHost=${WKTUI_PROXY_HOST} -Dhttps.proxyPort=${WKTUI_PROXY_PORT} -Dsonar.login=${SONAR_AUTH_TOKEN}"
+                                        export SONAR_SCANNER_OPTS
+                                        ${sonarscanner_exe}
                                     """
                                 }
                             }
