@@ -147,6 +147,7 @@ pipeline {
                                 jdk "JDK 11.0.9"
                             }
                             environment {
+                                sonarscanner_config_file = "${sonarscanner_install_dir}/conf/sonar-scanner.properties"
                                 electron_coverage = "${WORKSPACE}/electron/coverage/lcov.info"
                                 webui_coverage = "${WORKSPACE}/webui/coverage/lcov.info"
                                 lcov_report_paths = "${electron_coverage},${webui_coverage}"
@@ -155,19 +156,22 @@ pipeline {
                                 echo "JAVA_HOME = ${JAVA_HOME}"
                                 sh "which java"
                                 sh "java -version"
+
                                 withSonarQubeEnv('SonarCloud') {
                                     echo "Inside withSonarQubeEnv('SonarCloud') block"
                                     sh "env|sort"
                                     sh """
+                                       echo "sonar.host.url=${SONAR_HOST_URL}"                       >> ${sonarscanner_config_file}
+                                       echo "sonar.sourceEncoding=UTF-8"                             >> ${sonarscanner_config_file}
+                                       echo "sonar.organization=${sonar_org}"                        >> ${sonarscanner_config_file}
+                                       echo "sonar.projectKey=${sonar_project_key}"                  >> ${sonarscanner_config_file}
+                                       echo "sonar.projectVersion=${version_prefix}"                 >> ${sonarscanner_config_file}
+                                       echo "sonar.javascript.lcov.reportPaths=${lcov_report_paths}" >> ${sonarscanner_config_file}
+                                       cat "${sonarscanner_config_file}"
+                                    """
+                                    sh """
                                             SONAR_SCANNER_OPTS="-server"; export SONAR_SCANNER_OPTS
-                                            ${sonarscanner_exe} \
-                                                -Dsonar.host.url=${SONAR_HOST_URL} \
-                                                -Dsonar.login=${SONAR_AUTH_TOKEN} \
-                                                -Dsonar.organization=${sonar_org} \
-                                                -Dsonar.projectKey=${sonar_project_key} \
-                                                -Dsonar.projectVersion=${version_prefix} \
-                                                -Dsonar.branch.name=${BRANCH_NAME} \
-                                                -Dsonar.javascript.lcov.reportPaths="${lcov_report_paths}"
+                                            ${sonarscanner_exe}
                                         """
                                 }
                             }
