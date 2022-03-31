@@ -153,6 +153,9 @@ pipeline {
                                 sonarscanner_config_file = "${sonarscanner_install_dir}/conf/sonar-scanner.properties"
                                 electron_coverage = "${WORKSPACE}/electron/coverage/lcov.info"
                                 webui_coverage = "${WORKSPACE}/webui/coverage/lcov.info"
+                                electron_sources = "${WORKSPACE}/electron/app/**/*"
+                                webui_sources = "${WORKSPACE}/webui/src/**/*"
+                                wktui_sources = "${electron_sources},${webui_sources}"
                                 lcov_report_paths = "${electron_coverage},${webui_coverage}"
                             }
                             steps {
@@ -171,6 +174,7 @@ pipeline {
                                         echo "sonar.c.file.suffixes=-"                                >> ${sonarscanner_config_file}
                                         echo "sonar.cpp.file.suffixes=-"                              >> ${sonarscanner_config_file}
                                         echo "sonar.objc.file.suffixes=-"                             >> ${sonarscanner_config_file}
+                                        echo "sonar.sources=${wktui_sources}                          >> ${sonarscanner_config_file}
                                         cat "${sonarscanner_config_file}"
 
                                         SONAR_SCANNER_OPTS="-server -Dhttps.proxyHost=${WKTUI_PROXY_HOST} -Dhttps.proxyPort=${WKTUI_PROXY_PORT} -Dsonar.login=${SONAR_AUTH_TOKEN}"
