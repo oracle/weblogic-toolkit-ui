@@ -152,9 +152,6 @@ pipeline {
                                 electron_coverage = "${WORKSPACE}/electron/coverage/lcov.info"
                                 webui_coverage = "${WORKSPACE}/webui/coverage/lcov.info"
                                 lcov_report_paths = "${electron_coverage},${webui_coverage}"
-
-                                WKTUI_PROXY_HOST = sh(returnStdout: true, script: "echo ${WKTUI_PROXY_HOSTPORT} | awk '{split(\$0,a,\":\"); print a[1]}'")
-                                WKTUI_PROXY_PORT = sh(returnStdout: true, script: "echo ${WKTUI_PROXY_HOSTPORT} | awk '{split(\$0,a,\":\"); print a[2]}'")
                             }
                             steps {
                                 echo "JAVA_HOME = ${JAVA_HOME}"
@@ -165,6 +162,8 @@ pipeline {
                                     echo "Inside withSonarQubeEnv('SonarCloud') block"
                                     sh "env|sort"
                                     sh """
+                                       WKTUI_PROXY_HOST=\$(echo ${WKTUI_PROXY_HOSTPORT} | awk '{split(\$0,a,":"); print a[2]}')
+                                       WKTUI_PROXY_PORT=\$(echo ${WKTUI_PROXY_HOSTPORT} | awk '{split(\$0,a,":"); print a[2]}')
                                        echo "http.proxyHost=${WKTUI_PROXY_HOST}"                     >> ${sonarscanner_config_file}
                                        echo "http.proxyPort=${WKTUI_PROXY_PORT}"                     >> ${sonarscanner_config_file}
                                        echo "sonar.host.url=${SONAR_HOST_URL}"                       >> ${sonarscanner_config_file}
