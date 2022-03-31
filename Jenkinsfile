@@ -161,9 +161,9 @@ pipeline {
                                     echo "Inside withSonarQubeEnv('SonarCloud') block"
                                     sh "env|sort"
                                     sh """
-                                       hostport=$(echo $proxy | sed -e 's,http://,,')
-                                       host=$(echo $hostport | awk '{split($0,a,":"); print a[1]}')
-                                       port=$(echo $hostport | awk '{split($0,a,":"); print a[2]}')
+                                       hostport=\$(echo ${WKTUI_PROXY} | sed -e 's,http://,,')
+                                       host=\$(echo ${hostport} | awk '{split(\$0,a,":"); print a[1]}')
+                                       port=\$(echo ${hostport} | awk '{split(\$0,a,":"); print a[2]}')
                                        echo http.proxyHome=${host}                                   >> ${sonarscanner_config_file}
                                        echo http.proxyPort=${port}                                   >> ${sonarscanner_config_file}
                                        echo "sonar.host.url=${SONAR_HOST_URL}"                       >> ${sonarscanner_config_file}
