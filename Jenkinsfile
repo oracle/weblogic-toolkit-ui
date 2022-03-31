@@ -11,8 +11,6 @@ pipeline {
         WKTUI_DEV_PROXY = "${WKTUI_PROXY}"
         WKTUI_BUILD_EMAIL = sh(returnStdout: true, script: "echo ${env.WKTUI_BUILD_NOTIFY_EMAIL} | sed -e 's/^[[:space:]]*//'")
         WKTUI_PROXY_HOSTPORT = sh(returnStdout: true, script: "echo ${env.WKTUI_PROXY} | sed -e 's,http://,,'")
-        WKTUI_PROXY_HOST = sh(returnStdout: true, script: "echo ${env.WKTUI_PROXY_HOSTPORT} | awk '{split(\$0,a,\":\"); print a[1]}'")
-        WKTUI_PROXY_PORT = sh(returnStdout: true, script: "echo ${env.WKTUI_PROXY_HOSTPORT} | awk '{split(\$0,a,\":\"); print a[2]}'")
 
         npm_registry = "${env.ARTIFACTORY_NPM_REPO}"
         npm_noproxy = "${env.ORACLE_NO_PROXY}"
@@ -154,6 +152,9 @@ pipeline {
                                 electron_coverage = "${WORKSPACE}/electron/coverage/lcov.info"
                                 webui_coverage = "${WORKSPACE}/webui/coverage/lcov.info"
                                 lcov_report_paths = "${electron_coverage},${webui_coverage}"
+
+                                WKTUI_PROXY_HOST = sh(returnStdout: true, script: "echo ${WKTUI_PROXY_HOSTPORT} | awk '{split(\$0,a,\":\"); print a[1]}'")
+                                WKTUI_PROXY_PORT = sh(returnStdout: true, script: "echo ${WKTUI_PROXY_HOSTPORT} | awk '{split(\$0,a,\":\"); print a[2]}'")
                             }
                             steps {
                                 echo "JAVA_HOME = ${JAVA_HOME}"
