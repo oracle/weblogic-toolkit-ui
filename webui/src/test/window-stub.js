@@ -30,7 +30,7 @@ class WindowStub {
     const api = {
       k8s : {
         getKubeConfig: () => {
-          return 'fake-kube-config';
+          return ['fake-kube-config'];
         },
         getKubectlFilePath: () => {
           return '/fake/kubectl';

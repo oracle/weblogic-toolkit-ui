@@ -17,7 +17,7 @@ function getKubeConfig() {
     kubeConfig = process.env.KUBECONFIG.split(path.delimiter);
   } else {
     const userHomeDir = osUtils.isWindows() ? process.env.USERPROFILE : process.env.HOME;
-    kubeConfig = path.normalize(path.join(userHomeDir, '.kube', 'config'));
+    kubeConfig = [ path.normalize(path.join(userHomeDir, '.kube', 'config')) ];
   }
   return kubeConfig;
 }
