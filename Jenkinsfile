@@ -159,8 +159,9 @@ pipeline {
                                 sh "which java"
                                 sh "java -version"
                                 withSonarQubeEnv('SonarCloud') {
+                                    echo "Inside withSonarQubeEnv('SonarCloud') block"
+                                    sh "env|sort"
                                     sh """
-                                            env|sort
                                             SONAR_SCANNER_OPTS="-server ${SONAR_SCANNER_OPTS}"; export SONAR_SCANNER_OPTS
                                             ${sonarscanner_exe} \
                                                 -Dsonar.organization=${sonar_org} \
