@@ -170,9 +170,9 @@ pipeline {
                                         echo "sonar.javascript.lcov.reportPaths=${lcov_report_paths}" >> ${sonarscanner_config_file}
                                         cat "${sonarscanner_config_file}"
 
-                                        SONAR_SCANNER_OPTS="-X -server -Dhttps.proxyHost=${WKTUI_PROXY_HOST} -Dhttps.proxyPort=${WKTUI_PROXY_PORT}"
+                                        SONAR_SCANNER_OPTS="-server -Dhttps.proxyHost=${WKTUI_PROXY_HOST} -Dhttps.proxyPort=${WKTUI_PROXY_PORT}"
                                         export SONAR_SCANNER_OPTS
-                                        ${sonarscanner_exe}
+                                        ${sonarscanner_exe} -X
                                     """
                                 }
                             }
