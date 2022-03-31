@@ -177,9 +177,10 @@ pipeline {
                                         echo "sonar.sources=${wktui_sources}"                         >> ${sonarscanner_config_file}
                                         cat "${sonarscanner_config_file}"
 
+                                        PATH="${linux_node_dir}/bin:${PATH}"; export PATH
                                         SONAR_SCANNER_OPTS="-server -Dhttps.proxyHost=${WKTUI_PROXY_HOST} -Dhttps.proxyPort=${WKTUI_PROXY_PORT} -Dsonar.login=${SONAR_AUTH_TOKEN}"
                                         export SONAR_SCANNER_OPTS
-                                        ${sonarscanner_exe} -X
+                                        ${sonarscanner_exe}
                                     """
                                 }
                             }
