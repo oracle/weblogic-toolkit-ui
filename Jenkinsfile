@@ -155,7 +155,7 @@ pipeline {
                                 echo "JAVA_HOME = ${JAVA_HOME}"
                                 sh "which java"
                                 sh "java -version"
-                                withSonarQubeEnvironment('SonarCloud') {
+                                withSonarQubeEnv('SonarCloud') {
                                     sh """
                                         SONAR_SCANNER_OPTS="-server"; export SONAR_SCANNER_OPTS
                                         ${sonarscanner_exe} \
