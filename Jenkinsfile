@@ -153,8 +153,8 @@ pipeline {
                                 sonarscanner_config_file = "${sonarscanner_install_dir}/conf/sonar-scanner.properties"
                                 electron_coverage = "${WORKSPACE}/electron/coverage/lcov.info"
                                 webui_coverage = "${WORKSPACE}/webui/coverage/lcov.info"
-                                electron_sources = "${WORKSPACE}/electron/app/**/*"
-                                webui_sources = "${WORKSPACE}/webui/src/**/*"
+                                electron_sources = "${WORKSPACE}/electron/app"
+                                webui_sources = "${WORKSPACE}/webui/src"
                                 wktui_sources = "${electron_sources},${webui_sources}"
                                 lcov_report_paths = "${electron_coverage},${webui_coverage}"
                             }
