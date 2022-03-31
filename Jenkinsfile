@@ -158,20 +158,18 @@ pipeline {
                                 echo "JAVA_HOME = ${JAVA_HOME}"
                                 sh "which java"
                                 sh "java -version"
-                                sh """
-                                        SONAR_SCANNER_OPTS="-X -server"; export SONAR_SCANNER_OPTS
-                                        ${sonarscanner_exe} \
-                                            -Dsonar.sourceEncoding=UTF-8 \
-                                            -Dsonar.host.url=${sonar_url} \
-                                            -Dsonar.login="${sonar_login}" \
-                                            -Dsonar.organization=${sonar_org} \
-                                            -Dsonar.projectKey=${sonar_project_key} \
-                                            -Dsonar.projectVersion=${version_prefix} \
-                                            -Dsonar.branch.name=${BRANCH_NAME} \
-                                            -Dsonar.javascript.lcov.reportPaths="${lcov_report_paths}"
-                                    """
-//                                withSonarQubeEnv('SonarCloud') {
-//                                }
+                                withSonarQubeEnv('SonarCloud') {
+                                    sh """
+                                            env|sort
+                                            SONAR_SCANNER_OPTS="-server ${SONAR_SCANNER_OPTS}"; export SONAR_SCANNER_OPTS
+                                            ${sonarscanner_exe} \
+                                                -Dsonar.organization=${sonar_org} \
+                                                -Dsonar.projectKey=${sonar_project_key} \
+                                                -Dsonar.projectVersion=${version_prefix} \
+                                                -Dsonar.branch.name=${BRANCH_NAME} \
+                                                -Dsonar.javascript.lcov.reportPaths="${lcov_report_paths}"
+                                        """
+                                }
                             }
                         }
                         stage('Linux Run eslint') {
