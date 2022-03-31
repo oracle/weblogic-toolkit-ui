@@ -163,12 +163,12 @@ pipeline {
                                         ${sonarscanner_exe} \
                                             -Dsonar.sourceEncoding=UTF-8 \
                                             -Dsonar.host.url=${sonar_url} \
-                                            -Dsonar.login=${sonar_login} \
+                                            -Dsonar.login="${sonar_login}" \
                                             -Dsonar.organization=${sonar_org} \
                                             -Dsonar.projectKey=${sonar_project_key} \
                                             -Dsonar.projectVersion=${version_prefix} \
                                             -Dsonar.branch.name=${BRANCH_NAME} \
-                                            -Dsonar.javascript.lcov.reportPaths=${lcov_report_paths}
+                                            -Dsonar.javascript.lcov.reportPaths="${lcov_report_paths}"
                                     """
 //                                withSonarQubeEnv('SonarCloud') {
 //                                }
