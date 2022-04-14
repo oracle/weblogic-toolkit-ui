@@ -183,7 +183,8 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
               if (ready) {
                 result['domainOverallStatus'] = i18n.t('k8s-domain-status-checker-domain-status-complete');
               } else {
-                result['domainOverallStatus'] = i18n.t('k8s-domain-status-checker-domain-status-available');
+                result['domainOverallStatus'] = i18n.t('k8s-domain-status-checker-domain-status-available',
+                  {reason: latestCondition.reason});
               }
             } else {
               // remain in progressing
@@ -194,20 +195,26 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
           const hasErrors = this.hasErrorConditions(conditions);
           const completeCondition = this.getCompletedCondition(conditions);
           const availableCondition = this.getAvailableCondition(conditions);
+          const latestCondition = conditions[0];
 
           if (hasErrors.error) {
-            result['domainOverallStatus'] = i18n.t('k8s-domain-status-checker-domain-status-failed', {reason: hasErrors.reason});
+            result['domainOverallStatus'] = i18n.t('k8s-domain-status-checker-domain-status-failed',
+              {reason: hasErrors.reason});
           } else if (completeCondition.status === 'True' && availableCondition.status === 'True') {
             result['domainOverallStatus'] = i18n.t('k8s-domain-status-checker-domain-status-complete');
           } else {
             // Assume this is introspection progressing
+
             if (completeCondition.status === 'False' && !this.hasAvailableCondition(conditions)) {
-              result['domainOverallStatus'] = i18n.t('k8s-domain-status-checker-domain-status-progressing');
+              result['domainOverallStatus'] = i18n.t('k8s-domain-status-checker-domain-status-progressing',
+                {reason: latestCondition.reason});
             } else if (completeCondition.status === 'False' && availableCondition.status === 'False') {
-              result['domainOverallStatus'] = i18n.t('k8s-domain-status-checker-domain-status-available');
+              result['domainOverallStatus'] = i18n.t('k8s-domain-status-checker-domain-status-available',
+                {reason: latestCondition.reason});
             } else {
               // should never happened?
-              result['domainOverallStatus'] = i18n.t('k8s-domain-status-checker-domain-status-unknown');
+              result['domainOverallStatus'] = i18n.t('k8s-domain-status-checker-domain-status-unknown',
+                {reason: latestCondition.reason});
             }
           }
         }
