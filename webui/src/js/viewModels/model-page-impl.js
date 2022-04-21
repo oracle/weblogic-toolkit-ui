@@ -5,7 +5,7 @@
  */
 define([],
   function () {
-    function ModelPageImpl(args, accUtils, ko, i18n, ModuleRouterAdapter, ArrayDataProvider, validator, preparer) {
+    function ModelPageImpl(args, accUtils, ko, i18n, ModuleRouterAdapter, ArrayDataProvider, validator, preparer, viewHelper, wktLogger) {
 
       this.connected = () => {
         accUtils.announce('Model page loaded.', 'assertive');
@@ -59,12 +59,15 @@ define([],
       this.searchModel = () => {
         const searchModelElement = document.getElementById('modelDesignSearchInput');
         if (searchModelElement && searchModelElement.value) {
+          wktLogger.debug('found modelDesignSearchInput with value %s', searchModelElement.value);
           const payload = {
+            bubbles: true,
             detail: {
               value: searchModelElement.value
             }
           };
-          searchModelElement.dispatchEvent(new CustomEvent('searchModel', payload));
+          wktLogger.debug('dispatched searchModel event with payload %s', payload);
+          viewHelper.dispatchEventFromRootElement(new CustomEvent('searchModel', payload));
         }
       };
     }

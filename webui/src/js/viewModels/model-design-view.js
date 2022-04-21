@@ -16,7 +16,6 @@ function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, jsYaml,
     this.dataProvider = {};
     this.disableStartButton = ko.observable(false);
     this.wrcBackendTriggerChange = false;
-    this.searchModelElement = undefined;
 
     this.connected = () => {
       accUtils.announce('Model design view loaded.', 'assertive');
@@ -52,14 +51,7 @@ function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, jsYaml,
         }
       }
 
-      const element = document.getElementById('modelDesignSearchInput');
-      if (element) {
-        wktLogger.debug('Found modelDesignSearchInput');
-        this.searchModelElement = element;
-        this.searchModelElement.addEventListener('searchModel', this.handleSearchModelEvent);
-      } else {
-        wktLogger.error('Failed to find modelDesignSearchInput');
-      }
+      viewHelper.addEventListenerToRootElement('searchModel', this.handleSearchModelEvent);
     };
 
     this.disconnected = function() {
@@ -72,9 +64,7 @@ function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, jsYaml,
         this.designer.deactivateProvider(this.dataProvider);
       }
 
-      if (this.searchModelElement) {
-        this.searchModelElement.removeEventListener('searchModel', this.handleSearchModelEvent);
-      }
+      viewHelper.removeEventListenerFromRootElement('searchModel', this.handleSearchModelEvent);
     };
 
     this.labelMapper = (labelId, payload) => {
@@ -255,7 +245,7 @@ function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, jsYaml,
 
     this.handleSearchModelEvent = (event) => {
       const searchModelText = event.detail.value;
-      wktLogger.debug('received searchModel event: %s', searchModelText);
+      wktLogger.debug('model-design-view received searchModel event: %s', searchModelText);
 
       // Once the WRC change is available, call the method to pass the search text and return.
       //
