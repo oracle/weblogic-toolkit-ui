@@ -34,6 +34,10 @@ define([],
       };
 
       this.selectedItem = ko.observable('model-code-view');
+      this.inDesignView = ko.computed(() => {
+        return this.selectedItem() === 'model-design-view';
+      });
+
       this.dataProvider = new ArrayDataProvider(navData.slice(1), {keyAttributes: 'path'});
 
       let router = args.parentRouter.createChildRouter(navData, {history: 'skip'});
@@ -44,6 +48,25 @@ define([],
       this.selectedItem.subscribe((newValue) => {
         router.go({path: newValue});
       });
+
+      this.disableSearch = ko.observable(false);
+      this.enterKeyPressedInSearchInput = (event) => {
+        if (event.detail.originalEvent.keyCode === 13) {
+          this.searchModel();
+        }
+      };
+
+      this.searchModel = () => {
+        const searchModelElement = document.getElementById('modelDesignSearchInput');
+        if (searchModelElement && searchModelElement.value) {
+          const payload = {
+            detail: {
+              value: searchModelElement.value
+            }
+          };
+          searchModelElement.dispatchEvent(new CustomEvent('searchModel', payload));
+        }
+      };
     }
 
     /*

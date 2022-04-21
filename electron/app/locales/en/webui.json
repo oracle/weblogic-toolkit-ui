@@ -1029,6 +1029,7 @@
   "aux-image-pusher-create-failed-title":"Push Image Failed",
   "aux-image-pusher-create-failed-error-message":"Unable to push image {{imageTag}}: {{error}}.",
 
+  "model-page-design-view-search-label": "Search Model",
   "model-page-button-validateModel": "Validate Model",
   "model-page-hints-validateModel": "Validate Model Files",
   "model-page-button-prepareModel": "Prepare Model",
