@@ -249,7 +249,7 @@ function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, jsYaml,
 
       // Once the WRC change is available, call the method to pass the search text and return.
       //
-      // this.designer.simpleSearch(searchModelText);
+      this.designer.search(searchModelText);
     };
   }
 
