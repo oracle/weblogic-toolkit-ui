@@ -4,9 +4,9 @@
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 define(['accUtils', 'utils/i18n', 'knockout', 'models/wkt-project', 'utils/url-catalog', 'utils/view-helper',
-  'utils/wkt-logger', 'js-yaml', 'wrc-frontend/integration/viewModels/utils', 'wdt-model-designer/loader',
+  'utils/wkt-logger', 'wrc-frontend/integration/viewModels/utils', 'wdt-model-designer/loader',
   'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojformlayout'],
-function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, jsYaml, ViewModelUtils) {
+function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, ViewModelUtils) {
   function ModelDesignViewModel() {
 
     let subscriptions = [];
@@ -47,6 +47,7 @@ function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, jsYaml,
         if (this.designer) {
           viewHelper.componentReady(this.designer).then(() => {
             this.showWdtModelDesigner(port, this.designer);
+            this.designer.addEventListener('archiveUpdated', this.archiveUpdated);
           });
         }
       }
@@ -62,6 +63,7 @@ function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, jsYaml,
       if (this.designer) {
         wktLogger.debug('disconnected() dataProvider = %s', JSON.stringify(this.dataProvider));
         this.designer.deactivateProvider(this.dataProvider);
+        this.designer.removeEventListener('archiveUpdated', this.archiveUpdated);
       }
 
       viewHelper.removeEventListenerFromRootElement('searchModel', this.handleSearchModelEvent);
@@ -127,12 +129,19 @@ function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, jsYaml,
 
       if (!providerOptions.fileContents) {
         const modelTemplates = this.designer.getProperty('modelTemplate');
-        providerOptions.fileContents = modelTemplates.sparse;
+        providerOptions.fileContents = modelTemplates.domain;
       }
 
       // A name is needed to create a WDT Model File provider.
       //
       providerOptions['name'] = this.project.wdtModel.getDefaultModelFile();
+
+        // Set model properties provider option
+        providerOptions['modelProperties'] = [...this.project.wdtModel.getModelPropertiesObject().observable()];
+
+        // Set model archive provider option
+        providerOptions['modelArchive'] = this.project.wdtModel.archiveRoots;
+
       return providerOptions;
     };
 
@@ -147,8 +156,7 @@ function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, jsYaml,
 
       const providerOptions = this.getRemoteConsoleProviderOptions();
       try {
-        const data = jsYaml.load(providerOptions.fileContents);
-        wdtModelDesigner.createProvider(providerOptions.name, data);
+        wdtModelDesigner.createProvider(providerOptions);
       } catch (err) {
         ViewModelUtils.failureResponseDefaultHandling(err);
       }
@@ -168,6 +176,20 @@ function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, jsYaml,
       wktLogger.debug('Received changesAutoDownloaded event with modelContent = %s', event.detail.value);
       this.wrcBackendTriggerChange = true;
       this.project.wdtModel.modelContent(event.detail.value);
+      if (event.detail.properties) this.project.wdtModel.getModelPropertiesObject().observable(event.detail.properties);
+    };
+
+    this.archiveUpdated = (event) => {
+      const options = event.detail.options;
+      wktLogger.debug('Received archiveUpdated event with options = %s', JSON.stringify(event.detail.options));
+      switch (options.operation) {
+        case 'add':
+          this.project.wdtModel.addArchiveUpdate(options.operation, options.archivePath, options.filePath);
+          break;
+        case 'remove':
+          this.project.wdtModel.addArchiveUpdate(options.operation, options.path);
+          break;
+      }
     };
 
     // Triggered when WDT Model File provider has been deactivated with the WRC backend.
