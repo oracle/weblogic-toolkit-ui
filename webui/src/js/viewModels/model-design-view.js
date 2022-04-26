@@ -140,7 +140,7 @@ function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, ViewMod
         providerOptions['modelProperties'] = [...this.project.wdtModel.getModelPropertiesObject().observable()];
 
         // Set model archive provider option
-        providerOptions['modelArchive'] = [...this.project.wdtModel.archiveRoots()];
+        providerOptions['modelArchive'] = this.project.wdtModel.archiveRoots;
 
       return providerOptions;
     };
