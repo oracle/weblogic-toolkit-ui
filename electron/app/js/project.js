@@ -49,7 +49,7 @@ async function createNewProject(targetWindow) {
     title: 'Create WebLogic Kubernetes Toolkit Project',
     buttonLabel: 'Create Project',
     filters: [
-      { name: i18n.t(projectFileTypeKey), extensions: [projectFileExtension] }
+      {name: i18n.t(projectFileTypeKey), extensions: [projectFileExtension]}
     ],
     properties: [
       'createDirectory',
@@ -61,12 +61,18 @@ async function createNewProject(targetWindow) {
     return;
   }
 
-  let projectWindow = await _createOrReplace(targetWindow);
+  sendToWindow(targetWindow, 'start-new-project', saveResponse.filePath);
+  // window will reply with new-project -> initializeNewProject() including isDirty flag
+}
+
+async function initializeNewProject(targetWindow, projectFile, isDirty) {
+  // finish creating new project with project dirty flag
+  let projectWindow = await _createOrReplace(targetWindow, isDirty);
   if (!projectWindow) {
     return;
   }
 
-  let projectFileName = getProjectFileName(saveResponse.filePath);
+  let projectFileName = getProjectFileName(projectFile);
   if (path.extname(projectFileName) !== `.${projectFileExtension}`) {
     projectFileName = `${projectFileName}.${projectFileExtension}`;
   }
@@ -92,24 +98,18 @@ async function openProject(targetWindow) {
   }
 
   const projectFileName = openResponse.filePaths[0];
-  await openProjectFile(targetWindow, projectFileName)
-    .catch(err => {
-      dialog.showErrorBox(
-        i18n.t('dialog-openProjectFileErrorTitle'),
-        i18n.t('dialog-openProjectFileErrorMessage', { projectFileName: projectFileName, err: err }),
-      );
-      getLogger().error('Failed to open project file %s: %s', projectFileName, err);
-    });
+  sendToWindow(targetWindow, 'start-open-project', projectFileName);
+  // window will reply with open-project -> openProjectFile() including isDirty flag
 }
 
-async function openProjectFile(targetWindow, projectFile) {
+async function openProjectFile(targetWindow, projectFile, isDirty) {
   return new Promise((resolve, reject) => {
     const existingProjectWindow = _getOpenWindowForProject(projectFile);
     if (existingProjectWindow) {
       showExistingProjectWindow(existingProjectWindow);
       resolve();
     } else {
-      _createOrReplace(targetWindow)
+      _createOrReplace(targetWindow, isDirty)
         .then(projectWindow => {
           if (!projectWindow) {
             return resolve();
@@ -122,7 +122,14 @@ async function openProjectFile(targetWindow, projectFile) {
         })
         .catch(err => reject(err));
     }
-  });
+  })
+    .catch(err => {
+      dialog.showErrorBox(
+        i18n.t('dialog-openProjectFileErrorTitle'),
+        i18n.t('dialog-openProjectFileErrorMessage', { projectFileName: projectFile, err: err }),
+      );
+      getLogger().error('Failed to open project file %s: %s', projectFile, err);
+    });
 }
 
 // request the existing project file, prompting the user if needed.
@@ -441,9 +448,9 @@ async function _saveExternalFileContents(projectDirectory, externalFileContents)
   return saveResult;
 }
 
-async function _createOrReplace(targetWindow) {
+async function _createOrReplace(targetWindow, isDirty) {
   let projectWindow = targetWindow;
-  if (openProjects.has(targetWindow)) {
+  if (openProjects.has(targetWindow) || isDirty) {
     const buttonResponse = await dialog.showMessageBox(targetWindow, {
       type: 'question',
       message: i18n.t('dialog-openProjectWindowPrompt'),
@@ -867,6 +874,7 @@ module.exports = {
   getWindowForProject,
   exportArchiveFile,
   isWktProjectFile,
+  initializeNewProject,
   openProject,
   openProjectFile,
   _openProjectFile,

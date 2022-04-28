@@ -45,7 +45,7 @@ function(accUtils, ko, i18n, project, wktConsole, dialogHelper, viewHelper, scre
       const file = getDroppedFile(event);
       wktLogger.debug(`dropped file path = ${file.path}`);
       if (window.api.path.extname(file.name).toLowerCase() === '.wktproj') {
-        window.api.ipc.send('open-project', file.path);
+        window.api.ipc.send('open-project', file.path, project.isDirty());
       } else {
         wktLogger.warn(`Dropped file ${file.path} extension was not recognized as a wktproj file`);
       }

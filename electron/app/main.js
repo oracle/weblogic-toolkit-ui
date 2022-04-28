@@ -241,10 +241,19 @@ class Main {
       });
     });
 
-    ipcMain.on('open-project', async (event, projectFile) => {
+    ipcMain.on('new-project', async (event, projectFile, isDirty) => {
       try {
         const currentWindow = event.sender.getOwnerBrowserWindow();
-        await project.openProjectFile(currentWindow, projectFile);
+        await project.initializeNewProject(currentWindow, projectFile, isDirty);
+      } catch (e) {
+        this._logger.error(e);
+      }
+    });
+
+    ipcMain.on('open-project', async (event, projectFile, isDirty) => {
+      try {
+        const currentWindow = event.sender.getOwnerBrowserWindow();
+        await project.openProjectFile(currentWindow, projectFile, isDirty);
       } catch (e) {
         this._logger.error(e);
       }
