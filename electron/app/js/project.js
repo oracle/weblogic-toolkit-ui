@@ -49,7 +49,7 @@ async function createNewProject(targetWindow) {
     title: 'Create WebLogic Kubernetes Toolkit Project',
     buttonLabel: 'Create Project',
     filters: [
-      {name: i18n.t(projectFileTypeKey), extensions: [projectFileExtension]}
+      { name: i18n.t(projectFileTypeKey), extensions: [projectFileExtension] }
     ],
     properties: [
       'createDirectory',
