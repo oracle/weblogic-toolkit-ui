@@ -79,6 +79,18 @@ function(wktProject, wktConsole, wdtDiscoverer, dialogHelper, projectIO,
     });
   });
 
+  // continue opening project with isDirty value
+  window.api.ipc.receive('start-open-project', projectFileName => {
+    blurSelection();
+    window.api.ipc.send('open-project', projectFileName, wktProject.isDirty());
+  });
+
+  // continue new project with isDirty value
+  window.api.ipc.receive('start-new-project', projectFileName => {
+    blurSelection();
+    window.api.ipc.send('new-project', projectFileName, wktProject.isDirty());
+  });
+
   window.api.ipc.receive('start-close-project', () => {
     blurSelection();
     projectIO.closeProject(false).catch(err => {

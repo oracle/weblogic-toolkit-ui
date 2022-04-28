@@ -28,6 +28,7 @@ contextBridge.exposeInMainWorld(
       send: (channel, ...args) => {
         const validChannels = [
           'close-window',
+          'new-project',
           'open-project',
           'window-app-quit',
           'window-is-ready',
@@ -65,6 +66,8 @@ contextBridge.exposeInMainWorld(
           'show-startup-dialogs',
           'app-update-available',
           'blur-focused-item',
+          'start-new-project',
+          'start-open-project',
           'start-prepare-model',
           'start-validate-model',
           'start-create-image',
