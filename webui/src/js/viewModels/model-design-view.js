@@ -135,12 +135,10 @@ function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, ViewMod
       // A name is needed to create a WDT Model File provider.
       //
       providerOptions['name'] = this.project.wdtModel.getDefaultModelFile();
-
-        // Set model properties provider option
-        providerOptions['modelProperties'] = [...this.project.wdtModel.getModelPropertiesObject().observable()];
-
-        // Set model archive provider option
-        providerOptions['modelArchive'] = this.project.wdtModel.archiveRoots;
+      // Set model properties provider option
+      providerOptions['modelProperties'] = [...this.project.wdtModel.getModelPropertiesObject().observable()];
+      // Set model archive provider option
+      providerOptions['modelArchive'] = this.project.wdtModel.archiveRoots;
 
       return providerOptions;
     };
