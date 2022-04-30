@@ -116,6 +116,7 @@ contextBridge.exposeInMainWorld(
           'get-kube-config-files',
           'get-latest-wko-image-name',
           'get-archive-entry-types',
+          'get-archive-entry',
           'get-network-settings',
           'choose-archive-file',
           'choose-archive-entry',

@@ -479,6 +479,12 @@ class Main {
       return wdtArchive.getEntryTypes();
     });
 
+    // This is used by the Model Design View...
+    //
+    ipcMain.handle('get-archive-entry', async (event, archiveEntryType, options) => {
+      return wdtArchive.getArchiveEntry(event.sender.getOwnerBrowserWindow(), archiveEntryType, options);
+    });
+
     ipcMain.handle('choose-java-home', async (event, defaultPath) => {
       const title = i18n.t('dialog-chooseJavaHome');
       const defaultDir = await javaUtils.getSelectJavaHomeDefaultPath(defaultPath);

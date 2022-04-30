@@ -359,6 +359,11 @@
   "wdt-archiveType-sharedLibraryDir": "Shared Library Directory",
   "wdt-archiveType-fileStore": "File Store Directory",
 
+  "wdt-archive-invalid-archive-entry-type": "Unknown WebLogic Deploy Tooling archive entry type {{type}}",
+  "wdt-archive-empty-file-system-path": "The path to the archive entry was empty",
+  "wdt-archive-invalid-file-system-path": "The path to the archive entry {{path}} does not exist",
+  "wdt-archive-entry-path-type-mismatch": "The path {{path}} is a {{pathType}} does not match the archive entry type {{archiveEntryTypeName}}, which requires a {{archiveEntryTypeSubtype}}",
+
   "wkt-tools-wdt-version-file-missing-error": "Unable to determine the version of WebLogic Deploy Tooling installed because the {{file}} file is not found",
   "wkt-tools-wdt-version-file-read-error": "Unable to determine the version of WebLogic Deploy Tooling installed because an error occurred while reading the {{file}} file: {{error}}",
   "wkt-tools-wdt-version-file-format-error": "Unable to determine the version of WebLogic Deploy Tooling installed because the {{file}} file is not in the expected format",

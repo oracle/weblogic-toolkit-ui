@@ -269,6 +269,29 @@ async function getFilesRecursivelyFromDirectory(directory) {
   });
 }
 
+// Returns the directory given a path using the following rules:
+//  - if the path does not exist, return undefined
+//  - if the path is a directory, return the path
+//  - if the path is a file, return the containing directory
+//
+async function getDirectoryForPath(fileSystemPath) {
+  return new Promise(resolve => {
+    exists(fileSystemPath).then(pathExists => {
+      if (pathExists) {
+        isDirectory(fileSystemPath).then(isDirectory => {
+          if (isDirectory) {
+            resolve(path.normalize(fileSystemPath));
+          } else {
+            resolve(path.normalize(path.dirname(fileSystemPath)));
+          }
+        });
+      } else {
+        resolve();
+      }
+    });
+  });
+}
+
 async function _getFilesRecursivelyFromDirectory(directory, fileList) {
   const i18n = require('./i18next.config');
 
@@ -308,19 +331,20 @@ async function _processDirectoryListing(directory, listing, fileList) {
 }
 
 module.exports = {
+  createTemporaryDirectory,
   exists,
   getAbsolutePath,
   getAbsolutePathsList,
-  getRelativePath,
+  getDirectoryForPath,
   getExecutableFilePath,
   getFilesRecursivelyFromDirectory,
+  getRelativePath,
   isDirectory,
   isRootDirectory,
   isValidFileName,
   makeDirectoryIfNotExists,
-  removeDirectoryRecursively,
-  createTemporaryDirectory,
   recursivelyRemoveTemporaryFileDirectory,
+  removeDirectoryRecursively,
   renameFileDeletingOldFileIfNeeded,
   verifyFilesExist,
   writeTempFile
