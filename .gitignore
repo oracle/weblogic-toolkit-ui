@@ -105,3 +105,6 @@ lerna-debug.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Not yet ready locations
+/integration-tests

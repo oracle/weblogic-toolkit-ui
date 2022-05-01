@@ -224,14 +224,6 @@ async function getArchiveEntry(window, archiveEntryType, options) {
   } else {
     return _getArchiveEntry(archiveEntryType, options);
   }
-
-
-  // return {
-  //   errorMessage: '',
-  //   archiveEntryType: '<appropriate-type>',
-  //   fileSystemPath: '<the path>',
-  //   archiveEntryPath: 'wlsdeploy/...'
-  // }
 }
 
 
@@ -291,7 +283,12 @@ async function _getArchiveEntryShowChooser(targetWindow, archiveEntryTypeName, a
   result.archiveEntryType = archiveEntryTypeName;
   result.fileSystemPath = fileSystemPath;
   if (fileSystemPath) {
-    result.archiveEntryPath = archiveEntryType['pathPrefix'] + path.basename(fileSystemPath);
+    result.archivePath = archiveEntryType['pathPrefix'] + path.basename(fileSystemPath);
+    result.archiveUpdatePath = result.archivePath;
+    if (chooserType === 'openDirectory') {
+      result.archiveUpdatePath = `${result.archivePath}/`;
+      result.childPaths = _getDirectoryPaths(result.filePath);
+    }
   }
   return result;
 }
@@ -332,8 +329,13 @@ async function _getArchiveEntry(archiveEntryTypeName, archiveEntryTypeOptions) {
     }
   }
 
-  result.fileSystemPath = fileSystemPath;
-  result.archiveEntryPath = archiveEntryType['pathPrefix'] + path.basename(fileSystemPath);
+  result.filePath = fileSystemPath;
+  result.archivePath = archiveEntryType['pathPrefix'] + path.basename(fileSystemPath);
+  result.archiveUpdatePath = result.archivePath;
+  if (archiveEntryTypes[result.archiveEntryType].subtype !== 'file') {
+    result.archiveUpdatePath = `${result.archivePath}/`;
+    result.childPaths = _getDirectoryPaths(result.filePath);
+  }
   return result;
 }
 
