@@ -281,8 +281,8 @@ async function _getArchiveEntryShowChooser(targetWindow, archiveEntryTypeName, a
   const fileSystemPath = await chooseFromFileSystem(targetWindow, options);
 
   result.archiveEntryType = archiveEntryTypeName;
-  result.fileSystemPath = fileSystemPath;
-  if (fileSystemPath) {
+  result.filePath = fileSystemPath;
+  if (result.filePath) {
     result.archivePath = archiveEntryType['pathPrefix'] + path.basename(fileSystemPath);
     result.archiveUpdatePath = result.archivePath;
     if (chooserType === 'openDirectory') {
