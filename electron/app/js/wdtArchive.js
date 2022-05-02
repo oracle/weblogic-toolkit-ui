@@ -283,7 +283,7 @@ async function _getArchiveEntryShowChooser(targetWindow, archiveEntryTypeName, a
   result.archiveEntryType = archiveEntryTypeName;
   result.filePath = fileSystemPath;
   if (result.filePath) {
-    result.archivePath = archiveEntryType['pathPrefix'] + path.basename(fileSystemPath);
+    result.archivePath = archiveEntryType['pathPrefix'] + path.basename(result.filePath);
     result.archiveUpdatePath = result.archivePath;
     if (chooserType === 'openDirectory') {
       result.archiveUpdatePath = `${result.archivePath}/`;
