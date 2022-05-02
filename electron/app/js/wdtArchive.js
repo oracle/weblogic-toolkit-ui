@@ -219,11 +219,13 @@ async function getArchiveEntry(window, archiveEntryType, options) {
     };
   }
 
+  let promise;
   if (options.showChooser) {
-    return _getArchiveEntryShowChooser(window, archiveEntryType, options);
+    promise = _getArchiveEntryShowChooser(window, archiveEntryType, options);
   } else {
-    return _getArchiveEntry(archiveEntryType, options);
+    promise = _getArchiveEntry(archiveEntryType, options);
   }
+  return promise;
 }
 
 
@@ -253,6 +255,11 @@ async function _addDirectoryPaths(directory, paths, pathPrefix) {
 async function _getArchiveEntryShowChooser(targetWindow, archiveEntryTypeName, archiveEntryTypeOptions) {
   // lazy load to allow initialization
   const i18n = require('./i18next.config');
+  const { getLogger } = require('./wktLogging');
+  const wktLogger = getLogger();
+
+  wktLogger.debug('entering _getArchiveEntryShowChooser(%s, %s, %s)',
+    targetWindow, archiveEntryTypeName, JSON.stringify(archiveEntryTypeOptions));
 
   const result = {};
   const archiveEntryType = getEntryTypes()[archiveEntryTypeName];
@@ -287,15 +294,20 @@ async function _getArchiveEntryShowChooser(targetWindow, archiveEntryTypeName, a
     result.archiveUpdatePath = result.archivePath;
     if (chooserType === 'openDirectory') {
       result.archiveUpdatePath = `${result.archivePath}/`;
-      result.childPaths = _getDirectoryPaths(result.filePath);
+      result.childPaths = await _getDirectoryPaths(result.filePath);
     }
   }
+  wktLogger.debug('exiting _getArchiveEntryShowChooser() with %s', JSON.stringify(result));
   return result;
 }
 
 async function _getArchiveEntry(archiveEntryTypeName, archiveEntryTypeOptions) {
   // lazy load to allow initialization
   const i18n = require('./i18next.config');
+  const { getLogger } = require('./wktLogging');
+  const wktLogger = getLogger();
+
+  wktLogger.debug('entering _getArchiveEntry(%s, %s)', archiveEntryTypeName, JSON.stringify(archiveEntryTypeOptions));
 
   const result = {};
   const archiveEntryTypes = getEntryTypes();
@@ -334,8 +346,9 @@ async function _getArchiveEntry(archiveEntryTypeName, archiveEntryTypeOptions) {
   result.archiveUpdatePath = result.archivePath;
   if (archiveEntryTypes[result.archiveEntryType].subtype !== 'file') {
     result.archiveUpdatePath = `${result.archivePath}/`;
-    result.childPaths = _getDirectoryPaths(result.filePath);
+    result.childPaths = await _getDirectoryPaths(result.filePath);
   }
+  wktLogger.debug('exiting _getArchiveEntryShowChooser() with %s', JSON.stringify(result));
   return result;
 }
 
