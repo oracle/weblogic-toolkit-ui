@@ -6,7 +6,7 @@
 */
 'use strict';
 
-const fs = require('fs');
+const { existsSync, rmSync } = require('fs');
 const fsPromises = require('fs/promises');
 const { rename, mkdir, readdir } = require('fs/promises');
 const path = require('path');
@@ -29,8 +29,8 @@ module.exports = function (configObj) {
   	console.log("Running after_build hook.");
     console.log('Purging unnecessary files created by the build...');
     for (const purgeLocation of purgeLocations) {
-      if (fs.existsSync(purgeLocation)) {
-        fs.rmSync(purgeLocation, { force: true, recursive: true });
+      if (existsSync(purgeLocation)) {
+        rmSync(purgeLocation, { force: true, recursive: true });
       }
     }
 
@@ -45,13 +45,13 @@ module.exports = function (configObj) {
   	if (configObj.buildType === 'release') {
   	  console.log('Consolidating files for building the release');
   	  for (const sourceDirectory of sourceDirectories) {
-  	    if (fs.existsSync(sourceDirectory)) {
+  	    if (existsSync(sourceDirectory)) {
           console.log(`Copying ${sourceDirectory} to ${targetDirectory}`)
           await copyDirectoryRecursively(sourceDirectory, targetDirectory);
         }
       }
     }
-  	resolve(configObj);
+    resolve(configObj);
   });
 };
 
@@ -59,7 +59,7 @@ async function copyDirectoryRecursively(source, target) {
   let files = []
 
   let _targetDirectory = path.join(target, path.basename(source));
-  if (!fs.existsSync(_targetDirectory)) {
+  if (!existsSync(_targetDirectory)) {
     await mkdir(_targetDirectory);
   }
 
@@ -103,7 +103,7 @@ async function generateWebuiJsonFile() {
     wlRemoteConsoleFrontendVersion: getRemoteConsoleFrontendVersion() || '2.3.0',
   };
 
-  if (!fs.existsSync(targetDirectory)) {
+  if (!existsSync(targetDirectory)) {
     await mkdir(targetDirectory);
   }
 
