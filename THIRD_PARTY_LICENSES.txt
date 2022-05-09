@@ -737,8 +737,6 @@ pako@0.2.9
 Copyright (C) 2014-2017 by Vitaly Puzrin and Andrei Tuputcyn
 
 
-(MIT AND Zlib)
-
 The MIT License
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -759,7 +757,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-The zlib License
+
+++++++++++++++++++++
+
+
+zlib License
 
 This software is provided 'as-is', without any express
 or implied warranty. In no event will the authors be held
@@ -781,6 +783,7 @@ redistribute it freely, subject to the following restrictions:
     3. This notice may not be removed or altered from any source
        distribution.
 
+
 --------------------------------------------------------------------------------
 
 
@@ -789,8 +792,6 @@ The following packages are licensed under (MIT OR GPL-3.0-or-later):
 jszip@3.7.1
 Copyright (c) 2009-2016 Stuart Knightley, David Duponchel, Franz Buchinger, António Afonso
 
-
-(MIT OR GPL-3.0-or-later)
 
 The MIT License
 
@@ -811,6 +812,10 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+
+
+++++++++++++++++++++
+
 
 GNU General Public License v3.0 or later
 
@@ -1600,8 +1605,6 @@ expand-template@2.0.3
 Copyright (c) 2018 Lars-Magnus Skog
 
 
-(MIT OR WTFPL)
-
 The MIT License
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -1621,6 +1624,9 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+
+
+++++++++++++++++++++
 
 
 Do What The F*ck You Want To Public License
@@ -1649,8 +1655,6 @@ rc@1.2.8
 Copyright (c) 2011 Dominic Tarr
 
 
-(BSD-2-Clause OR MIT OR Apache-2.0)
-
 The 2-Clause BSD License, Version 2.0
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -1675,6 +1679,9 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 
 
+++++++++++++++++++++
+
+
 The MIT License
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -1694,6 +1701,9 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+
+
+++++++++++++++++++++
 
 
 Apache License, Version 2.0
@@ -4267,8 +4277,6 @@ sanitize-filename@1.6.3
 No Copyright
 
 
-(WTFPL OR ISC)
-
 Do What The F*ck You Want To Public License
 
 DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
@@ -4284,6 +4292,9 @@ DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
 
     0. You just DO WHAT THE FUCK YOU WANT TO.
+
+
+++++++++++++++++++++
 
 
 ISC License
@@ -4311,8 +4322,6 @@ type-fest@0.20.2
 Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (https:/sindresorhus.com)
 
 
-(MIT OR CC0-1.0)
-
 The MIT License
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -4332,6 +4341,9 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+
+
+++++++++++++++++++++
 
 
 CC0 1.0 Universal Public Domain Dedication
@@ -4372,7 +4384,7 @@ effect of CC0 on those rights.
 
   ii. moral rights retained by the original author(s) and/or performer(s);
 
-  iii. publicity and privacy rights pertaining to a persons image or likeness
+  iii. publicity and privacy rights pertaining to a person's image or likeness
        depicted in a Work;
 
   iv. rights protecting against unfair competition in regards to a Work,
@@ -4391,7 +4403,7 @@ effect of CC0 on those rights.
 
 2. Waiver. To the greatest extent permitted by, but not in contravention of,
    applicable law, Affirmer hereby overtly, fully, permanently, irrevocably and
-   unconditionally waives, abandons, and surrenders all of Affirmers Copyright
+   unconditionally waives, abandons, and surrenders all of Affirmer's Copyright
    and Related Rights and associated claims and causes of action, whether now
    known or unknown (including existing as well as future claims and causes of
    action), in the Work (i) in all territories worldwide, (ii) for the maximum
@@ -4400,18 +4412,18 @@ effect of CC0 on those rights.
    copies, and (iv) for any purpose whatsoever, including without limitation
    commercial, advertising or promotional purposes (the "Waiver"). Affirmer makes
    the Waiver for the benefit of each member of the public at large and to the
-   detriment of Affirmers heirs and successors, fully intending that such Waiver
+   detriment of Affirmer's heirs and successors, fully intending that such Waiver
    shall not be subject to revocation, rescission, cancellation, termination, or
    any other legal or equitable action to disrupt the quiet enjoyment of the Work
-   by the public as contemplated by Affirmers express Statement of Purpose.
+   by the public as contemplated by Affirmer's express Statement of Purpose.
 
 3. Public License Fallback. Should any part of the Waiver for any reason be
    judged legally invalid or ineffective under applicable law, then the Waiver
    shall be preserved to the maximum extent permitted taking into account
-   Affirmers express Statement of Purpose. In addition, to the extent the Waiver
+   Affirmer's express Statement of Purpose. In addition, to the extent the Waiver
    is so judged Affirmer hereby grants to each affected person a royalty-free,
    non transferable, non sublicensable, non exclusive, irrevocable and
-   unconditional license to exercise Affirmers Copyright and Related Rights in
+   unconditional license to exercise Affirmer's Copyright and Related Rights in
    the Work (i) in all territories worldwide, (ii) for the maximum duration
    provided by applicable law or treaty (including future time extensions), (iii)
    in any current or future medium and for any number of copies, and (iv) for any
@@ -4424,7 +4436,7 @@ effect of CC0 on those rights.
    affirms that he or she will not (i) exercise any of his or her remaining
    Copyright and Related Rights in the Work or (ii) assert any associated claims
    and causes of action with respect to the Work, in either case contrary to
-   Affirmers express Statement of Purpose.
+   Affirmer's express Statement of Purpose.
 
 4. Limitations and Disclaimers.
 
@@ -4440,7 +4452,7 @@ effect of CC0 on those rights.
 
   c. Affirmer disclaims responsibility for clearing rights of other persons
      that may apply to the Work or any use thereof, including without limitation
-     any persons Copyright and Related Rights in the Work. Further, Affirmer
+     any person's Copyright and Related Rights in the Work. Further, Affirmer
      disclaims responsibility for obtaining any necessary consents, permissions
      or other rights required for any use of the Work.
 
@@ -4460,8 +4472,6 @@ The following packages are licensed under (BSD-2-Clause OR MIT OR Apache-2.0):
 rc@1.2.8
 Copyright (c) 2011 Dominic Tarr
 
-
-(BSD-2-Clause OR MIT OR Apache-2.0)
 
 The 2-Clause BSD License, Version 2.0
 
@@ -4487,6 +4497,9 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 
 
+++++++++++++++++++++
+
+
 The MIT License
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -4506,6 +4519,9 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+
+
+++++++++++++++++++++
 
 
 Apache License, Version 2.0
