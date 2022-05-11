@@ -149,6 +149,7 @@ pipeline {
                                 jdk "JDK 11.0.9"
                             }
                             environment {
+                                sonar_branch = sh(returnStdout: true, script: "echo ${GIT_BRANCH} | awk -F/ '{ print $2 }'").trim()
                                 sonarscanner_config_file = "${sonarscanner_install_dir}/conf/sonar-scanner.properties"
                                 electron_coverage = "${WORKSPACE}/electron/coverage/lcov.info"
                                 webui_coverage = "${WORKSPACE}/webui/coverage/lcov.info"
@@ -169,6 +170,7 @@ pipeline {
                                         echo "sonar.organization=${sonar_org}"                        >> ${sonarscanner_config_file}
                                         echo "sonar.projectKey=${sonar_project_key}"                  >> ${sonarscanner_config_file}
                                         echo "sonar.projectVersion=${version_prefix}"                 >> ${sonarscanner_config_file}
+                                        echo "sonar.branch=${sonar_branch}"                           >> ${sonarscanner_config_file}
                                         echo "sonar.javascript.lcov.reportPaths=${lcov_report_paths}" >> ${sonarscanner_config_file}
                                         echo "sonar.c.file.suffixes=-"                                >> ${sonarscanner_config_file}
                                         echo "sonar.cpp.file.suffixes=-"                              >> ${sonarscanner_config_file}
