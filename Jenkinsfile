@@ -33,6 +33,7 @@ pipeline {
 
         sonar_org = 'oracle'
         sonar_project_key = "${sonar_org}_weblogic-toolkit-ui"
+        sonar_branch = sh(returnStdout: true, script: "echo ${env.GIT_BRANCH} | awk -F/ '{ print $2 }'").trim()
     }
     stages {
         stage('Compute file version number') {
@@ -149,7 +150,6 @@ pipeline {
                                 jdk "JDK 11.0.9"
                             }
                             environment {
-                                sonar_branch = sh(returnStdout: true, script: "echo ${GIT_BRANCH} | awk -F/ '{ print $2 }'").trim()
                                 sonarscanner_config_file = "${sonarscanner_install_dir}/conf/sonar-scanner.properties"
                                 electron_coverage = "${WORKSPACE}/electron/coverage/lcov.info"
                                 webui_coverage = "${WORKSPACE}/webui/coverage/lcov.info"
