@@ -33,7 +33,6 @@ pipeline {
 
         sonar_org = 'oracle'
         sonar_project_key = "${sonar_org}_weblogic-toolkit-ui"
-        sonar_branch = sh(returnStdout: true, script: 'echo ${env.GIT_BRANCH} | awk -F/ \'{ print $2 }\'').trim()
     }
     stages {
         stage('Compute file version number') {
@@ -162,6 +161,7 @@ pipeline {
                                 echo "JAVA_HOME = ${JAVA_HOME}"
                                 sh "which java"
                                 sh "java -version"
+                                sh 'SONAR_BRANCH=$(echo $GIT_BRANCH | awk -F/ \'{ print $2 }\')'
 
                                 withSonarQubeEnv('SonarCloud') {
                                     sh """
@@ -170,7 +170,7 @@ pipeline {
                                         echo "sonar.organization=${sonar_org}"                        >> ${sonarscanner_config_file}
                                         echo "sonar.projectKey=${sonar_project_key}"                  >> ${sonarscanner_config_file}
                                         echo "sonar.projectVersion=${version_prefix}"                 >> ${sonarscanner_config_file}
-                                        echo "sonar.branch=${sonar_branch}"                           >> ${sonarscanner_config_file}
+                                        echo 'sonar.branch=$SONAR_BRANCH'                             >> ${sonarscanner_config_file}
                                         echo "sonar.javascript.lcov.reportPaths=${lcov_report_paths}" >> ${sonarscanner_config_file}
                                         echo "sonar.c.file.suffixes=-"                                >> ${sonarscanner_config_file}
                                         echo "sonar.cpp.file.suffixes=-"                              >> ${sonarscanner_config_file}
