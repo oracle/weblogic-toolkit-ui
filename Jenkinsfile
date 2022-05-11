@@ -33,7 +33,7 @@ pipeline {
 
         sonar_org = 'oracle'
         sonar_project_key = "${sonar_org}_weblogic-toolkit-ui"
-        sonar_branch = sh(returnStdout: true, script: "echo ${env.GIT_BRANCH} | awk -F/ '{ print $2 }'").trim()
+        sonar_branch = sh(returnStdout: true, script: 'echo ${env.GIT_BRANCH} | awk -F/ \'{ print $2 }\'').trim()
     }
     stages {
         stage('Compute file version number') {
