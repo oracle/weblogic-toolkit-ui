@@ -92,7 +92,8 @@ function(project, wktConsole, i18n, projectIo, dialogHelper,
 
     async saveProject(errTitle, errPrefix, shouldCloseBusyDialog = true) {
       try {
-        const saveResult = await projectIo.saveProject();
+
+        const saveResult = await projectIo.saveProject(false, false);
         if (!saveResult.saved) {
           const errKey = `${errPrefix}-project-not-saved-error-prefix`;
           const errMessage = `${i18n.t(errKey)}: ${saveResult.reason}`;

@@ -17,12 +17,46 @@ const { getLogger } = require('./wktLogging');
 const { sendToWindow } = require('./windowUtils');
 const i18n = require('./i18next.config');
 const { CredentialStoreManager, EncryptedCredentialManager, CredentialNoStoreManager } = require('./credentialManager');
+const errorUtils = require('./errorUtils');
 
 const projectFileTypeKey = 'dialog-wktFileType';
 const projectFileExtension = 'wktproj';
 const emptyProjectContents = {};
 
 const openProjects = new Map();
+
+// This file is the central file controlling all the project create and save functionality.
+// As such, there are a number of flows that make 1 or more calls into the methods in this file.
+//
+// Create New Project menu item flow:
+//    - The entry point is createNewProject():
+//        + asks the user for the project file location
+//        + sends the start-new-project message to the renderer
+//    - On receiving the start-new-project message:
+//        + the renderer gathers any project-related state
+//        + sends the new-project message
+//    - The new-project message calls initializeNewProject():
+//        + writes the file
+//        + handles other necessary state management if the file write succeeds
+//
+// Save All menu item flow:
+//    - The entry point is startSaveProject():
+//        + sends the start-save-project message to renderer
+//    - On receiving the start-save-project message:
+//        + determines if the project needs saving
+//        + invokes confirm-project-file
+//    - The confirm-project-file calls confirmProjectFile():
+//        + gets the project file name, prompting the user if required
+//        + returns the name, uuid, and file name (or null if file is not selected)
+//    - On receiving the response to the confirm-project-file invocation, the renderer:
+//        + gathers the project-related data
+//        + invokes save-project
+//    - The save-project calls saveProject()
+//        + saves the project file
+//        + if project file save succeeds, saves any model files
+//        + returns whether the save was successful and the model file contents
+//    - On receiving the response to the save-project invocation, the renderer ends the flow
+//
 
 // Public methods
 //
@@ -66,21 +100,21 @@ async function initializeNewProject(targetWindow, projectFile, isDirty) {
     return;
   }
 
-  let projectFileName = getProjectFileName(projectFile);
-  if (path.extname(projectFileName) !== `.${projectFileExtension}`) {
-    projectFileName = `${projectFileName}.${projectFileExtension}`;
-  }
+  const projectFileName = getProjectFileName(projectFile);
   const wktWindow = require('./wktWindow');
-  if(projectWindow.id === targetWindow.id) {
-    wktWindow.setTitleFileName(projectWindow, projectFileName, false);
-  } else {
-    projectWindow.on('ready-to-show', () => {
+
+  const wroteFile = await _createNewProjectFile(projectWindow, projectFileName);
+  if (wroteFile) {
+    if (projectWindow.id === targetWindow.id) {
       wktWindow.setTitleFileName(projectWindow, projectFileName, false);
-    });
+    } else {
+      projectWindow.on('ready-to-show', () => {
+        wktWindow.setTitleFileName(projectWindow, projectFileName, false);
+      });
+    }
+    app.addRecentDocument(projectFileName);
+    projectWindow.setRepresentedFilename(projectFileName);
   }
-  await _createNewProjectFile(projectWindow, projectFileName);
-  app.addRecentDocument(projectFileName);
-  projectWindow.setRepresentedFilename(projectFileName);
 }
 
 async function openProject(targetWindow) {
@@ -126,7 +160,7 @@ async function openProjectFile(targetWindow, projectFile, isDirty) {
     .catch(err => {
       dialog.showErrorBox(
         i18n.t('dialog-openProjectFileErrorTitle'),
-        i18n.t('dialog-openProjectFileErrorMessage', { projectFileName: projectFile, err: err }),
+        i18n.t('dialog-openProjectFileErrorMessage', { projectFileName: projectFile, err: errorUtils.getErrorMessage(err) }),
       );
       getLogger().error('Failed to open project file %s: %s', projectFile, err);
     });
@@ -179,15 +213,43 @@ function startSaveProjectAs(targetWindow) {
 
 // save the specified project and model contents to the project file.
 // usually invoked by the save-project IPC invocation.
-async function saveProject(targetWindow, projectFile, projectContents, externalFileContents) {
+async function saveProject(targetWindow, projectFile, projectContents, externalFileContents, showErrors = true) {
   // the result will contain only sections that were updated due to save, such as model.archiveFiles
-  const saveResult = {};
+  const saveResult = {
+    isProjectFileSaved: false,
+    areModelFilesSaved: false
+  };
 
-  _assignProjectFile(targetWindow, projectFile);
-  saveResult['model'] = await _saveExternalFileContents(_getProjectDirectory(targetWindow), externalFileContents);
-  await _saveProjectFile(targetWindow, projectFile, projectContents);
-  const wktWindow = require('./wktWindow');
-  wktWindow.setTitleFileName(targetWindow, projectFile, false);
+  const assignProjectFileData = _assignProjectFile(targetWindow, projectFile);
+  try {
+    await _saveProjectFile(targetWindow, projectFile, projectContents);
+    saveResult.isProjectFileSaved = true;
+  } catch (err) {
+    if (showErrors) {
+      _showSaveError(projectFile, err);
+    }
+    getLogger().error('Failed to save project file %s: %s', projectFile, err);
+    // revert the project assignment to the window
+    _revertAssignProjectFile(assignProjectFileData);
+    saveResult.reason = i18n.t('dialog-saveProjectFileErrorMessage', { projectFileName: projectFile, err: err });
+  }
+
+  if (saveResult.isProjectFileSaved) {
+    const wktWindow = require('./wktWindow');
+    wktWindow.setTitleFileName(targetWindow, projectFile, false);
+    try {
+      saveResult['model'] = await _saveExternalFileContents(_getProjectDirectory(targetWindow), externalFileContents);
+      saveResult.areModelFilesSaved = true;
+    } catch (err) {
+      const message = i18n.t('project-save-model-files-error-message', { error: errorUtils.getErrorMessage(err) });
+      if (showErrors) {
+        const title = i18n.t('project-save-model-files-error-title');
+        dialog.showErrorBox(title, message);
+      }
+      getLogger().error('Failed to save one of the model files for project file %s: %s', projectFile, err);
+      saveResult.reason = message;
+    }
+  }
   return saveResult;
 }
 
@@ -318,17 +380,21 @@ async function _createNewProjectFile(targetWindow, projectFileName) {
       .then(() => {
         _addOpenProject(targetWindow, projectFileName, false, new CredentialStoreManager(projectContents.uuid));
         sendToWindow(targetWindow, 'project-created', projectFileName, projectContents);
-        resolve();
+        resolve(true);
       })
       .catch(err => {
-        dialog.showErrorBox(
-          i18n.t('dialog-saveProjectFileErrorTitle'),
-          i18n.t('dialog-saveProjectFileErrorMessage', { projectFileName: projectFileName, err: err }),
-        );
+        _showSaveError(projectFileName, err);
         getLogger().error('Failed to save new project in file %s: %s', projectFileName, err);
-        resolve();
+        resolve(false);
       });
   });
+}
+
+function _showSaveError(projectFileName, err) {
+  dialog.showErrorBox(
+    i18n.t('dialog-saveProjectFileErrorTitle'),
+    i18n.t('dialog-saveProjectFileErrorMessage', { projectFileName: projectFileName, err: err }),
+  );
 }
 
 function _addProjectIdentifiers(projectFileName, projectContents) {
@@ -764,6 +830,21 @@ function _assignProjectFile(targetWindow, projectFile) {
   if (newFile !== oldFile) {
     _addOpenProject(targetWindow, projectFile, false);
   }
+  return {
+    existingProject,
+    oldFile,
+    newFile
+  };
+}
+
+function _revertAssignProjectFile(targetWindow, assignProjectFileData) {
+  if (assignProjectFileData.existingProject) {
+    if (assignProjectFileData.oldFile !== assignProjectFileData.newFile) {
+      _addOpenProject(targetWindow, assignProjectFileData.oldFile, false);
+    }
+  } else {
+    openProjects.delete(targetWindow);
+  }
 }
 
 async function _createCredentialManager(targetWindow, projectFileJsonContent) {
@@ -875,8 +956,8 @@ function _setCredentialManager(targetWindow, credentialManager) {
 // On Linux, the save dialog does not automatically add the project file extension...
 function getProjectFileName(dialogReturnedFileName) {
   let result = dialogReturnedFileName;
-  if (dialogReturnedFileName && path.extname(dialogReturnedFileName) !== '.wktproj') {
-    result = `${dialogReturnedFileName}.wktproj`;
+  if (dialogReturnedFileName && path.extname(dialogReturnedFileName) !== `.${projectFileExtension}`) {
+    result = `${dialogReturnedFileName}.${projectFileExtension}`;
   }
   return result;
 }

@@ -16,7 +16,7 @@ define(['knockout', 'models/wkt-project', 'utils/i18n'],
 
       // verify that a project file is assigned to this project, choosing if necessary.
       // save the project contents to the specified file.
-      this.saveProject = async(forceSave) => {
+      this.saveProject = async(forceSave = false, displayElectronSideErrors = true) => {
         const projectNotSaved = !project.getProjectFileName();
 
         if(forceSave || project.isDirty() || projectNotSaved) {
@@ -27,7 +27,7 @@ define(['knockout', 'models/wkt-project', 'utils/i18n'],
             return {saved: false, reason: i18n.t('project-io-user-cancelled-save-message')};
           }
 
-          return saveToFile(projectFile, projectName, projectUuid);
+          return saveToFile(projectFile, projectName, projectUuid, displayElectronSideErrors);
         }
 
         return {saved: true};
@@ -57,10 +57,8 @@ define(['knockout', 'models/wkt-project', 'utils/i18n'],
       // if project file is null, do not save.
       // if project name and UUID are specified, this is a new file, so assign those.
       // return object with saved status and reason if not saved.
-      async function saveToFile(projectFile, projectName, projectUuid) {
-
-        project.setProjectFileName(projectFile);
-
+      async function saveToFile(projectFile, projectName, projectUuid, displayElectronSideErrors = true) {
+        const result = { saved: true };
         // if project name or UUID are null, they were previously assigned.
         if(projectName) {
           project.setProjectName(projectName);
@@ -72,14 +70,24 @@ define(['knockout', 'models/wkt-project', 'utils/i18n'],
         let projectContents = project.getProjectContents();
         let modelContents = project.wdtModel.getModelContents();
         const saveResult = await window.api.ipc.invoke('save-project', projectFile, projectContents,
-          modelContents);
+          modelContents, displayElectronSideErrors);
 
-        if(saveResult['model']) {
-          project.wdtModel.setSpecifiedModelFiles(saveResult['model']);
+        if (saveResult['isProjectFileSaved']) {
+          project.setProjectFileName(projectFile);
+          if (saveResult['areModelFilesSaved']) {
+            if(saveResult['model']) {
+              project.wdtModel.setSpecifiedModelFiles(saveResult['model']);
+            }
+            project.setNotDirty();
+          } else {
+            result['saved'] = false;
+            result['reason'] = saveResult.reason;
+          }
+        } else {
+          result['saved'] = false;
+          result['reason'] = saveResult.reason;
         }
-
-        project.setNotDirty();
-        return {saved: true};
+        return result;
       }
 
       // close the project in this window.

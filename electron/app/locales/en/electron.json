@@ -376,6 +376,8 @@
 
   "project-save-file-already-open-title": "Project File Already Open",
   "project-save-file-already-open-message": "The project file {{projectFile}} is already open in another window.  Please either close the existing window or select a different project file and try again.",
+  "project-save-model-files-error-title": "Project Model Files Save Error",
+  "project-save-model-files-error-message": "Failed to save one of the WebLogic Deploy Tooling model files associated with the project: {{error}}",
 
   "wrc-home-error-title": "Invalid WebLogic Remote Console Location",
   "wrc-init-error-title": "Initializing WebLogic Remote Console Backend Failed",

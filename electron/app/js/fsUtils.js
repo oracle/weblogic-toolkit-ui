@@ -10,7 +10,6 @@ const osUtils = require('./osUtils');
 const which = require('which');
 
 const { getErrorMessage } = require('./errorUtils');
-const errorUtils = require('./errorUtils');
 
 // WARNING: This file is used early on in the startup process so do not require other modules at the top level
 //          that depend on Electron being fully initialized.  For example, i18next.config...
