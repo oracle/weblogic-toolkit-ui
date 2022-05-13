@@ -164,7 +164,7 @@ function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, ViewMod
     //
     this.providerActivated = (event) => {
       this.dataProvider = event.detail.value;
-      wktLogger.debug('Received providerActivated event with dataProvider = %s', JSON.stringify(this.dataProvider));
+      wktLogger.debug('Received providerActivated event with dataProvider');
       this.designer.selectLastVisitedSlice();
     };
 
@@ -194,7 +194,7 @@ function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, ViewMod
     //
     this.providerDeactivated = (event) => {
       const result = event.detail.value;
-      wktLogger.debug('Received providerDeactivated event with dataProvider = %s', JSON.stringify(result));
+      wktLogger.debug('Received providerDeactivated event with dataProvider');
       delete result.data;
       this.dataProvider = {state: 'disconnected'};
     };

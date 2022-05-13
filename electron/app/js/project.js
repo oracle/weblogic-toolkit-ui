@@ -45,24 +45,18 @@ function showExistingProjectWindow(existingProjectWindow) {
 }
 
 async function createNewProject(targetWindow) {
-  const saveResponse = await dialog.showSaveDialog(targetWindow, {
-    title: 'Create WebLogic Kubernetes Toolkit Project',
-    buttonLabel: 'Create Project',
-    filters: [
-      { name: i18n.t(projectFileTypeKey), extensions: [projectFileExtension] }
-    ],
-    properties: [
-      'createDirectory',
-      'showOverwriteConfirmation'
-    ]
+  const titleKey = 'dialog-createNewProjectTitle';
+  const buttonKey = 'button-create';
+
+  return new Promise(resolve => {
+    _chooseProjectSaveFile(targetWindow,titleKey, buttonKey).then(projectFileName => {
+      if (projectFileName) {
+        sendToWindow(targetWindow, 'start-new-project', projectFileName);
+        // window will reply with new-project -> initializeNewProject() including isDirty flag
+      }
+      resolve();
+    });
   });
-
-  if (saveResponse.canceled || !saveResponse.filePath || projectFileAlreadyOpen(saveResponse.filePath)) {
-    return;
-  }
-
-  sendToWindow(targetWindow, 'start-new-project', saveResponse.filePath);
-  // window will reply with new-project -> initializeNewProject() including isDirty flag
 }
 
 async function initializeNewProject(targetWindow, projectFile, isDirty) {
@@ -145,7 +139,10 @@ async function confirmProjectFile(targetWindow) {
     projectFile = await _chooseProjectSaveFile(targetWindow);
     projectName = projectFile ? _generateProjectName(projectFile) : null;
     projectUuid = projectFile ? _generateProjectUuid() : null;
-    app.addRecentDocument(projectFile);
+    if (projectFile) {
+      getLogger().debug('confirmProjectFile adding %s to recent documents', projectFile);
+      app.addRecentDocument(projectFile);
+    }
   }
   return [projectFile, projectName, projectUuid];
 }
@@ -157,7 +154,10 @@ async function chooseProjectFile(targetWindow) {
   const projectFile = await _chooseProjectSaveFile(targetWindow);
   const projectName = projectFile ? _generateProjectName(projectFile) : null;
   const projectUuid = projectFile ? _generateProjectUuid() : null;
-  app.addRecentDocument(projectFile);
+  if (projectFile) {
+    getLogger().debug('chooseProjectFile adding %s to recent documents', projectFile);
+    app.addRecentDocument(projectFile);
+  }
   return [projectFile, projectName, projectUuid];
 }
 
@@ -306,6 +306,7 @@ async function exportArchiveFile(targetWindow, archivePath, projectFile) {
 // Private helper methods
 //
 async function _createNewProjectFile(targetWindow, projectFileName) {
+  getLogger().debug('entering _createNewProjectFile() for %s', projectFileName);
   return new Promise((resolve) => {
     const projectContents = _addProjectIdentifiers(projectFileName, emptyProjectContents);
     const projectContentsJson = JSON.stringify(projectContents, null, 2);
@@ -381,6 +382,7 @@ async function _openProjectFile(targetWindow, projectFileName) {
               const wktWindow = require('./wktWindow');
               wktWindow.setTitleFileName(targetWindow, projectFileName, false);
               targetWindow.setRepresentedFilename(projectFileName);
+              getLogger().debug('_openProjectFile adding %s to recent documents', projectFileName);
               app.addRecentDocument(projectFileName);
               resolve();
             }).catch(err => reject(err));
@@ -513,8 +515,8 @@ async function _sendProjectOpened(targetWindow, file, jsonContents) {
   sendToWindow(targetWindow, 'project-opened', file, jsonContents, modelFilesContentJson);
 }
 
-async function _chooseProjectSaveFile(targetWindow) {
-  const title = i18n.t('dialog-chooseProjectSaveFile');
+async function _chooseProjectSaveFile(targetWindow, titleKey = 'dialog-chooseProjectSaveFile', buttonKey = 'button-save') {
+  const title = i18n.t(titleKey);
 
   let saveResponse = await dialog.showSaveDialog(targetWindow, {
     title: title,
@@ -522,7 +524,7 @@ async function _chooseProjectSaveFile(targetWindow) {
     filters: [
       {name: i18n.t(projectFileTypeKey), extensions: [projectFileExtension]}
     ],
-    buttonLabel: i18n.t('button-save'),
+    buttonLabel: i18n.t(buttonKey),
     properties: [
       'createDirectory',
       'showOverwriteConfirmation'
@@ -530,6 +532,17 @@ async function _chooseProjectSaveFile(targetWindow) {
   });
 
   if (saveResponse.canceled || !saveResponse.filePath || projectFileAlreadyOpen(saveResponse.filePath)) {
+    return null;
+  }
+
+  // Do a quick sanity check to make sure that the user has permissions to
+  // write to the directory chosen.  If not, show them the error and return null.
+  //
+  if (! await fsUtils.canWriteInDirectory(saveResponse.filePath)) {
+    const errTitle = i18n.t('dialog-projectSaveFileLocationNotWritableTitle');
+    const errMessage = i18n.t('dialog-projectSaveFileLocationNotWritableError',
+      { projectFileDirectory: path.dirname(saveResponse.filePath)});
+    dialog.showErrorBox(errTitle, errMessage);
     return null;
   }
   return getProjectFileName(saveResponse.filePath);

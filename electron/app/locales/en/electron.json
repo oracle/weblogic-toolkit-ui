@@ -138,6 +138,10 @@
   "dialog-openProjectFileParseErrorMessage": "Unable to read the project file {{projectFileName}} as JSON: {{err}}",
   "dialog-openProjectFileReadErrorTitle": "Failed to Read Project File",
   "dialog-openProjectFileReadErrorMessage": "Unable to read the project file {{projectFileName}}: {{err}}",
+  "dialog-createNewProjectTitle": "Create WebLogic Kubernetes Toolkit Project",
+  "dialog-projectSaveFileLocationNotWritableTitle": "Project Directory Not Writable",
+  "dialog-projectSaveFileLocationNotWritableError": "The {{projectFileDirectory}} directory chosen to write the new project file is not writable by the current process.",
+
   "dialog-openProjectWindowPrompt": "Choose the window where the project should be opened.",
   "dialog-chooseDomainHome": "Select the Domain Home directory to use",
   "dialog-chooseJavaHome": "Select the Java Home directory to use",
@@ -189,6 +193,7 @@
   "button-select": "Select",
   "button-cancel": "Cancel",
   "button-save": "Save",
+  "button-create": "Create",
   "button-ok": "OK",
   "button-yes": "Yes",
   "button-openProject": "Open Project",
