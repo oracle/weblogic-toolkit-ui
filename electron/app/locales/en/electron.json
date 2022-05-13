@@ -138,6 +138,10 @@
   "dialog-openProjectFileParseErrorMessage": "Unable to read the project file {{projectFileName}} as JSON: {{err}}",
   "dialog-openProjectFileReadErrorTitle": "Failed to Read Project File",
   "dialog-openProjectFileReadErrorMessage": "Unable to read the project file {{projectFileName}}: {{err}}",
+  "dialog-createNewProjectTitle": "Create WebLogic Kubernetes Toolkit Project",
+  "dialog-projectSaveFileLocationNotWritableTitle": "Project Directory Not Writable",
+  "dialog-projectSaveFileLocationNotWritableError": "The {{projectFileDirectory}} directory chosen to write the new project file is not writable by the current process.",
+
   "dialog-openProjectWindowPrompt": "Choose the window where the project should be opened.",
   "dialog-chooseDomainHome": "Select the Domain Home directory to use",
   "dialog-chooseJavaHome": "Select the Java Home directory to use",
@@ -189,6 +193,7 @@
   "button-select": "Select",
   "button-cancel": "Cancel",
   "button-save": "Save",
+  "button-create": "Create",
   "button-ok": "OK",
   "button-yes": "Yes",
   "button-openProject": "Open Project",
@@ -371,6 +376,8 @@
 
   "project-save-file-already-open-title": "Project File Already Open",
   "project-save-file-already-open-message": "The project file {{projectFile}} is already open in another window.  Please either close the existing window or select a different project file and try again.",
+  "project-save-model-files-error-title": "Project Model Files Save Error",
+  "project-save-model-files-error-message": "Failed to save one of the WebLogic Deploy Tooling model files associated with the project: {{error}}",
 
   "wrc-home-error-title": "Invalid WebLogic Remote Console Location",
   "wrc-init-error-title": "Initializing WebLogic Remote Console Backend Failed",

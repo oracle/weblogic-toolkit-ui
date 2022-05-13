@@ -616,8 +616,8 @@ class Main {
     });
 
     ipcMain.handle('save-project',async (event, projectFile, projectContents,
-      externalFileContents) => {
-      return project.saveProject(event.sender.getOwnerBrowserWindow(), projectFile, projectContents, externalFileContents);
+      externalFileContents, displayElectronSideErrors = true) => {
+      return project.saveProject(event.sender.getOwnerBrowserWindow(), projectFile, projectContents, externalFileContents, displayElectronSideErrors);
     });
 
     ipcMain.handle('close-project', async (event, keepWindow) => {
