@@ -77,8 +77,10 @@ async function initializeNewProject(targetWindow, projectFile, isDirty) {
     projectFileName = `${projectFileName}.${projectFileExtension}`;
   }
   const wktWindow = require('./wktWindow');
-  wktWindow.setTitleFileName(targetWindow, projectFileName, false);
-  await _createNewProjectFile(targetWindow, projectFileName);
+  projectWindow.on('ready-to-show', () => {
+    wktWindow.setTitleFileName(projectWindow, projectFileName, false);
+  });
+  await _createNewProjectFile(projectWindow, projectFileName);
   app.addRecentDocument(projectFileName);
   projectWindow.setRepresentedFilename(projectFileName);
 }
