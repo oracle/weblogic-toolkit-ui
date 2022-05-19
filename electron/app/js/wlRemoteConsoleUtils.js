@@ -312,7 +312,10 @@ async function _getInstalledExecutablePath(rcHome) {
   };
 
   if (osUtils.isMac()) {
-    result['executable'] = path.join(rcHome, 'Contents', 'MacOS', 'WebLogic Remote Console');
+    // On macOS, we use a different executable so that the WKTUI
+    // and WRC applications can run at the same time...
+    //
+    result['executable'] = path.join(rcHome, 'Contents', 'MacOS', 'Embeddable Remote Console');
   } else if (osUtils.isWindows()) {
     result['executable'] = path.join(rcHome, 'WebLogic Remote Console.exe');
   } else {
