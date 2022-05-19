@@ -9,6 +9,7 @@ const path = require('path');
 const readline = require('readline');
 const { app, BrowserWindow, dialog } = require('electron');
 const fsPromises = require('fs/promises');
+const fs = require('fs');
 
 const userSettings = require('./userSettings');
 const fsUtils = require('./fsUtils');
@@ -312,7 +313,10 @@ async function _getInstalledExecutablePath(rcHome) {
   };
 
   if (osUtils.isMac()) {
-    result['executable'] = path.join(rcHome, 'Contents', 'MacOS', 'WebLogic Remote Console');
+    result['executable'] = path.join(rcHome, 'Contents', 'MacOS', 'Embeddable Remote Console');
+    if (!fs.existsSync(result['executable'])) {
+      result['executable'] = path.join(rcHome, 'Contents', 'MacOS', 'WebLogic Remote Console');
+    }
   } else if (osUtils.isWindows()) {
     result['executable'] = path.join(rcHome, 'WebLogic Remote Console.exe');
   } else {
