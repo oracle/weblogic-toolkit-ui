@@ -1,0 +1,5 @@
+Languages: Std_Admin
+
+electron/app/locales/en
+    electron.json FileType: JSON
+    webui.json FileType: JSON
