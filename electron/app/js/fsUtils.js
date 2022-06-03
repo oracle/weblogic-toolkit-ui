@@ -3,6 +3,7 @@
  * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
+const { constants } = require('fs');
 const fsPromises = require('fs/promises');
 const path = require('path');
 const osUtils = require('./osUtils');
@@ -292,6 +293,22 @@ async function getDirectoryForPath(fileSystemPath) {
   });
 }
 
+async function canWriteInDirectory(filePath) {
+  return new Promise(resolve => {
+    isDirectory(filePath).then(isDir => {
+      let pathToCheck = filePath;
+      if (!isDir) {
+        pathToCheck = path.dirname(filePath);
+      }
+      fsPromises.access(pathToCheck, constants.R_OK | constants.W_OK).then(() => {
+        resolve(true);
+      }).catch(() => {
+        resolve(false);
+      });
+    });
+  });
+}
+
 async function _getFilesRecursivelyFromDirectory(directory, fileList) {
   const i18n = require('./i18next.config');
 
@@ -331,6 +348,7 @@ async function _processDirectoryListing(directory, listing, fileList) {
 }
 
 module.exports = {
+  canWriteInDirectory,
   createTemporaryDirectory,
   exists,
   getAbsolutePath,

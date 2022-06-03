@@ -355,11 +355,16 @@ async function _addDirectoryToArchiveFile(archiveFile, zip, zipPath, dirPath) {
 }
 
 async function _removePathFromArchive(archiveFile, zip, zipPath) {
+  if (!zipPath) {
+    getLogger().warn('_removePathFromArchive received empty zipPath so skipping...');
+    return Promise.resolve();
+  }
+
   return new Promise((resolve, reject) => {
     try {
       if (zip.file(zipPath)) {
         zip.remove(zipPath);
-      } else if (zipPath.endsWith('/')) {
+      } else if (zipPath && zipPath.endsWith('/')) {
         // Remove the trailing slash so the target folder is also removed, not just its contents...
         zip.remove(zipPath.slice(0, -1));
       }
