@@ -859,6 +859,9 @@
   "discover-dialog-admin-user-help": "The login user name for the Administration Server.",
   "discover-dialog-admin-password-label": "Administration Server Password",
   "discover-dialog-admin-password-help": "The login password for the Administration Server.",
+  "discover-dialog-remote-discovery-label": "Remote Discovery",
+  "discover-dialog-remote-discovery-help": "Discover without collecting archive artifacts",
+  "discover-dialog-domain-home-remote": "Domain home not required for remote discovery",
 
   "wdt-discoverer-replace-title": "Replace Existing Model Content",
   "wdt-discoverer-replace-message": "This will replace the project's existing model content, continue?",

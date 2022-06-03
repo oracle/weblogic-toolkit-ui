@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2021, Oracle and/or its affiliates.
+ Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 <oj-dialog id="discoverDialog" class="wkt-discover-dialog" initial-visibility="hide">
@@ -10,11 +10,40 @@
     <oj-validation-group id="tracker">
       <div class="oj-panel">
         <oj-form-layout max-columns="1" direction="row">
-          <oj-input-text label-hint="[[labelMapper('domain-home-label')]]"
+          <oj-bind-if test="[[online]]">
+            <oj-input-text label-hint="[[labelMapper('admin-url-label')]]"
+                           value="{{adminUrl}}"
+                           help.instruction="[[labelMapper('admin-url-help')]]"
+                           required="true">
+            </oj-input-text>
+            <oj-input-password label-hint="[[labelMapper('admin-user-label')]]"
+                               value="{{adminUser}}"
+                               mask-icon="visible"
+                               help.instruction="[[labelMapper('admin-user-help')]]"
+                               required="true">
+            </oj-input-password>
+            <oj-input-password label-hint="[[labelMapper('admin-password-label')]]"
+                               value="{{adminPassword}}"
+                               mask-icon="visible"
+                               help.instruction="[[labelMapper('admin-password-help')]]"
+                               required="true">
+            </oj-input-password>
+            <oj-switch label-hint="[[labelMapper('remote-discovery-label')]]"
+                       value="{{isRemote}}"
+                       help.instruction="[[labelMapper('remote-discovery-help')]]">
+            </oj-switch>
+          </oj-bind-if>
+          <oj-input-text class="wkt-can-readonly-field"
+                         label-hint="[[labelMapper('domain-home-label')]]"
                          value="{{domainHome}}"
-                         help.instruction="[[labelMapper('domain-home-help')]]"
-                         required="true">
-            <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[chooseDomainHome]]">
+                         help.instruction="[[domainHomeHelp]]"
+                         readOnly="{{isRemote}}"
+                         required="{{!isRemote()}}">
+            <oj-button slot="end"
+                       display="icons"
+                       chroming="borderless"
+                       disabled="{{isRemote}}"
+                       on-oj-action="[[chooseDomainHome]]">
               <span><oj-bind-text value="[[labelMapper('domain-home-choose')]]"></oj-bind-text></span>
               <span slot="endIcon" class="oj-ux-ico-folder" role="img"></span>
             </oj-button>
@@ -24,25 +53,6 @@
                             data="{{wdtDomainTypesDP}}"
                             help.instruction="[[labelMapper('domain-type-help')]]">
           </oj-select-single>
-          <oj-bind-if test="[[online]]">
-            <oj-input-text label-hint="[[labelMapper('admin-url-label')]]"
-                           value="{{adminUrl}}"
-                           help.instruction="[[labelMapper('admin-url-help')]]"
-                           required="true">
-            </oj-input-text>
-            <oj-input-password label-hint="[[labelMapper('admin-user-label')]]"
-                           value="{{adminUser}}"
-                           mask-icon="visible"
-                           help.instruction="[[labelMapper('admin-user-help')]]"
-                           required="true">
-            </oj-input-password>
-            <oj-input-password label-hint="[[labelMapper('admin-password-label')]]"
-                           value="{{adminPassword}}"
-                           mask-icon="visible"
-                           help.instruction="[[labelMapper('admin-password-help')]]"
-                           required="true">
-            </oj-input-password>
-          </oj-bind-if>
         </oj-form-layout>
       </div>
     </oj-validation-group>

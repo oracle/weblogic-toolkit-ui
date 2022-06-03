@@ -1,13 +1,13 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
 
 define(['accUtils', 'knockout', 'utils/i18n', 'ojs/ojarraydataprovider', 'models/wkt-project',
   'utils/wdt-discoverer', 'ojs/ojknockout', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton',
-  'ojs/ojdialog', 'ojs/ojformlayout', 'ojs/ojselectsingle', 'ojs/ojvalidationgroup'],
+  'ojs/ojdialog', 'ojs/ojformlayout', 'ojs/ojselectsingle', 'ojs/ojvalidationgroup', 'ojs/ojswitch'],
 function(accUtils, ko, i18n, ArrayDataProvider, project, wdtDiscoverer) {
   function DiscoverDialogModel(config) {
 
@@ -49,6 +49,11 @@ function(accUtils, ko, i18n, ArrayDataProvider, project, wdtDiscoverer) {
     this.adminUrl = ko.observable();
     this.adminUser = ko.observable();
     this.adminPassword = ko.observable();
+    this.isRemote = ko.observable();
+
+    this.domainHomeHelp = ko.computed(() => {
+      return this.labelMapper(this.isRemote() ? 'domain-home-remote' : 'domain-home-help');
+    }, this);
 
     this.wdtDomainTypes = [
       { key: 'WLS', label: this.labelMapper('wls-domain-type-label') },
