@@ -169,34 +169,40 @@ async function openProjectFile(targetWindow, projectFile, isDirty) {
 // request the existing project file, prompting the user if needed.
 // return null values if no project file was established or selected.
 // usually called by the confirm-project-file IPC invocation.
+//
+// This method is always used in the "Save All" flow.
+//
 async function confirmProjectFile(targetWindow) {
   let projectFile = _getProjectFilePath(targetWindow);
-  let projectName = null;
-  let projectUuid = null;
-  if(!projectFile) {
-    projectFile = await _chooseProjectSaveFile(targetWindow);
-    projectName = projectFile ? _generateProjectName(projectFile) : null;
-    projectUuid = projectFile ? _generateProjectUuid() : null;
-    if (projectFile) {
-      getLogger().debug('confirmProjectFile adding %s to recent documents', projectFile);
-      app.addRecentDocument(projectFile);
-    }
+  if (projectFile) {
+    // if the project file exists, no need to worry about
+    // the project name and project UUID because they are
+    // already defined in the file.
+    //
+    return [projectFile, null, null, false];
+  } else {
+    return chooseProjectFile(targetWindow);
   }
-  return [projectFile, projectName, projectUuid];
 }
 
 // choose a new project file for save.
 // return null values if no project file was established or selected.
 // usually called by the choose-project-file IPC invocation.
+//
+// This method is used directly in the "Save As" flow and
+// indirectly in the "Save All" flow.
+//
 async function chooseProjectFile(targetWindow) {
   const projectFile = await _chooseProjectSaveFile(targetWindow);
-  const projectName = projectFile ? _generateProjectName(projectFile) : null;
-  const projectUuid = projectFile ? _generateProjectUuid() : null;
+  let projectName = null;
+  let projectUuid = null;
+  let isNewFile = false;
   if (projectFile) {
-    getLogger().debug('chooseProjectFile adding %s to recent documents', projectFile);
-    app.addRecentDocument(projectFile);
+    projectName = _generateProjectName(projectFile);
+    projectUuid = _generateProjectUuid();
+    isNewFile = !await fsUtils.exists(projectFile);
   }
-  return [projectFile, projectName, projectUuid];
+  return [projectFile, projectName, projectUuid, isNewFile];
 }
 
 // initiate the save process by sending a message to the web app.
@@ -213,7 +219,7 @@ function startSaveProjectAs(targetWindow) {
 
 // save the specified project and model contents to the project file.
 // usually invoked by the save-project IPC invocation.
-async function saveProject(targetWindow, projectFile, projectContents, externalFileContents, showErrors = true) {
+async function saveProject(targetWindow, projectFile, projectContents, externalFileContents, isNewFile, showErrors = true) {
   // the result will contain only sections that were updated due to save, such as model.archiveFiles
   const saveResult = {
     isProjectFileSaved: false,
@@ -237,6 +243,10 @@ async function saveProject(targetWindow, projectFile, projectContents, externalF
   if (saveResult.isProjectFileSaved) {
     const wktWindow = require('./wktWindow');
     wktWindow.setTitleFileName(targetWindow, projectFile, false);
+    if (isNewFile) {
+      app.addRecentDocument(projectFile);
+    }
+
     try {
       saveResult['model'] = await _saveExternalFileContents(_getProjectDirectory(targetWindow), externalFileContents);
       saveResult.areModelFilesSaved = true;
