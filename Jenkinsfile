@@ -218,6 +218,7 @@ pipeline {
                                 sh 'env|sort'
                                 echo "file version = ${version_number}"
                                 echo "is_release = ${is_release}"
+                                sh "uname -a"
                             }
                         }
                         stage('MacOS Checkout') {
@@ -304,8 +305,8 @@ pipeline {
                                 archiveArtifacts "dist/latest-mac.yml"
                                 sh 'ditto -c -k --sequesterRsrc --keepParent "$WORKSPACE/dist/mac/WebLogic Kubernetes Toolkit UI.app" "WebLogic Kubernetes Toolkit UI.app.zip"'
                                 archiveArtifacts "WebLogic Kubernetes Toolkit UI.app.zip"
-                                sh 'ditto -c -k --sequesterRsrc --keepParent "$WORKSPACE/dist/mac-arm64/WebLogic Kubernetes Toolkit UI.app" "WebLogic Kubernetes Toolkit UI.arm64.app.zip"'
-                                archiveArtifacts "WebLogic Kubernetes Toolkit UI.arm64.app.zip"
+                                // sh 'ditto -c -k --sequesterRsrc --keepParent "$WORKSPACE/dist/mac-arm64/WebLogic Kubernetes Toolkit UI.app" "WebLogic Kubernetes Toolkit UI.arm64.app.zip"'
+                                // archiveArtifacts "WebLogic Kubernetes Toolkit UI.arm64.app.zip"
                             }
                         }
                     }
