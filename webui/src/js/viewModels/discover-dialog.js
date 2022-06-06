@@ -5,11 +5,12 @@
  */
 'use strict';
 
-define(['accUtils', 'knockout', 'utils/i18n', 'ojs/ojarraydataprovider', 'models/wkt-project',
+define(['accUtils', 'knockout', 'utils/i18n', 'utils/view-helper', 'ojs/ojarraydataprovider', 'models/wkt-project',
   'utils/wdt-discoverer', 'ojs/ojknockout', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton',
   'ojs/ojdialog', 'ojs/ojformlayout', 'ojs/ojselectsingle', 'ojs/ojvalidationgroup', 'ojs/ojswitch'],
-function(accUtils, ko, i18n, ArrayDataProvider, project, wdtDiscoverer) {
+function(accUtils, ko, i18n, viewHelper, ArrayDataProvider, project, wdtDiscoverer) {
   function DiscoverDialogModel(config) {
+    const DIALOG_SELECTOR = '#discoverDialog';
 
     this.connected = () => {
       if(config['hide']) {
@@ -18,11 +19,13 @@ function(accUtils, ko, i18n, ArrayDataProvider, project, wdtDiscoverer) {
 
       accUtils.announce('Discover dialog loaded.', 'assertive');
 
-      // open the dialog after the current thread, which is loading this view model.
+      this.dialogContainer = $(DIALOG_SELECTOR)[0];
+
+      // open the dialog when the container is ready.
       // using oj-dialog initial-visibility="show" causes vertical centering issues.
-      setTimeout(function() {
-        $('#discoverDialog')[0].open();
-      }, 1);
+      viewHelper.componentReady(this.dialogContainer).then(() => {
+        this.dialogContainer.open();
+      });
     };
 
     this.labelMapper = (labelId, arg) => {
@@ -87,7 +90,7 @@ function(accUtils, ko, i18n, ArrayDataProvider, project, wdtDiscoverer) {
           discoverConfig['adminPass'] = this.adminPassword();
         }
 
-        $('#discoverDialog')[0].close();
+        this.dialogContainer.close();
         wdtDiscoverer.executeDiscover(discoverConfig, this.online).then();
       } else {
         // show messages on all the components that have messages hidden.
@@ -97,7 +100,7 @@ function(accUtils, ko, i18n, ArrayDataProvider, project, wdtDiscoverer) {
     };
 
     this.cancelDiscover = () => {
-      $('#discoverDialog')[0].close();
+      this.dialogContainer.close();
     };
 
     this.chooseDomainHome = () => {
