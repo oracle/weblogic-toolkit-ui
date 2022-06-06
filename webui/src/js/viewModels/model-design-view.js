@@ -127,11 +127,6 @@ function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, ViewMod
         fileContents: this.project.wdtModel.modelContent()
       };
 
-      if (!providerOptions.fileContents) {
-        const modelTemplates = this.designer.getProperty('modelTemplate');
-        providerOptions.fileContents = modelTemplates.domain;
-      }
-
       // A name is needed to create a WDT Model File provider.
       //
       providerOptions['name'] = this.project.wdtModel.getDefaultModelFile();
@@ -174,7 +169,21 @@ function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, ViewMod
       wktLogger.debug('Received changesAutoDownloaded event with modelContent = %s', event.detail.value);
       this.wrcBackendTriggerChange = true;
       this.project.wdtModel.modelContent(event.detail.value);
-      if (event.detail.properties) this.project.wdtModel.getModelPropertiesObject().observable(event.detail.properties);
+      if (event.detail.properties) {
+        const existingProperties = this.project.wdtModel.getModelPropertiesObject().observable();
+        event.detail.properties.forEach((item) => {
+          const index = existingProperties.map(item1 => item1.uid).indexOf(item.uid);
+          if (index === -1) {
+            // Must call addNewItem() in order to get remove() function added
+            this.project.wdtModel.getModelPropertiesObject().addNewItem({uid: item.uid, Name: item.Name, Value: item.Value});
+          }
+          else {
+            // Update existing properties with data from "Design View"
+            existingProperties[index].Name = item.Name;
+            existingProperties[index].Value = item.Value;
+          }
+        });
+      }
     };
 
     this.archiveUpdated = (event) => {
