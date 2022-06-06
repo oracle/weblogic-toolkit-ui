@@ -202,7 +202,7 @@ pipeline {
                     }
                 }
                 stage('MacOS Build') {
-                    agent { label 'macosx'}
+                    agent { label 'wls-mini1 || wls-mini2'}
                     environment {
                         mac_node_dir_name = "node-v${node_version}-darwin-x64"
                         mac_node_installer = "node-v${node_version}-darwin-x64.tar.gz"
@@ -305,8 +305,8 @@ pipeline {
                                 archiveArtifacts "dist/latest-mac.yml"
                                 sh 'ditto -c -k --sequesterRsrc --keepParent "$WORKSPACE/dist/mac/WebLogic Kubernetes Toolkit UI.app" "WebLogic Kubernetes Toolkit UI.app.zip"'
                                 archiveArtifacts "WebLogic Kubernetes Toolkit UI.app.zip"
-                                // sh 'ditto -c -k --sequesterRsrc --keepParent "$WORKSPACE/dist/mac-arm64/WebLogic Kubernetes Toolkit UI.app" "WebLogic Kubernetes Toolkit UI.arm64.app.zip"'
-                                // archiveArtifacts "WebLogic Kubernetes Toolkit UI.arm64.app.zip"
+                                sh 'ditto -c -k --sequesterRsrc --keepParent "$WORKSPACE/dist/mac-arm64/WebLogic Kubernetes Toolkit UI.app" "WebLogic Kubernetes Toolkit UI.arm64.app.zip"'
+                                archiveArtifacts "WebLogic Kubernetes Toolkit UI.arm64.app.zip"
                             }
                         }
                     }
