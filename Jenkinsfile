@@ -298,7 +298,13 @@ pipeline {
                         }
                         stage('MacOS Build Installers') {
                             steps {
-                                sh 'cd ${WORKSPACE}/electron; PATH="${mac_node_dir}/bin:$PATH" HTTPS_PROXY=${WKTUI_PROXY} CSC_IDENTITY_AUTO_DISCOVERY=false ${mac_npm_exe} run build -- --mac --x64 --arm64'
+                                sh '''
+                                    cd "${WORKSPACE}/electron"
+                                    PATH="${mac_node_dir}/bin:$PATH" HTTPS_PROXY=${WKTUI_PROXY} CSC_IDENTITY_AUTO_DISCOVERY=false ${mac_npm_exe} run build:jet
+                                    PATH="${mac_node_dir}/bin:$PATH" HTTPS_PROXY=${WKTUI_PROXY} CSC_IDENTITY_AUTO_DISCOVERY=false ${mac_npm_exe} run install-tools
+                                    PATH="${mac_node_dir}/bin:$PATH" HTTPS_PROXY=${WKTUI_PROXY} CSC_IDENTITY_AUTO_DISCOVERY=false ${mac_npm_exe} run build:installer -- --mac --x64 --arm64'
+                                    cd "${WORKSPACE}"
+                                '''
                                 archiveArtifacts 'dist/*.dmg'
                                 archiveArtifacts 'dist/*.zip'
                                 archiveArtifacts "dist/*.blockmap"
