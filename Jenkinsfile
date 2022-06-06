@@ -302,7 +302,7 @@ pipeline {
                                     cd "${WORKSPACE}/electron"
                                     PATH="${mac_node_dir}/bin:$PATH" HTTPS_PROXY=${WKTUI_PROXY} CSC_IDENTITY_AUTO_DISCOVERY=false ${mac_npm_exe} run build:jet
                                     PATH="${mac_node_dir}/bin:$PATH" HTTPS_PROXY=${WKTUI_PROXY} CSC_IDENTITY_AUTO_DISCOVERY=false ${mac_npm_exe} run install-tools
-                                    PATH="${mac_node_dir}/bin:$PATH" HTTPS_PROXY=${WKTUI_PROXY} CSC_IDENTITY_AUTO_DISCOVERY=false ${mac_npm_exe} run build:installer -- --mac --x64 --arm64'
+                                    PATH="${mac_node_dir}/bin:$PATH" HTTPS_PROXY=${WKTUI_PROXY} CSC_IDENTITY_AUTO_DISCOVERY=false ${mac_npm_exe} run build:installer -- --mac --x64 --arm64
                                     cd "${WORKSPACE}"
                                 '''
                                 archiveArtifacts 'dist/*.dmg'
