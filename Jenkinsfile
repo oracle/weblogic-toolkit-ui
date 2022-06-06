@@ -15,7 +15,7 @@ pipeline {
 
         npm_registry = "${env.ARTIFACTORY_NPM_REPO}"
         npm_noproxy = "${env.ORACLE_NO_PROXY}"
-        node_version = "16.15.0"
+        node_version = "16.15.1"
 
         project_name = "$JOB_NAME"
         version_prefix = sh(returnStdout: true, script: 'cat electron/package.json | grep version | awk \'match($0, /[0-9]+.[0-9]+.[0-9]+/) { print substr( $0, RSTART, RLENGTH )}\'').trim()
@@ -202,7 +202,7 @@ pipeline {
                     }
                 }
                 stage('MacOS Build') {
-                    agent { label 'macosx'}
+                    agent { label('wls-mini1 || wls-mini2') }
                     environment {
                         mac_node_dir_name = "node-v${node_version}-darwin-x64"
                         mac_node_installer = "node-v${node_version}-darwin-x64.tar.gz"
@@ -218,6 +218,7 @@ pipeline {
                                 sh 'env|sort'
                                 echo "file version = ${version_number}"
                                 echo "is_release = ${is_release}"
+                                sh "uname -a"
                             }
                         }
                         stage('MacOS Checkout') {
@@ -297,13 +298,21 @@ pipeline {
                         }
                         stage('MacOS Build Installers') {
                             steps {
-                                sh 'cd ${WORKSPACE}/electron; PATH="${mac_node_dir}/bin:$PATH" HTTPS_PROXY=${WKTUI_PROXY} CSC_IDENTITY_AUTO_DISCOVERY=false ${mac_npm_exe} run build'
+                                sh '''
+                                    cd "${WORKSPACE}/electron"
+                                    PATH="${mac_node_dir}/bin:$PATH" HTTPS_PROXY=${WKTUI_PROXY} CSC_IDENTITY_AUTO_DISCOVERY=false ${mac_npm_exe} run build:jet
+                                    PATH="${mac_node_dir}/bin:$PATH" HTTPS_PROXY=${WKTUI_PROXY} CSC_IDENTITY_AUTO_DISCOVERY=false ${mac_npm_exe} run install-tools
+                                    PATH="${mac_node_dir}/bin:$PATH" HTTPS_PROXY=${WKTUI_PROXY} CSC_IDENTITY_AUTO_DISCOVERY=false ${mac_npm_exe} run build:installer -- --mac --x64 --arm64
+                                    cd "${WORKSPACE}"
+                                '''
                                 archiveArtifacts 'dist/*.dmg'
                                 archiveArtifacts 'dist/*.zip'
                                 archiveArtifacts "dist/*.blockmap"
                                 archiveArtifacts "dist/latest-mac.yml"
                                 sh 'ditto -c -k --sequesterRsrc --keepParent "$WORKSPACE/dist/mac/WebLogic Kubernetes Toolkit UI.app" "WebLogic Kubernetes Toolkit UI.app.zip"'
                                 archiveArtifacts "WebLogic Kubernetes Toolkit UI.app.zip"
+                                sh 'ditto -c -k --sequesterRsrc --keepParent "$WORKSPACE/dist/mac-arm64/WebLogic Kubernetes Toolkit UI.app" "WebLogic Kubernetes Toolkit UI.arm64.app.zip"'
+                                archiveArtifacts "WebLogic Kubernetes Toolkit UI.arm64.app.zip"
                             }
                         }
                     }
