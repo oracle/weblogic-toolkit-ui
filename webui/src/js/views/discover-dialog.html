@@ -34,15 +34,14 @@
             </oj-switch>
           </oj-bind-if>
           <oj-input-text class="wkt-can-readonly-field"
-                         label-hint="[[labelMapper('domain-home-label')]]"
+                         label-hint="[[domainHomeLabel]]"
                          value="{{domainHome}}"
                          help.instruction="[[domainHomeHelp]]"
-                         readOnly="{{isRemote}}"
-                         required="{{!isRemote()}}">
+                         required="true">
             <oj-button slot="end"
                        display="icons"
                        chroming="borderless"
-                       disabled="{{isRemote}}"
+                       disabled="[[isRemote]]"
                        on-oj-action="[[chooseDomainHome]]">
               <span><oj-bind-text value="[[labelMapper('domain-home-choose')]]"></oj-bind-text></span>
               <span slot="endIcon" class="oj-ux-ico-folder" role="img"></span>

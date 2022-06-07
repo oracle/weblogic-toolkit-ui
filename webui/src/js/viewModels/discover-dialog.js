@@ -55,7 +55,11 @@ function(accUtils, ko, i18n, viewHelper, ArrayDataProvider, project, wdtDiscover
     this.isRemote = ko.observable();
 
     this.domainHomeHelp = ko.computed(() => {
-      return this.labelMapper(this.isRemote() ? 'domain-home-remote' : 'domain-home-help');
+      return this.labelMapper(this.isRemote() ? 'domain-home-remote-help' : 'domain-home-help');
+    }, this);
+
+    this.domainHomeLabel = ko.computed(() => {
+      return this.labelMapper(this.isRemote() ? 'domain-home-remote-label' : 'domain-home-label');
     }, this);
 
     this.wdtDomainTypes = [
@@ -88,6 +92,7 @@ function(accUtils, ko, i18n, viewHelper, ArrayDataProvider, project, wdtDiscover
           discoverConfig['adminUrl'] = this.adminUrl();
           discoverConfig['adminUser'] = this.adminUser();
           discoverConfig['adminPass'] = this.adminPassword();
+          discoverConfig['isRemote'] = this.isRemote();
         }
 
         this.dialogContainer.close();
