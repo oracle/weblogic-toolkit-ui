@@ -164,21 +164,39 @@ function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, ViewMod
     };
 
     // Triggered when changes have been downloaded from the WRC backend, for the active WDT Model File provider.
-    //
     this.changesAutoDownloaded = (event) => {
+      function filterOriginalModelProperties(array1, array2){
+        return array1.filter(c => array2.findIndex(x=>x.uid == c.uid) > -1)
+      }
+
       wktLogger.debug('Received changesAutoDownloaded event with modelContent = %s', event.detail.value);
       this.wrcBackendTriggerChange = true;
       this.project.wdtModel.modelContent(event.detail.value);
       if (event.detail.properties) {
-        const existingProperties = this.project.wdtModel.getModelPropertiesObject().observable();
+        // Model properties initially passed to WRC was a deep copy
+        // created using the spread operator. event.detail.properties
+        // contains what the model properties need to be now, which
+        // may in fact result in the removal of some of the original
+        // ones passed to the WRC.
+        const existingProperties = filterOriginalModelProperties(
+          this.project.wdtModel.getModelPropertiesObject().observable(),
+          event.detail.properties
+        );
+        this.project.wdtModel.getModelPropertiesObject().observable(existingProperties);
         event.detail.properties.forEach((item) => {
+          // Get index of existing property that matches property coming
+          // from “Design View”
           const index = existingProperties.map(item1 => item1.uid).indexOf(item.uid);
           if (index === -1) {
-            // Must call addNewItem() in order to get remove() function added
+            // Didn’t find a match, so we need to call addNewItem() in order
+            // to get the remove() function added to the property coming from “Design View”
             this.project.wdtModel.getModelPropertiesObject().addNewItem({uid: item.uid, Name: item.Name, Value: item.Value});
           }
           else {
-            // Update existing properties with data from "Design View"
+            // Found a match, so we just need to update existing properties
+            // with data coming from “Design View”. The uid of the existing
+            // property will be the same, but “Design View” could have made
+            // both the Name and Value different.
             existingProperties[index].Name = item.Name;
             existingProperties[index].Value = item.Value;
           }
