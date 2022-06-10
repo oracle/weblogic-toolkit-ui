@@ -864,6 +864,9 @@
   "discover-dialog-domain-home-remote-help": "The directory of the domain to be discovered on the remote system",
   "discover-dialog-domain-home-remote-label": "Remote Domain Home",
 
+  "discover-result-dialog-title": "Discover Domain Result",
+  "discover-result-dialog-archive-message": "The following files need to be collected from the remote system and placed in the archive file at the specified paths",
+
   "wdt-discoverer-replace-title": "Replace Existing Model Content",
   "wdt-discoverer-replace-message": "This will replace the project's existing model content, continue?",
   "wdt-discoverer-online-aborted-error-title": "Discover Domain Online Aborted",
@@ -1452,5 +1455,22 @@
   "quickstart-page9-list4-item-2": "Code view provides a shell script that shows how you can automate the installation as well as the YAML resource definitions.",
   "quickstart-page9-list4-item-3": "The Install Ingress Controller and Update Ingress Routing buttons (and Go menu items) perform the necessary actions to install the ingress controller and update routes on an existing ingress controller.",
 
-  "quickstart-page10-title": "Verrazzano-Specific Sections"
+  "quickstart-page10-title": "Verrazzano-Specific Sections",
+
+  "archive-type-APPLICATION_PLAN": "Application Plans",
+  "archive-type-APPLICATIONS": "Applications",
+  "archive-type-CLASSPATH_LIB": "Classpath Libraries",
+  "archive-type-COHERENCE": "Coherence Files",
+  "archive-type-COHERENCE_CONFIG": "Coherence Configurations",
+  "archive-type-COHERENCE_PERSISTENCE_DIR": "Coherence Persistence Directories",
+  "archive-type-DOMAIN_BIN": "Domain Binaries",
+  "archive-type-DOMAIN_LIB": "Domain Libraries",
+  "archive-type-FILE_STORE": "File Stores",
+  "archive-type-JMS_FOREIGN_SERVER": "JMS Foreign Servers",
+  "archive-type-MIME_MAPPING": "MIME Mappings",
+  "archive-type-NODE_MANAGER_KEY_STORE": "Node Manager Key Stores",
+  "archive-type-SCRIPTS": "Scripts",
+  "archive-type-SERVER_KEYSTORE": "Server Key Stores",
+  "archive-type-SHARED_LIBRARIES": "Shared Libraries",
+  "archive-type-SHLIB_PLAN": "Shared Library Plans"
 }

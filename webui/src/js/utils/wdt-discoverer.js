@@ -110,6 +110,11 @@ function (WdtActionsBase, ko, project, wktConsole, dialogHelper, projectIO, i18n
         if (discoverResults.isSuccess) {
           wktLogger.debug('discover complete: %s', discoverResults.modelFileContent);
           project.wdtModel.setModelFiles(discoverResults.modelFileContent);
+
+          if (isRemote) {
+            const options = { resultData: discoverResults.resultData };
+            dialogHelper.openDialog('discover-result-dialog', options);
+          }
           return Promise.resolve(true);
         } else {
           let errMessage;
