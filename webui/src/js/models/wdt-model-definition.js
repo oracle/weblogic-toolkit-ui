@@ -135,7 +135,7 @@ define(['knockout', 'utils/observable-properties', 'js-yaml', 'utils/validation-
             propertiesMap.set(propertyKey, propertyData);
           });
           return [...propertiesMap.values()];
-        }
+        };
 
         // Placeholder for when multiple model files are supported so that the domain page can reliably get all
         // secrets in the models.
