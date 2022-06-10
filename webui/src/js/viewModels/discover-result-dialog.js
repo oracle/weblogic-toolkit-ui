@@ -5,9 +5,9 @@
  */
 'use strict';
 
-define(['accUtils', 'knockout', 'utils/i18n', 'utils/view-helper',
-  'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojdialog'],
-function(accUtils, ko, i18n, viewHelper) {
+define(['accUtils', 'knockout', 'utils/i18n', 'utils/view-helper', 'ojs/ojarraydataprovider',
+  'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojdialog', 'ojs/ojtable'],
+function(accUtils, ko, i18n, viewHelper, ArrayDataProvider) {
   function DiscoverResultDialogModel(config) {
     const DIALOG_SELECTOR = '#discoverResultDialog';
 
@@ -52,13 +52,24 @@ function(accUtils, ko, i18n, viewHelper) {
     for(const typeKey in archiveTypeMap) {
       const labelKey = 'archive-type-' + typeKey;
       const typeLabel = i18n.t(labelKey, typeKey);
-      this.archiveTypes.push({ type: typeLabel, entries: archiveTypeMap[typeKey]});
+      this.archiveTypes.push({ type: typeLabel, entries: new ArrayDataProvider(archiveTypeMap[typeKey]) });
     }
 
     // sort archive types by resolved type name
     this.archiveTypes.sort((a, b) => {
       return a.type.localeCompare(b.type);
     });
+
+    this.typesColumnData = [
+      {
+        'headerText': this.labelMapper('file-location-header'),
+        'sortProperty': 'file'
+      },
+      {
+        'headerText': this.labelMapper('archive-path-header'),
+        'sortable': 'disable'
+      }
+    ];
 
     this.closeDialog = () => {
       this.dialogContainer.close();

@@ -12,14 +12,25 @@
       <oj-bind-for-each data="[[archiveTypes]]">
         <template data-oj-as="archiveType">
           <h6 class="wkt-subheading"><oj-bind-text value="[[archiveType.data.type]]"></oj-bind-text></h6>
-          <oj-bind-for-each data="[[archiveType.data.entries]]">
-            <template data-oj-as="entry">
-              <p>
-                File: <oj-bind-text value="[[entry.data.file]]"></oj-bind-text><br/>
-                Archive path: <oj-bind-text value="[[entry.data.path]]"></oj-bind-text>
-              </p>
+          <oj-table class="wkt-paths-table"
+                    :aria-label="[[labelMapper('archive-table-aria-label')]]"
+                    data="[[archiveType.data.entries]]"
+                    display="grid"
+                    layout="fixed"
+                    horizontal-grid-visible="enabled"
+                    vertical-grid-visible="enabled"
+                    columns='[[typesColumnData]]'>
+            <template slot="rowTemplate" data-oj-as="row">
+              <tr>
+                <td>
+                  <oj-bind-text value="[[row.data.file]]"></oj-bind-text>
+                </td>
+                <td>
+                  <oj-bind-text value="[[row.data.path]]"></oj-bind-text>
+                </td>
+              </tr>
             </template>
-          </oj-bind-for-each>
+          </oj-table>
         </template>
       </oj-bind-for-each>
     </div>

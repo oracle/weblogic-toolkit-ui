@@ -866,6 +866,9 @@
 
   "discover-result-dialog-title": "Discover Domain Result",
   "discover-result-dialog-archive-message": "The following files need to be collected from the remote system and placed in the archive file at the specified paths",
+  "discover-result-dialog-file-location-header": "File Location",
+  "discover-result-dialog-archive-path-header": "Archive Path",
+  "discover-result-dialog-archive-table-aria-label": "Archive Entries Table",
 
   "wdt-discoverer-replace-title": "Replace Existing Model Content",
   "wdt-discoverer-replace-message": "This will replace the project's existing model content, continue?",
