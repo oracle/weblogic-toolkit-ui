@@ -371,6 +371,12 @@ h6:first-child {
   height: auto;
 }
 
+.wkt-discover-result-dialog {
+  max-width: 1000px;
+  height: 85vh;
+  width: 85%;
+}
+
 .wkt-add-to-archive-dialog {
   width: 600px;
   height: auto;
@@ -504,6 +510,11 @@ h6:first-child {
 .wkt-macos-env-variables-dialog .oj-table {
   width: 100%;
   height: 100%;
+}
+
+.wkt-stacked-dialog-body {
+  display: flex;
+  flex-direction: column;
 }
 
 /* the oj-switcher in the code view should use the remaining height */

@@ -1,15 +1,16 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
 
-define(['accUtils', 'knockout', 'utils/i18n', 'ojs/ojarraydataprovider', 'models/wkt-project',
+define(['accUtils', 'knockout', 'utils/i18n', 'utils/view-helper', 'ojs/ojarraydataprovider', 'models/wkt-project',
   'utils/wdt-discoverer', 'ojs/ojknockout', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton',
-  'ojs/ojdialog', 'ojs/ojformlayout', 'ojs/ojselectsingle', 'ojs/ojvalidationgroup'],
-function(accUtils, ko, i18n, ArrayDataProvider, project, wdtDiscoverer) {
+  'ojs/ojdialog', 'ojs/ojformlayout', 'ojs/ojselectsingle', 'ojs/ojvalidationgroup', 'ojs/ojswitch'],
+function(accUtils, ko, i18n, viewHelper, ArrayDataProvider, project, wdtDiscoverer) {
   function DiscoverDialogModel(config) {
+    const DIALOG_SELECTOR = '#discoverDialog';
 
     this.connected = () => {
       if(config['hide']) {
@@ -18,11 +19,13 @@ function(accUtils, ko, i18n, ArrayDataProvider, project, wdtDiscoverer) {
 
       accUtils.announce('Discover dialog loaded.', 'assertive');
 
-      // open the dialog after the current thread, which is loading this view model.
+      this.dialogContainer = $(DIALOG_SELECTOR)[0];
+
+      // open the dialog when the container is ready.
       // using oj-dialog initial-visibility="show" causes vertical centering issues.
-      setTimeout(function() {
-        $('#discoverDialog')[0].open();
-      }, 1);
+      viewHelper.componentReady(this.dialogContainer).then(() => {
+        this.dialogContainer.open();
+      });
     };
 
     this.labelMapper = (labelId, arg) => {
@@ -49,6 +52,15 @@ function(accUtils, ko, i18n, ArrayDataProvider, project, wdtDiscoverer) {
     this.adminUrl = ko.observable();
     this.adminUser = ko.observable();
     this.adminPassword = ko.observable();
+    this.isRemote = ko.observable();
+
+    this.domainHomeHelp = ko.computed(() => {
+      return this.labelMapper(this.isRemote() ? 'domain-home-remote-help' : 'domain-home-help');
+    }, this);
+
+    this.domainHomeLabel = ko.computed(() => {
+      return this.labelMapper(this.isRemote() ? 'domain-home-remote-label' : 'domain-home-label');
+    }, this);
 
     this.wdtDomainTypes = [
       { key: 'WLS', label: this.labelMapper('wls-domain-type-label') },
@@ -80,9 +92,10 @@ function(accUtils, ko, i18n, ArrayDataProvider, project, wdtDiscoverer) {
           discoverConfig['adminUrl'] = this.adminUrl();
           discoverConfig['adminUser'] = this.adminUser();
           discoverConfig['adminPass'] = this.adminPassword();
+          discoverConfig['isRemote'] = this.isRemote();
         }
 
-        $('#discoverDialog')[0].close();
+        this.dialogContainer.close();
         wdtDiscoverer.executeDiscover(discoverConfig, this.online).then();
       } else {
         // show messages on all the components that have messages hidden.
@@ -92,7 +105,7 @@ function(accUtils, ko, i18n, ArrayDataProvider, project, wdtDiscoverer) {
     };
 
     this.cancelDiscover = () => {
-      $('#discoverDialog')[0].close();
+      this.dialogContainer.close();
     };
 
     this.chooseDomainHome = () => {
