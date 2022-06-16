@@ -50,7 +50,7 @@
   "devDependencies": {
     "chai": "^4.3.4",
     "chai-as-promised": "^7.1.1",
-    "electron": "^16.0.8",
+    "electron": "^16.2.6",
     "electron-builder": "^22.14.12",
     "electron-notarize": "^1.1.1",
     "eslint": "^8.5.0",
