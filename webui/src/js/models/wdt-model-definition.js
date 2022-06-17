@@ -18,6 +18,7 @@ define(['knockout', 'utils/observable-properties', 'js-yaml', 'utils/validation-
      */
     return function (name) {
       const ID = '[A-Za-z0-9_.-]*';
+      const PROPERTY_PATTERN = new RegExp(`@@PROP:(@@ENV:(?<envvar>${ID})@@)?(?<name>${ID})@@`, 'g');
       const SECRET_PATTERN = new RegExp(`@@SECRET:(@@ENV:(?<envvar>${ID})@@)?(?<name>${ID}):(?<field>${ID})@@`, 'g');
       function WdtModel() {
         const defaultDomainName = 'base_domain';
@@ -100,6 +101,40 @@ define(['knockout', 'utils/observable-properties', 'js-yaml', 'utils/validation-
           if (!found) {
             wktLogger.warn('Failed to find model property %s to set its override value to %s', propertyName, overrideValue);
           }
+        };
+
+        this.getModelPropertiesReferenceCounts = () => {
+          const propertiesMap = new Map();
+
+          [...this.modelContent().matchAll(PROPERTY_PATTERN)].forEach(matches => {
+            const propertyName = matches.groups.name;
+            const propertyEnvVar = matches.groups.envvar;
+
+            // While this key is never used outside this function, we need the key to
+            // match the resolved property name.  For example, if the DOMAIN_UID is mydomain,
+            // the following two fields should refer to the same property:
+            //
+            //   field1: '@@PROP:@@ENV:DOMAIN_UID@@-value@@'
+            //   field2: '@@PROP:mydomain-value@@'
+            //
+            let propertyKey = propertyName;
+            if (propertyEnvVar) {
+              propertyKey = propertyName.startsWith('-') ? `${propertyEnvVar}${propertyName}` : `${propertyEnvVar}-${propertyName}`;
+            }
+
+            let propertyData;
+            if (propertiesMap.has(propertyKey)) {
+              propertyData = propertiesMap.get(propertyKey);
+              propertyData.referenceCount++;
+            } else {
+              propertyData ={ name: propertyName, referenceCount: 1 };
+              if (propertyEnvVar) {
+                propertyData.envVar = propertyEnvVar;
+              }
+            }
+            propertiesMap.set(propertyKey, propertyData);
+          });
+          return [...propertiesMap.values()];
         };
 
         // Placeholder for when multiple model files are supported so that the domain page can reliably get all
