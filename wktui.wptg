@@ -1,5 +1,5 @@
 Languages: Std_Admin
 
-electron/app/locales/en
+electron/app/locales/%j
     electron.json FileType: i18next-json
     webui.json FileType: i18next-json
