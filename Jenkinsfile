@@ -404,7 +404,7 @@ pipeline {
                             steps {
                                 bat 'cd "%WORKSPACE%\\webui" & set "PATH=%windows_node_dir%;%PATH%" & set "HTTPS_PROXY=%WKTUI_PROXY%" & "node_modules\\.bin\\ojet" build web --release & cd "%WORKSPACE%"'
                                 bat 'cd "%WORKSPACE%\\electron" & set "PATH=%windows_node_dir%;%PATH%" & set "HTTPS_PROXY=%WKTUI_PROXY%" & "%windows_node_exe%" scripts/installTools.js & cd "%WORKSPACE%"'
-                                bat 'cd "%WORKSPACE%\\electron" & set "PATH=%windows_node_dir%;%PATH%" & set "HTTPS_PROXY=%WKTUI_PROXY%" & "%windows_npm_exe%" run build:installer & cd "%WORKSPACE%"'
+                                bat 'cd "%WORKSPACE%\\electron" & set "PATH=%windows_node_dir%;%PATH%" & set "HTTPS_PROXY=%WKTUI_PROXY%" & "node_modules\\.bin\\electron-builder" -p never & cd "%WORKSPACE%"'
                                 archiveArtifacts 'dist/*.exe'
                                 archiveArtifacts "dist/*.blockmap"
                                 archiveArtifacts "dist/latest.yml"
