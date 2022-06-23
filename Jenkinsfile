@@ -109,15 +109,6 @@ pipeline {
                                 sh 'cp ${WORKSPACE}/.npmrc ${WORKSPACE}/electron/.npmrc'
                             }
                         }
-                        stage('Linux Update NPM') {
-                            steps {
-                                sh 'cp -f ${WORKSPACE}/.npmrc ${linux_node_dir}/lib/.npmrc'
-                                sh 'cd ${linux_node_dir}/lib; PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} install npm; cd ${WORKSPACE}'
-                                sh 'rm -f ${linux_node_dir}/lib/.npmrc'
-                                sh 'PATH="${linux_node_dir}/bin:$PATH" ${linux_node_exe} --version'
-                                sh 'PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} --version'
-                            }
-                        }
                         stage('Linux Install Project Dependencies') {
                             steps {
                                 sh 'cat ${WORKSPACE}/webui/.npmrc'
@@ -254,15 +245,6 @@ pipeline {
                                 sh 'cp ${WORKSPACE}/.npmrc ${WORKSPACE}/electron/.npmrc'
                             }
                         }
-                        stage('MacOS Update NPM') {
-                            steps {
-                                sh 'cp -f ${WORKSPACE}/.npmrc ${mac_node_dir}/lib/.npmrc'
-                                sh 'cd ${mac_node_dir}/lib; PATH="${mac_node_dir}/bin:$PATH" ${mac_npm_exe} install npm; cd ${WORKSPACE}'
-                                sh 'rm -f ${mac_node_dir}/lib/.npmrc'
-                                sh 'PATH="${mac_node_dir}/bin:$PATH" ${mac_node_exe} --version'
-                                sh 'PATH="${mac_node_dir}/bin:$PATH" ${mac_npm_exe} --version'
-                            }
-                        }
                         stage('MacOS Install Project Dependencies') {
                             steps {
                                 sh 'cat ${WORKSPACE}/webui/.npmrc'
@@ -376,13 +358,6 @@ pipeline {
                                 bat 'copy /Y "%WORKSPACE%\\.npmrc" "%WORKSPACE%\\electron\\.npmrc"'
                             }
                         }
-                        stage('Windows Update NPM') {
-                            steps {
-                                bat 'copy /Y "%WORKSPACE%\\.npmrc" "%windows_node_dir%\\.npmrc"'
-                                bat 'cd "%windows_node_dir%" & set "PATH=%windows_node_dir%;%PATH%" & "%windows_npm_exe%" install npm@latest & cd "%WORKSPACE%"'
-                                bat 'del /F /Q "%windows_node_dir%\\.npmrc"'
-                            }
-                        }
                         stage('Windows Install Project Dependencies') {
                             steps {
                                 bat 'cd "%WORKSPACE%\\electron" & set "PATH=%windows_node_dir%;%PATH%" & set HTTPS_PROXY=%ORACLE_HTTP_PROXY% & "%windows_npm_exe%" install & cd "%WORKSPACE%"'
@@ -402,9 +377,10 @@ pipeline {
                         }
                         stage('Windows Build Installers') {
                             steps {
-                                bat 'cd "%WORKSPACE%\\webui" & set "PATH=%windows_node_dir%;%PATH%" & set "HTTPS_PROXY=%WKTUI_PROXY%" & "node_modules\\.bin\\ojet" build web --release & cd "%WORKSPACE%"'
-                                bat 'cd "%WORKSPACE%\\electron" & set "PATH=%windows_node_dir%;%PATH%" & set "HTTPS_PROXY=%WKTUI_PROXY%" & "%windows_node_exe%" scripts/installTools.js & cd "%WORKSPACE%"'
-                                bat 'cd "%WORKSPACE%\\electron" & set "PATH=%windows_node_dir%;%PATH%" & set "HTTPS_PROXY=%WKTUI_PROXY%" & "node_modules\\.bin\\electron-builder" -p never & cd "%WORKSPACE%"'
+                                bat 'cd "%WORKSPACE%\\electron" & set "PATH=%windows_node_dir%;%PATH%" & set "HTTPS_PROXY=%WKTUI_PROXY%" & "%windows_npm_exe%" run build & cd "%WORKSPACE%"'
+                                // bat 'cd "%WORKSPACE%\\webui" & set "PATH=%windows_node_dir%;%PATH%" & set "HTTPS_PROXY=%WKTUI_PROXY%" & "node_modules\\.bin\\ojet" build web --release & cd "%WORKSPACE%"'
+                                // bat 'cd "%WORKSPACE%\\electron" & set "PATH=%windows_node_dir%;%PATH%" & set "HTTPS_PROXY=%WKTUI_PROXY%" & "%windows_node_exe%" scripts/installTools.js & cd "%WORKSPACE%"'
+                                // bat 'cd "%WORKSPACE%\\electron" & set "PATH=%windows_node_dir%;%PATH%" & set "HTTPS_PROXY=%WKTUI_PROXY%" & "node_modules\\.bin\\electron-builder" -p never & cd "%WORKSPACE%"'
                                 archiveArtifacts 'dist/*.exe'
                                 archiveArtifacts "dist/*.blockmap"
                                 archiveArtifacts "dist/latest.yml"
