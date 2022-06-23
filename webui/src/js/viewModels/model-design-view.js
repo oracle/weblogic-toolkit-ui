@@ -166,7 +166,7 @@ function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, ViewMod
     // Triggered when changes have been downloaded from the WRC backend, for the active WDT Model File provider.
     this.changesAutoDownloaded = (event) => {
       function filterOriginalModelProperties(array1, array2){
-        return array1.filter(c => array2.findIndex(x=>x.uid == c.uid) > -1)
+        return array1.filter(c => array2.findIndex(x=>x.uid == c.uid) > -1);
       }
 
       wktLogger.debug('Received changesAutoDownloaded event with modelContent = %s', event.detail.value);
