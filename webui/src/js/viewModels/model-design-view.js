@@ -173,11 +173,10 @@ function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, ViewMod
       this.wrcBackendTriggerChange = true;
       this.project.wdtModel.modelContent(event.detail.value);
       if (event.detail.properties) {
-        // Model properties initially passed to WRC was a deep copy
-        // created using the spread operator. event.detail.properties
-        // contains what the model properties need to be now, which
-        // may in fact result in the removal of some of the original
-        // ones passed to the WRC.
+        // Model properties initially passed to WRC was a deep copy.
+        // event.detail.properties contains what the model properties
+        // need to be now, which may in fact result in the removal of
+        // some of the original ones passed to the WRC.
         const existingProperties = filterOriginalModelProperties(
           this.project.wdtModel.getModelPropertiesObject().observable(),
           event.detail.properties

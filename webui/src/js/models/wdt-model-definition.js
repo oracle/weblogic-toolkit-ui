@@ -510,14 +510,22 @@ define(['knockout', 'utils/observable-properties', 'js-yaml', 'utils/validation-
           let isChanged = props.createGroup(name, this).isChanged();
 
           // properties content is managed internally
-          isChanged = isChanged || this.internal.propertiesContent.isChanged();
+          if (this.internal.propertiesContent.isChanged()) {
+            wktLogger.debug('model properties content has changed');
+            isChanged = true;
+          }
 
           // check flag indicating model text changes
-          isChanged = isChanged || this.modelTextChanged;
+          if (this.modelTextChanged) {
+            wktLogger.debug('model content has changed');
+            isChanged = true;
+          }
 
           // any outstanding archive updates indicate a change
-          const hasArchiveUpdates = this.archiveUpdates.length > 0;
-          isChanged = isChanged || hasArchiveUpdates;
+          if (this.archiveUpdates.length > 0) {
+            wktLogger.debug('model archive content has changed');
+            isChanged = true;
+          }
 
           return isChanged;
         };
