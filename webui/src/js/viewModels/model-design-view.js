@@ -131,7 +131,7 @@ function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, ViewMod
       //
       providerOptions['name'] = this.project.wdtModel.getDefaultModelFile();
       // Set model properties provider option
-      providerOptions['modelProperties'] = [...this.project.wdtModel.getModelPropertiesObject().observable()];
+      providerOptions['modelProperties'] = JSON.parse(JSON.stringify(this.project.wdtModel.getModelPropertiesObject().observable()));
       // Set model archive provider option
       providerOptions['modelArchive'] = this.project.wdtModel.archiveRoots;
 
