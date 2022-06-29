@@ -62,7 +62,7 @@ function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, ViewMod
 
       if (this.designer) {
         // Do not stringify the dataProvider to the log since it may contain credentials...
-        wktLogger.debug('disconnected() dataProvider = %s', this.dataProvider);
+        wktLogger.debug('disconnected() dataProvider');
         this.designer.deactivateProvider(this.dataProvider);
         this.designer.removeEventListener('archiveUpdated', this.archiveUpdated);
       }
@@ -170,7 +170,7 @@ function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, ViewMod
         return array1.filter(c => array2.findIndex(x => x.uid === c.uid) > -1);
       }
 
-      wktLogger.debug('Received changesAutoDownloaded event with modelContent = %s', event.detail.value);
+      wktLogger.debug('Received changesAutoDownloaded event');
       this.wrcBackendTriggerChange = true;
       this.project.wdtModel.modelContent(event.detail.value);
       if (event.detail.properties) {
@@ -206,7 +206,7 @@ function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, ViewMod
 
     this.archiveUpdated = (event) => {
       const options = event.detail.options;
-      wktLogger.debug('Received archiveUpdated event with options = %s', JSON.stringify(event.detail.options));
+      wktLogger.debug('Received archiveUpdated event');
       switch (options.operation) {
         case 'add':
           this.project.wdtModel.addArchiveUpdate(options.operation, options.archivePath, options.filePath);
