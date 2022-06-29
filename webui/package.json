@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@oracle/oraclejet": "^12.0.2",
-    "@oracle/wrc-jet-pack": "~2.3.0-develop",
+    "@oracle/wrc-jet-pack": "~2.3.0",
     "i18next": "^21.6.14",
     "jquery": "^3.6.0",
     "js-yaml": "^4.1.0"

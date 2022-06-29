@@ -61,7 +61,8 @@ function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, ViewMod
       });
 
       if (this.designer) {
-        wktLogger.debug('disconnected() dataProvider = %s', JSON.stringify(this.dataProvider));
+        // Do not stringify the dataProvider to the log since it may contain credentials...
+        wktLogger.debug('disconnected() dataProvider = %s', this.dataProvider);
         this.designer.deactivateProvider(this.dataProvider);
         this.designer.removeEventListener('archiveUpdated', this.archiveUpdated);
       }
