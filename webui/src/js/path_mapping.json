@@ -4,15 +4,14 @@
 
   "cdns": {
     "jet": {
-      "prefix": "https://static.oracle.com/cdn/jet/11.0.1/default/js",
-      "css": "https://static.oracle.com/cdn/jet/11.0.1/default/css",
+      "prefix": "https://static.oracle.com/cdn/jet/12.0.1/default/js",
+      "css": "https://static.oracle.com/cdn/jet/12.0.1/default/css",
       "config": "bundles-config.js"
     },
-    "3rdparty": "https://static.oracle.com/cdn/jet/11.0.1/3rdparty"
+    "3rdparty": "https://static.oracle.com/cdn/jet/12.0.1/3rdparty"
   },
 
   "libs": {
-
     "knockout": {
       "cdn": "3rdparty",
       "cwd": "node_modules/knockout/build/output",
@@ -49,12 +48,12 @@
       "debug": {
         "src": ["*.js", "widgets/draggable.js", "widgets/mouse.js", "widgets/sortable.js"],
         "path": "libs/jquery/jqueryui-amd-#{version}",
-        "cdnPath": "jquery/jqueryui-amd-1.12.1"
+        "cdnPath": "jquery/jqueryui-amd-1.13.0"
       },
       "release": {
         "src": ["*.js", "widgets/draggable.js", "widgets/mouse.js", "widgets/sortable.js"],
         "path": "libs/jquery/jqueryui-amd-#{version}.min",
-        "cdnPath": "jquery/jqueryui-amd-1.12.1.min"
+        "cdnPath": "jquery/jqueryui-amd-1.13.0.min"
       }
     },
 
@@ -103,7 +102,7 @@
 		    "pathSuffix": "/min'",
         "cdnPath": ""
       }
-    },    
+    },
 
     "ojL10n": {
       "cdn": "jet",
@@ -196,7 +195,7 @@
         "cdnPath": "touchr/touchr"
       }
     },
-    
+
     "preact": {
       "cdn": "3rdparty",
       "cwd": "node_modules/preact/dist",
@@ -224,6 +223,21 @@
         "src":  ["hooks.umd.js", "hooks.umd.js.map"],
         "path": "libs/preact/hooks/dist/hooks.umd.js",
         "cdnPath": "preact/hooks/dist/hooks.umd"
+      }
+    },
+
+    "preact/compat": {
+      "cdn": "3rdparty",
+      "cwd": "node_modules/preact/compat/dist",
+      "debug": {
+        "src":  ["compat.umd.js", "compat.umd.js.map"],
+        "path": "libs/preact/compat/dist/compat.umd.js",
+        "cdnPath": "preact/compat/dist/compat.umd"
+      },
+      "release": {
+        "src":  ["compat.umd.js", "compat.umd.js.map"],
+        "path": "libs/preact/compat/dist/compat.umd.js",
+        "cdnPath": "preact/compat/dist/compat.umd"
       }
     },
 
@@ -259,10 +273,10 @@
 
     "proj4": {
       "cdn": "3rdparty",
-      "cwd": "proj4/dist",
+      "cwd": "node_modules/proj4/dist",
       "debug": {
         "src":  "proj4-src.js",
-        "path": "libs/proj4js/dist/proj4-src.js", 
+        "path": "libs/proj4js/dist/proj4-src.js",
         "cdnPath": "proj4js/dist/proj4"
       },
       "release": {
@@ -271,7 +285,7 @@
         "cdnPath": "proj4js/dist/proj4"
       }
     },
-    
+
     "css": {
       "cdn": "3rdparty",
       "cwd": "node_modules/require-css",
@@ -288,6 +302,23 @@
     },
 
     "ojcss": {
+      "cdn": "jet",
+      "cwd": "node_modules/@oracle/oraclejet/dist/js/libs/oj",
+      "debug": {
+        "src": ["debug/ojcss.js"],
+        "path": "libs/oj/v#{version}",
+        "pathSuffix": "/debug/ojcss'",
+        "cdnPath": "ojcss"
+      },
+      "release": {
+        "src": ["min/ojcss.js"],
+        "path": "libs/oj/v#{version}",
+        "pathSuffix": "/min/ojcss'",
+        "cdnPath": "ojcss"
+      }
+    },
+
+    "ojs/ojcss": {
       "cdn": "jet",
       "cwd": "node_modules/@oracle/oraclejet/dist/js/libs/oj",
       "debug": {
@@ -330,6 +361,96 @@
       "release": {
         "src":  "ace.js",
         "path": "libs/ace/ace.js",
+        "cdnPath": ""
+      }
+    },
+
+    "wrc-translations": {
+      "cdn": "3rdparty",
+      "cwd": "node_modules/@oracle/wrc-jet-pack/dist/resources",
+      "debug": {
+        "src": ["**"],
+        "path": "resources",
+        "cdnPath": ""
+      },
+      "release": {
+        "src": ["**"],
+        "path": "resources",
+        "cdnPath": ""
+      }
+    },
+
+    "wrc-frontend": {
+      "cdn": "3rdparty",
+      "cwd": "node_modules/@oracle/wrc-jet-pack/dist/jet-composites/wrc-frontend",
+      "debug": {
+        "src": ["**"],
+        "path": "jet-composites/wrc-frontend/1.0.0",
+        "cdnPath": ""
+      },
+      "release": {
+        "src": ["**"],
+        "path": "jet-composites/wrc-frontend/1.0.0",
+        "cdnPath": ""
+      }
+    },
+
+    "wdt-model-designer": {
+      "cdn": "3rdparty",
+      "cwd": "node_modules/@oracle/wrc-jet-pack/dist/jet-composites/wdt-model-designer",
+      "debug": {
+        "src": ["**"],
+        "path": "jet-composites/wdt-model-designer/1.0.0",
+        "cdnPath": ""
+      },
+      "release": {
+        "src": ["**"],
+        "path": "jet-composites/wdt-model-designer/1.0.0",
+        "cdnPath": ""
+      }
+    },
+
+    "cfe-navtree": {
+      "cdn": "3rdparty",
+      "cwd": "node_modules/@oracle/wrc-jet-pack/dist/jet-composites/cfe-navtree",
+      "debug": {
+        "src": ["**"],
+        "path": "jet-composites/cfe-navtree/1.0.0",
+        "cdnPath": ""
+      },
+      "release": {
+        "src": ["**"],
+        "path": "jet-composites/cfe-navtree/1.0.0",
+        "cdnPath": ""
+      }
+    },
+
+    "cfe-multi-select": {
+      "cdn": "3rdparty",
+      "cwd": "node_modules/@oracle/wrc-jet-pack/dist/jet-composites/cfe-multi-select",
+      "debug": {
+        "src": ["**"],
+        "path": "jet-composites/cfe-multi-select/1.0.0",
+        "cdnPath": ""
+      },
+      "release": {
+        "src": ["**"],
+        "path": "jet-composites/cfe-multi-select/1.0.0",
+        "cdnPath": ""
+      }
+    },
+
+    "cfe-property-list-editor": {
+      "cdn": "3rdparty",
+      "cwd": "node_modules/@oracle/wrc-jet-pack/dist/jet-composites/cfe-property-list-editor",
+      "debug": {
+        "src": ["**"],
+        "path": "jet-composites/cfe-property-list-editor/1.0.0",
+        "cdnPath": ""
+      },
+      "release": {
+        "src": ["**"],
+        "path": "jet-composites/cfe-property-list-editor/1.0.0",
         "cdnPath": ""
       }
     }

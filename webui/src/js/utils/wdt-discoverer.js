@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -65,16 +65,21 @@ function (WdtActionsBase, ko, project, wktConsole, dialogHelper, projectIO, i18n
           return Promise.resolve(false);
         }
 
-        busyDialogMessage = i18n.t('flow-validate-domain-home-in-progress');
-        dialogHelper.updateBusyDialog(busyDialogMessage, 2/totalSteps);
-        const errContext = i18n.t('wdt-discoverer-invalid-domain-home-error-prefix');
-        const domainHomeValidationResult =
-          await window.api.ipc.invoke('validate-domain-home', domainHomeDirectory, errContext);
-        if (!domainHomeValidationResult.isValid) {
-          const errMessage = domainHomeValidationResult.reason;
-          dialogHelper.closeBusyDialog();
-          await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
-          return Promise.resolve(false);
+        // for remote discovery, domain home is on the remote machine,
+        // so don't validate the directory
+        const isRemote = discoverConfig.isRemote;
+        if (!isRemote) {
+          busyDialogMessage = i18n.t('flow-validate-domain-home-in-progress');
+          dialogHelper.updateBusyDialog(busyDialogMessage, 2/totalSteps);
+          const errContext = i18n.t('wdt-discoverer-invalid-domain-home-error-prefix');
+          const domainHomeValidationResult =
+            await window.api.ipc.invoke('validate-domain-home', domainHomeDirectory, errContext);
+          if (!domainHomeValidationResult.isValid) {
+            const errMessage = domainHomeValidationResult.reason;
+            dialogHelper.closeBusyDialog();
+            await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
+            return Promise.resolve(false);
+          }
         }
 
         busyDialogMessage = i18n.t('flow-save-project-in-progress');
@@ -105,6 +110,11 @@ function (WdtActionsBase, ko, project, wktConsole, dialogHelper, projectIO, i18n
         if (discoverResults.isSuccess) {
           wktLogger.debug('discover complete: %s', discoverResults.modelFileContent);
           project.wdtModel.setModelFiles(discoverResults.modelFileContent);
+
+          if (isRemote) {
+            const options = { resultData: discoverResults.resultData };
+            dialogHelper.openDialog('discover-result-dialog', options);
+          }
           return Promise.resolve(true);
         } else {
           let errMessage;

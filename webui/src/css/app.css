@@ -193,16 +193,18 @@
   /*padding-top: 10px;*/
 }
 
-/* container for model design view, currently text */
-.wkt-model-edit-design {
-  margin: 10px;
-}
-
-/* container for model design view, currently text */
+/* container for model design view */
+.wkt-model-edit-design,
 .wkt-model-code-view {
   display: flex;
   height: 100%;
   width: 100%;
+}
+
+.wkt-model-edit-design > a > img {
+  margin: 0 3px 0 0;
+  height: 24px;
+  width: 18px;
 }
 
 /* the ace editor pane */
@@ -256,7 +258,7 @@
 }
 
 .wkt-paths-table {
-  .wkt-env-vars-table;
+  border: 1px solid var(--oj-collection-border-color);
   width: 100%;
 }
 
@@ -367,6 +369,12 @@ h6:first-child {
 .wkt-discover-dialog {
   width: 500px;
   height: auto;
+}
+
+.wkt-discover-result-dialog {
+  max-width: 1000px;
+  height: 85vh;
+  width: 85%;
 }
 
 .wkt-add-to-archive-dialog {
@@ -502,6 +510,11 @@ h6:first-child {
 .wkt-macos-env-variables-dialog .oj-table {
   width: 100%;
   height: 100%;
+}
+
+.wkt-stacked-dialog-body {
+  display: flex;
+  flex-direction: column;
 }
 
 /* the oj-switcher in the code view should use the remaining height */

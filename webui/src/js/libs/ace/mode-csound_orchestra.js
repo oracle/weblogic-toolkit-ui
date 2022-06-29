@@ -727,6 +727,9 @@ var PythonHighlightRules = function() {
             token: "paren.rparen",
             regex: "[\\]\\)\\}]"
         }, {
+            token: ["keyword", "text", "entity.name.function"],
+            regex: "(def|class)(\\s+)([\\u00BF-\\u1FFF\\u2C00-\\uD7FF\\w]+)"
+         }, {
             token: "text",
             regex: "\\s+"
         }, {
@@ -1170,6 +1173,7 @@ var CsoundOrchestraHighlightRules = function(embeddedRulePrefix) {
         "betarand",
         "bexprnd",
         "bformdec1",
+        "bformdec2",
         "bformenc1",
         "binit",
         "biquad",
@@ -1479,6 +1483,7 @@ var CsoundOrchestraHighlightRules = function(embeddedRulePrefix) {
         "grain2",
         "grain3",
         "granule",
+        "gtadsr",
         "gtf",
         "guiro",
         "harmon",
@@ -1810,6 +1815,7 @@ var CsoundOrchestraHighlightRules = function(embeddedRulePrefix) {
         "mediank",
         "metro",
         "metro2",
+        "metrobpm",
         "mfb",
         "midglobal",
         "midiarp",
@@ -1858,6 +1864,7 @@ var CsoundOrchestraHighlightRules = function(embeddedRulePrefix) {
         "mp3in",
         "mp3len",
         "mp3nchnls",
+        "mp3out",
         "mp3scal",
         "mp3sr",
         "mpulse",
@@ -2061,6 +2068,7 @@ var CsoundOrchestraHighlightRules = function(embeddedRulePrefix) {
         "pvsftw",
         "pvsfwrite",
         "pvsgain",
+        "pvsgendy",
         "pvshift",
         "pvsifd",
         "pvsin",
@@ -2227,7 +2235,9 @@ var CsoundOrchestraHighlightRules = function(embeddedRulePrefix) {
         "scale2",
         "scalearray",
         "scanhammer",
+        "scanmap",
         "scans",
+        "scansmap",
         "scantable",
         "scanu",
         "scanu2",
@@ -2246,6 +2256,7 @@ var CsoundOrchestraHighlightRules = function(embeddedRulePrefix) {
         "sensekey",
         "seqtime",
         "seqtime2",
+        "sequ",
         "serialBegin",
         "serialEnd",
         "serialFlush",
@@ -2438,8 +2449,10 @@ var CsoundOrchestraHighlightRules = function(embeddedRulePrefix) {
         "trhighest",
         "trigExpseg",
         "trigLinseg",
+        "trigexpseg",
         "trigger",
         "trighold",
+        "triglinseg",
         "trigphasor",
         "trigseq",
         "trim",
@@ -2570,10 +2583,6 @@ var CsoundOrchestraHighlightRules = function(embeddedRulePrefix) {
         "xadsr",
         "xin",
         "xout",
-        "xscanmap",
-        "xscans",
-        "xscansmap",
-        "xscanu",
         "xtratim",
         "xyscale",
         "zacl",
@@ -2699,6 +2708,10 @@ var CsoundOrchestraHighlightRules = function(embeddedRulePrefix) {
         "vbap4move",
         "vbap8",
         "vbap8move",
+        "xscanmap",
+        "xscans",
+        "xscansmap",
+        "xscanu",
         "xyin"
     ];
 

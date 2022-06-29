@@ -1,11 +1,13 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 
 const path = require('path');
+const fs = require('fs');
 const fsPromises = require('fs/promises');
+const fsUtils = require('./fsUtils');
 
 function getEntryTypes() {
   // lazy load to allow initialization
@@ -191,6 +193,42 @@ async function chooseArchiveDirEntry(targetWindow, typeDetail) {
   return wktWindow.chooseFromFileSystem(targetWindow, options);
 }
 
+// Help the model design view properly handle archive entries when using
+// both text fields and the file chooser.
+//
+// Electron dialog.showOpenDialog has limitations on Windows and Linux
+// that only allow either files or directories to be selected, we have
+// to jump through some hoops to deal with this:
+//
+//  - The UI will have a menu for the file chooser to force the user
+//    to select file or directory for entries that support both types
+//    (e.g., applications can be an archive file or a directory).
+//
+//  - For these "dual-type" fields, the user may simply type in a path
+//    so that the UI does not know if the path is a file or a directory.
+//    For that case, the UI will always set showChooser to false and
+//    pass the archive type for a file.  The code below will determine if
+//    the user provided path is a directory and change the archive type
+//    to the matching directory type.
+//
+async function getArchiveEntry(window, archiveEntryType, options) {
+  if (!options) {
+    options = {
+      providedValue: undefined,
+      showChooser: false
+    };
+  }
+
+  let promise;
+  if (options.showChooser) {
+    promise = _getArchiveEntryShowChooser(window, archiveEntryType, options);
+  } else {
+    promise = _getArchiveEntry(archiveEntryType, options);
+  }
+  return promise;
+}
+
+
 // get a list of paths for all the files and folders in the specified directory.
 // the paths should be relative to the directory, and folders should end with / .
 async function _getDirectoryPaths(directory) {
@@ -214,7 +252,170 @@ async function _addDirectoryPaths(directory, paths, pathPrefix) {
   }
 }
 
+async function _getArchiveEntryShowChooser(targetWindow, archiveEntryTypeName, archiveEntryTypeOptions) {
+  // lazy load to allow initialization
+  const i18n = require('./i18next.config');
+  const { getLogger } = require('./wktLogging');
+  const wktLogger = getLogger();
+
+  wktLogger.debug('entering _getArchiveEntryShowChooser(%s, %s, %s)',
+    targetWindow, archiveEntryTypeName, JSON.stringify(archiveEntryTypeOptions));
+
+  const result = {};
+  const archiveEntryType = getEntryTypes()[archiveEntryTypeName];
+  if (!archiveEntryType) {
+    result.errorMessage = i18n.t('wdt-archive-invalid-archive-entry-type', { type: archiveEntryTypeName });
+    return result;
+  }
+
+  let defaultPath;
+  if (archiveEntryTypeOptions.providedValue) {
+    defaultPath = await fsUtils.getDirectoryForPath(archiveEntryTypeOptions.providedValue);
+  }
+
+  const title = i18n.t('dialog-chooseArchiveEntry', {entryType: archiveEntryType.name});
+  const chooserType = archiveEntryType.subtype === 'file' ? 'openFile' : 'openDirectory';
+
+  let options = {
+    title: title,
+    message: title,
+    defaultPath: defaultPath,
+    buttonLabel: i18n.t('button-select'),
+    properties: [chooserType, 'dontAddToRecent']
+  };
+
+  const { chooseFromFileSystem } = require('./wktWindow');
+  const fileSystemPath = await chooseFromFileSystem(targetWindow, options);
+
+  result.archiveEntryType = archiveEntryTypeName;
+  result.filePath = fileSystemPath;
+  if (result.filePath) {
+    result.archivePath = archiveEntryType['pathPrefix'] + path.basename(result.filePath);
+    result.archiveUpdatePath = result.archivePath;
+    if (chooserType === 'openDirectory') {
+      result.archiveUpdatePath = `${result.archivePath}/`;
+      result.childPaths = await _getDirectoryPaths(result.filePath);
+    }
+  }
+  wktLogger.debug('exiting _getArchiveEntryShowChooser() with %s', JSON.stringify(result));
+  return result;
+}
+
+async function _getArchiveEntry(archiveEntryTypeName, archiveEntryTypeOptions) {
+  // lazy load to allow initialization
+  const i18n = require('./i18next.config');
+  const { getLogger } = require('./wktLogging');
+  const wktLogger = getLogger();
+
+  wktLogger.debug('entering _getArchiveEntry(%s, %s)', archiveEntryTypeName, JSON.stringify(archiveEntryTypeOptions));
+
+  const result = {};
+  const archiveEntryTypes = getEntryTypes();
+  let archiveEntryType = archiveEntryTypes[archiveEntryTypeName];
+  if (!archiveEntryType) {
+    result.errorMessage = i18n.t('wdt-archive-invalid-archive-entry-type', { type: archiveEntryTypeName });
+    return result;
+  }
+
+  const fileSystemPath = archiveEntryTypeOptions.providedValue;
+  if (!fileSystemPath) {
+    result.errorMessage = i18n.t('wdt-archive-empty-file-system-path');
+    return result;
+  }
+
+  if (!fs.existsSync(fileSystemPath)) {
+    result.errorMessage = i18n.t('wdt-archive-invalid-file-system-path', { path: fileSystemPath });
+    return result;
+  }
+
+  result.archiveEntryType = archiveEntryTypeName;
+  const isDirectory = await fsUtils.isDirectory(fileSystemPath);
+  if (!_archiveEntryTypesMatch(isDirectory, archiveEntryType)) {
+    if (_archiveEntryTypeHasDualTypes(archiveEntryTypeName)) {
+      result.archiveEntryType = _archiveEntryTypeGetOppositeType(archiveEntryTypeName);
+    } else {
+      const pathType = isDirectory ? 'directory' : 'file';
+      const archiveEntryTypeSubtype = archiveEntryType.subtype === 'file' ? 'file' : 'directory';
+      result.errorMessage = i18n.t('wdt-archive-entry-path-type-mismatch',
+        { archiveEntryTypeName, archiveEntryTypeSubtype, path: fileSystemPath, pathType });
+    }
+  }
+
+  result.filePath = fileSystemPath;
+  result.archivePath = archiveEntryType['pathPrefix'] + path.basename(fileSystemPath);
+  result.archiveUpdatePath = result.archivePath;
+  if (archiveEntryTypes[result.archiveEntryType].subtype !== 'file') {
+    result.archiveUpdatePath = `${result.archivePath}/`;
+    result.childPaths = await _getDirectoryPaths(result.filePath);
+  }
+  wktLogger.debug('exiting _getArchiveEntryShowChooser() with %s', JSON.stringify(result));
+  return result;
+}
+
+function _archiveEntryTypesMatch(fileSystemPathIsDirectory, archiveEntryType) {
+  let result;
+  if (fileSystemPathIsDirectory) {
+    result = archiveEntryType.subtype === 'dir' || archiveEntryType.subtype === 'emptyDir';
+  } else {
+    result = archiveEntryType.subtype === 'file';
+  }
+  return result;
+}
+
+function _archiveEntryTypeHasDualTypes(archiveEntryTypeName) {
+  let result;
+  switch(archiveEntryTypeName) {
+    case 'applicationDir':
+    case 'applicationFile':
+    case 'customDir':
+    case 'customFile':
+    case 'sharedLibraryDir':
+    case 'sharedLibraryFile':
+      result = true;
+      break;
+
+    default:
+      result = false;
+      break;
+  }
+  return result;
+}
+
+function _archiveEntryTypeGetOppositeType(archiveEntryTypeName) {
+  let result;
+  switch(archiveEntryTypeName) {
+    case 'applicationDir':
+      result = 'applicationFile';
+      break;
+
+    case 'applicationFile':
+      result = 'applicationDir';
+      break;
+
+    case 'customDir':
+      result = 'customFile';
+      break;
+
+    case 'customFile':
+      result = 'customDir';
+      break;
+
+    case 'sharedLibraryDir':
+      result = 'sharedLibraryFile';
+      break;
+
+    case 'sharedLibraryFile':
+      result = 'sharedLibraryDir';
+      break;
+
+    default:
+      break;
+  }
+  return result;
+}
+
 module.exports = {
   getEntryTypes,
-  chooseArchiveEntry
+  chooseArchiveEntry,
+  getArchiveEntry
 };

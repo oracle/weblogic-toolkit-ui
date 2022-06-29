@@ -106,6 +106,22 @@ define(['ojs/ojcontext'],
         const busyContext = ojContext.getContext(component).getBusyContext();
         return busyContext.whenReady();
       };
+
+      this.getEventRootElement = () => {
+        return document.getElementById('pageContent');
+      };
+
+      this.dispatchEventFromRootElement = (customEvent) => {
+        this.getEventRootElement().dispatchEvent(customEvent);
+      };
+
+      this.addEventListenerToRootElement = (eventType, listener, options) => {
+        this.getEventRootElement().addEventListener(eventType, listener, options);
+      };
+
+      this.removeEventListenerFromRootElement = (eventType, listener, options) => {
+        this.getEventRootElement().removeEventListener(eventType, listener, options);
+      };
     }
 
     return new ViewHelper();

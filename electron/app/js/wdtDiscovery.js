@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const path = require('path');
@@ -13,6 +13,8 @@ const { getAbsolutePath, makeDirectoryIfNotExists } = require('./fsUtils');
 const { getDiscoverDomainShellScript } = require('./wktTools');
 const { getLogger } = require('./wktLogging');
 const { sendToWindow } = require('./windowUtils');
+const { readFile } = require('fs/promises');
+const fsUtils = require('./fsUtils');
 
 /* global process */
 
@@ -77,16 +79,31 @@ async function _runDiscover(targetWindow, discoverConfig, online) {
     argList.push(discoverConfig['adminPass']);
   }
 
-  argList.push('-archive_file');
-  argList.push(archiveFile);
+  const isRemote = discoverConfig['isRemote'];
+  if (!isRemote) {
+    argList.push('-archive_file');
+    argList.push(archiveFile);
+  }
+
   argList.push('-model_file');
   argList.push(modelFile);
   argList.push('-variable_file');
   argList.push(propertiesFile);
 
-  const env = {};
-  if (!process.env.JAVA_HOME) {
-    env['JAVA_HOME'] = discoverConfig['javaHome'];
+  if (isRemote) {
+    argList.push('-remote');
+  }
+
+  const env = {
+    JAVA_HOME: process.env.JAVA_HOME || discoverConfig['javaHome']
+  };
+
+  let resultsDirectory = null;
+  let resultsFile = null;
+  if (isRemote) {
+    resultsDirectory = await fsUtils.createTemporaryDirectory(projectDir, 'discoverModel');
+    resultsFile = path.join(resultsDirectory, 'result.json');
+    env['__WLSDEPLOY_STORE_RESULT__'] = resultsFile;
   }
 
   let stdoutEventName = 'show-console-out-line';
@@ -114,6 +131,12 @@ async function _runDiscover(targetWindow, discoverConfig, online) {
 
     results.modelFileContent = await project.getModelFileContent(targetWindow, [relativeModelFile], [relativePropertiesFile],
       [relativeArchiveFile]);
+
+    if(isRemote) {
+      const resultsText = await readFile(resultsFile, {encoding: 'utf8'});
+      results.resultData = JSON.parse(resultsText);
+      await fsUtils.removeDirectoryRecursively(resultsDirectory);
+    }
   } catch (err) {
     results.isSuccess = false;
     results.reason = i18n.t('wdt-discovery-failed-error-message', { script: getDiscoverDomainShellScript(), error: errorUtils.getErrorMessage(err)});

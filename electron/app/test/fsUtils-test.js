@@ -119,4 +119,34 @@ describe('File System Utilities tests', () => {
     const promise = fsUtils.getFilesRecursivelyFromDirectory(dir);
     return expect(promise).to.eventually.deep.equal(expected);
   });
+
+  it('get directory for non-existent path returns undefined', () => {
+    const dir = path.join(__dirname, 'resources');
+    const file = path.join(dir, 'no-such-file.ear');
+
+    const promise = fsUtils.getDirectoryForPath(file);
+    return expect(promise).to.eventually.equal(undefined);
+  });
+
+  it('get directory for file path returns the containing directory path', () => {
+    const dir = path.join(__dirname, 'resources');
+    const file = path.join(dir, 'wdt-archive.zip');
+
+    const promise = fsUtils.getDirectoryForPath(file);
+    return expect(promise).to.eventually.equal(dir);
+  });
+
+  it('get directory for directory path returns the path', () => {
+    const dir = path.join(__dirname, 'resources');
+
+    const promise = fsUtils.getDirectoryForPath(dir);
+    return expect(promise).to.eventually.equal(dir);
+  });
+
+  it('get directory for directory path with trailing slash returns the path', () => {
+    const dir = path.join(__dirname, 'resources') + path.sep;
+
+    const promise = fsUtils.getDirectoryForPath(dir);
+    return expect(promise).to.eventually.equal(dir);
+  });
 });

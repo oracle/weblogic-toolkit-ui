@@ -825,6 +825,17 @@ async function createWindow() {
     userSettings.setWindowSize(winSize);
   });
 
+  // This is a hack to prevent the Remote Console from mangling our window title...
+  //
+  newWindow.on('page-title-updated', (event, title, explicitlySet) => {
+    getLogger().debug('Received page title updated event for Window ID %s with new title %s that %s explicitly set',
+      newWindow.id, title, explicitlySet ? 'was' : 'was not');
+
+    if (!title.endsWith(_wktApp.getApplicationName())) {
+      event.preventDefault();
+    }
+  });
+
   newWindow.on('close', (event) => {
     getLogger().debug('Received window close event on Window ID %s', newWindow.id);
     if (!newWindow.skipDirtyCheck) {

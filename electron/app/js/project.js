@@ -17,12 +17,46 @@ const { getLogger } = require('./wktLogging');
 const { sendToWindow } = require('./windowUtils');
 const i18n = require('./i18next.config');
 const { CredentialStoreManager, EncryptedCredentialManager, CredentialNoStoreManager } = require('./credentialManager');
+const errorUtils = require('./errorUtils');
 
 const projectFileTypeKey = 'dialog-wktFileType';
 const projectFileExtension = 'wktproj';
 const emptyProjectContents = {};
 
 const openProjects = new Map();
+
+// This file is the central file controlling all the project create and save functionality.
+// As such, there are a number of flows that make 1 or more calls into the methods in this file.
+//
+// Create New Project menu item flow:
+//    - The entry point is createNewProject():
+//        + asks the user for the project file location
+//        + sends the start-new-project message to the renderer
+//    - On receiving the start-new-project message:
+//        + the renderer gathers any project-related state
+//        + sends the new-project message
+//    - The new-project message calls initializeNewProject():
+//        + writes the file
+//        + handles other necessary state management if the file write succeeds
+//
+// Save All menu item flow:
+//    - The entry point is startSaveProject():
+//        + sends the start-save-project message to renderer
+//    - On receiving the start-save-project message:
+//        + determines if the project needs saving
+//        + invokes confirm-project-file
+//    - The confirm-project-file calls confirmProjectFile():
+//        + gets the project file name, prompting the user if required
+//        + returns the name, uuid, and file name (or null if file is not selected)
+//    - On receiving the response to the confirm-project-file invocation, the renderer:
+//        + gathers the project-related data
+//        + invokes save-project
+//    - The save-project calls saveProject()
+//        + saves the project file
+//        + if project file save succeeds, saves any model files
+//        + returns whether the save was successful and the model file contents
+//    - On receiving the response to the save-project invocation, the renderer ends the flow
+//
 
 // Public methods
 //
@@ -45,36 +79,42 @@ function showExistingProjectWindow(existingProjectWindow) {
 }
 
 async function createNewProject(targetWindow) {
-  const saveResponse = await dialog.showSaveDialog(targetWindow, {
-    title: 'Create WebLogic Kubernetes Toolkit Project',
-    buttonLabel: 'Create Project',
-    filters: [
-      { name: i18n.t(projectFileTypeKey), extensions: [projectFileExtension] }
-    ],
-    properties: [
-      'createDirectory',
-      'showOverwriteConfirmation'
-    ]
+  const titleKey = 'dialog-createNewProjectTitle';
+  const buttonKey = 'button-create';
+
+  return new Promise(resolve => {
+    _chooseProjectSaveFile(targetWindow,titleKey, buttonKey).then(projectFileName => {
+      if (projectFileName) {
+        sendToWindow(targetWindow, 'start-new-project', projectFileName);
+        // window will reply with new-project -> initializeNewProject() including isDirty flag
+      }
+      resolve();
+    });
   });
+}
 
-  if (saveResponse.canceled || !saveResponse.filePath || projectFileAlreadyOpen(saveResponse.filePath)) {
-    return;
-  }
-
-  let projectWindow = await _createOrReplace(targetWindow);
+async function initializeNewProject(targetWindow, projectFile, isDirty) {
+  // finish creating new project with project dirty flag
+  let projectWindow = await _createOrReplace(targetWindow, isDirty);
   if (!projectWindow) {
     return;
   }
 
-  let projectFileName = getProjectFileName(saveResponse.filePath);
-  if (path.extname(projectFileName) !== `.${projectFileExtension}`) {
-    projectFileName = `${projectFileName}.${projectFileExtension}`;
-  }
+  const projectFileName = getProjectFileName(projectFile);
   const wktWindow = require('./wktWindow');
-  wktWindow.setTitleFileName(targetWindow, projectFileName, false);
-  await _createNewProjectFile(targetWindow, projectFileName);
-  app.addRecentDocument(projectFileName);
-  projectWindow.setRepresentedFilename(projectFileName);
+
+  const wroteFile = await _createNewProjectFile(projectWindow, projectFileName);
+  if (wroteFile) {
+    if (projectWindow.id === targetWindow.id) {
+      wktWindow.setTitleFileName(projectWindow, projectFileName, false);
+    } else {
+      projectWindow.on('ready-to-show', () => {
+        wktWindow.setTitleFileName(projectWindow, projectFileName, false);
+      });
+    }
+    app.addRecentDocument(projectFileName);
+    projectWindow.setRepresentedFilename(projectFileName);
+  }
 }
 
 async function openProject(targetWindow) {
@@ -92,24 +132,18 @@ async function openProject(targetWindow) {
   }
 
   const projectFileName = openResponse.filePaths[0];
-  await openProjectFile(targetWindow, projectFileName)
-    .catch(err => {
-      dialog.showErrorBox(
-        i18n.t('dialog-openProjectFileErrorTitle'),
-        i18n.t('dialog-openProjectFileErrorMessage', { projectFileName: projectFileName, err: err }),
-      );
-      getLogger().error('Failed to open project file %s: %s', projectFileName, err);
-    });
+  sendToWindow(targetWindow, 'start-open-project', projectFileName);
+  // window will reply with open-project -> openProjectFile() including isDirty flag
 }
 
-async function openProjectFile(targetWindow, projectFile) {
+async function openProjectFile(targetWindow, projectFile, isDirty) {
   return new Promise((resolve, reject) => {
     const existingProjectWindow = _getOpenWindowForProject(projectFile);
     if (existingProjectWindow) {
       showExistingProjectWindow(existingProjectWindow);
       resolve();
     } else {
-      _createOrReplace(targetWindow)
+      _createOrReplace(targetWindow, isDirty)
         .then(projectWindow => {
           if (!projectWindow) {
             return resolve();
@@ -122,34 +156,53 @@ async function openProjectFile(targetWindow, projectFile) {
         })
         .catch(err => reject(err));
     }
-  });
+  })
+    .catch(err => {
+      dialog.showErrorBox(
+        i18n.t('dialog-openProjectFileErrorTitle'),
+        i18n.t('dialog-openProjectFileErrorMessage', { projectFileName: projectFile, err: errorUtils.getErrorMessage(err) }),
+      );
+      getLogger().error('Failed to open project file %s: %s', projectFile, err);
+    });
 }
 
 // request the existing project file, prompting the user if needed.
 // return null values if no project file was established or selected.
 // usually called by the confirm-project-file IPC invocation.
+//
+// This method is always used in the "Save All" flow.
+//
 async function confirmProjectFile(targetWindow) {
   let projectFile = _getProjectFilePath(targetWindow);
-  let projectName = null;
-  let projectUuid = null;
-  if(!projectFile) {
-    projectFile = await _chooseProjectSaveFile(targetWindow);
-    projectName = projectFile ? _generateProjectName(projectFile) : null;
-    projectUuid = projectFile ? _generateProjectUuid() : null;
-    app.addRecentDocument(projectFile);
+  if (projectFile) {
+    // if the project file exists, no need to worry about
+    // the project name and project UUID because they are
+    // already defined in the file.
+    //
+    return [projectFile, null, null, false];
+  } else {
+    return chooseProjectFile(targetWindow);
   }
-  return [projectFile, projectName, projectUuid];
 }
 
 // choose a new project file for save.
 // return null values if no project file was established or selected.
 // usually called by the choose-project-file IPC invocation.
+//
+// This method is used directly in the "Save As" flow and
+// indirectly in the "Save All" flow.
+//
 async function chooseProjectFile(targetWindow) {
   const projectFile = await _chooseProjectSaveFile(targetWindow);
-  const projectName = projectFile ? _generateProjectName(projectFile) : null;
-  const projectUuid = projectFile ? _generateProjectUuid() : null;
-  app.addRecentDocument(projectFile);
-  return [projectFile, projectName, projectUuid];
+  let projectName = null;
+  let projectUuid = null;
+  let isNewFile = false;
+  if (projectFile) {
+    projectName = _generateProjectName(projectFile);
+    projectUuid = _generateProjectUuid();
+    isNewFile = !await fsUtils.exists(projectFile);
+  }
+  return [projectFile, projectName, projectUuid, isNewFile];
 }
 
 // initiate the save process by sending a message to the web app.
@@ -166,15 +219,47 @@ function startSaveProjectAs(targetWindow) {
 
 // save the specified project and model contents to the project file.
 // usually invoked by the save-project IPC invocation.
-async function saveProject(targetWindow, projectFile, projectContents, externalFileContents) {
+async function saveProject(targetWindow, projectFile, projectContents, externalFileContents, isNewFile, showErrors = true) {
   // the result will contain only sections that were updated due to save, such as model.archiveFiles
-  const saveResult = {};
+  const saveResult = {
+    isProjectFileSaved: false,
+    areModelFilesSaved: false
+  };
 
-  _assignProjectFile(targetWindow, projectFile);
-  saveResult['model'] = await _saveExternalFileContents(_getProjectDirectory(targetWindow), externalFileContents);
-  await _saveProjectFile(targetWindow, projectFile, projectContents);
-  const wktWindow = require('./wktWindow');
-  wktWindow.setTitleFileName(targetWindow, projectFile, false);
+  const assignProjectFileData = _assignProjectFile(targetWindow, projectFile);
+  try {
+    await _saveProjectFile(targetWindow, projectFile, projectContents);
+    saveResult.isProjectFileSaved = true;
+  } catch (err) {
+    if (showErrors) {
+      _showSaveError(projectFile, err);
+    }
+    getLogger().error('Failed to save project file %s: %s', projectFile, err);
+    // revert the project assignment to the window
+    _revertAssignProjectFile(assignProjectFileData);
+    saveResult.reason = i18n.t('dialog-saveProjectFileErrorMessage', { projectFileName: projectFile, err: err });
+  }
+
+  if (saveResult.isProjectFileSaved) {
+    const wktWindow = require('./wktWindow');
+    wktWindow.setTitleFileName(targetWindow, projectFile, false);
+    if (isNewFile) {
+      app.addRecentDocument(projectFile);
+    }
+
+    try {
+      saveResult['model'] = await _saveExternalFileContents(_getProjectDirectory(targetWindow), externalFileContents);
+      saveResult.areModelFilesSaved = true;
+    } catch (err) {
+      const message = i18n.t('project-save-model-files-error-message', { error: errorUtils.getErrorMessage(err) });
+      if (showErrors) {
+        const title = i18n.t('project-save-model-files-error-title');
+        dialog.showErrorBox(title, message);
+      }
+      getLogger().error('Failed to save one of the model files for project file %s: %s', projectFile, err);
+      saveResult.reason = message;
+    }
+  }
   return saveResult;
 }
 
@@ -297,6 +382,7 @@ async function exportArchiveFile(targetWindow, archivePath, projectFile) {
 // Private helper methods
 //
 async function _createNewProjectFile(targetWindow, projectFileName) {
+  getLogger().debug('entering _createNewProjectFile() for %s', projectFileName);
   return new Promise((resolve) => {
     const projectContents = _addProjectIdentifiers(projectFileName, emptyProjectContents);
     const projectContentsJson = JSON.stringify(projectContents, null, 2);
@@ -304,17 +390,21 @@ async function _createNewProjectFile(targetWindow, projectFileName) {
       .then(() => {
         _addOpenProject(targetWindow, projectFileName, false, new CredentialStoreManager(projectContents.uuid));
         sendToWindow(targetWindow, 'project-created', projectFileName, projectContents);
-        resolve();
+        resolve(true);
       })
       .catch(err => {
-        dialog.showErrorBox(
-          i18n.t('dialog-saveProjectFileErrorTitle'),
-          i18n.t('dialog-saveProjectFileErrorMessage', { projectFileName: projectFileName, err: err }),
-        );
+        _showSaveError(projectFileName, err);
         getLogger().error('Failed to save new project in file %s: %s', projectFileName, err);
-        resolve();
+        resolve(false);
       });
   });
+}
+
+function _showSaveError(projectFileName, err) {
+  dialog.showErrorBox(
+    i18n.t('dialog-saveProjectFileErrorTitle'),
+    i18n.t('dialog-saveProjectFileErrorMessage', { projectFileName: projectFileName, err: err }),
+  );
 }
 
 function _addProjectIdentifiers(projectFileName, projectContents) {
@@ -372,6 +462,7 @@ async function _openProjectFile(targetWindow, projectFileName) {
               const wktWindow = require('./wktWindow');
               wktWindow.setTitleFileName(targetWindow, projectFileName, false);
               targetWindow.setRepresentedFilename(projectFileName);
+              getLogger().debug('_openProjectFile adding %s to recent documents', projectFileName);
               app.addRecentDocument(projectFileName);
               resolve();
             }).catch(err => reject(err));
@@ -441,9 +532,9 @@ async function _saveExternalFileContents(projectDirectory, externalFileContents)
   return saveResult;
 }
 
-async function _createOrReplace(targetWindow) {
+async function _createOrReplace(targetWindow, isDirty) {
   let projectWindow = targetWindow;
-  if (openProjects.has(targetWindow)) {
+  if (openProjects.has(targetWindow) || isDirty) {
     const buttonResponse = await dialog.showMessageBox(targetWindow, {
       type: 'question',
       message: i18n.t('dialog-openProjectWindowPrompt'),
@@ -504,8 +595,8 @@ async function _sendProjectOpened(targetWindow, file, jsonContents) {
   sendToWindow(targetWindow, 'project-opened', file, jsonContents, modelFilesContentJson);
 }
 
-async function _chooseProjectSaveFile(targetWindow) {
-  const title = i18n.t('dialog-chooseProjectSaveFile');
+async function _chooseProjectSaveFile(targetWindow, titleKey = 'dialog-chooseProjectSaveFile', buttonKey = 'button-save') {
+  const title = i18n.t(titleKey);
 
   let saveResponse = await dialog.showSaveDialog(targetWindow, {
     title: title,
@@ -513,7 +604,7 @@ async function _chooseProjectSaveFile(targetWindow) {
     filters: [
       {name: i18n.t(projectFileTypeKey), extensions: [projectFileExtension]}
     ],
-    buttonLabel: i18n.t('button-save'),
+    buttonLabel: i18n.t(buttonKey),
     properties: [
       'createDirectory',
       'showOverwriteConfirmation'
@@ -521,6 +612,17 @@ async function _chooseProjectSaveFile(targetWindow) {
   });
 
   if (saveResponse.canceled || !saveResponse.filePath || projectFileAlreadyOpen(saveResponse.filePath)) {
+    return null;
+  }
+
+  // Do a quick sanity check to make sure that the user has permissions to
+  // write to the directory chosen.  If not, show them the error and return null.
+  //
+  if (! await fsUtils.canWriteInDirectory(saveResponse.filePath)) {
+    const errTitle = i18n.t('dialog-projectSaveFileLocationNotWritableTitle');
+    const errMessage = i18n.t('dialog-projectSaveFileLocationNotWritableError',
+      { projectFileDirectory: path.dirname(saveResponse.filePath)});
+    dialog.showErrorBox(errTitle, errMessage);
     return null;
   }
   return getProjectFileName(saveResponse.filePath);
@@ -738,6 +840,21 @@ function _assignProjectFile(targetWindow, projectFile) {
   if (newFile !== oldFile) {
     _addOpenProject(targetWindow, projectFile, false);
   }
+  return {
+    existingProject,
+    oldFile,
+    newFile
+  };
+}
+
+function _revertAssignProjectFile(targetWindow, assignProjectFileData) {
+  if (assignProjectFileData.existingProject) {
+    if (assignProjectFileData.oldFile !== assignProjectFileData.newFile) {
+      _addOpenProject(targetWindow, assignProjectFileData.oldFile, false);
+    }
+  } else {
+    openProjects.delete(targetWindow);
+  }
 }
 
 async function _createCredentialManager(targetWindow, projectFileJsonContent) {
@@ -849,8 +966,8 @@ function _setCredentialManager(targetWindow, credentialManager) {
 // On Linux, the save dialog does not automatically add the project file extension...
 function getProjectFileName(dialogReturnedFileName) {
   let result = dialogReturnedFileName;
-  if (dialogReturnedFileName && path.extname(dialogReturnedFileName) !== '.wktproj') {
-    result = `${dialogReturnedFileName}.wktproj`;
+  if (dialogReturnedFileName && path.extname(dialogReturnedFileName) !== `.${projectFileExtension}`) {
+    result = `${dialogReturnedFileName}.${projectFileExtension}`;
   }
   return result;
 }
@@ -867,6 +984,7 @@ module.exports = {
   getWindowForProject,
   exportArchiveFile,
   isWktProjectFile,
+  initializeNewProject,
   openProject,
   openProjectFile,
   _openProjectFile,

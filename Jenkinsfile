@@ -10,13 +10,12 @@ pipeline {
         GLOBAL_AGENT_HTTPS_PROXY = "${WKTUI_PROXY}"
         WKTUI_DEV_PROXY = "${WKTUI_PROXY}"
         WKTUI_BUILD_EMAIL = sh(returnStdout: true, script: "echo ${env.WKTUI_BUILD_NOTIFY_EMAIL} | sed -e 's/^[[:space:]]*//'")
-        WKTUI_PROXY_HOSTPORT = sh(returnStdout: true, script: "echo ${env.WKTUI_PROXY} | sed -e 's,http://,,'")
         WKTUI_PROXY_HOST = "${env.ORACLE_HTTP_PROXY_HOST}"
         WKTUI_PROXY_PORT = "${env.ORACLE_HTTP_PROXY_PORT}"
 
         npm_registry = "${env.ARTIFACTORY_NPM_REPO}"
         npm_noproxy = "${env.ORACLE_NO_PROXY}"
-        node_version = "16.13.0"
+        node_version = "16.15.1"
 
         project_name = "$JOB_NAME"
         version_prefix = sh(returnStdout: true, script: 'cat electron/package.json | grep version | awk \'match($0, /[0-9]+.[0-9]+.[0-9]+/) { print substr( $0, RSTART, RLENGTH )}\'').trim()
@@ -110,15 +109,6 @@ pipeline {
                                 sh 'cp ${WORKSPACE}/.npmrc ${WORKSPACE}/electron/.npmrc'
                             }
                         }
-                        stage('Linux Update NPM') {
-                            steps {
-                                sh 'cp -f ${WORKSPACE}/.npmrc ${linux_node_dir}/lib/.npmrc'
-                                sh 'cd ${linux_node_dir}/lib; PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} install npm; cd ${WORKSPACE}'
-                                sh 'rm -f ${linux_node_dir}/lib/.npmrc'
-                                sh 'PATH="${linux_node_dir}/bin:$PATH" ${linux_node_exe} --version'
-                                sh 'PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} --version'
-                            }
-                        }
                         stage('Linux Install Project Dependencies') {
                             steps {
                                 sh 'cat ${WORKSPACE}/webui/.npmrc'
@@ -203,7 +193,7 @@ pipeline {
                     }
                 }
                 stage('MacOS Build') {
-                    agent { label 'macosx'}
+                    agent { label('wls-mini1 || wls-mini2') }
                     environment {
                         mac_node_dir_name = "node-v${node_version}-darwin-x64"
                         mac_node_installer = "node-v${node_version}-darwin-x64.tar.gz"
@@ -219,6 +209,7 @@ pipeline {
                                 sh 'env|sort'
                                 echo "file version = ${version_number}"
                                 echo "is_release = ${is_release}"
+                                sh "uname -a"
                             }
                         }
                         stage('MacOS Checkout') {
@@ -252,15 +243,6 @@ pipeline {
                                 echo 'Copying .npmrc file to project subdirectories'
                                 sh 'cp ${WORKSPACE}/.npmrc ${WORKSPACE}/webui/.npmrc'
                                 sh 'cp ${WORKSPACE}/.npmrc ${WORKSPACE}/electron/.npmrc'
-                            }
-                        }
-                        stage('MacOS Update NPM') {
-                            steps {
-                                sh 'cp -f ${WORKSPACE}/.npmrc ${mac_node_dir}/lib/.npmrc'
-                                sh 'cd ${mac_node_dir}/lib; PATH="${mac_node_dir}/bin:$PATH" ${mac_npm_exe} install npm; cd ${WORKSPACE}'
-                                sh 'rm -f ${mac_node_dir}/lib/.npmrc'
-                                sh 'PATH="${mac_node_dir}/bin:$PATH" ${mac_node_exe} --version'
-                                sh 'PATH="${mac_node_dir}/bin:$PATH" ${mac_npm_exe} --version'
                             }
                         }
                         stage('MacOS Install Project Dependencies') {
@@ -298,13 +280,21 @@ pipeline {
                         }
                         stage('MacOS Build Installers') {
                             steps {
-                                sh 'cd ${WORKSPACE}/electron; PATH="${mac_node_dir}/bin:$PATH" HTTPS_PROXY=${WKTUI_PROXY} CSC_IDENTITY_AUTO_DISCOVERY=false ${mac_npm_exe} run build'
+                                sh '''
+                                    cd "${WORKSPACE}/electron"
+                                    PATH="${mac_node_dir}/bin:$PATH" HTTPS_PROXY=${WKTUI_PROXY} CSC_IDENTITY_AUTO_DISCOVERY=false ${mac_npm_exe} run build:jet
+                                    PATH="${mac_node_dir}/bin:$PATH" HTTPS_PROXY=${WKTUI_PROXY} CSC_IDENTITY_AUTO_DISCOVERY=false ${mac_npm_exe} run install-tools
+                                    PATH="${mac_node_dir}/bin:$PATH" HTTPS_PROXY=${WKTUI_PROXY} CSC_IDENTITY_AUTO_DISCOVERY=false ${mac_npm_exe} run build:installer -- --mac --x64 --arm64
+                                    cd "${WORKSPACE}"
+                                '''
                                 archiveArtifacts 'dist/*.dmg'
                                 archiveArtifacts 'dist/*.zip'
                                 archiveArtifacts "dist/*.blockmap"
                                 archiveArtifacts "dist/latest-mac.yml"
                                 sh 'ditto -c -k --sequesterRsrc --keepParent "$WORKSPACE/dist/mac/WebLogic Kubernetes Toolkit UI.app" "WebLogic Kubernetes Toolkit UI.app.zip"'
                                 archiveArtifacts "WebLogic Kubernetes Toolkit UI.app.zip"
+                                sh 'ditto -c -k --sequesterRsrc --keepParent "$WORKSPACE/dist/mac-arm64/WebLogic Kubernetes Toolkit UI.app" "WebLogic Kubernetes Toolkit UI.arm64.app.zip"'
+                                archiveArtifacts "WebLogic Kubernetes Toolkit UI.arm64.app.zip"
                             }
                         }
                     }
@@ -368,13 +358,6 @@ pipeline {
                                 bat 'copy /Y "%WORKSPACE%\\.npmrc" "%WORKSPACE%\\electron\\.npmrc"'
                             }
                         }
-                        stage('Windows Update NPM') {
-                            steps {
-                                bat 'copy /Y "%WORKSPACE%\\.npmrc" "%windows_node_dir%\\.npmrc"'
-                                bat 'cd "%windows_node_dir%" & set "PATH=%windows_node_dir%;%PATH%" & "%windows_npm_exe%" install npm@latest & cd "%WORKSPACE%"'
-                                bat 'del /F /Q "%windows_node_dir%\\.npmrc"'
-                            }
-                        }
                         stage('Windows Install Project Dependencies') {
                             steps {
                                 bat 'cd "%WORKSPACE%\\electron" & set "PATH=%windows_node_dir%;%PATH%" & set HTTPS_PROXY=%ORACLE_HTTP_PROXY% & "%windows_npm_exe%" install & cd "%WORKSPACE%"'
@@ -395,6 +378,9 @@ pipeline {
                         stage('Windows Build Installers') {
                             steps {
                                 bat 'cd "%WORKSPACE%\\electron" & set "PATH=%windows_node_dir%;%PATH%" & set "HTTPS_PROXY=%WKTUI_PROXY%" & "%windows_npm_exe%" run build & cd "%WORKSPACE%"'
+                                // bat 'cd "%WORKSPACE%\\webui" & set "PATH=%windows_node_dir%;%PATH%" & set "HTTPS_PROXY=%WKTUI_PROXY%" & "node_modules\\.bin\\ojet" build web --release & cd "%WORKSPACE%"'
+                                // bat 'cd "%WORKSPACE%\\electron" & set "PATH=%windows_node_dir%;%PATH%" & set "HTTPS_PROXY=%WKTUI_PROXY%" & "%windows_node_exe%" scripts/installTools.js & cd "%WORKSPACE%"'
+                                // bat 'cd "%WORKSPACE%\\electron" & set "PATH=%windows_node_dir%;%PATH%" & set "HTTPS_PROXY=%WKTUI_PROXY%" & "node_modules\\.bin\\electron-builder" -p never & cd "%WORKSPACE%"'
                                 archiveArtifacts 'dist/*.exe'
                                 archiveArtifacts "dist/*.blockmap"
                                 archiveArtifacts "dist/latest.yml"

@@ -106,9 +106,10 @@ function(WkoActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, val
           }
         }
 
-        busyDialogMessage = i18n.t('wko-installer-create-sa-in-progress', {operatorNamespace: operatorNamespace});
-        dialogHelper.updateBusyDialog(busyDialogMessage, 7 / totalSteps);
         const operatorServiceAccount = this.project.wko.k8sServiceAccount.value;
+        busyDialogMessage = i18n.t('wko-installer-create-sa-in-progress',
+          { operatorServiceAccount: operatorServiceAccount, operatorNamespace: operatorNamespace });
+        dialogHelper.updateBusyDialog(busyDialogMessage, 7 / totalSteps);
         if (!options.skipCreateOperatorServiceAccount) {
           const status = await this.createOperatorServiceAccount(kubectlExe, kubectlOptions, operatorNamespace,
             operatorServiceAccount, errTitle, errPrefix);

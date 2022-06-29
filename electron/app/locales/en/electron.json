@@ -138,6 +138,10 @@
   "dialog-openProjectFileParseErrorMessage": "Unable to read the project file {{projectFileName}} as JSON: {{err}}",
   "dialog-openProjectFileReadErrorTitle": "Failed to Read Project File",
   "dialog-openProjectFileReadErrorMessage": "Unable to read the project file {{projectFileName}}: {{err}}",
+  "dialog-createNewProjectTitle": "Create WebLogic Kubernetes Toolkit Project",
+  "dialog-projectSaveFileLocationNotWritableTitle": "Project Directory Not Writable",
+  "dialog-projectSaveFileLocationNotWritableError": "The {{projectFileDirectory}} directory chosen to write the new project file is not writable by the current process.",
+
   "dialog-openProjectWindowPrompt": "Choose the window where the project should be opened.",
   "dialog-chooseDomainHome": "Select the Domain Home directory to use",
   "dialog-chooseJavaHome": "Select the Java Home directory to use",
@@ -180,6 +184,8 @@
 
   "dialog-chooseArchiveEntry": "Choose {{entryType}} for Archive",
   "dialog-archiveEntryFilter": "{{entryType}}",
+  "dialog-getWebLogicRemoteConsoleHome": "Select the WebLogic Remote Console Installation",
+  "dialog-getWebLogicRemoteConsoleAppImage": "Select the WebLogic Remote Console AppImage file",
 
   "title-edited": "edited",
 
@@ -187,6 +193,7 @@
   "button-select": "Select",
   "button-cancel": "Cancel",
   "button-save": "Save",
+  "button-create": "Create",
   "button-ok": "OK",
   "button-yes": "Yes",
   "button-openProject": "Open Project",
@@ -357,11 +364,39 @@
   "wdt-archiveType-sharedLibraryDir": "Shared Library Directory",
   "wdt-archiveType-fileStore": "File Store Directory",
 
+  "wdt-archive-invalid-archive-entry-type": "Unknown WebLogic Deploy Tooling archive entry type {{type}}",
+  "wdt-archive-empty-file-system-path": "The path to the archive entry was empty",
+  "wdt-archive-invalid-file-system-path": "The path to the archive entry {{path}} does not exist",
+  "wdt-archive-entry-path-type-mismatch": "The path {{path}} is a {{pathType}} does not match the archive entry type {{archiveEntryTypeName}}, which requires a {{archiveEntryTypeSubtype}}",
+
   "wkt-tools-wdt-version-file-missing-error": "Unable to determine the version of WebLogic Deploy Tooling installed because the {{file}} file is not found",
   "wkt-tools-wdt-version-file-read-error": "Unable to determine the version of WebLogic Deploy Tooling installed because an error occurred while reading the {{file}} file: {{error}}",
   "wkt-tools-wdt-version-file-format-error": "Unable to determine the version of WebLogic Deploy Tooling installed because the {{file}} file is not in the expected format",
   "wkt-tools-wdt-version-not-compatible-error": "The installed WebLogic Deploy Tooling version {{version}} does not meet the minimum compatible version {{minimumVersion}} required by WebLogic Kubernetes Toolkit UI version {{wktuiVersion}}",
 
   "project-save-file-already-open-title": "Project File Already Open",
-  "project-save-file-already-open-message": "The project file {{projectFile}} is already open in another window.  Please either close the existing window or select a different project file and try again."
+  "project-save-file-already-open-message": "The project file {{projectFile}} is already open in another window.  Please either close the existing window or select a different project file and try again.",
+  "project-save-model-files-error-title": "Project Model Files Save Error",
+  "project-save-model-files-error-message": "Failed to save one of the WebLogic Deploy Tooling model files associated with the project: {{error}}",
+
+  "wrc-home-error-title": "Invalid WebLogic Remote Console Location",
+  "wrc-init-error-title": "Initializing WebLogic Remote Console Backend Failed",
+  "wrc-location-existence-check-failed": "Unable to start the WebLogic Remote Console backend at {{location}} due to an error while trying to determine its existence: {{error}}.",
+  "wrc-dev-executable-directory-not-exists": "Unable to start the WebLogic Remote Console backend in development mode at {{rcHome}} because the expected directory {{location}} does not exist.",
+  "wrc-dev-executable-not-exists": "Unable to start the WebLogic Remote Console backend in development mode at {{rcHome}} because the executable file {{executable}} does not exist.",
+  "wrc-dev-executable-existence-check-failed": "Unable to start the WebLogic Remote Console backend in development mode at {{rcHome}} because the existence check for the executable file {{executable}} failed: {{error}}.",
+  "wrc-linux-executable-directory-check-failed": "Unable to start the WebLogic Remote Console backend at {{rcHome}} because the check to determine if {{rcHome}} is a Linux directory or an AppImage file failed: {{error}}.",
+  "wrc-executable-existence-check-failed": "Unable to start the WebLogic Remote Console backend at {{rcHome}} because existence check for the executable file {{executable}} failed: {{error}}.",
+  "wrc-executable-not-exists": "Unable to start the WebLogic Remote Console backend at {{rcHome}} because the executable file {{executable}} does not exist.",
+  "wrc-spawn-error-title": "Starting WebLogic Remote Console Backend Failed",
+  "wrc-set-home-not-exists": "Unable to set the WebLogic Remote Console Home because {{rcHome}} does not exist.",
+  "wrc-set-home-existence-check-failed": "Unable to set the WebLogic Remote Console Home because the existence check for {{rcHome}} failed: {{error}}.",
+  "wrc-set-and-start-error-title": "Starting WebLogic Remote Console Backend Failed",
+  "wrc-package-json-file-missing": "Unable to determine the WebLogic Remote Console version because the {{packageJsonFile}} file was missing.",
+  "wrc-package-json-missing-version": "Unable to determine the WebLogic Remote Console version because the {{packageJsonFile}} file was missing the version element.",
+  "wrc-package-json-existence-check-failed": "Unable to determine the WebLogic Remote Console version because the existence check for {{packageJsonFile}} failed: {{error}}.",
+  "wrc-app-image-file-version-no-match": "Unable to determine the WebLogic Remote Console version because the location {{rcHome}} AppImage file name {{filename}} does not match the expected filename pattern needed to extract the version number.",
+  "wrc-version-incompatible-message": "The installed WebLogic Remote Console version {{backendVersion}} is not compatible with the WebLogic Kubernetes Toolkit UI embedded Model Design view component version {{frontendVersion}} because the major and minor versions do not match.",
+  "wrc-version-verification-failed": "Unable to start the WebLogic Remote Console backend because an error occurred while trying to determine the version compatibility: {{error}}",
+  "wrc-home-not-exist": "Unable to start the WebLogic Remote Console backend because the configured location {{rcHome}} does not exist."
 }

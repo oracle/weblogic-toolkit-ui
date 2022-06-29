@@ -79,6 +79,18 @@ function(wktProject, wktConsole, wdtDiscoverer, dialogHelper, projectIO,
     });
   });
 
+  // continue opening project with isDirty value
+  window.api.ipc.receive('start-open-project', projectFileName => {
+    blurSelection();
+    window.api.ipc.send('open-project', projectFileName, wktProject.isDirty());
+  });
+
+  // continue new project with isDirty value
+  window.api.ipc.receive('start-new-project', projectFileName => {
+    blurSelection();
+    window.api.ipc.send('new-project', projectFileName, wktProject.isDirty());
+  });
+
   window.api.ipc.receive('start-close-project', () => {
     blurSelection();
     projectIO.closeProject(false).catch(err => {
@@ -247,12 +259,17 @@ function(wktProject, wktConsole, wdtDiscoverer, dialogHelper, projectIO,
     return doDirtyCheck('window-app-quit');
   });
 
-  window.api.ipc.receive('show-quickstart', async() => {
+  window.api.ipc.receive('show-quickstart', async () => {
     dialogHelper.openDialog('quickstart-dialog');
   });
 
   window.api.ipc.receive('show-startup-dialogs', async(startupInformation) => {
     return appUpdater.showStartupDialogs(startupInformation);
+  });
+
+  window.api.ipc.receive('set-wrc-backend-port', (port) => {
+    wktLogger.debug('Received Remote Console backend port %s', port);
+    wktProject.wdtModel.internal.wlRemoteConsolePort(port);
   });
 
   async function doDirtyCheck(responseChannel) {

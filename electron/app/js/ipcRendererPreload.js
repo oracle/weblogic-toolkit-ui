@@ -28,6 +28,7 @@ contextBridge.exposeInMainWorld(
       send: (channel, ...args) => {
         const validChannels = [
           'close-window',
+          'new-project',
           'open-project',
           'window-app-quit',
           'window-is-ready',
@@ -50,6 +51,7 @@ contextBridge.exposeInMainWorld(
           'project-created',
           'project-opened',
           'project-saved',
+          'set-wrc-backend-port',
           'start-add-model-file',
           'start-add-variable-file',
           'start-add-archive-file',
@@ -64,6 +66,8 @@ contextBridge.exposeInMainWorld(
           'show-startup-dialogs',
           'app-update-available',
           'blur-focused-item',
+          'start-new-project',
+          'start-open-project',
           'start-prepare-model',
           'start-validate-model',
           'start-create-image',
@@ -112,6 +116,7 @@ contextBridge.exposeInMainWorld(
           'get-kube-config-files',
           'get-latest-wko-image-name',
           'get-archive-entry-types',
+          'get-archive-entry',
           'get-network-settings',
           'choose-archive-file',
           'choose-archive-entry',
@@ -198,7 +203,11 @@ contextBridge.exposeInMainWorld(
           'k8s-delete-object',
           'openssl-generate-certs',
           'validate-k8s-namespaces-exist',
-          'validate-wko-domain-exist'
+          'validate-wko-domain-exist',
+          'get-wrc-home-directory',
+          'get-wrc-app-image',
+          'wrc-get-home-default-value',
+          'wrc-set-home-and-start'
         ];
         return new Promise((resolve, reject) => {
           if (validChannels.includes(channel)) {

@@ -19,7 +19,7 @@
                on-value-changed="[[selectedSubviewValueChangedHandler]]"
                value="{{selectedSubview}}">
     <div slot="primaryImage">
-      <h6 slot="header" class="wkt-subheading"><oj-bind-text value="[[mainImagePageTitle]]"></oj-bind-text></h6>
+      <h6 class="wkt-subheading"><oj-bind-text value="[[mainImagePageTitle]]"></oj-bind-text></h6>
       <div class="oj-panel">
         <oj-form-layout max-columns="2" direction="row">
           <oj-switch id="create-image-switch"
@@ -366,7 +366,7 @@
       ----------------------------------------------------------------------->
 
     <div slot="auxiliaryImage">
-      <h6 slot="header" class="wkt-subheading"><oj-bind-text value="[[labelMapper('aux-title')]]"></oj-bind-text></h6>
+      <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('aux-title')]]"></oj-bind-text></h6>
       <div class="oj-panel">
         <oj-form-layout max-columns="2" direction="row">
           <oj-input-text id="aux-image-tag"

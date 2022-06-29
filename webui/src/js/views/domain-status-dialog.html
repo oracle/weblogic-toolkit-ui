@@ -23,8 +23,7 @@
       <oj-bind-text value="{{labelMapper('domain-status-introspectJobFailureCount')}}"></oj-bind-text>
     </oj-label>
     <br>
-    <oj-input-text id="introspectjobfailurecount" value="{{introspectJobFailureCount}}" readonly="true"
-    ></oj-input-text>
+    <oj-input-text id="introspectJobFailureCount" value="{{introspectJobFailureCount}}" readonly="true"></oj-input-text>
   </div>
 
   <oj-bind-if test="[[domainHasError === true]]">

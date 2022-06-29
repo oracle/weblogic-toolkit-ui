@@ -3,14 +3,15 @@
  * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
-const {app, dialog} = require('electron');
+const { app, dialog } = require('electron');
 const fs = require('fs');
-const {readFile, writeFile} = require('fs/promises');
+const fsPromises = require('fs/promises');
 const path = require('path');
 
 const fsUtils = require('./fsUtils');
-const {getLogger} = require('./wktLogging');
-const {sendToWindow} = require('./windowUtils');
+const { getErrorMessage } = require('./errorUtils');
+const { getLogger } = require('./wktLogging');
+const { sendToWindow } = require('./windowUtils');
 
 async function getModelFileFromUser(targetWindow) {
   const openResponse = await dialog.showOpenDialog(targetWindow, {
@@ -28,14 +29,14 @@ async function getModelFileFromUser(targetWindow) {
 
 async function openModelFile(targetWindow, file) {
   return new Promise((resolve) => {
-    readFile(file, 'utf8').then(data => {
+    fsPromises.readFile(file, 'utf8').then(data => {
       // startWatchingFile(targetWindow, file);
       sendToWindow(targetWindow, 'model-file-opened', file, data);
     }).catch(err => {
-      dialog.showErrorBox(`Failed to read model file: ${file}`, err.message).then(() => {
-        getLogger().error(`Failed to read model file ${file}: ${err}`);
-        resolve();
-      });
+      const message = getErrorMessage(err);
+      dialog.showErrorBox(`Failed to read model file: ${file}`, message);
+      getLogger().error('Failed to read model file %s: %s', file, message);
+      resolve();
     });
   });
 }
@@ -51,26 +52,21 @@ async function saveModelFile(targetWindow, file, content) {
           {name: 'YAML Files', extensions: ['yaml', 'yml']},
           {name: 'JSON Files', extensions: ['json']}
         ]
-      })
-        .then(saveResponse => {
-          if (!saveResponse.canceled && saveResponse.filePath) {
-            writeFile(saveResponse.filePath, content, {encoding: 'utf8'})
-              .then(() => {
-                sendToWindow(targetWindow, 'model-file-saved', saveResponse.filePath, content);
-                resolve();
-              })
-              .catch(err => reject(err));
-          } else {
-            return resolve();
-          }
-        });
+      }).then(saveResponse => {
+        if (!saveResponse.canceled && saveResponse.filePath) {
+          fsPromises.writeFile(saveResponse.filePath, content, {encoding: 'utf8'}).then(() => {
+            sendToWindow(targetWindow, 'model-file-saved', saveResponse.filePath, content);
+            resolve();
+          }).catch(err => reject(err));
+        } else {
+          return resolve();
+        }
+      });
     } else {
-      writeFile(file, content, {encoding: 'utf8'})
-        .then(() => {
-          sendToWindow(targetWindow, 'model-file-saved', file, content);
-          resolve();
-        })
-        .catch(err => reject(err));
+      fsPromises.writeFile(file, content, {encoding: 'utf8'}).then(() => {
+        sendToWindow(targetWindow, 'model-file-saved', file, content);
+        resolve();
+      }).catch(err => reject(err));
     }
   });
 }
@@ -96,9 +92,7 @@ async function saveContentsOfModelFiles(projectDirectory, models) {
 async function _getModelFileContent(projectDirectory, modelFile) {
   const effectiveModelFile = fsUtils.getAbsolutePath(modelFile, projectDirectory);
   return new Promise((resolve, reject) => {
-    readFile(effectiveModelFile, {encoding: 'utf8'})
-      .then(data => resolve(data))
-      .catch(err => reject(err));
+    fsPromises.readFile(effectiveModelFile, {encoding: 'utf8'}).then(data => resolve(data)).catch(err => reject(err));
   });
 }
 
@@ -106,7 +100,7 @@ async function _saveModelFileContent(projectDirectory, modelFile, modelContents)
   const effectiveModelFile = fsUtils.getAbsolutePath(modelFile, projectDirectory);
   const directory = path.dirname(effectiveModelFile);
   fs.mkdirSync(directory, { recursive: true });
-  return writeFile(effectiveModelFile, modelContents, {encoding: 'utf8'});
+  return fsPromises.writeFile(effectiveModelFile, modelContents, {encoding: 'utf8'});
 }
 
 module.exports = {
