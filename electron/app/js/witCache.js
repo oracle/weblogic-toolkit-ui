@@ -10,6 +10,7 @@ const { getLogger } = require('./wktLogging');
 const { getImagetoolShellScript } = require('./wktTools');
 const { executeScriptCommand } = require('./childProcessExecutor');
 
+/* global process */
 async function cacheInstallers(cacheConfig) {
   const results = {
     isSuccess: true
@@ -104,7 +105,8 @@ async function executeCacheCommand(javaHome, installerType, installerPath, insta
     `--version=${installerVersion}`
   ];
   const env = {
-    JAVA_HOME: javaHome
+    JAVA_HOME: javaHome,
+    PATH: process.env.PATH
   };
 
   const result = {
