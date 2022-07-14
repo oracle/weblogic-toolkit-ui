@@ -40,9 +40,8 @@ Use the Model `Design View` pages to create or edit your WDT model files. For re
 In addition, use the Help (?) icon to the left of each field to access summary and detailed help for the field. Or,
 click the ? icon in the top right of the content pane to toggle the view of the reference information for all of the fields displayed on the page.
 
-The WDT model files that you configure will be reflected in the `Code View`. Note that currently, the WKTUI supports only a single WDT model file
-(YAML file with the domain definition) per project but the collection of that model file, the variables file, and the archive file can also be referred to as "model files."
-Using the Model `Design View` pages, if you select the "circle/arrow" icon beside a field, a dialog appears with the option of setting the field to a variable.
+The WDT model files that you configure will be reflected in the `Code View`. Using the Model `Design View` pages, if you select the "circle/arrow"
+icon beside a field, a dialog appears with the option of setting the field to a variable.
 The variable will show up in both the model and the variables editor on the `Code View` page. Likewise, when adding an application, you supply the path to the EAR,
 WAR, or JAR file (or directory); that path will be put in the archive editor on the `Code View` page.
 
