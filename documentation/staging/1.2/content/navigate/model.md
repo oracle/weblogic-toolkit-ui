@@ -31,9 +31,23 @@ and [Archive File](https://oracle.github.io/weblogic-deploy-tooling/concepts/arc
 Tooling documentation.
 
 ### Design View
-In the current release, the `Design View` is empty.  Our intention is to eventually provide a WebLogic
-console-like set of pages that will make it easier to create or edit a model using an interface more familiar to
-WebLogic administrators and developers.
+The `Design View` is provided through integration with the [WebLogic Remote Console](https://github.com/oracle/weblogic-remote-console/releases).
+For version details, see [Prerequisites]({{< relref "/setup/prerequisites.md" >}}). Upon first access, provide the location of the
+Remote Console installation directory, then click **Start WebLogic Remote Console**.
+
+Use the Model `Design View` pages to create or edit your WDT model files. For reference, see
+[WDT Model Files](https://oracle.github.io/weblogic-remote-console/userguide/providers/wdt-model/) in the Remote Console documentation.
+In addition, use the Help (?) icon to the left of each field to access summary and detailed help for the field. Or,
+click the ? icon in the top right of the content pane to toggle the view of the reference information for all of the fields displayed on the page.
+
+The WDT model files that you configure will be reflected in the `Code View`. Using the Model `Design View` pages, if you select the "circle/arrow"
+icon beside a field, a dialog appears with the option of setting the field to a variable.
+The variable will show up in both the model and the variables editor on the `Code View` page. Likewise, when adding an application, you supply the path to the EAR,
+WAR, or JAR file (or directory); that path will be put in the archive editor on the `Code View` page.
+
+Note that if you create a new model using the `Design View` pages, the `Design View` will insert the `AdminUserName` and `AdminPassword` fields
+into the `domainInfo` section of the model with their values set to variables whose values you will need to provide.
+This is intended to help you create a domain with all of the required fields.
 
 ### Code View
 Using an IDE-like layout, the `Code View` provides editor panes for editing the model, variables, and archive files,

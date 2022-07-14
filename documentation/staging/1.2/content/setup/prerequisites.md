@@ -18,6 +18,7 @@ These include:
   12.2.1.3.0 or later; it is a best practice to install the latest Patch Set Updates (PSUs) and other recommended patches. The
   application uses WebLogic Server to gain access to the WebLogic Server Scripting Tool (WLST) and other related artifacts to use
   as a client.
+- WebLogic Remote Console version 2.3.0 or later. Provides user interface for creating WDT models in Model View.
 - `docker` (or `podman`) - Required to create images locally and interact with image registries.
 - `kubectl` - Required to interact with your Kubernetes cluster.  Install a version that is
   compatible with your Kubernetes cluster version.  For more information, see the Kubernetes `Client Configuration` page in the UI.
@@ -28,6 +29,7 @@ These include:
 - `helm` - Helm version 3.3.2 or later. Required to install the WebLogic Kubernetes Operator and to install an ingress controller.
 - `openssl` - Used to generate an X.509 TLS certificate for ingress routes, should you ask the application
   to generate one for you.
+
 
 {{% notice note %}} The WKT UI application is built using the Electron framework and as such, we support only the platforms and versions supported by [Electron](https://www.electronjs.org/docs/latest/tutorial/support#supported-platforms).  For example, because of the Electron requirement for Fedora 24 or newer, we support _only_ versions 8.0 and higher of Oracle Linux, RedHat Linux, and CentOS Linux.
 {{% /notice %}}
