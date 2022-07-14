@@ -32,16 +32,23 @@ Tooling documentation.
 
 ### Design View
 The `Design View` is provided through integration with the [WebLogic Remote Console](https://github.com/oracle/weblogic-remote-console/releases).
-For version details, see [Prerequisites]({{< relref "/setup/prerequisites.md" >}}).
+For version details, see [Prerequisites]({{< relref "/setup/prerequisites.md" >}}). Upon first access, provide the location of the
+Remote Console installation directory, then click **Start WebLogic Remote Console**.
 
-Upon first access, provide the location of the Remote Console installation directory, then click **Start WebLogic Remote Console**.
-Then use the WebLogic Server domain configuration pages to create or edit WDT model files. For reference, see
+Use the Model `Design View` pages to create or edit your WDT model files. For reference, see
 [WDT Model Files](https://oracle.github.io/weblogic-remote-console/userguide/providers/wdt-model/) in the Remote Console documentation.
-
-Use the Help (?) icon to the left of each field to access summary and detailed help for the field. Or,
+In addition, use the Help (?) icon to the left of each field to access summary and detailed help for the field. Or,
 click the ? icon in the top right of the content pane to toggle the view of the reference information for all of the fields displayed on the page.
 
-The WDT model file that you configured will be reflected in the `Code View`.
+The WDT model files that you configure will be reflected in the `Code View`. Note that currently, the WKTUI supports only a single WDT model file
+(YAML file with the domain definition) per project but the collection of that model file, the variables file, and the archive file can also be referred to as "model files."
+Using the Model `Design View` pages, if you select the "circle/arrow" icon beside a field, a dialog appears with the option of setting the field to a variable.
+The variable will show up in both the model and the variables editor on the `Code View` page. Likewise, when adding an application, you supply the path to the EAR,
+WAR, or JAR file (or directory); that path will be put in the archive editor on the `Code View` page.
+
+Note that if you create a new model using the `Design View` pages, the `Design View` will insert the `AdminUserName` and `AdminPassword` fields
+into the `domainInfo` section of the model with their values set to variables whose values you will need to provide.
+This is intended to help you create a domain with all of the required fields.
 
 ### Code View
 Using an IDE-like layout, the `Code View` provides editor panes for editing the model, variables, and archive files,
