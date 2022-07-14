@@ -31,9 +31,17 @@ and [Archive File](https://oracle.github.io/weblogic-deploy-tooling/concepts/arc
 Tooling documentation.
 
 ### Design View
-In the current release, the `Design View` is empty.  Our intention is to eventually provide a WebLogic
-console-like set of pages that will make it easier to create or edit a model using an interface more familiar to
-WebLogic administrators and developers.
+The `Design View` is provided through integration with the [WebLogic Remote Console](https://github.com/oracle/weblogic-remote-console/releases).
+For version details, see [Prerequisites]({{< relref "/setup/prerequisites.md" >}}).
+
+Upon first access, provide the location of the Remote Console installation directory, then click **Start WebLogic Remote Console**.
+Then use the WebLogic Server domain configuration pages to create or edit WDT model files. For reference, see
+[WDT Model Files](https://oracle.github.io/weblogic-remote-console/userguide/providers/wdt-model/) in the Remote Console documentation.
+
+Use the Help (?) icon to the left of each field to access summary and detailed help for the field. Or,
+click the ? icon in the top right of the content pane to toggle the view of the reference information for all of the fields displayed on the page.
+
+The WDT model file that you configured will be reflected in the `Code View`.
 
 ### Code View
 Using an IDE-like layout, the `Code View` provides editor panes for editing the model, variables, and archive files,
