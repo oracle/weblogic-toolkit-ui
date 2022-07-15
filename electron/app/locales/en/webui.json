@@ -194,11 +194,11 @@
   "model-design-coming-soon": "Coming Soon...",
   "model-design-wrc-form-title": "WebLogic Remote Console Integration",
   "model-design-wrc-home-label": "WebLogic Remote Console Install Location",
-  "model-design-wrc-install-description": "The Model Design View is provided through integration with the WebLogic Remote Console.  Install the WebLogic Remote Console on the local machine and use the form below to provide its location and start the daemon process with which the UI will communicate.  Note that this integration required WebLogic Remote Console version 2.3.0 or newer.",
+  "model-design-wrc-install-description": "The Model Design View is provided through integration with the WebLogic Remote Console.  Install the WebLogic Remote Console on the local machine and use the form below to provide its location and start the daemon process with which the UI will communicate.  Note that this integration requires WebLogic Remote Console version 2.3.0 or later.",
   "model-design-wrc-install-location-prefix": "Download and run the appropriate installer for your machine from the GitHub",
   "model-design-wrc-link-text": "WebLogic Remote Console Releases",
   "model-design-wrc-install-location-postfix": "page.",
-  "model-design-wrc-start-description": "Once the WebLogic Remote Console is installed, set the WebLogic Remote Console Install Location field below accordingly and press the Start WebLogic Remote Console button.",
+  "model-design-wrc-start-description": "After the WebLogic Remote Console is installed, set the WebLogic Remote Console Install Location field below accordingly and click Start WebLogic Remote Console.",
   "model-design-button-startWebLogicRemoteConsole": "Start WebLogic Remote Console",
   "model-design-hints-startWebLogicRemoteConsole": "Start the WebLogic Remote Console backend process",
 
