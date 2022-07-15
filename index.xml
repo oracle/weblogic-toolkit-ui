@@ -39,6 +39,16 @@ These include:
     </item>
     
     <item>
+      <title>Release 1.1.1</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.1.1/</link>
+      <pubDate>Sun, 30 Jan 2022 12:48:00 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.1.1/</guid>
+      <description>Changes in Release 1.1.1  Major New Features Other Changes Bugs Fixes Known Issues  Major New Features No new features.
+Other Changes  Revamped the Ingress Route editing mechanism:  Added busy dialog while fetching existing service data from the domain&amp;rsquo;s Kubernetes namespace prior to opening the route edit dialog. Added placeholders to the Target Service and Target Port fields to clarify the current state of these fields when no value is selected.</description>
+    </item>
+    
+    <item>
       <title>Install WKT UI</title>
       <link>https://oracle.github.io/weblogic-toolkit-ui/setup/install/</link>
       <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
@@ -59,15 +69,6 @@ These include:
     </item>
     
     <item>
-      <title>Release 1.1.0</title>
-      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.1.0/</link>
-      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
-      
-      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.1.0/</guid>
-      <description>Changes in Release 1.1.0  Major New Features Other Changes Bugs Fixes Known Issues  Major New Features  Updated macOS environment control to specify extra environment settings to pass down to Docker/Podman, kubectl, and Helm invocations. Bundling WebLogic Deploy Tooling 2.0.0. See WDT release notes for details. New Validate Model action that leverages WDT 2.0 changes to validate the model files and reports any validation errors it finds. Updated Prepare Model action that leverages WDT 2.</description>
-    </item>
-    
-    <item>
       <title>WebLogic Kubernetes Operator</title>
       <link>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/k8s-wko/</link>
       <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
@@ -84,6 +85,15 @@ These include:
       <guid>https://oracle.github.io/weblogic-toolkit-ui/navigate/image/</guid>
       <description>Contents  Image Design View  Target Image Name and Registry Credentials Base Image to Use Installers for Building the Image Patch Oracle Home WebLogic Deploy Tooling Configuration Image Build Configuration   Code View Create Images Push Images  Image The Image section helps you build container images for deploying WebLogic-based applications in a Kubernetes environment using the WebLogic Image Tool.
 Design View The Design View helps you specify the necessary data needed to run the WebLogic Image Tool to build an image for running the WebLogic domain.</description>
+    </item>
+    
+    <item>
+      <title>Release 1.1.0</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.1.0/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.1.0/</guid>
+      <description>Changes in Release 1.1.0  Major New Features Other Changes Bugs Fixes Known Issues  Major New Features  Updated macOS environment control to specify extra environment settings to pass down to Docker/Podman, kubectl, and Helm invocations. Bundling WebLogic Deploy Tooling 2.0.0. See WDT release notes for details. New Validate Model action that leverages WDT 2.0 changes to validate the model files and reports any validation errors it finds. Updated Prepare Model action that leverages WDT 2.</description>
     </item>
     
     <item>

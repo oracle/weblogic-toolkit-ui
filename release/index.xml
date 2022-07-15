@@ -8,6 +8,16 @@
     <language>en-us</language>
     <lastBuildDate>Sun, 30 Jan 2022 12:48:00 -0500</lastBuildDate><atom:link href="https://oracle.github.io/weblogic-toolkit-ui/release/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Release 1.1.1</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.1.1/</link>
+      <pubDate>Sun, 30 Jan 2022 12:48:00 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.1.1/</guid>
+      <description>Changes in Release 1.1.1  Major New Features Other Changes Bugs Fixes Known Issues  Major New Features No new features.
+Other Changes  Revamped the Ingress Route editing mechanism:  Added busy dialog while fetching existing service data from the domain&amp;rsquo;s Kubernetes namespace prior to opening the route edit dialog. Added placeholders to the Target Service and Target Port fields to clarify the current state of these fields when no value is selected.</description>
+    </item>
+    
+    <item>
       <title>Release 1.1.0</title>
       <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.1.0/</link>
       <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>

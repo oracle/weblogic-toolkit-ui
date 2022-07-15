@@ -14,13 +14,13 @@
     <loc>https://oracle.github.io/weblogic-toolkit-ui/concepts/</loc>
     <lastmod>2019-02-22T15:27:38-05:00</lastmod>
   </url><url>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.1.1/</loc>
+    <lastmod>2022-01-30T12:48:00-05:00</lastmod>
+  </url><url>
     <loc>https://oracle.github.io/weblogic-toolkit-ui/setup/install/</loc>
     <lastmod>2019-02-22T15:44:42-05:00</lastmod>
   </url><url>
     <loc>https://oracle.github.io/weblogic-toolkit-ui/navigate/model/</loc>
-    <lastmod>2019-02-22T15:44:42-05:00</lastmod>
-  </url><url>
-    <loc>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.1.0/</loc>
     <lastmod>2019-02-22T15:44:42-05:00</lastmod>
   </url><url>
     <loc>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/k8s-wko/</loc>
@@ -30,6 +30,9 @@
     <lastmod>2019-02-22T15:27:38-05:00</lastmod>
   </url><url>
     <loc>https://oracle.github.io/weblogic-toolkit-ui/navigate/image/</loc>
+    <lastmod>2019-02-22T15:44:42-05:00</lastmod>
+  </url><url>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.1.0/</loc>
     <lastmod>2019-02-22T15:44:42-05:00</lastmod>
   </url><url>
     <loc>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/k8s-weblogic-domain/</loc>
@@ -44,14 +47,14 @@
     <loc>https://oracle.github.io/weblogic-toolkit-ui/developer/</loc>
     <lastmod>2019-02-22T15:27:38-05:00</lastmod>
   </url><url>
-    <loc>https://oracle.github.io/weblogic-toolkit-ui/release/</loc>
-    <lastmod>2022-01-30T12:48:00-05:00</lastmod>
-  </url><url>
     <loc>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/</loc>
     <lastmod>2019-02-22T15:27:38-05:00</lastmod>
   </url><url>
     <loc>https://oracle.github.io/weblogic-toolkit-ui/navigate/verrazzano/</loc>
     <lastmod>2019-02-22T15:44:42-05:00</lastmod>
+  </url><url>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/release/</loc>
+    <lastmod>2022-01-30T12:48:00-05:00</lastmod>
   </url><url>
     <loc>https://oracle.github.io/weblogic-toolkit-ui/</loc>
     <lastmod>2022-01-30T12:48:00-05:00</lastmod>
