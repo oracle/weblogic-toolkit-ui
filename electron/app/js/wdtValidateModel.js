@@ -44,7 +44,11 @@ async function validateModel(currentWindow, stdoutChannel, stderrChannel, valida
     JAVA_HOME: javaHome,
     WDT_CUSTOM_CONFIG: getWdtCustomConfigDirectory()
   };
-  getLogger().debug(`Invoking ${getValidateModelShellScript()} with args ${JSON.stringify(argList)} and environment ${JSON.stringify(env)}`);
+
+  const wktLogger = getLogger();
+  if (wktLogger.isDebugEnabled()) {
+    wktLogger.debug(`Invoking ${getValidateModelShellScript()} with args ${JSON.stringify(argList)} and environment ${JSON.stringify(env)}`);
+  }
 
   const results = {
     isSuccess: true

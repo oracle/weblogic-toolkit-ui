@@ -105,7 +105,11 @@ async function setWebLogicRemoteConsoleHomeAndStart(currentWindow, rcHome) {
       }
 
       _isCompatibleVersion(rcHome).then(isCompatibleResult => {
-        getLogger().debug('_isCompatibleVersion() returned %s', JSON.stringify(isCompatibleResult));
+        const wktLogger = getLogger();
+        if (wktLogger.isDebugEnabled()) {
+          wktLogger.debug('_isCompatibleVersion() returned %s', JSON.stringify(isCompatibleResult));
+        }
+
         if (isCompatibleResult.isCompatible) {
           userSettings.setWebLogicRemoteConsoleHome(rcHome);
           startWebLogicRemoteConsoleBackend(currentWindow, true).then(() => resolve() );

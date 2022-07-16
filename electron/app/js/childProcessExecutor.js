@@ -53,8 +53,11 @@ function spawnDaemonChildProcess(executable, argList, env, extraOptions = {}, {
   const command = workaroundNodeJsIssue38490(shell, executable, argList);
   const options = getSpawnOptions(env, shell, detached, windowHide, extraOptions);
 
-  getLogger().debug('Spawning daemon process %s with arguments %s and options %s',
-    command.executable, command.argList, JSON.stringify(options));
+  const wktLogger = getLogger();
+  if (wktLogger.isDebugEnabled()) {
+    wktLogger.debug('Spawning daemon process %s with arguments %s and options %s',
+      command.executable, command.argList, JSON.stringify(options));
+  }
   return spawn(command.executable, command.argList, options);
 }
 
@@ -96,9 +99,10 @@ async function streamChildOutput(currentWindow, outputStream, eventName) {
 }
 
 async function executeFileCommand(fileName, args, env, containsCredentials) {
+  const wktLogger = getLogger();
   return new Promise((resolve, reject) => {
-    if (!containsCredentials) {
-      getLogger().debug('Executing %s with arguments %s and environment %s', fileName, args, env ? JSON.stringify(env) : '<none>');
+    if (!containsCredentials && wktLogger.isDebugEnabled()) {
+      wktLogger.debug('Executing %s with arguments %s and environment %s', fileName, args, env ? JSON.stringify(env) : '<none>');
     }
     const options = { windowsHide: true };
     if (env) {
@@ -117,7 +121,11 @@ async function executeScriptCommand(fileName, args, env) {
     }
 
     const command = formatScriptCommand(fileName, args);
-    getLogger().debug('Executing %s with environment variables %s', command, JSON.stringify(env));
+    const wktLogger = getLogger();
+    if (wktLogger.isDebugEnabled()) {
+      wktLogger.debug('Executing %s with environment variables %s', command, JSON.stringify(env));
+    }
+
     exec(command, options, (err, stdout, stderr) => execCallback(fileName, resolve, reject, err, stdout, stderr));
   });
 }

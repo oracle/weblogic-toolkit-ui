@@ -220,7 +220,11 @@ function getHelmEnv(httpsProxyUrl, bypassProxyHosts, helmOptions) {
     env['TEMP'] = process.env.TEMP;
     env['APPDATA'] = process.env.APPDATA;
   }
-  getLogger().debug('Returning Helm Environment: %s', JSON.stringify(env, null, 2));
+
+  const wktLogger = getLogger();
+  if (wktLogger.isDebugEnabled()) {
+    wktLogger.debug('Returning Helm Environment: %s', JSON.stringify(env, null, 2));
+  }
   return env;
 }
 

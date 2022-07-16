@@ -14,6 +14,7 @@ const osUtils = require('../js/osUtils');
 
 const wktLoggerMock = {
   getLogger: () => {
+    console.isDebugEnabled = () => { return true; };
     return console;
   }
 };

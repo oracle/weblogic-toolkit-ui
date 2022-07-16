@@ -258,8 +258,10 @@ async function _getArchiveEntryShowChooser(targetWindow, archiveEntryTypeName, a
   const { getLogger } = require('./wktLogging');
   const wktLogger = getLogger();
 
-  wktLogger.debug('entering _getArchiveEntryShowChooser(%s, %s, %s)',
-    targetWindow, archiveEntryTypeName, JSON.stringify(archiveEntryTypeOptions));
+  if (wktLogger.isDebugEnabled()) {
+    wktLogger.debug('entering _getArchiveEntryShowChooser(%s, %s, %s)',
+      targetWindow, archiveEntryTypeName, JSON.stringify(archiveEntryTypeOptions));
+  }
 
   const result = {};
   const archiveEntryType = getEntryTypes()[archiveEntryTypeName];
@@ -297,7 +299,10 @@ async function _getArchiveEntryShowChooser(targetWindow, archiveEntryTypeName, a
       result.childPaths = await _getDirectoryPaths(result.filePath);
     }
   }
-  wktLogger.debug('exiting _getArchiveEntryShowChooser() with %s', JSON.stringify(result));
+
+  if (wktLogger.isDebugEnabled()) {
+    wktLogger.debug('exiting _getArchiveEntryShowChooser() with %s', JSON.stringify(result));
+  }
   return result;
 }
 
@@ -307,7 +312,9 @@ async function _getArchiveEntry(archiveEntryTypeName, archiveEntryTypeOptions) {
   const { getLogger } = require('./wktLogging');
   const wktLogger = getLogger();
 
-  wktLogger.debug('entering _getArchiveEntry(%s, %s)', archiveEntryTypeName, JSON.stringify(archiveEntryTypeOptions));
+  if (wktLogger.isDebugEnabled()) {
+    wktLogger.debug('entering _getArchiveEntry(%s, %s)', archiveEntryTypeName, JSON.stringify(archiveEntryTypeOptions));
+  }
 
   const result = {};
   const archiveEntryTypes = getEntryTypes();
@@ -348,7 +355,10 @@ async function _getArchiveEntry(archiveEntryTypeName, archiveEntryTypeOptions) {
     result.archiveUpdatePath = `${result.archivePath}/`;
     result.childPaths = await _getDirectoryPaths(result.filePath);
   }
-  wktLogger.debug('exiting _getArchiveEntryShowChooser() with %s', JSON.stringify(result));
+
+  if (wktLogger.isDebugEnabled()) {
+    wktLogger.debug('exiting _getArchiveEntryShowChooser() with %s', JSON.stringify(result));
+  }
   return result;
 }
 
