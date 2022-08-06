@@ -146,7 +146,7 @@ async function doPushImage(currentWindow, stdoutChannel, stderrChannel, imageBui
 
 function getDockerEnv(httpsProxyUrl, bypassProxyHosts, imageBuilderOptions) {
   let parentPath = process.env.PATH;
-  if (imageBuilderOptions && imageBuilderOptions.extraPathDirectories) {
+  if (Array.isArray(imageBuilderOptions?.extraPathDirectories) && imageBuilderOptions.extraPathDirectories.length > 0) {
     const extraPathDirectories = imageBuilderOptions.extraPathDirectories.join(path.delimiter);
     parentPath += `${path.delimiter}${extraPathDirectories}`;
   }
@@ -205,6 +205,10 @@ function getDockerEnv(httpsProxyUrl, bypassProxyHosts, imageBuilderOptions) {
     env = Object.assign(env, extraEnvironmentVariables);
   }
 
+  const wktLogger = getLogger();
+  if (wktLogger.isDebugEnabled()) {
+    wktLogger.debug('getDockerEnv() returning env: %s', JSON.stringify(env));
+  }
   return env;
 }
 
