@@ -247,20 +247,12 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
     }
 
     function getServerPodForCluster(cluster) {
-      const serverPod = {};
-      const env = [];
-      addIfNotNull(env, 'JAVA_OPTIONS', getJavaOptionsForCluster(cluster));
-      addIfNotNull(env, 'USER_MEM_ARGS', getUserMemArgsForCluster(cluster));
-      if (env.length) {
-        serverPod.env = env;
-      }
+      const serverPod = _getServerPod(getJavaOptionsForCluster(cluster), getUserMemArgsForCluster(cluster), getKubernetesResourcesForCluster(cluster)) || {};
 
-      const resources = getKubernetesResourcesForCluster(cluster);
-      if (resources) {
-        serverPod.resources = resources;
+      const affinity = _getAffinityForServerPod(100);
+      if (affinity) {
+        serverPod.affinity = affinity;
       }
-
-      serverPod.affinity = _getAffinityForServerPod(100);
 
       return Object.keys(serverPod).length > 0 ? serverPod : null;
     }
@@ -370,16 +362,23 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
     }
 
     function _getAffinityForServerPod(weight) {
-      const podAffinityTerm = {};
-      podAffinityTerm.labelSelector = {};
-      const keyObject = {'key': 'weblogic.cluster.name', 'operator':'In', 'values':['$(CLUSTER_NAME)']};
-      podAffinityTerm.labelSelector.matchExpressions = [keyObject];
-      podAffinityTerm.topologyKey = 'kubernetes.io/hostname';
-      const podObject = {'weight': weight, podAffinityTerm};
-
-      const preferredDuringSchedulingIgnoredDuringExecution = [podObject];
-      const preferred = {preferredDuringSchedulingIgnoredDuringExecution};
-      return  {'podAntiAffinity': preferred};
+      return {
+        podAntiAffinity: {
+          preferredDuringSchedulingIgnoredDuringExecution: [{
+            weight: weight,
+            podAffinityTerm: {
+              topologyKey: 'kubernetes.io/hostname',
+              labelSelector: {
+                matchExpressions: [{
+                  key: 'weblogic.clusterName',
+                  operator: 'In',
+                  values: ['$(CLUSTER_NAME)']
+                }]
+              }
+            }
+          }]
+        }
+      };
     }
 
     return K8sDomainResourceGenerator;
