@@ -96,6 +96,7 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
         this.memoryLimit = props.createProperty();
         this.memoryLimit.addValidator(...validationHelper.getK8sMemoryValidators());
 
+        this.nodeSelector = props.createProperty();
         // update the secrets list when the uid changes.
         this.uid.observable.subscribe(() => {
           this.updateSecrets();

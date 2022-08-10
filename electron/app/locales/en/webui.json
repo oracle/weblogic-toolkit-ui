@@ -644,6 +644,8 @@
   "domain-design-username-header": "Username",
   "domain-design-password-header": "Password",
   "domain-design-secrets-cell-field-name": "Secrets table {{name}} field at row {{position}} with UID {{uid}}",
+  "domain-design-node-selector-label": "Kubernetes node selector",
+  "domain-design-node-selector-help": "Node selector for all pods in the domain",
 
   "domain-code-script-title": "Install Script",
   "domain-code-domain-resource-title": "Domain Resource",

@@ -170,7 +170,7 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
 
       _getServerPod() {
         const serverPod = _getServerPod(getJavaOptions(this.project.k8sDomain), getUserMemArgs(this.project.k8sDomain),
-          getKubernetesResources(this.project.k8sDomain));
+          getKubernetesResources(this.project.k8sDomain), this.project.k8sDomain.nodeSelector.value);
 
         if (this.project.settings.targetDomainLocation.value === 'pv') {
           const volumeName = this.project.k8sDomain.domainPersistentVolumeName.value || 'volume-name-not-set';
@@ -182,6 +182,7 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
               }
             }
           ];
+
           serverPod.volumeMounts = [
             {
               name: volumeName,
@@ -247,10 +248,10 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
     }
 
     function getServerPodForCluster(cluster) {
-      return _getServerPod(getJavaOptionsForCluster(cluster), getUserMemArgsForCluster(cluster), getKubernetesResourcesForCluster(cluster));
+      return _getServerPod(getJavaOptionsForCluster(cluster), getUserMemArgsForCluster(cluster), getKubernetesResourcesForCluster(cluster), null);
     }
 
-    function _getServerPod(javaOptions, userMemArgs, resources) {
+    function _getServerPod(javaOptions, userMemArgs, resources, nodeSelector) {
       const serverPod = {};
       const env = [];
       addIfNotNull(env, 'JAVA_OPTIONS', javaOptions);
@@ -261,6 +262,10 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
 
       if (resources) {
         serverPod.resources = resources;
+      }
+
+      if (nodeSelector) {
+        serverPod.nodeSelector = { name: nodeSelector };
       }
       return Object.keys(serverPod).length > 0 ? serverPod : null;
     }

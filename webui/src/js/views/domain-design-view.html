@@ -468,6 +468,10 @@
                      validators="[[project.k8sDomain.memoryLimit.validators()]]"
                      help.instruction="[[labelMapper('memory-limit-help')]]">
       </oj-input-text>
+      <oj-input-text label-hint="[[labelMapper('node-selector-label')]]"
+                     value="{{project.k8sDomain.nodeSelector.observable}}" class="editable"
+                     help.instruction="[[labelMapper('node-selector-help')]]">
+      </oj-input-text>
     </oj-form-layout>
     <oj-form-layout max-columns="3" direction="row">
       <oj-switch label-hint="[[labelMapper('debug-stdout-label')]]"
