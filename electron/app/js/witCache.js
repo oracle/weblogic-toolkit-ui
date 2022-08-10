@@ -111,7 +111,11 @@ async function executeCacheCommand(javaHome, installerType, installerPath, insta
     isSuccess: true
   };
   return new Promise(resolve => {
-    getLogger().debug('Executing %s shell script with args %s and environment %s', imageToolScript, args, JSON.stringify(env));
+    const wktLogger = getLogger();
+    if (wktLogger.isDebugEnabled()) {
+      wktLogger.debug('Executing %s shell script with args %s and environment %s', imageToolScript, args, JSON.stringify(env));
+    }
+
     executeScriptCommand(imageToolScript, args, env).then(message => {
       getLogger().debug('%s shell script completed successfully: %s', imageToolScript, message);
       result[`${installerType}StdoutMessage`] = message;

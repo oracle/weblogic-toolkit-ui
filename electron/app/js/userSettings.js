@@ -71,24 +71,27 @@ function getUserSettingsForRemote() {
 
 function applyUserSettingsFromRemote(remoteUserSettingsJson) {
   const { getLogger } = require('./wktLogging');
-  const logger = getLogger();
+  const wktLogger = getLogger();
 
   let remoteUserSettingsObject = JSON.parse(remoteUserSettingsJson);
   verifyRemoteUserSettingsObject(remoteUserSettingsObject);
   const currentSettings = _getUserSettings();
   for (const privateField of appPrivateFieldNames) {
-    logger.debug(`privateField = ${privateField}`);
+    wktLogger.debug(`privateField = ${privateField}`);
     if (Object.prototype.hasOwnProperty.call(currentSettings, privateField)) {
-      logger.debug(`adding private field ${privateField} to new user settings object`);
+      wktLogger.debug(`adding private field ${privateField} to new user settings object`);
       remoteUserSettingsObject[privateField] = currentSettings[privateField];
     } else {
-      logger.debug(`currentSettings doesn't have private field ${privateField}`);
+      wktLogger.debug(`currentSettings doesn't have private field ${privateField}`);
     }
   }
-  logger.debug(`new user settings are: ${JSON.stringify(remoteUserSettingsObject)}`);
+
+  if (wktLogger.isDebugEnabled()) {
+    wktLogger.debug(`new user settings are: ${JSON.stringify(remoteUserSettingsObject)}`);
+  }
   _userSettingsObject = remoteUserSettingsObject;
   saveUserSettings();
-  logger.debug('user settings saved...restart the application to pick up logger settings changes');
+  wktLogger.debug('user settings saved...restart the application to pick up logger settings changes');
 }
 
 function getWebLogicRemoteConsoleHome() {

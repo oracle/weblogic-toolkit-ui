@@ -248,7 +248,14 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
     }
 
     function getServerPodForCluster(cluster) {
-      return _getServerPod(getJavaOptionsForCluster(cluster), getUserMemArgsForCluster(cluster), getKubernetesResourcesForCluster(cluster), null);
+      const serverPod = _getServerPod(getJavaOptionsForCluster(cluster), getUserMemArgsForCluster(cluster), getKubernetesResourcesForCluster(cluster), null) || {};
+
+      const affinity = _getAffinityForServerPod(100);
+      if (affinity) {
+        serverPod.affinity = affinity;
+      }
+
+      return Object.keys(serverPod).length > 0 ? serverPod : null;
     }
 
     function _getServerPod(javaOptions, userMemArgs, resources, nodeSelector) {
@@ -264,9 +271,12 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
         serverPod.resources = resources;
       }
 
+<<<<<<< HEAD
       if (nodeSelector) {
         serverPod.nodeSelector = { name: nodeSelector };
       }
+=======
+>>>>>>> main
       return Object.keys(serverPod).length > 0 ? serverPod : null;
     }
 
@@ -358,6 +368,28 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
       return foundValue ? resources : null;
     }
 
+    function _getAffinityForServerPod(weight) {
+      return {
+        podAntiAffinity: {
+          preferredDuringSchedulingIgnoredDuringExecution: [{
+            weight: weight,
+            podAffinityTerm: {
+              topologyKey: 'kubernetes.io/hostname',
+              labelSelector: {
+                matchExpressions: [{
+                  key: 'weblogic.clusterName',
+                  operator: 'In',
+                  values: ['$(CLUSTER_NAME)']
+                }]
+              }
+            }
+          }]
+        }
+      };
+    }
+
     return K8sDomainResourceGenerator;
   }
+
+
 );

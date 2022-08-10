@@ -27,7 +27,12 @@ async function createImage(currentWindow, stdoutChannel, stderrChannel, createCo
 
   return new Promise(resolve => {
     const filteredArgs = argsContainCredentials ? filterArgsForLogging(args) : args;
-    getLogger().debug('Executing %s shell script with args %s and environment %s', imageToolScript, filteredArgs, JSON.stringify(env));
+    const wktLogger = getLogger();
+
+    if (wktLogger.isDebugEnabled()) {
+      wktLogger.debug('Executing %s shell script with args %s and environment %s', imageToolScript, filteredArgs, JSON.stringify(env));
+    }
+
     executeChildShellScript(currentWindow, imageToolScript, args, env, stdoutChannel,
       { stderrEventName: stderrChannel })
       .then(exitCode => {
@@ -58,7 +63,11 @@ async function createAuxImage(currentWindow, stdoutChannel, stderrChannel, creat
   };
 
   return new Promise(resolve => {
-    getLogger().debug('Executing %s shell script with args %s and environment %s', imageToolScript, args, JSON.stringify(env));
+    const wktLogger = getLogger();
+    if (wktLogger.isDebugEnabled()) {
+      wktLogger.debug('Executing %s shell script with args %s and environment %s', imageToolScript, args, JSON.stringify(env));
+    }
+
     executeChildShellScript(currentWindow, imageToolScript, args, env, stdoutChannel,
       { stderrEventName: stderrChannel }).then(exitCode => {
       if (exitCode !== 0) {
