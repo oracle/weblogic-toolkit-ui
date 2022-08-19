@@ -787,6 +787,7 @@ async function createWindow() {
     'webPreferences': {
       nodeIntegration: false,
       contextIsolation: true,
+      sandbox: false,
       enableRemoteModule: false,
       webviewTag: false,
       additionalArguments: _getAdditionalArguments(),
