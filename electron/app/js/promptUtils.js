@@ -37,6 +37,7 @@ async function getCredentialPassphrase(parentWindow) {
       webPreferences: {
         nodeIntegration: false,
         contextIsolation: true,
+        sandbox: false,
         enableRemoteModule: false,
         webviewTag: false,
         preload: preloadFile
@@ -133,6 +134,7 @@ async function showAboutDialog(wktApp, parentWindow) {
       webPreferences: {
         nodeIntegration: false,
         contextIsolation: true,
+        sandbox: false,
         enableRemoteModule: false,
         webviewTag: false,
         preload: preloadFile

@@ -872,6 +872,7 @@ function createNetworkWindow() {
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
+      sandbox: false,
       enableRemoteModule: false,
       webviewTag: false,
       additionalArguments: additionalArguments,
