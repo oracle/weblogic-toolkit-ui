@@ -12,6 +12,7 @@
   "nav-ingress": "Ingress Controller",
   "nav-verrazzano": "Verrazzano",
   "nav-vz-config": "Client Configuration",
+  "nav-vz-install": "Verrazzano Installation",
   "nav-vz-application": "Application",
   "nav-button-collapse-nav": "Collapse Navigation",
 
@@ -1329,10 +1330,16 @@
 
   "validation-error-dialog-default-title": "Unknown action failed",
 
-  "vz-config-title": "Kubernetes Client Configuration for Verrazzano",
-  "vz-config-coming-soon": "Coming Soon...",
   "vz-application-title": "Verrazzano Application",
   "vz-application-coming-soon": "Coming Soon...",
+
+  "v8o-install-page-title": "Verrazzano Install",
+  "v8o-install-page-name-label": "Install Name",
+  "v8o-install-page-name-help": "The name to add to the Verrazzano object during installation.",
+  "v8o-install-page-profile-label": "Install Profile",
+  "v8o-install-page-profile-help": "The profile to use to install Verrazzano.",
+  "v8o-install-page-tag-label": "Release Tag",
+  "v8o-install-page-tag-help": "The GitHub release tag to use to install Verrazzano.",
 
   "app-update-title": "Application Update",
   "app-update-new-release": "A new release is available: {{releaseName}}",

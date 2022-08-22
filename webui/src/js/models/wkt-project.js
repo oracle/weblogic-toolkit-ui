@@ -12,9 +12,9 @@
  */
 define(['knockout', 'models/wdt-model-definition', 'models/image-definition', 'models/kubectl-definition',
   'models/k8s-domain-definition', 'models/wko-definition', 'models/project-settings-definition',
-  'models/ingress-definition', 'utils/common-utilities', 'utils/wkt-logger'],
+  'models/ingress-definition', 'models/v8o-install-definition', 'utils/common-utilities', 'utils/wkt-logger'],
 function (ko, wdtConstructor, imageConstructor, kubectlConstructor, domainConstructor, wkoConstructor,
-  settingsConstructor, ingressConstructor, utils, wktLogger) {
+  settingsConstructor, ingressConstructor, verrazzanoInstallConstructor, utils, wktLogger) {
   function WktProject() {
     let projectFileName = null;
 
@@ -88,7 +88,17 @@ function (ko, wdtConstructor, imageConstructor, kubectlConstructor, domainConstr
     this.kubectl = kubectlConstructor('kubectl');
     this.k8sDomain = domainConstructor('k8sDomain', this.wdtModel, this.image.domainHomePath, this.image.targetDomainType);
     this.wko = wkoConstructor('wko');
-    this.pages = [this.wdtModel, this.image, this.kubectl, this.k8sDomain, this.wko, this.settings, this.ingress];
+    this.v8oInstall = verrazzanoInstallConstructor('v8oInstall');
+    this.pages = [
+      this.wdtModel,
+      this.image,
+      this.kubectl,
+      this.k8sDomain,
+      this.wko,
+      this.settings,
+      this.ingress,
+      this.v8oInstall
+    ];
 
     this.convertOldProjectFormat = (wktProjectJson) => {
       // Version 1.1.0 moved extraPathDirectories from kubectl to settings...

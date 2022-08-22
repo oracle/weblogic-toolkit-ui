@@ -37,6 +37,7 @@ const { initializeAutoUpdater, registerAutoUpdateListeners, installUpdates, getU
 const { startWebLogicRemoteConsoleBackend, getDefaultDirectoryForOpenDialog, setWebLogicRemoteConsoleHomeAndStart,
   getDefaultWebLogicRemoteConsoleHome, getWebLogicRemoteConsoleBackendPort
 } = require('./js/wlRemoteConsoleUtils');
+const { getVerrazzanoReleaseVersions } = require('./js/vzInstaller');
 
 const { getHttpsProxyUrl, getBypassProxyHosts } = require('./js/userSettings');
 const { sendToWindow } = require('./js/windowUtils');
@@ -953,6 +954,10 @@ class Main {
     // eslint-disable-next-line no-unused-vars
     ipcMain.handle('wrc-get-home-default-value', async (event) => {
       return getDefaultWebLogicRemoteConsoleHome();
+    });
+
+    ipcMain.handle('get-verrazzano-release-versions', async (event) => {
+      return getVerrazzanoReleaseVersions();
     });
   }
 

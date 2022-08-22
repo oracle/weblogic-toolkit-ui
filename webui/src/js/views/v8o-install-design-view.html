@@ -1,0 +1,23 @@
+<!--
+ Copyright (c) 2022, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('title')]]"></oj-bind-text></h6>
+<div class="oj-panel">
+  <oj-form-layout max-columns="2" direction="row">
+    <oj-input-text label-hint="[[labelMapper('name-label')]]"
+                   value="{{project.v8oInstall.installationName.observable}}"
+                   help.instruction="[[labelMapper('name-help')]]">
+    </oj-input-text>
+    <oj-select-single label-hint="[[labelMapper('profile-label')]]"
+                      value="{{project.v8oInstall.installationProfile.observable}}"
+                      data="{{v8oInstallProfiles}}"
+                      help.instruction="[[labelMapper('profile-help')]]">
+    </oj-select-single>
+    <oj-select-single label-hint="[[labelMapper('tag-label')]]"
+                      value="{{project.v8oInstall.versionTag.observable}}"
+                      data="{{v8oVersionTags}}"
+                      help.instruction="[[labelMapper('tag-help')]]">
+    </oj-select-single>
+  </oj-form-layout>
+</div>

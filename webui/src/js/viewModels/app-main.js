@@ -76,6 +76,7 @@ function(accUtils, ko, i18n, project, wktConsole, dialogHelper, viewHelper, scre
       { path: 'ingress-page'},
       { path: 'vz-app-page'},
       { path: 'vz-config-page'},
+      { path: 'v8o-install-page'},
       { path: 'empty-view'}
     ];
 
@@ -124,8 +125,12 @@ function(accUtils, ko, i18n, project, wktConsole, dialogHelper, viewHelper, scre
       icon: 'oj-ux-ico-folder',
       children:[
         { name: this.labelMapper('vz-config'),
-          id: 'vz-config-page',
+          id: 'kubectl-page',
           icon: 'oj-ux-ico-user-configuration'
+        },
+        { name: this.labelMapper('vz-install'),
+          id: 'v8o-install-page',
+          icon: 'oj-ux-ico-arrow-circle-down'
         },
         { name: this.labelMapper('vz-application'),
           id: 'vz-app-page',

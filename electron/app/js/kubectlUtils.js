@@ -16,6 +16,8 @@ const { getErrorMessage } = require('./errorUtils');
 const osUtils = require('./osUtils');
 const k8sUtils = require('./k8sUtils');
 
+const VZ_OPERATOR_SUCCESS_MESSAGE = 'deployment "verrazzano-platform-operator" successfully rolled out';
+
 /* global process */
 async function validateKubectlExe(kubectlExe) {
   const results = {
@@ -589,6 +591,28 @@ async function getIngresses(kubectlExe, namespace, serviceType, options) {
   });
 }
 
+async function applyUsingUrl(kubectlExe, dataUrl, options) {
+  const httpsProxyUrl = getHttpsProxyUrl();
+  const bypassProxyHosts = getBypassProxyHosts();
+
+  const env = getKubectlEnvironment(options, httpsProxyUrl, bypassProxyHosts);
+
+  const result = {
+    isSuccess: true
+  };
+
+  return new Promise(resolve => {
+    const args = [ 'apply', '-f', dataUrl ];
+    executeFileCommand(kubectlExe, args, env).then(stdout => {
+      console.log('kubectl apply for %s returned: %s', dataUrl, stdout);
+    }).catch(err => {
+      result.isSuccess = false;
+      result.reason = i18n.t('kubectl-apply-url-failed-error-message', { url: dataUrl, error: getErrorMessage(err) });
+      resolve(result);
+    });
+  });
+}
+
 async function apply(kubectlExe, fileData, options) {
   const httpsProxyUrl = getHttpsProxyUrl();
   const bypassProxyHosts = getBypassProxyHosts();
@@ -764,16 +788,43 @@ async function createOrReplaceSecret(kubectlExe, namespace, secret, createArgs, 
   });
 }
 
+async function verifyVerrazzanoPlatformOperatorRollout(kubectlExe, options) {
+  const httpsProxyUrl = getHttpsProxyUrl();
+  const bypassProxyHosts = getBypassProxyHosts();
+
+  const env = getKubectlEnvironment(options, httpsProxyUrl, bypassProxyHosts);
+
+  const result = {
+    isSuccess: true
+  };
+
+  return new Promise(resolve => {
+    const args = [ 'rollout', 'status', 'deployment/verrazzano-platform-operator', '-n', 'verrazzano-install' ];
+    executeFileCommand(kubectlExe, args, env).then(stdout => {
+      if (stdout.includes(VZ_OPERATOR_SUCCESS_MESSAGE)) {
+        resolve(result);
+      } else {
+        result.isSuccess = false;
+        result.reason = i18n.t('kubectl-verify-vz-operator-rollout-stdout-error-message', { message: stdout });
+        resolve(result);
+      }
+    }).catch(err => {
+      result.isSuccess = false;
+      result.reason = i18n.t('kubectl-verify-vz-operator-rollout-error-message', { error: getErrorMessage(err) });
+      resolve(result);
+    });
+  });
+}
 
 async function doCreateSecret(kubectlExe, createArgs, env, namespace, secret, resolve, results, key) {
-  executeFileCommand(kubectlExe, createArgs, env, true)
-    .then(() => resolve(results))
-    .catch(err => {
-      results.isSuccess = false;
-      results.reason = i18n.t(key,{ namespace: namespace, secret: secret, error: getErrorMessage(err) });
-      results.reason = maskPasswordInCommand(results.reason);
-      resolve(results);
-    });
+  executeFileCommand(kubectlExe, createArgs, env, true).then(() => {
+    resolve(results);
+  }).catch(err => {
+    results.isSuccess = false;
+    results.reason = i18n.t(key,{ namespace: namespace, secret: secret, error: getErrorMessage(err) });
+    results.reason = maskPasswordInCommand(results.reason);
+    resolve(results);
+  });
 }
 
 function maskPasswordInCommand(err) {
@@ -788,6 +839,7 @@ function isNotFoundError(err) {
 
 module.exports = {
   apply,
+  applyUsingUrl,
   createNamespaceIfNotExists,
   createNamespacesIfNotExists,
   createNamespaceLabelIfNotExists,
@@ -810,5 +862,6 @@ module.exports = {
   getOperatorLogs,
   validateNamespacesExist,
   validateDomainExist,
-  verifyClusterConnectivity
+  verifyClusterConnectivity,
+  verifyVerrazzanoPlatformOperatorRollout,
 };
