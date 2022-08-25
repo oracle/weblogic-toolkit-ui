@@ -383,6 +383,4 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
 
     return K8sDomainResourceGenerator;
   }
-
-
 );

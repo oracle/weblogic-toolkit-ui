@@ -11,7 +11,7 @@ const WktApp = require('./js/wktApp');
 
 // The i18n package is required here to ensure it is initialized before the logging system.
 const i18n = require('./js/i18next.config');
-const { initializeLoggingSystem, logRendererMessage, getLogger} = require('./js/wktLogging');
+const { initializeLoggingSystem, logRendererMessage } = require('./js/wktLogging');
 const userSettings = require('./js/userSettings');
 const { chooseFromFileSystem, createNetworkWindow, createWindow, initialize, setHasOpenDialog, setTargetType,
   showErrorMessage, promptUserForOkOrCancelAnswer, promptUserForYesOrNoAnswer, promptUserForYesNoOrCancelAnswer } =

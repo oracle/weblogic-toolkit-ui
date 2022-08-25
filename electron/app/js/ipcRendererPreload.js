@@ -86,6 +86,8 @@ contextBridge.exposeInMainWorld(
           'start-k8s-domain-deploy',
           'start-k8s-domain-undeploy',
           'start-get-k8s-domain-status',
+          'start-verrazzano-install',
+          'start-get-verrazzano-install-status',
           'start-app-quit',
           'start-window-close'
         ];

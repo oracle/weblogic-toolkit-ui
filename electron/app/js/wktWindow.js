@@ -473,7 +473,38 @@ class WktAppMenu {
               }
               sendToWindow(focusedWindow,'start-ingress-uninstall');
             }
-          }
+          },
+          // Verrazzano-related Go menu items
+          {
+            id: 'installVerrazzano',
+            label: i18n.t('menu-go-install-verrazzano'),
+            visible: !this._isWkoTarget,
+            enabled: !this._hasOpenDialog,
+            click(item, focusedWindow) {
+              if (!focusedWindow) {
+                return dialog.showErrorBox(
+                  i18n.t('menu-go-install-verrazzano-error-title'),
+                  i18n.t('menu-go-install-verrazzano-error-message')
+                );
+              }
+              sendToWindow(focusedWindow,'start-verrazzano-install');
+            }
+          },
+          {
+            id: 'installVerrazzanoStatus',
+            label: i18n.t('menu-go-install-verrazzano-status'),
+            visible: !this._isWkoTarget,
+            enabled: !this._hasOpenDialog,
+            click(item, focusedWindow) {
+              if (!focusedWindow) {
+                return dialog.showErrorBox(
+                  i18n.t('menu-go-install-verrazzano-status-error-title'),
+                  i18n.t('menu-go-install-verrazzano-status-error-message')
+                );
+              }
+              sendToWindow(focusedWindow,'start-get-verrazzano-install-status');
+            }
+          },
         ]
       },
       {

@@ -6,7 +6,6 @@
 const jsYaml = require('js-yaml');
 const githubUtils = require('./githubUtils');
 const kubectlUtils = require('./kubectlUtils');
-const { getLogger } = require('./wktLogging');
 const i18n = require('./i18next.config');
 const { compareVersions } = require('./versionUtils');
 
@@ -56,6 +55,7 @@ async function installVerrazzanoPlatformOperator(kubectlExe, k8sOptions, vzOptio
   });
 }
 
+// eslint-disable-next-line no-unused-vars
 async function verifyVerrazzanoPlatformOperatorInstall(kubectlExe, k8sOptions, _vzOptions) {
   return kubectlUtils.verifyVerrazzanoPlatformOperatorRollout(kubectlExe, k8sOptions);
 }

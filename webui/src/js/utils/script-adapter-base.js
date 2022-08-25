@@ -213,6 +213,13 @@ define([],
           alreadyInstalledMessage, notInstalledIsError, alreadyInstalledIsError), '');
       }
 
+      addVerrazzanoInstalledCheckBlock(comment, kubectlExe, vzInstallName, notInstalledMessage,
+        alreadyInstalledMessage, notInstalledIsError, alreadyInstalledIsError) {
+        const args = `get verrazzano ${vzInstallName}`;
+        this._lines.push(...this._formatInstallCheckBlock(comment, kubectlExe, args, notInstalledMessage,
+          alreadyInstalledMessage, notInstalledIsError, alreadyInstalledIsError), '');
+      }
+
       addCreateNamespaceBlock(comment, kubectlExe, namespace, createErrorMessage, alreadyExistsMessage) {
         const getArgs = `get namespace ${namespace}`;
         const createArgs = `create namespace ${namespace}`;
@@ -286,6 +293,16 @@ define([],
 
       addKubectlApplyBlock(comment, kubectlExe, yamlFile, errorMessage) {
         const args = `apply -f "${yamlFile}"`;
+        this._lines.push(...this._formatRunCommandBlock(comment, kubectlExe, args, errorMessage), '');
+      }
+
+      addVerrazzanoPlatformOperatorRolloutBlock(comment, kubectlExe, errorMessage) {
+        const args = '-n verrazzano-install rollout status deployment/verrazzano-platform-operator';
+        this._lines.push(...this._formatRunCommandBlock(comment, kubectlExe, args, errorMessage), '');
+      }
+
+      addVerrazzanoInstallWaitBlock(comment, kubectlExe, vzInstallName, vzInstallTimeout, errorMessage) {
+        const args = `wait --timeout=${vzInstallTimeout} --for=condition=InstallComplete verrazzano/${vzInstallName}`;
         this._lines.push(...this._formatRunCommandBlock(comment, kubectlExe, args, errorMessage), '');
       }
 

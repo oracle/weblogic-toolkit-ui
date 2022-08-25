@@ -8,8 +8,7 @@ define(['models/wkt-project', 'accUtils', 'utils/common-utilities', 'knockout', 
   'utils/view-helper', 'utils/wkt-logger', 'ojs/ojmessaging', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton',
   'ojs/ojformlayout', 'ojs/ojcollapsible', 'ojs/ojselectsingle', 'ojs/ojlistview', 'ojs/ojtable', 'ojs/ojswitch',
   'ojs/ojinputnumber', 'ojs/ojradioset'],
-function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider, ArrayDataProvider,
-  ojConverterNumber, dialogHelper, viewHelper) {
+function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider, ArrayDataProvider) {
   function VerrazzanoInstallDesignViewModel() {
 
     this.connected = () => {
@@ -22,24 +21,26 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       if (labelId.startsWith('page-design-')) {
         return i18n.t(labelId);
       }
-      return i18n.t(`v8o-install-design-${labelId}`, payload);
+      return i18n.t(`vz-install-design-${labelId}`, payload);
     };
 
     this.project = project;
     this.i18n = i18n;
 
-    this.v8oProfileTypes = [
-      { key: 'prod', label: i18n.t('v8o-install-page-profile-prod') },
-      { key: 'dev', label: i18n.t('v8o-install-page-profile-dev') },
-      // { key: 'managed-cluster', label: i18n.t('v8o-install-page-profile-dev') },
+    this.vzProfileTypes = [
+      { key: 'prod', label: this.labelMapper('profile-prod') },
+      { key: 'dev', label: this.labelMapper('profile-dev') },
+      // { key: 'managed-cluster', label: this.labelMapper('profile-managed-cluster') },
     ];
-    this.v8oInstallProfiles = new ArrayDataProvider(this.v8oProfileTypes, {keyAttributes: 'key'});
+    this.vzInstallProfiles = new ArrayDataProvider(this.vzProfileTypes, {keyAttributes: 'key'});
 
-    this.v8oVersions = ko.observableArray();
-    this.v8oVersionTags = new ArrayDataProvider(this.v8oVersions, {keyAttributes: 'tag'});
+    this.vzVersions = ko.observableArray();
+    this.vzVersionTags = new ArrayDataProvider(this.vzVersions, {keyAttributes: 'tag'});
     window.api.ipc.invoke('get-verrazzano-release-versions').then(versions => {
-      console.log(`versions = ${JSON.stringify(versions)}`);
-      this.v8oVersions.push(...versions);
+      this.vzVersions.push(...versions.map(versionObject => {
+        const label = versionObject.version;
+        return { ...versionObject, label };
+      }));
     });
   }
   return VerrazzanoInstallDesignViewModel;

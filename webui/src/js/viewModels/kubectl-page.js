@@ -35,6 +35,10 @@ function(accUtils, ko, project, i18n, ArrayDataProvider, BufferingDataProvider, 
       return window.api.process.isMac();
     };
 
+    this.usingWko = () => {
+      return this.project.settings.wdtTargetType.value === 'wko';
+    };
+
     this.createLink = function (url, label) {
       return '<a href="' + url + '">' + label + '</a>';
     };

@@ -1370,6 +1370,7 @@
   "vz-installer-install-started-message": "Verrazzano installation {{name}} initiated for version {{version}} started.  Installation can take 15 to 30 minutes to complete so please verify the Verrazzano Install Status after waiting an appropriate amount of time.",
   "vz-installer-install-failed-title": "Verrazzano Installation Failed",
   "vz-installer-install-failed-error-message": "Failed to install Verrazzano {{name}}: {{error}}",
+  "vz-installer-install-catch-all-error-message": "Verrazzano installation failed with an unexpected error: {{error}}",
 
   "vz-install-status-checker-aborted-error-title": "Checking Verrazzano Install Status Aborted",
   "vz-install-status-checker-kubectl-exe-invalid-error-message": "Unable to check the Verrazzano install status because the Kubernetes client executable is invalid: {{error}}.",
@@ -1385,6 +1386,7 @@
   "vz-install-status-checker-status-incomplete-message": "Verrazzano {{name}} installation is not yet complete: message = {{message}} and status = {{status}}",
   "vz-install-status-checker-status-failed-title": "Verrazzano Install Status Check Failed",
   "vz-install-status-checker-status-failed-error-message": "Failed to verify Verrazzano {{name}} installation status: {{error}}.",
+  "vz-install-status-checker-status-catch-all-error-message": "Checking the status of the Verrazzano installation with an unexpected error: {{error}}",
 
   "app-update-title": "Application Update",
   "app-update-new-release": "A new release is available: {{releaseName}}",
