@@ -302,6 +302,8 @@
   "kubectl-tlsfile-not-specified-error-message": "TLS file path was not provided",
   "kubectl-tlsfile-not-exists-error-message": "TLS file {{filePath}} does not exist",
   "kubectl-tlsfile-failed-error-message": "Unable to verify TLS file {{filePath}} exists: {{error}}",
+  "kubectl-get-vz-install-failed-error-message": "Unable to get Verrazzano installation: {{error}}",
+  "kubectl-get-named-vz-install-error-message": "Unable to get Verrazzano installation with name {{name}}: {{error}}",
 
   "helm-not-specified-error-message": "Helm executable path was not provided",
   "helm-not-exists-error-message": "Helm executable {{filePath}} does not exist",
@@ -381,6 +383,9 @@
   "project-save-file-already-open-message": "The project file {{projectFile}} is already open in another window.  Please either close the existing window or select a different project file and try again.",
   "project-save-model-files-error-title": "Project Model Files Save Error",
   "project-save-model-files-error-message": "Failed to save one of the WebLogic Deploy Tooling model files associated with the project: {{error}}",
+
+  "vz-installer-operator-not-ready-error-message": "Cannot proceed with Verrazzano installation because the Verrazzano Platform Operator is not ready: {{error}}",
+  "vz-installer-check-install-status-failed-error-message": "Cannot proceed with Verrazzano install status check for {{name}} because of an error: {{error}}",
 
   "wrc-home-error-title": "Invalid WebLogic Remote Console Location",
   "wrc-init-error-title": "Initializing WebLogic Remote Console Backend Failed",

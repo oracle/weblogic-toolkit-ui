@@ -5,8 +5,6 @@
  */
 'use strict';
 
-const {getLogger} = require('./wktLogging');
-
 function compareVersions(version, minimumVersion) {
   const versionComponents = version.split(/[.-]/);
   const minimumVersionComponents = minimumVersion.split(/[.-]/);
@@ -48,8 +46,6 @@ function compareVersions(version, minimumVersion) {
       result = 1;
     }
   }
-
-  getLogger().debug('compareVersion(%s, %s) returned %d', version, minimumVersion, result);
   return result;
 }
 

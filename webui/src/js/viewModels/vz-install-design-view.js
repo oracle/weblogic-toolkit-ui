@@ -35,10 +35,12 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
     ];
     this.v8oInstallProfiles = new ArrayDataProvider(this.v8oProfileTypes, {keyAttributes: 'key'});
 
-    this.v8oVersions = window.api.ipc.invoke('get-verrazzano-release-versions');
-    console.log(`XXXXXX getVerrazzanoReleaseVersions returned: ${JSON.stringify(this.v8oVersions)}`);
-
+    this.v8oVersions = ko.observableArray();
     this.v8oVersionTags = new ArrayDataProvider(this.v8oVersions, {keyAttributes: 'tag'});
+    window.api.ipc.invoke('get-verrazzano-release-versions').then(versions => {
+      console.log(`versions = ${JSON.stringify(versions)}`);
+      this.v8oVersions.push(...versions);
+    });
   }
   return VerrazzanoInstallDesignViewModel;
 });

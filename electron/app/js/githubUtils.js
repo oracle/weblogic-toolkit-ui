@@ -14,26 +14,20 @@ const fetch = require('node-fetch');
 //          wktTools.js, all of which execute code during that requires an
 //          electron environment to function properly.
 //
-async function getReleaseVersions(name, baseUrl, options = undefined, perPage = 5, page = 1) {
+async function getReleaseVersions(name, baseUrl, options = undefined) {
   const proxyAgent = await getProxyAgent(options);
   return new Promise((resolve, reject) => {
-    // const releasesUrl = `${baseUrl}/releases?per_page=${perPage}&page=${page}`;
     const releasesUrl = `${baseUrl}/releases`;
-    console.log(`YYYYYY releasesUrl = ${releasesUrl}`);
     fetch(releasesUrl, getFetchOptions(proxyAgent)).then(res => {
-      const fetchResults = res.json();
-      console.log(`YYYYYY fetchResults = ${JSON.stringify(fetchResults)}`);
-
-      const results = [];
-      if (Array.isArray(fetchResults)) {
-        fetchResults.forEach(fetchResult => {
-          results.push({
+      res.json().then(fetchResults => {
+        const results = fetchResults.map(fetchResult => {
+          return {
             name: fetchResult.name,
-            tag: fetchResult.tag,
-          });
+            tag: fetchResult.tag_name,
+          };
         });
-      }
-      resolve(results);
+        resolve(results);
+      });
     }).catch(err => reject(new Error(`Failed to get release versions for ${name} from ${releasesUrl}: ${err}`)));
   });
 }
@@ -80,9 +74,7 @@ async function getProxyOptionsFromPreferences() {
 
 async function getProxyAgent(options = undefined) {
   const proxyOptions = options || await getProxyOptionsFromPreferences();
-  console.log(`YYYYYY proxyOptions = ${JSON.stringify(proxyOptions)}`);
   const httpsProxyUrl = _getHttpsProxyUrl(proxyOptions);
-  console.log(`YYYYYY httpsProxyUrl = ${httpsProxyUrl}`);
 
   let proxyAgent;
   if (httpsProxyUrl) {

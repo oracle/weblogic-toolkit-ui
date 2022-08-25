@@ -328,7 +328,6 @@ class WktAppMenu {
           {
             id: 'verifyConnectivity',
             label: i18n.t('menu-go-kubectl-verify-connectivity'),
-            visible: this._isWkoTarget,
             enabled: !this._hasOpenDialog,
             click(item, focusedWindow) {
               if (!focusedWindow) {

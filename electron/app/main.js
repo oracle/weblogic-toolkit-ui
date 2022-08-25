@@ -11,7 +11,7 @@ const WktApp = require('./js/wktApp');
 
 // The i18n package is required here to ensure it is initialized before the logging system.
 const i18n = require('./js/i18next.config');
-const { initializeLoggingSystem, logRendererMessage } = require('./js/wktLogging');
+const { initializeLoggingSystem, logRendererMessage, getLogger} = require('./js/wktLogging');
 const userSettings = require('./js/userSettings');
 const { chooseFromFileSystem, createNetworkWindow, createWindow, initialize, setHasOpenDialog, setTargetType,
   showErrorMessage, promptUserForOkOrCancelAnswer, promptUserForYesOrNoAnswer, promptUserForYesNoOrCancelAnswer } =
@@ -37,7 +37,8 @@ const { initializeAutoUpdater, registerAutoUpdateListeners, installUpdates, getU
 const { startWebLogicRemoteConsoleBackend, getDefaultDirectoryForOpenDialog, setWebLogicRemoteConsoleHomeAndStart,
   getDefaultWebLogicRemoteConsoleHome, getWebLogicRemoteConsoleBackendPort
 } = require('./js/wlRemoteConsoleUtils');
-const { getVerrazzanoReleaseVersions } = require('./js/vzInstaller');
+const { getVerrazzanoReleaseVersions, isVerrazzanoInstalled, installVerrazzanoPlatformOperator,
+  verifyVerrazzanoPlatformOperatorInstall, installVerrazzano, verifyVerrazzanoInstallStatus } = require('./js/vzInstaller');
 
 const { getHttpsProxyUrl, getBypassProxyHosts } = require('./js/userSettings');
 const { sendToWindow } = require('./js/windowUtils');
@@ -956,8 +957,34 @@ class Main {
       return getDefaultWebLogicRemoteConsoleHome();
     });
 
+    // eslint-disable-next-line no-unused-vars
     ipcMain.handle('get-verrazzano-release-versions', async (event) => {
       return getVerrazzanoReleaseVersions();
+    });
+
+    // eslint-disable-next-line no-unused-vars
+    ipcMain.handle('is-verrazzano-installed', async(event, kubectlExe, kubectlOptions) => {
+      return isVerrazzanoInstalled(kubectlExe, kubectlOptions);
+    });
+
+    // eslint-disable-next-line no-unused-vars
+    ipcMain.handle('install-verrazzano-platform-operator', async(event, kubectlExe, kubectlOptions, vzOptions) => {
+      return installVerrazzanoPlatformOperator(kubectlExe, kubectlOptions, vzOptions);
+    });
+
+    // eslint-disable-next-line no-unused-vars
+    ipcMain.handle('verify-verrazzano-platform-operator-install', async (event, kubectlExe, kubectlOptions, vzOptions) => {
+      return verifyVerrazzanoPlatformOperatorInstall(kubectlExe, kubectlOptions, vzOptions);
+    });
+
+    // eslint-disable-next-line no-unused-vars
+    ipcMain.handle('install-verrazzano', async (event, kubectlExe, kubectlOptions, vzOptions) => {
+      return installVerrazzano(kubectlExe, kubectlOptions, vzOptions);
+    });
+
+    // eslint-disable-next-line no-unused-vars
+    ipcMain.handle('verify-verrazzano-install-status', async (event, kubectlExe, kubectlOptions, vzOptions) => {
+      return verifyVerrazzanoInstallStatus(kubectlExe, kubectlOptions, vzOptions);
     });
   }
 

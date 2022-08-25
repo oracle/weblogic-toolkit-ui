@@ -12,6 +12,7 @@ const fsUtils = require('./fsUtils');
 const WktApp = require('./wktApp');
 const osUtils = require('./osUtils');
 const i18n = require('./i18next.webui.config');
+const { compareVersions } = require('./versionUtils');
 
 const wktApp = new WktApp();
 
@@ -209,7 +210,11 @@ contextBridge.exposeInMainWorld(
           'wrc-get-home-default-value',
           'wrc-set-home-and-start',
           'get-verrazzano-release-versions',
+          'is-verrazzano-installed',
+          'install-verrazzano-platform-operator',
+          'verify-verrazzano-platform-operator-install',
           'install-verrazzano',
+          'verify-verrazzano-install-status',
         ];
         return new Promise((resolve, reject) => {
           if (validChannels.includes(channel)) {
@@ -258,6 +263,7 @@ contextBridge.exposeInMainWorld(
     },
     'utils': {
       generateUuid: () => uuid.v4(),
+      compareVersions: (version, otherVersion) => compareVersions(version, otherVersion),
       mainModule: mainModule
     }
   }

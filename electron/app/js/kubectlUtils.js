@@ -16,6 +16,7 @@ const { getErrorMessage } = require('./errorUtils');
 const osUtils = require('./osUtils');
 const k8sUtils = require('./k8sUtils');
 
+const VZ_NOT_INSTALLED_ERROR_MESSAGE = 'the server doesn\'t have a resource type "Verrazzano"';
 const VZ_OPERATOR_SUCCESS_MESSAGE = 'deployment "verrazzano-platform-operator" successfully rolled out';
 
 /* global process */
@@ -604,7 +605,8 @@ async function applyUsingUrl(kubectlExe, dataUrl, options) {
   return new Promise(resolve => {
     const args = [ 'apply', '-f', dataUrl ];
     executeFileCommand(kubectlExe, args, env).then(stdout => {
-      console.log('kubectl apply for %s returned: %s', dataUrl, stdout);
+      result.message = stdout;
+      resolve(result);
     }).catch(err => {
       result.isSuccess = false;
       result.reason = i18n.t('kubectl-apply-url-failed-error-message', { url: dataUrl, error: getErrorMessage(err) });
@@ -774,7 +776,7 @@ async function createOrReplaceSecret(kubectlExe, namespace, secret, createArgs, 
           doCreateSecret(kubectlExe, createArgs, env, namespace, secret, resolve, results, createErrorTemplateKey);
         }).catch(err => {
           results.isSuccess = false;
-          results.reason = i18n.t(errorKeys.delete,{ namespace: namespace, secret: secret, error: getErrorMessage(err) });
+          results.reason = i18n.t(errorKeys.delete, { namespace: namespace, secret: secret, error: getErrorMessage(err) });
           resolve(results);
         });
       } else {
@@ -782,8 +784,39 @@ async function createOrReplaceSecret(kubectlExe, namespace, secret, createArgs, 
       }
     }).catch(err => {
       results.isSuccess = false;
-      results.reason = i18n.t(errorKeys.get,{ namespace: namespace, secret: secret, error: getErrorMessage(err) });
+      results.reason = i18n.t(errorKeys.get, { namespace: namespace, secret: secret, error: getErrorMessage(err) });
       resolve(results);
+    });
+  });
+}
+
+async function isVerrazzanoInstalled(kubectlExe, options) {
+  const getArgs = [ 'get', 'Verrazzano', '--output=json' ];
+  const httpsProxyUrl = getHttpsProxyUrl();
+  const bypassProxyHosts = getBypassProxyHosts();
+
+  const env = getKubectlEnvironment(options, httpsProxyUrl, bypassProxyHosts);
+
+  const result = {
+    isInstalled: false
+  };
+
+  return new Promise(resolve => {
+    executeFileCommand(kubectlExe, getArgs, env).then(vzJson => {
+      const vzObjectList = JSON.parse(vzJson).items;
+      if (vzObjectList.length > 0) {
+        const vzObject = vzObjectList[0];
+        result.isInstalled = true;
+        result.name = vzObject.metadata?.name;
+        result.version = vzObject.status?.version;
+      }
+      resolve(result);
+    }).catch(err => {
+      const error = getErrorMessage(err);
+      if (! error.includes(VZ_NOT_INSTALLED_ERROR_MESSAGE)) {
+        result.reason = i18n.t('kubectl-get-vz-install-failed-error-message', { error });
+      }
+      resolve(result);
     });
   });
 }
@@ -801,16 +834,37 @@ async function verifyVerrazzanoPlatformOperatorRollout(kubectlExe, options) {
   return new Promise(resolve => {
     const args = [ 'rollout', 'status', 'deployment/verrazzano-platform-operator', '-n', 'verrazzano-install' ];
     executeFileCommand(kubectlExe, args, env).then(stdout => {
-      if (stdout.includes(VZ_OPERATOR_SUCCESS_MESSAGE)) {
-        resolve(result);
-      } else {
+      if (!stdout.includes(VZ_OPERATOR_SUCCESS_MESSAGE)) {
         result.isSuccess = false;
         result.reason = i18n.t('kubectl-verify-vz-operator-rollout-stdout-error-message', { message: stdout });
-        resolve(result);
       }
+      resolve(result);
     }).catch(err => {
       result.isSuccess = false;
       result.reason = i18n.t('kubectl-verify-vz-operator-rollout-error-message', { error: getErrorMessage(err) });
+      resolve(result);
+    });
+  });
+}
+
+async function getVerrazzanoInstallationObject(kubectlExe, kubectlOptions, vzInstallName) {
+  const getArgs = [ 'get', 'Verrazzano', vzInstallName, '--output=json' ];
+  const httpsProxyUrl = getHttpsProxyUrl();
+  const bypassProxyHosts = getBypassProxyHosts();
+
+  const env = getKubectlEnvironment(kubectlOptions, httpsProxyUrl, bypassProxyHosts);
+
+  const result = {
+    isSuccess: false
+  };
+
+  return new Promise(resolve => {
+    executeFileCommand(kubectlExe, getArgs, env).then(vzJson => {
+      result.isSuccess = true;
+      result.payload = JSON.parse(vzJson);
+      resolve(result);
+    }).catch(err => {
+      result.reason = getErrorMessage(err);
       resolve(result);
     });
   });
@@ -849,6 +903,7 @@ module.exports = {
   createServiceAccountIfNotExists,
   getCurrentContext,
   isOperatorAlreadyInstalled,
+  isVerrazzanoInstalled,
   setCurrentContext,
   validateKubectlExe,
   deleteObjectIfExists,
@@ -860,6 +915,7 @@ module.exports = {
   getOperatorStatus,
   getOperatorVersionFromDomainConfigMap,
   getOperatorLogs,
+  getVerrazzanoInstallationObject,
   validateNamespacesExist,
   validateDomainExist,
   verifyClusterConnectivity,
