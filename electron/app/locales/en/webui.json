@@ -12,7 +12,7 @@
   "nav-ingress": "Ingress Controller",
   "nav-verrazzano": "Verrazzano",
   "nav-vz-config": "Client Configuration",
-  "nav-vz-install": "Verrazzano Installation",
+  "nav-vz-install": "Installation",
   "nav-vz-component": "Component",
   "nav-vz-application": "Application",
   "nav-button-collapse-nav": "Collapse Navigation",
