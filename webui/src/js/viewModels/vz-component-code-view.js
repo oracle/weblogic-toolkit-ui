@@ -1,21 +1,21 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2022, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
-define(['accUtils', 'knockout', 'models/wkt-project', 'utils/k8s-domain-script-generator',
-  'utils/k8s-domain-configmap-generator', 'utils/k8s-domain-resource-generator', 'utils/i18n',
+define(['accUtils', 'knockout', 'models/wkt-project', 'utils/vz-component-script-generator',
+  'utils/vz-component-configmap-generator', 'utils/vz-component-resource-generator', 'utils/i18n',
   'ojs/ojarraydataprovider', 'utils/wkt-logger', 'ojs/ojinputtext', 'ojs/ojnavigationlist', 'ojs/ojswitcher',
   'ojs/ojknockout'],
-function (accUtils, ko, project, K8sDomainScriptGenerator, K8sDomainConfigMapGenerator, K8sDomainResourceGenerator, i18n,
-  ArrayDataProvider, wktLogger) {
-  function DomainCodeViewModel () {
+function (accUtils, ko, project, VerrazzanoComponentScriptGenerator, VerrazzanoComponentConfigMapGenerator,
+  VerrazzanoComponentResourceGenerator, i18n, ArrayDataProvider, wktLogger) {
+  function VerrazzanoComponentCodeViewModel () {
     this.project = project;
 
     let subscriptions = [];
 
     this.connected = () => {
-      accUtils.announce('Domain code view loaded.', 'assertive');
+      accUtils.announce('Image code view loaded.', 'assertive');
 
       // update code text if project changes
       subscriptions.push(project.postOpen.subscribe(() => {
@@ -34,14 +34,14 @@ function (accUtils, ko, project, K8sDomainScriptGenerator, K8sDomainConfigMapGen
     this.project = project;
 
     this.labelMapper = (labelId) => {
-      return i18n.t(`domain-code-${labelId}`);
+      return i18n.t(`vz-component-code-${labelId}`);
     };
 
     this.shellLabelMapper = (labelId) => {
       return i18n.t(`script-${labelId}`);
     };
 
-    this.shellScriptType = ko.observable(K8sDomainScriptGenerator.getDefaultScriptingLanguage());
+    this.shellScriptType = ko.observable(VerrazzanoComponentScriptGenerator.getDefaultScriptingLanguage());
     const shellScriptTypes = [
       {key: 'sh', label: this.shellLabelMapper('sh-label')},
       {key: 'ps1', label: this.shellLabelMapper('ps1-label')},
@@ -55,13 +55,13 @@ function (accUtils, ko, project, K8sDomainScriptGenerator, K8sDomainConfigMapGen
 
 
     this.isConfigMapDisabled = () => {
-      return this.project.k8sDomain.configMapIsEmpty();
+      return this.project.vzComponent.configMapIsEmpty();
     };
 
     this.subviews = [
       {id: 'script', name: this.labelMapper('script-title')},
-      {id: 'domain', name: this.labelMapper('domain-resource-title')},
-      {id: 'configMap', name: this.labelMapper('configmap-resource-title'), disabled: this.project.k8sDomain.configMapIsEmpty()}
+      {id: 'component', name: this.labelMapper('component-resource-title')},
+      {id: 'configMap', name: this.labelMapper('configmap-resource-title'), disabled: this.project.vzComponent.configMapIsEmpty()}
     ];
 
     this.subviewsDP = new ArrayDataProvider(this.subviews, {keyAttributes: 'id'});
@@ -73,11 +73,11 @@ function (accUtils, ko, project, K8sDomainScriptGenerator, K8sDomainConfigMapGen
     };
 
     this.scriptText = ko.observable();
-    this.domainText = ko.observable();
+    this.componentText = ko.observable();
     this.configMapText = ko.observable();
 
-    this.k8sConfigMapGenerator = new K8sDomainConfigMapGenerator();
-    this.k8sDomainResourceGenerator = new K8sDomainResourceGenerator();
+    this.vzComponentConfigMapGenerator = new VerrazzanoComponentConfigMapGenerator();
+    this.vzComponentResourceGenerator = new VerrazzanoComponentResourceGenerator();
 
     this.renderScript = (selectedSubview) => {
       switch (selectedSubview) {
@@ -89,26 +89,26 @@ function (accUtils, ko, project, K8sDomainScriptGenerator, K8sDomainConfigMapGen
           this.renderConfigMap();
           break;
 
-        case 'domain':
-          this.renderDomainResource();
+        case 'component':
+          this.renderComponentResource();
       }
     };
 
     this.renderShellScript = (scriptLanguage) => {
-      const generator = new K8sDomainScriptGenerator(scriptLanguage);
+      const generator = new VerrazzanoComponentScriptGenerator(scriptLanguage);
       this.scriptText(generator.generate().join('\n'));
     };
 
     this.renderConfigMap = () => {
-      this.configMapText(this.k8sConfigMapGenerator.generate().join('\n'));
+      this.configMapText(this.vzComponentConfigMapGenerator.generate().join('\n'));
     };
 
-    this.renderDomainResource = () => {
-      this.domainText(this.k8sDomainResourceGenerator.generate().join('\n'));
+    this.renderComponentResource = () => {
+      this.componentText(this.vzComponentResourceGenerator.generate().join('\n'));
     };
 
     this.renderScript(this.selectedSubview());
   }
 
-  return DomainCodeViewModel;
+  return VerrazzanoComponentCodeViewModel;
 });

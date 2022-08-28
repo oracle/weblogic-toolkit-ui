@@ -5,10 +5,8 @@
  */
 'use strict';
 
-const VZ_BETA1_SWITCH_VERSION = '1.4.0';
-
-define(['models/wkt-project', 'js-yaml', 'utils/i18n', 'utils/wkt-logger'],
-  function(project, jsYaml) {
+define(['models/wkt-project', 'js-yaml', 'utils/vz-helper', 'utils/i18n', 'utils/wkt-logger'],
+  function(project, jsYaml, VerrazzanoHelper) {
     class VerrazzanoInstallResourceGenerator {
       constructor() {
         this.project = project;
@@ -31,14 +29,9 @@ define(['models/wkt-project', 'js-yaml', 'utils/i18n', 'utils/wkt-logger'],
       _getVerrazzanoApiVersion() {
         let result = '<UNKNOWN>';
         if (project.vzInstall.versionTag.value) {
-          const version = project.vzInstall.versionTag.value.slice(1);
-          if (version) {
-            if (window.api.utils.compareVersions(version, VZ_BETA1_SWITCH_VERSION) < 0) {
-              result = 'install.verrazzano.io/v1alpha1';
-            } else {
-              result = 'install.verrazzano.io/v1beta1';
-            }
-          }
+          const version = VerrazzanoHelper.getVersionFromTag(project.vzInstall.versionTag.value);
+          const vzHelper = new VerrazzanoHelper(version);
+          result = vzHelper.getInstallApiVersion();
         }
         return result;
       }

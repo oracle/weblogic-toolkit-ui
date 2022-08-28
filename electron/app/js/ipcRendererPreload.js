@@ -88,6 +88,8 @@ contextBridge.exposeInMainWorld(
           'start-get-k8s-domain-status',
           'start-verrazzano-install',
           'start-get-verrazzano-install-status',
+          'start-deploy-verrazzano-component',
+          'start-undeploy-verrazzano-component',
           'start-app-quit',
           'start-window-close'
         ];
@@ -217,6 +219,8 @@ contextBridge.exposeInMainWorld(
           'verify-verrazzano-platform-operator-install',
           'install-verrazzano',
           'verify-verrazzano-install-status',
+          'deploy-verrazzano-components',
+          'undeploy-verrazzano-components',
         ];
         return new Promise((resolve, reject) => {
           if (validChannels.includes(channel)) {

@@ -67,17 +67,18 @@ function(accUtils, ko, i18n, project, wktConsole, dialogHelper, viewHelper, scre
 
     let routeData = [
       { path: '', redirect: 'project-settings-page' },
-      { path: 'project-settings-page'},
-      { path: 'model-page'},
-      { path: 'image-page'},
-      { path: 'kubectl-page'},
-      { path: 'operator-page'},
-      { path: 'domain-page'},
-      { path: 'ingress-page'},
-      { path: 'vz-app-page'},
-      { path: 'vz-config-page'},
-      { path: 'vz-install-page'},
-      { path: 'empty-view'}
+      { path: 'project-settings-page' },
+      { path: 'model-page' },
+      { path: 'image-page' },
+      { path: 'kubectl-page' },
+      { path: 'operator-page' },
+      { path: 'domain-page' },
+      { path: 'ingress-page' },
+      { path: 'vz-config-page' },
+      { path: 'vz-install-page' },
+      { path: 'vz-component-page' },
+      { path: 'vz-app-page' },
+      { path: 'empty-view' }
     ];
 
     // Router setup
@@ -132,9 +133,13 @@ function(accUtils, ko, i18n, project, wktConsole, dialogHelper, viewHelper, scre
           id: 'vz-install-page',
           icon: 'oj-ux-ico-arrow-circle-down'
         },
+        { name: this.labelMapper('vz-component'),
+          id: 'vz-component-page',
+          icon: 'oj-ux-ico-manage-work-definitions'
+        },
         { name: this.labelMapper('vz-application'),
           id: 'vz-app-page',
-          icon: 'oj-ux-ico-manage-work-definitions'
+          icon: 'oj-ux-ico-router'
         }
       ]
     };

@@ -91,6 +91,7 @@ function(VzActionsBase, project, wktConsole, i18n, projectIo, dialogHelper) {
         dialogHelper.closeBusyDialog();
         if (status.isSuccess) {
           if (status.isComplete) {
+            this.project.vzInstall.actualInstalledVersion.value = status.version;
             const title = i18n.t('vz-install-status-checker-status-complete-title');
             const message = i18n.t('vz-install-status-checker-status-complete-message', { name: vzOptions.name });
             await window.api.ipc.invoke('show-info-message', title, message);

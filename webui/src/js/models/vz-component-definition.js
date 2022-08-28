@@ -6,18 +6,20 @@
 'use strict';
 
 /**
- * An object which defines installation of Verrazzano.
+ * An object which holds the Verrazzano component extra information (outside the k8s-domain-definition).
  *
  * Returns a constructor for the object.
  */
-define(['utils/observable-properties'],
-  function(props) {
-    return function (name) {
-      function VerrazzanoInstallModel() {
-        this.versionTag = props.createProperty();
-        this.installationName = props.createProperty('example-verrazzano');
-        this.installationProfile = props.createProperty('dev');
-        this.actualInstalledVersion = props.createProperty();
+define(['utils/observable-properties', 'utils/validation-helper'],
+  function(props, validationHelper) {
+    return function (name, k8sDomain) {
+      function VerrazzanoComponentModel() {
+        this.componentName = props.createProperty('${1}', k8sDomain.uid.observable);
+        this.componentName.addValidator(...validationHelper.getK8sNameValidators());
+
+        this.configMapIsEmpty = () => {
+          return k8sDomain.configMapIsEmpty();
+        };
 
         this.readFrom = (json) => {
           props.createGroup(name, this).readFrom(json);
@@ -35,7 +37,8 @@ define(['utils/observable-properties'],
           props.createGroup(name, this).setNotChanged();
         };
       }
-      return new VerrazzanoInstallModel();
+
+      return new VerrazzanoComponentModel();
     };
   }
 );

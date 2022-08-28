@@ -39,6 +39,7 @@ const { startWebLogicRemoteConsoleBackend, getDefaultDirectoryForOpenDialog, set
 } = require('./js/wlRemoteConsoleUtils');
 const { getVerrazzanoReleaseVersions, isVerrazzanoInstalled, installVerrazzanoPlatformOperator,
   verifyVerrazzanoPlatformOperatorInstall, installVerrazzano, verifyVerrazzanoInstallStatus } = require('./js/vzInstaller');
+const { deployComponents, undeployComponents } = require('./js/vzDeployer');
 
 const { getHttpsProxyUrl, getBypassProxyHosts } = require('./js/userSettings');
 const { sendToWindow } = require('./js/windowUtils');
@@ -788,8 +789,8 @@ class Main {
       return kubectlUtils.apply(kubectlExe, fileData, kubectlOptions);
     });
 
-    ipcMain.handle('k8s-label-namespace', async (event, kubectlExe, namespace, label, kubectlOptions) => {
-      return kubectlUtils.createNamespaceLabelIfNotExists(kubectlExe, namespace, label, kubectlOptions);
+    ipcMain.handle('k8s-label-namespace', async (event, kubectlExe, namespace, labels, kubectlOptions) => {
+      return kubectlUtils.createNamespaceLabelIfNotExists(kubectlExe, namespace, labels, kubectlOptions);
     });
 
     ipcMain.handle('k8s-delete-object', async (event, kubectlExe, namespace, object, kind, kubectlOptions) => {
@@ -958,8 +959,8 @@ class Main {
     });
 
     // eslint-disable-next-line no-unused-vars
-    ipcMain.handle('get-verrazzano-release-versions', async (event) => {
-      return getVerrazzanoReleaseVersions();
+    ipcMain.handle('get-verrazzano-release-versions', async (event, minimumVersion = undefined) => {
+      return getVerrazzanoReleaseVersions(minimumVersion);
     });
 
     // eslint-disable-next-line no-unused-vars
@@ -978,13 +979,23 @@ class Main {
     });
 
     // eslint-disable-next-line no-unused-vars
-    ipcMain.handle('install-verrazzano', async (event, kubectlExe, kubectlOptions, vzOptions) => {
-      return installVerrazzano(kubectlExe, kubectlOptions, vzOptions);
+    ipcMain.handle('install-verrazzano', async (event, kubectlExe, kubectlOptions, verrazzanoResource) => {
+      return installVerrazzano(kubectlExe, kubectlOptions, verrazzanoResource);
     });
 
     // eslint-disable-next-line no-unused-vars
     ipcMain.handle('verify-verrazzano-install-status', async (event, kubectlExe, kubectlOptions, vzOptions) => {
       return verifyVerrazzanoInstallStatus(kubectlExe, kubectlOptions, vzOptions);
+    });
+
+    // eslint-disable-next-line no-unused-vars
+    ipcMain.handle('deploy-verrazzano-components', async (event, kubectlExe, components, kubectlOptions) => {
+      return deployComponents(kubectlExe, components, kubectlOptions);
+    });
+
+    // eslint-disable-next-line no-unused-vars
+    ipcMain.handle('undeploy-verrazzano-components', async (event, kubectlExe, componentNames, namespace, kubectlOptions) => {
+      return undeployComponents(kubectlExe, componentNames, namespace, kubectlOptions);
     });
   }
 

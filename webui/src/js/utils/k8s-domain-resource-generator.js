@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
@@ -13,7 +13,7 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
         this.k8sConfigMapGenerator = new K8sDomainConfigMapGenerator();
       }
 
-      generate() {
+      generate(generateYaml = true) {
         const domainResource = {
           apiVersion: 'weblogic.oracle/v8',
           kind: 'Domain',
@@ -165,7 +165,7 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
               this.project.k8sDomain.introspectorJobActiveDeadlineSeconds.value;
           }
         }
-        return jsYaml.dump(domainResource, {}).split('\n');
+        return generateYaml ? jsYaml.dump(domainResource).split('\n') : domainResource;
       }
 
       _getServerPod() {
@@ -372,12 +372,12 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
                 matchExpressions: [{
                   key: 'weblogic.clusterName',
                   operator: 'In',
-                  values: ['$(CLUSTER_NAME)']
-                }]
-              }
-            }
-          }]
-        }
+                  values: ['$(CLUSTER_NAME)'],
+                }],
+              },
+            },
+          }],
+        },
       };
     }
 

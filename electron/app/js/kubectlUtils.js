@@ -432,10 +432,10 @@ async function deleteObjectIfExists(kubectlExe, namespace, object, kind, options
   });
 }
 
-async function createNamespaceLabelIfNotExists(kubectlExe, namespace, label, options) {
+async function createNamespaceLabelIfNotExists(kubectlExe, namespace, labels, options) {
   const getArgs = [ 'get', 'namespace', namespace, '--output=json' ];
-  // overwrite is needed since our detection of the label existing only returns true if both the key and value matches.
-  const createArgs = [ 'label', '--overwrite', 'namespace', namespace, label ];
+  // overwrite is needed since our detection of the labels existing only returns true if both the key and value matches.
+  const createArgs = [ 'label', '--overwrite', 'namespace', namespace ];
   const httpsProxyUrl = getHttpsProxyUrl();
   const bypassProxyHosts = getBypassProxyHosts();
 
@@ -446,20 +446,23 @@ async function createNamespaceLabelIfNotExists(kubectlExe, namespace, label, opt
 
   return new Promise(resolve => {
     executeFileCommand(kubectlExe, getArgs, env).then(namespaceJson => {
-      if (doesLabelExist(namespaceJson, label)) {
+      const labelsToWrite = getLabelsToWrite(namespaceJson, labels);
+      if (labelsToWrite.length > 0) {
+        createArgs.push(...labelsToWrite);
+      } else {
         return resolve(results);
       }
 
       executeFileCommand(kubectlExe, createArgs, env).then(() => resolve(results)).catch(err => {
         results.isSuccess = false;
         results.reason = i18n.t('kubectl-label-ns-failed-error-message',
-          { namespace: namespace, label: label, error: getErrorMessage(err) });
+          { namespace: namespace, labels: JSON.stringify(labels), error: getErrorMessage(err) });
         resolve(results);
       });
     }).catch(err => {
       results.isSuccess = false;
       results.reason = i18n.t('kubectl-label-get-ns-failed-error-message',
-        { namespace: namespace, label: label, error: getErrorMessage(err) });
+        { namespace: namespace, label: JSON.stringify(labels), error: getErrorMessage(err) });
       resolve(results);
     });
   });
@@ -732,24 +735,17 @@ function doesNamedObjectExist(objectListJson, name) {
   return result;
 }
 
-// The only case we care about is if the label and its value match since we are overwriting labels.
-function doesLabelExist(objectJson, newLabel) {
-  let result = false;
-  if (objectJson) {
-    const object = JSON.parse(objectJson);
-    if (object.metadata && object.metadata.labels) {
-      const newComps = newLabel.split('=');
-      const newKey = newComps[0];
-      let newValue;
-      if (newComps.length > 1) {
-        newValue = newComps[1];
-      }
-      const labels = object.metadata.labels;
-      for (const [key, value] of Object.entries(labels)) {
-        if (key === newKey && value === newValue) {
-          result = true;
-          break;
-        }
+function getLabelsToWrite(objectJson, newLabels) {
+  const result = [];
+  if (newLabels.length > 0) {
+    const existingLabels = objectJson ? (JSON.parse(objectJson).metadata?.labels || {}) : {};
+    for (const newLabel of newLabels) {
+      const newLabelComps = newLabel.split('=', 2);
+      const newKey = newLabelComps[0];
+      const newValue = newLabelComps.length > 1 ? newLabelComps[1] : undefined;
+
+      if (!(Object.hasOwnProperty.call(existingLabels, newKey) && existingLabels[newKey] === newValue)) {
+        result.push(newLabel);
       }
     }
   }

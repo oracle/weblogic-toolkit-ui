@@ -6,8 +6,8 @@
 'use strict';
 
 define(['utils/vz-actions-base', 'models/wkt-project', 'models/wkt-console', 'utils/i18n', 'utils/project-io',
-  'utils/dialog-helper', 'utils/validation-helper', 'utils/wkt-logger'],
-function(VzActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, validationHelper) {
+  'utils/dialog-helper', 'utils/validation-helper', 'utils/vz-install-resource-generator', 'utils/wkt-logger'],
+function(VzActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, validationHelper, VerrazzanoInstallResourceGenerator) {
   class VzInstaller extends VzActionsBase {
     constructor() {
       super();
@@ -112,7 +112,8 @@ function(VzActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, vali
 
         busyDialogMessage = i18n.t('vz-installer-install-in-progress');
         dialogHelper.updateBusyDialog(busyDialogMessage, 6/totalSteps);
-        const vzInstallResult = await window.api.ipc.invoke('install-verrazzano', kubectlExe, kubectlOptions, vzOptions);
+        const vzInstallResource = (new VerrazzanoInstallResourceGenerator()).generate().join('\n');
+        const vzInstallResult = await window.api.ipc.invoke('install-verrazzano', kubectlExe, kubectlOptions, vzInstallResource);
         dialogHelper.closeBusyDialog();
         if (vzInstallResult.isSuccess) {
           const title = i18n.t('vz-installer-install-started-title');
@@ -133,8 +134,11 @@ function(VzActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, vali
 
     getValidatableObject(flowNameKey) {
       const validatableObject = this.getValidationObject(flowNameKey);
+      const vzInstallFormConfig = validatableObject.getDefaultConfigObject();
+      vzInstallFormConfig.formName = 'vz-install-design-form-name';
+
       validatableObject.addField('vz-install-design-version-label',
-        validationHelper.validateRequiredField(this.project.vzInstall.versionTag.value));
+        validationHelper.validateRequiredField(this.project.vzInstall.versionTag.value), vzInstallFormConfig);
 
       return validatableObject;
     }

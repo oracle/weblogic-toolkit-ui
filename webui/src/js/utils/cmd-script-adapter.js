@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
@@ -305,6 +305,18 @@ define(['utils/script-adapter-base'],
           ...labelBlock,
           '',
           `:${skipLabel}`,
+          ''
+        );
+      }
+
+      addNotEmptyVariableKubectlApplyBlock(comment, variableReference, kubectlExe, yamlFile, errorMessage, successMessage) {
+        const args = `apply -f ${yamlFile}`;
+        const runBlock = this._formatRunCommandBlock(comment, kubectlExe, args, errorMessage, successMessage);
+
+        this._lines.push(
+          `IF "${variableReference}" NEQ "" (`,
+          ...this.prependToLines(this.indent(1), ...runBlock),
+          ')',
           ''
         );
       }

@@ -3,6 +3,10 @@
  * Copyright (c) 2022, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
+'use strict';
+
+const MINIMUM_VERRAZZANO_VERSION = '1.3.0';
+
 define(['models/wkt-project', 'accUtils', 'utils/common-utilities', 'knockout', 'utils/i18n', 'utils/screen-utils',
   'ojs/ojbufferingdataprovider', 'ojs/ojarraydataprovider', 'ojs/ojconverter-number', 'utils/dialog-helper',
   'utils/view-helper', 'utils/wkt-logger', 'ojs/ojmessaging', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton',
@@ -36,7 +40,7 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
 
     this.vzVersions = ko.observableArray();
     this.vzVersionTags = new ArrayDataProvider(this.vzVersions, {keyAttributes: 'tag'});
-    window.api.ipc.invoke('get-verrazzano-release-versions').then(versions => {
+    window.api.ipc.invoke('get-verrazzano-release-versions', MINIMUM_VERRAZZANO_VERSION).then(versions => {
       this.vzVersions.push(...versions.map(versionObject => {
         const label = versionObject.version;
         return { ...versionObject, label };

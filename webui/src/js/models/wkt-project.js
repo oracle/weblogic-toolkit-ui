@@ -12,9 +12,11 @@
  */
 define(['knockout', 'models/wdt-model-definition', 'models/image-definition', 'models/kubectl-definition',
   'models/k8s-domain-definition', 'models/wko-definition', 'models/project-settings-definition',
-  'models/ingress-definition', 'models/vz-install-definition', 'utils/common-utilities', 'utils/wkt-logger'],
+  'models/ingress-definition', 'models/vz-install-definition', 'models/vz-component-definition',
+  'utils/common-utilities', 'utils/wkt-logger'],
 function (ko, wdtConstructor, imageConstructor, kubectlConstructor, domainConstructor, wkoConstructor,
-  settingsConstructor, ingressConstructor, verrazzanoInstallConstructor, utils, wktLogger) {
+  settingsConstructor, ingressConstructor, verrazzanoInstallConstructor, verrazzanoComponentConstructor, utils,
+  wktLogger) {
   function WktProject() {
     let projectFileName = null;
 
@@ -89,6 +91,7 @@ function (ko, wdtConstructor, imageConstructor, kubectlConstructor, domainConstr
     this.k8sDomain = domainConstructor('k8sDomain', this.wdtModel, this.image.domainHomePath, this.image.targetDomainType);
     this.wko = wkoConstructor('wko');
     this.vzInstall = verrazzanoInstallConstructor('vzInstall');
+    this.vzComponent = verrazzanoComponentConstructor('vzComponent', this.k8sDomain);
     this.pages = [
       this.wdtModel,
       this.image,
@@ -97,7 +100,8 @@ function (ko, wdtConstructor, imageConstructor, kubectlConstructor, domainConstr
       this.wko,
       this.settings,
       this.ingress,
-      this.vzInstall
+      this.vzInstall,
+      this.vzComponent,
     ];
 
     this.convertOldProjectFormat = (wktProjectJson) => {
