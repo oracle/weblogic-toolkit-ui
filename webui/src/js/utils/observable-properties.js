@@ -460,7 +460,8 @@ define(['knockout', 'utils/common-utilities', 'utils/validation-helper', 'utils/
       }
 
       anyPropertyDefined(element) {
-        return Object.keys(element).find(key => this.isDataKey(key) && (element[key] || element[key] === 0));
+        return Object.keys(element).find(key =>
+          this.isDataKey(key) && (element[key] || element[key] === 0 || element[key] === false));
       }
 
       get value() {
