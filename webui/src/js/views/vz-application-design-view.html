@@ -13,6 +13,10 @@
                    value="{{project.k8sDomain.kubernetesNamespace.observable}}"
                    help.instruction="[[labelMapper('namespace-help')]]">
     </oj-input-text>
+    <oj-switch label-hint="[[labelMapper('use-multi-cluster-app-label')]]"
+               value="{{project.vzApplication.useMultiClusterApplication.observable}}"
+               help.instruction="[[labelMapper('use-multi-cluster-app-help')]]">
+    </oj-switch>
   </oj-form-layout>
 </div>
 <div class="oj-panel">
@@ -32,9 +36,11 @@
                 <oj-bind-text value="[[$current.data.name]]"></oj-bind-text>
               </h6>
               <oj-form-layout max-columns="2" direction="row">
-                <oj-input-text label-hint="[[labelMapper('name-label')]]"
-                               value="{{project.vzComponent.componentName.observable}}"
-                               help.instruction="[[labelMapper('name-help')]]">
+                <oj-input-text class="wkt-can-readonly-field"
+                               label-hint="[[labelMapper('component-name-label')]]"
+                               value="[[$current.data.name]]"
+                               readonly="true"
+                               help.instruction="[[labelMapper('component-name-help')]]">
                 </oj-input-text>
 
             </oj-collapsible>

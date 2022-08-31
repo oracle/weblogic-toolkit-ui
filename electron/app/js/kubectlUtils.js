@@ -866,8 +866,8 @@ async function getVerrazzanoInstallationObject(kubectlExe, kubectlOptions, vzIns
   });
 }
 
-async function getVerrazzanoComponentsByNamespace(kubectlExe, kubectlOptions, namespace) {
-  const getArgs = [ 'get', 'component', '-n', namespace, '--output=json' ];
+async function getKubernetesObjectsByNamespace(kubectlExe, kubectlOptions, type, namespace) {
+  const getArgs = [ 'get', type, '-n', namespace, '--output=json' ];
   const httpsProxyUrl = getHttpsProxyUrl();
   const bypassProxyHosts = getBypassProxyHosts();
 
@@ -935,7 +935,7 @@ module.exports = {
   getOperatorVersionFromDomainConfigMap,
   getOperatorLogs,
   getVerrazzanoInstallationObject,
-  getVerrazzanoComponentsByNamespace,
+  getKubernetesObjectsByNamespace,
   validateNamespacesExist,
   validateDomainExist,
   verifyClusterConnectivity,

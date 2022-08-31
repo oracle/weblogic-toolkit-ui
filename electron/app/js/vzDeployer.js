@@ -4,6 +4,7 @@
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const kubectlUtils = require('./kubectlUtils');
+const { getLogger } = require('./wktLogging');
 
 async function deployComponents(kubectlExe, components, kubectlOptions) {
   if (!Array.isArray(components)) {
@@ -37,7 +38,7 @@ async function undeployComponents(kubectlExe, componentNames, namespace, kubectl
 
 async function getComponentNamesByNamespace(kubectlExe, namespace, kubectlOptions) {
   return new Promise(resolve => {
-    kubectlUtils.getVerrazzanoComponentsByNamespace(kubectlExe, kubectlOptions, namespace).then(result => {
+    kubectlUtils.getKubernetesObjectsByNamespace(kubectlExe, kubectlOptions, 'component', namespace).then(result => {
       if (!result.isSuccess) {
         return resolve(result);
       }
@@ -48,8 +49,39 @@ async function getComponentNamesByNamespace(kubectlExe, namespace, kubectlOption
   });
 }
 
+async function getSecretNamesByNamespace(kubectlExe, namespace, kubectlOptions) {
+  return new Promise(resolve => {
+    kubectlUtils.getKubernetesObjectsByNamespace(kubectlExe, kubectlOptions, 'secret', namespace).then(result => {
+      if (!result.isSuccess) {
+        return resolve(result);
+      }
+
+      result.payload = result.payload.map(secret => secret.metadata?.name);
+      resolve(result);
+    });
+  });
+}
+
+async function getVerrazzanoClusterNames(kubectlExe, kubectlOptions) {
+  return new Promise(resolve => {
+    kubectlUtils.getKubernetesObjectsByNamespace(kubectlExe, kubectlOptions, 'VerrazzanoManagedCluster', 'verrazzano-mc').then(result => {
+      if (!result.isSuccess) {
+        getLogger().debug('result.reason = %s', result.reason);
+
+        return resolve(result);
+      }
+
+      result.payload = result.payload.map(vmc => vmc.metadata?.name);
+      result.payload.splice(0, 0, 'local');
+      resolve(result);
+    });
+  });
+}
+
 module.exports = {
   deployComponents,
   getComponentNamesByNamespace,
+  getSecretNamesByNamespace,
+  getVerrazzanoClusterNames,
   undeployComponents,
 };

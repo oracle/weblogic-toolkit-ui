@@ -39,7 +39,8 @@ const { startWebLogicRemoteConsoleBackend, getDefaultDirectoryForOpenDialog, set
 } = require('./js/wlRemoteConsoleUtils');
 const { getVerrazzanoReleaseVersions, isVerrazzanoInstalled, installVerrazzanoPlatformOperator,
   verifyVerrazzanoPlatformOperatorInstall, installVerrazzano, verifyVerrazzanoInstallStatus } = require('./js/vzInstaller');
-const { deployComponents, getComponentNamesByNamespace, undeployComponents } = require('./js/vzDeployer');
+const { deployComponents, getComponentNamesByNamespace, getSecretNamesByNamespace, getVerrazzanoClusterNames,
+  undeployComponents } = require('./js/vzDeployer');
 
 const { getHttpsProxyUrl, getBypassProxyHosts } = require('./js/userSettings');
 const { sendToWindow } = require('./js/windowUtils');
@@ -1001,6 +1002,16 @@ class Main {
     // eslint-disable-next-line no-unused-vars
     ipcMain.handle('get-verrazzano-component-names', async (event, kubectlExe, namespace, kubectlOptions) => {
       return getComponentNamesByNamespace(kubectlExe, namespace, kubectlOptions);
+    });
+
+    // eslint-disable-next-line no-unused-vars
+    ipcMain.handle('get-verrazzano-secret-names', async (event, kubectlExe, namespace, kubectlOptions) => {
+      return getSecretNamesByNamespace(kubectlExe, namespace, kubectlOptions);
+    });
+
+    // eslint-disable-next-line no-unused-vars
+    ipcMain.handle('get-verrazzano-cluster-names', async (event, kubectlExe, kubectlOptions) => {
+      return getVerrazzanoClusterNames(kubectlExe, kubectlOptions);
     });
   }
 

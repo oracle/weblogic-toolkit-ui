@@ -1475,7 +1475,11 @@
   "vz-application-design-name-help": "The name of the Verrazzano application.",
   "vz-application-design-namespace-label": "Application Namespace",
   "vz-application-design-namespace-help": "The Kubernetes namespace to which the Verrazzano application will be deployed.",
+  "vz-application-design-use-multi-cluster-app-label": "Use Multi-Cluster Application",
+  "vz-application-design-use-multi-cluster-app-help": "Whether to make this application a multi-cluster application.",
   "vz-application-design-components-title": "Components",
+  "vz-application-design-component-name-label": "Component Name",
+  "vz-application-design-component-name-help": "The name of the Verrazzano component used by this application.",
   "vz-application-design-add-component-button-label": "Add Component",
   "vz-application.design-add-component-flow-nane": "Add Component",
   "vz-application-design-add-component-validation-error-title": "Add Component to Application Aborted",
@@ -1485,13 +1489,6 @@
   "vz-application-design-choose-component-name-label": "Component to Add",
   "vz-application-design-choose-component-name-help": "Select the existing Verrazzano component to add to the application.",
   "vz-application-design-no-assigned-components-message": "Application has no components.  Use the Add Component button to add components.",
-
-  "vz-application-design-component-name-label": "vz-application-design-component-name-label",
-  "vz-application-design-ingress-trait-enabled-label": "vz-application-design-ingress-trait-enabled-label",
-  "vz-application-design-manual-scaler-trait-enabled-label": "vz-application-design-manual-scaler-trait-enabled-label",
-  "vz-application-design-metrics-trait-enabled-label": "vz-application-design-metrics-trait-enabled-label",
-  "vz-application-design-logging-trait-enabled-label": "vz-application-design-logging-trait-enabled-label",
-
 
   "app-update-title": "Application Update",
   "app-update-new-release": "A new release is available: {{releaseName}}",

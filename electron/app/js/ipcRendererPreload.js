@@ -222,6 +222,8 @@ contextBridge.exposeInMainWorld(
           'deploy-verrazzano-components',
           'undeploy-verrazzano-components',
           'get-verrazzano-component-names',
+          'get-verrazzano-secret-names',
+          'get-verrazzano-cluster-names',
         ];
         return new Promise((resolve, reject) => {
           if (validChannels.includes(channel)) {
