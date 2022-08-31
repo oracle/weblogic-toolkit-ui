@@ -866,6 +866,29 @@ async function getVerrazzanoInstallationObject(kubectlExe, kubectlOptions, vzIns
   });
 }
 
+async function getVerrazzanoComponentsByNamespace(kubectlExe, kubectlOptions, namespace) {
+  const getArgs = [ 'get', 'component', '-n', namespace, '--output=json' ];
+  const httpsProxyUrl = getHttpsProxyUrl();
+  const bypassProxyHosts = getBypassProxyHosts();
+
+  const env = getKubectlEnvironment(kubectlOptions, httpsProxyUrl, bypassProxyHosts);
+
+  const result = {
+    isSuccess: false
+  };
+
+  return new Promise(resolve => {
+    executeFileCommand(kubectlExe, getArgs, env).then(vzJson => {
+      result.isSuccess = true;
+      result.payload = JSON.parse(vzJson).items || [];
+      resolve(result);
+    }).catch(err => {
+      result.reason = getErrorMessage(err);
+      resolve(result);
+    });
+  });
+}
+
 async function doCreateSecret(kubectlExe, createArgs, env, namespace, secret, resolve, results, key) {
   executeFileCommand(kubectlExe, createArgs, env, true).then(() => {
     resolve(results);
@@ -912,6 +935,7 @@ module.exports = {
   getOperatorVersionFromDomainConfigMap,
   getOperatorLogs,
   getVerrazzanoInstallationObject,
+  getVerrazzanoComponentsByNamespace,
   validateNamespacesExist,
   validateDomainExist,
   verifyClusterConnectivity,

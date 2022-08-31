@@ -1,0 +1,49 @@
+<!--
+ Copyright (c) 2022, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('title')]]"></oj-bind-text></h6>
+<div class="oj-panel">
+  <oj-form-layout max-columns="2" direction="row">
+    <oj-input-text label-hint="[[labelMapper('name-label')]]"
+                   value="{{project.vzApplication.applicationName.observable}}"
+                   help.instruction="[[labelMapper('name-help')]]">
+    </oj-input-text>
+    <oj-input-text label-hint="[[labelMapper('namespace-label')]]"
+                   value="{{project.k8sDomain.kubernetesNamespace.observable}}"
+                   help.instruction="[[labelMapper('namespace-help')]]">
+    </oj-input-text>
+  </oj-form-layout>
+</div>
+<div class="oj-panel">
+  <h6 class="wkt-subheading">
+    <oj-bind-text value="[[labelMapper('components-title')]]"></oj-bind-text>
+  </h6>
+  <oj-button id="addComponent" chroming="callToAction" on-oj-action="[[addComponent]]">
+    <oj-bind-text value="[[labelMapper('add-component-button-label')]]"></oj-bind-text>
+  </oj-button>
+  <div>
+    <oj-bind-if test="[[hasComponents]]">
+      <oj-accordian id="componentsList">
+        <oj-bind-for-each data="[[componentsDataProvider]]">
+          <template>
+            <oj-collapsible :id="[[getCollapsibleId($current.observableIndex)]]">
+              <h6 slot="header">
+                <oj-bind-text value="[[$current.data.name]]"></oj-bind-text>
+              </h6>
+              <oj-form-layout max-columns="2" direction="row">
+                <oj-input-text label-hint="[[labelMapper('name-label')]]"
+                               value="{{project.vzComponent.componentName.observable}}"
+                               help.instruction="[[labelMapper('name-help')]]">
+                </oj-input-text>
+
+            </oj-collapsible>
+          </template>
+        </oj-bind-for-each>
+      </oj-accordian>
+    </oj-bind-if>
+    <oj-bind-if test="[[hasComponents() === false]]">
+      <oj-bind-text value="[[labelMapper('no-assigned-components-message')]]"></oj-bind-text>
+    </oj-bind-if>
+  </div>
+</div>

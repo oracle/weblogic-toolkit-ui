@@ -35,7 +35,21 @@ async function undeployComponents(kubectlExe, componentNames, namespace, kubectl
   return Promise.resolve(result);
 }
 
+async function getComponentNamesByNamespace(kubectlExe, namespace, kubectlOptions) {
+  return new Promise(resolve => {
+    kubectlUtils.getVerrazzanoComponentsByNamespace(kubectlExe, kubectlOptions, namespace).then(result => {
+      if (!result.isSuccess) {
+        return resolve(result);
+      }
+
+      result.payload = result.payload.map(component => component.metadata?.name);
+      resolve(result);
+    });
+  });
+}
+
 module.exports = {
   deployComponents,
+  getComponentNamesByNamespace,
   undeployComponents,
 };

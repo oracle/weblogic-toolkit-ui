@@ -77,7 +77,7 @@ function(accUtils, ko, i18n, project, wktConsole, dialogHelper, viewHelper, scre
       { path: 'vz-config-page' },
       { path: 'vz-install-page' },
       { path: 'vz-component-page' },
-      { path: 'vz-app-page' },
+      { path: 'vz-application-page' },
       { path: 'empty-view' }
     ];
 
@@ -138,7 +138,7 @@ function(accUtils, ko, i18n, project, wktConsole, dialogHelper, viewHelper, scre
           icon: 'oj-ux-ico-manage-work-definitions'
         },
         { name: this.labelMapper('vz-application'),
-          id: 'vz-app-page',
+          id: 'vz-application-page',
           icon: 'oj-ux-ico-router'
         }
       ]

@@ -8,14 +8,14 @@ define(['accUtils', 'knockout', 'models/wkt-project', 'utils/vz-component-script
   'ojs/ojarraydataprovider', 'utils/wkt-logger', 'ojs/ojinputtext', 'ojs/ojnavigationlist', 'ojs/ojswitcher',
   'ojs/ojknockout'],
 function (accUtils, ko, project, VerrazzanoComponentScriptGenerator, VerrazzanoComponentConfigMapGenerator,
-  VerrazzanoComponentResourceGenerator, i18n, ArrayDataProvider, wktLogger) {
-  function VerrazzanoComponentCodeViewModel () {
+          VerrazzanoComponentResourceGenerator, i18n, ArrayDataProvider, wktLogger) {
+  function VerrazzanoApplicationCodeViewModel () {
     this.project = project;
 
     let subscriptions = [];
 
     this.connected = () => {
-      accUtils.announce('Verrazzano Component code view loaded.', 'assertive');
+      accUtils.announce('Verrazzano Application code view loaded.', 'assertive');
 
       // update code text if project changes
       subscriptions.push(project.postOpen.subscribe(() => {
@@ -110,5 +110,5 @@ function (accUtils, ko, project, VerrazzanoComponentScriptGenerator, VerrazzanoC
     this.renderScript(this.selectedSubview());
   }
 
-  return VerrazzanoComponentCodeViewModel;
+  return VerrazzanoApplicationCodeViewModel;
 });

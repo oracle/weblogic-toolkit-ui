@@ -39,7 +39,7 @@ const { startWebLogicRemoteConsoleBackend, getDefaultDirectoryForOpenDialog, set
 } = require('./js/wlRemoteConsoleUtils');
 const { getVerrazzanoReleaseVersions, isVerrazzanoInstalled, installVerrazzanoPlatformOperator,
   verifyVerrazzanoPlatformOperatorInstall, installVerrazzano, verifyVerrazzanoInstallStatus } = require('./js/vzInstaller');
-const { deployComponents, undeployComponents } = require('./js/vzDeployer');
+const { deployComponents, getComponentNamesByNamespace, undeployComponents } = require('./js/vzDeployer');
 
 const { getHttpsProxyUrl, getBypassProxyHosts } = require('./js/userSettings');
 const { sendToWindow } = require('./js/windowUtils');
@@ -996,6 +996,11 @@ class Main {
     // eslint-disable-next-line no-unused-vars
     ipcMain.handle('undeploy-verrazzano-components', async (event, kubectlExe, componentNames, namespace, kubectlOptions) => {
       return undeployComponents(kubectlExe, componentNames, namespace, kubectlOptions);
+    });
+
+    // eslint-disable-next-line no-unused-vars
+    ipcMain.handle('get-verrazzano-component-names', async (event, kubectlExe, namespace, kubectlOptions) => {
+      return getComponentNamesByNamespace(kubectlExe, namespace, kubectlOptions);
     });
   }
 
