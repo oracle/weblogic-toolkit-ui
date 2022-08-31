@@ -84,7 +84,7 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
         });
       dialogHelper.promptDialog('choose-component-dialog', { availableComponentNames }).then(result => {
         // no result indicates operation was cancelled
-        if (result.componentName) {
+        if (result?.componentName) {
           this.project.vzApplication.components.addNewItem({
             name: result.componentName,
             ingressTraitEnable: false,
