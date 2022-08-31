@@ -8,7 +8,7 @@ define(['accUtils', 'knockout', 'models/wkt-project', 'utils/vz-component-script
   'ojs/ojarraydataprovider', 'utils/wkt-logger', 'ojs/ojinputtext', 'ojs/ojnavigationlist', 'ojs/ojswitcher',
   'ojs/ojknockout'],
 function (accUtils, ko, project, VerrazzanoComponentScriptGenerator, VerrazzanoComponentConfigMapGenerator,
-          VerrazzanoComponentResourceGenerator, i18n, ArrayDataProvider, wktLogger) {
+  VerrazzanoComponentResourceGenerator, i18n, ArrayDataProvider, wktLogger) {
   function VerrazzanoApplicationCodeViewModel () {
     this.project = project;
 
