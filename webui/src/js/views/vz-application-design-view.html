@@ -23,9 +23,11 @@
   <h6 class="wkt-subheading">
     <oj-bind-text value="[[labelMapper('components-title')]]"></oj-bind-text>
   </h6>
-  <oj-button id="addComponent" chroming="callToAction" on-oj-action="[[addComponent]]">
-    <oj-bind-text value="[[labelMapper('add-component-button-label')]]"></oj-bind-text>
-  </oj-button>
+  <div class="wkt-button-row">
+    <oj-button id="addComponent" chroming="callToAction" on-oj-action="[[addComponent]]">
+      <oj-bind-text value="[[labelMapper('add-component-button-label')]]"></oj-bind-text>
+    </oj-button>
+  </div>
   <div>
     <oj-bind-if test="[[hasComponents]]">
       <oj-accordian id="componentsList">
@@ -49,7 +51,7 @@
       </oj-accordian>
     </oj-bind-if>
     <oj-bind-if test="[[hasComponents() === false]]">
-      <oj-bind-text value="[[labelMapper('no-assigned-components-message')]]"></oj-bind-text>
+      <p><oj-bind-text value="[[labelMapper('no-assigned-components-message')]]"></oj-bind-text></p>
     </oj-bind-if>
   </div>
 </div>

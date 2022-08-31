@@ -679,6 +679,11 @@ h6.wkt-panel-heading {
   font-weight: bold;
 }
 
+.wkt-button-row {
+  display: flex;
+  margin-bottom: 0.75em;
+}
+
 .validationErrorBlock {
   margin-top: 1em;
 }
