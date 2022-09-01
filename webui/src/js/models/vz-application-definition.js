@@ -45,7 +45,7 @@ define(['utils/observable-properties', 'utils/validation-helper', 'utils/wkt-log
 
         this.secrets = props.createArrayProperty(this.computeDefaultSecrets());
 
-        this.componentKeys = [ 'name', 'ingressTraitEnabled', 'ingressTraitSecretName, ingressTraitRules',
+        this.componentKeys = [ 'name', 'ingressTraitEnabled', 'ingressTraitSecretName', 'ingressTraitRules',
           'manualScalerTraitEnabled', 'manualScalerTraitReplicaCount', 'metricsTraitEnabled',
           'metricsTraitHttpPort', 'metricsTraitHttpPath', 'metricsTraitSecret', 'metricsTraitDeployment',
           'loggingTraitEnabled', 'loggingTraitImage', 'loggingTraitConfiguration' ];
