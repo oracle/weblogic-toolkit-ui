@@ -120,7 +120,6 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
 
     this.getRulesEditMethod = component => {
       return () => {
-        console.log('DIALOG TO EDIT RULES: ' + component.name);
         component['ingressTraitRules'] = [{rule1: 'abc'}, {rule2: 'xyz'}];
       };
     };
