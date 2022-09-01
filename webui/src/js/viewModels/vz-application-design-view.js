@@ -92,6 +92,10 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
             metricsTraitEnabled: false,
             loggingTraitEnabled: false,
           });
+
+          // this shouldn't be needed, but when a new component is added,
+          // the accordion control doesn't enforce "single collapsible open" behavior.
+          $('#componentsList')[0].refresh();
         }
       });
     };
