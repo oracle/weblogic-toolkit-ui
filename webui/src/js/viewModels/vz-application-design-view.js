@@ -5,11 +5,11 @@
  */
 define(['models/wkt-project', 'accUtils', 'utils/common-utilities', 'knockout', 'utils/i18n',
   'ojs/ojbufferingdataprovider', 'ojs/ojarraydataprovider', 'utils/dialog-helper', 'utils/validation-helper',
-  'utils/k8s-helper', 'utils/wkt-logger', 'ojs/ojmessaging',
+  'utils/k8s-helper', 'ojs/ojmessaging',
   'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojformlayout', 'ojs/ojcollapsible', 'ojs/ojselectsingle',
   'ojs/ojlistview', 'ojs/ojtable', 'ojs/ojswitch', 'ojs/ojinputnumber', 'ojs/ojradioset', 'ojs/ojaccordion'],
 function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataProvider, dialogHelper,
-  validationHelper, k8sHelper, wktLogger) {
+  validationHelper, k8sHelper) {
   function VerrazzanoApplicationDesignViewModel() {
 
     this.connected = () => {
