@@ -99,6 +99,31 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
     this.getCollapsibleId = (index) => {
       return `componentCollapsible${index + 1}`;
     };
+
+    this.componentObservables = {};
+
+    // create an observable that will read/write from the component object field
+    this.componentObservable = (component, fieldName) => {
+      const key = component.name + '/' + fieldName;
+      let observable = this.componentObservables[key];
+
+      if(!observable) {
+        observable = new ko.observable(component[fieldName]);
+        observable.subscribe(value => {
+          component[fieldName] = value;
+        });
+        this.componentObservables[key] = observable;
+      }
+
+      return observable;
+    };
+
+    this.getRulesEditMethod = component => {
+      return () => {
+        console.log('DIALOG TO EDIT RULES: ' + component.name);
+        component['ingressTraitRules'] = [{rule1: 'abc'}, {rule2: 'xyz'}];
+      };
+    };
   }
 
   return VerrazzanoApplicationDesignViewModel;

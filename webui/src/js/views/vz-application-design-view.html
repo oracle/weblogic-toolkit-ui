@@ -30,10 +30,10 @@
   </div>
   <div>
     <oj-bind-if test="[[hasComponents]]">
-      <oj-accordian id="componentsList">
+      <oj-accordion id="componentsList">
         <oj-bind-for-each data="[[componentsDataProvider]]">
           <template>
-            <oj-collapsible :id="[[getCollapsibleId($current.observableIndex)]]">
+            <oj-collapsible :id="[[getCollapsibleId($current.index)]]" class="oj-accordion-collapsible">
               <h6 slot="header">
                 <oj-bind-text value="[[$current.data.name]]"></oj-bind-text>
               </h6>
@@ -45,10 +45,99 @@
                                help.instruction="[[labelMapper('component-name-help')]]">
                 </oj-input-text>
               </oj-form-layout>
+
+              <oj-form-layout max-columns="1" direction="row">
+                <oj-switch label-hint="[[labelMapper('component-ingress-trait-enabled-label')]]"
+                           value="{{componentObservable($current.data, 'ingressTraitEnabled')}}"
+                           help.instruction="[[labelMapper('component-ingress-trait-enabled-help')]]">
+                </oj-switch>
+              </oj-form-layout>
+              <div>
+                <oj-bind-if test="[[componentObservable($current.data, 'ingressTraitEnabled')]]">
+                  <oj-form-layout max-columns="2" direction="row">
+                    <oj-input-text label-hint="[[labelMapper('component-ingress-trait-secret-name-label')]]"
+                                   value="{{componentObservable($current.data, 'ingressTraitSecretName')}}"
+                                   help.instruction="[[labelMapper('component-ingress-trait-secret-name-help')]]">
+                    </oj-input-text>
+                    <oj-button chroming="callToAction" on-oj-action="[[getRulesEditMethod($current.data)]]">
+                      <span>
+                        <oj-bind-text value="[[labelMapper('component-ingress-trait-rules-label')]]"></oj-bind-text>
+                      </span>
+                    </oj-button>
+                  </oj-form-layout>
+                </oj-bind-if>
+              </div>
+
+              <oj-form-layout max-columns="1" direction="row">
+                <oj-switch label-hint="[[labelMapper('component-manual-scaler-trait-enabled-label')]]"
+                           value="{{componentObservable($current.data, 'manualScalerTraitEnabled')}}"
+                           help.instruction="[[labelMapper('component-manual-scaler-trait-enabled-help')]]">
+                </oj-switch>
+              </oj-form-layout>
+              <div>
+                <oj-bind-if test="[[componentObservable($current.data, 'manualScalerTraitEnabled')]]">
+                <oj-form-layout max-columns="2" direction="row">
+                  <oj-input-text label-hint="[[labelMapper('component-manual-scaler-trait-replica-count-label')]]"
+                                 value="{{componentObservable($current.data, 'manualScalerTraitReplicaCount')}}"
+                                 help.instruction="[[labelMapper('component-manual-scaler-trait-replica-count-help')]]">
+                  </oj-input-text>
+                </oj-form-layout>
+              </oj-bind-if>
+              </div>
+
+              <oj-form-layout max-columns="1" direction="row">
+                <oj-switch label-hint="[[labelMapper('component-metrics-trait-enabled-label')]]"
+                           value="{{componentObservable($current.data, 'metricsTraitEnabled')}}"
+                           help.instruction="[[labelMapper('component-metrics-trait-enabled-help')]]">
+                </oj-switch>
+              </oj-form-layout>
+              <div>
+                <oj-bind-if test="[[componentObservable($current.data, 'metricsTraitEnabled')]]">
+                <oj-form-layout max-columns="2" direction="row">
+                  <oj-input-text label-hint="[[labelMapper('component-metrics-trait-http-port-label')]]"
+                                 value="{{componentObservable($current.data, 'metricsTraitHttpPort')}}"
+                                 help.instruction="[[labelMapper('component-metrics-trait-http-port-help')]]">
+                  </oj-input-text>
+                  <oj-input-text label-hint="[[labelMapper('component-metrics-trait-http-path-label')]]"
+                                 value="{{componentObservable($current.data, 'metricsTraitHttpPath')}}"
+                                 help.instruction="[[labelMapper('component-metrics-trait-http-path-help')]]">
+                  </oj-input-text>
+                  <oj-input-text label-hint="[[labelMapper('component-metrics-trait-secret-label')]]"
+                                 value="{{componentObservable($current.data, 'metricsTraitSecret')}}"
+                                 help.instruction="[[labelMapper('component-metrics-trait-secret-help')]]">
+                  </oj-input-text>
+                  <oj-input-text label-hint="[[labelMapper('component-metrics-trait-deployment-label')]]"
+                                 value="{{componentObservable($current.data, 'metricsTraitDeployment')}}"
+                                 help.instruction="[[labelMapper('component-metrics-trait-deployment-help')]]">
+                  </oj-input-text>
+                </oj-form-layout>
+              </oj-bind-if>
+              </div>
+
+              <oj-form-layout max-columns="1" direction="row">
+                <oj-switch label-hint="[[labelMapper('component-logging-trait-enabled-label')]]"
+                           value="{{componentObservable($current.data, 'loggingTraitEnabled')}}"
+                           help.instruction="[[labelMapper('component-logging-trait-enabled-help')]]">
+                </oj-switch>
+              </oj-form-layout>
+              <div>
+                <oj-bind-if test="[[componentObservable($current.data, 'loggingTraitEnabled')]]">
+                <oj-form-layout max-columns="2" direction="row">
+                  <oj-input-text label-hint="[[labelMapper('component-logging-trait-image-label')]]"
+                                 value="{{componentObservable($current.data, 'loggingTraitImage')}}"
+                                 help.instruction="[[labelMapper('component-logging-trait-image-help')]]">
+                  </oj-input-text>
+                  <oj-input-text label-hint="[[labelMapper('component-logging-trait-configuration-label')]]"
+                                 value="{{componentObservable($current.data, 'loggingTraitConfiguration')}}"
+                                 help.instruction="[[labelMapper('component-logging-trait-configuration-help')]]">
+                  </oj-input-text>
+                </oj-form-layout>
+              </oj-bind-if>
+              <div>
             </oj-collapsible>
           </template>
         </oj-bind-for-each>
-      </oj-accordian>
+      </oj-accordion>
     </oj-bind-if>
     <oj-bind-if test="[[hasComponents() === false]]">
       <p><oj-bind-text value="[[labelMapper('no-assigned-components-message')]]"></oj-bind-text></p>
