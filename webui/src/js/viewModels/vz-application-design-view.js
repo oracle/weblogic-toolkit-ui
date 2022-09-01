@@ -5,11 +5,12 @@
  */
 define(['models/wkt-project', 'accUtils', 'utils/common-utilities', 'knockout', 'utils/i18n',
   'ojs/ojbufferingdataprovider', 'ojs/ojarraydataprovider', 'utils/dialog-helper', 'utils/validation-helper',
-  'utils/k8s-helper', 'ojs/ojmessaging',
-  'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojformlayout', 'ojs/ojcollapsible', 'ojs/ojselectsingle',
-  'ojs/ojlistview', 'ojs/ojtable', 'ojs/ojswitch', 'ojs/ojinputnumber', 'ojs/ojradioset', 'ojs/ojaccordion'],
+  'utils/k8s-helper', 'utils/view-helper',
+  'ojs/ojmessaging', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojformlayout', 'ojs/ojcollapsible',
+  'ojs/ojselectsingle', 'ojs/ojlistview', 'ojs/ojtable', 'ojs/ojswitch', 'ojs/ojinputnumber', 'ojs/ojradioset',
+  'ojs/ojaccordion'],
 function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataProvider, dialogHelper,
-  validationHelper, k8sHelper) {
+  validationHelper, k8sHelper, viewHelper) {
   function VerrazzanoApplicationDesignViewModel() {
 
     this.connected = () => {
@@ -82,6 +83,7 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
         .map(componentName => {
           return { value: componentName, label: componentName };
         });
+
       dialogHelper.promptDialog('choose-component-dialog', { availableComponentNames }).then(result => {
         // no result indicates operation was cancelled
         if (result?.componentName) {
@@ -95,7 +97,10 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
 
           // this shouldn't be needed, but when a new component is added,
           // the accordion control doesn't enforce "single collapsible open" behavior.
-          $('#componentsList')[0].refresh();
+          const accordion = $('#componentsList')[0];
+          viewHelper.componentReady(accordion).then(() => {
+            accordion.refresh();
+          });
         }
       });
     };
