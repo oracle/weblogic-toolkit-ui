@@ -9,6 +9,8 @@ define(['utils/observable-properties', 'utils/validation-helper', 'utils/wkt-log
   function(props, validationHelper, wktLogger) {
     return function (name, k8sDomain, image, settings) {
       function VerrazzanoApplicationModel() {
+        let componentChanged = false;
+
         this.applicationName = props.createProperty('${1}-app', k8sDomain.uid.observable);
         this.applicationName.addValidator(...validationHelper.getK8sNameValidators());
         this.useMultiClusterApplication = props.createProperty(false);
@@ -62,11 +64,20 @@ define(['utils/observable-properties', 'utils/validation-helper', 'utils/wkt-log
         };
 
         this.isChanged = () => {
+          if(componentChanged) {
+            return true;
+          }
+
           return props.createGroup(name, this).isChanged();
         };
 
         this.setNotChanged = () => {
+          componentChanged = false;
           props.createGroup(name, this).setNotChanged();
+        };
+
+        this.componentChanged = () => {
+          componentChanged = true;
         };
       }
 

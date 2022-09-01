@@ -111,6 +111,7 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
         observable = new ko.observable(component[fieldName]);
         observable.subscribe(value => {
           component[fieldName] = value;
+          this.project.vzApplication.componentChanged();
         });
         this.componentObservables[key] = observable;
       }
@@ -120,7 +121,9 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
 
     this.getRulesEditMethod = component => {
       return () => {
+        // placeholder code until dialog is ready
         component['ingressTraitRules'] = [{rule1: 'abc'}, {rule2: 'xyz'}];
+        this.project.vzApplication.componentChanged();
       };
     };
   }
