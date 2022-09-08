@@ -257,7 +257,7 @@
   border: 1px solid var(--oj-collection-border-color);
 }
 
-.wkt-paths-table {
+.wkt-paths-table, .wkt-domain-node-selectors-table {
   border: 1px solid var(--oj-collection-border-color);
   width: 100%;
 }

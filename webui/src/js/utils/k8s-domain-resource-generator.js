@@ -56,7 +56,7 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
           }
         }
 
-        const serverPod = this._getServerPod();
+        const serverPod = this._getDomainServerPod();
         if (serverPod) {
           domainResource.spec.serverPod = serverPod;
         }
@@ -166,6 +166,22 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
           }
         }
         return generateYaml ? jsYaml.dump(domainResource).split('\n') : domainResource;
+      }
+
+      _getDomainServerPod() {
+        let serverPod = this._getServerPod();
+
+        if (this.project.k8sDomain.domainNodeSelector.value.length > 0) {
+          if (!serverPod) {
+            serverPod = {};
+          }
+          serverPod.nodeSelector = {};
+
+          this.project.k8sDomain.domainNodeSelector.value.forEach(selector => {
+            serverPod.nodeSelector[selector.name] = selector.value;
+          });
+        }
+        return serverPod;
       }
 
       _getServerPod() {

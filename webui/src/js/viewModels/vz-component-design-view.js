@@ -25,6 +25,10 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       //   document.getElementById('clusters-table').refresh();
       // }));
 
+      subscriptions.push(this.project.k8sDomain.domainNodeSelector.observable.subscribe(() => {
+        document.getElementById('domain-node-selector-table').refresh();
+      }));
+
       subscriptions.push(project.image.createPrimaryImage.observable.subscribe(() => {
         document.getElementById('create-image-switch').refresh();
         const primaryImageTag = document.getElementById('primary-image-tag');
@@ -407,6 +411,42 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
 
     this.secretsDP = new BufferingDataProvider(new ArrayDataProvider(
       this.project.k8sDomain.secrets.observable, {keyAttributes: 'name'}));
+
+    this.nodeSelectorColumnMetadata = [
+      {
+        headerText: this.domainLabelMapper('domain-node-selector-label-name-header'),
+        sortProperty: 'name'
+      },
+      {
+        headerText: this.domainLabelMapper('domain-node-selector-label-value-header'),
+        sortable: 'disabled'
+      },
+      {
+        'className': 'wkt-table-delete-cell',
+        'headerClassName': 'wkt-table-add-header',
+        'headerTemplate': 'headerTemplate',
+        'template': 'actionTemplate',
+        'sortable': 'disable',
+        width: viewHelper.BUTTON_COLUMN_WIDTH
+      },
+    ];
+
+    this.domainNodeSelectorDP =
+      new ArrayDataProvider(this.project.k8sDomain.domainNodeSelector.observable, { keyAttributes: 'name' });
+
+    this.handleAddDomainNodeSelector = () => {
+      const labelNames = [];
+      this.project.k8sDomain.domainNodeSelector.observable().forEach(label => {
+        labelNames.push(label.name);
+      })
+
+      let nextIndex = 0;
+      while (labelNames.indexOf(`new-label-${nextIndex + 1}`) !== -1) {
+        nextIndex++;
+      }
+
+      this.project.k8sDomain.domainNodeSelector.addNewItem({ name: `new-label-${nextIndex + 1}`, value: '' });
+    };
   }
 
   return VerrazzanoComponentDesignViewModel;

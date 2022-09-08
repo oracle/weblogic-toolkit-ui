@@ -646,6 +646,12 @@
   "domain-design-username-header": "Username",
   "domain-design-password-header": "Password",
   "domain-design-secrets-cell-field-name": "Secrets table {{name}} field at row {{position}} with UID {{uid}}",
+  "domain-design-domain-node-selector-title": "Domain-Wide Node Selector",
+  "domain-design-domain-node-selector-table-aria-label": "Domain-Wide Node Selector Table",
+  "domain-design-domain-node-selector-label-name-header": "Label Name",
+  "domain-design-domain-node-selector-label-value-header": "Label Value",
+  "domain-design-domain-node-selector-add-row-icon-text": "Add Node Selector Label",
+  "domain-design-domain-node-selector-delete-row-icon-text": "Delete Node Selector Label",
 
   "domain-code-script-title": "Install Script",
   "domain-code-domain-resource-title": "Domain Resource",
