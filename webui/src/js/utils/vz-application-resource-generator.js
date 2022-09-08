@@ -139,7 +139,11 @@ define(['models/wkt-project', 'utils/vz-helper', 'js-yaml', 'utils/i18n', 'utils
                 rule.hosts = ingressTraitRule.hosts;
               }
               if (Array.isArray(ingressTraitRule.paths) && ingressTraitRule.paths.length > 0) {
-                rule.paths = ingressTraitRule.paths;
+                rule.paths = ingressTraitRule.paths.map(path => {
+                  const newPath = { ...path };
+                  delete newPath.uid;
+                  return newPath;
+                });
               }
 
               const destination = this._getIngressTraitRuleDestination(ingressTraitRule);
