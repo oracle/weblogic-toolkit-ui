@@ -8,7 +8,7 @@
 const MINIMUM_VERRAZZANO_VERSION = '1.3.0';
 
 define(['models/wkt-project', 'accUtils', 'utils/common-utilities', 'knockout', 'utils/i18n', 'utils/screen-utils',
-  'ojs/ojbufferingdataprovider', 'ojs/ojarraydataprovider', 'ojs/ojconverter-number', 'utils/dialog-helper',
+  'ojs/ojbufferingdataprovider', 'ojs/ojarraydataprovider', 'utils/vz-helper', 'utils/dialog-helper',
   'utils/view-helper', 'utils/wkt-logger', 'ojs/ojmessaging', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton',
   'ojs/ojformlayout', 'ojs/ojcollapsible', 'ojs/ojselectsingle', 'ojs/ojlistview', 'ojs/ojtable', 'ojs/ojswitch',
   'ojs/ojinputnumber', 'ojs/ojradioset'],

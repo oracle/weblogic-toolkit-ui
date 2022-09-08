@@ -39,8 +39,8 @@ const { startWebLogicRemoteConsoleBackend, getDefaultDirectoryForOpenDialog, set
 } = require('./js/wlRemoteConsoleUtils');
 const { getVerrazzanoReleaseVersions, isVerrazzanoInstalled, installVerrazzanoPlatformOperator,
   verifyVerrazzanoPlatformOperatorInstall, installVerrazzano, verifyVerrazzanoInstallStatus } = require('./js/vzInstaller');
-const { deployComponents, getComponentNamesByNamespace, getSecretNamesByNamespace, getVerrazzanoClusterNames,
-  undeployComponents } = require('./js/vzDeployer');
+const { deployApplication, deployComponents, deployProject, getComponentNamesByNamespace, getSecretNamesByNamespace,
+  getVerrazzanoClusterNames, getDeploymentNamesFromAllNamespaces, undeployApplication, undeployComponents } = require('./js/vzUtils');
 
 const { getHttpsProxyUrl, getBypassProxyHosts } = require('./js/userSettings');
 const { sendToWindow } = require('./js/windowUtils');
@@ -1012,6 +1012,26 @@ class Main {
     // eslint-disable-next-line no-unused-vars
     ipcMain.handle('get-verrazzano-cluster-names', async (event, kubectlExe, kubectlOptions) => {
       return getVerrazzanoClusterNames(kubectlExe, kubectlOptions);
+    });
+
+    // eslint-disable-next-line no-unused-vars
+    ipcMain.handle('get-verrazzano-deployment-names-all-namespaces', async (event, kubectlExe, kubectlOptions) => {
+      return getDeploymentNamesFromAllNamespaces(kubectlExe, kubectlOptions);
+    });
+
+    // eslint-disable-next-line no-unused-vars
+    ipcMain.handle('deploy-verrazzano-application', async (event, kubectlExe, application, kubectlOptions) => {
+      return deployApplication(kubectlExe, application, kubectlOptions);
+    });
+
+    // eslint-disable-next-line no-unused-vars
+    ipcMain.handle('undeploy-verrazzano-application', async (event, kubectlExe, isMultiClusterApplication, applicationName, namespace, kubectlOptions) => {
+      return undeployApplication(kubectlExe, isMultiClusterApplication, applicationName, namespace, kubectlOptions);
+    });
+
+    // eslint-disable-next-line no-unused-vars
+    ipcMain.handle('deploy-verrazzano-project', async (event, kubectlExe, project, kubectlOptions) => {
+      return deployProject(kubectlExe, project, kubectlOptions);
     });
   }
 

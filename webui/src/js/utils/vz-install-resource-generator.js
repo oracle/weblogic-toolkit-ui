@@ -23,6 +23,29 @@ define(['models/wkt-project', 'js-yaml', 'utils/vz-helper', 'utils/i18n', 'utils
             profile: this.project.vzInstall.installationProfile.value,
           },
         };
+
+        if (this.project.vzInstall.installJaeger.value) {
+          data.spec.components = {
+            jaegerOperator: {
+              enabled: true
+            },
+            istio: {
+              istioInstallArgs: [
+                {
+                  name: 'meshConfig.enableTracing',
+                  value: 'true'
+                }
+              ]
+            }
+          };
+
+          if (this.project.vzInstall.istioSamplingRate.hasValue()) {
+            data.spec.components.istio.istioInstallArgs.push({
+              name: 'meshConfig.defaultConfig.tracing.sampling',
+              value: String(this.project.vzInstall.istioSamplingRate.value),
+            });
+          }
+        }
         return jsYaml.dump(data).split('\n');
       }
 

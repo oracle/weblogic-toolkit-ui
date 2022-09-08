@@ -15,6 +15,24 @@
         </li>
       </template>
     </oj-tab-bar>
+    <oj-button id="deployApplicationButton"
+               disabled="[[disableDeployApplication]]"
+               chroming="callToAction"
+               on-oj-action="[[deployApplication]]"
+               :title="[[labelMapper('hints-deployApplication')]]">
+            <span>
+              <oj-bind-text value="[[labelMapper('button-deployApplication')]]"></oj-bind-text>
+            </span>
+    </oj-button>
+    <oj-button id="undeployApplicationButton"
+               disabled="[[disableUndeployApplication]]"
+               chroming="callToAction"
+               on-oj-action="[[undeployApplication]]"
+               :title="[[labelMapper('hints-undeployApplication')]]">
+            <span>
+              <oj-bind-text value="[[labelMapper('button-undeployApplication')]]"></oj-bind-text>
+            </span>
+    </oj-button>
   </div>
 
   <oj-module role="main" class="wkt-content" config="[[moduleAdapter.koObservableConfig]]">

@@ -220,6 +220,10 @@ define([],
           alreadyInstalledMessage, notInstalledIsError, alreadyInstalledIsError), '');
       }
 
+      addVerrazzanoProjectCreateBlock(comment, kubectlExe, createProject, vzProjectYaml, errorMessage) {
+        this.addVariableEqualValueKubectlApplyBlock(comment, createProject, 'true', kubectlExe, vzProjectYaml, errorMessage);
+      }
+
       addCreateNamespaceBlock(comment, kubectlExe, namespace, createErrorMessage, alreadyExistsMessage) {
         const getArgs = `get namespace ${namespace}`;
         const createArgs = `create namespace ${namespace}`;
@@ -449,6 +453,11 @@ define([],
 
       // eslint-disable-next-line no-unused-vars
       addNotEmptyVariableKubectlApplyBlock(comment, variableReference, kubectlExe, yamlFile, errorMessage, successMessage) {
+        /* subclasses must implement. */
+      }
+
+      // eslint-disable-next-line no-unused-vars
+      addVariableEqualValueKubectlApplyBlock(comment, variableReference, variableValue, kubectlExe, yamlFile, errorMessage, successMessage) {
         /* subclasses must implement. */
       }
 

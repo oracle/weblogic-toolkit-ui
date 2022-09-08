@@ -9,18 +9,17 @@ define(['accUtils', 'knockout', 'utils/i18n', 'utils/observable-properties', 'ut
   'ojs/ojarraydataprovider', 'utils/wkt-logger', 'ojs/ojselectsingle', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton',
   'ojs/ojdialog', 'ojs/ojformlayout', 'ojs/ojvalidationgroup'],
 function(accUtils, ko, i18n, props, validationHelper, ArrayDataProvider) {
-  function ChooseComponentDialogModel(args) {
-    const DIALOG_SELECTOR = '#chooseComponentDialog';
+  function ChooseDeploymentDialogModel(args) {
+    const DIALOG_SELECTOR = '#chooseDeploymentDialog';
 
     this.i18n = i18n;
-    this.availableComponentNames = args.availableComponentNames;
-    this.selectedComponentName = ko.observable();
-    this.selectedComponentNameValidator = validationHelper.getRequiredFieldValidators();
+    this.availableDeploymentNames = args.availableDeploymentNames;
+    this.selectedDeploymentName = ko.observable(args.selectedDeploymentName);
 
-    this.availableComponentNamesDP = new ArrayDataProvider(this.availableComponentNames, { keyAttributes: 'value' });
+    this.availableDeploymentNamesDP = new ArrayDataProvider(this.availableDeploymentNames, { keyAttributes: 'name' });
 
     this.connected = () => {
-      accUtils.announce('Choose Component dialog loaded.', 'assertive');
+      accUtils.announce('Choose Deployment dialog loaded.', 'assertive');
       // open the dialog after the current thread, which is loading this view model.
       // using oj-dialog initial-visibility="show" causes vertical centering issues.
       setTimeout(function() {
@@ -29,21 +28,13 @@ function(accUtils, ko, i18n, props, validationHelper, ArrayDataProvider) {
     };
 
     this.labelMapper = (labelId) => {
-      return i18n.t(`vz-application-design-choose-component-${labelId}`);
+      return i18n.t(`vz-application-design-choose-deployment-${labelId}`);
     };
 
     this.okInput = () => {
-      let tracker = document.getElementById('chooseComponentTracker');
-      if (tracker.valid !== 'valid') {
-        // show messages on all the components that have messages hidden.
-        tracker.showMessages();
-        tracker.focusOn('@firstInvalidShown');
-        return;
-      }
-
       $(DIALOG_SELECTOR)[0].close();
 
-      const result = {componentName: this.selectedComponentName()};
+      const result = { deploymentName: this.selectedDeploymentName() };
       args.setValue(result);
     };
 
@@ -56,5 +47,5 @@ function(accUtils, ko, i18n, props, validationHelper, ArrayDataProvider) {
   /*
    * Returns a constructor for the ViewModel.
    */
-  return ChooseComponentDialogModel;
+  return ChooseDeploymentDialogModel;
 });

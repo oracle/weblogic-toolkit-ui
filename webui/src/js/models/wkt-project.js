@@ -92,7 +92,7 @@ function (ko, wdtConstructor, imageConstructor, kubectlConstructor, domainConstr
     this.wko = wkoConstructor('wko');
     this.vzInstall = verrazzanoInstallConstructor('vzInstall');
     this.vzComponent = verrazzanoComponentConstructor('vzComponent', this.k8sDomain);
-    this.vzApplication = verrazzanoApplicationConstructor('vzApplication', this.k8sDomain, this.image, this.settings);
+    this.vzApplication = verrazzanoApplicationConstructor('vzApplication', this.k8sDomain);
     this.pages = [
       this.wdtModel,
       this.image,

@@ -535,6 +535,36 @@ class WktAppMenu {
               sendToWindow(focusedWindow,'start-undeploy-verrazzano-component');
             }
           },
+          {
+            id: 'deployVerrazzanoApplication',
+            label: i18n.t('menu-go-deploy-verrazzano-application'),
+            visible: !this._isWkoTarget,
+            enabled: !this._hasOpenDialog,
+            click(item, focusedWindow) {
+              if (!focusedWindow) {
+                return dialog.showErrorBox(
+                  i18n.t('menu-go-deploy-verrazzano-application-error-title'),
+                  i18n.t('menu-go-deploy-verrazzano-application-error-message')
+                );
+              }
+              sendToWindow(focusedWindow,'start-deploy-verrazzano-application');
+            }
+          },
+          {
+            id: 'undeployVerrazzanoApplication',
+            label: i18n.t('menu-go-undeploy-verrazzano-application'),
+            visible: !this._isWkoTarget,
+            enabled: !this._hasOpenDialog,
+            click(item, focusedWindow) {
+              if (!focusedWindow) {
+                return dialog.showErrorBox(
+                  i18n.t('menu-go-undeploy-verrazzano-application-error-title'),
+                  i18n.t('menu-go-undeploy-verrazzano-application-error-message')
+                );
+              }
+              sendToWindow(focusedWindow,'start-undeploy-verrazzano-application');
+            }
+          },
         ]
       },
       {

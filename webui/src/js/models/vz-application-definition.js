@@ -6,50 +6,27 @@
 'use strict';
 
 define(['utils/observable-properties', 'utils/validation-helper', 'utils/wkt-logger'],
-  function(props, validationHelper, wktLogger) {
-    return function (name, k8sDomain, image, settings) {
+  function(props, validationHelper) {
+    return function (name, k8sDomain) {
       function VerrazzanoApplicationModel() {
         let componentChanged = false;
 
         this.applicationName = props.createProperty('${1}-app', k8sDomain.uid.observable);
         this.applicationName.addValidator(...validationHelper.getK8sNameValidators());
+        this.applicationVersion = props.createProperty();
+        this.applicationDescription = props.createProperty();
+
         this.useMultiClusterApplication = props.createProperty(false);
+        this.createProject = props.createProperty(false);
+        this.projectName = props.createProperty('${1}', this.applicationName.observable);
+        this.projectName.addValidator(...validationHelper.getK8sNameValidators());
+
         this.placementClusters = props.createArrayProperty(['local']);
-
-        this.computeDefaultSecrets = () => {
-          const defaultSecretNames = [];
-          if (k8sDomain.imageRegistryPullRequireAuthentication.value && k8sDomain.imageRegistryPullSecretName.value) {
-            defaultSecretNames.push(k8sDomain.imageRegistryPullSecretName.value);
-          }
-
-          if (image.useAuxImage && k8sDomain.auxImageRegistryPullRequireAuthentication.value && k8sDomain.auxImageRegistryPullSecretName.value) {
-            defaultSecretNames.push(k8sDomain.auxImageRegistryPullSecretName.value);
-          }
-
-          if (k8sDomain.credentialsSecretName.value) {
-            defaultSecretNames.push(k8sDomain.credentialsSecretName.value);
-          }
-
-          if (settings.targetDomainLocation.value === 'mii') {
-            if (k8sDomain.runtimeSecretName.value) {
-              defaultSecretNames.push(k8sDomain.runtimeSecretName.value);
-            }
-
-            const domainSecrets = k8sDomain.secrets.value;
-            if (Array.isArray(domainSecrets) && domainSecrets.length > 0) {
-              const domainSecretNames = domainSecrets.map(domainSecret => domainSecret.name);
-              defaultSecretNames.push(...domainSecretNames);
-            }
-          }
-
-          return defaultSecretNames;
-        };
-
-        this.secrets = props.createArrayProperty(this.computeDefaultSecrets());
+        this.secrets = props.createArrayProperty();
 
         this.componentKeys = [ 'name', 'ingressTraitEnabled', 'ingressTraitSecretName', 'ingressTraitRules',
           'manualScalerTraitEnabled', 'manualScalerTraitReplicaCount', 'metricsTraitEnabled',
-          'metricsTraitHttpPort', 'metricsTraitHttpPath', 'metricsTraitSecret', 'metricsTraitDeployment',
+          'metricsTraitHttpPort', 'metricsTraitHttpPath', 'metricsTraitSecretName', 'metricsTraitDeploymentName',
           'loggingTraitEnabled', 'loggingTraitImage', 'loggingTraitConfiguration' ];
         this.components = props.createListProperty(this.componentKeys).persistByKey('name');
 
@@ -58,9 +35,7 @@ define(['utils/observable-properties', 'utils/validation-helper', 'utils/wkt-log
         };
 
         this.writeTo = (json) => {
-          wktLogger.debug('writeTo sees components = %s', JSON.stringify(this.components.value));
           props.createGroup(name, this).writeTo(json);
-          wktLogger.debug('writeTo returning json = %s', JSON.stringify(json));
         };
 
         this.isChanged = () => {

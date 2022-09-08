@@ -8,23 +8,23 @@
 define(['utils/vz-actions-base', 'models/wkt-project', 'models/wkt-console', 'utils/i18n', 'utils/project-io',
   'utils/dialog-helper'],
 function(VzActionsBase, project, wktConsole, i18n, projectIo, dialogHelper) {
-  class VzComponentUndeployer extends VzActionsBase {
+  class VzApplicationUndeployer extends VzActionsBase {
     constructor() {
       super();
     }
 
-    async startUndeployComponent() {
-      await this.executeAction(this.callUndeployComponent);
+    async startUndeployApplication() {
+      await this.executeAction(this.callUndeployApplication);
     }
 
-    async callUndeployComponent(options) {
+    async callUndeployApplication(options) {
       if (!options) {
         options = {};
       }
 
-      let errTitle = i18n.t('vz-component-undeployer-aborted-error-title');
-      const errPrefix = 'vz-component-undeployer';
-      const validatableObject = this.getValidatableObject('flow-verrazzano-undeploy-component-name');
+      let errTitle = i18n.t('vz-application-undeployer-aborted-error-title');
+      const errPrefix = 'vz-application-undeployer';
+      const validatableObject = this.getValidatableObject('flow-verrazzano-undeploy-application-name');
       if (validatableObject.hasValidationErrors()) {
         const validationErrorDialogConfig = validatableObject.getValidationErrorDialogConfig(errTitle);
         dialogHelper.openDialog('validation-error-dialog', validationErrorDialogConfig);
@@ -32,13 +32,14 @@ function(VzActionsBase, project, wktConsole, i18n, projectIo, dialogHelper) {
       }
 
       // Prompt user to remove just the domain or the entire domain namespace.
-      const componentName = this.project.vzComponent.componentName.value;
-      const componentNamespace = this.project.k8sDomain.kubernetesNamespace.value;
-      const configMapName = this.project.vzComponent.configMapIsEmpty() ? undefined : this.project.k8sDomain.modelConfigMapName.value;
+      const applicationName = this.project.vzApplication.applicationName.value;
+      const applicationNamespace = this.project.k8sDomain.kubernetesNamespace.value;
+      const isMultiClusterApplication = this.project.vzApplication.useMultiClusterApplication.value;
 
-      const promptTitle = i18n.t('vz-component-undeployer-remove-namespace-prompt-title');
-      const promptQuestion = this._getPromptQuestion(componentName, componentNamespace, configMapName);
-      const promptDetails = i18n.t('vz-component-undeployer-remove-namespace-prompt-details', { componentNamespace });
+      const promptTitle = i18n.t('vz-application-undeployer-remove-namespace-prompt-title');
+      const promptQuestion = i18n.t('vz-application-undeployer-remove-namespace-prompt-question',
+        { name: applicationName, namespace: applicationNamespace });
+      const promptDetails = i18n.t('vz-application-undeployer-remove-namespace-prompt-details', { namespace: applicationNamespace });
       const removeNamespacePromptResult = await this.removeNamespacePrompt(promptTitle, promptQuestion, promptDetails);
       if (removeNamespacePromptResult === 'cancel') {
         return Promise.resolve(false);
@@ -90,53 +91,43 @@ function(VzActionsBase, project, wktConsole, i18n, projectIo, dialogHelper) {
           }
           if (!result.isInstalled) {
             dialogHelper.closeBusyDialog();
-            const errMessage = i18n.t('vz-component-undeployer-not-installed-error-message');
+            const errMessage = i18n.t('vz-application-undeployer-not-installed-error-message');
             await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
             return Promise.resolve(false);
           }
         }
 
         if (removeNamespace) {
-          busyDialogMessage = i18n.t('vz-component-undeployer-undeploy-namespace-in-progress', { componentNamespace });
+          busyDialogMessage = i18n.t('vz-application-undeployer-undeploy-namespace-in-progress', { namespace: applicationNamespace });
           dialogHelper.updateBusyDialog(busyDialogMessage, 4/totalSteps);
 
           const result = await this.deleteKubernetesObjectIfExists(kubectlExe, kubectlOptions,
-            null, 'namespace', componentNamespace, errTitle, errPrefix);
+            null, 'namespace', applicationNamespace, errTitle, errPrefix);
           dialogHelper.closeBusyDialog();
           if (!result) {
             return Promise.resolve(false);
           }
-          const title = i18n.t('vz-component-undeployer-undeploy-complete-title');
-          const message = configMapName ?
-            i18n.t('vz-component-undeployer-undeploy-namespace-2-components-complete-message',
-              { componentName, configMapComponentName: configMapName, componentNamespace }) :
-            i18n.t('vz-component-undeployer-undeploy-namespace-1-component-complete-message', { componentName, componentNamespace});
+          const title = i18n.t('vz-application-undeployer-undeploy-complete-title');
+          const message = i18n.t('vz-application-undeployer-undeploy-namespace-complete-message',
+            { name: applicationName, namespace: applicationNamespace });
           await window.api.ipc.invoke('show-info-message', title, message);
         } else {
-          const componentNames = configMapName ? [ componentName, configMapName ] : [ componentName ];
-          busyDialogMessage = configMapName ?
-            i18n.t('vz-component-undeployer-undeploy-components-in-progress', { componentName, configMapComponentName: configMapName }) :
-            i18n.t('vz-component-undeployer-undeploy-component-in-progress', { componentName });
+          busyDialogMessage = i18n.t('vz-application-undeployer-undeploy-application-in-progress', { name: applicationName });
           dialogHelper.updateBusyDialog(busyDialogMessage, 4/totalSteps);
 
-          const result = await window.api.ipc.invoke('undeploy-verrazzano-components', kubectlExe,
-            componentNames, componentNamespace, kubectlOptions);
+          const result = await window.api.ipc.invoke('undeploy-verrazzano-application', kubectlExe,
+            isMultiClusterApplication, applicationName, applicationNamespace, kubectlOptions);
           dialogHelper.closeBusyDialog();
           if (!result.isSuccess) {
-            const title = i18n.t('vz-component-undeployer-undeploy-failed-title');
-            const errMessage = configMapName ?
-              i18n.t('vz-component-undeployer-undeploy-2-components-failed-error-message',
-                { componentName, configMapComponentName: configMapName, componentNamespace, error: result.reason }) :
-              i18n.t('vz-component-undeployer-undeploy-1-component-failed-error-message',
-                { componentName, componentNamespace, error: result.reason });
+            const title = i18n.t('vz-application-undeployer-undeploy-failed-title');
+            const errMessage = i18n.t('vz-application-undeployer-undeploy-failed-error-message',
+              { name: applicationName, namespace: applicationNamespace, error: result.reason });
             await window.api.ipc.invoke('show-error-message', title, errMessage);
             return Promise.resolve(false);
           }
-          const title = i18n.t('vz-component-undeployer-undeploy-complete-title');
-          const message = configMapName ?
-            i18n.t('vz-component-undeployer-undeploy-2-components-complete-message',
-              { componentName, configMapComponentName: configMapName, componentNamespace }) :
-            i18n.t('vz-component-undeployer-undeploy-1-component-complete-message', { componentName, componentNamespace});
+          const title = i18n.t('vz-application-undeployer-undeploy-complete-title');
+          const message = i18n.t('vz-application-undeployer-undeploy-complete-message',
+            { name: applicationName, namespace: applicationNamespace });
           await window.api.ipc.invoke('show-info-message', title, message);
         }
         return Promise.resolve(true);
@@ -150,28 +141,16 @@ function(VzActionsBase, project, wktConsole, i18n, projectIo, dialogHelper) {
 
     getValidatableObject(flowNameKey) {
       const validationObject = this.getValidationObject(flowNameKey);
-      const vzComponentFormConfig = validationObject.getDefaultConfigObject();
-      vzComponentFormConfig.formName = 'vz-component-design-form-name';
+      const vzApplicationFormConfig = validationObject.getDefaultConfigObject();
+      vzApplicationFormConfig.formName = 'vz-application-design-form-name';
 
-      validationObject.addField('vz-component-design-name-label',
-        this.project.vzComponent.componentName.validate(true), vzComponentFormConfig);
-      validationObject.addField('vz-component-design-namespace-label',
-        this.project.k8sDomain.kubernetesNamespace.validate(true), vzComponentFormConfig);
+      validationObject.addField('vz-application-design-name-label',
+        this.project.vzApplication.applicationName.validate(true), vzApplicationFormConfig);
+      validationObject.addField('vz-application-design-namespace-label',
+        this.project.k8sDomain.kubernetesNamespace.validate(true), vzApplicationFormConfig);
 
       return validationObject;
     }
-
-    _getPromptQuestion(componentName, componentNamespace, configMapComponentName) {
-      let result;
-      if (configMapComponentName) {
-        result = i18n.t('vz-component-undeployer-remove-namespace-2-component-prompt-question',
-          { componentName, componentNamespace, configMapComponentName });
-      } else {
-        result = i18n.t('vz-component-undeployer-remove-namespace-1-component-prompt-question',
-          { componentName, componentNamespace });
-      }
-      return result;
-    }
   }
-  return new VzComponentUndeployer();
+  return new VzApplicationUndeployer();
 });

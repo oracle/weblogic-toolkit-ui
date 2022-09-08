@@ -36,6 +36,26 @@ async function undeployComponents(kubectlExe, componentNames, namespace, kubectl
   return Promise.resolve(result);
 }
 
+async function deployProject(kubectlExe, project, kubectlOptions) {
+  return new Promise(resolve => {
+    kubectlUtils.apply(kubectlExe, project, kubectlOptions).then(result => resolve(result));
+  });
+}
+
+async function deployApplication(kubectlExe, application, kubectlOptions) {
+  return new Promise(resolve => {
+    kubectlUtils.apply(kubectlExe, application, kubectlOptions).then(result => resolve(result));
+  });
+}
+
+async function undeployApplication(kubectlExe, isMultiClusterApplication, applicationName, namespace, kubectlOptions) {
+  const kind = isMultiClusterApplication ? 'MultiClusterApplicationConfiguration' : 'ApplicationConfiguration';
+
+  return new Promise(resolve => {
+    kubectlUtils.deleteObjectIfExists(kubectlExe, namespace, applicationName, kind, kubectlOptions).then(result => resolve(result));
+  });
+}
+
 async function getComponentNamesByNamespace(kubectlExe, namespace, kubectlOptions) {
   return new Promise(resolve => {
     kubectlUtils.getKubernetesObjectsByNamespace(kubectlExe, kubectlOptions, 'component', namespace).then(result => {
@@ -66,22 +86,38 @@ async function getVerrazzanoClusterNames(kubectlExe, kubectlOptions) {
   return new Promise(resolve => {
     kubectlUtils.getKubernetesObjectsByNamespace(kubectlExe, kubectlOptions, 'VerrazzanoManagedCluster', 'verrazzano-mc').then(result => {
       if (!result.isSuccess) {
-        getLogger().debug('result.reason = %s', result.reason);
-
         return resolve(result);
       }
 
       result.payload = result.payload.map(vmc => vmc.metadata?.name);
       result.payload.splice(0, 0, 'local');
+      getLogger().debug('Found verrazzano clusters: %s', result.payload);
+      resolve(result);
+    });
+  });
+}
+
+async function getDeploymentNamesFromAllNamespaces(kubectlExe, kubectlOptions) {
+  return new Promise(resolve => {
+    kubectlUtils.getKubernetesObjectsFromAllNamespaces(kubectlExe, kubectlOptions, 'deployment').then(result => {
+      if (!result.isSuccess) {
+        return resolve(result);
+      }
+
+      result.payload = result.payload.map(deployment => `${deployment.metadata.namespace}/${deployment.metadata.name}`);
       resolve(result);
     });
   });
 }
 
 module.exports = {
+  deployApplication,
   deployComponents,
+  deployProject,
   getComponentNamesByNamespace,
+  getDeploymentNamesFromAllNamespaces,
   getSecretNamesByNamespace,
   getVerrazzanoClusterNames,
+  undeployApplication,
   undeployComponents,
 };

@@ -123,13 +123,14 @@ function(VzActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, vali
           const title = i18n.t('vz-installer-install-failed-title');
           const message = i18n.t('vz-installer-install-failed-error-message', { name: vzOptions.name, error: vzInstallResult.reason });
           await window.api.ipc.invoke('show-error-message', title, message);
-          return Promise.resolve(false);
         }
+        return Promise.resolve(vzInstallResult.isSuccess);
       } catch (err) {
         dialogHelper.closeBusyDialog();
         return Promise.reject(err);
+      } finally {
+        dialogHelper.closeBusyDialog();
       }
-      return Promise.resolve(true);
     }
 
     getValidatableObject(flowNameKey) {

@@ -18,6 +18,8 @@ define(['utils/observable-properties'],
         this.installationName = props.createProperty('example-verrazzano');
         this.installationProfile = props.createProperty('dev');
         this.actualInstalledVersion = props.createProperty();
+        this.installJaeger = props.createProperty(false);
+        this.istioSamplingRate = props.createProperty(1);
 
         this.readFrom = (json) => {
           props.createGroup(name, this).readFrom(json);

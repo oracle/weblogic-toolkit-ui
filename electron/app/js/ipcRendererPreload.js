@@ -90,6 +90,8 @@ contextBridge.exposeInMainWorld(
           'start-get-verrazzano-install-status',
           'start-deploy-verrazzano-component',
           'start-undeploy-verrazzano-component',
+          'start-deploy-verrazzano-application',
+          'start-undeploy-verrazzano-application',
           'start-app-quit',
           'start-window-close'
         ];
@@ -224,6 +226,10 @@ contextBridge.exposeInMainWorld(
           'get-verrazzano-component-names',
           'get-verrazzano-secret-names',
           'get-verrazzano-cluster-names',
+          'get-verrazzano-deployment-names-all-namespaces',
+          'deploy-verrazzano-project',
+          'deploy-verrazzano-application',
+          'undeploy-verrazzano-application',
         ];
         return new Promise((resolve, reject) => {
           if (validChannels.includes(channel)) {

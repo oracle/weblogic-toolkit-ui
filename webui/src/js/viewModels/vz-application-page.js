@@ -4,8 +4,9 @@
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 define(['utils/i18n', 'accUtils', 'knockout', 'ojs/ojcorerouter', 'ojs/ojmodulerouter-adapter',
-  'ojs/ojarraydataprovider', 'utils/vz-installer', 'utils/vz-install-status-checker'],
-function(i18n, accUtils, ko, CoreRouter, ModuleRouterAdapter, ArrayDataProvider) {
+  'ojs/ojarraydataprovider', 'utils/vz-application-deployer', 'utils/vz-application-undeployer'],
+function(i18n, accUtils, ko, CoreRouter, ModuleRouterAdapter, ArrayDataProvider, vzApplicationDeployer,
+  vzApplicationUndeployer) {
   function VerrazzanoApplicationViewModel(args) {
 
     this.connected = () => {
@@ -17,15 +18,16 @@ function(i18n, accUtils, ko, CoreRouter, ModuleRouterAdapter, ArrayDataProvider)
       return i18n.t(`vz-application-page-${labelId}`);
     };
 
-    // this.disableInstall = ko.observable(false);
-    // this.installVerrazzano = () => {
-    //   vzInstaller.startInstallVerrazzano().then();
-    // };
-    //
-    // this.disableInstallStatus = ko.observable(false);
-    // this.getInstallStatus = () => {
-    //   vzInstallStatusChecker.startVerrazzanoInstallStatusCheck().then();
-    // };
+    this.disableDeployApplication = ko.observable(false);
+    this.disableUndeployApplication = ko.observable(false);
+
+    this.deployApplication = () => {
+      vzApplicationDeployer.startDeployApplication().then();
+    };
+
+    this.undeployApplication = () => {
+      vzApplicationUndeployer.startUndeployApplication().then();
+    };
 
     // Setup for Design / Code View tab selection.
 

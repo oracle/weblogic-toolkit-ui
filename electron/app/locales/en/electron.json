@@ -90,6 +90,12 @@
   "menu-go-undeploy-verrazzano-component": "Undeploy Verrazzano Component",
   "menu-go-undeploy-verrazzano-component-error-title": "No Active Project Window",
   "menu-go-undeploy-verrazzano-component-error-message": "Cannot undeploy Verrazzano component since there is no active window, and therefore no project with the Verrazzano component configuration to undeploy.",
+  "menu-go-deploy-verrazzano-application": "Deploy Verrazzano Application",
+  "menu-go-deploy-verrazzano-application-error-title": "No Active Project Window",
+  "menu-go-deploy-verrazzano-application-error-message": "Cannot deploy Verrazzano application since there is no active window, and therefore no project with the Verrazzano application configuration to deploy.",
+  "menu-go-undeploy-verrazzano-application": "Undeploy Verrazzano Application",
+  "menu-go-undeploy-verrazzano-application-error-title": "No Active Project Window",
+  "menu-go-undeploy-verrazzano-application-error-message": "Cannot undeploy Verrazzano application since there is no active window, and therefore no project with the Verrazzano application configuration to undeploy.",
 
   "menu-window": "Window",
   "menu-window-minimize": "Minimize",

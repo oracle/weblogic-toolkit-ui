@@ -1,0 +1,37 @@
+<!--
+ Copyright (c) 2022, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<oj-dialog id="chooseClustersDialog" class="wkt-add-to-archive-dialog" initial-visibility="hide">
+  <div slot="header">
+    <span id="dialog-title-id" class="oj-dialog-title">
+      <oj-bind-text value="[[labelMapper('dialog-title')]]"></oj-bind-text>
+    </span>
+  </div>
+  <div slot="body">
+    <div class="oj-panel">
+      <oj-form-layout max-columns="2" direction="row">
+        <oj-select-many label-hint="[[labelMapper('name-label')]]"
+                        value="{{selectedClusterNames}}"
+                        help.instruction="[[labelMapper('name-help')]]">
+          <oj-bind-for-each data="[[availableClusterNames]]">
+            <template>
+              <oj-option value="[[$current.data.name]]">
+                <oj-bind-text value="[[$current.data.name]]"></oj-bind-text>
+              </oj-option>
+            </template>
+          </oj-bind-for-each>
+        </oj-select-many>
+      </oj-form-layout>
+    </div>
+  </div>
+
+  <div slot="footer">
+    <oj-button id="okButton" on-oj-action="[[okInput]]">
+      <span><oj-bind-text value="[[i18n.t('dialog-button-ok')]]"></oj-bind-text></span>
+    </oj-button>
+    <oj-button id="cancelButton" on-oj-action="[[cancelInput]]">
+      <span><oj-bind-text value="[[i18n.t('dialog-button-cancel')]]"></oj-bind-text></span>
+    </oj-button>
+  </div>
+</oj-dialog>

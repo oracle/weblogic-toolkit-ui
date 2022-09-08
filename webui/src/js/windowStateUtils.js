@@ -10,7 +10,8 @@ define(['models/wkt-project', 'models/wkt-console', 'utils/wdt-discoverer', 'uti
   'utils/wko-uninstaller', 'utils/wko-updater', 'utils/k8s-domain-deployer', 'utils/k8s-domain-status-checker',
   'utils/k8s-domain-undeployer', 'utils/ingress-controller-installer', 'utils/ingress-routes-updater',
   'utils/ingress-controller-uninstaller', 'utils/vz-installer', 'utils/vz-install-status-checker',
-  'utils/vz-component-deployer', 'utils/vz-component-undeployer', 'utils/app-updater', 'utils/wkt-logger'],
+  'utils/vz-component-deployer', 'utils/vz-component-undeployer', 'utils/vz-application-deployer',
+  'utils/vz-application-undeployer','utils/app-updater', 'utils/wkt-logger'],
 function(wktProject, wktConsole, wdtDiscoverer, dialogHelper, projectIO,
   utils, wdtModelPreparer, wdtModelValidator, i18n, witImageCreator,
   witAuxImageCreator, imagePusher, auxImagePusher, k8sHelper,
@@ -18,7 +19,7 @@ function(wktProject, wktConsole, wdtDiscoverer, dialogHelper, projectIO,
   k8sDomainStatusChecker, k8sDomainUndeployer, ingressControllerInstaller,
   ingressRoutesUpdater, ingressControllerUninstaller, vzInstaller,
   vzInstallStatusChecker, vzComponentDeployer, vzComponentUndeployer,
-  appUpdater, wktLogger) {
+  vzApplicationDeployer, vzApplicationUndeployer, appUpdater, wktLogger) {
 
   async function displayCatchAllError(i18nPrefix, err) {
     return dialogHelper.displayCatchAllError(i18nPrefix, err);
@@ -268,6 +269,20 @@ function(wktProject, wktConsole, wdtDiscoverer, dialogHelper, projectIO,
     blurSelection();
     vzComponentUndeployer.startUndeployComponent().then(() => Promise.resolve()).catch(err => {
       displayCatchAllError('vz-component-undeployer-undeploy', err).then(() => Promise.resolve());
+    });
+  });
+
+  window.api.ipc.receive('start-deploy-verrazzano-application', async () => {
+    blurSelection();
+    vzApplicationDeployer.startDeployApplication().then(() => Promise.resolve()).catch(err => {
+      displayCatchAllError('vz-application-deployer-deploy', err).then(() => Promise.resolve());
+    });
+  });
+
+  window.api.ipc.receive('start-undeploy-verrazzano-application', async () => {
+    blurSelection();
+    vzApplicationUndeployer.startUndeployApplication().then(() => Promise.resolve()).catch(err => {
+      displayCatchAllError('vz-application-undeployer-undeploy', err).then(() => Promise.resolve());
     });
   });
 

@@ -21,4 +21,18 @@
                       help.instruction="[[labelMapper('version-help')]]">
     </oj-select-single>
   </oj-form-layout>
+  <oj-form-layout max-columns="2" direction="row">
+    <oj-switch label-hint="[[labelMapper('install-jaeger-label')]]"
+               value="{{project.vzInstall.installJaeger.observable}}"
+               help.instruction="[[labelMapper('install-jaeger-help')]]">
+    </oj-switch>
+    <oj-bind-if test="[[project.vzInstall.installJaeger.observable]]">
+      <oj-input-number label-hint="[[labelMapper('istio-sampling-label')]]"
+                       min="0"
+                       max="100"
+                       value="{{project.vzInstall.istioSamplingRate.observable}}"
+                       help.instruction="[[labelMapper('istio-sampling-help')]]">
+      </oj-input-number>
+    </oj-bind-if>
+  </oj-form-layout>
 </div>

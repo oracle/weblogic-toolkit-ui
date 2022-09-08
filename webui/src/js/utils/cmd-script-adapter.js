@@ -321,6 +321,18 @@ define(['utils/script-adapter-base'],
         );
       }
 
+      addVariableEqualValueKubectlApplyBlock(comment, variableReference, variableValue, kubectlExe, yamlFile, errorMessage, successMessage) {
+        const args = `apply -f ${yamlFile}`;
+        const runBlock = this._formatRunCommandBlock(comment, kubectlExe, args, errorMessage, successMessage);
+
+        this._lines.push(
+          `IF "${variableReference}" EQ "${variableValue}" (`,
+          ...this.prependToLines(this.indent(1), ...runBlock),
+          ')',
+          ''
+        );
+      }
+
       _formatScriptHeader(scriptDescription, copyright) {
         return [
           ECHO_OFF,
