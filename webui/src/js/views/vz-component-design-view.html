@@ -1,0 +1,576 @@
+<!--
+ Copyright (c) 2022, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('title')]]"></oj-bind-text></h6>
+<div class="oj-panel">
+  <oj-form-layout max-columns="2" direction="row">
+    <oj-input-text label-hint="[[labelMapper('name-label')]]"
+                   value="{{project.vzComponent.componentName.observable}}"
+                   help.instruction="[[labelMapper('name-help')]]">
+    </oj-input-text>
+    <oj-input-text label-hint="[[labelMapper('namespace-label')]]"
+                   value="{{project.k8sDomain.kubernetesNamespace.observable}}"
+                   help.instruction="[[labelMapper('namespace-help')]]">
+    </oj-input-text>
+    <oj-input-text label-hint="[[labelMapper('installed-version-label')]]"
+                   value="{{project.vzInstall.actualInstalledVersion.observable}}"
+                   help.instructions="[[labelMapper('installed-version-help')]]">
+      <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[getInstalledVersionNumber]]">
+        <span slot="endIcon" class="oj-ux-ico-annotation" role="img"></span>
+      </oj-button>
+    </oj-input-text>
+    <oj-input-text label-hint="[[domainLabelMapper('wls-credential-label')]]"
+                   value="{{project.k8sDomain.credentialsSecretName.observable}}"
+                   help.instruction="[[domainLabelMapper('wls-credential-help')]]">
+    </oj-input-text>
+    <oj-input-text label-hint="[[domainLabelMapper('uid-label')]]"
+                   value="{{project.k8sDomain.uid.observable}}"
+                   help.instruction="[[domainLabelMapper('uid-help')]]">
+    </oj-input-text>
+    <oj-input-password label-hint="[[domainLabelMapper('wls-credential-username-label')]]"
+                       value="{{project.k8sDomain.credentialsUserName.observable}}"
+                       mask-icon="visible"
+                       help.instruction="[[domainLabelMapper('wls-credential-username-help')]]">
+    </oj-input-password>
+    <div>
+      <oj-bind-if test="[[isDomainInImage() === true]]">
+        <oj-input-text class="wkt-can-readonly-field"
+                       label-hint="[[domainLabelMapper('domain-home-label')]]"
+                       value="{{project.k8sDomain.domainHome.observable}}"
+                       readonly="true"
+                       help.instruction="[[domainLabelMapper('domain-home-readonly-help')]]">
+        </oj-input-text>
+      </oj-bind-if>
+      <oj-bind-if test="[[isDomainInImage() === false]]">
+        <oj-input-text label-hint="[[domainLabelMapper('domain-home-label')]]"
+                       value="{{project.k8sDomain.domainHome.observable}}"
+                       help.instruction="[[domainLabelMapper('domain-home-help')]]">
+        </oj-input-text>
+      </oj-bind-if>
+    </div>
+    <oj-input-password label-hint="[[domainLabelMapper('wls-credential-password-label')]]"
+                       value="{{project.k8sDomain.credentialsPassword.observable}}"
+                       mask-icon="visible"
+                       help.instruction="[[domainLabelMapper('wls-credential-password-help')]]">
+    </oj-input-password>
+    <div>
+      <oj-bind-if test="[[isDomainInImage() === true]]">
+        <oj-select-single class="wkt-can-readonly-field"
+                          label-hint="[[domainLabelMapper('domain-type-label')]]"
+                          value="{{project.k8sDomain.domainType.observable}}"
+                          data="{{wdtDomainTypesDP}}"
+                          readonly="true"
+                          help.instruction="[[domainLabelMapper('domain-type-readonly-help')]]">
+        </oj-select-single>
+      </oj-bind-if>
+      <oj-bind-if test="[[isModelInImage() === true]]">
+        <oj-select-single label-hint="[[domainLabelMapper('domain-type-label')]]"
+                          value="{{project.k8sDomain.domainType.observable}}"
+                          data="{{wdtDomainTypesDP}}"
+                          help.instruction="[[domainLabelMapper('domain-type-help')]]">
+        </oj-select-single>
+      </oj-bind-if>
+    </div>
+  </oj-form-layout>
+</div>
+
+<div>
+  <oj-bind-if test="[[isDomainInPV() === true]]">
+    <div class="oj-panel">
+    <oj-form-layout max-columns="2" direction="row">
+      <oj-input-text label-hint="[[domainLabelMapper('pv-volume-name-label')]]"
+                     value="{{project.k8sDomain.domainPersistentVolumeName.observable}}"
+                     help.instruction="[[domainLabelMapper('pv-volume-name-help')]]">
+      </oj-input-text>
+      <oj-input-text label-hint="[[domainLabelMapper('pv-volume-mount-path-label')]]"
+                     value="{{project.k8sDomain.domainPersistentVolumeMountPath.observable}}"
+                     help.instruction="[[domainLabelMapper('pv-volume-mount-path-help')]]">
+      </oj-input-text>
+      <oj-input-text label-hint="[[domainLabelMapper('pv-volume-claim-name-label')]]"
+                     value="{{project.k8sDomain.domainPersistentVolumeClaimName.observable}}"
+                     help.instruction="[[domainLabelMapper('pv-volume-claim-name-help')]]">
+      </oj-input-text>
+    </oj-form-layout>
+    <oj-form-layout max-columns="2" direction="row">
+      <oj-switch label-hint="[[domainLabelMapper('pv-volume-log-home-enabled-label')]]"
+                 value="{{project.k8sDomain.domainPersistentVolumeLogHomeEnabled.observable}}"
+                 help.instruction="[[domainLabelMapper('pv-volume-log-home-enabled-help')]]">
+      </oj-switch>
+      <oj-bind-if test="[[project.k8sDomain.domainPersistentVolumeLogHomeEnabled.observable() === true]]">
+        <oj-input-text label-hint="[[domainLabelMapper('pv-volume-log-home-label')]]"
+                       value="{{project.k8sDomain.domainPersistentVolumeLogHome.observable}}"
+                       help.instruction="[[domainLabelMapper('pv-volume-log-home-help')]]">
+        </oj-input-text>
+      </oj-bind-if>
+    </oj-form-layout>
+    </div>
+  </oj-bind-if>
+</div>
+
+<div class="oj-panel">
+  <h6 class="wkt-subheading"><oj-bind-text value="[[domainLabelMapper('image-title')]]"></oj-bind-text></h6>
+  <oj-form-layout max-columns="2" direction="row">
+    <oj-switch id="create-image-switch"
+               label-hint="[[imageLabelMapper('create-image-label')]]"
+               value="{{project.image.createPrimaryImage.observable}}"
+               help.instruction="[[mainCreateImageSwitchHelp]]">
+    </oj-switch>
+    <oj-bind-if test="[[project.image.createPrimaryImage.observable() === true]]">
+      <oj-button id="createPrimaryImageNavButton"
+                 chroming="callToAction"
+                 on-oj-action="[[gotoCreateImage]]"
+                 :title="[[domainLabelMapper('hints-goto-create-image')]]">
+            <span>
+              <oj-bind-text value="[[domainLabelMapper('goto-create-image-button-label')]]"></oj-bind-text>
+            </span>
+      </oj-button>
+    </oj-bind-if>
+  </oj-form-layout>
+
+  <oj-form-layout max-columns="2" direction="row">
+    <oj-input-text id="primary-image-tag"
+                   class="wkt-can-readonly-field"
+                   label-hint="[[domainLabelMapper('image-tag-label')]]"
+                   value="{{project.image.imageTag.observable}}"
+                   readonly="[[isPrimaryImageTagReadOnly]]"
+                   help.instruction="[[mainImageTagHelp]]">
+    </oj-input-text>
+    <oj-input-text class="wkt-can-readonly-field"
+                   label-hint="[[domainLabelMapper('image-registry-address-label')]]"
+                   value="{{project.image.internal.imageRegistryAddress.observable}}"
+                   readonly="true"
+                   help.instruction="[[domainLabelMapper('image-registry-address-help')]]">
+    </oj-input-text>
+    <oj-select-single label-hint="[[domainLabelMapper('image-pull-policy-label')]]"
+                      value="{{project.k8sDomain.imagePullPolicy.observable}}"
+                      data="{{imagePullPoliciesDP}}"
+                      help.instruction="[[domainLabelMapper('image-pull-policy-help')]]">
+    </oj-select-single>
+  </oj-form-layout>
+  <oj-form-layout max-columns="2" direction="row">
+    <oj-switch label-hint="[[domainLabelMapper('image-registry-pull-requires-authentication-label')]]"
+               value="{{project.k8sDomain.imageRegistryPullRequireAuthentication.observable}}"
+               help.instruction="[[domainLabelMapper('image-registry-pull-requires-authentication-help')]]">
+    </oj-switch>
+  </oj-form-layout>
+
+  <oj-bind-if test="[[imageRegistryPullRequiresAuthentication() === true]]">
+    <oj-form-layout max-columns="2" direction="row">
+      <oj-switch label-hint="[[domainLabelMapper('image-registry-use-existing-pull-secret-label')]]"
+                 value="{{project.k8sDomain.imageRegistryUseExistingPullSecret.observable}}"
+                 help.instruction="[[domainLabelMapper('image-registry-use-existing-pull-secret-help')]]">
+      </oj-switch>
+      <oj-bind-if test="[[imageRegistryPullRequiresAuthentication() === true]]">
+        <oj-input-text label-hint="[[domainLabelMapper('image-registry-pull-secret-name-label')]]"
+                       value="{{project.k8sDomain.imageRegistryPullSecretName.observable}}"
+                       validators="[[project.k8sDomain.imageRegistryPullSecretName.validators()]]"
+                       help.instruction="[[domainLabelMapper('image-registry-pull-secret-name-help')]]">
+        </oj-input-text>
+      </oj-bind-if>
+      <oj-bind-if test="[[project.k8sDomain.imageRegistryUseExistingPullSecret.observable() === false]]">
+        <oj-input-password label-hint="[[domainLabelMapper('image-registry-pull-username-label')]]"
+                           mask-icon="visible"
+                           value="{{project.k8sDomain.imageRegistryPullUser.observable}}"
+                           help.instruction="[[domainLabelMapper('image-registry-pull-username-help')]]">
+        </oj-input-password>
+      </oj-bind-if>
+      <oj-bind-if test="[[project.k8sDomain.imageRegistryUseExistingPullSecret.observable() === false]]">
+        <oj-input-text label-hint="[[domainLabelMapper('image-registry-pull-email-label')]]"
+                       value="{{project.k8sDomain.imageRegistryPullEmail.observable}}"
+                       validators="[[project.k8sDomain.imageRegistryPullEmail.validators()]]"
+                       help.instruction="[[domainLabelMapper('image-registry-pull-email-help')]]">
+        </oj-input-text>
+      </oj-bind-if>
+      <oj-bind-if test="[[project.k8sDomain.imageRegistryUseExistingPullSecret.observable() === false]]">
+        <oj-input-password label-hint="[[domainLabelMapper('image-registry-pull-password-label')]]"
+                           mask-icon="visible"
+                           value="{{project.k8sDomain.imageRegistryPullPassword.observable}}"
+                           help.instruction="[[domainLabelMapper('image-registry-pull-password-help')]]">
+        </oj-input-password>
+      </oj-bind-if>
+    </oj-form-layout>
+  </oj-bind-if>
+  <oj-bind-if test="[[targetDomainLocationIsMII() === true]]">
+    <oj-form-layout max-columns="1" direction="row">
+      <oj-radioset id="aux-image-radio"
+                   label-hint="[[imageLabelMapper('aux-image-settings-label')]]"
+                   value="{{auxImageConfig}}"
+                   options="{{auxImageConfigDP}}">
+      </oj-radioset>
+    </oj-form-layout>
+  </oj-bind-if>
+</div>
+
+<div>
+  <oj-bind-if test="[[usingAuxImage]]">
+    <div class="oj-panel">
+      <h6 class="wkt-subheading"><oj-bind-text value="[[domainLabelMapper('aux-image-title')]]"></oj-bind-text></h6>
+      <oj-form-layout max-columns="1" direction="row">
+        <oj-bind-if test="[[project.image.createAuxImage.observable() === true]]">
+          <oj-button id="createAuxImageNavButton"
+                     chroming="callToAction"
+                     on-oj-action="[[gotoCreateAuxImage]]"
+                     :title="[[domainLabelMapper('hints-goto-create-aux-image')]]">
+            <span>
+              <oj-bind-text value="[[domainLabelMapper('goto-create-aux-image-button-label')]]"></oj-bind-text>
+            </span>
+          </oj-button>
+        </oj-bind-if>
+      </oj-form-layout>
+
+      <oj-form-layout max-columns="2" direction="row">
+        <oj-input-text id="aux-image-tag"
+                       class="wkt-can-readonly-field"
+                       label-hint="[[domainLabelMapper('aux-image-tag-label')]]"
+                       value="{{project.image.auxImageTag.observable}}"
+                       readonly="[[isAuxImageTagReadOnly]]"
+                       help.instruction="[[auxImageTagHelp]]">
+        </oj-input-text>
+        <oj-input-text class="wkt-can-readonly-field"
+                       label-hint="[[domainLabelMapper('aux-image-registry-address-label')]]"
+                       value="{{project.image.internal.auxImageRegistryAddress.observable}}"
+                       readonly="true"
+                       help.instruction="[[domainLabelMapper('aux-image-registry-address-help')]]">
+        </oj-input-text>
+        <oj-select-single label-hint="[[domainLabelMapper('aux-image-pull-policy-label')]]"
+                          value="{{project.k8sDomain.auxImagePullPolicy.observable}}"
+                          data="{{imagePullPoliciesDP}}"
+                          help.instruction="[[domainLabelMapper('aux-image-pull-policy-help')]]">
+        </oj-select-single>
+      </oj-form-layout>
+      <oj-form-layout max-columns="2" direction="row">
+        <oj-switch label-hint="[[domainLabelMapper('aux-image-registry-pull-requires-authentication-label')]]"
+                   value="{{project.k8sDomain.auxImageRegistryPullRequireAuthentication.observable}}"
+                   help.instruction="[[domainLabelMapper('aux-image-registry-pull-requires-authentication-help')]]">
+        </oj-switch>
+      </oj-form-layout>
+
+      <oj-bind-if test="[[auxImageRegistryPullRequiresAuthentication() === true]]">
+        <oj-form-layout max-columns="2" direction="row">
+          <oj-switch label-hint="[[domainLabelMapper('aux-image-registry-use-existing-pull-secret-label')]]"
+                     value="{{project.k8sDomain.auxImageRegistryUseExistingPullSecret.observable}}"
+                     help.instruction="[[domainLabelMapper('aux-image-registry-use-existing-pull-secret-help')]]">
+          </oj-switch>
+          <oj-bind-if test="[[auxImageRegistryPullRequiresAuthentication() === true]]">
+            <oj-input-text label-hint="[[domainLabelMapper('aux-image-registry-pull-secret-name-label')]]"
+                           value="{{project.k8sDomain.auxImageRegistryPullSecretName.observable}}"
+                           validators="[[project.k8sDomain.auxImageRegistryPullSecretName.validators()]]"
+                           help.instruction="[[domainLabelMapper('aux-image-registry-pull-secret-name-help')]]">
+            </oj-input-text>
+          </oj-bind-if>
+          <oj-bind-if test="[[project.k8sDomain.auxImageRegistryUseExistingPullSecret.observable() === false]]">
+            <oj-input-password label-hint="[[domainLabelMapper('aux-image-registry-pull-username-label')]]"
+                               mask-icon="visible"
+                               value="{{project.k8sDomain.auxImageRegistryPullUser.observable}}"
+                               help.instruction="[[domainLabelMapper('aux-image-registry-pull-username-help')]]">
+            </oj-input-password>
+          </oj-bind-if>
+          <oj-bind-if test="[[project.k8sDomain.auxImageRegistryUseExistingPullSecret.observable() === false]]">
+            <oj-input-text label-hint="[[domainLabelMapper('aux-image-registry-pull-email-label')]]"
+                           value="{{project.k8sDomain.auxImageRegistryPullEmail.observable}}"
+                           validators="[[project.k8sDomain.auxImageRegistryPullEmail.validators()]]"
+                           help.instruction="[[domainLabelMapper('aux-image-registry-pull-email-help')]]">
+            </oj-input-text>
+          </oj-bind-if>
+          <oj-bind-if test="[[project.k8sDomain.auxImageRegistryUseExistingPullSecret.observable() === false]]">
+            <oj-input-password label-hint="[[domainLabelMapper('aux-image-registry-pull-password-label')]]"
+                               mask-icon="visible"
+                               value="{{project.k8sDomain.auxImageRegistryPullPassword.observable}}"
+                               help.instruction="[[domainLabelMapper('aux-image-registry-pull-password-help')]]">
+            </oj-input-password>
+          </oj-bind-if>
+        </oj-form-layout>
+      </oj-bind-if>
+    </div>
+  </oj-bind-if>
+</div>
+
+<div class="oj-panel">
+  <div class="wkt-content-top-bar">
+    <h6 class="wkt-subheading"><oj-bind-text value="[[domainLabelMapper('clusters-title')]]"></oj-bind-text></h6>
+  </div>
+  <oj-table id="clusters-table"
+            class="wkt-domain-clusters-table"
+            :aria-label="[[domainLabelMapper('clusters-table-aria-label')]]"
+            data="[[clustersDP]]"
+            display="grid"
+            horizontal-grid-visible="enabled"
+            vertical-grid-visible="enabled"
+            layout="fixed"
+            columns="[[clusterColumnData]]">
+    <template slot="rowTemplate" data-oj-as="row">
+      <tr>
+        <td><oj-bind-text value="[[row.data.name]]"></oj-bind-text></td>
+        <td><oj-bind-text value="[[row.data.replicas]]"></oj-bind-text></td>
+        <td><oj-bind-text value="[[row.data.minHeap]]"></oj-bind-text></td>
+        <td><oj-bind-text value="[[row.data.maxHeap]]"></oj-bind-text></td>
+        <td><oj-bind-text value="[[row.data.cpuRequest]]"></oj-bind-text></td>
+        <td><oj-bind-text value="[[row.data.memoryRequest]]"></oj-bind-text></td>
+        <td>
+          <oj-button display="icons" chroming="borderless" on-oj-action="[[handleEditCluster]]">
+            <span slot="endIcon" class="oj-ux-ico-edit"></span>
+            <oj-bind-text value="[[domainLabelMapper('edit-cluster-label')]]"></oj-bind-text>
+          </oj-button>
+        </td>
+        <td>
+          <oj-button display="icons"
+                     chroming="borderless"
+                     disabled="[[isDomainInPV() === false]]"
+                     on-oj-action="[[handleDeleteCluster]]">
+            <span slot="endIcon" class="oj-ux-ico-trash"></span>
+            <oj-bind-text value="[[domainLabelMapper('delete-cluster-label')]]"></oj-bind-text>
+          </oj-button>
+        </td>
+      </tr>
+    </template>
+    <template slot="chooseHeaderTemplate">
+      <oj-button display="icons" chroming="borderless" disabled="true">
+        <span slot="endIcon"></span>
+      </oj-button>
+    </template>
+    <template slot="headerTemplate" data-oj-as="header">
+      <oj-button display="icons"
+                 chroming="borderless"
+                 disabled="[[isDomainInPV() === false]]"
+                 on-oj-action="[[handleAddCluster]]">
+        <span slot="endIcon" class="oj-ux-ico-plus"></span>
+        <oj-bind-text value="[[domainLabelMapper('add-cluster-label')]]"></oj-bind-text>
+      </oj-button>
+    </template>
+    <template slot="noData">
+      <div class="oj-table-body-message">
+        <oj-bind-text value="[[domainLabelMapper('no-clusters-message')]]"></oj-bind-text>
+      </div>
+    </template>
+  </oj-table>
+</div>
+
+<oj-bind-if test="[[isModelInImage() === true]]">
+  <div class="oj-panel">
+    <h6 class="wkt-subheading"><oj-bind-text value="[[domainLabelMapper('configmap-title')]]"></oj-bind-text></h6>
+    <oj-bind-if test="[[modelHasNoProperties() === false]]">
+      <oj-form-layout max-columns="1">
+        <oj-input-text label-hint="[[domainLabelMapper('configmap-label')]]"
+                      value="{{project.k8sDomain.modelConfigMapName.observable}}"
+                      help.instruction="[[domainLabelMapper('configmap-help')]]">
+       </oj-input-text>
+      </oj-form-layout>
+    </oj-bind-if>
+
+    <oj-table id="properties-table"
+              class="wkt-domain-properties-table"
+              :aria-label="[[domainLabelMapper('configmap-table-aria-label')]]"
+              data="{{configMapDP}}"
+              display="grid"
+              horizontal-grid-visible="enabled"
+              vertical-grid-visible="enabled"
+              edit-mode="rowEdit"
+              layout="fixed"
+              columns='[[propertyTableColumnMetadata()]]'>
+      <template slot="rowTemplate" data-oj-as="row">
+          <tr data-bind="attr: {'data-uid': row.data.uid}">
+            <oj-bind-if test='[[row.mode=="navigation"]]'>
+              <td><oj-bind-text value="[[row.data.Name]]"></oj-bind-text></td>
+              <td><oj-bind-text value="[[row.data.Value]]"></oj-bind-text></td>
+              <td><oj-bind-text value="[[row.data.Override]]"></oj-bind-text></td>
+            </oj-bind-if>
+            <oj-bind-if test='[[row.mode=="edit"]]'>
+              <td><oj-input-text value="[[row.data.Name]]" disabled="true"></oj-input-text></td>
+              <td><oj-input-text value="[[row.data.Value]]" disabled="true"></oj-input-text></td>
+              <td><oj-input-text value="{{row.data.Override}}"></oj-input-text></td>
+            </oj-bind-if>
+          </tr>
+      </template>
+    </oj-table>
+  </div>
+</oj-bind-if>
+
+<oj-bind-if test="[[isModelInImage() === true]]">
+  <div class="oj-panel">
+    <h6 class="wkt-subheading"><oj-bind-text value="[[domainLabelMapper('secrets-title')]]"></oj-bind-text></h6>
+    <oj-table id="secrets-table"
+              class="wkt-domain-secrets-table"
+              :aria-label="[[domainLabelMapper('secrets-table-aria-label')]]"
+              data="[[secretsDP]]"
+              display="grid"
+              horizontal-grid-visible="enabled"
+              vertical-grid-visible="enabled"
+              edit-mode="rowEdit"
+              layout="fixed"
+              columns='[[secretsTableColumnMetadata()]]'>
+      <template slot="rowTemplate" data-oj-as="row">
+          <tr>
+            <oj-bind-if test='[[row.mode=="navigation"]]'>
+              <td><oj-bind-text value="[[row.data.name]]"></oj-bind-text></td>
+            </oj-bind-if>
+            <oj-bind-if test='[[row.mode=="edit"]]'>
+              <td><oj-input-text value="{{row.data.name}}" disabled="true"></oj-input-text></td>
+            </oj-bind-if>
+            <td>
+              <oj-input-password value="{{row.data.username}}"
+                                 mask-icon="visible"
+                                 readonly='[[row.mode=="navigation"]]' >
+              </oj-input-password>
+            </td>
+            <td>
+              <oj-input-password value="{{row.data.password}}"
+                                 mask-icon="visible"
+                                 readonly='[[row.mode=="navigation"]]' >
+              </oj-input-password>
+            </td>
+          </tr>
+      </template>
+    </oj-table>
+  </div>
+</oj-bind-if>
+
+<oj-collapsible expanded='false'>
+  <h6 slot="header" class="wkt-subheading"><oj-bind-text value="[[labelMapper('page-design-advanced-label')]]"></oj-bind-text></h6>
+  <oj-bind-if test="[[hasEncryptionSecret()]]">
+    <div class="oj-panel">
+      <h6 class="wkt-subheading"><oj-bind-text value="[[domainLabelMapper('encryption-secret-title')]]"></oj-bind-text></h6>
+      <oj-form-layout max-columns="3" direction="row">
+        <oj-input-text label-hint="[[domainLabelMapper('encryption-secret-label')]]"
+                       value="{{project.k8sDomain.runtimeSecretName.observable}}"
+                       help.instruction="[[domainLabelMapper('encryption-secret-help')]]">
+        </oj-input-text>
+        <oj-input-password label-hint="[[domainLabelMapper('encryption-value-label')]]"
+                           value="{{project.k8sDomain.runtimeSecretValue.observable}}"
+                           mask-icon="visible"
+                           help.instruction="[[domainLabelMapper('encryption-value-help')]]">
+        </oj-input-password>
+        <oj-button display="icons" chroming="borderless" on-oj-action="[[handleRegenerateEncryptionValue]]">
+          <oj-bind-text value="[[domainLabelMapper('regenerate-encryption-value-label')]]"></oj-bind-text>
+          <span slot='startIcon' class="oj-ux-ico-replay"></span>
+        </oj-button>
+      </oj-form-layout>
+    </div>
+  </oj-bind-if>
+
+  <div class="oj-panel">
+    <h6 class="wkt-subheading"><oj-bind-text value="[[domainLabelMapper('introspection-title')]]"></oj-bind-text></h6>
+    <oj-form-layout max-columns="2" direction="row">
+      <oj-input-number label-hint="[[domainLabelMapper('introspector-job-active-deadline-label')]]"
+                       value="{{project.k8sDomain.introspectorJobActiveDeadlineSeconds.observable}}"
+                       converter="[[integerConverter]]"
+                       help.instruction="[[domainLabelMapper('introspector-job-active-deadline-help')]]">
+      </oj-input-number>
+    </oj-form-layout>
+  </div>
+
+  <div class="oj-panel">
+    <h6 class="wkt-subheading"><oj-bind-text value="[[domainLabelMapper('domain-server-title')]]"></oj-bind-text></h6>
+    <oj-form-layout max-columns="2" direction="row">
+      <oj-input-text label-hint="[[domainLabelMapper('cpu-request-label')]]"
+                     value="{{project.k8sDomain.cpuRequest.observable}}" class="editable"
+                     validators="[[project.k8sDomain.cpuRequest.validators()]]"
+                     help.instruction="[[domainLabelMapper('cpu-request-help')]]">
+      </oj-input-text>
+      <oj-input-text label-hint="[[domainLabelMapper('cpu-limit-label')]]"
+                     value="{{project.k8sDomain.cpuLimit.observable}}" class="editable"
+                     validators="[[project.k8sDomain.cpuLimit.validators()]]"
+                     help.instruction="[[domainLabelMapper('cpu-limit-help')]]">
+      </oj-input-text>
+
+      <oj-input-text label-hint="[[domainLabelMapper('memory-request-label')]]"
+                     value="{{project.k8sDomain.memoryRequest.observable}}" class="editable"
+                     validators="[[project.k8sDomain.memoryRequest.validators()]]"
+                     help.instruction="[[domainLabelMapper('memory-request-help')]]">
+      </oj-input-text>
+      <oj-input-text label-hint="[[domainLabelMapper('memory-limit-label')]]"
+                     value="{{project.k8sDomain.memoryLimit.observable}}" class="editable"
+                     validators="[[project.k8sDomain.memoryLimit.validators()]]"
+                     help.instruction="[[domainLabelMapper('memory-limit-help')]]">
+      </oj-input-text>
+    </oj-form-layout>
+    <oj-form-layout max-columns="3" direction="row">
+      <oj-switch label-hint="[[domainLabelMapper('debug-stdout-label')]]"
+                 value="{{project.k8sDomain.disableDebugStdout.observable}}"
+                 help.instruction="[[domainLabelMapper('debug-stdout-help')]]">
+      </oj-switch>
+      <oj-switch label-hint="[[domainLabelMapper('disable-fan-label')]]"
+                 value="{{project.k8sDomain.disableFan.observable}}"
+                 help.instruction="[[domainLabelMapper('disable-fan-help')]]">
+      </oj-switch>
+      <oj-switch label-hint="[[domainLabelMapper('use-urandom-label')]]"
+                 value="{{project.k8sDomain.useUrandom.observable}}"
+                 help.instruction="[[domainLabelMapper('use-urandom-help')]]">
+      </oj-switch>
+      <oj-bind-if test="[[hasNoClusters() === true ]]">
+        <oj-input-number label-hint="[[domainLabelMapper('replicas-label')]]"
+                         converter="[[integerConverter]]"
+                         value="{{project.k8sDomain.replicas.observable}}"
+                         help.instruction="[[domainLabelMapper('replicas-help')]]">
+        </oj-input-number>
+      </oj-bind-if>
+    </oj-form-layout>
+
+    <oj-form-layout max-columns="2" direction="row">
+      <oj-input-text label-hint="[[domainLabelMapper('min-heap-label')]]"
+                     value="{{project.k8sDomain.minimumHeapSize.observable}}" class="editable"
+                     validators="[[project.k8sDomain.minimumHeapSize.validators()]]"
+                     help.instruction="[[domainLabelMapper('min-heap-help')]]">
+      </oj-input-text>
+      <oj-input-text label-hint="[[domainLabelMapper('max-heap-label')]]"
+                     value="{{project.k8sDomain.maximumHeapSize.observable}}" class="editable"
+                     validators="[[project.k8sDomain.maximumHeapSize.validators()]]"
+                     help.instruction="[[domainLabelMapper('max-heap-help')]]">
+      </oj-input-text>
+    </oj-form-layout>
+
+    <oj-form-layout>
+      <oj-text-area label-hint="[[domainLabelMapper('additional-java-options-label')]]"
+                    value="{{project.k8sDomain.additionalArguments.observable}}"
+                    help.instruction="[[domainLabelMapper('additional-java-options-help')]]">
+      </oj-text-area>
+    </oj-form-layout>
+  </div>
+
+  <div class="oj-panel">
+    <h6 class="wkt-subheading"><oj-bind-text value="[[domainLabelMapper('domain-node-selector-title')]]"></oj-bind-text></h6>
+    <oj-table id="domain-node-selector-table"
+              class="wkt-domain-node-selectors-table"
+              :aria-label="[[domainLabelMapper('domain-node-selector-table-aria-label')]]"
+              data="[[domainNodeSelectorDP]]"
+              display="grid"
+              layout="fixed"
+              horizontal-grid-visible="enabled"
+              vertical-grid-visible="enabled"
+              edit-mode="rowEdit"
+              columns='[[nodeSelectorColumnMetadata]]'>
+      <template slot="rowTemplate" data-oj-as="row">
+        <tr>
+          <oj-bind-if test='[[row.mode=="navigation"]]'>
+            <td>
+              <oj-bind-text value="[[row.data.name]]"></oj-bind-text>
+            </td>
+            <td>
+              <oj-bind-text value="[[row.data.value]]"></oj-bind-text>
+            </td>
+          </oj-bind-if>
+          <oj-bind-if test='[[row.mode=="edit"]]'>
+            <td>
+              <oj-input-text value="{{row.data.name}}" class="editable"></oj-input-text>
+            </td>
+            <td>
+              <oj-input-text value="{{row.data.value}}" class="editable"></oj-input-text>
+            </td>
+          </oj-bind-if>
+          <td>
+            <oj-button display="icons" chroming="borderless" on-oj-action="[[row.data.remove]]">
+              <span slot="endIcon" class="oj-ux-ico-trash"></span>
+              <oj-bind-text value="[[domainLabelMapper('domain-node-selector-delete-row-icon-text')]]"></oj-bind-text>
+            </oj-button>
+          </td>
+        </tr>
+      </template>
+      <template slot="headerTemplate" data-oj-as="header">
+        <oj-button display="icons" chroming="borderless" on-oj-action="[[handleAddDomainNodeSelector]]">
+          <span slot="endIcon" class="oj-ux-ico-plus"></span>
+          <oj-bind-text value="[[domainLabelMapper('domain-node-selector-add-row-icon-text')]]"></oj-bind-text>
+        </oj-button>
+      </template>
+    </oj-table>
+  </div>
+</oj-collapsible>

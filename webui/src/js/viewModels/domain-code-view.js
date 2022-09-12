@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 define(['accUtils', 'knockout', 'models/wkt-project', 'utils/k8s-domain-script-generator',
@@ -15,7 +15,7 @@ function (accUtils, ko, project, K8sDomainScriptGenerator, K8sDomainConfigMapGen
     let subscriptions = [];
 
     this.connected = () => {
-      accUtils.announce('Image code view loaded.', 'assertive');
+      accUtils.announce('Domain code view loaded.', 'assertive');
 
       // update code text if project changes
       subscriptions.push(project.postOpen.subscribe(() => {

@@ -20,6 +20,8 @@ define(['ojs/ojcontext'],
           for(const node of mutation.addedNodes) {
             if(node.classList && node.classList.contains('wkt-can-readonly-field')) {
               thisHelper.initializeReadOnlyField(node);
+            } else if (node.classList && node.classList.contains('wkt-can-disabled-field')) {
+              thisHelper.initializeDisabledField(node);
             }
 
             // if a dialog was added, notify electron when it opens or closes
@@ -32,12 +34,13 @@ define(['ojs/ojcontext'],
 
       function updateField(field) {
         const readOnly = field.getProperty('readonly');
+        const disabled = field.getProperty('disabled');
         const assistanceNode = field.querySelector('.oj-user-assistance-inline-container');
 
-        if(assistanceNode) {
+        if (assistanceNode) {
           // if the field is read-only, add the read-only hint node, otherwise remove it.
 
-          if(readOnly) {
+          if (readOnly || disabled) {
             const hint = field.getProperty('help.instruction');
             assistanceNode.innerHTML = '<div class="oj-helphints-inline-container wkt-readonly-hint">'
               + hint + '</div>';
@@ -64,6 +67,16 @@ define(['ojs/ojcontext'],
 
           // update the field if either of these properties changes
           field.addEventListener('readonlyChanged', () => updateField(field), false);
+          field.addEventListener('helpChanged', () => updateField(field), false);
+        });
+      };
+
+      this.initializeDisabledField = (field) => {
+        thisHelper.componentReady(field).then(function () {
+          updateField(field);
+
+          // update the field if either of these properties changes
+          field.addEventListener('disabledChanged', () => updateField(field), false);
           field.addEventListener('helpChanged', () => updateField(field), false);
         });
       };

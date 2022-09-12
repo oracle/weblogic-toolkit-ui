@@ -257,7 +257,7 @@
   border: 1px solid var(--oj-collection-border-color);
 }
 
-.wkt-paths-table {
+.wkt-paths-table, .wkt-domain-node-selectors-table {
   border: 1px solid var(--oj-collection-border-color);
   width: 100%;
 }
@@ -677,6 +677,11 @@ h6.wkt-panel-heading {
   text-decoration-style: solid;
   font-size: 1em;
   font-weight: bold;
+}
+
+.wkt-button-row {
+  display: flex;
+  margin-bottom: 0.75em;
 }
 
 .validationErrorBlock {

@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
@@ -16,9 +16,9 @@ define(['models/wkt-project', 'js-yaml'],
         return this.project.settings.targetDomainLocation.value === 'mii' && !this.project.k8sDomain.configMapIsEmpty();
       }
 
-      generate() {
+      generate(generateYaml = true) {
         if (!this.shouldCreateConfigMap()) {
-          return [];
+          return generateYaml ? [] : undefined;
         }
 
         const configMap = {
@@ -33,7 +33,7 @@ define(['models/wkt-project', 'js-yaml'],
         configMap.data[`${this.project.k8sDomain.uid.value}-overrides.properties`] =
           getConfigMapValues(this.project.wdtModel.getMergedPropertiesContent().observable());
 
-        return jsYaml.dump(configMap).split('\n');
+        return generateYaml ? jsYaml.dump(configMap).split('\n') : configMap;
       }
     }
 

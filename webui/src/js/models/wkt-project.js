@@ -12,9 +12,11 @@
  */
 define(['knockout', 'models/wdt-model-definition', 'models/image-definition', 'models/kubectl-definition',
   'models/k8s-domain-definition', 'models/wko-definition', 'models/project-settings-definition',
-  'models/ingress-definition', 'utils/common-utilities', 'utils/wkt-logger'],
+  'models/ingress-definition', 'models/vz-install-definition', 'models/vz-component-definition',
+  'models/vz-application-definition', 'utils/common-utilities', 'utils/wkt-logger'],
 function (ko, wdtConstructor, imageConstructor, kubectlConstructor, domainConstructor, wkoConstructor,
-  settingsConstructor, ingressConstructor, utils, wktLogger) {
+  settingsConstructor, ingressConstructor, verrazzanoInstallConstructor, verrazzanoComponentConstructor,
+  verrazzanoApplicationConstructor, utils, wktLogger) {
   function WktProject() {
     let projectFileName = null;
 
@@ -88,7 +90,21 @@ function (ko, wdtConstructor, imageConstructor, kubectlConstructor, domainConstr
     this.kubectl = kubectlConstructor('kubectl');
     this.k8sDomain = domainConstructor('k8sDomain', this.wdtModel, this.image.domainHomePath, this.image.targetDomainType);
     this.wko = wkoConstructor('wko');
-    this.pages = [this.wdtModel, this.image, this.kubectl, this.k8sDomain, this.wko, this.settings, this.ingress];
+    this.vzInstall = verrazzanoInstallConstructor('vzInstall');
+    this.vzComponent = verrazzanoComponentConstructor('vzComponent', this.k8sDomain);
+    this.vzApplication = verrazzanoApplicationConstructor('vzApplication', this.k8sDomain);
+    this.pages = [
+      this.wdtModel,
+      this.image,
+      this.kubectl,
+      this.k8sDomain,
+      this.wko,
+      this.settings,
+      this.ingress,
+      this.vzInstall,
+      this.vzComponent,
+      this.vzApplication,
+    ];
 
     this.convertOldProjectFormat = (wktProjectJson) => {
       // Version 1.1.0 moved extraPathDirectories from kubectl to settings...

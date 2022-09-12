@@ -96,6 +96,8 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
         this.memoryLimit = props.createProperty();
         this.memoryLimit.addValidator(...validationHelper.getK8sMemoryValidators());
 
+        this.domainNodeSelector = props.createListProperty(['name', 'value']);
+
         // update the secrets list when the uid changes.
         this.uid.observable.subscribe(() => {
           this.updateSecrets();
@@ -193,6 +195,7 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
         };
 
         this.loadPrepareModelResults = (prepareModelResults) => {
+          wktLogger.debug('loadPrepareModelResults received: %s', JSON.stringify(prepareModelResults, null, 2));
           this.handlePrepareModelTopology(prepareModelResults.domain);
           this.handlePrepareModelSecrets(prepareModelResults.secrets);
         };

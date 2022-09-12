@@ -45,13 +45,15 @@
             <span slot="endIcon" class="oj-ux-ico-annotation" role="img"></span>
           </oj-button>
         </oj-input-text>
-        <oj-input-text label-hint="[[labelMapper('helm-exe-file-path-label')]]"
-                       value="{{project.kubectl.helmExecutableFilePath.observable}}"
-                       help.instruction="[[labelMapper('helm-exe-file-path-help')]]">
-          <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[chooseHelm]]">
-            <span slot="endIcon" class="oj-ux-ico-file-text" role="img"></span>
-          </oj-button>
-        </oj-input-text>
+        <oj-bind-if test="[[usingWko() === true]]">
+          <oj-input-text label-hint="[[labelMapper('helm-exe-file-path-label')]]"
+                         value="{{project.kubectl.helmExecutableFilePath.observable}}"
+                         help.instruction="[[labelMapper('helm-exe-file-path-help')]]">
+            <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[chooseHelm]]">
+              <span slot="endIcon" class="oj-ux-ico-file-text" role="img"></span>
+            </oj-button>
+          </oj-input-text>
+        </oj-bind-if>
       </oj-form-layout>
     </div>
 

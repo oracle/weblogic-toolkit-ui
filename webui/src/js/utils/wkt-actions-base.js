@@ -325,6 +325,23 @@ function(project, wktConsole, i18n, projectIo, dialogHelper,
       return Promise.resolve(true);
     }
 
+    async labelKubernetesNamespace(kubectlExe, kubectlOptions, namespace, labels, errTitle, errPrefix,
+      shouldCloseBusyDialog = true) {
+      try {
+        const labelResults =
+          await window.api.ipc.invoke('k8s-label-namespace', kubectlExe, namespace, labels, kubectlOptions);
+        if (!labelResults.isSuccess) {
+          const errMessage = i18n.t(`${errPrefix}-label-ns-error-message`, {namespace, error: labelResults.reason});
+          this._closeBusyDialog(shouldCloseBusyDialog);
+          await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
+          return Promise.resolve(false);
+        }
+      } catch (err) {
+        return Promise.reject(err);
+      }
+      return Promise.resolve(true);
+    }
+
     async validateKubernetesNamespaceExists(kubectlExe, kubectlOptions, namespace, errTitle, errPrefix,
       shouldCloseBusyDialog = true) {
       try {
@@ -448,7 +465,8 @@ function(project, wktConsole, i18n, projectIo, dialogHelper,
               type: objectType,
               name: objectName,
               error: deleteResults.reason
-            });          }
+            });
+          }
 
           this._closeBusyDialog(shouldCloseBusyDialog);
           await window.api.ipc.invoke('show-error-message', errTitle, errMessage);

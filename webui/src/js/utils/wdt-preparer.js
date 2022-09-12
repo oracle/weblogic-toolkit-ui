@@ -105,12 +105,7 @@ function(WdtActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, val
         if (prepareResult.isSuccess) {
           // apply the results to the project object.
           this.project.wdtModel.setSpecifiedModelFiles(prepareResult.model);
-
-          // Currently, Verrazzano support is limited to Model and Image only, so skip this step.
-          //
-          if (this.project.settings.wdtTargetType.value === 'wko') {
-            this.project.k8sDomain.loadPrepareModelResults(prepareResult);
-          }
+          this.project.k8sDomain.loadPrepareModelResults(prepareResult);
 
           if (!options.skipCompleteDialog) {
             const title = i18n.t('wdt-preparer-prepare-complete-title');

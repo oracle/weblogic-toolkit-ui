@@ -1,0 +1,38 @@
+<!--
+ Copyright (c) 2022, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('title')]]"></oj-bind-text></h6>
+<div class="oj-panel">
+  <oj-form-layout max-columns="2" direction="row">
+    <oj-input-text label-hint="[[labelMapper('name-label')]]"
+                   value="{{project.vzInstall.installationName.observable}}"
+                   help.instruction="[[labelMapper('name-help')]]">
+    </oj-input-text>
+    <oj-select-single label-hint="[[labelMapper('profile-label')]]"
+                      value="{{project.vzInstall.installationProfile.observable}}"
+                      data="{{vzInstallProfiles}}"
+                      help.instruction="[[labelMapper('profile-help')]]">
+    </oj-select-single>
+    <oj-select-single label-hint="[[labelMapper('version-label')]]"
+                      required
+                      value="{{project.vzInstall.versionTag.observable}}"
+                      data="{{vzVersionTags}}"
+                      help.instruction="[[labelMapper('version-help')]]">
+    </oj-select-single>
+  </oj-form-layout>
+  <oj-form-layout max-columns="2" direction="row">
+    <oj-switch label-hint="[[labelMapper('install-jaeger-label')]]"
+               value="{{project.vzInstall.installJaeger.observable}}"
+               help.instruction="[[labelMapper('install-jaeger-help')]]">
+    </oj-switch>
+    <oj-bind-if test="[[project.vzInstall.installJaeger.observable]]">
+      <oj-input-number label-hint="[[labelMapper('istio-sampling-label')]]"
+                       min="0"
+                       max="100"
+                       value="{{project.vzInstall.istioSamplingRate.observable}}"
+                       help.instruction="[[labelMapper('istio-sampling-help')]]">
+      </oj-input-number>
+    </oj-bind-if>
+  </oj-form-layout>
+</div>

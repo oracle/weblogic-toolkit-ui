@@ -107,14 +107,8 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
         const helmChartValues = {};
         switch (operatorNamespaceStrategy) {
           case 'LabelSelector':
-            const label = this.project.wko.operatorDomainNamespaceSelector.value;
-            const labelResults =
-              await window.api.ipc.invoke('k8s-label-namespace', kubectlExe, domainNamespace, label, kubectlOptions);
-            if (!labelResults.isSuccess) {
-              const errMessage = i18n.t('k8s-domain-deployer-label-ns-error-message',
-                {label: label, domainNamespace: domainNamespace, error: labelResults.reason});
-              dialogHelper.closeBusyDialog();
-              await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
+            const labels = [ this.project.wko.operatorDomainNamespaceSelector.value ];
+            if (! await this.labelKubernetesNamespace(kubectlExe, kubectlOptions, domainNamespace, labels, errTitle, errPrefix)) {
               return Promise.resolve(false);
             }
             break;

@@ -11,10 +11,17 @@ const fsUtils = require('./fsUtils');
 const i18n = require('./i18next.config');
 const osUtils = require('./osUtils');
 const WktApp = require('./wktApp');
+const { compareVersions } = require('./versionUtils');
 const { getLogger } = require('./wktLogging');
 const { getErrorMessage } = require('./errorUtils');
-const { downloadWdtRelease, getWdtLatestReleaseName, getWitLatestReleaseName, getWkoLatestReleaseImageName,
-  updateTools } = require('./wktToolsInstaller');
+const {
+  downloadWdtRelease,
+  getWdtLatestReleaseName,
+  getWitLatestReleaseName,
+  getWkoLatestReleaseImageName,
+  updateTools
+} = require('./wktToolsInstaller');
+const { getProxyOptionsFromPreferences } = require('./githubUtils');
 
 const scriptExtension = osUtils.isWindows() ? '.cmd' : '.sh';
 const VERSION_FILE_NAME = 'VERSION.txt';
@@ -118,23 +125,21 @@ async function getLatestWkoImageName() {
     return Promise.resolve(_wkoImageName);
   }
   return new Promise((resolve, reject) => {
-    getOptions().then(options => {
-      getWkoLatestReleaseImageName(options)
-        .then(imageName => {
-          _wkoImageName = imageName;
-          resolve(imageName);
-        })
-        .catch(err => reject(new Error(`Failed to get the latest WebLogic Kubernetes Operator Image Name: ${err}`)));
+    getProxyOptionsFromPreferences().then(options => {
+      getWkoLatestReleaseImageName(options).then(imageName => {
+        _wkoImageName = imageName;
+        resolve(imageName);
+      }).catch(err => reject(new Error(`Failed to get the latest WebLogic Kubernetes Operator Image Name: ${err}`)));
     }).catch(err => reject(err));
   });
 }
 
 async function downloadLatestWdtInstaller(outputDirectory) {
   return new Promise((resolve, reject) => {
-    getOptions().then(options => {
-      downloadWdtRelease(outputDirectory, options)
-        .then(installerData => resolve(installerData))
-        .catch(err => reject(new Error(`Failed to download the latest WebLogic Deploy Tooling installer: ${err}`)));
+    getProxyOptionsFromPreferences().then(options => {
+      downloadWdtRelease(outputDirectory, options).then(installerData => {
+        resolve(installerData);
+      }).catch(err => reject(new Error(`Failed to download the latest WebLogic Deploy Tooling installer: ${err}`)));
     }).catch(err => reject(err));
   });
 }
@@ -149,7 +154,7 @@ async function checkForUpdates(targetWindow) {
     return Promise.resolve(result);
   }
 
-  const options = await getOptions();
+  const options = await getProxyOptionsFromPreferences();
 
   let wdtLatestReleaseName;
   if (wdtInstalledReleaseName) {
@@ -203,17 +208,17 @@ async function checkForUpdates(targetWindow) {
 
 async function getInstalledWdtReleaseName() {
   return new Promise((resolve, reject) => {
-    getReleaseName(getWdtDirectory())
-      .then(releaseName => resolve(releaseName))
-      .catch(err => reject(err));
+    getReleaseName(getWdtDirectory()).then(releaseName => {
+      resolve(releaseName);
+    }).catch(err => reject(err));
   });
 }
 
 async function getInstalledWitReleaseName() {
   return new Promise((resolve, reject) => {
-    getReleaseName(getWitDirectory())
-      .then(releaseName => resolve(releaseName))
-      .catch(err => reject(err));
+    getReleaseName(getWitDirectory()).then(releaseName => {
+      resolve(releaseName);
+    }).catch(err => reject(err));
   });
 }
 
@@ -241,17 +246,15 @@ function getToolsDirectory() {
 async function getReleaseName(toolBaseDir) {
   const versionFile = path.join(toolBaseDir, VERSION_FILE_NAME);
   return new Promise((resolve, reject) => {
-    fsUtils.exists(versionFile)
-      .then(doesExist => {
-        if (doesExist) {
-          fsPromises.readFile(versionFile, 'utf8')
-            .then(fileContents => resolve(fileContents))
-            .catch(err => reject(`Failed to read file ${versionFile}: ${err}`));
-        } else {
-          resolve();
-        }
-      })
-      .catch(err => reject(`Failed to determine if ${versionFile} exists: ${err}`));
+    fsUtils.exists(versionFile).then(doesExist => {
+      if (doesExist) {
+        fsPromises.readFile(versionFile, 'utf8')
+          .then(fileContents => resolve(fileContents))
+          .catch(err => reject(`Failed to read file ${versionFile}: ${err}`));
+      } else {
+        resolve();
+      }
+    }).catch(err => reject(`Failed to determine if ${versionFile} exists: ${err}`));
   });
 }
 
@@ -273,73 +276,11 @@ function getToolsUpdateSuccessfulText(releaseNames) {
   return '';
 }
 
-async function getOptions() {
-  return new Promise((resolve, reject) => {
-    try {
-      const httpsProxyUrl = require('./userSettings').getHttpsProxyUrl();
-      if (httpsProxyUrl) {
-        resolve({ httpsProxyUrl: httpsProxyUrl });
-      } else {
-        resolve();
-      }
-    } catch (err) {
-      reject(err);
-    }
-  });
-}
-
-function compareVersions(version, minimumVersion) {
-  const versionComponents = version.split(/[.-]/);
-  const minimumVersionComponents = minimumVersion.split(/[.-]/);
-
-  // Fix up the minimum version components to have the correct number of places...
-  if (minimumVersionComponents.length !== 4) {
-    const len = minimumVersionComponents.length;
-    const isSnapshot = minimumVersionComponents[len - 1] === 'SNAPSHOT';
-    if (len !== 3 || isSnapshot) {
-      const missingDigits = isSnapshot ? 4 - len : 3 - len;
-      const insertPosition = isSnapshot ? len - 2 : len - 1;
-      for (let i = 0; i < missingDigits; i++) {
-        minimumVersionComponents.splice(insertPosition, 0, '0');
-      }
-    }
-  }
-
-  // Iterate over the version elements now that the minimum version elements is fully specified...
-  let result = 0;
-  for (let i = 0; i < 3; i++) {
-    const versionNumber = Number(versionComponents[i]);
-    const minVersionNumber = Number(minimumVersionComponents[i]);
-
-    if (versionNumber < minVersionNumber) {
-      result = -1;
-      break;
-    } else if (versionNumber > minVersionNumber) {
-      result = 1;
-      break;
-    }
-  }
-
-  if (result === 0) {
-    const versionIsSnapshot = versionComponents.length === 4;
-    const minimumVersionIsSnapshot = minimumVersionComponents.length === 4;
-    if (versionIsSnapshot && !minimumVersionIsSnapshot) {
-      result = -1;
-    } else if (!versionIsSnapshot && minimumVersionIsSnapshot) {
-      result = 1;
-    }
-  }
-
-  getLogger().debug('compareVersion(%s, %s) returned %d', version, minimumVersion, result);
-  return result;
-}
-
 module.exports = {
   checkForUpdates,
   downloadLatestWdtInstaller,
   getDiscoverDomainShellScript,
   getImagetoolShellScript,
-  getOptions,
   getPrepareModelShellScript,
   getInstalledWdtReleaseName,
   getInstalledWitReleaseName,

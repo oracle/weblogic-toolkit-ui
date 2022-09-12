@@ -9,14 +9,17 @@ define(['models/wkt-project', 'models/wkt-console', 'utils/wdt-discoverer', 'uti
   'utils/wit-aux-creator', 'utils/image-pusher', 'utils/aux-image-pusher', 'utils/k8s-helper', 'utils/wko-installer',
   'utils/wko-uninstaller', 'utils/wko-updater', 'utils/k8s-domain-deployer', 'utils/k8s-domain-status-checker',
   'utils/k8s-domain-undeployer', 'utils/ingress-controller-installer', 'utils/ingress-routes-updater',
-  'utils/ingress-controller-uninstaller', 'utils/app-updater', 'utils/wkt-logger'],
+  'utils/ingress-controller-uninstaller', 'utils/vz-installer', 'utils/vz-install-status-checker',
+  'utils/vz-component-deployer', 'utils/vz-component-undeployer', 'utils/vz-application-deployer',
+  'utils/vz-application-undeployer','utils/app-updater', 'utils/wkt-logger'],
 function(wktProject, wktConsole, wdtDiscoverer, dialogHelper, projectIO,
   utils, wdtModelPreparer, wdtModelValidator, i18n, witImageCreator,
   witAuxImageCreator, imagePusher, auxImagePusher, k8sHelper,
   wkoInstaller, wkoUninstaller, wkoUpdater, k8sDomainDeployer,
   k8sDomainStatusChecker, k8sDomainUndeployer, ingressControllerInstaller,
-  ingressRoutesUpdater, ingressControllerUninstaller, appUpdater,
-  wktLogger) {
+  ingressRoutesUpdater, ingressControllerUninstaller, vzInstaller,
+  vzInstallStatusChecker, vzComponentDeployer, vzComponentUndeployer,
+  vzApplicationDeployer, vzApplicationUndeployer, appUpdater, wktLogger) {
 
   async function displayCatchAllError(i18nPrefix, err) {
     return dialogHelper.displayCatchAllError(i18nPrefix, err);
@@ -238,6 +241,48 @@ function(wktProject, wktConsole, wdtDiscoverer, dialogHelper, projectIO,
     blurSelection();
     ingressRoutesUpdater.startIngressRoutesUpdate().then(() => Promise.resolve()).catch(err => {
       displayCatchAllError('ingress-routes-updater-update-routes', err).then(() => Promise.resolve());
+    });
+  });
+
+  window.api.ipc.receive('start-verrazzano-install', async () => {
+    blurSelection();
+    vzInstaller.startInstallVerrazzano().then(() => Promise.resolve()).catch(err => {
+      displayCatchAllError('vz-installer-install', err).then(() => Promise.resolve());
+    });
+  });
+
+  window.api.ipc.receive('start-get-verrazzano-install-status', async () => {
+    blurSelection();
+    vzInstallStatusChecker.startVerrazzanoInstallStatusCheck().then(() => Promise.resolve()).catch(err => {
+      displayCatchAllError('vz-install-status-checker-status', err).then(() => Promise.resolve());
+    });
+  });
+
+  window.api.ipc.receive('start-deploy-verrazzano-component', async () => {
+    blurSelection();
+    vzComponentDeployer.startDeployComponent().then(() => Promise.resolve()).catch(err => {
+      displayCatchAllError('vz-component-deployer-deploy', err).then(() => Promise.resolve());
+    });
+  });
+
+  window.api.ipc.receive('start-undeploy-verrazzano-component', async () => {
+    blurSelection();
+    vzComponentUndeployer.startUndeployComponent().then(() => Promise.resolve()).catch(err => {
+      displayCatchAllError('vz-component-undeployer-undeploy', err).then(() => Promise.resolve());
+    });
+  });
+
+  window.api.ipc.receive('start-deploy-verrazzano-application', async () => {
+    blurSelection();
+    vzApplicationDeployer.startDeployApplication().then(() => Promise.resolve()).catch(err => {
+      displayCatchAllError('vz-application-deployer-deploy', err).then(() => Promise.resolve());
+    });
+  });
+
+  window.api.ipc.receive('start-undeploy-verrazzano-application', async () => {
+    blurSelection();
+    vzApplicationUndeployer.startUndeployApplication().then(() => Promise.resolve()).catch(err => {
+      displayCatchAllError('vz-application-undeployer-undeploy', err).then(() => Promise.resolve());
     });
   });
 

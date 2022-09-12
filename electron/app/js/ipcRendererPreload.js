@@ -12,6 +12,7 @@ const fsUtils = require('./fsUtils');
 const WktApp = require('./wktApp');
 const osUtils = require('./osUtils');
 const i18n = require('./i18next.webui.config');
+const { compareVersions } = require('./versionUtils');
 
 const wktApp = new WktApp();
 
@@ -85,6 +86,12 @@ contextBridge.exposeInMainWorld(
           'start-k8s-domain-deploy',
           'start-k8s-domain-undeploy',
           'start-get-k8s-domain-status',
+          'start-verrazzano-install',
+          'start-get-verrazzano-install-status',
+          'start-deploy-verrazzano-component',
+          'start-undeploy-verrazzano-component',
+          'start-deploy-verrazzano-application',
+          'start-undeploy-verrazzano-application',
           'start-app-quit',
           'start-window-close'
         ];
@@ -207,7 +214,22 @@ contextBridge.exposeInMainWorld(
           'get-wrc-home-directory',
           'get-wrc-app-image',
           'wrc-get-home-default-value',
-          'wrc-set-home-and-start'
+          'wrc-set-home-and-start',
+          'get-verrazzano-release-versions',
+          'is-verrazzano-installed',
+          'install-verrazzano-platform-operator',
+          'verify-verrazzano-platform-operator-install',
+          'install-verrazzano',
+          'verify-verrazzano-install-status',
+          'deploy-verrazzano-components',
+          'undeploy-verrazzano-components',
+          'get-verrazzano-component-names',
+          'get-verrazzano-secret-names',
+          'get-verrazzano-cluster-names',
+          'get-verrazzano-deployment-names-all-namespaces',
+          'deploy-verrazzano-project',
+          'deploy-verrazzano-application',
+          'undeploy-verrazzano-application',
         ];
         return new Promise((resolve, reject) => {
           if (validChannels.includes(channel)) {
@@ -256,6 +278,7 @@ contextBridge.exposeInMainWorld(
     },
     'utils': {
       generateUuid: () => uuid.v4(),
+      compareVersions: (version, otherVersion) => compareVersions(version, otherVersion),
       mainModule: mainModule
     }
   }
