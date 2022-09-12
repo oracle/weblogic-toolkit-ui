@@ -18,7 +18,7 @@ define(['models/wkt-project', 'utils/vz-helper', 'js-yaml', 'utils/i18n', 'utils
         let appSpec = this._generateApplicationSpec(isMultiCluster);
 
         if (isMultiCluster) {
-          const template = Object.assign({}, appSpec)
+          const template = Object.assign({}, appSpec);
           appSpec = {
             apiVersion: this._getMultiClusterApplicationApiVersion(),
             kind: 'MultiClusterApplicationConfiguration',
