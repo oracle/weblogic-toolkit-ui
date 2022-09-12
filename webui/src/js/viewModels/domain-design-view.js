@@ -430,7 +430,7 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       const labelNames = [];
       this.project.k8sDomain.domainNodeSelector.observable().forEach(label => {
         labelNames.push(label.name);
-      })
+      });
 
       let nextIndex = 0;
       while (labelNames.indexOf(`new-label-${nextIndex + 1}`) !== -1) {
