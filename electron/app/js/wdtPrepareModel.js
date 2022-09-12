@@ -54,9 +54,8 @@ async function prepareModel(currentWindow, stdoutChannel, stderrChannel, prepare
     WDT_CUSTOM_CONFIG: getWdtCustomConfigDirectory()
   };
 
-  const wktLogger = getLogger();
-  if (wktLogger.isDebugEnabled()) {
-    wktLogger.debug(`Invoking ${getPrepareModelShellScript()} with args ${JSON.stringify(argList)} and environment ${JSON.stringify(env)}`);
+  if (logger.isDebugEnabled()) {
+    logger.debug(`Invoking ${getPrepareModelShellScript()} with args ${JSON.stringify(argList)} and environment ${JSON.stringify(env)}`);
   }
 
   const results = {
@@ -87,17 +86,10 @@ async function prepareModel(currentWindow, stdoutChannel, stderrChannel, prepare
     return Promise.resolve(results);
   }
 
-  // directory for extra config files (resource files, etc.), same as first model file
-  let extraFilesDir = path.join(projectDirectory, modelsSubdirectory);
-
   try {
     const updatedModelFileMap =
       await moveModelFiles(projectDirectory, modelsSubdirectory, outputDirectory, modelFiles);
     const updatedModelFiles = getUpdatedModelFileNames(updatedModelFileMap, modelFiles);
-    if(updatedModelFiles.length) {
-      const targetFile = fsUtils.getAbsolutePath(updatedModelFiles[0], projectDirectory);
-      extraFilesDir = path.dirname(targetFile);
-    }
 
     let updatedVariableFiles;
     if (variableFiles.length > 0) {
@@ -443,16 +435,19 @@ function findVzDomainSpec(specFile, yamlDocs) {
       if (yamlDoc['kind'] !== 'Component') {
         continue;
       }
-      if (yamlDoc.spec && yamlDoc.spec.workload && yamlDoc.spec.workload.kind === 'Domain') {
+      if (yamlDoc.spec?.workload?.kind === 'VerrazzanoWebLogicWorkload') {
         result = yamlDoc;
+        break;
       }
     }
   }
 
   if (!result) {
     throw new Error(i18n.t('prepare-model-vz-spec-file-missing-domain-error-message', { fileName: specFile }));
-  } else if (!result.spec.workload.spec) {
+  } else if (!result.spec?.workload?.spec?.template?.spec) {
     throw new Error(i18n.t('prepare-model-vz-spec-file-missing-spec-error-message', { fileName: specFile }));
+  } else {
+    result = result.spec.workload.spec.template.spec;
   }
   return result;
 }
