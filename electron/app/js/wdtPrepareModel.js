@@ -126,49 +126,26 @@ async function prepareModel(currentWindow, stdoutChannel, stderrChannel, prepare
     return Promise.resolve(results);
   }
 
-  // For the first release, Verrazzano is not returning this extra data.
-  //
-  if (wdtTargetType === 'wko') {
-    try {
-      results['secrets'] = await getJsonSecretsContent(outputDirectory);
-    } catch (err) {
-      results.isSuccess = false;
-      results.reason = errorUtils.getErrorMessage(err);
-      results.error = err;
-      logger.error(results.reason);
-      removeTempDirectory(outputDirectory).then().catch();
-      return Promise.resolve(results);
-    }
-
-    try {
-      results['domain'] = await getTargetSpecContent(wdtTargetType, outputDirectory);
-    } catch (err) {
-      results.isSuccess = false;
-      results.reason = errorUtils.getErrorMessage(err);
-      results.error = err;
-      logger.error(results.reason);
-      removeTempDirectory(outputDirectory).then().catch();
-      return Promise.resolve(results);
-    }
-  } else { // Verrazzano
-    // put the extra files in the same directory as the first model
-    getLogger().debug('creating directory %s if it does not already exist', extraFilesDir);
-    await fsUtils.makeDirectoryIfNotExists(extraFilesDir);
-
-    const secretsScriptFile = path.join(outputDirectory, 'create_k8s_secrets.sh');
-    const vzApplicationYamlFile = path.join(outputDirectory, 'vz-application.yaml');
-    if (await fsUtils.exists(secretsScriptFile)) {
-      const relativeSecretsFile =
-        await moveFile(secretsScriptFile, projectDirectory, extraFilesDir);
-      getLogger().info('Wrote Verrazzano secrets creation script: %s', path.join(projectDirectory, relativeSecretsFile));
-    }
-    if (await fsUtils.exists(vzApplicationYamlFile)) {
-      const relativeYamlFile =
-        await moveFile(vzApplicationYamlFile, projectDirectory, extraFilesDir);
-      getLogger().info('Wrote Verrazzano application YAML file: %s', path.join(projectDirectory, relativeYamlFile));
-    }
+  try {
+    results['secrets'] = await getJsonSecretsContent(outputDirectory);
+  } catch (err) {
+    results.isSuccess = false;
+    results.reason = errorUtils.getErrorMessage(err);
+    results.error = err;
+    logger.error(results.reason);
+    //removeTempDirectory(outputDirectory).then().catch();
+    return Promise.resolve(results);
   }
-  removeTempDirectory(outputDirectory).then().catch();
+
+  try {
+    results['domain'] = await getTargetSpecContent(wdtTargetType, outputDirectory);
+  } catch (err) {
+    results.isSuccess = false;
+    results.reason = errorUtils.getErrorMessage(err);
+    results.error = err;
+    logger.error(results.reason);
+  }
+  //removeTempDirectory(outputDirectory).then().catch();
   return Promise.resolve(results);
 }
 
