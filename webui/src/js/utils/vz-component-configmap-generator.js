@@ -22,8 +22,8 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'utils/vz-
           return [];
         }
 
-        this.configMapComponentName = k8sDomainConfigMap.metadata?.name;
-        this.configMapComponentNamespace = k8sDomainConfigMap.metadata?.namespace;
+        this.configMapComponentName = k8sDomainConfigMap.metadata ? k8sDomainConfigMap.metadata.name : '<UNKNOWN>';
+        this.configMapComponentNamespace = k8sDomainConfigMap.metadata ? k8sDomainConfigMap.metadata.namespace : '<UNKNOWN>';
         const component = {
           apiVersion: this._getApiVersion(),
           kind: 'Component',

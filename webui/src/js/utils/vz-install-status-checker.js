@@ -87,24 +87,27 @@ function(VzActionsBase, project, wktConsole, i18n, projectIo, dialogHelper) {
           tag: project.vzInstall.versionTag.value,
           profile: project.vzInstall.installationProfile.value,
         };
-        const status = await window.api.ipc.invoke('verify-verrazzano-install-status', kubectlExe, kubectlOptions, vzOptions);
+        const statusResult = await window.api.ipc.invoke('verify-verrazzano-install-status', kubectlExe, kubectlOptions, vzOptions);
         dialogHelper.closeBusyDialog();
-        if (status.isSuccess) {
-          if (status.isComplete) {
-            this.project.vzInstall.actualInstalledVersion.value = status.version;
+        if (statusResult.isSuccess) {
+          if (statusResult.isComplete) {
+            this.project.vzInstall.actualInstalledVersion.value = statusResult.version;
             const title = i18n.t('vz-install-status-checker-status-complete-title');
             const message = i18n.t('vz-install-status-checker-status-complete-message', { name: vzOptions.name });
             await window.api.ipc.invoke('show-info-message', title, message);
           } else {
+            const message = statusResult.payload ? statusResult.payload.message : '<no message>';
+            const status = statusResult.payload ? statusResult.payload.status : '<no status>';
+
             const title = i18n.t('vz-install-status-checker-status-incomplete-title');
-            const message = i18n.t('vz-install-status-checker-status-incomplete-message',
-              { name: vzOptions.name, message: status.payload?.message, status: status.payload?.status });
-            await window.api.ipc.invoke('show-info-message', title, message);
+            const errMessage = i18n.t('vz-install-status-checker-status-incomplete-message',
+              { name: vzOptions.name, message, status });
+            await window.api.ipc.invoke('show-info-message', title, errMessage);
           }
         } else {
           const title = i18n.t('vz-install-status-checker-status-failed-title');
           const message = i18n.t('vz-install-status-checker-status-failed-error-message',
-            { name: vzOptions.name, error: status.reason });
+            { name: vzOptions.name, error: statusResult.reason });
           await window.api.ipc.invoke('show-error-message', title, message);
           return Promise.resolve(false);
         }

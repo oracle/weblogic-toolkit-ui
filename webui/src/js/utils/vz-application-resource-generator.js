@@ -18,19 +18,19 @@ define(['models/wkt-project', 'utils/vz-helper', 'js-yaml', 'utils/i18n', 'utils
         let appSpec = this._generateApplicationSpec(isMultiCluster);
 
         if (isMultiCluster) {
+          const template = Object.assign({}, appSpec)
           appSpec = {
             apiVersion: this._getMultiClusterApplicationApiVersion(),
             kind: 'MultiClusterApplicationConfiguration',
             metadata: { },
             spec: {
-              template: {
-                ...appSpec
-              },
+              template,
               placement: {
                 clusters: []
               },
             },
           };
+
           this._setNameAndNamespace(appSpec.metadata);
 
           for (const clusterName of this.project.vzApplication.placementClusters.value) {
@@ -38,7 +38,7 @@ define(['models/wkt-project', 'utils/vz-helper', 'js-yaml', 'utils/i18n', 'utils
           }
 
           if (this.project.vzApplication.secrets.value.length > 0) {
-            appSpec.spec.secrets = [...this.project.vzApplication.secrets.value];
+            appSpec.spec.secrets = [ ...this.project.vzApplication.secrets.value ];
           }
         }
         return jsYaml.dump(appSpec).split('\n');
@@ -140,7 +140,7 @@ define(['models/wkt-project', 'utils/vz-helper', 'js-yaml', 'utils/i18n', 'utils
               }
               if (Array.isArray(ingressTraitRule.paths) && ingressTraitRule.paths.length > 0) {
                 rule.paths = ingressTraitRule.paths.map(path => {
-                  const newPath = { ...path };
+                  const newPath = Object.assign({}, path);
                   delete newPath.uid;
                   return newPath;
                 });

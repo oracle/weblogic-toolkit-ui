@@ -484,7 +484,7 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
 
       const observableArray = this.componentObservable(component, 'ingressTraitRules');
       const rule = observableArray()[rowContext.item.index];
-      const ruleOptions = {...rule};
+      const ruleOptions = { ...rule };
 
       dialogHelper.promptDialog('vz-ingress-trait-rule-edit-dialog', ruleOptions).then(result => {
         if (result?.rule) {
