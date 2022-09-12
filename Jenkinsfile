@@ -15,7 +15,7 @@ pipeline {
 
         npm_registry = "${env.ARTIFACTORY_NPM_REPO}"
         npm_noproxy = "${env.ORACLE_NO_PROXY}"
-        node_version = "16.15.1"
+        node_version = "16.17.0"
 
         project_name = "$JOB_NAME"
         version_prefix = sh(returnStdout: true, script: 'cat electron/package.json | grep version | awk \'match($0, /[0-9]+.[0-9]+.[0-9]+/) { print substr( $0, RSTART, RLENGTH )}\'').trim()
