@@ -11,5 +11,6 @@
   "exclude_domain_bin_contents": true,
   "wls_credentials_name" : "__weblogic-credentials__",
   "additional_secrets": "runtime-encryption-secret",
-  "additional_output" : "wko-domain.yaml"
+  "additional_output" : "wko-domain.yaml",
+  "set_cluster_replicas": true
 }
