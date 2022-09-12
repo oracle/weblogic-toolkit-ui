@@ -125,7 +125,7 @@ async function prepareModel(currentWindow, stdoutChannel, stderrChannel, prepare
     results.reason = errorUtils.getErrorMessage(err);
     results.error = err;
     logger.error(results.reason);
-    //removeTempDirectory(outputDirectory).then().catch();
+    removeTempDirectory(outputDirectory).then().catch();
     return Promise.resolve(results);
   }
 
@@ -137,7 +137,7 @@ async function prepareModel(currentWindow, stdoutChannel, stderrChannel, prepare
     results.error = err;
     logger.error(results.reason);
   }
-  //removeTempDirectory(outputDirectory).then().catch();
+  removeTempDirectory(outputDirectory).then().catch();
   return Promise.resolve(results);
 }
 
