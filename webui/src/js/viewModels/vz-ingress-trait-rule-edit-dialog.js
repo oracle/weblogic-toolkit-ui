@@ -197,10 +197,17 @@ function(accUtils, ko, i18n, props, validationHelper, ArrayDataProvider, ojConve
     };
 
     this.okInput = () => {
-      $(DIALOG_SELECTOR)[0].close();
+      let tracker = document.getElementById('tracker');
+      if (tracker.valid === 'valid') {
+        $(DIALOG_SELECTOR)[0].close();
 
-      const result = { rule: this._formatResult() };
-      args.setValue(result);
+        const result = { rule: this._formatResult() };
+        args.setValue(result);
+      } else {
+        // show messages on all the components that have messages hidden.
+        tracker.showMessages();
+        tracker.focusOn('@firstInvalidShown');
+      }
     };
 
     this.cancelInput = () => {

@@ -9,90 +9,92 @@
     </span>
   </div>
   <div slot="body">
-    <div class="oj-panel">
-      <oj-form-layout max-columns="1" direction="row">
-        <oj-text-area id="ingress-trait-rule-hosts-list"
-                      label-hint="[[labelMapper('hosts-label')]]"
-                      value="{{hosts.observable}}"
-                      help.instruction="[[labelMapper('hosts-help')]]">
-        </oj-text-area>
-      </oj-form-layout>
-    </div>
-    <div class="oj-panel">
-      <h6 class="wkt-subheading">
-        <oj-bind-text value="[[labelMapper('paths-table-title')]]"></oj-bind-text>
-      </h6>
-      <oj-table class="wkt-model-properties-table"
-                :aria-label="[[labelMapper('paths-table-aria-label')]]"
-                data="[[pathsDataProvider]]"
-                edit-mode="rowEdit"
-                columns='[[pathsColumns]]'>
-        <template slot="rowTemplate" data-oj-as="row">
-          <tr>
-            <oj-bind-if test='[[row.mode=="navigation"]]'>
-              <td><oj-bind-text value="[[row.data.pathType]]"></oj-bind-text></td>
-              <td><oj-bind-text value="[[row.data.path]]"></oj-bind-text></td>
-            </oj-bind-if>
-            <oj-bind-if test='[[row.mode=="edit"]]'>
+    <oj-validation-group id="tracker">
+      <div class="oj-panel">
+        <oj-form-layout max-columns="1" direction="row">
+          <oj-text-area id="ingress-trait-rule-hosts-list"
+                        label-hint="[[labelMapper('hosts-label')]]"
+                        value="{{hosts.observable}}"
+                        help.instruction="[[labelMapper('hosts-help')]]">
+          </oj-text-area>
+        </oj-form-layout>
+      </div>
+      <div class="oj-panel">
+        <h6 class="wkt-subheading">
+          <oj-bind-text value="[[labelMapper('paths-table-title')]]"></oj-bind-text>
+        </h6>
+        <oj-table class="wkt-model-properties-table"
+                  :aria-label="[[labelMapper('paths-table-aria-label')]]"
+                  data="[[pathsDataProvider]]"
+                  edit-mode="rowEdit"
+                  columns='[[pathsColumns]]'>
+          <template slot="rowTemplate" data-oj-as="row">
+            <tr>
+              <oj-bind-if test='[[row.mode=="navigation"]]'>
+                <td><oj-bind-text value="[[row.data.pathType]]"></oj-bind-text></td>
+                <td><oj-bind-text value="[[row.data.path]]"></oj-bind-text></td>
+              </oj-bind-if>
+              <oj-bind-if test='[[row.mode=="edit"]]'>
+                <td>
+                  <oj-select-single value="{{row.data.pathType}}"
+                                    data="{{pathTypesDataProvider}}"
+                                    help.instruction="[[labelMapper('path-type-help')]]">
+                  </oj-select-single>
+                </td>
+                <td>
+                  <oj-input-text value="{{row.data.path}}"
+                                 help.instruction="[[labelMapper('path-help')]]">
+                  </oj-input-text>
+                </td>
+              </oj-bind-if>
               <td>
-                <oj-select-single value="{{row.data.pathType}}"
-                                  data="{{pathTypesDataProvider}}"
-                                  help.instruction="[[labelMapper('path-type-help')]]">
-                </oj-select-single>
+                <oj-button display="icons" chroming="borderless" on-oj-action="[[handleDeletePath]]">
+                  <span slot="endIcon" class="oj-ux-ico-trash"></span>
+                  <oj-bind-text value="{{labelMapper('path-delete-row')}}"></oj-bind-text>
+                </oj-button>
               </td>
-              <td>
-                <oj-input-text value="{{row.data.path}}"
-                               help.instruction="[[labelMapper('path-help')]]">
-                </oj-input-text>
-              </td>
-            </oj-bind-if>
-            <td>
-              <oj-button display="icons" chroming="borderless" on-oj-action="[[handleDeletePath]]">
-                <span slot="endIcon" class="oj-ux-ico-trash"></span>
-                <oj-bind-text value="{{labelMapper('path-delete-row')}}"></oj-bind-text>
-              </oj-button>
-            </td>
-          </tr>
-        </template>
-        <template slot="headerTemplate" data-oj-as="header">
-          <oj-button display="icons" chroming="borderless" on-oj-action="[[handleAddPath]]">
-            <span slot="endIcon" class="oj-ux-ico-plus"></span>
-            <oj-bind-text value="{{labelMapper('path-add-row')}}"></oj-bind-text>
-          </oj-button>
-        </template>
-      </oj-table>
-    </div>
-    <div class="oj-panel">
-      <h6 class="wkt-subheading">
-        <oj-bind-text value="[[labelMapper('destination-title')]]"></oj-bind-text>
-      </h6>
-      <oj-form-layout max-columns="2" direction="row">
-        <oj-input-text label-hint="[[labelMapper('destination-host-label')]]"
-                       value="{{destinationHost.observable}}"
-                       help.instruction="[[labelMapper('destination-host-help')]]">
-        </oj-input-text>
-        <oj-input-number label-hint="[[labelMapper('destination-port-label')]]"
-                         value="{{destinationPort}}"
-                         converter="[[portNumberConverter]]"
-                         validators="[[portNumberValidators]]"
-                         help.instruction="[[labelMapper('destination-port-help')]]">
-        </oj-input-number>
-        <oj-input-text label-hint="[[labelMapper('destination-cookie-name-label')]]"
-                       value="{{destinationHttpCookieName.observable}}"
-                       help.instruction="[[labelMapper('destination-cookie-name-help')]]">
-        </oj-input-text>
-        <oj-input-text label-hint="[[labelMapper('destination-cookie-path-label')]]"
-                       value="{{destinationHttpCookiePath.observable}}"
-                       help.instruction="[[labelMapper('destination-cookie-path-help')]]">
-        </oj-input-text>
-        <oj-input-number label-hint="[[labelMapper('destination-cookie-ttl-label')]]"
-                         value="{{destinationHttpCookieTTL}}"
-                         min="0"
-                         converter="[[integerConverter]]"
-                         help.instruction="[[labelMapper('destination-cookie-ttl-help')]]">
-        </oj-input-number>
-      </oj-form-layout>
-    </div>
+            </tr>
+          </template>
+          <template slot="headerTemplate" data-oj-as="header">
+            <oj-button display="icons" chroming="borderless" on-oj-action="[[handleAddPath]]">
+              <span slot="endIcon" class="oj-ux-ico-plus"></span>
+              <oj-bind-text value="{{labelMapper('path-add-row')}}"></oj-bind-text>
+            </oj-button>
+          </template>
+        </oj-table>
+      </div>
+      <div class="oj-panel">
+        <h6 class="wkt-subheading">
+          <oj-bind-text value="[[labelMapper('destination-title')]]"></oj-bind-text>
+        </h6>
+        <oj-form-layout max-columns="2" direction="row">
+          <oj-input-text label-hint="[[labelMapper('destination-host-label')]]"
+                         value="{{destinationHost.observable}}"
+                         help.instruction="[[labelMapper('destination-host-help')]]">
+          </oj-input-text>
+          <oj-input-number label-hint="[[labelMapper('destination-port-label')]]"
+                           value="{{destinationPort}}"
+                           converter="[[portNumberConverter]]"
+                           validators="[[portNumberValidators]]"
+                           help.instruction="[[labelMapper('destination-port-help')]]">
+          </oj-input-number>
+          <oj-input-text label-hint="[[labelMapper('destination-cookie-name-label')]]"
+                         value="{{destinationHttpCookieName.observable}}"
+                         help.instruction="[[labelMapper('destination-cookie-name-help')]]">
+          </oj-input-text>
+          <oj-input-text label-hint="[[labelMapper('destination-cookie-path-label')]]"
+                         value="{{destinationHttpCookiePath.observable}}"
+                         help.instruction="[[labelMapper('destination-cookie-path-help')]]">
+          </oj-input-text>
+          <oj-input-number label-hint="[[labelMapper('destination-cookie-ttl-label')]]"
+                           value="{{destinationHttpCookieTTL}}"
+                           min="0"
+                           converter="[[integerConverter]]"
+                           help.instruction="[[labelMapper('destination-cookie-ttl-help')]]">
+          </oj-input-number>
+        </oj-form-layout>
+      </div>
+    </oj-validation-group>
   </div>
 
   <div slot="footer">
