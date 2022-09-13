@@ -574,6 +574,19 @@ h6.wkt-panel-heading {
   margin-bottom: 0;
 }
 
+/* buttons beside an h6 header */
+.wkt-header-button-row {
+  display: flex;
+}
+
+.wkt-header-button-row .oj-button {
+  margin-bottom: -10px;
+}
+
+.wkt-header-button-row h6 {
+  flex: 1 1 auto;
+}
+
 /* no default scroll bar on html body */
 .oj-web-applayout-body {
   overflow-y: auto;
