@@ -72,8 +72,8 @@
                        help.instruction="[[labelMapper('destination-host-help')]]">
         </oj-input-text>
         <oj-input-number label-hint="[[labelMapper('destination-port-label')]]"
-                         value="{{destinationPort.observable}}"
-                         converter="[[integerConverter]]"
+                         value="{{destinationPort}}"
+                         converter="[[portNumberConverter]]"
                          validators="[[portNumberValidators]]"
                          help.instruction="[[labelMapper('destination-port-help')]]">
         </oj-input-number>
@@ -86,7 +86,7 @@
                        help.instruction="[[labelMapper('destination-cookie-path-help')]]">
         </oj-input-text>
         <oj-input-number label-hint="[[labelMapper('destination-cookie-ttl-label')]]"
-                         value="{{destinationHttpCookieTTL.observable}}"
+                         value="{{destinationHttpCookieTTL}}"
                          min="0"
                          converter="[[integerConverter]]"
                          help.instruction="[[labelMapper('destination-cookie-ttl-help')]]">

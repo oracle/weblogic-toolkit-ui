@@ -91,6 +91,13 @@ function(accUtils, ko, i18n, props, validationHelper, ArrayDataProvider, ojConve
       }
     };
 
+    this._getNumericResult = (fieldName, result) => {
+      const value = this[fieldName]();
+      if (typeof value === 'number') {
+        result[fieldName] = value;
+      }
+    };
+
     this._formatResult = () => {
       const result = {
         uid: this.uid.value,
@@ -104,10 +111,12 @@ function(accUtils, ko, i18n, props, validationHelper, ArrayDataProvider, ojConve
         result.paths = this.paths.value;
       }
       this._getScalarResult('destinationHost', result);
-      this._getScalarResult('destinationPort', result);
       this._getScalarResult('destinationHttpCookieName', result);
       this._getScalarResult('destinationHttpCookiePath', result);
-      this._getScalarResult('destinationHttpCookieTTL', result);
+
+      // these two use ko.observable to allow for null numeric value
+      this._getNumericResult('destinationPort', result);
+      this._getNumericResult('destinationHttpCookieTTL', result);
 
       return result;
     };
@@ -116,10 +125,12 @@ function(accUtils, ko, i18n, props, validationHelper, ArrayDataProvider, ojConve
     this.hosts = this._initializeHosts(args.hosts);
     this.paths = this._initializePaths(args.paths);
     this.destinationHost = this._createProperty(args.destinationHost);
-    this.destinationPort = this._initializeNumberField(args.destinationPort);
     this.destinationHttpCookieName = this._createProperty(args.destinationHttpCookieName);
     this.destinationHttpCookiePath = this._createProperty(args.destinationHttpCookiePath);
-    this.destinationHttpCookieTTL = this._initializeNumberField(args.destinationHttpCookieTTL);
+
+    // these two use ko.observable to allow for null numeric value
+    this.destinationPort = ko.observable(args.destinationPort);
+    this.destinationHttpCookieTTL = ko.observable(args.destinationHttpCookieTTL);
 
     this.pathsDataProvider = new ArrayDataProvider(this.paths.observable, { keyAttributes: 'uid' });
 
@@ -143,6 +154,13 @@ function(accUtils, ko, i18n, props, validationHelper, ArrayDataProvider, ojConve
     });
 
     this.portNumberValidators = validationHelper.getPortNumberValidators();
+
+    this.portNumberConverter = new ojConverterNumber.IntlNumberConverter({
+      style: 'decimal',
+      roundingMode: 'HALF_DOWN',
+      maximumFractionDigits: 0,
+      useGrouping: false
+    });
 
     // this is dynamic to allow i18n fields to load correctly
     this.pathsColumns = [
