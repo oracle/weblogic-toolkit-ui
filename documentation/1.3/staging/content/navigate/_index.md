@@ -27,8 +27,7 @@ The UI sections are:
   - [WebLogic Domain]({{< relref "/navigate/kubernetes/k8s-weblogic-domain.md" >}})
   - [Ingress Controller]({{< relref "/navigate/kubernetes/k8s-ingress-controller.md" >}})
 - [Verrazzano]({{< relref "/navigate/verrazzano.md" >}})
-  - Client Configuration
-  - Application
+
 
 At the bottom of the page, the collapsed `Console` panel automatically appears and displays the `stdout` and `stderr`
 streams when running certain actions, such as `Prepare Model`.
