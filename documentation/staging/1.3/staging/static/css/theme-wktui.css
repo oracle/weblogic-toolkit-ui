@@ -1,0 +1,8 @@
+.wktui-two-images-column {
+    flex: 50%;
+    padding: 5px;
+}
+
+.wktui-row {
+    display: flex;
+}
