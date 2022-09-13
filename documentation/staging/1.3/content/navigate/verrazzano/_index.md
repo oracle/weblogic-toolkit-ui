@@ -11,7 +11,7 @@ to help you:
 
 1. [Configure]({{< relref "/navigate/verrazzano/vz-client-config#client-configuration" >}})  your Kubernetes client (`kubectl`) to connect to the Kubernetes cluster.
 2. [Install]({{< relref "/navigate/verrazzano/vz-install.md" >}}) Verrazzano.
-3. [Define]({{< relref "/navigate/verrazzano/vz-component.md" >}}) the Verrazzano component for the WebLogic domain.
-4. [Deploy]({{< relref "/navigate/verrazzano/vz-application.md" >}}) the application to Verrazzano.
+3. [Create and deploy]({{< relref "/navigate/verrazzano/vz-component#verrazzano-component" >}}) the Verrazzano component for the WebLogic domain.
+4. [Deploy]({{< relref "/navigate/verrazzano/vz-application.md" >}}) an application to Verrazzano.
 
 {{% children style="h4" description="true" %}}

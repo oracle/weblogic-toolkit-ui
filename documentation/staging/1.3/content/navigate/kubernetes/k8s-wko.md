@@ -29,7 +29,7 @@ For detailed information about the operator, see the
 [WebLogic Kubernetes Operator](https://oracle.github.io/weblogic-kubernetes-operator/) documentation.
 
 ### Design View
-The `Design View` helps you specify the necessary data needed to install the WebLogic Kubernetes Operator to manage
+`Design View` helps you specify the necessary data needed to install the WebLogic Kubernetes Operator to manage
 WebLogic domains in one or more Kubernetes namespaces.  To install the operator using the default settings, simply
 provide values for the following three fields:
 

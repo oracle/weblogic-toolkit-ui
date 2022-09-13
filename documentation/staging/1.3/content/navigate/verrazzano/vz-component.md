@@ -3,7 +3,7 @@ title: "Component"
 date: 2019-02-22T15:44:42-05:00
 draft: false
 weight: 3
-description: "Create and deploy the Kubernetes custom resource for the WebLogic domain."
+description: "Create and deploy the Verrazzano component for the WebLogic domain."
 ---
 
 ### Contents
@@ -17,21 +17,18 @@ description: "Create and deploy the Kubernetes custom resource for the WebLogic 
     - [Runtime Encryption Secret](#runtime-encryption-secret)
     - [WebLogic Kubernetes Operator Introspection Configuration](#weblogic-kubernetes-operator-introspection-configuration)
     - [Domain-Wide Server Settings](#domain-wide-server-settings)
+    - [Domain-Wide Node Selector](#domain-wide-node-selector)
 - [Code View](#code-view)
 - [Prepare Model](#prepare-model)
-- [Deploy Domain](#deploy-domain)
-- [Get Domain Status](#get-domain-status)
-- [Undeploy Domain](#undeploy-domain)
+- [Deploy Component](#deploy-component)
+- [Undeploy Component](#undeploy-component)
 
 ### Verrazzano Component
 The `Component` section provides support for creating and deploying the Verrazzano component for the WebLogic domain.
 
 ### Design View
-The `Design View` helps you specify the necessary data needed to generate the component definition and deploy
+`Design View` helps you specify the data needed to generate the component definition and deploy
 that resource into a Kubernetes cluster.
-
-Use the initial fields to define the Verrazzano component for the WebLogic domain. Keep the default values or
-provide your own. In the `Verrazzano Version` field, you can verify the installed version.
 
 The `Domain UID` field defines the name of the Kubernetes Domain custom resource object.  This name must be unique
 within the Kubernetes namespace where it will be created, which is controlled by the `Kubernetes Namespace` field.
@@ -78,6 +75,7 @@ The following sections describe the other panes that support configuring the gen
 - [Runtime Encryption Secret](#runtime-encryption-secret)
 - [WebLogic Kubernetes Operator Introspection Configuration](#weblogic-kubernetes-operator-introspection-configuration)
 - [Domain-Wide Server Settings](#domain-wide-server-settings)
+- [Domain-Wide Node Selector](#domain-wide-node-selector)
 
 #### Primary Image to Use for the Domain
 This pane focuses on the container primary image to use to run the WebLogic Server domain in a container. If you select `Create a New Primary Image`,
@@ -218,9 +216,13 @@ to use this section to configure the Administration Server and use the `Clusters
 The fields in this pane have similar meaning to the equivalent fields previously described in
 [Clusters](#clusters); refer to that section for more information.
 
+#### Domain-Wide Node Selector
+This pane lets you specify the nodes on which to run.
+
+
 ### Code View
-The `Code View` displays a shell script for deploying the domain and creating its dependent resources as well as
-the YAML definition for the Kubernetes custom resource (that is, the Domain resource) and the Model Variables Overrides
+`Code View` displays a shell script for deploying the Verrazzano components for this WebLogic domain into Kubernetes
+and creating its dependent resources as well as the Component Resource YAML definition and the Model Variables Overrides
 ConfigMap, if applicable.
 
 If it is not already selected, then use the `Script Language` drop-down menu to choose the desired scripting language.  Note
@@ -235,25 +237,14 @@ existing standards for securely handling such credentials.
 `Prepare Model` is the same as was previously described in the [`Model`]({{< relref "/navigate/model#prepare-model" >}})  section.  It is only
 surfaced here because the `Clusters` pane of the `Design View` is populated only when `Prepare Model` is run.
 
-### Deploy Domain
-`Deploy Domain` creates the Domain custom resource object and any of its dependent objects (for example,
-namespace, secrets, ConfigMap) in Kubernetes.  You access this action by using the `Deploy Domain` button on the
-`WebLogic Domain` page or the `Go` > `Deploy WebLogic Domain to Kubernetes` menu item.  As previously
-mentioned, this action also updates the operator configuration, if needed, and reruns the operator Helm chart to ensure
-that the new namespace is manageable by the WebLogic Kubernetes Operator configured for this project.  
+### Deploy Component
+`Deploy Component` creates the domain custom object and any of its dependent objects (for example,
+namespace, secrets, ConfigMap) in Kubernetes.  You access this action by using the `Deploy Component` button on the
+`Component` page or the `Go` > `Deploy Verrazzano Component` menu item.  
 
-`Deploy Domain` completes as soon as the objects are created and the operator Helm chart execution completes.  At some point
-after the action completes, the operator will detect a new (or updated) version of the Domain custom resource object and
-start a new introspection job to create the domain and start or restart the WebLogic Server containers.  `Get Domain Status`
-provides the current status of the last `Deploy Domain` action.
 
-### Get Domain Status
-To view the current status of the last domain deployment, use the `Get Domain Status` button or the
-`Go` > `Get WebLogic Domain Status`.  This action retrieves and displays the domain deployment
-status, as provided by the WebLogic Kubernetes Operator.
-
-### Undeploy Domain
-`Undeploy Domain` removes the Kubernetes custom resource for the WebLogic domain and its
+### Undeploy Component
+`Undeploy Component` removes the domain custom object for the WebLogic domain and its
 dependent objects in Kubernetes. In addition, you can choose whether to also delete the corresponding namespace.
-You access these actions by using the `Undeploy Domain` button on the
-`WebLogic Domain` page or the `Go` > `Undeploy WebLogic Domain to Kubernetes` menu item.
+You access these actions by using the `Undeploy Component` button on the
+`Component` page or the `Go` > `Undeploy Verrazzano Component` menu item.

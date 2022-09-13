@@ -45,7 +45,7 @@ icon beside a field, a dialog appears with the option of setting the field to a 
 The variable will show up in both the model and the variables editor on the `Code View` page. Likewise, when adding an application, you supply the path to the EAR,
 WAR, or JAR file (or directory); that path will be put in the archive editor on the `Code View` page.
 
-Note that if you create a new model using the `Design View` pages, the `Design View` will insert the `AdminUserName` and `AdminPassword` fields
+Note that if you create a new model using the `Design View` pages, then the `Design View` will insert the `AdminUserName` and `AdminPassword` fields
 into the `domainInfo` section of the model with their values set to variables whose values you will need to provide.
 This is intended to help you create a domain with all of the required fields.
 

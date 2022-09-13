@@ -21,7 +21,7 @@ For detailed information about Verrazzano, see the
 [Verrazzano](https://verrazzano.io/latest/docs/) documentation.
 
 ### Design View
-The `Design View` helps you specify the data needed to install Verrazzano to manage
+`Design View` helps you specify the data needed to install Verrazzano to manage
 WebLogic domains in one or more Kubernetes namespaces.  To install Verrazzano, simply
 provide values for the following fields:
 
@@ -34,7 +34,7 @@ provide values for the following fields:
 
 ### Code View
 The `Install Script` displays a shell script that you can use as a starting point for automating the
-Verrazzano installation process.   
+installation of Verrazzano into Kubernetes.   
 
 If it is not already selected, then use the `Script Language` drop-down menu to choose the desired scripting language.  Note
 that the application is providing a working sample script to show how the process might be automated.  Before
@@ -49,10 +49,10 @@ The `Verrazzano Resource` displays the Verrazzano resource definition that you'v
 ### Install Verrazzano
 `Install Verrazzano` installs Verrazzano in the target Kubernetes cluster.
 You access this action by using the `Install Verrazzano` button on the
-`Verrazzano` page or the `Go` > `Install Verrazzano` menu item.
+`Installation` page or the `Go` > `Install Verrazzano` menu item.
 
 ### Check Verrazzano Installation Status
 
-Initial Verrazzano installation proceeds quickly, however, to reach completion takes a somewhat longer time. Use
+Initial Verrazzano installation proceeds quickly, however, reaching completion takes a somewhat longer time. Use
 the `Check Verrazzano Install Status` button or the `Go` > `Check Verrazzano Install Status` menu item
 to monitor its progress.
