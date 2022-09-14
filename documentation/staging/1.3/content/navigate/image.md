@@ -23,7 +23,7 @@ The `Image` section helps you build container images for deploying WebLogic-base
 in a Kubernetes environment using the [WebLogic Image Tool](https://oracle.github.io/weblogic-image-tool/).
 
 ### Design View
-The `Design View` helps you specify the necessary data needed to run the WebLogic Image Tool to build an image for
+`Design View` helps you specify the necessary data needed to run the WebLogic Image Tool to build an image for
 running the WebLogic domain.
 
 Use the `Design View` page to specify whether to create a new or use an existing (the default) `Primary Image` and

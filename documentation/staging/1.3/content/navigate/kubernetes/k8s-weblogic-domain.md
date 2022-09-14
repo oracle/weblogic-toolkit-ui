@@ -17,6 +17,7 @@ description: "Create and deploy the Kubernetes custom resource for the WebLogic 
     - [Runtime Encryption Secret](#runtime-encryption-secret)
     - [WebLogic Kubernetes Operator Introspection Configuration](#weblogic-kubernetes-operator-introspection-configuration)
     - [Domain-Wide Server Settings](#domain-wide-server-settings)
+    - [Domain-Wide Node Selector](#domain-wide-node-selector)
 - [Code View](#code-view)
 - [Prepare Model](#prepare-model)
 - [Deploy Domain](#deploy-domain)
@@ -30,7 +31,7 @@ defined by the WebLogic Kubernetes Operator.  For more information, see
 in the WebLogic Kubernetes Operator documentation.
 
 ### Design View
-The `Design View` helps you specify the necessary data needed to generate the Domain resource definition and deploy
+`Design View` helps you specify the necessary data needed to generate the Domain resource definition and deploy
 that resource into a Kubernetes cluster.
 
 The `Domain UID` field defines the name of the Kubernetes Domain custom resource object.  This name must be unique
@@ -78,6 +79,7 @@ The following sections describe the other panes that support configuring the gen
 - [Runtime Encryption Secret](#runtime-encryption-secret)
 - [WebLogic Kubernetes Operator Introspection Configuration](#weblogic-kubernetes-operator-introspection-configuration)
 - [Domain-Wide Server Settings](#domain-wide-server-settings)
+- [Domain-Wide Node Selector](#domain-wide-node-selector)
 
 #### Primary Image to Use for the Domain
 This pane focuses on the container primary image to use to run the WebLogic Server domain in a container. If you select `Create a New Primary Image`,
@@ -218,8 +220,11 @@ to use this section to configure the Administration Server and use the `Clusters
 The fields in this pane have similar meaning to the equivalent fields previously described in
 [Clusters](#clusters); refer to that section for more information.
 
+#### Domain-Wide Node Selector
+This pane lets you specify the nodes on which to run.
+
 ### Code View
-The `Code View` displays a shell script for deploying the domain and creating its dependent resources as well as
+`Code View` displays a shell script for deploying the domain and creating its dependent resources as well as
 the YAML definition for the Kubernetes custom resource (that is, the Domain resource) and the Model Variables Overrides
 ConfigMap, if applicable.
 

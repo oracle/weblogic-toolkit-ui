@@ -88,7 +88,7 @@ When editing a route:
 - All requests in the defined rules are routed to the service specified by the `Target Service` field that resides in the namespace specified by the read-only
 `Target Service Namespace` field and the port specified by the `Target Port` field. After the domain has been deployed, you can select the `Target Service`
  value from the drop-down list of available services in the WebLogic Kubernetes Operator domain's namespace. After the `Target Service` is selected,
- you can select the `Target Port` from the list of available ports in the selected target service. 
+ you can select the `Target Port` from the list of available ports in the selected target service.
 - Specify the `Transport Option` for the ingress route:
     * Select `Plain HTTP` for unencrypted traffic from the client through the ingress controller to the target service.
     * Select `SSL terminate at ingress controller` for SSL
@@ -97,14 +97,14 @@ When editing a route:
       * Enable `Is target service WebLogic Console?` if the target service is the `WebLogic Console` service.  
     * Select `SSL pass through` for SSL traffic to pass through the ingress
       controller and then terminate at the target service.  
-      * If you select this option, you must also specify a valid DNS value in 'Virtual Host', and all SSL traffic from 
+      * If you select this option, you must also specify a valid DNS value in 'Virtual Host', and all SSL traffic from
         the`Virtual Host` will be routed to the target service.  
       * Make sure that the `Target Port` supports SSL.
 - Use the `Ingress Route Annotations` table to
 add annotations to the ingress route, as needed.  Do not remove any pre-populated annotations.
 
 ### Code View
-The `Code View` displays shell scripts for installing an ingress controller and for updating ingress routes.  It also
+`Code View` displays shell scripts for installing an ingress controller and for updating ingress routes.  It also
 displays the YAML definitions of the routes to be added, if applicable.
 
 If it is not already selected, then use the `Script Language` drop-down menu to choose the desired scripting language.  Note
