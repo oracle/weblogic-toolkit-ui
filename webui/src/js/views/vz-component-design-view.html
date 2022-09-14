@@ -15,9 +15,10 @@
     </oj-input-text>
     <oj-input-text label-hint="[[labelMapper('installed-version-label')]]"
                    value="{{project.vzInstall.actualInstalledVersion.observable}}"
-                   help.instructions="[[labelMapper('installed-version-help')]]">
+                   help.instruction="[[labelMapper('installed-version-help')]]">
       <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[getInstalledVersionNumber]]">
         <span slot="endIcon" class="oj-ux-ico-annotation" role="img"></span>
+        <oj-bind-text value="[[labelMapper('installed-version-tooltip')]]"></oj-bind-text>
       </oj-button>
     </oj-input-text>
     <oj-input-text label-hint="[[domainLabelMapper('wls-credential-label')]]"
