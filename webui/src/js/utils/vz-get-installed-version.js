@@ -27,7 +27,7 @@ function(VzActionsBase, project, wktConsole, i18n, projectIo, dialogHelper) {
       const validatableObject = this.getValidatableObject('flow-verrazzano-get-install-version-name');
       if (validatableObject.hasValidationErrors()) {
         const validationErrorDialogConfig = validatableObject.getValidationErrorDialogConfig(errTitle);
-        dialogHelper.openDialog('validation-error-dialog', validationErrorDialogConfig);
+        await dialogHelper.openDialog('validation-error-dialog', validationErrorDialogConfig);
         return Promise.resolve(false);
       }
 

@@ -18,7 +18,7 @@ define(['utils/wkt-actions-base', 'utils/validation-helper', 'utils/dialog-helpe
         kubectlFormConfig.formName = 'kubectl-form-name';
 
         validationObject.addField('kubectl-exe-file-path-label',
-          validationHelper.validateRequiredField(this.project.settings.javaHome.value), kubectlFormConfig);
+          validationHelper.validateRequiredField(this.project.kubectl.executableFilePath.value), kubectlFormConfig);
 
         return validationObject;
       }

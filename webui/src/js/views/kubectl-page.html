@@ -43,6 +43,7 @@
                        help.instruction="[[labelMapper('config-context-help')]]">
           <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[getCurrentContext]]">
             <span slot="endIcon" class="oj-ux-ico-annotation" role="img"></span>
+            <oj-bind-text value="[[labelMapper('config-context-tooltip')]]"></oj-bind-text>
           </oj-button>
         </oj-input-text>
         <oj-bind-if test="[[usingWko() === true]]">

@@ -62,7 +62,7 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
 
     this.addComponent = async () => {
       // First, determine if the required fields are set...
-      const errTitle = 'vz-application-design-add-component-validation-error-title';
+      const errTitle = this.labelMapper('add-component-validation-error-title');
       const validationObject = this.getValidationObject('vz-application-design-add-component-flow-nane');
       if (validationObject.hasValidationErrors()) {
         const validationErrorDialogConfig = validationObject.getValidationErrorDialogConfig(errTitle);
@@ -400,10 +400,6 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
 
     // this is dynamic to allow i18n fields to load correctly
     this.ingressTraitRulesColumnData = [
-      {
-        'headerText': this.labelMapper('ingress-trait-rules-uid-label'),
-        'sortable': 'disable',
-      },
       {
         'headerText': this.labelMapper('ingress-trait-rules-hosts-label'),
         'sortable': 'disable',

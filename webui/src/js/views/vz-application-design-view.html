@@ -23,9 +23,10 @@
     </oj-input-text>
     <oj-input-text label-hint="[[i18n.t('vz-component-design-installed-version-label')]]"
                    value="{{project.vzInstall.actualInstalledVersion.observable}}"
-                   help.instructions="[[i18n.t('vz-component-design-installed-version-help')]]">
+                   help.instruction="[[i18n.t('vz-component-design-installed-version-help')]]">
       <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[getInstalledVersionNumber]]">
         <span slot="endIcon" class="oj-ux-ico-annotation" role="img"></span>
+        <oj-bind-text value="[[i18n.t('vz-component-design-installed-version-tooltip')]]"></oj-bind-text>
       </oj-button>
     </oj-input-text>
   </oj-form-layout>
@@ -122,9 +123,12 @@
                       </oj-input-text>
                     </oj-form-layout>
                     <div>
+                      <h6 class="wkt-subheading">
+                        <oj-bind-text value="[[labelMapper('ingress-trait-rules-table-title')]]"></oj-bind-text>
+                      </h6>
                       <oj-table :id="[[`ingress-rules-table-${component.index}`]]"
                                 class="wkt-model-properties-table"
-                                :aria-label="[[labelMapper('rules-table-aria-label')]]"
+                                :aria-label="[[labelMapper('ingress-trait-rules-table-aria-label')]]"
                                 data="[[componentsIngressTraitRulesDataProvider(component.data)]]"
                                 display="grid"
                                 horizontal-grid-visible="enabled"
@@ -133,9 +137,6 @@
                                 columns='[[ingressTraitRulesColumnData]]'>
                         <template slot="rowTemplate" data-oj-as="row">
                           <tr>
-                            <td>
-                              <oj-bind-text value="[[row.data.uid]]"></oj-bind-text>
-                            </td>
                             <td>
                               <oj-bind-text value="[[row.data.hosts]]"></oj-bind-text>
                             </td>
