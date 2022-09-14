@@ -96,7 +96,9 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
         this.memoryLimit = props.createProperty();
         this.memoryLimit.addValidator(...validationHelper.getK8sMemoryValidators());
 
-        this.domainNodeSelector = props.createListProperty(['name', 'value']);
+        // Jet tables do not work if you allow changing the value used as the primary key so always add a uid...
+        //
+        this.domainNodeSelector = props.createListProperty(['uid', 'name', 'value']);
 
         // update the secrets list when the uid changes.
         this.uid.observable.subscribe(() => {

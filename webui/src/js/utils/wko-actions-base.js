@@ -234,6 +234,17 @@ function(WktActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, val
       this.addHelmChartValueIfSet(helmChartValues, 'javaLoggingFileSizeLimit', this.project.wko.javaLoggingFileSizeLimit);
       this.addHelmChartValueIfSet(helmChartValues, 'javaLoggingFileCount', this.project.wko.javaLoggingFileCount);
 
+      if (this.project.wko.nodeSelector.hasValue()) {
+        const nodeSelectorMap = {};
+        this.project.wko.nodeSelector.value.forEach(label => {
+          nodeSelectorMap[label.name] = label.value;
+        });
+
+        if (Object.keys(nodeSelectorMap).length > 0) {
+          helmChartValues['nodeSelector'] = nodeSelectorMap;
+        }
+      }
+
       return helmChartValues;
     }
 

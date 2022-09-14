@@ -213,6 +213,10 @@ function(accUtils, ko, i18n, project, wktConsole, dialogHelper, viewHelper, scre
       return this.navCollapsed() ? 'oj-ux-ico-arrow-right' : 'oj-ux-ico-arrow-left';
     }, this);
 
+    this.collapseArrowTooltip = ko.computed(() => {
+      return this.navCollapsed() ? this.labelMapper('expand-arrow-tooltip') : this.labelMapper('collapse-arrow-tooltip');
+    });
+
     this.collapseNav = () => {
       this.navCollapsed(!this.navCollapsed());
 

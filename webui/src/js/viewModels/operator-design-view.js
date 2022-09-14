@@ -4,10 +4,12 @@
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 define(['utils/i18n', 'accUtils', 'knockout', 'ojs/ojcorerouter', 'ojs/ojmodulerouter-adapter', 'ojs/ojarraydataprovider',
-  'ojs/ojarraytreedataprovider', 'models/wkt-project', 'ojs/ojconverter-number', 'ojs/ojtreeview', 'ojs/ojformlayout',
-  'ojs/ojinputtext', 'ojs/ojcollapsible', 'ojs/ojselectsingle', 'ojs/ojswitch', 'ojs/ojinputnumber'
+  'ojs/ojarraytreedataprovider', 'ojs/ojbufferingdataprovider', 'models/wkt-project', 'ojs/ojconverter-number', 'utils/view-helper',
+  'utils/common-utilities', 'ojs/ojtreeview', 'ojs/ojformlayout', 'ojs/ojinputtext', 'ojs/ojcollapsible',
+  'ojs/ojselectsingle', 'ojs/ojswitch', 'ojs/ojinputnumber'
 ],
-function (i18n, accUtils, ko, CoreRouter, ModuleRouterAdapter, ArrayDataProvider, ArrayTreeDataProvider, project, ojConverterNumber) {
+function (i18n, accUtils, ko, CoreRouter, ModuleRouterAdapter, ArrayDataProvider, ArrayTreeDataProvider,
+  BufferingDataProvider, project, ojConverterNumber, viewHelper, utils) {
   function OperatorDesignViewModel() {
 
     let subscriptions = [];
@@ -90,6 +92,45 @@ function (i18n, accUtils, ko, CoreRouter, ModuleRouterAdapter, ArrayDataProvider
       });
     };
 
+    this.nodeSelectorColumnMetadata = [
+      {
+        headerText: this.labelMapper('node-selector-label-name-header'),
+        sortProperty: 'name'
+      },
+      {
+        headerText: this.labelMapper('node-selector-label-value-header'),
+        sortable: 'disabled'
+      },
+      {
+        'className': 'wkt-table-delete-cell',
+        'headerClassName': 'wkt-table-add-header',
+        'headerTemplate': 'headerTemplate',
+        'template': 'actionTemplate',
+        'sortable': 'disable',
+        width: viewHelper.BUTTON_COLUMN_WIDTH
+      },
+    ];
+
+    this.nodeSelectorDP = new BufferingDataProvider(
+      new ArrayDataProvider(this.project.wko.nodeSelector.observable, { keyAttributes: 'uid' }));
+
+    this.handleAddNodeSelector = () => {
+      const labelNames = [];
+      this.project.wko.nodeSelector.observable().forEach(label => {
+        labelNames.push(label.name);
+      });
+
+      let nextIndex = 0;
+      while (labelNames.indexOf(`new-label-${nextIndex + 1}`) !== -1) {
+        nextIndex++;
+      }
+
+      this.project.wko.nodeSelector.addNewItem({
+        uid: utils.getShortUuid(),
+        name: `new-label-${nextIndex + 1}`,
+        value: ''
+      });
+    };
   }
 
   /*

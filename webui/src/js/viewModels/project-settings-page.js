@@ -236,6 +236,11 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
       return i18n.t('project-settings-build-tool-label', {toolName: name});
     };
 
+    this.getBuilderExecutableFilePathTooltip = () => {
+      let name = this.getDockerLabelForBuilderType(this.project.settings.builderType.value) || '<Unknown>';
+      return i18n.t('project-settings-build-tool-tooltip', {toolName: name});
+    };
+
     this.chooseBuilder = () => {
       const label = this.getDockerLabelForBuilderType(this.project.settings.builderType.value);
       window.api.ipc.invoke('get-image-builder-exe', label).then(exePath => {

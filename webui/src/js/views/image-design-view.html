@@ -154,6 +154,7 @@
                                    help.instruction="[[labelMapper('jdk-installer-help')]]">
                       <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[chooseJDK]]">
                         <span slot="endIcon" class="oj-ux-ico-file-text" role="img"></span>
+                        <oj-bind-text value="[[labelMapper('jdk-installer-tooltip')]]"></oj-bind-text>
                       </oj-button>
                     </oj-input-text>
                     <oj-input-text label-hint="[[labelMapper('jdk-installer-version-label')]]"
@@ -180,6 +181,7 @@
                                    help.instruction="[[labelMapper('fmw-installer-help')]]">
                       <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[chooseFMW]]">
                         <span slot="endIcon" class="oj-ux-ico-file-text" role="img"></span>
+                        <oj-bind-text value="[[labelMapper('fmw-installer-tooltip')]]"></oj-bind-text>
                       </oj-button>
                     </oj-input-text>
                     <oj-input-text label-hint="[[labelMapper('fmw-installer-version-label')]]"
@@ -255,6 +257,7 @@
                                    help.instruction="[[labelMapper('wdt-installer-help')]]">
                       <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[chooseWDT]]">
                         <span slot="endIcon" class="oj-ux-ico-file-text" role="img"></span>
+                        <oj-bind-text value="[[labelMapper('wdt-installer-tooltip')]]"></oj-bind-text>
                       </oj-button>
                     </oj-input-text>
                     <oj-input-text label-hint="[[labelMapper('wdt-installer-version-label')]]"
@@ -340,6 +343,7 @@
                       <oj-button slot="end" display="icons" chroming="borderless"
                                  on-oj-action="[[chooseAdditionalBuildCommandsFile]]">
                         <span slot="endIcon" class="oj-ux-ico-file-text" role="img"></span>
+                        <oj-bind-text value="[[labelMapper('additional-build-commands-file-tooltip')]]"></oj-bind-text>
                       </oj-button>
                     </oj-input-text>
                   </oj-bind-if>
@@ -350,6 +354,7 @@
                       <oj-button slot="end" display="icons" chroming="borderless"
                                  on-oj-action="[[chooseAdditionalBuildFiles]]">
                         <span slot="endIcon" class="oj-ux-ico-file-text" role="img"></span>
+                        <oj-bind-text value="[[labelMapper('additional-build-files-tooltip')]]"></oj-bind-text>
                       </oj-button>
                     </oj-input-text>
                   </oj-bind-if>
@@ -499,6 +504,7 @@
                            help.instruction="[[labelMapper('wdt-installer-help')]]">
               <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[chooseWDT]]">
                 <span slot="endIcon" class="oj-ux-ico-file-text" role="img"></span>
+                <oj-bind-text value="[[labelMapper('wdt-installer-tooltip')]]"></oj-bind-text>
               </oj-button>
             </oj-input-text>
             <oj-input-text label-hint="[[labelMapper('wdt-installer-version-label')]]"
@@ -565,6 +571,7 @@
                   <oj-button slot="end" display="icons" chroming="borderless"
                              on-oj-action="[[chooseAuxAdditionalBuildCommandsFile]]">
                     <span slot="endIcon" class="oj-ux-ico-file-text" role="img"></span>
+                    <oj-bind-text value="[[labelMapper('additional-build-commands-file-tooltip')]]"></oj-bind-text>
                   </oj-button>
                 </oj-input-text>
               </oj-bind-if>
@@ -575,6 +582,7 @@
                   <oj-button slot="end" display="icons" chroming="borderless"
                              on-oj-action="[[chooseAuxAdditionalBuildFiles]]">
                     <span slot="endIcon" class="oj-ux-ico-file-text" role="img"></span>
+                    <oj-bind-text value="[[labelMapper('additional-build-files-tooltip')]]"></oj-bind-text>
                   </oj-button>
                 </oj-input-text>
               </oj-bind-if>

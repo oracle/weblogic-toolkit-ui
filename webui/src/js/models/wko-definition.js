@@ -64,6 +64,10 @@ define(['utils/observable-properties', 'utils/validation-helper'],
         this.javaLoggingFileSizeLimit = props.createProperty(20000000);
         this.javaLoggingFileCount = props.createProperty(10);
 
+        // Jet tables do not work if you allow changing the value used as the primary key so always add a uid...
+        //
+        this.nodeSelector = props.createListProperty(['uid', 'name', 'value']);
+
         // internal fields that should not be read or written to the project file.
         this.internal = {
           operatorImagePullRegistryAddress: props.createProperty()
