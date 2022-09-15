@@ -9,9 +9,10 @@ define(['accUtils', 'utils/i18n'], function(accUtils, i18n) {
   function PageViewModel(args) {
     this.i18n = i18n;
     this.pageNumber = args['pageNumber'];
+    this.wrcFrontendCompatibilityVersion = args['wrcFrontendCompatibilityVersion'];
 
     this.connected = () => {
-      accUtils.announce('Quickstart Page 1 loaded.', 'assertive');
+      accUtils.announce(`Quickstart Page ${this.pageNumber} loaded.`, 'assertive');
     };
 
     this.labelMapper = (labelId, payload) => {

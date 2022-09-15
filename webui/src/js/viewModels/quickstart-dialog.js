@@ -11,12 +11,13 @@ define(['accUtils', 'knockout', 'utils/i18n', 'ojs/ojcontext', 'ojs/ojmodule-ele
 function(accUtils, ko, i18n, Context, moduleElementUtils, wktLogger) {
   function QuickStartDialogModel() {
 
-    const QUICKSTART_PAGE_COUNT = 9;
+    const QUICKSTART_PAGE_COUNT = 11;
     const DIALOG_NAME = 'wktQuickStartDialog';
     const DIALOG_SELECTOR = `#${DIALOG_NAME}`;
     this.i18n = i18n;
     this.quickstartPagingModel = ko.observable(null);
     this.stopShowingQuickstart = ko.observableArray();
+    this.wrcFrontendCompatibilityVersion = window.api.utils.wrcFrontendCompatibilityVersion;
 
     this.connected = () => {
       accUtils.announce('Discover dialog loaded.', 'assertive');
@@ -48,7 +49,7 @@ function(accUtils, ko, i18n, Context, moduleElementUtils, wktLogger) {
       this.quickstartPagesConfig.push(moduleElementUtils.createConfig({
         viewPath: `views/quickstart/page${pageNumber}-view.html`,
         viewModelPath: 'viewModels/quickstart/page',
-        params: { pageNumber: pageNumber }
+        params: { pageNumber: pageNumber, wrcFrontendCompatibilityVersion: this.wrcFrontendCompatibilityVersion }
       }));
     }
 

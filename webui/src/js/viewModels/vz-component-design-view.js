@@ -314,7 +314,6 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       const existingClusterNames = this.project.k8sDomain.clusters.observable()
         .filter(item => item.name !== cluster.name).map(item => { return item.name; });
 
-      console.log(`existingClusterNames = ${existingClusterNames}`);
       const options = { cluster: cluster, existingNames: existingClusterNames, isDomainInPV: this.isDomainInPV() };
 
       dialogHelper.promptDialog('cluster-edit-dialog', options).then(result => {

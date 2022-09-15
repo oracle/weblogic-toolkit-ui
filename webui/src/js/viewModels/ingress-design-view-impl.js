@@ -221,7 +221,6 @@ function(i18n, accUtils, ko, ArrayDataProvider, BufferingDataProvider, project, 
         await k8sHelper.getServicesDetailsForNamespace(kubectlExe, kubectlOptions, namespace, errTitle, errPrefix);
       if (results) {
         const servicesList = {};
-        console.log('results.items is a ' + typeof(results.items));
         for (const item of results.items) {
           servicesList[item.metadata.name] = { ports: item.spec.ports };
         }

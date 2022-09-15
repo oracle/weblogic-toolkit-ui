@@ -16,6 +16,7 @@ function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, ViewMod
     this.dataProvider = {};
     this.disableStartButton = ko.observable(false);
     this.wrcBackendTriggerChange = false;
+    this.wrcFrontendCompatibilityVersion = window.api.utils.wrcFrontendCompatibilityVersion;
 
     this.connected = () => {
       accUtils.announce('Model design view loaded.', 'assertive');
@@ -239,7 +240,8 @@ function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, ViewMod
       this.project.wdtModel.internal.wlRemoteConsolePort(undefined);
     };
 
-    const wrcInitialText = this.labelMapper('wrc-install-description');
+    const wrcInitialText = this.labelMapper('wrc-install-description',
+      { wrcVersion: this.wrcFrontendCompatibilityVersion });
     const wrcInstallLocation = '<a href=' +
       urlCatalog.getUrl('model', 'weblogicRemoteConsoleLatestRelease') + '>' +
       this.labelMapper('wrc-link-text') + '</a>';
