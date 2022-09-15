@@ -239,12 +239,15 @@ surfaced here because the `Clusters` pane of the `Design View` is populated only
 
 ### Deploy Component
 `Deploy Component` creates the domain custom object and any of its dependent objects (for example,
-namespace, secrets, ConfigMap) in Kubernetes.  You access this action by using the `Deploy Component` button on the
-`Component` page or the `Go` > `Deploy Verrazzano Component` menu item.  
+namespace, secrets, ConfigMap) in Kubernetes.  You access this action by using the `Deploy Component` button
+or the `Go` > `Deploy Verrazzano Component` menu item.  
 
 
 ### Undeploy Component
 `Undeploy Component` removes the domain custom object for the WebLogic domain and its
-dependent objects in Kubernetes. In addition, you can choose whether to also delete the corresponding namespace.
-You access these actions by using the `Undeploy Component` button on the
-`Component` page or the `Go` > `Undeploy Verrazzano Component` menu item.
+dependent objects in Kubernetes. Undeploying the Verrazzano component will make any Verrazzano applications
+referencing these components invalid. In addition, you can choose whether to also delete the corresponding namespace. 
+Removing the Verrazzano components' namespace removes all applications, components, secrets, ConfigMaps, and other
+Kubernetes objects that exist in the Kubernetes namespace.
+You access these actions by using the `Undeploy Component` button
+or the `Go` > `Undeploy Verrazzano Component` menu item.

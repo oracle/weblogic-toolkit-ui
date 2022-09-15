@@ -27,6 +27,10 @@ The UI sections are:
   - [WebLogic Domain]({{< relref "/navigate/kubernetes/k8s-weblogic-domain.md" >}})
   - [Ingress Controller]({{< relref "/navigate/kubernetes/k8s-ingress-controller.md" >}})
 - [Verrazzano]({{< relref "/navigate/verrazzano/_index.md" >}})
+  - [Client Configuration]({{< relref "/navigate/verrazzano/vz-client-config.md" >}})
+  - [Installation]({{< relref "/navigate/verrazzano/vz-install.md" >}})
+  - [Component]({{< relref "/navigate/verrazzano/vz-component.md" >}})
+  - [Application]({{< relref "/navigate/verrazzano/vz-application.md" >}})  
 
 
 At the bottom of the page, the collapsed `Console` panel automatically appears and displays the `stdout` and `stderr`

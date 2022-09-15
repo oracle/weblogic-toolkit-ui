@@ -1,5 +1,5 @@
 ---
-title: "Install Verrazzano"
+title: "Installation"
 date: 2019-02-22T15:44:42-05:00
 draft: false
 weight: 2
@@ -27,13 +27,13 @@ provide values for the following fields:
 
 - `Install Name` - The name to give the Verrazzano object during installation.
 - `Install Profile` - The Verrazzano installation profile; the choices are: `Dev` (default) and `Production`.
-- `Release Version` - Required. Select a Verrazzano release version.
+- `Release Version` - Required. Select the desired Verrazzano release version.
 - `Install Jaeger` - Optional. Select whether to install the Jaeger transaction tracing component. If selected, then provide
    the percentage of Istio requests to be traced in Jaeger in the `Istio Tracing Sampling Rate` field.
 
 
 ### Code View
-The `Install Script` displays a shell script that you can use as a starting point for automating the
+`Install Script` displays a shell script that you can use as a starting point for automating the
 installation of Verrazzano into Kubernetes.   
 
 If it is not already selected, then use the `Script Language` drop-down menu to choose the desired scripting language.  Note
@@ -44,7 +44,7 @@ set environment variables to specify any credentials required by the script to e
 the script itself.  This change is left as an exercise for you because different environments typically will have
 existing standards for securely handling such credentials.
 
-The `Verrazzano Resource` displays the Verrazzano resource definition that you've specified.
+`Verrazzano Resource` displays the Verrazzano resource definition that you've specified.
 
 ### Install Verrazzano
 `Install Verrazzano` installs Verrazzano in the target Kubernetes cluster.
