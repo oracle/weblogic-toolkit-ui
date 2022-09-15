@@ -35,8 +35,7 @@ const openSSLUtils = require('./js/openSSLUtils');
 const osUtils = require('./js/osUtils');
 const { initializeAutoUpdater, registerAutoUpdateListeners, installUpdates, getUpdateInformation } = require('./js/appUpdater');
 const { startWebLogicRemoteConsoleBackend, getDefaultDirectoryForOpenDialog, setWebLogicRemoteConsoleHomeAndStart,
-  getDefaultWebLogicRemoteConsoleHome, getWebLogicRemoteConsoleBackendPort
-} = require('./js/wlRemoteConsoleUtils');
+  getDefaultWebLogicRemoteConsoleHome, getWebLogicRemoteConsoleBackendPort } = require('./js/wlRemoteConsoleUtils');
 const { getVerrazzanoReleaseVersions, isVerrazzanoInstalled, installVerrazzanoPlatformOperator,
   verifyVerrazzanoPlatformOperatorInstall, installVerrazzano, verifyVerrazzanoInstallStatus } = require('./js/vzInstaller');
 const { deployApplication, deployComponents, deployProject, getComponentNamesByNamespace, getSecretNamesByNamespace,

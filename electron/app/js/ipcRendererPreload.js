@@ -12,13 +12,15 @@ const fsUtils = require('./fsUtils');
 const WktApp = require('./wktApp');
 const osUtils = require('./osUtils');
 const i18n = require('./i18next.webui.config');
-const { compareVersions } = require('./versionUtils');
+const { compareVersions, getMinorVersionCompatibilityVersionString } = require('./versionUtils');
+const { wlRemoteConsoleFrontendVersion } = require('../webui.json');
 
 const wktApp = new WktApp();
 
 const exeMode = osUtils.getArgv('--wktMode');
 const language = osUtils.getArgv('--lang');
 const mainModule = osUtils.getArgv('--mainModule');
+const wrcFrontendCompatibilityVersion = getMinorVersionCompatibilityVersionString(wlRemoteConsoleFrontendVersion);
 
 i18n.changeLanguage(language).then();
 
@@ -279,7 +281,8 @@ contextBridge.exposeInMainWorld(
     'utils': {
       generateUuid: () => uuid.v4(),
       compareVersions: (version, otherVersion) => compareVersions(version, otherVersion),
-      mainModule: mainModule
+      mainModule: mainModule,
+      wrcFrontendCompatibilityVersion: wrcFrontendCompatibilityVersion,
     }
   }
 );

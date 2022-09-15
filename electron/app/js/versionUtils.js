@@ -49,6 +49,19 @@ function compareVersions(version, minimumVersion) {
   return result;
 }
 
+function getMinorVersionCompatibilityVersionString(version) {
+  let result = version;
+  if (version) {
+    const components = result.split('.', 3);
+    if (components[2]) {
+      components[2] = 'x';
+    }
+    result = components.join('.');
+  }
+  return result;
+}
+
 module.exports = {
   compareVersions,
+  getMinorVersionCompatibilityVersionString,
 };
