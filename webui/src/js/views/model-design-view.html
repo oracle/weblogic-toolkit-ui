@@ -22,10 +22,12 @@
                        help.instruction="[[getWebLogicRemoteConsoleHomeHelpText()]]">
           <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[chooseWebLogicRemoteConsoleHomeDirectory]]">
             <span slot="endIcon" class="oj-ux-ico-folder" role="img"></span>
+            <oj-bind-text value="[[i18n.t('user-settings-dialog-wrc-home-tooltip')]]"></oj-bind-text>
           </oj-button>
           <oj-bind-if test="[[isLinux() === true]]">
             <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[chooseWebLogicRemoteConsoleAppImage]]">
               <span slot="endIcon" class="oj-ux-ico-file-bin" role="img"></span>
+              <oj-bind-text value="[[i18n.t('user-settings-dialog-wrc-appimage-tooltip')]]"></oj-bind-text>
             </oj-button>
           </oj-bind-if>
         </oj-input-text>

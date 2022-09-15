@@ -35,13 +35,13 @@
               <td>
                 <oj-button display="icons" chroming="borderless" on-oj-action="[[chooseExtraPathDirectory]]">
                   <span slot="endIcon" class="oj-ux-ico-folder"></span>
-                  <oj-bind-text value="[[labelMapper('choose-path-icon-text')]]"></oj-bind-text>
+                  <oj-bind-text value="[[labelMapper('choose-path-tooltip')]]"></oj-bind-text>
                 </oj-button>
               </td>
               <td>
                 <oj-button display="icons" chroming="borderless" on-oj-action="[[row.data.remove]]">
                   <span slot="endIcon" class="oj-ux-ico-trash"></span>
-                  <oj-bind-text value="[[labelMapper('delete-path-row-icon-text')]]"></oj-bind-text>
+                  <oj-bind-text value="[[labelMapper('delete-path-row-tooltip')]]"></oj-bind-text>
                 </oj-button>
               </td>
             </tr>
@@ -49,13 +49,13 @@
           <template slot="chooseHeaderTemplate" data-oj-as="header">
             <oj-button display="icons" chroming="borderless" disabled="true">
               <span slot="endIcon"></span>
-              <oj-bind-text value="[[labelMapper('choose-path-icon-text')]]"></oj-bind-text>
+              <oj-bind-text value="[[labelMapper('choose-path-tooltip')]]"></oj-bind-text>
             </oj-button>
           </template>
           <template slot="headerTemplate" data-oj-as="header">
             <oj-button display="icons" chroming="borderless" on-oj-action="[[handleExtraPathDirectoryAddRow]]">
               <span slot="endIcon" class="oj-ux-ico-plus"></span>
-              <oj-bind-text value="[[labelMapper('add-path-row-icon-text')]]"></oj-bind-text>
+              <oj-bind-text value="[[labelMapper('add-path-row-tooltip')]]"></oj-bind-text>
             </oj-button>
           </template>
         </oj-table>
@@ -100,7 +100,7 @@
               <td>
                 <oj-button display="icons" chroming="borderless" on-oj-action="[[row.data.remove]]">
                   <span slot="endIcon" class="oj-ux-ico-trash"></span>
-                  <oj-bind-text value="[[labelMapper('delete-env-var-row-icon-text')]]"></oj-bind-text>
+                  <oj-bind-text value="[[labelMapper('delete-env-var-row-tooltip')]]"></oj-bind-text>
                 </oj-button>
               </td>
             </tr>
@@ -108,7 +108,7 @@
           <template slot="headerTemplate" data-oj-as="header">
             <oj-button display="icons" chroming="borderless" on-oj-action="[[handleExtraEnvironmentVariableAddRow]]">
               <span slot="endIcon" class="oj-ux-ico-plus"></span>
-              <oj-bind-text value="[[labelMapper('add-env-var-row-icon-text')]]"></oj-bind-text>
+              <oj-bind-text value="[[labelMapper('add-env-var-row-tooltip')]]"></oj-bind-text>
             </oj-button>
           </template>
         </oj-table>
@@ -176,6 +176,7 @@
                      help.instruction="[[labelMapper('java-home-help')]]">
         <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[chooseJavaHome]]">
           <span slot="endIcon" class="oj-ux-ico-folder" role="img"></span>
+          <oj-bind-text value="[[labelMapper('java-home-tooltip')]]"></oj-bind-text>
         </oj-button>
       </oj-input-text>
     </oj-form-layout>
@@ -191,6 +192,7 @@
                        help.instruction="[[labelMapper('oracle-home-help')]]">
           <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[chooseOracleHome]]">
             <span slot="endIcon" class="oj-ux-ico-folder" role="img"></span>
+            <oj-bind-text value="[[labelMapper('oracle-home-tooltip')]]"></oj-bind-text>
           </oj-button>
         </oj-input-text>
       </oj-form-layout>
@@ -211,6 +213,7 @@
                      help.instruction="[[labelMapper('build-tool-help')]]">
         <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[chooseBuilder]]">
           <span slot="endIcon" class="oj-ux-ico-file-text" role="img"></span>
+          <oj-bind-text value="[[getBuilderExecutableFilePathTooltip()]]"></oj-bind-text>
         </oj-button>
       </oj-input-text>
     </oj-form-layout>

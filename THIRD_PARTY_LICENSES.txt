@@ -63,7 +63,7 @@ Copyright (c) 2013 Brian J. Brennan
 buffer-from@1.1.2
 Copyright (c) 2016, 2018 Linus Unnebäck
 
-builder-util-runtime@9.0.2
+builder-util-runtime@9.0.3
 Copyright (c) 2015 Loopline Systems
 
 color@3.2.1
@@ -100,7 +100,7 @@ Copyright (c) 2015 TJ Holowaychuk <tj@vision-media.ca>
 duplexify@3.7.1
 Copyright (c) 2014 Mathias Buus
 
-electron-updater@5.0.5
+electron-updater@5.2.1
 Copyright (c) 2015 Loopline Systems
 
 emoji-regex@8.0.0
@@ -146,10 +146,10 @@ Copyright (C) 2011-2014 by Jorik Tangelder (Eight Media)
 https-proxy-agent@5.0.1
 Copyright (c) 2013 Nathan Rajlich <nathan@tootallnate.net>
 
-i18next@21.8.14
+i18next@21.9.1
 Copyright (c) 2022 i18next
 
-i18next-fs-backend@1.1.4
+i18next-fs-backend@1.1.5
 Copyright (c) 2021 i18next
 
 immediate@3.0.6
@@ -259,7 +259,7 @@ Copyright (c) 2014 Mathias Buus
 pend@1.2.0
 Copyright (c) 2014 Andrew Kelley
 
-preact@10.6.4
+preact@10.7.2
 Copyright (c) 2015-present Jason Miller
 
 prebuild-install@7.0.1
@@ -268,7 +268,7 @@ Copyright (c) 2015 Mathias Buus
 process-nextick-args@2.0.1
 Copyright (c) 2015 Calvin Metcalf
 
-proj4@2.7.5
+proj4@2.8.0
 Copyright (c) 2014, Mike Adair, Richard Greenwood, Didier Richard, Stephen Irons, Olivier Terral and Calvin Metcalf
 
 pump@3.0.0
@@ -514,7 +514,7 @@ PYTHON SOFTWARE FOUNDATION LICENSE VERSION 2
    Licensee a nonexclusive, royalty-free, world-wide license to reproduce, analyze,
    test, perform and/or display publicly, prepare derivative works, distribute, and
    otherwise use Python alone or in any derivative version, provided, however, that
-   PSF's License Agreement and PSF's notice of copyright, i.e., "Copyright (c) 
+   PSF's License Agreement and PSF's notice of copyright, i.e., "Copyright (c)
    2001, 2002, 2003, 2004, 2005, 2006 Python Software Foundation; All Rights Reserved"
    are retained in Python alone or in any derivative version prepared by Licensee.
 
@@ -942,7 +942,7 @@ redistribute it freely, subject to the following restrictions:
 
 The following packages are licensed under (MIT OR GPL-3.0-or-later):
 
-jszip@3.10.0
+jszip@3.10.1
 Copyright (c) 2009-2016 Stuart Knightley, David Duponchel, Franz Buchinger, António Afonso
 
 
@@ -2068,10 +2068,10 @@ POSSIBILITY OF SUCH DAMAGE.
 
 The following packages are licensed under The Universal Permissive License (UPL), Version 1.0:
 
-@oracle/oraclejet@12.1.4
+@oracle/oraclejet@13.0.2
 Copyright (c) 2022 Oracle and/or its affiliates.
 
-@oracle/wrc-jet-pack@2.3.0
+@oracle/wrc-jet-pack@2.4.0
 Copyright (c) 2022 Oracle and/or its affiliates.
 
 
@@ -2305,6 +2305,10 @@ Copyright (c) 2019 TypeScript ESLint and other contributors
 @typescript-eslint/visitor-keys@4.9.1
 Copyright (c) 2019 TypeScript ESLint and other contributors
 
+@xmldom/xmldom@0.8.1
+Copyright 2019 - present Christopher J. Brody and other contributors, as listed in: https://github.com/xmldom/xmldom/graphs/contributors
+Copyright 2012 - 2017 @jindw <jindw@xidea.org> and other contributors, as listed in: https://github.com/jindw/xmldom/graphs/contributors
+
 7zip-bin@5.1.1
 Copyright (c) 2016 Vladimir Krivosheev
 
@@ -2312,7 +2316,7 @@ accepts@1.3.8
 Copyright (c) 2014 Jonathan Ong <me@jongleberry.com>
 Copyright (c) 2015 Douglas Christopher Wilson <doug@somethingdoug.com>
 
-acorn@8.7.1
+acorn@8.8.0
 Copyright (C) 2012-2022 by various contributors (see AUTHORS)
 
 acorn@7.4.1
@@ -2339,14 +2343,17 @@ Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
 ajv@6.12.6
 Copyright (c) 2015-2017 Evgeny Poberezkin
 
+ajv-formats@2.1.1
+Copyright (c) 2020 Evgeny Poberezkin
+
 ajv-keywords@3.5.2
 Copyright (c) 2016 Evgeny Poberezkin
 
 ansi-colors@4.1.1
 Copyright (c) 2015-present, Brian Woodward.
 
-ansi-escapes@3.2.0
-Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
+ansi-escapes@4.3.2
+Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (https://sindresorhus.com)
 
 ansi-regex@5.0.1
 Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
@@ -2357,7 +2364,7 @@ Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
 app-builder-bin@4.0.0
 Copyright (c) 2015 Loopline Systems
 
-app-builder-lib@23.3.1
+app-builder-lib@23.3.3
 Copyright (c) 2015 Loopline Systems
 
 append-transform@2.0.0
@@ -2381,7 +2388,7 @@ Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
 asap@2.0.6
 Copyright 2009–2014 Contributors. All rights reserved.
 
-asar@3.1.0
+asar@3.2.0
 Copyright (c) 2014 GitHub Inc.
 
 assertion-error@1.1.0
@@ -2448,10 +2455,10 @@ No Copyright
 buffer-from@1.1.2
 Copyright (c) 2016, 2018 Linus Unnebäck
 
-builder-util@23.3.0
+builder-util@23.3.3
 Copyright (c) 2015 Loopline Systems
 
-builder-util-runtime@9.0.2
+builder-util-runtime@9.0.3
 Copyright (c) 2015 Loopline Systems
 
 bytes@3.1.1
@@ -2500,8 +2507,14 @@ Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
 cli-boxes@2.2.1
 Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (https://sindresorhus.com)
 
-cli-cursor@2.1.0
+cli-cursor@3.1.0
 Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
+
+cli-spinners@2.7.0
+Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (https://sindresorhus.com)
+
+clone@1.0.4
+Copyright © 2011-2015 Paul Vorbach <paul@vorba.ch>
 
 clone-response@1.0.2
 Copyright (c) 2017 Luke Childs
@@ -2623,6 +2636,9 @@ Copyright (c) 2009 Thomas Robinson <280north.com>
 default-require-extensions@3.0.0
 Copyright (c) Node.js contributors, James Talmage <james@talmage.io> (github.com/jamestalmage)
 
+defaults@1.0.3
+Copyright (c) 2015 Elijah Insua
+
 defer-to-connect@1.1.3
 Copyright (c) 2018 Szymon Marczak
 
@@ -2641,7 +2657,7 @@ Copyright 2014 Liviu Grigorescu (grigoresculiviu@gmail.com)
 dir-glob@3.0.1
 Copyright (c) Kevin Mårtensson <kevinmartensson@gmail.com> (github.com/kevva)
 
-dmg-builder@23.3.1
+dmg-builder@23.3.3
 Copyright (c) 2015 Loopline Systems
 
 dom-serializer@0.2.2
@@ -2656,17 +2672,17 @@ Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
 ee-first@1.1.1
 Copyright (c) 2014 Jonathan Ong me@jongleberry.com
 
-electron@19.0.8
+electron@20.0.3
 Copyright (c) Electron contributors
 Copyright (c) 2013-2020 GitHub Inc.
 
-electron-builder@23.3.1
+electron-builder@23.3.3
 Copyright (c) 2015 Loopline Systems
 
 electron-notarize@1.2.1
 Copyright 2018 Samuel Attard and contributors
 
-electron-publish@23.3.0
+electron-publish@23.3.3
 Copyright (c) 2015 Loopline Systems
 
 emoji-regex@8.0.0
@@ -2701,7 +2717,7 @@ Copyright (c) 2015 Tiancheng "Timothy" Gu
 escape-string-regexp@4.0.0
 Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (https://sindresorhus.com)
 
-eslint@8.19.0
+eslint@8.22.0
 Copyright OpenJS Foundation and other contributors, <www.openjsf.org>
 
 eslint-plugin-requirejs@4.0.1
@@ -2740,8 +2756,8 @@ Copyright 2010-2021 James Coglan
 fd-slicer@1.1.0
 Copyright (c) 2014 Andrew Kelley
 
-figures@2.0.0
-Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
+figures@3.2.0
+Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (https://sindresorhus.com)
 
 file-entry-cache@6.0.1
 Copyright (c) 2015 Roy Riojas
@@ -2825,6 +2841,9 @@ Copyright (c) 2018 "Cowboy" Ben Alman
 got@9.6.0
 Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
 
+grapheme-splitter@1.0.4
+Copyright (c) 2015 Orlin Georgiev
+
 has@1.0.3
 Copyright (c) 2013 Thiago de Arruda
 
@@ -2889,7 +2908,7 @@ Copyright (c) 2013 Gary Court, Jens Taylor
 indent-string@4.0.0
 Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
 
-inquirer@6.2.2
+inquirer@8.2.4
 Copyright (c) 2012 Simon Boudrias
 
 ipaddr.js@1.9.1
@@ -2913,14 +2932,14 @@ Copyright (c) 2014-2016, Jon Schlinkert
 is-fullwidth-code-point@3.0.0
 Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
 
-is-fullwidth-code-point@2.0.0
-Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
-
 is-glob@4.0.3
 Copyright (c) 2014-2017, Jon Schlinkert.
 
 is-installed-globally@0.4.0
 Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (https://sindresorhus.com)
+
+is-interactive@1.0.0
+Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
 
 is-npm@5.0.0
 Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (https://sindresorhus.com)
@@ -3083,7 +3102,7 @@ methods@1.1.2
 Copyright (c) 2013-2014 TJ Holowaychuk <tj@vision-media.ca>
 Copyright (c) 2015-2016 Douglas Christopher Wilson <doug@somethingdoug.com>
 
-micromatch@4.0.4
+micromatch@4.0.5
 Copyright (c) 2014-present, Jon Schlinkert.
 
 mime@2.6.0
@@ -3107,7 +3126,7 @@ mime-types@2.1.34
 Copyright (c) 2014 Jonathan Ong <me@jongleberry.com>
 Copyright (c) 2015 Douglas Christopher Wilson <doug@somethingdoug.com>
 
-mimic-fn@1.2.0
+mimic-fn@2.1.0
 Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
 
 mimic-response@1.0.1
@@ -3180,14 +3199,17 @@ on-finished@2.3.0
 Copyright (c) 2013 Jonathan Ong <me@jongleberry.com>
 Copyright (c) 2014 Douglas Christopher Wilson <doug@somethingdoug.com>
 
-onetime@2.0.1
-Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
+onetime@5.1.2
+Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (https://sindresorhus.com)
 
 open@6.4.0
 Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
 
 optionator@0.9.1
 Copyright (c) George Zahariev
+
+ora@5.4.1
+Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (https://sindresorhus.com)
 
 os-tmpdir@1.0.2
 Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
@@ -3339,7 +3361,7 @@ Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
 responselike@1.0.2
 Copyright (c) 2017 Luke Childs
 
-restore-cursor@2.0.0
+restore-cursor@3.1.0
 Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
 
 reusify@1.0.4
@@ -3411,9 +3433,6 @@ string-template@0.2.1
 Copyright (c) 2013 Matt Esch.
 
 string-width@4.2.3
-Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
-
-string-width@2.1.1
 Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
 
 strip-ansi@6.0.1
@@ -3552,6 +3571,9 @@ Copyright (c) 2017 Tiancheng "Timothy" Gu and other contributors
 w3c-xmlserializer@3.0.0
 Copyright (c) Sebastian Mayr
 
+wcwidth@1.0.1
+Copyright (C) 2012 by Jun Woong.
+
 whatwg-encoding@2.0.0
 Copyright © Domenic Denicola <d@domenic.me>
 
@@ -3581,10 +3603,6 @@ Copyright (c) 2013 Ozgur Ozcitak
 
 xmlchars@2.2.0
 Copyright Louis-Dominique Dubeau and contributors to xmlchars
-
-xmldom@0.5.0
-Copyright 2019 - present Christopher J. Brody and other contributors, as listed in: https://github.com/xmldom/xmldom/graphs/contributors
-Copyright 2012 - 2017 @jindw <jindw@xidea.org> and other contributors, as listed in: https://github.com/jindw/xmldom/graphs/contributors
 
 yargs@17.3.1
 Copyright 2010 James Halliday (mail@substack.net); Modified work Copyright 2014 Contributors (ben@npmjs.com)
@@ -3682,7 +3700,7 @@ Copyright 2018 kumavis
 chownr@2.0.0
 Copyright (c) Isaac Z. Schlueter and Contributors
 
-cli-width@2.2.1
+cli-width@3.0.0
 Copyright (c) 2015, Ilya Radchenko <ilya@burstcreations.com>
 
 cliui@7.0.4
@@ -3751,7 +3769,7 @@ Copyright (c) Isaac Z. Schlueter and Contributors
 minipass@3.1.6
 Copyright (c) npm, Inc. and Contributors
 
-mute-stream@0.0.7
+mute-stream@0.0.8
 Copyright (c) Isaac Z. Schlueter and Contributors
 
 nyc@15.1.0
@@ -3878,7 +3896,7 @@ eslint-scope@7.1.1
 Copyright JS Foundation and other contributors, https://js.foundation
 Copyright (C) 2012-2013 Yusuke Suzuki (twitter: @Constellation) and other contributors.
 
-espree@9.3.2
+espree@9.3.3
 Copyright (c) Open JS Foundation
 
 espree@7.3.1
@@ -4048,8 +4066,11 @@ The following packages are licensed under Apache License, Version 2.0:
 @ampproject/remapping@2.1.2
 Copyright 2019 Google LLC
 
-@humanwhocodes/config-array@0.9.3
+@humanwhocodes/config-array@0.10.4
 No Copyright
+
+@humanwhocodes/gitignore-to-minimatch@1.0.2
+***** No Copyright Found *****
 
 @malept/cross-spawn-promise@1.1.1
 No Copyright
@@ -4087,7 +4108,7 @@ Copyright (C) 2016-present   SheetJS LLC
 readdir-glob@1.1.1
 Copyright 2020 Yann Armelin
 
-rxjs@6.6.7
+rxjs@7.5.6
 Copyright (c) 2015-2018 Google, Inc., Netflix, Inc., Microsoft Corp. and contributors
 
 sumchecker@3.0.1
@@ -4297,7 +4318,7 @@ PYTHON SOFTWARE FOUNDATION LICENSE VERSION 2
    Licensee a nonexclusive, royalty-free, world-wide license to reproduce, analyze,
    test, perform and/or display publicly, prepare derivative works, distribute, and
    otherwise use Python alone or in any derivative version, provided, however, that
-   PSF's License Agreement and PSF's notice of copyright, i.e., "Copyright (c) 
+   PSF's License Agreement and PSF's notice of copyright, i.e., "Copyright (c)
    2001, 2002, 2003, 2004, 2005, 2006 Python Software Foundation; All Rights Reserved"
    are retained in Python alone or in any derivative version prepared by Licensee.
 
@@ -5254,13 +5275,13 @@ Creative Commons may be contacted at creativecommons.org.
 
 The following packages are licensed under The Universal Permissive License (UPL), Version 1.0:
 
-@oracle/ojet-cli@12.1.0
+@oracle/ojet-cli@13.0.0
 Copyright (c) 2022 Oracle and/or its affiliates.
 
-@oracle/oraclejet-audit@12.1.0
+@oracle/oraclejet-audit@13.0.1
 Copyright (c) 2019, 2022 Oracle and/or its affiliates
 
-@oracle/oraclejet-tooling@12.1.1
+@oracle/oraclejet-tooling@13.0.0
 Copyright (c) 2022 Oracle and/or its affiliates.
 
 
@@ -5614,6 +5635,48 @@ For more information, please see
 
 --------------------------------------------------------------------------------
 
+
+@oracle/oraclejet-templates@13.0.0
+
+# Oracle JET
+
+Copyright (c) 2022 Oracle and/or its affiliates.
+
+The Universal Permissive License (UPL), Version 1.0
+
+Subject to the condition set forth below, permission is hereby granted to any
+person obtaining a copy of this software, associated documentation and/or data
+(collectively the "Software"), free of charge and under any and all copyright
+rights in the Software, and any and all patent rights owned or freely
+licensable by each licensor hereunder covering either (i) the unmodified
+Software as contributed to or provided by such licensor, or (ii) the Larger
+Works (as defined below), to deal in both
+
+(a) the Software, and
+(b) any piece of software and/or hardware listed in the lrgrwrks.txt file if
+one is included with the Software (each a "Larger Work" to which the Software
+is contributed by such licensors),
+
+without restriction, including without limitation the rights to copy, create
+derivative works of, display, perform, and distribute the Software and make,
+use, sell, offer for sale, import, export, have made, and have sold the
+Software and the Larger Work(s), and to sublicense the foregoing rights on
+either these or other terms.
+
+This license is subject to the following condition:
+The above copyright notice and either this complete permission notice or at
+a minimum a reference to the UPL must be included in all copies or
+substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+--------------------------------------------------------------------------------
 
 parse-cache-control@1.0.1
 

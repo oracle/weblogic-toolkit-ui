@@ -29,10 +29,12 @@
                        help.instruction="[[getWebLogicRemoteConsoleHomeHelp()]]">
           <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[chooseWebLogicRemoteConsoleHomeDirectory]]">
             <span slot="endIcon" class="oj-ux-ico-folder" role="img"></span>
+            <oj-bind-text value="[[labelMapper('wrc-home-tooltip')]]"></oj-bind-text>
           </oj-button>
           <oj-bind-if test="[[isLinux() === true]]">
             <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[chooseWebLogicRemoteConsoleAppImage]]">
               <span slot="endIcon" class="oj-ux-ico-file-bin" role="img"></span>
+              <oj-bind-text value="[[labelMapper('wrc-appimage-tooltip')]]"></oj-bind-text>
             </oj-button>
           </oj-bind-if>
         </oj-input-text>
@@ -60,6 +62,7 @@
                        help.instruction="[[labelMapper('file-dir-help')]]">
           <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[chooseLogFileDir]]">
             <span slot="endIcon" class="oj-ux-ico-file-text" role="img"></span>
+            <oj-bind-text value="[[labelMapper('file-dir-tooltip')]]"></oj-bind-text>
           </oj-button>
         </oj-input-text>
       </oj-form-layout>

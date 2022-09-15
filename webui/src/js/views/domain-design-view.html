@@ -295,7 +295,7 @@
         <td>
           <oj-button display="icons" chroming="borderless" on-oj-action="[[handleEditCluster]]">
             <span slot="endIcon" class="oj-ux-ico-edit"></span>
-            <oj-bind-text value="[[labelMapper('edit-cluster-label')]]"></oj-bind-text>
+            <oj-bind-text value="[[labelMapper('edit-cluster-tooltip')]]"></oj-bind-text>
           </oj-button>
         </td>
         <td>
@@ -304,7 +304,7 @@
                      disabled="[[isDomainInPV() === false]]"
                      on-oj-action="[[handleDeleteCluster]]">
             <span slot="endIcon" class="oj-ux-ico-trash"></span>
-            <oj-bind-text value="[[labelMapper('delete-cluster-label')]]"></oj-bind-text>
+            <oj-bind-text value="[[labelMapper('delete-cluster-tooltip')]]"></oj-bind-text>
           </oj-button>
         </td>
       </tr>
@@ -320,7 +320,7 @@
                  disabled="[[isDomainInPV() === false]]"
                  on-oj-action="[[handleAddCluster]]">
         <span slot="endIcon" class="oj-ux-ico-plus"></span>
-        <oj-bind-text value="[[labelMapper('add-cluster-label')]]"></oj-bind-text>
+        <oj-bind-text value="[[labelMapper('add-cluster-tooltip')]]"></oj-bind-text>
       </oj-button>
     </template>
     <template slot="noData">
@@ -426,8 +426,8 @@
                            help.instruction="[[labelMapper('encryption-value-help')]]">
         </oj-input-password>
         <oj-button display="icons" chroming="borderless" on-oj-action="[[handleRegenerateEncryptionValue]]">
-          <oj-bind-text value="[[labelMapper('regenerate-encryption-value-label')]]"></oj-bind-text>
           <span slot='startIcon' class="oj-ux-ico-replay"></span>
+          <oj-bind-text value="[[labelMapper('regenerate-encryption-value-tooltip')]]"></oj-bind-text>
         </oj-button>
       </oj-form-layout>
     </div>
@@ -545,7 +545,7 @@
           <td>
             <oj-button display="icons" chroming="borderless" on-oj-action="[[row.data.remove]]">
               <span slot="endIcon" class="oj-ux-ico-trash"></span>
-              <oj-bind-text value="[[labelMapper('domain-node-selector-delete-row-icon-text')]]"></oj-bind-text>
+              <oj-bind-text value="[[labelMapper('domain-node-selector-delete-row-tooltip')]]"></oj-bind-text>
             </oj-button>
           </td>
         </tr>
@@ -553,7 +553,7 @@
       <template slot="headerTemplate" data-oj-as="header">
         <oj-button display="icons" chroming="borderless" on-oj-action="[[handleAddDomainNodeSelector]]">
           <span slot="endIcon" class="oj-ux-ico-plus"></span>
-          <oj-bind-text value="[[labelMapper('domain-node-selector-add-row-icon-text')]]"></oj-bind-text>
+          <oj-bind-text value="[[labelMapper('domain-node-selector-add-row-tooltip')]]"></oj-bind-text>
         </oj-button>
       </template>
     </oj-table>

@@ -432,7 +432,7 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
     ];
 
     this.domainNodeSelectorDP =
-      new ArrayDataProvider(this.project.k8sDomain.domainNodeSelector.observable, { keyAttributes: 'name' });
+      new BufferingDataProvider(new ArrayDataProvider(this.project.k8sDomain.domainNodeSelector.observable, { keyAttributes: 'name' }));
 
     this.handleAddDomainNodeSelector = () => {
       const labelNames = [];
@@ -445,7 +445,11 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
         nextIndex++;
       }
 
-      this.project.k8sDomain.domainNodeSelector.addNewItem({ name: `new-label-${nextIndex + 1}`, value: '' });
+      this.project.k8sDomain.domainNodeSelector.addNewItem({
+        uid: utils.getShortUuid(),
+        name: `new-label-${nextIndex + 1}`,
+        value: ''
+      });
     };
   }
 

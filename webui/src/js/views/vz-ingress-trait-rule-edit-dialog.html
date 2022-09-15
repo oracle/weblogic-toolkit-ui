@@ -50,7 +50,7 @@
               <td>
                 <oj-button display="icons" chroming="borderless" on-oj-action="[[handleDeletePath]]">
                   <span slot="endIcon" class="oj-ux-ico-trash"></span>
-                  <oj-bind-text value="{{labelMapper('path-delete-row')}}"></oj-bind-text>
+                  <oj-bind-text value="{{labelMapper('path-delete-row-tooltip')}}"></oj-bind-text>
                 </oj-button>
               </td>
             </tr>
@@ -58,7 +58,7 @@
           <template slot="headerTemplate" data-oj-as="header">
             <oj-button display="icons" chroming="borderless" on-oj-action="[[handleAddPath]]">
               <span slot="endIcon" class="oj-ux-ico-plus"></span>
-              <oj-bind-text value="{{labelMapper('path-add-row')}}"></oj-bind-text>
+              <oj-bind-text value="{{labelMapper('path-add-row-tooltip')}}"></oj-bind-text>
             </oj-button>
           </template>
         </oj-table>

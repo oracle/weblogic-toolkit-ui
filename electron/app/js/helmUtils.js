@@ -233,6 +233,8 @@ function processHelmChartValues(args, helmChartValues) {
     for (const [propertyName, propertyValue] of Object.entries(helmChartValues)) {
       if (propertyName === 'imagePullSecrets') {
         args.push(...formatArrayOfObjectsSetArgument(propertyName, propertyValue));
+      } else if (propertyName === 'nodeSelector') {
+        args.push(...formatNodeSelectorSetArgument(propertyValue));
       } else {
         args.push('--set', formatSetArgument(propertyName, propertyValue));
       }
@@ -266,6 +268,22 @@ function formatArrayOfObjectsSetArgument(name, objectArray) {
         result.push('--set', formatSetArgument(`${name}[${i}].${key}`, value, true));
       }
     }
+  }
+  return result;
+}
+
+function formatNodeSelectorSetArgument(nodeSelectorMap) {
+  const result = [];
+  for (const [key, value] of Object.entries(nodeSelectorMap)) {
+    result.push('--set', formatSetArgument(`nodeSelector.${_getQuotedInnerKey(key)}`, value, true));
+  }
+  return result;
+}
+
+function _getQuotedInnerKey(key) {
+  let result = key;
+  if (key.includes('.')) {
+    result = `${key.replaceAll('.', '\\.')}`;
   }
   return result;
 }

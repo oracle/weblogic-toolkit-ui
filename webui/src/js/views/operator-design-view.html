@@ -216,4 +216,51 @@
       </oj-input-number>
     </oj-form-layout>
   </div>
+
+  <div class="oj-panel">
+    <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('node-selector-title')]]"></oj-bind-text></h6>
+    <oj-table id="node-selector-table"
+              class="wkt-domain-node-selectors-table"
+              :aria-label="[[labelMapper('node-selector-table-aria-label')]]"
+              data="[[nodeSelectorDP]]"
+              display="grid"
+              layout="fixed"
+              horizontal-grid-visible="enabled"
+              vertical-grid-visible="enabled"
+              edit-mode="rowEdit"
+              columns='[[nodeSelectorColumnMetadata]]'>
+      <template slot="rowTemplate" data-oj-as="row">
+        <tr>
+          <oj-bind-if test='[[row.mode=="navigation"]]'>
+            <td>
+              <oj-bind-text value="[[row.data.name]]"></oj-bind-text>
+            </td>
+            <td>
+              <oj-bind-text value="[[row.data.value]]"></oj-bind-text>
+            </td>
+          </oj-bind-if>
+          <oj-bind-if test='[[row.mode=="edit"]]'>
+            <td>
+              <oj-input-text value="{{row.data.name}}" class="editable"></oj-input-text>
+            </td>
+            <td>
+              <oj-input-text value="{{row.data.value}}" class="editable"></oj-input-text>
+            </td>
+          </oj-bind-if>
+          <td>
+            <oj-button display="icons" chroming="borderless" on-oj-action="[[row.data.remove]]">
+              <span slot="endIcon" class="oj-ux-ico-trash"></span>
+              <oj-bind-text value="[[labelMapper('node-selector-delete-row-tooltip')]]"></oj-bind-text>
+            </oj-button>
+          </td>
+        </tr>
+      </template>
+      <template slot="headerTemplate" data-oj-as="header">
+        <oj-button display="icons" chroming="borderless" on-oj-action="[[handleAddNodeSelector]]">
+          <span slot="endIcon" class="oj-ux-ico-plus"></span>
+          <oj-bind-text value="[[labelMapper('node-selector-add-row-tooltip')]]"></oj-bind-text>
+        </oj-button>
+      </template>
+    </oj-table>
+  </div>
 </oj-collapsible>

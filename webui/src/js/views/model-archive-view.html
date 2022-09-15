@@ -13,12 +13,12 @@
 
     <oj-button id='archive-add' display='icons' on-oj-action="[[addFile]]">
       <span slot='startIcon' class='oj-ux-ico-plus'></span>
-      <oj-bind-text value="[[labelMapper('add-label')]]"></oj-bind-text>
+      <oj-bind-text value="[[labelMapper('add-tooltip')]]"></oj-bind-text>
     </oj-button>
 
     <oj-button id='archive-delete' display='icons' disabled="[[!selectedItem()]]" on-oj-action="[[deleteSelected]]">
       <span slot='startIcon' class='oj-ux-ico-minus'></span>
-      <oj-bind-text value="[[labelMapper('delete-label')]]"></oj-bind-text>
+      <oj-bind-text value="[[labelMapper('delete-tooltip')]]"></oj-bind-text>
     </oj-button>
   </oj-toolbar>
 

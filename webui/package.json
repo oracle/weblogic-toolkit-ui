@@ -10,7 +10,7 @@
     "jet-audit": "ojaf"
   },
   "dependencies": {
-    "@oracle/oraclejet": "^13.0.1",
+    "@oracle/oraclejet": "^13.0.2",
     "@oracle/wrc-jet-pack": "~2.3.0",
     "i18next": "^21.9.1",
     "jquery": "^3.6.0",

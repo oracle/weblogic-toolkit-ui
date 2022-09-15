@@ -130,6 +130,7 @@
             <oj-button slot="end" display="icons" chroming="borderless"
                        on-oj-action="[[chooseTLSCertFile]]">
               <span slot="endIcon" class="oj-ux-ico-file-text" role="img"></span>
+              <oj-bind-text value="[[labelMapper('ingress-tlscertfile-tooltip')]]"></oj-bind-text>
             </oj-button>
           </oj-input-text>
         </oj-bind-if>
@@ -140,6 +141,7 @@
                          help.instruction="[[labelMapper('ingress-tlskeyfile-help')]]">
             <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[chooseTLSKeyFile]]">
               <span slot="endIcon" class="oj-ux-ico-file-text" role="img"></span>
+              <oj-bind-text value="[[labelMapper('ingress-tlskeyfile-tooltip')]]"></oj-bind-text>
             </oj-button>
           </oj-input-text>
         </oj-bind-if>
@@ -157,6 +159,7 @@
                          help.instruction="[[labelMapper('openssl-exe-file-path-help')]]">
             <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[chooseOpenSSL]]">
               <span slot="endIcon" class="oj-ux-ico-file-text" role="img"></span>
+              <oj-bind-text value="[[labelMapper('openssl-exe-file-path-tooltip')]]"></oj-bind-text>
             </oj-button>
           </oj-input-text>
         </oj-bind-if>
@@ -216,13 +219,13 @@
           <td>
             <oj-button display="icons" chroming="borderless" on-oj-action="[[handleEditRoute]]">
               <span slot="endIcon" class="oj-ux-ico-edit"></span>
-              <oj-bind-text value="[[labelMapper('edit-route-label')]]"></oj-bind-text>
+              <oj-bind-text value="[[labelMapper('edit-route-tooltip')]]"></oj-bind-text>
             </oj-button>
           </td>
           <td>
             <oj-button display="icons" chroming="borderless" on-oj-action="[[handleDeleteRoute]]">
               <span slot="endIcon" class="oj-ux-ico-trash"></span>
-              <oj-bind-text value="[[labelMapper('delete-route-label')]]"></oj-bind-text>
+              <oj-bind-text value="[[labelMapper('delete-route-tooltip')]]"></oj-bind-text>
             </oj-button>
           </td>
         </tr>
@@ -235,7 +238,7 @@
       <template slot="headerTemplate" data-oj-as="header">
         <oj-button display="icons" chroming="borderless" on-oj-action="[[handleAddRoute]]">
           <span slot="endIcon" class="oj-ux-ico-plus"></span>
-          <oj-bind-text value="[[labelMapper('add-route-label')]]"></oj-bind-text>
+          <oj-bind-text value="[[labelMapper('add-route-tooltip')]]"></oj-bind-text>
         </oj-button>
       </template>
     </oj-table>

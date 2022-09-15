@@ -119,6 +119,7 @@
                         <oj-button slot="end" display="icons" chroming="borderless"
                                    on-oj-action="[[() => chooseIngressTraitSecret($current.data)]]">
                           <span slot="endIcon" class="oj-ux-ico-select" role="img"></span>
+                          <oj-bind-text value="[[labelMapper('component-ingress-trait-secret-name-tooltip')]]"></oj-bind-text>
                         </oj-button>
                       </oj-input-text>
                     </oj-form-layout>
@@ -155,13 +156,13 @@
                             <td>
                               <oj-button display="icons" chroming="borderless" on-oj-action="[[handleEditRule]]">
                                 <span slot="endIcon" class="oj-ux-ico-edit"></span>
-                                <oj-bind-text value="[[labelMapper('edit-rule-label')]]"></oj-bind-text>
+                                <oj-bind-text value="[[labelMapper('edit-rule-tooltip')]]"></oj-bind-text>
                               </oj-button>
                             </td>
                             <td>
                               <oj-button display="icons" chroming="borderless" on-oj-action="[[handleDeleteRule]]">
                                 <span slot="endIcon" class="oj-ux-ico-trash"></span>
-                                <oj-bind-text value="[[labelMapper('delete-rule-label')]]"></oj-bind-text>
+                                <oj-bind-text value="[[labelMapper('delete-rule-tooltip')]]"></oj-bind-text>
                               </oj-button>
                             </td>
                           </tr>
@@ -174,7 +175,7 @@
                         <template slot="headerTemplate" data-oj-as="header">
                           <oj-button display="icons" chroming="borderless" on-oj-action="[[handleAddRule]]">
                             <span slot="endIcon" class="oj-ux-ico-plus"></span>
-                            <oj-bind-text value="[[labelMapper('add-rule-label')]]"></oj-bind-text>
+                            <oj-bind-text value="[[labelMapper('add-rule-tooltip')]]"></oj-bind-text>
                           </oj-button>
                         </template>
                       </oj-table>
@@ -228,6 +229,7 @@
                         <oj-button slot="end" display="icons" chroming="borderless"
                                    on-oj-action="[[() => chooseMetricsTraitSecret($current.data)]]">
                           <span slot="endIcon" class="oj-ux-ico-select" role="img"></span>
+                          <oj-bind-text value="[[labelMapper('component-metrics-trait-secret-tooltip')]]"></oj-bind-text>
                         </oj-button>
                       </oj-input-text>
                       <oj-input-text label-hint="[[labelMapper('component-metrics-trait-deployment-label')]]"
@@ -236,6 +238,7 @@
                         <oj-button slot="end" display="icons" chroming="borderless"
                                    on-oj-action="[[() => choosePrometheusDeployment(component.data)]]">
                           <span slot="endIcon" class="oj-ux-ico-select" role="img"></span>
+                          <oj-bind-text value="[[labelMapper('component-metrics-trait-deployment-tooltip')]]"></oj-bind-text>
                         </oj-button>
                       </oj-input-text>
                     </oj-form-layout>
