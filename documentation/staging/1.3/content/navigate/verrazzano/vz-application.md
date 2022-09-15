@@ -56,13 +56,13 @@ the script itself.  This change is left as an exercise for you because different
 existing standards for securely handling such credentials.
 
 ### Deploy Application
-`Deploy Application` deploys the application to Verrazzano. You access this action by using the `Deploy Domain` button
-or the `Go` > `Deploy Verrazzano` menu item.
+`Deploy Application` deploys the application to Verrazzano. You access this action by using the `Deploy Application` button
+or the `Go` > `Deploy Verrazzano Application` menu item.
 
 ### Undeploy Application
 `Undeploy Application` removes the Verrazzano application from the WebLogic domain and its
 dependent objects in Kubernetes. Undeploying the application stops the pods associated with the application.
 In addition, you can choose whether to also delete the corresponding namespace.
 Removing the application namespace removes all applications, components, secrets, ConfigMaps, and other
-Kubernetes objects that exist in the Kubernetes namespace. You access these actions by using the `Undeploy Domain` button
+Kubernetes objects that exist in the Kubernetes namespace. You access these actions by using the `Undeploy Application` button
 or the `Go` > `Undeploy Verrazzano Application` menu item.
