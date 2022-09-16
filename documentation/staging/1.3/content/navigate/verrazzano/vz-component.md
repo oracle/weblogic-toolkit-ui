@@ -28,7 +28,9 @@ The `Component` section provides support for creating and deploying the Verrazza
 
 ### Design View
 `Design View` helps you specify the data needed to generate the component definition and deploy
-that resource into a Kubernetes cluster.
+that resource into a Kubernetes cluster. It provides values for various Kubernetes objects, including model variable overrides and secrets.
+
+`Verrazzano Version`- The three digit version number of the installed Verrazzano version from the target environment.
 
 The `Domain UID` field defines the name of the Kubernetes Domain custom resource object.  This name must be unique
 within the Kubernetes namespace where it will be created, which is controlled by the `Kubernetes Namespace` field.
@@ -246,7 +248,7 @@ or the `Go` > `Deploy Verrazzano Component` menu item.
 ### Undeploy Component
 `Undeploy Component` removes the domain custom object for the WebLogic domain and its
 dependent objects in Kubernetes. Undeploying the Verrazzano component will make any Verrazzano applications
-referencing these components invalid. In addition, you can choose whether to also delete the corresponding namespace. 
+referencing these components invalid. In addition, you can choose whether to also delete the corresponding namespace.
 Removing the Verrazzano components' namespace removes all applications, components, secrets, ConfigMaps, and other
 Kubernetes objects that exist in the Kubernetes namespace.
 You access these actions by using the `Undeploy Component` button

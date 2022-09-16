@@ -19,9 +19,10 @@ description: "Define and deploy a Verrazzano application."
 A Verrazzano application is comprised of Components. Components encapsulate application implementation details.
 For detailed information, see [Applications](https://verrazzano.io/latest/docs/applications/) in the Verrazzano documentation.
 
+The `Application` section makes it easy to compose an application that includes the Component for the WebLogic domain.
+
 ### Design View
-`Design View` lets you specify the data used to define an Verrazzano application.
-Start by providing values for the following fields:
+`Design View` provides values for defining the application and customizing it for the target environment.
 
 - `Application Name` - The name of the Verrazzano application.
 - `Application Namespace` - The Kubernetes namespace to which the application will be deployed.
@@ -44,7 +45,7 @@ Use the `Add Components` button to apply Traits to your application:
 - Logging Trait - contains the configuration for an additional logging sidecar with a custom image and Fluentd configuration file.
 
 ### Code View
-`Code View` displays a shell script for deploying the Verrazzano application for the WebLogic domain into Kubernetes
+`Code View` displays a shell script for deploying the application for the WebLogic domain into Verrazzano
 as well as the application YAML resource definition and project resource, if applicable.
 
 If it is not already selected, then use the `Script Language` drop-down menu to choose the desired scripting language.  Note
