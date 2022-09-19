@@ -403,7 +403,9 @@
   "project-save-model-files-error-message": "Failed to save one of the WebLogic Deploy Tooling model files associated with the project: {{error}}",
 
   "vz-installer-operator-not-ready-error-message": "Cannot proceed with Verrazzano installation because the Verrazzano Platform Operator is not ready: {{error}}",
+  "vz-installer-check-install-status-no-resource-error-message": "No Verrazzano installation exists",
   "vz-installer-check-install-status-failed-error-message": "Cannot proceed with Verrazzano install status check for {{name}} because of an error: {{error}}",
+  "vz-installer-check-install-status-mismatched-names-error-message": "Verrazzano {{version}} is installed under the name {{name}}",
 
   "wrc-home-error-title": "Invalid WebLogic Remote Console Location",
   "wrc-init-error-title": "Initializing WebLogic Remote Console Backend Failed",
