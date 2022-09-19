@@ -1580,6 +1580,7 @@
   "vz-application-design-ingress-trait-rules-hosts-label": "Hosts",
   "vz-application-design-ingress-trait-rules-first-path-type-label": "First Path Type",
   "vz-application-design-ingress-trait-rules-first-path-label": "First Path",
+  "vz-application-design-ingress-trait-rule-edit-destination-title": "Destination",
   "vz-application-design-ingress-trait-rules-destination-host-label": "Destination Host",
   "vz-application-design-ingress-trait-rules-destination-port-label": "Destination Port",
   "vz-application-design-add-rule-tooltip": "Add Ingress Rule",
