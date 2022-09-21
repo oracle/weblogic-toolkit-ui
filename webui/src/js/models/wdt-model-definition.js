@@ -63,7 +63,7 @@ define(['knockout', 'utils/observable-properties', 'js-yaml', 'utils/validation-
         this.validateModel = (isRequired = true) => {
           let errors = [];
           if (isRequired) {
-            const emptyFieldError = validationHelper.validateRequiredField(this.modelContent());
+            const emptyFieldError = validationHelper.validateRequiredFieldContainsNonWhitespaceCharacters(this.modelContent());
             if (emptyFieldError) {
               errors.push(emptyFieldError);
             } else {

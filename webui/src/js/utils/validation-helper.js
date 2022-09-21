@@ -103,6 +103,10 @@ function(i18n, Validator, ojvalidationError, RegExpValidator, LengthValidator, N
       return _validateRequiredFieldValue(currentValue);
     };
 
+    this.validateRequiredFieldContainsNonWhitespaceCharacters = (currentValue) => {
+      return _validateRequiredFieldValueContainsNonWhitespaceCharacters(currentValue);
+    };
+
     this.getRequiredFieldValidators = () => {
       return [
         {
@@ -345,6 +349,20 @@ function(i18n, Validator, ojvalidationError, RegExpValidator, LengthValidator, N
         requiredMessage = i18n.t('validation-helper-validate-string-field-value-is-empty');
       } else if (Array.isArray(value) && value.length === 0) {
         requiredMessage = i18n.t('validation-helper-validate-array-field-value-is-empty');
+      }
+      return requiredMessage;
+    }
+
+    function _validateRequiredFieldValueContainsNonWhitespaceCharacters(value) {
+      let nonWhiteSpaceRegex = /\w+/g;
+
+      let requiredMessage;
+      if (value === undefined || value === null) {
+        requiredMessage = i18n.t('validation-helper-validate-field-value-is-not-defined');
+      } else if (value === '') {
+        requiredMessage = i18n.t('validation-helper-validate-string-field-value-is-empty');
+      } else if (!value.match(nonWhiteSpaceRegex)) {
+        requiredMessage = i18n.t('validation-helper-validate-string-field-value-is-only-whitespace');
       }
       return requiredMessage;
     }
