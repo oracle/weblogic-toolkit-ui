@@ -62,6 +62,11 @@ define(['models/wkt-project', 'utils/script-generator-base', 'utils/helm-helper'
         this.adapter.addVariableDefinition('DOCKER_HUB_EMAIL', this.project.ingress.dockerRegSecretUserEmail.value);
         this.adapter.addEmptyLine();
 
+        comment = [ 'The number of minutes for the helm command to wait for completion (e.g., 10)' ];
+        this.adapter.addVariableDefinition('HELM_TIMEOUT',
+          this._getOptionalScalarFieldValue(this.project.ingress.helmTimeoutMinutes), comment);
+        this.adapter.addEmptyLine();
+
         this.adapter.addVariableEndBanner();
 
         this.adapter.addKubectlExportAndUseContextBlock();
@@ -98,6 +103,10 @@ define(['models/wkt-project', 'utils/script-generator-base', 'utils/helm-helper'
         this.adapter.addVoyagerHelmChartArgsBlock(comment, ingressControllerType, voyagerProvider,
           voyagerApiEnableHealthCheck, voyagerApiEnableWebhook);
 
+        comment = [ 'The number of minutes for the helm command to wait for completion (e.g., 10)' ];
+        const helmTimeout = this.adapter.getVariableReference('HELM_TIMEOUT');
+        this.adapter.addIngressHelmChartTimeoutArgBlock(comment, helmTimeout);
+
         comment = [ 'Add Docker Hub pull secret, if specified' ];
         this.adapter.addIngressHelmChartPullSecretArgBlock(comment, ingressControllerType, useDockerHubSecret,
           dockerHubSecretName);
@@ -120,6 +129,14 @@ define(['models/wkt-project', 'utils/script-generator-base', 'utils/helm-helper'
 
         this.adapter.addScriptFooter();
         return this.adapter.getScript();
+      }
+
+      _getOptionalScalarFieldValue(property) {
+        let result = '';
+        if (this._isSet(property)) {
+          result = property.value;
+        }
+        return result;
       }
     }
 

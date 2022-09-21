@@ -335,6 +335,10 @@ define([],
         this._lines.push(...this._formatVoyagerHelmChartArgsBlock(comment, 'HELM_CHART_ARGS', ingressType, options), '');
       }
 
+      addIngressHelmChartTimeoutArgBlock(comment, timeoutArg) {
+        this.addHelmTimeoutCollectArgsBlock(comment, 'HELM_CHART_ARGS', timeoutArg);
+      }
+
       addIngressHelmChartPullSecretArgBlock(comment, ingressType, useSecret, secretName) {
         this._lines.push(...this._formatIngressHelmChartPullSecretBlock(comment, 'HELM_CHART_ARGS',
           ingressType, useSecret, secretName), '');
@@ -428,6 +432,11 @@ define([],
 
       // eslint-disable-next-line no-unused-vars
       addCollectArgs(collectVarName, ...args) {
+        /* subclasses must implement. */
+      }
+
+      // eslint-disable-next-line no-unused-vars
+      addHelmTimeoutCollectArgsBlock(comment, collectVarName, timeoutVarRef) {
         /* subclasses must implement. */
       }
 

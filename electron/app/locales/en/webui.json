@@ -474,6 +474,9 @@
   "wko-design-node-selector-label-value-header": "Label Value",
   "wko-design-node-selector-add-row-tooltip": "Add Node Selector Label",
   "wko-design-node-selector-delete-row-tooltip": "Delete Node Selector Label",
+  "wko-design-helm-settings-title": "Helm Settings",
+  "wko-design-helm-timeout-label": "Helm Timeout in Minutes",
+  "wko-design-helm-timeout-help": "The number of minutes that the Helm command will wait for the WebLogic Kubernetes Operator install or update command to complete.",
 
   "domain-page-hints-deployDomain": "Deploy WebLogic Domain to Kubernetes",
   "domain-page-button-deployDomain": "Deploy Domain",
@@ -697,6 +700,8 @@
   "ingress-design-install-ingress-controller-help": "Whether to install the selected ingress controller.",
   "ingress-design-ingress-name-label": "Helm Release Name to Use",
   "ingress-design-ingress-name-help": "The Helm release name used to install the ingress controller.",
+  "ingress-design-helm-timeout-label": "Helm Timeout in Minutes",
+  "ingress-design-helm-timeout-help": "The number of minutes that the Helm command will wait for the Ingress Controller install command to complete.",
   "ingress-design-ingress-namespace-label": "Ingress Controller Namespace",
   "ingress-design-ingress-namespace-help": "The Kubernetes namespace to use for the ingress controller.",
   "ingress-design-voyager-provider-label": "Kubernetes Cluster Provider for Voyager",

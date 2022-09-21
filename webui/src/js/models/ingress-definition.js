@@ -40,6 +40,8 @@ define(['knockout', 'utils/observable-properties', 'utils/validation-helper'],
         this.specifyDockerRegSecret = props.createProperty(false);
         this.specifyIngressTLSSecret = props.createProperty(false);
 
+        this.helmTimeoutMinutes = props.createProperty(5);
+
         this.ingressRouteKeys = [
           'uid', 'name', 'virtualHost', 'targetServiceNameSpace', 'targetService', 'targetPort',
           'path', 'annotations', 'accessPoint', 'tlsOption', 'markedForDeletion', 'isConsoleService'
