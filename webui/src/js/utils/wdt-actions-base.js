@@ -23,7 +23,7 @@ define(['utils/wkt-actions-base', 'utils/validation-helper', 'utils/dialog-helpe
           validationHelper.validateRequiredField(this.project.settings.oracleHome.value), settingsFormConfig);
 
         const modelFormConfig = validationObject.getDefaultConfigObject();
-        modelFormConfig.formName = 'model-design-form-name';
+        modelFormConfig.formName = 'model-code-form-name';
         validationObject.addField('model-page-model-editor-contents',
           this.project.wdtModel.validateModel(true), modelFormConfig);
 
