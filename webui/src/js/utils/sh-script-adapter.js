@@ -54,6 +54,19 @@ define(['utils/script-adapter-base'],
         this._lines.push(...block, '');
       }
 
+      addHelmTimeoutCollectArgsBlock(comment, collectVarName, timeoutVarRef) {
+        if (comment) {
+          this.addComment(comment);
+        }
+
+        this._lines.push(
+          `if [ "${timeoutVarRef}" != "" ]; then`,
+          `${this.indent(1)}${collectVarName}="${this.getVariableReference(collectVarName)} ${timeoutVarRef}m"`,
+          'fi',
+          ''
+        );
+      }
+
       addNotEmptyCollectArgsBlock(collectVarName, varRef, valuePrefix) {
         let value = `"${varRef}"`;
         if (valuePrefix) {

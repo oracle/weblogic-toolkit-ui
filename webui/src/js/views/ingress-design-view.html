@@ -32,6 +32,12 @@
                        validators="[[project.ingress.validators.k8sNameValidator]]"
                        help.instruction="[[labelMapper('ingress-name-help')]]">
         </oj-input-text>
+        <oj-input-number label-hint="[[labelMapper('helm-timeout-label')]]"
+                         value="{{project.ingress.helmTimeoutMinutes.observable}}"
+                         min="1"
+                         max="60"
+                         help.instruction="[[labelMapper('helm-timeout-help')]]">
+        </oj-input-number>
         <oj-bind-if test="[[isVoyager() === true]]">
           <oj-select-single label-hint="[[labelMapper('voyager-provider-label')]]"
                             value="{{project.ingress.voyagerProvider.observable}}"

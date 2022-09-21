@@ -77,6 +77,19 @@ define(['utils/script-adapter-base'],
         return this.getEnvironmentVariableReference(name);
       }
 
+      addHelmTimeoutCollectArgsBlock(comment, collectVarName, timeoutVarRef) {
+        if (comment) {
+          this.addComment(comment);
+        }
+
+        this._lines.push(
+          `IF DEFINED ${this._getVariableNameFromReference(timeoutVarRef)} (`,
+          `${this.indent(1)}SET "${collectVarName}=${this.getVariableReference(collectVarName)} ${timeoutVarRef}m"`,
+          ')',
+          ''
+        );
+      }
+
       addNotEmptyCollectArgsBlock(collectVarName, varRef, valuePrefix) {
         let value = `"${varRef}"`;
         if (valuePrefix) {
