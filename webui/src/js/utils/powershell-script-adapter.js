@@ -204,6 +204,12 @@ define(['utils/script-adapter-base'],
           '}'
         ];
 
+        const helmTimeoutLines = [
+          `if ("${helmChartValues.timeout}" -ne "") {`,
+          `${this.indent(1)}${variableName}="${variableRef} --timeout ${helmChartValues.timeout}m"`,
+          '}',
+        ];
+
         const initialValue = `--set domainNamespaceSelectionStrategy=${helmChartValues.domainNamespaceSelectionStrategy}`;
         this.addVariableDefinition(variableName, initialValue);
         this._lines.push(
@@ -222,6 +228,8 @@ define(['utils/script-adapter-base'],
           ...elkIntegrationLines,
           '',
           ...javaLoggingLines,
+          '',
+          ...helmTimeoutLines,
           ''
         );
       }

@@ -231,12 +231,22 @@ function getHelmEnv(httpsProxyUrl, bypassProxyHosts, helmOptions) {
 function processHelmChartValues(args, helmChartValues) {
   if (helmChartValues) {
     for (const [propertyName, propertyValue] of Object.entries(helmChartValues)) {
-      if (propertyName === 'imagePullSecrets') {
-        args.push(...formatArrayOfObjectsSetArgument(propertyName, propertyValue));
-      } else if (propertyName === 'nodeSelector') {
-        args.push(...formatNodeSelectorSetArgument(propertyValue));
-      } else {
-        args.push('--set', formatSetArgument(propertyName, propertyValue));
+      switch (propertyName) {
+        case 'imagePullSecrets':
+          args.push(...formatArrayOfObjectsSetArgument(propertyName, propertyValue));
+          break;
+
+        case 'nodeSelector':
+          args.push(...formatNodeSelectorSetArgument(propertyValue));
+          break;
+
+        case 'timeout':
+          args.push('--timeout', `${propertyValue}m`);
+          break;
+
+        default:
+          args.push('--set', formatSetArgument(propertyName, propertyValue));
+          break;
       }
     }
   }

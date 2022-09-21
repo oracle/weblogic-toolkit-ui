@@ -68,6 +68,8 @@ define(['utils/observable-properties', 'utils/validation-helper'],
         //
         this.nodeSelector = props.createListProperty(['uid', 'name', 'value']);
 
+        this.helmTimeoutMinutes = props.createProperty(5);
+
         // internal fields that should not be read or written to the project file.
         this.internal = {
           operatorImagePullRegistryAddress: props.createProperty()

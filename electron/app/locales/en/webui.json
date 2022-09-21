@@ -474,6 +474,9 @@
   "wko-design-node-selector-label-value-header": "Label Value",
   "wko-design-node-selector-add-row-tooltip": "Add Node Selector Label",
   "wko-design-node-selector-delete-row-tooltip": "Delete Node Selector Label",
+  "wko-design-helm-settings-title": "Helm Settings",
+  "wko-design-helm-timeout-label": "Helm Timeout in Minutes",
+  "wko-design-helm-timeout-help": "The number of minutes that the Helm command will wait for the WebLogic Kubernetes Operator install or update command to complete.",
 
   "domain-page-hints-deployDomain": "Deploy WebLogic Domain to Kubernetes",
   "domain-page-button-deployDomain": "Deploy Domain",
