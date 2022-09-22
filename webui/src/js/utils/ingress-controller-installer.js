@@ -249,6 +249,10 @@ function(IngressActionsBase, project, wktConsole, k8sHelper, i18n, dialogHelper,
       if (ingressControllerProvider === 'nginx' && this.project.ingress.allowNginxSSLPassThrough) {
         helmChartData['controller.extraArgs.enable-ssl-passthrough'] = true;
       }
+
+      if (this.project.ingress.helmTimeoutMinutes.hasValue()) {
+        helmChartData['timeout'] = this.project.ingress.helmTimeoutMinutes.value;
+      }
       return helmChartData;
     }
   }

@@ -877,8 +877,8 @@ async function verifyVerrazzanoPlatformOperatorRollout(kubectlExe, options) {
   });
 }
 
-async function getVerrazzanoInstallationObject(kubectlExe, kubectlOptions, vzInstallName) {
-  const getArgs = [ 'get', 'Verrazzano', vzInstallName, '--output=json' ];
+async function getVerrazzanoInstallationObject(kubectlExe, kubectlOptions) {
+  const getArgs = [ 'get', 'Verrazzano', '--output=json' ];
   const httpsProxyUrl = getHttpsProxyUrl();
   const bypassProxyHosts = getBypassProxyHosts();
 
@@ -890,8 +890,12 @@ async function getVerrazzanoInstallationObject(kubectlExe, kubectlOptions, vzIns
 
   return new Promise(resolve => {
     executeFileCommand(kubectlExe, getArgs, env).then(vzJson => {
-      result.isSuccess = true;
-      result.payload = JSON.parse(vzJson);
+      const vzObjectList = JSON.parse(vzJson).items;
+      if (vzObjectList.length > 0) {
+        const vzObject = vzObjectList[0];
+        result.isSuccess = true;
+        result.payload = vzObject;
+      }
       resolve(result);
     }).catch(err => {
       result.reason = getErrorMessage(err);

@@ -79,17 +79,39 @@ async function verifyVerrazzanoInstallStatus(kubectlExe, k8sOptions, vzOptions) 
   };
 
   return new Promise(resolve => {
-    kubectlUtils.getVerrazzanoInstallationObject(kubectlExe, k8sOptions, vzOptions.name).then(result => {
+    kubectlUtils.getVerrazzanoInstallationObject(kubectlExe, k8sOptions).then(result => {
       if (!result.isSuccess) {
         status.isSuccess = false;
-        status.reason = i18n.t('vz-installer-check-install-status-failed-error-message', { name: vzOptions.name, error: result.reason });
-      } else {
-        _getStatusFromConditions(result.payload, status);
-      }
 
+        // Two possible cases:
+        //     1. Verrazzano CRD is not installed
+        //     2. Some lower-level error in finding the Verrazzano object
+        //
+        if (_isVerrazzanoDefinitionNotFound(result.reason)) {
+          status.reason = i18n.t('vz-installer-check-install-status-no-resource-error-message');
+        } else {
+          status.reason = i18n.t('vz-installer-check-install-status-failed-error-message', { name: vzOptions.name, error: result.reason });
+        }
+      } else {
+        // Two possible scenarios:
+        //    1. Verrazzano installed but under a different name (this is a failure condition).
+        //    2. Verrazzano installed with the same name.
+        //
+        const vzObject = result.payload;
+        _getStatusFromConditions(result.payload, status);
+        if (vzOptions.name !== vzObject.metadata?.name) {
+          status.isSuccess = false;
+          status.reason = i18n.t('vz-installer-check-install-status-mismatched-names-error-message',
+            { name: vzObject.metadata?.name, version: status.version });
+        }
+      }
       resolve(status);
     });
   });
+}
+
+function _isVerrazzanoDefinitionNotFound(vzErrorMessage) {
+  return vzErrorMessage.includes('server doesn\'t have a resource type "verrazzano"');
 }
 
 function _getStatusFromConditions(vzObject, status) {

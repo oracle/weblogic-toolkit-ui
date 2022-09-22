@@ -205,6 +205,7 @@ function(WktActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, val
       this.addHelmChartValueIfSet(helmChartValues, 'enableClusterRoleBinding', this.project.wko.enableClusterRoleBinding);
       this.addHelmChartValueIfSet(helmChartValues, 'image', this.project.wko.operatorImage);
       this.addHelmChartValueIfSet(helmChartValues, 'imagePullPolicy', this.project.wko.operatorImagePullPolicy);
+      this.addHelmChartValueIfSet(helmChartValues, 'timeout', this.project.wko.helmTimeoutMinutes);
 
       if (this.project.wko.operatorImagePullRequiresAuthentication.value) {
         const imagePullSecret = this.project.wko.operatorImagePullSecretName.value;

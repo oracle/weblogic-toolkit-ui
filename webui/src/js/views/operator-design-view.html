@@ -263,4 +263,15 @@
       </template>
     </oj-table>
   </div>
+  <div class="oj-panel">
+    <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('helm-settings-title')]]"></oj-bind-text></h6>
+    <oj-form-layout max-columns="2" direction="column">
+      <oj-input-number label-hint="[[labelMapper('helm-timeout-label')]]"
+                       value="{{project.wko.helmTimeoutMinutes.observable}}"
+                       min="1"
+                       max="60"
+                       help.instruction="[[labelMapper('helm-timeout-help')]]">
+      </oj-input-number>
+    </oj-form-layout>
+  </div>
 </oj-collapsible>

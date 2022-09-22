@@ -54,6 +54,19 @@ define(['utils/script-adapter-base'],
         this._lines.push(...block, '');
       }
 
+      addHelmTimeoutCollectArgsBlock(comment, collectVarName, timeoutVarRef) {
+        if (comment) {
+          this.addComment(comment);
+        }
+
+        this._lines.push(
+          `if [ "${timeoutVarRef}" != "" ]; then`,
+          `${this.indent(1)}${collectVarName}="${this.getVariableReference(collectVarName)} ${timeoutVarRef}m"`,
+          'fi',
+          ''
+        );
+      }
+
       addNotEmptyCollectArgsBlock(collectVarName, varRef, valuePrefix) {
         let value = `"${varRef}"`;
         if (valuePrefix) {
@@ -207,6 +220,12 @@ define(['utils/script-adapter-base'],
           'fi'
         ];
 
+        const helmTimeoutLines = [
+          `if [ "${helmChartValues.timeout}" != "" ]; then`,
+          `${this.indent(1)}${variableName}="${variableRef} --timeout ${helmChartValues.timeout}m"`,
+          'fi',
+        ];
+
         const initialValue = `--set domainNamespaceSelectionStrategy=${helmChartValues.domainNamespaceSelectionStrategy}`;
         this.addVariableDefinition(variableName, initialValue);
         this._lines.push(
@@ -225,6 +244,8 @@ define(['utils/script-adapter-base'],
           ...elkIntegrationLines,
           '',
           ...javaLoggingLines,
+          '',
+          ...helmTimeoutLines,
           ''
         );
       }
