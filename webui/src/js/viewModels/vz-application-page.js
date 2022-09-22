@@ -4,9 +4,10 @@
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 define(['utils/i18n', 'accUtils', 'knockout', 'ojs/ojcorerouter', 'ojs/ojmodulerouter-adapter',
-  'ojs/ojarraydataprovider', 'utils/vz-application-deployer', 'utils/vz-application-undeployer'],
+  'ojs/ojarraydataprovider', 'utils/vz-application-deployer', 'utils/vz-application-status-checker',
+  'utils/vz-application-undeployer'],
 function(i18n, accUtils, ko, CoreRouter, ModuleRouterAdapter, ArrayDataProvider, vzApplicationDeployer,
-  vzApplicationUndeployer) {
+  vzApplicationStatusChecker, vzApplicationUndeployer) {
   function VerrazzanoApplicationViewModel(args) {
 
     this.connected = () => {
@@ -19,10 +20,15 @@ function(i18n, accUtils, ko, CoreRouter, ModuleRouterAdapter, ArrayDataProvider,
     };
 
     this.disableDeployApplication = ko.observable(false);
+    this.disableGetApplicationStatus = ko.observable(false);
     this.disableUndeployApplication = ko.observable(false);
 
     this.deployApplication = () => {
       vzApplicationDeployer.startDeployApplication().then();
+    };
+
+    this.getApplicationStatus = async () => {
+      await vzApplicationStatusChecker.startCheckApplicationStatus();
     };
 
     this.undeployApplication = () => {

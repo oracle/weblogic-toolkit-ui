@@ -24,6 +24,15 @@
               <oj-bind-text value="[[labelMapper('button-deployApplication')]]"></oj-bind-text>
             </span>
     </oj-button>
+    <oj-button id="applicationStatusButton"
+               disabled="[[disableGetApplicationStatus]]"
+               chroming="callToAction"
+               on-oj-action="[[getApplicationStatus]]"
+               :title="[[labelMapper('hints-applicationStatus')]]">
+            <span>
+              <oj-bind-text value="[[labelMapper('button-applicationStatus')]]"></oj-bind-text>
+            </span>
+    </oj-button>
     <oj-button id="undeployApplicationButton"
                disabled="[[disableUndeployApplication]]"
                chroming="callToAction"

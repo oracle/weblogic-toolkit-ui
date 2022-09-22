@@ -213,6 +213,8 @@ contextBridge.exposeInMainWorld(
           'openssl-generate-certs',
           'validate-k8s-namespaces-exist',
           'validate-wko-domain-exist',
+          'validate-vz-application-exist',
+          'vz-get-application-status',
           'get-wrc-home-directory',
           'get-wrc-app-image',
           'wrc-get-home-default-value',
