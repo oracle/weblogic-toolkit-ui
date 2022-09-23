@@ -156,6 +156,14 @@ async function getWkoDomainStatus(kubectlExe, domainUID, domainNamespace, option
   });
 }
 
+// Currently, this call returns the status of the domain component with domainUID, similar to getWkoDomainStatus.
+// In future releases, there may be additional information about the application and other components.
+async function getApplicationStatus(kubectlExe, application, domainUID, namespace, options) {
+  const results = await getWkoDomainStatus(kubectlExe, domainUID, namespace, options);
+  results['application'] = application;
+  return results;
+}
+
 async function getOperatorStatus(kubectlExe, operatorNamespace, options) {
   const args = [ 'get', 'pods', '-n', operatorNamespace, '-o', 'json'];
   const httpsProxyUrl = getHttpsProxyUrl();
@@ -298,6 +306,32 @@ async function validateDomainExist(kubectlExe, options, domain, namespace) {
   };
 
   const args = [ 'get', 'domain', domain, '-n', namespace ];
+  try {
+    await executeFileCommand(kubectlExe, args, env);
+  } catch (err) {
+    if (isNotFoundError(err)) {
+      result.isValid = false;
+    } else {
+      result.isSuccess = false;
+      result.reason = getErrorMessage(err);
+      return Promise.resolve(result);
+    }
+  }
+  return Promise.resolve(result);
+}
+
+async function validateApplicationExist(kubectlExe, options, application, namespace) {
+  const httpsProxyUrl = getHttpsProxyUrl();
+  const bypassProxyHosts = getBypassProxyHosts();
+  const env = getKubectlEnvironment(options, httpsProxyUrl, bypassProxyHosts);
+
+  const result = {
+    isSuccess: true,
+    isValid: true,
+  };
+
+  const args = [ 'get', 'appconfig', application, '-n', namespace ];
+
   try {
     await executeFileCommand(kubectlExe, args, env);
   } catch (err) {
@@ -958,6 +992,7 @@ module.exports = {
   getK8sConfigView,
   getK8sClusterInfo,
   getWkoDomainStatus,
+  getApplicationStatus,
   getOperatorStatus,
   getOperatorVersionFromDomainConfigMap,
   getOperatorLogs,
@@ -966,6 +1001,7 @@ module.exports = {
   getKubernetesObjectsFromAllNamespaces,
   validateNamespacesExist,
   validateDomainExist,
+  validateApplicationExist,
   verifyClusterConnectivity,
   verifyVerrazzanoPlatformOperatorRollout,
 };

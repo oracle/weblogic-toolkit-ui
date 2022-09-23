@@ -322,6 +322,7 @@
   "kubectl-tlsfile-failed-error-message": "Unable to verify TLS file {{filePath}} exists: {{error}}",
   "kubectl-get-vz-install-failed-error-message": "Unable to get Verrazzano installation: {{error}}",
   "kubectl-get-named-vz-install-error-message": "Unable to get Verrazzano installation with name {{name}}: {{error}}",
+  "kubectl-get-vz-application-status-error-message": "Unable to get Verrazzano application status: {{error}}",
 
   "helm-not-specified-error-message": "Helm executable path was not provided",
   "helm-not-exists-error-message": "Helm executable {{filePath}} does not exist",

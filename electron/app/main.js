@@ -757,6 +757,14 @@ class Main {
       return kubectlUtils.validateDomainExist(kubectlExe, kubectlOptions, domain, namespace);
     });
 
+    ipcMain.handle('validate-vz-application-exist', async (event, kubectlExe, kubectlOptions, application, namespace) => {
+      return kubectlUtils.validateApplicationExist(kubectlExe, kubectlOptions, application, namespace);
+    });
+
+    ipcMain.handle('vz-get-application-status', async (event, kubectlExe, application, namespace, options) => {
+      return kubectlUtils.getApplicationStatus(kubectlExe, application, namespace, options);
+    });
+
     ipcMain.handle('is-wko-installed', async (event, kubectlExe, operatorName, operatorNamespace, kubectlOptions) => {
       return kubectlUtils.isOperatorAlreadyInstalled(kubectlExe, operatorName, operatorNamespace, kubectlOptions);
     });

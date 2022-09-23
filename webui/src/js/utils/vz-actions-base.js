@@ -5,9 +5,9 @@
  */
 'use strict';
 
-define(['utils/wkt-actions-base', 'utils/validation-helper', 'utils/dialog-helper', 'utils/i18n'],
-  function (WktActionsBase, validationHelper, dialogHelper, i18n) {
-    class WdtActionsBase extends WktActionsBase {
+define(['utils/k8s-domain-actions-base', 'utils/validation-helper', 'utils/dialog-helper', 'utils/i18n'],
+  function (K8sDomainActionsBase, validationHelper, dialogHelper, i18n) {
+    class VzActionsBase extends K8sDomainActionsBase {
       constructor() {
         super();
       }
@@ -34,6 +34,31 @@ define(['utils/wkt-actions-base', 'utils/validation-helper', 'utils/dialog-helpe
         return Promise.resolve(result);
       }
 
+      async validateApplicationExists(kubectlExe, kubectlOptions, errTitle, errPrefix) {
+        try {
+          const validationResults = await window.api.ipc.invoke('validate-vz-application-exist', kubectlExe,
+            kubectlOptions, this.project.vzApplication.applicationName.value, this.project.k8sDomain.kubernetesNamespace.value);
+          if (!validationResults.isSuccess) {
+            const errMessage = i18n.t(`${errPrefix}-validate-application-failed-error-message`, {
+              application: this.project.vzApplication.applicationName.value,
+              error: validationResults.reason
+            });
+            dialogHelper.closeBusyDialog();
+            await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
+            return Promise.resolve(false);
+          } else if (!validationResults.isValid) {
+            const errMessage = i18n.t(`${errPrefix}-application-not-exist-error-message`,
+              { application: this.project.vzApplication.applicationName.value });
+            dialogHelper.closeBusyDialog();
+            await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
+            return Promise.resolve(false);
+          }
+        } catch (err) {
+          return Promise.reject(err);
+        }
+        return Promise.resolve(true);
+      }
+
       openBusyDialog(options, message) {
         if (!options.skipBusyDialog) {
           dialogHelper.openBusyDialog(message, 'bar', 0.0);
@@ -53,6 +78,6 @@ define(['utils/wkt-actions-base', 'utils/validation-helper', 'utils/dialog-helpe
       }
     }
 
-    return WdtActionsBase;
+    return VzActionsBase;
   }
 );

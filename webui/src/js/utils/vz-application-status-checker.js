@@ -1,35 +1,35 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2022, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
 
-define(['utils/k8s-domain-actions-base', 'models/wkt-project', 'models/wkt-console', 'utils/i18n', 'utils/project-io',
+define(['utils/vz-actions-base', 'models/wkt-project', 'models/wkt-console', 'utils/i18n', 'utils/project-io',
   'utils/dialog-helper', 'utils/k8s-domain-resource-generator', 'utils/k8s-domain-configmap-generator',
   'utils/validation-helper', 'utils/helm-helper', 'utils/wkt-logger'],
-function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, K8sDomainResourceGenerator,
+function (VzActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, K8sDomainResourceGenerator,
   K8sDomainConfigMapGenerator, validationHelper) {
-  class K8sDomainStatusChecker extends K8sDomainActionsBase {
+  class VerrazzanoApplicationStatusChecker extends VzActionsBase {
     constructor() {
       super();
     }
 
-    async startCheckDomainStatus() {
-      await this.executeAction(this.callCheckDomainStatus);
+    async startCheckApplicationStatus() {
+      await this.executeAction(this.callCheckApplicationStatus);
     }
 
-    async callCheckDomainStatus() {
-      let errTitle = i18n.t('k8s-domain-status-checker-get-status-failed-title-message');
-      let errPrefix = 'k8s-domain-status-checker';
-      const validatableObject = this.getValidatableObject('flow-get-domain-status-name');
+    async callCheckApplicationStatus() {
+      let errTitle = i18n.t('vz-application-status-checker-get-status-failed-title-message');
+      let errPrefix = 'vz-application-status-checker';
+      const validatableObject = this.getValidatableObject('flow-verrazzano-get-application-status-name');
       if (validatableObject.hasValidationErrors()) {
         const validationErrorDialogConfig = validatableObject.getValidationErrorDialogConfig(errTitle);
         dialogHelper.openDialog('validation-error-dialog', validationErrorDialogConfig);
         return Promise.resolve(false);
       }
 
-      const totalSteps = 7.0;
+      const totalSteps = 8.0;
       try {
         const kubectlExe = this.getKubectlExe();
         const kubectlOptions = this.getKubectlOptions();
@@ -55,7 +55,7 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
           return Promise.resolve(false);
         }
 
-        busyDialogMessage = i18n.t('flow-validate-k8s-namespace-in-progress',
+        busyDialogMessage = i18n.t('flow-validate-vz-application-namespace-in-progress',
           {namespace: this.project.k8sDomain.kubernetesNamespace.value});
         dialogHelper.updateBusyDialog(busyDialogMessage, 3 / totalSteps);
 
@@ -65,27 +65,37 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
           return Promise.resolve(false);
         }
 
-        busyDialogMessage = i18n.t('flow-validate-k8s-domain-in-progress', {domain: this.project.k8sDomain.uid.value});
+        busyDialogMessage = i18n.t('flow-validate-vz-application-in-progress',
+          {application: this.project.vzApplication.applicationName.value});
         dialogHelper.updateBusyDialog(busyDialogMessage, 4 / totalSteps);
+        if (! await this.validateApplicationExists(kubectlExe, kubectlOptions, errTitle, errPrefix)) {
+          return Promise.resolve(false);
+        }
+
+        busyDialogMessage = i18n.t('flow-validate-vz-domain-in-progress',
+          {domain: this.project.k8sDomain.uid.value});
+        dialogHelper.updateBusyDialog(busyDialogMessage, 5 / totalSteps);
         if (! await this.validateDomainExists(kubectlExe, kubectlOptions, errTitle, errPrefix)) {
           return Promise.resolve(false);
         }
 
-        busyDialogMessage = i18n.t('flow-getting-k8s-domain-status-in-progress', {domain: this.project.k8sDomain.uid.value});
-        dialogHelper.updateBusyDialog(busyDialogMessage, 5 / totalSteps);
+        busyDialogMessage = i18n.t('flow-getting-vz-application-status-in-progress',
+          {domain: this.project.k8sDomain.uid.value});
+        dialogHelper.updateBusyDialog(busyDialogMessage, 6 / totalSteps);
 
-        const domainStatusResult = await window.api.ipc.invoke('k8s-get-wko-domain-status', kubectlExe,
-          this.project.k8sDomain.uid.value, this.project.k8sDomain.kubernetesNamespace.value, kubectlOptions);
-        if (!domainStatusResult.isSuccess) {
-          const errMessage = i18n.t('k8s-domain-status-checker-get-status-failed-error-message',
-            {error: domainStatusResult.reason});
+        const applicationStatusResult = await window.api.ipc.invoke('vz-get-application-status', kubectlExe,
+          this.project.vzApplication.applicationName.value, this.project.k8sDomain.uid.value,
+          this.project.k8sDomain.kubernetesNamespace.value, kubectlOptions);
+        if (!applicationStatusResult.isSuccess) {
+          const errMessage = i18n.t('vz-application-status-checker-get-status-failed-error-message',
+            {error: applicationStatusResult.reason});
           dialogHelper.closeBusyDialog();
           await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
           return Promise.resolve(false);
         }
 
         busyDialogMessage = i18n.t('flow-checking-operator-version-in-progress');
-        dialogHelper.updateBusyDialog(busyDialogMessage, 6 / totalSteps);
+        dialogHelper.updateBusyDialog(busyDialogMessage, 7 / totalSteps);
 
         const operatorVersionResult = await window.api.ipc.invoke('k8s-get-operator-version-from-domain-config-map',
           kubectlExe, this.project.k8sDomain.kubernetesNamespace.value, kubectlOptions);
@@ -95,14 +105,19 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
 
         dialogHelper.closeBusyDialog();
 
-        let wkoDomainStatus = domainStatusResult.domainStatus;
-        if (typeof wkoDomainStatus === 'undefined') {
-          wkoDomainStatus = {};
+        let domainStatus = applicationStatusResult.domainStatus;
+        if (typeof domainStatus === 'undefined') {
+          domainStatus = {};
         }
-        const results = this.buildDomainStatus(wkoDomainStatus, operatorMajorVersion);
-        results['domainStatus'] = wkoDomainStatus;
-        const options = {domainStatus: results.domainStatus, domainOverallStatus: results.domainOverallStatus};
-        dialogHelper.openDialog('domain-status-dialog', options);
+        const results = this.buildDomainStatus(domainStatus, operatorMajorVersion);
+        results['domainStatus'] = domainStatus;
+        const options = {
+          domainStatus: results.domainStatus,
+          domainOverallStatus: results.domainOverallStatus,
+          applicationName: this.project.vzApplication.applicationName.value,
+          domainName: this.project.k8sDomain.uid.value
+        };
+        dialogHelper.openDialog('vz-application-status-dialog', options);
 
         return Promise.resolve(true);
       } catch (err) {
@@ -115,10 +130,15 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
 
     getValidatableObject(flowNameKey) {
       const validationObject = validationHelper.createValidatableObject(flowNameKey);
-
-      validationObject.addField('domain-design-uid-label', this.project.k8sDomain.uid.validate(true));
-      validationObject.addField('domain-design-namespace-label',
+      validationObject.addField('vz-application-design-name-label',
+        this.project.vzApplication.applicationName.validate(true));
+      validationObject.addField('vz-application-design-namespace-label',
         this.project.k8sDomain.kubernetesNamespace.validate(true));
+
+      const componentFormConfig = validationObject.getDefaultConfigObject();
+      componentFormConfig.formName = 'vz-component-design-form-name';
+      validationObject.addField('domain-design-uid-label',
+        this.project.k8sDomain.uid.validate(true), componentFormConfig);
 
       const kubectlFormConfig = validationObject.getDefaultConfigObject();
       kubectlFormConfig.formName = 'kubectl-title';
@@ -127,14 +147,9 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
       validationObject.addField('kubectl-helm-exe-file-path-label',
         validationHelper.validateRequiredField(this.project.kubectl.helmExecutableFilePath.value), kubectlFormConfig);
 
-      const settingsFormConfig = validationObject.getDefaultConfigObject();
-      settingsFormConfig.formName = 'project-settings-title';
-      validationObject.addField('image-design-image-tag-label',
-        this.project.image.imageTag.validate(true), settingsFormConfig);
-
       return validationObject;
     }
   }
 
-  return new K8sDomainStatusChecker();
+  return new VerrazzanoApplicationStatusChecker();
 });

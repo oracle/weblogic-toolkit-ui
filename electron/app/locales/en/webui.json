@@ -1301,6 +1301,7 @@
   "flow-validate-k8s-domain-in-progress": "Validating domain {{domain}} exists",
   "flow-get-domain-status-name": "Get Domain Status",
   "flow-getting-k8s-domain-status-in-progress": "Getting domain {{domain}} status",
+  "flow-getting-vz-application-status-in-progress": "Getting Application Status",
   "flow-checking-operator-version-in-progress": "Checking operator version",
   "flow-checking-vz-already-installed-in-progress": "Checking if Verrazzano is already installed.",
   "flow-install-verrazzano-name": "Install Verrazzano",
@@ -1310,6 +1311,10 @@
   "flow-verrazzano-undeploy-component-name": "Undeploy Verrazzano Component",
   "flow-verrazzano-deploy-application-name": "Deploy Verrazzano Application",
   "flow-verrazzano-undeploy-application-name": "Undeploy Verrazzano Application",
+  "flow-verrazzano-get-application-status-name": "Get Application Status",
+  "flow-validate-vz-application-namespace-in-progress": "Validating application namespace {{namespace}} exists",
+  "flow-validate-vz-application-in-progress": "Validating application {{application}} exists",
+  "flow-validate-vz-domain-in-progress": "Validating domain UID {{domain}} exists",
 
   "add-archive-file-title": "Add Archive File",
   "add-archive-file-replace-message": "This will replace the existing archive, continue?",
@@ -1517,6 +1522,8 @@
 
   "vz-application-page-button-deployApplication": "Deploy Application",
   "vz-application-page-hints-deployApplication": "Deploy Application to Verrazzano",
+  "vz-application-page-button-applicationStatus": "Get Application Status",
+  "vz-application-page-hints-applicationStatus": "Check Application Deployment Status",
   "vz-application-page-button-undeployApplication": "Undeploy Application",
   "vz-application-page-hints-undeployApplication": "Undeploy Application from Verrazzano",
 
@@ -1691,6 +1698,15 @@
   "vz-application-undeployer-undeploy-failed-title": "Verrazzano Application Undeployment Failed",
   "vz-application-undeployer-undeploy-failed-error-message":"Unable to undeploy Verrazzano application {{name}} from Kubernetes namespace {{namespace}}: {{error}}.",
   "vz-application-undeployer-undeploy-catch-all-error-message": "Verrazzano application undeployment from Kubernetes failed with an unexpected error: {{error}}",
+
+  "vz-application-status-checker-get-status-failed-title-message": "Get Application Status Failed",
+  "vz-application-status-checker-get-status-failed-error-message": "Unable to get the application status due to an error: {{error}}.",
+  "vz-application-status-checker-application-not-exist-error-message": "Unable to get the application status because the application {{application}} does not exist.",
+  "vz-application-status-checker-ns-not-exist-error-message": "Unable to get the application status because the application namespace {{namespace}} does not exist.",
+  "vz-application-status-checker-domain-not-exist-error-message": "Unable to get the application status because the domain UID {{domain}} does not exist.",
+
+  "vz-application-status-title": "Application Status for \"{{application}}\"",
+  "vz-application-status-domain-title": "Domain \"{{domain}}\"",
 
   "app-update-title": "Application Update",
   "app-update-new-release": "A new release is available: {{releaseName}}",

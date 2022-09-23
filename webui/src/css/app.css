@@ -705,6 +705,18 @@ h6.wkt-panel-heading {
   color: red !important;
 }
 
+.wkt-status-paragraph {
+  margin: 1rem 0 0 0;
+}
+
+.wkt-status-paragraph.domainError {
+  color:red;
+}
+
+.wkt-status-paragraph.preformat {
+  white-space: pre-wrap;
+}
+
 .wkt-dialog-content {
   box-sizing: border-box;
   display: flex;
