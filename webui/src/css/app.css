@@ -344,6 +344,15 @@ h6:first-child {
   padding: 2px;
 }
 
+/*
+ a JET bug causes oj-text-area readonly=true text to not be selectable.
+ we use disabled=true instead, and use these styles to simulate readonly.
+ */
+.wkt-code-view.oj-text-field.oj-disabled .oj-text-field-input {
+  color: black;
+  padding: 0;
+}
+
 .wkt-dialog {
   width: 500px;
   height: 500px;
