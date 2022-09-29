@@ -32,7 +32,7 @@
       <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
       
       <guid>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/k8s-weblogic-domain/</guid>
-      <description>Contents  WebLogic Domain Design View  Primary Image to Use for the Domain Auxiliary Image to Use for the Domain Clusters Model Variables Overrides Secrets Runtime Encryption Secret WebLogic Kubernetes Operator Introspection Configuration Domain-Wide Server Settings   Code View Prepare Model Deploy Domain Get Domain Status Undeploy Domain  WebLogic Domain The WebLogic Domain section provides support for creating and deploying the Kubernetes custom resource for the WebLogic domain as defined by the WebLogic Kubernetes Operator.</description>
+      <description>Contents  WebLogic Domain Design View  Primary Image to Use for the Domain Auxiliary Image to Use for the Domain Clusters Model Variables Overrides Secrets Runtime Encryption Secret WebLogic Kubernetes Operator Introspection Configuration Domain-Wide Server Settings Domain-Wide Node Selector   Code View Prepare Model Deploy Domain Get Domain Status Undeploy Domain  WebLogic Domain The WebLogic Domain section provides support for creating and deploying the Kubernetes custom resource for the WebLogic domain as defined by the WebLogic Kubernetes Operator.</description>
     </item>
     
     <item>

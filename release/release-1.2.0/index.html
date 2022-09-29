@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/weblogic-toolkit-ui/images/favicon.png" type="image/png">
 
-    <title>About the WKT UI Application :: WebLogic Kubernetes Toolkit UI</title>
+    <title>Release 1.2.0 :: WebLogic Kubernetes Toolkit UI</title>
 
     
     <link href="/weblogic-toolkit-ui/css/nucleus.css?1664463315" rel="stylesheet">
@@ -39,7 +39,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/weblogic-toolkit-ui/concepts/">
+  <body class="" data-url="/weblogic-toolkit-ui/release/release-1.2.0/">
     <nav id="sidebar" class="">
 
 
@@ -94,8 +94,8 @@
   
     
     <li data-nav-id="/weblogic-toolkit-ui/concepts/" title="About the WKT UI Application" class="dd-item
-        parent
-        active
+        
+        
         
         ">
       <a href="/weblogic-toolkit-ui/concepts/">
@@ -557,7 +557,7 @@
   
     
     <li data-nav-id="/weblogic-toolkit-ui/release/" title="Release Notes" class="dd-item
-        
+        parent
         
         
         ">
@@ -625,7 +625,7 @@
  
   
     
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.2.0/" title="Release 1.2.0" class="dd-item ">
+      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.2.0/" title="Release 1.2.0" class="dd-item active">
         <a href="/weblogic-toolkit-ui/release/release-1.2.0/">
         <b> </b>Release 1.2.0
         
@@ -692,7 +692,13 @@
             
           
           
-            <a href='/weblogic-toolkit-ui/'></a> > About the WKT UI Application
+            
+            
+          
+          
+            <a href='/weblogic-toolkit-ui/'></a> > <a href='/weblogic-toolkit-ui/release/'>Release Notes</a> > Release 1.2.0
+          
+        
           
         
           
@@ -707,9 +713,7 @@
   <ul>
     <li>
       <ul>
-        <li><a href="#contents">Contents</a></li>
-        <li><a href="#wkt-project-file">WKT Project File</a></li>
-        <li><a href="#settings-outside-the-wkt-project-file">Settings Outside the WKT Project File</a></li>
+        <li><a href="#changes-in-release-120">Changes in Release 1.2.0</a></li>
       </ul>
     </li>
   </ul>
@@ -729,158 +733,46 @@
           
             <h1>
               
-              About the WKT UI Application
+              Release 1.2.0
             </h1>
           
 
         
 
 
-
-	<h3 id="contents">Contents</h3>
+<h3 id="changes-in-release-120">Changes in Release 1.2.0</h3>
 <ul>
-<li><a href="#wkt-project-file">WKT Project File</a></li>
-<li><a href="#settings-outside-the-wkt-project-file">Settings Outside the WKT Project File</a>
-<ul>
-<li><a href="#environment-variables">Environment Variables</a></li>
-<li><a href="#user-preferences">User Preferences</a>
-<ul>
-<li><a href="#proxy-configuration">Proxy Configuration</a></li>
-<li><a href="#logging-configuration">Logging Configuration</a></li>
-<li><a href="#weblogic-kubernetes-toolkit-ui-introduction-configuration">WebLogic Kubernetes Toolkit UI Introduction Configuration</a></li>
+<li><a href="#major-new-features">Major New Features</a></li>
+<li><a href="#other-changes">Other Changes</a></li>
+<li><a href="#bug-fixes">Bugs Fixes</a></li>
 </ul>
-</li>
-<li><a href="#external-applications">External Applications</a></li>
-<li><a href="#bundled-wkt-applications">Bundled WKT Applications</a></li>
-</ul>
-</li>
-</ul>
-<p>Before giving you the whirlwind tour of the WKT UI application, it is important to know that the application is a native,
-desktop application.  It uses native operating system features, such as:</p>
+<h4 id="major-new-features">Major New Features</h4>
 <ul>
-<li>Native menus - Some of the application&rsquo;s functionality is available <em>only</em> by using the menus.</li>
-<li>Registering file extensions - The application installer registers the <code>.wktproj</code> extension and associates itself
-with that extension.  For example, this lets you double-click on the file in the native file browser and
-have the application start and open the selected project.</li>
-<li>Recent files integration - As you work with <code>.wktproj</code> files, the application adds those files to the OS-maintained
-list of recently used files.  This causes these files to show up in OS-specific locations to provide shortcuts for
-opening the file with the application.  For example, on macOS, right-clicking on the application icon in the dock will
-display the recently used <code>.wktproj</code> files and selecting one will open an application window and load the contents
-of the <code>.wktproj</code> file.</li>
+<li>Model Design View added via integration with the <a href="https://github.com/oracle/weblogic-remote-console">WebLogic Remote Console 2.3.0</a>.
+Users must download and install the WebLogic Remote Console version 2.3.x.</li>
 </ul>
-<h3 id="wkt-project-file">WKT Project File</h3>
-<p>What is a <code>.wktproj</code> file?  Simply put, it is the application&rsquo;s equivalent of an Integrated Development Environment
-(IDE) project file.  It stores:</p>
+<h4 id="other-changes">Other Changes</h4>
 <ul>
-<li>Metadata about the UI project.</li>
-<li>Pointers to WDT model-related files used by the project.</li>
-<li>Form field data that you enter into the application.</li>
+<li>Added a new installer for macOS ARM.</li>
+<li>#141: Added support for WDT online remote discovery.</li>
 </ul>
-<p>There are two ways to create a new project:</p>
+<h4 id="bug-fixes">Bug Fixes</h4>
 <ul>
-<li>Explicitly - Use <code>File</code> &gt; <code>New Project</code> and select the file location and name.</li>
-<li>Implicitly - Use the application to start working.  After you trigger an action that needs a project file, you are
-prompted to select the file location and name.</li>
-</ul>
-<p><em>Note that the file extension for project files must be <code>.wktproj</code>.  Otherwise, the application will not recognize the
-file as a project and will not allow it to be opened as a project file.</em></p>
-<p>The WKT UI application uses a one project per window paradigm and most everything you do in the window is
-affected by the project data, either stored directly in the project file or in the WDT model-related files referenced
-by the project.  However, there are a few exceptions that are covered in <a href="#settings-outside-the-wkt-project-file">Settings Outside the WKT Project File</a>.</p>
-<h3 id="settings-outside-the-wkt-project-file">Settings Outside the WKT Project File</h3>
-<p>Multiple factors influence the behavior of the WKT UI application in a particular environment.  Other than the WKT Project file,
-those include:</p>
-<ul>
-<li><a href="#environment-variables">Environment Variables</a> - The application uses the environment it inherits when it is started.</li>
-<li><a href="#user-preferences">User Preferences</a> - The application&rsquo;s user preferences file stores shared, user-level settings that
-transcend project boundaries.</li>
-<li><a href="#external-applications">External Applications</a> - The application or its components depend on an application being available and properly configured.</li>
-<li><a href="#bundled-wkt-applications">Bundled WKT Applications</a> - The application bundles its own copies of WebLogic Deploy Tooling and WebLogic Image Tool.</li>
-</ul>
-<h4 id="environment-variables">Environment Variables</h4>
-<p>Some of the application&rsquo;s behavior is influenced by environment variables it inherits when it is started.  Environment
-variables affect the behavior of the WKT UI application when computing default values for application form fields.  Some
-examples are:</p>
-<ul>
-<li><code>PATH</code> - Used to locate executables like <code>docker</code>, <code>helm</code>, and <code>kubectl</code>.</li>
-<li><code>JAVA_HOME</code> - Used as one way to find the directory where the Java Development Kit (JDK) is installed.</li>
-<li><code>ORACLE_HOME</code> and <code>MW_HOME</code> - Used to find the Oracle Fusion Middleware installation directory.</li>
+<li>#107: Resolved an issue where the <code>Save As</code> functionality was not handling the archive file properly if there were no
+pending updates to the archive file (Jira WKTUI-322).</li>
+<li>Added missing service account argument for WebLogic Kubernetes Operator installation shell scripts (Jira WKTUI-337).</li>
+<li>#123: Changed Domain status message when domain status is available (Jira WKTUI-345).</li>
+<li>#127: Corrected an issue that was causing unsaved changes with no project to be lost when opening a new or existing project.</li>
+<li>#129: Fixed an issue where the wrong window was getting its title changed when opening a new project.</li>
+<li>#130: Fixed an issue where the window title was set incorrectly for a new or existing project.</li>
+<li>#131: Tightened up the logic for saving a project to get predictable results when encountering write permission errors.</li>
+<li>Fixed busy dialog messages used during WebLogic Kubernetes Operator installation and update.</li>
+<li>#136: Corrected <code>app.addRecentDocument()</code> handling so that the file always exists on disk prior to the call being made.</li>
+<li>#147: Corrected an issue with the PATH environment variable that was causing WebLogic Image Tool-related issues on Linux with Podman.</li>
 </ul>
 
-<div class="notices note" ><p>On Windows and Linux platforms, this tends to be the user&rsquo;s environment that they have configured to be used when
-they log in. On macOS, native applications do not inherit the user&rsquo;s login environment.  Instead, the application
-inherits the environment configured by the <code>launchd</code> daemon process.  If you are running on macOS, then you should keep this in mind
-when the application doesn&rsquo;t behave as you expect. For more information, see <a href="/weblogic-toolkit-ui/navigate/project-settings/">Project Settings</a>.</p>
-</div>
 
-<h4 id="user-preferences">User Preferences</h4>
-<p>The <code>Preferences</code> menu lets you configure settings that affect the behavior of the WKT UI application for the user
-across all instances of the application on the machine.  These user-visible settings include the following categories:</p>
-<ul>
-<li><a href="#proxy-configuration">Proxy Configuration</a></li>
-<li><a href="#logging-configuration">Logging Configuration</a></li>
-<li>WebLogic Kubernetes Toolkit UI <a href="#weblogic-kubernetes-toolkit-ui-introduction-configuration">Introduction Configuration</a></li>
-</ul>
-<p>Settings are also used to store internally used values that impact the appearance of the application.  For example, the
-Window size is stored so that the application will open the window with your last known window size.  The list of
-such appearance-related settings will likely grow over time.</p>
-<h5 id="proxy-configuration">Proxy Configuration</h5>
-<p>If the WKT UI application is to be run from an environment where a proxy server is required to access the Internet, then you
-must configure the proxy server settings to allow Internet access.  Currently, the UI depends on access to
-<code>github.com</code> to access release information and download new releases of the WKT tools and the UI itself.  This connectivity
-is used in various places to determine default values for input data (for example, the default image tag to use for installing the
-WebLogic Kubernetes Operator) and providing updated features for the WKT tools bundled with the application, as
-well as updating the WKT UI application itself when a new release becomes available.   Depending on the project configuration,
-the application may also require access to other sites, such as Docker Hub and other container registries, Helm chart
-download sites, and cloud-provider sites for authenticating to and accessing remote Kubernetes clusters.</p>
-<p>To configure the proxy environment, use the <code>Preferences</code> menu to add or update the
-following fields, as needed:</p>
-<ul>
-<li><code>HTTPS Proxy URL</code> - The full URL to the proxy server (for example, <a href="http://my-proxy-server.mycompany.com:80">http://my-proxy-server.mycompany.com:80</a>).</li>
-<li><code>Bypass Proxy Hosts</code> - The comma-separated list of DNS or IP patterns that should not go through the proxy.
-For example, a value of <code>.us.mycompany.com,.emea.mycompany.com,.apac.mycompany.com</code> will skip the proxy for any
-DNS name that ends in one of the three domain names.</li>
-</ul>
-<h5 id="logging-configuration">Logging Configuration</h5>
-<p>Using this section, you can configure the logging output level and control the log file directory.  The defaults are:</p>
-<ul>
-<li><code>File Transport Log Level</code> - The logging level below which log messages will be discarded.  For example, <code>Debug</code> messages
-will be discarded if the level is set to <code>Info</code>.  The default value is <code>Info</code>.</li>
-<li><code>Log File Directory</code> - The directory to which log files are written.  The default is the user&rsquo;s temporary directory, as
-defined by the operating system.</li>
-</ul>
-<h5 id="weblogic-kubernetes-toolkit-ui-introduction-configuration">WebLogic Kubernetes Toolkit UI Introduction Configuration</h5>
-<p>This setting lets you turn on or off the in-application introductory information being displayed at startup.  <code>Show Introduction</code> is always
-accessible from the <code>Help</code> menu.</p>
-<h4 id="external-applications">External Applications</h4>
-<p>The WKT UI application depends on several external applications for its functionality.  As such, it is important to install and
-configure these external applications properly on the local machine on which the application is running.</p>
-<ul>
-<li><code>docker</code> (or <code>podman</code>) - Used to create new images and inspect the contents of
-custom base images.  The WebLogic Image Tool depends on <code>docker</code> (or <code>podman</code>) for this functionality.  <code>docker</code>
-(or <code>podman</code>) is also used to log in to and interact with image registries.</li>
-<li><code>kubectl</code> - Used to get, create, and update configuration objects in your Kubernetes cluster.
-It is critical that the <code>kubectl</code> configuration file is properly set up to allow <code>kubectl</code> to authenticate to the cluster.</li>
-<li><code>helm</code> - Used to install the WebLogic Kubernetes Operator and ingress controllers.</li>
-<li><code>openssl</code> - Used to generate X.509 TLS certificates, should you ask the application to
-generate one for your ingress route(s), only if you ask the application to generate it for you.</li>
-</ul>
-<h4 id="bundled-wkt-applications">Bundled WKT Applications</h4>
-<p><a href="https://oracle.github.io/weblogic-deploy-tooling/">WebLogic Deploy Tooling</a> (WDT) and <a href="https://oracle.github.io/weblogic-image-tool/">WebLogic Image Tool</a> (WIT) are bundled with the WKT UI application.  These tools are:</p>
-<ul>
-<li>WDT - Used to support discovering a model from an existing domain, prepare the model for a
-particular Kubernetes target type, and is used by the WebLogic Image Tool when creating the domain inside the image.</li>
-<li>WIT - Used to create a new image for your WebLogic Server domain.  It is also used to inspect any
-custom base image that you might specify be used for creating the new image.</li>
-</ul>
-<p>Use <code>Help</code> &gt; <code>Check For Updates</code> periodically to make sure you are using the latest versions of these
-bundled tools.</p>
-
-
-
-
-
-<footer class=" footline" >
+<footer class="footline">
 	
 </footer>
 
@@ -915,120 +807,8 @@ bundled tools.</p>
             
                 
                     
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
                         
                         
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                        
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
                     
                 
                 
@@ -1086,6 +866,24 @@ bundled tools.</p>
             
         
                     
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
                         
             
             
@@ -1117,6 +915,19 @@ bundled tools.</p>
                     
             
         
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
                     
             
         
@@ -1201,25 +1012,6 @@ bundled tools.</p>
             
         
                     
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
                         
             
             
@@ -1269,6 +1061,110 @@ bundled tools.</p>
             
             
                 
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
                     
                 
                 
@@ -1293,10 +1189,10 @@ bundled tools.</p>
 	 
 	 
 		
-			<a class="nav nav-prev" href="/weblogic-toolkit-ui/" title=""> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/weblogic-toolkit-ui/release/release-1.1.0/" title="Release 1.1.0"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/weblogic-toolkit-ui/setup/" title="Get Started" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/weblogic-toolkit-ui/release/release-1.1.1/" title="Release 1.1.1" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -1328,3 +1224,4 @@ bundled tools.</p>
 
   </body>
 </html>
+

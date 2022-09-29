@@ -5,6 +5,9 @@
     <loc>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/k8s-client-config/</loc>
     <lastmod>2019-02-22T15:44:42-05:00</lastmod>
   </url><url>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/navigate/verrazzano/vz-client-config/</loc>
+    <lastmod>2019-02-22T15:44:42-05:00</lastmod>
+  </url><url>
     <loc>https://oracle.github.io/weblogic-toolkit-ui/setup/prerequisites/</loc>
     <lastmod>2019-02-22T15:44:42-05:00</lastmod>
   </url><url>
@@ -20,6 +23,9 @@
     <loc>https://oracle.github.io/weblogic-toolkit-ui/setup/install/</loc>
     <lastmod>2019-02-22T15:44:42-05:00</lastmod>
   </url><url>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/navigate/verrazzano/vz-install/</loc>
+    <lastmod>2019-02-22T15:44:42-05:00</lastmod>
+  </url><url>
     <loc>https://oracle.github.io/weblogic-toolkit-ui/navigate/model/</loc>
     <lastmod>2019-02-22T15:44:42-05:00</lastmod>
   </url><url>
@@ -28,6 +34,9 @@
   </url><url>
     <loc>https://oracle.github.io/weblogic-toolkit-ui/setup/</loc>
     <lastmod>2019-02-22T15:27:38-05:00</lastmod>
+  </url><url>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/navigate/verrazzano/vz-component/</loc>
+    <lastmod>2019-02-22T15:44:42-05:00</lastmod>
   </url><url>
     <loc>https://oracle.github.io/weblogic-toolkit-ui/navigate/image/</loc>
     <lastmod>2019-02-22T15:44:42-05:00</lastmod>
@@ -41,6 +50,9 @@
     <loc>https://oracle.github.io/weblogic-toolkit-ui/navigate/</loc>
     <lastmod>2019-02-22T15:27:38-05:00</lastmod>
   </url><url>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/navigate/verrazzano/vz-application/</loc>
+    <lastmod>2019-02-22T15:44:42-05:00</lastmod>
+  </url><url>
     <loc>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/k8s-ingress-controller/</loc>
     <lastmod>2019-02-22T15:44:42-05:00</lastmod>
   </url><url>
@@ -51,7 +63,10 @@
     <lastmod>2019-02-22T15:27:38-05:00</lastmod>
   </url><url>
     <loc>https://oracle.github.io/weblogic-toolkit-ui/navigate/verrazzano/</loc>
-    <lastmod>2019-02-22T15:44:42-05:00</lastmod>
+    <lastmod>2019-02-22T15:27:38-05:00</lastmod>
+  </url><url>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.2.0/</loc>
+    <lastmod>2022-01-30T12:48:00-05:00</lastmod>
   </url><url>
     <loc>https://oracle.github.io/weblogic-toolkit-ui/release/</loc>
     <lastmod>2022-01-30T12:48:00-05:00</lastmod>

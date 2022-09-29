@@ -18,6 +18,16 @@
     </item>
     
     <item>
+      <title>Client Configuration</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/navigate/verrazzano/vz-client-config/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/navigate/verrazzano/vz-client-config/</guid>
+      <description>Contents  Client Configuration  Authentication with Managed Kubernetes Clusters Verify Connectivity    Client Configuration Client Configuration helps you get the necessary connectivity to your Kubernetes cluster. Use the Kubernetes Cluster Type field to select the target Kubernetes cluster type to show instructions for configuring kubectl to successfully connect to the cluster.
+ The Kubectl Executable to Use field tells the WKT UI application where to find the correct version of kubectl to use.</description>
+    </item>
+    
+    <item>
       <title>Prerequisites</title>
       <link>https://oracle.github.io/weblogic-toolkit-ui/setup/prerequisites/</link>
       <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
@@ -59,6 +69,17 @@ Other Changes  Revamped the Ingress Route editing mechanism:  Added busy dialog 
     </item>
     
     <item>
+      <title>Installation</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/navigate/verrazzano/vz-install/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/navigate/verrazzano/vz-install/</guid>
+      <description>Contents  Verrazzano Design View Code View Install Verrazzano Check Verrazzano Installation Status  Verrazzano This section provides support for installing Verrazzano in the target Kubernetes cluster. For detailed information about Verrazzano, see the Verrazzano documentation.
+Design View Design View helps you specify the data needed to install Verrazzano to manage WebLogic domains in one or more Kubernetes namespaces. To install Verrazzano, simply provide values for the following fields:
+ Install Name - The name to give the Verrazzano object during installation.</description>
+    </item>
+    
+    <item>
       <title>Model</title>
       <link>https://oracle.github.io/weblogic-toolkit-ui/navigate/model/</link>
       <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
@@ -78,13 +99,23 @@ Other Changes  Revamped the Ingress Route editing mechanism:  Added busy dialog 
     </item>
     
     <item>
+      <title>Component</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/navigate/verrazzano/vz-component/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/navigate/verrazzano/vz-component/</guid>
+      <description>Contents  Verrazzano Component Design View  Primary Image to Use for the Domain Auxiliary Image to Use for the Domain Clusters Model Variables Overrides Secrets Runtime Encryption Secret WebLogic Kubernetes Operator Introspection Configuration Domain-Wide Server Settings Domain-Wide Node Selector   Code View Prepare Model Deploy Component Undeploy Component  Verrazzano Component The Component section provides support for creating and deploying the Verrazzano component for the WebLogic domain.
+Design View Design View helps you specify the data needed to generate the component definition and deploy that resource into a Kubernetes cluster.</description>
+    </item>
+    
+    <item>
       <title>Image</title>
       <link>https://oracle.github.io/weblogic-toolkit-ui/navigate/image/</link>
       <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
       
       <guid>https://oracle.github.io/weblogic-toolkit-ui/navigate/image/</guid>
       <description>Contents  Image Design View  Target Image Name and Registry Credentials Base Image to Use Installers for Building the Image Patch Oracle Home WebLogic Deploy Tooling Configuration Image Build Configuration   Code View Create Images Push Images  Image The Image section helps you build container images for deploying WebLogic-based applications in a Kubernetes environment using the WebLogic Image Tool.
-Design View The Design View helps you specify the necessary data needed to run the WebLogic Image Tool to build an image for running the WebLogic domain.</description>
+Design View Design View helps you specify the necessary data needed to run the WebLogic Image Tool to build an image for running the WebLogic domain.</description>
     </item>
     
     <item>
@@ -102,7 +133,18 @@ Design View The Design View helps you specify the necessary data needed to run t
       <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
       
       <guid>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/k8s-weblogic-domain/</guid>
-      <description>Contents  WebLogic Domain Design View  Primary Image to Use for the Domain Auxiliary Image to Use for the Domain Clusters Model Variables Overrides Secrets Runtime Encryption Secret WebLogic Kubernetes Operator Introspection Configuration Domain-Wide Server Settings   Code View Prepare Model Deploy Domain Get Domain Status Undeploy Domain  WebLogic Domain The WebLogic Domain section provides support for creating and deploying the Kubernetes custom resource for the WebLogic domain as defined by the WebLogic Kubernetes Operator.</description>
+      <description>Contents  WebLogic Domain Design View  Primary Image to Use for the Domain Auxiliary Image to Use for the Domain Clusters Model Variables Overrides Secrets Runtime Encryption Secret WebLogic Kubernetes Operator Introspection Configuration Domain-Wide Server Settings Domain-Wide Node Selector   Code View Prepare Model Deploy Domain Get Domain Status Undeploy Domain  WebLogic Domain The WebLogic Domain section provides support for creating and deploying the Kubernetes custom resource for the WebLogic domain as defined by the WebLogic Kubernetes Operator.</description>
+    </item>
+    
+    <item>
+      <title>Application</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/navigate/verrazzano/vz-application/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/navigate/verrazzano/vz-application/</guid>
+      <description>Contents  Verrazzano Application Design View  Components   Code View Deploy Application Undeploy Application  Verrazzano Application A Verrazzano application is comprised of Components. Components encapsulate application implementation details. For detailed information, see Applications in the Verrazzano documentation.
+The Application section makes it easy to compose an application that includes the Component for the WebLogic domain.
+Design View Design View provides values for defining the application and customizing it for the target environment.</description>
     </item>
     
     <item>
@@ -115,12 +157,12 @@ Design View The Design View helps you specify the necessary data needed to run t
     </item>
     
     <item>
-      <title>Verrazzano</title>
-      <link>https://oracle.github.io/weblogic-toolkit-ui/navigate/verrazzano/</link>
-      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      <title>Release 1.2.0</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.2.0/</link>
+      <pubDate>Sun, 30 Jan 2022 12:48:00 -0500</pubDate>
       
-      <guid>https://oracle.github.io/weblogic-toolkit-ui/navigate/verrazzano/</guid>
-      <description>In the current release, this is a placeholder for pages that will provide similar functionality to the Kubernetes section when using Verrazzano.</description>
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.2.0/</guid>
+      <description>Changes in Release 1.2.0  Major New Features Other Changes Bugs Fixes  Major New Features  Model Design View added via integration with the WebLogic Remote Console 2.3.0. Users must download and install the WebLogic Remote Console version 2.3.x.  Other Changes  Added a new installer for macOS ARM. #141: Added support for WDT online remote discovery.  Bug Fixes  #107: Resolved an issue where the Save As functionality was not handling the archive file properly if there were no pending updates to the archive file (Jira WKTUI-322).</description>
     </item>
     
   </channel>

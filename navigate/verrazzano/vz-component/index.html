@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="Hugo 0.88.1" />
-    <meta name="description" content="Create and deploy the Kubernetes custom resource for the WebLogic domain.">
+    <meta name="description" content="Create and deploy the Verrazzano component for the WebLogic domain.">
 
 
     <link rel="icon" href="/weblogic-toolkit-ui/images/favicon.png" type="image/png">
 
-    <title>WebLogic Domain :: WebLogic Kubernetes Toolkit UI</title>
+    <title>Component :: WebLogic Kubernetes Toolkit UI</title>
 
     
     <link href="/weblogic-toolkit-ui/css/nucleus.css?1664463315" rel="stylesheet">
@@ -39,7 +39,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/weblogic-toolkit-ui/navigate/kubernetes/k8s-weblogic-domain/">
+  <body class="" data-url="/weblogic-toolkit-ui/navigate/verrazzano/vz-component/">
     <nav id="sidebar" class="">
 
 
@@ -286,7 +286,7 @@
   
     
     <li data-nav-id="/weblogic-toolkit-ui/navigate/kubernetes/" title="Kubernetes" class="dd-item
-        parent
+        
         
         
         ">
@@ -354,7 +354,7 @@
  
   
     
-      <li data-nav-id="/weblogic-toolkit-ui/navigate/kubernetes/k8s-weblogic-domain/" title="WebLogic Domain" class="dd-item active">
+      <li data-nav-id="/weblogic-toolkit-ui/navigate/kubernetes/k8s-weblogic-domain/" title="WebLogic Domain" class="dd-item ">
         <a href="/weblogic-toolkit-ui/navigate/kubernetes/k8s-weblogic-domain/">
         WebLogic Domain
         
@@ -406,7 +406,7 @@
   
     
     <li data-nav-id="/weblogic-toolkit-ui/navigate/verrazzano/" title="Verrazzano" class="dd-item
-        
+        parent
         
         
         ">
@@ -474,7 +474,7 @@
  
   
     
-      <li data-nav-id="/weblogic-toolkit-ui/navigate/verrazzano/vz-component/" title="Component" class="dd-item ">
+      <li data-nav-id="/weblogic-toolkit-ui/navigate/verrazzano/vz-component/" title="Component" class="dd-item active">
         <a href="/weblogic-toolkit-ui/navigate/verrazzano/vz-component/">
         Component
         
@@ -700,7 +700,7 @@
             
           
           
-            <a href='/weblogic-toolkit-ui/'></a> > <a href='/weblogic-toolkit-ui/navigate/'>Navigate the UI</a> > <a href='/weblogic-toolkit-ui/navigate/kubernetes/'>Kubernetes</a> > WebLogic Domain
+            <a href='/weblogic-toolkit-ui/'></a> > <a href='/weblogic-toolkit-ui/navigate/'>Navigate the UI</a> > <a href='/weblogic-toolkit-ui/navigate/verrazzano/'>Verrazzano</a> > Component
           
         
           
@@ -720,13 +720,12 @@
     <li>
       <ul>
         <li><a href="#contents">Contents</a></li>
-        <li><a href="#weblogic-domain">WebLogic Domain</a></li>
+        <li><a href="#verrazzano-component">Verrazzano Component</a></li>
         <li><a href="#design-view">Design View</a></li>
         <li><a href="#code-view">Code View</a></li>
         <li><a href="#prepare-model">Prepare Model</a></li>
-        <li><a href="#deploy-domain">Deploy Domain</a></li>
-        <li><a href="#get-domain-status">Get Domain Status</a></li>
-        <li><a href="#undeploy-domain">Undeploy Domain</a></li>
+        <li><a href="#deploy-component">Deploy Component</a></li>
+        <li><a href="#undeploy-component">Undeploy Component</a></li>
       </ul>
     </li>
   </ul>
@@ -746,7 +745,7 @@
           
             <h1>
               
-              WebLogic Domain
+              Component
             </h1>
           
 
@@ -755,7 +754,7 @@
 
 <h3 id="contents">Contents</h3>
 <ul>
-<li><a href="#weblogic-domain">WebLogic Domain</a></li>
+<li><a href="#verrazzano-component">Verrazzano Component</a></li>
 <li><a href="#design-view">Design View</a>
 <ul>
 <li><a href="#primary-image-to-use-for-the-domain">Primary Image to Use for the Domain</a></li>
@@ -771,18 +770,15 @@
 </li>
 <li><a href="#code-view">Code View</a></li>
 <li><a href="#prepare-model">Prepare Model</a></li>
-<li><a href="#deploy-domain">Deploy Domain</a></li>
-<li><a href="#get-domain-status">Get Domain Status</a></li>
-<li><a href="#undeploy-domain">Undeploy Domain</a></li>
+<li><a href="#deploy-component">Deploy Component</a></li>
+<li><a href="#undeploy-component">Undeploy Component</a></li>
 </ul>
-<h3 id="weblogic-domain">WebLogic Domain</h3>
-<p>The <code>WebLogic Domain</code> section provides support for creating and deploying the Kubernetes custom resource for the WebLogic domain as
-defined by the WebLogic Kubernetes Operator.  For more information, see
-<a href="https://oracle.github.io/weblogic-kubernetes-operator/userguide/managing-domains/domain-resource/">Domain Resource</a>
-in the WebLogic Kubernetes Operator documentation.</p>
+<h3 id="verrazzano-component">Verrazzano Component</h3>
+<p>The <code>Component</code> section provides support for creating and deploying the Verrazzano component for the WebLogic domain.</p>
 <h3 id="design-view">Design View</h3>
-<p><code>Design View</code> helps you specify the necessary data needed to generate the Domain resource definition and deploy
-that resource into a Kubernetes cluster.</p>
+<p><code>Design View</code> helps you specify the data needed to generate the component definition and deploy
+that resource into a Kubernetes cluster. It provides values for various Kubernetes objects, including model variable overrides and secrets.</p>
+<p><code>Verrazzano Version</code>- The three digit version number of the installed Verrazzano version from the target environment.</p>
 <p>The <code>Domain UID</code> field defines the name of the Kubernetes Domain custom resource object.  This name must be unique
 within the Kubernetes namespace where it will be created, which is controlled by the <code>Kubernetes Namespace</code> field.</p>
 <p>The default value of the <code>Domain UID</code> field is based on the WebLogic domain&rsquo;s name, as defined by the WDT model:</p>
@@ -958,8 +954,8 @@ to use this section to configure the Administration Server and use the <code>Clu
 <h4 id="domain-wide-node-selector">Domain-Wide Node Selector</h4>
 <p>This pane lets you specify the nodes on which to run.</p>
 <h3 id="code-view">Code View</h3>
-<p><code>Code View</code> displays a shell script for deploying the domain and creating its dependent resources as well as
-the YAML definition for the Kubernetes custom resource (that is, the Domain resource) and the Model Variables Overrides
+<p><code>Code View</code> displays a shell script for deploying the Verrazzano components for this WebLogic domain into Kubernetes
+and creating its dependent resources as well as the Component Resource YAML definition and the Model Variables Overrides
 ConfigMap, if applicable.</p>
 <p>If it is not already selected, then use the <code>Script Language</code> drop-down menu to choose the desired scripting language.  Note
 that the application is providing a working sample script simply to show how the process might be automated.  Before
@@ -971,25 +967,18 @@ existing standards for securely handling such credentials.</p>
 <h3 id="prepare-model">Prepare Model</h3>
 <p><code>Prepare Model</code> is the same as was previously described in the <a href="/weblogic-toolkit-ui/navigate/model/#prepare-model"><code>Model</code></a>  section.  It is only
 surfaced here because the <code>Clusters</code> pane of the <code>Design View</code> is populated only when <code>Prepare Model</code> is run.</p>
-<h3 id="deploy-domain">Deploy Domain</h3>
-<p><code>Deploy Domain</code> creates the Domain custom resource object and any of its dependent objects (for example,
-namespace, secrets, ConfigMap) in Kubernetes.  You access this action by using the <code>Deploy Domain</code> button on the
-<code>WebLogic Domain</code> page or the <code>Go</code> &gt; <code>Deploy WebLogic Domain to Kubernetes</code> menu item.  As previously
-mentioned, this action also updates the operator configuration, if needed, and reruns the operator Helm chart to ensure
-that the new namespace is manageable by the WebLogic Kubernetes Operator configured for this project.</p>
-<p><code>Deploy Domain</code> completes as soon as the objects are created and the operator Helm chart execution completes.  At some point
-after the action completes, the operator will detect a new (or updated) version of the Domain custom resource object and
-start a new introspection job to create the domain and start or restart the WebLogic Server containers.  <code>Get Domain Status</code>
-provides the current status of the last <code>Deploy Domain</code> action.</p>
-<h3 id="get-domain-status">Get Domain Status</h3>
-<p>To view the current status of the last domain deployment, use the <code>Get Domain Status</code> button or the
-<code>Go</code> &gt; <code>Get WebLogic Domain Status</code>.  This action retrieves and displays the domain deployment
-status, as provided by the WebLogic Kubernetes Operator.</p>
-<h3 id="undeploy-domain">Undeploy Domain</h3>
-<p><code>Undeploy Domain</code> removes the Kubernetes custom resource for the WebLogic domain and its
-dependent objects in Kubernetes. In addition, you can choose whether to also delete the corresponding namespace.
-You access these actions by using the <code>Undeploy Domain</code> button on the
-<code>WebLogic Domain</code> page or the <code>Go</code> &gt; <code>Undeploy WebLogic Domain to Kubernetes</code> menu item.</p>
+<h3 id="deploy-component">Deploy Component</h3>
+<p><code>Deploy Component</code> creates the domain custom object and any of its dependent objects (for example,
+namespace, secrets, ConfigMap) in Kubernetes.  You access this action by using the <code>Deploy Component</code> button
+or the <code>Go</code> &gt; <code>Deploy Verrazzano Component</code> menu item.</p>
+<h3 id="undeploy-component">Undeploy Component</h3>
+<p><code>Undeploy Component</code> removes the domain custom object for the WebLogic domain and its
+dependent objects in Kubernetes. Undeploying the Verrazzano component will make any Verrazzano applications
+referencing these components invalid. In addition, you can choose whether to also delete the corresponding namespace.
+Removing the Verrazzano components' namespace removes all applications, components, secrets, ConfigMaps, and other
+Kubernetes objects that exist in the Kubernetes namespace.
+You access these actions by using the <code>Undeploy Component</code> button
+or the <code>Go</code> &gt; <code>Undeploy Verrazzano Component</code> menu item.</p>
 
 
 <footer class="footline">
@@ -1161,6 +1150,86 @@ You access these actions by using the <code>Undeploy Domain</code> button on the
             
                 
                     
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
                     
                 
                 
@@ -1229,86 +1298,6 @@ You access these actions by using the <code>Undeploy Domain</code> button on the
                     
                         
                         
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
                     
                 
                 
@@ -1416,10 +1405,10 @@ You access these actions by using the <code>Undeploy Domain</code> button on the
 	 
 	 
 		
-			<a class="nav nav-prev" href="/weblogic-toolkit-ui/navigate/kubernetes/k8s-wko/" title="WebLogic Kubernetes Operator"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/weblogic-toolkit-ui/navigate/verrazzano/vz-install/" title="Installation"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/weblogic-toolkit-ui/navigate/kubernetes/k8s-ingress-controller/" title="Ingress Controller" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/weblogic-toolkit-ui/navigate/verrazzano/vz-application/" title="Application" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>

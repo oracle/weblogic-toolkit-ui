@@ -26,5 +26,14 @@ Other Changes  Revamped the Ingress Route editing mechanism:  Added busy dialog 
       <description>Changes in Release 1.1.0  Major New Features Other Changes Bugs Fixes Known Issues  Major New Features  Updated macOS environment control to specify extra environment settings to pass down to Docker/Podman, kubectl, and Helm invocations. Bundling WebLogic Deploy Tooling 2.0.0. See WDT release notes for details. New Validate Model action that leverages WDT 2.0 changes to validate the model files and reports any validation errors it finds. Updated Prepare Model action that leverages WDT 2.</description>
     </item>
     
+    <item>
+      <title>Release 1.2.0</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.2.0/</link>
+      <pubDate>Sun, 30 Jan 2022 12:48:00 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.2.0/</guid>
+      <description>Changes in Release 1.2.0  Major New Features Other Changes Bugs Fixes  Major New Features  Model Design View added via integration with the WebLogic Remote Console 2.3.0. Users must download and install the WebLogic Remote Console version 2.3.x.  Other Changes  Added a new installer for macOS ARM. #141: Added support for WDT online remote discovery.  Bug Fixes  #107: Resolved an issue where the Save As functionality was not handling the archive file properly if there were no pending updates to the archive file (Jira WKTUI-322).</description>
+    </item>
+    
   </channel>
 </rss>
