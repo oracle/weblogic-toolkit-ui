@@ -27,17 +27,17 @@
                           help.instruction="[[shellLabelMapper('selector-help')]]">
         </oj-select-single>
       </oj-form-layout>
-      <oj-text-area class="wkt-code-view" max-rows="-1" value="{{scriptText}}" disabled="true">
+      <oj-text-area class="wkt-code-view" max-rows="100000" value="{{scriptText}}" readonly="true">
       </oj-text-area>
     </div>
 
     <div slot="domain" class="oj-panel wkt-code-view-platform-frame">
-      <oj-text-area class="wkt-code-view" max-rows="-1" value="{{domainText}}" disabled="true">
+      <oj-text-area class="wkt-code-view" max-rows="100000" value="{{domainText}}" readonly="true">
       </oj-text-area>
     </div>
 
     <div slot="configMap" class="oj-panel wkt-code-view-platform-frame">
-      <oj-text-area class="wkt-code-view" max-rows="-1" value="{{configMapText}}" disabled="true">
+      <oj-text-area class="wkt-code-view" max-rows="100000" value="{{configMapText}}" readonly="true">
       </oj-text-area>
     </div>
   </oj-switcher>

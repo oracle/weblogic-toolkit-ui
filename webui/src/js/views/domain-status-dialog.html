@@ -31,7 +31,7 @@
         <oj-bind-text value="{{labelMapper('domain-status-message')}}"></oj-bind-text>
       </oj-label>
       <br>
-      <oj-text-area class="domainError" id="error-message"  max-rows="-1" value="{{domainErrorMessage}}"
+      <oj-text-area class="domainError" id="error-message"  max-rows="100000" value="{{domainErrorMessage}}"
                     readonly="true">
       </oj-text-area>
     </div>
@@ -42,7 +42,7 @@
       <oj-bind-text value="{{labelMapper('domain-status-conditions')}}"></oj-bind-text>
     </oj-label>
     <br>
-    <oj-text-area id="conditions" max-rows="-1"
+    <oj-text-area id="conditions" max-rows="100000"
                   value="{{domainConditions}}"
                   readonly="true">
     </oj-text-area>
@@ -54,7 +54,7 @@
       <oj-bind-text value="{{labelMapper('domain-status-clusterstatus')}}"></oj-bind-text>
     </oj-label>
     <br>
-    <oj-text-area id="clusterstatus" max-rows="-1" value="{{domainClusterStatus}}"
+    <oj-text-area id="clusterstatus" max-rows="100000" value="{{domainClusterStatus}}"
                   readonly="true">
     </oj-text-area>
 
@@ -65,7 +65,7 @@
       <oj-bind-text value="{{labelMapper('domain-status-serverstatus')}}"></oj-bind-text>
     </oj-label>
     <br>
-    <oj-text-area id="serverstatus" max-rows="-1" value="{{domainServerStatus}}" readonly="true">
+    <oj-text-area id="serverstatus" max-rows="100000" value="{{domainServerStatus}}" readonly="true">
     </oj-text-area>
   </div>
 

@@ -26,7 +26,7 @@
                           help.instruction="[[shellLabelMapper('selector-help')]]">
         </oj-select-single>
       </oj-form-layout>
-      <oj-text-area class="wkt-code-view" max-rows="-1" value="{{installScriptText}}" disabled="true">
+      <oj-text-area class="wkt-code-view" max-rows="100000" value="{{installScriptText}}" readonly="true">
       </oj-text-area>
     </div>
 
@@ -38,12 +38,12 @@
                           help.instruction="[[shellLabelMapper('selector-help')]]">
         </oj-select-single>
       </oj-form-layout>
-      <oj-text-area class="wkt-code-view" max-rows="-1" value="{{addRoutesScriptText}}" disabled="true">
+      <oj-text-area class="wkt-code-view" max-rows="100000" value="{{addRoutesScriptText}}" readonly="true">
       </oj-text-area>
     </div>
 
     <div slot="routesYaml" class="oj-panel wkt-code-view-platform-frame">
-      <oj-text-area class="wkt-code-view" max-rows="-1" value="{{ingressRoutesYamlText}}" disabled="true">
+      <oj-text-area class="wkt-code-view" max-rows="100000" value="{{ingressRoutesYamlText}}" readonly="true">
       </oj-text-area>
     </div>
 
