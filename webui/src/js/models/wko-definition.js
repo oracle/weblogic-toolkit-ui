@@ -70,6 +70,8 @@ define(['utils/observable-properties', 'utils/validation-helper'],
 
         this.helmTimeoutMinutes = props.createProperty(5);
 
+        this.installedVersion = props.createProperty();
+
         // internal fields that should not be read or written to the project file.
         this.internal = {
           operatorImagePullRegistryAddress: props.createProperty()

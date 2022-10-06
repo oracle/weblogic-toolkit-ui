@@ -31,7 +31,7 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
     this.i18n = i18n;
 
     this.getInstalledVersionNumber = () => {
-      verrazzanoInstallVersionChecker.startVerrazzanoInstallStatusCheck().then();
+      verrazzanoInstallVersionChecker.startVerrazzanoInstallVersionCheck().then();
     };
 
     this.components = this.project.vzApplication.components;

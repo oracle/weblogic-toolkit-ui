@@ -174,7 +174,7 @@ function(WkoActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, val
     async checkOperatorIsInstalled(kubectlExe, kubectlOptions, helmReleaseName, operatorNamespace, errTitle, errPrefix) {
       try {
         const isInstalledResults =
-          await window.api.ipc.invoke('is-wko-installed', kubectlExe, helmReleaseName, operatorNamespace, kubectlOptions);
+          await window.api.ipc.invoke('is-wko-installed', kubectlExe, operatorNamespace, kubectlOptions);
 
         if (!isInstalledResults.isInstalled) {
           // There should only be a reason if the backend error didn't match the expected "not found" error condition!

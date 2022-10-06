@@ -152,6 +152,9 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
                 domainNamespaces: `{${list.join(',')}}`
               };
 
+              // Skip passing kubectlExe and kubectlOptions args we do not need
+              // the installed version of operator.
+              //
               const upgradeResults = await window.api.ipc.invoke('helm-update-wko', helmExe, operatorName,
                 operatorNamespace, helmChartValues, helmHelper.getHelmOptions());
               if (!upgradeResults.isSuccess) {
@@ -219,7 +222,7 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
       const results = { isInstalled: true };
       try {
         const isInstalledResults =
-          await window.api.ipc.invoke('is-wko-installed', kubectlExe, operatorName, operatorNamespace, kubectlOptions);
+          await window.api.ipc.invoke('is-wko-installed', kubectlExe, operatorNamespace, kubectlOptions);
         if (!isInstalledResults.isInstalled) {
           if (isInstalledResults.reason) {
             // error from backend

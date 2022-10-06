@@ -57,6 +57,14 @@
                         help.instruction="[[labelMapper('domain-type-help')]]">
       </oj-select-single>
     </oj-bind-if>
+    <oj-input-text label-hint="[[labelMapper('wko-installed-version-label')]]"
+                   value="{{project.wko.installedVersion.observable}}"
+                   help.instruction="[[labelMapper('wko-installed-version-help')]]">
+      <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[getWkoInstalledVersion]]">
+        <span slot="endIcon" class="oj-ux-ico-select" role="img"></span>
+        <oj-bind-text value="[[labelMapper('wko-installed-version-tooltip')]]"></oj-bind-text>
+      </oj-button>
+    </oj-input-text>
   </oj-form-layout>
 </div>
 

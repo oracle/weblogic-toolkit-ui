@@ -5,11 +5,11 @@
  */
 define(['models/wkt-project', 'accUtils', 'utils/common-utilities', 'knockout', 'utils/i18n', 'utils/screen-utils',
   'ojs/ojbufferingdataprovider', 'ojs/ojarraydataprovider', 'ojs/ojconverter-number', 'utils/dialog-helper',
-  'utils/view-helper', 'utils/wkt-logger', 'ojs/ojmessaging', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton',
-  'ojs/ojformlayout', 'ojs/ojcollapsible', 'ojs/ojselectsingle', 'ojs/ojlistview', 'ojs/ojtable', 'ojs/ojswitch',
-  'ojs/ojinputnumber', 'ojs/ojradioset'],
+  'utils/view-helper', 'utils/wko-get-installed-version', 'utils/wkt-logger', 'ojs/ojmessaging', 'ojs/ojinputtext',
+  'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojformlayout', 'ojs/ojcollapsible', 'ojs/ojselectsingle', 'ojs/ojlistview',
+  'ojs/ojtable', 'ojs/ojswitch', 'ojs/ojinputnumber', 'ojs/ojradioset'],
 function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider, ArrayDataProvider,
-  ojConverterNumber, dialogHelper, viewHelper) {
+  ojConverterNumber, dialogHelper, viewHelper, wkoInstalledVersionChecker) {
   function DomainDesignViewModel() {
 
     let subscriptions = [];
@@ -68,6 +68,10 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
 
     this.project = project;
     this.i18n = i18n;
+
+    this.getWkoInstalledVersion = () => {
+      wkoInstalledVersionChecker.startOperatorInstallVersionCheck().then();
+    };
 
     this.mainCreateImageSwitchHelp = ko.computed(() => {
       if (this.project.image.useAuxImage.value) {
