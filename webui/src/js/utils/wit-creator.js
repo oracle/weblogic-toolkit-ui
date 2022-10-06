@@ -426,7 +426,7 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
     }
 
     usingWdt() {
-      return !this.project.image.useAuxImage.value && this.requiresInstaller('wdtHome');
+      return this.requiresInstaller('wdtHome');
     }
 
     supportsPatching() {
