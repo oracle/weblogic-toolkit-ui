@@ -218,16 +218,16 @@ async function getOperatorVersion(kubectlExe, operatorNamespace, options) {
     getOperatorLogs(kubectlExe, operatorNamespace, options).then(logResult => {
       if (logResult.isSuccess === false) {
         results.isSuccess = false;
-        results.reason = i18n.t('kubectl-get-operator-version-error-message', { error: logResult.reason });
+        results.reason = i18n.t('kubectl-get-operator-version-error-message', {error: logResult.reason});
         return resolve(results);
       }
-      _getOperatorVersionFromLogs(logResult.operatorLogs, results)
+      _getOperatorVersionFromLogs(logResult.operatorLogs, results);
+      resolve(results);
+    }).catch(err => {
+      results.isSuccess = false;
+      results.reason = i18n.t('kubectl-get-operator-version-error-message', {error: getErrorMessage(err)});
       resolve(results);
     });
-  }).catch(err => {
-    results.isSuccess = false;
-    results.reason = i18n.t('kubectl-get-operator-version-error-message', { error: getErrorMessage(err) });
-    resolve(results);
   });
 }
 

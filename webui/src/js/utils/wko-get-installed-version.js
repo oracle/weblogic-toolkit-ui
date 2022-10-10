@@ -6,8 +6,8 @@
 'use strict';
 
 define(['utils/wko-actions-base', 'models/wkt-project', 'models/wkt-console', 'utils/i18n', 'utils/project-io',
-  'utils/dialog-helper', 'utils/validation-helper', 'utils/helm-helper', 'utils/wkt-logger'],
-function(WkoActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, validationHelper, helmHelper, wktLogger) {
+  'utils/dialog-helper', 'utils/validation-helper', 'utils/wkt-logger'],
+function(WkoActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, validationHelper) {
   class WkoInstallVersionChecker extends WkoActionsBase {
     constructor() {
       super();
