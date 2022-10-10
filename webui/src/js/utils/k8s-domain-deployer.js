@@ -124,6 +124,10 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
         }
 
         // Run helm upgrade so that operator picks up the new namespace.
+        //
+        // Skip passing kubectlExe and kubectlOptions args since the installed version
+        // of operator was already set.
+        //
         const helmOptions = helmHelper.getHelmOptions();
         const upgradeResults = await window.api.ipc.invoke('helm-update-wko', helmExe, operatorName,
           operatorNamespace, helmChartValues, helmOptions);
@@ -423,7 +427,7 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
     async checkOperatorIsInstalled(kubectlExe, kubectlOptions, operatorName, operatorNamespace, errTitle) {
       try {
         const isInstalledResults =
-          await window.api.ipc.invoke('is-wko-installed', kubectlExe, operatorName, operatorNamespace, kubectlOptions);
+          await window.api.ipc.invoke('is-wko-installed', kubectlExe, operatorNamespace, kubectlOptions);
         if (!isInstalledResults.isInstalled) {
           let errMessage;
           if (isInstalledResults.reason) {

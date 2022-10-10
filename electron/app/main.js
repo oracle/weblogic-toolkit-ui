@@ -765,8 +765,8 @@ class Main {
       return kubectlUtils.getApplicationStatus(kubectlExe, application, namespace, options);
     });
 
-    ipcMain.handle('is-wko-installed', async (event, kubectlExe, operatorName, operatorNamespace, kubectlOptions) => {
-      return kubectlUtils.isOperatorAlreadyInstalled(kubectlExe, operatorName, operatorNamespace, kubectlOptions);
+    ipcMain.handle('is-wko-installed', async (event, kubectlExe, operatorNamespace, kubectlOptions) => {
+      return kubectlUtils.isOperatorAlreadyInstalled(kubectlExe, operatorNamespace, kubectlOptions);
     });
 
     ipcMain.handle('k8s-create-namespace', async (event, kubectlExe, namespace, kubectlOptions) => {
@@ -810,16 +810,31 @@ class Main {
       return helmUtils.addOrUpdateWkoHelmChart(helmExe, helmOptions);
     });
 
-    ipcMain.handle('helm-install-wko', async (event, helmExe, helmReleaseName, operatorNamespace, helmChartValues, helmOptions) => {
-      return helmUtils.installWko(helmExe, helmReleaseName, operatorNamespace, helmChartValues, helmOptions);
+    ipcMain.handle('helm-install-wko',async (event, helmExe, helmReleaseName, operatorNamespace, helmChartValues, helmOptions, kubectlExe, kubectlOptions) => {
+      const results = await helmUtils.installWko(helmExe, helmReleaseName, operatorNamespace, helmChartValues, helmOptions);
+      if (results.isSuccess) {
+        const versionResults = await kubectlUtils.getOperatorVersion(kubectlExe, operatorNamespace, kubectlOptions);
+        if (versionResults.isSuccess) {
+          results.version = versionResults.version;
+        }
+      }
+      return Promise.resolve(results);
     });
 
     ipcMain.handle('helm-uninstall-wko', async (event, helmExe, helmReleaseName, operatorNamespace, helmOptions) => {
       return helmUtils.uninstallWko(helmExe, helmReleaseName, operatorNamespace, helmOptions);
     });
 
-    ipcMain.handle('helm-update-wko', async (event, helmExe, operatorName, operatorNamespace, helmChartValues, helmOptions) => {
-      return helmUtils.updateWko(helmExe, operatorName, operatorNamespace, helmChartValues, helmOptions);
+    ipcMain.handle('helm-update-wko', async (event, helmExe, operatorName,
+      operatorNamespace, helmChartValues, helmOptions, kubectlExe = undefined, kubectlOptions = undefined) => {
+      const results = await helmUtils.updateWko(helmExe, operatorName, operatorNamespace, helmChartValues, helmOptions);
+      if (kubectlExe && results.isSuccess) {
+        const versionResults = await kubectlUtils.getOperatorVersion(kubectlExe, operatorNamespace, kubectlOptions);
+        if (versionResults.isSuccess) {
+          results.version = versionResults.version;
+        }
+      }
+      return Promise.resolve(results);
     });
 
     ipcMain.handle('helm-list-all-namespaces', async (event, helmExe, helmOptions) => {
@@ -878,6 +893,10 @@ class Main {
 
     ipcMain.handle('k8s-get-operator-version-from-domain-config-map', async (event, kubectlExe, domainNamespace, options) => {
       return kubectlUtils.getOperatorVersionFromDomainConfigMap(kubectlExe, domainNamespace, options);
+    });
+
+    ipcMain.handle('k8s-get-operator-version', async (event, kubectlExe, operatorNamespace, options) => {
+      return kubectlUtils.getOperatorVersion(kubectlExe, operatorNamespace, options);
     });
 
     ipcMain.handle('get-tls-keyfile', async (event) => {

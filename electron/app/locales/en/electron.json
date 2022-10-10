@@ -315,7 +315,9 @@
   "kubectl-cluster-info-error-message": "Unable to get the Kubernetes cluster info: {{error}}",
   "kubectl-get-wko-domain-status-error-message": "Unable to get Kubernetes wko domain status: {{error}}",
   "kubectl-get-operator-status-error-message": "Unable to get wko operator status: {{error}}",
-  "kubectl-get-operator-logs-error-message": "Unable to get wko operator logs: {{error}}",
+  "kubectl-get-operator-logs-error-message": "Unable to get WebLogic Kubernetes Operator logs: {{error}}",
+  "kubectl-get-operator-version-error-message": "Unable to determine the WebLogic Kubernetes Operator version: {{error}}",
+  "kubectl-get-operator-version-logs-empty-error-message": "Unable to determine the WebLogic Kubernetes Operator version because the operator log was empty",
   "kubectl-get-operator-version-from-cm-error-message": "Unable to get operator version: {{error}}",
   "kubectl-tlsfile-not-specified-error-message": "TLS file path was not provided",
   "kubectl-tlsfile-not-exists-error-message": "TLS file {{filePath}} does not exist",
@@ -323,6 +325,7 @@
   "kubectl-get-vz-install-failed-error-message": "Unable to get Verrazzano installation: {{error}}",
   "kubectl-get-named-vz-install-error-message": "Unable to get Verrazzano installation with name {{name}}: {{error}}",
   "kubectl-get-vz-application-status-error-message": "Unable to get Verrazzano application status: {{error}}",
+  "kubectl-get-operator-version-not-found-error-message": "Failed to find the operator version from its log entries",
 
   "helm-not-specified-error-message": "Helm executable path was not provided",
   "helm-not-exists-error-message": "Helm executable {{filePath}} does not exist",

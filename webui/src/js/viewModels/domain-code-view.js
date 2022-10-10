@@ -77,7 +77,6 @@ function (accUtils, ko, project, K8sDomainScriptGenerator, K8sDomainConfigMapGen
     this.configMapText = ko.observable();
 
     this.k8sConfigMapGenerator = new K8sDomainConfigMapGenerator();
-    this.k8sDomainResourceGenerator = new K8sDomainResourceGenerator();
 
     this.renderScript = (selectedSubview) => {
       switch (selectedSubview) {
@@ -103,8 +102,16 @@ function (accUtils, ko, project, K8sDomainScriptGenerator, K8sDomainConfigMapGen
       this.configMapText(this.k8sConfigMapGenerator.generate().join('\n'));
     };
 
+    this.getDomainResourceGenerator = () => {
+      if (this.project.wko.installedVersion.hasValue()) {
+        return new K8sDomainResourceGenerator(this.project.wko.installedVersion.value);
+      } else {
+        return new K8sDomainResourceGenerator();
+      }
+    };
+
     this.renderDomainResource = () => {
-      this.domainText(this.k8sDomainResourceGenerator.generate().join('\n'));
+      this.domainText(this.getDomainResourceGenerator().generate().join('\n'));
     };
 
     this.renderScript(this.selectedSubview());

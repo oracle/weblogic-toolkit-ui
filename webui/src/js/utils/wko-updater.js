@@ -140,13 +140,14 @@ function(WkoActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, val
         wktLogger.debug('helmChartValues = %s', JSON.stringify(helmChartValues, null, 2));
 
         const updateResults = await window.api.ipc.invoke('helm-update-wko', helmExe, helmReleaseName,
-          operatorNamespace, helmChartValues, helmOptions);
+          operatorNamespace, helmChartValues, helmOptions, kubectlExe, kubectlOptions);
 
         dialogHelper.closeBusyDialog();
         if (updateResults.isSuccess) {
           const title = i18n.t('wko-updater-update-complete-title');
           const message = i18n.t('wko-updater-update-complete-message',
             { operatorName: helmReleaseName, operatorNamespace: operatorNamespace });
+          this.project.wko.installedVersion.value = updateResults.version;
           await window.api.ipc.invoke('show-info-message', title, message);
           return Promise.resolve(true);
         } else {
@@ -167,7 +168,7 @@ function(WkoActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, val
     async checkOperatorIsInstalled(kubectlExe, kubectlOptions, helmReleaseName, operatorNamespace, errTitle, errPrefix) {
       try {
         const isInstalledResults =
-          await window.api.ipc.invoke('is-wko-installed', kubectlExe, helmReleaseName, operatorNamespace, kubectlOptions);
+          await window.api.ipc.invoke('is-wko-installed', kubectlExe, operatorNamespace, kubectlOptions);
 
         if (!isInstalledResults.isInstalled) {
           // There should only be a reason if the backend error didn't match the expected "not found" error condition!

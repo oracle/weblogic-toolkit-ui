@@ -8,15 +8,21 @@
 define(['models/wkt-project', 'utils/k8s-domain-resource-generator', 'utils/vz-helper', 'js-yaml', 'utils/i18n',
   'utils/wkt-logger'],
 function(project, K8sDomainResourceGenerator, VerrazzanoHelper, jsYaml) {
+
+  // Note that the specific version number doesn't really matter.  What is important is until Verrazzano
+  // starts distributing WKO 4.x, we use a 3.x version number to get the right Domain resource spec.
+  //
+  const WKO3_VERSION = '3.4.3';
+
   class VerrazzanoComponentResourceGenerator {
     constructor() {
       this.project = project;
-      this.k8sDomainResourceGenerator = new K8sDomainResourceGenerator();
+      this.k8sDomainResourceGenerator = new K8sDomainResourceGenerator(WKO3_VERSION);
       this._vzHelper = undefined;
     }
 
     generate() {
-      const workloadTemplate = this.k8sDomainResourceGenerator.generate(false);
+      const { domainResource } = this.k8sDomainResourceGenerator.generate(false);
 
       const component = {
         apiVersion: this._getComponentApiVersion(),
@@ -30,7 +36,7 @@ function(project, K8sDomainResourceGenerator, VerrazzanoHelper, jsYaml) {
             apiVersion: this._getWorkloadApiVersion(),
             kind: 'VerrazzanoWebLogicWorkload',
             spec: {
-              template: workloadTemplate
+              template: domainResource
             }
           }
         }

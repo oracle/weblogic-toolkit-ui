@@ -209,6 +209,28 @@ async function getOperatorLogs(kubectlExe, operatorNamespace, options) {
   });
 }
 
+async function getOperatorVersion(kubectlExe, operatorNamespace, options) {
+  const results = {
+    isSuccess: true
+  };
+
+  return new Promise(resolve => {
+    getOperatorLogs(kubectlExe, operatorNamespace, options).then(logResult => {
+      if (logResult.isSuccess === false) {
+        results.isSuccess = false;
+        results.reason = i18n.t('kubectl-get-operator-version-error-message', {error: logResult.reason});
+        return resolve(results);
+      }
+      _getOperatorVersionFromLogs(logResult.operatorLogs, results);
+      resolve(results);
+    }).catch(err => {
+      results.isSuccess = false;
+      results.reason = i18n.t('kubectl-get-operator-version-error-message', {error: getErrorMessage(err)});
+      resolve(results);
+    });
+  });
+}
+
 async function getOperatorVersionFromDomainConfigMap(kubectlExe, domainNamespace, options) {
   const args = [ 'get', 'configmap', 'weblogic-scripts-cm', '-n', domainNamespace, '-o',
     'jsonpath={.metadata.labels.weblogic\\.operatorVersion}'];
@@ -346,7 +368,7 @@ async function validateApplicationExist(kubectlExe, options, application, namesp
   return Promise.resolve(result);
 }
 
-async function isOperatorAlreadyInstalled(kubectlExe, operatorName, operatorNamespace, options) {
+async function isOperatorAlreadyInstalled(kubectlExe, operatorNamespace, options) {
   // We are currently using kubectl to see if the operator deployment exists.  The operator deployment
   // name is always weblogic-operator...
   //
@@ -971,6 +993,43 @@ function isNotFoundError(err) {
   return /\(NotFound\)/.test(errString);
 }
 
+function _getOperatorVersionFromLogs(operatorLogs, results) {
+  const versionRegex = /^Oracle WebLogic Kubernetes Operator, version:\s*(\d+\.\d+\.\d+),.*$/;
+  if (Array.isArray(operatorLogs) && operatorLogs.length > 0) {
+    for (const logEntry of operatorLogs) {
+      const parsedEntry = _parseLogEntryAsJson(logEntry);
+      if (typeof parsedEntry === 'undefined') {
+        continue;
+      }
+
+      const message = parsedEntry.message || '';
+      const match = message.match(versionRegex);
+      if (Array.isArray(match) && match.length > 1) {
+        results.isSuccess = true;
+        results.version = match[1];
+        getLogger().debug('Found installed operator version %s', results.version);
+        return;
+      }
+    }
+    results.isSuccess = false;
+    results.reason = i18n.t('kubectl-get-operator-version-not-found-error-message');
+  } else {
+    results.isSuccess = false;
+    results.reason = i18n.t('kubectl-get-operator-version-logs-empty-error-message');
+  }
+}
+
+function _parseLogEntryAsJson(logEntry) {
+  let result;
+
+  try {
+    result = JSON.parse(logEntry);
+  } catch (err) {
+    // Assume the entry is not in JSON format and return undefined
+  }
+  return result;
+}
+
 module.exports = {
   apply,
   applyUsingUrl,
@@ -982,6 +1041,7 @@ module.exports = {
   createOrReplaceTLSSecret,
   createServiceAccountIfNotExists,
   getCurrentContext,
+  getOperatorVersion,
   isOperatorAlreadyInstalled,
   isVerrazzanoInstalled,
   setCurrentContext,

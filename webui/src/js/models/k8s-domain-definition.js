@@ -56,6 +56,8 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
         this.auxImageRegistryPullEmail = props.createProperty();
         this.auxImageRegistryPullEmail.addValidator(...validationHelper.getEmailAddressValidators());
         this.auxImagePullPolicy = props.createProperty('IfNotPresent');
+        this.auxImageSourceModelHome = props.createProperty('/auxiliary/models');
+        this.auxImageSourceWDTInstallHome = props.createProperty('/auxiliary/weblogic-deploy');
 
         this.clusterKeys = [
           'uid', 'name', 'maxServers', 'replicas', 'minHeap', 'maxHeap', 'cpuRequest', 'cpuLimit', 'memoryRequest',

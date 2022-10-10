@@ -13,7 +13,7 @@ function(VzActionsBase, project, wktConsole, i18n, projectIo, dialogHelper) {
       super();
     }
 
-    async startVerrazzanoInstallStatusCheck() {
+    async startVerrazzanoInstallVersionCheck() {
       await this.executeAction(this.callVerrazzanoInstallVersionCheck);
     }
 

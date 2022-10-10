@@ -141,7 +141,7 @@ function(WkoActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, val
         wktLogger.debug('helmChartValues = %s', JSON.stringify(helmChartValues, null, 2));
 
         const installResults = await window.api.ipc.invoke('helm-install-wko', helmExe, helmReleaseName,
-          operatorNamespace, helmChartValues, helmOptions);
+          operatorNamespace, helmChartValues, helmOptions, kubectlExe, kubectlOptions);
 
         dialogHelper.closeBusyDialog();
 
@@ -149,6 +149,7 @@ function(WkoActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, val
           const title = i18n.t('wko-installer-install-complete-title');
           const message = i18n.t('wko-installer-install-complete-message',
             { operatorName: helmReleaseName, operatorNamespace: operatorNamespace });
+          this.project.wko.installedVersion.value = installResults.version;
           await window.api.ipc.invoke('show-info-message', title, message);
           return Promise.resolve(true);
         } else {
