@@ -164,7 +164,7 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
                 }
               },
               spec: {
-                clusterName,
+                clusterName: cluster.name,
                 serverPod: getServerPodForCluster(cluster),
               },
             };
