@@ -130,20 +130,23 @@ function(IngressActionsBase, project, wktConsole, k8sHelper, i18n, dialogHelper,
 
         busyDialogMessage = i18n.t('ingress-installer-create-pull-secret-in-progress');
         dialogHelper.updateBusyDialog(busyDialogMessage, 7 / totalSteps);
-        const secretName = this.project.ingress.dockerRegSecretName.value;
-        if (ingressControllerProvider === 'traefik' || ingressControllerProvider === 'voyager' ) {
-          // create image pull secret for pulling Traefik or Voyager images.
-          if (this.project.ingress.createDockerRegSecret.value === true && secretName) {
-            const secretData = {
-              server: 'docker.io',
-              username: this.project.ingress.dockerRegSecretUserId.value,
-              email: this.project.ingress.dockerRegSecretUserEmail.value,
-              password: this.project.ingress.dockerRegSecretUserPwd.value
-            };
-            const secretStatus = await this.createPullSecret(kubectlExe, kubectlOptions, ingressControllerNamespace,
-              secretName, secretData, errTitle, errPrefix);
-            if (!secretStatus) {
-              return Promise.resolve(false);
+        let secretName;
+        if (this.project.ingress.specifyDockerRegSecret.value) {
+          secretName = this.project.ingress.dockerRegSecretName.value;
+          if (ingressControllerProvider === 'traefik' || ingressControllerProvider === 'voyager' ) {
+            // create image pull secret for pulling Traefik or Voyager images.
+            if (this.project.ingress.createDockerRegSecret.value === true && secretName) {
+              const secretData = {
+                server: 'docker.io',
+                username: this.project.ingress.dockerRegSecretUserId.value,
+                email: this.project.ingress.dockerRegSecretUserEmail.value,
+                password: this.project.ingress.dockerRegSecretUserPwd.value
+              };
+              const secretStatus = await this.createPullSecret(kubectlExe, kubectlOptions, ingressControllerNamespace,
+                secretName, secretData, errTitle, errPrefix);
+              if (!secretStatus) {
+                return Promise.resolve(false);
+              }
             }
           }
         }
