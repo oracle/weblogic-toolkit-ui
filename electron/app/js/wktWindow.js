@@ -585,7 +585,25 @@ class WktAppMenu {
             accelerator: 'CommandOrControl+W',
             enabled: !this._hasOpenDialog,
             role: 'close'
-          }
+          },
+          {
+            type: 'separator'
+          },
+          {
+            id: 'resetZoom',
+            enabled: !this._hasOpenDialog,
+            role: "resetZoom"
+          },
+          {
+            id: 'zoomIn',
+            enabled: !this._hasOpenDialog,
+            role: "zoomIn"
+          },
+          {
+            id: 'zoomOut',
+            enabled: !this._hasOpenDialog,
+            role: "zoomOut"
+          },
         ]
       },
       {
