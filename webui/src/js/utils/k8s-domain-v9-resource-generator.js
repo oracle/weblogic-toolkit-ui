@@ -154,7 +154,7 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
             const clusterName = _getClusterName(this.project.k8sDomain.uid.value, cluster.name);
 
             const clusterResource = {
-              apiVersion: 'weblogic.oracle/v9',
+              apiVersion: 'weblogic.oracle/v1',
               kind: 'Cluster',
               metadata: {
                 name: clusterName,
