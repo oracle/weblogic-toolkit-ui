@@ -592,17 +592,17 @@ class WktAppMenu {
           {
             id: 'resetZoom',
             enabled: !this._hasOpenDialog,
-            role: "resetZoom"
+            role: 'resetZoom'
           },
           {
             id: 'zoomIn',
             enabled: !this._hasOpenDialog,
-            role: "zoomIn"
+            role: 'zoomIn'
           },
           {
             id: 'zoomOut',
             enabled: !this._hasOpenDialog,
-            role: "zoomOut"
+            role: 'zoomOut'
           },
         ]
       },
