@@ -8,6 +8,8 @@ applications to run in Linux containers on a Kubernetes cluster.  WKT includes t
   images for running WebLogic domains.
 - [WebLogic Kubernetes Operator (WKO)](https://github.com/oracle/weblogic-kubernetes-operator) - A Kubernetes operator
   that allows WebLogic domains to run natively in a Kubernetes cluster.
+- [WebLogic Remote Console](https://github.com/oracle/weblogic-remote-console) - A lightweight console for managing
+  WebLogic Server domains running anywhere.
 
 The WKT UI provides a graphical user interface that wraps the WKT tools, Docker, Helm, and the Kubernetes client
 (`kubectl`) and helps guide you through the process of creating and modifying a model of your WebLogic domain, creating
