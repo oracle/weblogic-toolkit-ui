@@ -70,8 +70,10 @@ When using "Domain in PV", three additional fields associated with the persisten
 - `Log Home Path` - The path to use for the log home when `Enable Log Home` is enabled.
 
 The `WebLogic Kubernetes Operator Installed Version` field assumes an installed WebLogic Kubernetes Operator version 4.0.
-If you used WKTUI to install the WebLogic Kubernetes Operator, the field will display its version. If not, you can get the
-installed operator version from the Kubernetes cluster by clicking the icon.  
+If you use the WKT UI to install the WebLogic Kubernetes Operator, the field will be populated with the installed version. If not, you can get the
+installed operator version from the Kubernetes cluster by clicking the icon. **Note** that the value of this field impacts the Domain Resource generated
+and used by the WKT UI. If the operator version is earlier than 4.0.0, then the generated Domain Resource will be compatible with WebLogic Kubernetes
+Operator v3.x. Otherwise, the generated Domain Resource will be usable _only_ by WebLogic Kubernetes Operator v4.0.0 and later.
 
 The following sections describe the other panes that support configuring the generated Domain resource; they are:
 
