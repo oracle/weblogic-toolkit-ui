@@ -7,7 +7,6 @@
 
 const path = require('path');
 const { readFile } = require('fs/promises');
-const jsYaml = require('js-yaml');
 
 const i18n = require('./i18next.config');
 const childProcessExecutor = require('./childProcessExecutor');
@@ -19,14 +18,9 @@ const errorUtils = require('./errorUtils');
 
 const MINIMUM_WDT_PREPARE_VERSION = '2.0.0';
 
-const _secretsFileName = 'k8s_secrets.json';
-const _wkoDomainSpecFileName = 'wko-domain.yaml';
-const _vzApplicationSpecFileName = 'vz-application.yaml';
+const _resultsFileName = 'results.json';
 
 const _deleteTempDirectory = true;
-
-const _wkoTargetTypeName = i18n.t('prepare-model-wko-target-type-name');
-const _vzTargetTypeName = i18n.t('prepare-model-wko-target-type-name');
 
 async function prepareModel(currentWindow, stdoutChannel, stderrChannel, prepareConfig) {
   const logger = getLogger();
@@ -119,7 +113,9 @@ async function prepareModel(currentWindow, stdoutChannel, stderrChannel, prepare
   }
 
   try {
-    results['secrets'] = await getJsonSecretsContent(outputDirectory);
+    const jsonResults = await getJsonResultsContent(outputDirectory);
+    results['secrets'] = jsonResults['secrets'];
+    results['domain'] = jsonResults['domain'];
   } catch (err) {
     results.isSuccess = false;
     results.reason = errorUtils.getErrorMessage(err);
@@ -129,14 +125,6 @@ async function prepareModel(currentWindow, stdoutChannel, stderrChannel, prepare
     return Promise.resolve(results);
   }
 
-  try {
-    results['domain'] = await getTargetSpecContent(wdtTargetType, outputDirectory);
-  } catch (err) {
-    results.isSuccess = false;
-    results.reason = errorUtils.getErrorMessage(err);
-    results.error = err;
-    logger.error(results.reason);
-  }
   removeTempDirectory(outputDirectory).then().catch();
   return Promise.resolve(results);
 }
@@ -228,30 +216,30 @@ function getUpdatedModelFileNames(updatedFileMap, files) {
   return updatedFiles;
 }
 
-async function getJsonSecretsContent(outputDirectory) {
-  const secretsFileName = path.join(outputDirectory, _secretsFileName);
+async function getJsonResultsContent(outputDirectory) {
+  const resultsFileName = path.join(outputDirectory, _resultsFileName);
 
   return new Promise((resolve, reject) => {
-    fsUtils.exists(secretsFileName).then(doesExist => {
+    fsUtils.exists(resultsFileName).then(doesExist => {
       if (!doesExist) {
-        return reject(new Error(i18n.t('prepare-model-secrets-file-missing-error-message',
-          { fileName: secretsFileName })));
+        return reject(new Error(i18n.t('prepare-model-results-file-missing-error-message',
+          { fileName: resultsFileName })));
       }
 
-      readFile(secretsFileName, { encoding: 'utf8' }).then(data => {
+      readFile(resultsFileName, { encoding: 'utf8' }).then(data => {
         let jsonContent;
         try {
           jsonContent = JSON.parse(data);
-          resolve(formatSecretsData(jsonContent));
+          resolve(formatResultsData(jsonContent));
         } catch (err) {
-          const error = new Error(i18n.t('prepare-model-secrets-file-parse-error-message',
-            { fileName: secretsFileName, error: errorUtils.getErrorMessage(err) }));
+          const error = new Error(i18n.t('prepare-model-results-file-parse-error-message',
+            { fileName: resultsFileName, error: errorUtils.getErrorMessage(err) }));
           error.cause = err;
           reject(err);
         }
       }).catch(err => {
-        const error = new Error(i18n.t('prepare-model-secrets-file-read-error-message',
-          { fileName: secretsFileName, error: errorUtils.getErrorMessage(err) }));
+        const error = new Error(i18n.t('prepare-model-results-file-read-error-message',
+          { fileName: resultsFileName, error: errorUtils.getErrorMessage(err) }));
         error.cause = err;
         reject(err);
       });
@@ -259,18 +247,17 @@ async function getJsonSecretsContent(outputDirectory) {
   });
 }
 
-function formatSecretsData(jsonContent) {
+function formatResultsData(jsonContent) {
   const results = { };
   if (!jsonContent) {
     return results;
   }
 
-  results['domainUID'] = jsonContent.domainUID;
   const secrets = jsonContent['secrets'] || [];
   results.secrets = [];
-  for (const secret of secrets) {
+  for (const [secretName, secret] of Object.entries(secrets)) {
     const secretResult = {
-      name: secret['secretName']
+      name: secretName
     };
     const secretKeys = secret['keys'];
     if (secretKeys) {
@@ -289,167 +276,28 @@ function formatSecretsData(jsonContent) {
       results.secrets.push(secretResult);
     }
   }
+
+  const domain = {};
+  domain['domainUID'] = jsonContent.domainUID;
+
+  const clusters = jsonContent['clusters'] || [];
+  const clustersResult = [];
+  for (const [clusterName, cluster] of Object.entries(clusters)) {
+    const clusterResult = {
+      clusterName: clusterName,
+      replicas: cluster['serverCount'] || 0
+    };
+    clustersResult.push(clusterResult);
+  }
+  domain['clusters'] = clustersResult;
+
+  results['domain'] = domain;
   return results;
-}
-
-async function getTargetSpecContent(wdtTargetType, outputDirectory) {
-  let result = { };
-  switch (wdtTargetType) {
-    case 'wko':
-      result = await getWkoSpecContent(outputDirectory);
-      break;
-
-    case 'vz':
-      result = await getVzSpecContent(outputDirectory);
-      break;
-
-    default:
-      // k8s target produces no spec...
-      break;
-  }
-  return Promise.resolve(result);
-}
-
-async function getWkoSpecContent(outputDirectory) {
-  const specFile = path.join(outputDirectory, _wkoDomainSpecFileName);
-
-  return new Promise((resolve, reject) => {
-    fsUtils.exists(specFile).then(doesExist => {
-      if (!doesExist) {
-        const error = new Error(i18n.t('prepare-model-spec-file-missing-error-message',
-          { targetType: _wkoTargetTypeName, fileName: specFile }));
-        reject(error);
-      }
-
-      readFile(specFile, { encoding: 'utf8' }).then(data => {
-        try {
-          const yamlDoc = jsYaml.load(data, { filename: specFile, json: true });
-          resolve(formatWkoDomainSpecData(yamlDoc));
-        } catch (err) {
-          const error = new Error(i18n.t('prepare-model-spec-file-parse-error-message',
-            { targetType: _wkoTargetTypeName, fileName: specFile, error: errorUtils.getErrorMessage(err) }));
-          error.cause = err;
-          reject(error);
-        }
-      }).catch(err => {
-        const error = new Error(i18n.t('prepare-model-spec-file-read-error-message',
-          { targetType: _wkoTargetTypeName, fileName: specFile, error: errorUtils.getErrorMessage(err) }));
-        error.cause = err;
-        reject(error);
-      });
-    }).catch(err => reject(getFileExistsErrorMessage(_wkoTargetTypeName, specFile, err)));
-  });
-}
-
-function formatWkoDomainSpecData(yamlDoc) {
-  const result = { };
-  if (yamlDoc) {
-    if ('metadata' in yamlDoc && 'name' in yamlDoc['metadata']) {
-      result['domainUID'] = yamlDoc['metadata']['name'];
-    }
-    if ('spec' in yamlDoc && 'clusters' in yamlDoc['spec']) {
-      const clusters = yamlDoc['spec']['clusters'];
-      const clustersResult = [];
-      for (const cluster of clusters) {
-        const clusterResult = {
-          clusterName: cluster['clusterName'],
-          replicas: cluster['replicas'] || 0
-        };
-        clustersResult.push(clusterResult);
-      }
-      result['clusters'] = clustersResult;
-    }
-  }
-  return result;
-}
-
-async function getVzSpecContent(outputDirectory) {
-  const specFile = path.join(outputDirectory, _vzApplicationSpecFileName);
-
-  return new Promise((resolve, reject) => {
-    fsUtils.exists(specFile).then(doesExist => {
-      if (!doesExist) {
-        const error = new Error(i18n.t('prepare-model-spec-file-missing-error-message',
-          { targetType: _vzTargetTypeName, fileName: specFile }));
-        reject(error);
-      }
-
-      readFile(specFile, { encoding: 'utf8' }).then(data => {
-        let yamlDocs;
-        try {
-          yamlDocs = jsYaml.loadAll(data, { filename: specFile, json: true });
-        } catch (err) {
-          const error = new Error(i18n.t('prepare-model-spec-file-parse-error-message',
-            { targetType: _vzTargetTypeName, fileName: specFile, error: errorUtils.getErrorMessage(err) }));
-          error.cause = err;
-          reject(error);
-        }
-
-        try {
-          resolve(formatVzApplicationSpecData(specFile, yamlDocs));
-        } catch (err) {
-          reject(err);
-        }
-      }).catch(err => {
-        const error = new Error(i18n.t('prepare-model-spec-file-read-error-message',
-          { targetType: _vzTargetTypeName, fileName: specFile, error: errorUtils.getErrorMessage(err) }));
-        error.cause = err;
-        reject(error);
-      });
-    }).catch(err => reject(getFileExistsErrorMessage(_wkoTargetTypeName, specFile, err)));
-  });
 }
 
 function getToolTargetType(wdtTargetType, targetDomainLocation) {
   const suffix = targetDomainLocation === 'mii' ? '' : `-${targetDomainLocation}`;
   return `${wdtTargetType}${suffix}`;
-}
-
-function getFileExistsErrorMessage(targetType, fileName, err) {
-  const error = new Error(i18n.t('prepare-model-spec-file-exists-error-message',
-    { targetType: targetType, fileName: fileName, error: errorUtils.getErrorMessage(err) }));
-  error.cause = err;
-  return error;
-}
-
-function formatVzApplicationSpecData(specFile, yamlDocs) {
-  const domainSpec = findVzDomainSpec(specFile, yamlDocs);
-  const domainUID = domainSpec.domainUID;
-
-  const clustersResult = [];
-  if (domainSpec.clusters) {
-    for (const cluster of domainSpec.clusters) {
-      clustersResult.push({ clusterName: cluster.clusterName, replicas: cluster.replicas });
-    }
-  }
-  return {
-    domainUID: domainUID,
-    clusters: clustersResult
-  };
-}
-
-function findVzDomainSpec(specFile, yamlDocs) {
-  let result;
-  if (yamlDocs && yamlDocs.length > 0) {
-    for (const yamlDoc of yamlDocs) {
-      if (yamlDoc['kind'] !== 'Component') {
-        continue;
-      }
-      if (yamlDoc.spec?.workload?.kind === 'VerrazzanoWebLogicWorkload') {
-        result = yamlDoc;
-        break;
-      }
-    }
-  }
-
-  if (!result) {
-    throw new Error(i18n.t('prepare-model-vz-spec-file-missing-domain-error-message', { fileName: specFile }));
-  } else if (!result.spec?.workload?.spec?.template?.spec) {
-    throw new Error(i18n.t('prepare-model-vz-spec-file-missing-spec-error-message', { fileName: specFile }));
-  } else {
-    result = result.spec.workload.spec.template.spec;
-  }
-  return result;
 }
 
 module.exports = {
