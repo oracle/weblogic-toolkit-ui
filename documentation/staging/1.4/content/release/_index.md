@@ -17,14 +17,14 @@ pre = "<b> </b>"
 
 #### Other Changes
 - #175: Added Zoom In, Zoom Out, and Actual Size menu options to the Window menu.
-- #178: Integrating the Prepare Model action with the changes in WebLogic Deploy Tooling 2.4.0.
+- #178: Integrated the `Prepare Model` action with the changes in WebLogic Deploy Tooling 2.4.0.
 - #179: Updated the [WebLogic Remote Console](https://github.com/oracle/weblogic-remote-console) integration to support version 2.4.1 (2.4.0 also supported).
 
 #### Bug Fixes
 - #171: Improved workaround for the issue limiting the ability to select text from the Code View scripts (WKTUI-375).
 - #172: Resolved issue when using Domain-in-Image that was causing the domain to not be created.
-- #174: Resolved an issue where the Install Ingress Controller action was always passing the image pull secret--even when the user said not to use one. 
-- #176: Resolved an issue where the Update Ingress Routes action was always passing the SSL pass-through argument--even when the user did not request it.
+- #174: Resolved an issue where the `Install Ingress Controller` action was always passing the image pull secret--even when the user indicated not to use one. 
+- #176: Resolved an issue where the `Update Ingress Routes` action was always passing the `SSL pass-through` argument--even when the user did not request it.
 
 #### Known Issues
 - On Linux, the open and save dialogs open behind the main application window.  This is due to
