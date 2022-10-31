@@ -41,6 +41,9 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
     this.vzVersions = ko.observableArray();
     this.vzVersionTags = new ArrayDataProvider(this.vzVersions, {keyAttributes: 'tag'});
     window.api.ipc.invoke('get-verrazzano-release-versions', MINIMUM_VERRAZZANO_VERSION).then(versions => {
+      // Sort in descending order by version number.
+      //
+      versions.sort((a, b) => window.api.utils.compareVersions(a.version, b.version)).reverse();
       this.vzVersions.push(...versions.map(versionObject => {
         const label = versionObject.version;
         return { ...versionObject, label };
