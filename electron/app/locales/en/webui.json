@@ -597,6 +597,7 @@
   "domain-design-domain-status-title": "Domain Status",
   "domain-design-domain-status-overallstatus": "Domain Status:",
   "domain-design-domain-status-introspectJobFailureCount": "Introspect Job Failure Count:",
+  "domain-design-domain-status-observedGeneration": "Observed Generation:",
   "domain-design-domain-status-message": "Last Error Message:",
   "domain-design-domain-status-conditions": "Conditions:",
   "domain-design-domain-status-clusterstatus": "Cluster Status:",

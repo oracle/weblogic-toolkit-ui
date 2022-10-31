@@ -52,13 +52,25 @@ function(accUtils, ko, jsyaml, i18n, project) {
     this.domainServerStatus = '';
     this.introspectJobFailureCount = 0;
     this.domainHasError = false;
+    this.isOperatorVersion4orHigher = false;
+
+    if ('installedVersion' in this.project.wko && this.project.wko.installedVersion.value.startsWith('4')) {
+      this.isOperator4orHigher = true;
+    } else if (! 'installedVersion' in this.project.wko ) {
+      this.isOperator4orHigher = true;
+    }
 
     if ('status' in this.domainStatus && 'conditions' in this.domainStatus.status) {
       this.domainConditions = this.makeYamlOutput(this.domainStatus.status.conditions);
       this.domainClusterStatus = this.makeYamlOutput(this.domainStatus.status.clusters);
       this.domainServerStatus = this.makeYamlOutput(this.domainStatus.status.servers);
       this.domainName = this.domainStatus.spec.domainUID;
-      this.introspectJobFailureCount = this.domainStatus.status.introspectJobFailureCount;
+      if (this.isOperatorVersion4orHigher) {
+        this.introspectJobFailureCount = this.domainStatus.status.observedGeneration;
+      } else {
+        this.introspectJobFailureCount = this.domainStatus.status.introspectJobFailureCount;
+      }
+
       const conditions = this.domainStatus.status.conditions;
       conditions.sort((a, b) => {
         if ( a.lastTransitionTime < b.lastTransitionTime ){
