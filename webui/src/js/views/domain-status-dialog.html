@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2021, Oracle and/or its affiliates.
+ Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 <oj-dialog id="domainStatusDialog" class="wkt-route-edit-dialog" initial-visibility="hide">
@@ -13,11 +13,12 @@
     <oj-label for="overallstatus">
       <oj-bind-text value="{{labelMapper('domain-status-overallstatus')}}"></oj-bind-text>
     </oj-label>
-    <br>
-    <oj-input-text id="overallstatus" value="{{domainOverallStatus}}" readonly="true"></oj-input-text>
+    <p class="wkt-status-paragraph" id="overallstatus">
+      <oj-bind-text value="{{domainOverallStatus}}"></oj-bind-text>
+    </p>
   </div>
 
-  <div class="oj-panel wkt-notop">
+  <div class="oj-panel">
     <oj-bind-if test="[[isOperatorVersion4orHigher === false]]">
       <oj-label for="introspectJobFailureCount">
         <oj-bind-text value="{{labelMapper('domain-status-introspectJobFailureCount')}}"></oj-bind-text>
@@ -30,8 +31,9 @@
       </oj-label>
     </oj-bind-if>
 
-    <br>
-    <oj-input-text id="introspectJobFailureCount" value="{{introspectJobFailureCount}}" readonly="true"></oj-input-text>
+    <p class="wkt-status-paragraph" id="introspectJobFailureCount">
+      <oj-bind-text value="{{introspectJobFailureCount}}"></oj-bind-text>
+    </p>
   </div>
 
   <oj-bind-if test="[[domainHasError === true]]">
@@ -39,10 +41,8 @@
       <oj-label for="error-message">
         <oj-bind-text value="{{labelMapper('domain-status-message')}}"></oj-bind-text>
       </oj-label>
-      <br>
-      <oj-text-area class="domainError" id="error-message"  max-rows="100000" value="{{domainErrorMessage}}"
-                    readonly="true">
-      </oj-text-area>
+      <p class="wkt-status-paragraph preformat domainError" id="error-message"
+        ><oj-bind-text class="domainError" value="{{domainErrorMessage}}"></oj-bind-text></p>
     </div>
   </oj-bind-if>
 
@@ -50,34 +50,25 @@
     <oj-label for="conditions">
       <oj-bind-text value="{{labelMapper('domain-status-conditions')}}"></oj-bind-text>
     </oj-label>
-    <br>
-    <oj-text-area id="conditions" max-rows="100000"
-                  value="{{domainConditions}}"
-                  readonly="true">
-    </oj-text-area>
+    <p class="wkt-status-paragraph preformat" id="conditions"
+      ><oj-bind-text value="{{domainConditions}}"></oj-bind-text></p>
   </div>
 
   <div class="oj-panel">
-
     <oj-label for="clusterstatus">
       <oj-bind-text value="{{labelMapper('domain-status-clusterstatus')}}"></oj-bind-text>
     </oj-label>
-    <br>
-    <oj-text-area id="clusterstatus" max-rows="100000" value="{{domainClusterStatus}}"
-                  readonly="true">
-    </oj-text-area>
-
+    <p class="wkt-status-paragraph preformat" id="clusterstatus"
+      ><oj-bind-text value="{{domainClusterStatus}}"></oj-bind-text></p>
   </div>
 
   <div class="oj-panel">
     <oj-label for="serverstatus">
       <oj-bind-text value="{{labelMapper('domain-status-serverstatus')}}"></oj-bind-text>
     </oj-label>
-    <br>
-    <oj-text-area id="serverstatus" max-rows="100000" value="{{domainServerStatus}}" readonly="true">
-    </oj-text-area>
+    <p class="wkt-status-paragraph preformat" id="serverstatus"
+      ><oj-bind-text value="{{domainServerStatus}}"></oj-bind-text></p>
   </div>
-
   </div>
 
   <div slot="footer">
