@@ -235,9 +235,9 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
         };
 
         this.handlePrepareModelSecrets = (secrets) => {
-          if (secrets && secrets.secrets && secrets.secrets.length) {
-            wktLogger.debug('handlePrepareModelSecrets() working on %d secrets', secrets.secrets.length);
-            for (const secret of secrets.secrets) {
+          if (secrets && secrets.length) {
+            wktLogger.debug('handlePrepareModelSecrets() working on %d secrets', secrets.length);
+            for (const secret of secrets) {
               wktLogger.debug('working on secret %s', secret.name);
 
               // The secret should always exist already because prepare model updated the model first,
