@@ -46,7 +46,7 @@ async function installVerrazzanoPlatformOperator(kubectlExe, k8sOptions, vzOptio
     if (compareVersions(version, '1.4.0') >= 0) {
       platformOperatorUrl = `${VZ_BASE_URL}/releases/download/${vzOptions.tag}/verrazzano-platform-operator.yaml`;
     } else {
-      // Before Verrazzano 1.4, the operator file name was operator-yaml...
+      // Before Verrazzano 1.4, the operator file name was operator.yaml...
       //
       platformOperatorUrl = `${VZ_BASE_URL}/releases/download/${vzOptions.tag}/operator.yaml`;
     }
