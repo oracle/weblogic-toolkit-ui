@@ -55,11 +55,11 @@ function(accUtils, ko, jsyaml, i18n, project) {
     this.isOperatorVersion4orHigher = false;
 
     if ('installedVersion' in this.project.wko && this.project.wko.installedVersion.value.startsWith('4')) {
-      this.isOperator4orHigher = true;
+      this.isOperatorVersion4orHigher = true;
     } else if (! 'installedVersion' in this.project.wko ) {
-      this.isOperator4orHigher = true;
+      this.isOperatorVersion4orHigher = true;
     }
-
+    
     if ('status' in this.domainStatus && 'conditions' in this.domainStatus.status) {
       this.domainConditions = this.makeYamlOutput(this.domainStatus.status.conditions);
       this.domainClusterStatus = this.makeYamlOutput(this.domainStatus.status.clusters);
