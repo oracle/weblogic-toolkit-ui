@@ -117,7 +117,10 @@ function (WktActionsBase, project, wktConsole, i18n, projectIo, dialogHelper) {
             } else if (completeCondition.status === 'False' && availableCondition.status === 'False') {
               result['domainOverallStatus'] = i18n.t('k8s-domain-status-checker-domain-status-available',
                 {reason: latestCondition.reason});
-            } else {
+            } else if (completeCondition.status === 'True' && availableCondition.status === 'False') {
+              result['domainOverallStatus'] = i18n.t('k8s-domain-status-checker-domain-status-available',
+                {reason: latestCondition.reason});
+            }  else {
               // should never happened?
               result['domainOverallStatus'] = i18n.t('k8s-domain-status-checker-domain-status-unknown',
                 {reason: latestCondition.reason});

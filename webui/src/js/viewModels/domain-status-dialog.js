@@ -54,13 +54,26 @@ function(accUtils, ko, jsyaml, i18n, project, viewHelper) {
     this.domainServerStatus = '';
     this.introspectJobFailureCount = 0;
     this.domainHasError = false;
+    this.isOperatorVersion4orHigher = false;
+
+    if (!project.wko.installedVersion.hasValue() ||
+        window.api.utils.compareVersions(project.wko.installedVersion.value, '4.0.0') >= 0) {
+      this.isOperatorVersion4orHigher = true;
+    }
 
     if ('status' in this.domainStatus && 'conditions' in this.domainStatus.status) {
       this.domainConditions = this.makeYamlOutput(this.domainStatus.status.conditions);
       this.domainClusterStatus = this.makeYamlOutput(this.domainStatus.status.clusters);
       this.domainServerStatus = this.makeYamlOutput(this.domainStatus.status.servers);
       this.domainName = this.domainStatus.spec.domainUID;
-      this.introspectJobFailureCount = this.domainStatus.status.introspectJobFailureCount;
+      if (this.isOperatorVersion4orHigher) {
+        // 4.0 higher is not named introspectJobFailureCount but observeredGeneation in the status
+        // text in the diaglog have been changed to Observed Generation to match, this is just a holder of the value
+        this.introspectJobFailureCount = this.domainStatus.status.observedGeneration;
+      } else {
+        this.introspectJobFailureCount = this.domainStatus.status.introspectJobFailureCount;
+      }
+
       const conditions = this.domainStatus.status.conditions;
       conditions.sort((a, b) => {
         if ( a.lastTransitionTime < b.lastTransitionTime ){

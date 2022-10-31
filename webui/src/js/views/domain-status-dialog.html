@@ -19,9 +19,18 @@
   </div>
 
   <div class="oj-panel">
-    <oj-label for="introspectJobFailureCount">
-      <oj-bind-text value="{{labelMapper('domain-status-introspectJobFailureCount')}}"></oj-bind-text>
-    </oj-label>
+    <oj-bind-if test="[[isOperatorVersion4orHigher === false]]">
+      <oj-label for="introspectJobFailureCount">
+        <oj-bind-text value="{{labelMapper('domain-status-introspectJobFailureCount')}}"></oj-bind-text>
+      </oj-label>
+    </oj-bind-if>
+
+    <oj-bind-if test="[[isOperatorVersion4orHigher === true]]">
+      <oj-label for="introspectJobFailureCount">
+        <oj-bind-text value="{{labelMapper('domain-status-observedGeneration')}}"></oj-bind-text>
+      </oj-label>
+    </oj-bind-if>
+
     <p class="wkt-status-paragraph" id="introspectJobFailureCount">
       <oj-bind-text value="{{introspectJobFailureCount}}"></oj-bind-text>
     </p>
