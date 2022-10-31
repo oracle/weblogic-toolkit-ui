@@ -42,9 +42,17 @@ async function installVerrazzanoPlatformOperator(kubectlExe, k8sOptions, vzOptio
   let platformOperatorUrl;
 
   if (vzOptions.tag) {
+    const version = vzOptions.tag.slice(1);
+    if (compareVersions(version, '1.4.0') >= 0) {
+      platformOperatorUrl = `${VZ_BASE_URL}/releases/download/${vzOptions.tag}/verrazzano-platform-operator.yaml`;
+    } else {
+      // Before Verrazzano 1.4, the operator file name was operator-yaml...
+      //
+      platformOperatorUrl = `${VZ_BASE_URL}/releases/download/${vzOptions.tag}/operator.yaml`;
+    }
     platformOperatorUrl = `${VZ_BASE_URL}/releases/download/${vzOptions.tag}/operator.yaml`;
   } else {
-    platformOperatorUrl = `${VZ_BASE_URL}/releases/latest/operator.yaml`;
+    platformOperatorUrl = `${VZ_BASE_URL}/releases/latest/verrazzano-platform-operator.yaml`;
   }
 
   return new Promise(resolve => {
