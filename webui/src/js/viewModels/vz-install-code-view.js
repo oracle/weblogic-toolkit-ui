@@ -92,6 +92,27 @@ function (accUtils, ko, project, VerrazzanoInstallScriptGenerator, VerrazzanoIns
 
     this.renderScript(this.selectedSubview());
 
+    this.downloadInstaller = () => {
+      const format = this.shellScriptType();
+      const generator = new VerrazzanoInstallScriptGenerator(format);
+      const lines = generator.generate();
+      const fileType = i18n.t('script-file-type-label', {
+        type: i18n.t('nav-verrazzano'),
+        subType: i18n.t('vz-install-code-script-title')
+      });
+      const formatLabel = this.shellLabelMapper(format + '-label');
+
+      window.api.ipc.send('download-file', lines, fileType, format, formatLabel);
+    };
+
+    this.downloadResource = () => {
+      const generator = this.vzInstallResourceGenerator;
+      const lines = generator.generate();
+      const fileType = i18n.t('vz-install-code-verrazzano-resource-title');
+      const formatLabel = this.shellLabelMapper('resource-file-format');
+
+      window.api.ipc.send('download-file', lines, fileType, 'yaml', formatLabel);
+    };
   }
 
   return VerrazzanoInstallCodeViewModel;

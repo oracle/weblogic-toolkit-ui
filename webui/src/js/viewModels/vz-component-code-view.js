@@ -108,6 +108,37 @@ function (accUtils, ko, project, VerrazzanoComponentScriptGenerator, VerrazzanoC
     };
 
     this.renderScript(this.selectedSubview());
+
+    this.downloadInstaller = () => {
+      const format = this.shellScriptType();
+      const generator = new VerrazzanoComponentScriptGenerator(format);
+      const lines = generator.generate();
+      const fileType = i18n.t('script-file-type-label', {
+        type: i18n.t('nav-vz-component'),
+        subType: i18n.t('vz-install-code-script-title')
+      });
+      const formatLabel = this.shellLabelMapper(format + '-label');
+
+      window.api.ipc.send('download-file', lines, fileType, format, formatLabel);
+    };
+
+    this.downloadComponentResource = () => {
+      const generator = this.vzComponentResourceGenerator;
+      const lines = generator.generate();
+      const fileType = i18n.t('vz-component-code-component-resource-title');
+      const formatLabel = this.shellLabelMapper('resource-file-format');
+
+      window.api.ipc.send('download-file', lines, fileType, 'yaml', formatLabel);
+    };
+
+    this.downloadConfigMap = () => {
+      const generator = this.vzComponentConfigMapGenerator;
+      const lines = generator.generate();
+      const fileType = i18n.t('vz-component-code-configmap-resource-title');
+      const formatLabel = this.shellLabelMapper('resource-file-format');
+
+      window.api.ipc.send('download-file', lines, fileType, 'yaml', formatLabel);
+    };
   }
 
   return VerrazzanoComponentCodeViewModel;

@@ -35,6 +35,7 @@
   "script-cmd-label": "Windows CMD Script",
   "script-button-download": "Download",
   "script-file-type-label": "{{type}} {{subType}}",
+  "script-resource-file-format": "Resource",
 
   "kubectl-form-name": "Kubernetes Client Configuration",
   "kubectl-title": "Configure the Kubernetes Client",
