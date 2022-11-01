@@ -26,6 +26,7 @@ pre = "<b> </b>"
 - #174: Resolved an issue where the `Install Ingress Controller` action was always passing the image pull secret--even when the user indicated not to use one. 
 - #176: Resolved an issue where the `Update Ingress Routes` action was always passing the `SSL pass-through` argument--even when the user did not request it.
 - #182: Resolved Verrazzano 1.4.0+ installation issue caused by a change in the published operator file name. 
+- #186: Resolved Verrazzano-related issue where Ingress Trait rules were not including the hosts or destination-related fields.
 
 #### Known Issues
 - On Linux, the open and save dialogs open behind the main application window.  This is due to
