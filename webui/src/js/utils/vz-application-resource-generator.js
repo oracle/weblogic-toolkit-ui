@@ -135,9 +135,12 @@ define(['models/wkt-project', 'utils/vz-helper', 'js-yaml', 'utils/i18n', 'utils
             for (const ingressTraitRule of component.ingressTraitRules) {
               const rule = { };
 
-              if (Array.isArray(ingressTraitRule.hosts) && ingressTraitRule.hosts.length > 0) {
+              if (typeof ingressTraitRule.hosts === 'string' && ingressTraitRule.hosts.length > 0) {
+                rule.hosts = ingressTraitRule.hosts.split(',').map(host => host.trim());
+              } else if (Array.isArray(ingressTraitRule.hosts) && ingressTraitRule.hosts.length > 0) {
                 rule.hosts = ingressTraitRule.hosts;
               }
+
               if (Array.isArray(ingressTraitRule.paths) && ingressTraitRule.paths.length > 0) {
                 rule.paths = ingressTraitRule.paths.map(path => {
                   const newPath = Object.assign({}, path);
@@ -222,38 +225,31 @@ define(['models/wkt-project', 'utils/vz-helper', 'js-yaml', 'utils/i18n', 'utils
       }
 
       _getIngressTraitRuleDestination(ingressTraitRule) {
-        let destination = ingressTraitRule.destination ? { } : undefined;
+        const destination = { };
 
-        if (!destination) {
-          return destination;
+        if (ingressTraitRule.destinationHost) {
+          destination.host = ingressTraitRule.destinationHost;
+        }
+        if (ingressTraitRule.destinationPort) {
+          destination.port = ingressTraitRule.destinationPort;
         }
 
-        if (ingressTraitRule.destination.host) {
-          destination.host = ingressTraitRule.destination.host;
+        const httpCookie = { };
+        if (ingressTraitRule.destinationHttpCookieName) {
+          httpCookie.name = ingressTraitRule.destinationHttpCookieName;
         }
-        if (ingressTraitRule.destination.port) {
-          destination.port = ingressTraitRule.destination.port;
+        if (ingressTraitRule.destinationHttpCookiePath) {
+          httpCookie.path = ingressTraitRule.destinationHttpCookiePath;
         }
-        if (ingressTraitRule.destination.httpCookie) {
-          let httpCookie = { };
-
-          if (ingressTraitRule.destination.httpCookie.name) {
-            httpCookie.name = ingressTraitRule.destination.httpCookie.name;
-          }
-          if (ingressTraitRule.destination.httpCookie.path) {
-            httpCookie.path = ingressTraitRule.destination.httpCookie.path;
-          }
-          if (ingressTraitRule.destination.httpCookie.ttl) {
-            httpCookie.ttl = ingressTraitRule.destination.httpCookie.ttl;
-          }
-
-          if (Object.keys(httpCookie).length > 0) {
-            destination.httpCookie = httpCookie;
-          }
+        if (ingressTraitRule.destinationHttpCookieTTL) {
+          httpCookie.ttl = ingressTraitRule.destinationHttpCookieTTL;
+        }
+        if (Object.keys(httpCookie).length > 0) {
+          destination.httpCookie = httpCookie;
         }
 
         if (Object.keys(destination).length === 0) {
-          destination = undefined;
+          return undefined;
         }
         return destination;
       }
