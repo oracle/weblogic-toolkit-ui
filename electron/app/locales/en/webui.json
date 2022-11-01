@@ -33,6 +33,8 @@
   "script-sh-label": "sh Script",
   "script-ps1-label": "Powershell Script",
   "script-cmd-label": "Windows CMD Script",
+  "script-button-download": "Download",
+  "script-file-type-label": "{{type}} {{subType}}",
 
   "kubectl-form-name": "Kubernetes Client Configuration",
   "kubectl-title": "Configure the Kubernetes Client",

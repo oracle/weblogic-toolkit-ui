@@ -287,6 +287,11 @@ class Main {
       await currentWindow.close();
     });
 
+    ipcMain.on('download-file', (event, lines, fileType, fileFormat, fileFormatName) => {
+      const window = event.sender.getOwnerBrowserWindow();
+      return project.downloadFile(window, lines, fileType, fileFormat, fileFormatName);
+    });
+
     // eslint-disable-next-line no-unused-vars
     ipcMain.on('skip-quickstart-at-startup', async (event) => {
       userSettings.setSkipQuickstartAtStartup(true);

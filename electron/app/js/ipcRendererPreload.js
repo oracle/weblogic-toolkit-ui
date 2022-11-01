@@ -31,6 +31,7 @@ contextBridge.exposeInMainWorld(
       send: (channel, ...args) => {
         const validChannels = [
           'close-window',
+          'download-file',
           'new-project',
           'open-project',
           'window-app-quit',

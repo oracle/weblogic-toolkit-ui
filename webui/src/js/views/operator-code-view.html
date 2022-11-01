@@ -3,13 +3,16 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 <div class="oj-panel wkt-code-view-platform-frame">
-  <oj-form-layout max-columns="1" direction="row">
+  <oj-form-layout max-columns="2" direction="row">
     <oj-select-single label-hint="[[shellLabelMapper('selector-label')]]"
                       on-value-changed="[[shellScriptTypeValueChangedHandler]]"
                       value="{{shellScriptType}}"
                       data="{{shellScriptTypesDP}}"
                       help.instruction="[[shellLabelMapper('selector-help')]]">
     </oj-select-single>
+    <oj-button chroming="callToAction" on-oj-action="[[download]]">
+      <span><oj-bind-text value="[[shellLabelMapper('button-download')]]"></oj-bind-text></span>
+    </oj-button>
   </oj-form-layout>
   <oj-text-area class="wkt-code-view"
                 max-rows="100000"

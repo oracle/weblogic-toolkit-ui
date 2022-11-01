@@ -50,6 +50,19 @@ function(i18n, accUtils, ko, project, OperatorScriptGenerator, ArrayDataProvider
       this.shellScriptType(event.detail.value);
       this.updateCodeText(event.detail.value);
     };
+
+    this.download = () => {
+      const format = this.shellScriptType();
+      const generator = new OperatorScriptGenerator(format);
+      const lines = generator.generate();
+      const fileType = i18n.t('script-file-type-label', {
+        type: i18n.t('nav-operator'),
+        subType: i18n.t('domain-code-script-title')
+      });
+      const formatLabel = this.shellLabelMapper(format + '-label');
+
+      window.api.ipc.send('download-file', lines, fileType, format, formatLabel);
+    };
   }
 
   /*
