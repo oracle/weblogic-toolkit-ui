@@ -62,10 +62,14 @@ function(accUtils, ko, i18n, project, IngressInstallScriptGenerator, IngressRout
     ];
     this.subviewsDP = new ArrayDataProvider(this.subviews, {keyAttributes: 'id'});
     this.selectedSubview = ko.observable('installScript');
+    this.selectedSubviewValueChangedHandler = (event) => {
+      this.selectedSubview(event.detail.value);
+      this.renderScript(event.detail.value);
+    };
 
-    this.selectedSubview.subscribe((subview) => {
-      this.renderScript(subview);
-    });
+    // this.selectedSubview.subscribe((subview) => {
+    //   this.renderScript(subview);
+    // });
 
     this.shellScriptType = ko.observable(IngressInstallScriptGenerator.getDefaultScriptingLanguage());
     const shellScriptTypes = [
