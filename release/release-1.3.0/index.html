@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="Hugo 0.88.1" />
-    <meta name="description" content="Install and configure an ingress controller.">
+    <meta name="description" content="">
 
 
     <link rel="icon" href="/weblogic-toolkit-ui/images/favicon.png" type="image/png">
 
-    <title>Ingress Controller :: WebLogic Kubernetes Toolkit UI</title>
+    <title>Release 1.3.0 :: WebLogic Kubernetes Toolkit UI</title>
 
     
     <link href="/weblogic-toolkit-ui/css/nucleus.css?1667426562" rel="stylesheet">
@@ -39,7 +39,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/weblogic-toolkit-ui/navigate/kubernetes/k8s-ingress-controller/">
+  <body class="" data-url="/weblogic-toolkit-ui/release/release-1.3.0/">
     <nav id="sidebar" class="">
 
 
@@ -194,7 +194,7 @@
   
     
     <li data-nav-id="/weblogic-toolkit-ui/navigate/" title="Navigate the UI" class="dd-item
-        parent
+        
         
         
         ">
@@ -286,7 +286,7 @@
   
     
     <li data-nav-id="/weblogic-toolkit-ui/navigate/kubernetes/" title="Kubernetes" class="dd-item
-        parent
+        
         
         
         ">
@@ -375,7 +375,7 @@
  
   
     
-      <li data-nav-id="/weblogic-toolkit-ui/navigate/kubernetes/k8s-ingress-controller/" title="Ingress Controller" class="dd-item active">
+      <li data-nav-id="/weblogic-toolkit-ui/navigate/kubernetes/k8s-ingress-controller/" title="Ingress Controller" class="dd-item ">
         <a href="/weblogic-toolkit-ui/navigate/kubernetes/k8s-ingress-controller/">
         Ingress Controller
         
@@ -557,7 +557,7 @@
   
     
     <li data-nav-id="/weblogic-toolkit-ui/release/" title="Release Notes" class="dd-item
-        
+        parent
         
         
         ">
@@ -646,7 +646,7 @@
  
   
     
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.3.0/" title="Release 1.3.0" class="dd-item ">
+      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.3.0/" title="Release 1.3.0" class="dd-item active">
         <a href="/weblogic-toolkit-ui/release/release-1.3.0/">
         <b> </b>Release 1.3.0
         
@@ -717,13 +717,7 @@
             
           
           
-            
-            
-          
-          
-            <a href='/weblogic-toolkit-ui/'></a> > <a href='/weblogic-toolkit-ui/navigate/'>Navigate the UI</a> > <a href='/weblogic-toolkit-ui/navigate/kubernetes/'>Kubernetes</a> > Ingress Controller
-          
-        
+            <a href='/weblogic-toolkit-ui/'></a> > <a href='/weblogic-toolkit-ui/release/'>Release Notes</a> > Release 1.3.0
           
         
           
@@ -740,13 +734,7 @@
   <ul>
     <li>
       <ul>
-        <li><a href="#contents">Contents</a></li>
-        <li><a href="#ingress-controller">Ingress Controller</a></li>
-        <li><a href="#design-view">Design View</a></li>
-        <li><a href="#code-view">Code View</a></li>
-        <li><a href="#install-ingress-controller">Install Ingress Controller</a></li>
-        <li><a href="#update-ingress-routes">Update Ingress Routes</a></li>
-        <li><a href="#uninstall-ingress-controller">Uninstall Ingress Controller</a></li>
+        <li><a href="#changes-in-release-130">Changes in Release 1.3.0</a></li>
       </ul>
     </li>
   </ul>
@@ -766,152 +754,49 @@
           
             <h1>
               
-              Ingress Controller
+              Release 1.3.0
             </h1>
           
 
         
 
 
-<h3 id="contents">Contents</h3>
+<h3 id="changes-in-release-130">Changes in Release 1.3.0</h3>
 <ul>
-<li><a href="#ingress-controller">Ingress Controller</a></li>
-<li><a href="#design-view">Design View</a>
+<li><a href="#major-new-features">Major New Features</a></li>
+<li><a href="#other-changes">Other Changes</a></li>
+<li><a href="#bug-fixes">Bugs Fixes</a></li>
+<li><a href="#known-issues">Known Issues</a></li>
+</ul>
+<h4 id="major-new-features">Major New Features</h4>
 <ul>
-<li><a href="#ingress-controller-configuration">Ingress Controller Configuration</a></li>
-<li><a href="#tls-secret-for-ingress-routes">TLS Secret for Ingress Routes</a></li>
-<li><a href="#ingress-routes-configuration">Ingress Routes Configuration</a></li>
+<li>Support for creating and deploying the Verrazzano component for the WebLogic domain, and an application that references it.</li>
 </ul>
-</li>
-<li><a href="#code-view">Code View</a></li>
-<li><a href="#install-ingress-controller">Install Ingress Controller</a></li>
-<li><a href="#update-ingress-routes">Update Ingress Routes</a></li>
-<li><a href="#uninstall-ingress-controller">Uninstall Ingress Controller</a></li>
-</ul>
-<h3 id="ingress-controller">Ingress Controller</h3>
-<p>This section supports two distinct functions related to an ingress controller.  First, it supports installing an ingress
-controller to a Kubernetes cluster.  Second, it supports adding the necessary routes to an ingress controller to make
-a deployed WebLogic domain&rsquo;s endpoints accessible.</p>
-<h3 id="design-view">Design View</h3>
-<p><code>Design View</code> helps you specify the data needed to install an ingress controller, if desired, and
-specify the data needed to expose one or more endpoints for a deployed WebLogic domain.  This page contains three panes:</p>
+<h4 id="other-changes">Other Changes</h4>
 <ul>
-<li><a href="#ingress-controller-configuration">Ingress Controller Configuration</a></li>
-<li><a href="#tls-secret-for-ingress-routes">TLS Secret for Ingress Routes</a></li>
-<li><a href="#ingress-routes-configuration">Ingress Routes Configuration</a></li>
+<li>Updated the <a href="https://github.com/oracle/weblogic-remote-console">WebLogic Remote Console</a> integration to support version 2.4.0.</li>
+<li>Added support for specifying node selectors when installing the WebLogic Kubernetes Operator and deploying the WebLogic
+domain, either directly or as a Verrazzano component.</li>
+<li>Added support for the user specifying the Helm timeout value when helm is used (i.e., Installing/updating WebLogic
+Kubernetes Operator and installing the Ingress Controller).</li>
+<li>Added tooltips across all icon buttons to describe what they do.</li>
+<li>Added an anti-affinity specification to the generated WebLogic domain resource, as recommended by the WebLogic Kubernetes Operator docs.</li>
 </ul>
-<h4 id="ingress-controller-configuration">Ingress Controller Configuration</h4>
-<p>The most important field in this pane is the <code>Ingress Provider</code> field.  This fields tells the WKT UI application with which of the
-supported ingress controllers it will need to work.  The current release supports two ingress
-controllers:</p>
+<h4 id="bug-fixes">Bug Fixes</h4>
 <ul>
-<li>NGINX</li>
-<li>Traefik</li>
+<li>Fixed an issue introduced by newer WDT versions that was forcing the domain cluster size to only allow replicas to be set to 0 (WKTUI-365).</li>
+<li>#164: Fixed the link in the Introduction dialog to open in the user&rsquo;s browser instead of inside the app.</li>
+<li>#167: Improved the validation logic and error messages around having an empty model.</li>
+<li>#170: Worked around an issue that was limiting the ability to select text from the Code View scripts (WKTUI-375).</li>
 </ul>
-<p>To install the ingress controller, enable <code>Install Ingress Controller</code>.</p>
+<h4 id="known-issues">Known Issues</h4>
 <ul>
-<li>To set the release name used by the Helm install process, use the <code>Helm Release Name to Use</code> field.</li>
-<li>Set the Kubernetes namespace to which the ingress controller should be installed with the <code>Ingress Controller Namespace</code> field.</li>
+<li>On Linux, the open and save dialogs open behind the main application window.  This is due to
+<a href="https://github.com/electron/electron/issues/32857">Electron bug 32857</a>.</li>
+<li>When deploying a Verrazzano application, the <code>Check Application Status</code> button only checks the status of the project&rsquo;s
+Verrazzano component containing the WebLogic domain specification.</li>
+<li>Due to the workaround for WKTUI-375, users are not able to tab to the script area of the Code View pages.</li>
 </ul>
-<p>The container image for the Traefik ingress controller resides in Docker Hub.  Due to changes made
-to Docker Hub, anonymous pull requests are throttled.  This can result in pull requests being denied when the Kubernetes
-cluster attempts to pull the image and start the container.</p>
-<ul>
-<li>To work around this limitation, enable the <code>Use Docker Hub Secret</code> field to provide login credentials for Docker Hub.</li>
-<li>The <code>Docker Registry Secret Name</code> field specifies the name of the Kubernetes pull secret to use when pulling the image.
-To create this secret, enable <code>Create Docker Hub Secret</code> and fill in the pull secret data in the <code>Docker Hub Username</code>, <code>Docker Hub Password</code>,
-and <code>Docker Hub Email Address</code> fields.</li>
-<li>For the NGINX ingress controller, if you want to have SSL pass through the ingress route, enable <code>Allow SSL pass through to target service</code>.</li>
-</ul>
-<h4 id="tls-secret-for-ingress-routes">TLS Secret for Ingress Routes</h4>
-<p>Use this pane to configure the Transport Layer Security (TLS) secret containing the certificate and private key data that will be used by the
-ingress controller when establishing HTTPS connections from clients to the ingress controller.  The TLS connection will be
-terminated at the ingress controller, so traffic between the ingress controller and services/pods will not be encrypted.
-In the current release, only a single TLS certificate is supported for the routes being defined.</p>
-<ul>
-<li>To use TLS-enabled routes, enable <code>Use Ingress TLS Secret</code> and provide the secret name using the
-<code>Ingress TLS Secret Name</code> field.</li>
-<li>To have the application create this secret, enable <code>Create Ingress TLS Secret</code>.</li>
-<li>If you already have a certificate file and its corresponding private key file, then use the <code>TLS Certificate File</code>
-and <code>TLS Private Key File</code> fields to provide them.</li>
-<li>To create these files automatically, enable <code>Generate a TLS Certificate and Private Key</code>.
-<ul>
-<li>Provide the path to the OpenSSL executable using the
-<code>OpenSSL Executable to Use</code> field.</li>
-<li>Use the <code>Subject to Use for the Generated TLS Certificate</code> field to specify the data
-to put into the subject of the certificate.
-<ul>
-<li>For example, if your ingress route will use the virtual host name
-<code>www.myapp.com</code>, you might specify the subject contents as <code>/CN=www.myapp.com</code>.</li>
-<li>The subject data will support multiple
-key/value pairs using a comma-separated syntax, like <code>/key1=value1,/key2=value2,/key3=value3</code>.</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="ingress-routes-configuration">Ingress Routes Configuration</h4>
-<p>Use the table in this section to define the ingress routes to be added by the application.  <em>Note that this table does
-not currently display existing routes already defined.</em>  Any routes defined in or removed from the table will happen in
-the WKT Project object.  When applying or updating the routes, only the fields currently in the table will be considered.
-If the routes do not exist, then they will be added.  If one or more of the routes already exists, then the application will warn
-you to confirm whether you want to update the existing route or routes before performing the operation.</p>
-<p>To add a new route, click the plus (<code>+</code>) button in the table header.  To edit a route, use the edit button on the corresponding
-route row.  To remove a route, use the delete icon on the corresponding route row.</p>
-<p>When editing a route:</p>
-<ul>
-<li>Use the <code>Name</code> field to set the route name.</li>
-<li>Use the <code>Virtual Host</code> and <code>Path Expression</code> fields to define the matching rules that determine which requests match this route.</li>
-<li>All requests in the defined rules are routed to the service specified by the <code>Target Service</code> field that resides in the namespace specified by the read-only
-<code>Target Service Namespace</code> field and the port specified by the <code>Target Port</code> field. After the domain has been deployed, you can select the <code>Target Service</code>
-value from the drop-down list of available services in the WebLogic Kubernetes Operator domain&rsquo;s namespace. After the <code>Target Service</code> is selected,
-you can select the <code>Target Port</code> from the list of available ports in the selected target service.</li>
-<li>Specify the <code>Transport Option</code> for the ingress route:
-<ul>
-<li>Select <code>Plain HTTP</code> for unencrypted traffic from the client through the ingress controller to the target service.</li>
-<li>Select <code>SSL terminate at ingress controller</code> for SSL
-terminating
-at the ingress controller and then unencrypted traffic from the ingress controller to the target service.
-<ul>
-<li>Enable <code>Is target service WebLogic Console?</code> if the target service is the <code>WebLogic Console</code> service.</li>
-</ul>
-</li>
-<li>Select <code>SSL pass through</code> for SSL traffic to pass through the ingress
-controller and then terminate at the target service.
-<ul>
-<li>If you select this option, you must also specify a valid DNS value in &lsquo;Virtual Host&rsquo;, and all SSL traffic from
-the<code>Virtual Host</code> will be routed to the target service.</li>
-<li>Make sure that the <code>Target Port</code> supports SSL.</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Use the <code>Ingress Route Annotations</code> table to
-add annotations to the ingress route, as needed.  Do not remove any pre-populated annotations.</li>
-</ul>
-<h3 id="code-view">Code View</h3>
-<p><code>Code View</code> displays shell scripts for installing an ingress controller and for updating ingress routes.  It also
-displays the YAML definitions of the routes to be added, if applicable.</p>
-<p>If it is not already selected, then use the <code>Script Language</code> drop-down menu to choose the desired scripting language.  Note
-that the application is providing a working sample script simply to show how the process might be automated.  Before
-using the script, review the script and make any changes necessary for your environment. One typical change that
-would be considered a best practice would be to change the script to accept either command-line arguments or externally
-set environment variables to specify any credentials required by the script to eliminate hard-coding the credentials in
-the script itself.  This change is left as an exercise for you because different environments typically will have
-existing standards for securely handling such credentials.</p>
-<h3 id="install-ingress-controller">Install Ingress Controller</h3>
-<p><code>Install Ingress Controller</code> creates any namespace and secret specified and runs the ingress controller&rsquo;s Helm
-chart to install the ingress controller.  You access this action by using the <code>Install Ingress Controller</code> button on the
-<code>Ingress Controller</code> page or the <code>Go</code> &gt; <code>Install Ingress Controller</code> menu item.</p>
-<h3 id="update-ingress-routes">Update Ingress Routes</h3>
-<p><code>Update Ingress Routes</code> creates the TLS secret, if needed, and adds or updates the specified ingress routes. You access this action
-by using the <code>Update Ingress Routes</code> button on the <code>Ingress Controller</code> page or
-the <code>Go</code> &gt; <code>Update Ingress Routes to Domain</code> menu item.</p>
-<h3 id="uninstall-ingress-controller">Uninstall Ingress Controller</h3>
-<p><code>Uninstall Ingress Controller</code> uses the <code>helm uninstall</code> command to remove all the ingress resources
-and uninstall the ingress controller. In addition, you can choose whether to also delete the corresponding namespace.
-You access these actions by using the <code>Uninstall Ingress Controller</code> button on the
-<code>Ingress Controller</code> page or the <code>Go</code> &gt; <code>Uninstall Ingress Controller</code> menu item.</p>
 
 
 <footer class="footline">
@@ -1016,7 +901,6 @@ You access these actions by using the <code>Uninstall Ingress Controller</code> 
             
                 
                     
-                    
                 
                 
 
@@ -1031,9 +915,6 @@ You access these actions by using the <code>Uninstall Ingress Controller</code> 
             
             
                 
-                    
-                        
-                        
                     
                 
                 
@@ -1083,7 +964,6 @@ You access these actions by using the <code>Uninstall Ingress Controller</code> 
             
                 
                     
-                    
                 
                 
 
@@ -1096,9 +976,6 @@ You access these actions by using the <code>Uninstall Ingress Controller</code> 
             
             
                 
-                    
-                        
-                        
                     
                 
                 
@@ -1148,7 +1025,6 @@ You access these actions by using the <code>Uninstall Ingress Controller</code> 
             
                 
                     
-                    
                 
                 
 
@@ -1167,9 +1043,6 @@ You access these actions by using the <code>Uninstall Ingress Controller</code> 
             
             
                 
-                    
-                        
-                        
                     
                 
                 
@@ -1270,6 +1143,7 @@ You access these actions by using the <code>Uninstall Ingress Controller</code> 
             
                 
                     
+                    
                 
                 
 
@@ -1282,6 +1156,9 @@ You access these actions by using the <code>Uninstall Ingress Controller</code> 
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1330,6 +1207,7 @@ You access these actions by using the <code>Uninstall Ingress Controller</code> 
             
             
                 
+                    
                     
                 
                 
@@ -1354,10 +1232,10 @@ You access these actions by using the <code>Uninstall Ingress Controller</code> 
 	 
 	 
 		
-			<a class="nav nav-prev" href="/weblogic-toolkit-ui/navigate/kubernetes/k8s-weblogic-domain/" title="WebLogic Domain"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/weblogic-toolkit-ui/release/release-1.2.0/" title="Release 1.2.0"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/weblogic-toolkit-ui/navigate/verrazzano/" title="Verrazzano" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/weblogic-toolkit-ui/release/release-1.1.1/" title="Release 1.1.1" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
