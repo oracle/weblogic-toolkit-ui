@@ -159,6 +159,9 @@
   "dialog-createNewProjectTitle": "Create WebLogic Kubernetes Toolkit Project",
   "dialog-projectSaveFileLocationNotWritableTitle": "Project Directory Not Writable",
   "dialog-projectSaveFileLocationNotWritableError": "The {{projectFileDirectory}} directory chosen to write the new project file is not writable by the current process.",
+  "dialog-saveTitle": "Save {{type}}",
+  "dialog-saveFilterLabel": "{{type}} Files",
+  "dialog-saveFileErrorMessage": "Unable to save {{file}}: {{error}}",
 
   "dialog-openProjectWindowPrompt": "Choose the window where the project should be opened.",
   "dialog-chooseDomainHome": "Select the Domain Home directory to use",

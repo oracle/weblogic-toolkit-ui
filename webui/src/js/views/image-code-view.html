@@ -18,13 +18,16 @@
                class="wkt-code-view-switcher"
                value="{{tabsStatus}}">
     <div slot="enabled" class="oj-panel wkt-code-view-platform-frame">
-      <oj-form-layout max-columns="1" direction="row">
+      <oj-form-layout max-columns="2" direction="row">
         <oj-select-single label-hint="Script Language"
                           on-value-changed="[[codeViewScriptLanguageSelectValueChangedHandler]]"
                           value="{{codeViewScriptLanguage}}"
                           data="[[codeViewScriptLanguagesDP]]"
                           help.instruction="The scripting language to show.">
         </oj-select-single>
+        <oj-button chroming="callToAction" on-oj-action="[[downloadScript]]">
+          <span><oj-bind-text value="[[shellLabelMapper('button-download')]]"></oj-bind-text></span>
+        </oj-button>
       </oj-form-layout>
       <oj-text-area class="wkt-code-view"
                     max-rows="100000"

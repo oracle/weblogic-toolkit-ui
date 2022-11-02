@@ -115,6 +115,37 @@ function (accUtils, ko, project, K8sDomainScriptGenerator, K8sDomainConfigMapGen
     };
 
     this.renderScript(this.selectedSubview());
+
+    this.downloadInstaller = () => {
+      const format = this.shellScriptType();
+      const generator = new K8sDomainScriptGenerator(format);
+      const lines = generator.generate();
+      const fileType = i18n.t('script-file-type-label', {
+        type: i18n.t('nav-domain'),
+        subType: i18n.t('domain-code-script-title')
+      });
+      const formatLabel = this.shellLabelMapper(format + '-label');
+
+      window.api.ipc.send('download-file', lines, fileType, format, formatLabel);
+    };
+
+    this.downloadComponentResource = () => {
+      const generator = this.getDomainResourceGenerator();
+      const lines = generator.generate();
+      const fileType = i18n.t('domain-code-domain-resource-title');
+      const formatLabel = this.shellLabelMapper('resource-file-format');
+
+      window.api.ipc.send('download-file', lines, fileType, 'yaml', formatLabel);
+    };
+
+    this.downloadConfigMap = () => {
+      const generator = this.k8sConfigMapGenerator;
+      const lines = generator.generate();
+      const fileType = i18n.t('domain-code-configmap-resource-title');
+      const formatLabel = this.shellLabelMapper('resource-file-format');
+
+      window.api.ipc.send('download-file', lines, fileType, 'yaml', formatLabel);
+    };
   }
 
   return DomainCodeViewModel;

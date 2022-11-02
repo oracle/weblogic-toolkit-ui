@@ -8,6 +8,7 @@ const {getCredentialPassphrase} = require('./promptUtils');
 const {copyFile, mkdir, readFile, writeFile} = require('fs/promises');
 const path = require('path');
 const uuid = require('uuid');
+const { EOL } = require('os');
 
 const model = require('./model');
 const modelProperties = require('./modelProperties');
@@ -972,6 +973,32 @@ function getProjectFileName(dialogReturnedFileName) {
   return result;
 }
 
+function downloadFile(targetWindow, lines, fileType, format, formatName) {
+  const title = i18n.t('dialog-saveTitle', {type: fileType});
+  const filterName = i18n.t('dialog-saveFilterLabel', {type: formatName});
+
+  dialog.showSaveDialog(targetWindow, {
+    title: title,
+    message: title,
+    filters: [
+      {name: filterName, extensions: [format]}
+    ],
+    properties: [
+      'createDirectory',
+      'showOverwriteConfirmation'
+    ]
+  }).then(saveResponse =>  {
+    if (saveResponse.filePath) {
+      const contents = lines.join(EOL);
+      writeFile(saveResponse.filePath, contents, { encoding: 'utf8' })
+        .catch(err => {
+          dialog.showErrorBox(title,
+            i18n.t('dialog-saveFileErrorMessage', { file: saveResponse.filePath, error: err }));
+        });
+    }
+  });
+}
+
 module.exports = {
   chooseArchiveFile,
   chooseModelFile,
@@ -980,6 +1007,7 @@ module.exports = {
   closeProject,
   confirmProjectFile,
   createNewProject,
+  downloadFile,
   getModelFileContent,
   getWindowForProject,
   exportArchiveFile,

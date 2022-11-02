@@ -107,6 +107,37 @@ function (accUtils, ko, project, VerrazzanoApplicationScriptGenerator, Verrazzan
     };
 
     this.renderScript(this.selectedSubview());
+
+    this.downloadDeployer = () => {
+      const format = this.shellScriptType();
+      const generator = new VerrazzanoApplicationScriptGenerator(format);
+      const lines = generator.generate();
+      const fileType = i18n.t('script-file-type-label', {
+        type: i18n.t('nav-vz-component'),
+        subType: i18n.t('vz-install-code-script-title')
+      });
+      const formatLabel = this.shellLabelMapper(format + '-label');
+
+      window.api.ipc.send('download-file', lines, fileType, format, formatLabel);
+    };
+
+    this.downloadApplicationResource = () => {
+      const generator = this.vzApplicationResourceGenerator;
+      const lines = generator.generate();
+      const fileType = i18n.t('vz-application-code-application-resource-title');
+      const formatLabel = this.shellLabelMapper('resource-file-format');
+
+      window.api.ipc.send('download-file', lines, fileType, 'yaml', formatLabel);
+    };
+
+    this.downloadProjectResource = () => {
+      const generator = this.vzProjectResourceGenerator;
+      const lines = generator.generate();
+      const fileType = i18n.t('vz-application-code-project-resource-title');
+      const formatLabel = this.shellLabelMapper('resource-file-format');
+
+      window.api.ipc.send('download-file', lines, fileType, 'yaml', formatLabel);
+    };
   }
 
   return VerrazzanoApplicationCodeViewModel;

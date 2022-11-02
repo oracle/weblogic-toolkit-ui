@@ -19,30 +19,41 @@
                value="{{selectedSubview}}">
 
     <div slot="installScript" class="oj-panel wkt-code-view-platform-frame">
-      <oj-form-layout max-columns="1" direction="row">
+      <oj-form-layout max-columns="2" direction="row">
         <oj-select-single label-hint="[[shellLabelMapper('selector-label')]]"
                           value="{{shellScriptType}}"
                           data="{{shellScriptTypesDP}}"
                           help.instruction="[[shellLabelMapper('selector-help')]]">
         </oj-select-single>
+        <oj-button chroming="callToAction" on-oj-action="[[downloadInstaller]]">
+          <span><oj-bind-text value="[[shellLabelMapper('button-download')]]"></oj-bind-text></span>
+        </oj-button>
       </oj-form-layout>
       <oj-text-area class="wkt-code-view" max-rows="100000" value="{{installScriptText}}" readonly="true">
       </oj-text-area>
     </div>
 
     <div slot="addRoutesScript" class="oj-panel wkt-code-view-platform-frame">
-      <oj-form-layout max-columns="1" direction="row">
+      <oj-form-layout max-columns="2" direction="row">
         <oj-select-single label-hint="[[shellLabelMapper('selector-label')]]"
                           value="{{shellScriptType}}"
                           data="{{shellScriptTypesDP}}"
                           help.instruction="[[shellLabelMapper('selector-help')]]">
         </oj-select-single>
+        <oj-button chroming="callToAction" on-oj-action="[[downloadAddRoutesScript]]">
+          <span><oj-bind-text value="[[shellLabelMapper('button-download')]]"></oj-bind-text></span>
+        </oj-button>
       </oj-form-layout>
       <oj-text-area class="wkt-code-view" max-rows="100000" value="{{addRoutesScriptText}}" readonly="true">
       </oj-text-area>
     </div>
 
     <div slot="routesYaml" class="oj-panel wkt-code-view-platform-frame">
+      <oj-form-layout max-columns="2" direction="row">
+        <oj-button chroming="callToAction" on-oj-action="[[downloadRoutesResource]]">
+          <span><oj-bind-text value="[[shellLabelMapper('button-download')]]"></oj-bind-text></span>
+        </oj-button>
+      </oj-form-layout>
       <oj-text-area class="wkt-code-view" max-rows="100000" value="{{ingressRoutesYamlText}}" readonly="true">
       </oj-text-area>
     </div>

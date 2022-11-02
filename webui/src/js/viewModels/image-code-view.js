@@ -116,6 +116,18 @@ function(accUtils, ko, i18n, project, ImageScriptGenerator, ArrayDataProvider) {
     };
 
     this.codeText = ko.observable();
+
+    this.downloadScript = () => {
+      const format = this.codeViewScriptLanguage();
+      const generator = new ImageScriptGenerator(format);
+      const auxiliary = this.selectedSubview() === 'auxiliaryImageScript';
+      const lines = auxiliary ? generator.generateAuxiliary() : generator.generatePrimary();
+      const typeName = this.labelMapper(auxiliary ? 'auxiliary-image-script-tab' : 'primary-image-script-tab');
+      const fileType = i18n.t('image-code-script-title', {type: typeName});
+      const formatLabel = this.shellLabelMapper(format + '-label');
+
+      window.api.ipc.send('download-file', lines, fileType, format, formatLabel);
+    };
   }
 
   /*
