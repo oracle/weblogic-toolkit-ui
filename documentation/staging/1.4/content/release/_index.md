@@ -27,9 +27,17 @@ pre = "<b> </b>"
 - #176: Resolved an issue where the `Update Ingress Routes` action was always passing the `SSL pass-through` argument--even when the user did not request it.
 - #182: Resolved Verrazzano 1.4.0+ installation issue caused by a change in the published operator file name. 
 - #186: Resolved Verrazzano-related issue where Ingress Trait rules were not including the hosts or destination-related fields.
+- #187: Resolved an issue where the operator domain variable override config map was not being created properly.
+- #187: Resolved an issue with the `apiVersion` of the Verrazzano component- and application-related being incorrect.
 
 #### Known Issues
 - On Linux, the open and save dialogs open behind the main application window.  This is due to
   [Electron bug 32857](https://github.com/electron/electron/issues/32857).
 - When deploying a Verrazzano application, the `Check Application Status` button only checks the status of the project's
   Verrazzano component containing the WebLogic domain specification.
+- WKTUI does not currently show the Verrazzano URL needed to access the application.  The URL will always be of
+  the form `https://<gateway-hostname>/<app-path>`, where the `gateway-hostname` is the name created by Verrazzano
+  in the `Gateway` object.  To get the name of the generated gateway object, run `kubectl get gateway -n <namespace> --template
+  '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'`.  Next, run `kubectl get gateway <gateway-name> -n <namespace> -o yaml`
+  and review the `hosts` entry of the `.spec.servers` section to find the DNS name that corresponds to the
+  `gateway-hostname` to use in the URL.
