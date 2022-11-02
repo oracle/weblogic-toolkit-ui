@@ -16,6 +16,7 @@
 
   <oj-switcher id="codeviews"
                class="wkt-code-view-switcher"
+               on-value-changed="[[selectedSubviewValueChangedHandler]]"
                value="{{selectedSubview}}">
 
     <div slot="installScript" class="oj-panel wkt-code-view-platform-frame">
