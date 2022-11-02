@@ -232,6 +232,7 @@
   "image-code-primary-image-script-no-content": "Create New Primary Image is turned off so no content to show.",
   "image-code-auxiliary-image-script-no-content": "Create New Auxiliary Image is turned off so no content to show.",
   "image-code-not-creating-images-no-content": "This project is not configured to create any images so no content to show.",
+  "image-code-script-title": "{{type}} Script",
 
   "image-design-form-name": "Image",
   "image-design-form-primary-tab-name": "Primary Image",
