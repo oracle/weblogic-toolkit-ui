@@ -26,23 +26,27 @@
         <oj-table class="wkt-model-properties-table"
                   :aria-label="[[labelMapper('paths-table-aria-label')]]"
                   data="[[pathsDataProvider]]"
+                  horizontal-grid-visible="enabled"
+                  vertical-grid-visible="enabled"
                   edit-mode="rowEdit"
                   columns='[[pathsColumns]]'>
           <template slot="rowTemplate" data-oj-as="row">
             <tr>
               <oj-bind-if test='[[row.mode=="navigation"]]'>
-                <td><oj-bind-text value="[[row.data.pathType]]"></oj-bind-text></td>
-                <td><oj-bind-text value="[[row.data.path]]"></oj-bind-text></td>
+                <td><oj-bind-text value="[[row.data.pathType || labelMapper('path-type-placeholder')]]"></oj-bind-text></td>
+                <td><oj-bind-text value="[[row.data.path || labelMapper('path-placeholder')]]"></oj-bind-text></td>
               </oj-bind-if>
               <oj-bind-if test='[[row.mode=="edit"]]'>
                 <td>
                   <oj-select-single value="{{row.data.pathType}}"
                                     data="{{pathTypesDataProvider}}"
+                                    placeholder="[[labelMapper('path-type-placeholder')]]"
                                     help.instruction="[[labelMapper('path-type-help')]]">
                   </oj-select-single>
                 </td>
                 <td>
                   <oj-input-text value="{{row.data.path}}"
+                                 placeholder="[[labelMapper('path-placeholder')]]"
                                  help.instruction="[[labelMapper('path-help')]]">
                   </oj-input-text>
                 </td>

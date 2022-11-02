@@ -15,6 +15,10 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'utils/vz-
         this.configMapComponentNamespace = '';
       }
 
+      shouldCreateConfigMap() {
+        return this.k8sDomainConfigMapGenerator.shouldCreateConfigMap();
+      }
+
       generate() {
         const k8sDomainConfigMap = this.k8sDomainConfigMapGenerator.generate(false);
 

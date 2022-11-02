@@ -113,17 +113,6 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
           this.updateSecrets();
         });
 
-        this.configMapIsEmpty = () => {
-          let result = true;
-          for (const entry of wdtModel.getMergedPropertiesContent().observable()) {
-            if (entry.Override) {
-              result = false;
-              break;
-            }
-          }
-          return result;
-        };
-
         this.readFrom = (json) => {
           props.createGroup(name, this).readFrom(json);
         };

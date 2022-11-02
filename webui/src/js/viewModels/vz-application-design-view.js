@@ -38,6 +38,15 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
     this.componentsDataProvider = new ArrayDataProvider(this.components.observable, { keyAttributes: 'name' });
     this.hasComponents = ko.computed(() => this.components.observable().length > 0);
 
+    // eslint-disable-next-line no-unused-vars
+    this.disableComponentDeleteButton = (index) => {
+      return false;
+    };
+
+    this.deleteApplicationComponent = (index) => {
+      this.project.vzApplication.components.removeItemByIndex(index);
+    };
+
     this.integerConverter = new ojConverterNumber.IntlNumberConverter({
       style: 'decimal',
       roundingMode: 'HALF_DOWN',

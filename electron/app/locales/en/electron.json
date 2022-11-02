@@ -318,6 +318,7 @@
   "kubectl-get-named-vz-install-error-message": "Unable to get Verrazzano installation with name {{name}}: {{error}}",
   "kubectl-get-vz-application-status-error-message": "Unable to get Verrazzano application status: {{error}}",
   "kubectl-get-operator-version-not-found-error-message": "Failed to find the operator version from its log entries",
+  "kubectl-verify-vz-components-deployed-error-message": "Unable to find one or more components in namespace {{namespace}}: {{missingComponents}}",
 
   "helm-not-specified-error-message": "Helm executable path was not provided",
   "helm-not-exists-error-message": "Helm executable {{filePath}} does not exist",

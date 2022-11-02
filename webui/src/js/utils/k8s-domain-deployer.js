@@ -247,18 +247,16 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
           {domainName: domainUid, domainNamespace: domainNamespace});
         dialogHelper.updateBusyDialog(busyDialogMessage, 12 / totalSteps);
         if (this.project.settings.targetDomainLocation.value === 'mii') {
-          if (!this.project.k8sDomain.configMapIsEmpty()) {
-            const configMapData = this.k8sDomainConfigMapGenerator.generate().join('\n');
-            wktLogger.debug(configMapData);
-            const mapResults = await (window.api.ipc.invoke('k8s-apply', kubectlExe, configMapData, kubectlOptions));
-            if (!mapResults.isSuccess) {
-              const configMapName = this.project.k8sDomain.modelConfigMapName.value;
-              const errMessage = i18n.t('k8s-domain-deployer-create-config-map-failed-error-message',
-                {configMapName: configMapName, domainNamespace: domainNamespace, error: mapResults.reason});
-              dialogHelper.closeBusyDialog();
-              await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
-              return Promise.resolve(false);
-            }
+          const configMapData = this.k8sDomainConfigMapGenerator.generate().join('\n');
+          wktLogger.debug(configMapData);
+          const mapResults = await (window.api.ipc.invoke('k8s-apply', kubectlExe, configMapData, kubectlOptions));
+          if (!mapResults.isSuccess) {
+            const configMapName = this.project.k8sDomain.modelConfigMapName.value;
+            const errMessage = i18n.t('k8s-domain-deployer-create-config-map-failed-error-message',
+              {configMapName: configMapName, domainNamespace: domainNamespace, error: mapResults.reason});
+            dialogHelper.closeBusyDialog();
+            await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
+            return Promise.resolve(false);
           }
         }
 
@@ -266,7 +264,7 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
         busyDialogMessage = i18n.t('k8s-domain-deployer-deploy-in-progress',
           {domainName: domainUid, domainNamespace: domainNamespace});
         dialogHelper.updateBusyDialog(busyDialogMessage, 13 / totalSteps);
-        const domainSpecData = this.k8sDomainResourceGenerator.generate().join('\n');
+        const domainSpecData = new K8sDomainResourceGenerator(this.project.wko.installedVersion.value).generate().join('\n');
         const domainResult = await (window.api.ipc.invoke('k8s-apply', kubectlExe, domainSpecData, kubectlOptions));
         dialogHelper.closeBusyDialog();
         if (domainResult.isSuccess) {
@@ -415,10 +413,9 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
         }
       }
 
-      if (!this.project.k8sDomain.configMapIsEmpty()) {
+      if (this.project.settings.targetDomainLocation.value === 'mii') {
         validationObject.addField('domain-design-configmap-label',
           this.project.k8sDomain.modelConfigMapName.validate(true), domainFormConfig);
-        // The fields in the table should not require validation since no empty override values should be in this computed table.
       }
 
       return validationObject;

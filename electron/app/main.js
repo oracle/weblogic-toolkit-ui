@@ -1059,6 +1059,11 @@ class Main {
     ipcMain.handle('deploy-verrazzano-project', async (event, kubectlExe, project, kubectlOptions) => {
       return deployProject(kubectlExe, project, kubectlOptions);
     });
+
+    // eslint-disable-next-line no-unused-vars
+    ipcMain.handle('verify-verrazzano-components-exist',async (event, kubectlExe, componentNames, namespace, kubectlOptions) => {
+      return kubectlUtils.verifyVerrazzanoComponentsDeployed(kubectlExe, componentNames, namespace, kubectlOptions);
+    });
   }
 
   async getLatestWdtInstaller(targetWindow) {

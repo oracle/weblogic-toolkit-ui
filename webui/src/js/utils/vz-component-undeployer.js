@@ -34,7 +34,8 @@ function(VzActionsBase, project, wktConsole, i18n, projectIo, dialogHelper) {
       // Prompt user to remove just the domain or the entire domain namespace.
       const componentName = this.project.vzComponent.componentName.value;
       const componentNamespace = this.project.k8sDomain.kubernetesNamespace.value;
-      const configMapName = this.project.vzComponent.configMapIsEmpty() ? undefined : this.project.k8sDomain.modelConfigMapName.value;
+      const configMapName = this.project.settings.targetDomainLocation.value === 'mii' ?
+        this.project.k8sDomain.modelConfigMapName.value : undefined;
 
       const promptTitle = i18n.t('vz-component-undeployer-remove-namespace-prompt-title');
       const promptQuestion = this._getPromptQuestion(componentName, componentNamespace, configMapName);

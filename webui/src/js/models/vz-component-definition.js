@@ -17,10 +17,6 @@ define(['utils/observable-properties', 'utils/validation-helper'],
         this.componentName = props.createProperty('${1}', k8sDomain.uid.observable);
         this.componentName.addValidator(...validationHelper.getK8sNameValidators());
 
-        this.configMapIsEmpty = () => {
-          return k8sDomain.configMapIsEmpty();
-        };
-
         this.readFrom = (json) => {
           props.createGroup(name, this).readFrom(json);
         };
