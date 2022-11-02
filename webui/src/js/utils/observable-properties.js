@@ -442,6 +442,10 @@ define(['knockout', 'utils/common-utilities', 'utils/validation-helper', 'utils/
         this.observable.push(this.createArrayItem(this, !!item ? item : {}));
       }
 
+      removeItemByIndex(index) {
+        this.observable.splice(index, 1);
+      }
+
       get observable() {
         if (this._observable == null) {
           this._observable = ko.observableArray(this.createList(this._defaultValue));

@@ -688,7 +688,7 @@ async function apply(kubectlExe, fileData, options) {
     fsUtils.writeTempFile(fileData, { baseName: 'k8sApplyData', extension: '.yaml' }).then(fileName => {
       const args = [ 'apply', '-f', fileName ];
       executeFileCommand(kubectlExe, args, env).then(stdout => {
-        console.log('kubectl apply returned: %s', stdout);
+        getLogger().debug('kubectl apply returned: %s', stdout);
         fsUtils.recursivelyRemoveTemporaryFileDirectory(fileName).then(() => resolve(result)).catch(err => {
           getLogger().warn('kubectlUtils.apply() failed to remove temporary file %s: %s', fileName, err);
           resolve(result);
@@ -860,7 +860,12 @@ async function isVerrazzanoInstalled(kubectlExe, options) {
         const vzObject = vzObjectList[0];
         result.isInstalled = true;
         result.name = vzObject.metadata?.name;
-        result.version = vzObject.status?.version;
+
+        let statusVersion = vzObject.status?.version;
+        if (statusVersion && statusVersion.startsWith('v')) {
+          statusVersion = statusVersion.slice(1);
+        }
+        result.version = statusVersion;
       }
       resolve(result);
     }).catch(err => {
@@ -972,6 +977,36 @@ async function getKubernetesObjectsFromAllNamespaces(kubectlExe, kubectlOptions,
   });
 }
 
+async function verifyVerrazzanoComponentsDeployed(kubectlExe, componentNames, namespace, kubectlOptions) {
+  const httpsProxyUrl = getHttpsProxyUrl();
+  const bypassProxyHosts = getBypassProxyHosts();
+
+  const env = getKubectlEnvironment(kubectlOptions, httpsProxyUrl, bypassProxyHosts);
+
+  const result = {
+    isSuccess: true
+  };
+
+  const missingComponentNames = [];
+  for (const componentName of componentNames) {
+    const args = [ 'get', 'Component', componentName, '-n', namespace ];
+    try {
+      const stdout = await executeFileCommand(kubectlExe, args, env);
+      getLogger().debug('Found component %s in namespace %s: %s', componentName, namespace, stdout);
+    } catch (err) {
+      getLogger().warn('Error getting component %s in namespace %s: %s', componentName, namespace, getErrorMessage(err));
+      missingComponentNames.push(componentName);
+    }
+  }
+
+  if (missingComponentNames.length > 0) {
+    result.isSuccess = false;
+    result.reason = i18n.t('kubectl-verify-vz-components-deployed-error-message',
+      { namespace: namespace, missingComponents: missingComponentNames.join(', ')});
+  }
+  return Promise.resolve(result);
+}
+
 async function doCreateSecret(kubectlExe, createArgs, env, namespace, secret, resolve, results, key) {
   executeFileCommand(kubectlExe, createArgs, env, true).then(() => {
     resolve(results);
@@ -1063,5 +1098,6 @@ module.exports = {
   validateDomainExist,
   validateApplicationExist,
   verifyClusterConnectivity,
+  verifyVerrazzanoComponentsDeployed,
   verifyVerrazzanoPlatformOperatorRollout,
 };

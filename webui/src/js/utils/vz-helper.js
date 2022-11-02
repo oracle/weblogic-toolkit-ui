@@ -16,18 +16,9 @@ const VZ_ALPHA1_MANUAL_SCALER_TRAIT_API_VERSION = 'core.oam.dev/v1alpha2';
 const VZ_ALPHA1_METRICS_TRAIT_API_VERSION = 'oam.verrazzano.io/v1alpha1';
 const VZ_ALPHA1_PROJECT_API_VERSION = 'clusters.verrazzano.io/v1alpha1';
 
-const VZ_BETA1_SWITCH_VERSION = '1.4.0';
+const VZ_CR_BETA1_SWITCH_VERSION = '1.4.0';
 
 const VZ_BETA1_INSTALL_API_VERSION = 'install.verrazzano.io/v1beta1';
-const VZ_BETA1_COMPONENT_API_VERSION = 'core.oam.dev/v1alpha2';
-const VZ_BETA1_WORKLOAD_API_VERSION = 'oam.verrazzano.io/v1beta1';
-const VZ_BETA1_APPLICATION_API_VERSION = 'core.oam.dev/v1alpha2';
-const VZ_BETA1_MULTI_CLUSTER_APPLICATION_API_VERSION = 'clusters.verrazzano.io/v1beta1';
-const VZ_BETA1_INGRESS_TRAIT_API_VERSION = 'oam.verrazzano.io/v1beta1';
-const VZ_BETA1_LOGGING_TRAIT_API_VERSION = 'oam.verrazzano.io/v1beta1';
-const VZ_BETA1_MANUAL_SCALER_TRAIT_API_VERSION = 'core.oam.dev/v1alpha2';
-const VZ_BETA1_METRICS_TRAIT_API_VERSION = 'oam.verrazzano.io/v1beta1';
-const VZ_BETA1_PROJECT_API_VERSION = 'clusters.verrazzano.io/v1beta1';
 
 define([],
   function() {
@@ -45,7 +36,7 @@ define([],
       }
 
       getInstallApiVersion() {
-        if (window.api.utils.compareVersions(this.verrazzanoVersion, VZ_BETA1_SWITCH_VERSION) < 0) {
+        if (window.api.utils.compareVersions(this.verrazzanoVersion, VZ_CR_BETA1_SWITCH_VERSION) < 0) {
           return VZ_ALPHA1_INSTALL_API_VERSION;
         } else {
           return VZ_BETA1_INSTALL_API_VERSION;
@@ -53,75 +44,39 @@ define([],
       }
 
       getComponentApiVersion() {
-        if (window.api.utils.compareVersions(this.verrazzanoVersion, VZ_BETA1_SWITCH_VERSION) < 0) {
-          return VZ_ALPHA1_COMPONENT_API_VERSION;
-        } else {
-          return VZ_BETA1_COMPONENT_API_VERSION;
-        }
+        return VZ_ALPHA1_COMPONENT_API_VERSION;
       }
 
       getWorkloadApiVersion() {
-        if (window.api.utils.compareVersions(this.verrazzanoVersion, VZ_BETA1_SWITCH_VERSION) < 0) {
-          return VZ_ALPHA1_WORKLOAD_API_VERSION;
-        } else {
-          return VZ_BETA1_WORKLOAD_API_VERSION;
-        }
+        return VZ_ALPHA1_WORKLOAD_API_VERSION;
       }
 
       getApplicationApiVersion() {
-        if (window.api.utils.compareVersions(this.verrazzanoVersion, VZ_BETA1_SWITCH_VERSION) < 0) {
-          return VZ_ALPHA1_APPLICATION_API_VERSION;
-        } else {
-          return VZ_BETA1_APPLICATION_API_VERSION;
-        }
+        return VZ_ALPHA1_APPLICATION_API_VERSION;
       }
 
       getMultiClusterApplicationApiVersion() {
-        if (window.api.utils.compareVersions(this.verrazzanoVersion, VZ_BETA1_SWITCH_VERSION) < 0) {
-          return VZ_ALPHA1_MULTI_CLUSTER_APPLICATION_API_VERSION;
-        } else {
-          return VZ_BETA1_MULTI_CLUSTER_APPLICATION_API_VERSION;
-        }
+        return VZ_ALPHA1_MULTI_CLUSTER_APPLICATION_API_VERSION;
       }
 
       getProjectApiVersion() {
-        if (window.api.utils.compareVersions(this.verrazzanoVersion, VZ_BETA1_SWITCH_VERSION) < 0) {
-          return VZ_ALPHA1_PROJECT_API_VERSION;
-        } else {
-          return VZ_BETA1_PROJECT_API_VERSION;
-        }
+        return VZ_ALPHA1_PROJECT_API_VERSION;
       }
 
       getIngressTraitApiVersion() {
-        if (window.api.utils.compareVersions(this.verrazzanoVersion, VZ_BETA1_SWITCH_VERSION) < 0) {
-          return VZ_ALPHA1_INGRESS_TRAIT_API_VERSION;
-        } else {
-          return VZ_BETA1_INGRESS_TRAIT_API_VERSION;
-        }
+        return VZ_ALPHA1_INGRESS_TRAIT_API_VERSION;
       }
 
       getLoggingTraitApiVersion() {
-        if (window.api.utils.compareVersions(this.verrazzanoVersion, VZ_BETA1_SWITCH_VERSION) < 0) {
-          return VZ_ALPHA1_LOGGING_TRAIT_API_VERSION;
-        } else {
-          return VZ_BETA1_LOGGING_TRAIT_API_VERSION;
-        }
+        return VZ_ALPHA1_LOGGING_TRAIT_API_VERSION;
       }
 
       getManualScalerTraitApiVersion() {
-        if (window.api.utils.compareVersions(this.verrazzanoVersion, VZ_BETA1_SWITCH_VERSION) < 0) {
-          return VZ_ALPHA1_MANUAL_SCALER_TRAIT_API_VERSION;
-        } else {
-          return VZ_BETA1_MANUAL_SCALER_TRAIT_API_VERSION;
-        }
+        return VZ_ALPHA1_MANUAL_SCALER_TRAIT_API_VERSION;
       }
 
       getMetricsTraitApiVersion() {
-        if (window.api.utils.compareVersions(this.verrazzanoVersion, VZ_BETA1_SWITCH_VERSION) < 0) {
-          return VZ_ALPHA1_METRICS_TRAIT_API_VERSION;
-        } else {
-          return VZ_BETA1_METRICS_TRAIT_API_VERSION;
-        }
+        return VZ_ALPHA1_METRICS_TRAIT_API_VERSION;
       }
     }
 

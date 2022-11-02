@@ -55,13 +55,14 @@ function (accUtils, ko, project, K8sDomainScriptGenerator, K8sDomainConfigMapGen
 
 
     this.isConfigMapDisabled = () => {
-      return this.project.k8sDomain.configMapIsEmpty();
+      return this.project.settings.targetDomainLocation.value !== 'mii';
     };
 
     this.subviews = [
       {id: 'script', name: this.labelMapper('script-title')},
       {id: 'domain', name: this.labelMapper('domain-resource-title')},
-      {id: 'configMap', name: this.labelMapper('configmap-resource-title'), disabled: this.project.k8sDomain.configMapIsEmpty()}
+      {id: 'configMap', name: this.labelMapper('configmap-resource-title'),
+        disabled: this.isConfigMapDisabled()}
     ];
 
     this.subviewsDP = new ArrayDataProvider(this.subviews, {keyAttributes: 'id'});

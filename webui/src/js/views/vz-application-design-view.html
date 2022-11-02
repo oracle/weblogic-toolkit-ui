@@ -101,6 +101,14 @@
                                readonly="true"
                                help.instruction="[[labelMapper('component-name-help')]]">
                 </oj-input-text>
+                <oj-button disabled="[[disableComponentDeleteButton(component.index)]]"
+                           chroming="callToAction"
+                           on-oj-action="[[() => deleteApplicationComponent(component.index)]]"
+                           :title="[[labelMapper('delete-component-button-help')]]">
+                  <span>
+                    <oj-bind-text value="[[labelMapper('delete-component-button-label')]]"></oj-bind-text>
+                  </span>
+                </oj-button>
               </oj-form-layout>
 
               <div class="oj-panel">

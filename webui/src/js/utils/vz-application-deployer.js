@@ -9,7 +9,7 @@ define(['utils/vz-actions-base', 'models/wkt-project', 'models/wkt-console', 'ut
   'utils/dialog-helper', 'utils/validation-helper', 'utils/vz-application-resource-generator',
   'utils/vz-application-project-generator', 'utils/wkt-logger'],
 function(VzActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, validationHelper,
-  VerrazzanoApplicationResourceGenerator, VerrazzanoProjectResourceGenerator) {
+  VerrazzanoApplicationResourceGenerator, VerrazzanoProjectResourceGenerator, wktLogger) {
   class VzApplicationDeployer extends VzActionsBase {
     constructor() {
       super();
@@ -35,7 +35,7 @@ function(VzActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, vali
 
       const createProject = this.project.vzApplication.useMultiClusterApplication.value && this.project.vzApplication.createProject.value;
 
-      const totalSteps = createProject ? 6.0 : 5.0;
+      const totalSteps = createProject ? 7.0 : 6.0;
       const kubectlExe = this.getKubectlExe();
       try {
         let busyDialogMessage = i18n.t('flow-validate-kubectl-exe-in-progress');
@@ -86,7 +86,25 @@ function(VzActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, vali
           }
         }
 
-        let step = 4;
+        // Verify that all referenced components are already deployed in the namespace.
+        const namespace = this.project.k8sDomain.kubernetesNamespace.value;
+        busyDialogMessage = i18n.t('flow-checking-vz-app-components-deployed-in-progress');
+        dialogHelper.updateBusyDialog(busyDialogMessage, 4/totalSteps);
+        if (!options.skipVzComponentsDeployedCheck) {
+          const appComponentNames = this.getApplicationComponentNames();
+          wktLogger.debug('appComponentNames = %s', appComponentNames);
+          const result = await window.api.ipc.invoke('verify-verrazzano-components-exist',
+            kubectlExe, appComponentNames, namespace, kubectlOptions);
+          if (!result.isSuccess) {
+            dialogHelper.closeBusyDialog();
+            const errMessage = i18n.t('vz-application-deployer-verify-components-error-message',
+              { namespace: namespace, error: result.reason });
+            await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
+            return Promise.resolve(false);
+          }
+        }
+
+        let step = 5;
         if (createProject) {
           const vzProjectGenerator = new VerrazzanoProjectResourceGenerator();
           const projectSpec = vzProjectGenerator.generate().join('\n');
@@ -153,7 +171,15 @@ function(VzActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, vali
           this.project.vzApplication.projectName.validate(true), vzApplicationFormConfig);
       }
 
+      // Don't allow an application with zero components...
+      validationObject.addField('vz-application-design-components-label',
+        validationHelper.validateRequiredField(this.project.vzApplication.components.value), vzApplicationFormConfig);
+
       return validationObject;
+    }
+
+    getApplicationComponentNames() {
+      return this.project.vzApplication.components.value.map(component => component.name);
     }
   }
   return new VzApplicationDeployer();

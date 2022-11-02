@@ -205,7 +205,7 @@ function(VzActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, vali
         const vzResourceGenerator = new VerrazzanoComponentResourceGenerator();
         const vzConfigMapGenerator = new VerrazzanoComponentConfigMapGenerator();
         const components = [ vzResourceGenerator.generate().join('\n') ];
-        if (!this.project.vzComponent.configMapIsEmpty()) {
+        if (vzConfigMapGenerator.shouldCreateConfigMap()) {
           wktLogger.debug('Adding ConfigMap for component deployment');
           components.push(vzConfigMapGenerator.generate().join('\n'));
         }
@@ -326,10 +326,9 @@ function(VzActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, vali
         }
       }
 
-      if (!this.project.vzComponent.configMapIsEmpty()) {
+      if (this.project.settings.targetDomainLocation.value === 'mii') {
         validationObject.addField('domain-design-configmap-label',
           this.project.k8sDomain.modelConfigMapName.validate(true), vzComponentFormConfig);
-        // The fields in the table should not require validation since no empty override values should be in this computed table.
       }
 
       return validationObject;

@@ -233,6 +233,7 @@ contextBridge.exposeInMainWorld(
           'get-verrazzano-secret-names',
           'get-verrazzano-cluster-names',
           'get-verrazzano-deployment-names-all-namespaces',
+          'verify-verrazzano-components-exist',
           'deploy-verrazzano-project',
           'deploy-verrazzano-application',
           'undeploy-verrazzano-application',

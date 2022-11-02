@@ -55,13 +55,14 @@ function (accUtils, ko, project, VerrazzanoComponentScriptGenerator, VerrazzanoC
 
 
     this.isConfigMapDisabled = () => {
-      return this.project.vzComponent.configMapIsEmpty();
+      return this.project.settings.targetDomainLocation.value !== 'mii';
     };
 
     this.subviews = [
       {id: 'script', name: this.labelMapper('script-title')},
       {id: 'component', name: this.labelMapper('component-resource-title')},
-      {id: 'configMap', name: this.labelMapper('configmap-resource-title'), disabled: this.project.vzComponent.configMapIsEmpty()}
+      {id: 'configMap', name: this.labelMapper('configmap-resource-title'),
+        disabled: this.isConfigMapDisabled()}
     ];
 
     this.subviewsDP = new ArrayDataProvider(this.subviews, {keyAttributes: 'id'});

@@ -13,7 +13,7 @@ define(['models/wkt-project', 'js-yaml'],
       }
 
       shouldCreateConfigMap() {
-        return this.project.settings.targetDomainLocation.value === 'mii' && !this.project.k8sDomain.configMapIsEmpty();
+        return this.project.settings.targetDomainLocation.value === 'mii';
       }
 
       generate(generateYaml = true) {
