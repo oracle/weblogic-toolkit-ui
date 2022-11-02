@@ -188,6 +188,15 @@ function(accUtils, ko, i18n, props, validationHelper, ArrayDataProvider, ojConve
     ];
     this.pathTypesDataProvider = new ArrayDataProvider(this.pathTypeOptions, { keyAttributes: 'value' });
 
+    this.navigationCellClass = (value) => {
+      return value ? null : 'wkt-placeholder-text';
+    };
+
+    this.pathTypeLabel = (pathType) => {
+      const key = pathType ? 'path-type-' + pathType + '-label' : 'path-type-placeholder';
+      return this.labelMapper(key);
+    };
+
     this.handleAddPath = () => {
       this.paths.addNewItem({ uid: utils.getShortUuid() });
     };

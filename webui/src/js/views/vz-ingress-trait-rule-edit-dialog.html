@@ -33,8 +33,12 @@
           <template slot="rowTemplate" data-oj-as="row">
             <tr>
               <oj-bind-if test='[[row.mode=="navigation"]]'>
-                <td><oj-bind-text value="[[row.data.pathType || labelMapper('path-type-placeholder')]]"></oj-bind-text></td>
-                <td><oj-bind-text value="[[row.data.path || labelMapper('path-placeholder')]]"></oj-bind-text></td>
+                <td :class="[[navigationCellClass(row.data.pathType)]]">
+                  <oj-bind-text value="[[pathTypeLabel(row.data.pathType)]]"></oj-bind-text>
+                </td>
+                <td :class="[[navigationCellClass(row.data.path)]]">
+                  <oj-bind-text value="[[row.data.path || labelMapper('path-placeholder')]]"></oj-bind-text>
+                </td>
               </oj-bind-if>
               <oj-bind-if test='[[row.mode=="edit"]]'>
                 <td>

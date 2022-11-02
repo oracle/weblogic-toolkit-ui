@@ -756,3 +756,7 @@ h6.wkt-panel-heading {
   color: red;
   font-weight: bold;
 }
+
+.wkt-placeholder-text {
+  color: var(--oj-label-inside-edge-color);
+}
