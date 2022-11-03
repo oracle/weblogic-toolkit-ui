@@ -232,7 +232,7 @@
                           help.instruction="[[labelMapper('aux-image-pull-policy-help')]]">
         </oj-select-single>
       </oj-form-layout>
-      <oj-bind-if test="[[project.image.createAuxImage.observable() === false]]">
+      <oj-bind-if test="[[showAuxImageSourceFields]]">
         <oj-form-layout max-columns="2" direction="row">
           <oj-input-text label-hint="[[labelMapper('aux-image-source-wdt-home-label')]]"
                          value="{{project.k8sDomain.auxImageSourceWDTInstallHome.observable}}"
