@@ -141,6 +141,20 @@
                       help.instruction="[[labelMapper('image-pull-policy-help')]]">
     </oj-select-single>
   </oj-form-layout>
+
+  <oj-bind-if test="[[showPrimaryImageHomeFields]]">
+    <oj-form-layout max-columns="2" direction="row">
+      <oj-input-text label-hint="[[labelMapper('image-wdt-install-home-label')]]"
+                     value="{{project.k8sDomain.imageWDTInstallHome.observable}}"
+                     help.instruction="[[labelMapper('image-wdt-install-home-help')]]">
+      </oj-input-text>
+      <oj-input-text label-hint="[[labelMapper('image-model-home-label')]]"
+                     value="{{project.k8sDomain.imageModelHome.observable}}"
+                     help.instruction="[[labelMapper('image-model-home-help')]]">
+      </oj-input-text>
+    </oj-form-layout>
+  </oj-bind-if>
+
   <oj-form-layout max-columns="2" direction="row">
     <oj-switch label-hint="[[labelMapper('image-registry-pull-requires-authentication-label')]]"
                value="{{project.k8sDomain.imageRegistryPullRequireAuthentication.observable}}"
@@ -232,7 +246,8 @@
                           help.instruction="[[labelMapper('aux-image-pull-policy-help')]]">
         </oj-select-single>
       </oj-form-layout>
-      <oj-bind-if test="[[project.image.createAuxImage.observable() === false]]">
+
+      <oj-bind-if test="[[showAuxImageSourceFields]]">
         <oj-form-layout max-columns="2" direction="row">
           <oj-input-text label-hint="[[labelMapper('aux-image-source-wdt-home-label')]]"
                          value="{{project.k8sDomain.auxImageSourceWDTInstallHome.observable}}"
