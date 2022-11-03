@@ -169,7 +169,7 @@ function(WkoActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, val
 
     async checkOperatorIsInstalled(kubectlExe, kubectlOptions, helmReleaseName, operatorNamespace, errTitle, errPrefix) {
       try {
-        const isInstalledResults = await window.api.ipc.invoke('is-wko-installed', kubectlExe, helmReleaseName, operatorNamespace, kubectlOptions);
+        const isInstalledResults = await window.api.ipc.invoke('is-wko-installed', kubectlExe, operatorNamespace, kubectlOptions);
 
         if (isInstalledResults.isInstalled) {
           dialogHelper.closeBusyDialog();
