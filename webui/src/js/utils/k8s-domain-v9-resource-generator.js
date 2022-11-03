@@ -77,8 +77,8 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
 
             domainResource.spec.configuration.model.auxiliaryImages = [ auxiliaryImage ];
           } else {
-            if (wdtRelatedPaths.wdtHome) {
-              domainResource.spec.configuration.model.wdtHome = wdtRelatedPaths.wdtHome;
+            if (wdtRelatedPaths.wdtInstallHome) {
+              domainResource.spec.configuration.model.wdtInstallHome = wdtRelatedPaths.wdtInstallHome;
             }
             if (wdtRelatedPaths.modelHome) {
               domainResource.spec.configuration.model.modelHome = wdtRelatedPaths.modelHome;
@@ -265,9 +265,22 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
             // since the default values will always be correct in V9 when using aux images.
             //
           } else {
-            result.wdtInstallHome = wdtInstallHome;
-            if (this.project.image.modelHomePath.hasValue()) {
-              result.modelHome = this.project.image.modelHomePath.value;
+            if (usingExistingPrimaryImage()) {
+              // If these fields are exposed in the UI, use them if they have non-default values.
+              //
+              if (this.project.k8sDomain.imageWDTInstallHome.hasValue()) {
+                result.wdtInstallHome = this.project.k8sDomain.imageWDTInstallHome.value;
+              }
+              if (this.project.k8sDomain.imageModelHome.hasValue()) {
+                result.modelHome = this.project.k8sDomain.imageModelHome.value;
+              }
+            } else {
+              if (this.project.image.modelHomePath.hasValue()) {
+                result.wdtInstallHome = wdtInstallHome;
+              }
+              if (this.project.image.modelHomePath.hasValue()) {
+                result.modelHome = this.project.image.modelHomePath.value;
+              }
             }
           }
         }
@@ -277,6 +290,11 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
 
     function usingAuxImage() {
       return project.settings.targetDomainLocation.value === 'mii' && project.image.useAuxImage.value;
+    }
+
+    function usingExistingPrimaryImage() {
+      return project.settings.targetDomainLocation.value === 'mii' && !project.image.createPrimaryImage.value
+        && !project.image.useAuxImage.value;
     }
 
     function usingExistingAuxImage() {

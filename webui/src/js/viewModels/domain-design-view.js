@@ -10,9 +10,6 @@ define(['models/wkt-project', 'accUtils', 'utils/common-utilities', 'knockout', 
   'ojs/ojtable', 'ojs/ojswitch', 'ojs/ojinputnumber', 'ojs/ojradioset'],
 function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider, ArrayDataProvider,
   ojConverterNumber, dialogHelper, viewHelper, wkoInstalledVersionChecker) {
-
-  const WKO4_START_VERSION = '4.0.0';
-
   function DomainDesignViewModel() {
 
     let subscriptions = [];
@@ -132,6 +129,12 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       return this.labelMapper(key);
     }, this);
 
+    this.showPrimaryImageHomeFields = ko.computed(() => {
+      return this.project.settings.targetDomainLocation.observable() === 'mii' &&
+        !this.project.image.createPrimaryImage.observable() &&
+        !this.project.image.useAuxImage.observable();
+    }, this);
+
     this.isPrimaryImageTagReadOnly = ko.computed(() => {
       return this.project.image.createPrimaryImage.observable();
     }, this);
@@ -141,14 +144,10 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
     }, this);
 
     this.showAuxImageSourceFields = ko.computed(() => {
-      let isWko4 = true;
-      if (!this.project.wko.installedVersion.hasValue() ||
-        window.api.utils.compareVersions(this.project.wko.installedVersion.observable(), WKO4_START_VERSION) < 0) {
-        isWko4 = false;
-      }
-
-      return !project.image.createAuxImage.observable() && isWko4;
-    });
+      return this.project.settings.targetDomainLocation.observable() === 'mii' &&
+        this.project.image.useAuxImage.observable() &&
+        !this.project.image.createAuxImage.observable();
+    }, this);
 
     this.auxImageTagHelp = ko.computed(() => {
       let key = 'use-aux-image-tag-help';
