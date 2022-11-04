@@ -6,7 +6,7 @@
     <description>Recent content in Release Notes on WebLogic Kubernetes Toolkit UI</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 30 Jan 2022 12:48:00 -0500</lastBuildDate><atom:link href="https://oracle.github.io/weblogic-toolkit-ui/release/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 03 Nov 2022 12:48:00 -0500</lastBuildDate><atom:link href="https://oracle.github.io/weblogic-toolkit-ui/release/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Release 1.1.1</title>
       <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.1.1/</link>
@@ -42,6 +42,15 @@ Other Changes  Revamped the Ingress Route editing mechanism:  Added busy dialog 
       
       <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.3.0/</guid>
       <description>Changes in Release 1.3.0  Major New Features Other Changes Bugs Fixes Known Issues  Major New Features  Support for creating and deploying the Verrazzano component for the WebLogic domain, and an application that references it.  Other Changes  Updated the WebLogic Remote Console integration to support version 2.4.0. Added support for specifying node selectors when installing the WebLogic Kubernetes Operator and deploying the WebLogic domain, either directly or as a Verrazzano component.</description>
+    </item>
+    
+    <item>
+      <title>Release Notes</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.4.0/</link>
+      <pubDate>Sun, 30 Jan 2022 12:48:00 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.4.0/</guid>
+      <description>Changes in Release 1.4.0  Major New Features Other Changes Bugs Fixes Known Issues  Major New Features  #173: Added support for WebLogic Kubernetes Operator 4.0. While it is now the default, versions 3.3+ are still supported.  Other Changes  #175: Added Zoom In, Zoom Out, and Actual Size menu options to the Window menu. #178: Integrated the Prepare Model action with the changes in WebLogic Deploy Tooling 2.</description>
     </item>
     
   </channel>

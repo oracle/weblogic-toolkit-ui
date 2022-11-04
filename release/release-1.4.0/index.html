@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="Hugo 0.88.1" />
-    <meta name="description" content="Client Configuration helps you get the necessary connectivity to your Kubernetes cluster.">
+    <meta name="description" content="">
 
 
     <link rel="icon" href="/weblogic-toolkit-ui/images/favicon.png" type="image/png">
 
-    <title>Client Configuration :: WebLogic Kubernetes Toolkit UI</title>
+    <title>Release Notes :: WebLogic Kubernetes Toolkit UI</title>
 
     
     <link href="/weblogic-toolkit-ui/css/nucleus.css?1667539793" rel="stylesheet">
@@ -39,7 +39,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/weblogic-toolkit-ui/navigate/kubernetes/k8s-client-config/">
+  <body class="" data-url="/weblogic-toolkit-ui/release/release-1.4.0/">
     <nav id="sidebar" class="">
 
 
@@ -194,7 +194,7 @@
   
     
     <li data-nav-id="/weblogic-toolkit-ui/navigate/" title="Navigate the UI" class="dd-item
-        parent
+        
         
         
         ">
@@ -286,7 +286,7 @@
   
     
     <li data-nav-id="/weblogic-toolkit-ui/navigate/kubernetes/" title="Kubernetes" class="dd-item
-        parent
+        
         
         
         ">
@@ -312,7 +312,7 @@
  
   
     
-      <li data-nav-id="/weblogic-toolkit-ui/navigate/kubernetes/k8s-client-config/" title="Client Configuration" class="dd-item active">
+      <li data-nav-id="/weblogic-toolkit-ui/navigate/kubernetes/k8s-client-config/" title="Client Configuration" class="dd-item ">
         <a href="/weblogic-toolkit-ui/navigate/kubernetes/k8s-client-config/">
         Client Configuration
         
@@ -557,7 +557,7 @@
   
     
     <li data-nav-id="/weblogic-toolkit-ui/release/" title="Release Notes" class="dd-item
-        
+        parent
         
         
         ">
@@ -667,7 +667,7 @@
  
   
     
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.4.0/" title="Release Notes" class="dd-item ">
+      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.4.0/" title="Release Notes" class="dd-item active">
         <a href="/weblogic-toolkit-ui/release/release-1.4.0/">
         <b> </b>Release Notes
         
@@ -738,13 +738,7 @@
             
           
           
-            
-            
-          
-          
-            <a href='/weblogic-toolkit-ui/'></a> > <a href='/weblogic-toolkit-ui/navigate/'>Navigate the UI</a> > <a href='/weblogic-toolkit-ui/navigate/kubernetes/'>Kubernetes</a> > Client Configuration
-          
-        
+            <a href='/weblogic-toolkit-ui/'></a> > <a href='/weblogic-toolkit-ui/release/'>Release Notes</a> > Release Notes
           
         
           
@@ -761,8 +755,7 @@
   <ul>
     <li>
       <ul>
-        <li><a href="#contents">Contents</a></li>
-        <li><a href="#client-configuration">Client Configuration</a></li>
+        <li><a href="#changes-in-release-140">Changes in Release 1.4.0</a></li>
       </ul>
     </li>
   </ul>
@@ -782,72 +775,55 @@
           
             <h1>
               
-              Client Configuration
+              Release Notes
             </h1>
           
 
         
 
 
-<h3 id="contents">Contents</h3>
+<h3 id="changes-in-release-140">Changes in Release 1.4.0</h3>
 <ul>
-<li><a href="#client-configuration">Client Configuration</a>
+<li><a href="#major-new-features">Major New Features</a></li>
+<li><a href="#other-changes">Other Changes</a></li>
+<li><a href="#bug-fixes">Bugs Fixes</a></li>
+<li><a href="#known-issues">Known Issues</a></li>
+</ul>
+<h4 id="major-new-features">Major New Features</h4>
 <ul>
-<li><a href="#authentication-with-managed-kubernetes-clusters">Authentication with Managed Kubernetes Clusters</a></li>
-<li><a href="#verify-connectivity">Verify Connectivity</a></li>
+<li>#173: Added support for WebLogic Kubernetes Operator 4.0.  While it is now the default, versions 3.3+ are still supported.</li>
 </ul>
-</li>
-</ul>
-<h3 id="client-configuration">Client Configuration</h3>
-<p><code>Client Configuration</code> helps you get the necessary connectivity to your Kubernetes
-cluster.  Use the <code>Kubernetes Cluster Type</code> field to select the target Kubernetes cluster type to show instructions for
-configuring <code>kubectl</code> to successfully connect to the cluster.</p>
+<h4 id="other-changes">Other Changes</h4>
 <ul>
-<li>The <code>Kubectl Executable to Use</code> field tells the WKT UI application where to find the correct version of <code>kubectl</code> to use.</li>
-<li>By using the <code>Kubernetes Client Config File(s)</code> field, you can specify a different Kubernetes client configuration
-file instead of, or in addition to, the default <code>.kube/config</code> file from your home directory.</li>
-<li>For environments where the client is configured to connect to multiple clusters, use the <code>Kubernetes Config Context to Use</code> field to
-specify the configuration file&rsquo;s context associated with the cluster to which you want to connect.</li>
-<li>The <code>Helm Executable to Use</code> field tells the application where to find Helm, which is used to install the WebLogic
-Kubernetes Operator and ingress controllers.  For more information
-about Helm, see the <a href="https://helm.sh/">Helm</a> documentation.</li>
+<li>#175: Added Zoom In, Zoom Out, and Actual Size menu options to the Window menu.</li>
+<li>#178: Integrated the <code>Prepare Model</code> action with the changes in WebLogic Deploy Tooling 2.4.0.</li>
+<li>#179: Updated the <a href="https://github.com/oracle/weblogic-remote-console">WebLogic Remote Console</a> integration to support version 2.4.1 (2.4.0 also supported).</li>
+<li>#188: Added file download functionality to all Code View pages</li>
 </ul>
-<h4 id="authentication-with-managed-kubernetes-clusters">Authentication with Managed Kubernetes Clusters</h4>
-<p>Most cloud vendors require the use of their command-line tooling to authenticate <code>kubectl</code> connections to their managed
-Kubernetes clusters.  For example, after <code>kubectl</code> is configured to connect to a Kubernetes cluster managed by the
-Oracle Kubernetes Engine (OKE), the Kubernetes client configuration file will have a section that looks similar to the
-one shown here.</p>
-<pre tabindex="0"><code>users:
-- name: user-abcdefghi8d
-  user:
-    exec:
-      apiVersion: client.authentication.k8s.io/v1beta1
-      command: oci
-      args:
-      - ce
-      - cluster
-      - generate-token
-      - --cluster-id
-      - ocid1.cluster.oc1.phx.aaaaaaaaahdirjdmcjfpogfkdhjsdhshssk2abcdefghijk2d
-      - --region
-      - us-phoenix-1
-      env: []
-</code></pre><p>This configuration causes each <code>kubectl</code> invocation that references this user definition to execute the <code>oci</code> command
-(the Oracle Cloud command-line tool) to get the credentials necessary to successfully authenticate to the cluster.
-If the <code>oci</code> executable is not in a directory in the <code>PATH</code> environment variable when the <code>kubectl</code> command is executed,
-then an error similar to the one shown here will occur.</p>
-<pre tabindex="0"><code>Failed to verify Kubernetes client connectivity: Unable to verify Kubernetes client connectivity:
-Command failed: /Users/rpatrick/bin/kubectl version --short
-Unable to connect to the server: getting credentials: exec: executable oci not found
-
-It looks like you are trying to use a client-go credential plugin that is not installed.
-
-To learn more about this feature, consult the documentation available at:
-https://kubernetes.io/docs/reference/access-authn-authz/authentication/#client-go-credential-plugins.
-</code></pre><h4 id="verify-connectivity">Verify Connectivity</h4>
-<p>To verify the application configuration for connecting to the specified Kubernetes cluster,
-use the <code>Verify Connectivity</code> button on the <code>Client Configuration</code> page or
-<code>Go</code> &gt; <code>Verify Kubernetes Client Connection</code>.</p>
+<h4 id="bug-fixes">Bug Fixes</h4>
+<ul>
+<li>#171: Improved workaround for the issue limiting the ability to select text from the Code View scripts (WKTUI-375).</li>
+<li>#172: Resolved issue when using Domain-in-Image that was causing the domain to not be created.</li>
+<li>#174: Resolved an issue where the <code>Install Ingress Controller</code> action was always passing the image pull secret&ndash;even when the user indicated not to use one.</li>
+<li>#176: Resolved an issue where the <code>Update Ingress Routes</code> action was always passing the <code>SSL pass-through</code> argument&ndash;even when the user did not request it.</li>
+<li>#182: Resolved Verrazzano 1.4.0+ installation issue caused by a change in the published operator file name.</li>
+<li>#186: Resolved Verrazzano-related issue where Ingress Trait rules were not including the hosts or destination-related fields.</li>
+<li>#187: Resolved an issue where the operator domain variable override config map was not being created properly.</li>
+<li>#187: Resolved an issue with the <code>apiVersion</code> of the Verrazzano component- and application-related being incorrect.</li>
+<li>#189: Resolved a rendering issue on the Ingress Controller Code View page when switching tabs.</li>
+</ul>
+<h4 id="known-issues">Known Issues</h4>
+<ul>
+<li>On Linux, the open and save dialogs open behind the main application window.  This is due to
+<a href="https://github.com/electron/electron/issues/32857">Electron bug 32857</a>.</li>
+<li>When deploying a Verrazzano application, the <code>Check Application Status</code> button only checks the status of the project&rsquo;s
+Verrazzano component containing the WebLogic domain specification.</li>
+<li>WKTUI does not currently show the Verrazzano URL needed to access the application.  The URL will always be of
+the form <code>https://&lt;gateway-hostname&gt;/&lt;app-path&gt;</code>, where the <code>gateway-hostname</code> is the name created by Verrazzano
+in the <code>Gateway</code> object.  To get the name of the generated gateway object, run <code>kubectl get gateway -n &lt;namespace&gt; --template '{{range .items}}{{.metadata.name}}{{&quot;\n&quot;}}{{end}}'</code>.  Next, run <code>kubectl get gateway &lt;gateway-name&gt; -n &lt;namespace&gt; -o yaml</code>
+and review the <code>hosts</code> entry of the <code>.spec.servers</code> section to find the DNS name that corresponds to the
+<code>gateway-hostname</code> to use in the URL.</li>
+</ul>
 
 
 <footer class="footline">
@@ -952,7 +928,6 @@ use the <code>Verify Connectivity</code> button on the <code>Client Configuratio
             
                 
                     
-                    
                 
                 
 
@@ -967,9 +942,6 @@ use the <code>Verify Connectivity</code> button on the <code>Client Configuratio
             
             
                 
-                    
-                        
-                        
                     
                 
                 
@@ -1019,7 +991,6 @@ use the <code>Verify Connectivity</code> button on the <code>Client Configuratio
             
                 
                     
-                    
                 
                 
 
@@ -1032,7 +1003,6 @@ use the <code>Verify Connectivity</code> button on the <code>Client Configuratio
             
             
                 
-                    
                     
                 
                 
@@ -1049,9 +1019,6 @@ use the <code>Verify Connectivity</code> button on the <code>Client Configuratio
             
             
                 
-                    
-                        
-                        
                     
                 
                 
@@ -1203,6 +1170,7 @@ use the <code>Verify Connectivity</code> button on the <code>Client Configuratio
             
                 
                     
+                    
                 
                 
 
@@ -1215,6 +1183,9 @@ use the <code>Verify Connectivity</code> button on the <code>Client Configuratio
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1279,6 +1250,7 @@ use the <code>Verify Connectivity</code> button on the <code>Client Configuratio
             
             
                 
+                    
                     
                 
                 
@@ -1303,10 +1275,10 @@ use the <code>Verify Connectivity</code> button on the <code>Client Configuratio
 	 
 	 
 		
-			<a class="nav nav-prev" href="/weblogic-toolkit-ui/navigate/kubernetes/" title="Kubernetes"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/weblogic-toolkit-ui/release/release-1.3.0/" title="Release 1.3.0"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/weblogic-toolkit-ui/navigate/kubernetes/k8s-wko/" title="WebLogic Kubernetes Operator" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/weblogic-toolkit-ui/release/release-1.1.1/" title="Release 1.1.1" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
