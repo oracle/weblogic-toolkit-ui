@@ -137,11 +137,12 @@ function(WkoActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, val
 
         busyDialogMessage = i18n.t('wko-installer-install-in-progress', {helmReleaseName: helmReleaseName});
         dialogHelper.updateBusyDialog(busyDialogMessage, 10 / totalSteps);
+        const operatorVersion = this.project.wko.versionTag.hasValue() ? this.project.wko.versionTag.value : undefined;
         const helmChartValues = this.getWkoHelmChartValues(operatorServiceAccount);
         wktLogger.debug('helmChartValues = %s', JSON.stringify(helmChartValues, null, 2));
 
         const installResults = await window.api.ipc.invoke('helm-install-wko', helmExe, helmReleaseName,
-          operatorNamespace, helmChartValues, helmOptions, kubectlExe, kubectlOptions);
+          operatorVersion, operatorNamespace, helmChartValues, helmOptions, kubectlExe, kubectlOptions);
 
         dialogHelper.closeBusyDialog();
 

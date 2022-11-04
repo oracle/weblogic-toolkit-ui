@@ -285,8 +285,13 @@ function(WktActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, val
         validationHelper.validateRequiredField(this.project.wko.k8sNamespace.value), wkoFormConfig);
       validationObject.addField('wko-design-k8s-service-account-label',
         validationHelper.validateRequiredField(this.project.wko.k8sServiceAccount.value), wkoFormConfig);
-      validationObject.addField('wko-design-image-tag-title',
-        this.project.wko.operatorImage.validate(true), wkoFormConfig);
+      validationObject.addField('wko-design-version-label',
+        validationHelper.validateRequiredField(this.project.wko.versionTag.value), wkoFormConfig);
+
+      if (this.project.wko.operatorImage.hasValue()) {
+        validationObject.addField('wko-design-image-tag-title',
+          this.project.wko.operatorImage.validate(true), wkoFormConfig);
+      }
 
       if (this.project.wko.operatorImagePullRequiresAuthentication.value) {
         validationObject.addField('wko-design-image-pull-secret-title',

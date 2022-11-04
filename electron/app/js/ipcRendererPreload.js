@@ -125,6 +125,8 @@ contextBridge.exposeInMainWorld(
           'get-image-builder-exe',
           'get-kube-config-files',
           'get-latest-wko-image-name',
+          'get-latest-wko-version-number',
+          'get-wko-release-versions',
           'get-archive-entry-types',
           'get-archive-entry',
           'get-network-settings',

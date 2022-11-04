@@ -136,11 +136,12 @@ function(WkoActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, val
 
         busyDialogMessage = i18n.t('wko-updater-update-in-progress', {helmReleaseName: helmReleaseName});
         dialogHelper.updateBusyDialog(busyDialogMessage, 10 / totalSteps);
+        const operatorVersion = this.project.wko.installedVersion.version;
         const helmChartValues = this.getWkoHelmChartValues(operatorServiceAccount);
         wktLogger.debug('helmChartValues = %s', JSON.stringify(helmChartValues, null, 2));
 
         const updateResults = await window.api.ipc.invoke('helm-update-wko', helmExe, helmReleaseName,
-          operatorNamespace, helmChartValues, helmOptions, kubectlExe, kubectlOptions);
+          operatorVersion, operatorNamespace, helmChartValues, helmOptions, kubectlExe, kubectlOptions);
 
         dialogHelper.closeBusyDialog();
         if (updateResults.isSuccess) {
