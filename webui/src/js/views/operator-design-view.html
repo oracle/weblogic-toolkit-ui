@@ -20,6 +20,12 @@
                    validators="[[project.wko.wkoDeployName.validators()]]"
                    help.instruction="[[labelMapper('wko-deploy-name-help')]]">
     </oj-input-text>
+    <oj-select-single label-hint="[[labelMapper('version-label')]]"
+                      required
+                      value="{{project.wko.versionTag.observable}}"
+                      data="{{wkoVersionTags}}"
+                      help.instruction="[[labelMapper('version-help')]]">
+    </oj-select-single>
   </oj-form-layout>
 </div>
 

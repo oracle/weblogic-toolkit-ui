@@ -33,6 +33,7 @@ const kubectlUtils = require('./js/kubectlUtils');
 const helmUtils = require('./js/helmUtils');
 const openSSLUtils = require('./js/openSSLUtils');
 const osUtils = require('./js/osUtils');
+const githubUtils = require('./js/githubUtils');
 const { initializeAutoUpdater, registerAutoUpdateListeners, installUpdates, getUpdateInformation } = require('./js/appUpdater');
 const { startWebLogicRemoteConsoleBackend, getDefaultDirectoryForOpenDialog, setWebLogicRemoteConsoleHomeAndStart,
   getDefaultWebLogicRemoteConsoleHome, getWebLogicRemoteConsoleBackendPort } = require('./js/wlRemoteConsoleUtils');
@@ -43,6 +44,7 @@ const { deployApplication, deployComponents, deployProject, getComponentNamesByN
 
 const { getHttpsProxyUrl, getBypassProxyHosts } = require('./js/userSettings');
 const { sendToWindow } = require('./js/windowUtils');
+const {compareVersions} = require('./js/versionUtils');
 
 const WKT_CONSOLE_STDOUT_CHANNEL = 'show-console-out-line';
 const WKT_CONSOLE_STDERR_CHANNEL = 'show-console-err-line';
@@ -346,6 +348,10 @@ class Main {
 
     ipcMain.handle('is-dev-mode', () => {
       return this._wktMode.isDevelopmentMode();
+    });
+
+    ipcMain.handle('get-latest-wko-version-number', async () => {
+      return wktTools.getLatestWkoVersion();
     });
 
     ipcMain.handle('get-latest-wko-image-name', async () => {
@@ -815,12 +821,17 @@ class Main {
       return helmUtils.addOrUpdateWkoHelmChart(helmExe, helmOptions);
     });
 
-    ipcMain.handle('helm-install-wko',async (event, helmExe, helmReleaseName, operatorNamespace, helmChartValues, helmOptions, kubectlExe, kubectlOptions) => {
-      const results = await helmUtils.installWko(helmExe, helmReleaseName, operatorNamespace, helmChartValues, helmOptions);
+    ipcMain.handle('helm-install-wko',async (event, helmExe, helmReleaseName, operatorVersion,
+      operatorNamespace, helmChartValues, helmOptions, kubectlExe, kubectlOptions) => {
+      const results = await helmUtils.installWko(helmExe, helmReleaseName, operatorVersion, operatorNamespace, helmChartValues, helmOptions);
       if (results.isSuccess) {
-        const versionResults = await kubectlUtils.getOperatorVersion(kubectlExe, operatorNamespace, kubectlOptions);
-        if (versionResults.isSuccess) {
-          results.version = versionResults.version;
+        if (operatorVersion) {
+          results.version = operatorVersion;
+        } else {
+          const versionResults = await kubectlUtils.getOperatorVersion(kubectlExe, operatorNamespace, kubectlOptions);
+          if (versionResults.isSuccess) {
+            results.version = versionResults.version;
+          }
         }
       }
       return Promise.resolve(results);
@@ -830,9 +841,9 @@ class Main {
       return helmUtils.uninstallWko(helmExe, helmReleaseName, operatorNamespace, helmOptions);
     });
 
-    ipcMain.handle('helm-update-wko', async (event, helmExe, operatorName,
+    ipcMain.handle('helm-update-wko', async (event, helmExe, operatorName, operatorVersion,
       operatorNamespace, helmChartValues, helmOptions, kubectlExe = undefined, kubectlOptions = undefined) => {
-      const results = await helmUtils.updateWko(helmExe, operatorName, operatorNamespace, helmChartValues, helmOptions);
+      const results = await helmUtils.updateWko(helmExe, operatorName, operatorVersion, operatorNamespace, helmChartValues, helmOptions);
       if (kubectlExe && results.isSuccess) {
         const versionResults = await kubectlUtils.getOperatorVersion(kubectlExe, operatorNamespace, kubectlOptions);
         if (versionResults.isSuccess) {
@@ -988,6 +999,25 @@ class Main {
     // eslint-disable-next-line no-unused-vars
     ipcMain.handle('wrc-get-home-default-value', async (event) => {
       return getDefaultWebLogicRemoteConsoleHome();
+    });
+
+    // eslint-disable-next-line no-unused-vars
+    ipcMain.handle('get-wko-release-versions', async (event, minimumVersion = '3.3.0') => {
+      const ghApiWkoBaseUrl = 'https://api.github.com/repos/oracle/weblogic-kubernetes-operator';
+
+      return new Promise(resolve => {
+        githubUtils.getReleaseVersions('WebLogic Kubernetes Operator', ghApiWkoBaseUrl).then(results => {
+          const mappedResults = [];
+          results.forEach(result => {
+            const version = result.tag.slice(1);
+            // Filter out versions less than the minimum we want to support...
+            if (compareVersions(version, minimumVersion) >= 0) {
+              mappedResults.push({ ...result, version });
+            }
+          });
+          resolve(mappedResults);
+        });
+      });
     });
 
     // eslint-disable-next-line no-unused-vars

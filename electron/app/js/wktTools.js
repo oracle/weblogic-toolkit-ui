@@ -19,6 +19,7 @@ const {
   getWdtLatestReleaseName,
   getWitLatestReleaseName,
   getWkoLatestReleaseImageName,
+  getWkoLatestReleaseVersion,
   updateTools
 } = require('./wktToolsInstaller');
 const { getProxyOptionsFromPreferences } = require('./githubUtils');
@@ -29,6 +30,7 @@ const VERSION_FILE_NAME = 'VERSION.txt';
 let _toolsDirectory;
 let _wdtDirectory;
 let _witDirectory;
+let _wkoVersion;
 let _wkoImageName;
 let _wktMode;
 
@@ -120,14 +122,36 @@ async function getWdtSupportedDomainTypes() {
   });
 }
 
+async function getLatestWkoVersion() {
+  if (_wkoVersion) {
+    return Promise.resolve(_wkoVersion);
+  }
+  return new Promise((resolve, reject) => {
+    getProxyOptionsFromPreferences().then(options => {
+      getWkoLatestReleaseVersion(options).then(version => {
+        _wkoVersion = version;
+        _wkoImageName = `ghcr.io/oracle/weblogic-kubernetes-operator:${_wkoVersion}`;
+        resolve(version);
+      }).catch(err => reject(new Error(`Failed to get the latest WebLogic Kubernetes Operator Version: ${err}`)));
+    }).catch(err => reject(err));
+  });
+}
+
 async function getLatestWkoImageName() {
   if (_wkoImageName) {
     return Promise.resolve(_wkoImageName);
+  } else if (_wkoVersion) {
+    return Promise.resolve(`ghcr.io/oracle/weblogic-kubernetes-operator:${_wkoVersion}`);
   }
   return new Promise((resolve, reject) => {
     getProxyOptionsFromPreferences().then(options => {
       getWkoLatestReleaseImageName(options).then(imageName => {
         _wkoImageName = imageName;
+        const index = imageName.lastIndexOf(':');
+        if (index > -1) {
+          _wkoVersion = _wkoImageName.slice(index + 1);
+        }
+        _wkoVersion = imageName.split(':')[1];
         resolve(imageName);
       }).catch(err => reject(new Error(`Failed to get the latest WebLogic Kubernetes Operator Image Name: ${err}`)));
     }).catch(err => reject(err));
@@ -285,6 +309,7 @@ module.exports = {
   getInstalledWdtReleaseName,
   getInstalledWitReleaseName,
   getLatestWkoImageName,
+  getLatestWkoVersion,
   getValidateModelShellScript,
   getWdtCustomConfigDirectory,
   getWdtSupportedDomainTypes,

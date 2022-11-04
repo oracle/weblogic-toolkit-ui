@@ -403,6 +403,8 @@
   "wko-design-k8s-service-account-help": "The name of the Kubernetes service account in the operator's namespace that the operator will use to make requests to the Kubernetes API server.",
   "wko-design-wko-deploy-name-label": "Helm Release Name to Use for Operator Installation",
   "wko-design-wko-deploy-name-help": "The Helm release name used to install the WebLogic Kubernetes Operator.",
+  "wko-design-version-label": "WebLogic Kubernetes Operator Version to Install",
+  "wko-design-version-help": "The version used to install the WebLogic Kubernetes Operator.",
   "wko-design-image-tag-title": "WebLogic Kubernetes Operator Image",
   "wko-design-image-tag-label": "Image Tag to Use",
   "wko-design-image-tag-help": "The WebLogic Kubernetes Operator image to install.",

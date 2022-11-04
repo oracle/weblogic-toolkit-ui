@@ -128,9 +128,10 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
         // Skip passing kubectlExe and kubectlOptions args since the installed version
         // of operator was already set.
         //
+        const operatorVersion = this.project.wko.installedVersion.value;
         const helmOptions = helmHelper.getHelmOptions();
         const upgradeResults = await window.api.ipc.invoke('helm-update-wko', helmExe, operatorName,
-          operatorNamespace, helmChartValues, helmOptions);
+          operatorVersion, operatorNamespace, helmChartValues, helmOptions);
         if (!upgradeResults.isSuccess) {
           const errMessage = i18n.t('k8s-domain-deployer-add-domain-error-message',
             {
@@ -305,6 +306,8 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
       validationObject.addField('domain-design-uid-label', this.project.k8sDomain.uid.validate(true), domainFormConfig);
       validationObject.addField('domain-design-namespace-label',
         this.project.k8sDomain.kubernetesNamespace.validate(true), domainFormConfig);
+      validationObject.addField('domain-design-wko-installed-version-label',
+        validationHelper.validateRequiredField(this.project.wko.installedVersion.value), domainFormConfig);
 
       const kubectlFormConfig = validationObject.getDefaultConfigObject();
       kubectlFormConfig.formName = 'kubectl-form-name';

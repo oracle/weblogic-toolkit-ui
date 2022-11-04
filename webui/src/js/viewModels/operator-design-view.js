@@ -131,6 +131,18 @@ function (i18n, accUtils, ko, CoreRouter, ModuleRouterAdapter, ArrayDataProvider
         value: ''
       });
     };
+
+    this.wkoVersions = ko.observableArray();
+    this.wkoVersionTags = new ArrayDataProvider(this.wkoVersions, {keyAttributes: 'version'});
+    window.api.ipc.invoke('get-wko-release-versions').then(versions => {
+      // Sort in descending order by version number.
+      //
+      versions.sort((a, b) => window.api.utils.compareVersions(a.version, b.version)).reverse();
+      this.wkoVersions.push(...versions.map(versionObject => {
+        const label = versionObject.version;
+        return { ...versionObject, label };
+      }));
+    });
   }
 
   /*

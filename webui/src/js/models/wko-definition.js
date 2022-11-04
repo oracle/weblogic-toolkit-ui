@@ -18,7 +18,9 @@ define(['utils/observable-properties', 'utils/validation-helper'],
         this.k8sServiceAccount = props.createProperty('weblogic-operator-sa');
         this.k8sServiceAccount.addValidator(...validationHelper.getK8sNameValidators());
 
-        this.operatorImage = props.createProperty(window.api.ipc.invoke('get-latest-wko-image-name'));
+        this.versionTag = props.createProperty(window.api.ipc.invoke('get-latest-wko-version-number'));
+
+        this.operatorImage = props.createProperty('ghcr.io/oracle/weblogic-kubernetes-operator:${1}', this.versionTag.observable);
         const operatorImageValidators = validationHelper.getImageTagValidators();
         this.operatorImage.addValidator(...operatorImageValidators);
 
