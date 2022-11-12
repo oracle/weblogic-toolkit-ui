@@ -10,7 +10,7 @@
     "jet-audit": "ojaf"
   },
   "dependencies": {
-    "@oracle/oraclejet": "^13.1.0",
+    "@oracle/oraclejet": "^13.1.1",
     "@oracle/wrc-jet-pack": "^2.4.1",
     "i18next": "^22.0.4",
     "jquery": "^3.6.1",
@@ -20,9 +20,9 @@
     "@oracle/ojet-cli": "^13.1.0",
     "@oracle/oraclejet-audit": "^13.1.0",
     "@oracle/oraclejet-tooling": "^13.1.0",
-    "chai": "^4.3.6",
+    "chai": "^4.3.7",
     "chai-as-promised": "^7.1.1",
-    "eslint": "^8.26.0",
+    "eslint": "^8.27.0",
     "eslint-plugin-requirejs": "^4.0.1",
     "jsdom": "^20.0.2",
     "json-query": "^2.2.2",
