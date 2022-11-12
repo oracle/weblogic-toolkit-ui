@@ -121,8 +121,11 @@ async function uninstallIngressController(helmExe, ingressName, ingressNamespace
   });
 }
 
-async function installWko(helmExe, name, namespace, helmChartValues, helmOptions) {
+async function installWko(helmExe, name, version, namespace, helmChartValues, helmOptions) {
   const args = [ 'install', name, _wkoHelmChartName, '--namespace', namespace ];
+  if (version) {
+    args.push('--version', version);
+  }
   processHelmChartValues(args, helmChartValues);
   processHelmOptions(args, helmOptions);
   args.push('--wait');
@@ -130,8 +133,11 @@ async function installWko(helmExe, name, namespace, helmChartValues, helmOptions
   return _runHelmWko(helmExe, name, namespace, args, helmOptions, 'helm-install-wko-failed-error-message');
 }
 
-async function updateWko(helmExe, name, namespace, helmChartValues, helmOptions) {
+async function updateWko(helmExe, name, version, namespace, helmChartValues, helmOptions) {
   const args = [ 'upgrade', name, _wkoHelmChartName, '--namespace', namespace, '--reuse-values' ];
+  if (version) {
+    args.push('--version', version);
+  }
   processHelmChartValues(args, helmChartValues);
   processHelmOptions(args, helmOptions);
   args.push('--wait');

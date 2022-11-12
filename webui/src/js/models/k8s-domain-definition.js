@@ -46,6 +46,13 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
 
         this.imagePullPolicy = props.createProperty('IfNotPresent');
 
+        // These fields are exposed to the user only when using an existing Primary Image and
+        // not using an Auxiliary Image at all.
+        //
+        this.imageModelHome = props.createProperty('/u01/wdt/models');
+        this.imageWDTInstallHome = props.createProperty('/u01/wdt/weblogic-deploy');
+
+
         // Auxiliary image-related properties
         this.auxImageRegistryPullRequireAuthentication = props.createProperty(false);
         this.auxImageRegistryUseExistingPullSecret = props.createProperty(true);
@@ -56,6 +63,9 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
         this.auxImageRegistryPullEmail = props.createProperty();
         this.auxImageRegistryPullEmail.addValidator(...validationHelper.getEmailAddressValidators());
         this.auxImagePullPolicy = props.createProperty('IfNotPresent');
+
+        // These fields are exposed to the user only when using an existing Auxiliary Image.
+        //
         this.auxImageSourceModelHome = props.createProperty('/auxiliary/models');
         this.auxImageSourceWDTInstallHome = props.createProperty('/auxiliary/weblogic-deploy');
 

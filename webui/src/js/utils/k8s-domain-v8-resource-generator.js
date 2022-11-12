@@ -139,7 +139,7 @@ function(project, K8sDomainConfigMapGenerator, jsYaml, i18n) {
         } else {
           // Only set these if they are specified; otherwise, rely on the default values
           if (wdtRelatedPaths.wdtHome) {
-            domainResource.spec.configuration.model.wdtHome = wdtRelatedPaths.wdtHome;
+            domainResource.spec.configuration.model.wdtInstallHome = wdtRelatedPaths.wdtHome;
           }
           if (wdtRelatedPaths.modelHome) {
             domainResource.spec.configuration.model.modelHome = wdtRelatedPaths.modelHome;
@@ -216,19 +216,39 @@ function(project, K8sDomainConfigMapGenerator, jsYaml, i18n) {
 
         result = { };
         if (usingAuxImage()) {
-          const wdtHome = this.project.image.wdtHomePath.value;
-          const modelHome = this.project.image.modelHomePath.value;
+          let wdtHome;
+          let modelHome;
+          if (creatingAuxImage()) {
+            wdtHome = this.project.image.wdtHomePath.value;
+            modelHome = this.project.image.modelHomePath.value;
+          } else {
+            modelHome = this.project.k8sDomain.auxImageSourceModelHome.value;
+            wdtHome = this.project.k8sDomain.auxImageSourceWDTInstallHome.value;
+            const match = wdtHome.match(/(\/.+?)\/weblogic-deploy\/?/);
+            if (match) {
+              wdtHome = match[1];
+            }
+          }
           result.targetWdtHomeDirName = 'weblogic-deploy';
           result.sourceWdtHome = window.api.path.join(wdtHome, result.targetWdtHomeDirName);
           result.sourceModelHome = modelHome;
           result.targetModelHomeDirName = window.api.path.basename(modelHome);
         } else {
-          // Only set these if they are not the default
-          if (this.project.image.wdtHomePath.hasValue()) {
-            result.wdtHome = this.project.image.wdtHomePath.value;
-          }
-          if (this.project.image.modelHomePath.hasValue()) {
-            result.modelHome = this.project.image.modelHomePath.value;
+          if (usingExistingPrimaryImage()) {
+            if (this.project.k8sDomain.imageWDTInstallHome.hasValue()) {
+              result.wdtHome = this.project.k8sDomain.imageWDTInstallHome.value;
+            }
+            if (this.project.k8sDomain.imageModelHome.hasValue()) {
+              result.modelHome = this.project.k8sDomain.imageModelHome.value;
+            }
+          } else {
+            // Only set these if they are not the default
+            if (this.project.image.wdtHomePath.hasValue()) {
+              result.wdtHome = this.project.image.wdtHomePath.value;
+            }
+            if (this.project.image.modelHomePath.hasValue()) {
+              result.modelHome = this.project.image.modelHomePath.value;
+            }
           }
         }
       }
@@ -236,8 +256,17 @@ function(project, K8sDomainConfigMapGenerator, jsYaml, i18n) {
     }
   }
 
+  function usingExistingPrimaryImage() {
+    return project.settings.targetDomainLocation.value === 'mii' && !project.image.createPrimaryImage.value
+      && !project.image.useAuxImage.value;
+  }
+
   function usingAuxImage() {
     return project.settings.targetDomainLocation.value === 'mii' && project.image.useAuxImage.value;
+  }
+
+  function creatingAuxImage() {
+    return usingAuxImage() && project.image.createAuxImage.value;
   }
 
   function getAuxImageCopyCommand(wdtRelatedPaths) {

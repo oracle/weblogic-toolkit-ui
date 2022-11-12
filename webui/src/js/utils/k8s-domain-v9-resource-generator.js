@@ -7,6 +7,8 @@
 
 define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml', 'utils/i18n', 'utils/wkt-logger'],
   function(project, K8sDomainConfigMapGenerator, jsYaml, i18n) {
+    const WDT_DIR_NAME = 'weblogic-deploy';
+
     class K8sDomainV9ResourceGenerator {
       constructor() {
         this.project = project;
@@ -52,19 +54,8 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
           domainResource.spec.serverPod = serverPod;
         }
 
-        if (usingAuxImage()) {
-          const auxiliaryImage = {
-            image: this.project.image.auxImageTag.value,
-          };
-          if (this.project.k8sDomain.auxImagePullPolicy.hasValue()) {
-            auxiliaryImage.imagePullPolicy = this.project.k8sDomain.auxImagePullPolicy.value;
-          }
-          if (this.project.k8sDomain.auxImageSourceWDTInstallHome.hasValue()) {
-            auxiliaryImage.sourceWDTInstallHome = this.project.k8sDomain.auxImageSourceWDTInstallHome.value;
-          }
-          if (this.project.k8sDomain.auxImageSourceModelHome.hasValue()) {
-            auxiliaryImage.sourceModelHome = this.project.k8sDomain.auxImageSourceModelHome.value;
-          }
+        if (this.project.settings.targetDomainLocation.value === 'mii') {
+          const wdtRelatedPaths = this._getWdtRelatedPaths(domainResource);
 
           if (!domainResource.spec.configuration) {
             domainResource.spec.configuration = {
@@ -73,7 +64,26 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
           } else if (!domainResource.spec.configuration.model) {
             domainResource.spec.configuration.model = {};
           }
-          domainResource.spec.configuration.model.auxiliaryImages = [ auxiliaryImage ];
+
+          if (usingAuxImage()) {
+            const auxiliaryImage = {
+              image: this.project.image.auxImageTag.value,
+            };
+            if (this.project.k8sDomain.auxImagePullPolicy.hasValue()) {
+              auxiliaryImage.imagePullPolicy = this.project.k8sDomain.auxImagePullPolicy.value;
+            }
+            auxiliaryImage.sourceWDTInstallHome = wdtRelatedPaths.sourceWDTInstallHome;
+            auxiliaryImage.sourceModelHome = wdtRelatedPaths.sourceModelHome;
+
+            domainResource.spec.configuration.model.auxiliaryImages = [ auxiliaryImage ];
+          } else {
+            if (wdtRelatedPaths.wdtInstallHome) {
+              domainResource.spec.configuration.model.wdtInstallHome = wdtRelatedPaths.wdtInstallHome;
+            }
+            if (wdtRelatedPaths.modelHome) {
+              domainResource.spec.configuration.model.modelHome = wdtRelatedPaths.modelHome;
+            }
+          }
         }
 
         if (this.project.k8sDomain.clusters.value.length === 0) {
@@ -112,17 +122,6 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
         if (this.project.settings.targetDomainLocation.value === 'mii') {
           domainResource.spec.configuration.model.domainType = this.project.k8sDomain.domainType.value;
           domainResource.spec.configuration.model.runtimeEncryptionSecret = this.project.k8sDomain.runtimeSecretName.value;
-
-          if (!usingAuxImage()) {
-            const wdtRelatedPaths = this._getWdtRelatedPaths(domainResource);
-            // Only set these if they are specified; otherwise, rely on the default values
-            if (wdtRelatedPaths.wdtHome) {
-              domainResource.spec.configuration.model.wdtHome = wdtRelatedPaths.wdtHome;
-            }
-            if (wdtRelatedPaths.modelHome) {
-              domainResource.spec.configuration.model.modelHome = wdtRelatedPaths.modelHome;
-            }
-          }
 
           if (this.k8sConfigMapGenerator.shouldCreateConfigMap()) {
             domainResource.spec.configuration.model.configMap = this.project.k8sDomain.modelConfigMapName.value;
@@ -237,24 +236,51 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
 
       _getWdtRelatedPaths() {
         let result;
-
         if (this.project.settings.targetDomainLocation.value === 'mii') {
-
           result = { };
+
+          // WKO 4.0+ has different behavior and parameters than 3.x
+          //
+          let wdtInstallHome = this.project.image.wdtHomePath.value;
+          if (!wdtInstallHome.endsWith(WDT_DIR_NAME)) {
+            wdtInstallHome = window.api.path.join(wdtInstallHome, WDT_DIR_NAME);
+          }
           if (usingAuxImage()) {
-            const wdtHome = this.project.image.wdtHomePath.value;
-            const modelHome = this.project.image.modelHomePath.value;
-            result.targetWdtHomeDirName = 'weblogic-deploy';
-            result.sourceWdtHome = window.api.path.join(wdtHome, result.targetWdtHomeDirName);
-            result.sourceModelHome = modelHome;
-            result.targetModelHomeDirName = window.api.path.basename(modelHome);
-          } else {
-            // Only set these if they are not the default
-            if (this.project.image.wdtHomePath.hasValue()) {
-              result.wdtHome = this.project.image.wdtHomePath.value;
+            if (usingExistingAuxImage()) {
+              // If the source fields are exposed in the UI, use the values from those fields.
+              //
+              if (this.project.k8sDomain.auxImageSourceWDTInstallHome.hasValue()) {
+                result.sourceWDTInstallHome = this.project.k8sDomain.auxImageSourceWDTInstallHome.value;
+              }
+              if (this.project.k8sDomain.auxImageSourceModelHome.hasValue()) {
+                result.sourceModelHome = this.project.k8sDomain.auxImageSourceModelHome.value;
+              }
+            } else {
+              // If creating a new image, then use the values from the image page.
+              //
+              result.sourceWDTInstallHome = wdtInstallHome;
+              result.sourceModelHome = this.project.image.modelHomePath.value;
             }
-            if (this.project.image.modelHomePath.hasValue()) {
-              result.modelHome = this.project.image.modelHomePath.value;
+            // We intentionally do not set the wdtInstallHome and modelHome parameters
+            // since the default values will always be correct in V9 when using aux images.
+            //
+          } else {
+            if (usingExistingPrimaryImage()) {
+              // If these fields are exposed in the UI, use them if they have non-default values.
+              //
+              if (this.project.k8sDomain.imageWDTInstallHome.hasValue()) {
+                result.wdtInstallHome = this.project.k8sDomain.imageWDTInstallHome.value;
+              }
+              if (this.project.k8sDomain.imageModelHome.hasValue()) {
+                result.modelHome = this.project.k8sDomain.imageModelHome.value;
+              }
+            } else {
+              if (this.project.image.modelHomePath.hasValue()) {
+                result.wdtInstallHome = wdtInstallHome;
+              }
+              if (this.project.image.modelHomePath.hasValue()) {
+                result.modelHome = this.project.image.modelHomePath.value;
+              }
             }
           }
         }
@@ -264,6 +290,15 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
 
     function usingAuxImage() {
       return project.settings.targetDomainLocation.value === 'mii' && project.image.useAuxImage.value;
+    }
+
+    function usingExistingPrimaryImage() {
+      return project.settings.targetDomainLocation.value === 'mii' && !project.image.createPrimaryImage.value
+        && !project.image.useAuxImage.value;
+    }
+
+    function usingExistingAuxImage() {
+      return usingAuxImage() && !project.image.createAuxImage.value;
     }
 
     function getOperatorNameForTargetDomainLocation(targetDomainLocation) {

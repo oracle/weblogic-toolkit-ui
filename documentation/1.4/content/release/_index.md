@@ -1,11 +1,11 @@
 +++
 title = "Release Notes"
-date = 2022-01-30T12:48:00-05:00
+date = 2022-11-03T12:48:00-05:00
 weight = 7
 pre = "<b> </b>"
 +++
 
-### Changes in Release 1.4.0
+### Changes in Release 1.4.1
 - [Major New Features](#major-new-features)
 - [Other Changes](#other-changes)
 - [Bugs Fixes](#bug-fixes)
@@ -13,24 +13,20 @@ pre = "<b> </b>"
 
 
 #### Major New Features
-- #173: Added support for WebLogic Kubernetes Operator 4.0.  While it is now the default, versions 3.3+ are still supported.  
+None
 
 #### Other Changes
-- #175: Added Zoom In, Zoom Out, and Actual Size menu options to the Window menu.
-- #178: Integrated the `Prepare Model` action with the changes in WebLogic Deploy Tooling 2.4.0.
-- #179: Updated the [WebLogic Remote Console](https://github.com/oracle/weblogic-remote-console) integration to support version 2.4.1 (2.4.0 also supported).
-- #188: Added file download functionality to all Code View pages
+- #192: Add the ability to install and work with older versions of operator using the latest published Helm chart.
 
 #### Bug Fixes
-- #171: Improved workaround for the issue limiting the ability to select text from the Code View scripts (WKTUI-375).
-- #172: Resolved issue when using Domain-in-Image that was causing the domain to not be created.
-- #174: Resolved an issue where the `Install Ingress Controller` action was always passing the image pull secret--even when the user indicated not to use one. 
-- #176: Resolved an issue where the `Update Ingress Routes` action was always passing the `SSL pass-through` argument--even when the user did not request it.
-- #182: Resolved Verrazzano 1.4.0+ installation issue caused by a change in the published operator file name. 
-- #186: Resolved Verrazzano-related issue where Ingress Trait rules were not including the hosts or destination-related fields.
-- #187: Resolved an issue where the operator domain variable override config map was not being created properly.
-- #187: Resolved an issue with the `apiVersion` of the Verrazzano component- and application-related being incorrect.
-- #189: Resolved a rendering issue on the Ingress Controller Code View page when switching tabs.
+- Resolved issue Discover Model issue introduced in 1.4.0 by picking up the fix in WebLogic Deploy Tooling 2.4.1.
+- Resolved issue with Deploy Domain failing due to a WebLogic Kubernetes Operator error from the new conversion/validating
+  webhook (fix in a new published version of the WebLogic Kubernetes Operator 4.0.0 Helm chart).
+- #190: Resolved a macOS-specific issue in check to see if the WebLogic Kubernetes Operator is already installed.
+- #191: Resolved WebLogic Kubernetes Operator 4.0 issues with the Domain Resource spec generation.
+- #191: Resolved an issue with WebLogic Kubernetes Operator 3.x where the `wdtInstallHome` was named incorrectly under one condition.
+- #191: Resolved a gap in the functionality for WDT and Model locations in the Domain Resource spec when using images
+  instead of creating them.  
 
 #### Known Issues
 - On Linux, the open and save dialogs open behind the main application window.  This is due to

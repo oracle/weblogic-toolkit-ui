@@ -102,10 +102,18 @@ async function getWitLatestReleaseName(options) {
   });
 }
 
-async function getWkoLatestReleaseImageName(options) {
+async function getWkoLatestReleaseVersion(options) {
   return new Promise((resolve, reject) => {
     getLatestReleaseObject(wkoToolName, ghApiWkoBaseUrl, options).then(latestReleaseObj => {
       const version = latestReleaseObj['name'].split(' ')[1];
+      resolve(version);
+    }).catch(err => reject(new Error(`Failed to determine latest release version for ${wkoToolName}: ${err}`)));
+  });
+}
+
+async function getWkoLatestReleaseImageName(options) {
+  return new Promise((resolve, reject) => {
+    getWkoLatestReleaseVersion(options).then(version => {
       resolve(`${wkoImageName}:${version}`);
     }).catch(err => reject(new Error(`Failed to determine latest release name for ${wkoToolName}: ${err}`)));
   });
@@ -279,5 +287,6 @@ module.exports = {
   installWitRelease,
   getWdtLatestReleaseName,
   getWitLatestReleaseName,
-  getWkoLatestReleaseImageName
+  getWkoLatestReleaseImageName,
+  getWkoLatestReleaseVersion
 };

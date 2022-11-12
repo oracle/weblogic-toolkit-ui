@@ -129,12 +129,24 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       return this.labelMapper(key);
     }, this);
 
+    this.showPrimaryImageHomeFields = ko.computed(() => {
+      return this.project.settings.targetDomainLocation.observable() === 'mii' &&
+        !this.project.image.createPrimaryImage.observable() &&
+        !this.project.image.useAuxImage.observable();
+    }, this);
+
     this.isPrimaryImageTagReadOnly = ko.computed(() => {
       return this.project.image.createPrimaryImage.observable();
     }, this);
 
     this.isAuxImageTagReadOnly = ko.computed(() => {
       return this.project.image.createAuxImage.observable();
+    }, this);
+
+    this.showAuxImageSourceFields = ko.computed(() => {
+      return this.project.settings.targetDomainLocation.observable() === 'mii' &&
+        this.project.image.useAuxImage.observable() &&
+        !this.project.image.createAuxImage.observable();
     }, this);
 
     this.auxImageTagHelp = ko.computed(() => {
