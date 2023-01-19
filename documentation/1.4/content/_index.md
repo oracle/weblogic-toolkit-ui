@@ -40,7 +40,7 @@ We have a closely monitored public Slack channel where you can get in touch with
 WebLogic Toolkit UI or give us feedback or suggestions about what features and improvements you would like to see.
 We would love to hear from you.
 
-To join our public channel, please visit this [site](https://join.slack.com/t/oracle-weblogic/shared_invite/zt-1lnz4kpci-WdY2gWfeJc5jS_a_1Z06MA) to get an invitation. The invitation email will include details of how to access our Slack workspace. After you are logged in, please come to `#weblogic-kubernetes-toolkit` and say, “hello!”
+To join our public channel, please visit this [site](https://join.slack.com/t/oracle-weblogic/shared_invite/zt-1ni1gtjv6-PGC6CQ4uIte3KBdm_67~aQ) to get an invitation. The invitation email will include details of how to access our Slack workspace. After you are logged in, please come to `#weblogic-kubernetes-toolkit` and say, “hello!”
 
 ### Related Projects
 For detailed documentation and access to WebLogic Toolkit-related projects, see:
