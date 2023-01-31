@@ -206,6 +206,18 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
         this.handlePrepareModelTopology = (domain) => {
           if (domain && Array.isArray(domain.clusters)) {
             domain.clusters.forEach(cluster => this.setClusterRow(cluster));
+            // Remove any clusters that are no longer in the model
+            //
+            this.clusters.observable.remove(cluster => {
+              let remove = true;
+              for (const prepareModelCluster of domain.clusters) {
+                if (prepareModelCluster.clusterName === cluster.name) {
+                  remove = false;
+                  break;
+                }
+              }
+              return remove;
+            });
           }
         };
 
