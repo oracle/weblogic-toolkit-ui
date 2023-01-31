@@ -398,14 +398,14 @@
 
     "ace": {
       "cdn": "3rdparty",
-      "cwd": "src/js",
+      "cwd": "node_modules/ace-builds/src-noconflict",
       "debug": {
-        "src":  "ace.js",
+        "src":  ["**"],
         "path": "libs/ace/ace.js",
         "cdnPath": ""
       },
       "release": {
-        "src":  "ace.js",
+        "src":  ["**"],
         "path": "libs/ace/ace.js",
         "cdnPath": ""
       }
