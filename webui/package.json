@@ -18,7 +18,7 @@
     "js-yaml": "^4.1.0"
   },
   "devDependencies": {
-    "@oracle/ojet-cli": "^13.1.0",
+    "@oracle/ojet-cli": "^14.0.0",
     "@oracle/oraclejet-audit": "^13.1.0",
     "@oracle/oraclejet-tooling": "^13.1.0",
     "chai": "^4.3.7",
