@@ -321,11 +321,6 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
     function getServerPodForCluster(cluster) {
       const serverPod = _getServerPod(getJavaOptionsForCluster(cluster), getUserMemArgsForCluster(cluster), getKubernetesResourcesForCluster(cluster)) || {};
 
-      const affinity = _getAffinityForServerPod(100);
-      if (affinity) {
-        serverPod.affinity = affinity;
-      }
-
       return Object.keys(serverPod).length > 0 ? serverPod : null;
     }
 
@@ -431,26 +426,6 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
       }
 
       return foundValue ? resources : null;
-    }
-
-    function _getAffinityForServerPod(weight) {
-      return {
-        podAntiAffinity: {
-          preferredDuringSchedulingIgnoredDuringExecution: [{
-            weight: weight,
-            podAffinityTerm: {
-              topologyKey: 'kubernetes.io/hostname',
-              labelSelector: {
-                matchExpressions: [{
-                  key: 'weblogic.clusterName',
-                  operator: 'In',
-                  values: ['$(CLUSTER_NAME)'],
-                }],
-              },
-            },
-          }],
-        },
-      };
     }
 
     function _getClusterName(domainUid, clusterName) {

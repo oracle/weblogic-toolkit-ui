@@ -1,78 +1,39 @@
 /**
  * @license
- * Copyright (c) 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2022, 2023, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
 
-define(['models/wkt-project', 'utils/k8s-domain-resource-generator', 'utils/vz-helper', 'js-yaml', 'utils/i18n',
-  'utils/wkt-logger'],
-function(project, K8sDomainResourceGenerator, VerrazzanoHelper, jsYaml) {
+define(['models/wkt-project', 'utils/vz-component-wko-v8-resource-generator',
+  'utils/vz-component-wko-v9-resource-generator', 'utils/wkt-logger'],
+function(project, VerrazzanoComponentWkoV8ResourceGenerator, VerrazzanoComponentWkoV9ResourceGenerator, wktLogger) {
 
-  // Note that the specific version number doesn't really matter.  What is important is until Verrazzano
-  // starts distributing WKO 4.x, we use a 3.x version number to get the right Domain resource spec.
-  //
-  const WKO3_VERSION = '3.4.3';
+  const WKO_V9_SWITCHOVER_VERSION = '1.5.0';
+  const DEFAULT_VERRAZZANO_VERSION = WKO_V9_SWITCHOVER_VERSION;
 
   class VerrazzanoComponentResourceGenerator {
-    constructor() {
+    constructor(verrazzanoVersion = DEFAULT_VERRAZZANO_VERSION) {
       this.project = project;
-      this.k8sDomainResourceGenerator = new K8sDomainResourceGenerator(WKO3_VERSION);
-      this._vzHelper = undefined;
+      this.verrazzanoComponentResourceGenerator = _getVerrazzanoComponentResourceGenerator(verrazzanoVersion);
     }
 
-    generate() {
-      const { domainResource } = this.k8sDomainResourceGenerator.generate(false);
-
-      const component = {
-        apiVersion: this._getComponentApiVersion(),
-        kind: 'Component',
-        metadata: {
-          name: this.project.vzComponent.componentName.value,
-          namespace: this.project.k8sDomain.kubernetesNamespace.value,
-        },
-        spec: {
-          workload: {
-            apiVersion: this._getWorkloadApiVersion(),
-            kind: 'VerrazzanoWebLogicWorkload',
-            spec: {
-              template: domainResource
-            }
-          }
-        }
-      };
-      return jsYaml.dump(component).split('\n');
-    }
-
-    _getComponentApiVersion() {
-      let result = '<UNKNOWN>';
-
-      const vzHelper = this._getVerrazzanoHelper();
-      if (vzHelper) {
-        result = vzHelper.getComponentApiVersion();
-      }
-      return result;
-    }
-
-    _getWorkloadApiVersion() {
-      let result = '<UNKNOWN>';
-
-      const vzHelper = this._getVerrazzanoHelper();
-      if (vzHelper) {
-        result = vzHelper.getWorkloadApiVersion();
-      }
-      return result;
-    }
-
-    _getVerrazzanoHelper() {
-      if (!this._vzHelper) {
-        const vzVersion = this.project.vzInstall.actualInstalledVersion.value;
-        if (vzVersion) {
-          this._vzHelper = new VerrazzanoHelper(vzVersion);
-        }
-      }
-      return this._vzHelper;
+    generate(generateYaml = true) {
+      return this.verrazzanoComponentResourceGenerator.generate(generateYaml);
     }
   }
+
+  function _getVerrazzanoComponentResourceGenerator(verrazzanoVersion) {
+    let generator;
+    if (window.api.utils.compareVersions(verrazzanoVersion, WKO_V9_SWITCHOVER_VERSION) < 0) {
+      wktLogger.debug('Using Verrazzano version %s to create Verrazzano component WKO V8 resource generator', verrazzanoVersion);
+      generator = new VerrazzanoComponentWkoV8ResourceGenerator();
+    } else {
+      wktLogger.debug('Using Verrazzano version %s to create Verrazzano component WKO V9 resource generator', verrazzanoVersion);
+      generator = new VerrazzanoComponentWkoV9ResourceGenerator();
+    }
+    return generator;
+  }
+
   return VerrazzanoComponentResourceGenerator;
 });
