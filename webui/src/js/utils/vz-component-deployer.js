@@ -202,7 +202,8 @@ function(VzActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, vali
         }
 
         // Create the components needed for deployment
-        const vzResourceGenerator = new VerrazzanoComponentResourceGenerator();
+        const vzInstalledVersion = this.project.vzInstall.actualInstalledVersion.value || undefined;
+        const vzResourceGenerator = new VerrazzanoComponentResourceGenerator(vzInstalledVersion);
         const vzConfigMapGenerator = new VerrazzanoComponentConfigMapGenerator();
         const components = [ vzResourceGenerator.generate().join('\n') ];
         if (vzConfigMapGenerator.shouldCreateConfigMap()) {

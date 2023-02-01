@@ -77,8 +77,9 @@ function (accUtils, ko, project, VerrazzanoComponentScriptGenerator, VerrazzanoC
     this.componentText = ko.observable();
     this.configMapText = ko.observable();
 
+    this.vzVersion = this.project.vzInstall.actualInstalledVersion.observable() || undefined;
     this.vzComponentConfigMapGenerator = new VerrazzanoComponentConfigMapGenerator();
-    this.vzComponentResourceGenerator = new VerrazzanoComponentResourceGenerator();
+    this.vzComponentResourceGenerator = new VerrazzanoComponentResourceGenerator(this.vzVersion);
 
     this.renderScript = (selectedSubview) => {
       switch (selectedSubview) {
