@@ -897,6 +897,25 @@
   "add-name-to-archive-dialog-label": "{{typeName}} Name",
   "add-name-to-archive-dialog-help": "Enter a name for the {{typeName}}.",
 
+  "add-to-archive-selection-dialog-title": "Add to Archive",
+  "add-to-archive-selection-dialog-entry-type-label": "Archive Entry Type",
+  "add-to-archive-selection-dialog-entry-type-help": "Choose the type of archive entry to add",
+  "add-to-archive-selection-dialog-file-or-directory-selector-label": "File system type to add",
+  "add-to-archive-selection-dialog-file-or-directory-selector-help": "Select whether you want to add a file or a directory",
+  "add-to-archive-selection-dialog-file-label": "File",
+  "add-to-archive-selection-dialog-directory-label": "Directory",
+  "add-to-archive-selection-dialog-source-file-label": "Source file location",
+  "add-to-archive-selection-dialog-source-dir-label": "Source directory location",
+  "add-to-archive-selection-dialog-name-no-forward-slashes": "Value cannot contain any '/' characters",
+  "add-to-archive-selection-dialog-path-no-leading-trailing-forward-slashes": "Value cannot start or end with a '/' character",
+
+
+
+
+  "add-name-to-archive-selection-dialog-title": "Add {{typeName}} to Archive",
+  "add-name-to-archive-selection-dialog-label": "{{typeName}} Name",
+  "add-name-to-archive-selection-dialog-help": "Enter a name for the {{typeName}}.",
+
   "discover-dialog-offline-form-name": "Discover Domain Offline",
   "discover-dialog-online-form-name": "Discover Domain Online",
   "discover-dialog-title": "Discover Domain Offline",

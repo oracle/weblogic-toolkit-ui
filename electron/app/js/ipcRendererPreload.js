@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const { contextBridge, ipcRenderer } = require('electron');
@@ -131,7 +131,8 @@ contextBridge.exposeInMainWorld(
           'get-archive-entry',
           'get-network-settings',
           'choose-archive-file',
-          'choose-archive-entry',
+          'choose-archive-entry-file',
+          'add-archive-entry',
           'choose-domain-home',
           'choose-java-home',
           'choose-model-file',

@@ -1,12 +1,12 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 define(['accUtils', 'utils/i18n', 'knockout', 'models/wkt-project', 'utils/url-catalog', 'utils/view-helper',
-  'utils/wkt-logger', 'wrc-frontend/integration/viewModels/utils', 'wdt-model-designer/loader',
+  'utils/wkt-logger', 'wrc-frontend/integration/viewModels/utils', 'ojs/ojlogger', 'wdt-model-designer/loader',
   'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojformlayout'],
-function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, ViewModelUtils) {
+function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, ViewModelUtils, ojLogger) {
   function ModelDesignViewModel() {
 
     let subscriptions = [];
@@ -20,6 +20,7 @@ function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, ViewMod
 
     this.connected = () => {
       accUtils.announce('Model design view loaded.', 'assertive');
+      this.restoreOracleJetLogLevel();
       this.designer = document.getElementById('WdtModelDesigner');
 
       subscriptions.push(this.project.wdtModel.internal.wlRemoteConsolePort.subscribe((newValue) => {
@@ -69,6 +70,7 @@ function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, ViewMod
       }
 
       viewHelper.removeEventListenerFromRootElement('searchModel', this.handleSearchModelEvent);
+      this.setOracleJetLogLevelToOff();
     };
 
     this.labelMapper = (labelId, payload) => {
@@ -299,6 +301,18 @@ function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, ViewMod
       // Once the WRC change is available, call the method to pass the search text and return.
       //
       this.designer.search(searchModelText);
+    };
+
+    this.restoreOracleJetLogLevel = () => {
+      const level = this.project.wdtModel.internal.wlRemoteConsoleLogLevel;
+      if (typeof level !== 'undefined') {
+        ojLogger.option('level', level);
+      }
+    };
+
+    this.setOracleJetLogLevelToOff = () => {
+      this.project.wdtModel.internal.wlRemoteConsoleLogLevel = ojLogger.option('level');
+      ojLogger.option('level', ojLogger.LEVEL_NONE);
     };
   }
 

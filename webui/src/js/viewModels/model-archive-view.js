@@ -1,12 +1,12 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 define(['accUtils', 'knockout', 'utils/i18n', 'models/wkt-project', 'utils/dialog-helper',
   'ojs/ojarraytreedataprovider', 'ojs/ojtoolbar', 'ojs/ojtreeview'],
 function(accUtils, ko, i18n, project, dialogHelper, ArrayTreeDataProvider) {
-  function ModelCodeViewModel() {
+  function ModelArchiveViewModel() {
 
     this.connected = () => {
       accUtils.announce('Archive view loaded.', 'assertive');
@@ -36,7 +36,7 @@ function(accUtils, ko, i18n, project, dialogHelper, ArrayTreeDataProvider) {
     };
 
     this.addFile = () => {
-      dialogHelper.openDialog('add-to-archive-dialog', {});
+      dialogHelper.openDialog('add-to-archive-selection-dialog', {});
     };
 
     this.deleteSelected = () => {
@@ -72,5 +72,5 @@ function(accUtils, ko, i18n, project, dialogHelper, ArrayTreeDataProvider) {
   /*
    * Returns a constructor for the ViewModel.
    */
-  return ModelCodeViewModel;
+  return ModelArchiveViewModel;
 });

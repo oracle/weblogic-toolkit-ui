@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const { app, BrowserWindow, dialog, ipcMain, shell } = require('electron');
@@ -485,8 +485,15 @@ class Main {
       return project.chooseArchiveFile(event.sender.getOwnerBrowserWindow());
     });
 
-    ipcMain.handle('choose-archive-entry', async (event, itemType) => {
-      return wdtArchive.chooseArchiveEntry(event.sender.getOwnerBrowserWindow(), itemType);
+    ipcMain.handle('choose-archive-entry-file', async (event, itemType, fileType,
+      fileExtensions, currentValue) => {
+
+      return wdtArchive.chooseArchiveEntryFile(event.sender.getOwnerBrowserWindow(), itemType, fileType,
+        fileExtensions, currentValue);
+    });
+
+    ipcMain.handle('add-archive-entry', async(event, itemType, itemData) => {
+      return wdtArchive.addArchiveEntry(event.sender.getOwnerBrowserWindow(), itemType, itemData);
     });
 
     ipcMain.handle('get-archive-entry-types', async () => {
