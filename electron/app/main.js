@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const { app, BrowserWindow, dialog, ipcMain, shell } = require('electron');
@@ -772,8 +772,8 @@ class Main {
       return kubectlUtils.validateApplicationExist(kubectlExe, kubectlOptions, application, namespace);
     });
 
-    ipcMain.handle('vz-get-application-status', async (event, kubectlExe, application, namespace, options) => {
-      return kubectlUtils.getApplicationStatus(kubectlExe, application, namespace, options);
+    ipcMain.handle('vz-get-application-status', async (event, kubectlExe, application, domainUid, namespace, options) => {
+      return kubectlUtils.getApplicationStatus(kubectlExe, application, domainUid, namespace, options);
     });
 
     ipcMain.handle('is-wko-installed', async (event, kubectlExe, operatorNamespace, kubectlOptions) => {
