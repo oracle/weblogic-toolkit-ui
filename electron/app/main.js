@@ -779,8 +779,8 @@ class Main {
       return kubectlUtils.validateApplicationExist(kubectlExe, kubectlOptions, application, namespace);
     });
 
-    ipcMain.handle('vz-get-application-status', async (event, kubectlExe, application, namespace, options) => {
-      return kubectlUtils.getApplicationStatus(kubectlExe, application, namespace, options);
+    ipcMain.handle('vz-get-application-status', async (event, kubectlExe, application, domainUid, namespace, options) => {
+      return kubectlUtils.getApplicationStatus(kubectlExe, application, domainUid, namespace, options);
     });
 
     ipcMain.handle('is-wko-installed', async (event, kubectlExe, operatorNamespace, kubectlOptions) => {
