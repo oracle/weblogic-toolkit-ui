@@ -60,10 +60,7 @@ define(['models/wkt-project', 'utils/i18n', 'utils/wdt-archive-helper'],
       getExtensionsObject() {
         return {
           wktui: {
-            modelArchive: {
-              addToArchive: this.addToArchive,
-              removeFromArchive: this.removeFromArchive
-            }
+            modelArchive: this
           }
         };
       }
