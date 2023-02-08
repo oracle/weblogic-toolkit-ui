@@ -128,7 +128,7 @@ contextBridge.exposeInMainWorld(
           'get-latest-wko-version-number',
           'get-wko-release-versions',
           'get-archive-entry-types',
-          'get-archive-entry',
+          'wrc-get-archive-entry',
           'get-network-settings',
           'choose-archive-file',
           'choose-archive-entry-file',

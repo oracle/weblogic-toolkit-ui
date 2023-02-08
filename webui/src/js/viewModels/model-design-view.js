@@ -3,10 +3,11 @@
  * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
-define(['accUtils', 'utils/i18n', 'knockout', 'models/wkt-project', 'utils/url-catalog', 'utils/view-helper',
-  'utils/wkt-logger', 'wrc-frontend/integration/viewModels/utils', 'ojs/ojlogger', 'wdt-model-designer/loader',
-  'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojformlayout'],
-function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, ViewModelUtils, ojLogger) {
+define(['accUtils', 'utils/i18n', 'knockout', 'models/wkt-project', 'utils/url-catalog', 'utils/wrc-wdt-archive',
+  'utils/view-helper', 'utils/wkt-logger', 'wrc-frontend/integration/viewModels/utils', 'ojs/ojlogger',
+  'wdt-model-designer/loader', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojformlayout'],
+function(accUtils, i18n, ko, project, urlCatalog, wrcArchiveHelper, viewHelper, wktLogger, ViewModelUtils,
+  ojLogger) {
   function ModelDesignViewModel() {
 
     let subscriptions = [];
@@ -49,7 +50,6 @@ function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, ViewMod
         if (this.designer) {
           viewHelper.componentReady(this.designer).then(() => {
             this.showWdtModelDesigner(port, this.designer);
-            this.designer.addEventListener('archiveUpdated', this.archiveUpdated);
           });
         }
       }
@@ -66,7 +66,6 @@ function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, ViewMod
         // Do not stringify the dataProvider to the log since it may contain credentials...
         wktLogger.debug('disconnected() dataProvider');
         this.designer.deactivateProvider(this.dataProvider);
-        this.designer.removeEventListener('archiveUpdated', this.archiveUpdated);
       }
 
       viewHelper.removeEventListenerFromRootElement('searchModel', this.handleSearchModelEvent);
@@ -163,6 +162,7 @@ function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, ViewMod
     //
     this.providerActivated = (event) => {
       this.dataProvider = event.detail.value;
+      this.dataProvider.putValue('extensions', wrcArchiveHelper.getExtensionsObject());
       wktLogger.debug('Received providerActivated event with dataProvider');
       this.designer.selectLastVisitedSlice();
     };
@@ -204,19 +204,6 @@ function(accUtils, i18n, ko, project, urlCatalog, viewHelper, wktLogger, ViewMod
             existingProperties[index].Value = item.Value;
           }
         });
-      }
-    };
-
-    this.archiveUpdated = (event) => {
-      const options = event.detail.options;
-      wktLogger.debug('Received archiveUpdated event');
-      switch (options.operation) {
-        case 'add':
-          this.project.wdtModel.addArchiveUpdate(options.operation, options.archivePath, options.filePath);
-          break;
-        case 'remove':
-          this.project.wdtModel.addArchiveUpdate(options.operation, options.path);
-          break;
       }
     };
 

@@ -9,6 +9,7 @@ const fs = require('fs');
 const fsPromises = require('fs/promises');
 const fsUtils = require('./fsUtils');
 const errorUtils = require('./errorUtils');
+const { getLogger } = require('./wktLogging');
 
 function getEntryTypes() {
   // lazy load to allow initialization
@@ -279,6 +280,9 @@ async function addArchiveEntry(targetWindow, entryType, entryData) {
   return Promise.resolve({filePath, archivePath, archiveUpdatePath, childPaths});
 }
 
+// NOTE: This is part of the WRC-WKTUI API and is called directly from
+//       WRC via the IPC channel.
+//
 // Help the model design view properly handle archive entries when using
 // both text fields and the file chooser.
 //
@@ -297,7 +301,18 @@ async function addArchiveEntry(targetWindow, entryType, entryData) {
 //    the user provided path is a directory and change the archive type
 //    to the matching directory type.
 //
-async function getArchiveEntry(window, archiveEntryType, options) {
+// Note that as of today, this API only supports 5 types:
+//  - applicationFile
+//  - applicationDir
+//  - applicationDeploymentPlan
+//  - sharedLibraryFile
+//  - sharedLibraryDir
+//
+// The code below needs to be reviewed before adding new types as it
+// may or may not work correctly depending on the entry type.
+//
+async function wrcGetArchiveEntry(window, archiveEntryTypeName, options) {
+  getLogger().debug(`Entering wrcGetArchiveEntry with ${archiveEntryTypeName} and ${JSON.stringify(options)}`);
   if (!options) {
     options = {
       providedValue: undefined,
@@ -307,38 +322,14 @@ async function getArchiveEntry(window, archiveEntryType, options) {
 
   let promise;
   if (options.showChooser) {
-    promise = _getArchiveEntryShowChooser(window, archiveEntryType, options);
+    promise = _getArchiveEntryShowChooser(window, archiveEntryTypeName, options);
   } else {
-    promise = _getArchiveEntry(archiveEntryType, options);
+    promise = _getArchiveEntry(archiveEntryTypeName, options);
   }
   return promise;
 }
 
-
-// get a list of paths for all the files and folders in the specified directory.
-// the paths should be relative to the directory, and folders should end with / .
-async function _getDirectoryPaths(directory) {
-  const paths = [];
-  await _addDirectoryPaths(directory, paths, null);
-  return paths;
-}
-
-async function _addDirectoryPaths(directory, paths, pathPrefix) {
-  const dirContents = await fsPromises.readdir(directory, {withFileTypes: true});
-  for (const entry of dirContents) {
-    let name = entry.name;
-    let entryPath = pathPrefix ? pathPrefix + '/' + name : name;
-    let fullPath = entry.isDirectory() ? entryPath + '/' : entryPath;
-    paths.push(fullPath);
-
-    if(entry.isDirectory()) {
-      const subdirectory = directory + '/' + name;
-      await _addDirectoryPaths(subdirectory, paths, entryPath);
-    }
-  }
-}
-
-async function _getArchiveEntryShowChooser(targetWindow, archiveEntryTypeName, archiveEntryTypeOptions) {
+async function _getArchiveEntryShowChooser(targetWindow, wrcArchiveEntryTypeName, archiveEntryTypeOptions) {
   // lazy load to allow initialization
   const i18n = require('./i18next.config');
   const { getLogger } = require('./wktLogging');
@@ -346,14 +337,20 @@ async function _getArchiveEntryShowChooser(targetWindow, archiveEntryTypeName, a
 
   if (wktLogger.isDebugEnabled()) {
     wktLogger.debug('entering _getArchiveEntryShowChooser(%s, %s, %s)',
-      targetWindow, archiveEntryTypeName, JSON.stringify(archiveEntryTypeOptions));
+      targetWindow, wrcArchiveEntryTypeName, JSON.stringify(archiveEntryTypeOptions));
   }
 
   const result = {};
+  let fileType = _getFileTypeFromWrcArchiveEntryTypeName(wrcArchiveEntryTypeName);
+  const archiveEntryTypeName = _getArchiveEntryTypeNameFromWrcArchiveEntryTypeName(wrcArchiveEntryTypeName);
+
   const archiveEntryType = getEntryTypes()[archiveEntryTypeName];
   if (!archiveEntryType) {
     result.errorMessage = i18n.t('wdt-archive-invalid-archive-entry-type', { type: archiveEntryTypeName });
     return result;
+  }
+  if (!fileType) {
+    fileType = archiveEntryType.subtype;
   }
 
   let defaultPath;
@@ -362,7 +359,7 @@ async function _getArchiveEntryShowChooser(targetWindow, archiveEntryTypeName, a
   }
 
   const title = i18n.t('dialog-chooseArchiveEntry', {entryType: archiveEntryType.name});
-  const chooserType = archiveEntryType.subtype === 'file' ? 'openFile' : 'openDirectory';
+  const chooserType = fileType === 'file' ? 'openFile' : 'openDirectory';
 
   let options = {
     title: title,
@@ -375,16 +372,8 @@ async function _getArchiveEntryShowChooser(targetWindow, archiveEntryTypeName, a
   const { chooseFromFileSystem } = require('./wktWindow');
   const fileSystemPath = await chooseFromFileSystem(targetWindow, options);
 
-  result.archiveEntryType = archiveEntryTypeName;
+  result.archiveEntryType = wrcArchiveEntryTypeName;
   result.filePath = fileSystemPath;
-  if (result.filePath) {
-    result.archivePath = archiveEntryType['pathPrefix'] + path.basename(result.filePath);
-    result.archiveUpdatePath = result.archivePath;
-    if (chooserType === 'openDirectory') {
-      result.archiveUpdatePath = `${result.archivePath}/`;
-      result.childPaths = await _getDirectoryPaths(result.filePath);
-    }
-  }
 
   if (wktLogger.isDebugEnabled()) {
     wktLogger.debug('exiting _getArchiveEntryShowChooser() with %s', JSON.stringify(result));
@@ -392,22 +381,29 @@ async function _getArchiveEntryShowChooser(targetWindow, archiveEntryTypeName, a
   return result;
 }
 
-async function _getArchiveEntry(archiveEntryTypeName, archiveEntryTypeOptions) {
+async function _getArchiveEntry(wrcArchiveEntryTypeName, archiveEntryTypeOptions) {
   // lazy load to allow initialization
   const i18n = require('./i18next.config');
   const { getLogger } = require('./wktLogging');
   const wktLogger = getLogger();
 
   if (wktLogger.isDebugEnabled()) {
-    wktLogger.debug('entering _getArchiveEntry(%s, %s)', archiveEntryTypeName, JSON.stringify(archiveEntryTypeOptions));
+    wktLogger.debug('entering _getArchiveEntry(%s, %s)', wrcArchiveEntryTypeName, JSON.stringify(archiveEntryTypeOptions));
   }
 
   const result = {};
+  let fileType = _getFileTypeFromWrcArchiveEntryTypeName(wrcArchiveEntryTypeName);
+  const archiveEntryTypeName = _getArchiveEntryTypeNameFromWrcArchiveEntryTypeName(wrcArchiveEntryTypeName);
+
   const archiveEntryTypes = getEntryTypes();
   let archiveEntryType = archiveEntryTypes[archiveEntryTypeName];
   if (!archiveEntryType) {
     result.errorMessage = i18n.t('wdt-archive-invalid-archive-entry-type', { type: archiveEntryTypeName });
     return result;
+  }
+  if (!fileType) {
+    // this should only happen for the applicationDeploymentPlan type
+    fileType = archiveEntryType.subtype;
   }
 
   const fileSystemPath = archiveEntryTypeOptions.providedValue;
@@ -421,9 +417,11 @@ async function _getArchiveEntry(archiveEntryTypeName, archiveEntryTypeOptions) {
     return result;
   }
 
-  result.archiveEntryType = archiveEntryTypeName;
+  result.archiveEntryType = wrcArchiveEntryTypeName;
   const isDirectory = await fsUtils.isDirectory(fileSystemPath);
-  if (!_archiveEntryTypesMatch(isDirectory, archiveEntryType)) {
+  const isFile = await fsUtils.isFile(fileSystemPath);
+
+  if (!_archiveEntryTypesMatch(isDirectory, isFile, fileType)) {
     if (_archiveEntryTypeHasDualTypes(archiveEntryTypeName)) {
       result.archiveEntryType = _archiveEntryTypeGetOppositeType(archiveEntryTypeName);
     } else {
@@ -448,12 +446,32 @@ async function _getArchiveEntry(archiveEntryTypeName, archiveEntryTypeOptions) {
   return result;
 }
 
-function _archiveEntryTypesMatch(fileSystemPathIsDirectory, archiveEntryType) {
+function _getFileTypeFromWrcArchiveEntryTypeName(archiveEntryTypeName) {
   let result;
+  if (archiveEntryTypeName.endsWith('Dir')) {
+    result = 'dir';
+  } else if (archiveEntryTypeName.endsWith('File')) {
+    result = 'file';
+  }
+  return result;
+}
+
+function _getArchiveEntryTypeNameFromWrcArchiveEntryTypeName(wrcArchiveEntryTypeName) {
+  let archiveEntryTypeName = wrcArchiveEntryTypeName;
+  if (wrcArchiveEntryTypeName.endsWith('Dir')) {
+    archiveEntryTypeName = wrcArchiveEntryTypeName.slice(0, -3);
+  } else if (wrcArchiveEntryTypeName.endsWith('File')) {
+    archiveEntryTypeName = wrcArchiveEntryTypeName.slice(0, -4);
+  }
+  return archiveEntryTypeName;
+}
+
+function _archiveEntryTypesMatch(fileSystemPathIsDirectory, fileSystemPathIsFile, archiveEntrySubtype) {
+  let result = false;
   if (fileSystemPathIsDirectory) {
-    result = archiveEntryType.subtype === 'dir' || archiveEntryType.subtype === 'emptyDir';
-  } else {
-    result = archiveEntryType.subtype === 'file';
+    result = archiveEntrySubtype === 'dir' || archiveEntrySubtype === 'emptyDir';
+  } else if (fileSystemPathIsFile) {
+    result = archiveEntrySubtype === 'file';
   }
   return result;
 }
@@ -508,6 +526,29 @@ function _archiveEntryTypeGetOppositeType(archiveEntryTypeName) {
       break;
   }
   return result;
+}
+
+// get a list of paths for all the files and folders in the specified directory.
+// the paths should be relative to the directory, and folders should end with / .
+async function _getDirectoryPaths(directory) {
+  const paths = [];
+  await _addDirectoryPaths(directory, paths, null);
+  return paths;
+}
+
+async function _addDirectoryPaths(directory, paths, pathPrefix) {
+  const dirContents = await fsPromises.readdir(directory, {withFileTypes: true});
+  for (const entry of dirContents) {
+    let name = entry.name;
+    let entryPath = pathPrefix ? pathPrefix + '/' + name : name;
+    let fullPath = entry.isDirectory() ? entryPath + '/' : entryPath;
+    paths.push(fullPath);
+
+    if(entry.isDirectory()) {
+      const subdirectory = directory + '/' + name;
+      await _addDirectoryPaths(subdirectory, paths, entryPath);
+    }
+  }
 }
 
 async function _getDefaultPathFromValue(currentValue) {
@@ -667,5 +708,5 @@ module.exports = {
   getEntryTypes,
   addArchiveEntry,
   chooseArchiveEntryFile,
-  getArchiveEntry
+  wrcGetArchiveEntry
 };

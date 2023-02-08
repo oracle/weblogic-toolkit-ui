@@ -3,9 +3,9 @@
  * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
-define(['accUtils', 'knockout', 'utils/i18n', 'models/wkt-project', 'utils/dialog-helper',
+define(['accUtils', 'knockout', 'utils/i18n', 'models/wkt-project', 'utils/dialog-helper', 'utils/wdt-archive-helper',
   'ojs/ojarraytreedataprovider', 'ojs/ojtoolbar', 'ojs/ojtreeview'],
-function(accUtils, ko, i18n, project, dialogHelper, ArrayTreeDataProvider) {
+function(accUtils, ko, i18n, project, dialogHelper, archiveHelper, ArrayTreeDataProvider) {
   function ModelArchiveViewModel() {
 
     this.connected = () => {
@@ -46,7 +46,7 @@ function(accUtils, ko, i18n, project, dialogHelper, ArrayTreeDataProvider) {
       this._deleteArchiveNode(path, project.wdtModel.archiveRoots);
 
       // add a 'remove' operation to be applied on save
-      project.wdtModel.addArchiveUpdate('remove', path);
+      archiveHelper.removeFromArchive(path);
     };
 
     // recursively search the archive tree for a node matching the ID,

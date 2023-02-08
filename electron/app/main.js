@@ -502,8 +502,8 @@ class Main {
 
     // This is used by the Model Design View...
     //
-    ipcMain.handle('get-archive-entry', async (event, archiveEntryType, options) => {
-      return wdtArchive.getArchiveEntry(event.sender.getOwnerBrowserWindow(), archiveEntryType, options);
+    ipcMain.handle('wrc-get-archive-entry', async (event, archiveEntryType, options) => {
+      return wdtArchive.wrcGetArchiveEntry(event.sender.getOwnerBrowserWindow(), archiveEntryType, options);
     });
 
     ipcMain.handle('choose-java-home', async (event, defaultPath) => {

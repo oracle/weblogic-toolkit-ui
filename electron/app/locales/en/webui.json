@@ -890,13 +890,6 @@
   "ingress-code-add-routes-script-title": "Add Ingress Routes Script",
   "ingress-code-ingress-yaml-title": "Ingress Routes Resource",
 
-  "add-to-archive-dialog-title": "Add to Archive",
-  "add-to-archive-dialog-entry-type-label": "Archive Entry Type",
-  "add-to-archive-dialog-entry-type-help": "Choose the type of archive entry to add",
-  "add-name-to-archive-dialog-title": "Add {{typeName}} to Archive",
-  "add-name-to-archive-dialog-label": "{{typeName}} Name",
-  "add-name-to-archive-dialog-help": "Enter a name for the {{typeName}}.",
-
   "add-to-archive-selection-dialog-title": "Add to Archive",
   "add-to-archive-selection-dialog-entry-type-label": "Archive Entry Type",
   "add-to-archive-selection-dialog-entry-type-help": "Choose the type of archive entry to add",
@@ -908,13 +901,6 @@
   "add-to-archive-selection-dialog-source-dir-label": "Source directory location",
   "add-to-archive-selection-dialog-name-no-forward-slashes": "Value cannot contain any '/' characters",
   "add-to-archive-selection-dialog-path-no-leading-trailing-forward-slashes": "Value cannot start or end with a '/' character",
-
-
-
-
-  "add-name-to-archive-selection-dialog-title": "Add {{typeName}} to Archive",
-  "add-name-to-archive-selection-dialog-label": "{{typeName}} Name",
-  "add-name-to-archive-selection-dialog-help": "Enter a name for the {{typeName}}.",
 
   "discover-dialog-offline-form-name": "Discover Domain Offline",
   "discover-dialog-online-form-name": "Discover Domain Online",
@@ -1929,5 +1915,11 @@
   "archive-type-SCRIPTS": "Scripts",
   "archive-type-SERVER_KEYSTORE": "Server Key Stores",
   "archive-type-SHARED_LIBRARIES": "Shared Libraries",
-  "archive-type-SHLIB_PLAN": "Shared Library Plans"
+  "archive-type-SHLIB_PLAN": "Shared Library Plans",
+
+  "wrc-wdt-archive-add-empty-wrc-type-error": "Failed to add to archive because the WebLogic Remote Console entry type was empty.",
+  "wrc-wdt-archive-add-bad-wrc-type-error": "Failed to add to archive because the WebLogic Remote Console entry type {{wrcType}} was not known.",
+  "wrc-wdt-archive-add-empty-file-path-error": "Failed to add to archive because WebLogic Remote Console entry type {{wrcType}} requires a non-empty file path.",
+  "wrc-wdt-archive-add-failed-error": "Failed to add WebLogic Remote Console entry type {{wrcType}} to archive: {{error}}",
+  "wrc-wdt-archive-remove-empty-path-error": "Failed to remove from archive because the archive path was empty."
 }
