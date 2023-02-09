@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2022, Oracle and/or its affiliates.
+ Copyright (c) 2022, 2023, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('title')]]"></oj-bind-text></h6>
@@ -35,4 +35,12 @@
       </oj-input-number>
     </oj-bind-if>
   </oj-form-layout>
+  <oj-bind-if test="[[isArgoCDAvailable]]">
+    <oj-form-layout max-columns="1" direction="row">
+      <oj-switch label-hint="[[labelMapper('install-argocd-label')]]"
+                 value="{{project.vzInstall.installArgoCD.observable}}"
+                 help.instruction="[[labelMapper('install-argocd-help')]]">
+      </oj-switch>
+    </oj-form-layout>
+  </oj-bind-if>
 </div>

@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2022, 2023, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
@@ -15,11 +15,23 @@ define(['models/wkt-project', 'accUtils', 'utils/common-utilities', 'knockout', 
 function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider, ArrayDataProvider) {
   function VerrazzanoInstallDesignViewModel() {
 
+    const subscriptions = [];
+
     this.connected = () => {
       accUtils.announce('Verrazzano Install  Design View page loaded.', 'assertive');
+
+      subscriptions.push(this.project.vzInstall.actualInstalledVersion.observable.subscribe(newTagValue => {
+        this.computedArgoCDAvailabilityFromVersion(newTagValue);
+      }));
+
+      this.computedArgoCDAvailabilityFromVersion();
     };
 
-    this.disconnected = () => { };
+    this.disconnected = () => {
+      subscriptions.forEach((subscription) => {
+        subscription.dispose();
+      });
+    };
 
     this.labelMapper = (labelId, payload) => {
       if (labelId.startsWith('page-design-')) {
@@ -49,6 +61,22 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
         return { ...versionObject, label };
       }));
     });
+
+    this.isArgoCDAvailable = ko.observable(false);
+    this.computedArgoCDAvailabilityFromVersion = (versionTag = undefined) => {
+      const vzInstallVersionTag = versionTag ? versionTag : this.project.vzInstall.versionTag.observable();
+
+      let result = false;  // for now, assume that Verrazzano 1.4.x and below are the most common.
+      if (vzInstallVersionTag) {
+        const vzInstallVersion = vzInstallVersionTag.slice(1);
+        if (window.api.utils.compareVersions(vzInstallVersion, '1.5.0') >= 0) {
+          result = true;
+        }
+      }
+      if (this.isArgoCDAvailable() !== result) {
+        this.isArgoCDAvailable(result);
+      }
+    };
   }
   return VerrazzanoInstallDesignViewModel;
 });

@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2022, 2023, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
@@ -45,6 +45,22 @@ define(['models/wkt-project', 'js-yaml', 'utils/vz-helper', 'utils/i18n', 'utils
               value: String(this.project.vzInstall.istioSamplingRate.value),
             });
           }
+        }
+
+        const vzVersionTag = this.project.vzInstall.versionTag.value;
+        let isArgoAvailable = false;
+        if (vzVersionTag) {
+          const vzVersionToInstall = vzVersionTag.slice(1);
+          isArgoAvailable = window.api.utils.compareVersions(vzVersionToInstall, '1.5.0') >= 0;
+        }
+
+        if (isArgoAvailable && this.project.vzInstall.installArgoCD.value) {
+          if (!data.spec.components) {
+            data.spec.components = {};
+          }
+          data.spec.components.argoCD = {
+            enabled: true
+          };
         }
         return jsYaml.dump(data).split('\n');
       }
