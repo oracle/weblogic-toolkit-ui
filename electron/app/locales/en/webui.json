@@ -1439,6 +1439,8 @@
   "vz-install-design-install-jaeger-help": "Whether to install the optional Jaeger transaction tracing component.",
   "vz-install-design-istio-sampling-label": "Istio Tracing Sampling Rate",
   "vz-install-design-istio-sampling-help": "The percentage of Istio requests that will be traced in Jaeger.",
+  "vz-install-design-install-argocd-label": "Install Argo CD",
+  "vz-install-design-install-argocd-help": "Whether to install the optional Argo CD continuous delivery component.",
 
   "vz-installer-aborted-error-title": "Installing Verrazzano Aborted",
   "vz-installer-kubectl-exe-invalid-error-message": "Unable to install Verrazzano because the Kubernetes client executable is invalid: {{error}}.",
