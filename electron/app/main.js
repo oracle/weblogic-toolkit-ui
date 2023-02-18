@@ -485,8 +485,15 @@ class Main {
       return project.chooseArchiveFile(event.sender.getOwnerBrowserWindow());
     });
 
-    ipcMain.handle('choose-archive-entry', async (event, itemType) => {
-      return wdtArchive.chooseArchiveEntry(event.sender.getOwnerBrowserWindow(), itemType);
+    ipcMain.handle('choose-archive-entry-file', async (event, itemType, fileType,
+      fileExtensions, currentValue) => {
+
+      return wdtArchive.chooseArchiveEntryFile(event.sender.getOwnerBrowserWindow(), itemType, fileType,
+        fileExtensions, currentValue);
+    });
+
+    ipcMain.handle('add-archive-entry', async(event, itemType, itemData) => {
+      return wdtArchive.addArchiveEntry(event.sender.getOwnerBrowserWindow(), itemType, itemData);
     });
 
     ipcMain.handle('get-archive-entry-types', async () => {
@@ -495,8 +502,8 @@ class Main {
 
     // This is used by the Model Design View...
     //
-    ipcMain.handle('get-archive-entry', async (event, archiveEntryType, options) => {
-      return wdtArchive.getArchiveEntry(event.sender.getOwnerBrowserWindow(), archiveEntryType, options);
+    ipcMain.handle('wrc-get-archive-entry', async (event, archiveEntryType, options) => {
+      return wdtArchive.wrcGetArchiveEntry(event.sender.getOwnerBrowserWindow(), archiveEntryType, options);
     });
 
     ipcMain.handle('choose-java-home', async (event, defaultPath) => {

@@ -369,23 +369,120 @@
   "user-settings-file-save-failed-error-message": "Failed to save file {{userSettingsFile}}: {{error}}",
   "user-settings-deep-copy-failed-error-message": "Failed to make a deep copy of the user settings object: {{error}}",
 
-  "wdt-archiveType-atpWallet": "ATP Wallet",
+  "wdt-archiveType-application": "Application",
+  "wdt-archiveType-application-dirLabel": "Exploded Application Directory",
+  "wdt-archiveType-application-dirHelp": "Choose the full path to the exploded application directory",
+  "wdt-archiveType-application-fileLabel": "Application Archive File",
+  "wdt-archiveType-application-fileHelp": "Choose the full path to the application archive file",
+
+  "wdt-archiveType-applicationDeploymentPlan": "Application Deployment Plan",
+  "wdt-archiveType-applicationDeploymentPlan-fileLabel": "Application Deployment Plan File",
+  "wdt-archiveType-applicationDeploymentPlan-fileHelp": "Choose the full path to the application deployment plan file",
+
+  "wdt-archiveType-applicationInstallationDir": "Application Installation Directory",
+  "wdt-archiveType-applicationInstallationDir-dirLabel": "Application Installation Directory",
+  "wdt-archiveType-applicationInstallationDir-dirHelp": "Choose the full path to the application installation directory",
+
+  "wdt-archiveType-classpathLibrary": "Classpath Library",
+  "wdt-archiveType-classpathLibrary-dirLabel": "Classpath Library Directory",
+  "wdt-archiveType-classpathLibrary-dirHelp": "Choose the full path to the classpath library directory",
+  "wdt-archiveType-classpathLibrary-fileLabel": "Classpath Library Archive File",
+  "wdt-archiveType-classpathLibrary-fileHelp": "Choose the full path to the classpath library archive file",
+
+  "wdt-archiveType-coherenceClusterSegregationLabel": "Coherence Cluster Name",
+  "wdt-archiveType-coherenceClusterSegregationHelp": "Enter the name of the Coherence Cluster",
+
+  "wdt-archiveType-coherenceConfig": "Coherence Configuration File",
+  "wdt-archiveType-coherenceConfig-fileLabel": "Coherence Configuration File",
+  "wdt-archiveType-coherenceConfig-fileHelp": "Choose the full path to the Coherence configuration file",
+
+  "wdt-archiveType-coherenceStore": "Coherence Persistence Directory",
+  "wdt-archiveType-coherenceStore-activeLabel": "Active",
+  "wdt-archiveType-coherenceStore-snapshotLabel": "Snapshot",
+  "wdt-archiveType-coherenceStore-trashLabel": "Trash",
+  "wdt-archiveType-coherenceStore-emptyDirLabel": "Coherence Persistence Directory Name",
+  "wdt-archiveType-coherenceStore-emptyDirHelp": "Select the name of the Coherence persistence directory",
+
+  "wdt-archiveType-custom": "Custom Content",
+  "wdt-archiveType-custom-dirLabel": "Custom Content Directory",
+  "wdt-archiveType-custom-dirHelp": "Choose the full path to the custom content directory",
+  "wdt-archiveType-custom-fileLabel": "Custom Content File",
+  "wdt-archiveType-custom-fileHelp": "Choose the full path to the custom content file",
+  "wdt-archiveType-custom-pathLabel": "Custom Content Path Prefix",
+  "wdt-archiveType-custom-pathHelp": "Enter the optional path into the custom content area to place the added content.  The default is the root location",
+
+  "wdt-archiveType-databaseWallet": "Database Wallet",
+  "wdt-archiveType-databaseWallet-dirLabel": "Database Wallet Directory",
+  "wdt-archiveType-databaseWallet-dirHelp": "Choose the full path to the database wallet directory whose contents will be added under the specified wallet",
+  "wdt-archiveType-databaseWallet-fileLabel": "Database Wallet File",
+  "wdt-archiveType-databaseWallet-fileHelp": "Choose the full path to the database wallet file to add to the specified wallet",
+
+  "wdt-archiveType-dbWalletSegregationLabel": "Wallet Name",
+  "wdt-archiveType-dbWalletSegregationHelp": "Enter the name to of the database wallet to use",
+
+  "wdt-archiveType-domainBin": "DOMAIN_HOME/bin Directory Script",
+  "wdt-archiveType-domainBin-fileLabel": "$DOMAIN_HOME/bin Directory Script File",
+  "wdt-archiveType-domainBin-fileHelp": "Choose the full path to the $DOMAIN_HOME/bin directory script file",
+
+  "wdt-archiveType-domainLibrary": "DOMAIN_HOME/lib Directory Library",
+  "wdt-archiveType-domainLibrary-fileLabel": "$DOMAIN_HOME/lib Directory Library File",
+  "wdt-archiveType-domainLibrary-fileHelp": "Choose the full path to the $DOMAIN_HOME/lib directory library file",
+
+  "wdt-archiveType-fileStore": "File Store Directory",
+  "wdt-archiveType-fileStore-emptyDirLabel": "File Store Directory Name",
+  "wdt-archiveType-fileStore-emptyDirHelp": "Enter the name of the File Store directory to add",
+
+  "wdt-archiveType-jmsForeignServerSegregationLabel": "JMS Foreign Server Name",
+  "wdt-archiveType-jmsForeignServerSegregationHelp": "Enter the name of the JMS Foreign Server Name to use",
+
+  "wdt-archiveType-jmsForeignServerBinding": "JMS Foreign Server Binding",
+  "wdt-archiveType-jmsForeignServerBinding-fileLabel": "JMS Foreign Server Binding File",
+  "wdt-archiveType-jmsForeignServerBinding-fileHelp": "Choose the full path to the JMS Foreign Server binding file",
+
+  "wdt-archiveType-mimeMapping": "MIME Mapping File",
+  "wdt-archiveType-mimeMapping-fileLabel": "MIME Mapping File",
+  "wdt-archiveType-mimeMapping-fileHelp": "Choose the full path to the MIME mapping file",
+
+  "wdt-archiveType-nodeManagerKeystore": "Node Manager Keystore",
+  "wdt-archiveType-nodeManagerKeystore-fileLabel": "Node Manager Keystore File",
+  "wdt-archiveType-nodeManagerKeystore-fileHelp": "Choose the full path to the node manager keystore file",
+
   "wdt-archiveType-opssWallet": "OPSS Wallet",
+  "wdt-archiveType-opssWallet-dirLabel": "OPSS Wallet Directory",
+  "wdt-archiveType-opssWallet-dirHelp": "Choose the full path to the OPSS directory whose contents will be added to the OPSS wallet",
+  "wdt-archiveType-opssWallet-fileLabel": "OPSS Wallet File",
+  "wdt-archiveType-opssWallet-fileHelp": "Choose the full path to the OPSS wallet file to add to the OPSS wallet",
+
+  "wdt-archiveType-script": "Script",
+  "wdt-archiveType-script-fileLabel": "Script File",
+  "wdt-archiveType-script-fileHelp": "Choose the full path to the script file",
+
+  "wdt-archiveType-serverKeystore": "Server Keystore",
+  "wdt-archiveType-serverKeystore-fileLabel": "Server Keystore File",
+  "wdt-archiveType-serverKeystore-fileHelp": "Choose the full path to the server keystore file to add under the specific server",
+
+  "wdt-archiveType-serverSegregationLabel": "Server Name",
+  "wdt-archiveType-serverSegregationHelp": "Enter the name of the server to use",
+
+  "wdt-archiveType-sharedLibrary": "Shared Library",
+  "wdt-archiveType-sharedLibrary-dirLabel": "Exploded Shared Library Directory",
+  "wdt-archiveType-sharedLibrary-dirHelp": "Choose the full path to the exploded shared library directory",
+  "wdt-archiveType-sharedLibrary-fileLabel": "Shared Library Archive File",
+  "wdt-archiveType-sharedLibrary-fileHelp": "Choose the full path to the shared library archive file",
+
+  "wdt-archiveType-sharedLibraryDeploymentPlan": "Shared Library Deployment Plan",
+  "wdt-archiveType-sharedLibraryDeploymentPlan-fileLabel": "Shared Library Deployment Plan File",
+  "wdt-archiveType-sharedLibraryDeploymentPlan-fileHelp": "Choose the full path to the shared library deployment plan file",
+
+  "wdt-archiveType-atpWallet": "ATP Wallet",
   "wdt-archiveType-applicationFile": "Application File",
   "wdt-archiveType-applicationDir": "Application Directory",
-  "wdt-archiveType-applicationDeploymentPlan": "Application Deployment Plan",
-  "wdt-archiveType-classpathLibrary": "Classpath Library",
-  "wdt-archiveType-coherenceStore": "Coherence Store Directory",
   "wdt-archiveType-customFile": "Custom File",
   "wdt-archiveType-customDirectory": "Custom Directory",
-  "wdt-archiveType-domainBin": "Domain Script",
-  "wdt-archiveType-domainLibrary": "Domain Library",
   "wdt-archiveType-nodeManagerFile": "Node Manager File",
-  "wdt-archiveType-script": "Script",
   "wdt-archiveType-serverFileDir": "Server File Directory",
   "wdt-archiveType-sharedLibraryFile": "Shared Library File",
   "wdt-archiveType-sharedLibraryDir": "Shared Library Directory",
-  "wdt-archiveType-fileStore": "File Store Directory",
 
   "wdt-archive-invalid-archive-entry-type": "Unknown WebLogic Deploy Tooling archive entry type {{type}}",
   "wdt-archive-empty-file-system-path": "The path to the archive entry was empty",
