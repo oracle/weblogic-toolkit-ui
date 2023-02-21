@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const { constants } = require('fs');
@@ -21,6 +21,26 @@ async function isDirectory(filePath) {
       .then(stats => {
         if (stats) {
           resolve(stats.isDirectory());
+        } else {
+          resolve(false);
+        }
+      })
+      .catch(err => {
+        if (err.code === 'ENOENT') {
+          resolve(false);
+        } else {
+          reject(err);
+        }
+      });
+  });
+}
+
+async function isFile(filePath) {
+  return new Promise((resolve, reject) => {
+    fsPromises.lstat(filePath)
+      .then(stats => {
+        if (stats) {
+          resolve(stats.isFile());
         } else {
           resolve(false);
         }
@@ -358,6 +378,7 @@ module.exports = {
   getFilesRecursivelyFromDirectory,
   getRelativePath,
   isDirectory,
+  isFile,
   isRootDirectory,
   isValidFileName,
   makeDirectoryIfNotExists,

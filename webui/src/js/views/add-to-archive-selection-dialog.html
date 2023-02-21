@@ -1,0 +1,102 @@
+<!--
+ Copyright (c) 2021, 2023, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<oj-dialog id="addToArchiveSelectionDialog" class="wkt-add-to-archive-dialog" initial-visibility="hide">
+  <div slot="header">
+    <span id="dialog-title-id" class="oj-dialog-title"><oj-bind-text value="[[labelMapper('title')]]"></oj-bind-text></span>
+  </div>
+  <div slot="body">
+    <oj-validation-group id="tracker">
+    <div class="oj-panel">
+      <oj-form-layout max-columns="1" direction="row">
+        <oj-select-single label-hint="[[labelMapper('entry-type-label')]]"
+                          data="{{archiveEntryTypesProvider}}"
+                          value="{{archiveEntryType}}"
+                          help.instruction="[[labelMapper('entry-type-help')]]"
+                          required="true">
+        </oj-select-single>
+
+        <oj-bind-if test="[[showSegregatedNameField() === true]]">
+          <oj-input-text label-hint="{{segregationLabel}}"
+                         value="{{segregationName}}"
+                         validators="[[[segregatedNameValidator]]]"
+                         help.instruction="{{segregationHelp}}"
+                         required="true">
+          </oj-input-text>
+        </oj-bind-if>
+
+        <oj-bind-if test="[[showCustomPathField() === true]]">
+          <oj-input-text label-hint="[[customPathLabel()]]"
+                         value="{{customPathValue}}"
+                         validators="[[[customPathValidator]]]"
+                         help.instruction="[[customPathHelp()]]">
+          </oj-input-text>
+        </oj-bind-if>
+
+        <oj-bind-if test="[[showFileOrDirectorySelector() === true]]">
+          <oj-radioset id="archiveFileOrDirectorySelector"
+                       label-hint="[[labelMapper('file-or-directory-selector-label')]]"
+                       value="{{fileOrDirectory}}"
+                       options="{{fileDirectoryRadioButtonsDP}}"
+                       help.instruction="[[labelMapper('file-or-directory-selector-help')]]">
+          </oj-radioset>
+        </oj-bind-if>
+        <oj-bind-if test="[[showFileNameChooser() === true]]">
+          <oj-bind-if test="[[sourceFileNameIsFile() === true]]">
+            <oj-input-text label-hint="{{fileNameSourceLabel}}"
+                           value="{{fileNameSourcePath}}"
+                           help.instruction="{{fileNameSourceHelp}}"
+                           required="true">
+              <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[chooseSourceLocation]]">
+                <span slot="endIcon" class="oj-ux-ico-file-text" role="img"></span>
+                <oj-bind-text value="Source "></oj-bind-text>
+              </oj-button>
+            </oj-input-text>
+          </oj-bind-if>
+
+          <oj-bind-if test="[[sourceFileNameIsDir() === true]]">
+            <oj-input-text label-hint="{{fileNameSourceLabel}}"
+                           value="{{fileNameSourcePath}}"
+                           help.instruction="{{fileNameSourceHelp}}"
+                           required="true">
+              <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[chooseSourceLocation]]">
+                <span slot="endIcon" class="oj-ux-ico-folder" role="img"></span>
+                <oj-bind-text value="Source "></oj-bind-text>
+              </oj-button>
+            </oj-input-text>
+          </oj-bind-if>
+        </oj-bind-if>
+
+        <oj-bind-if test="[[showEmptyDirField() === true]]">
+          <oj-bind-if test="[[emptyDirIsSelect() === true]]">
+            <oj-select-single label-hint="{{emptyDirLabel}}"
+                              data="{{coherencePersistenceDirectoryTypesDP}}"
+                              value="{{emptyDirValue}}"
+                              help.instruction="{{emptyDirHelp}}"
+                              required="true">
+            </oj-select-single>
+          </oj-bind-if>
+          <oj-bind-if test="[[emptyDirIsSelect() === false]]">
+            <oj-input-text label-hint="{{emptyDirLabel}}"
+                           value="{{emptyDirValue}}"
+                           validators="[[[segregatedNameValidator]]]"
+                           help.instruction="{{emptyDirHelp}}"
+                           required="true">
+            </oj-input-text>
+          </oj-bind-if>
+        </oj-bind-if>
+      </oj-form-layout>
+    </div>
+    </oj-validation-group>
+  </div>
+
+  <div slot="footer">
+    <oj-button id="okButton" on-oj-action="[[addToArchive]]">
+      <span><oj-bind-text value="[[anyLabelMapper('dialog-button-ok')]]"></oj-bind-text></span>
+    </oj-button>
+    <oj-button id="cancelButton" on-oj-action="[[cancelAdd]]">
+      <span><oj-bind-text value="[[anyLabelMapper('dialog-button-cancel')]]"></oj-bind-text></span>
+    </oj-button>
+  </div>
+</oj-dialog>
