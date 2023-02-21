@@ -193,7 +193,7 @@ pipeline {
                     }
                 }
                 stage('MacOS Build') {
-                    agent { label('wls-mini1 || wls-mini2') }
+                    agent { label('macosx') }
                     environment {
                         mac_node_dir_name = "node-v${node_version}-darwin-x64"
                         mac_node_installer = "node-v${node_version}-darwin-x64.tar.gz"
