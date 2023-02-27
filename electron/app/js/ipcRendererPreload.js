@@ -180,6 +180,7 @@ contextBridge.exposeInMainWorld(
           'do-push-image',
           'kubectl-get-current-context',
           'kubectl-set-current-context',
+          'kubectl-get-contexts',
           'validate-kubectl-exe',
           'kubectl-verify-connection',
           'validate-helm-exe',

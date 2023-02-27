@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -13,11 +13,11 @@ function(WktActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, val
       super();
     }
 
-    async startVerifyClusterConnectivity() {
-      await this.executeAction(this.callVerifyClusterConnectivity);
+    async startVerifyClusterConnectivity(kubeConfig, kubeContext) {
+      await this.executeAction(this.callVerifyClusterConnectivity, kubeConfig, kubeContext);
     }
 
-    async callVerifyClusterConnectivity(options) {
+    async callVerifyClusterConnectivity(kubeConfig, kubeContext, options) {
       if (!options) {
         options = {};
       }
@@ -56,8 +56,8 @@ function(WktActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, val
 
         busyDialogMessage = i18n.t('flow-kubectl-use-context-in-progress');
         dialogHelper.updateBusyDialog(busyDialogMessage, 2/totalSteps);
-        const kubectlContext = this.project.kubectl.kubeConfigContextToUse.value;
-        const kubectlOptions = this.getKubectlOptions();
+        const kubectlContext = kubeContext || this.project.kubectl.kubeConfigContextToUse.value;
+        const kubectlOptions = this.getKubectlOptions(kubeConfig);
         if (!options.skipKubectlSetContext) {
           if (! await this.useKubectlContext(kubectlExe, kubectlOptions, kubectlContext, errTitle, errPrefix)) {
             return Promise.resolve(false);
