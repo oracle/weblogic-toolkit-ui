@@ -281,6 +281,7 @@
 
   "kubectl-current-context-error-message": "Failed to get the current kubectl cluster context: {{error}}",
   "kubectl-use-context-error-message": "Failed to change the current kubectl cluster context to {{context}}: {{error}}",
+  "kubectl-get-contexts-error-message": "Failed to get the available kubectl contexts: {{error}}",
   "kubectl-not-specified-error-message": "Kubernetes client path was not provided",
   "kubectl-not-exists-error-message": "Kubernetes client {{filePath}} does not exist",
   "kubectl-exists-failed-error-message": "Unable to verify Kubernetes client {{filePath}} exists: {{error}}",
@@ -322,6 +323,8 @@
   "kubectl-get-vz-application-status-error-message": "Unable to get Verrazzano application status: {{error}}",
   "kubectl-get-operator-version-not-found-error-message": "Failed to find the operator version from its log entries",
   "kubectl-verify-vz-components-deployed-error-message": "Unable to find one or more components in namespace {{namespace}}: {{missingComponents}}",
+  "kubectl-get-vz-ingress-external-address-not-found": "Unable to find the External IP Address in the Istio Gateway service {{gatewayService}} in Kubernetes namespace {{gatewayNamespace}}",
+  "kubectl-get-vz-ingress-external-address-error-message": "Failed to find the External IP Address in the Istio Gateway service {{gatewayService}} in Kubernetes namespace {{gatewayNamespace}}: {{error}}",
 
   "helm-not-specified-error-message": "Helm executable path was not provided",
   "helm-not-exists-error-message": "Helm executable {{filePath}} does not exist",

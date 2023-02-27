@@ -1,15 +1,15 @@
 /**
  * @license
- * Copyright (c) 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2022, 2023, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
 
 define(['utils/vz-actions-base', 'models/wkt-project', 'models/wkt-console', 'utils/i18n', 'utils/project-io',
   'utils/dialog-helper', 'utils/k8s-domain-resource-generator', 'utils/k8s-domain-configmap-generator',
-  'utils/validation-helper', 'utils/helm-helper', 'utils/wkt-logger'],
+  'utils/validation-helper', 'utils/wkt-logger', 'utils/helm-helper'],
 function (VzActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, K8sDomainResourceGenerator,
-  K8sDomainConfigMapGenerator, validationHelper) {
+  K8sDomainConfigMapGenerator, validationHelper, wktLogger) {
   class VerrazzanoApplicationStatusChecker extends VzActionsBase {
     constructor() {
       super();
@@ -86,6 +86,7 @@ function (VzActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, K8s
         const applicationStatusResult = await window.api.ipc.invoke('vz-get-application-status', kubectlExe,
           this.project.vzApplication.applicationName.value, this.project.k8sDomain.uid.value,
           this.project.k8sDomain.kubernetesNamespace.value, kubectlOptions);
+        wktLogger.debug('applicationStatusResult = %s', JSON.stringify(applicationStatusResult, null, 2));
         if (!applicationStatusResult.isSuccess) {
           const errMessage = i18n.t('vz-application-status-checker-get-status-failed-error-message',
             {error: applicationStatusResult.reason});

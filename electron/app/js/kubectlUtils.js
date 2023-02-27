@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -85,6 +85,30 @@ async function setCurrentContext(kubectlExe, context, options) {
     }).catch(err => {
       results.isSuccess = false;
       results.reason = i18n.t('kubectl-use-context-error-message', { context: context, error: getErrorMessage(err) });
+      resolve(results);
+    });
+  });
+}
+
+async function getContexts(kubectlExe, options) {
+  const args = [ 'config', 'get-contexts', '--output=name' ];
+  const httpsProxyUrl = getHttpsProxyUrl();
+  const bypassProxyHosts = getBypassProxyHosts();
+  const env = getKubectlEnvironment(options, httpsProxyUrl, bypassProxyHosts);
+  const results = {
+    isSuccess: true
+  };
+
+  return new Promise(resolve => {
+    executeFileCommand(kubectlExe, args, env).then(currentContext => {
+      results['contexts'] = currentContext.trim().split('\n');
+      getLogger().debug('getContexts result = %s', results['contexts']);
+      resolve(results);
+    }).catch(err => {
+      // kubectl config get-contexts returns an error if the config file doesn't exist...
+      results.isSuccess = false;
+      results.reason =
+        i18n.t('kubectl-get-contexts-error-message',{ error: getErrorMessage(err) });
       resolve(results);
     });
   });
@@ -1018,6 +1042,78 @@ async function doCreateSecret(kubectlExe, createArgs, env, namespace, secret, re
   });
 }
 
+async function getVerrazzanoIngressExternalAddress(kubectlExe, options) {
+  const gatewayService = 'istio-ingressgateway';
+  const gatewayNamespace = 'istio-system';
+
+  const args = [ 'get', 'service', gatewayService, '-n', gatewayNamespace, '-o', 'json'];
+  const httpsProxyUrl = getHttpsProxyUrl();
+  const bypassProxyHosts = getBypassProxyHosts();
+  const env = getKubectlEnvironment(options, httpsProxyUrl, bypassProxyHosts);
+  const results = {
+    isSuccess: true
+  };
+
+  return new Promise(resolve => {
+    executeFileCommand(kubectlExe, args, env).then(serviceJson => {
+      const service = JSON.parse(serviceJson);
+      const ingressArray = service.status?.loadBalancer?.ingress;
+
+      if (Array.isArray(ingressArray) && ingressArray.length > 0) {
+        results.externalAddress = ingressArray[0].ip;
+      }
+      if (!results.externalAddress) {
+        results.reason = i18n.t('kubectl-get-vz-ingress-external-address-not-found',
+          { gatewayService, gatewayNamespace });
+      }
+      resolve(results);
+    }).catch(err => {
+      results.isSuccess = false;
+      results.reason =
+        i18n.t('kubectl-get-vz-ingress-external-address-error-message',
+          { gatewayService, gatewayNamespace, error: getErrorMessage(err) });
+      resolve(results);
+    });
+  });
+}
+
+async function getVerrazzanoApplicationHostnames(kubectlExe, applicationName, applicationNamespace, options) {
+  const gatewayType = 'gateways.networking.istio.io';
+  const appGatewayName = `${applicationNamespace}-${applicationName}-gw`;
+
+  const args = [ 'get', gatewayType, appGatewayName, '-n', applicationNamespace, '-o', 'json'];
+  const httpsProxyUrl = getHttpsProxyUrl();
+  const bypassProxyHosts = getBypassProxyHosts();
+  const env = getKubectlEnvironment(options, httpsProxyUrl, bypassProxyHosts);
+  const results = {
+    isSuccess: true
+  };
+
+  return new Promise(resolve => {
+    executeFileCommand(kubectlExe, args, env).then(gatewayJson => {
+      const gateway = JSON.parse(gatewayJson);
+      const serversArray = gateway.spec?.servers;
+      if (Array.isArray(serversArray) && serversArray.length > 0) {
+        const hostsArray = serversArray[0].hosts;
+        if (Array.isArray(hostsArray) && hostsArray.length > 0) {
+          results.hostnames = hostsArray;
+        }
+      }
+      if (results.hostnames) {
+        results.reason = i18n.t('kubectl-get-vz-app-hostnames-not-found',
+          { appName: applicationName, appNamespace: applicationNamespace });
+      }
+      resolve(results);
+    }).catch(err => {
+      results.isSuccess = false;
+      results.reason =
+        i18n.t('kubectl-get-vz-app-hostnames-error-message',
+          { appName: applicationName, appNamespace: applicationNamespace, error: getErrorMessage(err) });
+      resolve(results);
+    });
+  });
+}
+
 function maskPasswordInCommand(err) {
   // How about other cases?
   return err.replace(/--docker-password=[^\s]+/, '--docker-password=*****');
@@ -1075,6 +1171,7 @@ module.exports = {
   createOrReplacePullSecret,
   createOrReplaceTLSSecret,
   createServiceAccountIfNotExists,
+  getContexts,
   getCurrentContext,
   getOperatorVersion,
   isOperatorAlreadyInstalled,
@@ -1086,6 +1183,8 @@ module.exports = {
   getIngresses,
   getK8sConfigView,
   getK8sClusterInfo,
+  getVerrazzanoApplicationHostnames,
+  getVerrazzanoIngressExternalAddress,
   getWkoDomainStatus,
   getApplicationStatus,
   getOperatorStatus,

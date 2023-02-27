@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -22,7 +22,7 @@ function(project, wktConsole, i18n, projectIo, dialogHelper,
 
     // Execute the specified async action method if no other action is in progress.
     // If another action is in progress, log a message and cancel the new action.
-    async executeAction(asyncMethod) {
+    async executeAction(asyncMethod, ...args) {
       const description = asyncMethod.name;
       if (actionInProgress) {
         wktLogger.info('Cancelling action ' + description + ' because ' + actionInProgress + ' is in progress');
@@ -30,7 +30,7 @@ function(project, wktConsole, i18n, projectIo, dialogHelper,
         wktLogger.debug('starting action ' + description);
         actionInProgress = description;
         try {
-          await asyncMethod.call(this);
+          await asyncMethod.call(this, ...args);
         } finally {
           wktLogger.debug('action ' + description + ' complete');
           actionInProgress = null;
@@ -54,9 +54,9 @@ function(project, wktConsole, i18n, projectIo, dialogHelper,
       };
     }
 
-    getKubectlOptions() {
+    getKubectlOptions(kubeConfig = undefined) {
       return {
-        kubeConfig: this.project.kubectl.kubeConfig.value,
+        kubeConfig: kubeConfig || this.project.kubectl.kubeConfig.value,
         extraPathDirectories: this.getExtraPathDirectoriesArray(this.project.settings.extraPathDirectories.value),
         extraEnvironmentVariables: this.getExtraEnvironmentVariablesObject(this.project.settings.extraEnvironmentVariables.value)
       };

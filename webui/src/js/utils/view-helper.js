@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -12,6 +12,7 @@ define(['ojs/ojcontext'],
       // width of button column in WKT tables.
       // ideally this could be specified as 'auto', but oj-table will not set below 100px.
       this.BUTTON_COLUMN_WIDTH = '55px';
+      this.TEXT_BUTTON_COLUMN_WIDTH = '175px';
 
       const thisHelper = this;
 

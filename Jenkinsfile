@@ -1,9 +1,12 @@
 /*
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 pipeline {
     agent { label 'ol8' }
+    options {
+        timeout(time: 480, unit: 'MINUTES')
+    }
     environment {
         WKTUI_PROXY = "${env.ORACLE_HTTP_PROXY}"
         ELECTRON_GET_USE_PROXY = "true"
@@ -54,6 +57,9 @@ pipeline {
             parallel {
                 stage('Linux Build') {
                     agent { label 'ol8' }
+                    options {
+                        timeout(time: 300, unit: 'MINUTES')
+                    }
                     environment {
                         linux_node_dir_name = "node-v${node_version}-linux-x64"
                         linux_node_installer = "${linux_node_dir_name}.tar.gz"
@@ -194,6 +200,9 @@ pipeline {
                 }
                 stage('MacOS Build') {
                     agent { label('macosx') }
+                    options {
+                        timeout(time: 300, unit: 'MINUTES')
+                    }
                     environment {
                         mac_node_dir_name = "node-v${node_version}-darwin-x64"
                         mac_node_installer = "node-v${node_version}-darwin-x64.tar.gz"
@@ -301,6 +310,9 @@ pipeline {
                 }
                 stage('Windows Build') {
                     agent { label 'windows'}
+                    options {
+                        timeout(time: 300, unit: 'MINUTES')
+                    }
                     environment {
                         windows_node_dir_name = "node-v${node_version}-win-x64"
                         windows_node_installer = "node-v${node_version}-win-x64.zip"

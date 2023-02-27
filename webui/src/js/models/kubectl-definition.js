@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -22,6 +22,7 @@ define(['utils/observable-properties'],
         executableFilePath: props.createProperty(window.api.k8s.getKubectlFilePath()),
         kubeConfigContextToUse: props.createProperty(),
         helmExecutableFilePath: props.createProperty(window.api.k8s.getHelmFilePath()),
+        vzManagedClusters: props.createListProperty(['uid', 'name', 'kubeConfig', 'KubeContext']).persistByKey('uid'),
 
         readFrom: function(json) {
           props.createGroup(name, this).readFrom(json);

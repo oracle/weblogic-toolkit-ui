@@ -755,6 +755,10 @@ class Main {
       return kubectlUtils.setCurrentContext(kubectlExe, context, kubectlOptions);
     });
 
+    ipcMain.handle('kubectl-get-contexts', async (event, kubectlExe, kubectlOptions) => {
+      return kubectlUtils.getContexts(kubectlExe, kubectlOptions);
+    });
+
     ipcMain.handle('validate-kubectl-exe', async (event, kubectlExe) => {
       return kubectlUtils.validateKubectlExe(kubectlExe);
     });
