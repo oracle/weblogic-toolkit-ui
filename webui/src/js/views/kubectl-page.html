@@ -5,6 +5,15 @@
 <div class="wkt-content-layout">
   <div class="wkt-content-top-bar wkt-no-tabs">
     <h6><oj-bind-text value="[[labelMapper('title')]]"></oj-bind-text></h6>
+    <oj-button id="verifyKubectlConnectionButton"
+               disabled="[[disableVerify]]"
+               chroming="callToAction"
+               on-oj-action="[[verifyKubectlConnectivity]]"
+               :title="[[labelMapper('hints-verifyKubectlConnectivity')]]">
+      <span>
+        <oj-bind-text value="[[labelMapper('button-verifyKubectlConnectivity')]]"></oj-bind-text>
+      </span>
+    </oj-button>
   </div>
   <div class="wkt-content">
     <div class="oj-panel wkt-notop">
@@ -56,18 +65,7 @@
       </oj-form-layout>
     </div>
     <div class="oj-panel" id="kubeconfig">
-      <div class="wkt-header-button-row">
-        <h6 class="wkt-subheading"><oj-bind-text value="[[getConnectivityHeading]]"></oj-bind-text></h6>
-        <oj-button id="verifyKubectlConnectionButton"
-                   disabled="[[disableVerify]]"
-                   chroming="callToAction"
-                   on-oj-action="[[verifyKubectlConnectivity]]"
-                   :title="[[labelMapper('hints-verifyKubectlConnectivity')]]">
-          <span>
-            <oj-bind-text value="[[labelMapper('button-verifyKubectlConnectivity')]]"></oj-bind-text>
-          </span>
-        </oj-button>
-      </div>
+      <h6 class="wkt-subheading"><oj-bind-text value="[[getConnectivityHeading]]"></oj-bind-text></h6>
       <oj-form-layout max-columns="2" direction="row">
         <oj-input-text label-hint="[[labelMapper('config-file-label')]]"
                        value="{{project.kubectl.kubeConfig.observable}}"
@@ -93,83 +91,68 @@
     </div>
     <oj-bind-if test="[[usingWko() === false]]">
       <div class="oj-panel">
-        <div class="wkt-content-top-bar">
-          <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('vz-managed-clusters-heading')]]"></oj-bind-text></h6>
-        </div>
-        <div>
-          <oj-table class="wkt-vz-managed-clusters-table"
-                    :aria-label="[[labelMapper('vz-managed-clusters-table-aria-label')]]"
-                    data="[[vzManagedClustersDP]]"
-                    edit-mode="rowEdit"
-                    display="grid"
-                    layout="fixed"
-                    horizontal-grid-visible="enabled"
-                    vertical-grid-visible="enabled"
-                    columns='[[vzManagedClustersColumnData]]'>
-            <template slot="rowTemplate" data-oj-as="row">
-              <tr>
-                <oj-bind-if test='[[row.mode=="navigation"]]'>
-                  <td><oj-bind-text value="[[row.data.name]]"></oj-bind-text></td>
-                  <td><oj-bind-text value="[[row.data.kubeConfig]]"></oj-bind-text></td>
-                  <td><oj-bind-text value="[[row.data.kubeContext]]"></oj-bind-text></td>
-                </oj-bind-if>
-                <oj-bind-if test='[[row.mode=="edit"]]'>
-                  <td>
-                    <oj-input-text value="{{row.data.name}}"
-                                   required="true"
-                                   help.instruction="[[labelMapper('vz-managed-cluster-name-help')]]">
-                    </oj-input-text>
-                  </td>
-                  <td>
-                    <oj-input-text value="{{row.data.kubeConfig}}"
-                                   help.instruction="[[labelMapper('vz-managed-cluster-kubeconfig-help')]]">
-                      <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[chooseManagedKubeConfig]]">
-                        <span slot="endIcon" class="oj-ux-ico-file-text" role="img"></span>
-                        <oj-bind-text value="[[labelMapper('config-file-tooltip')]]"></oj-bind-text>
-                      </oj-button>
-                    </oj-input-text>
-                  </td>
-                  <td>
-                    <oj-input-text value="{{row.data.kubeContext}}"
-                                   help.instruction="[[labelMapper('vz-managed-cluster-kubecontext-help')]]">
-                      <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[chooseManagedContext]]">
-                        <span slot="endIcon" class="oj-ux-ico-audits" role="img"></span>
-                        <oj-bind-text value="[[labelMapper('vz-managed-cluster-choose-kubecontext-tooltip')]]"></oj-bind-text>
-                      </oj-button>
-                      <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[getManagedCurrentContext]]">
-                        <span slot="endIcon" class="oj-ux-ico-annotation" role="img"></span>
-                        <oj-bind-text value="[[labelMapper('vz-managed-cluster-get-context-tooltip')]]"></oj-bind-text>
-                      </oj-button>
-                    </oj-input-text>
-                  </td>
-                </oj-bind-if>
+        <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('vz-managed-clusters-heading')]]"></oj-bind-text></h6>
+        <oj-table class="wkt-vz-managed-clusters-table"
+                  :aria-label="[[labelMapper('vz-managed-clusters-table-aria-label')]]"
+                  data="[[vzManagedClustersDP]]"
+                  edit-mode="rowEdit"
+                  display="grid"
+                  layout="fixed"
+                  horizontal-grid-visible="enabled"
+                  vertical-grid-visible="enabled"
+                  columns='[[vzManagedClustersColumnData]]'>
+          <template slot="rowTemplate" data-oj-as="row">
+            <tr>
+              <oj-bind-if test='[[row.mode=="navigation"]]'>
+                <td><oj-bind-text value="[[row.data.name]]"></oj-bind-text></td>
+                <td><oj-bind-text value="[[row.data.kubeConfig]]"></oj-bind-text></td>
+                <td><oj-bind-text value="[[row.data.kubeContext]]"></oj-bind-text></td>
+              </oj-bind-if>
+              <oj-bind-if test='[[row.mode=="edit"]]'>
                 <td>
-                  <oj-button id="verifyManagedClusterConnectionButton"
-                             disabled="[[disableVerify]]"
-                             chroming="callToAction"
-                             on-oj-action="[[verifyManagedClusterConnectivity]]"
-                             :title="[[labelMapper('hints-verifyKubectlConnectivity')]]">
-                    <span>
-                      <oj-bind-text value="[[labelMapper('button-verifyKubectlConnectivity')]]"></oj-bind-text>
-                    </span>
-                  </oj-button>
+                  <oj-input-text value="{{row.data.name}}"
+                                 required="true"
+                                 help.instruction="[[labelMapper('vz-managed-cluster-name-help')]]">
+                  </oj-input-text>
                 </td>
                 <td>
-                  <oj-button display="icons" chroming="borderless" on-oj-action="[[handleDeleteManagedCluster]]">
-                    <span slot="endIcon" class="oj-ux-ico-trash"></span>
-                    <oj-bind-text value="{{labelMapper('vz-managed-clusters-delete-row-tooltip')}}"></oj-bind-text>
-                  </oj-button>
+                  <oj-input-text value="{{row.data.kubeConfig}}"
+                                 help.instruction="[[labelMapper('vz-managed-cluster-kubeconfig-help')]]">
+                    <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[chooseManagedKubeConfig]]">
+                      <span slot="endIcon" class="oj-ux-ico-file-text" role="img"></span>
+                      <oj-bind-text value="[[labelMapper('config-file-tooltip')]]"></oj-bind-text>
+                    </oj-button>
+                  </oj-input-text>
                 </td>
-              </tr>
-            </template>
-            <template slot="headerTemplate" data-oj-as="header">
-              <oj-button display="icons" chroming="borderless" on-oj-action="[[handleAddManagedCluster]]">
-                <span slot="endIcon" class="oj-ux-ico-plus"></span>
-                <oj-bind-text value="{{labelMapper('vz-managed-clusters-add-row-tooltip')}}"></oj-bind-text>
-              </oj-button>
-            </template>
-          </oj-table>
-        </div>
+                <td>
+                  <oj-input-text value="{{row.data.kubeContext}}"
+                                 help.instruction="[[labelMapper('vz-managed-cluster-kubecontext-help')]]">
+                    <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[chooseManagedContext]]">
+                      <span slot="endIcon" class="oj-ux-ico-audits" role="img"></span>
+                      <oj-bind-text value="[[labelMapper('vz-managed-cluster-choose-kubecontext-tooltip')]]"></oj-bind-text>
+                    </oj-button>
+                    <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[getManagedCurrentContext]]">
+                      <span slot="endIcon" class="oj-ux-ico-annotation" role="img"></span>
+                      <oj-bind-text value="[[labelMapper('vz-managed-cluster-get-context-tooltip')]]"></oj-bind-text>
+                    </oj-button>
+                  </oj-input-text>
+                </td>
+              </oj-bind-if>
+              <td>
+                <oj-button display="icons" chroming="borderless" on-oj-action="[[handleDeleteManagedCluster]]">
+                  <span slot="endIcon" class="oj-ux-ico-trash"></span>
+                  <oj-bind-text value="{{labelMapper('vz-managed-clusters-delete-row-tooltip')}}"></oj-bind-text>
+                </oj-button>
+              </td>
+            </tr>
+          </template>
+          <template slot="headerTemplate" data-oj-as="header">
+            <oj-button display="icons" chroming="borderless" on-oj-action="[[handleAddManagedCluster]]">
+              <span slot="endIcon" class="oj-ux-ico-plus"></span>
+              <oj-bind-text value="{{labelMapper('vz-managed-clusters-add-row-tooltip')}}"></oj-bind-text>
+            </oj-button>
+          </template>
+        </oj-table>
       </div>
     </oj-bind-if>
   </div>

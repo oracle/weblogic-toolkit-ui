@@ -7,7 +7,7 @@
 
 define(['utils/vz-actions-base', 'models/wkt-project', 'models/wkt-console', 'utils/i18n', 'utils/project-io',
   'utils/dialog-helper', 'utils/k8s-domain-resource-generator', 'utils/k8s-domain-configmap-generator',
-  'utils/validation-helper', 'utils/wkt-logger', 'utils/helm-helper'],
+  'utils/validation-helper', 'utils/wkt-logger'],
 function (VzActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, K8sDomainResourceGenerator,
   K8sDomainConfigMapGenerator, validationHelper, wktLogger) {
   class VerrazzanoApplicationStatusChecker extends VzActionsBase {
@@ -29,11 +29,31 @@ function (VzActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, K8s
         return Promise.resolve(false);
       }
 
+      let clusterToCheck;
+      const targetClusters = this._getTargetClusters();
+      if (targetClusters.length > 1) {
+        const args = [ ];
+        targetClusters.forEach(targetCluster => args.push({ name:targetCluster, label: targetCluster }));
+        const result = await dialogHelper.promptDialog('vz-application-status-choose-cluster-dialog',
+          { targetClusters: args });
+        if (result?.clusterName) {
+          clusterToCheck = result.clusterName;
+        } else {
+          return Promise.resolve(false);
+        }
+      } else if (targetClusters.length === 1) {
+        clusterToCheck = targetClusters[0];
+      }
+
+      const managedClusterData = this._getTargetCluster(clusterToCheck);
+      const targetClusterKubeConfig = managedClusterData ? managedClusterData.kubeConfig : undefined;
+      const targetClusterKubeContext = managedClusterData ? managedClusterData.kubeContext : undefined;
+
       const totalSteps = 8.0;
       try {
         const kubectlExe = this.getKubectlExe();
-        const kubectlOptions = this.getKubectlOptions();
-        const kubectlContext = this.getKubectlContext();
+        const kubectlOptions = this.getKubectlOptions(targetClusterKubeConfig);
+        const kubectlContext = targetClusterKubeContext || this.getKubectlContext();
         let operatorMajorVersion = '';
 
         let busyDialogMessage = i18n.t('flow-validate-kubectl-exe-in-progress');
@@ -113,6 +133,7 @@ function (VzActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, K8s
         const results = this.buildDomainStatus(domainStatus, operatorMajorVersion);
         results['domainStatus'] = domainStatus;
         const options = {
+          clusterName: clusterToCheck,
           domainStatus: results.domainStatus,
           domainOverallStatus: results.domainOverallStatus,
           applicationName: this.project.vzApplication.applicationName.value,
@@ -135,6 +156,10 @@ function (VzActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, K8s
         this.project.vzApplication.applicationName.validate(true));
       validationObject.addField('vz-application-design-namespace-label',
         this.project.k8sDomain.kubernetesNamespace.validate(true));
+      if (this.project.vzApplication.useMultiClusterApplication.value) {
+        validationObject.addField('vz-application-design-cluster-names-label',
+          validationHelper.validateRequiredField(this.project.vzApplication.placementClusters.value));
+      }
 
       const componentFormConfig = validationObject.getDefaultConfigObject();
       componentFormConfig.formName = 'vz-component-design-form-name';
@@ -145,10 +170,51 @@ function (VzActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, K8s
       kubectlFormConfig.formName = 'kubectl-title';
       validationObject.addField('kubectl-exe-file-path-label',
         validationHelper.validateRequiredField(this.project.kubectl.executableFilePath.value), kubectlFormConfig);
-      validationObject.addField('kubectl-helm-exe-file-path-label',
-        validationHelper.validateRequiredField(this.project.kubectl.helmExecutableFilePath.value), kubectlFormConfig);
+
+      if (this.project.vzApplication.useMultiClusterApplication.value) {
+        const targetClusters = this.project.vzApplication.placementClusters.value;
+        if (targetClusters.length > 0) {
+          for (const targetCluster of targetClusters) {
+            if (targetCluster !== 'local') {
+              this._validateVerrazzanoManagedClusterConnectivityEntry(validationObject, kubectlFormConfig, targetCluster);
+            }
+          }
+        }
+      }
 
       return validationObject;
+    }
+
+    _getTargetClusters() {
+      if (this.project.vzApplication.useMultiClusterApplication.value) {
+        return this.project.vzApplication.placementClusters.value;
+      } else {
+        return ['local'];
+      }
+    }
+
+    _getTargetCluster(clusterName) {
+      if (clusterName !== 'local') {
+        return this.project.kubectl.vzManagedClusters.observable().find(managedCluster =>
+          managedCluster.name === clusterName);
+      }
+    }
+
+    _validateVerrazzanoManagedClusterConnectivityEntry(validationObject, kubectlFormConfig, targetManagedClusterName) {
+      let found = false;
+      for (const managedClusterData of this.project.kubectl.vzManagedClusters.observable()) {
+        if (targetManagedClusterName === managedClusterData.name) {
+          found = true;
+          break;
+        }
+      }
+
+      if (!found) {
+        const errorMessage = i18n.t('vz-application-status-checker-vz-managed-cluster-not-found-error',
+          { clusterName: targetManagedClusterName});
+        validationObject.addField('kubectl-vz-managed-cluster-name-heading',
+          [errorMessage], kubectlFormConfig);
+      }
     }
   }
 

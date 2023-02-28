@@ -13,11 +13,11 @@ function(WktActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, val
       super();
     }
 
-    async startVerifyClusterConnectivity(kubeConfig, kubeContext) {
-      await this.executeAction(this.callVerifyClusterConnectivity, kubeConfig, kubeContext);
+    async startVerifyClusterConnectivity() {
+      await this.executeAction(this.callVerifyClusterConnectivity);
     }
 
-    async callVerifyClusterConnectivity(kubeConfig, kubeContext, options) {
+    async callVerifyClusterConnectivity(options) {
       if (!options) {
         options = {};
       }
@@ -30,6 +30,27 @@ function(WktActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, val
         dialogHelper.openDialog('validation-error-dialog', validationErrorDialogConfig);
         return Promise.resolve(false);
       }
+
+      let clusterToCheck;
+      const availableClusters = this._getTargetClusters();
+      if (availableClusters.length > 1) {
+        const args = [ ];
+        availableClusters.forEach(availableCluster => args.push({
+          name: availableCluster.name,
+          label: availableCluster.name
+        }));
+        const result = await dialogHelper.promptDialog('k8s-helper-choose-cluster-dialog',
+          { availableClusters: args });
+        if (result?.clusterName) {
+          clusterToCheck = result.clusterName;
+        } else {
+          return Promise.resolve(false);
+        }
+      } else if (availableClusters.length === 1) {
+        clusterToCheck = availableClusters[0].name;
+      }
+
+      const { targetClusterKubeConfig, targetClusterKubeContext } = this._getTargetCluster(clusterToCheck);
 
       const totalSteps = 4.0;
       try {
@@ -56,8 +77,8 @@ function(WktActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, val
 
         busyDialogMessage = i18n.t('flow-kubectl-use-context-in-progress');
         dialogHelper.updateBusyDialog(busyDialogMessage, 2/totalSteps);
-        const kubectlContext = kubeContext || this.project.kubectl.kubeConfigContextToUse.value;
-        const kubectlOptions = this.getKubectlOptions(kubeConfig);
+        const kubectlContext = targetClusterKubeContext || this.project.kubectl.kubeConfigContextToUse.value;
+        const kubectlOptions = this.getKubectlOptions(targetClusterKubeConfig);
         if (!options.skipKubectlSetContext) {
           if (! await this.useKubectlContext(kubectlExe, kubectlOptions, kubectlContext, errTitle, errPrefix)) {
             return Promise.resolve(false);
@@ -66,7 +87,7 @@ function(WktActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, val
 
         busyDialogMessage = i18n.t('kubectl-helper-verify-connect-in-progress');
         dialogHelper.updateBusyDialog(busyDialogMessage, 3/totalSteps);
-        const verifyConnectivityResult = await this.verifyConnectivity(kubectlExe, kubectlOptions);
+        const verifyConnectivityResult = await this.verifyConnectivity(kubectlExe, kubectlOptions, clusterToCheck);
         return Promise.resolve(verifyConnectivityResult);
       } catch (err) {
         dialogHelper.closeBusyDialog();
@@ -76,18 +97,20 @@ function(WktActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, val
       }
     }
 
-    async verifyConnectivity(kubectlExe, kubectlOptions) {
+    async verifyConnectivity(kubectlExe, kubectlOptions, clusterToCheck) {
       try {
         const verifyResult = await window.api.ipc.invoke('kubectl-verify-connection', kubectlExe, kubectlOptions);
         dialogHelper.closeBusyDialog();
+        const clusterName = clusterToCheck || '';
         if (verifyResult.isSuccess) {
-          const title = i18n.t('kubectl-helper-verify-connect-success-title');
+          const title = i18n.t('kubectl-helper-verify-connect-success-title', { clusterName });
           const message = i18n.t('kubectl-helper-verify-connect-success-message',
-            {clientVersion: verifyResult.clientVersion, serverVersion: verifyResult.serverVersion});
+            { clientVersion: verifyResult.clientVersion, serverVersion: verifyResult.serverVersion, clusterName });
           await window.api.ipc.invoke('show-info-message', title, message);
         } else {
-          const errTitle = i18n.t('kubectl-helper-verify-connect-failed-title');
-          const errMessage = i18n.t('kubectl-helper-verify-connect-failed-error-message', {error: verifyResult.reason});
+          const errTitle = i18n.t('kubectl-helper-verify-connect-failed-title', { clusterName });
+          const errMessage = i18n.t('kubectl-helper-verify-connect-failed-error-message',
+            { error: verifyResult.reason, clusterName});
           await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
           return Promise.resolve(false);
         }
@@ -106,6 +129,35 @@ function(WktActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, val
         validationHelper.validateRequiredField(this.project.kubectl.executableFilePath.value), kubectlFormConfig);
 
       return validationObject;
+    }
+
+    _getTargetClusters() {
+      let clusters = [];
+      if (this.project.settings.wdtTargetType.value === 'vz') {
+        clusters.push({
+          name: 'local',
+          kubeConfig: this.project.kubectl.kubeConfig.value,
+          kubeContext: this.project.kubectl.kubeConfigContextToUse.value
+        });
+        this.project.kubectl.vzManagedClusters.observable()
+          .forEach(managedClusterData => clusters.push(managedClusterData));
+      }
+      return clusters;
+    }
+
+    _getTargetCluster(clusterToCheck) {
+      const result = {
+        targetClusterKubeConfig: undefined,
+        targetClusterKubeContext: undefined
+      };
+      if (clusterToCheck) {
+        const clusterData = this._getTargetClusters().find(cluster => clusterToCheck === cluster.name);
+        if (clusterData) {
+          result.targetClusterKubeConfig = clusterData.kubeConfig;
+          result.targetClusterKubeContext = clusterData.kubeContext;
+        }
+      }
+      return result;
     }
   }
 

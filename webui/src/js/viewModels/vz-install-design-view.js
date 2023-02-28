@@ -20,7 +20,7 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
     this.connected = () => {
       accUtils.announce('Verrazzano Install  Design View page loaded.', 'assertive');
 
-      subscriptions.push(this.project.vzInstall.actualInstalledVersion.observable.subscribe(newTagValue => {
+      subscriptions.push(this.project.vzInstall.versionTag.observable.subscribe(newTagValue => {
         this.computedArgoCDAvailabilityFromVersion(newTagValue);
       }));
 
