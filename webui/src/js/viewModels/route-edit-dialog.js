@@ -81,11 +81,11 @@ function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDa
     this.annotationColumns = [
       {
         'headerText': this.labelMapper('route-annotation-label'),
-        'sortProperty': 'Name'
+        'sortProperty': 'key'
       },
       {
         'headerText': this.labelMapper('route-annotationValue-label'),
-        'sortProperty': 'VirtualHost'
+        'sortProperty': 'value'
       },
       {
         'className': 'wkt-table-delete-cell',
