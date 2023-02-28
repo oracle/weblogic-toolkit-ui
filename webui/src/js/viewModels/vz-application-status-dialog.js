@@ -12,10 +12,12 @@ function(accUtils, ko, jsyaml, i18n, project, viewHelper) {
     const DIALOG_SELECTOR = '#applicationStatusDialog';
 
     this.project = project;
+    this.clusterName = args.clusterName;
     this.domainStatus = args.domainStatus;
     this.domainOverallStatus = args.domainOverallStatus;
 
-    this.title = i18n.t('vz-application-status-title', { application: args.applicationName });
+    this.title = i18n.t('vz-application-status-title',
+      { clusterName: this.clusterName, application: args.applicationName });
     this.dialogTitle = i18n.t('vz-application-status-domain-title', { domain: args.domainName });
     this.domainMessage = this.domainStatus.message;
 

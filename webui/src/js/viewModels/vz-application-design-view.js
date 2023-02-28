@@ -309,10 +309,20 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
 
       const kubectlExe = this.project.kubectl.executableFilePath.value;
       const kubectlOptions = k8sHelper.getKubectlOptions();
+      const kubectlContext = this.project.kubectl.kubeConfigContextToUse.value;
 
-      const busyDialogMessage = this.labelMapper('get-deployments-in-progress');
-      dialogHelper.openBusyDialog(busyDialogMessage, 'bar');
-      dialogHelper.openBusyDialog(busyDialogMessage, 0);
+      let busyDialogMessage = i18n.t('flow-kubectl-use-context-in-progress');
+      dialogHelper.openBusyDialog(busyDialogMessage, 'bar', 0 / 2.0);
+      const useContextResult =
+        await window.api.ipc.invoke('kubectl-set-current-context', kubectlExe, kubectlContext, kubectlOptions);
+      if (!useContextResult.isSuccess) {
+        const errMessage = this.labelMapper('use-context-error-message', { error: useContextResult.reason });
+        await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
+        return Promise.resolve();
+      }
+
+      busyDialogMessage = this.labelMapper('get-deployments-in-progress');
+      dialogHelper.openBusyDialog(busyDialogMessage, 'bar', 1 / 2.0);
       const deploymentNamesResult =
         await window.api.ipc.invoke('get-verrazzano-deployment-names-all-namespaces', kubectlExe, kubectlOptions);
       dialogHelper.closeBusyDialog();
@@ -351,10 +361,21 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
 
       const kubectlExe = this.project.kubectl.executableFilePath.value;
       const kubectlOptions = k8sHelper.getKubectlOptions();
+      const kubectlContext = this.project.kubectl.kubeConfigContextToUse.value;
 
-      const busyDialogMessage = this.labelMapper('get-clusters-in-progress');
-      dialogHelper.openBusyDialog(busyDialogMessage, 'bar');
-      dialogHelper.openBusyDialog(busyDialogMessage, 0);
+      let busyDialogMessage = i18n.t('flow-kubectl-use-context-in-progress');
+      dialogHelper.openBusyDialog(busyDialogMessage, 'bar', 0 / 2.0);
+      const useContextResult =
+        await window.api.ipc.invoke('kubectl-set-current-context', kubectlExe, kubectlContext, kubectlOptions);
+      if (!useContextResult.isSuccess) {
+        const errMessage = this.labelMapper('use-context-error-message', { error: useContextResult.reason });
+        await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
+        return Promise.resolve();
+      }
+
+      busyDialogMessage = this.labelMapper('get-clusters-in-progress');
+      dialogHelper.updateBusyDialog(busyDialogMessage, 1 / 2.0);
+
       const clusterNamesResult =
         await window.api.ipc.invoke('get-verrazzano-cluster-names', kubectlExe, kubectlOptions);
       dialogHelper.closeBusyDialog();

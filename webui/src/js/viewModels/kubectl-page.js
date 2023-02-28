@@ -56,14 +56,6 @@ function(accUtils, ko, project, i18n, ArrayDataProvider, BufferingDataProvider, 
       },
       {
         'className': 'wkt-table-delete-cell',
-        // 'headerClassName': 'wkt-table-add-header',
-        // 'headerTemplate': 'headerTemplate',
-        'template': 'actionTemplate',
-        'sortable': 'disable',
-        width: viewHelper.TEXT_BUTTON_COLUMN_WIDTH
-      },
-      {
-        'className': 'wkt-table-delete-cell',
         'headerClassName': 'wkt-table-add-header',
         'headerTemplate': 'headerTemplate',
         'template': 'actionTemplate',
@@ -254,13 +246,6 @@ function(accUtils, ko, project, i18n, ArrayDataProvider, BufferingDataProvider, 
     this.handleDeleteManagedCluster = (event, context) => {
       const index = context.item.index;
       this.project.kubectl.vzManagedClusters.observable.splice(index, 1);
-    };
-
-    this.verifyManagedClusterConnectivity = async (event, context) => {
-      const index = context.item.index;
-      const managedClusterData = this.project.kubectl.vzManagedClusters.observable()[index];
-      await k8sHelper.startVerifyClusterConnectivity(managedClusterData.kubeConfig, managedClusterData.kubeContext);
-      await k8sHelper.startVerifyClusterConnectivity(managedClusterData.kubeConfig, managedClusterData.kubeContext);
     };
 
     this.createLink = function (url, label) {

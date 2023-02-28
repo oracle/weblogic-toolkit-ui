@@ -12,7 +12,6 @@ define(['ojs/ojcontext'],
       // width of button column in WKT tables.
       // ideally this could be specified as 'auto', but oj-table will not set below 100px.
       this.BUTTON_COLUMN_WIDTH = '55px';
-      this.TEXT_BUTTON_COLUMN_WIDTH = '175px';
 
       const thisHelper = this;
 

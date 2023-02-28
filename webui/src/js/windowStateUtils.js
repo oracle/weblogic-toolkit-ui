@@ -11,7 +11,7 @@ define(['models/wkt-project', 'models/wkt-console', 'utils/wdt-discoverer', 'uti
   'utils/k8s-domain-undeployer', 'utils/ingress-controller-installer', 'utils/ingress-routes-updater',
   'utils/ingress-controller-uninstaller', 'utils/vz-installer', 'utils/vz-install-status-checker',
   'utils/vz-component-deployer', 'utils/vz-component-undeployer', 'utils/vz-application-deployer',
-  'utils/vz-application-undeployer','utils/app-updater', 'utils/wkt-logger'],
+  'utils/vz-application-status-checker', 'utils/vz-application-undeployer','utils/app-updater', 'utils/wkt-logger'],
 function(wktProject, wktConsole, wdtDiscoverer, dialogHelper, projectIO,
   utils, wdtModelPreparer, wdtModelValidator, i18n, witImageCreator,
   witAuxImageCreator, imagePusher, auxImagePusher, k8sHelper,
@@ -19,7 +19,7 @@ function(wktProject, wktConsole, wdtDiscoverer, dialogHelper, projectIO,
   k8sDomainStatusChecker, k8sDomainUndeployer, ingressControllerInstaller,
   ingressRoutesUpdater, ingressControllerUninstaller, vzInstaller,
   vzInstallStatusChecker, vzComponentDeployer, vzComponentUndeployer,
-  vzApplicationDeployer, vzApplicationUndeployer, appUpdater, wktLogger) {
+  vzApplicationDeployer, vzApplicationStatusChecker, vzApplicationUndeployer, appUpdater, wktLogger) {
 
   async function displayCatchAllError(i18nPrefix, err) {
     return dialogHelper.displayCatchAllError(i18nPrefix, err);
@@ -276,6 +276,13 @@ function(wktProject, wktConsole, wdtDiscoverer, dialogHelper, projectIO,
     blurSelection();
     vzApplicationDeployer.startDeployApplication().then(() => Promise.resolve()).catch(err => {
       displayCatchAllError('vz-application-deployer-deploy', err).then(() => Promise.resolve());
+    });
+  });
+
+  window.api.ipc.receive('start-get-vz-application-status', async () => {
+    blurSelection();
+    vzApplicationStatusChecker.startCheckApplicationStatus().then(() => Promise.resolve()).catch(err => {
+      displayCatchAllError('vz-application-status-checker-check', err).then(() => Promise.resolve());
     });
   });
 

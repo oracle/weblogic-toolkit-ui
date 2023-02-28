@@ -408,7 +408,7 @@ class WktAppMenu {
               if (!focusedWindow) {
                 return dialog.showErrorBox(
                   i18n.t('menu-go-domain-status-title'),
-                  i18n.t('menu-go-domain=status-error-message')
+                  i18n.t('menu-go-domain-status-error-message')
                 );
               }
               sendToWindow(focusedWindow, 'start-get-k8s-domain-status');
@@ -548,6 +548,21 @@ class WktAppMenu {
                 );
               }
               sendToWindow(focusedWindow,'start-deploy-verrazzano-application');
+            }
+          },
+          {
+            id: 'checkVerrazzanoApplicationStatus',
+            label: i18n.t('menu-go-check-verrazzano-application-status'),
+            visible: !this._isWkoTarget,
+            enabled: !this._hasOpenDialog,
+            click(item, focusedWindow) {
+              if (!focusedWindow) {
+                return dialog.showErrorBox(
+                  i18n.t('menu-go-check-verrazzano-application-status-error-title'),
+                  i18n.t('menu-go-check-verrazzano-application-status-error-message')
+                );
+              }
+              sendToWindow(focusedWindow, 'start-get-vz-application-status');
             }
           },
           {

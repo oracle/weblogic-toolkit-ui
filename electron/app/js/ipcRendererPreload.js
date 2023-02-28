@@ -92,6 +92,7 @@ contextBridge.exposeInMainWorld(
           'start-verrazzano-install',
           'start-get-verrazzano-install-status',
           'start-deploy-verrazzano-component',
+          'start-get-vz-application-status',
           'start-undeploy-verrazzano-component',
           'start-deploy-verrazzano-application',
           'start-undeploy-verrazzano-application',
