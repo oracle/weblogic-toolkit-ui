@@ -48,7 +48,7 @@ function(accUtils, ko, project, i18n, ArrayDataProvider, BufferingDataProvider, 
       },
       {
         headerText: this.labelMapper('vz-managed-cluster-kubeconfig-heading'),
-        sortProperty: 'kubeConfig'
+        'sortable': 'disable'
       },
       {
         headerText: this.labelMapper('vz-managed-cluster-kubecontext-heading'),
@@ -107,8 +107,10 @@ function(accUtils, ko, project, i18n, ArrayDataProvider, BufferingDataProvider, 
 
     this.chooseKubeConfig = () => {
       getKubeConfig().then(kubeConfigPath => {
-        if (kubeConfigPath) {
+        if (Array.isArray(kubeConfigPath)) {
           this.project.kubectl.kubeConfig.observable(kubeConfigPath);
+        } else if (typeof kubeConfigPath ==='string' && kubeConfigPath.length > 0) {
+          this.project.kubectl.kubeConfig.observable(kubeConfigPath.split(window.api.path.delimiter));
         }
       });
     };
@@ -117,8 +119,15 @@ function(accUtils, ko, project, i18n, ArrayDataProvider, BufferingDataProvider, 
       const index = context.item.index;
       const managedClusterData = this.project.kubectl.vzManagedClusters.observable()[index];
       getKubeConfig().then(kubeConfigPath => {
-        if (kubeConfigPath) {
-          const newManagedClusterData = { ...managedClusterData, kubeConfig:kubeConfigPath };
+        let kubeConfig;
+        if (Array.isArray(kubeConfigPath)) {
+          kubeConfig = kubeConfigPath;
+        } else if (typeof kubeConfigPath === 'string'  && kubeConfigPath.length > 0) {
+          kubeConfig = kubeConfigPath.split(window.api.path.delimiter);
+        }
+
+        if (kubeConfig) {
+          const newManagedClusterData = { ...managedClusterData, kubeConfig };
           this.project.kubectl.vzManagedClusters.observable.replace(managedClusterData, newManagedClusterData);
         }
       });
@@ -250,6 +259,7 @@ function(accUtils, ko, project, i18n, ArrayDataProvider, BufferingDataProvider, 
     this.verifyManagedClusterConnectivity = async (event, context) => {
       const index = context.item.index;
       const managedClusterData = this.project.kubectl.vzManagedClusters.observable()[index];
+      await k8sHelper.startVerifyClusterConnectivity(managedClusterData.kubeConfig, managedClusterData.kubeContext);
       await k8sHelper.startVerifyClusterConnectivity(managedClusterData.kubeConfig, managedClusterData.kubeContext);
     };
 

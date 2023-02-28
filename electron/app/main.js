@@ -423,7 +423,7 @@ class Main {
         defaultPath: path.join(app.getPath('home'), '.kube'),
         buttonLabel: i18n.t('button-select'),
         properties: [ 'openFile', 'multiSelections', 'dontAddToRecent' ]
-      }, path.delimiter);
+      });
     });
 
     ipcMain.handle('get-helm-exe', async (event) => {
