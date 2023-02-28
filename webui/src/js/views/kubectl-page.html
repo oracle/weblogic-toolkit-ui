@@ -5,15 +5,6 @@
 <div class="wkt-content-layout">
   <div class="wkt-content-top-bar wkt-no-tabs">
     <h6><oj-bind-text value="[[labelMapper('title')]]"></oj-bind-text></h6>
-    <oj-button id="verifyKubectlConnectionButton"
-               disabled="[[disableVerify]]"
-               chroming="callToAction"
-               on-oj-action="[[verifyKubectlConnectivity]]"
-               :title="[[labelMapper('hints-verifyKubectlConnectivity')]]">
-          <span>
-            <oj-bind-text value="[[labelMapper('button-verifyKubectlConnectivity')]]"></oj-bind-text>
-          </span>
-    </oj-button>
   </div>
   <div class="wkt-content">
     <div class="oj-panel wkt-notop">

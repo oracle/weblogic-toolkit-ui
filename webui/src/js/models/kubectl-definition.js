@@ -22,7 +22,7 @@ define(['utils/observable-properties'],
         executableFilePath: props.createProperty(window.api.k8s.getKubectlFilePath()),
         kubeConfigContextToUse: props.createProperty(),
         helmExecutableFilePath: props.createProperty(window.api.k8s.getHelmFilePath()),
-        vzManagedClusters: props.createListProperty(['uid', 'name', 'kubeConfig', 'KubeContext']).persistByKey('uid'),
+        vzManagedClusters: props.createListProperty(['uid', 'name', 'kubeConfig', 'kubeContext']).persistByKey('uid'),
 
         readFrom: function(json) {
           props.createGroup(name, this).readFrom(json);
