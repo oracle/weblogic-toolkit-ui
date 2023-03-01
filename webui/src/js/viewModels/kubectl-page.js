@@ -119,7 +119,8 @@ function(accUtils, ko, project, i18n, ArrayDataProvider, BufferingDataProvider, 
         }
 
         if (kubeConfig) {
-          const newManagedClusterData = { ...managedClusterData, kubeConfig };
+          const newManagedClusterData = Object.assign({}, managedClusterData);
+          newManagedClusterData.kubeConfig = kubeConfig;
           this.project.kubectl.vzManagedClusters.observable.replace(managedClusterData, newManagedClusterData);
         }
       });
@@ -152,7 +153,8 @@ function(accUtils, ko, project, i18n, ArrayDataProvider, BufferingDataProvider, 
       const options = { kubeConfig: managedClusterData.kubeConfig };
       getCurrentClusterContext(kubectlExe, options).then(results => {
         if (results.isSuccess) {
-          const newManagedClusterData = { ...managedClusterData, kubeContext: results.context};
+          const newManagedClusterData = Object.assign({}, managedClusterData);
+          newManagedClusterData.kubeContext = results.context;
           this.project.kubectl.vzManagedClusters.observable.replace(managedClusterData, newManagedClusterData);
         } else {
           const errTitle = i18n.t('kubectl-get-current-context-error-title');
@@ -204,7 +206,8 @@ function(accUtils, ko, project, i18n, ArrayDataProvider, BufferingDataProvider, 
       const kubeContext = managedClusterData.kubeContext;
       getContext(kubectlExe, options, kubeContext).then(result => {
         if (result?.kubectlContextName) {
-          const newManagedClusterData = { ...managedClusterData, kubeContext: result.kubectlContextName };
+          const newManagedClusterData = Object.assign({}, managedClusterData);
+          newManagedClusterData.kubeContext = result.kubectlContextName;
           this.project.kubectl.vzManagedClusters.observable.replace(managedClusterData, newManagedClusterData);
         }
       });

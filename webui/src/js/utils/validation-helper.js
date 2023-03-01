@@ -449,7 +449,8 @@ function(i18n, Validator, ojvalidationError, RegExpValidator, LengthValidator, N
     const errorMessages = [];
     if (Array.isArray(fieldData.errors)) {
       if (fieldData.errors.length > 0) {
-        errorMessages.push(...fieldData.errors);
+        // Jet uses esprima which doesn't like the spread operator...
+        fieldData.errors.forEach(error => errorMessages.push(error));
       }
     } else {
       errorMessages.push(fieldData.errors);

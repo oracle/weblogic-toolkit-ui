@@ -475,7 +475,7 @@ PYTHON SOFTWARE FOUNDATION LICENSE VERSION 2
    Licensee a nonexclusive, royalty-free, world-wide license to reproduce, analyze,
    test, perform and/or display publicly, prepare derivative works, distribute, and
    otherwise use Python alone or in any derivative version, provided, however, that
-   PSF's License Agreement and PSF's notice of copyright, i.e., "Copyright (c) 
+   PSF's License Agreement and PSF's notice of copyright, i.e., "Copyright (c)
    2001, 2002, 2003, 2004, 2005, 2006 Python Software Foundation; All Rights Reserved"
    are retained in Python alone or in any derivative version prepared by Licensee.
 
@@ -2060,7 +2060,7 @@ The following packages are licensed under The Universal Permissive License (UPL)
 @oracle/oraclejet@13.1.7
 Copyright (c) 2023 Oracle and/or its affiliates.
 
-@oracle/wrc-jet-pack@2.4.1
+@oracle/wrc-jet-pack@2.4.2
 Copyright (c) 2022 Oracle and/or its affiliates.
 
 
@@ -2690,7 +2690,7 @@ Copyright © Domenic Denicola
 ee-first@1.1.1
 Copyright (c) 2014 Jonathan Ong me@jongleberry.com
 
-electron@22.1.0
+electron@22.2.0
 Copyright (c) Electron contributors
 Copyright (c) 2013-2020 GitHub Inc.
 
@@ -4482,7 +4482,7 @@ PYTHON SOFTWARE FOUNDATION LICENSE VERSION 2
    Licensee a nonexclusive, royalty-free, world-wide license to reproduce, analyze,
    test, perform and/or display publicly, prepare derivative works, distribute, and
    otherwise use Python alone or in any derivative version, provided, however, that
-   PSF's License Agreement and PSF's notice of copyright, i.e., "Copyright (c) 
+   PSF's License Agreement and PSF's notice of copyright, i.e., "Copyright (c)
    2001, 2002, 2003, 2004, 2005, 2006 Python Software Foundation; All Rights Reserved"
    are retained in Python alone or in any derivative version prepared by Licensee.
 
