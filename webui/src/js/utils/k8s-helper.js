@@ -41,7 +41,7 @@ function(WktActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, val
         }));
         const result = await dialogHelper.promptDialog('k8s-helper-choose-cluster-dialog',
           { availableClusters: args });
-        if (result?.clusterName) {
+        if (result && result.clusterName) {
           clusterToCheck = result.clusterName;
         } else {
           return Promise.resolve(false);

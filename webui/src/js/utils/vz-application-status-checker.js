@@ -36,7 +36,7 @@ function (VzActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, K8s
         targetClusters.forEach(targetCluster => args.push({ name:targetCluster, label: targetCluster }));
         const result = await dialogHelper.promptDialog('vz-application-status-choose-cluster-dialog',
           { targetClusters: args });
-        if (result?.clusterName) {
+        if (result && result.clusterName) {
           clusterToCheck = result.clusterName;
         } else {
           return Promise.resolve(false);

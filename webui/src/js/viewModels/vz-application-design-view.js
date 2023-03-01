@@ -107,7 +107,7 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
 
       dialogHelper.promptDialog('choose-component-dialog', { availableComponentNames }).then(result => {
         // no result indicates operation was cancelled
-        if (result?.componentName) {
+        if (result && result.componentName) {
           this.project.vzApplication.components.addNewItem({
             name: result.componentName,
             ingressTraitEnable: false,
@@ -214,7 +214,7 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
 
       dialogHelper.promptDialog('choose-secrets-dialog', args).then(result => {
         // no result indicates operation was cancelled
-        if (result?.secretNames) {
+        if (result && result.secretNames) {
           this.project.vzApplication.secrets.value = result.secretNames;
           this.populateObservableSecrets();
         }
@@ -236,7 +236,7 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
       };
       dialogHelper.promptDialog('choose-secret-dialog', args).then(result => {
         // no result indicates operation was cancelled
-        if (result?.secretName) {
+        if (result && result.secretName) {
           selectedSecretNameObservable(result.secretName);
         }
       });
@@ -257,7 +257,7 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
       };
       dialogHelper.promptDialog('choose-secret-dialog', args).then(result => {
         // no result indicates operation was cancelled
-        if (result?.secretName) {
+        if (result && result.secretName) {
           selectedSecretNameObservable(result.secretName);
         }
       });
@@ -343,7 +343,7 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
       };
       dialogHelper.promptDialog('choose-deployment-dialog', args).then(result => {
         // no result indicates operation was cancelled
-        if (result?.deploymentName) {
+        if (result && result.deploymentName) {
           selectedDeploymentNameObservable(result.deploymentName);
         }
       });
@@ -393,7 +393,7 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
 
       dialogHelper.promptDialog('choose-clusters-dialog', { selectedClusterNames, availableClusterNames }).then(result => {
         // no result indicates operation was cancelled
-        if (result?.clusterNames) {
+        if (result && result.clusterNames) {
           this.project.vzApplication.placementClusters.value = result.clusterNames;
           this.populateObservableClusters();
         }
@@ -499,7 +499,7 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
       const observableArray = this.componentObservable(component, 'ingressTraitRules');
       const newRule = { uid: utils.getShortUuid() };
       dialogHelper.promptDialog('vz-ingress-trait-rule-edit-dialog', newRule).then(result => {
-        if (result?.rule) {
+        if (result && result.rule) {
           observableArray.push(result.rule);
         }
       });
@@ -513,7 +513,7 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
       const ruleOptions = { ...rule };
 
       dialogHelper.promptDialog('vz-ingress-trait-rule-edit-dialog', ruleOptions).then(result => {
-        if (result?.rule) {
+        if (result && result.rule) {
           const mergedRule = this.mergeRule(rule, result.rule);
           observableArray.replace(rule, mergedRule);
         }

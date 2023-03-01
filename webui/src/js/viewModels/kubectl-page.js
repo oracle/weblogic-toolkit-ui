@@ -191,7 +191,7 @@ function(accUtils, ko, project, i18n, ArrayDataProvider, BufferingDataProvider, 
       const options = { kubeConfig: this.project.kubectl.kubeConfig.value };
       const kubeContext = this.project.kubectl.kubeConfigContextToUse.value;
       getContext(kubectlExe, options, kubeContext).then(result => {
-        if (result?.kubectlContextName) {
+        if (result && result.kubectlContextName) {
           this.project.kubectl.kubeConfigContextToUse.observable(result.kubectlContextName);
         }
       });
@@ -205,7 +205,7 @@ function(accUtils, ko, project, i18n, ArrayDataProvider, BufferingDataProvider, 
       const options = { kubeConfig: managedClusterData.kubeConfig };
       const kubeContext = managedClusterData.kubeContext;
       getContext(kubectlExe, options, kubeContext).then(result => {
-        if (result?.kubectlContextName) {
+        if (result && result.kubectlContextName) {
           const newManagedClusterData = Object.assign({}, managedClusterData);
           newManagedClusterData.kubeContext = result.kubectlContextName;
           this.project.kubectl.vzManagedClusters.observable.replace(managedClusterData, newManagedClusterData);
