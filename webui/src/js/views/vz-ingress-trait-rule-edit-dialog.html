@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2022, Oracle and/or its affiliates.
+ Copyright (c) 2022, 2023, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 <oj-dialog id="vzIngressTraitEditRuleDialog" class="wkt-add-to-archive-dialog" initial-visibility="hide">
@@ -76,10 +76,11 @@
           <oj-bind-text value="[[labelMapper('destination-title')]]"></oj-bind-text>
         </h6>
         <oj-form-layout max-columns="2" direction="row">
-          <oj-input-text label-hint="[[labelMapper('destination-host-label')]]"
-                         value="{{destinationHost.observable}}"
-                         help.instruction="[[labelMapper('destination-host-help')]]">
-          </oj-input-text>
+          <oj-combobox-one value="{{destinationHost.observable}}"
+                           label-hint="[[labelMapper('destination-host-label')]]"
+                           help.instruction="[[labelMapper('destination-host-help')]]"
+                           options="[[destinationHostNames]]">
+          </oj-combobox-one>
           <oj-input-number label-hint="[[labelMapper('destination-port-label')]]"
                            value="{{destinationPort}}"
                            converter="[[portNumberConverter]]"

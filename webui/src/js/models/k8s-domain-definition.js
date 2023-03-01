@@ -75,6 +75,11 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
         ];
         this.clusters = props.createListProperty(this.clusterKeys).persistByKey('uid');
 
+        this.serverKeys = [
+          'uid', 'name'
+        ];
+        this.servers = props.createListProperty(this.serverKeys).persistByKey('uid');
+
         this.modelConfigMapName = props.createProperty('${1}-config-map', this.uid.observable);
         this.modelConfigMapName.addValidator(...validationHelper.getK8sNameValidators());
 
@@ -219,6 +224,21 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
               return remove;
             });
           }
+
+          if (domain && Array.isArray(domain.servers)) {
+            domain.servers.forEach(server => this.setServerRow(server));
+            // Remove any servers that are no longer in the model
+            this.servers.observable.remove(server => {
+              let remove = true;
+              for (const prepareModelServer of domain.servers) {
+                if (prepareModelServer.serverName === server.name) {
+                  remove = false;
+                  break;
+                }
+              }
+              return remove;
+            });
+          }
         };
 
         this.setClusterRow = (prepareModelCluster) => {
@@ -241,6 +261,24 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
               name: prepareModelCluster.clusterName,
               maxServers: prepareModelCluster.replicas,
               replicas: prepareModelCluster.replicas
+            });
+          }
+        };
+
+        this.setServerRow = (prepareModelServer) => {
+          let server;
+          for (const row of this.servers.observable()) {
+            if (row.name === prepareModelServer.serverName) {
+              server = row;
+              break;
+            }
+          }
+          if (server) {
+            this.servers.observable.replace(server, server);
+          } else {
+            this.servers.addNewItem({
+              uid: utils.getShortUuid(),
+              name: prepareModelServer.serverName
             });
           }
         };

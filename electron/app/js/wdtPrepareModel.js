@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -290,6 +290,16 @@ function formatResultsData(jsonContent) {
     clustersResult.push(clusterResult);
   }
   domain['clusters'] = clustersResult;
+
+  const servers = jsonContent['servers'] || [];
+  const serversResult = [];
+  for (const [serverName] of Object.entries(servers)) {
+    const serverResult = {
+      serverName: serverName
+    };
+    serversResult.push(serverResult);
+  }
+  domain['servers'] = serversResult;
 
   results['domain'] = domain;
   return results;

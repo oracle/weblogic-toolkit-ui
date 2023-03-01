@@ -1,15 +1,17 @@
 /**
  * @license
- * Copyright (c) 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2022, 2023, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
 
-define(['accUtils', 'knockout', 'utils/i18n', 'utils/observable-properties', 'utils/validation-helper',
-  'ojs/ojarraydataprovider', 'ojs/ojconverter-number', 'utils/common-utilities', 'utils/wkt-logger',
-  'ojs/ojselectcombobox', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojdialog', 'ojs/ojformlayout',
-  'ojs/ojvalidationgroup'],
-function(accUtils, ko, i18n, props, validationHelper, ArrayDataProvider, ojConverterNumber, utils, wktLogger) {
+define(['accUtils', 'knockout', 'utils/i18n', 'models/wkt-project', 'utils/observable-properties',
+  'utils/validation-helper', 'ojs/ojarraydataprovider', 'ojs/ojconverter-number', 'utils/common-utilities',
+  'utils/wkt-logger', 'ojs/ojselectcombobox', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojdialog',
+  'ojs/ojformlayout', 'ojs/ojvalidationgroup'],
+function(accUtils, ko, i18n, project, props, validationHelper,
+  ArrayDataProvider, ojConverterNumber, utils, wktLogger) {
+
   function VerrazzanoIngressTraitRuleEditDialogModel(args) {
     const DIALOG_SELECTOR = '#vzIngressTraitEditRuleDialog';
 
@@ -180,6 +182,28 @@ function(accUtils, ko, i18n, props, validationHelper, ArrayDataProvider, ojConve
         'sortable': 'disable'
       }
     ];
+
+    this.destinationHostNames = ko.computed(() => {
+      let options = [];
+      const domainName = project.wdtModel.domainName();
+
+      const clusters = project.k8sDomain.clusters.observable();
+      for (const cluster of clusters) {
+        const clusterHostName = utils.toLegalK8sName(`${domainName}-cluster-${cluster.name}`);
+        options.push( { id : cluster.uid, value: clusterHostName, text: clusterHostName});
+      }
+
+      const servers = project.k8sDomain.servers.observable();
+      for (const server of servers) {
+        const serverHostName = utils.toLegalK8sName(`${domainName}-${server.name}`);
+        options.push( { id : server.uid, value: serverHostName, text: serverHostName});
+      }
+
+      options.sort(function(a, b) {
+        return a.text.localeCompare(b.text);
+      });
+      return options;
+    });
 
     this.pathTypeOptions = [
       { value: 'prefix', label: this.labelMapper('path-type-prefix-label') },
