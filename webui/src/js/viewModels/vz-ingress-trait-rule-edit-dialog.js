@@ -195,7 +195,7 @@ function(accUtils, ko, i18n, project, props, validationHelper,
 
       const servers = project.k8sDomain.servers.observable();
       for (const server of servers) {
-        const serverHostName = utils.toLegalK8sName(domainName + '-' + server.name);
+        const serverHostName = utils.toLegalK8sName(`${domainName}-${server.name}`);
         options.push( { id : server.uid, value: serverHostName, text: serverHostName});
       }
 
