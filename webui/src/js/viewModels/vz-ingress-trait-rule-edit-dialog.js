@@ -189,7 +189,7 @@ function(accUtils, ko, i18n, project, props, validationHelper,
 
       const clusters = project.k8sDomain.clusters.observable();
       for (const cluster of clusters) {
-        const clusterHostName = utils.toLegalK8sName(domainName + '-cluster-' + cluster.name);
+        const clusterHostName = utils.toLegalK8sName(`${domainName}-cluster-${cluster.name}`);
         options.push( { id : cluster.uid, value: clusterHostName, text: clusterHostName});
       }
 
