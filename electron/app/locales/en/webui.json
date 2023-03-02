@@ -1773,6 +1773,7 @@
 
   "vz-application-status-checker-get-status-failed-title-message": "Get Application Status Failed",
   "vz-application-status-checker-get-status-failed-error-message": "Unable to get the application status due to an error: {{error}}.",
+  "vz-application-status-checker-validate-ns-failed-error-message": "Unable to get the application status because an error occurred while trying to validate the Kubernetes namespace {{namespace}}: {{error}}.",
   "vz-application-status-checker-application-not-exist-error-message": "Unable to get the application status because the application {{application}} does not exist.",
   "vz-application-status-checker-ns-not-exist-error-message": "Unable to get the application status because the application namespace {{namespace}} does not exist.",
   "vz-application-status-checker-domain-not-exist-error-message": "Unable to get the application status because the domain UID {{domain}} does not exist.",
