@@ -137,7 +137,9 @@ function _getStatusFromConditions(vzObject, status) {
   }
 
   status.payload = latestCondition;
-  if (latestCondition && latestCondition.type === 'InstallComplete' && Boolean(latestCondition.status)) {
+  if (latestCondition &&
+      (latestCondition.type === 'InstallComplete' || latestCondition.type === 'UpgradeComplete') &&
+      Boolean(latestCondition.status)) {
     status.isComplete = true;
     status.version = version;
     _normalizeVersionData(status);
