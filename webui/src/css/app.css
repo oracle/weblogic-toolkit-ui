@@ -583,6 +583,10 @@ h6.wkt-panel-heading {
   margin-bottom: -10px;
 }
 
+.wkt-header-button-row.wkt-header-with-margin .oj-button {
+  margin-bottom: 10px;
+}
+
 .wkt-header-button-row h6 {
   flex: 1 1 auto;
 }

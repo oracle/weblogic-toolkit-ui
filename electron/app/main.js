@@ -40,7 +40,8 @@ const { startWebLogicRemoteConsoleBackend, getDefaultDirectoryForOpenDialog, set
 const { getVerrazzanoReleaseVersions, isVerrazzanoInstalled, installVerrazzanoPlatformOperator,
   verifyVerrazzanoPlatformOperatorInstall, installVerrazzano, verifyVerrazzanoInstallStatus } = require('./js/vzInstaller');
 const { deployApplication, deployComponents, deployProject, getComponentNamesByNamespace, getSecretNamesByNamespace,
-  getVerrazzanoClusterNames, getDeploymentNamesFromAllNamespaces, undeployApplication, undeployComponents } = require('./js/vzUtils');
+  getVerrazzanoClusterNames, getDeploymentNamesFromAllNamespaces, undeployApplication, undeployComponents, getHostNames
+} = require('./js/vzUtils');
 
 const { getHttpsProxyUrl, getBypassProxyHosts } = require('./js/userSettings');
 const { sendToWindow } = require('./js/windowUtils');
@@ -1079,6 +1080,11 @@ class Main {
     // eslint-disable-next-line no-unused-vars
     ipcMain.handle('get-verrazzano-secret-names', async (event, kubectlExe, namespace, kubectlOptions) => {
       return getSecretNamesByNamespace(kubectlExe, namespace, kubectlOptions);
+    });
+
+    // eslint-disable-next-line no-unused-vars
+    ipcMain.handle('get-verrazzano-host-names', async (event, kubectlExe, applicationName, applicationNamespace, options) => {
+      return getHostNames(kubectlExe, applicationName, applicationNamespace, options);
     });
 
     // eslint-disable-next-line no-unused-vars

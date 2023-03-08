@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2022, 2023, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 define(['models/wkt-project', 'accUtils', 'utils/common-utilities', 'knockout', 'utils/i18n', 'ojs/ojbufferingdataprovider',
@@ -443,6 +443,10 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
         'sortable': 'disable',
       },
       {
+        'headerText': this.labelMapper('ingress-trait-rules-first-path-url-label'),
+        'sortable': 'disable',
+      },
+      {
         'headerText': this.labelMapper('ingress-trait-rules-destination-host-label'),
         'sortable': 'disable',
       },
@@ -474,6 +478,62 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
         result = paths[0][fieldName];
       }
       return result;
+    };
+
+    this.computedUrl = (rowData) => {
+      return ko.computed(() => {
+        let urlHost = '<host>';
+        if(project.vzApplication.hosts().length) {
+          urlHost = project.vzApplication.hosts()[0]
+        }
+
+        let urlPath = '<path>'
+        const paths = rowData.paths;
+        if(paths && paths.length) {
+          urlPath = paths[0].path
+        }
+
+        return 'https://' + urlHost + urlPath;
+      });
+    }
+
+    // return true if there is enough data to make a clickable link
+    this.canLink = (rowData) => {
+      return ko.computed(() => {
+        if(!project.vzApplication.hosts().length) {
+          return false;
+        }
+
+        const paths = rowData.paths;
+        if(!paths || !paths.length) {
+          return false;
+        }
+
+        return paths[0].pathType !== 'regex';
+      });
+    }
+
+    this.updateUrls = async(component) => {
+      const busyDialogMessage = this.labelMapper('get-hosts-in-progress');
+      dialogHelper.openBusyDialog(busyDialogMessage, 'bar', 1 / 2.0);
+
+      const kubectlExe = this.project.kubectl.executableFilePath.value;
+      const kubectlOptions = k8sHelper.getKubectlOptions();
+      const applicationName = project.vzApplication.applicationName.value;
+      const applicationNamespace = project.k8sDomain.kubernetesNamespace.value;
+      const hostsResult = await window.api.ipc.invoke('get-verrazzano-host-names', kubectlExe, applicationName,
+          applicationNamespace, kubectlOptions);
+
+      dialogHelper.closeBusyDialog();
+
+      if (!hostsResult.isSuccess) {
+        const errTitle = 'vz-application-design-get-hosts-error-title';
+        const errMessage = this.labelMapper('get-hosts-error-message', { error: hostsResult.reason });
+        await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
+        return;
+      }
+
+      project.vzApplication.hosts(hostsResult.hostnames);
     };
 
     this.componentsIngressTraitRulesDataProvider = (component) => {

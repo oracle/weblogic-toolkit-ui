@@ -1643,6 +1643,9 @@
   "vz-application-design-choose-clusters-dialog-title": "Choose Verrazzano Clusters for Application Placement",
   "vz-application-design-choose-clusters-name-label": "Verrazzano Cluster Names",
   "vz-application-design-choose-clusters-name-help": "Select the Verrazzano Clusters to use for application placement.",
+  "vz-application-design-get-hosts-error-message": "Unable get hosts for the application: {{error}}.",
+  "vz-application-design-get-hosts-error-title": "Get Hosts for Application Aborted",
+  "vz-application-design-get-hosts-in-progress": "Getting Hosts for Application",
 
   "vz-application-design-component-ingress-trait-enabled-label": "Enable Ingress Trait",
   "vz-application-design-component-ingress-trait-enabled-help": "Enable the Ingress Trait for this component.",
@@ -1656,6 +1659,8 @@
   "vz-application-design-ingress-trait-rules-hosts-label": "Hosts",
   "vz-application-design-ingress-trait-rules-first-path-type-label": "First Path Type",
   "vz-application-design-ingress-trait-rules-first-path-label": "First Path",
+  "vz-application-design-ingress-trait-rules-first-path-url-label": "URL",
+  "vz-application-design-ingress-trait-rules-update-urls-button-label": "Update URLs",
   "vz-application-design-ingress-trait-rule-edit-destination-title": "Destination",
   "vz-application-design-ingress-trait-rules-destination-host-label": "Destination Host",
   "vz-application-design-ingress-trait-rules-destination-port-label": "Destination Port",
