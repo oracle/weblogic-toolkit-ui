@@ -32,6 +32,7 @@ define(['utils/observable-properties', 'utils/validation-helper', 'knockout', 'u
 
         // this is a transient ko observable that is not persisted
         this.hosts = ko.observableArray();
+        this.generatedHost = ko.observable();
 
         this.readFrom = (json) => {
           props.createGroup(name, this).readFrom(json);

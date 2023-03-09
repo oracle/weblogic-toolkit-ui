@@ -477,7 +477,7 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
         if(result && result.length) {
           const pathType = paths[0].pathType;
           if(pathType && pathType !== 'exact') {
-            result += ` (${pathType})`
+            result += ` (${pathType})`;
           }
         }
       }
@@ -510,8 +510,9 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
     this.computedUrl = (rowData) => {
       return ko.computed(() => {
         let urlHost = '<host>';
-        if(project.vzApplication.hosts().length) {
-          urlHost = project.vzApplication.hosts()[0]
+        const generatedHost = project.vzApplication.generatedHost();
+        if(generatedHost && generatedHost.length) {
+          urlHost = generatedHost;
         }
 
         const ruleHost = getRuleHost(rowData);
@@ -524,7 +525,7 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
         let urlPath = '<path>';
         const paths = rowData.paths;
         if(paths && paths.length) {
-          urlPath = paths[0].path
+          urlPath = paths[0].path;
           if(urlPath && urlPath.length) {
             result += urlPath;
           }
@@ -532,7 +533,7 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
 
         return result;
       });
-    }
+    };
 
     // resolves to true if the row data can make a clickable link
     this.computedCanLink = (rowData) => {
@@ -544,7 +545,7 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
 
         const ruleHost = getRuleHost(rowData);
         if(ruleHost && !appHosts.includes(ruleHost)) {
-          return false
+          return false;
         }
 
         const paths = rowData.paths;
@@ -554,9 +555,9 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
 
         return paths[0].pathType !== 'regex';
       });
-    }
+    };
 
-    this.updateUrls = async(component) => {
+    this.updateUrls = async() => {
       const busyDialogMessage = this.labelMapper('get-hosts-in-progress');
       dialogHelper.openBusyDialog(busyDialogMessage, 'bar', 1 / 2.0);
 
@@ -565,7 +566,7 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
       const applicationName = project.vzApplication.applicationName.value;
       const applicationNamespace = project.k8sDomain.kubernetesNamespace.value;
       const hostsResult = await window.api.ipc.invoke('get-verrazzano-host-names', kubectlExe, applicationName,
-          applicationNamespace, kubectlOptions);
+        applicationNamespace, kubectlOptions);
 
       dialogHelper.closeBusyDialog();
 
@@ -577,6 +578,7 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
       }
 
       project.vzApplication.hosts(hostsResult.hostnames);
+      project.vzApplication.generatedHost(hostsResult.generatedHostname);
     };
 
     this.componentsIngressTraitRulesDataProvider = (component) => {

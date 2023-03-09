@@ -1090,26 +1090,44 @@ async function getVerrazzanoApplicationHostnames(kubectlExe, applicationName, ap
   };
 
   return new Promise(resolve => {
-    executeFileCommand(kubectlExe, args, env).then(gatewayJson => {
-      const gateway = JSON.parse(gatewayJson);
-      const serversArray = gateway.spec?.servers;
-      if (Array.isArray(serversArray) && serversArray.length > 0) {
-        const hostsArray = serversArray[0].hosts;
-        if (Array.isArray(hostsArray) && hostsArray.length > 0) {
-          results.hostnames = hostsArray;
+    // the external address will help to determine the generated application host name.
+    // this address is returned as the generated host name if no matching DNS name is found.
+    getVerrazzanoIngressExternalAddress(kubectlExe, options).then(externalAddressResults => {
+      if(!externalAddressResults.isSuccess) {
+        resolve(externalAddressResults);
+        return;
+      }
+      const externalAddress = externalAddressResults.externalAddress;
+      results.generatedHostname = externalAddress;
+
+      executeFileCommand(kubectlExe, args, env).then(gatewayJson => {
+        const gateway = JSON.parse(gatewayJson);
+        const serversArray = gateway.spec?.servers;
+        if (Array.isArray(serversArray) && serversArray.length > 0) {
+          const hostsArray = serversArray[0].hosts;
+          if (Array.isArray(hostsArray) && hostsArray.length > 0) {
+            results.hostnames = hostsArray;
+
+            // see if a DNS name contains the external address
+            for(const hostname of hostsArray) {
+              if(hostname.includes(externalAddress)) {
+                results.generatedHostname = hostname;
+              }
+            }
+          }
         }
-      }
-      if (results.hostnames) {
-        results.reason = i18n.t('kubectl-get-vz-app-hostnames-not-found',
-          { appName: applicationName, appNamespace: applicationNamespace });
-      }
-      resolve(results);
-    }).catch(err => {
-      results.isSuccess = false;
-      results.reason =
-        i18n.t('kubectl-get-vz-app-hostnames-error-message',
-          { appName: applicationName, appNamespace: applicationNamespace, error: getErrorMessage(err) });
-      resolve(results);
+        if (!results.hostnames) {
+          results.reason = i18n.t('kubectl-get-vz-app-hostnames-not-found',
+            { appName: applicationName, appNamespace: applicationNamespace });
+        }
+        resolve(results);
+      }).catch(err => {
+        results.isSuccess = false;
+        results.reason =
+          i18n.t('kubectl-get-vz-app-hostnames-error-message',
+            { appName: applicationName, appNamespace: applicationNamespace, error: getErrorMessage(err) });
+        resolve(results);
+      });
     });
   });
 }
