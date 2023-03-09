@@ -1,12 +1,12 @@
 /**
  * @license
- * Copyright (c) 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2022, 2023, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
 
-define(['utils/observable-properties', 'utils/validation-helper', 'utils/wkt-logger'],
-  function(props, validationHelper) {
+define(['utils/observable-properties', 'utils/validation-helper', 'knockout', 'utils/wkt-logger'],
+  function(props, validationHelper, ko) {
     return function (name, k8sDomain) {
       function VerrazzanoApplicationModel() {
         let componentChanged = false;
@@ -29,6 +29,10 @@ define(['utils/observable-properties', 'utils/validation-helper', 'utils/wkt-log
           'metricsTraitHttpPort', 'metricsTraitHttpPath', 'metricsTraitSecretName', 'metricsTraitDeploymentName',
           'loggingTraitEnabled', 'loggingTraitImage', 'loggingTraitConfiguration' ];
         this.components = props.createListProperty(this.componentKeys).persistByKey('name');
+
+        // this is a transient ko observable that is not persisted
+        this.hosts = ko.observableArray();
+        this.generatedHost = ko.observable();
 
         this.readFrom = (json) => {
           props.createGroup(name, this).readFrom(json);

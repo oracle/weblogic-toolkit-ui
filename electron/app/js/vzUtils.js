@@ -82,6 +82,17 @@ async function getSecretNamesByNamespace(kubectlExe, namespace, kubectlOptions) 
   });
 }
 
+async function getHostNames(kubectlExe, applicationName, applicationNamespace, options) {
+  return new Promise(resolve => {
+    kubectlUtils.getVerrazzanoApplicationHostnames(kubectlExe, applicationName, applicationNamespace, options).then(result => {
+      if (!result.isSuccess) {
+        return resolve(result);
+      }
+      resolve(result);
+    });
+  });
+}
+
 async function getVerrazzanoClusterNames(kubectlExe, kubectlOptions) {
   return new Promise(resolve => {
     kubectlUtils.getKubernetesObjectsByNamespace(kubectlExe, kubectlOptions, 'VerrazzanoManagedCluster', 'verrazzano-mc').then(result => {
@@ -116,6 +127,7 @@ module.exports = {
   deployProject,
   getComponentNamesByNamespace,
   getDeploymentNamesFromAllNamespaces,
+  getHostNames,
   getSecretNamesByNamespace,
   getVerrazzanoClusterNames,
   undeployApplication,

@@ -328,6 +328,8 @@
   "kubectl-verify-vz-components-deployed-error-message": "Unable to find one or more components in namespace {{namespace}}: {{missingComponents}}",
   "kubectl-get-vz-ingress-external-address-not-found": "Unable to find the External IP Address in the Istio Gateway service {{gatewayService}} in Kubernetes namespace {{gatewayNamespace}}",
   "kubectl-get-vz-ingress-external-address-error-message": "Failed to find the External IP Address in the Istio Gateway service {{gatewayService}} in Kubernetes namespace {{gatewayNamespace}}: {{error}}",
+  "kubectl-get-vz-app-hostnames-error-message": "Unable to get Verrazzano application host names: {{error}}",
+  "kubectl-get-vz-app-hostnames-not-found": "Verrazzano application host names not found",
 
   "helm-not-specified-error-message": "Helm executable path was not provided",
   "helm-not-exists-error-message": "Helm executable {{filePath}} does not exist",

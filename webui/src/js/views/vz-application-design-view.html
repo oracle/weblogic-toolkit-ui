@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2022, Oracle and/or its affiliates.
+ Copyright (c) 2022, 2023, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('title')]]"></oj-bind-text></h6>
@@ -132,11 +132,16 @@
                       </oj-input-text>
                     </oj-form-layout>
                     <div>
-                      <h6 class="wkt-subheading">
-                        <oj-bind-text value="[[labelMapper('ingress-trait-rules-table-title')]]"></oj-bind-text>
-                      </h6>
+                      <div class="wkt-header-button-row wkt-header-with-margin">
+                        <h6 class="wkt-subheading">
+                          <oj-bind-text value="[[labelMapper('ingress-trait-rules-table-title')]]"></oj-bind-text>
+                        </h6>
+                        <oj-button id="updateUrls" chroming="callToAction" on-oj-action="[[updateUrls]]">
+                          <oj-bind-text value="[[labelMapper('ingress-trait-rules-update-urls-button-label')]]"></oj-bind-text>
+                        </oj-button>
+                      </div>
                       <oj-table :id="[[`ingress-rules-table-${component.index}`]]"
-                                class="wkt-model-properties-table"
+                                class="wkt-model-properties-table wkt-link-container"
                                 :aria-label="[[labelMapper('ingress-trait-rules-table-aria-label')]]"
                                 data="[[componentsIngressTraitRulesDataProvider(component.data)]]"
                                 display="grid"
@@ -150,16 +155,20 @@
                               <oj-bind-text value="[[row.data.hosts]]"></oj-bind-text>
                             </td>
                             <td>
-                              <oj-bind-text value="[[getFirstPathField(row.data.paths, 'pathType')]]"></oj-bind-text>
+                              <oj-bind-text value="[[getFirstPathText(row.data)]]"></oj-bind-text>
+                            </td>
+                            <td data-bind="attr: { title: computedUrl(row.data) }">
+                              <oj-bind-if test="[[computedCanLink(row.data)]]">
+                                <a data-bind="attr: { href: computedUrl(row.data) }">
+                                  <oj-bind-text value="[[computedUrl(row.data)]]"></oj-bind-text>
+                                </a>
+                              </oj-bind-if>
+                              <oj-bind-if test="[[!computedCanLink(row.data)()]]">
+                                <oj-bind-text value="[[computedUrl(row.data)]]"></oj-bind-text>
+                              </oj-bind-if>
                             </td>
                             <td>
-                              <oj-bind-text value="[[getFirstPathField(row.data.paths, 'path')]]"></oj-bind-text>
-                            </td>
-                            <td>
-                              <oj-bind-text value="[[row.data.destinationHost]]"></oj-bind-text>
-                            </td>
-                            <td>
-                              <oj-bind-text value="[[row.data.destinationPort]]"></oj-bind-text>
+                              <oj-bind-text value="[[getDestinationText(row.data)]]"></oj-bind-text>
                             </td>
                             <td>
                               <oj-button display="icons" chroming="borderless" on-oj-action="[[handleEditRule]]">

@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2022, 2023, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 define(['models/wkt-project', 'accUtils', 'utils/common-utilities', 'knockout', 'utils/i18n', 'ojs/ojbufferingdataprovider',
@@ -432,23 +432,23 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
     this.ingressTraitRulesColumnData = [
       {
         'headerText': this.labelMapper('ingress-trait-rules-hosts-label'),
-        'sortable': 'disable',
-      },
-      {
-        'headerText': this.labelMapper('ingress-trait-rules-first-path-type-label'),
-        'sortable': 'disable',
+        'resizable': 'enabled',
+        'sortable': 'disable'
       },
       {
         'headerText': this.labelMapper('ingress-trait-rules-first-path-label'),
-        'sortable': 'disable',
+        'resizable': 'enabled',
+        'sortable': 'disable'
       },
       {
-        'headerText': this.labelMapper('ingress-trait-rules-destination-host-label'),
+        'headerText': this.labelMapper('ingress-trait-rules-first-path-url-label'),
+        'resizable': 'enabled',
         'sortable': 'disable',
+        'width': '35%'
       },
       {
-        'headerText': this.labelMapper('ingress-trait-rules-destination-port-label'),
-        'sortable': 'disable',
+        'headerText': this.labelMapper('ingress-trait-rules-destination-label'),
+        'sortable': 'disable'
       },
       {
         'className': 'wkt-table-delete-cell',
@@ -468,12 +468,117 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
       },
     ];
 
-    this.getFirstPathField = (paths, fieldName) => {
-      let result;
+    // display in the first path column, example "/path (regex)"
+    this.getFirstPathText = (rowData) => {
+      let result = null;
+      const paths = rowData.paths;
       if (Array.isArray(paths) && paths.length > 0) {
-        result = paths[0][fieldName];
+        result = paths[0].path;
+        if(result && result.length) {
+          const pathType = paths[0].pathType;
+          if(pathType && pathType !== 'exact') {
+            result += ` (${pathType})`;
+          }
+        }
       }
       return result;
+    };
+
+    // display in the destination column, example "host:port"
+    this.getDestinationText = (rowData) => {
+      let result = rowData.destinationHost;
+      if(result) {
+        const port = rowData.destinationPort;
+        if(port != null) {
+          result += `:${port}`;
+        }
+      }
+      return result;
+    };
+
+    function getRuleHost(rowData) {
+      const ruleHostsText = rowData.hosts;
+      if(ruleHostsText) {
+        const ruleHosts = ruleHostsText.split(',').map(host => host.trim());
+        if(ruleHosts.length) {
+          return ruleHosts[0];
+        }
+      }
+      return null;
+    }
+
+    this.computedUrl = (rowData) => {
+      return ko.computed(() => {
+        let urlHost = '<host>';
+        const generatedHost = project.vzApplication.generatedHost();
+        if(generatedHost && generatedHost.length) {
+          urlHost = generatedHost;
+        }
+
+        const ruleHost = getRuleHost(rowData);
+        if(ruleHost) {
+          urlHost = ruleHost;
+        }
+
+        let result = 'https://' + urlHost;
+
+        let urlPath = '<path>';
+        const paths = rowData.paths;
+        if(paths && paths.length) {
+          urlPath = paths[0].path;
+          if(urlPath && urlPath.length) {
+            result += urlPath;
+          }
+        }
+
+        return result;
+      });
+    };
+
+    // resolves to true if the row data can make a clickable link
+    this.computedCanLink = (rowData) => {
+      return ko.computed(() => {
+        const appHosts = project.vzApplication.hosts();
+        if(!appHosts.length) {
+          return false;
+        }
+
+        const ruleHost = getRuleHost(rowData);
+        if(ruleHost && !appHosts.includes(ruleHost)) {
+          return false;
+        }
+
+        const paths = rowData.paths;
+        if(!paths || !paths.length) {
+          return false;
+        }
+
+        return paths[0].pathType !== 'regex';
+      });
+    };
+
+    this.updateUrls = async() => {
+      const busyDialogMessage = this.labelMapper('get-hosts-in-progress');
+      dialogHelper.openBusyDialog(busyDialogMessage, 'bar', 1 / 2.0);
+
+      const kubectlExe = this.project.kubectl.executableFilePath.value;
+      const kubectlOptions = k8sHelper.getKubectlOptions();
+      const applicationName = project.vzApplication.applicationName.value;
+      const applicationNamespace = project.k8sDomain.kubernetesNamespace.value;
+      const hostsResult = await window.api.ipc.invoke('get-verrazzano-host-names', kubectlExe, applicationName,
+        applicationNamespace, kubectlOptions);
+
+      dialogHelper.closeBusyDialog();
+
+      if (!hostsResult.isSuccess) {
+        const errTitle = 'vz-application-design-get-hosts-error-title';
+        const errMessage = this.labelMapper('get-hosts-error-message', { error: hostsResult.reason });
+        await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
+        return;
+      }
+
+      project.vzApplication.hosts(hostsResult.hostnames);
+      project.vzApplication.generatedHost(hostsResult.generatedHostname);
     };
 
     this.componentsIngressTraitRulesDataProvider = (component) => {
