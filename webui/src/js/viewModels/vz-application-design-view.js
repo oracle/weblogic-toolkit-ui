@@ -432,27 +432,23 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
     this.ingressTraitRulesColumnData = [
       {
         'headerText': this.labelMapper('ingress-trait-rules-hosts-label'),
-        'sortable': 'disable',
-      },
-      {
-        'headerText': this.labelMapper('ingress-trait-rules-first-path-type-label'),
-        'sortable': 'disable',
+        'resizable': 'enabled',
+        'sortable': 'disable'
       },
       {
         'headerText': this.labelMapper('ingress-trait-rules-first-path-label'),
-        'sortable': 'disable',
+        'resizable': 'enabled',
+        'sortable': 'disable'
       },
       {
         'headerText': this.labelMapper('ingress-trait-rules-first-path-url-label'),
+        'resizable': 'enabled',
         'sortable': 'disable',
+        'width': '35%'
       },
       {
-        'headerText': this.labelMapper('ingress-trait-rules-destination-host-label'),
-        'sortable': 'disable',
-      },
-      {
-        'headerText': this.labelMapper('ingress-trait-rules-destination-port-label'),
-        'sortable': 'disable',
+        'headerText': this.labelMapper('ingress-trait-rules-destination-label'),
+        'sortable': 'disable'
       },
       {
         'className': 'wkt-table-delete-cell',
@@ -472,13 +468,44 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
       },
     ];
 
-    this.getFirstPathField = (paths, fieldName) => {
-      let result;
+    // display in the first path column, example "/path (regex)"
+    this.getFirstPathText = (rowData) => {
+      let result = null;
+      const paths = rowData.paths;
       if (Array.isArray(paths) && paths.length > 0) {
-        result = paths[0][fieldName];
+        result = paths[0].path;
+        if(result && result.length) {
+          const pathType = paths[0].pathType;
+          if(pathType && pathType !== 'exact') {
+            result += ` (${pathType})`
+          }
+        }
       }
       return result;
     };
+
+    // display in the destination column, example "host:port"
+    this.getDestinationText = (rowData) => {
+      let result = rowData.destinationHost;
+      if(result) {
+        const port = rowData.destinationPort;
+        if(port != null) {
+          result += `:${port}`;
+        }
+      }
+      return result;
+    };
+
+    function getRuleHost(rowData) {
+      const ruleHostsText = rowData.hosts;
+      if(ruleHostsText) {
+        const ruleHosts = ruleHostsText.split(',').map(host => host.trim());
+        if(ruleHosts.length) {
+          return ruleHosts[0];
+        }
+      }
+      return null;
+    }
 
     this.computedUrl = (rowData) => {
       return ko.computed(() => {
@@ -487,21 +514,37 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
           urlHost = project.vzApplication.hosts()[0]
         }
 
-        let urlPath = '<path>'
+        const ruleHost = getRuleHost(rowData);
+        if(ruleHost) {
+          urlHost = ruleHost;
+        }
+
+        let result = 'https://' + urlHost;
+
+        let urlPath = '<path>';
         const paths = rowData.paths;
         if(paths && paths.length) {
           urlPath = paths[0].path
+          if(urlPath && urlPath.length) {
+            result += urlPath;
+          }
         }
 
-        return 'https://' + urlHost + urlPath;
+        return result;
       });
     }
 
-    // return true if there is enough data to make a clickable link
-    this.canLink = (rowData) => {
+    // resolves to true if the row data can make a clickable link
+    this.computedCanLink = (rowData) => {
       return ko.computed(() => {
-        if(!project.vzApplication.hosts().length) {
+        const appHosts = project.vzApplication.hosts();
+        if(!appHosts.length) {
           return false;
+        }
+
+        const ruleHost = getRuleHost(rowData);
+        if(ruleHost && !appHosts.includes(ruleHost)) {
+          return false
         }
 
         const paths = rowData.paths;

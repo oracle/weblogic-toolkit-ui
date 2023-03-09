@@ -155,26 +155,20 @@
                               <oj-bind-text value="[[row.data.hosts]]"></oj-bind-text>
                             </td>
                             <td>
-                              <oj-bind-text value="[[getFirstPathField(row.data.paths, 'pathType')]]"></oj-bind-text>
-                            </td>
-                            <td>
-                              <oj-bind-text value="[[getFirstPathField(row.data.paths, 'path')]]"></oj-bind-text>
+                              <oj-bind-text value="[[getFirstPathText(row.data)]]"></oj-bind-text>
                             </td>
                             <td data-bind="attr: { title: computedUrl(row.data) }">
-                              <oj-bind-if test="[[canLink(row.data)]]">
+                              <oj-bind-if test="[[computedCanLink(row.data)]]">
                                 <a data-bind="attr: { href: computedUrl(row.data) }">
                                   <oj-bind-text value="[[computedUrl(row.data)]]"></oj-bind-text>
                                 </a>
                               </oj-bind-if>
-                              <oj-bind-if test="[[!canLink(row.data)()]]">
+                              <oj-bind-if test="[[!computedCanLink(row.data)()]]">
                                 <oj-bind-text value="[[computedUrl(row.data)]]"></oj-bind-text>
                               </oj-bind-if>
                             </td>
                             <td>
-                              <oj-bind-text value="[[row.data.destinationHost]]"></oj-bind-text>
-                            </td>
-                            <td>
-                              <oj-bind-text value="[[row.data.destinationPort]]"></oj-bind-text>
+                              <oj-bind-text value="[[getDestinationText(row.data)]]"></oj-bind-text>
                             </td>
                             <td>
                               <oj-button display="icons" chroming="borderless" on-oj-action="[[handleEditRule]]">
