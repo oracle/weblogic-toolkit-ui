@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -32,18 +32,7 @@ define(['knockout', 'ojs/ojcorerouter'],
           parentSize: vertical ? parentElement.offsetHeight : parentElement.offsetWidth
         };
 
-        const percent = this.sliderPositions[name];
-        if (percent) {
-          if (vertical) {
-            const oneHeight = Math.round(percent * parentElement.offsetHeight);
-            onePane.style.height = oneHeight + 'px';
-            twoPane.style.height = (parentElement.offsetHeight - oneHeight) + 'px';
-          } else {
-            const oneWidth = Math.round(percent * parentElement.offsetWidth);
-            onePane.style.width = oneWidth + 'px';
-            twoPane.style.width = (parentElement.offsetWidth - oneWidth) + 'px';
-          }
-        }
+        resizeFromSliderPosition();
 
         slider.onmousedown = (e => {
           lastDown = {
@@ -84,22 +73,26 @@ define(['knockout', 'ojs/ojcorerouter'],
           window.api.ipc.send('set-divider-location', name, mouseUpPercent);
         }
 
+        function resizeFromSliderPosition() {
+          const percent = thisUtil.sliderPositions[name];
+          if (percent) {
+            if (vertical) {
+              const oneHeight = Math.round(percent * parentElement.offsetHeight);
+              onePane.style.height = oneHeight + 'px';
+              twoPane.style.height = (parentElement.offsetHeight - oneHeight) + 'px';
+            } else {
+              const oneWidth = Math.round(percent * parentElement.offsetWidth);
+              onePane.style.width = oneWidth + 'px';
+              twoPane.style.width = (parentElement.offsetWidth - oneWidth) + 'px';
+            }
+          }
+        }
+
         new ResizeObserver(() => {
-          // if the parent container was resized in the specified direction,
-          // clear any assigned heights or widths
+          // if the parent container was resized, resize panels based on slider position.
 
           if(lastDown) {
-            if (vertical) {
-              if(lastDown.parentSize !== parentElement.offsetHeight) {
-                onePane.style.height = null;
-                twoPane.style.height = null;
-              }
-            } else {
-              if(lastDown.parentSize !== parentElement.offsetWidth) {
-                onePane.style.width = null;
-                twoPane.style.width = null;
-              }
-            }
+            resizeFromSliderPosition();
           }
         }).observe(parentElement);
       };
