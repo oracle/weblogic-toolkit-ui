@@ -272,6 +272,7 @@
         "cdnPath": "preact/compat/dist/compat.umd"
       }
     },
+
     "preact/jsx-runtime": {
       "cdn": "3rdparty",
       "cwd": "node_modules/preact/jsx-runtime/dist",
@@ -497,6 +498,21 @@
       "release": {
         "src": ["**"],
         "path": "jet-composites/cfe-property-list-editor/1.0.0",
+        "cdnPath": ""
+      }
+    },
+
+    "cfe-policy-editor": {
+      "cdn": "3rdparty",
+      "cwd": "node_modules/@oracle/wrc-jet-pack/dist/jet-composites/cfe-policy-editor",
+      "debug": {
+        "src": ["**"],
+        "path": "jet-composites/cfe-policy-editor/1.0.0",
+        "cdnPath": ""
+      },
+      "release": {
+        "src": ["**"],
+        "path": "jet-composites/cfe-policy-editor/1.0.0",
         "cdnPath": ""
       }
     }

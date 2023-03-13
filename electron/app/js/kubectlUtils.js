@@ -281,7 +281,7 @@ async function getOperatorVersionFromDomainConfigMap(kubectlExe, domainNamespace
 }
 
 async function verifyClusterConnectivity(kubectlExe, options) {
-  const args = [ 'version', '--short' ];
+  const args = [ 'version', '-o', 'json' ];
   const httpsProxyUrl = getHttpsProxyUrl();
   const bypassProxyHosts = getBypassProxyHosts();
 
@@ -293,11 +293,11 @@ async function verifyClusterConnectivity(kubectlExe, options) {
   return new Promise(resolve => {
     executeFileCommand(kubectlExe, args, env).then(stdout => {
       if (stdout) {
-        const lines = stdout.split(/\r?\n/);
-        results.clientVersion = lines[0].trim().match(/.*(\d+\.\d+\.\d+).*/)[1];
+        const jsonOutput = JSON.parse(stdout);
+        results.clientVersion = jsonOutput?.clientVersion?.gitVersion;
         getLogger().debug('Kubernetes Client Version = %s', results.clientVersion);
-        if (lines.length > 1 && lines[1]) {
-          results.serverVersion = lines[1].trim().match(/.*(\d+\.\d+\.\d+).*/)[1];
+        if (jsonOutput?.serverVersion?.gitVersion) {
+          results.serverVersion = jsonOutput?.serverVersion?.gitVersion;
           getLogger().debug('Kubernetes Server Version = %s', results.serverVersion);
         }
       }
