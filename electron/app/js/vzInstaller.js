@@ -44,7 +44,7 @@ async function installVerrazzanoPlatformOperator(kubectlExe, k8sOptions, vzOptio
 
   if (vzOptions.tag) {
     const version = vzOptions.tag.slice(1);
-    getLogger().debug('XXXXXXXXXXXXX vzOptions.tag = %s and version = %s', vzOptions.tag, version);
+    getLogger().debug('installVerrazzanoPlatformOperator: vzOptions.tag = %s and version = %s', vzOptions.tag, version);
     if (compareVersions(version, '1.4.0') >= 0) {
       platformOperatorUrl = `${VZ_BASE_URL}/releases/download/${vzOptions.tag}/verrazzano-platform-operator.yaml`;
     } else {
