@@ -7,6 +7,7 @@ const githubUtils = require('./githubUtils');
 const kubectlUtils = require('./kubectlUtils');
 const i18n = require('./i18next.config');
 const { compareVersions } = require('./versionUtils');
+const {getLogger} = require('./wktLogging');
 
 const VZ_BASE_API_URL = 'https://api.github.com/repos/verrazzano/verrazzano';
 const VZ_BASE_URL = 'https://github.com/verrazzano/verrazzano';
@@ -43,6 +44,7 @@ async function installVerrazzanoPlatformOperator(kubectlExe, k8sOptions, vzOptio
 
   if (vzOptions.tag) {
     const version = vzOptions.tag.slice(1);
+    getLogger().debug('XXXXXXXXXXXXX vzOptions.tag = %s and version = %s', vzOptions.tag, version);
     if (compareVersions(version, '1.4.0') >= 0) {
       platformOperatorUrl = `${VZ_BASE_URL}/releases/download/${vzOptions.tag}/verrazzano-platform-operator.yaml`;
     } else {
@@ -50,7 +52,6 @@ async function installVerrazzanoPlatformOperator(kubectlExe, k8sOptions, vzOptio
       //
       platformOperatorUrl = `${VZ_BASE_URL}/releases/download/${vzOptions.tag}/operator.yaml`;
     }
-    platformOperatorUrl = `${VZ_BASE_URL}/releases/download/${vzOptions.tag}/operator.yaml`;
   } else {
     platformOperatorUrl = `${VZ_BASE_URL}/releases/latest/verrazzano-platform-operator.yaml`;
   }
