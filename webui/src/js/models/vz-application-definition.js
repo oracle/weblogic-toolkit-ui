@@ -30,10 +30,6 @@ define(['utils/observable-properties', 'utils/validation-helper', 'knockout', 'u
           'loggingTraitEnabled', 'loggingTraitImage', 'loggingTraitConfiguration' ];
         this.components = props.createListProperty(this.componentKeys).persistByKey('name');
 
-        // this is a transient ko observable that is not persisted
-        this.hosts = ko.observableArray();
-        this.generatedHost = ko.observable();
-
         this.readFrom = (json) => {
           props.createGroup(name, this).readFrom(json);
         };
