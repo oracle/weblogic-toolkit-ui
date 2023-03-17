@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 define(['accUtils', 'knockout', 'utils/i18n', 'utils/view-helper', 'ojs/ojarraydataprovider',
@@ -26,8 +26,7 @@ function (accUtils, ko, i18n, viewHelper, ArrayDataProvider, BufferingDataProvid
       },
       {
         headerText: this.labelMapper('value-header'),
-        sortProperty: 'Value',
-        resizable: 'enabled'
+        sortProperty: 'Value'
       },
       {
         className: 'wkt-table-delete-cell',

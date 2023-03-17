@@ -54,8 +54,7 @@ function(accUtils, ko, project, i18n, ArrayDataProvider, BufferingDataProvider, 
       },
       {
         headerText: this.labelMapper('vz-managed-cluster-kubecontext-heading'),
-        sortProperty: 'kubeContext',
-        resizable: 'enabled'
+        sortProperty: 'kubeContext'
       },
       {
         className: 'wkt-table-delete-cell',

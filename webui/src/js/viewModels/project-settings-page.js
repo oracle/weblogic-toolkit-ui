@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
@@ -74,8 +74,7 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
         className: 'wkt-table-env-vars-cell',
         headerClassName: 'wkt-table-env-vars-header',
         headerText: this.labelMapper('extra-environment-variable-value-header'),
-        sortable: 'disable',
-        resizable: 'enabled'
+        sortable: 'disable'
       },
       {
         className: 'wkt-table-delete-cell',

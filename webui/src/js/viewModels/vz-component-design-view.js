@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2022, 2023, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 define(['models/wkt-project', 'accUtils', 'utils/common-utilities', 'knockout', 'utils/i18n', 'utils/screen-utils',
@@ -282,8 +282,7 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       },
       {
         headerText: this.domainLabelMapper('clusters-memory-request-heading'),
-        sortProperty: 'memoryRequest',
-        resizable: 'enabled'
+        sortProperty: 'memoryRequest'
       },
       {
         className: 'wkt-table-delete-cell',
@@ -421,8 +420,7 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       },
       {
         headerText: this.domainLabelMapper('domain-node-selector-label-value-header'),
-        sortable: 'disabled',
-        resizable: 'enabled'
+        sortable: 'disabled'
       },
       {
         className: 'wkt-table-delete-cell',
