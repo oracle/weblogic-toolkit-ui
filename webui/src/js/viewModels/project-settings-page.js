@@ -30,25 +30,25 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
 
     this.extraPathColumnData = [
       {
-        'className': 'wkt-table-path-cell',
-        'headerClassName': 'wkt-table-path-header',
-        'headerText': this.labelMapper('extra-path-directory-header'),
-        'sortable': 'disable'
+        className: 'wkt-table-path-cell',
+        headerClassName: 'wkt-table-path-header',
+        headerText: this.labelMapper('extra-path-directory-header'),
+        sortable: 'disable'
       },
       {
-        'className': 'wkt-table-delete-cell',
-        'headerClassName': 'wkt-table-add-header',
-        'headerTemplate': 'chooseHeaderTemplate',
-        'template': 'actionTemplate',
-        'sortable': 'disable',
+        className: 'wkt-table-delete-cell',
+        headerClassName: 'wkt-table-add-header',
+        headerTemplate: 'chooseHeaderTemplate',
+        template: 'actionTemplate',
+        sortable: 'disable',
         width: viewHelper.BUTTON_COLUMN_WIDTH
       },
       {
-        'className': 'wkt-table-delete-cell',
-        'headerClassName': 'wkt-table-add-header',
-        'headerTemplate': 'headerTemplate',
-        'template': 'actionTemplate',
-        'sortable': 'disable',
+        className: 'wkt-table-delete-cell',
+        headerClassName: 'wkt-table-add-header',
+        headerTemplate: 'headerTemplate',
+        template: 'actionTemplate',
+        sortable: 'disable',
         width: viewHelper.BUTTON_COLUMN_WIDTH
       }
     ];
@@ -64,23 +64,25 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
 
     this.extraEnvironmentVariablesColumnData = [
       {
-        'className': 'wkt-table-env-vars-cell',
-        'headerClassName': 'wkt-table-env-vars-header',
-        'headerText': this.labelMapper('extra-environment-variable-name-header'),
-        'sortProperty': 'name'
+        className: 'wkt-table-env-vars-cell',
+        headerClassName: 'wkt-table-env-vars-header',
+        headerText: this.labelMapper('extra-environment-variable-name-header'),
+        sortProperty: 'name',
+        resizable: 'enabled'
       },
       {
-        'className': 'wkt-table-env-vars-cell',
-        'headerClassName': 'wkt-table-env-vars-header',
-        'headerText': this.labelMapper('extra-environment-variable-value-header'),
-        'sortable': 'disable'
+        className: 'wkt-table-env-vars-cell',
+        headerClassName: 'wkt-table-env-vars-header',
+        headerText: this.labelMapper('extra-environment-variable-value-header'),
+        sortable: 'disable',
+        resizable: 'enabled'
       },
       {
-        'className': 'wkt-table-delete-cell',
-        'headerClassName': 'wkt-table-add-header',
-        'headerTemplate': 'headerTemplate',
-        'template': 'actionTemplate',
-        'sortable': 'disable',
+        className: 'wkt-table-delete-cell',
+        headerClassName: 'wkt-table-add-header',
+        headerTemplate: 'headerTemplate',
+        template: 'actionTemplate',
+        sortable: 'disable',
         width: viewHelper.BUTTON_COLUMN_WIDTH
       }
     ];

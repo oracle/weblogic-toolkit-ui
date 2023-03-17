@@ -167,19 +167,21 @@ function(accUtils, ko, i18n, project, props, validationHelper,
     // this is dynamic to allow i18n fields to load correctly
     this.pathsColumns = [
       {
-        'headerText': this.labelMapper('path-type-label'),
-        'sortProperty': 'pathType'
+        headerText: this.labelMapper('path-type-label'),
+        sortProperty: 'pathType',
+        resizable: 'enabled'
       },
       {
-        'headerText': this.labelMapper('path-label'),
-        'sortProperty': 'path'
+        headerText: this.labelMapper('path-label'),
+        sortProperty: 'path',
+        resizable: 'enabled'
       },
       {
-        'className': 'wkt-table-delete-cell',
-        'headerClassName': 'wkt-table-add-header',
-        'headerTemplate': 'headerTemplate',
-        'template': 'actionTemplate',
-        'sortable': 'disable'
+        className: 'wkt-table-delete-cell',
+        headerClassName: 'wkt-table-add-header',
+        headerTemplate: 'headerTemplate',
+        template: 'actionTemplate',
+        sortable: 'disable'
       }
     ];
 

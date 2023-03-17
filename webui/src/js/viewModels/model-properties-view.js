@@ -20,21 +20,21 @@ function (accUtils, ko, i18n, viewHelper, ArrayDataProvider, BufferingDataProvid
     // this is dynamic to allow i18n fields to load correctly
     this.columnData = [
       {
-        'headerText': this.labelMapper('name-header'),
-        'sortProperty': 'Name',
-        'resizable': 'enabled'
+        headerText: this.labelMapper('name-header'),
+        sortProperty: 'Name',
+        resizable: 'enabled'
       },
       {
-        'headerText': this.labelMapper('value-header'),
-        'sortProperty': 'Value',
-        'resizable': 'enabled'
+        headerText: this.labelMapper('value-header'),
+        sortProperty: 'Value',
+        resizable: 'enabled'
       },
       {
-        'className': 'wkt-table-delete-cell',
-        'headerClassName': 'wkt-table-add-header',
-        'headerTemplate': 'headerTemplate',
-        'template': 'actionTemplate',
-        'sortable': 'disable',
+        className: 'wkt-table-delete-cell',
+        headerClassName: 'wkt-table-add-header',
+        headerTemplate: 'headerTemplate',
+        template: 'actionTemplate',
+        sortable: 'disable',
         width: viewHelper.BUTTON_COLUMN_WIDTH
       }];
 

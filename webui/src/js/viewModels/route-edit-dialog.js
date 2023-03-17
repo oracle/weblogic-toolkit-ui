@@ -80,19 +80,21 @@ function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDa
     // this is dynamic to allow i18n fields to load correctly
     this.annotationColumns = [
       {
-        'headerText': this.labelMapper('route-annotation-label'),
-        'sortProperty': 'key'
+        headerText: this.labelMapper('route-annotation-label'),
+        sortProperty: 'key',
+        resizable: 'enabled'
       },
       {
-        'headerText': this.labelMapper('route-annotationValue-label'),
-        'sortProperty': 'value'
+        headerText: this.labelMapper('route-annotationValue-label'),
+        sortProperty: 'value',
+        resizable: 'enabled'
       },
       {
-        'className': 'wkt-table-delete-cell',
-        'headerClassName': 'wkt-table-add-header',
-        'headerTemplate': 'headerTemplate',
-        'template': 'actionTemplate',
-        'sortable': 'disable'
+        className: 'wkt-table-delete-cell',
+        headerClassName: 'wkt-table-add-header',
+        headerTemplate: 'headerTemplate',
+        template: 'actionTemplate',
+        sortable: 'disable'
       }
     ];
 

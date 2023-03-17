@@ -62,12 +62,14 @@ function(accUtils, ko, i18n, viewHelper, ArrayDataProvider) {
 
     this.typesColumnData = [
       {
-        'headerText': this.labelMapper('file-location-header'),
-        'sortProperty': 'file'
+        headerText: this.labelMapper('file-location-header'),
+        sortProperty: 'file',
+        resizeable: 'enabled'
       },
       {
-        'headerText': this.labelMapper('archive-path-header'),
-        'sortable': 'disable'
+        headerText: this.labelMapper('archive-path-header'),
+        sortable: 'disable',
+        resizeable: 'enabled'
       }
     ];
 

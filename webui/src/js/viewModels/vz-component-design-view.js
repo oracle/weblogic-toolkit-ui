@@ -21,10 +21,6 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
         this.applyAuxImageConfig(newValue);
       }));
 
-      // subscriptions.push(this.project.k8sDomain.clusters.observable.subscribe(() => {
-      //   document.getElementById('clusters-table').refresh();
-      // }));
-
       subscriptions.push(this.project.k8sDomain.domainNodeSelector.observable.subscribe(() => {
         document.getElementById('domain-node-selector-table').refresh();
       }));
@@ -261,42 +257,48 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
     this.clusterColumnData = [
       {
         headerText: this.domainLabelMapper('clusters-name-heading'),
-        sortProperty: 'name'
+        sortProperty: 'name',
+        resizable: 'enabled'
       },
       {
         headerText: this.domainLabelMapper('clusters-replicas-heading'),
-        sortProperty: 'replicas'
+        sortProperty: 'replicas',
+        resizable: 'enabled'
       },
       {
         headerText: this.domainLabelMapper('clusters-min-heap-heading'),
-        sortProperty: 'minHeap'
+        sortProperty: 'minHeap',
+        resizable: 'enabled'
       },
       {
         headerText: this.domainLabelMapper('clusters-max-heap-heading'),
-        sortProperty: 'maxHeap'
+        sortProperty: 'maxHeap',
+        resizable: 'enabled'
       },
       {
         headerText: this.domainLabelMapper('clusters-cpu-request-heading'),
-        sortProperty: 'cpuRequest'
+        sortProperty: 'cpuRequest',
+        resizable: 'enabled'
       },
       {
         headerText: this.domainLabelMapper('clusters-memory-request-heading'),
-        sortProperty: 'memoryRequest'
+        sortProperty: 'memoryRequest',
+        resizable: 'enabled'
       },
       {
-        'className': 'wkt-table-delete-cell',
-        'headerClassName': 'wkt-table-add-header',
-        'headerTemplate': 'chooseHeaderTemplate',
-        'template': 'actionTemplate',
-        'sortable': 'disable',
+        className: 'wkt-table-delete-cell',
+        headerClassName: 'wkt-table-add-header',
+        headerTemplate: 'chooseHeaderTemplate',
+        template: 'actionTemplate',
+        sortable: 'disable',
         width: viewHelper.BUTTON_COLUMN_WIDTH
       },
       {
-        'className': 'wkt-table-delete-cell',
-        'headerClassName': 'wkt-table-add-header',
-        'headerTemplate': 'headerTemplate',
-        'template': 'actionTemplate',
-        'sortable': 'disable',
+        className: 'wkt-table-delete-cell',
+        headerClassName: 'wkt-table-add-header',
+        headerTemplate: 'headerTemplate',
+        template: 'actionTemplate',
+        sortable: 'disable',
         width: viewHelper.BUTTON_COLUMN_WIDTH
       },
     ];
@@ -379,9 +381,9 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
 
     this.propertyTableColumnMetadata = () => {
       return [
-        {'headerText': this.domainLabelMapper('propname-header'), 'sortProperty': 'Name', 'resizable': 'enabled'},
-        {'headerText': this.domainLabelMapper('propvalue-header'), 'sortProperty': 'Value', 'resizable': 'enabled'},
-        {'headerText': this.domainLabelMapper('propoverride-header'), 'sortProperty': 'Override', 'resizable': 'enabled'},
+        {'headerText': this.domainLabelMapper('propname-header'), sortProperty: 'Name', resizable: 'enabled'},
+        {'headerText': this.domainLabelMapper('propvalue-header'), sortProperty: 'Value', resizable: 'enabled'},
+        {'headerText': this.domainLabelMapper('propoverride-header'), sortProperty: 'Override', resizable: 'enabled'},
       ];
     };
 
@@ -402,9 +404,9 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
 
     this.secretsTableColumnMetadata = () => {
       return [
-        {'headerText': this.domainLabelMapper('secretname-header'), 'sortProperty': 'name', 'resizable': 'enabled'},
-        {'headerText': this.domainLabelMapper('username-header'), 'sortable': 'disabled', 'resizable': 'enabled'},
-        {'headerText': this.domainLabelMapper('password-header'), 'sortable': 'disabled', 'resizable': 'enabled'},
+        {'headerText': this.domainLabelMapper('secretname-header'), sortProperty: 'name', resizable: 'enabled'},
+        {'headerText': this.domainLabelMapper('username-header'), 'sortable': 'disabled', resizable: 'enabled'},
+        {'headerText': this.domainLabelMapper('password-header'), 'sortable': 'disabled', resizable: 'enabled'},
       ];
     };
 
@@ -414,18 +416,20 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
     this.nodeSelectorColumnMetadata = [
       {
         headerText: this.domainLabelMapper('domain-node-selector-label-name-header'),
-        sortProperty: 'name'
+        sortProperty: 'name',
+        resizable: 'enabled'
       },
       {
         headerText: this.domainLabelMapper('domain-node-selector-label-value-header'),
-        sortable: 'disabled'
+        sortable: 'disabled',
+        resizable: 'enabled'
       },
       {
-        'className': 'wkt-table-delete-cell',
-        'headerClassName': 'wkt-table-add-header',
-        'headerTemplate': 'headerTemplate',
-        'template': 'actionTemplate',
-        'sortable': 'disable',
+        className: 'wkt-table-delete-cell',
+        headerClassName: 'wkt-table-add-header',
+        headerTemplate: 'headerTemplate',
+        template: 'actionTemplate',
+        sortable: 'disable',
         width: viewHelper.BUTTON_COLUMN_WIDTH
       },
     ];

@@ -95,18 +95,20 @@ function (i18n, accUtils, ko, CoreRouter, ModuleRouterAdapter, ArrayDataProvider
     this.nodeSelectorColumnMetadata = [
       {
         headerText: this.labelMapper('node-selector-label-name-header'),
-        sortProperty: 'name'
+        sortProperty: 'name',
+        resizable: 'enabled'
       },
       {
         headerText: this.labelMapper('node-selector-label-value-header'),
-        sortable: 'disabled'
+        sortable: 'disabled',
+        resizable: 'enabled'
       },
       {
-        'className': 'wkt-table-delete-cell',
-        'headerClassName': 'wkt-table-add-header',
-        'headerTemplate': 'headerTemplate',
-        'template': 'actionTemplate',
-        'sortable': 'disable',
+        className: 'wkt-table-delete-cell',
+        headerClassName: 'wkt-table-add-header',
+        headerTemplate: 'headerTemplate',
+        template: 'actionTemplate',
+        sortable: 'disable',
         width: viewHelper.BUTTON_COLUMN_WIDTH
       },
     ];

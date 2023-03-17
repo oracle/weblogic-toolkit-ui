@@ -261,42 +261,48 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
     this.clusterColumnData = [
       {
         headerText: this.labelMapper('clusters-name-heading'),
-        sortProperty: 'name'
+        sortProperty: 'name',
+        resizable: 'enabled'
       },
       {
         headerText: this.labelMapper('clusters-replicas-heading'),
-        sortProperty: 'replicas'
+        sortProperty: 'replicas',
+        resizable: 'enabled'
       },
       {
         headerText: this.labelMapper('clusters-min-heap-heading'),
-        sortProperty: 'minHeap'
+        sortProperty: 'minHeap',
+        resizable: 'enabled'
       },
       {
         headerText: this.labelMapper('clusters-max-heap-heading'),
-        sortProperty: 'maxHeap'
+        sortProperty: 'maxHeap',
+        resizable: 'enabled'
       },
       {
         headerText: this.labelMapper('clusters-cpu-request-heading'),
-        sortProperty: 'cpuRequest'
+        sortProperty: 'cpuRequest',
+        resizable: 'enabled'
       },
       {
         headerText: this.labelMapper('clusters-memory-request-heading'),
-        sortProperty: 'memoryRequest'
+        sortProperty: 'memoryRequest',
+        resizable: 'enabled'
       },
       {
-        'className': 'wkt-table-delete-cell',
-        'headerClassName': 'wkt-table-add-header',
-        'headerTemplate': 'chooseHeaderTemplate',
-        'template': 'actionTemplate',
-        'sortable': 'disable',
+        className: 'wkt-table-delete-cell',
+        headerClassName: 'wkt-table-add-header',
+        headerTemplate: 'chooseHeaderTemplate',
+        template: 'actionTemplate',
+        sortable: 'disable',
         width: viewHelper.BUTTON_COLUMN_WIDTH
       },
       {
-        'className': 'wkt-table-delete-cell',
-        'headerClassName': 'wkt-table-add-header',
-        'headerTemplate': 'headerTemplate',
-        'template': 'actionTemplate',
-        'sortable': 'disable',
+        className: 'wkt-table-delete-cell',
+        headerClassName: 'wkt-table-add-header',
+        headerTemplate: 'headerTemplate',
+        template: 'actionTemplate',
+        sortable: 'disable',
         width: viewHelper.BUTTON_COLUMN_WIDTH
       },
     ];
@@ -379,9 +385,9 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
 
     this.propertyTableColumnMetadata = () => {
       return [
-        {'headerText': this.labelMapper('propname-header'), 'sortProperty': 'Name', 'resizable': 'enabled'},
-        {'headerText': this.labelMapper('propvalue-header'), 'sortProperty': 'Value', 'resizable': 'enabled'},
-        {'headerText': this.labelMapper('propoverride-header'), 'sortProperty': 'Override', 'resizable': 'enabled'},
+        { headerText: this.labelMapper('propname-header'), sortProperty: 'Name', resizable: 'enabled' },
+        { headerText: this.labelMapper('propvalue-header'), sortProperty: 'Value', resizable: 'enabled' },
+        { headerText: this.labelMapper('propoverride-header'), sortProperty: 'Override', resizable: 'enabled' },
       ];
     };
 
@@ -414,18 +420,20 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
     this.nodeSelectorColumnMetadata = [
       {
         headerText: this.labelMapper('domain-node-selector-label-name-header'),
-        sortProperty: 'name'
+        sortProperty: 'name',
+        resizable: 'enabled'
       },
       {
         headerText: this.labelMapper('domain-node-selector-label-value-header'),
-        sortable: 'disabled'
+        sortable: 'disabled',
+        resizable: 'enabled'
       },
       {
-        'className': 'wkt-table-delete-cell',
-        'headerClassName': 'wkt-table-add-header',
-        'headerTemplate': 'headerTemplate',
-        'template': 'actionTemplate',
-        'sortable': 'disable',
+        className: 'wkt-table-delete-cell',
+        headerClassName: 'wkt-table-add-header',
+        headerTemplate: 'headerTemplate',
+        template: 'actionTemplate',
+        sortable: 'disable',
         width: viewHelper.BUTTON_COLUMN_WIDTH
       },
     ];

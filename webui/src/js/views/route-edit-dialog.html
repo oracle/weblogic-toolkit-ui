@@ -83,6 +83,8 @@
                 :aria-label="[[labelMapper('route-annotations-table-aria-label')]]"
                 data="[[annotationsProvider]]"
                 edit-mode="rowEdit"
+                horizontal-grid-visible="enabled"
+                vertical-grid-visible="enabled"
                 columns='[[annotationColumns]]'>
         <template slot="rowTemplate" data-oj-as="row">
           <tr>
