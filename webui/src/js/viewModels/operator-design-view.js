@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 define(['utils/i18n', 'accUtils', 'knockout', 'ojs/ojcorerouter', 'ojs/ojmodulerouter-adapter', 'ojs/ojarraydataprovider',
@@ -95,18 +95,19 @@ function (i18n, accUtils, ko, CoreRouter, ModuleRouterAdapter, ArrayDataProvider
     this.nodeSelectorColumnMetadata = [
       {
         headerText: this.labelMapper('node-selector-label-name-header'),
-        sortProperty: 'name'
+        sortProperty: 'name',
+        resizable: 'enabled'
       },
       {
         headerText: this.labelMapper('node-selector-label-value-header'),
         sortable: 'disabled'
       },
       {
-        'className': 'wkt-table-delete-cell',
-        'headerClassName': 'wkt-table-add-header',
-        'headerTemplate': 'headerTemplate',
-        'template': 'actionTemplate',
-        'sortable': 'disable',
+        className: 'wkt-table-delete-cell',
+        headerClassName: 'wkt-table-add-header',
+        headerTemplate: 'headerTemplate',
+        template: 'actionTemplate',
+        sortable: 'disable',
         width: viewHelper.BUTTON_COLUMN_WIDTH
       },
     ];

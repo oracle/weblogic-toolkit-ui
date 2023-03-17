@@ -51,20 +51,20 @@ function(accUtils, ko, i18n, viewHelper, ArrayDataProvider, ListDataProviderView
 
     this.environmentVariablesColumnData = [
       {
-        'className': 'wkt-table-env-vars-cell',
-        'headerClassName': 'wkt-table-env-vars-header',
-        'headerText': this.labelMapper('name-header'),
-        'field': 'name',
-        'resizable': 'enabled',
-        'weight': 30
+        className: 'wkt-table-env-vars-cell',
+        headerClassName: 'wkt-table-env-vars-header',
+        headerText: this.labelMapper('name-header'),
+        field: 'name',
+        resizable: 'enabled',
+        weight: 30
       },
       {
-        'className': 'wkt-table-env-vars-cell',
-        'headerClassName': 'wkt-table-env-vars-header',
-        'headerText': this.labelMapper('value-header'),
-        'field': 'value',
-        'resizable': 'enabled',
-        'weight': 70
+        className: 'wkt-table-env-vars-cell',
+        headerClassName: 'wkt-table-env-vars-header',
+        headerText: this.labelMapper('value-header'),
+        field: 'value',
+        resizable: 'enabled',
+        weight: 70
       }
     ];
 

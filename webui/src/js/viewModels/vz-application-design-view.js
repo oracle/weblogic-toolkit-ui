@@ -431,39 +431,39 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
     // this is dynamic to allow i18n fields to load correctly
     this.ingressTraitRulesColumnData = [
       {
-        'headerText': this.labelMapper('ingress-trait-rules-hosts-label'),
+        headerText: this.labelMapper('ingress-trait-rules-hosts-label'),
         'resizable': 'enabled',
-        'sortable': 'disable'
+        sortable: 'disable'
       },
       {
-        'headerText': this.labelMapper('ingress-trait-rules-first-path-label'),
+        headerText: this.labelMapper('ingress-trait-rules-first-path-label'),
         'resizable': 'enabled',
-        'sortable': 'disable'
+        sortable: 'disable'
       },
       {
-        'headerText': this.labelMapper('ingress-trait-rules-first-path-url-label'),
-        'resizable': 'enabled',
-        'sortable': 'disable',
-        'width': '35%'
+        headerText: this.labelMapper('ingress-trait-rules-first-path-url-label'),
+        resizable: 'enabled',
+        sortable: 'disable',
+        width: '35%'
       },
       {
-        'headerText': this.labelMapper('ingress-trait-rules-destination-label'),
-        'sortable': 'disable'
+        headerText: this.labelMapper('ingress-trait-rules-destination-label'),
+        sortable: 'disable'
       },
       {
-        'className': 'wkt-table-delete-cell',
-        'headerClassName': 'wkt-table-add-header',
-        'headerTemplate': 'chooseHeaderTemplate',
-        'template': 'actionTemplate',
-        'sortable': 'disable',
+        className: 'wkt-table-delete-cell',
+        headerClassName: 'wkt-table-add-header',
+        headerTemplate: 'chooseHeaderTemplate',
+        template: 'actionTemplate',
+        sortable: 'disable',
         width: viewHelper.BUTTON_COLUMN_WIDTH
       },
       {
-        'className': 'wkt-table-delete-cell',
-        'headerClassName': 'wkt-table-add-header',
-        'headerTemplate': 'headerTemplate',
-        'template': 'actionTemplate',
-        'sortable': 'disable',
+        className: 'wkt-table-delete-cell',
+        headerClassName: 'wkt-table-add-header',
+        headerTemplate: 'headerTemplate',
+        template: 'actionTemplate',
+        sortable: 'disable',
         width: viewHelper.BUTTON_COLUMN_WIDTH
       },
     ];

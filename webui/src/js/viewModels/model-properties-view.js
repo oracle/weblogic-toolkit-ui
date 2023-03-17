@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 define(['accUtils', 'knockout', 'utils/i18n', 'utils/view-helper', 'ojs/ojarraydataprovider',
@@ -20,21 +20,20 @@ function (accUtils, ko, i18n, viewHelper, ArrayDataProvider, BufferingDataProvid
     // this is dynamic to allow i18n fields to load correctly
     this.columnData = [
       {
-        'headerText': this.labelMapper('name-header'),
-        'sortProperty': 'Name',
-        'resizable': 'enabled'
+        headerText: this.labelMapper('name-header'),
+        sortProperty: 'Name',
+        resizable: 'enabled'
       },
       {
-        'headerText': this.labelMapper('value-header'),
-        'sortProperty': 'Value',
-        'resizable': 'enabled'
+        headerText: this.labelMapper('value-header'),
+        sortProperty: 'Value'
       },
       {
-        'className': 'wkt-table-delete-cell',
-        'headerClassName': 'wkt-table-add-header',
-        'headerTemplate': 'headerTemplate',
-        'template': 'actionTemplate',
-        'sortable': 'disable',
+        className: 'wkt-table-delete-cell',
+        headerClassName: 'wkt-table-add-header',
+        headerTemplate: 'headerTemplate',
+        template: 'actionTemplate',
+        sortable: 'disable',
         width: viewHelper.BUTTON_COLUMN_WIDTH
       }];
 

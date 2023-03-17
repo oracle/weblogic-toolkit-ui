@@ -44,22 +44,24 @@ function(accUtils, ko, project, i18n, ArrayDataProvider, BufferingDataProvider, 
     this.vzManagedClustersColumnData = [
       {
         headerText: this.labelMapper('vz-managed-cluster-name-heading'),
-        sortProperty: 'name'
+        sortProperty: 'name',
+        resizable: 'enabled'
       },
       {
         headerText: this.labelMapper('vz-managed-cluster-kubeconfig-heading'),
-        'sortable': 'disable'
+        sortable: 'disable',
+        resizable: 'enabled'
       },
       {
         headerText: this.labelMapper('vz-managed-cluster-kubecontext-heading'),
         sortProperty: 'kubeContext'
       },
       {
-        'className': 'wkt-table-delete-cell',
-        'headerClassName': 'wkt-table-add-header',
-        'headerTemplate': 'headerTemplate',
-        'template': 'actionTemplate',
-        'sortable': 'disable',
+        className: 'wkt-table-delete-cell',
+        headerClassName: 'wkt-table-add-header',
+        headerTemplate: 'headerTemplate',
+        template: 'actionTemplate',
+        sortable: 'disable',
         width: viewHelper.BUTTON_COLUMN_WIDTH
       },
     ];

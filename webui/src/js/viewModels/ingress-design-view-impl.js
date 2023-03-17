@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 
@@ -114,43 +114,48 @@ function(i18n, accUtils, ko, ArrayDataProvider, BufferingDataProvider, project, 
     // this is dynamic to allow i18n fields to load correctly
     this.columnData = [
       {
-        'headerText': this.labelMapper('ingress-route-name-label'),
-        'sortProperty': 'name'
+        headerText: this.labelMapper('ingress-route-name-label'),
+        sortProperty: 'name',
+        resizable: 'enabled'
       },
       {
-        'headerText': this.labelMapper('ingress-route-virtualhost-label'),
-        'sortProperty': 'virtualHost'
+        headerText: this.labelMapper('ingress-route-virtualhost-label'),
+        sortProperty: 'virtualHost',
+        resizable: 'enabled'
       },
       {
-        'headerText': this.labelMapper('ingress-route-path-label'),
-        'sortProperty': 'path'
+        headerText: this.labelMapper('ingress-route-path-label'),
+        sortProperty: 'path',
+        resizable: 'enabled'
       },
       {
-        'headerText': this.labelMapper('ingress-route-targetservice-label'),
-        'sortProperty': 'targetService'
+        headerText: this.labelMapper('ingress-route-targetservice-label'),
+        sortProperty: 'targetService',
+        resizable: 'enabled'
       },
       {
-        'headerText': this.labelMapper('ingress-route-targetport-label'),
-        'sortProperty': 'targetPort'
+        headerText: this.labelMapper('ingress-route-targetport-label'),
+        sortProperty: 'targetPort',
+        resizable: 'enabled'
       },
       {
-        'headerText': this.labelMapper('ingress-route-accesspoint-label'),
-        'sortProperty': 'targetServiceNameSpace'
+        headerText: this.labelMapper('ingress-route-accesspoint-label'),
+        sortProperty: 'targetServiceNameSpace'
       },
       {
-        'className': 'wkt-table-delete-cell',
-        'headerClassName': 'wkt-table-add-header',
-        'headerTemplate': 'chooseHeaderTemplate',
-        'template': 'actionTemplate',
-        'sortable': 'disable',
+        className: 'wkt-table-delete-cell',
+        headerClassName: 'wkt-table-add-header',
+        headerTemplate: 'chooseHeaderTemplate',
+        template: 'actionTemplate',
+        sortable: 'disable',
         width: viewHelper.BUTTON_COLUMN_WIDTH
       },
       {
-        'className': 'wkt-table-delete-cell',
-        'headerClassName': 'wkt-table-add-header',
-        'headerTemplate': 'headerTemplate',
-        'template': 'actionTemplate',
-        'sortable': 'disable',
+        className: 'wkt-table-delete-cell',
+        headerClassName: 'wkt-table-add-header',
+        headerTemplate: 'headerTemplate',
+        template: 'actionTemplate',
+        sortable: 'disable',
         width: viewHelper.BUTTON_COLUMN_WIDTH
       }];
 

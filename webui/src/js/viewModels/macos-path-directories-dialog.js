@@ -45,11 +45,11 @@ function(accUtils, ko, i18n, viewHelper, ArrayDataProvider) {
 
     this.pathDirectoriesColumnData = [
       {
-        'className': 'wkt-table-env-vars-cell',
-        'headerClassName': 'wkt-table-env-vars-header',
-        'headerText': this.labelMapper('name-header'),
-        'field': 'value',
-        'sortable': 'disable'
+        className: 'wkt-table-env-vars-cell',
+        headerClassName: 'wkt-table-env-vars-header',
+        headerText: this.labelMapper('name-header'),
+        field: 'value',
+        sortable: 'disable'
       }
     ];
 
