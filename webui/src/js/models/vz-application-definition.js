@@ -5,8 +5,8 @@
  */
 'use strict';
 
-define(['utils/observable-properties', 'utils/validation-helper', 'knockout', 'utils/wkt-logger'],
-  function(props, validationHelper, ko) {
+define(['utils/observable-properties', 'utils/validation-helper', 'utils/wkt-logger'],
+  function(props, validationHelper) {
     return function (name, k8sDomain) {
       function VerrazzanoApplicationModel() {
         let componentChanged = false;

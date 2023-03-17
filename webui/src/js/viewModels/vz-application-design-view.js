@@ -576,7 +576,7 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
         const url = getUrl(ruleData, hostsResult.generatedHostname);
 
         if((ruleData.url !== url) || (ruleData.canLink !== canLink)) {
-          const newData = {...ruleData, canLink: canLink, url: url }
+          const newData = {...ruleData, canLink: canLink, url: url };
           observableRules.replace(ruleData, newData);
         }
       }
