@@ -761,6 +761,7 @@
   "ingress-design-ingress-route-targetservicenamespace-label": "Target Service Namespace",
   "ingress-design-ingress-route-targetservicenamespace-help": "The target service namespace value points to the namespace where the domain is running.",
   "ingress-design-ingress-route-accesspoint-label": "Access Point",
+  "ingress-design-ingress-route-target-label": "Target",
   "ingress-design-ingress-route-targetservice-label": "Target Service",
   "ingress-design-ingress-route-targetservice-placeholder": "Select Domain Service",
   "ingress-design-ingress-route-targetservice-placeholder-empty": "No Domain Services Available",

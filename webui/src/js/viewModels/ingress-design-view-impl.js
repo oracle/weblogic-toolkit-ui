@@ -129,13 +129,8 @@ function(i18n, accUtils, ko, ArrayDataProvider, BufferingDataProvider, project, 
         resizable: 'enabled'
       },
       {
-        headerText: this.labelMapper('ingress-route-targetservice-label'),
+        headerText: this.labelMapper('ingress-route-target-label'),
         sortProperty: 'targetService',
-        resizable: 'enabled'
-      },
-      {
-        headerText: this.labelMapper('ingress-route-targetport-label'),
-        sortProperty: 'targetPort',
         resizable: 'enabled'
       },
       {
@@ -169,6 +164,18 @@ function(i18n, accUtils, ko, ArrayDataProvider, BufferingDataProvider, project, 
     function getAnnotationUid(routeIndex) {
       return 'r' + routeIndex;
     }
+
+    // display in the target column, example "host:port"
+    this.getTargetText = (routeData) => {
+      let result = routeData.targetService;
+      if(result) {
+        const port = routeData.targetPort;
+        if(port != null) {
+          result += `:${port}`;
+        }
+      }
+      return result;
+    };
 
     this.handleAddRoute = () => {
       const uids = [];

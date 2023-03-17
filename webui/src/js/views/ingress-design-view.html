@@ -203,11 +203,8 @@
           <td data-bind="attr: { title: row.data.path }">
             <oj-bind-text value="[[row.data.path]]"></oj-bind-text>
           </td>
-          <td data-bind="attr: { title: row.data.targetService }">
-            <oj-bind-text value="[[row.data.targetService]]"></oj-bind-text>
-          </td>
-          <td>
-            <oj-bind-text value="[[row.data.targetPort]]"></oj-bind-text>
+          <td data-bind="attr: { title: getTargetText(row.data) }">
+            <oj-bind-text value="[[getTargetText(row.data)]]"></oj-bind-text>
           </td>
           <oj-bind-if test="[[!isAccessPointDefined(row.data.accessPoint)]]">
             <td>
