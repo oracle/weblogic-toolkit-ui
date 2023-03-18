@@ -5,8 +5,8 @@
  */
 'use strict';
 
-define(['utils/observable-properties', 'utils/validation-helper', 'knockout', 'utils/wkt-logger'],
-  function(props, validationHelper, ko) {
+define(['utils/observable-properties', 'utils/validation-helper', 'utils/wkt-logger'],
+  function(props, validationHelper) {
     return function (name, k8sDomain) {
       function VerrazzanoApplicationModel() {
         let componentChanged = false;
@@ -29,10 +29,6 @@ define(['utils/observable-properties', 'utils/validation-helper', 'knockout', 'u
           'metricsTraitHttpPort', 'metricsTraitHttpPath', 'metricsTraitSecretName', 'metricsTraitDeploymentName',
           'loggingTraitEnabled', 'loggingTraitImage', 'loggingTraitConfiguration' ];
         this.components = props.createListProperty(this.componentKeys).persistByKey('name');
-
-        // this is a transient ko observable that is not persisted
-        this.hosts = ko.observableArray();
-        this.generatedHost = ko.observable();
 
         this.readFrom = (json) => {
           props.createGroup(name, this).readFrom(json);

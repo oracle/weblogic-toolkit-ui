@@ -136,7 +136,8 @@
                         <h6 class="wkt-subheading">
                           <oj-bind-text value="[[labelMapper('ingress-trait-rules-table-title')]]"></oj-bind-text>
                         </h6>
-                        <oj-button id="updateUrls" chroming="callToAction" on-oj-action="[[updateUrls]]">
+                        <oj-button id="updateUrls" chroming="callToAction"
+                                   on-oj-action="[[() => updateUrls(component.data)]]">
                           <oj-bind-text value="[[labelMapper('ingress-trait-rules-update-urls-button-label')]]"></oj-bind-text>
                         </oj-button>
                       </div>
@@ -157,14 +158,14 @@
                             <td>
                               <oj-bind-text value="[[getFirstPathText(row.data)]]"></oj-bind-text>
                             </td>
-                            <td data-bind="attr: { title: computedUrl(row.data) }">
-                              <oj-bind-if test="[[computedCanLink(row.data)]]">
-                                <a data-bind="attr: { href: computedUrl(row.data) }">
-                                  <oj-bind-text value="[[computedUrl(row.data)]]"></oj-bind-text>
+                            <td data-bind="attr: { title: row.data.url }">
+                              <oj-bind-if test="[[row.data.canLink]]">
+                                <a data-bind="attr: { href: row.data.url }">
+                                  <oj-bind-text value="[[row.data.url]]"></oj-bind-text>
                                 </a>
                               </oj-bind-if>
-                              <oj-bind-if test="[[!computedCanLink(row.data)()]]">
-                                <oj-bind-text value="[[computedUrl(row.data)]]"></oj-bind-text>
+                              <oj-bind-if test="[[!row.data.canLink]]">
+                                <oj-bind-text value="[[row.data.url]]"></oj-bind-text>
                               </oj-bind-if>
                             </td>
                             <td>

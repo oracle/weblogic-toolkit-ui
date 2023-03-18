@@ -507,57 +507,50 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
       return null;
     }
 
-    this.computedUrl = (rowData) => {
-      return ko.computed(() => {
-        let urlHost = '<host>';
-        const generatedHost = project.vzApplication.generatedHost();
-        if(generatedHost && generatedHost.length) {
-          urlHost = generatedHost;
+    function getUrl(ruleData, generatedHostname) {
+      let urlHost = '<host>';
+      if(generatedHostname && generatedHostname.length) {
+        urlHost = generatedHostname;
+      }
+
+      const ruleHost = getRuleHost(ruleData);
+      if(ruleHost) {
+        urlHost = ruleHost;
+      }
+
+      let result = 'https://' + urlHost;
+
+      let urlPath = '<path>';
+      const paths = ruleData.paths;
+      if(paths && paths.length) {
+        urlPath = paths[0].path;
+        if(urlPath && urlPath.length) {
+          result += urlPath;
         }
+      }
 
-        const ruleHost = getRuleHost(rowData);
-        if(ruleHost) {
-          urlHost = ruleHost;
-        }
+      return result;
+    }
 
-        let result = 'https://' + urlHost;
+    function isLinkable(ruleData, hostnames) {
+      if(!hostnames || !hostnames.length) {
+        return false;
+      }
 
-        let urlPath = '<path>';
-        const paths = rowData.paths;
-        if(paths && paths.length) {
-          urlPath = paths[0].path;
-          if(urlPath && urlPath.length) {
-            result += urlPath;
-          }
-        }
+      const ruleHost = getRuleHost(ruleData);
+      if(ruleHost && !hostnames.includes(ruleHost)) {
+        return false;
+      }
 
-        return result;
-      });
-    };
+      const paths = ruleData.paths;
+      if(!paths || !paths.length) {
+        return false;
+      }
 
-    // resolves to true if the row data can make a clickable link
-    this.computedCanLink = (rowData) => {
-      return ko.computed(() => {
-        const appHosts = project.vzApplication.hosts();
-        if(!appHosts.length) {
-          return false;
-        }
+      return paths[0].pathType !== 'regex';
+    }
 
-        const ruleHost = getRuleHost(rowData);
-        if(ruleHost && !appHosts.includes(ruleHost)) {
-          return false;
-        }
-
-        const paths = rowData.paths;
-        if(!paths || !paths.length) {
-          return false;
-        }
-
-        return paths[0].pathType !== 'regex';
-      });
-    };
-
-    this.updateUrls = async() => {
+    this.updateUrls = async(component) => {
       const busyDialogMessage = this.labelMapper('get-hosts-in-progress');
       dialogHelper.openBusyDialog(busyDialogMessage, 'bar', 1 / 2.0);
 
@@ -577,8 +570,16 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
         return;
       }
 
-      project.vzApplication.hosts(hostsResult.hostnames);
-      project.vzApplication.generatedHost(hostsResult.generatedHostname);
+      const observableRules = this.componentObservable(component, 'ingressTraitRules');
+      for(const ruleData of observableRules()) {
+        const canLink = isLinkable(ruleData, hostsResult.hostnames);
+        const url = getUrl(ruleData, hostsResult.generatedHostname);
+
+        if((ruleData.url !== url) || (ruleData.canLink !== canLink)) {
+          const newData = {...ruleData, canLink: canLink, url: url };
+          observableRules.replace(ruleData, newData);
+        }
+      }
     };
 
     this.componentsIngressTraitRulesDataProvider = (component) => {
