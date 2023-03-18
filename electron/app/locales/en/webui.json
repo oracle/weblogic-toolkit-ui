@@ -1937,7 +1937,7 @@
   "quickstart-page11-list4-item-3": "The Deploy Application button (and Go menu item) deploys the application to Verrazzano.",
 
   "archive-type-APPLICATION_PLAN": "Application Plans",
-  "archive-type-APPLICATIONS": "Applications",
+  "archive-type-APPLICATION": "Application",
   "archive-type-CLASSPATH_LIB": "Classpath Libraries",
   "archive-type-COHERENCE": "Coherence Files",
   "archive-type-COHERENCE_CONFIG": "Coherence Configurations",

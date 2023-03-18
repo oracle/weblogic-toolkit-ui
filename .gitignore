@@ -16,6 +16,15 @@
 **/*.iml
 .idea
 
+# Quickstart Maven target directory except for WAR file
+samples/quickstart/app/target/classes
+samples/quickstart/app/target/generated-sources
+samples/quickstart/app/target/maven-archiver
+samples/quickstart/app/target/maven-status
+samples/quickstart/app/target/todo
+# Quickstart local domain directory
+samples/quickstart/todolist_domain
+
 # Visual Studio Code project files
 .vscode/*
 #!.vscode/settings.json

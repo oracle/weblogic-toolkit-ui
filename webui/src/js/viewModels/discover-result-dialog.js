@@ -64,12 +64,12 @@ function(accUtils, ko, i18n, viewHelper, ArrayDataProvider) {
       {
         headerText: this.labelMapper('file-location-header'),
         sortProperty: 'file',
-        resizeable: 'enabled'
+        resizable: 'enabled'
       },
       {
         headerText: this.labelMapper('archive-path-header'),
         sortable: 'disable',
-        resizeable: 'enabled'
+        resizable: 'enabled'
       }
     ];
 
