@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -32,7 +32,9 @@ function(i18n, Validator, ojvalidationError, RegExpValidator, LengthValidator, N
       '(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:' +
       '(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])';
 
-    const ingressPathRegexText = '^\\/\\S*$';
+    const ingressPathRegexText = '\\/\\S*';
+
+    const proxyUrlRegexText = '[a-zA-Z0-9]+:\\/\\/.+';
 
     this.createValidatableObject = (flowName) => {
       class ValidatableObject {
@@ -138,6 +140,17 @@ function(i18n, Validator, ojvalidationError, RegExpValidator, LengthValidator, N
           validate: _validateJavaMemoryValue
         }
       ];
+    };
+
+    this.getProxyUrlValidators = (options) => {
+      const regExpValidatorOptions = {
+        pattern: proxyUrlRegexText,
+        hint: getHintField(options, 'hint', i18n.t('validation-helper-proxy-url-hint')),
+        messageSummary: getMessageSummary(options),
+        messageDetail: getMessageDetail(options, 'messageDetail',
+          i18n.t('validation-helper-proxy-url-message-detail'))
+      };
+      return [ new RegExpValidator(regExpValidatorOptions) ];
     };
 
     this.getImageTagValidators = (options) => {

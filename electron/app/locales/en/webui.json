@@ -1436,6 +1436,8 @@
   "validation-helper-ingress-path-message-detail": "The path expression must start with / and not having any white space in it",
   "validation-helper-ingress-annotation-hint": "Enter a valid annotation name value pair",
   "validation-helper-ingress-annotation-message-detail": "The annotation ({{annotation}}) must be a name value pair separate by colon",
+  "validation-helper-proxy-url-hint": "Enter a valid URL with a protocol specified",
+  "validation-helper-proxy-url-message-detail": "The proxy URL entered does not have a protocol specified.",
 
   "validation-error-dialog-default-title": "Unknown action failed",
 

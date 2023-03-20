@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 <div class="wkt-dialog-content" id="networkSettings">
@@ -11,6 +11,7 @@
     <oj-form-layout max-columns="1" direction="row">
       <oj-input-text label-hint="[[settingsLabelMapper('https-proxy-url-label')]]"
                      value="{{proxyUrl}}"
+                     validators="[[getProxyUrlValidators()]]"
                      help.instruction="[[settingsLabelMapper('https-proxy-url-help')]]">
       </oj-input-text>
       <oj-input-text label-hint="[[settingsLabelMapper('bypass-proxy-hosts-label')]]"
