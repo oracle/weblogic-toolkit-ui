@@ -1,14 +1,15 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
 
-define(['accUtils', 'knockout', 'utils/observable-properties', 'utils/i18n', 'ojs/ojarraydataprovider', 'models/wkt-project',
-  'utils/wkt-logger', 'ojs/ojknockout', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojdialog', 'ojs/ojformlayout',
-  'ojs/ojswitch', 'ojs/ojselectsingle', 'ojs/ojvalidationgroup', 'ojs/ojinputnumber'],
-function(accUtils, ko, utils, i18n, ArrayDataProvider, project, wktLogger) {
+define(['accUtils', 'knockout', 'utils/observable-properties', 'utils/i18n', 'ojs/ojarraydataprovider',
+  'models/wkt-project', 'utils/validation-helper', 'utils/wkt-logger', 'ojs/ojknockout', 'ojs/ojinputtext',
+  'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojdialog', 'ojs/ojformlayout', 'ojs/ojswitch', 'ojs/ojselectsingle',
+  'ojs/ojvalidationgroup', 'ojs/ojinputnumber'],
+function(accUtils, ko, utils, i18n, ArrayDataProvider, project, validationHelper, wktLogger) {
   function UserSettingsDialogModel(payload) {
 
     this.connected = () => {
@@ -45,6 +46,7 @@ function(accUtils, ko, utils, i18n, ArrayDataProvider, project, wktLogger) {
       return payload.isDevMode;
     };
 
+    this.getProxyUrlValidators = () => validationHelper.getProxyUrlValidators();
     this.proxyUrl = ko.observable();
     this.bypassProxyHosts = ko.observable();
     this.consoleLogLevel = ko.observable(payload.defaults.level);

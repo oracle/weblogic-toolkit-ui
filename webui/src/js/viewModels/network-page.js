@@ -1,11 +1,11 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
-define(['accUtils', 'knockout', 'utils/i18n', 'models/wkt-project',
+define(['accUtils', 'knockout', 'utils/i18n', 'models/wkt-project', 'utils/validation-helper',
   'ojs/ojinputtext', 'ojs/ojbutton', 'ojs/ojformlayout', 'ojs/ojinputnumber'],
-function(accUtils, ko, i18n, project) {
+function(accUtils, ko, i18n, project, validationHelper) {
   function NetworkPageViewModel() {
 
     this.connected = () => {
@@ -34,6 +34,7 @@ function(accUtils, ko, i18n, project) {
       return i18n.t(`user-settings-dialog-${labelId}`);
     };
 
+    this.getProxyUrlValidators = () => validationHelper.getProxyUrlValidators();
     this.proxyUrl = ko.observable();
     this.bypassProxyHosts = ko.observable();
     this.requestTimeoutSeconds = ko.observable(5);
