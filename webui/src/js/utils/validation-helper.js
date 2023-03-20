@@ -12,24 +12,25 @@ function(i18n, Validator, ojvalidationError, RegExpValidator, LengthValidator, N
 
     const literalForwardSlash = '[\\/]';
 
-    const nameComponentRegexText = '(?:(?:[a-z0-9]+)(?:(?:[._]|__|[-]?)(?:[a-z0-9]+))*)';
-    const hostRegexText = '(?:(?:[a-zA-Z0-9]+|[a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9])' +
-      '(?:(?:[.](?:[a-zA-Z0-9]+|[a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]))+)?)';
+    const compNameRegexText = '[a-z0-9]+';
+    const compNameSeparatorRegexText = '(?:[.]|[_]{1,2}|[-]+)';
+    const nameComponentRegexText = `${compNameRegexText}(?:${compNameSeparatorRegexText}${compNameRegexText})*`;
+    const hostRegexText = '[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?(?:[.][a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?)*';
     const hostAndPortRegexText = `(?:${hostRegexText}(?:[:][0-9]{1,5})?)`;
     const tagRegexText = '[\\w][\\w.-]{0,127}';
     const digestRegexText = '[A-Za-z][A-Za-z0-9]*(?:(?:[-_+.][A-Za-z][A-Za-z0-9]*)*)[:][0-9A-Fa-f]{32,}';
-    const nameRegexText = `(?:(${hostAndPortRegexText})${literalForwardSlash})?${nameComponentRegexText}` +
+    const nameRegexText = `(?:(?:${hostAndPortRegexText})${literalForwardSlash})?${nameComponentRegexText}` +
       `(?:${literalForwardSlash}${nameComponentRegexText})*`;
-    const imageReferenceRegexText = `^(${nameRegexText})(?:(?:[:](${tagRegexText}))|(?:[@](${digestRegexText})))?$`;
+    const imageReferenceRegexText = `(?:${nameRegexText})(?:(?:[:](?:${tagRegexText}))|(?:[@](?:${digestRegexText})))?`;
 
-    const k8sNameRegexText = '^[a-z0-9](?:[-a-z0-9]{0,61}[a-z0-9])?$';
+    const k8sNameRegexText = '[a-z0-9](?:[-a-z0-9]{0,61}[a-z0-9])?';
 
-    const emailAddressRegexText = '^(?:[a-z0-9!#$%&\'*+\\/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&\'*+\\/=?^_`{|}~-]+)*|' +
+    const emailAddressRegexText = '(?:[a-z0-9!#$%&\'*+\\/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&\'*+\\/=?^_`{|}~-]+)*|' +
       '"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*")@' +
       '(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|' +
       '\\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\\.){3}' +
       '(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:' +
-      '(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])$';
+      '(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])';
 
     const ingressPathRegexText = '^\\/\\S*$';
 
