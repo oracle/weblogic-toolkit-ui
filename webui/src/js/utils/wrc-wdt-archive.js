@@ -97,7 +97,7 @@ define(['models/wkt-project', 'utils/i18n', 'utils/wdt-archive-helper', 'utils/w
             result.entryTypeName = wrcEntryTypeName.slice(0, -3);
           }
           else {
-            result.type = wrcEntryTypeName;
+            result.entryTypeName = wrcEntryTypeName;
           }
         }
 
