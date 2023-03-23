@@ -23,6 +23,7 @@ define(['models/wkt-project', 'utils/i18n', 'utils/wdt-archive-helper', 'utils/w
 
         const archiveEntryTypeName = typeInfo.entryTypeName;
         let filePathType = typeInfo.fileType;
+        wktLogger.debug()
         const archiveEntryTypes = await archiveHelper.getEntryTypes();
         const archiveEntry = archiveEntryTypes[archiveEntryTypeName];
         if (typeof archiveEntry === 'undefined') {
@@ -97,7 +98,7 @@ define(['models/wkt-project', 'utils/i18n', 'utils/wdt-archive-helper', 'utils/w
             result.entryTypeName = wrcEntryTypeName.slice(0, -3);
           }
           else {
-            result.type = wrcEntryTypeName;
+            result.entryTypeName = wrcEntryTypeName;
           }
         }
 
