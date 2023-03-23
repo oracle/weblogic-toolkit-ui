@@ -105,10 +105,10 @@ define(['models/wkt-project', 'utils/i18n', 'utils/wdt-archive-helper', 'utils/w
       }
 
       _convertWrcArchivePath(wrcArchivePath, nodesObservable = this.project.wdtModel.archiveRoots) {
-        const wrcPath = wrcArchivePath.endsWith('/') ? wrcArchivePath.slice(0, -1) : wrcArchivePath;
         wktLogger.debug('Entering _convertWrcArchivePath(%s, %s)', wrcArchivePath, JSON.stringify(nodesObservable()));
+        const wrcPath = wrcArchivePath.endsWith('/') ? wrcArchivePath.slice(0, -1) : wrcArchivePath;
+        let result;
         for (const node of nodesObservable()) {
-          wktLogger.debug('wrcPath %s, node.id = %s', wrcPath, node.id);
           if (wrcPath === node.id || wrcPath + '/' === node.id) {
             wktLogger.debug('Found matching node id = %s', node.id);
             return node.id;
@@ -116,14 +116,21 @@ define(['models/wkt-project', 'utils/i18n', 'utils/wdt-archive-helper', 'utils/w
 
           if (node.children) {
             wktLogger.debug('node %s has children', node.id);
-            const result = this._convertWrcArchivePath(wrcArchivePath, node.children)
+            result = this._convertWrcArchivePath(wrcArchivePath, node.children);
             if (result) {
               wktLogger.debug('return nested _convertWrcArchivePath() call from node %s: %s', node.id, result);
               return result;
             }
+            wktLogger.debug('No match found for %s in children of node %s', wrcArchivePath, node.id);
           }
         }
-        throw new Error(i18n.t('wrc-wdt-archive-remove-no-matching-node-error', {archivePath: wrcArchivePath}));
+
+        // If we are back at the topmost level and have no result, throw an error.
+        if (nodesObservable === this.project.wdtModel.archiveRoots && !result) {
+          throw new Error(i18n.t('wrc-wdt-archive-remove-no-matching-node-error', {archivePath: wrcArchivePath}));
+        }
+        wktLogger.debug('Exiting _convertWrcArchivePath() returning %s', result);
+        return result;
       }
     }
 

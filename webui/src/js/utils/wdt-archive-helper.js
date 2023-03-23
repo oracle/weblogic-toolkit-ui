@@ -173,7 +173,7 @@ define(['knockout', 'models/wkt-project', 'utils/wkt-logger'],
             this._removeFromArchiveModel(archivePath, node.children);
           }
         }
-      }
+      };
     }
 
     return new WdtArchiveHelper();
