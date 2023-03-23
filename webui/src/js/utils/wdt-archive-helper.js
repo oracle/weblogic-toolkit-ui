@@ -174,8 +174,8 @@ define(['knockout', 'models/wkt-project', 'utils/wkt-logger'],
             if (deleteEmptyParents && result && node.children().length === 0) {
               wktLogger.debug('removing node %s from parent children list', node.id);
               this._removeNodeFromNodesObservable(nodesObservable, node);
+              return result;
             }
-            return result;
           }
         }
         return false;
