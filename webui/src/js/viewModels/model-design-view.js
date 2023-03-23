@@ -136,7 +136,7 @@ function(accUtils, i18n, ko, project, urlCatalog, wrcArchiveHelper, viewHelper, 
       // Set model properties provider option
       providerOptions['modelProperties'] = JSON.parse(JSON.stringify(this.project.wdtModel.getModelPropertiesObject().observable()));
       // Set model archive provider option
-      providerOptions['modelArchive'] = this.project.wdtModel.archiveRoots;
+      // providerOptions['modelArchive'] = this.project.wdtModel.archiveRoots;
 
       return providerOptions;
     };
