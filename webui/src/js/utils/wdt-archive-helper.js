@@ -70,9 +70,9 @@ define(['knockout', 'models/wkt-project', 'utils/wkt-logger'],
         return result ? result.archiveUpdatePath : result;
       };
 
-      this.removeFromArchive = (archivePath) => {
+      this.removeFromArchive = (archivePath, deleteEmptyParents = false) => {
         if (archivePath) {
-          this._removeFromArchiveModel(archivePath, this.project.wdtModel.archiveRoots);
+          this._removeFromArchiveModel(archivePath, this.project.wdtModel.archiveRoots, deleteEmptyParents);
           this._removeArchiveUpdate(archivePath);
         }
       };
@@ -159,20 +159,34 @@ define(['knockout', 'models/wkt-project', 'utils/wkt-logger'],
         }
       };
 
-      this._removeFromArchiveModel = (archivePath, nodesObservable) => {
+      this._removeFromArchiveModel = (archivePath, nodesObservable, deleteEmptyParents) => {
         for (const node of nodesObservable()) {
+          wktLogger.debug('node id = %s, deleteEmptyParents = %s', node.id, deleteEmptyParents);
           if (node.id === archivePath) {
-            nodesObservable.remove(node);
-
-            // this shouldn't be required, but resolves tree view problems with emptied lists
-            nodesObservable.sort();
-            break;
+            wktLogger.debug('removing matching node %s', node.id);
+            this._removeNodeFromNodesObservable(nodesObservable, node);
+            return true;
           }
 
           if (node.children) {
-            this._removeFromArchiveModel(archivePath, node.children);
+            const result = this._removeFromArchiveModel(archivePath, node.children, deleteEmptyParents);
+            wktLogger.debug('nested call from node %s returned %s', node.id, result);
+            wktLogger.debug('XXX node %s children length = %s', node.id, node.children().length);
+            if (deleteEmptyParents && result && node.children().length === 0) {
+              wktLogger.debug('removing node %s from parent children list', node.id);
+              this._removeNodeFromNodesObservable(nodesObservable, node);
+            }
+            return result;
           }
         }
+        return false;
+      };
+
+      this._removeNodeFromNodesObservable = (nodesObservable, node) => {
+        nodesObservable.remove(node);
+
+        // this shouldn't be required, but resolves tree view problems with emptied lists
+        nodesObservable.sort();
       };
     }
 

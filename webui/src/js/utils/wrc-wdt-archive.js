@@ -64,7 +64,7 @@ define(['models/wkt-project', 'utils/i18n', 'utils/wdt-archive-helper', 'utils/w
               const updatedArchivePath = this._convertWrcArchivePath(archivePath);
 
               wktLogger.debug('calling archiveHelper.removeFromArchive(%s)', updatedArchivePath);
-              archiveHelper.removeFromArchive(updatedArchivePath);
+              archiveHelper.removeFromArchive(updatedArchivePath, true);
               resolve();
             } catch (err) {
               const errorMessage = window.api.utils.getErrorMessage(err);
