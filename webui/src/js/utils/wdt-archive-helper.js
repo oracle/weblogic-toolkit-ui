@@ -171,7 +171,6 @@ define(['knockout', 'models/wkt-project', 'utils/wkt-logger'],
           if (node.children) {
             const result = this._removeFromArchiveModel(archivePath, node.children, deleteEmptyParents);
             wktLogger.debug('nested call from node %s returned %s', node.id, result);
-            wktLogger.debug('XXX node %s children length = %s', node.id, node.children().length);
             if (deleteEmptyParents && result && node.children().length === 0) {
               wktLogger.debug('removing node %s from parent children list', node.id);
               this._removeNodeFromNodesObservable(nodesObservable, node);
