@@ -5,14 +5,15 @@
  */
 'use strict';
 
-define(['models/wkt-project', 'utils/i18n', 'utils/wdt-archive-helper'],
-  function(project, i18n, archiveHelper) {
+define(['models/wkt-project', 'utils/i18n', 'utils/wdt-archive-helper', 'utils/wkt-logger'],
+  function(project, i18n, archiveHelper, wktLogger) {
     class WrcWdtArchive {
       constructor() {
         this.project = project;
       }
 
       async addToArchive(wrcEntryTypeName, filePath, otherArgs={}) {
+        wktLogger.debug('entering WRC API addToArchive(%s, %s, %s)', wrcEntryTypeName, filePath, otherArgs);
         const typeInfo = this._convertWrcType(wrcEntryTypeName);
         if (typeof typeInfo === 'undefined') {
           return Promise.reject(new Error(i18n.t('wrc-wdt-archive-add-empty-wrc-type-error')));
@@ -34,8 +35,11 @@ define(['models/wkt-project', 'utils/i18n', 'utils/wdt-archive-helper'],
         const options =
           archiveHelper.buildAddToArchiveOptions(archiveEntryTypeName, archiveEntry, filePath, filePathType, otherArgs);
 
+        wktLogger.debug('preparing to call archiveHelper.addToArchive(%s, %s)', archiveEntryTypeName, options);
         return new Promise((resolve, reject) => {
           archiveHelper.addToArchive(archiveEntryTypeName, options).then((archivePath) => {
+            wktLogger.debug('WRC API addToArchive(%s, %s, %s) returned %s', wrcEntryTypeName, filePath,
+              otherArgs, archivePath);
             resolve(archivePath);
           }).catch(err => {
             const errMessage = err instanceof Error ? err.message : err;
@@ -46,11 +50,27 @@ define(['models/wkt-project', 'utils/i18n', 'utils/wdt-archive-helper'],
         });
       }
 
+      // WRC does not have the ability to remember the archivePath returned from addToArchive().
+      // This causes a problem for removing directories, where the underlying code depends on
+      // directory entries having a trailing slash.  As such, we have to go determine if the
+      // archivePath argument is a directory and, if so, make sure it ends with a trailing slash
+      // before passing it on.
+      //
       async removeFromArchive(archivePath) {
+        wktLogger.debug('entering WRC API removeFromToArchive(%s)', archivePath);
         return new Promise((resolve, reject) => {
           if (archivePath) {
-            archiveHelper.removeFromArchive(archivePath);
-            resolve();
+            try {
+              const updatedArchivePath = this._convertWrcArchivePath(archivePath);
+
+              wktLogger.debug('calling archiveHelper.removeFromArchive(%s)', updatedArchivePath);
+              archiveHelper.removeFromArchive(updatedArchivePath);
+              resolve();
+            } catch (err) {
+              const errorMessage = window.api.utils.getErrorMessage(err);
+              reject(new Error(i18n.t('wrc-wdt-archive-remove-failed-to-match-path-error',
+                { archivePath, error: errorMessage})));
+            }
           } else {
             reject(new Error(i18n.t('wrc-wdt-archive-remove-empty-path-error')));
           }
@@ -82,6 +102,28 @@ define(['models/wkt-project', 'utils/i18n', 'utils/wdt-archive-helper'],
         }
 
         return result;
+      }
+
+      _convertWrcArchivePath(wrcArchivePath, nodesObservable = this.project.wdtModel.archiveRoots) {
+        const wrcPath = wrcArchivePath.endsWith('/') ? wrcArchivePath.slice(0, -1) : wrcArchivePath;
+        wktLogger.debug('Entering _convertWrcArchivePath(%s, %s)', wrcArchivePath, JSON.stringify(nodesObservable()));
+        for (const node of nodesObservable()) {
+          wktLogger.debug('wrcPath %s, node.id = %s', wrcPath, node.id);
+          if (wrcPath === node.id || wrcPath + '/' === node.id) {
+            wktLogger.debug('Found matching node id = %s', node.id);
+            return node.id;
+          }
+
+          if (node.children) {
+            wktLogger.debug('node %s has children', node.id);
+            const result = this._convertWrcArchivePath(wrcArchivePath, node.children)
+            if (result) {
+              wktLogger.debug('return nested _convertWrcArchivePath() call from node %s: %s', node.id, result);
+              return result;
+            }
+          }
+        }
+        throw new Error(i18n.t('wrc-wdt-archive-remove-no-matching-node-error', {archivePath: wrcArchivePath}));
       }
     }
 
