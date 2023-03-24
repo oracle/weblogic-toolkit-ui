@@ -1,7 +1,7 @@
 +++
 title = "Release 1.4.0"
 date = 2022-01-30T12:48:00-05:00
-weight = 7
+weight = 95
 pre = "<b> </b>"
 +++
 
@@ -35,7 +35,7 @@ pre = "<b> </b>"
 #### Known Issues
 - On Linux, the open and save dialogs open behind the main application window.  This is due to
   [Electron bug 32857](https://github.com/electron/electron/issues/32857).
-- When deploying a Verrazzano application, the `Check Application Status` button only checks the status of the project's
+- When deploying a Verrazzano application, the `Get Application Status` button only checks the status of the project's
   Verrazzano component containing the WebLogic domain specification.
 - WKTUI does not currently show the Verrazzano URL needed to access the application.  The URL will always be of
   the form `https://<gateway-hostname>/<app-path>`, where the `gateway-hostname` is the name created by Verrazzano
