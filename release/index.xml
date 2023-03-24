@@ -8,6 +8,43 @@
     <language>en-us</language>
     <lastBuildDate>Thu, 03 Nov 2022 12:48:00 -0500</lastBuildDate><atom:link href="https://oracle.github.io/weblogic-toolkit-ui/release/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Release Notes 1.4.1</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.4.1/</link>
+      <pubDate>Thu, 03 Nov 2022 12:48:00 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.4.1/</guid>
+      <description>Changes in Release 1.4.1  Major New Features Other Changes Bugs Fixes Known Issues  Major New Features None
+Other Changes  #192: Add the ability to install and work with older versions of operator using the latest published Helm chart.  Bug Fixes  Resolved issue Discover Model issue introduced in 1.4.0 by picking up the fix in WebLogic Deploy Tooling 2.4.1. Resolved issue with Deploy Domain failing due to a WebLogic Kubernetes Operator error from the new conversion/validating webhook (fix in a new published version of the WebLogic Kubernetes Operator 4.</description>
+    </item>
+    
+    <item>
+      <title>Release 1.4.0</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.4.0/</link>
+      <pubDate>Sun, 30 Jan 2022 12:48:00 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.4.0/</guid>
+      <description>Changes in Release 1.4.0  Major New Features Other Changes Bugs Fixes Known Issues  Major New Features  #173: Added support for WebLogic Kubernetes Operator 4.0. While it is now the default, versions 3.3+ are still supported.  Other Changes  #175: Added Zoom In, Zoom Out, and Actual Size menu options to the Window menu. #178: Integrated the Prepare Model action with the changes in WebLogic Deploy Tooling 2.</description>
+    </item>
+    
+    <item>
+      <title>Release 1.3.0</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.3.0/</link>
+      <pubDate>Sun, 30 Jan 2022 12:48:00 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.3.0/</guid>
+      <description>Changes in Release 1.3.0  Major New Features Other Changes Bugs Fixes Known Issues  Major New Features  Support for creating and deploying the Verrazzano component for the WebLogic domain, and an application that references it.  Other Changes  Updated the WebLogic Remote Console integration to support version 2.4.0. Added support for specifying node selectors when installing the WebLogic Kubernetes Operator and deploying the WebLogic domain, either directly or as a Verrazzano component.</description>
+    </item>
+    
+    <item>
+      <title>Release 1.2.0</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.2.0/</link>
+      <pubDate>Sun, 30 Jan 2022 12:48:00 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.2.0/</guid>
+      <description>Changes in Release 1.2.0  Major New Features Other Changes Bugs Fixes  Major New Features  Model Design View added via integration with the WebLogic Remote Console 2.3.0. Users must download and install the WebLogic Remote Console version 2.3.x.  Other Changes  Added a new installer for macOS ARM. #141: Added support for WDT online remote discovery.  Bug Fixes  #107: Resolved an issue where the Save As functionality was not handling the archive file properly if there were no pending updates to the archive file (Jira WKTUI-322).</description>
+    </item>
+    
+    <item>
       <title>Release 1.1.1</title>
       <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.1.1/</link>
       <pubDate>Sun, 30 Jan 2022 12:48:00 -0500</pubDate>
@@ -24,33 +61,6 @@ Other Changes  Revamped the Ingress Route editing mechanism:  Added busy dialog 
       
       <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.1.0/</guid>
       <description>Changes in Release 1.1.0  Major New Features Other Changes Bugs Fixes Known Issues  Major New Features  Updated macOS environment control to specify extra environment settings to pass down to Docker/Podman, kubectl, and Helm invocations. Bundling WebLogic Deploy Tooling 2.0.0. See WDT release notes for details. New Validate Model action that leverages WDT 2.0 changes to validate the model files and reports any validation errors it finds. Updated Prepare Model action that leverages WDT 2.</description>
-    </item>
-    
-    <item>
-      <title>Release 1.2.0</title>
-      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.2.0/</link>
-      <pubDate>Sun, 30 Jan 2022 12:48:00 -0500</pubDate>
-      
-      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.2.0/</guid>
-      <description>Changes in Release 1.2.0  Major New Features Other Changes Bugs Fixes  Major New Features  Model Design View added via integration with the WebLogic Remote Console 2.3.0. Users must download and install the WebLogic Remote Console version 2.3.x.  Other Changes  Added a new installer for macOS ARM. #141: Added support for WDT online remote discovery.  Bug Fixes  #107: Resolved an issue where the Save As functionality was not handling the archive file properly if there were no pending updates to the archive file (Jira WKTUI-322).</description>
-    </item>
-    
-    <item>
-      <title>Release 1.3.0</title>
-      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.3.0/</link>
-      <pubDate>Sun, 30 Jan 2022 12:48:00 -0500</pubDate>
-      
-      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.3.0/</guid>
-      <description>Changes in Release 1.3.0  Major New Features Other Changes Bugs Fixes Known Issues  Major New Features  Support for creating and deploying the Verrazzano component for the WebLogic domain, and an application that references it.  Other Changes  Updated the WebLogic Remote Console integration to support version 2.4.0. Added support for specifying node selectors when installing the WebLogic Kubernetes Operator and deploying the WebLogic domain, either directly or as a Verrazzano component.</description>
-    </item>
-    
-    <item>
-      <title>Release 1.4.0</title>
-      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.4.0/</link>
-      <pubDate>Sun, 30 Jan 2022 12:48:00 -0500</pubDate>
-      
-      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.4.0/</guid>
-      <description>Changes in Release 1.4.0  Major New Features Other Changes Bugs Fixes Known Issues  Major New Features  #173: Added support for WebLogic Kubernetes Operator 4.0. While it is now the default, versions 3.3+ are still supported.  Other Changes  #175: Added Zoom In, Zoom Out, and Actual Size menu options to the Window menu. #178: Integrated the Prepare Model action with the changes in WebLogic Deploy Tooling 2.</description>
     </item>
     
   </channel>
