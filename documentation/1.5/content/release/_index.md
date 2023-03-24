@@ -41,6 +41,11 @@ None
 - #222 - Fixed a bug with container image tag validation that was causing regular expression catastrophic backtracking, leading to slow validation responses.
 
 #### Known Issues
+- In the Model Design View, changing the `Source Path` and `Plan Path` fields for existing App Deployments and Shared Libraries
+  is broken in this release.  To work around it, either remove and recreate the deployment or use the Model Code View's
+  Model Editor and Archive Editor to make the appropriate changes.
+- In Model Design View, the `Plan`/`Plan Path` fields for App Deployments mistakenly allow you to select a directory.  This is
+  not valid and will result in an error.  Please make sure to select a file for any deployment plan.  
 - On Linux, the open and save dialogs open behind the main application window.  This is due to
   [Electron bug 32857](https://github.com/electron/electron/issues/32857).
 - When deploying a Verrazzano application, the `Get Application Status` button only checks the status of the project's
