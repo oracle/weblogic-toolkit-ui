@@ -10,8 +10,8 @@
  * Returns a singleton.
  */
 
-define(['knockout', 'models/wkt-project'],
-  function (ko, project) {
+define(['knockout', 'models/wkt-project', 'utils/wkt-logger'],
+  function (ko, project, wktLogger) {
     function WdtArchiveHelper() {
 
       this.project = project;
@@ -61,21 +61,29 @@ define(['knockout', 'models/wkt-project'],
 
       this.addToArchive = async (archiveEntryTypeName, options) => {
         const result = await window.api.ipc.invoke('add-archive-entry', archiveEntryTypeName, options);
+        wktLogger.debug('add-to-archive IPC call returned: %s', result);
         // no archivePath means selection was cancelled, no need to notify or continue
         if (!!result.archivePath) {
           this._addArchiveUpdate(result.filePath, result.archiveUpdatePath);
           this._addToArchiveModel(result.archivePath, options.fileType || 'emptyDir', result.childPaths);
         }
-        return result.archivePath;
+        return result ? result.archiveUpdatePath : result;
       };
 
-      this.removeFromArchive = (archivePath) => {
-        this.project.wdtModel.addArchiveUpdate('remove', archivePath);
+      this.removeFromArchive = (archivePath, deleteEmptyParents = false) => {
+        if (archivePath) {
+          this._removeFromArchiveModel(archivePath, this.project.wdtModel.archiveRoots, deleteEmptyParents);
+          this._removeArchiveUpdate(archivePath);
+        }
       };
 
       // add an archive update that will be applied to the file on the next save.
       this._addArchiveUpdate = (filePath, archivePath) => {
         this.project.wdtModel.addArchiveUpdate('add', archivePath, filePath);
+      };
+
+      this._removeArchiveUpdate = (archivePath) => {
+        this.project.wdtModel.addArchiveUpdate('remove', archivePath);
       };
 
       // add the archive entry to the model, so it will be displayed in the tree.
@@ -149,6 +157,37 @@ define(['knockout', 'models/wkt-project'],
             this._addToArchiveFolder(pathNames, 0, childList, leafIsDir, null);
           }
         }
+      };
+
+      this._removeFromArchiveModel = (archivePath, nodesObservable, deleteEmptyParents) => {
+        for (const node of nodesObservable()) {
+          wktLogger.debug('node id = %s, deleteEmptyParents = %s', node.id, deleteEmptyParents);
+          if (node.id === archivePath) {
+            wktLogger.debug('removing matching node %s', node.id);
+            this._removeNodeFromNodesObservable(nodesObservable, node);
+            return true;
+          }
+
+          if (node.children) {
+            const result = this._removeFromArchiveModel(archivePath, node.children, deleteEmptyParents);
+            wktLogger.debug('nested call from node %s returned %s', node.id, result);
+            if (result) {
+              if (deleteEmptyParents && node.children().length === 0) {
+                wktLogger.debug('removing node %s from parent children list', node.id);
+                this._removeNodeFromNodesObservable(nodesObservable, node);
+              }
+              return result;
+            }
+          }
+        }
+        return false;
+      };
+
+      this._removeNodeFromNodesObservable = (nodesObservable, node) => {
+        nodesObservable.remove(node);
+
+        // this shouldn't be required, but resolves tree view problems with emptied lists
+        nodesObservable.sort();
       };
     }
 

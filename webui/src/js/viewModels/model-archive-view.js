@@ -41,31 +41,7 @@ function(accUtils, ko, i18n, project, dialogHelper, archiveHelper, ArrayTreeData
 
     this.deleteSelected = () => {
       const path = this.selectedItem();
-
-      // delete the path from the UI
-      this._deleteArchiveNode(path, project.wdtModel.archiveRoots);
-
-      // add a 'remove' operation to be applied on save
       archiveHelper.removeFromArchive(path);
-    };
-
-    // recursively search the archive tree for a node matching the ID,
-    // then delete that element from its parent list.
-    this._deleteArchiveNode = (id, list) => {
-      for (let item of list()) {
-        if(item.id === id) {
-          list.remove(item);
-
-          // this shouldn't be required, but resolves tree view problems with emptied lists
-          list.sort();
-          break;
-        }
-
-        const children = item['children'];
-        if(children) {
-          this._deleteArchiveNode(id, children);
-        }
-      }
     };
   }
 

@@ -9,6 +9,7 @@ const uuid = require('uuid');
 
 const k8sUtils = require('./k8sUtils');
 const fsUtils = require('./fsUtils');
+const errorUtils = require('./errorUtils');
 const WktApp = require('./wktApp');
 const osUtils = require('./osUtils');
 const i18n = require('./i18next.webui.config');
@@ -292,6 +293,7 @@ contextBridge.exposeInMainWorld(
     'utils': {
       generateUuid: () => uuid.v4(),
       compareVersions: (version, otherVersion) => compareVersions(version, otherVersion),
+      getErrorMessage: (err) => errorUtils.getErrorMessage(err),
       mainModule: mainModule,
       wrcFrontendCompatibilityVersion: wrcFrontendCompatibilityVersion,
     }

@@ -1285,7 +1285,7 @@
   "k8s-domain-undeployer-operator-installed-check-failed-error-message": "Unable to undeploy WebLogic domain because an error occurred while detecting if the WebLogic Kubernetes Operator {{operatorName}} is installed in Kubernetes namespace {{operatorNamespace}}: {{error}}.",
   "k8s-domain-undeployer-update-operator-config-in-progress": "Updating WebLogic Kubernetes Operator {{operatorName}} in Kubernetes namespace {{operatorNamespace}} to stop managing WebLogic Domains in Kubernetes namespace {{domainNamespace}}",
   "k8s-domain-undeployer-k8s-namespace-delete-failed-error-message": "Unable to undeploy the domain because an error occurred while trying to delete the Kubernetes namespace {{namespace}}: {{error}}.",
-  "k8s-domain-undeployer-k8s-object-delete-failed-error-message": "Unable to undeploy the domain because an error occurred while trying to delete the Kubernetes {{type}} object {{name}} from the Kubernetes namespace {{namespace}}: {{error}}.",
+  "k8s-domain-undeployer-k8s-object-delete-failed-error-message": "Unable to undeploy the domain because an error occurred while trying to delete the Kubernetes {{type}} {{name}} from the Kubernetes namespace {{namespace}}: {{error}}.",
   "k8s-domain-undeployer-remove-domain-error-message": "Unable to update WebLogic Kubernetes Operator to remove Kubernetes namespace {{domainNamespace}} from its list of managed namespaces due to an error while upgrading the WebLogic Kubernetes Operator {{operatorName}} in namespace {{operatorNamespace}}: {{error}}.",
   "k8s-domain-undeployer-undeploy-complete-title": "WebLogic Domain Undeployment from Kubernetes Complete",
   "k8s-domain-undeployer-undeploy-domain-complete-message": "WebLogic domain {{domainName}} successfully undeployed from Kubernetes namespace {{domainNamespace}}.",
@@ -1854,9 +1854,8 @@
   "quickstart-page5-list1-item-1": "Model - Defines the domain configuration.",
   "quickstart-page5-list1-item-2": "Variables - Defines a set of tokens to be used in the model and their values.",
   "quickstart-page5-list1-item-3": "Archive - Contains application-related and domain-related files and directories to be added to the domain.",
-  "quickstart-page5-paragraph-2-pre-url": "See the",
-  "quickstart-page5-wdt-url-label": "WebLogic Deploy Tooling documentation",
-  "quickstart-page5-paragraph-2-post-url": "for more information.",
+  "quickstart-page5-paragraph-2": "For more information, please see the documentation: ",
+  "quickstart-page5-wdt-url-label": "WebLogic Deploy Tooling",
   "quickstart-page5-list2-heading": "The WKT UI application supports creating, discovering, importing, and editing WDT metadata models.",
   "quickstart-page5-list2-item-1": "Use the File menu's Add Model menu to discover a model from a domain or import existing model files.",
   "quickstart-page5-list2-item-2": "Use the Model section to create new or edit existing model-related files.",
@@ -1959,5 +1958,7 @@
   "wrc-wdt-archive-add-bad-wrc-type-error": "Failed to add to archive because the WebLogic Remote Console entry type {{wrcType}} was not known.",
   "wrc-wdt-archive-add-empty-file-path-error": "Failed to add to archive because WebLogic Remote Console entry type {{wrcType}} requires a non-empty file path.",
   "wrc-wdt-archive-add-failed-error": "Failed to add WebLogic Remote Console entry type {{wrcType}} to archive: {{error}}",
-  "wrc-wdt-archive-remove-empty-path-error": "Failed to remove from archive because the archive path was empty."
+  "wrc-wdt-archive-remove-empty-path-error": "Failed to remove from archive because the archive path was empty.",
+  "wrc-wdt-archive-remove-failed-to-match-path-error": "Failed to remove {{archivePath}} from the archive because an error occurred while trying to match the path to its archive entry: {{error}}.",
+  "wrc-wdt-archive-remove-no-matching-node-error": "Failed to match WRC archive path {{archivePath}}'"
 }
