@@ -187,17 +187,17 @@ function(accUtils, ko, i18n, project, props, validationHelper,
 
     this.destinationHostNames = ko.computed(() => {
       let options = [];
-      const domainName = project.wdtModel.domainName();
+      const domainUid = project.k8sDomain.uid.value;
 
       const clusters = project.k8sDomain.clusters.observable();
       for (const cluster of clusters) {
-        const clusterHostName = utils.toLegalK8sName(`${domainName}-cluster-${cluster.name}`);
+        const clusterHostName = utils.toLegalK8sName(`${domainUid}-cluster-${cluster.name}`);
         options.push( { id : cluster.uid, value: clusterHostName, text: clusterHostName});
       }
 
       const servers = project.k8sDomain.servers.observable();
       for (const server of servers) {
-        const serverHostName = utils.toLegalK8sName(`${domainName}-${server.name}`);
+        const serverHostName = utils.toLegalK8sName(`${domainUid}-${server.name}`);
         options.push( { id : server.uid, value: serverHostName, text: serverHostName});
       }
 

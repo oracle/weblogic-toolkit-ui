@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -94,11 +94,12 @@ define([],
       toLegalK8sName(name) {
         if (this.isLegalK8sName(name)) return name;
 
-        let result = name.toLowerCase().replace(/[^-a-z0-9]/, '-');
+        let result = name.toLowerCase().replaceAll(/[^a-z0-9-]/g, '-');
         while (result.startsWith('-')) result = result.slice(1);
-        while (result.endsWith('-')) result = result.substring(0, result.length-1);
 
-        return result.substring(0, this.k8sMaxNameLength);
+        result = result.substring(0, this.k8sMaxNameLength);
+        while (result.endsWith('-')) result = result.slice(0, -1);
+        return result;
       },
 
       hashIt(str, seed = 0) {
