@@ -133,9 +133,9 @@ function(project, K8sDomainConfigMapGenerator, jsYaml, i18n) {
           const mountPoint = domainResource.spec.auxiliaryImageVolumes[0].mountPath;
           // Always set these since WKO aux image support makes these required
           domainResource.spec.configuration.model.wdtInstallHome =
-            window.api.path.join(mountPoint, wdtRelatedPaths.targetWdtHomeDirName);
+            window.api.path.joinAndConvertToUnixPath(mountPoint, wdtRelatedPaths.targetWdtHomeDirName);
           domainResource.spec.configuration.model.modelHome =
-            window.api.path.join(mountPoint, wdtRelatedPaths.targetModelHomeDirName);
+            window.api.path.joinAndConvertToUnixPath(mountPoint, wdtRelatedPaths.targetModelHomeDirName);
         } else {
           // Only set these if they are specified; otherwise, rely on the default values
           if (wdtRelatedPaths.wdtHome) {
@@ -230,7 +230,7 @@ function(project, K8sDomainConfigMapGenerator, jsYaml, i18n) {
             }
           }
           result.targetWdtHomeDirName = 'weblogic-deploy';
-          result.sourceWdtHome = window.api.path.join(wdtHome, result.targetWdtHomeDirName);
+          result.sourceWdtHome = window.api.path.joinAndConvertToUnixPath(wdtHome, result.targetWdtHomeDirName);
           result.sourceModelHome = modelHome;
           result.targetModelHomeDirName = window.api.path.basename(modelHome);
         } else {
