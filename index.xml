@@ -138,7 +138,7 @@ Design View Design View provides values for defining the application and customi
     </item>
     
     <item>
-      <title>Release Notes 1.5.0</title>
+      <title>Release 1.5.0</title>
       <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.5.0/</link>
       <pubDate>Thu, 03 Nov 2022 12:48:00 -0500</pubDate>
       
@@ -148,7 +148,7 @@ Other Changes  #202 - Added support for Verrazzano 1.5.0+ (which uses WebLogic K
     </item>
     
     <item>
-      <title>Release Notes 1.4.1</title>
+      <title>Release 1.4.1</title>
       <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.4.1/</link>
       <pubDate>Thu, 03 Nov 2022 12:48:00 -0500</pubDate>
       
