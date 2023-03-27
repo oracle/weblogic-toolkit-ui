@@ -243,7 +243,7 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
           //
           let wdtInstallHome = this.project.image.wdtHomePath.value;
           if (!wdtInstallHome.endsWith(WDT_DIR_NAME)) {
-            wdtInstallHome = window.api.path.join(wdtInstallHome, WDT_DIR_NAME);
+            wdtInstallHome = window.api.path.joinAndConvertToUnixPath(wdtInstallHome, WDT_DIR_NAME);
           }
           if (usingAuxImage()) {
             if (usingExistingAuxImage()) {

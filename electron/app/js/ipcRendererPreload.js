@@ -262,6 +262,7 @@ contextBridge.exposeInMainWorld(
       extname: (filePath) => path.extname(filePath),
       isAbsolute: (filePath) => path.isAbsolute(filePath),
       join: (...paths) => path.join(...paths),
+      joinAndConvertToUnixPath: (...paths) => path.join(...paths).replaceAll('\\', '/'),
       delimiter: path.delimiter,
       isValidFileName: (fileName) => fsUtils.isValidFileName(fileName)
     },
