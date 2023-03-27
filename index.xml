@@ -138,6 +138,16 @@ Design View Design View provides values for defining the application and customi
     </item>
     
     <item>
+      <title>Release Notes 1.5.0</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.5.0/</link>
+      <pubDate>Thu, 03 Nov 2022 12:48:00 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.5.0/</guid>
+      <description>Changes in Release 1.5.0  Major New Features Other Changes Bugs Fixes Known Issues  Major New Features None
+Other Changes  #202 - Added support for Verrazzano 1.5.0+ (which uses WebLogic Kubernetes Operator 4.0.0+). #204 - Updated the Archive Editor to align with WebLogic Deploy Tooling 3.0.0+ changes to the archive format. #205 - Added support for installing the optional Verrazzano component Argo CD with Verrazzano 1.5.0+. #205 - Added support to configure Kubernetes connectivity data for Verrazzano managed clusters.</description>
+    </item>
+    
+    <item>
       <title>Release Notes 1.4.1</title>
       <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.4.1/</link>
       <pubDate>Thu, 03 Nov 2022 12:48:00 -0500</pubDate>

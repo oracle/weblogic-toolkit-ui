@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/weblogic-toolkit-ui/images/favicon.png" type="image/png">
 
-    <title>Model :: WebLogic Kubernetes Toolkit UI</title>
+    <title>Release Notes 1.5.0 :: WebLogic Kubernetes Toolkit UI</title>
 
     
     <link href="/weblogic-toolkit-ui/css/nucleus.css?1679926879" rel="stylesheet">
@@ -39,7 +39,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/weblogic-toolkit-ui/navigate/model/">
+  <body class="" data-url="/weblogic-toolkit-ui/release/release-1.5.0/">
     <nav id="sidebar" class="">
 
 
@@ -194,7 +194,7 @@
   
     
     <li data-nav-id="/weblogic-toolkit-ui/navigate/" title="Navigate the UI" class="dd-item
-        parent
+        
         
         
         ">
@@ -243,7 +243,7 @@
  
   
     
-      <li data-nav-id="/weblogic-toolkit-ui/navigate/model/" title="Model" class="dd-item active">
+      <li data-nav-id="/weblogic-toolkit-ui/navigate/model/" title="Model" class="dd-item ">
         <a href="/weblogic-toolkit-ui/navigate/model/">
         Model
         
@@ -557,7 +557,7 @@
   
     
     <li data-nav-id="/weblogic-toolkit-ui/release/" title="Release Notes" class="dd-item
-        
+        parent
         
         
         ">
@@ -583,7 +583,7 @@
  
   
     
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.5.0/" title="Release Notes 1.5.0" class="dd-item ">
+      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.5.0/" title="Release Notes 1.5.0" class="dd-item active">
         <a href="/weblogic-toolkit-ui/release/release-1.5.0/">
         <b> </b>Release Notes 1.5.0
         
@@ -780,7 +780,7 @@
             
           
           
-            <a href='/weblogic-toolkit-ui/'></a> > <a href='/weblogic-toolkit-ui/navigate/'>Navigate the UI</a> > Model
+            <a href='/weblogic-toolkit-ui/'></a> > <a href='/weblogic-toolkit-ui/release/'>Release Notes</a> > Release Notes 1.5.0
           
         
           
@@ -797,10 +797,7 @@
   <ul>
     <li>
       <ul>
-        <li><a href="#contents">Contents</a></li>
-        <li><a href="#model">Model</a></li>
-        <li><a href="#design-view">Design View</a></li>
-        <li><a href="#code-view">Code View</a></li>
+        <li><a href="#changes-in-release-150">Changes in Release 1.5.0</a></li>
       </ul>
     </li>
   </ul>
@@ -820,177 +817,62 @@
           
             <h1>
               
-              Model
+              Release Notes 1.5.0
             </h1>
           
 
         
 
 
-<h3 id="contents">Contents</h3>
+<h3 id="changes-in-release-150">Changes in Release 1.5.0</h3>
 <ul>
-<li><a href="#model">Model</a></li>
-<li><a href="#design-view">Design View</a></li>
-<li><a href="#code-view">Code View</a>
+<li><a href="#major-new-features">Major New Features</a></li>
+<li><a href="#other-changes">Other Changes</a></li>
+<li><a href="#bug-fixes">Bugs Fixes</a></li>
+<li><a href="#known-issues">Known Issues</a></li>
+</ul>
+<h4 id="major-new-features">Major New Features</h4>
+<p>None</p>
+<h4 id="other-changes">Other Changes</h4>
 <ul>
-<li><a href="#model-editor">Model Editor</a></li>
-<li><a href="#variables-editor">Variables Editor</a></li>
-<li><a href="#archive-editor">Archive Editor</a></li>
+<li>#202 - Added support for Verrazzano 1.5.0+ (which uses WebLogic Kubernetes Operator 4.0.0+).</li>
+<li>#204 - Updated the Archive Editor to align with WebLogic Deploy Tooling 3.0.0+ changes to the archive format.</li>
+<li>#205 - Added support for installing the optional Verrazzano component Argo CD with Verrazzano 1.5.0+.</li>
+<li>#205 - Added support to configure Kubernetes connectivity data for Verrazzano managed clusters.</li>
+<li>#210 - Added support for Verrazzano <code>Get Application Status</code> action to check the status on the correct cluster using a
+multi-cluster application targeted to one or more managed clusters.</li>
+<li>#213 - Improved Verrazzano Ingress Trait rule editor to allow the user to choose the Destination Host by WebLogic cluster or non-clustered server name.</li>
+<li>#215 - Added a <code>Update URLs</code> button to the Verrazzano application&rsquo;s Ingress Trait that populates the Ingress Rules table
+with a URL once the application deployment is complete.</li>
+<li>#221 - Streamlined the WKO Ingress Routes table to conserve space.</li>
+<li>#223 - Added Proxy URL validation to the network connection and User Preferences dialogs to make sure the user enters
+a URL and not just a host:port combination.</li>
 </ul>
-</li>
-<li><a href="#validate-model">Validate Model</a></li>
-<li><a href="#prepare-model">Prepare Model</a></li>
-</ul>
-<h3 id="model">Model</h3>
-<p>The <code>Model</code> section helps you work with WebLogic Deploy Tooling models for a WebLogic domain.  A WebLogic
-Deploy Tooling model for a domain can include the following file types:</p>
+<h4 id="bug-fixes">Bug Fixes</h4>
 <ul>
-<li>Model file - A declarative definition of the domain configuration.</li>
-<li>Variable file - A property file that maps names to values.  These names can be referenced from the model file to
-allow a model to be used across environments by applying the variable file for a particular environment to the model.</li>
-<li>Archive file - A ZIP file containing application binaries and other files and directories needed to run the domain.</li>
+<li>#201 - Fixed a bug where the project file was not being cleaned up properly when a cluster was removed and <code>Prepare Model</code> was run again.</li>
+<li>#205 - Fixed a bug that caused the Verrazzano <code>Get Application Status</code> call to fail.</li>
+<li>#211 - Fixed a bug with sorting the Ingress Rule&rsquo;s Route Annotations table&rsquo;s columns.</li>
+<li>#214 - Fixed a bug where the Verrazzano <code>Check Verrazzano Install Status</code> action was reporting installation is still in progress after a successful upgrade.</li>
+<li>#216 - Improved the behavior of the Model Code View sliders when the window is resized.</li>
+<li>#217 - Fixed a bug where the kubectl version output was reporting an incorrect server version number with newer versions of Kubernetes.</li>
+<li>#219 - Fixed a bug with Verrazzano 1.4.0+ installation where the wrong Verrazzano Platform Operator file name was being used.</li>
+<li>#220 - Cleaned up the table formatting/behavior across the application.</li>
+<li>#222 - Fixed a bug with container image tag validation that was causing regular expression catastrophic backtracking, leading to slow validation responses.</li>
 </ul>
-<p>For more information about WebLogic Deploy Tooling models, see <a href="https://oracle.github.io/weblogic-deploy-tooling/concepts/model/">Metadata Model</a>
-and <a href="https://oracle.github.io/weblogic-deploy-tooling/concepts/archive/">Archive File</a> in the WebLogic Deploy
-Tooling documentation.</p>
-<h3 id="design-view">Design View</h3>
-<p>The <code>Design View</code> is provided through integration with the <a href="https://github.com/oracle/weblogic-remote-console/releases">WebLogic Remote Console</a>.
-For version details, see <a href="/weblogic-toolkit-ui/setup/prerequisites/">Prerequisites</a>. Upon first access, provide the location of the
-Remote Console installation directory, then click <strong>Start WebLogic Remote Console</strong>.</p>
-<p>Use the Model <code>Design View</code> pages to create or edit your WDT model files. For reference, see
-<a href="https://oracle.github.io/weblogic-remote-console/userguide/providers/wdt-model/">WDT Model Files</a> in the Remote Console documentation.
-In addition, use the Help (?) icon to the left of each field to access summary and detailed help for the field. Or,
-click the ? icon in the top right of the content pane to toggle the view of the reference information for all of the fields displayed on the page.</p>
-<p>The WDT model files that you configure will be reflected in the <code>Code View</code>. Using the Model <code>Design View</code> pages, if you select the &ldquo;circle/arrow&rdquo;
-icon beside a field, a dialog appears with the option of setting the field to a variable.
-The variable will show up in both the model and the variables editor on the <code>Code View</code> page. Likewise, when adding an application, you supply the path to the EAR,
-WAR, or JAR file (or directory); that path will be put in the archive editor on the <code>Code View</code> page.</p>
-<p>Note that if you create a new model using the <code>Design View</code> pages, then the <code>Design View</code> will insert the <code>AdminUserName</code> and <code>AdminPassword</code> fields
-into the <code>domainInfo</code> section of the model with their values set to variables whose values you will need to provide.
-This is intended to help you create a domain with all of the required fields.</p>
-<h3 id="code-view">Code View</h3>
-<p>Using an IDE-like layout, the <code>Code View</code> provides editor panes for editing the model, variables, and archive files,
-each of which support creating and editing the domain&rsquo;s WDT files. When working with an editor, there are several things
-to keep in mind:</p>
+<h4 id="known-issues">Known Issues</h4>
 <ul>
-<li>When working with a WKT Project that has no associated WDT file for storing the data, entering data into an editor
-will cause a new WDT file with the editor&rsquo;s current content to be created and associated with the project.</li>
-<li>Changes made in the editor are buffered in memory until the WKT Project is saved.</li>
-<li>Adding, deleting, or modifying data in the variable or archive editors will <em>not</em> change the model references.  You
-will need to make sure that the model references are accurate and up to date.</li>
+<li>In the Model Design View, changing the <code>Source Path</code> and <code>Plan Path</code> fields for existing App Deployments and Shared Libraries
+is broken in this release.  To work around it, either remove and recreate the deployment or use the Model Code View&rsquo;s
+Model Editor and Archive Editor to make the appropriate changes.</li>
+<li>In Model Design View, the <code>Plan</code>/<code>Plan Path</code> fields for App Deployments mistakenly allow you to select a directory.  This is
+not valid and will result in an error.  Please make sure to select a file for any deployment plan.</li>
+<li>On Linux, the open and save dialogs open behind the main application window.  This is due to
+<a href="https://github.com/electron/electron/issues/32857">Electron bug 32857</a>.</li>
+<li>When deploying a Verrazzano application, the <code>Get Application Status</code> button only checks the status of the project&rsquo;s
+Verrazzano component containing the WebLogic domain specification.</li>
+<li>Verrazzano installation does not support a multi-cluster installation.</li>
 </ul>
-<p>While it is possible to use the WKT UI application to create the files from scratch, the <code>File &gt; Add Model</code>
-menu supports adding existing files or using the WebLogic Deploy Tooling&rsquo;s
-<a href="https://oracle.github.io/weblogic-deploy-tooling/userguide/tools/discover/">Discover Domain Tool</a>
-to create a model of an existing domain.</p>
-
-<div class="notices note" ><p>While WebLogic Deploy Tooling supports using multiple model, variables, or archive files to describe a single
-domain, the current release of WKT supports <em>only</em> one WDT model file, one WDT variables file, and one WDT archive file for
-describing the domain.</p>
-</div>
-
-<h4 id="model-editor">Model Editor</h4>
-<p>In <code>Code View</code>, the model editor is just to the right of the navigation pane.  This editor displays the current
-model file associated with the WKT Project file.  Typing model content into the editor will
-result in a new model file being added to the project the next time the project is saved.</p>
-<p>The current release has the following limitations:</p>
-<ul>
-<li>Model files must be in YAML format.</li>
-<li>Model files must exist directly on the file system and not inside an archive, such as in a ZIP file; any model file inside an archive is ignored by the application.</li>
-</ul>
-<h4 id="variables-editor">Variables Editor</h4>
-<p>The WDT variables editor is in the upper right pane of the <code>Code View</code> page.  It supports editing any existing
-name-value pairs, as well as adding or removing name-value pairs.</p>
-<p>To reference a variable from the model, you must set the value of the desired model file to a variable reference.
-For example, the model snippet shown here references a variable named <code>httpPort</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">topology</span>:
-    <span style="color:#f92672">Name</span>: <span style="color:#ae81ff">tododomain</span>
-    <span style="color:#f92672">ProductionModeEnabled</span>: <span style="color:#66d9ef">true</span>
-    <span style="color:#f92672">Cluster</span>:
-        <span style="color:#f92672">mycluster</span>:
-            <span style="color:#f92672">DynamicServers</span>:
-                <span style="color:#f92672">ServerNamePrefix</span>: <span style="color:#ae81ff">Server_</span>
-                <span style="color:#f92672">DynamicClusterSize</span>: <span style="color:#ae81ff">10</span>
-                <span style="color:#f92672">ServerTemplate</span>: <span style="color:#ae81ff">mysrvtemplate</span>
-    <span style="color:#f92672">ServerTemplate</span>:
-        <span style="color:#f92672">mysrvtemplate</span>:
-            <span style="color:#f92672">ListenPort</span>: <span style="color:#e6db74">&#39;@@PROP:httpPort@@&#39;</span>
-            <span style="color:#f92672">Cluster</span>: <span style="color:#ae81ff">mycluster</span>
-
-</code></pre></div><p>When working with this model file, WebLogic Deploy Tooling expects the <code>httpPort</code> variable to be defined in the model&rsquo;s
-variables file, as shown here:</p>
-<pre tabindex="0"><code class="language-properties" data-lang="properties">httpPort = 7001
-</code></pre><h4 id="archive-editor">Archive Editor</h4>
-<p>The WDT archive editor is in the lower right pane of the <code>Code View</code> page.  It supports adding content to and
-removing content from the archive file.  While updating content in the archive is not supported directly by the archive
-editor, the archive editor safely supports multiple operations on the same entry.  As such, combining a
-<code>remove</code> operation followed by the corresponding <code>add</code> operation will effectively replace an entry.</p>
-<p>To add content to the archive file, use the plus (<code>+</code>) button in the archive editor
-title bar and follow the prompts to choose the type of content to add and select the corresponding file or directory.
-For example, to add a WAR file called <code>todo.war</code> to the archive, do the following:</p>
-<ol>
-<li>On the archive editor title bar, click <code>+</code>.</li>
-<li>In the resulting dialog, choose <code>Application File</code> from the list and click <code>OK</code>.</li>
-<li>In the resulting file chooser dialog, select the <code>todo.war</code> file and click <code>Select</code>.</li>
-</ol>
-<p>This will result in the file structure <code>wlsdeploy/applications/todo.war</code> being added to the archive editor pane.
-At this point, the application has not created or modified the archive file; it is simply storing
-the data it needs about the archive path to the added entry and the file path where the content is found.  Saving the
-WKT Project will update the archive to reflect the buffered operations performed in the editor.</p>
-
-<div class="notices note" ><p>Don&rsquo;t forget to add the application to the model and set its <code>SourcePath</code> attribute to the path in the archive where it can be found,
-as shown in the following model file snippet.</p>
-</div>
-
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">appDeployments</span>:
-    <span style="color:#f92672">Application</span>:
-        <span style="color:#f92672">todo</span>:
-            <span style="color:#f92672">SourcePath</span>: <span style="color:#ae81ff">wlsdeploy/applications/todo.war</span>
-            <span style="color:#f92672">ModuleType</span>: <span style="color:#ae81ff">war</span>
-            <span style="color:#f92672">Target</span>: <span style="color:#ae81ff">mycluster</span>
-</code></pre></div><p>To remove content from the archive file, select the content to remove in the archive editor pane and click the minus (<code>-</code>)
-button in the archive editor title bar.  <em>Don&rsquo;t forget to remove any reference to this content from the model file.</em></p>
-<h4 id="validate-model">Validate Model</h4>
-<p><code>Validate Model</code> invokes the WDT <a href="https://oracle.github.io/weblogic-deploy-tooling/userguide/tools/validate/">Validate Model Tool</a>,
-which validates that the model and its related artifacts are well-formed and provides help on the valid attributes and subfolders
-for a particular model location. This action is available by using the <code>Validate Model</code> button on the <code>Model</code> page and by selecting
-<code>Go</code> &gt; <code>Validate Model Files</code>.</p>
-<h4 id="prepare-model">Prepare Model</h4>
-<p><code>Prepare Model</code> invokes the WDT <a href="https://oracle.github.io/weblogic-deploy-tooling/userguide/tools/prepare/">Prepare Model Tool</a>
-to modify the model to work in a Kubernetes cluster with WebLogic Kubernetes Operator or Verrazzano installed.  This
-action is available by using the <code>Prepare Model</code> button on the <code>Model</code> and <code>Kubernetes WebLogic Domain</code> pages and by selecting
-<code>Go</code> &gt; <code>Prepare Model for Kubernetes</code>.  It is also possible to run <code>Prepare Model</code> during the <code>Create Image</code> action, though typically it is best to run <code>Prepare Model</code> explicitly, prior to moving to the <code>Image</code> section.</p>
-<p><code>Prepare Model</code> does the following:</p>
-<ol>
-<li>Removes model sections and fields that are not compatible with the target environment.</li>
-<li>Replaces endpoint values with model tokens that reference variables.</li>
-<li>Replaces credential values with model tokens that reference either a field in a Kubernetes secret or a variable.</li>
-<li>Provides default values for fields displayed in the application&rsquo;s variable, variable overrides, and secret editors.</li>
-<li>Extracts topology information to the application that it uses to generate the resource file used to deploy the domain.</li>
-</ol>
-<p>For more information, see the WDT <a href="https://oracle.github.io/weblogic-deploy-tooling/concepts/model/#model-tokens">model tokens</a>
-documentation.</p>
-<p>In replacing credential values, <code>Prepare Model</code> must handle the replacement differently for the &ldquo;Domain in Image&rdquo; and
-&ldquo;Model in Image&rdquo; <a href="/weblogic-toolkit-ui/navigate/project-settings/#choosing-a-domain-location">domain locations</a>:</p>
-<ul>
-<li>
-<p>With &ldquo;Domain in Image&rdquo;, the WebLogic Image Tool creates the domain while creating the image.  As such, it has no
-knowledge of Kubernetes so the token replacement uses variable tokens so that domain creation has access to the actual
-credential values.  You must ensure that all variables have valid values prior to running <code>Create Primary Image</code>.</p>
-</li>
-<li>
-<p>For &ldquo;Model in Image&rdquo;, the domain is created at runtime by the WebLogic Kubernetes Operator running in a Kubernetes
-cluster.  As such, token replacement uses secret tokens for all credential fields.  You must to be sure to provide
-values for all secret reference fields using the <code>WebLogic Domain</code> section&rsquo;s <code>Secrets</code> pane so that the required secrets
-get populated correctly during domain deployment.  For more information, see <a href="/weblogic-toolkit-ui/navigate/kubernetes/k8s-weblogic-domain/">WebLogic Domain</a>.</p>
-</li>
-</ul>
-
-<div class="notices note" ><p>The application tries to preserve any values from the model and variable files that <code>Prepare Model</code> replaces
-with secret tokens.  The current release is limited by the behavior of the underlying WDT Prepare Model Tool in that
-all passwords are not retained and must be re-entered in the appropriate location.</p>
-</div>
-
 
 
 <footer class="footline">
@@ -1095,7 +977,6 @@ all passwords are not retained and must be re-entered in the appropriate locatio
             
                 
                     
-                    
                 
                 
 
@@ -1110,9 +991,6 @@ all passwords are not retained and must be re-entered in the appropriate locatio
             
             
                 
-                    
-                        
-                        
                     
                 
                 
@@ -1130,7 +1008,6 @@ all passwords are not retained and must be re-entered in the appropriate locatio
             
                 
                     
-                    
                 
                 
 
@@ -1146,9 +1023,6 @@ all passwords are not retained and must be re-entered in the appropriate locatio
             
             
                 
-                    
-                        
-                        
                     
                 
                 
@@ -1345,6 +1219,7 @@ all passwords are not retained and must be re-entered in the appropriate locatio
             
                 
                     
+                    
                 
                 
 
@@ -1357,6 +1232,7 @@ all passwords are not retained and must be re-entered in the appropriate locatio
             
             
                 
+                    
                     
                 
                 
@@ -1373,6 +1249,9 @@ all passwords are not retained and must be re-entered in the appropriate locatio
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1477,10 +1356,10 @@ all passwords are not retained and must be re-entered in the appropriate locatio
 	 
 	 
 		
-			<a class="nav nav-prev" href="/weblogic-toolkit-ui/navigate/project-settings/" title="Project Settings"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/weblogic-toolkit-ui/release/" title="Release Notes"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/weblogic-toolkit-ui/navigate/image/" title="Image" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/weblogic-toolkit-ui/release/release-1.4.1/" title="Release Notes 1.4.1" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
