@@ -1,11 +1,11 @@
 +++
-title = "Release Notes"
+title = "Release 1.5.1"
 date = 2022-11-03T12:48:00-05:00
 weight = 92
 pre = "<b> </b>"
 +++
 
-### Changes in Release 1.5.2
+### Changes in Release 1.5.1
 - [Major New Features](#major-new-features)
 - [Other Changes](#other-changes)
 - [Bugs Fixes](#bug-fixes)
@@ -19,9 +19,7 @@ None
 None
 
 #### Bug Fixes
-- #232 - Fixed an issue in the Verrazzano Application page where the component's Ingress Trait Rule destination names 
-  were not properly converted to legal Kubernetes names so that they would match the generated service names when the
-  domain, cluster, or server names had .  
+- #229 - Fixed issue in Domain resource generation on Windows inserting a path with Windows separators
 
 #### Known Issues
 - In the Model Design View, changing the `Source Path` and `Plan Path` fields for existing App Deployments and Shared Libraries
