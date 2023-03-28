@@ -21,7 +21,7 @@ None
 #### Bug Fixes
 - #232 - Fixed an issue in the Verrazzano Application page where the component's Ingress Trait Rule destination names 
   were not properly converted to legal Kubernetes names so that they would match the generated service names when the
-  domain, cluster, or server names had .  
+  domain, cluster, or server names combinations had more than one disallowed characters in them.
 
 #### Known Issues
 - In the Model Design View, changing the `Source Path` and `Plan Path` fields for existing App Deployments and Shared Libraries
