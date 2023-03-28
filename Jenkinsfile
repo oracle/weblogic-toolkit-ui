@@ -188,6 +188,13 @@ pipeline {
                                 sh 'cd ${WORKSPACE}/webui; PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} run eslint; cd ${WORKSPACE}'
                             }
                         }
+                        stage('Zip Quickstart Files') {
+                            steps {
+                                sh 'cd ${WORKSPACE}/samples; zip -r ${WORKSPACE}/quickstart.zip quickstart; cd ${WORKSPACE}'
+                                sh 'cd ${WORKSPACE}/samples; tar zcf ${WORKSPACE}/quickstart.tar.gz quickstart; cd ${WORKSPACE}'
+                                archiveArtifacts "quickstart.*"
+                            }
+                        }
                         stage('Linux Build Installers') {
                             steps {
                                 sh 'cd ${WORKSPACE}/electron; PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} run build; cd ${WORKSPACE}'
