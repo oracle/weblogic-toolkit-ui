@@ -138,6 +138,17 @@ Design View Design View provides values for defining the application and customi
     </item>
     
     <item>
+      <title>Release 1.5.1</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.5.1/</link>
+      <pubDate>Thu, 03 Nov 2022 12:48:00 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.5.1/</guid>
+      <description>Changes in Release 1.5.1  Major New Features Other Changes Bugs Fixes Known Issues  Major New Features None
+Other Changes None
+Bug Fixes  #229 - Fixed issue in Domain resource generation on Windows inserting a path with Windows separators  Known Issues  In the Model Design View, changing the Source Path and Plan Path fields for existing App Deployments and Shared Libraries is broken in this release. To work around it, either remove and recreate the deployment or use the Model Code View&amp;rsquo;s Model Editor and Archive Editor to make the appropriate changes.</description>
+    </item>
+    
+    <item>
       <title>Release 1.5.0</title>
       <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.5.0/</link>
       <pubDate>Thu, 03 Nov 2022 12:48:00 -0500</pubDate>

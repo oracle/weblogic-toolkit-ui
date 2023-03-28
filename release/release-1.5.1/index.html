@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/weblogic-toolkit-ui/images/favicon.png" type="image/png">
 
-    <title>Release 1.4.0 :: WebLogic Kubernetes Toolkit UI</title>
+    <title>Release 1.5.1 :: WebLogic Kubernetes Toolkit UI</title>
 
     
     <link href="/weblogic-toolkit-ui/css/nucleus.css?1680010248" rel="stylesheet">
@@ -39,7 +39,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/weblogic-toolkit-ui/release/release-1.4.0/">
+  <body class="" data-url="/weblogic-toolkit-ui/release/release-1.5.1/">
     <nav id="sidebar" class="">
 
 
@@ -583,7 +583,7 @@
  
   
     
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.5.1/" title="Release 1.5.1" class="dd-item ">
+      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.5.1/" title="Release 1.5.1" class="dd-item active">
         <a href="/weblogic-toolkit-ui/release/release-1.5.1/">
         <b> </b>Release 1.5.1
         
@@ -646,7 +646,7 @@
  
   
     
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.4.0/" title="Release 1.4.0" class="dd-item active">
+      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.4.0/" title="Release 1.4.0" class="dd-item ">
         <a href="/weblogic-toolkit-ui/release/release-1.4.0/">
         <b> </b>Release 1.4.0
         
@@ -801,7 +801,7 @@
             
           
           
-            <a href='/weblogic-toolkit-ui/'></a> > <a href='/weblogic-toolkit-ui/release/'>Release Notes</a> > Release 1.4.0
+            <a href='/weblogic-toolkit-ui/'></a> > <a href='/weblogic-toolkit-ui/release/'>Release Notes</a> > Release 1.5.1
           
         
           
@@ -818,7 +818,7 @@
   <ul>
     <li>
       <ul>
-        <li><a href="#changes-in-release-140">Changes in Release 1.4.0</a></li>
+        <li><a href="#changes-in-release-151">Changes in Release 1.5.1</a></li>
       </ul>
     </li>
   </ul>
@@ -838,14 +838,14 @@
           
             <h1>
               
-              Release 1.4.0
+              Release 1.5.1
             </h1>
           
 
         
 
 
-<h3 id="changes-in-release-140">Changes in Release 1.4.0</h3>
+<h3 id="changes-in-release-151">Changes in Release 1.5.1</h3>
 <ul>
 <li><a href="#major-new-features">Major New Features</a></li>
 <li><a href="#other-changes">Other Changes</a></li>
@@ -853,39 +853,25 @@
 <li><a href="#known-issues">Known Issues</a></li>
 </ul>
 <h4 id="major-new-features">Major New Features</h4>
-<ul>
-<li>#173: Added support for WebLogic Kubernetes Operator 4.0.  While it is now the default, versions 3.3+ are still supported.</li>
-</ul>
+<p>None</p>
 <h4 id="other-changes">Other Changes</h4>
-<ul>
-<li>#175: Added Zoom In, Zoom Out, and Actual Size menu options to the Window menu.</li>
-<li>#178: Integrated the <code>Prepare Model</code> action with the changes in WebLogic Deploy Tooling 2.4.0.</li>
-<li>#179: Updated the <a href="https://github.com/oracle/weblogic-remote-console">WebLogic Remote Console</a> integration to support version 2.4.1 (2.4.0 also supported).</li>
-<li>#188: Added file download functionality to all Code View pages</li>
-</ul>
+<p>None</p>
 <h4 id="bug-fixes">Bug Fixes</h4>
 <ul>
-<li>#171: Improved workaround for the issue limiting the ability to select text from the Code View scripts (WKTUI-375).</li>
-<li>#172: Resolved issue when using Domain-in-Image that was causing the domain to not be created.</li>
-<li>#174: Resolved an issue where the <code>Install Ingress Controller</code> action was always passing the image pull secret&ndash;even when the user indicated not to use one.</li>
-<li>#176: Resolved an issue where the <code>Update Ingress Routes</code> action was always passing the <code>SSL pass-through</code> argument&ndash;even when the user did not request it.</li>
-<li>#182: Resolved Verrazzano 1.4.0+ installation issue caused by a change in the published operator file name.</li>
-<li>#186: Resolved Verrazzano-related issue where Ingress Trait rules were not including the hosts or destination-related fields.</li>
-<li>#187: Resolved an issue where the operator domain variable override config map was not being created properly.</li>
-<li>#187: Resolved an issue with the <code>apiVersion</code> of the Verrazzano component- and application-related being incorrect.</li>
-<li>#189: Resolved a rendering issue on the Ingress Controller Code View page when switching tabs.</li>
+<li>#229 - Fixed issue in Domain resource generation on Windows inserting a path with Windows separators</li>
 </ul>
 <h4 id="known-issues">Known Issues</h4>
 <ul>
+<li>In the Model Design View, changing the <code>Source Path</code> and <code>Plan Path</code> fields for existing App Deployments and Shared Libraries
+is broken in this release.  To work around it, either remove and recreate the deployment or use the Model Code View&rsquo;s
+Model Editor and Archive Editor to make the appropriate changes.</li>
+<li>In Model Design View, the <code>Plan</code>/<code>Plan Path</code> fields for App Deployments mistakenly allow you to select a directory.  This is
+not valid and will result in an error.  Please make sure to select a file for any deployment plan.</li>
 <li>On Linux, the open and save dialogs open behind the main application window.  This is due to
 <a href="https://github.com/electron/electron/issues/32857">Electron bug 32857</a>.</li>
 <li>When deploying a Verrazzano application, the <code>Get Application Status</code> button only checks the status of the project&rsquo;s
 Verrazzano component containing the WebLogic domain specification.</li>
-<li>WKTUI does not currently show the Verrazzano URL needed to access the application.  The URL will always be of
-the form <code>https://&lt;gateway-hostname&gt;/&lt;app-path&gt;</code>, where the <code>gateway-hostname</code> is the name created by Verrazzano
-in the <code>Gateway</code> object.  To get the name of the generated gateway object, run <code>kubectl get gateway -n &lt;namespace&gt; --template '{{range .items}}{{.metadata.name}}{{&quot;\n&quot;}}{{end}}'</code>.  Next, run <code>kubectl get gateway &lt;gateway-name&gt; -n &lt;namespace&gt; -o yaml</code>
-and review the <code>hosts</code> entry of the <code>.spec.servers</code> section to find the DNS name that corresponds to the
-<code>gateway-hostname</code> to use in the URL.</li>
+<li>Verrazzano installation does not support a multi-cluster installation.</li>
 </ul>
 
 
@@ -1247,6 +1233,23 @@ and review the <code>hosts</code> entry of the <code>.spec.servers</code> sectio
             
                 
                     
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
                         
                         
                     
@@ -1297,26 +1300,6 @@ and review the <code>hosts</code> entry of the <code>.spec.servers</code> sectio
             
             
                 
-                    
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
                     
                 
                 
@@ -1389,10 +1372,10 @@ and review the <code>hosts</code> entry of the <code>.spec.servers</code> sectio
 	 
 	 
 		
-			<a class="nav nav-prev" href="/weblogic-toolkit-ui/release/release-1.4.1/" title="Release 1.4.1"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/weblogic-toolkit-ui/release/" title="Release Notes"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/weblogic-toolkit-ui/release/release-1.3.0/" title="Release 1.3.0" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/weblogic-toolkit-ui/release/release-1.5.0/" title="Release 1.5.0" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
