@@ -9,6 +9,19 @@ description: "Install the WKT UI application and check for updates."
 1. Download the latest WebLogic Kubernetes Toolkit UI (WKT UI) application installers from the [GitHub Releases section](https://github.com/oracle/weblogic-toolkit-ui/releases) of this repository.
 2. Simply run the appropriate installer for your operating system.
 
+Each release has many assets, some of which are needed for the application’s auto-update functionality and are not intended to be used for installing the application.
+The following table lists the installer file names and their purpose.
+
+| Installer File Name | Purpose |
+| --- | --- |
+| WebLogic-Kubernetes-Toolkit-UI-1.4.1-arm64.dmg |  macOS Apple Silicon (M1) installer. |
+| WebLogic-Kubernetes-Toolkit-UI-1.4.1.AppImage |  Linux AppImage package of the application. |
+| WebLogic-Kubernetes-Toolkit-UI-1.4.1.dmg |  macOS Intel (x86-64) installer. |
+| WebLogic-Kubernetes-Toolkit-UI-Setup-1.4.1.exe | Windows installer. |
+| wktui-1.4.1.x86_64.rpm | Linux RPM package installer. |
+| wktui_1.4.1_amd64.deb | Linux DEB package installer. |
+
+The Linux AppImage package is not an installer. It is a portable packaging of the application that can run directly without installation on a compatible Linux machine.  For more information, see https://appimage.org/.
 
 **NOTE**: On Linux, to get _all_ the dependencies and have them installed in the correct order, you need to use the package manager to install the `rpm` or `deb` file. First, be sure to review the Linux prerequisites [here]({{< relref "/setup/prerequisites.md" >}}).
 
