@@ -2,7 +2,7 @@
 title: "Install WKT UI"
 date: 2019-02-22T15:44:42-05:00
 draft: false
-weight: 2
+weight: 3
 description: "Install the WKT UI application and check for updates."
 ---
 
