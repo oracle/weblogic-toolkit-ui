@@ -35,6 +35,9 @@ resources:
                     DriverName: com.mysql.cj.jdbc.Driver
                     URL: 'jdbc:mysql://localhost:3306/tododb'
                     PasswordEncrypted: welcome1
+                JDBCConnectionPoolParams:
+                    TestConnectionsOnReserve: true
+                    TestTableName: ToDos
                 JDBCDataSourceParams:
                     JNDIName: [
                         jdbc/ToDoDB
