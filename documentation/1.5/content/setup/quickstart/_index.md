@@ -3,10 +3,10 @@ title: "Quick Start Guide"
 date: 2019-02-22T15:44:42-05:00
 draft: false
 weight: 4
-description: "Use Quick Start guide to exercise WKT UI functionality and deploy sample application."
+description: "Use the Quick Start guide to exercise WKT UI functionality and deploy a sample application."
 ---
 
-This Quick Start guide provides an comprehensive tutorial designed to step you through the WebLogic Kubernetes Toolkit UI (WKTUI)
+This Quick Start guide provides a comprehensive tutorial designed to step you through WebLogic Kubernetes Toolkit UI (WKTUI)
 functionality and familiarize you with its capabilities. WKTUI is a desktop application that helps you create and deploy WebLogic
 domains into Kubernetes. Using this guide, you will deploy a sample WebLogic-based application to a Kubernetes cluster.
 
