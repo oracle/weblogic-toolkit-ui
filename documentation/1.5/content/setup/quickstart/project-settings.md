@@ -10,7 +10,9 @@ weight: 8
 
 2. Using the `File` menu, select `New Project`, choose a directory, and enter the file name `todo-list.wktproj`.  
 
-    At this point, you will be on the Project Settings page that will look something like the one shown in the following image.  Please note that if you are not running on macOS, you will not see the first panel shown.
+    At this point, you will be on the Project Settings page that will look something like the one shown in the following image.  
+
+    Note that if you are not running on macOS, you will _not_ see this top panel, **For macOS, do you need to add directories to the PATH or define other environment variables for Docker/Podman or Kubernetes?**
 
     {{< img "Project Settings" "images/project-settings.png" >}}
 
@@ -58,6 +60,6 @@ Running the WebLogic Deploy Tooling requires an Oracle Home directory.  As such,
 
 ### Image Builder Tool
 
-Because you will be building an image as part of this project, you need to tell WKTUI whether you will use Docker or Podman to build your image.  You also need to provide the path to the executable that matches your selection.  Because you are running Rancher Desktop on macOS, you will select Docker and supply the Docker executable (for example, `/Users/your-name/.rd/bin/docker`).  Feel free to provide the answers that best fit your environment.
+Because you will be building an image as part of this project, you need to tell WKTUI whether you will use Docker or Podman to build your image.  You also need to provide the path to the executable that matches your selection.  Because you are running Rancher Desktop on macOS, you will select Docker and supply the Docker executable (for example, `/Users/fred.jones/.rd/bin/docker`).  Feel free to provide the answers that best fit your environment.
 
 Now that your project settings are mostly complete, use the `File` menu, `Save All` option to save the project before you move on to creating the model for your domain.  WKTUI will prompt you for the encryption passphrase you want to use with this project.  Choose whatever value you like; just try not to forget it!

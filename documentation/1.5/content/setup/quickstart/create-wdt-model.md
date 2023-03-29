@@ -54,8 +54,74 @@ Navigate to the new cluster, `mycluster`, and select the Dynamic tab.  Set the f
 
 ### Create a Data Source
 
-The next step is to create a data source to talk to the MySQL database.  Before doing that, switch to the Code View tab to see what the WDT model looks like so far.  
+The next step is to create a data source to talk to the MySQL database.  Before doing that, switch to the Code View tab to see what the WDT model looks like so far.
 
+{{< img "Partial Model Code View" "images/partial-model-code-view.png" >}}
 
+As you can see in the preceding image, the settings you entered are represented in the YAML Editor.  Notice that the model editor inserted the fields for the domain’s administrative user name and password, and set the values to tokens of the form `@@PROP:<property-name>@@`.  These tokens reference variables; you can see that the variable names were added to the Variables Editor.  Go ahead and fill in the values you want to use; for example, `weblogic` for the user name and a strong password value for the password.  Now, switch back to the Design View tab.
 
-As we can see from Figure 11, the settings we entered are represented in the YAML Editor.  Notice that the model editor inserted the fields for the domain’s administrative username and password and set the values to tokens of the form “@@PROP:<property-name>@@.  These tokens reference variables and we see that the variable names were added to the Variables Editor.  Let’s go ahead and fill in the values we want to use; for example, weblogic for the username and a strong password value for the password.  Now, flip back to the Design View Tab.
+Navigate to the `Services` > `Data Sources` area and create a new Data Source using the values in the following table.
+
+| Field Name | Value |
+| --- | --- |
+| `Name` |  `myDataSource` |
+| `JNDI Names` |  `jdbc/ToDoDB` |
+| `Targets` |  `mycluster` (move to `Chosen` column) |
+| `Datasource Type` | `Generic Data Source` |
+| `Database Type` | `MySQL` |
+| `Database Driver` |  `MySQL’s Driver (Type 4) Versions: using com.mysql.cj.jdbc.Driver` |
+| `Global Transactions Protocol` | `OnePhaseCommit` |
+| `Database Name` | `tododb` |
+| `Host Name` | `mysql` |
+| `Port` | `3306` |
+| `Database User Name` | `weblogic` |
+| `Password` | `welcome1` |
+
+Now, you need to add the application.  Navigate to the `Deployments` > `App Deployments` area and create a new application using the values in the following table.  You must replace the `$QS_HOME` value in the table with the path where you stored the Quick Start directory when downloading the code.   Note that after the actual file system location is entered, the value will change to reflect its path in the archive file (`wlsdeploy/applications/todo.war`).
+
+| Field Name | Value |
+| --- | --- |
+| `Name` |  `todo` |
+| `Targets` |  `mycluster` (move to `Chosen` column) |
+| `Add Source to Archive` |  `ON` |
+| `Source` | `$QS_HOME/app/target/todo.war` |
+
+Even though the model is complete enough to create a local domain, you still need to add a few fields so that the WebLogic Kubernetes Operator can use the model.  Switch back to the Code View tab.  You will edit the model directly this time.  Please make the topology section of the model look like the following.
+
+```
+topology:
+    Name: todolist_domain
+    ProductionModeEnabled: true
+    AdminServerName: AdminServer
+    Server:
+        AdminServer:
+    Cluster:
+        mycluster:
+            DynamicServers:
+                ServerTemplate: 'todo-srv-template'
+                ServerNamePrefix: 'ToDoServer-'
+                DynamicClusterSize: 10
+                MaxDynamicClusterSize: 10
+                CalculatedListenPorts: false
+                MinDynamicClusterSize: 0
+    ServerTemplate:
+        'todo-srv-template':
+            ListenPortEnabled: true
+            Cluster: mycluster
+```
+### Validating and Preparing the Model
+
+The domain model is now complete.  Go ahead and validate the model by clicking **Validate Model** or using the `Go` menu, `Validate Model Files` menu item.  Doing this will invoke the WDT Validate Model Tool and the Console window at the bottom of the screen will display the output of the tool, as shown in the following image. You can close the Console Window at any time.
+
+{{< img "Validate Model Code View" "images/validate-model-code-view.png" >}}
+
+When deploying a domain in Kubernetes, you need to prepare it for that environment.  The WDT Prepare Model Tool gives you what you need to accomplish that.  WKTUI has a special integration with Prepare Model in that not only does it adjust the model for the Kubernetes environment, but also it returns data extracted from the model that WKTUI needs.  For example, Prepare Model returns the list WebLogic clusters and non-clustered managed servers that other parts of the application use to tailor the environment for this domain.  Click **Prepare Model** to invoke the WDT Prepare Model Tool.
+
+Because you chose to use Model-in-Image for the Quick Start exercise, Prepare Model made several changes to your model.
+
+- Replaced credentials with tokens that reference Kubernetes Secrets.
+- Replaced fields like the `Data Source URL` with a token that references a variable.
+
+The following image shows the completed model that is ready to put in an image, so save the project before you move to the next section.
+
+{{< img "Prepare Model Code View" "images/prepare-model-code-view.png" >}}
