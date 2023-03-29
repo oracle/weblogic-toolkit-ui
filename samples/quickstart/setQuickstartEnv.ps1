@@ -61,7 +61,7 @@ $env:ORCL_SSO_PASS = 'welcome1'
 # Set to the name of the program you are using to create
 # container images (i.e., docker or podman)
 #
-$env:IMAGE_BUILDER_EXE=docker
+$env:IMAGE_BUILDER_EXE = "docker"
 
 #############################################################
 #                 DO NOT EDIT BELOW HERE                    #
