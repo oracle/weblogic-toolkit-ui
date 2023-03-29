@@ -36,13 +36,13 @@ For this project, you will choose the `Store Encrypted in Project File` option t
 
 WebLogic Kubernetes Operator (WKO) has three mechanisms for storing the WebLogic domain directory for use in Kubernetes:
 
-- Created in the container from the model in the image – With this option, you provide a WebLogic Deploy Tooling (WDT) model of the domain and a WDT installer in an image, and the WebLogic Kubernetes Operator will create and update the domain for you.  This option is also called Model-in-Image (MII) and WKO calls it FromModel.
+- `Created in the container from the model in the image` – With this option, you provide a WebLogic Deploy Tooling (WDT) model of the domain and a WDT installer in an image, and the WebLogic Kubernetes Operator will create and update the domain for you.  This option is also called Model-in-Image (MII) and WKO calls it FromModel.
 
-- Created as part of the image – With this option, you provide a WebLogic Deploy Tooling (WDT) model of the domain and a WDT installer to the WebLogic Image Tool (WIT) while creating the image, and WIT creates the domain inside the image.  This option is also called Domain-in-Image (DII) and WKO calls it Image.  **NOTE**: WKO has deprecated this option.
+- `Created as part of the image` – With this option, you provide a WebLogic Deploy Tooling (WDT) model of the domain and a WDT installer to the WebLogic Image Tool (WIT) while creating the image, and WIT creates the domain inside the image.  This option is also called Domain-in-Image (DII) and WKO calls it Image.  **NOTE**: WKO has deprecated this option.
 
-- Externally created in a Kubernetes persistent volume – With this option, you must create a Kubernetes persistent volume and create the domain on that persistent volume.  This option is also called Domain-on-PV (DoPV) and WKO calls it PersistentVolume.
+- `Externally created in a Kubernetes persistent volume` – With this option, you must create a Kubernetes persistent volume and create the domain on that persistent volume.  This option is also called Domain-on-PV (DoPV) and WKO calls it PersistentVolume.
 
-The ToDo List application requires only WebLogic Server and fits well with the Model-in-Image mechanism, so please select the `Created in the container from the model in the image` option.
+The ToDo List application requires only WebLogic Server and fits well with the Model-in-Image mechanism, so select the `Created in the container from the model in the image` option.
 
 ### Kubernetes Cluster Target Type
 
@@ -60,4 +60,4 @@ Running the WebLogic Deploy Tooling requires an Oracle Home directory.  As such,
 
 Because you will be building an image as part of this project, you need to tell WKTUI whether you will use Docker or Podman to build your image.  You also need to provide the path to the executable that matches your selection.  Because you are running Rancher Desktop on macOS, you will select Docker and supply the Docker executable (for example, `/Users/your-name/.rd/bin/docker`).  Feel free to provide the answers that best fit your environment.
 
-Now that your project settings are mostly complete, use the `File` menu `Save All` option to save the project before you move on to creating the model for your domain.  WKTUI will prompt you for the encryption passphrase you want to use with this project.  Choose whatever value you like; just try not to forget it!
+Now that your project settings are mostly complete, use the `File` menu, `Save All` option to save the project before you move on to creating the model for your domain.  WKTUI will prompt you for the encryption passphrase you want to use with this project.  Choose whatever value you like; just try not to forget it!

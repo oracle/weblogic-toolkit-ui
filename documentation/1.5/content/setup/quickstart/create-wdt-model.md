@@ -4,3 +4,58 @@ date: 2019-02-22T15:44:42-05:00
 draft: false
 weight: 9
 ---
+
+The WebLogic Deploy Tooling project provides a set of single-purpose tools for performing lifecycle operations of WebLogic Server domains.  These tools work off a model of the domain.  The model contains three types of files:
+
+- Model file – A YAML description of the domain that is aligned with WebLogic Scripting Tool (WLST) offline folders and attributes.
+- Variables file – An optional Java properties file that contains key/value pairs where the key matches with a token placed in the model file.
+- Archive file – An optional ZIP file that contains any file artifacts that need to exist in the domain, for example, a WAR file that contains the binaries for a Web application.
+
+For more detailed WDT information, see the WebLogic Deploy Tooling [documentation](https://oracle.github.io/weblogic-deploy-tooling/concepts/model/).
+
+WKTUI provides tooling to make it easy for you to create and edit a WDT model.   This image shows the Model page, Design View tab that allows visual editing of a model using WebLogic Remote Console screens.  
+
+{{< img "Model Design View" "images/model-design-view.png" >}}
+
+This image shows the Model page, Code View tab that lets you directly edit each of the three different file types that make up the model.  In the center of the screen, you'll find the YAML editor for the model file.  On the right, you'll find the variables file editor and the archive file editor.
+
+{{< img "Model Code View" "images/model-code-view.png" >}}
+
+WKTUI also supports discovering an existing domain to extract the model for that domain.  It accomplishes this by using the WDT [Discover Domain](https://oracle.github.io/weblogic-deploy-tooling/userguide/tools/discover/) tool.  To use this functionality, you use the `File` menu, `Add Model` submenu.  The two menu items are:
+
+- `Discover Model (offline)` – With this option, WDT reads the domain directory from the local file system to extract the model files.
+- `Discover Model (online)` – With this option, WDT connects to the domain’s running Administration Server to extract the model files.  To collect all of the archive file contents automatically, the domain must be running on the local machine so that WDT has access to the domain’s file system.  
+
+To collect the model from a domain running on another machine, you can use the Remote Discovery option.  With this option, at the end of the Discover Domain (online) action, WDT will tell you which files you need to collect and add to the archive file.
+
+Because the ToDo List application has minimal requirements from the domain, you will create the model by hand.  If you would prefer to create a local domain and use the discover model functionality, see the Create ToDo List Domain section in the Appendix.
+
+### Create the ToDo List Domain
+
+Start on the Model Design View tab, which will default to the **Domain** element, General tab. Set the `Name` field to `todolist_domain` and enable `Production Mode`, as shown in the following image.
+
+{{< img "Domain Settings" "images/domain-settings.png" >}}
+
+Next, you need to create a server template that you will use with your dynamic cluster.  Select the **Server Templates** element and create a new server template with the name `todo-srv-template`.  After you create the template, enable `Listen Port Enabled` so that the screen looks like the following image.  
+
+{{< img "Server Template" "images/server-template.png" >}}
+
+Next, select the three dots to the right of the `Cluster` field, drop-down box, and select the `Create New Cluster` menu item.  Create a new cluster with the name `mycluster` and then select it as the Cluster attribute of the server template.
+
+Navigate to the new cluster, `mycluster`, and select the Dynamic tab.  Set the fields to the values specified in the following table.
+
+| Field Name | Value |
+| --- | --- |
+| `Server Template` |  `todo-srv-template` |
+| `Server Name Prefix` |  `ToDoServer-` |
+| `Dynamic Cluster Size` |  `10` |
+| `Max Dynamic Cluster Size` | `10` |
+| `Enable Calculated Listen Ports` | `Off` |
+
+### Create a Data Source
+
+The next step is to create a data source to talk to the MySQL database.  Before doing that, switch to the Code View tab to see what the WDT model looks like so far.  
+
+
+
+As we can see from Figure 11, the settings we entered are represented in the YAML Editor.  Notice that the model editor inserted the fields for the domain’s administrative username and password and set the values to tokens of the form “@@PROP:<property-name>@@.  These tokens reference variables and we see that the variable names were added to the Variables Editor.  Let’s go ahead and fill in the values we want to use; for example, weblogic for the username and a strong password value for the password.  Now, flip back to the Design View Tab.
