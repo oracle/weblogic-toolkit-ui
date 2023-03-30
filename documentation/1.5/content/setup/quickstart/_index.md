@@ -33,4 +33,4 @@ The Quick Start guide is divided into the following sections:
   - [Install Verrazzano]({{< relref "/setup/quickstart/qs-verrazzano/vz-install.md" >}})
   - [Deploy the Verrazzano Component for the WebLogic Domain]({{< relref "/setup/quickstart/qs-verrazzano/vz-component.md" >}})
   - [Deploy the Verrazzano Application]({{< relref "/setup/quickstart/qs-verrazzano/vz-application.md" >}})
-  - Access the ToDo List Application
+  - [Access the ToDo List Application]({{< relref "/setup/quickstart/qs-verrazzano/vz-access-app.md" >}})

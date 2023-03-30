@@ -11,3 +11,4 @@ This portion of the Quick Start guide is for users Interested in using a Kuberne
 2. [Install Verrazzano]({{< relref "/setup/quickstart/qs-verrazzano/vz-install.md" >}}).
 3. [Deploy the Verrazzano Component for the WebLogic Domain]({{< relref "/setup/quickstart/qs-verrazzano/vz-component.md" >}}).
 4. [Deploy the Verrazzano Application]({{< relref "/setup/quickstart/qs-verrazzano/vz-application.md" >}}).
+5. [Access the ToDo List Application]({{< relref "/setup/quickstart/qs-verrazzano/vz-access-app.md" >}}).
