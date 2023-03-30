@@ -1,72 +1,19 @@
 ---
-title: "Client Configuration"
+title: "Configure Kubernetes Cluster Connectivity"
 date: 2019-02-22T15:44:42-05:00
 draft: false
 weight: 1
 description: "Client Configuration helps you get the necessary connectivity to your Kubernetes cluster."
 ---
 
+The first task you need to do is to configure your Kubernetes Client (kubectl) to connect and authenticate to our Kubernetes cluster.  
 
+Go to the `Verrazzano` > `Client Configuration` page, as shown in the following image.  
 
-### Contents
+{{< img "VZ Kubernetes Client Connectivity" "images/vz-kubernetes-client-connectivity.png" >}}
 
-- [Client Configuration](#client-configuration)
-    - [Authentication with Managed Kubernetes Clusters](#authentication-with-managed-kubernetes-clusters)
-    - [Verify Connectivity](#verify-connectivity)
+By selecting the appropriate `Kubernetes Cluster Type`, the Instructions panel will display the steps needed to properly configure `kubectl`.  Please select your `Kubernetes Cluster Type` and follow the instructions (including the linked instructions) until you can successfully connect using `kubectl` from the command line.  (Because these steps are generally well-documented and well-tested, we will not repeat them here.)  For those running on macOS, please remember to do any macOS-specific step, which is only visible when the WKTUI application is running on macOS.  For example, Step 4 in the preceding image.
 
-### Client Configuration
-`Client Configuration` helps you get the necessary connectivity to your Kubernetes
-cluster.  Use the `Kubernetes Cluster Type` field to select the target Kubernetes cluster type to show instructions for
-configuring `kubectl` to successfully connect to the cluster.
+Verrazzano supports multiple clusters and all Verrazzano installations have an administrative cluster, whose name is always local.  For our example, we will use the admin cluster with no managed clusters.  
 
-- The `Kubectl Executable to Use` field tells the WKT UI application where to find the correct version of `kubectl` to use.
-- By using the `Kubernetes Client Config File(s)` field, you can specify a different Kubernetes client configuration
-file instead of, or in addition to, the default `.kube/config` file from your home directory.  
-- For environments where the client is configured to connect to multiple clusters, use the `Kubernetes Config Context to Use` field to
-specify the configuration file's context associated with the cluster to which you want to connect.  
-
-
-#### Authentication with Managed Kubernetes Clusters
-Most cloud vendors require the use of their command-line tooling to authenticate `kubectl` connections to their managed
-Kubernetes clusters.  For example, after `kubectl` is configured to connect to a Kubernetes cluster managed by the
-Oracle Kubernetes Engine (OKE), the Kubernetes client configuration file will have a section that looks similar to the
-one shown here.
-
-```
-users:
-- name: user-abcdefghi8d
-  user:
-    exec:
-      apiVersion: client.authentication.k8s.io/v1beta1
-      command: oci
-      args:
-      - ce
-      - cluster
-      - generate-token
-      - --cluster-id
-      - ocid1.cluster.oc1.phx.aaaaaaaaahdirjdmcjfpogfkdhjsdhshssk2abcdefghijk2d
-      - --region
-      - us-phoenix-1
-      env: []
-```
-
-This configuration causes each `kubectl` invocation that references this user definition to execute the `oci` command
-(the Oracle Cloud command-line tool) to get the credentials necessary to successfully authenticate to the cluster.
-If the `oci` executable is not in a directory in the `PATH` environment variable when the `kubectl` command is executed,
-then an error similar to the one shown here will occur.
-
-```
-Failed to verify Kubernetes client connectivity: Unable to verify Kubernetes client connectivity:
-Command failed: /Users/rpatrick/bin/kubectl version --short
-Unable to connect to the server: getting credentials: exec: executable oci not found
-
-It looks like you are trying to use a client-go credential plugin that is not installed.
-
-To learn more about this feature, consult the documentation available at:
-https://kubernetes.io/docs/reference/access-authn-authz/authentication/#client-go-credential-plugins.
-```
-
-#### Verify Connectivity
-To verify the application configuration for connecting to the specified Kubernetes cluster,
-use the `Verify Connectivity` button on the `Client Configuration` page or
-`Go` > `Verify Kubernetes Client Connection`.
+After invoking `kubectl` from the command line connects to the target Kubernetes cluster, fill out the rest of the form.  It is always best to select the appropriate `Kubectl Config Context to Use` for your project.  Because you may have multiple `Kubernetes Client Config Files`, select the appropriate one to use first.  Then, you can use either the Chooser icon or the Get Current Context icon to get the appropriate context value from the specified file.  In the preceding image, the context is named `vz` only because you edited the configuration file to change the OKE-generated context name to one you could recognize.  Please run **Verify Connectivity** prior to proceeding.
