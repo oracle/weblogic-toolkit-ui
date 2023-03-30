@@ -77,6 +77,11 @@ Navigate to the `Services` > `Data Sources` area and create a new Data Source us
 | `Database User Name` | `weblogic` |
 | `Password` | `welcome1` |
 
+After the `myDataSource` Data Source is created, navigate to the `Connection Pool` > `Advanced` tab and make the following changes:
+1.	Enable `Test Connection On Reserve`.
+2.	Set the Test Table Name to `ToDos`.
+
+
 Now, you need to add the application.  Navigate to the `Deployments` > `App Deployments` area and create a new application using the values in the following table.  You must replace the `$QS_HOME` value in the table with the path where you stored the Quick Start directory when downloading the code.   Note that after the actual file system location is entered, the value will change to reflect its path in the archive file (`wlsdeploy/applications/todo.war`).
 
 | Field Name | Value |

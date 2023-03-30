@@ -43,7 +43,7 @@ After logging in to your Oracle Cloud account, select to the Container Registry 
 
 In the registry of your choosing, create a new private repository called `wktui-qs/todolist-aux`.  Note the URL needed to access the new repository.  For the OCIR repository, the URL is of the form `<region-abbreviation>.ocir.io/<tenancy-name>/wktui-qs/todolist-aux`, where region-abbreviation is something like `phx` (for the Phoenix region) and tenancy name is the name of the tenancy used to log in to `https://cloud.oracle.com`.  
 
-To access this OCIR repository from Docker and Kubernetes, you need to use an Auth Token associated with your account in place of your password.  To create an Auth Token, navigate to your User settings, select the Auth Tokens option under Resources, and click **Generate Token**, as shown in the following image.  Make sure to retain a copy of the generated token, as this is the only opportunity, you will have to see it in clear text!
+To access this OCIR repository from Docker and Kubernetes, you need to use an Auth Token associated with your account in place of your password.  To create an Auth Token, navigate to your User settings, select the Auth Tokens option under Resources, and click **Generate Token**, as shown in the following image.  Make sure to retain a copy of the generated token, because this is the only opportunity you will have to see it in clear text!
 
 {{< img "OCI Create Auth Token" "images/oci-create-auth-token.png" >}}
 
@@ -79,4 +79,6 @@ The following image shows the application after successfully creating the auxili
 
 {{< img "Create AUX Image" "images/create-aux-image.png" >}}
 
-Now, you are ready to push the auxiliary image to the image registry.  Simply click **Push Auxiliary Image**.  At this point, you are ready to shift your focus to the Kubernetes cluster.  Remember, any change to the model files requires creating a new auxiliary image, which may require rerunning Prepare Model if fields were added to the model’s YAML file.  We strongly recommend that you always increment the version number of the `Auxiliary Image Tag` field prior to creating and pushing a new image.  This will make it very clear which image is in use.
+Now, you are ready to push the auxiliary image to the image registry.  If running on macOS, you need to make sure that your Docker (or Podman) executable directory (for example, `$HOME/.rd/bin`, if using Rancher Desktop) is added to the `Extra Path Directories` table on the Project Settings page.  Doing this allows Docker to find the executable it uses to interact with the macOS Keychain for storing credentials.
+
+Simply click **Push Auxiliary Image**.  At this point, you are ready to shift your focus to the Kubernetes cluster.  Remember, any change to the model files requires creating a new auxiliary image, which may require rerunning **Prepare Model** if fields were added to the model’s YAML file.  We strongly recommend that you always increment the version number of the `Auxiliary Image Tag` field prior to creating and pushing a new image.  This will make it very clear which image is in use.
