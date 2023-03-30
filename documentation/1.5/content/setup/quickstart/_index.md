@@ -1,10 +1,10 @@
----
-title: "Quick Start Guide"
-date: 2019-02-22T15:44:42-05:00
-draft: false
-weight: 4
-description: "Use the Quick Start guide to exercise WKT UI functionality and deploy a sample application."
----
++++
+title = "Quick Start Guide"
+date = 2019-02-22T15:27:38-05:00
+weight = 4
+pre = "<b> </b>"
+description = "Use the Quick Start guide to exercise WKT UI functionality and deploy a sample application."
++++
 
 This Quick Start guide provides a comprehensive tutorial designed to step you through WebLogic Kubernetes Toolkit UI (WKTUI)
 functionality and familiarize you with its capabilities. WKTUI is a desktop application that helps you create and deploy WebLogic
@@ -22,15 +22,15 @@ The Quick Start guide is divided into the following sections:
 - [Select the Project Settings]({{< relref "/setup/quickstart/project-settings.md" >}})
 - [Create the WebLogic Deploy Tooling model]({{< relref "/setup/quickstart/create-wdt-model.md" >}})
 - [Create images with the WebLogic Image Tool]({{< relref "/setup/quickstart/create-images-with-wit.md" >}})
-- [WebLogic Kubernetes Operator (WKO) Track]({{< relref "/setup/quickstart/kubernetes/k8_index.md" >}}): follow these steps if you are interested in using a Kubernetes cluster without Verrazzano.
-  - [Configure Kubernetes Cluster Connectivity]({{< relref "/setup/quickstart/kubernetes/k8s-client-config.md" >}})
-  - [Install the WebLogic Kubernetes Operator]({{< relref "/setup/quickstart/kubernetes/k8s-wko.md" >}})
-  - [Deploy the Domain]({{< relref "/setup/quickstart/kubernetes/k8s-weblogic-domain.md" >}})
-  - [Install and Configure the Ingress Controller]({{< relref "/setup/quickstart/kubernetes/k8s-ingress-controller.md" >}})
-  - [Access the ToDo List application]({{< relref "/setup/quickstart/kubernetes/k8s-access-app.md" >}})
-- [Verrazzano (VZ) Track]({{< relref "/navigate/verrazzano/vz_index.md" >}}): follow these steps if you are interested in using a Kubernetes cluster with Verrazzano.
-  - [Configure Kubernetes cluster connectivity]({{< relref "/quickstart/verrazzano/vz-client-config.md" >}})
-  - [Install Verrazzano]({{< relref "/quickstart/verrazzano/vz-install.md" >}})
-  - Deploy the Verrazzano component for the WebLogic domain
-  - Deploy the Verrazzano application
-  - Access the ToDo List application
+- WebLogic Kubernetes Operator (WKO) Track: follow these steps if you are interested in using a Kubernetes cluster without Verrazzano.
+  - [Configure Kubernetes Cluster Connectivity]({{< relref "/setup/quickstart/qs-kubernetes/k8s-client-config.md" >}})
+  - [Install the WebLogic Kubernetes Operator]({{< relref "/setup/quickstart/qs-kubernetes/k8s-wko.md" >}})
+  - [Deploy the Domain]({{< relref "/setup/quickstart/qs-kubernetes/k8s-weblogic-domain.md" >}})
+  - [Install and Configure the Ingress Controller]({{< relref "/setup/quickstart/qs-kubernetes/k8s-ingress-controller.md" >}})
+  - [Access the ToDo List Application]({{< relref "/setup/quickstart/qs-kubernetes/k8s-access-app.md" >}})
+- Verrazzano (VZ) Track: follow these steps if you are interested in using a Kubernetes cluster with Verrazzano.
+  - [Configure Kubernetes cluster connectivity]({{< relref "/setup/quickstart/qs-verrazzano/vz-client-config.md" >}})
+  - [Install Verrazzano]({{< relref "/setup/quickstart/qs-verrazzano/vz-install.md" >}})
+  - [Deploy the Verrazzano Component for the WebLogic Domain]({{< relref "/setup/quickstart/qs-verrazzano/vz-component.md" >}})
+  - [Deploy the Verrazzano Application]({{< relref "/setup/quickstart/qs-verrazzano/vz-application.md" >}})
+  - Access the ToDo List Application

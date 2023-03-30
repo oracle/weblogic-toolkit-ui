@@ -21,12 +21,12 @@ The UI sections are:
 - [Project Settings]({{< relref "/navigate/project-settings.md" >}})
 - [Model]({{< relref "/navigate/model.md" >}})
 - [Image]({{< relref "/navigate/image.md" >}})
-- [Kubernetes]({{< relref "/navigate/kubernetes/_index.md" >}})
+- Kubernetes
   - [Client Configuration]({{< relref "/navigate/kubernetes/k8s-client-config.md" >}})
   - [WebLogic Operator]({{< relref "/navigate/kubernetes/k8s-wko.md" >}})
   - [WebLogic Domain]({{< relref "/navigate/kubernetes/k8s-weblogic-domain.md" >}})
   - [Ingress Controller]({{< relref "/navigate/kubernetes/k8s-ingress-controller.md" >}})
-- [Verrazzano]({{< relref "/navigate/verrazzano/_index.md" >}})
+- Verrazzano
   - [Client Configuration]({{< relref "/navigate/verrazzano/vz-client-config.md" >}})
   - [Installation]({{< relref "/navigate/verrazzano/vz-install.md" >}})
   - [Component]({{< relref "/navigate/verrazzano/vz-component.md" >}})
