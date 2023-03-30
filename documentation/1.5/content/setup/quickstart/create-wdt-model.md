@@ -2,7 +2,7 @@
 title: "Create the WebLogic Deploy Tooling model"
 date: 2019-02-22T15:44:42-05:00
 draft: false
-weight: 9
+weight: 5
 ---
 
 The WebLogic Deploy Tooling project provides a set of single-purpose tools for performing lifecycle operations of WebLogic Server domains.  These tools work off a model of the domain.  The model contains three types of files:
@@ -60,7 +60,7 @@ The next step is to create a data source to talk to the MySQL database.  Before 
 
 As you can see in the preceding image, the settings you entered are represented in the YAML Editor.  Notice that the model editor inserted the fields for the domain’s administrative user name and password, and set the values to tokens of the form `@@PROP:<property-name>@@`.  These tokens reference variables; you can see that the variable names were added to the Variables Editor.  Go ahead and fill in the values you want to use; for example, `weblogic` for the user name and a strong password value for the password.  Now, switch back to the Design View tab.
 
-Navigate to the `Services` > `Data Sources` area and create a new Data Source using the values in the following table.
+Go to the `Services` > `Data Sources` area and create a new Data Source using the values in the following table.
 
 | Field Name | Value |
 | --- | --- |
@@ -77,12 +77,12 @@ Navigate to the `Services` > `Data Sources` area and create a new Data Source us
 | `Database User Name` | `weblogic` |
 | `Password` | `welcome1` |
 
-After the `myDataSource` Data Source is created, navigate to the `Connection Pool` > `Advanced` tab and make the following changes:
+After the `myDataSource` Data Source is created, go to the `Connection Pool` > `Advanced` tab and make the following changes:
 1.	Enable `Test Connection On Reserve`.
 2.	Set the Test Table Name to `ToDos`.
 
 
-Now, you need to add the application.  Navigate to the `Deployments` > `App Deployments` area and create a new application using the values in the following table.  You must replace the `$QS_HOME` value in the table with the path where you stored the Quick Start directory when downloading the code.   Note that after the actual file system location is entered, the value will change to reflect its path in the archive file (`wlsdeploy/applications/todo.war`).
+Now, you need to add the application.  Go to the `Deployments` > `App Deployments` area and create a new application using the values in the following table.  You must replace the `$QS_HOME` value in the table with the path where you stored the Quick Start directory when downloading the code.   Note that after the actual file system location is entered, the value will change to reflect its path in the archive file (`wlsdeploy/applications/todo.war`).
 
 | Field Name | Value |
 | --- | --- |

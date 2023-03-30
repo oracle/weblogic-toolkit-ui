@@ -2,7 +2,7 @@
 title: "Get the ToDo List sample application"
 date: 2019-02-22T15:44:42-05:00
 draft: false
-weight: 6
+weight: 2
 ---
 The Quick Start tutorial employs a simple ToDo List application that uses a MySQL database running in a container to maintain its state.
 To get the application and supporting files, use one of the following methods:

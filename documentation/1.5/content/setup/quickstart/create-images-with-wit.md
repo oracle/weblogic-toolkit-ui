@@ -2,7 +2,7 @@
 title: "Create images with the WebLogic Image Tool"
 date: 2019-02-22T15:44:42-05:00
 draft: false
-weight: 10
+weight: 6
 ---
 
 WKTUI uses the WebLogic Image Tool (WIT) to build container images.  Each Oracle Fusion Middleware (FMW) Domain Target Location option has its own image requirements.
@@ -20,7 +20,7 @@ Both MII with Auxiliary Image and Domain-on-PV have an image containing only sof
 
 With DII and MII (without an auxiliary image), you would need to build new images for every domain to roll out a security fix across our entire set of domains.  For those with large numbers of domains, this becomes a heavy burden, leading to less secure environments.  To take advantage of these operational advantages, you will use MII with Auxiliary Image for the ToDo List domain.
 
-Navigate to the Image page, shown in the following image.  
+Go to the Image page, shown in the following image.  
 
 {{< img "Image Page" "images/image-page.png" >}}
 
@@ -43,7 +43,7 @@ After logging in to your Oracle Cloud account, select to the Container Registry 
 
 In the registry of your choosing, create a new private repository called `wktui-qs/todolist-aux`.  Note the URL needed to access the new repository.  For the OCIR repository, the URL is of the form `<region-abbreviation>.ocir.io/<tenancy-name>/wktui-qs/todolist-aux`, where region-abbreviation is something like `phx` (for the Phoenix region) and tenancy name is the name of the tenancy used to log in to `https://cloud.oracle.com`.  
 
-To access this OCIR repository from Docker and Kubernetes, you need to use an Auth Token associated with your account in place of your password.  To create an Auth Token, navigate to your User settings, select the Auth Tokens option under Resources, and click **Generate Token**, as shown in the following image.  Make sure to retain a copy of the generated token, because this is the only opportunity you will have to see it in clear text!
+To access this OCIR repository from Docker and Kubernetes, you need to use an Auth Token associated with your account in place of your password.  To create an Auth Token, go to your User settings, select the Auth Tokens option under Resources, and click **Generate Token**, as shown in the following image.  Make sure to retain a copy of the generated token, because this is the only opportunity you will have to see it in clear text!
 
 {{< img "OCI Create Auth Token" "images/oci-create-auth-token.png" >}}
 

@@ -14,7 +14,7 @@ Note that this walk-through is for demonstration purposes _only_, not for use in
 For this exercise, you’ll need a Kubernetes cluster. If you need help setting one up, see these instructions for setting up an [Oracle Cloud Infrastructure
 Container Engine for Kubernetes (OKE) cluster](https://docs.oracle.com/en-us/iaas/Content/ContEng/Concepts/contengoverview.htm).
 
-The Quick Start Guide is divided into the following sections:
+The Quick Start guide is divided into the following sections:
 
 - [Prerequisites]({{< relref "/setup/quickstart/prereqs.md" >}})
 - [Get the ToDo List sample application]({{< relref "/setup/quickstart/get-todo-app.md" >}})
@@ -22,12 +22,12 @@ The Quick Start Guide is divided into the following sections:
 - [Select the Project Settings]({{< relref "/setup/quickstart/project-settings.md" >}})
 - [Create the WebLogic Deploy Tooling model]({{< relref "/setup/quickstart/create-wdt-model.md" >}})
 - [Create images with the WebLogic Image Tool]({{< relref "/setup/quickstart/create-images-with-wit.md" >}})
-- WebLogic Kubernetes Operator (WKO) Track: follow these steps if you are interested in using a Kubernetes cluster without Verrazzano.
-  - Configure Kubernetes cluster connectivity
-  - Install the WebLogic Kubernetes Operator
-  - Deploy the domain
-  - Install and configure the ingress controller
-  - Access the ToDo List application
+- [WebLogic Kubernetes Operator (WKO) Track]({{< relref "/setup/quickstart/kubernetes/_index.md" >}}): follow these steps if you are interested in using a Kubernetes cluster without Verrazzano.
+  - [Configure Kubernetes Cluster Connectivity]({{< relref "/setup/quickstart/kubernetes/k8s-client-config.md" >}})
+  - [Install the WebLogic Kubernetes Operator]({{< relref "/setup/quickstart/kubernetes/k8s-wko.md" >}})
+  - [Deploy the Domain]({{< relref "/setup/quickstart/kubernetes/k8s-weblogic-domain.md" >}})
+  - [Install and Configure the Ingress Controller]({{< relref "/setup/quickstart/kubernetes/k8s-ingress-controller.md" >}})
+  - [Access the ToDo List application]({{< relref "/setup/quickstart/kubernetes/k8s-access-app.md" >}})
 - Verrazzano (VZ) Track: follow these steps if you are interested in using a Kubernetes cluster with Verrazzano.
   - Configure Kubernetes cluster connectivity
   - Install Verrazzano

@@ -2,7 +2,7 @@
 title: "Set up the WKTUI application"
 date: 2019-02-22T15:44:42-05:00
 draft: false
-weight: 7
+weight: 3
 ---
 To install the WKTUI application:
 
@@ -43,7 +43,7 @@ WKTUI integrates with the WebLogic Remote Console to provide visual editing of t
 - To install the WebLogic Remote Console, go to the [GitHub project page](https://github.com/oracle/weblogic-remote-console) and download the latest release.  
 - After it's installed, you need to configure WKTUI to locate the WebLogic Remote Console installation.  
 
-Start the WKTUI application and navigate to the Model page, shown in the following image.
+Start the WKTUI application and go to the Model page, shown in the following image.
 
 {{< img "WRC Integration" "images/wrc-integration.png" >}}
 
