@@ -34,14 +34,14 @@ After you filled out the fields in the preceding table, you need to look at some
 2. Notice that the `Replicas` value for the cluster is set to the maximum size of the cluster, as specified in the model.  Select the Pencil icon toward the right end of the row.  Notice that you cannot set the `Replicas` value higher than 10.  After you are done, change the value to `2` and click `OK`.
 3. Next, look at the `Model Variables Overrides` section.  This section lets you override the values specified in the variables model file in the auxiliary image using a Kubernetes ConfigMap.  Because you do not need to override these values, you can move on to the `Secrets` section.
 
-The `Secrets` section contains all model-defined secrets and lets you specify the user name and password.  In the preceding image, notice that the secret associated with your MySQL database connection is already populated.  This value was removed from the model (or the variable reference) by the Prepare Model action and added here.  If you run **Prepare Model** more than once, you will lose this value and must type it in manually.  WDT generally will not populate password values so you need to enter your MySQL database password, which is set to `welcome1` in the Quick Start `scripts/wkoDeployMySQL` script.  If you want, feel free to change it to something more secure but make sure that the user name and password match in the script and WKTUI.
+The `Secrets` section contains all model-defined secrets and lets you specify the user name and password.  In the preceding image, notice that the secret associated with your MySQL database connection is already populated.  This value was removed from the model (or the variable reference) by the Prepare Model action and added here.  If you run **Prepare Model** more than once, you will lose this value and must enter it manually.  WDT generally will not populate password values so you need to enter your MySQL database password, which is set to `welcome1` in the Quick Start `scripts/wkoDeployMySQL` script.  If you want, feel free to change it to something more secure but make sure that the user name and password match in the script and WKTUI.
 
 Before you deploy the domain, you must deploy the MySQL database.  You will deploy the database to the same namespace as the domain, so you need to create the following Kubernetes objects to deploy the database:
 
 - `todolist-domain-ns` Namespace – The Kubernetes namespace where both the WebLogic or FMW domain and MySQL database will reside.
 - `ocr` Secret – The Kubernetes image pull secret for pulling images from the Oracle Container Registry.
 - `mysql` Secret – The Kubernetes secret that holds the root password, user name, and password of the user the ToDo List application uses to connect to the database.
-- `todolist-mysql-cm` Config Map – The Kubernetes config map used to hold the `init-schema.sql` script to initialize the MySQL database on startup.
+- `todolist-mysql-cm` ConfigMap – The Kubernetes ConfigMap used to hold the `init-schema.sql` script to initialize the MySQL database on startup.
 - `todolist-mysql-deployment` Deployment – The Kubernetes deployment that will start and manage the MySQL database.
 - `mysql` Service – The Kubernetes service that exposes the MySQL database by the `mysql` DNS name to the WebLogic managed servers.
 
