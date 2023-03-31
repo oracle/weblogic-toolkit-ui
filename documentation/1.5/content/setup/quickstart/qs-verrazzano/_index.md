@@ -5,7 +5,7 @@ weight = 8
 pre = "<b> </b>"
 +++
 
-This portion of the Quick Start guide is for users Interested in using a Kubernetes cluster with Verrrazzano.
+These Quick Start guide sections are for users interested in using a Kubernetes cluster with Verrazzano.
 
 1. [Configure Kubernetes cluster connectivity]({{< relref "/setup/quickstart/qs-verrazzano/vz-client-config.md" >}}).
 2. [Install Verrazzano]({{< relref "/setup/quickstart/qs-verrazzano/vz-install.md" >}}).

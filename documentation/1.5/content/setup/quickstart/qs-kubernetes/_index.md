@@ -5,10 +5,10 @@ weight =7
 pre = "<b> </b>"
 +++
 
-These sections in the Quick Start guide are for users interested in using a Kubernetes cluster without Verrazzano.  Anyone using OpenShift should following this track.
+These Quick Start guide sections are for users interested in using a Kubernetes cluster without Verrazzano.  Anyone using OpenShift should following this track.
 
 1. [Configure]({{< relref "/setup/quickstart/qs-kubernetes/k8s-client-config.md" >}}) your Kubernetes client (`kubectl`) to connect to the Kubernetes cluster.
-2. [Install]({{< relref "/setup/quickstart/qs-kubernetes/k8s-wko.md" >}}) the WebLogic Kubernetes Operator.
+2. [Install WebLogic Kubernetes Operator]({{< relref "/setup/quickstart/qs-kubernetes/k8s-wko.md" >}}).
 3. [Deploy the Domain]({{< relref "/setup/quickstart/qs-kubernetes/k8s-weblogic-domain.md" >}}).
 4. [Install and Configure the Ingress Controller]({{< relref "/setup/quickstart/qs-kubernetes/k8s-ingress-controller.md" >}}) and add ingress routes to allow access to the WebLogic domain from
    outside the Kubernetes cluster.

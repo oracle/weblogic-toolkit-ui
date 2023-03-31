@@ -10,6 +10,6 @@ description: "Access the ToDo List application."
 
 {{< img "ToDo List Access Point" "images/todo-list-access-point.png" >}}
 
- When you click the URL link, the following image shows the browser window that WKTUI opens.
+ When you click the URL link, the following image shows the browser window that WKTUI opens. Now, you have accessed the ToDo list application. 
 
 {{< img "ToDo List App" "images/todo-list-app.png" >}}

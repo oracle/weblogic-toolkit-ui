@@ -7,7 +7,7 @@ pre = "<b> </b>"
 
 ### Before you begin
 
-Make sure you have read [About the WKT UI Application]({{< relref "/concepts/_index.md" >}}).
+Make sure you have read [About the WKT UI Application]({{< relref "/concepts/" >}}).
 
 ### About the UI
 

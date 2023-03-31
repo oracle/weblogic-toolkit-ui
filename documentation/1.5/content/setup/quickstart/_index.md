@@ -22,13 +22,13 @@ The Quick Start guide is divided into the following sections:
 - [Select the Project Settings]({{< relref "/setup/quickstart/project-settings.md" >}})
 - [Create the WebLogic Deploy Tooling model]({{< relref "/setup/quickstart/create-wdt-model.md" >}})
 - [Create images with the WebLogic Image Tool]({{< relref "/setup/quickstart/create-images-with-wit.md" >}})
-- WebLogic Kubernetes Operator (WKO) Track: follow these steps if you are interested in using a Kubernetes cluster without Verrazzano.
+- [WebLogic Kubernetes Operator (WKO)]({{< relref "/setup/quickstart/qs-kubernetes/" >}}) Track: follow these steps if you are interested in using a Kubernetes cluster without Verrazzano.
   - [Configure Kubernetes Cluster Connectivity]({{< relref "/setup/quickstart/qs-kubernetes/k8s-client-config.md" >}})
   - [Install the WebLogic Kubernetes Operator]({{< relref "/setup/quickstart/qs-kubernetes/k8s-wko.md" >}})
   - [Deploy the Domain]({{< relref "/setup/quickstart/qs-kubernetes/k8s-weblogic-domain.md" >}})
   - [Install and Configure the Ingress Controller]({{< relref "/setup/quickstart/qs-kubernetes/k8s-ingress-controller.md" >}})
   - [Access the ToDo List Application]({{< relref "/setup/quickstart/qs-kubernetes/k8s-access-app.md" >}})
-- Verrazzano (VZ) Track: follow these steps if you are interested in using a Kubernetes cluster with Verrazzano.
+- [Verrazzano (VZ)]({{< relref "/setup/quickstart/qs-verrazzano/" >}}) Track: follow these steps if you are interested in using a Kubernetes cluster with Verrazzano.
   - [Configure Kubernetes cluster connectivity]({{< relref "/setup/quickstart/qs-verrazzano/vz-client-config.md" >}})
   - [Install Verrazzano]({{< relref "/setup/quickstart/qs-verrazzano/vz-install.md" >}})
   - [Deploy the Verrazzano Component for the WebLogic Domain]({{< relref "/setup/quickstart/qs-verrazzano/vz-component.md" >}})

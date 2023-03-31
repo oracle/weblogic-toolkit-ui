@@ -10,4 +10,4 @@ To install Verrazzano, go to the `Verrazzano` > `Installation` page.  Set the Re
 
 {{< img "Verrazzano Install" "images/verrazzano-install.png" >}}
 
-Verrazzano installation takes some time to complete, typically 15 to 30 minutes.  Use **Check Verrazzano Install Status** to determine when Verrazzano installation is complete.  After Verrazzano installation is complete, you can move on to the next section.
+Verrazzano installation takes some time to complete, typically 15 to 30 minutes.  Use **Check Verrazzano Install Status** to determine when Verrazzano installation is complete.  After it's complete, you can move on to the next section.
