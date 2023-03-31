@@ -17,6 +17,8 @@ The WKT UI provides a graphical user interface that wraps the WKT tools, Docker,
 a Linux container image to use to run the domain, and setting up and deploying the software and configuration
 necessary to deploy and access the domain in your Kubernetes cluster.
 
+Be sure to check out the [Quick Start]({{< relref "/setup/quickstart/_index.md" >}}) guide for a tutorial, which will step you through WebLogic Kubernetes Toolkit UI (WKTUI) functionality and familiarize you with its capabilities.
+
 ### Current release
 
 WebLogic Kubernetes Toolkit UI version and release information can be found [here](https://github.com/oracle/weblogic-toolkit-ui/releases).

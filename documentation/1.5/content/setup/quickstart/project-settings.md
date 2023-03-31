@@ -12,7 +12,7 @@ weight: 4
 
     At this point, you will be on the Project Settings page that will look something like the one shown in the following image.  
 
-    Note that if you are not running on macOS, you will _not_ see this top panel, **For macOS, do you need to add directories to the PATH or define other environment variables for Docker/Podman or Kubernetes?**
+    **Note**: If you are _not_  running on macOS, you will not see this top-most panel: **For macOS, do you need to add directories to the PATH or define other environment variables for Docker/Podman or Kubernetes?**
 
     {{< img "Project Settings" "images/project-settings.png" >}}
 
@@ -44,11 +44,11 @@ WebLogic Kubernetes Operator (WKO) has three mechanisms for storing the WebLogic
 
 - `Externally created in a Kubernetes persistent volume` – With this option, you must create a Kubernetes persistent volume and create the domain on that persistent volume.  This option is also called Domain-on-PV (DoPV) and WKO calls it PersistentVolume.
 
-The ToDo List application requires only WebLogic Server and fits well with the Model-in-Image mechanism, so select the `Created in the container from the model in the image` option.
+The ToDo List application requires only WebLogic Server and fits well with the Model-in-Image mechanism, so select `Created in the container from the model in the image`.
 
 ### Kubernetes Cluster Target Type
 
-This is where you must choose whether to deploy directly using a Kubernetes cluster, where you install WebLogic Kubernetes Operator and an Ingress controller, or to deploy to Verrazzano.  Because the Quick Start guide covers both tracks, choose the option that matches the track you plan to follow.
+This is where you must choose whether to deploy directly using a Kubernetes cluster, where you install `WebLogic Kubernetes Operator` and an Ingress controller, or to deploy to `Verrazzano`.  Because the Quick Start guide covers both tracks, choose the option that matches the track you plan to follow.
 
 ### Java Installation
 
@@ -60,6 +60,6 @@ Running the WebLogic Deploy Tooling requires an Oracle Home directory.  As such,
 
 ### Image Builder Tool
 
-Because you will be building an image as part of this project, you need to tell WKTUI whether you will use Docker or Podman to build your image.  You also need to provide the path to the executable that matches your selection.  Because you are running Rancher Desktop on macOS, you will select Docker and supply the Docker executable (for example, `/Users/fred.jones/.rd/bin/docker`).  Feel free to provide the answers that best fit your environment.
+Because you will be building an image as part of this project, you need to tell WKTUI whether you will use Docker or Podman to build your image.  You also need to provide the path to the executable that matches your selection.  Because you are running Rancher Desktop on macOS, you will select Docker and supply the Docker executable (for example, `/Users/fred.jones/.rd/bin/docker`).  Provide the answers that best fit your environment.
 
 Now that your project settings are mostly complete, use the `File` menu, `Save All` option to save the project before you move on to creating the model for your domain.  WKTUI will prompt you for the encryption passphrase you want to use with this project.  Choose whatever value you like; just try not to forget it!

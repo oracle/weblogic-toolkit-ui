@@ -17,7 +17,7 @@ WKTUI provides tooling to make it easy for you to create and edit a WDT model.  
 
 {{< img "Model Design View" "images/model-design-view.png" >}}
 
-This image shows the Model page, Code View tab that lets you directly edit each of the three different file types that make up the model.  In the center of the screen, you'll find the YAML editor for the model file.  On the right, you'll find the variables file editor and the archive file editor.
+The following image shows the Model page, Code View tab that lets you directly edit each of the three different file types that make up the model.  In the center of the screen, you'll find the YAML editor for the model file.  On the right, you'll find the variables file editor and the archive file editor.
 
 {{< img "Model Code View" "images/model-code-view.png" >}}
 
@@ -54,7 +54,7 @@ Navigate to the new cluster, `mycluster`, and select the Dynamic tab.  Set the f
 
 ### Create a Data Source
 
-The next step is to create a data source to talk to the MySQL database.  Before doing that, switch to the Code View tab to see what the WDT model looks like so far.
+The next step is to create a data source to communicate with the MySQL database.  Before doing that, switch to the Code View tab to see what the WDT model looks like so far.
 
 {{< img "Partial Model Code View" "images/partial-model-code-view.png" >}}
 
@@ -91,7 +91,7 @@ Now, you need to add the application.  Go to the `Deployments` > `App Deployment
 | `Add Source to Archive` |  `ON` |
 | `Source` | `$QS_HOME/app/target/todo.war` |
 
-Even though the model is complete enough to create a local domain, you still need to add a few fields so that the WebLogic Kubernetes Operator can use the model.  Switch back to the Code View tab.  You will edit the model directly this time.  Please make the topology section of the model look like the following.
+Even though the model is complete enough to create a local domain, you still need to add a few fields so that the WebLogic Kubernetes Operator can use the model.  Switch back to the Code View tab.  You will edit the model directly this time.  Make the topology section of the model look like the following.
 
 ```
 topology:
@@ -120,7 +120,7 @@ The domain model is now complete.  Go ahead and validate the model by clicking *
 
 {{< img "Validate Model Code View" "images/validate-model-code-view.png" >}}
 
-When deploying a domain in Kubernetes, you need to prepare it for that environment.  The WDT Prepare Model Tool gives you what you need to accomplish that.  WKTUI has a special integration with Prepare Model in that not only does it adjust the model for the Kubernetes environment, but also it returns data extracted from the model that WKTUI needs.  For example, Prepare Model returns the list WebLogic clusters and non-clustered managed servers that other parts of the application use to tailor the environment for this domain.  Click **Prepare Model** to invoke the WDT Prepare Model Tool.
+When deploying a domain in Kubernetes, you need to prepare it for that environment.  The WDT Prepare Model Tool gives you what you need to accomplish that.  WKTUI has a special integration with Prepare Model in that not only does it adjust the model for the Kubernetes environment, but also it returns data extracted from the model that WKTUI needs.  For example, Prepare Model returns the list of WebLogic clusters and non-clustered managed servers that other parts of the application use to tailor the environment for this domain.  Click **Prepare Model** to invoke the WDT Prepare Model Tool.
 
 Because you chose to use Model-in-Image for the Quick Start exercise, Prepare Model made several changes to your model.
 
