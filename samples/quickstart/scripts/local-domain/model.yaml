@@ -1,0 +1,57 @@
+#
+# Copyright (c) 2023, Oracle and/or its affiliates.
+# Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
+#
+domainInfo:
+    AdminUserName: '@@PROP:WebLogicAdminUserName@@'
+    AdminPassword: '@@PROP:WebLogicAdminPassword@@'
+topology:
+    Name: todolist_domain
+    ProductionModeEnabled: true
+    AdminServerName: AdminServer
+    Server:
+        AdminServer:
+    Cluster:
+        mycluster:
+            DynamicServers:
+                ServerTemplate: todo-srv-template
+                ServerNamePrefix: 'ToDoServer-'
+                DynamicClusterSize: 10
+                MaxDynamicClusterSize: 10
+                CalculatedListenPorts: false
+                MinDynamicClusterSize: 0
+    ServerTemplate:
+        'todo-srv-template':
+            ListenPortEnabled: true
+            Cluster: mycluster
+resources:
+    JDBCSystemResource:
+        myDataSource:
+            JdbcResource:
+                JDBCDriverParams:
+                    Properties:
+                        user:
+                            Value: weblogic
+                    DriverName: com.mysql.cj.jdbc.Driver
+                    URL: 'jdbc:mysql://localhost:3306/tododb'
+                    PasswordEncrypted: welcome1
+                JDBCConnectionPoolParams:
+                    TestConnectionsOnReserve: true
+                    TestTableName: ToDos
+                JDBCDataSourceParams:
+                    JNDIName: [
+                        jdbc/ToDoDB
+                    ]
+
+                DatasourceType: GENERIC
+            Target: [
+                mycluster
+            ]
+
+appDeployments:
+    Application:
+        todo:
+            Target: [
+                mycluster
+            ]
+            SourcePath: wlsdeploy/applications/todo.war
