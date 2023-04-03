@@ -28,7 +28,7 @@ WKTUI also supports discovering an existing domain to extract the model for that
 
 To collect the model from a domain running on another machine, you can use the Remote Discovery option.  With this option, at the end of the Discover Domain (online) action, WDT will tell you which files you need to collect and add to the archive file.
 
-Because the ToDo List application has minimal requirements from the domain, you will create the model by hand.  If you would prefer to create a local domain and use the discover model functionality, see the Create ToDo List Domain section in the Appendix.
+Because the ToDo List application has minimal requirements from the domain, you will create the model by hand.  If you would prefer to create a local domain and use the discover model functionality, see [Create ToDo List Domain]({{< relref "/setup/quickstart/qs-advanced#create-the-local-todo-list-domain" >}}) in the Advanced section.
 
 ### Create the ToDo List Domain
 
@@ -114,7 +114,7 @@ topology:
             ListenPortEnabled: true
             Cluster: mycluster
 ```
-### Validating and Preparing the Model
+### Validate and Prepare the Model
 
 The domain model is now complete.  Go ahead and validate the model by clicking **Validate Model** or using the `Go` menu, `Validate Model Files` menu item.  Doing this will invoke the WDT Validate Model Tool and the Console window at the bottom of the screen will display the output of the tool, as shown in the following image. You can close the Console Window at any time.
 

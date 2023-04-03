@@ -34,3 +34,7 @@ The Quick Start guide is divided into the following sections:
   - [Deploy the Verrazzano Component for the WebLogic Domain]({{< relref "/setup/quickstart/qs-verrazzano/vz-component.md" >}})
   - [Deploy the Verrazzano Application]({{< relref "/setup/quickstart/qs-verrazzano/vz-application.md" >}})
   - [Access the ToDo List Application]({{< relref "/setup/quickstart/qs-verrazzano/vz-access-app.md" >}})
+- [Summary]({{< relref "/setup/quickstart/qs-summary/" >}})
+- [Advanced]({{< relref "/setup/quickstart/qs-advanced/" >}})
+  - [Offline Discover]({{< relref "/setup/quickstart/qs-advanced/offline-discover.md" >}})
+  - [Online Remote Discover]({{< relref "/setup/quickstart/qs-advanced/online-remote-discover.md" >}})
