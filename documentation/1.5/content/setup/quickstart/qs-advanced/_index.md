@@ -32,7 +32,7 @@ Do the following steps:
 ```
 $ bin/startManagedWebLogic.sh ToDoServer-1 http://localhost:7001
 ```
-When prompted enter `weblogic` as the user name and `welcome1` as the password.
+When prompted, enter `weblogic` as the user name and `welcome1` as the password.
 Verify that the application is working properly by opening `http://localhost:7100/todo` in your browser.  You will see Derek’s ToDo List with five items, as shown in the following image.
 
 {{< img "ToDo List App" "images/a1-todo-list-app.png" >}}

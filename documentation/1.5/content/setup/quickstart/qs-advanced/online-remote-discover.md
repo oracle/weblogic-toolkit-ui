@@ -6,7 +6,7 @@ weight: 2
 description: "Add Model Using Remote Online Discovery"
 ---
 
-In WKTUI, go to the Model page and select the Code View tab.  Select the `File` > `Add Model` > `Discover Model (online)` menu item.  The following dialog box appears.  Enter the information shown in the following image, including the Domain Home path `$WKTUI_QS_HOME/todolist_domain` directory.  
+In WKTUI, go to the `Model` page and select the `Code View` tab.  Select the `File` > `Add Model` > `Discover Model (online)` menu item.  The following dialog box appears.  Enter the information shown in the following image, including the Domain Home path `$WKTUI_QS_HOME/todolist_domain` directory.  
 
 {{< img "Online Discovery" "images/a4-online-discovery.png" >}}
 

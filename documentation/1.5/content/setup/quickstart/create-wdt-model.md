@@ -13,11 +13,11 @@ The WebLogic Deploy Tooling project provides a set of single-purpose tools for p
 
 For more detailed WDT information, see the WebLogic Deploy Tooling [documentation](https://oracle.github.io/weblogic-deploy-tooling/concepts/model/).
 
-WKTUI provides tooling to make it easy for you to create and edit a WDT model.   This image shows the Model page, Design View tab that allows visual editing of a model using WebLogic Remote Console screens.  
+WKTUI provides tooling to make it easy for you to create and edit a WDT model.   This image shows the `Model` page, `Design View` tab that allows visual editing of a model using WebLogic Remote Console screens.  
 
 {{< img "Model Design View" "images/model-design-view.png" >}}
 
-The following image shows the Model page, Code View tab that lets you directly edit each of the three different file types that make up the model.  In the center of the screen, you'll find the YAML editor for the model file.  On the right, you'll find the variables file editor and the archive file editor.
+The following image shows the `Model` page, `Code View` tab that lets you directly edit each of the three different file types that make up the model.  In the center of the screen, you'll find the YAML editor for the model file.  On the right, you'll find the variables file editor and the archive file editor.
 
 {{< img "Model Code View" "images/model-code-view.png" >}}
 
@@ -32,7 +32,7 @@ Because the ToDo List application has minimal requirements from the domain, you 
 
 ### Create the ToDo List Domain
 
-Start on the Model Design View tab, which will default to the **Domain** element, General tab. Set the `Name` field to `todolist_domain` and enable `Production Mode`, as shown in the following image.
+Start on the Model Design View tab, which will default to the **Domain** element, `General` tab. Set the `Name` field to `todolist_domain` and enable `Production Mode`, as shown in the following image.
 
 {{< img "Domain Settings" "images/domain-settings.png" >}}
 
@@ -42,7 +42,7 @@ Next, you need to create a server template that you will use with your dynamic c
 
 Next, select the three dots to the right of the `Cluster` field, drop-down box, and select the `Create New Cluster` menu item.  Create a new cluster with the name `mycluster` and then select it as the Cluster attribute of the server template.
 
-Navigate to the new cluster, `mycluster`, and select the Dynamic tab.  Set the fields to the values specified in the following table.
+Navigate to the new cluster, `mycluster`, and select the `Dynamic` tab.  Set the fields to the values specified in the following table.
 
 | Field Name | Value |
 | --- | --- |
@@ -54,11 +54,11 @@ Navigate to the new cluster, `mycluster`, and select the Dynamic tab.  Set the f
 
 ### Create a Data Source
 
-The next step is to create a data source to communicate with the MySQL database.  Before doing that, switch to the Code View tab to see what the WDT model looks like so far.
+The next step is to create a data source to communicate with the MySQL database.  Before doing that, switch to the `Code View` tab to see what the WDT model looks like so far.
 
 {{< img "Partial Model Code View" "images/partial-model-code-view.png" >}}
 
-As you can see in the preceding image, the settings you entered are represented in the YAML Editor.  Notice that the model editor inserted the fields for the domain’s administrative user name and password, and set the values to tokens of the form `@@PROP:<property-name>@@`.  These tokens reference variables; you can see that the variable names were added to the Variables Editor.  Go ahead and fill in the values you want to use; for example, `weblogic` for the user name and a strong password value for the password.  Now, switch back to the Design View tab.
+As you can see in the preceding image, the settings you entered are represented in the YAML Editor.  Notice that the model editor inserted the fields for the domain’s administrative user name and password, and set the values to tokens of the form `@@PROP:<property-name>@@`.  These tokens reference variables; you can see that the variable names were added to the Variables Editor.  Go ahead and fill in the values you want to use; for example, `weblogic` for the user name and a strong password value for the password.  Now, switch back to the `Design View` tab.
 
 Go to the `Services` > `Data Sources` area and create a new Data Source using the values in the following table.
 
@@ -91,7 +91,7 @@ Now, you need to add the application.  Go to the `Deployments` > `App Deployment
 | `Add Source to Archive` |  `ON` |
 | `Source` | `$QS_HOME/app/target/todo.war` |
 
-Even though the model is complete enough to create a local domain, you still need to add a few fields so that the WebLogic Kubernetes Operator can use the model.  Switch back to the Code View tab.  You will edit the model directly this time.  Make the topology section of the model look like the following.
+Even though the model is complete enough to create a local domain, you still need to add a few fields so that the WebLogic Kubernetes Operator can use the model.  Switch back to the `Code View` tab.  You will edit the model directly this time.  Make the topology section of the model look like the following.
 
 ```
 topology:

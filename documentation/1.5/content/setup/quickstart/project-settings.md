@@ -10,7 +10,7 @@ weight: 4
 
 2. Using the `File` menu, select `New Project`, choose a directory, and enter the file name `todo-list.wktproj`.  
 
-    At this point, you will be on the Project Settings page that will look something like the one shown in the following image.  
+    At this point, you will be on the `Project Settings` page that will look something like the one shown in the following image.  
 
     **Note**: If you are _not_  running on macOS, you will not see this top-most panel: **For macOS, do you need to add directories to the PATH or define other environment variables for Docker/Podman or Kubernetes?**
 
