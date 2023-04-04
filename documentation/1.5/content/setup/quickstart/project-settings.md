@@ -12,7 +12,7 @@ weight: 4
 
     At this point, you will be on the `Project Settings` page that will look something like the one shown in the following image.  
 
-    **Note**: If you are _not_  running on macOS, you will not see this top-most panel: **For macOS, do you need to add directories to the PATH or define other environment variables for Docker/Podman or Kubernetes?**
+    **Note**: If you are _not_  running on macOS, you will not see this top-most panel: For macOS, do you need to add directories to the PATH or define other environment variables for Docker/Podman or Kubernetes?
 
     {{< img "Project Settings" "images/project-settings.png" >}}
 
