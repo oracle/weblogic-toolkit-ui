@@ -17,7 +17,7 @@ WKTUI provides tooling to make it easy for you to create and edit a WDT model.  
 
 {{< img "Model Design View" "images/model-design-view.png" >}}
 
-The following image shows the `Model` page, `Code View` tab that lets you directly edit each of the three different file types that make up the model.  In the center of the screen, you'll find the YAML editor for the model file.  On the right, you'll find the variables file editor and the archive file editor.
+The following image shows the `Model` page, `Code View` tab that lets you directly edit each of the three different file types that make up the model.  In the center of the screen, you'll find the YAML editor for the model file.  On the right, you'll find the variables file editor and the archive file editor. At this point, all the sections are blank.
 
 {{< img "Model Code View" "images/model-code-view.png" >}}
 
@@ -36,13 +36,13 @@ Start on the Model Design View tab, which will default to the **Domain** element
 
 {{< img "Domain Settings" "images/domain-settings.png" >}}
 
-Next, you need to create a server template that you will use with your dynamic cluster.  Select the **Server Templates** element and create a new server template with the name `todo-srv-template`.  After you create the template, enable `Listen Port Enabled` so that the screen looks like the following image.  
+Next, you need to create a server template that you will use with your dynamic cluster.  Select the **Server Templates** element, add a new server template with the name `todo-srv-template`, and then click **Create**.  After you create the template, enable `Listen Port Enabled` so that the screen looks like the following image.  
 
 {{< img "Server Template" "images/server-template.png" >}}
 
-Next, select the three dots to the right of the `Cluster` field, drop-down box, and select the `Create New Cluster` menu item.  Create a new cluster with the name `mycluster` and then select it as the Cluster attribute of the server template.
+Next, select the three dots to the right of the `Cluster` field, drop-down menu, and select the `Create New Cluster` menu item.  Create a new cluster with the name `mycluster`. Then, in the drop-down menu, select it as the Cluster attribute of the server template.
 
-Navigate to the new cluster, `mycluster`, and select the `Dynamic` tab.  Set the fields to the values specified in the following table.
+Navigate to the new cluster, `Clusters` > `mycluster`, and select the `Dynamic` tab.  Set the fields to the values specified in the following table.
 
 | Field Name | Value |
 | --- | --- |
@@ -60,7 +60,7 @@ The next step is to create a data source to communicate with the MySQL database.
 
 As you can see in the preceding image, the settings you entered are represented in the YAML Editor.  Notice that the model editor inserted the fields for the domain’s administrative user name and password, and set the values to tokens of the form `@@PROP:<property-name>@@`.  These tokens reference variables; you can see that the variable names were added to the Variables Editor.  Go ahead and fill in the values you want to use; for example, `weblogic` for the user name and a strong password value for the password.  Now, switch back to the `Design View` tab.
 
-Go to the `Services` > `Data Sources` area and create a new Data Source using the values in the following table.
+Go to the `Services` > `Data Sources` area, add a new Data Source using the values in the following table, and then click **Create**.
 
 | Field Name | Value |
 | --- | --- |
@@ -82,7 +82,7 @@ After the `myDataSource` Data Source is created, go to the `Connection Pool` > `
 2.	Set the Test Table Name to `ToDos`.
 
 
-Now, you need to add the application.  Go to the `Deployments` > `App Deployments` area and create a new application using the values in the following table.  You must replace the `$QS_HOME` value in the table with the path where you stored the Quick Start directory when downloading the code.   Note that after the actual file system location is entered, the value will change to reflect its path in the archive file (`wlsdeploy/applications/todo.war`).
+Now, you need to add the application.  Go to `Deployments` > `App Deployments`, add a new application using the values in the following table, and then click **Create**.  You must replace the `$QS_HOME` value in the table with the path where you stored the Quick Start directory when downloading the code.   Note that after the actual file system location is entered, the value will change to reflect its path in the archive file (`wlsdeploy/applications/todo.war`).
 
 | Field Name | Value |
 | --- | --- |
