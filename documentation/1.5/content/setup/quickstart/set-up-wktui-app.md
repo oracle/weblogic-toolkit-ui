@@ -6,6 +6,7 @@ weight: 3
 ---
 To install the WKTUI application:
 
+- Make sure to check the NOTE in the WKTUI [Prerequisites]({{< relref "/setup/prerequisites.md" >}}) for your OS compatibility with regard to [Electron](https://www.npmjs.com/package/electron) support.
 - Go to the GitHub project [Releases page](https://github.com/oracle/weblogic-toolkit-ui/releases) and download the latest release.
 - Run the appropriate installer for your operating system.
 

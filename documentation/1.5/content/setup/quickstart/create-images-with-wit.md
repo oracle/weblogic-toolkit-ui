@@ -41,7 +41,7 @@ After logging in to your Oracle Cloud account, select to the Container Registry 
 
 {{< img "OCIR Location" "images/ocir-location.png" >}}
 
-In the registry of your choosing, create a new private repository called `wktui-qs/todolist-aux`.  Note the URL needed to access the new repository.  For the OCIR repository, the URL is of the form `<region-abbreviation>.ocir.io/<tenancy-name>/wktui-qs/todolist-aux`, where region-abbreviation is something like `phx` (for the Phoenix region) and tenancy name is the name of the tenancy used to log in to `https://cloud.oracle.com`.  
+In the registry of your choosing, create a new private repository called `wktui-qs/todolist-aux`.  Note the URL needed to access the new repository.  For the OCIR repository, the URL is of the form `<region-abbreviation>.ocir.io/<tenancy-name>/wktui-qs/todolist-aux`, where region-abbreviation is something like `phx` (for the Phoenix region) and tenancy name is the name of the tenancy used to log in to `https://cloud.oracle.com`. For a listing of every available region, refer to this [table](https://docs.oracle.com/en-us/iaas/Content/Registry/Concepts/registryprerequisites.htm#Availab).
 
 To access this OCIR repository from Docker and Kubernetes, you need to use an Auth Token associated with your account in place of your password.  To create an Auth Token, go to your User settings, select the Auth Tokens option under Resources, and click **Generate Token**, as shown in the following image.  Make sure to retain a copy of the generated token, because this is the _only_ opportunity you will have to see it in clear text!
 
