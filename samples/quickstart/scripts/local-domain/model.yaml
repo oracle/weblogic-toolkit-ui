@@ -31,10 +31,10 @@ resources:
                 JDBCDriverParams:
                     Properties:
                         user:
-                            Value: weblogic
+                            Value: '@@PROP:JDBC.myDataSource.user@@'
                     DriverName: com.mysql.cj.jdbc.Driver
                     URL: 'jdbc:mysql://localhost:3306/tododb'
-                    PasswordEncrypted: welcome1
+                    PasswordEncrypted: '@@PROP:JDBC.myDataSource.password@@'
                 JDBCConnectionPoolParams:
                     TestConnectionsOnReserve: true
                     TestTableName: ToDos

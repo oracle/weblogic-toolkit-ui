@@ -65,6 +65,53 @@ ORCL_SSO_PASS='welcome1'
 export ORCL_SSO_PASS
 
 #
+# Set to the value you want to use for the WebLogic Server
+# administrative username.
+#
+# Feel free to delete this variable and the other scripts
+# will prompt you for the username.
+#
+WEBLOGIC_USER=""
+export WEBLOGIC_USER
+
+#
+# Set to the value you want to use for the WebLogic Server
+# administrative password.
+#
+# Feel free to delete this variable and the other scripts
+# will prompt you for the password.
+#
+WEBLOGIC_PASS=""
+export WEBLOGIC_PASS
+
+#
+# Set to the value you want to use for the MySQL admin password.
+#
+# Feel free to delete this variable and the other scripts
+# will prompt you for the password.
+#
+MYSQL_ROOT_PASS=""
+export MYSQL_ROOT_PASS
+
+#
+# Set to the value you want to use for the MySQL username.
+#
+# Feel free to delete this variable and the other scripts
+# will prompt you for the username.
+#
+MYSQL_USER=""
+export MYSQL_USER
+
+#
+# Set to the value you want to use for the MySQL user's password.
+#
+# Feel free to delete this variable and the other scripts
+# will prompt you for the password.
+#
+MYSQL_USER_PASS=""
+export MYSQL_USER_PASS
+
+#
 # Set to the name of the program you are using to create
 # container images (i.e., docker or podman)
 #

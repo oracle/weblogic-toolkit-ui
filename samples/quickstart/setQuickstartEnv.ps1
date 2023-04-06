@@ -58,6 +58,48 @@ $env:ORCL_SSO_USER = "jim.smith@mycompany.com"
 $env:ORCL_SSO_PASS = 'welcome1'
 
 #
+# Set to the value you want to use for the WebLogic Server
+# administrative username.
+#
+# Feel free to delete this variable and the other scripts
+# will prompt you for the username.
+#
+$env:WEBLOGIC_USER = ""
+
+#
+# Set to the value you want to use for the WebLogic Server
+# administrative password.
+#
+# Feel free to delete this variable and the other scripts
+# will prompt you for the password.
+#
+$env:WEBLOGIC_PASS = ""
+
+#
+# Set to the value you want to use for the MySQL admin password.
+#
+# Feel free to delete this variable and the other scripts
+# will prompt you for the password.
+#
+$env:MYSQL_ROOT_PASS = ""
+
+#
+# Set to the value you want to use for the MySQL username.
+#
+# Feel free to delete this variable and the other scripts
+# will prompt you for the username.
+#
+$env:MYSQL_USER = ""
+
+#
+# Set to the value you want to use for the MySQL user's password.
+#
+# Feel free to delete this variable and the other scripts
+# will prompt you for the password.
+#
+$env:MYSQL_USER_PASS = ""
+
+#
 # Set to the name of the program you are using to create
 # container images (i.e., docker or podman)
 #

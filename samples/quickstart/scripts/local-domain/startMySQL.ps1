@@ -35,6 +35,34 @@ if (-not $env:ORCL_SSO_PASS) {
             [Runtime.InteropServices.Marshal]::SecureStringToBSTR($ORCL_SSO_PASS))
 }
 
+if (-not $env:MYSQL_ROOT_PASS) {
+    $MYSQL_ROOT_PASS = Read-Host "Please enter a password for the MySQL root user: " -AsSecureString
+    if (-not $MYSQL_ROOT_PASS) {
+        Write-Error "No MySQL root user password provided...exiting"
+        exit 1
+    }
+    $env:MYSQL_ROOT_PASS = [Runtime.InteropServices.Marshal]::PtrToStringAuto(
+            [Runtime.InteropServices.Marshal]::SecureStringToBSTR($MYSQL_ROOT_PASS))
+}
+
+if (-not $env:MYSQL_USER) {
+    $env:MYSQL_USER = Read-Host "Please enter a MySQL username: "
+    if (-not $env:MYSQL_USER) {
+        Write-Error "No MySQL username provided...exiting"
+        exit 1
+    }
+}
+
+if (-not $env:MYSQL_USER_PASS) {
+    $MYSQL_USER_PASS = Read-Host "Please enter a MySQL user password: " -AsSecureString
+    if (-not $MYSQL_USER_PASS) {
+        Write-Error "No MySQL user password provided...exiting"
+        exit 1
+    }
+    $env:MYSQL_USER_PASS = [Runtime.InteropServices.Marshal]::PtrToStringAuto(
+            [Runtime.InteropServices.Marshal]::SecureStringToBSTR($MYSQL_USER_PASS))
+}
+
 $argList = "login container-registry.oracle.com -u `"$env:ORCL_SSO_USER`" -p `"$env:ORCL_SSO_PASS`""
 
 $proc = Start-Process -NoNewWindow -FilePath "$env:IMAGE_BUILDER_EXE" -ArgumentList "$argList" -PassThru
@@ -44,8 +72,11 @@ if ($proc.ExitCode -ne 0) {
     exit 1
 }
 
-$argList = "run --name=mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=manager1 -e MYSQL_USER=weblogic -e MYSQL_PASSWORD=welcome1 -e MYSQL_DATABASE=tododb --mount type=bind,src=`"${env:WKTUI_QS_HOME}\sql\\`",dst=/docker-entrypoint-initdb.d/ -d container-registry.oracle.com/mysql/community-server:8.0.32"
-Write-Output "argList = $argList"
+$argList = "run --name=mysql -p 3306:3306 -e `"MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASS}`" " `
+    + "-e `"MYSQL_USER=${MYSQL_USER}`" -e `"MYSQL_PASSWORD=${MYSQL_USER_PASS}`" " `
+    + "-e MYSQL_DATABASE=tododb " `
+    + "--mount type=bind,src=`"${env:WKTUI_QS_HOME}\sql\\`",dst=/docker-entrypoint-initdb.d/ " `
+    + "-d container-registry.oracle.com/mysql/community-server:8.0.32"
 
 $proc = Start-Process -NoNewWindow -FilePath "$env:IMAGE_BUILDER_EXE" -ArgumentList "$argList" -PassThru
 Wait-Process -InputObject $proc

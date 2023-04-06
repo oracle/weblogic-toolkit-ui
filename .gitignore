@@ -24,6 +24,8 @@ samples/quickstart/app/target/maven-status
 samples/quickstart/app/target/todo
 # Quickstart local domain directory
 samples/quickstart/todolist_domain
+# Quickstart local domain generated variables file
+samples/quickstart/scripts/local-domain/variables.properties
 # Quickstart developer env file
 samples/quickstart/setQuickstartDevEnv.sh
 samples/quickstart/setQuickstartDevEnv.ps1

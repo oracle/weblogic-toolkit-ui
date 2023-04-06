@@ -40,6 +40,40 @@ if [ -z "${ORCL_SSO_PASS}" ]; then
     echo "No Oracle SSO account password provided...exiting" >&2
     exit 1
   fi
+  echo ""
+fi
+
+if [ -z "${MYSQL_ROOT_PASS}" ]; then
+  stty -echo
+  printf "Please enter a password for the MySQL root user: "
+  read -r MYSQL_ROOT_PASS
+  stty echo
+  if [ -z "${MYSQL_ROOT_PASS}" ]; then
+    echo "No MySQL root user password provided...exiting" >&2
+    exit 1
+  fi
+  echo ""
+fi
+
+if [ -z "${MYSQL_USER}" ]; then
+  printf "Please enter a MySQL username: "
+  read -r MYSQL_USER
+  if [ -z "${MYSQL_USER}" ]; then
+    echo "No MySQL username provided...exiting" >&2
+    exit 1
+  fi
+fi
+
+if [ -z "${MYSQL_USER_PASS}" ]; then
+  stty -echo
+  printf "Please enter a MySQL user password: "
+  read -r MYSQL_USER_PASS
+  stty echo
+  if [ -z "${MYSQL_USER_PASS}" ]; then
+    echo "No MySQL user password provided...exiting" >&2
+    exit 1
+  fi
+  echo ""
 fi
 
 if ! echo "${ORCL_SSO_PASS}" | "${IMAGE_BUILDER_EXE}" login container-registry.oracle.com \
@@ -51,9 +85,9 @@ fi
 if ! "${IMAGE_BUILDER_EXE}" run \
     --name=mysql \
     --network=host \
-    -e MYSQL_ROOT_PASSWORD=manager1 \
-    -e MYSQL_USER=weblogic \
-    -e MYSQL_PASSWORD=welcome1 \
+    -e "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASS}" \
+    -e "MYSQL_USER=${MYSQL_USER}" \
+    -e "MYSQL_PASSWORD=${MYSQL_USER_PASS}" \
     -e MYSQL_DATABASE=tododb \
     --mount type=bind,src="${WKTUI_QS_HOME}/sql/",dst=/docker-entrypoint-initdb.d/ \
     -d container-registry.oracle.com/mysql/community-server:8.0.32; then
