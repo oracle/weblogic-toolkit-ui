@@ -16,10 +16,11 @@ WKTUI generates the required Verrazzano Component objects for your domain becaus
 | `WebLogic Admin Username` |  Enter the username that you want to use. |
 | `WebLogic Admin Password` |  Enter the password that you want to use. |
 | `WebLogic Kubernetes Operator Installed Version` |  If this field is not already populated, press the icon in the text box. |
-| `Primary Image Tag` | `container-registry.oracle.com/middleware/weblogic: 14.1.1.0-11-ol8` or `container-registry.oracle.com/middleware/weblogic_cpu: 14.1.1.0-generic-jdk11-ol8` |
+| `Primary Image Tag` | `container-registry.oracle.com/middleware/weblogic:14.1.1.0-11-ol8` or `container-registry.oracle.com/middleware/weblogic_cpu:14.1.1.0-generic-jdk11-ol8` |
 | `Specify Image Pull Credentials` | `ON` |
 | `Use Existing Image Pull Secret` |  `ON` |
 | `Image Pull Secret Name` | `ocr` |
+| `Auxiliary Image Tag` | `<image-repository-url>:1.0`; for example, `phx.ocir.io/mytenancy/wktui-qs/todolist:1.0`
 | `Specify Auxiliary Image Pull Credentials` | `ON` |
 | `Use Existing Auxiliary Image Pull Secret` | `OFF` |
 | `Auxiliary Image Pull Secret Name` | `ocir` |
