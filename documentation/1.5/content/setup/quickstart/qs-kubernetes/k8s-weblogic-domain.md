@@ -22,7 +22,6 @@ WKTUI generated the required operator resource objects for your domain because o
 | `Specify Auxiliary Image Pull Credentials` | `ON` |
 | `Use Existing Auxiliary Image Pull Secret` | `OFF` |
 | `Auxiliary Image Pull Secret Name` | `ocir` |
-| `Auxiliary Image Tag` | `<image-repository-url>:1.0`; for example, `phx.ocir.io/mytenancy/wktui-qs/todolist:1.0`
 | `Auxiliary Image Registry Pull Username` | `<tenancy-name>/<oracle-cloud-username>` or user name for your image registry. |
 | `Auxiliary Image Registry Pull Email Address` | Your email address. |
 | `Auxiliary Image Registry Pull Password` | `<oracle-cloud-auth-token>` or password for your image registry. |
@@ -35,7 +34,7 @@ After you filled out the fields in the preceding table, you need to look at some
 2. Notice that the `Replicas` value for the cluster is set to the maximum size of the cluster, as specified in the model.  Select the Pencil icon toward the right end of the row.  Notice that you cannot set the `Replicas` value higher than 10.  After you are done, change the value to `2` and click `OK`.
 3. Next, look at the `Model Variables Overrides` section.  This section lets you override the values specified in the variables model file in the auxiliary image using a Kubernetes ConfigMap.  Because you do not need to override these values, you can move on to the `Secrets` section.
 
-The `Secrets` section contains all model-defined secrets and lets you specify the user name and password.  In the preceding image, notice that the secret associated with your MySQL database connection is already populated.  This value was removed from the model (or the variable reference) by the Prepare Model action and added here.  If you run **Prepare Model** more than once, you will lose this value and must enter it manually.  WDT generally will not populate password values so you need to enter your MySQL database password, which is set to `welcome1` in the Quick Start `scripts/wkoDeployMySQL` script.  If you want, feel free to change it to something more secure but make sure that the user name and password match in the script and WKTUI. 
+The `Secrets` section contains all model-defined secrets and lets you specify the user name and password.  In the preceding image, notice that the secret associated with your MySQL database connection is already populated.  This value was removed from the model (or the variable reference) by the Prepare Model action and added here.  If you run **Prepare Model** more than once, you will lose this value and must enter it manually.  WDT generally will not populate password values so you need to enter your MySQL database password, which is set to `welcome1` in the Quick Start `scripts/wkoDeployMySQL` script.  If you want, feel free to change it to something more secure but make sure that the user name and password match in the script and WKTUI.
 
 Before you deploy the domain, you must deploy the MySQL database.  You will deploy the database to the same namespace as the domain, so you need to create the following Kubernetes objects to deploy the database:
 

@@ -20,7 +20,6 @@ WKTUI generates the required Verrazzano Component objects for your domain becaus
 | `Specify Image Pull Credentials` | `ON` |
 | `Use Existing Image Pull Secret` |  `ON` |
 | `Image Pull Secret Name` | `ocr` |
-| `Auxiliary Image Tag` | `<image-repository-url>:1.0`; for example, `phx.ocir.io/mytenancy/wktui-qs/todolist:1.0`
 | `Specify Auxiliary Image Pull Credentials` | `ON` |
 | `Use Existing Auxiliary Image Pull Secret` | `OFF` |
 | `Auxiliary Image Pull Secret Name` | `ocir` |
