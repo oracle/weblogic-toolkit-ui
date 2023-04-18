@@ -264,7 +264,11 @@ contextBridge.exposeInMainWorld(
       join: (...paths) => path.join(...paths),
       joinAndConvertToUnixPath: (...paths) => path.join(...paths).replaceAll('\\', '/'),
       delimiter: path.delimiter,
-      isValidFileName: (fileName) => fsUtils.isValidFileName(fileName)
+      isValidFileName: (fileName) => fsUtils.isValidFileName(fileName),
+      // These three functions are used by wrc-jet-pack
+      exists: (filePath) => fsUtils.exists(filePath),
+      isFile: (filePath) => fsUtils.isFile(filePath),
+      isDirectory: (filePath) => fsUtils.isDirectory(filePath)
     },
     'k8s': {
       getDockerFilePath: () => fsUtils.getExecutableFilePath('docker', exeMode),
