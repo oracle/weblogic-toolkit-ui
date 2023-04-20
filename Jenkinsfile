@@ -23,8 +23,8 @@ pipeline {
         project_name = "$JOB_NAME"
         version_prefix = sh(returnStdout: true, script: 'cat electron/package.json | grep version | awk \'match($0, /[0-9]+.[0-9]+.[0-9]+/) { print substr( $0, RSTART, RLENGTH )}\'').trim()
         version_number = VersionNumber([versionNumberString: '-${BUILD_YEAR}${BUILD_MONTH,XX}${BUILD_DAY,XX}${BUILDS_TODAY_Z,XX}', versionPrefix: "${version_prefix}"])
-        github_url = "${env.GIT_URL}"
-        github_creds = "fa369a2b-8c50-43ea-8956-71764cbcbe3d"
+        git_url = "${env.GIT_URL}"
+        git_creds = "wktui-orahub-creds"
 
         downstream_job_name = "wktui-sign"
         TAG_NAME = sh(returnStdout: true, script: '/usr/bin/git describe --abbrev=0 --tags').trim()
@@ -87,7 +87,7 @@ pipeline {
                                 checkout([$class: 'GitSCM', branches: [[name: "${GIT_COMMIT}"]],
                                           doGenerateSubmoduleConfigurations: false,
                                           extensions: [], submoduleCfg: [],
-                                          userRemoteConfigs: [[credentialsId: "${github_creds}", url: "${github_url}"]]])
+                                          userRemoteConfigs: [[credentialsId: "${git_creds}", url: "${git_url}"]]])
                                 sh 'echo ${version_number} > ${WORKSPACE}/WKTUI_VERSION.txt'
                             }
                         }
@@ -141,6 +141,7 @@ pipeline {
                                 sh 'cd ${WORKSPACE}/webui; PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} run coverage; cd ${WORKSPACE}'
                             }
                         }
+                        /*
                         stage('Run Sonar Analysis') {
                             tools {
                                 jdk "JDK 11.0.9"
@@ -181,6 +182,7 @@ pipeline {
                                 }
                             }
                         }
+                        */
                         stage('Linux Run eslint') {
                             // No need to run this on other platforms since the results will be the same...
                             steps {
@@ -233,7 +235,7 @@ pipeline {
                                 checkout([$class: 'GitSCM', branches: [[name: "${GIT_COMMIT}"]],
                                           doGenerateSubmoduleConfigurations: false,
                                           extensions: [], submoduleCfg: [],
-                                          userRemoteConfigs: [[credentialsId: "${github_creds}", url: "${github_url}"]]])
+                                          userRemoteConfigs: [[credentialsId: "${git_creds}", url: "${git_url}"]]])
                                 sh 'echo ${version_number} > ${WORKSPACE}/WKTUI_VERSION.txt'
                             }
                         }
@@ -343,7 +345,7 @@ pipeline {
                                 checkout([$class: 'GitSCM', branches: [[name: "${GIT_COMMIT}"]],
                                           doGenerateSubmoduleConfigurations: false,
                                           extensions: [], submoduleCfg: [],
-                                          userRemoteConfigs: [[credentialsId: "${github_creds}", url: "${github_url}"]]])
+                                          userRemoteConfigs: [[credentialsId: "${git_creds}", url: "${git_url}"]]])
                                 bat 'echo %version_number% > "%WORKSPACE%/WKTUI_VERSION.txt"'
                             }
                         }
