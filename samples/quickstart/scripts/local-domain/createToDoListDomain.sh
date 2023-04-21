@@ -43,6 +43,84 @@ if [ -d "${WKTUI_QS_HOME}/todolist_domain" ]; then
   fi
 fi
 
+if [ -z "${WEBLOGIC_USER}" ]; then
+  printf "Please enter a WebLogic username: "
+  read -r WEBLOGIC_USER
+  if [ -z "${WEBLOGIC_USER}" ]; then
+    echo "No WebLogic username provided...exiting" >&2
+    exit 1
+  fi
+fi
+
+if [ -z "${WEBLOGIC_PASS}" ]; then
+  stty -echo
+  printf "Please enter a WebLogic user password: "
+  read -r WEBLOGIC_PASS
+  stty echo
+  if [ -z "${WEBLOGIC_PASS}" ]; then
+    echo "No WebLogic user password provided...exiting" >&2
+    exit 1
+  fi
+  echo ""
+fi
+
+if [ -z "${MYSQL_USER}" ]; then
+  printf "Please enter the MySQL username: "
+  read -r MYSQL_USER
+  if [ -z "${MYSQL_USER}" ]; then
+    echo "No MySQL username provided...exiting" >&2
+    exit 1
+  fi
+fi
+
+if [ -z "${MYSQL_USER_PASS}" ]; then
+  stty -echo
+  printf "Please enter the MySQL user's password: "
+  read -r MYSQL_USER_PASS
+  stty echo
+  if [ -z "${MYSQL_USER_PASS}" ]; then
+    echo "No MySQL user password provided...exiting" >&2
+    exit 1
+  fi
+  echo ""
+fi
+
+#
+# Generate the variables.properties file
+#
+
+if [ -f "${BASEDIR}/variables.properties" ]; then
+  if ! rm -f "${BASEDIR}/variables.properties"; then
+    echo "Failed to delete generated ${BASEDIR}/variables.properties file...exiting" >&2
+    exit 1
+  fi
+fi
+
+if ! cp "${BASEDIR}/variables.properties.template" "${BASEDIR}/variables.properties"; then
+  echo "Failed to copy ${BASEDIR}/variables.properties.template to ${BASEDIR}/variables.properties file...exiting" >&2
+  exit 1
+fi
+if ! echo "WebLogicAdminUserName=${WEBLOGIC_USER}" >> "${BASEDIR}/variables.properties"; then
+  echo "Failed to write WebLogicAdminUserName entry to ${BASEDIR}/variables.properties file...exiting" >&2
+  exit 1
+fi
+if ! echo "WebLogicAdminPassword=${WEBLOGIC_PASS}" >> "${BASEDIR}/variables.properties"; then
+  echo "Failed to write WebLogicAdminPassword entry to ${BASEDIR}/variables.properties file...exiting" >&2
+  exit 1
+fi
+if ! echo "JDBC.myDataSource.user=${MYSQL_USER}" >> "${BASEDIR}/variables.properties"; then
+  echo "Failed to write JDBC.myDataSource.user entry to ${BASEDIR}/variables.properties file...exiting" >&2
+  exit 1
+fi
+if ! echo "JDBC.myDataSource.password=${MYSQL_USER_PASS}" >> "${BASEDIR}/variables.properties"; then
+  echo "Failed to write JDBC.myDataSource.password entry to ${BASEDIR}/variables.properties file...exiting" >&2
+  exit 1
+fi
+
+#
+# Create the domain
+#
+
 if ! "${WLSDEPLOY_HOME}/bin/createDomain.sh" -oracle_home "${ORACLE_HOME}" \
     -domain_parent "${WKTUI_QS_HOME}" \
     -model_file "${BASEDIR}/model.yaml" \
@@ -56,4 +134,13 @@ else
   echo ""
   echo "Successfully created the domain at ${WKTUI_QS_HOME}/todolist_domain"
   echo ""
+fi
+
+#
+# Remove generated variables.properties file with credentials
+#
+
+if ! rm -f "${BASEDIR}/variables.properties"; then
+  echo "Failed to delete the generated ${BASEDIR}/variables.properties file with the WebLogic and MySQL credentials!" >&2
+  exit 1
 fi

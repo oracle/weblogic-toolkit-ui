@@ -11,8 +11,8 @@ $MYSQL_NAMESPACE = "todolist-domain-ns"
 $SECRET_NAME = "ocr"
 $MYSQL_SECRET_NAME = "mysql"
 $MYSQL_ROOT_PASS_NAME = "rootPass"
-$MYSQL_WL_USER_NAME = "username"
-$MYSQL_WL_USER_PASS = "password"
+$MYSQL_USER_NAME = "username"
+$MYSQL_USER_PASS_NAME = "password"
 $CONFIG_MAP_NAME = "todolist-mysql-cm"
 $KUBECTL_EXE = (get-command kubectl.exe).Path
 
@@ -32,6 +32,34 @@ if (-not $env:ORCL_SSO_PASS) {
     }
     $env:ORCL_SSO_PASS = [Runtime.InteropServices.Marshal]::PtrToStringAuto(
         [Runtime.InteropServices.Marshal]::SecureStringToBSTR($ORCL_SSO_PASS))
+}
+
+if (-not $env:MYSQL_ROOT_PASS) {
+    $MYSQL_ROOT_PASS = Read-Host "Please enter a password for the MySQL root user: " -AsSecureString
+    if (-not $MYSQL_ROOT_PASS) {
+        Write-Error "No MySQL root user password provided...exiting"
+        exit 1
+    }
+    $env:MYSQL_ROOT_PASS = [Runtime.InteropServices.Marshal]::PtrToStringAuto(
+            [Runtime.InteropServices.Marshal]::SecureStringToBSTR($MYSQL_ROOT_PASS))
+}
+
+if (-not $env:MYSQL_USER) {
+    $env:MYSQL_USER = Read-Host "Please enter a MySQL username: "
+    if (-not $env:MYSQL_USER) {
+        Write-Error "No MySQL username provided...exiting"
+        exit 1
+    }
+}
+
+if (-not $env:MYSQL_USER_PASS) {
+    $MYSQL_USER_PASS = Read-Host "Please enter a MySQL user password: " -AsSecureString
+    if (-not $MYSQL_USER_PASS) {
+        Write-Error "No MySQL user password provided...exiting"
+        exit 1
+    }
+    $env:MYSQL_USER_PASS = [Runtime.InteropServices.Marshal]::PtrToStringAuto(
+            [Runtime.InteropServices.Marshal]::SecureStringToBSTR($MYSQL_USER_PASS))
 }
 
 #
@@ -89,9 +117,9 @@ if ($proc.ExitCode -eq 0) {
     Write-Output "MySQL secret $MYSQL_SECRET_NAME already exists in namespace $MYSQL_NAMESPACE...skipping"
 } else {
     $argList = "create secret generic $MYSQL_SECRET_NAME -n $MYSQL_NAMESPACE " `
-        + "--from-literal=$MYSQL_ROOT_PASS_NAME=manager1 " `
-        + "--from-literal=$MYSQL_WL_USER_NAME=weblogic " `
-        + "--from-literal=$MYSQL_WL_USER_PASS=welcome1"
+        + "--from-literal=$MYSQL_ROOT_PASS_NAME=$env:MYSQL_ROOT_PASS " `
+        + "--from-literal=$MYSQL_USER_NAME=$env:MYSQL_USER " `
+        + "--from-literal=$MYSQL_USER_PASS_NAME=$env:MYSQL_USER_PASS"
 
     $proc = Start-Process -NoNewWindow -FilePath "$KUBECTL_EXE" -ArgumentList "$argList" -PassThru
     Wait-Process -InputObject $proc
@@ -193,12 +221,12 @@ spec:
                                 valueFrom:
                                   secretKeyRef:
                                     name: $MYSQL_SECRET_NAME
-                                    key: $MYSQL_WL_USER_NAME
+                                    key: $MYSQL_USER_NAME
                               - name: MYSQL_PASSWORD
                                 valueFrom:
                                   secretKeyRef:
                                     name: $MYSQL_SECRET_NAME
-                                    key: $MYSQL_WL_USER_PASS
+                                    key: $MYSQL_USER_PASS_NAME
                               - name: MYSQL_DATABASE
                                 value: tododb
                     volumes:

@@ -29,7 +29,7 @@ These include:
   to generate one for you.
 
 
-{{% notice note %}} The WKT UI application is built using the Electron framework and as such, we support only the platforms and versions supported by [Electron](https://www.electronjs.org/docs/latest/tutorial/support#supported-platforms).  For example, because of the Electron requirement for Fedora 24 or newer, we support _only_ versions 8.0 and higher of Oracle Linux, RedHat Linux, and CentOS Linux.
+{{% notice note %}} The WKT UI application is built using the Electron framework and as such, we support only the platforms and versions supported by [Electron](https://www.npmjs.com/package/electron); see the listing under Platform Support.  For example, because of the Electron requirement for Fedora 24 or newer, we support _only_ versions 8.0 and higher of Oracle Linux, RedHat Linux, and CentOS Linux.
 {{% /notice %}}
 
 In addition to these local software dependencies, you will need a Kubernetes cluster to which you can deploy your

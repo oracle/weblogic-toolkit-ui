@@ -17,6 +17,8 @@ The WKT UI provides a graphical user interface that wraps the WKT tools, Docker,
 a Linux container image to use to run the domain, and setting up and deploying the software and configuration
 necessary to deploy and access the domain in your Kubernetes cluster.
 
+Be sure to check out the [Quick Start]({{< relref "/setup/quickstart/" >}}) guide for a tutorial, which will step you through WebLogic Kubernetes Toolkit UI (WKTUI) functionality and familiarize you with its capabilities.
+
 ### Current release
 
 WebLogic Kubernetes Toolkit UI version and release information can be found [here](https://github.com/oracle/weblogic-toolkit-ui/releases).
@@ -24,15 +26,15 @@ WebLogic Kubernetes Toolkit UI version and release information can be found [her
 ### About the Documentation
 For detailed user information, read the following:
 
-- [About the WKT UI Application]({{< relref "/concepts/_index.md" >}})
+- [About the WKT UI Application]({{< relref "/concepts/" >}})
 - WebLogic Kubernetes Toolkit UI [Prerequisites]({{< relref "/setup/prerequisites.md" >}}) and [Installation]({{< relref "/setup/install.md" >}})
-- [Navigate the WKT UI]({{< relref "/navigate/_index.md" >}})
+- [Navigate the WKT UI]({{< relref "/navigate/" >}})
     - [Model]({{< relref "/navigate/model.md" >}})
     - [Image]({{< relref "/navigate/image.md" >}})
-    - [Kubernetes]({{< relref "/navigate/kubernetes/_index.md" >}})
-    - [Verrazzano]({{< relref "/navigate/verrazzano/_index.md" >}})
+    - [Kubernetes]({{< relref "/navigate/kubernetes/" >}})
+    - [Verrazzano]({{< relref "/navigate/verrazzano/" >}})
 
-For developer information, see [WebLogic Kubernetes Toolkit UI Project]({{< relref "/developer/_index.md" >}}).
+For developer information, see [WebLogic Kubernetes Toolkit UI Project]({{< relref "/developer/" >}}).
 
 ### Get Help
 

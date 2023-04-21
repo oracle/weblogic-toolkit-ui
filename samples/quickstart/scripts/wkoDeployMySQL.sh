@@ -12,8 +12,8 @@ MYSQL_NAMESPACE=todolist-domain-ns
 SECRET_NAME=ocr
 MYSQL_SECRET_NAME=mysql
 MYSQL_ROOT_PASS_NAME=rootPass
-MYSQL_WL_USER_NAME=username
-MYSQL_WL_USER_PASS=password
+MYSQL_USER_NAME=username
+MYSQL_USER_PASS_NAME=password
 CONFIG_MAP_NAME=todolist-mysql-cm
 
 if [ -z "${ORCL_SSO_USER}" ]; then
@@ -28,12 +28,46 @@ fi
 if [ -z "${ORCL_SSO_PASS}" ]; then
   stty -echo
   printf "Please enter your Oracle SSO account password: "
-  read -r ORCL_SSO_USER
+  read -r ORCL_SSO_PASS
   stty echo
   if [ -z "${ORCL_SSO_PASS}" ]; then
     echo "No Oracle SSO account password provided...exiting" >&2
     exit 1
   fi
+  echo ""
+fi
+
+if [ -z "${MYSQL_ROOT_PASS}" ]; then
+  stty -echo
+  printf "Please enter a password for the MySQL root user: "
+  read -r MYSQL_ROOT_PASS
+  stty echo
+  if [ -z "${MYSQL_ROOT_PASS}" ]; then
+    echo "No MySQL root user password provided...exiting" >&2
+    exit 1
+  fi
+  echo ""
+fi
+
+if [ -z "${MYSQL_USER}" ]; then
+  printf "Please enter a MySQL username: "
+  read -r MYSQL_USER
+  if [ -z "${MYSQL_USER}" ]; then
+    echo "No MySQL username provided...exiting" >&2
+    exit 1
+  fi
+fi
+
+if [ -z "${MYSQL_USER_PASS}" ]; then
+  stty -echo
+  printf "Please enter a MySQL user password: "
+  read -r MYSQL_USER_PASS
+  stty echo
+  if [ -z "${MYSQL_USER_PASS}" ]; then
+    echo "No MySQL user password provided...exiting" >&2
+    exit 1
+  fi
+  echo ""
 fi
 
 #
@@ -70,9 +104,9 @@ fi
 if kubectl get secret "${MYSQL_SECRET_NAME}" -n "${MYSQL_NAMESPACE}" > /dev/null 2>&1; then
   echo "MySQL secret ${MYSQL_SECRET_NAME} already exists in namespace ${MYSQL_NAMESPACE}...skipping"
 elif ! kubectl create secret generic "${MYSQL_SECRET_NAME}" -n "${MYSQL_NAMESPACE}" \
-      --from-literal=${MYSQL_ROOT_PASS_NAME}=manager1 \
-      --from-literal=${MYSQL_WL_USER_NAME}=weblogic \
-      --from-literal=${MYSQL_WL_USER_PASS}=welcome1; then
+      --from-literal=${MYSQL_ROOT_PASS_NAME}="${MYSQL_ROOT_PASS}" \
+      --from-literal=${MYSQL_USER_NAME}="${MYSQL_USER}" \
+      --from-literal=${MYSQL_USER_PASS_NAME}="${MYSQL_USER_PASS}"; then
   echo "Failed to create MySQL secret ${MYSQL_SECRET_NAME} in namespace ${MYSQL_NAMESPACE}...exiting" >&2
   exit 1
 fi
@@ -130,12 +164,12 @@ spec:
                         valueFrom:
                           secretKeyRef:
                             name: ${MYSQL_SECRET_NAME}
-                            key: ${MYSQL_WL_USER_NAME}
+                            key: ${MYSQL_USER_NAME}
                       - name: MYSQL_PASSWORD
                         valueFrom:
                           secretKeyRef:
                             name: ${MYSQL_SECRET_NAME}
-                            key: ${MYSQL_WL_USER_PASS}
+                            key: ${MYSQL_USER_PASS_NAME}
                       - name: MYSQL_DATABASE
                         value: tododb
             volumes:

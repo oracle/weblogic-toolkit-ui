@@ -14,21 +14,21 @@
 # Set to the JDK 11 installation directory or delete
 # if JAVA_HOME is already set in your environment
 #
-$env:JAVA_HOME = "c:\path\to\jdk\install\directory"
+$env:JAVA_HOME = ""
 
 #
 # Set to the Apache Maven directory or delete
 # if M2_HOME is already set in your environment or
 # if you do not plan to recompile the sample application
 #
-$env:M2_HOME = "c:\path\to\apache\maven\install\directory"
+$env:M2_HOME = ""
 
 #
 # Set to the location of the WebLogic Server installation or delete
 # if the ORACLE_HOME is already set in to point to the correct
 # location in your environment.
 #
-$env:ORACLE_HOME = "c:\path\to\wls_14.1.1\install\directory"
+$env:ORACLE_HOME = ""
 
 #
 # Set to directory where WKTUI is installed.
@@ -43,19 +43,61 @@ $env:WKTUI_HOME = "c:\Program Files\WebLogic Kubernetes Toolkit UI"
 # Set to the username of your Oracle SSO account.  This is
 # used to pull images from https://container-registry.oracle.com.
 #
-# Feel free to delete this variable and the other scripts
-# will prompt you for the username.
+# Feel free to leave this variable empty.  The scripts that use
+# this value will prompt you for the username.
 #
-$env:ORCL_SSO_USER = "jim.smith@mycompany.com"
+$env:ORCL_SSO_USER = ''
 
 #
 # Set to the password of your Oracle SSO account.  This is
 # used to pull images from https://container-registry.oracle.com.
 #
-# Feel free to delete this variable and the other scripts
-# will prompt you for the password.
+# Feel free to leave this variable empty.  The scripts that use
+# this value will prompt you for the password.
 #
-$env:ORCL_SSO_PASS = 'welcome1'
+$env:ORCL_SSO_PASS = ''
+
+#
+# Set to the value you want to use for the WebLogic Server
+# administrative username.
+#
+# Feel free to leave this variable empty.  The scripts that use
+# this value will prompt you for the username.
+#
+$env:WEBLOGIC_USER = ''
+
+#
+# Set to the value you want to use for the WebLogic Server
+# administrative password.
+#
+# Feel free to leave this variable empty.  The scripts that use
+# this value will prompt you for the password.
+#
+$env:WEBLOGIC_PASS = ''
+
+#
+# Set to the value you want to use for the MySQL admin password.
+#
+# Feel free to leave this variable empty.  The scripts that use
+# this value will prompt you for the password.
+#
+$env:MYSQL_ROOT_PASS = ''
+
+#
+# Set to the value you want to use for the MySQL username.
+#
+# Feel free to leave this variable empty.  The scripts that use
+# this value will prompt you for the username.
+#
+$env:MYSQL_USER = ''
+
+#
+# Set to the value you want to use for the MySQL user's password.
+#
+# Feel free to leave this variable empty.  The scripts that use
+# this value will prompt you for the password.
+#
+$env:MYSQL_USER_PASS = ''
 
 #
 # Set to the name of the program you are using to create
