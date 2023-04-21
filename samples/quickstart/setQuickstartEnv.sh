@@ -15,7 +15,7 @@
 # Set to the JDK 11 installation directory or delete
 # if JAVA_HOME is already set in your environment
 #
-JAVA_HOME=/path/to/jdk/install/directory
+JAVA_HOME=""
 export JAVA_HOME
 
 #
@@ -23,7 +23,7 @@ export JAVA_HOME
 # if M2_HOME is already set in your environment or
 # if you do not plan to recompile the sample application
 #
-M2_HOME=/path/to/apache/maven/install/directory
+M2_HOME=""
 export M2_HOME
 
 #
@@ -31,7 +31,7 @@ export M2_HOME
 # if the ORACLE_HOME is already set in to point to the correct
 # location in your environment.
 #
-ORACLE_HOME=/path/to/wls_14.1.1/install/directory
+ORACLE_HOME=""
 export ORACLE_HOME
 
 #
@@ -39,30 +39,88 @@ export ORACLE_HOME
 #
 # On macOS, this will typically be:
 #
-# WKTUI_HOME="/Applications/WebLogic Kubernetes Toolkit UI.app"
+#     WKTUI_HOME="/Applications/WebLogic Kubernetes Toolkit UI.app"
 #
-WKTUI_HOME=/path/to/wktui/install/directory
+# On Linux, it depends on installer used.
+#
+#     For the RPM or DEB installer, this will typically be:
+#
+#         WKTUI_HOME='/opt/WebLogic Kubernetes Toolkit UI"
+#
+#     For the AppImage executable, this will be the path
+#     to the executable file.  For example:
+#
+#         WKTUI_HOME='/home/robert/WebLogic Kubernetes Toolkit UI-1.5.3.AppImage'
+#
+WKTUI_HOME=""
 export WKTUI_HOME
 
 #
 # Set to the username of your Oracle SSO account.  This is
 # used to pull images from https://container-registry.oracle.com.
 #
-# Feel free to delete this variable and the other scripts
-# will prompt you for the username.
+# Feel free to leave this variable empty.  The scripts that use
+# this value will prompt you for the username.
 #
-ORCL_SSO_USER=jim.smith@mycompany.com
+ORCL_SSO_USER=''
 export ORCL_SSO_USER
 
 #
 # Set to the password of your Oracle SSO account.  This is
 # used to pull images from https://container-registry.oracle.com.
 #
-# Feel free to delete this variable and the other scripts
-# will prompt you for the password.
+# Feel free to leave this variable empty.  The scripts that use
+# this value will prompt you for the password.
 #
-ORCL_SSO_PASS='welcome1'
+ORCL_SSO_PASS=''
 export ORCL_SSO_PASS
+
+#
+# Set to the value you want to use for the WebLogic Server
+# administrative username.
+#
+# Feel free to leave this variable empty.  The scripts that use
+# this value will prompt you for the username.
+#
+WEBLOGIC_USER=''
+export WEBLOGIC_USER
+
+#
+# Set to the value you want to use for the WebLogic Server
+# administrative password.
+#
+# Feel free to leave this variable empty.  The scripts that use
+# this value will prompt you for the password.
+#
+WEBLOGIC_PASS=''
+export WEBLOGIC_PASS
+
+#
+# Set to the value you want to use for the MySQL admin password.
+#
+# Feel free to leave this variable empty.  The scripts that use
+# this value will prompt you for the password.
+#
+MYSQL_ROOT_PASS=''
+export MYSQL_ROOT_PASS
+
+#
+# Set to the value you want to use for the MySQL username.
+#
+# Feel free to leave this variable empty.  The scripts that use
+# this value will prompt you for the username.
+#
+MYSQL_USER=''
+export MYSQL_USER
+
+#
+# Set to the value you want to use for the MySQL user's password.
+#
+# Feel free to leave this variable empty.  The scripts that use
+# this value will prompt you for the password.
+#
+MYSQL_USER_PASS=''
+export MYSQL_USER_PASS
 
 #
 # Set to the name of the program you are using to create
