@@ -8,7 +8,19 @@
     <loc>https://oracle.github.io/weblogic-toolkit-ui/navigate/verrazzano/vz-client-config/</loc>
     <lastmod>2019-02-22T15:44:42-05:00</lastmod>
   </url><url>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-client-config/</loc>
+    <lastmod>2019-02-22T15:44:42-05:00</lastmod>
+  </url><url>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-client-config/</loc>
+    <lastmod>2019-02-22T15:44:42-05:00</lastmod>
+  </url><url>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-advanced/offline-discover/</loc>
+    <lastmod>2019-02-22T15:44:42-05:00</lastmod>
+  </url><url>
     <loc>https://oracle.github.io/weblogic-toolkit-ui/setup/prerequisites/</loc>
+    <lastmod>2019-02-22T15:44:42-05:00</lastmod>
+  </url><url>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/prereqs/</loc>
     <lastmod>2019-02-22T15:44:42-05:00</lastmod>
   </url><url>
     <loc>https://oracle.github.io/weblogic-toolkit-ui/navigate/project-settings/</loc>
@@ -17,13 +29,22 @@
     <loc>https://oracle.github.io/weblogic-toolkit-ui/concepts/</loc>
     <lastmod>2019-02-22T15:27:38-05:00</lastmod>
   </url><url>
-    <loc>https://oracle.github.io/weblogic-toolkit-ui/setup/install/</loc>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/get-todo-app/</loc>
+    <lastmod>2019-02-22T15:44:42-05:00</lastmod>
+  </url><url>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-wko/</loc>
+    <lastmod>2019-02-22T15:44:42-05:00</lastmod>
+  </url><url>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-install/</loc>
     <lastmod>2019-02-22T15:44:42-05:00</lastmod>
   </url><url>
     <loc>https://oracle.github.io/weblogic-toolkit-ui/navigate/verrazzano/vz-install/</loc>
     <lastmod>2019-02-22T15:44:42-05:00</lastmod>
   </url><url>
     <loc>https://oracle.github.io/weblogic-toolkit-ui/navigate/model/</loc>
+    <lastmod>2019-02-22T15:44:42-05:00</lastmod>
+  </url><url>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-advanced/online-remote-discover/</loc>
     <lastmod>2019-02-22T15:44:42-05:00</lastmod>
   </url><url>
     <loc>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/k8s-wko/</loc>
@@ -35,7 +56,19 @@
     <loc>https://oracle.github.io/weblogic-toolkit-ui/navigate/verrazzano/vz-component/</loc>
     <lastmod>2019-02-22T15:44:42-05:00</lastmod>
   </url><url>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-weblogic-domain/</loc>
+    <lastmod>2019-02-22T15:44:42-05:00</lastmod>
+  </url><url>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-component/</loc>
+    <lastmod>2019-02-22T15:44:42-05:00</lastmod>
+  </url><url>
     <loc>https://oracle.github.io/weblogic-toolkit-ui/navigate/image/</loc>
+    <lastmod>2019-02-22T15:44:42-05:00</lastmod>
+  </url><url>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/setup/install/</loc>
+    <lastmod>2019-02-22T15:44:42-05:00</lastmod>
+  </url><url>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/set-up-wktui-app/</loc>
     <lastmod>2019-02-22T15:44:42-05:00</lastmod>
   </url><url>
     <loc>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/k8s-weblogic-domain/</loc>
@@ -47,16 +80,52 @@
     <loc>https://oracle.github.io/weblogic-toolkit-ui/navigate/verrazzano/vz-application/</loc>
     <lastmod>2019-02-22T15:44:42-05:00</lastmod>
   </url><url>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-application/</loc>
+    <lastmod>2019-02-22T15:44:42-05:00</lastmod>
+  </url><url>
     <loc>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/k8s-ingress-controller/</loc>
+    <lastmod>2019-02-22T15:44:42-05:00</lastmod>
+  </url><url>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-ingress-controller/</loc>
+    <lastmod>2019-02-22T15:44:42-05:00</lastmod>
+  </url><url>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/project-settings/</loc>
     <lastmod>2019-02-22T15:44:42-05:00</lastmod>
   </url><url>
     <loc>https://oracle.github.io/weblogic-toolkit-ui/developer/</loc>
     <lastmod>2019-02-22T15:27:38-05:00</lastmod>
   </url><url>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/</loc>
+    <lastmod>2019-02-22T15:27:38-05:00</lastmod>
+  </url><url>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-access-app/</loc>
+    <lastmod>2019-02-22T15:44:42-05:00</lastmod>
+  </url><url>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-access-app/</loc>
+    <lastmod>2019-02-22T15:44:42-05:00</lastmod>
+  </url><url>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/create-wdt-model/</loc>
+    <lastmod>2019-02-22T15:44:42-05:00</lastmod>
+  </url><url>
     <loc>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/</loc>
     <lastmod>2019-02-22T15:27:38-05:00</lastmod>
   </url><url>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/create-images-with-wit/</loc>
+    <lastmod>2019-02-22T15:44:42-05:00</lastmod>
+  </url><url>
     <loc>https://oracle.github.io/weblogic-toolkit-ui/navigate/verrazzano/</loc>
+    <lastmod>2019-02-22T15:27:38-05:00</lastmod>
+  </url><url>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/</loc>
+    <lastmod>2019-02-22T15:27:38-05:00</lastmod>
+  </url><url>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/</loc>
+    <lastmod>2019-02-22T15:27:38-05:00</lastmod>
+  </url><url>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-summary/</loc>
+    <lastmod>2019-02-22T15:27:38-05:00</lastmod>
+  </url><url>
+    <loc>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-advanced/</loc>
     <lastmod>2019-02-22T15:27:38-05:00</lastmod>
   </url><url>
     <loc>https://oracle.github.io/weblogic-toolkit-ui/release/</loc>

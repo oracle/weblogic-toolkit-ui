@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>WebLogic Kubernetes Operator on WebLogic Kubernetes Toolkit UI</title>
+    <link>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/</link>
+    <description>Recent content in WebLogic Kubernetes Operator on WebLogic Kubernetes Toolkit UI</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 22 Feb 2019 15:27:38 -0500</lastBuildDate><atom:link href="https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Configure Kubernetes Cluster Connectivity</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-client-config/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-client-config/</guid>
+      <description>First, you need to configure your Kubernetes client (kubectl) to connect and authenticate to your Kubernetes cluster.
+Go to the Kubernetes &amp;gt; Client Configuration page, shown in the following image.
+By selecting the appropriate Kubernetes Cluster Type, the instructions panel will display the steps needed to properly configure kubectl. Select your Kubernetes Cluster Type and follow the instructions (including the linked instructions) until you can successfully connect using kubectl from the command line.</description>
+    </item>
+    
+    <item>
+      <title>Install the WebLogic Kubernetes Operator</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-wko/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-wko/</guid>
+      <description>The WebLogic Kubernetes Operator (WKO) manages WebLogic or FMW domains for a set of namespaces in a Kubernetes cluster. While it is possible to install multiple operators that manage disparate sets of namespaces in a Kubernetes cluster, typically, there is no need to do this.
+To install the operator, go to the Kubernetes &amp;gt; WebLogic Operator page, verify the settings, and click Install Operator. For these exercises, you&amp;rsquo;ll use the default values, as shown in the following image.</description>
+    </item>
+    
+    <item>
+      <title>Deploy the Domain</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-weblogic-domain/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-weblogic-domain/</guid>
+      <description>To inform the operator of a new WebLogic or FMW domain, you must create an operator Domain resource object in Kubernetes. Starting in WKO 4.0.0, the operator also needs an operator Cluster resource object for every cluster in the domain. This separation is required to work with the Kubernetes Horizontal Pod Autoscaler (HPA) to allow it to automatically scale clusters based on load (but only up to the maximum size of the WebLogic cluster).</description>
+    </item>
+    
+    <item>
+      <title>Install and Configure the Ingress Controller</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-ingress-controller/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-ingress-controller/</guid>
+      <description>While the domain is up and running, it is only accessible from inside the Kubernetes cluster. Before you can expose your application, you need to install an ingress controller. WKTUI can install the Traefik or NGINX ingress controllers. In this exercise, you will use Traefik.
+Go to the Kubernetes &amp;gt; Ingress Controller page. Even though the default settings should be sufficient, you will create an image pull secret for Docker Hub, as shown in the following image, to make sure that your cluster doesn’t encounter an error due to Docker Hub rate limiting of anonymous pull requests.</description>
+    </item>
+    
+    <item>
+      <title>Access the ToDo List application</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-access-app/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-access-app/</guid>
+      <description>After the Update Ingress Routes action completes, the Ingress Route Configuration table is updated with the actual URL to use to access the application, as shown in the following image.
+When you click the URL link, the following image shows the browser window that WKTUI opens. Now, you can use the ToDo list application.</description>
+    </item>
+    
+  </channel>
+</rss>

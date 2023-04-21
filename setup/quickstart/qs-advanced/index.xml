@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Advanced on WebLogic Kubernetes Toolkit UI</title>
+    <link>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-advanced/</link>
+    <description>Recent content in Advanced on WebLogic Kubernetes Toolkit UI</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 22 Feb 2019 15:27:38 -0500</lastBuildDate><atom:link href="https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-advanced/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Offline Discover</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-advanced/offline-discover/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-advanced/offline-discover/</guid>
+      <description>In WKTUI, go to the Model page and select the Code View tab. Select the File &amp;gt; Add Model &amp;gt; Discover Model (offline) menu item. The following dialog box appears. Enter the path to the $WKTUI_QS_HOME/todolist_domain directory as the Domain Home, as shown in the following image.
+To start the discovery process, click OK. After it completes, make the following required model changes:
+ Fill in the credentials using the values provided when you ran the startMySQL and createToDoListDomain scripts.</description>
+    </item>
+    
+    <item>
+      <title>Online Remote Discover</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-advanced/online-remote-discover/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-advanced/online-remote-discover/</guid>
+      <description>In WKTUI, go to the Model page and select the Code View tab. Select the File &amp;gt; Add Model &amp;gt; Discover Model (online) menu item. The following dialog box appears. Enter the information shown in the following image, including the Domain Home path $WKTUI_QS_HOME/todolist_domain directory. Make sure to provide the WebLogic user name and password specified when you ran the createToDoListDomain script.
+This path is used to present the results of what we need to do, as shown in the following image.</description>
+    </item>
+    
+  </channel>
+</rss>

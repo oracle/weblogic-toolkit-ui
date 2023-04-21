@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Quick Start Guide on WebLogic Kubernetes Toolkit UI</title>
+    <link>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/</link>
+    <description>Recent content in Quick Start Guide on WebLogic Kubernetes Toolkit UI</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 22 Feb 2019 15:27:38 -0500</lastBuildDate><atom:link href="https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Prerequisites</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/prereqs/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/prereqs/</guid>
+      <description>To work through the Quick Start guide, you will need to install the following software:
+ Docker (or Podman) – If running on Windows or macOS, try Rancher Desktop, Docker Desktop, or even Podman Desktop. kubectl – The Kubernetes client; the version should align with the Kubernetes cluster version. Oracle Java JDK 11 WebLogic Server 14.1.1 Helm 3.9 or later – Only needed if following the WebLogic Kubernetes Operator track. Maven 3.</description>
+    </item>
+    
+    <item>
+      <title>Get the ToDo List sample application</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/get-todo-app/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/get-todo-app/</guid>
+      <description>The Quick Start tutorial employs a simple ToDo List application that uses a MySQL database running in a container to maintain its state. To get the application and supporting files, use one of the following methods:
+  Download the quickstart.zip or quickstart.tar.gz file from the latest WKTUI release on GitHub.
+  Clone the WKTUI GitHub repository and refer to the samples/quickstart subdirectory.
+  </description>
+    </item>
+    
+    <item>
+      <title>Set up the WKTUI application</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/set-up-wktui-app/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/set-up-wktui-app/</guid>
+      <description>To install the WKTUI application:
+ Make sure to check the NOTE in the WKTUI Prerequisites for your OS compatibility with regard to Electron support. Go to the GitHub project Releases page and download the latest release. Run the appropriate installer for your operating system.  Each release has many assets. For a detailed description of them, see Install WKT UI.
+WKTUI Startup WKTUI requires Internet connectivity, not only for proper UI rendering, but also for REST APIs calls that it makes to GitHub for detecting and downloading updates, when they are available, and for determining the available versions of related software.</description>
+    </item>
+    
+    <item>
+      <title>Select the Project Settings</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/project-settings/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/project-settings/</guid>
+      <description>Start WKTUI.
+WKTUI uses the concept of a project that is like a project in an Integrated Development Environment (IDE). You will create a new project.
+  Using the File menu, select New Project, choose a directory, and enter the file name todo-list.wktproj.
+At this point, you will be on the Project Settings page that will look something like the one shown in the following image.
+Note: If you are not running on macOS, you will not see this top-most panel: For macOS, do you need to add directories to the PATH or define other environment variables for Docker/Podman or Kubernetes?</description>
+    </item>
+    
+    <item>
+      <title>Create the WebLogic Deploy Tooling model</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/create-wdt-model/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/create-wdt-model/</guid>
+      <description>The WebLogic Deploy Tooling project provides a set of single-purpose tools for performing lifecycle operations of WebLogic Server domains. These tools work off a model of the domain. The model contains three types of files:
+ Model file – A YAML description of the domain that is aligned with WebLogic Scripting Tool (WLST) offline folders and attributes. Variables file – An optional Java properties file that contains key/value pairs where the key matches with a token placed in the model file.</description>
+    </item>
+    
+    <item>
+      <title>Create images with the WebLogic Image Tool</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/create-images-with-wit/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/create-images-with-wit/</guid>
+      <description>WKTUI uses the WebLogic Image Tool (WIT) to build container images. Each Oracle Fusion Middleware (FMW) Domain Target Location option has its own image requirements.
+ Model-in-Image – MII has two approaches:  Single Image – This approach uses a single image with Java, FMW, WDT, and the WDT model files all built into a single image. In WKTUI, we use the Primary Image tab to build such an image. Dual Images – This approach puts Java and FMW into one image, which WKTUI calls the primary image, and WDT and the WDT model files into a separate image, known as the auxiliary image.</description>
+    </item>
+    
+  </channel>
+</rss>

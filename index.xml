@@ -28,6 +28,39 @@
     </item>
     
     <item>
+      <title>Configure Kubernetes Cluster Connectivity</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-client-config/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-client-config/</guid>
+      <description>First, you need to configure your Kubernetes client (kubectl) to connect and authenticate to your Kubernetes cluster.
+Go to the Kubernetes &amp;gt; Client Configuration page, shown in the following image.
+By selecting the appropriate Kubernetes Cluster Type, the instructions panel will display the steps needed to properly configure kubectl. Select your Kubernetes Cluster Type and follow the instructions (including the linked instructions) until you can successfully connect using kubectl from the command line.</description>
+    </item>
+    
+    <item>
+      <title>Configure Kubernetes Cluster Connectivity</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-client-config/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-client-config/</guid>
+      <description>First, you need to configure your Kubernetes Client (kubectl) to connect and authenticate to your Kubernetes cluster.
+Go to the Verrazzano &amp;gt; Client Configuration page, as shown in the following image.
+By selecting the appropriate Kubernetes Cluster Type, the instructions panel will display the steps needed to properly configure kubectl. Please select your Kubernetes Cluster Type and follow the instructions (including the linked instructions) until you can successfully connect using kubectl from the command line.</description>
+    </item>
+    
+    <item>
+      <title>Offline Discover</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-advanced/offline-discover/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-advanced/offline-discover/</guid>
+      <description>In WKTUI, go to the Model page and select the Code View tab. Select the File &amp;gt; Add Model &amp;gt; Discover Model (offline) menu item. The following dialog box appears. Enter the path to the $WKTUI_QS_HOME/todolist_domain directory as the Domain Home, as shown in the following image.
+To start the discovery process, click OK. After it completes, make the following required model changes:
+ Fill in the credentials using the values provided when you ran the startMySQL and createToDoListDomain scripts.</description>
+    </item>
+    
+    <item>
       <title>Prerequisites</title>
       <link>https://oracle.github.io/weblogic-toolkit-ui/setup/prerequisites/</link>
       <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
@@ -36,6 +69,16 @@
       <description>WebLogic Kubernetes Toolkit UI has a number of prerequisites that must be installed locally to fully use the WKT UI application functionality.
 These include:
  Java Development Kit (JDK) - Required by both WebLogic Deploy Tooling and WebLogic Image Tool. Install a JDK version that is compatible with your local WebLogic Server installation. WebLogic Server (WLS) - Required by WebLogic Deploy Tooling. Install a WebLogic Server version 12.2.1.3.0 or later; it is a best practice to install the latest Patch Set Updates (PSUs) and other recommended patches.</description>
+    </item>
+    
+    <item>
+      <title>Prerequisites</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/prereqs/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/prereqs/</guid>
+      <description>To work through the Quick Start guide, you will need to install the following software:
+ Docker (or Podman) – If running on Windows or macOS, try Rancher Desktop, Docker Desktop, or even Podman Desktop. kubectl – The Kubernetes client; the version should align with the Kubernetes cluster version. Oracle Java JDK 11 WebLogic Server 14.1.1 Helm 3.9 or later – Only needed if following the WebLogic Kubernetes Operator track. Maven 3.</description>
     </item>
     
     <item>
@@ -49,13 +92,35 @@ These include:
     </item>
     
     <item>
-      <title>Install WKT UI</title>
-      <link>https://oracle.github.io/weblogic-toolkit-ui/setup/install/</link>
+      <title>Get the ToDo List sample application</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/get-todo-app/</link>
       <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
       
-      <guid>https://oracle.github.io/weblogic-toolkit-ui/setup/install/</guid>
-      <description>Download the latest WebLogic Kubernetes Toolkit UI (WKT UI) application installers from the GitHub Releases section of this repository. Simply run the appropriate installer for your operating system.  NOTE: On Linux, to get all the dependencies and have them installed in the correct order, you need to use the package manager to install the rpm or deb file. First, be sure to review the Linux prerequisites here.
-  For RPM-based systems, use either yum or dnf; for example:</description>
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/get-todo-app/</guid>
+      <description>The Quick Start tutorial employs a simple ToDo List application that uses a MySQL database running in a container to maintain its state. To get the application and supporting files, use one of the following methods:
+  Download the quickstart.zip or quickstart.tar.gz file from the latest WKTUI release on GitHub.
+  Clone the WKTUI GitHub repository and refer to the samples/quickstart subdirectory.
+  </description>
+    </item>
+    
+    <item>
+      <title>Install the WebLogic Kubernetes Operator</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-wko/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-wko/</guid>
+      <description>The WebLogic Kubernetes Operator (WKO) manages WebLogic or FMW domains for a set of namespaces in a Kubernetes cluster. While it is possible to install multiple operators that manage disparate sets of namespaces in a Kubernetes cluster, typically, there is no need to do this.
+To install the operator, go to the Kubernetes &amp;gt; WebLogic Operator page, verify the settings, and click Install Operator. For these exercises, you&amp;rsquo;ll use the default values, as shown in the following image.</description>
+    </item>
+    
+    <item>
+      <title>Install Verrazzano</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-install/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-install/</guid>
+      <description>To install Verrazzano, go to the Verrazzano &amp;gt; Installation page. Set the Release Version field to the newest version listed, set the other fields to match those in the following image, and click Install Verrazzano.
+Verrazzano installation takes some time to complete, typically 15 to 30 minutes. Use Check Verrazzano Install Status to determine when Verrazzano installation is complete. After it&amp;rsquo;s complete, you can move on to the next section.</description>
     </item>
     
     <item>
@@ -80,6 +145,16 @@ Design View Design View helps you specify the data needed to install Verrazzano 
     </item>
     
     <item>
+      <title>Online Remote Discover</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-advanced/online-remote-discover/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-advanced/online-remote-discover/</guid>
+      <description>In WKTUI, go to the Model page and select the Code View tab. Select the File &amp;gt; Add Model &amp;gt; Discover Model (online) menu item. The following dialog box appears. Enter the information shown in the following image, including the Domain Home path $WKTUI_QS_HOME/todolist_domain directory. Make sure to provide the WebLogic user name and password specified when you ran the createToDoListDomain script.
+This path is used to present the results of what we need to do, as shown in the following image.</description>
+    </item>
+    
+    <item>
       <title>WebLogic Kubernetes Operator</title>
       <link>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/k8s-wko/</link>
       <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
@@ -99,6 +174,24 @@ Design View Design View helps you specify the data needed to generate the compon
     </item>
     
     <item>
+      <title>Deploy the Domain</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-weblogic-domain/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-weblogic-domain/</guid>
+      <description>To inform the operator of a new WebLogic or FMW domain, you must create an operator Domain resource object in Kubernetes. Starting in WKO 4.0.0, the operator also needs an operator Cluster resource object for every cluster in the domain. This separation is required to work with the Kubernetes Horizontal Pod Autoscaler (HPA) to allow it to automatically scale clusters based on load (but only up to the maximum size of the WebLogic cluster).</description>
+    </item>
+    
+    <item>
+      <title>Deploy the Verrazzano Component for the WebLogic Domain</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-component/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-component/</guid>
+      <description>Verrazzano installation includes the WebLogic Kubernetes Operator. To inform the operator about a new WebLogic or FMW domain, you need to create a Verrazzano component that includes an operator Domain resource object in Kubernetes. Starting in Verrazzano 1.5.0, the Verrazzano component also needs an operator Cluster resource object for every cluster in the domain. This separation is required to work with the Kubernetes Horizontal Pod Autoscaler (HPA) to allow it to automatically scale the clusters based on load (but only up to the maximum size of the WebLogic cluster).</description>
+    </item>
+    
+    <item>
       <title>Image</title>
       <link>https://oracle.github.io/weblogic-toolkit-ui/navigate/image/</link>
       <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
@@ -106,6 +199,27 @@ Design View Design View helps you specify the data needed to generate the compon
       <guid>https://oracle.github.io/weblogic-toolkit-ui/navigate/image/</guid>
       <description>Contents  Image Design View  Target Image Name and Registry Credentials Base Image to Use Installers for Building the Image Patch Oracle Home WebLogic Deploy Tooling Configuration Image Build Configuration   Code View Create Images Push Images  Image The Image section helps you build container images for deploying WebLogic-based applications in a Kubernetes environment using the WebLogic Image Tool.
 Design View Design View helps you specify the necessary data needed to run the WebLogic Image Tool to build an image for running the WebLogic domain.</description>
+    </item>
+    
+    <item>
+      <title>Install WKT UI</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/setup/install/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/setup/install/</guid>
+      <description>Download the latest WebLogic Kubernetes Toolkit UI (WKT UI) application installers from the GitHub Releases section of this repository. Simply run the appropriate installer for your operating system.  Each release has many assets, some of which are needed for the application’s auto-update functionality and are not intended to be used for installing the application. The following table lists the installer file names and their purpose.
+   Installer File Name Purpose     WebLogic-Kubernetes-Toolkit-UI-1.</description>
+    </item>
+    
+    <item>
+      <title>Set up the WKTUI application</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/set-up-wktui-app/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/set-up-wktui-app/</guid>
+      <description>To install the WKTUI application:
+ Make sure to check the NOTE in the WKTUI Prerequisites for your OS compatibility with regard to Electron support. Go to the GitHub project Releases page and download the latest release. Run the appropriate installer for your operating system.  Each release has many assets. For a detailed description of them, see Install WKT UI.
+WKTUI Startup WKTUI requires Internet connectivity, not only for proper UI rendering, but also for REST APIs calls that it makes to GitHub for detecting and downloading updates, when they are available, and for determining the available versions of related software.</description>
     </item>
     
     <item>
@@ -129,12 +243,85 @@ Design View Design View provides values for defining the application and customi
     </item>
     
     <item>
+      <title>Deploy the Verrazzano Application</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-application/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-application/</guid>
+      <description>A Verrazzano application is a list of components, each with zero or more traits attached. Go to the Verrazzano &amp;gt; Application page. Add all five components and fill out the remaining fields, as shown in the following figure.
+Now, expand the todolist-domain component, enable Enable Ingress Trait, and click the plus sign on the Ingress Rules table. Fill in the resulting form with the data shown in the following image.</description>
+    </item>
+    
+    <item>
       <title>Ingress Controller</title>
       <link>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/k8s-ingress-controller/</link>
       <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
       
       <guid>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/k8s-ingress-controller/</guid>
       <description>Contents  Ingress Controller Design View  Ingress Controller Configuration TLS Secret for Ingress Routes Ingress Routes Configuration   Code View Install Ingress Controller Update Ingress Routes Uninstall Ingress Controller  Ingress Controller This section supports two distinct functions related to an ingress controller. First, it supports installing an ingress controller to a Kubernetes cluster. Second, it supports adding the necessary routes to an ingress controller to make a deployed WebLogic domain&amp;rsquo;s endpoints accessible.</description>
+    </item>
+    
+    <item>
+      <title>Install and Configure the Ingress Controller</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-ingress-controller/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-ingress-controller/</guid>
+      <description>While the domain is up and running, it is only accessible from inside the Kubernetes cluster. Before you can expose your application, you need to install an ingress controller. WKTUI can install the Traefik or NGINX ingress controllers. In this exercise, you will use Traefik.
+Go to the Kubernetes &amp;gt; Ingress Controller page. Even though the default settings should be sufficient, you will create an image pull secret for Docker Hub, as shown in the following image, to make sure that your cluster doesn’t encounter an error due to Docker Hub rate limiting of anonymous pull requests.</description>
+    </item>
+    
+    <item>
+      <title>Select the Project Settings</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/project-settings/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/project-settings/</guid>
+      <description>Start WKTUI.
+WKTUI uses the concept of a project that is like a project in an Integrated Development Environment (IDE). You will create a new project.
+  Using the File menu, select New Project, choose a directory, and enter the file name todo-list.wktproj.
+At this point, you will be on the Project Settings page that will look something like the one shown in the following image.
+Note: If you are not running on macOS, you will not see this top-most panel: For macOS, do you need to add directories to the PATH or define other environment variables for Docker/Podman or Kubernetes?</description>
+    </item>
+    
+    <item>
+      <title>Access the ToDo List application</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-access-app/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-access-app/</guid>
+      <description>After the Update Ingress Routes action completes, the Ingress Route Configuration table is updated with the actual URL to use to access the application, as shown in the following image.
+When you click the URL link, the following image shows the browser window that WKTUI opens. Now, you can use the ToDo list application.</description>
+    </item>
+    
+    <item>
+      <title>Access the ToDo List application</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-access-app/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-access-app/</guid>
+      <description>After the application is deployed and the WebLogic Domain is up and running, click Update URLs to update the URL with the actual hostname, which will also activate the link, as shown in the following image.
+Click on the link to go to your application, as shown in in the following image. Note that because your installation is using self-signed certificates, the browser will likely warn you that going to the application is unsafe.</description>
+    </item>
+    
+    <item>
+      <title>Create the WebLogic Deploy Tooling model</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/create-wdt-model/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/create-wdt-model/</guid>
+      <description>The WebLogic Deploy Tooling project provides a set of single-purpose tools for performing lifecycle operations of WebLogic Server domains. These tools work off a model of the domain. The model contains three types of files:
+ Model file – A YAML description of the domain that is aligned with WebLogic Scripting Tool (WLST) offline folders and attributes. Variables file – An optional Java properties file that contains key/value pairs where the key matches with a token placed in the model file.</description>
+    </item>
+    
+    <item>
+      <title>Create images with the WebLogic Image Tool</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/create-images-with-wit/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/create-images-with-wit/</guid>
+      <description>WKTUI uses the WebLogic Image Tool (WIT) to build container images. Each Oracle Fusion Middleware (FMW) Domain Target Location option has its own image requirements.
+ Model-in-Image – MII has two approaches:  Single Image – This approach uses a single image with Java, FMW, WDT, and the WDT model files all built into a single image. In WKTUI, we use the Primary Image tab to build such an image. Dual Images – This approach puts Java and FMW into one image, which WKTUI calls the primary image, and WDT and the WDT model files into a separate image, known as the auxiliary image.</description>
     </item>
     
     <item>

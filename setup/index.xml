@@ -24,8 +24,8 @@ These include:
       <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
       
       <guid>https://oracle.github.io/weblogic-toolkit-ui/setup/install/</guid>
-      <description>Download the latest WebLogic Kubernetes Toolkit UI (WKT UI) application installers from the GitHub Releases section of this repository. Simply run the appropriate installer for your operating system.  NOTE: On Linux, to get all the dependencies and have them installed in the correct order, you need to use the package manager to install the rpm or deb file. First, be sure to review the Linux prerequisites here.
-  For RPM-based systems, use either yum or dnf; for example:</description>
+      <description>Download the latest WebLogic Kubernetes Toolkit UI (WKT UI) application installers from the GitHub Releases section of this repository. Simply run the appropriate installer for your operating system.  Each release has many assets, some of which are needed for the application’s auto-update functionality and are not intended to be used for installing the application. The following table lists the installer file names and their purpose.
+   Installer File Name Purpose     WebLogic-Kubernetes-Toolkit-UI-1.</description>
     </item>
     
   </channel>
