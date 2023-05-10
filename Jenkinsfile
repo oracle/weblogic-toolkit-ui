@@ -411,11 +411,6 @@ pipeline {
                 }
             }
         }
-        stage('Call sync job') {
-            steps {
-                build job: 'wkt-sync'
-            }
-        }
         stage('Call Downstream Job') {
             steps {
                 build job: "${downstream_job_name}", propagate: false, parameters: [
