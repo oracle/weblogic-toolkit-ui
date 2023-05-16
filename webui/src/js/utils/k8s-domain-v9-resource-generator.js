@@ -242,7 +242,7 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
           // WKO 4.0+ has different behavior and parameters than 3.x
           //
           let wdtInstallHome = this.project.image.wdtHomePath.value;
-          if (!wdtInstallHome.endsWith(WDT_DIR_NAME)) {
+          if (wdtInstallHome) {
             wdtInstallHome = window.api.path.joinAndConvertToUnixPath(wdtInstallHome, WDT_DIR_NAME);
           }
           if (usingAuxImage()) {

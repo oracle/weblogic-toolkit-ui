@@ -406,7 +406,7 @@
   "image-design-wdt-domain-home-label": "Domain Home Directory",
   "image-design-wdt-domain-home-help": "The full path to the domain home directory inside the image.",
   "image-design-wdt-home-label": "WDT Home Directory",
-  "image-design-wdt-home-help": "The full path to the WebLogic Deploy Tooling home directory inside the image.",
+  "image-design-wdt-home-help": "The full path to the directory inside the image where the WebLogic Deploy Tooling installer should be unzipped.  For example, a WDT Home Directory set to /u01/wdt will cause the WebLogic Image Tool to create the /u01/wdt/weblogic-deploy directory when installing WDT.",
   "image-design-wdt-model-home-label": "Model Home Directory",
   "image-design-wdt-model-home-help": "The full path to the model home directory inside the image.",
 
