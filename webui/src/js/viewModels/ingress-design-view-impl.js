@@ -75,6 +75,14 @@ function(i18n, accUtils, ko, ArrayDataProvider, BufferingDataProvider, project, 
     ];
     this.voyagerProvidersDP = new ArrayDataProvider(this.voyagerProviders, {keyAttributes: 'key'});
 
+    this.ingressControllerServiceTypes = [
+      {key: 'LoadBalancer', label: this.labelMapper('service-type-load-balancer-label')},
+      {key: 'NodePort', label: this.labelMapper('service-type-node-port-label')}
+      // {key: 'ClusterIP', label: this.labelMapper('service-type-cluster-ip-label')}
+      // {key: 'ExternalName', label: this.labelMapper('service-type-external-name-label')}
+    ];
+    this.ingressServiceTypeDP = new ArrayDataProvider(this.ingressControllerServiceTypes, {keyAttributes: 'key'});
+
     this.createTlsSecret = () => {
       return this.project.ingress.specifyIngressTLSSecret.value && this.project.ingress.createTLSSecret.value;
     };

@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
@@ -62,6 +62,11 @@ define(['models/wkt-project', 'utils/script-generator-base', 'utils/helm-helper'
         this.adapter.addVariableDefinition('DOCKER_HUB_EMAIL', this.project.ingress.dockerRegSecretUserEmail.value);
         this.adapter.addEmptyLine();
 
+        comment = [ 'If not using an external load balancer, the ingress controller service type to use (e.g., NodePort)' ];
+        this.adapter.addVariableDefinition('SERVICE_TYPE',
+          this._getOptionalScalarFieldValue(this.project.ingress.ingressServiceType), comment);
+        this.adapter.addEmptyLine();
+
         comment = [ 'The number of minutes for the helm command to wait for completion (e.g., 10)' ];
         this.adapter.addVariableDefinition('HELM_TIMEOUT',
           this._getOptionalScalarFieldValue(this.project.ingress.helmTimeoutMinutes), comment);
@@ -78,7 +83,7 @@ define(['models/wkt-project', 'utils/script-generator-base', 'utils/helm-helper'
         let alreadyExistsMessage = `Namespace ${ingressNamespace} already exists`;
         this.adapter.addCreateNamespaceBlock(comment, kubectlExe, ingressNamespace, createErrorMessage, alreadyExistsMessage);
 
-        comment = [ ' Create Docker Hub credentials secret, if needed.' ];
+        comment = [ 'Create Docker Hub credentials secret, if needed.' ];
         const useDockerHubSecret = this.adapter.getVariableReference('USE_DOCKER_HUB_SECRET');
         const useExistingDockerHubSecret = this.adapter.getVariableReference('USE_EXISTING_DOCKER_HUB_SECRET');
         const dockerHubSecretName = this.adapter.getVariableReference('DOCKER_HUB_SECRET_NAME');
@@ -102,6 +107,10 @@ define(['models/wkt-project', 'utils/script-generator-base', 'utils/helm-helper'
         const voyagerApiEnableWebhook = this.adapter.getVariableReference('API_SERVER_ENABLE_VALIDATING_WEBHOOK');
         this.adapter.addVoyagerHelmChartArgsBlock(comment, ingressControllerType, voyagerProvider,
           voyagerApiEnableHealthCheck, voyagerApiEnableWebhook);
+
+        comment = [ 'If not using an external load balancer, set the service type for the ingress controller' ];
+        const serviceType = this.adapter.getVariableReference('SERVICE_TYPE');
+        this.adapter.addIngressServiceTypeArgBlock(comment, ingressControllerType, serviceType);
 
         comment = [ 'The number of minutes for the helm command to wait for completion (e.g., 10)' ];
         const helmTimeout = this.adapter.getVariableReference('HELM_TIMEOUT');

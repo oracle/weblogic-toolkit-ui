@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -41,6 +41,7 @@ define(['knockout', 'utils/observable-properties', 'utils/validation-helper'],
         this.specifyIngressTLSSecret = props.createProperty(false);
 
         this.helmTimeoutMinutes = props.createProperty(5);
+        this.ingressServiceType = props.createProperty('LoadBalancer');
 
         this.ingressRouteKeys = [
           'uid', 'name', 'virtualHost', 'targetServiceNameSpace', 'targetService', 'targetPort',

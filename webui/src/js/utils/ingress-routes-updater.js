@@ -431,7 +431,7 @@ function(IngressActionsBase, project, wktConsole, k8sHelper, i18n, projectIo, di
           //
           let found = false;
           for (const item of results.serviceDetails.items) {
-            if (item.spec['type'] === 'LoadBalancer') {
+            if (item.spec['type'] === 'LoadBalancer' || item.spec['type'] === 'NodePort') {
               serviceDetail = item;
               found = true;
               break;
@@ -443,7 +443,7 @@ function(IngressActionsBase, project, wktConsole, k8sHelper, i18n, projectIo, di
           }
         }
         // For Voyager it may be a nodepot service if the voyagerProvider is 'baremetal'
-        if (serviceDetail.spec['type'] === 'LoadBalancer' ||
+        if (serviceDetail.spec['type'] === 'LoadBalancer' || serviceDetail.spec['type'] === 'NodePort' ||
           (ingressControllerProvider === 'voyager' && serviceDetail.spec['type'] === 'NodePort')) {
           if ('loadBalancer' in serviceDetail.status) {
             if (JSON.stringify(serviceDetail.status.loadBalancer) === '{}') {

@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
@@ -335,6 +335,10 @@ define([],
         this._lines.push(...this._formatVoyagerHelmChartArgsBlock(comment, 'HELM_CHART_ARGS', ingressType, options), '');
       }
 
+      addIngressServiceTypeArgBlock(comment, ingressControllerTypeArg, serviceTypeArg) {
+        this.addHelmServiceTypeCollectArgsBlock(comment, 'HELM_CHART_ARGS', ingressControllerTypeArg, serviceTypeArg);
+      }
+
       addIngressHelmChartTimeoutArgBlock(comment, timeoutArg) {
         this.addHelmTimeoutCollectArgsBlock(comment, 'HELM_CHART_ARGS', timeoutArg);
       }
@@ -432,6 +436,11 @@ define([],
 
       // eslint-disable-next-line no-unused-vars
       addCollectArgs(collectVarName, ...args) {
+        /* subclasses must implement. */
+      }
+
+      // eslint-disable-next-line no-unused-vars
+      addHelmServiceTypeCollectArgsBlock(comment, collectVarName, ingressControllerTypeVarName, serviceTypeVarName) {
         /* subclasses must implement. */
       }
 
