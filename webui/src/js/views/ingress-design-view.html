@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('title')]]"></oj-bind-text></h6>
@@ -32,6 +32,11 @@
                        validators="[[project.ingress.validators.k8sNameValidator]]"
                        help.instruction="[[labelMapper('ingress-name-help')]]">
         </oj-input-text>
+        <oj-select-single label-hint="[[labelMapper('ingress-service-type-label')]]"
+                          value="{{project.ingress.ingressServiceType.observable}}"
+                          data="{{ingressServiceTypeDP}}"
+                          help.instruction="[[labelMapper('ingress-service-type-help')]]">
+        </oj-select-single>
         <oj-input-number label-hint="[[labelMapper('helm-timeout-label')]]"
                          value="{{project.ingress.helmTimeoutMinutes.observable}}"
                          min="1"

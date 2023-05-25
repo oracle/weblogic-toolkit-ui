@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
@@ -48,6 +48,23 @@ define(['utils/script-adapter-base'],
 
       getVariableReference(name) {
         return `$${name}`;
+      }
+
+      addHelmServiceTypeCollectArgsBlock(comment, collectVarName, ingressControllerTypeVarRef, serviceTypeVarRef) {
+        if (comment) {
+          this.addComment(comment);
+        }
+
+        this._lines.push(
+          `if ("${serviceTypeVarRef}" -ne "LoadBalancer") {`,
+          `${this.indent(1)}if ("${ingressControllerTypeVarRef}" -eq "traefik") {`,
+          `${this.indent(2)}$${collectVarName} = "${this.getVariableReference(collectVarName)} --set service.type=${serviceTypeVarRef}"`,
+          `${this.indent(1)}elseif ("${ingressControllerTypeVarRef}" -eq "nginx) {"`,
+          `${this.indent(2)}$${collectVarName} = "${this.getVariableReference(collectVarName)} --set controller.service.type=${serviceTypeVarRef}"`,
+          `${this.indent(1)}}`,
+          '}',
+          ''
+        );
       }
 
       addHelmTimeoutCollectArgsBlock(comment, collectVarName, timeoutVarRef) {
@@ -146,80 +163,80 @@ define(['utils/script-adapter-base'],
         const variableRef = this.getVariableReference(variableName);
         const serviceAccountLines = [
           `if ("${helmChartValues.serviceAccount}" -ne "") {`,
-          `${this.indent(1)}${variableName}="${variableRef} --set serviceAccount=${helmChartValues.serviceAccount}"`,
+          `${this.indent(1)}${variableName} = "${variableRef} --set serviceAccount=${helmChartValues.serviceAccount}"`,
           '}'
         ];
 
         const strategyLines = [
           `if ("${helmChartValues.domainNamespaceSelectionStrategy}" -eq "LabelSelector") {`,
-          `${this.indent(1)}$${variableName}="${variableRef} --set domainNamespaceLabelSelector=${helmChartValues.domainNamespaceLabelSelector}"`,
+          `${this.indent(1)}$${variableName} = "${variableRef} --set domainNamespaceLabelSelector=${helmChartValues.domainNamespaceLabelSelector}"`,
           `} elseif (("${helmChartValues.domainNamespaceSelectionStrategy}" -eq "List") -and ("${helmChartValues.domainNamespaces}" -ne "")) {`,
-          `${this.indent(1)}$${variableName}="${variableRef} --set domainNamespaces=${helmChartValues.domainNamespaces}"`,
+          `${this.indent(1)}$${variableName} = "${variableRef} --set domainNamespaces=${helmChartValues.domainNamespaces}"`,
           `} elseif ("${helmChartValues.domainNamespaceSelectionStrategy}" -eq "RegExp") {`,
-          `${this.indent(1)}$${variableName}="${variableRef} --set domainNamespaceRegExp=${helmChartValues.domainNamespaceRegExp}"`,
+          `${this.indent(1)}$${variableName} = "${variableRef} --set domainNamespaceRegExp=${helmChartValues.domainNamespaceRegExp}"`,
           '}'
         ];
 
         const pullSecretsLines = [
           `if ("${wkoPullRequiresAuthentication}" -eq "true") {`,
-          `${this.indent(1)}$${variableName}="${variableRef} --set imagePullSecrets=${helmChartValues.imagePullSecrets}"`,
+          `${this.indent(1)}$${variableName} = "${variableRef} --set imagePullSecrets=${helmChartValues.imagePullSecrets}"`,
           '}'
         ];
 
         const roleBindingLines = [
           `if ("${helmChartValues.enableClusterRoleBinding}" -eq "true") {`,
-          `${this.indent(1)}$${variableName}="${variableRef} --set enableClusterRoleBinding=${helmChartValues.enableClusterRoleBinding}"`,
+          `${this.indent(1)}$${variableName} = "${variableRef} --set enableClusterRoleBinding=${helmChartValues.enableClusterRoleBinding}"`,
           '}'
         ];
 
         const pullPolicyLines = [
           `if ("${helmChartValues.imagePullPolicy}" -ne "") {`,
-          `${this.indent(1)}$${variableName}="${variableRef} --set imagePullPolicy=${helmChartValues.imagePullPolicy}"`,
+          `${this.indent(1)}$${variableName} = "${variableRef} --set imagePullPolicy=${helmChartValues.imagePullPolicy}"`,
           '}'
         ];
 
         const externalRestLines = [
           `if ("${helmChartValues.externalRestEnabled}" -eq "true") {`,
-          `${this.indent(1)}$${variableName}="${variableRef} --set externalRestEnabled=${helmChartValues.externalRestEnabled}"`,
+          `${this.indent(1)}$${variableName} = "${variableRef} --set externalRestEnabled=${helmChartValues.externalRestEnabled}"`,
           `${this.indent(1)}if ("${helmChartValues.externalRestHttpsPort}" -ne "") {`,
-          `${this.indent(2)}$${variableName}="${variableRef} --set externalRestHttpsPort=${helmChartValues.externalRestHttpsPort}"`,
+          `${this.indent(2)}$${variableName} = "${variableRef} --set externalRestHttpsPort=${helmChartValues.externalRestHttpsPort}"`,
           `${this.indent(1)}}`,
           `${this.indent(1)}if ("${helmChartValues.externalRestIdentitySecret}" -ne "") {`,
-          `${this.indent(2)}$${variableName}="${variableRef} --set externalRestIdentitySecret=${helmChartValues.externalRestIdentitySecret}"`,
+          `${this.indent(2)}$${variableName} = "${variableRef} --set externalRestIdentitySecret=${helmChartValues.externalRestIdentitySecret}"`,
           `${this.indent(1)}}`,
           '}'
         ];
 
         const elkIntegrationLines = [
           `if ("${helmChartValues.elkIntegrationEnabled}" -eq "true") {`,
-          `${this.indent(1)}$${variableName}="${variableRef} --set elkIntegrationEnabled=${helmChartValues.elkIntegrationEnabled}"`,
+          `${this.indent(1)}$${variableName} = "${variableRef} --set elkIntegrationEnabled=${helmChartValues.elkIntegrationEnabled}"`,
           `${this.indent(1)}if ("${helmChartValues.logStashImage}" -ne "") {`,
-          `${this.indent(2)}$${variableName}="${variableRef} --set logStashImage=${helmChartValues.logStashImage}"`,
+          `${this.indent(2)}$${variableName} = "${variableRef} --set logStashImage=${helmChartValues.logStashImage}"`,
           `${this.indent(1)}}`,
           `${this.indent(1)}if ("${helmChartValues.elasticSearchHost}" -ne "") {`,
-          `${this.indent(2)}$${variableName}="${variableRef} --set elasticSearchHost=${helmChartValues.elasticSearchHost}"`,
+          `${this.indent(2)}$${variableName} = "${variableRef} --set elasticSearchHost=${helmChartValues.elasticSearchHost}"`,
           `${this.indent(1)}}`,
           `${this.indent(1)}if ("${helmChartValues.elasticSearchPort}" -ne "") {`,
-          `${this.indent(2)}$${variableName}="${variableRef} --set elasticSearchPort=${helmChartValues.elasticSearchPort}"`,
+          `${this.indent(2)}$${variableName} = "${variableRef} --set elasticSearchPort=${helmChartValues.elasticSearchPort}"`,
           `${this.indent(1)}}`,
           '}'
         ];
 
         const javaLoggingLines = [
           `if ("${helmChartValues.javaLoggingLevel}" -ne "") {`,
-          `${this.indent(1)}$${variableName}="${variableRef} --set javaLoggingLevel=${helmChartValues.javaLoggingLevel}"`,
+          `${this.indent(1)}$${variableName} = "${variableRef} --set javaLoggingLevel=${helmChartValues.javaLoggingLevel}"`,
           '}',
           `if ("${helmChartValues.javaLoggingFileSizeLimit}" -ne "") {`,
-          `${this.indent(1)}$${variableName}="${variableRef} --set javaLoggingFileSizeLimit=${helmChartValues.javaLoggingFileSizeLimit}"`,
+          `${this.indent(1)}$${variableName} = "${variableRef} --set javaLoggingFileSizeLimit=${helmChartValues.javaLoggingFileSizeLimit}"`,
           '}',
           `if ("${helmChartValues.javaLoggingFileCount}" -ne "") {`,
-          `${this.indent(1)}$${variableName}="${variableRef} --set javaLoggingFileCount=${helmChartValues.javaLoggingFileCount}"`,
+          `${this.indent(1)}$${variableName} = "${variableRef} --set javaLoggingFileCount=${helmChartValues.javaLoggingFileCount}"`,
           '}'
         ];
 
         const helmTimeoutLines = [
           `if ("${helmChartValues.timeout}" -ne "") {`,
-          `${this.indent(1)}$${variableName}="${variableRef} --timeout $(${helmChartValues.timeout})m"`,
+          `${this.indent(1)}$${variableName} = "${variableRef} --timeout $(${helmChartValues.timeout})m"`,
           '}',
         ];
 
@@ -444,16 +461,16 @@ define(['utils/script-adapter-base'],
 
         const collectVar = this.getVariableReference(collectVariableName);
         return [
-          `$${collectVariableName}=""`,
+          `$${collectVariableName} = ""`,
           `if ("${ingressType}" -eq "Voyager") {`,
           `${this.indent(1)}if ("${options.cloudProvider}" -ne "") {`,
-          `${this.indent(2)}$${collectVariableName}="${collectVar} --set cloudProvider=${options.cloudProvider}"`,
+          `${this.indent(2)}$${collectVariableName} = "${collectVar} --set cloudProvider=${options.cloudProvider}"`,
           `${this.indent(1)}}`,
           `${this.indent(1)}if ("${options['apiserver.healthcheck.enabled']}" -ne "") {`,
-          `${this.indent(2)}$${collectVariableName}="${collectVar} --set apiserver.healthcheck.enabled=${options['apiserver.healthcheck.enabled']}"`,
+          `${this.indent(2)}$${collectVariableName} = "${collectVar} --set apiserver.healthcheck.enabled=${options['apiserver.healthcheck.enabled']}"`,
           `${this.indent(1)}}`,
           `${this.indent(1)}if ("${options['apiserver.enableValidationWebhook']}" -ne "") {`,
-          `${this.indent(2)}$${collectVariableName}="${collectVar} --set apiserver.enableValidationWebhook=${options['apiserver.enableValidationWebhook']}"`,
+          `${this.indent(2)}$${collectVariableName} = "${collectVar} --set apiserver.enableValidationWebhook=${options['apiserver.enableValidationWebhook']}"`,
           `${this.indent(1)}}`,
           '}'
         ];
@@ -468,9 +485,9 @@ define(['utils/script-adapter-base'],
         return [
           `if ("${useSecret}" -eq "true") {`,
           `${this.indent(1)}if ("${ingressType}" -eq "Traefik") {`,
-          `${this.indent(2)}$${collectVariableName}="${collectVar} --set deployment.imagePullSecrets[0].name=${secretName}"`,
+          `${this.indent(2)}$${collectVariableName} = "${collectVar} --set deployment.imagePullSecrets[0].name=${secretName}"`,
           `${this.indent(1)}} elseif ("${ingressType}" -eq "Voyager") {`,
-          `${this.indent(2)}$${collectVariableName}="${collectVar} --set imagePullSecrets[0].name=${secretName}"`,
+          `${this.indent(2)}$${collectVariableName} = "${collectVar} --set imagePullSecrets[0].name=${secretName}"`,
           `${this.indent(1)}}`,
           '}'
         ];

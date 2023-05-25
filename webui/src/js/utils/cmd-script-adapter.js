@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
@@ -75,6 +75,24 @@ define(['utils/script-adapter-base'],
 
       getVariableReference(name) {
         return this.getEnvironmentVariableReference(name);
+      }
+
+      addHelmServiceTypeCollectArgsBlock(comment, collectVarName, ingressControllerTypeVarRef, serviceTypeVarRef) {
+        if (comment) {
+          this.addComment(comment);
+        }
+
+        this._lines.push(
+          `IF "${serviceTypeVarRef}" == "LoadBalancer" (`,
+          `${this.indent(1)}IF "${ingressControllerTypeVarRef}" == "traefik" (`,
+          `${this.indent(2)}SET "${collectVarName}=${this.getVariableReference(collectVarName)} --set service.type=${serviceTypeVarRef}"`,
+          `${this.indent(1)})`,
+          `${this.indent(1)}IF "${ingressControllerTypeVarRef}" == "nginx) ("`,
+          `${this.indent(2)}SET "${collectVarName}=${this.getVariableReference(collectVarName)} --set controller.service.type=${serviceTypeVarRef}"`,
+          `${this.indent(1)})`,
+          ')',
+          ''
+        );
       }
 
       addHelmTimeoutCollectArgsBlock(comment, collectVarName, timeoutVarRef) {
