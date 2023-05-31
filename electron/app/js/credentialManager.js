@@ -1,11 +1,13 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const CredentialEncryptor = require('./credentialEncryptor');
 const { getJsonPathReference } = require('./jsonPath');
 const { getLogger } = require('./wktLogging');
+
+const DECRYPTION_FAILED_STRING = 'Unsupported state or unable to authenticate data';
 
 /* global Buffer */
 class CredentialManager {
@@ -113,6 +115,8 @@ class CredentialStoreManager extends CredentialManager {
 }
 
 class EncryptedCredentialManager extends CredentialManager {
+  static BAD_PASSPHRASE_KEY = 'Incorrect passphrase';
+
   constructor(passphrase) {
     super('passphrase');
     super.credentialManager = this;
@@ -149,9 +153,16 @@ class EncryptedCredentialManager extends CredentialManager {
   async loadCredential(jsonPath, cipherText) {
     return new Promise((resolve, reject) => {
       try {
-        return resolve(this.credentialEncryptor.getDecryptedText(cipherText));
+        const decryptedText = this.credentialEncryptor.getDecryptedText(cipherText);
+        return resolve(decryptedText);
       } catch (err) {
-        reject(err);
+        let message = `Failed to load credential for ${jsonPath}: `;
+        if (err?.message === DECRYPTION_FAILED_STRING) {
+          message += EncryptedCredentialManager.BAD_PASSPHRASE_KEY;
+        } else {
+          message += err;
+        }
+        reject(new Error(message));
       }
     });
   }

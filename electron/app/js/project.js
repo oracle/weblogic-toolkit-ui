@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const {app, dialog} = require('electron');
@@ -142,29 +142,18 @@ async function openProjectFile(targetWindow, projectFile, isDirty) {
     const existingProjectWindow = _getOpenWindowForProject(projectFile);
     if (existingProjectWindow) {
       showExistingProjectWindow(existingProjectWindow);
-      resolve();
+      return resolve();
     } else {
-      _createOrReplace(targetWindow, isDirty)
-        .then(projectWindow => {
-          if (!projectWindow) {
-            return resolve();
-          }
-          _openProjectFile(projectWindow, projectFile)
-            .then(() => {
-              resolve();
-            })
-            .catch(err => reject(err));
-        })
-        .catch(err => reject(err));
+      _createOrReplace(targetWindow, isDirty).then(projectWindow => {
+        if (!projectWindow) {
+          return resolve();
+        }
+        _openProjectFile(projectWindow, projectFile).then(() => {
+          return resolve();
+        }).catch(err => reject(err));
+      }).catch(err => reject(err));
     }
-  })
-    .catch(err => {
-      dialog.showErrorBox(
-        i18n.t('dialog-openProjectFileErrorTitle'),
-        i18n.t('dialog-openProjectFileErrorMessage', { projectFileName: projectFile, err: errorUtils.getErrorMessage(err) }),
-      );
-      getLogger().error('Failed to open project file %s: %s', projectFile, err);
-    });
+  });
 }
 
 // request the existing project file, prompting the user if needed.
@@ -438,7 +427,7 @@ function _generateProjectUuid() {
 //
 async function _openProjectFile(targetWindow, projectFileName) {
   if (targetWindow.isReady) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       readFile(projectFileName, { encoding: 'utf8' }).then(data => {
         let jsonContent;
         try {
@@ -466,12 +455,27 @@ async function _openProjectFile(targetWindow, projectFileName) {
               getLogger().debug('_openProjectFile adding %s to recent documents', projectFileName);
               app.addRecentDocument(projectFileName);
               resolve();
-            }).catch(err => reject(err));
-          }).catch(err => reject(err));
-        }).catch(err => reject(err));
+            }).catch(err => {
+              dialog.showErrorBox(i18n.t('dialog-openProjectFileSendToWindowErrorTitleErrorTitle'),
+                i18n.t('dialog-openProjectFileSendToWindowErrorMessage', { projectFileName, err }));
+              closeProject(targetWindow, true);
+              resolve();
+            });
+          }).catch(err => {
+            _show_load_credentials_error(projectFileName, err);
+            openProjects.delete(targetWindow);
+            resolve();
+          });
+        }).catch(err => {
+          dialog.showErrorBox(i18n.t('dialog-openProjectFileCredentialManagerErrorTitle'),
+            i18n.t('dialog-openProjectFileCredentialManagerErrorMessage', { projectFileName, err }));
+          getLogger().error('Failed to open project %s due to error while creating the credential manager: %s',
+            projectFileName, err);
+          openProjects.delete(targetWindow);
+          resolve();
+        });
       }).catch(err => {
-        dialog.showErrorBox(
-          i18n.t('dialog-openProjectFileReadErrorTitle'),
+        dialog.showErrorBox(i18n.t('dialog-openProjectFileReadErrorTitle'),
           i18n.t('dialog-openProjectFileReadErrorMessage', { projectFileName: projectFileName, err: err }),
         );
         resolve();
@@ -997,6 +1001,20 @@ function downloadFile(targetWindow, lines, fileType, format, formatName) {
         });
     }
   });
+}
+
+function _show_load_credentials_error(projectFileName, err) {
+  let logMessage;
+  if (err?.message?.endsWith(EncryptedCredentialManager.BAD_PASSPHRASE_KEY)) {
+    logMessage = 'Failed to open project %s due to invalid passphrase: %s';
+    dialog.showErrorBox(i18n.t('dialog-openProjectFileBadPassphraseErrorTitle'),
+      i18n.t('dialog-openProjectFileBadPassphraseErrorMessage', { projectFileName, err }));
+  } else {
+    logMessage = 'Failed to open project %s due to an error while loading credentials: %s';
+    dialog.showErrorBox(i18n.t('dialog-openProjectFileLoadCredentialsErrorTitle'),
+      i18n.t('dialog-openProjectFileLoadCredentialsErrorTitle', { projectFileName, err }));
+  }
+  getLogger().error(logMessage, projectFileName, err);
 }
 
 module.exports = {
