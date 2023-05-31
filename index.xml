@@ -325,6 +325,17 @@ Click on the link to go to your application, as shown in in the following image.
     </item>
     
     <item>
+      <title>Release Notes 1.5.2</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.5.2/</link>
+      <pubDate>Thu, 03 Nov 2022 12:48:00 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.5.2/</guid>
+      <description>Changes in Release 1.5.2  Major New Features Other Changes Bugs Fixes Known Issues  Major New Features None
+Other Changes None
+Bug Fixes  #232 - Fixed an issue in the Verrazzano Application page where the component&amp;rsquo;s Ingress Trait Rule destination names were not properly converted to legal Kubernetes names so that they would match the generated service names when the domain, cluster, or server names combinations had more than one disallowed characters in them.</description>
+    </item>
+    
+    <item>
       <title>Release 1.5.1</title>
       <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.5.1/</link>
       <pubDate>Thu, 03 Nov 2022 12:48:00 -0500</pubDate>
