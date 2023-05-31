@@ -50,4 +50,4 @@ None
   [Electron bug 32857](https://github.com/electron/electron/issues/32857).
 - When deploying a Verrazzano application, the `Get Application Status` button only checks the status of the project's
   Verrazzano component containing the WebLogic domain specification.
-- Verrazzano installation does not support a multi-cluster installation.
+- Verrazzano installation does not support a multicluster installation.

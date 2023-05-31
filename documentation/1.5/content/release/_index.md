@@ -1,11 +1,11 @@
 +++
 title = "Release Notes"
 date = 2022-11-03T12:48:00-05:00
-weight = 91
+weight = 90
 pre = "<b> </b>"
 +++
 
-### Changes in Release 1.5.2
+### Changes in Release 1.5.3
 - [Major New Features](#major-new-features)
 - [Other Changes](#other-changes)
 - [Bugs Fixes](#bug-fixes)
@@ -16,21 +16,23 @@ pre = "<b> </b>"
 None
 
 #### Other Changes
-None
+- #242 - Added initial (very minimal) internationalization support bundles.
+- #245 - Added an Ingress Controller Service Type field that can be used when installing an ingress controller to
+         a Kubernetes cluster without a load balancer.
 
 #### Bug Fixes
-- #232 - Fixed an issue in the Verrazzano Application page where the component's Ingress Trait Rule destination names 
-  were not properly converted to legal Kubernetes names so that they would match the generated service names when the
-  domain, cluster, or server names combinations had more than one disallowed characters in them.
+- #241 - Fixed a bug with the WebLogic Image Tool's `--wdtHome` argument when it ended with `weblogic-deploy`.
+- #246 - Worked around a WebLogic Kubernetes Operator issue where the `javaLoggingFileSizeLimit` value was not working
+         due to Helm issue [1707](https://github.com/helm/helm/issues/1707).
+- #247 - Fixed issue with Open Project when storing the credentials in the project and entering the wrong passphrase
+         that was causing the UI to not allow re-opening the project.
 
 #### Known Issues
-- In the Model Design View, changing the `Source Path` and `Plan Path` fields for existing App Deployments and Shared Libraries
-  is broken in this release.  To work around it, either remove and recreate the deployment or use the Model Code View's
-  Model Editor and Archive Editor to make the appropriate changes.
-- In Model Design View, the `Plan`/`Plan Path` fields for App Deployments mistakenly allow you to select a directory.  This is
-  not valid and will result in an error.  Please make sure to select a file for any deployment plan.  
+- In the Model Design View when creating an App Deployment or Shared Library, changing the `Source` field back to an empty value
+  results in a bogus error message about not removing the deployment from the archive file.  This eror is harmless so simply
+  dismiss the error dialog and continue.
 - On Linux, the open and save dialogs open behind the main application window.  This is due to
   [Electron bug 32857](https://github.com/electron/electron/issues/32857).
 - When deploying a Verrazzano application, the `Get Application Status` button only checks the status of the project's
   Verrazzano component containing the WebLogic domain specification.
-- Verrazzano installation does not support a multi-cluster installation.
+- Verrazzano installation does not support a multicluster installation.
