@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -248,6 +248,12 @@ function processHelmChartValues(args, helmChartValues) {
 
         case 'timeout':
           args.push('--timeout', `${propertyValue}m`);
+          break;
+
+        // Workaround Helm bug #1707 that formats large integers in scientific notation...
+        //
+        case 'javaLoggingFileSizeLimit':
+          args.push('--set-string', formatSetArgument(propertyName, propertyValue));
           break;
 
         default:
