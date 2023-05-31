@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -176,7 +176,7 @@ function(WktActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, val
         // Only put the values in here where the UI is not following the operator helm chart's default values.
         //
         serviceAccount: operatorServiceAccount,
-        domainNamespaceSelectionStrategy: this.project.wko.operatorDomainNamespaceSelectionStrategy.value
+        domainNamespaceSelectionStrategy: this.project.wko.operatorDomainNamespaceSelectionStrategy.value,
       };
 
       if (!this.isValueEmpty(this.project.wko.operatorImage.value)) {
@@ -232,8 +232,14 @@ function(WktActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, val
       }
 
       this.addHelmChartValueIfSet(helmChartValues, 'javaLoggingLevel', this.project.wko.javaLoggingLevel);
-      this.addHelmChartValueIfSet(helmChartValues, 'javaLoggingFileSizeLimit', this.project.wko.javaLoggingFileSizeLimit);
       this.addHelmChartValueIfSet(helmChartValues, 'javaLoggingFileCount', this.project.wko.javaLoggingFileCount);
+
+      // Prior to WKO 4.1.0, the operator Helm charts were vulnerable to Helm bug #1707 that mangles the value of
+      // large integers by putting them in scientific notation.  This causes the javaLoggingFileSizeLimit to not be
+      // honored.  As a workaround, always include this parameter in the Helm chart values.  The code processing this
+      // collection will use --set-string for this property to ensure that it is set correctly.
+      //
+      helmChartValues['javaLoggingFileSizeLimit'] = this.project.wko.javaLoggingFileSizeLimit.value;
 
       if (this.project.wko.nodeSelector.hasValue()) {
         const nodeSelectorMap = {};
