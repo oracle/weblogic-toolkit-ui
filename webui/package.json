@@ -33,7 +33,7 @@
     "json-query": "^2.2.2",
     "mocha": "^10.2.0",
     "nyc": "^15.1.0",
-    "underscore": "^1.10.2"
+    "underscore": "^1.12.1"
   },
   "engines": {
     "node": ">=10.13.0"
