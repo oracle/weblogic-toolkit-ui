@@ -4,12 +4,12 @@
 
   "cdns": {
     "jet": {
-      "prefix": "https://static.oracle.com/cdn/jet/13.0.0/default/js",
-      "css": "https://static.oracle.com/cdn/jet/13.0.0/default/css",
-      "csspreact": "https://static.oracle.com/cdn/jet/13.0.0/3rdparty/oraclejet-preact/amd",
+      "prefix": "https://static.oracle.com/cdn/jet/14.1.0/default/js",
+      "css": "https://static.oracle.com/cdn/jet/14.1.0/default/css",
+      "csspreact": "https://static.oracle.com/cdn/jet/14.1.0/3rdparty/oraclejet-preact/amd",
       "config": "bundles-config.js"
     },
-    "3rdparty": "https://static.oracle.com/cdn/jet/13.0.0/3rdparty"
+    "3rdparty": "https://static.oracle.com/cdn/jet/14.1.0/3rdparty"
   },
 
   "libs": {
@@ -35,12 +35,12 @@
       "debug": {
         "src": "jquery.js",
         "path": "libs/jquery/jquery-#{version}.js",
-        "cdnPath": "jquery/jquery-3.6.0"
+        "cdnPath": "jquery/jquery-3.6.1"
       },
       "release": {
         "src": "jquery.min.js",
         "path": "libs/jquery/jquery-#{version}.min.js",
-        "cdnPath": "jquery/jquery-3.6.0.min"
+        "cdnPath": "jquery/jquery-3.6.1.min"
       }
     },
 
@@ -50,12 +50,12 @@
       "debug": {
         "src": ["*.js", "widgets/draggable.js", "widgets/mouse.js", "widgets/sortable.js", "vendor/jquery-color/jquery.color.js"],
         "path": "libs/jquery/jqueryui-amd-#{version}",
-        "cdnPath": "jquery/jqueryui-amd-1.13.0"
+        "cdnPath": "jquery/jqueryui-amd-1.13.2"
       },
       "release": {
         "src": ["*.js", "widgets/draggable.js", "widgets/mouse.js", "widgets/sortable.js", "vendor/jquery-color/jquery.color.js"],
         "path": "libs/jquery/jqueryui-amd-#{version}.min",
-        "cdnPath": "jquery/jqueryui-amd-1.13.0.min"
+        "cdnPath": "jquery/jqueryui-amd-1.13.2.min"
       }
     },
 
@@ -138,7 +138,7 @@
 
     "@oracle/oraclejet-preact": {
       "cdn": "3rdparty",
-      "cwd": "node_modules/@oracle/oraclejet/dist/js/libs/oraclejet-preact/amd",
+      "cwd": "node_modules/@oracle/oraclejet-preact/amd",
       "debug": {
         "src":  ["**"],
         "path": "libs/oraclejet-preact/amd",
@@ -157,7 +157,7 @@
       "debug": {
         "src":  ["**"],
         "path": "libs/packs/oj-c",
-        "cdnPath": "../../packs/oj-c/#{version}"
+        "cdnPath": "../../packs/oj-c/#{version}/min"
       },
       "release": {
         "src":  ["**"],
@@ -272,7 +272,6 @@
         "cdnPath": "preact/compat/dist/compat.umd"
       }
     },
-
     "preact/jsx-runtime": {
       "cdn": "3rdparty",
       "cwd": "node_modules/preact/jsx-runtime/dist",

@@ -1,31 +1,25 @@
 // JAF Generated OJET Based Configuration
+// Updated: Thu Jun 01 2023 08:06:08 GMT+0700 (Indochina Time)
+
 {
    "base": "$jafcwd",
    "files": [
       "./src/**/*.html",
       "./src/**/*.js",
       "./src/**/*.ts",
-      "./src-web/**/*.html",
-      "./src-web/**/*.js",
-      "./src-web/**/*.ts",
-      "./src-hybrid/**/*.html",
-      "./src-hybrid/**/*.js",
-      "./src-hybrid/**/*.ts",
-      "./src/css/**/*.css",
-      "./src/js/jet-composites/**/component.json"
+      "./src/**/component.json",
+      "./src/css/**/*.css"
    ],
    "exclude": [
-      "./jet_components/**/*.*",
-      "./src/js/jet-composites/**/extension/**/*.*",
-      "./src/js/jet-composites/**/resources/**/*.*",
-      "./src/js/libs/**/*.*",
       "./src/**/*-min.js",
       "./src/**/*-min.css",
       "./**/node_modules/**/*.*"
    ],
-   "components": [],
+   "components": [
+      "./jet_components/**/component.json"
+   ],
    "builtinJetRules": true,
-   "jetVer": "11.0",
+   "jetVer": "14.1",
    "ecmaVer": 11,
    "theme": "Redwood",
    "format": "prose",
@@ -37,7 +31,7 @@
       "verbose": false,
       "color": true
    },
-   "proseFormat":"%mid (%r) %pos1 %s: %m",
+   "proseFormat": "%mid (%r) %pos1 %s: %m",
    "ruleMods": {
       "JET": {
          "oj-html-form-layout-maxcols": {
@@ -56,6 +50,6 @@
    ],
    "ojet": {
       "update": true,
-      "md5": "edec31b33844720596ea543e5ebfd82c"
+      "md5": "1966670f5ca853578663764d3501863d"
    }
 }

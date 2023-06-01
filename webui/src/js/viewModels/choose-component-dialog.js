@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2022, 2023, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
@@ -15,7 +15,6 @@ function(accUtils, ko, i18n, props, validationHelper, ArrayDataProvider) {
     this.i18n = i18n;
     this.availableComponentNames = args.availableComponentNames;
     this.selectedComponentName = ko.observable();
-    this.selectedComponentNameValidator = validationHelper.getRequiredFieldValidators();
 
     this.availableComponentNamesDP = new ArrayDataProvider(this.availableComponentNames, { keyAttributes: 'value' });
 
