@@ -9,7 +9,7 @@
 
 module.exports = function (configObj) {
   return new Promise((resolve, reject) => {
-  	console.log("Running before_component_optimize hook.");
+  	console.log("Running before_injection hook.");
   	resolve(configObj);
   });
 };

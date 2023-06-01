@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2022, Oracle and/or its affiliates.
+ Copyright (c) 2022, 2023, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 <oj-dialog id="chooseComponentDialog" class="wkt-add-to-archive-dialog" initial-visibility="hide">
@@ -15,7 +15,6 @@
           <oj-select-single label-hint="[[labelMapper('name-label')]]"
                             value="{{selectedComponentName}}"
                             data="{{availableComponentNamesDP}}"
-                            validators="[[selectedComponentNameValidator]]"
                             help.instruction="[[labelMapper('name-help')]]">
           </oj-select-single>
         </oj-form-layout>
