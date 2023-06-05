@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2022, Oracle and/or its affiliates.
+ Copyright (c) 2022, 2023, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('title')]]"></oj-bind-text></h6>
@@ -149,6 +149,28 @@
                       help.instruction="[[domainLabelMapper('image-pull-policy-help')]]">
     </oj-select-single>
   </oj-form-layout>
+
+  <oj-bind-if test="[[showPrimaryImageHomeFields]]">
+    <oj-form-layout max-columns="3" direction="row">
+      <oj-input-text label-hint="[[domainLabelMapper('image-wdt-install-home-label')]]"
+                     value="{{project.k8sDomain.imageWDTInstallHome.observable}}"
+                     help.instruction="[[domainLabelMapper('image-wdt-install-home-help')]]">
+      </oj-input-text>
+      <oj-input-text label-hint="[[domainLabelMapper('image-model-home-label')]]"
+                     value="{{project.k8sDomain.imageModelHome.observable}}"
+                     help.instruction="[[domainLabelMapper('image-model-home-help')]]">
+      </oj-input-text>
+      <oj-button id="inspectPrimaryImageButton"
+                 chroming="callToAction"
+                 on-oj-action="[[inspectPrimaryImageForWDTLocations]]"
+                 :title="[[domainLabelMapper('image-inspect-hints')]]">
+            <span>
+              <oj-bind-text value="[[domainLabelMapper('image-inspect-button')]]"></oj-bind-text>
+            </span>
+      </oj-button>
+    </oj-form-layout>
+  </oj-bind-if>
+
   <oj-form-layout max-columns="2" direction="row">
     <oj-switch label-hint="[[domainLabelMapper('image-registry-pull-requires-authentication-label')]]"
                value="{{project.k8sDomain.imageRegistryPullRequireAuthentication.observable}}"
@@ -240,6 +262,28 @@
                           help.instruction="[[domainLabelMapper('aux-image-pull-policy-help')]]">
         </oj-select-single>
       </oj-form-layout>
+
+      <oj-bind-if test="[[showAuxImageSourceFields]]">
+        <oj-form-layout max-columns="3" direction="row">
+          <oj-input-text label-hint="[[domainLabelMapper('aux-image-source-wdt-home-label')]]"
+                         value="{{project.k8sDomain.auxImageSourceWDTInstallHome.observable}}"
+                         help.instruction="[[domainLabelMapper('aux-image-source-wdt-home-help')]]">
+          </oj-input-text>
+          <oj-input-text label-hint="[[domainLabelMapper('aux-image-source-model-home-label')]]"
+                         value="{{project.k8sDomain.auxImageSourceModelHome.observable}}"
+                         help.instruction="[[domainLabelMapper('aux-image-source-model-home-help')]]">
+          </oj-input-text>
+          <oj-button id="inspectAuxiliaryImageButton"
+                     chroming="callToAction"
+                     on-oj-action="[[inspectAuxiliaryImageForWDTLocations]]"
+                     :title="[[domainLabelMapper('aux-image-inspect-hints')]]">
+            <span>
+              <oj-bind-text value="[[domainLabelMapper('aux-image-inspect-button')]]"></oj-bind-text>
+            </span>
+          </oj-button>
+        </oj-form-layout>
+      </oj-bind-if>
+
       <oj-form-layout max-columns="2" direction="row">
         <oj-switch label-hint="[[domainLabelMapper('aux-image-registry-pull-requires-authentication-label')]]"
                    value="{{project.k8sDomain.auxImageRegistryPullRequireAuthentication.observable}}"

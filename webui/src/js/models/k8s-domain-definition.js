@@ -53,7 +53,7 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
         // not using an Auxiliary Image at all.
         //
         this.imageModelHome = props.createProperty(imageDefinition.modelHomePath.value);
-        this.imageWDTInstallHome = props.createProperty(imageDefinition.wdtHomePath.value);
+        this.imageWDTInstallHome = props.createProperty(imageDefinition.wdtHomePath.value + '/weblogic-deploy');
 
         // Auxiliary image-related properties
         this.auxImageRegistryPullRequireAuthentication = props.createProperty(false);

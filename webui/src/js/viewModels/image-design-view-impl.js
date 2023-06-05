@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 define(['utils/wkt-logger', 'utils/screen-utils'],
@@ -228,7 +228,7 @@ define(['utils/wkt-logger', 'utils/screen-utils'],
       };
 
       this.inspectBaseImage = () => {
-        wktImageInspector.startInspectImage().then(isSuccess => {
+        wktImageInspector.startInspectBaseImage().then(isSuccess => {
           if (isSuccess) {
             this.project.image.baseImageInspected.observable(true);
           }
