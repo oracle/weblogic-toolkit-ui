@@ -5,11 +5,11 @@
  */
 define(['models/wkt-project', 'accUtils', 'utils/common-utilities', 'knockout', 'utils/i18n', 'utils/screen-utils',
   'ojs/ojbufferingdataprovider', 'ojs/ojarraydataprovider', 'ojs/ojconverter-number', 'utils/dialog-helper',
-  'utils/view-helper', 'utils/vz-get-installed-version', 'utils/wkt-logger', 'ojs/ojmessaging', 'ojs/ojinputtext',
-  'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojformlayout', 'ojs/ojcollapsible', 'ojs/ojselectsingle', 'ojs/ojlistview',
-  'ojs/ojtable', 'ojs/ojswitch', 'ojs/ojinputnumber', 'ojs/ojradioset'],
+  'utils/view-helper', 'utils/vz-get-installed-version', 'utils/wit-inspector', 'utils/wkt-logger', 'ojs/ojmessaging',
+  'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojformlayout', 'ojs/ojcollapsible', 'ojs/ojselectsingle',
+  'ojs/ojlistview', 'ojs/ojtable', 'ojs/ojswitch', 'ojs/ojinputnumber', 'ojs/ojradioset'],
 function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider, ArrayDataProvider,
-  ojConverterNumber, dialogHelper, viewHelper, verrazzanoInstallVersionChecker) {
+  ojConverterNumber, dialogHelper, viewHelper, verrazzanoInstallVersionChecker, witInspector) {
   function VerrazzanoComponentDesignViewModel() {
 
     let subscriptions = [];
@@ -137,12 +137,24 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       return this.domainLabelMapper(key);
     }, this);
 
+    this.showPrimaryImageHomeFields = ko.computed(() => {
+      return this.project.settings.targetDomainLocation.observable() === 'mii' &&
+        !this.project.image.createPrimaryImage.observable() &&
+        !this.project.image.useAuxImage.observable();
+    }, this);
+
     this.isPrimaryImageTagReadOnly = ko.computed(() => {
       return this.project.image.createPrimaryImage.observable();
     }, this);
 
     this.isAuxImageTagReadOnly = ko.computed(() => {
       return this.project.image.createAuxImage.observable();
+    }, this);
+
+    this.showAuxImageSourceFields = ko.computed(() => {
+      return this.project.settings.targetDomainLocation.observable() === 'mii' &&
+        this.project.image.useAuxImage.observable() &&
+        !this.project.image.createAuxImage.observable();
     }, this);
 
     this.auxImageTagHelp = ko.computed(() => {
@@ -152,6 +164,14 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       }
       return this.domainLabelMapper(key);
     });
+
+    this.inspectPrimaryImageForWDTLocations = async () => {
+      await witInspector.startInspectPrimaryImage();
+    };
+
+    this.inspectAuxiliaryImageForWDTLocations = async () => {
+      await witInspector.startInspectAuxiliaryImage();
+    };
 
     this.targetDomainLocationIsMII = () => {
       return this.project.settings.targetDomainLocation.value === 'mii';

@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('title')]]"></oj-bind-text></h6>
@@ -143,7 +143,7 @@
   </oj-form-layout>
 
   <oj-bind-if test="[[showPrimaryImageHomeFields]]">
-    <oj-form-layout max-columns="2" direction="row">
+    <oj-form-layout max-columns="3" direction="row">
       <oj-input-text label-hint="[[labelMapper('image-wdt-install-home-label')]]"
                      value="{{project.k8sDomain.imageWDTInstallHome.observable}}"
                      help.instruction="[[labelMapper('image-wdt-install-home-help')]]">
@@ -152,6 +152,14 @@
                      value="{{project.k8sDomain.imageModelHome.observable}}"
                      help.instruction="[[labelMapper('image-model-home-help')]]">
       </oj-input-text>
+      <oj-button id="inspectPrimaryImageButton"
+                 chroming="callToAction"
+                 on-oj-action="[[inspectPrimaryImageForWDTLocations]]"
+                 :title="[[labelMapper('image-inspect-hints')]]">
+            <span>
+              <oj-bind-text value="[[labelMapper('image-inspect-button')]]"></oj-bind-text>
+            </span>
+      </oj-button>
     </oj-form-layout>
   </oj-bind-if>
 
@@ -248,7 +256,7 @@
       </oj-form-layout>
 
       <oj-bind-if test="[[showAuxImageSourceFields]]">
-        <oj-form-layout max-columns="2" direction="row">
+        <oj-form-layout max-columns="3" direction="row">
           <oj-input-text label-hint="[[labelMapper('aux-image-source-wdt-home-label')]]"
                          value="{{project.k8sDomain.auxImageSourceWDTInstallHome.observable}}"
                          help.instruction="[[labelMapper('aux-image-source-wdt-home-help')]]">
@@ -257,6 +265,14 @@
                          value="{{project.k8sDomain.auxImageSourceModelHome.observable}}"
                          help.instruction="[[labelMapper('aux-image-source-model-home-help')]]">
           </oj-input-text>
+          <oj-button id="inspectAuxiliaryImageButton"
+                     chroming="callToAction"
+                     on-oj-action="[[inspectAuxiliaryImageForWDTLocations]]"
+                     :title="[[labelMapper('aux-image-inspect-hints')]]">
+            <span>
+              <oj-bind-text value="[[labelMapper('aux-image-inspect-button')]]"></oj-bind-text>
+            </span>
+          </oj-button>
         </oj-form-layout>
       </oj-bind-if>
 

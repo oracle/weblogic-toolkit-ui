@@ -5,11 +5,11 @@
  */
 define(['models/wkt-project', 'accUtils', 'utils/common-utilities', 'knockout', 'utils/i18n', 'utils/screen-utils',
   'ojs/ojbufferingdataprovider', 'ojs/ojarraydataprovider', 'ojs/ojconverter-number', 'utils/dialog-helper',
-  'utils/view-helper', 'utils/wko-get-installed-version', 'utils/wkt-logger', 'ojs/ojmessaging', 'ojs/ojinputtext',
-  'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojformlayout', 'ojs/ojcollapsible', 'ojs/ojselectsingle', 'ojs/ojlistview',
-  'ojs/ojtable', 'ojs/ojswitch', 'ojs/ojinputnumber', 'ojs/ojradioset'],
+  'utils/view-helper', 'utils/wko-get-installed-version', 'utils/wit-inspector', 'utils/wkt-logger', 'ojs/ojmessaging',
+  'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojformlayout', 'ojs/ojcollapsible', 'ojs/ojselectsingle',
+  'ojs/ojlistview', 'ojs/ojtable', 'ojs/ojswitch', 'ojs/ojinputnumber', 'ojs/ojradioset'],
 function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider, ArrayDataProvider,
-  ojConverterNumber, dialogHelper, viewHelper, wkoInstalledVersionChecker) {
+  ojConverterNumber, dialogHelper, viewHelper, wkoInstalledVersionChecker, witInspector) {
   function DomainDesignViewModel() {
 
     let subscriptions = [];
@@ -156,6 +156,14 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       }
       return this.labelMapper(key);
     });
+
+    this.inspectPrimaryImageForWDTLocations = async () => {
+      await witInspector.startInspectPrimaryImage();
+    };
+
+    this.inspectAuxiliaryImageForWDTLocations = async () => {
+      await witInspector.startInspectAuxiliaryImage();
+    };
 
     this.targetDomainLocationIsMII = () => {
       return this.project.settings.targetDomainLocation.value === 'mii';
