@@ -13,19 +13,22 @@
 define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'utils/validation-helper', 'utils/wkt-logger'],
   function (ko, props, utils, validationHelper, wktLogger) {
 
-    return function(name, wdtModel, imageDomainHomePathProperty, imageDomainTypeProperty) {
+    return function(name, wdtModel, imageDefinition) {
       function asLegalK8sName(observable) {
         return utils.toLegalK8sName(observable());
       }
 
       function K8sDomainModel() {
+        const DEFAULT_AUX_IMAGE_WDT_INSTALL_HOME = imageDefinition.wdtHomePath.value + '/weblogic-deploy';
+        const DEFAULT_AUX_IMAGE_WDT_MODEL_HOME = imageDefinition.modelHomePath.value;
+
         this.uid = props.createProperty(asLegalK8sName, wdtModel.domainName);
         this.uid.addValidator(...validationHelper.getK8sNameValidators());
 
         this.kubernetesNamespace = props.createProperty('${1}-ns', this.uid.observable);
         this.kubernetesNamespace.addValidator(...validationHelper.getK8sNameValidators());
-        this.domainHome = imageDomainHomePathProperty;
-        this.domainType = imageDomainTypeProperty;
+        this.domainHome = imageDefinition.domainHomePath;
+        this.domainType = imageDefinition.targetDomainType;
 
         this.domainPersistentVolumeName = props.createProperty('weblogic-domain-storage-volume');
         this.domainPersistentVolumeMountPath = props.createProperty('/shared');
@@ -49,9 +52,8 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
         // These fields are exposed to the user only when using an existing Primary Image and
         // not using an Auxiliary Image at all.
         //
-        this.imageModelHome = props.createProperty('/u01/wdt/models');
-        this.imageWDTInstallHome = props.createProperty('/u01/wdt/weblogic-deploy');
-
+        this.imageModelHome = props.createProperty(imageDefinition.modelHomePath.value);
+        this.imageWDTInstallHome = props.createProperty(imageDefinition.wdtHomePath.value);
 
         // Auxiliary image-related properties
         this.auxImageRegistryPullRequireAuthentication = props.createProperty(false);
@@ -66,8 +68,8 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
 
         // These fields are exposed to the user only when using an existing Auxiliary Image.
         //
-        this.auxImageSourceModelHome = props.createProperty('/auxiliary/models');
-        this.auxImageSourceWDTInstallHome = props.createProperty('/auxiliary/weblogic-deploy');
+        this.auxImageSourceModelHome = props.createProperty(DEFAULT_AUX_IMAGE_WDT_MODEL_HOME);
+        this.auxImageSourceWDTInstallHome = props.createProperty(DEFAULT_AUX_IMAGE_WDT_INSTALL_HOME);
 
         this.clusterKeys = [
           'uid', 'name', 'maxServers', 'replicas', 'minHeap', 'maxHeap', 'cpuRequest', 'cpuLimit', 'memoryRequest',

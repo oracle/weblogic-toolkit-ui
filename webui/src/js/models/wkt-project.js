@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -88,7 +88,7 @@ function (ko, wdtConstructor, imageConstructor, kubectlConstructor, domainConstr
     this.image = imageConstructor('image', this.wdtModel);
     this.ingress = ingressConstructor('ingress');
     this.kubectl = kubectlConstructor('kubectl');
-    this.k8sDomain = domainConstructor('k8sDomain', this.wdtModel, this.image.domainHomePath, this.image.targetDomainType);
+    this.k8sDomain = domainConstructor('k8sDomain', this.wdtModel, this.image);
     this.wko = wkoConstructor('wko');
     this.vzInstall = verrazzanoInstallConstructor('vzInstall');
     this.vzComponent = verrazzanoComponentConstructor('vzComponent', this.k8sDomain);

@@ -8,6 +8,8 @@
 define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml', 'utils/i18n', 'utils/wkt-logger'],
   function(project, K8sDomainConfigMapGenerator, jsYaml, i18n) {
     const WDT_DIR_NAME = 'weblogic-deploy';
+    const DEFAULT_AUX_IMAGE_WDT_INSTALL_HOME = '/auxiliary/weblogic-deploy';
+    const DEFAULT_AUX_IMAGE_WDT_MODEL_HOME = '/auxiliary/models';
 
     class K8sDomainV9ResourceGenerator {
       constructor() {
@@ -249,10 +251,10 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
             if (usingExistingAuxImage()) {
               // If the source fields are exposed in the UI, use the values from those fields.
               //
-              if (this.project.k8sDomain.auxImageSourceWDTInstallHome.hasValue()) {
+              if (this.project.k8sDomain.auxImageSourceWDTInstallHome.value !== DEFAULT_AUX_IMAGE_WDT_INSTALL_HOME) {
                 result.sourceWDTInstallHome = this.project.k8sDomain.auxImageSourceWDTInstallHome.value;
               }
-              if (this.project.k8sDomain.auxImageSourceModelHome.hasValue()) {
+              if (this.project.k8sDomain.auxImageSourceModelHome.value !== DEFAULT_AUX_IMAGE_WDT_MODEL_HOME) {
                 result.sourceModelHome = this.project.k8sDomain.auxImageSourceModelHome.value;
               }
             } else {
