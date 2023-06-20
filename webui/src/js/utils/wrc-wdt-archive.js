@@ -57,7 +57,7 @@ define(['models/wkt-project', 'utils/i18n', 'utils/wdt-archive-helper', 'utils/w
       // before passing it on.
       //
       async removeFromArchive(archivePath) {
-        wktLogger.debug('entering WRC API removeFromToArchive(%s)', archivePath);
+        wktLogger.debug('entering WRC API removeFromArchive(%s)', archivePath);
         return new Promise((resolve, reject) => {
           if (archivePath) {
             try {
