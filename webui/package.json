@@ -12,7 +12,7 @@
   "dependencies": {
     "@oracle/oraclejet": "~14.1.2",
     "@oracle/oraclejet-core-pack": "~14.1.2",
-    "@oracle/wrc-jet-pack": "~2.4.4",
+    "@oracle/wrc-jet-pack": "~2.4.5-develop",
     "ace-builds": "^1.22.0",
     "i18next": "^22.5.0",
     "jquery": "^3.7.0",
@@ -33,7 +33,7 @@
     "json-query": "^2.2.2",
     "mocha": "^10.2.0",
     "nyc": "^15.1.0",
-    "underscore": "^1.10.2"
+    "underscore": "^1.12.1"
   },
   "engines": {
     "node": ">=10.13.0"
