@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 
@@ -37,7 +37,7 @@
       <oj-module role="main" id="wktMainPane" class="wkt-main-pane" config="[[moduleAdapter.koObservableConfig]]">
       </oj-module>
 
-      <oj-collapsible expanded='{{wktConsole.show}}'>
+      <oj-collapsible class="wkt-console-section" expanded='{{wktConsole.show}}'>
         <span class="wkt-console-header" slot='header'><oj-bind-text value="{{consoleLabel}}"></oj-bind-text></span>
         <div id="wkt-console-content" class="wkt-console-content">
         </div>

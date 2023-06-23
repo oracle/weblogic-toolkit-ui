@@ -6,11 +6,15 @@
 'use strict';
 
 define(['accUtils', 'knockout', 'utils/i18n', 'models/wkt-project', 'utils/dialog-helper', 'utils/wdt-archive-helper',
-  'ojs/ojarraydataprovider', 'utils/wkt-logger', 'ojs/ojknockout', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton',
-  'ojs/ojdialog', 'ojs/ojformlayout', 'ojs/ojselectsingle', 'ojs/ojvalidationgroup', 'ojs/ojradioset'],
-function(accUtils, ko, i18n, project, dialogHelper, archiveHelper, ArrayDataProvider, wktLogger) {
+  'utils/view-helper', 'ojs/ojarraydataprovider', 'utils/wkt-logger', 'ojs/ojknockout', 'ojs/ojinputtext',
+  'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojdialog', 'ojs/ojformlayout', 'ojs/ojselectsingle', 'ojs/ojvalidationgroup',
+  'ojs/ojradioset'],
+function(accUtils, ko, i18n, project, dialogHelper, archiveHelper, viewHelper, ArrayDataProvider, wktLogger) {
 
   const jqueryDialogName = '#addToArchiveSelectionDialog';
+
+  // static - remember the last selected type between invocations
+  let lastSelectedType = null;
 
   function AddToArchiveSelectionDialogModel() {
 
@@ -23,11 +27,11 @@ function(accUtils, ko, i18n, project, dialogHelper, archiveHelper, ArrayDataProv
         this.handleArchiveEntryTypeChange(newEntryKey);
       }));
 
-      // open the dialog after the current thread, which is loading this view model.
+      // open the dialog when the container is ready.
       // using oj-dialog initial-visibility="show" causes vertical centering issues.
-      setTimeout(function() {
+      viewHelper.componentReady(this.dialogContainer).then(() => {
         $(jqueryDialogName)[0].open();
-      }, 1);
+      });
     };
 
     this.disconnected = () => {
@@ -66,6 +70,11 @@ function(accUtils, ko, i18n, project, dialogHelper, archiveHelper, ArrayDataProv
       for (const [key, value] of Object.entries(entryTypes)) {
         this.archiveEntryTypes.push({key: key, label: value.name, ...value});
         this.archiveEntryTypes.sort((a, b) => (a.label > b.label) ? 1 : -1);
+      }
+
+      // entryTypesMap must be established before setting this
+      if(lastSelectedType) {
+        this.archiveEntryType(lastSelectedType);
       }
     });
 
@@ -228,6 +237,7 @@ function(accUtils, ko, i18n, project, dialogHelper, archiveHelper, ArrayDataProv
 
         wktLogger.debug(`Calling addToArchive for entry type ${this.archiveEntryType()} with options: ${JSON.stringify(options)}`);
         archiveHelper.addToArchive(this.archiveEntryType(), options).then(() => {
+          lastSelectedType = this.archiveEntryType();
           $(jqueryDialogName)[0].close();
         }).catch(err => {
           dialogHelper.displayCatchAllError('add-archive-entry', err).then();

@@ -87,20 +87,26 @@
 
 /* collapsible console panel, on every page */
 
-.wkt-console-header {
-  box-sizing: border-box;
+.wkt-console-section .oj-collapsible-header-wrapper {
   background-color: var(--oj-badge-bg-color);
   color: var(--oj-badge-text-color);
-  flex: 0 0 auto;
-  padding: 0 8px;
-  font-size: 1em;
-  font-weight: 600;
+  padding: 0;
 }
 
-.oj-collapsible .wkt-console-header.oj-collapsible-header .oj-collapsible-header-icon {
-  margin: 0;
+.wkt-console-section .oj-collapsible-header-wrapper .oj-collapsible-header-icon {
+  margin: 0 !important;
   padding: 2px 0;
   color: var(--oj-badge-text-color);
+}
+
+.wkt-console-section .oj-collapsible-header-wrapper .oj-collapsible-header-icon:hover {
+  color: var(--oj-badge-text-color);
+}
+
+.wkt-console-header {
+  color: var(--oj-badge-text-color);
+  padding: 0 2px;
+  font-weight: bold;
 }
 
 .wkt-console-content {
