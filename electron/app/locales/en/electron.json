@@ -469,6 +469,10 @@
   "wdt-archiveType-opssWallet-fileLabel": "OPSS Wallet File",
   "wdt-archiveType-opssWallet-fileHelp": "Choose the full path to the OPSS wallet file to add to the OPSS wallet",
 
+  "wdt-archiveType-saml2InitializationData": "SAML2 Initialization Data",
+  "wdt-archiveType-saml2InitializationData-fileLabel": "SAML2 Initialization Data File",
+  "wdt-archiveType-saml2InitializationData-fileHelp": "Choose the full path to the SAML2 initialization data file",
+
   "wdt-archiveType-script": "Script",
   "wdt-archiveType-script-fileLabel": "Script File",
   "wdt-archiveType-script-fileHelp": "Choose the full path to the script file",

@@ -154,6 +154,13 @@ function getEntryTypes() {
       fileHelp: i18n.t('wdt-archiveType-opssWallet-fileHelp'),
       pathPrefix: 'wlsdeploy/opsswallet/'
     },
+    'saml2InitializationData': {
+      name: i18n.t('wdt-archiveType-saml2InitializationData'),
+      subtype: 'file',
+      fileLabel: i18n.t('wdt-archiveType-saml2InitializationData-fileLabel'),
+      fileHelp: i18n.t('wdt-archiveType-saml2InitializationData-fileHelp'),
+      pathPrefix: 'wlsdeploy/security/saml2/'
+    },
     'script': {
       name: i18n.t('wdt-archiveType-script'),
       subtype: 'file',
@@ -590,6 +597,7 @@ async function _validateArchiveEntryData(targetWindow, entryType, typeDetail, en
       case 'nodeManagerKeystore':
       case 'script':
       case 'sharedLibraryDeploymentPlan':
+      case 'saml2InitializationData':
         _validateArchiveEntryFile(targetWindow, entryType, 'file', entryData.fileName).then(result => {
           resolve(result);
         });
