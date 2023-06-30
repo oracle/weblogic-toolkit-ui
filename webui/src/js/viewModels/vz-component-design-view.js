@@ -229,7 +229,7 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       maximumFractionDigits: 0
     });
 
-    this.isDomainInPV = ko.computed(() => {
+    this.isDomainOnPV = ko.computed(() => {
       return this.project.settings.targetDomainLocation.observable() === 'pv';
     }, this);
 
@@ -335,7 +335,7 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       const existingClusterNames = this.project.k8sDomain.clusters.observable()
         .filter(item => item.name !== cluster.name).map(item => { return item.name; });
 
-      const options = { cluster: cluster, existingNames: existingClusterNames, isDomainInPV: this.isDomainInPV() };
+      const options = { cluster: cluster, existingNames: existingClusterNames, isDomainOnPV: this.isDomainOnPV() };
 
       dialogHelper.promptDialog('cluster-edit-dialog', options).then(result => {
         if (result) {

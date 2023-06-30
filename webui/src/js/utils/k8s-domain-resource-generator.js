@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
@@ -10,7 +10,7 @@ define(['models/wkt-project', 'utils/k8s-domain-v8-resource-generator', 'utils/k
 function(project, K8sDomainV8ResourceGenerator, K8sDomainV9ResourceGenerator, K8sDomainConfigMapGenerator, wktLogger) {
 
   const V9_SWITCHOVER_VERSION = '4.0.0';
-  const DEFAULT_OPERATOR_VERSION = V9_SWITCHOVER_VERSION;
+  const DEFAULT_OPERATOR_VERSION = '4.1.0';
 
   class K8sDomainResourceGenerator {
     constructor(operatorVersion = DEFAULT_OPERATOR_VERSION) {
@@ -31,7 +31,7 @@ function(project, K8sDomainV8ResourceGenerator, K8sDomainV9ResourceGenerator, K8
       generator = new K8sDomainV8ResourceGenerator();
     } else {
       wktLogger.debug('Using operator version %s to create domain resource generator V9', operatorVersion);
-      generator = new K8sDomainV9ResourceGenerator();
+      generator = new K8sDomainV9ResourceGenerator(operatorVersion);
     }
     return generator;
   }

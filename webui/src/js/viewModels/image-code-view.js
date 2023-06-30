@@ -1,11 +1,12 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
-define(['accUtils', 'knockout', 'utils/i18n', 'models/wkt-project', 'utils/image-script-generator',
-  'ojs/ojarraydataprovider', 'ojs/ojinputtext', 'ojs/ojformlayout', 'ojs/ojselectsingle'  ],
-function(accUtils, ko, i18n, project, ImageScriptGenerator, ArrayDataProvider) {
+define(['accUtils', 'knockout', 'utils/i18n', 'models/wkt-project', 'utils/aux-image-helper',
+  'utils/image-script-generator', 'ojs/ojarraydataprovider', 'ojs/ojinputtext', 'ojs/ojformlayout',
+  'ojs/ojselectsingle'],
+function(accUtils, ko, i18n, project, auxImageHelper, ImageScriptGenerator, ArrayDataProvider) {
   function ImageCodeViewModel() {
 
     let subscriptions = [];
@@ -36,6 +37,13 @@ function(accUtils, ko, i18n, project, ImageScriptGenerator, ArrayDataProvider) {
       return i18n.t(`image-code-${labelId}`);
     };
 
+    this.miiPvLabelMapper = (labelId) => {
+      if (auxImageHelper.supportsDomainCreationImages()) {
+        return this.labelMapper(labelId.replace(/^auxiliary-/, 'domain-creation-'));
+      }
+      return this.labelMapper(labelId);
+    };
+
     this.shellLabelMapper = (labelId) => {
       return i18n.t(`script-${labelId}`);
     };
@@ -45,8 +53,13 @@ function(accUtils, ko, i18n, project, ImageScriptGenerator, ArrayDataProvider) {
     }, this);
 
     this.disableAuxiliaryImageScript = ko.computed(() => {
-      return !(this.project.settings.targetDomainLocation.value === 'mii' &&
-        this.project.image.useAuxImage.value && this.project.image.createAuxImage.value);
+      let result = true;
+      if (this.project.settings.targetDomainLocation.value === 'mii') {
+        result = !(this.project.image.useAuxImage.value && this.project.image.createAuxImage.value);
+      } else if (auxImageHelper.supportsDomainCreationImages()) {
+        result = !(this.project.image.useAuxImage.value && this.project.image.createAuxImage.value);
+      }
+      return result;
     }, this);
 
     this.subviews = [
@@ -57,7 +70,7 @@ function(accUtils, ko, i18n, project, ImageScriptGenerator, ArrayDataProvider) {
       },
       {
         id: 'auxiliaryImageScript',
-        name: this.labelMapper('auxiliary-image-script-tab'),
+        name: this.miiPvLabelMapper('auxiliary-image-script-tab'),
         disabled: this.disableAuxiliaryImageScript
       }
     ];
@@ -95,10 +108,10 @@ function(accUtils, ko, i18n, project, ImageScriptGenerator, ArrayDataProvider) {
 
     this.renderAuxiliaryImageScript = (scriptType) => {
       if (this.disableAuxiliaryImageScript()) {
-        this.codeText(this.labelMapper('auxiliary-image-script-no-content'));
+        this.codeText(this.miiPvLabelMapper('auxiliary-image-script-no-content'));
       } else {
         const imageScriptGenerator = new ImageScriptGenerator(scriptType);
-        const lines = imageScriptGenerator.generateAuxiliary();
+        const lines = imageScriptGenerator.generateAuxiliary(auxImageHelper.supportsDomainCreationImages());
         this.codeText(lines.join('\n'));
       }
     };

@@ -3,8 +3,8 @@
  * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
-define(['utils/wkt-logger', 'utils/screen-utils'],
-  function (wktLogger, screenUtils) {
+define(['utils/wkt-logger', 'utils/screen-utils', 'utils/aux-image-helper'],
+  function (wktLogger, screenUtils, auxImageHelper) {
     function ImageDesignViewModel(i18n, project, accUtils, ko, dialogHelper, ArrayDataProvider, wktImageInspector) {
 
       let subscriptions = [];
@@ -57,6 +57,13 @@ define(['utils/wkt-logger', 'utils/screen-utils'],
         return i18n.t(`image-design-${labelId}`);
       };
 
+      this.miiPvLabelMapper = (labelId) => {
+        if (this.targetDomainLocationIsPV()) {
+          return this.labelMapper(labelId.replace(/^aux-/, 'domain-creation-'));
+        }
+        return this.labelMapper(labelId);
+      };
+
       this.project = project;
 
       this.targetDomainLocationIsMII = () => {
@@ -75,12 +82,24 @@ define(['utils/wkt-logger', 'utils/screen-utils'],
         return this.project.image.useAuxImage.value;
       };
 
+      this.supportsDomainCreationImages = () => {
+        return auxImageHelper.supportsDomainCreationImages();
+      };
+
       this.disableAuxImage = ko.computed(() => {
-        return !(this.targetDomainLocationIsMII() && this.project.image.useAuxImage.value && this.project.image.createAuxImage.value);
+        let result = true;
+        if (this.targetDomainLocationIsMII()) {
+          result = !(this.project.image.useAuxImage.value && this.project.image.createAuxImage.value);
+        } else if (auxImageHelper.supportsDomainCreationImages()) {
+          result = !(this.project.image.useAuxImage.value && this.project.image.createAuxImage.value);
+        }
+        return result;
       }, this);
 
       this.mainCreateImageSwitchHelp = ko.computed(() => {
-        if (this.project.image.useAuxImage.value) {
+        if (this.targetDomainLocationIsMII() && this.project.image.useAuxImage.value) {
+          return this.labelMapper('create-image-aux-help');
+        } else if (this.targetDomainLocationIsPV()) {
           return this.labelMapper('create-image-aux-help');
         } else {
           return this.labelMapper('create-image-help');
@@ -135,11 +154,12 @@ define(['utils/wkt-logger', 'utils/screen-utils'],
         return this.labelMapper(key);
       }, this);
 
-      this.auxImageConfigData = [
-        { id: 'offOption', value: 'off', label: this.labelMapper('aux-image-config-off-label')},
-        { id: 'useOption', value: 'use', label: this.labelMapper('aux-image-config-use-label')},
-        { id: 'createOption', value: 'create', label: this.labelMapper('aux-image-config-create-label')}
-      ];
+      this.auxImageConfigData =
+        [
+          {id: 'offOption', value: 'off', label: this.miiPvLabelMapper('aux-image-config-off-label')},
+          {id: 'useOption', value: 'use', label: this.miiPvLabelMapper('aux-image-config-use-label')},
+          {id: 'createOption', value: 'create', label: this.miiPvLabelMapper('aux-image-config-create-label')}
+        ];
 
       this.applyAuxImageConfig = (newValue) => {
         switch (newValue) {
@@ -170,12 +190,14 @@ define(['utils/wkt-logger', 'utils/screen-utils'],
         return value;
       };
 
-      this.auxImageConfigDP = new ArrayDataProvider(this.auxImageConfigData, { keyAttributes: 'id' });
+      this.auxImageConfigDP = ko.computed(() => {
+        return new ArrayDataProvider(this.auxImageConfigData, {keyAttributes: 'id'});
+      });
       this.auxImageConfig = ko.observable(this.computeAuxImageConfig());
 
       this.subviews = [
         {id: 'primaryImage', name: this.labelMapper('image-tab')},
-        {id: 'auxiliaryImage', name: this.labelMapper('aux-image-tab'), disabled: this.disableAuxImage}
+        {id: 'auxiliaryImage', name: this.miiPvLabelMapper('aux-image-tab'), disabled: this.disableAuxImage}
       ];
 
       this.subviewsDP = new ArrayDataProvider(this.subviews, {keyAttributes: 'id'});

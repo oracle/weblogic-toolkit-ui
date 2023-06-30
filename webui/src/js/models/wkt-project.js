@@ -85,11 +85,11 @@ function (ko, wdtConstructor, imageConstructor, kubectlConstructor, domainConstr
 
     this.settings = settingsConstructor('settings');
     this.wdtModel = wdtConstructor('model');
-    this.image = imageConstructor('image', this.wdtModel);
+    this.wko = wkoConstructor('wko');
+    this.image = imageConstructor('image', this.wdtModel, this.settings, this.wko);
     this.ingress = ingressConstructor('ingress');
     this.kubectl = kubectlConstructor('kubectl');
     this.k8sDomain = domainConstructor('k8sDomain', this.wdtModel, this.image);
-    this.wko = wkoConstructor('wko');
     this.vzInstall = verrazzanoInstallConstructor('vzInstall');
     this.vzComponent = verrazzanoComponentConstructor('vzComponent', this.k8sDomain);
     this.vzApplication = verrazzanoApplicationConstructor('vzApplication', this.k8sDomain);

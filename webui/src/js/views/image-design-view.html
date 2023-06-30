@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2021, Oracle and/or its affiliates.
+ Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 <div class="wkt-nested-tab-frame">
@@ -27,11 +27,11 @@
                      value="{{project.image.createPrimaryImage.observable}}"
                      help.instruction="[[mainCreateImageSwitchHelp]]">
           </oj-switch>
-          <oj-bind-if test="[[targetDomainLocationIsMII() === true]]">
+          <oj-bind-if test="[[targetDomainLocationIsMII() === true || supportsDomainCreationImages() === true]]">
             <oj-radioset id="aux-image-radio"
-                         label-hint="[[labelMapper('aux-image-settings-label')]]"
+                         label-hint="[[miiPvLabelMapper('aux-image-settings-label')]]"
                          value="{{auxImageConfig}}"
-                         options="{{auxImageConfigDP}}">
+                         options="{{auxImageConfigDP()}}">
             </oj-radioset>
           </oj-bind-if>
         </oj-form-layout>
@@ -375,38 +375,38 @@
       <div class="oj-panel">
         <oj-form-layout max-columns="2" direction="row">
           <oj-input-text id="aux-image-tag"
-                         label-hint="[[labelMapper('aux-image-tag-label')]]"
+                         label-hint="[[miiPvLabelMapper('aux-image-tag-label')]]"
                          value="{{project.image.auxImageTag.observable}}"
                          validators="[[project.image.auxImageTag.validators()]]"
-                         help.instruction="[[labelMapper('aux-image-tag-create-help')]]">
+                         help.instruction="[[miiPvLabelMapper('aux-image-tag-create-help')]]">
           </oj-input-text>
           <oj-input-text class="wkt-can-readonly-field"
                          id="aux-image-registry-address"
-                         label-hint="[[labelMapper('aux-image-registry-address-label')]]"
+                         label-hint="[[miiPvLabelMapper('aux-image-registry-address-label')]]"
                          value="{{project.image.internal.auxImageRegistryAddress.observable}}"
                          readonly="true"
-                         help.instruction="[[labelMapper('aux-image-registry-address-help')]]">
+                         help.instruction="[[miiPvLabelMapper('aux-image-registry-address-help')]]">
           </oj-input-text>
         </oj-form-layout>
 
         <oj-form-layout max-columns="2" direction="row">
-          <oj-switch label-hint="[[labelMapper('aux-image-registry-push-requires-authentication-label')]]"
+          <oj-switch label-hint="[[miiPvLabelMapper('aux-image-registry-push-requires-authentication-label')]]"
                      value="{{project.image.auxImageRegistryPushRequireAuthentication.observable}}"
-                     help.instruction="[[labelMapper('aux-image-registry-push-requires-authentication-help')]]">
+                     help.instruction="[[miiPvLabelMapper('aux-image-registry-push-requires-authentication-help')]]">
           </oj-switch>
           <div>
             <oj-bind-if test="[[auxImageRegistryPushRequiresAuthentication() === true]]">
-              <oj-input-password label-hint="[[labelMapper('aux-image-registry-push-username-label')]]"
+              <oj-input-password label-hint="[[miiPvLabelMapper('aux-image-registry-push-username-label')]]"
                                  mask-icon="visible"
                                  value="{{project.image.auxImageRegistryPushUser.observable}}"
-                                 help.instruction="[[labelMapper('aux-image-registry-push-username-help')]]">
+                                 help.instruction="[[miiPvLabelMapper('aux-image-registry-push-username-help')]]">
               </oj-input-password>
             </oj-bind-if>
             <oj-bind-if test="[[auxImageRegistryPushRequiresAuthentication() === true]]">
-              <oj-input-password label-hint="[[labelMapper('aux-image-registry-push-password-label')]]"
+              <oj-input-password label-hint="[[miiPvLabelMapper('aux-image-registry-push-password-label')]]"
                                  mask-icon="visible"
                                  value="{{project.image.auxImageRegistryPushPassword.observable}}"
-                                 help.instruction="[[labelMapper('aux-image-registry-push-password-help')]]">
+                                 help.instruction="[[miiPvLabelMapper('aux-image-registry-push-password-help')]]">
               </oj-input-password>
             </oj-bind-if>
           </div>
@@ -440,23 +440,23 @@
 
         <oj-bind-if test="[[project.image.auxUseCustomBaseImage.observable() === false]]">
           <oj-form-layout max-columns="2" direction="row">
-            <oj-switch label-hint="[[labelMapper('aux-default-base-image-use-authentication-label')]]"
+            <oj-switch label-hint="[[miiPvLabelMapper('aux-default-base-image-use-authentication-label')]]"
                        value="{{project.image.auxDefaultBaseImagePullRequiresAuthentication.observable}}"
-                       help.instruction="[[labelMapper('aux-default-base-image-use-authentication-help')]]">
+                       help.instruction="[[miiPvLabelMapper('aux-default-base-image-use-authentication-help')]]">
             </oj-switch>
             <div>
               <oj-bind-if test="[[project.image.auxDefaultBaseImagePullRequiresAuthentication.observable() == true]]">
-                <oj-input-password label-hint="[[labelMapper('aux-default-base-image-pull-username-label')]]"
+                <oj-input-password label-hint="[[miiPvLabelMapper('aux-default-base-image-pull-username-label')]]"
                                    mask-icon="visible"
                                    value="{{project.image.auxDefaultBaseImagePullUsername.observable}}"
-                                   help.instruction="[[labelMapper('aux-default-base-image-pull-username-help')]]">
+                                   help.instruction="[[miiPvLabelMapper('aux-default-base-image-pull-username-help')]]">
                 </oj-input-password>
               </oj-bind-if>
               <oj-bind-if test="[[project.image.auxDefaultBaseImagePullRequiresAuthentication.observable() == true]]">
-                <oj-input-password label-hint="[[labelMapper('aux-default-base-image-pull-password-label')]]"
+                <oj-input-password label-hint="[[miiPvLabelMapper('aux-default-base-image-pull-password-label')]]"
                                    mask-icon="visible"
                                    value="{{project.image.auxDefaultBaseImagePullPassword.observable}}"
-                                   help.instruction="[[labelMapper('aux-default-base-image-pull-password-help')]]">
+                                   help.instruction="[[miiPvLabelMapper('aux-default-base-image-pull-password-help')]]">
                 </oj-input-password>
               </oj-bind-if>
             </div>

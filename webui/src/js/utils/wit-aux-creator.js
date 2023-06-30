@@ -1,16 +1,19 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
 
 define(['utils/wit-actions-base', 'models/wkt-project', 'models/wkt-console', 'utils/wdt-preparer', 'utils/i18n',
-  'utils/project-io', 'utils/dialog-helper', 'utils/validation-helper', 'utils/common-utilities', 'utils/wkt-logger'],
-function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo, dialogHelper, validationHelper, utils) {
+  'utils/project-io', 'utils/dialog-helper', 'utils/validation-helper', 'utils/common-utilities',
+  'utils/aux-image-helper', 'utils/wkt-logger'],
+function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo, dialogHelper, validationHelper, utils,
+  auxImageHelper) {
   class WitAuxImageCreator extends WitActionsBase {
     constructor() {
       super();
+      this.usingPv = auxImageHelper.supportsDomainCreationImages();
     }
 
     async startCreateAuxImage() {
@@ -22,22 +25,16 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
         options = {};
       }
 
-      let errTitle = i18n.t('wit-aux-creator-aborted-error-title');
-      const errPrefix = 'wit-aux-creator';
-      let abortErrorMessage;
-      if (this.project.settings.targetDomainLocation.value !== 'mii') {
-        abortErrorMessage = i18n.t('wit-aux-creator-image-not-mii-message');
-      } else if (!this.project.image.useAuxImage.value) {
-        abortErrorMessage = i18n.t('wit-aux-creator-image-not-use-message');
-      } else if (!this.project.image.createAuxImage.value) {
-        abortErrorMessage = i18n.t('wit-aux-creator-image-not-create-message');
-      }
+      let errTitle = i18n.t(this._getMiiPvMessageKey('wit-aux-creator-aborted-error-title'));
+      const errPrefix = this._getMiiPvMessageKey('wit-aux-creator');
+      const abortErrorMessage = this._getAbortErrorMessage();
       if (abortErrorMessage) {
         await window.api.ipc.invoke('show-info-message', errTitle, abortErrorMessage);
         return Promise.resolve(false);
       }
 
-      const validatableObject = this.getValidatableObject('flow-create-aux-image-name');
+      let flowKey = this.usingPv ? 'flow-create-domain-creation-image-name' : 'flow-create-aux-image-name';
+      const validatableObject = this.getValidatableObject(flowKey);
       if (validatableObject.hasValidationErrors()) {
         const validationErrorDialogConfig = validatableObject.getValidationErrorDialogConfig(errTitle);
         dialogHelper.openDialog('validation-error-dialog', validationErrorDialogConfig);
@@ -103,13 +100,14 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
         // Prompt user for running inline prepare model flow.
         busyDialogMessage = i18n.t('wdt-preparer-prepare-in-progress');
         dialogHelper.updateBusyDialog(busyDialogMessage, 5 / totalSteps);
-        if (! await this.runPrepareModel(options, errPrefix, i18n.t('flow-create-aux-image-name'))) {
+        if (! await this.runPrepareModel(options, errPrefix,
+          i18n.t(this.usingPv ? 'flow-create-domain-creation-image-name' : 'flow-create-aux-image-name'))) {
           return Promise.resolve(false);
         }
 
         // If there were previously no variable files and prepareModel was run, validate the variable files again...
         //
-        busyDialogMessage = i18n.t('wit-aux-creator-validate-variable-file-in-progress');
+        busyDialogMessage = i18n.t(this._getMiiPvMessageKey('wit-aux-creator-validate-variable-file-in-progress'));
         dialogHelper.updateBusyDialog(busyDialogMessage, 6 / totalSteps);
         if (variableFileCountBeforePrepareModel === 0 && this.getVariableFilesCount() > 0) {
           variableFiles = this.project.wdtModel.propertiesFiles.value;
@@ -127,7 +125,8 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
         const wdtInstallerVersion = wdtInstallerResults.wdtInstallerVersion;
 
         const imageBuilderType = this.project.settings.builderType.value;
-        busyDialogMessage = i18n.t('wit-aux-creator-validate-image-builder-exe-in-progress',
+        busyDialogMessage = i18n.t(
+          this._getMiiPvMessageKey('wit-aux-creator-validate-image-builder-exe-in-progress'),
           {builderName: imageBuilderType});
         dialogHelper.updateBusyDialog(busyDialogMessage, 8/ totalSteps);
         const imageBuilderExe = this.project.settings.builderExecutableFilePath.value;
@@ -135,7 +134,7 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
           return Promise.resolve(false);
         }
 
-        busyDialogMessage = i18n.t('wit-aux-creator-cache-installers-in-progress');
+        busyDialogMessage = i18n.t(this._getMiiPvMessageKey('wit-aux-creator-cache-installers-in-progress'));
         dialogHelper.updateBusyDialog(busyDialogMessage, 9 / totalSteps);
         // Populate the cache
         //
@@ -149,7 +148,7 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
         }
 
         const imageBuilderOptions = this.getImageBuilderOptions();
-        busyDialogMessage = i18n.t('wit-aux-creator-builder-login-in-progress',
+        busyDialogMessage = i18n.t(this._getMiiPvMessageKey('wit-aux-creator-builder-login-in-progress'),
           {builderName: imageBuilderType, imageTag: this.project.image.auxBaseImage.value});
         dialogHelper.updateBusyDialog(busyDialogMessage, 10 / totalSteps);
         if (this.project.image.auxUseCustomBaseImage.value &&
@@ -178,7 +177,7 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
         }
 
         // run the image tool
-        busyDialogMessage = i18n.t('wit-aux-creator-create-in-progress');
+        busyDialogMessage = i18n.t(this._getMiiPvMessageKey('wit-aux-creator-create-in-progress'));
         dialogHelper.updateBusyDialog(busyDialogMessage, 11 / totalSteps);
         const createConfig =
           this.buildCreateConfigObject(projectDirectory, javaHome, wdtInstallerVersion, imageBuilderOptions);
@@ -212,9 +211,10 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
 
       const imageFormConfig = validationObject.getDefaultConfigObject();
       imageFormConfig.formName = 'image-design-form-name';
-      imageFormConfig.tabName = 'image-design-form-auxiliary-tab-name';
+      imageFormConfig.tabName =
+        this.usingPv ? 'image-design-form-domain-creation-tab-name' : 'image-design-form-auxiliary-tab-name';
 
-      validationObject.addField('image-design-aux-image-tag-label',
+      validationObject.addField(this._getMiiPvImageFormKey('image-design-aux-image-tag-label'),
         this.project.image.auxImageTag.validate(true), imageFormConfig);
 
       if (!this.project.image.useLatestWdtVersion.value) {
@@ -230,16 +230,18 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
 
         if (this.project.image.auxBaseImagePullRequiresAuthentication.value) {
           // skip validating the host portion of the base image tag since it may be empty for Docker Hub...
-          validationObject.addField('image-design-aux-base-image-pull-username-label',
+          validationObject.addField(this._getMiiPvImageFormKey('image-design-aux-base-image-pull-username-label'),
             validationHelper.validateRequiredField(this.project.image.auxBaseImagePullUsername.value), imageFormConfig);
-          validationObject.addField('image-design-aux-base-image-pull-password-label',
+          validationObject.addField(this._getMiiPvImageFormKey('image-design-aux-base-image-pull-password-label'),
             validationHelper.validateRequiredField(this.project.image.auxBaseImagePullPassword.value), imageFormConfig);
         }
       } else if (this.project.image.auxDefaultBaseImagePullRequiresAuthentication.value) {
-        validationObject.addField('image-design-aux-default-base-image-pull-username-label',
+        validationObject.addField(
+          this._getMiiPvImageFormKey('image-design-aux-default-base-image-pull-username-label'),
           validationHelper.validateRequiredField(this.project.image.auxDefaultBaseImagePullUsername.value),
           imageFormConfig);
-        validationObject.addField('image-design-aux-default-base-image-pull-password-label',
+        validationObject.addField(
+          this._getMiiPvImageFormKey('image-design-aux-default-base-image-pull-password-label'),
           validationHelper.validateRequiredField(this.project.image.auxDefaultBaseImagePullPassword.value),
           imageFormConfig);
       }
@@ -290,7 +292,42 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
         createConfig.modelHome = this.project.image.modelHomePath.value;
       }
     }
+
+    _getMiiPvMessageKey(key) {
+      if (this.usingPv) {
+        return key.replace(/^wit-aux-/, 'wit-dci-');
+      }
+      return key;
+    }
+
+    _getMiiPvImageFormKey(key) {
+      if (this.usingPv) {
+        return key.replace(/^image-design-aux-/, 'image-design-domain-creation-');
+      }
+      return key;
+    }
+
+    _getAbortErrorMessage() {
+      let abortErrorMessage;
+      if (this.project.settings.targetDomainLocation.value === 'mii' || this.usingPv) {
+        if (!this.project.image.useAuxImage.value) {
+          abortErrorMessage = i18n.t(this._getMiiPvMessageKey('wit-aux-creator-image-not-use-message'));
+        } else if (!this.project.image.createAuxImage.value) {
+          abortErrorMessage = i18n.t(this._getMiiPvMessageKey('wit-aux-creator-image-not-create-message'));
+        }
+      } else if (this.project.settings.targetDomainLocation.value === 'pv') {
+        if (this.project.wko.installedVersion.hasValue()) {
+          abortErrorMessage = i18n.t('wit-dci-creator-image-not-supported-message',
+            { wkoInstalledVersion: this.project.wko.installedVersion.value });
+        } else {
+          abortErrorMessage = i18n.t('wit-dci-creator-image-not-supported-no-version-message');
+        }
+      } else {
+        abortErrorMessage = i18n.t('wit-aux-creator-image-not-mii-message');
+      }
+      return abortErrorMessage;
+    }
   }
 
-  return new WitAuxImageCreator();
+  return WitAuxImageCreator;
 });

@@ -5,11 +5,12 @@
  */
 define(['models/wkt-project', 'accUtils', 'utils/common-utilities', 'knockout', 'utils/i18n', 'utils/screen-utils',
   'ojs/ojbufferingdataprovider', 'ojs/ojarraydataprovider', 'ojs/ojconverter-number', 'utils/dialog-helper',
-  'utils/view-helper', 'utils/wko-get-installed-version', 'utils/wit-inspector', 'utils/wkt-logger', 'ojs/ojmessaging',
-  'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojformlayout', 'ojs/ojcollapsible', 'ojs/ojselectsingle',
-  'ojs/ojlistview', 'ojs/ojtable', 'ojs/ojswitch', 'ojs/ojinputnumber', 'ojs/ojradioset'],
+  'utils/view-helper', 'utils/wko-get-installed-version', 'utils/wit-inspector', 'utils/aux-image-helper',
+  'utils/wkt-logger', 'ojs/ojmessaging', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojformlayout',
+  'ojs/ojcollapsible', 'ojs/ojselectsingle', 'ojs/ojlistview', 'ojs/ojtable', 'ojs/ojswitch', 'ojs/ojinputnumber',
+  'ojs/ojradioset', 'ojs/ojselectcombobox'],
 function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider, ArrayDataProvider,
-  ojConverterNumber, dialogHelper, viewHelper, wkoInstalledVersionChecker, witInspector) {
+  ojConverterNumber, dialogHelper, viewHelper, wkoInstalledVersionChecker, witInspector, auxImageHelper) {
   function DomainDesignViewModel() {
 
     let subscriptions = [];
@@ -55,6 +56,21 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       });
     };
 
+    this.project = project;
+    this.i18n = i18n;
+
+    this.isDomainOnPV = ko.computed(() => {
+      return this.project.settings.targetDomainLocation.observable() === 'pv';
+    }, this);
+
+    this.isDomainInImage = ko.computed(() => {
+      return this.project.settings.targetDomainLocation.observable() === 'dii';
+    }, this);
+
+    this.isModelInImage = ko.computed(() => {
+      return this.project.settings.targetDomainLocation.observable() === 'mii';
+    }, this);
+
     this.labelMapper = (labelId, payload) => {
       if (labelId.startsWith('page-design-')) {
         return i18n.t(labelId);
@@ -63,18 +79,37 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
     };
 
     this.imageLabelMapper = (labelId, payload) => {
+      if (this.isDomainOnPV()) {
+        return i18n.t(`image-design-${labelId.replace(/^aux-/, 'domain-creation-')}`, payload);
+      }
       return i18n.t(`image-design-${labelId}`, payload);
     };
 
-    this.project = project;
-    this.i18n = i18n;
+    this.miiPvLabelMapper = (labelId, payload) => {
+      if (this.isDomainOnPV()) {
+        return i18n.t(`domain-design-${labelId.replace(/^aux-/, 'domain-creation-')
+          .replace(/-aux-/, '-domain-creation-')}`, payload);
+      }
+      return i18n.t(`domain-design-${labelId}`, payload);
+    };
+
+    this.supportsDomainCreationImages = () => {
+      return auxImageHelper.supportsDomainCreationImages();
+    };
+
+    this.usingDomainCreationImage = ko.computed(() => {
+      if (auxImageHelper.supportsDomainCreationImages()) {
+        return this.project.image.useAuxImage.observable();
+      }
+      return false;
+    }, this);
 
     this.getWkoInstalledVersion = () => {
       wkoInstalledVersionChecker.startOperatorInstallVersionCheck().then();
     };
 
     this.mainCreateImageSwitchHelp = ko.computed(() => {
-      if (this.project.image.useAuxImage.value) {
+      if (this.project.image.useAuxImage.value || this.isDomainOnPV()) {
         return this.imageLabelMapper('create-image-aux-help');
       } else {
         return this.imageLabelMapper('create-image-help');
@@ -129,6 +164,7 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       return this.labelMapper(key);
     }, this);
 
+    // Supports deprecated MII w/o aux image use case.
     this.showPrimaryImageHomeFields = ko.computed(() => {
       return this.project.settings.targetDomainLocation.observable() === 'mii' &&
         !this.project.image.createPrimaryImage.observable() &&
@@ -144,9 +180,10 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
     }, this);
 
     this.showAuxImageSourceFields = ko.computed(() => {
-      return this.project.settings.targetDomainLocation.observable() === 'mii' &&
-        this.project.image.useAuxImage.observable() &&
-        !this.project.image.createAuxImage.observable();
+      if (this.isModelInImage() || this.isDomainOnPV()) {
+        return this.project.image.useAuxImage.observable() && !this.project.image.createAuxImage.observable();
+      }
+      return false;
     }, this);
 
     this.auxImageTagHelp = ko.computed(() => {
@@ -154,7 +191,21 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       if (this.project.image.createAuxImage.observable()) {
         key = 'create-aux-image-tag-help';
       }
-      return this.labelMapper(key);
+      return this.miiPvLabelMapper(key);
+    });
+
+    this.creatingPvc = ko.computed(() => {
+      if (this.usingDomainCreationImage() && this.project.k8sDomain.createPvc.observable()) {
+        return true;
+      }
+      return false;
+    });
+
+    this.pvcNameHelpText = ko.computed(() => {
+      if (this.creatingPvc()) {
+        return this.labelMapper('pv-volume-claim-name-ro-help');
+      }
+      return this.labelMapper('pv-volume-claim-name-help');
     });
 
     this.inspectPrimaryImageForWDTLocations = async () => {
@@ -163,10 +214,6 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
 
     this.inspectAuxiliaryImageForWDTLocations = async () => {
       await witInspector.startInspectAuxiliaryImage();
-    };
-
-    this.targetDomainLocationIsMII = () => {
-      return this.project.settings.targetDomainLocation.value === 'mii';
     };
 
     this.gotoCreateImage = () => {
@@ -212,7 +259,9 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       return value;
     };
 
-    this.auxImageConfigDP = new ArrayDataProvider(this.auxImageConfigData, { keyAttributes: 'id' });
+    this.auxImageConfigDP = ko.computed(() => {
+      return new ArrayDataProvider(this.auxImageConfigData, { keyAttributes: 'id' });
+    });
     this.auxImageConfig = ko.observable(this.computeAuxImageConfig());
 
     this.integerConverter = new ojConverterNumber.IntlNumberConverter({
@@ -221,27 +270,36 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       maximumFractionDigits: 0
     });
 
-    this.isDomainInPV = ko.computed(() => {
-      return this.project.settings.targetDomainLocation.observable() === 'pv';
-    }, this);
+    this.wdtDomainTypes = ko.computed(() => {
+      if (this.usingDomainCreationImage()) {
+        return [
+          { value: 'WLS', label: i18n.t('image-design-wls-domain-type-label') },
+          { value: 'RestrictedJRF', label: i18n.t('image-design-restricted-jrf-domain-type-label') },
+          { value: 'JRF', label: i18n.t('image-design-jrf-domain-type-label') },
+        ];
+      }
+      // Disable JRF for MII domains.
+      //
+      return [
+        { key: 'WLS', label: i18n.t('image-design-wls-domain-type-label') },
+        { key: 'RestrictedJRF', label: i18n.t('image-design-restricted-jrf-domain-type-label') },
+      ];
+    });
 
-    this.isDomainInImage = ko.computed(() => {
-      return this.project.settings.targetDomainLocation.observable() === 'dii';
-    }, this);
+    this.wdtDomainTypesDP = ko.computed(() => {
+      if (this.usingDomainCreationImage()) {
+        return new ArrayDataProvider(this.wdtDomainTypes(), { keyAttributes: 'value' });
+      }
+      return new ArrayDataProvider(this.wdtDomainTypes(), { keyAttributes: 'key' });
+    });
 
-    this.isModelInImage = ko.computed(() => {
-      return this.project.settings.targetDomainLocation.observable() === 'mii';
+    this.showRcuSwitch = ko.computed(() => {
+      if (this.usingDomainCreationImage()) {
+        const domainType = this.project.k8sDomain.domainType.observable();
+        return domainType !== 'WLS' && domainType !== 'RestrictedJRF';
+      }
+      return false;
     }, this);
-
-    // Disable JRF as the domain type since the application does not (yet?) provide the mechanisms required
-    // to specify the JRF schemas or the database connectivity and credential information needed to run RCU.
-    //
-    this.wdtDomainTypes = [
-      { key: 'WLS', label: i18n.t('image-design-wls-domain-type-label') },
-      { key: 'RestrictedJRF', label: i18n.t('image-design-restricted-jrf-domain-type-label') },
-      // { key: 'JRF', label: i18n.t('image-design-jrf-domain-type-label') },
-    ];
-    this.wdtDomainTypesDP = new ArrayDataProvider(this.wdtDomainTypes, { keyAttributes: 'key' });
 
     this.imageRegistryPullRequiresAuthentication = () => {
       return this.project.k8sDomain.imageRegistryPullRequireAuthentication.observable();
@@ -259,12 +317,39 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
     this.imagePullPoliciesDP = new ArrayDataProvider(this.imagePullPolicies, {keyAttributes: 'key'});
 
     this.usingAuxImage = ko.computed(() => {
-      return this.isModelInImage() && this.project.image.useAuxImage.value;
+      if (this.isModelInImage() || auxImageHelper.supportsDomainCreationImages()) {
+        return this.project.image.useAuxImage.observable();
+      }
+      return false;
     }, this);
+
+    this.pvTypeData = [
+      { key: 'storageClass', label: this.labelMapper('domain-creation-image-pv-storage-class-type') },
+      { key: 'nfs', label: this.labelMapper('domain-creation-image-pv-nfs-type') },
+      { key: 'hostPath', label: this.labelMapper('domain-creation-image-pv-host-path-type') },
+    ];
+
+    this.pvTypesDP = new ArrayDataProvider(this.pvTypeData, { keyAttributes: 'key' });
+
+    this.pvReclaimPolicyData = [
+      { key: 'Delete', label: this.labelMapper('domain-creation-image-pv-reclaim-delete-type') },
+      { key: 'Retain', label: this.labelMapper('domain-creation-image-pv-reclaim-retain-type') },
+    ];
+
+    this.pvReclaimPolicyDP = new ArrayDataProvider(this.pvReclaimPolicyData, { keyAttributes: 'key' });
 
     this.hasNoClusters = () => {
       return this.project.k8sDomain.clusters.value.length === 0;
     };
+
+    this.noClustersMessage = ko.computed(() => {
+      if (this.supportsDomainCreationImages() && this.project.image.useAuxImage.observable()) {
+        return this.labelMapper('pv-dci-no-clusters-message');
+      } else if (this.project.settings.targetDomainLocation.observable() === 'pv') {
+        return this.labelMapper('pv-no-clusters-message');
+      }
+      return this.labelMapper('no-clusters-message');
+    });
 
     this.clusterColumnData = [
       {
@@ -327,7 +412,7 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       const existingClusterNames = this.project.k8sDomain.clusters.observable()
         .filter(item => item.name !== cluster.name).map(item => { return item.name; });
 
-      const options = { cluster: cluster, existingNames: existingClusterNames, isDomainInPV: this.isDomainInPV() };
+      const options = { cluster: cluster, existingNames: existingClusterNames, isDomainOnPV: this.isDomainOnPV() };
 
       dialogHelper.promptDialog('cluster-edit-dialog', options).then(result => {
         if (result) {

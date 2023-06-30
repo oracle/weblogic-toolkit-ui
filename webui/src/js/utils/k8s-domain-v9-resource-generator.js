@@ -10,10 +10,12 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
     const WDT_DIR_NAME = 'weblogic-deploy';
     const DEFAULT_AUX_IMAGE_WDT_INSTALL_HOME = '/auxiliary/weblogic-deploy';
     const DEFAULT_AUX_IMAGE_WDT_MODEL_HOME = '/auxiliary/models';
+    const INITIAL_DOMAIN_CREATION_IMAGE_VERSION = '4.1.0';
 
     class K8sDomainV9ResourceGenerator {
-      constructor() {
+      constructor(operatorVersion) {
         this.project = project;
+        this.operatorVersion = operatorVersion;
         this.k8sConfigMapGenerator = new K8sDomainConfigMapGenerator();
       }
 
@@ -57,7 +59,7 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
         }
 
         if (this.project.settings.targetDomainLocation.value === 'mii') {
-          const wdtRelatedPaths = this._getWdtRelatedPaths(domainResource);
+          const wdtRelatedPaths = this._getMiiWdtRelatedPaths(domainResource);
 
           if (!domainResource.spec.configuration) {
             domainResource.spec.configuration = {
@@ -86,6 +88,62 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
               domainResource.spec.configuration.model.modelHome = wdtRelatedPaths.modelHome;
             }
           }
+        } else if (this.usingDomainCreationImage()) {
+          if (!domainResource.spec.configuration) {
+            domainResource.spec.configuration = {
+              initializeDomainOnPV: {
+                domain: { }
+              }
+            };
+          } else if (!domainResource.spec.configuration.initializeDomainOnPV) {
+            domainResource.spec.configuration.initializeDomainOnPV = {
+              domain: { }
+            };
+          } else if (!domainResource.spec.configuration.initializeDomainOnPV.domain) {
+            domainResource.spec.configuration.initializeDomainOnPV.domain = { };
+          }
+
+          if (this.project.k8sDomain.waitForPvcBind.hasValue()) {
+            domainResource.spec.configuration.initializeDomainOnPV.waitForPvcToBind =
+              this.project.k8sDomain.waitForPvcBind.value;
+          }
+
+          if (this.project.k8sDomain.domainType.hasValue()) {
+            domainResource.spec.configuration.initializeDomainOnPV.domain.domainType =
+              this.project.k8sDomain.domainType.value;
+          }
+
+          // default is domain so no need to set
+          if (this.domainHasJRF() && this.project.k8sDomain.runRcu.value) {
+            domainResource.spec.configuration.initializeDomainOnPV.domain.createIfNotExists = 'domainAndRCU';
+          }
+
+          if (this.domainHasJRF()) {
+            domainResource.spec.configuration.initializeDomainOnPV.domain.opss = {
+              walletPasswordSecret: this.project.k8sDomain.walletPasswordSecretName.value
+            };
+          }
+
+          const domainCreationImage = {
+            image: this.project.image.auxImageTag.value
+          };
+
+          if (this.project.k8sDomain.auxImagePullPolicy.hasValue()) {
+            domainCreationImage.imagePullPolicy = this.project.k8sDomain.auxImagePullPolicy.value;
+          }
+
+          if (this.project.image.createAuxImage.value) {
+            domainCreationImage.sourceWDTInstallHome = this.project.image.wdtHomePath.value + '/weblogic-deploy';
+            domainCreationImage.sourceModelHome = this.project.image.modelHomePath.value;
+          } else {
+            domainCreationImage.sourceWDTInstallHome = this.project.k8sDomain.auxImageSourceWDTInstallHome.value;
+            domainCreationImage.sourceModelHome = this.project.k8sDomain.auxImageSourceModelHome.value;
+          }
+
+          if (!domainResource.spec.configuration.initializeDomainOnPV.domain.domainCreationImages) {
+            domainResource.spec.configuration.initializeDomainOnPV.domain.domainCreationImages = [];
+          }
+          domainResource.spec.configuration.initializeDomainOnPV.domain.domainCreationImages.push(domainCreationImage);
         }
 
         if (this.project.k8sDomain.clusters.value.length === 0) {
@@ -97,11 +155,13 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
         }
 
         const imagePullSecrets = [];
-        if (this.project.k8sDomain.imageRegistryPullRequireAuthentication.value && this.project.k8sDomain.imageRegistryPullSecretName.value) {
+        if (this.project.k8sDomain.imageRegistryPullRequireAuthentication.value &&
+          this.project.k8sDomain.imageRegistryPullSecretName.value) {
           imagePullSecrets.push({ name: this.project.k8sDomain.imageRegistryPullSecretName.value });
         }
-        if (usingAuxImage()) {
-          if (this.project.k8sDomain.auxImageRegistryPullRequireAuthentication.value && this.project.k8sDomain.auxImageRegistryPullSecretName.value) {
+        if (usingAuxImage() || this.usingDomainCreationImage()) {
+          if (this.project.k8sDomain.auxImageRegistryPullRequireAuthentication.value &&
+            this.project.k8sDomain.auxImageRegistryPullSecretName.value) {
             const auxImagePullSecretName = this.project.k8sDomain.auxImageRegistryPullSecretName.value;
 
             let secretNotAlreadyAdded = true;
@@ -123,12 +183,20 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
 
         if (this.project.settings.targetDomainLocation.value === 'mii') {
           domainResource.spec.configuration.model.domainType = this.project.k8sDomain.domainType.value;
-          domainResource.spec.configuration.model.runtimeEncryptionSecret = this.project.k8sDomain.runtimeSecretName.value;
+          domainResource.spec.configuration.model.runtimeEncryptionSecret =
+            this.project.k8sDomain.runtimeSecretName.value;
 
           if (this.k8sConfigMapGenerator.shouldCreateConfigMap()) {
             domainResource.spec.configuration.model.configMap = this.project.k8sDomain.modelConfigMapName.value;
           }
+        } else if (this.usingDomainCreationImage()) {
+          if (this.k8sConfigMapGenerator.shouldCreateConfigMap()) {
+            domainResource.spec.configuration.initializeDomainOnPV.domain.domainCreationConfigMap =
+              this.project.k8sDomain.modelConfigMapName.value;
+          }
+        }
 
+        if (this.project.settings.targetDomainLocation.value === 'mii' || this.usingDomainCreationImage()) {
           if (this.project.k8sDomain.secrets.value.length > 0) {
             domainResource.spec.configuration.secrets = [];
             for (const secret of this.project.k8sDomain.secrets.value) {
@@ -143,6 +211,15 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
           if (deadline && deadline !== 120) {
             domainResource.spec.configuration.introspectorJobActiveDeadlineSeconds =
               this.project.k8sDomain.introspectorJobActiveDeadlineSeconds.value;
+          }
+        }
+
+        if (this.usingDomainCreationImage()) {
+          if (this.project.k8sDomain.createPvc.value) {
+            domainResource.spec.configuration.initializeDomainOnPV.persistentVolumeClaim = this._getPVC();
+            if (this.project.k8sDomain.createPv.value) {
+              domainResource.spec.configuration.initializeDomainOnPV.persistentVolume = this._getPV();
+            }
           }
         }
 
@@ -236,7 +313,7 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
         return serverPod;
       }
 
-      _getWdtRelatedPaths() {
+      _getMiiWdtRelatedPaths() {
         let result;
         if (this.project.settings.targetDomainLocation.value === 'mii') {
           result = { };
@@ -287,6 +364,92 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
           }
         }
         return result;
+      }
+
+      _getPVC() {
+        const pvc = {
+          metadata: {
+            name: this.project.k8sDomain.domainPersistentVolumeClaimName.value
+          },
+          spec: { }
+        };
+
+        if (this.project.k8sDomain.pvcStorageClassName.hasValue() &&
+          !this.project.k8sDomain.pvcUseDefaultStorageClass.value) {
+          pvc.spec.storageClassName = this.project.k8sDomain.pvcStorageClassName.value;
+        } else if (!this.project.k8sDomain.pvcUseDefaultStorageClass.value &&
+          !this.project.k8sDomain.pvcUseDefaultStorageClass.value) {
+          pvc.spec.storageClassName = '';
+        }
+
+        if (this.project.k8sDomain.pvName.value) {
+          pvc.spec.volumeName = this.project.k8sDomain.pvName.value;
+        }
+
+        if (this.project.k8sDomain.pvcSizeRequest.value || this.project.k8sDomain.pvcSizeLimit.value) {
+          pvc.spec.resources = { };
+          if (this.project.k8sDomain.pvcSizeRequest.value) {
+            pvc.spec.resources.requests = {
+              storage: this.project.k8sDomain.pvcSizeRequest.value
+            };
+          }
+
+          if (this.project.k8sDomain.pvcSizeLimit.value) {
+            pvc.spec.resources.limits = {
+              storage: this.project.k8sDomain.pvcSizeLimit.value
+            };
+          }
+        }
+
+        return pvc;
+      }
+
+      _getPV() {
+        const pv = {
+          metadata: {
+            name: this.project.k8sDomain.pvName.value
+          },
+          spec: { }
+        };
+
+        pv.spec.capacity = {
+          storage: this.project.k8sDomain.pvCapacity.value
+        };
+
+        if (this.project.k8sDomain.pvReclaimPolicy.hasValue()) {
+          pv.spec.persistentVolumeReclaimPolicy = this.project.k8sDomain.pvReclaimPolicy.value;
+        }
+
+        const pvType = this.project.k8sDomain.pvType.value;
+        if (this.project.k8sDomain.pvcStorageClassName.value &&
+          !this.project.k8sDomain.pvcUseDefaultStorageClass.value) {
+          pv.spec.storageClassName = this.project.k8sDomain.pvcStorageClassName.value;
+        }
+        if (pvType === 'nfs') {
+          pv.spec.nfs = {
+            server: this.project.k8sDomain.pvNfsServer.value,
+            path: this.project.k8sDomain.pvPath.value
+          };
+        } else if (pvType === 'hostPath') {
+          pv.spec.hostPath = {
+            path: this.project.k8sDomain.pvPath.value
+          };
+        }
+
+        return pv;
+      }
+
+      usingDomainCreationImage() {
+        return this.project.settings.targetDomainLocation.value === 'pv' && this.project.image.useAuxImage.value &&
+          window.api.utils.compareVersions(this.operatorVersion, INITIAL_DOMAIN_CREATION_IMAGE_VERSION) >= 0;
+      }
+
+      domainHasJRF() {
+        if (this.usingDomainCreationImage()) {
+          return this.project.k8sDomain.domainType.value !== 'WLS' &&
+            this.project.k8sDomain.domainType.value !== 'RestrictedJRF';
+        }
+        return false;
       }
     }
 

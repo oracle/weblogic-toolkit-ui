@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -886,8 +886,8 @@ define(['knockout', 'utils/common-utilities', 'utils/validation-helper', 'utils/
        *
        * Once a user enters a value, that will be the value of the observable rather than the default.
        */
-      createProperty: function (defaultValue, arg) {
-        return new ScalarProperty(defaultValue, arg);
+      createProperty: function (defaultValue, ...arg) {
+        return new ScalarProperty(defaultValue, ...arg);
       },
 
       createArrayProperty: function (defaultValue) {

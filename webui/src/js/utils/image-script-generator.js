@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
@@ -14,6 +14,11 @@ define(['models/wkt-project', 'utils/script-generator-base'],
 
     const auxiliaryScriptDescription = [
       'This script uses the WebLogic Image Tool to generate a new auxiliary image that will be',
+      'used to start containers running an Oracle Fusion Middleware-based application.'
+    ];
+
+    const domainCreationScriptDescription = [
+      'This script uses the WebLogic Image Tool to generate a new domain creation image that will be',
       'used to start containers running an Oracle Fusion Middleware-based application.'
     ];
 
@@ -265,7 +270,7 @@ define(['models/wkt-project', 'utils/script-generator-base'],
         return this.adapter.getScript();
       }
 
-      generateAuxiliary() {
+      generateAuxiliary(isDomainCreationImage = false) {
         const httpsProxyUrl = this.project.getHttpsProxyUrl();
         const bypassProxyHosts = this.project.getBypassProxyHosts();
         const requiresImagePushCredentials = this.project.image.auxImageRegistryPushRequireAuthentication.value;
@@ -279,9 +284,17 @@ define(['models/wkt-project', 'utils/script-generator-base'],
           this.adapter.getExecutable(this.project.settings.builderExecutableFilePath.value, imageBuilderName);
         const imageToolScript = this.adapter.fixWktToolsShellScriptExtension(this.project.getImageToolScript());
 
-        this.adapter.addScriptHeader(auxiliaryScriptDescription);
+        if (isDomainCreationImage) {
+          this.adapter.addScriptHeader(domainCreationScriptDescription);
+        } else {
+          this.adapter.addScriptHeader(auxiliaryScriptDescription);
+        }
         if (!this.project.image.createAuxImage.value) {
-          this.adapter.addEchoLine('Create New Auxiliary Image is disabled...nothing to do');
+          if (isDomainCreationImage) {
+            this.adapter.addEchoLine('Create New Domain Creation Image is disabled...nothing to do');
+          } else {
+            this.adapter.addEchoLine('Create New Auxiliary Image is disabled...nothing to do');
+          }
           this.adapter.addEmptyLine();
           return this.adapter.getScript();
         }
@@ -403,7 +416,7 @@ define(['models/wkt-project', 'utils/script-generator-base'],
           this.adapter.addDockerLoginBlock(loginToDockerHub, '', user, password, builder, loginErrorMessage);
         }
         this.adapter.addEmptyLine();
-        
+
         this.adapter.addIfEqualCollectArgsBlock('WIT_CREATE_AUX_IMAGE_ARGS',
           this.adapter.getVariableReference('ALWAYS_PULL_BASE_IMAGE'), 'true', '--pull');
         const wdtHome = this.adapter.getVariableReference('WDT_HOME');

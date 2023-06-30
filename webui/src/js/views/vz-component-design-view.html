@@ -77,7 +77,7 @@
 </div>
 
 <div>
-  <oj-bind-if test="[[isDomainInPV() === true]]">
+  <oj-bind-if test="[[isDomainOnPV() === true]]">
     <div class="oj-panel">
     <oj-form-layout max-columns="2" direction="row">
       <oj-input-text label-hint="[[domainLabelMapper('pv-volume-name-label')]]"
@@ -361,7 +361,7 @@
         <td>
           <oj-button display="icons"
                      chroming="borderless"
-                     disabled="[[isDomainInPV() === false]]"
+                     disabled="[[isDomainOnPV() === false]]"
                      on-oj-action="[[handleDeleteCluster]]">
             <span slot="endIcon" class="oj-ux-ico-trash"></span>
             <oj-bind-text value="[[domainLabelMapper('delete-cluster-tooltip')]]"></oj-bind-text>
@@ -377,7 +377,7 @@
     <template slot="headerTemplate" data-oj-as="header">
       <oj-button display="icons"
                  chroming="borderless"
-                 disabled="[[isDomainInPV() === false]]"
+                 disabled="[[isDomainOnPV() === false]]"
                  on-oj-action="[[handleAddCluster]]">
         <span slot="endIcon" class="oj-ux-ico-plus"></span>
         <oj-bind-text value="[[domainLabelMapper('add-cluster-tooltip')]]"></oj-bind-text>
