@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -105,8 +105,14 @@ async function getWitLatestReleaseName(options) {
 async function getWkoLatestReleaseVersion(options) {
   return new Promise((resolve, reject) => {
     getLatestReleaseObject(wkoToolName, ghApiWkoBaseUrl, options).then(latestReleaseObj => {
-      const version = latestReleaseObj['name'].split(' ')[1];
-      resolve(version);
+      const name = latestReleaseObj['name'];
+      if (name) {
+        const version = name.split(' ')[1];
+        resolve(version);
+      } else {
+        const message = latestReleaseObj['message'];
+        reject(new Error(`Failed to determine latest release version for ${wkoToolName}: ${message}`));
+      }
     }).catch(err => reject(new Error(`Failed to determine latest release version for ${wkoToolName}: ${err}`)));
   });
 }

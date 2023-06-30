@@ -14,7 +14,7 @@ define(['models/wkt-project', 'models/wkt-console', 'utils/wdt-discoverer', 'uti
   'utils/vz-application-status-checker', 'utils/vz-application-undeployer','utils/app-updater', 'utils/wkt-logger'],
 function(wktProject, wktConsole, wdtDiscoverer, dialogHelper, projectIO,
   utils, wdtModelPreparer, wdtModelValidator, i18n, witImageCreator,
-  witAuxImageCreator, imagePusher, auxImagePusher, k8sHelper,
+  WitAuxImageCreator, imagePusher, AuxImagePusher, k8sHelper,
   wkoInstaller, wkoUninstaller, wkoUpdater, k8sDomainDeployer,
   k8sDomainStatusChecker, k8sDomainUndeployer, ingressControllerInstaller,
   ingressRoutesUpdater, ingressControllerUninstaller, vzInstaller,
@@ -141,14 +141,14 @@ function(wktProject, wktConsole, wdtDiscoverer, dialogHelper, projectIO,
 
   window.api.ipc.receive('start-create-aux-image', async () => {
     blurSelection();
-    witAuxImageCreator.startCreateAuxImage().then(() => Promise.resolve()).catch(err => {
+    new WitAuxImageCreator().startCreateAuxImage().then(() => Promise.resolve()).catch(err => {
       displayCatchAllError('wit-creator-create-aux', err).then(() => Promise.resolve());
     });
   });
 
   window.api.ipc.receive('start-push-aux-image', async () => {
     blurSelection();
-    auxImagePusher.startPushAuxImage().then(() => Promise.resolve()).catch(err => {
+    new AuxImagePusher().startPushAuxImage().then(() => Promise.resolve()).catch(err => {
       displayCatchAllError('aux-image-pusher-push', err).then(() => Promise.resolve());
     });
   });

@@ -31,8 +31,10 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
         this.domainType = imageDefinition.targetDomainType;
 
         this.domainPersistentVolumeName = props.createProperty('weblogic-domain-storage-volume');
+        this.domainPersistentVolumeName.addValidator(...validationHelper.getK8sNameValidators());
         this.domainPersistentVolumeMountPath = props.createProperty('/shared');
-        this.domainPersistentVolumeClaimName = props.createProperty();
+        this.domainPersistentVolumeClaimName = props.createProperty('${1}-pvc', this.uid.observable);
+        this.domainPersistentVolumeClaimName.addValidator(...validationHelper.getK8sNameValidators());
         this.domainPersistentVolumeLogHomeEnabled = props.createProperty(false);
         this.domainPersistentVolumeLogHome = props.createProperty('/shared/logs/${1}', this.uid.observable);
 
@@ -49,8 +51,7 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
 
         this.imagePullPolicy = props.createProperty('IfNotPresent');
 
-        // These fields are exposed to the user only when using an existing Primary Image and
-        // not using an Auxiliary Image at all.
+        // These fields are exposed to the user only when using MII w/o aux image
         //
         this.imageModelHome = props.createProperty(imageDefinition.modelHomePath.value);
         this.imageWDTInstallHome = props.createProperty(imageDefinition.wdtHomePath.value + '/weblogic-deploy');
@@ -66,7 +67,7 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
         this.auxImageRegistryPullEmail.addValidator(...validationHelper.getEmailAddressValidators());
         this.auxImagePullPolicy = props.createProperty('IfNotPresent');
 
-        // These fields are exposed to the user only when using an existing Auxiliary Image.
+        // These fields are exposed to the user only when using an existing Auxiliary Image or Domain Creation Image.
         //
         this.auxImageSourceModelHome = props.createProperty(DEFAULT_AUX_IMAGE_WDT_MODEL_HOME);
         this.auxImageSourceWDTInstallHome = props.createProperty(DEFAULT_AUX_IMAGE_WDT_INSTALL_HOME);
@@ -114,6 +115,45 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
         this.memoryRequest.addValidator(...validationHelper.getK8sMemoryValidators());
         this.memoryLimit = props.createProperty();
         this.memoryLimit.addValidator(...validationHelper.getK8sMemoryValidators());
+
+        this.runRcu = props.createProperty(false);
+        this.waitForPvcBind = props.createProperty(true);
+        this.walletPassword = props.createProperty().asCredential();
+        this.walletPasswordSecretName = props.createProperty('${1}-wallet-password-secret', this.uid.observable);
+        this.walletPasswordSecretName.addValidator(...validationHelper.getK8sNameValidators());
+
+        // TODO - currently unused, thinking to add an action to set up disaster recovery once the domain exists.
+        this.walletFileSecretName = props.createProperty();
+
+        this.createPv = props.createProperty(false);
+        this.pvName = props.createProperty('${1}-pv', this.uid.observable);
+        this.pvName.addValidator(...validationHelper.getK8sNameValidators());
+        this.pvType = props.createProperty('storageClass');
+        this.pvCapacity = props.createProperty('20Gi');
+        this.pvCapacity.addValidator(...validationHelper.getK8sMemoryValidators());
+        this.pvNfsServer = props.createProperty();
+        this.pvNfsServer.addValidator(...validationHelper.getHostNameValidators());
+        // This field is used to hold the path for both nfs and hostPath types.
+        this.pvPath = props.createProperty();
+
+        this.defaultReclaimPolicy = ko.computed(() => {
+          if (this.pvType.observable() === 'storageClass') {
+            return 'Delete';
+          }
+          return 'Retain';
+        }, this);
+
+        this.pvReclaimPolicy = props.createProperty('${1}', this.defaultReclaimPolicy);
+
+        this.createPvc = props.createProperty(false);
+        this.pvcUseDefaultStorageClass = props.createProperty(false);
+        this.pvcStorageClassName = props.createProperty();
+        this.pvcStorageClassName.addValidator(...validationHelper.getK8sNameValidators());
+
+        this.pvcSizeRequest = props.createProperty('5Gi');
+        this.pvcSizeRequest.addValidator(...validationHelper.getK8sMemoryValidators());
+        this.pvcSizeLimit = props.createProperty();
+        this.pvcSizeLimit.addValidator(...validationHelper.getK8sMemoryValidators());
 
         // Jet tables do not work if you allow changing the value used as the primary key so always add a uid...
         //

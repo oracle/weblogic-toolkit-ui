@@ -1,14 +1,16 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 define(['utils/i18n', 'accUtils', 'knockout', 'ojs/ojcorerouter', 'ojs/ojmodulerouter-adapter',
-  'ojs/ojarraydataprovider', 'utils/wit-creator', 'utils/wit-aux-creator', 'utils/image-pusher', 'utils/aux-image-pusher'
+  'utils/aux-image-helper', 'ojs/ojarraydataprovider', 'utils/wit-creator', 'utils/wit-aux-creator',
+  'utils/image-pusher', 'utils/aux-image-pusher', 'models/wkt-project'
 ],
-function(i18n, accUtils, ko, CoreRouter, ModuleRouterAdapter, ArrayDataProvider,
-  witImageCreator, witAuxImageCreator, imagePusher, auxImagePusher) {
+function(i18n, accUtils, ko, CoreRouter, ModuleRouterAdapter, auxImageHelper, ArrayDataProvider,
+  witImageCreator, WitAuxImageCreator, imagePusher, AuxImagePusher, project) {
   function ImageViewModel(args) {
+    this.project = project;
 
     this.connected = () => {
       accUtils.announce('Image page loaded.', 'assertive');
@@ -19,6 +21,25 @@ function(i18n, accUtils, ko, CoreRouter, ModuleRouterAdapter, ArrayDataProvider,
     this.labelMapper = (labelId) => {
       return i18n.t(`image-page-${labelId}`);
     };
+
+    this.miiPvLabelMapper = (labelId) => {
+      if (auxImageHelper.supportsDomainCreationImages()) {
+        return this.labelMapper(labelId.replace(/AuxImage$/, 'DomainCreationImage'));
+      }
+      return this.labelMapper(labelId);
+    };
+
+    this.isCreatingPrimaryImage = ko.computed(() => {
+      return this.project.image.createPrimaryImage.value;
+    });
+
+    this.isCreatingAuxImage = ko.computed(() => {
+      if (this.project.settings.targetDomainLocation.observable() === 'mii' ||
+        auxImageHelper.supportsDomainCreationImages()) {
+        return this.project.image.useAuxImage.observable() && this.project.image.createAuxImage.observable();
+      }
+      return false;
+    });
 
     this.disableCreateImage = ko.observable(false);
     this.disablePushImage = ko.observable(false);
@@ -34,11 +55,11 @@ function(i18n, accUtils, ko, CoreRouter, ModuleRouterAdapter, ArrayDataProvider,
     };
 
     this.createAuxImage = async () => {
-      await witAuxImageCreator.startCreateAuxImage();
+      await new WitAuxImageCreator().startCreateAuxImage();
     };
 
     this.pushAuxImage = async () => {
-      await auxImagePusher.startPushAuxImage();
+      await new AuxImagePusher().startPushAuxImage();
     };
 
     let navData = [

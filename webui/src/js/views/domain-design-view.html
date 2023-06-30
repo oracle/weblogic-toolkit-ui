@@ -69,34 +69,37 @@
 </div>
 
 <div>
-  <oj-bind-if test="[[isDomainInPV() === true]]">
+  <oj-bind-if test="[[isDomainOnPV() === true]]">
     <div class="oj-panel">
-    <oj-form-layout max-columns="2" direction="row">
-      <oj-input-text label-hint="[[labelMapper('pv-volume-name-label')]]"
-                     value="{{project.k8sDomain.domainPersistentVolumeName.observable}}"
-                     help.instruction="[[labelMapper('pv-volume-name-help')]]">
-      </oj-input-text>
-      <oj-input-text label-hint="[[labelMapper('pv-volume-mount-path-label')]]"
-                     value="{{project.k8sDomain.domainPersistentVolumeMountPath.observable}}"
-                     help.instruction="[[labelMapper('pv-volume-mount-path-help')]]">
-      </oj-input-text>
-      <oj-input-text label-hint="[[labelMapper('pv-volume-claim-name-label')]]"
-                     value="{{project.k8sDomain.domainPersistentVolumeClaimName.observable}}"
-                     help.instruction="[[labelMapper('pv-volume-claim-name-help')]]">
-      </oj-input-text>
-    </oj-form-layout>
-    <oj-form-layout max-columns="2" direction="row">
-      <oj-switch label-hint="[[labelMapper('pv-volume-log-home-enabled-label')]]"
-                 value="{{project.k8sDomain.domainPersistentVolumeLogHomeEnabled.observable}}"
-                 help.instruction="[[labelMapper('pv-volume-log-home-enabled-help')]]">
-      </oj-switch>
-      <oj-bind-if test="[[project.k8sDomain.domainPersistentVolumeLogHomeEnabled.observable() === true]]">
-        <oj-input-text label-hint="[[labelMapper('pv-volume-log-home-label')]]"
-                       value="{{project.k8sDomain.domainPersistentVolumeLogHome.observable}}"
-                       help.instruction="[[labelMapper('pv-volume-log-home-help')]]">
+      <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('pv-volume-title')]]"></oj-bind-text></h6>
+      <oj-form-layout max-columns="2" direction="row">
+        <oj-input-text label-hint="[[labelMapper('pv-volume-name-label')]]"
+                       value="{{project.k8sDomain.domainPersistentVolumeName.observable}}"
+                       help.instruction="[[labelMapper('pv-volume-name-help')]]">
         </oj-input-text>
-      </oj-bind-if>
-    </oj-form-layout>
+        <oj-input-text label-hint="[[labelMapper('pv-volume-mount-path-label')]]"
+                       value="{{project.k8sDomain.domainPersistentVolumeMountPath.observable}}"
+                       help.instruction="[[labelMapper('pv-volume-mount-path-help')]]">
+        </oj-input-text>
+        <oj-input-text class="wkt-can-readonly-field"
+                       label-hint="[[labelMapper('pv-volume-claim-name-label')]]"
+                       value="{{project.k8sDomain.domainPersistentVolumeClaimName.observable}}"
+                       readonly="[[creatingPvc]]"
+                       help.instruction="[[pvcNameHelpText]]">
+        </oj-input-text>
+      </oj-form-layout>
+      <oj-form-layout max-columns="2" direction="row">
+        <oj-switch label-hint="[[labelMapper('pv-volume-log-home-enabled-label')]]"
+                   value="{{project.k8sDomain.domainPersistentVolumeLogHomeEnabled.observable}}"
+                   help.instruction="[[labelMapper('pv-volume-log-home-enabled-help')]]">
+        </oj-switch>
+        <oj-bind-if test="[[project.k8sDomain.domainPersistentVolumeLogHomeEnabled.observable() === true]]">
+          <oj-input-text label-hint="[[labelMapper('pv-volume-log-home-label')]]"
+                         value="{{project.k8sDomain.domainPersistentVolumeLogHome.observable}}"
+                         help.instruction="[[labelMapper('pv-volume-log-home-help')]]">
+          </oj-input-text>
+        </oj-bind-if>
+      </oj-form-layout>
     </div>
   </oj-bind-if>
 </div>
@@ -154,6 +157,7 @@
       </oj-input-text>
       <oj-button id="inspectPrimaryImageButton"
                  chroming="callToAction"
+                 chroming="callToAction"
                  on-oj-action="[[inspectPrimaryImageForWDTLocations]]"
                  :title="[[labelMapper('image-inspect-hints')]]">
             <span>
@@ -206,12 +210,12 @@
       </oj-bind-if>
     </oj-form-layout>
   </oj-bind-if>
-  <oj-bind-if test="[[targetDomainLocationIsMII() === true]]">
+  <oj-bind-if test="[[isModelInImage() === true || supportsDomainCreationImages() === true]]">
     <oj-form-layout max-columns="1" direction="row">
       <oj-radioset id="aux-image-radio"
                    label-hint="[[imageLabelMapper('aux-image-settings-label')]]"
                    value="{{auxImageConfig}}"
-                   options="{{auxImageConfigDP}}">
+                   options="{{auxImageConfigDP()}}">
       </oj-radioset>
     </oj-form-layout>
   </oj-bind-if>
@@ -220,15 +224,15 @@
 <div>
   <oj-bind-if test="[[usingAuxImage]]">
     <div class="oj-panel">
-      <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('aux-image-title')]]"></oj-bind-text></h6>
+      <h6 class="wkt-subheading"><oj-bind-text value="[[miiPvLabelMapper('aux-image-title')]]"></oj-bind-text></h6>
       <oj-form-layout max-columns="1" direction="row">
         <oj-bind-if test="[[project.image.createAuxImage.observable() === true]]">
           <oj-button id="createAuxImageNavButton"
                      chroming="callToAction"
                      on-oj-action="[[gotoCreateAuxImage]]"
-                     :title="[[labelMapper('hints-goto-create-aux-image')]]">
+                     :title="[[miiPvLabelMapper('hints-goto-create-aux-image')]]">
             <span>
-              <oj-bind-text value="[[labelMapper('goto-create-aux-image-button-label')]]"></oj-bind-text>
+              <oj-bind-text value="[[miiPvLabelMapper('goto-create-aux-image-button-label')]]"></oj-bind-text>
             </span>
           </oj-button>
         </oj-bind-if>
@@ -237,87 +241,241 @@
       <oj-form-layout max-columns="2" direction="row">
         <oj-input-text id="aux-image-tag"
                        class="wkt-can-readonly-field"
-                       label-hint="[[labelMapper('aux-image-tag-label')]]"
+                       label-hint="[[miiPvLabelMapper('aux-image-tag-label')]]"
                        value="{{project.image.auxImageTag.observable}}"
+                       validators="[[project.image.auxImageTag.validators()]]"
                        readonly="[[isAuxImageTagReadOnly]]"
                        help.instruction="[[auxImageTagHelp]]">
         </oj-input-text>
         <oj-input-text class="wkt-can-readonly-field"
-                       label-hint="[[labelMapper('aux-image-registry-address-label')]]"
+                       label-hint="[[miiPvLabelMapper('aux-image-registry-address-label')]]"
                        value="{{project.image.internal.auxImageRegistryAddress.observable}}"
                        readonly="true"
-                       help.instruction="[[labelMapper('aux-image-registry-address-help')]]">
+                       help.instruction="[[miiPvLabelMapper('aux-image-registry-address-help')]]">
         </oj-input-text>
-        <oj-select-single label-hint="[[labelMapper('aux-image-pull-policy-label')]]"
+        <oj-select-single label-hint="[[miiPvLabelMapper('aux-image-pull-policy-label')]]"
                           value="{{project.k8sDomain.auxImagePullPolicy.observable}}"
                           data="{{imagePullPoliciesDP}}"
-                          help.instruction="[[labelMapper('aux-image-pull-policy-help')]]">
+                          help.instruction="[[miiPvLabelMapper('aux-image-pull-policy-help')]]">
         </oj-select-single>
       </oj-form-layout>
 
       <oj-bind-if test="[[showAuxImageSourceFields]]">
         <oj-form-layout max-columns="3" direction="row">
-          <oj-input-text label-hint="[[labelMapper('aux-image-source-wdt-home-label')]]"
+          <oj-input-text label-hint="[[miiPvLabelMapper('aux-image-source-wdt-home-label')]]"
                          value="{{project.k8sDomain.auxImageSourceWDTInstallHome.observable}}"
-                         help.instruction="[[labelMapper('aux-image-source-wdt-home-help')]]">
+                         help.instruction="[[miiPvLabelMapper('aux-image-source-wdt-home-help')]]">
           </oj-input-text>
-          <oj-input-text label-hint="[[labelMapper('aux-image-source-model-home-label')]]"
+          <oj-input-text label-hint="[[miiPvLabelMapper('aux-image-source-model-home-label')]]"
                          value="{{project.k8sDomain.auxImageSourceModelHome.observable}}"
-                         help.instruction="[[labelMapper('aux-image-source-model-home-help')]]">
+                         help.instruction="[[miiPvLabelMapper('aux-image-source-model-home-help')]]">
           </oj-input-text>
           <oj-button id="inspectAuxiliaryImageButton"
                      chroming="callToAction"
                      on-oj-action="[[inspectAuxiliaryImageForWDTLocations]]"
-                     :title="[[labelMapper('aux-image-inspect-hints')]]">
+                     :title="[[miiPvLabelMapper('aux-image-inspect-hints')]]">
             <span>
-              <oj-bind-text value="[[labelMapper('aux-image-inspect-button')]]"></oj-bind-text>
+              <oj-bind-text value="[[miiPvLabelMapper('aux-image-inspect-button')]]"></oj-bind-text>
             </span>
           </oj-button>
         </oj-form-layout>
       </oj-bind-if>
 
-      <oj-form-layout max-columns="2" direction="row">
-        <oj-switch label-hint="[[labelMapper('aux-image-registry-pull-requires-authentication-label')]]"
+      <oj-form-layout max-columns="1" direction="row">
+        <oj-switch label-hint="[[miiPvLabelMapper('aux-image-registry-pull-requires-authentication-label')]]"
                    value="{{project.k8sDomain.auxImageRegistryPullRequireAuthentication.observable}}"
-                   help.instruction="[[labelMapper('aux-image-registry-pull-requires-authentication-help')]]">
+                   help.instruction="[[miiPvLabelMapper('aux-image-registry-pull-requires-authentication-help')]]">
         </oj-switch>
       </oj-form-layout>
 
       <oj-bind-if test="[[auxImageRegistryPullRequiresAuthentication() === true]]">
         <oj-form-layout max-columns="2" direction="row">
-          <oj-switch label-hint="[[labelMapper('aux-image-registry-use-existing-pull-secret-label')]]"
+          <oj-switch label-hint="[[miiPvLabelMapper('aux-image-registry-use-existing-pull-secret-label')]]"
                      value="{{project.k8sDomain.auxImageRegistryUseExistingPullSecret.observable}}"
-                     help.instruction="[[labelMapper('aux-image-registry-use-existing-pull-secret-help')]]">
+                     help.instruction="[[miiPvLabelMapper('aux-image-registry-use-existing-pull-secret-help')]]">
           </oj-switch>
           <oj-bind-if test="[[auxImageRegistryPullRequiresAuthentication() === true]]">
-            <oj-input-text label-hint="[[labelMapper('aux-image-registry-pull-secret-name-label')]]"
+            <oj-input-text label-hint="[[miiPvLabelMapper('aux-image-registry-pull-secret-name-label')]]"
                            value="{{project.k8sDomain.auxImageRegistryPullSecretName.observable}}"
                            validators="[[project.k8sDomain.auxImageRegistryPullSecretName.validators()]]"
-                           help.instruction="[[labelMapper('aux-image-registry-pull-secret-name-help')]]">
+                           help.instruction="[[miiPvLabelMapper('aux-image-registry-pull-secret-name-help')]]">
             </oj-input-text>
           </oj-bind-if>
           <oj-bind-if test="[[project.k8sDomain.auxImageRegistryUseExistingPullSecret.observable() === false]]">
-            <oj-input-password label-hint="[[labelMapper('aux-image-registry-pull-username-label')]]"
+            <oj-input-password label-hint="[[miiPvLabelMapper('aux-image-registry-pull-username-label')]]"
                                mask-icon="visible"
                                value="{{project.k8sDomain.auxImageRegistryPullUser.observable}}"
-                               help.instruction="[[labelMapper('aux-image-registry-pull-username-help')]]">
+                               help.instruction="[[miiPvLabelMapper('aux-image-registry-pull-username-help')]]">
             </oj-input-password>
           </oj-bind-if>
           <oj-bind-if test="[[project.k8sDomain.auxImageRegistryUseExistingPullSecret.observable() === false]]">
-            <oj-input-text label-hint="[[labelMapper('aux-image-registry-pull-email-label')]]"
+            <oj-input-text label-hint="[[miiPvLabelMapper('aux-image-registry-pull-email-label')]]"
                            value="{{project.k8sDomain.auxImageRegistryPullEmail.observable}}"
                            validators="[[project.k8sDomain.auxImageRegistryPullEmail.validators()]]"
-                           help.instruction="[[labelMapper('aux-image-registry-pull-email-help')]]">
+                           help.instruction="[[miiPvLabelMapper('aux-image-registry-pull-email-help')]]">
             </oj-input-text>
           </oj-bind-if>
           <oj-bind-if test="[[project.k8sDomain.auxImageRegistryUseExistingPullSecret.observable() === false]]">
-            <oj-input-password label-hint="[[labelMapper('aux-image-registry-pull-password-label')]]"
+            <oj-input-password label-hint="[[miiPvLabelMapper('aux-image-registry-pull-password-label')]]"
                                mask-icon="visible"
                                value="{{project.k8sDomain.auxImageRegistryPullPassword.observable}}"
-                               help.instruction="[[labelMapper('aux-image-registry-pull-password-help')]]">
+                               help.instruction="[[miiPvLabelMapper('aux-image-registry-pull-password-help')]]">
             </oj-input-password>
           </oj-bind-if>
         </oj-form-layout>
+      </oj-bind-if>
+
+      <oj-bind-if test="{{usingDomainCreationImage}}">
+        <oj-form-layout max-columns="2" direction="row">
+          <oj-combobox-one label-hint="[[labelMapper('domain-type-label')]]"
+                           value="{{project.k8sDomain.domainType.observable}}"
+                           options="[[wdtDomainTypesDP()]]"
+                           help.instruction="[[labelMapper('domain-type-help')]]">
+          </oj-combobox-one>
+          <oj-switch label-hint="[[labelMapper('domain-creation-image-wait-for-pvc-bind-label')]]"
+                     value="{{project.k8sDomain.waitForPvcBind.observable}}"
+                     help.instruction="[[labelMapper('domain-creation-image-wait-for-pvc-bind-help')]]">
+          </oj-switch>
+        </oj-form-layout>
+
+        <oj-bind-if test="{{showRcuSwitch}}">
+          <oj-form-layout max-columns="2" direction="row">
+            <oj-switch label-hint="[[labelMapper('domain-creation-image-run-rcu-label')]]"
+                       value="{{project.k8sDomain.runRcu.observable}}"
+                       help.instruction="[[labelMapper('domain-creation-image-run-rcu-help')]]">
+            </oj-switch>
+            <oj-input-password label-hint="[[labelMapper('domain-creation-image-wallet-password-label')]]"
+                               mask-icon="visible"
+                               value="{{project.k8sDomain.walletPassword.observable}}"
+                               help.instruction="[[labelMapper('domain-creation-image-wallet-password-help')]]">
+            </oj-input-password>
+            <oj-input-text label-hint="[[labelMapper('domain-creation-image-wallet-password-secret-name-label')]]"
+                           value="{{project.k8sDomain.walletPasswordSecretName.observable}}"
+                           validators="[[project.k8sDomain.walletPasswordSecretName.validators()]]"
+                           help.instruction="[[labelMapper('domain-creation-image-wallet-password-secret-name-help')]]">
+            </oj-input-text>
+          </oj-form-layout>
+        </oj-bind-if>
+
+        <div class="oj-panel">
+          <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('domain-creation-image-create-pvc-title')]]"></oj-bind-text></h6>
+          <oj-form-layout max-columns="2" direction="row">
+            <oj-switch label-hint="[[labelMapper('domain-creation-image-create-pvc-label')]]"
+                       value="{{project.k8sDomain.createPvc.observable}}"
+                       help.instruction="[[labelMapper('domain-creation-image-create-pvc-help')]]">
+            </oj-switch>
+            <oj-bind-if test="[[project.k8sDomain.createPvc.observable() === true]]">
+              <oj-input-text label-hint="[[labelMapper('domain-creation-image-pvc-name-label')]]"
+                             value="{{project.k8sDomain.domainPersistentVolumeClaimName.observable}}"
+                             validators="[[project.k8sDomain.domainPersistentVolumeClaimName.validators()]]"
+                             help.instruction="[[labelMapper('domain-creation-image-pvc-name-help')]]">
+              </oj-input-text>
+            </oj-bind-if>
+            <oj-bind-if test="[[project.k8sDomain.createPvc.observable() === true]]">
+              <oj-switch label-hint="[[labelMapper('domain-creation-image-use-default-storage-class-label')]]"
+                         value="{{project.k8sDomain.pvcUseDefaultStorageClass.observable}}"
+                         help.instruction="[[labelMapper('domain-creation-image-use-default-storage-class-help')]]">
+              </oj-switch>
+            </oj-bind-if>
+            <oj-bind-if test="[[project.k8sDomain.createPvc.observable() === true]]">
+              <oj-bind-if test="[[project.k8sDomain.pvcUseDefaultStorageClass.observable() === false]]">
+                <oj-input-text label-hint="[[labelMapper('domain-creation-image-pvc-storage-class-name-label')]]"
+                               value="{{project.k8sDomain.pvcStorageClassName.observable}}"
+                               validators="[[project.k8sDomain.pvcStorageClassName.validators()]]"
+                               help.instruction="[[labelMapper('domain-creation-image-pvc-storage-class-name-help')]]">
+                </oj-input-text>
+              </oj-bind-if>
+            </oj-bind-if>
+          </oj-form-layout>
+          <oj-bind-if test="[[project.k8sDomain.createPvc.observable() === true]]">
+            <oj-form-layout max-columns="2" direction="row">
+              <oj-input-text label-hint="[[labelMapper('domain-creation-image-pvc-size-request-label')]]"
+                             value="{{project.k8sDomain.pvcSizeRequest.observable}}"
+                             validators="[[project.k8sDomain.pvcSizeRequest.validators()]]"
+                             help.instruction="[[labelMapper('domain-creation-image-pvc-size-request-help')]]">
+              </oj-input-text>
+              <oj-input-text label-hint="[[labelMapper('domain-creation-image-pvc-size-limit-label')]]"
+                             value="{{project.k8sDomain.pvcSizeLimit.observable}}"
+                             validators="[[project.k8sDomain.pvcSizeLimit.validators()]]"
+                             help.instruction="[[labelMapper('domain-creation-image-pvc-size-limit-help')]]">
+              </oj-input-text>
+              <oj-input-text label-hint="[[labelMapper('domain-creation-image-pvc-pv-name-label')]]"
+                             value="{{project.k8sDomain.pvName.observable}}"
+                             validators="[[project.k8sDomain.pvName.validators()]]"
+                             help.instruction="[[labelMapper('domain-creation-image-pvc-pv-name-help')]]">
+              </oj-input-text>
+            </oj-form-layout>
+          </oj-bind-if>
+        </div>
+        <oj-bind-if test="[[project.k8sDomain.createPvc.observable() === true]]">
+          <div class="oj-panel">
+            <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('domain-creation-image-create-pv-title')]]"></oj-bind-text></h6>
+            <oj-form-layout max-columns="2" direction="row">
+              <oj-switch label-hint="[[labelMapper('domain-creation-image-create-pv-label')]]"
+                         value="{{project.k8sDomain.createPv.observable}}"
+                         help.instruction="[[labelMapper('domain-creation-image-create-pv-help')]]">
+              </oj-switch>
+              <oj-bind-if test="[[project.k8sDomain.createPv.observable() === true]]">
+                <oj-input-text class="wkt-can-readonly-field"
+                               label-hint="[[labelMapper('domain-creation-image-pv-name-label')]]"
+                               value="{{project.k8sDomain.pvName.observable}}"
+                               validators="[[project.k8sDomain.pvName.validators()]]"
+                               readonly="true"
+                               help.instruction="[[labelMapper('domain-creation-image-pv-name-help')]]">
+                </oj-input-text>
+              </oj-bind-if>
+            </oj-form-layout>
+            <oj-bind-if test="[[project.k8sDomain.createPv.observable() === true]]">
+              <oj-form-layout max-columns="2" direction="row">
+                <oj-input-text label-hint="[[labelMapper('domain-creation-image-pv-capacity-label')]]"
+                               value="{{project.k8sDomain.pvCapacity.observable}}"
+                               validators="[[project.k8sDomain.pvCapacity.validators()]]"
+                               help.instruction="[[labelMapper('domain-creation-image-pv-capacity-help')]]">
+                </oj-input-text>
+                <oj-select-single label-hint="[[labelMapper('domain-creation-image-pv-reclaim-policy-label')]]"
+                                  value="{{project.k8sDomain.pvReclaimPolicy.observable}}"
+                                  data="{{pvReclaimPolicyDP}}"
+                                  help.instruction="[[labelMapper('domain-creation-image-pv-reclaim-policy-help')]]">
+                </oj-select-single>
+                <oj-select-single label-hint="[[labelMapper('domain-creation-image-pv-type-label')]]"
+                                  value="{{project.k8sDomain.pvType.observable}}"
+                                  data="{{pvTypesDP}}"
+                                  help.instruction="[[labelMapper('domain-creation-image-pv-type-help')]]">
+                </oj-select-single>
+                <oj-bind-if test="[[project.k8sDomain.pvcUseDefaultStorageClass.observable() === false]]">
+                  <oj-input-text class="wkt-can-readonly-field"
+                                 label-hint="[[labelMapper('domain-creation-image-pv-storage-class-label')]]"
+                                 value="{{project.k8sDomain.pvcStorageClassName.observable}}"
+                                 validators="[[project.k8sDomain.pvcStorageClassName.validators()]]"
+                                 readonly="true"
+                                 help.instruction="[[labelMapper('domain-creation-image-pv-storage-class-help')]]">
+                  </oj-input-text>
+                </oj-bind-if>
+              </oj-form-layout>
+              <oj-form-layout max-columns="2" direction="row">
+                <oj-bind-if test="[[project.k8sDomain.pvType.observable() === 'nfs']]">
+                  <oj-input-text label-hint="[[labelMapper('domain-creation-image-pv-nfs-server-label')]]"
+                                 value="{{project.k8sDomain.pvNfsServer.observable}}"
+                                 validators="[[project.k8sDomain.pvNfsServer.validators()]]"
+                                 help.instruction="[[labelMapper('domain-creation-image-pv-nfs-server-help')]]">
+                  </oj-input-text>
+                </oj-bind-if>
+                <oj-bind-if test="[[project.k8sDomain.pvType.observable() === 'nfs']]">
+                  <oj-input-text label-hint="[[labelMapper('domain-creation-image-pv-nfs-path-label')]]"
+                                 value="{{project.k8sDomain.pvPath.observable}}"
+                                 help.instruction="[[labelMapper('domain-creation-image-pv-nfs-path-help')]]">
+                  </oj-input-text>
+                </oj-bind-if>
+                <oj-bind-if test="[[project.k8sDomain.pvType.observable() === 'hostPath']]">
+                  <oj-input-text label-hint="[[labelMapper('domain-creation-image-pv-host-path-label')]]"
+                                 value="{{project.k8sDomain.pvPath.observable}}"
+                                 help.instruction="[[labelMapper('domain-creation-image-pv-host-path-help')]]">
+                  </oj-input-text>
+                </oj-bind-if>
+              </oj-form-layout>
+            </oj-bind-if>
+          </div>
+        </oj-bind-if>
       </oj-bind-if>
     </div>
   </oj-bind-if>
@@ -353,7 +511,7 @@
         <td>
           <oj-button display="icons"
                      chroming="borderless"
-                     disabled="[[isDomainInPV() === false]]"
+                     disabled="[[isDomainOnPV() === false]]"
                      on-oj-action="[[handleDeleteCluster]]">
             <span slot="endIcon" class="oj-ux-ico-trash"></span>
             <oj-bind-text value="[[labelMapper('delete-cluster-tooltip')]]"></oj-bind-text>
@@ -369,7 +527,7 @@
     <template slot="headerTemplate" data-oj-as="header">
       <oj-button display="icons"
                  chroming="borderless"
-                 disabled="[[isDomainInPV() === false]]"
+                 disabled="[[isDomainOnPV() === false]]"
                  on-oj-action="[[handleAddCluster]]">
         <span slot="endIcon" class="oj-ux-ico-plus"></span>
         <oj-bind-text value="[[labelMapper('add-cluster-tooltip')]]"></oj-bind-text>
@@ -377,13 +535,13 @@
     </template>
     <template slot="noData">
       <div class="oj-table-body-message">
-        <oj-bind-text value="[[labelMapper('no-clusters-message')]]"></oj-bind-text>
+        <oj-bind-text value="[[noClustersMessage()]]"></oj-bind-text>
       </div>
     </template>
   </oj-table>
 </div>
 
-<oj-bind-if test="[[isModelInImage() === true]]">
+<oj-bind-if test="[[isModelInImage() === true || usingDomainCreationImage() === true]]">
   <div class="oj-panel">
     <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('configmap-title')]]"></oj-bind-text></h6>
     <oj-bind-if test="[[modelHasNoProperties() === false]]">
@@ -423,7 +581,7 @@
   </div>
 </oj-bind-if>
 
-<oj-bind-if test="[[isModelInImage() === true]]">
+<oj-bind-if test="[[isModelInImage() === true || usingDomainCreationImage() === true]]">
   <div class="oj-panel">
     <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('secrets-title')]]"></oj-bind-text></h6>
     <oj-table id="secrets-table"

@@ -7,9 +7,9 @@
 
 define(['utils/k8s-domain-actions-base', 'models/wkt-project', 'models/wkt-console', 'utils/i18n', 'utils/project-io',
   'utils/dialog-helper', 'utils/k8s-domain-resource-generator', 'utils/k8s-domain-configmap-generator',
-  'utils/validation-helper', 'utils/helm-helper', 'utils/wkt-logger'],
+  'utils/validation-helper', 'utils/helm-helper', 'utils/aux-image-helper', 'utils/wkt-logger'],
 function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, K8sDomainResourceGenerator,
-  K8sDomainConfigMapGenerator, validationHelper, helmHelper, wktLogger) {
+  K8sDomainConfigMapGenerator, validationHelper, helmHelper, auxImageHelper, wktLogger) {
   class K8sDomainDeployer extends K8sDomainActionsBase {
     constructor() {
       super();
@@ -153,7 +153,8 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
         }
 
         // Create the image pull secret, if needed.
-        if (this.project.k8sDomain.imageRegistryPullRequireAuthentication.value && !this.project.k8sDomain.imageRegistryUseExistingPullSecret.value) {
+        if (this.project.k8sDomain.imageRegistryPullRequireAuthentication.value &&
+          !this.project.k8sDomain.imageRegistryUseExistingPullSecret.value) {
           const secret = this.project.k8sDomain.imageRegistryPullSecretName.value;
           busyDialogMessage = i18n.t('k8s-domain-deployer-create-image-pull-secret-in-progress',
             {domainNamespace: domainNamespace, secretName: secret});
@@ -190,7 +191,7 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
           }
         }
 
-        // Create the MII runtime encryption secret, if needed.
+        // Create the MII runtime encryption secret or OPSS wallet password secret, if needed.
         if (this.project.settings.targetDomainLocation.value === 'mii') {
           const secret = this.project.k8sDomain.runtimeSecretName.value;
           busyDialogMessage = i18n.t('k8s-domain-deployer-create-runtime-secret-in-progress',
@@ -201,6 +202,19 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
           };
           const createResult = await this.createGenericSecret(kubectlExe, kubectlOptions, domainNamespace, secret,
             secretData, errTitle, 'k8s-domain-deployer-create-runtime-secret-error-message');
+          if (!createResult) {
+            return Promise.resolve(false);
+          }
+        } else if (auxImageHelper.supportsDomainCreationImages() && auxImageHelper.domainUsesJRF()) {
+          const secret = this.project.k8sDomain.walletPasswordSecretName.value;
+          busyDialogMessage = i18n.t('k8s-domain-deployer-create-wallet-password-secret-in-progress',
+            {domainNamespace: domainNamespace, secretName: secret});
+          dialogHelper.updateBusyDialog(busyDialogMessage, 9 / totalSteps);
+          const secretData = {
+            password: this.project.k8sDomain.walletPassword.value
+          };
+          const createResult = await this.createGenericSecret(kubectlExe, kubectlOptions, domainNamespace, secret,
+            secretData, errTitle, 'k8s-domain-deployer-create-wallet-password-secret-error-message');
           if (!createResult) {
             return Promise.resolve(false);
           }
@@ -389,6 +403,47 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
               domainFormConfig);
           }
         }
+      } else if (auxImageHelper.supportsDomainCreationImages() && this.project.image.useAuxImage.value) {
+        validationObject.addField('domain-design-domain-creation-image-tag-label',
+          this.project.image.auxImageTag.validate(true), domainFormConfig);
+
+        if (this.project.k8sDomain.auxImageRegistryPullRequireAuthentication.value) {
+          validationObject.addField('domain-design-domain-creation-image-registry-pull-secret-name-label',
+            this.project.k8sDomain.auxImageRegistryPullSecretName.validate(true), domainFormConfig);
+
+          if (!this.project.k8sDomain.auxImageRegistryUseExistingPullSecret.value) {
+            validationObject.addField('domain-design-domain-creation-image-registry-address-label',
+              validationHelper.validateHostName(this.project.image.internal.auxImageRegistryAddress.value, false),
+              domainFormConfig);
+            validationObject.addField('domain-design-domain-creation-image-registry-pull-username-label',
+              validationHelper.validateRequiredField(this.project.k8sDomain.auxImageRegistryPullUser.value),
+              domainFormConfig);
+            validationObject.addField('domain-design-domain-creation-image-registry-pull-email-label',
+              this.project.k8sDomain.auxImageRegistryPullEmail.validate(true),
+              domainFormConfig);
+            validationObject.addField('domain-design-domain-creation-image-registry-pull-password-label',
+              validationHelper.validateRequiredField(this.project.k8sDomain.auxImageRegistryPullPassword.value),
+              domainFormConfig);
+          }
+
+          if (this.project.k8sDomain.createPvc.value) {
+            if (this.project.k8sDomain.createPv.value) {
+              const pvType = this.project.k8sDomain.pvType.value;
+              if (pvType === 'nfs') {
+                validationObject.addField('domain-design-domain-creation-image-pv-nfs-server-label',
+                  validationHelper.validateRequiredField(this.project.k8sDomain.pvNfsServer.value),
+                  domainFormConfig);
+                validationObject.addField('domain-design-domain-creation-image-pv-nfs-path-label',
+                  validationHelper.validateRequiredField(this.project.k8sDomain.pvPath.value),
+                  domainFormConfig);
+              } else if (pvType === 'hostPath') {
+                validationObject.addField('domain-design-domain-creation-image-pv-host-path-label',
+                  validationHelper.validateRequiredField(this.project.k8sDomain.pvPath.value),
+                  domainFormConfig);
+              }
+            }
+          }
+        }
       }
 
       if (this.project.settings.targetDomainLocation.value === 'mii') {
@@ -396,7 +451,12 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
           this.project.k8sDomain.runtimeSecretName.validate(true), domainFormConfig);
         validationObject.addField('domain-design-encryption-value-label',
           validationHelper.validateRequiredField(this.project.k8sDomain.runtimeSecretValue.value), domainFormConfig);
+      } else if (auxImageHelper.supportsDomainCreationImages() && auxImageHelper.domainUsesJRF()) {
+        validationObject.addField('domain-design-domain-creation-image-wallet-password-label',
+          validationHelper.validateRequiredField(this.project.k8sDomain.walletPassword.value),
+          domainFormConfig);
       }
+
       validationObject.addField('domain-design-wls-credential-label',
         this.project.k8sDomain.credentialsSecretName.validate(true), domainFormConfig);
       validationObject.addField('domain-design-wls-credential-username-label',
@@ -423,7 +483,8 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
         }
       }
 
-      if (this.project.settings.targetDomainLocation.value === 'mii') {
+      if (this.project.settings.targetDomainLocation.value === 'mii' ||
+        (auxImageHelper.supportsDomainCreationImages() && this.project.image.useAuxImage.value)) {
         validationObject.addField('domain-design-configmap-label',
           this.project.k8sDomain.modelConfigMapName.validate(true), domainFormConfig);
       }

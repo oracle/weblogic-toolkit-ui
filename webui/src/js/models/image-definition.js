@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -15,8 +15,10 @@ define(['knockout', 'utils/observable-properties', 'utils/validation-helper'],
     /**
      * The object constructor.
      */
-    return function (name, wdtModel) {
+    return function (name, wdtModel, settings, wko) {
       function ImageModel() {
+        this.settings = settings;
+
         this.imageTag = props.createProperty();
         this.imageTag.addValidator(...validationHelper.getImageTagValidators());
         this.createPrimaryImage = props.createProperty(false);
@@ -56,14 +58,34 @@ define(['knockout', 'utils/observable-properties', 'utils/validation-helper'],
         this.oraclePatchOptions = props.createProperty('recommended');
         this.oraclePatchesToApply = props.createArrayProperty([]);
 
-        this.targetDomainType = props.createProperty('WLS');
-        this.domainHomePath = props.createProperty('/u01/domains/${1}', wdtModel.domainName);
+        this.useAuxImage = props.createProperty(true);
+
+        this.defaultDomainType = ko.computed(() => {
+          if (this.settings.targetDomainLocation.observable() === 'pv') {
+            if (!wko.installedVersion.observable() ||
+              window.api.utils.compareVersions(wko.installedVersion.observable(), '4.1.0') >= 0) {
+              return this.useAuxImage.observable() ? 'JRF' : 'WLS';
+            }
+          }
+          return 'WLS';
+        });
+
+        this.targetDomainType = props.createProperty('${1}', this.defaultDomainType);
+
+        this.defaultDomainHome = ko.computed(() => {
+          if (this.settings.targetDomainLocation.observable() === 'pv') {
+            return '/shared';
+          }
+          return '/u01';
+        });
+
+        this.domainHomePath = props.createProperty('${1}/domains/${2}', this.defaultDomainHome, wdtModel.domainName);
         this.modelHomePath = props.createProperty('/u01/wdt/models');
         this.wdtHomePath = props.createProperty('/u01/wdt');
 
         this.targetOpenShift = props.createProperty(false);
         this.defaultGroupName = ko.computed(() => {
-          return this.targetOpenShift.value ? 'root' : 'oracle';
+          return this.targetOpenShift.observable() ? 'root' : 'oracle';
         });
 
         this.fileOwner = props.createProperty('oracle');
@@ -75,7 +97,9 @@ define(['knockout', 'utils/observable-properties', 'utils/validation-helper'],
         this.additionalBuildFiles = props.createArrayProperty([]);
 
         // aux image versions of the variables
-        this.useAuxImage = props.createProperty(true);
+        //
+        // Moved useAuxImage definition up so that it could be used to compute the defaultDomainLocation
+        //
         this.auxImageTag = props.createProperty();
         this.auxImageTag.addValidator(...validationHelper.getImageTagValidators());
         this.createAuxImage = props.createProperty(true);
@@ -204,4 +228,5 @@ define(['knockout', 'utils/observable-properties', 'utils/validation-helper'],
 
       return new ImageModel();
     };
-  });
+  }
+);

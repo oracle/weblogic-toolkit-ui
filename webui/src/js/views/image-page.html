@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2021, Oracle and/or its affiliates.
+ Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 <div class="wkt-content-layout">
@@ -15,42 +15,46 @@
         </li>
       </template>
     </oj-tab-bar>
-    <oj-button id="createImageButton"
-               disabled="[[disableCreateImage]]"
-               chroming="callToAction"
-               on-oj-action="[[createImage]]"
-               :title="[[labelMapper('hints-createImage')]]">
-          <span>
-            <oj-bind-text value="[[labelMapper('button-createImage')]]"></oj-bind-text>
-          </span>
-    </oj-button>
-    <oj-button id="pushImageButton"
-               disabled="[[disablePushImage]]"
-               chroming="callToAction"
-               on-oj-action="[[pushImage]]"
-               :title="[[labelMapper('hints-pushImage')]]">
-          <span>
-            <oj-bind-text value="[[labelMapper('button-pushImage')]]"></oj-bind-text>
-          </span>
-    </oj-button>
-    <oj-button id="createAuxImageButton"
-               disabled="[[disableCreateAuxImage]]"
-               chroming="callToAction"
-               on-oj-action="[[createAuxImage]]"
-               :title="[[labelMapper('hints-createAuxImage')]]">
-          <span>
-            <oj-bind-text value="[[labelMapper('button-createAuxImage')]]"></oj-bind-text>
-          </span>
-    </oj-button>
-    <oj-button id="pushAuxImageButton"
-               disabled="[[disablePushAuxImage]]"
-               chroming="callToAction"
-               on-oj-action="[[pushAuxImage]]"
-               :title="[[labelMapper('hints-pushAuxImage')]]">
-          <span>
-            <oj-bind-text value="[[labelMapper('button-pushAuxImage')]]"></oj-bind-text>
-          </span>
-    </oj-button>
+    <oj-bind-if test="{{isCreatingPrimaryImage}}">
+      <oj-button id="createImageButton"
+                 disabled="[[disableCreateImage]]"
+                 chroming="callToAction"
+                 on-oj-action="[[createImage]]"
+                 :title="[[labelMapper('hints-createImage')]]">
+            <span>
+              <oj-bind-text value="[[labelMapper('button-createImage')]]"></oj-bind-text>
+            </span>
+      </oj-button>
+      <oj-button id="pushImageButton"
+                 disabled="[[disablePushImage]]"
+                 chroming="callToAction"
+                 on-oj-action="[[pushImage]]"
+                 :title="[[labelMapper('hints-pushImage')]]">
+            <span>
+              <oj-bind-text value="[[labelMapper('button-pushImage')]]"></oj-bind-text>
+            </span>
+      </oj-button>
+    </oj-bind-if>
+    <oj-bind-if test="{{isCreatingAuxImage}}">
+      <oj-button id="createAuxImageButton"
+                 disabled="[[disableCreateAuxImage]]"
+                 chroming="callToAction"
+                 on-oj-action="[[createAuxImage]]"
+                 :title="[[miiPvLabelMapper('hints-createAuxImage')]]">
+            <span>
+              <oj-bind-text value="[[miiPvLabelMapper('button-createAuxImage')]]"></oj-bind-text>
+            </span>
+      </oj-button>
+      <oj-button id="pushAuxImageButton"
+                 disabled="[[disablePushAuxImage]]"
+                 chroming="callToAction"
+                 on-oj-action="[[pushAuxImage]]"
+                 :title="[[miiPvLabelMapper('hints-pushAuxImage')]]">
+            <span>
+              <oj-bind-text value="[[miiPvLabelMapper('button-pushAuxImage')]]"></oj-bind-text>
+            </span>
+      </oj-button>
+    </oj-bind-if>
   </div>
 
   <oj-module role="main" class="wkt-content" config="[[moduleAdapter.koObservableConfig]]">

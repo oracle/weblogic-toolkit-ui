@@ -113,7 +113,7 @@ function(i18n, Validator, ojvalidationError, RegExpValidator, LengthValidator, N
     this.getRequiredFieldValidators = () => {
       return [
         {
-          validate: _validateRequiredFieldValue
+          validate: _validateRequiredFieldValueForUI
         }
       ];
     };
@@ -365,6 +365,13 @@ function(i18n, Validator, ojvalidationError, RegExpValidator, LengthValidator, N
         requiredMessage = i18n.t('validation-helper-validate-array-field-value-is-empty');
       }
       return requiredMessage;
+    }
+
+    function _validateRequiredFieldValueForUI(value) {
+      const requiredMessage = _validateRequiredFieldValue(value);
+      if (requiredMessage) {
+        throw new Error(requiredMessage);
+      }
     }
 
     function _validateRequiredFieldValueContainsNonWhitespaceCharacters(value) {
