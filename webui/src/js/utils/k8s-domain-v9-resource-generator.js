@@ -115,7 +115,7 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
 
           // default is domain so no need to set
           if (this.domainHasJRF() && this.project.k8sDomain.runRcu.value) {
-            domainResource.spec.configuration.initializeDomainOnPV.domain.createIfNotExists = 'domainAndRCU';
+            domainResource.spec.configuration.initializeDomainOnPV.domain.createIfNotExists = 'DomainAndRCU';
           }
 
           if (this.domainHasJRF()) {
