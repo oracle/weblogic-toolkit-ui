@@ -242,10 +242,14 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
                 }
               },
               spec: {
-                clusterName: cluster.name,
-                serverPod: getServerPodForCluster(cluster),
+                clusterName: cluster.name
               },
             };
+
+            const serverPod = getServerPodForCluster(cluster);
+            if (serverPod) {
+              clusterResource.spec.serverPod = serverPod;
+            }
 
             if (typeof cluster.replicas === 'number') {
               clusterResource.spec.replicas = cluster.replicas;
