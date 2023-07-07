@@ -7,10 +7,10 @@
 
 define(['accUtils', 'knockout', 'utils/i18n', 'models/wkt-project', 'ojs/ojarraydataprovider',
   'ojs/ojbufferingdataprovider', 'utils/common-utilities', 'utils/dialog-helper', 'utils/view-helper',
-  'utils/wkt-logger', 'utils/url-catalog', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojformlayout',
-  'ojs/ojradioset', 'ojs/ojswitch', 'ojs/ojselectsingle', 'ojs/ojtable' ],
+  'utils/aux-image-helper', 'utils/wkt-logger', 'utils/url-catalog', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton',
+  'ojs/ojformlayout', 'ojs/ojradioset', 'ojs/ojswitch', 'ojs/ojselectsingle', 'ojs/ojtable' ],
 function(accUtils, ko, i18n, project, ArrayDataProvider,
-  BufferingDataProvider, utils, dialogHelper, viewHelper) {
+  BufferingDataProvider, utils, dialogHelper, viewHelper, auxImageHelper) {
 
   function ProjectSettingsViewModel() {
 
@@ -185,7 +185,8 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
     }, this);
 
     this.requiresOracleHome = () => {
-      return this.project.settings.targetDomainLocation.value !== 'pv';
+      return this.project.settings.targetDomainLocation.value !== 'pv' ||
+        auxImageHelper.supportsDomainCreationImages();
     };
 
     this.chooseJavaHome = () => {

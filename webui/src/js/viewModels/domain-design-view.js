@@ -78,6 +78,13 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       return i18n.t(`domain-design-${labelId}`, payload);
     };
 
+    this.smartLabelMapper = (labelId, payload) => {
+      if (this.isDomainOnPV()) {
+        return i18n.t(`domain-design-${labelId.replace(/^aux-/, 'domain-creation-')}`, payload);
+      }
+      return i18n.t(`domain-design-${labelId}`, payload);
+    };
+
     this.imageLabelMapper = (labelId, payload) => {
       if (this.isDomainOnPV()) {
         return i18n.t(`image-design-${labelId.replace(/^aux-/, 'domain-creation-')}`, payload);
@@ -225,9 +232,9 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
     };
 
     this.auxImageConfigData = [
-      { id: 'offOption', value: 'off', label: this.imageLabelMapper('aux-image-config-off-label')},
-      { id: 'useOption', value: 'use', label: this.imageLabelMapper('aux-image-config-use-label')},
-      { id: 'createOption', value: 'create', label: this.imageLabelMapper('aux-image-config-create-label')}
+      { id: 'offOption', value: 'off', label: this.smartLabelMapper('aux-image-config-off-label')},
+      { id: 'useOption', value: 'use', label: this.smartLabelMapper('aux-image-config-use-label')},
+      { id: 'createOption', value: 'create', label: this.smartLabelMapper('aux-image-config-create-label')}
     ];
 
     this.applyAuxImageConfig = (newValue) => {
