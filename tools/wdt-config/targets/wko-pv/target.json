@@ -8,6 +8,7 @@
   "validation_method" : "wktui",
   "results_output_method" : "json",
   "exclude_domain_bin_contents": true,
+  "credentials_method" : "secrets",
   "wls_credentials_name" : "__weblogic-credentials__",
   "additional_output" : "wko-domain.yaml",
   "use_persistent_volume" : true

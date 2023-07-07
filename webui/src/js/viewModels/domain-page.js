@@ -5,10 +5,12 @@
  */
 define(['accUtils', 'knockout', 'ojs/ojcorerouter', 'ojs/ojmodulerouter-adapter', 'ojs/ojarraydataprovider',
   'utils/k8s-domain-deployer', 'utils/k8s-domain-status-checker', 'utils/k8s-domain-undeployer', 'utils/i18n',
-  'utils/wdt-preparer', 'ojs/ojarraytreedataprovider', 'models/wkt-project', 'ojs/ojtreeview'],
+  'utils/wdt-preparer', 'utils/aux-image-helper', 'models/wkt-project', 'ojs/ojarraytreedataprovider', 'ojs/ojtreeview'
+],
 function(accUtils, ko, CoreRouter, ModuleRouterAdapter, ArrayDataProvider, k8sDomainDeployer,
-  k8sDomainStatusChecker, k8sDomainUndeployer, i18n, wdtPreparer) {
+  k8sDomainStatusChecker, k8sDomainUndeployer, i18n, wdtPreparer, auxImageHelper, project) {
   function DomainViewModel(args) {
+    this.project = project;
 
     this.connected = () => {
       accUtils.announce('WebLogic Domain page loaded.', 'assertive');
@@ -25,6 +27,13 @@ function(accUtils, ko, CoreRouter, ModuleRouterAdapter, ArrayDataProvider, k8sDo
     this.disableDeployDomain = ko.observable(false);
     this.disableGetDomainStatus = ko.observable(false);
     this.disableUndeployDomain = ko.observable(false);
+
+    this.showPrepareModel = ko.computed(() => {
+      if (this.project.settings.targetDomainLocation.observable() === 'pv') {
+        return auxImageHelper.supportsDomainCreationImages() && this.project.image.useAuxImage.observable();
+      }
+      return true;
+    });
 
     this.prepareModel = () => {
       wdtPreparer.startPrepareModel().then();

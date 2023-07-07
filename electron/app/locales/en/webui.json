@@ -618,6 +618,13 @@
   "domain-design-image-registry-pull-email-label": "Image Registry Pull Email Address",
   "domain-design-image-registry-pull-email-help": "The image registry user's email address used to create the Kubernetes image pull secret.",
 
+  "domain-design-aux-image-config-off-label": "Do not use an auxiliary image",
+  "domain-design-aux-image-config-use-label": "Use an existing auxiliary image created outside of this project",
+  "domain-design-aux-image-config-create-label": "Use newly created auxiliary image created by this project",
+  "domain-design-domain-creation-image-config-off-label": "Do not use a domain creation image",
+  "domain-design-domain-creation-image-config-use-label": "Use an existing domain creation image created outside of this project",
+  "domain-design-domain-creation-image-config-create-label": "Use newly created domain creation image created by this project",
+
   "domain-design-aux-image-title": "Auxiliary Image to Use for the Domain",
   "domain-design-hints-goto-create-aux-image": "Go To Create Auxiliary Image Page",
   "domain-design-goto-create-aux-image-button-label": "Go To Create Auxiliary Image Page",

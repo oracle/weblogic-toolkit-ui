@@ -1143,7 +1143,7 @@ function isNotFoundError(err) {
 }
 
 function _getOperatorVersionFromLogs(operatorLogs, results) {
-  const versionRegex = /^Oracle WebLogic Kubernetes Operator, version:\s*(\d+\.\d+\.\d+),.*$/;
+  const versionRegex = /^Oracle WebLogic Kubernetes Operator, version:\s*(\d+\.\d+\.\d+).*$/;
   if (Array.isArray(operatorLogs) && operatorLogs.length > 0) {
     for (const logEntry of operatorLogs) {
       const parsedEntry = _parseLogEntryAsJson(logEntry);
