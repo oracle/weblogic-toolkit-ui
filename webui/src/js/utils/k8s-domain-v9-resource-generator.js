@@ -425,9 +425,12 @@ define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
         }
 
         const pvType = this.project.k8sDomain.pvType.value;
-        if (this.project.k8sDomain.pvcStorageClassName.value &&
+        if (this.project.k8sDomain.pvcStorageClassName.hasValue() &&
           !this.project.k8sDomain.pvcUseDefaultStorageClass.value) {
           pv.spec.storageClassName = this.project.k8sDomain.pvcStorageClassName.value;
+        } else if (!this.project.k8sDomain.pvcUseDefaultStorageClass.value &&
+          !this.project.k8sDomain.pvcUseDefaultStorageClass.value) {
+          pv.spec.storageClassName = '';
         }
         if (pvType === 'nfs') {
           pv.spec.nfs = {
