@@ -7,29 +7,41 @@
 
 define(['models/wkt-project'],
   function(project) {
-    class AuxImageHelper {
-      constructor() {
-        this.project = project;
-      }
+    function AuxImageHelper() {
 
-      supportsDomainCreationImages() {
-        return this.project.settings.targetDomainLocation.value === 'pv' && this.wkoVersion41OrHigher();
-      }
+      this.supportsDomainCreationImages = () => {
+        return project.settings.targetDomainLocation.value === 'pv' && this.wkoVersion41OrHigher();
+      };
 
-      wkoVersion41OrHigher() {
+      this.wkoVersion41OrHigher = () => {
         // If the actual installed version is not known, assume true.
         let result = true;
-        if (this.project.wko.installedVersion.hasValue() &&
-          window.api.utils.compareVersions(this.project.wko.installedVersion.value, '4.1.0') < 0) {
+        if (project.wko.installedVersion.hasValue() &&
+          window.api.utils.compareVersions(project.wko.installedVersion.value, '4.1.0') < 0) {
           result = false;
         }
         return result;
-      }
+      };
 
-      domainUsesJRF() {
-        return this.project.image.useAuxImage.value && this.project.k8sDomain.domainType.value !== 'WLS' &&
-          this.project.k8sDomain.domainType.value !== 'RestrictedJRF';
-      }
+      this.domainUsesJRF = () => {
+        return project.image.useAuxImage.value && project.k8sDomain.domainType.value !== 'WLS' &&
+          project.k8sDomain.domainType.value !== 'RestrictedJRF';
+      };
+
+      this.projectUsesModel = () => {
+        if (project.settings.targetDomainLocation.observable() === 'pv') {
+          return this.supportsDomainCreationImages() && project.image.useAuxImage.observable();
+        }
+        return true;
+      };
+
+      this.isCreatingAuxImage = () => {
+        if (project.settings.targetDomainLocation.observable() === 'mii' ||
+          this.supportsDomainCreationImages()) {
+          return project.image.useAuxImage.observable() && project.image.createAuxImage.observable();
+        }
+        return false;
+      };
     }
 
     return new AuxImageHelper();

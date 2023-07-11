@@ -82,16 +82,16 @@ define(['ojs/ojcontext'],
       };
 
       this.initializeDialog = (dialog) => {
-        window.api.ipc.send('set-has-open-dialog', dialog.isOpen());
+        this.updateDialogStatus(dialog.isOpen());
         thisHelper.componentReady(dialog).then(() => {
           // notify when the dialog is open or closed
-          dialog.addEventListener('ojBeforeOpen', () => {
-            window.api.ipc.send('set-has-open-dialog', true);
-          });
-          dialog.addEventListener('ojBeforeClose', () => {
-            window.api.ipc.send('set-has-open-dialog', false);
-          });
+          dialog.addEventListener('ojBeforeOpen', () => this.updateDialogStatus(true));
+          dialog.addEventListener('ojBeforeClose', () => this.updateDialogStatus(false));
         });
+      };
+
+      this.updateDialogStatus = (isOpen) => {
+        window.api.ipc.send('set-window-attribute', 'hasOpenDialog', isOpen);
       };
 
       function compareValues(a, b) {

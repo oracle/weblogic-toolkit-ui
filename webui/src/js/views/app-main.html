@@ -5,7 +5,7 @@
 
 <!-- Template for rendering navigation items shared between nav bar and nav list -->
 <script type="text/html" id="navTemplate">
-  <li>
+  <li :class="[[{'oj-disabled' : $data.disabled}]]">
     <a href="#">
       <span :class="[['oj-navigationlist-item-icon ' + $data.icon]]"></span>
       <oj-bind-text value="[[$data.name]]"> </oj-bind-text>

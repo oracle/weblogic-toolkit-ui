@@ -1,17 +1,19 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
 
 define(['accUtils', 'knockout', 'utils/i18n', 'models/wkt-project', 'models/wkt-console', 'utils/dialog-helper',
-  'utils/view-helper', 'utils/screen-utils', 'ojs/ojarraydataprovider', 'ojs/ojarraytreedataprovider', 'ojs/ojcorerouter',
-  'ojs/ojmodule-element-utils', 'ojs/ojmodulerouter-adapter', 'ojs/ojknockoutrouteradapter', 'ojs/ojurlparamadapter',
-  'ojs/ojoffcanvas', 'ojs/ojknockouttemplateutils', 'ojs/ojresponsiveutils', 'ojs/ojresponsiveknockoututils',
-  'utils/wkt-logger', 'ojs/ojknockout', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojdialog',
-  'ojs/ojformlayout', 'ojs/ojselectsingle', 'ojs/ojvalidationgroup', 'ojs/ojcollapsible'],
-function(accUtils, ko, i18n, project, wktConsole, dialogHelper, viewHelper, screenUtils, ArrayDataProvider,
+  'utils/view-helper', 'utils/screen-utils', 'utils/aux-image-helper', 'ojs/ojarraydataprovider',
+  'ojs/ojarraytreedataprovider', 'ojs/ojcorerouter', 'ojs/ojmodule-element-utils', 'ojs/ojmodulerouter-adapter',
+  'ojs/ojknockoutrouteradapter', 'ojs/ojurlparamadapter', 'ojs/ojoffcanvas', 'ojs/ojknockouttemplateutils',
+  'ojs/ojresponsiveutils', 'ojs/ojresponsiveknockoututils', 'utils/wkt-logger', 'ojs/ojknockout', 'ojs/ojinputtext',
+  'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojdialog', 'ojs/ojformlayout', 'ojs/ojselectsingle', 'ojs/ojvalidationgroup',
+  'ojs/ojcollapsible'],
+function(accUtils, ko, i18n, project, wktConsole,
+  dialogHelper, viewHelper, screenUtils, auxImageHelper, ArrayDataProvider,
   ArrayTreeDataProvider, CoreRouter, ModuleElementUtils, ModuleRouterAdapter, KnockoutRouterAdapter, UrlParamAdapter,
   OffCanvasUtils, KnockoutTemplateUtils, ResponsiveUtils, ResponsiveKnockoutUtils, wktLogger) {
 
@@ -23,7 +25,7 @@ function(accUtils, ko, i18n, project, wktConsole, dialogHelper, viewHelper, scre
       accUtils.announce('Application main loaded.', 'assertive');
 
       // in case of page reload, clear dialog status in electron
-      window.api.ipc.send('set-has-open-dialog', false);
+      viewHelper.updateDialogStatus(false);
 
       // listen for components that need special handling
       viewHelper.listenForComponents('wktMainPane');
@@ -151,7 +153,10 @@ function(accUtils, ko, i18n, project, wktConsole, dialogHelper, viewHelper, scre
       },
       { name: this.labelMapper('model'),
         id: 'model-page',
-        icon: 'oj-ux-ico-model-change-mgmt'
+        icon: 'oj-ux-ico-model-change-mgmt',
+        disabled: ko.computed(() => {
+          return !auxImageHelper.projectUsesModel();
+        })
       },
       { name: this.labelMapper('image'),
         id: 'image-page',
@@ -276,6 +281,11 @@ function(accUtils, ko, i18n, project, wktConsole, dialogHelper, viewHelper, scre
         this.updateDialog(dialogHelper.showDialog());
       }
     });
+
+    // synchronize calculated values with electron window to disable/hide menu items on change
+
+    project.synchronizeWithWindow('usesModel', ko.computed(auxImageHelper.projectUsesModel));
+    project.synchronizeWithWindow('isCreatingAuxImage', ko.computed(auxImageHelper.isCreatingAuxImage));
   }
 
   /*

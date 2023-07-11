@@ -33,13 +33,7 @@ function(i18n, accUtils, ko, CoreRouter, ModuleRouterAdapter, auxImageHelper, Ar
       return this.project.image.createPrimaryImage.value;
     });
 
-    this.isCreatingAuxImage = ko.computed(() => {
-      if (this.project.settings.targetDomainLocation.observable() === 'mii' ||
-        auxImageHelper.supportsDomainCreationImages()) {
-        return this.project.image.useAuxImage.observable() && this.project.image.createAuxImage.observable();
-      }
-      return false;
-    });
+    this.isCreatingAuxImage = ko.computed(auxImageHelper.isCreatingAuxImage);
 
     this.disableCreateImage = ko.observable(false);
     this.disablePushImage = ko.observable(false);

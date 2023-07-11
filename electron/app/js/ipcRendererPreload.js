@@ -37,10 +37,9 @@ contextBridge.exposeInMainWorld(
           'open-project',
           'window-app-quit',
           'window-is-ready',
-          'set-has-open-dialog',
           'set-divider-location',
           'set-navigation-collapsed',
-          'set-target-type',
+          'set-window-attribute',
           'skip-quickstart-at-startup',
           'log-remote-message'
         ];

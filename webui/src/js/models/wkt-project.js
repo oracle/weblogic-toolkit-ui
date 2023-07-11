@@ -212,6 +212,18 @@ function (ko, wdtConstructor, imageConstructor, kubectlConstructor, domainConstr
       return projectContents;
     };
 
+    // synchronize some attributes with electron window to disable/hide menu items on change
+    this.synchronizeWithWindow = (attribute_key, observable) => {
+      window.api.ipc.send('set-window-attribute', attribute_key, observable());
+      observable.subscribe(value => {
+        window.api.ipc.send('set-window-attribute', attribute_key, value);
+      });
+    };
+
+    this.synchronizeWithWindow('domainLocation', this.settings.targetDomainLocation.observable);
+    this.synchronizeWithWindow('targetType', this.settings.wdtTargetType.observable);
+    this.synchronizeWithWindow('isCreatingPrimaryImage', this.image.createPrimaryImage.observable);
+
     // return true if the project has unsaved changes.
     this.isDirty = () => {
       return this.pages.some(p => p.isChanged());
