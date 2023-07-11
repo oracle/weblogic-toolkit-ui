@@ -13,7 +13,7 @@ const WktApp = require('./js/wktApp');
 const i18n = require('./js/i18next.config');
 const { initializeLoggingSystem, logRendererMessage } = require('./js/wktLogging');
 const userSettings = require('./js/userSettings');
-const { chooseFromFileSystem, createNetworkWindow, createWindow, initialize, setHasOpenDialog, setTargetType,
+const { chooseFromFileSystem, createNetworkWindow, createWindow, initialize, setWindowAttribute,
   showErrorMessage, promptUserForOkOrCancelAnswer, promptUserForYesOrNoAnswer, promptUserForYesNoOrCancelAnswer } =
   require('./js/wktWindow');
 const project = require('./js/project');
@@ -300,11 +300,6 @@ class Main {
       userSettings.setSkipQuickstartAtStartup(true);
     });
 
-    ipcMain.on('set-has-open-dialog', (event, hasOpenDialogs) => {
-      const window = event.sender.getOwnerBrowserWindow();
-      return setHasOpenDialog(window, hasOpenDialogs);
-    });
-
     ipcMain.on('set-divider-location', (event, name, percent) => {
       return userSettings.setDividerLocation(name, percent);
     });
@@ -313,9 +308,9 @@ class Main {
       return userSettings.setNavigationCollapsed(collapsed);
     });
 
-    ipcMain.on('set-target-type', (event, targetType) => {
+    ipcMain.on('set-window-attribute', (event, key, value) => {
       const window = event.sender.getOwnerBrowserWindow();
-      return setTargetType(window, targetType);
+      return setWindowAttribute(window, key, value);
     });
 
     ipcMain.on('log-remote-message', (event, logLevel, logMessage, ...logArgs) => {

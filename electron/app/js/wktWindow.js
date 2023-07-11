@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const { app, BrowserWindow, dialog, Menu, shell } = require('electron');
@@ -33,19 +33,34 @@ function initialize(isJetDevMode, wktApp, wktMode) {
 }
 
 class WktAppMenu {
-  constructor(hasOpenDialog, targetType) {
-    // hasOpenDialog: the focused window has a dialog displayed
-    // targetType: the target type for the window, such as 'wko', 'vz'
-
-    this._isJetDevMode = _isJetDevMode;
+  constructor(window) {
     this._wktApp = _wktApp;
-    this._hasOpenDialog = hasOpenDialog;
+
+    // hasOpenDialog: the focused window has a dialog displayed
+    this._hasOpenDialog = getWindowStatus(window, 'hasOpenDialog');
+
+    // targetType: the target type for the window, such as 'wko', 'vz'
+    const targetType = getWindowStatus(window, 'targetType');
     this._isWkoTarget = targetType === 'wko';
+
+    // domain location: mii, pv, etc.
+    const domainLocation = getWindowStatus(window, 'domainLocation');
+    this._auxImageKey = (domainLocation === 'pv') ? 'domain-creation' : 'aux';
+
+    // does project use a model, based on domain type and configuration
+    this._usesModel = getWindowStatus(window, 'usesModel');
+
+    // is the project creating primary or aux images
+    this._isCreatingPrimaryImage = getWindowStatus(window, 'isCreatingPrimaryImage');
+    this._isCreatingAuxImage = getWindowStatus(window, 'isCreatingAuxImage');
+
     this.appMenuTemplate = this._generateAppMenuTemplate();
   }
 
   _generateAppMenuTemplate() {
     const project = require('./project');
+    const auxImageKey = this._auxImageKey;
+
     const appMenuTemplate = [
       {
         id: 'file',
@@ -244,6 +259,7 @@ class WktAppMenu {
           {
             id: 'validateModel',
             label: i18n.t('menu-go-validate-model'),
+            visible: this._usesModel,
             enabled: !this._hasOpenDialog,
             click(item, focusedWindow) {
               if (!focusedWindow) {
@@ -258,6 +274,7 @@ class WktAppMenu {
           {
             id: 'prepareModel',
             label: i18n.t('menu-go-prepare-model-for-k8s'),
+            visible: this._usesModel,
             enabled: !this._hasOpenDialog,
             click(item, focusedWindow) {
               if (!focusedWindow) {
@@ -272,6 +289,7 @@ class WktAppMenu {
           {
             id: 'createImage',
             label: i18n.t('menu-go-create-image'),
+            visible: this._isCreatingPrimaryImage,
             enabled: !this._hasOpenDialog,
             click(item, focusedWindow) {
               if (!focusedWindow) {
@@ -286,6 +304,7 @@ class WktAppMenu {
           {
             id: 'pushImage',
             label: i18n.t('menu-go-push-image'),
+            visible: this._isCreatingPrimaryImage,
             enabled: !this._hasOpenDialog,
             click(item, focusedWindow) {
               if (!focusedWindow) {
@@ -299,13 +318,14 @@ class WktAppMenu {
           },
           {
             id: 'createAuxImage',
-            label: i18n.t('menu-go-create-aux-image'),
+            label: i18n.t(`menu-go-create-${auxImageKey}-image`),
+            visible: this._isCreatingAuxImage,
             enabled: !this._hasOpenDialog,
             click(item, focusedWindow) {
               if (!focusedWindow) {
                 return dialog.showErrorBox(
-                  i18n.t('menu-go-create-aux-image-error-title'),
-                  i18n.t('menu-go-create-aux-image-error-message')
+                  i18n.t(`menu-go-create-${auxImageKey}-image-error-title`),
+                  i18n.t(`menu-go-create-${auxImageKey}-image-error-message`)
                 );
               }
               sendToWindow(focusedWindow,'start-create-aux-image');
@@ -313,13 +333,14 @@ class WktAppMenu {
           },
           {
             id: 'pushAuxImage',
-            label: i18n.t('menu-go-push-aux-image'),
+            label: i18n.t(`menu-go-push-${auxImageKey}-image`),
+            visible: this._isCreatingAuxImage,
             enabled: !this._hasOpenDialog,
             click(item, focusedWindow) {
               if (!focusedWindow) {
                 return dialog.showErrorBox(
-                  i18n.t('menu-go-push-aux-image-error-title'),
-                  i18n.t('menu-go-push-aux-image-error-message')
+                  i18n.t(`menu-go-push-${auxImageKey}-image-error-title`),
+                  i18n.t(`menu-go-push-${auxImageKey}-image-error-message`)
                 );
               }
               sendToWindow(focusedWindow,'start-push-aux-image');
@@ -1051,15 +1072,8 @@ function setWindowStatus(window, key, status) {
   }
 }
 
-function setHasOpenDialog(window, value) {
-  setWindowStatus(window, 'hasOpenDialog', value);
-  if(window.isFocused()) {
-    createApplicationMenu(window);
-  }
-}
-
-function setTargetType(window, targetType) {
-  setWindowStatus(window, 'targetType', targetType);
+function setWindowAttribute(window, key, value) {
+  setWindowStatus(window, key, value);
   if(window.isFocused()) {
     createApplicationMenu(window);
   }
@@ -1156,9 +1170,7 @@ function createApplicationMenu(newWindow) {
     return Menu.setApplicationMenu(null);
   }
 
-  const hasOpenDialog = getWindowStatus(newWindow, 'hasOpenDialog');
-  const targetType = getWindowStatus(newWindow, 'targetType');
-  const appMenuTemplate = new WktAppMenu(hasOpenDialog, targetType).appMenuTemplate;
+  const appMenuTemplate = new WktAppMenu(newWindow).appMenuTemplate;
   let menu = Menu.buildFromTemplate(appMenuTemplate);
 
   // blur the focused item in the renderer when a top-level menu item is opened.
@@ -1259,8 +1271,7 @@ module.exports = {
   initialize,
   isSingleWindow,
   setTitleFileName,
-  setHasOpenDialog,
-  setTargetType,
+  setWindowAttribute,
   showErrorMessage,
   promptUserForOkOrCancelAnswer,
   promptUserForYesOrNoAnswer,

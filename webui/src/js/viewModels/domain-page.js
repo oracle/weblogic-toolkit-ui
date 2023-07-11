@@ -28,12 +28,7 @@ function(accUtils, ko, CoreRouter, ModuleRouterAdapter, ArrayDataProvider, k8sDo
     this.disableGetDomainStatus = ko.observable(false);
     this.disableUndeployDomain = ko.observable(false);
 
-    this.showPrepareModel = ko.computed(() => {
-      if (this.project.settings.targetDomainLocation.observable() === 'pv') {
-        return auxImageHelper.supportsDomainCreationImages() && this.project.image.useAuxImage.observable();
-      }
-      return true;
-    });
+    this.showPrepareModel = ko.computed(auxImageHelper.projectUsesModel);
 
     this.prepareModel = () => {
       wdtPreparer.startPrepareModel().then();
