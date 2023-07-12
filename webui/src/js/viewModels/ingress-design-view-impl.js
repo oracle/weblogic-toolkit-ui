@@ -4,13 +4,12 @@
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 
-define(['utils/i18n', 'accUtils', 'knockout', 'ojs/ojarraydataprovider',
-  'ojs/ojbufferingdataprovider', 'models/wkt-project', 'utils/dialog-helper',
-  'utils/ingress-routes-updater', 'utils/view-helper', 'utils/k8s-helper', 'ojs/ojtreeview',
-  'ojs/ojformlayout', 'ojs/ojinputtext', 'ojs/ojcollapsible', 'ojs/ojselectsingle', 'ojs/ojswitch', 'ojs/ojtable',
-  'ojs/ojcheckboxset'
+define(['utils/i18n', 'accUtils', 'knockout', 'ojs/ojarraydataprovider', 'ojs/ojbufferingdataprovider',
+  'models/wkt-project', 'utils/dialog-helper', 'utils/common-utilities', 'utils/ingress-routes-updater',
+  'utils/view-helper', 'utils/k8s-helper', 'ojs/ojtreeview', 'ojs/ojformlayout', 'ojs/ojinputtext',
+  'ojs/ojcollapsible', 'ojs/ojselectsingle', 'ojs/ojswitch', 'ojs/ojtable', 'ojs/ojcheckboxset'
 ],
-function(i18n, accUtils, ko, ArrayDataProvider, BufferingDataProvider, project, dialogHelper,
+function(i18n, accUtils, ko, ArrayDataProvider, BufferingDataProvider, project, dialogHelper, utils,
   ingressRouteUpdater, viewHelper, k8sHelper) {
 
   function IngressDesignViewModel() {
@@ -169,10 +168,6 @@ function(i18n, accUtils, ko, ArrayDataProvider, BufferingDataProvider, project, 
     this.routesDataProvider = new ArrayDataProvider(this.routes.observable,
       {keyAttributes: 'uid', sortComparators: sortComparators});
 
-    function getAnnotationUid(routeIndex) {
-      return 'r' + routeIndex;
-    }
-
     // display in the target column, example "host:port"
     this.getTargetText = (routeData) => {
       let result = routeData.targetService;
@@ -186,19 +181,9 @@ function(i18n, accUtils, ko, ArrayDataProvider, BufferingDataProvider, project, 
     };
 
     this.handleAddRoute = () => {
-      const uids = [];
-      this.routes.observable().forEach(route => {
-        uids.push(route.uid);
-      });
-
-      let nextIndex = 0;
-      while(uids.indexOf(getAnnotationUid(nextIndex)) !== -1) {
-        nextIndex++;
-      }
-
       const newRoute = {
-        uid: getAnnotationUid(nextIndex),
-        name: `new-route-${nextIndex}`,
+        uid: utils.getShortUuid(),
+        name: utils.generateNewName(this.routes.observable, 'name', 'new-route'),
         targetServiceNameSpace: this.project.k8sDomain.kubernetesNamespace.value,
         accessPoint: '',
         tlsOption: 'plain',

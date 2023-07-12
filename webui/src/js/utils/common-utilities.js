@@ -9,7 +9,7 @@
  * An object which controls display of the main dialog.
  * Returns a singleton.
  */
-define([],
+define(['utils/wkt-logger'],
   function () {
     const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 
@@ -129,7 +129,33 @@ define([],
           }
         }
         return result;
-      }
+      },
+
+      /**
+       * Generate a new name with an index larger than the largest existing one in the array.
+       *
+       * @param observableArray - the knockout ObservableArray of objects
+       * @param fieldName       - the field name in the object to match against
+       * @param generatedPrefix - the generated name prefix to match against and use for the new name
+       * @returns {string}      - the newly generated name
+       */
+      generateNewName(observableArray, fieldName, generatedPrefix, omitIndexDash = false) {
+        let index = 1;
+        const regexString = omitIndexDash ? `^${generatedPrefix}(\\d+)$` : `^${generatedPrefix}-(\\d+)$`;
+
+        const generatedRegex = new RegExp(regexString);
+        observableArray().forEach(obj => {
+          const match = obj[fieldName].match(generatedRegex);
+          if (match) {
+            const indexFound = Number(match[1]);
+
+            if (indexFound >= index) {
+              index = indexFound + 1;
+            }
+          }
+        });
+        return omitIndexDash ? `${generatedPrefix}${index}` : `${generatedPrefix}-${index}`;
+      },
     };
   }
 );

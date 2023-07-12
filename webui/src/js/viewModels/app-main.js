@@ -155,7 +155,7 @@ function(accUtils, ko, i18n, project, wktConsole,
         id: 'model-page',
         icon: 'oj-ux-ico-model-change-mgmt',
         disabled: ko.computed(() => {
-          return !auxImageHelper.projectUsesModel();
+          return !auxImageHelper.projectHasModel();
         })
       },
       { name: this.labelMapper('image'),
@@ -284,7 +284,7 @@ function(accUtils, ko, i18n, project, wktConsole,
 
     // synchronize calculated values with electron window to disable/hide menu items on change
 
-    project.synchronizeWithWindow('usesModel', ko.computed(auxImageHelper.projectUsesModel));
+    project.synchronizeWithWindow('usesModel', ko.computed(auxImageHelper.projectHasModel));
     project.synchronizeWithWindow('isCreatingAuxImage', ko.computed(auxImageHelper.isCreatingAuxImage));
   }
 

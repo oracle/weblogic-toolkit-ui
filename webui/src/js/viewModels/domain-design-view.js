@@ -59,6 +59,14 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
     this.project = project;
     this.i18n = i18n;
 
+    this.projectHasModel = () => {
+      return auxImageHelper.projectHasModel();
+    };
+
+    this.projectUsingExternalImageContainingModel = () => {
+      return auxImageHelper.projectUsingExternalImageContainingModel();
+    };
+
     this.isDomainOnPV = ko.computed(() => {
       return this.project.settings.targetDomainLocation.observable() === 'pv';
     }, this);
@@ -231,12 +239,6 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       screenUtils.gotoImageDesignAuxiliaryImageScreen();
     };
 
-    this.auxImageConfigData = [
-      { id: 'offOption', value: 'off', label: this.smartLabelMapper('aux-image-config-off-label')},
-      { id: 'useOption', value: 'use', label: this.smartLabelMapper('aux-image-config-use-label')},
-      { id: 'createOption', value: 'create', label: this.smartLabelMapper('aux-image-config-create-label')}
-    ];
-
     this.applyAuxImageConfig = (newValue) => {
       switch (newValue) {
         case 'off':
@@ -266,10 +268,11 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       return value;
     };
 
-    this.auxImageConfigDP = ko.computed(() => {
-      return new ArrayDataProvider(this.auxImageConfigData, { keyAttributes: 'id' });
-    });
     this.auxImageConfig = ko.observable(this.computeAuxImageConfig());
+
+    this.getAuxImageDecision = ko.computed(() => {
+      return this.smartLabelMapper(`aux-image-config-${this.auxImageConfig()}-label`);
+    });
 
     this.integerConverter = new ojConverterNumber.IntlNumberConverter({
       style: 'decimal',
@@ -345,15 +348,29 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
 
     this.pvReclaimPolicyDP = new ArrayDataProvider(this.pvReclaimPolicyData, { keyAttributes: 'key' });
 
+    ///////////////////////////////////////////////////////////////////////////////////
+    //                               Clusters Table                                  //
+    ///////////////////////////////////////////////////////////////////////////////////
+
+    this.disableClusterAddRemove = ko.computed(() => {
+      if (this.project.settings.targetDomainLocation.observable() !== 'pv') {
+        return auxImageHelper.projectHasModel();
+      }
+      // PV is always enabled
+      return false;
+    }, this);
+
     this.hasNoClusters = () => {
       return this.project.k8sDomain.clusters.value.length === 0;
     };
 
     this.noClustersMessage = ko.computed(() => {
-      if (this.supportsDomainCreationImages() && this.project.image.useAuxImage.observable()) {
-        return this.labelMapper('pv-dci-no-clusters-message');
-      } else if (this.project.settings.targetDomainLocation.observable() === 'pv') {
-        return this.labelMapper('pv-no-clusters-message');
+      if (this.project.settings.targetDomainLocation.observable() === 'pv') {
+        if (auxImageHelper.projectHasModel()) {
+          return this.labelMapper('pv-dci-no-clusters-message');
+        } else {
+          return this.labelMapper('pv-no-clusters-message');
+        }
       }
       return this.labelMapper('no-clusters-message');
     });
@@ -443,20 +460,9 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       this.clustersEditRow({ rowKey: null });
     };
 
-    const generatedClusterNameRegex = /^new-cluster-(\d+)$/;
-
     this.generateNewClusterName = () => {
-      let index = 1;
-      this.project.k8sDomain.clusters.observable().forEach(cluster => {
-        const match = cluster.name.match(generatedClusterNameRegex);
-        if (match) {
-          const indexFound = Number(match[1]);
-          if (indexFound >= index) {
-            index = indexFound + 1;
-          }
-        }
-      });
-      return `new-cluster-${index}`;
+      return utils.generateNewName(this.project.k8sDomain.clusters.observable,
+        'name', 'new-cluster');
     };
 
     this.handleAddCluster = () => {
@@ -478,9 +484,9 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       this.project.k8sDomain.clusters.observable.splice(index, 1);
     };
 
-    this.modelHasNoProperties = () => {
-      return this.project.wdtModel.getMergedPropertiesContent().value.length === 0;
-    };
+    ///////////////////////////////////////////////////////////////////////////////////
+    //                            Model Variables Table                              //
+    ///////////////////////////////////////////////////////////////////////////////////
 
     this.propertyTableColumnMetadata = () => {
       return [
@@ -496,6 +502,115 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       this.project.wdtModel.getMergedPropertiesContent().observable,
       {keyAttributes: 'uid', sortComparators: propertyComparators}));
 
+
+    this.modelHasNoProperties = () => {
+      return this.project.wdtModel.getMergedPropertiesContent().value.length === 0;
+    };
+
+    ///////////////////////////////////////////////////////////////////////////////////
+    //                        External Model Variables Table                         //
+    ///////////////////////////////////////////////////////////////////////////////////
+
+    this.externalPropertyTableColumnMetadata = [
+      { headerText: this.labelMapper('propname-header'), sortProperty: 'Name', resizable: 'enabled' },
+      { headerText: this.labelMapper('propoverride-header'), sortProperty: 'Override', resizable: 'enabled' },
+      {
+        className: 'wkt-table-delete-cell',
+        headerClassName: 'wkt-table-add-header',
+        headerTemplate: 'headerTemplate',
+        template: 'actionTemplate',
+        sortable: 'disable',
+        width: viewHelper.BUTTON_COLUMN_WIDTH
+      },
+    ];
+
+    const externalPropertyComparators = viewHelper.getSortComparators(this.externalPropertyTableColumnMetadata);
+    this.externalModelHasNoProperties = ko.computed(() => {
+      return this.project.k8sDomain.externalProperties.observable().length === 0;
+    }, this);
+
+    this.externalPropertiesConfigMapDP = new BufferingDataProvider(new ArrayDataProvider(
+      this.project.k8sDomain.externalProperties.observable,
+      {keyAttributes: 'uid', sortComparators: externalPropertyComparators}));
+
+    this.generateNewExternalPropertyName = () => {
+      return utils.generateNewName(this.project.k8sDomain.externalProperties.observable,
+        'Name', 'existing-model-variable');
+    };
+
+    this.handleAddExternalProperty = () => {
+      const propertyToAdd = {
+        uid: utils.getShortUuid(),
+        Name: this.generateNewExternalPropertyName(),
+        Override: undefined
+      };
+      this.project.k8sDomain.externalProperties.addNewItem(propertyToAdd);
+    };
+
+    this.handleDeleteExternalProperty = (event, context) => {
+      const index = context.item.index;
+      this.project.k8sDomain.externalProperties.observable.splice(index, 1);
+    };
+
+    ///////////////////////////////////////////////////////////////////////////////////
+    //                                 Secrets Table                                 //
+    ///////////////////////////////////////////////////////////////////////////////////
+
+    this.secretsTableColumnMetadata = () => {
+      return [
+        { headerText: this.labelMapper('secretname-header'), sortProperty: 'name', resizable: 'enabled' },
+        { headerText: this.labelMapper('username-header'), sortable: 'disabled', resizable: 'enabled' },
+        { headerText: this.labelMapper('password-header'), sortable: 'disabled', resizable: 'enabled' },
+        {
+          className: 'wkt-table-delete-cell',
+          headerClassName: 'wkt-table-add-header',
+          headerTemplate: 'headerTemplate',
+          template: 'actionTemplate',
+          sortable: 'disable',
+          width: viewHelper.BUTTON_COLUMN_WIDTH
+        },
+      ];
+    };
+
+    this.secretsDP = new BufferingDataProvider(new ArrayDataProvider(
+      this.project.k8sDomain.secrets.observable, {keyAttributes: 'uid'}));
+
+    this.disableSecretAddRemove = ko.computed(() => {
+      return !auxImageHelper.projectUsingExternalImageContainingModel();
+    });
+
+    this.generateNewSecretName = () => {
+      return utils.generateNewName(this.project.k8sDomain.secrets.observable,
+        'name', 'existing-model-secret');
+    };
+
+    this.handleAddSecret = () => {
+      const secretToAdd = {
+        uid: utils.getShortUuid(),
+        name: this.generateNewSecretName(),
+        username: '',
+        password: '',
+      };
+      this.project.k8sDomain.secrets.addNewItem(secretToAdd);
+    };
+
+    this.handleDeleteSecret = (event, context) => {
+      const index = context.item.index;
+      this.project.k8sDomain.secrets.observable.splice(index, 1);
+    };
+
+    this.noSecretsMessage = () => {
+      let secretsMessage = '<no-message>';
+      if (auxImageHelper.projectHasModel()) {
+        secretsMessage = this.labelMapper('no-secrets-message');
+      } else if (auxImageHelper.projectUsingExternalImageContainingModel()) {
+        secretsMessage = this.labelMapper('no-secrets-add-remove-message');
+      }
+      return secretsMessage;
+    };
+
+    // Runtime Encryption Secret functions
+    //
     this.hasEncryptionSecret = () => {
       return this.isModelInImage();
     };
@@ -505,16 +620,53 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       this.project.k8sDomain.runtimeSecretValue.observable(newValue);
     };
 
-    this.secretsTableColumnMetadata = () => {
-      return [
-        { headerText: this.labelMapper('secretname-header'), sortProperty: 'name', resizable: 'enabled' },
-        { headerText: this.labelMapper('username-header'), sortable: 'disabled', resizable: 'enabled' },
-        { headerText: this.labelMapper('password-header'), sortable: 'disabled', resizable: 'enabled' },
-      ];
+    ///////////////////////////////////////////////////////////////////////////////////
+    //                        Environment Variable Table                             //
+    ///////////////////////////////////////////////////////////////////////////////////
+
+    this.environmentVariablesColumnMetadata = [
+      {
+        headerText: this.labelMapper('domain-env-var-name-header'),
+        sortProperty: 'name',
+        resizable: 'enabled'
+      },
+      {
+        headerText: this.labelMapper('domain-env-var-value-header'),
+        sortProperty: 'disabled',
+        resizable: 'enabled'
+      },
+      {
+        className: 'wkt-table-delete-cell',
+        headerClassName: 'wkt-table-add-header',
+        headerTemplate: 'headerTemplate',
+        template: 'actionTemplate',
+        sortable: 'disable',
+        width: viewHelper.BUTTON_COLUMN_WIDTH
+      },
+    ];
+
+    this.environmentVariablesDP = new BufferingDataProvider(new ArrayDataProvider(
+      this.project.k8sDomain.serverPodEnvironmentVariables.observable, {keyAttributes: 'uid'}));
+
+    this.handleAddDomainEnvironmentVariable = () => {
+      const labelToAdd = {
+        uid: utils.getShortUuid(),
+        name: utils.generateNewName(this.project.k8sDomain.serverPodEnvironmentVariables.observable,
+          'name', 'NEW-VARIABLE'),
+        value: ''
+      };
+      this.project.k8sDomain.serverPodEnvironmentVariables.addNewItem(labelToAdd);
     };
 
-    this.secretsDP = new BufferingDataProvider(new ArrayDataProvider(
-      this.project.k8sDomain.secrets.observable, {keyAttributes: 'name'}));
+    this.handleDeleteDomainEnvironmentVariable = (event, context) => {
+      const index = context.item.index;
+      this.project.k8sDomain.serverPodEnvironmentVariables.observable.splice(index, 1);
+    };
+
+
+    ///////////////////////////////////////////////////////////////////////////////////
+    //                           Node Selector Table                                 //
+    ///////////////////////////////////////////////////////////////////////////////////
 
     this.nodeSelectorColumnMetadata = [
       {
@@ -540,21 +692,13 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       new ArrayDataProvider(this.project.k8sDomain.domainNodeSelector.observable, { keyAttributes: 'uid' }));
 
     this.handleAddDomainNodeSelector = () => {
-      const labelNames = [];
-      this.project.k8sDomain.domainNodeSelector.observable().forEach(label => {
-        labelNames.push(label.name);
-      });
-
-      let nextIndex = 0;
-      while (labelNames.indexOf(`new-label-${nextIndex + 1}`) !== -1) {
-        nextIndex++;
-      }
-
-      this.project.k8sDomain.domainNodeSelector.addNewItem({
+      const labelToAdd = {
         uid: utils.getShortUuid(),
-        name: `new-label-${nextIndex + 1}`,
+        name: utils.generateNewName(this.project.k8sDomain.domainNodeSelector.observable,
+          'name', 'new-label'),
         value: ''
-      });
+      };
+      this.project.k8sDomain.domainNodeSelector.addNewItem(labelToAdd);
     };
   }
 

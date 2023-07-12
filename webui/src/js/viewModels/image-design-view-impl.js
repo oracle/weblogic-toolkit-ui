@@ -156,9 +156,9 @@ define(['utils/wkt-logger', 'utils/screen-utils', 'utils/aux-image-helper'],
 
       this.auxImageConfigData =
         [
-          {id: 'offOption', value: 'off', label: this.miiPvLabelMapper('aux-image-config-off-label')},
+          {id: 'createOption', value: 'create', label: this.miiPvLabelMapper('aux-image-config-create-label')},
           {id: 'useOption', value: 'use', label: this.miiPvLabelMapper('aux-image-config-use-label')},
-          {id: 'createOption', value: 'create', label: this.miiPvLabelMapper('aux-image-config-create-label')}
+          {id: 'offOption', value: 'off', label: this.miiPvLabelMapper('aux-image-config-off-label')},
         ];
 
       this.applyAuxImageConfig = (newValue) => {

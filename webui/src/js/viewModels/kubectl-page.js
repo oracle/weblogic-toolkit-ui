@@ -223,26 +223,11 @@ function(accUtils, ko, project, i18n, ArrayDataProvider, BufferingDataProvider, 
       }
     });
 
-    const generatedManagedClusterNameRegex = /^managed(\d+)$/;
-
-    this.generateNewManagedClusterName = () => {
-      let index = 1;
-      this.project.kubectl.vzManagedClusters.observable().forEach(managedCluster => {
-        const match = managedCluster.name.match(generatedManagedClusterNameRegex);
-        if (match) {
-          const indexFound = Number(match[1]);
-          if (indexFound >= index) {
-            index = indexFound + 1;
-          }
-        }
-      });
-      return `managed${index}`;
-    };
-
     this.handleAddManagedCluster = () => {
       const managedClusterToAdd = {
         uid: utils.getShortUuid(),
-        name: this.generateNewManagedClusterName(),
+        name: utils.generateNewName(this.project.kubectl.vzManagedClusters.observable,
+          'name', 'managed', true),
         kubeConfig: this.project.kubectl.kubeConfig.value
       };
       this.project.kubectl.vzManagedClusters.addNewItem(managedClusterToAdd);

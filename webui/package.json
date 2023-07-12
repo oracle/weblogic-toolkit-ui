@@ -12,7 +12,7 @@
   "dependencies": {
     "@oracle/oraclejet": "~14.1.2",
     "@oracle/oraclejet-core-pack": "~14.1.2",
-    "@oracle/wrc-jet-pack": "~2.4.5-develop",
+    "@oracle/wrc-jet-pack": "~2.4.5",
     "ace-builds": "^1.22.0",
     "i18next": "^22.5.0",
     "jquery": "^3.7.0",
