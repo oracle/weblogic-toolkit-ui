@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
@@ -171,6 +171,16 @@ function(project, K8sDomainConfigMapGenerator, jsYaml, i18n) {
 
     _getDomainServerPod() {
       let serverPod = this._getServerPod();
+
+      if (this.project.k8sDomain.serverPodEnvironmentVariables.value.length > 0) {
+        if (!serverPod) {
+          serverPod = {};
+        }
+        serverPod.env = [];
+        this.project.k8sDomain.serverPodEnvironmentVariables.value.forEach(envVar => {
+          serverPod.env.push({ name: envVar.name, value: envVar.value });
+        });
+      }
 
       if (this.project.k8sDomain.domainNodeSelector.value.length > 0) {
         if (!serverPod) {

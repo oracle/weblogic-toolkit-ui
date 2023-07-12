@@ -1,15 +1,15 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
 
 define(['accUtils', 'knockout', 'utils/i18n', 'models/wkt-project',  'utils/view-helper', 'ojs/ojarraydataprovider',
-  'ojs/ojbufferingdataprovider', 'utils/observable-properties', 'ojs/ojconverter-number', 'utils/wkt-logger',
-  'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojdialog', 'ojs/ojformlayout', 'ojs/ojvalidationgroup',
-  'ojs/ojselectcombobox'],
-function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDataProvider, props,
+  'ojs/ojbufferingdataprovider', 'utils/observable-properties', 'utils/common-utilities', 'ojs/ojconverter-number',
+  'utils/wkt-logger', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojdialog', 'ojs/ojformlayout',
+  'ojs/ojvalidationgroup', 'ojs/ojselectcombobox'],
+function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDataProvider, props, utils,
   ojConverterNumber) {
   function RouteEditDialogModel(args) {
     const DIALOG_SELECTOR = '#routeEditDialog';
@@ -107,28 +107,14 @@ function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDa
 
     this.annotations = props.createListProperty(['uid', 'key', 'value']);
 
-    function getAnnotationUid(index) {
-      return 'a' + index;
-    }
-
-    this.nextAnnotationIndex = (() => {
-      const uids = [];
-      this.annotations.observable().forEach(annotation => {
-        uids.push(annotation.uid);
-      });
-
-      let nextIndex = 0;
-      while(uids.indexOf(getAnnotationUid(nextIndex)) !== -1) {
-        nextIndex++;
-      }
-      return nextIndex;
-    });
-
     const routeAnnotations = this.route.annotations;
     if (routeAnnotations) {
       Object.keys(routeAnnotations).forEach(key => {
-        const nextUid = getAnnotationUid(this.nextAnnotationIndex());
-        const annotation = {uid: nextUid, key: key, value: routeAnnotations[key]};
+        const annotation = {
+          uid: utils.getShortUuid(),
+          key: key,
+          value: routeAnnotations[key]
+        };
         this.annotations.addNewItem(annotation);
       });
     }
@@ -165,8 +151,10 @@ function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDa
     });
 
     this.handleAddAnnotation = () => {
-      const nextIndex = this.nextAnnotationIndex();
-      const annotation = {uid: getAnnotationUid(nextIndex), key: `annotation-${nextIndex}`};
+      const annotation = {
+        uid: utils.getShortUuid(),
+        key: utils.generateNewName(this.annotations.observable, 'key', 'annotation'),
+      };
       this.annotations.addNewItem(annotation);
     };
 

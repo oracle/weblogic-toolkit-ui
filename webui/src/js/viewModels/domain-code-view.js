@@ -1,14 +1,14 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 define(['accUtils', 'knockout', 'models/wkt-project', 'utils/k8s-domain-script-generator',
   'utils/k8s-domain-configmap-generator', 'utils/k8s-domain-resource-generator', 'utils/i18n',
-  'ojs/ojarraydataprovider', 'utils/wkt-logger', 'ojs/ojinputtext', 'ojs/ojnavigationlist', 'ojs/ojswitcher',
-  'ojs/ojknockout'],
-function (accUtils, ko, project, K8sDomainScriptGenerator, K8sDomainConfigMapGenerator, K8sDomainResourceGenerator, i18n,
-  ArrayDataProvider, wktLogger) {
+  'ojs/ojarraydataprovider', 'utils/aux-image-helper', 'utils/wkt-logger', 'ojs/ojinputtext', 'ojs/ojnavigationlist',
+  'ojs/ojswitcher', 'ojs/ojknockout'],
+function (accUtils, ko, project, K8sDomainScriptGenerator, K8sDomainConfigMapGenerator, K8sDomainResourceGenerator,
+  i18n, ArrayDataProvider, auxImageHelper, wktLogger) {
   function DomainCodeViewModel () {
     this.project = project;
 
@@ -55,7 +55,7 @@ function (accUtils, ko, project, K8sDomainScriptGenerator, K8sDomainConfigMapGen
 
 
     this.isConfigMapDisabled = () => {
-      return this.project.settings.targetDomainLocation.value !== 'mii';
+      return !(auxImageHelper.projectHasModel() || auxImageHelper.projectUsingExternalImageContainingModel());
     };
 
     this.subviews = [

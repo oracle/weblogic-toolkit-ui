@@ -157,7 +157,6 @@
       </oj-input-text>
       <oj-button id="inspectPrimaryImageButton"
                  chroming="callToAction"
-                 chroming="callToAction"
                  on-oj-action="[[inspectPrimaryImageForWDTLocations]]"
                  :title="[[labelMapper('image-inspect-hints')]]">
             <span>
@@ -211,12 +210,21 @@
     </oj-form-layout>
   </oj-bind-if>
   <oj-bind-if test="[[isModelInImage() === true || supportsDomainCreationImages() === true]]">
-    <oj-form-layout max-columns="1" direction="row">
-      <oj-radioset id="aux-image-radio"
-                   label-hint="[[imageLabelMapper('aux-image-settings-label')]]"
-                   value="{{auxImageConfig}}"
-                   options="{{auxImageConfigDP()}}">
-      </oj-radioset>
+    <h6 class="wkt-subheading"><oj-bind-text value="[[imageLabelMapper('aux-image-settings-label')]]"></oj-bind-text></h6>
+    <oj-form-layout max-columns="2" direction="row">
+      <div>
+        <span>
+          <oj-bind-text value="[[getAuxImageDecision]]"></oj-bind-text>
+        </span>
+      </div>
+      <oj-button id="revisitImageDecisionButton"
+                 chroming="callToAction"
+                 on-oj-action="[[gotoCreateImage]]"
+                 :title="[[labelMapper('revisit-aux-image-decision-help')]]">
+            <span>
+              <oj-bind-text value="[[labelMapper('revisit-aux-image-decision-label')]]"></oj-bind-text>
+            </span>
+      </oj-button>
     </oj-form-layout>
   </oj-bind-if>
 </div>
@@ -511,7 +519,7 @@
         <td>
           <oj-button display="icons"
                      chroming="borderless"
-                     disabled="[[isDomainOnPV() === false]]"
+                     disabled="[[disableClusterAddRemove]]"
                      on-oj-action="[[handleDeleteCluster]]">
             <span slot="endIcon" class="oj-ux-ico-trash"></span>
             <oj-bind-text value="[[labelMapper('delete-cluster-tooltip')]]"></oj-bind-text>
@@ -527,7 +535,7 @@
     <template slot="headerTemplate" data-oj-as="header">
       <oj-button display="icons"
                  chroming="borderless"
-                 disabled="[[isDomainOnPV() === false]]"
+                 disabled="[[disableClusterAddRemove]]"
                  on-oj-action="[[handleAddCluster]]">
         <span slot="endIcon" class="oj-ux-ico-plus"></span>
         <oj-bind-text value="[[labelMapper('add-cluster-tooltip')]]"></oj-bind-text>
@@ -541,7 +549,7 @@
   </oj-table>
 </div>
 
-<oj-bind-if test="[[isModelInImage() === true || usingDomainCreationImage() === true]]">
+<oj-bind-if test="[[projectHasModel() === true]]">
   <div class="oj-panel">
     <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('configmap-title')]]"></oj-bind-text></h6>
     <oj-bind-if test="[[modelHasNoProperties() === false]]">
@@ -577,6 +585,69 @@
             </oj-bind-if>
           </tr>
       </template>
+      <template slot="noData">
+        <div class="oj-table-body-message">
+          <oj-bind-text value="[[labelMapper('configmap-no-properties-message')]]"></oj-bind-text>
+        </div>
+      </template>
+    </oj-table>
+  </div>
+</oj-bind-if>
+<oj-bind-if test="[[projectUsingExternalImageContainingModel() === true]]">
+  <div class="oj-panel">
+    <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('configmap-external-title')]]"></oj-bind-text></h6>
+    <oj-bind-if test="[[externalModelHasNoProperties() === false]]">
+      <oj-form-layout max-columns="1">
+        <oj-input-text label-hint="[[labelMapper('configmap-label')]]"
+                       value="{{project.k8sDomain.modelConfigMapName.observable}}"
+                       help.instruction="[[labelMapper('configmap-help')]]">
+        </oj-input-text>
+      </oj-form-layout>
+    </oj-bind-if>
+
+    <oj-table id="external-properties-table"
+              class="wkt-domain-properties-table"
+              :aria-label="[[labelMapper('configmap-table-aria-label')]]"
+              data="{{externalPropertiesConfigMapDP}}"
+              display="grid"
+              horizontal-grid-visible="enabled"
+              vertical-grid-visible="enabled"
+              edit-mode="rowEdit"
+              layout="fixed"
+              columns='[[externalPropertyTableColumnMetadata]]'>
+      <template slot="rowTemplate" data-oj-as="row">
+        <tr data-bind="attr: {'data-uid': row.data.uid}">
+          <oj-bind-if test='[[row.mode=="navigation"]]'>
+            <td><oj-bind-text value="[[row.data.Name]]"></oj-bind-text></td>
+            <td><oj-bind-text value="[[row.data.Override]]"></oj-bind-text></td>
+          </oj-bind-if>
+          <oj-bind-if test='[[row.mode=="edit"]]'>
+            <td><oj-input-text value="{{row.data.Name}}"></oj-input-text></td>
+            <td><oj-input-text value="{{row.data.Override}}"></oj-input-text></td>
+          </oj-bind-if>
+          <td>
+            <oj-button display="icons"
+                       chroming="borderless"
+                       on-oj-action="[[handleDeleteExternalProperty]]">
+              <span slot="endIcon" class="oj-ux-ico-trash"></span>
+              <oj-bind-text value="[[labelMapper('delete-external-property-tooltip')]]"></oj-bind-text>
+            </oj-button>
+          </td>
+        </tr>
+      </template>
+      <template slot="headerTemplate" data-oj-as="header">
+        <oj-button display="icons"
+                   chroming="borderless"
+                   on-oj-action="[[handleAddExternalProperty]]">
+          <span slot="endIcon" class="oj-ux-ico-plus"></span>
+          <oj-bind-text value="[[labelMapper('add-external-property-tooltip')]]"></oj-bind-text>
+        </oj-button>
+      </template>
+      <template slot="noData">
+        <div class="oj-table-body-message">
+          <oj-bind-text value="[[labelMapper('configmap-no-properties-add-remove-message')]]"></oj-bind-text>
+        </div>
+      </template>
     </oj-table>
   </div>
 </oj-bind-if>
@@ -600,7 +671,7 @@
               <td><oj-bind-text value="[[row.data.name]]"></oj-bind-text></td>
             </oj-bind-if>
             <oj-bind-if test='[[row.mode=="edit"]]'>
-              <td><oj-input-text value="{{row.data.name}}" disabled="true"></oj-input-text></td>
+              <td><oj-input-text value="{{row.data.name}}" disabled="[[disableSecretAddRemove]]"></oj-input-text></td>
             </oj-bind-if>
             <td>
               <oj-input-password value="{{row.data.username}}"
@@ -614,7 +685,31 @@
                                  readonly='[[row.mode=="navigation"]]' >
               </oj-input-password>
             </td>
+            <td>
+              <oj-bind-if test="[[disableSecretAddRemove() === false]]">
+                <oj-button display="icons"
+                           chroming="borderless"
+                           on-oj-action="[[handleDeleteSecret]]">
+                  <span slot="endIcon" class="oj-ux-ico-trash"></span>
+                  <oj-bind-text value="[[labelMapper('delete-external-secret-tooltip')]]"></oj-bind-text>
+                </oj-button>
+              </oj-bind-if>
+            </td>
           </tr>
+      </template>
+      <template slot="headerTemplate" data-oj-as="header">
+        <oj-button display="icons"
+                   chroming="borderless"
+                   disabled="[[disableSecretAddRemove]]"
+                   on-oj-action="[[handleAddSecret]]">
+          <span slot="endIcon" class="oj-ux-ico-plus"></span>
+          <oj-bind-text value="[[labelMapper('add-external-secret-tooltip')]]"></oj-bind-text>
+        </oj-button>
+      </template>
+      <template slot="noData">
+        <div class="oj-table-body-message">
+          <oj-bind-text value="[[noSecretsMessage()]]"></oj-bind-text>
+        </div>
       </template>
     </oj-table>
   </div>
@@ -642,6 +737,54 @@
       </oj-form-layout>
     </div>
   </oj-bind-if>
+
+  <div class="oj-panel">
+    <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('domain-env-var-title')]]"></oj-bind-text></h6>
+    <oj-table id="server-pod-env-vars-table"
+              class="wkt-domain-secrets-table"
+              :aria-label="[[labelMapper('domain-env-var-table-aria-label')]]"
+              data="[[environmentVariablesDP]]"
+              display="grid"
+              horizontal-grid-visible="enabled"
+              vertical-grid-visible="enabled"
+              edit-mode="rowEdit"
+              layout="fixed"
+              columns='[[environmentVariablesColumnMetadata]]'>
+      <template slot="rowTemplate" data-oj-as="row">
+        <tr>
+          <oj-bind-if test='[[row.mode=="navigation"]]'>
+            <td><oj-bind-text value="[[row.data.name]]"></oj-bind-text></td>
+            <td><oj-bind-text value="[[row.data.value]]"></oj-bind-text></td>
+          </oj-bind-if>
+          <oj-bind-if test='[[row.mode=="edit"]]'>
+            <td><oj-input-text value="{{row.data.name}}"></oj-input-text></td>
+            <td><oj-input-text value="{{row.data.value}}"></oj-input-text></td>
+          </oj-bind-if>
+          <td>
+            <oj-button display="icons"
+                       chroming="borderless"
+                       on-oj-action="[[handleDeleteDomainEnvironmentVariable]]">
+              <span slot="endIcon" class="oj-ux-ico-trash"></span>
+              <oj-bind-text value="[[labelMapper('domain-delete-env-var-tooltip')]]"></oj-bind-text>
+            </oj-button>
+          </td>
+        </tr>
+      </template>
+      <template slot="headerTemplate" data-oj-as="header">
+        <oj-button display="icons"
+                   chroming="borderless"
+                   on-oj-action="[[handleAddDomainEnvironmentVariable]]">
+          <span slot="endIcon" class="oj-ux-ico-plus"></span>
+          <oj-bind-text value="[[labelMapper('domain-add-env-var-tooltip')]]"></oj-bind-text>
+        </oj-button>
+      </template>
+      <template slot="noData">
+        <div class="oj-table-body-message">
+          <oj-bind-text value="[[labelMapper('domain-no-env-vars-message')]]"></oj-bind-text>
+        </div>
+      </template>
+    </oj-table>
+  </div>
 
   <div class="oj-panel">
     <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('introspection-title')]]"></oj-bind-text></h6>

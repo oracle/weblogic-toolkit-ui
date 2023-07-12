@@ -155,9 +155,12 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
         this.pvcSizeLimit = props.createProperty();
         this.pvcSizeLimit.addValidator(...validationHelper.getK8sMemoryValidators());
 
+        this.externalProperties = props.createListProperty(['uid', 'Name', 'Override']).persistByKey('uid');
+
         // Jet tables do not work if you allow changing the value used as the primary key so always add a uid...
         //
         this.domainNodeSelector = props.createListProperty(['uid', 'name', 'value']);
+        this.serverPodEnvironmentVariables = props.createListProperty(['uid', 'name', 'value']).persistByKey('uid');
 
         // update the secrets list when the uid changes.
         this.uid.observable.subscribe(() => {

@@ -116,21 +116,12 @@ function (i18n, accUtils, ko, CoreRouter, ModuleRouterAdapter, ArrayDataProvider
       new ArrayDataProvider(this.project.wko.nodeSelector.observable, { keyAttributes: 'uid' }));
 
     this.handleAddNodeSelector = () => {
-      const labelNames = [];
-      this.project.wko.nodeSelector.observable().forEach(label => {
-        labelNames.push(label.name);
-      });
-
-      let nextIndex = 0;
-      while (labelNames.indexOf(`new-label-${nextIndex + 1}`) !== -1) {
-        nextIndex++;
-      }
-
-      this.project.wko.nodeSelector.addNewItem({
+      const labelToAdd = {
         uid: utils.getShortUuid(),
-        name: `new-label-${nextIndex + 1}`,
+        name: utils.generateNewName(this.project.wko.nodeSelector.observable, 'name', 'new-label'),
         value: ''
-      });
+      };
+      this.project.wko.nodeSelector.addNewItem(labelToAdd);
     };
 
     this.wkoVersions = ko.observableArray();

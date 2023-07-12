@@ -4,9 +4,9 @@
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 define(['accUtils', 'knockout', 'utils/i18n', 'utils/view-helper', 'ojs/ojarraydataprovider',
-  'ojs/ojbufferingdataprovider', 'models/wkt-project', 'ojs/ojtreeview', 'ojs/ojcorerouter',
+  'ojs/ojbufferingdataprovider', 'models/wkt-project', 'utils/common-utilities', 'ojs/ojtreeview', 'ojs/ojcorerouter',
   'ojs/ojmodulerouter-adapter', 'ojs/ojtable', 'ojs/ojbutton', 'ojs/ojformlayout', 'ojs/ojvalidationgroup'],
-function (accUtils, ko, i18n, viewHelper, ArrayDataProvider, BufferingDataProvider, project) {
+function (accUtils, ko, i18n, viewHelper, ArrayDataProvider, BufferingDataProvider, project, utils) {
   function ModelPropertiesViewModel() {
 
     this.connected = () => {
@@ -49,24 +49,12 @@ function (accUtils, ko, i18n, viewHelper, ArrayDataProvider, BufferingDataProvid
 
     // add a new row with an unused unique ID and unused name
     this.handleAddRow = () => {
-      const uids = [];
-      const names = [];
-      this.theObservableArray().forEach(item => {
-        uids.push(item.uid);
-        names.push(item.Name);
-      });
-
-      let nextUid = 0;
-      while(uids.indexOf(nextUid) !== -1) {
-        nextUid++;
-      }
-
-      let nextIndex = 0;
-      while(names.indexOf(`new-property-${nextIndex + 1}`) !== -1) {
-        nextIndex++;
-      }
-
-      project.wdtModel.getModelPropertiesObject().addNewItem({uid: nextUid, Name: `new-property-${nextIndex + 1}`});
+      const propertyToAdd = {
+        uid: utils.getShortUuid(),
+        Name: utils.generateNewName(project.wdtModel.getModelPropertiesObject().observable,
+          'Name', 'new-property'),
+      };
+      project.wdtModel.getModelPropertiesObject().addNewItem(propertyToAdd);
     };
   }
 
