@@ -161,6 +161,7 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
         //
         this.domainNodeSelector = props.createListProperty(['uid', 'name', 'value']);
         this.serverPodEnvironmentVariables = props.createListProperty(['uid', 'name', 'value']).persistByKey('uid');
+        this.serverPodEnvironmentVariablesOverrideOtherSettings = props.createProperty(false);
 
         // update the secrets list when the uid changes.
         this.uid.observable.subscribe(() => {

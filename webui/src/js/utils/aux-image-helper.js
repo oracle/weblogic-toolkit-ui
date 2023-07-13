@@ -10,7 +10,14 @@ define(['models/wkt-project', 'utils/wkt-logger'],
     function AuxImageHelper() {
 
       this.supportsDomainCreationImages = () => {
-        return project.settings.targetDomainLocation.value === 'pv' && this.wkoVersion41OrHigher();
+        if (project.settings.targetDomainLocation.value === 'pv') {
+          if (project.settings.wdtTargetType.value === 'wko') {
+            return this.wkoVersion41OrHigher();
+          } else {
+            return this.v8oVersion162OrHigher();
+          }
+        }
+        return false;
       };
 
       this.wkoVersion41OrHigher = () => {
@@ -18,6 +25,15 @@ define(['models/wkt-project', 'utils/wkt-logger'],
         let result = true;
         if (project.wko.installedVersion.hasValue() &&
           window.api.utils.compareVersions(project.wko.installedVersion.value, '4.1.0') < 0) {
+          result = false;
+        }
+        return result;
+      };
+
+      this.v8oVersion162OrHigher = () => {
+        let result = true;
+        if (project.vzInstall.actualInstalledVersion.hasValue() &&
+          window.api.utils.compareVersions(project.vzInstall.actualInstalledVersion.value, '1.6.2') < 0) {
           result = false;
         }
         return result;

@@ -460,15 +460,11 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       this.clustersEditRow({ rowKey: null });
     };
 
-    this.generateNewClusterName = () => {
-      return utils.generateNewName(this.project.k8sDomain.clusters.observable,
-        'name', 'new-cluster');
-    };
-
     this.handleAddCluster = () => {
       const clusterToAdd = {
         uid: utils.getShortUuid(),
-        name: this.generateNewClusterName(),
+        name: utils.generateNewName(this.project.k8sDomain.clusters.observable,
+          'name', 'new-cluster'),
         // In the case of Domain in PV where the user is adding a cluster definition
         // without running PrepareModel, we have no information on the cluster size
         // so just set replicas to zero and maxServers to the max value possible.
@@ -533,15 +529,11 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       this.project.k8sDomain.externalProperties.observable,
       {keyAttributes: 'uid', sortComparators: externalPropertyComparators}));
 
-    this.generateNewExternalPropertyName = () => {
-      return utils.generateNewName(this.project.k8sDomain.externalProperties.observable,
-        'Name', 'existing-model-variable');
-    };
-
     this.handleAddExternalProperty = () => {
       const propertyToAdd = {
         uid: utils.getShortUuid(),
-        Name: this.generateNewExternalPropertyName(),
+        Name: utils.generateNewName(this.project.k8sDomain.externalProperties.observable,
+          'Name', 'existing-model-variable'),
         Override: undefined
       };
       this.project.k8sDomain.externalProperties.addNewItem(propertyToAdd);
@@ -579,15 +571,11 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       return !auxImageHelper.projectUsingExternalImageContainingModel();
     });
 
-    this.generateNewSecretName = () => {
-      return utils.generateNewName(this.project.k8sDomain.secrets.observable,
-        'name', 'existing-model-secret');
-    };
-
     this.handleAddSecret = () => {
       const secretToAdd = {
         uid: utils.getShortUuid(),
-        name: this.generateNewSecretName(),
+        name: utils.generateNewName(this.project.k8sDomain.secrets.observable,
+          'name', 'existing-model-secret'),
         username: '',
         password: '',
       };

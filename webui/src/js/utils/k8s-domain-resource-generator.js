@@ -31,7 +31,7 @@ function(project, K8sDomainV8ResourceGenerator, K8sDomainV9ResourceGenerator, K8
       generator = new K8sDomainV8ResourceGenerator();
     } else {
       wktLogger.debug('Using operator version %s to create domain resource generator V9', operatorVersion);
-      generator = new K8sDomainV9ResourceGenerator(operatorVersion);
+      generator = new K8sDomainV9ResourceGenerator();
     }
     return generator;
   }

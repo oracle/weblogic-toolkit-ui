@@ -13,9 +13,8 @@ function(project, K8sDomainConfigMapGenerator, jsYaml, i18n, auxImageHelper) {
   const DEFAULT_AUX_IMAGE_WDT_MODEL_HOME = '/auxiliary/models';
 
   class K8sDomainV9ResourceGenerator {
-    constructor(operatorVersion) {
+    constructor() {
       this.project = project;
-      this.operatorVersion = operatorVersion;
       this.k8sConfigMapGenerator = new K8sDomainConfigMapGenerator();
     }
 
@@ -284,9 +283,16 @@ function(project, K8sDomainConfigMapGenerator, jsYaml, i18n, auxImageHelper) {
         if (!serverPod) {
           serverPod = {};
         }
-        serverPod.env = [];
+        if (!Array.isArray(serverPod.env)) {
+          serverPod.env = [];
+        }
         this.project.k8sDomain.serverPodEnvironmentVariables.value.forEach(envVar => {
-          serverPod.env.push({ name: envVar.name, value: envVar.value });
+          const existingEnvEntry = serverPod.env.find(envEntry => envEntry.name === envVar.name);
+          if (existingEnvEntry) {
+            existingEnvEntry.value = this._getEnvVarValue(existingEnvEntry, envVar.value);
+          } else {
+            serverPod.env.push({ name: envVar.name, value: envVar.value });
+          }
         });
       }
 
@@ -454,6 +460,13 @@ function(project, K8sDomainConfigMapGenerator, jsYaml, i18n, auxImageHelper) {
       }
 
       return pv;
+    }
+
+    _getEnvVarValue(envEntry, envVarValue) {
+      if (envEntry && !project.k8sDomain.serverPodEnvironmentVariablesOverrideOtherSettings.value) {
+        return `${envEntry.value} ${envVarValue}`;
+      }
+      return envVarValue;
     }
 
     usingDomainCreationImage() {

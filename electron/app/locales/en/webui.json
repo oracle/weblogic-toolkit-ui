@@ -841,7 +841,8 @@
   "domain-design-no-secrets-message": "No additional model secrets found.",
   "domain-design-no-secrets-add-remove-message": "No additional external model secrets found.  Please add secrets for any secret references in the external model that are not already handled in other parts of this page.",
 
-  "domain-design-domain-env-var-title": "Domain-Wide Environment Variables",
+  "domain-design-domain-env-var-override-label": "Override Existing Environment Variable Values",
+  "domain-design-domain-env-var-override-help": "Other fields in the Domain-Wide Server Settings use the JAVA_OPTIONS and USER_MEM_ARGS environment variables.  By default, any value for those variables in the table below are appended to the existing values.  Enabling this override switch will change that behavior to cause the value specified in the table to overwrite any existing values.",
   "domain-design-domain-env-var-table-aria-label": "Domain-Wide Environment Variables Table",
   "domain-design-domain-env-var-name-header": "Environment Variable Name",
   "domain-design-domain-env-var-value-header": "Environment Variable Value",

@@ -739,54 +739,6 @@
   </oj-bind-if>
 
   <div class="oj-panel">
-    <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('domain-env-var-title')]]"></oj-bind-text></h6>
-    <oj-table id="server-pod-env-vars-table"
-              class="wkt-domain-secrets-table"
-              :aria-label="[[labelMapper('domain-env-var-table-aria-label')]]"
-              data="[[environmentVariablesDP]]"
-              display="grid"
-              horizontal-grid-visible="enabled"
-              vertical-grid-visible="enabled"
-              edit-mode="rowEdit"
-              layout="fixed"
-              columns='[[environmentVariablesColumnMetadata]]'>
-      <template slot="rowTemplate" data-oj-as="row">
-        <tr>
-          <oj-bind-if test='[[row.mode=="navigation"]]'>
-            <td><oj-bind-text value="[[row.data.name]]"></oj-bind-text></td>
-            <td><oj-bind-text value="[[row.data.value]]"></oj-bind-text></td>
-          </oj-bind-if>
-          <oj-bind-if test='[[row.mode=="edit"]]'>
-            <td><oj-input-text value="{{row.data.name}}"></oj-input-text></td>
-            <td><oj-input-text value="{{row.data.value}}"></oj-input-text></td>
-          </oj-bind-if>
-          <td>
-            <oj-button display="icons"
-                       chroming="borderless"
-                       on-oj-action="[[handleDeleteDomainEnvironmentVariable]]">
-              <span slot="endIcon" class="oj-ux-ico-trash"></span>
-              <oj-bind-text value="[[labelMapper('domain-delete-env-var-tooltip')]]"></oj-bind-text>
-            </oj-button>
-          </td>
-        </tr>
-      </template>
-      <template slot="headerTemplate" data-oj-as="header">
-        <oj-button display="icons"
-                   chroming="borderless"
-                   on-oj-action="[[handleAddDomainEnvironmentVariable]]">
-          <span slot="endIcon" class="oj-ux-ico-plus"></span>
-          <oj-bind-text value="[[labelMapper('domain-add-env-var-tooltip')]]"></oj-bind-text>
-        </oj-button>
-      </template>
-      <template slot="noData">
-        <div class="oj-table-body-message">
-          <oj-bind-text value="[[labelMapper('domain-no-env-vars-message')]]"></oj-bind-text>
-        </div>
-      </template>
-    </oj-table>
-  </div>
-
-  <div class="oj-panel">
     <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('introspection-title')]]"></oj-bind-text></h6>
     <oj-form-layout max-columns="2" direction="row">
       <oj-input-number label-hint="[[labelMapper('introspector-job-active-deadline-label')]]"
@@ -857,12 +809,63 @@
       </oj-input-text>
     </oj-form-layout>
 
-    <oj-form-layout>
+    <oj-form-layout max-columns="2" direction="row">
       <oj-text-area label-hint="[[labelMapper('additional-java-options-label')]]"
                     value="{{project.k8sDomain.additionalArguments.observable}}"
                     help.instruction="[[labelMapper('additional-java-options-help')]]">
       </oj-text-area>
     </oj-form-layout>
+
+    <oj-form-layout max-columns="1" direction="row">
+      <oj-switch label-hint="[[labelMapper('domain-env-var-override-label')]]"
+                 value="{{project.k8sDomain.serverPodEnvironmentVariablesOverrideOtherSettings.observable}}"
+                 help.instruction="[[labelMapper('domain-env-var-override-help')]]">
+      </oj-switch>
+    </oj-form-layout>
+    <oj-table id="server-pod-env-vars-table"
+              class="wkt-domain-secrets-table"
+              :aria-label="[[labelMapper('domain-env-var-table-aria-label')]]"
+              data="[[environmentVariablesDP]]"
+              display="grid"
+              horizontal-grid-visible="enabled"
+              vertical-grid-visible="enabled"
+              edit-mode="rowEdit"
+              layout="fixed"
+              columns='[[environmentVariablesColumnMetadata]]'>
+      <template slot="rowTemplate" data-oj-as="row">
+        <tr>
+          <oj-bind-if test='[[row.mode=="navigation"]]'>
+            <td><oj-bind-text value="[[row.data.name]]"></oj-bind-text></td>
+            <td><oj-bind-text value="[[row.data.value]]"></oj-bind-text></td>
+          </oj-bind-if>
+          <oj-bind-if test='[[row.mode=="edit"]]'>
+            <td><oj-input-text value="{{row.data.name}}"></oj-input-text></td>
+            <td><oj-input-text value="{{row.data.value}}"></oj-input-text></td>
+          </oj-bind-if>
+          <td>
+            <oj-button display="icons"
+                       chroming="borderless"
+                       on-oj-action="[[handleDeleteDomainEnvironmentVariable]]">
+              <span slot="endIcon" class="oj-ux-ico-trash"></span>
+              <oj-bind-text value="[[labelMapper('domain-delete-env-var-tooltip')]]"></oj-bind-text>
+            </oj-button>
+          </td>
+        </tr>
+      </template>
+      <template slot="headerTemplate" data-oj-as="header">
+        <oj-button display="icons"
+                   chroming="borderless"
+                   on-oj-action="[[handleAddDomainEnvironmentVariable]]">
+          <span slot="endIcon" class="oj-ux-ico-plus"></span>
+          <oj-bind-text value="[[labelMapper('domain-add-env-var-tooltip')]]"></oj-bind-text>
+        </oj-button>
+      </template>
+      <template slot="noData">
+        <div class="oj-table-body-message">
+          <oj-bind-text value="[[labelMapper('domain-no-env-vars-message')]]"></oj-bind-text>
+        </div>
+      </template>
+    </oj-table>
   </div>
 
   <div class="oj-panel">
