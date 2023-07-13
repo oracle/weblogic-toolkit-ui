@@ -15,14 +15,16 @@
         </li>
       </template>
     </oj-tab-bar>
-    <oj-button id="prepareModelButton"
-               chroming="callToAction"
-               on-oj-action="[[prepareModel]]"
-               :title="[[anyLabelMapper('model-page-hints-prepareModel')]]">
-            <span>
-              <oj-bind-text value="[[anyLabelMapper('model-page-button-prepareModel')]]"></oj-bind-text>
-            </span>
-    </oj-button>
+    <oj-bind-if test="[[showPrepareModel]]">
+      <oj-button id="prepareModelButton"
+                 chroming="callToAction"
+                 on-oj-action="[[prepareModel]]"
+                 :title="[[anyLabelMapper('model-page-hints-prepareModel')]]">
+              <span>
+                <oj-bind-text value="[[anyLabelMapper('model-page-button-prepareModel')]]"></oj-bind-text>
+              </span>
+      </oj-button>
+    </oj-bind-if>
     <oj-button id="deployComponentButton"
                disabled="[[disableDeployComponent]]"
                chroming="callToAction"

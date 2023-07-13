@@ -176,9 +176,16 @@ function(project, K8sDomainConfigMapGenerator, jsYaml, i18n) {
         if (!serverPod) {
           serverPod = {};
         }
-        serverPod.env = [];
+        if (!Array.isArray(serverPod.env)) {
+          serverPod.env = [];
+        }
         this.project.k8sDomain.serverPodEnvironmentVariables.value.forEach(envVar => {
-          serverPod.env.push({ name: envVar.name, value: envVar.value });
+          const existingEnvEntry = serverPod.env.find(envEntry => envEntry.name === envVar.name);
+          if (existingEnvEntry) {
+            existingEnvEntry.value = this._getEnvVarValue(existingEnvEntry, envVar.value);
+          } else {
+            serverPod.env.push({ name: envVar.name, value: envVar.value });
+          }
         });
       }
 
@@ -263,6 +270,13 @@ function(project, K8sDomainConfigMapGenerator, jsYaml, i18n) {
         }
       }
       return result;
+    }
+
+    _getEnvVarValue(envEntry, envVarValue) {
+      if (envEntry && !project.k8sDomain.serverPodEnvironmentVariablesOverrideOtherSettings.value) {
+        return `${envEntry.value} ${envVarValue}`;
+      }
+      return envVarValue;
     }
   }
 

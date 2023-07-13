@@ -4,10 +4,10 @@
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 define(['accUtils', 'knockout', 'ojs/ojcorerouter', 'ojs/ojmodulerouter-adapter', 'ojs/ojarraydataprovider',
-  'utils/vz-component-deployer', 'utils/vz-component-undeployer', 'utils/i18n',
+  'utils/vz-component-deployer', 'utils/vz-component-undeployer', 'utils/i18n', 'utils/aux-image-helper',
   'utils/wdt-preparer', 'ojs/ojarraytreedataprovider', 'models/wkt-project', 'ojs/ojtreeview'],
 function(accUtils, ko, CoreRouter, ModuleRouterAdapter, ArrayDataProvider, vzComponentDeployer,
-  vzComponentUndeployer, i18n, wdtPreparer) {
+  vzComponentUndeployer, i18n, auxImageHelper, wdtPreparer) {
   function VerrazzanoComponentViewModel(args) {
 
     this.connected = () => {
@@ -24,6 +24,8 @@ function(accUtils, ko, CoreRouter, ModuleRouterAdapter, ArrayDataProvider, vzCom
 
     this.disableDeployComponent = ko.observable(false);
     this.disableUndeployComponent = ko.observable(false);
+
+    this.showPrepareModel = ko.computed(auxImageHelper.projectHasModel);
 
     this.prepareModel = () => {
       wdtPreparer.startPrepareModel().then();
