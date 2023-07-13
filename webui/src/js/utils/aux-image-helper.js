@@ -1,7 +1,7 @@
 /**
  * @license
  * Copyright (c) 2023, Oracle and/or its affiliates.
- * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
+ * Licensed under the Universal Permissive License v1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
 
@@ -14,7 +14,7 @@ define(['models/wkt-project', 'utils/wkt-logger'],
           if (project.settings.wdtTargetType.value === 'wko') {
             return this.wkoVersion41OrHigher();
           } else {
-            return this.v8oVersion162OrHigher();
+            return this.v8oVersion161OrHigher();
           }
         }
         return false;
@@ -30,10 +30,10 @@ define(['models/wkt-project', 'utils/wkt-logger'],
         return result;
       };
 
-      this.v8oVersion162OrHigher = () => {
+      this.v8oVersion161OrHigher = () => {
         let result = true;
         if (project.vzInstall.actualInstalledVersion.hasValue() &&
-          window.api.utils.compareVersions(project.vzInstall.actualInstalledVersion.value, '1.6.2') < 0) {
+          window.api.utils.compareVersions(project.vzInstall.actualInstalledVersion.value, '1.6.1') < 0) {
           result = false;
         }
         return result;
