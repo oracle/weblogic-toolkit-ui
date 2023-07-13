@@ -5,11 +5,12 @@
  */
 define(['models/wkt-project', 'accUtils', 'utils/common-utilities', 'knockout', 'utils/i18n', 'utils/screen-utils',
   'ojs/ojbufferingdataprovider', 'ojs/ojarraydataprovider', 'ojs/ojconverter-number', 'utils/dialog-helper',
-  'utils/view-helper', 'utils/vz-get-installed-version', 'utils/wit-inspector', 'utils/wkt-logger', 'ojs/ojmessaging',
-  'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojformlayout', 'ojs/ojcollapsible', 'ojs/ojselectsingle',
-  'ojs/ojlistview', 'ojs/ojtable', 'ojs/ojswitch', 'ojs/ojinputnumber', 'ojs/ojradioset'],
+  'utils/view-helper', 'utils/vz-get-installed-version', 'utils/wit-inspector', 'utils/aux-image-helper',
+  'utils/wkt-logger', 'ojs/ojmessaging', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojformlayout',
+  'ojs/ojcollapsible', 'ojs/ojselectsingle', 'ojs/ojlistview', 'ojs/ojtable', 'ojs/ojswitch', 'ojs/ojinputnumber',
+  'ojs/ojradioset', 'ojs/ojselectcombobox'],
 function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider, ArrayDataProvider,
-  ojConverterNumber, dialogHelper, viewHelper, verrazzanoInstallVersionChecker, witInspector) {
+  ojConverterNumber, dialogHelper, viewHelper, verrazzanoInstallVersionChecker, witInspector, auxImageHelper) {
   function VerrazzanoComponentDesignViewModel() {
 
     let subscriptions = [];
@@ -59,6 +60,33 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       });
     };
 
+    this.project = project;
+    this.i18n = i18n;
+
+    this.getInstalledVersionNumber = () => {
+      verrazzanoInstallVersionChecker.startVerrazzanoInstallVersionCheck().then();
+    };
+
+    this.projectHasModel = () => {
+      return auxImageHelper.projectHasModel();
+    };
+
+    this.projectUsingExternalImageContainingModel = () => {
+      return auxImageHelper.projectUsingExternalImageContainingModel();
+    };
+
+    this.isDomainOnPV = ko.computed(() => {
+      return this.project.settings.targetDomainLocation.observable() === 'pv';
+    }, this);
+
+    this.isDomainInImage = ko.computed(() => {
+      return this.project.settings.targetDomainLocation.observable() === 'dii';
+    }, this);
+
+    this.isModelInImage = ko.computed(() => {
+      return this.project.settings.targetDomainLocation.observable() === 'mii';
+    }, this);
+
     this.labelMapper = (labelId, payload) => {
       if (labelId.startsWith('page-design-')) {
         return i18n.t(labelId);
@@ -71,18 +99,33 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
     };
 
     this.imageLabelMapper = (labelId, payload) => {
+      if (this.isDomainOnPV()) {
+        return i18n.t(`image-design-${labelId.replace(/^aux-/, 'domain-creation-')}`, payload);
+      }
       return i18n.t(`image-design-${labelId}`, payload);
     };
 
-    this.project = project;
-    this.i18n = i18n;
-
-    this.getInstalledVersionNumber = () => {
-      verrazzanoInstallVersionChecker.startVerrazzanoInstallVersionCheck().then();
+    this.domainMiiPvLabelMapper = (labelId, payload) => {
+      if (this.isDomainOnPV()) {
+        return i18n.t(`domain-design-${labelId.replace(/^aux-/, 'domain-creation-')
+          .replace(/-aux-/, '-domain-creation-')}`, payload);
+      }
+      return i18n.t(`domain-design-${labelId}`, payload);
     };
 
+    this.supportsDomainCreationImages = () => {
+      return auxImageHelper.supportsDomainCreationImages();
+    };
+
+    this.usingDomainCreationImage = ko.computed(() => {
+      if (auxImageHelper.supportsDomainCreationImages()) {
+        return this.project.image.useAuxImage.observable();
+      }
+      return false;
+    }, this);
+
     this.mainCreateImageSwitchHelp = ko.computed(() => {
-      if (this.project.image.useAuxImage.value) {
+      if (this.project.image.useAuxImage.value || this.isDomainOnPV()) {
         return this.imageLabelMapper('create-image-aux-help');
       } else {
         return this.imageLabelMapper('create-image-help');
@@ -137,6 +180,7 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       return this.domainLabelMapper(key);
     }, this);
 
+    // Supports deprecated MII w/o aux image use case.
     this.showPrimaryImageHomeFields = ko.computed(() => {
       return this.project.settings.targetDomainLocation.observable() === 'mii' &&
         !this.project.image.createPrimaryImage.observable() &&
@@ -152,9 +196,10 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
     }, this);
 
     this.showAuxImageSourceFields = ko.computed(() => {
-      return this.project.settings.targetDomainLocation.observable() === 'mii' &&
-        this.project.image.useAuxImage.observable() &&
-        !this.project.image.createAuxImage.observable();
+      if (this.isModelInImage() || this.isDomainOnPV()) {
+        return this.project.image.useAuxImage.observable() && !this.project.image.createAuxImage.observable();
+      }
+      return false;
     }, this);
 
     this.auxImageTagHelp = ko.computed(() => {
@@ -162,7 +207,18 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       if (this.project.image.createAuxImage.observable()) {
         key = 'create-aux-image-tag-help';
       }
-      return this.domainLabelMapper(key);
+      return this.domainMiiPvLabelMapper(key);
+    });
+
+    this.creatingPvc = ko.computed(() => {
+      return !!(this.usingDomainCreationImage() && this.project.k8sDomain.createPvc.observable());
+    }, this);
+
+    this.pvcNameHelpText = ko.computed(() => {
+      if (this.creatingPvc()) {
+        return this.domainLabelMapper('pv-volume-claim-name-ro-help');
+      }
+      return this.domainLabelMapper('pv-volume-claim-name-help');
     });
 
     this.inspectPrimaryImageForWDTLocations = async () => {
@@ -173,10 +229,6 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       await witInspector.startInspectAuxiliaryImage();
     };
 
-    this.targetDomainLocationIsMII = () => {
-      return this.project.settings.targetDomainLocation.value === 'mii';
-    };
-
     this.gotoCreateImage = () => {
       screenUtils.gotoImageDesignPrimaryImageScreen();
     };
@@ -184,12 +236,6 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
     this.gotoCreateAuxImage = () => {
       screenUtils.gotoImageDesignAuxiliaryImageScreen();
     };
-
-    this.auxImageConfigData = [
-      { id: 'offOption', value: 'off', label: this.imageLabelMapper('aux-image-config-off-label')},
-      { id: 'useOption', value: 'use', label: this.imageLabelMapper('aux-image-config-use-label')},
-      { id: 'createOption', value: 'create', label: this.imageLabelMapper('aux-image-config-create-label')}
-    ];
 
     this.applyAuxImageConfig = (newValue) => {
       switch (newValue) {
@@ -220,8 +266,15 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       return value;
     };
 
-    this.auxImageConfigDP = new ArrayDataProvider(this.auxImageConfigData, { keyAttributes: 'id' });
     this.auxImageConfig = ko.observable(this.computeAuxImageConfig());
+
+    this.getAuxImageDecision = ko.computed(() => {
+      let imageTag = `aux-image-config-${this.auxImageConfig()}-label`;
+      if (this.isDomainOnPV()) {
+        imageTag = imageTag.replace(/^aux-/, 'domain-creation-');
+      }
+      return this.domainLabelMapper(imageTag);
+    });
 
     this.integerConverter = new ojConverterNumber.IntlNumberConverter({
       style: 'decimal',
@@ -229,27 +282,36 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       maximumFractionDigits: 0
     });
 
-    this.isDomainOnPV = ko.computed(() => {
-      return this.project.settings.targetDomainLocation.observable() === 'pv';
+    this.wdtDomainTypes = ko.computed(() => {
+      if (this.usingDomainCreationImage()) {
+        return [
+          { value: 'WLS', label: i18n.t('image-design-wls-domain-type-label') },
+          { value: 'RestrictedJRF', label: i18n.t('image-design-restricted-jrf-domain-type-label') },
+          { value: 'JRF', label: i18n.t('image-design-jrf-domain-type-label') },
+        ];
+      }
+      // Disable JRF for MII domains.
+      //
+      return [
+        { key: 'WLS', label: i18n.t('image-design-wls-domain-type-label') },
+        { key: 'RestrictedJRF', label: i18n.t('image-design-restricted-jrf-domain-type-label') },
+      ];
     }, this);
 
-    this.isDomainInImage = ko.computed(() => {
-      return this.project.settings.targetDomainLocation.observable() === 'dii';
+    this.wdtDomainTypesDP = ko.computed(() => {
+      if (this.usingDomainCreationImage()) {
+        return new ArrayDataProvider(this.wdtDomainTypes(), { keyAttributes: 'value' });
+      }
+      return new ArrayDataProvider(this.wdtDomainTypes(), { keyAttributes: 'key' });
     }, this);
 
-    this.isModelInImage = ko.computed(() => {
-      return this.project.settings.targetDomainLocation.observable() === 'mii';
+    this.showRcuSwitch = ko.computed(() => {
+      if (this.usingDomainCreationImage()) {
+        const domainType = this.project.k8sDomain.domainType.observable();
+        return domainType !== 'WLS' && domainType !== 'RestrictedJRF';
+      }
+      return false;
     }, this);
-
-    // Disable JRF as the domain type since the application does not (yet?) provide the mechanisms required
-    // to specify the JRF schemas or the database connectivity and credential information needed to run RCU.
-    //
-    this.wdtDomainTypes = [
-      { key: 'WLS', label: i18n.t('image-design-wls-domain-type-label') },
-      { key: 'RestrictedJRF', label: i18n.t('image-design-restricted-jrf-domain-type-label') },
-      // { key: 'JRF', label: i18n.t('image-design-jrf-domain-type-label') },
-    ];
-    this.wdtDomainTypesDP = new ArrayDataProvider(this.wdtDomainTypes, { keyAttributes: 'key' });
 
     this.imageRegistryPullRequiresAuthentication = () => {
       return this.project.k8sDomain.imageRegistryPullRequireAuthentication.observable();
@@ -267,12 +329,53 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
     this.imagePullPoliciesDP = new ArrayDataProvider(this.imagePullPolicies, {keyAttributes: 'key'});
 
     this.usingAuxImage = ko.computed(() => {
-      return this.isModelInImage() && this.project.image.useAuxImage.value;
+      if (this.isModelInImage() || auxImageHelper.supportsDomainCreationImages()) {
+        return this.project.image.useAuxImage.observable();
+      }
+      return false;
+    }, this);
+
+    this.pvTypeData = [
+      { key: 'storageClass', label: this.domainLabelMapper('domain-creation-image-pv-storage-class-type') },
+      { key: 'nfs', label: this.domainLabelMapper('domain-creation-image-pv-nfs-type') },
+      { key: 'hostPath', label: this.domainLabelMapper('domain-creation-image-pv-host-path-type') },
+    ];
+
+    this.pvTypesDP = new ArrayDataProvider(this.pvTypeData, { keyAttributes: 'key' });
+
+    this.pvReclaimPolicyData = [
+      { key: 'Delete', label: this.domainLabelMapper('domain-creation-image-pv-reclaim-delete-type') },
+      { key: 'Retain', label: this.domainLabelMapper('domain-creation-image-pv-reclaim-retain-type') },
+    ];
+
+    this.pvReclaimPolicyDP = new ArrayDataProvider(this.pvReclaimPolicyData, { keyAttributes: 'key' });
+
+    ///////////////////////////////////////////////////////////////////////////////////
+    //                               Clusters Table                                  //
+    ///////////////////////////////////////////////////////////////////////////////////
+
+    this.disableClusterAddRemove = ko.computed(() => {
+      if (this.project.settings.targetDomainLocation.observable() !== 'pv') {
+        return auxImageHelper.projectHasModel();
+      }
+      // PV is always enabled
+      return false;
     }, this);
 
     this.hasNoClusters = () => {
       return this.project.k8sDomain.clusters.value.length === 0;
     };
+
+    this.noClustersMessage = ko.computed(() => {
+      if (this.project.settings.targetDomainLocation.observable() === 'pv') {
+        if (auxImageHelper.projectHasModel()) {
+          return this.domainLabelMapper('pv-dci-no-clusters-message');
+        } else {
+          return this.domainLabelMapper('pv-no-clusters-message');
+        }
+      }
+      return this.domainLabelMapper('no-clusters-message');
+    });
 
     this.clusterColumnData = [
       {
@@ -359,26 +462,11 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       this.clustersEditRow({ rowKey: null });
     };
 
-    const generatedClusterNameRegex = /^new-cluster-(\d+)$/;
-
-    this.generateNewClusterName = () => {
-      let index = 1;
-      this.project.k8sDomain.clusters.observable().forEach(cluster => {
-        const match = cluster.name.match(generatedClusterNameRegex);
-        if (match) {
-          const indexFound = Number(match[1]);
-          if (indexFound >= index) {
-            index = indexFound + 1;
-          }
-        }
-      });
-      return `new-cluster-${index}`;
-    };
-
     this.handleAddCluster = () => {
       const clusterToAdd = {
         uid: utils.getShortUuid(),
-        name: this.generateNewClusterName(),
+        name: utils.generateNewName(this.project.k8sDomain.clusters.observable,
+          'name', 'new-cluster'),
         // In the case of Domain in PV where the user is adding a cluster definition
         // without running PrepareModel, we have no information on the cluster size
         // so just set replicas to zero and maxServers to the max value possible.
@@ -394,9 +482,9 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       this.project.k8sDomain.clusters.observable.splice(index, 1);
     };
 
-    this.modelHasNoProperties = () => {
-      return this.project.wdtModel.getMergedPropertiesContent().value.length === 0;
-    };
+    ///////////////////////////////////////////////////////////////////////////////////
+    //                            Model Variables Table                              //
+    ///////////////////////////////////////////////////////////////////////////////////
 
     this.propertyTableColumnMetadata = () => {
       return [
@@ -412,6 +500,106 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       this.project.wdtModel.getMergedPropertiesContent().observable,
       {keyAttributes: 'uid', sortComparators: propertyComparators}));
 
+    this.modelHasNoProperties = () => {
+      return this.project.wdtModel.getMergedPropertiesContent().value.length === 0;
+    };
+
+    ///////////////////////////////////////////////////////////////////////////////////
+    //                        External Model Variables Table                         //
+    ///////////////////////////////////////////////////////////////////////////////////
+
+    this.externalPropertyTableColumnMetadata = [
+      { headerText: this.domainLabelMapper('propname-header'), sortProperty: 'Name', resizable: 'enabled' },
+      { headerText: this.domainLabelMapper('propoverride-header'), sortProperty: 'Override', resizable: 'enabled' },
+      {
+        className: 'wkt-table-delete-cell',
+        headerClassName: 'wkt-table-add-header',
+        headerTemplate: 'headerTemplate',
+        template: 'actionTemplate',
+        sortable: 'disable',
+        width: viewHelper.BUTTON_COLUMN_WIDTH
+      },
+    ];
+
+    const externalPropertyComparators = viewHelper.getSortComparators(this.externalPropertyTableColumnMetadata);
+    this.externalModelHasNoProperties = ko.computed(() => {
+      return this.project.k8sDomain.externalProperties.observable().length === 0;
+    }, this);
+
+    this.externalPropertiesConfigMapDP = new BufferingDataProvider(new ArrayDataProvider(
+      this.project.k8sDomain.externalProperties.observable,
+      {keyAttributes: 'uid', sortComparators: externalPropertyComparators}));
+
+    this.handleAddExternalProperty = () => {
+      const propertyToAdd = {
+        uid: utils.getShortUuid(),
+        Name: utils.generateNewName(this.project.k8sDomain.externalProperties.observable,
+          'Name', 'existing-model-variable'),
+        Override: undefined
+      };
+      this.project.k8sDomain.externalProperties.addNewItem(propertyToAdd);
+    };
+
+    this.handleDeleteExternalProperty = (event, context) => {
+      const index = context.item.index;
+      this.project.k8sDomain.externalProperties.observable.splice(index, 1);
+    };
+
+    ///////////////////////////////////////////////////////////////////////////////////
+    //                                 Secrets Table                                 //
+    ///////////////////////////////////////////////////////////////////////////////////
+
+    this.secretsTableColumnMetadata = () => {
+      return [
+        { headerText: this.domainLabelMapper('secretname-header'), sortProperty: 'name', resizable: 'enabled' },
+        { headerText: this.domainLabelMapper('username-header'), sortable: 'disabled', resizable: 'enabled' },
+        { headerText: this.domainLabelMapper('password-header'), sortable: 'disabled', resizable: 'enabled' },
+        {
+          className: 'wkt-table-delete-cell',
+          headerClassName: 'wkt-table-add-header',
+          headerTemplate: 'headerTemplate',
+          template: 'actionTemplate',
+          sortable: 'disable',
+          width: viewHelper.BUTTON_COLUMN_WIDTH
+        },
+      ];
+    };
+
+    this.secretsDP = new BufferingDataProvider(new ArrayDataProvider(
+      this.project.k8sDomain.secrets.observable, {keyAttributes: 'uid'}));
+
+    this.disableSecretAddRemove = ko.computed(() => {
+      return !auxImageHelper.projectUsingExternalImageContainingModel();
+    });
+
+    this.handleAddSecret = () => {
+      const secretToAdd = {
+        uid: utils.getShortUuid(),
+        name: utils.generateNewName(this.project.k8sDomain.secrets.observable,
+          'name', 'existing-model-secret'),
+        username: '',
+        password: '',
+      };
+      this.project.k8sDomain.secrets.addNewItem(secretToAdd);
+    };
+
+    this.handleDeleteSecret = (event, context) => {
+      const index = context.item.index;
+      this.project.k8sDomain.secrets.observable.splice(index, 1);
+    };
+
+    this.noSecretsMessage = () => {
+      let secretsMessage = '<no-message>';
+      if (auxImageHelper.projectHasModel()) {
+        secretsMessage = this.domainLabelMapper('no-secrets-message');
+      } else if (auxImageHelper.projectUsingExternalImageContainingModel()) {
+        secretsMessage = this.domainLabelMapper('no-secrets-add-remove-message');
+      }
+      return secretsMessage;
+    };
+
+    // Runtime Encryption Secret functions
+    //
     this.hasEncryptionSecret = () => {
       return this.isModelInImage();
     };
@@ -421,16 +609,53 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       this.project.k8sDomain.runtimeSecretValue.observable(newValue);
     };
 
-    this.secretsTableColumnMetadata = () => {
-      return [
-        {'headerText': this.domainLabelMapper('secretname-header'), sortProperty: 'name', resizable: 'enabled'},
-        {'headerText': this.domainLabelMapper('username-header'), 'sortable': 'disabled', resizable: 'enabled'},
-        {'headerText': this.domainLabelMapper('password-header'), 'sortable': 'disabled', resizable: 'enabled'},
-      ];
+    ///////////////////////////////////////////////////////////////////////////////////
+    //                        Environment Variable Table                             //
+    ///////////////////////////////////////////////////////////////////////////////////
+
+    this.environmentVariablesColumnMetadata = [
+      {
+        headerText: this.domainLabelMapper('domain-env-var-name-header'),
+        sortProperty: 'name',
+        resizable: 'enabled'
+      },
+      {
+        headerText: this.domainLabelMapper('domain-env-var-value-header'),
+        sortProperty: 'disabled',
+        resizable: 'enabled'
+      },
+      {
+        className: 'wkt-table-delete-cell',
+        headerClassName: 'wkt-table-add-header',
+        headerTemplate: 'headerTemplate',
+        template: 'actionTemplate',
+        sortable: 'disable',
+        width: viewHelper.BUTTON_COLUMN_WIDTH
+      },
+    ];
+
+    this.environmentVariablesDP = new BufferingDataProvider(new ArrayDataProvider(
+      this.project.k8sDomain.serverPodEnvironmentVariables.observable, {keyAttributes: 'uid'}));
+
+    this.handleAddDomainEnvironmentVariable = () => {
+      const labelToAdd = {
+        uid: utils.getShortUuid(),
+        name: utils.generateNewName(this.project.k8sDomain.serverPodEnvironmentVariables.observable,
+          'name', 'NEW-VARIABLE'),
+        value: ''
+      };
+      this.project.k8sDomain.serverPodEnvironmentVariables.addNewItem(labelToAdd);
     };
 
-    this.secretsDP = new BufferingDataProvider(new ArrayDataProvider(
-      this.project.k8sDomain.secrets.observable, {keyAttributes: 'name'}));
+    this.handleDeleteDomainEnvironmentVariable = (event, context) => {
+      const index = context.item.index;
+      this.project.k8sDomain.serverPodEnvironmentVariables.observable.splice(index, 1);
+    };
+
+
+    ///////////////////////////////////////////////////////////////////////////////////
+    //                           Node Selector Table                                 //
+    ///////////////////////////////////////////////////////////////////////////////////
 
     this.nodeSelectorColumnMetadata = [
       {
@@ -456,21 +681,13 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       new BufferingDataProvider(new ArrayDataProvider(this.project.k8sDomain.domainNodeSelector.observable, { keyAttributes: 'name' }));
 
     this.handleAddDomainNodeSelector = () => {
-      const labelNames = [];
-      this.project.k8sDomain.domainNodeSelector.observable().forEach(label => {
-        labelNames.push(label.name);
-      });
-
-      let nextIndex = 0;
-      while (labelNames.indexOf(`new-label-${nextIndex + 1}`) !== -1) {
-        nextIndex++;
-      }
-
-      this.project.k8sDomain.domainNodeSelector.addNewItem({
+      const labelToAdd = {
         uid: utils.getShortUuid(),
-        name: `new-label-${nextIndex + 1}`,
+        name: utils.generateNewName(this.project.k8sDomain.domainNodeSelector.observable,
+          'name', 'new-label'),
         value: ''
-      });
+      };
+      this.project.k8sDomain.domainNodeSelector.addNewItem(labelToAdd);
     };
   }
 
