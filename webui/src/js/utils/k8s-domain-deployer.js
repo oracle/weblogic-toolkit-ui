@@ -268,7 +268,7 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
         busyDialogMessage = i18n.t('k8s-domain-deployer-create-config-map-in-progress',
           {domainName: domainUid, domainNamespace: domainNamespace});
         dialogHelper.updateBusyDialog(busyDialogMessage, 12 / totalSteps);
-        if (this.project.settings.targetDomainLocation.value === 'mii') {
+        if (this.k8sDomainConfigMapGenerator.shouldCreateConfigMap()) {
           const configMapData = this.k8sDomainConfigMapGenerator.generate().join('\n');
           wktLogger.debug(configMapData);
           const mapResults = await (window.api.ipc.invoke('k8s-apply', kubectlExe, configMapData, kubectlOptions));
