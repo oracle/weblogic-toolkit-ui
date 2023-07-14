@@ -201,7 +201,6 @@ contextBridge.exposeInMainWorld(
           'k8s-get-k8s-cluster-info',
           'k8s-get-wko-domain-status',
           'k8s-get-operator-status',
-          'k8s-get-operator-log',
           'helm-add-wko-chart',
           'helm-install-wko',
           'helm-uninstall-wko',

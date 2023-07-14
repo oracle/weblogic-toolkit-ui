@@ -6,10 +6,11 @@
 'use strict';
 
 const path = require('path');
+const readline = require('readline');
 
 const i18n = require('./i18next.config');
 const fsUtils = require('./fsUtils');
-const { executeFileCommand } = require('./childProcessExecutor');
+const { executeFileCommand, spawnDaemonChildProcess } = require('./childProcessExecutor');
 const { getLogger } = require('./wktLogging');
 const { getHttpsProxyUrl, getBypassProxyHosts } = require('./userSettings');
 const { getErrorMessage } = require('./errorUtils');
@@ -210,7 +211,7 @@ async function getOperatorStatus(kubectlExe, operatorNamespace, options) {
   });
 }
 
-async function getOperatorLogs(kubectlExe, operatorNamespace, options) {
+async function getOperatorVersion(kubectlExe, operatorNamespace, options) {
   const args = [ 'logs', '-n', operatorNamespace, '-c', 'weblogic-operator', 'deployments/weblogic-operator'];
   const httpsProxyUrl = getHttpsProxyUrl();
   const bypassProxyHosts = getBypassProxyHosts();
@@ -219,38 +220,42 @@ async function getOperatorLogs(kubectlExe, operatorNamespace, options) {
     isSuccess: true
   };
 
-  return new Promise(resolve => {
-    executeFileCommand(kubectlExe, args, env).then(operatorLogs => {
-      const logs = operatorLogs.split('\n');
-      results['operatorLogs'] = logs;
-      resolve(results);
-    }).catch(err => {
+  return new Promise((resolve) => {
+    const _kubectlChildProcess = spawnDaemonChildProcess(kubectlExe, args, env);
+    _kubectlChildProcess.on('error', (err) => {
       results.isSuccess = false;
-      results.reason =
-        i18n.t('kubectl-get-operator-logs-error-message', { error: getErrorMessage(err) });
+      results.reason = i18n.t('kubectl-get-operator-version-error-message', { error: getErrorMessage(err) });
       resolve(results);
     });
-  });
-}
-
-async function getOperatorVersion(kubectlExe, operatorNamespace, options) {
-  const results = {
-    isSuccess: true
-  };
-
-  return new Promise(resolve => {
-    getOperatorLogs(kubectlExe, operatorNamespace, options).then(logResult => {
-      if (logResult.isSuccess === false) {
-        results.isSuccess = false;
-        results.reason = i18n.t('kubectl-get-operator-version-error-message', {error: logResult.reason});
-        return resolve(results);
-      }
-      _getOperatorVersionFromLogs(logResult.operatorLogs, results);
-      resolve(results);
-    }).catch(err => {
+    _kubectlChildProcess.on('exit', (code) => {
+      getLogger().debug('kubectl command to get the operator version from the pod log exited with code %s', code);
       results.isSuccess = false;
-      results.reason = i18n.t('kubectl-get-operator-version-error-message', {error: getErrorMessage(err)});
-      resolve(results);
+      results.reason = i18n.t('kubectl-get-operator-version-no-version-message', { code });
+    });
+
+    const stdoutLines = readline.createInterface({ input: _kubectlChildProcess.stdout });
+    const stderrLines = readline.createInterface({ input: _kubectlChildProcess.stderr });
+
+    let foundVersion = false;
+    const versionRegex = /^Oracle WebLogic Kubernetes Operator, version:\s*(\d+\.\d+\.\d+).*$/;
+    stdoutLines.on('line', (line) => {
+      if (!foundVersion) {
+        const parseEntry = _parseLogEntryAsJson(line);
+        if (typeof parseEntry !== 'undefined') {
+          const message = parseEntry.message || '';
+          const matcher = message.match(versionRegex);
+
+          if (Array.isArray(matcher) && matcher.length > 1) {
+            foundVersion = true;
+            results.version = matcher[1];
+            getLogger().debug('Found installed operator version %s', results.version);
+            resolve(results);
+          }
+        }
+      }
+    });
+    stderrLines.on('line', (line) => {
+      getLogger().debug('kubectl logs for operator pod stderr: %s', line.trim());
     });
   });
 }
@@ -1139,32 +1144,6 @@ function isNotFoundError(err) {
   return /\(NotFound\)/.test(errString);
 }
 
-function _getOperatorVersionFromLogs(operatorLogs, results) {
-  const versionRegex = /^Oracle WebLogic Kubernetes Operator, version:\s*(\d+\.\d+\.\d+).*$/;
-  if (Array.isArray(operatorLogs) && operatorLogs.length > 0) {
-    for (const logEntry of operatorLogs) {
-      const parsedEntry = _parseLogEntryAsJson(logEntry);
-      if (typeof parsedEntry === 'undefined') {
-        continue;
-      }
-
-      const message = parsedEntry.message || '';
-      const match = message.match(versionRegex);
-      if (Array.isArray(match) && match.length > 1) {
-        results.isSuccess = true;
-        results.version = match[1];
-        getLogger().debug('Found installed operator version %s', results.version);
-        return;
-      }
-    }
-    results.isSuccess = false;
-    results.reason = i18n.t('kubectl-get-operator-version-not-found-error-message');
-  } else {
-    results.isSuccess = false;
-    results.reason = i18n.t('kubectl-get-operator-version-logs-empty-error-message');
-  }
-}
-
 function _parseLogEntryAsJson(logEntry) {
   let result;
 
@@ -1199,12 +1178,10 @@ module.exports = {
   getK8sConfigView,
   getK8sClusterInfo,
   getVerrazzanoApplicationHostnames,
-  getVerrazzanoIngressExternalAddress,
   getWkoDomainStatus,
   getApplicationStatus,
   getOperatorStatus,
   getOperatorVersionFromDomainConfigMap,
-  getOperatorLogs,
   getVerrazzanoInstallationObject,
   getKubernetesObjectsByNamespace,
   getKubernetesObjectsFromAllNamespaces,

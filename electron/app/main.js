@@ -910,10 +910,6 @@ class Main {
       return kubectlUtils.getOperatorStatus(kubectlExe, operatorNamespace, options);
     });
 
-    ipcMain.handle('k8s-get-operator-log', async (event, kubectlExe, operatorNamespace, options) => {
-      return kubectlUtils.getOperatorLogs(kubectlExe, operatorNamespace, options);
-    });
-
     ipcMain.handle('k8s-get-operator-version-from-domain-config-map', async (event, kubectlExe, domainNamespace, options) => {
       return kubectlUtils.getOperatorVersionFromDomainConfigMap(kubectlExe, domainNamespace, options);
     });

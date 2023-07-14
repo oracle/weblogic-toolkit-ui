@@ -330,6 +330,7 @@
   "kubectl-get-operator-status-error-message": "Unable to get wko operator status: {{error}}",
   "kubectl-get-operator-logs-error-message": "Unable to get WebLogic Kubernetes Operator logs: {{error}}",
   "kubectl-get-operator-version-error-message": "Unable to determine the WebLogic Kubernetes Operator version: {{error}}",
+  "kubectl-get-operator-version-no-version-message": "Unable to determine the WebLogic Kubernetes Operator version because kubectl log exited with code {{code}} before finding the version",
   "kubectl-get-operator-version-logs-empty-error-message": "Unable to determine the WebLogic Kubernetes Operator version because the operator log was empty",
   "kubectl-get-operator-version-from-cm-error-message": "Unable to get operator version: {{error}}",
   "kubectl-tlsfile-not-specified-error-message": "TLS file path was not provided",
