@@ -68,7 +68,7 @@ function isWitErrorExitCode(exitCode) {
 
 async function isWdtVersionCompatible(minimumVersion) {
   const wdtVersionFileName = path.join(getWdtDirectory(), 'VERSION.txt');
-  const versionRegex = /^WebLogic Deploy Tooling (?<version>[\d]+.[\d]+.[\d]+(-SNAPSHOT)?)$/;
+  const versionRegex = /^WebLogic Deploy Tooling (?<version>\d+.\d+.\d+(-SNAPSHOT)?)$/;
   const result = {
     isSuccess: true
   };

@@ -202,7 +202,7 @@ function getDockerEnv(httpsProxyUrl, bypassProxyHosts, imageBuilderOptions) {
     env['no_proxy'] = bypassProxyHosts;
   }
 
-  if (imageBuilderOptions && imageBuilderOptions.extraEnvironmentVariables) {
+  if (imageBuilderOptions?.extraEnvironmentVariables) {
     const extraEnvironmentVariables =
       osUtils.removeProtectedEnvironmentVariables(imageBuilderOptions.extraEnvironmentVariables);
     env = Object.assign(env, extraEnvironmentVariables);

@@ -212,7 +212,7 @@ function getHelmEnv(httpsProxyUrl, bypassProxyHosts, helmOptions) {
     env['NO_PROXY'] = bypassProxyHosts;
   }
   env['PATH'] = process.env.PATH;
-  if (helmOptions && helmOptions.extraPathDirectories &&
+  if (helmOptions?.extraPathDirectories &&
     Array.isArray(helmOptions.extraPathDirectories) && helmOptions.extraPathDirectories.length > 0) {
     const extraPathDirectories = helmOptions.extraPathDirectories.join(path.delimiter);
     getLogger().debug('extraPathDirectories = %s', extraPathDirectories);

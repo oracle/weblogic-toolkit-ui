@@ -764,7 +764,7 @@ function getKubectlEnvironment(options, httpsProxyUrl, bypassProxyHosts) {
     env['PROGRAMDATA'] = process.env.PROGRAMDATA;
   }
 
-  if (options && options.extraEnvironmentVariables) {
+  if (options?.extraEnvironmentVariables) {
     const extraEnvironmentVariables =
       osUtils.removeProtectedEnvironmentVariables(options.extraEnvironmentVariables);
     env = Object.assign(env, extraEnvironmentVariables);
@@ -774,10 +774,7 @@ function getKubectlEnvironment(options, httpsProxyUrl, bypassProxyHosts) {
 
 function getOperatorImageTag(operatorDeployment) {
   let imageTag;
-  if (operatorDeployment.spec
-    && operatorDeployment.spec.template
-    && operatorDeployment.spec.template.spec
-    && operatorDeployment.spec.template.spec.containers) {
+  if (operatorDeployment.spec?.template?.spec?.containers) {
     const containers = operatorDeployment.spec.template.spec.containers;
 
     for (const container of containers) {
@@ -886,7 +883,7 @@ async function isVerrazzanoInstalled(kubectlExe, options) {
         result.name = vzObject.metadata?.name;
 
         let statusVersion = vzObject.status?.version;
-        if (statusVersion && statusVersion.startsWith('v')) {
+        if (statusVersion?.startsWith('v')) {
           statusVersion = statusVersion.slice(1);
         }
         result.version = statusVersion;

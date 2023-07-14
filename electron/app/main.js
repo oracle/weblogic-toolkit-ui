@@ -225,7 +225,7 @@ class Main {
           };
 
           // This should never be null by the time it gets to this point but check anyway...
-          if (this._appUpdatePromise) {
+          if (this._appUpdatePromise !== null) {
             this._appUpdatePromise.then(updateResult => {
               if (updateResult) {
                 startupInformation.update = updateResult;

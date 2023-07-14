@@ -364,7 +364,7 @@ async function _removePathFromArchive(archiveFile, zip, zipPath) {
     try {
       if (zip.file(zipPath)) {
         zip.remove(zipPath);
-      } else if (zipPath && zipPath.endsWith('/')) {
+      } else if (zipPath?.endsWith('/')) {
         // Remove the trailing slash so the target folder is also removed, not just its contents...
         zip.remove(zipPath.slice(0, -1));
       }

@@ -1,7 +1,7 @@
 <!-- Copyright (c) 2020, 2023, Oracle and/or its affiliates. -->
 <!-- Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl. -->
-
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <title>Derek's To-Do List</title>
   <link rel="stylesheet" href="css/todo-style.css"/>
@@ -74,7 +74,6 @@
     req.onreadystatechange = function () {
       if (req.readyState === 4) {
         if (req.status === 200) {
-          //console.log("items response: " + req.responseText);
           fillList(JSON.parse(req.responseText));
         } else {
           console.log("Error", req.statusText);
@@ -90,13 +89,13 @@
 
     // clear the list before it is filled from database data
     listNode.innerHTML = "";
-    for (let i = 0; i < itemsList.length; i++) {
+    for (const item of itemsList) {
       let li = document.createElement("LI");
-      li.setAttribute("data-id", itemsList[i].id);
-      if ( itemsList[i].done ) {
+      li.setAttribute("data-id", item.id);
+      if (item.done) {
         li.className = "checked";
       }
-      li.innerHTML = itemsList[i].description;
+      li.innerHTML = item.description;
       // add "X" and close function to list item
       li.appendChild(closeMarker());
       // append new list item to the to-do list

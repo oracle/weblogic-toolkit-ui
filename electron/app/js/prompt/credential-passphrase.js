@@ -69,7 +69,7 @@ function promptRegister() {
 window.addEventListener('error', error => {
   if (promptId) {
     const text = error.message ? error.message : error;
-    promptError('An error has occurred on the prompt window: \n' + text);
+    promptError('An error has occurred on the prompt window: \n' + JSON.stringify(text));
   }
 });
 

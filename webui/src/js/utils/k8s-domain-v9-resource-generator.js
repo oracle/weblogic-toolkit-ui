@@ -397,7 +397,7 @@ function(project, K8sDomainConfigMapGenerator, jsYaml, i18n, auxImageHelper) {
       if (this.project.k8sDomain.pvcStorageClassName.hasValue() &&
         !this.project.k8sDomain.pvcUseDefaultStorageClass.value) {
         pvc.spec.storageClassName = this.project.k8sDomain.pvcStorageClassName.value;
-      } else if (!this.project.k8sDomain.pvcUseDefaultStorageClass.value &&
+      } else if (!this.project.k8sDomain.pvcStorageClassName.value &&
         !this.project.k8sDomain.pvcUseDefaultStorageClass.value) {
         pvc.spec.storageClassName = '';
       }
@@ -444,7 +444,7 @@ function(project, K8sDomainConfigMapGenerator, jsYaml, i18n, auxImageHelper) {
       if (this.project.k8sDomain.pvcStorageClassName.hasValue() &&
         !this.project.k8sDomain.pvcUseDefaultStorageClass.value) {
         pv.spec.storageClassName = this.project.k8sDomain.pvcStorageClassName.value;
-      } else if (!this.project.k8sDomain.pvcUseDefaultStorageClass.value &&
+      } else if (!this.project.k8sDomain.pvcStorageClassName.value &&
         !this.project.k8sDomain.pvcUseDefaultStorageClass.value) {
         pv.spec.storageClassName = '';
       }

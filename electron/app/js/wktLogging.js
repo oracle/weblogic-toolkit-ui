@@ -66,7 +66,7 @@ function logRendererMessage(windowId, level, message, ...args) {
 }
 
 function getDefaultLogDirectory(wktMode) {
-  if (wktMode && wktMode.isExecutableMode()) {
+  if (wktMode?.isExecutableMode()) {
     return _getDefaultLogDir();
   }
   return process.cwd();

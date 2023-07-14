@@ -26,7 +26,7 @@ function findPackageJsonPath() {
 function getAppId(context) {
   // Try to get the appId from the packager
   const config = context.packager.info._configuration;
-  if (config && config.appId) {
+  if (config?.appId) {
     console.log('Found appId in packager');
     return config.appId;
   }
@@ -47,7 +47,7 @@ function getAppId(context) {
   if (packageJsonFilePath) {
     try {
       const packageJson = require(packageJsonFilePath);
-      if (packageJson['build'] && packageJson['build']['appId']) {
+      if (packageJson['build']?.['appId']) {
         console.log('Found appId in %s', packageJsonFilePath);
         return packageJson['build']['appId'];
       }

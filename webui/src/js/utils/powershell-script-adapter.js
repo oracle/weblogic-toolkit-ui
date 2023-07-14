@@ -425,8 +425,8 @@ define(['utils/script-adapter-base'],
       }
 
       _formatCreateSecretBlock(comment, commandReference, options,  pullRequiresAuthentication, useExistingPullSecret) {
-        const pullAuthTest = !!pullRequiresAuthentication ? `"${pullRequiresAuthentication}" -eq "true"` : '';
-        const useExistingTest = !!useExistingPullSecret ? `"${pullRequiresAuthentication}" -eq "false"` : '';
+        const pullAuthTest = pullRequiresAuthentication ? `"${pullRequiresAuthentication}" -eq "true"` : '';
+        const useExistingTest = useExistingPullSecret ? `"${pullRequiresAuthentication}" -eq "false"` : '';
 
         let ifTest;
         if (pullAuthTest) {
