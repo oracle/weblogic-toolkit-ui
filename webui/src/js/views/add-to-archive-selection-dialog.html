@@ -18,10 +18,10 @@
         </oj-select-single>
 
         <oj-bind-if test="[[showSegregatedNameField() === true]]">
-          <oj-input-text label-hint="{{segregationLabel}}"
-                         value="{{segregationName}}"
+          <oj-input-text label-hint="{{segregatedLabel}}"
+                         value="{{segregatedName}}"
                          validators="[[[segregatedNameValidator]]]"
-                         help.instruction="{{segregationHelp}}"
+                         help.instruction="{{segregatedHelp}}"
                          required="true">
           </oj-input-text>
         </oj-bind-if>
