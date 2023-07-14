@@ -48,14 +48,13 @@ define(['knockout', 'models/wkt-project', 'utils/wkt-logger'],
             break;
         }
 
-        if (archiveEntry.segregatedName) {
-          options.segregatedName = otherArgs.segregationName;
+        if (otherArgs.segregatedName) {
+          options.segregatedName = otherArgs.segregatedName;
         }
 
         if (archiveEntryTypeName === 'custom' && !!otherArgs.customPath) {
           options.customPath = otherArgs.customPath;
         }
-
         return options;
       };
 

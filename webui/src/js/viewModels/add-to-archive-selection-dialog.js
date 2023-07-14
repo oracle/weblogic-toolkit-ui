@@ -109,15 +109,15 @@ function(accUtils, ko, i18n, project, dialogHelper, archiveHelper, viewHelper, A
       return undefined;
     }, this);
 
-    this.segregationName = ko.observable();
-    this.segregationLabel = ko.computed(() => {
+    this.segregatedName = ko.observable();
+    this.segregatedLabel = ko.computed(() => {
       const entry = this.archiveEntry();
       if (!!entry) {
         return entry.segregatedLabel;
       }
       return undefined;
     }, this);
-    this.segregationHelp = ko.computed(() => {
+    this.segregatedHelp = ko.computed(() => {
       const entry = this.archiveEntry();
       if (!!entry) {
         return entry.segregatedHelp;
@@ -180,7 +180,7 @@ function(accUtils, ko, i18n, project, dialogHelper, archiveHelper, viewHelper, A
       this.archiveEntryTypeSubtype(newEntry.subtype);
       this.fileOrDirectory('file');
       this.fileNameSourcePath(undefined);
-      this.segregationName(undefined);
+      this.segregatedName(undefined);
       this.emptyDirValue(undefined);
       this.customPathValue(undefined);
     };
@@ -231,7 +231,7 @@ function(accUtils, ko, i18n, project, dialogHelper, archiveHelper, viewHelper, A
         const options = archiveHelper.buildAddToArchiveOptions(this.archiveEntryType(), this.archiveEntry(),
           this.fileNameSourcePath(), this.fileOrDirectory(), {
             emptyDirName: this.emptyDirValue(),
-            segregationName: this.segregationName(),
+            segregatedName: this.segregatedName(),
             customPath: this.customPathValue()
           });
 
