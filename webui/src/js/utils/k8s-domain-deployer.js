@@ -211,7 +211,7 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
             {domainNamespace: domainNamespace, secretName: secret});
           dialogHelper.updateBusyDialog(busyDialogMessage, 9 / totalSteps);
           const secretData = {
-            password: this.project.k8sDomain.walletPassword.value
+            walletPassword: this.project.k8sDomain.walletPassword.value
           };
           const createResult = await this.createGenericSecret(kubectlExe, kubectlOptions, domainNamespace, secret,
             secretData, errTitle, 'k8s-domain-deployer-create-wallet-password-secret-error-message');
