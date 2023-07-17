@@ -1,12 +1,16 @@
 /**
  * @license
- * Copyright (c) 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2022, 2023, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
 
 const REPLACEMENT_TEXT = '@@RELEASE_VERSION_TAG@@';
-const URL_TEMPLATE = `https://github.com/verrazzano/verrazzano/releases/download/${ REPLACEMENT_TEXT }/operator.yaml`;
+const URL_CHANGE_VERSION = '1.4.0';
+const OLD_URL_TEMPLATE =
+  `https://github.com/verrazzano/verrazzano/releases/download/${ REPLACEMENT_TEXT }/operator.yaml`;
+const URL_TEMPLATE =
+  `https://github.com/verrazzano/verrazzano/releases/download/${ REPLACEMENT_TEXT }/verrazzano-platform-operator.yaml`;
 
 define(['models/wkt-project', 'utils/script-generator-base'],
   function(project, ScriptGeneratorBase) {
@@ -75,6 +79,10 @@ define(['models/wkt-project', 'utils/script-generator-base'],
       }
 
       _getPlatformOperatorUrl(releaseTagReference) {
+        if (project.vzInstall.actualInstalledVersion.hasValue()
+          && window.api.utils.compareVersions(project.vzInstall.actualInstalledVersion.value, URL_CHANGE_VERSION) < 0) {
+          return OLD_URL_TEMPLATE.replace(REPLACEMENT_TEXT, releaseTagReference);
+        }
         return URL_TEMPLATE.replace(REPLACEMENT_TEXT, releaseTagReference);
       }
     }
