@@ -60,7 +60,7 @@ With these things in mind, fill out the form using the data in the following tab
 
 | Field Name | Value |
 | --- | --- |
-| `Auxiliary Image Tag` |  `<image-repository-url>:1.0`; for example, `phx.ocir.io/mytenancy/wktui-qs/todolist:1.0` |
+| `Auxiliary Image Tag` |  `<image-repository-url>:1.0`; for example, `phx.ocir.io/mytenancy/wktui-qs/todolist-aux:1.0` |
 | `Specify Auxiliary Image Push Credentials` |  `ON` |
 | `Auxiliary Image Registry Push Username` |  `<tenancy>/<username>`; for example, `mytenancy/fred.jones@mycompany.com` |
 | `Auxiliary Image Registry Push Password` | `<auth-token-value>`; for example, `z+M3C2UqRraHG73Z+.X8`  |
