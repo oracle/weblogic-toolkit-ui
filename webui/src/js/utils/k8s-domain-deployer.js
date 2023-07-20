@@ -239,7 +239,8 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
         busyDialogMessage = i18n.t('k8s-domain-deployer-create-secrets-in-progress',
           {domainName: domainUid, namespace: domainNamespace});
         dialogHelper.updateBusyDialog(busyDialogMessage, 11 / totalSteps);
-        if (this.project.settings.targetDomainLocation.value === 'mii') {
+        if (this.project.settings.targetDomainLocation.value === 'mii' ||
+          (auxImageHelper.supportsDomainCreationImages() && this.project.image.useAuxImage.value)) {
           const secrets = this.project.k8sDomain.secrets.value;
           if (secrets && secrets.length > 0) {
             for (const secret of secrets) {
