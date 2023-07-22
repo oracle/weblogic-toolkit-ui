@@ -7,9 +7,9 @@
 
 define(['utils/vz-actions-base', 'models/wkt-project', 'models/wkt-console', 'utils/i18n', 'utils/project-io',
   'utils/dialog-helper', 'utils/validation-helper', 'utils/vz-component-resource-generator',
-  'utils/vz-component-configmap-generator', 'utils/wkt-logger'],
+  'utils/vz-component-configmap-generator', 'utils/aux-image-helper', 'utils/wkt-logger'],
 function(VzActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, validationHelper,
-  VerrazzanoComponentResourceGenerator, VerrazzanoComponentConfigMapGenerator, wktLogger) {
+  VerrazzanoComponentResourceGenerator, VerrazzanoComponentConfigMapGenerator, auxImageHelper, wktLogger) {
   class VzComponentDeployer extends VzActionsBase {
     constructor() {
       super();
@@ -155,6 +155,19 @@ function(VzActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, vali
           if (!createResult) {
             return Promise.resolve(false);
           }
+        } else if (auxImageHelper.supportsDomainCreationImages() && auxImageHelper.domainUsesJRF()) {
+          const secret = this.project.k8sDomain.walletPasswordSecretName.value;
+          busyDialogMessage = i18n.t('vz-component-deployer-create-wallet-password-secret-in-progress',
+            {namespace: componentNamespace, secretName: secret});
+          dialogHelper.updateBusyDialog(busyDialogMessage, 9 / totalSteps);
+          const secretData = {
+            walletPassword: this.project.k8sDomain.walletPassword.value
+          };
+          const createResult = await this.createGenericSecret(kubectlExe, kubectlOptions, componentNamespace, secret,
+            secretData, errTitle, 'vz-component-deployer-create-wallet-password-secret-error-message');
+          if (!createResult) {
+            return Promise.resolve(false);
+          }
         }
 
         // Create the WebLogic Credential secret
@@ -176,26 +189,25 @@ function(VzActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, vali
         busyDialogMessage = i18n.t('vz-component-deployer-create-secrets-in-progress',
           {domainName: domainUid, namespace: componentNamespace});
         dialogHelper.updateBusyDialog(busyDialogMessage, 10 / totalSteps);
-        if (this.project.settings.targetDomainLocation.value === 'mii') {
+        if (auxImageHelper.projectHasModel() || auxImageHelper.projectUsingExternalImageContainingModel()) {
           const secrets = this.project.k8sDomain.secrets.value;
-          if (secrets && secrets.length > 0) {
+          if (Array.isArray(secrets) && secrets.length > 0) {
             for (const secret of secrets) {
-              let secretName = '';
-              const secretData = {};
-              for (const [key, value] of Object.entries(secret)) {
-                if (key === 'name') {
-                  secretName = value;
-                } else if (key !== 'uid') {
-                  // skip artificial uid field...
-                  secretData[key] = value;
+              const secretName = secret.name;
+              if (Array.isArray(secret.keys) && secret.keys.length > 0) {
+                const secretData = {};
+                for (const secretKey of secret.keys) {
+                  secretData[secretKey.key] = secretKey.value;
                 }
-              }
-              wktLogger.debug('Creating secret %s', secretName);
+                wktLogger.debug('Creating secret %s', secretName);
 
-              const domainSecretResult = await this.createGenericSecret(kubectlExe, kubectlOptions, componentNamespace,
-                secretName, secretData, errTitle, 'vz-component-deployer-create-secret-failed-error-message');
-              if (!domainSecretResult) {
-                return Promise.resolve(false);
+                const domainSecretResult = await this.createGenericSecret(kubectlExe, kubectlOptions, componentNamespace,
+                  secretName, secretData, errTitle, 'vz-component-deployer-create-secret-failed-error-message');
+                if (!domainSecretResult) {
+                  return Promise.resolve(false);
+                }
+              } else {
+                wktLogger.warning('Secret %s did not contain any data...skipping', secretName);
               }
             }
           }
@@ -293,6 +305,47 @@ function(VzActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, vali
               vzComponentFormConfig);
           }
         }
+      } else if (auxImageHelper.supportsDomainCreationImages() && this.project.image.useAuxImage.value) {
+        validationObject.addField('domain-design-domain-creation-image-tag-label',
+          this.project.image.auxImageTag.validate(true), vzComponentFormConfig);
+
+        if (this.project.k8sDomain.auxImageRegistryPullRequireAuthentication.value) {
+          validationObject.addField('domain-design-domain-creation-image-registry-pull-secret-name-label',
+            this.project.k8sDomain.auxImageRegistryPullSecretName.validate(true), vzComponentFormConfig);
+
+          if (!this.project.k8sDomain.auxImageRegistryUseExistingPullSecret.value) {
+            validationObject.addField('domain-design-domain-creation-image-registry-address-label',
+              validationHelper.validateHostName(this.project.image.internal.auxImageRegistryAddress.value, false),
+              vzComponentFormConfig);
+            validationObject.addField('domain-design-domain-creation-image-registry-pull-username-label',
+              validationHelper.validateRequiredField(this.project.k8sDomain.auxImageRegistryPullUser.value),
+              vzComponentFormConfig);
+            validationObject.addField('domain-design-domain-creation-image-registry-pull-email-label',
+              this.project.k8sDomain.auxImageRegistryPullEmail.validate(true),
+              vzComponentFormConfig);
+            validationObject.addField('domain-design-domain-creation-image-registry-pull-password-label',
+              validationHelper.validateRequiredField(this.project.k8sDomain.auxImageRegistryPullPassword.value),
+              vzComponentFormConfig);
+
+            if (this.project.k8sDomain.createPvc.value) {
+              if (this.project.k8sDomain.createPv.value) {
+                const pvType = this.project.k8sDomain.pvType.value;
+                if (pvType === 'nfs') {
+                  validationObject.addField('domain-design-domain-creation-image-pv-nfs-server-label',
+                    validationHelper.validateRequiredField(this.project.k8sDomain.pvNfsServer.value),
+                    vzComponentFormConfig);
+                  validationObject.addField('domain-design-domain-creation-image-pv-nfs-path-label',
+                    validationHelper.validateRequiredField(this.project.k8sDomain.pvPath.value),
+                    vzComponentFormConfig);
+                } else if (pvType === 'hostPath') {
+                  validationObject.addField('domain-design-domain-creation-image-pv-host-path-label',
+                    validationHelper.validateRequiredField(this.project.k8sDomain.pvPath.value),
+                    vzComponentFormConfig);
+                }
+              }
+            }
+          }
+        }
       }
 
       if (this.project.settings.targetDomainLocation.value === 'mii') {
@@ -300,7 +353,12 @@ function(VzActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, vali
           this.project.k8sDomain.runtimeSecretName.validate(true), vzComponentFormConfig);
         validationObject.addField('domain-design-encryption-value-label',
           validationHelper.validateRequiredField(this.project.k8sDomain.runtimeSecretValue.value), vzComponentFormConfig);
+      } else if (auxImageHelper.supportsDomainCreationImages() && auxImageHelper.domainUsesJRF()) {
+        validationObject.addField('domain-design-domain-creation-image-wallet-password-label',
+          validationHelper.validateRequiredField(this.project.k8sDomain.walletPassword.value),
+          vzComponentFormConfig);
       }
+
       validationObject.addField('domain-design-wls-credential-label',
         this.project.k8sDomain.credentialsSecretName.validate(true), vzComponentFormConfig);
       validationObject.addField('domain-design-wls-credential-username-label',
@@ -308,26 +366,26 @@ function(VzActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, vali
       validationObject.addField('domain-design-wls-credential-password-label',
         validationHelper.validateRequiredField(this.project.k8sDomain.credentialsPassword.value), vzComponentFormConfig);
 
-      if (this.project.k8sDomain.secrets.value && this.project.k8sDomain.secrets.value.length > 0) {
-        let i = 0;
+      if (Array.isArray(this.project.k8sDomain.secrets.value) && this.project.k8sDomain.secrets.value.length > 0) {
         for (const secret of this.project.k8sDomain.secrets.value) {
-          i++;
           const secretConfig = validationObject.getDefaultConfigObject();
+          secretConfig.formName = 'vz-component-design-form-name';
           secretConfig.fieldNameIsKey = false;
-          const nameFieldName = i18n.t('domain-design-secrets-cell-field-name',
-            {position: i, uid: secret.uid, name: i18n.t('domain-design-secretname-header')});
-          const userFieldName = i18n.t('domain-design-secrets-cell-field-name',
-            {position: i, uid: secret.uid, name: i18n.t('domain-design-username-header')});
-          const passFieldName = i18n.t('domain-design-secrets-cell-field-name',
-            {position: i, uid: secret.uid, name: i18n.t('domain-design-password-header')});
-
+          const nameFieldName = i18n.t('domain-design-secret-name-field-name');
           validationObject.addField(nameFieldName, validationHelper.validateK8sName(secret.name, true), secretConfig);
-          validationObject.addField(userFieldName, validationHelper.validateRequiredField(secret.username), secretConfig);
-          validationObject.addField(passFieldName, validationHelper.validateRequiredField(secret.password), secretConfig);
+
+          for (const field of secret.keys) {
+            const fieldNameName = i18n.t('domain-design-secret-key-name', { secretName: secret.name });
+            const fieldValueName = i18n.t('domain-design-secret-value-name', { secretName: secret.name, fieldName: field.key });
+
+            validationObject.addField(fieldNameName, validationHelper.validateRequiredField(field.key), secretConfig);
+            validationObject.addField(fieldValueName, validationHelper.validateRequiredField(field.value), secretConfig);
+          }
         }
       }
 
-      if (this.project.settings.targetDomainLocation.value === 'mii') {
+      if (this.project.settings.targetDomainLocation.value === 'mii' ||
+        (auxImageHelper.supportsDomainCreationImages() && this.project.image.useAuxImage.value)) {
         validationObject.addField('domain-design-configmap-label',
           this.project.k8sDomain.modelConfigMapName.validate(true), vzComponentFormConfig);
       }

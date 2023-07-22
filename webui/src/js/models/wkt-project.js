@@ -151,6 +151,28 @@ function (ko, wdtConstructor, imageConstructor, kubectlConstructor, domainConstr
           wktProjectJson.k8sDomain.clusters = newClusters;
         }
       }
+
+      // Version 1.6 changes domain secrets to allow any keys.
+      // Prior versions allowed only username and password.
+      // If username or password attributes are present, convert them to objects in the keys map.
+      //
+      if ('k8sDomain' in wktProjectJson && 'secrets' in wktProjectJson.k8sDomain) {
+        const secrets = wktProjectJson.k8sDomain.secrets;
+        for(const secretUid in secrets) {
+          const secret = secrets[secretUid];
+          if (!secret.hasOwnProperty('keys')) {
+            const keyMap = {};
+            ['username', 'password'].forEach(attribute_key => {
+              if(secret.hasOwnProperty(attribute_key)) {
+                const keyUid = utils.getShortUuid();
+                keyMap[keyUid] = {key: attribute_key, value: secret[attribute_key]};
+                delete secret[attribute_key];
+              }
+            });
+            secret['keys'] = keyMap;
+          }
+        }
+      }
     };
 
     this.setFromJson = (wktProjectJson, modelContentsJson) => {

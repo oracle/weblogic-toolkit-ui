@@ -95,7 +95,32 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
         this.runtimeSecretValue = props.createProperty(window.api.utils.generateUuid()).asCredential();
         this.introspectorJobActiveDeadlineSeconds = props.createProperty(900);
 
-        this.secrets = props.createListProperty(['uid', 'name', 'username', 'password']).persistByKey('uid');
+        const internalFields = {
+          // this internal observable list property is used for JSON read/write of this.secrets
+          secrets: props.createListProperty(['uid', 'name', 'keys']).persistByKey('uid')
+        };
+
+        // this.secrets supports .observable() and .value, like other observable properties.
+        // it is synchronized with internalFields.secrets during JSON read/write.
+        // each secret in this.secrets has flattened keys structure, like:
+        //
+        // uid: "YdPQBG9Y/",
+        // name: "my-secret",
+        // keys: [{
+        //   uid: "P51SNv9WA",
+        //   key: "username",
+        //   value: "me"
+        // }, {
+        //   uid: "P51SNv9WA",
+        //   key: "password",
+        //   value: "welcome1"
+        // }]
+        this.secrets = {
+          observable: ko.observableArray(),
+          get value() {
+            return this.observable();
+          }
+        };
 
         this.replicas = props.createProperty(2);
         // TODO - can a WebLogic server really run with 64MB?  If not, raise minimum limit...
@@ -165,17 +190,56 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
 
         // update the secrets list when the uid changes.
         this.uid.observable.subscribe(() => {
-          this.updateSecrets();
+          this.updateSecretsFromModel();
         });
 
         // update the secrets list when any model content changes.
         wdtModel.modelContentChanged.subscribe(() => {
           wktLogger.debug('modelContentChanged event calling updateSecrets()');
-          this.updateSecrets();
+          this.updateSecretsFromModel();
+        });
+
+        this.updateFromInternalFields = (() => {
+          const flattenedSecrets = [];
+          internalFields.secrets.observable().forEach(secret => {
+            // flatten the key map to a list
+            const newKeys = [];
+            for(const keyUid in secret.keys) {
+              const keyData = secret.keys[keyUid];
+              newKeys.push({
+                uid: keyUid,
+                key: keyData.key,
+                value: keyData.value
+              });
+            }
+            const newSecret = {...secret, keys: newKeys};
+            flattenedSecrets.push(newSecret);
+          });
+          this.secrets.observable(flattenedSecrets);
+        });
+
+        this.updateInternalFields = (() => {
+          const mappedSecrets = [];
+          this.secrets.observable().forEach(secret => {
+            // create a map from each flattened key
+            const mappedKeys = {};
+            secret.keys.forEach(flatSecret => {
+              mappedKeys[flatSecret.uid] = {
+                key: flatSecret.key,
+                value: flatSecret.value
+              };
+            });
+            const newSecret = {...secret, keys: mappedKeys};
+            mappedSecrets.push(newSecret);
+          });
+          internalFields.secrets.observable(mappedSecrets);
         });
 
         this.readFrom = (json) => {
           props.createGroup(name, this).readFrom(json);
+
+          props.createGroup(name, internalFields).readFrom(json);
+          this.updateFromInternalFields();
         };
 
         this.loadPropertyOverrideValues = (json) => {
@@ -189,22 +253,22 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
         };
 
         this.setCredentialPathsForSecretsTable = (json) => {
-          wktLogger.debug('entering setCredentialPathsForSecretsTable() with secrets table length = %s', this.secrets.value.length);
-          if (this.secrets.value.length > 0) {
+          const secrets = this.secrets.observable();
+          wktLogger.debug('entering setCredentialPathsForSecretsTable() with secrets table length = %s', secrets.length);
+          if (secrets.length > 0) {
             if (!json.credentialPaths) {
               wktLogger.debug('creating credentialPaths array');
               json.credentialPaths = [];
             }
-            for (const secret of this.secrets.value) {
+            for (const secret of secrets) {
               wktLogger.debug('working on secret path %s', `${name}.secrets.${secret.uid}`);
-              if (secret.username) {
-                wktLogger.debug('setting secret %s', `${name}.secrets.${secret.uid}.username`);
-                json.credentialPaths.push(`${name}.secrets.${secret.uid}.username`);
-              }
-              if (secret.password) {
-                wktLogger.debug('setting secret %s', `${name}.secrets.${secret.uid}.password`);
-                json.credentialPaths.push(`${name}.secrets.${secret.uid}.password`);
-              }
+              secret.keys.forEach(keyData => {
+                if(keyData.value) {
+                  const keyUid = keyData.uid;
+                  wktLogger.debug('setting secret %s', `${name}.secrets.${secret.uid}.keys.${keyUid}.value`);
+                  json.credentialPaths.push(`${name}.secrets.${secret.uid}.keys.${keyUid}.value`);
+                }
+              });
             }
           }
         };
@@ -212,6 +276,9 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
         this.writeTo = (json) => {
           this.setCredentialPathsForSecretsTable(json);
           props.createGroup(name, this).writeTo(json);
+
+          this.updateInternalFields();
+          props.createGroup(name, internalFields).writeTo(json);
 
           // Force the generated runtime secret to be written to the project.
           // This will allow us to keep the same generated password for the life
@@ -241,10 +308,18 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
         };
 
         this.isChanged = () => {
+          this.updateInternalFields();
+          if(props.createGroup(name, internalFields).isChanged()) {
+            return true;
+          }
+
           return props.createGroup(name, this).isChanged();
         };
 
         this.setNotChanged = () => {
+          this.updateInternalFields();
+          props.createGroup(name, internalFields).setNotChanged();
+
           props.createGroup(name, this).setNotChanged();
         };
 
@@ -352,20 +427,28 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
           };
         };
 
+        // search existing secrets for an existing secret/key value
         this.getFieldValueFromExistingSecrets = (uid, fieldName, defaultValue) => {
           let result = defaultValue;
           for (const domainSecret of this.secrets.observable()) {
             if (domainSecret.uid === uid) {
-              if (domainSecret[fieldName]) {
-                result = domainSecret[fieldName];
+              for(const keyMap of domainSecret.keys) {
+                if (keyMap.key === fieldName) {
+                  result = keyMap.value;
+                  break;
+                }
               }
-              break;
             }
           }
           return result;
         };
 
-        this.updateSecrets = () => {
+        this.updateSecretsFromModel = () => {
+          const auxImageHelper = require('utils/aux-image-helper');
+          if(auxImageHelper.projectUsingExternalImageContainingModel()) {
+            return;
+          }
+
           const modelSecretsData = wdtModel.getModelSecretsData();
 
           const modelSecrets = new Map();
@@ -374,14 +457,21 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
             const key = modelSecretData.envVar ? `${modelSecretData.envVar}${modelSecretData.name}` : modelSecretData.name;
             const uid = utils.hashIt(key);
 
+            const secretKeys = [];
+            for(const secretKey in modelSecretData.keys) {
+              const keyUid = utils.getShortUuid();
+              const existing_value = this.getFieldValueFromExistingSecrets(uid, secretKey,
+                modelSecretData.keys[secretKey]);
+              secretKeys.push({uid: keyUid, key: secretKey, value: existing_value});
+            }
+
             modelSecrets.set(uid, {
               uid: uid,
               name: computeSecretNameFromModelData(modelSecretData, envVarMap),
-              username: this.getFieldValueFromExistingSecrets(uid, 'username', modelSecretData.username),
-              password: this.getFieldValueFromExistingSecrets(uid, 'password', modelSecretData.password)
+              keys: secretKeys
             });
           }
-          this.secrets.value = [...modelSecrets.values()];
+          this.secrets.observable([...modelSecrets.values()]);
         };
 
         function computeSecretNameFromModelData(modelSecretData, envVarMap) {

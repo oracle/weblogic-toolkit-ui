@@ -6,11 +6,13 @@
 define(['models/wkt-project', 'accUtils', 'utils/common-utilities', 'knockout', 'utils/i18n', 'utils/screen-utils',
   'ojs/ojbufferingdataprovider', 'ojs/ojarraydataprovider', 'ojs/ojconverter-number', 'utils/dialog-helper',
   'utils/view-helper', 'utils/wko-get-installed-version', 'utils/wit-inspector', 'utils/aux-image-helper',
+  'ojs/ojmodule-element-utils', 'ojs/ojmodule',
   'utils/wkt-logger', 'ojs/ojmessaging', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojformlayout',
   'ojs/ojcollapsible', 'ojs/ojselectsingle', 'ojs/ojlistview', 'ojs/ojtable', 'ojs/ojswitch', 'ojs/ojinputnumber',
   'ojs/ojradioset', 'ojs/ojselectcombobox'],
 function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider, ArrayDataProvider,
-  ojConverterNumber, dialogHelper, viewHelper, wkoInstalledVersionChecker, witInspector, auxImageHelper) {
+  ojConverterNumber, dialogHelper, viewHelper, wkoInstalledVersionChecker, witInspector, auxImageHelper,
+  ModuleElementUtils) {
   function DomainDesignViewModel() {
 
     let subscriptions = [];
@@ -542,53 +544,12 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
     //                                 Secrets Table                                 //
     ///////////////////////////////////////////////////////////////////////////////////
 
-    this.secretsTableColumnMetadata = () => {
-      return [
-        { headerText: this.labelMapper('secretname-header'), sortProperty: 'name', resizable: 'enabled' },
-        { headerText: this.labelMapper('username-header'), sortable: 'disabled', resizable: 'enabled' },
-        { headerText: this.labelMapper('password-header'), sortable: 'disabled', resizable: 'enabled' },
-        {
-          className: 'wkt-table-delete-cell',
-          headerClassName: 'wkt-table-add-header',
-          headerTemplate: 'headerTemplate',
-          template: 'actionTemplate',
-          sortable: 'disable',
-          width: viewHelper.BUTTON_COLUMN_WIDTH
-        },
-      ];
-    };
-
-    this.secretsDP = new BufferingDataProvider(new ArrayDataProvider(
-      this.project.k8sDomain.secrets.observable, {keyAttributes: 'uid'}));
-
-    this.disableSecretAddRemove = ko.computed(() => {
-      return !auxImageHelper.projectUsingExternalImageContainingModel();
-    });
-
-    this.handleAddSecret = () => {
-      const secretToAdd = {
-        uid: utils.getShortUuid(),
-        name: utils.generateNewName(this.project.k8sDomain.secrets.observable,
-          'name', 'existing-model-secret'),
-        username: '',
-        password: '',
-      };
-      this.project.k8sDomain.secrets.addNewItem(secretToAdd);
-    };
-
-    this.handleDeleteSecret = (event, context) => {
-      const index = context.item.index;
-      this.project.k8sDomain.secrets.observable.splice(index, 1);
-    };
-
-    this.noSecretsMessage = () => {
-      let secretsMessage = '<no-message>';
-      if (auxImageHelper.projectHasModel()) {
-        secretsMessage = this.labelMapper('no-secrets-message');
-      } else if (auxImageHelper.projectUsingExternalImageContainingModel()) {
-        secretsMessage = this.labelMapper('no-secrets-add-remove-message');
-      }
-      return secretsMessage;
+    // Setup for secrets module
+    this.getSecretsModuleConfig = () => {
+      return ModuleElementUtils.createConfig({
+        name: 'secrets-table',
+        params: {}
+      });
     };
 
     // Runtime Encryption Secret functions

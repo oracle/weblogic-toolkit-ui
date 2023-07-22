@@ -150,7 +150,7 @@ function(project, K8sDomainConfigMapGenerator, jsYaml, i18n) {
           domainResource.spec.configuration.model.configMap = this.project.k8sDomain.modelConfigMapName.value;
         }
 
-        if (this.project.k8sDomain.secrets.value.length > 0) {
+        if (Array.isArray(this.project.k8sDomain.secrets.value) && this.project.k8sDomain.secrets.value.length > 0) {
           domainResource.spec.configuration.secrets = [];
           for (const secret of this.project.k8sDomain.secrets.value) {
             domainResource.spec.configuration.secrets.push(secret.name);
