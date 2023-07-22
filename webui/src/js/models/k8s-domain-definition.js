@@ -19,7 +19,7 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
       }
 
       function K8sDomainModel() {
-        const DEFAULT_AUX_IMAGE_WDT_INSTALL_HOME = imageDefinition.wdtHomePath.value + '/weblogic-deploy';
+        const DEFAULT_AUX_IMAGE_WDT_INSTALL_HOME = `${imageDefinition.wdtHomePath.value}/weblogic-deploy`;
         const DEFAULT_AUX_IMAGE_WDT_MODEL_HOME = imageDefinition.modelHomePath.value;
 
         this.uid = props.createProperty(asLegalK8sName, wdtModel.domainName);
@@ -212,7 +212,10 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
                 value: keyData.value
               });
             }
-            const newSecret = {...secret, keys: newKeys};
+            // Cannot use object spread operator because Jet 14 does not support it!
+            //
+            const newSecret = { keys: newKeys };
+            Object.assign(newSecret, secret);
             flattenedSecrets.push(newSecret);
           });
           this.secrets.observable(flattenedSecrets);
@@ -229,7 +232,10 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
                 value: flatSecret.value
               };
             });
-            const newSecret = {...secret, keys: mappedKeys};
+            // Cannot use the object spread operator because Jet 14 does not support it.
+            //
+            const newSecret = { keys: mappedKeys};
+            Object.assign(newSecret, secret);
             mappedSecrets.push(newSecret);
           });
           internalFields.secrets.observable(mappedSecrets);
