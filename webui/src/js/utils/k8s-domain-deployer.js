@@ -239,27 +239,25 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
         busyDialogMessage = i18n.t('k8s-domain-deployer-create-secrets-in-progress',
           {domainName: domainUid, namespace: domainNamespace});
         dialogHelper.updateBusyDialog(busyDialogMessage, 11 / totalSteps);
-        if (this.project.settings.targetDomainLocation.value === 'mii' ||
-          (auxImageHelper.supportsDomainCreationImages() && this.project.image.useAuxImage.value)) {
+        if (auxImageHelper.projectHasModel() || auxImageHelper.projectUsingExternalImageContainingModel()) {
           const secrets = this.project.k8sDomain.secrets.value;
-          if (secrets && secrets.length > 0) {
+          if (Array.isArray(secrets) && secrets.length > 0) {
             for (const secret of secrets) {
-              let secretName = '';
-              const secretData = {};
-              for (const [key, value] of Object.entries(secret)) {
-                if (key === 'name') {
-                  secretName = value;
-                } else if (key !== 'uid') {
-                  // skip artificial uid field...
-                  secretData[key] = value;
+              const secretName = secret.name;
+              if (Array.isArray(secret.keys) && secret.keys.length > 0) {
+                const secretData = {};
+                for (const secretKey of secret.keys) {
+                  secretData[secretKey.key] = secretKey.value;
                 }
-              }
-              wktLogger.debug('Creating secret %s', secretName);
+                wktLogger.debug('Creating secret %s', secretName);
 
-              const domainSecretResult = await this.createGenericSecret(kubectlExe, kubectlOptions, domainNamespace,
-                secretName, secretData, errTitle, 'k8s-domain-deployer-create-secret-failed-error-message');
-              if (!domainSecretResult) {
-                return Promise.resolve(false);
+                const domainSecretResult = await this.createGenericSecret(kubectlExe, kubectlOptions, domainNamespace,
+                  secretName, secretData, errTitle, 'k8s-domain-deployer-create-secret-failed-error-message');
+                if (!domainSecretResult) {
+                  return Promise.resolve(false);
+                }
+              } else {
+                wktLogger.warning('Secret %s did not contain any data...skipping', secretName);
               }
             }
           }
@@ -465,22 +463,21 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
       validationObject.addField('domain-design-wls-credential-password-label',
         validationHelper.validateRequiredField(this.project.k8sDomain.credentialsPassword.value), domainFormConfig);
 
-      if (this.project.k8sDomain.secrets.value && this.project.k8sDomain.secrets.value.length > 0) {
-        let i = 0;
+      if (Array.isArray(this.project.k8sDomain.secrets.value) && this.project.k8sDomain.secrets.value.length > 0) {
         for (const secret of this.project.k8sDomain.secrets.value) {
-          i++;
           const secretConfig = validationObject.getDefaultConfigObject();
+          secretConfig.formName = 'domain-design-form-name';
           secretConfig.fieldNameIsKey = false;
-          const nameFieldName = i18n.t('domain-design-secrets-cell-field-name',
-            {position: i, uid: secret.uid, name: i18n.t('domain-design-secretname-header')});
-          const userFieldName = i18n.t('domain-design-secrets-cell-field-name',
-            {position: i, uid: secret.uid, name: i18n.t('domain-design-username-header')});
-          const passFieldName = i18n.t('domain-design-secrets-cell-field-name',
-            {position: i, uid: secret.uid, name: i18n.t('domain-design-password-header')});
-
+          const nameFieldName = i18n.t('domain-design-secret-name-field-name');
           validationObject.addField(nameFieldName, validationHelper.validateK8sName(secret.name, true), secretConfig);
-          validationObject.addField(userFieldName, validationHelper.validateRequiredField(secret.username), secretConfig);
-          validationObject.addField(passFieldName, validationHelper.validateRequiredField(secret.password), secretConfig);
+
+          for (const field of secret.keys) {
+            const fieldNameName = i18n.t('domain-design-secret-key-name', { secretName: secret.name });
+            const fieldValueName = i18n.t('domain-design-secret-value-name', { secretName: secret.name, fieldName: field.key });
+
+            validationObject.addField(fieldNameName, validationHelper.validateRequiredField(field.key), secretConfig);
+            validationObject.addField(fieldValueName, validationHelper.validateRequiredField(field.value), secretConfig);
+          }
         }
       }
 

@@ -172,12 +172,12 @@ define(['knockout', 'utils/observable-properties', 'js-yaml', 'utils/validation-
               if (secretsMap.has(secretKey)) {
                 secretData = secretsMap.get(secretKey);
               } else {
-                secretData = { name: secretName };
+                secretData = { name: secretName, keys: {} };
                 if (secretEnvVar) {
                   secretData.envVar = secretEnvVar;
                 }
               }
-              secretData[secretField] = '';
+              secretData.keys[secretField] = '';
               secretsMap.set(secretKey, secretData);
             } else {
               wktLogger.debug('skipping matching secret %s', matches.groups.name);

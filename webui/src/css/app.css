@@ -85,6 +85,16 @@
   overflow: auto;
 }
 
+/* group-by table grouping rows */
+.wkt-table-group-row {
+  background-color: #d7d7d7;
+}
+
+/* for non-editable text in table edit mode */
+.wkt-table-no-edit-text {
+  padding: 0 0.5rem;
+}
+
 /* collapsible console panel, on every page */
 
 .wkt-console-section .oj-collapsible-header-wrapper {
@@ -416,6 +426,11 @@ h6:first-child {
 .wkt-app-update-notes {
   max-height: 200px;
   overflow: auto;
+}
+
+.wkt-secret-edit-dialog {
+  width: 700px;
+  height: auto;
 }
 
 .wkt-validation-error-dialog {
@@ -765,6 +780,25 @@ h6.wkt-panel-heading {
 .wkt-warning {
   color: red;
   font-weight: bold;
+}
+
+.wkt-user-assistance {
+  color: var(--oj-user-assistance-inline-text-color);
+  font-size: var(--oj-user-assistance-inline-font-size);
+  margin-top: 2px;
+}
+
+.wkt-user-assistance-error-icon {
+  font-family: "JetInternal IconFont", serif;
+  font-size: 1rem;
+  vertical-align: middle;
+  line-height:16px;
+}
+
+.wkt-user-assistance-error-icon:before {
+  color: var(--oj-core-danger-3);
+  content: "\f145";
+  padding-right: 4px;
 }
 
 .wkt-placeholder-text {

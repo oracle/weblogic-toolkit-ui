@@ -655,63 +655,9 @@
 <oj-bind-if test="[[isModelInImage() === true || usingDomainCreationImage() === true]]">
   <div class="oj-panel">
     <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('secrets-title')]]"></oj-bind-text></h6>
-    <oj-table id="secrets-table"
-              class="wkt-domain-secrets-table"
-              :aria-label="[[labelMapper('secrets-table-aria-label')]]"
-              data="[[secretsDP]]"
-              display="grid"
-              horizontal-grid-visible="enabled"
-              vertical-grid-visible="enabled"
-              edit-mode="rowEdit"
-              layout="fixed"
-              columns='[[secretsTableColumnMetadata()]]'>
-      <template slot="rowTemplate" data-oj-as="row">
-          <tr>
-            <oj-bind-if test='[[row.mode=="navigation"]]'>
-              <td><oj-bind-text value="[[row.data.name]]"></oj-bind-text></td>
-            </oj-bind-if>
-            <oj-bind-if test='[[row.mode=="edit"]]'>
-              <td><oj-input-text value="{{row.data.name}}" disabled="[[disableSecretAddRemove]]"></oj-input-text></td>
-            </oj-bind-if>
-            <td>
-              <oj-input-password value="{{row.data.username}}"
-                                 mask-icon="visible"
-                                 readonly='[[row.mode=="navigation"]]' >
-              </oj-input-password>
-            </td>
-            <td>
-              <oj-input-password value="{{row.data.password}}"
-                                 mask-icon="visible"
-                                 readonly='[[row.mode=="navigation"]]' >
-              </oj-input-password>
-            </td>
-            <td>
-              <oj-bind-if test="[[disableSecretAddRemove() === false]]">
-                <oj-button display="icons"
-                           chroming="borderless"
-                           on-oj-action="[[handleDeleteSecret]]">
-                  <span slot="endIcon" class="oj-ux-ico-trash"></span>
-                  <oj-bind-text value="[[labelMapper('delete-external-secret-tooltip')]]"></oj-bind-text>
-                </oj-button>
-              </oj-bind-if>
-            </td>
-          </tr>
-      </template>
-      <template slot="headerTemplate" data-oj-as="header">
-        <oj-button display="icons"
-                   chroming="borderless"
-                   disabled="[[disableSecretAddRemove]]"
-                   on-oj-action="[[handleAddSecret]]">
-          <span slot="endIcon" class="oj-ux-ico-plus"></span>
-          <oj-bind-text value="[[labelMapper('add-external-secret-tooltip')]]"></oj-bind-text>
-        </oj-button>
-      </template>
-      <template slot="noData">
-        <div class="oj-table-body-message">
-          <oj-bind-text value="[[noSecretsMessage()]]"></oj-bind-text>
-        </div>
-      </template>
-    </oj-table>
+
+    <oj-module id="wkt-secrets-frame" class="wkt-secrets-frame" config="[[getSecretsModuleConfig()]]">
+    </oj-module>
   </div>
 </oj-bind-if>
 

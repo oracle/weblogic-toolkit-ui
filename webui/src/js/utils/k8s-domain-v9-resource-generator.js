@@ -196,7 +196,7 @@ function(project, K8sDomainConfigMapGenerator, jsYaml, i18n, auxImageHelper) {
       }
 
       if (this.project.settings.targetDomainLocation.value === 'mii' || this.usingDomainCreationImage()) {
-        if (this.project.k8sDomain.secrets.value.length > 0) {
+        if (Array.isArray(this.project.k8sDomain.secrets.value) && this.project.k8sDomain.secrets.value.length > 0) {
           domainResource.spec.configuration.secrets = [];
           for (const secret of this.project.k8sDomain.secrets.value) {
             domainResource.spec.configuration.secrets.push(secret.name);

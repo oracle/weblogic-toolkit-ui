@@ -281,9 +281,16 @@ define([],
 
       }
 
-      addCreateRuntimeSecretBlock(comment, kubectlExe, targetDomainLocation, runtimeSecretName, k8sDomainNamespace,
+      addCreateRuntimeSecretBlock(comment, kubectlExe, runtimeSecretName, k8sDomainNamespace,
         runtimeSecretData, createErrorMessage, deleteErrorMessage, replaceMessage) {
         const options = this.getGenericSecretOptions(runtimeSecretName, k8sDomainNamespace, runtimeSecretData,
+          createErrorMessage, deleteErrorMessage, replaceMessage);
+        this._lines.push(...this._formatCreateReplaceBlock(comment, kubectlExe, options), '');
+      }
+
+      addCreateOpssWalletPasswordSecretBlock(comment, kubectlExe, secretName, k8sDomainNamespace, secretData,
+        createErrorMessage, deleteErrorMessage, replaceMessage) {
+        const options = this.getGenericSecretOptions(secretName, k8sDomainNamespace, secretName,
           createErrorMessage, deleteErrorMessage, replaceMessage);
         this._lines.push(...this._formatCreateReplaceBlock(comment, kubectlExe, options), '');
       }
