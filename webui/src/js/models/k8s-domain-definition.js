@@ -213,9 +213,10 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
               });
             }
             // Cannot use object spread operator because Jet 14 does not support it!
-            //
-            const newSecret = { keys: newKeys };
+            // build a copy of secret, but assign the new key structure.
+            const newSecret = {};
             Object.assign(newSecret, secret);
+            newSecret.keys = newKeys;
             flattenedSecrets.push(newSecret);
           });
           this.secrets.observable(flattenedSecrets);
@@ -233,9 +234,10 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
               };
             });
             // Cannot use the object spread operator because Jet 14 does not support it.
-            //
-            const newSecret = { keys: mappedKeys};
+            // build a copy of secret, but assign the new key structure.
+            const newSecret = {};
             Object.assign(newSecret, secret);
+            newSecret.keys = mappedKeys;
             mappedSecrets.push(newSecret);
           });
           internalFields.secrets.observable(mappedSecrets);
