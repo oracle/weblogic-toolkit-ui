@@ -358,6 +358,11 @@ function(accUtils, ko, project, i18n, ArrayDataProvider, BufferingDataProvider, 
       }
       return flavor;
     };
+
+    this.isVerrazzanoOKE = ko.computed(() => {
+      return this.project.settings.wdtTargetType.observable() === 'vz'
+        && this.project.kubectl.k8sFlavor.observable() === 'OKE';
+    }, this);
   }
 
   /*

@@ -59,6 +59,7 @@
 
   "kubectl-k8s-flavor-label": "Kubernetes Cluster Type",
   "kubectl-k8s-flavor-help": "The Kubernetes cluster provider type where the Oracle Fusion Middleware domain will be deployed.",
+  "kubectl-vz-oke-warning": "<b>WARNING</b>: When creating an OKE cluster, the default Native Pod Networking is not compatible with Verrazzano unless the Kubernetes version is 1.26.2 or higher.  For earlier Kubernetes versions, you must use Flannel networking for Verrazzano to install and work properly.",
   "kubectl-exe-file-path-label": "Kubectl Executable to Use",
   "kubectl-exe-file-path-help": "The full path to the Kubernetes kubectl client executable that is compatible with the target Kubernetes cluster.",
   "kubectl-exe-file-path-tooltip": "Choose the Kubectl Executable",
