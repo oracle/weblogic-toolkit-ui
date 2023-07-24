@@ -188,6 +188,10 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
         this.serverPodEnvironmentVariables = props.createListProperty(['uid', 'name', 'value']).persistByKey('uid');
         this.serverPodEnvironmentVariablesOverrideOtherSettings = props.createProperty(false);
 
+        this.validators = {
+          k8sNameValidator: validationHelper.getK8sNameValidators(),
+        };
+
         // update the secrets list when the uid changes.
         this.uid.observable.subscribe(() => {
           this.updateSecretsFromModel();
