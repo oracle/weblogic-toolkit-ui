@@ -290,7 +290,12 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
           props.createGroup(name, this).writeTo(json);
 
           this.updateInternalFields();
-          props.createGroup(name, internalFields).writeTo(json);
+
+          // build a temporary JSON structure from internal fields, then merge to the project JSON
+          const internalJson = {};
+          props.createGroup(name, internalFields).writeTo(internalJson);
+          json[name] = json[name] || {};  // create section if not existing
+          Object.assign(json[name], internalJson[name]);
 
           // Force the generated runtime secret to be written to the project.
           // This will allow us to keep the same generated password for the life
