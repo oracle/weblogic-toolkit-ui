@@ -1498,6 +1498,7 @@
   "k8s-domain-deployer-deploy-failed-error-message":"Unable to deploy WebLogic domain {{domainName}} to Kubernetes namespace {{domainNamespace}}: {{error}}.",
   "k8s-domain-deployer-deploy-catch-all-error-message": "WebLogic domain deployment to Kubernetes failed with an unexpected error: {{error}}",
   "k8s-domain-script-generator-invalid-target-domain-location": "Unknown value for target domain location {{targetDomainLocation}}",
+  "k8s-domain-script-generator-clusters-first-comment": "Create the cluster resources before the domain resource that references them.",
 
   "k8s-domain-undeployer-aborted-error-title": "Undeploying WebLogic Domain from Kubernetes Aborted",
   "k8s-domain-undeployer-remove-namespace-prompt-title": "Undeploy WebLogic Domain from Kubernetes Scope",

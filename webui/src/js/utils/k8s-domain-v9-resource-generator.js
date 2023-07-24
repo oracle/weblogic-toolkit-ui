@@ -260,11 +260,15 @@ function(project, K8sDomainConfigMapGenerator, jsYaml, i18n, auxImageHelper) {
 
       let result;
       if (generateYaml) {
-        result = jsYaml.dump(domainResource, {}).split('\n');
+        result = [];
         for (const clusterResource of clusterResources) {
-          result.push('', '---', '');
+          if (result.length === 0) {
+            result.push(`# ${i18n.t('k8s-domain-script-generator-clusters-first-comment')}`, '#');
+          }
           result.push(...jsYaml.dump(clusterResource, {}).split('\n'));
+          result.push('---', '');
         }
+        result.push(...jsYaml.dump(domainResource, {}).split('\n'));
       } else {
         result = { domainResource };
 
