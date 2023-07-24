@@ -522,9 +522,15 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
 
       function updateSecretFromPrepareModelResults(existingSecretObject, secretKeys) {
         if (existingSecretObject && secretKeys && secretKeys.length > 0) {
-          for (const secretKey of secretKeys) {
-            if (secretKey.defaultValue) {
-              existingSecretObject[secretKey.key] = secretKey.defaultValue;
+          const secretKeysMap = secretKeys.reduce(function(map, obj) {
+            map[obj.key] = obj.defaultValue;
+            return map;
+          }, {});
+
+          for(const keyMap of existingSecretObject.keys) {
+            const value = secretKeysMap[keyMap.key];
+            if(value) {
+              keyMap.value = value;
             }
           }
         }
