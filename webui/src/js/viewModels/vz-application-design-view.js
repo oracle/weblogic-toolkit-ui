@@ -117,6 +117,7 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
               loggingTraitEnabled: false,
             });
           }
+          this.components.observable.sort((a, b) => (a.name > b.name) ? 1 : -1);
 
           // this shouldn't be needed, but duplicate entries will show in the components accordion
           // if multiple components are added at once.
