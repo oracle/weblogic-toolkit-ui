@@ -325,6 +325,16 @@ Click on the link to go to your application, as shown in in the following image.
     </item>
     
     <item>
+      <title>Release Notes 1.5.3</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.5.3/</link>
+      <pubDate>Thu, 03 Nov 2022 12:48:00 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.5.3/</guid>
+      <description>Changes in Release 1.5.3  Major New Features Other Changes Bugs Fixes Known Issues  Major New Features None
+Other Changes  #242 - Added initial (very minimal) internationalization support bundles. #245 - Added an Ingress Controller Service Type field that can be used when installing an ingress controller to a Kubernetes cluster without a load balancer.  Bug Fixes  #241 - Fixed a bug with the WebLogic Image Tool&amp;rsquo;s --wdtHome argument when it ended with weblogic-deploy.</description>
+    </item>
+    
+    <item>
       <title>Release Notes 1.5.2</title>
       <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.5.2/</link>
       <pubDate>Thu, 03 Nov 2022 12:48:00 -0500</pubDate>

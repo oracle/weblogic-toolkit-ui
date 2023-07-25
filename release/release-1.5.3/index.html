@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/weblogic-toolkit-ui/images/favicon.png" type="image/png">
 
-    <title>Release 1.2.0 :: WebLogic Kubernetes Toolkit UI</title>
+    <title>Release Notes 1.5.3 :: WebLogic Kubernetes Toolkit UI</title>
 
     
     <link href="/weblogic-toolkit-ui/css/nucleus.css?1690327314" rel="stylesheet">
@@ -39,7 +39,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/weblogic-toolkit-ui/release/release-1.2.0/">
+  <body class="" data-url="/weblogic-toolkit-ui/release/release-1.5.3/">
     <nav id="sidebar" class="">
 
 
@@ -1135,7 +1135,7 @@
  
   
     
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.5.3/" title="Release Notes 1.5.3" class="dd-item ">
+      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.5.3/" title="Release Notes 1.5.3" class="dd-item active">
         <a href="/weblogic-toolkit-ui/release/release-1.5.3/">
         <b> </b>Release Notes 1.5.3
         
@@ -1282,7 +1282,7 @@
  
   
     
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.2.0/" title="Release 1.2.0" class="dd-item active">
+      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.2.0/" title="Release 1.2.0" class="dd-item ">
         <a href="/weblogic-toolkit-ui/release/release-1.2.0/">
         <b> </b>Release 1.2.0
         
@@ -1395,7 +1395,7 @@
             
           
           
-            <a href='/weblogic-toolkit-ui/'></a> > <a href='/weblogic-toolkit-ui/release/'>Release Notes</a> > Release 1.2.0
+            <a href='/weblogic-toolkit-ui/'></a> > <a href='/weblogic-toolkit-ui/release/'>Release Notes</a> > Release Notes 1.5.3
           
         
           
@@ -1412,7 +1412,7 @@
   <ul>
     <li>
       <ul>
-        <li><a href="#changes-in-release-120">Changes in Release 1.2.0</a></li>
+        <li><a href="#changes-in-release-153">Changes in Release 1.5.3</a></li>
       </ul>
     </li>
   </ul>
@@ -1432,42 +1432,46 @@
           
             <h1>
               
-              Release 1.2.0
+              Release Notes 1.5.3
             </h1>
           
 
         
 
 
-<h3 id="changes-in-release-120">Changes in Release 1.2.0</h3>
+<h3 id="changes-in-release-153">Changes in Release 1.5.3</h3>
 <ul>
 <li><a href="#major-new-features">Major New Features</a></li>
 <li><a href="#other-changes">Other Changes</a></li>
 <li><a href="#bug-fixes">Bugs Fixes</a></li>
+<li><a href="#known-issues">Known Issues</a></li>
 </ul>
 <h4 id="major-new-features">Major New Features</h4>
-<ul>
-<li>Model Design View added via integration with the <a href="https://github.com/oracle/weblogic-remote-console">WebLogic Remote Console 2.3.0</a>.
-Users must download and install the WebLogic Remote Console version 2.3.x.</li>
-</ul>
+<p>None</p>
 <h4 id="other-changes">Other Changes</h4>
 <ul>
-<li>Added a new installer for macOS ARM.</li>
-<li>#141: Added support for WDT online remote discovery.</li>
+<li>#242 - Added initial (very minimal) internationalization support bundles.</li>
+<li>#245 - Added an Ingress Controller Service Type field that can be used when installing an ingress controller to
+a Kubernetes cluster without a load balancer.</li>
 </ul>
 <h4 id="bug-fixes">Bug Fixes</h4>
 <ul>
-<li>#107: Resolved an issue where the <code>Save As</code> functionality was not handling the archive file properly if there were no
-pending updates to the archive file (Jira WKTUI-322).</li>
-<li>Added missing service account argument for WebLogic Kubernetes Operator installation shell scripts (Jira WKTUI-337).</li>
-<li>#123: Changed Domain status message when domain status is available (Jira WKTUI-345).</li>
-<li>#127: Corrected an issue that was causing unsaved changes with no project to be lost when opening a new or existing project.</li>
-<li>#129: Fixed an issue where the wrong window was getting its title changed when opening a new project.</li>
-<li>#130: Fixed an issue where the window title was set incorrectly for a new or existing project.</li>
-<li>#131: Tightened up the logic for saving a project to get predictable results when encountering write permission errors.</li>
-<li>Fixed busy dialog messages used during WebLogic Kubernetes Operator installation and update.</li>
-<li>#136: Corrected <code>app.addRecentDocument()</code> handling so that the file always exists on disk prior to the call being made.</li>
-<li>#147: Corrected an issue with the PATH environment variable that was causing WebLogic Image Tool-related issues on Linux with Podman.</li>
+<li>#241 - Fixed a bug with the WebLogic Image Tool&rsquo;s <code>--wdtHome</code> argument when it ended with <code>weblogic-deploy</code>.</li>
+<li>#246 - Worked around a WebLogic Kubernetes Operator issue where the <code>javaLoggingFileSizeLimit</code> value was not working
+due to <a href="https://github.com/helm/helm/issues/1707">Helm issue 1707</a>.</li>
+<li>#247 - Fixed issue with Open Project when storing the credentials in the project and entering the wrong passphrase
+that was causing the UI to not allow re-opening the project.</li>
+</ul>
+<h4 id="known-issues">Known Issues</h4>
+<ul>
+<li>In the Model Design View when creating an App Deployment or Shared Library, changing the <code>Source</code> field back to an empty value
+results in a bogus error message about not removing the deployment from the archive file.  This error is harmless so simply
+dismiss the error dialog and continue.</li>
+<li>On Linux, the open and save dialogs open behind the main application window.  This is due to
+<a href="https://github.com/electron/electron/issues/32857">Electron bug 32857</a>.</li>
+<li>When deploying a Verrazzano application, the <code>Get Application Status</code> button only checks the status of the project&rsquo;s
+Verrazzano component containing the WebLogic domain specification.</li>
+<li>Verrazzano installation does not support a multicluster installation.</li>
 </ul>
 
 
@@ -2201,6 +2205,23 @@ pending updates to the archive file (Jira WKTUI-322).</li>
             
                 
                     
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
                         
                         
                     
@@ -2315,26 +2336,6 @@ pending updates to the archive file (Jira WKTUI-322).</li>
             
             
                 
-                    
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
                     
                 
                 
@@ -2375,10 +2376,10 @@ pending updates to the archive file (Jira WKTUI-322).</li>
 	 
 	 
 		
-			<a class="nav nav-prev" href="/weblogic-toolkit-ui/release/release-1.3.0/" title="Release 1.3.0"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/weblogic-toolkit-ui/release/" title="Release Notes"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/weblogic-toolkit-ui/release/release-1.1.1/" title="Release 1.1.1" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/weblogic-toolkit-ui/release/release-1.5.2/" title="Release Notes 1.5.2" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
