@@ -107,14 +107,20 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
 
       dialogHelper.promptDialog('choose-component-dialog', { availableComponentNames }).then(result => {
         // no result indicates operation was cancelled
-        if (result && result.componentName) {
-          this.project.vzApplication.components.addNewItem({
-            name: result.componentName,
-            ingressTraitEnable: false,
-            manualScalerTraitEnabled: false,
-            metricsTraitEnabled: false,
-            loggingTraitEnabled: false,
-          });
+        if (result && result.componentNames) {
+          for(const componentName of result.componentNames) {
+            this.project.vzApplication.components.addNewItem({
+              name: componentName,
+              ingressTraitEnable: false,
+              manualScalerTraitEnabled: false,
+              metricsTraitEnabled: false,
+              loggingTraitEnabled: false,
+            });
+          }
+
+          // this shouldn't be needed, but duplicate entries will show in the components accordion
+          // if multiple components are added at once.
+          this.components.observable.sort();
 
           // this shouldn't be needed, but when a new component is added,
           // the accordion control doesn't enforce "single collapsible open" behavior.

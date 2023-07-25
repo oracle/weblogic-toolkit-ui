@@ -14,7 +14,7 @@ function(accUtils, ko, i18n, props, validationHelper, ArrayDataProvider) {
 
     this.i18n = i18n;
     this.availableComponentNames = args.availableComponentNames;
-    this.selectedComponentName = ko.observable();
+    this.selectedComponentNames = ko.observableArray();
 
     this.availableComponentNamesDP = new ArrayDataProvider(this.availableComponentNames, { keyAttributes: 'value' });
 
@@ -42,7 +42,7 @@ function(accUtils, ko, i18n, props, validationHelper, ArrayDataProvider) {
 
       $(DIALOG_SELECTOR)[0].close();
 
-      const result = {componentName: this.selectedComponentName()};
+      const result = {componentNames: this.selectedComponentNames()};
       args.setValue(result);
     };
 

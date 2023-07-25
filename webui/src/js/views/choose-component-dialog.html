@@ -12,11 +12,17 @@
     <oj-validation-group id="chooseComponentTracker">
       <div class="oj-panel">
         <oj-form-layout max-columns="2" direction="row">
-          <oj-select-single label-hint="[[labelMapper('name-label')]]"
-                            value="{{selectedComponentName}}"
-                            data="{{availableComponentNamesDP}}"
-                            help.instruction="[[labelMapper('name-help')]]">
-          </oj-select-single>
+          <oj-select-many label-hint="[[labelMapper('name-label')]]"
+                          value="{{selectedComponentNames}}"
+                          help.instruction="[[labelMapper('name-help')]]">
+            <oj-bind-for-each data="[[availableComponentNamesDP]]">
+              <template>
+                <oj-option value="[[$current.data.value]]">
+                  <oj-bind-text value="[[$current.data.label]]"></oj-bind-text>
+                </oj-option>
+              </template>
+            </oj-bind-for-each>
+          </oj-select-many>
         </oj-form-layout>
       </div>
     </oj-validation-group>
