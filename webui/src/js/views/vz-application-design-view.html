@@ -137,7 +137,8 @@
                           <oj-bind-text value="[[labelMapper('ingress-trait-rules-table-title')]]"></oj-bind-text>
                         </h6>
                         <oj-button id="updateUrls" chroming="callToAction"
-                                   on-oj-action="[[() => updateUrls(component.data)]]">
+                                   on-oj-action="[[() => updateUrls(component.data)]]"
+                                   :title="[[labelMapper('ingress-trait-rules-update-urls-button-tooltip')]]">
                           <oj-bind-text value="[[labelMapper('ingress-trait-rules-update-urls-button-label')]]"></oj-bind-text>
                         </oj-button>
                       </div>
