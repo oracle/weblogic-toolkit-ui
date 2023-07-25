@@ -1900,6 +1900,7 @@
   "vz-application-design-ingress-trait-rules-first-path-label": "First Path",
   "vz-application-design-ingress-trait-rules-first-path-url-label": "URL",
   "vz-application-design-ingress-trait-rules-update-urls-button-label": "Update URLs",
+  "vz-application-design-ingress-trait-rules-update-urls-button-tooltip": "Use Update URLs to get the Ingress Controller hostname after the application status reaches complete.",
   "vz-application-design-ingress-trait-rule-edit-destination-title": "Destination",
   "vz-application-design-ingress-trait-rules-destination-label": "Destination",
   "vz-application-design-add-rule-tooltip": "Add Ingress Rule",
