@@ -571,7 +571,7 @@ function (project, accUtils, utils, ko, i18n, BufferingDataProvider, ArrayDataPr
       dialogHelper.closeBusyDialog();
 
       if (!hostsResult.isSuccess) {
-        const errTitle = 'vz-application-design-get-hosts-error-title';
+        const errTitle = this.labelMapper('get-hosts-error-title');
         const errMessage = this.labelMapper('get-hosts-error-message', { error: hostsResult.reason });
         await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
         return;
