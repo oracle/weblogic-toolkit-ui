@@ -1281,7 +1281,7 @@
   "wit-dci-creator-create-failed-title":"Create Auxiliary Image Failed",
   "wit-dci-creator-create-failed-error-message":"Unable to create auxiliary image {{imageTag}}: {{error}}.",
   "wit-dci-creator-create-catch-all-error-message": "Create Auxiliary Image failed with an unexpected error: {{error}}",
-  "wit-dci-creator-create-in-progress": "Running Create Auxiliary Image",
+  "wit-dci-creator-create-in-progress": "Running Create Domain Creation Image",
   "wit-dci-creator-validate-variable-file-in-progress": "Validating Prepare Model-generated model variable file",
   "wit-dci-creator-validate-image-builder-exe-in-progress": "Validating {{builderName}} executable",
   "wit-dci-creator-cache-installers-in-progress": "Adding the WDT installer to the WebLogic Image Tool cache",
