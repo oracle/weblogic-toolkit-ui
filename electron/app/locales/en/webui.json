@@ -1914,8 +1914,8 @@
   "vz-application-design-component-logging-trait-configuration-label": "Fluentd Configuration",
   "vz-application-design-component-logging-trait-configuration-help": "The Fluentd configuration to use.",
 
-  "vz-application-design-component-manual-scaler-trait-enabled-label": "Enable Manual Scalar Trait",
-  "vz-application-design-component-manual-scaler-trait-enabled-help": "Enable the Manual Scalar Trait for this component.",
+  "vz-application-design-component-manual-scaler-trait-enabled-label": "Enable Manual Scaler Trait",
+  "vz-application-design-component-manual-scaler-trait-enabled-help": "Enable the Manual Scaler Trait for this component.",
   "vz-application-design-component-manual-scaler-trait-replica-count-label": "Replica Count",
   "vz-application-design-component-manual-scaler-trait-replica-count-help": "The target number of replicas to create for this component.",
 
