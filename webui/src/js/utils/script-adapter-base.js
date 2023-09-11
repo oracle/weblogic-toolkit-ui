@@ -290,7 +290,7 @@ define([],
 
       addCreateOpssWalletPasswordSecretBlock(comment, kubectlExe, secretName, k8sDomainNamespace, secretData,
         createErrorMessage, deleteErrorMessage, replaceMessage) {
-        const options = this.getGenericSecretOptions(secretName, k8sDomainNamespace, secretName,
+        const options = this.getGenericSecretOptions(secretName, k8sDomainNamespace, secretData,
           createErrorMessage, deleteErrorMessage, replaceMessage);
         this._lines.push(...this._formatCreateReplaceBlock(comment, kubectlExe, options), '');
       }
