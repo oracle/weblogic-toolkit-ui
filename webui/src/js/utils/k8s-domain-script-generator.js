@@ -103,11 +103,11 @@ function(project, ScriptGeneratorBase, K8sDomainConfigMapGenerator, auxImageHelp
             //
             const secretName = secretEntry.name;
             if (Array.isArray(secretEntry.keys) && secretEntry.keys.length > 0) {
-              this.adapter.addVariableDefinition(this.getSecretVariableName(name, 'NAME'), secretName);
+              this.adapter.addVariableDefinition(this.getSecretVariableName(secretName, 'NAME'), secretName);
               for (const secretFieldEntry of secretEntry.keys) {
                 const fieldName = secretFieldEntry.key;
                 const fieldValue = this.credentialMask;
-                this.adapter.addVariableDefinition(this.getSecretVariableName(name, fieldName), fieldValue);
+                this.adapter.addVariableDefinition(this.getSecretVariableName(secretName, fieldName), fieldValue);
               }
               this.adapter.addEmptyLine();
             } else {
