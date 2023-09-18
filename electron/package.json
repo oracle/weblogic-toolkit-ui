@@ -51,7 +51,7 @@
     "@electron/notarize": "^1.2.3",
     "chai": "^4.3.7",
     "chai-as-promised": "^7.1.1",
-    "electron": "^25.0.1",
+    "electron": "^25.8.1",
     "electron-builder": "^24.4.0",
     "eslint": "^8.41.0",
     "mocha": "^10.2.0",
