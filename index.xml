@@ -335,6 +335,16 @@ Other Changes  #242 - Added initial (very minimal) internationalization support 
     </item>
     
     <item>
+      <title>Release Notes 1.6.0</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.6.0/</link>
+      <pubDate>Thu, 03 Nov 2022 12:48:00 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.6.0/</guid>
+      <description>Changes in Release 1.6.0  Major New Features Other Changes Bugs Fixes Known Issues  This release has major usability changes to clearly delineate the following use cases:
+ A project that contains a WDT model A project that does not have a model but uses an &amp;ldquo;external image&amp;rdquo; that contains a model A project with no model  When actions are not relevant to the use case, action buttons and Go menu items are hidden.</description>
+    </item>
+    
+    <item>
       <title>Release Notes 1.5.2</title>
       <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.5.2/</link>
       <pubDate>Thu, 03 Nov 2022 12:48:00 -0500</pubDate>
