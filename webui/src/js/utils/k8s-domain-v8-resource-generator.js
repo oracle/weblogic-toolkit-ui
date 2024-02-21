@@ -40,7 +40,7 @@ function(project, K8sDomainConfigMapGenerator, jsYaml, i18n) {
       if (this.project.k8sDomain.precreateService.value) {
         domainResource.spec.serverService = {
           precreateService: true
-        }
+        };
       }
 
       if (this.project.k8sDomain.domainHome.value) {
