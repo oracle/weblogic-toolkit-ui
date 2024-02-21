@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="Hugo 0.88.1" />
-    <meta name="description" content="Install the WebLogic Kubernetes Operator in the target Kubernetes cluster.">
+    <meta name="description" content="">
 
 
     <link rel="icon" href="/weblogic-toolkit-ui/images/favicon.png" type="image/png">
 
-    <title>Install the WebLogic Kubernetes Operator :: WebLogic Kubernetes Toolkit UI</title>
+    <title>Release Notes 1.6.1 :: WebLogic Kubernetes Toolkit UI</title>
 
     
     <link href="/weblogic-toolkit-ui/css/nucleus.css?1708534189" rel="stylesheet">
@@ -39,7 +39,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-wko/">
+  <body class="" data-url="/weblogic-toolkit-ui/release/release-1.6.1/">
     <nav id="sidebar" class="">
 
 
@@ -118,7 +118,7 @@
   
     
     <li data-nav-id="/weblogic-toolkit-ui/setup/" title="Get Started" class="dd-item
-        parent
+        
         
         
         ">
@@ -189,7 +189,7 @@
   
     
     <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/" title="Quick Start Guide" class="dd-item
-        parent
+        
         
         
         ">
@@ -344,7 +344,7 @@
   
     
     <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/" title="WebLogic Kubernetes Operator" class="dd-item
-        parent
+        
         
         
         ">
@@ -391,7 +391,7 @@
  
   
     
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-wko/" title="Install the WebLogic Kubernetes Operator" class="dd-item active">
+      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-wko/" title="Install the WebLogic Kubernetes Operator" class="dd-item ">
         <a href="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-wko/">
         Install the WebLogic Kubernetes Operator
         
@@ -1109,7 +1109,7 @@
   
     
     <li data-nav-id="/weblogic-toolkit-ui/release/" title="Release Notes" class="dd-item
-        
+        parent
         
         
         ">
@@ -1135,7 +1135,7 @@
  
   
     
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.6.1/" title="Release Notes 1.6.1" class="dd-item ">
+      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.6.1/" title="Release Notes 1.6.1" class="dd-item active">
         <a href="/weblogic-toolkit-ui/release/release-1.6.1/">
         <b> </b>Release Notes 1.6.1
         
@@ -1437,19 +1437,7 @@
             
           
           
-            
-            
-          
-          
-            
-            
-          
-          
-            <a href='/weblogic-toolkit-ui/'></a> > <a href='/weblogic-toolkit-ui/setup/'>Get Started</a> > <a href='/weblogic-toolkit-ui/setup/quickstart/'>Quick Start Guide</a> > <a href='/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/'>WebLogic Kubernetes Operator</a> > Install the WebLogic Kubernetes Operator
-          
-        
-          
-        
+            <a href='/weblogic-toolkit-ui/'></a> > <a href='/weblogic-toolkit-ui/release/'>Release Notes</a> > Release Notes 1.6.1
           
         
           
@@ -1462,7 +1450,15 @@
                 
                     <div class="progress">
     <div class="wrapper">
-<nav id="TableOfContents"></nav>
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#changes-in-release-161">Changes in Release 1.6.1</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
     </div>
 </div>
 
@@ -1478,18 +1474,41 @@
           
             <h1>
               
-              Install the WebLogic Kubernetes Operator
+              Release Notes 1.6.1
             </h1>
           
 
         
 
 
-<p>The WebLogic Kubernetes Operator (WKO) manages WebLogic or FMW domains for a set of namespaces in a Kubernetes cluster.
-While it is possible to install multiple operators that manage disparate sets of namespaces in a Kubernetes cluster, typically, there is no need to do this.</p>
-<p>To install the operator, go to the <code>Kubernetes</code> &gt; <code>WebLogic Operator</code> page, verify the settings, and click <strong>Install Operator</strong>.  For these exercises, you&rsquo;ll use the default values, as shown in the following image.</p>
-<img src="https://oracle.github.io/weblogic-toolkit-ui/images/install-wko.png" alt="Install WKO">
-<p>After the operator is installed successfully, you can move on to the next section.</p>
+<h3 id="changes-in-release-161">Changes in Release 1.6.1</h3>
+<ul>
+<li><a href="#major-new-features">Major New Features</a></li>
+<li><a href="#other-changes">Other Changes</a></li>
+<li><a href="#bug-fixes">Bugs Fixes</a></li>
+<li><a href="#known-issues">Known Issues</a></li>
+</ul>
+<h4 id="major-new-features">Major New Features</h4>
+<p>None</p>
+<h4 id="other-changes">Other Changes</h4>
+<p>None</p>
+<h4 id="bug-fixes">Bug Fixes</h4>
+<ul>
+<li>#281 - Fixed issue with Ingress Controller shell script not using <code>elif</code>.</li>
+<li>#282 - Fixed issue with busy dialog referencing &ldquo;auxiliary image&rdquo; while building a domain creation image.</li>
+<li>#283 - Fixed a typo in the Verrazzano application page in its reference to the Manual Scaler trait.</li>
+<li>#285 - Fixed issues with the Domain shell script when using JRF domains on a persistent volume.</li>
+</ul>
+<h4 id="known-issues">Known Issues</h4>
+<ul>
+<li>On Linux, the open and save dialogs open behind the main application window.  This is due to
+<a href="https://github.com/electron/electron/issues/32857">Electron bug 32857</a>.</li>
+<li>When deploying a Verrazzano application, the <code>Get Application Status</code> button only checks the status of the project&rsquo;s
+Verrazzano component containing the WebLogic domain specification.</li>
+<li>Verrazzano installation does not support a multicluster installation.</li>
+<li>Verrazzano Application components Ingress Trait Rules table&rsquo;s URL column does not properly account for multicluster
+applications.  The Update URL button will only get information from the admin (i.e., <code>local</code>) cluster.</li>
+</ul>
 
 
 <footer class="footline">
@@ -1546,7 +1565,6 @@ While it is possible to install multiple operators that manage disparate sets of
             
                 
                     
-                    
                 
                 
 
@@ -1561,9 +1579,6 @@ While it is possible to install multiple operators that manage disparate sets of
             
             
                 
-                    
-                        
-                        
                     
                 
                 
@@ -1597,7 +1612,6 @@ While it is possible to install multiple operators that manage disparate sets of
             
                 
                     
-                    
                 
                 
 
@@ -1607,25 +1621,6 @@ While it is possible to install multiple operators that manage disparate sets of
                     
                     
 
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
                     
                         
             
@@ -1712,6 +1707,21 @@ While it is possible to install multiple operators that manage disparate sets of
             
                 
                     
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
                     
                 
                 
@@ -1725,9 +1735,6 @@ While it is possible to install multiple operators that manage disparate sets of
             
             
                 
-                    
-                        
-                        
                     
                 
                 
@@ -1745,7 +1752,6 @@ While it is possible to install multiple operators that manage disparate sets of
             
                 
                     
-                    
                 
                 
 
@@ -1761,9 +1767,6 @@ While it is possible to install multiple operators that manage disparate sets of
             
             
                 
-                    
-                        
-                        
                     
                 
                 
@@ -2224,6 +2227,7 @@ While it is possible to install multiple operators that manage disparate sets of
             
                 
                     
+                    
                 
                 
 
@@ -2236,6 +2240,7 @@ While it is possible to install multiple operators that manage disparate sets of
             
             
                 
+                    
                     
                 
                 
@@ -2252,6 +2257,9 @@ While it is possible to install multiple operators that manage disparate sets of
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -2436,10 +2444,10 @@ While it is possible to install multiple operators that manage disparate sets of
 	 
 	 
 		
-			<a class="nav nav-prev" href="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-client-config/" title="Configure Kubernetes Cluster Connectivity"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/weblogic-toolkit-ui/release/" title="Release Notes"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-weblogic-domain/" title="Deploy the Domain" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/weblogic-toolkit-ui/release/release-1.5.3/" title="Release Notes 1.5.3" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>

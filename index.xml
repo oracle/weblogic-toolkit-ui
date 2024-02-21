@@ -325,6 +325,17 @@ Click on the link to go to your application, as shown in in the following image.
     </item>
     
     <item>
+      <title>Release Notes 1.6.1</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.6.1/</link>
+      <pubDate>Thu, 03 Nov 2022 12:48:00 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.6.1/</guid>
+      <description>Changes in Release 1.6.1  Major New Features Other Changes Bugs Fixes Known Issues  Major New Features None
+Other Changes None
+Bug Fixes  #281 - Fixed issue with Ingress Controller shell script not using elif. #282 - Fixed issue with busy dialog referencing &amp;ldquo;auxiliary image&amp;rdquo; while building a domain creation image. #283 - Fixed a typo in the Verrazzano application page in its reference to the Manual Scaler trait.</description>
+    </item>
+    
+    <item>
       <title>Release Notes 1.5.3</title>
       <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.5.3/</link>
       <pubDate>Thu, 03 Nov 2022 12:48:00 -0500</pubDate>
