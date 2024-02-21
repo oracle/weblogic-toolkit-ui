@@ -420,7 +420,7 @@ Copyright (c) Isaac Z. Schlueter and Contributors
 sax@1.2.4
 Copyright (c) Isaac Z. Schlueter and Contributors
 
-semver@6.3.0
+semver@6.3.1
 Copyright (c) Isaac Z. Schlueter and Contributors
 
 tar@6.2.0
@@ -2128,7 +2128,7 @@ The following packages are licensed under The MIT License:
 @aashutoshrathi/word-wrap@1.2.6
 Copyright (c) 2014-2016, Jon Schlinkert
 
-@babel/code-frame@7.18.6
+@babel/code-frame@7.23.5
 Copyright (c) 2014-present Sebastian McKenzie and other contributors
 
 @babel/compat-data@7.20.14
@@ -2137,19 +2137,19 @@ Copyright (c) 2014-present Sebastian McKenzie and other contributors
 @babel/core@7.20.12
 Copyright (c) 2014-present Sebastian McKenzie and other contributors
 
-@babel/generator@7.20.14
+@babel/generator@7.23.6
 Copyright (c) 2014-present Sebastian McKenzie and other contributors
 
 @babel/helper-compilation-targets@7.20.7
 Copyright (c) 2014-present Sebastian McKenzie and other contributors
 
-@babel/helper-environment-visitor@7.18.9
+@babel/helper-environment-visitor@7.22.20
 Copyright (c) 2014-present Sebastian McKenzie and other contributors
 
-@babel/helper-function-name@7.19.0
+@babel/helper-function-name@7.23.0
 Copyright (c) 2014-present Sebastian McKenzie and other contributors
 
-@babel/helper-hoist-variables@7.18.6
+@babel/helper-hoist-variables@7.22.5
 Copyright (c) 2014-present Sebastian McKenzie and other contributors
 
 @babel/helper-module-imports@7.18.6
@@ -2161,13 +2161,13 @@ Copyright (c) 2014-present Sebastian McKenzie and other contributors
 @babel/helper-simple-access@7.20.2
 Copyright (c) 2014-present Sebastian McKenzie and other contributors
 
-@babel/helper-split-export-declaration@7.18.6
+@babel/helper-split-export-declaration@7.22.6
 Copyright (c) 2014-present Sebastian McKenzie and other contributors
 
-@babel/helper-string-parser@7.19.4
+@babel/helper-string-parser@7.23.4
 Copyright (c) 2014-present Sebastian McKenzie and other contributors
 
-@babel/helper-validator-identifier@7.19.1
+@babel/helper-validator-identifier@7.22.20
 Copyright (c) 2014-present Sebastian McKenzie and other contributors
 
 @babel/helper-validator-option@7.18.6
@@ -2176,19 +2176,19 @@ Copyright (c) 2014-present Sebastian McKenzie and other contributors
 @babel/helpers@7.20.13
 Copyright (c) 2014-present Sebastian McKenzie and other contributors
 
-@babel/highlight@7.18.6
+@babel/highlight@7.23.4
 Copyright (c) 2014-present Sebastian McKenzie and other contributors
 
-@babel/parser@7.20.13
+@babel/parser@7.23.9
 Copyright (C) 2012-2014 by various contributors (see AUTHORS)
 
-@babel/template@7.20.7
+@babel/template@7.23.9
 Copyright (c) 2014-present Sebastian McKenzie and other contributors
 
-@babel/traverse@7.20.13
+@babel/traverse@7.23.9
 Copyright (c) 2014-present Sebastian McKenzie and other contributors
 
-@babel/types@7.20.7
+@babel/types@7.23.9
 Copyright (c) 2014-present Sebastian McKenzie and other contributors
 
 @develar/schema-utils@2.6.5
@@ -2696,7 +2696,7 @@ Copyright © Domenic Denicola
 ee-first@1.1.1
 Copyright (c) 2014 Jonathan Ong me@jongleberry.com
 
-electron@25.8.1
+electron@25.9.8
 Copyright (c) Electron contributors
 Copyright (c) 2013-2020 GitHub Inc.
 
@@ -2850,7 +2850,7 @@ Copyright (c) 2018 Kyle Robinson Young
 gensync@1.0.0-beta.2
 Copyright 2018 Logan Smyth <loganfsmyth@gmail.com>
 
-get-func-name@2.0.0
+get-func-name@2.0.2
 Copyright (c) 2013 Jake Luer <jake@alogicalparadox.com> (http://alogicalparadox.com)
 
 get-intrinsic@1.2.0
@@ -3898,6 +3898,9 @@ Copyright (c) Isaac Z. Schlueter and Contributors
 
 saxes@6.0.0
 Copyright (c) Contributors
+
+semver@6.3.1
+Copyright (c) Isaac Z. Schlueter and Contributors
 
 semver@6.3.0
 Copyright (c) Isaac Z. Schlueter and Contributors
@@ -5170,8 +5173,8 @@ The following packages are licensed under The Universal Permissive License (UPL)
 @oracle/ojet-cli@14.1.0
 Copyright (c) 2023 Oracle and/or its affiliates.
 
-@oracle/oraclejet-audit@14.1.8
-Copyright (c) 2019, 2023 Oracle and/or its affiliates
+@oracle/oraclejet-audit@14.1.14
+Copyright (c) 2019, 2024 Oracle and/or its affiliates
 
 @oracle/oraclejet-tooling@14.1.2
 Copyright (c) 2023 Oracle and/or its affiliates.

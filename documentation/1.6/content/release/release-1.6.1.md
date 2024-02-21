@@ -1,11 +1,11 @@
 +++
-title = "Release Notes"
+title = "Release Notes 1.6.1"
 date = 2022-11-03T12:48:00-05:00
-weight = 88
+weight = 89
 pre = "<b> </b>"
 +++
 
-### Changes in Release 1.6.2
+### Changes in Release 1.6.1
 - [Major New Features](#major-new-features)
 - [Other Changes](#other-changes)
 - [Bugs Fixes](#bug-fixes)
@@ -15,10 +15,13 @@ pre = "<b> </b>"
 None
 
 #### Other Changes
-- #287 - Added support for WebLogic Kubernetes Operator domain specification's `precreateService` setting.
+None
 
 #### Bug Fixes
-- #286 - Fixed an issue related to SSL termination and pass through Ingress resource generation.
+- #281 - Fixed issue with Ingress Controller shell script not using `elif`.
+- #282 - Fixed issue with busy dialog referencing "auxiliary image" while building a domain creation image.
+- #283 - Fixed a typo in the Verrazzano application page in its reference to the Manual Scaler trait.
+- #285 - Fixed issues with the Domain shell script when using JRF domains on a persistent volume.
 
 #### Known Issues
 - On Linux, the open and save dialogs open behind the main application window.  This is due to

@@ -696,6 +696,16 @@
   </div>
 
   <div class="oj-panel">
+    <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('domain-service-title')]]"></oj-bind-text></h6>
+    <oj-form-layout max-columns="2" direction="row">
+      <oj-switch label-hint="[[labelMapper('domain-service-precreate-label')]]"
+                 value="{{project.k8sDomain.precreateService.observable}}"
+                 help.instruction="[[labelMapper('domain-service-precreate-help')]]">
+      </oj-switch>
+    </oj-form-layout>
+  </div>
+
+  <div class="oj-panel">
     <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('domain-server-title')]]"></oj-bind-text></h6>
     <oj-form-layout max-columns="2" direction="row">
       <oj-input-text label-hint="[[labelMapper('cpu-request-label')]]"

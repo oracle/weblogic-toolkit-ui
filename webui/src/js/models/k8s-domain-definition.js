@@ -94,6 +94,7 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
         this.runtimeSecretName.addValidator(...validationHelper.getK8sNameValidators());
         this.runtimeSecretValue = props.createProperty(window.api.utils.generateUuid()).asCredential();
         this.introspectorJobActiveDeadlineSeconds = props.createProperty(900);
+        this.precreateService = props.createProperty(false)
 
         const internalFields = {
           // this internal observable list property is used for JSON read/write of this.secrets

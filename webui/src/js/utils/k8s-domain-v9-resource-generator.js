@@ -41,6 +41,12 @@ function(project, K8sDomainConfigMapGenerator, jsYaml, i18n, auxImageHelper) {
         }
       };
 
+      if (this.project.k8sDomain.precreateService.value) {
+        domainResource.spec.serverService = {
+          precreateService: true
+        }
+      }
+
       if (this.project.k8sDomain.domainHome.value) {
         domainResource.spec.domainHome = this.project.k8sDomain.domainHome.value;
       }
