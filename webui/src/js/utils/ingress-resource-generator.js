@@ -238,14 +238,15 @@ define(['models/wkt-project', 'js-yaml'],
         result.spec.routes[0].match = matchExpression;
 
         // if SSL terminate at ingress
-        if (this.project.ingress.specifyIngressTLSSecret.value && this.isSSLTerminateAtIngress(item)) {
-          if (!item['tlsSecretName']) {
+        if (this.isSSLTerminateAtIngress(item)) {
+          // Set user provided tls cert if provided, otherwise use whatever is set up during user install
+          if (!item['tlsSecretName'] && this.project.ingress.specifyIngressTLSSecret.value) {
             item['tlsSecretName'] = this.project.ingress.ingressTLSSecretName.value;
+            result.spec.tls = { secretName: item['tlsSecretName'] };
           }
-          result.spec.tls = { secretName: item['tlsSecretName'] };
         }
         // SSL passthrough
-        if (this.project.ingress.specifyIngressTLSSecret.value && this.isSSLPassThrough(item)) {
+        if (this.isSSLPassThrough(item)) {
           const obj = { passthrough: true };
           result.spec.tls =  obj;
 
