@@ -1,0 +1,25 @@
+{
+  "paths": {
+    "source": {
+      "common": "src",
+      "web": "src-web",
+      "hybrid": "src-hybrid",
+      "javascript": "js",
+      "typescript": "ts",
+      "styles": "css",
+      "themes": "themes"
+    },
+    "staging": {
+      "web": "web",
+      "hybrid": "hybrid",
+      "themes": "staged-themes"
+    }
+  },
+  "defaultBrowser": "chrome",
+  "sassVer": "7.0.1",
+  "defaultTheme": "redwood",
+  "typescriptLibraries": "typescript@4.8.4 yargs-parser@~13.1.2",
+  "webpackLibraries": "webpack@5.60.0 @types/node@18.8.3 webpack-dev-server style-loader css-loader ts-loader raw-loader noop-loader html-webpack-plugin html-replace-webpack-plugin copy-webpack-plugin @prefresh/webpack @prefresh/babel-plugin webpack-merge compression-webpack-plugin mini-css-extract-plugin clean-webpack-plugin css-fix-url-loader",
+  "architecture": "mvvm",
+  "watchInterval": 1000
+}
