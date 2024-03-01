@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -279,9 +279,31 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
     }
 
     addWdtConfig(projectDirectory, createConfig) {
+      const variableFiles = this.project.wdtModel.propertiesFiles.value;
+      const nonEmptyVariableFiles = [];
+      if (Array.isArray(variableFiles) && variableFiles.length > 0) {
+        // This code currently supports a single variable file.
+        const variableFileContent = this.project.wdtModel.getPropertyFileContents();
+        for (const [file, contents] of Object.entries(variableFileContent)) {
+          if (Object.getOwnPropertyNames(contents).length > 0) {
+            nonEmptyVariableFiles.push(file);
+          }
+        }
+      }
+
+      const archiveFiles = this.project.wdtModel.archiveFiles.value;
+      const nonEmptyArchiveFiles = [];
+      if (Array.isArray(archiveFiles) && archiveFiles.length > 0) {
+        // This code currently supports a single archive file.
+        const archiveRoots = this.project.wdtModel.archiveRoots();
+        if (Array.isArray(archiveRoots) && archiveRoots.length > 0) {
+          nonEmptyArchiveFiles.push(archiveFiles[0]);
+        }
+      }
+
       createConfig.modelFiles = this.getAbsoluteModelFiles(projectDirectory, this.project.wdtModel.modelFiles.value);
-      createConfig.variableFiles = this.getAbsoluteModelFiles(projectDirectory, this.project.wdtModel.propertiesFiles.value);
-      createConfig.archiveFiles = this.getAbsoluteModelFiles(projectDirectory, this.project.wdtModel.archiveFiles.value);
+      createConfig.variableFiles = this.getAbsoluteModelFiles(projectDirectory, nonEmptyVariableFiles);
+      createConfig.archiveFiles = this.getAbsoluteModelFiles(projectDirectory, nonEmptyArchiveFiles);
       // Because we are overriding the defaults for these next two options,
       // we should always include them if they have a value.
       //
