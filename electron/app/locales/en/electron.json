@@ -142,6 +142,7 @@
 
   "dialog-chooseArchiveFile": "Select an Archive File",
   "dialog-chooseModelFile": "Select a Model File",
+  "dialog-choosePrivateKey": "Select a Private Key File",
   "dialog-chooseProjectSaveFile": "Save Project",
   "dialog-chooseVariableFile": "Select a Variable File",
   "dialog-getJdkInstaller": "Select JDK Installer",
