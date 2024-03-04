@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const path = require('path');
@@ -188,7 +188,7 @@ function getRotatingFileTransport(fileLogConfig) {
     _logFileName = newFilename;
     // this _logger call is safe only because it happens after the logger has been initialized.
     //
-    _logger.notice(`Log file rotated from ${oldFilename} to ${newFilename}`);
+    _logger.info(`Log file rotated from ${oldFilename} to ${newFilename}`);
   });
 
   return fileTransport;

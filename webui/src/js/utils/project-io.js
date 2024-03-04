@@ -1,12 +1,12 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
 
 /**
- * An helper object for project IO.
+ * A helper object for project IO.
  * Returns a singleton.
  */
 
