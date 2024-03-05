@@ -147,7 +147,6 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
     };
 
     this.credentialStorePolicies = [
-      { key: 'native', label: this.labelMapper('credential-store-native-label') },
       { key: 'passphrase', label: this.labelMapper('credential-store-passphrase-label') },
       { key: 'none', label: this.labelMapper('credential-store-none-label') },
     ];

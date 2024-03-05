@@ -147,10 +147,9 @@
   "project-settings-credential-store-policy-question": "How should the project's credentials be stored for this project?",
   "project-settings-credential-store-policy-label": "Credential Store Policy",
   "project-settings-credential-store-policy-help": "Specifies if and how credentials will be stored for the project.",
-  "project-settings-credential-store-native-label": "Store in Native OS Credential Store",
   "project-settings-credential-store-passphrase-label": "Store Encrypted in Project File",
   "project-settings-credential-store-none-label": "Not Stored",
-  "project-settings-credential-store-policy-answer-message": "The Credential Store Policy controls how credentials are handled when the project is saved and loaded.  The options are to store them in the machine's native credential store, store them in the project file encrypted with a passphrase, or not store them at all.",
+  "project-settings-credential-store-policy-answer-message": "The Credential Store Policy controls how credentials are handled when the project is saved and loaded.  The options are to store them in the project file encrypted with a passphrase or not store them at all.",
 
   "macos-path-directories-dialog-title": "System Path",
   "macos-path-directories-dialog-table-aria-label": "System Path Environment Variable Directories",
@@ -1698,7 +1697,7 @@
   "quickstart-page3-list2-item-1": "The file is in JSON format and must have a .wktproj file extension.",
   "quickstart-page3-list2-item-2": "Only fields with non-default values are saved in the file.",
   "quickstart-page3-list2-item-3": "The file only stores references to the WDT model-related files.  While the files are generally treated as part of the project, they are always stored in their WDT files.",
-  "quickstart-page3-list2-item-4": "Credential fields are never stored in clear text.  They may be stored in the native OS credential store, encrypted in the project file, or not stored at all.",
+  "quickstart-page3-list2-item-4": "Credential fields are never stored in clear text.  They may be encryoted and stored in the project file, or not stored at all.",
   "quickstart-page3-paragraph-2": "The WKT UI application uses a one project per window paradigm.  If you try to open the same project file more than once, the application will simply bring the existing window into focus to prevent corruption of the file.",
 
   "quickstart-page4-title": "Project Settings Section",
@@ -1709,9 +1708,8 @@
   "quickstart-page4-list1-item-4": "Which Java Home and Oracle Home directories to use for running the WKT tools.",
   "quickstart-page4-list1-item-5": "Which image build tool to use--Docker or podman.",
   "quickstart-page4-list2-heading": "Where you store the credentials affects sharing of the project file; the options are:",
-  "quickstart-page4-list2-item-1": "Storing the credentials in the native OS credential store means that the credentials are only stored on the local machine.",
-  "quickstart-page4-list2-item-2": "Storing the passphrase-encrypted credentials in the WKT project file means that you have to know the passphrase needed to decrypt the credentials.",
-  "quickstart-page4-list2-item-3": "Not storing the credentials means that you need to re-enter credentials whenever the project file is opened.",
+  "quickstart-page4-list2-item-1": "Storing the passphrase-encrypted credentials in the WKT project file means that you have to know the passphrase needed to decrypt the credentials.",
+  "quickstart-page4-list2-item-2": "Not storing the credentials means that you need to re-enter credentials whenever the project file is opened.",
   "quickstart-page4-list3-heading": "Where you store the domain affects the life cycle of the domain; the options are:",
   "quickstart-page4-list3-item-1": "Storing the model of the domain in the image. WebLogic Kubernetes Operator creates the domain inside the containers started from the image.",
   "quickstart-page4-list3-item-2": "Storing the domain in the image. WebLogic Image Tool creates the domain while it is creating the image.",
@@ -1811,5 +1809,6 @@
   "wrc-wdt-archive-remove-failed-to-match-path-error": "Failed to remove {{archivePath}} from the archive because an error occurred while trying to match the path to its archive entry: {{error}}.",
   "wrc-wdt-archive-remove-no-matching-node-error": "Failed to match WRC archive path {{archivePath}}'",
 
-  "wkt-project-verrazzano-removal-warning": "WKTUI 2.0 has removed support for Verrazzano so the project has been converted to remove all Verrazzano-related fields."
+  "wkt-project-verrazzano-removal-warning": "WKTUI 2.0 has removed support for Verrazzano so the project has been converted to remove all Verrazzano-related fields.",
+  "wkt-project-keytar-removal-warning": "WKTUI 2.0 has removed support for the native credential store due to the deprecation of the keytar JavaScript library so the project has been updated to use the credential manager that stores encrypted credentials in the project file."
 }
