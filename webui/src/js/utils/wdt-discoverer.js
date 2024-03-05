@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -65,10 +65,9 @@ function (WdtActionsBase, ko, project, wktConsole, dialogHelper, projectIO, i18n
           return Promise.resolve(false);
         }
 
-        // for remote discovery, domain home is on the remote machine,
+        // for online discovery, domain home is on the remote machine,
         // so don't validate the directory
-        const isRemote = discoverConfig.isRemote;
-        if (!isRemote) {
+        if (!online) {
           busyDialogMessage = i18n.t('flow-validate-domain-home-in-progress');
           dialogHelper.updateBusyDialog(busyDialogMessage, 2/totalSteps);
           const errContext = i18n.t('wdt-discoverer-invalid-domain-home-error-prefix');
@@ -111,6 +110,7 @@ function (WdtActionsBase, ko, project, wktConsole, dialogHelper, projectIO, i18n
           wktLogger.debug('discover complete: %s', discoverResults.modelFileContent);
           project.wdtModel.setModelFiles(discoverResults.modelFileContent);
 
+          const isRemote = discoverConfig.isRemote;
           if (isRemote) {
             const options = { resultData: discoverResults.resultData };
             dialogHelper.openDialog('discover-result-dialog', options);
@@ -149,8 +149,11 @@ function (WdtActionsBase, ko, project, wktConsole, dialogHelper, projectIO, i18n
 
       const discoverFormConfig = validationObject.getDefaultConfigObject();
       discoverFormConfig.formName = online ? 'discover-dialog-online-form-name' : 'discover-dialog-offline-form-name';
-      validationObject.addField('discover-dialog-domain-label',
-        validationHelper.validateRequiredField(discoverConfig.domainHome), discoverFormConfig);
+
+      if (!online) {
+        validationObject.addField('discover-dialog-domain-home-label',
+          validationHelper.validateRequiredField(discoverConfig.domainHome), discoverFormConfig);
+      }
 
       if (online) {
         validationObject.addField('discover-dialog-admin-url-label',

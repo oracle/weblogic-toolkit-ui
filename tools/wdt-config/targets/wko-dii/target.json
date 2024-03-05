@@ -4,11 +4,16 @@
       { "id": "wko_filter" }
     ]
   },
-  "variable_injectors" : {"PORT": {},"HOST": {},"URL": {}},
+  "final_filters" : [
+    { "id": "wko_final_filter" }
+  ],
+  "variable_injectors" : ["port", "host", "url"],
   "validation_method" : "wktui",
   "results_output_method" : "json",
+  "domain_home_source_type" : "dii",
   "exclude_domain_bin_contents": true,
   "wls_credentials_name" : "__weblogic-credentials__",
+  "product_version" : "v4",
   "additional_output" : "wko-domain.yaml",
   "set_cluster_replicas": true
 }

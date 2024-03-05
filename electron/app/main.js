@@ -488,6 +488,18 @@ class Main {
         fileExtensions, currentValue);
     });
 
+    ipcMain.handle('choose-private-key', async (event, privateKeyFile) => {
+      const title = i18n.t('dialog-choosePrivateKey');
+
+      return chooseFromFileSystem(event.sender.getOwnerBrowserWindow(), {
+        title: title,
+        message: title,
+        defaultPath: privateKeyFile,
+        buttonLabel: i18n.t('button-select'),
+        properties: [ 'openFile', 'dontAddToRecent']
+      });
+    });
+
     ipcMain.handle('add-archive-entry', async(event, itemType, itemData) => {
       return wdtArchive.addArchiveEntry(event.sender.getOwnerBrowserWindow(), itemType, itemData);
     });
