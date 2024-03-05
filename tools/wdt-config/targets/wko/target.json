@@ -4,11 +4,16 @@
       { "id": "wko_filter" }
     ]
   },
-  "variable_injectors" : {"PORT": {},"HOST": {},"URL": {}},
+  "final_filters" : [
+    { "id": "wko_final_filter" }
+  ],
+  "variable_injectors" : ["port", "host", "url"],
   "validation_method" : "wktui",
+  "domain_home_source_type" : "mii",
   "credentials_method" : "secrets",
   "results_output_method" : "json",
   "exclude_domain_bin_contents": true,
+  "product_version" : "v4",
   "wls_credentials_name" : "__weblogic-credentials__",
   "additional_secrets": "runtime-encryption-secret",
   "additional_output" : "wko-domain.yaml",

@@ -131,6 +131,7 @@ contextBridge.exposeInMainWorld(
           'choose-java-home',
           'choose-model-file',
           'choose-oracle-home',
+          'choose-private-key',
           'choose-variable-file',
           'choose-extra-path-directory',
           'export-archive-file',
