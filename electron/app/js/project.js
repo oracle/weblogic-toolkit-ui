@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const {app, dialog} = require('electron');
@@ -17,7 +17,7 @@ const fsUtils = require('./fsUtils');
 const { getLogger } = require('./wktLogging');
 const { sendToWindow } = require('./windowUtils');
 const i18n = require('./i18next.config');
-const { CredentialStoreManager, EncryptedCredentialManager, CredentialNoStoreManager } = require('./credentialManager');
+const { EncryptedCredentialManager, CredentialNoStoreManager } = require('./credentialManager');
 const errorUtils = require('./errorUtils');
 
 const projectFileTypeKey = 'dialog-wktFileType';
@@ -376,17 +376,26 @@ async function _createNewProjectFile(targetWindow, projectFileName) {
   return new Promise((resolve) => {
     const projectContents = _addProjectIdentifiers(projectFileName, emptyProjectContents);
     const projectContentsJson = JSON.stringify(projectContents, null, 2);
-    writeFile(projectFileName, projectContentsJson, {encoding: 'utf8'})
-      .then(() => {
-        _addOpenProject(targetWindow, projectFileName, false, new CredentialStoreManager(projectContents.uuid));
-        sendToWindow(targetWindow, 'project-created', projectFileName, projectContents);
-        resolve(true);
-      })
-      .catch(err => {
+    getCredentialPassphrase(targetWindow).then(passphrase => {
+      if (passphrase) {
+        writeFile(projectFileName, projectContentsJson, {encoding: 'utf8'})
+          .then(() => {
+            _addOpenProject(targetWindow, projectFileName, false, new EncryptedCredentialManager(passphrase));
+            sendToWindow(targetWindow, 'project-created', projectFileName, projectContents);
+            resolve(true);
+          })
+          .catch(err => {
+            _showSaveError(projectFileName, err);
+            getLogger().error('Failed to save new project in file %s: %s', projectFileName, err);
+            resolve(false);
+          });
+      } else {
+        const err = new Error('Passphrase is required but the user did not provide one.');
         _showSaveError(projectFileName, err);
         getLogger().error('Failed to save new project in file %s: %s', projectFileName, err);
         resolve(false);
-      });
+      }
+    });
   });
 }
 
@@ -878,12 +887,7 @@ async function _createCredentialManager(targetWindow, projectFileJsonContent) {
         })
         .catch(err => reject(new Error(`Failed to create passphrase credential manager: ${err}`)));
     } else {
-      let credentialManager;
-      if (credentialStorePolicy === 'native') {
-        credentialManager = new CredentialStoreManager(projectFileJsonContent.uuid);
-      } else {
-        credentialManager = new CredentialNoStoreManager();
-      }
+      const credentialManager = new CredentialNoStoreManager();
       _setCredentialManager(targetWindow, credentialManager);
       resolve(credentialManager);
     }
@@ -893,6 +897,7 @@ async function _createCredentialManager(targetWindow, projectFileJsonContent) {
 async function _getCredentialManagerForSavingProject(targetWindow, projectContents) {
   const currentProjectCredentialStorePolicy = _getProjectCredentialStorePolicy(projectContents);
   const windowCredentialManager = _getCredentialManager(targetWindow);
+
   if (!windowCredentialManager || windowCredentialManager.credentialStoreType !== currentProjectCredentialStorePolicy) {
     try {
       await _createCredentialManager(targetWindow, projectContents);
@@ -904,7 +909,7 @@ async function _getCredentialManagerForSavingProject(targetWindow, projectConten
 }
 
 function _getProjectCredentialStorePolicy(projectContents) {
-  let currentCredentialStorePolicy = 'native';
+  let currentCredentialStorePolicy = 'passphrase';
   if (projectContents && 'settings' in projectContents &&
     'credentialStorePolicy' in projectContents['settings'] &&
     projectContents['settings']['credentialStorePolicy']) {

@@ -184,10 +184,14 @@ function (ko, wdtConstructor, imageConstructor, kubectlConstructor, domainConstr
         foundVerrazzanoInProject = true;
         delete wktProjectJson.vzApplication;
       }
-
       if (foundVerrazzanoInProject) {
         wktLogger.warn(i18n.t('wkt-project-verrazzano-removal-warning'));
       }
+
+      // Version 2.0 removed support for the native, keytar-based credential store.  The code that
+      // handles the conversion is in the electron credential loading code since all credential loading
+      // is handled on the electron side so by the time we get here, it is too late.
+      //
     };
 
     this.setFromJson = (wktProjectJson, modelContentsJson) => {
