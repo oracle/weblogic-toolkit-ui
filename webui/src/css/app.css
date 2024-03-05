@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 .sendOffScreen {
@@ -273,7 +273,7 @@
   border: 1px solid var(--oj-collection-border-color);
 }
 
-.wkt-paths-table, .wkt-domain-node-selectors-table, .wkt-vz-managed-clusters-table {
+.wkt-paths-table, .wkt-domain-node-selectors-table {
   border: 1px solid var(--oj-collection-border-color);
   width: 100%;
 }

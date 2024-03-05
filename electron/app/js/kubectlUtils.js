@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -16,9 +16,6 @@ const { getHttpsProxyUrl, getBypassProxyHosts } = require('./userSettings');
 const { getErrorMessage } = require('./errorUtils');
 const osUtils = require('./osUtils');
 const k8sUtils = require('./k8sUtils');
-
-const VZ_NOT_INSTALLED_ERROR_MESSAGE = 'the server doesn\'t have a resource type "Verrazzano"';
-const VZ_OPERATOR_SUCCESS_MESSAGE = 'deployment "verrazzano-platform-operator" successfully rolled out';
 
 /* global process */
 async function validateKubectlExe(kubectlExe) {
@@ -179,14 +176,6 @@ async function getWkoDomainStatus(kubectlExe, domainUID, domainNamespace, option
       resolve(results);
     });
   });
-}
-
-// Currently, this call returns the status of the domain component with domainUID, similar to getWkoDomainStatus.
-// In future releases, there may be additional information about the application and other components.
-async function getApplicationStatus(kubectlExe, application, domainUID, namespace, options) {
-  const results = await getWkoDomainStatus(kubectlExe, domainUID, namespace, options);
-  results['application'] = application;
-  return results;
 }
 
 async function getOperatorStatus(kubectlExe, operatorNamespace, options) {
@@ -357,32 +346,6 @@ async function validateDomainExist(kubectlExe, options, domain, namespace) {
   };
 
   const args = [ 'get', 'domain', domain, '-n', namespace ];
-  try {
-    await executeFileCommand(kubectlExe, args, env);
-  } catch (err) {
-    if (isNotFoundError(err)) {
-      result.isValid = false;
-    } else {
-      result.isSuccess = false;
-      result.reason = getErrorMessage(err);
-      return Promise.resolve(result);
-    }
-  }
-  return Promise.resolve(result);
-}
-
-async function validateApplicationExist(kubectlExe, options, application, namespace) {
-  const httpsProxyUrl = getHttpsProxyUrl();
-  const bypassProxyHosts = getBypassProxyHosts();
-  const env = getKubectlEnvironment(options, httpsProxyUrl, bypassProxyHosts);
-
-  const result = {
-    isSuccess: true,
-    isValid: true,
-  };
-
-  const args = [ 'get', 'appconfig', application, '-n', namespace ];
-
   try {
     await executeFileCommand(kubectlExe, args, env);
   } catch (err) {
@@ -680,29 +643,6 @@ async function getIngresses(kubectlExe, namespace, serviceType, options) {
   });
 }
 
-async function applyUsingUrl(kubectlExe, dataUrl, options) {
-  const httpsProxyUrl = getHttpsProxyUrl();
-  const bypassProxyHosts = getBypassProxyHosts();
-
-  const env = getKubectlEnvironment(options, httpsProxyUrl, bypassProxyHosts);
-
-  const result = {
-    isSuccess: true
-  };
-
-  return new Promise(resolve => {
-    const args = [ 'apply', '-f', dataUrl ];
-    executeFileCommand(kubectlExe, args, env).then(stdout => {
-      result.message = stdout;
-      resolve(result);
-    }).catch(err => {
-      result.isSuccess = false;
-      result.reason = i18n.t('kubectl-apply-url-failed-error-message', { url: dataUrl, error: getErrorMessage(err) });
-      resolve(result);
-    });
-  });
-}
-
 async function apply(kubectlExe, fileData, options) {
   const httpsProxyUrl = getHttpsProxyUrl();
   const bypassProxyHosts = getBypassProxyHosts();
@@ -868,171 +808,6 @@ async function createOrReplaceSecret(kubectlExe, namespace, secret, createArgs, 
   });
 }
 
-async function isVerrazzanoInstalled(kubectlExe, options) {
-  const getArgs = [ 'get', 'Verrazzano', '--output=json' ];
-  const httpsProxyUrl = getHttpsProxyUrl();
-  const bypassProxyHosts = getBypassProxyHosts();
-
-  const env = getKubectlEnvironment(options, httpsProxyUrl, bypassProxyHosts);
-
-  const result = {
-    isInstalled: false
-  };
-
-  return new Promise(resolve => {
-    executeFileCommand(kubectlExe, getArgs, env).then(vzJson => {
-      const vzObjectList = JSON.parse(vzJson).items;
-      if (vzObjectList.length > 0) {
-        const vzObject = vzObjectList[0];
-        result.isInstalled = true;
-        result.name = vzObject.metadata?.name;
-
-        let statusVersion = vzObject.status?.version;
-        if (statusVersion?.startsWith('v')) {
-          statusVersion = statusVersion.slice(1);
-        }
-        result.version = statusVersion;
-      }
-      resolve(result);
-    }).catch(err => {
-      const error = getErrorMessage(err);
-      if (! error.includes(VZ_NOT_INSTALLED_ERROR_MESSAGE)) {
-        result.reason = i18n.t('kubectl-get-vz-install-failed-error-message', { error });
-      }
-      resolve(result);
-    });
-  });
-}
-
-async function verifyVerrazzanoPlatformOperatorRollout(kubectlExe, options) {
-  const httpsProxyUrl = getHttpsProxyUrl();
-  const bypassProxyHosts = getBypassProxyHosts();
-
-  const env = getKubectlEnvironment(options, httpsProxyUrl, bypassProxyHosts);
-
-  const result = {
-    isSuccess: true
-  };
-
-  return new Promise(resolve => {
-    const args = [ 'rollout', 'status', 'deployment/verrazzano-platform-operator', '-n', 'verrazzano-install' ];
-    executeFileCommand(kubectlExe, args, env).then(stdout => {
-      if (!stdout.includes(VZ_OPERATOR_SUCCESS_MESSAGE)) {
-        result.isSuccess = false;
-        result.reason = i18n.t('kubectl-verify-vz-operator-rollout-stdout-error-message', { message: stdout });
-      }
-      resolve(result);
-    }).catch(err => {
-      result.isSuccess = false;
-      result.reason = i18n.t('kubectl-verify-vz-operator-rollout-error-message', { error: getErrorMessage(err) });
-      resolve(result);
-    });
-  });
-}
-
-async function getVerrazzanoInstallationObject(kubectlExe, kubectlOptions) {
-  const getArgs = [ 'get', 'Verrazzano', '--output=json' ];
-  const httpsProxyUrl = getHttpsProxyUrl();
-  const bypassProxyHosts = getBypassProxyHosts();
-
-  const env = getKubectlEnvironment(kubectlOptions, httpsProxyUrl, bypassProxyHosts);
-
-  const result = {
-    isSuccess: false
-  };
-
-  return new Promise(resolve => {
-    executeFileCommand(kubectlExe, getArgs, env).then(vzJson => {
-      const vzObjectList = JSON.parse(vzJson).items;
-      if (vzObjectList.length > 0) {
-        const vzObject = vzObjectList[0];
-        result.isSuccess = true;
-        result.payload = vzObject;
-      }
-      resolve(result);
-    }).catch(err => {
-      result.reason = getErrorMessage(err);
-      resolve(result);
-    });
-  });
-}
-
-async function getKubernetesObjectsByNamespace(kubectlExe, kubectlOptions, type, namespace) {
-  const getArgs = [ 'get', type, '-n', namespace, '--output=json' ];
-  const httpsProxyUrl = getHttpsProxyUrl();
-  const bypassProxyHosts = getBypassProxyHosts();
-
-  const env = getKubectlEnvironment(kubectlOptions, httpsProxyUrl, bypassProxyHosts);
-
-  const result = {
-    isSuccess: false
-  };
-
-  return new Promise(resolve => {
-    executeFileCommand(kubectlExe, getArgs, env).then(vzJson => {
-      result.isSuccess = true;
-      result.payload = JSON.parse(vzJson).items || [];
-      resolve(result);
-    }).catch(err => {
-      result.reason = getErrorMessage(err);
-      resolve(result);
-    });
-  });
-}
-
-async function getKubernetesObjectsFromAllNamespaces(kubectlExe, kubectlOptions, type) {
-  const getArgs = [ 'get', type, '--all-namespaces', '--output=json' ];
-  const httpsProxyUrl = getHttpsProxyUrl();
-  const bypassProxyHosts = getBypassProxyHosts();
-
-  const env = getKubectlEnvironment(kubectlOptions, httpsProxyUrl, bypassProxyHosts);
-
-  const result = {
-    isSuccess: false
-  };
-
-  return new Promise(resolve => {
-    executeFileCommand(kubectlExe, getArgs, env).then(vzJson => {
-      result.isSuccess = true;
-      result.payload = JSON.parse(vzJson).items || [];
-      resolve(result);
-    }).catch(err => {
-      result.reason = getErrorMessage(err);
-      resolve(result);
-    });
-  });
-}
-
-async function verifyVerrazzanoComponentsDeployed(kubectlExe, componentNames, namespace, kubectlOptions) {
-  const httpsProxyUrl = getHttpsProxyUrl();
-  const bypassProxyHosts = getBypassProxyHosts();
-
-  const env = getKubectlEnvironment(kubectlOptions, httpsProxyUrl, bypassProxyHosts);
-
-  const result = {
-    isSuccess: true
-  };
-
-  const missingComponentNames = [];
-  for (const componentName of componentNames) {
-    const args = [ 'get', 'Component', componentName, '-n', namespace ];
-    try {
-      const stdout = await executeFileCommand(kubectlExe, args, env);
-      getLogger().debug('Found component %s in namespace %s: %s', componentName, namespace, stdout);
-    } catch (err) {
-      getLogger().warn('Error getting component %s in namespace %s: %s', componentName, namespace, getErrorMessage(err));
-      missingComponentNames.push(componentName);
-    }
-  }
-
-  if (missingComponentNames.length > 0) {
-    result.isSuccess = false;
-    result.reason = i18n.t('kubectl-verify-vz-components-deployed-error-message',
-      { namespace: namespace, missingComponents: missingComponentNames.join(', ')});
-  }
-  return Promise.resolve(result);
-}
-
 async function doCreateSecret(kubectlExe, createArgs, env, namespace, secret, resolve, results, key) {
   executeFileCommand(kubectlExe, createArgs, env, true).then(() => {
     resolve(results);
@@ -1041,96 +816,6 @@ async function doCreateSecret(kubectlExe, createArgs, env, namespace, secret, re
     results.reason = i18n.t(key,{ namespace: namespace, secret: secret, error: getErrorMessage(err) });
     results.reason = maskPasswordInCommand(results.reason);
     resolve(results);
-  });
-}
-
-async function getVerrazzanoIngressExternalAddress(kubectlExe, options) {
-  const gatewayService = 'istio-ingressgateway';
-  const gatewayNamespace = 'istio-system';
-
-  const args = [ 'get', 'service', gatewayService, '-n', gatewayNamespace, '-o', 'json'];
-  const httpsProxyUrl = getHttpsProxyUrl();
-  const bypassProxyHosts = getBypassProxyHosts();
-  const env = getKubectlEnvironment(options, httpsProxyUrl, bypassProxyHosts);
-  const results = {
-    isSuccess: true
-  };
-
-  return new Promise(resolve => {
-    executeFileCommand(kubectlExe, args, env).then(serviceJson => {
-      const service = JSON.parse(serviceJson);
-      const ingressArray = service.status?.loadBalancer?.ingress;
-
-      if (Array.isArray(ingressArray) && ingressArray.length > 0) {
-        results.externalAddress = ingressArray[0].ip;
-      }
-      if (!results.externalAddress) {
-        results.reason = i18n.t('kubectl-get-vz-ingress-external-address-not-found',
-          { gatewayService, gatewayNamespace });
-      }
-      resolve(results);
-    }).catch(err => {
-      results.isSuccess = false;
-      results.reason =
-        i18n.t('kubectl-get-vz-ingress-external-address-error-message',
-          { gatewayService, gatewayNamespace, error: getErrorMessage(err) });
-      resolve(results);
-    });
-  });
-}
-
-async function getVerrazzanoApplicationHostnames(kubectlExe, applicationName, applicationNamespace, options) {
-  const gatewayType = 'gateways.networking.istio.io';
-  const appGatewayName = `${applicationNamespace}-${applicationName}-gw`;
-
-  const args = [ 'get', gatewayType, appGatewayName, '-n', applicationNamespace, '-o', 'json'];
-  const httpsProxyUrl = getHttpsProxyUrl();
-  const bypassProxyHosts = getBypassProxyHosts();
-  const env = getKubectlEnvironment(options, httpsProxyUrl, bypassProxyHosts);
-  const results = {
-    isSuccess: true
-  };
-
-  return new Promise(resolve => {
-    // the external address will help to determine the generated application host name.
-    // this address is returned as the generated host name if no matching DNS name is found.
-    getVerrazzanoIngressExternalAddress(kubectlExe, options).then(externalAddressResults => {
-      if(!externalAddressResults.isSuccess) {
-        resolve(externalAddressResults);
-        return;
-      }
-      const externalAddress = externalAddressResults.externalAddress;
-      results.generatedHostname = externalAddress;
-
-      executeFileCommand(kubectlExe, args, env).then(gatewayJson => {
-        const gateway = JSON.parse(gatewayJson);
-        const serversArray = gateway.spec?.servers;
-        if (Array.isArray(serversArray) && serversArray.length > 0) {
-          const hostsArray = serversArray[0].hosts;
-          if (Array.isArray(hostsArray) && hostsArray.length > 0) {
-            results.hostnames = hostsArray;
-
-            // see if a DNS name contains the external address
-            for(const hostname of hostsArray) {
-              if(hostname.includes(externalAddress)) {
-                results.generatedHostname = hostname;
-              }
-            }
-          }
-        }
-        if (!results.hostnames) {
-          results.reason = i18n.t('kubectl-get-vz-app-hostnames-not-found',
-            { appName: applicationName, appNamespace: applicationNamespace });
-        }
-        resolve(results);
-      }).catch(err => {
-        results.isSuccess = false;
-        results.reason =
-          i18n.t('kubectl-get-vz-app-hostnames-error-message',
-            { appName: applicationName, appNamespace: applicationNamespace, error: getErrorMessage(err) });
-        resolve(results);
-      });
-    });
   });
 }
 
@@ -1157,7 +842,6 @@ function _parseLogEntryAsJson(logEntry) {
 
 module.exports = {
   apply,
-  applyUsingUrl,
   createNamespaceIfNotExists,
   createNamespacesIfNotExists,
   createNamespaceLabelIfNotExists,
@@ -1169,7 +853,6 @@ module.exports = {
   getCurrentContext,
   getOperatorVersion,
   isOperatorAlreadyInstalled,
-  isVerrazzanoInstalled,
   setCurrentContext,
   validateKubectlExe,
   deleteObjectIfExists,
@@ -1177,18 +860,10 @@ module.exports = {
   getIngresses,
   getK8sConfigView,
   getK8sClusterInfo,
-  getVerrazzanoApplicationHostnames,
   getWkoDomainStatus,
-  getApplicationStatus,
   getOperatorStatus,
   getOperatorVersionFromDomainConfigMap,
-  getVerrazzanoInstallationObject,
-  getKubernetesObjectsByNamespace,
-  getKubernetesObjectsFromAllNamespaces,
   validateNamespacesExist,
   validateDomainExist,
-  validateApplicationExist,
   verifyClusterConnectivity,
-  verifyVerrazzanoComponentsDeployed,
-  verifyVerrazzanoPlatformOperatorRollout,
 };

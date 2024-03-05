@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const { app, BrowserWindow, dialog, ipcMain, shell } = require('electron');
@@ -37,11 +37,6 @@ const githubUtils = require('./js/githubUtils');
 const { initializeAutoUpdater, registerAutoUpdateListeners, installUpdates, getUpdateInformation } = require('./js/appUpdater');
 const { startWebLogicRemoteConsoleBackend, getDefaultDirectoryForOpenDialog, setWebLogicRemoteConsoleHomeAndStart,
   getDefaultWebLogicRemoteConsoleHome, getWebLogicRemoteConsoleBackendPort } = require('./js/wlRemoteConsoleUtils');
-const { getVerrazzanoReleaseVersions, isVerrazzanoInstalled, installVerrazzanoPlatformOperator,
-  verifyVerrazzanoPlatformOperatorInstall, installVerrazzano, verifyVerrazzanoInstallStatus } = require('./js/vzInstaller');
-const { deployApplication, deployComponents, deployProject, getComponentNamesByNamespace, getSecretNamesByNamespace,
-  getVerrazzanoClusterNames, getDeploymentNamesFromAllNamespaces, undeployApplication, undeployComponents, getHostNames
-} = require('./js/vzUtils');
 
 const { getHttpsProxyUrl, getBypassProxyHosts } = require('./js/userSettings');
 const { sendToWindow } = require('./js/windowUtils');
@@ -775,14 +770,6 @@ class Main {
       return kubectlUtils.validateDomainExist(kubectlExe, kubectlOptions, domain, namespace);
     });
 
-    ipcMain.handle('validate-vz-application-exist', async (event, kubectlExe, kubectlOptions, application, namespace) => {
-      return kubectlUtils.validateApplicationExist(kubectlExe, kubectlOptions, application, namespace);
-    });
-
-    ipcMain.handle('vz-get-application-status', async (event, kubectlExe, application, domainUid, namespace, options) => {
-      return kubectlUtils.getApplicationStatus(kubectlExe, application, domainUid, namespace, options);
-    });
-
     ipcMain.handle('is-wko-installed', async (event, kubectlExe, operatorNamespace, kubectlOptions) => {
       return kubectlUtils.isOperatorAlreadyInstalled(kubectlExe, operatorNamespace, kubectlOptions);
     });
@@ -1021,91 +1008,6 @@ class Main {
           resolve(mappedResults);
         });
       });
-    });
-
-    // eslint-disable-next-line no-unused-vars
-    ipcMain.handle('get-verrazzano-release-versions', async (event, minimumVersion = undefined) => {
-      return getVerrazzanoReleaseVersions(minimumVersion);
-    });
-
-    // eslint-disable-next-line no-unused-vars
-    ipcMain.handle('is-verrazzano-installed', async(event, kubectlExe, kubectlOptions) => {
-      return isVerrazzanoInstalled(kubectlExe, kubectlOptions);
-    });
-
-    // eslint-disable-next-line no-unused-vars
-    ipcMain.handle('install-verrazzano-platform-operator', async(event, kubectlExe, kubectlOptions, vzOptions) => {
-      return installVerrazzanoPlatformOperator(kubectlExe, kubectlOptions, vzOptions);
-    });
-
-    // eslint-disable-next-line no-unused-vars
-    ipcMain.handle('verify-verrazzano-platform-operator-install', async (event, kubectlExe, kubectlOptions, vzOptions) => {
-      return verifyVerrazzanoPlatformOperatorInstall(kubectlExe, kubectlOptions, vzOptions);
-    });
-
-    // eslint-disable-next-line no-unused-vars
-    ipcMain.handle('install-verrazzano', async (event, kubectlExe, kubectlOptions, verrazzanoResource) => {
-      return installVerrazzano(kubectlExe, kubectlOptions, verrazzanoResource);
-    });
-
-    // eslint-disable-next-line no-unused-vars
-    ipcMain.handle('verify-verrazzano-install-status', async (event, kubectlExe, kubectlOptions, vzOptions) => {
-      return verifyVerrazzanoInstallStatus(kubectlExe, kubectlOptions, vzOptions);
-    });
-
-    // eslint-disable-next-line no-unused-vars
-    ipcMain.handle('deploy-verrazzano-components', async (event, kubectlExe, components, kubectlOptions) => {
-      return deployComponents(kubectlExe, components, kubectlOptions);
-    });
-
-    // eslint-disable-next-line no-unused-vars
-    ipcMain.handle('undeploy-verrazzano-components', async (event, kubectlExe, componentNames, namespace, kubectlOptions) => {
-      return undeployComponents(kubectlExe, componentNames, namespace, kubectlOptions);
-    });
-
-    // eslint-disable-next-line no-unused-vars
-    ipcMain.handle('get-verrazzano-component-names', async (event, kubectlExe, namespace, kubectlOptions) => {
-      return getComponentNamesByNamespace(kubectlExe, namespace, kubectlOptions);
-    });
-
-    // eslint-disable-next-line no-unused-vars
-    ipcMain.handle('get-verrazzano-secret-names', async (event, kubectlExe, namespace, kubectlOptions) => {
-      return getSecretNamesByNamespace(kubectlExe, namespace, kubectlOptions);
-    });
-
-    // eslint-disable-next-line no-unused-vars
-    ipcMain.handle('get-verrazzano-host-names', async (event, kubectlExe, applicationName, applicationNamespace, options) => {
-      return getHostNames(kubectlExe, applicationName, applicationNamespace, options);
-    });
-
-    // eslint-disable-next-line no-unused-vars
-    ipcMain.handle('get-verrazzano-cluster-names', async (event, kubectlExe, kubectlOptions) => {
-      return getVerrazzanoClusterNames(kubectlExe, kubectlOptions);
-    });
-
-    // eslint-disable-next-line no-unused-vars
-    ipcMain.handle('get-verrazzano-deployment-names-all-namespaces', async (event, kubectlExe, kubectlOptions) => {
-      return getDeploymentNamesFromAllNamespaces(kubectlExe, kubectlOptions);
-    });
-
-    // eslint-disable-next-line no-unused-vars
-    ipcMain.handle('deploy-verrazzano-application', async (event, kubectlExe, application, kubectlOptions) => {
-      return deployApplication(kubectlExe, application, kubectlOptions);
-    });
-
-    // eslint-disable-next-line no-unused-vars
-    ipcMain.handle('undeploy-verrazzano-application', async (event, kubectlExe, isMultiClusterApplication, applicationName, namespace, kubectlOptions) => {
-      return undeployApplication(kubectlExe, isMultiClusterApplication, applicationName, namespace, kubectlOptions);
-    });
-
-    // eslint-disable-next-line no-unused-vars
-    ipcMain.handle('deploy-verrazzano-project', async (event, kubectlExe, project, kubectlOptions) => {
-      return deployProject(kubectlExe, project, kubectlOptions);
-    });
-
-    // eslint-disable-next-line no-unused-vars
-    ipcMain.handle('verify-verrazzano-components-exist',async (event, kubectlExe, componentNames, namespace, kubectlOptions) => {
-      return kubectlUtils.verifyVerrazzanoComponentsDeployed(kubectlExe, componentNames, namespace, kubectlOptions);
     });
   }
 

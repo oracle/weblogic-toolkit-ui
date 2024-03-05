@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -12,11 +12,9 @@
  */
 define(['knockout', 'models/wdt-model-definition', 'models/image-definition', 'models/kubectl-definition',
   'models/k8s-domain-definition', 'models/wko-definition', 'models/project-settings-definition',
-  'models/ingress-definition', 'models/vz-install-definition', 'models/vz-component-definition',
-  'models/vz-application-definition', 'utils/common-utilities', 'utils/wkt-logger'],
+  'models/ingress-definition', 'utils/common-utilities', 'utils/i18n', 'utils/wkt-logger'],
 function (ko, wdtConstructor, imageConstructor, kubectlConstructor, domainConstructor, wkoConstructor,
-  settingsConstructor, ingressConstructor, verrazzanoInstallConstructor, verrazzanoComponentConstructor,
-  verrazzanoApplicationConstructor, utils, wktLogger) {
+  settingsConstructor, ingressConstructor, utils, i18n, wktLogger) {
   function WktProject() {
     let projectFileName = null;
 
@@ -90,9 +88,6 @@ function (ko, wdtConstructor, imageConstructor, kubectlConstructor, domainConstr
     this.ingress = ingressConstructor('ingress');
     this.kubectl = kubectlConstructor('kubectl');
     this.k8sDomain = domainConstructor('k8sDomain', this.wdtModel, this.image);
-    this.vzInstall = verrazzanoInstallConstructor('vzInstall');
-    this.vzComponent = verrazzanoComponentConstructor('vzComponent', this.k8sDomain);
-    this.vzApplication = verrazzanoApplicationConstructor('vzApplication', this.k8sDomain);
     this.pages = [
       this.wdtModel,
       this.image,
@@ -101,9 +96,6 @@ function (ko, wdtConstructor, imageConstructor, kubectlConstructor, domainConstr
       this.wko,
       this.settings,
       this.ingress,
-      this.vzInstall,
-      this.vzComponent,
-      this.vzApplication,
     ];
 
     this.convertOldProjectFormat = (wktProjectJson) => {
@@ -172,6 +164,29 @@ function (ko, wdtConstructor, imageConstructor, kubectlConstructor, domainConstr
             secret['keys'] = keyMap;
           }
         }
+      }
+
+      // Version 2.0 removes support for Verrazzano so remove all Verrazzano-specific state from the project.
+      let foundVerrazzanoInProject = false;
+      if ('settings' in wktProjectJson && wktProjectJson.settings.wdtTargetType === 'vz') {
+        foundVerrazzanoInProject = true;
+        wktProjectJson.settings.wdtTargetType = 'wko';
+      }
+      if ('kubectl' in wktProjectJson && 'vzManagedClusters' in wktProjectJson.kubectl) {
+        foundVerrazzanoInProject = true;
+        delete wktProjectJson.kubectl.vzManagedClusters;
+      }
+      if ('vzInstall' in wktProjectJson) {
+        foundVerrazzanoInProject = true;
+        delete wktProjectJson.vzInstall;
+      }
+      if ('vzApplication' in wktProjectJson) {
+        foundVerrazzanoInProject = true;
+        delete wktProjectJson.vzApplication;
+      }
+
+      if (foundVerrazzanoInProject) {
+        wktLogger.warn(i18n.t('wkt-project-verrazzano-removal-warning'));
       }
     };
 
