@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
@@ -37,46 +37,6 @@ function(accUtils, ko, project, i18n, ArrayDataProvider, BufferingDataProvider, 
       return window.api.process.isMac();
     };
 
-    this.usingWko = () => {
-      return this.project.settings.wdtTargetType.value === 'wko';
-    };
-
-    this.vzManagedClustersColumnData = [
-      {
-        headerText: this.labelMapper('vz-managed-cluster-name-heading'),
-        sortProperty: 'name',
-        resizable: 'enabled'
-      },
-      {
-        headerText: this.labelMapper('vz-managed-cluster-kubeconfig-heading'),
-        sortable: 'disable',
-        resizable: 'enabled'
-      },
-      {
-        headerText: this.labelMapper('vz-managed-cluster-kubecontext-heading'),
-        sortProperty: 'kubeContext'
-      },
-      {
-        className: 'wkt-table-delete-cell',
-        headerClassName: 'wkt-table-add-header',
-        headerTemplate: 'headerTemplate',
-        template: 'actionTemplate',
-        sortable: 'disable',
-        width: viewHelper.BUTTON_COLUMN_WIDTH
-      },
-    ];
-
-    this.vzManagedClustersDP = new BufferingDataProvider(new ArrayDataProvider(
-      this.project.kubectl.vzManagedClusters.observable, {keyAttributes: 'uid'}));
-
-    this.getConnectivityHeading = ko.computed(() => {
-      if (this.usingWko()) {
-        return this.labelMapper('wko-connectivity-heading');
-      } else {
-        return this.labelMapper('vz-connectivity-heading');
-      }
-    }, this);
-
     this.chooseKubectl = () => {
       window.api.ipc.invoke('get-kubectl-exe').then(kubectlPath => {
         if (kubectlPath) {
@@ -109,25 +69,6 @@ function(accUtils, ko, project, i18n, ArrayDataProvider, BufferingDataProvider, 
       });
     };
 
-    this.chooseManagedKubeConfig = (event, context) => {
-      const index = context.item.index;
-      const managedClusterData = this.project.kubectl.vzManagedClusters.observable()[index];
-      getKubeConfig().then(kubeConfigPath => {
-        let kubeConfig;
-        if (Array.isArray(kubeConfigPath)) {
-          kubeConfig = kubeConfigPath;
-        } else if (typeof kubeConfigPath === 'string'  && kubeConfigPath.length > 0) {
-          kubeConfig = kubeConfigPath.split(window.api.path.delimiter);
-        }
-
-        if (kubeConfig) {
-          const newManagedClusterData = Object.assign({}, managedClusterData);
-          newManagedClusterData.kubeConfig = kubeConfig;
-          this.project.kubectl.vzManagedClusters.observable.replace(managedClusterData, newManagedClusterData);
-        }
-      });
-    };
-
     async function getCurrentClusterContext(kubectlExe, options) {
       return window.api.ipc.invoke('kubectl-get-current-context', kubectlExe, options);
     }
@@ -138,26 +79,6 @@ function(accUtils, ko, project, i18n, ArrayDataProvider, BufferingDataProvider, 
       getCurrentClusterContext(kubectlExe, options).then(results => {
         if (results.isSuccess) {
           this.project.kubectl.kubeConfigContextToUse.observable(results.context);
-        } else {
-          const errTitle = i18n.t('kubectl-get-current-context-error-title');
-          const errMessage = i18n.t('kubectl-get-current-context-error-message', { error: results.reason });
-          window.api.ipc.invoke('show-error-message', errTitle, errMessage).then().catch();
-        }
-      });
-    };
-
-    this.getManagedCurrentContext = (event, context) => {
-      const index = context.item.index;
-      const managedClusterData = this.project.kubectl.vzManagedClusters.observable()[index];
-      wktLogger.debug('getting current context for managed cluster" %s', JSON.stringify(managedClusterData));
-
-      const kubectlExe = this.project.kubectl.executableFilePath.value;
-      const options = { kubeConfig: managedClusterData.kubeConfig };
-      getCurrentClusterContext(kubectlExe, options).then(results => {
-        if (results.isSuccess) {
-          const newManagedClusterData = Object.assign({}, managedClusterData);
-          newManagedClusterData.kubeContext = results.context;
-          this.project.kubectl.vzManagedClusters.observable.replace(managedClusterData, newManagedClusterData);
         } else {
           const errTitle = i18n.t('kubectl-get-current-context-error-title');
           const errMessage = i18n.t('kubectl-get-current-context-error-message', { error: results.reason });
@@ -199,44 +120,9 @@ function(accUtils, ko, project, i18n, ArrayDataProvider, BufferingDataProvider, 
       });
     };
 
-    this.chooseManagedContext = (event, context) => {
-      const index = context.item.index;
-      const managedClusterData = this.project.kubectl.vzManagedClusters.observable()[index];
-
-      const kubectlExe = this.project.kubectl.executableFilePath.value;
-      const options = { kubeConfig: managedClusterData.kubeConfig };
-      const kubeContext = managedClusterData.kubeContext;
-      getContext(kubectlExe, options, kubeContext).then(result => {
-        if (result && result.kubectlContextName) {
-          const newManagedClusterData = Object.assign({}, managedClusterData);
-          newManagedClusterData.kubeContext = result.kubectlContextName;
-          this.project.kubectl.vzManagedClusters.observable.replace(managedClusterData, newManagedClusterData);
-        }
-      });
-    };
-
     this.chooseAdminContextTooltip = ko.computed(() => {
-      if (this.project.settings.wdtTargetType.observable() === 'vz') {
-        return this.labelMapper('config-vz-choose-admin-context-tooltip');
-      } else {
-        return this.labelMapper('config-wko-choose-context-tooltip');
-      }
+      return this.labelMapper('config-wko-choose-context-tooltip');
     });
-
-    this.handleAddManagedCluster = () => {
-      const managedClusterToAdd = {
-        uid: utils.getShortUuid(),
-        name: utils.generateNewName(this.project.kubectl.vzManagedClusters.observable,
-          'name', 'managed', true),
-        kubeConfig: this.project.kubectl.kubeConfig.value
-      };
-      this.project.kubectl.vzManagedClusters.addNewItem(managedClusterToAdd);
-    };
-
-    this.handleDeleteManagedCluster = (event, context) => {
-      const index = context.item.index;
-      this.project.kubectl.vzManagedClusters.observable.splice(index, 1);
-    };
 
     this.createLink = function (url, label) {
       return '<a href="' + url + '">' + label + '</a>';
@@ -358,11 +244,6 @@ function(accUtils, ko, project, i18n, ArrayDataProvider, BufferingDataProvider, 
       }
       return flavor;
     };
-
-    this.isVerrazzanoOKE = ko.computed(() => {
-      return this.project.settings.wdtTargetType.observable() === 'vz'
-        && this.project.kubectl.k8sFlavor.observable() === 'OKE';
-    }, this);
   }
 
   /*
