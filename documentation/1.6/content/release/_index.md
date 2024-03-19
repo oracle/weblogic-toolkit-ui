@@ -5,7 +5,7 @@ weight = 88
 pre = "<b> </b>"
 +++
 
-### Changes in Release 1.6.2
+### Changes in Release 1.6.3
 - [Major New Features](#major-new-features)
 - [Other Changes](#other-changes)
 - [Bugs Fixes](#bug-fixes)
@@ -15,10 +15,10 @@ pre = "<b> </b>"
 None
 
 #### Other Changes
-- #287 - Added support for WebLogic Kubernetes Operator domain specification's `precreateService` setting.
+- #293 - Updated Model Design View to use WebLogic Remote Console 2.4.8 
 
 #### Bug Fixes
-- #286 - Fixed an issue related to SSL termination and pass through Ingress resource generation.
+None
 
 #### Known Issues
 - On Linux, the open and save dialogs open behind the main application window.  This is due to
