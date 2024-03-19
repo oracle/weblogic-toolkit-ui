@@ -325,7 +325,17 @@ Click on the link to go to your application, as shown in in the following image.
     </item>
     
     <item>
-      <title>Release Notes 1.6.1</title>
+      <title>Release 1.6.2</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.6.2/</link>
+      <pubDate>Thu, 03 Nov 2022 12:48:00 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.6.2/</guid>
+      <description>Changes in Release 1.6.2  Major New Features Other Changes Bugs Fixes Known Issues  Major New Features None
+Other Changes  #287 - Added support for WebLogic Kubernetes Operator domain specification&amp;rsquo;s precreateService setting.  Bug Fixes  #286 - Fixed an issue related to SSL termination and pass through Ingress resource generation.  Known Issues  On Linux, the open and save dialogs open behind the main application window. This is due to Electron bug 32857.</description>
+    </item>
+    
+    <item>
+      <title>Release 1.6.1</title>
       <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.6.1/</link>
       <pubDate>Thu, 03 Nov 2022 12:48:00 -0500</pubDate>
       
@@ -336,7 +346,7 @@ Bug Fixes  #281 - Fixed issue with Ingress Controller shell script not using eli
     </item>
     
     <item>
-      <title>Release Notes 1.5.3</title>
+      <title>Release 1.5.3</title>
       <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.5.3/</link>
       <pubDate>Thu, 03 Nov 2022 12:48:00 -0500</pubDate>
       
@@ -356,7 +366,7 @@ Other Changes  #242 - Added initial (very minimal) internationalization support 
     </item>
     
     <item>
-      <title>Release Notes 1.5.2</title>
+      <title>Release 1.5.2</title>
       <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.5.2/</link>
       <pubDate>Thu, 03 Nov 2022 12:48:00 -0500</pubDate>
       

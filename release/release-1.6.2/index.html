@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/weblogic-toolkit-ui/images/favicon.png" type="image/png">
 
-    <title>Summary :: WebLogic Kubernetes Toolkit UI</title>
+    <title>Release 1.6.2 :: WebLogic Kubernetes Toolkit UI</title>
 
     
     <link href="/weblogic-toolkit-ui/css/nucleus.css?1710880700" rel="stylesheet">
@@ -39,7 +39,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/weblogic-toolkit-ui/setup/quickstart/qs-summary/">
+  <body class="" data-url="/weblogic-toolkit-ui/release/release-1.6.2/">
     <nav id="sidebar" class="">
 
 
@@ -118,7 +118,7 @@
   
     
     <li data-nav-id="/weblogic-toolkit-ui/setup/" title="Get Started" class="dd-item
-        parent
+        
         
         
         ">
@@ -189,7 +189,7 @@
   
     
     <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/" title="Quick Start Guide" class="dd-item
-        parent
+        
         
         
         ">
@@ -626,8 +626,8 @@
   
     
     <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-summary/" title="Summary" class="dd-item
-        parent
-        active
+        
+        
         
         ">
       <a href="/weblogic-toolkit-ui/setup/quickstart/qs-summary/">
@@ -1109,7 +1109,7 @@
   
     
     <li data-nav-id="/weblogic-toolkit-ui/release/" title="Release Notes" class="dd-item
-        
+        parent
         
         
         ">
@@ -1135,7 +1135,7 @@
  
   
     
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.6.2/" title="Release 1.6.2" class="dd-item ">
+      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.6.2/" title="Release 1.6.2" class="dd-item active">
         <a href="/weblogic-toolkit-ui/release/release-1.6.2/">
         <b> </b>Release 1.6.2
         
@@ -1458,13 +1458,7 @@
             
           
           
-            
-            
-          
-          
-            <a href='/weblogic-toolkit-ui/'></a> > <a href='/weblogic-toolkit-ui/setup/'>Get Started</a> > <a href='/weblogic-toolkit-ui/setup/quickstart/'>Quick Start Guide</a> > Summary
-          
-        
+            <a href='/weblogic-toolkit-ui/'></a> > <a href='/weblogic-toolkit-ui/release/'>Release Notes</a> > Release 1.6.2
           
         
           
@@ -1477,7 +1471,15 @@
                 
                     <div class="progress">
     <div class="wrapper">
-<nav id="TableOfContents"></nav>
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#changes-in-release-162">Changes in Release 1.6.2</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
     </div>
 </div>
 
@@ -1493,36 +1495,43 @@
           
             <h1>
               
-              Summary
+              Release 1.6.2
             </h1>
           
 
         
 
 
-
-	<p>By following the steps in this Quick Start guide, you:</p>
+<h3 id="changes-in-release-162">Changes in Release 1.6.2</h3>
 <ul>
-<li>Configured WKTUI and set up a new project.</li>
-<li>Manually created and edited a WDT model of a WebLogic domain using the Design View for visual editing of the model
-and the Code View for viewing and editing model-related files.</li>
-<li>Pulled a prebuilt (primary) image from the Oracle Container Registry and then manually created an auxiliary image.</li>
-<li>Deployed a MySQL database.</li>
-<li>Depending on the track you followed:
+<li><a href="#major-new-features">Major New Features</a></li>
+<li><a href="#other-changes">Other Changes</a></li>
+<li><a href="#bug-fixes">Bugs Fixes</a></li>
+<li><a href="#known-issues">Known Issues</a></li>
+</ul>
+<h4 id="major-new-features">Major New Features</h4>
+<p>None</p>
+<h4 id="other-changes">Other Changes</h4>
 <ul>
-<li>Installed the WebLogic Kubernetes Operator to deploy your domain, then installed and configured an ingress controller to expose the sample application and provide its access in a browser window.</li>
-<li>Otherwise, installed Verrazzano to define and deploy the sample application, and also employed an ingress controller to access the application in a browser window.</li>
+<li>#287 - Added support for WebLogic Kubernetes Operator domain specification&rsquo;s <code>precreateService</code> setting.</li>
 </ul>
-</li>
-<li>Optionally, used the instructions in the Advanced section to discover the domain model offline or online remotely.</li>
+<h4 id="bug-fixes">Bug Fixes</h4>
+<ul>
+<li>#286 - Fixed an issue related to SSL termination and pass through Ingress resource generation.</li>
 </ul>
-<p>In summary, you used comprehensive WKTUI functionality to take an on-premises, sample WebLogic domain and deploy it in Kubernetes.</p>
+<h4 id="known-issues">Known Issues</h4>
+<ul>
+<li>On Linux, the open and save dialogs open behind the main application window.  This is due to
+<a href="https://github.com/electron/electron/issues/32857">Electron bug 32857</a>.</li>
+<li>When deploying a Verrazzano application, the <code>Get Application Status</code> button only checks the status of the project&rsquo;s
+Verrazzano component containing the WebLogic domain specification.</li>
+<li>Verrazzano installation does not support a multicluster installation.</li>
+<li>Verrazzano Application components Ingress Trait Rules table&rsquo;s URL column does not properly account for multicluster
+applications.  The Update URL button will only get information from the admin (i.e., <code>local</code>) cluster.</li>
+</ul>
 
 
-
-
-
-<footer class=" footline" >
+<footer class="footline">
 	
 </footer>
 
@@ -1576,7 +1585,6 @@ and the Code View for viewing and editing model-related files.</li>
             
                 
                     
-                    
                 
                 
 
@@ -1591,9 +1599,6 @@ and the Code View for viewing and editing model-related files.</li>
             
             
                 
-                    
-                        
-                        
                     
                 
                 
@@ -1627,7 +1632,6 @@ and the Code View for viewing and editing model-related files.</li>
             
                 
                     
-                    
                 
                 
 
@@ -1642,9 +1646,6 @@ and the Code View for viewing and editing model-related files.</li>
             
             
                 
-                    
-                        
-                        
                     
                 
                 
@@ -1934,7 +1935,6 @@ and the Code View for viewing and editing model-related files.</li>
             
                 
                     
-                    
                 
                 
 
@@ -1950,9 +1950,6 @@ and the Code View for viewing and editing model-related files.</li>
             
             
                 
-                    
-                        
-                        
                     
                 
                 
@@ -2250,6 +2247,7 @@ and the Code View for viewing and editing model-related files.</li>
             
                 
                     
+                    
                 
                 
 
@@ -2262,6 +2260,7 @@ and the Code View for viewing and editing model-related files.</li>
             
             
                 
+                    
                     
                 
                 
@@ -2278,6 +2277,9 @@ and the Code View for viewing and editing model-related files.</li>
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -2478,10 +2480,10 @@ and the Code View for viewing and editing model-related files.</li>
 	 
 	 
 		
-			<a class="nav nav-prev" href="/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-access-app/" title="Access the ToDo List application"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/weblogic-toolkit-ui/release/" title="Release Notes"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/weblogic-toolkit-ui/setup/quickstart/qs-advanced/" title="Advanced" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/weblogic-toolkit-ui/release/release-1.6.1/" title="Release 1.6.1" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -2513,3 +2515,4 @@ and the Code View for viewing and editing model-related files.</li>
 
   </body>
 </html>
+
