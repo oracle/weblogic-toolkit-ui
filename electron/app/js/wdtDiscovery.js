@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const path = require('path');
@@ -65,8 +65,9 @@ async function _runDiscover(targetWindow, discoverConfig, online) {
   argList.push(discoverConfig['oracleHome']);
   argList.push('-java_home');
   argList.push(discoverConfig['javaHome']);
-  argList.push('-domain_home');
-  argList.push(discoverConfig['domainHome']);
+
+  addArgumentIfPresent(discoverConfig['domainHome'], '-domain_home', argList);
+
   argList.push('-domain_type');
   argList.push(discoverConfig['domainType']);
 
@@ -78,6 +79,13 @@ async function _runDiscover(targetWindow, discoverConfig, online) {
     argList.push('-admin_pass');
     argList.push(discoverConfig['adminPass']);
   }
+
+  addArgumentIfPresent(discoverConfig['sshHost'], '-ssh_host', argList);
+  addArgumentIfPresent(discoverConfig['sshPort'], '-ssh_port', argList);
+  addArgumentIfPresent(discoverConfig['sshUser'], '-ssh_user', argList);
+  addArgumentIfPresent(discoverConfig['sshPassword'], '-ssh_pass', argList);
+  addArgumentIfPresent(discoverConfig['sshPrivateKey'], '-ssh_private_key', argList);
+  addArgumentIfPresent(discoverConfig['sshPrivateKeyPassphrase'], '-ssh_private_key_pass', argList);
 
   const isRemote = discoverConfig['isRemote'];
   if (!isRemote) {
@@ -142,6 +150,13 @@ async function _runDiscover(targetWindow, discoverConfig, online) {
     results.reason = i18n.t('wdt-discovery-failed-error-message', { script: getDiscoverDomainShellScript(), error: errorUtils.getErrorMessage(err)});
   }
   return Promise.resolve(results);
+}
+
+function addArgumentIfPresent(value, argName, argList) {
+  if(value) {
+    argList.push(argName);
+    argList.push(value);
+  }
 }
 
 module.exports = {

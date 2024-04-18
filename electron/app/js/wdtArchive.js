@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 
@@ -60,7 +60,7 @@ function getEntryTypes() {
       extensions: ['xml'],
       fileLabel: i18n.t('wdt-archiveType-coherenceConfig-fileLabel'),
       fileHelp: i18n.t('wdt-archiveType-coherenceConfig-fileHelp'),
-      pathPrefix: 'wlsdeploy/coherence/'
+      pathPrefix: 'config/wlsdeploy/coherence/'
     },
     'coherencePersistenceDirectory': {
       name: i18n.t('wdt-archiveType-coherenceStore'),
@@ -85,6 +85,17 @@ function getEntryTypes() {
       fileHelp: i18n.t('wdt-archiveType-custom-fileHelp'),
       pathLabel: i18n.t('wdt-archiveType-custom-pathLabel'),
       pathHelp: i18n.t('wdt-archiveType-custom-pathHelp'),
+      pathPrefix: 'config/wlsdeploy/custom/'
+    },
+    'customNonReplicable': {
+      name: i18n.t('wdt-archiveType-custom-non-replicable'),
+      subtype: 'either',
+      dirLabel: i18n.t('wdt-archiveType-custom-dirLabel'),
+      dirHelp: i18n.t('wdt-archiveType-custom-dirHelp'),
+      fileLabel: i18n.t('wdt-archiveType-custom-fileLabel'),
+      fileHelp: i18n.t('wdt-archiveType-custom-fileHelp'),
+      pathLabel: i18n.t('wdt-archiveType-custom-pathLabel'),
+      pathHelp: i18n.t('wdt-archiveType-custom-pathHelp'),
       pathPrefix: 'wlsdeploy/custom/'
     },
     'databaseWallet': {
@@ -96,7 +107,7 @@ function getEntryTypes() {
       dirHelp: i18n.t('wdt-archiveType-databaseWallet-dirHelp'),
       fileLabel: i18n.t('wdt-archiveType-databaseWallet-fileLabel'),
       fileHelp: i18n.t('wdt-archiveType-databaseWallet-fileHelp'),
-      pathPrefix: 'wlsdeploy/dbWallets/'
+      pathPrefix: 'config/wlsdeploy/dbWallets/'
     },
     'domainBin': {
       name: i18n.t('wdt-archiveType-domainBin'),
@@ -128,7 +139,7 @@ function getEntryTypes() {
       extensions: ['properties'],
       fileLabel: i18n.t('wdt-archiveType-jmsForeignServerBinding-fileLabel'),
       fileHelp: i18n.t('wdt-archiveType-jmsForeignServerBinding-fileHelp'),
-      pathPrefix: 'wlsdeploy/jms/foreignServer/'
+      pathPrefix: 'config/wlsdeploy/jms/foreignServer/'
     },
     'mimeMapping': {
       name: i18n.t('wdt-archiveType-mimeMapping'),
@@ -136,14 +147,14 @@ function getEntryTypes() {
       extensions: ['properties'],
       fileLabel: i18n.t('wdt-archiveType-mimeMapping-fileLabel'),
       fileHelp: i18n.t('wdt-archiveType-mimeMapping-fileHelp'),
-      pathPrefix: 'wlsdeploy/config/'
+      pathPrefix: 'config/wlsdeploy/config/'
     },
     'nodeManagerKeystore': {
       name: i18n.t('wdt-archiveType-nodeManagerKeystore'),
       subtype: 'file',
       fileLabel: i18n.t('wdt-archiveType-nodeManagerKeystore-fileLabel'),
       fileHelp: i18n.t('wdt-archiveType-nodeManagerKeystore-fileHelp'),
-      pathPrefix: 'wlsdeploy/nodeManager/'
+      pathPrefix: 'config/wlsdeploy/nodeManager/'
     },
     'opssWallet': {
       name: i18n.t('wdt-archiveType-opssWallet'),
@@ -166,7 +177,7 @@ function getEntryTypes() {
       subtype: 'file',
       fileLabel: i18n.t('wdt-archiveType-script-fileLabel'),
       fileHelp: i18n.t('wdt-archiveType-script-fileHelp'),
-      pathPrefix: 'wlsdeploy/scripts/'
+      pathPrefix: 'config/wlsdeploy/scripts/'
     },
     'serverKeystore': {
       name: i18n.t('wdt-archiveType-serverKeystore'),
@@ -175,7 +186,7 @@ function getEntryTypes() {
       segregatedHelp: i18n.t('wdt-archiveType-serverSegregationHelp'),
       fileLabel: i18n.t('wdt-archiveType-serverKeystore-fileLabel'),
       fileHelp: i18n.t('wdt-archiveType-serverKeystore-fileHelp'),
-      pathPrefix: 'wlsdeploy/servers/'
+      pathPrefix: 'config/wlsdeploy/servers/'
     },
     'sharedLibrary': {
       name: i18n.t('wdt-archiveType-sharedLibrary'),
@@ -583,6 +594,7 @@ async function _validateArchiveEntryData(targetWindow, entryType, typeDetail, en
       case 'application':
       case 'classpathLibrary':
       case 'custom':
+      case 'customNonReplicable':
       case 'opssWallet':
       case 'sharedLibrary':
         _validateArchiveEntryFile(targetWindow, entryType, entryData.fileType, entryData.fileName).then(result => {

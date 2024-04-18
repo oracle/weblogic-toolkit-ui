@@ -4,8 +4,13 @@
       { "id": "wko_filter" }
     ]
   },
-  "variable_injectors" : {"PORT": {},"HOST": {},"URL": {}},
+  "final_filters" : [
+    { "id": "vz_final_filter" }
+  ],
+  "variable_injectors" : ["port", "host", "url"],
   "validation_method" : "lax",
+  "product_key": "vz",
+  "domain_home_source_type" : "dii",
   "results_output_method" : "json",
   "exclude_domain_bin_contents": true,
   "wls_credentials_name" : "__weblogic-credentials__",
