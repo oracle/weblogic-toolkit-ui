@@ -804,3 +804,9 @@ h6.wkt-panel-heading {
 .wkt-placeholder-text {
   color: var(--oj-label-inside-edge-color);
 }
+
+/* model edit */
+
+.wkt-model-edit-nav-container {
+  background-color: rgb(220, 214, 209);
+}

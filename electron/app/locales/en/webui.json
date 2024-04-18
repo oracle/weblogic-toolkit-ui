@@ -1338,6 +1338,12 @@
   "domain-creation-image-pusher-create-failed-title":"Push Image Failed",
   "domain-creation-image-pusher-create-failed-error-message":"Unable to push image {{imageTag}}: {{error}}.",
 
+  "model-edit-view": "Edit View",
+  "model-edit-aria-label": "model-edit-aria-label",
+  "model-edit-servers-label": "Servers",
+  "model-edit-clusters-label": "Clusters",
+  "model-edit-machines-label": "Machines",
+
   "model-page-design-view-search-label": "Search Model",
   "model-page-design-view-search-tooltip": "Search Model",
   "model-page-button-validateModel": "Validate Model",

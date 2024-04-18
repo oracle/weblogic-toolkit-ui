@@ -1,0 +1,24 @@
+/**
+ * @license
+ * Copyright (c) 2024, Oracle and/or its affiliates.
+ * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
+ */
+'use strict';
+
+define(['accUtils', 'utils/i18n'], function(accUtils, i18n) {
+  function ServersEditViewModel(args) {
+    this.i18n = i18n;
+    this.pageNumber = args['pageNumber'];
+    this.wrcFrontendCompatibilityVersion = args['wrcFrontendCompatibilityVersion'];
+
+    this.connected = () => {
+      accUtils.announce(`Quickstart Page ${this.pageNumber} loaded.`, 'assertive');
+    };
+
+    this.labelMapper = (labelId, payload) => {
+      return i18n.t(`quickstart-page${this.pageNumber}-${labelId}`, payload);
+    };
+  }
+
+  return ServersEditViewModel;
+});

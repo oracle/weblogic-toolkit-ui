@@ -1,0 +1,15 @@
+<!--
+ Copyright (c) 2024, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
+ -->
+
+<h6>Cluster <oj-bind-text value="[[name]]"> </oj-bind-text></h6>
+
+<ul>
+  <oj-bind-for-each data="[[fields]]">
+    <template>
+      <li><oj-bind-text value="[[$current.data.key]]"></oj-bind-text>:
+        <oj-bind-text value="[[$current.data.value]]"></oj-bind-text></li>
+    </template>
+  </oj-bind-for-each>
+</ul>
