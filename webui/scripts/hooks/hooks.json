@@ -14,7 +14,6 @@
         "before_watch": "scripts/hooks/before_watch.js",
         "after_build": "scripts/hooks/after_build.js",
         "after_component_build": "scripts/hooks/after_component_build.js",
-        "before_hybrid_build": "scripts/hooks/before_hybrid_build.js",
         "before_release_build": "scripts/hooks/before_release_build.js",
         "before_serve": "scripts/hooks/before_serve.js",
         "after_serve": "scripts/hooks/after_serve.js",

@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const { app, BrowserWindow, dialog, ipcMain, shell } = require('electron');
@@ -486,6 +486,18 @@ class Main {
 
       return wdtArchive.chooseArchiveEntryFile(event.sender.getOwnerBrowserWindow(), itemType, fileType,
         fileExtensions, currentValue);
+    });
+
+    ipcMain.handle('choose-private-key', async (event, privateKeyFile) => {
+      const title = i18n.t('dialog-choosePrivateKey');
+
+      return chooseFromFileSystem(event.sender.getOwnerBrowserWindow(), {
+        title: title,
+        message: title,
+        defaultPath: privateKeyFile,
+        buttonLabel: i18n.t('button-select'),
+        properties: [ 'openFile', 'dontAddToRecent']
+      });
     });
 
     ipcMain.handle('add-archive-entry', async(event, itemType, itemData) => {

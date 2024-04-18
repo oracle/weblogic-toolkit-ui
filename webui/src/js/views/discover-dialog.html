@@ -1,67 +1,148 @@
 <!--
- Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ Copyright (c) 2021, 2024, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 <oj-dialog id="discoverDialog" class="wkt-discover-dialog" initial-visibility="hide">
   <div slot="header">
-    <span id="dialog-title-id" class="oj-dialog-title"><oj-bind-text value="{{title}}"></oj-bind-text></span>
+    <span id="dialog-title-id" class="oj-dialog-title"><oj-bind-text value="[[title]]"></oj-bind-text></span>
   </div>
   <div slot="body">
     <oj-validation-group id="tracker">
       <div class="oj-panel">
-        <oj-form-layout max-columns="1" direction="row">
-          <oj-bind-if test="[[online]]">
-            <oj-input-text label-hint="[[labelMapper('admin-url-label')]]"
-                           value="{{adminUrl}}"
-                           help.instruction="[[labelMapper('admin-url-help')]]"
-                           required="true">
-            </oj-input-text>
-            <oj-input-password label-hint="[[labelMapper('admin-user-label')]]"
-                               value="{{adminUser}}"
-                               mask-icon="visible"
-                               help.instruction="[[labelMapper('admin-user-help')]]"
-                               required="true">
-            </oj-input-password>
-            <oj-input-password label-hint="[[labelMapper('admin-password-label')]]"
-                               value="{{adminPassword}}"
-                               mask-icon="visible"
-                               help.instruction="[[labelMapper('admin-password-help')]]"
-                               required="true">
-            </oj-input-password>
-            <oj-switch label-hint="[[labelMapper('remote-discovery-label')]]"
-                       value="{{isRemote}}"
-                       help.instruction="[[labelMapper('remote-discovery-help')]]">
-            </oj-switch>
-          </oj-bind-if>
-          <oj-input-text label-hint="[[domainHomeLabel]]"
-                         value="{{domainHome}}"
-                         help.instruction="[[domainHomeHelp]]"
-                         required="true">
-            <oj-button slot="end"
-                       display="icons"
-                       chroming="borderless"
-                       disabled="[[isRemote]]"
-                       on-oj-action="[[chooseDomainHome]]">
-              <span><oj-bind-text value="[[labelMapper('domain-home-tooltip')]]"></oj-bind-text></span>
-              <span slot="endIcon" class="oj-ux-ico-folder" role="img"></span>
-            </oj-button>
-          </oj-input-text>
-          <oj-select-single label-hint="[[labelMapper('domain-type-label')]]"
-                            value="{{domainType}}"
-                            data="{{wdtDomainTypesDP}}"
-                            help.instruction="[[labelMapper('domain-type-help')]]">
-          </oj-select-single>
-        </oj-form-layout>
-      </div>
+        <oj-c-form-layout direction="column">
+          <div>
+            <oj-bind-if test="[[online]]">
+              <oj-c-input-text
+                label-hint="[[labelMapper('admin-url-label')]]"
+                value="{{adminUrl}}"
+                help.instruction="[[labelMapper('admin-url-help')]]"
+                required="true">
+              </oj-c-input-text>
+              <oj-c-input-password
+                label-hint="[[labelMapper('admin-user-label')]]"
+                value="{{adminUser}}"
+                mask-icon="visible"
+                help.instruction="[[labelMapper('admin-user-help')]]"
+                required="true">
+              </oj-c-input-password>
+              <oj-c-input-password
+                label-hint="[[labelMapper('admin-password-label')]]"
+                value="{{adminPassword}}"
+                mask-icon="visible"
+                help.instruction="[[labelMapper('admin-password-help')]]"
+                required="true">
+              </oj-c-input-password>
+            </oj-bind-if>
+            <oj-bind-if test="[[!online]]">
+              <oj-c-input-text
+                label-hint="[[domainHomeLabel]]"
+                value="{{domainHome}}"
+                required="[[!online]]">
+                <oj-c-button
+                  slot="end"
+                  label="[[labelMapper('domain-home-tooltip')]]"
+                  display="icons"
+                  chroming="borderless"
+                  on-oj-action="[[chooseDomainHome]]">
+                  <span slot="endIcon" class="oj-ux-ico-folder" role="img"></span>
+                </oj-c-button>
+              </oj-c-input-text>
+            </oj-bind-if>
+            <oj-c-select-single
+              label-hint="[[labelMapper('domain-type-label')]]"
+              value="{{domainType}}"
+              data="[[wdtDomainTypesDP]]"
+              item-text="label"
+              help.instruction="[[labelMapper('domain-type-help')]]">
+            </oj-c-select-single>
+            <oj-bind-if test="[[online]]">
+              <oj-c-radioset
+                label-hint="[[labelMapper('discover-type-label')]]"
+                help.instruction="[[labelMapper('discover-type-help')]]"
+                value="{{discoverType}}"
+                options="[[discoverTypes]]">
+              </oj-c-radioset>
+              <div>  <!-- dynamic oj-bind-if has to be a child of a true DOM element -->
+                <oj-bind-if test="[[useSsh]]">
+                  <h6 class="wkt-subheading">
+                    <oj-bind-text value="[[labelMapper('ssh-connection-title')]]"></oj-bind-text>
+                  </h6>
+                  <oj-c-input-text
+                    label-hint="[[labelMapper('ssh-host-label')]]"
+                    value="{{sshHost}}"
+                    help.instruction="[[labelMapper('ssh-host-help')]]"
+                    required="true">
+                  </oj-c-input-text>
+                  <oj-c-input-text
+                    label-hint="[[labelMapper('ssh-port-label')]]"
+                    value="{{sshPort}}"
+                    help.instruction="[[labelMapper('ssh-port-help')]]">
+                  </oj-c-input-text>
+                  <oj-c-input-text
+                    label-hint="[[labelMapper('ssh-user-label')]]"
+                    value="{{sshUser}}"
+                    help.instruction="[[labelMapper('ssh-user-help')]]">
+                  </oj-c-input-text>
+                  <oj-c-radioset
+                    label-hint="[[labelMapper('ssh-credential-type-label')]]"
+                    help.instruction="[[labelMapper('ssh-credential-type-help')]]"
+                    value="{{sshCredentialType}}"
+                    options="[[sshCredentialTypes]]">
+                  </oj-c-radioset>
+                  <div>
+                    <oj-bind-if test="[[useSshPassword]]">
+                      <oj-c-input-password
+                        label-hint="[[labelMapper('ssh-password-label')]]"
+                        value="{{sshPassword}}"
+                        mask-icon="visible"
+                        help.instruction="[[labelMapper('ssh-password-help')]]"
+                        required="true">
+                      </oj-c-input-password>
+                    </oj-bind-if>
+                    <oj-bind-if test="[[useSshPrivateKey]]">
+                      <oj-c-input-text
+                        label-hint="[[labelMapper('ssh-private-key-label')]]"
+                        value="{{sshPrivateKey}}"
+                        help.instruction="[[labelMapper('ssh-private-key-help')]]"
+                        required="[[useSshPrivateKey]]">
+                        <oj-c-button
+                          slot="end"
+                          label="[[labelMapper('ssh-private-key-tooltip')]]"
+                          display="icons"
+                          chroming="borderless"
+                          on-oj-action="[[choosePrivateKey]]">
+                          <span slot="endIcon" class="oj-ux-ico-file" role="img"></span>
+                        </oj-c-button>
+                      </oj-c-input-text>
+                      <oj-c-input-password
+                        label-hint="[[labelMapper('ssh-private-key-passphrase-label')]]"
+                        value="{{sshPrivateKeyPassphrase}}"
+                        mask-icon="visible"
+                        help.instruction="[[labelMapper('ssh-private-key-passphrase-help')]]">
+                      </oj-c-input-password>
+                    </oj-bind-if>
+                  </div>
+               </oj-bind-if>
+              </div>
+            </oj-bind-if>
+          </div>
+        </oj-c-form-layout>
+     </div>
     </oj-validation-group>
   </div>
 
   <div slot="footer">
-    <oj-button id="okButton" on-oj-action="[[startDiscover]]">
-      <span><oj-bind-text value="[[anyLabelMapper('dialog-button-ok')]]"></oj-bind-text></span>
-    </oj-button>
-    <oj-button id="cancelButton" on-oj-action="[[cancelDiscover]]">
-      <span><oj-bind-text value="[[anyLabelMapper('dialog-button-cancel')]]"></oj-bind-text></span>
-    </oj-button>
+    <oj-c-button
+      id="okButton"
+      label="[[anyLabelMapper('dialog-button-ok')]]"
+      on-oj-action="[[startDiscover]]"
+    >
+    </oj-c-button>
+    <oj-c-button
+      id="cancelButton"
+      label="[[anyLabelMapper('dialog-button-cancel')]]"
+      on-oj-action="[[cancelDiscover]]"
+    >
+    </oj-c-button>
   </div>
 </oj-dialog>
