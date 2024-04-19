@@ -52,7 +52,7 @@ define(['knockout', 'models/wkt-project', 'utils/wkt-logger'],
           options.segregatedName = otherArgs.segregatedName;
         }
 
-        if (archiveEntryTypeName === 'custom' && !!otherArgs.customPath) {
+        if (otherArgs.customPath) {
           options.customPath = otherArgs.customPath;
         }
         return options;
