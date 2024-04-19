@@ -1,11 +1,11 @@
 +++
 title = "Release Notes"
 date = 2022-11-03T12:48:00-05:00
-weight = 88
+weight = 87
 pre = "<b> </b>"
 +++
 
-### Changes in Release 1.6.3
+### Changes in Release 1.7.0
 - [Major New Features](#major-new-features)
 - [Other Changes](#other-changes)
 - [Bugs Fixes](#bug-fixes)
@@ -15,7 +15,7 @@ pre = "<b> </b>"
 None
 
 #### Other Changes
-- #293 - Updated Model Design View to use WebLogic Remote Console 2.4.8 
+- #294 - Updated application to be compatible with WebLogic Deploy Tooling 4.x.
 
 #### Bug Fixes
 None
