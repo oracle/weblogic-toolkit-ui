@@ -208,6 +208,12 @@ define(['utils/script-adapter-base'],
         }
 
         const variableRef = this.getVariableReference(variableName);
+        const imageTagLines = [
+          `IF "${helmChartValues.image}" NEQ "" (`,
+          `${this.indent(1)}SET "${variableName}=${variableRef} --set image=${helmChartValues.image}"`,
+          ')'
+        ];
+
         const serviceAccountLines = [
           `IF "${helmChartValues.serviceAccount}" NEQ "" (`,
           `${this.indent(1)}SET "${variableName}=${variableRef} --set serviceAccount=${helmChartValues.serviceAccount}"`,
@@ -297,6 +303,8 @@ define(['utils/script-adapter-base'],
         this.addVariableDefinition(variableName, initialValue);
         this._lines.push(
           ...strategyLines,
+          '',
+          ...imageTagLines,
           '',
           ...serviceAccountLines,
           '',
