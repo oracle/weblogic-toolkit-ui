@@ -161,6 +161,12 @@ define(['utils/script-adapter-base'],
         }
 
         const variableRef = this.getVariableReference(variableName);
+        const imageTagLines = [
+          `if ("${helmChartValues.image}" -ne "") {`,
+          `${this.indent(1)}${variableName} = "${variableRef} --set image=${helmChartValues.image}"`,
+          '}'
+        ];
+
         const serviceAccountLines = [
           `if ("${helmChartValues.serviceAccount}" -ne "") {`,
           `${this.indent(1)}${variableName} = "${variableRef} --set serviceAccount=${helmChartValues.serviceAccount}"`,
@@ -244,6 +250,8 @@ define(['utils/script-adapter-base'],
         this.addVariableDefinition(variableName, initialValue);
         this._lines.push(
           ...strategyLines,
+          '',
+          ...imageTagLines,
           '',
           ...serviceAccountLines,
           '',
