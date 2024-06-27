@@ -1340,9 +1340,44 @@
 
   "model-edit-view": "Edit View",
   "model-edit-aria-label": "model-edit-aria-label",
-  "model-edit-servers-label": "Servers",
-  "model-edit-clusters-label": "Clusters",
-  "model-edit-machines-label": "Machines",
+
+  "model-edit-cluster-list-label": "Clusters",
+  "model-edit-cluster-table-empty-message": "No clusters specified",
+  "model-edit-cluster-table-aria-label": "Model Clusters Table",
+  "model-edit-cluster-table-add-tooltip": "Add Cluster",
+  "model-edit-cluster-table-delete-tooltip": "Delete Cluster",
+
+  "model-edit-cluster-attribute-clusterAddress-label": "Cluster Address",
+  "model-edit-cluster-attribute-clusterAddress-help": "Cluster messaging mode for this cluster",
+  "model-edit-cluster-attribute-clusterMessagingMode-label": "Cluster Messaging Mode",
+  "model-edit-cluster-attribute-clusterMessagingMode-help": "Cluster messaging mode for this cluster",
+  "model-edit-cluster-attribute-name-label": "Name",
+  "model-edit-cluster-attribute-notes-help": "Notes for this cluster",
+  "model-edit-cluster-attribute-notes-label": "Notes",
+
+  "model-edit-machine-list-label": "Machines",
+
+  "model-edit-server-list-label": "Servers",
+  "model-edit-server-table-empty-message": "No servers specified",
+  "model-edit-server-table-aria-label": "Model Servers Table",
+  "model-edit-server-table-add-tooltip": "Add Server",
+  "model-edit-server-table-delete-tooltip": "Delete Server",
+
+  "model-edit-server-attribute-defaultIiopUser-label": "Default IIOP User",
+  "model-edit-server-attribute-defaultIiopUser-help": "Default IIOP user for this server",
+  "model-edit-server-attribute-name-label": "Name",
+  "model-edit-server-attribute-cluster-label": "Cluster",
+  "model-edit-server-attribute-cluster-help": "Cluster for this server",
+  "model-edit-server-attribute-listenPort-label": "Listen Port",
+  "model-edit-server-attribute-listenPort-help": "Listen port for this server",
+  "model-edit-server-attribute-port-label": "Port",
+  "model-edit-server-attribute-notes-label": "Notes",
+  "model-edit-server-attribute-notes-help": "Notes for this server",
+
+  "model-edit-server-attribute-ssl-enabled-label": "SSL Enabled",
+  "model-edit-server-attribute-ssl-enabled-help": "SSL enabled for this server",
+  "model-edit-server-attribute-ssl-listenPort-label": "SSL Listen Port",
+  "model-edit-server-attribute-ssl-listenPort-help": "SSL listen port for this server",
 
   "model-page-design-view-search-label": "Search Model",
   "model-page-design-view-search-tooltip": "Search Model",

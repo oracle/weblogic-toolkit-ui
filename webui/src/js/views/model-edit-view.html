@@ -3,8 +3,7 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 
-<!-- Template for rendering navigation items shared between nav bar and nav list -->
-<script type="text/html" id="navTemplate">
+<script type="text/html" id="editNavTemplate">
   <li :class="[[{'oj-disabled' : $data.disabled}]]">
     <a href="#">
       <span :class="[['oj-navigationlist-item-icon ' + $data.icon]]"></span>
@@ -21,26 +20,13 @@
     <oj-navigation-list :aria-label="[[labelMapper('aria-label')]]"
                         class=""
                         data="[[navDataProvider]]"
-                        q-display="[[navDisplay]]"
-                        q-drill-mode="[[navDrillMode]]"
-                        item.renderer="[[KnockoutTemplateUtils.getRenderer('navTemplate', true)]]"
-                        selection="{{selection}}">
+                        item.renderer="[[KnockoutTemplateUtils.getRenderer('editNavTemplate', true)]]"
+                        selection="{{navSelection}}">
     </oj-navigation-list>
   </div>
 
   <div class="wkt-right-pane">
     <oj-module role="main" class="wkt-content" config="[[editPage]]">
     </oj-module>
-
-    <!--
-    <oj-module role="main" id="wktMainPane" class="wkt-main-pane" config="[[moduleAdapter.koObservableConfig]]">
-    </oj-module>
-
-    <oj-collapsible class="wkt-console-section" expanded='{{wktConsole.show}}'>
-      <span class="wkt-console-header" slot='header'><oj-bind-text value="{{consoleLabel}}"></oj-bind-text></span>
-      <div id="wkt-console-content" class="wkt-console-content">
-      </div>
-    </oj-collapsible>
-    -->
   </div>
 </div>

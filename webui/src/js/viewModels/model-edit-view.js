@@ -5,23 +5,35 @@
  */
 'use strict';
 
-define(['accUtils', 'utils/i18n', 'knockout', 'js-yaml', 'models/wkt-project', 'utils/wkt-logger',
+define(['accUtils', 'utils/i18n', 'knockout', 'js-yaml', 'models/wkt-project',
+  'utils/modelEdit/model-edit-helper', 'utils/wkt-logger',
   'ojs/ojarraytreedataprovider', 'ojs/ojknockouttemplateutils', 'ojs/ojmodule-element-utils'],
-function(accUtils, i18n, ko, jsYaml, project, wktLogger,
+function(accUtils, i18n, ko, jsYaml, project, ModelEditHelper, wktLogger,
   ArrayTreeDataProvider, KnockoutTemplateUtils, moduleElementUtils) {
 
   function ModelEditViewModel(args) {
     this.i18n = i18n;
     this.KnockoutTemplateUtils = KnockoutTemplateUtils;
 
+    const subscriptions = [];
+
     this.connected = () => {
       accUtils.announce('Model Edit Page loaded.', 'assertive');
 
       this.updateFromModel();
-      project.wdtModel.modelContentChanged.subscribe(() => {
-        wktLogger.debug('MODEL EDIT: modelContentChanged event');
-
+      subscriptions.push(project.wdtModel.modelContentChanged.subscribe(() => {
         this.updateFromModel();
+      }));
+
+      this.updateView();
+      subscriptions.push(this.navSelection.subscribe(() => {
+        this.updateView();
+      }));
+    };
+
+    this.disconnected = () => {
+      subscriptions.forEach((subscription) => {
+        subscription.dispose();
       });
     };
 
@@ -29,73 +41,74 @@ function(accUtils, i18n, ko, jsYaml, project, wktLogger,
       return i18n.t(`model-edit-${labelId}`, payload);
     };
 
-    this.updateFromModel = () => {
-      wktLogger.debug('MEV: updateFromModel');
-
-      const modelText = project.wdtModel.modelContent();
-
-      const modelObject = jsYaml.load(modelText, {});
-
-      wktLogger.debug('  YAML: ' + JSON.stringify(modelObject));
-
-      this.servers.removeAll();
-      this.clusters.removeAll();
-
-      if(modelObject) {
-        const modelTopology = modelObject['topology'];
-
-        this.updateFolderFromModel(modelTopology, 'Server', this.servers, 'server');
-        this.updateFolderFromModel(modelTopology, 'Cluster', this.clusters, 'cluster');
-
-        // const modelServers = modelTopology['Server'];
-        // Object.keys(modelServers).forEach((name, index) => {
-        //   console.log(' SERVER: ' + name);
-        //
-        //   this.servers.push({
-        //     name: name,
-        //     id: 'server-' + index,
-        //     page: 'server',
-        //     icon: 'oj-ux-ico-page-template'
-        //   });
-        // });
-      }
-    };
-
-    this.updateFolderFromModel = (parentFolder, folderName, folderList, page) => {
-      const modelFolders = parentFolder[folderName];
-      Object.keys(modelFolders).forEach((name, index) => {
-        console.log(' ' + folderName + ': ' + name);
-
-        const fields = modelFolders[name];
-
-        folderList.push({
-          name: name,
-          id: page + '-' + index,
-          page: page,
-          icon: 'oj-ux-ico-page-template',
-          fields: fields
-        });
-      });
-
-    };
+    this.navSelection = ModelEditHelper.navSelection;
+    this.modelObject = {};
 
     this.servers = ko.observableArray();
     this.clusters = ko.observableArray();
 
+    this.updateFromModel = () => {
+      const modelText = project.wdtModel.modelContent();
+      this.modelObject = jsYaml.load(modelText, {});
+      this.modelObject = this.modelObject || {};
+
+      if(this.modelObject) {
+        this.updateFolderFromModel(this.modelObject, 'topology/Server', this.servers, 'server');
+        this.updateFolderFromModel(this.modelObject, 'topology/Cluster', this.clusters, 'cluster');
+      }
+    };
+
+    // take extra care to leave current existing entries alone
+    this.updateFolderFromModel = (modelObject, path, folderList, page) => {
+      const folderKeys = [];
+      folderList().forEach(folder => folderKeys.push(folder.name));
+
+      // add model folders that aren't in navigation
+      const modelKeys = [];
+      const modelFolder = ModelEditHelper.getFolder(modelObject, path);
+      Object.keys(modelFolder).forEach((name) => {
+        if(!folderKeys.includes(name)) {
+          folderList.push({
+            name: name,
+            id: page + '-' + name,
+            page: page,
+            icon: 'oj-ux-ico-page-template'
+          });
+        }
+        modelKeys.push(name);
+      });
+
+      // remove navigation folders that aren't in model
+      const folderListCopy = [...folderList()];  // prevent concurrent modification
+      folderListCopy.forEach(folder => {
+        const folderName = folder.name;
+        if(!modelKeys.includes(folderName)) {
+          const index = folderList.indexOf(folder);
+          folderList.splice(index, 1);
+        }
+      });
+
+      // needed to prevent duplicate entries from displaying
+      folderList.sort(function(a, b) {
+        return (a.name < b.name) ? -1 : ((a.name > b.name) ? 1 : 0);
+      });
+    };
+
     this.navData = ko.observableArray([
       {
-        name: this.labelMapper('servers-label'),
+        name: this.labelMapper('server-list-label'),
         id: 'servers-id',
         icon: 'oj-ux-ico-settings',
         page: 'servers',
         children: this.servers
       },
-      { name: this.labelMapper('clusters-label'),
+      { name: this.labelMapper('cluster-list-label'),
         id: 'clusters-id',
         icon: 'oj-ux-ico-model-change-mgmt',
+        page: 'clusters',
         children: this.clusters
       },
-      { name: this.labelMapper('machines-label'),
+      { name: this.labelMapper('machine-list-label'),
         id: 'machines-id',
         icon: 'oj-ux-ico-page-template',
         disabled: ko.computed(() => {
@@ -108,33 +121,34 @@ function(accUtils, i18n, ko, jsYaml, project, wktLogger,
       keyAttributes: 'id'
     });
 
-    this.selection = ko.observable();
-    this.editPage = ko.observable();
+    this.editPage = ko.observable(moduleElementUtils.createConfig({ name: 'empty-view' }));
 
-    this.updateView = async() => {
-      const selectedKey = this.selection();
+    this.updateView = () => {
+      const selectedKey = this.navSelection();
 
       if(selectedKey) {
-        const result = await this.navDataProvider.fetchByKeys({keys: [selectedKey]});
-        const entry = result.results.get(selectedKey).data;
-        const viewName = entry.page ? `modelEdit/${entry.page}` : 'empty-view';
+        this.navDataProvider.fetchByKeys({keys: [selectedKey]}).then(result => {
+          const keyResult = result.results.get(selectedKey);
+          console.log('key result: ' + selectedKey + ' ' + keyResult);
+          if (keyResult) {
+            const entry = keyResult.data;
+            const viewName = entry.page ? `modelEdit/${entry.page}` : 'empty-view';
 
-        this.editPage(
-          moduleElementUtils.createConfig({
-            name: viewName,
-            params: { name: entry.name, fields: entry.fields }
-          })
-        );
+            this.editPage(
+              moduleElementUtils.createConfig({
+                name: viewName,
+                params: {name: entry.name, modelObject: this.modelObject}
+              })
+            );
+          } else {
+            this.editPage(moduleElementUtils.createConfig({ name: 'empty-view' }));
+          }
+        });
 
       } else {
         this.editPage(moduleElementUtils.createConfig({ name: 'empty-view' }));
       }
     };
-
-    this.updateView();
-    this.selection.subscribe(() => {
-      this.updateView();
-    });
   }
 
   return ModelEditViewModel;

@@ -1,0 +1,46 @@
+<!--
+ Copyright (c) 2024, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
+ -->
+
+<oj-table id="elements-table"
+          class="wkt-model-edit-list-table"
+          :aria-label="[[labelMapper('table-aria-label')]]"
+          data="[[elementsProvider]]"
+          display="grid"
+          horizontal-grid-visible="enabled"
+          vertical-grid-visible="enabled"
+          layout="fixed"
+          columns="[[elementsColumnData]]">
+  <template slot="rowTemplate" data-oj-as="row">
+    <tr>
+      <td><oj-bind-text value="[[row.data.name]]"></oj-bind-text></td>
+      <oj-bind-for-each data="[[attributes]]">
+        <template data-oj-as="eachAttribute">
+          <td><oj-bind-text value="[[row.data[eachAttribute.data]]]"></oj-bind-text></td>
+        </template>
+      </oj-bind-for-each>
+      <td>
+        <oj-button display="icons"
+                   chroming="borderless"
+                   on-oj-action="[[deleteElement]]">
+          <span slot="endIcon" class="oj-ux-ico-trash"></span>
+          <oj-bind-text value="[[labelMapper('table-delete-tooltip')]]"></oj-bind-text>
+        </oj-button>
+      </td>
+    </tr>
+  </template>
+  <template slot="addHeaderTemplate" data-oj-as="header">
+    <oj-button display="icons"
+               chroming="borderless"
+               on-oj-action="[[addElement]]">
+      <span slot="endIcon" class="oj-ux-ico-plus"></span>
+      <oj-bind-text value="[[labelMapper('table-add-tooltip')]]"></oj-bind-text>
+    </oj-button>
+  </template>
+  <template slot="noData">
+    <div class="oj-table-body-message">
+      <oj-bind-text value="[[labelMapper('table-empty-message')]]"></oj-bind-text>
+    </div>
+  </template>
+</oj-table>

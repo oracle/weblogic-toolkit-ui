@@ -5,18 +5,47 @@
  */
 'use strict';
 
-define(['accUtils', 'utils/i18n'], function(accUtils, i18n) {
-  function ServersEditViewModel(args) {
+define(['accUtils', 'utils/i18n', 'knockout', 'utils/modelEdit/model-edit-helper', 'ojs/ojmodule-element-utils'
+],
+function(accUtils, i18n, ko, ModelEditHelper, ModuleElementUtils) {
+
+  function ServersEditViewModel() {
     this.i18n = i18n;
-    this.pageNumber = args['pageNumber'];
-    this.wrcFrontendCompatibilityVersion = args['wrcFrontendCompatibilityVersion'];
+
+    const SERVERS_PATH = 'topology/Server';
 
     this.connected = () => {
-      accUtils.announce(`Quickstart Page ${this.pageNumber} loaded.`, 'assertive');
+      accUtils.announce('Servers page loaded.', 'assertive');
     };
 
     this.labelMapper = (labelId, payload) => {
-      return i18n.t(`quickstart-page${this.pageNumber}-${labelId}`, payload);
+      return i18n.t(`model-edit-server-${labelId}`, payload);
+    };
+
+    const getSslListenPort = (modelFolder) => {
+      const sslFolder = ModelEditHelper.getFolder(modelFolder, 'SSL');
+      return sslFolder['ListenPort'];
+    };
+
+    this.getElementsModuleConfig = () => {
+      return ModuleElementUtils.createConfig({
+        name: 'modelEdit/elements-table',
+        params: {
+          key: 'server',
+          path: SERVERS_PATH,
+          attributes: {
+            cluster: {
+              key: 'Cluster'
+            },
+            listenPort: {
+              key: 'ListenPort',
+            },
+            'ssl-listenPort': {
+              getter: getSslListenPort
+            }
+          }
+        }
+      });
     };
   }
 
