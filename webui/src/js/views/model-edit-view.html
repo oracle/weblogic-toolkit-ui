@@ -13,12 +13,12 @@
 </script>
 
 <div id="wkt-container" class="oj-sm-flex-wrap-nowrap oj-flex">
-  <div id="navlistcontainer"
-       class="wkt-model-edit-nav-container"
+  <div id="wkt-model-editor-nav-container"
+       class="wkt-model-editor-nav-container"
        q-class="[[{collapsed : navCollapsed}]]"
   >
     <oj-navigation-list :aria-label="[[labelMapper('aria-label')]]"
-                        class=""
+                        class="wkt-model-editor-nav-list"
                         data="[[navDataProvider]]"
                         drill-mode="collapsible"
                         expanded="{{navExpanded}}"

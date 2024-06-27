@@ -203,7 +203,9 @@
 
 /* container for model code or design content */
 .wkt-model-edit-content {
-  height: 100%;
+  display: flex;
+  flex: 1 1 100%;
+  /*height: 100%;*/
   width: 100%;
   overflow: auto;
   /*padding-top: 10px;*/
@@ -811,6 +813,20 @@ h6.wkt-panel-heading {
 
 /* model edit */
 
-.wkt-model-edit-nav-container {
+.wkt-model-editor-nav-container {
   background-color: rgb(220, 214, 209);
+  min-width: 280px;
+  max-width: 500px;
+}
+
+.wkt-model-editor-nav-list .oj-navigationlist-item {
+  padding-left: 5px !important;
+}
+
+.wkt-model-editor-nav-list .oj-navigationlist-depth-1 .oj-navigationlist-item-content {
+  padding-left: 1em !important;
+}
+
+.wkt-model-editor-nav-list .oj-navigationlist-depth-2 .oj-navigationlist-item-content {
+  padding-left: 2em !important;
 }

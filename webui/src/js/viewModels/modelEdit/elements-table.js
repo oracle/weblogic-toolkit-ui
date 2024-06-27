@@ -106,6 +106,7 @@ function(accUtils, i18n, ko, project, ModelEditHelper, ViewHelper, ArrayDataProv
     };
 
     this.navigateToElement = (event, context) => {
+      ModelEditHelper.openNavigation('folder-' + ELEMENTS_KEY);
       ModelEditHelper.navigateToElement(ELEMENTS_KEY, context.item.data.name);
     };
   }

@@ -132,19 +132,19 @@ function(accUtils, i18n, ko, project, ModelEditHelper, wktLogger,
         children: [
           {
             name: this.labelMapper('server-list-label'),
-            id: 'servers-id',
+            id: 'folder-server',  // folder-<key>
             icon: 'oj-ux-ico-list',
             page: 'servers',
             children: this.servers
           },
           { name: this.labelMapper('cluster-list-label'),
-            id: 'clusters-id',
+            id: 'folder-cluster',
             icon: 'oj-ux-ico-list',
             page: 'clusters',
             children: this.clusters
           },
           { name: this.labelMapper('machine-list-label'),
-            id: 'machines-id',
+            id: 'folder-machine',
             icon: 'oj-ux-ico-list',
             disabled: ko.computed(() => {
               return true;

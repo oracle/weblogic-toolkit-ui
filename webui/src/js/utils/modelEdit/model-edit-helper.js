@@ -86,6 +86,11 @@ define(['knockout', 'js-yaml', 'models/wkt-project'],
         this.navSelection(navigationKey);
       };
 
+      this.openNavigation = (key) => {
+        const keySet = this.navExpanded();
+        this.navExpanded(keySet.add([key]));
+      };
+
       // internal functions
 
       function parseModel() {
