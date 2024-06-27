@@ -23,7 +23,7 @@ function(accUtils, i18n, ko, ModelEditHelper, ModuleElementUtils) {
     };
 
     const getSslListenPort = (modelFolder) => {
-      const sslFolder = ModelEditHelper.getFolder(modelFolder, 'SSL');
+      const sslFolder = ModelEditHelper.getChildFolder(modelFolder, 'SSL');
       return sslFolder['ListenPort'];
     };
 

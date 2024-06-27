@@ -7,7 +7,7 @@
 
 define(['accUtils', 'utils/i18n', 'knockout', 'models/wkt-project', 'utils/modelEdit/model-edit-helper',
   'utils/view-helper', 'ojs/ojarraydataprovider',
-  'ojs/ojtable'
+  'ojs/ojtable', 'oj-c/labelled-link'
 ],
 function(accUtils, i18n, ko, project, ModelEditHelper, ViewHelper, ArrayDataProvider) {
   function ElementsTableViewModel(args) {
@@ -44,8 +44,7 @@ function(accUtils, i18n, ko, project, ModelEditHelper, ViewHelper, ArrayDataProv
 
     this.updateFromModel = () => {
       this.elements.removeAll();
-      const modelObject = ModelEditHelper.getCurrentModel();
-      const elementsFolder = ModelEditHelper.getFolder(modelObject, ELEMENTS_PATH);
+      const elementsFolder = ModelEditHelper.getFolder(ELEMENTS_PATH);
       for (const [key, value] of Object.entries(elementsFolder)) {
         const element = {
           uid: key,
@@ -53,13 +52,13 @@ function(accUtils, i18n, ko, project, ModelEditHelper, ViewHelper, ArrayDataProv
         };
         for (const [attKey, attValue] of Object.entries(ATTRIBUTES)) {
           const attributeKey = attValue['key'];
-          const modelFolder = value || {};
+          const modelElementFolder = value || {};
 
           const getter = attValue.getter;
           if(getter) {
-            element[attKey] = getter(modelFolder);
+            element[attKey] = getter(modelElementFolder);
           } else {
-            element[attKey] = modelFolder[attributeKey];
+            element[attKey] = modelElementFolder[attributeKey];
           }
         }
         this.elements.push(element);
@@ -97,17 +96,17 @@ function(accUtils, i18n, ko, project, ModelEditHelper, ViewHelper, ArrayDataProv
       { keyAttributes: 'uid', sortComparators: elementComparators });
 
     this.addElement = () => {
-      const modelObject = ModelEditHelper.getCurrentModel();
-      ModelEditHelper.addElement(ELEMENTS_PATH, modelObject);
+      const newName = 'NewElement';
+      ModelEditHelper.addElement(ELEMENTS_PATH, newName);
     };
 
     this.deleteElement = (event, context) => {
-      const modelObject = ModelEditHelper.getCurrentModel();
-      const elementsFolder = ModelEditHelper.getFolder(modelObject, ELEMENTS_PATH);
       const key = context.item.data.name;
+      ModelEditHelper.deleteElement(ELEMENTS_PATH, key);
+    };
 
-      delete elementsFolder[key];
-      ModelEditHelper.saveModel(modelObject);
+    this.navigateToElement = (event, context) => {
+      ModelEditHelper.navigateToElement(ELEMENTS_KEY, context.item.data.name);
     };
   }
 

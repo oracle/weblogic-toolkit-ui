@@ -8,47 +8,62 @@
 define(['knockout', 'js-yaml', 'models/wkt-project'],
   function (ko, jsYaml, project) {
     function ModelEditHelper() {
-      this.navSelection = ko.observable();
+      // parse, write, and maintain the model object structure.
+      // maintain and update the navigation state.
+      // provide convenience methods.
 
-      this.createVariables = (fields, modelObject, subscriptions) => {
+      let modelObject = {};
+
+      parseModel();
+      project.wdtModel.modelContentChanged.subscribe(() => {
+        parseModel();
+      });
+
+      this.navSelection = ko.observable();
+      this.navExpanded = ko.observable();
+
+      this.createVariables = (fields, subscriptions) => {
         const variables = {};
         fields.forEach((field) => {
-          const modelValue = this.getValue(modelObject, field.path, field.attribute);
+          const modelValue = this.getValue(field.path, field.attribute);
           variables[field.key] = ko.observable(modelValue);
 
           subscriptions.push(variables[field.key].subscribe((newValue) => {
             const folder = findOrCreatePath(modelObject, field.path);
             folder[field.attribute] = newValue;
-
-            project.wdtModel.modelContent(jsYaml.dump(modelObject, {}));
+            this.writeModel();
           }));
         });
         return variables;
       };
 
       this.getCurrentModel = () => {
-        const modelText = project.wdtModel.modelContent();
-        let modelObject = jsYaml.load(modelText, {});
-        modelObject = modelObject || {};
         return modelObject;
       };
 
-      this.saveModel = (modelObject) => {
+      this.writeModel = () => {
         project.wdtModel.modelContent(jsYaml.dump(modelObject, {}));
       };
 
-      this.getFolderNames = (path, modelObject) => {
-        const folder = this.getFolder(modelObject, path);
-        return Object.keys(folder);
-      };
-
-      this.addElement = (path, modelObject) => {
+      this.addElement = (path, key) => {
         const folder = findOrCreatePath(modelObject, path);
-        folder['NewName'] = {};
-        project.wdtModel.modelContent(jsYaml.dump(modelObject, {}));
+        const newElement = {};
+        folder[key] = newElement;
+        this.writeModel();
+        return newElement;
       };
 
-      this.getFolder = (parent, path) => {
+      this.deleteElement = (elementsPath, key) => {
+        const elementsFolder = this.getFolder(elementsPath);
+        delete elementsFolder[key];
+        this.writeModel();
+      };
+
+      this.getFolder = (path) => {
+        return this.getChildFolder(modelObject, path);
+      };
+
+      this.getChildFolder = (parent, path) => {
         const names = path.split('/');
         let folder = parent;
         names.forEach(name => {
@@ -61,10 +76,23 @@ define(['knockout', 'js-yaml', 'models/wkt-project'],
         return folder;
       };
 
-      this.getValue = (parent, path, attribute) => {
-        const folder = this.getFolder(parent, path);
+      this.getValue = (path, attribute) => {
+        const folder = this.getFolder(path);
         return folder[attribute];
       };
+
+      this.navigateToElement = (elementKey, name) => {
+        const navigationKey = elementKey + '-' + name;
+        this.navSelection(navigationKey);
+      };
+
+      // internal functions
+
+      function parseModel() {
+        const modelText = project.wdtModel.modelContent();
+        modelObject = jsYaml.load(modelText, {});
+        modelObject = modelObject || {};
+      }
 
       function findOrCreatePath(parent, path) {
         const names = path.split('/');

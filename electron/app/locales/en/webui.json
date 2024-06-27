@@ -1341,6 +1341,14 @@
   "model-edit-view": "Edit View",
   "model-edit-aria-label": "model-edit-aria-label",
 
+  "model-edit-domain-info-nav-label": "Domain Info",
+  "model-edit-topology-nav-label": "Topology",
+  "model-edit-opss-initialization-label": "OPSS Initialization",
+  "model-edit-rcu-db-info-label": "RCU Database Info",
+  "model-edit-wls-policies-label": "WLS Policies",
+  "model-edit-wls-roles-label": "WLS Roles",
+  "model-edit-wls-credential-mapping-label": "WLS Credential Mapping",
+
   "model-edit-cluster-list-label": "Clusters",
   "model-edit-cluster-table-empty-message": "No clusters specified",
   "model-edit-cluster-table-aria-label": "Model Clusters Table",

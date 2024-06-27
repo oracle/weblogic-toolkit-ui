@@ -5,10 +5,10 @@
  */
 'use strict';
 
-define(['accUtils', 'utils/i18n', 'knockout', 'js-yaml', 'models/wkt-project', 'utils/modelEdit/model-edit-helper',
+define(['accUtils', 'utils/i18n', 'knockout', 'models/wkt-project', 'utils/modelEdit/model-edit-helper',
   'oj-c/input-text'
 ],
-function(accUtils, i18n, ko, jsYaml, project, ModelEditHelper) {
+function(accUtils, i18n, ko, project, ModelEditHelper) {
   function ServerEditViewModel(args) {
     this.i18n = i18n;
     this.name = args.name;
@@ -66,7 +66,7 @@ function(accUtils, i18n, ko, jsYaml, project, ModelEditHelper) {
       }
     ];
 
-    this.att = ModelEditHelper.createVariables(fields, this.modelObject, subscriptions);
+    this.att = ModelEditHelper.createVariables(fields, subscriptions);
   }
 
   return ServerEditViewModel;

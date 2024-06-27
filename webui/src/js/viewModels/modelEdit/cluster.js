@@ -50,7 +50,7 @@ function(accUtils, i18n, ModelEditHelper) {
       }
     ];
 
-    this.att = ModelEditHelper.createVariables(fields, this.modelObject, subscriptions);
+    this.att = ModelEditHelper.createVariables(fields, subscriptions);
   }
 
   return ClusterEditViewModel;
