@@ -1,11 +1,11 @@
 +++
-title = "Release Notes"
+title = "Release 1.7.0"
 date = 2022-11-03T12:48:00-05:00
 weight = 87
 pre = "<b> </b>"
 +++
 
-### Changes in Release 1.7.1
+### Changes in Release 1.7.0
 - [Major New Features](#major-new-features)
 - [Other Changes](#other-changes)
 - [Bugs Fixes](#bug-fixes)
@@ -15,11 +15,10 @@ pre = "<b> </b>"
 None
 
 #### Other Changes
-- #297 - Removed the default value for the WebLogic Kubernetes Operator image tag so that the default image 
-  specified by the Helm chart is used.
+- #294 - Updated application to be compatible with WebLogic Deploy Tooling 4.x.
 
 #### Bug Fixes
-- #296 - Changed the API Group for traefik to be compatible with Traefik 3.0 
+None
 
 #### Known Issues
 - On Mac, the embedded version of WDT 4.1.0 does not include the jansi-2.4.1 JAR file that WDT's interactive Model Help
