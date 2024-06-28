@@ -12,11 +12,17 @@ define(['knockout', 'js-yaml', 'models/wkt-project'],
       // maintain and update the navigation state.
       // provide convenience methods.
 
-      let modelObject = {};
+      this.modelObject = ko.observable();
 
-      parseModel();
+      this.parseModel = () => {
+        const modelText = project.wdtModel.modelContent();
+        const modelObject = jsYaml.load(modelText, {});
+        this.modelObject(modelObject || {});
+      };
+
+      this.parseModel();
       project.wdtModel.modelContentChanged.subscribe(() => {
-        parseModel();
+        this.parseModel();
       });
 
       this.navSelection = ko.observable();
@@ -29,7 +35,7 @@ define(['knockout', 'js-yaml', 'models/wkt-project'],
           variables[field.key] = ko.observable(modelValue);
 
           subscriptions.push(variables[field.key].subscribe((newValue) => {
-            const folder = findOrCreatePath(modelObject, field.path);
+            const folder = findOrCreatePath(this.getCurrentModel(), field.path);
             folder[field.attribute] = newValue;
             this.writeModel();
           }));
@@ -38,15 +44,15 @@ define(['knockout', 'js-yaml', 'models/wkt-project'],
       };
 
       this.getCurrentModel = () => {
-        return modelObject;
+        return this.modelObject();
       };
 
       this.writeModel = () => {
-        project.wdtModel.modelContent(jsYaml.dump(modelObject, {}));
+        project.wdtModel.modelContent(jsYaml.dump(this.getCurrentModel(), {}));
       };
 
       this.addElement = (path, key) => {
-        const folder = findOrCreatePath(modelObject, path);
+        const folder = findOrCreatePath(this.getCurrentModel(), path);
         const newElement = {};
         folder[key] = newElement;
         this.writeModel();
@@ -60,7 +66,7 @@ define(['knockout', 'js-yaml', 'models/wkt-project'],
       };
 
       this.getFolder = (path) => {
-        return this.getChildFolder(modelObject, path);
+        return this.getChildFolder(this.getCurrentModel(), path);
       };
 
       this.getChildFolder = (parent, path) => {
@@ -92,12 +98,6 @@ define(['knockout', 'js-yaml', 'models/wkt-project'],
       };
 
       // internal functions
-
-      function parseModel() {
-        const modelText = project.wdtModel.modelContent();
-        modelObject = jsYaml.load(modelText, {});
-        modelObject = modelObject || {};
-      }
 
       function findOrCreatePath(parent, path) {
         const names = path.split('/');

@@ -5,11 +5,11 @@
  */
 'use strict';
 
-define(['accUtils', 'utils/i18n', 'knockout', 'models/wkt-project', 'utils/modelEdit/model-edit-helper',
+define(['accUtils', 'utils/i18n', 'knockout', 'utils/modelEdit/model-edit-helper',
   'utils/view-helper', 'ojs/ojarraydataprovider',
   'ojs/ojtable', 'oj-c/labelled-link'
 ],
-function(accUtils, i18n, ko, project, ModelEditHelper, ViewHelper, ArrayDataProvider) {
+function(accUtils, i18n, ko, ModelEditHelper, ViewHelper, ArrayDataProvider) {
   function ElementsTableViewModel(args) {
     this.i18n = i18n;
 
@@ -23,7 +23,7 @@ function(accUtils, i18n, ko, project, ModelEditHelper, ViewHelper, ArrayDataProv
       accUtils.announce('Servers page loaded.', 'assertive');
 
       this.updateFromModel();
-      subscriptions.push(project.wdtModel.modelContentChanged.subscribe(() => {
+      subscriptions.push(ModelEditHelper.modelObject.subscribe(() => {
         this.updateFromModel();
       }));
     };

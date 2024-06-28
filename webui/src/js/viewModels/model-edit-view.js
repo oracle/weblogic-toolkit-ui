@@ -5,13 +5,12 @@
  */
 'use strict';
 
-define(['accUtils', 'utils/i18n', 'knockout', 'models/wkt-project',
-  'utils/modelEdit/model-edit-helper', 'utils/wkt-logger',
+define(['accUtils', 'utils/i18n', 'knockout', 'utils/modelEdit/model-edit-helper', 'utils/wkt-logger',
   'ojs/ojarraytreedataprovider', 'ojs/ojknockouttemplateutils', 'ojs/ojmodule-element-utils'],
-function(accUtils, i18n, ko, project, ModelEditHelper, wktLogger,
+function(accUtils, i18n, ko, ModelEditHelper, wktLogger,
   ArrayTreeDataProvider, KnockoutTemplateUtils, moduleElementUtils) {
 
-  function ModelEditViewModel(args) {
+  function ModelEditViewModel() {
     this.i18n = i18n;
     this.KnockoutTemplateUtils = KnockoutTemplateUtils;
 
@@ -21,7 +20,7 @@ function(accUtils, i18n, ko, project, ModelEditHelper, wktLogger,
       accUtils.announce('Model Edit Page loaded.', 'assertive');
 
       this.updateFromModel();
-      subscriptions.push(project.wdtModel.modelContentChanged.subscribe(() => {
+      subscriptions.push(ModelEditHelper.modelObject.subscribe(() => {
         this.updateFromModel();
       }));
 
