@@ -8,6 +8,17 @@
     <language>en-us</language>
     <lastBuildDate>Thu, 03 Nov 2022 12:48:00 -0500</lastBuildDate><atom:link href="https://oracle.github.io/weblogic-toolkit-ui/release/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Release 1.7.0</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.7.0/</link>
+      <pubDate>Thu, 03 Nov 2022 12:48:00 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.7.0/</guid>
+      <description>Changes in Release 1.7.0  Major New Features Other Changes Bugs Fixes Known Issues  Major New Features None
+Other Changes  #294 - Updated application to be compatible with WebLogic Deploy Tooling 4.x.  Bug Fixes None
+Known Issues  On Mac, the embedded version of WDT 4.1.0 does not include the jansi-2.4.1 JAR file that WDT&amp;rsquo;s interactive Model Help tool requires due to an Apple requirement to sign the native code inside this third-party JAR file.</description>
+    </item>
+    
+    <item>
       <title>Release 1.6.2</title>
       <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.6.2/</link>
       <pubDate>Thu, 03 Nov 2022 12:48:00 -0500</pubDate>

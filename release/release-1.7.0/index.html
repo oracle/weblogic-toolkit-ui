@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/weblogic-toolkit-ui/images/favicon.png" type="image/png">
 
-    <title>Release 1.5.3 :: WebLogic Kubernetes Toolkit UI</title>
+    <title>Release 1.7.0 :: WebLogic Kubernetes Toolkit UI</title>
 
     
     <link href="/weblogic-toolkit-ui/css/nucleus.css?1719591526" rel="stylesheet">
@@ -39,7 +39,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/weblogic-toolkit-ui/release/release-1.5.3/">
+  <body class="" data-url="/weblogic-toolkit-ui/release/release-1.7.0/">
     <nav id="sidebar" class="">
 
 
@@ -1135,7 +1135,7 @@
  
   
     
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.7.0/" title="Release 1.7.0" class="dd-item ">
+      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.7.0/" title="Release 1.7.0" class="dd-item active">
         <a href="/weblogic-toolkit-ui/release/release-1.7.0/">
         <b> </b>Release 1.7.0
         
@@ -1219,7 +1219,7 @@
  
   
     
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.5.3/" title="Release 1.5.3" class="dd-item active">
+      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.5.3/" title="Release 1.5.3" class="dd-item ">
         <a href="/weblogic-toolkit-ui/release/release-1.5.3/">
         <b> </b>Release 1.5.3
         
@@ -1500,7 +1500,7 @@
             
           
           
-            <a href='/weblogic-toolkit-ui/'></a> > <a href='/weblogic-toolkit-ui/release/'>Release Notes</a> > Release 1.5.3
+            <a href='/weblogic-toolkit-ui/'></a> > <a href='/weblogic-toolkit-ui/release/'>Release Notes</a> > Release 1.7.0
           
         
           
@@ -1517,7 +1517,7 @@
   <ul>
     <li>
       <ul>
-        <li><a href="#changes-in-release-153">Changes in Release 1.5.3</a></li>
+        <li><a href="#changes-in-release-170">Changes in Release 1.7.0</a></li>
       </ul>
     </li>
   </ul>
@@ -1537,14 +1537,14 @@
           
             <h1>
               
-              Release 1.5.3
+              Release 1.7.0
             </h1>
           
 
         
 
 
-<h3 id="changes-in-release-153">Changes in Release 1.5.3</h3>
+<h3 id="changes-in-release-170">Changes in Release 1.7.0</h3>
 <ul>
 <li><a href="#major-new-features">Major New Features</a></li>
 <li><a href="#other-changes">Other Changes</a></li>
@@ -1555,28 +1555,23 @@
 <p>None</p>
 <h4 id="other-changes">Other Changes</h4>
 <ul>
-<li>#242 - Added initial (very minimal) internationalization support bundles.</li>
-<li>#245 - Added an Ingress Controller Service Type field that can be used when installing an ingress controller to
-a Kubernetes cluster without a load balancer.</li>
+<li>#294 - Updated application to be compatible with WebLogic Deploy Tooling 4.x.</li>
 </ul>
 <h4 id="bug-fixes">Bug Fixes</h4>
-<ul>
-<li>#241 - Fixed a bug with the WebLogic Image Tool&rsquo;s <code>--wdtHome</code> argument when it ended with <code>weblogic-deploy</code>.</li>
-<li>#246 - Worked around a WebLogic Kubernetes Operator issue where the <code>javaLoggingFileSizeLimit</code> value was not working
-due to <a href="https://github.com/helm/helm/issues/1707">Helm issue 1707</a>.</li>
-<li>#247 - Fixed issue with Open Project when storing the credentials in the project and entering the wrong passphrase
-that was causing the UI to not allow re-opening the project.</li>
-</ul>
+<p>None</p>
 <h4 id="known-issues">Known Issues</h4>
 <ul>
-<li>In the Model Design View when creating an App Deployment or Shared Library, changing the <code>Source</code> field back to an empty value
-results in a bogus error message about not removing the deployment from the archive file.  This error is harmless so simply
-dismiss the error dialog and continue.</li>
+<li>On Mac, the embedded version of WDT 4.1.0 does not include the jansi-2.4.1 JAR file that WDT&rsquo;s interactive Model Help
+tool requires due to an Apple requirement to sign the native code inside this third-party JAR file. User&rsquo;s can either
+install their own version of WDT or copy the jar file from another install if they really need to use it from the
+embedded location.</li>
 <li>On Linux, the open and save dialogs open behind the main application window.  This is due to
 <a href="https://github.com/electron/electron/issues/32857">Electron bug 32857</a>.</li>
 <li>When deploying a Verrazzano application, the <code>Get Application Status</code> button only checks the status of the project&rsquo;s
 Verrazzano component containing the WebLogic domain specification.</li>
 <li>Verrazzano installation does not support a multicluster installation.</li>
+<li>Verrazzano Application components Ingress Trait Rules table&rsquo;s URL column does not properly account for multicluster
+applications.  The Update URL button will only get information from the admin (i.e., <code>local</code>) cluster.</li>
 </ul>
 
 
@@ -2310,6 +2305,23 @@ Verrazzano component containing the WebLogic domain specification.</li>
             
                 
                     
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
                         
                         
                     
@@ -2376,26 +2388,6 @@ Verrazzano component containing the WebLogic domain specification.</li>
             
             
                 
-                    
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
                     
                 
                 
@@ -2564,10 +2556,10 @@ Verrazzano component containing the WebLogic domain specification.</li>
 	 
 	 
 		
-			<a class="nav nav-prev" href="/weblogic-toolkit-ui/release/release-1.6.1/" title="Release 1.6.1"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/weblogic-toolkit-ui/release/" title="Release Notes"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/weblogic-toolkit-ui/release/release-1.6.0/" title="Release Notes 1.6.0" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/weblogic-toolkit-ui/release/release-1.6.2/" title="Release 1.6.2" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
