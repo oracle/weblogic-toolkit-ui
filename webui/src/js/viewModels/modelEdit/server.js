@@ -12,7 +12,6 @@ function(accUtils, i18n, ko, ModelEditHelper) {
   function ServerEditViewModel(args) {
     this.i18n = i18n;
     this.name = args.name;
-    this.modelObject = args.modelObject;
 
     const subscriptions = [];
 

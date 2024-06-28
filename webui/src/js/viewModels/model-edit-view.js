@@ -43,16 +43,12 @@ function(accUtils, i18n, ko, ModelEditHelper, wktLogger,
     this.navSelection = ModelEditHelper.navSelection;
     this.navExpanded = ModelEditHelper.navExpanded;
 
-    this.modelObject = {};
-
     this.servers = ko.observableArray();
     this.clusters = ko.observableArray();
 
     this.updateFromModel = () => {
-      if(this.modelObject) {
-        this.updateFolderFromModel('topology/Server', this.servers, 'server');
-        this.updateFolderFromModel('topology/Cluster', this.clusters, 'cluster');
-      }
+      this.updateFolderFromModel('topology/Server', this.servers, 'server');
+      this.updateFolderFromModel('topology/Cluster', this.clusters, 'cluster');
     };
 
     // take extra care to leave current existing entries alone
@@ -103,9 +99,10 @@ function(accUtils, i18n, ko, ModelEditHelper, wktLogger,
             icon: 'oj-ux-ico-file'
           },
           {
-            name: this.labelMapper('rcu-db-info-label'),
+            name: this.labelMapper('rcudbinfo-label'),
             id: 'rcu-db-info-id',
-            icon: 'oj-ux-ico-file'
+            icon: 'oj-ux-ico-file',
+            page: 'rcu-db-info'
           },
           {
             name: this.labelMapper('wls-credential-mapping-label'),
@@ -172,7 +169,7 @@ function(accUtils, i18n, ko, ModelEditHelper, wktLogger,
             this.editPage(
               moduleElementUtils.createConfig({
                 name: viewName,
-                params: {name: entry.name, modelObject: this.modelObject}
+                params: {name: entry.name}
               })
             );
           } else {

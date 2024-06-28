@@ -30,6 +30,11 @@ define(['knockout', 'js-yaml', 'models/wkt-project'],
 
       this.createVariables = (fields, subscriptions) => {
         const variables = {};
+        this.addVariables(fields, subscriptions, variables);
+        return variables;
+      };
+
+      this.addVariables = (fields, subscriptions, variables) => {
         fields.forEach((field) => {
           const modelValue = this.getValue(field.path, field.attribute);
           variables[field.key] = ko.observable(modelValue);
@@ -40,7 +45,6 @@ define(['knockout', 'js-yaml', 'models/wkt-project'],
             this.writeModel();
           }));
         });
-        return variables;
       };
 
       this.getCurrentModel = () => {
