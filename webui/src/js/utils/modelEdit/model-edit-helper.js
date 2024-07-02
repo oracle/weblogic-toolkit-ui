@@ -12,6 +12,8 @@ define(['knockout', 'js-yaml', 'models/wkt-project'],
       // maintain and update the navigation state.
       // provide convenience methods.
 
+      const ROOT_ORDER = ['domainInfo', 'topology', 'resources', 'appDeployments', 'kubernetes']
+
       this.modelObject = ko.observable();
 
       this.parseModel = () => {
@@ -106,17 +108,58 @@ define(['knockout', 'js-yaml', 'models/wkt-project'],
       function findOrCreatePath(parent, path) {
         const names = path.split('/');
         let folder = parent;
+        let folderPath = '';
         names.forEach(name => {
-          folder = findOrCreateFolder(folder, name);
+          folder = findOrCreateFolder(folder, name, folderPath);
+          folderPath += folderPath.length ? '/' : '';
+          folderPath += name;
         });
         return folder;
       }
 
-      function findOrCreateFolder(folder, name) {
+      function findOrCreateFolder(folder, name, folderPath) {
         if(!folder.hasOwnProperty(name) || !folder[name]) {
-          folder[name] = {};
+          addInOrder(folder, name, {}, folderPath);
         }
         return folder[name];
+      }
+
+      function addInOrder(folder, newKey, newValue, folderPath) {
+        const copy = {...folder};
+
+        folder[newKey] = newValue;  // add to the end
+
+        const comparer = getComparer(folderPath)
+
+        // move entries with greater keys to the end
+        for(const key of Object.keys(copy)) {
+          if(comparer(key, newKey) > 0) {
+            const value = folder[key];
+            delete folder[key];
+            folder[key] = value;
+          }
+        }
+      }
+
+      function getComparer(folderPath) {
+        // for root folder, maintain prescribed order
+        if(folderPath === '') {
+          return (a, b) => {
+            const aIndex = getRootIndex(a);
+            const bIndex = getRootIndex(b);
+            return aIndex - bIndex;
+          }
+        }
+
+        // by default, no sorting, just add to the end
+        return (a, b) => {
+          return 0;
+        }
+      }
+
+      function getRootIndex(key) {
+        const index = ROOT_ORDER.indexOf(key);
+        return (index === -1) ? 99 : index;
       }
     }
 
