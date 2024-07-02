@@ -817,6 +817,7 @@ h6.wkt-panel-heading {
   background-color: rgb(220, 214, 209);
   min-width: 280px;
   max-width: 500px;
+  overflow: auto;
 }
 
 .wkt-model-editor-nav-list .oj-navigationlist-item {
