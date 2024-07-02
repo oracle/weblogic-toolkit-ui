@@ -1,0 +1,23 @@
+<!--
+ Copyright (c) 2024, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
+ -->
+
+<h6><oj-bind-text value="[[labelMapper('label')]]"></oj-bind-text> <oj-bind-text value="[[name]]"></oj-bind-text></h6>
+
+<div class="oj-panel">
+  <oj-form-layout max-columns="2" direction="row">
+    <oj-c-input-text label-hint="[[labelMapper('attribute-ClusterAddress-label')]]"
+                   value="{{att.ClusterAddress}}"
+                   help.instruction="[[labelMapper('attribute-ClusterAddress-help')]]">
+    </oj-c-input-text>
+    <oj-c-input-text label-hint="[[labelMapper('attribute-ClusterMessagingMode-label')]]"
+                   value="{{att.ClusterMessagingMode}}"
+                   help.instruction="[[labelMapper('attribute-ClusterMessagingMode-help')]]">
+    </oj-c-input-text>
+    <oj-c-input-text label-hint="[[labelMapper('attribute-Notes-label')]]"
+                   value="{{att.Notes}}"
+                   help.instruction="[[labelMapper('attribute-Notes-help')]]">
+    </oj-c-input-text>
+  </oj-form-layout>
+</div>

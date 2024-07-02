@@ -45,14 +45,23 @@ function(accUtils, i18n, ko, ModelEditHelper, wktLogger,
 
     this.servers = ko.observableArray();
     this.clusters = ko.observableArray();
+    this.datasources = ko.observableArray();
+    this.applications = ko.observableArray();
+    this.libraries = ko.observableArray();
 
     this.updateFromModel = () => {
-      this.updateFolderFromModel('topology/Server', this.servers, 'server');
-      this.updateFolderFromModel('topology/Cluster', this.clusters, 'cluster');
+      this.updateFolderFromModel('topology/Server', this.servers, 'server', 'topology/server');
+      this.updateFolderFromModel('topology/Cluster', this.clusters, 'cluster', 'topology/cluster');
+      this.updateFolderFromModel('resources/JDBCSystemResource', this.datasources, 'datasource',
+        'resources/datasource');
+      this.updateFolderFromModel('appDeployments/Application', this.applications, 'application',
+        'deployments/application');
+      this.updateFolderFromModel('appDeployments/Library', this.libraries, 'library',
+        'deployments/library');
     };
 
     // take extra care to leave current existing entries alone
-    this.updateFolderFromModel = (path, folderList, key) => {
+    this.updateFolderFromModel = (path, folderList, key, page) => {
       const folderKeys = [];
       folderList().forEach(folder => folderKeys.push(folder.name));
 
@@ -64,7 +73,7 @@ function(accUtils, i18n, ko, ModelEditHelper, wktLogger,
           folderList.push({
             name: name,
             id: key + '-' + name,
-            page: key,
+            page: page,
             icon: 'oj-ux-ico-page-template'
           });
         }
@@ -102,7 +111,7 @@ function(accUtils, i18n, ko, ModelEditHelper, wktLogger,
             name: this.labelMapper('rcudbinfo-label'),
             id: 'rcu-db-info-id',
             icon: 'oj-ux-ico-file',
-            page: 'rcu-db-info'
+            page: 'domainInfo/rcu-db-info'
           },
           {
             name: this.labelMapper('wls-credential-mapping-label'),
@@ -130,13 +139,13 @@ function(accUtils, i18n, ko, ModelEditHelper, wktLogger,
             name: this.labelMapper('server-list-label'),
             id: 'folder-server',  // folder-<key>
             icon: 'oj-ux-ico-list',
-            page: 'servers',
+            page: 'topology/servers',
             children: this.servers
           },
           { name: this.labelMapper('cluster-list-label'),
             id: 'folder-cluster',
             icon: 'oj-ux-ico-list',
-            page: 'clusters',
+            page: 'topology/clusters',
             children: this.clusters
           },
           { name: this.labelMapper('machine-list-label'),
@@ -145,6 +154,40 @@ function(accUtils, i18n, ko, ModelEditHelper, wktLogger,
             disabled: ko.computed(() => {
               return true;
             })
+          }
+        ]
+      },
+      {
+        name: this.labelMapper('resources-nav-label'),
+        id: 'resources-id',
+        icon: 'oj-ux-ico-folder',
+        children: [
+          {
+            name: this.labelMapper('datasource-list-label'),
+            id: 'folder-datasource',  // folder-<key>
+            icon: 'oj-ux-ico-list',
+            page: 'resources/datasources',
+            children: this.datasources
+          }
+        ]
+      },
+      {
+        name: this.labelMapper('deployments-nav-label'),
+        id: 'deployments-id',
+        icon: 'oj-ux-ico-folder',
+        children: [
+          {
+            name: this.labelMapper('application-list-label'),
+            id: 'folder-application',  // folder-<key>
+            icon: 'oj-ux-ico-list',
+            page: 'deployments/applications',
+            children: this.applications
+          },
+          { name: this.labelMapper('library-list-label'),
+            id: 'folder-library',
+            icon: 'oj-ux-ico-list',
+            page: 'deployments/libraries',
+            children: this.libraries
           }
         ]
       }

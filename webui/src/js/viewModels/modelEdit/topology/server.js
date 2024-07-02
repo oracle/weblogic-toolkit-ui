@@ -34,32 +34,32 @@ function(accUtils, i18n, ko, ModelEditHelper) {
 
     const fields = [
       {
-        key: 'cluster',
+        key: 'Cluster',
         attribute: 'Cluster',
         path: SERVER_PATH
       },
       {
-        key: 'defaultIiopUser',
+        key: 'DefaultIIOPUser',
         attribute: 'DefaultIIOPUser',
         path: SERVER_PATH
       },
       {
-        key: 'listenPort',
+        key: 'ListenPort',
         attribute: 'ListenPort',
         path: SERVER_PATH
       },
       {
-        key: 'notes',
+        key: 'Notes',
         attribute: 'Notes',
         path: SERVER_PATH
       },
       {
-        key: 'ssl-enabled',
+        key: 'SSL-Enabled',
         attribute: 'Enabled',
         path: SSL_PATH
       },
       {
-        key: 'ssl-listenPort',
+        key: 'SSL-ListenPort',
         attribute: 'ListenPort',
         path: SSL_PATH
       }

@@ -33,17 +33,17 @@ function(accUtils, i18n, ModelEditHelper) {
 
     const fields = [
       {
-        key: 'notes',
+        key: 'Notes',
         attribute: 'Notes',
         path: CLUSTER_PATH
       },
       {
-        key: 'clusterAddress',
+        key: 'ClusterAddress',
         attribute: 'ClusterAddress',
         path: CLUSTER_PATH
       },
       {
-        key: 'clusterMessagingMode',
+        key: 'ClusterMessagingMode',
         attribute: 'ClusterMessagingMode',
         path: CLUSTER_PATH
       }

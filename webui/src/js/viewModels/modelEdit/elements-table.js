@@ -38,6 +38,10 @@ function(accUtils, i18n, ko, ModelEditHelper, ViewHelper, ArrayDataProvider) {
       return i18n.t(`model-edit-${ELEMENTS_KEY}-${labelId}`, payload);
     };
 
+    this.editLabelMapper = (labelId, payload) => {
+      return i18n.t(`model-edit-${labelId}`, payload);
+    };
+
     this.attributes = Object.keys(ATTRIBUTES);
 
     this.elements = ko.observableArray();
@@ -67,7 +71,7 @@ function(accUtils, i18n, ko, ModelEditHelper, ViewHelper, ArrayDataProvider) {
 
     this.elementsColumnData = [
       {
-        headerText: this.labelMapper('attribute-name-label'),
+        headerText: this.editLabelMapper('table-name-label'),
         sortProperty: 'name',
         resizable: 'enabled'
       }

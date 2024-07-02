@@ -34,13 +34,13 @@ function(accUtils, i18n, ko, ModelEditHelper, ModuleElementUtils) {
           key: 'server',
           path: SERVERS_PATH,
           attributes: {
-            cluster: {
+            Cluster: {
               key: 'Cluster'
             },
-            listenPort: {
+            ListenPort: {
               key: 'ListenPort',
             },
-            'ssl-listenPort': {
+            'SSL-ListenPort': {
               getter: getSslListenPort
             }
           }

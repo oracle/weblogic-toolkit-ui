@@ -8,32 +8,29 @@
 define(['accUtils', 'utils/i18n', 'ojs/ojmodule-element-utils'
 ],
 function(accUtils, i18n, ModuleElementUtils) {
-  function ClustersEditViewModel(args) {
+  function DatasourcesEditViewModel(args) {
     this.i18n = i18n;
     this.modelObject = args.modelObject;
 
-    const CLUSTERS_PATH = 'topology/Cluster';
+    const DATASOURCES_PATH = 'resources/JDBCSystemResource';
 
     this.connected = () => {
-      accUtils.announce('Clusters Page loaded.', 'assertive');
+      accUtils.announce('Datasources Page loaded.', 'assertive');
     };
 
     this.labelMapper = (labelId) => {
-      return i18n.t(`model-edit-cluster-${labelId}`);
+      return i18n.t(`model-edit-datasource-${labelId}`);
     };
 
     this.getElementsModuleConfig = () => {
       return ModuleElementUtils.createConfig({
         name: 'modelEdit/elements-table',
         params: {
-          key: 'cluster',
-          path: CLUSTERS_PATH,
+          key: 'datasource',
+          path: DATASOURCES_PATH,
           attributes: {
-            clusterAddress: {
-              key: 'ClusterAddress'
-            },
-            clusterMessagingMode: {
-              key: 'ClusterMessagingMode',
+            DeploymentOrder: {
+              key: 'DeploymentOrder'
             }
           }
         }
@@ -41,5 +38,5 @@ function(accUtils, i18n, ModuleElementUtils) {
     };
   }
 
-  return ClustersEditViewModel;
+  return DatasourcesEditViewModel;
 });
