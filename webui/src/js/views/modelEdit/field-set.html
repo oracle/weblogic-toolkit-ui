@@ -5,19 +5,7 @@
 <oj-form-layout max-columns="2" direction="row">
   <oj-bind-for-each data="[[fields]]">
     <template data-oj-as="field">
-      <oj-bind-if test="[[field.data.type === 'password']]">
-      <oj-c-input-password label-hint="[[labelMapper('attribute-' + field.data.key + '-label')]]"
-                       value="{{att[field.data.key]}}"
-                       help.instruction="[[labelMapper('attribute-' + field.data.key + '-help')]]">
-      </oj-c-input-password>
-      </oj-bind-if>
-
-      <oj-bind-if test="[[field.data.type !== 'password']]">
-      <oj-c-input-text label-hint="[[labelMapper('attribute-' + field.data.key + '-label')]]"
-                       value="{{att[field.data.key]}}"
-                       help.instruction="[[labelMapper('attribute-' + field.data.key + '-help')]]">
-      </oj-c-input-text>
-      </oj-bind-if>
+      <oj-module config="[[fieldConfig(field.data)]]"></oj-module>
     </template>
   </oj-bind-for-each>
 </oj-form-layout>

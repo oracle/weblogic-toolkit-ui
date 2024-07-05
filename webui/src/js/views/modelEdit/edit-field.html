@@ -1,0 +1,18 @@
+<!--
+ Copyright (c) 2024, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
+ -->
+
+<oj-bind-if test="[[field.type === 'password']]">
+<oj-c-input-password label-hint="[[labelMapper('attribute-' + field.key + '-label')]]"
+                 value="{{observable}}"
+                 help.instruction="[[labelMapper('attribute-' + field.key + '-help')]]">
+</oj-c-input-password>
+</oj-bind-if>
+
+<oj-bind-if test="[[field.type !== 'password']]">
+<oj-c-input-text label-hint="[[labelMapper('attribute-' + field.key + '-label')]]"
+                 value="{{observable}}"
+                 help.instruction="[[labelMapper('attribute-' + field.key + '-help')]]">
+</oj-c-input-text>
+</oj-bind-if>

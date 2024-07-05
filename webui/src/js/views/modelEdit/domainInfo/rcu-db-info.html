@@ -6,6 +6,13 @@
 <h6><oj-bind-text value="[[labelMapper('label')]]"></oj-bind-text></h6>
 
 <div class="oj-panel">
+  <oj-form-layout max-columns="2" direction="row">
+    <oj-module config="[[fieldConfig('javax_net_ssl_trustStoreType')]]"></oj-module>
+    <oj-module config="[[fieldConfig('javax_net_ssl_trustStorePassword')]]"></oj-module>
+  </oj-form-layout>
+</div>
+
+<div class="oj-panel">
   <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('connection-label')]]"></oj-bind-text></h6>
   <oj-module config="[[primaryModuleConfig]]"></oj-module>
 </div>

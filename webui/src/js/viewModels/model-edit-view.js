@@ -101,6 +101,7 @@ function(accUtils, i18n, ko, ModelEditHelper, wktLogger,
         name: this.labelMapper('domain-info-nav-label'),
         id: 'domain-info-id',
         icon: 'oj-ux-ico-folder',
+        page: 'domainInfo/domainInfo',
         children: [
           {
             name: this.labelMapper('opss-initialization-label'),

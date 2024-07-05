@@ -15,6 +15,7 @@ function(accUtils, i18n, ModelEditHelper, ModuleElementUtils) {
     const subscriptions = [];
 
     const INFO_PATH = 'domainInfo/RCUDbInfo';
+    const LABEL_PREFIX = 'model-edit-rcudbinfo';
 
     this.connected = () => {
       accUtils.announce('RCU Database Info Page loaded.', 'assertive');
@@ -27,7 +28,7 @@ function(accUtils, i18n, ModelEditHelper, ModuleElementUtils) {
     };
 
     this.labelMapper = (labelId, payload) => {
-      return i18n.t(`model-edit-rcudbinfo-${labelId}`, payload);
+      return i18n.t(`${LABEL_PREFIX}-${labelId}`, payload);
     };
 
     this.primaryFields = [
@@ -190,18 +191,27 @@ function(accUtils, i18n, ModelEditHelper, ModuleElementUtils) {
 
     this.primaryModuleConfig = ModuleElementUtils.createConfig({
       name: 'modelEdit/field-set',
-      params: {fields: this.primaryFields, labelMapper: this.labelMapper, att: this.att}
+      params: {fields: this.primaryFields, labelPrefix: LABEL_PREFIX, att: this.att}
     });
 
     this.atpModuleConfig = ModuleElementUtils.createConfig({
       name: 'modelEdit/field-set',
-      params: {fields: this.atpFields, labelMapper: this.labelMapper, att: this.att}
+      params: {fields: this.atpFields, labelPrefix: LABEL_PREFIX, att: this.att}
     });
 
     this.remainingModuleConfig = ModuleElementUtils.createConfig({
       name: 'modelEdit/field-set',
-      params: {fields: this.remainingFields, labelMapper: this.labelMapper, att: this.att}
+      params: {fields: this.remainingFields, labelPrefix: LABEL_PREFIX, att: this.att}
     });
+
+    this.fieldConfig = (key) => {
+      for(const fieldConfig of this.remainingFields) {
+        if(fieldConfig.key === key) {
+          return ModelEditHelper.fieldConfig(fieldConfig, this.att[key], LABEL_PREFIX);
+        }
+      }
+      return ModelEditHelper.fieldConfig(null, null, LABEL_PREFIX);
+    };
   }
 
   return RcuDbInfoEditViewModel;

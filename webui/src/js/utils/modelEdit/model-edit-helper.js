@@ -5,14 +5,14 @@
  */
 'use strict';
 
-define(['knockout', 'js-yaml', 'models/wkt-project'],
-  function (ko, jsYaml, project) {
+define(['knockout', 'js-yaml', 'models/wkt-project', 'ojs/ojmodule-element-utils'],
+  function (ko, jsYaml, project, ModuleElementUtils) {
     function ModelEditHelper() {
       // parse, write, and maintain the model object structure.
       // maintain and update the navigation state.
       // provide convenience methods.
 
-      const ROOT_ORDER = ['domainInfo', 'topology', 'resources', 'appDeployments', 'kubernetes']
+      const ROOT_ORDER = ['domainInfo', 'topology', 'resources', 'appDeployments', 'kubernetes'];
 
       this.modelObject = ko.observable();
 
@@ -46,6 +46,22 @@ define(['knockout', 'js-yaml', 'models/wkt-project'],
             folder[field.attribute] = newValue;
             this.writeModel();
           }));
+        });
+      };
+
+      // create a field configuration for an edit-field module
+      this.fieldConfig = (field, observable, labelPrefix) => {
+        if(!field) {
+          return ModuleElementUtils.createConfig({ name: 'empty-view' });
+        }
+
+        return ModuleElementUtils.createConfig({
+          name: 'modelEdit/edit-field',
+          params: {
+            field: field,
+            observable: observable,
+            labelPrefix: labelPrefix
+          }
         });
       };
 
@@ -129,7 +145,7 @@ define(['knockout', 'js-yaml', 'models/wkt-project'],
 
         folder[newKey] = newValue;  // add to the end
 
-        const comparer = getComparer(folderPath)
+        const comparer = getComparer(folderPath);
 
         // move entries with greater keys to the end
         for(const key of Object.keys(copy)) {
@@ -148,13 +164,13 @@ define(['knockout', 'js-yaml', 'models/wkt-project'],
             const aIndex = getRootIndex(a);
             const bIndex = getRootIndex(b);
             return aIndex - bIndex;
-          }
+          };
         }
 
         // by default, no sorting, just add to the end
-        return (a, b) => {
+        return () => {
           return 0;
-        }
+        };
       }
 
       function getRootIndex(key) {
