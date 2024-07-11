@@ -6,7 +6,7 @@
 'use strict';
 
 define(['accUtils', 'utils/i18n',
-  'oj-c/input-text', 'oj-c/input-password'
+  'oj-c/button', 'oj-c/input-text', 'oj-c/input-password'
 ],
 function(accUtils, i18n) {
   function EditField(args) {
@@ -17,6 +17,38 @@ function(accUtils, i18n) {
 
     this.labelMapper = (labelId, payload) => {
       return i18n.t(`${args.labelPrefix}-${labelId}`, payload);
+    };
+
+    this.fieldLabelMapper = (labelId, payload) => {
+      return i18n.t(`model-edit-field-${labelId}`, payload);
+    };
+
+    this.showMenu = (field) => {
+      console.log('show menu for ' + field.key);
+    };
+
+    this.displayType = (field) => {
+      if(field.type === 'password') {
+        return 'password';
+      }
+
+      if(field.type === 'boolean') {
+        return 'boolean';
+      }
+
+      if(field.type === 'dict') {
+        return 'dict';
+      }
+
+      if(field.type === 'list') {
+        return 'list';
+      }
+
+      if(['string', 'credential'].includes(field.type)) {
+        return 'string';
+      }
+
+      return 'unknown';
     };
   }
 

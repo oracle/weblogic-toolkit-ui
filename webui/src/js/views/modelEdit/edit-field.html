@@ -3,16 +3,86 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 
-<oj-bind-if test="[[field.type === 'password']]">
-<oj-c-input-password label-hint="[[labelMapper('attribute-' + field.key + '-label')]]"
-                 value="{{observable}}"
-                 help.instruction="[[labelMapper('attribute-' + field.key + '-help')]]">
-</oj-c-input-password>
+<oj-bind-if test="[[displayType(field) === 'password']]">
+  <div class="wkt-model-edit-field-container">
+    <oj-c-input-password label-hint="[[labelMapper('attribute-' + field.key + '-label')]]"
+                     value="{{observable}}"
+                     help.instruction="[[labelMapper('attribute-' + field.key + '-help')]]">
+    </oj-c-input-password>
+    <oj-c-button
+      label="[[fieldLabelMapper('edit')]]"
+      display="icons"
+      chroming="borderless"
+      on-oj-action="[[showMenu(field)]]">
+      <span slot="endIcon" class="oj-ux-ico-edit-box" role="img"></span>
+    </oj-c-button>
+  </div>
 </oj-bind-if>
 
-<oj-bind-if test="[[field.type !== 'password']]">
-<oj-c-input-text label-hint="[[labelMapper('attribute-' + field.key + '-label')]]"
-                 value="{{observable}}"
-                 help.instruction="[[labelMapper('attribute-' + field.key + '-help')]]">
-</oj-c-input-text>
+<oj-bind-if test="[[displayType(field) === 'string']]">
+  <div class="wkt-model-edit-field-container">
+    <oj-c-input-text label-hint="[[labelMapper('attribute-' + field.key + '-label')]]"
+                     value="{{observable}}"
+                     help.instruction="[[labelMapper('attribute-' + field.key + '-help')]]">
+    </oj-c-input-text>
+    <oj-c-button
+      label="[[fieldLabelMapper('edit')]]"
+      display="icons"
+      chroming="borderless"
+      on-oj-action="[[showMenu(field)]]">
+      <span slot="endIcon" class="oj-ux-ico-edit-box" role="img"></span>
+    </oj-c-button>
+  </div>
+</oj-bind-if>
+
+<oj-bind-if test="[[displayType(field) === 'list']]">
+  <div class="wkt-model-edit-field-container">
+    <oj-c-input-text label-hint="[[labelMapper('attribute-' + field.key + '-label') + ' (list)']]"
+                     value="{{observable}}"
+                     help.instruction="[[labelMapper('attribute-' + field.key + '-help')]]">
+    </oj-c-input-text>
+    <oj-c-button
+      label="[[fieldLabelMapper('edit')]]"
+      display="icons"
+      chroming="borderless"
+      on-oj-action="[[showMenu(field)]]">
+      <span slot="endIcon" class="oj-ux-ico-edit-box" role="img"></span>
+    </oj-c-button>
+  </div>
+</oj-bind-if>
+
+<oj-bind-if test="[[displayType(field) === 'dict']]">
+  <div class="wkt-model-edit-field-container">
+    <oj-c-input-text label-hint="[[labelMapper('attribute-' + field.key + '-label') + ' (dict)']]"
+                     value="{{observable}}"
+                     help.instruction="[[labelMapper('attribute-' + field.key + '-help')]]">
+    </oj-c-input-text>
+    <oj-c-button
+      label="[[fieldLabelMapper('edit')]]"
+      display="icons"
+      chroming="borderless"
+      on-oj-action="[[showMenu(field)]]">
+      <span slot="endIcon" class="oj-ux-ico-edit-box" role="img"></span>
+    </oj-c-button>
+  </div>
+</oj-bind-if>
+
+<oj-bind-if test="[[displayType(field) === 'boolean']]">
+  <div class="wkt-model-edit-field-container">
+    <oj-switch label-hint="[[labelMapper('attribute-' + field.key + '-label')]]"
+               value="{{observable}}"
+               help.instruction="[[labelMapper('attribute-' + field.key + '-help')]]">
+    </oj-switch>
+    <oj-c-button
+      label="[[fieldLabelMapper('edit')]]"
+      display="icons"
+      chroming="borderless"
+      on-oj-action="[[showMenu(field)]]">
+      <span slot="endIcon" class="oj-ux-ico-edit-box" role="img"></span>
+    </oj-c-button>
+  </div>
+</oj-bind-if>
+
+<oj-bind-if test="[[displayType(field) === 'unknown']]">
+  <div><oj-bind-text value="[[labelMapper('attribute-' + field.key + '-label')]]"></oj-bind-text> (<oj-bind-text value="[[field.type]]"></oj-bind-text>)</div>
 </oj-bind-if>

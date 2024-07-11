@@ -54,12 +54,6 @@ function(accUtils, i18n, ModelEditHelper, ModuleElementUtils) {
         type: 'string'
       },
       {
-        key: 'OPSSSecrets',
-        attribute: 'OPSSSecrets',
-        path: INFO_PATH,
-        type: 'password'
-      },
-      {
         key: 'OPSSWalletPassphrase',
         attribute: 'OPSSWalletPassphrase',
         path: INFO_PATH,

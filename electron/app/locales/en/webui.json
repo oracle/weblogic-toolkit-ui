@@ -1352,6 +1352,7 @@
   "model-edit-wls-roles-label": "WLS Roles",
   "model-edit-wls-credential-mapping-label": "WLS Credential Mapping",
 
+  "model-edit-field-edit": "Edit",
   "model-edit-table-name-label": "Name",
 
   "model-edit-application-label": "Application",
