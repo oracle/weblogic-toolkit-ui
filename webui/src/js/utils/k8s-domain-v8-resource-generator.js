@@ -8,6 +8,9 @@
 define(['models/wkt-project', 'utils/k8s-domain-configmap-generator', 'js-yaml',
   'utils/i18n', 'utils/wkt-logger'],
 function(project, K8sDomainConfigMapGenerator, jsYaml, i18n) {
+  const WDT_PROPS_ENV_VAR_NAME = 'WLSDEPLOY_PROPERTIES';
+  const WDT_PASSPHRASE_SECRET_PROPERTY = 'wdt.config.model.encryption.secret';
+
   class K8sDomainV8ResourceGenerator {
     constructor() {
       this.project = project;
@@ -63,7 +66,7 @@ function(project, K8sDomainConfigMapGenerator, jsYaml, i18n) {
         }
       }
 
-      const serverPod = this._getDomainServerPod();
+      const serverPod = this._getDomainServerPod(this._getWDTEncryptionSecretName());
       if (serverPod) {
         domainResource.spec.serverPod = serverPod;
       }
@@ -175,7 +178,7 @@ function(project, K8sDomainConfigMapGenerator, jsYaml, i18n) {
       return generateYaml ? jsYaml.dump(domainResource).split('\n') : { domainResource };
     }
 
-    _getDomainServerPod() {
+    _getDomainServerPod(wdtEncryptionSecretName = undefined) {
       let serverPod = this._getServerPod();
 
       if (this.project.k8sDomain.serverPodEnvironmentVariables.value.length > 0) {
@@ -190,9 +193,19 @@ function(project, K8sDomainConfigMapGenerator, jsYaml, i18n) {
           if (existingEnvEntry) {
             existingEnvEntry.value = this._getEnvVarValue(existingEnvEntry, envVar.value);
           } else {
-            serverPod.env.push({ name: envVar.name, value: envVar.value });
+            serverPod.env.push({name: envVar.name, value: envVar.value});
           }
         });
+      }
+
+      if (wdtEncryptionSecretName) {
+        if (!serverPod) {
+          serverPod = {};
+        }
+        if (!Array.isArray(serverPod.env)) {
+          serverPod.env = [];
+        }
+        this._addWDTEncryptionSecret(serverPod.env, wdtEncryptionSecretName);
       }
 
       if (this.project.k8sDomain.domainNodeSelector.value.length > 0) {
@@ -283,6 +296,41 @@ function(project, K8sDomainConfigMapGenerator, jsYaml, i18n) {
         return `${envEntry.value} ${envVarValue}`;
       }
       return envVarValue;
+    }
+
+    _getWDTEncryptionSecretName() {
+      let encryptionSecret;
+      if (this.project.settings.targetDomainLocation.value === 'mii' ||
+          (this.project.settings.targetDomainLocation.value === 'pv' && this.usingDomainCreationImage())) {
+        encryptionSecret = this.project.k8sDomain.wdtEncryptionSecretName();
+      }
+      return encryptionSecret;
+    }
+
+    _addWDTEncryptionSecret(serverPodEnv, wdtEncryptionSecretName) {
+      let foundEnvVar = false;
+      for (const envVar of serverPodEnv) {
+        if (envVar.name === WDT_PROPS_ENV_VAR_NAME) {
+          foundEnvVar = true;
+          if (envVar.value.includes(`-D${WDT_PASSPHRASE_SECRET_PROPERTY}=`)) {
+            const values = envVar.value.split(' ');
+
+            for (let i = 0; i < values.length; i++) {
+              if (values[i].startsWith(`-D${WDT_PASSPHRASE_SECRET_PROPERTY}=`)) {
+                values[i] = `-D${WDT_PASSPHRASE_SECRET_PROPERTY}=${wdtEncryptionSecretName}`;
+                break;
+              }
+            }
+            envVar.value = values.join(' ');
+          } else {
+            envVar.value = `${envVar.value} -D${WDT_PASSPHRASE_SECRET_PROPERTY}=${wdtEncryptionSecretName}`;
+          }
+          break;
+        }
+      }
+      if (!foundEnvVar) {
+        serverPodEnv.push(WDT_PROPS_ENV_VAR_NAME, `-D${WDT_PASSPHRASE_SECRET_PROPERTY}=${wdtEncryptionSecretName}`);
+      }
     }
   }
 

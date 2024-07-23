@@ -35,7 +35,7 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
         return Promise.resolve(false);
       }
 
-      const totalSteps = 14.0;
+      const totalSteps = 16.0;
       const domainUid = this.project.k8sDomain.uid.value;
       const domainNamespace = this.project.k8sDomain.kubernetesNamespace.value;
       try {
@@ -59,10 +59,25 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
           }
         }
 
+        // With the new WDT 4.2.0 features to discover the DefaultAuthenticator users, it is more likely that the
+        // model's domainInfo:/AdminUserName value also appears in the topology:/Security/User section of the model.
+        // If this happens, we want to override the Password attribute in the user's topology:/Security/User entry
+        // to be the same as the domainInfo:/AdminPassword value so that when the secrets are created, we make sure
+        // that the password for the user is the expected value in both secrets.  In an ideal world, the model would
+        // use the same secret; however, it is too late to update the model at this point.
+        //
+        const adminUserName = this.project.k8sDomain.credentialsUserName.value;
+        busyDialogMessage = i18n.t('k8s-domain-deployer-update-admin-user-password-in-progress', { adminUserName: adminUserName });
+        dialogHelper.updateBusyDialog(busyDialogMessage, 2 / totalSteps);
+        const userSecretKey = this.project.wdtModel.getAdminUserTopologySecurityUserSecretKey(adminUserName);
+        if (userSecretKey) {
+          this.updateUserSecretPasswordField(userSecretKey);
+        }
+
         // While technically not required, we force saving the project for Go Menu item behavior consistency.
         //
         busyDialogMessage = i18n.t('flow-save-project-in-progress');
-        dialogHelper.updateBusyDialog(busyDialogMessage, 2 / totalSteps);
+        dialogHelper.updateBusyDialog(busyDialogMessage, 3 / totalSteps);
         if (!options.skipProjectSave) {
           if (! await this.saveProject(errTitle, errPrefix)) {
             return Promise.resolve(false);
@@ -71,7 +86,7 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
 
         // Set the Kubernetes context, if needed
         busyDialogMessage = i18n.t('flow-kubectl-use-context-in-progress');
-        dialogHelper.updateBusyDialog(busyDialogMessage, 3 / totalSteps);
+        dialogHelper.updateBusyDialog(busyDialogMessage, 4 / totalSteps);
         const kubectlContext = this.getKubectlContext();
         const kubectlOptions = this.getKubectlOptions();
         if (!options.skipKubectlSetContext) {
@@ -85,7 +100,7 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
         const operatorNamespace = this.project.wko.k8sNamespace.value;
         busyDialogMessage = i18n.t('flow-checking-operator-installed-in-progress',
           {operatorName: operatorName, operatorNamespace: operatorNamespace});
-        dialogHelper.updateBusyDialog(busyDialogMessage, 4 / totalSteps);
+        dialogHelper.updateBusyDialog(busyDialogMessage, 5 / totalSteps);
         if (!options.skipCheckOperatorAlreadyInstalled) {
           if (! await this.checkOperatorIsInstalled(kubectlExe, kubectlOptions, operatorName, operatorNamespace, errTitle)) {
             return Promise.resolve(false);
@@ -94,7 +109,7 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
 
         // Create the domain namespace
         busyDialogMessage = i18n.t('k8s-domain-deployer-create-ns-in-progress', {domainNamespace: domainNamespace});
-        dialogHelper.updateBusyDialog(busyDialogMessage, 5 / totalSteps);
+        dialogHelper.updateBusyDialog(busyDialogMessage, 6 / totalSteps);
         if (! await this.createKubernetesNamespace(kubectlExe, kubectlOptions, domainNamespace, errTitle, errPrefix)) {
           return Promise.resolve(false);
         }
@@ -102,7 +117,7 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
         // Determine how the operator is selecting the namespaces to monitor and take the appropriate action.
         busyDialogMessage = i18n.t('k8s-domain-deployer-update-operator-config-in-progress',
           {operatorName: operatorName, operatorNamespace: operatorNamespace, domainName: domainUid});
-        dialogHelper.updateBusyDialog(busyDialogMessage, 6 / totalSteps);
+        dialogHelper.updateBusyDialog(busyDialogMessage, 7 / totalSteps);
         const operatorNamespaceStrategy = this.project.wko.operatorDomainNamespaceSelectionStrategy.value;
         const helmChartValues = {};
         switch (operatorNamespaceStrategy) {
@@ -158,7 +173,7 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
           const secret = this.project.k8sDomain.imageRegistryPullSecretName.value;
           busyDialogMessage = i18n.t('k8s-domain-deployer-create-image-pull-secret-in-progress',
             {domainNamespace: domainNamespace, secretName: secret});
-          dialogHelper.updateBusyDialog(busyDialogMessage, 7 / totalSteps);
+          dialogHelper.updateBusyDialog(busyDialogMessage, 8 / totalSteps);
           const secretData = {
             server: this.project.image.internal.imageRegistryAddress.value,
             username: this.project.k8sDomain.imageRegistryPullUser.value,
@@ -177,7 +192,7 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
           const secret = this.project.k8sDomain.auxImageRegistryPullSecretName.value;
           busyDialogMessage = i18n.t('k8s-domain-deployer-create-image-pull-secret-in-progress',
             {domainNamespace: domainNamespace, secretName: secret});
-          dialogHelper.updateBusyDialog(busyDialogMessage, 8 / totalSteps);
+          dialogHelper.updateBusyDialog(busyDialogMessage, 9 / totalSteps);
           const secretData = {
             server: this.project.image.internal.auxImageRegistryAddress.value,
             username: this.project.k8sDomain.auxImageRegistryPullUser.value,
@@ -196,7 +211,7 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
           const secret = this.project.k8sDomain.runtimeSecretName.value;
           busyDialogMessage = i18n.t('k8s-domain-deployer-create-runtime-secret-in-progress',
             {domainNamespace: domainNamespace, secretName: secret});
-          dialogHelper.updateBusyDialog(busyDialogMessage, 9 / totalSteps);
+          dialogHelper.updateBusyDialog(busyDialogMessage, 10 / totalSteps);
           const secretData = {
             password: this.project.k8sDomain.runtimeSecretValue.value
           };
@@ -209,7 +224,7 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
           const secret = this.project.k8sDomain.walletPasswordSecretName.value;
           busyDialogMessage = i18n.t('k8s-domain-deployer-create-wallet-password-secret-in-progress',
             {domainNamespace: domainNamespace, secretName: secret});
-          dialogHelper.updateBusyDialog(busyDialogMessage, 9 / totalSteps);
+          dialogHelper.updateBusyDialog(busyDialogMessage, 10 / totalSteps);
           const secretData = {
             walletPassword: this.project.k8sDomain.walletPassword.value
           };
@@ -224,7 +239,7 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
         const wlSecretName = this.project.k8sDomain.credentialsSecretName.value;
         busyDialogMessage = i18n.t('k8s-domain-deployer-create-wl-secret-in-progress',
           {secretName: wlSecretName, domainName: domainUid, namespace: domainNamespace});
-        dialogHelper.updateBusyDialog(busyDialogMessage, 10 / totalSteps);
+        dialogHelper.updateBusyDialog(busyDialogMessage, 11 / totalSteps);
         const wlSecretData = {
           username: this.project.k8sDomain.credentialsUserName.value,
           password: this.project.k8sDomain.credentialsPassword.value
@@ -235,10 +250,27 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
           return Promise.resolve(false);
         }
 
-        // Create Secrets, if needed
+        // Create the WDT Encryption secret, if needed.
+        const wdtEncryptionSecretName = this.project.k8sDomain.wdtEncryptionSecretName();
+        if (wdtEncryptionSecretName) {
+          busyDialogMessage = i18n.t('k8s-domain-deployer-create-wdt-secret-in-progress',
+            {secretName: wdtEncryptionSecretName, domainName: domainUid, namespace: domainNamespace});
+          dialogHelper.updateBusyDialog(busyDialogMessage, 12 / totalSteps);
+          const wdtEncryptionSecretData = {
+            passphrase: this.project.wdtModel.wdtPassphrase.value
+          };
+          const wdtEncryptionSecretResult =
+            await this.createGenericSecret(kubectlExe, kubectlOptions, domainNamespace, wdtEncryptionSecretName,
+              wdtEncryptionSecretData, errTitle,'k8s-domain-deployer-create-wdt-secret-failed-error-message');
+          if (!wdtEncryptionSecretResult) {
+            return Promise.resolve(false);
+          }
+        }
+
+        // Create Other Secrets, if needed
         busyDialogMessage = i18n.t('k8s-domain-deployer-create-secrets-in-progress',
           {domainName: domainUid, namespace: domainNamespace});
-        dialogHelper.updateBusyDialog(busyDialogMessage, 11 / totalSteps);
+        dialogHelper.updateBusyDialog(busyDialogMessage, 13 / totalSteps);
         if (auxImageHelper.projectHasModel() || auxImageHelper.projectUsingExternalImageContainingModel()) {
           const secrets = this.project.k8sDomain.secrets.value;
           if (Array.isArray(secrets) && secrets.length > 0) {
@@ -266,7 +298,7 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
         // Create ConfigMap, if needed
         busyDialogMessage = i18n.t('k8s-domain-deployer-create-config-map-in-progress',
           {domainName: domainUid, domainNamespace: domainNamespace});
-        dialogHelper.updateBusyDialog(busyDialogMessage, 12 / totalSteps);
+        dialogHelper.updateBusyDialog(busyDialogMessage, 14 / totalSteps);
         if (this.k8sDomainConfigMapGenerator.shouldCreateConfigMap()) {
           const configMapData = this.k8sDomainConfigMapGenerator.generate().join('\n');
           wktLogger.debug(configMapData);
@@ -284,7 +316,7 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
         // Deploy domain
         busyDialogMessage = i18n.t('k8s-domain-deployer-deploy-in-progress',
           {domainName: domainUid, domainNamespace: domainNamespace});
-        dialogHelper.updateBusyDialog(busyDialogMessage, 13 / totalSteps);
+        dialogHelper.updateBusyDialog(busyDialogMessage, 15 / totalSteps);
         const domainSpecData = new K8sDomainResourceGenerator(this.project.wko.installedVersion.value).generate().join('\n');
         const domainResult = await (window.api.ipc.invoke('k8s-apply', kubectlExe, domainSpecData, kubectlOptions));
         dialogHelper.closeBusyDialog();
@@ -516,6 +548,20 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
         return Promise.reject(err);
       }
       return Promise.resolve(true);
+    }
+
+    updateUserSecretPasswordField(userSecretKey) {
+      const originalSecret = this.project.k8sDomain.secrets.observable().find(secret => secret.name === userSecretKey);
+      if (originalSecret) {
+        const clonedSecret = JSON.parse(JSON.stringify(originalSecret));
+        for (const key of clonedSecret.keys) {
+          if (key.key === 'password') {
+            key.value = this.project.k8sDomain.credentialsPassword.value;
+            break;
+          }
+        }
+        this.project.k8sDomain.secrets.observable.replace(originalSecret, clonedSecret);
+      }
     }
   }
 

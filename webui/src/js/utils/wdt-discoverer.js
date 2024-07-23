@@ -89,15 +89,9 @@ function (WdtActionsBase, ko, project, wktConsole, dialogHelper, projectIO, i18n
 
         // Now that the project file is saved to disk, make sure all file names are set.
         discoverConfig.projectFile = project.getProjectFileName();
-        if (!discoverConfig.modelFile) {
-          discoverConfig.modelFile = project.wdtModel.getDefaultModelFile();
-        }
-        if (!discoverConfig.propertiesFile) {
-          discoverConfig.propertiesFile = project.wdtModel.getDefaultPropertiesFile();
-        }
-        if (!discoverConfig.archiveFile) {
-          discoverConfig.archiveFile = project.wdtModel.getDefaultArchiveFile();
-        }
+        discoverConfig.modelFile = project.wdtModel.getDefaultModelFile();
+        discoverConfig.propertiesFile = project.wdtModel.getDefaultPropertiesFile();
+        discoverConfig.archiveFile = project.wdtModel.getDefaultArchiveFile();
 
         wktConsole.clear();
         wktConsole.show(true);

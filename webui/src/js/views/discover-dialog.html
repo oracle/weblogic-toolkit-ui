@@ -55,6 +55,11 @@
               item-text="label"
               help.instruction="[[labelMapper('domain-type-help')]]">
             </oj-c-select-single>
+            <oj-c-input-text
+              label-hint="[[labelMapper('additional-properties-label')]]"
+              value="{{additionalProperties}}"
+              help.instruction="[[labelMapper('additional-properties-help')]]">
+            </oj-c-input-text>
             <oj-bind-if test="[[online]]">
               <oj-c-radioset
                 label-hint="[[labelMapper('discover-type-label')]]"
@@ -124,10 +129,47 @@
                   </div>
                </oj-bind-if>
               </div>
+              <oj-c-checkboxset
+                value="{{discoverSecurityFeatures}}"
+                options="[[securityFeatureTypesDP]]"
+                label-hint="[[labelMapper('discover-security-features-title')]]"
+                label-edge="inside">
+              </oj-c-checkboxset>
+              <div>
+                <oj-bind-if test="[[discoverSecurityProviderData]]">
+                  <oj-c-checkboxset
+                    value="{{discoverSecurityProviderDataProviders}}"
+                    options="[[securityProviderTypesDP]]"
+                    label-hint="[[labelMapper('security-provider-scope-label')]]"
+                    label-edge="inside"
+                    required>
+                  </oj-c-checkboxset>
+                </oj-bind-if>
+              </div>
+              <div>
+                <oj-bind-if test="[[discoverOPSSWallet]]">
+                  <oj-c-input-password
+                    value="{{opssWalletPassphrase}}"
+                    label-hint="[[labelMapper('discover-opss-wallet-passphrase-label')]]"
+                    help.instruction="[[labelMapper('discover-opss-wallet-passphrase-help')]]"
+                    required>
+                  </oj-c-input-password>
+                </oj-bind-if>
+              </div>
+              <div>
+                <oj-bind-if test="[[requiresWdtEncryptionPassphrase]]">
+                  <oj-c-input-password
+                    value="{{project.wdtModel.wdtPassphrase.observable}}"
+                    label-hint="[[labelMapper('discover-wdt-encryption-passphrase-label')]]"
+                    help.instruction="[[labelMapper('discover-wdt-encryption-passphrase-help')]]"
+                    required>
+                  </oj-c-input-password>
+                </oj-bind-if>
+              </div>
             </oj-bind-if>
           </div>
         </oj-c-form-layout>
-     </div>
+      </div>
     </oj-validation-group>
   </div>
 

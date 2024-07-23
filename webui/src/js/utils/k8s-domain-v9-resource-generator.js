@@ -11,6 +11,8 @@ function(project, K8sDomainConfigMapGenerator, jsYaml, i18n, auxImageHelper) {
   const WDT_DIR_NAME = 'weblogic-deploy';
   const DEFAULT_AUX_IMAGE_WDT_INSTALL_HOME = '/auxiliary/weblogic-deploy';
   const DEFAULT_AUX_IMAGE_WDT_MODEL_HOME = '/auxiliary/models';
+  const WDT_PROPS_ENV_VAR_NAME = 'WLSDEPLOY_PROPERTIES';
+  const WDT_PASSPHRASE_SECRET_PROPERTY = 'wdt.config.model.encryption.secret';
 
   class K8sDomainV9ResourceGenerator {
     constructor() {
@@ -58,7 +60,7 @@ function(project, K8sDomainConfigMapGenerator, jsYaml, i18n, auxImageHelper) {
         }
       }
 
-      const serverPod = this._getDomainServerPod();
+      const serverPod = this._getDomainServerPod(this._getWDTEncryptionSecretName());
       if (serverPod) {
         domainResource.spec.serverPod = serverPod;
       }
@@ -209,6 +211,14 @@ function(project, K8sDomainConfigMapGenerator, jsYaml, i18n, auxImageHelper) {
           }
         }
 
+        const wdtEncryptionSecretName = this._getWDTEncryptionSecretName();
+        if (wdtEncryptionSecretName) {
+          if (!Array.isArray(domainResource.spec.configuration.secrets)) {
+            domainResource.spec.configuration.secrets = [];
+          }
+          domainResource.spec.configuration.secrets.push(wdtEncryptionSecretName);
+        }
+
         // The operator default value is 120 but the UI sets it to 900 so
         // set the value unless it is empty or 120.
         //
@@ -286,7 +296,7 @@ function(project, K8sDomainConfigMapGenerator, jsYaml, i18n, auxImageHelper) {
       return result;
     }
 
-    _getDomainServerPod() {
+    _getDomainServerPod(wdtEncryptionSecretName = undefined) {
       let serverPod = this._getServerPod();
 
       if (this.project.k8sDomain.serverPodEnvironmentVariables.value.length > 0) {
@@ -304,6 +314,16 @@ function(project, K8sDomainConfigMapGenerator, jsYaml, i18n, auxImageHelper) {
             serverPod.env.push({ name: envVar.name, value: envVar.value });
           }
         });
+      }
+
+      if (wdtEncryptionSecretName) {
+        if (!serverPod) {
+          serverPod = {};
+        }
+        if (!Array.isArray(serverPod.env)) {
+          serverPod.env = [];
+        }
+        this._addWDTEncryptionSecret(serverPod.env, wdtEncryptionSecretName);
       }
 
       if (this.project.k8sDomain.domainNodeSelector.value.length > 0) {
@@ -481,6 +501,44 @@ function(project, K8sDomainConfigMapGenerator, jsYaml, i18n, auxImageHelper) {
 
     usingDomainCreationImage() {
       return auxImageHelper.supportsDomainCreationImages() && this.project.image.useAuxImage.value;
+    }
+
+    _getWDTEncryptionSecretName() {
+      let encryptionSecret;
+      if (this.project.settings.targetDomainLocation.value === 'mii' ||
+          (this.project.settings.targetDomainLocation.value === 'pv' && this.usingDomainCreationImage())) {
+        encryptionSecret = this.project.k8sDomain.wdtEncryptionSecretName();
+      }
+      return encryptionSecret;
+    }
+
+    _addWDTEncryptionSecret(serverPodEnv, wdtEncryptionSecretName) {
+      let foundEnvVar = false;
+      for (const envVar of serverPodEnv) {
+        if (envVar.name === WDT_PROPS_ENV_VAR_NAME) {
+          foundEnvVar = true;
+          if (envVar.value.includes(`-D${WDT_PASSPHRASE_SECRET_PROPERTY}=`)) {
+            const values = envVar.value.split(' ');
+
+            for (let i = 0; i < values.length; i++) {
+              if (values[i].startsWith(`-D${WDT_PASSPHRASE_SECRET_PROPERTY}=`)) {
+                values[i] = `-D${WDT_PASSPHRASE_SECRET_PROPERTY}=${wdtEncryptionSecretName}`;
+                break;
+              }
+            }
+            envVar.value = values.join(' ');
+          } else {
+            envVar.value = `${envVar.value} -D${WDT_PASSPHRASE_SECRET_PROPERTY}=${wdtEncryptionSecretName}`;
+          }
+          break;
+        }
+      }
+      if (!foundEnvVar) {
+        serverPodEnv.push({
+          name:  WDT_PROPS_ENV_VAR_NAME,
+          value: `-D${WDT_PASSPHRASE_SECRET_PROPERTY}=${wdtEncryptionSecretName}`
+        });
+      }
     }
   }
 

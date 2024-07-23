@@ -123,6 +123,28 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
           }
         };
 
+        this.requiresWDTEncryptionPassphrase = ko.computed(() => {
+          for (const secret of this.secrets.observable()) {
+            for (const key of secret.keys) {
+              if (key.value.toUpperCase().startsWith('{AES}')) {
+                wktLogger.debug('k8s-domain-definition-encrypted-credential-message', { secretName: secret.name, secretKey: key.key });
+                return true;
+              }
+            }
+          }
+          return false;
+        }, this);
+
+        /** The name of the WDT encryption secret, if needed. */
+        this.wdtEncryptionSecretName = ko.computed(() => {
+          let wdtEncryptionSecret;
+
+          if (this.requiresWDTEncryptionPassphrase() && wdtModel.wdtPassphrase.observable()) {
+            wdtEncryptionSecret = `${wdtModel.domainName()}-wdt-encryption-secret`;
+          }
+          return wdtEncryptionSecret;
+        }, this);
+
         this.replicas = props.createProperty(2);
         // TODO - can a WebLogic server really run with 64MB?  If not, raise minimum limit...
         this.minimumHeapSize = props.createProperty('64m');
