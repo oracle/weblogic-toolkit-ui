@@ -1,11 +1,11 @@
 +++
-title = "Release Notes"
+title = "Release 1.7.1"
 date = 2022-11-03T12:48:00-05:00
-weight = 86
+weight = 87
 pre = "<b> </b>"
 +++
 
-### Changes in Release 1.7.2
+### Changes in Release 1.7.1
 - [Major New Features](#major-new-features)
 - [Other Changes](#other-changes)
 - [Bugs Fixes](#bug-fixes)
@@ -15,11 +15,11 @@ pre = "<b> </b>"
 None
 
 #### Other Changes
-- #299 - Added support for WDT online discovery features that allow the user to discover passwords, security provider
-  data, and the OPSS domain encryption key wallet.
+- #297 - Removed the default value for the WebLogic Kubernetes Operator image tag so that the default image 
+  specified by the Helm chart is used.
 
 #### Bug Fixes
-- #298 - Fixed an issue that was causing the Prepare Model action to fail.
+- #296 - Changed the API Group for traefik to be compatible with Traefik 3.0 
 
 #### Known Issues
 - On Mac, the embedded version of WDT 4.1.0 does not include the jansi-2.4.1 JAR file that WDT's interactive Model Help
