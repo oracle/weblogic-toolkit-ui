@@ -5,28 +5,23 @@
  */
 'use strict';
 
-define(['accUtils', 'utils/i18n', 'utils/modelEdit/model-edit-helper', 'ojs/ojmodule-element-utils',
+define(['accUtils', 'utils/i18n', 'utils/modelEdit/model-edit-helper',
   'oj-c/input-text', 'oj-c/input-password'
 ],
-function(accUtils, i18n, ModelEditHelper, ModuleElementUtils) {
+function(accUtils, i18n, ModelEditHelper) {
   function FieldSet(args) {
     this.i18n = i18n;
-
     this.fields = args.fields;
 
+    const fieldMap = args.fieldMap;
+    const labelPrefix = args.labelPrefix;
+
     this.labelMapper = (labelId, payload) => {
-      return i18n.t(`${args.labelPrefix}-${labelId}`, payload);
+      return i18n.t(`${labelPrefix}-${labelId}`, payload);
     };
 
     this.fieldConfig = (field) => {
-      return ModuleElementUtils.createConfig({
-        name: 'modelEdit/edit-field',
-        params: {
-          field: field,
-          observable: args.att[field.key],
-          labelPrefix: args.labelPrefix
-        }
-      });
+      return ModelEditHelper.createFieldModuleConfig(field.key, fieldMap, labelPrefix);
     };
   }
 

@@ -7,17 +7,8 @@
 
 <div class="oj-panel">
   <oj-form-layout max-columns="2" direction="row">
-    <oj-c-input-text label-hint="[[labelMapper('attribute-ClusterAddress-label')]]"
-                   value="{{att.ClusterAddress}}"
-                   help.instruction="[[labelMapper('attribute-ClusterAddress-help')]]">
-    </oj-c-input-text>
-    <oj-c-input-text label-hint="[[labelMapper('attribute-ClusterMessagingMode-label')]]"
-                   value="{{att.ClusterMessagingMode}}"
-                   help.instruction="[[labelMapper('attribute-ClusterMessagingMode-help')]]">
-    </oj-c-input-text>
-    <oj-c-input-text label-hint="[[labelMapper('attribute-Notes-label')]]"
-                   value="{{att.Notes}}"
-                   help.instruction="[[labelMapper('attribute-Notes-help')]]">
-    </oj-c-input-text>
+    <oj-module config="[[fieldConfig('ClusterAddress')]]"></oj-module>
+    <oj-module config="[[fieldConfig('ClusterMessagingMode')]]"></oj-module>
+    <oj-module config="[[fieldConfig('Notes')]]"></oj-module>
   </oj-form-layout>
 </div>

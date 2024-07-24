@@ -7,29 +7,16 @@
 
 <div class="oj-panel">
   <oj-form-layout max-columns="2" direction="row">
-    <oj-c-input-text label-hint="[[labelMapper('attribute-Cluster-label')]]"
-                   value="{{att.Cluster}}"
-                   help.instruction="[[labelMapper('attribute-Cluster-help')]]">
-    </oj-c-input-text>
-    <oj-c-input-text label-hint="[[labelMapper('attribute-ListenPort-label')]]"
-                   value="{{att.ListenPort}}"
-                   help.instruction="[[labelMapper('attribute-ListenPort-help')]]">
-    </oj-c-input-text>
-    <oj-c-input-text label-hint="[[labelMapper('attribute-SSL-ListenPort-label')]]"
-                   value="{{att['SSL-ListenPort']}}"
-                   help.instruction="[[labelMapper('attribute-SSL-ListenPort-help')]]">
-    </oj-c-input-text>
-    <oj-switch label-hint="[[labelMapper('attribute-SSL-Enabled-label')]]"
-               value="{{att['SSL-Enabled']}}"
-               help.instruction="[[labelMapper('attribute-SSL-Enabled-help')]]">
-    </oj-switch>
-    <oj-c-input-text label-hint="[[labelMapper('attribute-DefaultIIOPUser-label')]]"
-                   value="{{att.DefaultIIOPUser}}"
-                   help.instruction="[[labelMapper('attribute-DefaultIIOPUser-help')]]">
-    </oj-c-input-text>
-    <oj-c-input-text label-hint="[[labelMapper('attribute-Notes-label')]]"
-                   value="{{att.Notes}}"
-                   help.instruction="[[labelMapper('attribute-Notes-help')]]">
-    </oj-c-input-text>
+    <oj-module config="[[fieldConfig('Cluster')]]"></oj-module>
+    <oj-module config="[[fieldConfig('ListenPort')]]"></oj-module>
+    <oj-module config="[[fieldConfig('DefaultIIOPUser')]]"></oj-module>
+    <oj-module config="[[fieldConfig('Notes')]]"></oj-module>
+  </oj-form-layout>
+</div>
+<div class="oj-panel">
+  <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('ssl-title')]]"></oj-bind-text></h6>
+  <oj-form-layout max-columns="2" direction="row">
+    <oj-module config="[[fieldConfig('SSL-Enabled')]]"></oj-module>
+    <oj-module config="[[fieldConfig('SSL-ListenPort')]]"></oj-module>
   </oj-form-layout>
 </div>

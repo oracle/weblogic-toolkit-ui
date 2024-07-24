@@ -837,3 +837,15 @@ h6.wkt-panel-heading {
   align-items: center;
   gap: 0.25em;
 }
+
+.wkt-model-edit-field-container > * {
+  flex: 1 1 auto;
+}
+
+.wkt-model-edit-field-menu-button {
+  flex: 0 0 auto;
+}
+
+.wkt-model-edit-field-menu-button button {
+  min-width: 4px !important;
+}

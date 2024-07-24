@@ -30,18 +30,19 @@ define(['knockout', 'js-yaml', 'models/wkt-project', 'ojs/ojmodule-element-utils
       this.navSelection = ko.observable();
       this.navExpanded = ko.observable();
 
-      this.createVariables = (fields, subscriptions) => {
-        const variables = {};
-        this.addVariables(fields, subscriptions, variables);
-        return variables;
+      this.createFieldMap = (fields, subscriptions) => {
+        const fieldMap = {};
+        this.addFields(fields, fieldMap, subscriptions);
+        return fieldMap;
       };
 
-      this.addVariables = (fields, subscriptions, variables) => {
+      this.addFields = (fields, fieldMap, subscriptions) => {
         fields.forEach((field) => {
           const modelValue = this.getValue(field.path, field.attribute);
-          variables[field.key] = ko.observable(modelValue);
+          field.observable = ko.observable(modelValue);
+          fieldMap[field.key] = field;
 
-          subscriptions.push(variables[field.key].subscribe((newValue) => {
+          subscriptions.push(field.observable.subscribe((newValue) => {
             const folder = findOrCreatePath(this.getCurrentModel(), field.path);
             folder[field.attribute] = newValue;
             this.writeModel();
@@ -50,7 +51,7 @@ define(['knockout', 'js-yaml', 'models/wkt-project', 'ojs/ojmodule-element-utils
       };
 
       // create a field configuration for an edit-field module
-      this.fieldConfig = (field, observable, labelPrefix) => {
+      this.fieldConfig = (field, labelPrefix) => {
         if(!field) {
           return ModuleElementUtils.createConfig({ name: 'empty-view' });
         }
@@ -59,8 +60,24 @@ define(['knockout', 'js-yaml', 'models/wkt-project', 'ojs/ojmodule-element-utils
           name: 'modelEdit/edit-field',
           params: {
             field: field,
-            observable: observable,
+            observable: field.observable,
             labelPrefix: labelPrefix
+          }
+        });
+      };
+
+      this.createFieldModuleConfig = (key, fieldMap, labelPrefix) => {
+        const field = fieldMap[key];
+        return this.fieldConfig(field, labelPrefix);
+      };
+
+      this.createFieldSetModuleConfig = (fields, fieldMap, labelPrefix) => {
+        return ModuleElementUtils.createConfig({
+          name: 'modelEdit/field-set',
+          params: {
+            fields: fields,
+            labelPrefix: labelPrefix,
+            fieldMap: fieldMap
           }
         });
       };

@@ -12,9 +12,10 @@
     <oj-c-button
       label="[[fieldLabelMapper('edit')]]"
       display="icons"
+      class="wkt-model-edit-field-menu-button"
       chroming="borderless"
       on-oj-action="[[showMenu(field)]]">
-      <span slot="endIcon" class="oj-ux-ico-edit-box" role="img"></span>
+      <span slot="endIcon" :class="[[menuIconClass]]" role="img"></span>
     </oj-c-button>
   </div>
 </oj-bind-if>
@@ -28,9 +29,27 @@
     <oj-c-button
       label="[[fieldLabelMapper('edit')]]"
       display="icons"
+      class="wkt-model-edit-field-menu-button"
       chroming="borderless"
       on-oj-action="[[showMenu(field)]]">
-      <span slot="endIcon" class="oj-ux-ico-edit-box" role="img"></span>
+      <span slot="endIcon" :class="[[menuIconClass]]" role="img"></span>
+    </oj-c-button>
+  </div>
+</oj-bind-if>
+
+<oj-bind-if test="[[displayType(field) === 'integer']]">
+  <div class="wkt-model-edit-field-container">
+    <oj-c-input-text label-hint="[[labelMapper('attribute-' + field.key + '-label')]]"
+                     value="{{observable}}"
+                     help.instruction="[[labelMapper('attribute-' + field.key + '-help')]]">
+    </oj-c-input-text>
+    <oj-c-button
+      label="[[fieldLabelMapper('edit')]]"
+      display="icons"
+      class="wkt-model-edit-field-menu-button"
+      chroming="borderless"
+      on-oj-action="[[showMenu(field)]]">
+      <span slot="endIcon" :class="[[menuIconClass]]" role="img"></span>
     </oj-c-button>
   </div>
 </oj-bind-if>
@@ -44,9 +63,10 @@
     <oj-c-button
       label="[[fieldLabelMapper('edit')]]"
       display="icons"
+      class="wkt-model-edit-field-menu-button"
       chroming="borderless"
       on-oj-action="[[showMenu(field)]]">
-      <span slot="endIcon" class="oj-ux-ico-edit-box" role="img"></span>
+      <span slot="endIcon" :class="[[menuIconClass]]" role="img"></span>
     </oj-c-button>
   </div>
 </oj-bind-if>
@@ -60,9 +80,10 @@
     <oj-c-button
       label="[[fieldLabelMapper('edit')]]"
       display="icons"
+      class="wkt-model-edit-field-menu-button"
       chroming="borderless"
       on-oj-action="[[showMenu(field)]]">
-      <span slot="endIcon" class="oj-ux-ico-edit-box" role="img"></span>
+      <span slot="endIcon" :class="[[menuIconClass]]" role="img"></span>
     </oj-c-button>
   </div>
 </oj-bind-if>
@@ -76,9 +97,10 @@
     <oj-c-button
       label="[[fieldLabelMapper('edit')]]"
       display="icons"
+      class="wkt-model-edit-field-menu-button"
       chroming="borderless"
       on-oj-action="[[showMenu(field)]]">
-      <span slot="endIcon" class="oj-ux-ico-edit-box" role="img"></span>
+      <span slot="endIcon" :class="[[menuIconClass]]" role="img"></span>
     </oj-c-button>
   </div>
 </oj-bind-if>

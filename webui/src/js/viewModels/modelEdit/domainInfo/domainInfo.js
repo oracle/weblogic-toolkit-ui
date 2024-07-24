@@ -5,11 +5,11 @@
  */
 'use strict';
 
-define(['accUtils', 'utils/i18n', 'utils/modelEdit/model-edit-helper', 'ojs/ojmodule-element-utils',
+define(['accUtils', 'utils/i18n', 'utils/modelEdit/model-edit-helper',
   'oj-c/input-text'
 ],
-function(accUtils, i18n, ModelEditHelper, ModuleElementUtils) {
-  function RcuDbInfoEditViewModel() {
+function(accUtils, i18n, ModelEditHelper) {
+  function DomainInfoEditViewModel() {
     this.i18n = i18n;
 
     const subscriptions = [];
@@ -109,24 +109,17 @@ function(accUtils, i18n, ModelEditHelper, ModuleElementUtils) {
       },
     ];
 
-    this.att = {};
-    ModelEditHelper.addVariables(this.primaryFields, subscriptions, this.att);
-    ModelEditHelper.addVariables(this.remainingFields, subscriptions, this.att);
+    const fieldMap = {};
+    ModelEditHelper.addFields(this.primaryFields, fieldMap, subscriptions);
+    ModelEditHelper.addFields(this.remainingFields, fieldMap, subscriptions);
 
-    this.remainingModuleConfig = ModuleElementUtils.createConfig({
-      name: 'modelEdit/field-set',
-      params: {fields: this.remainingFields, labelPrefix: LABEL_PREFIX, att: this.att}
-    });
+    this.remainingModuleConfig = ModelEditHelper.createFieldSetModuleConfig(this.remainingFields, fieldMap,
+      LABEL_PREFIX);
 
     this.fieldConfig = (key) => {
-      for(const fieldConfig of this.primaryFields) {
-        if(fieldConfig.key === key) {
-          return ModelEditHelper.fieldConfig(fieldConfig, this.att[key], LABEL_PREFIX);
-        }
-      }
-      return ModelEditHelper.fieldConfig(null, null, LABEL_PREFIX);
+      return ModelEditHelper.createFieldModuleConfig(key, fieldMap, LABEL_PREFIX);
     };
   }
 
-  return RcuDbInfoEditViewModel;
+  return DomainInfoEditViewModel;
 });

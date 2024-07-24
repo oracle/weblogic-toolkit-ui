@@ -17,6 +17,8 @@ function(accUtils, i18n, ModelEditHelper) {
 
     const DATASOURCE_PATH = 'resources/JDBCSystemResource/' + args.name;
 
+    const LABEL_PREFIX = 'model-edit-datasource';
+
     this.connected = () => {
       accUtils.announce(`Datasource Page for ${this.name} loaded.`, 'assertive');
     };
@@ -28,18 +30,23 @@ function(accUtils, i18n, ModelEditHelper) {
     };
 
     this.labelMapper = (labelId, payload) => {
-      return i18n.t(`model-edit-datasource-${labelId}`, payload);
+      return i18n.t(`${LABEL_PREFIX}-${labelId}`, payload);
     };
 
     const fields = [
       {
         key: 'DeploymentOrder',
         attribute: 'DeploymentOrder',
-        path: DATASOURCE_PATH
+        path: DATASOURCE_PATH,
+        type: 'integer'
       }
     ];
 
-    this.att = ModelEditHelper.createVariables(fields, subscriptions);
+    const fieldMap = ModelEditHelper.createFieldMap(fields, subscriptions);
+
+    this.fieldConfig = (key) => {
+      return ModelEditHelper.createFieldModuleConfig(key, fieldMap, LABEL_PREFIX);
+    };
   }
 
   return DatasourceEditViewModel;

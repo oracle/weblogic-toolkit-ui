@@ -7,9 +7,6 @@
 
 <div class="oj-panel">
   <oj-form-layout max-columns="2" direction="row">
-    <oj-c-input-text label-hint="[[labelMapper('attribute-SourcePath-label')]]"
-                   value="{{att.SourcePath}}"
-                   help.instruction="[[labelMapper('attribute-SourcePath-help')]]">
-    </oj-c-input-text>
+    <oj-module config="[[fieldConfig('SourcePath')]]"></oj-module>
   </oj-form-layout>
 </div>

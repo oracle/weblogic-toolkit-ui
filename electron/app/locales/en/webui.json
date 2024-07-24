@@ -1492,6 +1492,7 @@
   "model-edit-server-table-aria-label": "Model Servers Table",
   "model-edit-server-table-add-tooltip": "Add Server",
   "model-edit-server-table-delete-tooltip": "Delete Server",
+  "model-edit-server-ssl-title": "SSL",
 
   "model-edit-server-attribute-DefaultIIOPUser-label": "Default IIOP User",
   "model-edit-server-attribute-DefaultIIOPUser-help": "Default IIOP user for this server",

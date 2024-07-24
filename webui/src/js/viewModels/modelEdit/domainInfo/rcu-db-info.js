@@ -5,10 +5,10 @@
  */
 'use strict';
 
-define(['accUtils', 'utils/i18n', 'utils/modelEdit/model-edit-helper', 'ojs/ojmodule-element-utils',
+define(['accUtils', 'utils/i18n', 'utils/modelEdit/model-edit-helper',
   'oj-c/input-text'
 ],
-function(accUtils, i18n, ModelEditHelper, ModuleElementUtils) {
+function(accUtils, i18n, ModelEditHelper) {
   function RcuDbInfoEditViewModel() {
     this.i18n = i18n;
 
@@ -184,33 +184,20 @@ function(accUtils, i18n, ModelEditHelper, ModuleElementUtils) {
       },
     ];
 
-    this.att = {};
-    ModelEditHelper.addVariables(this.primaryFields, subscriptions, this.att);
-    ModelEditHelper.addVariables(this.atpFields, subscriptions, this.att);
-    ModelEditHelper.addVariables(this.remainingFields, subscriptions, this.att);
+    const fieldMap = {};
+    ModelEditHelper.addFields(this.primaryFields, fieldMap, subscriptions);
+    ModelEditHelper.addFields(this.atpFields, fieldMap, subscriptions);
+    ModelEditHelper.addFields(this.remainingFields, fieldMap, subscriptions);
 
-    this.primaryModuleConfig = ModuleElementUtils.createConfig({
-      name: 'modelEdit/field-set',
-      params: {fields: this.primaryFields, labelPrefix: LABEL_PREFIX, att: this.att}
-    });
+    this.primaryModuleConfig = ModelEditHelper.createFieldSetModuleConfig(this.primaryFields, fieldMap, LABEL_PREFIX);
 
-    this.atpModuleConfig = ModuleElementUtils.createConfig({
-      name: 'modelEdit/field-set',
-      params: {fields: this.atpFields, labelPrefix: LABEL_PREFIX, att: this.att}
-    });
+    this.atpModuleConfig = ModelEditHelper.createFieldSetModuleConfig(this.atpFields, fieldMap, LABEL_PREFIX);
 
-    this.remainingModuleConfig = ModuleElementUtils.createConfig({
-      name: 'modelEdit/field-set',
-      params: {fields: this.remainingFields, labelPrefix: LABEL_PREFIX, att: this.att}
-    });
+    this.remainingModuleConfig = ModelEditHelper.createFieldSetModuleConfig(this.remainingFields, fieldMap,
+      LABEL_PREFIX);
 
     this.fieldConfig = (key) => {
-      for(const fieldConfig of this.remainingFields) {
-        if(fieldConfig.key === key) {
-          return ModelEditHelper.fieldConfig(fieldConfig, this.att[key], LABEL_PREFIX);
-        }
-      }
-      return ModelEditHelper.fieldConfig(null, null, LABEL_PREFIX);
+      return ModelEditHelper.createFieldModuleConfig(key, fieldMap, LABEL_PREFIX);
     };
   }
 

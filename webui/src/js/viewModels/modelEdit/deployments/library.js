@@ -17,6 +17,8 @@ function(accUtils, i18n, ModelEditHelper) {
 
     const LIBRARY_PATH = 'appDeployments/Library/' + args.name;
 
+    const LABEL_PREFIX = 'model-edit-library';
+
     this.connected = () => {
       accUtils.announce(`Library Page for ${this.name} loaded.`, 'assertive');
     };
@@ -28,18 +30,23 @@ function(accUtils, i18n, ModelEditHelper) {
     };
 
     this.labelMapper = (labelId, payload) => {
-      return i18n.t(`model-edit-library-${labelId}`, payload);
+      return i18n.t(`${LABEL_PREFIX}-${labelId}`, payload);
     };
 
     const fields = [
       {
         key: 'SourcePath',
         attribute: 'SourcePath',
-        path: LIBRARY_PATH
+        path: LIBRARY_PATH,
+        type: 'string'
       }
     ];
 
-    this.att = ModelEditHelper.createVariables(fields, subscriptions);
+    const fieldMap = ModelEditHelper.createFieldMap(fields, subscriptions);
+
+    this.fieldConfig = (key) => {
+      return ModelEditHelper.createFieldModuleConfig(key, fieldMap, LABEL_PREFIX);
+    };
   }
 
   return LibraryEditViewModel;

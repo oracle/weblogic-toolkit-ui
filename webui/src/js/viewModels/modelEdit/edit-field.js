@@ -23,8 +23,14 @@ function(accUtils, i18n) {
       return i18n.t(`model-edit-field-${labelId}`, payload);
     };
 
+    // this.menuIconClass = 'oj-ux-ico-edit-box';
+    this.menuIconClass = 'oj-ux-ico-three-boxes-vertical';
+
+    // return a method to call for "show"
     this.showMenu = (field) => {
-      console.log('show menu for ' + field.key);
+      return () => {
+        console.log('show menu for ' + field.key);
+      };
     };
 
     this.displayType = (field) => {
@@ -42,6 +48,10 @@ function(accUtils, i18n) {
 
       if(field.type === 'list') {
         return 'list';
+      }
+
+      if(field.type === 'integer') {
+        return 'integer';
       }
 
       if(['string', 'credential'].includes(field.type)) {

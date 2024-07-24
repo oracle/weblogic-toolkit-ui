@@ -7,9 +7,6 @@
 
 <div class="oj-panel">
   <oj-form-layout max-columns="2" direction="row">
-    <oj-c-input-text label-hint="[[labelMapper('attribute-DeploymentOrder-label')]]"
-                   value="{{att.DeploymentOrder}}"
-                   help.instruction="[[labelMapper('attribute-DeploymentOrder-help')]]">
-    </oj-c-input-text>
+    <oj-module config="[[fieldConfig('DeploymentOrder')]]"></oj-module>
   </oj-form-layout>
 </div>
