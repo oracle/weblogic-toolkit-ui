@@ -336,6 +336,16 @@ Known Issues  On Mac, the embedded version of WDT 4.1.0 does not include the jan
     </item>
     
     <item>
+      <title>Release 1.7.1</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.7.1/</link>
+      <pubDate>Thu, 03 Nov 2022 12:48:00 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.7.1/</guid>
+      <description>Changes in Release 1.7.1  Major New Features Other Changes Bugs Fixes Known Issues  Major New Features None
+Other Changes  #297 - Removed the default value for the WebLogic Kubernetes Operator image tag so that the default image specified by the Helm chart is used.  Bug Fixes  #296 - Changed the API Group for traefik to be compatible with Traefik 3.0  Known Issues  On Mac, the embedded version of WDT 4.</description>
+    </item>
+    
+    <item>
       <title>Release 1.6.2</title>
       <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.6.2/</link>
       <pubDate>Thu, 03 Nov 2022 12:48:00 -0500</pubDate>
