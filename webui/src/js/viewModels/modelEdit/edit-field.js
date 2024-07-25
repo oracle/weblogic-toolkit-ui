@@ -30,6 +30,8 @@ function(accUtils, i18n) {
     this.showMenu = (field) => {
       return () => {
         console.log('show menu for ' + field.key);
+        let popup = document.getElementById('popup1');
+        popup.open();
       };
     };
 
