@@ -3,7 +3,12 @@
  * Copyright (c) 2021, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
-const crypto = require('crypto');
+const {
+  createCipheriv,
+  createDecipheriv,
+  pbkdf2Sync,
+  randomBytes
+} = require('node:crypto');
 const zlib = require('zlib');
 
 const _ivLength = 16;
@@ -20,11 +25,11 @@ class CredentialEncryptor {
   }
 
   getEncryptedText(clearText) {
-    const salt = crypto.randomBytes(_saltLength);
+    const salt = randomBytes(_saltLength);
     const derivedKey = this._getDerivedKey(salt);
 
-    const iv = crypto.randomBytes(_ivLength);
-    const cipher = crypto.createCipheriv(_encryptionAlgorithm, derivedKey, iv);
+    const iv = randomBytes(_ivLength);
+    const cipher = createCipheriv(_encryptionAlgorithm, derivedKey, iv);
     const encrypted = Buffer.concat([ cipher.update(clearText, 'utf8'), cipher.final() ]);
     let authTag = cipher.getAuthTag();
 
@@ -39,7 +44,7 @@ class CredentialEncryptor {
     const salt = Buffer.from(data.salt, 'base64');
     const derivedKey = this._getDerivedKey(salt);
 
-    const decipher = crypto.createDecipheriv(_encryptionAlgorithm, derivedKey, iv);
+    const decipher = createDecipheriv(_encryptionAlgorithm, derivedKey, iv);
     decipher.setAuthTag(authTag);
     const decrypted = Buffer.concat([decipher.update(encrypted), decipher.final()]);
     return decrypted.toString('utf8');
@@ -48,7 +53,7 @@ class CredentialEncryptor {
   _getDerivedKey(salt) {
     // derive key with password and salt
     // keylength adheres to the "ECRYPT-CSA Recommendations" on "www.keylength.com"
-    return crypto.pbkdf2Sync(this.passphrase, salt, _iterations, _keyLength, _digestAlgorithm);
+    return pbkdf2Sync(this.passphrase, salt, _iterations, _keyLength, _digestAlgorithm);
   }
 
   _packCipherData(authTag, content, iv, salt) {

@@ -166,6 +166,19 @@ function (ko, wdtConstructor, imageConstructor, kubectlConstructor, domainConstr
         }
       }
 
+      // Version 1.7.1 changes the operator image default from populated to empty.  If the
+      // project value is the same as what the default currently is, remove it from the project.
+      //
+      if ('wko' in wktProjectJson && 'image' in wktProjectJson.wko) {
+        const currentImageValue = wktProjectJson.wko.image;
+        const defaultImageValue =
+            `ghcr.io/oracle/weblogic-kubernetes-operator:${window.api.ipc.invoke('get-latest-wko-version-number')}`;
+
+        if (currentImageValue === defaultImageValue) {
+          delete wktProjectJson.wko.image;
+        }
+      }
+
       // Version 2.0 removes support for Verrazzano so remove all Verrazzano-specific state from the project.
       let foundVerrazzanoInProject = false;
       if ('settings' in wktProjectJson && wktProjectJson.settings.wdtTargetType === 'vz') {

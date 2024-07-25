@@ -404,6 +404,8 @@
   "wdt-archiveType-custom-pathLabel": "Custom Content Path Prefix",
   "wdt-archiveType-custom-pathHelp": "Enter the optional path into the custom content area to place the added content.  The default is the root location",
 
+  "wdt-archiveType-custom-non-replicable": "Custom Content (non-replicable)",
+
   "wdt-archiveType-databaseWallet": "Database Wallet",
   "wdt-archiveType-databaseWallet-dirLabel": "Database Wallet Directory",
   "wdt-archiveType-databaseWallet-dirHelp": "Choose the full path to the database wallet directory whose contents will be added under the specified wallet",

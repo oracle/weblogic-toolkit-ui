@@ -92,7 +92,7 @@ describe('ingress-definition', function () {
 
     it('generate traefik ingress', function () {
       const yaml = ingressResource.createTraefikRoutesAsYaml(traefikIngress);
-      const expectedYaml = 'apiVersion: traefik.containo.us/v1alpha1\n' +
+      const expectedYaml = 'apiVersion: traefik.io/v1alpha1\n' +
         'kind: Middleware\n' +
         'metadata:\n' +
         '  name: console-middleware\n' +
@@ -109,7 +109,7 @@ describe('ingress-definition', function () {
         '      WL-Proxy-SSL: \'true\'\n' +
         '\n' +
         '---\n' +
-        'apiVersion: traefik.containo.us/v1alpha1\n' +
+        'apiVersion: traefik.io/v1alpha1\n' +
         'kind: IngressRoute\n' +
         'metadata:\n' +
         '  name: console\n' +

@@ -10,7 +10,7 @@ const path = require('path');
 const uuid = require('uuid');
 const { EOL } = require('os');
 
-const model = require('./model');
+const modelYaml = require('./model');
 const modelProperties = require('./modelProperties');
 const modelArchive = require('./modelArchive');
 const fsUtils = require('./fsUtils');
@@ -285,7 +285,7 @@ async function getModelFileContent(targetWindow, modelFiles, propertyFiles, arch
   if (modelFiles && modelFiles.length > 0) {
     const existingModelFiles = await getExistingProjectModelFiles(projectDir, modelFiles);
     if (existingModelFiles.length > 0) {
-      modelFileResults['models'] = await model.getContentsOfModelFiles(projectDir, existingModelFiles);
+      modelFileResults['models'] = await modelYaml.getContentsOfModelFiles(projectDir, existingModelFiles);
     }
   }
 
@@ -533,7 +533,7 @@ async function _saveExternalFileContents(projectDirectory, externalFileContents)
 
   if ('models' in externalFileContents) {
     const models = externalFileContents['models'];
-    await model.saveContentsOfModelFiles(projectDirectory, models);
+    await modelYaml.saveContentsOfModelFiles(projectDirectory, models);
   }
   if ('properties' in externalFileContents) {
     const properties = externalFileContents['properties'];
@@ -586,7 +586,7 @@ async function _sendProjectOpened(targetWindow, file, jsonContents) {
     const projDir = _getProjectDirectory(targetWindow);
 
     if (jsonContents.model.modelFiles && jsonContents.model.modelFiles.length > 0) {
-      modelFilesContentJson['models'] = await model.getContentsOfModelFiles(projDir, jsonContents.model.modelFiles);
+      modelFilesContentJson['models'] = await modelYaml.getContentsOfModelFiles(projDir, jsonContents.model.modelFiles);
     } else {
       delete jsonContents.model.modelFiles;
     }
@@ -754,7 +754,7 @@ async function checkAddModelFile(targetWindow, filePath) {
       const targetDir = path.join(projectDir, modelsPath);
       try {
         await mkdir(targetDir, {recursive: true});
-      } catch (err) {
+      } catch {
         const message = i18n.t('dialog-failedToCreateDirectory', {dir: targetDir});
         await wktWindow.showErrorMessage(targetWindow, title, message);
         return null;
@@ -765,7 +765,7 @@ async function checkAddModelFile(targetWindow, filePath) {
       try {
         await copyFile(filePath, targetFile);
         filePath = _fixRelativePath(path.join(modelsPath, fileName));
-      } catch (err) {
+      } catch {
         const message = i18n.t('dialog-failedToCopyFile', {sourceFile: filePath, targetFile: targetFile});
         await wktWindow.showErrorMessage(targetWindow, title, message);
         return null;
