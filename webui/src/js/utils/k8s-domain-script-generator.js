@@ -117,6 +117,14 @@ function(project, ScriptGeneratorBase, K8sDomainConfigMapGenerator, auxImageHelp
         }
       }
 
+      let createWdtEncryptionSecret = false;
+      if (this.project.k8sDomain.wdtEncryptionSecretName() && this.project.wdtModel.wdtPassphrase.value) {
+        createWdtEncryptionSecret = true;
+        this.adapter.addVariableDefinition('WDT_ENCRYPTION_PASSPHRASE', this.credentialMask);
+        this.adapter.addVariableDefinition('WDT_ENCRYPTION_SECRET_NAME', this.project.k8sDomain.wdtEncryptionSecretName());
+        this.adapter.addEmptyLine();
+      }
+
       if (this.configMapGenerator.shouldCreateConfigMap()) {
         this.adapter.addVariableDefinition('DOMAIN_CONFIG_MAP_YAML', this.fillInFileNameMask);
       }
@@ -229,6 +237,19 @@ function(project, ScriptGeneratorBase, K8sDomainConfigMapGenerator, auxImageHelp
       deleteErrorMessage = `Failed to delete WebLogic domain credentials secret ${domainSecretName} in namespace ${k8sDomainNamespace}`;
       this.adapter.addCreateGenericSecretBlock(comment, kubectlExe, domainSecretName, k8sDomainNamespace,
         domainSecretData, createErrorMessage, deleteErrorMessage, replaceMessage);
+
+      if (createWdtEncryptionSecret) {
+        comment = [ 'Create WebLogic Deploy Tooling encryption secret.' ];
+        const wdtEncryptionSecretName = this.adapter.getVariableReference('WDT_ENCRYPTION_SECRET_NAME');
+        const wdtEncryptionSecretData = {
+          passphrase: this.adapter.getVariableReference('WDT_ENCRYPTION_PASSPHRASE')
+        };
+        createErrorMessage = `Failed to create WebLogic Deploy Tooling encryption secret ${wdtEncryptionSecretName} in namespace ${k8sDomainNamespace}`;
+        replaceMessage = `Replacing existing WebLogic Deploy Tooling encryption secret ${wdtEncryptionSecretName} in namespace ${k8sDomainNamespace}`;
+        deleteErrorMessage = `Failed to delete WebLogic Deploy Tooling encryption secret ${wdtEncryptionSecretName} in namespace ${k8sDomainNamespace}`;
+        this.adapter.addCreateGenericSecretBlock(comment, kubectlExe, wdtEncryptionSecretName, k8sDomainNamespace,
+          wdtEncryptionSecretData, createErrorMessage, deleteErrorMessage, replaceMessage);
+      }
 
       if (auxImageHelper.projectHasModel() || auxImageHelper.projectUsingExternalImageContainingModel()) {
         if (Array.isArray(this.project.k8sDomain.secrets.value)) {

@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
@@ -197,7 +197,7 @@ function(accUtils, ko, i18n, project, dialogHelper, archiveHelper, viewHelper, A
       return false;
     }, this);
     this.showEmptyDirField = ko.computed(() => this.archiveEntryTypeSubtype() === 'emptyDir', this);
-    this.showCustomPathField = ko.computed(() => this.archiveEntryType() === 'custom', this);
+    this.showCustomPathField = ko.computed(() => Boolean(this.archiveEntry() && this.archiveEntry().pathLabel), this);
 
     this.segregatedNameValidator = {
       validate: (value) => {

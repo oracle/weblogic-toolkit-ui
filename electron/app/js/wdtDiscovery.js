@@ -49,6 +49,7 @@ async function _runDiscover(targetWindow, discoverConfig, online) {
   const discoverType = online ? 'online' : 'offline';
   logger.info(`start ${discoverType} discover: ${discoverConfig['oracleHome']}`);
 
+  let isRemote = false;
   let projectFile = discoverConfig['projectFile'];
   let projectDir = path.dirname(projectFile);
 
@@ -66,10 +67,13 @@ async function _runDiscover(targetWindow, discoverConfig, online) {
   argList.push('-java_home');
   argList.push(discoverConfig['javaHome']);
 
-  addArgumentIfPresent(discoverConfig['domainHome'], '-domain_home', argList);
-
   argList.push('-domain_type');
   argList.push(discoverConfig['domainType']);
+
+  argList.push('-model_file');
+  argList.push(modelFile);
+  argList.push('-variable_file');
+  argList.push(propertiesFile);
 
   if (online) {
     argList.push('-admin_url');
@@ -78,33 +82,52 @@ async function _runDiscover(targetWindow, discoverConfig, online) {
     argList.push(discoverConfig['adminUser']);
     argList.push('-admin_pass');
     argList.push(discoverConfig['adminPass']);
-  }
 
-  addArgumentIfPresent(discoverConfig['sshHost'], '-ssh_host', argList);
-  addArgumentIfPresent(discoverConfig['sshPort'], '-ssh_port', argList);
-  addArgumentIfPresent(discoverConfig['sshUser'], '-ssh_user', argList);
-  addArgumentIfPresent(discoverConfig['sshPassword'], '-ssh_pass', argList);
-  addArgumentIfPresent(discoverConfig['sshPrivateKey'], '-ssh_private_key', argList);
-  addArgumentIfPresent(discoverConfig['sshPrivateKeyPassphrase'], '-ssh_private_key_pass', argList);
+    addArgumentIfPresent(discoverConfig['sshHost'], '-ssh_host', argList);
+    addArgumentIfPresent(discoverConfig['sshPort'], '-ssh_port', argList);
+    addArgumentIfPresent(discoverConfig['sshUser'], '-ssh_user', argList);
+    addArgumentIfPresent(discoverConfig['sshPassword'], '-ssh_pass', argList);
+    addArgumentIfPresent(discoverConfig['sshPrivateKey'], '-ssh_private_key', argList);
+    addArgumentIfPresent(discoverConfig['sshPrivateKeyPassphrase'], '-ssh_private_key_pass', argList);
 
-  const isRemote = discoverConfig['isRemote'];
-  if (!isRemote) {
+    const useRemote = discoverConfig['isRemote'];
+    if (!useRemote) {
+      argList.push('-archive_file');
+      argList.push(archiveFile);
+    } else {
+      isRemote = true;
+      argList.push('-remote');
+    }
+
+    if (discoverConfig['discoverPasswords']) {
+      argList.push('-discover_passwords');
+    }
+    if (discoverConfig['discoverSecurityProviderData'] && discoverConfig['discoverSecurityProviderDataArgument']) {
+      argList.push('-discover_security_provider_data');
+      argList.push(discoverConfig['discoverSecurityProviderDataArgument']);
+    }
+    if (discoverConfig['discoverOPSSWallet'] && discoverConfig['discoverOPSSWalletPassphrase']) {
+      argList.push('-discover_opss_wallet');
+      argList.push('-opss_wallet_passphrase');
+      argList.push(discoverConfig['discoverOPSSWalletPassphrase']);
+    }
+    addArgumentIfPresent(discoverConfig['discoverWdtPassphrase'], '-passphrase', argList);
+  } else {
+    // offline
+    addArgumentIfPresent(discoverConfig['domainHome'], '-domain_home', argList);
+
     argList.push('-archive_file');
     argList.push(archiveFile);
-  }
-
-  argList.push('-model_file');
-  argList.push(modelFile);
-  argList.push('-variable_file');
-  argList.push(propertiesFile);
-
-  if (isRemote) {
-    argList.push('-remote');
   }
 
   const env = {
     JAVA_HOME: process.env.JAVA_HOME || discoverConfig['javaHome']
   };
+
+  const additionalProperties = discoverConfig['additionalProperties'];
+  if (additionalProperties && additionalProperties.length > 0) {
+    env['WLSDEPLOY_PROPERTIES'] = additionalProperties;
+  }
 
   let resultsDirectory = null;
   let resultsFile = null;

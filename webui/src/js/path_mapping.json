@@ -6,7 +6,7 @@
     "jet": {
       "prefix": "https://static.oracle.com/cdn/jet/16.0.0/default/js",
       "css": "https://static.oracle.com/cdn/jet/16.0.0/default/css",
-      "csspreact": "https://static.oracle.com/cdn/jet/16.0.0/3rdparty/oraclejet-preact/amd",      
+      "csspreact": "https://static.oracle.com/cdn/jet/16.0.0/3rdparty/oraclejet-preact/amd",
       "config": "bundles-config.js"
     },
     "3rdparty": "https://static.oracle.com/cdn/jet/16.0.0/3rdparty"
@@ -386,16 +386,16 @@
       "cdn": "3rdparty",
       "cwd": "node_modules/chai/",
       "debug": {
-         "src": "chai.js",
-         "path": "libs/chai/chai.js",
-         "cdnPath": "chai/chai-4.3.10"
+        "src": "chai.js",
+        "path": "libs/chai/chai.js",
+        "cdnPath": "chai/chai-4.3.10"
       },
       "release": {
-         "src": "chai.js",
-         "path": "libs/chai/chai.js",
-         "cdnPath": "chai/chai-4.3.10.min"
+        "src": "chai.js",
+        "path": "libs/chai/chai.js",
+        "cdnPath": "chai/chai-4.3.10.min"
       }
-   },
+    },
 
     "js-yaml": {
       "cdn": "3rdparty",

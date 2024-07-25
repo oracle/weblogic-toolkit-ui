@@ -18,7 +18,7 @@ pipeline {
 
         npm_registry = "${env.ARTIFACTORY_NPM_REPO}"
         npm_noproxy = "${env.ORACLE_NO_PROXY}"
-        node_version = "18.19.1"
+        node_version = "18.20.2"
 
         project_name = "$JOB_NAME"
         version_prefix = sh(returnStdout: true, script: 'cat electron/package.json | grep version | awk \'match($0, /[0-9]+.[0-9]+.[0-9]+/) { print substr( $0, RSTART, RLENGTH )}\'').trim()
@@ -208,7 +208,7 @@ pipeline {
                     }
                 }
                 stage('MacOS Build') {
-                    agent { label('macosx') }
+                    agent { label('macosx&&!wls-hudson-mac') }
                     options {
                         timeout(time: 300, unit: 'MINUTES')
                     }
@@ -297,11 +297,24 @@ pipeline {
                             // }
                         }
                         stage('MacOS Build Installers') {
+                            // WDT 4.0 introduced a dependency on JLine, which depends on the jansi JAR file that
+                            // includes native code.  The Apple notarization process chokes on this jar because its
+                            // contains an unsigned native code library.  Since JLine is only used by modelHelp and
+                            // modelHelp currently isn't used by WKTUI, we are going to delete the jansi.jar file from
+                            // the WKTUI build to allow the Apple notarization process to succeed.
+                            //
+                            // Even if we sign the code properly for the release, any updates of WDT from within WKTUI
+                            // will download new versions directly from GitHub that are not signed, which would prevent
+                            // JLine from working from within WKTUI.  If we ever need to make this work correctly within
+                            // WKTUI, we should have the WDT build/release process sign the native code in the jansi JAR
+                            // the WDT installer includes so that WKTUI would never have an unsigned version of the JAR.
+                            //
                             steps {
                                 sh '''
                                     cd "${WORKSPACE}/electron"
                                     PATH="${mac_node_dir}/bin:$PATH" HTTPS_PROXY=${WKTUI_PROXY} CSC_IDENTITY_AUTO_DISCOVERY=false ${mac_npm_exe} run build:jet
                                     PATH="${mac_node_dir}/bin:$PATH" HTTPS_PROXY=${WKTUI_PROXY} CSC_IDENTITY_AUTO_DISCOVERY=false ${mac_npm_exe} run install-tools
+                                    rm "${WORKSPACE}/tools/weblogic-deploy/lib/jansi-2.4.1.jar"
                                     PATH="${mac_node_dir}/bin:$PATH" HTTPS_PROXY=${WKTUI_PROXY} CSC_IDENTITY_AUTO_DISCOVERY=false ${mac_npm_exe} run build:installer -- --mac --x64 --arm64
                                     cd "${WORKSPACE}"
                                 '''

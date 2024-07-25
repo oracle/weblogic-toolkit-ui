@@ -4,7 +4,7 @@ Third Party Attributions
 The following software (or subsets of the software) are dependencies of this
 project.  The first section ("Third Party Runtime Dependencies") contains
 dependencies that are used at runtime by an application built using this code.
-The second section ("Third Party Attributions for Development Code") contains
+The second section ("Third Party Development Code Dependencies") contains
 dependencies that are used in build scripts, sample code, and test suites.
 These should NOT be needed at runtime by an application built using this code.
 
@@ -13,7 +13,7 @@ Third Party Runtime Dependencies
 
 The following packages are licensed under The MIT License:
 
-@babel/runtime@7.23.9
+@babel/runtime@7.24.4
 Copyright (c) 2014-present Sebastian McKenzie and other contributors
 
 @colors/colors@1.5.0
@@ -30,7 +30,7 @@ Copyright (c) 2015 Arnout Kazemier, Martijn Swaagman, the Contributors.
 @types/geojson@7946.0.11
 Copyright (c) Microsoft Corporation.
 
-@types/node@20.11.20
+@types/node@20.12.7
 Copyright (c) Microsoft Corporation.
 
 @types/signals@1.0.2
@@ -45,11 +45,17 @@ Copyright (c) 2013 Nathan Rajlich <nathan@tootallnate.net>
 async@3.2.4
 Copyright (c) 2010-2018 Caolan McMahon
 
+balanced-match@1.0.2
+Copyright (c) 2013 Julian Gruber &lt;julian@juliangruber.com&gt;
+
 base64-js@1.5.1
 Copyright (c) 2014 Jameson Little
 
 bl@4.1.0
 Copyright (c) 2013-2019 bl contributors
+
+brace-expansion@1.1.11
+Copyright (c) 2013 Julian Gruber <julian@juliangruber.com>
 
 browserify-zlib@0.1.4
 Copyright (c) 2014-2015 Devon Govett <devongovett@gmail.com>
@@ -81,8 +87,14 @@ Copyright (c) 2011 Heather Arthur <fayearthur@gmail.com>
 colorspace@1.1.4
 Copyright (c) 2015 Arnout Kazemier, Martijn Swaagman, the Contributors.
 
+concat-map@0.0.1
+No Copyright
+
 core-util-is@1.0.3
 Copyright Node.js contributors. All rights reserved.
+
+csstype@3.1.1
+Copyright (c) 2017-2018 Fredrik Nicol
 
 debug@4.3.4
 Copyright (c) 2014-2017 TJ Holowaychuk <tj@vision-media.ca>
@@ -140,7 +152,7 @@ Copyright (C) 2011-2014 by Jorik Tangelder (Eight Media)
 https-proxy-agent@7.0.4
 Copyright (c) 2013 Nathan Rajlich <nathan@tootallnate.net>
 
-i18next@23.10.0
+i18next@23.11.2
 Copyright (c) 2024 i18next
 
 i18next-fs-backend@2.3.1
@@ -206,13 +218,13 @@ Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
 minimist@1.2.7
 No Copyright
 
-minizlib@2.1.2
-Copyright Isaac Z. Schlueter and Contributors
-Copyright Node.js contributors. All rights reserved.
-Copyright Joyent, Inc. and other Node contributors. All rights reserved.
+minizlib@3.0.1
+Copyright (c) 2017-2023 Isaac Z. Schlueter and Contributors
+Copyright (c) 2017-2023 Node.js contributors. All rights reserved.
+Copyright (c) 2017-2023 Joyent, Inc. and other Node contributors. All rights reserved.
 
-mkdirp@1.0.4
-Copyright James Halliday (mail@substack.net) and Isaac Z. Schlueter (i@izs.me)
+mkdirp@3.0.1
+Copyright (c) 2011-2023 James Halliday (mail@substack.net) and Isaac Z. Schlueter (i@izs.me)
 
 mkdirp-classic@0.5.3
 Copyright (c) 2020 James Halliday (mail@substack.net) and Mathias Buus
@@ -240,6 +252,9 @@ Copyright (c) 2014 object-hash contributors
 
 one-time@1.0.0
 Copyright (c) 2015 Unshift.io, Arnout Kazemier,  the Contributors.
+
+path-is-absolute@1.0.1
+Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
 
 peek-stream@1.1.3
 Copyright (c) 2014 Mathias Buus
@@ -335,7 +350,7 @@ triple-beam@1.4.1
 Copyright (c) 2017 winstonjs
 
 undici-types@5.26.5
-***** No Copyright Found *****
+Copyright (c) Matteo Collina and Undici contributors
 
 universalify@2.0.0
 Copyright (c) 2017, Ryan Zimmerman <opensrc@ryanzim.com>
@@ -349,7 +364,7 @@ Copyright (c) 2010-2020 Robert Kieffer and other contributors
 whatwg-url@5.0.0
 Copyright (c) 2015–2016 Sebastian Mayr
 
-winston@3.11.0
+winston@3.13.0
 Copyright (c) 2010 Charlie Robbins
 
 winston-daily-rotate-file@5.0.0
@@ -393,17 +408,23 @@ THE SOFTWARE.
 
 The following packages are licensed under ISC License:
 
+@isaacs/fs-minipass@4.0.0
+Copyright (c) Isaac Z. Schlueter and Contributors
+
 at-least-node@1.0.0
 Copyright (c) 2020 Ryan Zimmerman <opensrc@ryanzim.com>
 
-chownr@2.0.0
+fs.realpath@1.0.0
 Copyright (c) Isaac Z. Schlueter and Contributors
 
-fs-minipass@2.1.0
+glob@7.2.3
 Copyright (c) Isaac Z. Schlueter and Contributors
 
 graceful-fs@4.2.10
 Copyright (c) 2011-2022 Isaac Z. Schlueter, Ben Noordhuis, and Contributors
+
+inflight@1.0.6
+Copyright (c) Isaac Z. Schlueter
 
 inherits@2.0.4
 Copyright (c) Isaac Z. Schlueter
@@ -414,10 +435,16 @@ Copyright (c) Isaac Z. Schlueter and Contributors
 isexe@2.0.0
 Copyright (c) Isaac Z. Schlueter and Contributors
 
+minimatch@3.1.2
+Copyright (c) Isaac Z. Schlueter and Contributors
+
 minipass@5.0.0
 Copyright (c) 2017-2023 npm, Inc., Isaac Z. Schlueter, and Contributors
 
 once@1.4.0
+Copyright (c) Isaac Z. Schlueter and Contributors
+
+rimraf@3.0.2
 Copyright (c) Isaac Z. Schlueter and Contributors
 
 sax@1.2.4
@@ -426,7 +453,7 @@ Copyright (c) Isaac Z. Schlueter and Contributors
 semver@6.3.1
 Copyright (c) Isaac Z. Schlueter and Contributors
 
-tar@6.2.0
+tar@7.0.1
 Copyright (c) Isaac Z. Schlueter and Contributors
 
 which@4.0.0
@@ -1991,9 +2018,70 @@ TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
 --------------------------------------------------------------------------------
 
 
+The following packages are licensed under Blue Oak Model License 1.0.0:
+
+chownr@3.0.0
+No Copyright
+
+
+Blue Oak Model License 1.0.0
+
+# Blue Oak Model License
+
+Version 1.0.0
+
+## Purpose
+
+This license gives everyone as much permission to work with this software as
+possible, while protecting contributors from liability.
+
+## Acceptance
+
+In order to receive this license, you must agree to its rules. The rules of
+this license are both obligations under that agreement and conditions to your
+license. You must not do anything with this software that triggers a rule
+that you cannot or will not follow.
+
+## Copyright
+
+Each contributor licenses you to do everything with this software that would
+otherwise infringe that contributor's copyright in it.
+
+## Notices
+
+You must ensure that everyone who gets a copy of any part of this software
+from you, with or without changes, also gets the text of this license or a
+link to <https://blueoakcouncil.org/license/1.0.0>.
+
+## Excuse
+
+If anyone notifies you in writing that you have not complied with
+[Notices](#notices), you can keep your license by taking all practical steps
+to comply within 30 days after the notice. If you do not do so, your license
+ends immediately.
+
+## Patent
+
+Each contributor licenses you to do everything with this software that would
+otherwise infringe any patent claims they can license or become able to
+license.
+
+## Reliability
+
+No contributor can revoke this license.
+
+## No Liability
+
+***As far as the law allows, this software comes as is, without any warranty
+or condition, and no contributor will be liable to anyone for any damages
+related to this software or this license, under any kind of legal claim.***
+
+--------------------------------------------------------------------------------
+
+
 The following packages are licensed under The 3-Clause BSD License, Version 2.0:
 
-ace-builds@1.32.6
+ace-builds@1.33.0
 Copyright (c) 2010, Ajax.org B.V.
 
 ieee754@1.2.1
@@ -2032,16 +2120,16 @@ POSSIBILITY OF SUCH DAMAGE.
 
 The following packages are licensed under The Universal Permissive License (UPL), Version 1.0:
 
-@oracle/oraclejet@16.0.0
+@oracle/oraclejet@16.0.2
 Copyright (c) 2024 Oracle and/or its affiliates.
 
-@oracle/oraclejet-core-pack@16.0.0
+@oracle/oraclejet-core-pack@16.0.2
 Copyright (c) 2023 Oracle and/or its affiliates.
 
-@oracle/oraclejet-preact@16.0.0
+@oracle/oraclejet-preact@16.0.2
 Copyright (c) 2023 Oracle and/or its affiliates.
 
-@oracle/wrc-jet-pack@2.4.7
+@oracle/wrc-jet-pack@2.4.8
 Copyright (c) 2022 Oracle and/or its affiliates.
 
 
@@ -2095,7 +2183,7 @@ DEALINGS IN THE SOFTWARE.
 --------------------------------------------------------------------------------
 
 
-@oracle/oraclejet-webdriver@16.0.0
+@oracle/oraclejet-webdriver@16.0.2
 
     MIT License
 
@@ -2197,7 +2285,7 @@ Copyright (c) 2014-present Sebastian McKenzie and other contributors
 @develar/schema-utils@2.6.5
 Copyright JS Foundation and other contributors
 
-@electron/asar@3.2.8
+@electron/asar@3.2.9
 Copyright (c) 2014 GitHub Inc.
 
 @electron/get@2.0.2
@@ -2206,7 +2294,7 @@ Copyright (c) Contributors to the Electron project
 @electron/notarize@2.3.0
 Copyright 2018 Samuel Attard and contributors
 
-@electron/universal@1.4.1
+@electron/universal@1.5.1
 No Copyright
 
 @eslint-community/eslint-utils@4.4.0
@@ -2233,13 +2321,16 @@ Copyright 2019 Justin Ridgewell <jridgewell@google.com>
 @jridgewell/set-array@1.1.2
 Copyright 2022 Justin Ridgewell <jridgewell@google.com>
 
-@jridgewell/source-map@0.3.5
+@jridgewell/source-map@0.3.6
 Copyright 2019 Justin Ridgewell <jridgewell@google.com>
 
 @jridgewell/sourcemap-codec@1.4.14
 Copyright (c) 2015 Rich Harris
 
 @jridgewell/trace-mapping@0.3.17
+Copyright 2022 Justin Ridgewell <justin@ridgewell.name>
+
+@jridgewell/trace-mapping@0.3.25
 Copyright 2022 Justin Ridgewell <justin@ridgewell.name>
 
 @malept/flatpak-bundler@0.4.0
@@ -2253,9 +2344,6 @@ Copyright (c) Denis Malinochkin
 
 @nodelib/fs.walk@1.2.8
 Copyright (c) Denis Malinochkin
-
-@pkgjs/parseargs@0.11.0
-***** No Copyright Found *****
 
 @sindresorhus/is@4.6.0
 Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (https://sindresorhus.com)
@@ -2290,7 +2378,7 @@ Copyright (c) Microsoft Corporation.
 @types/ms@0.7.34
 Copyright (c) Microsoft Corporation.
 
-@types/node@20.11.20
+@types/node@20.12.7
 Copyright (c) Microsoft Corporation.
 
 @types/node@10.17.60
@@ -2305,7 +2393,7 @@ Copyright (c) Microsoft Corporation.
 @types/responselike@1.0.0
 Copyright (c) Microsoft Corporation. All rights reserved.
 
-@types/verror@1.10.9
+@types/verror@1.10.10
 Copyright (c) Microsoft Corporation.
 
 @types/yauzl@2.10.0
@@ -2343,7 +2431,7 @@ Copyright (c) 2012 Another-D-Mention Software and other contributors,
 agent-base@6.0.2
 Copyright (c) 2013 Nathan Rajlich <nathan@tootallnate.net>
 
-agent-base@7.1.0
+agent-base@7.1.1
 Copyright (c) 2013 Nathan Rajlich <nathan@tootallnate.net>
 
 aggregate-error@3.1.0
@@ -2376,7 +2464,7 @@ Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
 app-builder-bin@4.0.0
 Copyright (c) 2015 Loopline Systems
 
-app-builder-lib@24.12.0
+app-builder-lib@24.13.3
 Copyright (c) 2015 Loopline Systems
 
 append-transform@2.0.0
@@ -2476,7 +2564,7 @@ No Copyright
 buffer-from@1.1.2
 Copyright (c) 2016, 2018 Linus Unnebäck
 
-builder-util@24.9.4
+builder-util@24.13.1
 Copyright (c) 2015 Loopline Systems
 
 builder-util-runtime@9.2.3
@@ -2692,7 +2780,7 @@ Copyright 2014 Liviu Grigorescu (grigoresculiviu@gmail.com)
 dir-glob@3.0.1
 Copyright (c) Kevin Mårtensson <kevinmartensson@gmail.com> (github.com/kevva)
 
-dmg-builder@24.12.0
+dmg-builder@24.13.3
 Copyright (c) 2015 Loopline Systems
 
 dmg-license@1.0.11
@@ -2704,14 +2792,14 @@ Copyright (c) 2014 The cheeriojs contributors
 ee-first@1.1.1
 Copyright (c) 2014 Jonathan Ong me@jongleberry.com
 
-electron@29.0.1
+electron@29.3.1
 Copyright (c) Electron contributors
 Copyright (c) 2013-2020 GitHub Inc.
 
-electron-builder@24.12.0
+electron-builder@24.13.3
 Copyright (c) 2015 Loopline Systems
 
-electron-publish@24.9.4
+electron-publish@24.13.1
 Copyright (c) 2015 Loopline Systems
 
 emoji-regex@8.0.0
@@ -3242,15 +3330,15 @@ Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
 minimist@1.2.7
 No Copyright
 
-minizlib@2.1.2
-Copyright Isaac Z. Schlueter and Contributors
-Copyright Node.js contributors. All rights reserved.
-Copyright Joyent, Inc. and other Node contributors. All rights reserved.
+minizlib@3.0.1
+Copyright (c) 2017-2023 Isaac Z. Schlueter and Contributors
+Copyright (c) 2017-2023 Node.js contributors. All rights reserved.
+Copyright (c) 2017-2023 Joyent, Inc. and other Node contributors. All rights reserved.
 
-mkdirp@1.0.4
-Copyright James Halliday (mail@substack.net) and Isaac Z. Schlueter (i@izs.me)
+mkdirp@3.0.1
+Copyright (c) 2011-2023 James Halliday (mail@substack.net) and Isaac Z. Schlueter (i@izs.me)
 
-mocha@10.3.0
+mocha@10.4.0
 Copyright (c) 2011-2022 OpenJS Foundation and contributors, https://openjsf.org
 
 mock-http-server@1.4.2
@@ -3641,7 +3729,7 @@ Copyright (c) 2011 Dominic Tarr
 tiny-lr@2.0.0
 Copyright (c) 2012-2016 Mickael Daniel
 
-tmp@0.2.1
+tmp@0.2.3
 Copyright (c) 2014 KARASZI István
 
 tmp@0.0.33
@@ -3663,8 +3751,8 @@ Copyright (c) 2016 Douglas Christopher Wilson <doug@somethingdoug.com>
 tr46@5.0.0
 Copyright (c) Sebastian Mayr
 
-ts-api-utils@1.2.1
-***** No Copyright Found *****
+ts-api-utils@1.3.0
+No Copyright
 
 type-check@0.4.0
 Copyright (c) George Zahariev
@@ -3697,7 +3785,7 @@ underscore@1.13.6
 Copyright (c) 2009-2022 Jeremy Ashkenas, Julian Gonggrijp, and DocumentCloud and Investigative Reporters & Editors
 
 undici-types@5.26.5
-***** No Copyright Found *****
+Copyright (c) Matteo Collina and Undici contributors
 
 universalify@2.0.0
 Copyright (c) 2017, Ryan Zimmerman <opensrc@ryanzim.com>
@@ -3805,6 +3893,9 @@ The following packages are licensed under ISC License:
 @isaacs/cliui@8.0.2
 Copyright (c) 2015, Contributors
 
+@isaacs/fs-minipass@4.0.0
+Copyright (c) Isaac Z. Schlueter and Contributors
+
 @istanbuljs/load-nyc-config@1.1.0
 Copyright (c) 2019, Contributors
 
@@ -3826,9 +3917,6 @@ Copyright (c) 2014-2015, Felix Boehm <me@feedic.com>
 browser-stdout@1.3.1
 Copyright 2018 kumavis
 
-chownr@2.0.0
-Copyright (c) Isaac Z. Schlueter and Contributors
-
 cli-width@3.0.0
 Copyright (c) 2015, Ilya Radchenko <ilya@burstcreations.com>
 
@@ -3847,9 +3935,6 @@ Copyright (c) 2018-2020, Andrea Giammarchi, @WebReflection
 foreground-child@2.0.0
 Copyright (c) Isaac Z. Schlueter and Contributors
 
-fs-minipass@2.1.0
-Copyright (c) Isaac Z. Schlueter and Contributors
-
 fs.realpath@1.0.0
 Copyright (c) Isaac Z. Schlueter and Contributors
 
@@ -3859,7 +3944,7 @@ Copyright 2018 Stefan Penner
 glob@7.2.3
 Copyright (c) Isaac Z. Schlueter and Contributors
 
-glob@10.3.10
+glob@10.3.12
 Copyright (c) 2009-2023 Isaac Z. Schlueter and Contributors
 
 glob-parent@6.0.2
@@ -3898,7 +3983,7 @@ Copyright (c) Isaac Z. Schlueter and Contributors
 minipass@5.0.0
 Copyright (c) 2017-2023 npm, Inc., Isaac Z. Schlueter, and Contributors
 
-minipass@7.0.3
+minipass@7.0.4
 Copyright (c) 2017-2023 npm, Inc., Isaac Z. Schlueter, and Contributors
 
 mute-stream@0.0.8
@@ -3943,7 +4028,7 @@ Copyright (c) 2015, Contributors
 spawn-wrap@2.0.0
 Copyright (c) Isaac Z. Schlueter and Contributors
 
-tar@6.2.0
+tar@7.0.1
 Copyright (c) Isaac Z. Schlueter and Contributors
 
 test-exclude@6.0.0
@@ -4131,6 +4216,9 @@ No Copyright
 @malept/cross-spawn-promise@1.1.1
 No Copyright
 
+@pkgjs/parseargs@0.11.0
+No Copyright
+
 caseless@0.12.0
 No Copyright
 
@@ -4140,7 +4228,7 @@ Copyright (C) 2014-present   SheetJS LLC
 doctrine@3.0.0
 Copyright JS Foundation and other contributors, https://js.foundation
 
-ejs@3.1.9
+ejs@3.1.10
 Copyright 2112 Matthew Eernisse (mde@fleegix.org)
 
 eslint-visitor-keys@3.4.3
@@ -4161,7 +4249,7 @@ Copyright (c) 2015-2018 Google, Inc., Netflix, Inc., Microsoft Corp. and contrib
 sumchecker@3.0.1
 Copyright 2016, 2017, 2019, 2021 Mark Lee and contributors
 
-typescript@5.3.3
+typescript@5.4.5
 Copyright (c) Microsoft Corporation. All rights reserved.
 
 typescript@5.3.2
@@ -4352,7 +4440,7 @@ TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
 
 The following packages are licensed under The 3-Clause BSD License, Version 2.0:
 
-@humanwhocodes/object-schema@2.0.2
+@humanwhocodes/object-schema@2.0.3
 Copyright (c) 2019, Human Who Codes
 
 charenc@0.0.2
@@ -4412,7 +4500,7 @@ Copyright 2014 Yahoo! Inc.
 source-map@0.6.1
 Copyright (c) 2009-2011, Mozilla Foundation and contributors
 
-source-map-js@1.0.2
+source-map-js@1.2.0
 Copyright (c) 2009-2011, Mozilla Foundation and contributors
 
 sprintf-js@1.1.2
@@ -4848,6 +4936,73 @@ ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 --------------------------------------------------------------------------------
 
 
+The following packages are licensed under Blue Oak Model License 1.0.0:
+
+chownr@3.0.0
+No Copyright
+
+jackspeak@2.3.6
+No Copyright
+
+path-scurry@1.10.2
+No Copyright
+
+
+Blue Oak Model License 1.0.0
+
+# Blue Oak Model License
+
+Version 1.0.0
+
+## Purpose
+
+This license gives everyone as much permission to work with this software as
+possible, while protecting contributors from liability.
+
+## Acceptance
+
+In order to receive this license, you must agree to its rules. The rules of
+this license are both obligations under that agreement and conditions to your
+license. You must not do anything with this software that triggers a rule
+that you cannot or will not follow.
+
+## Copyright
+
+Each contributor licenses you to do everything with this software that would
+otherwise infringe that contributor's copyright in it.
+
+## Notices
+
+You must ensure that everyone who gets a copy of any part of this software
+from you, with or without changes, also gets the text of this license or a
+link to <https://blueoakcouncil.org/license/1.0.0>.
+
+## Excuse
+
+If anyone notifies you in writing that you have not complied with
+[Notices](#notices), you can keep your license by taking all practical steps
+to comply within 30 days after the notice. If you do not do so, your license
+ends immediately.
+
+## Patent
+
+Each contributor licenses you to do everything with this software that would
+otherwise infringe any patent claims they can license or become able to
+license.
+
+## Reliability
+
+No contributor can revoke this license.
+
+## No Liability
+
+***As far as the law allows, this software comes as is, without any warranty
+or condition, and no contributor will be liable to anyone for any damages
+related to this software or this license, under any kind of legal claim.***
+
+--------------------------------------------------------------------------------
+
+
 The following packages are licensed under Creative Commons Attribution 4.0 International Public License:
 
 caniuse-lite@1.0.30001449
@@ -5202,7 +5357,7 @@ The following packages are licensed under The Universal Permissive License (UPL)
 @oracle/ojet-cli@16.0.0
 Copyright (c) 2024 Oracle and/or its affiliates.
 
-@oracle/oraclejet-audit@16.0.0
+@oracle/oraclejet-audit@16.0.2
 Copyright (c) 2019, 2024 Oracle and/or its affiliates
 
 @oracle/oraclejet-tooling@16.0.0
@@ -5255,23 +5410,6 @@ OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
-
---------------------------------------------------------------------------------
-
-
-The following packages are licensed under ***** Unrecognized SPDX License Type BlueOak-1.0.0 *****:
-
-jackspeak@2.3.6
-copyright in it.
-
-path-scurry@1.10.1
-copyright in it.
-
-
-***** Unrecognized SPDX License Type BlueOak-1.0.0 *****
-
-***** MISSING LICENSE TEXT *****
-
 
 --------------------------------------------------------------------------------
 

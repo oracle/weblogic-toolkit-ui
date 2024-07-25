@@ -32,6 +32,9 @@ define(['knockout', 'utils/observable-properties', 'js-yaml', 'utils/validation-
         /** The locations of the archive files. */
         this.archiveFiles = props.createArrayProperty();
 
+        /** Model encryption passphrase. */
+        this.wdtPassphrase = props.createProperty();
+
         /** The contents of the first model file. */
         this.modelContent = ko.observable('');
 
@@ -163,10 +166,7 @@ define(['knockout', 'utils/observable-properties', 'js-yaml', 'utils/validation-
               //                         user:
               //                             Value: '@@SECRET:mydomain-jdbc-myds:username@@'
               //
-              let secretKey = secretName;
-              if (secretEnvVar) {
-                secretKey = secretName.startsWith('-') ? `${secretEnvVar}${secretName}` : `${secretEnvVar}-${secretName}`;
-              }
+              const secretKey = this.getModelSecretKey(secretEnvVar, secretName);
 
               let secretData;
               if (secretsMap.has(secretKey)) {
@@ -184,6 +184,35 @@ define(['knockout', 'utils/observable-properties', 'js-yaml', 'utils/validation-
             }
           });
           return [...secretsMap.values()];
+        };
+
+        this.getModelSecretKey = (secretEnvVar, secretName) => {
+          let secretKey = secretName;
+          if (secretEnvVar) {
+            secretKey = secretName.startsWith('-') ? `${secretEnvVar}${secretName}` : `${secretEnvVar}-${secretName}`;
+          }
+          return secretKey;
+        };
+
+        this.getAdminUserTopologySecurityUserSecretKey = (userName) => {
+          let result;
+          try {
+            const yaml = jsYaml.load(this.modelContent());
+
+            const modelValue = getElement(yaml, `topology.Security.User.${userName}.Password`);
+            if (modelValue) {
+              matches = modelValue.match(SECRET_PATTERN);
+              if (matches) {
+                const secretName = matches.groups.name;
+                const secretEnvVar = matches.groups.envvar;
+
+                result = this.getModelSecretKey(secretEnvVar, secretName);
+              }
+            }
+          } catch {
+            // unable to parse model, just return undefined
+          }
+          return result;
         };
 
         /** Returns a property for editing the model properties */
@@ -252,7 +281,7 @@ define(['knockout', 'utils/observable-properties', 'js-yaml', 'utils/validation-
             const domainName = (modelName && (typeof modelName === 'string')) ? modelName : defaultDomainName;
             this.domainName(domainName);
 
-          } catch (e) {
+          } catch {
             // unable to parse model, don't update any fields
           }
         };

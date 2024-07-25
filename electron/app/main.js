@@ -998,12 +998,10 @@ class Main {
       return setWebLogicRemoteConsoleHomeAndStart(event.sender.getOwnerBrowserWindow(), wlRemoteConsoleHome);
     });
 
-    // eslint-disable-next-line no-unused-vars
-    ipcMain.handle('wrc-get-home-default-value', async (event) => {
+    ipcMain.handle('wrc-get-home-default-value', async () => {
       return getDefaultWebLogicRemoteConsoleHome();
     });
 
-    // eslint-disable-next-line no-unused-vars
     ipcMain.handle('get-wko-release-versions', async (event, minimumVersion = '3.3.0') => {
       const ghApiWkoBaseUrl = 'https://api.github.com/repos/oracle/weblogic-kubernetes-operator';
 

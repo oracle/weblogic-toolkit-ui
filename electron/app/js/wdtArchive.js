@@ -87,6 +87,17 @@ function getEntryTypes() {
       pathHelp: i18n.t('wdt-archiveType-custom-pathHelp'),
       pathPrefix: 'config/wlsdeploy/custom/'
     },
+    'customNonReplicable': {
+      name: i18n.t('wdt-archiveType-custom-non-replicable'),
+      subtype: 'either',
+      dirLabel: i18n.t('wdt-archiveType-custom-dirLabel'),
+      dirHelp: i18n.t('wdt-archiveType-custom-dirHelp'),
+      fileLabel: i18n.t('wdt-archiveType-custom-fileLabel'),
+      fileHelp: i18n.t('wdt-archiveType-custom-fileHelp'),
+      pathLabel: i18n.t('wdt-archiveType-custom-pathLabel'),
+      pathHelp: i18n.t('wdt-archiveType-custom-pathHelp'),
+      pathPrefix: 'wlsdeploy/custom/'
+    },
     'databaseWallet': {
       name: i18n.t('wdt-archiveType-databaseWallet'),
       subtype: 'either',
@@ -583,6 +594,7 @@ async function _validateArchiveEntryData(targetWindow, entryType, typeDetail, en
       case 'application':
       case 'classpathLibrary':
       case 'custom':
+      case 'customNonReplicable':
       case 'opssWallet':
       case 'sharedLibrary':
         _validateArchiveEntryFile(targetWindow, entryType, entryData.fileType, entryData.fileName).then(result => {

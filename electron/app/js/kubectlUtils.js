@@ -834,7 +834,7 @@ function _parseLogEntryAsJson(logEntry) {
 
   try {
     result = JSON.parse(logEntry);
-  } catch (err) {
+  } catch {
     // Assume the entry is not in JSON format and return undefined
   }
   return result;
