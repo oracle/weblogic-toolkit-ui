@@ -24,7 +24,8 @@ function(accUtils, i18n) {
     };
 
     // this.menuIconClass = 'oj-ux-ico-edit-box';
-    this.menuIconClass = 'oj-ux-ico-three-boxes-vertical';
+    // this.menuIconClass = 'oj-ux-ico-three-boxes-vertical';
+    this.menuIconClass = 'oj-ux-ico-three-circles-vertical';
 
     // return a method to call for "show"
     this.showMenu = (field) => {
