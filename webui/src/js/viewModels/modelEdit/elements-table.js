@@ -7,7 +7,7 @@
 
 define(['accUtils', 'utils/i18n', 'knockout', 'utils/modelEdit/model-edit-helper',
   'utils/view-helper', 'ojs/ojarraydataprovider',
-  'ojs/ojtable', 'oj-c/labelled-link'
+  'ojs/ojtable', 'oj-c/button', 'oj-c/labelled-link'
 ],
 function(accUtils, i18n, ko, ModelEditHelper, ViewHelper, ArrayDataProvider) {
   function ElementsTableViewModel(args) {

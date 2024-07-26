@@ -2,10 +2,10 @@
  Copyright (c) 2024, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
-<oj-form-layout max-columns="2" direction="row">
+<oj-c-form-layout max-columns="2" direction="row">
   <oj-bind-for-each data="[[fields]]">
     <template data-oj-as="field">
       <oj-module config="[[fieldConfig(field.data)]]"></oj-module>
     </template>
   </oj-bind-for-each>
-</oj-form-layout>
+</oj-c-form-layout>

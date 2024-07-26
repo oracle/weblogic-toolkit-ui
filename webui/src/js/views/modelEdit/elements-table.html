@@ -17,6 +17,7 @@
       <td>
         <oj-c-labelled-link
           text="[[row.data.name]]"
+          label-hint=""
           on-oj-action="[[navigateToElement]]"
         >
         </oj-c-labelled-link>
@@ -27,22 +28,22 @@
         </template>
       </oj-bind-for-each>
       <td>
-        <oj-button display="icons"
-                   chroming="borderless"
-                   on-oj-action="[[deleteElement]]">
+        <oj-c-button display="icons"
+                     chroming="borderless"
+                     label="[[labelMapper('table-delete-tooltip')]]"
+                     on-oj-action="[[deleteElement]]">
           <span slot="endIcon" class="oj-ux-ico-trash"></span>
-          <oj-bind-text value="[[labelMapper('table-delete-tooltip')]]"></oj-bind-text>
-        </oj-button>
+        </oj-c-button>
       </td>
     </tr>
   </template>
   <template slot="addHeaderTemplate" data-oj-as="header">
-    <oj-button display="icons"
-               chroming="borderless"
-               on-oj-action="[[addElement]]">
+    <oj-c-button display="icons"
+                 chroming="borderless"
+                 label="[[labelMapper('table-add-tooltip')]]"
+                 on-oj-action="[[addElement]]">
       <span slot="endIcon" class="oj-ux-ico-plus"></span>
-      <oj-bind-text value="[[labelMapper('table-add-tooltip')]]"></oj-bind-text>
-    </oj-button>
+    </oj-c-button>
   </template>
   <template slot="noData">
     <div class="oj-table-body-message">
