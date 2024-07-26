@@ -6,7 +6,7 @@
 'use strict';
 
 define(['accUtils', 'utils/i18n', 'utils/modelEdit/model-edit-helper',
-  'oj-c/input-text'
+  'oj-c/form-layout', 'oj-c/input-text'
 ],
 function(accUtils, i18n, ModelEditHelper) {
   function RcuDbInfoEditViewModel() {
