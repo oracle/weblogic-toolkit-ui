@@ -3,108 +3,56 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 
-<oj-bind-if test="[[displayType(field) === 'password']]">
-  <div class="wkt-model-edit-field-container">
+<div class="wkt-model-edit-field-container">
+  <oj-bind-if test="[[displayType(field) === 'password']]">
     <oj-c-input-password label-hint="[[labelMapper('attribute-' + field.key + '-label')]]"
                      value="{{observable}}"
                      help.instruction="[[labelMapper('attribute-' + field.key + '-help')]]">
     </oj-c-input-password>
-    <oj-c-button
-      label="[[fieldLabelMapper('options')]]"
-      display="icons"
-      class="wkt-model-edit-field-menu-button"
-      chroming="borderless"
-      on-oj-action="[[showMenu(field)]]">
-      <span slot="endIcon" :class="[[menuIconClass]]" role="img"></span>
-    </oj-c-button>
-  </div>
-</oj-bind-if>
-
-<oj-bind-if test="[[displayType(field) === 'string']]">
-  <div class="wkt-model-edit-field-container">
+  </oj-bind-if>
+  <oj-bind-if test="[[displayType(field) === 'string']]">
     <oj-c-input-text label-hint="[[labelMapper('attribute-' + field.key + '-label')]]"
                      value="{{observable}}"
                      help.instruction="[[labelMapper('attribute-' + field.key + '-help')]]">
     </oj-c-input-text>
-    <oj-c-button
-      label="[[fieldLabelMapper('options')]]"
-      display="icons"
-      class="wkt-model-edit-field-menu-button"
-      chroming="borderless"
-      on-oj-action="[[showMenu(field)]]">
-      <span slot="endIcon" :class="[[menuIconClass]]" role="img"></span>
-    </oj-c-button>
-  </div>
-</oj-bind-if>
-
-<oj-bind-if test="[[displayType(field) === 'integer']]">
-  <div class="wkt-model-edit-field-container">
+  </oj-bind-if>
+  <oj-bind-if test="[[displayType(field) === 'integer']]">
     <oj-c-input-text label-hint="[[labelMapper('attribute-' + field.key + '-label')]]"
                      value="{{observable}}"
                      help.instruction="[[labelMapper('attribute-' + field.key + '-help')]]">
     </oj-c-input-text>
-    <oj-c-button
-      label="[[fieldLabelMapper('options')]]"
-      display="icons"
-      class="wkt-model-edit-field-menu-button"
-      chroming="borderless"
-      on-oj-action="[[showMenu(field)]]">
-      <span slot="endIcon" :class="[[menuIconClass]]" role="img"></span>
-    </oj-c-button>
-  </div>
-</oj-bind-if>
-
-<oj-bind-if test="[[displayType(field) === 'list']]">
-  <div class="wkt-model-edit-field-container">
+  </oj-bind-if>
+  <oj-bind-if test="[[displayType(field) === 'list']]">
     <oj-c-input-text label-hint="[[labelMapper('attribute-' + field.key + '-label') + ' (list)']]"
                      value="{{observable}}"
                      help.instruction="[[labelMapper('attribute-' + field.key + '-help')]]">
     </oj-c-input-text>
-    <oj-c-button
-      label="[[fieldLabelMapper('options')]]"
-      display="icons"
-      class="wkt-model-edit-field-menu-button"
-      chroming="borderless"
-      on-oj-action="[[showMenu(field)]]">
-      <span slot="endIcon" :class="[[menuIconClass]]" role="img"></span>
-    </oj-c-button>
-  </div>
-</oj-bind-if>
-
-<oj-bind-if test="[[displayType(field) === 'dict']]">
-  <div class="wkt-model-edit-field-container">
+  </oj-bind-if>
+  <oj-bind-if test="[[displayType(field) === 'dict']]">
     <oj-c-input-text label-hint="[[labelMapper('attribute-' + field.key + '-label') + ' (dict)']]"
                      value="{{observable}}"
                      help.instruction="[[labelMapper('attribute-' + field.key + '-help')]]">
     </oj-c-input-text>
-    <oj-c-button
-      label="[[fieldLabelMapper('options')]]"
-      display="icons"
-      class="wkt-model-edit-field-menu-button"
-      chroming="borderless"
-      on-oj-action="[[showMenu(field)]]">
-      <span slot="endIcon" :class="[[menuIconClass]]" role="img"></span>
-    </oj-c-button>
-  </div>
-</oj-bind-if>
-
-<oj-bind-if test="[[displayType(field) === 'boolean']]">
-  <div class="wkt-model-edit-field-container">
+  </oj-bind-if>
+  <oj-bind-if test="[[displayType(field) === 'boolean']]">
     <oj-switch label-hint="[[labelMapper('attribute-' + field.key + '-label')]]"
                value="{{observable}}"
                help.instruction="[[labelMapper('attribute-' + field.key + '-help')]]">
     </oj-switch>
-    <oj-c-button
-      label="[[fieldLabelMapper('options')]]"
-      display="icons"
-      class="wkt-model-edit-field-menu-button"
-      chroming="borderless"
-      on-oj-action="[[showMenu(field)]]">
-      <span slot="endIcon" :class="[[menuIconClass]]" role="img"></span>
-    </oj-c-button>
-  </div>
-</oj-bind-if>
+  </oj-bind-if>
+  <oj-bind-if test="[[displayType(field) === 'unknown']]">
+    <div>
+      <oj-bind-text value="[[labelMapper('attribute-' + field.key + '-label')]]"></oj-bind-text>
+      (<oj-bind-text value="[[field.type]]"></oj-bind-text>)
+    </div>
+  </oj-bind-if>
 
-<oj-bind-if test="[[displayType(field) === 'unknown']]">
-  <div><oj-bind-text value="[[labelMapper('attribute-' + field.key + '-label')]]"></oj-bind-text> (<oj-bind-text value="[[field.type]]"></oj-bind-text>)</div>
-</oj-bind-if>
+  <oj-c-button
+    label="[[fieldLabelMapper('options')]]"
+    display="icons"
+    class="wkt-model-edit-field-menu-button"
+    chroming="borderless"
+    on-oj-action="[[showOptions(field)]]">
+    <span slot="endIcon" :class="[[menuIconClass]]" role="img"></span>
+  </oj-c-button>
+</div>

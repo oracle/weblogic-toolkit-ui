@@ -29,8 +29,8 @@ function(accUtils, i18n, DialogHelper) {
     // this.menuIconClass = 'oj-ux-ico-three-boxes-vertical';
     this.menuIconClass = 'oj-ux-ico-three-circles-vertical';
 
-    // return a method to call for "show"
-    this.showMenu = (field) => {
+    // return a method to show options dialog
+    this.showOptions = (field) => {
       return () => {
         const options = { fieldInfo: field, labelPrefix: labelPrefix };
         DialogHelper.promptDialog('modelEdit/edit-field-dialog', options)
