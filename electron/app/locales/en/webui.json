@@ -1384,6 +1384,12 @@
   "model-edit-wls-roles-label": "WLS Roles",
   "model-edit-wls-credential-mapping-label": "WLS Credential Mapping",
 
+  "model-edit-rcudbinfo-db-type-oracle": "Oracle",
+  "model-edit-rcudbinfo-db-type-ebr": "EBR",
+  "model-edit-rcudbinfo-db-type-sqlserver": "SQL Server",
+  "model-edit-rcudbinfo-db-type-db2": "Db2",
+  "model-edit-rcudbinfo-db-type-mysql": "MySQL",
+
   "model-edit-table-name-label": "Name",
 
   "model-edit-application-label": "Application",

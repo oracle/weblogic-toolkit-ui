@@ -17,6 +17,25 @@ function(accUtils, i18n, ModelEditHelper) {
     const INFO_PATH = 'domainInfo/RCUDbInfo';
     const LABEL_PREFIX = 'model-edit-rcudbinfo';
 
+    const DB_TYPES = [
+      { key: 'ORACLE', label: i18n.t(`${LABEL_PREFIX}-db-type-oracle`) },
+      { key: 'EBR', label: i18n.t(`${LABEL_PREFIX}-db-type-ebr`) },
+      { key: 'SQLSERVER', label: i18n.t(`${LABEL_PREFIX}-db-type-sqlserver`) },
+      { key: 'DB2', label: i18n.t(`${LABEL_PREFIX}-db-type-db2`) },
+      { key: 'MYSQL', label: i18n.t(`${LABEL_PREFIX}-db-type-mysql`) }
+    ];
+
+    const CONNECTION_TYPES = [
+      { key: 'SSL', label: 'SSL' },
+      { key: 'ATP', label: 'ATP' }
+    ];
+
+    const STORE_TYPES = [
+      { key: 'SSO', label: 'SSO' },
+      { key: 'PKCS12', label: 'PKCS12' },
+      { key: 'JKS', label: 'JKS' }
+    ];
+
     this.connected = () => {
       accUtils.announce('RCU Database Info Page loaded.', 'assertive');
     };
@@ -36,13 +55,15 @@ function(accUtils, i18n, ModelEditHelper) {
         key: 'rcu_database_type',
         attribute: 'rcu_database_type',
         path: INFO_PATH,
-        type: 'string'
+        type: 'choice',
+        options: DB_TYPES
       },
       {
         key: 'oracle_database_connection_type',
         attribute: 'oracle_database_connection_type',
         path: INFO_PATH,
-        type: 'string'
+        type: 'choice',
+        options: CONNECTION_TYPES
       },
       {
         key: 'compInfoXMLLocation',
@@ -156,7 +177,8 @@ function(accUtils, i18n, ModelEditHelper) {
         key: 'javax_net_ssl_keyStoreType',
         attribute: 'javax.net.ssl.keyStoreType',
         path: INFO_PATH,
-        type: 'string'
+        type: 'choice',
+        options: STORE_TYPES
       },
       {
         key: 'javax_net_ssl_keyStorePassword',
@@ -174,7 +196,8 @@ function(accUtils, i18n, ModelEditHelper) {
         key: 'javax_net_ssl_trustStoreType',
         attribute: 'javax.net.ssl.trustStoreType',
         path: INFO_PATH,
-        type: 'string'
+        type: 'choice',
+        options: STORE_TYPES
       },
       {
         key: 'javax_net_ssl_trustStorePassword',

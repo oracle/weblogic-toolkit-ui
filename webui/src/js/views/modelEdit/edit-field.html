@@ -40,6 +40,13 @@
                help.instruction="[[labelMapper('attribute-' + field.key + '-help')]]">
     </oj-switch>
   </oj-bind-if>
+  <oj-bind-if test="[[displayType(field) === 'choice']]">
+    <oj-select-single label-hint="[[labelMapper('attribute-' + field.key + '-label')]]"
+                      value="{{observable}}"
+                      data="{{optionsProvider}}"
+                      help.instruction="[[labelMapper('attribute-' + field.key + '-help')]]">
+    </oj-select-single>
+  </oj-bind-if>
   <oj-bind-if test="[[displayType(field) === 'unknown']]">
     <div>
       <oj-bind-text value="[[labelMapper('attribute-' + field.key + '-label')]]"></oj-bind-text>

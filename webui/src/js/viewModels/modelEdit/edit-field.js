@@ -5,10 +5,10 @@
  */
 'use strict';
 
-define(['accUtils', 'utils/i18n', 'utils/dialog-helper',
+define(['accUtils', 'utils/i18n', 'utils/dialog-helper','ojs/ojarraydataprovider',
   'oj-c/button', 'oj-c/input-text', 'oj-c/input-password'
 ],
-function(accUtils, i18n, DialogHelper) {
+function(accUtils, i18n, DialogHelper, ArrayDataProvider) {
   function EditField(args) {
     this.i18n = i18n;
 
@@ -28,6 +28,11 @@ function(accUtils, i18n, DialogHelper) {
     // this.menuIconClass = 'oj-ux-ico-edit-box';
     // this.menuIconClass = 'oj-ux-ico-three-boxes-vertical';
     this.menuIconClass = 'oj-ux-ico-three-circles-vertical';
+
+    this.optionsProvider = null;
+    if(this.field.options) {
+      this.optionsProvider = new ArrayDataProvider(this.field.options, {keyAttributes: 'key'});
+    }
 
     // return a method to show options dialog
     this.showOptions = (field) => {
@@ -49,6 +54,10 @@ function(accUtils, i18n, DialogHelper) {
 
       if(field.type === 'boolean') {
         return 'boolean';
+      }
+
+      if(field.type === 'choice') {
+        return 'choice';
       }
 
       if(field.type === 'dict') {
