@@ -5,18 +5,20 @@
  */
 'use strict';
 
-define(['accUtils', 'utils/i18n',
+define(['accUtils', 'utils/i18n', 'utils/dialog-helper',
   'oj-c/button', 'oj-c/input-text', 'oj-c/input-password'
 ],
-function(accUtils, i18n) {
+function(accUtils, i18n, DialogHelper) {
   function EditField(args) {
     this.i18n = i18n;
 
     this.field = args.field;
     this.observable = args.observable;
 
+    const labelPrefix = args.labelPrefix;
+
     this.labelMapper = (labelId, payload) => {
-      return i18n.t(`${args.labelPrefix}-${labelId}`, payload);
+      return i18n.t(`${labelPrefix}-${labelId}`, payload);
     };
 
     this.fieldLabelMapper = (labelId, payload) => {
@@ -30,9 +32,13 @@ function(accUtils, i18n) {
     // return a method to call for "show"
     this.showMenu = (field) => {
       return () => {
-        console.log('show menu for ' + field.key);
-        let popup = document.getElementById('popup1');
-        popup.open();
+        const options = { fieldInfo: field, labelPrefix: labelPrefix };
+        DialogHelper.promptDialog('modelEdit/edit-field-dialog', options)
+          .then(result => {
+            if (result) {
+              console.log('dialog result: ' + result);
+            }
+          });
       };
     };
 

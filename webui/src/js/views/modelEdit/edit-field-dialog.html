@@ -1,0 +1,63 @@
+<!--
+ Copyright (c) 2021, 2023, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<oj-dialog id="editFieldDialog" class="wkt-model-edit-field-dialog" initial-visibility="hide">
+  <div slot="header">
+    <span id="dialog-title-id" class="oj-dialog-title"><oj-bind-text value="[[getTitle()]]"></oj-bind-text></span>
+  </div>
+  <div slot="body">
+    <oj-validation-group id="modelEditFieldTracker">
+      <div class="oj-panel">
+        <oj-radioset
+          id="radiosetBasicDemoId"
+          label-hint=""
+          label-edge="inside"
+          value="{{editOption}}">
+          <!-- This is an example of how to use oj-bind-for-each, along with oj-bind-text to
+                iterate over an array of objects-->
+          <oj-bind-for-each data="[[editOptions]]">
+            <template>
+              <oj-option value="[[$current.data.value]]">
+                <oj-bind-text value="[[$current.data.label]]"></oj-bind-text>
+                <div>
+                  <oj-bind-if test="[[isVariableOption($current.data) && variableOptionSelected]]">
+                    <oj-c-input-text
+                      class="wkt-model-edit-field-stacked"
+                      label-hint="[[labelMapper('token-name-label')]]"
+                      value="{{tokenName}}"
+                      help.instruction="[[labelMapper('token-name-help')]]">
+                    </oj-c-input-text>
+                  </oj-bind-if>
+                  <oj-bind-if test="[[isNewVariableOption($current.data) && newVariableOptionSelected]]">
+                    <oj-c-input-text
+                      class="wkt-model-edit-field-stacked"
+                      label-hint="[[labelMapper('token-name-label')]]"
+                      value="{{tokenName}}"
+                      help.instruction="[[labelMapper('token-name-help')]]">
+                    </oj-c-input-text>
+                    <oj-c-input-text
+                      class="wkt-model-edit-field-stacked"
+                      label-hint="[[labelMapper('token-value-label')]]"
+                      value="{{tokenValue}}"
+                      help.instruction="[[labelMapper('token-value-help')]]">
+                    </oj-c-input-text>
+                  </oj-bind-if>
+                </div>
+              </oj-option>
+            </template>
+          </oj-bind-for-each>
+        </oj-radioset>
+      </div>
+    </oj-validation-group>
+  </div>
+
+  <div slot="footer">
+    <oj-button id="okButton" on-oj-action="[[okInput]]">
+      <span><oj-bind-text value="[[i18n.t('dialog-button-ok')]]"></oj-bind-text></span>
+    </oj-button>
+    <oj-button id="cancelButton" on-oj-action="[[cancelInput]]">
+      <span><oj-bind-text value="[[i18n.t('dialog-button-cancel')]]"></oj-bind-text></span>
+    </oj-button>
+  </div>
+</oj-dialog>

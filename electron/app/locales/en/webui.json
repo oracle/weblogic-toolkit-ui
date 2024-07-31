@@ -1362,6 +1362,17 @@
   "model-edit-view": "Edit View",
   "model-edit-aria-label": "model-edit-aria-label",
 
+  "model-edit-field-dialog-title": "Options for {{fieldLabel}}",
+  "model-edit-field-options": "Options",
+  "model-edit-field-dialog-option-edit": "Edit the field normally",
+  "model-edit-field-dialog-option-remove": "Remove the field from the model",
+  "model-edit-field-dialog-option-variable": "Use an existing variable token",
+  "model-edit-field-dialog-option-newVariable": "Use a new variable token",
+  "model-edit-field-dialog-token-name-label": "Token Variable Name",
+  "model-edit-field-dialog-token-name-help": "Name of variable token for field",
+  "model-edit-field-dialog-token-value-label": "Token Variable Value",
+  "model-edit-field-dialog-token-value-help": "Value of variable token for field",
+
   "model-edit-domain-info-nav-label": "Domain Info",
   "model-edit-topology-nav-label": "Topology",
   "model-edit-resources-nav-label": "Resources",
@@ -1373,7 +1384,6 @@
   "model-edit-wls-roles-label": "WLS Roles",
   "model-edit-wls-credential-mapping-label": "WLS Credential Mapping",
 
-  "model-edit-field-edit": "Edit",
   "model-edit-table-name-label": "Name",
 
   "model-edit-application-label": "Application",

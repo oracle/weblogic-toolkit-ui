@@ -811,7 +811,7 @@ h6.wkt-panel-heading {
   color: var(--oj-label-inside-edge-color);
 }
 
-/* model edit */
+/* model edit POC */
 
 .wkt-model-editor-nav-container {
   background-color: rgb(220, 214, 209);
@@ -857,4 +857,13 @@ h6.wkt-panel-heading {
   display: block;
   width: 24px;
   height: 24px;
+}
+
+.wkt-model-edit-field-dialog {
+  width: 600px;
+  height: auto;
+}
+
+.wkt-model-edit-field-stacked {
+  margin-top: 1em;
 }
