@@ -15,6 +15,8 @@ function(accUtils, i18n, DialogHelper, ArrayDataProvider) {
     this.field = args.field;
     this.observable = args.observable;
 
+    this.disabled = this.field.hasOwnProperty('disabled') ? this.field.disabled : false;
+
     const labelPrefix = args.labelPrefix;
 
     this.labelMapper = (labelId, payload) => {
@@ -27,7 +29,7 @@ function(accUtils, i18n, DialogHelper, ArrayDataProvider) {
 
     // this.menuIconClass = 'oj-ux-ico-edit-box';
     // this.menuIconClass = 'oj-ux-ico-three-boxes-vertical';
-    this.menuIconClass = 'oj-ux-ico-three-circles-vertical';
+    this.menuIconClass = 'wkt-ico-three-circles-vertical';
 
     this.optionsProvider = null;
     if(this.field.options) {

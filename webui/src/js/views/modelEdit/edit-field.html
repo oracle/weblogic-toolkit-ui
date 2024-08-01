@@ -5,46 +5,67 @@
 
 <div class="wkt-model-edit-field-container">
   <oj-bind-if test="[[displayType(field) === 'password']]">
-    <oj-c-input-password label-hint="[[labelMapper('attribute-' + field.key + '-label')]]"
-                     value="{{observable}}"
-                     help.instruction="[[labelMapper('attribute-' + field.key + '-help')]]">
+    <oj-c-input-password
+      label-hint="[[labelMapper('attribute-' + field.key + '-label')]]"
+      help.instruction="[[labelMapper('attribute-' + field.key + '-help')]]"
+      value="{{observable}}"
+      disabled="{{disabled}}"
+    >
     </oj-c-input-password>
   </oj-bind-if>
   <oj-bind-if test="[[displayType(field) === 'string']]">
-    <oj-c-input-text label-hint="[[labelMapper('attribute-' + field.key + '-label')]]"
-                     value="{{observable}}"
-                     help.instruction="[[labelMapper('attribute-' + field.key + '-help')]]">
+    <oj-c-input-text
+      label-hint="[[labelMapper('attribute-' + field.key + '-label')]]"
+      help.instruction="[[labelMapper('attribute-' + field.key + '-help')]]"
+      value="{{observable}}"
+      disabled="{{disabled}}"
+    >
     </oj-c-input-text>
   </oj-bind-if>
   <oj-bind-if test="[[displayType(field) === 'integer']]">
-    <oj-c-input-text label-hint="[[labelMapper('attribute-' + field.key + '-label')]]"
-                     value="{{observable}}"
-                     help.instruction="[[labelMapper('attribute-' + field.key + '-help')]]">
+    <oj-c-input-text
+      label-hint="[[labelMapper('attribute-' + field.key + '-label')]]"
+      help.instruction="[[labelMapper('attribute-' + field.key + '-help')]]"
+      value="{{observable}}"
+      disabled="{{disabled}}"
+    >
     </oj-c-input-text>
   </oj-bind-if>
   <oj-bind-if test="[[displayType(field) === 'list']]">
-    <oj-c-input-text label-hint="[[labelMapper('attribute-' + field.key + '-label') + ' (list)']]"
-                     value="{{observable}}"
-                     help.instruction="[[labelMapper('attribute-' + field.key + '-help')]]">
+    <oj-c-input-text
+      label-hint="[[labelMapper('attribute-' + field.key + '-label') + ' (list)']]"
+      help.instruction="[[labelMapper('attribute-' + field.key + '-help')]]"
+      value="{{observable}}"
+      disabled="{{disabled}}"
+    >
     </oj-c-input-text>
   </oj-bind-if>
   <oj-bind-if test="[[displayType(field) === 'dict']]">
-    <oj-c-input-text label-hint="[[labelMapper('attribute-' + field.key + '-label') + ' (dict)']]"
-                     value="{{observable}}"
-                     help.instruction="[[labelMapper('attribute-' + field.key + '-help')]]">
+    <oj-c-input-text
+      label-hint="[[labelMapper('attribute-' + field.key + '-label') + ' (dict)']]"
+      help.instruction="[[labelMapper('attribute-' + field.key + '-help')]]"
+      value="{{observable}}"
+      disabled="{{disabled}}"
+    >
     </oj-c-input-text>
   </oj-bind-if>
   <oj-bind-if test="[[displayType(field) === 'boolean']]">
-    <oj-switch label-hint="[[labelMapper('attribute-' + field.key + '-label')]]"
-               value="{{observable}}"
-               help.instruction="[[labelMapper('attribute-' + field.key + '-help')]]">
+    <oj-switch
+      label-hint="[[labelMapper('attribute-' + field.key + '-label')]]"
+      help.instruction="[[labelMapper('attribute-' + field.key + '-help')]]"
+      value="{{observable}}"
+      disabled="{{disabled}}"
+    >
     </oj-switch>
   </oj-bind-if>
   <oj-bind-if test="[[displayType(field) === 'choice']]">
-    <oj-select-single label-hint="[[labelMapper('attribute-' + field.key + '-label')]]"
-                      value="{{observable}}"
-                      data="{{optionsProvider}}"
-                      help.instruction="[[labelMapper('attribute-' + field.key + '-help')]]">
+    <oj-select-single
+      label-hint="[[labelMapper('attribute-' + field.key + '-label')]]"
+      help.instruction="[[labelMapper('attribute-' + field.key + '-help')]]"
+      value="{{observable}}"
+      disabled="{{disabled}}"
+      data="{{optionsProvider}}"
+    >
     </oj-select-single>
   </oj-bind-if>
   <oj-bind-if test="[[displayType(field) === 'unknown']]">

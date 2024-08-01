@@ -851,7 +851,7 @@ h6.wkt-panel-heading {
 }
 
 /* add three-dot icon for model edit field menu */
-.oj-ux-ico-three-circles-vertical:before {
+.wkt-ico-three-circles-vertical:before {
   content: '';
   background: url('data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub25lIiBoZWlnaHQ9IjI0IiB3aWR0aD0iMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMi41IiBmaWxsPSIjMTYxNTEzIiAvPjxjaXJjbGUgY3g9IjEyIiBjeT0iNSIgcj0iMi41IiBmaWxsPSIjMTYxNTEzIiAvPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTkiIHI9IjIuNSIgZmlsbD0iIzE2MTUxMyIgLz48L3N2Zz4NCg==');
   display: block;

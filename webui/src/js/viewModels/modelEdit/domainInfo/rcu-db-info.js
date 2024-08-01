@@ -5,10 +5,10 @@
  */
 'use strict';
 
-define(['accUtils', 'utils/i18n', 'utils/modelEdit/model-edit-helper',
+define(['accUtils', 'utils/i18n', 'knockout', 'utils/modelEdit/model-edit-helper',
   'oj-c/form-layout', 'oj-c/input-text'
 ],
-function(accUtils, i18n, ModelEditHelper) {
+function(accUtils, i18n, ko, ModelEditHelper) {
   function RcuDbInfoEditViewModel() {
     this.i18n = i18n;
 
@@ -211,6 +211,12 @@ function(accUtils, i18n, ModelEditHelper) {
     ModelEditHelper.addFields(this.primaryFields, fieldMap, subscriptions);
     ModelEditHelper.addFields(this.atpFields, fieldMap, subscriptions);
     ModelEditHelper.addFields(this.remainingFields, fieldMap, subscriptions);
+
+    const dbTypeField = fieldMap['rcu_database_type'];
+    const connectionTypeField = fieldMap['oracle_database_connection_type'];
+    connectionTypeField.disabled = ko.computed(() => {
+      return dbTypeField.observable() !== 'ORACLE';
+    });
 
     this.primaryModuleConfig = ModelEditHelper.createFieldSetModuleConfig(this.primaryFields, fieldMap, LABEL_PREFIX);
 
