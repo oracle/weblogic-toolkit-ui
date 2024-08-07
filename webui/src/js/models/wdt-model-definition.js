@@ -11,8 +11,7 @@
  * Returns a constructor for the object.
  */
 const ADMIN_SECRET_INTERNAL_NAME = '__weblogic-credentials__';
-define(['knockout', 'utils/common-utilities', 'utils/observable-properties', 'js-yaml', 'utils/validation-helper',
-  'utils/wkt-logger'],
+define(['knockout', 'utils/common-utilities', 'utils/observable-properties', 'js-yaml', 'utils/validation-helper', 'utils/wkt-logger'],
   function (ko, utils, props, jsYaml, validationHelper, wktLogger) {
     /**
      * The object constructor.
