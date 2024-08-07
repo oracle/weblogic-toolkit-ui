@@ -15,14 +15,14 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
   ModelEditHelper, validationHelper, viewHelper) {
   function EditFieldDialogModel(args) {
     const DIALOG_SELECTOR = '#editFieldDialog';
-
-    this.i18n = i18n;
+    const TOKEN_NAME_FORMAT= /^[\w.-]+$/;
 
     const fieldInfo = args.fieldInfo;
     const labelPrefix = args.labelPrefix;
-
     const existingToken = ModelEditHelper.getTokenName(fieldInfo.observable());
     const existingValue = existingToken ? ModelEditHelper.getTokenValue(existingToken) : fieldInfo.observable();
+
+    this.i18n = i18n;
 
     this.connected = () => {
       accUtils.announce('Edit field dialog loaded.', 'assertive');
@@ -86,7 +86,9 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
 
     this.tokenNameValidator = {
       validate: (value) => {
-        // needs some validation
+        if(!TOKEN_NAME_FORMAT.test(value)) {
+          throw new Error(this.labelMapper('token-name-error'));
+        }
       }
     };
 

@@ -1374,6 +1374,7 @@
   "model-edit-field-dialog-token-choice-help": "Choose a variable token for field",
   "model-edit-field-dialog-token-name-label": "Variable Token Name",
   "model-edit-field-dialog-token-name-help": "Name of variable token for field",
+  "model-edit-field-dialog-token-name-error": "Token names may only contain letters, numbers, and these characters: .-_",
   "model-edit-field-dialog-token-value-label": "Variable Token Value",
   "model-edit-field-dialog-token-value-help": "Value of variable token for field",
 
