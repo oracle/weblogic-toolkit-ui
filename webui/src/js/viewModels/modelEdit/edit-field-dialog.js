@@ -74,6 +74,15 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
     this.tokenName = ko.observable(existingToken);
     this.tokenValue = ko.observable(existingValue);
 
+    this.allTokens = [];
+    for (const [key, value] of Object.entries(ModelEditHelper.getTokenMap())) {
+      this.allTokens.push({
+        key: key,
+        label: key + ' (' + value + ')'
+      });
+    }
+    this.tokensProvider = new ArrayDataProvider(this.allTokens, {keyAttributes: 'key'});
+
     this.tokenValidator = {
       validate: (value) => {
         // needs some validation

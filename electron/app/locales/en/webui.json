@@ -1370,6 +1370,8 @@
   "model-edit-field-dialog-option-remove": "Remove the field from the model",
   "model-edit-field-dialog-option-variable": "Use an existing variable token",
   "model-edit-field-dialog-option-newVariable": "Use a new variable token",
+  "model-edit-field-dialog-token-choice-label": "Existing Variable Token",
+  "model-edit-field-dialog-token-choice-help": "Choose a variable token for field",
   "model-edit-field-dialog-token-name-label": "Variable Token Name",
   "model-edit-field-dialog-token-name-help": "Name of variable token for field",
   "model-edit-field-dialog-token-value-label": "Variable Token Value",
