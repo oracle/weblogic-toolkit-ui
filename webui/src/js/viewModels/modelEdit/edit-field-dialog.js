@@ -21,7 +21,7 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
     const fieldInfo = args.fieldInfo;
     const labelPrefix = args.labelPrefix;
 
-    const existingToken = ModelEditHelper.getToken(fieldInfo.observable());
+    const existingToken = ModelEditHelper.getTokenName(fieldInfo.observable());
     const existingValue = existingToken ? ModelEditHelper.getTokenValue(existingToken) : fieldInfo.observable();
 
     this.connected = () => {
@@ -71,6 +71,7 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
       return option.value === 'newVariable';
     };
 
+    this.newTokenName = ko.observable();
     this.tokenName = ko.observable(existingToken);
     this.tokenValue = ko.observable(existingValue);
 
@@ -83,7 +84,7 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
     }
     this.tokensProvider = new ArrayDataProvider(this.allTokens, {keyAttributes: 'key'});
 
-    this.tokenValidator = {
+    this.tokenNameValidator = {
       validate: (value) => {
         // needs some validation
       }
@@ -111,13 +112,14 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
           ModelEditHelper.deleteElement(fieldInfo.path, fieldInfo.attribute);
           break;
         case 'variable':
-          fieldInfo.observable(`@@PROP:${this.tokenName()}@@`);
+          fieldInfo.observable(ModelEditHelper.getModelTokenText(this.tokenName()));
           break;
         case 'newVariable':
-          // create the variable property
-          fieldInfo.observable(`@@PROP:${this.tokenName()}@@`);
+          project.wdtModel.setProperty(this.newTokenName(), this.tokenValue());
+          ModelEditHelper.updateTokenMap();
+          fieldInfo.observable(ModelEditHelper.getModelTokenText(this.newTokenName()));
           break;
-        default:  // edit - if previously tokenized, try to use the token value
+        default:  // use the existing value, we may be de-tokenizing
           fieldInfo.observable(existingValue);
           break;
       }

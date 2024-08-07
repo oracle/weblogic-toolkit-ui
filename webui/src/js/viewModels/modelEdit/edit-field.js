@@ -33,29 +33,29 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
       return i18n.t(`model-edit-field-${labelId}`, payload);
     };
 
-    this.token = ko.computed(() => {
-      return ModelEditHelper.getToken(field.observable());
+    this.tokenName = ko.computed(() => {
+      return ModelEditHelper.getTokenName(field.observable());
     });
 
     this.tokenValue = ko.computed(() => {
-      const tokenValue = ModelEditHelper.getTokenValue(this.token());
+      const tokenValue = ModelEditHelper.getTokenValue(this.tokenName());
       return ModelEditHelper.getObservableValue(field, tokenValue);
     });
 
     this.getValueObservable = ko.computed(() => {
       // if a token is used, show the token value in a read-only control
-      if(this.token()) {
+      if(this.tokenName()) {
         return this.tokenValue;
       }
       return field.observable;
     });
 
     this.readOnly = ko.computed(() => {
-      return !!this.token();
+      return !!this.tokenName();
     });
 
     this.fromTokenLabel = ko.computed(() => {
-      return this.fieldLabelMapper('from-token', {token: this.token()})
+      return this.fieldLabelMapper('from-token', {token: this.tokenName()})
     });
 
     this.optionsProvider = null;

@@ -168,7 +168,7 @@ define(['knockout', 'js-yaml', 'models/wkt-project', 'ojs/ojmodule-element-utils
       }
 
       // get the token for values like @@PROP:<token>@@
-      this.getToken = value => {
+      this.getTokenName = value => {
         if(typeof value === 'string' || value instanceof String) {
           const result = value.match(/^@@PROP:([\w.-]+)@@$/);
           if(result && (result.length > 1)) {
@@ -178,11 +178,15 @@ define(['knockout', 'js-yaml', 'models/wkt-project', 'ojs/ojmodule-element-utils
         return null;
       }
 
-      this.getTokenValue = token => {
-        if(typeof token === 'string' || token instanceof String) {
-          return tokenMap[token];
+      this.getTokenValue = tokenName => {
+        if(typeof tokenName === 'string' || tokenName instanceof String) {
+          return tokenMap[tokenName];
         }
         return null;
+      }
+
+      this.getModelTokenText = tokenName => {
+        return `@@PROP:${tokenName}@@`;
       }
 
       this.getTokenMap = () => {
