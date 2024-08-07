@@ -16,6 +16,16 @@ define(['knockout', 'js-yaml', 'models/wkt-project', 'ojs/ojmodule-element-utils
 
       this.modelObject = ko.observable();
 
+      this.navSelection = ko.observable();
+      this.navExpanded = ko.observable();
+
+      // maintain a map of token variables to values
+      const tokenMap = {};
+
+      // **********************
+      // read and update model
+      // **********************
+
       this.parseModel = () => {
         const modelText = project.wdtModel.modelContent();
         const modelObject = jsYaml.load(modelText, {});
@@ -27,65 +37,11 @@ define(['knockout', 'js-yaml', 'models/wkt-project', 'ojs/ojmodule-element-utils
         this.parseModel();
       });
 
-      this.navSelection = ko.observable();
-      this.navExpanded = ko.observable();
-
-      this.createFieldMap = (fields, subscriptions) => {
-        const fieldMap = {};
-        this.addFields(fields, fieldMap, subscriptions);
-        return fieldMap;
-      };
-
-      this.addFields = (fields, fieldMap, subscriptions) => {
-        fields.forEach((field) => {
-          const modelValue = this.getValue(field.path, field.attribute);
-          field.observable = ko.observable(modelValue);
-          fieldMap[field.key] = field;
-
-          subscriptions.push(field.observable.subscribe((newValue) => {
-            const folder = findOrCreatePath(this.getCurrentModel(), field.path);
-            folder[field.attribute] = newValue;
-            this.writeModel();
-          }));
-        });
-      };
-
-      // create a field configuration for an edit-field module
-      this.fieldConfig = (field, labelPrefix) => {
-        if(!field) {
-          return ModuleElementUtils.createConfig({ name: 'empty-view' });
-        }
-
-        return ModuleElementUtils.createConfig({
-          name: 'modelEdit/edit-field',
-          params: {
-            field: field,
-            observable: field.observable,
-            labelPrefix: labelPrefix
-          }
-        });
-      };
-
-      this.createFieldModuleConfig = (key, fieldMap, labelPrefix) => {
-        const field = fieldMap[key];
-        return this.fieldConfig(field, labelPrefix);
-      };
-
-      this.createFieldSetModuleConfig = (fields, fieldMap, labelPrefix) => {
-        return ModuleElementUtils.createConfig({
-          name: 'modelEdit/field-set',
-          params: {
-            fields: fields,
-            labelPrefix: labelPrefix,
-            fieldMap: fieldMap
-          }
-        });
-      };
-
       this.getCurrentModel = () => {
         return this.modelObject();
       };
 
+      // ideally, should only be called internally
       this.writeModel = () => {
         project.wdtModel.modelContent(jsYaml.dump(this.getCurrentModel(), {}));
       };
@@ -126,6 +82,113 @@ define(['knockout', 'js-yaml', 'models/wkt-project', 'ojs/ojmodule-element-utils
         return folder[attribute];
       };
 
+      // *********************************************
+      // create field configurations for display/edit
+      // *********************************************
+
+      this.createFieldMap = (fields, subscriptions) => {
+        const fieldMap = {};
+        this.addFields(fields, fieldMap, subscriptions);
+        return fieldMap;
+      };
+
+      this.addFields = (fields, fieldMap, subscriptions) => {
+        fields.forEach((field) => {
+          const observableValue = this.getFieldObservableValue(field);
+          field.observable = ko.observable(observableValue);
+          fieldMap[field.key] = field;
+
+          subscriptions.push(field.observable.subscribe((newValue) => {
+            const folder = findOrCreatePath(this.getCurrentModel(), field.path);
+            folder[field.attribute] = getModelValue(newValue, field);
+            this.writeModel();
+          }));
+        });
+      };
+
+      // create a field configuration for an edit-field module
+      this.fieldConfig = (field, labelPrefix) => {
+        if(!field) {
+          return ModuleElementUtils.createConfig({ name: 'empty-view' });
+        }
+
+        return ModuleElementUtils.createConfig({
+          name: 'modelEdit/edit-field',
+          params: {
+            field: field,
+            observable: field.observable,
+            labelPrefix: labelPrefix
+          }
+        });
+      };
+
+      this.createFieldModuleConfig = (key, fieldMap, labelPrefix) => {
+        const field = fieldMap[key];
+        return this.fieldConfig(field, labelPrefix);
+      };
+
+      this.createFieldSetModuleConfig = (fields, fieldMap, labelPrefix) => {
+        return ModuleElementUtils.createConfig({
+          name: 'modelEdit/field-set',
+          params: {
+            fields: fields,
+            labelPrefix: labelPrefix,
+            fieldMap: fieldMap
+          }
+        });
+      };
+
+      this.getFieldObservableValue = field => {
+        const modelValue = this.getValue(field.path, field.attribute);
+        return this.getObservableValue(field, modelValue);
+      };
+
+      this.getObservableValue = (field, modelValue) => {
+        // convert model type to observable type
+        if(field.type === 'boolean') {
+          // YAML 1.2 only allows false, but WDT allows 'false', maybe others?
+          return (modelValue === 'false') ? false : modelValue;
+        }
+        return modelValue;
+      };
+
+      // *******************************************************
+      // parse token attributes, maintain a map of token values
+      // *******************************************************
+
+      this.updateTokenMap = () => {
+        Object.keys(tokenMap).forEach(key => {
+          delete tokenMap[key];
+        });
+
+        const properties = project.wdtModel.getModelPropertiesObject().observable();
+        properties.forEach(entry => {
+          tokenMap[entry.Name] = entry.Value;
+        });
+      }
+
+      // get the token for values like @@PROP:<token>@@
+      this.getToken = value => {
+        if(typeof value === 'string' || value instanceof String) {
+          const result = value.match(/^@@PROP:(\w*)@@$/);
+          if(result && (result.length > 1)) {
+            return result[1];
+          }
+        }
+        return null;
+      }
+
+      this.getTokenValue = token => {
+        if(typeof token === 'string' || token instanceof String) {
+          return tokenMap[token];
+        }
+        return null;
+      }
+
+      // **************************************
+      // access the model edit navigation menu
+      // **************************************
+
       this.navigateToElement = (elementKey, name) => {
         const navigationKey = elementKey + '-' + name;
         this.navSelection(navigationKey);
@@ -136,7 +199,9 @@ define(['knockout', 'js-yaml', 'models/wkt-project', 'ojs/ojmodule-element-utils
         this.navExpanded(keySet.add([key]));
       };
 
+      // *******************
       // internal functions
+      // *******************
 
       function findOrCreatePath(parent, path) {
         const names = path.split('/');
@@ -193,6 +258,11 @@ define(['knockout', 'js-yaml', 'models/wkt-project', 'ojs/ojmodule-element-utils
       function getRootIndex(key) {
         const index = ROOT_ORDER.indexOf(key);
         return (index === -1) ? 99 : index;
+      }
+
+      function getModelValue(value, _field) {
+        // are there cases where the value from a control needs conversion (boolean)?;
+        return value;
       }
     }
 

@@ -28,6 +28,10 @@ function(accUtils, i18n, ko, ModelEditHelper, wktLogger,
       subscriptions.push(this.navSelection.subscribe(() => {
         this.updateView();
       }));
+
+      // subscribing to wkt-model-definition.propertiesContent won't fire on value changes.
+      // update on page load, but may be out of sync if new project is loaded.
+      ModelEditHelper.updateTokenMap();
     };
 
     this.disconnected = () => {

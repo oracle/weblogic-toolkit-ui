@@ -6,11 +6,13 @@
 'use strict';
 
 define(['accUtils', 'knockout', 'utils/i18n', 'models/wkt-project', 'ojs/ojarraydataprovider',
-  'ojs/ojbufferingdataprovider', 'utils/observable-properties', 'ojs/ojconverter-number', 'utils/validation-helper',
-  'utils/view-helper',
-  'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojdialog', 'ojs/ojformlayout', 'ojs/ojvalidationgroup'],
+  'ojs/ojbufferingdataprovider', 'utils/observable-properties', 'ojs/ojconverter-number',
+  'utils/modelEdit/model-edit-helper', 'utils/validation-helper', 'utils/view-helper',
+  'ojs/ojinputtext', 'ojs/ojlabel', 'oj-c/button', 'ojs/ojdialog', 'ojs/ojformlayout', 'oj-c/radioset',
+  'ojs/ojvalidationgroup'],
 function(accUtils, ko, i18n, project, ArrayDataProvider,
-  BufferingDataProvider, props, ojConverterNumber, validationHelper, viewHelper) {
+  BufferingDataProvider, props, ojConverterNumber,
+  ModelEditHelper, validationHelper, viewHelper) {
   function EditFieldDialogModel(args) {
     const DIALOG_SELECTOR = '#editFieldDialog';
 
@@ -18,6 +20,9 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
 
     const fieldInfo = args.fieldInfo;
     const labelPrefix = args.labelPrefix;
+
+    const existingToken = ModelEditHelper.getToken(fieldInfo.observable());
+    const existingValue = existingToken ? ModelEditHelper.getTokenValue(existingToken) : fieldInfo.observable();
 
     this.connected = () => {
       accUtils.announce('Edit field dialog loaded.', 'assertive');
@@ -40,12 +45,14 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
       return this.labelMapper('title', {fieldLabel: fieldLabel})
     });
 
-    this.editOption = ko.observable("edit");
+    const existingOption = existingToken ? 'variable' : 'edit';
+
+    this.editOption = ko.observable(existingOption);
     this.editOptions = [
-      { value: "edit", label: this.labelMapper('option-edit') },
-      { value: "remove", label: this.labelMapper('option-remove') },
-      { value: "variable", label: this.labelMapper('option-variable') },
-      { value: "newVariable", label: this.labelMapper('option-newVariable') }
+      { value: 'edit', label: this.labelMapper('option-edit') },
+      { value: 'remove', label: this.labelMapper('option-remove') },
+      { value: 'variable', label: this.labelMapper('option-variable') },
+      { value: 'newVariable', label: this.labelMapper('option-newVariable') }
     ];
 
     this.variableOptionSelected = ko.computed(() => {
@@ -64,11 +71,24 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
       return option.value === 'newVariable';
     };
 
-    this.tokenName = ko.observable();
-    this.tokenValue = ko.observable();
+    this.tokenName = ko.observable(existingToken);
+    this.tokenValue = ko.observable(existingValue);
+
+    this.tokenValidator = {
+      validate: (value) => {
+        // needs some validation
+      }
+    };
+
+    this.valueValidator = {
+      validate: (value) => {
+        // needs some validation
+      }
+    };
 
     this.okInput = () => {
       let tracker = document.getElementById('modelEditFieldTracker');
+
       if (tracker.valid !== 'valid') {
         // show messages on all the components that have messages hidden.
         tracker.showMessages();
@@ -76,9 +96,30 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
         return;
       }
 
+      switch(this.editOption()) {
+        case 'remove':
+          fieldInfo.observable(null);
+          ModelEditHelper.deleteElement(fieldInfo.path, fieldInfo.attribute);
+          break;
+        case 'variable':
+          fieldInfo.observable(`@@PROP:${this.tokenName()}@@`);
+          break;
+        case 'newVariable':
+          // create the variable property
+          fieldInfo.observable(`@@PROP:${this.tokenName()}@@`);
+          break;
+        default:  // edit - if previously tokenized, try to use the token value
+          fieldInfo.observable(existingValue);
+          break;
+      }
+
       this.dialogContainer.close();
 
-      const result = { };
+      const result = {
+        option: this.editOption(),
+        token: this.tokenName(),
+        value: this.tokenValue()
+      };
 
       args.setValue(result);
     };

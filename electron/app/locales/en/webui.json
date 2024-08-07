@@ -1363,14 +1363,16 @@
   "model-edit-aria-label": "model-edit-aria-label",
 
   "model-edit-field-dialog-title": "Options for {{fieldLabel}}",
+  "model-edit-field-dialog-label": "Choose an option",
+  "model-edit-field-from-token": "From token {{token}}",
   "model-edit-field-options": "Options",
   "model-edit-field-dialog-option-edit": "Edit the field normally",
   "model-edit-field-dialog-option-remove": "Remove the field from the model",
   "model-edit-field-dialog-option-variable": "Use an existing variable token",
   "model-edit-field-dialog-option-newVariable": "Use a new variable token",
-  "model-edit-field-dialog-token-name-label": "Token Variable Name",
+  "model-edit-field-dialog-token-name-label": "Variable Token Name",
   "model-edit-field-dialog-token-name-help": "Name of variable token for field",
-  "model-edit-field-dialog-token-value-label": "Token Variable Value",
+  "model-edit-field-dialog-token-value-label": "Variable Token Value",
   "model-edit-field-dialog-token-value-help": "Value of variable token for field",
 
   "model-edit-domain-info-nav-label": "Domain Info",
