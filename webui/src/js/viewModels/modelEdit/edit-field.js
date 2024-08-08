@@ -63,6 +63,16 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
       this.optionsProvider = new ArrayDataProvider(field.options, {keyAttributes: 'key'});
     }
 
+    this.validators = [];
+    if(field.type === 'integer') {
+      this.validators.push(ModelEditHelper.integerValidator);
+    }
+    if(field.validators) {
+      field.validators.forEach(validator => {
+        this.validators.push(validator);
+      });
+    }
+
     this.showOptions = () => {
       const options = { fieldInfo: field, labelPrefix: labelPrefix };
       DialogHelper.promptDialog('modelEdit/edit-field-dialog', options)

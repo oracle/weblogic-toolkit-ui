@@ -5,8 +5,8 @@
  */
 'use strict';
 
-define(['knockout', 'js-yaml', 'models/wkt-project', 'ojs/ojmodule-element-utils'],
-  function (ko, jsYaml, project, ModuleElementUtils) {
+define(['knockout', 'utils/i18n', 'js-yaml', 'models/wkt-project', 'ojs/ojmodule-element-utils'],
+  function (ko, i18n, jsYaml, project, ModuleElementUtils) {
     function ModelEditHelper() {
       // parse, write, and maintain the model object structure.
       // maintain and update the navigation state.
@@ -205,6 +205,39 @@ define(['knockout', 'js-yaml', 'models/wkt-project', 'ojs/ojmodule-element-utils
       this.openNavigation = (key) => {
         const keySet = this.navExpanded();
         this.navExpanded(keySet.add([key]));
+      };
+
+      // *****************
+      // field validators
+      // *****************
+
+      const INTEGER_REGEX = /^[0-9-]*$/;
+      const MIN_PORT = 1;
+      const MAX_PORT = 65535;
+
+      this.integerValidator = {
+        validate: value => {
+          if(value) {
+            if (!INTEGER_REGEX.test(value)) {
+              throw new Error(i18n.t('model-edit-field-invalid-integer'));
+            }
+          }
+        }
+      };
+
+      this.portValidator = {
+        validate: value => {
+          this.validateRange(value, MIN_PORT, MAX_PORT);
+        }
+      }
+
+      this.validateRange = (value, min, max) => {
+        if(value) {
+          const port = parseInt(value, 10);
+          if((port < min) || (port > max)) {
+            throw new Error(i18n.t('model-edit-field-invalid-range', {min, max}));
+          }
+        }
       };
 
       // *******************

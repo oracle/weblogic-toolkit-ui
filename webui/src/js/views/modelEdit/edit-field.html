@@ -12,6 +12,7 @@
         value="{{getValueObservable()}}"
         disabled="[[disabled]]"
         readOnly="[[readOnly]]"
+        validators="[[validators]]"
       >
       </oj-c-input-password>
     </oj-bind-if>
@@ -22,6 +23,7 @@
         value="{{getValueObservable()}}"
         disabled="[[disabled]]"
         readOnly="[[readOnly]]"
+        validators="[[validators]]"
       >
       </oj-c-input-text>
     </oj-bind-if>
@@ -32,6 +34,7 @@
         value="{{getValueObservable()}}"
         disabled="[[disabled]]"
         readOnly="[[readOnly]]"
+        validators="[[validators]]"
       >
       </oj-c-input-text>
     </oj-bind-if>
@@ -70,7 +73,7 @@
         label-hint="[[labelMapper('attribute-' + field.key + '-label')]]"
         help.instruction="[[labelMapper('attribute-' + field.key + '-help')]]"
         value="{{getValueObservable()}}"
-        disabled="{{disabled}}"
+        disabled="[[disabled]]"
         readOnly="[[readOnly]]"
         data="[[optionsProvider]]"
       >

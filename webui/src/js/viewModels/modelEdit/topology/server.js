@@ -51,7 +51,8 @@ function(accUtils, i18n, ko, ModelEditHelper) {
         key: 'ListenPort',
         attribute: 'ListenPort',
         path: SERVER_PATH,
-        type: 'integer'
+        type: 'integer',
+        validators: [ModelEditHelper.portValidator]
       },
       {
         key: 'Notes',
@@ -69,7 +70,8 @@ function(accUtils, i18n, ko, ModelEditHelper) {
         key: 'SSL-ListenPort',
         attribute: 'ListenPort',
         path: SSL_PATH,
-        type: 'integer'
+        type: 'integer',
+        validators: [ModelEditHelper.portValidator]
       }
     ];
 
