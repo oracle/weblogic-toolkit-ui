@@ -15,12 +15,10 @@ define(['knockout', 'utils/i18n', 'js-yaml', 'models/wkt-project', 'ojs/ojmodule
       const ROOT_ORDER = ['domainInfo', 'topology', 'resources', 'appDeployments', 'kubernetes'];
 
       this.modelObject = ko.observable();
+      this.variableMap = ko.observable({});
 
       this.navSelection = ko.observable();
       this.navExpanded = ko.observable();
-
-      // maintain a map of token variables to values
-      const tokenMap = {};
 
       // **********************
       // read and update model
@@ -152,25 +150,28 @@ define(['knockout', 'utils/i18n', 'js-yaml', 'models/wkt-project', 'ojs/ojmodule
         return modelValue;
       };
 
-      // *******************************************************
-      // parse token attributes, maintain a map of token values
-      // *******************************************************
+      // ************************************************
+      // parse model tokens, maintain a map of variables
+      // ************************************************
 
-      this.updateTokenMap = () => {
-        Object.keys(tokenMap).forEach(key => {
-          delete tokenMap[key];
-        });
-
+      this.updateVariableMap = () => {
+        const newVariableMap = this.variableMap();
         const properties = project.wdtModel.getModelPropertiesObject().observable();
         properties.forEach(entry => {
-          tokenMap[entry.Name] = entry.Value;
+          newVariableMap[entry.Name] = entry.Value;
         });
+
+        this.variableMap(newVariableMap);
       }
 
-      // get the token for values like @@PROP:<token>@@
-      this.getTokenName = value => {
-        if(typeof value === 'string' || value instanceof String) {
-          const result = value.match(/^@@PROP:([\w.-]+)@@$/);
+      this.getVariableMap = () => {
+        return this.variableMap();
+      }
+
+      // get the secret name for tokens like @@SECRET:<name>:<token>@@
+      this.getSecretName = token => {
+        if(typeof token === 'string' || token instanceof String) {
+          const result = token.match(/^@@SECRET:([\w.:-]+)@@$/);
           if(result && (result.length > 1)) {
             return result[1];
           }
@@ -178,19 +179,26 @@ define(['knockout', 'utils/i18n', 'js-yaml', 'models/wkt-project', 'ojs/ojmodule
         return null;
       }
 
-      this.getTokenValue = tokenName => {
-        if(typeof tokenName === 'string' || tokenName instanceof String) {
-          return tokenMap[tokenName];
+      // get the variable name for tokens like @@PROP:<token>@@
+      this.getVariableName = token => {
+        if(typeof token === 'string' || token instanceof String) {
+          const result = token.match(/^@@PROP:([\w.-]+)@@$/);
+          if(result && (result.length > 1)) {
+            return result[1];
+          }
         }
         return null;
       }
 
-      this.getModelTokenText = tokenName => {
-        return `@@PROP:${tokenName}@@`;
+      this.getVariableValue = variableName => {
+        if(typeof variableName === 'string' || variableName instanceof String) {
+          return this.variableMap()[variableName];
+        }
+        return null;
       }
 
-      this.getTokenMap = () => {
-        return tokenMap;
+      this.getVariableToken = variableName => {
+        return `@@PROP:${variableName}@@`;
       }
 
       // **************************************

@@ -31,7 +31,7 @@ function(accUtils, i18n, ko, ModelEditHelper, wktLogger,
 
       // subscribing to wkt-model-definition.propertiesContent won't fire on value changes.
       // update on page load, but may be out of sync if new project is loaded.
-      ModelEditHelper.updateTokenMap();
+      ModelEditHelper.updateVariableMap();
     };
 
     this.disconnected = () => {

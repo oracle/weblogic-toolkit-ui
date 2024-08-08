@@ -20,10 +20,10 @@
         <oj-bind-if test="[[variableOptionSelected]]">
           <oj-select-single
             class="wkt-model-edit-field-stacked"
-            label-hint="[[labelMapper('token-choice-label')]]"
-            help.instruction="[[labelMapper('token-choice-help')]]"
-            value="{{tokenName}}"
-            data="[[tokensProvider]]"
+            label-hint="[[labelMapper('variable-choice-label')]]"
+            help.instruction="[[labelMapper('variable-choice-help')]]"
+            value="{{variableName}}"
+            data="[[variablesProvider]]"
             required="true"
           >
           </oj-select-single>
@@ -32,18 +32,18 @@
         <oj-bind-if test="[[newVariableOptionSelected]]">
           <oj-c-input-text
             class="wkt-model-edit-field-stacked"
-            label-hint="[[labelMapper('token-name-label')]]"
-            help.instruction="[[labelMapper('token-name-help')]]"
-            value="{{newTokenName}}"
+            label-hint="[[labelMapper('variable-name-label')]]"
+            help.instruction="[[labelMapper('variable-name-help')]]"
+            value="{{newVariableName}}"
             required="true"
-            validators="[[[tokenNameValidator]]]"
+            validators="[[[variableNameValidator]]]"
           >
           </oj-c-input-text>
           <oj-c-input-text
             class="wkt-model-edit-field-stacked"
-            label-hint="[[labelMapper('token-value-label')]]"
-            help.instruction="[[labelMapper('token-value-help')]]"
-            value="{{tokenValue}}"
+            label-hint="[[labelMapper('variable-value-label')]]"
+            help.instruction="[[labelMapper('variable-value-help')]]"
+            value="{{variableValue}}"
             required="true"
             validators="[[[valueValidator]]]"
           >

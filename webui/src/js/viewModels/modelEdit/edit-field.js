@@ -33,29 +33,41 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
       return i18n.t(`model-edit-field-${labelId}`, payload);
     };
 
-    this.tokenName = ko.computed(() => {
-      return ModelEditHelper.getTokenName(field.observable());
+    this.variableName = ko.computed(() => {
+      return ModelEditHelper.getVariableName(field.observable());
+    });
+
+    this.secretName = ko.computed(() => {
+      return ModelEditHelper.getSecretName(field.observable());
     });
 
     this.tokenValue = ko.computed(() => {
-      const tokenValue = ModelEditHelper.getTokenValue(this.tokenName());
+      const tokenValue = ModelEditHelper.getVariableValue(this.variableName());
       return ModelEditHelper.getObservableValue(field, tokenValue);
     });
 
+    this.usesToken = ko.computed(() => {
+      return this.variableName() || this.secretName();
+    })
+
     this.getValueObservable = ko.computed(() => {
       // if a token is used, show the token value in a read-only control
-      if(this.tokenName()) {
+      if(this.usesToken()) {
         return this.tokenValue;
       }
       return field.observable;
     });
 
     this.readOnly = ko.computed(() => {
-      return !!this.tokenName();
+      return this.usesToken();
     });
 
-    this.fromTokenLabel = ko.computed(() => {
-      return this.fieldLabelMapper('from-token', {token: this.tokenName()})
+    this.fromLabel = ko.computed(() => {
+      if(this.variableName()) {
+        return this.fieldLabelMapper('from-variable', {variable: this.variableName()});
+      } else if(this.secretName()) {
+        return this.fieldLabelMapper('from-secret', {secret: this.secretName()});
+      }
     });
 
     this.optionsProvider = null;
@@ -76,10 +88,8 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
     this.showOptions = () => {
       const options = { fieldInfo: field, labelPrefix: labelPrefix };
       DialogHelper.promptDialog('modelEdit/edit-field-dialog', options)
-        .then(result => {
-          if (result) {
-            console.log('dialog result: ' + JSON.stringify(result));
-          }
+        .then(_result => {
+          // nothing to do here?
         });
     };
 

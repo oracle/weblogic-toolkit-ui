@@ -15,12 +15,12 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
   ModelEditHelper, validationHelper, viewHelper) {
   function EditFieldDialogModel(args) {
     const DIALOG_SELECTOR = '#editFieldDialog';
-    const TOKEN_NAME_FORMAT= /^[\w.-]+$/;
+    const VARIABLE_NAME_REGEX= /^[\w.-]+$/;
 
     const fieldInfo = args.fieldInfo;
     const labelPrefix = args.labelPrefix;
-    const existingToken = ModelEditHelper.getTokenName(fieldInfo.observable());
-    const existingValue = existingToken ? ModelEditHelper.getTokenValue(existingToken) : fieldInfo.observable();
+    const existingVariable = ModelEditHelper.getVariableName(fieldInfo.observable());
+    const existingValue = existingVariable ? ModelEditHelper.getVariableValue(existingVariable) : fieldInfo.observable();
 
     this.i18n = i18n;
 
@@ -45,7 +45,7 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
       return this.labelMapper('title', {fieldLabel: fieldLabel})
     });
 
-    const existingOption = existingToken ? 'variable' : 'edit';
+    const existingOption = existingVariable ? 'variable' : 'edit';
 
     this.editOption = ko.observable(existingOption);
     this.editOptions = [
@@ -71,23 +71,23 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
       return option.value === 'newVariable';
     };
 
-    this.newTokenName = ko.observable();
-    this.tokenName = ko.observable(existingToken);
-    this.tokenValue = ko.observable(existingValue);
+    this.newVariableName = ko.observable();
+    this.variableName = ko.observable(existingVariable);
+    this.variableValue = ko.observable(existingValue);
 
-    this.allTokens = [];
-    for (const [key, value] of Object.entries(ModelEditHelper.getTokenMap())) {
-      this.allTokens.push({
+    this.allVariables = [];
+    for (const [key, value] of Object.entries(ModelEditHelper.getVariableMap())) {
+      this.allVariables.push({
         key: key,
         label: key + ' (' + value + ')'
       });
     }
-    this.tokensProvider = new ArrayDataProvider(this.allTokens, {keyAttributes: 'key'});
+    this.variablesProvider = new ArrayDataProvider(this.allVariables, {keyAttributes: 'key'});
 
-    this.tokenNameValidator = {
+    this.variableNameValidator = {
       validate: (value) => {
-        if(!TOKEN_NAME_FORMAT.test(value)) {
-          throw new Error(this.labelMapper('token-name-error'));
+        if(!VARIABLE_NAME_REGEX.test(value)) {
+          throw new Error(this.labelMapper('variable-name-error'));
         }
       }
     };
@@ -114,12 +114,12 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
           ModelEditHelper.deleteElement(fieldInfo.path, fieldInfo.attribute);
           break;
         case 'variable':
-          fieldInfo.observable(ModelEditHelper.getModelTokenText(this.tokenName()));
+          fieldInfo.observable(ModelEditHelper.getVariableToken(this.variableName()));
           break;
         case 'newVariable':
-          project.wdtModel.setProperty(this.newTokenName(), this.tokenValue());
-          ModelEditHelper.updateTokenMap();
-          fieldInfo.observable(ModelEditHelper.getModelTokenText(this.newTokenName()));
+          project.wdtModel.setProperty(this.newVariableName(), this.variableValue());
+          ModelEditHelper.updateVariableMap();
+          fieldInfo.observable(ModelEditHelper.getVariableToken(this.newVariableName()));
           break;
         default:  // use the existing value, we may be de-tokenizing
           fieldInfo.observable(existingValue);
@@ -129,9 +129,7 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
       this.dialogContainer.close();
 
       const result = {
-        option: this.editOption(),
-        token: this.tokenName(),
-        value: this.tokenValue()
+        // anything to return from dialog?
       };
 
       args.setValue(result);
