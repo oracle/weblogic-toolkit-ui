@@ -19,8 +19,15 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
 
     const fieldInfo = args.fieldInfo;
     const labelPrefix = args.labelPrefix;
+    const existingSecret = ModelEditHelper.getSecretName(fieldInfo.observable());
     const existingVariable = ModelEditHelper.getVariableName(fieldInfo.observable());
-    const existingValue = existingVariable ? ModelEditHelper.getVariableValue(existingVariable) : fieldInfo.observable();
+
+    let existingValue = fieldInfo.observable();
+    if(existingVariable) {
+      existingValue = ModelEditHelper.getVariableValue(existingVariable);
+    } else if(existingSecret) {
+      existingValue = null;  // should we try to get this?
+    }
 
     this.i18n = i18n;
 
