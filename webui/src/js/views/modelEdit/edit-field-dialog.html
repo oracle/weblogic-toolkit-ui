@@ -24,6 +24,7 @@
             help.instruction="[[labelMapper('token-choice-help')]]"
             value="{{tokenName}}"
             data="[[tokensProvider]]"
+            required="true"
           >
           </oj-select-single>
         </oj-bind-if>
@@ -32,8 +33,8 @@
           <oj-c-input-text
             class="wkt-model-edit-field-stacked"
             label-hint="[[labelMapper('token-name-label')]]"
-            value="{{newTokenName}}"
             help.instruction="[[labelMapper('token-name-help')]]"
+            value="{{newTokenName}}"
             required="true"
             validators="[[[tokenNameValidator]]]"
           >
@@ -41,8 +42,8 @@
           <oj-c-input-text
             class="wkt-model-edit-field-stacked"
             label-hint="[[labelMapper('token-value-label')]]"
-            value="{{tokenValue}}"
             help.instruction="[[labelMapper('token-value-help')]]"
+            value="{{tokenValue}}"
             required="true"
             validators="[[[valueValidator]]]"
           >
