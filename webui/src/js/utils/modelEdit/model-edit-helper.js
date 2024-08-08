@@ -5,8 +5,10 @@
  */
 'use strict';
 
-define(['knockout', 'utils/i18n', 'js-yaml', 'models/wkt-project', 'ojs/ojmodule-element-utils'],
-  function (ko, i18n, jsYaml, project, ModuleElementUtils) {
+define(['knockout', 'utils/i18n', 'js-yaml', 'models/wkt-project', 'utils/common-utilities',
+    'ojs/ojmodule-element-utils'],
+  function (ko, i18n, jsYaml, project, utils,
+            ModuleElementUtils) {
     function ModelEditHelper() {
       // parse, write, and maintain the model object structure.
       // maintain and update the navigation state.
@@ -78,6 +80,11 @@ define(['knockout', 'utils/i18n', 'js-yaml', 'models/wkt-project', 'ojs/ojmodule
       this.getValue = (path, attribute) => {
         const folder = this.getFolder(path);
         return folder[attribute];
+      };
+
+      this.getDomainName = ()=> {
+        const domainName = this.getValue('topology', 'Name');
+        return domainName || 'base_domain';
       };
 
       // *********************************************
@@ -171,6 +178,10 @@ define(['knockout', 'utils/i18n', 'js-yaml', 'models/wkt-project', 'ojs/ojmodule
       // get the secret name for tokens like @@SECRET:<name>:<token>@@
       this.getSecretName = token => {
         if(typeof token === 'string' || token instanceof String) {
+          // prepareModel and discover targets may do this
+          const domainName = this.getDomainName();
+          token = token.replace('@@ENV:DOMAIN_UID@@', utils.toLegalK8sName(domainName));
+
           const result = token.match(/^@@SECRET:([\w.:-]+)@@$/);
           if(result && (result.length > 1)) {
             return result[1];
