@@ -230,7 +230,7 @@ define(['knockout', 'utils/common-utilities', 'utils/observable-properties', 'js
           });
 
           if(!found) {
-            this.internal.propertiesContent.observable.push({
+            this.internal.propertiesContent.addNewItem({
               uid: utils.getShortUuid(),
               Name: key,
               Value: value

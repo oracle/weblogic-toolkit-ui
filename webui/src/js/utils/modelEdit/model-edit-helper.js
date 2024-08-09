@@ -166,7 +166,7 @@ define(['knockout', 'utils/i18n', 'js-yaml', 'models/wkt-project', 'utils/common
       // ************************************************
 
       this.updateVariableMap = () => {
-        const newVariableMap = this.variableMap();
+        const newVariableMap = {};
         const properties = project.wdtModel.getModelPropertiesObject().observable();
         properties.forEach(entry => {
           newVariableMap[entry.Name] = entry.Value;
