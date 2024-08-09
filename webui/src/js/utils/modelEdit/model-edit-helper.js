@@ -15,6 +15,7 @@ define(['knockout', 'utils/i18n', 'js-yaml', 'models/wkt-project', 'utils/common
       // provide convenience methods.
 
       const ROOT_ORDER = ['domainInfo', 'topology', 'resources', 'appDeployments', 'kubernetes'];
+      const FALSE_VALUES= ['false', '0'];
 
       this.modelObject = ko.observable();
       this.variableMap = ko.observable({});
@@ -155,8 +156,10 @@ define(['knockout', 'utils/i18n', 'js-yaml', 'models/wkt-project', 'utils/common
       this.getObservableValue = (field, modelValue) => {
         // convert model type to observable type
         if(field.type === 'boolean') {
-          // YAML 1.2 only allows false, but WDT allows 'false', maybe others?
-          return (modelValue === 'false') ? false : modelValue;
+          // YAML 1.2 only allows false, but WDT allows 'false', '0', 0 (0 is false for JS).
+          // leave the value alone otherwise, it may be a token.
+          const testValue = isString(modelValue) ? modelValue.toLowerCase() : modelValue;
+          return (FALSE_VALUES.includes(testValue)) ? false : modelValue;
         }
         return modelValue;
       };
@@ -190,7 +193,7 @@ define(['knockout', 'utils/i18n', 'js-yaml', 'models/wkt-project', 'utils/common
 
       // get the secret name for tokens like @@SECRET:<name>:<token>@@
       this.getSecretName = token => {
-        if(typeof token === 'string' || token instanceof String) {
+        if(isString(token)) {
           // prepareModel and discover targets may do this
           const domainName = this.getDomainName();
           token = token.replace('@@ENV:DOMAIN_UID@@', utils.toLegalK8sName(domainName));
@@ -205,7 +208,7 @@ define(['knockout', 'utils/i18n', 'js-yaml', 'models/wkt-project', 'utils/common
 
       // get the variable name for tokens like @@PROP:<token>@@
       this.getVariableName = token => {
-        if(typeof token === 'string' || token instanceof String) {
+        if(isString(token)) {
           const result = token.match(/^@@PROP:([\w.-]+)@@$/);
           if(result && (result.length > 1)) {
             return result[1];
@@ -215,10 +218,7 @@ define(['knockout', 'utils/i18n', 'js-yaml', 'models/wkt-project', 'utils/common
       }
 
       this.getVariableValue = variableName => {
-        if(typeof variableName === 'string' || variableName instanceof String) {
-          return this.variableMap()[variableName];
-        }
-        return null;
+        return this.variableMap()[variableName];
       }
 
       this.getVariableToken = variableName => {
@@ -337,6 +337,10 @@ define(['knockout', 'utils/i18n', 'js-yaml', 'models/wkt-project', 'utils/common
       function getModelValue(value, _field) {
         // are there cases where the value from a control needs conversion (boolean)?;
         return value;
+      }
+
+      function isString(value) {
+        return typeof value === 'string' || value instanceof String;
       }
     }
 
