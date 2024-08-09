@@ -25,6 +25,12 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
     // this.menuIconClass = 'oj-ux-ico-three-boxes-vertical';
     this.menuIconClass = 'wkt-ico-three-circles-vertical';
 
+    // override the defaults of "Off" / "On"
+    this.switchTranslations = {
+      'switchOff': 'false',
+      'switchOn': 'true'
+    };
+
     this.labelMapper = (labelId, payload) => {
       return i18n.t(`${labelPrefix}-${labelId}`, payload);
     };
