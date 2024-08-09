@@ -1365,9 +1365,9 @@
 
   "model-edit-field-dialog-title": "Options for {{fieldLabel}}",
   "model-edit-field-dialog-label": "Choose an option",
-  "model-edit-field-from-secret": "From secret {{secret}}",
-  "model-edit-field-from-token": "From token {{token}}",
-  "model-edit-field-from-variable": "From variable {{variable}}",
+  "model-edit-field-from-secret": "From secret \"{{secret}}\"",
+  "model-edit-field-from-variable": "From variable \"{{variable}}\"",
+  "model-edit-field-missing-variable": "Missing variable \"{{variable}}\"",
   "model-edit-field-options": "Options",
   "model-edit-field-dialog-option-edit": "Edit the field normally",
   "model-edit-field-dialog-option-remove": "Remove the field from the model",

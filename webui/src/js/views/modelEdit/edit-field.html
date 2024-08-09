@@ -87,7 +87,10 @@
     </oj-bind-if>
 
     <oj-bind-if test="[[usesToken]]">
-      <div class="wkt-model-edit-token-detail">
+      <div
+        class="wkt-model-edit-token-detail"
+        :class="[[{'wkt-token-error': tokenError}]]"
+      >
         <oj-bind-text value="[[fromLabel]]"></oj-bind-text>
       </div>
     </oj-bind-if>

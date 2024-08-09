@@ -62,9 +62,17 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
       return this.usesToken();
     });
 
+    this.tokenError = ko.computed(() => {
+      if(this.variableName()) {
+        return !ModelEditHelper.getVariableValue(this.variableName());
+      }
+    });
+
     this.fromLabel = ko.computed(() => {
       if(this.variableName()) {
-        return this.fieldLabelMapper('from-variable', {variable: this.variableName()});
+        const value = ModelEditHelper.getVariableValue(this.variableName());
+        const messageKey = value ? 'from-variable' : 'missing-variable';
+        return this.fieldLabelMapper(messageKey, {variable: this.variableName()});
       } else if(this.secretName()) {
         return this.fieldLabelMapper('from-secret', {secret: this.secretName()});
       }

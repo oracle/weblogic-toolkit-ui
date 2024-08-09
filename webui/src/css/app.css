@@ -872,3 +872,8 @@ h6.wkt-panel-heading {
   color: rgba(22, 21, 19, 0.7);
   font-size: 0.75em;
 }
+
+.wkt-token-error {
+  color: red;
+  font-weight: bold;
+}
