@@ -103,9 +103,13 @@ define(['knockout', 'utils/i18n', 'js-yaml', 'models/wkt-project', 'utils/common
           field.observable = ko.observable(observableValue);
           fieldMap[field.key] = field;
 
-          subscriptions.push(field.observable.subscribe((newValue) => {
-            const folder = findOrCreatePath(this.getCurrentModel(), field.path);
-            folder[field.attribute] = getModelValue(newValue, field);
+          subscriptions.push(field.observable.subscribe(newValue => {
+            if(newValue === null) {
+              this.deleteElement(field.path, field.attribute);
+            } else {
+              const folder = findOrCreatePath(this.getCurrentModel(), field.path);
+              folder[field.attribute] = getModelValue(newValue, field);
+            }
             this.writeModel();
           }));
         });
