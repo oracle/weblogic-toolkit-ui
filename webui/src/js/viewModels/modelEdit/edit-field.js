@@ -76,13 +76,13 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
     }
 
     this.validators = [];
-    if(field.type === 'integer') {
-      this.validators.push(ModelEditHelper.integerValidator);
-    }
+    // if validators assigned to field, skip any default validation
     if(field.validators) {
       field.validators.forEach(validator => {
         this.validators.push(validator);
       });
+    } else if(field.type === 'integer') {
+      this.validators.push(ModelEditHelper.integerValidator);
     }
 
     this.showOptions = () => {

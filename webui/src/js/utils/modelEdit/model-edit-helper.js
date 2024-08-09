@@ -259,6 +259,7 @@ define(['knockout', 'utils/i18n', 'js-yaml', 'models/wkt-project', 'utils/common
 
       this.portValidator = {
         validate: value => {
+          this.integerValidator.validate(value);
           this.validateRange(value, MIN_PORT, MAX_PORT);
         }
       }
