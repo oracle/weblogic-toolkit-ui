@@ -8,6 +8,14 @@
 <div class="oj-panel">
   <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('connection-label')]]"></oj-bind-text></h6>
   <oj-module config="[[primaryModuleConfig]]"></oj-module>
+  <oj-collapsible class="wkt-model-edit-field-stacked" expanded='false'>
+    <h6 slot="header" class="wkt-subheading">
+      <oj-bind-text value="[[editLabelMapper('advanced-label')]]"></oj-bind-text>
+    </h6>
+    <div>
+      <oj-module config="[[advancedModuleConfig]]"></oj-module>
+    </div>
+  </oj-collapsible>
 </div>
 
 <div class="oj-panel">

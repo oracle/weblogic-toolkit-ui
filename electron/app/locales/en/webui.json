@@ -1360,7 +1360,8 @@
   "domain-creation-image-pusher-create-failed-error-message":"Unable to push image {{imageTag}}: {{error}}.",
 
   "model-edit-view": "Edit View",
-  "model-edit-aria-label": "model-edit-aria-label",
+  "model-edit-aria-label": "Model Edit View",
+  "model-edit-advanced-label": "Advanced",
 
   "model-edit-field-dialog-title": "Options for {{fieldLabel}}",
   "model-edit-field-dialog-label": "Choose an option",
@@ -1392,12 +1393,6 @@
   "model-edit-wls-policies-label": "WLS Policies",
   "model-edit-wls-roles-label": "WLS Roles",
   "model-edit-wls-credential-mapping-label": "WLS Credential Mapping",
-
-  "model-edit-rcudbinfo-db-type-oracle": "Oracle",
-  "model-edit-rcudbinfo-db-type-ebr": "EBR",
-  "model-edit-rcudbinfo-db-type-sqlserver": "SQL Server",
-  "model-edit-rcudbinfo-db-type-db2": "Db2",
-  "model-edit-rcudbinfo-db-type-mysql": "MySQL",
 
   "model-edit-table-name-label": "Name",
 

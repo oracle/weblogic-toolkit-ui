@@ -175,6 +175,15 @@ define(['knockout', 'utils/i18n', 'js-yaml', 'models/wkt-project', 'utils/common
         return this.variableMap();
       }
 
+      this.getDerivedValue = field => {
+        const value = field.observable();
+        const variableName = this.getVariableName(value);
+        if(variableName !== null) {
+          return this.getVariableValue(variableName);
+        }
+        return value;
+      }
+
       // get the secret name for tokens like @@SECRET:<name>:<token>@@
       this.getSecretName = token => {
         if(typeof token === 'string' || token instanceof String) {

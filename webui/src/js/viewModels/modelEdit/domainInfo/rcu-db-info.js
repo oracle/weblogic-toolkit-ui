@@ -18,11 +18,11 @@ function(accUtils, i18n, ko, ModelEditHelper) {
     const LABEL_PREFIX = 'model-edit-rcudbinfo';
 
     const DB_TYPES = [
-      { key: 'ORACLE', label: i18n.t(`${LABEL_PREFIX}-db-type-oracle`) },
-      { key: 'EBR', label: i18n.t(`${LABEL_PREFIX}-db-type-ebr`) },
-      { key: 'SQLSERVER', label: i18n.t(`${LABEL_PREFIX}-db-type-sqlserver`) },
-      { key: 'DB2', label: i18n.t(`${LABEL_PREFIX}-db-type-db2`) },
-      { key: 'MYSQL', label: i18n.t(`${LABEL_PREFIX}-db-type-mysql`) }
+      { key: 'ORACLE', label: 'ORACLE' },
+      { key: 'EBR', label: 'EBR' },
+      { key: 'SQLSERVER', label: 'SQLSERVER' },
+      { key: 'DB2', label: 'DB2' },
+      { key: 'MYSQL', label: 'MYSQL' }
     ];
 
     const CONNECTION_TYPES = [
@@ -50,6 +50,10 @@ function(accUtils, i18n, ko, ModelEditHelper) {
       return i18n.t(`${LABEL_PREFIX}-${labelId}`, payload);
     };
 
+    this.editLabelMapper = (labelId, payload) => {
+      return i18n.t(`model-edit-${labelId}`, payload);
+    };
+
     this.primaryFields = [
       {
         key: 'rcu_database_type',
@@ -64,18 +68,6 @@ function(accUtils, i18n, ko, ModelEditHelper) {
         path: INFO_PATH,
         type: 'choice',
         options: CONNECTION_TYPES
-      },
-      {
-        key: 'compInfoXMLLocation',
-        attribute: 'compInfoXMLLocation',
-        path: INFO_PATH,
-        type: 'string'
-      },
-      {
-        key: 'oracle_net_tns_admin',
-        attribute: 'oracle.net.tns_admin',
-        path: INFO_PATH,
-        type: 'string'
       },
       {
         key: 'rcu_admin_password',
@@ -96,12 +88,6 @@ function(accUtils, i18n, ko, ModelEditHelper) {
         type: 'string'
       },
       {
-        key: 'rcu_edition',
-        attribute: 'rcu_edition',
-        path: INFO_PATH,
-        type: 'string'
-      },
-      {
         key: 'rcu_prefix',
         attribute: 'rcu_prefix',
         path: INFO_PATH,
@@ -112,6 +98,33 @@ function(accUtils, i18n, ko, ModelEditHelper) {
         attribute: 'rcu_schema_password',
         path: INFO_PATH,
         type: 'password'
+      },
+      {
+        key: 'tns_alias',
+        attribute: 'tns.alias',
+        path: INFO_PATH,
+        type: 'string'
+      },
+    ];
+
+    this.advancedFields = [
+      {
+        key: 'oracle_net_tns_admin',
+        attribute: 'oracle.net.tns_admin',
+        path: INFO_PATH,
+        type: 'string'
+      },
+      {
+        key: 'compInfoXMLLocation',
+        attribute: 'compInfoXMLLocation',
+        path: INFO_PATH,
+        type: 'string'
+      },
+      {
+        key: 'rcu_edition',
+        attribute: 'rcu_edition',
+        path: INFO_PATH,
+        type: 'string'
       },
       {
         key: 'rcu_default_tablespace',
@@ -128,12 +141,6 @@ function(accUtils, i18n, ko, ModelEditHelper) {
       {
         key: 'rcu_unicode_support',
         attribute: 'rcu_unicode_support',
-        path: INFO_PATH,
-        type: 'string'
-      },
-      {
-        key: 'tns_alias',
-        attribute: 'tns.alias',
         path: INFO_PATH,
         type: 'string'
       },
@@ -209,16 +216,19 @@ function(accUtils, i18n, ko, ModelEditHelper) {
 
     const fieldMap = {};
     ModelEditHelper.addFields(this.primaryFields, fieldMap, subscriptions);
+    ModelEditHelper.addFields(this.advancedFields, fieldMap, subscriptions);
     ModelEditHelper.addFields(this.atpFields, fieldMap, subscriptions);
     ModelEditHelper.addFields(this.remainingFields, fieldMap, subscriptions);
 
     const dbTypeField = fieldMap['rcu_database_type'];
     const connectionTypeField = fieldMap['oracle_database_connection_type'];
     connectionTypeField.disabled = ko.computed(() => {
-      return dbTypeField.observable() !== 'ORACLE';
+      return ModelEditHelper.getDerivedValue(dbTypeField) !== 'ORACLE';
     });
 
     this.primaryModuleConfig = ModelEditHelper.createFieldSetModuleConfig(this.primaryFields, fieldMap, LABEL_PREFIX);
+
+    this.advancedModuleConfig = ModelEditHelper.createFieldSetModuleConfig(this.advancedFields, fieldMap, LABEL_PREFIX);
 
     this.atpModuleConfig = ModelEditHelper.createFieldSetModuleConfig(this.atpFields, fieldMap, LABEL_PREFIX);
 
