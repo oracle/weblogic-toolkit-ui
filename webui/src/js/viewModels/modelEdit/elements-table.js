@@ -6,15 +6,16 @@
 'use strict';
 
 define(['accUtils', 'utils/i18n', 'knockout', 'utils/modelEdit/model-edit-helper',
-  'utils/view-helper', 'ojs/ojarraydataprovider',
+  'utils/dialog-helper', 'utils/view-helper', 'ojs/ojarraydataprovider',
   'ojs/ojtable', 'oj-c/button', 'oj-c/labelled-link'
 ],
-function(accUtils, i18n, ko, ModelEditHelper, ViewHelper, ArrayDataProvider) {
+function(accUtils, i18n, ko, ModelEditHelper, DialogHelper, ViewHelper, ArrayDataProvider) {
   function ElementsTableViewModel(args) {
     this.i18n = i18n;
 
     const ELEMENTS_PATH = args.path;
-    const ELEMENTS_KEY = args.key;
+    const ELEMENT_TYPE_KEY = args.key;
+    const ELEMENT_TYPE_VALIDATORS = args.nameValidators;
     const ATTRIBUTES = args.attributes;
 
     const subscriptions = [];
@@ -35,7 +36,7 @@ function(accUtils, i18n, ko, ModelEditHelper, ViewHelper, ArrayDataProvider) {
     };
 
     this.labelMapper = (labelId, payload) => {
-      return i18n.t(`model-edit-${ELEMENTS_KEY}-${labelId}`, payload);
+      return i18n.t(`model-edit-${ELEMENT_TYPE_KEY}-${labelId}`, payload);
     };
 
     this.editLabelMapper = (labelId, payload) => {
@@ -97,8 +98,17 @@ function(accUtils, i18n, ko, ModelEditHelper, ViewHelper, ArrayDataProvider) {
       { keyAttributes: 'uid', sortComparators: elementComparators });
 
     this.addElement = () => {
-      const newName = 'NewElement';
-      ModelEditHelper.addElement(ELEMENTS_PATH, newName);
+      const options = {
+        elementTypeKey: ELEMENT_TYPE_KEY,
+        nameValidators: ELEMENT_TYPE_VALIDATORS
+      };
+      DialogHelper.promptDialog('modelEdit/new-element-dialog', options)
+        .then(result => {
+          const newName = result.elementName;
+          if(newName) {
+            ModelEditHelper.addElement(ELEMENTS_PATH, newName);
+          }
+        });
     };
 
     this.deleteElement = (event, context) => {
@@ -107,8 +117,8 @@ function(accUtils, i18n, ko, ModelEditHelper, ViewHelper, ArrayDataProvider) {
     };
 
     this.navigateToElement = (event, context) => {
-      ModelEditHelper.openNavigation('folder-' + ELEMENTS_KEY);
-      ModelEditHelper.navigateToElement(ELEMENTS_KEY, context.item.data.name);
+      ModelEditHelper.openNavigation('folder-' + ELEMENT_TYPE_KEY);
+      ModelEditHelper.navigateToElement(ELEMENT_TYPE_KEY, context.item.data.name);
     };
   }
 
