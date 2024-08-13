@@ -223,7 +223,7 @@ function(accUtils, i18n, ko, ModelEditHelper) {
     const dbTypeField = fieldMap['rcu_database_type'];
     const connectionTypeField = fieldMap['oracle_database_connection_type'];
     connectionTypeField.disabled = ko.computed(() => {
-      return ModelEditHelper.getDerivedValue(dbTypeField) !== 'ORACLE';
+      return ModelEditHelper.getDerivedValue(dbTypeField.observable()) !== 'ORACLE';
     });
 
     this.primaryModuleConfig = ModelEditHelper.createFieldSetModuleConfig(this.primaryFields, fieldMap, LABEL_PREFIX);

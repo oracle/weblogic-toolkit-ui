@@ -59,11 +59,8 @@ function(accUtils, i18n, ko, ModelEditHelper, ViewHelper, ArrayDataProvider) {
           const modelElementFolder = value || {};
 
           const getter = attValue.getter;
-          if(getter) {
-            element[attKey] = getter(modelElementFolder);
-          } else {
-            element[attKey] = modelElementFolder[attributeKey];
-          }
+          const modelValue = getter ? getter(modelElementFolder) : modelElementFolder[attributeKey];
+          element[attKey] = ModelEditHelper.getDerivedValue(modelValue);
         }
         this.elements.push(element);
       }

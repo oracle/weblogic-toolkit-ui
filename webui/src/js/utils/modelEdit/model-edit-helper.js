@@ -182,8 +182,7 @@ define(['knockout', 'utils/i18n', 'js-yaml', 'models/wkt-project', 'utils/common
         return this.variableMap();
       }
 
-      this.getDerivedValue = field => {
-        const value = field.observable();
+      this.getDerivedValue = value => {
         const variableName = this.getVariableName(value);
         if(variableName !== null) {
           return this.getVariableValue(variableName);
