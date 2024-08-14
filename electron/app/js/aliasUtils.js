@@ -1,0 +1,68 @@
+/**
+ * @license
+ * Copyright (c) 2024, Oracle and/or its affiliates.
+ * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
+ */
+'use strict';
+
+const fsPromises = require('fs/promises');
+const JSZip = require('jszip');
+const { getWdtLibraryJar } = require('./wktTools');
+
+async function getAliasInfo() {
+  const WDT_ALIAS_REGEX= /^oracle\/weblogic\/deploy\/aliases\/category_modules\/(.*)\.json$/;
+
+  const fileData = await fsPromises.readFile(getWdtLibraryJar());
+  const zip = await JSZip.loadAsync(fileData);
+
+  const result = {
+    paths: {}
+  };
+
+  for (const zipEntryName in zip.files) {
+    const match = zipEntryName.match(WDT_ALIAS_REGEX);
+    if (match) {
+      let name = match[1];
+      name = (name === 'AppDeployment') ? 'Application' : name;  // WDT quirk
+
+      const zipEntry = zip.file(zipEntryName);
+      const content = await zipEntry.async('text');
+      const aliasData = JSON.parse(content);
+
+      addPaths(aliasData, name, result.paths);
+    }
+  }
+
+  return result;
+}
+
+function addPaths(aliasFolder, path, pathMap) {
+  const child_type = aliasFolder['child_folders_type'];
+  const isMultiple = child_type === 'multiple';
+
+  const attributes = {};
+  for(const [key, value] of Object.entries(aliasFolder['attributes'])) {
+    const firstValue = value[0];
+    const wlstType = firstValue['wlst_type'];
+
+    // TODO: fix WLST types that are ${abc:xyz}
+
+    attributes[key] = {
+      wlstType: wlstType
+    };
+  }
+
+  pathMap[path] = {
+    isMultiple,
+    attributes
+  };
+
+  for(const [key, value] of Object.entries(aliasFolder['folders'])) {
+    const newPath = path + '/' + key;
+    addPaths(value, newPath, pathMap);
+  }
+}
+
+module.exports = {
+  getAliasInfo
+};

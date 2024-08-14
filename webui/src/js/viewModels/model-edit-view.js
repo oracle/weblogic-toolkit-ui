@@ -1,13 +1,14 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2024, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
 
-define(['accUtils', 'utils/i18n', 'knockout', 'utils/modelEdit/model-edit-helper', 'utils/wkt-logger',
+define(['accUtils', 'utils/i18n', 'knockout', 'utils/modelEdit/model-edit-helper',
+  'utils/modelEdit/alias-helper', 'utils/wkt-logger',
   'ojs/ojarraytreedataprovider', 'ojs/ojknockouttemplateutils', 'ojs/ojmodule-element-utils'],
-function(accUtils, i18n, ko, ModelEditHelper, wktLogger,
+function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, wktLogger,
   ArrayTreeDataProvider, KnockoutTemplateUtils, moduleElementUtils) {
 
   function ModelEditViewModel() {
@@ -43,6 +44,17 @@ function(accUtils, i18n, ko, ModelEditHelper, wktLogger,
     this.labelMapper = (labelId, payload) => {
       return i18n.t(`model-edit-${labelId}`, payload);
     };
+
+    this.aliasDataLoaded = ko.computed(() => {
+      return AliasHelper.aliasDataLoaded();
+    });
+
+    this.aliasDataError = ko.computed(() => {
+      if(AliasHelper.aliasDataError()) {
+        return this.labelMapper('alias-load-error');
+      }
+      return null;
+    });
 
     this.navSelection = ModelEditHelper.navSelection;
     this.navExpanded = ModelEditHelper.navExpanded;

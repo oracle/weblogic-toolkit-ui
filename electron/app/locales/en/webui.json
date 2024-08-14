@@ -1362,6 +1362,7 @@
   "model-edit-view": "Edit View",
   "model-edit-aria-label": "Model Edit View",
   "model-edit-advanced-label": "Advanced",
+  "model-edit-alias-load-error": "Unable to load WDT model metadata from installed version",
 
   "model-edit-field-dialog-title": "Options for {{fieldLabel}}",
   "model-edit-field-dialog-label": "Choose an option",

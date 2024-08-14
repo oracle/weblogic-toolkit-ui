@@ -217,6 +217,7 @@ contextBridge.exposeInMainWorld(
           'get-wrc-app-image',
           'wrc-get-home-default-value',
           'wrc-set-home-and-start',
+          'get-alias-info',
         ];
         return new Promise((resolve, reject) => {
           if (validChannels.includes(channel)) {

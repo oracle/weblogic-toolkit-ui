@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2021, 2023, Oracle and/or its affiliates.
+ Copyright (c) 2024, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 
@@ -12,26 +12,30 @@
   </li>
 </script>
 
-<oj-popup id="popup1">
-  <span>Hello World!!!</span>
-</oj-popup>
-
 <div id="wkt-container" class="oj-sm-flex-wrap-nowrap oj-flex">
-  <div id="wkt-model-editor-nav-container"
-       class="wkt-model-editor-nav-container"
-  >
-    <oj-navigation-list :aria-label="[[labelMapper('aria-label')]]"
-                        class="wkt-model-editor-nav-list"
-                        data="[[navDataProvider]]"
-                        drill-mode="collapsible"
-                        expanded="{{navExpanded}}"
-                        item.renderer="[[KnockoutTemplateUtils.getRenderer('editNavTemplate', true)]]"
-                        selection="{{navSelection}}">
-    </oj-navigation-list>
-  </div>
+  <oj-bind-if test="[[aliasDataError]]">
+    <div class="wkt-content">
+      <oj-bind-text value="[[aliasDataError]]"> </oj-bind-text>
+    </div>
+  </oj-bind-if>
 
-  <div class="wkt-right-pane">
-    <oj-module role="main" class="wkt-content" config="[[editPage]]">
-    </oj-module>
-  </div>
+  <oj-bind-if test="[[aliasDataLoaded]]">
+    <div id="wkt-model-editor-nav-container"
+         class="wkt-model-editor-nav-container"
+    >
+      <oj-navigation-list :aria-label="[[labelMapper('aria-label')]]"
+                          class="wkt-model-editor-nav-list"
+                          data="[[navDataProvider]]"
+                          drill-mode="collapsible"
+                          expanded="{{navExpanded}}"
+                          item.renderer="[[KnockoutTemplateUtils.getRenderer('editNavTemplate', true)]]"
+                          selection="{{navSelection}}">
+      </oj-navigation-list>
+    </div>
+
+    <div class="wkt-right-pane">
+      <oj-module role="main" class="wkt-content" config="[[editPage]]">
+      </oj-module>
+    </div>
+  </oj-bind-if>
 </div>

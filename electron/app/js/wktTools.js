@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const { dialog } = require('electron');
@@ -52,6 +52,10 @@ function getPrepareModelShellScript() {
 
 function getValidateModelShellScript() {
   return path.join(getWdtDirectory(), 'bin', 'validateModel' + scriptExtension);
+}
+
+function getWdtLibraryJar() {
+  return path.join(getWdtDirectory(), 'lib', 'weblogic-deploy-core.jar');
 }
 
 function getWdtCustomConfigDirectory() {
@@ -312,6 +316,7 @@ module.exports = {
   getLatestWkoVersion,
   getValidateModelShellScript,
   getWdtCustomConfigDirectory,
+  getWdtLibraryJar,
   getWdtSupportedDomainTypes,
   initialize,
   isWdtErrorExitCode,
