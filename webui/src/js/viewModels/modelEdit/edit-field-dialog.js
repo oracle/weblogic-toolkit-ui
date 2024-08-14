@@ -49,7 +49,7 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
 
     this.getTitle = ko.computed(() => {
       const fieldLabel = i18n.t(`${labelPrefix}-attribute-${fieldInfo.key}-label`);
-      return this.labelMapper('title', {fieldLabel: fieldLabel})
+      return this.labelMapper('title', {fieldLabel: fieldLabel});
     });
 
     const existingOption = existingVariable ? 'variable' : 'edit';

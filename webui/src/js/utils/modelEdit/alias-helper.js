@@ -14,7 +14,7 @@ define(['knockout', 'utils/i18n', 'utils/wkt-logger'],
 
       this.aliasDataLoaded = ko.computed(() => {
         return !!this.aliasData();
-      })
+      });
 
       this.aliasDataError = ko.observable();
 

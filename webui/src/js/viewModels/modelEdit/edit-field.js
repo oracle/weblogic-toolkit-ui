@@ -54,7 +54,7 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
 
     this.usesToken = ko.computed(() => {
       return this.variableName() || this.secretName();
-    })
+    });
 
     this.getValueObservable = ko.computed(() => {
       // if a token is used, show the token value in a read-only control

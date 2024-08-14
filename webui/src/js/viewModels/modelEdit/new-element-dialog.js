@@ -43,14 +43,14 @@ function(accUtils, ko, i18n, project,
     };
 
     this.getTitle = ko.computed(() => {
-      return this.labelMapper('add-label')
+      return this.labelMapper('add-label');
     });
 
     this.nameValidators = [];
 
     // if validators passed in, use those instead of (some) default validations
     if(ELEMENT_TYPE_VALIDATORS) {
-      this.nameValidators.push(...ELEMENT_TYPE_VALIDATORS)
+      this.nameValidators.push(...ELEMENT_TYPE_VALIDATORS);
 
     } else {
       this.nameValidators.push({
