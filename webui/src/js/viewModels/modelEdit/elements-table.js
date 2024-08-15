@@ -75,10 +75,13 @@ function(accUtils, i18n, ko, ModelEditHelper, DialogHelper, ViewHelper, ArrayDat
       }
     ];
 
-    for (const [attKey, attValue] of Object.entries(ATTRIBUTES)) {
+    for (const [attribute, args] of Object.entries(ATTRIBUTES)) {
+      const typeKey = args['typeKey'] || ELEMENT_TYPE_KEY;
+      const attributeName = args['attribute'] || attribute;
+
       this.elementsColumnData.push({
-        headerText: this.labelMapper(`attribute-${attKey}-label`),
-        sortProperty: attKey,
+        headerText: this.editLabelMapper(`${typeKey}-attribute-${attributeName}-label`),
+        sortProperty: attributeName,
         resizable: 'enabled'
       });
     }

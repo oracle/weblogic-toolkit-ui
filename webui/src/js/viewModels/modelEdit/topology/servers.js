@@ -40,7 +40,9 @@ function(accUtils, i18n, ko, ModelEditHelper, ModuleElementUtils) {
             ListenPort: {
               key: 'ListenPort',
             },
-            'SSL-ListenPort': {
+            'SSL-ListenPort': {  // this attribute is outside Server folder
+              attribute: 'ListenPort',
+              typeKey: 'server-ssl',
               getter: getSslListenPort
             }
           }
