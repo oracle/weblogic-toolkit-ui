@@ -15,10 +15,11 @@ function(accUtils, i18n, ko, ModelEditHelper) {
 
     const subscriptions = [];
 
-    const SERVER_PATH = 'topology/Server/' + args.name;
-    const SSL_PATH = SERVER_PATH + '/SSL';
+    const SERVER_PATH = ['topology', 'Server', args.name];
+    const SSL_PATH = [...SERVER_PATH, 'SSL'];
 
     const LABEL_PREFIX = 'model-edit-server';
+    const SSL_LABEL_PREFIX = 'model-edit-server-ssl';
 
     this.connected = () => {
       accUtils.announce(`Server Page for ${this.name} loaded.`, 'assertive');
@@ -34,52 +35,37 @@ function(accUtils, i18n, ko, ModelEditHelper) {
       return i18n.t(`${LABEL_PREFIX}-${labelId}`, payload);
     };
 
-    const fields = [
-      {
-        key: 'Cluster',
-        attribute: 'Cluster',
-        path: SERVER_PATH,
-        type: 'string'
-      },
-      {
-        key: 'DefaultIIOPUser',
-        attribute: 'DefaultIIOPUser',
-        path: SERVER_PATH,
-        type: 'string'
-      },
-      {
-        key: 'ListenPort',
-        attribute: 'ListenPort',
-        path: SERVER_PATH,
-        type: 'integer',
-        validators: [ModelEditHelper.portValidator]
-      },
-      {
-        key: 'Notes',
-        attribute: 'Notes',
-        path: SERVER_PATH,
-        type: 'string'
-      },
-      {
-        key: 'SSL-Enabled',
-        attribute: 'Enabled',
-        path: SSL_PATH,
-        type: 'boolean'
-      },
-      {
-        key: 'SSL-ListenPort',
-        attribute: 'ListenPort',
-        path: SSL_PATH,
-        type: 'integer',
-        validators: [ModelEditHelper.portValidator]
-      }
+    this.editLabelMapper = (labelId, payload) => {
+      return i18n.t(`model-edit-${labelId}`, payload);
+    };
+
+    const knownFields = [
+      'Cluster',
+      'DefaultIIOPUser',
+      'ListenPort',
+      'Notes',
     ];
 
-    const fieldMap = ModelEditHelper.createFieldMap(fields, subscriptions);
+    const fieldMap = ModelEditHelper.createAliasFieldMap(SERVER_PATH, subscriptions);
+    const listenPortField = fieldMap['ListenPort'];
+    listenPortField['validators'] = [ModelEditHelper.portValidator];
+
+    const sslFieldMap = ModelEditHelper.createAliasFieldMap(SSL_PATH, subscriptions);
+    const sslListenPortField = fieldMap['ListenPort'];
+    sslListenPortField['validators'] = [ModelEditHelper.portValidator];
 
     this.fieldConfig = (key) => {
       return ModelEditHelper.createFieldModuleConfig(key, fieldMap, LABEL_PREFIX);
     };
+
+    this.sslFieldConfig = (key) => {
+      return ModelEditHelper.createFieldModuleConfig(key, sslFieldMap, SSL_LABEL_PREFIX);
+    };
+
+    // create a list of remaining fields
+    const remainingFieldNames = ModelEditHelper.getRemainingFieldNames(fieldMap, knownFields);
+    this.remainingModuleConfig = ModelEditHelper.createFieldSetModuleConfig(remainingFieldNames, fieldMap,
+      LABEL_PREFIX);
   }
 
   return ServerEditViewModel;

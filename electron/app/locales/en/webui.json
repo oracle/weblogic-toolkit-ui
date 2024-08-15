@@ -1558,10 +1558,10 @@
   "model-edit-server-attribute-Notes-label": "Notes",
   "model-edit-server-attribute-Notes-help": "Notes for this server",
 
-  "model-edit-server-attribute-SSL-Enabled-label": "SSL Enabled",
-  "model-edit-server-attribute-SSL-Enabled-help": "SSL enabled for this server",
-  "model-edit-server-attribute-SSL-ListenPort-label": "SSL Listen Port",
-  "model-edit-server-attribute-SSL-ListenPort-help": "SSL listen port for this server",
+  "model-edit-server-ssl-attribute-Enabled-label": "SSL Enabled",
+  "model-edit-server-ssl-attribute-Enabled-help": "SSL enabled for this server",
+  "model-edit-server-ssl-attribute-ListenPort-label": "SSL Listen Port",
+  "model-edit-server-ssl-attribute-ListenPort-help": "SSL listen port for this server",
 
   "model-page-design-view-search-label": "Search Model",
   "model-page-design-view-search-tooltip": "Search Model",

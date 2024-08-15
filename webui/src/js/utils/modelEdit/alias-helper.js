@@ -44,13 +44,18 @@ define(['knockout', 'utils/i18n', 'utils/wkt-logger'],
           }
 
           let aliasPath = [];
-          let node = aliasData.paths;
           let nameNext = false;
           let first = true;
           modelPath.forEach(dir => {
-            if(!first) {
+            if(!first && !nameNext) {
               aliasPath.push(dir);
-              node = node[dir];
+              const node = aliasData.paths[aliasPath.join('/')];
+              if(!node) {
+                WktLogger.error(`Alias folder path ${dir} not found for path ${modelPath}`);
+              }
+              nameNext = node['isMultiple'];
+            } else {
+              nameNext = false;
             }
             first = false;
           });
@@ -62,11 +67,8 @@ define(['knockout', 'utils/i18n', 'utils/wkt-logger'],
       this.getAttributesMap = modelPath => {
         const aliasData = this.aliasData();
         if(aliasData) {
-          let node = aliasData['paths'];
           const aliasPath = this.getAliasPath(modelPath);
-          aliasPath.forEach(dir => {
-            node = node[dir];
-          });
+          const node = aliasData.paths[aliasPath.join('/')];
           return node['attributes'];
         }
         return null;

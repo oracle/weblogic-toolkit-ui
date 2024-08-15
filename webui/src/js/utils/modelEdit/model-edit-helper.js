@@ -6,9 +6,9 @@
 'use strict';
 
 define(['knockout', 'utils/i18n', 'js-yaml', 'models/wkt-project', 'utils/common-utilities',
-  'utils/modelEdit/alias-helper', 'ojs/ojmodule-element-utils'],
+  'utils/wkt-logger', 'utils/modelEdit/alias-helper', 'ojs/ojmodule-element-utils'],
 function (ko, i18n, jsYaml, project, utils,
-  AliasHelper, ModuleElementUtils) {
+  WktLogger, AliasHelper, ModuleElementUtils) {
 
   function ModelEditHelper() {
     // parse, write, and maintain the model object structure.
@@ -175,6 +175,9 @@ function (ko, i18n, jsYaml, project, utils,
       // deprecated, should pass in key as string
       key = (typeof key === 'string' || key instanceof String) ? key : key.attribute;
       const field = fieldMap[key];
+      if(!field) {
+        WktLogger.error(`Field ${key} not found, fields: ${Object.keys(fieldMap)}`);
+      }
       return this.fieldConfig(field, labelPrefix);
     };
 
