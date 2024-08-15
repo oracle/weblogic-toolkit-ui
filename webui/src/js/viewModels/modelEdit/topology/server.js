@@ -51,7 +51,7 @@ function(accUtils, i18n, ko, ModelEditHelper) {
     listenPortField['validators'] = [ModelEditHelper.portValidator];
 
     const sslFieldMap = ModelEditHelper.createAliasFieldMap(SSL_PATH, subscriptions);
-    const sslListenPortField = fieldMap['ListenPort'];
+    const sslListenPortField = sslFieldMap['ListenPort'];
     sslListenPortField['validators'] = [ModelEditHelper.portValidator];
 
     this.fieldConfig = (key) => {
