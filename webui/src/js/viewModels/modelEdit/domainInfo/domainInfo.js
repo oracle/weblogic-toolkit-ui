@@ -14,7 +14,7 @@ function(accUtils, i18n, ModelEditHelper) {
 
     const subscriptions = [];
 
-    const INFO_PATH = 'domainInfo';
+    const INFO_PATH = ['domainInfo'];
     const LABEL_PREFIX = 'model-edit-domainInfo';
 
     this.connected = () => {
@@ -31,89 +31,23 @@ function(accUtils, i18n, ModelEditHelper) {
       return i18n.t(`${LABEL_PREFIX}-${labelId}`, payload);
     };
 
-    this.primaryFields = [
-      {
-        key: 'AdminPassword',
-        attribute: 'AdminPassword',
-        path: INFO_PATH,
-        type: 'password'
-      },
-      {
-        key: 'AdminUserName',
-        attribute: 'AdminUserName',
-        path: INFO_PATH,
-        type: 'credential'
-      },
+    // these are directly referenced in HTML
+    const primaryFieldNames = [
+      'AdminUserName',
+      'AdminPassword'
     ];
 
-    this.remainingFields = [
-      {
-        key: 'AppDir',
-        attribute: 'AppDir',
-        path: INFO_PATH,
-        type: 'string'
-      },
-      {
-        key: 'OPSSWalletPassphrase',
-        attribute: 'OPSSWalletPassphrase',
-        path: INFO_PATH,
-        type: 'password'
-      },
-      {
-        key: 'ServerGroupTargetingLimits',
-        attribute: 'ServerGroupTargetingLimits',
-        path: INFO_PATH,
-        type: 'dict'
-      },
-      {
-        key: 'DynamicClusterServerGroupTargetingLimits',
-        attribute: 'DynamicClusterServerGroupTargetingLimits',
-        path: INFO_PATH,
-        type: 'dict'
-      },
-      {
-        key: 'ServerStartMode',
-        attribute: 'ServerStartMode',
-        path: INFO_PATH,
-        type: 'string'
-      },
-      {
-        key: 'UseSampleDatabase',
-        attribute: 'UseSampleDatabase',
-        path: INFO_PATH,
-        type: 'string'
-      },
-      {
-        key: 'EnableJMSStoreDBPersistence',
-        attribute: 'EnableJMSStoreDBPersistence',
-        path: INFO_PATH,
-        type: 'boolean'
-      },
-      {
-        key: 'EnableJTATLogDBPersistence',
-        attribute: 'EnableJTATLogDBPersistence',
-        path: INFO_PATH,
-        type: 'boolean'
-      },
-      {
-        key: 'domainBin',
-        attribute: 'domainBin',
-        path: INFO_PATH,
-        type: 'list'
-      },
-      {
-        key: 'domainLibraries',
-        attribute: 'domainLibraries',
-        path: INFO_PATH,
-        type: 'list'
-      },
+    const excludeFieldNames = [
+      'OPSSSecrets'
     ];
 
-    const fieldMap = {};
-    ModelEditHelper.addFields(this.primaryFields, fieldMap, subscriptions);
-    ModelEditHelper.addFields(this.remainingFields, fieldMap, subscriptions);
+    const fieldMap = ModelEditHelper.createAliasFieldMap(INFO_PATH, subscriptions);
 
-    this.remainingModuleConfig = ModelEditHelper.createFieldSetModuleConfig(this.remainingFields, fieldMap,
+    // create a list of remaining fields
+    const knownFieldNames = [...primaryFieldNames, ...excludeFieldNames];
+    const remainingFieldNames = ModelEditHelper.getRemainingFieldNames(fieldMap, knownFieldNames);
+
+    this.remainingModuleConfig = ModelEditHelper.createFieldSetModuleConfig(remainingFieldNames, fieldMap,
       LABEL_PREFIX);
 
     this.fieldConfig = (key) => {

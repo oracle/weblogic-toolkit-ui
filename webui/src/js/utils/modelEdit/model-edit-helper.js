@@ -6,9 +6,9 @@
 'use strict';
 
 define(['knockout', 'utils/i18n', 'js-yaml', 'models/wkt-project', 'utils/common-utilities',
-  'ojs/ojmodule-element-utils'],
+  'utils/modelEdit/alias-helper', 'ojs/ojmodule-element-utils'],
 function (ko, i18n, jsYaml, project, utils,
-  ModuleElementUtils) {
+  AliasHelper, ModuleElementUtils) {
 
   function ModelEditHelper() {
     // parse, write, and maintain the model object structure.
@@ -67,9 +67,13 @@ function (ko, i18n, jsYaml, project, utils,
     };
 
     this.getChildFolder = (parent, path) => {
-      const names = path.split('/');
+      // deprecated
+      if(isString(path)) {
+        path = path.split('/');
+      }
+
       let folder = parent;
-      names.forEach(name => {
+      path.forEach(name => {
         if(folder.hasOwnProperty(name) && folder[name]) {
           folder = folder[name];
         } else {
@@ -92,6 +96,40 @@ function (ko, i18n, jsYaml, project, utils,
     // *********************************************
     // create field configurations for display/edit
     // *********************************************
+
+    this.createAliasFieldMap = (modelPath, subscriptions) => {
+      const fieldMap = {};
+
+      const attributesMap = AliasHelper.getAttributesMap(modelPath);
+      for (const [attributeName, valueMap] of Object.entries(attributesMap)) {
+        // key is used for message lookup, not periods
+        const key = attributeName.replaceAll('.', '_');
+
+        const field = {
+          attribute: attributeName,
+          key: key,
+          path: modelPath,
+          type: valueMap['wlstType'],
+          observable: ko.observable()
+        };
+
+        const observableValue = this.getFieldObservableValue(field);
+        field.observable(observableValue);
+
+        subscriptions.push(field.observable.subscribe(newValue => {
+          if(newValue === null) {
+            this.deleteElement(field.path, field.attribute);
+          } else {
+            const folder = findOrCreatePath(this.getCurrentModel(), field.path);
+            folder[field.attribute] = getModelValue(newValue, field);
+          }
+          this.writeModel();
+        }));
+
+        fieldMap[attributeName] = field;
+      }
+      return fieldMap;
+    };
 
     this.createFieldMap = (fields, subscriptions) => {
       const fieldMap = {};
@@ -134,6 +172,8 @@ function (ko, i18n, jsYaml, project, utils,
     };
 
     this.createFieldModuleConfig = (key, fieldMap, labelPrefix) => {
+      // deprecated, should pass in key as string
+      key = (typeof key === 'string' || key instanceof String) ? key : key.attribute;
       const field = fieldMap[key];
       return this.fieldConfig(field, labelPrefix);
     };
@@ -147,6 +187,19 @@ function (ko, i18n, jsYaml, project, utils,
           fieldMap: fieldMap
         }
       });
+    };
+
+    this.getRemainingFieldNames = (fieldMap, knownFieldNames) => {
+      const remainingNames = [];
+      Object.keys(fieldMap).forEach(key => {
+        if(!knownFieldNames.includes(key)) {
+          remainingNames.push(key);
+        }
+      });
+      remainingNames.sort((a, b) => {
+        return a.toLowerCase().localeCompare(b.toLowerCase());
+      });
+      return remainingNames;
     };
 
     this.getFieldObservableValue = field => {
@@ -278,10 +331,14 @@ function (ko, i18n, jsYaml, project, utils,
     // *******************
 
     function findOrCreatePath(parent, path) {
-      const names = path.split('/');
+      // deprecated
+      if(isString(path)) {
+        path = path.split('/');
+      }
+
       let folder = parent;
       let folderPath = '';
-      names.forEach(name => {
+      path.forEach(name => {
         folder = findOrCreateFolder(folder, name, folderPath);
         folderPath += folderPath.length ? '/' : '';
         folderPath += name;

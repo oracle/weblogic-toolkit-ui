@@ -21,7 +21,7 @@ function(accUtils, i18n, ModelEditHelper) {
     };
 
     this.fieldConfig = (field) => {
-      return ModelEditHelper.createFieldModuleConfig(field.key, fieldMap, labelPrefix);
+      return ModelEditHelper.createFieldModuleConfig(field, fieldMap, labelPrefix);
     };
   }
 

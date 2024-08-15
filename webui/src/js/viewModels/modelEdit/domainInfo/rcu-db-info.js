@@ -14,7 +14,7 @@ function(accUtils, i18n, ko, ModelEditHelper) {
 
     const subscriptions = [];
 
-    const INFO_PATH = 'domainInfo/RCUDbInfo';
+    const INFO_PATH = ['domainInfo', 'RCUDbInfo'];
     const LABEL_PREFIX = 'model-edit-rcudbinfo';
 
     const DB_TYPES = [
@@ -54,186 +54,67 @@ function(accUtils, i18n, ko, ModelEditHelper) {
       return i18n.t(`model-edit-${labelId}`, payload);
     };
 
-    this.primaryFields = [
-      {
-        key: 'rcu_database_type',
-        attribute: 'rcu_database_type',
-        path: INFO_PATH,
-        type: 'choice',
-        options: DB_TYPES
-      },
-      {
-        key: 'oracle_database_connection_type',
-        attribute: 'oracle_database_connection_type',
-        path: INFO_PATH,
-        type: 'choice',
-        options: CONNECTION_TYPES
-      },
-      {
-        key: 'rcu_admin_password',
-        attribute: 'rcu_admin_password',
-        path: INFO_PATH,
-        type: 'password'
-      },
-      {
-        key: 'rcu_admin_user',
-        attribute: 'rcu_admin_user',
-        path: INFO_PATH,
-        type: 'credential'
-      },
-      {
-        key: 'rcu_db_conn_string',
-        attribute: 'rcu_db_conn_string',
-        path: INFO_PATH,
-        type: 'string'
-      },
-      {
-        key: 'rcu_prefix',
-        attribute: 'rcu_prefix',
-        path: INFO_PATH,
-        type: 'string'
-      },
-      {
-        key: 'rcu_schema_password',
-        attribute: 'rcu_schema_password',
-        path: INFO_PATH,
-        type: 'password'
-      },
-      {
-        key: 'tns_alias',
-        attribute: 'tns.alias',
-        path: INFO_PATH,
-        type: 'string'
-      },
+    const connectionFields = [
+      'rcu_database_type',
+      'oracle_database_connection_type',
+      'rcu_admin_password',
+      'rcu_admin_user',
+      'rcu_db_conn_string',
+      'rcu_prefix',
+      'rcu_schema_password',
+      'tns.alias'
     ];
 
-    this.advancedFields = [
-      {
-        key: 'oracle_net_tns_admin',
-        attribute: 'oracle.net.tns_admin',
-        path: INFO_PATH,
-        type: 'string'
-      },
-      {
-        key: 'compInfoXMLLocation',
-        attribute: 'compInfoXMLLocation',
-        path: INFO_PATH,
-        type: 'string'
-      },
-      {
-        key: 'rcu_edition',
-        attribute: 'rcu_edition',
-        path: INFO_PATH,
-        type: 'string'
-      },
-      {
-        key: 'rcu_default_tablespace',
-        attribute: 'rcu_default_tablespace',
-        path: INFO_PATH,
-        type: 'string'
-      },
-      {
-        key: 'rcu_temp_tablespace',
-        attribute: 'rcu_temp_tablespace',
-        path: INFO_PATH,
-        type: 'string'
-      },
-      {
-        key: 'rcu_unicode_support',
-        attribute: 'rcu_unicode_support',
-        path: INFO_PATH,
-        type: 'string'
-      },
-      {
-        key: 'rcu_variables',
-        attribute: 'rcu_variables',
-        path: INFO_PATH,
-        type: 'string'
-      },
-      {
-        key: 'storageXMLLocation',
-        attribute: 'storageXMLLocation',
-        path: INFO_PATH,
-        type: 'string'
-      },
+    const atpFields = [
+      'atp.default.tablespace',
+      'atp.temp.tablespace',
     ];
 
-    this.atpFields = [
-      {
-        key: 'atp_default_tablespace',
-        attribute: 'atp.default.tablespace',
-        path: INFO_PATH,
-        type: 'string'
-      },
-      {
-        key: 'atp_temp_tablespace',
-        attribute: 'atp.temp.tablespace',
-        path: INFO_PATH,
-        type: 'string'
-      },
+    const storeFields = [
+      'javax.net.ssl.keyStore',
+      'javax.net.ssl.keyStoreType',
+      'javax.net.ssl.keyStorePassword',
+      'javax.net.ssl.trustStore',
+      'javax.net.ssl.trustStoreType',
+      'javax.net.ssl.trustStorePassword'
     ];
 
-    this.remainingFields = [
-      {
-        key: 'javax_net_ssl_keyStore',
-        attribute: 'javax.net.ssl.keyStore',
-        path: INFO_PATH,
-        type: 'string'
-      },
-      {
-        key: 'javax_net_ssl_keyStoreType',
-        attribute: 'javax.net.ssl.keyStoreType',
-        path: INFO_PATH,
-        type: 'choice',
-        options: STORE_TYPES
-      },
-      {
-        key: 'javax_net_ssl_keyStorePassword',
-        attribute: 'javax.net.ssl.keyStorePassword',
-        path: INFO_PATH,
-        type: 'password'
-      },
-      {
-        key: 'javax_net_ssl_trustStore',
-        attribute: 'javax.net.ssl.trustStore',
-        path: INFO_PATH,
-        type: 'string'
-      },
-      {
-        key: 'javax_net_ssl_trustStoreType',
-        attribute: 'javax.net.ssl.trustStoreType',
-        path: INFO_PATH,
-        type: 'choice',
-        options: STORE_TYPES
-      },
-      {
-        key: 'javax_net_ssl_trustStorePassword',
-        attribute: 'javax.net.ssl.trustStorePassword',
-        path: INFO_PATH,
-        type: 'password'
-      },
+    const excludeFieldNames = [
+      'databaseType'
     ];
 
-    const fieldMap = {};
-    ModelEditHelper.addFields(this.primaryFields, fieldMap, subscriptions);
-    ModelEditHelper.addFields(this.advancedFields, fieldMap, subscriptions);
-    ModelEditHelper.addFields(this.atpFields, fieldMap, subscriptions);
-    ModelEditHelper.addFields(this.remainingFields, fieldMap, subscriptions);
+    const fieldMap = ModelEditHelper.createAliasFieldMap(INFO_PATH, subscriptions);
 
     const dbTypeField = fieldMap['rcu_database_type'];
+    dbTypeField['type'] = 'choice';
+    dbTypeField['options'] = DB_TYPES;
+
     const connectionTypeField = fieldMap['oracle_database_connection_type'];
-    connectionTypeField.disabled = ko.computed(() => {
+    connectionTypeField['type'] = 'choice';
+    connectionTypeField['options'] = CONNECTION_TYPES;
+    connectionTypeField['disabled'] = ko.computed(() => {
       return ModelEditHelper.getDerivedValue(dbTypeField.observable()) !== 'ORACLE';
     });
 
-    this.primaryModuleConfig = ModelEditHelper.createFieldSetModuleConfig(this.primaryFields, fieldMap, LABEL_PREFIX);
+    ['javax.net.ssl.keyStoreType', 'javax.net.ssl.trustStoreType'].forEach(name => {
+      const storeTypeField = fieldMap[name];
+      storeTypeField['type'] = 'choice';
+      storeTypeField['options'] = STORE_TYPES;
+    });
 
-    this.advancedModuleConfig = ModelEditHelper.createFieldSetModuleConfig(this.advancedFields, fieldMap, LABEL_PREFIX);
+    // create a list of remaining fields
+    const knownFieldNames = [...connectionFields, ...atpFields, ...storeFields, ...excludeFieldNames];
+    const remainingFieldNames = ModelEditHelper.getRemainingFieldNames(fieldMap, knownFieldNames);
 
-    this.atpModuleConfig = ModelEditHelper.createFieldSetModuleConfig(this.atpFields, fieldMap, LABEL_PREFIX);
-
-    this.remainingModuleConfig = ModelEditHelper.createFieldSetModuleConfig(this.remainingFields, fieldMap,
+    this.connectionModuleConfig = ModelEditHelper.createFieldSetModuleConfig(connectionFields, fieldMap,
       LABEL_PREFIX);
+
+    this.advancedModuleConfig = ModelEditHelper.createFieldSetModuleConfig(remainingFieldNames, fieldMap,
+      LABEL_PREFIX);
+
+    this.atpModuleConfig = ModelEditHelper.createFieldSetModuleConfig(atpFields, fieldMap, LABEL_PREFIX);
+
+    this.storesModuleConfig = ModelEditHelper.createFieldSetModuleConfig(storeFields, fieldMap, LABEL_PREFIX);
 
     this.fieldConfig = (key) => {
       return ModelEditHelper.createFieldModuleConfig(key, fieldMap, LABEL_PREFIX);
