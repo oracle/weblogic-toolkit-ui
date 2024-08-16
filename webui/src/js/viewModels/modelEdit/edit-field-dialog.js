@@ -134,12 +134,6 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
       }
 
       this.dialogContainer.close();
-
-      const result = {
-        // anything to return from dialog?
-      };
-
-      args.setValue(result);
     };
 
     this.cancelInput = () => {

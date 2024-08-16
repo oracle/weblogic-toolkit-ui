@@ -113,10 +113,7 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
 
     this.showOptions = () => {
       const options = { fieldInfo: field, labelPrefix: labelPrefix };
-      DialogHelper.promptDialog('modelEdit/edit-field-dialog', options)
-        .then(_result => {
-          // nothing to do here?
-        });
+      DialogHelper.openDialog('modelEdit/edit-field-dialog', options);
     };
   }
 
