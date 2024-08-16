@@ -52,9 +52,10 @@ function (ko, i18n, jsYaml, project, utils,
       return newElement;
     };
 
-    this.deleteElement = (elementsPath, key) => {
-      const elementsFolder = this.getFolder(elementsPath);
-      delete elementsFolder[key];
+    this.deleteElement = (modelPath, key) => {
+      const modelFolder = this.getFolder(modelPath);
+      delete modelFolder[key];
+      this.deleteIfEmpty(modelPath);
       this.writeModel();
     };
 
@@ -77,6 +78,22 @@ function (ko, i18n, jsYaml, project, utils,
     this.getValue = (path, attribute) => {
       const folder = this.getFolder(path);
       return folder[attribute];
+    };
+
+    this.deleteIfEmpty = modelPath => {
+      if(!AliasHelper.isNamedPath(modelPath)) {
+        const folder = this.getFolder(modelPath);
+        if (Object.keys(folder).length === 0) {
+          const folderKey = modelPath[modelPath.length - 1];
+          const parentPath = modelPath.slice(0, -1);
+          const parentFolder = this.getFolder(parentPath);
+          delete parentFolder[folderKey];
+
+          if (parentPath.length > 0) {
+            this.deleteIfEmpty(parentPath);
+          }
+        }
+      }
     };
 
     this.getDomainName = ()=> {

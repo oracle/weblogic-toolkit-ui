@@ -37,11 +37,15 @@ define(['knockout', 'utils/i18n', 'utils/wkt-logger'],
       this.getAliasPath = modelPath => {
         const aliasData = this.aliasData();
         if(aliasData) {
+          // special cases for top-level folders
           if (modelPath.length === 1) {
             if (modelPath[0] === 'domainInfo') {
               return ['DomainInfo'];
             }
-            throw new Error('Bad single-element-path: ' + modelPath);
+            if (modelPath[0] === 'topology') {
+              return ['Domain'];
+            }
+            throw new Error('Bad top-level path: ' + modelPath);
           }
 
           let aliasPath = [];
@@ -50,11 +54,11 @@ define(['knockout', 'utils/i18n', 'utils/wkt-logger'],
           modelPath.forEach(dir => {
             if(!first && !nameNext) {
               aliasPath.push(dir);
-              const node = aliasData.paths[aliasPath.join('/')];
-              if(!node) {
-                WktLogger.error(`Alias folder path ${dir} not found for path ${modelPath}`);
+              const aliasNode = aliasData.paths[aliasPath.join('/')];
+              if (!aliasNode) {
+                WktLogger.error(`getAliasPath: Alias folder path ${dir} not found for path ${modelPath}`);
               }
-              nameNext = node['isMultiple'];
+              nameNext = aliasNode['isMultiple'];
             } else {
               nameNext = false;
             }
@@ -63,6 +67,35 @@ define(['knockout', 'utils/i18n', 'utils/wkt-logger'],
           return aliasPath;
         }
         throw new Error('Alias data not loaded');
+      };
+
+      // named path: topology/Server/myServer
+      // not named path: topology/Server/myServer/SSL
+      this.isNamedPath = modelPath => {
+        const aliasData = this.aliasData();
+        if(aliasData) {
+          // is parent path multiple?
+          const parentPath = modelPath.slice(0, -1);
+
+          let aliasPath = [];
+          let nameNext = false;
+          let first = true;
+          parentPath.forEach(dir => {
+            if(!first && !nameNext) {
+              aliasPath.push(dir);
+              const aliasNode = aliasData.paths[aliasPath.join('/')];
+              if (!aliasNode) {
+                WktLogger.error(`isNamedPath: Alias folder path ${dir} not found for path ${modelPath}`);
+              }
+              nameNext = aliasNode['isMultiple'];
+            } else {
+              nameNext = false;
+            }
+            first = false;
+          });
+          return nameNext;
+        }
+        return true;  // by default, to avoid deletion
       };
 
       this.getAttributesMap = modelPath => {
