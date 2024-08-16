@@ -6,9 +6,9 @@
 'use strict';
 
 define(['accUtils', 'utils/i18n', 'knockout', 'utils/modelEdit/model-edit-helper',
-  'utils/modelEdit/alias-helper', 'utils/wkt-logger',
+  'utils/modelEdit/alias-helper', 'utils/modelEdit/navigation-helper', 'utils/wkt-logger',
   'ojs/ojarraytreedataprovider', 'ojs/ojknockouttemplateutils', 'ojs/ojmodule-element-utils'],
-function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, wktLogger,
+function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, NavigationHelper, wktLogger,
   ArrayTreeDataProvider, KnockoutTemplateUtils, moduleElementUtils) {
 
   function ModelEditViewModel() {
@@ -56,8 +56,8 @@ function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, wktLogger,
       return null;
     });
 
-    this.navSelection = ModelEditHelper.navSelection;
-    this.navExpanded = ModelEditHelper.navExpanded;
+    this.navSelection = NavigationHelper.navSelection;
+    this.navExpanded = NavigationHelper.navExpanded;
 
     this.servers = ko.observableArray();
     this.clusters = ko.observableArray();

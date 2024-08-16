@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2024, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -12,7 +12,6 @@ function (ko, i18n, jsYaml, project, utils,
 
   function ModelEditHelper() {
     // parse, write, and maintain the model object structure.
-    // maintain and update the navigation state.
     // provide convenience methods.
 
     const ROOT_ORDER = ['domainInfo', 'topology', 'resources', 'appDeployments', 'kubernetes'];
@@ -20,9 +19,6 @@ function (ko, i18n, jsYaml, project, utils,
 
     this.modelObject = ko.observable();
     this.variableMap = ko.observable({});
-
-    this.navSelection = ko.observable();
-    this.navExpanded = ko.observable();
 
     // **********************
     // read and update model
@@ -242,20 +238,6 @@ function (ko, i18n, jsYaml, project, utils,
 
     this.getVariableToken = variableName => {
       return `@@PROP:${variableName}@@`;
-    };
-
-    // **************************************
-    // access the model edit navigation menu
-    // **************************************
-
-    this.navigateToElement = (elementKey, name) => {
-      const navigationKey = elementKey + '-' + name;
-      this.navSelection(navigationKey);
-    };
-
-    this.openNavigation = (key) => {
-      const keySet = this.navExpanded();
-      this.navExpanded(keySet.add([key]));
     };
 
     // *****************

@@ -6,10 +6,10 @@
 'use strict';
 
 define(['accUtils', 'utils/i18n', 'knockout', 'utils/modelEdit/model-edit-helper',
-  'utils/dialog-helper', 'utils/view-helper', 'ojs/ojarraydataprovider',
+  'utils/modelEdit/navigation-helper', 'utils/dialog-helper', 'utils/view-helper', 'ojs/ojarraydataprovider',
   'ojs/ojtable', 'oj-c/button', 'oj-c/labelled-link'
 ],
-function(accUtils, i18n, ko, ModelEditHelper, DialogHelper, ViewHelper, ArrayDataProvider) {
+function(accUtils, i18n, ko, ModelEditHelper, NavigationHelper, DialogHelper, ViewHelper, ArrayDataProvider) {
   function ElementsTableViewModel(args) {
     this.i18n = i18n;
 
@@ -120,8 +120,8 @@ function(accUtils, i18n, ko, ModelEditHelper, DialogHelper, ViewHelper, ArrayDat
     };
 
     this.navigateToElement = (event, context) => {
-      ModelEditHelper.openNavigation('folder-' + ELEMENT_TYPE_KEY);
-      ModelEditHelper.navigateToElement(ELEMENT_TYPE_KEY, context.item.data.name);
+      NavigationHelper.openNavigation('folder-' + ELEMENT_TYPE_KEY);
+      NavigationHelper.navigateToElement(ELEMENT_TYPE_KEY, context.item.data.name);
     };
   }
 
