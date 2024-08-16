@@ -243,6 +243,8 @@ function (ko, i18n, jsYaml, project, utils,
       return `@@PROP:${variableName}@@`;
     };
 
+    this.getDisplayType = getDisplayType;
+
     // *****************
     // field validators
     // *****************
@@ -338,13 +340,61 @@ function (ko, i18n, jsYaml, project, utils,
       return (index === -1) ? 99 : index;
     }
 
-    function getModelValue(value, _field) {
-      // are there cases where the value from a control needs conversion (boolean)?;
+    // refine field value for use in the model
+    function getModelValue(value, field) {
+      if ((getDisplayType(field) === 'integer') && isString(value)) {
+        const result = value.match(/^([0-9]+)$/);
+        if(result && (result.length > 1)) {
+          return parseInt(result[1], 10);
+        }
+      }
       return value;
     }
 
     function isString(value) {
       return typeof value === 'string' || value instanceof String;
+    }
+
+    function getDisplayType(field) {
+      let fieldType = field.type;
+
+      // some alias attributes have wlst_type like ${offline:online},
+      // in this case use the first value
+      const result = fieldType.match(/^\$\{(.*):(.*)}$/);
+      if(result && (result.length > 1)) {
+        fieldType = result[1];
+      }
+
+      if(fieldType === 'password') {
+        return 'password';
+      }
+
+      if(fieldType === 'boolean') {
+        return 'boolean';
+      }
+
+      if(['dict', 'properties'].includes(fieldType)) {
+        return 'dict';
+      }
+
+      if(['list', 'jarray'].includes(fieldType) || fieldType.startsWith('delimited_string')) {
+        return 'list';
+      }
+
+      if(field['options']) {
+        return 'choice';
+      }
+
+      if(['integer', 'long'].includes(fieldType)) {
+        return 'integer';
+      }
+
+      if(['string', 'credential'].includes(fieldType)) {
+        return 'string';
+      }
+
+      WktLogger.error(`Unrecognized field type '${field.type}' for field ${field.attribute}`);
+      return 'unknown';
     }
   }
 

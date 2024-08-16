@@ -19,7 +19,7 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
     this.field = field;
     this.observable = args.field.observable;
     this.disabled = field.hasOwnProperty('disabled') ? field.disabled : false;
-    this.displayType = getDisplayType(field);
+    this.displayType = ModelEditHelper.getDisplayType(field);
 
     // this.menuIconClass = 'oj-ux-ico-edit-box';
     // this.menuIconClass = 'oj-ux-ico-three-boxes-vertical';
@@ -118,48 +118,6 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
           // nothing to do here?
         });
     };
-
-    function getDisplayType(field) {
-      let fieldType = field.type;
-
-      // some alias attributes have wlst_type like ${offline:online},
-      // in this case use the first value
-      const result = fieldType.match(/^\$\{(.*):(.*)}$/);
-      if(result && (result.length > 1)) {
-        fieldType = result[1];
-      }
-
-      if(fieldType === 'password') {
-        return 'password';
-      }
-
-      if(fieldType === 'boolean') {
-        return 'boolean';
-      }
-
-      if(['dict', 'properties'].includes(fieldType)) {
-        return 'dict';
-      }
-
-      if(['list', 'jarray'].includes(fieldType) || fieldType.startsWith('delimited_string')) {
-        return 'list';
-      }
-
-      if(field['options']) {
-        return 'choice';
-      }
-
-      if(['integer', 'long'].includes(fieldType)) {
-        return 'integer';
-      }
-
-      if(['string', 'credential'].includes(fieldType)) {
-        return 'string';
-      }
-
-      WktLogger.error(`Unrecognized field type '${field.type}' for field ${field.attribute}`);
-      return 'unknown';
-    }
   }
 
   return EditField;
