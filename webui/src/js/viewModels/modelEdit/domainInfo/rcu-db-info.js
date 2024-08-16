@@ -83,23 +83,20 @@ function(accUtils, i18n, ko, ModelEditHelper) {
       'databaseType'
     ];
 
-    const fieldMap = ModelEditHelper.createAliasFieldMap(INFO_PATH, {}, subscriptions);
+    const fieldOverrides = {
+      rcu_database_type: { options: DB_TYPES },
+      oracle_database_connection_type: { options: CONNECTION_TYPES },
+      'javax.net.ssl.keyStoreType': { options: STORE_TYPES },
+      'javax.net.ssl.trustStoreType': { options: STORE_TYPES },
+    };
 
+    const fieldMap = ModelEditHelper.createAliasFieldMap(INFO_PATH, fieldOverrides, subscriptions);
+
+    // disable connection type based on database type
     const dbTypeField = fieldMap['rcu_database_type'];
-    dbTypeField['type'] = 'choice';
-    dbTypeField['options'] = DB_TYPES;
-
     const connectionTypeField = fieldMap['oracle_database_connection_type'];
-    connectionTypeField['type'] = 'choice';
-    connectionTypeField['options'] = CONNECTION_TYPES;
     connectionTypeField['disabled'] = ko.computed(() => {
       return ModelEditHelper.getDerivedValue(dbTypeField.observable()) !== 'ORACLE';
-    });
-
-    ['javax.net.ssl.keyStoreType', 'javax.net.ssl.trustStoreType'].forEach(name => {
-      const storeTypeField = fieldMap[name];
-      storeTypeField['type'] = 'choice';
-      storeTypeField['options'] = STORE_TYPES;
     });
 
     // create a list of remaining fields

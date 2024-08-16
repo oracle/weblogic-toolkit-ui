@@ -46,13 +46,13 @@ function(accUtils, i18n, ko, ModelEditHelper) {
       'Notes',
     ];
 
-    const fieldMap = ModelEditHelper.createAliasFieldMap(SERVER_PATH, {}, subscriptions);
-    const listenPortField = fieldMap['ListenPort'];
-    listenPortField['validators'] = [ModelEditHelper.portValidator];
+    // valid for Server and Server/SSL, since ListenPort is in both
+    const fieldOverrides = {
+      ListenPort: { validators: [ModelEditHelper.portValidator] }
+    };
 
-    const sslFieldMap = ModelEditHelper.createAliasFieldMap(SSL_PATH, {}, subscriptions);
-    const sslListenPortField = sslFieldMap['ListenPort'];
-    sslListenPortField['validators'] = [ModelEditHelper.portValidator];
+    const fieldMap = ModelEditHelper.createAliasFieldMap(SERVER_PATH, fieldOverrides, subscriptions);
+    const sslFieldMap = ModelEditHelper.createAliasFieldMap(SSL_PATH, fieldOverrides, subscriptions);
 
     this.fieldConfig = (key) => {
       return ModelEditHelper.createFieldModuleConfig(key, fieldMap, LABEL_PREFIX);
@@ -62,7 +62,7 @@ function(accUtils, i18n, ko, ModelEditHelper) {
       return ModelEditHelper.createFieldModuleConfig(key, sslFieldMap, SSL_LABEL_PREFIX);
     };
 
-    // create a list of remaining fields
+    // create a module config for remaining Server fields
     const remainingFieldNames = ModelEditHelper.getRemainingFieldNames(fieldMap, knownFields);
     this.remainingModuleConfig = ModelEditHelper.createFieldSetModuleConfig(remainingFieldNames, fieldMap,
       LABEL_PREFIX);

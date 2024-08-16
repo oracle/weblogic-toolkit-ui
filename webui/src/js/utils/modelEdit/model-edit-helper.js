@@ -88,7 +88,7 @@ function (ko, i18n, jsYaml, project, utils,
     // create field configurations for display/edit
     // *********************************************
 
-    this.createAliasFieldMap = (modelPath, fieldOptions, subscriptions) => {
+    this.createAliasFieldMap = (modelPath, fieldOverrides, subscriptions) => {
       const fieldMap = {};
 
       const attributesMap = AliasHelper.getAttributesMap(modelPath);
@@ -103,6 +103,9 @@ function (ko, i18n, jsYaml, project, utils,
           type: valueMap['wlstType'],
           observable: ko.observable()
         };
+
+        const overrides = fieldOverrides[attributeName];
+        Object.assign(field, overrides);
 
         const observableValue = this.getFieldObservableValue(field);
         field.observable(observableValue);

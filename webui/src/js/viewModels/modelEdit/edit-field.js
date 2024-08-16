@@ -116,10 +116,6 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
         return 'boolean';
       }
 
-      if(field.type === 'choice') {
-        return 'choice';
-      }
-
       if(field.type === 'dict') {
         return 'dict';
       }
@@ -128,7 +124,11 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
         return 'list';
       }
 
-      if(field.type === 'integer') {
+      if(field.options) {
+        return 'choice';
+      }
+
+      if(['integer', 'long'].includes(field.type)) {
         return 'integer';
       }
 
