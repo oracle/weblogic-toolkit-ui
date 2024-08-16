@@ -12,7 +12,7 @@ function(accUtils, i18n, ModuleElementUtils) {
     this.i18n = i18n;
     this.modelObject = args.modelObject;
 
-    const CLUSTERS_PATH = 'topology/Cluster';
+    const CLUSTERS_PATH = ['topology', 'Cluster'];
 
     this.connected = () => {
       accUtils.announce('Clusters Page loaded.', 'assertive');

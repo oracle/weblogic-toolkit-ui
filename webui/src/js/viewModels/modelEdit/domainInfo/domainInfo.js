@@ -41,7 +41,7 @@ function(accUtils, i18n, ModelEditHelper) {
       'OPSSSecrets'
     ];
 
-    const fieldMap = ModelEditHelper.createAliasFieldMap(INFO_PATH, subscriptions);
+    const fieldMap = ModelEditHelper.createAliasFieldMap(INFO_PATH, {}, subscriptions);
 
     // create a list of remaining fields
     const knownFieldNames = [...primaryFieldNames, ...excludeFieldNames];

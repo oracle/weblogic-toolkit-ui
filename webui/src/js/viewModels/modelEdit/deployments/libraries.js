@@ -12,7 +12,7 @@ function(accUtils, i18n, ModuleElementUtils) {
     this.i18n = i18n;
     this.modelObject = args.modelObject;
 
-    const LIBRARIES_PATH = 'appDeployments/Library';
+    const LIBRARIES_PATH = ['appDeployments', 'Library'];
 
     this.connected = () => {
       accUtils.announce('Libraries Page loaded.', 'assertive');

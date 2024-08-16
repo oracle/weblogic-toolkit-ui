@@ -83,7 +83,7 @@ function(accUtils, i18n, ko, ModelEditHelper) {
       'databaseType'
     ];
 
-    const fieldMap = ModelEditHelper.createAliasFieldMap(INFO_PATH, subscriptions);
+    const fieldMap = ModelEditHelper.createAliasFieldMap(INFO_PATH, {}, subscriptions);
 
     const dbTypeField = fieldMap['rcu_database_type'];
     dbTypeField['type'] = 'choice';

@@ -12,7 +12,7 @@ function(accUtils, i18n, ko, ModelEditHelper, ModuleElementUtils) {
   function ServersEditViewModel() {
     this.i18n = i18n;
 
-    const SERVERS_PATH = 'topology/Server';
+    const SERVERS_PATH = ['topology', 'Server'];
 
     this.connected = () => {
       accUtils.announce('Servers page loaded.', 'assertive');
@@ -23,7 +23,7 @@ function(accUtils, i18n, ko, ModelEditHelper, ModuleElementUtils) {
     };
 
     const getSslListenPort = (modelFolder) => {
-      const sslFolder = ModelEditHelper.getChildFolder(modelFolder, 'SSL');
+      const sslFolder = ModelEditHelper.getChildFolder(modelFolder, ['SSL']);
       return sslFolder['ListenPort'];
     };
 

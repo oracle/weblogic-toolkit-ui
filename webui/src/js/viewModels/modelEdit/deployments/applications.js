@@ -12,7 +12,7 @@ function(accUtils, i18n, ModuleElementUtils) {
     this.i18n = i18n;
     this.modelObject = args.modelObject;
 
-    const APPLICATIONS_PATH = 'appDeployments/Application';
+    const APPLICATIONS_PATH = ['appDeployments', 'Application'];
 
     this.connected = () => {
       accUtils.announce('Applications Page loaded.', 'assertive');

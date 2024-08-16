@@ -15,7 +15,7 @@ function(accUtils, i18n, ModelEditHelper) {
 
     const subscriptions = [];
 
-    const APPLICATION_PATH = 'appDeployments/Application/' + args.name;
+    const APPLICATION_PATH = ['appDeployments', 'Application', args.name];
 
     const LABEL_PREFIX = 'model-edit-application';
 
@@ -33,16 +33,7 @@ function(accUtils, i18n, ModelEditHelper) {
       return i18n.t(`${LABEL_PREFIX}-${labelId}`, payload);
     };
 
-    const fields = [
-      {
-        key: 'SourcePath',
-        attribute: 'SourcePath',
-        path: APPLICATION_PATH,
-        type: 'string'
-      }
-    ];
-
-    const fieldMap = ModelEditHelper.createFieldMap(fields, subscriptions);
+    const fieldMap = ModelEditHelper.createAliasFieldMap(APPLICATION_PATH, {}, subscriptions);
 
     this.fieldConfig = (key) => {
       return ModelEditHelper.createFieldModuleConfig(key, fieldMap, LABEL_PREFIX);

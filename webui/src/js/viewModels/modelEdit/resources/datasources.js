@@ -12,7 +12,7 @@ function(accUtils, i18n, ModuleElementUtils) {
     this.i18n = i18n;
     this.modelObject = args.modelObject;
 
-    const DATASOURCES_PATH = 'resources/JDBCSystemResource';
+    const DATASOURCES_PATH = ['resources', 'JDBCSystemResource'];
 
     this.connected = () => {
       accUtils.announce('Datasources Page loaded.', 'assertive');

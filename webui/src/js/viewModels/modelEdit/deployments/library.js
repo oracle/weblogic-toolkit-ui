@@ -15,7 +15,7 @@ function(accUtils, i18n, ModelEditHelper) {
 
     const subscriptions = [];
 
-    const LIBRARY_PATH = 'appDeployments/Library/' + args.name;
+    const LIBRARY_PATH = ['appDeployments', 'Library', args.name];
 
     const LABEL_PREFIX = 'model-edit-library';
 
@@ -33,16 +33,7 @@ function(accUtils, i18n, ModelEditHelper) {
       return i18n.t(`${LABEL_PREFIX}-${labelId}`, payload);
     };
 
-    const fields = [
-      {
-        key: 'SourcePath',
-        attribute: 'SourcePath',
-        path: LIBRARY_PATH,
-        type: 'string'
-      }
-    ];
-
-    const fieldMap = ModelEditHelper.createFieldMap(fields, subscriptions);
+    const fieldMap = ModelEditHelper.createAliasFieldMap(LIBRARY_PATH, {}, subscriptions);
 
     this.fieldConfig = (key) => {
       return ModelEditHelper.createFieldModuleConfig(key, fieldMap, LABEL_PREFIX);

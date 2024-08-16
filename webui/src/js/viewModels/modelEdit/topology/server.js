@@ -46,11 +46,11 @@ function(accUtils, i18n, ko, ModelEditHelper) {
       'Notes',
     ];
 
-    const fieldMap = ModelEditHelper.createAliasFieldMap(SERVER_PATH, subscriptions);
+    const fieldMap = ModelEditHelper.createAliasFieldMap(SERVER_PATH, {}, subscriptions);
     const listenPortField = fieldMap['ListenPort'];
     listenPortField['validators'] = [ModelEditHelper.portValidator];
 
-    const sslFieldMap = ModelEditHelper.createAliasFieldMap(SSL_PATH, subscriptions);
+    const sslFieldMap = ModelEditHelper.createAliasFieldMap(SSL_PATH, {}, subscriptions);
     const sslListenPortField = sslFieldMap['ListenPort'];
     sslListenPortField['validators'] = [ModelEditHelper.portValidator];
 

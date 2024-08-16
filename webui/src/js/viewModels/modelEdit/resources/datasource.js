@@ -15,7 +15,7 @@ function(accUtils, i18n, ModelEditHelper) {
 
     const subscriptions = [];
 
-    const DATASOURCE_PATH = 'resources/JDBCSystemResource/' + args.name;
+    const DATASOURCE_PATH = ['resources', 'JDBCSystemResource', args.name];
 
     const LABEL_PREFIX = 'model-edit-datasource';
 
@@ -33,16 +33,7 @@ function(accUtils, i18n, ModelEditHelper) {
       return i18n.t(`${LABEL_PREFIX}-${labelId}`, payload);
     };
 
-    const fields = [
-      {
-        key: 'DeploymentOrder',
-        attribute: 'DeploymentOrder',
-        path: DATASOURCE_PATH,
-        type: 'integer'
-      }
-    ];
-
-    const fieldMap = ModelEditHelper.createFieldMap(fields, subscriptions);
+    const fieldMap = ModelEditHelper.createAliasFieldMap(DATASOURCE_PATH, {}, subscriptions);
 
     this.fieldConfig = (key) => {
       return ModelEditHelper.createFieldModuleConfig(key, fieldMap, LABEL_PREFIX);

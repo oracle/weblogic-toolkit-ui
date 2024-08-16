@@ -67,11 +67,6 @@ function (ko, i18n, jsYaml, project, utils,
     };
 
     this.getChildFolder = (parent, path) => {
-      // deprecated
-      if(isString(path)) {
-        path = path.split('/');
-      }
-
       let folder = parent;
       path.forEach(name => {
         if(folder.hasOwnProperty(name) && folder[name]) {
@@ -89,7 +84,7 @@ function (ko, i18n, jsYaml, project, utils,
     };
 
     this.getDomainName = ()=> {
-      const domainName = this.getValue('topology', 'Name');
+      const domainName = this.getValue(['topology'], 'Name');
       return domainName || 'base_domain';
     };
 
@@ -97,7 +92,7 @@ function (ko, i18n, jsYaml, project, utils,
     // create field configurations for display/edit
     // *********************************************
 
-    this.createAliasFieldMap = (modelPath, subscriptions) => {
+    this.createAliasFieldMap = (modelPath, fieldOptions, subscriptions) => {
       const fieldMap = {};
 
       const attributesMap = AliasHelper.getAttributesMap(modelPath);
@@ -131,33 +126,11 @@ function (ko, i18n, jsYaml, project, utils,
       return fieldMap;
     };
 
-    this.createFieldMap = (fields, subscriptions) => {
-      const fieldMap = {};
-      this.addFields(fields, fieldMap, subscriptions);
-      return fieldMap;
-    };
-
-    this.addFields = (fields, fieldMap, subscriptions) => {
-      fields.forEach((field) => {
-        const observableValue = this.getFieldObservableValue(field);
-        field.observable = ko.observable(observableValue);
-        fieldMap[field.key] = field;
-
-        subscriptions.push(field.observable.subscribe(newValue => {
-          if(newValue === null) {
-            this.deleteElement(field.path, field.attribute);
-          } else {
-            const folder = findOrCreatePath(this.getCurrentModel(), field.path);
-            folder[field.attribute] = getModelValue(newValue, field);
-          }
-          this.writeModel();
-        }));
-      });
-    };
-
     // create a field configuration for an edit-field module
-    this.fieldConfig = (field, labelPrefix) => {
+    this.createFieldModuleConfig = (key, fieldMap, labelPrefix) => {
+      const field = fieldMap[key];
       if(!field) {
+        WktLogger.error(`Field ${key} not found, fields: ${Object.keys(fieldMap)}`);
         return ModuleElementUtils.createConfig({ name: 'empty-view' });
       }
 
@@ -169,16 +142,6 @@ function (ko, i18n, jsYaml, project, utils,
           labelPrefix: labelPrefix
         }
       });
-    };
-
-    this.createFieldModuleConfig = (key, fieldMap, labelPrefix) => {
-      // deprecated, should pass in key as string
-      key = (typeof key === 'string' || key instanceof String) ? key : key.attribute;
-      const field = fieldMap[key];
-      if(!field) {
-        WktLogger.error(`Field ${key} not found, fields: ${Object.keys(fieldMap)}`);
-      }
-      return this.fieldConfig(field, labelPrefix);
     };
 
     this.createFieldSetModuleConfig = (fields, fieldMap, labelPrefix) => {
@@ -334,11 +297,6 @@ function (ko, i18n, jsYaml, project, utils,
     // *******************
 
     function findOrCreatePath(parent, path) {
-      // deprecated
-      if(isString(path)) {
-        path = path.split('/');
-      }
-
       let folder = parent;
       let folderPath = '';
       path.forEach(name => {
@@ -377,8 +335,8 @@ function (ko, i18n, jsYaml, project, utils,
       // for root folder, maintain prescribed order
       if(folderPath === '') {
         return (a, b) => {
-          const aIndex = getRootIndex(a);
-          const bIndex = getRootIndex(b);
+          const aIndex = getTopFolderIndex(a);
+          const bIndex = getTopFolderIndex(b);
           return aIndex - bIndex;
         };
       }
@@ -389,7 +347,8 @@ function (ko, i18n, jsYaml, project, utils,
       };
     }
 
-    function getRootIndex(key) {
+    // return the index of top-level model folders for ordering
+    function getTopFolderIndex(key) {
       const index = ROOT_ORDER.indexOf(key);
       return (index === -1) ? 99 : index;
     }

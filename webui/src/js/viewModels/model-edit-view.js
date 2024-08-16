@@ -83,7 +83,8 @@ function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, wktLogger,
 
       // add model folders that aren't in navigation
       const modelKeys = [];
-      const modelFolder = ModelEditHelper.getFolder(path);
+      const pathArray = path.split('/');  // safe, no name folders here
+      const modelFolder = ModelEditHelper.getFolder(pathArray);
       Object.keys(modelFolder).forEach((name) => {
         if(!folderKeys.includes(name)) {
           folderList.push({

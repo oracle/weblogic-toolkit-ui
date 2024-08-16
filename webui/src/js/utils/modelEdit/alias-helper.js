@@ -31,8 +31,9 @@ define(['knockout', 'utils/i18n', 'utils/wkt-logger'],
           this.aliasDataError(err);
         });
 
-      // remove name elements from path.
-      // Server/myServer/SSL => Server/SSL
+      // convert a model path to an alias path.
+      // remove first element, and any name elements from path.
+      // topology/Server/myServer/SSL => Server/SSL
       this.getAliasPath = modelPath => {
         const aliasData = this.aliasData();
         if(aliasData) {
