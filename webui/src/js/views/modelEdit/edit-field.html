@@ -7,8 +7,8 @@
   <div>
     <oj-bind-if test="[[displayType === 'password']]">
       <oj-c-input-password
-        label-hint="[[labelMapper('attribute-' + field.key + '-label')]]"
-        help.instruction="[[labelMapper('attribute-' + field.key + '-help')]]"
+        label-hint="[[attributeLabel(field)]]"
+        help.instruction="[[attributeHelp(field)]]"
         value="{{getValueObservable()}}"
         disabled="[[disabled]]"
         readOnly="[[readOnly]]"
@@ -18,8 +18,8 @@
     </oj-bind-if>
     <oj-bind-if test="[[displayType === 'string']]">
       <oj-c-input-text
-        label-hint="[[labelMapper('attribute-' + field.key + '-label')]]"
-        help.instruction="[[labelMapper('attribute-' + field.key + '-help')]]"
+        label-hint="[[attributeLabel(field)]]"
+        help.instruction="[[attributeHelp(field)]]"
         value="{{getValueObservable()}}"
         disabled="[[disabled]]"
         readOnly="[[readOnly]]"
@@ -29,8 +29,8 @@
     </oj-bind-if>
     <oj-bind-if test="[[displayType === 'integer']]">
       <oj-c-input-text
-        label-hint="[[labelMapper('attribute-' + field.key + '-label')]]"
-        help.instruction="[[labelMapper('attribute-' + field.key + '-help')]]"
+        label-hint="[[attributeLabel(field)]]"
+        help.instruction="[[attributeHelp(field)]]"
         value="{{getValueObservable()}}"
         disabled="[[disabled]]"
         readOnly="[[readOnly]]"
@@ -40,8 +40,8 @@
     </oj-bind-if>
     <oj-bind-if test="[[displayType === 'list']]">
       <oj-c-input-text
-        label-hint="[[labelMapper('attribute-' + field.key + '-label') + ' (list)']]"
-        help.instruction="[[labelMapper('attribute-' + field.key + '-help')]]"
+        label-hint="[[attributeLabel(field) + ' (list)']]"
+        help.instruction="[[attributeHelp(field)]]"
         value="{{getValueObservable()}}"
         disabled="[[disabled]]"
         readOnly="[[readOnly]]"
@@ -50,8 +50,8 @@
     </oj-bind-if>
     <oj-bind-if test="[[displayType === 'dict']]">
       <oj-c-input-text
-        label-hint="[[labelMapper('attribute-' + field.key + '-label') + ' (dict)']]"
-        help.instruction="[[labelMapper('attribute-' + field.key + '-help')]]"
+        label-hint="[[attributeLabel(field) + ' (dict)']]"
+        help.instruction="[[attributeHelp(field)]]"
         value="{{getValueObservable()}}"
         disabled="[[disabled]]"
         readOnly="[[readOnly]]"
@@ -60,8 +60,8 @@
     </oj-bind-if>
     <oj-bind-if test="[[displayType === 'boolean']]">
       <oj-switch
-        label-hint="[[labelMapper('attribute-' + field.key + '-label')]]"
-        help.instruction="[[labelMapper('attribute-' + field.key + '-help')]]"
+        label-hint="[[attributeLabel(field)]]"
+        help.instruction="[[attributeHelp(field)]]"
         value="{{getValueObservable()}}"
         translations="[[switchTranslations]]"
         disabled="[[disabled]]"
@@ -71,8 +71,8 @@
     </oj-bind-if>
     <oj-bind-if test="[[displayType === 'choice']]">
       <oj-select-single
-        label-hint="[[labelMapper('attribute-' + field.key + '-label')]]"
-        help.instruction="[[labelMapper('attribute-' + field.key + '-help')]]"
+        label-hint="[[attributeLabel(field)]]"
+        help.instruction="[[attributeHelp(field)]]"
         value="{{getValueObservable()}}"
         disabled="[[disabled]]"
         readOnly="[[readOnly]]"
@@ -81,10 +81,14 @@
       </oj-select-single>
     </oj-bind-if>
     <oj-bind-if test="[[displayType === 'unknown']]">
-      <div>
-        <oj-bind-text value="[[labelMapper('attribute-' + field.key + '-label')]]"></oj-bind-text>
-        (<oj-bind-text value="[[field.type]]"></oj-bind-text>)
-      </div>
+      <oj-c-input-text
+        label-hint="[[attributeLabel(field) + ' (' + field.type + ' ???)']]"
+        help.instruction="[[attributeHelp(field)]]"
+        value="{{getValueObservable()}}"
+        disabled="[[disabled]]"
+        readOnly="[[readOnly]]"
+      >
+      </oj-c-input-text>
     </oj-bind-if>
 
     <oj-bind-if test="[[usesToken]]">
