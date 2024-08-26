@@ -42,13 +42,17 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
     this.attributeLabel = field => {
       const key = `${labelPrefix}-attribute-${field.key}-label`;
       const label = i18n.t(key);
-      return (label === key) ? field.attribute : label;
+      return (label === key) ? getReadableName(field.attribute) : label;
     };
 
     this.attributeHelp = field => {
-      const key = `${labelPrefix}-attribute-${field.key}-help`;
-      const help = i18n.t(key);
-      return (help === key) ? null : help;
+      let key = `${labelPrefix}-attribute-${field.key}-help`;
+      let help = i18n.t(key);
+      if(help === key) {
+        key = `${labelPrefix}-attribute-generic-help`;
+        help = i18n.t(key, {name: getReadableName(field.key)});
+      }
+      return help;
     };
 
     this.variableName = ko.computed(() => {
@@ -115,6 +119,34 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
       const options = { fieldInfo: field, labelPrefix: labelPrefix };
       DialogHelper.openDialog('modelEdit/edit-field-dialog', options);
     };
+
+    function getReadableName(name) {
+      let result = name.charAt(0);
+
+      // skip the first letter
+      for (let i = 1; i < name.length; i++) {
+        const current = name.charAt(i);
+        const previous = name.charAt(i - 1);
+        const next = (i < name.length - 1) ? name.charAt(i + 1) : null;
+
+        if (isUpperCase(current)) {
+          if(isUpperCase(previous)) {  // check for S in 'MTU Size'
+            if(next && !isUpperCase(next)) {
+              result += ' ';
+            }
+          } else {
+            result += ' ';
+          }
+        }
+        result += current;
+      }
+
+      return result;
+    }
+
+    function isUpperCase(char) {
+      return char === char.toUpperCase();
+    }
   }
 
   return EditField;

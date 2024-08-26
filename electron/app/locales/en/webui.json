@@ -1548,6 +1548,8 @@
   "model-edit-server-new-name-label": "Server Name",
   "model-edit-server-new-name-help": "Name of the new server",
 
+  "model-edit-server-attribute-generic-help": "{{name}} for this server",
+
   "model-edit-server-attribute-DefaultIIOPUser-label": "Default IIOP User",
   "model-edit-server-attribute-DefaultIIOPUser-help": "Default IIOP user for this server",
   "model-edit-server-attribute-Cluster-label": "Cluster",
