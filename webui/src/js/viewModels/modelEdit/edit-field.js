@@ -6,11 +6,12 @@
 'use strict';
 
 define(['accUtils', 'knockout', 'utils/i18n', 'utils/dialog-helper','ojs/ojarraydataprovider',
-  'utils/modelEdit/model-edit-helper', 'utils/wkt-logger',
-  'oj-c/button', 'oj-c/input-text', 'oj-c/input-password'
+  'ojs/ojmodule-element-utils', 'utils/modelEdit/model-edit-helper',
+  'oj-c/button', 'oj-c/input-text', 'oj-c/list-view', 'oj-c/input-password'
 ],
 function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
-  ModelEditHelper, WktLogger) {
+  ModuleElementUtils, ModelEditHelper) {
+
   function EditField(args) {
     const field = args.field;
     const labelPrefix = args.labelPrefix;
@@ -40,19 +41,11 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
     };
 
     this.attributeLabel = field => {
-      const key = `${labelPrefix}-attribute-${field.key}-label`;
-      const label = i18n.t(key);
-      return (label === key) ? getReadableName(field.attribute) : label;
+      return ModelEditHelper.getAttributeLabel(field, labelPrefix);
     };
 
     this.attributeHelp = field => {
-      let key = `${labelPrefix}-attribute-${field.key}-help`;
-      let help = i18n.t(key);
-      if(help === key) {
-        key = `${labelPrefix}-attribute-generic-help`;
-        help = i18n.t(key, {name: getReadableName(field.key)});
-      }
-      return help;
+      return ModelEditHelper.getAttributeHelp(field, labelPrefix);
     };
 
     this.variableName = ko.computed(() => {
@@ -120,33 +113,15 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
       DialogHelper.openDialog('modelEdit/edit-field-dialog', options);
     };
 
-    function getReadableName(name) {
-      let result = name.charAt(0);
-
-      // skip the first letter
-      for (let i = 1; i < name.length; i++) {
-        const current = name.charAt(i);
-        const previous = name.charAt(i - 1);
-        const next = (i < name.length - 1) ? name.charAt(i + 1) : null;
-
-        if (isUpperCase(current)) {
-          if(isUpperCase(previous)) {  // check for S in 'MTU Size'
-            if(next && !isUpperCase(next)) {
-              result += ' ';
-            }
-          } else {
-            result += ' ';
-          }
+    this.createModuleConfig = (viewName) => {
+      return ModuleElementUtils.createConfig({
+        name: viewName,
+        params: {
+          field: field,
+          labelPrefix: labelPrefix
         }
-        result += current;
-      }
-
-      return result;
-    }
-
-    function isUpperCase(char) {
-      return char === char.toUpperCase();
-    }
+      });
+    };
   }
 
   return EditField;

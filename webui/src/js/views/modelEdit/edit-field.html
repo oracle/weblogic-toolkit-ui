@@ -4,7 +4,7 @@
  -->
 
 <div class="wkt-model-edit-field-container">
-  <div>
+  <div class="wkt-model-edit-field-container-main">
     <oj-bind-if test="[[displayType === 'password']]">
       <oj-c-input-password
         label-hint="[[attributeLabel(field)]]"
@@ -38,16 +38,11 @@
       >
       </oj-c-input-text>
     </oj-bind-if>
+
     <oj-bind-if test="[[displayType === 'list']]">
-      <oj-c-input-text
-        label-hint="[[attributeLabel(field) + ' (list)']]"
-        help.instruction="[[attributeHelp(field)]]"
-        value="{{getValueObservable()}}"
-        disabled="[[disabled]]"
-        readOnly="[[readOnly]]"
-      >
-      </oj-c-input-text>
+      <oj-module config="[[createModuleConfig('modelEdit/list-edit-field')]]"></oj-module>
     </oj-bind-if>
+
     <oj-bind-if test="[[displayType === 'dict']]">
       <oj-c-input-text
         label-hint="[[attributeLabel(field) + ' (dict)']]"

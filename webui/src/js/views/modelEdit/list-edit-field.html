@@ -1,0 +1,33 @@
+<!--
+ Copyright (c) 2024, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
+ -->
+
+<oj-table
+  class="wkt-model-edit-list-table"
+  :aria-label="[[ariaLabel]]"
+  data="[[propertiesDataProvider]]"
+  display="grid"
+  horizontal-grid-visible="enabled"
+  vertical-grid-visible="enabled"
+  layout="fixed"
+  columns='[[columnData]]'
+>
+  <template slot="rowTemplate" data-oj-as="row">
+    <tr data-bind="attr: {'data-uid': row.data.uid}">
+      <td><oj-bind-text value="[[row.data.name]]"></oj-bind-text></td>
+      <td>
+        <oj-button display="icons" chroming="borderless" on-oj-action="[[deleteItem]]">
+          <span slot="endIcon" class="oj-ux-ico-trash"></span>
+          <oj-bind-text value="[[deleteLabel]]"></oj-bind-text>
+        </oj-button>
+      </td>
+    </tr>
+  </template>
+  <template slot="headerTemplate" data-oj-as="header">
+    <oj-button display="icons" chroming="borderless" on-oj-action="[[addItem]]">
+      <span slot="endIcon" class="oj-ux-ico-plus"></span>
+      <oj-bind-text value="[[addLabel]]"></oj-bind-text>
+    </oj-button>
+  </template>
+</oj-table>

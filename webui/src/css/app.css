@@ -290,7 +290,7 @@
   min-width: 400px;
 }
 
-.wkt-model-edit-list-table {
+.wkt-model-edit-elements-table {
   width: 100%;
 }
 
@@ -842,12 +842,28 @@ h6.wkt-panel-heading {
   flex: 1 1 auto;
 }
 
+/* needed to help inner tables resize */
+.wkt-model-edit-field-container-main {
+  width: 100%;
+}
+
 .wkt-model-edit-field-menu-button {
   flex: 0 0 auto;
 }
 
 .wkt-model-edit-field-menu-button button {
   min-width: 4px !important;
+}
+
+.wkt-model-edit-list-table {
+  min-width: 1px;
+  width: 100%;
+  border-color: rgba(22, 21, 19, 0.5) !important;
+  border-radius: 4px;
+}
+
+.wkt-model-edit-list-table .oj-table-body-message {
+  color: rgba(22, 21, 19, 0.7);
 }
 
 /* add three-dot icon for model edit field menu */
@@ -866,6 +882,12 @@ h6.wkt-panel-heading {
 
 .wkt-model-edit-field-stacked {
   margin-top: 1em;
+}
+
+.wkt-model-edit-field-label {
+  color: rgba(22, 21, 19, 0.7);
+  font-size: 13.75px;  /* 0.75em; */
+  font-weight: 600;
 }
 
 .wkt-model-edit-token-detail {

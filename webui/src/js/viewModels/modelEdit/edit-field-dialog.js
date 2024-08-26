@@ -138,7 +138,6 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
 
     this.cancelInput = () => {
       this.dialogContainer.close();
-      args.setValue();
     };
   }
 
