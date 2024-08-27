@@ -844,7 +844,7 @@ h6.wkt-panel-heading {
 
 /* needed to help inner tables resize */
 .wkt-model-edit-field-container-main {
-  width: 100%;
+  overflow: hidden;  /* auto shows scrollbars for table sometimes? */
 }
 
 .wkt-model-edit-field-menu-button {
@@ -855,15 +855,22 @@ h6.wkt-panel-heading {
   min-width: 4px !important;
 }
 
-.wkt-model-edit-list-table {
+/* a table embedded in an edit field set */
+.wkt-model-edit-table {
   min-width: 1px;
-  width: 100%;
+  width: round(down, 100%, 1px);  /* prevent scroll bars when width is #.5 */
   border-color: rgba(22, 21, 19, 0.5) !important;
   border-radius: 4px;
 }
 
-.wkt-model-edit-list-table .oj-table-body-message {
+.wkt-model-edit-table .oj-table-body-message {
   color: rgba(22, 21, 19, 0.7);
+}
+
+.wkt-model-edit-boolean-box {
+  border: 1px solid rgba(22, 21, 19, 0.5);
+  border-radius: 4px;
+  padding: 0.5em;
 }
 
 /* add three-dot icon for model edit field menu */

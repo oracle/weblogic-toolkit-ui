@@ -54,15 +54,17 @@
       </oj-c-input-text>
     </oj-bind-if>
     <oj-bind-if test="[[displayType === 'boolean']]">
-      <oj-switch
-        label-hint="[[attributeLabel(field)]]"
-        help.instruction="[[attributeHelp(field)]]"
-        value="{{getValueObservable()}}"
-        translations="[[switchTranslations]]"
-        disabled="[[disabled]]"
-        readOnly="[[readOnly]]"
-      >
-      </oj-switch>
+      <div class="wkt-model-edit-boolean-box">
+        <oj-switch
+          label-hint="[[attributeLabel(field)]]"
+          help.instruction="[[attributeHelp(field)]]"
+          value="{{getValueObservable()}}"
+          translations="[[switchTranslations]]"
+          disabled="[[disabled]]"
+          readOnly="[[readOnly]]"
+        >
+        </oj-switch>
+      </div>
     </oj-bind-if>
     <oj-bind-if test="[[displayType === 'choice']]">
       <oj-select-single
