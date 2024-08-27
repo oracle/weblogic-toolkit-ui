@@ -3,8 +3,12 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 
+<div class="wkt-model-edit-dict-box">
+<div class="wkt-model-edit-table-title wkt-model-edit-field-label">
+  <oj-bind-text value="[[title]]"></oj-bind-text>
+</div>
 <oj-table
-  class="wkt-model-edit-table wkt-model-edit-list-table"
+  class="wkt-model-edit-table"
   :aria-label="[[ariaLabel]]"
   data="[[propertiesDataProvider]]"
   display="grid"
@@ -16,6 +20,7 @@
   <template slot="rowTemplate" data-oj-as="row">
     <tr data-bind="attr: {'data-uid': row.data.uid}">
       <td><oj-bind-text value="[[row.data.name]]"></oj-bind-text></td>
+      <td><oj-bind-text value="[[row.data.value]]"></oj-bind-text></td>
       <td>
         <oj-button display="icons" chroming="borderless" on-oj-action="[[deleteItem]]">
           <span slot="endIcon" class="oj-ux-ico-trash"></span>
@@ -34,3 +39,4 @@
     <div class="wkt-model-edit-table-no-data"><oj-bind-text value="[[noDataLabel]]"></oj-bind-text></div>
   </template>
 </oj-table>
+</div>

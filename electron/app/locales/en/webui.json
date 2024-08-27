@@ -1402,6 +1402,18 @@
   "model-edit-list-dialog-add-label": "Add Item to {{name}}",
   "model-edit-list-dialog-name-label": "Item Name",
   "model-edit-list-dialog-name-help": "Name of item to add",
+  "model-edit-list-no-data-label": "No items",
+
+  "model-edit-dict-name-label": "Name",
+  "model-edit-dict-value-label": "Value",
+  "model-edit-dict-no-data-label": "No assignments",
+  "model-edit-dict-add-label": "Add Entry",
+  "model-edit-dict-delete-label": "Delete Entry",
+  "model-edit-dict-dialog-name-label": "Name",
+  "model-edit-dict-dialog-name-help": "Name of entry to add",
+  "model-edit-dict-dialog-value-label": "Value",
+  "model-edit-dict-dialog-value-help": "Value of entry to add",
+  "model-edit-dict-dialog-add-label": "Add Entry to {{name}}",
 
   "model-edit-table-name-label": "Name",
 

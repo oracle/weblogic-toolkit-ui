@@ -12,7 +12,7 @@ define(['accUtils', 'knockout', 'utils/i18n', 'utils/dialog-helper','ojs/ojarray
 function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
   BufferingDataProvider, ViewHelper, utils, ModelEditHelper) {
 
-  function ListEditField(args) {
+  function DictEditField(args) {
     const field = args.field;
     const labelPrefix = args.labelPrefix;
 
@@ -22,9 +22,8 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
     this.disabled = field.hasOwnProperty('disabled') ? field.disabled : false;
 
     this.ariaLabel = ModelEditHelper.getAttributeLabel(field, labelPrefix);
-    this.addLabel = i18n.t('model-edit-list-add-label');
-    this.deleteLabel = i18n.t('model-edit-list-delete-label');
-    this.noDataLabel = i18n.t('model-edit-list-no-data-label');
+    this.addLabel = i18n.t('model-edit-dict-add-label');
+    this.deleteLabel = i18n.t('model-edit-dict-delete-label');
 
     const subscriptions = [];
 
@@ -41,10 +40,18 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
       });
     };
 
+    this.title = ModelEditHelper.getAttributeLabel(field, labelPrefix);
+    this.noDataLabel = i18n.t('model-edit-dict-no-data-label');
+
     // this is dynamic to allow i18n fields to load correctly
     this.columnData = [
       {
-        headerText: ModelEditHelper.getAttributeLabel(field, labelPrefix),
+        headerText: i18n.t('model-edit-dict-name-label'),
+        headerClassName: 'wkt-model-edit-field-label',
+        sortable: 'disable'
+      },
+      {
+        headerText: i18n.t('model-edit-dict-value-label'),
         headerClassName: 'wkt-model-edit-field-label',
         sortable: 'disable'
       },
@@ -61,31 +68,26 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
 
     this.updateList = () => {
       this.observableItems.removeAll();
-      const value = this.observable();
-      let elements = null;
-      if(value != null) {
-        if (Array.isArray(value)) {
-          elements = value;
-        } else {
-          const text = String(value);
-          elements = text.split(',');
-        }
-
-        elements.forEach(element => {
-          this.observableItems.push({
-            uid: utils.getShortUuid(),
-            name: element
+      const map = this.observable();
+      if(map != null) {
+        if ((typeof map === 'object') && !Array.isArray(map)) {
+          Object.keys(map).forEach(key => {
+            this.observableItems.push({
+              uid: utils.getShortUuid(),
+              name: key,
+              value: map[key]
+            });
           });
-        });
+        }
       }
     };
 
     this.updateObservable = () => {
-      const names = [];
+      const items = {};
       this.observableItems().forEach(item => {
-        names.push(item.name);
+        items[item.name] = item.value;
       });
-      this.observable(names.length ? names : null);
+      this.observable(Object.keys(items).length ? items : null);
     };
 
     // use unique ID (uid) as key in the UI only, in case name changes
@@ -99,7 +101,7 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
         labelPrefix: labelPrefix,
         observableItems: this.observableItems
       };
-      DialogHelper.promptDialog('modelEdit/new-list-item-dialog', options)
+      DialogHelper.promptDialog('modelEdit/new-dict-entry-dialog', options)
         .then(result => {
           if(result.changed) {
             this.updateObservable();
@@ -113,5 +115,5 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
     };
   }
 
-  return ListEditField;
+  return DictEditField;
 });

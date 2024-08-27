@@ -1,0 +1,39 @@
+<!--
+ Copyright (c) 2024, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<oj-dialog id="newDictEntryDialog" class="wkt-model-edit-field-dialog" initial-visibility="hide">
+  <div slot="header">
+    <span id="dialog-title-id" class="oj-dialog-title"><oj-bind-text value="[[getTitle()]]"></oj-bind-text></span>
+  </div>
+  <div slot="body">
+    <oj-validation-group id="modelNewEntryTracker">
+      <div class="oj-panel">
+        <oj-c-input-text
+          class="wkt-model-edit-field-stacked"
+          label-hint="[[nameLabel]]"
+          help.instruction="[[nameHelp]]"
+          value="{{entryName}}"
+          required="true"
+          validators="[[nameValidators]]"
+        >
+        </oj-c-input-text>
+        <oj-c-input-text
+          class="wkt-model-edit-field-stacked"
+          label-hint="[[valueLabel]]"
+          help.instruction="[[valueHelp]]"
+          value="{{entryValue}}"
+          required="true"
+        >
+        </oj-c-input-text>
+      </div>
+    </oj-validation-group>
+  </div>
+
+  <div slot="footer">
+    <oj-c-button id="okButton" label="[[i18n.t('dialog-button-ok')]]" on-oj-action="[[okInput]]">
+    </oj-c-button>
+    <oj-c-button id="cancelButton" label="[[i18n.t('dialog-button-cancel')]]" on-oj-action="[[cancelInput]]">
+    </oj-c-button>
+  </div>
+</oj-dialog>

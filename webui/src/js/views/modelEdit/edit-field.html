@@ -5,6 +5,7 @@
 
 <div class="wkt-model-edit-field-container">
   <div class="wkt-model-edit-field-container-main">
+
     <oj-bind-if test="[[displayType === 'password']]">
       <oj-c-input-password
         label-hint="[[attributeLabel(field)]]"
@@ -16,6 +17,7 @@
       >
       </oj-c-input-password>
     </oj-bind-if>
+
     <oj-bind-if test="[[displayType === 'string']]">
       <oj-c-input-text
         label-hint="[[attributeLabel(field)]]"
@@ -27,6 +29,7 @@
       >
       </oj-c-input-text>
     </oj-bind-if>
+
     <oj-bind-if test="[[displayType === 'integer']]">
       <oj-c-input-text
         label-hint="[[attributeLabel(field)]]"
@@ -44,15 +47,9 @@
     </oj-bind-if>
 
     <oj-bind-if test="[[displayType === 'dict']]">
-      <oj-c-input-text
-        label-hint="[[attributeLabel(field) + ' (dict)']]"
-        help.instruction="[[attributeHelp(field)]]"
-        value="{{getValueObservable()}}"
-        disabled="[[disabled]]"
-        readOnly="[[readOnly]]"
-      >
-      </oj-c-input-text>
+      <oj-module config="[[createModuleConfig('modelEdit/dict-edit-field')]]"></oj-module>
     </oj-bind-if>
+
     <oj-bind-if test="[[displayType === 'boolean']]">
       <div class="wkt-model-edit-boolean-box">
         <oj-switch
@@ -66,6 +63,7 @@
         </oj-switch>
       </div>
     </oj-bind-if>
+
     <oj-bind-if test="[[displayType === 'choice']]">
       <oj-select-single
         label-hint="[[attributeLabel(field)]]"
@@ -77,6 +75,7 @@
       >
       </oj-select-single>
     </oj-bind-if>
+
     <oj-bind-if test="[[displayType === 'unknown']]">
       <oj-c-input-text
         label-hint="[[attributeLabel(field) + ' (' + field.type + ' ???)']]"
@@ -96,6 +95,7 @@
         <oj-bind-text value="[[fromLabel]]"></oj-bind-text>
       </div>
     </oj-bind-if>
+
   </div>
 
   <oj-c-button
