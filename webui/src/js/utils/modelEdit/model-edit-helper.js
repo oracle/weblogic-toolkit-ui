@@ -405,7 +405,7 @@ function (ko, i18n, jsYaml, project, utils,
       }
 
       return result;
-    };
+    }
 
     function isUpperCase(char) {
       return char === char.toUpperCase();

@@ -57,10 +57,14 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
     this.editOption = ko.observable(existingOption);
     this.editOptions = [
       { value: 'edit', label: this.labelMapper('option-edit') },
-      { value: 'remove', label: this.labelMapper('option-remove') },
-      { value: 'variable', label: this.labelMapper('option-variable') },
-      { value: 'newVariable', label: this.labelMapper('option-newVariable') }
+      { value: 'remove', label: this.labelMapper('option-remove') }
     ];
+
+    // dictionary attributes can't be tokenized
+    if(ModelEditHelper.getDisplayType(fieldInfo) !== 'dict') {
+      this.editOptions.push({ value: 'variable', label: this.labelMapper('option-variable') });
+      this.editOptions.push({ value: 'newVariable', label: this.labelMapper('option-newVariable') });
+    }
 
     this.variableOptionSelected = ko.computed(() => {
       return this.editOption() === 'variable';
