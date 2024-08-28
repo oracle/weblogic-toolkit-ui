@@ -66,6 +66,8 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
 
     this.observableItems = ko.observableArray([]);
 
+    // update the internal list observable from the field observable.
+    // the field observable value should be a dictionary, variable tokens are not allowed.
     this.updateList = () => {
       this.observableItems.removeAll();
       const map = this.observable();
@@ -82,6 +84,8 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
       }
     };
 
+    // update field observable from the internal list observable.
+    // the field value is a dictionary, the internal list contains table objects.
     this.updateObservable = () => {
       const items = {};
       this.observableItems().forEach(item => {

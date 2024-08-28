@@ -59,9 +59,12 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
 
     this.observableItems = ko.observableArray([]);
 
+    // update the internal list observable from the field observable.
+    // the field observable value may be a list or comma-separated string.
+    // if the value is a string, it might be a variable token.
     this.updateList = () => {
       this.observableItems.removeAll();
-      const value = this.observable();
+      const value = ModelEditHelper.getDerivedValue(this.observable());
       let elements = null;
       if(value != null) {
         if (Array.isArray(value)) {
@@ -80,6 +83,8 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
       }
     };
 
+    // update field observable from the internal list observable.
+    // the field value is a list of primitives, the internal list contains table objects.
     this.updateObservable = () => {
       const names = [];
       this.observableItems().forEach(item => {
