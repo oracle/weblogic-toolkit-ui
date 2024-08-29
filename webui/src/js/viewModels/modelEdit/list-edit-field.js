@@ -7,10 +7,11 @@
 
 define(['accUtils', 'knockout', 'utils/i18n', 'utils/dialog-helper','ojs/ojarraydataprovider',
   'ojs/ojbufferingdataprovider', 'utils/view-helper', 'utils/common-utilities', 'utils/modelEdit/model-edit-helper',
+  'utils/modelEdit/message-helper',
   'oj-c/button', 'oj-c/input-text', 'oj-c/list-view', 'oj-c/input-password'
 ],
 function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
-  BufferingDataProvider, ViewHelper, utils, ModelEditHelper) {
+  BufferingDataProvider, ViewHelper, utils, ModelEditHelper, MessageHelper) {
 
   function ListEditField(args) {
     const field = args.field;
@@ -21,10 +22,10 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
     this.observable = args.field.observable;
     this.disabled = field.hasOwnProperty('disabled') ? field.disabled : false;
 
-    this.ariaLabel = ModelEditHelper.getAttributeLabel(field, labelPrefix);
-    this.addLabel = i18n.t('model-edit-list-add-label');
-    this.deleteLabel = i18n.t('model-edit-list-delete-label');
-    this.noDataLabel = i18n.t('model-edit-list-no-data-label');
+    this.ariaLabel = MessageHelper.getAttributeLabel(field, labelPrefix);
+    this.addLabel = MessageHelper.getAddItemLabel(field, labelPrefix, false);
+    this.deleteLabel = MessageHelper.getDeleteItemLabel(field, labelPrefix);
+    this.noDataLabel = i18n.t('model-edit-no-items-label');
 
     const subscriptions = [];
 
@@ -44,7 +45,7 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
     // this is dynamic to allow i18n fields to load correctly
     this.columnData = [
       {
-        headerText: ModelEditHelper.getAttributeLabel(field, labelPrefix),
+        headerText: MessageHelper.getAttributeLabel(field, labelPrefix),
         headerClassName: 'wkt-model-edit-field-label',
         sortable: 'disable'
       },
@@ -104,6 +105,8 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
         labelPrefix: labelPrefix,
         observableItems: this.observableItems
       };
+
+      // TODO: field could specify a different dialog
       DialogHelper.promptDialog('modelEdit/new-list-item-dialog', options)
         .then(result => {
           if(result.changed) {

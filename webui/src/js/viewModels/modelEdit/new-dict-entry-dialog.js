@@ -6,10 +6,11 @@
 'use strict';
 
 define(['accUtils', 'knockout', 'utils/i18n', 'models/wkt-project',
-  'utils/modelEdit/model-edit-helper', 'utils/common-utilities', 'utils/validation-helper', 'utils/view-helper',
+  'utils/modelEdit/model-edit-helper', 'utils/modelEdit/message-helper', 'utils/common-utilities',
+  'utils/validation-helper', 'utils/view-helper',
   'oj-c/input-text', 'oj-c/button', 'ojs/ojdialog', 'ojs/ojvalidationgroup'],
 function(accUtils, ko, i18n, project,
-  ModelEditHelper, utils, validationHelper, viewHelper) {
+  ModelEditHelper, MessageHelper, utils, validationHelper, viewHelper) {
 
   function NewDictEntryDialogModel(args) {
     const DIALOG_SELECTOR = '#newDictEntryDialog';
@@ -35,15 +36,13 @@ function(accUtils, ko, i18n, project,
       });
     };
 
-    this.nameLabel = i18n.t('model-edit-dict-dialog-name-label');
-    this.nameHelp = i18n.t('model-edit-dict-dialog-name-help');
-    this.valueLabel = i18n.t('model-edit-dict-dialog-value-label');
-    this.valueHelp = i18n.t('model-edit-dict-dialog-value-help');
+    this.nameLabel = MessageHelper.getKeyLabel(field, labelPrefix);
+    this.nameHelp = MessageHelper.getKeyHelp(field, labelPrefix);
+    this.valueLabel = MessageHelper.getValueLabel(field, labelPrefix);
+    this.valueHelp = MessageHelper.getValueHelp(field, labelPrefix);
 
     this.getTitle = ko.computed(() => {
-      return this.i18n.t('model-edit-dict-dialog-add-label', {
-        name: ModelEditHelper.getAttributeLabel(field, labelPrefix)
-      });
+      return MessageHelper.getAddEntryLabel(field, labelPrefix, true);
     });
 
     this.nameValidators = [{

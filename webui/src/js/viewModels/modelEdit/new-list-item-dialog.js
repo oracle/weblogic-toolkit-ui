@@ -6,10 +6,11 @@
 'use strict';
 
 define(['accUtils', 'knockout', 'utils/i18n', 'models/wkt-project',
-  'utils/modelEdit/model-edit-helper', 'utils/common-utilities', 'utils/validation-helper', 'utils/view-helper',
+  'utils/modelEdit/model-edit-helper', 'utils/modelEdit/message-helper', 'utils/common-utilities',
+  'utils/validation-helper', 'utils/view-helper',
   'oj-c/input-text', 'oj-c/button', 'ojs/ojdialog', 'ojs/ojvalidationgroup'],
 function(accUtils, ko, i18n, project,
-  ModelEditHelper, utils, validationHelper, viewHelper) {
+  ModelEditHelper, MessageHelper, utils, validationHelper, viewHelper) {
   function NewListItemDialogModel(args) {
     const DIALOG_SELECTOR = '#newListItemDialog';
 
@@ -33,13 +34,12 @@ function(accUtils, ko, i18n, project,
       });
     };
 
-    this.nameLabel = i18n.t('model-edit-list-dialog-name-label');
-    this.nameHelp = i18n.t('model-edit-list-dialog-name-help');
+    this.nameLabel = MessageHelper.getItemLabel(field, labelPrefix);
+    this.nameHelp = MessageHelper.getItemHelp(field, labelPrefix);
 
     this.getTitle = ko.computed(() => {
-      return this.i18n.t('model-edit-list-dialog-add-label', {
-        name: ModelEditHelper.getAttributeLabel(field, labelPrefix)
-      });
+      return MessageHelper.getAddItemLabel(field, labelPrefix, true);
+      // this.i18n.t('model-edit-list-dialog-add-label', {
     });
 
     this.nameValidators = [{

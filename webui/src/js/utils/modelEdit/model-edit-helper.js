@@ -105,6 +105,19 @@ function (ko, i18n, jsYaml, project, utils,
     // create field configurations for display/edit
     // *********************************************
 
+    /*
+      field attributes:
+        attribute (alias name)
+        key (i18n)
+        path (model path)
+        type (WLST type)
+        observable (read/written to model)
+
+        added by view models:
+        options (for enumerated)
+        validators (for controls)
+     */
+
     this.createAliasFieldMap = (modelPath, fieldOverrides, subscriptions) => {
       const fieldMap = {};
 
@@ -157,22 +170,6 @@ function (ko, i18n, jsYaml, project, utils,
           labelPrefix: labelPrefix
         }
       });
-    };
-
-    this.getAttributeLabel = (field, labelPrefix) => {
-      const key = `${labelPrefix}-attribute-${field.key}-label`;
-      const label = i18n.t(key);
-      return (label === key) ? getReadableLabel(field.attribute) : label;
-    };
-
-    this.getAttributeHelp = (field, labelPrefix) => {
-      let key = `${labelPrefix}-attribute-${field.key}-help`;
-      let help = i18n.t(key);
-      if(help === key) {
-        key = `${labelPrefix}-attribute-generic-help`;
-        help = i18n.t(key, {name: getReadableLabel(field.attribute)});
-      }
-      return help;
     };
 
     this.createFieldSetModuleConfig = (fields, fieldMap, labelPrefix) => {
@@ -381,34 +378,6 @@ function (ko, i18n, jsYaml, project, utils,
         }
       }
       return value;
-    }
-
-    function getReadableLabel(name) {
-      let result = name.charAt(0);
-
-      // skip the first letter
-      for (let i = 1; i < name.length; i++) {
-        const current = name.charAt(i);
-        const previous = name.charAt(i - 1);
-        const next = (i < name.length - 1) ? name.charAt(i + 1) : null;
-
-        if (isUpperCase(current)) {
-          if(isUpperCase(previous)) {  // check for S in 'MTU Size'
-            if(next && !isUpperCase(next)) {
-              result += ' ';
-            }
-          } else {
-            result += ' ';
-          }
-        }
-        result += current;
-      }
-
-      return result;
-    }
-
-    function isUpperCase(char) {
-      return char === char.toUpperCase();
     }
 
     function isString(value) {

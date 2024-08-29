@@ -7,7 +7,9 @@
 
 const fsPromises = require('fs/promises');
 const JSZip = require('jszip');
-const { getWdtLibraryJar } = require('./wktTools');
+const { getWdtLibraryJar } = require('../wktTools');
+const fs = require('fs');
+const path = require("path");
 
 async function getAliasInfo() {
   const WDT_ALIAS_REGEX= /^oracle\/weblogic\/deploy\/aliases\/category_modules\/(.*)\.json$/;
@@ -34,6 +36,25 @@ async function getAliasInfo() {
   }
 
   return result;
+}
+
+function getMessageKeys() {
+  // read these for each invocation, rather than require('../../locales/en/webui.json');
+  // prevents cached data on front-end reload.
+
+  // read from the en locale - this will give the most current set of keys.
+  /* global __dirname */
+  const messagesFile = path.normalize(path.join(__dirname, '..', '..', 'locales', 'en', 'webui.json'));
+  const contents = fs.readFileSync(messagesFile, 'utf8');
+  const messagesMap = JSON.parse(contents.toString());
+
+  const messageKeys = [];
+  Object.keys(messagesMap).forEach(key => {
+    if(key.startsWith('model-edit-')) {
+      messageKeys.push(key);
+    }
+  });
+  return messageKeys;
 }
 
 function addPaths(aliasFolder, path, pathMap) {
@@ -64,5 +85,6 @@ function addPaths(aliasFolder, path, pathMap) {
 }
 
 module.exports = {
-  getAliasInfo
+  getAliasInfo,
+  getMessageKeys,
 };

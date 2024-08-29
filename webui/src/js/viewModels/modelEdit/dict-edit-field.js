@@ -6,11 +6,11 @@
 'use strict';
 
 define(['accUtils', 'knockout', 'utils/i18n', 'utils/dialog-helper','ojs/ojarraydataprovider',
-  'ojs/ojbufferingdataprovider', 'utils/view-helper', 'utils/common-utilities', 'utils/modelEdit/model-edit-helper',
+  'ojs/ojbufferingdataprovider', 'utils/view-helper', 'utils/common-utilities', 'utils/modelEdit/message-helper',
   'oj-c/button', 'oj-c/input-text', 'oj-c/list-view', 'oj-c/input-password'
 ],
 function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
-  BufferingDataProvider, ViewHelper, utils, ModelEditHelper) {
+  BufferingDataProvider, ViewHelper, utils, MessageHelper) {
 
   function DictEditField(args) {
     const field = args.field;
@@ -21,9 +21,14 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
     this.observable = args.field.observable;
     this.disabled = field.hasOwnProperty('disabled') ? field.disabled : false;
 
-    this.ariaLabel = ModelEditHelper.getAttributeLabel(field, labelPrefix);
-    this.addLabel = i18n.t('model-edit-dict-add-label');
-    this.deleteLabel = i18n.t('model-edit-dict-delete-label');
+    this.ariaLabel = MessageHelper.getAttributeLabel(field, labelPrefix);
+    this.title = MessageHelper.getAttributeLabel(field, labelPrefix);
+
+    this.addLabel = MessageHelper.getAddEntryLabel(field, labelPrefix, false);
+    this.deleteLabel = MessageHelper.getDeleteEntryLabel(field, labelPrefix);
+    this.noDataLabel = i18n.t('model-edit-no-entries-label');
+    const keyLabel = MessageHelper.getKeyLabel(field, labelPrefix);
+    const valueLabel = MessageHelper.getValueLabel(field, labelPrefix);
 
     const subscriptions = [];
 
@@ -40,18 +45,15 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
       });
     };
 
-    this.title = ModelEditHelper.getAttributeLabel(field, labelPrefix);
-    this.noDataLabel = i18n.t('model-edit-dict-no-data-label');
-
     // this is dynamic to allow i18n fields to load correctly
     this.columnData = [
       {
-        headerText: i18n.t('model-edit-dict-name-label'),
+        headerText: i18n.t(keyLabel),
         headerClassName: 'wkt-model-edit-field-label',
         sortable: 'disable'
       },
       {
-        headerText: i18n.t('model-edit-dict-value-label'),
+        headerText: i18n.t(valueLabel),
         headerClassName: 'wkt-model-edit-field-label',
         sortable: 'disable'
       },

@@ -6,11 +6,11 @@
 'use strict';
 
 define(['accUtils', 'knockout', 'utils/i18n', 'utils/dialog-helper','ojs/ojarraydataprovider',
-  'ojs/ojmodule-element-utils', 'utils/modelEdit/model-edit-helper',
+  'ojs/ojmodule-element-utils', 'utils/modelEdit/model-edit-helper', 'utils/modelEdit/message-helper',
   'oj-c/button', 'oj-c/input-text', 'oj-c/list-view', 'oj-c/input-password'
 ],
 function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
-  ModuleElementUtils, ModelEditHelper) {
+  ModuleElementUtils, ModelEditHelper, MessageHelper) {
 
   function EditField(args) {
     const field = args.field;
@@ -41,11 +41,11 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
     };
 
     this.attributeLabel = field => {
-      return ModelEditHelper.getAttributeLabel(field, labelPrefix);
+      return MessageHelper.getAttributeLabel(field, labelPrefix);
     };
 
     this.attributeHelp = field => {
-      return ModelEditHelper.getAttributeHelp(field, labelPrefix);
+      return MessageHelper.getAttributeHelp(field, labelPrefix);
     };
 
     this.variableName = ko.computed(() => {
