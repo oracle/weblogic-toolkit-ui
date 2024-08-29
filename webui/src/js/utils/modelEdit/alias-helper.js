@@ -98,6 +98,25 @@ define(['knockout', 'utils/i18n', 'utils/wkt-logger'],
         return true;  // by default, to avoid deletion
       };
 
+      // multiple path: topology/Server
+      // not multiple paths: topology/Server/myServer, topology/Server/myServer/SSL,
+      this.isMultiplePath = modelPath => {
+        const aliasData = this.aliasData();
+        if(aliasData) {
+          if (this.isNamedPath(modelPath)) {
+            return false;
+          }
+          const aliasPath = this.getAliasPath(modelPath);
+          const aliasNode = aliasData.paths[aliasPath.join('/')];
+          if(!aliasNode) {
+            WktLogger.error(`isMultiplePath: Alias folder path ${dir} not found for path ${modelPath}`);
+            return false;
+          }
+          return aliasNode['isMultiple'];
+        }
+        return false;
+      };
+
       this.getAttributesMap = modelPath => {
         const aliasData = this.aliasData();
         if(aliasData) {

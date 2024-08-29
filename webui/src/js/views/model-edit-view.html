@@ -23,14 +23,7 @@
     <div id="wkt-model-editor-nav-container"
          class="wkt-model-editor-nav-container"
     >
-      <oj-navigation-list :aria-label="[[labelMapper('aria-label')]]"
-                          class="wkt-model-editor-nav-list"
-                          data="[[navDataProvider]]"
-                          drill-mode="collapsible"
-                          expanded="{{navExpanded}}"
-                          item.renderer="[[KnockoutTemplateUtils.getRenderer('editNavTemplate', true)]]"
-                          selection="{{navSelection}}">
-      </oj-navigation-list>
+      <oj-module config="[[navModuleConfig]]"></oj-module>
     </div>
 
     <div class="wkt-right-pane">

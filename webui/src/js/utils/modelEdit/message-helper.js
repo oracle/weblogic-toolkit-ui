@@ -33,6 +33,21 @@ function (ko, i18n) {
         messageKeys = newMessageKeys;
       });
 
+    this.getFolderLabel = aliasPath => {
+      // aliasPath should be an array
+      const key = this.getFolderKey(aliasPath);
+      let label = i18n.t(key);
+      if (label === key) {
+        const lastFolder = aliasPath[aliasPath.length - 1];
+        label = getReadableLabel(lastFolder);
+      }
+      return label;
+    };
+
+    this.getFolderKey = aliasPath => {
+      return 'model-edit-f-' + aliasPath.join('_');
+    };
+
     this.getAttributeLabel = (field, labelPrefix) => {
       // every attribute should have a translation for label.
       // if none is available, i18n will log to webui.missing.json, and we return a readable name.

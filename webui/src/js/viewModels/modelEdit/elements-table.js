@@ -120,8 +120,8 @@ function(accUtils, i18n, ko, ModelEditHelper, NavigationHelper, DialogHelper, Vi
     };
 
     this.navigateToElement = (event, context) => {
-      NavigationHelper.openNavigation('folder-' + ELEMENT_TYPE_KEY);
-      NavigationHelper.navigateToElement(ELEMENT_TYPE_KEY, context.item.data.name);
+      NavigationHelper.openNavigation(ELEMENTS_PATH);
+      NavigationHelper.navigateToElement(ELEMENTS_PATH, context.item.data.name);
     };
   }
 

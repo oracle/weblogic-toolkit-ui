@@ -13,13 +13,14 @@ define(['knockout'],
 
       this.navSelection = ko.observable();
       this.navExpanded = ko.observable();
+      this.navSelectedItem = ko.observable();
 
       // **************************************
       // access the model edit navigation menu
       // **************************************
 
-      this.navigateToElement = (elementKey, name) => {
-        const navigationKey = elementKey + '-' + name;
+      this.navigateToElement = (modelPath, name) => {
+        const navigationKey = modelPath.join('/') + '/' + name;
         this.navSelection(navigationKey);
       };
 

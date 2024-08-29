@@ -1896,6 +1896,7 @@
 
   "model-edit-table-name-label": "Name",
 
+  "model-edit-f-Application": "Applications",
   "model-edit-application-label": "Application",
   "model-edit-application-list-label": "Applications",
   "model-edit-application-table-aria-label": "Application Table loaded",
@@ -1907,6 +1908,7 @@
 
   "model-edit-application-attribute-SourcePath-label": "Source Path",
 
+  "model-edit-f-Cluster": "Clusters",
   "model-edit-cluster-label": "Cluster",
   "model-edit-cluster-list-label": "Clusters",
   "model-edit-cluster-table-empty-message": "No clusters specified",
@@ -1921,6 +1923,7 @@
   "model-edit-cluster-attribute-ClusterMessagingMode-label": "Cluster Messaging Mode",
   "model-edit-cluster-attribute-Notes-label": "Notes",
 
+  "model-edit-f-JDBCSystemResource": "Datasources",
   "model-edit-datasource-label": "Datasource",
   "model-edit-datasource-list-label": "Datasources",
   "model-edit-datasource-table-aria-label": "Datasources Table",
@@ -1964,6 +1967,7 @@
   "model-edit-domainInfo-attribute-domainLibraries-itemLabel": "Domain Library",
   "model-edit-domainInfo-attribute-domainLibraries-itemHelp": "Path to domain library",
 
+  "model-edit-f-Library": "Libraries",
   "model-edit-library-label": "Library",
   "model-edit-library-list-label": "Libraries",
   "model-edit-library-table-aria-label": "Library Table Loaded",
@@ -1974,8 +1978,6 @@
   "model-edit-library-new-name-help": "Name of new library",
 
   "model-edit-library-attribute-SourcePath-label": "Source Path",
-
-  "model-edit-machine-list-label": "Machines",
 
   "model-edit-rcudbinfo-connection-label": "Connection",
   "model-edit-rcudbinfo-atp-label": "ATP Configuration",
@@ -2008,6 +2010,7 @@
   "model-edit-rcudbinfo-attribute-rcu_variables-label": "RCU Variables",
   "model-edit-rcudbinfo-attribute-storageXMLLocation-label": "Storage XML Location",
 
+  "model-edit-f-Server": "Servers",
   "model-edit-server-label": "Server",
   "model-edit-server-list-label": "Servers",
   "model-edit-server-table-empty-message": "No servers specified",
