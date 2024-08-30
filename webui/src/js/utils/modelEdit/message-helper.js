@@ -16,18 +16,18 @@ function (ko, i18n, AliasHelper) {
     folderPrefix = <base-prefix>-<folderKey>-<subfolderKey>...
     attributePrefix = <folderPrefix>-attribute-<attributeKey>
 
-    attributeLabel = <attributePrefix>-label (required, can be derived)
-
-    attributeMessage =
-      <attributePrefix>-<key> (optional)
-      <folderPrefix>-anyAttribute-<key> (optional, argument: name)
-      <basePrefix>-anyAttribute-<key> (required, argument: name)
-
     folderLabel = <folderPrefix>-label (required, can be derived)
 
-    folderMessage =
-      <folderPrefix>-<key> (optional, argument: name)
-      <basePrefix>-anyFolder-<key> (required, argument: name)
+    folderMessage search path:
+      <folderPrefix>-<suffix> (optional, argument: name)
+      <basePrefix>-anyFolder-<suffix> (required, argument: name)
+
+    attributeLabel = <attributePrefix>-label (required, can be derived)
+
+    attributeMessage search path:
+      <attributePrefix>-<suffix> (optional)
+      <folderPrefix>-anyAttribute-<suffix> (optional, argument: name)
+      <basePrefix>-anyAttribute-<suffix> (required, argument: name)
    */
 
   function MessageHelper() {
