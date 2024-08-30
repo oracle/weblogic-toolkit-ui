@@ -78,9 +78,11 @@ function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, NavigationHelper, Mes
           if(AliasHelper.isMultiplePath(navEntry.modelPath)) {
             navEntry.children = navEntry.children || ko.observableArray();
             navEntry.page = navEntry.page || 'elements-page';
-            navEntry.childPage = navEntry.childPage || 'empty-view';
+            navEntry.childPage = navEntry.childPage || 'folder-page';
           }
         }
+
+        navEntry.page = navEntry.page || 'folder-page';
 
         if(Array.isArray(navEntry.children)) {
           this.initializeNavList(navEntry.children);
@@ -165,14 +167,18 @@ function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, NavigationHelper, Mes
             icon: 'oj-ux-ico-file'
           },
           {
-            name: this.labelMapper('wls-policies-label'),
-            id: 'wls-policies-id',
-            icon: 'oj-ux-ico-file'
+            modelPath: ['domainInfo', 'WLSPolicies'],
+            icon: 'oj-ux-ico-file',
+            summaryAttributes: {
+              ResourceID: {}
+            }
           },
           {
-            name: this.labelMapper('wls-roles-label'),
-            id: 'wls-roles-id',
-            icon: 'oj-ux-ico-file'
+            modelPath: ['domainInfo', 'WLSRoles'],
+            icon: 'oj-ux-ico-file',
+            summaryAttributes: {
+              Expression: {}
+            }
           }
         ]
       },
@@ -180,6 +186,7 @@ function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, NavigationHelper, Mes
         name: this.labelMapper('topology-nav-label'),
         id: 'topology-id',
         icon: 'oj-ux-ico-folder',
+        page: '../empty-view',
         children: [
           {
             icon: 'oj-ux-ico-list',
@@ -206,6 +213,7 @@ function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, NavigationHelper, Mes
         name: this.labelMapper('resources-nav-label'),
         id: 'resources-id',
         icon: 'oj-ux-ico-folder',
+        page: '../empty-view',
         children: [
           {
             icon: 'oj-ux-ico-list',
@@ -221,6 +229,7 @@ function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, NavigationHelper, Mes
         name: this.labelMapper('deployments-nav-label'),
         id: 'deployments-id',
         icon: 'oj-ux-ico-folder',
+        page: '../empty-view',
         children: [
           {
             icon: 'oj-ux-ico-list',

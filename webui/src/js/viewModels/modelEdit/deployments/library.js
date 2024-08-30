@@ -6,18 +6,15 @@
 'use strict';
 
 define(['accUtils', 'utils/i18n', 'utils/modelEdit/model-edit-helper', 'utils/modelEdit/message-helper',
-  'utils/modelEdit/alias-helper',
   'oj-c/input-text'
 ],
-function(accUtils, i18n, ModelEditHelper, MessageHelper, AliasHelper) {
+function(accUtils, i18n, ModelEditHelper, MessageHelper) {
   function LibraryEditViewModel(args) {
     const MODEL_PATH = args.modelPath;
 
-    const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
-
     this.i18n = i18n;
     this.name = MODEL_PATH[MODEL_PATH.length - 1];
-    this.elementLabel = MessageHelper.getElementLabel(ALIAS_PATH);
+    this.title = MessageHelper.getPageTitle(MODEL_PATH);
 
     const subscriptions = [];
 

@@ -41,9 +41,13 @@ function (ko, i18n, AliasHelper) {
 
     this.getPageTitle = modelPath => {
       const aliasPath = AliasHelper.getAliasPath(modelPath);
-
-      // TODO: needs a lot of work
-
+      if(AliasHelper.isNamedPath(modelPath)) {
+        const name = modelPath[modelPath.length - 1];
+        if(hasAssignedFolderMessage(aliasPath, 'elementLabel')) {
+          return `${this.getElementLabel(aliasPath)} ${name}`;
+        }
+        return `${this.getFolderLabel(aliasPath)} / ${modelPath[modelPath.length - 1]}`;
+      }
       return this.getFolderLabel(aliasPath);
     };
 
@@ -130,11 +134,7 @@ function (ko, i18n, AliasHelper) {
     };
 
     this.hasAssignedItemLabel = (field, aliasPath) => {
-      // look for attribute-specific label only
-      const fieldKey = getAttributeKey(field.attribute);
-      const folderPrefix = getFolderPrefix(aliasPath);
-      const attributeKey = `${folderPrefix}-attribute-${fieldKey}-itemLabel`;
-      return messageKeys.includes(attributeKey);
+      return hasAssignedAttributeMessage(field, 'itemLabel', aliasPath);
     };
 
     this.getAddItemLabel = (field, aliasPath, verbose) => {
@@ -180,11 +180,7 @@ function (ko, i18n, AliasHelper) {
     };
 
     this.hasAssignedEntryLabel = (field, aliasPath) => {
-      // look for attribute-specific label only
-      const fieldKey = getAttributeKey(field.attribute);
-      const folderPrefix = getFolderPrefix(aliasPath);
-      const attributeKey = `${folderPrefix}-attribute-${fieldKey}-entryLabel`;
-      return messageKeys.includes(attributeKey);
+      return hasAssignedAttributeMessage(field, 'entryLabel', aliasPath);
     };
 
     this.getAddEntryLabel = (field, aliasPath, verbose) => {
@@ -229,6 +225,13 @@ function (ko, i18n, AliasHelper) {
       }
     }
 
+    function hasAssignedFolderMessage(aliasPath, suffix) {
+      // look for attribute-specific message only
+      const folderPrefix = getFolderPrefix(aliasPath);
+      const folderKey = `${folderPrefix}-${suffix}`;
+      return messageKeys.includes(folderKey);
+    }
+
     function getAttributeKey(attributeName) {
       return attributeName.replaceAll('.', '_');
     }
@@ -249,6 +252,14 @@ function (ko, i18n, AliasHelper) {
       } else {
         return i18n.t(genericKey, args);
       }
+    }
+
+    function hasAssignedAttributeMessage(field, suffix, aliasPath) {
+      // look for attribute-specific message only
+      const fieldKey = getAttributeKey(field.attribute);
+      const folderPrefix = getFolderPrefix(aliasPath);
+      const attributeKey = `${folderPrefix}-attribute-${fieldKey}-${suffix}`;
+      return messageKeys.includes(attributeKey);
     }
 
     function getReadableLabel(name) {
