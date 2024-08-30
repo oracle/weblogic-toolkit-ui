@@ -3,7 +3,7 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 
-<h6><oj-bind-text value="[[labelMapper('label')]]"></oj-bind-text></h6>
+<h6><oj-bind-text value="[[folderLabel]]"></oj-bind-text></h6>
 
 <div class="oj-panel">
   <oj-c-form-layout max-columns="2" direction="row">
@@ -13,6 +13,6 @@
 </div>
 
 <div class="oj-panel">
-  <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('advanced')]]"></oj-bind-text></h6>
+  <h6 class="wkt-subheading"><oj-bind-text value="[[advancedLabel]]"></oj-bind-text></h6>
   <oj-module config="[[remainingModuleConfig]]"></oj-module>
 </div>

@@ -5,19 +5,20 @@
  */
 'use strict';
 
-define(['accUtils', 'utils/i18n', 'utils/modelEdit/model-edit-helper',
+define(['accUtils', 'utils/i18n', 'utils/modelEdit/model-edit-helper', 'utils/modelEdit/message-helper',
+  'utils/modelEdit/alias-helper',
   'oj-c/input-text'
 ],
-function(accUtils, i18n, ModelEditHelper) {
+function(accUtils, i18n, ModelEditHelper, MessageHelper, AliasHelper) {
   function ClusterEditViewModel(args) {
-    this.i18n = i18n;
-    this.name = args.name;
+    const MODEL_PATH = args.modelPath;
 
+    const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
     const subscriptions = [];
 
-    const CLUSTER_PATH = ['topology', 'Cluster', args.name];
-
-    const LABEL_PREFIX = 'model-edit-cluster';
+    this.i18n = i18n;
+    this.name = MODEL_PATH[MODEL_PATH.length - 1];
+    this.elementLabel = MessageHelper.getElementLabel(ALIAS_PATH);
 
     this.connected = () => {
       accUtils.announce(`Cluster Page for ${this.name} loaded.`, 'assertive');
@@ -30,13 +31,13 @@ function(accUtils, i18n, ModelEditHelper) {
     };
 
     this.labelMapper = (labelId, payload) => {
-      return i18n.t(`${LABEL_PREFIX}-${labelId}`, payload);
+      return i18n.t(`model-edit-cluster-${labelId}`, payload);
     };
 
-    const fieldMap = ModelEditHelper.createAliasFieldMap(CLUSTER_PATH, {}, subscriptions);
+    const fieldMap = ModelEditHelper.createAliasFieldMap(MODEL_PATH, {}, subscriptions);
 
     this.fieldConfig = (key) => {
-      return ModelEditHelper.createFieldModuleConfig(key, fieldMap, LABEL_PREFIX);
+      return ModelEditHelper.createFieldModuleConfig(key, fieldMap, MODEL_PATH);
     };
   }
 

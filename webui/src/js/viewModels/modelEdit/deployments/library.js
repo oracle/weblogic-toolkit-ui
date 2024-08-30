@@ -5,19 +5,21 @@
  */
 'use strict';
 
-define(['accUtils', 'utils/i18n', 'utils/modelEdit/model-edit-helper',
+define(['accUtils', 'utils/i18n', 'utils/modelEdit/model-edit-helper', 'utils/modelEdit/message-helper',
+  'utils/modelEdit/alias-helper',
   'oj-c/input-text'
 ],
-function(accUtils, i18n, ModelEditHelper) {
+function(accUtils, i18n, ModelEditHelper, MessageHelper, AliasHelper) {
   function LibraryEditViewModel(args) {
+    const MODEL_PATH = args.modelPath;
+
+    const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
+
     this.i18n = i18n;
-    this.name = args.name;
+    this.name = MODEL_PATH[MODEL_PATH.length - 1];
+    this.elementLabel = MessageHelper.getElementLabel(ALIAS_PATH);
 
     const subscriptions = [];
-
-    const LIBRARY_PATH = ['appDeployments', 'Library', args.name];
-
-    const LABEL_PREFIX = 'model-edit-library';
 
     this.connected = () => {
       accUtils.announce(`Library Page for ${this.name} loaded.`, 'assertive');
@@ -29,14 +31,10 @@ function(accUtils, i18n, ModelEditHelper) {
       });
     };
 
-    this.labelMapper = (labelId, payload) => {
-      return i18n.t(`${LABEL_PREFIX}-${labelId}`, payload);
-    };
-
-    const fieldMap = ModelEditHelper.createAliasFieldMap(LIBRARY_PATH, {}, subscriptions);
+    const fieldMap = ModelEditHelper.createAliasFieldMap(MODEL_PATH, {}, subscriptions);
 
     this.fieldConfig = (key) => {
-      return ModelEditHelper.createFieldModuleConfig(key, fieldMap, LABEL_PREFIX);
+      return ModelEditHelper.createFieldModuleConfig(key, fieldMap, MODEL_PATH);
     };
   }
 

@@ -5,21 +5,23 @@
  */
 'use strict';
 
-define(['accUtils', 'utils/i18n', 'knockout', 'utils/modelEdit/model-edit-helper',
+define(['accUtils', 'utils/i18n', 'knockout', 'utils/modelEdit/model-edit-helper', 'utils/modelEdit/message-helper',
+  'utils/modelEdit/alias-helper',
   'oj-c/input-text'
 ],
-function(accUtils, i18n, ko, ModelEditHelper) {
+function(accUtils, i18n, ko, ModelEditHelper, MessageHelper, AliasHelper) {
   function ServerEditViewModel(args) {
-    this.i18n = i18n;
-    this.name = args.name;
+    const MODEL_PATH = args.modelPath;
 
+    const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
     const subscriptions = [];
 
-    const SERVER_PATH = ['topology', 'Server', args.name];
-    const SSL_PATH = [...SERVER_PATH, 'SSL'];
+    this.i18n = i18n;
+    this.name = MODEL_PATH[MODEL_PATH.length - 1];
+    this.elementLabel = MessageHelper.getElementLabel(ALIAS_PATH);
 
-    const LABEL_PREFIX = 'model-edit-server';
-    const SSL_LABEL_PREFIX = 'model-edit-server-ssl';
+    const SSL_PATH = [...MODEL_PATH, 'SSL'];
+
 
     this.connected = () => {
       accUtils.announce(`Server Page for ${this.name} loaded.`, 'assertive');
@@ -32,7 +34,7 @@ function(accUtils, i18n, ko, ModelEditHelper) {
     };
 
     this.labelMapper = (labelId, payload) => {
-      return i18n.t(`${LABEL_PREFIX}-${labelId}`, payload);
+      return i18n.t(`model-edit-server-${labelId}`, payload);
     };
 
     this.editLabelMapper = (labelId, payload) => {
@@ -51,21 +53,21 @@ function(accUtils, i18n, ko, ModelEditHelper) {
       ListenPort: { validators: [ModelEditHelper.portValidator] }
     };
 
-    const fieldMap = ModelEditHelper.createAliasFieldMap(SERVER_PATH, fieldOverrides, subscriptions);
+    const fieldMap = ModelEditHelper.createAliasFieldMap(MODEL_PATH, fieldOverrides, subscriptions);
     const sslFieldMap = ModelEditHelper.createAliasFieldMap(SSL_PATH, fieldOverrides, subscriptions);
 
     this.fieldConfig = (key) => {
-      return ModelEditHelper.createFieldModuleConfig(key, fieldMap, LABEL_PREFIX);
+      return ModelEditHelper.createFieldModuleConfig(key, fieldMap, MODEL_PATH);
     };
 
     this.sslFieldConfig = (key) => {
-      return ModelEditHelper.createFieldModuleConfig(key, sslFieldMap, SSL_LABEL_PREFIX);
+      return ModelEditHelper.createFieldModuleConfig(key, sslFieldMap, SSL_PATH);
     };
 
     // create a module config for remaining Server fields
     const remainingFieldNames = ModelEditHelper.getRemainingFieldNames(fieldMap, knownFields);
     this.remainingModuleConfig = ModelEditHelper.createFieldSetModuleConfig(remainingFieldNames, fieldMap,
-      LABEL_PREFIX);
+      MODEL_PATH);
   }
 
   return ServerEditViewModel;

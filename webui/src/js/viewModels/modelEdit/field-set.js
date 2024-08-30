@@ -10,18 +10,13 @@ define(['accUtils', 'utils/i18n', 'utils/modelEdit/model-edit-helper',
 ],
 function(accUtils, i18n, ModelEditHelper) {
   function FieldSet(args) {
-    this.i18n = i18n;
+    const MODEL_PATH = args.modelPath;
+    const fieldMap = args.fieldMap;
+
     this.fields = args.fields;
 
-    const fieldMap = args.fieldMap;
-    const labelPrefix = args.labelPrefix;
-
-    this.labelMapper = (labelId, payload) => {
-      return i18n.t(`${labelPrefix}-${labelId}`, payload);
-    };
-
     this.fieldConfig = (field) => {
-      return ModelEditHelper.createFieldModuleConfig(field, fieldMap, labelPrefix);
+      return ModelEditHelper.createFieldModuleConfig(field, fieldMap, MODEL_PATH);
     };
   }
 

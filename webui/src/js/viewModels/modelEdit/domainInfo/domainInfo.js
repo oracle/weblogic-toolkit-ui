@@ -5,17 +5,21 @@
  */
 'use strict';
 
-define(['accUtils', 'utils/i18n', 'utils/modelEdit/model-edit-helper',
+define(['accUtils', 'utils/i18n', 'utils/modelEdit/model-edit-helper', 'utils/modelEdit/message-helper',
+  'utils/modelEdit/alias-helper',
   'oj-c/form-layout', 'oj-c/input-text', 'ojs/ojpopup'
 ],
-function(accUtils, i18n, ModelEditHelper) {
-  function DomainInfoEditViewModel() {
+function(accUtils, i18n, ModelEditHelper, MessageHelper, AliasHelper) {
+  function DomainInfoEditViewModel(args) {
+    const MODEL_PATH = args.modelPath;
+
+    const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
+
     this.i18n = i18n;
+    this.folderLabel = MessageHelper.getFolderLabel(ALIAS_PATH);
+    this.advancedLabel = i18n.t('model-edit-advanced-label');
 
     const subscriptions = [];
-
-    const INFO_PATH = ['domainInfo'];
-    const LABEL_PREFIX = 'model-edit-domainInfo';
 
     this.connected = () => {
       accUtils.announce('Domain Info Page loaded.', 'assertive');
@@ -25,10 +29,6 @@ function(accUtils, i18n, ModelEditHelper) {
       subscriptions.forEach((subscription) => {
         subscription.dispose();
       });
-    };
-
-    this.labelMapper = (labelId, payload) => {
-      return i18n.t(`${LABEL_PREFIX}-${labelId}`, payload);
     };
 
     // these are directly referenced in HTML
@@ -41,19 +41,17 @@ function(accUtils, i18n, ModelEditHelper) {
       'OPSSSecrets'
     ];
 
-    const fieldOverrides = {};
-
-    const fieldMap = ModelEditHelper.createAliasFieldMap(INFO_PATH, fieldOverrides, subscriptions);
+    const fieldMap = ModelEditHelper.createAliasFieldMap(MODEL_PATH, {}, subscriptions);
 
     // create a list of remaining fields
     const knownFieldNames = [...primaryFieldNames, ...excludeFieldNames];
     const remainingFieldNames = ModelEditHelper.getRemainingFieldNames(fieldMap, knownFieldNames);
 
     this.remainingModuleConfig = ModelEditHelper.createFieldSetModuleConfig(remainingFieldNames, fieldMap,
-      LABEL_PREFIX);
+      MODEL_PATH);
 
     this.fieldConfig = (key) => {
-      return ModelEditHelper.createFieldModuleConfig(key, fieldMap, LABEL_PREFIX);
+      return ModelEditHelper.createFieldModuleConfig(key, fieldMap, MODEL_PATH);
     };
   }
 

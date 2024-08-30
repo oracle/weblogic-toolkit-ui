@@ -71,17 +71,18 @@ function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, NavigationHelper, Mes
     this.initializeNavList = navList => {
       navList.forEach(navEntry => {
         if(navEntry.modelPath) {
-          const modelPath = navEntry.modelPath.split('/');
-          const aliasPath = AliasHelper.getAliasPath(modelPath);
-          navEntry.id = navEntry.id || modelPath.join('/');
+          const aliasPath = AliasHelper.getAliasPath(navEntry.modelPath);
+          navEntry.id = navEntry.id || navEntry.modelPath.join('/');
           navEntry.name = navEntry.name || MessageHelper.getFolderLabel(aliasPath);
 
-          if(AliasHelper.isMultiplePath(modelPath)) {
+          if(AliasHelper.isMultiplePath(navEntry.modelPath)) {
             navEntry.children = navEntry.children || ko.observableArray();
+            navEntry.page = navEntry.page || 'elements-page';
             navEntry.childPage = navEntry.childPage || 'empty-view';
           }
+        }
 
-        } else if(Array.isArray(navEntry.children)) {
+        if(Array.isArray(navEntry.children)) {
           this.initializeNavList(navEntry.children);
         }
       });
@@ -93,8 +94,8 @@ function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, NavigationHelper, Mes
 
     this.updateNavList = navList => {
       navList.forEach(navEntry => {
-        if(navEntry.modelPath) {
-          this.updateFolderFromModel(navEntry.modelPath, navEntry.children, navEntry.aliasPath, navEntry.childPage);
+        if(navEntry.modelPath && AliasHelper.isMultiplePath(navEntry.modelPath)) {
+          this.updateChildFoldersFromModel(navEntry.modelPath, navEntry.children, navEntry.childPage);
 
         } else if(Array.isArray(navEntry.children)) {
           this.updateNavList(navEntry.children);
@@ -103,19 +104,20 @@ function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, NavigationHelper, Mes
     };
 
     // take extra care to leave current existing entries alone
-    this.updateFolderFromModel = (modelPath, folderList, key, page) => {
+    this.updateChildFoldersFromModel = (modelPath, folderList, page) => {
       const folderKeys = [];
       folderList().forEach(folder => folderKeys.push(folder.name));
 
       // add model folders that aren't in navigation
       const modelKeys = [];
-      const pathArray = modelPath.split('/');  // safe, no name folders here
-      const modelFolder = ModelEditHelper.getFolder(pathArray);
+      const modelFolder = ModelEditHelper.getFolder(modelPath);
       Object.keys(modelFolder).forEach((name) => {
+        const id = modelPath.join('/') + '/' + name;
         if(!folderKeys.includes(name)) {
           folderList.push({
+            modelPath: [...modelPath, name],
             name: name,
-            id: modelPath + '/' + name,
+            id: id,
             page: page,
             icon: 'oj-ux-ico-page-template'
           });
@@ -141,8 +143,7 @@ function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, NavigationHelper, Mes
 
     this.navData = [
       {
-        name: this.labelMapper('domain-info-nav-label'),
-        id: 'domain-info-id',
+        modelPath: ['domainInfo'],
         icon: 'oj-ux-ico-folder',
         page: 'domainInfo/domainInfo',
         children: [
@@ -152,8 +153,9 @@ function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, NavigationHelper, Mes
             icon: 'oj-ux-ico-file'
           },
           {
-            name: this.labelMapper('rcudbinfo-label'),
-            id: 'rcu-db-info-id',
+            // name: this.labelMapper('rcudbinfo-label'),
+            // id: 'rcu-db-info-id',
+            modelPath: ['domainInfo', 'RCUDbInfo'],
             icon: 'oj-ux-ico-file',
             page: 'domainInfo/rcu-db-info'
           },
@@ -181,15 +183,22 @@ function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, NavigationHelper, Mes
         children: [
           {
             icon: 'oj-ux-ico-list',
-            page: 'topology/servers',
             childPage: 'topology/server',
-            modelPath: 'topology/Server',
+            modelPath: ['topology', 'Server'],
+            summaryAttributes: {
+              Cluster: {},
+              ListenPort: {},
+              'SSL/ListenPort': {}
+            }
           },
           {
             icon: 'oj-ux-ico-list',
-            page: 'topology/clusters',
             childPage: 'topology/cluster',
-            modelPath: 'topology/Cluster',
+            modelPath: ['topology', 'Cluster'],
+            summaryAttributes: {
+              ClusterAddress: {},
+              ClusterMessagingMode: {}
+            }
           }
         ]
       },
@@ -200,9 +209,11 @@ function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, NavigationHelper, Mes
         children: [
           {
             icon: 'oj-ux-ico-list',
-            page: 'resources/datasources',
             childPage: 'resources/datasource',
-            modelPath: 'resources/JDBCSystemResource',
+            modelPath: ['resources', 'JDBCSystemResource'],
+            summaryAttributes: {
+              DeploymentOrder: {}
+            }
           }
         ]
       },
@@ -213,15 +224,19 @@ function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, NavigationHelper, Mes
         children: [
           {
             icon: 'oj-ux-ico-list',
-            page: 'deployments/applications',
             childPage: 'deployments/application',
-            modelPath: 'appDeployments/Application'
+            modelPath: ['appDeployments', 'Application'],
+            summaryAttributes: {
+              SourcePath: {}
+            }
           },
           {
             icon: 'oj-ux-ico-list',
-            page: 'deployments/libraries',
             childPage: 'deployments/library',
-            modelPath: 'appDeployments/Library'
+            modelPath: ['appDeployments', 'Library'],
+            summaryAttributes: {
+              SourcePath: {}
+            }
           }
         ]
       }

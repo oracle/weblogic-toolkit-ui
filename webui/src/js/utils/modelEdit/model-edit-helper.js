@@ -6,9 +6,9 @@
 'use strict';
 
 define(['knockout', 'utils/i18n', 'js-yaml', 'models/wkt-project', 'utils/common-utilities',
-  'utils/wkt-logger', 'utils/modelEdit/alias-helper', 'ojs/ojmodule-element-utils'],
+  'utils/wkt-logger', 'utils/modelEdit/alias-helper', 'utils/modelEdit/message-helper', 'ojs/ojmodule-element-utils'],
 function (ko, i18n, jsYaml, project, utils,
-  WktLogger, AliasHelper, ModuleElementUtils) {
+  WktLogger, AliasHelper, MessageHelper, ModuleElementUtils) {
 
   function ModelEditHelper() {
     // parse, write, and maintain the model object structure.
@@ -123,12 +123,9 @@ function (ko, i18n, jsYaml, project, utils,
 
       const attributesMap = AliasHelper.getAttributesMap(modelPath);
       for (const [attributeName, valueMap] of Object.entries(attributesMap)) {
-        // key is used for message lookup, not periods
-        const key = attributeName.replaceAll('.', '_');
 
         const field = {
           attribute: attributeName,
-          key: key,
           path: modelPath,
           type: valueMap['wlstType'],
           observable: ko.observable()
@@ -156,7 +153,7 @@ function (ko, i18n, jsYaml, project, utils,
     };
 
     // create a field configuration for an edit-field module
-    this.createFieldModuleConfig = (key, fieldMap, labelPrefix) => {
+    this.createFieldModuleConfig = (key, fieldMap, modelPath) => {
       const field = fieldMap[key];
       if(!field) {
         WktLogger.error(`Field ${key} not found, fields: ${Object.keys(fieldMap)}`);
@@ -167,17 +164,17 @@ function (ko, i18n, jsYaml, project, utils,
         name: 'modelEdit/edit-field',
         params: {
           field: field,
-          labelPrefix: labelPrefix
+          modelPath: modelPath
         }
       });
     };
 
-    this.createFieldSetModuleConfig = (fields, fieldMap, labelPrefix) => {
+    this.createFieldSetModuleConfig = (fields, fieldMap, modelPath) => {
       return ModuleElementUtils.createConfig({
         name: 'modelEdit/field-set',
         params: {
           fields: fields,
-          labelPrefix: labelPrefix,
+          modelPath: modelPath,
           fieldMap: fieldMap
         }
       });

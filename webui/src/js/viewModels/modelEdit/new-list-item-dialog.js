@@ -6,16 +6,18 @@
 'use strict';
 
 define(['accUtils', 'knockout', 'utils/i18n', 'models/wkt-project',
-  'utils/modelEdit/model-edit-helper', 'utils/modelEdit/message-helper', 'utils/common-utilities',
-  'utils/validation-helper', 'utils/view-helper',
+  'utils/modelEdit/model-edit-helper', 'utils/modelEdit/message-helper', 'utils/modelEdit/alias-helper',
+  'utils/common-utilities', 'utils/validation-helper', 'utils/view-helper',
   'oj-c/input-text', 'oj-c/button', 'ojs/ojdialog', 'ojs/ojvalidationgroup'],
 function(accUtils, ko, i18n, project,
-  ModelEditHelper, MessageHelper, utils, validationHelper, viewHelper) {
+  ModelEditHelper, MessageHelper, AliasHelper, utils, validationHelper, viewHelper) {
   function NewListItemDialogModel(args) {
+    const MODEL_PATH = args.modelPath;
+
+    const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
     const DIALOG_SELECTOR = '#newListItemDialog';
 
     const field = args.field;
-    const labelPrefix = args.labelPrefix;
     const observableItems = args.observableItems;
 
     this.i18n = i18n;
@@ -34,11 +36,11 @@ function(accUtils, ko, i18n, project,
       });
     };
 
-    this.nameLabel = MessageHelper.getItemLabel(field, labelPrefix);
-    this.nameHelp = MessageHelper.getItemHelp(field, labelPrefix);
+    this.nameLabel = MessageHelper.getItemLabel(field, ALIAS_PATH);
+    this.nameHelp = MessageHelper.getItemHelp(field, ALIAS_PATH);
 
     this.getTitle = ko.computed(() => {
-      return MessageHelper.getAddItemLabel(field, labelPrefix, true);
+      return MessageHelper.getAddItemLabel(field, ALIAS_PATH, true);
       // this.i18n.t('model-edit-list-dialog-add-label', {
     });
 

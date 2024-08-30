@@ -4,15 +4,15 @@
  -->
 <oj-dialog id="newElementDialog" class="wkt-model-edit-field-dialog" initial-visibility="hide">
   <div slot="header">
-    <span id="dialog-title-id" class="oj-dialog-title"><oj-bind-text value="[[getTitle()]]"></oj-bind-text></span>
+    <span id="dialog-title-id" class="oj-dialog-title"><oj-bind-text value="[[title]]"></oj-bind-text></span>
   </div>
   <div slot="body">
     <oj-validation-group id="modelNewEntryTracker">
       <div class="oj-panel">
         <oj-c-input-text
           class="wkt-model-edit-field-stacked"
-          label-hint="[[labelMapper('new-name-label')]]"
-          help.instruction="[[labelMapper('new-name-help')]]"
+          label-hint="[[nameLabel]]"
+          help.instruction="[[helpLabel]]"
           value="{{elementName}}"
           required="true"
           validators="[[nameValidators]]"

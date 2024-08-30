@@ -5,7 +5,7 @@
 
 <oj-table id="elements-table"
           class="wkt-model-edit-elements-table"
-          :aria-label="[[labelMapper('table-aria-label')]]"
+          :aria-label="[[ariaLabel]]"
           data="[[elementsProvider]]"
           display="grid"
           horizontal-grid-visible="enabled"
@@ -30,7 +30,7 @@
       <td>
         <oj-c-button display="icons"
                      chroming="borderless"
-                     label="[[labelMapper('table-delete-tooltip')]]"
+                     label="[[deleteLabel]]"
                      on-oj-action="[[deleteElement]]">
           <span slot="endIcon" class="oj-ux-ico-trash"></span>
         </oj-c-button>
@@ -40,14 +40,14 @@
   <template slot="addHeaderTemplate" data-oj-as="header">
     <oj-c-button display="icons"
                  chroming="borderless"
-                 label="[[labelMapper('add-label')]]"
+                 label="[[addLabel]]"
                  on-oj-action="[[addElement]]">
       <span slot="endIcon" class="oj-ux-ico-plus"></span>
     </oj-c-button>
   </template>
   <template slot="noData">
     <div class="oj-table-body-message">
-      <oj-bind-text value="[[labelMapper('table-empty-message')]]"></oj-bind-text>
+      <oj-bind-text value="[[emptyMessage]]"></oj-bind-text>
     </div>
   </template>
 </oj-table>

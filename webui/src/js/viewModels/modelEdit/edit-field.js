@@ -7,14 +7,17 @@
 
 define(['accUtils', 'knockout', 'utils/i18n', 'utils/dialog-helper','ojs/ojarraydataprovider',
   'ojs/ojmodule-element-utils', 'utils/modelEdit/model-edit-helper', 'utils/modelEdit/message-helper',
+  'utils/modelEdit/alias-helper',
   'oj-c/button', 'oj-c/input-text', 'oj-c/list-view', 'oj-c/input-password'
 ],
 function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
-  ModuleElementUtils, ModelEditHelper, MessageHelper) {
+  ModuleElementUtils, ModelEditHelper, MessageHelper, AliasHelper) {
 
   function EditField(args) {
+    const MODEL_PATH = args.modelPath;
     const field = args.field;
-    const labelPrefix = args.labelPrefix;
+
+    const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
 
     this.i18n = i18n;
     this.field = field;
@@ -32,20 +35,16 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
       'switchOn': 'true'
     };
 
-    this.labelMapper = (labelId, payload) => {
-      return i18n.t(`${labelPrefix}-${labelId}`, payload);
-    };
-
     this.fieldLabelMapper = (labelId, payload) => {
       return i18n.t(`model-edit-field-${labelId}`, payload);
     };
 
     this.attributeLabel = field => {
-      return MessageHelper.getAttributeLabel(field, labelPrefix);
+      return MessageHelper.getAttributeFieldLabel(field, ALIAS_PATH);
     };
 
     this.attributeHelp = field => {
-      return MessageHelper.getAttributeHelp(field, labelPrefix);
+      return MessageHelper.getAttributeHelp(field, ALIAS_PATH);
     };
 
     this.variableName = ko.computed(() => {
@@ -109,7 +108,7 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
     }
 
     this.showOptions = () => {
-      const options = { fieldInfo: field, labelPrefix: labelPrefix };
+      const options = { fieldInfo: field, modelPath: MODEL_PATH };
       DialogHelper.openDialog('modelEdit/edit-field-dialog', options);
     };
 
@@ -118,7 +117,7 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
         name: viewName,
         params: {
           field: field,
-          labelPrefix: labelPrefix
+          modelPath: MODEL_PATH
         }
       });
     };

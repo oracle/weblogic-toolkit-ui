@@ -24,9 +24,10 @@ define(['knockout'],
         this.navSelection(navigationKey);
       };
 
-      this.openNavigation = (key) => {
+      this.openNavigation = (modelPath) => {
+        const navigationKey = modelPath.join('/');
         const keySet = this.navExpanded();
-        this.navExpanded(keySet.add([key]));
+        this.navExpanded(keySet.add([navigationKey]));
       };
     }
 

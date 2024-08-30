@@ -7,28 +7,31 @@
 
 define(['accUtils', 'knockout', 'utils/i18n', 'utils/dialog-helper','ojs/ojarraydataprovider',
   'ojs/ojbufferingdataprovider', 'utils/view-helper', 'utils/common-utilities', 'utils/modelEdit/message-helper',
+  'utils/modelEdit/alias-helper',
   'oj-c/button', 'oj-c/input-text', 'oj-c/list-view', 'oj-c/input-password'
 ],
 function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
-  BufferingDataProvider, ViewHelper, utils, MessageHelper) {
+  BufferingDataProvider, ViewHelper, utils, MessageHelper, AliasHelper) {
 
   function DictEditField(args) {
+    const MODEL_PATH = args.modelPath;
     const field = args.field;
-    const labelPrefix = args.labelPrefix;
+
+    const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
 
     this.i18n = i18n;
     this.field = field;
     this.observable = args.field.observable;
     this.disabled = field.hasOwnProperty('disabled') ? field.disabled : false;
 
-    this.ariaLabel = MessageHelper.getAttributeLabel(field, labelPrefix);
-    this.title = MessageHelper.getAttributeLabel(field, labelPrefix);
+    this.ariaLabel = MessageHelper.getAttributeFieldLabel(field, ALIAS_PATH);
+    this.title = MessageHelper.getAttributeFieldLabel(field, ALIAS_PATH);
 
-    this.addLabel = MessageHelper.getAddEntryLabel(field, labelPrefix, false);
-    this.deleteLabel = MessageHelper.getDeleteEntryLabel(field, labelPrefix);
+    this.addLabel = MessageHelper.getAddEntryLabel(field, ALIAS_PATH, false);
+    this.deleteLabel = MessageHelper.getDeleteEntryLabel(field, ALIAS_PATH);
     this.noDataLabel = i18n.t('model-edit-no-entries-label');
-    const keyLabel = MessageHelper.getKeyLabel(field, labelPrefix);
-    const valueLabel = MessageHelper.getValueLabel(field, labelPrefix);
+    const keyLabel = MessageHelper.getKeyLabel(field, ALIAS_PATH);
+    const valueLabel = MessageHelper.getValueLabel(field, ALIAS_PATH);
 
     const subscriptions = [];
 
@@ -48,12 +51,12 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
     // this is dynamic to allow i18n fields to load correctly
     this.columnData = [
       {
-        headerText: i18n.t(keyLabel),
+        headerText: keyLabel,
         headerClassName: 'wkt-model-edit-field-label',
         sortable: 'disable'
       },
       {
-        headerText: i18n.t(valueLabel),
+        headerText: valueLabel,
         headerClassName: 'wkt-model-edit-field-label',
         sortable: 'disable'
       },
@@ -104,7 +107,7 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
     this.addItem = () => {
       const options = {
         field: field,
-        labelPrefix: labelPrefix,
+        modelPath: MODEL_PATH,
         observableItems: this.observableItems
       };
       DialogHelper.promptDialog('modelEdit/new-dict-entry-dialog', options)

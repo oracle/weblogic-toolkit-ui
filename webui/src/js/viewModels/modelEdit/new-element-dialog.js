@@ -6,20 +6,25 @@
 'use strict';
 
 define(['accUtils', 'knockout', 'utils/i18n', 'models/wkt-project',
-  'utils/modelEdit/model-edit-helper', 'utils/validation-helper', 'utils/view-helper',
+  'utils/modelEdit/model-edit-helper', 'utils/modelEdit/message-helper', 'utils/modelEdit/alias-helper',
+  'utils/validation-helper', 'utils/view-helper',
   'oj-c/input-text', 'oj-c/button', 'ojs/ojdialog', 'ojs/ojvalidationgroup'],
 function(accUtils, ko, i18n, project,
-  ModelEditHelper, validationHelper, viewHelper) {
+  ModelEditHelper, MessageHelper, AliasHelper, validationHelper, viewHelper) {
   function NewElementDialogModel(args) {
     const DIALOG_SELECTOR = '#newElementDialog';
     const ELEMENT_NAME_REGEX= /^[\w.!-]+$/;
 
-    const ELEMENT_TYPE_KEY = args.elementTypeKey;
-    const ELEMENT_TYPE_VALIDATORS = args.nameValidators;
+    const MODEL_PATH = args.modelPath;
+    const NAME_VALIDATORS = args.nameValidators;
+
+    const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
 
     this.i18n = i18n;
-    this.elementTypeKey = ELEMENT_TYPE_KEY;
     this.elementName = ko.observable();
+    this.title = MessageHelper.getAddElementMessage(ALIAS_PATH);
+    this.nameLabel = MessageHelper.getElementNameLabel(ALIAS_PATH);
+    this.helpLabel = MessageHelper.getElementNameHelp(ALIAS_PATH);
 
     this.connected = () => {
       accUtils.announce('New element dialog loaded.', 'assertive');
@@ -33,30 +38,18 @@ function(accUtils, ko, i18n, project,
       });
     };
 
-    this.labelMapper = (labelId, arg) => {
-      return i18n.t(`model-edit-${ELEMENT_TYPE_KEY}-${labelId}`, arg);
-    };
-
-    this.newLabelMapper = (labelId, arg) => {
-      // not element-specific
-      return i18n.t(`model-edit-new-element-${labelId}`, arg);
-    };
-
-    this.getTitle = ko.computed(() => {
-      return this.labelMapper('add-label');
-    });
-
     this.nameValidators = [];
 
     // if validators passed in, use those instead of (some) default validations
-    if(ELEMENT_TYPE_VALIDATORS) {
-      this.nameValidators.push(...ELEMENT_TYPE_VALIDATORS);
+    if(NAME_VALIDATORS) {
+      this.nameValidators.push(...NAME_VALIDATORS);
 
     } else {
       this.nameValidators.push({
         validate: (value) => {
           if (!ELEMENT_NAME_REGEX.test(value)) {
-            throw new Error(this.newLabelMapper('name-error'));
+            const message = i18n.t('model-edit-new-element-name-error');
+            throw new Error(message);
           }
         }
       });
@@ -64,7 +57,7 @@ function(accUtils, ko, i18n, project,
 
     this.nameValidators.push({
       // always check against peer elements
-      validate: (value) => {
+      validate: () => {
         // TODO: test against existing names
       }
     });

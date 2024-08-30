@@ -69,7 +69,11 @@ function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, NavigationHelper, Mes
         this.editPage(
           ModuleElementUtils.createConfig({
             name: viewName,
-            params: {name: selectedItem.name}
+            params: {
+              name: selectedItem.name,
+              modelPath: selectedItem.modelPath,
+              summaryAttributes: selectedItem.summaryAttributes
+            }
           })
         );
 

@@ -5,10 +5,10 @@
  */
 'use strict';
 
-define(['knockout',
-  'utils/i18n'],
+define(['knockout', 'utils/i18n',
+  'utils/modelEdit/alias-helper'],
 
-function (ko, i18n) {
+function (ko, i18n, AliasHelper) {
   /*
     message conventions:
 
@@ -22,6 +22,12 @@ function (ko, i18n) {
       <attributePrefix>-<key> (optional)
       <folderPrefix>-anyAttribute-<key> (optional, argument: name)
       <basePrefix>-anyAttribute-<key> (required, argument: name)
+
+    folderLabel = <folderPrefix>-label (required, can be derived)
+
+    folderMessage =
+      <folderPrefix>-<key> (optional, argument: name)
+      <basePrefix>-anyFolder-<key> (required, argument: name)
    */
 
   function MessageHelper() {
@@ -33,9 +39,22 @@ function (ko, i18n) {
         messageKeys = newMessageKeys;
       });
 
+    this.getPageTitle = modelPath => {
+      const aliasPath = AliasHelper.getAliasPath(modelPath);
+
+      // TODO: needs a lot of work
+
+      return this.getFolderLabel(aliasPath);
+    };
+
+    // *******************
+    // Folder Messages
+    // *******************
+
     this.getFolderLabel = aliasPath => {
-      // aliasPath should be an array
-      const key = this.getFolderKey(aliasPath);
+      // required - this will add a webui.missing.json entry if not found
+      const prefix = getFolderPrefix(aliasPath);
+      const key = `${prefix}-label`;
       let label = i18n.t(key);
       if (label === key) {
         const lastFolder = aliasPath[aliasPath.length - 1];
@@ -44,44 +63,86 @@ function (ko, i18n) {
       return label;
     };
 
-    this.getFolderKey = aliasPath => {
-      return 'model-edit-f-' + aliasPath.join('_');
+    this.getAddElementMessage = aliasPath => {
+      const label = this.getElementLabel(aliasPath);
+      return i18n.t('model-edit-add-label', {item: label});
     };
 
-    this.getAttributeLabel = (field, labelPrefix) => {
+    this.getDeleteElementMessage = aliasPath => {
+      const label = this.getElementLabel(aliasPath);
+      return i18n.t('model-edit-delete-label', {item: label});
+    };
+
+    this.getNoDataMessage = aliasPath => {
+      return getFolderMessage(aliasPath, 'noDataLabel');
+    };
+
+    this.getElementNameLabel = aliasPath => {
+      const label = this.getElementLabel(aliasPath);
+      return getFolderMessage(aliasPath, 'nameLabel', { element: label });
+    };
+
+    this.getElementNameHelp = aliasPath => {
+      const label = this.getElementLabel(aliasPath);
+      return getFolderMessage(aliasPath, 'nameHelp', { element: label });
+    };
+
+    this.getElementLabel = aliasPath => {
+      // elementLabel is the singular: "Server", not "Servers"
+      return getFolderMessage(aliasPath, 'elementLabel');
+    };
+
+    // *******************
+    // attribute messages
+    // *******************
+
+    this.getAttributeFieldLabel = (field, aliasPath) => {
+      return this.getAttributeLabelInternal(field.attribute, aliasPath);
+    };
+
+    this.getAttributeLabel = (attributeName, aliasPath) => {
+      return this.getAttributeLabelInternal(attributeName, aliasPath);
+    };
+
+    this.getAttributeLabelInternal = (attributeName, aliasPath) => {
       // every attribute should have a translation for label.
       // if none is available, i18n will log to webui.missing.json, and we return a readable name.
-      const key = `${labelPrefix}-attribute-${field.key}-label`;
+      const attributeKey = getAttributeKey(attributeName);
+      const folderPrefix = getFolderPrefix(aliasPath);
+      const key = `${folderPrefix}-attribute-${attributeKey}-label`;
       const label = i18n.t(key);
-      return (label === key) ? getReadableLabel(field.attribute) : label;
+      return (label === key) ? getReadableLabel(attributeName) : label;
     };
 
-    this.getAttributeHelp = (field, labelPrefix) => {
-      return this.getAttributeMessage(field, 'help', labelPrefix);
+    this.getAttributeHelp = (field, aliasPath) => {
+      const args = { attribute: getReadableLabel(field.attribute) };
+      return getAttributeMessage(field, 'help', aliasPath, args);
     };
 
     // item label/help for attributes of type "list"
 
-    this.getItemLabel = (field, labelPrefix) => {
-      return this.getAttributeMessage(field, 'itemLabel', labelPrefix);
+    this.getItemLabel = (field, aliasPath) => {
+      return getAttributeMessage(field, 'itemLabel', aliasPath);
     };
 
-    this.getItemHelp = (field, labelPrefix) => {
-      return this.getAttributeMessage(field, 'itemHelp', labelPrefix);
+    this.getItemHelp = (field, aliasPath) => {
+      return getAttributeMessage(field, 'itemHelp', aliasPath);
     };
 
-    this.hasAssignedItemLabel = (field, labelPrefix) => {
+    this.hasAssignedItemLabel = (field, aliasPath) => {
       // look for attribute-specific label only
-      const attributeKey = `${labelPrefix}-attribute-${field.key}-itemLabel`;
+      const fieldKey = getAttributeKey(field.attribute);
+      const folderPrefix = getFolderPrefix(aliasPath);
+      const attributeKey = `${folderPrefix}-attribute-${fieldKey}-itemLabel`;
       return messageKeys.includes(attributeKey);
     };
 
-    this.getAddItemLabel = (field, labelPrefix, verbose) => {
-      const itemLabel = this.getItemLabel(field, labelPrefix);
-      if(verbose && !this.hasAssignedItemLabel(field, labelPrefix)) {
+    this.getAddItemLabel = (field, aliasPath, verbose) => {
+      const itemLabel = this.getItemLabel(field, aliasPath);
+      if(verbose && !this.hasAssignedItemLabel(field, aliasPath)) {
         // use the attribute name for context
         // "Add Item to Libraries"
-        const attributeLabel = this.getAttributeLabel(field, labelPrefix);
+        const attributeLabel = this.getAttributeFieldLabel(field, aliasPath);
         return i18n.t('model-edit-addItemTo-label', {item: itemLabel, attribute: attributeLabel});
       } else {
         // don't need/want context
@@ -90,46 +151,48 @@ function (ko, i18n) {
       }
     };
 
-    this.getDeleteItemLabel = (field, labelPrefix) => {
-      const itemLabel = this.getItemLabel(field, labelPrefix);
+    this.getDeleteItemLabel = (field, aliasPath) => {
+      const itemLabel = this.getItemLabel(field, aliasPath);
       // "Delete Library"
       return i18n.t('model-edit-delete-label', {item: itemLabel});
     };
 
     // key/value/entry label/help for attributes of type "dict"
 
-    this.getKeyLabel = (field, labelPrefix) => {
-      return this.getAttributeMessage(field, 'keyLabel', labelPrefix);
+    this.getKeyLabel = (field, aliasPath) => {
+      return getAttributeMessage(field, 'keyLabel', aliasPath);
     };
 
-    this.getKeyHelp = (field, labelPrefix) => {
-      return this.getAttributeMessage(field, 'keyHelp', labelPrefix);
+    this.getKeyHelp = (field, aliasPath) => {
+      return getAttributeMessage(field, 'keyHelp', aliasPath);
     };
 
-    this.getValueLabel = (field, labelPrefix) => {
-      return this.getAttributeMessage(field, 'valueLabel', labelPrefix);
+    this.getValueLabel = (field, aliasPath) => {
+      return getAttributeMessage(field, 'valueLabel', aliasPath);
     };
 
-    this.getValueHelp = (field, labelPrefix) => {
-      return this.getAttributeMessage(field, 'valueHelp', labelPrefix);
+    this.getValueHelp = (field, aliasPath) => {
+      return getAttributeMessage(field, 'valueHelp', aliasPath);
     };
 
-    this.getEntryLabel = (field, labelPrefix) => {
-      return this.getAttributeMessage(field, 'entryLabel', labelPrefix);
+    this.getEntryLabel = (field, aliasPath) => {
+      return getAttributeMessage(field, 'entryLabel', aliasPath);
     };
 
-    this.hasAssignedEntryLabel = (field, labelPrefix) => {
+    this.hasAssignedEntryLabel = (field, aliasPath) => {
       // look for attribute-specific label only
-      const attributeKey = `${labelPrefix}-attribute-${field.key}-entryLabel`;
+      const fieldKey = getAttributeKey(field.attribute);
+      const folderPrefix = getFolderPrefix(aliasPath);
+      const attributeKey = `${folderPrefix}-attribute-${fieldKey}-entryLabel`;
       return messageKeys.includes(attributeKey);
     };
 
-    this.getAddEntryLabel = (field, labelPrefix, verbose) => {
-      const entryLabel = this.getEntryLabel(field, labelPrefix);
-      if(verbose && !this.hasAssignedEntryLabel(field, labelPrefix)) {
+    this.getAddEntryLabel = (field, aliasPath, verbose) => {
+      const entryLabel = this.getEntryLabel(field, aliasPath);
+      if(verbose && !this.hasAssignedEntryLabel(field, aliasPath)) {
         // use the attribute name for context
         // "Add Item to Libraries"
-        const attributeLabel = this.getAttributeLabel(field, labelPrefix);
+        const attributeLabel = this.getAttributeFieldLabel(field, aliasPath);
         return i18n.t('model-edit-addEntryTo-label', {item: entryLabel, attribute: attributeLabel});
       } else {
         // don't need/want context
@@ -138,30 +201,55 @@ function (ko, i18n) {
       }
     };
 
-    this.getDeleteEntryLabel = (field, labelPrefix) => {
-      const entryLabel = this.getEntryLabel(field, labelPrefix);
+    this.getDeleteEntryLabel = (field, aliasPath) => {
+      const entryLabel = this.getEntryLabel(field, aliasPath);
       // "Delete Library"
       return i18n.t('model-edit-delete-label', {item: entryLabel});
-    };
-
-    // check for a message at the attribute level, folder level, then top level
-    this.getAttributeMessage = (field, key, labelPrefix) => {
-      const attributeKey = `${labelPrefix}-attribute-${field.key}-${key}`;
-      const folderKey = `${labelPrefix}-anyAttribute-${key}`;
-      const genericKey = `model-edit-anyAttribute-${key}`;
-      const attributeName = this.getAttributeLabel(field, labelPrefix);
-      if(messageKeys.includes(attributeKey)) {
-        return i18n.t(attributeKey);
-      } else if(messageKeys.includes(folderKey)) {
-        return i18n.t(folderKey, {name: getReadableLabel(attributeName)});
-      } else {
-        return i18n.t(genericKey, {name: getReadableLabel(attributeName)});
-      }
     };
 
     // *******************
     // internal functions
     // *******************
+
+    function getFolderPrefix(aliasPath) {
+      return 'model-edit-f-' + aliasPath.join('_');
+    }
+
+    // check for a message at the folder level, then top level
+    function getFolderMessage (aliasPath, suffix, args) {
+      const folderPrefix = getFolderPrefix(aliasPath);
+      const folderKey =  `${folderPrefix}-${suffix}`;
+      const genericKey = `model-edit-anyFolder-${suffix}`;
+      args = args || {};
+
+      if(messageKeys.includes(folderKey)) {
+        return i18n.t(folderKey, args);
+      } else {
+        return i18n.t(genericKey, args);
+      }
+    }
+
+    function getAttributeKey(attributeName) {
+      return attributeName.replaceAll('.', '_');
+    }
+
+    // check for a message at the attribute level, folder level, then top level
+    function getAttributeMessage(field, suffix, aliasPath, args) {
+      const fieldKey = getAttributeKey(field.attribute);
+      const folderPrefix = getFolderPrefix(aliasPath);
+      const attributeKey = `${folderPrefix}-attribute-${fieldKey}-${suffix}`;
+      const folderKey = `${folderPrefix}-anyAttribute-${suffix}`;
+      const genericKey = `model-edit-anyAttribute-${suffix}`;
+      args = args || {};
+
+      if(messageKeys.includes(attributeKey)) {
+        return i18n.t(attributeKey, args);
+      } else if(messageKeys.includes(folderKey)) {
+        return i18n.t(folderKey, args);
+      } else {
+        return i18n.t(genericKey, args);
+      }
+    }
 
     function getReadableLabel(name) {
       let result = name.charAt(0);
@@ -183,7 +271,6 @@ function (ko, i18n) {
         }
         result += current;
       }
-
       return result;
     }
 

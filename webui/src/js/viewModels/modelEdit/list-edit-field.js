@@ -7,24 +7,26 @@
 
 define(['accUtils', 'knockout', 'utils/i18n', 'utils/dialog-helper','ojs/ojarraydataprovider',
   'ojs/ojbufferingdataprovider', 'utils/view-helper', 'utils/common-utilities', 'utils/modelEdit/model-edit-helper',
-  'utils/modelEdit/message-helper',
+  'utils/modelEdit/message-helper', 'utils/modelEdit/alias-helper',
   'oj-c/button', 'oj-c/input-text', 'oj-c/list-view', 'oj-c/input-password'
 ],
 function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
-  BufferingDataProvider, ViewHelper, utils, ModelEditHelper, MessageHelper) {
+  BufferingDataProvider, ViewHelper, utils, ModelEditHelper, MessageHelper, AliasHelper) {
 
   function ListEditField(args) {
+    const MODEL_PATH = args.modelPath;
     const field = args.field;
-    const labelPrefix = args.labelPrefix;
+
+    const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
 
     this.i18n = i18n;
     this.field = field;
     this.observable = args.field.observable;
     this.disabled = field.hasOwnProperty('disabled') ? field.disabled : false;
 
-    this.ariaLabel = MessageHelper.getAttributeLabel(field, labelPrefix);
-    this.addLabel = MessageHelper.getAddItemLabel(field, labelPrefix, false);
-    this.deleteLabel = MessageHelper.getDeleteItemLabel(field, labelPrefix);
+    this.ariaLabel = MessageHelper.getAttributeFieldLabel(field, ALIAS_PATH);
+    this.addLabel = MessageHelper.getAddItemLabel(field, ALIAS_PATH, false);
+    this.deleteLabel = MessageHelper.getDeleteItemLabel(field, ALIAS_PATH);
     this.noDataLabel = i18n.t('model-edit-no-items-label');
 
     const subscriptions = [];
@@ -45,7 +47,7 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
     // this is dynamic to allow i18n fields to load correctly
     this.columnData = [
       {
-        headerText: MessageHelper.getAttributeLabel(field, labelPrefix),
+        headerText: MessageHelper.getAttributeFieldLabel(field, ALIAS_PATH),
         headerClassName: 'wkt-model-edit-field-label',
         sortable: 'disable'
       },
@@ -102,7 +104,7 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
     this.addItem = () => {
       const options = {
         field: field,
-        labelPrefix: labelPrefix,
+        modelPath: MODEL_PATH,
         observableItems: this.observableItems
       };
 
