@@ -115,7 +115,7 @@ function (ko, i18n, AliasHelper) {
     };
 
     this.getAttributeHelp = (field, aliasPath) => {
-      const args = { attribute: getReadableLabel(field.attribute) };
+      const args = { attribute: this.getAttributeFieldLabel(field, aliasPath) };
       return getAttributeMessage(field, 'help', aliasPath, args);
     };
 

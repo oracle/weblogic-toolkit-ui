@@ -7,18 +7,22 @@
 
 define(['accUtils', 'knockout', 'utils/i18n', 'models/wkt-project', 'ojs/ojarraydataprovider',
   'ojs/ojbufferingdataprovider', 'utils/observable-properties', 'ojs/ojconverter-number',
-  'utils/modelEdit/model-edit-helper', 'utils/validation-helper', 'utils/view-helper',
+  'utils/modelEdit/model-edit-helper', 'utils/modelEdit/message-helper', 'utils/modelEdit/alias-helper',
+  'utils/validation-helper', 'utils/view-helper',
   'ojs/ojinputtext', 'ojs/ojlabel', 'oj-c/button', 'ojs/ojdialog', 'ojs/ojformlayout', 'oj-c/radioset',
   'ojs/ojvalidationgroup'],
 function(accUtils, ko, i18n, project, ArrayDataProvider,
   BufferingDataProvider, props, ojConverterNumber,
-  ModelEditHelper, validationHelper, viewHelper) {
+  ModelEditHelper, MessageHelper, AliasHelper, validationHelper, viewHelper) {
+
   function EditFieldDialogModel(args) {
+    const MODEL_PATH = args.modelPath;
+
+    const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
     const DIALOG_SELECTOR = '#editFieldDialog';
     const VARIABLE_NAME_REGEX= /^[\w.-]+$/;
 
     const fieldInfo = args.fieldInfo;
-    const labelPrefix = args.labelPrefix;
     const existingSecret = ModelEditHelper.getSecretName(fieldInfo.observable());
     const existingVariable = ModelEditHelper.getVariableName(fieldInfo.observable());
 
@@ -27,6 +31,11 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
       existingValue = ModelEditHelper.getVariableValue(existingVariable);
     } else if(existingSecret) {
       existingValue = null;  // should we try to get this?
+    }
+
+    if(existingValue && Array.isArray(existingValue)) {
+      // lists can be turned into variables
+      existingValue = existingValue.join(',');
     }
 
     this.i18n = i18n;
@@ -48,7 +57,7 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
     };
 
     this.getTitle = ko.computed(() => {
-      const fieldLabel = i18n.t(`${labelPrefix}-attribute-${fieldInfo.key}-label`);
+      const fieldLabel = MessageHelper.getAttributeLabel(fieldInfo.attribute, ALIAS_PATH);
       return this.labelMapper('title', {fieldLabel: fieldLabel});
     });
 
