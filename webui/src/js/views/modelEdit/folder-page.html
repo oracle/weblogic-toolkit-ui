@@ -4,3 +4,29 @@
  -->
 
 <h6><oj-bind-text value="[[getTitle()]]"></oj-bind-text></h6>
+
+<oj-bind-if test="[[attributesModuleConfig]]">
+  <div class="oj-panel">
+    <oj-module config="[[attributesModuleConfig]]"></oj-module>
+  </div>
+</oj-bind-if>
+
+<oj-bind-for-each data="[[singleFolders]]">
+  <template data-oj-as="folder">
+    <div class="oj-panel">
+      <h6 class="wkt-subheading"><oj-bind-text value="[[folder.data.title]]"></oj-bind-text></h6>
+      <h6 class="wkt-subheading"><oj-bind-text value="[[folder.data.modelPath]]"></oj-bind-text></h6>
+    </div>
+  </template>
+</oj-bind-for-each>
+
+<oj-bind-for-each data="[[multiFolders]]">
+  <template data-oj-as="folder">
+    <div class="oj-panel">
+      <h6 class="wkt-subheading"><oj-bind-text value="[[folder.data.title]]"></oj-bind-text></h6>
+      <oj-module config="[[tableModuleConfig(folder.data)]]"></oj-module>
+    </div>
+  </template>
+</oj-bind-for-each>
+
+

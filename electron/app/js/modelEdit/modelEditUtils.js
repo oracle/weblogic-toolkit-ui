@@ -73,15 +73,18 @@ function addPaths(aliasFolder, path, pathMap) {
     };
   }
 
-  pathMap[path] = {
-    isMultiple,
-    attributes
-  };
-
+  const folders = [];
   for(const [key, value] of Object.entries(aliasFolder['folders'])) {
     const newPath = path + '/' + key;
     addPaths(value, newPath, pathMap);
+    folders.push(key);
   }
+
+  pathMap[path] = {
+    isMultiple,
+    attributes,
+    folders
+  };
 }
 
 module.exports = {

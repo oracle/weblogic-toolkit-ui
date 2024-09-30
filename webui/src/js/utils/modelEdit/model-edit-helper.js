@@ -180,6 +180,16 @@ function (ko, i18n, jsYaml, project, utils,
       });
     };
 
+    this.createElementTableModuleConfig = (modelPath, summaryAttributes) => {
+      return ModuleElementUtils.createConfig({
+        name: 'modelEdit/elements-table',
+        params: {
+          modelPath,
+          summaryAttributes
+        }
+      });
+    };
+
     this.getRemainingFieldNames = (fieldMap, knownFieldNames) => {
       const remainingNames = [];
       Object.keys(fieldMap).forEach(key => {

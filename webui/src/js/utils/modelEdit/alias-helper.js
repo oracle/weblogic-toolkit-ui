@@ -126,6 +126,16 @@ define(['knockout', 'utils/i18n', 'utils/wkt-logger'],
         }
         return null;
       };
+
+      this.getFolderNames = modelPath => {
+        const aliasData = this.aliasData();
+        if(aliasData) {
+          const aliasPath = this.getAliasPath(modelPath);
+          const node = aliasData.paths[aliasPath.join('/')];
+          return node['folders'];
+        }
+        return null;
+      };
     }
 
     // return a singleton instance

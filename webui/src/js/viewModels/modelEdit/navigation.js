@@ -150,21 +150,38 @@ function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, NavigationHelper, Mes
         page: 'domainInfo/domainInfo',
         children: [
           {
-            name: this.labelMapper('opss-initialization-label'),
-            id: 'opss-initialization-id',
-            icon: 'oj-ux-ico-file'
+            modelPath: ['domainInfo', 'OPSSInitialization'],
+            icon: 'oj-ux-ico-file',
+            page: '../empty-view',
+            children: [
+              {
+                icon: 'oj-ux-ico-list',
+                modelPath: ['domainInfo', 'OPSSInitialization', 'Credential'],
+                summaryAttributes: {}
+              },
+            ]
           },
           {
-            // name: this.labelMapper('rcudbinfo-label'),
-            // id: 'rcu-db-info-id',
             modelPath: ['domainInfo', 'RCUDbInfo'],
             icon: 'oj-ux-ico-file',
             page: 'domainInfo/rcu-db-info'
           },
           {
-            name: this.labelMapper('wls-credential-mapping-label'),
-            id: 'wls-credential-mapping-id',
-            icon: 'oj-ux-ico-file'
+            modelPath: ['domainInfo', 'WLSUserPasswordCredentialMappings'],
+            icon: 'oj-ux-ico-file',
+            page: '../empty-view',
+            children: [
+              {
+                icon: 'oj-ux-ico-list',
+                modelPath: ['domainInfo', 'WLSUserPasswordCredentialMappings', 'CrossDomain'],
+                summaryAttributes: {}
+              },
+              {
+                icon: 'oj-ux-ico-list',
+                modelPath: ['domainInfo', 'WLSUserPasswordCredentialMappings', 'RemoteResource'],
+                summaryAttributes: {}
+              }
+            ]
           },
           {
             modelPath: ['domainInfo', 'WLSPolicies'],

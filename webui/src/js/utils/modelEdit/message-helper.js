@@ -14,7 +14,7 @@ function (ko, i18n, AliasHelper) {
 
     basePrefix = model-edit
     folderPrefix = <base-prefix>-<folderKey>-<subfolderKey>...
-    attributePrefix = <folderPrefix>-attribute-<attributeKey>
+    attributePrefix = <folderPrefix>-a-<attributeKey>
 
     folderLabel = <folderPrefix>-label (required, can be derived)
 
@@ -113,7 +113,7 @@ function (ko, i18n, AliasHelper) {
       // if none is available, i18n will log to webui.missing.json, and we return a readable name.
       const attributeKey = getAttributeKey(attributeName);
       const folderPrefix = getFolderPrefix(aliasPath);
-      const key = `${folderPrefix}-attribute-${attributeKey}-label`;
+      const key = `${folderPrefix}-a-${attributeKey}-label`;
       const label = i18n.t(key);
       return (label === key) ? getReadableLabel(attributeName) : label;
     };
@@ -240,7 +240,7 @@ function (ko, i18n, AliasHelper) {
     function getAttributeMessage(field, suffix, aliasPath, args) {
       const fieldKey = getAttributeKey(field.attribute);
       const folderPrefix = getFolderPrefix(aliasPath);
-      const attributeKey = `${folderPrefix}-attribute-${fieldKey}-${suffix}`;
+      const attributeKey = `${folderPrefix}-a-${fieldKey}-${suffix}`;
       const folderKey = `${folderPrefix}-anyAttribute-${suffix}`;
       const genericKey = `model-edit-anyAttribute-${suffix}`;
       args = args || {};
@@ -258,7 +258,7 @@ function (ko, i18n, AliasHelper) {
       // look for attribute-specific message only
       const fieldKey = getAttributeKey(field.attribute);
       const folderPrefix = getFolderPrefix(aliasPath);
-      const attributeKey = `${folderPrefix}-attribute-${fieldKey}-${suffix}`;
+      const attributeKey = `${folderPrefix}-a-${fieldKey}-${suffix}`;
       return messageKeys.includes(attributeKey);
     }
 

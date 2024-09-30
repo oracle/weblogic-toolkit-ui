@@ -842,6 +842,10 @@ h6.wkt-panel-heading {
   padding-left: 2em !important;
 }
 
+.wkt-model-editor-nav-list .oj-navigationlist-depth-3 .oj-navigationlist-item-content {
+  padding-left: 3em !important;
+}
+
 .wkt-model-edit-field-container {
   display: flex;
   align-items: center;
