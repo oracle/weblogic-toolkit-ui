@@ -9,7 +9,8 @@ const fsPromises = require('fs/promises');
 const JSZip = require('jszip');
 const { getWdtLibraryJar } = require('../wktTools');
 const fs = require('fs');
-const path = require("path");
+const path = require('path');
+const metadata = require('./model.json');
 
 async function getAliasInfo() {
   const WDT_ALIAS_REGEX= /^oracle\/weblogic\/deploy\/aliases\/category_modules\/(.*)\.json$/;
@@ -36,6 +37,10 @@ async function getAliasInfo() {
   }
 
   return result;
+}
+
+function getMetadata() {
+  return metadata;
 }
 
 function getMessageKeys() {
@@ -90,4 +95,5 @@ function addPaths(aliasFolder, path, pathMap) {
 module.exports = {
   getAliasInfo,
   getMessageKeys,
+  getMetadata
 };

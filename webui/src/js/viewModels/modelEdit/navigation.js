@@ -156,8 +156,7 @@ function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, NavigationHelper, Mes
             children: [
               {
                 icon: 'oj-ux-ico-list',
-                modelPath: ['domainInfo', 'OPSSInitialization', 'Credential'],
-                summaryAttributes: {}
+                modelPath: ['domainInfo', 'OPSSInitialization', 'Credential']
               },
             ]
           },
@@ -173,29 +172,21 @@ function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, NavigationHelper, Mes
             children: [
               {
                 icon: 'oj-ux-ico-list',
-                modelPath: ['domainInfo', 'WLSUserPasswordCredentialMappings', 'CrossDomain'],
-                summaryAttributes: {}
+                modelPath: ['domainInfo', 'WLSUserPasswordCredentialMappings', 'CrossDomain']
               },
               {
                 icon: 'oj-ux-ico-list',
-                modelPath: ['domainInfo', 'WLSUserPasswordCredentialMappings', 'RemoteResource'],
-                summaryAttributes: {}
+                modelPath: ['domainInfo', 'WLSUserPasswordCredentialMappings', 'RemoteResource']
               }
             ]
           },
           {
             modelPath: ['domainInfo', 'WLSPolicies'],
-            icon: 'oj-ux-ico-file',
-            summaryAttributes: {
-              ResourceID: {}
-            }
+            icon: 'oj-ux-ico-file'
           },
           {
             modelPath: ['domainInfo', 'WLSRoles'],
-            icon: 'oj-ux-ico-file',
-            summaryAttributes: {
-              Expression: {}
-            }
+            icon: 'oj-ux-ico-file'
           }
         ]
       },
@@ -208,21 +199,12 @@ function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, NavigationHelper, Mes
           {
             icon: 'oj-ux-ico-list',
             childPage: 'topology/server',
-            modelPath: ['topology', 'Server'],
-            summaryAttributes: {
-              Cluster: {},
-              ListenPort: {},
-              'SSL/ListenPort': {}
-            }
+            modelPath: ['topology', 'Server']
           },
           {
             icon: 'oj-ux-ico-list',
             childPage: 'topology/cluster',
-            modelPath: ['topology', 'Cluster'],
-            summaryAttributes: {
-              ClusterAddress: {},
-              ClusterMessagingMode: {}
-            }
+            modelPath: ['topology', 'Cluster']
           }
         ]
       },
@@ -235,10 +217,7 @@ function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, NavigationHelper, Mes
           {
             icon: 'oj-ux-ico-list',
             childPage: 'resources/datasource',
-            modelPath: ['resources', 'JDBCSystemResource'],
-            summaryAttributes: {
-              DeploymentOrder: {}
-            }
+            modelPath: ['resources', 'JDBCSystemResource']
           }
         ]
       },
@@ -251,18 +230,12 @@ function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, NavigationHelper, Mes
           {
             icon: 'oj-ux-ico-list',
             childPage: 'deployments/application',
-            modelPath: ['appDeployments', 'Application'],
-            summaryAttributes: {
-              SourcePath: {}
-            }
+            modelPath: ['appDeployments', 'Application']
           },
           {
             icon: 'oj-ux-ico-list',
             childPage: 'deployments/library',
-            modelPath: ['appDeployments', 'Library'],
-            summaryAttributes: {
-              SourcePath: {}
-            }
+            modelPath: ['appDeployments', 'Library']
           }
         ]
       }

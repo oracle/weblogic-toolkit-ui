@@ -27,7 +27,8 @@ function(accUtils, i18n, MessageHelper, ModuleElementUtils) {
         name: 'modelEdit/elements-table',
         params: {
           modelPath: this.modelPath,
-          summaryAttributes: this.summaryAttributes
+          summaryAttributes: this.summaryAttributes,
+          menuLink: true
         }
       });
     };

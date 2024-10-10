@@ -1,0 +1,57 @@
+{
+  "OPSSInitialization/Credential/TargetKey": {
+    "summaryAttributes": {
+      "Username": {}
+    },
+    "attributeGroups": [
+      {
+        "members": {
+          "Username": {}
+        },
+        "remainder": true
+      }
+    ]
+  },
+  "WLSPolicies": {
+    "summaryAttributes": {
+      "ResourceID": {}
+    }
+  },
+  "WLSRoles": {
+    "summaryAttributes": {
+      "Expression": {}
+    }
+  },
+  "WLSUserPasswordCredentialMappings": {},
+
+  "Cluster": {
+    "summaryAttributes": {
+      "ClusterAddress": {},
+      "ClusterMessagingMode": {}
+    }
+  },
+  "Server": {
+    "summaryAttributes": {
+      "Cluster": {},
+      "ListenPort": {},
+      "SSL/ListenPort": {}
+    }
+  },
+
+  "JDBCSystemResource": {
+    "summaryAttributes": {
+      "DeploymentOrder": {}
+    }
+  },
+
+  "Application": {
+    "summaryAttributes": {
+      "SourcePath": {}
+    }
+  },
+  "Library": {
+    "summaryAttributes": {
+      "SourcePath": {}
+    }
+  }
+}

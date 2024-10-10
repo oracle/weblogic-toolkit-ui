@@ -7,16 +7,16 @@
 
 define(['accUtils', 'utils/i18n', 'knockout', 'utils/modelEdit/model-edit-helper',
   'utils/modelEdit/message-helper', 'utils/modelEdit/navigation-helper', 'utils/modelEdit/alias-helper',
-  'utils/dialog-helper', 'utils/view-helper', 'ojs/ojarraydataprovider',
+  'utils/dialog-helper', 'utils/view-helper', 'utils/modelEdit/meta-helper', 'ojs/ojarraydataprovider',
   'ojs/ojtable', 'oj-c/button', 'oj-c/labelled-link'
 ],
 function(accUtils, i18n, ko, ModelEditHelper, MessageHelper, NavigationHelper, AliasHelper, DialogHelper,
-  ViewHelper, ArrayDataProvider) {
+  ViewHelper, MetaHelper, ArrayDataProvider) {
 
   function ElementsTableViewModel(args) {
     const MODEL_PATH = args.modelPath;
     const NAME_VALIDATORS = args.nameValidators;
-    const ATTRIBUTES = args.summaryAttributes || {};
+    const MENU_LINK = args.menuLink;
 
     const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
 
@@ -43,7 +43,8 @@ function(accUtils, i18n, ko, ModelEditHelper, MessageHelper, NavigationHelper, A
       });
     };
 
-    this.attributes = Object.keys(ATTRIBUTES);
+    this.summaryAttributes = MetaHelper.getMetadata(ALIAS_PATH)['summaryAttributes'] || {};
+    this.attributes = Object.keys(this.summaryAttributes);
 
     this.elements = ko.observableArray();
 
@@ -55,7 +56,7 @@ function(accUtils, i18n, ko, ModelEditHelper, MessageHelper, NavigationHelper, A
           uid: key,
           name: key,
         };
-        for (const [attKey, attValue] of Object.entries(ATTRIBUTES)) {
+        for (const [attKey, attValue] of Object.entries(this.summaryAttributes)) {
           let attributeKey = attKey;
           let modelElementFolder = value || {};
 
@@ -84,7 +85,7 @@ function(accUtils, i18n, ko, ModelEditHelper, MessageHelper, NavigationHelper, A
       }
     ];
 
-    for (const [attribute, options] of Object.entries(ATTRIBUTES)) {
+    for (const [attribute, options] of Object.entries(this.summaryAttributes)) {
       const typeKey = options['typeKey'];  // ???
       let attributeName = attribute;
       let aliasPath = [...ALIAS_PATH];
@@ -138,9 +139,21 @@ function(accUtils, i18n, ko, ModelEditHelper, MessageHelper, NavigationHelper, A
       ModelEditHelper.deleteElement(MODEL_PATH, key);
     };
 
-    this.navigateToElement = (event, context) => {
-      NavigationHelper.openNavigation(MODEL_PATH);
-      NavigationHelper.navigateToElement(MODEL_PATH, context.item.data.name);
+    this.editElement = (event, context) => {
+      if(MENU_LINK) {
+        NavigationHelper.openNavigation(MODEL_PATH);
+        NavigationHelper.navigateToElement(MODEL_PATH, context.item.data.name);
+
+      } else {
+        const elementPath = [...MODEL_PATH, context.item.data.name];
+        const options = { modelPath: elementPath, add: false };
+
+        DialogHelper.promptDialog('modelEdit/folder-dialog', options).then(result => {
+          if (result) {
+
+          }
+        });
+      }
     };
   }
 

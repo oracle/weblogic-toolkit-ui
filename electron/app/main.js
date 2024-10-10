@@ -364,6 +364,11 @@ class Main {
       return modelEditUtils.getMessageKeys();
     });
 
+    // model edit
+    ipcMain.handle('get-model-edit-metadata', () => {
+      return modelEditUtils.getMetadata();
+    });
+
     ipcMain.handle('get-jdk-installer-location', async (event) => {
       const title = i18n.t('dialog-getJdkInstaller');
       return chooseFromFileSystem(event.sender.getOwnerBrowserWindow(), {

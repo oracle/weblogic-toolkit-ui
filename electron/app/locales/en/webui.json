@@ -22,6 +22,7 @@
   "dialog-button-yes": "Yes",
   "dialog-button-no": "No",
   "dialog-button-delete": "Delete",
+  "dialog-button-close": "Close",
   "docker-hub": "Docker Hub",
 
   "script-selector-label": "Shell Script Type",
