@@ -11,9 +11,10 @@ define(['accUtils', 'knockout', 'utils/i18n', 'models/wkt-project',
   'oj-c/input-text', 'oj-c/button', 'ojs/ojdialog', 'ojs/ojvalidationgroup'],
 function(accUtils, ko, i18n, project,
   ModelEditHelper, MessageHelper, AliasHelper, validationHelper, viewHelper) {
-  function NewElementDialogModel(args) {
-    const DIALOG_SELECTOR = '#newElementDialog';
-    const ELEMENT_NAME_REGEX= /^[\w.!-]+$/;
+
+  function NewInstanceDialogModel(args) {
+    const DIALOG_SELECTOR = '#newInstanceDialog';
+    const INSTANCE_NAME_REGEX= /^[\w.!-]+$/;
 
     const MODEL_PATH = args.modelPath;
     const NAME_VALIDATORS = args.nameValidators;
@@ -21,13 +22,13 @@ function(accUtils, ko, i18n, project,
     const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
 
     this.i18n = i18n;
-    this.elementName = ko.observable();
-    this.title = MessageHelper.getAddElementMessage(ALIAS_PATH);
-    this.nameLabel = MessageHelper.getElementNameLabel(ALIAS_PATH);
-    this.helpLabel = MessageHelper.getElementNameHelp(ALIAS_PATH);
+    this.instanceName = ko.observable();
+    this.title = MessageHelper.getAddInstanceMessage(ALIAS_PATH);
+    this.nameLabel = MessageHelper.getInstanceNameLabel(ALIAS_PATH);
+    this.helpLabel = MessageHelper.getInstanceNameHelp(ALIAS_PATH);
 
     this.connected = () => {
-      accUtils.announce('New element dialog loaded.', 'assertive');
+      accUtils.announce('New instance dialog loaded.', 'assertive');
 
       this.dialogContainer = $(DIALOG_SELECTOR)[0];
 
@@ -47,8 +48,8 @@ function(accUtils, ko, i18n, project,
     } else {
       this.nameValidators.push({
         validate: (value) => {
-          if (!ELEMENT_NAME_REGEX.test(value)) {
-            const message = i18n.t('model-edit-new-element-name-error');
+          if (!INSTANCE_NAME_REGEX.test(value)) {
+            const message = i18n.t('model-edit-new-instance-name-error');
             throw new Error(message);
           }
         }
@@ -56,7 +57,7 @@ function(accUtils, ko, i18n, project,
     }
 
     this.nameValidators.push({
-      // always check against peer elements
+      // always check against peer instance names
       validate: () => {
         // TODO: test against existing names
       }
@@ -75,7 +76,7 @@ function(accUtils, ko, i18n, project,
       this.dialogContainer.close();
 
       const result = {
-        elementName: this.elementName()
+        instanceName: this.instanceName()
       };
 
       args.setValue(result);
@@ -90,5 +91,5 @@ function(accUtils, ko, i18n, project,
   /*
    * Returns a constructor for the ViewModel.
    */
-  return NewElementDialogModel;
+  return NewInstanceDialogModel;
 });

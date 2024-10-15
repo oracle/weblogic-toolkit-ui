@@ -77,7 +77,7 @@ function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, NavigationHelper, Mes
 
           if(AliasHelper.isMultiplePath(navEntry.modelPath)) {
             navEntry.children = navEntry.children || ko.observableArray();
-            navEntry.page = navEntry.page || 'elements-page';
+            navEntry.page = navEntry.page || 'instances-page';
             navEntry.childPage = navEntry.childPage || 'folder-page';
           }
         }

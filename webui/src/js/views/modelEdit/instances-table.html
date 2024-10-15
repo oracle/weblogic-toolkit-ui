@@ -3,22 +3,22 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 
-<oj-table id="elements-table"
-          class="wkt-model-edit-elements-table"
+<oj-table id="instances-table"
+          class="wkt-model-edit-instances-table"
           :aria-label="[[ariaLabel]]"
-          data="[[elementsProvider]]"
+          data="[[instancesProvider]]"
           display="grid"
           horizontal-grid-visible="enabled"
           vertical-grid-visible="enabled"
           layout="fixed"
-          columns="[[elementsColumnData]]">
+          columns="[[instancesColumnData]]">
   <template slot="rowTemplate" data-oj-as="row">
     <tr>
       <td>
         <oj-c-labelled-link
           text="[[row.data.name]]"
           label-hint=""
-          on-oj-action="[[editElement]]"
+          on-oj-action="[[editInstance]]"
         >
         </oj-c-labelled-link>
       </td>
@@ -31,7 +31,7 @@
         <oj-c-button display="icons"
                      chroming="borderless"
                      label="[[deleteLabel]]"
-                     on-oj-action="[[deleteElement]]">
+                     on-oj-action="[[deleteInstance]]">
           <span slot="endIcon" class="oj-ux-ico-trash"></span>
         </oj-c-button>
       </td>
@@ -41,7 +41,7 @@
     <oj-c-button display="icons"
                  chroming="borderless"
                  label="[[addLabel]]"
-                 on-oj-action="[[addElement]]">
+                 on-oj-action="[[addInstance]]">
       <span slot="endIcon" class="oj-ux-ico-plus"></span>
     </oj-c-button>
   </template>

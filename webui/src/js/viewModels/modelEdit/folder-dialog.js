@@ -5,16 +5,21 @@
  */
 'use strict';
 
-define(['accUtils', 'knockout', 'utils/i18n', 'models/wkt-project', 'utils/modelEdit/message-helper',
-  'ojs/ojmodule-element-utils', 'ojs/ojarraydataprovider', 'ojs/ojbufferingdataprovider',
-  'utils/observable-properties', 'ojs/ojconverter-number', 'utils/validation-helper',
+define(['accUtils', 'knockout', 'utils/i18n', 'models/wkt-project', 'utils/modelEdit/model-edit-helper',
+  'utils/modelEdit/message-helper', 'ojs/ojmodule-element-utils', 'ojs/ojarraydataprovider',
+  'ojs/ojbufferingdataprovider', 'utils/observable-properties', 'ojs/ojconverter-number', 'utils/validation-helper',
   'utils/view-helper', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojdialog',
   'ojs/ojformlayout', 'ojs/ojvalidationgroup'],
-function(accUtils, ko, i18n, project, MessageHelper, ModuleElementUtils, ArrayDataProvider,
+function(accUtils, ko, i18n, project, ModelEditHelper, MessageHelper, ModuleElementUtils, ArrayDataProvider,
   BufferingDataProvider, props, ojConverterNumber, validationHelper, viewHelper) {
+
   function FolderDialogModel(args) {
+    // for model folders with multiple instances, usually below thh navigation tree level.
+    // display folder content (attributes, single folders, multiple folders).
+
     const DIALOG_SELECTOR = '#modelEditFolderDialog';
     const MODEL_PATH = args.modelPath;
+    const IS_MULTIPLE = args.multiple;
     const IS_ADD = args.add;
 
     this.connected = () => {
@@ -39,7 +44,10 @@ function(accUtils, ko, i18n, project, MessageHelper, ModuleElementUtils, ArrayDa
 
     this.i18n = i18n;
 
-    this.close = () => {
+    // such as "myServer" for "Server/myServer"
+    this.instanceName = ko.observable();
+
+    this.ok = () => {
       let tracker = document.getElementById('domainTracker');
       if (tracker.valid !== 'valid') {
         // show messages on all the components that have messages hidden.
@@ -48,17 +56,24 @@ function(accUtils, ko, i18n, project, MessageHelper, ModuleElementUtils, ArrayDa
         return;
       }
 
+      ModelEditHelper.replaceModel(this.modelCopy);
+
       this.dialogContainer.close();
-
-      const result = {uid: 'XXX'};
-
-      args.setValue(result);
+      args.setValue({});
     };
+
+    this.cancel = () => {
+      this.dialogContainer.close();
+      args.setValue({});
+    };
+
+    this.modelCopy = ModelEditHelper.getModelCopy();
 
     this.folderContentModuleConfig = ModuleElementUtils.createConfig({
       name: 'modelEdit/folder-content',
       params: {
         modelPath: MODEL_PATH,
+        model: this.modelCopy
       }
     });
   }

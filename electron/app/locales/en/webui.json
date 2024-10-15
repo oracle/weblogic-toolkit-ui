@@ -1868,10 +1868,10 @@
   "model-edit-anyAttribute-valueLabel": "Value",
   "model-edit-anyAttribute-valueHelp": "Value for this entry",
 
-  "model-edit-anyFolder-elementLabel": "Element",
-  "model-edit-anyFolder-noDataLabel": "No elements",
-  "model-edit-anyFolder-nameLabel": "{{element}} Name",
-  "model-edit-anyFolder-nameHelp": "Name of the {{element}}",
+  "model-edit-anyFolder-typeLabel": "Instance",
+  "model-edit-anyFolder-noDataLabel": "No instances",
+  "model-edit-anyFolder-nameLabel": "{{folderType}} Name",
+  "model-edit-anyFolder-nameHelp": "Name of the {{folderType}}",
 
   "model-edit-field-dialog-title": "Options for {{fieldLabel}}",
   "model-edit-field-dialog-label": "Choose an option",
@@ -1895,12 +1895,12 @@
   "model-edit-field-dialog-variable-value-label": "Variable Value",
   "model-edit-field-dialog-variable-value-help": "Value of variable for field",
 
-  "model-edit-new-element-name-error": "Name may only contain letters, numbers, and these characters: .-_!",
+  "model-edit-new-instance-name-error": "Name may only contain letters, numbers, and these characters: .-_!",
 
   "model-edit-table-name-label": "Name",
 
   "model-edit-f-Application-label": "Applications",
-  "model-edit-f-Application-elementLabel": "Application",
+  "model-edit-f-Application-typeLabel": "Application",
   "model-edit-f-Application-noDataLabel": "No applications specified",
   "model-edit-f-Application-nameLabel": "Application Name",
   "model-edit-f-Application-nameHelp": "Name of the application",
@@ -1909,7 +1909,7 @@
   "model-edit-f-Application-a-SourcePath-label": "Source Path",
 
   "model-edit-f-Cluster-label": "Clusters",
-  "model-edit-f-Cluster-elementLabel": "Cluster",
+  "model-edit-f-Cluster-typeLabel": "Cluster",
   "model-edit-f-Cluster-noDataLabel": "No clusters specified",
   "model-edit-f-Cluster-nameLabel": "Cluster Name",
   "model-edit-f-Cluster-nameHelp": "Name of cluster",
@@ -1920,7 +1920,7 @@
   "model-edit-f-Cluster-a-Notes-label": "Notes",
 
   "model-edit-f-JDBCSystemResource-label": "Datasources",
-  "model-edit-f-JDBCSystemResource-elementLabel": "Datasource",
+  "model-edit-f-JDBCSystemResource-typeLabel": "Datasource",
   "model-edit-f-JDBCSystemResource-nameLabel": "Datasource Name",
   "model-edit-f-JDBCSystemResource-nameHelp": "Name of the datasource",
   "model-edit-f-JDBCSystemResource-noDataLabel": "No datasources specified",
@@ -1960,7 +1960,7 @@
   "model-edit-f-DomainInfo-a-domainLibraries-itemHelp": "Path to domain library",
 
   "model-edit-f-Library-label": "Libraries",
-  "model-edit-f-Library-elementLabel": "Library",
+  "model-edit-f-Library-typeLabel": "Library",
   "model-edit-f-Library-noDataLabel": "No libraries specified",
   "model-edit-f-Library-nameLabel": "Library Name",
   "model-edit-f-Library-nameHelp": "Name of library",
@@ -1969,11 +1969,11 @@
 
   "model-edit-f-OPSSInitialization-label": "OPSS Initialization",
   "model-edit-f-OPSSInitialization_Credential-label": "Credentials",
-  "model-edit-f-OPSSInitialization_Credential-elementLabel": "Credential",
+  "model-edit-f-OPSSInitialization_Credential-typeLabel": "Credential",
   "model-edit-f-OPSSInitialization_Credential-nameHelp": "Name of the credential",
   "model-edit-f-OPSSInitialization_Credential-noDataLabel": "No credentials specified",
   "model-edit-f-OPSSInitialization_Credential_TargetKey-label": "Target Keys",
-  "model-edit-f-OPSSInitialization_Credential_TargetKey-elementLabel": "Target Key",
+  "model-edit-f-OPSSInitialization_Credential_TargetKey-typeLabel": "Target Key",
   "model-edit-f-OPSSInitialization_Credential_TargetKey-nameHelp": "Name of the target key",
   "model-edit-f-OPSSInitialization_Credential_TargetKey-noDataLabel": "No target keys specified",
 
@@ -2013,7 +2013,7 @@
   "model-edit-server-ssl-title": "SSL",
 
   "model-edit-f-Server-label": "Servers",
-  "model-edit-f-Server-elementLabel": "Server",
+  "model-edit-f-Server-typeLabel": "Server",
   "model-edit-f-Server-noDataLabel": "No servers specified",
   "model-edit-f-Server-nameLabel": "Server Name",
   "model-edit-f-Server-nameHelp": "Name of the new server",
@@ -2030,20 +2030,20 @@
   "model-edit-f-Server_SSL-a-Enabled-label": "SSL Enabled",
 
   "model-edit-f-WLSPolicies-label": "WLS Policies",
-  "model-edit-f-WLSPolicies-elementLabel": "WLS Policy",
+  "model-edit-f-WLSPolicies-typeLabel": "WLS Policy",
   "model-edit-f-WLSPolicies-a-ResourceID-label": "Resource ID",
 
   "model-edit-f-WLSRoles-label": "WLS Roles",
-  "model-edit-f-WLSRoles-elementLabel": "WLS Role",
+  "model-edit-f-WLSRoles-typeLabel": "WLS Role",
   "model-edit-f-WLSRoles-a-Expression-label": "Expression",
 
   "model-edit-f-WLSUserPasswordCredentialMappings-label": "WLS Credential Mappings",
   "model-edit-f-WLSUserPasswordCredentialMappings_CrossDomain-label": "Cross-Domain Mappings",
-  "model-edit-f-WLSUserPasswordCredentialMappings_CrossDomain-elementLabel": "Cross-Domain Mapping",
+  "model-edit-f-WLSUserPasswordCredentialMappings_CrossDomain-typeLabel": "Cross-Domain Mapping",
   "model-edit-f-WLSUserPasswordCredentialMappings_CrossDomain-nameHelp": "Name of the cross-domain mapping",
   "model-edit-f-WLSUserPasswordCredentialMappings_CrossDomain-noDataLabel": "No cross-domain mappings specified",
   "model-edit-f-WLSUserPasswordCredentialMappings_RemoteResource-label": "Remote Resource Mappings",
-  "model-edit-f-WLSUserPasswordCredentialMappings_RemoteResource-elementLabel": "Remote Resource Mapping",
+  "model-edit-f-WLSUserPasswordCredentialMappings_RemoteResource-typeLabel": "Remote Resource Mapping",
   "model-edit-f-WLSUserPasswordCredentialMappings_RemoteResource-nameHelp": "Name of the remote resource mapping",
   "model-edit-f-WLSUserPasswordCredentialMappings_RemoteResource-noDataLabel": "No remote resource mappings specified"
 }

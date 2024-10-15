@@ -13,8 +13,11 @@
   </div>
 
   <div slot="footer">
-    <oj-button id="okButton" on-oj-action="[[close]]">
-      <span><oj-bind-text value="[[i18n.t('dialog-button-close')]]"></oj-bind-text></span>
+    <oj-button id="okButton" on-oj-action="[[ok]]">
+      <span><oj-bind-text value="[[i18n.t('dialog-button-ok')]]"></oj-bind-text></span>
+    </oj-button>
+    <oj-button id="cancelButton" on-oj-action="[[cancel]]">
+      <span><oj-bind-text value="[[i18n.t('dialog-button-cancel')]]"></oj-bind-text></span>
     </oj-button>
   </div>
 </oj-dialog>

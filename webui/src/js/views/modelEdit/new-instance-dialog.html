@@ -2,7 +2,7 @@
  Copyright (c) 2024, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
-<oj-dialog id="newElementDialog" class="wkt-model-edit-field-dialog" initial-visibility="hide">
+<oj-dialog id="newInstanceDialog" class="wkt-model-edit-field-dialog" initial-visibility="hide">
   <div slot="header">
     <span id="dialog-title-id" class="oj-dialog-title"><oj-bind-text value="[[title]]"></oj-bind-text></span>
   </div>
@@ -13,7 +13,7 @@
           class="wkt-model-edit-field-stacked"
           label-hint="[[nameLabel]]"
           help.instruction="[[helpLabel]]"
-          value="{{elementName}}"
+          value="{{instanceName}}"
           required="true"
           validators="[[nameValidators]]"
         >

@@ -44,23 +44,28 @@ function (ko, i18n, jsYaml, project, utils,
       project.wdtModel.modelContent(jsYaml.dump(this.getCurrentModel(), {}));
     };
 
-    this.addElement = (path, key) => {
+    // add an empty folder and return the folder
+    this.addFolder = (path, key) => {
       const folder = findOrCreatePath(this.getCurrentModel(), path);
-      const newElement = {};
-      folder[key] = newElement;
+      const newFolder = {};
+      folder[key] = newFolder;
       this.writeModel();
-      return newElement;
+      return newFolder;
     };
 
-    this.deleteElement = (modelPath, key) => {
-      const modelFolder = this.getFolder(modelPath);
+    // delete the specified folder or attribute
+    this.deleteModelElement = (modelPath, key, temp_model) => {
+      const modelFolder = this.getFolder(modelPath, temp_model);
       delete modelFolder[key];
-      this.deleteIfEmpty(modelPath);
-      this.writeModel();
+      this.deleteIfEmpty(modelPath, temp_model);
+      if(!temp_model) {
+        this.writeModel();
+      }
     };
 
-    this.getFolder = (path) => {
-      return this.getChildFolder(this.getCurrentModel(), path);
+    this.getFolder = (path, temp_model) => {
+      const edit_model = temp_model || this.getCurrentModel();
+      return this.getChildFolder(edit_model, path);
     };
 
     this.getChildFolder = (parent, path) => {
@@ -80,23 +85,32 @@ function (ko, i18n, jsYaml, project, utils,
       return folder[attribute];
     };
 
-    this.deleteIfEmpty = modelPath => {
+    this.deleteIfEmpty = (modelPath, temp_model) => {
       if(!AliasHelper.isNamedPath(modelPath)) {
-        const folder = this.getFolder(modelPath);
+        const folder = this.getFolder(modelPath, temp_model);
         if (Object.keys(folder).length === 0) {
           const folderKey = modelPath[modelPath.length - 1];
           const parentPath = modelPath.slice(0, -1);
-          const parentFolder = this.getFolder(parentPath);
+          const parentFolder = this.getFolder(parentPath, temp_model);
           delete parentFolder[folderKey];
 
           if (parentPath.length > 0) {
-            this.deleteIfEmpty(parentPath);
+            this.deleteIfEmpty(parentPath, temp_model);
           }
         }
       }
     };
 
-    this.getDomainName = ()=> {
+    this.getModelCopy = () => {
+      return structuredClone(this.modelObject());
+    };
+
+    this.replaceModel = newModel=> {
+      this.modelObject(newModel);
+      this.writeModel();
+    };
+
+    this.getDomainName = () => {
       const domainName = this.getValue(['topology'], 'Name');
       return domainName || 'base_domain';
     };
@@ -118,7 +132,8 @@ function (ko, i18n, jsYaml, project, utils,
         validators (for controls)
      */
 
-    this.createAliasFieldMap = (modelPath, fieldOverrides, subscriptions) => {
+    this.createAliasFieldMap = (modelPath, fieldOverrides, subscriptions, temp_model) => {
+      const edit_model = temp_model || this.getCurrentModel();
       const fieldMap = {};
 
       const attributesMap = AliasHelper.getAttributesMap(modelPath);
@@ -139,9 +154,9 @@ function (ko, i18n, jsYaml, project, utils,
 
         subscriptions.push(field.observable.subscribe(newValue => {
           if(newValue === null) {
-            this.deleteElement(field.path, field.attribute);
+            this.deleteModelElement(field.path, field.attribute);
           } else {
-            const folder = findOrCreatePath(this.getCurrentModel(), field.path);
+            const folder = findOrCreatePath(edit_model, field.path);
             folder[field.attribute] = getModelValue(newValue, field);
           }
           this.writeModel();
@@ -180,9 +195,9 @@ function (ko, i18n, jsYaml, project, utils,
       });
     };
 
-    this.createElementTableModuleConfig = (modelPath, summaryAttributes) => {
+    this.createInstancesTableModuleConfig = (modelPath, summaryAttributes) => {
       return ModuleElementUtils.createConfig({
-        name: 'modelEdit/elements-table',
+        name: 'modelEdit/instances-table',
         params: {
           modelPath,
           summaryAttributes

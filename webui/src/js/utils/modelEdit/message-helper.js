@@ -44,7 +44,7 @@ function (ko, i18n, AliasHelper) {
       if(AliasHelper.isNamedPath(modelPath)) {
         const name = modelPath[modelPath.length - 1];
         if(hasAssignedFolderMessage(aliasPath, 'elementLabel')) {
-          return `${this.getElementLabel(aliasPath)} ${name}`;
+          return `${this.getFolderTypeLabel(aliasPath)} ${name}`;
         }
         return `${this.getFolderLabel(aliasPath)} / ${modelPath[modelPath.length - 1]}`;
       }
@@ -67,13 +67,13 @@ function (ko, i18n, AliasHelper) {
       return label;
     };
 
-    this.getAddElementMessage = aliasPath => {
-      const label = this.getElementLabel(aliasPath);
+    this.getAddInstanceMessage = aliasPath => {
+      const label = this.getFolderTypeLabel(aliasPath);
       return i18n.t('model-edit-add-label', {item: label});
     };
 
-    this.getDeleteElementMessage = aliasPath => {
-      const label = this.getElementLabel(aliasPath);
+    this.getDeleteInstanceMessage = aliasPath => {
+      const label = this.getFolderTypeLabel(aliasPath);
       return i18n.t('model-edit-delete-label', {item: label});
     };
 
@@ -81,19 +81,19 @@ function (ko, i18n, AliasHelper) {
       return getFolderMessage(aliasPath, 'noDataLabel');
     };
 
-    this.getElementNameLabel = aliasPath => {
-      const label = this.getElementLabel(aliasPath);
-      return getFolderMessage(aliasPath, 'nameLabel', { element: label });
+    this.getInstanceNameLabel = aliasPath => {
+      const label = this.getFolderTypeLabel(aliasPath);
+      return getFolderMessage(aliasPath, 'nameLabel', { folderType: label });
     };
 
-    this.getElementNameHelp = aliasPath => {
-      const label = this.getElementLabel(aliasPath);
-      return getFolderMessage(aliasPath, 'nameHelp', { element: label });
+    this.getInstanceNameHelp = aliasPath => {
+      const label = this.getFolderTypeLabel(aliasPath);
+      return getFolderMessage(aliasPath, 'nameHelp', { folderType: label });
     };
 
-    this.getElementLabel = aliasPath => {
+    this.getFolderTypeLabel = aliasPath => {
       // elementLabel is the singular: "Server", not "Servers"
-      return getFolderMessage(aliasPath, 'elementLabel');
+      return getFolderMessage(aliasPath, 'typeLabel');
     };
 
     // *******************

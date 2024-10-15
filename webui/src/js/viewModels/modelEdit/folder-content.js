@@ -12,6 +12,7 @@ define(['accUtils', 'knockout', 'utils/i18n',
 function(accUtils, ko, i18n, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper) {
   function FolderContentViewModel(args) {
     const MODEL_PATH = args.modelPath;
+    const TEMP_MODEL = args.model;
 
     const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
 
@@ -39,7 +40,7 @@ function(accUtils, ko, i18n, ModelEditHelper, MetaHelper, MessageHelper, AliasHe
       let fieldMap = {};
 
       if (MODEL_PATH) {
-        fieldMap = ModelEditHelper.createAliasFieldMap(MODEL_PATH, {}, this.subscriptions);
+        fieldMap = ModelEditHelper.createAliasFieldMap(MODEL_PATH, {}, this.subscriptions, TEMP_MODEL);
 
         const attributeGroups = MetaHelper.getAttributeGroups(ALIAS_PATH);
 
@@ -106,7 +107,7 @@ function(accUtils, ko, i18n, ModelEditHelper, MetaHelper, MessageHelper, AliasHe
     });
 
     this.tableModuleConfig = folderInfo => {
-      return ModelEditHelper.createElementTableModuleConfig(folderInfo.modelPath, []);
+      return ModelEditHelper.createInstancesTableModuleConfig(folderInfo.modelPath, []);
     };
   }
 

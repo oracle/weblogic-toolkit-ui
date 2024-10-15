@@ -131,7 +131,7 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
       switch(this.editOption()) {
         case 'remove':
           fieldInfo.observable(null);
-          ModelEditHelper.deleteElement(fieldInfo.path, fieldInfo.attribute);
+          ModelEditHelper.deleteModelElement(fieldInfo.path, fieldInfo.attribute);
           break;
         case 'variable':
           fieldInfo.observable(ModelEditHelper.getVariableToken(this.variableName()));

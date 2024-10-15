@@ -13,7 +13,9 @@ define(['accUtils', 'utils/i18n', 'knockout', 'utils/modelEdit/model-edit-helper
 function(accUtils, i18n, ko, ModelEditHelper, MessageHelper, NavigationHelper, AliasHelper, DialogHelper,
   ViewHelper, MetaHelper, ArrayDataProvider) {
 
-  function ElementsTableViewModel(args) {
+  function InstancesTableViewModel(args) {
+    // for model folders with multiple instances (such as Server/myServer).
+
     const MODEL_PATH = args.modelPath;
     const NAME_VALIDATORS = args.nameValidators;
     const MENU_LINK = args.menuLink;
@@ -23,13 +25,13 @@ function(accUtils, i18n, ko, ModelEditHelper, MessageHelper, NavigationHelper, A
     const subscriptions = [];
 
     this.i18n = i18n;
-    this.addLabel = MessageHelper.getAddElementMessage(ALIAS_PATH);
-    this.deleteLabel = MessageHelper.getDeleteElementMessage(ALIAS_PATH);
+    this.addLabel = MessageHelper.getAddInstanceMessage(ALIAS_PATH);
+    this.deleteLabel = MessageHelper.getDeleteInstanceMessage(ALIAS_PATH);
     this.emptyMessage = MessageHelper.getNoDataMessage(ALIAS_PATH);
-    this.ariaLabel = MODEL_PATH[MODEL_PATH.length - 1] + ' Elements Table';
+    this.ariaLabel = MODEL_PATH[MODEL_PATH.length - 1] + ' Instances Table';
 
     this.connected = () => {
-      accUtils.announce('Elements table loaded.', 'assertive');
+      accUtils.announce('Instances table loaded.', 'assertive');
 
       this.updateFromModel();
       subscriptions.push(ModelEditHelper.modelObject.subscribe(() => {
@@ -46,38 +48,41 @@ function(accUtils, i18n, ko, ModelEditHelper, MessageHelper, NavigationHelper, A
     this.summaryAttributes = MetaHelper.getMetadata(ALIAS_PATH)['summaryAttributes'] || {};
     this.attributes = Object.keys(this.summaryAttributes);
 
-    this.elements = ko.observableArray();
+    this.instances = ko.observableArray();
 
     this.updateFromModel = () => {
-      this.elements.removeAll();
-      const elementsFolder = ModelEditHelper.getFolder(MODEL_PATH);
-      for (const [key, value] of Object.entries(elementsFolder)) {
-        const element = {
+      this.instances.removeAll();
+      const instancesFolder = ModelEditHelper.getFolder(MODEL_PATH);
+
+      console.log('instances folder: ' + JSON.stringify(instancesFolder));
+
+      for (const [key, value] of Object.entries(instancesFolder)) {
+        const instance = {
           uid: key,
           name: key,
         };
         for (const [attKey, attValue] of Object.entries(this.summaryAttributes)) {
           let attributeKey = attKey;
-          let modelElementFolder = value || {};
+          let modelInstanceFolder = value || {};
 
           // the attributeName may have a sub-path, such as SSL/ListenPort
           const parts = attributeKey.split('/');
           if(parts.length > 1) {
             parts.slice(0, parts.length - 1).forEach(part => {
-              modelElementFolder = modelElementFolder[part] || {};
+              modelInstanceFolder = modelInstanceFolder[part] || {};
             });
             attributeKey = parts[parts.length - 1];
           }
 
           const getter = attValue.getter;
-          const modelValue = getter ? getter(modelElementFolder) : modelElementFolder[attributeKey];
-          element[attKey] = ModelEditHelper.getDerivedValue(modelValue);
+          const modelValue = getter ? getter(modelInstanceFolder) : modelInstanceFolder[attributeKey];
+          instance[attKey] = ModelEditHelper.getDerivedValue(modelValue);
         }
-        this.elements.push(element);
+        this.instances.push(instance);
       }
     };
 
-    this.elementsColumnData = [
+    this.instancesColumnData = [
       {
         headerText: i18n.t('model-edit-table-name-label'),
         sortProperty: 'name',
@@ -99,14 +104,14 @@ function(accUtils, i18n, ko, ModelEditHelper, MessageHelper, NavigationHelper, A
         attributeName = parts[parts.length - 1];
       }
 
-      this.elementsColumnData.push({
+      this.instancesColumnData.push({
         headerText: MessageHelper.getAttributeLabel(attributeName, aliasPath),
         sortProperty: attribute,
         resizable: 'enabled'
       });
     }
 
-    this.elementsColumnData.push({
+    this.instancesColumnData.push({
       className: 'wkt-table-delete-cell',
       headerClassName: 'wkt-table-add-header',
       headerTemplate: 'addHeaderTemplate',
@@ -115,38 +120,38 @@ function(accUtils, i18n, ko, ModelEditHelper, MessageHelper, NavigationHelper, A
       width: ViewHelper.BUTTON_COLUMN_WIDTH
     });
 
-    const elementComparators = ViewHelper.getSortComparators(this.elementsColumnData);
+    const instanceComparators = ViewHelper.getSortComparators(this.instancesColumnData);
 
-    this.elementsProvider = new ArrayDataProvider(this.elements,
-      { keyAttributes: 'uid', sortComparators: elementComparators });
+    this.instancesProvider = new ArrayDataProvider(this.instances,
+      { keyAttributes: 'uid', sortComparators: instanceComparators });
 
-    this.addElement = () => {
+    this.addInstance = () => {
       const options = {
         modelPath: MODEL_PATH,
         nameValidators: NAME_VALIDATORS
       };
-      DialogHelper.promptDialog('modelEdit/new-element-dialog', options)
+      DialogHelper.promptDialog('modelEdit/new-instance-dialog', options)
         .then(result => {
-          const newName = result.elementName;
+          const newName = result.instanceName;
           if(newName) {
-            ModelEditHelper.addElement(MODEL_PATH, newName);
+            ModelEditHelper.addFolder(MODEL_PATH, newName);
           }
         });
     };
 
-    this.deleteElement = (event, context) => {
+    this.deleteInstance = (event, context) => {
       const key = context.item.data.name;
-      ModelEditHelper.deleteElement(MODEL_PATH, key);
+      ModelEditHelper.deleteModelElement(MODEL_PATH, key);
     };
 
-    this.editElement = (event, context) => {
+    this.editInstance = (event, context) => {
       if(MENU_LINK) {
         NavigationHelper.openNavigation(MODEL_PATH);
         NavigationHelper.navigateToElement(MODEL_PATH, context.item.data.name);
 
       } else {
-        const elementPath = [...MODEL_PATH, context.item.data.name];
-        const options = { modelPath: elementPath, add: false };
+        const instancePath = [...MODEL_PATH, context.item.data.name];
+        const options = { modelPath: instancePath, add: false };
 
         DialogHelper.promptDialog('modelEdit/folder-dialog', options).then(result => {
           if (result) {
@@ -157,5 +162,5 @@ function(accUtils, i18n, ko, ModelEditHelper, MessageHelper, NavigationHelper, A
     };
   }
 
-  return ElementsTableViewModel;
+  return InstancesTableViewModel;
 });
