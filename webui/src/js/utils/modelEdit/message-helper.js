@@ -43,8 +43,8 @@ function (ko, i18n, AliasHelper) {
       const aliasPath = AliasHelper.getAliasPath(modelPath);
       if(AliasHelper.isNamedPath(modelPath)) {
         const name = modelPath[modelPath.length - 1];
-        if(hasAssignedFolderMessage(aliasPath, 'elementLabel')) {
-          return `${this.getFolderTypeLabel(aliasPath)} ${name}`;
+        if(hasAssignedFolderMessage(aliasPath, 'typeLabel')) {
+          return `${this.getFolderTypeLabel(aliasPath)} "${name}"`;
         }
         return `${this.getFolderLabel(aliasPath)} / ${modelPath[modelPath.length - 1]}`;
       }
