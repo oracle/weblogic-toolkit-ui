@@ -5,13 +5,13 @@
  */
 'use strict';
 
-define(['accUtils', 'utils/i18n', 'knockout', 'utils/modelEdit/model-edit-helper',
+define(['accUtils', 'utils/i18n', 'knockout', 'utils/modelEdit/instance-helper', 'utils/modelEdit/model-edit-helper',
   'utils/modelEdit/message-helper', 'utils/modelEdit/navigation-helper', 'utils/modelEdit/alias-helper',
-  'utils/dialog-helper', 'utils/view-helper', 'utils/modelEdit/meta-helper', 'ojs/ojarraydataprovider',
+  'utils/common-utilities', 'utils/dialog-helper', 'utils/view-helper', 'utils/modelEdit/meta-helper', 'ojs/ojarraydataprovider',
   'ojs/ojtable', 'oj-c/button', 'oj-c/labelled-link'
 ],
-function(accUtils, i18n, ko, ModelEditHelper, MessageHelper, NavigationHelper, AliasHelper, DialogHelper,
-  ViewHelper, MetaHelper, ArrayDataProvider) {
+function(accUtils, i18n, ko, InstanceHelper, ModelEditHelper, MessageHelper, NavigationHelper, AliasHelper,
+  utils, DialogHelper, ViewHelper, MetaHelper, ArrayDataProvider) {
 
   function InstancesTableViewModel(args) {
     // for model folders with multiple instances (such as Server/myServer).
@@ -53,12 +53,9 @@ function(accUtils, i18n, ko, ModelEditHelper, MessageHelper, NavigationHelper, A
     this.updateFromModel = () => {
       this.instances.removeAll();
       const instancesFolder = ModelEditHelper.getFolder(MODEL_PATH);
-
-      console.log('instances folder: ' + JSON.stringify(instancesFolder));
-
       for (const [key, value] of Object.entries(instancesFolder)) {
         const instance = {
-          uid: key,
+          uid: utils.getShortUuid(),
           name: key,
         };
         for (const [attKey, attValue] of Object.entries(this.summaryAttributes)) {
@@ -126,17 +123,37 @@ function(accUtils, i18n, ko, ModelEditHelper, MessageHelper, NavigationHelper, A
       { keyAttributes: 'uid', sortComparators: instanceComparators });
 
     this.addInstance = () => {
-      const options = {
-        modelPath: MODEL_PATH,
-        nameValidators: NAME_VALIDATORS
-      };
-      DialogHelper.promptDialog('modelEdit/new-instance-dialog', options)
-        .then(result => {
-          const newName = result.instanceName;
-          if(newName) {
-            ModelEditHelper.addFolder(MODEL_PATH, newName);
-          }
-        });
+      // if instances of this type appear in the nav menu, prompt for a new name.
+      // otherwise, prompt for a name and folder contents.
+
+      if(MENU_LINK) {
+        const options = {
+          modelPath: MODEL_PATH,
+          nameValidators: NAME_VALIDATORS
+        };
+        DialogHelper.promptDialog('modelEdit/new-instance-dialog', options)
+          .then(result => {
+            const newName = result.instanceName;
+            if (newName) {
+              ModelEditHelper.addFolder(MODEL_PATH, newName);
+            }
+          });
+
+      } else {
+        const newName = InstanceHelper.getNewInstanceName(MODEL_PATH);
+
+        const instancePath = [...MODEL_PATH, newName];
+        const options = {
+          modelPath: instancePath,
+          add: true
+        };
+        DialogHelper.promptDialog('modelEdit/folder-dialog', options)
+          .then(result => {
+            if (result) {
+
+            }
+          });
+      }
     };
 
     this.deleteInstance = (event, context) => {

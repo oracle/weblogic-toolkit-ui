@@ -45,27 +45,30 @@ function (ko, i18n, jsYaml, project, utils,
     };
 
     // add an empty folder and return the folder
-    this.addFolder = (path, key) => {
-      const folder = findOrCreatePath(this.getCurrentModel(), path);
+    this.addFolder = (modelPath, key, tempModel) => {
+      const editModel = tempModel || this.getCurrentModel();
+      const folder = findOrCreatePath(editModel, modelPath);
       const newFolder = {};
       folder[key] = newFolder;
-      this.writeModel();
+      if(!tempModel) {
+        this.writeModel();
+      }
       return newFolder;
     };
 
     // delete the specified folder or attribute
-    this.deleteModelElement = (modelPath, key, temp_model) => {
-      const modelFolder = this.getFolder(modelPath, temp_model);
+    this.deleteModelElement = (modelPath, key, tempModel) => {
+      const modelFolder = this.getFolder(modelPath, tempModel);
       delete modelFolder[key];
-      this.deleteIfEmpty(modelPath, temp_model);
-      if(!temp_model) {
+      this.deleteIfEmpty(modelPath, tempModel);
+      if(!tempModel) {
         this.writeModel();
       }
     };
 
-    this.getFolder = (path, temp_model) => {
-      const edit_model = temp_model || this.getCurrentModel();
-      return this.getChildFolder(edit_model, path);
+    this.getFolder = (path, tempModel) => {
+      const editModel = tempModel || this.getCurrentModel();
+      return this.getChildFolder(editModel, path);
     };
 
     this.getChildFolder = (parent, path) => {
@@ -85,20 +88,25 @@ function (ko, i18n, jsYaml, project, utils,
       return folder[attribute];
     };
 
-    this.deleteIfEmpty = (modelPath, temp_model) => {
+    this.deleteIfEmpty = (modelPath, tempModel) => {
       if(!AliasHelper.isNamedPath(modelPath)) {
-        const folder = this.getFolder(modelPath, temp_model);
+        const folder = this.getFolder(modelPath, tempModel);
         if (Object.keys(folder).length === 0) {
           const folderKey = modelPath[modelPath.length - 1];
           const parentPath = modelPath.slice(0, -1);
-          const parentFolder = this.getFolder(parentPath, temp_model);
+          const parentFolder = this.getFolder(parentPath, tempModel);
           delete parentFolder[folderKey];
 
           if (parentPath.length > 0) {
-            this.deleteIfEmpty(parentPath, temp_model);
+            this.deleteIfEmpty(parentPath, tempModel);
           }
         }
       }
+    };
+
+    this.findOrCreatePath = (modelPath, tempModel) => {
+      const editModel = tempModel || this.getCurrentModel();
+      return findOrCreatePath(editModel, modelPath);
     };
 
     this.getModelCopy = () => {
@@ -132,8 +140,8 @@ function (ko, i18n, jsYaml, project, utils,
         validators (for controls)
      */
 
-    this.createAliasFieldMap = (modelPath, fieldOverrides, subscriptions, temp_model) => {
-      const edit_model = temp_model || this.getCurrentModel();
+    this.createAliasFieldMap = (modelPath, fieldOverrides, subscriptions, tempModel) => {
+      const editModel = tempModel || this.getCurrentModel();
       const fieldMap = {};
 
       const attributesMap = AliasHelper.getAttributesMap(modelPath);
@@ -156,7 +164,7 @@ function (ko, i18n, jsYaml, project, utils,
           if(newValue === null) {
             this.deleteModelElement(field.path, field.attribute);
           } else {
-            const folder = findOrCreatePath(edit_model, field.path);
+            const folder = findOrCreatePath(editModel, field.path);
             folder[field.attribute] = getModelValue(newValue, field);
           }
           this.writeModel();

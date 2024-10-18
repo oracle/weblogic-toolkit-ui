@@ -1895,7 +1895,8 @@
   "model-edit-field-dialog-variable-value-label": "Variable Value",
   "model-edit-field-dialog-variable-value-help": "Value of variable for field",
 
-  "model-edit-new-instance-name-error": "Name may only contain letters, numbers, and these characters: .-_!",
+  "model-edit-instance-name-error": "Name may only contain letters, numbers, and these characters: .-_!",
+  "model-edit-instance-name-in-use-error": "This name is already in use",
 
   "model-edit-table-name-label": "Name",
 

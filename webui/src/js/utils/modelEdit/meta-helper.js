@@ -28,6 +28,10 @@ define([],
         const metadata = this.getMetadata(aliasPath);
         return metadata['attributeGroups'] || [];
       };
+
+      this.getNameValidators = aliasPath => {
+        return [];  // TODO: implement this when needed
+      };
     }
 
     // return a singleton instance

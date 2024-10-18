@@ -8,6 +8,20 @@
   </div>
   <div slot="body">
     <oj-validation-group id="domainTracker">
+      <oj-bind-if test="[[isMultiple]]">
+      <div class="oj-panel">
+        <oj-c-input-text
+          class="wkt-model-edit-field-stacked"
+          label-hint="[[nameLabel]]"
+          help.instruction="[[helpLabel]]"
+          value="{{instanceName}}"
+          required="true"
+          validators="[[nameValidators]]"
+        >
+        </oj-c-input-text>
+      </div>
+      </oj-bind-if>
+
       <oj-module config="[[folderContentModuleConfig]]"></oj-module>
     </oj-validation-group>
   </div>
