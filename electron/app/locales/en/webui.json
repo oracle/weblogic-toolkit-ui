@@ -1858,6 +1858,8 @@
   "model-edit-delete-label": "Delete {{item}}",
   "model-edit-no-items-label": "No items",
   "model-edit-no-entries-label": "No entries",
+  "model-edit-rename-label": "Rename",
+  "model-edit-rename-title": "Rename {{type}} \"{{name}}\"",
 
   "model-edit-anyAttribute-help": "{{attribute}} for this element",
   "model-edit-anyAttribute-entryLabel": "Entry",

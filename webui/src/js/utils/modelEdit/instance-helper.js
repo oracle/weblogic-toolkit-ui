@@ -66,12 +66,6 @@ function (i18n, AliasHelper, MetaHelper,
       return nameValidators;
     };
 
-    this.folderWasRenamed = (modelPath, newName) => {
-      // TODO: check for areas to change this name.
-      // for example, a Server entry would need to be renamed wherever targets are used.
-      console.log(`Element ${modelPath} was renamed to ${newName}`);
-    };
-
     function getInstanceName(typeName, i) {
       return `${typeName}-${i}`;
     }

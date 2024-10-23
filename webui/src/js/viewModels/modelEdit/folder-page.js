@@ -12,37 +12,26 @@ define(['accUtils', 'utils/i18n',
 function(accUtils, i18n, ModelEditHelper, MessageHelper, AliasHelper, ModuleElementUtils) {
   function FolderPageViewModel(args) {
     const MODEL_PATH = args.modelPath;
-    const NAME = args.name;
 
     this.i18n = i18n;
-
-    const subscriptions = [];
 
     this.connected = () => {
       accUtils.announce('Folder Page loaded.', 'assertive');
     };
 
-    this.disconnected = () => {
-      subscriptions.forEach((subscription) => {
-        subscription.dispose();
-      });
-    };
-
-    this.getTitle = () => {
-      if(MODEL_PATH) {
-        return MessageHelper.getPageTitle(MODEL_PATH);
+    this.folderHeaderModuleConfig = ModuleElementUtils.createConfig({
+      name: 'modelEdit/folder-header',
+      params: {
+        modelPath: MODEL_PATH,
       }
-      return NAME;
-    };
+    });
 
-    this.getFolderContentModuleConfig = () => {
-      return ModuleElementUtils.createConfig({
-        name: 'modelEdit/folder-content',
-        params: {
-          modelPath: MODEL_PATH,
-        }
-      });
-    };
+    this.folderContentModuleConfig = ModuleElementUtils.createConfig({
+      name: 'modelEdit/folder-content',
+      params: {
+        modelPath: MODEL_PATH,
+      }
+    });
   }
 
   return FolderPageViewModel;

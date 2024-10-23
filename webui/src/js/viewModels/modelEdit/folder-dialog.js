@@ -67,13 +67,7 @@ function(accUtils, ko, i18n, project, InstanceHelper, ModelEditHelper, AliasHelp
       ModelEditHelper.findOrCreatePath(MODEL_PATH, this.modelCopy);
 
       if(IS_MULTIPLE && (this.instanceName() !== INSTANCE_NAME)) {
-        const parentPath = MODEL_PATH.slice(0, -1);
-        const instanceContent = ModelEditHelper.getFolder(MODEL_PATH, this.modelCopy);
-        ModelEditHelper.deleteModelElement(parentPath, INSTANCE_NAME, this.modelCopy);
-        const instanceFolder = ModelEditHelper.addFolder(parentPath, this.instanceName(), this.modelCopy);
-        Object.assign(instanceFolder, instanceContent);
-
-        InstanceHelper.folderWasRenamed(MODEL_PATH, this.instanceName());
+        ModelEditHelper.renameInstance(MODEL_PATH, this.instanceName(), this.modelCopy);
       }
 
       ModelEditHelper.replaceModel(this.modelCopy);

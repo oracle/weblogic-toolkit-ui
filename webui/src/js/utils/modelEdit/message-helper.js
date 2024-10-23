@@ -96,6 +96,13 @@ function (ko, i18n, AliasHelper) {
       return getFolderMessage(aliasPath, 'typeLabel');
     };
 
+    this.getRenameInstanceMessage = modelPath => {
+      const aliasPath = AliasHelper.getAliasPath(modelPath);
+      const typeLabel = this.getFolderTypeLabel(aliasPath);
+      const instanceName = modelPath[modelPath.length - 1];
+      return i18n.t('model-edit-rename-title', {type: typeLabel, name: instanceName});
+    };
+
     // *******************
     // attribute messages
     // *******************

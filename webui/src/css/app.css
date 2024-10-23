@@ -903,6 +903,20 @@ h6.wkt-panel-heading {
   border-radius: var(--wkt-model-edit-border-radius);
 }
 
+h6.wkt-split-header {
+  display:flex;
+  gap: 20px;
+}
+
+.wkt-split-title {
+  flex: 1 1 auto;
+}
+
+.wkt-split-link {
+  flex: 0 0 0;
+  white-space: nowrap;
+}
+
 .wkt-model-edit-dict-box .wkt-model-edit-table {
   border: none  !important;
   margin-bottom: 2px;  /* avoid covering rounded border corners */
@@ -915,6 +929,10 @@ h6.wkt-panel-heading {
   display: block;
   width: 24px;
   height: 24px;
+}
+
+.wkt-model-edit-folder-dialog {
+  width: 75%;
 }
 
 .wkt-model-edit-field-dialog {

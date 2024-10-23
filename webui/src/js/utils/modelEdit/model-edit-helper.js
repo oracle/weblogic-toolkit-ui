@@ -66,6 +66,23 @@ function (ko, i18n, jsYaml, project, utils,
       }
     };
 
+    // rename the specified folder
+    this.renameInstance = (modelPath, newName, tempModel) => {
+      const editModel = tempModel || this.getCurrentModel();
+      const parentPath = modelPath.slice(0, -1);
+      const oldName = modelPath.slice(-1);
+      const instanceContent = this.getFolder(modelPath, editModel);
+      this.deleteModelElement(parentPath, oldName, editModel);
+      const instanceFolder = this.addFolder(parentPath, newName, editModel);
+      Object.assign(instanceFolder, instanceContent);
+
+      this.folderWasRenamed(modelPath, newName);
+
+      if(!tempModel) {
+        this.writeModel();
+      }
+    };
+
     this.getFolder = (path, tempModel) => {
       const editModel = tempModel || this.getCurrentModel();
       return this.getChildFolder(editModel, path);
@@ -121,6 +138,12 @@ function (ko, i18n, jsYaml, project, utils,
     this.getDomainName = () => {
       const domainName = this.getValue(['topology'], 'Name');
       return domainName || 'base_domain';
+    };
+
+    this.folderWasRenamed = (modelPath, newName) => {
+      // TODO: check for areas to change this name.
+      // for example, a Server entry would need to be renamed wherever targets are used.
+      console.log(`Element ${modelPath} was renamed to ${newName}`);
     };
 
     // *********************************************
