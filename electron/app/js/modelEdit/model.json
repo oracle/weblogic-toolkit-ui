@@ -47,7 +47,23 @@
   "Application": {
     "summaryAttributes": {
       "SourcePath": {}
-    }
+    },
+    "attributeGroups": [
+      {
+        "members": {
+          "SourcePath": {},
+          "DeploymentOrder": {},
+          "PlanDir": {},
+          "PlanPath": {},
+          "Target": {}
+        }
+      },
+      {
+        "title": "model-edit-advanced-label",
+        "collapsible": true,
+        "remainder": true
+      }
+    ]
   },
   "Library": {
     "summaryAttributes": {

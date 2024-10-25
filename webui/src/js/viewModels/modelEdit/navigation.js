@@ -229,7 +229,6 @@ function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, NavigationHelper, Mes
         children: [
           {
             icon: 'oj-ux-ico-list',
-            childPage: 'deployments/application',
             modelPath: ['appDeployments', 'Application']
           },
           {
