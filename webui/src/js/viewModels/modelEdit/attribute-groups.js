@@ -7,7 +7,8 @@
 
 define(['accUtils', 'knockout', 'utils/i18n',
   'utils/modelEdit/model-edit-helper', 'utils/modelEdit/meta-helper', 'utils/modelEdit/message-helper',
-  'utils/modelEdit/alias-helper'
+  'utils/modelEdit/alias-helper',
+  'oj-c/collapsible'
 ],
 function(accUtils, ko, i18n, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper) {
   function AttributeGroupsModel(args) {
@@ -20,7 +21,6 @@ function(accUtils, ko, i18n, ModelEditHelper, MetaHelper, MessageHelper, AliasHe
 
     const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
 
-    this.i18n = i18n;
     this.subscriptions = [];
 
     this.connected = () => {
@@ -38,7 +38,11 @@ function(accUtils, ko, i18n, ModelEditHelper, MetaHelper, MessageHelper, AliasHe
       });
     };
 
-    this.attributeModuleConfigs = ko.observableArray();
+    this.labelMapper = (labelId, payload) => {
+      return i18n.t(labelId, payload);
+    };
+
+    this.attributeGroups = ko.observableArray();
 
     this.initializeAttributes = () => {
       let fieldMap = {};
@@ -46,15 +50,15 @@ function(accUtils, ko, i18n, ModelEditHelper, MetaHelper, MessageHelper, AliasHe
       if (MODEL_PATH) {
         fieldMap = ModelEditHelper.createAliasFieldMap(MODEL_PATH, {}, this.subscriptions, TEMP_MODEL);
 
-        const attributeGroups = MetaHelper.getAttributeGroups(ALIAS_PATH);
+        const metaAttributeGroups = MetaHelper.getAttributeGroups(ALIAS_PATH);
 
-        this.attributeModuleConfigs.removeAll();
+        this.attributeGroups.removeAll();
 
-        // collect the known attribute names, and check for a group with remainder
+        // collect the configured metadata attribute names, and check for a group with remainder
 
         let remainderGroup = null;
         const knownAttributeNames = [];
-        attributeGroups.forEach(group => {
+        metaAttributeGroups.forEach(group => {
           const attributesMap = group['members'] || {};
           const attributeNames = Object.keys(attributesMap);
           knownAttributeNames.push(...attributeNames);
@@ -69,16 +73,19 @@ function(accUtils, ko, i18n, ModelEditHelper, MetaHelper, MessageHelper, AliasHe
         // create a module config for each configured attribute group, inserting remaining attributes if specified
 
         let remainderConfig = null;
-        attributeGroups.forEach(group => {
-          const attributesMap = group['members'] || {};
+        metaAttributeGroups.forEach(metaGroup => {
+          const attributesMap = metaGroup['members'] || {};
           const attributeNames = Object.keys(attributesMap);
-          if (group === remainderGroup) {
+          if (metaGroup === remainderGroup) {
             attributeNames.push(...remainingNames);
           }
 
           if (attributeNames.length) {
             const moduleConfig = ModelEditHelper.createFieldSetModuleConfig(attributeNames, fieldMap, MODEL_PATH);
-            this.attributeModuleConfigs.push(moduleConfig);
+            this.attributeGroups.push({
+              moduleConfig,
+              metadata: metaGroup
+            });
           }
         });
 
@@ -86,7 +93,10 @@ function(accUtils, ko, i18n, ModelEditHelper, MetaHelper, MessageHelper, AliasHe
 
         if (remainingNames.length && !remainderGroup) {
           remainderConfig = ModelEditHelper.createFieldSetModuleConfig(remainingNames, fieldMap, MODEL_PATH);
-          this.attributeModuleConfigs.push(remainderConfig);
+          this.attributeGroups.push({
+            moduleConfig: remainderConfig,
+            metadata: {}  // TODO: should this get a default title, such as "Advanced"?
+          });
         }
       }
     };

@@ -291,7 +291,7 @@
 }
 
 .wkt-model-edit-instances-table {
-  width: 100%;
+  width: -webkit-fill-available;
 }
 
 /* readonly-hint should override hiding on no-focus */
@@ -931,6 +931,12 @@ h6.wkt-split-header {
   height: 24px;
 }
 
+.wkt-model-edit-view-content {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
+
 .wkt-model-edit-folder-dialog {
   width: 75%;
 }
@@ -953,6 +959,18 @@ h6.wkt-split-header {
 .wkt-model-edit-token-detail {
   color: var(--wkt-model-edit-label-text-color);
   font-size: 0.75em;
+}
+
+.wkt-collapsible h6 {
+  margin-left: -1em !important;  /* oj-c-collapsible has large horizontal space */
+}
+
+.wkt-collapsible .oj-panel {
+  margin-top: 0.5em !important;  /* oj-c-collapsible has no space between header and content */
+}
+
+.wkt-attribute-groups *:first-child {
+  margin-top: 0 !important;  /* no top margin on first child */
 }
 
 .wkt-token-error {

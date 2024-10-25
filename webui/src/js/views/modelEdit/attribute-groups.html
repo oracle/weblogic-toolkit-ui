@@ -3,13 +3,30 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 
-<oj-bind-for-each data="[[attributeModuleConfigs]]">
-  <template data-oj-as="config">
-    <div class="oj-panel">
-      <oj-bind-if test="[[config.data.title]]">
-        <h6><oj-bind-text value="[[config.data.title]]"></oj-bind-text></h6>
+<div class="wkt-attribute-groups">
+  <oj-bind-for-each data="[[attributeGroups]]">
+  <template data-oj-as="group">
+    <oj-bind-if test="[[group.data.metadata.collapsible]]">
+      <oj-c-collapsible class="wkt-model-edit-field-stacked wkt-collapsible" expanded="false">
+        <h6 slot='header' class="wkt-subheading">
+          <oj-bind-text value="[[labelMapper(group.data.metadata.title)]]"></oj-bind-text>
+        </h6>
+        <div class="oj-panel">
+          <oj-module config="[[group.data.moduleConfig]]"></oj-module>
+        </div>
+      </oj-c-collapsible>
+    </oj-bind-if>
+
+    <oj-bind-if test="[[!group.data.metadata.collapsible]]">
+      <oj-bind-if test="[[group.data.metadata.title]]">
+        <h6 slot='header' class="wkt-subheading">
+          <oj-bind-text value="[[labelMapper(group.data.metadata.title)]]"></oj-bind-text>
+        </h6>
       </oj-bind-if>
-      <oj-module config="[[config.data]]"></oj-module>
-    </div>
+      <div class="oj-panel">
+        <oj-module config="[[group.data.moduleConfig]]"></oj-module>
+      </div>
+    </oj-bind-if>
   </template>
 </oj-bind-for-each>
+</div>
