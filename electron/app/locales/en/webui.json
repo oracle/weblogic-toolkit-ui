@@ -1910,6 +1910,12 @@
   "model-edit-f-Application-anyAttribute-help": "{{attribute}} for application",
 
   "model-edit-f-Application-a-SourcePath-label": "Source Path",
+  "model-edit-f-Application-a-Target-label": "Targets",
+  "model-edit-f-Application-a-Target-itemLabel": "Target",
+  "model-edit-f-Application-a-Target-itemHelp": "Target name",
+
+  "model-edit-f-Application_SubDeployment-label": "Sub-Deployments",
+  "model-edit-f-Application_SubDeployment-typeLabel": "Sub-Deployment",
 
   "model-edit-f-Cluster-label": "Clusters",
   "model-edit-f-Cluster-typeLabel": "Cluster",

@@ -226,6 +226,15 @@ function (ko, i18n, jsYaml, project, utils,
       });
     };
 
+    this.createAttributeGroupsConfig = modelPath => {
+      return ModuleElementUtils.createConfig({
+        name: 'modelEdit/attribute-groups',
+        params: {
+          modelPath
+        }
+      });
+    };
+
     this.createInstancesTableModuleConfig = (modelPath, summaryAttributes) => {
       return ModuleElementUtils.createConfig({
         name: 'modelEdit/instances-table',

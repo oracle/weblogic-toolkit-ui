@@ -1,0 +1,15 @@
+<!--
+ Copyright (c) 2024, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
+ -->
+
+<oj-bind-for-each data="[[attributeModuleConfigs]]">
+  <template data-oj-as="config">
+    <div class="oj-panel">
+      <oj-bind-if test="[[config.data.title]]">
+        <h6><oj-bind-text value="[[config.data.title]]"></oj-bind-text></h6>
+      </oj-bind-if>
+      <oj-module config="[[config.data]]"></oj-module>
+    </div>
+  </template>
+</oj-bind-for-each>

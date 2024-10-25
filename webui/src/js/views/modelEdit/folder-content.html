@@ -3,13 +3,7 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 
-<oj-bind-for-each data="[[attributeModuleConfigs]]">
-  <template data-oj-as="config">
-    <div class="oj-panel">
-     <oj-module config="[[config.data]]"></oj-module>
-    </div>
-  </template>
-</oj-bind-for-each>
+<oj-module config="[[attributeGroupsModuleConfig]]"></oj-module>
 
 <oj-bind-for-each data="[[singleFolders]]">
   <template data-oj-as="folder">
