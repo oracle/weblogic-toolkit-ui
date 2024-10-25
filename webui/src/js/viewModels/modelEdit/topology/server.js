@@ -6,9 +6,10 @@
 'use strict';
 
 define(['accUtils', 'utils/i18n', 'knockout', 'utils/modelEdit/model-edit-helper', 'utils/modelEdit/message-helper',
+  'ojs/ojmodule-element-utils',
   'oj-c/input-text'
 ],
-function(accUtils, i18n, ko, ModelEditHelper, MessageHelper) {
+function(accUtils, i18n, ko, ModelEditHelper, MessageHelper, ModuleElementUtils) {
   function ServerEditViewModel(args) {
     const MODEL_PATH = args.modelPath;
 
@@ -65,6 +66,13 @@ function(accUtils, i18n, ko, ModelEditHelper, MessageHelper) {
     const remainingFieldNames = ModelEditHelper.getRemainingFieldNames(fieldMap, knownFields);
     this.remainingModuleConfig = ModelEditHelper.createFieldSetModuleConfig(remainingFieldNames, fieldMap,
       MODEL_PATH);
+
+    this.folderHeaderModuleConfig = ModuleElementUtils.createConfig({
+      name: 'modelEdit/folder-header',
+      params: {
+        modelPath: MODEL_PATH,
+      }
+    });
   }
 
   return ServerEditViewModel;

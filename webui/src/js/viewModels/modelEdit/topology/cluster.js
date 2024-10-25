@@ -6,9 +6,10 @@
 'use strict';
 
 define(['accUtils', 'utils/i18n', 'utils/modelEdit/model-edit-helper', 'utils/modelEdit/message-helper',
+  'ojs/ojmodule-element-utils',
   'oj-c/input-text'
 ],
-function(accUtils, i18n, ModelEditHelper, MessageHelper) {
+function(accUtils, i18n, ModelEditHelper, MessageHelper, ModuleElementUtils) {
   function ClusterEditViewModel(args) {
     const MODEL_PATH = args.modelPath;
 
@@ -37,6 +38,13 @@ function(accUtils, i18n, ModelEditHelper, MessageHelper) {
     this.fieldConfig = (key) => {
       return ModelEditHelper.createFieldModuleConfig(key, fieldMap, MODEL_PATH);
     };
+
+    this.folderHeaderModuleConfig = ModuleElementUtils.createConfig({
+      name: 'modelEdit/folder-header',
+      params: {
+        modelPath: MODEL_PATH,
+      }
+    });
   }
 
   return ClusterEditViewModel;
