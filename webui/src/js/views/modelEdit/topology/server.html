@@ -7,12 +7,12 @@
 
 <div class="oj-panel">
   <oj-form-layout max-columns="2" direction="row">
-    <oj-module config="[[fieldConfig('Cluster')]]"></oj-module>
-    <oj-module config="[[fieldConfig('ListenPort')]]"></oj-module>
-    <oj-module config="[[fieldConfig('DefaultIIOPUser')]]"></oj-module>
-    <oj-module config="[[fieldConfig('Notes')]]"></oj-module>
+    <oj-module config="[[attributeConfig('Cluster')]]"></oj-module>
+    <oj-module config="[[attributeConfig('ListenPort')]]"></oj-module>
+    <oj-module config="[[attributeConfig('DefaultIIOPUser')]]"></oj-module>
+    <oj-module config="[[attributeConfig('Notes')]]"></oj-module>
   </oj-form-layout>
-  <oj-collapsible class="wkt-model-edit-field-stacked" expanded='false'>
+  <oj-collapsible class="wkt-model-edit-attribute-stacked" expanded='false'>
     <h6 slot="header" class="wkt-subheading">
       <oj-bind-text value="[[editLabelMapper('advanced-label')]]"></oj-bind-text>
     </h6>
@@ -24,7 +24,7 @@
 <div class="oj-panel">
   <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('ssl-title')]]"></oj-bind-text></h6>
   <oj-form-layout max-columns="2" direction="row">
-    <oj-module config="[[sslFieldConfig('Enabled')]]"></oj-module>
-    <oj-module config="[[sslFieldConfig('ListenPort')]]"></oj-module>
+    <oj-module config="[[sslAttributeConfig('Enabled')]]"></oj-module>
+    <oj-module config="[[sslAttributeConfig('ListenPort')]]"></oj-module>
   </oj-form-layout>
 </div>

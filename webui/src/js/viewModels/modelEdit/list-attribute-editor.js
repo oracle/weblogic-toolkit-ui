@@ -13,20 +13,20 @@ define(['accUtils', 'knockout', 'utils/i18n', 'utils/dialog-helper','ojs/ojarray
 function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
   BufferingDataProvider, ViewHelper, utils, ModelEditHelper, MessageHelper, AliasHelper) {
 
-  function ListEditField(args) {
+  function ListAttributeEditor(args) {
     const MODEL_PATH = args.modelPath;
-    const field = args.field;
+    const ATTRIBUTE = args.attribute;
 
     const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
 
     this.i18n = i18n;
-    this.field = field;
-    this.observable = args.field.observable;
-    this.disabled = field.hasOwnProperty('disabled') ? field.disabled : false;
+    this.attribute = ATTRIBUTE;
+    this.observable = ATTRIBUTE.observable;
+    this.disabled = ATTRIBUTE.hasOwnProperty('disabled') ? ATTRIBUTE.disabled : false;
 
-    this.ariaLabel = MessageHelper.getAttributeFieldLabel(field, ALIAS_PATH);
-    this.addLabel = MessageHelper.getAddItemLabel(field, ALIAS_PATH, false);
-    this.deleteLabel = MessageHelper.getDeleteItemLabel(field, ALIAS_PATH);
+    this.ariaLabel = MessageHelper.getAttributeLabel(ATTRIBUTE, ALIAS_PATH);
+    this.addLabel = MessageHelper.getAddItemLabel(ATTRIBUTE, ALIAS_PATH, false);
+    this.deleteLabel = MessageHelper.getDeleteItemLabel(ATTRIBUTE, ALIAS_PATH);
     this.noDataLabel = i18n.t('model-edit-no-items-label');
 
     const subscriptions = [];
@@ -44,11 +44,11 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
       });
     };
 
-    // this is dynamic to allow i18n fields to load correctly
+    // this is dynamic to allow i18n values to load correctly
     this.columnData = [
       {
-        headerText: MessageHelper.getAttributeFieldLabel(field, ALIAS_PATH),
-        headerClassName: 'wkt-model-edit-field-label',
+        headerText: MessageHelper.getAttributeLabel(ATTRIBUTE, ALIAS_PATH),
+        headerClassName: 'wkt-model-edit-attribute-label',
         sortable: 'disable'
       },
       {
@@ -62,8 +62,8 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
 
     this.observableItems = ko.observableArray([]);
 
-    // update the internal list observable from the field observable.
-    // the field observable value may be a list or comma-separated string.
+    // update the internal list observable from the attribute observable.
+    // the attribute observable value may be a list or comma-separated string.
     // if the value is a string, it might be a variable token.
     this.updateList = () => {
       this.observableItems.removeAll();
@@ -86,8 +86,8 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
       }
     };
 
-    // update field observable from the internal list observable.
-    // the field value is a list of primitives, the internal list contains table objects.
+    // update attribute observable from the internal list observable.
+    // the attribute value is a list of primitives, the internal list contains table objects.
     this.updateObservable = () => {
       const names = [];
       this.observableItems().forEach(item => {
@@ -103,12 +103,12 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
     // add a new row with an unused unique ID and new name
     this.addItem = () => {
       const options = {
-        field: field,
+        attribute: ATTRIBUTE,
         modelPath: MODEL_PATH,
         observableItems: this.observableItems
       };
 
-      // TODO: field could specify a different dialog
+      // TODO: attribute alias could specify a different dialog
       DialogHelper.promptDialog('modelEdit/new-list-item-dialog', options)
         .then(result => {
           if(result.changed) {
@@ -123,5 +123,5 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
     };
   }
 
-  return ListEditField;
+  return ListAttributeEditor;
 });

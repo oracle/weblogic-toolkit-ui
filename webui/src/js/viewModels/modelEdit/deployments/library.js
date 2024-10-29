@@ -28,10 +28,10 @@ function(accUtils, i18n, ModelEditHelper, MessageHelper) {
       });
     };
 
-    const fieldMap = ModelEditHelper.createAliasFieldMap(MODEL_PATH, {}, subscriptions);
+    const attributeMap = ModelEditHelper.createAttributeMap(MODEL_PATH, {}, subscriptions);
 
-    this.fieldConfig = (key) => {
-      return ModelEditHelper.createFieldModuleConfig(key, fieldMap, MODEL_PATH);
+    this.attributeConfig = (key) => {
+      return ModelEditHelper.createAttributeModuleConfig(key, attributeMap, MODEL_PATH);
     };
   }
 

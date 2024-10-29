@@ -13,17 +13,17 @@ define(['accUtils', 'knockout', 'utils/i18n', 'utils/dialog-helper','ojs/ojarray
 function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
   ModuleElementUtils, ModelEditHelper, MessageHelper, AliasHelper) {
 
-  function EditField(args) {
+  function AttributeEditor(args) {
     const MODEL_PATH = args.modelPath;
-    const field = args.field;
+    const ATTRIBUTE = args.attribute;
 
     const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
 
     this.i18n = i18n;
-    this.field = field;
-    this.observable = args.field.observable;
-    this.disabled = field.hasOwnProperty('disabled') ? field.disabled : false;
-    this.displayType = ModelEditHelper.getDisplayType(field);
+    this.attribute = ATTRIBUTE;
+    this.observable = ATTRIBUTE.observable;
+    this.disabled = ATTRIBUTE.hasOwnProperty('disabled') ? ATTRIBUTE.disabled : false;
+    this.displayType = ModelEditHelper.getDisplayType(ATTRIBUTE);
 
     // this.menuIconClass = 'oj-ux-ico-edit-box';
     // this.menuIconClass = 'oj-ux-ico-three-boxes-vertical';
@@ -35,29 +35,29 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
       'switchOn': 'true'
     };
 
-    this.fieldLabelMapper = (labelId, payload) => {
-      return i18n.t(`model-edit-field-${labelId}`, payload);
+    this.attributeLabelMapper = (labelId, payload) => {
+      return i18n.t(`model-edit-attribute-${labelId}`, payload);
     };
 
-    this.attributeLabel = field => {
-      return MessageHelper.getAttributeFieldLabel(field, ALIAS_PATH);
+    this.attributeLabel = attribute => {
+      return MessageHelper.getAttributeLabel(attribute, ALIAS_PATH);
     };
 
-    this.attributeHelp = field => {
-      return MessageHelper.getAttributeHelp(field, ALIAS_PATH);
+    this.attributeHelp = attribute => {
+      return MessageHelper.getAttributeHelp(attribute, ALIAS_PATH);
     };
 
     this.variableName = ko.computed(() => {
-      return ModelEditHelper.getVariableName(field.observable());
+      return ModelEditHelper.getVariableName(ATTRIBUTE.observable());
     });
 
     this.secretName = ko.computed(() => {
-      return ModelEditHelper.getSecretName(field.observable());
+      return ModelEditHelper.getSecretName(ATTRIBUTE.observable());
     });
 
     this.tokenValue = ko.computed(() => {
       const tokenValue = ModelEditHelper.getVariableValue(this.variableName());
-      return ModelEditHelper.getObservableValue(field, tokenValue);
+      return ModelEditHelper.getObservableValue(ATTRIBUTE, tokenValue);
     });
 
     this.usesToken = ko.computed(() => {
@@ -69,7 +69,7 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
       if(this.usesToken()) {
         return this.tokenValue;
       }
-      return field.observable;
+      return ATTRIBUTE.observable;
     });
 
     this.readOnly = ko.computed(() => {
@@ -86,42 +86,42 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
       if(this.variableName()) {
         const value = ModelEditHelper.getVariableValue(this.variableName());
         const messageKey = value ? 'from-variable' : 'missing-variable';
-        return this.fieldLabelMapper(messageKey, {variable: this.variableName()});
+        return this.attributeLabelMapper(messageKey, {variable: this.variableName()});
       } else if(this.secretName()) {
-        return this.fieldLabelMapper('from-secret', {secret: this.secretName()});
+        return this.attributeLabelMapper('from-secret', {secret: this.secretName()});
       }
     });
 
     this.optionsProvider = null;
-    if(field.options) {
-      this.optionsProvider = new ArrayDataProvider(field.options, {keyAttributes: 'key'});
+    if(ATTRIBUTE.options) {
+      this.optionsProvider = new ArrayDataProvider(ATTRIBUTE.options, {keyAttributes: 'key'});
     }
 
     this.validators = [];
-    // if validators assigned to field, skip any default validation
-    if(field.validators) {
-      field.validators.forEach(validator => {
+    // if validators assigned to attribute, skip any default validation
+    if(ATTRIBUTE.validators) {
+      ATTRIBUTE.validators.forEach(validator => {
         this.validators.push(validator);
       });
-    } else if(field.type === 'integer') {
+    } else if(ATTRIBUTE.type === 'integer') {
       this.validators.push(ModelEditHelper.integerValidator);
     }
 
     this.showOptions = () => {
-      const options = { fieldInfo: field, modelPath: MODEL_PATH };
-      DialogHelper.openDialog('modelEdit/edit-field-dialog', options);
+      const options = { attribute: ATTRIBUTE, modelPath: MODEL_PATH };
+      DialogHelper.openDialog('modelEdit/attribute-editor-dialog', options);
     };
 
     this.createModuleConfig = (viewName) => {
       return ModuleElementUtils.createConfig({
         name: viewName,
         params: {
-          field: field,
+          attribute: ATTRIBUTE,
           modelPath: MODEL_PATH
         }
       });
     };
   }
 
-  return EditField;
+  return AttributeEditor;
 });

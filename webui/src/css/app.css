@@ -846,26 +846,26 @@ h6.wkt-panel-heading {
   padding-left: 3em !important;
 }
 
-.wkt-model-edit-field-container {
+.wkt-model-edit-attribute-container {
   display: flex;
   align-items: center;
   gap: 0.25em;
 }
 
-.wkt-model-edit-field-container > * {
+.wkt-model-edit-attribute-container > * {
   flex: 1 1 auto;
 }
 
 /* needed to help inner tables resize */
-.wkt-model-edit-field-container-main {
+.wkt-model-edit-attribute-container-main {
   overflow: hidden;  /* auto shows scrollbars for table sometimes? */
 }
 
-.wkt-model-edit-field-menu-button {
+.wkt-model-edit-attribute-menu-button {
   flex: 0 0 auto;
 }
 
-.wkt-model-edit-field-menu-button button {
+.wkt-model-edit-attribute-menu-button button {
   min-width: 4px !important;
 }
 
@@ -941,16 +941,16 @@ h6.wkt-split-header {
   width: 75%;
 }
 
-.wkt-model-edit-field-dialog {
+.wkt-model-edit-attribute-dialog {
   width: 600px;
   height: auto;
 }
 
-.wkt-model-edit-field-stacked {
+.wkt-model-edit-attribute-stacked {
   margin-top: 1em;
 }
 
-.wkt-model-edit-field-label {
+.wkt-model-edit-attribute-label {
   color: var(--wkt-model-edit-label-text-color);
   font-size: var(--wkt-model-edit-label-font-size);
   font-weight: 600;

@@ -45,10 +45,10 @@ function(accUtils, ko, i18n, ModelEditHelper, MetaHelper, MessageHelper, AliasHe
     this.attributeGroups = ko.observableArray();
 
     this.initializeAttributes = () => {
-      let fieldMap = {};
+      let attributeMap = {};
 
       if (MODEL_PATH) {
-        fieldMap = ModelEditHelper.createAliasFieldMap(MODEL_PATH, {}, this.subscriptions, TEMP_MODEL);
+        attributeMap = ModelEditHelper.createAttributeMap(MODEL_PATH, {}, this.subscriptions, TEMP_MODEL);
 
         const metaAttributeGroups = MetaHelper.getAttributeGroups(ALIAS_PATH);
 
@@ -68,7 +68,7 @@ function(accUtils, ko, i18n, ModelEditHelper, MetaHelper, MessageHelper, AliasHe
           }
         });
 
-        const remainingNames = ModelEditHelper.getRemainingFieldNames(fieldMap, knownAttributeNames);
+        const remainingNames = ModelEditHelper.getRemainingAttributeNames(attributeMap, knownAttributeNames);
 
         // create a module config for each configured attribute group, inserting remaining attributes if specified
 
@@ -81,7 +81,7 @@ function(accUtils, ko, i18n, ModelEditHelper, MetaHelper, MessageHelper, AliasHe
           }
 
           if (attributeNames.length) {
-            const moduleConfig = ModelEditHelper.createFieldSetModuleConfig(attributeNames, fieldMap, MODEL_PATH);
+            const moduleConfig = ModelEditHelper.createAttributeSetModuleConfig(attributeNames, attributeMap, MODEL_PATH);
             this.attributeGroups.push({
               moduleConfig,
               metadata: metaGroup
@@ -92,7 +92,7 @@ function(accUtils, ko, i18n, ModelEditHelper, MetaHelper, MessageHelper, AliasHe
         // if there are remaining attributes and no remaining group specified, create a remaining group
 
         if (remainingNames.length && !remainderGroup) {
-          remainderConfig = ModelEditHelper.createFieldSetModuleConfig(remainingNames, fieldMap, MODEL_PATH);
+          remainderConfig = ModelEditHelper.createAttributeSetModuleConfig(remainingNames, attributeMap, MODEL_PATH);
           this.attributeGroups.push({
             moduleConfig: remainderConfig,
             metadata: {}  // TODO: should this get a default title, such as "Advanced"?

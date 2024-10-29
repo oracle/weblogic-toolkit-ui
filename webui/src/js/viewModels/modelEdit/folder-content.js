@@ -16,6 +16,7 @@ function(accUtils, ko, i18n, ModelEditHelper, MetaHelper, MessageHelper, AliasHe
     // This is usually embedded in folder-page or folder-dialog.
 
     const MODEL_PATH = args.modelPath;
+    const TEMP_MODEL = args.model;
 
     this.i18n = i18n;
     this.subscriptions = [];
@@ -31,7 +32,7 @@ function(accUtils, ko, i18n, ModelEditHelper, MetaHelper, MessageHelper, AliasHe
       });
     };
 
-    this.attributeGroupsModuleConfig = ModelEditHelper.createAttributeGroupsConfig(MODEL_PATH);
+    this.attributeGroupsModuleConfig = ModelEditHelper.createAttributeGroupsConfig(MODEL_PATH, TEMP_MODEL);
 
     this.singleFolders = [];
     this.multiFolders = [];
@@ -53,7 +54,7 @@ function(accUtils, ko, i18n, ModelEditHelper, MetaHelper, MessageHelper, AliasHe
     });
 
     this.tableModuleConfig = folderInfo => {
-      return ModelEditHelper.createInstancesTableModuleConfig(folderInfo.modelPath, []);
+      return ModelEditHelper.createInstancesTableModuleConfig(folderInfo.modelPath, TEMP_MODEL);
     };
   }
 

@@ -2,12 +2,12 @@
  Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
-<oj-dialog id="editFieldDialog" class="wkt-model-edit-field-dialog" initial-visibility="hide">
+<oj-dialog id="attributeEditorDialog" class="wkt-model-edit-attribute-dialog" initial-visibility="hide">
   <div slot="header">
     <span id="dialog-title-id" class="oj-dialog-title"><oj-bind-text value="[[getTitle()]]"></oj-bind-text></span>
   </div>
   <div slot="body">
-    <oj-validation-group id="modelEditFieldTracker">
+    <oj-validation-group id="modelEditAttributeTracker">
       <div class="oj-panel">
         <oj-c-radioset
           id="radiosetId"
@@ -19,7 +19,7 @@
 
         <oj-bind-if test="[[variableOptionSelected]]">
           <oj-select-single
-            class="wkt-model-edit-field-stacked"
+            class="wkt-model-edit-attribute-stacked"
             label-hint="[[labelMapper('variable-choice-label')]]"
             help.instruction="[[labelMapper('variable-choice-help')]]"
             value="{{variableName}}"
@@ -31,7 +31,7 @@
 
         <oj-bind-if test="[[newVariableOptionSelected]]">
           <oj-c-input-text
-            class="wkt-model-edit-field-stacked"
+            class="wkt-model-edit-attribute-stacked"
             label-hint="[[labelMapper('variable-name-label')]]"
             help.instruction="[[labelMapper('variable-name-help')]]"
             value="{{newVariableName}}"
@@ -40,7 +40,7 @@
           >
           </oj-c-input-text>
           <oj-c-input-text
-            class="wkt-model-edit-field-stacked"
+            class="wkt-model-edit-attribute-stacked"
             label-hint="[[labelMapper('variable-value-label')]]"
             help.instruction="[[labelMapper('variable-value-help')]]"
             value="{{variableValue}}"

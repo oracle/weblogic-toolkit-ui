@@ -3,13 +3,13 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 
-<div class="wkt-model-edit-field-container">
-  <div class="wkt-model-edit-field-container-main">
+<div class="wkt-model-edit-attribute-container">
+  <div class="wkt-model-edit-attribute-container-main">
 
     <oj-bind-if test="[[displayType === 'password']]">
       <oj-c-input-password
-        label-hint="[[attributeLabel(field)]]"
-        help.instruction="[[attributeHelp(field)]]"
+        label-hint="[[attributeLabel(attribute)]]"
+        help.instruction="[[attributeHelp(attribute)]]"
         value="{{getValueObservable()}}"
         disabled="[[disabled]]"
         readOnly="[[readOnly]]"
@@ -20,8 +20,8 @@
 
     <oj-bind-if test="[[displayType === 'string']]">
       <oj-c-input-text
-        label-hint="[[attributeLabel(field)]]"
-        help.instruction="[[attributeHelp(field)]]"
+        label-hint="[[attributeLabel(attribute)]]"
+        help.instruction="[[attributeHelp(attribute)]]"
         value="{{getValueObservable()}}"
         disabled="[[disabled]]"
         readOnly="[[readOnly]]"
@@ -32,8 +32,8 @@
 
     <oj-bind-if test="[[displayType === 'integer']]">
       <oj-c-input-text
-        label-hint="[[attributeLabel(field)]]"
-        help.instruction="[[attributeHelp(field)]]"
+        label-hint="[[attributeLabel(attribute)]]"
+        help.instruction="[[attributeHelp(attribute)]]"
         value="{{getValueObservable()}}"
         disabled="[[disabled]]"
         readOnly="[[readOnly]]"
@@ -43,18 +43,18 @@
     </oj-bind-if>
 
     <oj-bind-if test="[[displayType === 'list']]">
-      <oj-module config="[[createModuleConfig('modelEdit/list-edit-field')]]"></oj-module>
+      <oj-module config="[[createModuleConfig('modelEdit/list-attribute-editor')]]"></oj-module>
     </oj-bind-if>
 
     <oj-bind-if test="[[displayType === 'dict']]">
-      <oj-module config="[[createModuleConfig('modelEdit/dict-edit-field')]]"></oj-module>
+      <oj-module config="[[createModuleConfig('modelEdit/dict-attribute-editor')]]"></oj-module>
     </oj-bind-if>
 
     <oj-bind-if test="[[displayType === 'boolean']]">
       <div class="wkt-model-edit-boolean-box">
         <oj-switch
-          label-hint="[[attributeLabel(field)]]"
-          help.instruction="[[attributeHelp(field)]]"
+          label-hint="[[attributeLabel(attribute)]]"
+          help.instruction="[[attributeHelp(attribute)]]"
           value="{{getValueObservable()}}"
           translations="[[switchTranslations]]"
           disabled="[[disabled]]"
@@ -66,8 +66,8 @@
 
     <oj-bind-if test="[[displayType === 'choice']]">
       <oj-select-single
-        label-hint="[[attributeLabel(field)]]"
-        help.instruction="[[attributeHelp(field)]]"
+        label-hint="[[attributeLabel(attribute)]]"
+        help.instruction="[[attributeHelp(attribute)]]"
         value="{{getValueObservable()}}"
         disabled="[[disabled]]"
         readOnly="[[readOnly]]"
@@ -78,8 +78,8 @@
 
     <oj-bind-if test="[[displayType === 'unknown']]">
       <oj-c-input-text
-        label-hint="[[attributeLabel(field) + ' (' + field.type + ' ???)']]"
-        help.instruction="[[attributeHelp(field)]]"
+        label-hint="[[attributeLabel(attribute) + ' (' + attribute.type + ' ???)']]"
+        help.instruction="[[attributeHelp(attribute)]]"
         value="{{getValueObservable()}}"
         disabled="[[disabled]]"
         readOnly="[[readOnly]]"
@@ -99,9 +99,9 @@
   </div>
 
   <oj-c-button
-    label="[[fieldLabelMapper('options')]]"
+    label="[[attributeLabelMapper('options')]]"
     display="icons"
-    class="wkt-model-edit-field-menu-button"
+    class="wkt-model-edit-attribute-menu-button"
     chroming="borderless"
     on-oj-action="[[showOptions]]">
     <span slot="endIcon" :class="[[menuIconClass]]" role="img"></span>

@@ -2,7 +2,7 @@
  Copyright (c) 2024, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
-<oj-dialog id="newDictEntryDialog" class="wkt-model-edit-field-dialog" initial-visibility="hide">
+<oj-dialog id="newDictEntryDialog" class="wkt-model-edit-attribute-dialog" initial-visibility="hide">
   <div slot="header">
     <span id="dialog-title-id" class="oj-dialog-title"><oj-bind-text value="[[getTitle()]]"></oj-bind-text></span>
   </div>
@@ -10,7 +10,7 @@
     <oj-validation-group id="modelNewEntryTracker">
       <div class="oj-panel">
         <oj-c-input-text
-          class="wkt-model-edit-field-stacked"
+          class="wkt-model-edit-attribute-stacked"
           label-hint="[[nameLabel]]"
           help.instruction="[[nameHelp]]"
           value="{{entryName}}"
@@ -19,7 +19,7 @@
         >
         </oj-c-input-text>
         <oj-c-input-text
-          class="wkt-model-edit-field-stacked"
+          class="wkt-model-edit-attribute-stacked"
           label-hint="[[valueLabel]]"
           help.instruction="[[valueHelp]]"
           value="{{entryValue}}"

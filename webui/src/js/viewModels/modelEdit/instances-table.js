@@ -19,6 +19,7 @@ function(accUtils, i18n, ko, InstanceHelper, ModelEditHelper, MessageHelper, Nav
     const MODEL_PATH = args.modelPath;
     const NAME_VALIDATORS = args.nameValidators;
     const MENU_LINK = args.menuLink;
+    const TEMP_MODEL = args.model;
 
     const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
 
@@ -87,23 +88,21 @@ function(accUtils, i18n, ko, InstanceHelper, ModelEditHelper, MessageHelper, Nav
       }
     ];
 
-    for (const [attribute, options] of Object.entries(this.summaryAttributes)) {
-      const typeKey = options['typeKey'];  // ???
-      let attributeName = attribute;
+    // attributePath is usually a simple name, but may be qualified, like "SSL/ListenPort"
+    for (const [attributePath, options] of Object.entries(this.summaryAttributes)) {
       let aliasPath = [...ALIAS_PATH];
 
-      // the attribute may be in a sub-folder, such as SSL/ListenPort
-      const parts = attribute.split('/');
+      const parts = attributePath.split('/');
       if(parts.length > 1) {
         parts.slice(0, parts.length - 1).forEach(part => {
           aliasPath.push(part);
         });
-        attributeName = parts[parts.length - 1];
       }
+      const attributeName = parts[parts.length - 1];
 
       this.instancesColumnData.push({
-        headerText: MessageHelper.getAttributeLabel(attributeName, aliasPath),
-        sortProperty: attribute,
+        headerText: MessageHelper.getAttributeLabelFromName(attributeName, aliasPath),
+        sortProperty: attributeName,
         resizable: 'enabled'
       });
     }
@@ -135,16 +134,17 @@ function(accUtils, i18n, ko, InstanceHelper, ModelEditHelper, MessageHelper, Nav
           .then(result => {
             const newName = result.instanceName;
             if (newName) {
-              ModelEditHelper.addFolder(MODEL_PATH, newName);
+              ModelEditHelper.addFolder(MODEL_PATH, newName, TEMP_MODEL);
             }
           });
 
       } else {
-        const newName = InstanceHelper.getNewInstanceName(MODEL_PATH);
+        const newName = InstanceHelper.getNewInstanceName(MODEL_PATH, TEMP_MODEL);
 
         const instancePath = [...MODEL_PATH, newName];
         const options = {
           modelPath: instancePath,
+          model: TEMP_MODEL,
           add: true
         };
         DialogHelper.promptDialog('modelEdit/folder-dialog', options)
@@ -158,7 +158,7 @@ function(accUtils, i18n, ko, InstanceHelper, ModelEditHelper, MessageHelper, Nav
 
     this.deleteInstance = (event, context) => {
       const key = context.item.data.name;
-      ModelEditHelper.deleteModelElement(MODEL_PATH, key);
+      ModelEditHelper.deleteModelElement(MODEL_PATH, key, TEMP_MODEL);
     };
 
     this.editInstance = (event, context) => {

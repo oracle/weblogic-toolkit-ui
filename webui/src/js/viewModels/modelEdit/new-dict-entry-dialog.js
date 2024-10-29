@@ -14,11 +14,11 @@ function(accUtils, ko, i18n, project,
 
   function NewDictEntryDialogModel(args) {
     const MODEL_PATH = args.modelPath;
+    const ATTRIBUTE = args.attribute;
 
     const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
     const DIALOG_SELECTOR = '#newDictEntryDialog';
 
-    const field = args.field;
     const observableItems = args.observableItems;
 
     this.i18n = i18n;
@@ -38,13 +38,13 @@ function(accUtils, ko, i18n, project,
       });
     };
 
-    this.nameLabel = MessageHelper.getKeyLabel(field, ALIAS_PATH);
-    this.nameHelp = MessageHelper.getKeyHelp(field, ALIAS_PATH);
-    this.valueLabel = MessageHelper.getValueLabel(field, ALIAS_PATH);
-    this.valueHelp = MessageHelper.getValueHelp(field, ALIAS_PATH);
+    this.nameLabel = MessageHelper.getKeyLabel(ATTRIBUTE, ALIAS_PATH);
+    this.nameHelp = MessageHelper.getKeyHelp(ATTRIBUTE, ALIAS_PATH);
+    this.valueLabel = MessageHelper.getValueLabel(ATTRIBUTE, ALIAS_PATH);
+    this.valueHelp = MessageHelper.getValueHelp(ATTRIBUTE, ALIAS_PATH);
 
     this.getTitle = ko.computed(() => {
-      return MessageHelper.getAddEntryLabel(field, ALIAS_PATH, true);
+      return MessageHelper.getAddEntryLabel(ATTRIBUTE, ALIAS_PATH, true);
     });
 
     this.nameValidators = [{

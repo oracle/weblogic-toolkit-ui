@@ -56,7 +56,7 @@ function(accUtils, i18n, ko, ModelEditHelper, MessageHelper, AliasHelper) {
       return i18n.t(`model-edit-${labelId}`, payload);
     };
 
-    const connectionFields = [
+    const connectionAttributes = [
       'rcu_database_type',
       'oracle_database_connection_type',
       'rcu_admin_password',
@@ -67,12 +67,12 @@ function(accUtils, i18n, ko, ModelEditHelper, MessageHelper, AliasHelper) {
       'tns.alias'
     ];
 
-    const atpFields = [
+    const atpAttributes = [
       'atp.default.tablespace',
       'atp.temp.tablespace',
     ];
 
-    const storeFields = [
+    const storeAttributes = [
       'javax.net.ssl.keyStore',
       'javax.net.ssl.keyStoreType',
       'javax.net.ssl.keyStorePassword',
@@ -81,42 +81,42 @@ function(accUtils, i18n, ko, ModelEditHelper, MessageHelper, AliasHelper) {
       'javax.net.ssl.trustStorePassword'
     ];
 
-    const excludeFieldNames = [
+    const excludeAttributeNames = [
       'databaseType'
     ];
 
-    const fieldOverrides = {
+    const attributeOverrides = {
       rcu_database_type: { options: DB_TYPES },
       oracle_database_connection_type: { options: CONNECTION_TYPES },
       'javax.net.ssl.keyStoreType': { options: STORE_TYPES },
       'javax.net.ssl.trustStoreType': { options: STORE_TYPES },
     };
 
-    const fieldMap = ModelEditHelper.createAliasFieldMap(MODEL_PATH, fieldOverrides, subscriptions);
+    const attributeMap = ModelEditHelper.createAttributeMap(MODEL_PATH, attributeOverrides, subscriptions);
 
     // disable connection type based on database type
-    const dbTypeField = fieldMap['rcu_database_type'];
-    const connectionTypeField = fieldMap['oracle_database_connection_type'];
-    connectionTypeField['disabled'] = ko.computed(() => {
-      return ModelEditHelper.getDerivedValue(dbTypeField.observable()) !== 'ORACLE';
+    const dbTypeAttribute = attributeMap['rcu_database_type'];
+    const connectionTypeAttribute = attributeMap['oracle_database_connection_type'];
+    connectionTypeAttribute['disabled'] = ko.computed(() => {
+      return ModelEditHelper.getDerivedValue(dbTypeAttribute.observable()) !== 'ORACLE';
     });
 
-    // create a list of remaining fields
-    const knownFieldNames = [...connectionFields, ...atpFields, ...storeFields, ...excludeFieldNames];
-    const remainingFieldNames = ModelEditHelper.getRemainingFieldNames(fieldMap, knownFieldNames);
+    // create a list of remaining attributes
+    const knownAttributeNames = [...connectionAttributes, ...atpAttributes, ...storeAttributes, ...excludeAttributeNames];
+    const remainingAttributeNames = ModelEditHelper.getRemainingAttributeNames(attributeMap, knownAttributeNames);
 
-    this.connectionModuleConfig = ModelEditHelper.createFieldSetModuleConfig(connectionFields, fieldMap,
+    this.connectionModuleConfig = ModelEditHelper.createAttributeSetModuleConfig(connectionAttributes, attributeMap,
       MODEL_PATH);
 
-    this.advancedModuleConfig = ModelEditHelper.createFieldSetModuleConfig(remainingFieldNames, fieldMap,
+    this.advancedModuleConfig = ModelEditHelper.createAttributeSetModuleConfig(remainingAttributeNames, attributeMap,
       MODEL_PATH);
 
-    this.atpModuleConfig = ModelEditHelper.createFieldSetModuleConfig(atpFields, fieldMap, MODEL_PATH);
+    this.atpModuleConfig = ModelEditHelper.createAttributeSetModuleConfig(atpAttributes, attributeMap, MODEL_PATH);
 
-    this.storesModuleConfig = ModelEditHelper.createFieldSetModuleConfig(storeFields, fieldMap, MODEL_PATH);
+    this.storesModuleConfig = ModelEditHelper.createAttributeSetModuleConfig(storeAttributes, attributeMap, MODEL_PATH);
 
-    this.fieldConfig = (key) => {
-      return ModelEditHelper.createFieldModuleConfig(key, fieldMap, MODEL_PATH);
+    this.attributeConfig = (key) => {
+      return ModelEditHelper.createAttributeModuleConfig(key, attributeMap, MODEL_PATH);
     };
   }
 

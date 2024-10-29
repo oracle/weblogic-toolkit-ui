@@ -15,18 +15,18 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
   BufferingDataProvider, props, ojConverterNumber,
   ModelEditHelper, MessageHelper, AliasHelper, validationHelper, viewHelper) {
 
-  function EditFieldDialogModel(args) {
+  function AttributeEditorDialog(args) {
     const MODEL_PATH = args.modelPath;
+    const ATTRIBUTE = args.attribute;
 
     const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
-    const DIALOG_SELECTOR = '#editFieldDialog';
+    const DIALOG_SELECTOR = '#attributeEditorDialog';
     const VARIABLE_NAME_REGEX= /^[\w.-]+$/;
 
-    const fieldInfo = args.fieldInfo;
-    const existingSecret = ModelEditHelper.getSecretName(fieldInfo.observable());
-    const existingVariable = ModelEditHelper.getVariableName(fieldInfo.observable());
+    const existingSecret = ModelEditHelper.getSecretName(ATTRIBUTE.observable());
+    const existingVariable = ModelEditHelper.getVariableName(ATTRIBUTE.observable());
 
-    let existingValue = fieldInfo.observable();
+    let existingValue = ATTRIBUTE.observable();
     if(existingVariable) {
       existingValue = ModelEditHelper.getVariableValue(existingVariable);
     } else if(existingSecret) {
@@ -41,7 +41,7 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
     this.i18n = i18n;
 
     this.connected = () => {
-      accUtils.announce('Edit field dialog loaded.', 'assertive');
+      accUtils.announce('Attribute editor dialog loaded.', 'assertive');
 
       this.dialogContainer = $(DIALOG_SELECTOR)[0];
 
@@ -53,12 +53,12 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
     };
 
     this.labelMapper = (labelId, arg) => {
-      return i18n.t(`model-edit-field-dialog-${labelId}`, arg);
+      return i18n.t(`model-edit-attribute-dialog-${labelId}`, arg);
     };
 
     this.getTitle = ko.computed(() => {
-      const fieldLabel = MessageHelper.getAttributeLabel(fieldInfo.attribute, ALIAS_PATH);
-      return this.labelMapper('title', {fieldLabel: fieldLabel});
+      const attributeLabel = MessageHelper.getAttributeLabel(ATTRIBUTE, ALIAS_PATH);
+      return this.labelMapper('title', {attributeLabel: attributeLabel});
     });
 
     const existingOption = existingVariable ? 'variable' : 'edit';
@@ -70,7 +70,7 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
     ];
 
     // dictionary attributes can't be tokenized
-    if(ModelEditHelper.getDisplayType(fieldInfo) !== 'dict') {
+    if(ModelEditHelper.getDisplayType(ATTRIBUTE) !== 'dict') {
       this.editOptions.push({ value: 'variable', label: this.labelMapper('option-variable') });
       this.editOptions.push({ value: 'newVariable', label: this.labelMapper('option-newVariable') });
     }
@@ -119,7 +119,7 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
     };
 
     this.okInput = () => {
-      let tracker = document.getElementById('modelEditFieldTracker');
+      let tracker = document.getElementById('modelEditAttributeTracker');
 
       if (tracker.valid !== 'valid') {
         // show messages on all the components that have messages hidden.
@@ -130,19 +130,19 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
 
       switch(this.editOption()) {
         case 'remove':
-          fieldInfo.observable(null);
-          ModelEditHelper.deleteModelElement(fieldInfo.path, fieldInfo.attribute);
+          ATTRIBUTE.observable(null);
+          ModelEditHelper.deleteModelElement(ATTRIBUTE.path, ATTRIBUTE.name);
           break;
         case 'variable':
-          fieldInfo.observable(ModelEditHelper.getVariableToken(this.variableName()));
+          ATTRIBUTE.observable(ModelEditHelper.getVariableToken(this.variableName()));
           break;
         case 'newVariable':
           project.wdtModel.setProperty(this.newVariableName(), this.variableValue());
           ModelEditHelper.updateVariableMap();
-          fieldInfo.observable(ModelEditHelper.getVariableToken(this.newVariableName()));
+          ATTRIBUTE.observable(ModelEditHelper.getVariableToken(this.newVariableName()));
           break;
         default:  // use the existing value, we may be de-tokenizing
-          fieldInfo.observable(existingValue);
+          ATTRIBUTE.observable(existingValue);
           break;
       }
 
@@ -157,5 +157,5 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
   /*
    * Returns a constructor for the ViewModel.
    */
-  return EditFieldDialogModel;
+  return AttributeEditorDialog;
 });

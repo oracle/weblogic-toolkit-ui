@@ -15,9 +15,9 @@ function (i18n, AliasHelper, MetaHelper,
     const INSTANCE_NAME_REGEX= /^[\w.!-]+$/;  // TODO: refine this
 
     // modelPath should end with type name, like /topology/Server
-    this.getNewInstanceName = modelPath => {
+    this.getNewInstanceName = (modelPath, model) => {
       const typeName = modelPath[modelPath.length - 1];
-      const modelFolder = ModelEditHelper.getFolder(modelPath);
+      const modelFolder = ModelEditHelper.getFolder(modelPath, model);
       const instanceKeys = Object.keys(modelFolder);
       let i = 1;
       let modelName = getInstanceName(typeName, i);

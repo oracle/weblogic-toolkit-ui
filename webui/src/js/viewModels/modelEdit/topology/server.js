@@ -39,7 +39,7 @@ function(accUtils, i18n, ko, ModelEditHelper, MessageHelper, ModuleElementUtils)
       return i18n.t(`model-edit-${labelId}`, payload);
     };
 
-    const knownFields = [
+    const knownAttributes = [
       'Cluster',
       'DefaultIIOPUser',
       'ListenPort',
@@ -47,24 +47,24 @@ function(accUtils, i18n, ko, ModelEditHelper, MessageHelper, ModuleElementUtils)
     ];
 
     // valid for Server and Server/SSL, since ListenPort is in both
-    const fieldOverrides = {
+    const attributeOverrides = {
       ListenPort: { validators: [ModelEditHelper.portValidator] }
     };
 
-    const fieldMap = ModelEditHelper.createAliasFieldMap(MODEL_PATH, fieldOverrides, subscriptions);
-    const sslFieldMap = ModelEditHelper.createAliasFieldMap(SSL_PATH, fieldOverrides, subscriptions);
+    const attributeMap = ModelEditHelper.createAttributeMap(MODEL_PATH, attributeOverrides, subscriptions);
+    const sslAttributeMap = ModelEditHelper.createAttributeMap(SSL_PATH, attributeOverrides, subscriptions);
 
-    this.fieldConfig = (key) => {
-      return ModelEditHelper.createFieldModuleConfig(key, fieldMap, MODEL_PATH);
+    this.attributeConfig = (key) => {
+      return ModelEditHelper.createAttributeModuleConfig(key, attributeMap, MODEL_PATH);
     };
 
-    this.sslFieldConfig = (key) => {
-      return ModelEditHelper.createFieldModuleConfig(key, sslFieldMap, SSL_PATH);
+    this.sslAttributeConfig = (key) => {
+      return ModelEditHelper.createAttributeModuleConfig(key, sslAttributeMap, SSL_PATH);
     };
 
-    // create a module config for remaining Server fields
-    const remainingFieldNames = ModelEditHelper.getRemainingFieldNames(fieldMap, knownFields);
-    this.remainingModuleConfig = ModelEditHelper.createFieldSetModuleConfig(remainingFieldNames, fieldMap,
+    // create a module config for remaining Server attributes
+    const remainingAttributeNames = ModelEditHelper.getRemainingAttributeNames(attributeMap, knownAttributes);
+    this.remainingModuleConfig = ModelEditHelper.createAttributeSetModuleConfig(remainingAttributeNames, attributeMap,
       MODEL_PATH);
 
     this.folderHeaderModuleConfig = ModuleElementUtils.createConfig({

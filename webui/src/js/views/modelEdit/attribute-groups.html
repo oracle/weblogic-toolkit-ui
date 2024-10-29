@@ -7,7 +7,7 @@
   <oj-bind-for-each data="[[attributeGroups]]">
   <template data-oj-as="group">
     <oj-bind-if test="[[group.data.metadata.collapsible]]">
-      <oj-c-collapsible class="wkt-model-edit-field-stacked wkt-collapsible" expanded="false">
+      <oj-c-collapsible class="wkt-model-edit-attribute-stacked wkt-collapsible" expanded="false">
         <h6 slot='header' class="wkt-subheading">
           <oj-bind-text value="[[labelMapper(group.data.metadata.title)]]"></oj-bind-text>
         </h6>

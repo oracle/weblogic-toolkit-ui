@@ -146,13 +146,13 @@ function (ko, i18n, jsYaml, project, utils,
       console.log(`Element ${modelPath} was renamed to ${newName}`);
     };
 
-    // *********************************************
-    // create field configurations for display/edit
-    // *********************************************
+    // *************************************************
+    // create attribute configurations for display/edit
+    // *************************************************
 
     /*
-      field attributes:
-        attribute (alias name)
+      attribute keys:
+        name (model name)
         key (i18n)
         path (model path)
         type (WLST type)
@@ -163,92 +163,92 @@ function (ko, i18n, jsYaml, project, utils,
         validators (for controls)
      */
 
-    this.createAliasFieldMap = (modelPath, fieldOverrides, subscriptions, tempModel) => {
-      const editModel = tempModel || this.getCurrentModel();
-      const fieldMap = {};
+    this.createAttributeMap = (modelPath, attributeOverrides, subscriptions, tempModel) => {
+      const attributeMap = {};
 
-      const attributesMap = AliasHelper.getAttributesMap(modelPath);
-      for (const [attributeName, valueMap] of Object.entries(attributesMap)) {
-
-        const field = {
-          attribute: attributeName,
+      const aliasAttributesMap = AliasHelper.getAttributesMap(modelPath);
+      for (const [attributeName, valueMap] of Object.entries(aliasAttributesMap)) {
+        const attribute = {
+          name: attributeName,
           path: modelPath,
           type: valueMap['wlstType'],
           observable: ko.observable()
         };
 
-        const overrides = fieldOverrides[attributeName];
-        Object.assign(field, overrides);
+        const overrides = attributeOverrides[attributeName];
+        Object.assign(attribute, overrides);
 
-        const observableValue = this.getFieldObservableValue(field);
-        field.observable(observableValue);
+        const observableValue = this.getAttributeObservableValue(attribute);
+        attribute.observable(observableValue);
 
-        subscriptions.push(field.observable.subscribe(newValue => {
+        subscriptions.push(attribute.observable.subscribe(newValue => {
           if(newValue === null) {
-            this.deleteModelElement(field.path, field.attribute);
+            this.deleteModelElement(attribute.path, attribute.name, tempModel);
           } else {
-            const folder = findOrCreatePath(editModel, field.path);
-            folder[field.attribute] = getModelValue(newValue, field);
+            const editModel = tempModel || this.getCurrentModel();
+            const folder = findOrCreatePath(editModel, attribute.path);
+            folder[attribute.name] = getModelValue(newValue, attribute);
           }
           this.writeModel();
         }));
 
-        fieldMap[attributeName] = field;
+        attributeMap[attributeName] = attribute;
       }
-      return fieldMap;
+      return attributeMap;
     };
 
-    // create a field configuration for an edit-field module
-    this.createFieldModuleConfig = (key, fieldMap, modelPath) => {
-      const field = fieldMap[key];
-      if(!field) {
-        WktLogger.error(`Field ${key} not found, fields: ${Object.keys(fieldMap)}`);
+    // create a module configuration for a single attribute
+    this.createAttributeModuleConfig = (key, attributeMap, modelPath) => {
+      const attribute = attributeMap[key];
+      if(!attribute) {
+        WktLogger.error(`Attribute ${key} not found, available: ${Object.keys(attributeMap)}`);
         return ModuleElementUtils.createConfig({ name: 'empty-view' });
       }
 
       return ModuleElementUtils.createConfig({
-        name: 'modelEdit/edit-field',
+        name: 'modelEdit/attribute-editor',
         params: {
-          field: field,
+          attribute: attribute,
           modelPath: modelPath
         }
       });
     };
 
-    this.createFieldSetModuleConfig = (fields, fieldMap, modelPath) => {
+    this.createAttributeSetModuleConfig = (attributes, attributeMap, modelPath) => {
       return ModuleElementUtils.createConfig({
-        name: 'modelEdit/field-set',
+        name: 'modelEdit/attribute-set',
         params: {
-          fields: fields,
+          attributes: attributes,
           modelPath: modelPath,
-          fieldMap: fieldMap
+          attributeMap: attributeMap
         }
       });
     };
 
-    this.createAttributeGroupsConfig = modelPath => {
+    this.createAttributeGroupsConfig = (modelPath, model) => {
       return ModuleElementUtils.createConfig({
         name: 'modelEdit/attribute-groups',
         params: {
-          modelPath
+          modelPath,
+          model
         }
       });
     };
 
-    this.createInstancesTableModuleConfig = (modelPath, summaryAttributes) => {
+    this.createInstancesTableModuleConfig = (modelPath, model) => {
       return ModuleElementUtils.createConfig({
         name: 'modelEdit/instances-table',
         params: {
           modelPath,
-          summaryAttributes
+          model
         }
       });
     };
 
-    this.getRemainingFieldNames = (fieldMap, knownFieldNames) => {
+    this.getRemainingAttributeNames = (attributeMap, knownAttributeNames) => {
       const remainingNames = [];
-      Object.keys(fieldMap).forEach(key => {
-        if(!knownFieldNames.includes(key)) {
+      Object.keys(attributeMap).forEach(key => {
+        if(!knownAttributeNames.includes(key)) {
           remainingNames.push(key);
         }
       });
@@ -258,14 +258,14 @@ function (ko, i18n, jsYaml, project, utils,
       return remainingNames;
     };
 
-    this.getFieldObservableValue = field => {
-      const modelValue = this.getValue(field.path, field.attribute);
-      return this.getObservableValue(field, modelValue);
+    this.getAttributeObservableValue = attribute => {
+      const modelValue = this.getValue(attribute.path, attribute.name);
+      return this.getObservableValue(attribute, modelValue);
     };
 
-    this.getObservableValue = (field, modelValue) => {
+    this.getObservableValue = (attribute, modelValue) => {
       // convert model type to observable type
-      if(field.type === 'boolean') {
+      if(attribute.type === 'boolean') {
         // YAML 1.2 only allows false, but WDT allows 'false', '0', 0 (0 is false for JS).
         // leave the value alone otherwise, it may be a token.
         const testValue = isString(modelValue) ? modelValue.toLowerCase() : modelValue;
@@ -336,9 +336,9 @@ function (ko, i18n, jsYaml, project, utils,
 
     this.getDisplayType = getDisplayType;
 
-    // *****************
-    // field validators
-    // *****************
+    // *********************
+    // attribute validators
+    // *********************
 
     const INTEGER_REGEX = /^[0-9-]*$/;
     const MIN_PORT = 1;
@@ -348,7 +348,7 @@ function (ko, i18n, jsYaml, project, utils,
       validate: value => {
         if(value) {
           if (!INTEGER_REGEX.test(value)) {
-            throw new Error(i18n.t('model-edit-field-invalid-integer'));
+            throw new Error(i18n.t('model-edit-invalid-integer-error'));
           }
         }
       }
@@ -365,7 +365,7 @@ function (ko, i18n, jsYaml, project, utils,
       if(value) {
         const port = parseInt(value, 10);
         if((port < min) || (port > max)) {
-          throw new Error(i18n.t('model-edit-field-invalid-range', {min, max}));
+          throw new Error(i18n.t('model-edit-invalid-range-error', {min, max}));
         }
       }
     };
@@ -431,9 +431,9 @@ function (ko, i18n, jsYaml, project, utils,
       return (index === -1) ? 99 : index;
     }
 
-    // refine field value for use in the model
-    function getModelValue(value, field) {
-      if ((getDisplayType(field) === 'integer') && isString(value)) {
+    // refine attribute value for use in the model
+    function getModelValue(value, attribute) {
+      if ((getDisplayType(attribute) === 'integer') && isString(value)) {
         const result = value.match(/^([0-9]+)$/);
         if(result && (result.length > 1)) {
           return parseInt(result[1], 10);
@@ -446,45 +446,45 @@ function (ko, i18n, jsYaml, project, utils,
       return typeof value === 'string' || value instanceof String;
     }
 
-    function getDisplayType(field) {
-      let fieldType = field.type;
+    function getDisplayType(attribute) {
+      let attributeType = attribute.type;
 
       // some alias attributes have wlst_type like ${offline:online},
       // in this case use the first value
-      const result = fieldType.match(/^\$\{(.*):(.*)}$/);
+      const result = attributeType.match(/^\$\{(.*):(.*)}$/);
       if(result && (result.length > 1)) {
-        fieldType = result[1];
+        attributeType = result[1];
       }
 
-      if(fieldType === 'password') {
+      if(attributeType === 'password') {
         return 'password';
       }
 
-      if(fieldType === 'boolean') {
+      if(attributeType === 'boolean') {
         return 'boolean';
       }
 
-      if(['dict', 'properties'].includes(fieldType)) {
+      if(['dict', 'properties'].includes(attributeType)) {
         return 'dict';
       }
 
-      if(['list', 'jarray'].includes(fieldType) || fieldType.startsWith('delimited_string')) {
+      if(['list', 'jarray'].includes(attributeType) || attributeType.startsWith('delimited_string')) {
         return 'list';
       }
 
-      if(field['options']) {
+      if(attribute['options']) {
         return 'choice';
       }
 
-      if(['integer', 'long'].includes(fieldType)) {
+      if(['integer', 'long'].includes(attributeType)) {
         return 'integer';
       }
 
-      if(['string', 'credential'].includes(fieldType)) {
+      if(['string', 'credential'].includes(attributeType)) {
         return 'string';
       }
 
-      WktLogger.error(`Unrecognized field type '${field.type}' for field ${field.attribute}`);
+      WktLogger.error(`Unrecognized type '${attribute.type}' for attribute ${attribute.name}`);
       return 'unknown';
     }
   }

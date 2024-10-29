@@ -32,26 +32,26 @@ function(accUtils, i18n, ModelEditHelper, MessageHelper, AliasHelper) {
     };
 
     // these are directly referenced in HTML
-    const primaryFieldNames = [
+    const primaryAttributeNames = [
       'AdminUserName',
       'AdminPassword'
     ];
 
-    const excludeFieldNames = [
+    const excludeAttributeNames = [
       'OPSSSecrets'
     ];
 
-    const fieldMap = ModelEditHelper.createAliasFieldMap(MODEL_PATH, {}, subscriptions);
+    const attributeMap = ModelEditHelper.createAttributeMap(MODEL_PATH, {}, subscriptions);
 
-    // create a list of remaining fields
-    const knownFieldNames = [...primaryFieldNames, ...excludeFieldNames];
-    const remainingFieldNames = ModelEditHelper.getRemainingFieldNames(fieldMap, knownFieldNames);
+    // create a list of remaining attributes
+    const knownAttributeNames = [...primaryAttributeNames, ...excludeAttributeNames];
+    const remainingAttributeNames = ModelEditHelper.getRemainingAttributeNames(attributeMap, knownAttributeNames);
 
-    this.remainingModuleConfig = ModelEditHelper.createFieldSetModuleConfig(remainingFieldNames, fieldMap,
+    this.remainingModuleConfig = ModelEditHelper.createAttributeSetModuleConfig(remainingAttributeNames, attributeMap,
       MODEL_PATH);
 
-    this.fieldConfig = (key) => {
-      return ModelEditHelper.createFieldModuleConfig(key, fieldMap, MODEL_PATH);
+    this.attributeConfig = (key) => {
+      return ModelEditHelper.createAttributeModuleConfig(key, attributeMap, MODEL_PATH);
     };
   }
 

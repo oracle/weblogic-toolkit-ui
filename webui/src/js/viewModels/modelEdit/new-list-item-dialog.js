@@ -13,11 +13,11 @@ function(accUtils, ko, i18n, project,
   ModelEditHelper, MessageHelper, AliasHelper, utils, validationHelper, viewHelper) {
   function NewListItemDialogModel(args) {
     const MODEL_PATH = args.modelPath;
+    const ATTRIBUTE = args.attribute;
 
     const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
     const DIALOG_SELECTOR = '#newListItemDialog';
 
-    const field = args.field;
     const observableItems = args.observableItems;
 
     this.i18n = i18n;
@@ -36,11 +36,11 @@ function(accUtils, ko, i18n, project,
       });
     };
 
-    this.nameLabel = MessageHelper.getItemLabel(field, ALIAS_PATH);
-    this.nameHelp = MessageHelper.getItemHelp(field, ALIAS_PATH);
+    this.nameLabel = MessageHelper.getItemLabel(ATTRIBUTE, ALIAS_PATH);
+    this.nameHelp = MessageHelper.getItemHelp(ATTRIBUTE, ALIAS_PATH);
 
     this.getTitle = ko.computed(() => {
-      return MessageHelper.getAddItemLabel(field, ALIAS_PATH, true);
+      return MessageHelper.getAddItemLabel(ATTRIBUTE, ALIAS_PATH, true);
       // this.i18n.t('model-edit-list-dialog-add-label', {
     });
 

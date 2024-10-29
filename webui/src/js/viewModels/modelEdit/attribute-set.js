@@ -9,16 +9,16 @@ define(['accUtils', 'utils/i18n', 'utils/modelEdit/model-edit-helper',
   'oj-c/form-layout', 'oj-c/input-text', 'oj-c/input-password'
 ],
 function(accUtils, i18n, ModelEditHelper) {
-  function FieldSet(args) {
+  function AttributeSet(args) {
     const MODEL_PATH = args.modelPath;
-    const fieldMap = args.fieldMap;
+    const ATTRIBUTE_MAP = args.attributeMap;
 
-    this.fields = args.fields;
+    this.attributes = args.attributes;
 
-    this.fieldConfig = (field) => {
-      return ModelEditHelper.createFieldModuleConfig(field, fieldMap, MODEL_PATH);
+    this.attributeConfig = attribute => {
+      return ModelEditHelper.createAttributeModuleConfig(attribute, ATTRIBUTE_MAP, MODEL_PATH);
     };
   }
 
-  return FieldSet;
+  return AttributeSet;
 });
