@@ -163,7 +163,6 @@ function(accUtils, i18n, ko, InstanceHelper, ModelEditHelper, MessageHelper, Nav
 
     this.editInstance = (event, context) => {
       if(MENU_LINK) {
-        NavigationHelper.openNavigation(MODEL_PATH);
         NavigationHelper.navigateToElement(MODEL_PATH, context.item.data.name);
 
       } else {

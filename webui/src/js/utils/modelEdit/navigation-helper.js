@@ -20,6 +20,8 @@ define(['knockout'],
       // **************************************
 
       this.navigateToElement = (modelPath, name) => {
+        this.openNavigation(modelPath);
+
         const navigationKey = modelPath.join('/') + '/' + name;
         this.navSelection(navigationKey);
       };

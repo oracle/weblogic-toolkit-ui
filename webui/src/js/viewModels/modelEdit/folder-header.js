@@ -42,7 +42,6 @@ function(accUtils, i18n, AliasHelper, MessageHelper, ModelEditHelper, Navigation
             ModelEditHelper.renameInstance(MODEL_PATH, newName);
 
             const parentPath = MODEL_PATH.slice(0, -1);
-            NavigationHelper.openNavigation(parentPath);
             NavigationHelper.navigateToElement(parentPath, newName);
           }
         }
