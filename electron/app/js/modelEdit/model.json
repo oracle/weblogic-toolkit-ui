@@ -1,4 +1,25 @@
 {
+  "DomainInfo": {
+    "attributeGroups": [
+      {
+        "members": {
+          "AdminUserName": {},
+          "AdminPassword": {}
+        }
+      },
+      {
+        "exclude": true,
+        "members": {
+          "OPSSSecrets": {}
+        }
+      },
+      {
+        "title": "model-edit-advanced-label",
+        "collapsible": true,
+        "remainder": true
+      }
+    ]
+  },
   "OPSSInitialization/Credential/TargetKey": {
     "summaryAttributes": {
       "Username": {}
@@ -68,6 +89,22 @@
   "Library": {
     "summaryAttributes": {
       "SourcePath": {}
-    }
+    },
+    "attributeGroups": [
+      {
+        "members": {
+          "SourcePath": {},
+          "DeploymentOrder": {},
+          "PlanDir": {},
+          "PlanPath": {},
+          "Target": {}
+        }
+      },
+      {
+        "title": "model-edit-advanced-label",
+        "collapsible": true,
+        "remainder": true
+      }
+    ]
   }
 }

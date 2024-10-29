@@ -969,7 +969,7 @@ h6.wkt-split-header {
   margin-top: 0.5em !important;  /* oj-c-collapsible has no space between header and content */
 }
 
-.wkt-attribute-groups *:first-child {
+.wkt-attribute-groups > *:first-child {
   margin-top: 0 !important;  /* no top margin on first child */
 }
 

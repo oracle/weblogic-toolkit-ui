@@ -147,7 +147,6 @@ function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, NavigationHelper, Mes
       {
         modelPath: ['domainInfo'],
         icon: 'oj-ux-ico-folder',
-        page: 'domainInfo/domainInfo',
         children: [
           {
             modelPath: ['domainInfo', 'OPSSInitialization'],
@@ -203,7 +202,6 @@ function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, NavigationHelper, Mes
           },
           {
             icon: 'oj-ux-ico-list',
-            childPage: 'topology/cluster',
             modelPath: ['topology', 'Cluster']
           }
         ]
@@ -233,7 +231,6 @@ function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, NavigationHelper, Mes
           },
           {
             icon: 'oj-ux-ico-list',
-            childPage: 'deployments/library',
             modelPath: ['appDeployments', 'Library']
           }
         ]

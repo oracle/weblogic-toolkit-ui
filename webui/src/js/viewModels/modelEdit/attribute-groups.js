@@ -72,7 +72,6 @@ function(accUtils, ko, i18n, ModelEditHelper, MetaHelper, MessageHelper, AliasHe
 
         // create a module config for each configured attribute group, inserting remaining attributes if specified
 
-        let remainderConfig = null;
         metaAttributeGroups.forEach(metaGroup => {
           const attributesMap = metaGroup['members'] || {};
           const attributeNames = Object.keys(attributesMap);
@@ -80,7 +79,8 @@ function(accUtils, ko, i18n, ModelEditHelper, MetaHelper, MessageHelper, AliasHe
             attributeNames.push(...remainingNames);
           }
 
-          if (attributeNames.length) {
+          const exclude = metaGroup['exclude'];
+          if (attributeNames.length && !exclude) {
             const moduleConfig = ModelEditHelper.createAttributeSetModuleConfig(attributeNames, attributeMap, MODEL_PATH);
             this.attributeGroups.push({
               moduleConfig,
@@ -92,7 +92,7 @@ function(accUtils, ko, i18n, ModelEditHelper, MetaHelper, MessageHelper, AliasHe
         // if there are remaining attributes and no remaining group specified, create a remaining group
 
         if (remainingNames.length && !remainderGroup) {
-          remainderConfig = ModelEditHelper.createAttributeSetModuleConfig(remainingNames, attributeMap, MODEL_PATH);
+          const remainderConfig = ModelEditHelper.createAttributeSetModuleConfig(remainingNames, attributeMap, MODEL_PATH);
           this.attributeGroups.push({
             moduleConfig: remainderConfig,
             metadata: {}  // TODO: should this get a default title, such as "Advanced"?
