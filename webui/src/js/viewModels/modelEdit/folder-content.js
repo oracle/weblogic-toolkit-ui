@@ -32,6 +32,9 @@ function(accUtils, ko, i18n, ModelEditHelper, MetaHelper, MessageHelper, AliasHe
       });
     };
 
+    const aliasAttributesMap = AliasHelper.getAttributesMap(MODEL_PATH);
+    this.hasAttributes = !!Object.keys(aliasAttributesMap).length;
+
     this.attributeGroupsModuleConfig = ModelEditHelper.createAttributeGroupsConfig(MODEL_PATH, TEMP_MODEL);
 
     this.singleFolders = [];
