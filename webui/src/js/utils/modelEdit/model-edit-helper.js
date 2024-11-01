@@ -6,9 +6,10 @@
 'use strict';
 
 define(['knockout', 'utils/i18n', 'js-yaml', 'models/wkt-project', 'utils/common-utilities',
-  'utils/wkt-logger', 'utils/modelEdit/alias-helper', 'utils/modelEdit/message-helper', 'ojs/ojmodule-element-utils'],
+  'utils/wkt-logger', 'utils/modelEdit/alias-helper', 'utils/modelEdit/meta-helper', 'utils/modelEdit/message-helper',
+  'ojs/ojmodule-element-utils'],
 function (ko, i18n, jsYaml, project, utils,
-  WktLogger, AliasHelper, MessageHelper, ModuleElementUtils) {
+  WktLogger, AliasHelper, MetaHelper, MessageHelper, ModuleElementUtils) {
 
   function ModelEditHelper() {
     // parse, write, and maintain the model object structure.
@@ -175,8 +176,9 @@ function (ko, i18n, jsYaml, project, utils,
           observable: ko.observable()
         };
 
-        const overrides = attributeOverrides[attributeName];
-        Object.assign(attribute, overrides);
+        const aliasPath = AliasHelper.getAliasPath(modelPath);
+        const details = MetaHelper.getAttributeDetails(aliasPath, attributeName);
+        Object.assign(attribute, details);
 
         const observableValue = this.getAttributeObservableValue(attribute);
         attribute.observable(observableValue);
@@ -209,7 +211,8 @@ function (ko, i18n, jsYaml, project, utils,
         name: 'modelEdit/attribute-editor',
         params: {
           attribute: attribute,
-          modelPath: modelPath
+          modelPath: modelPath,
+          attributeMap: attributeMap  // may be disabled by values of other attributes
         }
       });
     };

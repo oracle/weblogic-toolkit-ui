@@ -29,6 +29,12 @@ define([],
         return metadata['attributeGroups'] || [];
       };
 
+      this.getAttributeDetails = (aliasPath, attributeName) => {
+        const metadata = this.getMetadata(aliasPath);
+        const attributes = metadata['attributeDetails'] || {};
+        return attributes[attributeName] || {};
+      };
+
       this.getNameValidators = aliasPath => {
         return [];  // TODO: implement this when needed
       };

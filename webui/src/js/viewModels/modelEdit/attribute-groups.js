@@ -59,8 +59,7 @@ function(accUtils, ko, i18n, ModelEditHelper, MetaHelper, MessageHelper, AliasHe
         let remainderGroup = null;
         const knownAttributeNames = [];
         metaAttributeGroups.forEach(group => {
-          const attributesMap = group['members'] || {};
-          const attributeNames = Object.keys(attributesMap);
+          const attributeNames = group['members'] || [];
           knownAttributeNames.push(...attributeNames);
 
           if (group['remainder']) {
@@ -73,8 +72,7 @@ function(accUtils, ko, i18n, ModelEditHelper, MetaHelper, MessageHelper, AliasHe
         // create a module config for each configured attribute group, inserting remaining attributes if specified
 
         metaAttributeGroups.forEach(metaGroup => {
-          const attributesMap = metaGroup['members'] || {};
-          const attributeNames = Object.keys(attributesMap);
+          const attributeNames = metaGroup['members'] || [];
           if (metaGroup === remainderGroup) {
             attributeNames.push(...remainingNames);
           }

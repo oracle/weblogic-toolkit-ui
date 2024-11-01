@@ -162,7 +162,6 @@ function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, NavigationHelper, Mes
           {
             modelPath: ['domainInfo', 'RCUDbInfo'],
             icon: 'oj-ux-ico-file',
-            page: 'domainInfo/rcu-db-info'
           },
           {
             modelPath: ['domainInfo', 'WLSUserPasswordCredentialMappings'],

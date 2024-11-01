@@ -5,24 +5,24 @@
  */
 'use strict';
 
-define(['accUtils', 'knockout', 'utils/i18n', 'utils/dialog-helper','ojs/ojarraydataprovider',
-  'ojs/ojmodule-element-utils', 'utils/modelEdit/model-edit-helper', 'utils/modelEdit/message-helper',
-  'utils/modelEdit/alias-helper',
+define(['accUtils', 'knockout', 'utils/i18n', 'utils/dialog-helper', 'utils/wkt-logger', 'ojs/ojarraydataprovider',
+  'ojs/ojmodule-element-utils', 'utils/modelEdit/meta-handlers', 'utils/modelEdit/model-edit-helper',
+  'utils/modelEdit/message-helper', 'utils/modelEdit/alias-helper',
   'oj-c/button', 'oj-c/input-text', 'oj-c/list-view', 'oj-c/input-password'
 ],
-function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
-  ModuleElementUtils, ModelEditHelper, MessageHelper, AliasHelper) {
+function(accUtils, ko, i18n, DialogHelper, WktLogger, ArrayDataProvider,
+  ModuleElementUtils, MetaHandlers, ModelEditHelper, MessageHelper, AliasHelper) {
 
   function AttributeEditor(args) {
     const MODEL_PATH = args.modelPath;
     const ATTRIBUTE = args.attribute;
+    const ATTRIBUTE_MAP = args.attributeMap;
 
     const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
 
     this.i18n = i18n;
     this.attribute = ATTRIBUTE;
     this.observable = ATTRIBUTE.observable;
-    this.disabled = ATTRIBUTE.hasOwnProperty('disabled') ? ATTRIBUTE.disabled : false;
     this.displayType = ModelEditHelper.getDisplayType(ATTRIBUTE);
 
     // this.menuIconClass = 'oj-ux-ico-edit-box';
@@ -63,6 +63,16 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
     this.usesToken = ko.computed(() => {
       return this.variableName() || this.secretName();
     });
+
+    this.disabled = false;
+    const disabledText = ATTRIBUTE['disabled'];
+    if (disabledText) {
+      if(MetaHandlers.hasOwnProperty(disabledText)) {
+        this.disabled = MetaHandlers[disabledText](ATTRIBUTE_MAP);
+      } else {
+        WktLogger.error(`No method ${disabledText} found for MetaHandlers`);
+      }
+    }
 
     this.getValueObservable = ko.computed(() => {
       // if a token is used, show the token value in a read-only control
