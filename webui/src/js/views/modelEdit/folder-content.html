@@ -11,7 +11,12 @@
   <template data-oj-as="folder">
     <div class="oj-panel">
       <h6 class="wkt-subheading"><oj-bind-text value="[[folder.data.title]]"></oj-bind-text></h6>
-      <h6 class="wkt-subheading"><oj-bind-text value="[[folder.data.modelPath]]"></oj-bind-text></h6>
+      <p><oj-bind-text value="[[Object.keys(folder.data.attributesMap).length + ' attributes']]"></oj-bind-text></p>
+      <oj-bind-for-each data="[[folder.data.folderNames]]">
+        <template data-oj-as="folderName">
+          <p>Subfolder: <oj-bind-text value="[[folderName.data]]"></oj-bind-text></p>
+        </template>
+      </oj-bind-for-each>
     </div>
   </template>
 </oj-bind-for-each>

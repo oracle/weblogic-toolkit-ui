@@ -52,6 +52,8 @@ function(accUtils, ko, i18n, ModelEditHelper, MetaHelper, MessageHelper, AliasHe
       if(AliasHelper.isMultiplePath(folderPath)) {
         this.multiFolders.push(folderInfo);
       } else {
+        folderInfo['attributesMap'] = AliasHelper.getAttributesMap(folderPath);
+        folderInfo['folderNames'] = AliasHelper.getFolderNames(folderPath);
         this.singleFolders.push(folderInfo);
       }
     });
