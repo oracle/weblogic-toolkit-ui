@@ -7,11 +7,13 @@
 
 define(['accUtils', 'utils/i18n',
   'utils/modelEdit/model-edit-helper', 'utils/modelEdit/message-helper', 'utils/modelEdit/alias-helper',
-  'ojs/ojmodule-element-utils'
+  'utils/modelEdit/meta-helper', 'ojs/ojmodule-element-utils'
 ],
-function(accUtils, i18n, ModelEditHelper, MessageHelper, AliasHelper, ModuleElementUtils) {
+function(accUtils, i18n, ModelEditHelper, MessageHelper, AliasHelper, MetaHelper, ModuleElementUtils) {
   function FolderPageViewModel(args) {
     const MODEL_PATH = args.modelPath;
+
+    const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
 
     this.i18n = i18n;
 
@@ -26,8 +28,11 @@ function(accUtils, i18n, ModelEditHelper, MessageHelper, AliasHelper, ModuleElem
       }
     });
 
+    const metaContentPath = MetaHelper.getContentPath(ALIAS_PATH);
+    const contentPath = metaContentPath || 'folder-content';
+
     this.folderContentModuleConfig = ModuleElementUtils.createConfig({
-      name: 'modelEdit/folder-content',
+      name: 'modelEdit/' + contentPath,
       params: {
         modelPath: MODEL_PATH,
       }

@@ -124,6 +124,7 @@
   "WLSUserPasswordCredentialMappings": {},
 
   "Cluster": {
+    "contentPath": "folder-content-tabs",
     "summaryAttributes": {
       "ClusterAddress": {},
       "ClusterMessagingMode": {}
@@ -165,6 +166,7 @@
     ]
   },
   "Library": {
+    "contentPath": "folder-content-tabs",
     "summaryAttributes": {
       "SourcePath": {}
     },

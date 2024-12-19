@@ -24,6 +24,11 @@ define([],
         }
       };
 
+      this.getContentPath = aliasPath => {
+        const metadata = this.getMetadata(aliasPath);
+        return metadata['contentPath'];
+      };
+
       this.getAttributeGroups = aliasPath => {
         const metadata = this.getMetadata(aliasPath);
         return metadata['attributeGroups'] || [];

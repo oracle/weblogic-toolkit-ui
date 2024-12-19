@@ -1843,6 +1843,7 @@
   "model-edit-view": "Edit View",
   "model-edit-aria-label": "Model Edit View",
   "model-edit-advanced-label": "Advanced",
+  "model-edit-attributes-label": "Attributes",
   "model-edit-alias-load-error": "Unable to load WDT model metadata from installed version",
 
   "model-edit-topology-nav-label": "Topology",
@@ -1975,6 +1976,9 @@
   "model-edit-f-Library-nameHelp": "Name of library",
 
   "model-edit-f-Library-a-SourcePath-label": "Source Path",
+
+  "model-edit-f-Library_SubDeployment-label": "Sub-Deployments",
+  "model-edit-f-Library_SubDeployment-typeLabel": "Sub-Deployment",
 
   "model-edit-f-OPSSInitialization-label": "OPSS Initialization",
   "model-edit-f-OPSSInitialization_Credential-label": "Credentials",
