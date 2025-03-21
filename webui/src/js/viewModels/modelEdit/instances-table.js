@@ -125,35 +125,35 @@ function(accUtils, i18n, ko, InstanceHelper, ModelEditHelper, MessageHelper, Nav
       // if instances of this type appear in the nav menu, prompt for a new name.
       // otherwise, prompt for a name and folder contents.
 
-      if(MENU_LINK) {
-        const options = {
-          modelPath: MODEL_PATH,
-          nameValidators: NAME_VALIDATORS
-        };
-        DialogHelper.promptDialog('modelEdit/new-instance-dialog', options)
-          .then(result => {
-            const newName = result.instanceName;
-            if (newName) {
-              ModelEditHelper.addFolder(MODEL_PATH, newName, TEMP_MODEL);
-            }
-          });
+      // if(MENU_LINK) {
+      const options = {
+        modelPath: MODEL_PATH,
+        nameValidators: NAME_VALIDATORS
+      };
+      DialogHelper.promptDialog('modelEdit/new-instance-dialog', options)
+        .then(result => {
+          const newName = result.instanceName;
+          if (newName) {
+            ModelEditHelper.addFolder(MODEL_PATH, newName, TEMP_MODEL);
+          }
+        });
 
-      } else {
-        const newName = InstanceHelper.getNewInstanceName(MODEL_PATH, TEMP_MODEL);
-
-        const instancePath = [...MODEL_PATH, newName];
-        const options = {
-          modelPath: instancePath,
-          model: TEMP_MODEL,
-          add: true
-        };
-        DialogHelper.promptDialog('modelEdit/folder-dialog', options)
-          .then(result => {
-            if (result) {
-
-            }
-          });
-      }
+      // } else {
+      //   const newName = InstanceHelper.getNewInstanceName(MODEL_PATH, TEMP_MODEL);
+      //
+      //   const instancePath = [...MODEL_PATH, newName];
+      //   const options = {
+      //     modelPath: instancePath,
+      //     model: TEMP_MODEL,
+      //     add: true
+      //   };
+      //   DialogHelper.promptDialog('modelEdit/folder-dialog', options)
+      //     .then(result => {
+      //       if (result) {
+      //
+      //       }
+      //     });
+      // }
     };
 
     this.deleteInstance = (event, context) => {
@@ -162,19 +162,19 @@ function(accUtils, i18n, ko, InstanceHelper, ModelEditHelper, MessageHelper, Nav
     };
 
     this.editInstance = (event, context) => {
-      if(MENU_LINK) {
-        NavigationHelper.navigateToElement(MODEL_PATH, context.item.data.name);
+      // if(MENU_LINK) {
+      NavigationHelper.navigateToElement(MODEL_PATH, context.item.data.name);
 
-      } else {
-        const instancePath = [...MODEL_PATH, context.item.data.name];
-        const options = { modelPath: instancePath, add: false };
-
-        DialogHelper.promptDialog('modelEdit/folder-dialog', options).then(result => {
-          if (result) {
-
-          }
-        });
-      }
+      // } else {
+      //   const instancePath = [...MODEL_PATH, context.item.data.name];
+      //   const options = { modelPath: instancePath, add: false };
+      //
+      //   DialogHelper.promptDialog('modelEdit/folder-dialog', options).then(result => {
+      //     if (result) {
+      //
+      //     }
+      //   });
+      // }
     };
   }
 

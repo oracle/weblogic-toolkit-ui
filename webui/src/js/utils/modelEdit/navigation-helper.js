@@ -11,25 +11,41 @@ define(['knockout'],
     function NavigationHelper() {
       // maintain and update the navigation state
 
-      this.navSelection = ko.observable();
-      this.navExpanded = ko.observable();
-      this.navSelectedItem = ko.observable();
+      this.menuKey = ko.observable();  // a string with navigation menu key (model path)
+      this.menuExpanded = ko.observable();   // a keySet with all the expanded menu nodes
+
+      this.selectedPath = ko.observable();  // the model path of the selected item (maybe deeper than nav)
 
       // **************************************
       // access the model edit navigation menu
       // **************************************
 
       this.navigateToElement = (modelPath, name) => {
-        this.openNavigation(modelPath);
+        const fullPath = [...modelPath];
+        if(name) {
+          fullPath.push(name);
+        }
 
-        const navigationKey = modelPath.join('/') + '/' + name;
-        this.navSelection(navigationKey);
+        // TODO: find the deepest node in modelPath that is in the navigation
+        const navigationPath = fullPath.slice(0, 3);
+
+
+        const parentPath = navigationPath.slice(0, -1);
+        this.openNavigation(parentPath);
+
+        const navigationKey = navigationPath.join('/');
+        this.menuKey(navigationKey);
+
+        this.selectedPath(fullPath);
       };
 
-      this.openNavigation = (modelPath) => {
+      this.openNavigation = modelPath => {
         const navigationKey = modelPath.join('/');
-        const keySet = this.navExpanded();
-        this.navExpanded(keySet.add([navigationKey]));
+
+        // TODO: open every parent folder
+
+        const keySet = this.menuExpanded();
+        this.menuExpanded(keySet.add([navigationKey]));
       };
     }
 

@@ -16,8 +16,9 @@ function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, NavigationHelper, Mes
     this.i18n = i18n;
     this.KnockoutTemplateUtils = KnockoutTemplateUtils;
 
-    this.navExpanded = NavigationHelper.navExpanded;
-    this.navSelection = NavigationHelper.navSelection;
+    this.menuExpanded = NavigationHelper.menuExpanded;
+    this.menuKey = NavigationHelper.menuKey;
+    this.selectedPath = NavigationHelper.selectedPath;
 
     const subscriptions = [];
 
@@ -33,9 +34,9 @@ function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, NavigationHelper, Mes
         this.updateFromModel();
       }));
 
-      this.updateSelectedItem();
-      subscriptions.push(NavigationHelper.navSelection.subscribe(() => {
-        this.updateSelectedItem();
+      this.selectMenuItem();
+      subscriptions.push(NavigationHelper.menuKey.subscribe(() => {
+        this.selectMenuItem();
       }));
     };
 
@@ -49,21 +50,22 @@ function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, NavigationHelper, Mes
       return i18n.t(`model-edit-${labelId}`, payload);
     };
 
-    this.updateSelectedItem = () => {
-      const selectedKey = this.navSelection();
-      if(selectedKey) {
-        this.navDataProvider.fetchByKeys({keys: [selectedKey]})
+    // set the selected path when menu selection changes
+    this.selectMenuItem = () => {
+      const menuKey = this.menuKey();
+      if(menuKey) {
+        this.navDataProvider.fetchByKeys({keys: [menuKey]})
           .then(result => {
-            const keyResult = result.results.get(selectedKey);
+            const keyResult = result.results.get(menuKey);
             if (keyResult) {
               const entry = keyResult.data;
-              NavigationHelper.navSelectedItem(entry);
+              this.selectedPath(entry.modelPath);
             } else {
-              NavigationHelper.navSelectedItem(null);
+              this.selectedPath(null);
             }
           });
       } else {
-        NavigationHelper.navSelectedItem(null);
+        this.selectedPath(null);
       }
     };
 

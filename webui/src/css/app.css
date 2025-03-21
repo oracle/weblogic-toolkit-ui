@@ -909,7 +909,15 @@ h6.wkt-panel-heading {
 
 h6.wkt-split-header {
   display:flex;
-  gap: 20px;
+}
+
+.wkt-split-prefix {
+  flex: 0 0 auto;
+}
+
+.wkt-split-prefix span {
+  font-size: 20px;
+  font-weight: 800;
 }
 
 .wkt-split-title {
@@ -918,6 +926,7 @@ h6.wkt-split-header {
 
 .wkt-split-link {
   flex: 0 0 0;
+  padding-left: 20px;
   white-space: nowrap;
 }
 

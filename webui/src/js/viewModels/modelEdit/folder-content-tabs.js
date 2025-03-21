@@ -100,15 +100,12 @@ function(accUtils, ko, i18n, ModelEditHelper, MetaHelper, MessageHelper, AliasHe
                 name: entry.modulePath,
                 params: entry.moduleParams
               }));
-              // NavigationHelper.navSelectedItem(entry);
             } else {
               console.log('NONE');
-              // NavigationHelper.navSelectedItem(null);
             }
           });
       } else {
         console.log('NONE');
-        // NavigationHelper.navSelectedItem(null);
       }
     };
 

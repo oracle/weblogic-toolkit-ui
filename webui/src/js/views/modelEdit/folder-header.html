@@ -5,6 +5,13 @@
 
 <h6 class="wkt-split-header">
   <div class="wkt-split-title">
+    <oj-bind-if test="prefixText">
+      <oj-bind-if test="true">
+        <a href="#" on-click="[[navigateToParent]]">
+          <oj-bind-text value="[[prefixText]]"></oj-bind-text></a>
+        /
+      </oj-bind-if>
+    </oj-bind-if>
     <oj-bind-text value="[[getTitle()]]"></oj-bind-text>
   </div>
   <div class="wkt-split-link">

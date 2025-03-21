@@ -8,11 +8,20 @@
 define(['accUtils', 'utils/i18n',
   'utils/modelEdit/alias-helper', 'utils/modelEdit/message-helper', 'utils/modelEdit/model-edit-helper',
   'utils/modelEdit/navigation-helper', 'utils/dialog-helper',
-  'ojs/ojmodule-element-utils'
+  'ojs/ojmodule-element-utils', 'oj-c/labelled-link'
 ],
 function(accUtils, i18n, AliasHelper, MessageHelper, ModelEditHelper, NavigationHelper, DialogHelper) {
   function FolderHeaderViewModel(args) {
     const MODEL_PATH = args.modelPath;
+    const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
+
+    this.isMultiple = AliasHelper.isNamedPath(MODEL_PATH);
+
+    let parentPath = null;
+    if(MODEL_PATH.length > 1) {
+      const truncate = this.isMultiple ? 2 : 1;
+      parentPath = MODEL_PATH.slice(0, 0 - truncate);
+    }
 
     this.i18n = i18n;
 
@@ -27,9 +36,22 @@ function(accUtils, i18n, AliasHelper, MessageHelper, ModelEditHelper, Navigation
       return 'No model path';
     };
 
-    this.isMultiple = AliasHelper.isNamedPath(MODEL_PATH);
+    this.prefixText = null;
+
+    if(parentPath && (parentPath.length > 1)) {  // don't show domainInfo, topology, etc. in prefix
+      const prefixPath = ALIAS_PATH.slice(0, -1);
+      this.prefixText = MessageHelper.getFolderLabel(prefixPath);
+      if(AliasHelper.isNamedPath(parentPath)) {
+        const name = parentPath[parentPath.length - 1];
+        this.prefixText += ` \"${name}\"`;
+      }
+    }
 
     this.renameLabel = i18n.t('model-edit-rename-label');
+
+    this.navigateToParent = () => {
+      NavigationHelper.navigateToElement(parentPath);
+    };
 
     this.renameInstance = () => {
       const options = {
@@ -41,8 +63,8 @@ function(accUtils, i18n, AliasHelper, MessageHelper, ModelEditHelper, Navigation
           if (newName) {
             ModelEditHelper.renameInstance(MODEL_PATH, newName);
 
-            const parentPath = MODEL_PATH.slice(0, -1);
-            NavigationHelper.navigateToElement(parentPath, newName);
+            const typePath = MODEL_PATH.slice(0, -1);
+            NavigationHelper.navigateToElement(typePath, newName);
           }
         }
       });

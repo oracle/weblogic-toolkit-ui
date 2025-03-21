@@ -6,24 +6,24 @@
 'use strict';
 
 define(['accUtils', 'utils/i18n', 'knockout', 'utils/modelEdit/model-edit-helper',
-  'utils/modelEdit/alias-helper', 'utils/modelEdit/navigation-helper', 'utils/modelEdit/message-helper',
-  'utils/wkt-logger',
+  'utils/modelEdit/alias-helper', 'utils/modelEdit/meta-helper', 'utils/modelEdit/navigation-helper',
+  'utils/modelEdit/message-helper', 'utils/wkt-logger',
   'ojs/ojmodule-element-utils'],
-function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, NavigationHelper, MessageHelper, wktLogger,
-  ModuleElementUtils) {
+function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, MetaHelper, NavigationHelper, MessageHelper,
+  wktLogger, ModuleElementUtils) {
 
   function ModelEditViewModel() {
     this.i18n = i18n;
 
     const subscriptions = [];
 
-    this.navSelectedItem = NavigationHelper.navSelectedItem;
+    this.selectedPath = NavigationHelper.selectedPath;
 
     this.connected = () => {
       accUtils.announce('Model Edit Page loaded.', 'assertive');
 
       this.updateView();
-      subscriptions.push(this.navSelectedItem.subscribe(() => {
+      subscriptions.push(this.selectedPath.subscribe(() => {
         this.updateView();
       }));
 
@@ -62,17 +62,20 @@ function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, NavigationHelper, Mes
     this.editPage = ko.observable(ModuleElementUtils.createConfig({ name: 'empty-view' }));
 
     this.updateView = () => {
-      const selectedItem = this.navSelectedItem();
-      if(selectedItem) {
-        const viewName = selectedItem.page ? `modelEdit/${selectedItem.page}` : 'empty-view';
+      const modelPath = this.selectedPath();
+      if(modelPath) {
+        const aliasPath = AliasHelper.getAliasPath(modelPath);
+        let metaPage = MetaHelper.getMetadata(aliasPath)['page'];
+        if(AliasHelper.isMultiplePath(modelPath)) {
+          metaPage = metaPage || 'instances-page';
+        }
+        metaPage = metaPage || 'folder-page';
 
         this.editPage(
           ModuleElementUtils.createConfig({
-            name: viewName,
+            name: `modelEdit/${metaPage}`,
             params: {
-              name: selectedItem.name,
-              modelPath: selectedItem.modelPath,
-              summaryAttributes: selectedItem.summaryAttributes
+              modelPath: modelPath
             }
           })
         );
