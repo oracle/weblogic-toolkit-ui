@@ -1,5 +1,5 @@
 // JAF Generated OJET Based Configuration
-// Updated: Thu Jun 01 2023 08:06:08 GMT+0700 (Indochina Time)
+// Updated: Thu Aug 08 2024 15:58:21 GMT-0500 (Central Daylight Time)
 
 {
    "base": "$jafcwd",
@@ -19,7 +19,7 @@
       "./jet_components/**/component.json"
    ],
    "builtinJetRules": true,
-   "jetVer": "14.1",
+   "jetVer": "16.1",
    "ecmaVer": 11,
    "theme": "Redwood",
    "format": "prose",
@@ -50,6 +50,6 @@
    ],
    "ojet": {
       "update": true,
-      "md5": "1966670f5ca853578663764d3501863d"
+      "md5": "cf01333d7ff97b45b1a2e144e8c21273"
    }
 }

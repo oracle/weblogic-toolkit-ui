@@ -1,0 +1,31 @@
+<!--
+ Copyright (c) 2024, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
+ -->
+
+<oj-bind-if test="[[hasAttributes]]">
+  <oj-module config="[[attributeGroupsModuleConfig]]"></oj-module>
+</oj-bind-if>
+
+<oj-bind-for-each data="[[singleFolders]]">
+  <template data-oj-as="folder">
+    <div class="oj-panel">
+      <h6 class="wkt-subheading"><oj-bind-text value="[[folder.data.title]]"></oj-bind-text></h6>
+      <p><oj-bind-text value="[[Object.keys(folder.data.attributesMap).length + ' attributes']]"></oj-bind-text></p>
+      <oj-bind-for-each data="[[folder.data.folderNames]]">
+        <template data-oj-as="folderName">
+          <p>Subfolder: <oj-bind-text value="[[folderName.data]]"></oj-bind-text></p>
+        </template>
+      </oj-bind-for-each>
+    </div>
+  </template>
+</oj-bind-for-each>
+
+<oj-bind-for-each data="[[multiFolders]]">
+  <template data-oj-as="folder">
+    <h6 class="wkt-subheading"><oj-bind-text value="[[folder.data.title]]"></oj-bind-text></h6>
+    <oj-module config="[[tableModuleConfig(folder.data)]]"></oj-module>
+  </template>
+</oj-bind-for-each>
+
+

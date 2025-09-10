@@ -33,6 +33,7 @@ const kubectlUtils = require('./js/kubectlUtils');
 const helmUtils = require('./js/helmUtils');
 const openSSLUtils = require('./js/openSSLUtils');
 const osUtils = require('./js/osUtils');
+const modelEditUtils = require('./js/modelEdit/modelEditUtils');
 const githubUtils = require('./js/githubUtils');
 const { initializeAutoUpdater, registerAutoUpdateListeners, installUpdates, getUpdateInformation } = require('./js/appUpdater');
 const { startWebLogicRemoteConsoleBackend, getDefaultDirectoryForOpenDialog, setWebLogicRemoteConsoleHomeAndStart,
@@ -351,6 +352,21 @@ class Main {
 
     ipcMain.handle('get-image-tool-shell-script-location', () => {
       return wktTools.getImagetoolShellScript();
+    });
+
+    // model edit
+    ipcMain.handle('get-alias-info', () => {
+      return modelEditUtils.getAliasInfo();
+    });
+
+    // model edit
+    ipcMain.handle('get-model-edit-message-keys', () => {
+      return modelEditUtils.getMessageKeys();
+    });
+
+    // model edit
+    ipcMain.handle('get-model-edit-metadata', () => {
+      return modelEditUtils.getMetadata();
     });
 
     ipcMain.handle('get-jdk-installer-location', async (event) => {

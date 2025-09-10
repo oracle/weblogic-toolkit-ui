@@ -1,0 +1,190 @@
+{
+  "DomainInfo": {
+    "attributeGroups": [
+      {
+        "members": [
+          "AdminUserName",
+          "AdminPassword"
+        ]
+      },
+      {
+        "title": "model-edit-advanced-label",
+        "collapsible": true,
+        "remainder": true
+      },
+      {
+        "exclude": true,
+        "members": [
+          "OPSSSecrets"
+        ]
+      }
+    ]
+  },
+  "OPSSInitialization/Credential/TargetKey": {
+    "summaryAttributes": {
+      "Username": {}
+    },
+    "attributeGroups": [
+      {
+        "members": [
+          "Username"
+        ],
+        "remainder": true
+      }
+    ]
+  },
+  "RCUDbInfo": {
+    "attributeDetails": {
+      "rcu_database_type": {
+        "options": [
+          { "key": "ORACLE", "label": "ORACLE" },
+          { "key": "EBR", "label": "EBR" },
+          { "key": "SQLSERVER", "label": "SQLSERVER" },
+          { "key": "DB2", "label": "DB2" },
+          { "key": "MYSQL", "label": "MYSQL" }
+        ]
+      },
+      "oracle_database_connection_type": {
+        "disabled": "notOracleDatabaseType",
+        "options": [
+          { "key": "SSL", "label": "SSL" },
+          { "key": "ATP", "label": "ATP" }
+        ]
+      },
+      "javax.net.ssl.keyStoreType": {
+        "options": [
+          { "key": "SSO", "label": "SSO" },
+          { "key": "PKCS12", "label": "PKCS12" },
+          { "key": "JKS", "label": "JKS" }
+        ]
+      },
+      "javax.net.ssl.trustStoreType": {
+        "options": [
+          { "key": "SSO", "label": "SSO" },
+          { "key": "PKCS12", "label": "PKCS12" },
+          { "key": "JKS", "label": "JKS" }
+        ]
+      }
+    },
+    "attributeGroups": [
+      {
+        "title": "model-edit-rcudbinfo-connection-label",
+        "members": [
+          "rcu_database_type",
+          "oracle_database_connection_type",
+          "rcu_admin_password",
+          "rcu_admin_user",
+          "rcu_db_conn_string",
+          "rcu_prefix",
+          "rcu_schema_password",
+          "tns.alias"
+        ]
+      },
+      {
+        "title": "model-edit-advanced-label",
+        "collapsible": true,
+        "remainder": true
+      },
+      {
+        "title": "model-edit-rcudbinfo-atp-label",
+        "members": [
+          "atp.default.tablespace",
+          "atp.temp.tablespace"
+        ]
+      },
+      {
+        "title": "model-edit-rcudbinfo-stores-label",
+        "members": [
+          "javax.net.ssl.keyStore",
+          "javax.net.ssl.keyStoreType",
+          "javax.net.ssl.keyStorePassword",
+          "javax.net.ssl.trustStore",
+          "javax.net.ssl.trustStoreType",
+          "javax.net.ssl.trustStorePassword"
+        ]
+      },
+      {
+        "exclude": true,
+        "members": [
+          "databaseType"
+        ]
+      }
+    ]
+  },
+  "WLSPolicies": {
+    "summaryAttributes": {
+      "ResourceID": {}
+    }
+  },
+  "WLSRoles": {
+    "summaryAttributes": {
+      "Expression": {}
+    }
+  },
+  "WLSUserPasswordCredentialMappings": {},
+
+  "Cluster": {
+    "contentPath": "folder-content-tabs",
+    "summaryAttributes": {
+      "ClusterAddress": {},
+      "ClusterMessagingMode": {}
+    }
+  },
+  "Server": {
+    "summaryAttributes": {
+      "Cluster": {},
+      "ListenPort": {},
+      "SSL/ListenPort": {}
+    }
+  },
+
+  "JDBCSystemResource": {
+    "summaryAttributes": {
+      "DeploymentOrder": {}
+    }
+  },
+
+  "Application": {
+    "summaryAttributes": {
+      "SourcePath": {}
+    },
+    "attributeGroups": [
+      {
+        "members": [
+          "SourcePath",
+          "DeploymentOrder",
+          "PlanDir",
+          "PlanPath",
+          "Target"
+        ]
+      },
+      {
+        "title": "model-edit-advanced-label",
+        "collapsible": true,
+        "remainder": true
+      }
+    ]
+  },
+  "Library": {
+    "contentPath": "folder-content-tabs",
+    "summaryAttributes": {
+      "SourcePath": {}
+    },
+    "attributeGroups": [
+      {
+        "members": [
+          "SourcePath",
+          "DeploymentOrder",
+          "PlanDir",
+          "PlanPath",
+          "Target"
+        ]
+      },
+      {
+        "title": "model-edit-advanced-label",
+        "collapsible": true,
+        "remainder": true
+      }
+    ]
+  }
+}
