@@ -1,0 +1,32 @@
+<!--
+ Copyright (c) 2024, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
+ -->
+
+<div class="wkt-attribute-groups">
+  <oj-bind-for-each data="[[attributeGroups]]">
+  <template data-oj-as="group">
+    <oj-bind-if test="[[group.data.metadata.collapsible]]">
+      <oj-c-collapsible class="wkt-model-edit-attribute-stacked wkt-collapsible" expanded="false">
+        <h6 slot='header' class="wkt-subheading">
+          <oj-bind-text value="[[labelMapper(group.data.metadata.title)]]"></oj-bind-text>
+        </h6>
+        <div class="oj-panel">
+          <oj-module config="[[group.data.moduleConfig]]"></oj-module>
+        </div>
+      </oj-c-collapsible>
+    </oj-bind-if>
+
+    <oj-bind-if test="[[!group.data.metadata.collapsible]]">
+      <oj-bind-if test="[[group.data.metadata.title]]">
+        <h6 slot='header' class="wkt-subheading">
+          <oj-bind-text value="[[labelMapper(group.data.metadata.title)]]"></oj-bind-text>
+        </h6>
+      </oj-bind-if>
+      <div class="oj-panel">
+        <oj-module config="[[group.data.moduleConfig]]"></oj-module>
+      </div>
+    </oj-bind-if>
+  </template>
+</oj-bind-for-each>
+</div>
