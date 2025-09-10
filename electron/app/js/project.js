@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const {app, dialog} = require('electron');
@@ -10,14 +10,14 @@ const path = require('path');
 const uuid = require('uuid');
 const { EOL } = require('os');
 
-const modelYaml = require('./model');
+const model = require('./model');
 const modelProperties = require('./modelProperties');
 const modelArchive = require('./modelArchive');
 const fsUtils = require('./fsUtils');
 const { getLogger } = require('./wktLogging');
 const { sendToWindow } = require('./windowUtils');
 const i18n = require('./i18next.config');
-const { EncryptedCredentialManager, CredentialNoStoreManager } = require('./credentialManager');
+const { CredentialStoreManager, EncryptedCredentialManager, CredentialNoStoreManager } = require('./credentialManager');
 const errorUtils = require('./errorUtils');
 
 const projectFileTypeKey = 'dialog-wktFileType';
@@ -285,7 +285,7 @@ async function getModelFileContent(targetWindow, modelFiles, propertyFiles, arch
   if (modelFiles && modelFiles.length > 0) {
     const existingModelFiles = await getExistingProjectModelFiles(projectDir, modelFiles);
     if (existingModelFiles.length > 0) {
-      modelFileResults['models'] = await modelYaml.getContentsOfModelFiles(projectDir, existingModelFiles);
+      modelFileResults['models'] = await model.getContentsOfModelFiles(projectDir, existingModelFiles);
     }
   }
 
@@ -376,26 +376,17 @@ async function _createNewProjectFile(targetWindow, projectFileName) {
   return new Promise((resolve) => {
     const projectContents = _addProjectIdentifiers(projectFileName, emptyProjectContents);
     const projectContentsJson = JSON.stringify(projectContents, null, 2);
-    getCredentialPassphrase(targetWindow).then(passphrase => {
-      if (passphrase) {
-        writeFile(projectFileName, projectContentsJson, {encoding: 'utf8'})
-          .then(() => {
-            _addOpenProject(targetWindow, projectFileName, false, new EncryptedCredentialManager(passphrase));
-            sendToWindow(targetWindow, 'project-created', projectFileName, projectContents);
-            resolve(true);
-          })
-          .catch(err => {
-            _showSaveError(projectFileName, err);
-            getLogger().error('Failed to save new project in file %s: %s', projectFileName, err);
-            resolve(false);
-          });
-      } else {
-        const err = new Error('Passphrase is required but the user did not provide one.');
+    writeFile(projectFileName, projectContentsJson, {encoding: 'utf8'})
+      .then(() => {
+        _addOpenProject(targetWindow, projectFileName, false, new CredentialStoreManager(projectContents.uuid));
+        sendToWindow(targetWindow, 'project-created', projectFileName, projectContents);
+        resolve(true);
+      })
+      .catch(err => {
         _showSaveError(projectFileName, err);
         getLogger().error('Failed to save new project in file %s: %s', projectFileName, err);
         resolve(false);
-      }
-    });
+      });
   });
 }
 
@@ -533,7 +524,7 @@ async function _saveExternalFileContents(projectDirectory, externalFileContents)
 
   if ('models' in externalFileContents) {
     const models = externalFileContents['models'];
-    await modelYaml.saveContentsOfModelFiles(projectDirectory, models);
+    await model.saveContentsOfModelFiles(projectDirectory, models);
   }
   if ('properties' in externalFileContents) {
     const properties = externalFileContents['properties'];
@@ -586,7 +577,7 @@ async function _sendProjectOpened(targetWindow, file, jsonContents) {
     const projDir = _getProjectDirectory(targetWindow);
 
     if (jsonContents.model.modelFiles && jsonContents.model.modelFiles.length > 0) {
-      modelFilesContentJson['models'] = await modelYaml.getContentsOfModelFiles(projDir, jsonContents.model.modelFiles);
+      modelFilesContentJson['models'] = await model.getContentsOfModelFiles(projDir, jsonContents.model.modelFiles);
     } else {
       delete jsonContents.model.modelFiles;
     }
@@ -754,7 +745,7 @@ async function checkAddModelFile(targetWindow, filePath) {
       const targetDir = path.join(projectDir, modelsPath);
       try {
         await mkdir(targetDir, {recursive: true});
-      } catch {
+      } catch (err) {
         const message = i18n.t('dialog-failedToCreateDirectory', {dir: targetDir});
         await wktWindow.showErrorMessage(targetWindow, title, message);
         return null;
@@ -765,7 +756,7 @@ async function checkAddModelFile(targetWindow, filePath) {
       try {
         await copyFile(filePath, targetFile);
         filePath = _fixRelativePath(path.join(modelsPath, fileName));
-      } catch {
+      } catch (err) {
         const message = i18n.t('dialog-failedToCopyFile', {sourceFile: filePath, targetFile: targetFile});
         await wktWindow.showErrorMessage(targetWindow, title, message);
         return null;
@@ -887,7 +878,12 @@ async function _createCredentialManager(targetWindow, projectFileJsonContent) {
         })
         .catch(err => reject(new Error(`Failed to create passphrase credential manager: ${err}`)));
     } else {
-      const credentialManager = new CredentialNoStoreManager();
+      let credentialManager;
+      if (credentialStorePolicy === 'native') {
+        credentialManager = new CredentialStoreManager(projectFileJsonContent.uuid);
+      } else {
+        credentialManager = new CredentialNoStoreManager();
+      }
       _setCredentialManager(targetWindow, credentialManager);
       resolve(credentialManager);
     }
@@ -897,7 +893,6 @@ async function _createCredentialManager(targetWindow, projectFileJsonContent) {
 async function _getCredentialManagerForSavingProject(targetWindow, projectContents) {
   const currentProjectCredentialStorePolicy = _getProjectCredentialStorePolicy(projectContents);
   const windowCredentialManager = _getCredentialManager(targetWindow);
-
   if (!windowCredentialManager || windowCredentialManager.credentialStoreType !== currentProjectCredentialStorePolicy) {
     try {
       await _createCredentialManager(targetWindow, projectContents);
@@ -909,7 +904,7 @@ async function _getCredentialManagerForSavingProject(targetWindow, projectConten
 }
 
 function _getProjectCredentialStorePolicy(projectContents) {
-  let currentCredentialStorePolicy = 'passphrase';
+  let currentCredentialStorePolicy = 'native';
   if (projectContents && 'settings' in projectContents &&
     'credentialStorePolicy' in projectContents['settings'] &&
     projectContents['settings']['credentialStorePolicy']) {

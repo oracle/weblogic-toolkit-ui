@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
@@ -147,6 +147,7 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
     };
 
     this.credentialStorePolicies = [
+      { key: 'native', label: this.labelMapper('credential-store-native-label') },
       { key: 'passphrase', label: this.labelMapper('credential-store-passphrase-label') },
       { key: 'none', label: this.labelMapper('credential-store-none-label') },
     ];
@@ -166,6 +167,14 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
     this.targetDomainLocationIsPV = () => {
       return this.project.settings.targetDomainLocation.observable() === 'pv';
     };
+
+    this.wdtTargetTypes = [
+      { key: 'vz', label: this.labelMapper('wdt-target-type-vz-label') },
+      { key: 'wko', label: this.labelMapper('wdt-target-type-wko-label') },
+      // { key: 'k8s', label: this.labelMapper('wdt-target-type-k8s-label') },
+      // { key: 'none', label: this.labelMapper('wdt-target-type-none-label') }
+    ];
+    this.wdtTargetTypesDP = new ArrayDataProvider(this.wdtTargetTypes, { keyAttributes: 'key' });
 
     this.javaDirectoryLocationAnswer = ko.computed(() => {
       let key = 'java-directory-location-answer-message';

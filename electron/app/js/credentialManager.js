@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const CredentialEncryptor = require('./credentialEncryptor');
@@ -9,6 +9,7 @@ const { getLogger } = require('./wktLogging');
 
 const DECRYPTION_FAILED_STRING = 'Unsupported state or unable to authenticate data';
 
+/* global Buffer */
 class CredentialManager {
   constructor(credentialStorePolicy) {
     this.credentialStorePolicy = credentialStorePolicy;
@@ -56,14 +57,60 @@ class CredentialManager {
           refObj.reference = { };
         }
         const cipherText = refObj.reference[refObj.field];
-        if (cipherText) {
-          refObj.reference[refObj.field] = await this.manager.loadCredential(jsonPath, cipherText);
-        } else {
-          logger.debug('Failed to load credential from %s so skipping it', jsonPath);
-        }
+        refObj.reference[refObj.field] = await this.manager.loadCredential(jsonPath, cipherText);
       }
     }
     return Promise.resolve(loadedProject);
+  }
+}
+
+class CredentialStoreManager extends CredentialManager {
+  constructor(projectGuid) {
+    super('native');
+    const CredentialStore = require('./credentialStore');
+
+    this.projectGuid = projectGuid;
+    this.credentialStore = new CredentialStore();
+    super.credentialManager = this;
+  }
+
+  get credentialStoreType() {
+    return super.credentialStoreType;
+  }
+
+  async storeCredentials(project) {
+    return super.storeCredentials(project);
+  }
+
+  async loadCredentials(project) {
+    return super.loadCredentials(project);
+  }
+
+  async storeCredential(jsonPath, clearText) {
+    return new Promise((resolve, reject) => {
+      if (clearText) {
+        this.credentialStore.storeCredential(this._getCredentialName(jsonPath), clearText)
+          .then(() => resolve())
+          .catch(err => reject(new Error(`Failed to save credential for ${jsonPath}: ${err}`)));
+      } else {
+        this.credentialStore.deleteCredential(this._getCredentialName(jsonPath))
+          .then(() => resolve())
+          .catch(err => reject(new Error(`Failed to delete empty credential for ${jsonPath}: ${err}`)));
+      }
+    });
+  }
+
+  // eslint-disable-next-line no-unused-vars
+  async loadCredential(jsonPath, cipherText) {
+    return new Promise((resolve, reject) => {
+      this.credentialStore.getCredential(this._getCredentialName(jsonPath))
+        .then(clearText => resolve(clearText))
+        .catch(err => reject(new Error(`Failed to load credential for ${jsonPath}: ${err}`)));
+    });
+  }
+
+  _getCredentialName(jsonPath) {
+    return Buffer.from(`${this.projectGuid}:${jsonPath}`, 'utf8').toString('base64');
   }
 }
 
@@ -152,5 +199,6 @@ class CredentialNoStoreManager extends CredentialManager {
 
 module.exports = {
   CredentialNoStoreManager,
+  CredentialStoreManager,
   EncryptedCredentialManager
 };

@@ -4,12 +4,12 @@
 
   "cdns": {
     "jet": {
-      "prefix": "https://static.oracle.com/cdn/jet/19.0.0/default/js",
-      "css": "https://static.oracle.com/cdn/jet/19.0.0/default/css",
-      "csspreact": "https://static.oracle.com/cdn/jet/19.0.0/3rdparty/oraclejet-preact/amd",
+      "prefix": "https://static.oracle.com/cdn/jet/16.0.0/default/js",
+      "css": "https://static.oracle.com/cdn/jet/16.0.0/default/css",
+      "csspreact": "https://static.oracle.com/cdn/jet/16.0.0/3rdparty/oraclejet-preact/amd",
       "config": "bundles-config.js"
     },
-    "3rdparty": "https://static.oracle.com/cdn/jet/19.0.0/3rdparty"
+    "3rdparty": "https://static.oracle.com/cdn/jet/16.0.0/3rdparty"
   },
 
   "libs": {
@@ -35,12 +35,12 @@
       "debug": {
         "src": "jquery.js",
         "path": "libs/jquery/jquery-#{version}.js",
-        "cdnPath": "jquery/jquery-3.7.1"
+        "cdnPath": "jquery/jquery-3.6.4"
       },
       "release": {
         "src": "jquery.min.js",
         "path": "libs/jquery/jquery-#{version}.min.js",
-        "cdnPath": "jquery/jquery-3.7.1.min"
+        "cdnPath": "jquery/jquery-3.6.4.min"
       }
     },
 
@@ -50,12 +50,12 @@
       "debug": {
         "src": ["*.js", "widgets/draggable.js", "widgets/mouse.js", "widgets/sortable.js", "vendor/jquery-color/jquery.color.js"],
         "path": "libs/jquery/jqueryui-amd-#{version}",
-        "cdnPath": "jquery/jqueryui-amd-1.14.1"
+        "cdnPath": "jquery/jqueryui-amd-1.13.2"
       },
       "release": {
         "src": ["*.js", "widgets/draggable.js", "widgets/mouse.js", "widgets/sortable.js", "vendor/jquery-color/jquery.color.js"],
         "path": "libs/jquery/jqueryui-amd-#{version}.min",
-        "cdnPath": "jquery/jqueryui-amd-1.14.1.min"
+        "cdnPath": "jquery/jqueryui-amd-1.13.2.min"
       }
     },
 
@@ -101,7 +101,7 @@
       "release": {
         "src": ["min*/**"],
         "path": "libs/oj/#{version}",
-		"pathSuffix": "/min'",
+		    "pathSuffix": "/min'",
         "cdnPath": ""
       }
     },
@@ -388,12 +388,12 @@
       "debug": {
         "src": "chai.js",
         "path": "libs/chai/chai.js",
-        "cdnPath": "chai/chai-4.5.0"
+        "cdnPath": "chai/chai-4.3.10"
       },
       "release": {
         "src": "chai.js",
         "path": "libs/chai/chai.js",
-        "cdnPath": "chai/chai-4.5.0.min"
+        "cdnPath": "chai/chai-4.3.10.min"
       }
     },
 

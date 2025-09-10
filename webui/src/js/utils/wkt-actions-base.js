@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -54,9 +54,9 @@ function(project, wktConsole, i18n, projectIo, dialogHelper,
       };
     }
 
-    getKubectlOptions() {
+    getKubectlOptions(kubeConfig = undefined) {
       return {
-        kubeConfig: this.project.kubectl.kubeConfig.value,
+        kubeConfig: kubeConfig || this.project.kubectl.kubeConfig.value,
         extraPathDirectories: this.getExtraPathDirectoriesArray(this.project.settings.extraPathDirectories.value),
         extraEnvironmentVariables: this.getExtraEnvironmentVariablesObject(this.project.settings.extraEnvironmentVariables.value)
       };

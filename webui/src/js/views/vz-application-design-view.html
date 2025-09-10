@@ -1,0 +1,300 @@
+<!--
+ Copyright (c) 2022, 2023, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('title')]]"></oj-bind-text></h6>
+<div class="oj-panel">
+  <oj-form-layout max-columns="2" direction="row">
+    <oj-input-text label-hint="[[labelMapper('name-label')]]"
+                   value="{{project.vzApplication.applicationName.observable}}"
+                   help.instruction="[[labelMapper('name-help')]]">
+    </oj-input-text>
+    <oj-input-text label-hint="[[labelMapper('namespace-label')]]"
+                   value="{{project.k8sDomain.kubernetesNamespace.observable}}"
+                   help.instruction="[[labelMapper('namespace-help')]]">
+    </oj-input-text>
+    <oj-input-text label-hint="[[labelMapper('version-label')]]"
+                   value="{{project.vzApplication.applicationVersion.observable}}"
+                   help.instruction="[[labelMapper('version-help')]]">
+    </oj-input-text>
+    <oj-input-text label-hint="[[labelMapper('description-label')]]"
+                   value="{{project.vzApplication.applicationDescription.observable}}"
+                   help.instruction="[[labelMapper('description-help')]]">
+    </oj-input-text>
+    <oj-input-text label-hint="[[i18n.t('vz-component-design-installed-version-label')]]"
+                   value="{{project.vzInstall.actualInstalledVersion.observable}}"
+                   help.instruction="[[i18n.t('vz-component-design-installed-version-help')]]">
+      <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[getInstalledVersionNumber]]">
+        <span slot="endIcon" class="oj-ux-ico-annotation" role="img"></span>
+        <oj-bind-text value="[[i18n.t('vz-component-design-installed-version-tooltip')]]"></oj-bind-text>
+      </oj-button>
+    </oj-input-text>
+  </oj-form-layout>
+  <oj-form-layout max-columns="1" direction="row">
+    <oj-switch label-hint="[[labelMapper('use-multi-cluster-app-label')]]"
+               value="{{project.vzApplication.useMultiClusterApplication.observable}}"
+               help.instruction="[[labelMapper('use-multi-cluster-app-help')]]">
+    </oj-switch>
+  </oj-form-layout>
+  <oj-bind-if test="[[project.vzApplication.useMultiClusterApplication.observable() === true]]">
+    <oj-form-layout max-columns="2" direction="row">
+      <oj-switch label-hint="[[labelMapper('create-project-label')]]"
+                 value="{{project.vzApplication.createProject.observable}}"
+                 help.instruction="[[labelMapper('create-project-help')]]">
+      </oj-switch>
+      <div>
+        <oj-bind-if test="[[project.vzApplication.createProject.observable() === true]]">
+          <oj-input-text label-hint="[[labelMapper('project-name-label')]]"
+                         value="{{project.vzApplication.projectName.observable}}"
+                         help.instruction="[[labelMapper('project-name-help')]]">
+          </oj-input-text>
+        </oj-bind-if>
+        <oj-bind-if test="[[project.vzApplication.createProject.observable() === false]]">
+          <span></span>
+        </oj-bind-if>
+      </div>
+      <oj-select-many class="wkt-can-readonly-field"
+                      label-hint="[[labelMapper('secret-names-label')]]"
+                      value="{{project.vzApplication.secrets.value}}"
+                      options="{{secretsDataProvider}}"
+                      readonly="true"
+                      help.instruction="[[labelMapper('secret-names-help')]]">
+      </oj-select-many>
+      <oj-select-many class="wkt-can-readonly-field"
+                      label-hint="[[labelMapper('cluster-names-label')]]"
+                      value="{{project.vzApplication.placementClusters.value}}"
+                      options="{{clustersDataProvider}}"
+                      readonly="true"
+                      help.instruction="[[labelMapper('cluster-names-help')]]">
+      </oj-select-many>
+      <oj-button id="chooseSecrets" chroming="callToAction" on-oj-action="[[chooseSecrets]]">
+        <oj-bind-text value="[[labelMapper('choose-secrets-button-label')]]"></oj-bind-text>
+      </oj-button>
+      <oj-button id="chooseClusters" chroming="callToAction" on-oj-action="[[chooseVerrazzanoClusters]]">
+        <oj-bind-text value="[[labelMapper('choose-clusters-button-label')]]"></oj-bind-text>
+      </oj-button>
+    </oj-form-layout>
+  </oj-bind-if>
+</div>
+<div class="oj-panel">
+  <div class="wkt-header-button-row">
+    <h6 class="wkt-subheading">
+      <oj-bind-text value="[[labelMapper('components-title')]]"></oj-bind-text>
+    </h6>
+    <oj-button id="addComponent" chroming="callToAction" on-oj-action="[[addComponent]]">
+      <oj-bind-text value="[[labelMapper('add-component-button-label')]]"></oj-bind-text>
+    </oj-button>
+  </div>
+  <div>
+    <oj-bind-if test="[[hasComponents]]">
+      <oj-accordion id="componentsList">
+        <oj-bind-for-each data="[[componentsDataProvider]]">
+          <template data-oj-as="component">
+            <oj-collapsible :id="[[getCollapsibleId(component.index)]]" class="oj-accordion-collapsible">
+              <h6 slot="header">
+                <oj-bind-text value="[[component.data.name]]"></oj-bind-text>
+              </h6>
+              <oj-form-layout max-columns="2" direction="row">
+                <oj-input-text class="wkt-can-readonly-field"
+                               label-hint="[[labelMapper('component-name-label')]]"
+                               value="[[$current.data.name]]"
+                               readonly="true"
+                               help.instruction="[[labelMapper('component-name-help')]]">
+                </oj-input-text>
+                <oj-button disabled="[[disableComponentDeleteButton(component.index)]]"
+                           chroming="callToAction"
+                           on-oj-action="[[() => deleteApplicationComponent(component.index)]]"
+                           :title="[[labelMapper('delete-component-button-help')]]">
+                  <span>
+                    <oj-bind-text value="[[labelMapper('delete-component-button-label')]]"></oj-bind-text>
+                  </span>
+                </oj-button>
+              </oj-form-layout>
+
+              <div class="oj-panel">
+                <oj-form-layout max-columns="1" direction="row">
+                  <oj-switch label-hint="[[labelMapper('component-ingress-trait-enabled-label')]]"
+                             value="{{componentObservable(component.data, 'ingressTraitEnabled')}}"
+                             help.instruction="[[labelMapper('component-ingress-trait-enabled-help')]]">
+                  </oj-switch>
+                </oj-form-layout>
+                <div>
+                  <oj-bind-if test="[[componentObservable(component.data, 'ingressTraitEnabled')]]">
+                    <oj-form-layout max-columns="2" direction="row">
+                      <oj-input-text label-hint="[[labelMapper('component-ingress-trait-secret-name-label')]]"
+                                     value="{{componentObservable(component.data, 'ingressTraitSecretName')}}"
+                                     help.instruction="[[labelMapper('component-ingress-trait-secret-name-help')]]">
+                        <oj-button slot="end" display="icons" chroming="borderless"
+                                   on-oj-action="[[() => chooseIngressTraitSecret($current.data)]]">
+                          <span slot="endIcon" class="oj-ux-ico-select" role="img"></span>
+                          <oj-bind-text value="[[labelMapper('component-ingress-trait-secret-name-tooltip')]]"></oj-bind-text>
+                        </oj-button>
+                      </oj-input-text>
+                    </oj-form-layout>
+                    <div>
+                      <div class="wkt-header-button-row wkt-header-with-margin">
+                        <h6 class="wkt-subheading">
+                          <oj-bind-text value="[[labelMapper('ingress-trait-rules-table-title')]]"></oj-bind-text>
+                        </h6>
+                        <oj-button id="updateUrls" chroming="callToAction"
+                                   on-oj-action="[[() => updateUrls(component.data)]]"
+                                   :title="[[labelMapper('ingress-trait-rules-update-urls-button-tooltip')]]">
+                          <oj-bind-text value="[[labelMapper('ingress-trait-rules-update-urls-button-label')]]"></oj-bind-text>
+                        </oj-button>
+                      </div>
+                      <oj-table :id="[[`ingress-rules-table-${component.index}`]]"
+                                class="wkt-model-properties-table wkt-link-container"
+                                :aria-label="[[labelMapper('ingress-trait-rules-table-aria-label')]]"
+                                data="[[componentsIngressTraitRulesDataProvider(component.data)]]"
+                                display="grid"
+                                horizontal-grid-visible="enabled"
+                                vertical-grid-visible="enabled"
+                                layout="fixed"
+                                columns='[[ingressTraitRulesColumnData]]'>
+                        <template slot="rowTemplate" data-oj-as="row">
+                          <tr>
+                            <td>
+                              <oj-bind-text value="[[row.data.hosts]]"></oj-bind-text>
+                            </td>
+                            <td>
+                              <oj-bind-text value="[[getFirstPathText(row.data)]]"></oj-bind-text>
+                            </td>
+                            <td data-bind="attr: { title: row.data.url }">
+                              <oj-bind-if test="[[row.data.canLink]]">
+                                <a data-bind="attr: { href: row.data.url }">
+                                  <oj-bind-text value="[[row.data.url]]"></oj-bind-text>
+                                </a>
+                              </oj-bind-if>
+                              <oj-bind-if test="[[!row.data.canLink]]">
+                                <oj-bind-text value="[[row.data.url]]"></oj-bind-text>
+                              </oj-bind-if>
+                            </td>
+                            <td>
+                              <oj-bind-text value="[[getDestinationText(row.data)]]"></oj-bind-text>
+                            </td>
+                            <td>
+                              <oj-button display="icons" chroming="borderless" on-oj-action="[[handleEditRule]]">
+                                <span slot="endIcon" class="oj-ux-ico-edit"></span>
+                                <oj-bind-text value="[[labelMapper('edit-rule-tooltip')]]"></oj-bind-text>
+                              </oj-button>
+                            </td>
+                            <td>
+                              <oj-button display="icons" chroming="borderless" on-oj-action="[[handleDeleteRule]]">
+                                <span slot="endIcon" class="oj-ux-ico-trash"></span>
+                                <oj-bind-text value="[[labelMapper('delete-rule-tooltip')]]"></oj-bind-text>
+                              </oj-button>
+                            </td>
+                          </tr>
+                        </template>
+                        <template slot="chooseHeaderTemplate" data-oj-as="header">
+                          <oj-button display="icons" chroming="borderless" disabled="true">
+                            <span slot="endIcon"></span>
+                          </oj-button>
+                        </template>
+                        <template slot="headerTemplate" data-oj-as="header">
+                          <oj-button display="icons" chroming="borderless" on-oj-action="[[handleAddRule]]">
+                            <span slot="endIcon" class="oj-ux-ico-plus"></span>
+                            <oj-bind-text value="[[labelMapper('add-rule-tooltip')]]"></oj-bind-text>
+                          </oj-button>
+                        </template>
+                      </oj-table>
+                    </div>
+                  </oj-bind-if>
+                </div>
+              </div>
+
+              <div class="oj-panel">
+                <oj-form-layout max-columns="1" direction="row">
+                  <oj-switch label-hint="[[labelMapper('component-manual-scaler-trait-enabled-label')]]"
+                             value="{{componentObservable(component.data, 'manualScalerTraitEnabled')}}"
+                             help.instruction="[[labelMapper('component-manual-scaler-trait-enabled-help')]]">
+                  </oj-switch>
+                </oj-form-layout>
+                <div>
+                  <oj-bind-if test="[[componentObservable(component.data, 'manualScalerTraitEnabled')]]">
+                    <oj-form-layout max-columns="2" direction="row">
+                      <oj-input-number label-hint="[[labelMapper('component-manual-scaler-trait-replica-count-label')]]"
+                                       value="{{componentObservable(component.data, 'manualScalerTraitReplicaCount')}}"
+                                       min="0"
+                                       converter="[[integerConverter]]"
+                                       help.instruction="[[labelMapper('component-manual-scaler-trait-replica-count-help')]]">
+                      </oj-input-number>
+                    </oj-form-layout>
+                  </oj-bind-if>
+                </div>
+              </div>
+
+              <div class="oj-panel">
+                <oj-form-layout max-columns="1" direction="row">
+                  <oj-switch label-hint="[[labelMapper('component-metrics-trait-enabled-label')]]"
+                             value="{{componentObservable(component.data, 'metricsTraitEnabled')}}"
+                             help.instruction="[[labelMapper('component-metrics-trait-enabled-help')]]">
+                  </oj-switch>
+                </oj-form-layout>
+                <div>
+                  <oj-bind-if test="[[componentObservable(component.data, 'metricsTraitEnabled')]]">
+                    <oj-form-layout max-columns="2" direction="row">
+                      <oj-input-text label-hint="[[labelMapper('component-metrics-trait-http-port-label')]]"
+                                     value="{{componentObservable(component.data, 'metricsTraitHttpPort')}}"
+                                     help.instruction="[[labelMapper('component-metrics-trait-http-port-help')]]">
+                      </oj-input-text>
+                      <oj-input-text label-hint="[[labelMapper('component-metrics-trait-http-path-label')]]"
+                                     value="{{componentObservable(component.data, 'metricsTraitHttpPath')}}"
+                                     help.instruction="[[labelMapper('component-metrics-trait-http-path-help')]]">
+                      </oj-input-text>
+                      <oj-input-text label-hint="[[labelMapper('component-metrics-trait-secret-label')]]"
+                                     value="{{componentObservable(component.data, 'metricsTraitSecretName')}}"
+                                     help.instruction="[[labelMapper('component-metrics-trait-secret-help')]]">
+                        <oj-button slot="end" display="icons" chroming="borderless"
+                                   on-oj-action="[[() => chooseMetricsTraitSecret($current.data)]]">
+                          <span slot="endIcon" class="oj-ux-ico-select" role="img"></span>
+                          <oj-bind-text value="[[labelMapper('component-metrics-trait-secret-tooltip')]]"></oj-bind-text>
+                        </oj-button>
+                      </oj-input-text>
+                      <oj-input-text label-hint="[[labelMapper('component-metrics-trait-deployment-label')]]"
+                                     value="{{componentObservable(component.data, 'metricsTraitDeploymentName')}}"
+                                     help.instruction="[[labelMapper('component-metrics-trait-deployment-help')]]">
+                        <oj-button slot="end" display="icons" chroming="borderless"
+                                   on-oj-action="[[() => choosePrometheusDeployment(component.data)]]">
+                          <span slot="endIcon" class="oj-ux-ico-select" role="img"></span>
+                          <oj-bind-text value="[[labelMapper('component-metrics-trait-deployment-tooltip')]]"></oj-bind-text>
+                        </oj-button>
+                      </oj-input-text>
+                    </oj-form-layout>
+                  </oj-bind-if>
+                </div>
+              </div>
+
+              <div class="oj-panel">
+                <oj-form-layout max-columns="1" direction="row">
+                  <oj-switch label-hint="[[labelMapper('component-logging-trait-enabled-label')]]"
+                             value="{{componentObservable(component.data, 'loggingTraitEnabled')}}"
+                             help.instruction="[[labelMapper('component-logging-trait-enabled-help')]]">
+                  </oj-switch>
+                </oj-form-layout>
+                <div>
+                  <oj-bind-if test="[[componentObservable(component.data, 'loggingTraitEnabled')]]">
+                    <oj-form-layout max-columns="1" direction="row">
+                      <oj-input-text label-hint="[[labelMapper('component-logging-trait-image-label')]]"
+                                     value="{{componentObservable(component.data, 'loggingTraitImage')}}"
+                                     help.instruction="[[labelMapper('component-logging-trait-image-help')]]">
+                      </oj-input-text>
+                      <oj-text-area label-hint="[[labelMapper('component-logging-trait-configuration-label')]]"
+                                    resize-behavior="both"
+                                    value="{{componentObservable(component.data, 'loggingTraitConfiguration')}}"
+                                    help.instruction="[[labelMapper('component-logging-trait-configuration-help')]]">
+                      </oj-text-area>
+                    </oj-form-layout>
+                  </oj-bind-if>
+                </div>
+              </div>
+            </oj-collapsible>
+          </template>
+        </oj-bind-for-each>
+      </oj-accordion>
+    </oj-bind-if>
+    <oj-bind-if test="[[hasComponents() === false]]">
+      <p><oj-bind-text value="[[labelMapper('no-assigned-components-message')]]"></oj-bind-text></p>
+    </oj-bind-if>
+  </div>
+</div>

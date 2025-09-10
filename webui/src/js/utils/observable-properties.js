@@ -152,7 +152,7 @@ define(['knockout', 'utils/common-utilities', 'utils/validation-helper', 'utils/
       getPromise() {
         try {
           return (typeof this._defaultValue === 'function' && this.isPromise(this._defaultValue())) ? this._defaultValue() : null;
-        } catch {
+        } catch (e) {
           return null;
         }
       }

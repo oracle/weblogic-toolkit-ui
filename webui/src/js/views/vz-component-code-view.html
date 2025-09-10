@@ -1,0 +1,57 @@
+<!--
+ Copyright (c) 2022, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="wkt-nested-tab-frame">
+  <oj-tab-bar id="codetabs" class="oj-sm-condense wkt-tab-bar-nested"
+              selection="{{selectedSubview}}" data="[[subviewsDP]]" edge="top">
+    <template slot="itemTemplate" data-oj-as="item">
+      <li :class="[[{'oj-disabled' : item.data.disabled}]]">
+        <a href="#">
+          <oj-bind-text value="[[item.data.name]]"></oj-bind-text>
+        </a>
+      </li>
+    </template>
+  </oj-tab-bar>
+
+  <oj-switcher id="codeviews"
+               class="wkt-code-view-switcher"
+               on-value-changed="[[selectedSubviewValueChangedHandler]]"
+               value="{{selectedSubview}}">
+    <div slot="script" class="oj-panel wkt-code-view-platform-frame">
+      <oj-form-layout max-columns="2" direction="row">
+        <oj-select-single label-hint="[[shellLabelMapper('selector-label')]]"
+                          on-value-changed="[[shellScriptTypeSelectValueChangedHandler]]"
+                          value="{{shellScriptType}}"
+                          data="{{shellScriptTypesDP}}"
+                          help.instruction="[[shellLabelMapper('selector-help')]]">
+        </oj-select-single>
+        <oj-button chroming="callToAction" on-oj-action="[[downloadInstaller]]">
+          <span><oj-bind-text value="[[shellLabelMapper('button-download')]]"></oj-bind-text></span>
+        </oj-button>
+      </oj-form-layout>
+      <oj-text-area class="wkt-code-view" max-rows="100000" value="{{scriptText}}" readonly="true">
+      </oj-text-area>
+    </div>
+
+    <div slot="component" class="oj-panel wkt-code-view-platform-frame">
+      <oj-form-layout max-columns="2" direction="row">
+        <oj-button chroming="callToAction" on-oj-action="[[downloadComponentResource]]">
+          <span><oj-bind-text value="[[shellLabelMapper('button-download')]]"></oj-bind-text></span>
+        </oj-button>
+      </oj-form-layout>
+      <oj-text-area class="wkt-code-view" max-rows="100000" value="{{componentText}}" readonly="true">
+      </oj-text-area>
+    </div>
+
+    <div slot="configMap" class="oj-panel wkt-code-view-platform-frame">
+      <oj-form-layout max-columns="2" direction="row">
+        <oj-button chroming="callToAction" on-oj-action="[[downloadConfigMap]]">
+          <span><oj-bind-text value="[[shellLabelMapper('button-download')]]"></oj-bind-text></span>
+        </oj-button>
+      </oj-form-layout>
+      <oj-text-area class="wkt-code-view" max-rows="100000" value="{{configMapText}}" readonly="true">
+      </oj-text-area>
+    </div>
+  </oj-switcher>
+</div>
