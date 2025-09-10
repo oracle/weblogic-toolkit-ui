@@ -53,6 +53,15 @@
           'cfe-policy-editor': 'jet-composites/cfe-policy-editor/1.0.0'
       }
       // endinjector
+
+      // This is required for the wrc-jet-pack to resolve its i18n labels...
+      , config: {
+          ojL10n: {
+              merge: {
+                  'ojtranslations/nls/ojtranslations': 'resources/nls/frontend'
+              }
+          }
+      }
     }
   );
 }());
