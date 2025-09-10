@@ -1,0 +1,30 @@
+<!--
+ Copyright (c) 2024, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
+ -->
+
+<oj-module config="[[folderHeaderModuleConfig]]"></oj-module>
+
+<div class="oj-panel">
+  <oj-form-layout max-columns="2" direction="row">
+    <oj-module config="[[attributeConfig('Cluster')]]"></oj-module>
+    <oj-module config="[[attributeConfig('ListenPort')]]"></oj-module>
+    <oj-module config="[[attributeConfig('DefaultIIOPUser')]]"></oj-module>
+    <oj-module config="[[attributeConfig('Notes')]]"></oj-module>
+  </oj-form-layout>
+  <oj-collapsible class="wkt-model-edit-attribute-stacked" expanded='false'>
+    <h6 slot="header" class="wkt-subheading">
+      <oj-bind-text value="[[editLabelMapper('advanced-label')]]"></oj-bind-text>
+    </h6>
+    <div>
+      <oj-module config="[[remainingModuleConfig]]"></oj-module>
+    </div>
+  </oj-collapsible>
+</div>
+<div class="oj-panel">
+  <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('ssl-title')]]"></oj-bind-text></h6>
+  <oj-form-layout max-columns="2" direction="row">
+    <oj-module config="[[sslAttributeConfig('Enabled')]]"></oj-module>
+    <oj-module config="[[sslAttributeConfig('ListenPort')]]"></oj-module>
+  </oj-form-layout>
+</div>

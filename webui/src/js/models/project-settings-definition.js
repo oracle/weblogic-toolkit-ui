@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -13,7 +13,7 @@ define(['utils/observable-properties'],
         this.extraPathDirectories = props.createListProperty(['uid', 'value']);
         this.extraEnvironmentVariables = props.createListProperty(['uid', 'name', 'value']);
 
-        this.credentialStorePolicy = props.createProperty('native');
+        this.credentialStorePolicy = props.createProperty('passphrase');
 
         this.targetDomainLocation = props.createProperty('mii');
         this.wdtTargetType = props.createProperty('wko');

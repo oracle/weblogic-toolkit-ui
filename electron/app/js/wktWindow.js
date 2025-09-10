@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const { app, BrowserWindow, dialog, Menu, shell } = require('electron');
@@ -39,7 +39,7 @@ class WktAppMenu {
     // hasOpenDialog: the focused window has a dialog displayed
     this._hasOpenDialog = getWindowStatus(window, 'hasOpenDialog');
 
-    // targetType: the target type for the window, such as 'wko', 'vz'
+    // targetType: the target type for the window, such as 'wko'
     const targetType = getWindowStatus(window, 'targetType');
     this._isWkoTarget = targetType === 'wko';
 
@@ -363,7 +363,6 @@ class WktAppMenu {
           {
             id: 'installOperator',
             label: i18n.t('menu-go-install-operator'),
-            visible: this._isWkoTarget,
             enabled: !this._hasOpenDialog,
             click(item, focusedWindow) {
               if (!focusedWindow) {
@@ -378,7 +377,6 @@ class WktAppMenu {
           {
             id: 'updateOperator',
             label: i18n.t('menu-go-update-operator'),
-            visible: this._isWkoTarget,
             enabled: !this._hasOpenDialog,
             click(item, focusedWindow) {
               if (!focusedWindow) {
@@ -393,7 +391,6 @@ class WktAppMenu {
           {
             id: 'uninstallOperator',
             label: i18n.t('menu-go-uninstall-operator'),
-            visible: this._isWkoTarget,
             enabled: !this._hasOpenDialog,
             click(item, focusedWindow) {
               if (!focusedWindow) {
@@ -408,7 +405,6 @@ class WktAppMenu {
           {
             id: 'deployDomain',
             label: i18n.t('menu-go-deploy-domain'),
-            visible: this._isWkoTarget,
             enabled: !this._hasOpenDialog,
             click(item, focusedWindow) {
               if (!focusedWindow) {
@@ -423,7 +419,6 @@ class WktAppMenu {
           {
             id: 'domainStatus',
             label: i18n.t('menu-go-domain-status'),
-            visible: this._isWkoTarget,
             enabled: !this._hasOpenDialog,
             click(item, focusedWindow) {
               if (!focusedWindow) {
@@ -493,112 +488,6 @@ class WktAppMenu {
                 );
               }
               sendToWindow(focusedWindow,'start-ingress-uninstall');
-            }
-          },
-          // Verrazzano-related Go menu items
-          {
-            id: 'installVerrazzano',
-            label: i18n.t('menu-go-install-verrazzano'),
-            visible: !this._isWkoTarget,
-            enabled: !this._hasOpenDialog,
-            click(item, focusedWindow) {
-              if (!focusedWindow) {
-                return dialog.showErrorBox(
-                  i18n.t('menu-go-install-verrazzano-error-title'),
-                  i18n.t('menu-go-install-verrazzano-error-message')
-                );
-              }
-              sendToWindow(focusedWindow,'start-verrazzano-install');
-            }
-          },
-          {
-            id: 'installVerrazzanoStatus',
-            label: i18n.t('menu-go-install-verrazzano-status'),
-            visible: !this._isWkoTarget,
-            enabled: !this._hasOpenDialog,
-            click(item, focusedWindow) {
-              if (!focusedWindow) {
-                return dialog.showErrorBox(
-                  i18n.t('menu-go-install-verrazzano-status-error-title'),
-                  i18n.t('menu-go-install-verrazzano-status-error-message')
-                );
-              }
-              sendToWindow(focusedWindow,'start-get-verrazzano-install-status');
-            }
-          },
-          {
-            id: 'deployVerrazzanoComponent',
-            label: i18n.t('menu-go-deploy-verrazzano-component'),
-            visible: !this._isWkoTarget,
-            enabled: !this._hasOpenDialog,
-            click(item, focusedWindow) {
-              if (!focusedWindow) {
-                return dialog.showErrorBox(
-                  i18n.t('menu-go-deploy-verrazzano-component-error-title'),
-                  i18n.t('menu-go-deploy-verrazzano-component-error-message')
-                );
-              }
-              sendToWindow(focusedWindow,'start-deploy-verrazzano-component');
-            }
-          },
-          {
-            id: 'undeployVerrazzanoComponent',
-            label: i18n.t('menu-go-undeploy-verrazzano-component'),
-            visible: !this._isWkoTarget,
-            enabled: !this._hasOpenDialog,
-            click(item, focusedWindow) {
-              if (!focusedWindow) {
-                return dialog.showErrorBox(
-                  i18n.t('menu-go-undeploy-verrazzano-component-error-title'),
-                  i18n.t('menu-go-undeploy-verrazzano-component-error-message')
-                );
-              }
-              sendToWindow(focusedWindow,'start-undeploy-verrazzano-component');
-            }
-          },
-          {
-            id: 'deployVerrazzanoApplication',
-            label: i18n.t('menu-go-deploy-verrazzano-application'),
-            visible: !this._isWkoTarget,
-            enabled: !this._hasOpenDialog,
-            click(item, focusedWindow) {
-              if (!focusedWindow) {
-                return dialog.showErrorBox(
-                  i18n.t('menu-go-deploy-verrazzano-application-error-title'),
-                  i18n.t('menu-go-deploy-verrazzano-application-error-message')
-                );
-              }
-              sendToWindow(focusedWindow,'start-deploy-verrazzano-application');
-            }
-          },
-          {
-            id: 'checkVerrazzanoApplicationStatus',
-            label: i18n.t('menu-go-check-verrazzano-application-status'),
-            visible: !this._isWkoTarget,
-            enabled: !this._hasOpenDialog,
-            click(item, focusedWindow) {
-              if (!focusedWindow) {
-                return dialog.showErrorBox(
-                  i18n.t('menu-go-check-verrazzano-application-status-error-title'),
-                  i18n.t('menu-go-check-verrazzano-application-status-error-message')
-                );
-              }
-              sendToWindow(focusedWindow, 'start-get-vz-application-status');
-            }
-          },
-          {
-            id: 'undeployVerrazzanoApplication',
-            label: i18n.t('menu-go-undeploy-verrazzano-application'),
-            visible: !this._isWkoTarget,
-            enabled: !this._hasOpenDialog,
-            click(item, focusedWindow) {
-              if (!focusedWindow) {
-                return dialog.showErrorBox(
-                  i18n.t('menu-go-undeploy-verrazzano-application-error-title'),
-                  i18n.t('menu-go-undeploy-verrazzano-application-error-message')
-                );
-              }
-              sendToWindow(focusedWindow,'start-undeploy-verrazzano-application');
             }
           },
         ]

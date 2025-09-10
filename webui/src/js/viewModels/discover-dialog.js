@@ -220,6 +220,32 @@ function(accUtils, ko, i18n, viewHelper, ArrayDataProvider, project, wdtDiscover
       return result;
     }, this);
 
+    this.discoverTypes = [
+      { value: 'local', label: this.labelMapper('discover-type-local-label') },
+      { value: 'remote', label: this.labelMapper('discover-type-remote-label') },
+      { value: 'ssh', label: this.labelMapper('discover-type-ssh-label') },
+    ];
+    this.discoverType = ko.observable('local');
+
+    this.sshCredentialTypes = [
+      { value: 'default', label: this.labelMapper('ssh-credential-type-default-label') },
+      { value: 'privateKey', label: this.labelMapper('ssh-credential-type-private-key-label') },
+      { value: 'password', label: this.labelMapper('ssh-credential-type-password-label') },
+    ];
+    this.sshCredentialType = ko.observable('default');
+
+    this.useSsh = ko.computed(() => {
+      return this.discoverType() === 'ssh';
+    }, this);
+
+    this.useSshPassword = ko.computed(() => {
+      return this.sshCredentialType() === 'password';
+    }, this);
+
+    this.useSshPrivateKey = ko.computed(() => {
+      return this.sshCredentialType() === 'privateKey';
+    }, this);
+
     this.startDiscover = () => {
       let tracker = document.getElementById('tracker');
       if (tracker.valid === 'valid') {
