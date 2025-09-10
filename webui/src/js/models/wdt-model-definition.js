@@ -11,8 +11,8 @@
  * Returns a constructor for the object.
  */
 const ADMIN_SECRET_INTERNAL_NAME = '__weblogic-credentials__';
-define(['knockout', 'utils/common-utilities', 'utils/observable-properties', 'js-yaml', 'utils/validation-helper', 'utils/wkt-logger'],
-  function (ko, utils, props, jsYaml, validationHelper, wktLogger) {
+define(['knockout', 'utils/observable-properties', 'js-yaml', 'utils/validation-helper', 'utils/wkt-logger'],
+  function (ko, props, jsYaml, validationHelper, wktLogger) {
     /**
      * The object constructor.
      */
@@ -209,7 +209,7 @@ define(['knockout', 'utils/common-utilities', 'utils/observable-properties', 'js
                 result = this.getModelSecretKey(secretEnvVar, secretName);
               }
             }
-          } catch {
+          } catch (e) {
             // unable to parse model, just return undefined
           }
           return result;
@@ -218,24 +218,6 @@ define(['knockout', 'utils/common-utilities', 'utils/observable-properties', 'js
         /** Returns a property for editing the model properties */
         this.getModelPropertiesObject = function() {
           return this.internal.propertiesContent;
-        };
-
-        this.setProperty = function(key, value) {
-          let found = false;
-          this.internal.propertiesContent.observable().forEach(entry => {
-            if(entry.Name === key) {
-              entry.Value = value;
-              found = true;
-            }
-          });
-
-          if(!found) {
-            this.internal.propertiesContent.addNewItem({
-              uid: utils.getShortUuid(),
-              Name: key,
-              Value: value
-            });
-          }
         };
 
         this.addPropertiesSubscriber = function(subscriber) {
@@ -299,7 +281,7 @@ define(['knockout', 'utils/common-utilities', 'utils/observable-properties', 'js
             const domainName = (modelName && (typeof modelName === 'string')) ? modelName : defaultDomainName;
             this.domainName(domainName);
 
-          } catch {
+          } catch (e) {
             // unable to parse model, don't update any fields
           }
         };

@@ -9,5 +9,4 @@
 /Library
 /.env
 /app/webui.json
-/app/locales/en/*.missing.json
 /coverage

@@ -1,0 +1,31 @@
+<!--
+ Copyright (c) 2023, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<oj-dialog id="verrazzanoApplicationStatusChooseClusterDialog" class="wkt-add-to-archive-dialog" initial-visibility="hide">
+  <div slot="header">
+    <span id="dialog-title-id" class="oj-dialog-title">
+      <oj-bind-text value="[[labelMapper('dialog-title')]]"></oj-bind-text>
+    </span>
+  </div>
+  <div slot="body">
+    <div class="oj-panel">
+      <oj-form-layout max-columns="2" direction="row">
+        <oj-select-single label-hint="[[labelMapper('name-label')]]"
+                          value="{{selectedTargetClusterName}}"
+                          data="{{targetClusterNamesDP}}"
+                          help.instruction="[[labelMapper('name-help')]]">
+        </oj-select-single>
+      </oj-form-layout>
+    </div>
+  </div>
+
+  <div slot="footer">
+    <oj-button id="okButton" on-oj-action="[[okInput]]">
+      <span><oj-bind-text value="[[i18n.t('dialog-button-ok')]]"></oj-bind-text></span>
+    </oj-button>
+    <oj-button id="cancelButton" on-oj-action="[[cancelInput]]">
+      <span><oj-bind-text value="[[i18n.t('dialog-button-cancel')]]"></oj-bind-text></span>
+    </oj-button>
+  </div>
+</oj-dialog>

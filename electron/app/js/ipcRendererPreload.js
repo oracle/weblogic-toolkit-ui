@@ -89,6 +89,13 @@ contextBridge.exposeInMainWorld(
           'start-k8s-domain-deploy',
           'start-k8s-domain-undeploy',
           'start-get-k8s-domain-status',
+          'start-verrazzano-install',
+          'start-get-verrazzano-install-status',
+          'start-deploy-verrazzano-component',
+          'start-get-vz-application-status',
+          'start-undeploy-verrazzano-component',
+          'start-deploy-verrazzano-application',
+          'start-undeploy-verrazzano-application',
           'start-app-quit',
           'start-window-close'
         ];
@@ -213,13 +220,29 @@ contextBridge.exposeInMainWorld(
           'openssl-generate-certs',
           'validate-k8s-namespaces-exist',
           'validate-wko-domain-exist',
+          'validate-vz-application-exist',
+          'vz-get-application-status',
           'get-wrc-home-directory',
           'get-wrc-app-image',
           'wrc-get-home-default-value',
           'wrc-set-home-and-start',
-          'get-alias-info',  // model edit
-          'get-model-edit-message-keys',  // model edit
-          'get-model-edit-metadata'  // model edit
+          'get-verrazzano-release-versions',
+          'is-verrazzano-installed',
+          'install-verrazzano-platform-operator',
+          'verify-verrazzano-platform-operator-install',
+          'install-verrazzano',
+          'verify-verrazzano-install-status',
+          'deploy-verrazzano-components',
+          'undeploy-verrazzano-components',
+          'get-verrazzano-component-names',
+          'get-verrazzano-secret-names',
+          'get-verrazzano-host-names',
+          'get-verrazzano-cluster-names',
+          'get-verrazzano-deployment-names-all-namespaces',
+          'verify-verrazzano-components-exist',
+          'deploy-verrazzano-project',
+          'deploy-verrazzano-application',
+          'undeploy-verrazzano-application',
         ];
         return new Promise((resolve, reject) => {
           if (validChannels.includes(channel)) {

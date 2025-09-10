@@ -209,12 +209,12 @@ function getExecutableFilePath(exeName, mode) {
   let resolvedPath;
   try {
     resolvedPath = which.sync(exeName);
-  } catch {
+  } catch (err) {
     // not found...
     if (osUtils.isMac() && mode === 'exe') {
       try {
         resolvedPath = which.sync(exeName, { path: '/usr/local/bin' });
-      } catch {
+      } catch (nestedErr) {
         // still not found...
       }
     }

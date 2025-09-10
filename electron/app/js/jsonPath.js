@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2021, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 function getJsonPathReference(jsonPath, jsonObject) {
@@ -12,12 +12,9 @@ function getJsonPathReference(jsonPath, jsonObject) {
 
     for (const field of fields) {
       objectReference = traverseField(objectReference, field);
-      if (!objectReference) {
-        break;
-      }
     }
 
-    if (objectReference && (fieldName.includes('[') || fieldName.includes(']'))) {
+    if (fieldName.includes('[') || fieldName.includes(']')) {
       const lastArrayReferenceIndex = fieldName.lastIndexOf('[');
       const traversalFieldName = fieldName.slice(0, lastArrayReferenceIndex);
       objectReference = traverseField(objectReference, traversalFieldName);

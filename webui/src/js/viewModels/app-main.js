@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
@@ -76,6 +76,10 @@ function(accUtils, ko, i18n, project, wktConsole,
       { path: 'operator-page' },
       { path: 'domain-page' },
       { path: 'ingress-page' },
+      { path: 'vz-config-page' },
+      { path: 'vz-install-page' },
+      { path: 'vz-component-page' },
+      { path: 'vz-application-page' },
       { path: 'empty-view' }
     ];
 
@@ -113,6 +117,30 @@ function(accUtils, ko, i18n, project, wktConsole,
         },
         { name: this.labelMapper('ingress'),
           id: 'ingress-page',
+          icon: 'oj-ux-ico-router'
+        }
+      ]
+    };
+
+    targetNavData.vz = {
+      name: this.labelMapper('verrazzano'),
+      id: 'no-page',
+      icon: 'oj-ux-ico-folder',
+      children:[
+        { name: this.labelMapper('vz-config'),
+          id: 'kubectl-page',
+          icon: 'oj-ux-ico-user-configuration'
+        },
+        { name: this.labelMapper('vz-install'),
+          id: 'vz-install-page',
+          icon: 'oj-ux-ico-arrow-circle-down'
+        },
+        { name: this.labelMapper('vz-component'),
+          id: 'vz-component-page',
+          icon: 'oj-ux-ico-manage-work-definitions'
+        },
+        { name: this.labelMapper('vz-application'),
+          id: 'vz-application-page',
           icon: 'oj-ux-ico-router'
         }
       ]

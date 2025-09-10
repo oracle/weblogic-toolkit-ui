@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2021, 2024, Oracle and/or its affiliates.
+ Copyright (c) 2021, 2022, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 <div class="wkt-content" id="projectSettings">
@@ -154,6 +154,18 @@
       </oj-radioset>
     </oj-form-layout>
     <p><oj-bind-text value="[[getTargetDomainLocationMessage()]]"></oj-bind-text></p>
+  </div>
+
+  <div class="oj-panel">
+    <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('wdt-target-type-question')]]"></oj-bind-text></h6>
+    <oj-form-layout max-columns="1" direction="row">
+      <oj-select-single label-hint="[[labelMapper('wdt-target-type-label')]]"
+                        value="{{project.settings.wdtTargetType.observable}}"
+                        data="{{wdtTargetTypesDP}}"
+                        help.instruction="[[labelMapper('wdt-target-type-help')]]">
+      </oj-select-single>
+    </oj-form-layout>
+    <p><oj-bind-text value="[[labelMapper('wdt-target-type-answer-message')]]"></oj-bind-text></p>
   </div>
 
   <div class="oj-panel">
