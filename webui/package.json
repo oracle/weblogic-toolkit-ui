@@ -1,6 +1,6 @@
 {
   "private": true,
-  "copyright": "Copyright (c) 2021, 2023, Oracle and/or its affiliates.",
+  "copyright": "Copyright (c) 2021, 2025, Oracle and/or its affiliates.",
   "scripts": {
     "test": "mocha --timeout 10000 --reporter spec src/test/*-test.js",
     "coverage": "nyc --reporter=lcov --reporter=text-summary npm run test",
@@ -10,8 +10,8 @@
     "jet-audit": "ojaf"
   },
   "dependencies": {
-    "@oracle/oraclejet": "~16.1.4",
-    "@oracle/oraclejet-core-pack": "~16.1.4",
+    "@oracle/oraclejet": "~19.0.0",
+    "@oracle/oraclejet-core-pack": "~19.0.0",
     "@oracle/wrc-jet-pack": "~2.4.17",
     "ace-builds": "^1.43.3",
     "i18next": "^25.5.2",
@@ -21,9 +21,9 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3.1.0",
     "@eslint/js": "^9.7.0",
-    "@oracle/ojet-cli": "^16.1.0",
-    "@oracle/oraclejet-audit": "^16.1.4",
-    "@oracle/oraclejet-tooling": "^16.1.0",
+    "@oracle/ojet-cli": "~19.0.0",
+    "@oracle/oraclejet-audit": "~19.0.0",
+    "@oracle/oraclejet-tooling": "~19.0.0",
     "chai": "^6.0.1",
     "chai-as-promised": "^8.0.2",
     "eslint": "^9.35.0",
@@ -39,6 +39,9 @@
     "underscore": "^1.13.7"
   },
   "engines": {
-    "node": ">=10.13.0"
+    "node": ">=16.0.0"
+  },
+  "overrides": {
+    "@types/minimatch": "5.1.2"
   }
 }
