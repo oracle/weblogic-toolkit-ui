@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
@@ -11,7 +11,7 @@ define(['accUtils', 'knockout', 'utils/i18n', 'ojs/ojcontext', 'ojs/ojmodule-ele
 function(accUtils, ko, i18n, Context, moduleElementUtils, wktLogger) {
   function QuickStartDialogModel() {
 
-    const QUICKSTART_PAGE_COUNT = 11;
+    const QUICKSTART_PAGE_COUNT = 10;
     const DIALOG_NAME = 'wktQuickStartDialog';
     const DIALOG_SELECTOR = `#${DIALOG_NAME}`;
     this.i18n = i18n;

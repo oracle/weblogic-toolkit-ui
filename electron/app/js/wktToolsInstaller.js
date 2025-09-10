@@ -5,6 +5,10 @@
  */
 'use strict';
 
+// Node.js now has a built-in fetch implementation but it does not appear to
+// support proxies so let's stick with node-fetch for now...
+//
+// eslint-disable-next-line no-redeclare
 const fetch = require('node-fetch');
 const fs = require('fs');
 const fsPromises = require('fs/promises');

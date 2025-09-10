@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2014, 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2014, 2025, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
@@ -23,71 +23,50 @@
       */
       // injector:mainReleasePaths
       {
-        'knockout': 'libs/knockout/knockout-3.5.1.debug',
-        'jquery': 'libs/jquery/jquery-3.5.1',
-        'jqueryui-amd': 'libs/jquery/jqueryui-amd-1.12.1',
-        'hammerjs': 'libs/hammer/hammer-2.0.8',
-        'ojdnd': 'libs/dnd-polyfill/dnd-polyfill-1.0.2',
-        'ojs': 'libs/oj/v11.0.1/debug',
-        'ojL10n': 'libs/oj/v10.0.0/ojL10n',
-        'ojtranslations': 'libs/oj/v10.0.0/resources',
-        'text': 'libs/require/text',
-        'signals': 'libs/js-signals/signals',
-        'customElements': 'libs/webcomponents/custom-elements.min',
-        'proj4': 'libs/proj4js/dist/proj4-src',
-        'css': 'libs/require-css/css.min',
-        'touchr': 'libs/touchr/touchr',
-        'corejs' : 'libs/corejs/shim',
-        'chai': 'libs/chai/chai-4.2.0',
-        'regenerator-runtime' : 'libs/regenerator-runtime/runtime',
-        'ace': 'libs/ace/ace',
-        'wrc-translations': 'resources',
-        'wrc-frontend': 'jet-composites/wrc-frontend/1.0.0',
-        'wdt-model-designer': 'jet-composites/wdt-model-designer/1.0.0',
-        'cfe-navtree': 'jet-composites/cfe-navtree/1.0.0',
-        'cfe-multi-select': 'jet-composites/cfe-multi-select/1.0.0',
-        'cfe-property-list-editor': 'jet-composites/cfe-property-list-editor/1.0.0',
-        'cfe-policy-editor': 'jet-composites/cfe-policy-editor/1.0.0'
+          'ojL10n': 'libs/oj/19.0.0/ojL10n',
+          'ojtranslations': 'libs/oj/19.0.0/resources',
+          'knockout': 'libs/knockout/knockout-3.5.1.debug',
+          'jquery': 'libs/jquery/jquery-3.7.1',
+          'jqueryui-amd': 'libs/jquery/jqueryui-amd-1.14.1',
+          'text': 'libs/require/text',
+          'hammerjs': 'libs/hammer/hammer-2.0.8',
+          'signals': 'libs/js-signals/signals',
+          'ojdnd': 'libs/dnd-polyfill/dnd-polyfill-1.0.2',
+          'css': 'libs/require-css/css.min',
+          'css-builder': 'libs/require-css/css-builder',
+          'normalize': 'libs/require-css/normalize',
+          '@oracle/oraclejet-preact': 'libs/oraclejet-preact/amd',
+          'preact': 'libs/preact/dist/preact.umd',
+          'preact/hooks': 'libs/preact/hooks/dist/hooks.umd',
+          'preact/compat': 'libs/preact/compat/dist/compat.umd',
+          'preact/jsx-runtime': 'libs/preact/jsx-runtime/dist/jsxRuntime.umd',
+          'proj4': 'libs/proj4js/dist/proj4-src',
+          'touchr': 'libs/touchr/touchr',
+          'chai': 'libs/chai/chai-4.5.0',
+          'ace': 'libs/ace/ace',
+          'wrc-translations': 'resources',
+          'wrc-frontend': 'jet-composites/wrc-frontend/1.0.0',
+          'wdt-model-designer': 'jet-composites/wdt-model-designer/1.0.0',
+          'cfe-navtree': 'jet-composites/cfe-navtree/1.0.0',
+          'cfe-multi-select': 'jet-composites/cfe-multi-select/1.0.0',
+          'cfe-property-list-editor': 'jet-composites/cfe-property-list-editor/1.0.0',
+          'cfe-policy-editor': 'jet-composites/cfe-policy-editor/1.0.0'
       }
       // endinjector
 
+      // This is required for the wrc-jet-pack to resolve its i18n labels...
       , config: {
-        ojL10n: {
-          merge: {
-            'ojtranslations/nls/ojtranslations': 'resources/nls/frontend'
+          ojL10n: {
+              merge: {
+                  'ojtranslations/nls/ojtranslations': 'resources/nls/frontend'
+              }
           }
-        }
       }
     }
   );
 }());
 
 /**
- * A top-level require call executed by the Application.
- * Although 'ojcore' and 'knockout' would be loaded in any case (they are specified as dependencies
- * by the modules themselves), we are listing them explicitly to get the references to the 'oj' and 'ko'
- * objects in the callback
+ * Load the application's entry point file
  */
-require(['ojs/ojbootstrap', 'knockout', 'appController', 'windowStateUtils', 'ojs/ojbutton', 'ojs/ojknockout',
-  'ojs/ojmodule', 'ojs/ojnavigationlist', 'ojs/ojrouter', 'ojs/ojtoolbar'],
-function (Bootstrap, ko, app) { // this callback gets executed when all required modules are loaded
-
-  // windowStateUtils was initialized by this function's require, but is not used directly
-
-  Bootstrap.whenDocumentReady().then(
-    function() {
-
-      function init() {
-        // Bind your ViewModel for the content of the whole page body.
-        ko.applyBindings(app, document.getElementById('globalBody'));
-      }
-
-      // If running in a hybrid (e.g. Cordova) environment, we need to wait for the deviceready
-      // event before executing any code that might interact with Cordova APIs or plugins.
-      if (document.body.classList.contains('oj-hybrid')) {
-        document.addEventListener('deviceready', init);
-      } else {
-        init();
-      }
-    });
-});
+require(['./root']);

@@ -1,0 +1,29 @@
+<!--
+ Copyright (c) 2024, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
+ -->
+
+<h6 class="wkt-split-header">
+  <div class="wkt-split-title">
+    <oj-bind-if test="prefixText">
+      <oj-bind-if test="true">
+        <a href="#" on-click="[[navigateToParent]]">
+          <oj-bind-text value="[[prefixText]]"></oj-bind-text></a>
+        /
+      </oj-bind-if>
+    </oj-bind-if>
+    <oj-bind-text value="[[getTitle()]]"></oj-bind-text>
+  </div>
+  <div class="wkt-split-link">
+    <oj-bind-if test="isMultiple">
+      <oj-c-labelled-link
+        text="[[renameLabel]]"
+        label-hint=""
+        on-oj-action="[[renameInstance]]"
+      >
+      </oj-c-labelled-link>
+    </oj-bind-if>
+  </div>
+</h6>
+
+

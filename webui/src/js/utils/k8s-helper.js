@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -31,27 +31,6 @@ function(WktActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, val
         return Promise.resolve(false);
       }
 
-      let clusterToCheck;
-      const availableClusters = this._getTargetClusters();
-      if (availableClusters.length > 1) {
-        const args = [ ];
-        availableClusters.forEach(availableCluster => args.push({
-          name: availableCluster.name,
-          label: availableCluster.name
-        }));
-        const result = await dialogHelper.promptDialog('k8s-helper-choose-cluster-dialog',
-          { availableClusters: args });
-        if (result && result.clusterName) {
-          clusterToCheck = result.clusterName;
-        } else {
-          return Promise.resolve(false);
-        }
-      } else if (availableClusters.length === 1) {
-        clusterToCheck = availableClusters[0].name;
-      }
-
-      const { targetClusterKubeConfig, targetClusterKubeContext } = this._getTargetCluster(clusterToCheck);
-
       const totalSteps = 4.0;
       try {
         let busyDialogMessage = i18n.t('flow-validate-kubectl-exe-in-progress');
@@ -77,8 +56,8 @@ function(WktActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, val
 
         busyDialogMessage = i18n.t('flow-kubectl-use-context-in-progress');
         dialogHelper.updateBusyDialog(busyDialogMessage, 2/totalSteps);
-        const kubectlContext = targetClusterKubeContext || this.project.kubectl.kubeConfigContextToUse.value;
-        const kubectlOptions = this.getKubectlOptions(targetClusterKubeConfig);
+        const kubectlContext = this.project.kubectl.kubeConfigContextToUse.value;
+        const kubectlOptions = this.getKubectlOptions();
         if (!options.skipKubectlSetContext) {
           if (! await this.useKubectlContext(kubectlExe, kubectlOptions, kubectlContext, errTitle, errPrefix)) {
             return Promise.resolve(false);
@@ -87,7 +66,7 @@ function(WktActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, val
 
         busyDialogMessage = i18n.t('kubectl-helper-verify-connect-in-progress');
         dialogHelper.updateBusyDialog(busyDialogMessage, 3/totalSteps);
-        const verifyConnectivityResult = await this.verifyConnectivity(kubectlExe, kubectlOptions, clusterToCheck);
+        const verifyConnectivityResult = await this.verifyConnectivity(kubectlExe, kubectlOptions);
         return Promise.resolve(verifyConnectivityResult);
       } catch (err) {
         dialogHelper.closeBusyDialog();
@@ -97,20 +76,19 @@ function(WktActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, val
       }
     }
 
-    async verifyConnectivity(kubectlExe, kubectlOptions, clusterToCheck) {
+    async verifyConnectivity(kubectlExe, kubectlOptions) {
       try {
         const verifyResult = await window.api.ipc.invoke('kubectl-verify-connection', kubectlExe, kubectlOptions);
         dialogHelper.closeBusyDialog();
-        const clusterName = clusterToCheck || '';
         if (verifyResult.isSuccess) {
-          const title = i18n.t('kubectl-helper-verify-connect-success-title', { clusterName });
+          const title = i18n.t('kubectl-helper-verify-connect-success-title');
           const message = i18n.t('kubectl-helper-verify-connect-success-message',
-            { clientVersion: verifyResult.clientVersion, serverVersion: verifyResult.serverVersion, clusterName });
+            { clientVersion: verifyResult.clientVersion, serverVersion: verifyResult.serverVersion });
           await window.api.ipc.invoke('show-info-message', title, message);
         } else {
-          const errTitle = i18n.t('kubectl-helper-verify-connect-failed-title', { clusterName });
+          const errTitle = i18n.t('kubectl-helper-verify-connect-failed-title');
           const errMessage = i18n.t('kubectl-helper-verify-connect-failed-error-message',
-            { error: verifyResult.reason, clusterName});
+            { error: verifyResult.reason});
           await window.api.ipc.invoke('show-error-message', errTitle, errMessage);
           return Promise.resolve(false);
         }
@@ -129,35 +107,6 @@ function(WktActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, val
         validationHelper.validateRequiredField(this.project.kubectl.executableFilePath.value), kubectlFormConfig);
 
       return validationObject;
-    }
-
-    _getTargetClusters() {
-      let clusters = [];
-      if (this.project.settings.wdtTargetType.value === 'vz') {
-        clusters.push({
-          name: 'local',
-          kubeConfig: this.project.kubectl.kubeConfig.value,
-          kubeContext: this.project.kubectl.kubeConfigContextToUse.value
-        });
-        this.project.kubectl.vzManagedClusters.observable()
-          .forEach(managedClusterData => clusters.push(managedClusterData));
-      }
-      return clusters;
-    }
-
-    _getTargetCluster(clusterToCheck) {
-      const result = {
-        targetClusterKubeConfig: undefined,
-        targetClusterKubeContext: undefined
-      };
-      if (clusterToCheck) {
-        const clusterData = this._getTargetClusters().find(cluster => clusterToCheck === cluster.name);
-        if (clusterData) {
-          result.targetClusterKubeConfig = clusterData.kubeConfig;
-          result.targetClusterKubeContext = clusterData.kubeContext;
-        }
-      }
-      return result;
     }
   }
 

@@ -16,7 +16,8 @@ define([],
       let navData = [
         {path: '', redirect: 'model-design-view'},
         {path: 'model-design-view', detail: {label: i18n.t('page-design-view')}},
-        {path: 'model-code-view', detail: {label: i18n.t('page-code-view')}}
+        {path: 'model-code-view', detail: {label: i18n.t('page-code-view')}},
+        {path: 'model-edit-view', detail: {label: i18n.t('model-edit-view')}}
       ];
 
       this.labelMapper = (labelId) => {
