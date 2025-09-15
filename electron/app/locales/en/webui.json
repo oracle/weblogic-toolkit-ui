@@ -112,8 +112,7 @@
   "project-settings-domain-location-title": "Target Oracle Fusion Middleware Domain Location",
   "project-settings-domain-location-question": "Where would you like the target Oracle Fusion Middleware domain to live?",
   "project-settings-domain-location-help": "Where and when the Oracle Fusion Middleware domain will be created.",
-  "project-settings-domain-location-mii-label": "Created in the container from the model in the image",
-  "project-settings-domain-location-dii-label": "Created as part of the image",
+  "project-settings-domain-location-mii-label": "Created in the container from the model in the auxiliary image",
   "project-settings-domain-location-pv-label": "Externally created in a Kubernetes persistent volume",
   "project-settings-domain-location-mii-message": "The WebLogic Kubernetes Operator creates the domain in the container used to represent the Administration Server.",
   "project-settings-domain-location-dii-message": "The WebLogic Image Tool creates the domain inside the image during the image creation process.",
@@ -1837,8 +1836,7 @@
 
   "wkt-project-verrazzano-removal-warning": "WKTUI 2.0 has removed support for Verrazzano so the project has been converted to remove all Verrazzano-related fields.",
   "wkt-project-keytar-removal-warning": "WKTUI 2.0 has removed support for the native credential store due to the deprecation of the keytar JavaScript library so the project has been updated to use the credential manager that stores encrypted credentials in the project file.",
-
-
+  "wkt-project-dii-removal warning": "WKTUI 2.0 has removed support for Domain in Image so the project has been converted to use Model in Image with an Auxiliary Image",
 
   "model-edit-view": "Edit View",
   "model-edit-aria-label": "Model Edit View",

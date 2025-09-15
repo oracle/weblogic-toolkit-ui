@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
@@ -8,7 +8,7 @@
 define(['accUtils', 'knockout', 'utils/i18n', 'models/wkt-project', 'ojs/ojarraydataprovider',
   'ojs/ojbufferingdataprovider', 'utils/common-utilities', 'utils/dialog-helper', 'utils/view-helper',
   'utils/aux-image-helper', 'utils/wkt-logger', 'utils/url-catalog', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton',
-  'ojs/ojformlayout', 'ojs/ojradioset', 'ojs/ojswitch', 'ojs/ojselectsingle', 'ojs/ojtable' ],
+  'oj-c/form-layout', 'ojs/ojradioset', 'ojs/ojswitch', 'ojs/ojselectsingle', 'ojs/ojtable' ],
 function(accUtils, ko, i18n, project, ArrayDataProvider,
   BufferingDataProvider, utils, dialogHelper, viewHelper, auxImageHelper) {
 
@@ -154,7 +154,6 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
 
     this.targetDomainLocations = [
       { id: 'miiOption', value: 'mii', label: this.labelMapper('domain-location-mii-label') },
-      { id: 'diiOption', value: 'dii', label: this.labelMapper('domain-location-dii-label') },
       { id: 'pvOption', value: 'pv', label: this.labelMapper('domain-location-pv-label') },
     ];
 
