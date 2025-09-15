@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -37,10 +37,10 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
         return Promise.resolve(false);
       }
 
-      const totalSteps = 14.0;
+      const totalSteps = 8.0;
       try {
         let busyDialogMessage = i18n.t('flow-validate-java-home-in-progress');
-        dialogHelper.openBusyDialog(busyDialogMessage, 'bar', 0/totalSteps);
+        dialogHelper.openBusyDialog(busyDialogMessage, 'bar', 0 / totalSteps);
 
         const javaHome = project.settings.javaHome.value;
         if (!options.skipJavaHomeValidation) {
@@ -50,7 +50,7 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
         }
 
         busyDialogMessage = i18n.t('flow-save-project-in-progress');
-        dialogHelper.updateBusyDialog(busyDialogMessage, 1/totalSteps);
+        dialogHelper.updateBusyDialog(busyDialogMessage, 1 / totalSteps);
         if (!options.skipProjectSave) {
           if (! await this.saveProject(errTitle, errPrefix)) {
             return Promise.resolve(false);
@@ -60,67 +60,11 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
         // after save, in case model path was not established
         const projectDirectory = window.api.path.dirname(this.project.getProjectFileName());
         let consoleOpen = options.skipClearAndShowConsole;
-        if (this.usingWdt()) {
-          wktLogger.debug('Create Image is using WDT');
-          busyDialogMessage = i18n.t('flow-validate-model-files-in-progress');
-          dialogHelper.updateBusyDialog(busyDialogMessage, 2 / totalSteps);
-          const modelFiles = this.project.wdtModel.modelFiles.value;
-          if (!options.skipModelFileValidation) {
-            if (! await this.validateModelFiles(projectDirectory, modelFiles, errTitle, errPrefix)) {
-              return Promise.resolve(false);
-            }
-          }
-
-          // This is a little tricky because the variables file(s) may or may not exist at this point.
-          //
-          busyDialogMessage = i18n.t('flow-validate-variable-files-in-progress');
-          dialogHelper.updateBusyDialog(busyDialogMessage, 3 / totalSteps);
-          let variableFiles = this.project.wdtModel.propertiesFiles.value;
-          const variableFileCountBeforePrepare = this.getVariableFilesCount();
-          if (! await this.validateVariableFiles(projectDirectory, variableFiles, errTitle, errPrefix)) {
-            return Promise.resolve(false);
-          }
-
-          busyDialogMessage = i18n.t('flow-validate-archive-files-in-progress');
-          dialogHelper.updateBusyDialog(busyDialogMessage, 4 / totalSteps);
-          const archiveFiles = this.project.wdtModel.archiveFiles.value;
-          if (!options.skipArchiveFileValidation) {
-            if (! await this.validateArchiveFiles(projectDirectory, archiveFiles, errTitle, errPrefix)) {
-              return Promise.resolve(false);
-            }
-          }
-
-          if (!consoleOpen) {
-            wktConsole.clear();
-            wktConsole.show(true);
-            consoleOpen = true;
-          }
-
-          // Prompt user for running inline prepare model flow.
-          busyDialogMessage = i18n.t('wdt-preparer-prepare-in-progress');
-          dialogHelper.updateBusyDialog(busyDialogMessage, 5 / totalSteps);
-          if (! await this.runPrepareModel(options, errPrefix, i18n.t('flow-create-image-name'))) {
-            return Promise.resolve(false);
-          }
-
-          // If there were previously no variable files and prepareModel was run, validate the variable files again...
-          //
-          busyDialogMessage = i18n.t('wit-creator-validate-variable-file-in-progress');
-          dialogHelper.updateBusyDialog(busyDialogMessage, 6 / totalSteps);
-          if (variableFileCountBeforePrepare === 0 && this.getVariableFilesCount() > 0) {
-            variableFiles = this.project.wdtModel.propertiesFiles.value;
-            if (! await this.validateVariableFiles(projectDirectory, variableFiles, errTitle, errPrefix)) {
-              return Promise.resolve(false);
-            }
-          }
-        } else {
-          wktLogger.debug('Create Image is not using WDT');
-        }
 
         // Validate the installers
         //
         busyDialogMessage = i18n.t('wit-creator-validate-jdk-installer-file-in-progress');
-        dialogHelper.updateBusyDialog(busyDialogMessage, 7/ totalSteps);
+        dialogHelper.updateBusyDialog(busyDialogMessage, 2 / totalSteps);
         let jdkInstaller;
         let jdkInstallerVersion;
         if (this.requiresInstaller('javaHome')) {
@@ -133,7 +77,7 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
         }
 
         busyDialogMessage = i18n.t('wit-creator-validate-oracle-installer-file-in-progress');
-        dialogHelper.updateBusyDialog(busyDialogMessage, 8 / totalSteps);
+        dialogHelper.updateBusyDialog(busyDialogMessage, 3 / totalSteps);
         let oracleInstaller;
         let oracleInstallerVersion;
         let oracleInstallerType;
@@ -147,23 +91,10 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
           }
         }
 
-        let wdtInstaller;
-        let wdtInstallerVersion;
-        if (this.requiresInstaller('wdtHome')) {
-          const wdtInstallerResult = await this.downloadOrValidateWdtInstaller(projectDirectory,
-            9 / totalSteps, errTitle, errPrefix);
-          if (wdtInstallerResult) {
-            wdtInstaller = wdtInstallerResult.wdtInstaller;
-            wdtInstallerVersion = wdtInstallerResult.wdtInstallerVersion;
-          } else {
-            return Promise.resolve(false);
-          }
-        }
-
         const imageBuilderType = this.project.settings.builderType.value;
         busyDialogMessage = i18n.t('wit-creator-validate-image-builder-exe-in-progress',
           {builderName: imageBuilderType});
-        dialogHelper.updateBusyDialog(busyDialogMessage, 10/ totalSteps);
+        dialogHelper.updateBusyDialog(busyDialogMessage, 4 / totalSteps);
         // Validate the image builder executable
         const imageBuilderExe = this.project.settings.builderExecutableFilePath.value;
         if (! await this.validateImageBuilderExe(imageBuilderExe, errTitle, errPrefix)) {
@@ -171,7 +102,7 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
         }
 
         busyDialogMessage = i18n.t('wit-creator-cache-installers-in-progress');
-        dialogHelper.updateBusyDialog(busyDialogMessage, 11 / totalSteps);
+        dialogHelper.updateBusyDialog(busyDialogMessage, 5 / totalSteps);
         // Populate the cache
         //
         const cacheConfig = {
@@ -181,8 +112,6 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
           oracleInstaller: oracleInstaller,
           oracleInstallerVersion: oracleInstallerVersion,
           oracleInstallerType: oracleInstallerType,
-          wdtInstaller: wdtInstaller,
-          wdtInstallerVersion: wdtInstallerVersion
         };
         if (! await this.addInstallersToCache(cacheConfig, errTitle, errPrefix)) {
           return Promise.resolve(false);
@@ -192,7 +121,7 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
         // if using custom base image and requires authentication, do build-tool login.
         busyDialogMessage = i18n.t('wit-creator-builder-login-in-progress',
           {builderName: imageBuilderType, imageTag: this.project.image.baseImage.value});
-        dialogHelper.updateBusyDialog(busyDialogMessage, 12 / totalSteps);
+        dialogHelper.updateBusyDialog(busyDialogMessage, 6 / totalSteps);
         if (this.project.image.useCustomBaseImage.value && this.project.image.baseImage.value && this.project.image.baseImagePullRequiresAuthentication.value) {
           const loginConfig = {
             requiresLogin: this.project.image.baseImagePullRequiresAuthentication.value,
@@ -212,9 +141,9 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
 
         // run the image tool
         busyDialogMessage = i18n.t('wit-creator-create-in-progress');
-        dialogHelper.updateBusyDialog(busyDialogMessage, 13 / totalSteps);
+        dialogHelper.updateBusyDialog(busyDialogMessage, 7 / totalSteps);
         const createConfig = this.buildCreateConfigObject(projectDirectory, javaHome,  jdkInstallerVersion,
-          oracleInstallerType, oracleInstallerVersion, wdtInstallerVersion, imageBuilderOptions);
+          oracleInstallerType, oracleInstallerVersion, imageBuilderOptions);
         const imageToolResult = await this.runImageTool(false, createConfig, errPrefix);
         return Promise.resolve(imageToolResult);
       } catch (err) {
@@ -262,14 +191,6 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
           validationHelper.validateRequiredField(this.project.image.oracleInstallerType.value), imageFormConfig);
         validationObject.addField('image-design-fmw-installer-version-label',
           validationHelper.validateRequiredField(this.project.image.oracleInstallerVersion.value), imageFormConfig);
-      }
-      if (this.requiresInstaller('wdtHome')) {
-        if (!this.project.image.useLatestWdtVersion.value) {
-          validationObject.addField('image-design-wdt-installer-label',
-            validationHelper.validateRequiredField(this.project.image.wdtInstaller.value), imageFormConfig);
-          validationObject.addField('image-design-wdt-installer-version-label',
-            validationHelper.validateRequiredField(this.project.image.wdtInstallerVersion.value), imageFormConfig);
-        }
       }
 
       if (this.project.image.useCustomBaseImage.value) {
@@ -325,7 +246,7 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
     }
 
     buildCreateConfigObject(projectDirectory, javaHome, jdkInstallerVersion, oracleInstallerType,
-      oracleInstallerVersion, wdtInstallerVersion, imageBuilderOptions) {
+      oracleInstallerVersion, imageBuilderOptions) {
       const createConfig = Object.assign({
         javaHome: javaHome,
         imageTag: this.project.image.imageTag.value,
@@ -358,11 +279,6 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
       }
 
       this.addPatchingConfigForCreate(createConfig);
-      if (this.usingWdt()) {
-        createConfig.wdtInstallerVersion = wdtInstallerVersion;
-        createConfig.domainHome = this.project.image.domainHomePath.value;
-        this.addWdtConfigForCreate(projectDirectory, createConfig);
-      }
       return createConfig;
     }
 
@@ -388,45 +304,15 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
       }
     }
 
-    addWdtConfigForCreate(projectDirectory, createConfig) {
-      createConfig.modelFiles = this.getAbsoluteModelFiles(projectDirectory, this.project.wdtModel.modelFiles.value);
-      createConfig.variableFiles = this.getAbsoluteModelFiles(projectDirectory, this.project.wdtModel.propertiesFiles.value);
-      createConfig.archiveFiles = this.getAbsoluteModelFiles(projectDirectory, this.project.wdtModel.archiveFiles.value);
-      createConfig.domainHome = this.project.image.domainHomePath.value;
-      createConfig.targetDomainType = this.project.image.targetDomainType.value;
-
-      if (this.project.image.modelHomePath.hasValue()) {
-        createConfig.modelHome = this.project.image.modelHomePath.value;
-      }
-    }
-
     requiresInstaller(type) {
       let result = true;
-      if (type === 'wdtHome') {
-        switch (this.project.settings.targetDomainLocation.value) {
-          case 'mii':
-            result = !this.project.image.useAuxImage.value;
-            break;
-
-          case 'dii':
-            result = true;
-            break;
-
-          case 'pv':
-            result = false;
-            break;
-        }
-      } else if (this.project.image.useCustomBaseImage.observable()) {
+      if (this.project.image.useCustomBaseImage.observable()) {
         if (this.project.image.customBaseImageContents.value &&
           this.project.image.customBaseImageContents.value.includes(type)) {
           result = false;
         }
       }
       return result;
-    }
-
-    usingWdt() {
-      return this.requiresInstaller('wdtHome');
     }
 
     supportsPatching() {

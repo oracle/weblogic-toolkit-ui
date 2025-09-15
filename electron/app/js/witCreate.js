@@ -1,12 +1,13 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
 
 const { app } = require('electron');
 const i18n = require('./i18next.config');
+const osUtils = require('./osUtils');
 const { getLogger } = require('./wktLogging');
 const { getImagetoolShellScript } = require('./wktTools');
 const { getHttpsProxyUrl, getBypassProxyHosts } = require('./userSettings');
@@ -111,7 +112,6 @@ function buildArgumentsListForCreate(createConfig, httpsProxyUrl) {
   }
   addInstallerArgs(args, createConfig);
   const argsContainCredentials = addPatchingArgs(args, createConfig);
-  addWdtArgs(args, createConfig);
   addAdvancedArgs(args, createConfig);
   return [ args, argsContainCredentials ];
 }
@@ -172,8 +172,10 @@ function addPatchingArgs(args, createConfig) {
   }
 
   if (credentialsRequired) {
+    const quote = osUtils.isWindows() ? '"' : '\'';
     args.push('--user', createConfig.username);
-    args.push('--password', createConfig.password);
+    // Add extra quotes in case the password contains special characters that the shell tries to interpret
+    args.push('--password', quote + createConfig.password + quote);
   }
   return credentialsRequired;
 }

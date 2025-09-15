@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 define(['utils/wkt-logger', 'utils/screen-utils', 'utils/aux-image-helper'],
@@ -68,10 +68,6 @@ define(['utils/wkt-logger', 'utils/screen-utils', 'utils/aux-image-helper'],
 
       this.targetDomainLocationIsMII = () => {
         return this.project.settings.targetDomainLocation.value === 'mii';
-      };
-
-      this.targetDomainLocationIsDII = () => {
-        return this.project.settings.targetDomainLocation.value === 'dii';
       };
 
       this.targetDomainLocationIsPV = () => {
@@ -154,12 +150,17 @@ define(['utils/wkt-logger', 'utils/screen-utils', 'utils/aux-image-helper'],
         return this.labelMapper(key);
       }, this);
 
-      this.auxImageConfigData =
-        [
-          {id: 'createOption', value: 'create', label: this.miiPvLabelMapper('aux-image-config-create-label')},
-          {id: 'useOption', value: 'use', label: this.miiPvLabelMapper('aux-image-config-use-label')},
-          {id: 'offOption', value: 'off', label: this.miiPvLabelMapper('aux-image-config-off-label')},
-        ];
+      this.auxImageConfigData = this.targetDomainLocationIsPV() ?
+          [
+            {id: 'createOption', value: 'create', label: this.miiPvLabelMapper('aux-image-config-create-label')},
+            {id: 'useOption', value: 'use', label: this.miiPvLabelMapper('aux-image-config-use-label')},
+            {id: 'offOption', value: 'off', label: this.miiPvLabelMapper('aux-image-config-off-label')},
+          ]
+          :
+          [
+            {id: 'createOption', value: 'create', label: this.miiPvLabelMapper('aux-image-config-create-label')},
+            {id: 'useOption', value: 'use', label: this.miiPvLabelMapper('aux-image-config-use-label')},
+          ];
 
       this.applyAuxImageConfig = (newValue) => {
         switch (newValue) {
@@ -214,24 +215,6 @@ define(['utils/wkt-logger', 'utils/screen-utils', 'utils/aux-image-helper'],
           return this.labelMapper('title');
         }
       }, this);
-
-      this.mainImageRequiresWdt = () => {
-        let result;
-        switch (this.project.settings.targetDomainLocation.value) {
-          case 'pv':
-            result = false;
-            break;
-
-          case 'dii':
-            result = true;
-            break;
-
-          case 'mii':
-            result = !this.project.image.useAuxImage.value;
-            break;
-        }
-        return result;
-      };
 
       this.isBuildingImage = () => {
         return this.project.image.createPrimaryImage.value;

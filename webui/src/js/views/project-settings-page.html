@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2021, 2024, Oracle and/or its affiliates.
+ Copyright (c) 2021, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 <div class="wkt-content" id="projectSettings">
@@ -128,19 +128,19 @@
 
   <div class="oj-panel">
     <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('credential-store-policy-question')]]"></oj-bind-text></h6>
-    <oj-form-layout max-columns="2" direction="row">
+    <oj-c-form-layout max-columns="2" direction="row">
       <oj-select-single label-hint="[[labelMapper('credential-store-policy-label')]]"
                         value="{{project.settings.credentialStorePolicy.observable}}"
                         data="{{credentialStorePoliciesDP}}"
                         help.instruction="[[labelMapper('credential-store-policy-help')]]">
       </oj-select-single>
-    </oj-form-layout>
+    </oj-c-form-layout>
     <p><oj-bind-text value="[[labelMapper('credential-store-policy-answer-message')]]"></oj-bind-text></p>
   </div>
 
   <div class="oj-panel">
     <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('domain-location-question')]]"></oj-bind-text></h6>
-    <oj-form-layout max-columns="1" direction="row">
+    <oj-c-form-layout full-width="true" direction="row">
       <oj-radioset label-hint=""
                    value="{{project.settings.targetDomainLocation.observable}}"
                    help.instruction="[[labelMapper('domain-location-help')]]">
@@ -152,13 +152,13 @@
           </template>
         </oj-bind-for-each>
       </oj-radioset>
-    </oj-form-layout>
+    </oj-c-form-layout>
     <p><oj-bind-text value="[[getTargetDomainLocationMessage()]]"></oj-bind-text></p>
   </div>
 
   <div class="oj-panel">
     <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('java-directory-location-question')]]"></oj-bind-text></h6>
-    <oj-form-layout max-columns="1" direction="row">
+    <oj-c-form-layout max-columns="1" direction="row">
       <oj-input-text label-hint="[[labelMapper('java-home-label')]]"
                      value="{{project.settings.javaHome.observable}}"
                      help.instruction="[[labelMapper('java-home-help')]]">
@@ -167,14 +167,14 @@
           <oj-bind-text value="[[labelMapper('java-home-tooltip')]]"></oj-bind-text>
         </oj-button>
       </oj-input-text>
-    </oj-form-layout>
+    </oj-c-form-layout>
     <p><oj-bind-text value="[[javaDirectoryLocationAnswer]]"></oj-bind-text></p>
   </div>
 
   <oj-bind-if test="[[requiresOracleHome() === true]]">
     <div class="oj-panel">
       <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('oracle-directory-location-question')]]"></oj-bind-text></h6>
-      <oj-form-layout max-columns="1" direction="row">
+      <oj-c-form-layout max-columns="1" direction="row">
         <oj-input-text label-hint="[[labelMapper('oracle-home-label')]]"
                        value="{{project.settings.oracleHome.observable}}"
                        help.instruction="[[labelMapper('oracle-home-help')]]">
@@ -183,14 +183,14 @@
             <oj-bind-text value="[[labelMapper('oracle-home-tooltip')]]"></oj-bind-text>
           </oj-button>
         </oj-input-text>
-      </oj-form-layout>
+      </oj-c-form-layout>
       <p><oj-bind-text value="[[labelMapper('oracle-directory-location-answer-message')]]"></oj-bind-text></p>
     </div>
   </oj-bind-if>
 
   <div class="oj-panel">
     <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('build-tool-type-question')]]"></oj-bind-text></h6>
-    <oj-form-layout max-columns="2" direction="row">
+    <oj-c-form-layout max-columns="2" direction="row">
       <oj-select-single label-hint="[[labelMapper('build-tool-type-label')]]"
                         value="{{project.settings.builderType.observable}}"
                         data="{{builderTypesDP}}"
@@ -204,7 +204,7 @@
           <oj-bind-text value="[[getBuilderExecutableFilePathTooltip()]]"></oj-bind-text>
         </oj-button>
       </oj-input-text>
-    </oj-form-layout>
+    </oj-c-form-layout>
     <p><oj-bind-text value="[[buildToolTypeAnswer]]"></oj-bind-text></p>
   </div>
 </div>

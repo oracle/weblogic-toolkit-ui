@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 /**
@@ -9,7 +9,7 @@
  * Returns a constructor for the object.
  */
 define(['viewModels/image-design-view-impl', 'accUtils', 'utils/i18n', 'models/wkt-project', 'knockout',
-  'utils/dialog-helper', 'ojs/ojarraydataprovider', 'utils/wit-inspector', 'ojs/ojformlayout',
+  'utils/dialog-helper', 'ojs/ojarraydataprovider', 'utils/wit-inspector', 'oj-c/form-layout',
   'ojs/ojinputtext', 'ojs/ojcollapsible', 'ojs/ojselectsingle', 'ojs/ojswitch', 'ojs/ojradioset',
   'ojs/ojswitcher', 'ojs/ojknockout'
 ],

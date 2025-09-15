@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -199,6 +199,16 @@ function (ko, wdtConstructor, imageConstructor, kubectlConstructor, domainConstr
       }
       if (foundVerrazzanoInProject) {
         wktLogger.warn(i18n.t('wkt-project-verrazzano-removal-warning'));
+      }
+
+      // Version 2.0 removed support for domain in image (DII) so convert DII to MII.
+      let foundDiiInProject = false;
+      if ('settings' in wktProjectJson && wktProjectJson.settings.targetDomainLocation === 'dii') {
+        foundDiiInProject = true;
+        wktProjectJson.settings.targetDomainLocation = 'mii';
+      }
+      if (foundDiiInProject) {
+        wktLogger.warn(i18n.t('wkt-project-dii-removal-warning'));
       }
 
       // Version 2.0 removed support for the native, keytar-based credential store.  The code that
