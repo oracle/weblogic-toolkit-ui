@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -34,6 +34,7 @@ define(['utils/observable-properties'],
               return undefined;
           }
         }, this.builderType.observable);
+        this.imageTargetArchitecture = props.createProperty('amd64');
 
         this.readFrom = function(json) {
           props.createGroup(name, this).readFrom(json);

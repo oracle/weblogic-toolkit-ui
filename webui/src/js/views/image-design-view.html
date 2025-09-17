@@ -83,7 +83,7 @@
       <oj-bind-if test="[[isBuildingImage() === true]]">
         <div class="oj-panel">
           <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('base-image-title')]]"></oj-bind-text></h6>
-          <oj-c-form-layout max-columns="2" direction="row">
+          <oj-form-layout max-columns="2" direction="row">
             <oj-switch label-hint="[[labelMapper('use-custom-base-image-label')]]"
                        value="{{project.image.useCustomBaseImage.observable}}"
                        help.instruction="[[labelMapper('use-custom-base-image-help')]]">
@@ -112,7 +112,7 @@
             </oj-bind-if>
             <div>
               <oj-bind-if test="[[project.image.useCustomBaseImage.observable() === true &&
-                                    project.image.baseImagePullRequiresAuthentication.observable() == true]]">
+                                  project.image.baseImagePullRequiresAuthentication.observable() == true]]">
                 <oj-input-password label-hint="[[labelMapper('base-image-pull-username-label')]]"
                                    mask-icon="visible"
                                    value="{{project.image.baseImagePullUsername.observable}}"
@@ -138,7 +138,7 @@
                   </span>
               </oj-button>
             </oj-bind-if>
-          </oj-c-form-layout>
+          </oj-form-layout>
         </div>
 
         <oj-bind-if test="[[waitForCustomBaseImageInspection() === false]]">
@@ -354,7 +354,7 @@
 
       <div class="oj-panel">
         <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('base-image-title')]]"></oj-bind-text></h6>
-        <oj-c-form-layout max-columns="2" direction="row">
+        <oj-form-layout max-columns="2" direction="row">
           <oj-switch label-hint="[[labelMapper('use-custom-base-image-label')]]"
                      value="{{project.image.auxUseCustomBaseImage.observable}}"
                      help.instruction="[[labelMapper('use-custom-base-image-help')]]">
@@ -375,10 +375,10 @@
               </oj-input-text>
             </oj-bind-if>
           </div>
-        </oj-c-form-layout>
+        </oj-form-layout>
 
         <oj-bind-if test="[[project.image.auxUseCustomBaseImage.observable() === false]]">
-          <oj-c-form-layout max-columns="2" direction="row">
+          <oj-form-layout max-columns="2" direction="row">
             <oj-switch label-hint="[[miiPvLabelMapper('aux-default-base-image-use-authentication-label')]]"
                        value="{{project.image.auxDefaultBaseImagePullRequiresAuthentication.observable}}"
                        help.instruction="[[miiPvLabelMapper('aux-default-base-image-use-authentication-help')]]">
@@ -399,11 +399,11 @@
                 </oj-input-password>
               </oj-bind-if>
             </div>
-          </oj-c-form-layout>
+          </oj-form-layout>
         </oj-bind-if>
 
         <oj-bind-if test="[[project.image.auxUseCustomBaseImage.observable() === true]]">
-          <oj-c-form-layout max-columns="2" direction="row">
+          <oj-form-layout max-columns="2" direction="row">
             <oj-switch label-hint="[[labelMapper('base-image-use-authentication-label')]]"
                        value="{{project.image.auxBaseImagePullRequiresAuthentication.observable}}"
                        help.instruction="[[labelMapper('base-image-use-authentication-help')]]">
@@ -424,7 +424,7 @@
                 </oj-input-password>
               </oj-bind-if>
             </div>
-          </oj-c-form-layout>
+          </oj-form-layout>
         </oj-bind-if>
       </div>
 

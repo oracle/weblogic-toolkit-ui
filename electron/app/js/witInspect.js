@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -67,6 +67,12 @@ function getImageToolInspectArgs(imageTag, options) {
   const args = [ 'inspect', `--image=${imageTag}`, '--patches', '--format=JSON' ];
   if ('imageBuilderExe' in options && options.imageBuilderExe) {
     args.push(`--builder=${options['imageBuilderExe']}`);
+  }
+  if ('architecture' in options && options.architecture) {
+    const platform = 'linux/' + options.architecture;
+    // FIXME - once WIT inspect adds support for --platform, uncomment the line below
+    //
+    // args.push(`--platform=${platform}`);
   }
   return args;
 }

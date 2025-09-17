@@ -5,6 +5,7 @@
  */
 'use strict';
 
+const os = require('os');
 const { app } = require('electron');
 const i18n = require('./i18next.config');
 const osUtils = require('./osUtils');
@@ -141,6 +142,11 @@ function buildArgumentsListForCreateAuxImage(createConfig, httpsProxyUrl) {
 }
 
 function addInstallerArgs(args, createConfig) {
+  if (createConfig.architecture && os.arch() !== createConfig.architecture) {
+    const platform = 'linux/' + createConfig.architecture;
+    args.push('--platform', platform);
+    args.push('--useBuildx');
+  }
   if (createConfig.jdkInstallerVersion) {
     args.push('--jdkVersion', createConfig.jdkInstallerVersion);
   }
