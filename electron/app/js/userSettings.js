@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const { app } = require('electron');
@@ -19,7 +19,8 @@ const userSettableFieldNames = [
 ];
 
 const appPrivateFieldNames = [
-  'window'
+  'window',
+  'developer'
 ];
 
 let _userSettingsDirectory;
@@ -57,6 +58,9 @@ let _userSettingsFileName;
 //       "modelRight": 0.48
 //     },
 //     "navCollapsed": true
+//   },
+//   "developer": {
+//     "showNewModelEditorTab": "Whether to show the Model Edit Tab or not"
 //   },
 //   "skipQuickstartAtStartup": true,
 //   "connectivityTestTimeoutMilliseconds": 10000
@@ -268,6 +272,24 @@ function getOrCreateWindowSettings() {
   return window;
 }
 
+function getShowNewModelEditorTab() {
+  const developer = getOrCreateDeveloperSettings()
+  let showNewModelEditorTab = developer['showNewModelEditorTab'];
+  if (showNewModelEditorTab === undefined) {
+    showNewModelEditorTab = false;
+  }
+  return showNewModelEditorTab;
+}
+
+function getOrCreateDeveloperSettings() {
+  const settings = _getUserSettings();
+  let developer = settings['developer'];
+  if (!developer) {
+    developer = settings['developer'] = { 'showNewModelEditorTab': false};
+  }
+  return developer;
+}
+
 function getUserSettingsDirectory() {
   const i18n = require('./i18next.config');
 
@@ -434,5 +456,6 @@ module.exports = {
   getUserSettingsForRemote,
   saveUserSettings,
   getWebLogicRemoteConsoleHome,
-  setWebLogicRemoteConsoleHome
+  setWebLogicRemoteConsoleHome,
+  getShowNewModelEditorTab
 };

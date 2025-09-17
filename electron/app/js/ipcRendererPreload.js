@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const { contextBridge, ipcRenderer } = require('electron');
@@ -104,6 +104,7 @@ contextBridge.exposeInMainWorld(
           'get-https-proxy-url',
           'get-bypass-proxy-hosts',
           'get-divider-locations',
+          'get-show-new-model-editor-tab',
           'get-navigation-collapsed',
           'get-additional-image-build-commands-file',
           'get-additional-image-build-files',
