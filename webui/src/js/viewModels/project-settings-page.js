@@ -8,7 +8,7 @@
 define(['accUtils', 'knockout', 'utils/i18n', 'models/wkt-project', 'ojs/ojarraydataprovider',
   'ojs/ojbufferingdataprovider', 'utils/common-utilities', 'utils/dialog-helper', 'utils/view-helper',
   'utils/aux-image-helper', 'utils/wkt-logger', 'utils/url-catalog', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton',
-  'oj-c/form-layout', 'ojs/ojradioset', 'ojs/ojswitch', 'ojs/ojselectsingle', 'ojs/ojtable' ],
+  'oj-c/form-layout', 'oj-c/radioset', 'ojs/ojswitch', 'oj-c/select-single', 'ojs/ojtable' ],
 function(accUtils, ko, i18n, project, ArrayDataProvider,
   BufferingDataProvider, utils, dialogHelper, viewHelper, auxImageHelper) {
 
@@ -156,6 +156,7 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
       { id: 'miiOption', value: 'mii', label: this.labelMapper('domain-location-mii-label') },
       { id: 'pvOption', value: 'pv', label: this.labelMapper('domain-location-pv-label') },
     ];
+    this.targetDomainLocationDP = new ArrayDataProvider(this.targetDomainLocations, { keyAttributes: 'value' });
 
     this.getTargetDomainLocationMessage = () => {
       const key = this.project.settings.targetDomainLocation.observable();
@@ -241,6 +242,12 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
         }
       });
     };
+
+    this.targetImageArchitectures = [
+      { id: 'amd64Option', value: 'amd64', label: this.labelMapper('image-target-architecture-amd64-label') },
+      { id: 'arm64Option', value: 'arm64', label: this.labelMapper('image-target-architecture-arm64-label') },
+    ];
+    this.targetImageArchitectureDP = new ArrayDataProvider(this.targetImageArchitectures, { keyAttributes: 'value' });
   }
 
   return ProjectSettingsViewModel;

@@ -9,7 +9,7 @@
  * Returns a constructor for the object.
  */
 define(['viewModels/image-design-view-impl', 'accUtils', 'utils/i18n', 'models/wkt-project', 'knockout',
-  'utils/dialog-helper', 'ojs/ojarraydataprovider', 'utils/wit-inspector', 'oj-c/form-layout',
+  'utils/dialog-helper', 'ojs/ojarraydataprovider', 'utils/wit-inspector', 'ojs/ojformlayout', 'oj-c/form-layout',
   'ojs/ojinputtext', 'ojs/ojcollapsible', 'ojs/ojselectsingle', 'ojs/ojswitch', 'ojs/ojradioset',
   'ojs/ojswitcher', 'ojs/ojknockout'
 ],

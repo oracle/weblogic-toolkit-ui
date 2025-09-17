@@ -144,6 +144,13 @@
   "project-settings-build-tool-tooltip": "Choose the {{toolName}} Executable",
   "project-settings-build-tool-type-answer-message": "The selected tool will be used to build the target image, as well as logging in, pushing, and pulling images to and from any image registries.",
   "project-settings-build-tool-type-with-pv-answer-message": "The selected tool will be used to build the target image, as well as logging in, pushing, and pulling images to and from any image registries.  These fields are only required when creating a new primary image on the Image page.",
+
+  "project-settings-image-target-architecture-question": "What is the target Kubernetes cluster architecture?",
+  "project-settings-image-target-architecture-help": "The platform value passed to the build tool.",
+  "project-settings-image-target-architecture-amd64-label": "Intel/AMD (linux/amd64)",
+  "project-settings-image-target-architecture-arm64-label": "ARM (linux/arm64)",
+  "project-settings-image-target-architecture-answer-message": "The selected architecture will be used to build the target image, as well as pushing and pulling images to and from any image registries.",
+
   "project-settings-credential-store-policy-question": "How should the project's credentials be stored for this project?",
   "project-settings-credential-store-policy-label": "Credential Store Policy",
   "project-settings-credential-store-policy-help": "Specifies if and how credentials will be stored for the project.",

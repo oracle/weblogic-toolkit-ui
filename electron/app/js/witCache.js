@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -58,11 +58,12 @@ async function cacheJdkInstaller(cacheConfig) {
   const javaHome = cacheConfig.javaHome;
   const jdkInstaller = cacheConfig.jdkInstaller;
   const jdkInstallerVersion = cacheConfig.jdkInstallerVersion;
+  const architecture = cacheConfig.architecture;
 
   if (!jdkInstaller) {
     return Promise.resolve({ isSuccess: true, jdkStdoutMessage: i18n.t('wit-cache-skipped-jdk-install-message')});
   }
-  return executeCacheCommand(javaHome, 'jdk', jdkInstaller, jdkInstallerVersion);
+  return executeCacheCommand(javaHome, 'jdk', jdkInstaller, jdkInstallerVersion, architecture);
 }
 
 async function cacheOracleInstaller(cacheConfig) {
@@ -70,6 +71,7 @@ async function cacheOracleInstaller(cacheConfig) {
   const oracleInstaller = cacheConfig.oracleInstaller;
   const oracleInstallerVersion = cacheConfig.oracleInstallerVersion;
   const oracleInstallerType = cacheConfig.oracleInstallerType;
+  const architecture = cacheConfig.architecture;
 
   if (!oracleInstaller) {
     const result = {
@@ -79,29 +81,31 @@ async function cacheOracleInstaller(cacheConfig) {
     return Promise.resolve(result);
   }
 
-  return executeCacheCommand(javaHome, oracleInstallerType, oracleInstaller, oracleInstallerVersion);
+  return executeCacheCommand(javaHome, oracleInstallerType, oracleInstaller, oracleInstallerVersion, architecture);
 }
 
 async function cacheWdtInstaller(cacheConfig) {
   const javaHome = cacheConfig.javaHome;
   const wdtInstaller = cacheConfig.wdtInstaller;
   const wdtInstallerVersion = cacheConfig.wdtInstallerVersion;
+  const architecture = cacheConfig.architecture;
 
   if (!wdtInstaller) {
     return Promise.resolve({ isSuccess: true, wdtStdoutMessage: i18n.t('wit-cache-skipped-wdt-install-message')});
   }
 
-  return executeCacheCommand(javaHome, 'wdt', wdtInstaller, wdtInstallerVersion);
+  return executeCacheCommand(javaHome, 'wdt', wdtInstaller, wdtInstallerVersion, architecture);
 }
 
-async function executeCacheCommand(javaHome, installerType, installerPath, installerVersion) {
+async function executeCacheCommand(javaHome, installerType, installerPath, installerVersion, architecture = "amd64") {
   const imageToolScript = getImagetoolShellScript();
   const args = [
     'cache', 'addInstaller',
     '--force',
     `--type=${installerType}`,
     `--path=${installerPath}`,
-    `--version=${installerVersion}`
+    `--version=${installerVersion}`,
+    `--architecture=${architecture}`
   ];
   const env = {
     JAVA_HOME: javaHome

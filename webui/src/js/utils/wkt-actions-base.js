@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -50,7 +50,8 @@ function(project, wktConsole, i18n, projectIo, dialogHelper,
       return {
         imageBuilderExe: this.project.settings.builderExecutableFilePath.value,
         extraPathDirectories: this.getExtraPathDirectoriesArray(this.project.settings.extraPathDirectories.value),
-        extraEnvironmentVariables: this.getExtraEnvironmentVariablesObject(this.project.settings.extraEnvironmentVariables.value)
+        extraEnvironmentVariables: this.getExtraEnvironmentVariablesObject(this.project.settings.extraEnvironmentVariables.value),
+        architecture: this.project.settings.imageTargetArchitecture.value
       };
     }
 

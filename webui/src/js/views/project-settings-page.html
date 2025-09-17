@@ -129,11 +129,13 @@
   <div class="oj-panel">
     <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('credential-store-policy-question')]]"></oj-bind-text></h6>
     <oj-c-form-layout max-columns="2" direction="row">
-      <oj-select-single label-hint="[[labelMapper('credential-store-policy-label')]]"
-                        value="{{project.settings.credentialStorePolicy.observable}}"
-                        data="{{credentialStorePoliciesDP}}"
-                        help.instruction="[[labelMapper('credential-store-policy-help')]]">
-      </oj-select-single>
+      <oj-c-select-single label-hint="[[labelMapper('credential-store-policy-label')]]"
+                          label-edge="inside"
+                          value="{{project.settings.credentialStorePolicy.observable}}"
+                          data="[[credentialStorePoliciesDP]]"
+                          help.instruction="[[labelMapper('credential-store-policy-help')]]"
+                          item-text="label">
+      </oj-c-select-single>
     </oj-c-form-layout>
     <p><oj-bind-text value="[[labelMapper('credential-store-policy-answer-message')]]"></oj-bind-text></p>
   </div>
@@ -141,17 +143,10 @@
   <div class="oj-panel">
     <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('domain-location-question')]]"></oj-bind-text></h6>
     <oj-c-form-layout full-width="true" direction="row">
-      <oj-radioset label-hint=""
-                   value="{{project.settings.targetDomainLocation.observable}}"
-                   help.instruction="[[labelMapper('domain-location-help')]]">
-        <oj-bind-for-each data="[[targetDomainLocations]]">
-          <template>
-            <oj-option value="[[$current.data.value]]">
-              <oj-bind-text value="[[$current.data.label]]"></oj-bind-text>
-            </oj-option>
-          </template>
-        </oj-bind-for-each>
-      </oj-radioset>
+      <oj-c-radioset label-hint="[[labelMapper('domain-location-help')]]"
+                   options="[[targetDomainLocationDP]]"
+                   value="{{project.settings.targetDomainLocation.observable}}">
+      </oj-c-radioset>
     </oj-c-form-layout>
     <p><oj-bind-text value="[[getTargetDomainLocationMessage()]]"></oj-bind-text></p>
   </div>
@@ -206,5 +201,16 @@
       </oj-input-text>
     </oj-c-form-layout>
     <p><oj-bind-text value="[[buildToolTypeAnswer]]"></oj-bind-text></p>
+  </div>
+
+  <div class="oj-panel">
+    <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('image-target-architecture-question')]]"></oj-bind-text></h6>
+    <oj-c-form-layout max-columns="1" direction="row">
+      <oj-c-radioset label-hint="[[labelMapper('image-target-architecture-help')]]"
+                     options="[[targetImageArchitectureDP]]"
+                     value="{{project.settings.imageTargetArchitecture.observable}}">
+      </oj-c-radioset>
+    </oj-c-form-layout>
+    <p><oj-bind-text value="[[labelMapper('image-target-architecture-answer-message')]]"></oj-bind-text></p>
   </div>
 </div>

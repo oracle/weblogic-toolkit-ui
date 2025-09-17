@@ -112,6 +112,7 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
           oracleInstaller: oracleInstaller,
           oracleInstallerVersion: oracleInstallerVersion,
           oracleInstallerType: oracleInstallerType,
+          architecture: this.project.settings.imageTargetArchitecture.value,
         };
         if (! await this.addInstallersToCache(cacheConfig, errTitle, errPrefix)) {
           return Promise.resolve(false);
