@@ -1,17 +1,17 @@
 /**
  * @license
- * Copyright (c) 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2024, 2025, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
 
-define(['accUtils', 'knockout', 'utils/i18n', 'models/wkt-project', 'utils/modelEdit/instance-helper',
+define(['accUtils', 'knockout', 'models/wkt-project', 'utils/modelEdit/instance-helper',
   'utils/modelEdit/model-edit-helper', 'utils/modelEdit/alias-helper', 'utils/modelEdit/message-helper',
   'ojs/ojmodule-element-utils', 'ojs/ojarraydataprovider', 'ojs/ojbufferingdataprovider',
   'ojs/ojconverter-number', 'utils/validation-helper',
   'utils/view-helper', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojdialog',
   'ojs/ojformlayout', 'ojs/ojvalidationgroup'],
-function(accUtils, ko, i18n, project, InstanceHelper, ModelEditHelper, AliasHelper, MessageHelper,
+function(accUtils, ko, project, InstanceHelper, ModelEditHelper, AliasHelper, MessageHelper,
   ModuleElementUtils, ArrayDataProvider, BufferingDataProvider, ojConverterNumber, validationHelper, viewHelper) {
 
   function FolderDialogModel(args) {
@@ -26,7 +26,6 @@ function(accUtils, ko, i18n, project, InstanceHelper, ModelEditHelper, AliasHelp
     const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
     const INSTANCE_NAME = IS_MULTIPLE ? MODEL_PATH[MODEL_PATH.length - 1] : null;
 
-    this.i18n = i18n;
     this.instanceName = ko.observable(INSTANCE_NAME);  // such as "myServer" for "Server/myServer"
     this.isMultiple = IS_MULTIPLE;
     this.nameLabel = MessageHelper.getInstanceNameLabel(ALIAS_PATH);
@@ -46,8 +45,12 @@ function(accUtils, ko, i18n, project, InstanceHelper, ModelEditHelper, AliasHelp
       });
     };
 
+    this.t = (labelId, arg) => {
+      return MessageHelper.t(labelId, arg);
+    };
+
     this.labelMapper = (labelId, arg) => {
-      return i18n.t(`domain-design-cluster-${labelId}`, arg);
+      return MessageHelper.t(`folder-dialog-${labelId}`, arg);
     };
 
     this.getTitle = () => {

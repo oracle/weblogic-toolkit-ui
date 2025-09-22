@@ -1,16 +1,16 @@
 /**
  * @license
- * Copyright (c) 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2024, 2025, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
 
-define(['accUtils', 'knockout', 'utils/i18n',
+define(['accUtils', 'knockout',
   'utils/modelEdit/model-edit-helper', 'utils/modelEdit/meta-helper', 'utils/modelEdit/message-helper',
   'utils/modelEdit/alias-helper',
   'oj-c/collapsible'
 ],
-function(accUtils, ko, i18n, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper) {
+function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper) {
   function AttributeGroupsModel(args) {
     // Display the attribute groups for a model path.
     // Customizations from MetaHelper are taken into account.
@@ -39,7 +39,7 @@ function(accUtils, ko, i18n, ModelEditHelper, MetaHelper, MessageHelper, AliasHe
     };
 
     this.labelMapper = (labelId, payload) => {
-      return i18n.t(labelId, payload);
+      return MessageHelper.t(labelId, payload);
     };
 
     this.attributeGroups = ko.observableArray();

@@ -1,14 +1,14 @@
 /**
  * @license
- * Copyright (c) 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2024, 2025, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
 
-define(['utils/i18n', 'utils/modelEdit/alias-helper', 'utils/modelEdit/meta-helper',
+define(['utils/modelEdit/message-helper', 'utils/modelEdit/alias-helper', 'utils/modelEdit/meta-helper',
   'utils/modelEdit/model-edit-helper'],
 
-function (i18n, AliasHelper, MetaHelper,
+function (MessageHelper, AliasHelper, MetaHelper,
   ModelEditHelper) {
 
   function InstanceHelper() {
@@ -40,7 +40,7 @@ function (i18n, AliasHelper, MetaHelper,
         // always check against peer instance names
         validate: value => {
           if((value !== originalName) && instanceNames.includes(value)) {
-            const message = i18n.t('model-edit-instance-name-in-use-error');
+            const message = MessageHelper.t('instance-name-in-use-error');
             throw new Error(message);
           }
         }
@@ -57,7 +57,7 @@ function (i18n, AliasHelper, MetaHelper,
         nameValidators.push({
           validate: value => {
             if (!INSTANCE_NAME_REGEX.test(value)) {
-              const message = i18n.t('model-edit-instance-name-error');
+              const message = MessageHelper.t('instance-name-error');
               throw new Error(message);
             }
           }

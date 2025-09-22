@@ -16,7 +16,7 @@ const i18nextOptions = {
     // jsonIndent to use when storing json files
     jsonIndent: 2,
   },
-  ns: ['electron', 'webui'],
+  ns: ['electron', 'webui', 'modeledit'],
   defaultNS: 'webui',
   interpolation: {
     escapeValue: false

@@ -8,7 +8,7 @@
         ]
       },
       {
-        "title": "model-edit-advanced-label",
+        "title": "advanced-label",
         "collapsible": true,
         "remainder": true
       },
@@ -68,7 +68,7 @@
     },
     "attributeGroups": [
       {
-        "title": "model-edit-rcudbinfo-connection-label",
+        "title": "rcudbinfo-connection-label",
         "members": [
           "rcu_database_type",
           "oracle_database_connection_type",
@@ -81,19 +81,19 @@
         ]
       },
       {
-        "title": "model-edit-advanced-label",
+        "title": "advanced-label",
         "collapsible": true,
         "remainder": true
       },
       {
-        "title": "model-edit-rcudbinfo-atp-label",
+        "title": "rcudbinfo-atp-label",
         "members": [
           "atp.default.tablespace",
           "atp.temp.tablespace"
         ]
       },
       {
-        "title": "model-edit-rcudbinfo-stores-label",
+        "title": "rcudbinfo-stores-label",
         "members": [
           "javax.net.ssl.keyStore",
           "javax.net.ssl.keyStoreType",
@@ -159,7 +159,7 @@
         ]
       },
       {
-        "title": "model-edit-advanced-label",
+        "title": "advanced-label",
         "collapsible": true,
         "remainder": true
       }
@@ -181,7 +181,7 @@
         ]
       },
       {
-        "title": "model-edit-advanced-label",
+        "title": "advanced-label",
         "collapsible": true,
         "remainder": true
       }

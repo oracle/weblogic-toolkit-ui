@@ -1,19 +1,18 @@
 /**
  * @license
- * Copyright (c) 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2024, 2025, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
 
-define(['accUtils', 'utils/i18n', 'knockout', 'utils/modelEdit/model-edit-helper',
+define(['accUtils', 'knockout', 'utils/modelEdit/model-edit-helper',
   'utils/modelEdit/alias-helper', 'utils/modelEdit/navigation-helper', 'utils/modelEdit/message-helper',
   'utils/wkt-logger',
   'ojs/ojknockouttemplateutils', 'ojs/ojarraytreedataprovider'],
-function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, NavigationHelper, MessageHelper, wktLogger,
+function(accUtils, ko, ModelEditHelper, AliasHelper, NavigationHelper, MessageHelper, wktLogger,
   KnockoutTemplateUtils, ArrayTreeDataProvider) {
 
   function NavigationViewModel() {
-    this.i18n = i18n;
     this.KnockoutTemplateUtils = KnockoutTemplateUtils;
 
     this.menuExpanded = NavigationHelper.menuExpanded;
@@ -46,8 +45,8 @@ function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, NavigationHelper, Mes
       });
     };
 
-    this.labelMapper = (labelId, payload) => {
-      return i18n.t(`model-edit-${labelId}`, payload);
+    this.t = (labelId, payload) => {
+      return MessageHelper.t(labelId, payload);
     };
 
     // set the selected path when menu selection changes
@@ -191,7 +190,7 @@ function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, NavigationHelper, Mes
         ]
       },
       {
-        name: this.labelMapper('topology-nav-label'),
+        name: this.t('nav-topology-label'),
         id: 'topology-id',
         icon: 'oj-ux-ico-folder',
         page: '../empty-view',
@@ -208,7 +207,7 @@ function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, NavigationHelper, Mes
         ]
       },
       {
-        name: this.labelMapper('resources-nav-label'),
+        name: this.t('nav-resources-label'),
         id: 'resources-id',
         icon: 'oj-ux-ico-folder',
         page: '../empty-view',
@@ -221,7 +220,7 @@ function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, NavigationHelper, Mes
         ]
       },
       {
-        name: this.labelMapper('deployments-nav-label'),
+        name: this.t('nav-deployments-label'),
         id: 'deployments-id',
         icon: 'oj-ux-ico-folder',
         page: '../empty-view',

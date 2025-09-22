@@ -1,17 +1,17 @@
 /**
  * @license
- * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
 
-define(['accUtils', 'knockout', 'utils/i18n', 'models/wkt-project', 'ojs/ojarraydataprovider',
+define(['accUtils', 'knockout', 'models/wkt-project', 'ojs/ojarraydataprovider',
   'ojs/ojbufferingdataprovider', 'utils/observable-properties', 'ojs/ojconverter-number',
   'utils/modelEdit/model-edit-helper', 'utils/modelEdit/message-helper', 'utils/modelEdit/alias-helper',
   'utils/validation-helper', 'utils/view-helper',
   'ojs/ojinputtext', 'ojs/ojlabel', 'oj-c/button', 'ojs/ojdialog', 'ojs/ojformlayout', 'oj-c/radioset',
   'ojs/ojvalidationgroup'],
-function(accUtils, ko, i18n, project, ArrayDataProvider,
+function(accUtils, ko, project, ArrayDataProvider,
   BufferingDataProvider, props, ojConverterNumber,
   ModelEditHelper, MessageHelper, AliasHelper, validationHelper, viewHelper) {
 
@@ -38,8 +38,6 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
       existingValue = existingValue.join(',');
     }
 
-    this.i18n = i18n;
-
     this.connected = () => {
       accUtils.announce('Attribute editor dialog loaded.', 'assertive');
 
@@ -52,13 +50,17 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
       });
     };
 
+    this.t = (labelId, arg) => {
+      return MessageHelper.t(labelId, arg);
+    };
+
     this.labelMapper = (labelId, arg) => {
-      return i18n.t(`model-edit-attribute-dialog-${labelId}`, arg);
+      return MessageHelper.t(`attribute-dialog-${labelId}`, arg);
     };
 
     this.getTitle = ko.computed(() => {
       const attributeLabel = MessageHelper.getAttributeLabel(ATTRIBUTE, ALIAS_PATH);
-      return this.labelMapper('title', {attributeLabel: attributeLabel});
+      return this.labelMapper('title', {attribute: attributeLabel});
     });
 
     const existingOption = existingVariable ? 'variable' : 'edit';

@@ -1,15 +1,15 @@
 /**
  * @license
- * Copyright (c) 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2024, 2025, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
 
-define(['accUtils', 'knockout', 'utils/i18n',
+define(['accUtils', 'knockout',
   'utils/modelEdit/model-edit-helper', 'utils/modelEdit/meta-helper', 'utils/modelEdit/message-helper',
   'utils/modelEdit/alias-helper'
 ],
-function(accUtils, ko, i18n, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper) {
+function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper) {
   function FolderContentViewModel(args) {
     // Display the attribute groups, single folders, and multiple folders for a model path.
     // Customizations from MetaHelper are taken into account.
@@ -18,7 +18,6 @@ function(accUtils, ko, i18n, ModelEditHelper, MetaHelper, MessageHelper, AliasHe
     const MODEL_PATH = args.modelPath;
     const TEMP_MODEL = args.model;
 
-    this.i18n = i18n;
     this.subscriptions = [];
 
     this.connected = () => {
