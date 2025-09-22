@@ -1,15 +1,15 @@
 /**
  * @license
- * Copyright (c) 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2024, 2025, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
 
-define(['accUtils', 'knockout', 'utils/i18n', 'models/wkt-project',
+define(['accUtils', 'knockout', 'models/wkt-project',
   'utils/modelEdit/model-edit-helper', 'utils/modelEdit/message-helper', 'utils/modelEdit/alias-helper',
   'utils/common-utilities', 'utils/validation-helper', 'utils/view-helper',
   'oj-c/input-text', 'oj-c/button', 'ojs/ojdialog', 'ojs/ojvalidationgroup'],
-function(accUtils, ko, i18n, project,
+function(accUtils, ko, project,
   ModelEditHelper, MessageHelper, AliasHelper, utils, validationHelper, viewHelper) {
   function NewListItemDialogModel(args) {
     const MODEL_PATH = args.modelPath;
@@ -19,8 +19,6 @@ function(accUtils, ko, i18n, project,
     const DIALOG_SELECTOR = '#newListItemDialog';
 
     const observableItems = args.observableItems;
-
-    this.i18n = i18n;
 
     this.elementName = ko.observable();
 
@@ -39,9 +37,12 @@ function(accUtils, ko, i18n, project,
     this.nameLabel = MessageHelper.getItemLabel(ATTRIBUTE, ALIAS_PATH);
     this.nameHelp = MessageHelper.getItemHelp(ATTRIBUTE, ALIAS_PATH);
 
+    this.t = (labelId, arg) => {
+      return MessageHelper.t(labelId, arg);
+    };
+
     this.getTitle = ko.computed(() => {
       return MessageHelper.getAddItemLabel(ATTRIBUTE, ALIAS_PATH, true);
-      // this.i18n.t('model-edit-list-dialog-add-label', {
     });
 
     this.nameValidators = [{

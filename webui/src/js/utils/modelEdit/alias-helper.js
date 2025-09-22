@@ -1,12 +1,12 @@
 /**
  * @license
- * Copyright (c) 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2024, 2025, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
 
-define(['knockout', 'utils/i18n', 'utils/wkt-logger'],
-  function (ko, i18n, WktLogger) {
+define(['knockout', 'utils/wkt-logger'],
+  function (ko, WktLogger) {
     function AliasHelper() {
       // maintain configuration derived from WDT aliases
 

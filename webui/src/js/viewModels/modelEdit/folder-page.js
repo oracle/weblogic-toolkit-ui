@@ -1,21 +1,19 @@
 /**
  * @license
- * Copyright (c) 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2024, 2025, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
 
-define(['accUtils', 'utils/i18n',
+define(['accUtils',
   'utils/modelEdit/model-edit-helper', 'utils/modelEdit/message-helper', 'utils/modelEdit/alias-helper',
   'utils/modelEdit/meta-helper', 'ojs/ojmodule-element-utils'
 ],
-function(accUtils, i18n, ModelEditHelper, MessageHelper, AliasHelper, MetaHelper, ModuleElementUtils) {
+function(accUtils, ModelEditHelper, MessageHelper, AliasHelper, MetaHelper, ModuleElementUtils) {
   function FolderPageViewModel(args) {
     const MODEL_PATH = args.modelPath;
 
     const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
-
-    this.i18n = i18n;
 
     this.connected = () => {
       accUtils.announce('Folder Page loaded.', 'assertive');

@@ -1,14 +1,14 @@
 /**
  * @license
- * Copyright (c) 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2024, 2025, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
 
-define(['knockout', 'utils/i18n', 'js-yaml', 'models/wkt-project', 'utils/common-utilities',
+define(['knockout', 'js-yaml', 'models/wkt-project', 'utils/common-utilities',
   'utils/wkt-logger', 'utils/modelEdit/alias-helper', 'utils/modelEdit/meta-helper', 'utils/modelEdit/message-helper',
   'ojs/ojmodule-element-utils'],
-function (ko, i18n, jsYaml, project, utils,
+function (ko, jsYaml, project, utils,
   WktLogger, AliasHelper, MetaHelper, MessageHelper, ModuleElementUtils) {
 
   function ModelEditHelper() {
@@ -351,7 +351,7 @@ function (ko, i18n, jsYaml, project, utils,
       validate: value => {
         if(value) {
           if (!INTEGER_REGEX.test(value)) {
-            throw new Error(i18n.t('model-edit-invalid-integer-error'));
+            throw new Error(MessageHelper.t('invalid-integer-error'));
           }
         }
       }
@@ -368,7 +368,7 @@ function (ko, i18n, jsYaml, project, utils,
       if(value) {
         const port = parseInt(value, 10);
         if((port < min) || (port > max)) {
-          throw new Error(i18n.t('model-edit-invalid-range-error', {min, max}));
+          throw new Error(MessageHelper.t('invalid-range-error', {min, max}));
         }
       }
     };

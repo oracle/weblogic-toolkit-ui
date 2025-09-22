@@ -1,16 +1,16 @@
 /**
  * @license
- * Copyright (c) 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2024, 2025, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
 
-define(['accUtils', 'knockout', 'utils/i18n', 'utils/dialog-helper', 'utils/wkt-logger', 'ojs/ojarraydataprovider',
+define(['accUtils', 'knockout', 'utils/dialog-helper', 'utils/wkt-logger', 'ojs/ojarraydataprovider',
   'ojs/ojmodule-element-utils', 'utils/modelEdit/meta-handlers', 'utils/modelEdit/model-edit-helper',
   'utils/modelEdit/message-helper', 'utils/modelEdit/alias-helper',
   'oj-c/button', 'oj-c/input-text', 'oj-c/list-view', 'oj-c/input-password'
 ],
-function(accUtils, ko, i18n, DialogHelper, WktLogger, ArrayDataProvider,
+function(accUtils, ko, DialogHelper, WktLogger, ArrayDataProvider,
   ModuleElementUtils, MetaHandlers, ModelEditHelper, MessageHelper, AliasHelper) {
 
   function AttributeEditor(args) {
@@ -20,7 +20,6 @@ function(accUtils, ko, i18n, DialogHelper, WktLogger, ArrayDataProvider,
 
     const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
 
-    this.i18n = i18n;
     this.attribute = ATTRIBUTE;
     this.observable = ATTRIBUTE.observable;
     this.displayType = ModelEditHelper.getDisplayType(ATTRIBUTE);
@@ -35,8 +34,8 @@ function(accUtils, ko, i18n, DialogHelper, WktLogger, ArrayDataProvider,
       'switchOn': 'true'
     };
 
-    this.attributeLabelMapper = (labelId, payload) => {
-      return i18n.t(`model-edit-attribute-${labelId}`, payload);
+    this.labelMapper = (labelId, payload) => {
+      return MessageHelper.t(`attribute-editor-${labelId}`, payload);
     };
 
     this.attributeLabel = attribute => {
@@ -96,9 +95,9 @@ function(accUtils, ko, i18n, DialogHelper, WktLogger, ArrayDataProvider,
       if(this.variableName()) {
         const value = ModelEditHelper.getVariableValue(this.variableName());
         const messageKey = value ? 'from-variable' : 'missing-variable';
-        return this.attributeLabelMapper(messageKey, {variable: this.variableName()});
+        return this.labelMapper(messageKey, {variable: this.variableName()});
       } else if(this.secretName()) {
-        return this.attributeLabelMapper('from-secret', {secret: this.secretName()});
+        return this.labelMapper('from-secret', {secret: this.secretName()});
       }
     });
 

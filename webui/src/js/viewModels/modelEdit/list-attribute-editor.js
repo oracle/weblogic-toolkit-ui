@@ -1,16 +1,16 @@
 /**
  * @license
- * Copyright (c) 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2024, 2025, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
 
-define(['accUtils', 'knockout', 'utils/i18n', 'utils/dialog-helper','ojs/ojarraydataprovider',
+define(['accUtils', 'knockout', 'utils/dialog-helper','ojs/ojarraydataprovider',
   'ojs/ojbufferingdataprovider', 'utils/view-helper', 'utils/common-utilities', 'utils/modelEdit/model-edit-helper',
   'utils/modelEdit/message-helper', 'utils/modelEdit/alias-helper',
   'oj-c/button', 'oj-c/input-text', 'oj-c/list-view', 'oj-c/input-password'
 ],
-function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
+function(accUtils, ko, DialogHelper, ArrayDataProvider,
   BufferingDataProvider, ViewHelper, utils, ModelEditHelper, MessageHelper, AliasHelper) {
 
   function ListAttributeEditor(args) {
@@ -19,7 +19,6 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
 
     const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
 
-    this.i18n = i18n;
     this.attribute = ATTRIBUTE;
     this.observable = ATTRIBUTE.observable;
     this.disabled = ATTRIBUTE.hasOwnProperty('disabled') ? ATTRIBUTE.disabled : false;
@@ -27,7 +26,7 @@ function(accUtils, ko, i18n, DialogHelper, ArrayDataProvider,
     this.ariaLabel = MessageHelper.getAttributeLabel(ATTRIBUTE, ALIAS_PATH);
     this.addLabel = MessageHelper.getAddItemLabel(ATTRIBUTE, ALIAS_PATH, false);
     this.deleteLabel = MessageHelper.getDeleteItemLabel(ATTRIBUTE, ALIAS_PATH);
-    this.noDataLabel = i18n.t('model-edit-no-items-label');
+    this.noDataLabel = MessageHelper.getNoItemsMessage(ATTRIBUTE, ALIAS_PATH);
 
     const subscriptions = [];
 

@@ -1,16 +1,16 @@
 /**
  * @license
- * Copyright (c) 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2024, 2025, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
 
-define(['accUtils', 'utils/i18n', 'knockout', 'utils/modelEdit/instance-helper', 'utils/modelEdit/model-edit-helper',
+define(['accUtils', 'knockout', 'utils/modelEdit/instance-helper', 'utils/modelEdit/model-edit-helper',
   'utils/modelEdit/message-helper', 'utils/modelEdit/navigation-helper', 'utils/modelEdit/alias-helper',
   'utils/common-utilities', 'utils/dialog-helper', 'utils/view-helper', 'utils/modelEdit/meta-helper', 'ojs/ojarraydataprovider',
   'ojs/ojtable', 'oj-c/button', 'oj-c/labelled-link'
 ],
-function(accUtils, i18n, ko, InstanceHelper, ModelEditHelper, MessageHelper, NavigationHelper, AliasHelper,
+function(accUtils, ko, InstanceHelper, ModelEditHelper, MessageHelper, NavigationHelper, AliasHelper,
   utils, DialogHelper, ViewHelper, MetaHelper, ArrayDataProvider) {
 
   function InstancesTableViewModel(args) {
@@ -25,10 +25,9 @@ function(accUtils, i18n, ko, InstanceHelper, ModelEditHelper, MessageHelper, Nav
 
     const subscriptions = [];
 
-    this.i18n = i18n;
     this.addLabel = MessageHelper.getAddInstanceMessage(ALIAS_PATH);
     this.deleteLabel = MessageHelper.getDeleteInstanceMessage(ALIAS_PATH);
-    this.emptyMessage = MessageHelper.getNoDataMessage(ALIAS_PATH);
+    this.emptyMessage = MessageHelper.getNoInstancesMessage(ALIAS_PATH);
     this.ariaLabel = MODEL_PATH[MODEL_PATH.length - 1] + ' Instances Table';
 
     this.connected = () => {
@@ -82,7 +81,7 @@ function(accUtils, i18n, ko, InstanceHelper, ModelEditHelper, MessageHelper, Nav
 
     this.instancesColumnData = [
       {
-        headerText: i18n.t('model-edit-table-name-label'),
+        headerText: MessageHelper.t('table-name-label'),
         sortProperty: 'name',
         resizable: 'enabled'
       }

@@ -1,21 +1,20 @@
 /**
  * @license
- * Copyright (c) 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2024, 2025, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
 
-define(['accUtils', 'utils/i18n', 'knockout', 'utils/modelEdit/model-edit-helper', 'utils/modelEdit/message-helper',
+define(['accUtils', 'knockout', 'utils/modelEdit/model-edit-helper', 'utils/modelEdit/message-helper',
   'ojs/ojmodule-element-utils',
   'oj-c/input-text'
 ],
-function(accUtils, i18n, ko, ModelEditHelper, MessageHelper, ModuleElementUtils) {
+function(accUtils, ko, ModelEditHelper, MessageHelper, ModuleElementUtils) {
   function ServerEditViewModel(args) {
     const MODEL_PATH = args.modelPath;
 
     const subscriptions = [];
 
-    this.i18n = i18n;
     this.name = MODEL_PATH[MODEL_PATH.length - 1];
     this.title = MessageHelper.getPageTitle(MODEL_PATH);
 
@@ -32,11 +31,11 @@ function(accUtils, i18n, ko, ModelEditHelper, MessageHelper, ModuleElementUtils)
     };
 
     this.labelMapper = (labelId, payload) => {
-      return i18n.t(`model-edit-server-${labelId}`, payload);
+      return MessageHelper.t(`server-${labelId}`, payload);
     };
 
     this.editLabelMapper = (labelId, payload) => {
-      return i18n.t(`model-edit-${labelId}`, payload);
+      return ModelEditHelper.t(labelId, payload);
     };
 
     const knownAttributes = [

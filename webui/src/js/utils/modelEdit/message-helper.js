@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2024, 2025, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -12,32 +12,43 @@ function (ko, i18n, AliasHelper) {
   /*
     message conventions:
 
-    basePrefix = model-edit
-    folderPrefix = <base-prefix>-<folderKey>-<subfolderKey>...
-    attributePrefix = <folderPrefix>-a-<attributeKey>
+    folderPath = <folderKey>_<subfolderKey>...
 
-    folderLabel = <folderPrefix>-label (required, can be derived)
+    folderLabel = <folderPath>-label (required, can be derived)
 
-    folderMessage search path:
-      <folderPrefix>-<suffix> (optional, argument: name)
-      <basePrefix>-anyFolder-<suffix> (required, argument: name)
+    folder message search path:
+      f-<folderPath>-<messageType>  (optional)
+      f-any-<messageType>           (required)
 
     attributeLabel = <attributePrefix>-label (required, can be derived)
 
-    attributeMessage search path:
-      <attributePrefix>-<suffix> (optional)
-      <folderPrefix>-anyAttribute-<suffix> (optional, argument: name)
-      <basePrefix>-anyAttribute-<suffix> (required, argument: name)
+    attribute message search path:
+      f-<folderPath>-a-<attributeName>-help  (optional)
+      f-<folderPath>-a-any-help              (optional)
+      a-<attributeName>-help                 (optional)
+      a-any-help                             (required)
    */
 
   function MessageHelper() {
     // provide methods for resolving i18n messages.
+
+    const NAMESPACE = 'modeledit';
 
     let messageKeys = [];
     window.api.ipc.invoke('get-model-edit-message-keys')
       .then(newMessageKeys => {
         messageKeys = newMessageKeys;
       });
+
+    const t = (key, args) => {
+      args = args || {};
+      const allArgs = { ...args, ns: NAMESPACE };
+      return i18n.t(key, allArgs);
+    };
+
+    this.t = (key, args) => {
+      return t(key, args);
+    };
 
     this.getPageTitle = modelPath => {
       const aliasPath = AliasHelper.getAliasPath(modelPath);
@@ -59,7 +70,7 @@ function (ko, i18n, AliasHelper) {
       // required - this will add a webui.missing.json entry if not found
       const prefix = getFolderPrefix(aliasPath);
       const key = `${prefix}-label`;
-      let label = i18n.t(key);
+      let label = t(key);
       if (label === key) {
         const lastFolder = aliasPath[aliasPath.length - 1];
         label = getReadableLabel(lastFolder);
@@ -69,16 +80,16 @@ function (ko, i18n, AliasHelper) {
 
     this.getAddInstanceMessage = aliasPath => {
       const label = this.getFolderTypeLabel(aliasPath);
-      return i18n.t('model-edit-add-label', {item: label});
+      return t('add-label', {item: label});
     };
 
     this.getDeleteInstanceMessage = aliasPath => {
       const label = this.getFolderTypeLabel(aliasPath);
-      return i18n.t('model-edit-delete-label', {item: label});
+      return t('delete-label', {item: label});
     };
 
-    this.getNoDataMessage = aliasPath => {
-      return getFolderMessage(aliasPath, 'noDataLabel');
+    this.getNoInstancesMessage = aliasPath => {
+      return getFolderMessage(aliasPath, 'noInstancesMessage');
     };
 
     this.getInstanceNameLabel = aliasPath => {
@@ -100,7 +111,7 @@ function (ko, i18n, AliasHelper) {
       const aliasPath = AliasHelper.getAliasPath(modelPath);
       const typeLabel = this.getFolderTypeLabel(aliasPath);
       const instanceName = modelPath[modelPath.length - 1];
-      return i18n.t('model-edit-rename-title', {type: typeLabel, name: instanceName});
+      return t('rename-title', {type: typeLabel, name: instanceName});
     };
 
     // *******************
@@ -120,9 +131,15 @@ function (ko, i18n, AliasHelper) {
       // if none is available, i18n will log to webui.missing.json, and we return a readable name.
       const attributeKey = getAttributeKey(attributeName);
       const folderPrefix = getFolderPrefix(aliasPath);
-      const key = `${folderPrefix}-a-${attributeKey}-label`;
-      const label = i18n.t(key);
-      return (label === key) ? getReadableLabel(attributeName) : label;
+      const folderAttributeKey = `${folderPrefix}-a-${attributeKey}-label`;
+      const onlyAttributeKey = `a-${attributeKey}-label`;
+
+      if(messageKeys.includes(folderAttributeKey)) {  // specific to folder + attribute
+        return t(folderAttributeKey);
+      } else {  // specific to attribute, log as missing if unavailable
+        const label = t(onlyAttributeKey);
+        return (label === onlyAttributeKey) ? getReadableLabel(attributeName) : label;
+      }
     };
 
     this.getAttributeHelp = (attribute, aliasPath) => {
@@ -150,18 +167,22 @@ function (ko, i18n, AliasHelper) {
         // use the attribute name for context
         // "Add Item to Libraries"
         const attributeLabel = this.getAttributeLabel(attribute, aliasPath);
-        return i18n.t('model-edit-addItemTo-label', {item: itemLabel, attribute: attributeLabel});
+        return t('add-to-label', {item: itemLabel, attribute: attributeLabel});
       } else {
         // don't need/want context
         // "Add Library"
-        return i18n.t('model-edit-add-label', {item: itemLabel});
+        return t('add-label', {item: itemLabel});
       }
     };
 
     this.getDeleteItemLabel = (attribute, aliasPath) => {
       const itemLabel = this.getItemLabel(attribute, aliasPath);
       // "Delete Library"
-      return i18n.t('model-edit-delete-label', {item: itemLabel});
+      return t('delete-label', {item: itemLabel});
+    };
+
+    this.getNoItemsMessage = (attribute, aliasPath) => {
+      return getAttributeMessage(attribute, 'noItemsMessage', aliasPath);
     };
 
     // key/value/entry label/help for attributes of type "dict"
@@ -190,24 +211,28 @@ function (ko, i18n, AliasHelper) {
       return hasAssignedAttributeMessage(attribute, 'entryLabel', aliasPath);
     };
 
+    this.getNoEntriesMessage = (attribute, aliasPath) => {
+      return getAttributeMessage(attribute, 'noEntriesMessage', aliasPath);
+    };
+
     this.getAddEntryLabel = (attribute, aliasPath, verbose) => {
       const entryLabel = this.getEntryLabel(attribute, aliasPath);
       if(verbose && !this.hasAssignedEntryLabel(attribute, aliasPath)) {
         // use the attribute name for context
         // "Add Item to Libraries"
         const attributeLabel = this.getAttributeLabel(attribute, aliasPath);
-        return i18n.t('model-edit-addEntryTo-label', {item: entryLabel, attribute: attributeLabel});
+        return t('add-to-label', {item: entryLabel, attribute: attributeLabel});
       } else {
         // don't need/want context
         // "Add Library"
-        return i18n.t('model-edit-add-label', {item: entryLabel});
+        return t('add-label', {item: entryLabel});
       }
     };
 
     this.getDeleteEntryLabel = (attribute, aliasPath) => {
       const entryLabel = this.getEntryLabel(attribute, aliasPath);
       // "Delete Library"
-      return i18n.t('model-edit-delete-label', {item: entryLabel});
+      return t('delete-label', {item: entryLabel});
     };
 
     // *******************
@@ -215,20 +240,20 @@ function (ko, i18n, AliasHelper) {
     // *******************
 
     function getFolderPrefix(aliasPath) {
-      return 'model-edit-f-' + aliasPath.join('_');
+      return 'f-' + aliasPath.join('_');
     }
 
-    // check for a message at the folder level, then top level
+    // check for a message at the folder level, then "any" level
     function getFolderMessage (aliasPath, suffix, args) {
       const folderPrefix = getFolderPrefix(aliasPath);
       const folderKey =  `${folderPrefix}-${suffix}`;
-      const genericKey = `model-edit-anyFolder-${suffix}`;
+      const genericKey = `f-any-${suffix}`;
       args = args || {};
 
       if(messageKeys.includes(folderKey)) {
-        return i18n.t(folderKey, args);
+        return t(folderKey, args);
       } else {
-        return i18n.t(genericKey, args);
+        return t(genericKey, args);
       }
     }
 
@@ -247,17 +272,20 @@ function (ko, i18n, AliasHelper) {
     function getAttributeMessage(attribute, suffix, aliasPath, args) {
       const key = getAttributeKey(attribute.name);
       const folderPrefix = getFolderPrefix(aliasPath);
-      const attributeKey = `${folderPrefix}-a-${key}-${suffix}`;
-      const folderKey = `${folderPrefix}-anyAttribute-${suffix}`;
-      const genericKey = `model-edit-anyAttribute-${suffix}`;
+      const folderAttributeKey = `${folderPrefix}-a-${key}-${suffix}`;
+      const folderKey = `${folderPrefix}-a-any-${suffix}`;
+      const attributeKey = `a-${key}-${suffix}`;
+      const genericKey = `a-any-${suffix}`;
       args = args || {};
 
-      if(messageKeys.includes(attributeKey)) {
-        return i18n.t(attributeKey, args);
-      } else if(messageKeys.includes(folderKey)) {
-        return i18n.t(folderKey, args);
-      } else {
-        return i18n.t(genericKey, args);
+      if(messageKeys.includes(folderAttributeKey)) {  // specific to folder + attribute
+        return t(folderAttributeKey, args);
+      } else if(messageKeys.includes(folderKey)) {  // specific to folder
+        return t(folderKey, args);
+      } else if(messageKeys.includes(attributeKey)) {  // specific to attribute
+        return t(attributeKey, args);
+      } else {  // default for any attribute, log as missing if unavailable
+        return t(genericKey, args);
       }
     }
 
@@ -265,8 +293,9 @@ function (ko, i18n, AliasHelper) {
       // look for attribute-specific message only
       const key = getAttributeKey(attribute.name);
       const folderPrefix = getFolderPrefix(aliasPath);
-      const attributeKey = `${folderPrefix}-a-${key}-${suffix}`;
-      return messageKeys.includes(attributeKey);
+      const folderAttributeKey = `${folderPrefix}-a-${key}-${suffix}`;
+      const attributeKey = `a-${key}-${suffix}`;
+      return messageKeys.includes(folderAttributeKey) || messageKeys.includes(attributeKey);
     }
 
     function getReadableLabel(name) {

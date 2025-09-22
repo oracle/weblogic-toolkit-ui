@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2024, 2025, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -49,13 +49,13 @@ function getMessageKeys() {
 
   // read from the en locale - this will give the most current set of keys.
   /* global __dirname */
-  const messagesFile = path.normalize(path.join(__dirname, '..', '..', 'locales', 'en', 'webui.json'));
+  const messagesFile = path.normalize(path.join(__dirname, '..', '..', 'locales', 'en', 'modeledit.json'));
   const contents = fs.readFileSync(messagesFile, 'utf8');
   const messagesMap = JSON.parse(contents.toString());
 
   const messageKeys = [];
   Object.keys(messagesMap).forEach(key => {
-    if(key.startsWith('model-edit-')) {
+    if(key.startsWith('f-') || key.startsWith('a-')) {
       messageKeys.push(key);
     }
   });

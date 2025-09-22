@@ -1,16 +1,16 @@
 /**
  * @license
- * Copyright (c) 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2024, 2025, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
 
-define(['accUtils', 'utils/i18n',
+define(['accUtils',
   'utils/modelEdit/alias-helper', 'utils/modelEdit/message-helper', 'utils/modelEdit/model-edit-helper',
   'utils/modelEdit/navigation-helper', 'utils/dialog-helper',
   'ojs/ojmodule-element-utils', 'oj-c/labelled-link'
 ],
-function(accUtils, i18n, AliasHelper, MessageHelper, ModelEditHelper, NavigationHelper, DialogHelper) {
+function(accUtils, AliasHelper, MessageHelper, ModelEditHelper, NavigationHelper, DialogHelper) {
   function FolderHeaderViewModel(args) {
     const MODEL_PATH = args.modelPath;
     const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
@@ -22,8 +22,6 @@ function(accUtils, i18n, AliasHelper, MessageHelper, ModelEditHelper, Navigation
       const truncate = this.isMultiple ? 2 : 1;
       parentPath = MODEL_PATH.slice(0, 0 - truncate);
     }
-
-    this.i18n = i18n;
 
     this.connected = () => {
       accUtils.announce('Folder Header loaded.', 'assertive');
@@ -47,7 +45,7 @@ function(accUtils, i18n, AliasHelper, MessageHelper, ModelEditHelper, Navigation
       }
     }
 
-    this.renameLabel = i18n.t('model-edit-rename-label');
+    this.renameLabel = MessageHelper.t('rename-label');
 
     this.navigateToParent = () => {
       NavigationHelper.navigateToElement(parentPath);
