@@ -190,14 +190,12 @@ function(accUtils, ko, ModelEditHelper, AliasHelper, NavigationHelper, MessageHe
         ]
       },
       {
+        modelPath: ['topology'],
         name: this.t('nav-topology-label'),
-        id: 'topology-id',
         icon: 'oj-ux-ico-folder',
-        page: '../empty-view',
         children: [
           {
             icon: 'oj-ux-ico-list',
-            childPage: 'topology/server',
             modelPath: ['topology', 'Server']
           },
           {
@@ -214,7 +212,6 @@ function(accUtils, ko, ModelEditHelper, AliasHelper, NavigationHelper, MessageHe
         children: [
           {
             icon: 'oj-ux-ico-list',
-            childPage: 'resources/datasource',
             modelPath: ['resources', 'JDBCSystemResource']
           }
         ]

@@ -1,0 +1,21 @@
+{
+  "OPSSInitialization/Credential/TargetKey": {
+    "summaryAttributes": {
+      "Username": {}
+    },
+    "sections": [
+      {
+        "type": "inline",
+        "contents": [
+          {
+            "type": "attributeSet",
+            "attributes": [
+              "Username"
+            ],
+            "remainder": true
+          }
+        ]
+      }
+    ]
+  }
+}

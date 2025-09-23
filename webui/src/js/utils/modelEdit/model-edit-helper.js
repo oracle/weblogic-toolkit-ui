@@ -199,55 +199,6 @@ function (ko, jsYaml, project, utils,
       return attributeMap;
     };
 
-    // create a module configuration for a single attribute
-    this.createAttributeModuleConfig = (key, attributeMap, modelPath) => {
-      const attribute = attributeMap[key];
-      if(!attribute) {
-        WktLogger.error(`Attribute ${key} not found, available: ${Object.keys(attributeMap)}`);
-        return ModuleElementUtils.createConfig({ name: 'empty-view' });
-      }
-
-      return ModuleElementUtils.createConfig({
-        name: 'modelEdit/attribute-editor',
-        params: {
-          attribute: attribute,
-          modelPath: modelPath,
-          attributeMap: attributeMap  // may be disabled by values of other attributes
-        }
-      });
-    };
-
-    this.createAttributeSetModuleConfig = (attributes, attributeMap, modelPath) => {
-      return ModuleElementUtils.createConfig({
-        name: 'modelEdit/attribute-set',
-        params: {
-          attributes: attributes,
-          modelPath: modelPath,
-          attributeMap: attributeMap
-        }
-      });
-    };
-
-    this.createAttributeGroupsConfig = (modelPath, model) => {
-      return ModuleElementUtils.createConfig({
-        name: 'modelEdit/attribute-groups',
-        params: {
-          modelPath,
-          model
-        }
-      });
-    };
-
-    this.createInstancesTableModuleConfig = (modelPath, model) => {
-      return ModuleElementUtils.createConfig({
-        name: 'modelEdit/instances-table',
-        params: {
-          modelPath,
-          model
-        }
-      });
-    };
-
     this.getRemainingAttributeNames = (attributeMap, knownAttributeNames) => {
       const remainingNames = [];
       Object.keys(attributeMap).forEach(key => {
@@ -275,6 +226,101 @@ function (ko, jsYaml, project, utils,
         return (FALSE_VALUES.includes(testValue)) ? false : modelValue;
       }
       return modelValue;
+    };
+
+    // *****************************************
+    // create module configurations for display
+    // *****************************************
+
+    // create a module configuration for a single attribute
+    this.createAttributeModuleConfig = (modelPath, key, attributeMap) => {
+      const attribute = attributeMap[key];
+      if(!attribute) {
+        WktLogger.error(`Attribute ${key} not found, available: ${Object.keys(attributeMap)}`);
+        return ModuleElementUtils.createConfig({ name: 'empty-view' });
+      }
+
+      return ModuleElementUtils.createConfig({
+        name: 'modelEdit/attribute-editor',
+        params: {
+          attribute: attribute,
+          modelPath: modelPath,
+          attributeMap: attributeMap  // may be disabled by values of other attributes
+        }
+      });
+    };
+
+    // create a module config for inline page section
+    this.createInlineSectionConfig = (modelPath, metaSection, attributeMap, remainingNames) => {
+      return ModuleElementUtils.createConfig({
+        name: 'modelEdit/inline-section',
+        params: {
+          metaSection: metaSection,
+          modelPath: modelPath,
+          attributeMap: attributeMap,
+          remainingNames: remainingNames
+        }
+      });
+    };
+
+    // create a module config for collapsible page section
+    this.createCollapsibleSectionConfig = (modelPath, metaSection, attributeMap, remainingNames) => {
+      return ModuleElementUtils.createConfig({
+        name: 'modelEdit/collapsible-section',
+        params: {
+          metaSection: metaSection,
+          modelPath: modelPath,
+          attributeMap: attributeMap,
+          remainingNames: remainingNames
+        }
+      });
+    };
+
+    this.createInstancesSectionConfig = modelPath => {
+      return ModuleElementUtils.createConfig({
+        name: 'modelEdit/instances-section',
+        params: {
+          modelPath
+        }
+      });
+    };
+
+    this.createFolderSectionConfig = modelPath => {
+      return ModuleElementUtils.createConfig({
+        name: 'modelEdit/folder-content',
+        params: {
+          modelPath
+        }
+      });
+    };
+
+    this.createFolderLinkSectionConfig = modelPath => {
+      return ModuleElementUtils.createConfig({
+        name: 'modelEdit/folder-link-section',
+        params: {
+          modelPath
+        }
+      });
+    };
+
+    this.createAttributeSetModuleConfig = (modelPath, attributes, attributeMap) => {
+      return ModuleElementUtils.createConfig({
+        name: 'modelEdit/attribute-set',
+        params: {
+          attributes: attributes,
+          modelPath: modelPath,
+          attributeMap: attributeMap
+        }
+      });
+    };
+
+    this.createInstancesTableModuleConfig = modelPath => {
+      return ModuleElementUtils.createConfig({
+        name: 'modelEdit/instances-table',
+        params: {
+          modelPath
+        }
+      });
     };
 
     // ************************************************

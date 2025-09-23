@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 .sendOffScreen {
@@ -850,6 +850,26 @@ h6.wkt-panel-heading {
   padding-left: 3em !important;
 }
 
+.wkt-model-edit-section {
+  margin-top: 1em;
+}
+
+.wkt-model-edit-section:first-child {
+  margin-top: 0;
+}
+
+.wkt-model-edit-attribute-form {
+  margin-top: 1em;
+}
+
+.wkt-model-edit-attribute-form:first-child {
+  margin-top: 0;
+}
+
+.wkt-model-edit-collapsible-content {
+  padding-top: 1em;
+}
+
 .wkt-model-edit-attribute-container {
   display: flex;
   align-items: center;
@@ -980,10 +1000,6 @@ h6.wkt-split-header {
 
 .wkt-collapsible .oj-panel {
   margin-top: 0.5em !important;  /* oj-c-collapsible has no space between header and content */
-}
-
-.wkt-attribute-groups > *:first-child {
-  margin-top: 0 !important;  /* no top margin on first child */
 }
 
 .wkt-token-error {

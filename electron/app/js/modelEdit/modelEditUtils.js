@@ -10,7 +10,6 @@ const JSZip = require('jszip');
 const { getWdtLibraryJar } = require('../wktTools');
 const fs = require('fs');
 const path = require('path');
-const metadata = require('./model.json');
 
 async function getAliasInfo() {
   const WDT_ALIAS_REGEX= /^oracle\/weblogic\/deploy\/aliases\/category_modules\/(.*)\.json$/;
@@ -40,6 +39,18 @@ async function getAliasInfo() {
 }
 
 function getMetadata() {
+  const metadata = {};
+  const metadataDir = path.normalize(path.join(__dirname, 'metadata'));
+  const files = fs.readdirSync(metadataDir);
+
+  files.forEach(file => {
+    const filePath = path.join(metadataDir, file);
+    const data = fs.readFileSync(filePath, 'utf8');
+    const jsonData = JSON.parse(data);
+    for (const key in jsonData) {
+      metadata[key] = jsonData[key];
+    }
+  });
   return metadata;
 }
 

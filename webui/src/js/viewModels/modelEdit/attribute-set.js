@@ -16,7 +16,7 @@ function(accUtils, ModelEditHelper) {
     this.attributes = args.attributes;
 
     this.attributeConfig = attribute => {
-      return ModelEditHelper.createAttributeModuleConfig(attribute, ATTRIBUTE_MAP, MODEL_PATH);
+      return ModelEditHelper.createAttributeModuleConfig(MODEL_PATH, attribute, ATTRIBUTE_MAP);
     };
   }
 
