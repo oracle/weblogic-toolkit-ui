@@ -1,0 +1,9 @@
+{
+  "Server": {
+    "summaryAttributes": {
+      "Cluster": {},
+      "ListenPort": {},
+      "SSL/ListenPort": {}
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "Application": {
+    "summaryAttributes": {
+      "SourcePath": {}
+    },
+    "sections": [
+      {
+        "type": "inline",
+        "contents": [
+          {
+            "type": "attributeSet",
+            "attributes": [
+              "SourcePath",
+              "DeploymentOrder",
+              "PlanDir",
+              "PlanPath",
+              "Target"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "collapsible",
+        "title": "advanced-label",
+        "contents": [
+          {
+            "type": "attributeSet",
+            "remainder": true
+          }
+        ]
+      }
+    ]
+  }
+}

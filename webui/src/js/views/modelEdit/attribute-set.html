@@ -1,8 +1,8 @@
 <!--
- Copyright (c) 2024, Oracle and/or its affiliates.
+ Copyright (c) 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
-<oj-c-form-layout max-columns="2" direction="row">
+<oj-c-form-layout class="wkt-model-edit-attribute-form" max-columns="2" direction="row">
   <oj-bind-for-each data="[[attributes]]">
     <template data-oj-as="attribute">
       <oj-module config="[[attributeConfig(attribute.data)]]"></oj-module>

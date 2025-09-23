@@ -35,7 +35,6 @@ function(accUtils, MessageHelper, ModuleElementUtils) {
         name: 'modelEdit/instances-table',
         params: {
           modelPath: MODEL_PATH,
-          menuLink: true
         }
       });
     };

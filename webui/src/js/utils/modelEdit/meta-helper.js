@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2024, 2025, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -29,15 +29,15 @@ define([],
         return metadata['contentPath'];
       };
 
-      this.getAttributeGroups = aliasPath => {
-        const metadata = this.getMetadata(aliasPath);
-        return metadata['attributeGroups'] || [];
-      };
-
       this.getAttributeDetails = (aliasPath, attributeName) => {
         const metadata = this.getMetadata(aliasPath);
         const attributes = metadata['attributeDetails'] || {};
         return attributes[attributeName] || {};
+      };
+
+      this.getSections = aliasPath => {
+        const metadata = this.getMetadata(aliasPath);
+        return metadata['sections'] || [];
       };
 
       this.getNameValidators = aliasPath => {

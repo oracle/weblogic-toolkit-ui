@@ -13,10 +13,10 @@ function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper) 
   function FolderContentViewModel(args) {
     // Display the attribute groups, single folders, and multiple folders for a model path.
     // Customizations from MetaHelper are taken into account.
-    // This is usually embedded in folder-page or folder-dialog.
+    // This is usually embedded in folder-page or folder-section.
 
     const MODEL_PATH = args.modelPath;
-    const TEMP_MODEL = args.model;
+    const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
 
     this.subscriptions = [];
 
@@ -31,35 +31,81 @@ function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper) 
       });
     };
 
-    const aliasAttributesMap = AliasHelper.getAttributesMap(MODEL_PATH);
-    this.hasAttributes = !!Object.keys(aliasAttributesMap).length;
+    const metaSections = MetaHelper.getSections(ALIAS_PATH);
+    const attributeMap = ModelEditHelper.createAttributeMap(MODEL_PATH, {}, this.subscriptions);
 
-    this.attributeGroupsModuleConfig = ModelEditHelper.createAttributeGroupsConfig(MODEL_PATH, TEMP_MODEL);
+    // collect the configured metadata attribute names, and check for a content group with remainder=true
 
-    this.singleFolders = [];
-    this.multiFolders = [];
+    let remainderContent = null;
+    const knownAttributeNames = [];
+    metaSections.forEach(metaSection => {
+      const contents = metaSection['contents'] || [];
+      contents.forEach(content => {
+        const attributeNames = content['attributes'] || [];
+        knownAttributeNames.push(...attributeNames);
+        if(content['remainder']) {
+          remainderContent = content;
+        }
+      });
+    });
+
+    const remainingNames = ModelEditHelper.getRemainingAttributeNames(attributeMap, knownAttributeNames);
+
+    this.sections = [];
+    metaSections.forEach(metaSection => {
+      if(metaSection.type === 'inline') {
+        const inlineConfig = ModelEditHelper.createInlineSectionConfig(MODEL_PATH, metaSection, attributeMap, remainingNames);
+        this.sections.push({
+          type: metaSection.type,
+          moduleConfig: inlineConfig
+        });
+      }
+
+      if(metaSection.type === 'collapsible') {
+        const collapsibleConfig = ModelEditHelper.createCollapsibleSectionConfig(MODEL_PATH, metaSection, attributeMap, remainingNames);
+        this.sections.push({
+          type: metaSection.type,
+          moduleConfig: collapsibleConfig
+        });
+      }
+    });
+
+    if(remainderContent == null && remainingNames.length) {
+      console.log('REMAINDER NOT ACCOUNTED FOR: ' + MODEL_PATH);
+      const remainderConfig = ModelEditHelper.createAttributeSetModuleConfig(MODEL_PATH, remainingNames, attributeMap);
+      this.sections.push({
+        type: 'remainder',
+        moduleConfig: remainderConfig
+      });
+    }
+
+    // TODO: these should ony apply to unused subfolders
 
     const folders = AliasHelper.getFolderNames(MODEL_PATH);
     folders.forEach(folderName => {
       const folderPath = [...MODEL_PATH, folderName];
-      const aliasPath = AliasHelper.getAliasPath(folderPath);
-      const folderInfo = {
-        title: MessageHelper.getFolderLabel(aliasPath),
-        modelPath: folderPath
-      };
-
       if(AliasHelper.isMultiplePath(folderPath)) {
-        this.multiFolders.push(folderInfo);
-      } else {
-        folderInfo['attributesMap'] = AliasHelper.getAttributesMap(folderPath);
-        folderInfo['folderNames'] = AliasHelper.getFolderNames(folderPath);
-        this.singleFolders.push(folderInfo);
+        const multiConfig = ModelEditHelper.createInstancesSectionConfig(folderPath);
+        this.sections.push({
+          type: 'instanceTable',
+          moduleConfig: multiConfig
+        });
       }
     });
 
-    this.tableModuleConfig = folderInfo => {
-      return ModelEditHelper.createInstancesTableModuleConfig(folderInfo.modelPath, TEMP_MODEL);
-    };
+    // TODO: these shouldn't be inline links, maybe tabs?
+
+    folders.forEach(folderName => {
+      const folderPath = [...MODEL_PATH, folderName];
+      if(!AliasHelper.isMultiplePath(folderPath)) {
+        // const subfolderConfig = ModelEditHelper.createFolderSectionConfig(folderPath);
+        const subfolderConfig = ModelEditHelper.createFolderLinkSectionConfig(folderPath);
+        this.sections.push({
+          type: 'subfolder',
+          moduleConfig: subfolderConfig
+        });
+      }
+    });
   }
 
   return FolderContentViewModel;

@@ -1,0 +1,101 @@
+{
+  "RCUDbInfo": {
+    "attributeDetails": {
+      "javax.net.ssl.keyStoreType": {
+        "options": [
+          { "key": "SSO", "label": "SSO" },
+          { "key": "PKCS12", "label": "PKCS12" },
+          { "key": "JKS", "label": "JKS" }
+        ]
+      },
+      "javax.net.ssl.trustStoreType": {
+        "options": [
+          { "key": "SSO", "label": "SSO" },
+          { "key": "PKCS12", "label": "PKCS12" },
+          { "key": "JKS", "label": "JKS" }
+        ]
+      },
+      "oracle_database_connection_type": {
+        "disabled": "notOracleDatabaseType",
+        "options": [
+          { "key": "SSL", "label": "SSL" },
+          { "key": "ATP", "label": "ATP" }
+        ]
+      },
+      "rcu_database_type": {
+        "options": [
+          { "key": "ORACLE", "label": "ORACLE" },
+          { "key": "EBR", "label": "EBR" },
+          { "key": "SQLSERVER", "label": "SQLSERVER" },
+          { "key": "DB2", "label": "DB2" },
+          { "key": "MYSQL", "label": "MYSQL" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "inline",
+        "contents": [
+          {
+            "title": "rcudbinfo-connection-label",
+            "type": "attributeSet",
+            "attributes": [
+              "rcu_database_type",
+              "oracle_database_connection_type",
+              "rcu_admin_password",
+              "rcu_admin_user",
+              "rcu_db_conn_string",
+              "rcu_prefix",
+              "rcu_schema_password",
+              "tns.alias"
+            ]
+          },
+          {
+            "title": "rcudbinfo-atp-label",
+            "type": "attributeSet",
+            "attributes": [
+              "atp.default.tablespace",
+              "atp.temp.tablespace"
+            ]
+          },
+          {
+            "title": "rcudbinfo-stores-label",
+            "type": "attributeSet",
+            "attributes": [
+              "javax.net.ssl.keyStore",
+              "javax.net.ssl.keyStoreType",
+              "javax.net.ssl.keyStorePassword",
+              "javax.net.ssl.trustStore",
+              "javax.net.ssl.trustStoreType",
+              "javax.net.ssl.trustStorePassword"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "collapsible",
+        "title": "advanced-label",
+        "contents": [
+          {
+            "type": "attributeSet",
+            "attributes": [
+              "rcu_unicode_support"
+            ],
+            "remainder": true
+          }
+        ]
+      },
+      {
+        "type": "hidden",
+        "contents": [
+          {
+            "type": "attributeSet",
+            "attributes": [
+              "databaseType"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

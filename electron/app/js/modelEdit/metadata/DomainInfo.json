@@ -1,0 +1,39 @@
+{
+  "DomainInfo": {
+    "sections": [
+      {
+        "type": "inline",
+        "contents": [
+          {
+            "type": "attributeSet",
+            "attributes": [
+              "AdminUserName",
+              "AdminPassword"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "collapsible",
+        "title": "advanced-label",
+        "contents": [
+          {
+            "type": "attributeSet",
+            "remainder": true
+          }
+        ]
+      },
+      {
+        "type": "hidden",
+        "contents": [
+          {
+            "type": "attributeSet",
+            "attributes": [
+              "OPSSSecrets"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
