@@ -1,0 +1,20 @@
+<!--
+ Copyright (c) 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
+ -->
+
+<div>
+  <oj-c-tab-bar
+    id="tabSection"
+    data="[[tabsData]]"
+    edge="top"
+    layout="condense"
+    overflow="conveyor"
+    selection="{{selectedTab}}"
+  >
+  </oj-c-tab-bar>
+</div>
+
+<div class="wkt-model-edit-tab-content">
+    <oj-module config="[[tabModuleConfig]]"></oj-module>
+</div>

@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2024, 2025, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -29,9 +29,10 @@ define(['knockout'],
         // TODO: find the deepest node in modelPath that is in the navigation
         const navigationPath = fullPath.slice(0, 3);
 
-
         const parentPath = navigationPath.slice(0, -1);
-        this.openNavigation(parentPath);
+        if(parentPath.length) {
+          this.openNavigation(parentPath);
+        }
 
         const navigationKey = navigationPath.join('/');
         this.menuKey(navigationKey);

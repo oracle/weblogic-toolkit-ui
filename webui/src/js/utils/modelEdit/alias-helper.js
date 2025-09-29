@@ -43,7 +43,7 @@ define(['knockout', 'utils/wkt-logger'],
               return ['DomainInfo'];
             }
             if (modelPath[0] === 'topology') {
-              return ['Domain'];
+              return ['Topology'];
             }
             throw new Error('Bad top-level path: ' + modelPath);
           }
@@ -109,7 +109,7 @@ define(['knockout', 'utils/wkt-logger'],
           const aliasPath = this.getAliasPath(modelPath);
           const aliasNode = aliasData.paths[aliasPath.join('/')];
           if(!aliasNode) {
-            WktLogger.error(`isMultiplePath: Alias folder path ${dir} not found for path ${modelPath}`);
+            WktLogger.error(`isMultiplePath: Alias folder path ${aliasNode} not found for path ${modelPath}`);
             return false;
           }
           return aliasNode['isMultiple'];

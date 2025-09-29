@@ -2,36 +2,26 @@
   "DomainInfo": {
     "sections": [
       {
-        "type": "inline",
-        "contents": [
-          {
-            "type": "attributeSet",
-            "attributes": [
-              "AdminUserName",
-              "AdminPassword"
-            ]
-          }
+        "type": "attributes",
+        "attributes": [
+          "AdminUserName",
+          "AdminPassword"
         ]
       },
       {
         "type": "collapsible",
         "title": "advanced-label",
-        "contents": [
+        "sections": [
           {
-            "type": "attributeSet",
-            "remainder": true
+            "type": "attributes",
+            "addRemainingAttributes": true
           }
         ]
       },
       {
         "type": "hidden",
-        "contents": [
-          {
-            "type": "attributeSet",
-            "attributes": [
-              "OPSSSecrets"
-            ]
-          }
+        "attributes": [
+          "OPSSSecrets"
         ]
       }
     ]

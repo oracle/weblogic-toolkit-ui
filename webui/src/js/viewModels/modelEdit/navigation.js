@@ -37,6 +37,11 @@ function(accUtils, ko, ModelEditHelper, AliasHelper, NavigationHelper, MessageHe
       subscriptions.push(NavigationHelper.menuKey.subscribe(() => {
         this.selectMenuItem();
       }));
+
+      if(!NavigationHelper.menuKey()) {  // if no previous selection, select first nav entry
+        const firstNavEntry = this.navData[0];
+        NavigationHelper.navigateToElement(firstNavEntry.modelPath);
+      }
     };
 
     this.disconnected = () => {

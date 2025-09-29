@@ -23,7 +23,7 @@ function(accUtils, ko, ModelEditHelper, MessageHelper, AliasHelper) {
 
     this.title = MessageHelper.getFolderLabel(ALIAS_PATH);
 
-    this.tableConfig = ModelEditHelper.createInstancesTableModuleConfig(MODEL_PATH);
+    this.tableConfig = ModelEditHelper.createInstancesTableConfig(MODEL_PATH);
   }
 
   return InstancesSectionViewModel;

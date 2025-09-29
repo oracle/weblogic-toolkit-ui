@@ -33,79 +33,87 @@ function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper) 
 
     const metaSections = MetaHelper.getSections(ALIAS_PATH);
     const attributeMap = ModelEditHelper.createAttributeMap(MODEL_PATH, {}, this.subscriptions);
+    const folderInfo = getFolderInfo(metaSections, attributeMap);
 
-    // collect the configured metadata attribute names, and check for a content group with remainder=true
+    this.sectionsConfig = ModelEditHelper.createSectionsConfig(MODEL_PATH, metaSections, folderInfo, attributeMap, true);
 
-    let remainderContent = null;
-    const knownAttributeNames = [];
-    metaSections.forEach(metaSection => {
-      const contents = metaSection['contents'] || [];
-      contents.forEach(content => {
-        const attributeNames = content['attributes'] || [];
-        knownAttributeNames.push(...attributeNames);
-        if(content['remainder']) {
-          remainderContent = content;
+    // get summary information about the top-level metadata sections, such as:
+    // - are tabs configured or needed?
+    // - is there a specified location for remaining attributes?
+    // - is there a specified location for remaining subfolders?
+    function getFolderInfo(metaSections, attributeMap) {
+      const assignmentInfo = {
+        assignedAttributes: [],
+        assignedFolders: [],
+        remainingAttributesAssigned: false,
+        remainingFoldersAssigned: false
+      };
+      updateAssignmentInfo(assignmentInfo, metaSections);
+
+      let hasInlineSections = false;
+      let hasTabSections = false;
+
+      metaSections.forEach(section => {
+        if (['attributes', 'collapsible'].includes(section.type)) {
+          hasInlineSections = true;
+        }
+
+        if (section.type === 'tab') {
+          hasTabSections = true;
         }
       });
-    });
 
-    const remainingNames = ModelEditHelper.getRemainingAttributeNames(attributeMap, knownAttributeNames);
+      const remainingAttributes = ModelEditHelper.getRemainingAttributeNames(attributeMap, assignmentInfo.assignedAttributes);
+      // const remainingFolders = [];  // TODO: figure this out
+      const remainingFolders = AliasHelper.getFolderNames(MODEL_PATH);
 
-    this.sections = [];
-    metaSections.forEach(metaSection => {
-      if(metaSection.type === 'inline') {
-        const inlineConfig = ModelEditHelper.createInlineSectionConfig(MODEL_PATH, metaSection, attributeMap, remainingNames);
-        this.sections.push({
-          type: metaSection.type,
-          moduleConfig: inlineConfig
-        });
-      }
+      const usesTabs = hasTabSections || remainingFolders.length > 1;
 
-      if(metaSection.type === 'collapsible') {
-        const collapsibleConfig = ModelEditHelper.createCollapsibleSectionConfig(MODEL_PATH, metaSection, attributeMap, remainingNames);
-        this.sections.push({
-          type: metaSection.type,
-          moduleConfig: collapsibleConfig
-        });
-      }
-    });
-
-    if(remainderContent == null && remainingNames.length) {
-      console.log('REMAINDER NOT ACCOUNTED FOR: ' + MODEL_PATH);
-      const remainderConfig = ModelEditHelper.createAttributeSetModuleConfig(MODEL_PATH, remainingNames, attributeMap);
-      this.sections.push({
-        type: 'remainder',
-        moduleConfig: remainderConfig
-      });
+      return {
+        remainingAttributes,
+        remainingFolders,
+        remainingAttributesAssigned: assignmentInfo.remainingAttributesAssigned,
+        remainingFoldersAssigned: assignmentInfo.remainingFoldersAssigned,
+        usesTabs
+      };
     }
 
-    // TODO: these should ony apply to unused subfolders
+    // get unclaimed attribute / folder information about nested sections, such as:
+    // - attributes / folders that are assigned
+    // - are there sections that include remaining attributes / folders?
+    function updateAssignmentInfo(assignmentInfo, sections) {
+      const assignedAttributes = [];
+      const assignedFolders = [];
+      let remainingAttributesAssigned = assignmentInfo.remainingAttributesAssigned;
+      let remainingFoldersAssigned = assignmentInfo.remainingFoldersAssigned;
 
-    const folders = AliasHelper.getFolderNames(MODEL_PATH);
-    folders.forEach(folderName => {
-      const folderPath = [...MODEL_PATH, folderName];
-      if(AliasHelper.isMultiplePath(folderPath)) {
-        const multiConfig = ModelEditHelper.createInstancesSectionConfig(folderPath);
-        this.sections.push({
-          type: 'instanceTable',
-          moduleConfig: multiConfig
-        });
-      }
-    });
+      sections.forEach(section => {
+        // several section types can have attributes, including: attributes, custom, hidden
+        const attributes = section.attributes || [];
+        assignedAttributes.push(...attributes);
+        if (section.addRemainingAttributes) {
+          remainingAttributesAssigned = true;
+        }
 
-    // TODO: these shouldn't be inline links, maybe tabs?
+        // several section types can list folders, including: custom, hidden
+        const folders = section.folders || [];
+        assignedFolders.push(...folders);
+        if (section.addRemainingFolders) {
+          remainingFoldersAssigned = true;
+        }
 
-    folders.forEach(folderName => {
-      const folderPath = [...MODEL_PATH, folderName];
-      if(!AliasHelper.isMultiplePath(folderPath)) {
-        // const subfolderConfig = ModelEditHelper.createFolderSectionConfig(folderPath);
-        const subfolderConfig = ModelEditHelper.createFolderLinkSectionConfig(folderPath);
-        this.sections.push({
-          type: 'subfolder',
-          moduleConfig: subfolderConfig
-        });
-      }
-    });
+        // several section types can list subsections, including: collapsible, tab, custom
+        const subsections = section.sections || [];
+        if(sections.length) {
+          updateAssignmentInfo(assignmentInfo, subsections);
+        }
+      });
+
+      assignmentInfo.assignedAttributes.push(...assignedAttributes);
+      assignmentInfo.assignedFolders.push(...assignedFolders);
+      assignmentInfo.remainingAttributesAssigned |= remainingAttributesAssigned;
+      assignmentInfo.remainingFoldersAssigned |= remainingFoldersAssigned;
+    }
   }
 
   return FolderContentViewModel;

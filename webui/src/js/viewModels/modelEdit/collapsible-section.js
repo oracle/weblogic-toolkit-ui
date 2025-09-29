@@ -14,7 +14,7 @@ function(accUtils, ko, ModelEditHelper, MessageHelper) {
     const MODEL_PATH = args.modelPath;
     const META_SECTION = args.metaSection;
     const ATTRIBUTE_MAP = args.attributeMap;
-    const REMAINING_NAMES = args.remainingNames;
+    const FOLDER_INFO = args.folderInfo;
 
     const TITLE = META_SECTION.title;
 
@@ -24,8 +24,9 @@ function(accUtils, ko, ModelEditHelper, MessageHelper) {
 
     this.collapsibleLabel = TITLE ? MessageHelper.t(TITLE) : null;
 
-    this.inlineModuleConfig = ModelEditHelper.createInlineSectionConfig(
-      MODEL_PATH, META_SECTION, ATTRIBUTE_MAP, REMAINING_NAMES);
+    const sections = META_SECTION['sections'] || [];
+    this.sectionsModuleConfig = ModelEditHelper.createSectionsConfig(
+      MODEL_PATH, sections, FOLDER_INFO, ATTRIBUTE_MAP, false);
   }
 
   return CollapsibleSectionViewModel;

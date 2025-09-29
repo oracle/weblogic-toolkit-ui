@@ -866,6 +866,10 @@ h6.wkt-panel-heading {
   margin-top: 0;
 }
 
+.wkt-model-edit-tab-content {
+  margin-top: 1em;
+}
+
 .wkt-model-edit-collapsible-content {
   padding-top: 1em;
 }

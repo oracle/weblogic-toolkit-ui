@@ -7,20 +7,21 @@
 
 define(['accUtils', 'knockout',
   'utils/modelEdit/model-edit-helper', 'utils/modelEdit/meta-helper', 'utils/modelEdit/message-helper',
-  'utils/modelEdit/alias-helper','utils/modelEdit/navigation-helper',
-  'oj-c/labelled-link'
+  'utils/modelEdit/alias-helper'
 ],
-function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper, NavigationHelper) {
-  function FolderLinkViewModel(args) {
+function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper) {
+  function FolderSectionViewModel(args) {
     const MODEL_PATH = args.modelPath;
     const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
 
+    this.connected = () => {
+      accUtils.announce('Folder Section loaded.', 'assertive');
+    };
+
     this.title = MessageHelper.getFolderLabel(ALIAS_PATH);
 
-    this.goToFolder = () => {
-      NavigationHelper.navigateToElement(MODEL_PATH);
-    };
+    this.folderConfig = ModelEditHelper.createFolderContentConfig(MODEL_PATH);
   }
 
-  return FolderLinkViewModel;
+  return FolderSectionViewModel;
 });
