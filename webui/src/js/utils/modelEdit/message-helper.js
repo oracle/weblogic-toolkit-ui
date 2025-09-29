@@ -103,7 +103,7 @@ function (ko, i18n, AliasHelper) {
     };
 
     this.getFolderTypeLabel = aliasPath => {
-      // elementLabel is the singular: "Server", not "Servers"
+      // folderTypeLabel is the singular: "Server", not "Servers"
       return getFolderMessage(aliasPath, 'typeLabel');
     };
 

@@ -233,7 +233,7 @@ function (ko, jsYaml, project, utils,
     // *****************************************
 
     // create a module configuration for a single attribute
-    this.createAttributeModuleConfig = (modelPath, key, attributeMap) => {
+    this.createAttributeEditorConfig = (modelPath, key, attributeMap) => {
       const attribute = attributeMap[key];
       if(!attribute) {
         WktLogger.error(`Attribute ${key} not found, available: ${Object.keys(attributeMap)}`);
@@ -243,35 +243,22 @@ function (ko, jsYaml, project, utils,
       return ModuleElementUtils.createConfig({
         name: 'modelEdit/attribute-editor',
         params: {
-          attribute: attribute,
-          modelPath: modelPath,
-          attributeMap: attributeMap  // may be disabled by values of other attributes
-        }
-      });
-    };
-
-    // create a module config for inline page section
-    this.createInlineSectionConfig = (modelPath, metaSection, attributeMap, remainingNames) => {
-      return ModuleElementUtils.createConfig({
-        name: 'modelEdit/inline-section',
-        params: {
-          metaSection: metaSection,
-          modelPath: modelPath,
-          attributeMap: attributeMap,
-          remainingNames: remainingNames
+          attribute,
+          modelPath,
+          attributeMap  // may be disabled by values of other attributes
         }
       });
     };
 
     // create a module config for collapsible page section
-    this.createCollapsibleSectionConfig = (modelPath, metaSection, attributeMap, remainingNames) => {
+    this.createCollapsibleSectionConfig = (modelPath, metaSection, attributeMap, folderInfo) => {
       return ModuleElementUtils.createConfig({
         name: 'modelEdit/collapsible-section',
         params: {
-          metaSection: metaSection,
-          modelPath: modelPath,
-          attributeMap: attributeMap,
-          remainingNames: remainingNames
+          metaSection,
+          modelPath,
+          attributeMap,
+          folderInfo
         }
       });
     };
@@ -285,11 +272,16 @@ function (ko, jsYaml, project, utils,
       });
     };
 
-    this.createFolderSectionConfig = modelPath => {
+    // create sections config for folder-content, collapsible, or tab
+    this.createSectionsConfig = (modelPath, metaSections, folderInfo, attributeMap, isTopSections) => {
       return ModuleElementUtils.createConfig({
-        name: 'modelEdit/folder-content',
+        name: 'modelEdit/section-set',
         params: {
-          modelPath
+          modelPath,
+          metaSections,
+          folderInfo,
+          attributeMap,
+          isTopSections
         }
       });
     };
@@ -303,23 +295,72 @@ function (ko, jsYaml, project, utils,
       });
     };
 
-    this.createAttributeSetModuleConfig = (modelPath, attributes, attributeMap) => {
+    this.createFolderSectionConfig = modelPath => {
       return ModuleElementUtils.createConfig({
-        name: 'modelEdit/attribute-set',
+        name: 'modelEdit/folder-section',
         params: {
-          attributes: attributes,
-          modelPath: modelPath,
-          attributeMap: attributeMap
+          modelPath
         }
       });
     };
 
-    this.createInstancesTableModuleConfig = modelPath => {
+    this.createFolderContentConfig = modelPath => {
+      return ModuleElementUtils.createConfig({
+        name: 'modelEdit/folder-content',
+        params: {
+          modelPath
+        }
+      });
+    };
+
+    this.createAttributeSetConfig = (modelPath, attributes, attributeMap) => {
+      return ModuleElementUtils.createConfig({
+        name: 'modelEdit/attribute-set',
+        params: {
+          modelPath,
+          attributes,
+          attributeMap
+        }
+      });
+    };
+
+    this.createAttributesSectionConfig = (modelPath, metaSection, attributeMap, folderInfo) => {
+      return ModuleElementUtils.createConfig({
+        name: 'modelEdit/attributes-section',
+        params: {
+          modelPath,
+          metaSection,
+          attributeMap,
+          folderInfo
+        }
+      });
+    };
+
+    this.createInstancesTableConfig = modelPath => {
       return ModuleElementUtils.createConfig({
         name: 'modelEdit/instances-table',
         params: {
           modelPath
         }
+      });
+    };
+
+    this.createTabsConfig = (modelPath, tabs, folderInfo, attributeMap, isTopSections) => {
+      return ModuleElementUtils.createConfig({
+        name: 'modelEdit/tabs-section',
+        params: {
+          modelPath,
+          tabs,
+          folderInfo,
+          attributeMap,
+          isTopSections
+        }
+      });
+    };
+
+    this.createEmptyConfig = () => {
+      return ModuleElementUtils.createConfig({
+        name: 'empty-view'
       });
     };
 

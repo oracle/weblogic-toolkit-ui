@@ -5,16 +5,11 @@
     },
     "sections": [
       {
-        "type": "inline",
-        "contents": [
-          {
-            "type": "attributeSet",
-            "attributes": [
-              "Username"
-            ],
-            "remainder": true
-          }
-        ]
+        "type": "attributes",
+        "attributes": [
+          "Username"
+        ],
+        "addRemainingAttributes": true
       }
     ]
   }

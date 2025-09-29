@@ -26,6 +26,7 @@ async function getAliasInfo() {
     if (match) {
       let name = match[1];
       name = (name === 'AppDeployment') ? 'Application' : name;  // WDT quirk
+      name = (name === 'Domain') ? 'Topology' : name;  // name for UI references
 
       const zipEntry = zip.file(zipEntryName);
       const content = await zipEntry.async('text');

@@ -5,27 +5,22 @@
     },
     "sections": [
       {
-        "type": "inline",
-        "contents": [
-          {
-            "type": "attributeSet",
-            "attributes": [
-              "SourcePath",
-              "DeploymentOrder",
-              "PlanDir",
-              "PlanPath",
-              "Target"
-            ]
-          }
+        "type": "attributes",
+        "attributes": [
+          "SourcePath",
+          "DeploymentOrder",
+          "PlanDir",
+          "PlanPath",
+          "Target"
         ]
       },
       {
         "type": "collapsible",
         "title": "advanced-label",
-        "contents": [
+        "sections": [
           {
-            "type": "attributeSet",
-            "remainder": true
+            "type": "attributes",
+            "addRemainingAttributes": true
           }
         ]
       }

@@ -34,66 +34,56 @@
     },
     "sections": [
       {
-        "type": "inline",
-        "contents": [
-          {
-            "title": "rcudbinfo-connection-label",
-            "type": "attributeSet",
-            "attributes": [
-              "rcu_database_type",
-              "oracle_database_connection_type",
-              "rcu_admin_password",
-              "rcu_admin_user",
-              "rcu_db_conn_string",
-              "rcu_prefix",
-              "rcu_schema_password",
-              "tns.alias"
-            ]
-          },
-          {
-            "title": "rcudbinfo-atp-label",
-            "type": "attributeSet",
-            "attributes": [
-              "atp.default.tablespace",
-              "atp.temp.tablespace"
-            ]
-          },
-          {
-            "title": "rcudbinfo-stores-label",
-            "type": "attributeSet",
-            "attributes": [
-              "javax.net.ssl.keyStore",
-              "javax.net.ssl.keyStoreType",
-              "javax.net.ssl.keyStorePassword",
-              "javax.net.ssl.trustStore",
-              "javax.net.ssl.trustStoreType",
-              "javax.net.ssl.trustStorePassword"
-            ]
-          }
+        "type": "attributes",
+        "title": "rcudbinfo-connection-label",
+        "attributes": [
+          "rcu_database_type",
+          "oracle_database_connection_type",
+          "rcu_admin_password",
+          "rcu_admin_user",
+          "rcu_db_conn_string",
+          "rcu_prefix",
+          "rcu_schema_password",
+          "tns.alias"
+        ]
+      },
+      {
+        "type": "attributes",
+        "title": "rcudbinfo-atp-label",
+        "attributes": [
+          "atp.default.tablespace",
+          "atp.temp.tablespace"
+        ]
+      },
+      {
+        "type": "attributes",
+        "title": "rcudbinfo-stores-label",
+        "attributes": [
+          "javax.net.ssl.keyStore",
+          "javax.net.ssl.keyStoreType",
+          "javax.net.ssl.keyStorePassword",
+          "javax.net.ssl.trustStore",
+          "javax.net.ssl.trustStoreType",
+          "javax.net.ssl.trustStorePassword"
         ]
       },
       {
         "type": "collapsible",
         "title": "advanced-label",
-        "contents": [
+        "sections": [
           {
-            "type": "attributeSet",
+            "type": "attributes",
             "attributes": [
               "rcu_unicode_support"
             ],
-            "remainder": true
+            "addRemainingAttributes": true
           }
         ]
       },
       {
         "type": "hidden",
-        "contents": [
-          {
-            "type": "attributeSet",
-            "attributes": [
-              "databaseType"
-            ]
-          }
+        "attributes": [
+          "databaseType"
         ]
       }
     ]
