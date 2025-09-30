@@ -1,0 +1,12 @@
+{
+  "name": "nav-resources-label",
+  "id": "resources-id",
+  "icon": "oj-ux-ico-folder",
+  "page": "../empty-view",
+  "children": [
+    {
+      "icon": "oj-ux-ico-list",
+      "modelPath": ["resources", "JDBCSystemResource"]
+    }
+  ]
+}

@@ -15,6 +15,7 @@ function(accUtils, ko, ModelEditHelper, AliasHelper, NavigationHelper, MessageHe
   function NavigationViewModel() {
     this.KnockoutTemplateUtils = KnockoutTemplateUtils;
 
+    this.navData = NavigationHelper.navData;
     this.menuExpanded = NavigationHelper.menuExpanded;
     this.menuKey = NavigationHelper.menuKey;
     this.selectedPath = NavigationHelper.selectedPath;
@@ -76,6 +77,8 @@ function(accUtils, ko, ModelEditHelper, AliasHelper, NavigationHelper, MessageHe
     // assign IDs and names based on model path, add child observables, ...
     this.initializeNavList = navList => {
       navList.forEach(navEntry => {
+        navEntry.name = navEntry.name ? this.t(navEntry.name) : null;
+
         if(navEntry.modelPath) {
           const aliasPath = AliasHelper.getAliasPath(navEntry.modelPath);
           navEntry.id = navEntry.id || navEntry.modelPath.join('/');
@@ -148,96 +151,6 @@ function(accUtils, ko, ModelEditHelper, AliasHelper, NavigationHelper, MessageHe
         return (a.name < b.name) ? -1 : ((a.name > b.name) ? 1 : 0);
       });
     };
-
-    this.navData = [
-      {
-        modelPath: ['domainInfo'],
-        icon: 'oj-ux-ico-folder',
-        children: [
-          {
-            modelPath: ['domainInfo', 'OPSSInitialization'],
-            icon: 'oj-ux-ico-file',
-            page: '../empty-view',
-            children: [
-              {
-                icon: 'oj-ux-ico-list',
-                modelPath: ['domainInfo', 'OPSSInitialization', 'Credential']
-              },
-            ]
-          },
-          {
-            modelPath: ['domainInfo', 'RCUDbInfo'],
-            icon: 'oj-ux-ico-file',
-          },
-          {
-            modelPath: ['domainInfo', 'WLSUserPasswordCredentialMappings'],
-            icon: 'oj-ux-ico-file',
-            page: '../empty-view',
-            children: [
-              {
-                icon: 'oj-ux-ico-list',
-                modelPath: ['domainInfo', 'WLSUserPasswordCredentialMappings', 'CrossDomain']
-              },
-              {
-                icon: 'oj-ux-ico-list',
-                modelPath: ['domainInfo', 'WLSUserPasswordCredentialMappings', 'RemoteResource']
-              }
-            ]
-          },
-          {
-            modelPath: ['domainInfo', 'WLSPolicies'],
-            icon: 'oj-ux-ico-file'
-          },
-          {
-            modelPath: ['domainInfo', 'WLSRoles'],
-            icon: 'oj-ux-ico-file'
-          }
-        ]
-      },
-      {
-        modelPath: ['topology'],
-        name: this.t('nav-topology-label'),
-        icon: 'oj-ux-ico-folder',
-        children: [
-          {
-            icon: 'oj-ux-ico-list',
-            modelPath: ['topology', 'Server']
-          },
-          {
-            icon: 'oj-ux-ico-list',
-            modelPath: ['topology', 'Cluster']
-          }
-        ]
-      },
-      {
-        name: this.t('nav-resources-label'),
-        id: 'resources-id',
-        icon: 'oj-ux-ico-folder',
-        page: '../empty-view',
-        children: [
-          {
-            icon: 'oj-ux-ico-list',
-            modelPath: ['resources', 'JDBCSystemResource']
-          }
-        ]
-      },
-      {
-        name: this.t('nav-deployments-label'),
-        id: 'deployments-id',
-        icon: 'oj-ux-ico-folder',
-        page: '../empty-view',
-        children: [
-          {
-            icon: 'oj-ux-ico-list',
-            modelPath: ['appDeployments', 'Application']
-          },
-          {
-            icon: 'oj-ux-ico-list',
-            modelPath: ['appDeployments', 'Library']
-          }
-        ]
-      }
-    ];
   }
 
   return NavigationViewModel;

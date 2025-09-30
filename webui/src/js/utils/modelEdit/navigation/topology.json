@@ -1,0 +1,14 @@
+{
+  "modelPath": ["topology"],
+  "icon": "oj-ux-ico-folder",
+  "children": [
+    {
+      "icon": "oj-ux-ico-list",
+      "modelPath": ["topology", "Server"]
+    },
+    {
+      "icon": "oj-ux-ico-list",
+      "modelPath": ["topology", "Cluster"]
+    }
+  ]
+}

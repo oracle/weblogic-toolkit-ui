@@ -5,15 +5,15 @@
  */
 'use strict';
 
-define(['knockout'],
-  function (ko) {
+define(['knockout', 'utils/modeledit/navigation/all-navigation'],
+  function (ko, allNavigation) {
 
     function NavigationHelper() {
       // maintain and update the navigation state
 
+      this.navData = allNavigation;
       this.menuKey = ko.observable();  // a string with navigation menu key (model path)
       this.menuExpanded = ko.observable();   // a keySet with all the expanded menu nodes
-
       this.selectedPath = ko.observable();  // the model path of the selected item (maybe deeper than nav)
 
       // **************************************
