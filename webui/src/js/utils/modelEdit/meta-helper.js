@@ -5,16 +5,9 @@
  */
 'use strict';
 
-define([],
-  function () {
+define(['utils/modeledit/metadata/all-metadata'],
+  function (metadata) {
     function MetaHelper() {
-      let metadata = null;
-
-      window.api.ipc.invoke('get-model-edit-metadata')
-        .then(result => {
-          metadata = result;
-        });
-
       this.getMetadata = aliasPath => {
         const path = aliasPath.join('/');
         if(Object.keys(metadata).includes(path)) {

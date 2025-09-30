@@ -39,22 +39,6 @@ async function getAliasInfo() {
   return result;
 }
 
-function getMetadata() {
-  const metadata = {};
-  const metadataDir = path.normalize(path.join(__dirname, 'metadata'));
-  const files = fs.readdirSync(metadataDir);
-
-  files.forEach(file => {
-    const filePath = path.join(metadataDir, file);
-    const data = fs.readFileSync(filePath, 'utf8');
-    const jsonData = JSON.parse(data);
-    for (const key in jsonData) {
-      metadata[key] = jsonData[key];
-    }
-  });
-  return metadata;
-}
-
 function getMessageKeys() {
   // read these for each invocation, rather than require('../../locales/en/webui.json');
   // prevents cached data on front-end reload.
@@ -106,6 +90,5 @@ function addPaths(aliasFolder, path, pathMap) {
 
 module.exports = {
   getAliasInfo,
-  getMessageKeys,
-  getMetadata
+  getMessageKeys
 };
