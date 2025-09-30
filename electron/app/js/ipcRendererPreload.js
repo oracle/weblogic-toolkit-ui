@@ -219,8 +219,7 @@ contextBridge.exposeInMainWorld(
           'wrc-get-home-default-value',
           'wrc-set-home-and-start',
           'get-alias-info',  // model edit
-          'get-model-edit-message-keys',  // model edit
-          'get-model-edit-metadata'  // model edit
+          'get-model-edit-message-keys'  // model edit
         ];
         return new Promise((resolve, reject) => {
           if (validChannels.includes(channel)) {
