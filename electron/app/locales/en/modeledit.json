@@ -107,6 +107,7 @@
   "a-javax_net_ssl_trustStore-label": "SSL Truststore",
   "a-javax_net_ssl_trustStoreType-label": "SSL Truststore Type",
   "a-javax_net_ssl_trustStorePassword-label": "SSL Truststore Password",
+  "a-oracle_database_admin_role-label": "Oracle Database Admin Role",
   "a-oracle_database_connection_type-label": "Database Connection Type",
   "a-compInfoXMLLocation-label": "Comp Info XML Location",
   "a-oracle_net_tns_admin-label": "Oracle Net TNS Admin",
