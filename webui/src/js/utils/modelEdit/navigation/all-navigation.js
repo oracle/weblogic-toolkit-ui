@@ -5,13 +5,18 @@
  */
 'use strict';
 
-define(['text!./domain-info.json', 'text!./topology.json', 'text!./resources.json', 'text!./deployments.json'],
-  function(domainInfo, topology, resources, deployments) {
-    return [
-      JSON.parse(domainInfo),
-      JSON.parse(topology),
-      JSON.parse(resources),
-      JSON.parse(deployments)
-    ];
+define(
+  [
+    'text!./domain-info.json',
+    'text!./topology.json',
+    'text!./resources.json',
+    'text!./deployments.json'
+  ],
+  function() {
+    const allNavigation = [];
+    for (const arg of arguments) {
+      allNavigation.push(JSON.parse(arg));
+    }
+    return allNavigation;
   }
 );
