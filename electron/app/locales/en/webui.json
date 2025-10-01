@@ -1193,6 +1193,7 @@
   "wit-inspect-results-fmw-message": "Inspection of image {{imageTag}} found both Java and Oracle Fusion Middleware installations.",
   "wit-inspect-results-java-message": "Inspection of image {{imageTag}} found a Java installation.",
   "wit-inspector-empty-contents-message": "Inspection of image {{imageTag}} did not find Java or Oracle Fusion Middleware installations",
+  "wit-inspector-project-not-saved-error-prefix": "wit-inspector-project-not-saved-error-prefix",
 
   "wit-inspector-wdt-primary-aborted-error-title": "Inspect Primary Image Aborted",
   "wit-inspect-primary-results-success-message": "Inspector found both the WDT install home and model home and updated the project.",

@@ -6,7 +6,131 @@
   "children": [
     {
       "icon": "oj-ux-ico-list",
+      "modelPath": ["resources", "CoherenceClusterSystemResource"]
+    },
+    {
+      "icon": "oj-ux-ico-list",
+      "modelPath": ["resources", "CustomResource"]
+    },
+    {
+      "icon": "oj-ux-ico-folder",
+      "modelPath": ["resources", "EJBContainer"]
+    },
+    {
+      "icon": "oj-ux-ico-list",
+      "modelPath": ["resources", "FileStore"]
+    },
+    {
+      "icon": "oj-ux-ico-list",
+      "modelPath": ["resources", "ForeignJNDIProvider"]
+    },
+    {
+      "icon": "oj-ux-ico-list",
+      "modelPath": ["resources", "JDBCStore"]
+    },
+    {
+      "icon": "oj-ux-ico-list",
       "modelPath": ["resources", "JDBCSystemResource"]
+    },
+    {
+      "icon": "oj-ux-ico-list",
+      "modelPath": ["resources", "JMSBridgeDestination"]
+    },
+    {
+      "icon": "oj-ux-ico-list",
+      "modelPath": ["resources", "JMSServer"]
+    },
+    {
+      "icon": "oj-ux-ico-list",
+      "modelPath": ["resources", "JMSSystemResource"]
+    },
+    {
+      "icon": "oj-ux-ico-list",
+      "modelPath": ["resources", "JoltConnectionPool"]
+    },
+    {
+      "icon": "oj-ux-ico-list",
+      "modelPath": ["resources", "MailSession"]
+    },
+    {
+      "icon": "oj-ux-ico-list",
+      "modelPath": ["resources", "ManagedExecutorServiceTemplate"]
+    },
+    {
+      "icon": "oj-ux-ico-list",
+      "modelPath": ["resources", "ManagedScheduledExecutorServiceTemplate"]
+    },
+    {
+      "icon": "oj-ux-ico-list",
+      "modelPath": ["resources", "ManagedThreadFactoryTemplate"]
+    },
+    {
+      "icon": "oj-ux-ico-list",
+      "modelPath": ["resources", "MessagingBridge"]
+    },
+    {
+      "icon": "oj-ux-ico-list",
+      "modelPath": ["resources", "ODLConfiguration"]
+    },
+    {
+      "icon": "oj-ux-ico-list",
+      "modelPath": ["resources", "OHS"]
+    },
+    {
+      "icon": "oj-ux-ico-folder",
+      "modelPath": ["resources", "OptionalFeatureDeployment"]
+    },
+    {
+      "icon": "oj-ux-ico-list",
+      "modelPath": ["resources", "PathService"]
+    },
+    {
+      "icon": "oj-ux-ico-list",
+      "modelPath": ["resources", "SAFAgent"]
+    },
+    {
+      "icon": "oj-ux-ico-list",
+      "modelPath": ["resources", "SNMPAgent"]
+    },
+    {
+      "icon": "oj-ux-ico-folder",
+      "modelPath": ["resources", "SelfTuning"]
+    },
+    {
+      "icon": "oj-ux-ico-list",
+      "modelPath": ["resources", "ShutdownClass"]
+    },
+    {
+      "icon": "oj-ux-ico-list",
+      "modelPath": ["resources", "SingletonService"]
+    },
+    {
+      "icon": "oj-ux-ico-list",
+      "modelPath": ["resources", "SnmpAgentDeployment"]
+    },
+    {
+      "icon": "oj-ux-ico-list",
+      "modelPath": ["resources", "StartupClass"]
+    },
+    {
+      "icon": "oj-ux-ico-list",
+      "modelPath": ["resources", "SnmpAgentDeployment"]
+    },
+    {
+      "icon": "oj-ux-ico-list",
+      "modelPath": ["resources", "SystemComponent"]
+    },
+    {
+      "icon": "oj-ux-ico-list",
+      "modelPath": ["resources", "WLDFSystemResource"]
+    },
+    {
+      "icon": "oj-ux-ico-list",
+      "modelPath": ["resources", "WTCServer"]
+    },
+    {
+      "icon": "oj-ux-ico-folder",
+      "modelPath": ["resources", "WebAppContainer"]
     }
   ]
 }

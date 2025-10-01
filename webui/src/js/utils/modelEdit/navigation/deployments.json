@@ -10,7 +10,15 @@
     },
     {
       "icon": "oj-ux-ico-list",
+      "modelPath": ["appDeployments", "DbClientDataDirectory"]
+    },
+    {
+      "icon": "oj-ux-ico-list",
       "modelPath": ["appDeployments", "Library"]
+    },
+    {
+      "icon": "oj-ux-ico-list",
+      "modelPath": ["appDeployments", "PluginDeployment"]
     }
   ]
 }
