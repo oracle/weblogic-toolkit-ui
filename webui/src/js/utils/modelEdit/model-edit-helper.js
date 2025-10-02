@@ -199,10 +199,10 @@ function (ko, jsYaml, project, utils,
       return attributeMap;
     };
 
-    this.getRemainingAttributeNames = (attributeMap, knownAttributeNames) => {
+    this.getRemainingNames = (nameMap, knownNames) => {
       const remainingNames = [];
-      Object.keys(attributeMap).forEach(key => {
-        if(!knownAttributeNames.includes(key)) {
+      Object.keys(nameMap).forEach(key => {
+        if(!knownNames.includes(key)) {
           remainingNames.push(key);
         }
       });

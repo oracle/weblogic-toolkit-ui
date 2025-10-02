@@ -33,7 +33,8 @@ function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper) 
 
     const metaSections = MetaHelper.getSections(ALIAS_PATH);
     const attributeMap = ModelEditHelper.createAttributeMap(MODEL_PATH, {}, this.subscriptions);
-    const folderInfo = getFolderInfo(metaSections, attributeMap);
+    const folderMap = AliasHelper.getFolderMap(MODEL_PATH);
+    const folderInfo = getFolderInfo(metaSections, attributeMap, folderMap);
 
     this.sectionsConfig = ModelEditHelper.createSectionsConfig(MODEL_PATH, metaSections, folderInfo, attributeMap, true);
 
@@ -41,7 +42,7 @@ function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper) 
     // - are tabs configured or needed?
     // - is there a specified location for remaining attributes?
     // - is there a specified location for remaining subfolders?
-    function getFolderInfo(metaSections, attributeMap) {
+    function getFolderInfo(metaSections, attributeMap, folderMap) {
       const assignmentInfo = {
         assignedAttributes: [],
         assignedFolders: [],
@@ -63,11 +64,14 @@ function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper) 
         }
       });
 
-      const remainingAttributes = ModelEditHelper.getRemainingAttributeNames(attributeMap, assignmentInfo.assignedAttributes);
-      // const remainingFolders = [];  // TODO: figure this out
-      const remainingFolders = AliasHelper.getFolderNames(MODEL_PATH);
+      const remainingAttributes = ModelEditHelper.getRemainingNames(attributeMap, assignmentInfo.assignedAttributes);
+      const remainingFolders = ModelEditHelper.getRemainingNames(folderMap, assignmentInfo.assignedFolders);
 
-      const usesTabs = hasTabSections || remainingFolders.length > 1;
+      // special case - don't need tabs if one remaining folder, no unassigned attributes
+      const hasUnassignedAttributes = remainingAttributes.length && !assignmentInfo.remainingAttributesAssigned;
+      const hasOnlyOneFolder = (remainingFolders.length === 1) && !hasUnassignedAttributes;
+
+      const usesTabs = hasTabSections || (remainingFolders.length && !hasOnlyOneFolder);
 
       return {
         remainingAttributes,
@@ -100,6 +104,12 @@ function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper) 
         assignedFolders.push(...folders);
         if (section.addRemainingFolders) {
           remainingFoldersAssigned = true;
+        }
+
+        // some sections reference a single folder, including folder, folderTab
+        const folder = section.folder;
+        if(folder) {
+          assignedFolders.push(folder);
         }
 
         // several section types can list subsections, including: collapsible, tab, custom

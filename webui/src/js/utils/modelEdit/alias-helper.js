@@ -136,6 +136,16 @@ define(['knockout', 'utils/wkt-logger'],
         }
         return null;
       };
+
+      // currently map to empty values, alias data structure for folders will probably change
+      this.getFolderMap = modelPath => {
+        const foldersMap = {};
+        const folderNames = this.getFolderNames(modelPath) || [];
+        folderNames.forEach(folderName => {
+          foldersMap[folderName] = {};
+        });
+        return foldersMap;
+      };
     }
 
     // return a singleton instance

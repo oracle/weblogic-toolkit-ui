@@ -2,7 +2,202 @@
   "Cluster": {
     "summaryAttributes": {
       "ClusterAddress": {},
-      "ClusterMessagingMode": {}
-    }
+      "ClusterMessagingMode": {},
+      "MigrationBasis": {},
+      "DefaultLoadAlgorithm": {},
+      "ClusterType": {},
+      "ClusterBroadcastChannel": {}
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "label": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "ClusterAddress",
+              "DefaultLoadAlgorithm",
+              "NumberOfServersInClusterAddress",
+              "TxnAffinityEnabled",
+              "ConcurrentSingletonActivationEnabled",
+              "Notes"
+            ]
+          },
+          {
+            "type": "collapsible",
+            "title": "advanced-label",
+            "sections": [
+              {
+                "type": "attributes",
+                "attributes": [
+                  "WeblogicPluginEnabled",
+                  "ServiceAgeThresholdSeconds",
+                  "ServiceActivationRequestResponseTimeout",
+                  "MemberWarmupTimeoutSeconds"
+                ],
+                "addRemainingAttributes": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "label": "health-tab-label",
+        "attributes": [
+          "InterClusterCommLinkHealthCheckInterval",
+          "HealthCheckIntervalMillis",
+          "HealthCheckPeriodsUntilFencing",
+          "FencingGracePeriodMillis"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "label": "http-tab-label",
+        "attributes": [
+          "FrontendHost",
+          "FrontendHTTPPort",
+          "FrontendHTTPSPort"
+        ]
+      },
+      {
+        "type": "folderTab",
+        "folder": "JTACluster"
+      },
+      {
+        "type": "tab",
+        "label": "migration-tab-label",
+        "sections": [
+          {
+            "type": "attributesTab",
+            "label": "general-tab-label",
+            "attributes": [
+              "MigrationBasis",
+              "DataSourceForAutomaticMigration",
+              "AutoMigrationTableName",
+              "AutoMigrationTableCreationDdlFile",
+              "AutoMigrationTableCreationPolicy",
+              "MemberDeathDetectorEnabled",
+              "AdditionalAutoMigrationAttempts",
+              "MillisToSleepBetweenAutoMigrationAttempts",
+              "RebalanceDelayPeriods"
+            ]
+          },
+          {
+            "type": "attributesTab",
+            "label": "candidates-tab-label",
+            "attributes": [
+              "CandidateMachinesForMigratableServer"
+            ]
+          },
+          {
+            "type": "folderTab",
+            "folder": "DatabaseLessLeasingBasis"
+          }
+        ]
+      },
+      {
+        "type": "folderTab",
+        "folder": "OverloadProtection"
+      },
+      {
+        "type": "tab",
+        "label": "replication-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "ClusterType",
+              "RemoteClusterAddress",
+              "ReplicationChannel",
+              "DataSourceForSessionPersistence",
+              "PersistSessionsOnShutdown",
+              "SecureReplicationEnabled"
+            ]
+          },
+          {
+            "type": "collapsible",
+            "title": "advanced-label",
+            "sections": [
+              {
+                "type": "attributes",
+                "attributes": [
+                  "SessionFlushInterval",
+                  "SessionFlushThreshold",
+                  "InterClusterCommLinkHealthCheckInterval",
+                  "SessionStateQueryRequestTimeout",
+                  "SessionStateQueryProtocolEnabled",
+                  "ReplicationTimeoutEnabled",
+                  "ReplicationTimeoutMillis",
+                  "OneWayRmiForReplicationEnabled",
+                  "SessionLazyDeserializationEnabled",
+                  "MaxSecondarySelectionAttempts"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "label": "scheduling-tab-label",
+        "attributes": [
+          "DataSourceForJobScheduler",
+          "JobSchedulerTableName"
+        ]
+      },
+      {
+        "type": "folderTab",
+        "folder": "DynamicServers"
+      },
+      {
+        "type": "tab",
+        "label": "messaging-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "ClusterMessagingMode",
+              "ClusterBroadcastChannel",
+              "MulticastAddress",
+              "MulticastPort"
+            ]
+          },
+          {
+            "type": "collapsible",
+            "title": "advanced-label",
+            "sections": [
+              {
+                "type": "attributes",
+                "attributes": [
+                  "MulticastSendDelay",
+                  "MulticastTTL",
+                  "MulticastBufferSize",
+                  "IdlePeriodsUntilTimeout",
+                  "MulticastDataEncryption"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "tab",
+        "label": "coherence-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "CoherenceClusterSystemResource"
+            ]
+          },
+          {
+            "type": "folder",
+            "folder": "CoherenceTier"
+          }
+        ]
+      }
+    ]
   }
 }

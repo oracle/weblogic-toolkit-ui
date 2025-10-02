@@ -17,6 +17,17 @@
   "rename-label": "Rename",
   "rename-title": "Rename {{type}} \"{{name}}\"",
 
+  "general-tab-label": "General",
+  "attributes-tab-label": "Attributes",
+  "candidates-tab-label": "Candidates",
+  "health-tab-label": "Health",
+  "http-tab-label": "HTTP",
+  "migration-tab-label": "Migration",
+  "replication-tab-label": "Replication",
+  "scheduling-tab-label": "Scheduling",
+  "messaging-tab-label": "Messaging",
+  "coherence-tab-label": "Coherence",
+
   "attribute-dialog-title": "Options for {{attribute}}",
   "attribute-dialog-label": "Choose an option",
   "attribute-dialog-option-edit": "Edit the field normally",
@@ -146,6 +157,7 @@
   "f-Cluster-nameLabel": "Cluster Name",
   "f-Cluster-nameHelp": "Name of cluster",
   "f-Cluster-a-any-help": "{{attribute}} for cluster",
+  "f-Cluster_DatabaseLessLeasingBasis-label": "Database-Less Leasing Basis",
 
   "f-JDBCSystemResource-label": "Datasources",
   "f-JDBCSystemResource-typeLabel": "Datasource",
