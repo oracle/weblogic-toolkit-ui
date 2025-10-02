@@ -27,6 +27,12 @@ function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper) 
     const REMAINING_FOLDERS = FOLDER_INFO.remainingFolders;
     const REMAINING_FOLDERS_ASSIGNED = FOLDER_INFO.remainingFoldersAssigned;
 
+    const TAB_TYPES = [
+      'tab',
+      'attributesTab',
+      'folderTab'
+    ];
+
     this.connected = () => {
       accUtils.announce('Folder Sections loaded.', 'assertive');
     };
@@ -43,7 +49,17 @@ function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper) 
         });
       }
 
-      if(section.type === 'collapsible') {
+      else if(section.type === 'folder') {
+        const folder = section.folder;  // TODO: allow nested and absolute folder paths?
+        const folderPath = [...MODEL_PATH, folder];
+        const moduleConfig = ModelEditHelper.createFolderSectionConfig(folderPath);
+        this.sections.push({
+          type: section.type,
+          moduleConfig
+        });
+      }
+
+      else if(section.type === 'collapsible') {
         const collapsibleConfig = ModelEditHelper.createCollapsibleSectionConfig(MODEL_PATH, section, ATTRIBUTE_MAP, FOLDER_INFO);
         this.sections.push({
           type: section.type,
@@ -51,9 +67,13 @@ function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper) 
         });
       }
 
-      if(section.type === 'tab') {
+      else if(TAB_TYPES.includes(section.type)) {
         // don't display yet, these will always be the in last section
         tabs.push(section);
+      }
+
+      else if(section.type !== 'hidden') {
+        console.error('Unknown section type: ' + section.type + ' at ' + MODEL_PATH.join(' / '));
       }
     });
 
@@ -87,7 +107,7 @@ function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper) 
       }
     }
 
-    if(USES_TABS) {
+    if(tabs.length || (IS_TOP_SECTIONS && USES_TABS)) {
       const tabsConfig = ModelEditHelper.createTabsConfig(MODEL_PATH, tabs, FOLDER_INFO, ATTRIBUTE_MAP, IS_TOP_SECTIONS);
       this.sections.push({
         type: 'tabs',

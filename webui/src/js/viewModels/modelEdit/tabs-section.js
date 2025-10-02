@@ -19,7 +19,6 @@ function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper, 
     const FOLDER_INFO = args.folderInfo;
     const IS_TOP_SECTIONS = args.isTopSections;
 
-    const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
     const REMAINING_ATTRIBUTES = FOLDER_INFO.remainingAttributes;
     const REMAINING_ATTRIBUTES_ASSIGNED = FOLDER_INFO.remainingAttributesAssigned;
     const REMAINING_FOLDERS = FOLDER_INFO.remainingFolders;
@@ -46,17 +45,12 @@ function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper, 
     const tabsArray = [];
     const tabsMap = [];
 
-    // might need a first tab for attributes
+    // might need a first tab for remaining attributes
     if(IS_TOP_SECTIONS && !REMAINING_ATTRIBUTES_ASSIGNED && REMAINING_ATTRIBUTES.length) {
       const itemKey = 'tab-' + lastId++;
       const tabType = 'attributes';
       const attributes = REMAINING_ATTRIBUTES;
-      let label;
-      if(AliasHelper.isNamedPath(MODEL_PATH)) {
-        label = MessageHelper.getFolderTypeLabel(ALIAS_PATH);
-      } else {
-        label = MessageHelper.getFolderLabel(ALIAS_PATH);
-      }
+      const label = MessageHelper.t('attributes-tab-label');
 
       const tabEntry = {
         itemKey,
@@ -68,21 +62,40 @@ function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper, 
       tabsMap[itemKey] = tabEntry;
     }
 
+    // add declared tabs
     TABS.forEach(tab => {
       const itemKey = 'tab-' + lastId++;
-      const tabType = 'sections';
-      const sections = tab['sections'] || [];
-
       const tabEntry = {
-        itemKey,
-        label: tab.label,
-        tabType,
-        sections
+        itemKey
       };
+
+      if(tab.type === 'folderTab') {
+        const folderName = tab.folder;  // TODO: allow absolute paths?
+        const folderPath = [...MODEL_PATH, folderName];
+        const aliasPath = AliasHelper.getAliasPath(folderPath);
+        tabEntry.label = MessageHelper.getFolderLabel(aliasPath);
+        tabEntry.tabType = AliasHelper.isMultiplePath(folderPath) ? 'multiFolder' : 'singleFolder';
+        tabEntry.folderPath = folderPath;
+
+      } else if(tab.type === 'attributesTab') {
+        const tabLabelKey = tab.label ? tab.label : 'attributes-tab-label';
+        tabEntry.label = MessageHelper.t(tabLabelKey);
+        tabEntry.tabType = 'attributes';
+        tabEntry.attributes = tab.attributes;
+        tabEntry.addRemainingAttributes = tab.addRemainingAttributes;
+
+      } else {
+        const tabLabelKey = tab.label ? tab.label : 'no-tab-label';
+        tabEntry.label = MessageHelper.t(tabLabelKey);
+        tabEntry.tabType = 'sections';
+        tabEntry.sections = tab['sections'] || [];
+      }
+
       tabsArray.push(tabEntry);
       tabsMap[itemKey] = tabEntry;
     });
 
+    // add remaining folders as tabs
     if(IS_TOP_SECTIONS && !REMAINING_FOLDERS_ASSIGNED && REMAINING_FOLDERS.length) {
       REMAINING_FOLDERS.forEach(folderName => {
         const itemKey = 'tab-' + lastId++;
@@ -124,7 +137,10 @@ function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper, 
         tabConfig = ModelEditHelper.createInstancesSectionConfig(folderPath);
 
       } else if(tabType === 'attributes') {
-        const fakeSection = {attributes: selectedTab.attributes};
+        const fakeSection = {
+          attributes: selectedTab.attributes,
+          addRemainingAttributes: selectedTab.addRemainingAttributes
+        };
         tabConfig = ModelEditHelper.createAttributesSectionConfig(MODEL_PATH, fakeSection, ATTRIBUTE_MAP, FOLDER_INFO);
 
       } else {
