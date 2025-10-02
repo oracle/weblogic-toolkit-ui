@@ -1,0 +1,24 @@
+{
+  "PluginDeployment": {
+    "summaryAttributes": {
+      "SourcePath": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "SourcePath",
+          "StagingMode",
+          "Notes"
+        ]
+      },
+      {
+        "type": "hidden",
+        "addRemainingAttributes": true,
+        "folders": [
+          "SubDeployment"
+        ]
+      }
+    ]
+  }
+}

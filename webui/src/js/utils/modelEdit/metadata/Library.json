@@ -1,7 +1,8 @@
 {
   "Library": {
     "summaryAttributes": {
-      "SourcePath": {}
+      "SourcePath": {},
+      "Target": {}
     },
     "sections": [
       {

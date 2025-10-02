@@ -1,7 +1,17 @@
 {
   "Application": {
     "summaryAttributes": {
-      "SourcePath": {}
+      "SourcePath": {},
+      "Target": {}
+    },
+    "attributeDetails": {
+      "StagingMode": {
+        "options": [
+          { "key": "stage", "label": "Stage" },
+          { "key": "nostage", "label": "No Stage" },
+          { "key": "external_stage", "label": "External Stage" }
+        ]
+      }
     },
     "sections": [
       {
@@ -11,7 +21,8 @@
           "DeploymentOrder",
           "PlanDir",
           "PlanPath",
-          "Target"
+          "Target",
+          "StagingMode"
         ]
       },
       {

@@ -212,5 +212,8 @@
   "f-WLSUserPasswordCredentialMappings_RemoteResource-label": "Remote Resource Mappings",
   "f-WLSUserPasswordCredentialMappings_RemoteResource-typeLabel": "Remote Resource Mapping",
   "f-WLSUserPasswordCredentialMappings_RemoteResource-nameHelp": "Name of the remote resource mapping",
-  "f-WLSUserPasswordCredentialMappings_RemoteResource-noInstancesMessage": "No remote resource mappings specified"
+  "f-WLSUserPasswordCredentialMappings_RemoteResource-noInstancesMessage": "No remote resource mappings specified",
+
+  "f-DbClientDataDirectory-label": "DB Client Data Directory",
+  "f-PluginDeployment-label": "Plugin Deployment"
 }
