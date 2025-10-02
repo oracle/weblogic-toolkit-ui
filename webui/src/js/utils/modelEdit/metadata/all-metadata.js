@@ -9,10 +9,12 @@ define(
   [
     'text!./Application.json',
     'text!./Cluster.json',
+    'text!./DbClientDataDirectory.json',
     'text!./DomainInfo.json',
     'text!./JDBCSystemResource.json',
     'text!./Library.json',
     'text!./OPSSInitialization.json',
+    'text!./PluginDeployment.json',
     'text!./RCUDbInfo.json',
     'text!./Server.json',
     'text!./Topology.json',

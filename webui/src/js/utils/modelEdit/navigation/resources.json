@@ -114,10 +114,6 @@
     },
     {
       "icon": "oj-ux-ico-list",
-      "modelPath": ["resources", "SnmpAgentDeployment"]
-    },
-    {
-      "icon": "oj-ux-ico-list",
       "modelPath": ["resources", "SystemComponent"]
     },
     {
