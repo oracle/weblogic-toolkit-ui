@@ -185,6 +185,10 @@
   "user-settings-dialog-wrc-home-linux-help": "The location of the WebLogic Remote Console installation.  For RPM or DEB installers, this will typically be /opt/WebLogic Remote Console.  If using the AppImage, simply point to the AppImage file directly.",
   "user-settings-dialog-wrc-home-tooltip": "Choose the WebLogic Remote Console Install Directory",
   "user-settings-dialog-wrc-appimage-tooltip": "Choose the WebLogic Remote Console AppImage File",
+  "user-settings-dialog-external-tools-section-title": "AppImage WKT Tools Configuration",
+  "user-settings-dialog-external-tools-staging-directory-label": "WKT Tools External Staging Directory",
+  "user-settings-dialog-external-tools-staging-directory-help": "When running the AppImage binary, WKT Tools can only be updated using a writable directory outside of the binary.",
+  "user-settings-dialog-external-tools-staging-directory-tooltip": "Choose the WKT Tools staging directory.",
 
   "user-settings-dialog-logging-section-title": "Logging Configuration",
   "user-settings-dialog-console-level-label": "Console Transport Log Level",

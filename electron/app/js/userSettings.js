@@ -13,6 +13,7 @@ const { getErrorMessage } = require('./errorUtils');
 const userSettableFieldNames = [
   'webLogicRemoteConsoleHome',
   'proxy',
+  'tools',
   'logging',
   'skipQuickstartAtStartup',
   'connectivityTestTimeoutMilliseconds'
@@ -37,6 +38,9 @@ let _userSettingsFileName;
 //   "proxy": {
 //     "httpsProxyUrl": "The proxy to use for the application's all https outbound communication",
 //     "bypassProxyHosts: "The value to use to set the NO_PROXY environment variable for child processes"
+//   },
+//   "tools": {
+//     "wktToolsExternalStagingDirectory": "When running the app using the AppImage, the directory where upgraded tools will be installed"
 //   },
 //   "logging":{
 //     "level": "the default global log level across all providers",
@@ -151,6 +155,28 @@ function setBypassProxyHosts(bypassProxyHosts) {
   } else {
     settings['proxy'] = {
       bypassProxyHosts: bypassProxyHosts
+    };
+  }
+  _userSettingsObject = settings;
+}
+
+function getWktToolsExternalStagingDirectory() {
+  let wktToolsExternalStagingDirectory;
+  const settings = _getUserSettings();
+  if ('tools' in settings && 'wktToolsExternalStagingDirectory' in settings['tools']) {
+    wktToolsExternalStagingDirectory = settings['tools']['wktToolsExternalStagingDirectory'];
+  }
+  return wktToolsExternalStagingDirectory;
+}
+
+function setWktToolsExternalStagingDirectory(wktToolsExternalStagingDirectory) {
+  const settings = _getUserSettings();
+
+  if ('tools' in settings) {
+    settings['tools']['wktToolsExternalStagingDirectory'] = wktToolsExternalStagingDirectory;
+  } else {
+    settings['tools'] = {
+      wktToolsExternalStagingDirectory: wktToolsExternalStagingDirectory
     };
   }
   _userSettingsObject = settings;
@@ -273,7 +299,7 @@ function getOrCreateWindowSettings() {
 }
 
 function getShowNewModelEditorTab() {
-  const developer = getOrCreateDeveloperSettings()
+  const developer = getOrCreateDeveloperSettings();
   let showNewModelEditorTab = developer['showNewModelEditorTab'];
   if (showNewModelEditorTab === undefined) {
     showNewModelEditorTab = false;
@@ -417,6 +443,7 @@ function _constructFilteredCopy(settings) {
       delete objCopy[privateField];
     }
   }
+
   return objCopy;
 }
 
@@ -457,5 +484,7 @@ module.exports = {
   saveUserSettings,
   getWebLogicRemoteConsoleHome,
   setWebLogicRemoteConsoleHome,
-  getShowNewModelEditorTab
+  getShowNewModelEditorTab,
+  getWktToolsExternalStagingDirectory,
+  setWktToolsExternalStagingDirectory
 };

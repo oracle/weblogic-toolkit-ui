@@ -326,7 +326,7 @@ class Main {
       return getBypassProxyHosts();
     });
 
-    ipcMain.handle('get-show-new-model-editor-tab', (event) => {
+    ipcMain.handle('get-show-new-model-editor-tab', () => {
       this._logger.info('get-show-new-model-editor-tab returned ' + userSettings.getShowNewModelEditorTab());
       return userSettings.getShowNewModelEditorTab();
     });
@@ -578,6 +578,19 @@ class Main {
 
     ipcMain.handle('get-oracle-home', async () => {
       return oracleHomeUtils.tryToComputeOracleHome();
+    });
+
+    ipcMain.handle('get-external-tools-staging-directory-location', async (event, defaultDir) => {
+      const title = i18n.t('dialog-chooseExternalToolsStagingDirectory');
+      return chooseFromFileSystem(event.sender.getOwnerBrowserWindow(), {
+        title: title,
+        message: title,
+        defaultPath: defaultDir ? defaultDir : '',
+        createDirectory: true,
+        promptToCreate: true,
+        buttonLabel: i18n.t('button-select'),
+        properties: [ 'openDirectory', 'dontAddToRecent']
+      });
     });
 
     ipcMain.handle('get-log-file-directory-location', async (event) => {
@@ -1111,6 +1124,13 @@ if (osUtils.isLinux()) {
     }
   }
 }
+// FIXME - Need to test on Linux Desktop
+// if (osUtils.isLinuxAppImage()) {
+//   app.disableHardwareAcceleration();
+//   app.commandLine.appendSwitch("--disable-gpu");
+//   app.commandLine.appendSwitch("--disable-software-rasterizer");
+// }
+
 me.runApp(process.argv);
 
 // DO NOT export anything from this file.
