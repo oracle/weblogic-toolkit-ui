@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
@@ -8,7 +8,7 @@
 define(['accUtils', 'knockout', 'utils/observable-properties', 'utils/i18n', 'ojs/ojarraydataprovider',
   'models/wkt-project', 'utils/validation-helper', 'utils/wkt-logger', 'ojs/ojknockout', 'ojs/ojinputtext',
   'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojdialog', 'ojs/ojformlayout', 'ojs/ojswitch', 'ojs/ojselectsingle',
-  'ojs/ojvalidationgroup', 'ojs/ojinputnumber'],
+  'ojs/ojvalidationgroup', 'ojs/ojinputnumber', 'ojs/ojknockout'],
 function(accUtils, ko, utils, i18n, ArrayDataProvider, project, validationHelper, wktLogger) {
   function UserSettingsDialogModel(payload) {
 
@@ -27,9 +27,16 @@ function(accUtils, ko, utils, i18n, ArrayDataProvider, project, validationHelper
       return window.api.process.isLinux();
     };
 
+    this.isLinuxAppImage = () => {
+      const result = window.api.process.isLinuxAppImage();
+      wktLogger.info(`isLinuxAppImage() returned ${result}`);
+      return result;
+    };
+
     this.userSettings = {};
     try {
       this.userSettings = JSON.parse(payload['userSettingsJson']);
+      wktLogger.info('userSettings loaded: ' + JSON.stringify(this.userSettings));
     } catch (err) {
       wktLogger.error(`Failed to deserialize the user settings json: ${err}`);
     }
@@ -49,6 +56,7 @@ function(accUtils, ko, utils, i18n, ArrayDataProvider, project, validationHelper
     this.getProxyUrlValidators = () => validationHelper.getProxyUrlValidators();
     this.proxyUrl = ko.observable();
     this.bypassProxyHosts = ko.observable();
+    this.wktToolsExternalStagingDirectory = ko.observable();
     this.consoleLogLevel = ko.observable(payload.defaults.level);
     this.fileLogLevel = ko.observable(payload.defaults.level);
     this.fileLogDir = ko.observable(payload.defaults.logDir);
@@ -64,6 +72,12 @@ function(accUtils, ko, utils, i18n, ArrayDataProvider, project, validationHelper
         }
         if ('bypassProxyHosts' in this.userSettings.proxy) {
           this.bypassProxyHosts(this.userSettings.proxy.bypassProxyHosts);
+        }
+      }
+
+      if ('tools' in this.userSettings) {
+        if ('wktToolsExternalStagingDirectory' in this.userSettings.tools) {
+          this.wktToolsExternalStagingDirectory(this.userSettings.tools.wktToolsExternalStagingDirectory);
         }
       }
 
@@ -100,6 +114,11 @@ function(accUtils, ko, utils, i18n, ArrayDataProvider, project, validationHelper
       }
     };
 
+    this.chooseExternalToolsStagingDirectory = async () => {
+      this.wktToolsExternalStagingDirectory(await window.api.ipc.invoke('get-external-tools-staging-directory-location',
+        this.wktToolsExternalStagingDirectory()));
+    };
+
     this.chooseLogFileDir = async () => {
       this.fileLogDir(await window.api.ipc.invoke('get-log-file-directory-location'));
     };
@@ -133,6 +152,7 @@ function(accUtils, ko, utils, i18n, ArrayDataProvider, project, validationHelper
     this.storeUserSettings = () => {
       project.setHttpsProxyUrl(this.proxyUrl());
       project.setBypassProxyHosts(this.bypassProxyHosts());
+      this._storeSetting('tools.wktToolsExternalStagingDirectory', this.wktToolsExternalStagingDirectory);
       this._storeSetting('proxy.httpsProxyUrl', this.proxyUrl);
       this._storeSetting('proxy.bypassProxyHosts', this.bypassProxyHosts);
       this._storeSetting('logging.file.level', this.fileLogLevel, payload.defaults.level);

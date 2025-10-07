@@ -97,7 +97,7 @@ async function cacheWdtInstaller(cacheConfig) {
   return executeCacheCommand(javaHome, 'wdt', wdtInstaller, wdtInstallerVersion, architecture);
 }
 
-async function executeCacheCommand(javaHome, installerType, installerPath, installerVersion, architecture = "amd64") {
+async function executeCacheCommand(javaHome, installerType, installerPath, installerVersion, architecture = 'amd64') {
   const imageToolScript = getImagetoolShellScript();
   const args = [
     'cache', 'addInstaller',

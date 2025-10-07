@@ -47,12 +47,21 @@ async function updateTools(releases, outputPath, options) {
     return new Promise(resolve => resolve());
   }
 
+  const outputPathList = [];
+  if (Array.isArray(outputPath)) {
+    outputPathList.push(...outputPath);
+  } else {
+    for (let i = 0; i < releases.length; i++) {
+      outputPathList.push(outputPath);
+    }
+  }
+
   return new Promise((resolve, reject) => {
     const installFunction = getInstallFunction(releases[0]);
-    installFunction(outputPath, options).then(() => {
+    installFunction(outputPathList[0], options).then(() => {
       if (releases.length === 2) {
         const secondInstallFunction = getInstallFunction(releases[1]);
-        secondInstallFunction(outputPath, options).then(() => {
+        secondInstallFunction(outputPathList[1], options).then(() => {
           resolve();
         }).catch(err => reject(`Unable to update to ${releases[1]}: ${err}`));
       } else {

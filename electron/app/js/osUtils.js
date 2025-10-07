@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 // Be careful what you put in terms of require statements in this file
@@ -19,6 +19,10 @@ function isMac() {
 
 function isLinux() {
   return process.platform === 'linux';
+}
+
+function isLinuxAppImage() {
+  return process.platform === 'linux' && process.env.APPIMAGE !== undefined && process.env.APPIMAGE !== '';
 }
 
 function getArgv(name) {
@@ -75,6 +79,7 @@ module.exports = {
   getEnvironmentVariables,
   getPathDirectories,
   isLinux,
+  isLinuxAppImage,
   isMac,
   isWindows,
   removeProtectedEnvironmentVariables

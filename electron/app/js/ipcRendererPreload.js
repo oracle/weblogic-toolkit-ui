@@ -219,7 +219,8 @@ contextBridge.exposeInMainWorld(
           'wrc-get-home-default-value',
           'wrc-set-home-and-start',
           'get-alias-info',  // model edit
-          'get-model-edit-message-keys'  // model edit
+          'get-model-edit-message-keys', // model edit
+          'get-external-tools-staging-directory-location'
         ];
         return new Promise((resolve, reject) => {
           if (validChannels.includes(channel)) {
@@ -260,6 +261,7 @@ contextBridge.exposeInMainWorld(
       isWindows: () => osUtils.isWindows(),
       isMac: () => osUtils.isMac(),
       isLinux: () => osUtils.isLinux(),
+      isLinuxAppImage: () => osUtils.isLinuxAppImage(),
       getApplicationName: () => wktApp.getApplicationName(),
       getVersion: () => wktApp.getApplicationVersion(),
       getArgv: (name) => osUtils.getArgv(name),

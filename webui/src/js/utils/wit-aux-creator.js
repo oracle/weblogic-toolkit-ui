@@ -142,7 +142,7 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
           javaHome: javaHome,
           wdtInstaller: wdtInstaller,
           wdtInstallerVersion: wdtInstallerVersion,
-          architecture: this.project.settings.architecture.value,
+          architecture: this.project.settings.imageTargetArchitecture.value,
         };
         if (! await this.addInstallersToCache(cacheConfig, errTitle, errPrefix)) {
           return Promise.resolve(false);
@@ -260,6 +260,7 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
         chownOwner: undefined,
         chownGroup: undefined,
         alwaysPullBaseImage: this.project.image.auxAlwaysPullBaseImage.value,
+        architecture: this.project.settings.imageTargetArchitecture.value
       }, imageBuilderOptions);
 
       if (this.project.image.auxUseCustomBaseImage.value) {

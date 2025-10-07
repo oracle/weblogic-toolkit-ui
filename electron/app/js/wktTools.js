@@ -6,10 +6,12 @@
 const { dialog } = require('electron');
 const path = require('path');
 const fsPromises = require('fs/promises');
+const { existsSync } = require('node:fs');
 
 const fsUtils = require('./fsUtils');
 const i18n = require('./i18next.config');
 const osUtils = require('./osUtils');
+const { getWktToolsExternalStagingDirectory } = require('./userSettings');
 const WktApp = require('./wktApp');
 const { compareVersions } = require('./versionUtils');
 const { getLogger } = require('./wktLogging');
@@ -23,6 +25,7 @@ const {
   updateTools
 } = require('./wktToolsInstaller');
 const { getProxyOptionsFromPreferences } = require('./githubUtils');
+const {isLinuxAppImage} = require('./osUtils');
 
 const scriptExtension = osUtils.isWindows() ? '.cmd' : '.sh';
 const VERSION_FILE_NAME = 'VERSION.txt';
@@ -218,12 +221,34 @@ async function checkForUpdates(targetWindow) {
     });
 
     if (buttonResponse.response === 0) {
-      await updateTools(result, getToolsDirectory(), options);
-      await dialog.showMessageBox(targetWindow, {
-        type: 'info',
-        detail: getToolsUpdateSuccessfulText(result),
-        buttons: [ i18n.t('button-ok') ]
-      });
+      if (isLinuxAppImage()) {
+        const externalToolDirectory = getWktToolsExternalStagingDirectory();
+        let errorMessage;
+        if (!externalToolDirectory) {
+          errorMessage = i18n.t('app-image-update-tools-external-dir-no-specified');
+        } else if (!existsSync(externalToolDirectory)) {
+          errorMessage = i18n.t('app-image-update-tools-external-dir-not-exists',
+            {externalToolDirectory: externalToolDirectory});
+        }
+
+        if (errorMessage) {
+          await dialog.showErrorBox(i18n.t('app-image-update-tools-failed-title'), errorMessage);
+        } else {
+          await updateTools(result, externalToolDirectory, options);
+          await dialog.showMessageBox(targetWindow, {
+            type: 'info',
+            detail: getToolsUpdateSuccessfulText(result),
+            buttons: [ i18n.t('button-ok') ]
+          });
+        }
+      } else {
+        await updateTools(result, getToolsDirectory(), options);
+        await dialog.showMessageBox(targetWindow, {
+          type: 'info',
+          detail: getToolsUpdateSuccessfulText(result),
+          buttons: [ i18n.t('button-ok') ]
+        });
+      }
     }
   } else {
     await dialog.showMessageBox(targetWindow, {
@@ -254,6 +279,13 @@ function getWdtDirectory() {
   if (!_wdtDirectory) {
     _wdtDirectory = path.join(getToolsDirectory(), 'weblogic-deploy');
   }
+
+  if (osUtils.isLinuxAppImage()) {
+    const wdtDirectory = getExternalToolDirectory('weblogic-deploy');
+    if (wdtDirectory !== undefined) {
+      return wdtDirectory;
+    }
+  }
   return _wdtDirectory;
 }
 
@@ -261,7 +293,28 @@ function getWitDirectory() {
   if (!_witDirectory) {
     _witDirectory = path.join(getToolsDirectory(), 'imagetool');
   }
+
+  if (osUtils.isLinuxAppImage()) {
+    const witDirectory = getExternalToolDirectory('imagetool');
+    if (witDirectory !== undefined) {
+      return witDirectory;
+    }
+  }
   return _witDirectory;
+}
+
+function getExternalToolDirectory(toolDirectoryName) {
+  let externalToolDirectory;
+
+  const externalToolsStagingDirectory = getWktToolsExternalStagingDirectory();
+  if (externalToolsStagingDirectory) {
+    const toolDirectory = path.join(externalToolsStagingDirectory, toolDirectoryName);
+    const toolVersionFile = path.join(externalToolsStagingDirectory, toolDirectoryName, VERSION_FILE_NAME);
+    if (existsSync(toolDirectory) && existsSync(toolVersionFile)) {
+      externalToolDirectory = toolDirectory;
+    }
+  }
+  return externalToolDirectory;
 }
 
 function getToolsDirectory() {

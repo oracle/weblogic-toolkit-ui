@@ -70,9 +70,7 @@ function getImageToolInspectArgs(imageTag, options) {
   }
   if ('architecture' in options && options.architecture) {
     const platform = 'linux/' + options.architecture;
-    // FIXME - once WIT inspect adds support for --platform, uncomment the line below
-    //
-    // args.push(`--platform=${platform}`);
+    args.push(`--platform=${platform}`);
   }
   return args;
 }
