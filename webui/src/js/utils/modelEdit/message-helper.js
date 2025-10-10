@@ -67,15 +67,17 @@ function (ko, i18n, AliasHelper) {
     // *******************
 
     this.getFolderLabel = aliasPath => {
-      // required - this will add a webui.missing.json entry if not found
       const prefix = getFolderPrefix(aliasPath);
-      const key = `${prefix}-label`;
-      let label = t(key);
-      if (label === key) {
-        const lastFolder = aliasPath[aliasPath.length - 1];
-        label = getReadableLabel(lastFolder);
+      const lastFolder = aliasPath[aliasPath.length - 1];
+      const folderKey = `${prefix}-label`;
+      const anyFolderKey =  `f-any_${lastFolder}-label`;
+
+      if(messageKeys.includes(folderKey)) {  // specific to folder path
+        return t(folderKey);
+      } else {  // specific to folder name, log as missing if unavailable
+        const label = t(anyFolderKey);
+        return (label === anyFolderKey) ? getReadableLabel(lastFolder) : label;
       }
-      return label;
     };
 
     this.getAddInstanceMessage = aliasPath => {
@@ -246,19 +248,23 @@ function (ko, i18n, AliasHelper) {
     // check for a message at the folder level, then "any" level
     function getFolderMessage (aliasPath, suffix, args) {
       const folderPrefix = getFolderPrefix(aliasPath);
+      const lastFolder = aliasPath[aliasPath.length - 1];
       const folderKey =  `${folderPrefix}-${suffix}`;
+      const anyFolderKey =  `f-any_${lastFolder}-${suffix}`;
       const genericKey = `f-any-${suffix}`;
       args = args || {};
 
       if(messageKeys.includes(folderKey)) {
         return t(folderKey, args);
+      } else if(messageKeys.includes(anyFolderKey)) {
+        return t(anyFolderKey, args);
       } else {
         return t(genericKey, args);
       }
     }
 
     function hasAssignedFolderMessage(aliasPath, suffix) {
-      // look for attribute-specific message only
+      // look for folder-specific message only
       const folderPrefix = getFolderPrefix(aliasPath);
       const folderKey = `${folderPrefix}-${suffix}`;
       return messageKeys.includes(folderKey);
@@ -299,30 +305,7 @@ function (ko, i18n, AliasHelper) {
     }
 
     function getReadableLabel(name) {
-      let result = name.charAt(0);
-
-      // skip the first letter
-      for (let i = 1; i < name.length; i++) {
-        const current = name.charAt(i);
-        const previous = name.charAt(i - 1);
-        const next = (i < name.length - 1) ? name.charAt(i + 1) : null;
-
-        if (isUpperCase(current)) {
-          if(isUpperCase(previous)) {  // check for S in 'MTU Size'
-            if(next && !isUpperCase(next)) {
-              result += ' ';
-            }
-          } else {
-            result += ' ';
-          }
-        }
-        result += current;
-      }
-      return result;
-    }
-
-    function isUpperCase(char) {
-      return char === char.toUpperCase();
+      return window.api.modelEdit.getReadableLabel(name);
     }
   }
 

@@ -10,6 +10,7 @@ const uuid = require('uuid');
 const k8sUtils = require('./k8sUtils');
 const fsUtils = require('./fsUtils');
 const errorUtils = require('./errorUtils');
+const modelEditUtils = require('./modelEdit/modelEditUtils');
 const WktApp = require('./wktApp');
 const osUtils = require('./osUtils');
 const i18n = require('./i18next.webui.config');
@@ -271,6 +272,11 @@ contextBridge.exposeInMainWorld(
     'i18n': {
       t: (keys, options) => {
         return i18n.t(keys, options);
+      }
+    },
+    'modelEdit': {
+      getReadableLabel: aliasName => {
+        return modelEditUtils.getReadableLabel(aliasName);
       }
     },
     'utils': {
