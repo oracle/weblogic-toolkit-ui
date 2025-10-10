@@ -213,4 +213,12 @@
     </oj-c-form-layout>
     <p><oj-bind-text value="[[labelMapper('image-target-architecture-answer-message')]]"></oj-bind-text></p>
   </div>
+
+  <div class="oj-panel">
+    <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('container-image-registries-credentials-question')]]"></oj-bind-text></h6>
+    <div class="wkt-table-button-grid">
+      <oj-module config="[[registryCredentialsModule]]"></oj-module>
+    </div>
+    <p><oj-bind-text value="[[labelMapper('container-image-registries-credentials-answer-message')]]"></oj-bind-text></p>
+  </div>
 </div>

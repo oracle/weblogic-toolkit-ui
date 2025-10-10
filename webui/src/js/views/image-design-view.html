@@ -62,18 +62,18 @@
             </oj-switch>
             <div>
               <oj-bind-if test="[[imageRegistryPushRequiresAuthentication() === true]]">
-                <oj-input-password label-hint="[[labelMapper('image-registry-push-username-label')]]"
-                                   mask-icon="visible"
-                                   value="{{project.image.imageRegistryPushUser.observable}}"
-                                   help.instruction="[[labelMapper('image-registry-push-username-help')]]">
-                </oj-input-password>
-              </oj-bind-if>
-              <oj-bind-if test="[[imageRegistryPushRequiresAuthentication() === true]]">
-                <oj-input-password label-hint="[[labelMapper('image-registry-push-password-label')]]"
-                                   mask-icon="visible"
-                                   value="{{project.image.imageRegistryPushPassword.observable}}"
-                                   help.instruction="[[labelMapper('image-registry-push-password-help')]]">
-                </oj-input-password>
+                <oj-select-single label-hint="[[labelMapper('image-registry-push-credentials-label')]]"
+                                  value="{{project.image.imageRegistryPushCredentialsReference.observable}}"
+                                  data="[[imageRegistriesCredentialsDP]]"
+                                  item-text="[[getImageRegistriesCredentialsItemText]]"
+                                  help.instruction="[[labelMapper('image-registry-push-credentials-help')]]">
+                </oj-select-single>
+                <oj-button
+                  class="wkt-button-below"
+                  label="[[labelMapper('image-registry-add-credentials')]]"
+                  chroming="callToAction"
+                  on-oj-action="[[editImageRegistryCredentials]]">
+                </oj-button>
               </oj-bind-if>
             </div>
           </oj-c-form-layout>
@@ -113,19 +113,18 @@
             <div>
               <oj-bind-if test="[[project.image.useCustomBaseImage.observable() === true &&
                                   project.image.baseImagePullRequiresAuthentication.observable() == true]]">
-                <oj-input-password label-hint="[[labelMapper('base-image-pull-username-label')]]"
-                                   mask-icon="visible"
-                                   value="{{project.image.baseImagePullUsername.observable}}"
-                                   help.instruction="[[labelMapper('base-image-pull-username-help')]]">
-                </oj-input-password>
-              </oj-bind-if>
-              <oj-bind-if test="[[project.image.useCustomBaseImage.observable() === true &&
-                                    project.image.baseImagePullRequiresAuthentication.observable() == true]]">
-                <oj-input-password label-hint="[[labelMapper('base-image-pull-password-label')]]"
-                                   mask-icon="visible"
-                                   value="{{project.image.baseImagePullPassword.observable}}"
-                                   help.instruction="[[labelMapper('base-image-pull-password-help')]]">
-                </oj-input-password>
+                <oj-select-single label-hint="[[labelMapper('base-image-registry-pull-credentials-label')]]"
+                                  value="{{project.image.baseImagePullCredentialsReference.observable}}"
+                                  data="[[imageRegistriesCredentialsDP]]"
+                                  item-text="[[getImageRegistriesCredentialsItemText]]"
+                                  help.instruction="[[labelMapper('base-image-registry-pull-credentials-help')]]">
+                </oj-select-single>
+                <oj-button
+                        class="wkt-button-below"
+                        label="[[labelMapper('image-registry-add-credentials')]]"
+                        chroming="callToAction"
+                        on-oj-action="[[editImageRegistryCredentials]]">
+                </oj-button>
               </oj-bind-if>
             </div>
             <oj-bind-if test="[[project.image.useCustomBaseImage.observable]]">
@@ -335,18 +334,18 @@
           </oj-switch>
           <div>
             <oj-bind-if test="[[auxImageRegistryPushRequiresAuthentication() === true]]">
-              <oj-input-password label-hint="[[miiPvLabelMapper('aux-image-registry-push-username-label')]]"
-                                 mask-icon="visible"
-                                 value="{{project.image.auxImageRegistryPushUser.observable}}"
-                                 help.instruction="[[miiPvLabelMapper('aux-image-registry-push-username-help')]]">
-              </oj-input-password>
-            </oj-bind-if>
-            <oj-bind-if test="[[auxImageRegistryPushRequiresAuthentication() === true]]">
-              <oj-input-password label-hint="[[miiPvLabelMapper('aux-image-registry-push-password-label')]]"
-                                 mask-icon="visible"
-                                 value="{{project.image.auxImageRegistryPushPassword.observable}}"
-                                 help.instruction="[[miiPvLabelMapper('aux-image-registry-push-password-help')]]">
-              </oj-input-password>
+              <oj-select-single label-hint="[[labelMapper('aux-image-registry-push-credentials-label')]]"
+                                value="{{project.image.auxImageRegistryPushCredentialsReference.observable}}"
+                                data="[[imageRegistriesCredentialsDP]]"
+                                item-text="[[getImageRegistriesCredentialsItemText]]"
+                                help.instruction="[[labelMapper('aux-image-registry-push-credentials-help')]]">
+              </oj-select-single>
+              <oj-button
+                      class="wkt-button-below"
+                      label="[[labelMapper('image-registry-add-credentials')]]"
+                      chroming="callToAction"
+                      on-oj-action="[[editImageRegistryCredentials]]">
+              </oj-button>
             </oj-bind-if>
           </div>
         </oj-c-form-layout>
@@ -385,18 +384,18 @@
             </oj-switch>
             <div>
               <oj-bind-if test="[[project.image.auxDefaultBaseImagePullRequiresAuthentication.observable() == true]]">
-                <oj-input-password label-hint="[[miiPvLabelMapper('aux-default-base-image-pull-username-label')]]"
-                                   mask-icon="visible"
-                                   value="{{project.image.auxDefaultBaseImagePullUsername.observable}}"
-                                   help.instruction="[[miiPvLabelMapper('aux-default-base-image-pull-username-help')]]">
-                </oj-input-password>
-              </oj-bind-if>
-              <oj-bind-if test="[[project.image.auxDefaultBaseImagePullRequiresAuthentication.observable() == true]]">
-                <oj-input-password label-hint="[[miiPvLabelMapper('aux-default-base-image-pull-password-label')]]"
-                                   mask-icon="visible"
-                                   value="{{project.image.auxDefaultBaseImagePullPassword.observable}}"
-                                   help.instruction="[[miiPvLabelMapper('aux-default-base-image-pull-password-help')]]">
-                </oj-input-password>
+                <oj-select-single label-hint="[[labelMapper('aux-default-base-image-pull-credentials-label')]]"
+                                  value="{{project.image.auxDefaultBaseImagePullCredentialsReference.observable}}"
+                                  data="[[imageRegistriesCredentialsDP]]"
+                                  item-text="[[getImageRegistriesCredentialsItemText]]"
+                                  help.instruction="[[labelMapper('aux-default-base-image-pull-credentials-help')]]">
+                </oj-select-single>
+                <oj-button
+                        class="wkt-button-below"
+                        label="[[labelMapper('image-registry-add-credentials')]]"
+                        chroming="callToAction"
+                        on-oj-action="[[editImageRegistryCredentials]]">
+                </oj-button>
               </oj-bind-if>
             </div>
           </oj-form-layout>
@@ -410,18 +409,18 @@
             </oj-switch>
             <div>
               <oj-bind-if test="[[project.image.auxBaseImagePullRequiresAuthentication.observable() == true]]">
-                <oj-input-password label-hint="[[labelMapper('base-image-pull-username-label')]]"
-                                   mask-icon="visible"
-                                   value="{{project.image.auxBaseImagePullUsername.observable}}"
-                                   help.instruction="[[labelMapper('base-image-pull-username-help')]]">
-                </oj-input-password>
-              </oj-bind-if>
-              <oj-bind-if test="[[project.image.auxBaseImagePullRequiresAuthentication.observable() == true]]">
-                <oj-input-password label-hint="[[labelMapper('base-image-pull-password-label')]]"
-                                   mask-icon="visible"
-                                   value="{{project.image.auxBaseImagePullPassword.observable}}"
-                                   help.instruction="[[labelMapper('base-image-pull-password-help')]]">
-                </oj-input-password>
+                <oj-select-single label-hint="[[labelMapper('aux-base-image-pull-credentials-label')]]"
+                                  value="{{project.image.auxBaseImagePullCredentialsReference.observable}}"
+                                  data="[[imageRegistriesCredentialsDP]]"
+                                  item-text="[[getImageRegistriesCredentialsItemText]]"
+                                  help.instruction="[[labelMapper('aux-base-image-pull-credentials-help')]]">
+                </oj-select-single>
+                <oj-button
+                        class="wkt-button-below"
+                        label="[[labelMapper('image-registry-add-credentials')]]"
+                        chroming="callToAction"
+                        on-oj-action="[[editImageRegistryCredentials]]">
+                </oj-button>
               </oj-bind-if>
             </div>
           </oj-form-layout>
@@ -495,9 +494,6 @@
                            value="{{project.image.auxBuilderNetworkName.observable}}"
                            help.instruction="[[labelMapper('build-network-name-help')]]">
             </oj-input-text>
-          </oj-c-form-layout>
-
-          <oj-c-form-layout max-columns="2" direction="row">
             <oj-switch label-hint="[[labelMapper('extend-image-build-label')]]"
                        value="{{project.image.auxExtendBuild.observable}}"
                        help.instruction="[[labelMapper('extend-image-build-help')]]">

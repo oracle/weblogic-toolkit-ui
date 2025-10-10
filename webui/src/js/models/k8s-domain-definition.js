@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -42,12 +42,7 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
         this.imageRegistryUseExistingPullSecret = props.createProperty(true);
         this.imageRegistryPullSecretName = props.createProperty();
         this.imageRegistryPullSecretName.addValidator(...validationHelper.getK8sNameValidators());
-
-        this.imageRegistryPullUser = props.createProperty().asCredential();
-        this.imageRegistryPullPassword = props.createProperty().asCredential();
-
-        this.imageRegistryPullEmail = props.createProperty();
-        this.imageRegistryPullEmail.addValidator(...validationHelper.getEmailAddressValidators());
+        this.imageRegistryPullCredentialsReference = props.createProperty();
 
         this.imagePullPolicy = props.createProperty('IfNotPresent');
 
@@ -61,10 +56,8 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
         this.auxImageRegistryUseExistingPullSecret = props.createProperty(true);
         this.auxImageRegistryPullSecretName = props.createProperty();
         this.auxImageRegistryPullSecretName.addValidator(...validationHelper.getK8sNameValidators());
-        this.auxImageRegistryPullUser = props.createProperty().asCredential();
-        this.auxImageRegistryPullPassword = props.createProperty().asCredential();
-        this.auxImageRegistryPullEmail = props.createProperty();
-        this.auxImageRegistryPullEmail.addValidator(...validationHelper.getEmailAddressValidators());
+        this.auxImageRegistryPullCredentialsReference = props.createProperty();
+
         this.auxImagePullPolicy = props.createProperty('IfNotPresent');
 
         // These fields are exposed to the user only when using an existing Auxiliary Image or Domain Creation Image.
@@ -325,12 +318,21 @@ define(['knockout', 'utils/observable-properties', 'utils/common-utilities', 'ut
           // of the project (assuming the user doesn't intentionally change it).
           // See JIRA WKTUI-300 for details.
           //
-          if (!json[name]) {
-            json[name] = {
-              runtimeSecretValue: this.runtimeSecretValue.value
-            };
-          } else if (!json[name].runtimeSecretValue) {
-            json[name].runtimeSecretValue = this.runtimeSecretValue.value;
+          if (this.runtimeSecretValue.value) {
+            if (!json[name]) {
+              json[name] = {
+                runtimeSecretValue: this.runtimeSecretValue.value
+              };
+            } else if (!json[name].runtimeSecretValue) {
+              json[name].runtimeSecretValue = this.runtimeSecretValue.value;
+            }
+
+            if (!json['credentialPaths']) {
+              json['credentialPaths'] = [];
+            }
+            if (!json['credentialPaths'].includes(`${name}.runtimeSecretValue`)) {
+              json['credentialPaths'].push(`${name}.runtimeSecretValue`);
+            }
           }
 
           const modelConfigMap = {};

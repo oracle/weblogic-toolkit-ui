@@ -20,6 +20,17 @@ function(project, wktConsole, i18n, projectIo, dialogHelper,
       this.project = project;
     }
 
+    getImageRegistryCredential(credentialUid) {
+      if (project.settings.containerImageRegistriesCredentials.hasValue()) {
+        for (let credentialObject of project.settings.containerImageRegistriesCredentials.observable()) {
+          if (credentialObject.uid === credentialUid) {
+            return credentialObject;
+          }
+        }
+      }
+      return undefined;
+    }
+
     // Execute the specified async action method if no other action is in progress.
     // If another action is in progress, log a message and cancel the new action.
     async executeAction(asyncMethod, ...args) {

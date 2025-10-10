@@ -5,8 +5,8 @@
  */
 'use strict';
 
-define(['utils/observable-properties'],
-  function (props) {
+define(['utils/observable-properties', 'utils/wkt-logger'],
+  function (props, wktLogger) {
     return function(name) {
       function ProjectSettingsModel() {
         // Question-related fields
@@ -36,11 +36,30 @@ define(['utils/observable-properties'],
         }, this.builderType.observable);
         this.imageTargetArchitecture = props.createProperty('amd64');
 
+        this.containerImageRegistriesCredentials =
+          props.createListProperty(['uid', 'name', 'address', 'email', 'username', 'password']).persistByKey('uid');
+
+        this.setCredentialPathsForContainerImageRegistriesCredentialsTable = (json) => {
+          const registries = this.containerImageRegistriesCredentials.observable();
+          wktLogger.info(`registries length ${registries.length}`);
+          if (registries.length > 0) {
+            if (!json.credentialPaths) {
+              json.credentialPaths = [];
+            }
+            for (const registry of registries) {
+              wktLogger.info(`registry = { uid: ${registry.uid}, name: ${registry.name} }`);
+              json.credentialPaths.push(`${name}.containerImageRegistriesCredentials.${registry.uid}.username`);
+              json.credentialPaths.push(`${name}.containerImageRegistriesCredentials.${registry.uid}.password`);
+            }
+          }
+        };
+
         this.readFrom = function(json) {
           props.createGroup(name, this).readFrom(json);
         };
 
         this.writeTo = function (json) {
+          this.setCredentialPathsForContainerImageRegistriesCredentialsTable(json);
           props.createGroup(name, this).writeTo(json);
         };
 

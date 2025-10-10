@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -171,14 +171,16 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
         if (this.project.k8sDomain.imageRegistryPullRequireAuthentication.value &&
           !this.project.k8sDomain.imageRegistryUseExistingPullSecret.value) {
           const secret = this.project.k8sDomain.imageRegistryPullSecretName.value;
+          const credentials =
+            this.getImageRegistryCredential(this.project.k8sDomain.imageRegistryPullCredentialsReference.value);
           busyDialogMessage = i18n.t('k8s-domain-deployer-create-image-pull-secret-in-progress',
             {domainNamespace: domainNamespace, secretName: secret});
           dialogHelper.updateBusyDialog(busyDialogMessage, 8 / totalSteps);
           const secretData = {
-            server: this.project.image.internal.imageRegistryAddress.value,
-            username: this.project.k8sDomain.imageRegistryPullUser.value,
-            email: this.project.k8sDomain.imageRegistryPullEmail.value,
-            password: this.project.k8sDomain.imageRegistryPullPassword.value
+            server: (credentials) ? credentials.address : undefined,
+            username: (credentials) ? credentials.username : undefined,
+            email: (credentials) ? credentials.email : undefined,
+            password: (credentials) ? credentials.password : undefined,
           };
           const createResult = await this.createPullSecret(kubectlExe, kubectlOptions, domainNamespace, secret,
             secretData, errTitle, errPrefix);
@@ -190,14 +192,16 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
         if (this.project.k8sDomain.auxImageRegistryPullRequireAuthentication.value &&
           !this.project.k8sDomain.auxImageRegistryUseExistingPullSecret.value) {
           const secret = this.project.k8sDomain.auxImageRegistryPullSecretName.value;
+          const credentials =
+            this.getImageRegistryCredential(this.project.k8sDomain.auxImageRegistryPullCredentialsReference.value);
           busyDialogMessage = i18n.t('k8s-domain-deployer-create-image-pull-secret-in-progress',
             {domainNamespace: domainNamespace, secretName: secret});
           dialogHelper.updateBusyDialog(busyDialogMessage, 9 / totalSteps);
           const secretData = {
-            server: this.project.image.internal.auxImageRegistryAddress.value,
-            username: this.project.k8sDomain.auxImageRegistryPullUser.value,
-            email: this.project.k8sDomain.auxImageRegistryPullEmail.value,
-            password: this.project.k8sDomain.auxImageRegistryPullPassword.value
+            server: (credentials) ? credentials.address : undefined,
+            username: (credentials) ? credentials.username : undefined,
+            email: (credentials) ? credentials.email : undefined,
+            password: (credentials) ? credentials.password : undefined,
           };
           const createResult = await this.createPullSecret(kubectlExe, kubectlOptions, domainNamespace, secret,
             secretData, errTitle, errPrefix);
@@ -396,18 +400,22 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
           this.project.k8sDomain.imageRegistryPullSecretName.validate(true), domainFormConfig);
 
         if (!this.project.k8sDomain.imageRegistryUseExistingPullSecret.value) {
-          validationObject.addField('domain-design-image-registry-address-label',
-            validationHelper.validateHostName(this.project.image.internal.imageRegistryAddress.value, false),
+          validationObject.addField('domain-design-image-registry-pull-credentials-label',
+            validationHelper.validateRequiredField(this.project.k8sDomain.imageRegistryPullCredentialsReference.value),
             domainFormConfig);
-          validationObject.addField('domain-design-image-registry-pull-username-label',
-            validationHelper.validateRequiredField(this.project.k8sDomain.imageRegistryPullUser.value),
-            domainFormConfig);
-          validationObject.addField('domain-design-image-registry-pull-email-label',
-            this.project.k8sDomain.imageRegistryPullEmail.validate(true),
-            domainFormConfig);
-          validationObject.addField('domain-design-image-registry-pull-password-label',
-            validationHelper.validateRequiredField(this.project.k8sDomain.imageRegistryPullPassword.value),
-            domainFormConfig);
+
+          const credentials =
+            this.getImageRegistryCredential(this.project.k8sDomain.imageRegistryPullCredentialsReference.value);
+          if (credentials) {
+            validationObject.addField('domain-design-image-registry-pull-address-label',
+              validationHelper.validateHostName(credentials.address, false), domainFormConfig);
+            validationObject.addField('domain-design-image-registry-pull-username-label',
+              validationHelper.validateRequiredField(credentials.username), domainFormConfig);
+            validationObject.addField('domain-design-image-registry-pull-email-label',
+              validationHelper.validateEmailAddress(credentials.email), domainFormConfig);
+            validationObject.addField('domain-design-image-registry-pull-password-label',
+              validationHelper.validateRequiredField(credentials.password), domainFormConfig);
+          }
         }
       }
 
@@ -420,18 +428,22 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
             this.project.k8sDomain.auxImageRegistryPullSecretName.validate(true), domainFormConfig);
 
           if (!this.project.k8sDomain.auxImageRegistryUseExistingPullSecret.value) {
-            validationObject.addField('domain-design-aux-image-registry-address-label',
-              validationHelper.validateHostName(this.project.image.internal.auxImageRegistryAddress.value, false),
+            validationObject.addField('domain-design-aux-image-registry-pull-credentials-label',
+              validationHelper.validateRequiredField(this.project.k8sDomain.auxImageRegistryPullCredentialsReference.value),
               domainFormConfig);
-            validationObject.addField('domain-design-aux-image-registry-pull-username-label',
-              validationHelper.validateRequiredField(this.project.k8sDomain.auxImageRegistryPullUser.value),
-              domainFormConfig);
-            validationObject.addField('domain-design-aux-image-registry-pull-email-label',
-              this.project.k8sDomain.auxImageRegistryPullEmail.validate(true),
-              domainFormConfig);
-            validationObject.addField('domain-design-aux-image-registry-pull-password-label',
-              validationHelper.validateRequiredField(this.project.k8sDomain.auxImageRegistryPullPassword.value),
-              domainFormConfig);
+
+            const credentials =
+              this.getImageRegistryCredential(this.project.k8sDomain.auxImageRegistryPullCredentialsReference.value);
+            if (credentials) {
+              validationObject.addField('domain-design-aux-image-registry-pull-credentials-address-label',
+                validationHelper.validateHostName(credentials.address, false), domainFormConfig);
+              validationObject.addField('domain-design-aux-image-registry-pull-credentials-username-label',
+                validationHelper.validateRequiredField(credentials.username), domainFormConfig);
+              validationObject.addField('domain-design-aux-image-registry-pull-credentials-email-label',
+                validationHelper.validateEmailAddress(credentials.email), domainFormConfig);
+              validationObject.addField('domain-design-aux-image-registry-pull-credentials-password-label',
+                validationHelper.validateRequiredField(credentials.password), domainFormConfig);
+            }
           }
         }
       } else if (auxImageHelper.supportsDomainCreationImages() && this.project.image.useAuxImage.value) {
@@ -443,18 +455,22 @@ function (K8sDomainActionsBase, project, wktConsole, i18n, projectIo, dialogHelp
             this.project.k8sDomain.auxImageRegistryPullSecretName.validate(true), domainFormConfig);
 
           if (!this.project.k8sDomain.auxImageRegistryUseExistingPullSecret.value) {
-            validationObject.addField('domain-design-domain-creation-image-registry-address-label',
-              validationHelper.validateHostName(this.project.image.internal.auxImageRegistryAddress.value, false),
+            validationObject.addField('domain-design-domain-creation-image-registry-pull-credentials-label',
+              validationHelper.validateRequiredField(this.project.k8sDomain.auxImageRegistryPullCredentialsReference.value),
               domainFormConfig);
-            validationObject.addField('domain-design-domain-creation-image-registry-pull-username-label',
-              validationHelper.validateRequiredField(this.project.k8sDomain.auxImageRegistryPullUser.value),
-              domainFormConfig);
-            validationObject.addField('domain-design-domain-creation-image-registry-pull-email-label',
-              this.project.k8sDomain.auxImageRegistryPullEmail.validate(true),
-              domainFormConfig);
-            validationObject.addField('domain-design-domain-creation-image-registry-pull-password-label',
-              validationHelper.validateRequiredField(this.project.k8sDomain.auxImageRegistryPullPassword.value),
-              domainFormConfig);
+
+            const credentials =
+              this.getImageRegistryCredential(this.project.k8sDomain.auxImageRegistryPullCredentialsReference.value);
+            if (credentials) {
+              validationObject.addField('domain-design-domain-creation-image-registry-pull-credentials-address-label',
+                validationHelper.validateHostName(credentials.address, false), domainFormConfig);
+              validationObject.addField('domain-design-domain-creation-image-registry-pull-credentials-username-label',
+                validationHelper.validateRequiredField(credentials.username), domainFormConfig);
+              validationObject.addField('domain-design-domain-creation-image-registry-pull-credentials-email-label',
+                validationHelper.validateEmailAddress(credentials.email), domainFormConfig);
+              validationObject.addField('domain-design-domain-creation-image-registry-pull-credentials-password-label',
+                validationHelper.validateRequiredField(credentials.password), domainFormConfig);
+            }
           }
 
           if (this.project.k8sDomain.createPvc.value) {
