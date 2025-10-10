@@ -350,8 +350,8 @@ function (ko, wdtConstructor, imageConstructor, kubectlConstructor, domainConstr
         if (imageTagFieldName && imageTagSectionName in projectJson &&
           (imageTagFieldName in projectJson[imageTagSectionName]) &&
           projectJson[imageTagSectionName][imageTagFieldName]) {
-            newEntryPayload.address =
-              window.api.k8s.getRegistryAddressFromImageTag(projectJson[imageTagSectionName][imageTagFieldName]);
+          newEntryPayload.address =
+            window.api.k8s.getRegistryAddressFromImageTag(projectJson[imageTagSectionName][imageTagFieldName]);
         }
 
         // No point continuing with this entry if the username or password fields are missing

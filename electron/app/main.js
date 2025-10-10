@@ -42,7 +42,7 @@ const { startWebLogicRemoteConsoleBackend, getDefaultDirectoryForOpenDialog, set
 const { getHttpsProxyUrl, getBypassProxyHosts } = require('./js/userSettings');
 const { sendToWindow } = require('./js/windowUtils');
 const {compareVersions} = require('./js/versionUtils');
-const {getWdtLibraryJar} = require("./js/wktTools");
+const {getWdtLibraryJar} = require('./js/wktTools');
 
 const WKT_CONSOLE_STDOUT_CHANNEL = 'show-console-out-line';
 const WKT_CONSOLE_STDERR_CHANNEL = 'show-console-err-line';
