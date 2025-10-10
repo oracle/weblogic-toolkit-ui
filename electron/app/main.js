@@ -42,6 +42,7 @@ const { startWebLogicRemoteConsoleBackend, getDefaultDirectoryForOpenDialog, set
 const { getHttpsProxyUrl, getBypassProxyHosts } = require('./js/userSettings');
 const { sendToWindow } = require('./js/windowUtils');
 const {compareVersions} = require('./js/versionUtils');
+const {getWdtLibraryJar} = require("./js/wktTools");
 
 const WKT_CONSOLE_STDOUT_CHANNEL = 'show-console-out-line';
 const WKT_CONSOLE_STDERR_CHANNEL = 'show-console-err-line';
@@ -361,17 +362,13 @@ class Main {
 
     // model edit
     ipcMain.handle('get-alias-info', () => {
-      return modelEditUtils.getAliasInfo();
+      const wktLibraryJar = getWdtLibraryJar();
+      return modelEditUtils.getAliasInfo(wktLibraryJar);
     });
 
     // model edit
     ipcMain.handle('get-model-edit-message-keys', () => {
       return modelEditUtils.getMessageKeys();
-    });
-
-    // model edit
-    ipcMain.handle('get-model-edit-metadata', () => {
-      return modelEditUtils.getMetadata();
     });
 
     ipcMain.handle('get-jdk-installer-location', async (event) => {
