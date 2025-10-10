@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -80,11 +80,15 @@ function(ImageRegistryActionsBase, project, wktConsole, i18n, projectIo, dialogH
         busyDialogMessage =
           i18n.t(this._getMiiPvMessageKey('aux-image-pusher-push-in-progress'), {imageTag: imageTag});
         dialogHelper.updateBusyDialog(busyDialogMessage, 3/totalSteps);
+        const credentials = this.getImageRegistryCredential(this.project.image.auxImageRegistryPushCredentialsReference.value);
+        const host = (credentials) ? credentials.address : undefined;
+        const username = (credentials) ? credentials.username : undefined;
+        const password = (credentials) ? credentials.password : undefined;
         const pushOptions = {
           requiresLogin: this.project.image.auxImageRegistryPushRequireAuthentication.value,
-          host: this.project.image.internal.auxImageRegistryAddress.value,
-          username: this.project.image.auxImageRegistryPushUser.value,
-          password: this.project.image.auxImageRegistryPushPassword.value
+          host: host,
+          username: username,
+          password: password
         };
         const imagePushResult = await this.pushImage(imageBuilderOptions, imageTag, pushOptions, errTitle,
           errPrefix, options.skipCompleteDialog);
@@ -115,11 +119,19 @@ function(ImageRegistryActionsBase, project, wktConsole, i18n, projectIo, dialogH
         settingsFormConfig);
 
       if (this.project.image.auxImageRegistryPushRequireAuthentication.value) {
-        // skip validating the host portion of the image tag since it may be empty for Docker Hub...
-        validationObject.addField(this._getMiiPvImageFormKey('image-design-aux-image-registry-push-username-label'),
-          validationHelper.validateRequiredField(this.project.image.auxImageRegistryPushUser.value), imageFormConfig);
-        validationObject.addField(this._getMiiPvImageFormKey('image-design-aux-image-registry-push-password-label'),
-          validationHelper.validateRequiredField(this.project.image.auxImageRegistryPushPassword.value), imageFormConfig);
+        validationObject.addField('image-design-aux-image-registry-push-credentials-label',
+          validationHelper.validateRequiredField(this.project.image.auxDefaultBaseImagePullCredentialsReference.value),
+          imageFormConfig);
+
+        const credentials =
+          this.getImageRegistryCredential(this.project.image.auxImageRegistryPushCredentialsReference.value);
+        if (credentials) {
+          // skip validating the host portion of the image tag since it may be empty for Docker Hub...
+          validationObject.addField('image-design-aux-image-registry-push-credentials-username-label',
+            validationHelper.validateRequiredField(credentials.username), imageFormConfig);
+          validationObject.addField('image-design-aux-image-registry-push-credentials-password-label',
+            validationHelper.validateRequiredField(credentials.password), imageFormConfig);
+        }
       }
 
       return validationObject;

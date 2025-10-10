@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2021, 2023, Oracle and/or its affiliates.
+ Copyright (c) 2021, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('title')]]"></oj-bind-text></h6>
@@ -187,25 +187,18 @@
         </oj-input-text>
       </oj-bind-if>
       <oj-bind-if test="[[project.k8sDomain.imageRegistryUseExistingPullSecret.observable() === false]]">
-        <oj-input-password label-hint="[[labelMapper('image-registry-pull-username-label')]]"
-                           mask-icon="visible"
-                           value="{{project.k8sDomain.imageRegistryPullUser.observable}}"
-                           help.instruction="[[labelMapper('image-registry-pull-username-help')]]">
-        </oj-input-password>
-      </oj-bind-if>
-      <oj-bind-if test="[[project.k8sDomain.imageRegistryUseExistingPullSecret.observable() === false]]">
-        <oj-input-text label-hint="[[labelMapper('image-registry-pull-email-label')]]"
-                       value="{{project.k8sDomain.imageRegistryPullEmail.observable}}"
-                       validators="[[project.k8sDomain.imageRegistryPullEmail.validators()]]"
-                       help.instruction="[[labelMapper('image-registry-pull-email-help')]]">
-        </oj-input-text>
-      </oj-bind-if>
-      <oj-bind-if test="[[project.k8sDomain.imageRegistryUseExistingPullSecret.observable() === false]]">
-        <oj-input-password label-hint="[[labelMapper('image-registry-pull-password-label')]]"
-                           mask-icon="visible"
-                           value="{{project.k8sDomain.imageRegistryPullPassword.observable}}"
-                           help.instruction="[[labelMapper('image-registry-pull-password-help')]]">
-        </oj-input-password>
+        <oj-select-single label-hint="[[labelMapper('image-registry-pull-credentials-label')]]"
+                          value="{{project.k8sDomain.imageRegistryPullCredentialsReference.observable}}"
+                          data="[[imageRegistriesCredentialsDP]]"
+                          item-text="[[getImageRegistriesCredentialsItemText]]"
+                          help.instruction="[[labelMapper('image-registry-pull-credentials-help')]]">
+        </oj-select-single>
+        <oj-button
+                class="wkt-button-below"
+                label="[[imageLabelMapper('image-registry-add-credentials')]]"
+                chroming="callToAction"
+                on-oj-action="[[editImageRegistryCredentials]]">
+        </oj-button>
       </oj-bind-if>
     </oj-form-layout>
   </oj-bind-if>
@@ -310,25 +303,18 @@
             </oj-input-text>
           </oj-bind-if>
           <oj-bind-if test="[[project.k8sDomain.auxImageRegistryUseExistingPullSecret.observable() === false]]">
-            <oj-input-password label-hint="[[miiPvLabelMapper('aux-image-registry-pull-username-label')]]"
-                               mask-icon="visible"
-                               value="{{project.k8sDomain.auxImageRegistryPullUser.observable}}"
-                               help.instruction="[[miiPvLabelMapper('aux-image-registry-pull-username-help')]]">
-            </oj-input-password>
-          </oj-bind-if>
-          <oj-bind-if test="[[project.k8sDomain.auxImageRegistryUseExistingPullSecret.observable() === false]]">
-            <oj-input-text label-hint="[[miiPvLabelMapper('aux-image-registry-pull-email-label')]]"
-                           value="{{project.k8sDomain.auxImageRegistryPullEmail.observable}}"
-                           validators="[[project.k8sDomain.auxImageRegistryPullEmail.validators()]]"
-                           help.instruction="[[miiPvLabelMapper('aux-image-registry-pull-email-help')]]">
-            </oj-input-text>
-          </oj-bind-if>
-          <oj-bind-if test="[[project.k8sDomain.auxImageRegistryUseExistingPullSecret.observable() === false]]">
-            <oj-input-password label-hint="[[miiPvLabelMapper('aux-image-registry-pull-password-label')]]"
-                               mask-icon="visible"
-                               value="{{project.k8sDomain.auxImageRegistryPullPassword.observable}}"
-                               help.instruction="[[miiPvLabelMapper('aux-image-registry-pull-password-help')]]">
-            </oj-input-password>
+            <oj-select-single label-hint="[[miiPvLabelMapper('aux-image-registry-pull-credentials-label')]]"
+                              value="{{project.k8sDomain.auxImageRegistryPullCredentialsReference.observable}}"
+                              data="[[imageRegistriesCredentialsDP]]"
+                              item-text="[[getImageRegistriesCredentialsItemText]]"
+                              help.instruction="[[miiPvLabelMapper('aux-image-registry-pull-credentials-help')]]">
+            </oj-select-single>
+            <oj-button
+                    class="wkt-button-below"
+                    label="[[imageLabelMapper('image-registry-add-credentials')]]"
+                    chroming="callToAction"
+                    on-oj-action="[[editImageRegistryCredentials]]">
+            </oj-button>
           </oj-bind-if>
         </oj-form-layout>
       </oj-bind-if>

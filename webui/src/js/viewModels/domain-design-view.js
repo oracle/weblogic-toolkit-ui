@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 define(['models/wkt-project', 'accUtils', 'utils/common-utilities', 'knockout', 'utils/i18n', 'utils/screen-utils',
@@ -105,6 +105,11 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
           .replace(/-aux-/, '-domain-creation-')}`, payload);
       }
       return i18n.t(`domain-design-${labelId}`, payload);
+    };
+
+    this.imageRegistriesCredentialsDP = new ArrayDataProvider(this.project.settings.containerImageRegistriesCredentials.observable, { key: 'uid' });
+    this.getImageRegistriesCredentialsItemText = (itemContext) => {
+      return itemContext.data.name;
     };
 
     this.supportsDomainCreationImages = () => {
@@ -642,6 +647,10 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
         value: ''
       };
       this.project.k8sDomain.domainNodeSelector.addNewItem(labelToAdd);
+    };
+
+    this.editImageRegistryCredentials = () => {
+      dialogHelper.openDialog('registry-credentials-dialog', {});
     };
   }
 

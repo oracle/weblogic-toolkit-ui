@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
@@ -59,8 +59,13 @@ function(project, ScriptGeneratorBase, K8sDomainConfigMapGenerator, auxImageHelp
       this.adapter.addVariableDefinition('USE_EXISTING_PULL_SECRET',
         this.project.k8sDomain.imageRegistryUseExistingPullSecret.value);
       this.adapter.addVariableDefinition('PULL_SECRET_NAME', this.project.k8sDomain.imageRegistryPullSecretName.value);
-      this.adapter.addVariableDefinition('PULL_SECRET_HOST', this.project.image.internal.imageRegistryAddress.value);
-      this.adapter.addVariableDefinition('PULL_SECRET_EMAIL', this.project.k8sDomain.imageRegistryPullEmail.value);
+
+      const pullSecretCredentials =
+        this.getImageRegistryCredential(this.project.k8sDomain.imageRegistryPullCredentialsReference.value);
+      const pullSecretHost = (pullSecretCredentials) ? pullSecretCredentials.address : '';
+      const pullSecretEmail = (pullSecretCredentials) ? pullSecretCredentials.email : '';
+      this.adapter.addVariableDefinition('PULL_SECRET_HOST', pullSecretHost);
+      this.adapter.addVariableDefinition('PULL_SECRET_EMAIL', pullSecretEmail);
       this.adapter.addVariableDefinition('PULL_SECRET_USER', this.credentialMask);
       this.adapter.addVariableDefinition('PULL_SECRET_PASS', this.credentialMask);
       this.adapter.addEmptyLine();
@@ -71,8 +76,13 @@ function(project, ScriptGeneratorBase, K8sDomainConfigMapGenerator, auxImageHelp
         this.adapter.addVariableDefinition('AUX_USE_EXISTING_PULL_SECRET',
           this.project.k8sDomain.auxImageRegistryUseExistingPullSecret.value);
         this.adapter.addVariableDefinition('AUX_PULL_SECRET_NAME', this.project.k8sDomain.auxImageRegistryPullSecretName.value);
-        this.adapter.addVariableDefinition('AUX_PULL_SECRET_HOST', this.project.image.internal.auxImageRegistryAddress.value);
-        this.adapter.addVariableDefinition('AUX_PULL_SECRET_EMAIL', this.project.k8sDomain.auxImageRegistryPullEmail.value);
+
+        const auxPullSecretCredentials =
+          this.getImageRegistryCredential(this.project.k8sDomain.auxImageRegistryPullCredentialsReference.value);
+        const auxPullSecretHost = (auxPullSecretCredentials) ? auxPullSecretCredentials.address : '';
+        const auxPullSecretEmail = (auxPullSecretCredentials) ? auxPullSecretCredentials.email : '';
+        this.adapter.addVariableDefinition('AUX_PULL_SECRET_HOST', auxPullSecretHost);
+        this.adapter.addVariableDefinition('AUX_PULL_SECRET_EMAIL', auxPullSecretEmail);
         this.adapter.addVariableDefinition('AUX_PULL_SECRET_USER', this.credentialMask);
         this.adapter.addVariableDefinition('AUX_PULL_SECRET_PASS', this.credentialMask);
         this.adapter.addEmptyLine();

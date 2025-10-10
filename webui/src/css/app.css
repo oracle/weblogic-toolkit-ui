@@ -275,7 +275,8 @@
   border: 1px solid var(--oj-collection-border-color);
 }
 
-.wkt-paths-table, .wkt-domain-node-selectors-table {
+.wkt-paths-table, .wkt-domain-node-selectors-table,
+.wkt-container-image-registries-credentials-table {
   border: 1px solid var(--oj-collection-border-color);
   width: 100%;
 }
@@ -487,6 +488,14 @@ h6:first-child {
   height: 85vh;
 }
 
+.wkt-registry-credentials-dialog {
+  width: 85%;
+}
+
+.wkt-registry-credentials-dialog .wkt-container-image-registries-credentials-table {
+  min-height: 300px;
+}
+
 .wkt-center-text-in-frame {
   vertical-align: center;
   text-align: center;
@@ -508,6 +517,11 @@ h6:first-child {
   grid-row-gap: 1em;
   grid-auto-columns: auto min-content;
   margin-bottom: var(--oj-form-layout-margin-bottom);
+}
+
+/* when oj-input-password is used as read-only in table */
+td.wkt-table-no-padding-cell {
+  padding: 0 !important;
 }
 
 .wkt-table-button-grid .oj-table {
@@ -726,6 +740,10 @@ h6.wkt-panel-heading {
 .wkt-button-row {
   display: flex;
   margin-bottom: 0.75em;
+}
+
+.wkt-button-below {
+  margin-top: 0.75em;
 }
 
 .validationErrorBlock {

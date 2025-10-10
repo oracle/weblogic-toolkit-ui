@@ -66,6 +66,11 @@ define(['utils/wkt-logger', 'utils/screen-utils', 'utils/aux-image-helper'],
 
       this.project = project;
 
+      this.imageRegistriesCredentialsDP = new ArrayDataProvider(this.project.settings.containerImageRegistriesCredentials.observable, { key: 'uid' });
+      this.getImageRegistriesCredentialsItemText = (itemContext) => {
+        return itemContext.data.name;
+      };
+
       this.targetDomainLocationIsMII = () => {
         return this.project.settings.targetDomainLocation.value === 'mii';
       };
@@ -367,6 +372,10 @@ define(['utils/wkt-logger', 'utils/screen-utils', 'utils/aux-image-helper'],
             this.project.image.additionalBuildFiles.observable(fileList);
           }
         });
+      };
+
+      this.editImageRegistryCredentials = () => {
+        dialogHelper.openDialog('registry-credentials-dialog', {});
       };
     }
 

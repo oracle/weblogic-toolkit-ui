@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -155,11 +155,12 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
         if (this.project.image.auxUseCustomBaseImage.value &&
           this.project.image.auxBaseImagePullRequiresAuthentication.value) {
           // if using custom base image and requires authentication, do build-tool login.
+          const credentials = this.getImageRegistryCredential(this.project.image.auxBaseImagePullCredentialsReference.value);
           const loginConfig = {
             requiresLogin: this.project.image.auxBaseImagePullRequiresAuthentication.value,
-            host: this.project.image.internal.auxBaseImageRegistryAddress.value,
-            username: this.project.image.auxBaseImagePullUsername.value,
-            password: this.project.image.auxBaseImagePullPassword.value
+            host: (credentials) ? credentials.address : undefined,
+            username: (credentials) ? credentials.username : undefined,
+            password: (credentials) ? credentials.password : undefined
           };
           if (! await this.loginToImageRegistry(imageBuilderOptions, loginConfig, errTitle, errPrefix)) {
             return Promise.resolve(false);
@@ -167,10 +168,12 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
         } else if (!this.project.image.auxUseCustomBaseImage.value &&
           this.project.image.auxDefaultBaseImagePullRequiresAuthentication.value) {
           // if using default base image and requires authentication, do build-tool login to Docker Hub.
+          const credentials = this.getImageRegistryCredential(this.project.image.auxDefaultBaseImagePullCredentialsReference.value);
           const loginConfig = {
             requiresLogin: this.project.image.auxDefaultBaseImagePullRequiresAuthentication.value,
-            username: this.project.image.auxDefaultBaseImagePullUsername.value,
-            password: this.project.image.auxDefaultBaseImagePullPassword.value
+            host: (credentials) ? credentials.address : undefined,
+            username: (credentials) ? credentials.username : undefined,
+            password: (credentials) ? credentials.password : undefined
           };
           if (! await this.loginToImageRegistry(imageBuilderOptions, loginConfig, errTitle, errPrefix)) {
             return Promise.resolve(false);
@@ -230,21 +233,34 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
           this.project.image.auxBaseImage.validate(true), imageFormConfig);
 
         if (this.project.image.auxBaseImagePullRequiresAuthentication.value) {
-          // skip validating the host portion of the base image tag since it may be empty for Docker Hub...
-          validationObject.addField(this._getMiiPvImageFormKey('image-design-aux-base-image-pull-username-label'),
-            validationHelper.validateRequiredField(this.project.image.auxBaseImagePullUsername.value), imageFormConfig);
-          validationObject.addField(this._getMiiPvImageFormKey('image-design-aux-base-image-pull-password-label'),
-            validationHelper.validateRequiredField(this.project.image.auxBaseImagePullPassword.value), imageFormConfig);
+          validationObject.addField('image-design-aux-base-image-pull-credentials-label',
+            validationHelper.validateRequiredField(this.project.image.auxBaseImagePullCredentialsReference.value),
+            imageFormConfig);
+
+          const credentials =
+            this.getImageRegistryCredential(this.project.image.auxBaseImagePullCredentialsReference.value);
+          if (credentials) {
+            // skip validating the host portion of the image tag since it may be empty for Docker Hub...
+            validationObject.addField('image-design-aux-base-image-pull-credentials-username-label',
+              validationHelper.validateRequiredField(credentials.username), imageFormConfig);
+            validationObject.addField('image-design-aux-base-image-pull-credentials-password-label',
+              validationHelper.validateRequiredField(credentials.password), imageFormConfig);
+          }
         }
       } else if (this.project.image.auxDefaultBaseImagePullRequiresAuthentication.value) {
-        validationObject.addField(
-          this._getMiiPvImageFormKey('image-design-aux-default-base-image-pull-username-label'),
-          validationHelper.validateRequiredField(this.project.image.auxDefaultBaseImagePullUsername.value),
+        validationObject.addField('image-design-aux-default-base-image-pull-credentials-label',
+          validationHelper.validateRequiredField(this.project.image.auxDefaultBaseImagePullCredentialsReference.value),
           imageFormConfig);
-        validationObject.addField(
-          this._getMiiPvImageFormKey('image-design-aux-default-base-image-pull-password-label'),
-          validationHelper.validateRequiredField(this.project.image.auxDefaultBaseImagePullPassword.value),
-          imageFormConfig);
+
+        const credentials =
+          this.getImageRegistryCredential(this.project.image.auxDefaultBaseImagePullCredentialsReference.value);
+        if (credentials) {
+          // skip validating the host portion of the image tag since it may be empty for Docker Hub...
+          validationObject.addField('image-design-aux-default-base-image-pull-credentials-username-label',
+            validationHelper.validateRequiredField(credentials.username), imageFormConfig);
+          validationObject.addField('image-design-aux-default-base-image-pull-credentials-password-label',
+            validationHelper.validateRequiredField(credentials.password), imageFormConfig);
+        }
       }
       return validationObject;
     }

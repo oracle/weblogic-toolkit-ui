@@ -6,11 +6,12 @@
 'use strict';
 
 define(['accUtils', 'knockout', 'utils/i18n', 'models/wkt-project', 'ojs/ojarraydataprovider',
-  'ojs/ojbufferingdataprovider', 'utils/common-utilities', 'utils/dialog-helper', 'utils/view-helper',
-  'utils/aux-image-helper', 'utils/wkt-logger', 'utils/url-catalog', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton',
-  'oj-c/form-layout', 'oj-c/radioset', 'ojs/ojswitch', 'oj-c/select-single', 'ojs/ojtable' ],
+  'ojs/ojbufferingdataprovider', 'ojs/ojmodule-element-utils', 'utils/common-utilities', 'utils/dialog-helper',
+  'utils/view-helper', 'utils/aux-image-helper', 'utils/wkt-logger', 'utils/url-catalog', 'ojs/ojinputtext',
+  'ojs/ojlabel', 'ojs/ojbutton', 'oj-c/form-layout', 'oj-c/radioset', 'ojs/ojswitch', 'oj-c/select-single',
+  'ojs/ojtable' ],
 function(accUtils, ko, i18n, project, ArrayDataProvider,
-  BufferingDataProvider, utils, dialogHelper, viewHelper, auxImageHelper) {
+  BufferingDataProvider, ModuleElementUtils, utils, dialogHelper, viewHelper, auxImageHelper) {
 
   function ProjectSettingsViewModel() {
 
@@ -248,6 +249,11 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
       { id: 'arm64Option', value: 'arm64', label: this.labelMapper('image-target-architecture-arm64-label') },
     ];
     this.targetImageArchitectureDP = new ArrayDataProvider(this.targetImageArchitectures, { keyAttributes: 'value' });
+
+    this.registryCredentialsModule = ModuleElementUtils.createConfig({
+      name: 'registry-credentials-table',
+      params: {}
+    });
   }
 
   return ProjectSettingsViewModel;

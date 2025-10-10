@@ -77,7 +77,7 @@ function (ko, wdtConstructor, imageConstructor, kubectlConstructor, domainConstr
 
     // notify views when a new project is loaded
     this.postOpen = ko.observable();
-    this.postOpen.extend({ notify: 'always' });
+    this.postOpen.extend({notify: 'always'});
 
     // simple fields on configuration pages.
 
@@ -150,12 +150,12 @@ function (ko, wdtConstructor, imageConstructor, kubectlConstructor, domainConstr
       //
       if ('k8sDomain' in wktProjectJson && 'secrets' in wktProjectJson.k8sDomain) {
         const secrets = wktProjectJson.k8sDomain.secrets;
-        for(const secretUid in secrets) {
+        for (const secretUid in secrets) {
           const secret = secrets[secretUid];
           if (!secret.hasOwnProperty('keys')) {
             const keyMap = {};
             ['username', 'password'].forEach(attribute_key => {
-              if(secret.hasOwnProperty(attribute_key)) {
+              if (secret.hasOwnProperty(attribute_key)) {
                 const keyUid = utils.getShortUuid();
                 keyMap[keyUid] = {key: attribute_key, value: secret[attribute_key]};
                 delete secret[attribute_key];
@@ -172,7 +172,7 @@ function (ko, wdtConstructor, imageConstructor, kubectlConstructor, domainConstr
       if ('wko' in wktProjectJson && 'image' in wktProjectJson.wko) {
         const currentImageValue = wktProjectJson.wko.image;
         const defaultImageValue =
-            `ghcr.io/oracle/weblogic-kubernetes-operator:${window.api.ipc.invoke('get-latest-wko-version-number')}`;
+          `ghcr.io/oracle/weblogic-kubernetes-operator:${window.api.ipc.invoke('get-latest-wko-version-number')}`;
 
         if (currentImageValue === defaultImageValue) {
           delete wktProjectJson.wko.image;
@@ -215,6 +215,201 @@ function (ko, wdtConstructor, imageConstructor, kubectlConstructor, domainConstr
       // handles the conversion is in the electron credential loading code since all credential loading
       // is handled on the electron side so by the time we get here, it is too late.
       //
+
+      // Version 2.0 changed the way container image registry information is stored.
+      // Do the best that we can to try to convert the information to the new data
+      // structures.  Better to lose information than to leave bad fields in the project...
+      //
+      // To get this conversion 100% correct, this would be tricky since we cannot count on
+      // the fields needed to consolidate the entries being present.  So, if the required
+      // fields are not available, just create a new entry in the Image Registry Credentials
+      // data structure and let the user sort it out.
+      //
+      const containerImageRegistriesCredentials = {};
+      if ('image' in wktProjectJson) {
+        this._processNewPayloadEntry(containerImageRegistriesCredentials, wktProjectJson, 'image',
+          'imageRegistryPushUser', 'imageRegistryPushPassword',
+          'imageRegistryPushCredentialsReference', 'imageTag');
+        this._processNewPayloadEntry(containerImageRegistriesCredentials, wktProjectJson, 'image',
+          'baseImagePullUsername', 'baseImagePullPassword',
+          'baseImagePullCredentialsReference', 'baseImage');
+        this._processNewPayloadEntry(containerImageRegistriesCredentials, wktProjectJson, 'image',
+          'auxImageRegistryPushUser', 'auxImageRegistryPushPassword',
+          'auxImageRegistryPushCredentialsReference', 'auxImageTag');
+        this._processNewPayloadEntry(containerImageRegistriesCredentials, wktProjectJson, 'image',
+          'auxBaseImagePullUsername', 'auxBaseImagePullPassword',
+          'auxBaseImagePullCredentialsReference', 'auxBaseImage');
+
+        // This use case is using the default Auxiliary base image from Docker Hub so no need for an address...
+        //
+        this._processNewPayloadEntry(containerImageRegistriesCredentials, wktProjectJson, 'image',
+          'auxDefaultBaseImagePullUsername', 'auxDefaultBaseImagePullPassword',
+          'auxDefaultBaseImagePullCredentialsReference');
+      }
+      if ('k8sDomain' in wktProjectJson) {
+        this._processNewPayloadEntry(containerImageRegistriesCredentials, wktProjectJson, 'k8sDomain',
+          'imageRegistryPullUser', 'imageRegistryPullPassword',
+          'imageRegistryPullCredentialsReference', 'imageTag',
+          'image', 'imageRegistryPullEmail');
+        this._processNewPayloadEntry(containerImageRegistriesCredentials, wktProjectJson, 'k8sDomain',
+          'auxImageRegistryPullUser', 'auxImageRegistryPullPassword',
+          'auxImageRegistryPullCredentialsReference', 'auxImageTag',
+          'image', 'auxImageRegistryPullEmail');
+      }
+
+      // If there are any new entries, add the section to the project settings JSON.
+      if (Object.keys(containerImageRegistriesCredentials).length > 0) {
+        if (! 'settings' in wktProjectJson) {
+          wktProjectJson['settings'] = {};
+        }
+        wktProjectJson['settings']['containerImageRegistriesCredentials'] = containerImageRegistriesCredentials;
+      }
+
+
+      // Now, update the credentialPaths array to remove references to the old fields.
+      // The new fields will be added during save...
+      //
+      if ('credentialPaths' in wktProjectJson) {
+        const pathsToDelete = [];
+        if ('credentialPaths' in wktProjectJson) {
+          for (const key in wktProjectJson.credentialPaths) {
+            switch (key) {
+              case 'image.imageRegistryPushUser':
+                pathsToDelete.push('image.imageRegistryPushUser');
+                break;
+              case 'image.imageRegistryPushPassword':
+                pathsToDelete.push('image.imageRegistryPushPassword');
+                break;
+              case 'image.baseImagePullUsername':
+                pathsToDelete.push('image.baseImagePullUsername');
+                break;
+              case 'image.baseImagePullPassword':
+                pathsToDelete.push('image.baseImagePullPassword');
+                break;
+              case 'image.auxDefaultBaseImagePullUsername':
+                pathsToDelete.push('image.auxDefaultBaseImagePullUsername');
+                break;
+              case 'image.auxDefaultBaseImagePullPassword':
+                pathsToDelete.push('auxDefaultBaseImagePullPassword');
+                break;
+              case 'image.auxImageRegistryPushUser':
+                pathsToDelete.push('image.auxImageRegistryPushUser');
+                break;
+              case 'image.auxImageRegistryPushPassword':
+                pathsToDelete.push('image.auxImageRegistryPushPassword');
+                break;
+              case 'image.auxBaseImagePullUsername':
+                pathsToDelete.push('image.auxBaseImagePullUsername');
+                break;
+              case 'k8sDomain.imageRegistryPullUser':
+                pathsToDelete.push('k8sDomain.imageRegistryPullUser');
+                break;
+              case 'k8sDomain.imageRegistryPullPassword':
+                pathsToDelete.push('k8sDomain.imageRegistryPullPassword');
+                break;
+              case 'k8sDomain.auxImageRegistryPullUser':
+                pathsToDelete.push('k8sDomain.auxImageRegistryPullUser');
+                break;
+              case 'k8sDomain.auxImageRegistryPullPassword':
+                pathsToDelete.push('k8sDomain.auxImageRegistryPullPassword');
+                break;
+            }
+          }
+          if (pathsToDelete.length > 0) {
+            wktProjectJson.credentialPaths = wktProjectJson.credentialPaths.filter(item => !pathsToDelete.includes(item));
+          }
+        }
+      }
+    };
+
+    this._processNewPayloadEntry = (containerImageRegistriesCredentials, projectJson, sectionName, usernameFieldName,
+      passwordFieldName, newUidFieldName, imageTagFieldName = undefined,
+      imageTagSectionName = undefined, emailFieldName = undefined) => {
+      if (sectionName in projectJson) {
+        const newEntryPayload = {};
+        if (usernameFieldName in projectJson[sectionName]) {
+          if (projectJson[sectionName][usernameFieldName]) {
+            newEntryPayload.username = projectJson[sectionName][usernameFieldName];
+          }
+          delete projectJson[sectionName][usernameFieldName];
+        }
+        if (passwordFieldName in projectJson[sectionName]) {
+          if (projectJson[sectionName][passwordFieldName]) {
+            newEntryPayload.password = projectJson[sectionName][passwordFieldName];
+          }
+          delete projectJson[sectionName][passwordFieldName];
+        }
+        if (emailFieldName && emailFieldName in projectJson[sectionName]) {
+          newEntryPayload.email = projectJson[sectionName][emailFieldName];
+          delete projectJson[sectionName][emailFieldName];
+        }
+
+        if (!imageTagSectionName) {
+          imageTagSectionName = sectionName;
+        }
+        if (imageTagFieldName && imageTagSectionName in projectJson &&
+          (imageTagFieldName in projectJson[imageTagSectionName]) &&
+          projectJson[imageTagSectionName][imageTagFieldName]) {
+            newEntryPayload.address =
+              window.api.k8s.getRegistryAddressFromImageTag(projectJson[imageTagSectionName][imageTagFieldName]);
+        }
+
+        // No point continuing with this entry if the username or password fields are missing
+        //
+        if (newEntryPayload.hasOwnProperty('username') && newEntryPayload.hasOwnProperty('password')) {
+          projectJson[sectionName][newUidFieldName] =
+            this._addOrMergePayloadEntry(containerImageRegistriesCredentials, newEntryPayload);
+        }
+      }
+    };
+
+    // Do not call unless newEntryPayload has at least a username and password specified...
+    //
+    this._addOrMergePayloadEntry = (existingEntries, newEntryPayload) => {
+      let result;
+      const matchingEntryUid = this._findMatchingEntryUid(existingEntries, newEntryPayload);
+      if (matchingEntryUid) {
+        const matchingEntry = existingEntries[matchingEntryUid];
+        result = matchingEntryUid;
+
+        // merge optional fields if not set in existing entry...
+        if (newEntryPayload['email'] && newEntryPayload['email'] !== matchingEntry['email']) {
+          matchingEntry['email'] = newEntryPayload['email'];
+        }
+        if (newEntryPayload['address'] && newEntryPayload['address'] !== matchingEntry['address']) {
+          matchingEntry['address'] = newEntryPayload['address'];
+        }
+      } else {
+        // create and add a new entry...
+        const nextNumberNameQualifier = Object.keys(existingEntries).length + 1;
+        newEntryPayload.name = `new-registry-${nextNumberNameQualifier}`;
+        result = utils.getShortUuid();
+        existingEntries[result] = newEntryPayload;
+      }
+      return result;
+    };
+
+    // Do not call unless newEntryPayload has at least a username and password specified...
+    //
+    this._findMatchingEntryUid = (existingEntries, newEntryPayload) => {
+      let result;
+      for (const [key, entry] of Object.entries(existingEntries)) {
+        // required fields for a match
+        if (newEntryPayload['username'] !== entry['username'] || newEntryPayload['password'] !== entry['password']) {
+          continue;
+        }
+
+        // optional fields
+        if ('address' in entry && 'address' in newEntryPayload && newEntryPayload['address'] !== entry['address']) {
+          continue;
+        } else if ('email' in entry && 'email' in newEntryPayload && newEntryPayload['email'] !== entry['email']) {
+          continue;
+        }
+
+        result = key;
+        break;
+      }
+      return result;
     };
 
     this.setFromJson = (wktProjectJson, modelContentsJson) => {

@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -43,12 +43,14 @@ define(['utils/wit-actions-base', 'models/wkt-project', 'utils/i18n', 'utils/pro
           const registryLoginRequired = this.project.image.useCustomBaseImage.value
             && this.project.image.baseImage.value
             && this.project.image.baseImagePullRequiresAuthentication.value;
+          const credentials =
+            this.getImageRegistryCredential(this.project.image.baseImagePullCredentialsReference.value);
           const registryLoginConfig = registryLoginRequired ?
             {
               requiresLogin: this.project.image.baseImagePullRequiresAuthentication.value,
-              host: window.api.k8s.getRegistryAddressFromImageTag(this.project.image.baseImage.value),
-              username: this.project.image.baseImagePullUsername.value,
-              password: this.project.image.baseImagePullPassword.value
+              host: (credentials) ? credentials.address : undefined,
+              username: (credentials) ? credentials.username : undefined,
+              password: (credentials) ? credentials.password : undefined
             }: {};
           const validationStepsStatus = await this._callCommonValidationSteps(options, totalSteps,
             registryLoginRequired, registryLoginConfig, errTitle, errPrefix);
@@ -107,12 +109,14 @@ define(['utils/wit-actions-base', 'models/wkt-project', 'utils/i18n', 'utils/pro
             && this.project.image.useAuxImage.value
             && this.project.image.imageTag.value
             && this.project.k8sDomain.imageRegistryPullRequireAuthentication.value;
+          const credentials =
+            this.getImageRegistryCredential(this.project.image.imageRegistryPullCredentialsReference.value);
           const registryLoginConfig = registryLoginRequired ?
             {
               requiresLogin: this.project.k8sDomain.imageRegistryPullRequireAuthentication.value,
-              host: window.api.k8s.getRegistryAddressFromImageTag(this.project.image.imageTag.value),
-              username: this.project.k8sDomain.imageRegistryPullUser.value,
-              password: this.project.k8sDomain.imageRegistryPullPassword.value
+              host: (credentials) ? credentials.address : undefined,
+              username: (credentials) ? credentials.username : undefined,
+              password: (credentials) ? credentials.password : undefined
             }: {};
           const validationStepsStatus = await this._callCommonValidationSteps(options, totalSteps,
             registryLoginRequired, registryLoginConfig, errTitle, errPrefix);
@@ -172,12 +176,14 @@ define(['utils/wit-actions-base', 'models/wkt-project', 'utils/i18n', 'utils/pro
             && !this.project.image.createAuxImage.value
             && this.project.image.auxImageTag.value
             && this.project.k8sDomain.auxImageRegistryPullRequireAuthentication.value;
+          const credentials =
+            this.getImageRegistryCredential(this.project.image.imageRegistryPullCredentialsReference.value);
           const registryLoginConfig = registryLoginRequired ?
             {
               requiresLogin: this.project.k8sDomain.auxImageRegistryPullRequireAuthentication.value,
-              host: window.api.k8s.getRegistryAddressFromImageTag(this.project.image.auxImageTag.value),
-              username: this.project.k8sDomain.auxImageRegistryPullUser.value,
-              password: this.project.k8sDomain.auxImageRegistryPullPassword.value
+              host: (credentials) ? credentials.address : undefined,
+              username: (credentials) ? credentials.username : undefined,
+              password: (credentials) ? credentials.password : undefined,
             }: {};
           const validationStepsStatus = await this._callCommonValidationSteps(options, totalSteps,
             registryLoginRequired, registryLoginConfig, errTitle, errPrefix);
@@ -224,11 +230,19 @@ define(['utils/wit-actions-base', 'models/wkt-project', 'utils/i18n', 'utils/pro
           this.project.image.baseImage.validate(true), imageFormConfig);
 
         if (this.project.image.baseImagePullRequiresAuthentication.value) {
-          // skip validating the host portion of the base image tag since it may be empty for Docker Hub...
-          validationObject.addField('image-design-base-image-pull-username-label',
-            validationHelper.validateRequiredField(this.project.image.baseImagePullUsername.value), imageFormConfig);
-          validationObject.addField('image-design-base-image-pull-password-label',
-            validationHelper.validateRequiredField(this.project.image.baseImagePullPassword.value), imageFormConfig);
+          validationObject.addField('image-design-base-image-registry-pull-credentials-label',
+            validationHelper.validateRequiredField(this.project.image.baseImagePullCredentialsReference.value),
+            imageFormConfig);
+
+          const credentials =
+            this.getImageRegistryCredential(this.project.image.baseImagePullCredentialsReference.value);
+          if (credentials) {
+            // skip validating the host portion of the image tag since it may be empty for Docker Hub...
+            validationObject.addField('image-design-base-image-registry-pull-credentials-username-label',
+              validationHelper.validateRequiredField(credentials.username), imageFormConfig);
+            validationObject.addField('image-design-base-image-registry-pull-credentials-password-label',
+              validationHelper.validateRequiredField(credentials.password), imageFormConfig);
+          }
         }
 
         return validationObject;
@@ -241,13 +255,19 @@ define(['utils/wit-actions-base', 'models/wkt-project', 'utils/i18n', 'utils/pro
           this.project.image.imageTag.validate(true), domainFormConfig);
 
         if (this.project.k8sDomain.imageRegistryPullRequireAuthentication.value) {
-          // skip validating the host portion of the image tag since it may be empty for Docker Hub...
-          validationObject.addField('domain-design-image-registry-pull-username-label',
-            validationHelper.validateRequiredField(this.project.k8sDomain.imageRegistryPullUser.value),
+          validationObject.addField('domain-design-image-registry-pull-credentials-label',
+            validationHelper.validateRequiredField(this.project.k8sDomain.imageRegistryPullCredentialsReference.value),
             domainFormConfig);
-          validationObject.addField('domain-design-image-registry-pull-password-label',
-            validationHelper.validateRequiredField(this.project.k8sDomain.imageRegistryPullPassword.value),
-            domainFormConfig);
+
+          const credentials =
+            this.getImageRegistryCredential(this.project.k8sDomain.imageRegistryPullCredentialsReference.value);
+          if (credentials) {
+            // skip validating the host portion of the image tag since it may be empty for Docker Hub...
+            validationObject.addField('domain-design-image-registry-pull-credentials-username-label',
+              validationHelper.validateRequiredField(credentials.username), domainFormConfig);
+            validationObject.addField('domain-design-image-registry-pull-credentials-password-label',
+              validationHelper.validateRequiredField(credentials.password), domainFormConfig);
+          }
         }
 
         return validationObject;
@@ -260,13 +280,19 @@ define(['utils/wit-actions-base', 'models/wkt-project', 'utils/i18n', 'utils/pro
           this.project.image.auxImageTag.validate(true), domainFormConfig);
 
         if (this.project.k8sDomain.auxImageRegistryPullRequireAuthentication.value) {
-          // skip validating the host portion of the image tag since it may be empty for Docker Hub...
-          validationObject.addField('domain-design-aux-image-registry-pull-username-label',
-            validationHelper.validateRequiredField(this.project.k8sDomain.auxImageRegistryPullUser.value),
+          validationObject.addField('domain-design-aux-image-registry-pull-credentials-label',
+            validationHelper.validateRequiredField(this.project.k8sDomain.auxImageRegistryPullCredentialsReference.value),
             domainFormConfig);
-          validationObject.addField('domain-design-aux-image-registry-pull-password-label',
-            validationHelper.validateRequiredField(this.project.k8sDomain.auxImageRegistryPullPassword.value),
-            domainFormConfig);
+
+          const credentials =
+            this.getImageRegistryCredential(this.project.k8sDomain.auxImageRegistryPullCredentialsReference.value);
+          if (credentials) {
+            // skip validating the host portion of the image tag since it may be empty for Docker Hub...
+            validationObject.addField('domain-design-aux-image-registry-pull-credentials-username-label',
+              validationHelper.validateRequiredField(credentials.username), domainFormConfig);
+            validationObject.addField('domain-design-aux-image-registry-pull-credentials-password-label',
+              validationHelper.validateRequiredField(credentials.password), domainFormConfig);
+          }
         }
 
         return validationObject;

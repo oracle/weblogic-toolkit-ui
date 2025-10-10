@@ -124,11 +124,12 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
           {builderName: imageBuilderType, imageTag: this.project.image.baseImage.value});
         dialogHelper.updateBusyDialog(busyDialogMessage, 6 / totalSteps);
         if (this.project.image.useCustomBaseImage.value && this.project.image.baseImage.value && this.project.image.baseImagePullRequiresAuthentication.value) {
+          const credentials = this.getImageRegistryCredential(this.project.image.baseImagePullCredentialsReference.value);
           const loginConfig = {
             requiresLogin: this.project.image.baseImagePullRequiresAuthentication.value,
-            host: this.project.image.internal.baseImageRegistryAddress.value,
-            username: this.project.image.baseImagePullUsername.value,
-            password: this.project.image.baseImagePullPassword.value
+            host: (credentials) ? credentials.address : undefined,
+            username: (credentials) ? credentials.username : undefined,
+            password: (credentials) ? credentials.password : undefined
           };
           if (! await this.loginToImageRegistry(imageBuilderOptions, loginConfig, errTitle, errPrefix)) {
             return Promise.resolve(false);
@@ -199,11 +200,19 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
           this.project.image.baseImage.validate(true), imageFormConfig);
 
         if (this.project.image.baseImagePullRequiresAuthentication.value) {
-          // skip validating the host portion of the base image tag since it may be empty for Docker Hub...
-          validationObject.addField('image-design-base-image-pull-username-label',
-            validationHelper.validateRequiredField(this.project.image.baseImagePullUsername.value), imageFormConfig);
-          validationObject.addField('image-design-base-image-pull-password-label',
-            validationHelper.validateRequiredField(this.project.image.baseImagePullPassword.value), imageFormConfig);
+          validationObject.addField('image-design-base-image-registry-pull-credentials-label',
+            validationHelper.validateRequiredField(this.project.image.baseImagePullCredentialsReference.value),
+            imageFormConfig);
+
+          const credentials =
+            this.getImageRegistryCredential(this.project.image.baseImagePullCredentialsReference.value);
+          if (credentials) {
+            // skip validating the host portion of the image tag since it may be empty for Docker Hub...
+            validationObject.addField('image-design-base-image-registry-pull-credentials-username-label',
+              validationHelper.validateRequiredField(credentials.username), imageFormConfig);
+            validationObject.addField('image-design-base-image-registry-pull-credentials-password-label',
+              validationHelper.validateRequiredField(credentials.password), imageFormConfig);
+          }
         }
       }
 

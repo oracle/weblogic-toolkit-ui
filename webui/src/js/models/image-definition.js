@@ -27,8 +27,7 @@ define(['knockout', 'utils/observable-properties', 'utils/validation-helper'],
         this.createCustomImageForPV = props.createProperty(false);
 
         this.imageRegistryPushRequireAuthentication = props.createProperty(true);
-        this.imageRegistryPushUser = props.createProperty().asCredential();
-        this.imageRegistryPushPassword = props.createProperty().asCredential();
+        this.imageRegistryPushCredentialsReference = props.createProperty();
 
         this.useCustomBaseImage = props.createProperty(false);
 
@@ -38,8 +37,8 @@ define(['knockout', 'utils/observable-properties', 'utils/validation-helper'],
         this.baseImage.addValidator(...validationHelper.getImageTagValidators());
 
         this.baseImagePullRequiresAuthentication = props.createProperty(false);
-        this.baseImagePullUsername = props.createProperty().asCredential();
-        this.baseImagePullPassword = props.createProperty().asCredential();
+        this.baseImagePullCredentialsReference = props.createProperty();
+
         this.baseImageInspected = props.createProperty(false);
         this.customBaseImageContents = props.createArrayProperty([]);
 
@@ -105,19 +104,16 @@ define(['knockout', 'utils/observable-properties', 'utils/validation-helper'],
         this.createAuxImage = props.createProperty(true);
 
         this.auxDefaultBaseImagePullRequiresAuthentication = props.createProperty(true);
-        this.auxDefaultBaseImagePullUsername = props.createProperty().asCredential();
-        this.auxDefaultBaseImagePullPassword = props.createProperty().asCredential();
+        this.auxDefaultBaseImagePullCredentialsReference = props.createProperty();
 
         this.auxImageRegistryPushRequireAuthentication = props.createProperty(true);
-        this.auxImageRegistryPushUser = props.createProperty().asCredential();
-        this.auxImageRegistryPushPassword = props.createProperty().asCredential();
+        this.auxImageRegistryPushCredentialsReference = props.createProperty();
 
         this.auxUseCustomBaseImage = props.createProperty(false);
         this.auxBaseImage = props.createProperty();
         this.auxBaseImage.addValidator(...validationHelper.getImageTagValidators());
         this.auxBaseImagePullRequiresAuthentication = props.createProperty(false);
-        this.auxBaseImagePullUsername = props.createProperty().asCredential();
-        this.auxBaseImagePullPassword = props.createProperty().asCredential();
+        this.auxBaseImagePullCredentialsReference = props.createProperty();
 
         this.auxTargetOpenShift = props.createProperty(false);
         this.auxDefaultGroupName = ko.computed(() => {
