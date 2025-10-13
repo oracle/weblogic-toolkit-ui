@@ -63,6 +63,7 @@ function(accUtils, ko, utils, i18n, ArrayDataProvider, project, validationHelper
     this.connectivityTestTimeoutSeconds = ko.observable(payload.defaults.connectivityTestTimeoutMilliseconds / 1000);
     this.internalConnectivityTestTimeoutMilliseconds = ko.observable(payload.defaults.connectivityTestTimeoutMilliseconds);
     this.skipQuickstart = ko.observable(false);
+    this.disableLinuxHardwareAcceleration = ko.observable(false);
     this.wlRemoteConsoleHome = ko.observable();
 
     this.loadUserSettings = () => {
@@ -72,6 +73,12 @@ function(accUtils, ko, utils, i18n, ArrayDataProvider, project, validationHelper
         }
         if ('bypassProxyHosts' in this.userSettings.proxy) {
           this.bypassProxyHosts(this.userSettings.proxy.bypassProxyHosts);
+        }
+      }
+
+      if ('linux' in this.userSettings) {
+        if ('disableLinuxHardwareAcceleration' in this.userSettings.linux) {
+          this.disableLinuxHardwareAcceleration(this.userSettings.linux.disableLinuxHardwareAcceleration);
         }
       }
 
@@ -153,6 +160,7 @@ function(accUtils, ko, utils, i18n, ArrayDataProvider, project, validationHelper
       project.setHttpsProxyUrl(this.proxyUrl());
       project.setBypassProxyHosts(this.bypassProxyHosts());
       this._storeSetting('tools.wktToolsExternalStagingDirectory', this.wktToolsExternalStagingDirectory);
+      this._storeSetting('linux.disableLinuxHardwareAcceleration', this.disableLinuxHardwareAcceleration);
       this._storeSetting('proxy.httpsProxyUrl', this.proxyUrl);
       this._storeSetting('proxy.bypassProxyHosts', this.bypassProxyHosts);
       this._storeSetting('logging.file.level', this.fileLogLevel, payload.defaults.level);

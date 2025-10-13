@@ -22,6 +22,18 @@
       </oj-form-layout>
     </div>
 
+    <oj-bind-if test="[[isLinux() === true]]">
+      <div class="oj-panel">
+        <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('linux-disable-hardware-acceleration-title')]]"></oj-bind-text></h6>
+        <oj-form-layout max-columns="1" direction="row">
+          <oj-switch label-hint="[[labelMapper('linux-disable-hardware-acceleration-label')]]"
+                     value="{{skipQuickstart}}"
+                     help.instruction="[[labelMapper('linux-disable-hardware-acceleration-help')]]">
+          </oj-switch>
+        </oj-form-layout>
+      </div>
+    </oj-bind-if>
+
     <oj-bind-if test="[[isLinuxAppImage() === true]]">
       <div class="oj-panel">
         <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('external-tools-section-title')]]"></oj-bind-text></h6>
