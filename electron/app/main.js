@@ -39,7 +39,7 @@ const { initializeAutoUpdater, registerAutoUpdateListeners, installUpdates, getU
 const { startWebLogicRemoteConsoleBackend, getDefaultDirectoryForOpenDialog, setWebLogicRemoteConsoleHomeAndStart,
   getDefaultWebLogicRemoteConsoleHome, getWebLogicRemoteConsoleBackendPort } = require('./js/wlRemoteConsoleUtils');
 
-const { getHttpsProxyUrl, getBypassProxyHosts } = require('./js/userSettings');
+const { getHttpsProxyUrl, getBypassProxyHosts, getLinuxDisableHardwareAcceleration} = require('./js/userSettings');
 const { sendToWindow } = require('./js/windowUtils');
 const {compareVersions} = require('./js/versionUtils');
 const {getWdtLibraryJar} = require('./js/wktTools');
@@ -1120,13 +1120,14 @@ if (osUtils.isLinux()) {
       app.commandLine.appendSwitch('--proxy-bypass-list', bypassProxyHosts);
     }
   }
+
+  const disableHardwareAcceleration = getLinuxDisableHardwareAcceleration();
+  if (disableHardwareAcceleration) {
+    app.disableHardwareAcceleration();
+    app.commandLine.appendSwitch("--disable-gpu");
+    // app.commandLine.appendSwitch("--disable-software-rasterizer");
+  }
 }
-// FIXME - Need to test on Linux Desktop
-// if (osUtils.isLinuxAppImage()) {
-//   app.disableHardwareAcceleration();
-//   app.commandLine.appendSwitch("--disable-gpu");
-//   app.commandLine.appendSwitch("--disable-software-rasterizer");
-// }
 
 me.runApp(process.argv);
 
