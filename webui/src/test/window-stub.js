@@ -101,9 +101,9 @@ class WindowStub {
     };
 
     global._windowId = 1;
-    global.navigator = {
-      userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.106 Safari/537.36'
-    };
+    // global.navigator = {
+    //   userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.106 Safari/537.36'
+    // };
   }
 
   static initialize() {
@@ -117,7 +117,7 @@ class WindowStub {
     global.Node = undefined;
     global.Element = undefined;
     global._windowId = undefined;
-    global.navigator = undefined;
+    // global.navigator = undefined;
   }
 
   static defineChannel(channelName, callBack) {
