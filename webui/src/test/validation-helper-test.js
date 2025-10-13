@@ -306,7 +306,7 @@ describe('validation-helper', function() {
     it('negative port number has validation errors', function() {
       const myProp = getPortNumberProperty(-1);
       const expected = [
-        'Enter 1 or a higher number.'
+        'Enter a number that\'s 1 or higher.'
       ];
 
       const validationErrors = myProp.validate(true);
@@ -316,7 +316,7 @@ describe('validation-helper', function() {
     it('port number of 0 has validation errors', function() {
       const myProp = getPortNumberProperty(0);
       const expected = [
-        'Enter 1 or a higher number.'
+        'Enter a number that\'s 1 or higher.'
       ];
 
       const validationErrors = myProp.validate(true);
@@ -326,7 +326,7 @@ describe('validation-helper', function() {
     it('port number of 65536 has validation errors', function() {
       const myProp = getPortNumberProperty(65536);
       const expected = [
-        'Enter 65535 or a lower number.'
+        'Enter a number that\'s 65535 or lower.'
       ];
 
       const validationErrors = myProp.validate(true);
