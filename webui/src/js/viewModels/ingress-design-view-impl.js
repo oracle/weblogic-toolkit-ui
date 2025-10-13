@@ -197,10 +197,10 @@ function(i18n, accUtils, ko, ArrayDataProvider, BufferingDataProvider, project, 
       }
       // nginx 1.0.0 and above requires setting ingressClassName either at ingress object spec level or annotation.
       if (project.ingress.ingressControllerProvider.value === 'nginx') {
-        newRoute.annotations = {'IngressClassName': 'nginx'};
+        newRoute.annotations = {'ingressClassName': 'nginx'};
       }
       if (project.ingress.ingressControllerProvider.value === 'traefik') {
-        newRoute.annotations = {'IngressClassName': 'traefik'};
+        newRoute.annotations = {'ingressClassName': 'traefik'};
       }
 
       project.ingress.ingressRoutes.addNewItem(newRoute);
