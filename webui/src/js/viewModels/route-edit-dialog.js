@@ -251,6 +251,7 @@ function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDa
         changedAnnotations[annotation.key] = annotation.value ? annotation.value : '';
       });
 
+      // FIXME - this is not right.  ingressClassName is now part of the spec, not annotations.
       const ingressClassKey = 'ingressClassName';
       let tlsOption = result['tlsOption'];
 
