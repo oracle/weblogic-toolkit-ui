@@ -251,7 +251,7 @@ function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDa
         changedAnnotations[annotation.key] = annotation.value ? annotation.value : '';
       });
 
-      const ingressClassKey = 'kubernetes.io/ingress.class';
+      const ingressClassKey = 'IngressClassName';
       let tlsOption = result['tlsOption'];
 
       if (typeof tlsOption === 'undefined') {

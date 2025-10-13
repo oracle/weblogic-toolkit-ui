@@ -32,7 +32,7 @@ describe('ingress-definition', function () {
     'targetPort': 7002,
     'path': '/console',
     'annotations': {
-      'kubernetes.io/ingress.class': 'traefik',
+      'IngressClassName': 'traefik',
       'traefik.ingress.kubernetes.io/router.tls': 'true'
     },
     'tlsOption': 'ssl_terminate_ingress',
@@ -47,7 +47,7 @@ describe('ingress-definition', function () {
     'targetPort': 7001,
     'path': '/console',
     'annotations': {
-      'kubernetes.io/ingress.class': 'nginx'
+      'IngressClassName': 'nginx'
     },
     'tlsOption': 'ssl_terminate_ingress',
     'isConsoleService': true
@@ -115,7 +115,7 @@ describe('ingress-definition', function () {
         '  name: console\n' +
         '  namespace: sample-domain1-ns\n' +
         '  annotations:\n' +
-        '    kubernetes.io/ingress.class: traefik\n' +
+        '    IngressClassName: traefik\n' +
         '    traefik.ingress.kubernetes.io/router.tls: \'true\'\n' +
         'spec:\n' +
         '  routes:\n' +
