@@ -200,6 +200,9 @@
   "user-settings-dialog-external-tools-staging-directory-label": "WKT Tools External Staging Directory",
   "user-settings-dialog-external-tools-staging-directory-help": "When running the AppImage binary, WKT Tools can only be updated using a writable directory outside of the binary.",
   "user-settings-dialog-external-tools-staging-directory-tooltip": "Choose the WKT Tools staging directory.",
+  "user-settings-dialog-linux-disable-hardware-acceleration-title": "Linux Disable Hardware Acceleration",
+  "user-settings-dialog-linux-disable-hardware-acceleration-label": "Disable Hardware Acceleration",
+  "user-settings-dialog-linux-disable-hardware-acceleration-help": "Disabling Hardware Acceleration can eliminate OpenGL-related errors when running the application on a Linux desktop.",
 
   "user-settings-dialog-logging-section-title": "Logging Configuration",
   "user-settings-dialog-console-level-label": "Console Transport Log Level",

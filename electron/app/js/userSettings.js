@@ -13,6 +13,7 @@ const { getErrorMessage } = require('./errorUtils');
 const userSettableFieldNames = [
   'webLogicRemoteConsoleHome',
   'proxy',
+  'linux',
   'tools',
   'logging',
   'skipQuickstartAtStartup',
@@ -41,6 +42,9 @@ let _userSettingsFileName;
 //   },
 //   "tools": {
 //     "wktToolsExternalStagingDirectory": "When running the app using the AppImage, the directory where upgraded tools will be installed"
+//   },
+//   "linux": {
+//     "disableHardwareAcceleration": true
 //   },
 //   "logging":{
 //     "level": "the default global log level across all providers",
@@ -158,6 +162,27 @@ function setBypassProxyHosts(bypassProxyHosts) {
     };
   }
   _userSettingsObject = settings;
+}
+
+function getLinuxDisableHardwareAcceleration() {
+  let result = false;
+  const settings = _getUserSettings();
+  if ('linux' in settings && 'disableHardwareAcceleration' in settings['linux']) {
+    result = settings['linux']['disableHardwareAcceleration']
+  }
+  return result;
+}
+
+function setLinuxDisableHardwareAcceleration(disableHardwareAcceleration) {
+  const settings = _getUserSettings();
+
+  if ('linux' in settings) {
+    settings['linux']['disableHardwareAcceleration'] = disableHardwareAcceleration
+  } else {
+    settings['linux'] = {
+      disableHardwareAcceleration: disableHardwareAcceleration
+    };
+  }
 }
 
 function getWktToolsExternalStagingDirectory() {
@@ -486,5 +511,7 @@ module.exports = {
   setWebLogicRemoteConsoleHome,
   getShowNewModelEditorTab,
   getWktToolsExternalStagingDirectory,
-  setWktToolsExternalStagingDirectory
+  setWktToolsExternalStagingDirectory,
+  getLinuxDisableHardwareAcceleration,
+  setLinuxDisableHardwareAcceleration
 };
