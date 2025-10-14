@@ -14,7 +14,7 @@ const path = require('path');
 
 const acronyms = [
   'ACL', 'ACS', 'CCDI', 'CORS', 'CPU', 'CRL', 'DB', 'DDL', 'EJB', 'HTTP', 'ID', 'JDBC', 'JMS', 'JNDI',
-  'JPA', 'JTA', 'KSS', 'MDB', 'PC', 'RJVM', 'RMIT', 'SAML', 'SRM', 'SSO', 'TLOG', 'TTL', 'TXN',
+  'JPA', 'JTA', 'KSS', 'MDB', 'PC', 'RJVM', 'RMIT', 'SAML', 'SNMP', 'SRM', 'SSO', 'TLOG', 'TTL', 'TXN',
   'URI', 'URL', 'WLDF', 'WSAT', 'XA', 'XACML',
   'Coherence', 'WebLogic'
 ];
@@ -136,6 +136,7 @@ function getReadableLabel(aliasName) {
   }
 
   result = result.replace(/\bweb logic\b/gi, 'WebLogic');
+  result = result.replace(/\bm bean\b/gi, 'MBean');
 
   return result;
 }
