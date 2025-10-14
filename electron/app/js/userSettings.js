@@ -168,7 +168,7 @@ function getLinuxDisableHardwareAcceleration() {
   let result = false;
   const settings = _getUserSettings();
   if ('linux' in settings && 'disableHardwareAcceleration' in settings['linux']) {
-    result = settings['linux']['disableHardwareAcceleration']
+    result = settings['linux']['disableHardwareAcceleration'];
   }
   return result;
 }
@@ -177,7 +177,7 @@ function setLinuxDisableHardwareAcceleration(disableHardwareAcceleration) {
   const settings = _getUserSettings();
 
   if ('linux' in settings) {
-    settings['linux']['disableHardwareAcceleration'] = disableHardwareAcceleration
+    settings['linux']['disableHardwareAcceleration'] = disableHardwareAcceleration;
   } else {
     settings['linux'] = {
       disableHardwareAcceleration: disableHardwareAcceleration

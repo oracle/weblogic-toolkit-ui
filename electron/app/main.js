@@ -1124,8 +1124,8 @@ if (osUtils.isLinux()) {
   const disableHardwareAcceleration = getLinuxDisableHardwareAcceleration();
   if (disableHardwareAcceleration) {
     app.disableHardwareAcceleration();
-    app.commandLine.appendSwitch("--disable-gpu");
-    // app.commandLine.appendSwitch("--disable-software-rasterizer");
+    app.commandLine.appendSwitch('--disable-gpu');
+    // app.commandLine.appendSwitch('--disable-software-rasterizer');
   }
 }
 
