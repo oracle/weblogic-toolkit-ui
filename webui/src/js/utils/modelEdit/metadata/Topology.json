@@ -1,3 +1,14 @@
 {
-  "Topology": { }
+  "Topology": {
+    "sections": [
+      {
+        "type": "folderTab",
+        "folder": "JPA"
+      },
+      {
+        "type": "folderTab",
+        "folder": "JTA"
+      }
+    ]
+  }
 }
