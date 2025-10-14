@@ -59,7 +59,7 @@ function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper) 
           hasInlineSections = true;
         }
 
-        if (section.type === 'tab') {
+        if (MetaHelper.isTabSection(section.type)) {
           hasTabSections = true;
         }
       });

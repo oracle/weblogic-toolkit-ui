@@ -27,12 +27,6 @@ function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper) 
     const REMAINING_FOLDERS = FOLDER_INFO.remainingFolders;
     const REMAINING_FOLDERS_ASSIGNED = FOLDER_INFO.remainingFoldersAssigned;
 
-    const TAB_TYPES = [
-      'tab',
-      'attributesTab',
-      'folderTab'
-    ];
-
     this.connected = () => {
       accUtils.announce('Folder Sections loaded.', 'assertive');
     };
@@ -67,7 +61,7 @@ function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper) 
         });
       }
 
-      else if(TAB_TYPES.includes(section.type)) {
+      else if(MetaHelper.isTabSection(section.type)) {
         // don't display yet, these will always be the in last section
         tabs.push(section);
       }

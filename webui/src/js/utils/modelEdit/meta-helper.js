@@ -8,6 +8,12 @@
 define(['utils/modeledit/metadata/all-metadata'],
   function (metadata) {
     function MetaHelper() {
+      const TAB_TYPES = [
+        'tab',
+        'attributesTab',
+        'folderTab'
+      ];
+
       this.getMetadata = aliasPath => {
         const path = aliasPath.join('/');
         if(Object.keys(metadata).includes(path)) {
@@ -35,6 +41,10 @@ define(['utils/modeledit/metadata/all-metadata'],
 
       this.getNameValidators = aliasPath => {
         return [];  // TODO: implement this when needed
+      };
+
+      this.isTabSection = sectionType => {
+        return TAB_TYPES.includes(sectionType);
       };
     }
 
