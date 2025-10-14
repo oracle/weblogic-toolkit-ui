@@ -1,16 +1,7 @@
 <!--
- Copyright (c) 2024, Oracle and/or its affiliates.
+ Copyright (c) 2024, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
-
-<script type="text/html" id="editNavTemplate">
-  <li :class="[[{'oj-disabled' : $data.disabled}]]">
-    <a href="#">
-      <span :class="[['oj-navigationlist-item-icon ' + $data.icon]]"></span>
-      <oj-bind-text value="[[$data.name]]"> </oj-bind-text>
-    </a>
-  </li>
-</script>
 
 <div id="wkt-container" class="oj-sm-flex-wrap-nowrap oj-flex wkt-model-edit-container">
   <oj-bind-if test="[[aliasDataError]]">

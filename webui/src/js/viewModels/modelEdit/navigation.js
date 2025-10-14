@@ -77,12 +77,12 @@ function(accUtils, ko, ModelEditHelper, AliasHelper, NavigationHelper, MessageHe
     // assign IDs and names based on model path, add child observables, ...
     this.initializeNavList = navList => {
       navList.forEach(navEntry => {
-        navEntry.name = navEntry.name ? this.t(navEntry.name) : null;
+        navEntry.label = navEntry.name ? this.t(navEntry.name) : null;
 
         if(navEntry.modelPath) {
           const aliasPath = AliasHelper.getAliasPath(navEntry.modelPath);
           navEntry.id = navEntry.id || navEntry.modelPath.join('/');
-          navEntry.name = navEntry.name || MessageHelper.getFolderLabel(aliasPath);
+          navEntry.label = navEntry.label || MessageHelper.getFolderLabel(aliasPath);
 
           if(AliasHelper.isMultiplePath(navEntry.modelPath)) {
             navEntry.children = navEntry.children || ko.observableArray();
@@ -128,6 +128,7 @@ function(accUtils, ko, ModelEditHelper, AliasHelper, NavigationHelper, MessageHe
           folderList.push({
             modelPath: [...modelPath, name],
             name: name,
+            label: name,
             id: id,
             page: page,
             icon: 'oj-ux-ico-page-template'
