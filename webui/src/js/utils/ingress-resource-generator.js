@@ -92,6 +92,7 @@ define(['models/wkt-project', 'js-yaml'],
             labels: { createdByWtkUIVersion: version}
           },
           spec: {
+            ingressClassName: 'nginx',
             rules: [
               {
                 http: {

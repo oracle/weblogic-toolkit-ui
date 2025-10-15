@@ -9,13 +9,13 @@
  * Returns a constructor for the object.
  */
 define(['viewModels/image-design-view-impl', 'accUtils', 'utils/i18n', 'models/wkt-project', 'knockout',
-  'utils/dialog-helper', 'ojs/ojarraydataprovider', 'utils/wit-inspector', 'ojs/ojformlayout', 'oj-c/form-layout',
-  'ojs/ojinputtext', 'ojs/ojcollapsible', 'ojs/ojselectsingle', 'ojs/ojswitch', 'ojs/ojradioset',
-  'ojs/ojswitcher', 'ojs/ojknockout'
+  'utils/dialog-helper', 'ojs/ojarraydataprovider', 'ojs/ojbufferingdataprovider', 'utils/wit-inspector',
+  'ojs/ojformlayout', 'oj-c/form-layout', 'ojs/ojinputtext', 'ojs/ojcollapsible', 'ojs/ojselectsingle', 'ojs/ojswitch',
+  'ojs/ojradioset', 'ojs/ojswitcher', 'ojs/ojknockout'
 ],
 function (ImageDesignViewModel, accUtils, i18n, project, ko,
-  dialogHelper, ArrayDataProvider, WktImageInspector) {
+  dialogHelper, ArrayDataProvider, BufferingDataProvider, WktImageInspector) {
   return function() {
-    return new ImageDesignViewModel(i18n, project, accUtils, ko, dialogHelper, ArrayDataProvider, WktImageInspector);
+    return new ImageDesignViewModel(i18n, project, accUtils, ko, dialogHelper, ArrayDataProvider, BufferingDataProvider, WktImageInspector);
   };
 });
