@@ -214,6 +214,11 @@ function(WktActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, val
         }
       }
 
+      this.addHelmChartValueIfSet(helmChartValues, 'cpuRequests', this.project.wko.wkoCpuRequest);
+      this.addHelmChartValueIfSet(helmChartValues, 'cpuLimits', this.project.wko.wkoCpuLimit);
+      this.addHelmChartValueIfSet(helmChartValues, 'memoryRequests', this.project.wko.wkoMemoryRequest);
+      this.addHelmChartValueIfSet(helmChartValues, 'memoryLimits', this.project.wko.wkoMemoryLimit);
+
       if (this.project.wko.externalRestEnabled.hasValue()) {
         helmChartValues.externalRestEnabled = this.project.wko.externalRestEnabled.value;
         if (helmChartValues.externalRestEnabled) {

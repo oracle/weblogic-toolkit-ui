@@ -51,6 +51,15 @@ define(['utils/observable-properties', 'utils/validation-helper'],
         this.externalRestIdentitySecret = props.createProperty();
         this.externalRestIdentitySecret.addValidator(...validationHelper.getK8sNameValidators());
 
+        this.wkoCpuRequest = props.createProperty();
+        this.wkoCpuRequest.addValidator(...validationHelper.getK8sCpuValidators());
+        this.wkoCpuLimit = props.createProperty();
+        this.wkoCpuLimit.addValidator(...validationHelper.getK8sCpuValidators());
+        this.wkoMemoryRequest = props.createProperty();
+        this.wkoMemoryRequest.addValidator(...validationHelper.getK8sMemoryValidators());
+        this.wkoMemoryLimit = props.createProperty();
+        this.wkoMemoryLimit.addValidator(...validationHelper.getK8sMemoryValidators());
+
         this.elkIntegrationEnabled = props.createProperty(false);
         this.logStashImage = props.createProperty('logstash:6.6.0');
         this.logStashImage.addValidator(...validationHelper.getImageTagValidators());

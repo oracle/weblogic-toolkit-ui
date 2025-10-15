@@ -24,6 +24,11 @@ function ArrayTreeDataProviderStub(data) {
   this.arrayTreeDataProviderHack = true;
 }
 
+function BufferingDataProviderStub(providerStub) {
+  this.providerStub = providerStub;
+  this.bufferingDataProviderHack = true;
+}
+
 module.exports = {
-  AccUtilsStub, ArrayDataProviderStub, ArrayTreeDataProviderStub
+  AccUtilsStub, ArrayDataProviderStub, ArrayTreeDataProviderStub, BufferingDataProviderStub
 };
