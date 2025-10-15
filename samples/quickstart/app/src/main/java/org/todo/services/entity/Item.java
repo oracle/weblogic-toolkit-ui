@@ -3,8 +3,8 @@
 
 package org.todo.services.entity;
 
-import javax.json.Json;
-import javax.json.JsonObject;
+import jakarta.json.Json;
+import jakarta.json.JsonObject;
 
 public class Item {
   private int key;
