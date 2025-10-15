@@ -6,9 +6,9 @@
 'use strict';
 
 define(['utils/image-registry-actions-base', 'models/wkt-project', 'models/wkt-console', 'utils/i18n', 'utils/project-io',
-  'utils/dialog-helper', 'utils/validation-helper', 'utils/aux-image-helper'],
+  'utils/dialog-helper', 'utils/validation-helper', 'utils/aux-image-helper', 'utils/wkt-logger'],
 function(ImageRegistryActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, validationHelper,
-  auxImageHelper) {
+  auxImageHelper, wktLogger) {
   class AuxImagePusher extends ImageRegistryActionsBase {
     constructor() {
       super();
@@ -80,7 +80,9 @@ function(ImageRegistryActionsBase, project, wktConsole, i18n, projectIo, dialogH
         busyDialogMessage =
           i18n.t(this._getMiiPvMessageKey('aux-image-pusher-push-in-progress'), {imageTag: imageTag});
         dialogHelper.updateBusyDialog(busyDialogMessage, 3/totalSteps);
+        wktLogger.info(`auxImageRegistryPushCredentialsReference = ${this.project.image.auxImageRegistryPushCredentialsReference.value}`);
         const credentials = this.getImageRegistryCredential(this.project.image.auxImageRegistryPushCredentialsReference.value);
+        wktLogger.info(`credentials = ${JSON.stringify(credentials)}`);
         const host = (credentials) ? credentials.address : undefined;
         const username = (credentials) ? credentials.username : undefined;
         const password = (credentials) ? credentials.password : undefined;
@@ -90,6 +92,7 @@ function(ImageRegistryActionsBase, project, wktConsole, i18n, projectIo, dialogH
           username: username,
           password: password
         };
+        wktLogger.info(`pushOptions = ${JSON.stringify(pushOptions)}`);
         const imagePushResult = await this.pushImage(imageBuilderOptions, imageTag, pushOptions, errTitle,
           errPrefix, options.skipCompleteDialog);
         return Promise.resolve(imagePushResult);
@@ -120,7 +123,7 @@ function(ImageRegistryActionsBase, project, wktConsole, i18n, projectIo, dialogH
 
       if (this.project.image.auxImageRegistryPushRequireAuthentication.value) {
         validationObject.addField('image-design-aux-image-registry-push-credentials-label',
-          validationHelper.validateRequiredField(this.project.image.auxDefaultBaseImagePullCredentialsReference.value),
+          validationHelper.validateRequiredField(this.project.image.auxImageRegistryPushCredentialsReference.value),
           imageFormConfig);
 
         const credentials =

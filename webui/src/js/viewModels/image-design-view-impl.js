@@ -5,7 +5,7 @@
  */
 define(['utils/wkt-logger', 'utils/screen-utils', 'utils/aux-image-helper'],
   function (wktLogger, screenUtils, auxImageHelper) {
-    function ImageDesignViewModel(i18n, project, accUtils, ko, dialogHelper, ArrayDataProvider, wktImageInspector) {
+    function ImageDesignViewModel(i18n, project, accUtils, ko, dialogHelper, ArrayDataProvider, BufferingDataProvider, wktImageInspector) {
 
       let subscriptions = [];
 
@@ -66,7 +66,8 @@ define(['utils/wkt-logger', 'utils/screen-utils', 'utils/aux-image-helper'],
 
       this.project = project;
 
-      this.imageRegistriesCredentialsDP = new ArrayDataProvider(this.project.settings.containerImageRegistriesCredentials.observable, { key: 'uid' });
+      this.imageRegistriesCredentialsDP = new BufferingDataProvider(new ArrayDataProvider(
+        this.project.settings.containerImageRegistriesCredentials.observable, { keyAttributes: 'uid' }));
       this.getImageRegistriesCredentialsItemText = (itemContext) => {
         return itemContext.data.name;
       };

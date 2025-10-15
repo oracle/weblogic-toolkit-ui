@@ -195,14 +195,6 @@ function(i18n, accUtils, ko, ArrayDataProvider, BufferingDataProvider, project, 
         this.project.ingress.voyagerProviderMappedValue(this.project.ingress.voyagerProvider.value) === 'baremetal') {
         newRoute.annotations = {'ingress.appscode.com/type': 'NodePort'};
       }
-      // nginx 1.0.0 and above requires setting ingressClassName either at ingress object spec level or annotation.
-      if (project.ingress.ingressControllerProvider.value === 'nginx') {
-        newRoute.annotations = {'kubernetes.io/ingress.class': 'nginx'};
-      }
-      if (project.ingress.ingressControllerProvider.value === 'traefik') {
-        newRoute.annotations = {'kubernetes.io/ingress.class': 'traefik'};
-      }
-
       project.ingress.ingressRoutes.addNewItem(newRoute);
     };
 

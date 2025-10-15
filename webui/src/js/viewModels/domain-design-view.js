@@ -107,7 +107,8 @@ function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider
       return i18n.t(`domain-design-${labelId}`, payload);
     };
 
-    this.imageRegistriesCredentialsDP = new ArrayDataProvider(this.project.settings.containerImageRegistriesCredentials.observable, { key: 'uid' });
+    this.imageRegistriesCredentialsDP = new BufferingDataProvider(new ArrayDataProvider(
+      this.project.settings.containerImageRegistriesCredentials.observable, { keyAttributes: 'uid' }));
     this.getImageRegistriesCredentialsItemText = (itemContext) => {
       return itemContext.data.name;
     };
