@@ -146,6 +146,28 @@
   </div>
 
   <div class="oj-panel">
+    <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('k8s-resource-specs-title')]]"></oj-bind-text></h6>
+    <oj-form-layout columns="2" direction="row">
+      <oj-input-text label-hint="[[labelMapper('k8s-resource-specs-cpu-request-label')]]"
+                     value="{{project.wko.wkoCpuRequest.observable}}"
+                     help.instruction="[[labelMapper('k8s-resource-specs-cpu-request-help')]]">
+      </oj-input-text>
+      <oj-input-text label-hint="[[labelMapper('k8s-resource-specs-memory-request-label')]]"
+                     value="{{project.wko.wkoMemoryRequest.observable}}"
+                     help.instruction="[[labelMapper('k8s-resource-specs-memory-request-help')]]">
+      </oj-input-text>
+      <oj-input-text label-hint="[[labelMapper('k8s-resource-specs-cpu-limit-label')]]"
+                     value="{{project.wko.wkoCpuLimit.observable}}"
+                     help.instruction="[[labelMapper('k8s-resource-specs-cpu-limit-help')]]">
+      </oj-input-text>
+      <oj-input-text label-hint="[[labelMapper('k8s-resource-specs-memory-limit-label')]]"
+                     value="{{project.wko.wkoMemoryLimit.observable}}"
+                     help.instruction="[[labelMapper('k8s-resource-specs-memory-limit-help')]]">
+      </oj-input-text>
+    </oj-form-layout>
+  </div>
+
+  <div class="oj-panel">
     <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('external-rest-title')]]"></oj-bind-text></h6>
     <oj-form-layout max-columns="2" direction="column">
       <oj-switch label-hint="[[labelMapper('external-rest-expose-label')]]"

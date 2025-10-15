@@ -7,7 +7,7 @@
  */
 'use strict';
 
-const { AccUtilsStub, ArrayDataProviderStub } = require('./view-stubs');
+const { AccUtilsStub, ArrayDataProviderStub, BufferingDataProviderStub } = require('./view-stubs');
 const expect = require('chai').expect;
 const { after, before, beforeEach, describe, it } = require('mocha');
 const requirejs = require('requirejs');
@@ -41,7 +41,7 @@ describe('image-design-view', function () {
   });
 
   beforeEach(function () {
-    viewModel = new ImageViewModel(i18next, project, accUtilsStub, ko, dialogHelper, ArrayDataProviderStub);
+    viewModel = new ImageViewModel(i18next, project, accUtilsStub, ko, dialogHelper, ArrayDataProviderStub, BufferingDataProviderStub);
   });
 
   describe('when connected() is called', function () {
