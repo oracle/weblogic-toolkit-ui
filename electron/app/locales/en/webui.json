@@ -189,6 +189,11 @@
   "user-settings-dialog-https-proxy-url-help": "The proxy server URL to use for all outbound HTTPS requests (e.g., http://myproxy:80)",
   "user-settings-dialog-bypass-proxy-hosts-label": "Bypass Proxy Hosts",
   "user-settings-dialog-bypass-proxy-hosts-help": "The list of hostnames or patterns to use to set the NO_PROXY environment variable.  Please see NO_PROXY documentation for legal values.",
+
+  "user-settings-dialog-github-auth-token-title": "GitHub API Credentials",
+  "user-settings-dialog-github-auth-token-label": "GitHub Token",
+  "user-settings-dialog-github-auth-token-help": "The GitHub token used to make GitHub API calls.  This token needs no special permissions since it is only used to read data that is already public.  It is simply used to increase the GitHub API rate limit on API calls by associating them with a user account instead of them being anonymous.",
+
   "user-settings-dialog-wrc-section-title": "WebLogic Remote Console Configuration",
   "user-settings-dialog-wrc-home-label": "WebLogic Remote Console Install Location",
   "user-settings-dialog-wrc-home-macos-help": "The location of the WebLogic Remote Console.app, typically /Applications/WebLogic Remote Console.app.",

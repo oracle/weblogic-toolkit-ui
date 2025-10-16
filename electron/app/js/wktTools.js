@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const { dialog } = require('electron');
@@ -11,7 +11,7 @@ const { existsSync } = require('node:fs');
 const fsUtils = require('./fsUtils');
 const i18n = require('./i18next.config');
 const osUtils = require('./osUtils');
-const { getWktToolsExternalStagingDirectory } = require('./userSettings');
+const { getGithubAuthToken, getWktToolsExternalStagingDirectory } = require('./userSettings');
 const WktApp = require('./wktApp');
 const { compareVersions } = require('./versionUtils');
 const { getLogger } = require('./wktLogging');
@@ -133,9 +133,10 @@ async function getLatestWkoVersion() {
   if (_wkoVersion) {
     return Promise.resolve(_wkoVersion);
   }
+  const authToken = await getGithubAuthToken();
   return new Promise((resolve, reject) => {
     getProxyOptionsFromPreferences().then(options => {
-      getWkoLatestReleaseVersion(options).then(version => {
+      getWkoLatestReleaseVersion(options, authToken).then(version => {
         _wkoVersion = version;
         _wkoImageName = `ghcr.io/oracle/weblogic-kubernetes-operator:${_wkoVersion}`;
         resolve(version);
@@ -152,7 +153,8 @@ async function getLatestWkoImageName() {
   }
   return new Promise((resolve, reject) => {
     getProxyOptionsFromPreferences().then(options => {
-      getWkoLatestReleaseImageName(options).then(imageName => {
+      const authToken = getGithubAuthToken();
+      getWkoLatestReleaseImageName(options, authToken).then(imageName => {
         _wkoImageName = imageName;
         const index = imageName.lastIndexOf(':');
         if (index > -1) {
@@ -168,7 +170,8 @@ async function getLatestWkoImageName() {
 async function downloadLatestWdtInstaller(outputDirectory) {
   return new Promise((resolve, reject) => {
     getProxyOptionsFromPreferences().then(options => {
-      downloadWdtRelease(outputDirectory, options).then(installerData => {
+      const authToken = getGithubAuthToken();
+      downloadWdtRelease(outputDirectory, options, authToken).then(installerData => {
         resolve(installerData);
       }).catch(err => reject(new Error(`Failed to download the latest WebLogic Deploy Tooling installer: ${err}`)));
     }).catch(err => reject(err));
@@ -186,10 +189,11 @@ async function checkForUpdates(targetWindow) {
   }
 
   const options = await getProxyOptionsFromPreferences();
+  const authToken = getGithubAuthToken();
 
   let wdtLatestReleaseName;
   if (wdtInstalledReleaseName) {
-    wdtLatestReleaseName = await getWdtLatestReleaseName(options);
+    wdtLatestReleaseName = await getWdtLatestReleaseName(options, authToken);
     if (wdtLatestReleaseName && wdtLatestReleaseName !== wdtInstalledReleaseName) {
       result.push(wdtLatestReleaseName);
     }
@@ -199,7 +203,7 @@ async function checkForUpdates(targetWindow) {
 
   let witLatestReleaseName;
   if (witInstalledReleaseName) {
-    witLatestReleaseName = await getWitLatestReleaseName(options);
+    witLatestReleaseName = await getWitLatestReleaseName(options, authToken);
     if (witLatestReleaseName && witLatestReleaseName !== witInstalledReleaseName) {
       result.push(witLatestReleaseName);
     }
@@ -234,7 +238,7 @@ async function checkForUpdates(targetWindow) {
         if (errorMessage) {
           await dialog.showErrorBox(i18n.t('app-image-update-tools-failed-title'), errorMessage);
         } else {
-          await updateTools(result, externalToolDirectory, options);
+          await updateTools(result, externalToolDirectory, options, authToken);
           await dialog.showMessageBox(targetWindow, {
             type: 'info',
             detail: getToolsUpdateSuccessfulText(result),
@@ -242,7 +246,7 @@ async function checkForUpdates(targetWindow) {
           });
         }
       } else {
-        await updateTools(result, getToolsDirectory(), options);
+        await updateTools(result, getToolsDirectory(), options, authToken);
         await dialog.showMessageBox(targetWindow, {
           type: 'info',
           detail: getToolsUpdateSuccessfulText(result),
