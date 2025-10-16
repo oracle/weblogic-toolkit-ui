@@ -78,14 +78,14 @@ function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper, 
         tabEntry.folderPath = folderPath;
 
       } else if(tab.type === 'attributesTab') {
-        const tabLabelKey = tab.label ? tab.label : 'attributes-tab-label';
+        const tabLabelKey = tab.labelKey ? tab.labelKey : 'attributes-tab-label';
         tabEntry.label = MessageHelper.t(tabLabelKey);
         tabEntry.tabType = 'attributes';
         tabEntry.attributes = tab.attributes;
         tabEntry.addRemainingAttributes = tab.addRemainingAttributes;
 
       } else {
-        const tabLabelKey = tab.label ? tab.label : 'no-tab-label';
+        const tabLabelKey = tab.labelKey ? tab.labelKey : 'no-tab-label';
         tabEntry.label = MessageHelper.t(tabLabelKey);
         tabEntry.tabType = 'sections';
         tabEntry.sections = tab['sections'] || [];

@@ -16,13 +16,13 @@ function(accUtils, ko, ModelEditHelper, MessageHelper) {
     const ATTRIBUTE_MAP = args.attributeMap;
     const FOLDER_INFO = args.folderInfo;
 
-    const TITLE = META_SECTION.title;
+    const LABEL_KEY = META_SECTION.labelKey;
 
     this.connected = () => {
       accUtils.announce('Collapsible section loaded.', 'assertive');
     };
 
-    this.collapsibleLabel = TITLE ? MessageHelper.t(TITLE) : null;
+    this.collapsibleLabel = LABEL_KEY ? MessageHelper.t(LABEL_KEY) : null;
 
     const sections = META_SECTION['sections'] || [];
     this.sectionsModuleConfig = ModelEditHelper.createSectionsConfig(

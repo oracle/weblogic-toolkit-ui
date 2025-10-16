@@ -15,7 +15,7 @@ function(accUtils, ModelEditHelper, MessageHelper) {
     const ATTRIBUTE_MAP = args.attributeMap;
     const FOLDER_INFO = args.folderInfo;
 
-    const TITLE = META_SECTION.title;
+    const LABEL_KEY = META_SECTION.labelKey;
 
     let attributes = META_SECTION.attributes || [];
     if(META_SECTION['addRemainingAttributes']) {
@@ -23,7 +23,7 @@ function(accUtils, ModelEditHelper, MessageHelper) {
       attributes = [...attributes, ...remainingAttributes];
     }
 
-    this.title = TITLE ? MessageHelper.t(TITLE) : null;
+    this.title = LABEL_KEY ? MessageHelper.t(LABEL_KEY) : null;
 
     this.attributesConfig = ModelEditHelper.createAttributeSetConfig(MODEL_PATH, attributes, ATTRIBUTE_MAP);
   }
