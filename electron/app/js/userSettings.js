@@ -6,11 +6,14 @@
 const { app } = require('electron');
 const fs = require('fs');
 const path = require('path');
+const uuid = require('uuid');
 
 const { getErrorMessage } = require('./errorUtils');
+const CredentialEncryptor = require("./credentialEncryptor");
 
 // eslint-disable-next-line no-unused-vars
 const userSettableFieldNames = [
+  'gitHubAuthToken',
   'webLogicRemoteConsoleHome',
   'proxy',
   'linux',
@@ -21,6 +24,7 @@ const userSettableFieldNames = [
 ];
 
 const appPrivateFieldNames = [
+  'uuid',
   'window',
   'developer'
 ];
@@ -35,6 +39,8 @@ let _userSettingsFileName;
 // Here is an example with every possible field specified:
 //
 // {
+//   "uuid": "The unique ID associated with the user's settings file"
+//   "gitHubAuthToken": "The GitHub token for the user to allow GitHub API requests to be authenticated."
 //   "webLogicRemoteConsoleHome": "The path to the WebLogic Remote Console installation",
 //   "proxy": {
 //     "httpsProxyUrl": "The proxy to use for the application's all https outbound communication",
@@ -104,6 +110,15 @@ function applyUserSettingsFromRemote(remoteUserSettingsJson) {
   _userSettingsObject = remoteUserSettingsObject;
   saveUserSettings();
   wktLogger.debug('user settings saved...restart the application to pick up logger settings changes');
+}
+
+function getGithubAuthToken() {
+  let result;
+  const userSettingsObj = _getUserSettings();
+  if ('gitHubAuthToken' in userSettingsObj) {
+    result = userSettingsObj['gitHubAuthToken'];
+  }
+  return result;
 }
 
 function getWebLogicRemoteConsoleHome() {
@@ -388,16 +403,21 @@ function _getUserSettings() {
     if (userSettingsFileContent && userSettingsFileContent.length > 0) {
       try {
         const userSettingsObject = JSON.parse(userSettingsFileContent);
+        if (! userSettingsObject['uuid']) {
+          userSettingsObject['uuid'] = uuid.v4();
+        }
         _userSettingsObject = _updateSettings(userSettingsObject);
+        _decryptGitHubToken(_userSettingsObject);
       } catch (err) {
         throw new Error(`Failed to parse ${userSettingsFileName}: ${err}`);
       }
     } else {
-      _userSettingsObject = { };
+      _userSettingsObject = { uuid: uuid.v4() };
     }
   } else {
-    _userSettingsObject = { };
+    _userSettingsObject = { uuid: uuid.v4() };
   }
+
   return _userSettingsObject;
 }
 
@@ -418,11 +438,23 @@ function verifyRemoteUserSettingsObject(remoteUserSettingsObject) {
 function saveUserSettings() {
   const i18n = require('./i18next.config');
 
+  let encryptedGitHubAuthToken = false;
   if (!_userSettingsObject) {
     // nothing to save
     return;
   }
+
+  if ('gitHubAuthToken' in _userSettingsObject) {
+    // encrypt before converting to JSON string
+    _encryptGitHubToken(_userSettingsObject);
+    encryptedGitHubAuthToken = true;
+  }
   const userSettingsJson = JSON.stringify(_userSettingsObject, null, 2);
+
+  if (encryptedGitHubAuthToken) {
+    // if previously encrypted, decrypt the filed in the object
+    _decryptGitHubToken(_userSettingsObject);
+  }
 
   const userSettingsDirectory = getUserSettingsDirectory();
   let dirExists;
@@ -487,6 +519,22 @@ function _updateSettings(settings) {
   return settings;
 }
 
+function _decryptGitHubToken(userSettingsObject) {
+  const token = userSettingsObject['uuid'];
+  if ('gitHubAuthToken' in userSettingsObject) {
+    const cipherText = userSettingsObject['gitHubAuthToken'];
+    userSettingsObject['gitHubAuthToken'] = new CredentialEncryptor(token).getDecryptedText(cipherText);
+  }
+}
+
+function _encryptGitHubToken(userSettingsObject) {
+  const token = userSettingsObject['uuid'];
+  if ('gitHubAuthToken' in userSettingsObject) {
+    const clearText = userSettingsObject['gitHubAuthToken'];
+    userSettingsObject['gitHubAuthToken'] = new CredentialEncryptor(token).getEncryptedText(clearText);
+  }
+}
+
 module.exports = {
   applyUserSettingsFromRemote,
   getDividerLocations,
@@ -513,5 +561,6 @@ module.exports = {
   getWktToolsExternalStagingDirectory,
   setWktToolsExternalStagingDirectory,
   getLinuxDisableHardwareAcceleration,
-  setLinuxDisableHardwareAcceleration
+  setLinuxDisableHardwareAcceleration,
+  getGithubAuthToken
 };

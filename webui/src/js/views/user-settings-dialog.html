@@ -22,6 +22,17 @@
       </oj-form-layout>
     </div>
 
+    <div class="oj-panel">
+      <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('github-auth-token-title')]]"></oj-bind-text></h6>
+      <oj-form-layout max-columns="1" direction="row">
+        <oj-input-password label-hint="[[labelMapper('github-auth-token-label')]]"
+                           value="{{gitHubAuthToken}}"
+                           mask-icon="visible"
+                           help.instruction="[[labelMapper('github-auth-token-help')]]">
+        </oj-input-password>
+      </oj-form-layout>
+    </div>
+
     <oj-bind-if test="[[isLinux() === true]]">
       <div class="oj-panel">
         <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('linux-disable-hardware-acceleration-title')]]"></oj-bind-text></h6>

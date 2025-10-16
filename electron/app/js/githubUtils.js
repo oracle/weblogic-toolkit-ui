@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2022, 2023, Oracle and/or its affiliates.
+ * Copyright (c) 2022, 2025, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -19,11 +19,11 @@ const fetch = require('node-fetch');
 //          wktTools.js, all of which execute code during that requires an
 //          electron environment to function properly.
 //
-async function getReleaseVersions(name, baseUrl, options = undefined) {
+async function getReleaseVersions(name, baseUrl, options = undefined, authToken = undefined) {
   const proxyAgent = await getProxyAgent(options);
   return new Promise((resolve, reject) => {
     const releasesUrl = `${baseUrl}/releases`;
-    fetch(releasesUrl, getFetchOptions(proxyAgent)).then(res => {
+    fetch(releasesUrl, getFetchOptions(proxyAgent, authToken)).then(res => {
       res.json().then(fetchResults => {
         const results = fetchResults.map(fetchResult => {
           return {
@@ -37,22 +37,22 @@ async function getReleaseVersions(name, baseUrl, options = undefined) {
   });
 }
 
-async function getLatestReleaseObject(name, baseUrl, options = undefined) {
+async function getLatestReleaseObject(name, baseUrl, options = undefined, authToken = undefined) {
   const proxyAgent = await getProxyAgent(options);
   return new Promise((resolve, reject) => {
     const latestUrl = baseUrl + '/releases/latest';
-    fetch(latestUrl, getFetchOptions(proxyAgent)).then(res => {
+    fetch(latestUrl, getFetchOptions(proxyAgent, authToken)).then(res => {
       const results = res.json();
       resolve(results);
     }).catch(err => reject(new Error(`Failed to get the latest release of ${name} from ${latestUrl}: ${err}`)));
   });
 }
 
-async function getSpecifiedReleaseObject(name, tag, baseUrl, options = undefined) {
+async function getSpecifiedReleaseObject(name, tag, baseUrl, options = undefined, authToken = undefined) {
   const proxyAgent = await getProxyAgent(options);
   return new Promise((resolve, reject) => {
     const releaseUrl = baseUrl + '/releases/tags/' + tag;
-    fetch(releaseUrl, getFetchOptions(proxyAgent))
+    fetch(releaseUrl, getFetchOptions(proxyAgent, authToken))
       .then(res => resolve(res.json()))
       .catch(err => reject(new Error(`Failed to get the ${tag} release of ${name} from ${releaseUrl}: ${err}`)));
   });
@@ -88,12 +88,17 @@ async function getProxyAgent(options = undefined) {
   return proxyAgent;
 }
 
-function getFetchOptions(proxyAgent) {
+function getFetchOptions(proxyAgent, authToken = undefined) {
   let options = {};
   if (proxyAgent) {
     options = {
       agent: proxyAgent
     };
+  }
+  if (authToken) {
+    options.headers = {
+      Authorization: `Bearer ${authToken}`
+    }
   }
   return options;
 }

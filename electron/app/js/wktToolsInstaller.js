@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -42,7 +42,7 @@ const wkoImageName = 'ghcr.io/oracle/weblogic-kubernetes-operator';
 const ZIP_EXTENSION = '.zip';
 const TAR_GZ_EXTENSION = '.tar.gz';
 
-async function updateTools(releases, outputPath, options) {
+async function updateTools(releases, outputPath, options, authToken = undefined) {
   if (!releases || releases.length === 0) {
     return new Promise(resolve => resolve());
   }
@@ -58,10 +58,10 @@ async function updateTools(releases, outputPath, options) {
 
   return new Promise((resolve, reject) => {
     const installFunction = getInstallFunction(releases[0]);
-    installFunction(outputPathList[0], options).then(() => {
+    installFunction(outputPathList[0], options, authToken).then(() => {
       if (releases.length === 2) {
         const secondInstallFunction = getInstallFunction(releases[1]);
-        secondInstallFunction(outputPathList[1], options).then(() => {
+        secondInstallFunction(outputPathList[1], options, authToken).then(() => {
           resolve();
         }).catch(err => reject(`Unable to update to ${releases[1]}: ${err}`));
       } else {
@@ -71,53 +71,53 @@ async function updateTools(releases, outputPath, options) {
   });
 }
 
-async function downloadWdtRelease(outputPath, options) {
+async function downloadWdtRelease(outputPath, options, authToken = undefined) {
   return new Promise((resolve, reject) => {
-    downloadToolRelease(wdtToolName, ghApiWdtBaseUrl, outputPath, options).then((installerData) => {
+    downloadToolRelease(wdtToolName, ghApiWdtBaseUrl, outputPath, options, authToken).then((installerData) => {
       resolve(installerData);
     }).catch(err => reject(err));
   });
 }
 
-async function installWdtRelease(outputPath, options) {
+async function installWdtRelease(outputPath, options, authToken = undefined) {
   console.log(`Installing WebLogic Deploy Tooling to ${outputPath} directory`);
   return new Promise((resolve, reject) => {
-    installToolRelease(wdtToolName, wdtTopLevelDirectoryName, ghApiWdtBaseUrl, outputPath, options).then(() => {
+    installToolRelease(wdtToolName, wdtTopLevelDirectoryName, ghApiWdtBaseUrl, outputPath, options, authToken).then(() => {
       console.log('Finished installing WebLogic Deploy Tooling');
       resolve();
     }).catch(err => reject(err));
   });
 }
 
-async function installWitRelease(outputPath, options) {
+async function installWitRelease(outputPath, options, authToken = undefined) {
   console.log(`Installing WebLogic Image Tool to ${outputPath} directory`);
   return new Promise((resolve, reject) => {
-    installToolRelease(witToolName, witTopLevelDirectoryName, ghApiWitBaseUrl, outputPath, options).then(() => {
+    installToolRelease(witToolName, witTopLevelDirectoryName, ghApiWitBaseUrl, outputPath, options, authToken).then(() => {
       console.log('Finished installing WebLogic Image Tool');
       resolve();
     }).catch(err => reject(err));
   });
 }
 
-async function getWdtLatestReleaseName(options) {
+async function getWdtLatestReleaseName(options, authToken = undefined) {
   return new Promise((resolve, reject) => {
-    getLatestReleaseObject(wdtToolName, ghApiWdtBaseUrl, options).then(latestReleaseObj => {
+    getLatestReleaseObject(wdtToolName, ghApiWdtBaseUrl, options, authToken).then(latestReleaseObj => {
       resolve(latestReleaseObj['name']);
     }).catch(err => reject(`Failed to determine latest release name for ${wdtToolName}: ${err}`));
   });
 }
 
-async function getWitLatestReleaseName(options) {
+async function getWitLatestReleaseName(options, authToken = undefined) {
   return new Promise((resolve, reject) => {
-    getLatestReleaseObject(witToolName, ghApiWitBaseUrl, options).then(latestReleaseObj => {
+    getLatestReleaseObject(witToolName, ghApiWitBaseUrl, options, authToken).then(latestReleaseObj => {
       resolve(latestReleaseObj['name']);
     }).catch(err => reject(`Failed to determine latest release name for ${witToolName}: ${err}`));
   });
 }
 
-async function getWkoLatestReleaseVersion(options) {
+async function getWkoLatestReleaseVersion(options, authToken = undefined) {
   return new Promise((resolve, reject) => {
-    getLatestReleaseObject(wkoToolName, ghApiWkoBaseUrl, options).then(latestReleaseObj => {
+    getLatestReleaseObject(wkoToolName, ghApiWkoBaseUrl, options, authToken).then(latestReleaseObj => {
       const name = latestReleaseObj['name'];
       if (name) {
         const version = name.split(' ')[1];
@@ -130,23 +130,23 @@ async function getWkoLatestReleaseVersion(options) {
   });
 }
 
-async function getWkoLatestReleaseImageName(options) {
+async function getWkoLatestReleaseImageName(options, authToken = undefined) {
   return new Promise((resolve, reject) => {
-    getWkoLatestReleaseVersion(options).then(version => {
+    getWkoLatestReleaseVersion(options, authToken).then(version => {
       resolve(`${wkoImageName}:${version}`);
     }).catch(err => reject(new Error(`Failed to determine latest release name for ${wkoToolName}: ${err}`)));
   });
 }
 
-async function installToolRelease(toolName, toolTopLevelDirectory, toolUrl, outputPath, options) {
+async function installToolRelease(toolName, toolTopLevelDirectory, toolUrl, outputPath, options, authToken = undefined) {
   return new Promise((resolve, reject) => {
     fsUtils.makeDirectoryIfNotExists(outputPath).then(() => {
       console.log(`Getting latest release information for ${toolName}`);
-      getLatestReleaseObject(toolName, toolUrl, options).then(latestReleaseObj => {
+      getLatestReleaseObject(toolName, toolUrl, options, authToken).then(latestReleaseObj => {
         if (latestReleaseObj && 'name' in latestReleaseObj) {
           console.log(`Found latest release: ${latestReleaseObj['name']}`);
         }
-        installTool(latestReleaseObj, outputPath, path.join(outputPath, toolTopLevelDirectory), options).then(() => {
+        installTool(latestReleaseObj, outputPath, path.join(outputPath, toolTopLevelDirectory), options, authToken).then(() => {
           resolve();
         }).catch(err => reject(`Failed to install ${toolName}: ${err}`));
       }).catch(err => reject(`Failed to get latest release for ${toolName}: ${err}`));
@@ -154,16 +154,16 @@ async function installToolRelease(toolName, toolTopLevelDirectory, toolUrl, outp
   });
 }
 
-async function downloadToolRelease(toolName, toolUrl, outputPath, options) {
+async function downloadToolRelease(toolName, toolUrl, outputPath, options, authToken = undefined) {
   return new Promise((resolve, reject) => {
     fsUtils.makeDirectoryIfNotExists(outputPath).then(() => {
-      getLatestReleaseObject(toolName, toolUrl, options).then(latestReleaseObj => {
+      getLatestReleaseObject(toolName, toolUrl, options, authToken).then(latestReleaseObj => {
         const archiveAsset = getGitHubAssetObjFromRelease(latestReleaseObj);
         const archiveAssetUrl = getGitHubAssetUrl(archiveAsset);
         const assetFileName = archiveAsset['name'];
         const archiveFileName = path.join(outputPath, assetFileName);
         const versionNumber = getVersionNumberFromReleaseName(latestReleaseObj['name']);
-        downloadArchiveFile(archiveAssetUrl, archiveFileName, options).then(() => {
+        downloadArchiveFile(archiveAssetUrl, archiveFileName, options, authToken).then(() => {
           resolve({ fileName: archiveFileName, version: versionNumber });
         }).catch(err => reject(new Error(`Failed to download installer for ${toolName} from ${archiveAssetUrl}: ${err}`)));
       }).catch(err => reject(new Error(`Failed to get latest release for ${toolName}: ${err}`)));
@@ -213,7 +213,7 @@ function getGitHubAssetUrl(ghAssetObj) {
   return url;
 }
 
-async function installTool(ghReleaseObj, outputPath, directoryToDelete, options) {
+async function installTool(ghReleaseObj, outputPath, directoryToDelete, options, authToken = undefined) {
   return new Promise((resolve, reject) => {
     const archiveAsset = getGitHubAssetObjFromRelease(ghReleaseObj);
     const archiveAssetUrl = getGitHubAssetUrl(archiveAsset);
@@ -224,7 +224,7 @@ async function installTool(ghReleaseObj, outputPath, directoryToDelete, options)
     }
 
     const archiveFileName = path.join(outputPath, assetFileName);
-    downloadArchiveFile(archiveAssetUrl, archiveFileName, options).then(() => {
+    downloadArchiveFile(archiveAssetUrl, archiveFileName, options, authToken).then(() => {
       fsUtils.removeDirectoryRecursively(directoryToDelete).then(() => {
         if (assetFileName.endsWith(ZIP_EXTENSION)) {
           openZipFile(archiveFileName, outputPath).then(() => {
@@ -241,10 +241,10 @@ async function installTool(ghReleaseObj, outputPath, directoryToDelete, options)
   });
 }
 
-async function downloadArchiveFile(fileUrl, outputFile, options) {
+async function downloadArchiveFile(fileUrl, outputFile, options, authToken = undefined) {
   const proxyAgent = await getProxyAgent(options);
   return new Promise(resolve => {
-    fetch(fileUrl, getFetchOptions(proxyAgent)).then(res => {
+    fetch(fileUrl, getFetchOptions(proxyAgent, authToken)).then(res => {
       const out = fs.createWriteStream(outputFile);
       out.addListener('close', () => resolve());
       res.body.pipe(out);

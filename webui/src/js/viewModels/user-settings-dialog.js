@@ -36,7 +36,6 @@ function(accUtils, ko, utils, i18n, ArrayDataProvider, project, validationHelper
     this.userSettings = {};
     try {
       this.userSettings = JSON.parse(payload['userSettingsJson']);
-      wktLogger.info('userSettings loaded: ' + JSON.stringify(this.userSettings));
     } catch (err) {
       wktLogger.error(`Failed to deserialize the user settings json: ${err}`);
     }
@@ -56,6 +55,7 @@ function(accUtils, ko, utils, i18n, ArrayDataProvider, project, validationHelper
     this.getProxyUrlValidators = () => validationHelper.getProxyUrlValidators();
     this.proxyUrl = ko.observable();
     this.bypassProxyHosts = ko.observable();
+    this.gitHubAuthToken = ko.observable();
     this.wktToolsExternalStagingDirectory = ko.observable();
     this.consoleLogLevel = ko.observable(payload.defaults.level);
     this.fileLogLevel = ko.observable(payload.defaults.level);
@@ -74,6 +74,10 @@ function(accUtils, ko, utils, i18n, ArrayDataProvider, project, validationHelper
         if ('bypassProxyHosts' in this.userSettings.proxy) {
           this.bypassProxyHosts(this.userSettings.proxy.bypassProxyHosts);
         }
+      }
+
+      if ('gitHubAuthToken' in this.userSettings) {
+        this.gitHubAuthToken(this.userSettings.gitHubAuthToken)
       }
 
       if ('linux' in this.userSettings) {
@@ -159,6 +163,7 @@ function(accUtils, ko, utils, i18n, ArrayDataProvider, project, validationHelper
     this.storeUserSettings = () => {
       project.setHttpsProxyUrl(this.proxyUrl());
       project.setBypassProxyHosts(this.bypassProxyHosts());
+      this._storeSetting('gitHubAuthToken', this.gitHubAuthToken)
       this._storeSetting('tools.wktToolsExternalStagingDirectory', this.wktToolsExternalStagingDirectory);
       this._storeSetting('linux.disableLinuxHardwareAcceleration', this.disableLinuxHardwareAcceleration);
       this._storeSetting('proxy.httpsProxyUrl', this.proxyUrl);
