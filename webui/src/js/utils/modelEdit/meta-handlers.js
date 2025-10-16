@@ -13,7 +13,8 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
       this.notOracleDatabaseType = attributeMap => {
         const dbTypeAttribute = attributeMap['rcu_database_type'];
         return ko.computed(() => {
-          return ModelEditHelper.getDerivedValue(dbTypeAttribute.observable()) !== 'ORACLE';
+          const type = ModelEditHelper.getDerivedValue(dbTypeAttribute.observable());
+          return !['ORACLE', 'EBR'].includes(type);
         });
       };
     }

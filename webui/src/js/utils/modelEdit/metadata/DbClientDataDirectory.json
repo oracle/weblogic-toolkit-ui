@@ -6,9 +6,9 @@
     "attributeDetails": {
       "StagingMode": {
         "options": [
-          { "key": "stage", "label": "Stage" },
-          { "key": "nostage", "label": "No Stage" },
-          { "key": "external_stage", "label": "External Stage" }
+          { "value": "stage", "labelKey": "staging-stage-label" },
+          { "value": "nostage", "labelKey": "staging-no-stage-label" },
+          { "value": "external_stage", "labelKey": "staging-external-label" }
         ]
       }
     },

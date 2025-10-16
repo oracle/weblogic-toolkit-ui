@@ -10,7 +10,7 @@
       },
       {
         "type": "collapsible",
-        "title": "advanced-label",
+        "labelKey": "advanced-label",
         "sections": [
           {
             "type": "attributes",

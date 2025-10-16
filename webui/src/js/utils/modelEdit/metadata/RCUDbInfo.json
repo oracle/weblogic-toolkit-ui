@@ -3,39 +3,39 @@
     "attributeDetails": {
       "javax.net.ssl.keyStoreType": {
         "options": [
-          { "key": "SSO", "label": "SSO" },
-          { "key": "PKCS12", "label": "PKCS12" },
-          { "key": "JKS", "label": "JKS" }
+          { "value": "SSO", "labelKey": "sso-type-label" },
+          { "value": "PKCS12", "labelKey": "pkcs12-type-label" },
+          { "value": "JKS", "labelKey": "jks-type-label" }
         ]
       },
       "javax.net.ssl.trustStoreType": {
         "options": [
-          { "key": "SSO", "label": "SSO" },
-          { "key": "PKCS12", "label": "PKCS12" },
-          { "key": "JKS", "label": "JKS" }
+          { "value": "SSO", "labelKey": "sso-type-label" },
+          { "value": "PKCS12", "labelKey": "pkcs12-type-label" },
+          { "value": "JKS", "labelKey": "jks-type-label" }
         ]
       },
       "oracle_database_connection_type": {
         "disabled": "notOracleDatabaseType",
         "options": [
-          { "key": "SSL", "label": "SSL" },
-          { "key": "ATP", "label": "ATP" }
+          { "value": "SSL", "labelKey": "ssl-type-label" },
+          { "value": "ATP", "labelKey": "atp-type-label" }
         ]
       },
       "rcu_database_type": {
         "options": [
-          { "key": "ORACLE", "label": "ORACLE" },
-          { "key": "EBR", "label": "EBR" },
-          { "key": "SQLSERVER", "label": "SQLSERVER" },
-          { "key": "DB2", "label": "DB2" },
-          { "key": "MYSQL", "label": "MYSQL" }
+          { "value": "ORACLE", "labelKey": "oracle-type-label" },
+          { "value": "EBR", "labelKey": "ebr-type-label" },
+          { "value": "SQLSERVER", "labelKey": "sqlserver-type-label" },
+          { "value": "DB2", "labelKey": "db2-type-label" },
+          { "value": "MYSQL", "labelKey": "mysql-type-label" }
         ]
       }
     },
     "sections": [
       {
         "type": "attributes",
-        "title": "rcudbinfo-connection-label",
+        "labelKey": "rcudbinfo-connection-label",
         "attributes": [
           "rcu_database_type",
           "oracle_database_connection_type",
@@ -49,7 +49,7 @@
       },
       {
         "type": "attributes",
-        "title": "rcudbinfo-atp-label",
+        "labelKey": "rcudbinfo-atp-label",
         "attributes": [
           "atp.default.tablespace",
           "atp.temp.tablespace"
@@ -57,7 +57,7 @@
       },
       {
         "type": "attributes",
-        "title": "rcudbinfo-stores-label",
+        "labelKey": "rcudbinfo-stores-label",
         "attributes": [
           "javax.net.ssl.keyStore",
           "javax.net.ssl.keyStoreType",
@@ -69,7 +69,7 @@
       },
       {
         "type": "collapsible",
-        "title": "advanced-label",
+        "labelKey": "advanced-label",
         "sections": [
           {
             "type": "attributes",

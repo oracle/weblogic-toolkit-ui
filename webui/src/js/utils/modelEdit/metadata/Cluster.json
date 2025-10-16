@@ -11,7 +11,7 @@
     "sections": [
       {
         "type": "tab",
-        "label": "general-tab-label",
+        "labelKey": "general-tab-label",
         "sections": [
           {
             "type": "attributes",
@@ -26,7 +26,7 @@
           },
           {
             "type": "collapsible",
-            "title": "advanced-label",
+            "labelKey": "advanced-label",
             "sections": [
               {
                 "type": "attributes",
@@ -44,7 +44,7 @@
       },
       {
         "type": "attributesTab",
-        "label": "health-tab-label",
+        "labelKey": "health-tab-label",
         "attributes": [
           "InterClusterCommLinkHealthCheckInterval",
           "HealthCheckIntervalMillis",
@@ -54,7 +54,7 @@
       },
       {
         "type": "attributesTab",
-        "label": "http-tab-label",
+        "labelKey": "http-tab-label",
         "attributes": [
           "FrontendHost",
           "FrontendHTTPPort",
@@ -67,11 +67,11 @@
       },
       {
         "type": "tab",
-        "label": "migration-tab-label",
+        "labelKey": "migration-tab-label",
         "sections": [
           {
             "type": "attributesTab",
-            "label": "general-tab-label",
+            "labelKey": "general-tab-label",
             "attributes": [
               "MigrationBasis",
               "DataSourceForAutomaticMigration",
@@ -86,7 +86,7 @@
           },
           {
             "type": "attributesTab",
-            "label": "candidates-tab-label",
+            "labelKey": "candidates-tab-label",
             "attributes": [
               "CandidateMachinesForMigratableServer"
             ]
@@ -103,7 +103,7 @@
       },
       {
         "type": "tab",
-        "label": "replication-tab-label",
+        "labelKey": "replication-tab-label",
         "sections": [
           {
             "type": "attributes",
@@ -118,7 +118,7 @@
           },
           {
             "type": "collapsible",
-            "title": "advanced-label",
+            "labelKey": "advanced-label",
             "sections": [
               {
                 "type": "attributes",
@@ -141,7 +141,7 @@
       },
       {
         "type": "attributesTab",
-        "label": "scheduling-tab-label",
+        "labelKey": "scheduling-tab-label",
         "attributes": [
           "DataSourceForJobScheduler",
           "JobSchedulerTableName"
@@ -153,7 +153,7 @@
       },
       {
         "type": "tab",
-        "label": "messaging-tab-label",
+        "labelKey": "messaging-tab-label",
         "sections": [
           {
             "type": "attributes",
@@ -166,7 +166,7 @@
           },
           {
             "type": "collapsible",
-            "title": "advanced-label",
+            "labelKey": "advanced-label",
             "sections": [
               {
                 "type": "attributes",
@@ -184,7 +184,7 @@
       },
       {
         "type": "tab",
-        "label": "coherence-tab-label",
+        "labelKey": "coherence-tab-label",
         "sections": [
           {
             "type": "attributes",

@@ -178,6 +178,16 @@ function (ko, jsYaml, project, utils,
 
         const aliasPath = AliasHelper.getAliasPath(modelPath);
         const details = MetaHelper.getAttributeDetails(aliasPath, attributeName);
+
+        // translate labels and set keys for any option lists
+        const options = details.options || [];
+        for (const option of options) {
+          if(!option.key) {
+            option.key = option.value;
+            option.label = MessageHelper.t(option.labelKey);
+          }
+        }
+
         Object.assign(attribute, details);
 
         const observableValue = this.getAttributeObservableValue(attribute);
