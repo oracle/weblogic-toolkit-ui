@@ -15,13 +15,16 @@ function(accUtils, ko, ModelEditHelper, MessageHelper, AliasHelper) {
     // for model folders with multiple instances (such as Server/myServer).
 
     const MODEL_PATH = args.modelPath;
+    const META_SECTION = args.metaSection;
     const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
 
     this.connected = () => {
       accUtils.announce('Instances section loaded.', 'assertive');
     };
 
-    this.title = MessageHelper.getFolderLabel(ALIAS_PATH);
+    const labelKey = META_SECTION.labelKey;
+    const label = labelKey ? MessageHelper.t(labelKey) : null;
+    this.title = label || MessageHelper.getFolderLabel(ALIAS_PATH);
 
     this.tableConfig = ModelEditHelper.createInstancesTableConfig(MODEL_PATH);
   }

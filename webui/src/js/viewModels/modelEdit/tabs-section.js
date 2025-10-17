@@ -50,7 +50,7 @@ function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper, 
       const itemKey = 'tab-' + lastId++;
       const tabType = 'attributes';
       const attributes = REMAINING_ATTRIBUTES;
-      const label = MessageHelper.t('attributes-tab-label');
+      const label = MessageHelper.t('general-tab-label');
 
       const tabEntry = {
         itemKey,
@@ -73,12 +73,13 @@ function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper, 
         const folderName = tab.folder;  // TODO: allow absolute paths?
         const folderPath = [...MODEL_PATH, folderName];
         const aliasPath = AliasHelper.getAliasPath(folderPath);
-        tabEntry.label = MessageHelper.getFolderLabel(aliasPath);
+        const label = tab.labelKey ? MessageHelper.t(tab.labelKey) : null;
+        tabEntry.label = label || MessageHelper.getFolderLabel(aliasPath);
         tabEntry.tabType = AliasHelper.isMultiplePath(folderPath) ? 'multiFolder' : 'singleFolder';
         tabEntry.folderPath = folderPath;
 
       } else if(tab.type === 'attributesTab') {
-        const tabLabelKey = tab.labelKey ? tab.labelKey : 'attributes-tab-label';
+        const tabLabelKey = tab.labelKey ? tab.labelKey : 'general-tab-label';
         tabEntry.label = MessageHelper.t(tabLabelKey);
         tabEntry.tabType = 'attributes';
         tabEntry.attributes = tab.attributes;
@@ -134,7 +135,7 @@ function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper, 
 
       } else if(tabType === 'multiFolder') {
         const folderPath = selectedTab.folderPath;
-        tabConfig = ModelEditHelper.createInstancesSectionConfig(folderPath);
+        tabConfig = ModelEditHelper.createInstancesSectionConfig(folderPath, {});
 
       } else if(tabType === 'attributes') {
         const fakeSection = {

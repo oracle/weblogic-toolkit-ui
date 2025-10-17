@@ -36,17 +36,24 @@ function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper) 
     this.sections = [];
     META_SECTIONS.forEach(section => {
       if(section.type === 'attributes') {
-        const moduleConfig = ModelEditHelper.createAttributesSectionConfig(MODEL_PATH, section, ATTRIBUTE_MAP, FOLDER_INFO);
-        this.sections.push({
-          type: section.type,
-          moduleConfig
-        });
+        if(hasAnyAttributes(section)) {
+          const moduleConfig = ModelEditHelper.createAttributesSectionConfig(MODEL_PATH, section, ATTRIBUTE_MAP, FOLDER_INFO);
+          this.sections.push({
+            type: section.type,
+            moduleConfig
+          });
+        }
       }
 
       else if(section.type === 'folder') {
         const folder = section.folder;  // TODO: allow nested and absolute folder paths?
         const folderPath = [...MODEL_PATH, folder];
-        const moduleConfig = ModelEditHelper.createFolderSectionConfig(folderPath);
+        let moduleConfig;
+        if(AliasHelper.isMultiplePath(folderPath)) {
+          moduleConfig = ModelEditHelper.createInstancesSectionConfig(folderPath, section);
+        } else {
+          moduleConfig = ModelEditHelper.createFolderSectionConfig(folderPath, section);
+        }
         this.sections.push({
           type: section.type,
           moduleConfig
@@ -59,6 +66,26 @@ function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper) 
           type: section.type,
           moduleConfig: collapsibleConfig
         });
+      }
+
+      else if(section.type === 'attributesCollapsible') {
+        if(hasAnyAttributes(section)) {
+          const fakeSection = {
+            labelKey: section.labelKey,
+            sections: [
+              {
+                type: 'attributes',
+                attributes: section.attributes,
+                addRemainingAttributes: section.addRemainingAttributes
+              }
+            ]
+          };
+          const collapsibleConfig = ModelEditHelper.createCollapsibleSectionConfig(MODEL_PATH, fakeSection, ATTRIBUTE_MAP, FOLDER_INFO);
+          this.sections.push({
+            type: section.type,
+            moduleConfig: collapsibleConfig
+          });
+        }
       }
 
       else if(MetaHelper.isTabSection(section.type)) {
@@ -87,15 +114,15 @@ function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper) 
         REMAINING_FOLDERS.forEach(folder => {
           const folderPath = [...MODEL_PATH, folder];
 
-          let tableConfig;
+          let moduleConfig;
           if(AliasHelper.isMultiplePath(folderPath)) {
-            tableConfig = ModelEditHelper.createInstancesSectionConfig(folderPath);
+            moduleConfig = ModelEditHelper.createInstancesSectionConfig(folderPath, {});
           } else {
-            tableConfig = ModelEditHelper.createFolderSectionConfig(folderPath);
+            moduleConfig = ModelEditHelper.createFolderSectionConfig(folderPath, {});
           }
           this.sections.push({
-            type: 'table',
-            moduleConfig: tableConfig
+            type: 'folder',
+            moduleConfig
           });
         });
       }
@@ -107,6 +134,15 @@ function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper) 
         type: 'tabs',
         moduleConfig: tabsConfig
       });
+    }
+
+    function hasAnyAttributes(metaSection) {
+      let attributes = metaSection.attributes || [];
+      if(metaSection['addRemainingAttributes']) {
+        const remainingAttributes = FOLDER_INFO.remainingAttributes;
+        attributes = [...attributes, ...remainingAttributes];
+      }
+      return attributes.length > 0;
     }
   }
 
