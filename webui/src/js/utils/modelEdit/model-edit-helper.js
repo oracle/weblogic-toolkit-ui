@@ -182,8 +182,8 @@ function (ko, jsYaml, project, utils,
         // translate labels and set keys for any option lists
         const options = details.options || [];
         for (const option of options) {
-          if(!option.key) {
-            option.key = option.value;
+          option.key = option.value;
+          if(!option.label) {
             option.label = MessageHelper.t(option.labelKey);
           }
         }
