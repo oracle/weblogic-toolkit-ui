@@ -1,0 +1,38 @@
+{
+  "StartupClass": {
+    "summaryAttributes": {
+      "ClassName": {},
+      "Arguments": {},
+      "DeploymentOrder": {},
+      "Target": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "ClassName",
+          "Arguments",
+          "DeploymentOrder",
+          "Notes",
+          "Target"
+        ]
+      },
+      {
+        "type": "collapsible",
+        "labelKey": "advanced-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "LoadBeforeAppDeployments",
+              "LoadBeforeAppActivation",
+              "LoadAfterAppsRunning",
+              "FailureIsFatal"
+            ],
+            "addRemainingAttributes": true
+          }
+        ]
+      }
+    ]
+  }
+}

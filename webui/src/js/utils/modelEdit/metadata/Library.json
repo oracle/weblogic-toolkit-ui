@@ -5,34 +5,131 @@
       "Target": {}
     },
     "attributeDetails": {
+      "PlanStagingMode": {
+        "options": [
+          { "value": "stage", "labelKey": "staging-stage-label" },
+          { "value": "nostage", "labelKey": "staging-no-stage-label" },
+          { "value": "external_stage", "labelKey": "staging-external-label" }
+        ]
+      },
       "StagingMode": {
         "options": [
           { "value": "stage", "labelKey": "staging-stage-label" },
           { "value": "nostage", "labelKey": "staging-no-stage-label" },
           { "value": "external_stage", "labelKey": "staging-external-label" }
         ]
+      },
+      "SecurityDDModel": {
+        "options": [
+          { "value": "DDOnly", "labelKey": "security-model-dd-only-label" },
+          { "value": "CustomRoles", "labelKey": "security-model-custom-roles-label" },
+          { "value": "CustomRolesAndPolicies", "labelKey": "security-model-custom-roles-and-policies-label" },
+          { "value": "Advanced", "labelKey": "security-model-advanced-label" }
+        ]
       }
     },
     "sections": [
       {
-        "type": "attributes",
-        "attributes": [
-          "SourcePath",
-          "DeploymentOrder",
-          "PlanDir",
-          "PlanPath",
-          "Target"
-        ]
-      },
-      {
-        "type": "collapsible",
-        "labelKey": "advanced-label",
+        "type": "tab",
+        "labelKey": "general-tab-label",
         "sections": [
           {
             "type": "attributes",
-            "addRemainingAttributes": true
+            "attributes": [
+              "SourcePath",
+              "ModuleType",
+              "DeploymentOrder",
+              "SecurityDDModel",
+              "StagingMode",
+              "PlanStagingMode",
+              "PlanDir",
+              "PlanPath",
+              "InstallDir",
+              "DeploymentPrincipalName",
+              "ValidateDDSecurityData",
+              "Notes",
+              "Target"
+            ]
+          },
+          {
+            "type": "collapsible",
+            "labelKey": "advanced-label",
+            "sections": [
+              {
+                "type": "attributes",
+                "labelKey": "library-attributes-label",
+                "attributes": [
+                  "ApplicationName",
+                  "CompatibilityName",
+                  "ApplicationIdentifier",
+                  "ConfiguredApplicationIdentifier",
+                  "CacheInAppDirectory",
+                  "InternalApp",
+                  "AutoDeployedApp",
+                  "ParallelDeployModules",
+                  "BackgroundDeployment",
+                  "MultiVersionApp",
+                  "Untargeted"
+                ]
+              },
+              {
+                "type": "attributes",
+                "labelKey": "absolute-paths-label",
+                "attributes": [
+                  "AbsoluteSourcePath",
+                  "AbsoluteInstallDir",
+                  "AbsolutePlanDir",
+                  "AbsolutePlanPath"
+                ]
+              },
+              {
+                "type": "attributes",
+                "labelKey": "alternate-descriptor-paths-label",
+                "attributes": [
+                  "AltDescriptorDir",
+                  "AbsoluteAltDescriptorDir",
+                  "AltDescriptorPath",
+                  "AbsoluteAltDescriptorPath",
+                  "AltWLSDescriptorPath"
+                ]
+              },
+              {
+                "type": "attributes",
+                "labelKey": "local-paths-label",
+                "attributes": [
+                  "LocalSourcePath",
+                  "LocalInstallDir",
+                  "LocalPlanDir",
+                  "LocalPlanPath",
+                  "LocalAltDescriptorPath"
+                ]
+              },
+              {
+                "type": "attributes",
+                "labelKey": "miscellaneous-attributes-label",
+                "attributes": [
+                  "DeploymentPlan",
+                  "DeploymentPlanExternalDescriptors"
+                ],
+                "addRemainingAttributes": true
+              },
+              {
+                "type": "hidden",
+                "attributes": [
+                  "OnDemandContextPaths",
+                  "OnDemandDisplayRefresh",
+                  "PartitionName",
+                  "RootStagingDir",
+                  "VersionIdentifier"
+                ]
+              }
+            ]
           }
         ]
+      },
+      {
+        "type": "folderTab",
+        "folder": "SubDeployment"
       }
     ]
   }

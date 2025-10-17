@@ -1,0 +1,39 @@
+{
+  "SingletonService": {
+    "summaryAttributes": {
+      "ClassName": {},
+      "Cluster": {},
+      "UserPreferredServer": {},
+      "ConstrainedCandidateServer": {}
+    },
+    "sections": [
+      {
+        "type": "attributesTab",
+        "labelKey": "general-tab-label",
+        "attributes": [
+          "ClassName",
+          "Cluster",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "migration-tab-label",
+        "attributes": [
+          "AdditionalMigrationAttempts",
+          "MillisToSleepBetweenAttempts",
+          "UserPreferredServer",
+          "ConstrainedCandidateServer"
+        ]
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "HostingServer"
+        ],
+        "addRemainingAttributes": true
+      }
+    ]
+
+  }
+}
