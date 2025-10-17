@@ -1,0 +1,26 @@
+{
+  "ShutdownClass": {
+    "summaryAttributes": {
+      "ClassName": {},
+      "Arguments": {},
+      "DeploymentOrder": {},
+      "Target": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "ClassName",
+          "Arguments",
+          "DeploymentOrder",
+          "Notes",
+          "Target"
+        ]
+      },
+      {
+        "type": "hidden",
+        "addRemainingAttributes": true
+      }
+    ]
+  }
+}
