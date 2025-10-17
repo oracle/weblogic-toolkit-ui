@@ -1016,7 +1016,8 @@ h6.wkt-split-header {
   font-size: 0.75em;
 }
 
-.wkt-collapsible h6 {
+.wkt-collapsible h6.wkt-collapsible-heading {
+  font-size: 1em;
   margin-left: -1em !important;  /* oj-c-collapsible has large horizontal space */
 }
 

@@ -9,14 +9,9 @@
         ]
       },
       {
-        "type": "collapsible",
+        "type": "attributesCollapsible",
         "labelKey": "advanced-label",
-        "sections": [
-          {
-            "type": "attributes",
-            "addRemainingAttributes": true
-          }
-        ]
+        "addRemainingAttributes": true
       },
       {
         "type": "hidden",

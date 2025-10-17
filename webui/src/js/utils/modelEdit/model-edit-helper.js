@@ -273,11 +273,12 @@ function (ko, jsYaml, project, utils,
       });
     };
 
-    this.createInstancesSectionConfig = modelPath => {
+    this.createInstancesSectionConfig = (modelPath, metaSection) => {
       return ModuleElementUtils.createConfig({
         name: 'modelEdit/instances-section',
         params: {
-          modelPath
+          modelPath,
+          metaSection
         }
       });
     };
@@ -305,11 +306,12 @@ function (ko, jsYaml, project, utils,
       });
     };
 
-    this.createFolderSectionConfig = modelPath => {
+    this.createFolderSectionConfig = (modelPath, metaSection) => {
       return ModuleElementUtils.createConfig({
         name: 'modelEdit/folder-section',
         params: {
-          modelPath
+          modelPath,
+          metaSection
         }
       });
     };

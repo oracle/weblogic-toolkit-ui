@@ -12,13 +12,16 @@ define(['accUtils', 'knockout',
 function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper) {
   function FolderSectionViewModel(args) {
     const MODEL_PATH = args.modelPath;
+    const META_SECTION = args.metaSection;
     const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
 
     this.connected = () => {
       accUtils.announce('Folder Section loaded.', 'assertive');
     };
 
-    this.title = MessageHelper.getFolderLabel(ALIAS_PATH);
+    const labelKey = META_SECTION.labelKey;
+    const label = labelKey ? MessageHelper.t(labelKey) : null;
+    this.title = label || MessageHelper.getFolderLabel(ALIAS_PATH);
 
     this.folderConfig = ModelEditHelper.createFolderContentConfig(MODEL_PATH);
   }
