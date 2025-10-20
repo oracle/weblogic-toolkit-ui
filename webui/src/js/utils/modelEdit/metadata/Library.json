@@ -82,31 +82,8 @@
               {
                 "type": "hidden",
                 "attributes": [
-                  "AbsoluteAltDescriptorDir",
-                  "AbsoluteAltDescriptorPath",
-                  "AbsoluteInstallDir",
-                  "AbsolutePlanDir",
-                  "AbsolutePlanPath",
-                  "AbsoluteSourcePath",
                   "AltDescriptorDir",
-                  "ApplicationIdentifier",
-                  "ApplicationName",
-                  "AutoDeployedApp",
-                  "BackgroundDeployment",
-                  "ConfiguredApplicationIdentifier",
-                  "DeploymentPlan",
-                  "DeploymentPlanExternalDescriptors",
-                  "InternalApp",
-                  "OnDemandContextPaths",
-                  "OnDemandDisplayRefresh",
-                  "LocalSourcePath",
-                  "LocalInstallDir",
-                  "LocalPlanDir",
-                  "LocalPlanPath",
-                  "LocalAltDescriptorPath",
-                  "PartitionName",
-                  "RootStagingDir",
-                  "VersionIdentifier"
+                  "ConfiguredApplicationIdentifier"
                 ]
               }
             ]

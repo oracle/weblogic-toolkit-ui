@@ -286,10 +286,10 @@ function (ko, i18n, AliasHelper) {
 
       if(messageKeys.includes(folderAttributeKey)) {  // specific to folder + attribute
         return t(folderAttributeKey, args);
-      } else if(messageKeys.includes(folderKey)) {  // specific to folder
-        return t(folderKey, args);
       } else if(messageKeys.includes(attributeKey)) {  // specific to attribute
         return t(attributeKey, args);
+      } else if(messageKeys.includes(folderKey)) {  // specific to folder
+        return t(folderKey, args);
       } else {  // default for any attribute, log as missing if unavailable
         return t(genericKey, args);
       }
