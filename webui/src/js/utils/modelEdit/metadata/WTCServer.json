@@ -1,0 +1,554 @@
+{
+  "WTCServer": {
+    "summaryAttributes": {
+      "Target": {}
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "DeploymentOrder",
+              "Notes",
+              "Target"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "Resources"
+        ]
+      },
+      {
+        "type": "folderTab",
+        "folder": "WTCLocalTuxDom"
+      },
+      {
+        "type": "folderTab",
+        "folder": "WTCRemoteTuxDom"
+      },
+      {
+        "type": "folderTab",
+        "folder": "WTCExport"
+      },
+      {
+        "type": "folderTab",
+        "folder": "WTCImport"
+      },
+      {
+        "type": "folderTab",
+        "folder": "WTCResources"
+      },
+      {
+        "type": "folderTab",
+        "folder": "WTCPassword"
+      },
+      {
+        "type": "folderTab",
+        "folder": "WTCtBridgeGlobal"
+      },
+      {
+        "type": "folderTab",
+        "folder": "WTCtBridgeRedirect"
+      }
+    ]
+  },
+  "WTCServer/WTCLocalTuxDom": {
+    "summaryAttributes": {
+      "AccessPoint": {},
+      "AccessPointId":  {},
+      "NWAddr": {}
+    },
+    "attributeDetails": {
+      "ConnectionPolicy": {
+        "options": [
+          { "value": "ON_DEMAND", "labelKey": "tux-connection-policy-on-demand-label" },
+          { "value": "ON_STARTUP", "labelKey": "tux-connection-policy-on-startup-label" },
+          { "value": "INCOMING_ONLY", "labelKey": "tux-connection-policy-incoming-only-label" }
+        ]
+      },
+      "Interoperate": {
+        "options": [
+          { "value": "YES", "labelKey": "options-yes-label" },
+          { "value": "NO", "labelKey": "options-no-label" }
+        ]
+      },
+      "KeyStoresLocation": {
+        "options": [
+          { "value": "WLS Stores", "labelKey":  "tux-keystores-location-wls-stores-label" },
+          { "value": "Custom Stores", "labelKey":  "tux-keystores-location-custom-stores-label" }
+        ]
+      },
+      "MaxEncryptBits": {
+        "options": [
+          { "value": "0", "label": "0" },
+          { "value": "40", "label": "40" },
+          { "value": "56", "label": "56" },
+          { "value": "128", "label": "128" },
+          { "value": "256", "label": "256" }
+        ]
+      },
+      "MinEncryptBits": {
+        "options": [
+          { "value": "0", "label": "0" },
+          { "value": "40", "label": "40" },
+          { "value": "56", "label": "56" },
+          { "value": "128", "label": "128" },
+          { "value": "256", "label": "256" }
+        ]
+      },
+      "Security": {
+        "options": [
+          { "value": "NONE", "labelKey": "options-none-label" },
+          { "value": "APP_PW", "labelKey":  "tux-security-app-password-label" },
+          { "value": "DM_PW", "labelKey":  "tux-security-domain-password-label" }
+        ]
+      },
+      "SslProtocolVersion": {
+        "options": [
+          { "value": "TLSv1.0", "label": "TLS v1.0" },
+          { "value": "TLSv1.1", "label": "TLS v1.1" },
+          { "value": "TLSv1.2", "label": "TLS v1.2" }
+        ]
+      },
+      "UseSsl": {
+        "options": [
+          { "value": "Off", "labelKey": "options-off-label" },
+          { "value": "OneWay", "labelKey":  "tux-ssl-one-way-label" },
+          { "value": "TwoWay", "labelKey":  "tux-ssl-two-way-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "AccessPoint",
+              "AccessPointId",
+              "NWAddr",
+              "Notes"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "tux-connections-tab-label",
+        "attributes": [
+          "ConnectionPolicy",
+          "ConnPrincipalName",
+          "RetryInterval",
+          "MaxRetries",
+          "BlockTime",
+          "CmpLimit",
+          "KeepAlive",
+          "KeepAliveWait",
+          "Interoperate"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "tux-security-tab-label",
+        "attributes": [
+          "Security",
+          "UseSsl",
+          "SslProtocolVersion",
+          "KeyStoresLocation",
+          "PrivateKeyAlias",
+          "PrivateKeyPassPhraseEncrypted",
+          "IdentityKeyStoreFileName",
+          "IdentityKeyStorePassPhraseEncrypted",
+          "TrustKeyStoreFileName",
+          "TrustKeyStorePassPhraseEncrypted",
+          "MinEncryptBits",
+          "MaxEncryptBits"
+        ]
+      }
+    ]
+  },
+  "WTCServer/WTCRemoteTuxDom": {
+    "summaryAttributes": {
+      "AccessPoint": {},
+      "AccessPointId":  {},
+      "LocalAccessPoint": {},
+      "NWAddr": {}
+    },
+    "attributeDetails": {
+      "AclPolicy": {
+        "options": [
+          { "value": "GLOBAL", "labelKey": "tux-connection-policy-global-label" },
+          { "value": "LOCAL", "labelKey": "tux-connection-policy-local-label" }
+        ]
+      },
+      "AppKey": {
+        "options": [
+          { "value": "TpUsrFile", "labelKey": "Imported TPUSER File" },
+          { "value": "LDAP", "labelKey": "LDAP" },
+          { "value": "Custom", "labelKey": "Custom" }
+        ]
+      },
+      "ConnectionPolicy": {
+        "options": [
+          { "value": "ON_DEMAND", "labelKey": "tux-connection-policy-on-demand-label" },
+          { "value": "ON_STARTUP", "labelKey": "tux-connection-policy-on-startup-label" },
+          { "value": "INCOMING_ONLY", "labelKey": "tux-connection-policy-incoming-only-label" },
+          { "value": "LOCAL", "labelKey": "tux-connection-policy-local-label" }
+        ]
+      },
+      "CredentialPolicy": {
+        "options": [
+          { "value": "GLOBAL", "labelKey": "tux-connection-policy-global-label" },
+          { "value": "LOCAL", "labelKey": "tux-connection-policy-local-label" }
+        ]
+      },
+      "CustomAppKeyClass":  {
+        "disabled": "wtcDisableCustomAppKeyFields"
+      },
+      "CustomAppKeyClassParam":  {
+        "disabled": "wtcDisableCustomAppKeyFields"
+      },
+      "MaxEncryptBits": {
+        "options": [
+          { "value": "0", "label": "0" },
+          { "value": "40", "label": "40" },
+          { "value": "56", "label": "56" },
+          { "value": "128", "label": "128" },
+          { "value": "256", "label": "256" }
+        ]
+      },
+      "MinEncryptBits": {
+        "options": [
+          { "value": "0", "label": "0" },
+          { "value": "40", "label": "40" },
+          { "value": "56", "label": "56" },
+          { "value": "128", "label": "128" },
+          { "value": "256", "label": "256" }
+        ]
+      },
+      "SslProtocolVersion": {
+        "options": [
+          { "value": "TLSv1.0", "label": "TLS v1.0" },
+          { "value": "TLSv1.1", "label": "TLS v1.1" },
+          { "value": "TLSv1.2", "label": "TLS v1.2" }
+        ]
+      },
+      "TpUsrFile": {
+        "disabled": "wtcDisableTpUsrFileField"
+      },
+      "TuxedoGidKw": {
+        "disabled": "wtcDisableUserGroupIDKeywordFields"
+      },
+      "TuxedoUidKw":  {
+        "disabled": "wtcDisableUserGroupIDKeywordFields"
+      }
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "AccessPoint",
+              "AccessPointId",
+              "LocalAccessPoint",
+              "NWAddr",
+              "FederationName",
+              "FederationURL",
+              "Notes"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "tux-connections-tab-label",
+        "attributes": [
+          "ConnectionPolicy",
+          "ConnPrincipalName",
+          "RetryInterval",
+          "MaxRetries",
+          "KeepAlive",
+          "KeepAliveWait",
+          "CmpLimit"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "tux-security-tab-label",
+        "attributes": [
+          "AclPolicy",
+          "CredentialPolicy",
+          "MinEncryptBits",
+          "MaxEncryptBits",
+          "AllowAnonymous",
+          "DefaultAppKey",
+          "AppKey",
+          "TpUsrFile",
+          "TuxedoUidKw",
+          "TuxedoGidKw",
+          "CustomAppKeyClass",
+          "CustomAppKeyClassParam",
+          "SslProtocolVersion"
+        ]
+      }
+    ]
+  },
+  "WTCServer/WTCImport": {
+    "summaryAttributes": {
+      "ResourceName": {},
+      "LocalAccessPoint":  {},
+      "RemoteAccessPointList": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "ResourceName",
+          "LocalAccessPoint",
+          "RemoteAccessPointList",
+          "RemoteName",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "WTCServer/WTCExport": {
+    "summaryAttributes": {
+      "ResourceName": {},
+      "LocalAccessPoint":  {},
+      "EJBName": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "ResourceName",
+          "LocalAccessPoint",
+          "EJBName",
+          "RemoteName",
+          "TargetClass",
+          "TargetJar",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "WTCServer/WTCtBridgeGlobal": {
+    "summaryAttributes": {
+      "WlsErrorDestination":  {},
+      "TuxErrorQueue":  {},
+      "UserId": {}
+    },
+    "attributeDetails": {
+      "AllowNonStandardTypes": {
+        "options": [
+          { "value": "Yes", "labelKey": "options-yes-label" },
+          { "value": "No", "labelKey": "options-no-label" }
+        ]
+      },
+      "DefaultReplyDeliveryMode": {
+        "options": [
+          { "value": "DEFAULT", "labelKey": "options-default-label" },
+          { "value": "PERSIST", "labelKey": "options-persist-label" },
+          { "value": "NONPERSIST", "labelKey": "options-non-persist-label" }
+        ]
+      },
+      "DeliveryModeOverride": {
+        "options": [
+          { "value": "PERSIST", "labelKey": "options-persist-label" },
+          { "value": "NONPERSIST", "labelKey": "options-non-persist-label" }
+        ]
+      },
+      "Transactional": {
+        "options": [
+          { "value": "Yes", "labelKey": "options-yes-label" },
+          { "value": "No", "labelKey": "options-no-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "WlsErrorDestination",
+              "TuxErrorQueue",
+              "Transactional",
+              "AllowNonStandardTypes",
+              "DeliveryModeOverride",
+              "DefaultReplyDeliveryMode",
+              "UserId",
+              "Notes"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "wtc-error-handling-tab-label",
+        "attributes": [
+          "Retries",
+          "RetryDelay",
+          "Timeout"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "wtc-connection-factories-tab-label",
+        "attributes": [
+          "JndiFactory",
+          "JmsFactory",
+          "TuxFactory"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "wtc-priority-mapping-tab-label",
+        "attributes": [
+          "JmsToTuxPriorityMap",
+          "TuxToJmsPriorityMap"
+        ]
+      }
+    ]
+  },
+  "WTCServer/WTCtBridgeRedirect": {
+    "summaryAttributes": {
+      "Direction":  {},
+      "SourceName":  {},
+      "TargetName": {}
+    },
+    "attributeDetails": {
+      "Direction": {
+        "options": [
+          { "value": "JmsQ2TuxQ", "labelKey":  "direction-jms-queue-to-tuxedo-queue-label" },
+          { "value": "TuxQ2JmsQ", "labelKey":  "direction-tuxedo-queue-to-jms-queue-label" },
+          { "value": "JmsQ2TuxS", "labelKey":  "direction-jms-queue-to-tuxedo-service-label" },
+          { "value": "JmsQ2JmsQ", "labelKey":  "direction-jms-queue-to-jms-queue-label" }
+        ]
+      },
+      "TranslateFML": {
+        "options": [
+          { "value": "NO", "labelKey": "options-no-label" },
+          { "value": "FLAT", "labelKey": "translation-type-flat-label" },
+          { "value": "WLXT", "labelKey": "translation-type-wlxt-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "Direction",
+          "TranslateFML",
+          "ReplyQ",
+          "MetaDataFile",
+          "SourceName",
+          "TargetName",
+          "SourceAccessPoint",
+          "TargetAccessPoint",
+          "SourceQspace",
+          "TargetQspace",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "WTCServer/WTCResources": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "FldTbl16Class",
+          "ViewTbl16Class",
+          "FldTbl32Class",
+          "ViewTbl32Class",
+          "RemoteMBEncoding",
+          "MBEncodingMapFile",
+          "AppPassword",
+          "AppPasswordIv",
+          "TpUsrFile",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "WTCServer/WTCPassword": {
+    "summaryAttributes": {
+      "LocalAccessPoint": {},
+      "RemoteAccessPoint": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "LocalAccessPoint",
+          "RemoteAccessPoint",
+          "LocalPassword",
+          "RemotePassword",
+          "LocalPasswordIV",
+          "RemotePasswordIV",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  }
+}

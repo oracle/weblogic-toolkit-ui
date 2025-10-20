@@ -23,7 +23,8 @@ define(
     'text!./Topology.json',
     'text!./WLSPolicies.json',
     'text!./WLSRoles.json',
-    'text!./WLSUserPasswordCredentialMappings.json'
+    'text!./WLSUserPasswordCredentialMappings.json',
+    'text!./WTCServer.json',
   ],
   function() {
     const allMetadata = {};

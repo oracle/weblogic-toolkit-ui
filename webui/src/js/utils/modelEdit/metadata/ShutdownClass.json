@@ -18,7 +18,8 @@
         ]
       },
       {
-        "type": "hidden",
+        "type": "attributeCollapsible",
+        "labelKey": "advanced-label",
         "addRemainingAttributes": true
       }
     ]
