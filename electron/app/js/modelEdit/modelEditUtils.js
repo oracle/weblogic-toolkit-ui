@@ -14,7 +14,7 @@ const path = require('path');
 
 const acronyms = [
   'ACL', 'ACS', 'CCDI', 'CORS', 'CPU', 'CRL', 'DB', 'DDL', 'EJB', 'HTTP', 'ID', 'JDBC', 'JMS', 'JNDI',
-  'JPA', 'JTA', 'KSS', 'MDB', 'PC', 'RJVM', 'RMIT', 'SAML', 'SNMP', 'SRM', 'SSO', 'TLOG', 'TTL', 'TXN',
+  'JPA', 'JTA', 'KSS', 'MDB', 'PC', 'RJVM', 'RMIT', 'SAML', 'SNMP', 'SRM', 'SSL', 'SSO', 'TLOG', 'TTL', 'TXN',
   'URI', 'URL', 'WLDF', 'WSAT', 'XA', 'XACML',
   'Coherence', 'WebLogic'
 ];
