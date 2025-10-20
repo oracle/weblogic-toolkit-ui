@@ -173,7 +173,10 @@
   "a-AddJvmNumber-label": "Add Jvm Number",
   "a-AddWorkManagerThreadsByCpuCount-label": "Add Work Manager Threads By CPU Count",
   "a-AdditionalAutoMigrationAttempts-label": "Additional Auto Migration Attempts",
+
   "a-AdditionalMigrationAttempts-label": "Additional Migration Attempts",
+  "f-SingletonService-a-AdditionalMigrationAttempts-help": "A migratable service could fail to come up on every possible configured server. This attribute controls how many further attempts, after the service has failed on every server at least once, should be tried. Note that each attempt specified here indicates another full circuit of migrations amongst all the configured servers. So for a 3-server cluster, and a value of 2, a total of 4 additional migrations will be attempted (the original server is never a valid destination).",
+
   "a-Address-label": "Address",
   "a-AdjudicatorTypes-label": "Adjudicator Types",
   "a-AdminHost-label": "Admin Host",
@@ -240,8 +243,12 @@
   "a-ApplicationPasswordEncrypted-label": "Application Password Encrypted",
   "a-ApplicationScope-label": "Application Scope",
   "a-ArchiveConfigurationCount-label": "Archive Configuration Count",
+
   "a-Argument-label": "Argument",
   "a-Arguments-label": "Arguments",
+  "f-StartupClass-a-Arguments-help": "Arguments that a server uses to initialize the Startup class. Separate multiple arguments with a comma.",
+  "f-ShutdownClass-a-Arguments-help": "Arguments that a server uses to initialize the Shutdown class. Separate multiple arguments with a comma.",
+
   "a-ArsRequiresSsl-label": "Ars Requires SSL",
   "a-ArsRequiresTwoWaySsl-label": "Ars Requires Two Way SSL",
   "a-ArtifactMaxCacheSize-label": "Artifact Max Cache Size",
@@ -378,7 +385,12 @@
   "a-ClassFinder-label": "Class Finder",
   "a-ClassLoader-label": "Class Loader",
   "a-ClassLoaderVerbose-label": "Class Loader Verbose",
+
   "a-ClassName-label": "Class Name",
+  "f-ShutdownClass-a-ClassName-help": "The fully qualified name of the Shutdown class to load and run. The class must be on the server's classpath.",
+  "f-StartupClass-a-ClassName-help": "The fully qualified name of the Startup class to load and run. The class must be on the server's classpath.",
+  "f-SingletonService-a-ClassName-help": "The fully qualified name of a SingletonServices class to load and run. The class must be on the server's classpath.",
+
   "a-ClassPath-label": "Class Path",
   "a-ClassloaderWebApp-label": "Classloader Web App",
   "a-Classpath-label": "Classpath",
@@ -406,7 +418,10 @@
   "a-ClockPrecision-label": "Clock Precision",
   "a-ClockSkew-label": "Clock Skew",
   "a-ClockSynchronized-label": "Clock Synchronized",
+
   "a-Cluster-label": "Cluster",
+  "f-SingletonService-a-Cluster-help": "The cluster to which this SingletonService is assigned.",
+
   "a-ClusterAddress-label": "Cluster Address",
   "a-ClusterBroadcastChannel-label": "Cluster Broadcast Channel",
   "a-ClusterConstraintsEnabled-label": "Cluster Constraints Enabled",
@@ -1315,7 +1330,10 @@
   "a-FailoverRequestIfBusy-label": "Failover Request If Busy",
   "a-FailureAction-label": "Failure Action",
   "a-FailureAuditSeverityEnabled-label": "Failure Audit Severity Enabled",
+
   "a-FailureIsFatal-label": "Failure Is Fatal",
+  "f-StartupClass-a-FailureIsFatal-help": "Specifies whether a failure in this startup class prevents the targeted server(s) from starting. If you specify that failure is not fatal, if the startup class fails, the server continues its startup process.",
+
   "a-FairShare-label": "Fair Share",
   "a-FairShareRequestClass-label": "Fair Share Request Class",
   "a-FanEnabled-label": "Fan Enabled",
@@ -1628,11 +1646,19 @@
   "a-ListenerClass-label": "Listener Class",
   "a-ListenersBindEarly-label": "Listeners Bind Early",
   "a-LiveSetOnly-label": "Live Set Only",
+
   "a-LoadAfterAppsRunning-label": "Load After Apps Running",
+  "f-StartupClass-a-LoadAfterAppsRunning-help": "Specifies whether the targeted servers load and run this startup class after applications and EJBs are running. If you enable this feature for a startup class, a server loads and runs the startup class after the activate phase. At this point, JMS and JDBC services are available. (Deployment for applications and EJBs consists of three phases: prepare, admin and activate.)",
+
   "a-LoadBalancingEnabled-label": "Load Balancing Enabled",
   "a-LoadBalancingPolicy-label": "Load Balancing Policy",
+
   "a-LoadBeforeAppActivation-label": "Load Before App Activation",
+  "f-StartupClass-a-LoadBeforeAppActivation-help": "Specifies whether the targeted servers load and run this startup class after activating JMS and JDBC services and before activating applications and EJBs. If you enable this feature for a startup class, a server loads and runs the startup class before the activate phase. At this point, JMS and JDBC services are available. (Deployment for applications and EJBs consists of three phases: prepare, admin and activate.)",
+
   "a-LoadBeforeAppDeployments-label": "Load Before App Deployments",
+  "f-StartupClass-a-LoadBeforeAppDeployments-help": "Specifies whether the targeted servers load and run this startup class before activating JMS and JDBC services and before starting deployment for applications and EJBs. If you enable this feature for a startup class, a server loads and runs the startup class before the deployment prepare phase. At this point, JMS and JDBC services are not yet available. (Deployment for applications and EJBs consists of three phases: prepare, admin and activate.)",
+
   "a-LoadStubUsingContextClassLoader-label": "Load Stub Using Context Class Loader",
 
   "a-LocalAccessPoint-label": "Local Access Point",
@@ -1846,8 +1872,11 @@
   "a-MigrationBasis-label": "Migration Basis",
   "a-MigrationCheckpointIntervalSeconds-label": "Migration Checkpoint Interval Seconds",
   "a-MigrationPolicy-label": "Migration Policy",
-  "a-MillisToSleepBetweenAttempts-label": "Millis To Sleep Between Attempts",
-  "a-MillisToSleepBetweenAutoMigrationAttempts-label": "Millis To Sleep Between Auto Migration Attempts",
+
+  "a-MillisToSleepBetweenAttempts-label": "Milliseconds To Sleep Between Attempts",
+  "f-SingletonService-a-MillisToSleepBetweenAttempts-help": "Controls how long of a pause there should be between the migration attempts described in getAdditionalMigrationAttempts(). Note that this delay only happens when the service has failed to come up on every server. It does not cause any sort of delay between attempts to migrate otherwise.",
+
+  "a-MillisToSleepBetweenAutoMigrationAttempts-label": "Milliseconds To Sleep Between Auto Migration Attempts",
   "a-MimeMappingFile-label": "Mime Mapping File",
   "a-MinAlphabeticCharacters-label": "Min Alphabetic Characters",
   "a-MinCapacity-label": "Min Capacity",
@@ -2796,10 +2825,10 @@
   "a-Version-label": "Version",
   "a-VersionIdentifier-label": "Version Identifier",
 
-  "a-ViewTbl16Class-label": "View Tbl 16 Class",
+  "a-ViewTbl16Class-label": "View Table 16-bit Class",
   "a-ViewTbl16Class-help": "The names of ViewTbl16Classes that are loaded via a class loader and added to a ViewTbl array. Use the fully qualified class names of the desired classes. Use a comma to separate multiple class name entries.",
 
-  "a-ViewTbl32Class-label": "View Tbl 32 Class",
+  "a-ViewTbl32Class-label": "View Table 32-bit Class",
   "a-ViewTbl32Class-help": "The names of ViewTbl32Classes that are loaded via a class loader and added to a ViewTbl array. Use the fully qualified class names of the desired classes. Use a comma to separate multiple class name entries.",
 
   "a-VirtualHostName-label": "Virtual Host Name",
