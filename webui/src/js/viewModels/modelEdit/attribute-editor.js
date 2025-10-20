@@ -87,14 +87,14 @@ function(accUtils, ko, DialogHelper, WktLogger, ArrayDataProvider,
 
     this.tokenError = ko.computed(() => {
       if(this.variableName()) {
-        return !ModelEditHelper.getVariableValue(this.variableName());
+        return !ModelEditHelper.isVariableDefined(this.variableName());
       }
     });
 
     this.fromLabel = ko.computed(() => {
       if(this.variableName()) {
-        const value = ModelEditHelper.getVariableValue(this.variableName());
-        const messageKey = value ? 'from-variable' : 'missing-variable';
+        const isDefined = ModelEditHelper.isVariableDefined(this.variableName());
+        const messageKey = isDefined ? 'from-variable' : 'missing-variable';
         return this.labelMapper(messageKey, {variable: this.variableName()});
       } else if(this.secretName()) {
         return this.labelMapper('from-secret', {secret: this.secretName()});

@@ -432,6 +432,10 @@ function (ko, jsYaml, project, utils,
       return this.variableMap()[variableName];
     };
 
+    this.isVariableDefined = variableName => {
+      return variableName in this.variableMap();
+    };
+
     this.getVariableToken = variableName => {
       return `@@PROP:${variableName}@@`;
     };
@@ -558,8 +562,8 @@ function (ko, jsYaml, project, utils,
         attributeType = result[1];
       }
 
-      if(attributeType === 'password') {
-        return 'password';
+      if(['password', 'credential'].includes(attributeType)) {
+        return 'credential';
       }
 
       if(attributeType === 'boolean') {
@@ -582,7 +586,7 @@ function (ko, jsYaml, project, utils,
         return 'integer';
       }
 
-      if(['string', 'credential'].includes(attributeType)) {
+      if(['string'].includes(attributeType)) {
         return 'string';
       }
 
