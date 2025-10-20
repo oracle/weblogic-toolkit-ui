@@ -27,11 +27,9 @@
   "scheduling-tab-label": "Scheduling",
   "messaging-tab-label": "Messaging",
   "coherence-tab-label": "Coherence",
-  "application-attributes-label": "Application Attributes",
-  "absolute-paths-label": "Absolute Paths",
-  "local-paths-label": "Local Paths",
-  "alternate-descriptor-paths-label": "Alternate Descriptor Paths",
   "miscellaneous-attributes-label": "Miscellaneous",
+  "application-attributes-label": "Application Attributes",
+  "alternate-descriptor-paths-label": "Alternate Descriptor Paths",
   "library-attributes-label": "Library Attributes",
   "wtc-error-handling-tab-label": "Error Handling",
   "wtc-connection-factories-tab-label": "Connection Factories",
@@ -215,10 +213,18 @@
   "a-AllowedTargetHost-label": "Allowed Target Host",
   "a-AllowsPersistentDowngrade-label": "Allows Persistent Downgrade",
   "a-AltClientIdTokenClaim-label": "Alt Client ID Token Claim",
-  "a-AltDescriptorDir-label": "Alt Descriptor Dir",
-  "a-AltDescriptorPath-label": "Alt Descriptor Path",
+
+  "a-AltDescriptorDir-label": "Alternative Descriptor Dir",
+  "a-AltDescriptorDir-help": "The location of this application's configuration area. This directory can contain alternate descriptor files. If the alternate descriptor directory is a relative path, it is resolved relative to InstallDir if InstallDir is not null; otherwise, it is resolved relative to the domain root.",
+
+  "a-AltDescriptorPath-label": "Alternative Descriptor Path",
+  "a-AltDescriptorPath-help": "A path on the file system for the application descriptor for this application. If null, the usual location within the EAR is used (META-INF/application.xml).",
+
   "a-AltIdTokenClaim-label": "Alt ID Token Claim",
-  "a-AltWLSDescriptorPath-label": "Alt WLS Descriptor Path",
+
+  "a-AltWLSDescriptorPath-label": "Alternative WLS Descriptor Path",
+  "a-AltWLSDescriptorPath-help": "A path on the file system for the WebLogic Server-specific application descriptor for this application. If null, the usual location within the EAR file is used.",
+
   "a-AnonymousAdminLookupEnabled-label": "Anonymous Admin Lookup Enabled",
   "a-AnonymousBindAllowed-label": "Anonymous Bind Allowed",
   "a-AnyIdentityDomainEnabled-label": "Any Identity Domain Enabled",
@@ -455,7 +461,10 @@
   "a-CommunityPrefix-label": "Community Prefix",
   "a-CompatibilityConnectionFiltersEnabled-label": "Compatibility Connection Filters Enabled",
   "a-CompatibilityMBeanServerEnabled-label": "Compatibility MBean Server Enabled",
+
   "a-CompatibilityName-label": "Compatibility Name",
+  "a-CompatibilityName-help": "This is only set for beans created as a result of conversion from an 8.1 application configured using ApplicationMBean and ComponentMBean. Standalone modules in 8.1 have both an ApplicationMBean name and ComponentMBean name. This attribute stores the name of the latter, to be used when the server creates the transient ComponentMBean for backward compatibility.",
+
   "a-CompatibilityObjectName-label": "Compatibility Object Name",
   "a-CompatibilityOrderingPreference-label": "Compatibility Ordering Preference",
   "a-CompatibilityPreference-label": "Compatibility Preference",
@@ -1194,7 +1203,10 @@
 
   "a-DeploymentPlan-label": "Deployment Plan",
   "a-DeploymentPlanExternalDescriptors-label": "Deployment Plan External Descriptors",
+
   "a-DeploymentPrincipalName-label": "Deployment Principal Name",
+  "f-Application-a-DeploymentPrincipalName-help": "A string value that indicates the principal that should be used when deploying the file or archive during startup and shutdown. This principal will be used to set the current subject when calling out into application code for interfaces such as ApplicationLifecycleListener. If no principal name is specified, then the anonymous principal will be used.",
+
   "a-DeploymentState-label": "Deployment State",
   "a-Description-label": "Description",
   "a-DescriptionsSupported-label": "Descriptions Supported",
@@ -1512,7 +1524,10 @@
   "a-InitialWindowSize-label": "Initial Window Size",
   "a-InsertionPausedAtStartup-label": "Insertion Paused At Startup",
   "a-InsertsPerBatchMaximum-label": "Inserts Per Batch Maximum",
+
   "a-InstallDir-label": "Install Dir",
+  "f-Application-a-InstallDir-help": "The path to the application's install-root directory, relative to the domain/config/deployments directory. When the installation directory is specified, SourcePath, PlanDir, and PlanPath are derived from this path and need not be specified. The default value for this is the name of the deployment.",
+
   "a-InstalledSoftwareVersion-label": "Installed Software Version",
   "a-InstalledVMMAdapter-label": "Installed VMM Adapter",
   "a-InstrumentStackTraceEnabled-label": "Instrument Stack Trace Enabled",
@@ -1901,7 +1916,10 @@
   "a-MinimumPoolSize-label": "Minimum Pool Size",
   "a-MinimumTlsProtocolVersion-label": "Minimum Tls Protocol Version",
   "a-Minute-label": "Minute",
+
   "a-ModuleType-label": "Module Type",
+  "f-Application-a-ModuleType-help": "The type of the module (ear, jar, war, or rar).",
+
   "a-Modulus-label": "Modulus",
   "a-MonitoredAttributeName-label": "Monitored Attribute Name",
   "a-MonitoredMBeanName-label": "Monitored MBean Name",
@@ -2023,7 +2041,10 @@
   "a-ParallelConnectDelay-label": "Parallel Connect Delay",
   "a-ParallelDeployApplicationModules-label": "Parallel Deploy Application Modules",
   "a-ParallelDeployApplications-label": "Parallel Deploy Applications",
+
   "a-ParallelDeployModules-label": "Parallel Deploy Modules",
+  "a-ParallelDeployModules-help": "Determines if the modules of applications will be deployed in parallel.",
+
   "a-ParallelXADispatchPolicy-label": "Parallel XA Dispatch Policy",
   "a-ParallelXAEnabled-label": "Parallel XA Enabled",
   "a-ParamType-label": "Param Type",
@@ -2068,9 +2089,16 @@
   "a-PhysicalStoreName-label": "Physical Store Name",
   "a-PinnedToThread-label": "Pinned To Thread",
   "a-PlaintextPasswordsEnabled-label": "Plaintext Passwords Enabled",
+
   "a-PlanDir-label": "Plan Dir",
+  "a-PlanDir-help": "The location of this application's configuration area. This directory can contain external descriptor files as specified within the deployment plan document. f the plan directory is a relative path, it is resolved relative to InstallDir if InstallDir is not null; otherwise, it is resolved relative to the domain root.",
+
   "a-PlanPath-label": "Plan Path",
+  "a-PlanPath-help": "The path to the deployment plan document on the Administration Server. If the plan path is a relative path, it is resolved relative to PlanDir if PlanDir is not null; otherwise, it is resolved relative to the domain root.",
+
   "a-PlanStagingMode-label": "Plan Staging Mode",
+  "a-PlanStagingMode-help": "Specifies whether an application's deployment plan is copied from a source on the Administration Server to the Managed Server's staging area during application preparation. Plan staging mode for an application can only be set the first time the application is deployed. Once the plan staging mode for an application is set, it cannot be changed while the application is configured in the domain. The only way to change the plan staging mode is to undeploy and then redeploy the application. This attribute overrides the server's plan staging mode.",
+
   "a-PlatformLoggerLevels-label": "Platform Logger Levels",
   "a-PlatformMBeanServerEnabled-label": "Platform MBean Server Enabled",
   "a-PlatformMBeanServerUsed-label": "Platform MBean Server Used",
@@ -2385,7 +2413,10 @@
   "f-WTCServer_WTCLocalTuxDom-a-Security-help": "The type of application security enforced. NONE means that no security is used. APP_PW means that password security is enforced when a connection is established from a remote domain; the application password is defined in the WTCResourcesMBean. DM_PW means that the domain password security is enforced when a connection is established from a remote domain; the domain password is defined in the WTCPasswordsMBean.",
 
   "a-SecurityContextEnabled-label": "Security Context Enabled",
+
   "a-SecurityDDModel-label": "Security Deployment Descriptor Model",
+  "f-Application-a-SecurityDDModel-help": "The security model that is used to secure a deployed module.\n\nTo set this value, you can use the weblogic.Deployer command-line tool, the Deployment Assistant in the Administration Console, the WebLogic Scripting Tool (WLST), or another JMX client. If you deploy a module using one of the previously mentioned tools and you do not specify a security model value, the module is secured with the security realm's default model. If you deploy a module by modifying the domain's config.xml file and restarting the server, and if you do not specify a security model value for the module in config.xml, the module is secured with the DDOnly model, which is the default value of this AppDeploymentMBean attribute.",
+
   "a-SecurityEncryptionService-label": "Security Encryption Service",
   "a-SecurityFrameworkEnabled-label": "Security Framework Enabled",
   "a-SecurityInteropMode-label": "Security Interop Mode",
@@ -2501,6 +2532,8 @@
   "f-WTCServer_WTCtBridgeRedirect-a-SourceName-help": "The name of a source queue or service. Specifies a JMS queue name, a Tuxedo queue name, or the name of a Tuxedo service.",
 
   "a-SourcePath-label": "Source Path",
+  "a-SourcePath-help": "The path to the source of the deployable unit on the Administration Server.",
+  "f-Application-a-SourcePath-help": "The path to the source of the deployable unit on the Administration Server. If the source path is relative, it is resolved relative to InstallDir/app if InstallDir is not null; otherwise, it is resolved relative to the domain root.",
 
   "a-SourceQspace-label": "Source Qspace",
   "f-WTCServer_WTCtBridgeRedirect-a-SourceQspace-help": "The name of the Qspace for a source location.",
@@ -2521,7 +2554,10 @@
   "a-SsoSigningKeyPassPhraseEncrypted-label": "SSO Signing Key Pass Phrase Encrypted",
   "a-StacktraceDepth-label": "Stacktrace Depth",
   "a-StagingDirectoryName-label": "Staging Directory Name",
+
   "a-StagingMode-label": "Staging Mode",
+  "a-StagingMode-help": "Specifies whether a deployment's files are copied from a source on the Administration Server to the Managed Server's staging area during application preparation. Staging mode for an application can only be set the first time the application is deployed. Once the staging mode for an application is set, it cannot be changed while the application is configured in the domain. The only way to change the staging mode is to undeploy and then redeploy the application. This attribute overrides the server's staging mode.",
+
   "a-Started-label": "Started",
   "a-StartupMode-label": "Startup Mode",
   "a-StartupProperties-label": "Startup Properties",
@@ -2741,7 +2777,10 @@
   "a-UnknownTenantEmptyMetadataTtl-label": "Unknown Tenant Empty Metadata TTL",
   "a-UnlockedUsersTotalCount-label": "Unlocked Users Total Count",
   "a-UnregisterResourceGracePeriod-label": "Unregister Resource Grace Period",
+
   "a-Untargeted-label": "Untargeted",
+  "a-Untargeted-help": "Only relevant for deployments in resource group templates. This flag, when specified as true, indicates that the application deployment must not be deployed in the referring partition.",
+
   "a-UpdateMode-label": "Update Mode",
   "a-UploadDirectoryName-label": "Upload Directory Name",
   "a-UriPath-label": "URI Path",
@@ -2817,7 +2856,10 @@
   "a-UsernameAttribute-label": "Username Attribute",
   "a-UsingCustomClusterConfigurationFile-label": "Using Custom Cluster Configuration File",
   "a-ValidProtocols-label": "Valid Protocols",
+
   "a-ValidateDDSecurityData-label": "Validate DD Security Data",
+  "f-Application-a-ValidateDDSecurityData-help": "Whether to validate the deployment descriptor security data.  Not used in modern versions of WebLogic Server.",
+
   "a-ValidityPeriod-label": "Validity Period",
   "a-Value-label": "Value",
   "a-VerboseEJBDeploymentEnabled-label": "Verbose EJB Deployment Enabled",
@@ -2980,7 +3022,6 @@
   "f-any_Adjudicator-label": "Adjudicator",
   "f-any_AdminConsole-label": "Admin Console",
   "f-any_AllowList-label": "Allow List",
-  "f-any_Application-a-any-help": "{{attribute}} for application",
   "f-any_Application-label": "Applications",
   "f-any_Application-nameHelp": "Name of the application",
   "f-any_Application-nameLabel": "Application Name",
@@ -3201,8 +3242,8 @@
   "f-any_Library-nameLabel": "Library Name",
   "f-any_Library-noInstancesMessage": "No libraries specified",
   "f-any_Library-typeLabel": "Library",
-  "f-any_Library_SubDeployment-label": "Sub-Deployments",
-  "f-any_Library_SubDeployment-typeLabel": "Sub-Deployment",
+  "f-any_Library_SubDeployment-label": "SubDeployments",
+  "f-any_Library_SubDeployment-typeLabel": "SubDeployment",
   "f-any_LoadBalancingParams-label": "Load Balancing Params",
   "f-any_Log-label": "Log",
   "f-any_LogAction-label": "Log Actions",
@@ -3370,8 +3411,8 @@
   "f-any_SnmpAgentDeployment-typeLabel": "SNMP Agent Deployment",
   "f-any_StartupClass-label": "Startup Classes",
   "f-any_StartupClass-typeLabel": "Startup Class",
-  "f-any_SubDeployment-label": "Sub Deployments",
-  "f-any_SubDeployment-typeLabel": "Sub Deployment",
+  "f-any_SubDeployment-label": "SubDeployments",
+  "f-any_SubDeployment-typeLabel": "SubDeployment",
   "f-any_SystemComponent-label": "System Components",
   "f-any_SystemComponent-typeLabel": "System Component",
   "f-any_SystemComponentStart-label": "System Component Start",
