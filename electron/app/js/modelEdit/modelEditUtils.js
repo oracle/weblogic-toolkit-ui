@@ -79,6 +79,12 @@ function addPaths(aliasFolder, path, pathMap) {
   const attributes = {};
   for(const [key, value] of Object.entries(aliasFolder['attributes'])) {
     const firstValue = value[0];
+
+    const access = firstValue['access'];  // exclude online+offline IGNORED attributes
+    if(access === 'IGNORED') {
+      continue;
+    }
+
     const wlstType = firstValue['wlst_type'];
 
     // TODO: fix WLST types that are ${abc:xyz}
