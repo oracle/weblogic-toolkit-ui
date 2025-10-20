@@ -33,14 +33,45 @@
   "alternate-descriptor-paths-label": "Alternate Descriptor Paths",
   "miscellaneous-attributes-label": "Miscellaneous",
   "library-attributes-label": "Library Attributes",
+  "wtc-error-handling-tab-label": "Error Handling",
+  "wtc-connection-factories-tab-label": "Connection Factories",
+  "wtc-priority-mapping-tab-label": "Priority Mapping",
+  "tux-connections-tab-label": "Connection Properties",
+  "tux-security-tab-label": "Security Configuration",
 
   "security-model-advanced-label": "Advanced",
   "security-model-custom-roles-label": "Custom Roles",
   "security-model-custom-roles-and-policies-label": "Custom Roles and Policies",
   "security-model-dd-only-label": "Deployment Descriptor Only",
 
+  "options-default-label": "Default",
+  "options-persist-label": "Persistent",
+  "options-non-persist-label": "Not Persistent",
+  "options-no-label": "No",
+  "options-yes-label": "Yes",
+  "options-none-label": "None",
+  "options-off-label": "Off",
+
+  "direction-jms-queue-to-tuxedo-queue-label": "JMS Queue to Tuxedo Queue",
+  "direction-tuxedo-queue-to-jms-queue-label": "Tuxedo Queue to JMS Queue",
+  "direction-jms-queue-to-tuxedo-service-label": "JMS Queue to Tuxedo Service",
+  "direction-jms-queue-to-jms-queue-label": "JMS Queue to JMS Queue",
+  "translation-type-flat-label": "Flat",
+  "translation-type-wlxt-label": "WebLogic XML Translator",
+  "tux-connection-policy-on-demand-label": "On Demand",
+  "tux-connection-policy-on-startup-label": "On Startup",
+  "tux-connection-policy-incoming-only-label": "Incoming Only",
+  "tux-connection-policy-global-label": "Global",
+  "tux-connection-policy-local-label": "Local",
+  "tux-security-app-password-label": "App Password",
+  "tux-security-domain-password-label": "Domain Password",
+  "tux-ssl-one-way-label": "One Way",
+  "tux-ssl-two-way-label": "Two Way",
+  "tux-keystores-location-custom-stores-label": "Custom Stores",
+  "tux-keystores-location-wls-stores-label": "WLS Stores",
+
   "atp-type-label": "ATP",
-  "certificate-issuer-plugin-label": "Certificate Issuer Plugin",
+  "certificate-issuer-plugin-label": "Certificate Issuer Plug-in",
   "db2-type-label": "DB2",
   "ebr-type-label": "EBR",
   "jks-type-label": "JKS",
@@ -109,16 +140,26 @@
   "a-AcceptContextPathInGetRealPath-label": "Accept Context Path In Get Real Path",
   "a-AcceptKssDemoCertsEnabled-label": "Accept KSS Demo Certs Enabled",
   "a-AcceptedResponseType-label": "Accepted Response Type",
+
   "a-AccessPoint-label": "Access Point",
+  "f-WTCServer_WTCLocalTuxDom-a-AccessPoint-help": "The unique name used to identify this local Tuxedo access point. This name should be unique for all local and remote Tuxedo access points defined within a WTC Service. This allows you to define unique configurations having the same Access Point ID.",
+  "f-WTCServer_WTCRemoteTuxDom-a-AccessPoint-help": "The unique name used to identify this remote Tuxedo access point. This name should be unique for all local and remote Tuxedo access points defined within a WTC Service. This allows you to define unique configurations having the same Access Point ID.",
+
   "a-AccessPointId-label": "Access Point ID",
+  "f-WTCServer_WTCLocalTuxDom-a-AccessPointId-help": "The connection principal name used to identify this local Tuxedo access point when attempting to establish a session connection with remote Tuxedo access points. Note that the AccessPointId must match the corresponding DOMAINID in the *DM_REMOTE_DOMAINS section of your Tuxedo DMCONFIG file.",
+  "f-WTCServer_WTCRemoteTuxDom-a-AccessPointId-help": "The connection principal name used to identify this remote domain access point when attempting to establish a session connection to local Tuxedo access points. This value must be globally unique among all interconnected Tuxedo and WTC Domains.",
+
   "a-AccessTokenContextPath-label": "Access Token Context Path",
   "a-AccessTokenTimeoutWindow-label": "Access Token Timeout Window",
   "a-AcknowledgeInterval-label": "Acknowledge Interval",
   "a-AcknowledgeMode-label": "Acknowledge Mode",
   "a-AcknowledgePolicy-label": "Acknowledge Policy",
   "a-AcknowledgementInterval-label": "Acknowledgement Interval",
+
   "a-AclPolicy-label": "ACL Policy",
-  "a-AcsRequiresSsl-label": "ACS Requires Ssl",
+  "f-WTCServer_WTCRemoteTuxDom-a-AclPolicy-help": "The inbound access control list (ACL) policy toward requests from a remote Tuxedo access point.  The allowed values are Local or Global. Local causes the local Tuxedo access point modifies the identity of service requests received from a given remote Tuxedo access point to the principal name specified in the local principal name for a given remote Tuxedo access point. Global causes tocal Tuxedo access point passes the service request with no change in identity. Note that if Interoperate is set to Yes, the AclPolicy is ignored.",
+
+  "a-AcsRequiresSsl-label": "ACS Requires SSL",
   "a-Action-label": "Action",
   "a-Active-label": "Active",
   "a-ActiveContextHandlerEntry-label": "Active Context Handler Entry",
@@ -155,11 +196,17 @@
   "a-AllGroupsFilter-label": "All Groups Filter",
   "a-AllUsersFilter-label": "All Users Filter",
   "a-AllowAllRoles-label": "Allow All Roles",
+
   "a-AllowAnonymous-label": "Allow Anonymous",
+  "f-WTCServer_WTCRemoteTuxDom-a-AllowAnonymous-help": "Specifies whether the anonymous user is allowed to access remote Tuxedo services. Note that if the anonymous user is allowed to access Tuxedo, the default AppKey will be used for TpUsrFile and LDAP AppKey plug-ins. Interaction with the Custom AppKey plug-in depends on the design of the Custom AppKey generator.",
+
   "a-AllowCloseInOnMessage-label": "Allow Close In On Message",
   "a-AllowListRecordingEnabled-label": "Allow List Recording Enabled",
   "a-AllowListViolationAction-label": "Allow List Violation Action",
-  "a-AllowNonStandardTypes-label": "Allow Non Standard Types",
+
+  "a-AllowNonStandardTypes-label": "Allow Non-Standard Types",
+  "f-WTCServer_WTCtBridgeGlobal-a-AllowNonStandardTypes-help": "Specifies whether non-standard data types are allowed to pass through this Tuxedo queuing bridge. A value of NO means that non standard types are rejected and placed onto a specified error location; a value of YES means that non-standard types are placed on the target location as BLOBs with a tag indicating the original type. Standard types are ASCII text (TextMessage, STRING) or BLOB (BytesMessage, CARRAY).",
+
   "a-AllowShrinkingPriorityRequestQueue-label": "Allow Shrinking Priority Request Queue",
   "a-AllowUnencryptedNullCipher-label": "Allow Unencrypted Null Cipher",
   "a-AllowedTargetHost-label": "Allowed Target Host",
@@ -174,10 +221,18 @@
   "a-AnyIdentityDomainEnabled-label": "Any Identity Domain Enabled",
   "a-ApartmentThreaded-label": "Apartment Threaded",
   "a-AppDir-label": "Application Directory",
-  "a-AppKey-label": "App Key",
+
+  "a-AppKey-label": "App Key Generator Plug-in Type",
+  "a-AppKey-help": "Specifies the type of AppKey plug-in used.  The allowed values are TpUsrFile, LDAP, and Custom.  TpUsrFile is the default plug-in and uses an imported Tuxedo TPUSR file to provide user security information. The LDAP plug-in utilizes an embedded LDAP server to provide user security information; the user record must define the Tuxedo UID and GID information in the description field. The Custom plug-in provides the ability to write your own AppKey generator class to provide the security information required by Tuxedo.",
+
   "a-AppNameFilterHeaderName-label": "App Name Filter Header Name",
+
   "a-AppPassword-label": "App Password",
-  "a-AppPasswordIv-label": "App Password Iv",
+  "f-WTCServer_WTCResources-a-AppPassword-help": "The application password as returned from the genpasswd utility. This Tuxedo application password is the encrypted password used to authenticate connections.",
+
+  "a-AppPasswordIv-label": "App Password Initialization Vector",
+  "f-WTCServer_WTCResources-a-AppPasswordIv-help": "The initialization vector used to encrypt the AppPassword. Note that this value is returned from the genpasswd utility with the AppPassword.",
+
   "a-AppRolesTokenClaim-label": "App Roles Token Claim",
   "a-ApplicationContainer-label": "Application Container",
   "a-ApplicationIdentifier-label": "Application Identifier",
@@ -187,8 +242,8 @@
   "a-ArchiveConfigurationCount-label": "Archive Configuration Count",
   "a-Argument-label": "Argument",
   "a-Arguments-label": "Arguments",
-  "a-ArsRequiresSsl-label": "Ars Requires Ssl",
-  "a-ArsRequiresTwoWaySsl-label": "Ars Requires Two Way Ssl",
+  "a-ArsRequiresSsl-label": "Ars Requires SSL",
+  "a-ArsRequiresTwoWaySsl-label": "Ars Requires Two Way SSL",
   "a-ArtifactMaxCacheSize-label": "Artifact Max Cache Size",
   "a-ArtifactTimeout-label": "Artifact Timeout",
   "a-AssertionConsumerUri-label": "Assertion Consumer URI",
@@ -248,7 +303,10 @@
   "a-BeginMarker-label": "Begin Marker",
   "a-BindAnonymouslyOnReferrals-label": "Bind Anonymously On Referrals",
   "a-BlockSize-label": "Block Size",
+
   "a-BlockTime-label": "Block Time",
+  "f-WTCServer_WTCLocalTuxDom-a-BlockTime-help": "The maximum number of seconds this local Tuxedo access point allows for a blocking call. Must be between 0 and 2147483647, with the default value being 60.",
+
   "a-BlockingSendPolicy-label": "Blocking Send Policy",
   "a-Body-label": "Body",
   "a-BootAuthenticationMaxRetryDelay-label": "Boot Authentication Max Retry Delay",
@@ -361,7 +419,11 @@
   "a-ClusterWeight-label": "Cluster Weight",
   "a-ClusteringMode-label": "Clustering Mode",
   "a-ClusterwideRecoveryEnabled-label": "Clusterwide Recovery Enabled",
-  "a-CmpLimit-label": "Cmp Limit",
+
+  "a-CmpLimit-label": "Compression Limit",
+  "f-WTCServer_WTCLocalTuxDom-a-CmpLimit-help": "The compression threshold this local Tuxedo access point uses when sending data to a remote Tuxedo access point. Application buffers larger than this size are compressed. Must be between 0 and 2147483647, where 2147483647 is the default value if not specified",
+  "f-WTCServer_WTCRemoteTuxDom-a-CmpLimit-help": "The compression threshold this remote Tuxedo access point uses when sending data to a local Tuxedo access point. Application buffers larger than this size are compressed. Must be between 0 and 2147483647, where 2147483647 is the default value if not specified",
+
   "a-CoherenceClassesAlwaysBlock-label": "Coherence Classes Always Block",
   "a-CoherenceClientAuth-label": "Coherence Client Auth",
   "a-CoherenceClusterSystemResource-label": "Coherence Cluster System Resource",
@@ -396,7 +458,11 @@
   "a-ConfigurationAuditType-label": "Configuration Audit Type",
   "a-ConfigurationVersion-label": "Configuration Version",
   "a-ConfiguredApplicationIdentifier-label": "Configured Application Identifier",
-  "a-ConnPrincipalName-label": "Conn Principal Name",
+
+  "a-ConnPrincipalName-label": "Connection Principal Name",
+  "f-WTCServer_WTCLocalTuxDom-a-ConnPrincipalName-help": "The principal name used to verify the identity of this domain when establishing a connection to another domain. Note that this parameter only applies to domains of type TDOMAIN that are running Oracle Tuxedo 7.1 or later software. If not specified, the connection principal name defaults to the AccessPointID for this domain.ConnPrincipalName.",
+  "f-WTCServer_WTCRemoteTuxDom-a-ConnPrincipalName-help": "The principal name used to verify the identity of this remote Tuxedo access point when it establishes a session connection with a local Tuxedo access point. If not specified, the connection principal name defaults to the AccessPointID for this access point. Note that this parameter only applies to domains of type TDOMAIN that are running Oracle Tuxedo 7.1 or later software.",
+
   "a-ConnectTimeout-label": "Connect Timeout",
   "a-ConnectionCachingPolicy-label": "Connection Caching Policy",
   "a-ConnectionCreationRetryFrequencySeconds-label": "Connection Creation Retry Frequency Seconds",
@@ -411,7 +477,11 @@
   "a-ConnectionInitializationCallback-label": "Connection Initialization Callback",
   "a-ConnectionLabelingCallback-label": "Connection Labeling Callback",
   "a-ConnectionLoggerEnabled-label": "Connection Logger Enabled",
+
   "a-ConnectionPolicy-label": "Connection Policy",
+  "f-WTCServer_WTCLocalTuxDom-a-ConnectionPolicy-help": "The conditions under which this local Tuxedo access point establishes a session connection with a remote Tuxedo access point. ON_DEMAND means that a connection is attempted only when requested by either a client request to a remote service or an administrative connect command. ON_STARTUP means that a domain gateway attempts to establish a connection with its remote Tuxedo access points at gateway server initialization time. Remote services (services advertised in JNDI by the domain gateway for this local access point) are advertised only if a connection is successfully established to that remote Tuxedo access point. If there is no active connection to a remote Tuxedo access point, then the remote services are suspended. By default, this connection policy retries failed connections every 60 seconds. Use the MaxRetry and RetryInterval values to specify application specific values. INCOMING_ONLY means that a domain gateway does not attempt an initial connection to remote Tuxedo access points at startup and remote services are initially suspended. The domain gateway is available for incoming connections from remote Tuxedo access points and remote services are advertised when the domain gateway for this local Tuxedo access point receives an incoming connection. Connection retry processing is not allowed.",
+  "f-WTCServer_WTCRemoteTuxDom-a-ConnectionPolicy-help": "The conditions under which this remote Tuxedo access point establishes a session connection with a local Tuxedo access point. ON_DEMAND means that a connection is attempted only when requested by either a client request to a remote service or an administrative connect command. ON_STARTUP means that a domain gateway attempts to establish a connection with its remote Tuxedo access points at gateway server initialization time. Remote services (services advertised in JNDI by the domain gateway for this local Tuxedo access point) are advertised only if a connection is successfully established to that remote Tuxedo access point. If there is no active connection to a remote Tuxedo access point, then the remote services are suspended. By default, this connection policy retries failed connections every 60 seconds. Use the MaxRetry and RetryInterval attributes to specify application specific values. INCOMING_ONLY means that a domain gateway does not attempt an initial connection to remote Tuxedo access points at startup and remote services are initially suspended. The domain gateway is available for incoming connections from remote Tuxedo access points and remote services are advertised when the domain gateway for this local Tuxedo access point receives an incoming connection. Connection retry processing is not allowed. LOCAL specifies that the remote domain connection policy is explicitly defaulted to the local domain ConnectionPolicy attribute value.",
+
   "a-ConnectionPool-label": "Connection Pool",
   "a-ConnectionPoolFailoverCallbackHandler-label": "Connection Pool Failover Callback Handler",
   "a-ConnectionPoolName-label": "Connection Pool Name",
@@ -461,7 +531,10 @@
   "a-CredentialMapperTypes-label": "Credential Mapper Types",
   "a-CredentialMappingDeploymentEnabled-label": "Credential Mapping Deployment Enabled",
   "a-CredentialMappingEnabled-label": "Credential Mapping Enabled",
+
   "a-CredentialPolicy-label": "Credential Policy",
+  "f-WTCServer_WTCRemoteTuxDom-a-CredentialPolicy-help": "he outbound access control list (ACL) policy toward requests to a remote Tuxedo access point.  Local means that the remote Tuxedo access point controls the identity of service requests received from the local Tuxedo access point to the principal name specified in the local principal name for this remote Tuxedo access point. GLOBAL means that the remote Tuxedo access point passes the service request with no change. Note that if Interoperate is set to Yes, CredentialPolicy is ignored.",
+
   "a-CredentialSet-label": "Credential Set",
   "a-Critical-label": "Critical",
   "a-CrlCacheRefreshPeriodPercent-label": "CRL Cache Refresh Period Percent",
@@ -481,8 +554,13 @@
   "a-CrossSiteRecoveryLeaseExpiration-label": "Cross Site Recovery Lease Expiration",
   "a-CrossSiteRecoveryLeaseUpdate-label": "Cross Site Recovery Lease Update",
   "a-CrossSiteRecoveryRetryInterval-label": "Cross Site Recovery Retry Interval",
+
   "a-CustomAppKeyClass-label": "Custom App Key Class",
+  "f-WTCServer_WTCRemoteTuxDom-a-CustomAppKeyClass-help": "The full pathname to the custom AppKey generator class. This class is only relevant if you specify Custom as the AppKey Generator. This class is loaded at runtime if the Custom AppKey generator plug-in is selected.",
+
   "a-CustomAppKeyClassParam-label": "Custom App Key Class Param",
+  "f-WTCServer_WTCRemoteTuxDom-a-CustomAppKeyClassParam-help": "The optional parameters to be used by the custom AppKey class at the class initialization time. This class is only relevant if you specify Custom as the AppKey Generator Plug-in.",
+
   "a-CustomClusterConfigurationFileLastUpdatedTimestamp-label": "Custom Cluster Configuration File Last Updated Timestamp",
   "a-CustomClusterConfigurationFileName-label": "Custom Cluster Configuration File Name",
   "a-CustomConfigFileLastUpdatedTime-label": "Custom Config File Last Updated Time",
@@ -635,8 +713,8 @@
   "a-DebugDiagnosticsExpressionPollerBuffer-label": "Debug Diagnostics Expression Poller Buffer",
   "a-DebugDiagnosticsHarvester-label": "Debug Diagnostics Harvester",
   "a-DebugDiagnosticsHarvesterData-label": "Debug Diagnostics Harvester Data",
-  "a-DebugDiagnosticsHarvesterMBeanPlugin-label": "Debug Diagnostics Harvester MBean Plugin",
-  "a-DebugDiagnosticsHarvesterTreeBeanPlugin-label": "Debug Diagnostics Harvester Tree Bean Plugin",
+  "a-DebugDiagnosticsHarvesterMBeanPlugin-label": "Debug Diagnostics Harvester MBean Plug-in",
+  "a-DebugDiagnosticsHarvesterTreeBeanPlugin-label": "Debug Diagnostics Harvester Tree Bean Plug-in",
   "a-DebugDiagnosticsMBeanElResolver-label": "Debug Diagnostics MBean El Resolver",
   "a-DebugDiagnosticsModule-label": "Debug Diagnostics Module",
   "a-DebugDiagnosticsNotifications-label": "Debug Diagnostics Notifications",
@@ -1026,7 +1104,10 @@
   "a-DebugXMLRegistryIncludeTime-label": "Debug XML Registry Include Time",
   "a-DebugXMLRegistryOutputStream-label": "Debug XML Registry Output Stream",
   "a-DebugXMLRegistryUseShortClass-label": "Debug XML Registry Use Short Class",
+
   "a-DefaultAppKey-label": "Default App Key",
+  "a-DefaultAppKey-help": "The default AppKey value to be used by the anonymous user and other users who are not defined in the user database if the plug-in allows them to access Tuxedo. Note that the TpUsrFile and LDAP plug-ins do not allow users that are not defined in user database to access Tuxedo unless Allow Anonymous is enabled.",
+
   "a-DefaultCharCodeset-label": "Default Char Codeset",
   "a-DefaultCompressionThreshold-label": "Default Compression Threshold",
   "a-DefaultCredentialProviderStsuri-label": "Default Credential Provider Stsuri",
@@ -1047,7 +1128,10 @@
   "a-DefaultRealm-label": "Default Realm",
   "a-DefaultRealmInternal-label": "Default Realm Internal",
   "a-DefaultRedeliveryDelay-label": "Default Redelivery Delay",
+
   "a-DefaultReplyDeliveryMode-label": "Default Reply Delivery Mode",
+  "f-WTCServer_WTCtBridgeGlobal-a-DefaultReplyDeliveryMode-help": "The reply delivery mode to associate with a message when placing messages onto the target location.",
+
   "a-DefaultRetryCount-label": "Default Retry Count",
   "a-DefaultRetryDelayBase-label": "Default Retry Delay Base",
   "a-DefaultRetryDelayMaximum-label": "Default Retry Delay Maximum",
@@ -1078,7 +1162,10 @@
   "a-DeletesPerBatchMaximum-label": "Deletes Per Batch Maximum",
   "a-DeletesPerStatementMaximum-label": "Deletes Per Statement Maximum",
   "a-DeliveryMode-label": "Delivery Mode",
+
   "a-DeliveryModeOverride-label": "Delivery Mode Override",
+  "f-WTCServer_WTCtBridgeGlobal-a-DeliveryModeOverride-help": "The delivery mode to use when placing messages onto the target location. If this value is not specified, the message is placed on the target location with the same delivery mode specified from the source location. Note that this value overrides any delivery mode associated with a message.",
+
   "a-DeployBasePredicatesEnabled-label": "Deploy Base Predicates Enabled",
   "a-DeployCredentialMappingIgnored-label": "Deploy Credential Mapping Ignored",
   "a-DeployPolicyIgnored-label": "Deploy Policy Ignored",
@@ -1086,7 +1173,10 @@
   "a-DeployableProviderSynchronizationEnabled-label": "Deployable Provider Synchronization Enabled",
   "a-DeployableProviderSynchronizationTimeout-label": "Deployable Provider Synchronization Timeout",
   "a-Deployment-label": "Deployment",
+
   "a-DeploymentOrder-label": "Deployment Order",
+  "a-DeploymentOrder-help": "A priority that the server uses to determine when it deploys an item. The priority is relative to other deployable items of the same type. Items with the lowest Deployment Order value are deployed first.",
+
   "a-DeploymentPlan-label": "Deployment Plan",
   "a-DeploymentPlanExternalDescriptors-label": "Deployment Plan External Descriptors",
   "a-DeploymentPrincipalName-label": "Deployment Principal Name",
@@ -1122,7 +1212,10 @@
   "a-DigestDataSourceName-label": "Digest Data Source Name",
   "a-DigestExpirationTimePeriod-label": "Digest Expiration Time Period",
   "a-DigestReplayDetectionEnabled-label": "Digest Replay Detection Enabled",
+
   "a-Direction-label": "Direction",
+  "f-WTCServer_WTCtBridgeRedirect-a-Direction-help": "The direction of data flow. At least one redirection must be specified or the Tuxedo queuing bridge will fail to start and an error will be logged. Each defined direction is handled by starting a new thread.",
+
   "a-Directory-label": "Directory",
   "a-DiscoveryAddress-label": "Discovery Address",
   "a-DispatchPolicy-label": "Dispatch Policy",
@@ -1160,7 +1253,10 @@
   "a-DynamicGroupObjectClass-label": "Dynamic Group Object Class",
   "a-DynamicMemberUrlAttribute-label": "Dynamic Member URL Attribute",
   "a-DynamicServerName-label": "Dynamic Server Name",
+
   "a-EJBName-label": "EJB Name",
+  "f-WTCServer_WTCExport-a-EJBName-help": "The complete name of the EJB home interface to use when invoking a service.\n\nIf not specified, the default interface used is tuxedo.services.servicenameHome. For example: If the service being invoked is TOUPPER and EJBName attribute is not specified, the home interface looked up in JNDI would be tuxedo.services.TOUPPERHome.",
+
   "a-ELFFields-label": "ELF Fields",
   "a-EagerThreadLocalCleanup-label": "Eager Thread Local Cleanup",
   "a-EagerTrackingOfResourceMetricsEnabled-label": "Eager Tracking Of Resource Metrics Enabled",
@@ -1225,12 +1321,18 @@
   "a-FanEnabled-label": "Fan Enabled",
   "a-FannedOutRequestMaxWaitMillis-label": "Fanned Out Request Max Wait Millis",
   "a-FatalErrorCodes-label": "Fatal Error Codes",
+
   "a-FederationName-label": "Federation Name",
+  "f-WTCServer_WTCRemoteTuxDom-a-FederationName-help": "The context at which this remote Tuxedo access point federates to a foreign name service. If omitted, the default federation point is tuxedo.domains.",
+
   "a-FederationRemoteClusterListenPort-label": "Federation Remote Cluster Listen Port",
   "a-FederationRemoteClusterName-label": "Federation Remote Cluster Name",
   "a-FederationRemoteParticipantHost-label": "Federation Remote Participant Host",
   "a-FederationTopology-label": "Federation Topology",
+
   "a-FederationURL-label": "Federation URL",
+  "f-WTCServer_WTCRemoteTuxDom-a-FederationURL-help": "The URL for a foreign name service that is federated into JNDI. Note that the WebLogic Tuxedo Connector can federate to non-CORBA service providers. If this value is not specified, the WebLogic Tuxedo Connector assumes there is a CosNaming server in the foreign domain and federates to the CosNaming server using TGIOP.",
+
   "a-FenceTimeout-label": "Fence Timeout",
   "a-FencingGracePeriodMillis-label": "Fencing Grace Period Millis",
   "a-FieldPrefix-label": "Field Prefix",
@@ -1244,8 +1346,12 @@
   "a-Filter-label": "Filter",
   "a-FilterDispatchedRequestsEnabled-label": "Filter Dispatched Requests Enabled",
   "a-FilterExpression-label": "Filter Expression",
-  "a-FldTbl16Class-label": "Fld Tbl 16 Class",
-  "a-FldTbl32Class-label": "Fld Tbl 32 Class",
+
+  "a-FldTbl16Class-label": "FMW Field Table 16-bit Class",
+  "a-FldTbl16Class-help": "The names of FldTbl16Classes that are loaded via a class loader and added to a FldTbl array. Use the fully-qualified class names.  Use a comma to separate multiple entries.",
+  "a-FldTbl32Class-label": "FMW Field Table 32-bit Class",
+  "a-FldTbl32Class-help": "The names of FldTbl32Classes that are loaded via a class loader and added to a FldTbl array. Use the fully-qualified class names.  Use a comma to separate multiple entries.",
+
   "a-FlowControlEnabled-label": "Flow Control Enabled",
   "a-FlowInterval-label": "Flow Interval",
   "a-FlowMaximum-label": "Flow Maximum",
@@ -1343,8 +1449,13 @@
   "a-IdentityDomainAwareProvidersRequired-label": "Identity Domain Aware Providers Required",
   "a-IdentityDomainDefaultEnabled-label": "Identity Domain Default Enabled",
   "a-IdentityDomains-label": "Identity Domains",
+
   "a-IdentityKeyStoreFileName-label": "Identity Key Store File Name",
+  "f-WTCServer_WTCLocalTuxDom-a-IdentityKeyStoreFileName-help": "The path and file name of the identity keystore. The path name must either be absolute or relative to where the server was booted. The identity key store file name is only used if KeystoreLocation is \"Custom Stores\".",
+
   "a-IdentityKeyStorePassPhraseEncrypted-label": "Identity Key Store Pass Phrase Encrypted",
+  "f-WTCServer_WTCLocalTuxDom-a-IdentityKeyStorePassPhraseEncrypted-help": "The custom identity keystore's passphrase. If empty or null, then the keystore will be opened without a passphrase. This attribute is only used if KeyStores is \"Custom Stores\".",
+
   "a-IdentityProviderArtifactBindingEnabled-label": "Identity Provider Artifact Binding Enabled",
   "a-IdentityProviderEnabled-label": "Identity Provider Enabled",
   "a-IdentityProviderPostBindingEnabled-label": "Identity Provider Post Binding Enabled",
@@ -1393,7 +1504,10 @@
   "a-InterfaceName-label": "Interface Name",
   "a-InternalApp-label": "Internal App",
   "a-InternalAppsDeployOnDemandEnabled-label": "Internal Apps Deploy On Demand Enabled",
+
   "a-Interoperate-label": "Interoperate",
+  "a-Interoperate-help":  "Specifies whether this local Tuxedo access point interoperates with remote Tuxedo access points that are based upon Tuxedo release 6.5. If this value is set to Yes, the local Tuxedo access point interoperates with a Tuxedo 6.5 domain.",
+
   "a-IntersiteTransferUri-label": "Intersite Transfer URI",
   "a-InvalidLoginAttemptsTotalCount-label": "Invalid Login Attempts Total Count",
   "a-InvalidLoginUsersHighCount-label": "Invalid Login Users High Count",
@@ -1404,7 +1518,7 @@
   "a-IsolatePartitionThreadLocals-label": "Isolate Partition Thread Locals",
   "a-Issuer-label": "Issuer",
   "a-IssuerUri-label": "Issuer URI",
-  "a-ItsRequiresSsl-label": "Its Requires Ssl",
+  "a-ItsRequiresSsl-label": "Its Requires SSL",
   "a-J2EE12OnlyModeEnabled-label": "J2EE12 Only Mode Enabled",
   "a-J2EE13WarningEnabled-label": "J2EE13 Warning Enabled",
   "a-JDBCLLRTableName-label": "JDBCLLR Table Name",
@@ -1446,17 +1560,32 @@
   "a-JmsConnectionFactory-label": "JMS Connection Factory",
   "a-JmsConnectionFactoryUnmappedResRefMode-label": "JMS Connection Factory Unmapped Res Ref Mode",
   "a-JmsCreateDestinationIdentifier-label": "JMS Create Destination Identifier",
-  "a-JmsFactory-label": "JMS Factory",
-  "a-JmsToTuxPriorityMap-label": "JMS To Tux Priority Map",
-  "a-JndiFactory-label": "JNDI Factory",
+
+  "a-JmsFactory-label": "JMS Connection Factory Class Name",
+  "f-WTCServer_WTCtBridgeGlobal-a-JmsFactory-help": "The name of the JMS connection factory; for example, weblogic.jndi.ConnectionFactory.  The default value is weblogic.jms.XAConnectionFactory.",
+
+  "a-JmsToTuxPriorityMap-label": "JMS To Tuxedo Priority Map",
+  "a-JmsToTuxPriorityMap-help": "The mapping of priorities from JMS to Tuxedo. The default JMS To Tux Priority Map is: 0:1 | 1:12 | 2:23 | 3:34 | 4:45 |5:56 | 6:67 | 7:78 | 8:89 | 9:100.",
+
+  "a-JndiFactory-label": "JNDI Initial Context Factory Class Name",
+  "f-WTCServer_WTCtBridgeGlobal-a-JndiFactory-help": "The name of the JNDI lookup factory. The default value is weblogic.jndi.WLInitialContextFactory.",
+
   "a-JndiPropertiesCredentialEncrypted-label": "JNDI Properties Credential Encrypted",
   "a-JobSchedulerTableName-label": "Job Scheduler Table Name",
   "a-JsonWebKeySetUri-label": "Json Web Key Set URI",
   "a-JwtTokenExpiration-label": "Jwt Token Expiration",
+
   "a-KeepAlive-label": "Keep Alive",
+  "f-WTCServer_WTCLocalTuxDom-a-KeepAlive-help": "Return value tells whether this local Tuxedo access point is configured with Application Level Keep Alive, and it maximum idle time value before wait timer start ticking.",
+  "f-WTCServer_WTCRemoteTuxDom-a-KeepAlive-help": "Indicates whether this remote Tuxedo access point is configured with Application Level Keep Alive. Greater than 0 means that the application-level Keep Alive is enabled and the value indicates the amount of idle time, in milliseconds rounded to the nearest second, allowed before starting the wait timer.",
+
   "a-KeepAliveEnabled-label": "Keep Alive Enabled",
   "a-KeepAliveSecs-label": "Keep Alive Secs",
+
   "a-KeepAliveWait-label": "Keep Alive Wait",
+  "f-WTCServer_WTCLocalTuxDom-a-KeepAliveWait-help": "Return value that tells whether this local Tuxedo access point requires the acknowledgement of Application Level Keep Alive, and how long it will wait without receiving acknowledgement before declare the connection is inaccessible.",
+  "f-WTCServer_WTCRemoteTuxDom-a-KeepAliveWait-help": "Indicates whether this remote Tuxedo access point requires the acknowledgement of Application Level Keep Alive. A value of 0 indicates that application-level Keep Alive is not enabled for the access point but the access point acknowledges if a heartbeat is received. A value greater than 0 indicates that application-level Keep Alive is enabled and the value indicates the amount of idle time, in milliseconds rounded to the nearest second, allowed before WebLogic Tuxedo Connector marks the connection as failed if the heartbeat is not acknowledged.",
+
   "a-KeepConnAfterGlobalTx-label": "Keep Conn After Global Tx",
   "a-KeepConnAfterLocalTx-label": "Keep Conn After Local Tx",
   "a-KeepGenerated-label": "Keep Generated",
@@ -1477,7 +1606,10 @@
   "a-KeyStoreType-label": "Key Store Type",
   "a-KeyStoreTypes-label": "Key Store Types",
   "a-KeyStores-label": "Key Stores",
+
   "a-KeyStoresLocation-label": "Key Stores Location",
+  "f-WTCServer_WTCLocalTuxDom-a-KeyStoresLocation-help": "Provides the configuration rule to be used for finding Local Access Point's identity key store and trust key store. In plain text, it contains information on where the identity key store and trust key store are configured. When KeyStoreLocation is configured with WLS Store, WTC uses configuration information from the WLS Key Stores configuration. Otherwise, it uses the key stores information configured in the Local Access Point.",
+
   "a-KeyType-label": "Key Type",
   "a-KnownTenantEmptyMetadataTtl-label": "Known Tenant Empty Metadata TTL",
   "a-KnownTenantPrefix-label": "Known Tenant Prefix",
@@ -1502,15 +1634,26 @@
   "a-LoadBeforeAppActivation-label": "Load Before App Activation",
   "a-LoadBeforeAppDeployments-label": "Load Before App Deployments",
   "a-LoadStubUsingContextClassLoader-label": "Load Stub Using Context Class Loader",
+
   "a-LocalAccessPoint-label": "Local Access Point",
+  "f-WTCServer_WTCRemoteTuxDom-a-LocalAccessPoint-help": "The local domain name from which this remote Tuxedo domain is reached.",
+  "f-WTCServer_WTCExport-a-LocalAccessPoint-help": "The name of the local access point that exports this service.",
+  "f-WTCServer_WTCImport-a-LocalAccessPoint-help": "The name of the local access point that offers this service.",
+  "f-WTCServer_WTCPassword-a-LocalAccessPoint-help": "The name of the local access point to which this password applies.",
+
   "a-LocalAltDescriptorPath-label": "Local Alt Descriptor Path",
   "a-LocalDomainSecurityCacheEnabled-label": "Local Domain Security Cache Enabled",
   "a-LocalDomainSecurityCacheTtl-label": "Local Domain Security Cache TTL",
   "a-LocalDomainSecurityEnabled-label": "Local Domain Security Enabled",
   "a-LocalInstallDir-label": "Local Install Dir",
   "a-LocalJNDIName-label": "Local JNDI Name",
+
   "a-LocalPassword-label": "Local Password",
-  "a-LocalPasswordIV-label": "Local Password IV",
+  "f-WTCServer_WTCPassword-a-LocalPassword-help": "The local password used to authenticate connections between the local access point and the remote access point. Note that this password is used to authenticate connections between the local Tuxedo access point identified by LocalAccessPoint and the remote Tuxedo access point identified by RemoteAccessPoint.",
+
+  "a-LocalPasswordIV-label": "Local Password Initialization Vector",
+  "f-WTCServer_WTCPassword-a-LocalPasswordIV-help": "The initialization vector used to encrypt the local password.",
+
   "a-LocalPlanDir-label": "Local Plan Dir",
   "a-LocalPlanPath-label": "Local Plan Path",
   "a-LocalSourcePath-label": "Local Source Path",
@@ -1569,7 +1712,10 @@
   "a-LowMemoryGranularityLevel-label": "Low Memory Granularity Level",
   "a-LowMemorySampleSize-label": "Low Memory Sample Size",
   "a-LowMemoryTimeInterval-label": "Low Memory Time Interval",
+
   "a-MBEncodingMapFile-label": "MB Encoding Map File",
+  "a-MBEncodingMapFile-help": "The encoding name map file between Java and Tuxedo MBSTRING.",
+
   "a-MSIFileReplicationEnabled-label": "MSI File Replication Enabled",
   "a-MTUSize-label": "MTU Size",
   "a-Machine-label": "Machine",
@@ -1601,7 +1747,11 @@
   "a-MaxConnectedClients-label": "Max Connected Clients",
   "a-MaxConsecutiveCharacters-label": "Max Consecutive Characters",
   "a-MaxDynamicClusterSize-label": "Max Dynamic Cluster Size",
+
   "a-MaxEncryptBits-label": "Max Encrypt Bits",
+  "f-WTCServer_WTCLocalTuxDom-a-MaxEncryptBits-help": "The maximum encryption key length (in bits) this local Tuxedo access point uses when establishing a session connection. A value of 0 indicates no encryption is used.",
+  "f-WTCServer_WTCRemoteTuxDom-a-MaxEncryptBits-help": "The maximum encryption key length (in bits) this remote Tuxedo access point uses when establishing a session connection. A value of 0 indicates no encryption is used.",
+
   "a-MaxFileSize-label": "Max File Size",
   "a-MaxFrameSize-label": "Max Frame Size",
   "a-MaxGroupHierarchiesInCache-label": "Max Group Hierarchies In Cache",
@@ -1625,7 +1775,11 @@
   "a-MaxRestartAllowed-label": "Max Restart Allowed",
   "a-MaxRestartAllowedInterval-label": "Max Restart Allowed Interval",
   "a-MaxRestartCount-label": "Max Restart Count",
+
   "a-MaxRetries-label": "Max Retries",
+  "f-WTCServer_WTCLocalTuxDom-a-MaxRetries-help": "The maximum number of times that this local Tuxedo access point tries to establish a session connection to remote Tuxedo access points. Use this value only when Connection Policy is set to ON_STARTUP. The default value is 9223372036854775807.",
+  "f-WTCServer_WTCRemoteTuxDom-a-MaxRetries-help": "The maximum encryption key length (in bits) this remote Tuxedo access point uses when establishing a session connection. A value of 0 indicates no encryption is used. Note that when the ConnectionPolicy value is LOCAL, the MaxRetries value from the local Tuxedo access point is used. When the ConnectionPolicy value is ON_STARTUP, a value of -1 indicates 9223372036854775807.",
+
   "a-MaxRetrySecondsBeforeDeterminerFail-label": "Max Retry Seconds Before Determiner Fail",
   "a-MaxRetrySecondsBeforeTlogFail-label": "Max Retry Seconds Before TLOG Fail",
   "a-MaxRetrySecondsBeforeTxException-label": "Max Retry Seconds Before Tx Exception",
@@ -1681,7 +1835,10 @@
   "a-MessagingPerformancePreference-label": "Messaging Performance Preference",
   "a-MessagingQueue-label": "Messaging Queue",
   "a-MessagingQueueMdbRunAsPrincipalName-label": "Messaging Queue MDB Run As Principal Name",
-  "a-MetaDataFile-label": "Meta Data File",
+
+  "a-MetaDataFile-label": "Metadata File",
+  "f-WTCServer_WTCtBridgeRedirect-a-MetaDataFile-help": "The name of the metadata file URL used to pass the call to the XML-to-non-XML WebLogic XML Translator (WLXT).",
+
   "a-MetadataEncryptionAlgorithm-label": "Metadata Encryption Algorithm",
   "a-Method-label": "Method",
   "a-MethodOrder-label": "Method Order",
@@ -1695,7 +1852,11 @@
   "a-MinAlphabeticCharacters-label": "Min Alphabetic Characters",
   "a-MinCapacity-label": "Min Capacity",
   "a-MinDynamicClusterSize-label": "Min Dynamic Cluster Size",
+
   "a-MinEncryptBits-label": "Min Encrypt Bits",
+  "f-WTCServer_WTCLocalTuxDom-a-MinEncryptBits-help": "The minimum encryption key length (in bits) this local Tuxedo access point uses when establishing a session connection. A value of 0 indicates no encryption is used.",
+  "f-WTCServer_WTCRemoteTuxDom-a-MinEncryptBits-help": "The minimum encryption key length (in bits) this remote Tuxedo access point uses when establishing a session connection. A value of 0 indicates no encryption is used.",
+
   "a-MinLowercaseCharacters-label": "Min Lowercase Characters",
   "a-MinNonAlphanumericCharacters-label": "Min Non Alphanumeric Characters",
   "a-MinNumericCharacters-label": "Min Numeric Characters",
@@ -1735,7 +1896,11 @@
   "a-NMSocketCreateTimeoutInMillis-label": "NM Socket Create Timeout In Millis",
   "a-NMType-label": "NM Type",
   "a-NTAuthHost-label": "NT Auth Host",
-  "a-NWAddr-label": "NW Addr",
+
+  "a-NWAddr-label": "Network Address",
+  "f-WTCServer_WTCLocalTuxDom-a-NWAddr-help": "The network address and port number of this local Tuxedo access point.  Specify the address in either TCP/IP or SDP format",
+  "f-WTCServer_WTCRemoteTuxDom-a-NWAddr-help": "The network address and port number of this remote Tuxedo access point.  Specify the address in either TCP/IP or SDP format",
+
   "a-Name-label": "Name",
   "a-NameCallbackAllowed-label": "Name Callback Allowed",
   "a-NameMapperClassName-label": "Name Mapper Class Name",
@@ -1758,7 +1923,10 @@
   "a-NonLocalPostAllowed-label": "Non Local Post Allowed",
   "a-NonPersistentQos-label": "Non Persistent Qos",
   "a-NonceTimeoutSeconds-label": "Nonce Timeout Seconds",
+
   "a-Notes-label": "Notes",
+  "a-Notes-help": "Optional information that you can include to describe this configuration.",
+
   "a-Notification-label": "Notification",
   "a-NotificationProperties-label": "Notification Properties",
   "a-NotificationType-label": "Notification Type",
@@ -1877,9 +2045,9 @@
   "a-PlatformLoggerLevels-label": "Platform Logger Levels",
   "a-PlatformMBeanServerEnabled-label": "Platform MBean Server Enabled",
   "a-PlatformMBeanServerUsed-label": "Platform MBean Server Used",
-  "a-PluginClassName-label": "Plugin Class Name",
-  "a-PluginProperties-label": "Plugin Properties",
-  "a-PluginType-label": "Plugin Type",
+  "a-PluginClassName-label": "Plug-in Class Name",
+  "a-PluginProperties-label": "Plug-in Properties",
+  "a-PluginType-label": "Plug-in Type",
   "a-Pointcut-label": "Pointcut",
   "a-Policy-label": "Policy",
   "a-PolicyDeploymentEnabled-label": "Policy Deployment Enabled",
@@ -1913,9 +2081,15 @@
   "a-PrintStackTraceInProduction-label": "Print Stack Trace In Production",
   "a-Priority-label": "Priority",
   "a-PrivacyProtocol-label": "Privacy Protocol",
+
   "a-PrivateKeyAlias-label": "Private Key Alias",
+  "f-WTCServer_WTCLocalTuxDom-a-PrivateKeyAlias-help": "The string alias used to store and retrieve the Local Tuxedo access point's private key in the keystore. This private key is associated with the Local Tuxedo access point's digital certificate.",
+
   "a-PrivateKeyPassPhrase-label": "Private Key Pass Phrase",
+
   "a-PrivateKeyPassPhraseEncrypted-label": "Private Key Pass Phrase Encrypted",
+  "f-WTCServer_WTCLocalTuxDom-a-PrivateKeyPassPhraseEncrypted-help": "The encrypted passphrase used to retrieve the Local Tuxedo access point's private key from the keystore. This passphrase is assigned to the private key when it is generated.",
+
   "a-ProcessDestroyTimeout-label": "Process Destroy Timeout",
   "a-ProducerLoadBalancingPolicy-label": "Producer Load Balancing Policy",
   "a-ProductionModeEnabled-label": "Production Mode Enabled",
@@ -1983,8 +2157,13 @@
   "a-RejectMaliciousPathParameters-label": "Reject Malicious Path Parameters",
   "a-ReliableDeliveryPolicy-label": "Reliable Delivery Policy",
   "a-ReloginEnabled-label": "Relogin Enabled",
+
   "a-RemoteAccessPoint-label": "Remote Access Point",
+  "a-RemoteAccessPoint-help": "The name of the remote access point to which this password applies.",
+
   "a-RemoteAccessPointList-label": "Remote Access Point List",
+  "a-RemoteAccessPointList-help": "The comma-separated failover list that identifies the remote domain access points through which resources are imported.",
+
   "a-RemoteAnonymousJndiEnabled-label": "Remote Anonymous JNDI Enabled",
   "a-RemoteAnonymousRmiiiopEnabled-label": "Remote Anonymous Rmiiiop Enabled",
   "a-RemoteAnonymousRmit3Enabled-label": "Remote Anonymous RMIT 3 Enabled",
@@ -1996,11 +2175,22 @@
   "a-RemoteHost-label": "Remote Host",
   "a-RemoteJNDIName-label": "Remote JNDI Name",
   "a-RemoteJndiName-label": "Remote JNDI Name",
+
   "a-RemoteMBEncoding-label": "Remote MB Encoding",
+  "a-RemoteMBEncoding-help": "The default encoding name of sending MBSTRING data.",
+
   "a-RemoteName-label": "Remote Name",
+  "f-WTCServer_WTCExport-a-RemoteName-help": "The remote name of this service. Note that if not specified, the ResourceName value is used.",
+  "f-WTCServer_WTCImport-a-RemoteName-help": "The remote name of this service. Note that if not specified, the ResourceName value is used.",
+
   "a-RemoteParticipantHost-label": "Remote Participant Host",
+
   "a-RemotePassword-label": "Remote Password",
-  "a-RemotePasswordIV-label": "Remote Password IV",
+  "a-RemotePassword-help": "The remote password used to authenticate connections between the local access point and remote access point. Note that this password is used to authenticate connections between the local Tuxedo access point identified by LocalAccessPoint and the remote Tuxedo access point identified by RemoteAccessPoint.",
+
+  "a-RemotePasswordIV-label": "Remote Password Initialization Vector",
+  "a-RemotePasswordIV-help": "The initialization vector used to encrypt the remote password.",
+
   "a-RemotePort-label": "Remote Port",
   "a-RemoteUser-label": "Remote User",
   "a-RemoveInfectedConnections-label": "Remove Infected Connections",
@@ -2011,7 +2201,10 @@
   "a-ReplicationPorts-label": "Replication Ports",
   "a-ReplicationTimeoutEnabled-label": "Replication Timeout Enabled",
   "a-ReplicationTimeoutMillis-label": "Replication Timeout Millis",
+
   "a-ReplyQ-label": "Reply Q",
+  "f-WTCServer_WTCtBridgeRedirect-a-ReplyQ-help": "The name of the JMS queue used specifically for synchronous calls to a Tuxedo service. The response is returned to the JMS ReplyQ.",
+
   "a-ReplyToSAFRemoteContextName-label": "Reply To SAF Remote Context Name",
   "a-ReportGroupFile-label": "Report Group File",
   "a-RequestBufferingQueueJndiName-label": "Request Buffering Queue JNDI Name",
@@ -2031,7 +2224,11 @@
   "a-ResourceID-label": "Resource ID",
   "a-ResourceManagement-label": "Resource Management",
   "a-ResourceManagerRef-label": "Resource Manager Ref",
+
   "a-ResourceName-label": "Resource Name",
+  "f-WTCServer_WTCExport-a-ResourceName-help": "The name used to identify this exported service. The combination of ResourceName and LocalAccessPoint must be unique within defined Exports. This allows you to define unique configurations having the same ResourceName.",
+  "f-WTCServer_WTCImport-a-ResourceName-help": "The name used to identify this imported service. Note that this name must be unique within defined Imports. This allows you to define unique configurations having the same Remote Name.",
+
   "a-ResourceTenantTokenClaim-label": "Resource Tenant Token Claim",
   "a-Resources-label": "Resources",
   "a-ResponseBufferingQueueJndiName-label": "Response Buffering Queue JNDI Name",
@@ -2053,12 +2250,21 @@
   "a-RetainOriginalURL-label": "Retain Original URL",
   "a-RetireTimeoutSeconds-label": "Retire Timeout Seconds",
   "a-RetransmissionExponentialBackoff-label": "Retransmission Exponential Backoff",
+
   "a-Retries-label": "Retries",
+  "f-WTCServer_WTCtBridgeGlobal-a-Retries-help": "The number of attempts to redirect a message before this Tuxedo queuing bridge places the message in the specified error location and logs an error.  Must be between 0 and 2147483647.",
+
   "a-RetrievePrincipalFromUserDn-label": "Retrieve Principal From User Dn",
   "a-RetrieveUserAccountControl-label": "Retrieve User Account Control",
   "a-RetryCount-label": "Retry Count",
+
   "a-RetryDelay-label": "Retry Delay",
+  "f-WTCServer_WTCtBridgeGlobal-a-RetryDelay-help": "The minimum number of milliseconds this Tuxedo queuing bridge waits before redirecting a message after a failure. Must be between 0 and 2147483647; the default value is 10.",
+
   "a-RetryInterval-label": "Retry Interval",
+  "f-WTCServer_WTCLocalTuxDom-a-RetryInterval-help": "The number of seconds that this local Tuxedo access point waits between automatic connection attempts to remote Tuxedo access points. Use this only when the ConnectionPolicy value is set to ON_STARTUP  The default value is 60.",
+  "f-WTCServer_WTCRemoteTuxDom-a-RetryInterval-help": "The number of seconds that this remote Tuxedo access point waits between automatic connection attempts to local Tuxedo access points. Use this only when the ConnectionPolicy value is set to ON_STARTUP  Note that when the ConnectionPolicy value is LOCAL, the RetryInterval value from the local Tuxedo access point is used. When the ConnectionPolicy value is ON_STARTUP, a value of -1 indicates 60..  ",
+
   "a-RetryIntervalBeforeMsiMode-label": "Retry Interval Before Msi Mode",
   "a-RetryIntervalSeconds-label": "Retry Interval Seconds",
   "a-ReverseDNSAllowed-label": "Reverse DNS Allowed",
@@ -2145,7 +2351,10 @@
   "a-SecureModeEnabled-label": "Secure Mode Enabled",
   "a-SecureReplicationEnabled-label": "Secure Replication Enabled",
   "a-SecuredProduction-label": "Secured Production",
+
   "a-Security-label": "Security",
+  "f-WTCServer_WTCLocalTuxDom-a-Security-help": "The type of application security enforced. NONE means that no security is used. APP_PW means that password security is enforced when a connection is established from a remote domain; the application password is defined in the WTCResourcesMBean. DM_PW means that the domain password security is enforced when a connection is established from a remote domain; the domain password is defined in the WTCPasswordsMBean.",
+
   "a-SecurityContextEnabled-label": "Security Context Enabled",
   "a-SecurityDDModel-label": "Security Deployment Descriptor Model",
   "a-SecurityEncryptionService-label": "Security Encryption Service",
@@ -2251,20 +2460,33 @@
   "a-SocketReaderTimeoutMinMillis-label": "Socket Reader Timeout Min Millis",
   "a-SocketReaders-label": "Socket Readers",
   "a-SortOrder-label": "Sort Order",
+
   "a-SourceAccessPoint-label": "Source Access Point",
+  "a-SourceAccessPoint-help": "The name of the local or remote access point where the source is located.",
+
   "a-SourceDestination-label": "Source Destination",
   "a-SourceIdBase64-label": "Source ID Base 64",
   "a-SourceIdHex-label": "Source ID Hex",
+
   "a-SourceName-label": "Source Name",
+  "f-WTCServer_WTCtBridgeRedirect-a-SourceName-help": "The name of a source queue or service. Specifies a JMS queue name, a Tuxedo queue name, or the name of a Tuxedo service.",
+
   "a-SourcePath-label": "Source Path",
+
   "a-SourceQspace-label": "Source Qspace",
+  "f-WTCServer_WTCtBridgeRedirect-a-SourceQspace-help": "The name of the Qspace for a source location.",
+
   "a-SourceSiteEnabled-label": "Source Site Enabled",
   "a-SourceSiteUrl-label": "Source Site URL",
-  "a-SsLv2HelloEnabled-label": "Ss Lv 2 Hello Enabled",
-  "a-SslClientIdentityAlias-label": "Ssl Client Identity Alias",
-  "a-SslClientIdentityPassPhraseEncrypted-label": "Ssl Client Identity Pass Phrase Encrypted",
-  "a-SslEnabled-label": "Ssl Enabled",
-  "a-SslProtocolVersion-label": "Ssl Protocol Version",
+  "a-SsLv2HelloEnabled-label": "SSL v2 Hello Enabled",
+  "a-SslClientIdentityAlias-label": "SSL Client Identity Alias",
+  "a-SslClientIdentityPassPhraseEncrypted-label": "SSL Client Identity Pass Phrase Encrypted",
+  "a-SslEnabled-label": "SSL Enabled",
+
+  "a-SslProtocolVersion-label": "SSL Protocol Version",
+  "f-WTCServer_WTCLocalTuxDom-a-SslProtocolVersion-help": "The protocol version of the SSL connection this local access point uses when establishing a SSL connection.",
+  "f-WTCServer_WTCRemoteTuxDom-a-SslProtocolVersion-help": "The protocol version of the SSL connection this remote access point uses when establishing a SSL connection with specific local access point.",
+
   "a-SsoLogoutUrl-label": "SSO Logout URL",
   "a-SsoSigningKeyAlias-label": "SSO Signing Key Alias",
   "a-SsoSigningKeyPassPhraseEncrypted-label": "SSO Signing Key Pass Phrase Encrypted",
@@ -2339,16 +2561,27 @@
   "a-T3HttpUpgradeHandler-label": "T3 HTTP Upgrade Handler",
   "a-T3ServerAbbrevTableSize-label": "T3 Server Abbrev Table Size",
   "a-TGIOPEnabled-label": "TGIOP Enabled",
+
   "a-Target-itemHelp": "Target name",
   "a-Target-itemLabel": "Target",
   "a-Target-label": "Targets",
+  "a-Target-help": "The servers or clusters to which the deployment is deployed.",
+
   "a-Target-noItemsMessage": "No targets",
+
   "a-TargetAccessPoint-label": "Target Access Point",
+  "f-WTCServer_WTCtBridgeRedirect-a-TargetAccessPoint-help": "The name of the local or remote access point where the target is located.",
+
   "a-TargetClass-label": "Target Class",
   "a-TargetDestination-label": "Target Destination",
   "a-TargetJar-label": "Target Jar",
+
   "a-TargetName-label": "Target Name",
+  "f-WTCServer_WTCtBridgeRedirect-a-TargetName-help": "The name of the target queue or service. Specifies a JMS queue name, a Tuxedo queue name, or the name of a Tuxedo service.",
+
   "a-TargetQspace-label": "Target Qspace",
+  "f-WTCServer_WTCtBridgeRedirect-a-TargetQspace-help": "The name of the Qspace for a target location.",
+
   "a-Template-label": "Template",
   "a-TemplateBean-label": "Template Bean",
   "a-TemporaryTemplateName-label": "Temporary Template Name",
@@ -2384,7 +2617,10 @@
   "a-TimeToLive-label": "Time To Live",
   "a-TimeToLiveDefault-label": "Time To Live Default",
   "a-TimedOutRefIsolationTime-label": "Timed Out Ref Isolation Time",
+
   "a-Timeout-label": "Timeout",
+  "f-WTCServer_WTCtBridgeGlobal-a-Timeout-help": "The number of timeout seconds for an entire redirection when this Tuxedo queuing bridge places a message on the target location. A value of 0 specifies an infinite wait and the default value is 60.",
+
   "a-TimeoutConnectionWithPendingResponses-label": "Timeout Connection With Pending Responses",
   "a-TimeoutSeconds-label": "Timeout Seconds",
   "a-Timezone-label": "Timezone",
@@ -2398,7 +2634,11 @@
   "a-TokenValidationLevel-label": "Token Validation Level",
   "a-TokenVirtualUserAllowed-label": "Token Virtual User Allowed",
   "a-TotalReconnectPeriodMillis-label": "Total Reconnect Period Millis",
-  "a-TpUsrFile-label": "Tp Usr File",
+
+  "a-TpUsrFile-label": "TPUSR File Name",
+  "f-WTCServer_WTCRemoteTuxDom-a-TpUsrFile-help": "The full path to the user password file containing UID/GID information. (This field is only relevant if you specify TpUsrFile as the AppKey Generator.)\n\nNote: This file is generated by the Tuxedo tpusradd utility on the remote Tuxedo domain specified by the remote Tuxedo access point. A copy of this file must be available in your WebLogic Tuxedo Connector environment to provide correct authorization, authentication, and auditing.",
+  "f-WTCServer_WTCResources-a-TpUsrFile-help": "The full path to the TPUSR file, which contains Tuxedo UID/GID information. Note that this file is generated by the Tuxedo tpusradd utility on the remote Tuxedo domain.",
+
   "a-TracingEnabled-label": "Tracing Enabled",
   "a-Transacted-label": "Transacted",
   "a-TransactionEnabled-label": "Transaction Enabled",
@@ -2409,17 +2649,28 @@
   "a-TransactionPublicSecureChannelName-label": "Transaction Public Secure Channel Name",
   "a-TransactionSecureChannelName-label": "Transaction Secure Channel Name",
   "a-TransactionTimeout-label": "Transaction Timeout",
+
   "a-Transactional-label": "Transactional",
+  "f-WTCServer_WTCtBridgeGlobal-a-Transactional-help": "Specifies whether this Tuxedo queuing bridge should use transactions when retrieving messages from a source location and when placing messages on a target location. A value of YES means that transactions are used for both operations; a value of NO means that transactions are not used for either operation.",
+
   "a-TransformerFactory-label": "Transformer Factory",
+
   "a-TranslateFML-label": "Translate FML",
+  "a-TranslateFML-help": "The type of XML/FML translation.  NO indicates that no data translation is performed. FLAT indicates that the message payload is transformed using the WebLogic Tuxedo Connector translator. WLXT indicates that translation is performed by the XML-to-non-XML WebLogic XML Translator (WLXT).",
+
   "a-Transport-label": "Transport",
   "a-TransportLayerSecurityKeyAlias-label": "Transport Layer Security Key Alias",
   "a-TransportLayerSecurityKeyPassPhraseEncrypted-label": "Transport Layer Security Key Pass Phrase Encrypted",
   "a-TrashDirectory-label": "Trash Directory",
   "a-TriggerTruncationStackFrameDepthAfterTrigger-label": "Trigger Truncation Stack Frame Depth After Trigger",
   "a-TriggerTruncationStackFrameTriggerDepth-label": "Trigger Truncation Stack Frame Trigger Depth",
+
   "a-TrustKeyStoreFileName-label": "Trust Key Store File Name",
+  "f-WTCServer_WTCLocalTuxDom-a-TrustKeyStoreFileName-help": "The path and file name of the trust keystore. The path name must either be absolute or relative to where the server was booted. This file name is only used if KeyStores is \"Custom Stores\".",
+
   "a-TrustKeyStorePassPhraseEncrypted-label": "Trust Key Store Pass Phrase Encrypted",
+  "f-WTCServer_WTCLocalTuxDom-a-TrustKeyStorePassPhraseEncrypted-help": "he trust keystore's passphrase. If empty or null, then the keystore will be opened without a passphrase. This attribute is only used if KeyStores is \"Custom Stores\".",
+
   "a-TrustStoreName-label": "Trust Store Name",
   "a-TrustStorePassPhraseEncrypted-label": "Trust Store Pass Phrase Encrypted",
   "a-TrustedCAFileName-label": "Trusted CA File Name",
@@ -2427,11 +2678,22 @@
   "a-TunnelingClientPingSecs-label": "Tunneling Client Ping Secs",
   "a-TunnelingClientTimeoutSecs-label": "Tunneling Client Timeout Secs",
   "a-TunnelingEnabled-label": "Tunneling Enabled",
-  "a-TuxErrorQueue-label": "Tux Error Queue",
-  "a-TuxFactory-label": "Tux Factory",
-  "a-TuxToJmsPriorityMap-label": "Tux To JMS Priority Map",
-  "a-TuxedoGidKw-label": "Tuxedo Gid Kw",
-  "a-TuxedoUidKw-label": "Tuxedo Uid Kw",
+
+  "a-TuxErrorQueue-label": "Tuxedo Error Queue",
+  "f-WTCServer_WTCtBridgeGlobal-a-TuxErrorQueue-help": "The name of the Tuxedo queue used to store a message that cannot be redirected to a Tuxedo/Q source queue. If not specified, all messages not redirected are lost. If the message cannot be placed into the TuxErrorQueue, an error is logged and the message is lost. Note that this queue is in the same queue space as the source queue.",
+
+  "a-TuxFactory-label": "Tuxedo Connection Factory Class Name",
+  "a-TuxFactory-help": "The name of the Tuxedo connection factory. The default value is tuxedo.services.TuxedoConnection.",
+
+  "a-TuxToJmsPriorityMap-label": "Tuxedo To JMS Priority Map",
+  "a-TuxToJmsPriorityMap-help": "The mapping of priorities to map from Tuxedo to JMS. The default JMS To Tux Priority Map is: 1-10:0 | 11-20:1 | 21-30:2 | 31-40:3| 41-50:4| 51-60:5 | 61-70:6 | 71-80:7 | 81-90:8 | 91-100:9.",
+
+  "a-TuxedoGidKw-label": "Tuxedo Group ID Keyword",
+  "a-TuxedoGidKw-help": "The keyword for Tuxedo GID (Group ID) used in the WlsUser when using the Tuxedo migration utility tpmigldap. This keyword is only relevant if you specify LDAP as the AppKey Generator. The keyword is used to find Tuxedo GID in the user record in the embedded LDAP database.",
+
+  "a-TuxedoUidKw-label": "Tuxedo User ID Keyword",
+  "a-TuxedoUidKw-help": "The keyword for Tuxedo UID (User ID) used in the WlsUser when using the Tuxedo migration utility tpmigldap. This keyword is only relevant if you specify LDAP as the AppKey Generator. The keyword is used to find Tuxedo UID in the user record in the embedded LDAP database.",
+
   "a-TwoPhaseEnabled-label": "Two Phase Enabled",
   "a-TwoWaySSLEnabled-label": "Two Way SSL Enabled",
   "a-TwoWayTLSRequiredForAdminClients-label": "Two Way TLS Required For Admin Clients",
@@ -2487,7 +2749,10 @@
   "a-UseSampleDatabase-label": "Use Sample Database",
   "a-UseSerialFormatVersion2-label": "Use Serial Format Version 2",
   "a-UseServerCerts-label": "Use Server Certs",
-  "a-UseSsl-label": "Use Ssl",
+
+  "a-UseSsl-label": "Use SSL",
+  "f-WTCServer_WTCLocalTuxDom-a-UseSSL-help": "Specifies if the connection initiated or accepted by this Local Tuxedo access point uses SSL on top of its transport layer. Note that if the SDP transport is configured for this access point, the configured value of this attribute is ignored and off is used.",
+
   "a-UseStatefulAuthentication-label": "Use Stateful Authentication",
   "a-UseTokenGroupsForGroupMembershipLookup-label": "Use Token Groups For Group Membership Lookup",
   "a-UseVirtualThreads-label": "Use Virtual Threads",
@@ -2502,7 +2767,10 @@
   "a-UserDynamicGroupDnAttribute-label": "User Dynamic Group Dn Attribute",
   "a-UserFilterAttribute-label": "User Filter Attribute",
   "a-UserFromNameFilter-label": "User From Name Filter",
+
   "a-UserId-label": "User ID",
+  "f-WTCServer_WTCtBridgeGlobal-a-UserId-help": "The user identity for all messages handled by this Tuxedo queuing bridge for ACL checks when security is configured. All messages assume this identity until the security/authentication contexts are passed between the subsystems. Until the security contexts are passed, there is no secure method to identify who generated a message received from the source location. The user argument may be specified as either a user name or a user identification number (uid).",
+
   "a-UserIdResourceAttribute-label": "User ID Resource Attribute",
   "a-UserIdTokenClaim-label": "User ID Token Claim",
   "a-UserLockoutTotalCount-label": "User Lockout Total Count",
@@ -2527,8 +2795,13 @@
   "a-VerboseLoggingEnabled-label": "Verbose Logging Enabled",
   "a-Version-label": "Version",
   "a-VersionIdentifier-label": "Version Identifier",
+
   "a-ViewTbl16Class-label": "View Tbl 16 Class",
+  "a-ViewTbl16Class-help": "The names of ViewTbl16Classes that are loaded via a class loader and added to a ViewTbl array. Use the fully qualified class names of the desired classes. Use a comma to separate multiple class name entries.",
+
   "a-ViewTbl32Class-label": "View Tbl 32 Class",
+  "a-ViewTbl32Class-help": "The names of ViewTbl32Classes that are loaded via a class loader and added to a ViewTbl array. Use the fully qualified class names of the desired classes. Use a comma to separate multiple class name entries.",
+
   "a-VirtualHostName-label": "Virtual Host Name",
   "a-VirtualMachineName-label": "Virtual Machine Name",
   "a-VirtualThreadEnableOption-label": "Virtual Thread Enable Option",
@@ -2549,7 +2822,7 @@
   "a-WarnOnInsecureApplications-label": "Warn On Insecure Applications",
   "a-WarnOnInsecureDataSources-label": "Warn On Insecure Data Sources",
   "a-WarnOnInsecureFileSystem-label": "Warn On Insecure File System",
-  "a-WarnOnInsecureSsl-label": "Warn On Insecure Ssl",
+  "a-WarnOnInsecureSsl-label": "Warn On Insecure SSL",
   "a-WarnOnJavaSecurityManager-label": "Warn On Java Security Manager",
   "a-WarnOnPatches-label": "Warn On Patches",
   "a-WarnOnPorts-label": "Warn On Ports",
@@ -2562,14 +2835,17 @@
   "a-WebLogicHome-label": "WebLogic Home",
   "a-WebModule-label": "Web Module",
   "a-WebRjvmSupport-label": "Web RJVM Support",
-  "a-WeblogicPluginEnabled-label": "WebLogic Plugin Enabled",
+  "a-WeblogicPluginEnabled-label": "WebLogic Plug-in Enabled",
   "a-Weight-label": "Weight",
   "a-WhenToCache-label": "When To Cache",
   "a-WindowInterval-label": "Window Interval",
   "a-WindowSize-label": "Window Size",
   "a-WldfBuiltinSystemResourceType-label": "WLDF Builtin System Resource Type",
   "a-WldfDiagnosticVolume-label": "WLDF Diagnostic Volume",
-  "a-WlsErrorDestination-label": "Wls Error Destination",
+
+  "a-WlsErrorDestination-label": "WLS Error Destination",
+  "f-WTCServer_WTCtBridgeGlobal-a-WlsErrorDestination-help": "The name of the location used to store WebLogic Server JMS messages when a message cannot be redirected. If not specified, all messages not redirected are lost. If the message cannot be placed into WlsErrorDestination for any reason, an error is logged and the message is lost.",
+
   "a-WorkContextPropagationEnabled-label": "Work Context Propagation Enabled",
   "a-WorkManagerForRemoteSessionFetching-label": "Work Manager For Remote Session Fetching",
   "a-WorkerCount-label": "Worker Count",
@@ -2696,8 +2972,8 @@
   "f-any_CertRevoc-label": "Cert Revoc",
   "f-any_CertRevocCa-label": "Cert Revoc CAs",
   "f-any_CertRevocCa-typeLabel": "Cert Revoc CA",
-  "f-any_CertificateIssuerPlugin-label": "Certificate Issuer Plugins",
-  "f-any_CertificateIssuerPlugin-typeLabel": "Certificate Issuer Plugin",
+  "f-any_CertificateIssuerPlugin-label": "Certificate Issuer Plug-ins",
+  "f-any_CertificateIssuerPlugin-typeLabel": "Certificate Issuer Plug-in",
   "f-any_CertificateManagement-label": "Certificate Management",
   "f-any_CertificateRegistry-label": "Certificate Registry",
   "f-any_ClientParams-label": "Client Params",
@@ -2957,8 +3233,8 @@
   "f-any_PasswordValidator-label": "Password Validator",
   "f-any_PathService-label": "Path Services",
   "f-any_PathService-typeLabel": "Path Service",
-  "f-any_PluginDeployment-label": "Plugin Deployments",
-  "f-any_PluginDeployment-typeLabel": "Plugin Deployment",
+  "f-any_PluginDeployment-label": "Plug-in Deployments",
+  "f-any_PluginDeployment-typeLabel": "Plug-in Deployment",
   "f-any_Properties-label": "Properties",
   "f-any_Properties-typeLabel": "Property",
   "f-any_Queue-label": "Queues",
@@ -3118,22 +3394,23 @@
   "f-any_WLSUserPasswordCredentialMappings-label": "WLS Credential Mappings",
   "f-any_WSReliableDeliveryPolicy-label": "WS Reliable Delivery Policies",
   "f-any_WSReliableDeliveryPolicy-typeLabel": "WS Reliable Delivery Policy",
-  "f-any_WTCExport-label": "WTC Exports",
-  "f-any_WTCExport-typeLabel": "WTC Export",
-  "f-any_WTCImport-label": "WTC Imports",
-  "f-any_WTCImport-typeLabel": "WTC Import",
-  "f-any_WTCLocalTuxDom-label": "WTC Local Tux Doms",
-  "f-any_WTCLocalTuxDom-typeLabel": "WTC Local Tux Dom",
+  "f-any_WTCExport-label": "Exports",
+  "f-any_WTCExport-typeLabel": "Export",
+  "f-any_WTCImport-label": "Imports",
+  "f-any_WTCImport-typeLabel": "Import",
+  "f-any_WTCLocalTuxDom-label": "Local Tuxedo Domains",
+  "f-any_WTCLocalTuxDom-typeLabel": "Local Tuxedo Domain",
   "f-any_WTCPassword-label": "WTC Passwords",
   "f-any_WTCPassword-typeLabel": "WTC Password",
-  "f-any_WTCRemoteTuxDom-label": "WTC Remote Tux Doms",
-  "f-any_WTCRemoteTuxDom-typeLabel": "WTC Remote Tux Dom",
+  "f-any_WTCRemoteTuxDom-label": "Remote Tuxedo Domains",
+  "f-any_WTCRemoteTuxDom-typeLabel": "Remote Tuxedo Domain",
   "f-any_WTCResources-label": "WTC Resources",
-  "f-any_WTCServer-label": "WTC Servers",
-  "f-any_WTCServer-typeLabel": "WTC Server",
-  "f-any_WTCtBridgeGlobal-label": "WT Ct Bridge Global",
-  "f-any_WTCtBridgeRedirect-label": "WT Ct Bridge Redirects",
-  "f-any_WTCtBridgeRedirect-typeLabel": "WT Ct Bridge Redirect",
+  "f-any_WTCResources-typeLabel": "WTC Resource",
+  "f-any_WTCServer-label": "WebLogic Tuxedo Connector Servers",
+  "f-any_WTCServer-typeLabel": "WebLogic Tuxedo Connector Server",
+  "f-any_WTCtBridgeGlobal-label": "Tuxedo Queuing Bridge",
+  "f-any_WTCtBridgeRedirect-label": "Queuing Redirects",
+  "f-any_WTCtBridgeRedirect-typeLabel": "Queuing Redirect",
   "f-any_Watch-label": "Watches",
   "f-any_Watch-typeLabel": "Watch",
   "f-any_WatchNotification-label": "Watch Notification",

@@ -8,12 +8,22 @@
     },
     "sections": [
       {
-        "type": "attributesTab",
+        "type": "tab",
         "labelKey": "general-tab-label",
-        "attributes": [
-          "ClassName",
-          "Cluster",
-          "Notes"
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "ClassName",
+              "Cluster",
+              "Notes"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "addRemainingAttributes": true
+          }
         ]
       },
       {
@@ -30,8 +40,7 @@
         "type": "hidden",
         "attributes": [
           "HostingServer"
-        ],
-        "addRemainingAttributes": true
+        ]
       }
     ]
 

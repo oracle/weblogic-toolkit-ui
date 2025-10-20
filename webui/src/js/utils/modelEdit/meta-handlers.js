@@ -17,6 +17,30 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
           return !['ORACLE', 'EBR'].includes(type);
         });
       };
+
+      this.wtcDisableTpUsrFileField = attributeMap => {
+        const appKeyPluginType = attributeMap['AppKey'];
+        return ko.computed(() => {
+          const type = ModelEditHelper.getDerivedValue(appKeyPluginType.observable());
+          return type !== 'TpUsrFile'
+        });
+      };
+
+      this.wtcDisableUserGroupIDKeywordFields = attributeMap => {
+        const appKeyPluginType = attributeMap['AppKey'];
+        return ko.computed(() => {
+          const type = ModelEditHelper.getDerivedValue(appKeyPluginType.observable());
+          return type !== 'LDAP'
+        });
+      };
+
+      this.wtcDisableCustomAppKeyFields = attributeMap => {
+        const appKeyPluginType = attributeMap['AppKey'];
+        return ko.computed(() => {
+          const type = ModelEditHelper.getDerivedValue(appKeyPluginType.observable());
+          return type !== 'Custom'
+        });
+      };
     }
 
     // return a singleton instance

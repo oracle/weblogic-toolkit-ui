@@ -30,8 +30,12 @@
         ]
       },
       {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      },
+      {
         "type": "hidden",
-        "addRemainingAttributes": true,
         "folders": [
           "SubDeployment"
         ]
