@@ -59,65 +59,51 @@
                 "type": "attributes",
                 "labelKey": "application-attributes-label",
                 "attributes": [
-                  "ApplicationName",
-                  "CompatibilityName",
-                  "ApplicationIdentifier",
-                  "ConfiguredApplicationIdentifier",
                   "CacheInAppDirectory",
-                  "InternalApp",
-                  "AutoDeployedApp",
                   "ParallelDeployModules",
-                  "BackgroundDeployment",
                   "MultiVersionApp",
-                  "Untargeted"
-                ]
-              },
-              {
-                "type": "attributes",
-                "labelKey": "absolute-paths-label",
-                "attributes": [
-                  "AbsoluteSourcePath",
-                  "AbsoluteInstallDir",
-                  "AbsolutePlanDir",
-                  "AbsolutePlanPath"
+                  "Untargeted",
+                  "CompatibilityName"
                 ]
               },
               {
                 "type": "attributes",
                 "labelKey": "alternate-descriptor-paths-label",
                 "attributes": [
-                  "AltDescriptorDir",
-                  "AbsoluteAltDescriptorDir",
                   "AltDescriptorPath",
-                  "AbsoluteAltDescriptorPath",
                   "AltWLSDescriptorPath"
                 ]
               },
               {
                 "type": "attributes",
-                "labelKey": "local-paths-label",
-                "attributes": [
-                  "LocalSourcePath",
-                  "LocalInstallDir",
-                  "LocalPlanDir",
-                  "LocalPlanPath",
-                  "LocalAltDescriptorPath"
-                ]
-              },
-              {
-                "type": "attributes",
                 "labelKey": "miscellaneous-attributes-label",
-                "attributes": [
-                  "DeploymentPlan",
-                  "DeploymentPlanExternalDescriptors"
-                ],
                 "addRemainingAttributes": true
               },
               {
                 "type": "hidden",
                 "attributes": [
+                  "AbsoluteAltDescriptorDir",
+                  "AbsoluteAltDescriptorPath",
+                  "AbsoluteInstallDir",
+                  "AbsolutePlanDir",
+                  "AbsolutePlanPath",
+                  "AbsoluteSourcePath",
+                  "AltDescriptorDir",
+                  "ApplicationIdentifier",
+                  "ApplicationName",
+                  "AutoDeployedApp",
+                  "BackgroundDeployment",
+                  "ConfiguredApplicationIdentifier",
+                  "DeploymentPlan",
+                  "DeploymentPlanExternalDescriptors",
+                  "InternalApp",
                   "OnDemandContextPaths",
                   "OnDemandDisplayRefresh",
+                  "LocalSourcePath",
+                  "LocalInstallDir",
+                  "LocalPlanDir",
+                  "LocalPlanPath",
+                  "LocalAltDescriptorPath",
                   "PartitionName",
                   "RootStagingDir",
                   "VersionIdentifier"
@@ -130,6 +116,21 @@
       {
         "type": "folderTab",
         "folder": "SubDeployment"
+      }
+    ]
+  },
+  "Application/SubDeployment": {
+    "sections": [
+      {
+        "type": "attributesTab",
+        "labelKey": "",
+        "attributes": [
+          "CompatibilityName",
+          "ModuleType",
+          "Untargeted",
+          "Notes",
+          "Target"
+        ]
       }
     ]
   }
