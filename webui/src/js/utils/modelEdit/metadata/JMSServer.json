@@ -1,0 +1,153 @@
+{
+  "JMSServer": {
+    "summaryAttributes": {
+      "PersistentStore":  {},
+      "Target": {}
+    },
+    "attributeDetails": {
+      "BlockingSendPolicy": {
+        "options": [
+          { "value": "FIFO", "labelKey": "options-fifo-label" },
+          { "value": "Preemptive", "labelKey": "options-preemptive-label" }
+        ]
+      },
+      "MessageCompressionOptions": {
+        "options": [
+          { "value": "GZIP_DEFAULT_COMPRESSION", "labelKey":  "jms-message-compression-default-label" },
+          { "value": "GZIP_BEST_COMPRESSION", "labelKey":  "jms-message-compression-best-compression-label" },
+          { "value": "GZIP_BEST_SPEED", "labelKey":  "jms-message-compression-fastest-compression-label" },
+          { "value": "LZF", "labelKey":  "jms-message-compression-lzf-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "StoreEnabled",
+              "AllowsPersistentDowngrade",
+              "PersistentStore",
+              "MessageBufferSize",
+              "ExpirationScanInterval",
+              "DeploymentOrder",
+              "HostingTemporaryDestinations",
+              "TemporaryTemplateResource",
+              "TemporaryTemplateName",
+              "Notes",
+              "Target"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "attributes": [
+              "JDBCStoreUpgradeEnabled",
+              "StoreMessageCompressionEnabled",
+              "MessageCompressionOptions",
+              "InsertionPausedAtStartup",
+              "ProductionPausedAtStartup",
+              "ConsumptionPausedAtStartup"
+            ],
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "thresholds-tab-label",
+        "attributes": [
+          "BlockingSendPolicy",
+          "MaximumMessageSize",
+          "BytesThresholdLow",
+          "MessagesThresholdLow",
+          "BytesThresholdHigh",
+          "MessagesThresholdHigh",
+          "BytesMaximum",
+          "MessagesMaximum"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "paging-configuration-tab-label",
+        "attributes": [
+          "PagingFileLockingEnabled",
+          "PagingMessageCompressionEnabled",
+          "PagingDirectory",
+          "PagingMinWindowBufferSize",
+          "PagingMaxWindowBufferSize",
+          "PagingMaxFileSize",
+          "PagingBlockSize",
+          "PagingIoBufferSize"
+        ]
+      },
+      {
+        "type": "folderTab",
+        "folder": "JmsMessageLogFile"
+      },
+      {
+        "type": "hidden",
+        "folders": [
+          "JmsSessionPool"
+        ],
+        "attributes": [
+          "BytesPagingEnabled",
+          "MessageCompressionOptionsOverride",
+          "MessagesPagingEnabled"
+        ]
+      }
+    ]
+  },
+  "JMSServer/JmsMessageLogFile": {
+    "attributeDetails": {
+      "FileMinSize": {
+        "disabled": "jmsMessageLogRotateSizeFields"
+      },
+      "FileTimeSpan": {
+        "disabled": "jmsMessageLogRotateTimeFields"
+      },
+      "FileTimeSpanFactor": {
+        "disabled": "jmsMessageLogRotateTimeFields"
+      },
+      "RotationTime": {
+        "disabled": "jmsMessageLogRotateTimeFields"
+      },
+      "RotationType": {
+        "options": [
+          { "value": "bySize", "labelKey": "options-by-size-label" },
+          { "value": "byTime", "labelKey":  "options-by-time-label" },
+          { "value": "none", "labelKey":  "options-none-label" },
+          { "value": "bySizeOrTime", "labelKey":  "options-by-size-or-time-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "FileName",
+          "RotationType",
+          "RotateLogOnStartup",
+          "NumberOfFilesLimited",
+          "FileMinSize",
+          "RotationTime",
+          "FileTimeSpan",
+          "FileTimeSpanFactor",
+          "FileCount",
+          "LogFileRotationDir",
+          "BufferSizeKb",
+          "DateFormatPattern",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  }
+}
