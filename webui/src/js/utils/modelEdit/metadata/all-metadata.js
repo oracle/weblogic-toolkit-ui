@@ -14,6 +14,7 @@ define(
     'text!./FileStore.json',
     'text!./JDBCStore.json',
     'text!./JDBCSystemResource.json',
+    'text!./JMSServer.json',
     'text!./Library.json',
     'text!./OPSSInitialization.json',
     'text!./PluginDeployment.json',

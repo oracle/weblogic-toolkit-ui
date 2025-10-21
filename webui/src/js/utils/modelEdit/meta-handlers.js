@@ -55,7 +55,23 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
         return ko.computed(() => {
           const restart = ModelEditHelper.getDerivedValue(restartInPlace.observable());
           return restart !== true
-        })
+        });
+      };
+
+      this.jmsMessageLogRotateTimeFields = attributeMap => {
+        const rotateType = attributeMap['RotationType'];
+        return ko.computed(() => {
+          const type = ModelEditHelper.getDerivedValue(rotateType.observable());
+          return type !== 'byTime' && type !== 'bySizeOrTime';
+        });
+      };
+
+      this.jmsMessageLogRotateSizeFields = attributeMap => {
+        const rotateType = attributeMap['RotationType'];
+        return ko.computed(() => {
+          const type = ModelEditHelper.getDerivedValue(rotateType.observable());
+          return type !== 'bySize' && type !== 'bySizeOrTime';
+        });
       };
     }
 

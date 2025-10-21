@@ -38,6 +38,8 @@
   "tux-security-tab-label": "Security Configuration",
   "high-availability-tab-label": "High Availability",
   "tuning-tab-label": "Tuning Parameters",
+  "paging-configuration-tab-label": "Paging Configuration",
+  "thresholds-tab-label": "Thresholds",
 
   "security-model-advanced-label": "Advanced",
   "security-model-custom-roles-label": "Custom Roles",
@@ -53,6 +55,11 @@
   "options-off-label": "Off",
   "options-always-label": "Always",
   "options-minimal-label": "Minimal",
+  "options-fifo-label": "First In, First Out",
+  "options-preemptive-label": "Preemptive",
+  "options-by-size-label": "By Size",
+  "options-by-time-label": "By Time",
+  "options-by-size-or-time-label": "By Size or Time",
 
   "direction-jms-queue-to-tuxedo-queue-label": "JMS Queue to Tuxedo Queue",
   "direction-tuxedo-queue-to-jms-queue-label": "Tuxedo Queue to JMS Queue",
@@ -78,6 +85,10 @@
   "store-distribution-policy-distributed-label": "Distributed",
   "store-distribution-policy-singleton-label": "Singleton",
   "store-migration-policy-on-failure-label": "On Failure",
+  "jms-message-compression-default-label": "Default",
+  "jms-message-compression-best-compression-label": "Best",
+  "jms-message-compression-fastest-compression-label": "Fastest",
+  "jms-message-compression-lzf-label": "Open Source LZF",
 
   "atp-type-label": "ATP",
   "certificate-issuer-plugin-label": "Certificate Issuer Plug-in",
@@ -222,7 +233,10 @@
   "a-AllowShrinkingPriorityRequestQueue-label": "Allow Shrinking Priority Request Queue",
   "a-AllowUnencryptedNullCipher-label": "Allow Unencrypted Null Cipher",
   "a-AllowedTargetHost-label": "Allowed Target Host",
+
   "a-AllowsPersistentDowngrade-label": "Allows Persistent Downgrade",
+  "f-JMSServer-a-AllowsPersistentDowngrade-help": "Specifies whether JMS clients will get an exception when sending persistent messages to a destination targeted to a JMS server that does not have a persistent store configured. This parameter only has effect when the Store Enabled parameter is disabled (false).",
+
   "a-AltClientIdTokenClaim-label": "Alt Client ID Token Claim",
 
   "a-AltDescriptorDir-label": "Alternative Descriptor Dir",
@@ -334,21 +348,32 @@
   "f-WTCServer_WTCLocalTuxDom-a-BlockTime-help": "The maximum number of seconds this local Tuxedo access point allows for a blocking call. Must be between 0 and 2147483647, with the default value being 60.",
 
   "a-BlockingSendPolicy-label": "Blocking Send Policy",
+  "f-JMSServer-a-BlockingSendPolicy-help": "Determines whether the JMS server delivers smaller messages before larger ones when a destination has exceeded its maximum number of messages. FIFO prevents the JMS server from delivering smaller messages when larger ones are already waiting for space. Preemptive allows smaller send requests to preempt previous larger ones when there is sufficient space for smaller messages on the destination. This policy is defined only for the JMS server; it cannot be set on individual destinations.",
+
   "a-Body-label": "Body",
   "a-BootAuthenticationMaxRetryDelay-label": "Boot Authentication Max Retry Delay",
   "a-BootAuthenticationRetryCount-label": "Boot Authentication Retry Count",
   "a-BootProperties-label": "Boot Properties",
-  "a-BufferSizeKb-label": "Buffer Size Kb",
-  "a-BugReportServiceWsdlUrl-label": "Bug Report Service Wsdl URL",
+
+  "a-BufferSizeKb-label": "Buffer Size in Kilobytes",
+  "f-JMSServer_JmsMessageLogFile-a-BufferSizeKb-help": "Sets the underlying log buffer size in kilobytes.",
+
+  "a-BugReportServiceWsdlUrl-label": "Bug Report Service WSDL URL",
   "a-BuzzAddress-label": "Buzz Address",
   "a-BuzzEnabled-label": "Buzz Enabled",
   "a-BuzzPort-label": "Buzz Port",
   "a-BytesHigh-label": "Bytes High",
   "a-BytesLow-label": "Bytes Low",
+
   "a-BytesMaximum-label": "Bytes Maximum",
-  "a-BytesPagingEnabled-label": "Bytes Paging Enabled",
+  "f-JMSServer-a-BytesMaximum-help": "The maximum number of bytes that can be stored in this JMS server. A value of -1 removes any WebLogic Server limits.",
+
   "a-BytesThresholdHigh-label": "Bytes Threshold High",
+  "f-JMSServer-a-BytesThresholdHigh-help": "The upper threshold (number of bytes stored in this JMS server) that triggers flow control and logging events. A value of -1 disables the events for this JMS server.",
+
   "a-BytesThresholdLow-label": "Bytes Threshold Low",
+  "f-JMSServer-a-BytesThresholdLow-help": "The lower threshold (number of bytes stored in this JMS server) that triggers flow control and logging events. A value of -1 disables the events for this JMS server.",
+
   "a-COMEnabled-label": "COM Enabled",
   "a-CacheConfigurationFile-label": "Cache Configuration File",
 
@@ -541,7 +566,10 @@
   "a-ConsoleFullDelegationEnabled-label": "Console Full Delegation Enabled",
   "a-ConsoleInputEnabled-label": "Console Input Enabled",
   "a-ConstrainedCandidateServer-label": "Constrained Candidate Server",
+
   "a-ConsumptionPausedAtStartup-label": "Consumption Paused At Startup",
+  "f-JMSServer-a-ConsumptionPausedAtStartup-help": "Indicates whether consumption is paused at startup on destinations targeted to this JMS server at startup. A destination cannot receive any new messages while it is paused. When the value is set to true, then immediately after the host server instance is booted, then this JMS server and its targeted destinations are modified such that they are in a \"consumption paused\" state, which prevents any message consuming activity on those destinations. To allow normal message consumption on the destinations, later you will have to change the state of this JMS server to a \"consumption enabled\" state by setting this value to false, and then either redeploy the JMS server or reboot the hosting server instance.",
+
   "a-ContactPersonCompany-label": "Contact Person Company",
   "a-ContactPersonEmailAddress-label": "Contact Person Email Address",
   "a-ContactPersonGivenName-label": "Contact Person Given Name",
@@ -639,7 +667,10 @@
   "a-DatabaseLeasingBasisConnectionRetryCount-label": "Database Leasing Basis Connection Retry Count",
   "a-DatabaseLeasingBasisConnectionRetryDelay-label": "Database Leasing Basis Connection Retry Delay",
   "a-DatasourceType-label": "Datasource Type",
+
   "a-DateFormatPattern-label": "Date Format Pattern",
+  "f-JMSServer_JmsMessageLogFile-a-DateFormatPattern-help": "The date format pattern used for rendering dates in the log. The DateFormatPattern string conforms to the specification of the java.text.SimpleDateFormat class.",
+
   "a-DayOfMonth-label": "Day Of Month",
   "a-DayOfWeek-label": "Day Of Week",
   "a-DbPassiveMode-label": "DB Passive Mode",
@@ -1103,10 +1134,10 @@
   "a-DebugStoreAdmin-label": "Debug Store Admin",
   "a-DebugStoreCache-label": "Debug Store Cache",
   "a-DebugStoreConnectionCaching-label": "Debug Store Connection Caching",
-  "a-DebugStoreIOLogical-label": "Debug Store IO Logical",
-  "a-DebugStoreIOLogicalBoot-label": "Debug Store IO Logical Boot",
-  "a-DebugStoreIOPhysical-label": "Debug Store IO Physical",
-  "a-DebugStoreIOPhysicalVerbose-label": "Debug Store IO Physical Verbose",
+  "a-DebugStoreIOLogical-label": "Debug Store I/O Logical",
+  "a-DebugStoreIOLogicalBoot-label": "Debug Store I/O Logical Boot",
+  "a-DebugStoreIOPhysical-label": "Debug Store I/O Physical",
+  "a-DebugStoreIOPhysicalVerbose-label": "Debug Store I/O Physical Verbose",
   "a-DebugStoreRcm-label": "Debug Store Rcm",
   "a-DebugStoreRcmVerbose-label": "Debug Store Rcm Verbose",
   "a-DebugStoreXA-label": "Debug Store XA",
@@ -1262,7 +1293,7 @@
   "a-DiagnosticStoreBlockSize-label": "Diagnostic Store Block Size",
   "a-DiagnosticStoreDir-label": "Diagnostic Store Dir",
   "a-DiagnosticStoreFileLockingEnabled-label": "Diagnostic Store File Locking Enabled",
-  "a-DiagnosticStoreIoBufferSize-label": "Diagnostic Store Io Buffer Size",
+  "a-DiagnosticStoreIoBufferSize-label": "Diagnostic Store I/O Buffer Size",
   "a-DiagnosticStoreMaxFileSize-label": "Diagnostic Store Max File Size",
   "a-DiagnosticStoreMaxWindowBufferSize-label": "Diagnostic Store Max Window Buffer Size",
   "a-DiagnosticStoreMinWindowBufferSize-label": "Diagnostic Store Min Window Buffer Size",
@@ -1363,7 +1394,10 @@
   "a-ExpectedToRun-label": "Expected To Run",
   "a-ExpirationLoggingPolicy-label": "Expiration Logging Policy",
   "a-ExpirationPolicy-label": "Expiration Policy",
+
   "a-ExpirationScanInterval-label": "Expiration Scan Interval",
+  "f-JMSServer-a-ExpirationScanInterval-help": "The number of seconds between this JMS server's cycles of scanning local destinations for expired messages. A value of 0 disables active scanning. A very large scan interval effectively disables active scanning. With scanning disabled, users still do not receive expired messages and any expired messages that are discovered by other system activities are removed. However, expired messages sitting in idle destinations (such as an inactive queue or disconnected durable subscriber) are not removed and continue to consume system resources.",
+
   "a-ExplicitPort-label": "Explicit Port",
   "a-ExportKeyLifespan-label": "Export Key Lifespan",
   "a-Expression-label": "Expression",
@@ -1410,15 +1444,25 @@
   "a-FencingGracePeriodMillis-label": "Fencing Grace Period Millis",
   "a-FieldPrefix-label": "Field Prefix",
   "a-FieldSuffix-label": "Field Suffix",
+
   "a-FileCount-label": "File Count",
+  "f-JMSServer_JmsMessageLogFile-a-FileCount-help": "The maximum number of log files that the server creates when it rotates the log. This number does not include the file that the server uses to store current messages. (Requires that you enable Number of Files Limited.)",
 
   "a-FileLockingEnabled-label": "File Locking Enabled",
   "f-FileStore-a-FileLockingEnabled-help": "Determines whether OS file locking is used. When file locking protection is enabled, a store boot fails if another store instance already has opened the store files. Do not disable this setting unless you have procedures in place to prevent multiple store instances from opening the same file. File locking is not required but helps prevent corruption in the event that two same-named file store instances attempt to operate in the same directories. This setting applies to both primary and cache files.",
 
   "a-FileMinSize-label": "File Min Size",
+  "f-JMSServer_JmsMessageLogFile-a-FileMinSize-help": "The size (1 - 2097150 kilobytes) that triggers the server to move log messages to a separate file. The default is 500 kilobytes. After the log file reaches the specified minimum size, the next time the server checks the file size, it will rename the current log file as SERVER_NAME.lognnnnn and create a new one to store subsequent messages. (Requires that you specify a file rotation type of Size.)",
+
   "a-FileName-label": "File Name",
+  "f-JMSServer_JmsMessageLogFile-a-FileName-help": "The name of the file that stores current JMS server log messages. Usually it is a computed value based on the name of the parent of this MBean. For example, for a JMS server log, it is jmsserverName.log. However, if the name of the parent cannot be obtained, the file name is weblogic.log. If you specify a relative pathname, it is interpreted as relative to the server's root directory.",
+
   "a-FileTimeSpan-label": "File Time Span",
+  "f-JMSServer_JmsMessageLogFile-a-FileTimeSpan-help": "The interval (in hours) at which the server saves old log messages to another file. (Requires that you specify a file rotation type of TIME.)",
+
   "a-FileTimeSpanFactor-label": "File Time Span Factor",
+  "f-JMSServer_JmsMessageLogFile-a-FileTimeSpanFactor-help": "This factor is defined so that log rotation can be tested at a different frequency. The default value is 3600000.",
+
   "a-Filter-label": "Filter",
   "a-FilterDispatchedRequestsEnabled-label": "Filter Dispatched Requests Enabled",
   "a-FilterExpression-label": "Filter Expression",
@@ -1498,7 +1542,10 @@
   "a-Host-label": "Host",
   "a-HostName-label": "Host Name",
   "a-HostingServer-label": "Hosting Server",
+
   "a-HostingTemporaryDestinations-label": "Hosting Temporary Destinations",
+  "f-JMSServer-a-HostingTemporaryDestinations-help": "Specifies whether this JMS server can be used to host temporary destinations.",
+
   "a-HostnameVerificationIgnored-label": "Hostname Verification Ignored",
   "a-HostnameVerifier-label": "Hostname Verifier",
   "a-HostsMigratableServices-label": "Hosts Migratable Services",
@@ -1575,7 +1622,9 @@
   "f-FileStore-a-InitialSize-help": "The initial file size, in bytes.",
 
   "a-InitialWindowSize-label": "Initial Window Size",
+
   "a-InsertionPausedAtStartup-label": "Insertion Paused At Startup",
+  "f-JMSServer-a-InsertionPausedAtStartup-help":  "Indicates whether insertion is paused at startup on destinations targeted to this JMS server. A destination cannot receive any new messages while it is paused. When the value is set to true, then immediately after the host server instance is booted, then this JMS server and its targeted destinations are modified such that they are in a \"insertion paused\" state, which results preventing messages that are result of the \"in-flight\" work completion to arrive on those destinations.",
 
   "a-InsertsPerBatchMaximum-label": "Inserts Per Batch Maximum",
   "f-JDBCStore-a-InsertsPerBatchMaximum-help": "The maximum number of table rows that are inserted per database call. The default value is 20.",
@@ -1776,7 +1825,10 @@
   "a-LogFile-label": "Log File",
   "a-LogFileFilter-label": "Log File Filter",
   "a-LogFileFormat-label": "Log File Format",
-  "a-LogFileRotationDir-label": "Log File Rotation Dir",
+
+  "a-LogFileRotationDir-label": "Log File Rotation Directory",
+  "f-JMSServer_JmsMessageLogFile-a-LogFileRotationDir-help": "The directory where the rotated log files will be stored. By default the rotated files are stored in the same directory where the log file is stored.",
+
   "a-LogFileSeverity-label": "Log File Severity",
   "a-LogFormat-label": "Log Format",
   "a-LogFormatCompatibilityEnabled-label": "Log Format Compatibility Enabled",
@@ -1911,7 +1963,10 @@
 
   "a-MaxXACallMillis-label": "Max XA Call Millis",
   "a-MaximumDynamicServerCount-label": "Maximum Dynamic Server Count",
+
   "a-MaximumMessageSize-label": "Maximum Message Size",
+  "f-JMSServer-a-MaximumMessageSize-help": "The maximum number of bytes allowed in individual messages on this JMS server. The size of a message includes the message body, any user-defined properties, and the user-defined JMS header fields JMSCorrelationID and JMSType. The maximum message size is only enforced for the initial production of a message. Messages that are redirected to an error destination or forwarded to a member of a distributed destination are not checked for size.",
+
   "a-MaximumPoolSize-label": "Maximum Pool Size",
   "a-MemberDeathDetectorEnabled-label": "Member Death Detector Enabled",
   "a-MemberDiscoveryTimeout-label": "Member Discovery Timeout",
@@ -1921,8 +1976,13 @@
   "a-MemoryBufferSize-label": "Memory Buffer Size",
   "a-MemoryLoggingEnabled-label": "Memory Logging Enabled",
   "a-Message-label": "Message",
+
   "a-MessageBufferSize-label": "Message Buffer Size",
+  "f-JMSServer-a-MessageBufferSize-help": "The amount of memory (in bytes) that this JMS server can use to store message bodies before it writes them to disk. When the JMS server writes the message bodies to disk, it clears them from memory. A value of -1 (the default) specifies that the server will automatically determine a size based on the maximum heap size of the JVM. This default will be set to either one-third the maximum heap size, or 512 megabytes, whichever is smaller.",
+
   "a-MessageCompressionOptions-label": "Message Compression Options",
+  "f-JMSServer-a-MessageCompressionOptions-help": "Specifies the type of message compression used when JMS message body compression is enabled for Persistent Stores and JMS Paging Stores.",
+
   "a-MessageCompressionOptionsOverride-label": "Message Compression Options Override",
   "a-MessageDeliveryTimeout-label": "Message Delivery Timeout",
   "a-MessageFormat-label": "Message Format",
@@ -1935,10 +1995,18 @@
   "a-MessagesHigh-label": "Messages High",
   "a-MessagesLimitOverride-label": "Messages Limit Override",
   "a-MessagesLow-label": "Messages Low",
+
   "a-MessagesMaximum-label": "Messages Maximum",
+  "f-JMSServer-a-MessagesMaximum-help": "The maximum number of messages that can be stored in this JMS server. A value of -1 removes any WebLogic Server limits.",
+
   "a-MessagesPagingEnabled-label": "Messages Paging Enabled",
+
   "a-MessagesThresholdHigh-label": "Messages Threshold High",
+  "f-JMSServer-a-MessagesThresholdHigh-help": "The upper threshold (number of messages stored in this JMS server) that triggers flow control and logging events. A value of -1 disables the events for this JMS server.",
+
   "a-MessagesThresholdLow-label": "Messages Threshold Low",
+  "f-JMSServer-a-MessagesThresholdLow-help": "The lower threshold (number of messages stored in this JMS server) that triggers flow control and logging events. A value of -1 disables the events for this JMS server.",
+
   "a-MessagingBridgeThreadPoolSize-label": "Messaging Bridge Thread Pool Size",
   "a-MessagingPerformancePreference-label": "Messaging Performance Preference",
   "a-MessagingQueue-label": "Messaging Queue",
@@ -2026,7 +2094,7 @@
   "a-NameMapperClassName-label": "Name Mapper Class Name",
   "a-NameQualifier-label": "Name Qualifier",
   "a-Namespace-label": "Namespace",
-  "a-NativeIOEnabled-label": "Native IO Enabled",
+  "a-NativeIOEnabled-label": "Native I/O Enabled",
   "a-NativeModeEnabled-label": "Native Mode Enabled",
   "a-NativeVersionEnabled-label": "Native Version Enabled",
   "a-NeedTxCtxOnClose-label": "Need Tx Ctx On Close",
@@ -2054,7 +2122,9 @@
   "a-NotifyMatch-label": "Notify Match",
   "a-NumOfRetriesBeforeMsiMode-label": "Num Of Retries Before Msi Mode",
   "a-NumberOfFilesLimit-label": "Number Of Files Limit",
+
   "a-NumberOfFilesLimited-label": "Number Of Files Limited",
+  "f-JUMSServer_JmsMessageLogFile-a-NumberOfFilesLimited-help": "Indicates whether to limit the number of log files that this server instance creates to store old messages. (Requires that you specify a file rotation type of SIZE or TIME.) After the server reaches this limit, it deletes the oldest log file and creates a new log file with the latest suffix. If you do not enable this option, the server creates new files indefinitely and you must clean up these files as you require.",
 
   "a-NumberOfRestartAttempts-label": "Number Of Restart Attempts",
   "f-FileStore-a-NumberOfRestartAttempts-help": "Specifies the maximum number of restart attempts. A value > 0 specifies the maximum number of restart attempts. A value of 0 specifies the same behavior as setting RestartInPlace to false. A value of -1 means infinite retry restart until it either starts or the server instance shuts down.",
@@ -2109,14 +2179,31 @@
   "a-OverloadProtectionEnabled-label": "Overload Protection Enabled",
   "a-OverloadResponseCode-label": "Overload Response Code",
   "a-P3PHeaderValue-label": "P3P Header Value",
+
   "a-PagingBlockSize-label": "Paging Block Size",
+  "f-JMSServer-a-PagingBlockSize-help": "The smallest addressable block, in bytes, of a file. When a native wlfileio driver is available and the paging block size has not been configured by the user, the store selects the minimum OS specific value for unbuffered (direct) I/O, if it is within the range [512, 8192]. A paging store's block size does not change once the paging store creates its files. Changes to block size only take effect for new paging stores or after the current files have been deleted.",
+
   "a-PagingDirectory-label": "Paging Directory",
+  "f-JMSServer-a-PagingDirectory-help": "Specifies where message bodies are written when the size of the message bodies in the JMS server exceeds the message buffer size.\n\nIf unspecified, messages are written to the default tmp directory inside the server-name subdirectory of a domain's root directory. For example, domain-name/servers/server-name/tmp, where domain-name is the root directory of your domain.",
+
   "a-PagingFileLockingEnabled-label": "Paging File Locking Enabled",
-  "a-PagingIoBufferSize-label": "Paging Io Buffer Size",
+  "f-JMSServer-a-PagingFileLockingEnabled-help": "Determines whether OS file locking is used.\n\nWhen file locking protection is enabled, a store boot fails if another store instance already has opened the store files. Do not disable this setting unless you have procedures in place to prevent multiple store instances from opening the same file. File locking is not required but helps prevent corruption in the event that two same-named file store instances attempt to operate in the same directories. This setting applies to both primary and cache files. If the value is changed and activated, you need to restart any servers to which the MBean is targeted before the value will take effect.",
+
+  "a-PagingIoBufferSize-label": "Paging I/O Buffer Size",
+  "f-JMSServer-a-PagingIoBufferSize-help": "The I/O buffer size, in bytes, automatically rounded down to the nearest power of 2. A small number of larger files is normally preferred over a large number of smaller files as each file allocates Window Buffer and file handles.",
+
   "a-PagingMaxFileSize-label": "Paging Max File Size",
+  "f-JMSServer-a-PagingMaxFileSize-help": "The paging maximum file size, in bytes. ",
+
   "a-PagingMaxWindowBufferSize-label": "Paging Max Window Buffer Size",
+  "f-JMSServer-a-PagingMaxWindowBufferSize-help": "The maximum amount of data, in bytes and rounded down to the nearest power of 2, mapped into the JVM's address space per paging store file. Applies only when a native wlfileio library is loaded. A window buffer does not consume Java heap memory, but does consume off-heap (native) memory. If the paging store is unable to allocate the requested buffer size, it allocates smaller and smaller buffers until it reaches PagingMinWindowBufferSize, and then fails if it cannot honor PagingMinWindowBufferSize.\n\n",
+
   "a-PagingMessageCompressionEnabled-label": "Paging Message Compression Enabled",
+  "f-JMSServer-a-PagingMessageCompressionEnabled-help": "Enables the JMS paging store to perform message body compression on persistent and non-persistent messages. When false, the default value, no compression is performed.",
+
   "a-PagingMinWindowBufferSize-label": "Paging Min Window Buffer Size",
+  "f-JMSServer-a-PagingMinWindowBufferSize-help": "The minimum amount of data, in bytes and rounded down to the nearest power of 2, mapped into the JVM's address space per paging store file. Applies only when a native wlfileio library is loaded. See Paging Maximum Window Buffer Size. If the value is changed and activated, you need to restart any servers to which the MBean is targeted before the value will take effect.",
+
   "a-PanicAction-label": "Panic Action",
   "a-ParallelConnectDelay-label": "Parallel Connect Delay",
   "a-ParallelDeployApplicationModules-label": "Parallel Deploy Application Modules",
@@ -2168,7 +2255,10 @@
   "a-PersistenceStrategy-label": "Persistence Strategy",
   "a-PersistenceTrashDirectory-label": "Persistence Trash Directory",
   "a-PersistentQos-label": "Persistent Qos",
+
   "a-PersistentStore-label": "Persistent Store",
+  "f-JMSServer-a-PersistentStore-help": "The file or database in which this JMS server stores persistent messages. If unspecified, the JMS server uses the default persistent store that is configured on each targeted WebLogic Server instance. If the JMS server has a store configured, then the configured store is used to store persistent messages.",
+
   "a-PhysicalDestinationName-label": "Physical Destination Name",
   "a-PhysicalStoreName-label": "Physical Store Name",
   "a-PinnedToThread-label": "Pinned To Thread",
@@ -2237,7 +2327,10 @@
   "a-ProcessDestroyTimeout-label": "Process Destroy Timeout",
   "a-ProducerLoadBalancingPolicy-label": "Producer Load Balancing Policy",
   "a-ProductionModeEnabled-label": "Production Mode Enabled",
+
   "a-ProductionPausedAtStartup-label": "Production Paused At Startup",
+  "f-JMSServer-a-ProductionPausedAtStartup-help": "Specifies whether production is paused at server startup on destinations targeted to this JMS server. A destination cannot receive any new messages while it is paused. When the value is set to true, then immediately after the host server instance is rebooted, then this JMS server and its targeted destinations are modified such that they are in a \"production paused\" state, which results in preventing new message production activities on those destinations.",
+
   "a-ProfileConnectionLeakTimeoutSeconds-label": "Profile Connection Leak Timeout Seconds",
   "a-ProfileHarvestFrequencySeconds-label": "Profile Harvest Frequency Seconds",
   "a-ProfileType-label": "Profile Type",
@@ -2436,11 +2529,19 @@
   "a-RootDirectory-label": "Root Directory",
   "a-RootElementTag-label": "Root Element Tag",
   "a-RootStagingDir-label": "Root Staging Dir",
+
   "a-RotateLogOnStartup-label": "Rotate Log On Startup",
+  "f-JMSServer_JmsMessageLogFile": "Specifies whether a server rotates its log file during its startup cycle. The default value in production mode is false.",
+
   "a-RotationMinutes-label": "Rotation Minutes",
   "a-RotationSize-label": "Rotation Size",
+
   "a-RotationTime-label": "Rotation Time",
+  "f-JMSServer_JmsMessageLogFile-a-RotationTime-help": "Determines the start time (hour and minute) for a time-based rotation sequence. At the time that this value specifies, the server renames the current log file. Thereafter, the server renames the log file at an interval that you specify in File Time Span. Note that WebLogic Server sets a threshold size limit of 500 MB before it forces a hard rotation to prevent excessive log file growth.",
+
   "a-RotationType-label": "Rotation Type",
+  "f-JMSServer_JmsMessageLogFile-a-RotationType-help": "Criteria for moving old log messages to a separate file.",
+
   "a-RowPrefetch-label": "Row Prefetch",
   "a-RowPrefetchSize-label": "Row Prefetch Size",
   "a-RtexprvalueJspParamName-label": "Rtexprvalue Jsp Param Name",
@@ -2681,8 +2782,13 @@
   "a-StdoutLogStack-label": "Stdout Log Stack",
   "a-StdoutSeverity-label": "Stdout Severity",
   "a-Store-label": "Store",
+
   "a-StoreEnabled-label": "Store Enabled",
+  "f-JMSServer-a-StoreEnabled-help": "Specifies whether message persistence is supported for this JMS server. When set to true: If the JMS server has no store configured, the targeted WebLogic Server instance's default store is used to store persistent messages. If the JMS server has a store configured, then the configured store is used to store persistent messages. When set to false, then this JMS server does not support persistent messages, and instead downgrades them to non-persistent. The default value is true.",
+
   "a-StoreMessageCompressionEnabled-label": "Store Message Compression Enabled",
+  "f-JMSServer-a-StoreMessageCompressionEnabled-help": "Enables the JMS store to perform message body compression. When set to false, the default value, no compression is performed.",
+
   "a-StoreSizeCheckPeriod-label": "Store Size Check Period",
   "a-StoreType-label": "Store Type",
   "a-StreamChunkSize-label": "Stream Chunk Size",
@@ -2756,8 +2862,13 @@
 
   "a-Template-label": "Template",
   "a-TemplateBean-label": "Template Bean",
+
   "a-TemporaryTemplateName-label": "Temporary Template Name",
+  "f-JMSServer-a-TemporaryTemplateName-help": "The name of a configured JMS template that this JMS server uses to create temporary destinations. Entering a template name, requires you to specify the JMS module that contains this template. However, a template name cannot be specified if the Hosting Temporary Destinations field is disabled.",
+
   "a-TemporaryTemplateResource-label": "Temporary Template Resource",
+  "f-JMSServer-a-TemporaryTemplateResource-help": "The name of a JMS module that contains a template that this JMS server can use to create temporary destinations. Entering a JMS module name requires you to specify a temporary template name. However, a module name cannot be specified if the Hosting Temporary Destinations field is disabled.",
+
   "a-Tenant-label": "Tenant",
   "a-TenantDataFlushInterval-label": "Tenant Data Flush Interval",
   "a-TenantDataReloadEnabled-label": "Tenant Data Reload Enabled",
@@ -3034,7 +3145,7 @@
   "f-JDBCStore-a-WorkerCount-help": "The number of JDBC store worker threads to process the workload.",
 
   "a-WorkerPreferredBatchSize-label": "Worker Preferred Batch Size",
-  "f-JDBCStore-a-WorkerPreferredBatchSize-help": "Specifies the batch size when the Worker Count attribute is configured to a value greater than 1. Used to configure the workload the JDBC store incrementally puts on each worker thread. The workload consists of IO requests which are grouped and pushed to each JDBC worker thread for processing. If the I/O request is very large (for example 1M), then tune this attribute to a smaller value.",
+  "f-JDBCStore-a-WorkerPreferredBatchSize-help": "Specifies the batch size when the Worker Count attribute is configured to a value greater than 1. Used to configure the workload the JDBC store incrementally puts on each worker thread. The workload consists of I/O requests which are grouped and pushed to each JDBC worker thread for processing. If the I/O request is very large (for example 1M), then tune this attribute to a smaller value.",
 
   "a-WorkingDirectory-label": "Working Directory",
   "a-WrapJdbc-label": "Wrap JDBC",
