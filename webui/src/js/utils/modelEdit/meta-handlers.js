@@ -41,6 +41,22 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
           return type !== 'Custom'
         });
       };
+
+      this.fileStoreDisableDirectWriteWithCacheFields = attributeMap => {
+        const syncWritePolicy = attributeMap['SynchronousWritePolicy'];
+        return ko.computed(() => {
+          const policy = ModelEditHelper.getDerivedValue(syncWritePolicy.observable());
+          return policy !== 'Direct-Write-With-Cache';
+        });
+      };
+
+      this.persistentStoreDisableRestartFields = attributeMap => {
+        const restartInPlace = attributeMap['RestartInPlace'];
+        return ko.computed(() => {
+          const restart = ModelEditHelper.getDerivedValue(restartInPlace.observable());
+          return restart !== true
+        })
+      };
     }
 
     // return a singleton instance
