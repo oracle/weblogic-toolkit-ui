@@ -36,6 +36,8 @@
   "wtc-priority-mapping-tab-label": "Priority Mapping",
   "tux-connections-tab-label": "Connection Properties",
   "tux-security-tab-label": "Security Configuration",
+  "high-availability-tab-label": "High Availability",
+  "tuning-tab-label": "Tuning Parameters",
 
   "security-model-advanced-label": "Advanced",
   "security-model-custom-roles-label": "Custom Roles",
@@ -49,6 +51,8 @@
   "options-yes-label": "Yes",
   "options-none-label": "None",
   "options-off-label": "Off",
+  "options-always-label": "Always",
+  "options-minimal-label": "Minimal",
 
   "direction-jms-queue-to-tuxedo-queue-label": "JMS Queue to Tuxedo Queue",
   "direction-tuxedo-queue-to-jms-queue-label": "Tuxedo Queue to JMS Queue",
@@ -67,6 +71,13 @@
   "tux-ssl-two-way-label": "Two Way",
   "tux-keystores-location-custom-stores-label": "Custom Stores",
   "tux-keystores-location-wls-stores-label": "WLS Stores",
+  "file-store-sync-write-policy-direct-write-label": "Direct Write",
+  "file-store-sync-write-policy-direct-write-with-cache-label": "Direct Write with Cache",
+  "file-store-sync-write-policy-cache-flush-label": "Cache Flush",
+  "file-store-sync-write-policy-disabled-label": "Disabled",
+  "store-distribution-policy-distributed-label": "Distributed",
+  "store-distribution-policy-singleton-label": "Singleton",
+  "store-migration-policy-on-failure-label": "On Failure",
 
   "atp-type-label": "ATP",
   "certificate-issuer-plugin-label": "Certificate Issuer Plug-in",
@@ -315,7 +326,9 @@
   "a-BeforeCompletionIterationLimit-label": "Before Completion Iteration Limit",
   "a-BeginMarker-label": "Begin Marker",
   "a-BindAnonymouslyOnReferrals-label": "Bind Anonymously On Referrals",
+
   "a-BlockSize-label": "Block Size",
+  "f-FileStore-a-BlockSize-help": "The smallest addressable block, in bytes, of a file. When a native wlfileio driver is available and the block size has not been configured by the user, the store selects the minimum OS specific value for unbuffered (direct) I/O, if it is within the range [512, 8192]. A file store's block size does not change once the file store creates its files. Changes to block size only take effect for new file stores or after the current files have been deleted. See \"Tuning the Persistent Store\" in Tuning Performance of Oracle WebLogic Server.",
 
   "a-BlockTime-label": "Block Time",
   "f-WTCServer_WTCLocalTuxDom-a-BlockTime-help": "The maximum number of seconds this local Tuxedo access point allows for a blocking call. Must be between 0 and 2147483647, with the default value being 60.",
@@ -338,7 +351,10 @@
   "a-BytesThresholdLow-label": "Bytes Threshold Low",
   "a-COMEnabled-label": "COM Enabled",
   "a-CacheConfigurationFile-label": "Cache Configuration File",
+
   "a-CacheDirectory-label": "Cache Directory",
+  "f-FileStore-a-CacheDirectory-help": "The location of the cache directory for Direct-Write-With-Cache, ignored for other policies. When Direct-Write-With-Cache is specified as the SynchronousWritePolicy, cache files are created in addition to primary files (see Directory for the location of primary files). If a cache directory location is specified, the cache file path is CacheDirectory/WLStoreCache/StoreNameFileNum.DAT.cache. When specified, Oracle recommends using absolute paths, but if the directory location is a relative path, then CacheDirectory is created relative to the WebLogic Server instance's home directory. If \"\" or Null is specified, the Cache Directory is located in the current operating system temp directory as determined by the java.io.tmpdir Java System property (JDK's default: /tmp on UNIX, %TEMP% on Windows) and is TempDirectory/WLStoreCache/DomainName/unique-id/ StoreNameFileNum.DAT.cache. The value of java.io.tmpdir varies between operating systems and configurations, and can be overridden by passing -Djava.io.tmpdir=My_path on the JVM command line.",
+
   "a-CacheDiskSize-label": "Cache Disk Size",
   "a-CacheEnabled-label": "Cache Enabled",
   "a-CacheInAppDirectory-label": "Cache In App Directory",
@@ -488,7 +504,10 @@
   "f-WTCServer_WTCRemoteTuxDom-a-ConnPrincipalName-help": "The principal name used to verify the identity of this remote Tuxedo access point when it establishes a session connection with a local Tuxedo access point. If not specified, the connection principal name defaults to the AccessPointID for this access point. Note that this parameter only applies to domains of type TDOMAIN that are running Oracle Tuxedo 7.1 or later software.",
 
   "a-ConnectTimeout-label": "Connect Timeout",
+
   "a-ConnectionCachingPolicy-label": "Connection Caching Policy",
+  "f-JDBCStore-a-ConnectionCachingPolicy-help": "For advanced use only: sets the connection caching policy for the JDBC store.",
+
   "a-ConnectionCreationRetryFrequencySeconds-label": "Connection Creation Retry Frequency Seconds",
   "a-ConnectionFactory-label": "Connection Factory",
   "a-ConnectionFactoryJndiName-label": "Connection Factory JNDI Name",
@@ -547,7 +566,10 @@
   "a-CountOfTestFailuresTillFlush-label": "Count Of Test Failures Till Flush",
   "a-CrashRecoveryEnabled-label": "Crash Recovery Enabled",
   "a-CreateOnDemand-label": "Create On Demand",
+
   "a-CreateTableDDLFile-label": "Create Table DDL File",
+  "f-JDBCStore-a-CreateTableDDLFile-help": "Specifies the DDL (Data Definition Language) file to use for creating the JDBC store's backing table. This field is ignored when the JDBC store's backing table, WLStore, already exists.",
+
   "a-CredCacheMinViableTtl-label": "Cred Cache Min Viable TTL",
   "a-CredCacheSize-label": "Cred Cache Size",
   "a-CredentialEncrypted-label": "Credential Encrypted",
@@ -605,7 +627,10 @@
   "a-DataEncryptionAlgorithm-label": "Data Encryption Algorithm",
   "a-DataRetirementEnabled-label": "Data Retirement Enabled",
   "a-DataRetirementTestModeEnabled-label": "Data Retirement Test Mode Enabled",
+
   "a-DataSource-label": "Data Source",
+  "f-JDBCStore-a-DataSource-help": "The JDBC data source used by this JDBC store to access its backing table. The specified data source must use a non-XA JDBC driver since connection pools for XA JDBC drivers are not supported.",
+
   "a-DataSourceForAutomaticMigration-label": "Data Source For Automatic Migration",
   "a-DataSourceForJobScheduler-label": "Data Source For Job Scheduler",
   "a-DataSourceForSessionPersistence-label": "Data Source For Session Persistence",
@@ -1183,8 +1208,13 @@
   "a-DelegatedRequestMaxWaitMillis-label": "Delegated Request Max Wait Millis",
   "a-DelegatedRequestMinThreads-label": "Delegated Request Min Threads",
   "a-DelegatedRequestReadTimeoutMillis-label": "Delegated Request Read Timeout Millis",
+
   "a-DeletesPerBatchMaximum-label": "Deletes Per Batch Maximum",
+  "f-JDBCStore-a-DeletesPerBatchMaximum-help": "The maximum number of table rows that are deleted per database call. The default value is 20.",
+
   "a-DeletesPerStatementMaximum-label": "Deletes Per Statement Maximum",
+  "f-JDBCStore-a-DeletesPerStatementMaximum-help": "The maximum number of table rows that are deleted per database call. The default value is 20.",
+
   "a-DeliveryMode-label": "Delivery Mode",
 
   "a-DeliveryModeOverride-label": "Delivery Mode Override",
@@ -1244,10 +1274,16 @@
   "f-WTCServer_WTCtBridgeRedirect-a-Direction-help": "The direction of data flow. At least one redirection must be specified or the Tuxedo queuing bridge will fail to start and an error will be logged. Each defined direction is handled by starting a new thread.",
 
   "a-Directory-label": "Directory",
+  "f-FileStore-a-Directory-help": "The path name to the file system directory where the file store maintains its data files.",
+
   "a-DiscoveryAddress-label": "Discovery Address",
   "a-DispatchPolicy-label": "Dispatch Policy",
   "a-DistinguishedName-label": "Distinguished Name",
+
   "a-DistributionPolicy-label": "Distribution Policy",
+  "f-FileStore-a-DistributionPolicy-help": "Specifies how the instances of a configured JMS artifact are named and distributed when cluster-targeted. A JMS artifact is cluster-targeted when its target is directly set to a cluster, or when it is scoped to a resource group and the resource group is in turn targeted to a cluster. When this setting is configured on a store, it applies to all JMS artifacts that reference the store.",
+  "f-JDBCStore-a-DistributionPolicy-help": "Specifies how the instances of a configured JMS artifact are named and distributed when cluster-targeted. A JMS artifact is cluster-targeted when its target is directly set to a cluster, or when it is scoped to a resource group and the resource group is in turn targeted to a cluster. When this setting is configured on a store, it applies to all JMS artifacts that reference the store.",
+
   "a-DocumentBuilderFactory-label": "Document Builder Factory",
   "a-DomainKeystoresClientCertAlias-label": "Domain Keystores Client Cert Alias",
   "a-DomainKeystoresDomain-label": "Domain Keystores Domain",
@@ -1336,8 +1372,15 @@
   "a-ExtraEjbcOptions-label": "Extra Ejbc Options",
   "a-ExtraRmicOptions-label": "Extra Rmic Options",
   "a-FailOnUnknownRevocStatus-label": "Fail On Unknown Revoc Status",
+
   "a-FailOverLimit-label": "Fail Over Limit",
+  "f-FileStore-a-FailOverLimit-help": "Specify a limit for the number of cluster-targeted JMS artifact instances that can fail over to a particular JVM. This can be used to prevent too many instances from starting on a server, avoiding a system failure when starting too few servers of a formerly large cluster. A typical limit value should allow all instances to run in the smallest desired cluster size, which means (smallest-cluster-size * (limit + 1)) should equal or exceed the total number of instances. A value of -1 means there is no fail over limit (unlimited). A value of 0 prevents any fail overs of cluster-targeted JMS artifact instances, so no more than 1 instance will run per server (this is an instance that has not failed over). A value of 1 allows one fail-over instance on each server, so no more than two instances will run per server (one failed over instance plus an instance that has not failed over).",
+  "f-JDBCStore-a-FailOverLimit-help": "Specify a limit for the number of cluster-targeted JMS artifact instances that can fail over to a particular JVM. This can be used to prevent too many instances from starting on a server, avoiding a system failure when starting too few servers of a formerly large cluster. A typical limit value should allow all instances to run in the smallest desired cluster size, which means (smallest-cluster-size * (limit + 1)) should equal or exceed the total number of instances. A value of -1 means there is no fail over limit (unlimited). A value of 0 prevents any fail overs of cluster-targeted JMS artifact instances, so no more than 1 instance will run per server (this is an instance that has not failed over). A value of 1 allows one fail-over instance on each server, so no more than two instances will run per server (one failed over instance plus an instance that has not failed over).",
+
   "a-FailbackDelaySeconds-label": "Failback Delay Seconds",
+  "f-FileStore-a-FailbackDelaySeconds-help": "Specifies the amount of time, in seconds, to delay before failing a cluster-targeted JMS artifact instance back to its preferred server after the preferred server failed and was restarted. This delay allows time for the system to stabilize and dependent services to be restarted, preventing a system failure during a reboot. A value > 0 specifies the time, in seconds, to delay before failing a JMS artifact back to its user preferred server. A value of 0 indicates that the instance would never failback. A value of -1 indicates that there is no delay and the instance would failback immediately.",
+  "f-JDBCStore-a-FailbackDelaySeconds-help": "Specifies the amount of time, in seconds, to delay before failing a cluster-targeted JMS artifact instance back to its preferred server after the preferred server failed and was restarted. This delay allows time for the system to stabilize and dependent services to be restarted, preventing a system failure during a reboot. A value > 0 specifies the time, in seconds, to delay before failing a JMS artifact back to its user preferred server. A value of 0 indicates that the instance would never failback. A value of -1 indicates that there is no delay and the instance would failback immediately.",
+
   "a-FailoverAddress-label": "Failover Address",
   "a-FailoverRequestIfBusy-label": "Failover Request If Busy",
   "a-FailureAction-label": "Failure Action",
@@ -1368,7 +1411,10 @@
   "a-FieldPrefix-label": "Field Prefix",
   "a-FieldSuffix-label": "Field Suffix",
   "a-FileCount-label": "File Count",
+
   "a-FileLockingEnabled-label": "File Locking Enabled",
+  "f-FileStore-a-FileLockingEnabled-help": "Determines whether OS file locking is used. When file locking protection is enabled, a store boot fails if another store instance already has opened the store files. Do not disable this setting unless you have procedures in place to prevent multiple store instances from opening the same file. File locking is not required but helps prevent corruption in the event that two same-named file store instances attempt to operate in the same directories. This setting applies to both primary and cache files.",
+
   "a-FileMinSize-label": "File Min Size",
   "a-FileName-label": "File Name",
   "a-FileTimeSpan-label": "File Time Span",
@@ -1517,13 +1563,22 @@
   "a-InformRetryInterval-label": "Inform Retry Interval",
   "a-InformationAuditSeverityEnabled-label": "Information Audit Severity Enabled",
   "a-InitSql-label": "Init Sql",
+
   "a-InitialBootDelaySeconds-label": "Initial Boot Delay Seconds",
+  "f-FileStore-a-InitialBootDelaySeconds-help": "Specifies the amount of time, in seconds, to delay before starting a cluster-targeted JMS instance on a newly booted WebLogic Server instance. When this setting is configured on a store, it applies to all JMS artifacts that reference the store. This allows time for the system to stabilize and dependent services to be restarted, preventing a system failure during a reboot. A value > 0 is the time, in seconds, to delay before before loading resources after a failure and restart. A value of 0 specifies no delay.",
+  "f-JDBCStore-a-InitialBootDelaySeconds-help": "Specifies the amount of time, in seconds, to delay before starting a cluster-targeted JMS instance on a newly booted WebLogic Server instance. When this setting is configured on a store, it applies to all JMS artifacts that reference the store. This allows time for the system to stabilize and dependent services to be restarted, preventing a system failure during a reboot. A value > 0 is the time, in seconds, to delay before before loading resources after a failure and restart. A value of 0 specifies no delay.",
+
   "a-InitialCapacity-label": "Initial Capacity",
   "a-InitialContextFactory-label": "Initial Context Factory",
+
   "a-InitialSize-label": "Initial Size",
+  "f-FileStore-a-InitialSize-help": "The initial file size, in bytes.",
+
   "a-InitialWindowSize-label": "Initial Window Size",
   "a-InsertionPausedAtStartup-label": "Insertion Paused At Startup",
+
   "a-InsertsPerBatchMaximum-label": "Inserts Per Batch Maximum",
+  "f-JDBCStore-a-InsertsPerBatchMaximum-help": "The maximum number of table rows that are inserted per database call. The default value is 20.",
 
   "a-InstallDir-label": "Install Dir",
   "f-Application-a-InstallDir-help": "The path to the application's install-root directory, relative to the domain/config/deployments directory. When the installation directory is specified, SourcePath, PlanDir, and PlanPath are derived from this path and need not be specified. The default value for this is the name of the deployment.",
@@ -1546,7 +1601,10 @@
   "a-InvalidLoginUsersHighCount-label": "Invalid Login Users High Count",
   "a-InvocationTimeoutSeconds-label": "Invocation Timeout Seconds",
   "a-InvokeBeginEndRequest-label": "Invoke Begin End Request",
-  "a-IoBufferSize-label": "Io Buffer Size",
+
+  "a-IoBufferSize-label": "I/O Buffer Size",
+  "f-FileStore-IoBufferSize-help": "The I/O buffer size, in bytes, automatically rounded down to the nearest power of 2.",
+
   "a-IsDefaultAdmin-label": "Is Default Admin",
   "a-IsolatePartitionThreadLocals-label": "Isolate Partition Thread Locals",
   "a-Issuer-label": "Issuer",
@@ -1739,7 +1797,11 @@
   "a-LoggerSeverity-label": "Logger Severity",
   "a-LoggerSeverityProperties-label": "Logger Severity Properties",
   "a-LoggingEnabled-label": "Logging Enabled",
+
   "a-LogicalName-label": "Logical Name",
+  "f-FileStore-a-LogicalName-help": "The name used by subsystems to refer to different stores on different servers using the same name. For example, an EJB that uses the timer service may refer to its store using the logical name, and this name may be valid on multiple servers in the same cluster, even if each server has a store with a different physical name. Multiple stores in the same domain or the same cluster may share the same logical name. However, a given logical name may not be assigned to more than one store on the same server.",
+  "f-JDBCStore-a-LogicalName-help": "The name used by subsystems to refer to different stores on different servers using the same name. For example, an EJB that uses the timer service may refer to its store using the logical name, and this name may be valid on multiple servers in the same cluster, even if each server has a store with a different physical name. Multiple stores in the same domain or the same cluster may share the same logical name. However, a given logical name may not be assigned to more than one store on the same server.",
+
   "a-LoginAttemptsWhileLockedTotalCount-label": "Login Attempts While Locked Total Count",
   "a-LoginDelaySeconds-label": "Login Delay Seconds",
   "a-LoginReturnQueryParameter-label": "Login Return Query Parameter",
@@ -1794,6 +1856,8 @@
   "f-WTCServer_WTCRemoteTuxDom-a-MaxEncryptBits-help": "The maximum encryption key length (in bits) this remote Tuxedo access point uses when establishing a session connection. A value of 0 indicates no encryption is used.",
 
   "a-MaxFileSize-label": "Max File Size",
+  "f-FileStore-a-MaxFileSize-help": "The maximum file size, in bytes, of an individual data file. A small number of larger files is normally preferred over a large number of smaller files as each file allocates Window Buffer and file handles. If MaxFileSize is larger than 2^24 * BlockSize, then MaxFileSize is ignored, and the value becomes 2^24 * BlockSize. The default BlockSize is 512, and 2^24 * 512 is 8 GB.",
+
   "a-MaxFrameSize-label": "Max Frame Size",
   "a-MaxGroupHierarchiesInCache-label": "Max Group Hierarchies In Cache",
   "a-MaxGroupMembershipSearchLevel-label": "Max Group Membership Search Level",
@@ -1841,7 +1905,10 @@
   "a-MaxTransactionsHealthIntervalMillis-label": "Max Transactions Health Interval Millis",
   "a-MaxUniqueNameStatistics-label": "Max Unique Name Statistics",
   "a-MaxWebLogicPrincipalsInCache-label": "Max WebLogic Principals In Cache",
+
   "a-MaxWindowBufferSize-label": "Max Window Buffer Size",
+  "f-FileStore-a-MaxWindowBufferSize-help": "The maximum amount of data, in bytes and rounded down to the nearest power of 2, mapped into the JVM's address space per primary store file. Applies to synchronous write policies Direct-Write-With-Cache and Disabled but only when the native wlfileio library is loaded.\n\nA window buffer does not consume Java heap memory, but does consume off-heap (native) memory. If the store is unable to allocate the requested buffer size, it allocates smaller and smaller buffers until it reaches MinWindowBufferSize, and then fails if cannot honor MinWindowBufferSize.",
+
   "a-MaxXACallMillis-label": "Max XA Call Millis",
   "a-MaximumDynamicServerCount-label": "Maximum Dynamic Server Count",
   "a-MaximumMessageSize-label": "Maximum Message Size",
@@ -1886,7 +1953,10 @@
   "a-MibDataRefreshInterval-label": "Mib Data Refresh Interval",
   "a-MigrationBasis-label": "Migration Basis",
   "a-MigrationCheckpointIntervalSeconds-label": "Migration Checkpoint Interval Seconds",
+
   "a-MigrationPolicy-label": "Migration Policy",
+  "f-FileStore-a-MigrationPolicy-help": "Controls migration and restart behavior of cluster-targeted JMS service artifact instances. When this setting is configured on a cluster-targeted store, it applies to all JMS artifacts that reference the store. See the migratable target settings for enabling migration and restart on migratable-targeted JMS artifacts.",
+  "f-JDBCStore-a-MigrationPolicy-help": "Controls migration and restart behavior of cluster-targeted JMS service artifact instances. When this setting is configured on a cluster-targeted store, it applies to all JMS artifacts that reference the store. See the migratable target settings for enabling migration and restart on migratable-targeted JMS artifacts.",
 
   "a-MillisToSleepBetweenAttempts-label": "Milliseconds To Sleep Between Attempts",
   "f-SingletonService-a-MillisToSleepBetweenAttempts-help": "Controls how long of a pause there should be between the migration attempts described in getAdditionalMigrationAttempts(). Note that this delay only happens when the service has failed to come up on every server. It does not cause any sort of delay between attempts to migrate otherwise.",
@@ -1910,7 +1980,10 @@
   "a-MinThreadsConstraint-label": "Min Threads Constraint",
   "a-MinThreadsConstraintCap-label": "Min Threads Constraint Cap",
   "a-MinUppercaseCharacters-label": "Min Uppercase Characters",
+
   "a-MinWindowBufferSize-label": "Min Window Buffer Size",
+  "f-FileStore-a-MinWindowBufferSize-help": "The minimum amount of data, in bytes and rounded down to the nearest power of 2, mapped into the JVM's address space per primary store file. Applies to synchronous write policies Direct-Write-With-Cache and Disabled, but only when a native wlfileio library is loaded.",
+
   "a-MinimumParserPoolSize-label": "Minimum Parser Pool Size",
   "a-MinimumPasswordLength-label": "Minimum Password Length",
   "a-MinimumPoolSize-label": "Minimum Pool Size",
@@ -1982,7 +2055,11 @@
   "a-NumOfRetriesBeforeMsiMode-label": "Num Of Retries Before Msi Mode",
   "a-NumberOfFilesLimit-label": "Number Of Files Limit",
   "a-NumberOfFilesLimited-label": "Number Of Files Limited",
+
   "a-NumberOfRestartAttempts-label": "Number Of Restart Attempts",
+  "f-FileStore-a-NumberOfRestartAttempts-help": "Specifies the maximum number of restart attempts. A value > 0 specifies the maximum number of restart attempts. A value of 0 specifies the same behavior as setting RestartInPlace to false. A value of -1 means infinite retry restart until it either starts or the server instance shuts down.",
+  "f-JDBCStore-a-NumberOfRestartAttempts-help": "Specifies the maximum number of restart attempts. A value > 0 specifies the maximum number of restart attempts. A value of 0 specifies the same behavior as setting RestartInPlace to false. A value of -1 means infinite retry restart until it either starts or the server instance shuts down.",
+
   "a-NumberOfServersInClusterAddress-label": "Number Of Servers In Cluster Address",
   "a-OCMEnabled-label": "OCM Enabled",
   "a-OPSSSecrets-label": "OPSS Secrets",
@@ -2013,7 +2090,10 @@
   "a-OptimisticSerialization-label": "Optimistic Serialization",
   "a-OracleEnableJavaNetFastPath-label": "Oracle Enable Java Net Fast Path",
   "a-OracleOptimizeUtf8Conversion-label": "Oracle Optimize Utf 8 Conversion",
+
   "a-OraclePiggybackCommitEnabled-label": "Oracle Piggyback Commit Enabled",
+  "f-JDBCStore-a-OraclePiggybackCommitEnabled-help": "Enables committing a batch of INSERT or DELETE operations with the last operation of the transaction instead of issuing a separate commit call to database server which saves a server round trip. This feature benefits applications that have many transactions of a small number of operations or small messages. Deprecated in 12.2.1.3.1.",
+
   "a-OracleProxySession-label": "Oracle Proxy Session",
   "a-OrganizationName-label": "Organization Name",
   "a-OrganizationUrl-label": "Organization URL",
@@ -2051,7 +2131,11 @@
   "a-ParamValue-label": "Param Value",
   "a-Parameter-label": "Parameter",
   "a-ParserClassName-label": "Parser Class Name",
+
   "a-PartialClusterStabilityDelaySeconds-label": "Partial Cluster Stability Delay Seconds",
+  "f-FileStore-a-PartialClusterStabilityDelaySeconds-help": "Specifies the amount of time, in seconds, to delay before a partially started cluster starts all cluster-targeted JMS artifact instances that are configured with a Migration Policy of Always or On-Failure. Before this timeout expires or all servers are running, a cluster starts a subset of such instances based on the total number of servers running and the configured cluster size. Once the timeout expires or all servers have started, the system considers the cluster stable and starts any remaining services. This delay ensures that services are balanced across a cluster even if the servers are started sequentially. It is ignored after a cluster is fully started (stable) or when individual servers are started. A value > 0 specifies the time, in seconds, to delay before a partially started cluster starts dynamically configured services. A value of 0 specifies no delay.",
+  "f-JDBCStore-a-PartialClusterStabilityDelaySeconds-help": "Specifies the amount of time, in seconds, to delay before a partially started cluster starts all cluster-targeted JMS artifact instances that are configured with a Migration Policy of Always or On-Failure. Before this timeout expires or all servers are running, a cluster starts a subset of such instances based on the total number of servers running and the configured cluster size. Once the timeout expires or all servers have started, the system considers the cluster stable and starts any remaining services. This delay ensures that services are balanced across a cluster even if the servers are started sequentially. It is ignored after a cluster is fully started (stable) or when individual servers are started. A value > 0 specifies the time, in seconds, to delay before a partially started cluster starts dynamically configured services. A value of 0 specifies no delay.",
+
   "a-Partition-label": "Partition",
   "a-PartitionChannel-label": "Partition Channel",
   "a-PartitionDebugLoggingEnabled-label": "Partition Debug Logging Enabled",
@@ -2127,7 +2211,10 @@
   "a-PreferredSecondaryGroup-label": "Preferred Secondary Group",
   "a-PreferredStoreSizeLimit-label": "Preferred Store Size Limit",
   "a-PrefetchEnums-label": "Prefetch Enums",
+
   "a-PrefixName-label": "Prefix Name",
+  "f-JDBCStore-a-PrefixName-help": "The prefix for the JDBC store's database table (WLStore), in the following format: [[[catalog.]schema.]prefix]. Each period symbol in the [[catalog.]schema.]prefix format is significant, where schema generally corresponds to username in many databases. When no prefix is specified, the JDBC store table name is simply WLStore and the database implicitly determines the schema according to the JDBC connection's user. As a best practice, you should always configure a prefix for the JDBC WLStore table name.",
+
   "a-PreserveMsgProperty-label": "Preserve Msg Property",
   "a-Preserved-label": "Preserved",
   "a-PrimaryAddress-label": "Primary Address",
@@ -2185,7 +2272,11 @@
   "a-Realm-label": "Realm",
   "a-RealmBootStrapVersion-label": "Realm Boot Strap Version",
   "a-RebalanceDelayPeriods-label": "Rebalance Delay Periods",
+
   "a-RebalanceEnabled-label": "Rebalance Enabled",
+  "f-FileStore-a-RebalanceEnabled-help": "If set to true, then rebalance running cluster-targeted JMS instances when the system is idle and instances are unevenly distributed. The system is considered idle when the Partial Cluster Stability Delay and Initial Boot Delay have passed, and no instances have moved plus no server status has changed within the last two system check periods (typically 10 seconds between each check). Two is the default, you can tune this higher using Rebalance Delay Periods on the Cluster bean.",
+  "f-JDBCStore-a-RebalanceEnabled-help": "If set to true, then rebalance running cluster-targeted JMS instances when the system is idle and instances are unevenly distributed. The system is considered idle when the Partial Cluster Stability Delay and Initial Boot Delay have passed, and no instances have moved plus no server status has changed within the last two system check periods (typically 10 seconds between each check). Two is the default, you can tune this higher using Rebalance Delay Periods on the Cluster bean.",
+
   "a-RebalanceOnUpEvent-label": "Rebalance On Up Event",
   "a-ReceivingPausedAtStartup-label": "Receiving Paused At Startup",
   "a-Recipient-label": "Recipient",
@@ -2195,8 +2286,13 @@
   "a-ReconnectDelayMaximum-label": "Reconnect Delay Maximum",
   "a-ReconnectDelayMinimum-label": "Reconnect Delay Minimum",
   "a-ReconnectPolicy-label": "Reconnect Policy",
-  "a-ReconnectRetryIntervalMillis-label": "Reconnect Retry Interval Millis",
-  "a-ReconnectRetryPeriodMillis-label": "Reconnect Retry Period Millis",
+
+  "a-ReconnectRetryIntervalMillis-label": "Reconnect Retry Interval Milliseconds",
+  "f-JDBCStore-a-ReconnectRetryIntervalMillis-help": "The length of time in milliseconds between reconnection attempts during the reconnection retry period. The reconnection interval applies to JDBC connections regardless of the database that is used for the JDBC store. The default value is 200 milliseconds.",
+
+  "a-ReconnectRetryPeriodMillis-label": "Reconnect Retry Period Milliseconds",
+  "f-JDBCStore-a-ReconnectRetryPeriodMillis-help": "Returns the length of time in milliseconds during which the persistent store will attempt to re-establish a connection to the database. Successive reconnection attempts will be attempted after a fixed delay that is specified by the reconnection retry interval. The reconnection period applies to JDBC connections regardless of the database that is used for the JDBC store. The default value is 1000.",
+
   "a-RecoverOnlyOnce-label": "Recover Only Once",
   "a-RecoverySiteName-label": "Recovery Site Name",
   "a-RecoveryThresholdMillis-label": "Recovery Threshold Millis",
@@ -2295,7 +2391,11 @@
   "a-RestInvocationMethodType-label": "Rest Invocation Method Type",
   "a-RestartDelay-label": "Restart Delay",
   "a-RestartDelaySeconds-label": "Restart Delay Seconds",
+
   "a-RestartInPlace-label": "Restart In Place",
+  "f-FileStore-a-RestartInPlace-help": "Enables a periodic automatic in-place restart of failed cluster-targeted or standalone-server-targeted JMS artifact instance(s) running on healthy WebLogic Server instances. See the migratable target settings for in-place restarts of migratable-targeted JMS artifacts. When the Restart In Place setting is configured on a store, it applies to all JMS artifacts that reference the store.",
+  "f-JDBCStore-a-RestartInPlace-help": "Enables a periodic automatic in-place restart of failed cluster-targeted or standalone-server-targeted JMS artifact instance(s) running on healthy WebLogic Server instances. See the migratable target settings for in-place restarts of migratable-targeted JMS artifacts. When the Restart In Place setting is configured on a store, it applies to all JMS artifacts that reference the store.",
+
   "a-RestartIntervalSeconds-label": "Restart Interval Seconds",
   "a-RestartLoopProtectionEnabled-label": "Restart Loop Protection Enabled",
   "a-RestartMax-label": "Restart Max",
@@ -2401,7 +2501,11 @@
   "a-ScriptExecutorCommand-label": "Script Executor Command",
   "a-SdpEnabled-label": "Sdp Enabled",
   "a-Second-label": "Second",
+
   "a-SecondsBetweenRestarts-label": "Seconds Between Restarts",
+  "f-FileStore-a-SecondsBetweenRestarts-help": "Specifies the amount of time, in seconds, to wait in between attempts to restart a failed service instance.",
+  "f-JDBCStore-a-SecondsBetweenRestarts-help": "Specifies the amount of time, in seconds, to wait in between attempts to restart a failed service instance.",
+
   "a-SecondsToTrustAnIdlePoolConnection-label": "Seconds To Trust An Idle Pool Connection",
   "a-SecureClusterBroadcastEnabled-label": "Secure Cluster Broadcast Enabled",
   "a-SecureListener-label": "Secure Listener",
@@ -2615,7 +2719,10 @@
   "a-SynchronizedSessionTimeoutEnabled-label": "Synchronized Session Timeout Enabled",
   "a-SynchronousEventPersistenceEnabled-label": "Synchronous Event Persistence Enabled",
   "a-SynchronousPrefetchMode-label": "Synchronous Prefetch Mode",
+
   "a-SynchronousWritePolicy-label": "Synchronous Write Policy",
+  "f-FileStore-a-SynchronousWritePolicy-help": "The disk write policy that determines how the file store writes data to disk. This policy also affects the JMS file store's performance, scalability, and reliability. Oracle recommends Direct-Write-With-Cache which tends to have the highest performance. The default value is Direct-Write.",
+
   "a-SynthesizeAllowListEnabled-label": "Synthesize Allow List Enabled",
   "a-SysPropValue-label": "Sys Prop Value",
   "a-SystemId-label": "System ID",
@@ -2673,7 +2780,10 @@
   "a-ThreadsIncrease-label": "Threads Increase",
   "a-ThreadsMaximum-label": "Threads Maximum",
   "a-ThreadsMinimum-label": "Threads Minimum",
+
   "a-ThreeStepThreshold-label": "Three Step Threshold",
+  "f-JDBCStore-a-ThreeStepThreshold-help": "Specifies the threshold, in bytes, when the JDBC store uses 3 steps (insert, select, populate) instead of 1 step (insert) to populate an Oracle Blob data type. Applies only to Oracle databases where a Blob data type is used instead of the default Long Raw data type for record data. The default value is 200000.",
+
   "a-Threshold-label": "Threshold",
   "a-ThresholdHigh-label": "Threshold High",
   "a-ThresholdLow-label": "Threshold Low",
@@ -2919,8 +3029,13 @@
 
   "a-WorkContextPropagationEnabled-label": "Work Context Propagation Enabled",
   "a-WorkManagerForRemoteSessionFetching-label": "Work Manager For Remote Session Fetching",
+
   "a-WorkerCount-label": "Worker Count",
+  "f-JDBCStore-a-WorkerCount-help": "The number of JDBC store worker threads to process the workload.",
+
   "a-WorkerPreferredBatchSize-label": "Worker Preferred Batch Size",
+  "f-JDBCStore-a-WorkerPreferredBatchSize-help": "Specifies the batch size when the Worker Count attribute is configured to a value greater than 1. Used to configure the workload the JDBC store incrementally puts on each worker thread. The workload consists of IO requests which are grouped and pushed to each JDBC worker thread for processing. If the I/O request is very large (for example 1M), then tune this attribute to a smaller value.",
+
   "a-WorkingDirectory-label": "Working Directory",
   "a-WrapJdbc-label": "Wrap JDBC",
   "a-WrapTypes-label": "Wrap Types",
@@ -2928,7 +3043,11 @@
   "a-WsatIssuedTokenEnabled-label": "WSAT Issued Token Enabled",
   "a-WsatTransportSecurityMode-label": "WSAT Transport Security Mode",
   "a-XAConnectionFactoryEnabled-label": "XA Connection Factory Enabled",
+
   "a-XAResourceName-label": "XA Resource Name",
+  "f-FileStore-a-XAResourceName-help": "Overrides the name of the XAResource that this store registers with JTA. You should not normally set this attribute. Its purpose is to allow the name of the XAResource to be overridden when a store has been upgraded from an older release and the store contained prepared transactions. The generated name should be used in all other cases.",
+  "f-JDBCStore-a-XAResourceName-help": "Overrides the name of the XAResource that this store registers with JTA. You should not normally set this attribute. Its purpose is to allow the name of the XAResource to be overridden when a store has been upgraded from an older release and the store contained prepared transactions. The generated name should be used in all other cases.",
+
   "a-XMLEntityCache-label": "XML Entity Cache",
   "a-XMLRegistry-label": "XML Registry",
   "a-XPoweredByHeaderLevel-label": "X Powered By Header Level",

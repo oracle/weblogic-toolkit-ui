@@ -11,6 +11,8 @@ define(
     'text!./Cluster.json',
     'text!./DbClientDataDirectory.json',
     'text!./DomainInfo.json',
+    'text!./FileStore.json',
+    'text!./JDBCStore.json',
     'text!./JDBCSystemResource.json',
     'text!./Library.json',
     'text!./OPSSInitialization.json',

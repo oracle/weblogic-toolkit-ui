@@ -1,0 +1,103 @@
+{
+  "JDBCStore": {
+    "summaryAttributes": {
+      "PrefixName": {},
+      "DataSource": {},
+      "Target": {}
+    },
+    "attributeDetails": {
+      "ConnectionCachingPolicy": {
+        "options": [
+          { "value": "DEFAULT", "labelKey": "options-default-label" },
+          { "value": "MINIMAL", "labelKey": "options-minimal-label" },
+          { "value": "NONE", "labelKey": "options-none-label" }
+        ]
+      },
+      "DistributionPolicy": {
+        "options": [
+          { "value": "Distributed", "labelKey": "store-distribution-policy-distributed-label" },
+          { "value": "Singleton", "labelKey": "store-distribution-policy-singleton-label" }
+        ]
+      },
+      "MigrationPolicy": {
+        "options": [
+          { "value": "Off", "labelKey": "options-off-label" },
+          { "value": "Off", "labelKey": "store-migration-policy-on-failure-label" },
+          { "value": "Always", "labelKey": "options-always-label" }
+        ]
+      },
+      "NumberOfRestartAttempts": {
+        "disabled": "persistentStoreDisableRestartFields"
+      },
+      "SecondsBetweenRestarts": {
+        "disabled": "persistentStoreDisableRestartFields"
+      }
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "PrefixName",
+              "DataSource",
+              "DeploymentOrder",
+              "Notes",
+              "Target"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "attributes": [
+              "LogicalName",
+              "XAResourceName",
+              "CreateTableDDLFile"
+            ],
+            "addRemainingAttributes": true
+          },
+          {
+            "type": "hidden",
+            "attributes": [
+              "ConnectionPool"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "high-availability-tab-label",
+        "attributes": [
+          "DistributionPolicy",
+          "MigrationPolicy",
+          "RestartInPlace",
+          "RebalanceEnabled",
+          "NumberOfRestartAttempts",
+          "SecondsBetweenRestarts",
+          "InitialBootDelaySeconds",
+          "FailbackDelaySeconds",
+          "PartialClusterStabilityDelaySeconds",
+          "FailOverLimit",
+          "ReconnectRetryIntervalMillis",
+          "ReconnectRetryPeriodMillis"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "tuning-tab-label",
+        "attributes": [
+            "ConnectionCachingPolicy",
+            "OraclePiggybackCommitEnabled",
+            "DeletesPerBatchMaximum",
+            "InsertsPerBatchMaximum",
+            "DeletesPerStatementMaximum",
+            "ThreeStepThreshold",
+            "WorkerCount",
+            "WorkerPreferredBatchSize"
+        ]
+      }
+    ]
+  }
+}

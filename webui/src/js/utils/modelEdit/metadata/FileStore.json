@@ -1,0 +1,97 @@
+{
+  "FileStore": {
+    "summaryAttributes": {
+      "Directory": {},
+      "Target": {}
+    },
+    "attributeDetails": {
+      "CacheDirectory": {
+        "disabled": "fileStoreDisableDirectWriteWithCacheFields"
+      },
+      "DistributionPolicy": {
+        "options": [
+          { "value": "Distributed", "labelKey": "store-distribution-policy-distributed-label" },
+          { "value": "Singleton", "labelKey": "store-distribution-policy-singleton-label" }
+        ]
+      },
+      "MaxWindowBufferSize": {
+        "disabled": "fileStoreDisableDirectWriteWithCacheFields"
+      },
+      "MigrationPolicy": {
+        "options": [
+          { "value": "Off", "labelKey": "options-off-label" },
+          { "value": "Off", "labelKey": "store-migration-policy-on-failure-label" },
+          { "value": "Always", "labelKey": "options-always-label" }
+        ]
+      },
+      "MinWindowBufferSize": {
+        "disabled": "fileStoreDisableDirectWriteWithCacheFields"
+      },
+      "NumberOfRestartAttempts": {
+        "disabled": "persistentStoreDisableRestartFields"
+      },
+      "SecondsBetweenRestarts": {
+        "disabled": "persistentStoreDisableRestartFields"
+      },
+      "SynchronousWritePolicy": {
+        "options": [
+          { "value": "Direct-Write", "labelKey": "file-store-sync-write-policy-direct-write-label" },
+          { "value": "Direct-Write-With-Cache", "labelKey": "file-store-sync-write-policy-direct-write-with-cache-label" },
+          { "value": "Cache-Flush", "labelKey": "file-store-sync-write-policy-cache-flush-label" },
+          { "value": "Disabled", "labelKey": "file-store-sync-write-policy-disabled-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "Directory",
+              "SynchronousWritePolicy",
+              "CacheDirectory",
+              "DeploymentOrder",
+              "Notes",
+              "Target"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "attributes": [
+              "LogicalName",
+              "XAResourceName",
+              "MinWindowBufferSize",
+              "MaxWindowBufferSize",
+              "IoBufferSize",
+              "BlockSize",
+              "InitialSize",
+              "MaxFileSize",
+              "FileLockingEnabled"
+            ],
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "high-availability-tab-label",
+        "attributes": [
+          "DistributionPolicy",
+          "MigrationPolicy",
+          "RestartInPlace",
+          "RebalanceEnabled",
+          "NumberOfRestartAttempts",
+          "SecondsBetweenRestarts",
+          "InitialBootDelaySeconds",
+          "FailbackDelaySeconds",
+          "PartialClusterStabilityDelaySeconds",
+          "FailOverLimit"
+        ]
+      }
+    ]
+  }
+}
