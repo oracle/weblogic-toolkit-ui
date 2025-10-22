@@ -19,6 +19,7 @@ define(
     'text!./OPSSInitialization.json',
     'text!./PluginDeployment.json',
     'text!./RCUDbInfo.json',
+    'text!./SAFAgent.json',
     'text!./Server.json',
     'text!./ShutdownClass.json',
     'text!./SingletonService.json',
