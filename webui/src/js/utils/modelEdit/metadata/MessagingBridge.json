@@ -1,18 +1,11 @@
 {
-  "JDBCStore": {
+  "MessagingBridge": {
     "summaryAttributes": {
-      "PrefixName": {},
-      "DataSource": {},
-      "Target": {}
+      "QualityOfService": {},
+      "SourceDestination": {},
+      "TargetDestination": {}
     },
     "attributeDetails": {
-      "ConnectionCachingPolicy": {
-        "options": [
-          { "value": "DEFAULT", "labelKey": "options-default-label" },
-          { "value": "MINIMAL", "labelKey": "options-minimal-label" },
-          { "value": "NONE", "labelKey": "options-none-label" }
-        ]
-      },
       "DistributionPolicy": {
         "options": [
           { "value": "Distributed", "labelKey": "store-distribution-policy-distributed-label" },
@@ -26,11 +19,12 @@
           { "value": "Always", "labelKey": "options-always-label" }
         ]
       },
-      "NumberOfRestartAttempts": {
-        "disabled": "persistentStoreDisableRestartFields"
-      },
-      "SecondsBetweenRestarts": {
-        "disabled": "persistentStoreDisableRestartFields"
+      "QualityOfService": {
+        "options": [
+          { "value": "Exactly-once", "labelKey":  "options-exactly-once-label" },
+          { "value": "Atmost-once", "labelKey":  "options-at-most-once-label" },
+          { "value": "Duplicates-okay", "labelKey":  "options-duplicates-okay-label" }
+        ]
       }
     },
     "sections": [
@@ -41,8 +35,16 @@
           {
             "type": "attributes",
             "attributes": [
-              "PrefixName",
-              "DataSource",
+              "SourceDestination",
+              "TargetDestination",
+              "QualityOfService",
+              "Selector",
+              "AsyncEnabled",
+              "DurabilityEnabled",
+              "PreserveMsgProperty",
+              "QosDegradationAllowed",
+              "Started",
+              "IdleTimeMaximum",
               "DeploymentOrder",
               "Notes",
               "Target"
@@ -51,19 +53,17 @@
           {
             "type": "attributesCollapsible",
             "labelKey": "advanced-label",
-            "attributes": [
-              "LogicalName",
-              "XAResourceName",
-              "CreateTableDDLFile"
-            ],
             "addRemainingAttributes": true
-          },
-          {
-            "type": "hidden",
-            "attributes": [
-              "ConnectionPool"
-            ]
           }
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "reconnect-parameters-tab-label",
+        "attributes": [
+          "ReconnectDelayMinimum",
+          "ReconnectDelayIncrease",
+          "ReconnectDelayMaximum"
         ]
       },
       {
@@ -74,28 +74,21 @@
           "MigrationPolicy",
           "RestartInPlace",
           "RebalanceEnabled",
-          "NumberOfRestartAttempts",
           "SecondsBetweenRestarts",
+          "NumberOfRestartAttempts",
           "InitialBootDelaySeconds",
           "FailbackDelaySeconds",
           "PartialClusterStabilityDelaySeconds",
-          "FailOverLimit",
-          "ReconnectRetryIntervalMillis",
-          "ReconnectRetryPeriodMillis"
+          "FailOverLimit"
         ]
       },
       {
         "type": "attributesTab",
-        "labelKey": "tuning-tab-label",
+        "labelKey": "transaction-parameters-tab-label",
         "attributes": [
-            "ConnectionCachingPolicy",
-            "OraclePiggybackCommitEnabled",
-            "DeletesPerBatchMaximum",
-            "InsertsPerBatchMaximum",
-            "DeletesPerStatementMaximum",
-            "ThreeStepThreshold",
-            "WorkerCount",
-            "WorkerPreferredBatchSize"
+          "TransactionTimeout",
+          "BatchSize",
+          "BatchInterval"
         ]
       }
     ]

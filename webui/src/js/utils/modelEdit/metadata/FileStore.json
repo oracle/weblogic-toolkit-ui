@@ -20,7 +20,7 @@
       "MigrationPolicy": {
         "options": [
           { "value": "Off", "labelKey": "options-off-label" },
-          { "value": "Off", "labelKey": "store-migration-policy-on-failure-label" },
+          { "value": "On-Failure", "labelKey": "store-migration-policy-on-failure-label" },
           { "value": "Always", "labelKey": "options-always-label" }
         ]
       },

@@ -1,0 +1,43 @@
+{
+  "JMSBridgeDestination": {
+    "summaryAttributes": {
+      "ConnectionURL": {},
+      "DestinationJNDIName": {}
+    },
+    "attributeDetails": {
+      "DestinationType": {
+        "options": [
+          { "value": "Queue", "labelKey": "options-queue-label" },
+          { "value": "Topic", "labelKey": "options-topic-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "ConnectionURL",
+          "DestinationType",
+          "InitialContextFactory",
+          "AdapterJNDIName",
+          "ConnectionFactoryJndiName",
+          "DestinationJNDIName",
+          "UserName",
+          "UserPasswordEncrypted",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "Classpath"
+        ]
+      }
+    ]
+  }
+}
