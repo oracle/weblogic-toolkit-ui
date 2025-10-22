@@ -9,6 +9,7 @@ define(
   [
     'text!./Application.json',
     'text!./Cluster.json',
+    'text!./CoherenceClusterSystemResource.json',
     'text!./DbClientDataDirectory.json',
     'text!./DomainInfo.json',
     'text!./FileStore.json',
@@ -16,6 +17,7 @@ define(
     'text!./JDBCSystemResource.json',
     'text!./JMSBridgeDestination.json',
     'text!./JMSServer.json',
+    'text!./JMSSystemResource.json',
     'text!./Library.json',
     'text!./MessagingBridge.json',
     'text!./OPSSInitialization.json',
@@ -27,6 +29,7 @@ define(
     'text!./SingletonService.json',
     'text!./StartupClass.json',
     'text!./Topology.json',
+    'text!./WLDFSystemResource.json',
     'text!./WLSPolicies.json',
     'text!./WLSRoles.json',
     'text!./WLSUserPasswordCredentialMappings.json',

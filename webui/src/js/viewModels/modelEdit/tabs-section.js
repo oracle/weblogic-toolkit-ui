@@ -70,8 +70,9 @@ function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper, 
       };
 
       if(tab.type === 'folderTab') {
-        const folderName = tab.folder;  // TODO: allow absolute paths?
-        const folderPath = [...MODEL_PATH, folderName];
+        const folderName = tab.folder;  // TODO: allow absolute folder paths?
+        const folderNames = folderName.split('/');
+        const folderPath = [...MODEL_PATH, ...folderNames];
         const aliasPath = AliasHelper.getAliasPath(folderPath);
         const label = tab.labelKey ? MessageHelper.t(tab.labelKey) : null;
         tabEntry.label = label || MessageHelper.getFolderLabel(aliasPath);
@@ -100,8 +101,8 @@ function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper, 
     if(IS_TOP_SECTIONS && !REMAINING_FOLDERS_ASSIGNED && REMAINING_FOLDERS.length) {
       REMAINING_FOLDERS.forEach(folderName => {
         const itemKey = 'tab-' + lastId++;
-
-        const folderPath = [...MODEL_PATH, folderName];
+        const folderNames = folderName.split('/');
+        const folderPath = [...MODEL_PATH, ...folderNames];
         const aliasPath = AliasHelper.getAliasPath(folderPath);
         const tabType = AliasHelper.isMultiplePath(folderPath) ? 'multiFolder' : 'singleFolder';
         const label = MessageHelper.getFolderLabel(aliasPath);

@@ -164,9 +164,15 @@ function (ko, jsYaml, project, utils,
         validators (for controls)
      */
 
-    this.createAttributeMap = (modelPath, attributeOverrides, subscriptions, tempModel) => {
+    this.createAttributeMap = (modelPath, subscriptions) => {
       const attributeMap = {};
 
+      this.updateAttributeMap(attributeMap, modelPath, subscriptions);
+
+      return attributeMap;
+    };
+
+    this.updateAttributeMap = (attributeMap, modelPath, subscriptions) => {
       const aliasAttributesMap = AliasHelper.getAttributesMap(modelPath);
       for (const [attributeName, valueMap] of Object.entries(aliasAttributesMap)) {
         const attribute = {
@@ -195,9 +201,9 @@ function (ko, jsYaml, project, utils,
 
         subscriptions.push(attribute.observable.subscribe(newValue => {
           if(newValue === null) {
-            this.deleteModelElement(attribute.path, attribute.name, tempModel);
+            this.deleteModelElement(attribute.path, attribute.name);
           } else {
-            const editModel = tempModel || this.getCurrentModel();
+            const editModel = this.getCurrentModel();
             const folder = findOrCreatePath(editModel, attribute.path);
             folder[attribute.name] = getModelValue(newValue, attribute);
           }
@@ -206,7 +212,6 @@ function (ko, jsYaml, project, utils,
 
         attributeMap[attributeName] = attribute;
       }
-      return attributeMap;
     };
 
     this.getRemainingNames = (nameMap, knownNames) => {
