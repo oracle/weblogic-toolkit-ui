@@ -40,6 +40,7 @@
   "tuning-tab-label": "Tuning Parameters",
   "paging-configuration-tab-label": "Paging Configuration",
   "thresholds-tab-label": "Thresholds",
+  "quotas-tab-label": "Quotas",
 
   "security-model-advanced-label": "Advanced",
   "security-model-custom-roles-label": "Custom Roles",
@@ -171,7 +172,10 @@
 
   "a-AccessTokenContextPath-label": "Access Token Context Path",
   "a-AccessTokenTimeoutWindow-label": "Access Token Timeout Window",
+
   "a-AcknowledgeInterval-label": "Acknowledge Interval",
+  "f-SAFAgent-a-AcknowledgeInterval-help": "The maximum interval between two successive acknowledgements sent by the receiving side. A value of -1 specifies that there is no time limit between successive acknowledgement.",
+
   "a-AcknowledgeMode-label": "Acknowledge Mode",
   "a-AcknowledgePolicy-label": "Acknowledge Policy",
   "a-AcknowledgementInterval-label": "Acknowledgement Interval",
@@ -357,6 +361,7 @@
 
   "a-BufferSizeKb-label": "Buffer Size in Kilobytes",
   "f-JMSServer_JmsMessageLogFile-a-BufferSizeKb-help": "Sets the underlying log buffer size in kilobytes.",
+  "f-SAFAgent_JmssafMessageLogFile-a-BufferSizeKb-help": "Sets the underlying log buffer size in kilobytes.",
 
   "a-BugReportServiceWsdlUrl-label": "Bug Report Service WSDL URL",
   "a-BuzzAddress-label": "Buzz Address",
@@ -367,12 +372,15 @@
 
   "a-BytesMaximum-label": "Bytes Maximum",
   "f-JMSServer-a-BytesMaximum-help": "The maximum number of bytes that can be stored in this JMS server. A value of -1 removes any WebLogic Server limits.",
+  "f-SAFAgent-a-BytesMaximum-help": "The maximum bytes quota (total amount of bytes) that can be stored in this SAF agent. The default value of -1 specifies that there is no WebLogic-imposed limit on the number of bytes that can be stored. However, excessive bytes volume can cause memory saturation, so this value should correspond to the total amount of available system memory relative to the rest of your application load.",
 
   "a-BytesThresholdHigh-label": "Bytes Threshold High",
   "f-JMSServer-a-BytesThresholdHigh-help": "The upper threshold (number of bytes stored in this JMS server) that triggers flow control and logging events. A value of -1 disables the events for this JMS server.",
+  "f-SAFAgent-a-BytesThresholdHigh-help": "The upper threshold value that triggers events based on the number of bytes stored in the SAF agent. The default value of -1 disables the events for this SAF agent.",
 
   "a-BytesThresholdLow-label": "Bytes Threshold Low",
   "f-JMSServer-a-BytesThresholdLow-help": "The lower threshold (number of bytes stored in this JMS server) that triggers flow control and logging events. A value of -1 disables the events for this JMS server.",
+  "f-SAFAgent-a-BytesThresholdLow-help": "The lower threshold that triggers events based on the number of bytes stored in the SAF agent. The default value of -1 disables the events for this SAF agent.",
 
   "a-COMEnabled-label": "COM Enabled",
   "a-CacheConfigurationFile-label": "Cache Configuration File",
@@ -580,7 +588,10 @@
   "a-ContextRequestClass-label": "Context Request Class",
   "a-ContinuationFramesLimit-label": "Continuation Frames Limit",
   "a-ControlFlag-label": "Control Flag",
+
   "a-ConversationIdleTimeMaximum-label": "Conversation Idle Time Maximum",
+  "f-SAFAgent-a-ConversationIdleTimeMaximum-help": "The maximum amount of time allowed, in milliseconds, before a sending side releases the resources used by a conversation. A value of 0 specifies that resources for a conversation are not released unless the application explicitly closes the conversation.",
+
   "a-CookieName-label": "Cookie Name",
   "a-CorExposedHeaders-label": "Cor Exposed Headers",
   "a-CorsAllowedCredentials-label": "CORS Allowed Credentials",
@@ -670,6 +681,7 @@
 
   "a-DateFormatPattern-label": "Date Format Pattern",
   "f-JMSServer_JmsMessageLogFile-a-DateFormatPattern-help": "The date format pattern used for rendering dates in the log. The DateFormatPattern string conforms to the specification of the java.text.SimpleDateFormat class.",
+  "f-SAFAgent_JmssafMessageLogFile-a-DateFormatPattern-help": "The date format pattern used for rendering dates in the log. The DateFormatPattern string conforms to the specification of the java.text.SimpleDateFormat class.",
 
   "a-DayOfMonth-label": "Day Of Month",
   "a-DayOfWeek-label": "Day Of Week",
@@ -1213,9 +1225,16 @@
   "f-WTCServer_WTCtBridgeGlobal-a-DefaultReplyDeliveryMode-help": "The reply delivery mode to associate with a message when placing messages onto the target location.",
 
   "a-DefaultRetryCount-label": "Default Retry Count",
+
   "a-DefaultRetryDelayBase-label": "Default Retry Delay Base",
+  "f-SAFAgent-a-DefaultRetryDelayBase-help": "The amount of time, in milliseconds, between the original delivery attempt and the first retry. If RetryDelayMultiplier is set to 1, this defines the interval between any two successive retry attempts.",
+
   "a-DefaultRetryDelayMaximum-label": "Default Retry Delay Maximum",
+  "f-SAFAgent-a-DefaultRetryDelayMaximum-help": "The maximum amount of time, in milliseconds, between two successive delivery retry attempts.",
+
   "a-DefaultRetryDelayMultiplier-label": "Default Retry Delay Multiplier",
+  "f-SAFAgent-a-DefaultRetryDelayMultiplier-help": "The factor used to multiply the previous delay time to calculate the next delay time to be used.  The default value is 1.0",
+
   "a-DefaultRetryInterval-label": "Default Retry Interval",
   "a-DefaultRjvmDiagMessages-label": "Default RJVM Diag Messages",
   "a-DefaultSecureProtocol-label": "Default Secure Protocol",
@@ -1225,7 +1244,10 @@
   "a-DefaultTargetingEnabled-label": "Default Targeting Enabled",
   "a-DefaultTargets-label": "Default Targets",
   "a-DefaultTimeToDeliver-label": "Default Time To Deliver",
+
   "a-DefaultTimeToLive-label": "Default Time To Live",
+  "f-SAFAgent-a-DefaultTimeToLive-help": "The default amount of time, in milliseconds, that the agent guarantees to reliably send messages. A value of 0 means the agent guarantees to reliably send messages for the duration of the conversation.",
+
   "a-DefaultTimeToLiveDelta-label": "Default Time To Live Delta",
   "a-DefaultTimeToLiveOffset-label": "Default Time To Live Offset",
   "a-DefaultUnitOfOrder-label": "Default Unit Of Order",
@@ -1349,7 +1371,7 @@
   "a-DynamicServerName-label": "Dynamic Server Name",
 
   "a-EJBName-label": "EJB Name",
-  "f-WTCServer_WTCExport-a-EJBName-help": "The complete name of the EJB home interface to use when invoking a service.\n\nIf not specified, the default interface used is tuxedo.services.servicenameHome. For example: If the service being invoked is TOUPPER and EJBName attribute is not specified, the home interface looked up in JNDI would be tuxedo.services.TOUPPERHome.",
+  "f-WTCServer_WTCExport-a-EJBName-help": "The complete name of the EJB home interface to use when invoking a service. If not specified, the default interface used is tuxedo.services.servicenameHome. For example: If the service being invoked is TOUPPER and EJBName attribute is not specified, the home interface looked up in JNDI would be tuxedo.services.TOUPPERHome.",
 
   "a-ELFFields-label": "ELF Fields",
   "a-EagerThreadLocalCleanup-label": "Eager Thread Local Cleanup",
@@ -1447,21 +1469,26 @@
 
   "a-FileCount-label": "File Count",
   "f-JMSServer_JmsMessageLogFile-a-FileCount-help": "The maximum number of log files that the server creates when it rotates the log. This number does not include the file that the server uses to store current messages. (Requires that you enable Number of Files Limited.)",
+  "f-SAFAgent_JmssafMessageLogFile-a-FileCount-help": "The maximum number of log files that the server creates when it rotates the log. This number does not include the file that the server uses to store current messages. (Requires that you enable Number of Files Limited.)",
 
   "a-FileLockingEnabled-label": "File Locking Enabled",
   "f-FileStore-a-FileLockingEnabled-help": "Determines whether OS file locking is used. When file locking protection is enabled, a store boot fails if another store instance already has opened the store files. Do not disable this setting unless you have procedures in place to prevent multiple store instances from opening the same file. File locking is not required but helps prevent corruption in the event that two same-named file store instances attempt to operate in the same directories. This setting applies to both primary and cache files.",
 
   "a-FileMinSize-label": "File Min Size",
   "f-JMSServer_JmsMessageLogFile-a-FileMinSize-help": "The size (1 - 2097150 kilobytes) that triggers the server to move log messages to a separate file. The default is 500 kilobytes. After the log file reaches the specified minimum size, the next time the server checks the file size, it will rename the current log file as SERVER_NAME.lognnnnn and create a new one to store subsequent messages. (Requires that you specify a file rotation type of Size.)",
+  "f-SAFAgent_JmssafMessageLogFile-a-FileMinSize-help": "The size (1 - 2097150 kilobytes) that triggers the server to move log messages to a separate file. The default is 500 kilobytes. After the log file reaches the specified minimum size, the next time the server checks the file size, it will rename the current log file as SERVER_NAME.lognnnnn and create a new one to store subsequent messages. (Requires that you specify a file rotation type of Size.)",
 
   "a-FileName-label": "File Name",
   "f-JMSServer_JmsMessageLogFile-a-FileName-help": "The name of the file that stores current JMS server log messages. Usually it is a computed value based on the name of the parent of this MBean. For example, for a JMS server log, it is jmsserverName.log. However, if the name of the parent cannot be obtained, the file name is weblogic.log. If you specify a relative pathname, it is interpreted as relative to the server's root directory.",
+  "f-SAFAgent_JmssafMessageLogFile-a-FileName-help": "The name of the file that stores current SAF agent log messages.",
 
   "a-FileTimeSpan-label": "File Time Span",
   "f-JMSServer_JmsMessageLogFile-a-FileTimeSpan-help": "The interval (in hours) at which the server saves old log messages to another file. (Requires that you specify a file rotation type of TIME.)",
+  "f-SAFAgent_JmssafMessageLogFile-a-FileTimeSpan-help": "The interval (in hours) at which the server saves old log messages to another file. (Requires that you specify a file rotation type of TIME.)",
 
   "a-FileTimeSpanFactor-label": "File Time Span Factor",
   "f-JMSServer_JmsMessageLogFile-a-FileTimeSpanFactor-help": "This factor is defined so that log rotation can be tested at a different frequency. The default value is 3600000.",
+  "f-SAFAgent_JmssafMessageLogFile-a-FileTimeSpanFactor-help": "This factor is defined so that log rotation can be tested at a different frequency. The default value is 3600000.",
 
   "a-Filter-label": "Filter",
   "a-FilterDispatchedRequestsEnabled-label": "Filter Dispatched Requests Enabled",
@@ -1488,7 +1515,10 @@
   "a-FormBasedNegotiationEnabled-label": "Form Based Negotiation Enabled",
   "a-Formatter-label": "Formatter",
   "a-ForwardDelay-label": "Forward Delay",
+
   "a-ForwardingPausedAtStartup-label": "Forwarding Paused At Startup",
+  "f-SAFAgent-a-ForwardingPausedAtStartup-help": "Specifies whether the agent is paused for forwarding messages at the startup time. When enabled, the sending agent forwards messages. Otherwise, the sending agent does not forward any messages. If the value is changed and activated, you need to restart any servers to which the MBean is targeted before the value will take effect.",
+
   "a-ForwardingPolicy-label": "Forwarding Policy",
   "a-FrameCountLimitResetInterval-label": "Frame Count Limit Reset Interval",
   "a-FreeMemoryPercentHighThreshold-label": "Free Memory Percent High Threshold",
@@ -1509,8 +1539,8 @@
   "a-GreedySessionFlushInterval-label": "Greedy Session Flush Interval",
   "a-GroupBaseDN-label": "Group Base DN",
   "a-GroupFromNameFilter-label": "Group From Name Filter",
-  "a-GroupFromUserFilterForMemberuid-label": "Group From User Filter For Memberuid",
-  "a-GroupHierarchyCacheTTL-label": "Group Hierarchy Cache TTL",
+  "a-GroupFromUserFilterForMemberuid-label": "Group From User Filter For Member UID",
+  "a-GroupHierarchyCacheTTL-label": "Group Hierarchy Cache Time-to-Live",
   "a-GroupMemberOf-label": "Group Member Of",
   "a-GroupMembershipSearching-label": "Group Membership Searching",
   "a-GroupName-label": "Group Name",
@@ -1604,7 +1634,10 @@
   "a-InboundCertificateValidation-label": "Inbound Certificate Validation",
   "a-Include-label": "Include",
   "a-IncludeRootCertificateInChain-label": "Include Root Certificate In Chain",
+
   "a-IncomingPausedAtStartup-label": "Incoming Paused At Startup",
+  "f-SAFAgent-a-IncomingPausedAtStartup-help": "Specifies whether the agent is paused for incoming messages at startup time. When enabled, the sending agent accepts new messages. Otherwise, the sending agent does not accept any new messages. If the value is changed and activated, you need to restart any servers to which the MBean is targeted before the value will take effect.",
+
   "a-IncompleteWorkExpirationTime-label": "Incomplete Work Expiration Time",
   "a-InformEnabled-label": "Inform Enabled",
   "a-InformRetryInterval-label": "Inform Retry Interval",
@@ -1828,6 +1861,7 @@
 
   "a-LogFileRotationDir-label": "Log File Rotation Directory",
   "f-JMSServer_JmsMessageLogFile-a-LogFileRotationDir-help": "The directory where the rotated log files will be stored. By default the rotated files are stored in the same directory where the log file is stored.",
+  "f-SAFAgent_JmssafMessageLogFile-a-LogFileRotationDir-help": "The directory where the rotated log files will be stored. By default the rotated files are stored in the same directory where the log file is stored.",
 
   "a-LogFileSeverity-label": "Log File Severity",
   "a-LogFormat-label": "Log Format",
@@ -1848,7 +1882,9 @@
   "a-LoggerName-label": "Logger Name",
   "a-LoggerSeverity-label": "Logger Severity",
   "a-LoggerSeverityProperties-label": "Logger Severity Properties",
+
   "a-LoggingEnabled-label": "Logging Enabled",
+  "f-SAFAgent-a-LoggingEnabled-help": "Specifies whether a message is logged in the server log file when a message fails to be forwarded. If selected, this applies to messages that fail to be forwarded and delivered to the final destination when there is no error handling in a SAF application or the application's error handling fails.",
 
   "a-LogicalName-label": "Logical Name",
   "f-FileStore-a-LogicalName-help": "The name used by subsystems to refer to different stores on different servers using the same name. For example, an EJB that uses the timer service may refer to its store using the logical name, and this name may be valid on multiple servers in the same cluster, even if each server has a store with a different physical name. Multiple stores in the same domain or the same cluster may share the same logical name. However, a given logical name may not be assigned to more than one store on the same server.",
@@ -1959,13 +1995,14 @@
   "a-MaxWebLogicPrincipalsInCache-label": "Max WebLogic Principals In Cache",
 
   "a-MaxWindowBufferSize-label": "Max Window Buffer Size",
-  "f-FileStore-a-MaxWindowBufferSize-help": "The maximum amount of data, in bytes and rounded down to the nearest power of 2, mapped into the JVM's address space per primary store file. Applies to synchronous write policies Direct-Write-With-Cache and Disabled but only when the native wlfileio library is loaded.\n\nA window buffer does not consume Java heap memory, but does consume off-heap (native) memory. If the store is unable to allocate the requested buffer size, it allocates smaller and smaller buffers until it reaches MinWindowBufferSize, and then fails if cannot honor MinWindowBufferSize.",
+  "f-FileStore-a-MaxWindowBufferSize-help": "The maximum amount of data, in bytes and rounded down to the nearest power of 2, mapped into the JVM's address space per primary store file. Applies to synchronous write policies Direct-Write-With-Cache and Disabled but only when the native wlfileio library is loaded. A window buffer does not consume Java heap memory, but does consume off-heap (native) memory. If the store is unable to allocate the requested buffer size, it allocates smaller and smaller buffers until it reaches MinWindowBufferSize, and then fails if cannot honor MinWindowBufferSize.",
 
   "a-MaxXACallMillis-label": "Max XA Call Millis",
   "a-MaximumDynamicServerCount-label": "Maximum Dynamic Server Count",
 
   "a-MaximumMessageSize-label": "Maximum Message Size",
   "f-JMSServer-a-MaximumMessageSize-help": "The maximum number of bytes allowed in individual messages on this JMS server. The size of a message includes the message body, any user-defined properties, and the user-defined JMS header fields JMSCorrelationID and JMSType. The maximum message size is only enforced for the initial production of a message. Messages that are redirected to an error destination or forwarded to a member of a distributed destination are not checked for size.",
+  "f-SAFAgent-a-MaximumMessageSize-help": "The maximum number of bytes allowed in individual messages on this SAF agent. The message size includes the message body, any user-defined properties, and the user-defined JMS header fields: JMSCorrelationID and JMSType. The maximum message size is only enforced for the initial production of a message. Messages that are redirected to an error destination or forwarded to a member of a distributed destination are not checked for size.",
 
   "a-MaximumPoolSize-label": "Maximum Pool Size",
   "a-MemberDeathDetectorEnabled-label": "Member Death Detector Enabled",
@@ -1979,9 +2016,11 @@
 
   "a-MessageBufferSize-label": "Message Buffer Size",
   "f-JMSServer-a-MessageBufferSize-help": "The amount of memory (in bytes) that this JMS server can use to store message bodies before it writes them to disk. When the JMS server writes the message bodies to disk, it clears them from memory. A value of -1 (the default) specifies that the server will automatically determine a size based on the maximum heap size of the JVM. This default will be set to either one-third the maximum heap size, or 512 megabytes, whichever is smaller.",
+  "f-SAFAgent-a-MessageBufferSize-help": "The amount of memory (in bytes) that this SAF agent can use to store message bodies in memory before they are paged out to disk. A value of -1 (the default) specifies that the server will automatically determine a size based on the maximum heap size of the JVM. This default will be set to either one-third the maximum heap size, or 512 megabytes, whichever is smaller.",
 
   "a-MessageCompressionOptions-label": "Message Compression Options",
   "f-JMSServer-a-MessageCompressionOptions-help": "Specifies the type of message compression used when JMS message body compression is enabled for Persistent Stores and JMS Paging Stores.",
+  "f-SAFAgent-a-MessageCompressionOptions-help": "Specifies the type of message compression used when JMS message body compression is enabled for Persistent Stores and JMS Paging Stores.",
 
   "a-MessageCompressionOptionsOverride-label": "Message Compression Options Override",
   "a-MessageDeliveryTimeout-label": "Message Delivery Timeout",
@@ -1998,14 +2037,17 @@
 
   "a-MessagesMaximum-label": "Messages Maximum",
   "f-JMSServer-a-MessagesMaximum-help": "The maximum number of messages that can be stored in this JMS server. A value of -1 removes any WebLogic Server limits.",
+  "f-SAFAgent-a-MessagesMaximum-help": "The maximum message quota (total amount of messages) that can be stored in this SAF agent. The default value of -1 specifies that the server instance has no limit on the number of messages that can be stored.",
 
   "a-MessagesPagingEnabled-label": "Messages Paging Enabled",
 
   "a-MessagesThresholdHigh-label": "Messages Threshold High",
   "f-JMSServer-a-MessagesThresholdHigh-help": "The upper threshold (number of messages stored in this JMS server) that triggers flow control and logging events. A value of -1 disables the events for this JMS server.",
+  "f-SAFAgent-a-MessagesThresholdHigh-help": "The upper threshold that triggers events based on the number of messages stored in the SAF agent. The default value of -1 disables the events for this SAF agent.",
 
   "a-MessagesThresholdLow-label": "Messages Threshold Low",
   "f-JMSServer-a-MessagesThresholdLow-help": "The lower threshold (number of messages stored in this JMS server) that triggers flow control and logging events. A value of -1 disables the events for this JMS server.",
+  "f-SAFAgent-a-MessagesThresholdLow-help": "The low threshold that triggers events based on the number of messages stored in the SAF agent. A value of -1 disables the events for this SAF agent.",
 
   "a-MessagingBridgeThreadPoolSize-label": "Messaging Bridge Thread Pool Size",
   "a-MessagingPerformancePreference-label": "Messaging Performance Preference",
@@ -2124,7 +2166,8 @@
   "a-NumberOfFilesLimit-label": "Number Of Files Limit",
 
   "a-NumberOfFilesLimited-label": "Number Of Files Limited",
-  "f-JUMSServer_JmsMessageLogFile-a-NumberOfFilesLimited-help": "Indicates whether to limit the number of log files that this server instance creates to store old messages. (Requires that you specify a file rotation type of SIZE or TIME.) After the server reaches this limit, it deletes the oldest log file and creates a new log file with the latest suffix. If you do not enable this option, the server creates new files indefinitely and you must clean up these files as you require.",
+  "f-JMSServer_JmsMessageLogFile-a-NumberOfFilesLimited-help": "Indicates whether to limit the number of log files that this server instance creates to store old messages. (Requires that you specify a file rotation type of SIZE or TIME.) After the server reaches this limit, it deletes the oldest log file and creates a new log file with the latest suffix. If you do not enable this option, the server creates new files indefinitely and you must clean up these files as you require.",
+  "f-SAFAgent_JmssafMessageLogFile-a-NumberOfFilesLimited-help": "Indicates whether to limit the number of log files that this server instance creates to store old messages. (Requires that you specify a file rotation type of SIZE or TIME.) After the server reaches this limit, it deletes the oldest log file and creates a new log file with the latest suffix. If you do not enable this option, the server creates new files indefinitely and you must clean up these files as you require.",
 
   "a-NumberOfRestartAttempts-label": "Number Of Restart Attempts",
   "f-FileStore-a-NumberOfRestartAttempts-help": "Specifies the maximum number of restart attempts. A value > 0 specifies the maximum number of restart attempts. A value of 0 specifies the same behavior as setting RestartInPlace to false. A value of -1 means infinite retry restart until it either starts or the server instance shuts down.",
@@ -2184,10 +2227,11 @@
   "f-JMSServer-a-PagingBlockSize-help": "The smallest addressable block, in bytes, of a file. When a native wlfileio driver is available and the paging block size has not been configured by the user, the store selects the minimum OS specific value for unbuffered (direct) I/O, if it is within the range [512, 8192]. A paging store's block size does not change once the paging store creates its files. Changes to block size only take effect for new paging stores or after the current files have been deleted.",
 
   "a-PagingDirectory-label": "Paging Directory",
-  "f-JMSServer-a-PagingDirectory-help": "Specifies where message bodies are written when the size of the message bodies in the JMS server exceeds the message buffer size.\n\nIf unspecified, messages are written to the default tmp directory inside the server-name subdirectory of a domain's root directory. For example, domain-name/servers/server-name/tmp, where domain-name is the root directory of your domain.",
+  "f-JMSServer-a-PagingDirectory-help": "Specifies where message bodies are written when the size of the message bodies in the JMS server exceeds the message buffer size. If unspecified, messages are written to the default tmp directory inside the server-name subdirectory of a domain's root directory. For example, domain-name/servers/server-name/tmp, where domain-name is the root directory of your domain.",
+  "f-SAFAgent-a-PagingDirectory-help": "Specifies where message bodies are written when the size of the message bodies in the SAF agent exceeds the message buffer size. If unspecified, messages are written to the tmp directory in the host WebLogic Server instance's directory. For example, domainName/servers/servername/tmp.",
 
   "a-PagingFileLockingEnabled-label": "Paging File Locking Enabled",
-  "f-JMSServer-a-PagingFileLockingEnabled-help": "Determines whether OS file locking is used.\n\nWhen file locking protection is enabled, a store boot fails if another store instance already has opened the store files. Do not disable this setting unless you have procedures in place to prevent multiple store instances from opening the same file. File locking is not required but helps prevent corruption in the event that two same-named file store instances attempt to operate in the same directories. This setting applies to both primary and cache files. If the value is changed and activated, you need to restart any servers to which the MBean is targeted before the value will take effect.",
+  "f-JMSServer-a-PagingFileLockingEnabled-help": "Determines whether OS file locking is used. When file locking protection is enabled, a store boot fails if another store instance already has opened the store files. Do not disable this setting unless you have procedures in place to prevent multiple store instances from opening the same file. File locking is not required but helps prevent corruption in the event that two same-named file store instances attempt to operate in the same directories. This setting applies to both primary and cache files. If the value is changed and activated, you need to restart any servers to which the MBean is targeted before the value will take effect.",
 
   "a-PagingIoBufferSize-label": "Paging I/O Buffer Size",
   "f-JMSServer-a-PagingIoBufferSize-help": "The I/O buffer size, in bytes, automatically rounded down to the nearest power of 2. A small number of larger files is normally preferred over a large number of smaller files as each file allocates Window Buffer and file handles.",
@@ -2196,10 +2240,11 @@
   "f-JMSServer-a-PagingMaxFileSize-help": "The paging maximum file size, in bytes. ",
 
   "a-PagingMaxWindowBufferSize-label": "Paging Max Window Buffer Size",
-  "f-JMSServer-a-PagingMaxWindowBufferSize-help": "The maximum amount of data, in bytes and rounded down to the nearest power of 2, mapped into the JVM's address space per paging store file. Applies only when a native wlfileio library is loaded. A window buffer does not consume Java heap memory, but does consume off-heap (native) memory. If the paging store is unable to allocate the requested buffer size, it allocates smaller and smaller buffers until it reaches PagingMinWindowBufferSize, and then fails if it cannot honor PagingMinWindowBufferSize.\n\n",
+  "f-JMSServer-a-PagingMaxWindowBufferSize-help": "The maximum amount of data, in bytes and rounded down to the nearest power of 2, mapped into the JVM's address space per paging store file. Applies only when a native wlfileio library is loaded. A window buffer does not consume Java heap memory, but does consume off-heap (native) memory. If the paging store is unable to allocate the requested buffer size, it allocates smaller and smaller buffers until it reaches PagingMinWindowBufferSize, and then fails if it cannot honor PagingMinWindowBufferSize. ",
 
   "a-PagingMessageCompressionEnabled-label": "Paging Message Compression Enabled",
   "f-JMSServer-a-PagingMessageCompressionEnabled-help": "Enables the JMS paging store to perform message body compression on persistent and non-persistent messages. When false, the default value, no compression is performed.",
+  "f-SAFAgent-a-PagingMessageCompressionEnabled-help": "Enables the JMS paging store to perform message body compression on persistent and non-persistent messages. When false, the default value, no compression is performed.",
 
   "a-PagingMinWindowBufferSize-label": "Paging Min Window Buffer Size",
   "f-JMSServer-a-PagingMinWindowBufferSize-help": "The minimum amount of data, in bytes and rounded down to the nearest power of 2, mapped into the JVM's address space per paging store file. Applies only when a native wlfileio library is loaded. See Paging Maximum Window Buffer Size. If the value is changed and activated, you need to restart any servers to which the MBean is targeted before the value will take effect.",
@@ -2227,7 +2272,10 @@
   "a-PartitionChannel-label": "Partition Channel",
   "a-PartitionDebugLoggingEnabled-label": "Partition Debug Logging Enabled",
   "a-PartitionEvenInterceptor-label": "Partition Even Interceptor",
+
   "a-PartitionFairShare-label": "Partition Fair Share",
+  "f-SelfTuning-a-PartitionFairShare-help": "A desired percentage of thread usage by a partition compared to the thread usage by all partitions. It is recommended that the sum of this value for all the partitions running in a WLS domain add up to 100, but it is not strictly enforced. When they do not add up to 100, WLS assigns thread-usage times to different partitions based on their relative values. This attribute is for use in the global domain only. Use the PartitionWorkManager MBean for specifying partition fair share values for partitions.",
+
   "a-PartitionId-label": "Partition ID",
   "a-PartitionLifeCycleTimeoutVal-label": "Partition Life Cycle Timeout Val",
   "a-PartitionName-label": "Partition Name",
@@ -2371,7 +2419,10 @@
   "f-JDBCStore-a-RebalanceEnabled-help": "If set to true, then rebalance running cluster-targeted JMS instances when the system is idle and instances are unevenly distributed. The system is considered idle when the Partial Cluster Stability Delay and Initial Boot Delay have passed, and no instances have moved plus no server status has changed within the last two system check periods (typically 10 seconds between each check). Two is the default, you can tune this higher using Rebalance Delay Periods on the Cluster bean.",
 
   "a-RebalanceOnUpEvent-label": "Rebalance On Up Event",
+
   "a-ReceivingPausedAtStartup-label": "Receiving Paused At Startup",
+  "f-SAFAgent-a-ReceivingPausedAtStartup-help": "Specifies whether the agent is paused for receiving messages at the startup time. When enabled, the sending agent receives messages. Otherwise, the sending agent does not receive any messages. If the value is changed and activated, you need to restart any servers to which the MBean is targeted before the value will take effect.",
+
   "a-Recipient-label": "Recipient",
   "a-RecipientCheckEnabled-label": "Recipient Check Enabled",
   "a-ReconnectBlockingMillis-label": "Reconnect Blocking Millis",
@@ -2531,16 +2582,16 @@
   "a-RootStagingDir-label": "Root Staging Dir",
 
   "a-RotateLogOnStartup-label": "Rotate Log On Startup",
-  "f-JMSServer_JmsMessageLogFile": "Specifies whether a server rotates its log file during its startup cycle. The default value in production mode is false.",
+  "a-RotateLogOnStartup-help": "Specifies whether a server rotates its log file during its startup cycle. The default value in production mode is false.",
 
   "a-RotationMinutes-label": "Rotation Minutes",
   "a-RotationSize-label": "Rotation Size",
 
   "a-RotationTime-label": "Rotation Time",
-  "f-JMSServer_JmsMessageLogFile-a-RotationTime-help": "Determines the start time (hour and minute) for a time-based rotation sequence. At the time that this value specifies, the server renames the current log file. Thereafter, the server renames the log file at an interval that you specify in File Time Span. Note that WebLogic Server sets a threshold size limit of 500 MB before it forces a hard rotation to prevent excessive log file growth.",
+  "a-RotationTime-help": "Determines the start time (hour and minute) for a time-based rotation sequence. At the time that this value specifies, the server renames the current log file. Thereafter, the server renames the log file at an interval that you specify in File Time Span. Note that WebLogic Server sets a threshold size limit of 500 MB before it forces a hard rotation to prevent excessive log file growth.",
 
   "a-RotationType-label": "Rotation Type",
-  "f-JMSServer_JmsMessageLogFile-a-RotationType-help": "Criteria for moving old log messages to a separate file.",
+  "a-RotationType-help": "Criteria for moving old log messages to a separate file.",
 
   "a-RowPrefetch-label": "Row Prefetch",
   "a-RowPrefetchSize-label": "Row Prefetch Size",
@@ -2620,7 +2671,7 @@
   "a-SecurityContextEnabled-label": "Security Context Enabled",
 
   "a-SecurityDDModel-label": "Security Deployment Descriptor Model",
-  "f-Application-a-SecurityDDModel-help": "The security model that is used to secure a deployed module.\n\nTo set this value, you can use the weblogic.Deployer command-line tool, the Deployment Assistant in the Administration Console, the WebLogic Scripting Tool (WLST), or another JMX client. If you deploy a module using one of the previously mentioned tools and you do not specify a security model value, the module is secured with the security realm's default model. If you deploy a module by modifying the domain's config.xml file and restarting the server, and if you do not specify a security model value for the module in config.xml, the module is secured with the DDOnly model, which is the default value of this AppDeploymentMBean attribute.",
+  "f-Application-a-SecurityDDModel-help": "The security model that is used to secure a deployed module. To set this value, you can use the weblogic.Deployer command-line tool, the Deployment Assistant in the Administration Console, the WebLogic Scripting Tool (WLST), or another JMX client. If you deploy a module using one of the previously mentioned tools and you do not specify a security model value, the module is secured with the security realm's default model. If you deploy a module by modifying the domain's config.xml file and restarting the server, and if you do not specify a security model value for the module in config.xml, the module is secured with the DDOnly model, which is the default value of this AppDeploymentMBean attribute.",
 
   "a-SecurityEncryptionService-label": "Security Encryption Service",
   "a-SecurityFrameworkEnabled-label": "Security Framework Enabled",
@@ -2680,7 +2731,10 @@
   "a-ServiceProviderSingleLogoutBinding-label": "Service Provider Single Logout Binding",
   "a-ServiceProviderSingleLogoutEnabled-label": "Service Provider Single Logout Enabled",
   "a-ServiceProviderSingleLogoutRedirectUri-label": "Service Provider Single Logout Redirect URI",
+
   "a-ServiceType-label": "Service Type",
+  "f-SAFAgent-a-ServiceType-help": "The type of service that this SAF agent provides. JMS requires only a Sending agent on the sending side for messages. Whereas, Web Services Reliable Messaging requires both a Sending and Receiving agent for messages.",
+
   "a-ServletAuthenticationFormURL-label": "Servlet Authentication Form URL",
   "a-ServletReloadCheckSecs-label": "Servlet Reload Check Secs",
   "a-SessionFlushInterval-label": "Session Flush Interval",
@@ -2781,13 +2835,16 @@
   "a-StdoutFormat-label": "Stdout Format",
   "a-StdoutLogStack-label": "Stdout Log Stack",
   "a-StdoutSeverity-label": "Stdout Severity",
-  "a-Store-label": "Store",
+
+  "a-Store-label": "Persistent Store",
+  "f-SAFAgent-a-Store-help": "The persistent disk-based file store or JDBC-accessible database for the SAF agent. If a store is not configured, the server's default store is used.",
 
   "a-StoreEnabled-label": "Store Enabled",
   "f-JMSServer-a-StoreEnabled-help": "Specifies whether message persistence is supported for this JMS server. When set to true: If the JMS server has no store configured, the targeted WebLogic Server instance's default store is used to store persistent messages. If the JMS server has a store configured, then the configured store is used to store persistent messages. When set to false, then this JMS server does not support persistent messages, and instead downgrades them to non-persistent. The default value is true.",
 
   "a-StoreMessageCompressionEnabled-label": "Store Message Compression Enabled",
   "f-JMSServer-a-StoreMessageCompressionEnabled-help": "Enables the JMS store to perform message body compression. When set to false, the default value, no compression is performed.",
+  "f-SAFAgent-a-StoreMessageCompressionEnabled-help": "Enables the JMS store to perform message body compression. When set to false, the default value, no compression is performed.",
 
   "a-StoreSizeCheckPeriod-label": "Store Size Check Period",
   "a-StoreType-label": "Store Type",
@@ -2922,7 +2979,7 @@
   "a-TotalReconnectPeriodMillis-label": "Total Reconnect Period Millis",
 
   "a-TpUsrFile-label": "TPUSR File Name",
-  "f-WTCServer_WTCRemoteTuxDom-a-TpUsrFile-help": "The full path to the user password file containing UID/GID information. (This field is only relevant if you specify TpUsrFile as the AppKey Generator.)\n\nNote: This file is generated by the Tuxedo tpusradd utility on the remote Tuxedo domain specified by the remote Tuxedo access point. A copy of this file must be available in your WebLogic Tuxedo Connector environment to provide correct authorization, authentication, and auditing.",
+  "f-WTCServer_WTCRemoteTuxDom-a-TpUsrFile-help": "The full path to the user password file containing UID/GID information. (This field is only relevant if you specify TpUsrFile as the AppKey Generator.) Note: This file is generated by the Tuxedo tpusradd utility on the remote Tuxedo domain specified by the remote Tuxedo access point. A copy of this file must be available in your WebLogic Tuxedo Connector environment to provide correct authorization, authentication, and auditing.",
   "f-WTCServer_WTCResources-a-TpUsrFile-help": "The full path to the TPUSR file, which contains Tuxedo UID/GID information. Note that this file is generated by the Tuxedo tpusradd utility on the remote Tuxedo domain.",
 
   "a-TracingEnabled-label": "Tracing Enabled",
@@ -3130,8 +3187,13 @@
   "a-WeblogicPluginEnabled-label": "WebLogic Plug-in Enabled",
   "a-Weight-label": "Weight",
   "a-WhenToCache-label": "When To Cache",
+
   "a-WindowInterval-label": "Window Interval",
+  "f-SAFAgent-a-WindowInterval-help": "The maximum amount of time, in milliseconds, that a JMS sending agent waits before forwarding messages in a single batch. For a distributed queue or topic, WindowInterval setting is ignored.",
+
   "a-WindowSize-label": "Window Size",
+  "f-SAFAgent-a-WindowSize-help": "For JMS messages, the number of messages in a batch. A sending agent waits to forward a message batch until the source destination message count is greater than or equal to this value. For a distributed queue or topic, WindowSize setting is ignored and always internally set to 1 message. For WS-RM, the maximum number of unacknowledged messages allowed between a source destination and a target destination during a conversation.",
+
   "a-WldfBuiltinSystemResourceType-label": "WLDF Builtin System Resource Type",
   "a-WldfDiagnosticVolume-label": "WLDF Diagnostic Volume",
 
@@ -3457,7 +3519,7 @@
   "f-any_JmsSessionPool-typeLabel": "JMS Session Pool",
   "f-any_JmsSystemResourceOverride-label": "JMS System Resource Overrides",
   "f-any_JmsSystemResourceOverride-typeLabel": "JMS System Resource Override",
-  "f-any_JmssafMessageLogFile-label": "Jmssaf Message Log File",
+  "f-any_JmssafMessageLogFile-label": "JMS SAF Message Log File",
   "f-any_JndiProperty-label": "JNDI Properties",
   "f-any_JndiProperty-typeLabel": "JNDI Property",
   "f-any_JoltConnectionPool-label": "Jolt Connection Pools",
