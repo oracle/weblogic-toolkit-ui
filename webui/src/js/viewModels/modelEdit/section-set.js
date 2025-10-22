@@ -46,8 +46,9 @@ function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper) 
       }
 
       else if(section.type === 'folder') {
-        const folder = section.folder;  // TODO: allow nested and absolute folder paths?
-        const folderPath = [...MODEL_PATH, folder];
+        const folderName = section.folder;  // TODO: allow absolute folder paths?
+        const folderNames = folderName.split('/');
+        const folderPath = [...MODEL_PATH, folderNames];
         let moduleConfig;
         if(AliasHelper.isMultiplePath(folderPath)) {
           moduleConfig = ModelEditHelper.createInstancesSectionConfig(folderPath, section);

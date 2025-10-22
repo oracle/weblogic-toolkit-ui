@@ -32,9 +32,29 @@ function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper) 
     };
 
     const metaSections = MetaHelper.getSections(ALIAS_PATH);
-    const attributeMap = ModelEditHelper.createAttributeMap(MODEL_PATH, {}, this.subscriptions);
-    const folderMap = AliasHelper.getFolderMap(MODEL_PATH);
+    const attributeMap = ModelEditHelper.createAttributeMap(MODEL_PATH, this.subscriptions);
+    const mergeFolder = MetaHelper.getMergeFolder(ALIAS_PATH);
+    const mergeModelPath = mergeFolder ? [...MODEL_PATH, mergeFolder] : null;
+    if(mergeFolder) {
+      ModelEditHelper.updateAttributeMap(attributeMap, mergeModelPath, this.subscriptions);
+    }
+
+    let folderMap = AliasHelper.getFolderMap(MODEL_PATH);
+    if(mergeModelPath) {
+      const mergeMap = AliasHelper.getFolderMap(mergeModelPath);
+      for (const key in mergeMap) {
+        const qualifiedKey = mergeFolder + '/' + key;
+        folderMap[qualifiedKey] = mergeMap[key];
+      }
+    }
+
     const folderInfo = getFolderInfo(metaSections, attributeMap, folderMap);
+
+    // remove merge folder from remaining folders
+    const remainingFolders = folderInfo.remainingFolders;
+    if(mergeFolder && remainingFolders.includes(mergeFolder)) {
+      remainingFolders.splice(remainingFolders.indexOf(mergeFolder), 1);
+    }
 
     this.sectionsConfig = ModelEditHelper.createSectionsConfig(MODEL_PATH, metaSections, folderInfo, attributeMap, true);
 

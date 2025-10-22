@@ -1,7 +1,32 @@
 {
   "JDBCSystemResource": {
+    "mergeFolder": "JdbcResource",
     "summaryAttributes": {
       "DeploymentOrder": {}
-    }
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "addRemainingAttributes": true
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "attributes": [
+              "Version",
+              "ModuleType"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "folderTab",
+        "folder": "JdbcResource/JDBCDataSourceParams"
+      }
+    ]
   }
 }

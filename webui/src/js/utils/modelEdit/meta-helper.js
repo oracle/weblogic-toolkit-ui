@@ -39,6 +39,11 @@ define(['utils/modeledit/metadata/all-metadata'],
         return metadata['sections'] || [];
       };
 
+      this.getMergeFolder = aliasPath => {
+        const metadata = this.getMetadata(aliasPath);
+        return metadata['mergeFolder'];
+      };
+
       this.getNameValidators = aliasPath => {
         return [];  // TODO: implement this when needed
       };
