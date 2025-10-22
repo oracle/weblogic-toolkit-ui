@@ -41,6 +41,8 @@
   "paging-configuration-tab-label": "Paging Configuration",
   "thresholds-tab-label": "Thresholds",
   "quotas-tab-label": "Quotas",
+  "reconnect-parameters-tab-label": "Reconnect Parameters",
+  "transaction-parameters-tab-label": "Transaction Parameters",
 
   "security-model-advanced-label": "Advanced",
   "security-model-custom-roles-label": "Custom Roles",
@@ -61,6 +63,11 @@
   "options-by-size-label": "By Size",
   "options-by-time-label": "By Time",
   "options-by-size-or-time-label": "By Size or Time",
+  "options-queue-label": "Queue",
+  "options-topic-label": "Topic",
+  "options-exactly-once-label": "Exactly Once",
+  "options-at-most-once-label": "At Most Once",
+  "options-duplicates-okay-label": "Duplicates Okay",
 
   "direction-jms-queue-to-tuxedo-queue-label": "JMS Queue to Tuxedo Queue",
   "direction-tuxedo-queue-to-jms-queue-label": "Tuxedo Queue to JMS Queue",
@@ -191,7 +198,10 @@
   "a-ActiveGridlink-label": "Active Gridlink",
   "a-ActiveType-label": "Active Type",
   "a-Adapter-label": "Adapter",
+
   "a-AdapterJNDIName-label": "Adapter JNDI Name",
+  "f-JMSBridgeDestination-a-AdapterJNDIName-help": "The JNDI name of the adapter used to communicate with the specified destination. This name is specified in the adapter's deployment descriptor file and is used by the WebLogic Server Connector container to bind the adapter in WebLogic Server JNDI. The default value is eis.jms.WLSConnectionFactoryJNDIXA",
+
   "a-AdapterName-label": "Adapter Name",
   "a-AdapterVersion-label": "Adapter Version",
   "a-AddJvmNumber-label": "Add Jvm Number",
@@ -296,7 +306,10 @@
   "a-AssertionStoreClassName-label": "Assertion Store Class Name",
   "a-AssertionStoreProperties-label": "Assertion Store Properties",
   "a-AssertionSubjectSessionTimeoutCheckEnabled-label": "Assertion Subject Session Timeout Check Enabled",
-  "a-AsyncEnabled-label": "Async Enabled",
+
+  "a-AsyncEnabled-label": "Asynchronous Messaging Mode Enabled",
+  "f-MessagingBridge-a-AsyncEnabled-help": "Specifies if a messaging bridge instance forwards in asynchronous messaging mode. AsyncEnabled only applies to messaging bridge instances whose source destination supports asynchronous receiving. Messaging bridges instances that forward in asynchronous mode are driven by the source destination. A messaging bridge instance listens for messages and forwards them as they arrive. When AsyncEnabled is not selected, a bridge instance is forced to work in synchronous mode, even if the source supports asynchronous receiving. For a messaging bridge instance with a QOS of Exactly-once to work in asynchronous mode, the source destination has to support the MDBTransaction interface. Otherwise, the bridge automatically switches to synchronous mode if it detects that MDBTransaction is not supported by the source destination.",
+
   "a-AsyncSessionQueueTimeout-label": "Async Session Queue Timeout",
   "a-AttachJMSXUserId-label": "Attach JMSX User ID",
   "a-AttachSender-label": "Attach Sender",
@@ -336,10 +349,16 @@
   "a-BaseRetransmissionInterval-label": "Base Retransmission Interval",
   "a-BasicAuthPasswordEncrypted-label": "Basic Auth Password Encrypted",
   "a-BasicAuthUsername-label": "Basic Auth Username",
+
   "a-BatchInterval-label": "Batch Interval",
+  "f-MessagingBridge-a-BatchInterval-help": "The maximum amount of time, in milliseconds, that a messaging bridge instance waits before sending a batch of messages in one transaction, regardless of whether the Batch Size has been reached or not. Only applies to a messaging bridge instance forwarding messages in synchronous mode and has a QOS (quality of service) that requires two-phase transactions. The default value of -1 indicates that the bridge instance waits until the number of messages reaches the Batch Size before it completes a transaction.",
+
   "a-BatchJobsDataSourceJndiName-label": "Batch Jobs Data Source JNDI Name",
   "a-BatchJobsExecutorServiceName-label": "Batch Jobs Executor Service Name",
+
   "a-BatchSize-label": "Batch Size",
+  "f-MessagingBridge-a-BatchSize-help": "The number of messages that are processed within one transaction. Batch Size only applies to a messaging bridge instance forwarding messages in synchronous mode and has a QOS (quality of service) that requires two-phase transactions.",
+
   "a-BeaHome-label": "Bea Home",
   "a-BeforeCompletionIterationLimit-label": "Before Completion Iteration Limit",
   "a-BeginMarker-label": "Begin Marker",
@@ -543,7 +562,10 @@
 
   "a-ConnectionCreationRetryFrequencySeconds-label": "Connection Creation Retry Frequency Seconds",
   "a-ConnectionFactory-label": "Connection Factory",
+
   "a-ConnectionFactoryJndiName-label": "Connection Factory JNDI Name",
+  "f-JMSBridgeDestination-a-ConnectionFactoryJndiName-help": "The connection factory's JNDI name for this JMS bridge destination.",
+
   "a-ConnectionFilter-label": "Connection Filter",
   "a-ConnectionFilterIgnoreRuleErrorsEnabled-label": "Connection Filter Ignore Rule Errors Enabled",
   "a-ConnectionFilterRule-label": "Connection Filter Rule",
@@ -565,7 +587,10 @@
   "a-ConnectionProperties-label": "Connection Properties",
   "a-ConnectionReserveTimeoutSeconds-label": "Connection Reserve Timeout Seconds",
   "a-ConnectionRetryLimit-label": "Connection Retry Limit",
+
   "a-ConnectionURL-label": "Connection URL",
+  "f-JMSBridgeDestination-a-ConnectionURL-help": "The connection URL for this JMS bridge destination.",
+
   "a-ConsensusParticipants-label": "Consensus Participants",
   "a-ConsensusProcessIdentifier-label": "Consensus Process Identifier",
   "a-ConsoleContextPath-label": "Console Context Path",
@@ -1296,12 +1321,18 @@
   "a-DescriptorBeanClass-label": "Descriptor Bean Class",
   "a-DescriptorFileName-label": "Descriptor File Name",
   "a-Destination-label": "Destination",
+
   "a-DestinationJNDIName-label": "Destination JNDI Name",
+  "f-JMSBridgeDestination-a-DestinationJNDIName-help": "The destination JNDI name for this JMS bridge destination.",
+
   "a-DestinationJndiName-label": "Destination JNDI Name",
   "a-DestinationKey-label": "Destination Key",
   "a-DestinationServer-label": "Destination Server",
   "a-DestinationSiteEnabled-label": "Destination Site Enabled",
+
   "a-DestinationType-label": "Destination Type",
+  "f-JMSBridgeDestination-a-DestinationType-help": "The destination type (queue or topic) for this JMS bridge destination. The default value is Queue",
+
   "a-Determiner-label": "Determiner",
   "a-DeterminerCandidateResourceInfoList-label": "Determiner Candidate Resource Info List",
   "a-DevPollDisabled-label": "Dev Poll Disabled",
@@ -1336,6 +1367,7 @@
   "a-DistributionPolicy-label": "Distribution Policy",
   "f-FileStore-a-DistributionPolicy-help": "Specifies how the instances of a configured JMS artifact are named and distributed when cluster-targeted. A JMS artifact is cluster-targeted when its target is directly set to a cluster, or when it is scoped to a resource group and the resource group is in turn targeted to a cluster. When this setting is configured on a store, it applies to all JMS artifacts that reference the store.",
   "f-JDBCStore-a-DistributionPolicy-help": "Specifies how the instances of a configured JMS artifact are named and distributed when cluster-targeted. A JMS artifact is cluster-targeted when its target is directly set to a cluster, or when it is scoped to a resource group and the resource group is in turn targeted to a cluster. When this setting is configured on a store, it applies to all JMS artifacts that reference the store.",
+  "f-MessagingBridge-a-DistributionPolicy-help": "Specifies how the instances of a configured JMS artifact are named and distributed when cluster-targeted. A JMS artifact is cluster-targeted when its target is directly set to a cluster, or when it is scoped to a resource group and the resource group is in turn targeted to a cluster. When this setting is configured on a store, it applies to all JMS artifacts that reference the store.",
 
   "a-DocumentBuilderFactory-label": "Document Builder Factory",
   "a-DomainKeystoresClientCertAlias-label": "Domain Keystores Client Cert Alias",
@@ -1353,7 +1385,10 @@
   "a-DowngradeUntrustedPrincipals-label": "Downgrade Untrusted Principals",
   "a-DriverInterceptor-label": "Driver Interceptor",
   "a-DriverName-label": "Driver Name",
+
   "a-DurabilityEnabled-label": "Durability Enabled",
+  "f-MessagingBridge-a-DurabilityEnabled-help": "Specifies whether or not the messaging bridge allows durable messages. When enabled and the source destination is a JMS topic, a messaging bridge instance uses a durable subscription to ensure that no messages are lost in the event of a failure. DurabilityEnabled ignored if the source destination is a JMS queue.",
+
   "a-DyeFilteringEnabled-label": "Dye Filtering Enabled",
   "a-DyeMask-label": "Dye Mask",
   "a-DynamicClusterCooloffPeriodSeconds-label": "Dynamic Cluster Cooloff Period Seconds",
@@ -1432,10 +1467,12 @@
   "a-FailOverLimit-label": "Fail Over Limit",
   "f-FileStore-a-FailOverLimit-help": "Specify a limit for the number of cluster-targeted JMS artifact instances that can fail over to a particular JVM. This can be used to prevent too many instances from starting on a server, avoiding a system failure when starting too few servers of a formerly large cluster. A typical limit value should allow all instances to run in the smallest desired cluster size, which means (smallest-cluster-size * (limit + 1)) should equal or exceed the total number of instances. A value of -1 means there is no fail over limit (unlimited). A value of 0 prevents any fail overs of cluster-targeted JMS artifact instances, so no more than 1 instance will run per server (this is an instance that has not failed over). A value of 1 allows one fail-over instance on each server, so no more than two instances will run per server (one failed over instance plus an instance that has not failed over).",
   "f-JDBCStore-a-FailOverLimit-help": "Specify a limit for the number of cluster-targeted JMS artifact instances that can fail over to a particular JVM. This can be used to prevent too many instances from starting on a server, avoiding a system failure when starting too few servers of a formerly large cluster. A typical limit value should allow all instances to run in the smallest desired cluster size, which means (smallest-cluster-size * (limit + 1)) should equal or exceed the total number of instances. A value of -1 means there is no fail over limit (unlimited). A value of 0 prevents any fail overs of cluster-targeted JMS artifact instances, so no more than 1 instance will run per server (this is an instance that has not failed over). A value of 1 allows one fail-over instance on each server, so no more than two instances will run per server (one failed over instance plus an instance that has not failed over).",
+  "f-MessagingBridge-a-FailOverLimit-help": "Specify a limit for the number of cluster-targeted JMS artifact instances that can fail over to a particular JVM. This can be used to prevent too many instances from starting on a server, avoiding a system failure when starting too few servers of a formerly large cluster. A typical limit value should allow all instances to run in the smallest desired cluster size, which means (smallest-cluster-size * (limit + 1)) should equal or exceed the total number of instances. A value of -1 means there is no fail over limit (unlimited). A value of 0 prevents any fail overs of cluster-targeted JMS artifact instances, so no more than 1 instance will run per server (this is an instance that has not failed over). A value of 1 allows one fail-over instance on each server, so no more than two instances will run per server (one failed over instance plus an instance that has not failed over).",
 
   "a-FailbackDelaySeconds-label": "Failback Delay Seconds",
   "f-FileStore-a-FailbackDelaySeconds-help": "Specifies the amount of time, in seconds, to delay before failing a cluster-targeted JMS artifact instance back to its preferred server after the preferred server failed and was restarted. This delay allows time for the system to stabilize and dependent services to be restarted, preventing a system failure during a reboot. A value > 0 specifies the time, in seconds, to delay before failing a JMS artifact back to its user preferred server. A value of 0 indicates that the instance would never failback. A value of -1 indicates that there is no delay and the instance would failback immediately.",
   "f-JDBCStore-a-FailbackDelaySeconds-help": "Specifies the amount of time, in seconds, to delay before failing a cluster-targeted JMS artifact instance back to its preferred server after the preferred server failed and was restarted. This delay allows time for the system to stabilize and dependent services to be restarted, preventing a system failure during a reboot. A value > 0 specifies the time, in seconds, to delay before failing a JMS artifact back to its user preferred server. A value of 0 indicates that the instance would never failback. A value of -1 indicates that there is no delay and the instance would failback immediately.",
+  "f-MessagingBridge-a-FailbackDelaySeconds-help": "Specifies the amount of time, in seconds, to delay before failing a cluster-targeted JMS artifact instance back to its preferred server after the preferred server failed and was restarted. This delay allows time for the system to stabilize and dependent services to be restarted, preventing a system failure during a reboot. A value > 0 specifies the time, in seconds, to delay before failing a JMS artifact back to its user preferred server. A value of 0 indicates that the instance would never failback. A value of -1 indicates that there is no delay and the instance would failback immediately.",
 
   "a-FailoverAddress-label": "Failover Address",
   "a-FailoverRequestIfBusy-label": "Failover Request If Busy",
@@ -1617,7 +1654,10 @@
   "a-IdleConnectionTimeout-label": "Idle Connection Timeout",
   "a-IdleIIOPConnectionTimeout-label": "Idle IIOP Connection Timeout",
   "a-IdlePeriodsUntilTimeout-label": "Idle Periods Until Timeout",
+
   "a-IdleTimeMaximum-label": "Idle Time Maximum",
+  "f-MessagingBridge-a-IdleTimeMaximum-help": "The maximum amount of time, in seconds, that a messaging bridge instance remains idle. In asynchronous mode, this is the longest amount of time a messaging bridge instance stays idle before it checks the sanity of its connection to the source. In synchronous mode, this is the amount of time the messaging bridge can block on a receive call if no transaction is involved.",
+
   "a-IgnoreDuplicateMembership-label": "Ignore Duplicate Membership",
   "a-IgnoreHostnameVerification-label": "Ignore Hostname Verification",
   "a-IgnoreInUseConnectionsEnabled-label": "Ignore In Use Connections Enabled",
@@ -1647,9 +1687,12 @@
   "a-InitialBootDelaySeconds-label": "Initial Boot Delay Seconds",
   "f-FileStore-a-InitialBootDelaySeconds-help": "Specifies the amount of time, in seconds, to delay before starting a cluster-targeted JMS instance on a newly booted WebLogic Server instance. When this setting is configured on a store, it applies to all JMS artifacts that reference the store. This allows time for the system to stabilize and dependent services to be restarted, preventing a system failure during a reboot. A value > 0 is the time, in seconds, to delay before before loading resources after a failure and restart. A value of 0 specifies no delay.",
   "f-JDBCStore-a-InitialBootDelaySeconds-help": "Specifies the amount of time, in seconds, to delay before starting a cluster-targeted JMS instance on a newly booted WebLogic Server instance. When this setting is configured on a store, it applies to all JMS artifacts that reference the store. This allows time for the system to stabilize and dependent services to be restarted, preventing a system failure during a reboot. A value > 0 is the time, in seconds, to delay before before loading resources after a failure and restart. A value of 0 specifies no delay.",
+  "f-MessagingBridge-a-InitialBootDelaySeconds-help": "Specifies the amount of time, in seconds, to delay before starting a cluster-targeted JMS instance on a newly booted WebLogic Server instance. When this setting is configured on a store, it applies to all JMS artifacts that reference the store. This allows time for the system to stabilize and dependent services to be restarted, preventing a system failure during a reboot. A value > 0 is the time, in seconds, to delay before before loading resources after a failure and restart. A value of 0 specifies no delay.",
 
   "a-InitialCapacity-label": "Initial Capacity",
-  "a-InitialContextFactory-label": "Initial Context Factory",
+
+  "a-InitialContextFactory-label": "Initial Context Factory Class Name",
+  "f-JMSBridgeDestination-a-InitialContextFactory-help": "The initial context factory class name for this JMS bridge destination. The default value is weblogic.jndi.WLInitialContextFactory.",
 
   "a-InitialSize-label": "Initial Size",
   "f-FileStore-a-InitialSize-help": "The initial file size, in bytes.",
@@ -2067,6 +2110,7 @@
   "a-MigrationPolicy-label": "Migration Policy",
   "f-FileStore-a-MigrationPolicy-help": "Controls migration and restart behavior of cluster-targeted JMS service artifact instances. When this setting is configured on a cluster-targeted store, it applies to all JMS artifacts that reference the store. See the migratable target settings for enabling migration and restart on migratable-targeted JMS artifacts.",
   "f-JDBCStore-a-MigrationPolicy-help": "Controls migration and restart behavior of cluster-targeted JMS service artifact instances. When this setting is configured on a cluster-targeted store, it applies to all JMS artifacts that reference the store. See the migratable target settings for enabling migration and restart on migratable-targeted JMS artifacts.",
+  "f-MessagingBridge-a-MigrationPolicy-help": "Controls migration and restart behavior of cluster-targeted JMS service artifact instances. When this setting is configured on a cluster-targeted store, it applies to all JMS artifacts that reference the store. See the migratable target settings for enabling migration and restart on migratable-targeted JMS artifacts.",
 
   "a-MillisToSleepBetweenAttempts-label": "Milliseconds To Sleep Between Attempts",
   "f-SingletonService-a-MillisToSleepBetweenAttempts-help": "Controls how long of a pause there should be between the migration attempts described in getAdditionalMigrationAttempts(). Note that this delay only happens when the service has failed to come up on every server. It does not cause any sort of delay between attempts to migrate otherwise.",
@@ -2172,6 +2216,7 @@
   "a-NumberOfRestartAttempts-label": "Number Of Restart Attempts",
   "f-FileStore-a-NumberOfRestartAttempts-help": "Specifies the maximum number of restart attempts. A value > 0 specifies the maximum number of restart attempts. A value of 0 specifies the same behavior as setting RestartInPlace to false. A value of -1 means infinite retry restart until it either starts or the server instance shuts down.",
   "f-JDBCStore-a-NumberOfRestartAttempts-help": "Specifies the maximum number of restart attempts. A value > 0 specifies the maximum number of restart attempts. A value of 0 specifies the same behavior as setting RestartInPlace to false. A value of -1 means infinite retry restart until it either starts or the server instance shuts down.",
+  "f-MessagingBridge-a-NumberOfRestartAttempts-help": "Specifies the maximum number of restart attempts. A value > 0 specifies the maximum number of restart attempts. A value of 0 specifies the same behavior as setting RestartInPlace to false. A value of -1 means infinite retry restart until it either starts or the server instance shuts down.",
 
   "a-NumberOfServersInClusterAddress-label": "Number Of Servers In Cluster Address",
   "a-OCMEnabled-label": "OCM Enabled",
@@ -2267,6 +2312,7 @@
   "a-PartialClusterStabilityDelaySeconds-label": "Partial Cluster Stability Delay Seconds",
   "f-FileStore-a-PartialClusterStabilityDelaySeconds-help": "Specifies the amount of time, in seconds, to delay before a partially started cluster starts all cluster-targeted JMS artifact instances that are configured with a Migration Policy of Always or On-Failure. Before this timeout expires or all servers are running, a cluster starts a subset of such instances based on the total number of servers running and the configured cluster size. Once the timeout expires or all servers have started, the system considers the cluster stable and starts any remaining services. This delay ensures that services are balanced across a cluster even if the servers are started sequentially. It is ignored after a cluster is fully started (stable) or when individual servers are started. A value > 0 specifies the time, in seconds, to delay before a partially started cluster starts dynamically configured services. A value of 0 specifies no delay.",
   "f-JDBCStore-a-PartialClusterStabilityDelaySeconds-help": "Specifies the amount of time, in seconds, to delay before a partially started cluster starts all cluster-targeted JMS artifact instances that are configured with a Migration Policy of Always or On-Failure. Before this timeout expires or all servers are running, a cluster starts a subset of such instances based on the total number of servers running and the configured cluster size. Once the timeout expires or all servers have started, the system considers the cluster stable and starts any remaining services. This delay ensures that services are balanced across a cluster even if the servers are started sequentially. It is ignored after a cluster is fully started (stable) or when individual servers are started. A value > 0 specifies the time, in seconds, to delay before a partially started cluster starts dynamically configured services. A value of 0 specifies no delay.",
+  "f-MessagingBridge-a-PartialClusterStabilityDelaySeconds-help": "Specifies the amount of time, in seconds, to delay before a partially started cluster starts all cluster-targeted JMS artifact instances that are configured with a Migration Policy of Always or On-Failure. Before this timeout expires or all servers are running, a cluster starts a subset of such instances based on the total number of servers running and the configured cluster size. Once the timeout expires or all servers have started, the system considers the cluster stable and starts any remaining services. This delay ensures that services are balanced across a cluster even if the servers are started sequentially. It is ignored after a cluster is fully started (stable) or when individual servers are started. A value > 0 specifies the time, in seconds, to delay before a partially started cluster starts dynamically configured services. A value of 0 specifies no delay.",
 
   "a-Partition-label": "Partition",
   "a-PartitionChannel-label": "Partition Channel",
@@ -2353,7 +2399,9 @@
   "a-PrefixName-label": "Prefix Name",
   "f-JDBCStore-a-PrefixName-help": "The prefix for the JDBC store's database table (WLStore), in the following format: [[[catalog.]schema.]prefix]. Each period symbol in the [[catalog.]schema.]prefix format is significant, where schema generally corresponds to username in many databases. When no prefix is specified, the JDBC store table name is simply WLStore and the database implicitly determines the schema according to the JDBC connection's user. As a best practice, you should always configure a prefix for the JDBC WLStore table name.",
 
-  "a-PreserveMsgProperty-label": "Preserve Msg Property",
+  "a-PreserveMsgProperty-label": "Preserve Message Properties",
+  "f-MessagingBridge-a-PreserveMsgProperty-help": "Specifies if message properties are preserved when messages are forwarded by a bridge instance.  See the WebLogic Server MBean Reference to see which properties are preserved in your scenario.",
+
   "a-Preserved-label": "Preserved",
   "a-PrimaryAddress-label": "Primary Address",
   "a-PrimaryIdentityDomain-label": "Primary Identity Domain",
@@ -2401,8 +2449,13 @@
   "a-PublicPort-label": "Public Port",
   "a-PublishedSiteUrl-label": "Published Site URL",
   "a-PurgeResourceFromCheckpointIntervalSeconds-label": "Purge Resource From Checkpoint Interval Seconds",
-  "a-QosDegradationAllowed-label": "Qos Degradation Allowed",
+
+  "a-QosDegradationAllowed-label": "Quality of Service Degradation Allowed",
+  "f-MessagingBridge-a-QOSDegradationAllowed-help": "Specifies if this messaging bridge instance allows the degradation of its QOS (quality of service) when the configured QOS is not available. When not enabled, if messaging bridge instance cannot satisfy the quality of service requested, an error results and the messaging bridge instance does not start.",
+
   "a-QualityOfService-label": "Quality Of Service",
+  "f-MessagingBridge-a-QualityOfService-help": "The QOS (quality of service) for this messaging bridge instance.",
+
   "a-QueueLength-label": "Queue Length",
   "a-QueueLengthThresholdPercent-label": "Queue Length Threshold Percent",
   "a-QueueSize-label": "Queue Size",
@@ -2417,6 +2470,7 @@
   "a-RebalanceEnabled-label": "Rebalance Enabled",
   "f-FileStore-a-RebalanceEnabled-help": "If set to true, then rebalance running cluster-targeted JMS instances when the system is idle and instances are unevenly distributed. The system is considered idle when the Partial Cluster Stability Delay and Initial Boot Delay have passed, and no instances have moved plus no server status has changed within the last two system check periods (typically 10 seconds between each check). Two is the default, you can tune this higher using Rebalance Delay Periods on the Cluster bean.",
   "f-JDBCStore-a-RebalanceEnabled-help": "If set to true, then rebalance running cluster-targeted JMS instances when the system is idle and instances are unevenly distributed. The system is considered idle when the Partial Cluster Stability Delay and Initial Boot Delay have passed, and no instances have moved plus no server status has changed within the last two system check periods (typically 10 seconds between each check). Two is the default, you can tune this higher using Rebalance Delay Periods on the Cluster bean.",
+  "f-MessagingBridge-a-RebalanceEnabled-help": "If set to true, then rebalance running cluster-targeted JMS instances when the system is idle and instances are unevenly distributed. The system is considered idle when the Partial Cluster Stability Delay and Initial Boot Delay have passed, and no instances have moved plus no server status has changed within the last two system check periods (typically 10 seconds between each check). Two is the default, you can tune this higher using Rebalance Delay Periods on the Cluster bean.",
 
   "a-RebalanceOnUpEvent-label": "Rebalance On Up Event",
 
@@ -2426,9 +2480,16 @@
   "a-Recipient-label": "Recipient",
   "a-RecipientCheckEnabled-label": "Recipient Check Enabled",
   "a-ReconnectBlockingMillis-label": "Reconnect Blocking Millis",
+
   "a-ReconnectDelayIncrease-label": "Reconnect Delay Increase",
+  "f-MessagingBridge-a-ReconnectDelayIncrease-help": "The incremental delay time, in seconds, that a messaging bridge instance increases its waiting time between one failed reconnection attempt and the next retry. Use with ReconnectDelayMinimum and ReconnectDelayMaximum. After the first failure to connect to a destination, the bridge instance waits for the number of seconds defined by ReconnectDelayMinimum. Each time a reconnect attempt fails, the bridge instance increases its waiting time by the number of seconds defined by ReconnectDelayIncrease. The maximum delay time is defined by ReconnectDelayMaximum. Once the waiting time is increased to the maximum value, the bridge instance stops increase its waiting time. Once the bridge instance successfully connects to the destination, the bridge instance resets its waiting time to the initial value defined by ReconnectDelayMinimum.",
+
   "a-ReconnectDelayMaximum-label": "Reconnect Delay Maximum",
+  "f-MessagingBridge-a-ReconnectDelayMaximum-help": "The longest amount of time, in seconds, that a messaging bridge instance waits between one failed attempt to connect to the source or target, and the next retry. Use with ReconnectDelayMinimum and ReconnectDelayIncrease. After the first failure to connect to a destination, a bridge instance waits for the number of seconds defined by ReconnectDelayMinimum. Each time a reconnect attempt fails, the bridge instance increases its waiting time by the number of seconds defined by ReconnectDelayIncrease. The maximum delay time is defined by ReconnectDelayMaximum. Once the waiting time is increased to the maximum value, the bridge instance stops increase its waiting time. Once the bridge instance successfully connects to the destination, the bridge instance resets its waiting time to the initial value defined by ReconnectDelayMinimum.",
+
   "a-ReconnectDelayMinimum-label": "Reconnect Delay Minimum",
+  "f-MessagingBridge-a-ReconnectDelayMinimum-help": "The minimum amount of time, in seconds, that a messaging bridge instance waits before it tries to reconnect to the source or target destination after a failure. Use with ReconnectDelayMaximum and ReconnectDelayIncrease. After the first failure to connect to a destination, the bridge instance waits for the number of seconds defined by ReconnectDelayMinimum. Each time a reconnect attempt fails, the bridge instance increases its waiting time by the number of seconds defined by ReconnectDelayIncrease. The maximum delay time is defined by ReconnectDelayMaximum. Once the waiting time is increased to the maximum value, the bridge instance stops increase its waiting time. Once the bridge instance successfully connects to the destination, the bridge instance resets its waiting time to the initial value defined by ReconnectDelayMinimum.",
+
   "a-ReconnectPolicy-label": "Reconnect Policy",
 
   "a-ReconnectRetryIntervalMillis-label": "Reconnect Retry Interval Milliseconds",
@@ -2539,6 +2600,7 @@
   "a-RestartInPlace-label": "Restart In Place",
   "f-FileStore-a-RestartInPlace-help": "Enables a periodic automatic in-place restart of failed cluster-targeted or standalone-server-targeted JMS artifact instance(s) running on healthy WebLogic Server instances. See the migratable target settings for in-place restarts of migratable-targeted JMS artifacts. When the Restart In Place setting is configured on a store, it applies to all JMS artifacts that reference the store.",
   "f-JDBCStore-a-RestartInPlace-help": "Enables a periodic automatic in-place restart of failed cluster-targeted or standalone-server-targeted JMS artifact instance(s) running on healthy WebLogic Server instances. See the migratable target settings for in-place restarts of migratable-targeted JMS artifacts. When the Restart In Place setting is configured on a store, it applies to all JMS artifacts that reference the store.",
+  "f-MessagingBridge-a-RestartInPlace-help": "Enables a periodic automatic in-place restart of failed cluster-targeted or standalone-server-targeted JMS artifact instance(s) running on healthy WebLogic Server instances. See the migratable target settings for in-place restarts of migratable-targeted JMS artifacts. When the Restart In Place setting is configured on a store, it applies to all JMS artifacts that reference the store.",
 
   "a-RestartIntervalSeconds-label": "Restart Interval Seconds",
   "a-RestartLoopProtectionEnabled-label": "Restart Loop Protection Enabled",
@@ -2657,6 +2719,7 @@
   "a-SecondsBetweenRestarts-label": "Seconds Between Restarts",
   "f-FileStore-a-SecondsBetweenRestarts-help": "Specifies the amount of time, in seconds, to wait in between attempts to restart a failed service instance.",
   "f-JDBCStore-a-SecondsBetweenRestarts-help": "Specifies the amount of time, in seconds, to wait in between attempts to restart a failed service instance.",
+  "f-MessagingBridge-a-SecondsBetweenRestarts-help": "Specifies the amount of time, in seconds, to wait in between attempts to restart a failed service instance.",
 
   "a-SecondsToTrustAnIdlePoolConnection-label": "Seconds To Trust An Idle Pool Connection",
   "a-SecureClusterBroadcastEnabled-label": "Secure Cluster Broadcast Enabled",
@@ -2680,7 +2743,10 @@
   "a-SecurityName-label": "Security Name",
   "a-SecurityPolicy-label": "Security Policy",
   "a-SecurityPolicyFile-label": "Security Policy File",
+
   "a-Selector-label": "Selector",
+  "f-MessagingBridge-a-Selector-help": "The filter for messages that are sent across the messaging bridge instance. Only messages that match the selection criteria are sent across the messaging bridge. For queues, messages that do not match the selection criteria are left behind and accumulate in the queue. For topics, messages that do not match the connection criteria are dropped.",
+
   "a-SelfTuningThreadPoolSizeMax-label": "Self Tuning Thread Pool Size Max",
   "a-SelfTuningThreadPoolSizeMin-label": "Self Tuning Thread Pool Size Min",
   "a-SendAutomaticTrapsEnabled-label": "Send Automatic Traps Enabled",
@@ -2784,6 +2850,8 @@
   "a-SourceAccessPoint-help": "The name of the local or remote access point where the source is located.",
 
   "a-SourceDestination-label": "Source Destination",
+  "f-MessagingBridge-a-SourceDestination-help": "The source destination from which this messaging bridge instance reads messages.",
+
   "a-SourceIdBase64-label": "Source ID Base 64",
   "a-SourceIdHex-label": "Source ID Hex",
 
@@ -2818,6 +2886,8 @@
   "a-StagingMode-help": "Specifies whether a deployment's files are copied from a source on the Administration Server to the Managed Server's staging area during application preparation. Staging mode for an application can only be set the first time the application is deployed. Once the staging mode for an application is set, it cannot be changed while the application is configured in the domain. The only way to change the staging mode is to undeploy and then redeploy the application. This attribute overrides the server's staging mode.",
 
   "a-Started-label": "Started",
+  "f-MessagingBridge-a-Started-help": "Specifies the initial operating state of a targeted messaging bridge instance.",
+
   "a-StartupMode-label": "Startup Mode",
   "a-StartupProperties-label": "Startup Properties",
   "a-StartupTimeout-label": "Startup Timeout",
@@ -2908,7 +2978,10 @@
   "f-WTCServer_WTCtBridgeRedirect-a-TargetAccessPoint-help": "The name of the local or remote access point where the target is located.",
 
   "a-TargetClass-label": "Target Class",
+
   "a-TargetDestination-label": "Target Destination",
+  "f-MessagingBridge-a-TargetDestination-help": "The target destination where a messaging bridge instance sends the messages it receives from the source destination.",
+
   "a-TargetJar-label": "Target Jar",
 
   "a-TargetName-label": "Target Name",
@@ -2991,7 +3064,9 @@
   "a-TransactionPublicChannelName-label": "Transaction Public Channel Name",
   "a-TransactionPublicSecureChannelName-label": "Transaction Public Secure Channel Name",
   "a-TransactionSecureChannelName-label": "Transaction Secure Channel Name",
+
   "a-TransactionTimeout-label": "Transaction Timeout",
+  "f-MessagingBridge-a-TransactionTimeout-help": "The amount of time, in seconds, that the transaction manager waits for each transaction before timing it out.",
 
   "a-Transactional-label": "Transactional",
   "f-WTCServer_WTCtBridgeGlobal-a-Transactional-help": "Specifies whether this Tuxedo queuing bridge should use transactions when retrieving messages from a source location and when placing messages on a target location. A value of YES means that transactions are used for both operations; a value of NO means that transactions are not used for either operation.",
@@ -3120,13 +3195,19 @@
   "a-UserIdResourceAttribute-label": "User ID Resource Attribute",
   "a-UserIdTokenClaim-label": "User ID Token Claim",
   "a-UserLockoutTotalCount-label": "User Lockout Total Count",
+
   "a-UserName-label": "User Name",
+  "f-JMSBridgeDestination-a-UserName-help": "The optional user name the adapter uses to access the bridge destination. All operations on the specified destination are done using this user name and the corresponding password. Therefore, the User Name/Password for the source and target destinations must have permission to the access the underlying destinations in order for the messaging bridge to work.",
+
   "a-UserNameAttribute-label": "User Name Attribute",
   "a-UserNameMapperClassName-label": "User Name Mapper Class Name",
   "a-UserNameResourceAttribute-label": "User Name Resource Attribute",
   "a-UserNameTokenClaim-label": "User Name Token Claim",
   "a-UserObjectClass-label": "User Object Class",
+
   "a-UserPasswordEncrypted-label": "User Password Encrypted",
+  "f-JMSBridgeDestination-a-UserPasswordEncrypted-help": "The user password that the adapter uses to access the bridge destination.",
+
   "a-UserPreferredServer-label": "User Preferred Server",
   "a-UserRole-label": "User Role",
   "a-UserSearchScope-label": "User Search Scope",
