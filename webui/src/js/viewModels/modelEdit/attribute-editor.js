@@ -6,12 +6,12 @@
 'use strict';
 
 define(['accUtils', 'knockout', 'utils/dialog-helper', 'utils/wkt-logger', 'ojs/ojarraydataprovider',
-  'ojs/ojmodule-element-utils', 'utils/modelEdit/meta-handlers', 'utils/modelEdit/model-edit-helper',
-  'utils/modelEdit/message-helper', 'utils/modelEdit/alias-helper',
+  'ojs/ojmodule-element-utils', 'utils/modelEdit/meta-handlers', 'utils/modelEdit/meta-validators',
+  'utils/modelEdit/model-edit-helper', 'utils/modelEdit/message-helper', 'utils/modelEdit/alias-helper',
   'oj-c/button', 'oj-c/input-text', 'oj-c/list-view', 'oj-c/input-password'
 ],
 function(accUtils, ko, DialogHelper, WktLogger, ArrayDataProvider,
-  ModuleElementUtils, MetaHandlers, ModelEditHelper, MessageHelper, AliasHelper) {
+  ModuleElementUtils, MetaHandlers, MetaValidators, ModelEditHelper, MessageHelper, AliasHelper) {
 
   function AttributeEditor(args) {
     const MODEL_PATH = args.modelPath;
@@ -44,6 +44,10 @@ function(accUtils, ko, DialogHelper, WktLogger, ArrayDataProvider,
 
     this.attributeHelp = attribute => {
       return MessageHelper.getAttributeHelp(attribute, ALIAS_PATH);
+    };
+
+    this.isTextDisplayType = () => {
+      return ['string', 'integer', 'double'].includes(this.displayType);
     };
 
     this.variableName = ko.computed(() => {
@@ -110,10 +114,12 @@ function(accUtils, ko, DialogHelper, WktLogger, ArrayDataProvider,
     // if validators assigned to attribute, skip any default validation
     if(ATTRIBUTE.validators) {
       ATTRIBUTE.validators.forEach(validator => {
-        this.validators.push(validator);
+        this.validators.push(MetaValidators[validator]);
       });
-    } else if(ATTRIBUTE.type === 'integer') {
-      this.validators.push(ModelEditHelper.integerValidator);
+    } else if(this.displayType === 'integer') {
+      this.validators.push(MetaValidators.integerValidator);
+    } else if(this.displayType === 'double') {
+      this.validators.push(MetaValidators.doubleValidator);
     }
 
     this.showOptions = () => {

@@ -7,9 +7,10 @@
 
 define(['knockout', 'js-yaml', 'models/wkt-project', 'utils/common-utilities',
   'utils/wkt-logger', 'utils/modelEdit/alias-helper', 'utils/modelEdit/meta-helper', 'utils/modelEdit/message-helper',
+  'utils/modelEdit/meta-validators',
   'ojs/ojmodule-element-utils'],
 function (ko, jsYaml, project, utils,
-  WktLogger, AliasHelper, MetaHelper, MessageHelper, ModuleElementUtils) {
+  WktLogger, AliasHelper, MetaHelper, MessageHelper, MetaValidators, ModuleElementUtils) {
 
   function ModelEditHelper() {
     // parse, write, and maintain the model object structure.
@@ -17,6 +18,10 @@ function (ko, jsYaml, project, utils,
 
     const ROOT_ORDER = ['domainInfo', 'topology', 'resources', 'appDeployments', 'kubernetes'];
     const FALSE_VALUES= ['false', '0'];
+
+    // types that UI has editors for, not all alias types
+    const DISPLAY_TYPES = ['boolean', 'credential', 'dict', 'double', 'integer', 'list',
+      'select','string'];
 
     this.modelObject = ko.observable();
     this.variableMap = ko.observable({});
@@ -222,10 +227,16 @@ function (ko, jsYaml, project, utils,
         }
       });
       remainingNames.sort((a, b) => {
-        return a.toLowerCase().localeCompare(b.toLowerCase());
+        return getCompareName(a).localeCompare(getCompareName(b));
       });
       return remainingNames;
     };
+
+    function getCompareName(text) {
+      const lastSlash = text.lastIndexOf('/');
+      text = lastSlash === -1 ? text : text.substring(lastSlash + 1);
+      return text.toLowerCase();
+    }
 
     this.getAttributeObservableValue = attribute => {
       const modelValue = this.getValue(attribute.path, attribute.name);
@@ -447,40 +458,6 @@ function (ko, jsYaml, project, utils,
 
     this.getDisplayType = getDisplayType;
 
-    // *********************
-    // attribute validators
-    // *********************
-
-    const INTEGER_REGEX = /^[0-9-]*$/;
-    const MIN_PORT = 1;
-    const MAX_PORT = 65535;
-
-    this.integerValidator = {
-      validate: value => {
-        if(value) {
-          if (!INTEGER_REGEX.test(value)) {
-            throw new Error(MessageHelper.t('invalid-integer-error'));
-          }
-        }
-      }
-    };
-
-    this.portValidator = {
-      validate: value => {
-        this.integerValidator.validate(value);
-        this.validateRange(value, MIN_PORT, MAX_PORT);
-      }
-    };
-
-    this.validateRange = (value, min, max) => {
-      if(value) {
-        const port = parseInt(value, 10);
-        if((port < min) || (port > max)) {
-          throw new Error(MessageHelper.t('invalid-range-error', {min, max}));
-        }
-      }
-    };
-
     // *******************
     // internal functions
     // *******************
@@ -545,11 +522,19 @@ function (ko, jsYaml, project, utils,
     // refine attribute value for use in the model
     function getModelValue(value, attribute) {
       if ((getDisplayType(attribute) === 'integer') && isString(value)) {
-        const result = value.match(/^([0-9]+)$/);
-        if(result && (result.length > 1)) {
-          return parseInt(result[1], 10);
+        const integerValue = MetaValidators.getIntegerValue(value);
+        if(integerValue != null) {
+          return integerValue;
         }
       }
+
+      if ((getDisplayType(attribute) === 'double') && isString(value)) {
+        const doubleValue = MetaValidators.getDoubleValue(value);
+        if(doubleValue != null) {
+          return doubleValue;
+        }
+      }
+
       return value;
     }
 
@@ -558,45 +543,40 @@ function (ko, jsYaml, project, utils,
     }
 
     function getDisplayType(attribute) {
-      let attributeType = attribute.type;
+      let displayType = attribute.type;
 
       // some alias attributes have wlst_type like ${offline:online},
       // in this case use the first value
-      const result = attributeType.match(/^\$\{(.*):(.*)}$/);
+      const result = displayType.match(/^\$\{(.*):(.*)}$/);
       if(result && (result.length > 1)) {
-        attributeType = result[1];
+        displayType = result[1];
       }
 
-      if(['password', 'credential'].includes(attributeType)) {
-        return 'credential';
+      if('password' === displayType) {
+        displayType = 'credential';
       }
 
-      if(attributeType === 'boolean') {
-        return 'boolean';
+      if('properties' === displayType) {
+        displayType = 'dict';
       }
 
-      if(['dict', 'properties'].includes(attributeType)) {
-        return 'dict';
-      }
-
-      if(['list', 'jarray'].includes(attributeType) || attributeType.startsWith('delimited_string')) {
-        return 'list';
+      if(('jarray' === displayType) || displayType.startsWith('delimited_string')) {
+        displayType = 'list';
       }
 
       if(attribute['options']) {
-        return 'choice';
+        displayType = 'select';
       }
 
-      if(['integer', 'long'].includes(attributeType)) {
-        return 'integer';
+      if('long' === displayType) {
+        displayType = 'integer';
       }
 
-      if(['string'].includes(attributeType)) {
-        return 'string';
+      if(!DISPLAY_TYPES.includes(displayType)) {
+        WktLogger.error(`Unrecognized type '${displayType}' for attribute ${attribute.name}`);
       }
 
-      WktLogger.error(`Unrecognized type '${attribute.type}' for attribute ${attribute.name}`);
-      return 'unknown';
+      return displayType;
     }
   }
 

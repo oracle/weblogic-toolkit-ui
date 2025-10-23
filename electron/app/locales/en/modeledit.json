@@ -133,6 +133,7 @@
   "attribute-editor-options": "Options",
 
   "invalid-integer-error": "Value must be an integer",
+  "invalid-double-error": "Value must be a decimal number, such as 4 or 3.5",
   "invalid-range-error": "Value must be in the range {{min}}-{{max}}",
 
   "instance-name-error": "Name may only contain letters, numbers, and these characters: .-_!",
