@@ -18,19 +18,7 @@
       </oj-c-input-password>
     </oj-bind-if>
 
-    <oj-bind-if test="[[displayType === 'string']]">
-      <oj-c-input-text
-        label-hint="[[attributeLabel(attribute)]]"
-        help.instruction="[[attributeHelp(attribute)]]"
-        value="{{getValueObservable()}}"
-        disabled="[[disabled]]"
-        readOnly="[[readOnly]]"
-        validators="[[validators]]"
-      >
-      </oj-c-input-text>
-    </oj-bind-if>
-
-    <oj-bind-if test="[[displayType === 'integer']]">
+    <oj-bind-if test="[[isTextDisplayType()]]">
       <oj-c-input-text
         label-hint="[[attributeLabel(attribute)]]"
         help.instruction="[[attributeHelp(attribute)]]"
@@ -64,7 +52,7 @@
       </div>
     </oj-bind-if>
 
-    <oj-bind-if test="[[displayType === 'choice']]">
+    <oj-bind-if test="[[displayType === 'select']]">
       <oj-select-single
         label-hint="[[attributeLabel(attribute)]]"
         help.instruction="[[attributeHelp(attribute)]]"

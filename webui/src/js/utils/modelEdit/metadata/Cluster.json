@@ -8,6 +8,18 @@
       "ClusterType": {},
       "ClusterBroadcastChannel": {}
     },
+    "attributeDetails": {
+      "FrontendHTTPPort": {
+        "validators": [
+          "portValidator"
+        ]
+      },
+      "FrontendHTTPSPort": {
+        "validators": [
+          "portValidator"
+        ]
+      }
+    },
     "sections": [
       {
         "type": "tab",
