@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2024, 2025, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
@@ -17,13 +17,13 @@ function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, MetaHelper, Navigatio
 
     const subscriptions = [];
 
-    this.selectedPath = NavigationHelper.selectedPath;
+    this.contentPath = NavigationHelper.contentPath;
 
     this.connected = () => {
       accUtils.announce('Model Edit Page loaded.', 'assertive');
 
       this.updateView();
-      subscriptions.push(this.selectedPath.subscribe(() => {
+      subscriptions.push(this.contentPath.subscribe(() => {
         this.updateView();
       }));
 
@@ -62,7 +62,7 @@ function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, MetaHelper, Navigatio
     this.editPage = ko.observable(ModuleElementUtils.createConfig({ name: 'empty-view' }));
 
     this.updateView = () => {
-      const modelPath = this.selectedPath();
+      const modelPath = this.contentPath();
       if(modelPath) {
         const aliasPath = AliasHelper.getAliasPath(modelPath);
         let metaPage = MetaHelper.getMetadata(aliasPath)['page'];
