@@ -8,47 +8,67 @@
 define(['accUtils',
   'utils/modelEdit/alias-helper', 'utils/modelEdit/message-helper', 'utils/modelEdit/model-edit-helper',
   'utils/modelEdit/navigation-helper', 'utils/dialog-helper',
-  'ojs/ojmodule-element-utils', 'oj-c/labelled-link'
+  'oj-c/button'
 ],
 function(accUtils, AliasHelper, MessageHelper, ModelEditHelper, NavigationHelper, DialogHelper) {
   function FolderHeaderViewModel(args) {
     const MODEL_PATH = args.modelPath;
     const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
 
-    this.isMultiple = AliasHelper.isNamedPath(MODEL_PATH);
-
-    let parentPath = null;
-    if(MODEL_PATH.length > 1) {
-      const truncate = this.isMultiple ? 2 : 1;
-      parentPath = MODEL_PATH.slice(0, 0 - truncate);
-    }
-
     this.connected = () => {
       accUtils.announce('Folder Header loaded.', 'assertive');
     };
 
-    this.getTitle = () => {
-      if(MODEL_PATH) {
-        return MessageHelper.getPageTitle(MODEL_PATH);
-      }
-      return 'No model path';
+    this.t = (labelId, arg) => {
+      return MessageHelper.t(labelId, arg);
     };
 
-    this.prefixText = null;
-
-    if(parentPath && (parentPath.length > 1)) {  // don't show domainInfo, topology, etc. in prefix
-      const prefixPath = ALIAS_PATH.slice(0, -1);
-      this.prefixText = MessageHelper.getFolderLabel(prefixPath);
-      if(AliasHelper.isNamedPath(parentPath)) {
-        const name = parentPath[parentPath.length - 1];
-        this.prefixText += ` \"${name}\"`;
-      }
+    let breadcrumbPath = null;
+    if(MODEL_PATH.length > 1) {
+      breadcrumbPath = MODEL_PATH.slice(0, -1);
     }
 
-    this.renameLabel = MessageHelper.t('rename-label');
+    this.crumbs = [];
+    if(breadcrumbPath && breadcrumbPath.length) {
+      let currentPath = [];
+      breadcrumbPath.forEach(modelElement => {
+        currentPath.push(modelElement);
+        let link = null;
+        let label;
+        if(AliasHelper.isNamedPath(currentPath)) {
+          label = modelElement;
+          link = [...currentPath];  // shallow copy
+        } else {
+          const aliasPath = AliasHelper.getAliasPath(currentPath);
+          if(!aliasPath) {
+            label = MessageHelper.getFolderNameLabel(currentPath[currentPath.length - 1]);
+          } else {
+            label = MessageHelper.getFolderLabel(aliasPath);
+            link = [...currentPath];  // shallow copy
+          }
+        }
 
-    this.navigateToParent = () => {
-      NavigationHelper.navigateToElement(parentPath);
+        this.crumbs.push({
+          label,
+          link
+        });
+      });
+    }
+
+    this.title = 'No model path';
+    if(AliasHelper.isNamedPath(MODEL_PATH)) {
+      this.title = MODEL_PATH[MODEL_PATH.length - 1];
+    } else {
+      this.title = MessageHelper.getFolderLabel(ALIAS_PATH);
+    }
+
+    this.navigateTo = (dummy, event) => {
+      const crumb = event.data;
+      NavigationHelper.navigateToElement(crumb.link);
+    };
+
+    this.showEditButtons = () => {
+      return AliasHelper.isNamedPath(MODEL_PATH);
     };
 
     this.renameInstance = () => {
@@ -63,6 +83,24 @@ function(accUtils, AliasHelper, MessageHelper, ModelEditHelper, NavigationHelper
 
             const typePath = MODEL_PATH.slice(0, -1);
             NavigationHelper.navigateToElement(typePath, newName);
+          }
+        }
+      });
+    };
+
+    this.deleteInstance = () => {
+      const options = {
+        modelPath: MODEL_PATH
+      };
+      DialogHelper.promptDialog('modelEdit/delete-instance-dialog', options).then(result => {
+        if (result) {
+          const doDelete = result.doDelete;
+          if (doDelete) {
+            const typePath = MODEL_PATH.slice(0, -1);
+            const name = MODEL_PATH[MODEL_PATH.length - 1];
+            ModelEditHelper.deleteModelElement(typePath, name);
+
+            NavigationHelper.navigateToElement(typePath);
           }
         }
       });

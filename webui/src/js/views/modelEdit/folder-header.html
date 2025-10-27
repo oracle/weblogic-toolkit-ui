@@ -1,29 +1,52 @@
 <!--
- Copyright (c) 2024, Oracle and/or its affiliates.
+ Copyright (c) 2024, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 
-<h6 class="wkt-split-header">
-  <div class="wkt-split-title">
-    <oj-bind-if test="prefixText">
-      <oj-bind-if test="true">
-        <a href="#" on-click="[[navigateToParent]]">
-          <oj-bind-text value="[[prefixText]]"></oj-bind-text></a>
+<oj-bind-if test="[[crumbs.length]]">
+  <div class="wkt-breadcrumb">
+    <oj-bind-for-each data="[[crumbs]]">
+      <template data-oj-as="crumb">
+        <oj-bind-if test="[[crumb.data.link]]">
+          <a href="#" on-click="[[navigateTo]]">
+            <oj-bind-text value="[[crumb.data.label]]"></oj-bind-text></a>
+        </oj-bind-if>
+
+        <oj-bind-if test="[[!crumb.data.link]]">
+          <oj-bind-text value="[[crumb.data.label]]"></oj-bind-text>
+        </oj-bind-if>
+
         /
-      </oj-bind-if>
-    </oj-bind-if>
-    <oj-bind-text value="[[getTitle()]]"></oj-bind-text>
+      </template>
+    </oj-bind-for-each>
   </div>
-  <div class="wkt-split-link">
-    <oj-bind-if test="isMultiple">
-      <oj-c-labelled-link
-        text="[[renameLabel]]"
-        label-hint=""
-        on-oj-action="[[renameInstance]]"
-      >
-      </oj-c-labelled-link>
-    </oj-bind-if>
+</oj-bind-if>
+
+<h6 class="wkt-header-row" :class="[[crumbs.length ? 'wkt-under-breadcrumb' : null]]">
+  <div>
+    <oj-bind-text value="[[title]]"></oj-bind-text>
   </div>
+
+  <oj-bind-if test="[[showEditButtons()]]">
+    <div class="wkt-header-row-buttons">
+      <oj-c-button
+        class="wkt-header-button"
+        label="[[t('rename-label')]]"
+        size="sm"
+        display="icons"
+        chroming="borderless"
+        on-oj-action="[[renameInstance]]">
+        <span slot="endIcon" class="oj-ux-ico-edit" role="img"></span>
+      </oj-c-button>
+      <oj-c-button
+        class="wkt-header-button"
+        label="[[t('delete-only-label')]]"
+        size="sm"
+        display="icons"
+        chroming="borderless"
+        on-oj-action="[[deleteInstance]]">
+        <span slot="endIcon" class="oj-ux-ico-trash" role="img"></span>
+      </oj-c-button>
+    </div>
+  </oj-bind-if>
 </h6>
-
-

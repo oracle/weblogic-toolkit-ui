@@ -14,6 +14,8 @@
   "add-label": "Add {{item}}",
   "add-to-label": "Add {{item}} to {{attribute}}",
   "delete-label": "Delete {{item}}",
+  "delete-only-label": "Delete",
+  "delete-title": "Delete {{type}} \"{{name}}\"?",
   "rename-label": "Rename",
   "rename-title": "Rename {{type}} \"{{name}}\"",
 
@@ -3896,5 +3898,7 @@
   "f-any_XMLParserSelectRegistryEntry-typeLabel": "XML Parser Select Registry Entry",
   "f-any_XMLRegistry-label": "XML Registries",
   "f-any_XMLRegistry-typeLabel": "XML Registry",
+  "f-any_appDeployments-label": "Deployments",
+  "f-any_resources-label": "Resources",
   "f-any_weblogic.security.providers.authentication.OracleIdentityCloudIntegrator-label": "weblogicsecurityprovidersauthentication Oracle Identity Cloud Integrator"
 }
