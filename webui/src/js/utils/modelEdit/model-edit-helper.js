@@ -556,6 +556,10 @@ function (ko, jsYaml, project, utils,
         displayType = 'credential';
       }
 
+      if('java.lang.Boolean' === displayType) {
+        displayType = 'boolean';
+      }
+
       if('properties' === displayType) {
         displayType = 'dict';
       }
