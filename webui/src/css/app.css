@@ -615,21 +615,19 @@ h6.wkt-panel-heading {
   margin-bottom: 0;
 }
 
-/* buttons beside an h6 header */
-.wkt-header-button-row {
+.wkt-header-row {
   display: flex;
+  align-items: center;
+  gap: 1px;
 }
 
-.wkt-header-button-row .oj-button {
-  margin-bottom: -10px;
+.wkt-header-row-buttons {
+  display: flex;
+  margin: -10px 0 -10px 8px;
 }
 
-.wkt-header-button-row.wkt-header-with-margin .oj-button {
-  margin-bottom: 10px;
-}
-
-.wkt-header-button-row h6 {
-  flex: 1 1 auto;
+.wkt-header-button {
+  display: block;
 }
 
 /* no default scroll bar on html body */
@@ -949,27 +947,8 @@ h6.wkt-panel-heading {
   border-radius: var(--wkt-model-edit-border-radius);
 }
 
-h6.wkt-split-header {
-  display:flex;
-}
-
-.wkt-split-prefix {
-  flex: 0 0 auto;
-}
-
-.wkt-split-prefix span {
-  font-size: 20px;
-  font-weight: 800;
-}
-
-.wkt-split-title {
-  flex: 1 1 auto;
-}
-
-.wkt-split-link {
-  flex: 0 0 0;
-  padding-left: 20px;
-  white-space: nowrap;
+h6.wkt-under-breadcrumb {
+  margin-top: 6px;
 }
 
 .wkt-model-edit-dict-box .wkt-model-edit-table {

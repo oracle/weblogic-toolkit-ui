@@ -45,7 +45,7 @@ define(['knockout', 'utils/wkt-logger'],
             if (modelPath[0] === 'topology') {
               return ['Topology'];
             }
-            throw new Error('Bad top-level path: ' + modelPath);
+            return null;  // no alias path for resources, appDeployments
           }
 
           let aliasPath = [];

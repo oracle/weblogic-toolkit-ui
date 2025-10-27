@@ -67,16 +67,22 @@ function (ko, i18n, AliasHelper) {
     // *******************
 
     this.getFolderLabel = aliasPath => {
-      const prefix = getFolderPrefix(aliasPath);
+      const fullPrefix = getFolderPrefix(aliasPath);
       const lastFolder = aliasPath[aliasPath.length - 1];
-      const folderKey = `${prefix}-label`;
-      const anyFolderKey =  `f-any_${lastFolder}-label`;
+      return this.getFolderNameLabel(lastFolder, fullPrefix);
+    };
+
+    // top-level folders with no alias can use this
+    this.getFolderNameLabel = (folderName, fullPrefix) => {
+      fullPrefix = fullPrefix || ('f-' + folderName);  // if just one argument
+      const folderKey = `${fullPrefix}-label`;
+      const anyFolderKey =  `f-any_${folderName}-label`;
 
       if(messageKeys.includes(folderKey)) {  // specific to folder path
         return t(folderKey);
       } else {  // specific to folder name, log as missing if unavailable
         const label = t(anyFolderKey);
-        return (label === anyFolderKey) ? getReadableLabel(lastFolder) : label;
+        return (label === anyFolderKey) ? getReadableLabel(folderName) : label;
       }
     };
 
@@ -88,6 +94,13 @@ function (ko, i18n, AliasHelper) {
     this.getDeleteInstanceMessage = aliasPath => {
       const label = this.getFolderTypeLabel(aliasPath);
       return t('delete-label', {item: label});
+    };
+
+    this.getDeleteInstanceTitle = modelPath => {
+      const aliasPath = AliasHelper.getAliasPath(modelPath);
+      const typeLabel = this.getFolderTypeLabel(aliasPath);
+      const instanceName = modelPath[modelPath.length - 1];
+      return t('delete-title', {type: typeLabel, name: instanceName});
     };
 
     this.getNoInstancesMessage = aliasPath => {
