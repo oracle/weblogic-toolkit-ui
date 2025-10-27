@@ -2,7 +2,8 @@
   "JDBCSystemResource": {
     "mergeFolder": "JdbcResource",
     "summaryAttributes": {
-      "DeploymentOrder": {}
+      "JdbcResource/DatasourceType": {},
+      "Target": {}
     },
     "sections": [
       {
@@ -11,21 +12,322 @@
         "sections": [
           {
             "type": "attributes",
-            "addRemainingAttributes": true
+            "attributes": [
+              "DatasourceType",
+              "DescriptorFileName",
+              "DeploymentOrder",
+              "Notes",
+              "Target"
+            ]
           },
           {
             "type": "attributesCollapsible",
             "labelKey": "advanced-label",
             "attributes": [
-              "Version",
+              "CompatibilityName",
+              "DeploymentPrincipalName",
               "ModuleType"
+            ],
+            "addRemainingAttributes": true
+          },
+          {
+            "type": "hidden",
+            "attributes": [
+              "SourcePath",
+              "Version"
+            ],
+            "folders": [
+              "SubDeployment"
             ]
           }
         ]
       },
       {
         "type": "folderTab",
+        "folder": "JdbcResource/JDBCDriverParams"
+      },
+      {
+        "type": "folderTab",
+        "folder": "JdbcResource/JDBCConnectionPoolParams"
+      },
+      {
+        "type": "folderTab",
         "folder": "JdbcResource/JDBCDataSourceParams"
+      },
+      {
+        "type": "folderTab",
+        "folder": "JdbcResource/JDBCXAParams"
+      },
+      {
+        "type": "folderTab",
+        "folder": "JdbcResource/JDBCOracleParams"
+      }
+    ]
+  },
+  "JDBCSystemResource/JdbcResource": {
+    "attributeDetails": {
+      "DatasourceType": {
+        "options": [
+          { "value": "GENERIC", "labelKey": "options-generic-label" },
+          { "value": "MDS", "labelKey": "options-mds-label" },
+          { "value": "AGL", "labelKey": "options-agl-label" },
+          { "value": "UCP", "labelKey": "options-ucp-label" },
+          { "value": "PROXY", "labelKey": "options-proxy-label" }
+        ]
+      }
+    }
+  },
+  "JDBCSystemResource/JdbcResource/JDBCConnectionPoolParams": {
+    "attributeDetails": {
+      "StatementCacheType": {
+        "options": [
+          { "value": "LRU", "labelKey": "options-lru-label" },
+          { "value": "FIXED", "labelKey": "options-fixed-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "InitialCapacity",
+              "MinCapacity",
+              "MaxCapacity",
+              "ConnectionCreationRetryFrequencySeconds",
+              "LoginDelaySeconds",
+              "CountOfRefreshFailuresTillDisable",
+              "StatementCacheType",
+              "StatementCacheSize",
+              "StatementTimeout"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "attributes": [
+              "HighestNumWaiters",
+              "InactiveConnectionTimeoutSeconds",
+              "InitSql",
+              "FatalErrorCodes",
+              "CredentialMappingEnabled",
+              "IdentityBasedConnectionPoolingEnabled",
+              "IgnoreInUseConnectionsEnabled",
+              "InvokeBeginEndRequest",
+              "PinnedToThread",
+              "RemoveInfectedConnections",
+              "WrapJdbc",
+              "WrapTypes",
+              "ShrinkFrequencySeconds",
+              "ShrinkFactorPercent",
+              "ShrinkHistorySeconds",
+              "ShrinkSpareCapacityPercent"
+            ],
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "connection-testing-tab-label",
+        "attributes": [
+          "TestConnectionsOnReserve",
+          "TestTableName",
+          "SecondsToTrustAnIdlePoolConnection",
+          "ConnectionReserveTimeoutSeconds",
+          "TestTimeoutSeconds",
+          "TestFrequencySeconds",
+          "CountOfTestFailuresTillFlush",
+          "HangDetectionMaxTestWaitSeconds",
+          "RefreshAvailableAfterTestFailure"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "diagnostics-tab-label",
+        "attributes": [
+          "ConnectionHarvestMaxCount",
+          "ConnectionHarvestTriggerCount",
+          "DriverInterceptor",
+          "JDBCXADebugLevel",
+          "ProfileType",
+          "ProfileConnectionLeakTimeoutSeconds",
+          "ProfileHarvestFrequencySeconds",
+          "ConnectionLabelingCallback"
+        ]
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "CapacityIncrement"
+        ]
+      }
+    ]
+  },
+  "JDBCSystemResource/JdbcResource/JDBCDataSourceParams": {
+    "attributeDetails": {
+      "AlgorithmType": {
+        "options": [
+          { "value": "Failover", "labelKey": "options-failover-label" },
+          { "value": "Load-Balancing", "labelKey": "options-load-balancing-label" }
+        ]
+      },
+      "GlobalTransactionsProtocol": {
+        "options": [
+          { "value": "OnePhaseCommit", "labelKey": "options-one-phase-commit-label" },
+          { "value": "TwoPhaseCommit", "labelKey": "options-two-phase-commit-label" },
+          { "value": "LoggingLastResource", "labelKey": "options-logging-last-resource-label" },
+          { "value": "EmulateTwoPhaseCommit", "labelKey": "options-emulate-two-phase-commit-label" },
+          { "value": "None", "labelKey": "options-none-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "GlobalTransactionsProtocol",
+          "JNDIName",
+          "KeepConnAfterGlobalTx"
+        ]
+      },
+      {
+        "type": "attributes",
+        "labelKey": "multi-data-sources-params-title",
+        "attributes": [
+          "AlgorithmType",
+          "DataSourceList",
+          "ConnectionPoolFailoverCallbackHandler",
+          "FailoverRequestIfBusy"
+        ]
+      },
+      {
+        "type": "attributes",
+        "labelKey": "proxy-data-sources-params-title",
+        "attributes": [
+          "ProxySwitchingCallback",
+          "ProxySwitchingProperties"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "KeepConnAfterLocalTx",
+          "RowPrefetch",
+          "RowPrefetchSize",
+          "StreamChunkSize",
+          "Scope"
+        ]
+      }
+    ]
+  },
+  "JDBCSystemResource/JdbcResource/JDBCDriverParams": {
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "DriverName",
+              "URL",
+              "PasswordEncrypted",
+              "UseXaDataSourceInterface",
+              "UsePasswordIndirection"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "folderTab",
+        "folder": "Properties"
+      }
+    ]
+  },
+  "JDBCSystemResource/JdbcResource/JDBCOracleParams": {
+    "attributeDetails": {
+      "AffinityPolicy": {
+        "options": [
+          { "value": "Transaction", "labelKey": "options-transaction-label" },
+          { "value": "Session", "labelKey": "options-session-label" },
+          { "value": "Data", "labelKey": "options-data-label" },
+          { "value": "None", "labelKey": "options-none-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "ActiveGridlink",
+          "FanEnabled",
+          "AffinityPolicy",
+          "OnsNodeList",
+          "OnsWalletFile",
+          "OnsWalletPasswordEncrypted",
+          "ConnectionInitializationCallback",
+          "ReplayInitiationTimeout",
+          "OracleProxySession",
+          "UseDatabaseCredentials",
+          "RebalanceOnUpEvent",
+          "OracleOptimizeUtf8Conversion"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "OracleEnableJavaNetFastPath"
+        ]
+      }
+    ]
+  },
+  "JDBCSystemResource/JdbcResource/JDBCXAParams": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "XaTransactionTimeout",
+          "XaRetryIntervalSeconds",
+          "XaSetTransactionTimeout",
+          "XaRetryDurationSeconds",
+          "KeepLogicalConnOpenOnRelease",
+          "KeepXaConnTillTxComplete",
+          "NeedTxCtxOnClose",
+          "NewXaConnForCommit",
+          "RecoverOnlyOnce",
+          "ResourceHealthMonitoring"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "RollbackLocalTxUponConnClose",
+          "XaEndOnlyOnce"
+        ]
       }
     ]
   }
