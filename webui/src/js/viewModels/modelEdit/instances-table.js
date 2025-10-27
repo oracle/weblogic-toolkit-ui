@@ -58,6 +58,7 @@ function(accUtils, ko, InstanceHelper, ModelEditHelper, MessageHelper, Navigatio
         };
         for (const [attKey, attValue] of Object.entries(this.summaryAttributes)) {
           let attributeKey = attKey;
+          let attributePath = ALIAS_PATH;
           let modelInstanceFolder = value || {};
 
           // the attributeName may have a sub-path, such as SSL/ListenPort
@@ -67,11 +68,22 @@ function(accUtils, ko, InstanceHelper, ModelEditHelper, MessageHelper, Navigatio
               modelInstanceFolder = modelInstanceFolder[part] || {};
             });
             attributeKey = parts[parts.length - 1];
+            const partsPath = parts.slice(0, -1);
+            attributePath = [...ALIAS_PATH, ...partsPath];
           }
 
           const getter = attValue.getter;
           const modelValue = getter ? getter(modelInstanceFolder) : modelInstanceFolder[attributeKey];
-          instance[attKey] = ModelEditHelper.getDerivedValue(modelValue);
+
+          let displayValue = ModelEditHelper.getDerivedValue(modelValue);
+
+          // may need to get the display label from the list of options
+          const attributeDetails = MetaHelper.getAttributeDetails(attributePath, attributeKey);
+          const options = attributeDetails.options || [];
+          const option = options.find(option => option.value === displayValue);
+          displayValue = option ? option.label : displayValue;
+
+          instance[attKey] = displayValue;
         }
         this.instances.push(instance);
       }
