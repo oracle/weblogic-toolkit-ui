@@ -45,6 +45,8 @@
   "quotas-tab-label": "Quotas",
   "reconnect-parameters-tab-label": "Reconnect Parameters",
   "transaction-parameters-tab-label": "Transaction Parameters",
+  "connection-testing-tab-label": "Connection Testing",
+  "diagnostics-tab-label": "Diagnostics",
 
   "security-model-advanced-label": "Advanced",
   "security-model-custom-roles-label": "Custom Roles",
@@ -70,6 +72,23 @@
   "options-exactly-once-label": "Exactly Once",
   "options-at-most-once-label": "At Most Once",
   "options-duplicates-okay-label": "Duplicates Okay",
+  "options-generic-label": "Generic",
+  "options-mds-label": "Multi Data Source",
+  "options-agl-label": "Active GridLink",
+  "options-ucp-label": "Universal Connection Pool",
+  "options-proxy-label": "Proxy",
+  "options-failover-label": "Failover",
+  "options-load-balancing-label": "Load-Balancing",
+  "options-one-phase-commit-label": "One Phase Commit",
+  "options-two-phase-commit-label": "Two Phase Commit",
+  "options-logging-last-resource-label": "Logging Last Resource",
+  "options-emulate-two-phase-commit-label": "Emulate Two Phase Commit",
+  "options-data-label": "Data",
+  "options-session-label": "Session",
+  "options-transaction-label": "Transaction",
+  "options-lru-label": "Least Recently Used",
+  "options-fixed-label": "Fixed",
+
 
   "direction-jms-queue-to-tuxedo-queue-label": "JMS Queue to Tuxedo Queue",
   "direction-tuxedo-queue-to-jms-queue-label": "Tuxedo Queue to JMS Queue",
@@ -100,6 +119,8 @@
   "jms-message-compression-fastest-compression-label": "Fastest",
   "jms-message-compression-lzf-label": "Open Source LZF",
 
+  "multi-data-sources-params-title": "Multi DataSource Parameters",
+  "proxy-data-sources-params-title": "Proxy DataSource Parameters",
   "atp-type-label": "ATP",
   "certificate-issuer-plugin-label": "Certificate Issuer Plug-in",
   "db2-type-label": "DB2",
@@ -198,7 +219,10 @@
   "a-Active-label": "Active",
   "a-ActiveContextHandlerEntry-label": "Active Context Handler Entry",
   "a-ActiveDirectory-label": "Active Directory",
+
   "a-ActiveGridlink-label": "Active Gridlink",
+  "f-JDBCSystemResource_JdbcResource_JDBCOracleParams-a-ActiveGridlink-help": "Indicates a configured Active GridLink datasource. This attributed is set to true when using the console to create an Active GridLink datasource. It is ignored if FanEnabled is true or OnsNodeList is a non-null string.",
+
   "a-ActiveType-label": "Active Type",
   "a-Adapter-label": "Adapter",
 
@@ -228,10 +252,16 @@
   "a-AdministrationProtocol-label": "Administration Protocol",
   "a-Administrative-label": "Administrative",
   "a-AdministrativeIdentityDomain-label": "Administrative Identity Domain",
+
   "a-AffinityPolicy-label": "Affinity Policy",
+  "f-JDBCSystemResource_JdbcResource_JDBCOracleParams-a-AffinityPolicy-help": "The affinity policy determines how JDBC connections to specific Oracle RAC instances are selected and returned to the application. When an initial connection is returned to the application, an affinity context is created that identifies the RAC instance. The affinity context is stored in the application context (global transaction or http session), propagates with the context, and is used during subsequent connection requests to return a connection to the same instance. The affinity policy only applies to Active GridLink data sources.",
+
   "a-AlarmResetPeriod-label": "Alarm Reset Period",
   "a-AlarmType-label": "Alarm Type",
+
   "a-AlgorithmType-label": "Algorithm Type",
+  "f-JDBCSystemResource_JdbcResource_JDBCDataSourceParams-a-AlgorithmType-help": "The algorithm determines the connection request processing for the multi data source.",
+
   "a-AllCandidateServers-label": "All Candidate Servers",
   "a-AllGroupsFilter-label": "All Groups Filter",
   "a-AllUsersFilter-label": "All Users Filter",
@@ -564,6 +594,8 @@
   "f-JDBCStore-a-ConnectionCachingPolicy-help": "For advanced use only: sets the connection caching policy for the JDBC store.",
 
   "a-ConnectionCreationRetryFrequencySeconds-label": "Connection Creation Retry Frequency Seconds",
+  "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-ConnectionCreationRetryFrequencySeconds-help": "The number of seconds between attempts to establish connections to the database. If you do not set this value, data source creation fails if the database is unavailable. If set and if the database is unavailable when the data source is created, WebLogic Server will attempt to create connections in the pool again after the number of seconds you specify, and will continue to attempt to create the connections until it succeeds. When set to 0, connection retry is disabled.",
+
   "a-ConnectionFactory-label": "Connection Factory",
 
   "a-ConnectionFactoryJndiName-label": "Connection Factory JNDI Name",
@@ -572,11 +604,21 @@
   "a-ConnectionFilter-label": "Connection Filter",
   "a-ConnectionFilterIgnoreRuleErrorsEnabled-label": "Connection Filter Ignore Rule Errors Enabled",
   "a-ConnectionFilterRule-label": "Connection Filter Rule",
+
   "a-ConnectionHarvestMaxCount-label": "Connection Harvest Max Count",
+  "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-ConnectionHarvestMaxCount-help": "The maximum number of connections that may be harvested when the connection harvesting occurs. The range of valid values is 1 to MaxCapacity.",
+
   "a-ConnectionHarvestTriggerCount-label": "Connection Harvest Trigger Count",
+  "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-ConnectionHarvestTriggerCount-help": "Specifies the number of available connections (trigger value) used to determine when connection harvesting occurs. The range of valid values is -1 to MaxCapacity. The default value is -1, which disables connection harvesting.",
+
   "a-ConnectionHealthChecking-label": "Connection Health Checking",
+
   "a-ConnectionInitializationCallback-label": "Connection Initialization Callback",
+  "f-JDBCSystemResource_JdbcResource_JDBCOracleParams-a-ConnectionInitializationCallback-help": "The name of the Connection Initialization Callback class. This name is automatically passed to registerConnectionInitializationCallback when a data source is created. The class must implement oracle.ucp.jdbc.ConnectionInitializationCallback.",
+
   "a-ConnectionLabelingCallback-label": "Connection Labeling Callback",
+  "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-ConnectionLabelingCallback-help": "The class name of the connection labeling callback. This is automatically passed to registerConnectionLabelingCallback when the datasource is created. The class must implement oracle.ucp.ConnectionLabelingCallback.",
+
   "a-ConnectionLoggerEnabled-label": "Connection Logger Enabled",
 
   "a-ConnectionPolicy-label": "Connection Policy",
@@ -584,11 +626,17 @@
   "f-WTCServer_WTCRemoteTuxDom-a-ConnectionPolicy-help": "The conditions under which this remote Tuxedo access point establishes a session connection with a local Tuxedo access point. ON_DEMAND means that a connection is attempted only when requested by either a client request to a remote service or an administrative connect command. ON_STARTUP means that a domain gateway attempts to establish a connection with its remote Tuxedo access points at gateway server initialization time. Remote services (services advertised in JNDI by the domain gateway for this local Tuxedo access point) are advertised only if a connection is successfully established to that remote Tuxedo access point. If there is no active connection to a remote Tuxedo access point, then the remote services are suspended. By default, this connection policy retries failed connections every 60 seconds. Use the MaxRetry and RetryInterval attributes to specify application specific values. INCOMING_ONLY means that a domain gateway does not attempt an initial connection to remote Tuxedo access points at startup and remote services are initially suspended. The domain gateway is available for incoming connections from remote Tuxedo access points and remote services are advertised when the domain gateway for this local Tuxedo access point receives an incoming connection. Connection retry processing is not allowed. LOCAL specifies that the remote domain connection policy is explicitly defaulted to the local domain ConnectionPolicy attribute value.",
 
   "a-ConnectionPool-label": "Connection Pool",
+
   "a-ConnectionPoolFailoverCallbackHandler-label": "Connection Pool Failover Callback Handler",
+  "f-JDBCSystemResource_JdbcResource_JDBCDataSourceParams-a-ConnectionPoolFailoverCallbackHandler-help": "The name of the application class to handle the callback sent when a multi data source is ready to failover or fail back connection requests to another data source within the multi data source. The name must be the absolute name of an application class that implements the weblogic.jdbc.extensions.ConnectionPoolFailoverCallback interface.",
+
   "a-ConnectionPoolName-label": "Connection Pool Name",
   "a-ConnectionPoolSize-label": "Connection Pool Size",
   "a-ConnectionProperties-label": "Connection Properties",
+
   "a-ConnectionReserveTimeoutSeconds-label": "Connection Reserve Timeout Seconds",
+  "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-ConnectionReserveTimeoutSeconds-help": "The number of seconds after which a call to reserve a connection from the connection pool will timeout. When set to 0, a call will never timeout. When set to -1, a call will timeout immediately.",
+
   "a-ConnectionRetryLimit-label": "Connection Retry Limit",
 
   "a-ConnectionURL-label": "Connection URL",
@@ -629,8 +677,13 @@
   "a-CorsEnabled-label": "CORS Enabled",
   "a-CorsMaxAge-label": "CORS Max Age",
   "a-Count-label": "Count",
+
   "a-CountOfRefreshFailuresTillDisable-label": "Count Of Refresh Failures Till Disable",
+  "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-CountOfRefreshFailuresTillDisable-help": "Specifies the number of reconnect failures allowed before WebLogic Server disables a connection pool to minimize the delay in handling the connection request caused by a database failure. Zero means it is disabled.",
+
   "a-CountOfTestFailuresTillFlush-label": "Count Of Test Failures Till Flush",
+  "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-CountOfTestFailuresTillFlush-help": "Specifies the number of test failures allowed before WebLogic Server closes all unused connections in a connection pool to minimize the delay caused by further database testing. Zero means it is disabled.",
+
   "a-CrashRecoveryEnabled-label": "Crash Recovery Enabled",
   "a-CreateOnDemand-label": "Create On Demand",
 
@@ -643,7 +696,9 @@
   "a-CredentialGenerated-label": "Credential Generated",
   "a-CredentialMapperTypes-label": "Credential Mapper Types",
   "a-CredentialMappingDeploymentEnabled-label": "Credential Mapping Deployment Enabled",
+
   "a-CredentialMappingEnabled-label": "Credential Mapping Enabled",
+  "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-CredentialMappingEnabled-help": "Enables Set Client ID on connection for the data source. When an application requests a database connection, WebLogic Server sets a light-weight client ID on the database connection. By default, it uses the credential mapping to map WebLogic Server user IDs to database user IDs. However, if use-database-credentials is set to true, then the credential mapping is not done and the ID is used directly as a database user ID. It is currently supported for IBM DB2 driver and Oracle thin driver. Support for this feature will be dropped in a future Oracle thin driver release. Oracle recommends using proxy authentication instead of this feature.",
 
   "a-CredentialPolicy-label": "Credential Policy",
   "f-WTCServer_WTCRemoteTuxDom-a-CredentialPolicy-help": "he outbound access control list (ACL) policy toward requests to a remote Tuxedo access point.  Local means that the remote Tuxedo access point controls the identity of service requests received from the local Tuxedo access point to the principal name specified in the local principal name for this remote Tuxedo access point. GLOBAL means that the remote Tuxedo access point passes the service request with no change. Note that if Interoperate is set to Yes, CredentialPolicy is ignored.",
@@ -701,11 +756,16 @@
   "a-DataSourceForAutomaticMigration-label": "Data Source For Automatic Migration",
   "a-DataSourceForJobScheduler-label": "Data Source For Job Scheduler",
   "a-DataSourceForSessionPersistence-label": "Data Source For Session Persistence",
+
   "a-DataSourceList-label": "Data Source List",
+  "f-JDBCSystemResource_JdbcResource_JDBCDataSourceParams-a-DataSourceList-help": "The list of data sources to which the multi data source will route connection requests. The order of data sources in the list determines the failover order.",
+
   "a-DataSourceName-label": "Data Source Name",
   "a-DatabaseLeasingBasisConnectionRetryCount-label": "Database Leasing Basis Connection Retry Count",
   "a-DatabaseLeasingBasisConnectionRetryDelay-label": "Database Leasing Basis Connection Retry Delay",
-  "a-DatasourceType-label": "Datasource Type",
+
+  "a-DatasourceType-label": "Data Source Type",
+  "f-JDBCSystemResource_JdbcResource-a-DatasourceType-help": "The data source type.",
 
   "a-DateFormatPattern-label": "Date Format Pattern",
   "f-JMSServer_JmsMessageLogFile-a-DateFormatPattern-help": "The date format pattern used for rendering dates in the log. The DateFormatPattern string conforms to the specification of the java.text.SimpleDateFormat class.",
@@ -1317,12 +1377,16 @@
 
   "a-DeploymentPrincipalName-label": "Deployment Principal Name",
   "f-Application-a-DeploymentPrincipalName-help": "A string value that indicates the principal that should be used when deploying the file or archive during startup and shutdown. This principal will be used to set the current subject when calling out into application code for interfaces such as ApplicationLifecycleListener. If no principal name is specified, then the anonymous principal will be used.",
+  "f-JDBCSystemResource-a-DeploymentPrincipalName-help": "A string value that indicates the principal that should be used when deploying the file or archive during startup and shutdown. This principal will be used to set the current subject when calling out into application code for interfaces such as ApplicationLifecycleListener. If no principal name is specified, then the anonymous principal will be used.",
 
   "a-DeploymentState-label": "Deployment State",
   "a-Description-label": "Description",
   "a-DescriptionsSupported-label": "Descriptions Supported",
   "a-DescriptorBeanClass-label": "Descriptor Bean Class",
+
   "a-DescriptorFileName-label": "Descriptor File Name",
+  "f-JDBCSystemResource-a-DescriptorFileName-help": "The name of the file containing this configuration. This is a relative name rooted at DOMAIN_DIR/config. By default the file resides in the jdbc subdirectory and derives its name from the bean name using the following pattern: <beanName>.xml. Note that this is a read-only property that can only be set when the bean is created.",
+
   "a-Destination-label": "Destination",
 
   "a-DestinationJNDIName-label": "Destination JNDI Name",
@@ -1386,8 +1450,12 @@
   "a-DomainsFile-label": "Domains File",
   "a-DomainsFileEnabled-label": "Domains File Enabled",
   "a-DowngradeUntrustedPrincipals-label": "Downgrade Untrusted Principals",
+
   "a-DriverInterceptor-label": "Driver Interceptor",
+  "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-DriverInterceptor-help": "Specifies the absolute name of the application class used to intercept method calls to the JDBC driver. The application specified must implement the weblogic.jdbc.extensions.DriverInterceptor interface.",
+
   "a-DriverName-label": "Driver Name",
+  "f-JDBCSystemResource_JdbcResource_JDBCDriverParams-a-DriverName-help": "The full package name of JDBC driver class used to create the physical database connections in the connection pool in the data source.",
 
   "a-DurabilityEnabled-label": "Durability Enabled",
   "f-MessagingBridge-a-DurabilityEnabled-help": "Specifies whether or not the messaging bridge allows durable messages. When enabled and the source destination is a JMS topic, a messaging bridge instance uses a durable subscription to ensure that no messages are lost in the event of a failure. DurabilityEnabled ignored if the source destination is a JMS queue.",
@@ -1428,7 +1496,10 @@
   "a-EnabledServerDebugAttribute-label": "Enabled Server Debug Attribute",
   "a-Encoding-label": "Encoding",
   "a-EncryptValueRequired-label": "Encrypt Value Required",
+
   "a-EncryptedValueEncrypted-label": "Encrypted Value Encrypted",
+  "f-JDBCSystemResource_JdbcResource_JDBCDriverParams_Properties-a-EncryptedValueEncrypted-help": "The value of the encrypted property value.",
+
   "a-EndMarker-label": "End Marker",
   "a-EndpointUrl-label": "Endpoint URL",
   "a-EnforceStrictURLPattern-label": "Enforce Strict URL Pattern",
@@ -1478,7 +1549,10 @@
   "f-MessagingBridge-a-FailbackDelaySeconds-help": "Specifies the amount of time, in seconds, to delay before failing a cluster-targeted JMS artifact instance back to its preferred server after the preferred server failed and was restarted. This delay allows time for the system to stabilize and dependent services to be restarted, preventing a system failure during a reboot. A value > 0 specifies the time, in seconds, to delay before failing a JMS artifact back to its user preferred server. A value of 0 indicates that the instance would never failback. A value of -1 indicates that there is no delay and the instance would failback immediately.",
 
   "a-FailoverAddress-label": "Failover Address",
+
   "a-FailoverRequestIfBusy-label": "Failover Request If Busy",
+  "f-JDBCSystemResource_JdbcResource_JDBCDataSourceParams-a-FailoverRequestIfBusy-help": "For multi data sources with the failover algorithm, enables the multi data source to failover connection requests to the next data source if all connections in the current data source are in use.",
+
   "a-FailureAction-label": "Failure Action",
   "a-FailureAuditSeverityEnabled-label": "Failure Audit Severity Enabled",
 
@@ -1487,9 +1561,14 @@
 
   "a-FairShare-label": "Fair Share",
   "a-FairShareRequestClass-label": "Fair Share Request Class",
-  "a-FanEnabled-label": "Fan Enabled",
+
+  "a-FanEnabled-label": "FAN Enabled",
+  "f-JDBCSystemResource_JdbcResource_JDBCOracleParams-a-FanEnabled-help": "Enables the data source to subscribe to and process Oracle FAN (Fast Application Notification) events. This attribute is only applicable for RAC configurations that publish FAN notification events using the ONS protocol.",
+
   "a-FannedOutRequestMaxWaitMillis-label": "Fanned Out Request Max Wait Millis",
+
   "a-FatalErrorCodes-label": "Fatal Error Codes",
+  "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-FatalErrorCodes-help": "Specifies a comma-separated list of error codes that are treated as fatal errors. These errors include deployment errors that cause a server to fail to boot and connection errors that prevent a connection from being put back in the connection pool. This optional attribute is used to define fatal error codes, that when specified as the exception code within a SQLException (retrieved by sqlException.getErrorCode()), indicate that a fatal error has occurred and the connection is no longer usable",
 
   "a-FederationName-label": "Federation Name",
   "f-WTCServer_WTCRemoteTuxDom-a-FederationName-help": "The context at which this remote Tuxedo access point federates to a foreign name service. If omitted, the default federation point is tuxedo.domains.",
@@ -1571,7 +1650,10 @@
   "a-GenerateAttributes-label": "Generate Attributes",
   "a-GlassFishWebAppParser-label": "Glass Fish Web App Parser",
   "a-GlobalSocketProvider-label": "Global Socket Provider",
+
   "a-GlobalTransactionsProtocol-label": "Global Transactions Protocol",
+  "f-JDBCSystemResource_JdbcResource_JDBCDataSourceParams-a-GlobalTransactionsProtocol-help": "Determines the transaction protocol (global transaction processing behavior) for the data source.",
+
   "a-GoalMs-label": "Goal Ms",
   "a-GracefulShutdownTimeout-label": "Graceful Shutdown Timeout",
   "a-GracefulShutdownTimeoutNumOfThreadDump-label": "Graceful Shutdown Timeout Num Of Thread Dump",
@@ -1596,7 +1678,10 @@
   "a-HandlerEnabled-label": "Handler Enabled",
   "a-Handlers-label": "Handlers",
   "a-HandlingOrder-label": "Handling Order",
+
   "a-HangDetectionMaxTestWaitSeconds-label": "Hang Detection Max Test Wait Seconds",
+  "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-HangDetectionMaxTestWaitSeconds-help": "The amount of time to wait for connection tests to complete before the connection pool determines that a connection test is hung. Setting the value to 0 disables the hang detection feature.",
+
   "a-HarvestedAttribute-label": "Harvested Attribute",
   "a-HarvestedInstance-label": "Harvested Instance",
   "a-HeaderTableSize-label": "Header Table Size",
@@ -1607,7 +1692,10 @@
   "a-HealthCheckTimeoutSeconds-label": "Health Check Timeout Seconds",
   "a-HeapDumpingOnDeadlock-label": "Heap Dumping On Deadlock",
   "a-HeapDumpingOnMaxStuckThread-label": "Heap Dumping On Max Stuck Thread",
-  "a-HighestNumWaiters-label": "Highest Num Waiters",
+
+  "a-HighestNumWaiters-label": "Highest Number of Waiters",
+  "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-HighestNumWaiters-help": "The maximum number of connection requests that can concurrently block threads while waiting to reserve a connection from the data source's connection pool.",
+
   "a-HookPoint-label": "Hook Point",
   "a-Host-label": "Host",
   "a-HostName-label": "Host Name",
@@ -1637,7 +1725,10 @@
   "a-IdentityAssertionCacheTtl-label": "Identity Assertion Cache TTL",
   "a-IdentityAssertionDoNotCacheContextElement-label": "Identity Assertion Do Not Cache Context Element",
   "a-IdentityAssertionHeaderNamePrecedence-label": "Identity Assertion Header Name Precedence",
-  "a-IdentityBasedConnectionPoolingEnabled-label": "Identity Based Connection Pooling Enabled",
+
+  "a-IdentityBasedConnectionPoolingEnabled-label": "Identity-Based Connection Pooling Enabled",
+  "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-IdentityBasedConnectionPoolingEnabled-help": "Enables identity-based-connection-pooling for the data source. When an application requests a database connection, WebLogic Server picks or creates a physical connection with requested DBMS identity based on a map of WebLogic user IDs and database IDs. You must also specify the map of WebLogic Server user IDs to database user IDs (credential mapping).",
+
   "a-IdentityDomain-label": "Identity Domain",
   "a-IdentityDomainAwareProvidersRequired-label": "Identity Domain Aware Providers Required",
   "a-IdentityDomainDefaultEnabled-label": "Identity Domain Default Enabled",
@@ -1663,7 +1754,10 @@
 
   "a-IgnoreDuplicateMembership-label": "Ignore Duplicate Membership",
   "a-IgnoreHostnameVerification-label": "Ignore Hostname Verification",
+
   "a-IgnoreInUseConnectionsEnabled-label": "Ignore In Use Connections Enabled",
+  "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-IgnoreInUseConnectionsEnabled-help4": "Enables the data source to be shutdown even if connections obtained from the pool are still in use.",
+
   "a-IgnoreSessionsDuringShutdown-label": "Ignore Sessions During Shutdown",
   "a-IgnoreStuckThreads-label": "Ignore Stuck Threads",
   "a-ImageDir-label": "Image Dir",
@@ -1672,7 +1766,10 @@
   "a-ImageTimeout-label": "Image Timeout",
   "a-Immutable-label": "Immutable",
   "a-ImplicitBeanDiscoveryEnabled-label": "Implicit Bean Discovery Enabled",
+
   "a-InactiveConnectionTimeoutSeconds-label": "Inactive Connection Timeout Seconds",
+  "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-InactiveConnectionTimeoutSeconds-help": "The number of inactive seconds on a reserved connection before WebLogic Server reclaims the connection and releases it back into the connection pool. You can use the Inactive Connection Timeout feature to reclaim leaked connections - connections that were not explicitly closed by the application. Note that this feature is not intended to be used in place of properly closing connections. When set to 0, the feature is disabled.",
+
   "a-InactivityTimeout-label": "Inactivity Timeout",
   "a-InboundCertificateValidation-label": "Inbound Certificate Validation",
   "a-Include-label": "Include",
@@ -1685,7 +1782,8 @@
   "a-InformEnabled-label": "Inform Enabled",
   "a-InformRetryInterval-label": "Inform Retry Interval",
   "a-InformationAuditSeverityEnabled-label": "Information Audit Severity Enabled",
-  "a-InitSql-label": "Init Sql",
+  "a-InitSql-label": "Initialization SQL",
+  "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-InitSql-help": "SQL statement to execute that will initialize newly created physical database connections. Start the statement with SQL followed by a space. If the Init SQL value begins with \"SQL \", then the rest of the string following that leading token will be taken as a literal SQL statement that will be used to initialize database connections. If the Init SQL value does not begin with \"SQL \", the value will be treated as the name of a table and the following SQL statement will be used to initialize connections: \"select count(*) from InitSQL\"",
 
   "a-InitialBootDelaySeconds-label": "Initial Boot Delay Seconds",
   "f-FileStore-a-InitialBootDelaySeconds-help": "Specifies the amount of time, in seconds, to delay before starting a cluster-targeted JMS instance on a newly booted WebLogic Server instance. When this setting is configured on a store, it applies to all JMS artifacts that reference the store. This allows time for the system to stabilize and dependent services to be restarted, preventing a system failure during a reboot. A value > 0 is the time, in seconds, to delay before before loading resources after a failure and restart. A value of 0 specifies no delay.",
@@ -1693,6 +1791,7 @@
   "f-MessagingBridge-a-InitialBootDelaySeconds-help": "Specifies the amount of time, in seconds, to delay before starting a cluster-targeted JMS instance on a newly booted WebLogic Server instance. When this setting is configured on a store, it applies to all JMS artifacts that reference the store. This allows time for the system to stabilize and dependent services to be restarted, preventing a system failure during a reboot. A value > 0 is the time, in seconds, to delay before before loading resources after a failure and restart. A value of 0 specifies no delay.",
 
   "a-InitialCapacity-label": "Initial Capacity",
+  "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-InitialCapacity-help": "The number of physical connections to create when creating the connection pool in the data source. If unable to create this number of connections, creation of the data source will fail.",
 
   "a-InitialContextFactory-label": "Initial Context Factory Class Name",
   "f-JMSBridgeDestination-a-InitialContextFactory-help": "The initial context factory class name for this JMS bridge destination. The default value is weblogic.jndi.WLInitialContextFactory.",
@@ -1728,7 +1827,9 @@
   "a-InvalidLoginAttemptsTotalCount-label": "Invalid Login Attempts Total Count",
   "a-InvalidLoginUsersHighCount-label": "Invalid Login Users High Count",
   "a-InvocationTimeoutSeconds-label": "Invocation Timeout Seconds",
+
   "a-InvokeBeginEndRequest-label": "Invoke Begin End Request",
+  "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-InvokeBeginEndRequest-help": "When true, and when a JDBC 4.3 compatible driver is used, the connection pool will invoke Connection.beginRequest() prior to returning the connection to the application, and will invoke Connection.endRequest() before the connection is released to the pool.",
 
   "a-IoBufferSize-label": "I/O Buffer Size",
   "f-FileStore-IoBufferSize-help": "The I/O buffer size, in bytes, automatically rounded down to the nearest power of 2.",
@@ -1747,14 +1848,20 @@
   "a-JDBCLoggingEnabled-label": "JDBC Logging Enabled",
   "a-JDBCLoginTimeoutSeconds-label": "JDBC Login Timeout Seconds",
   "a-JDBCStoreUpgradeEnabled-label": "JDBC Store Upgrade Enabled",
-  "a-JDBCXADebugLevel-label": "JDBCXA Debug Level",
+
+  "a-JDBCXADebugLevel-label": "JDBC XA Debug Level",
+  "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-JDBCXADebugLevel-help": "Specifies level of JDBC debugging for XA drivers, where larger values in the range provide more debugging information.",
+
   "a-JMSDefaultConnectionFactoriesEnabled-label": "JMS Default Connection Factories Enabled",
   "a-JMSExceptionReconnectAttempts-label": "JMS Exception Reconnect Attempts",
   "a-JMSServer-label": "JMS Server",
   "a-JMSThreadPoolSize-label": "JMS Thread Pool Size",
   "a-JMSTopic-label": "JMS Topic",
   "a-JMSTopicConnectionFactory-label": "JMS Topic Connection Factory",
+
   "a-JNDIName-label": "JNDI Name",
+  "f-JDBCSystemResource_JdbcResource_JDBCDataSourceParams-a-JNDIName-help": "The JNDI path for this Data Source. By default, the JNDI name is the name of the data source.",
+
   "a-JNDIPasswordEncrypted-label": "JNDI Password Encrypted",
   "a-JNDIPrefix-label": "JNDI Prefix",
   "a-JNDIPropertiesCredentialEncrypted-label": "JNDI Properties Credential Encrypted",
@@ -1805,11 +1912,18 @@
   "f-WTCServer_WTCLocalTuxDom-a-KeepAliveWait-help": "Return value that tells whether this local Tuxedo access point requires the acknowledgement of Application Level Keep Alive, and how long it will wait without receiving acknowledgement before declare the connection is inaccessible.",
   "f-WTCServer_WTCRemoteTuxDom-a-KeepAliveWait-help": "Indicates whether this remote Tuxedo access point requires the acknowledgement of Application Level Keep Alive. A value of 0 indicates that application-level Keep Alive is not enabled for the access point but the access point acknowledges if a heartbeat is received. A value greater than 0 indicates that application-level Keep Alive is enabled and the value indicates the amount of idle time, in milliseconds rounded to the nearest second, allowed before WebLogic Tuxedo Connector marks the connection as failed if the heartbeat is not acknowledged.",
 
-  "a-KeepConnAfterGlobalTx-label": "Keep Conn After Global Tx",
+  "a-KeepConnAfterGlobalTx-label": "Keep Connection After Global Transaction",
+  "f-JDBCSystemResource_JdbcResource_JDBCDataSourceParams-a-KeepConnAfterGlobalTx-help": "Enables WebLogic Server to keep the physical database connection associated with the logical connection when committing a global transaction instead releasing it and getting another physical connection when needed. Setting this option to true may require additional connections to be configured on the database. Use this setting to work around specific problems with JDBC XA drivers.",
+
   "a-KeepConnAfterLocalTx-label": "Keep Conn After Local Tx",
   "a-KeepGenerated-label": "Keep Generated",
-  "a-KeepLogicalConnOpenOnRelease-label": "Keep Logical Conn Open On Release",
-  "a-KeepXaConnTillTxComplete-label": "Keep XA Conn Till Tx Complete",
+
+  "a-KeepLogicalConnOpenOnRelease-label": "Keep Logical Connection Open On Release",
+  "f-JDBCSystemResource_JdbcResource_JDBCXAParams-a-KeepLogicalConnOpenOnRelease-help": "Enables WebLogic Server to keep the logical JDBC connection open for a global transaction when the physical XA connection is returned to the connection pool. Select this option if the XA driver used to create database connections or the DBMS requires that a logical JDBC connection be kept open while transaction processing continues (although the physical XA connection can be returned to the connection pool). Only applies to data sources that use an XA driver. Use this setting to work around specific problems with JDBC XA drivers.",
+
+  "a-KeepXaConnTillTxComplete-label": "Keep XA Connection Until Transaction Completes",
+  "f-JDBCSystemResource_JdbcResource_JDBCXAParams-a-KeepXaConnTillTxComplete-help": "Enables WebLogic Server to associate the same XA database connection from the connection pool with a global transaction until the transaction completes. Only applies to connection pools that use an XA driver. Use this setting to work around specific problems with JDBC XA drivers.",
+
   "a-Key-label": "Key",
   "a-KeyCacheSize-label": "Key Cache Size",
   "a-KeyCacheTtl-label": "Key Cache TTL",
@@ -1937,7 +2051,10 @@
   "f-JDBCStore-a-LogicalName-help": "The name used by subsystems to refer to different stores on different servers using the same name. For example, an EJB that uses the timer service may refer to its store using the logical name, and this name may be valid on multiple servers in the same cluster, even if each server has a store with a different physical name. Multiple stores in the same domain or the same cluster may share the same logical name. However, a given logical name may not be assigned to more than one store on the same server.",
 
   "a-LoginAttemptsWhileLockedTotalCount-label": "Login Attempts While Locked Total Count",
+
   "a-LoginDelaySeconds-label": "Login Delay Seconds",
+  "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-LoginDelaySeconds-help": "The number of seconds to delay before creating each physical database connection. This delay supports database servers that cannot handle multiple connection requests in rapid succession. The delay takes place both during initial data source creation and during the lifetime of the data source whenever a physical database connection is created.",
+
   "a-LoginReturnQueryParameter-label": "Login Return Query Parameter",
   "a-LoginTimeoutMillis-label": "Login Timeout Millis",
   "a-LoginTimeoutMillisSSL-label": "Login Timeout Millis SSL",
@@ -1977,7 +2094,10 @@
   "a-MatchGroupBaseDn-label": "Match Group Base Dn",
   "a-MaxBackoffBetweenFailures-label": "Max Backoff Between Failures",
   "a-MaxCOMMessageSize-label": "Max COM Message Size",
+
   "a-MaxCapacity-label": "Max Capacity",
+  "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-MaxCapacity-help": "The maximum number of physical connections that this connection pool can contain.",
+
   "a-MaxConcurrentLongRunningRequests-label": "Max Concurrent Long Running Requests",
   "a-MaxConcurrentNewThreads-label": "Max Concurrent New Threads",
   "a-MaxConcurrentStreams-label": "Max Concurrent Streams",
@@ -2121,7 +2241,10 @@
   "a-MillisToSleepBetweenAutoMigrationAttempts-label": "Milliseconds To Sleep Between Auto Migration Attempts",
   "a-MimeMappingFile-label": "Mime Mapping File",
   "a-MinAlphabeticCharacters-label": "Min Alphabetic Characters",
+
   "a-MinCapacity-label": "Min Capacity",
+  "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-MinCapacity-help": "The minimum number of physical connections that this connection pool can contain after it is initialized.",
+
   "a-MinDynamicClusterSize-label": "Min Dynamic Cluster Size",
 
   "a-MinEncryptBits-label": "Min Encrypt Bits",
@@ -2149,6 +2272,7 @@
 
   "a-ModuleType-label": "Module Type",
   "f-Application-a-ModuleType-help": "The type of the module (ear, jar, war, or rar).",
+  "f-JDBCSystemResource-a-ModuleType-help": "The type of the module (ear, jar, war, or rar).",
 
   "a-Modulus-label": "Modulus",
   "a-MonitoredAttributeName-label": "Monitored Attribute Name",
@@ -2186,11 +2310,17 @@
   "a-NativeIOEnabled-label": "Native I/O Enabled",
   "a-NativeModeEnabled-label": "Native Mode Enabled",
   "a-NativeVersionEnabled-label": "Native Version Enabled",
-  "a-NeedTxCtxOnClose-label": "Need Tx Ctx On Close",
+
+  "a-NeedTxCtxOnClose-label": "Need Transaction Context On Close",
+  "f-JDBCSystemResource_JdbcResource_JDBCXAParams-a-NeedTxCtxOnClose-help": "Specifies whether the XA driver requires a distributed transaction context when closing various JDBC objects (result sets, statements, connections, and so forth). Only applies to connection pools that use an XA driver. When enabled, SQL exceptions that are thrown while closing the JDBC objects without a transaction context will be suppressed. Use this setting to work around specific problems with JDBC XA drivers.",
+
   "a-NetMask-label": "Net Mask",
   "a-NetworkAccessPoint-label": "Network Access Point",
   "a-NetworkClassLoadingEnabled-label": "Network Class Loading Enabled",
-  "a-NewXaConnForCommit-label": "New XA Conn For Commit",
+
+  "a-NewXaConnForCommit-label": "New XA Connection For Commit",
+  "f-JDBCSystemResource_JdbcResource_JDBCXAParams-a-NewXaConnForCommit-help": "Specifies that a dedicated XA connection is used for commit and rollback processing for a global transaction. Only applies to data sources that use an XA driver. Use this setting to work around specific problems with JDBC XA drivers.",
+
   "a-NodeManagerHome-label": "Node Manager Home",
   "a-NodeManagerPasswordEncrypted-label": "Node Manager Password Encrypted",
   "a-NodeManagerTimeoutMillis-label": "Node Manager Timeout Millis",
@@ -2245,17 +2375,28 @@
   "a-OneWaySendMode-label": "One Way Send Mode",
   "a-OneWaySendWindowSize-label": "One Way Send Window Size",
   "a-OnlyUserTokenClaimsEnabled-label": "Only User Token Claims Enabled",
-  "a-OnsNodeList-label": "Ons Node List",
-  "a-OnsWalletFile-label": "Ons Wallet File",
-  "a-OnsWalletPasswordEncrypted-label": "Ons Wallet Password Encrypted",
+
+  "a-OnsNodeList-label": "ONS Node List",
+  "f-JDBCSystemResource_JdbcResource_JDBCOracleParams-a-OnsNodeList-help": "A comma-separate list of ONS daemon listen addresses and ports to which connect to for receiving ONS-based FAN events. It is required when connecting to Oracle 11g databases and optional when connecting to Oracle database releases 12c and higher.",
+
+  "a-OnsWalletFile-label": "ONS Wallet File",
+  "f-JDBCSystemResource_JdbcResource_JDBCOracleParams-a-OnsWalletFile-help": "The location of the Oracle wallet file in which the SSL certificates are stored. Only required when the ONS client is configured to communicate with ONS daemons using SSL.",
+
+  "a-OnsWalletPasswordEncrypted-label": "ONS Wallet Password Encrypted",
+  "f-JDBCSystemResource_JdbcResource_JDBCOracleParams-a-OnsWalletPasswordEncrypted-help": "The wallet password attribute that is included as part of the ONS client configuration string. This attribute is only required when ONS is configured to use the SSL protocol.",
+
   "a-OptimisticSerialization-label": "Optimistic Serialization",
   "a-OracleEnableJavaNetFastPath-label": "Oracle Enable Java Net Fast Path",
-  "a-OracleOptimizeUtf8Conversion-label": "Oracle Optimize Utf 8 Conversion",
+
+  "a-OracleOptimizeUtf8Conversion-label": "Oracle Optimize UTF8 Conversion",
+  "f-JDBCSystemResource_JdbcResource_JDBCOracleParams-a-OracleOptimizeUtf8Conversion-help": "Enables the Oracle JDBC optimize UTF-8 conversion option. Deprecated in 14.1.2",
 
   "a-OraclePiggybackCommitEnabled-label": "Oracle Piggyback Commit Enabled",
   "f-JDBCStore-a-OraclePiggybackCommitEnabled-help": "Enables committing a batch of INSERT or DELETE operations with the last operation of the transaction instead of issuing a separate commit call to database server which saves a server round trip. This feature benefits applications that have many transactions of a small number of operations or small messages. Deprecated in 12.2.1.3.1.",
 
   "a-OracleProxySession-label": "Oracle Proxy Session",
+  "f-JDBCSystemResource_JdbcResource_JDBCOracleParams-a-OracleProxySession-help": "Enables Oracle JDBC Proxy Authentication. Only applicable for the Oracle driver. Requires WebLogic Server user IDs are mapped to database user IDs using credential mapping.",
+
   "a-OrganizationName-label": "Organization Name",
   "a-OrganizationUrl-label": "Organization URL",
   "a-OsGiForApps-label": "Os Gi For Apps",
@@ -2334,7 +2475,10 @@
   "a-Password-label": "Password",
   "a-PasswordAlgorithm-label": "Password Algorithm",
   "a-PasswordDigestEnabled-label": "Password Digest Enabled",
+
   "a-PasswordEncrypted-label": "Password Encrypted",
+  "f-JDBCSystemResource_JdbcResource_JDBCDriverParams-a-PasswordEncrypted-help": "The password attribute passed to the JDBC driver when creating physical database connections.",
+
   "a-PasswordStyle-label": "Password Style",
   "a-PasswordStyleRetained-label": "Password Style Retained",
   "a-PasswordValidatorTypes-label": "Password Validator Types",
@@ -2358,7 +2502,10 @@
 
   "a-PhysicalDestinationName-label": "Physical Destination Name",
   "a-PhysicalStoreName-label": "Physical Store Name",
+
   "a-PinnedToThread-label": "Pinned To Thread",
+  "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-PinnedToThread-help": "Enables an option to improve performance by enabling execute threads to keep a pooled database connection even after the application closes the logical connection.",
+
   "a-PlaintextPasswordsEnabled-label": "Plaintext Passwords Enabled",
 
   "a-PlanDir-label": "Plan Dir",
@@ -2431,8 +2578,14 @@
   "f-JMSServer-a-ProductionPausedAtStartup-help": "Specifies whether production is paused at server startup on destinations targeted to this JMS server. A destination cannot receive any new messages while it is paused. When the value is set to true, then immediately after the host server instance is rebooted, then this JMS server and its targeted destinations are modified such that they are in a \"production paused\" state, which results in preventing new message production activities on those destinations.",
 
   "a-ProfileConnectionLeakTimeoutSeconds-label": "Profile Connection Leak Timeout Seconds",
+  "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-ProfileConnectionLeakTimeoutSeconds-help": "The number of seconds that an inactive JDBC connection needs to be held by an application before triggering a connection leak diagnostic profiling record. When set to 0, the timeout is disabled. This attribute only applies when the connection leak diagnostic profiling option is enabled.",
+
   "a-ProfileHarvestFrequencySeconds-label": "Profile Harvest Frequency Seconds",
+  "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-ProfileHarvestFrequencySeconds-help": "The number of seconds between when WebLogic Server harvests profile data. When set to 0, harvesting of data is disabled.",
+
   "a-ProfileType-label": "Profile Type",
+  "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-ProfileType-help": "Specifies the type of profile data to be collected for the JDBC subsystem. To enable a multiple profiling options, the value should be set to the sum of each option's numeric value. For example, to enable the Connection Usage, Connection Leak and Connection Unwrap Usage options the value would be set to 261 (1 + 4 + 256) or 0x105 (0x001 + 0x004 + 0x100).",
+
   "a-PropagateCauseForLoginException-label": "Propagate Cause For Login Exception",
   "a-Properties-label": "Properties",
   "a-PropertiesVersion-label": "Properties Version",
@@ -2445,8 +2598,13 @@
   "a-ProxyAddress-label": "Proxy Address",
   "a-ProxyPort-label": "Proxy Port",
   "a-ProxyServer-label": "Proxy Server",
+
   "a-ProxySwitchingCallback-label": "Proxy Switching Callback",
+  "f-JDBCSystemResource_JdbcResource_JDBCDataSourceParams-a-ProxySwitchingCallback-help": "The name of the switching callback class for a Proxy data source. This class implements the weblogic.jdbc.extensions.DataSourceSwitchingCallback interface.",
+
   "a-ProxySwitchingProperties-label": "Proxy Switching Properties",
+  "f-JDBCSystemResource_JdbcResource_JDBCDataSourceParams-a-ProxySwitchingProperties-help": "Specifies the switching properties passed to the switching callback method for a Proxy data source.",
+
   "a-PublicAddress-label": "Public Address",
   "a-PublicId-label": "Public ID",
   "a-PublicPort-label": "Public Port",
@@ -2476,6 +2634,7 @@
   "f-MessagingBridge-a-RebalanceEnabled-help": "If set to true, then rebalance running cluster-targeted JMS instances when the system is idle and instances are unevenly distributed. The system is considered idle when the Partial Cluster Stability Delay and Initial Boot Delay have passed, and no instances have moved plus no server status has changed within the last two system check periods (typically 10 seconds between each check). Two is the default, you can tune this higher using Rebalance Delay Periods on the Cluster bean.",
 
   "a-RebalanceOnUpEvent-label": "Rebalance On Up Event",
+  "f-JDBCSystemResource_JdbcResource_JDBCOracleParams-a-RebalanceOnUpEvent-help": "Rebalancing connections incurs overhead due to connection creation to the new instance, and the closing of connections to existing instances, which may impact application performance under load, cause database logon storms, etc. When the value is set to false, connections to existing instances are preserved and new connections are distributed across running instances as necessary.",
 
   "a-ReceivingPausedAtStartup-label": "Receiving Paused At Startup",
   "f-SAFAgent-a-ReceivingPausedAtStartup-help": "Specifies whether the agent is paused for receiving messages at the startup time. When enabled, the sending agent receives messages. Otherwise, the sending agent does not receive any messages. If the value is changed and activated, you need to restart any servers to which the MBean is targeted before the value will take effect.",
@@ -2502,6 +2661,8 @@
   "f-JDBCStore-a-ReconnectRetryPeriodMillis-help": "Returns the length of time in milliseconds during which the persistent store will attempt to re-establish a connection to the database. Successive reconnection attempts will be attempted after a fixed delay that is specified by the reconnection retry interval. The reconnection period applies to JDBC connections regardless of the database that is used for the JDBC store. The default value is 1000.",
 
   "a-RecoverOnlyOnce-label": "Recover Only Once",
+  "f-JDBCSystemResource_JdbcResource_JDBCXAParams-a-RecoverOnlyOnce-help": "Specifies that the transaction manager calls recover on the resource only once. Only applies to data sources that use an XA driver. Use this setting to work around specific problems with JDBC XA drivers.",
+
   "a-RecoverySiteName-label": "Recovery Site Name",
   "a-RecoveryThresholdMillis-label": "Recovery Threshold Millis",
   "a-RecvTimeout-label": "Recv Timeout",
@@ -2510,7 +2671,10 @@
   "a-RedeliveryLimit-label": "Redelivery Limit",
   "a-RedirectStderrToServerLogEnabled-label": "Redirect Stderr To Server Log Enabled",
   "a-RedirectStdoutToServerLogEnabled-label": "Redirect Stdout To Server Log Enabled",
+
   "a-RefreshAvailableAfterTestFailure-label": "Refresh Available After Test Failure",
+  "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-RefreshAvailableAfterTestFailure-help": "When true, the connection pool will attempt to replace a connection that fails the periodic connection test. When false, a connection that fails the periodic test will be immediately removed.",
+
   "a-RefreshClientRuntimeDescriptor-label": "Refresh Client Runtime Descriptor",
   "a-RefreshReplicaAtStartup-label": "Refresh Replica At Startup",
   "a-RejectEqualOrContainReverseUsername-label": "Reject Equal Or Contain Reverse Username",
@@ -2554,8 +2718,13 @@
 
   "a-RemotePort-label": "Remote Port",
   "a-RemoteUser-label": "Remote User",
+
   "a-RemoveInfectedConnections-label": "Remove Infected Connections",
+  "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-RemoveInfectedConnections-help": "Specifies whether a connection will be removed from the connection pool after the application uses the underlying vendor connection object. If you disable removing infected connections, you must make sure that the database connection is suitable for reuse by other applications. When set to true (the default), the physical connection is not returned to the connection pool after the application closes the logical connection. Instead, the physical connection is closed and recreated.",
+
   "a-ReplayInitiationTimeout-label": "Replay Initiation Timeout",
+  "f-JDBCSystemResource_JdbcResource_JDBCOracleParams-a-ReplayInitiationTimeout-help": "The amount of time, in seconds, a data source allows for Application Continuity replay processing before timing out and ending a replay session context. When set to zero seconds, replay processing (failover) is disabled, although begin/endRequest are still called. You can use this for collecting coverage and measuring performance. The default value is 3600 seconds.",
+
   "a-ReplicatedCacheEnabled-label": "Replicated Cache Enabled",
   "a-ReplicationChannel-label": "Replication Channel",
   "a-ReplicationGroup-label": "Replication Group",
@@ -2581,7 +2750,10 @@
   "a-ResourceDeploymentPlanPath-label": "Resource Deployment Plan Path",
   "a-ResourceGroupTemplate-label": "Resource Group Template",
   "a-ResourceGroupTemplateId-label": "Resource Group Template ID",
+
   "a-ResourceHealthMonitoring-label": "Resource Health Monitoring",
+  "f-JDBCSystemResource_JdbcResource_JDBCXAParams-a-ResourceHealthMonitoring-help": "Enables JTA resource health monitoring for an XA data source. When enabled, if an XA resource fails to respond to an XA call within the period specified in MaxXACallMillis, WebLogic Server marks the data source as unhealthy and blocks any further calls to the resource. This property applies to XA data sources only, and is ignored for data sources that use a non-XA driver.",
+
   "a-ResourceID-label": "Resource ID",
   "a-ResourceManagement-label": "Resource Management",
   "a-ResourceManagerRef-label": "Resource Manager Ref",
@@ -2725,6 +2897,8 @@
   "f-MessagingBridge-a-SecondsBetweenRestarts-help": "Specifies the amount of time, in seconds, to wait in between attempts to restart a failed service instance.",
 
   "a-SecondsToTrustAnIdlePoolConnection-label": "Seconds To Trust An Idle Pool Connection",
+  "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-SecondsToTrustAnIdlePoolConnection-help": "The number of seconds within a connection use that WebLogic Server trusts that the connection is still viable and will skip the connection test, either before delivering it to an application or during the periodic connection testing process. This option is an optimization that minimizes the performance impact of connection testing, especially during heavy traffic.",
+
   "a-SecureClusterBroadcastEnabled-label": "Secure Cluster Broadcast Enabled",
   "a-SecureListener-label": "Secure Listener",
   "a-SecureModeEnabled-label": "Secure Mode Enabled",
@@ -2823,10 +2997,19 @@
   "a-SharedCapacityPercent-label": "Shared Capacity Percent",
   "a-ShellCommand-label": "Shell Command",
   "a-ShowArchivedRealPathEnabled-label": "Show Archived Real Path Enabled",
+
   "a-ShrinkFactorPercent-label": "Shrink Factor Percent",
+  "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-ShrinkFactorPercent-help": "The percentage of the number of available connections to shrink from current pool capacity to the maximum of the configured minimum capacity, the current number of in-use connections or the running average (if configured).",
+
   "a-ShrinkFrequencySeconds-label": "Shrink Frequency Seconds",
+  "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-ShrinkFrequencySeconds-help": "The number of seconds to wait before shrinking a connection pool that has incrementally increased to meet demand. When set to 0, shrinking is disabled.",
+
   "a-ShrinkHistorySeconds-label": "Shrink History Seconds",
+  "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-ShrinkHistorySeconds-help": "The amount of time to maintain a running average of the number of in-use connections. Shrinking ignores the running average when set to 0.",
+
   "a-ShrinkSpareCapacityPercent-label": "Shrink Spare Capacity Percent",
+  "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-ShrinkSpareCapacityPercent-help": "Specifies the number of additional number of connections to maintain above the current connection usage or the running average when shrinking. For example, a value of 20 indicates that the pool will not shrink lower than the current usage or running average plus 20%.",
+
   "a-ShutdownGracePeriod-label": "Shutdown Grace Period",
   "a-SignAuthnRequests-label": "Sign Authn Requests",
   "a-SignaturePreferX509Certificate-label": "Signature Prefer X509 Certificate",
@@ -2897,9 +3080,16 @@
   "a-StartupTimeoutNumOfThreadDump-label": "Startup Timeout Num Of Thread Dump",
   "a-StartupTimeoutThreadDumpInterval-label": "Startup Timeout Thread Dump Interval",
   "a-StateCheckInterval-label": "State Check Interval",
+
   "a-StatementCacheSize-label": "Statement Cache Size",
+  "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-StatementCacheSize-help": "The number of prepared and callable statements stored in the cache. (This may increase server performance.) WebLogic Server can reuse statements in the cache without reloading the statements, which can increase server performance. Each connection in the connection pool has its own cache of statements. Setting the size of the statement cache to 0 turns off statement caching.",
+
   "a-StatementCacheType-label": "Statement Cache Type",
+  "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-StatementCacheType-help": "The algorithm used for maintaining the prepared statements stored in the statement cache.",
+
   "a-StatementTimeout-label": "Statement Timeout",
+  "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-StatementTimeout-help": "The time after which a statement currently being executed will time out. StatementTimeout relies on underlying JDBC driver support. WebLogic Server passes the time specified to the JDBC driver using the java.sql.Statement.setQueryTimeout() method. If your JDBC driver does not support this method, it may throw an exception and the timeout value is ignored. A value of -1 disables this feature. A value of 0 means that statements will not time out.",
+
   "a-StaticGroupDNsfromMemberDNFilter-label": "Static Group D Nsfrom Member DN Filter",
   "a-StaticGroupNameAttribute-label": "Static Group Name Attribute",
   "a-StaticGroupObjectClass-label": "Static Group Object Class",
@@ -2960,7 +3150,10 @@
   "f-FileStore-a-SynchronousWritePolicy-help": "The disk write policy that determines how the file store writes data to disk. This policy also affects the JMS file store's performance, scalability, and reliability. Oracle recommends Direct-Write-With-Cache which tends to have the highest performance. The default value is Direct-Write.",
 
   "a-SynthesizeAllowListEnabled-label": "Synthesize Allow List Enabled",
-  "a-SysPropValue-label": "Sys Prop Value",
+
+  "a-SysPropValue-label": "System Property Value",
+  "f-JDBCSystemResource_JdbcResource_JDBCDriverParams_Properties-a-SysPropValue-help": "The system property name from which to get the value.",
+
   "a-SystemId-label": "System ID",
   "a-SystemPasswordEncrypted-label": "System Password Encrypted",
   "a-SystemSecurity-label": "System Security",
@@ -3010,10 +3203,19 @@
   "a-TenantHostNameTemplate-label": "Tenant Host Name Template",
   "a-TenantName-label": "Tenant Name",
   "a-TenantTokenClaim-label": "Tenant Token Claim",
+
   "a-TestConnectionsOnReserve-label": "Test Connections On Reserve",
+  "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-TestConnectionsOnReserve-help": "Enables WebLogic Server to test a connection before giving it to a client. (Requires that you specify a Test Table Name.)",
+
   "a-TestFrequencySeconds-label": "Test Frequency Seconds",
+  "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-TestFrequencySeconds-help": "The number of seconds a WebLogic Server instance waits between attempts when testing unused connections. (Requires that you specify a Test Table Name.) Connections that fail the test are closed and reopened to re-establish a valid physical connection. If the test fails again, the connection is closed. In the context of multi data sources, this attribute controls the frequency at which WebLogic Server checks the health of data sources it had previously marked as unhealthy. When set to 0, the feature is disabled.",
+
   "a-TestTableName-label": "Test Table Name",
+  "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-TestTableName-help": "The name of the database table to use when testing physical database connections. This name is required when you specify a Test Frequency and enable Test Reserved Connections. The default SQL code used to test a connection is select count(*) from TestTableName. Most database servers optimize this SQL to avoid a table scan, but it is still a good idea to set the Test Table Name to the name of a table that is known to have few rows, or even no rows. If the Test Table Name begins with SQL, then the rest of the string following that leading token will be taken as a literal SQL statement that will be used to test connections instead of the standard query. For example: SQL BEGIN; Null; END; For an Oracle database, you can reduce the overhead of connection testing by setting Test Table Name to SQL PINGDATABASE which uses the pingDatabase() method to test the Oracle connection. For any JDBC 4.0 database, it is possible to use \"SQL ISVALID\" to use the isValid() method on the connection.",
+
   "a-TestTimeoutSeconds-label": "Test Timeout Seconds",
+  "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-TestTimeoutSeconds-help": "The time after which a test statement, or isValid method, currently being executed will time out. TestTimeout relies on underlying JDBC driver support. WebLogic Server passes the time specified to the JDBC driver using the java.sql.Statement.setQueryTimeout() method. If your JDBC driver does not support this method, it may throw an exception and the timeout value is ignored. A value of -1 disables this feature. A value of 0 means that test statements will not time out.",
+
   "a-ThreadCount-label": "Thread Count",
   "a-ThreadDumpCount-label": "Thread Dump Count",
   "a-ThreadDumpDelaySeconds-label": "Thread Dump Delay Seconds",
@@ -3120,7 +3322,10 @@
   "a-TwoWayTLSRequiredForAdminClients-label": "Two Way TLS Required For Admin Clients",
   "a-TxMechanism-label": "Tx Mechanism",
   "a-TxnAffinityEnabled-label": "TXN Affinity Enabled",
+
   "a-URL-label": "URL",
+  "f-JDBCSystemResource_JdbcResource_JDBCDriverParams-a-URL-help": "The URL of the database to connect to. The format of the URL varies by JDBC driver. The URL is passed to the JDBC driver to create the physical database connections.",
+
   "a-URLResource-label": "URL Resource",
   "a-UnicastDiscoveryPeriodMillis-label": "Unicast Discovery Period Millis",
   "a-UnicastListenAddress-label": "Unicast Listen Address",
@@ -3142,10 +3347,14 @@
   "a-UriPath-label": "URI Path",
   "a-UriPrefix-label": "URI Prefix",
   "a-Url-label": "URL",
-  "a-Use81StyleExecuteQueues-label": "Use 81 Style Execute Queues",
+
+  "a-Use81StyleExecuteQueues-label": "Use 8.1-Style Execute Queues",
   "a-UseClientCertForOutbound-label": "Use Client Cert For Outbound",
   "a-UseConcurrentQueueForRequestManager-label": "Use Concurrent Queue For Request Manager",
+
   "a-UseDatabaseCredentials-label": "Use Database Credentials",
+  "f-JDBCSystemResource_JdbcResource_JDBCOracleParams-a-UseDatabaseCredentials-help": "If enabled, Oracle database credentials are used in getConnection instead of application server credentials. The database credentials are used to get a proxy session without requiring any work in the credential mapper.",
+
   "a-UseDefaultTarget-label": "Use Default Target",
   "a-UseDefaultUserNameMapper-label": "Use Default User Name Mapper",
   "a-UseDetailedThreadName-label": "Use Detailed Thread Name",
@@ -3165,7 +3374,10 @@
   "a-UseMemberuidForGroupSearch-label": "Use Memberuid For Group Search",
   "a-UseNonSecureAddressesForDomain-label": "Use Non Secure Addresses For Domain",
   "a-UseParentHandlers-label": "Use Parent Handlers",
+
   "a-UsePasswordIndirection-label": "Use Password Indirection",
+  "f-JDBCSystemResource_JdbcResource_JDBCDriverParams-a-UsePasswordIndirection-help": "Specifies whether the database credentials are to be obtained from the credential mapper using the \"user\" property as the key. When true, the credentials are obtained from the credential mapper. When false, the database user name and password are obtained from the \"user\" property and Password element, respectively.",
+
   "a-UsePublicAddressesForRemoteDomain-label": "Use Public Addresses For Remote Domain",
   "a-UseResourceHierarchy-label": "Use Resource Hierarchy",
   "a-UseRetrievedUserNameAsPrincipal-label": "Use Retrieved User Name As Principal",
@@ -3180,7 +3392,10 @@
   "a-UseStatefulAuthentication-label": "Use Stateful Authentication",
   "a-UseTokenGroupsForGroupMembershipLookup-label": "Use Token Groups For Group Membership Lookup",
   "a-UseVirtualThreads-label": "Use Virtual Threads",
+
   "a-UseXaDataSourceInterface-label": "Use XA Data Source Interface",
+  "f-JDBCSystemResource_JdbcResource_JDBCDriverParams-a-UseXaDataSourceInterface-help": "Specifies that WebLogic Server should use the XA interface of the JDBC driver. If the JDBC driver class used to create database connections implements both XA and non-XA versions of a JDBC driver, you can set this attribute to indicate that WebLogic Server should treat the JDBC driver as an XA driver or as a non-XA driver.",
+
   "a-UsedAssertionCacheClassName-label": "Used Assertion Cache Class Name",
   "a-UsedAssertionCacheProperties-label": "Used Assertion Cache Properties",
   "a-User-label": "User",
@@ -3223,7 +3438,10 @@
   "f-Application-a-ValidateDDSecurityData-help": "Whether to validate the deployment descriptor security data.  Not used in modern versions of WebLogic Server.",
 
   "a-ValidityPeriod-label": "Validity Period",
+
   "a-Value-label": "Value",
+  "f-JDBCSystemResource_JdbcResource_JDBCDriverParams_Properties-a-Value-help": "The value of the property.",
+
   "a-VerboseEJBDeploymentEnabled-label": "Verbose EJB Deployment Enabled",
   "a-VerboseLoggingEnabled-label": "Verbose Logging Enabled",
   "a-Version-label": "Version",
@@ -3294,8 +3512,13 @@
   "f-JDBCStore-a-WorkerPreferredBatchSize-help": "Specifies the batch size when the Worker Count attribute is configured to a value greater than 1. Used to configure the workload the JDBC store incrementally puts on each worker thread. The workload consists of I/O requests which are grouped and pushed to each JDBC worker thread for processing. If the I/O request is very large (for example 1M), then tune this attribute to a smaller value.",
 
   "a-WorkingDirectory-label": "Working Directory",
+
   "a-WrapJdbc-label": "Wrap JDBC",
+  "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-WrapJdbc-help": "By default, SQL objects for CallableStatement, PreparedStatement, ResultSet, Statement, and DatabaseMetaData are wrapped with a WebLogic wrapper. Wrapping allows features like debugging and connection usage to be performed by the server. When false, wrapping is disabled. This improves performance, in some cases significantly, and allows for the application to use the native driver objects directly. A value of false also disables data type wrapping.",
+
   "a-WrapTypes-label": "Wrap Types",
+  "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-WrapTypes-help": "By default, data type objects for Array, Blob, Clob, NClob, Ref, SQLXML, and Struct, plus ParameterMetaData and ResultSetMetaData objects are wrapped with a WebLogic wrapper. This allows for features like debugging and connection usage to be done by the server. The wrapping can be turned off by setting this value to false. This improves performance, in some cases significantly, and allows for the application to use the native driver objects directly.",
+
   "a-WriteChunkBytes-label": "Write Chunk Bytes",
   "a-WsatIssuedTokenEnabled-label": "WSAT Issued Token Enabled",
   "a-WsatTransportSecurityMode-label": "WSAT Transport Security Mode",
@@ -3309,10 +3532,19 @@
   "a-XMLRegistry-label": "XML Registry",
   "a-XPoweredByHeaderLevel-label": "X Powered By Header Level",
   "a-XaEndOnlyOnce-label": "XA End Only Once",
+
   "a-XaRetryDurationSeconds-label": "XA Retry Duration Seconds",
+  "f-JDBCSystemResource_JdbcResource_JDBCXAParams-a-XaRetryDurationSeconds-help": "Determines the duration in seconds for which the transaction manager will perform recover operations on the resource. A value of zero indicates that no retries will be performed.",
+
   "a-XaRetryIntervalSeconds-label": "XA Retry Interval Seconds",
+  "f-JDBCSystemResource_JdbcResource_JDBCXAParams-a-XaRetryIntervalSeconds-help": "The number of seconds between XA retry operations if XARetryDurationSeconds is set to a positive value.",
+
   "a-XaSetTransactionTimeout-label": "XA Set Transaction Timeout",
+  "f-JDBCSystemResource_JdbcResource_JDBCXAParams-a-XaSetTransactionTimeout-help": "Enables WebLogic Server to set a transaction branch timeout based on the value for XaTransactionTimeout. When enabled, the WebLogic Server Transaction Manager calls XAResource.setTransactionTimeout() before calling XAResource.start, and passes either the XA Transaction Timeout value or the global transaction timeout. You may want to set a transaction branch timeout if you have long-running transactions that exceed the default timeout value on the XA resource.",
+
   "a-XaTransactionTimeout-label": "XA Transaction Timeout",
+  "f-JDBCSystemResource_JdbcResource_JDBCXAParams-a-XaTransactionTimeout-help": "The number of seconds to set as the transaction branch timeout. If set, this value is passed as the transaction timeout value in the XAResource.setTransactionTimeout() call on the XA resource manager, typically the JDBC driver. When this value is set to 0, the WebLogic Server Transaction Manager passes the global WebLogic Server transaction timeout in seconds in the method. You must enable XaSetTransactionTimeout to enable setting the transaction branch timeout.",
+
   "a-XacmlDocument-label": "XACML Document",
   "a-XacmlStatus-label": "XACML Status",
   "a-XmlEventFactory-label": "Xml Event Factory",
@@ -3560,10 +3792,10 @@
   "f-any_ImageNotification-label": "Image Notifications",
   "f-any_ImageNotification-typeLabel": "Image Notification",
   "f-any_Instrumentation-label": "Instrumentation",
-  "f-any_JDBCConnectionPoolParams-label": "JDBC Connection Pool Params",
-  "f-any_JDBCDataSourceParams-label": "JDBC Data Source Params",
-  "f-any_JDBCDriverParams-label": "JDBC Driver Params",
-  "f-any_JDBCOracleParams-label": "JDBC Oracle Params",
+  "f-any_JDBCConnectionPoolParams-label": "JDBC Connection Pool Parameters",
+  "f-any_JDBCDataSourceParams-label": "JDBC Data Source Parameters",
+  "f-any_JDBCDriverParams-label": "JDBC Driver Parameters",
+  "f-any_JDBCOracleParams-label": "JDBC Oracle Parameters",
   "f-any_JDBCStore-label": "JDBC Stores",
   "f-any_JDBCStore-typeLabel": "JDBC Store",
   "f-any_JDBCSystemResource-a-any-help": "{{attribute}} for datasource",
@@ -3572,7 +3804,7 @@
   "f-any_JDBCSystemResource-nameLabel": "Datasource Name",
   "f-any_JDBCSystemResource-noInstancesMessage": "No datasources specified",
   "f-any_JDBCSystemResource-typeLabel": "JDBC System Resource",
-  "f-any_JDBCXAParams-label": "JDBCXA Params",
+  "f-any_JDBCXAParams-label": "JDBC XA Parameters",
   "f-any_JMSBridgeDestination-label": "JMS Bridge Destinations",
   "f-any_JMSBridgeDestination-typeLabel": "JMS Bridge Destination",
   "f-any_JMSNotification-label": "JMS Notifications",
