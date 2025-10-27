@@ -14,10 +14,10 @@ function(accUtils, ko, DialogHelper, WktLogger, ArrayDataProvider,
   ModuleElementUtils, MetaHandlers, MetaValidators, ModelEditHelper, MessageHelper, AliasHelper) {
 
   function AttributeEditor(args) {
-    const MODEL_PATH = args.modelPath;
     const ATTRIBUTE = args.attribute;
     const ATTRIBUTE_MAP = args.attributeMap;
 
+    const MODEL_PATH = ATTRIBUTE.path;
     const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
 
     this.attribute = ATTRIBUTE;
