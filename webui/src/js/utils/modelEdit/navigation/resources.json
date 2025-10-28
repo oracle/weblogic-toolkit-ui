@@ -94,7 +94,38 @@
     },
     {
       "icon": "oj-ux-ico-folder",
-      "modelPath": ["resources", "SelfTuning"]
+      "modelPath": ["resources", "SelfTuning"],
+      "page": "../empty-view",
+      "children": [
+        {
+          "icon": "oj-ux-ico-list",
+          "modelPath": ["resources", "SelfTuning", "WorkManager"]
+        },
+        {
+          "icon": "oj-ux-ico-list",
+          "modelPath": ["resources", "SelfTuning", "Capacity"]
+        },
+        {
+          "icon": "oj-ux-ico-list",
+          "modelPath": ["resources", "SelfTuning", "MinThreadsConstraint"]
+        },
+        {
+          "icon": "oj-ux-ico-list",
+          "modelPath": ["resources", "SelfTuning", "MaxThreadsConstraint"]
+        },
+        {
+          "icon": "oj-ux-ico-list",
+          "modelPath": ["resources", "SelfTuning", "FairShareRequestClass"]
+        },
+        {
+          "icon": "oj-ux-ico-list",
+          "modelPath": ["resources", "SelfTuning", "ResponseTimeRequestClass"]
+        },
+        {
+          "icon": "oj-ux-ico-list",
+          "modelPath": ["resources", "SelfTuning", "ContextRequestClass"]
+        }
+      ]
     },
     {
       "icon": "oj-ux-ico-list",
