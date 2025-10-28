@@ -47,6 +47,7 @@
   "transaction-parameters-tab-label": "Transaction Parameters",
   "connection-testing-tab-label": "Connection Testing",
   "diagnostics-tab-label": "Diagnostics",
+  "work-manager-shutdown-trigger-tab-label": "Shutdown Trigger",
 
   "security-model-advanced-label": "Advanced",
   "security-model-custom-roles-label": "Custom Roles",
@@ -319,7 +320,10 @@
   "a-ApplicationIdentifier-label": "Application Identifier",
   "a-ApplicationName-label": "Application Name",
   "a-ApplicationPasswordEncrypted-label": "Application Password Encrypted",
+
   "a-ApplicationScope-label": "Application Scope",
+  "f-SelfTuning_WorkManager-a-ApplicationScope-help": "Specifies whether this work manager should be scoped to an application. By default, work managers are scoped to an application. Set this value to false if the work manager is to be scoped to a domain.",
+
   "a-ArchiveConfigurationCount-label": "Archive Configuration Count",
 
   "a-Argument-label": "Argument",
@@ -457,7 +461,11 @@
   "a-CallbackQueueMdbRunAsPrincipalName-label": "Callback Queue MDB Run As Principal Name",
   "a-CandidateMachine-label": "Candidate Machine",
   "a-CandidateMachinesForMigratableServer-label": "Candidate Machines For Migratable Server",
+
   "a-Capacity-label": "Capacity",
+  "f-SelfTuning_WorkManager-a-Capacity-label": "Capacity Constraint",
+  "f-SelfTuning_WorkManager-a-Capacity-help": "CapacityMBean defines the maximum number of requests that can be enqueued by all the work managers that share it. The server starts rejecting requests once the capacity threshold is reached. Note that the capacity includes all requests, queued or executing, from the constrained work set.",
+
   "a-CapacityIncrement-label": "Capacity Increment",
   "a-CertAuthenticator-label": "Cert Authenticator",
   "a-CertPathBuilder-label": "Cert Path Builder",
@@ -631,6 +639,8 @@
   "f-JDBCSystemResource_JdbcResource_JDBCDataSourceParams-a-ConnectionPoolFailoverCallbackHandler-help": "The name of the application class to handle the callback sent when a multi data source is ready to failover or fail back connection requests to another data source within the multi data source. The name must be the absolute name of an application class that implements the weblogic.jdbc.extensions.ConnectionPoolFailoverCallback interface.",
 
   "a-ConnectionPoolName-label": "Connection Pool Name",
+  "f-SelfTuning_MaxThreadsConstraint-a-ConnectionPoolName-help": "Name of the connection pool whose size is taken as the max constraint. This can be the name of a JDBC data source. The max capacity of the data source is used as the constraint.",
+
   "a-ConnectionPoolSize-label": "Connection Pool Size",
   "a-ConnectionProperties-label": "Connection Properties",
 
@@ -661,7 +671,10 @@
   "a-ContactPersonTelephoneNumber-label": "Contact Person Telephone Number",
   "a-ContactPersonType-label": "Contact Person Type",
   "a-ContextPath-label": "Context Path",
+
   "a-ContextRequestClass-label": "Context Request Class",
+  "f-SelfTuning_WorkManager-a-ContextRequestClass-help": "The name of the ContextRequestClass that defines the mapping between the current context (security principal, group) and the request class to use. ContextRequestClass provides a mapping between security names/groups and request classes. During work schedule, the exact request class is determined by looking at the security information of the caller. ContextRequestClass is not a request class by itself and is used to hold the mapping of request classes.",
+
   "a-ContinuationFramesLimit-label": "Continuation Frames Limit",
   "a-ControlFlag-label": "Control Flag",
 
@@ -676,7 +689,11 @@
   "a-CorsAllowedOrigin-label": "CORS Allowed Origin",
   "a-CorsEnabled-label": "CORS Enabled",
   "a-CorsMaxAge-label": "CORS Max Age",
+
   "a-Count-label": "Count",
+  "f-SelfTuning_Capacity-a-Count-help": "Total number of requests that can be accepted.  This included both requests already executing as well as those stilling in the execute queue.",
+  "f-SelfTuning_MaxThreadsConstraint-a-Count-help": "Maximum number of concurrent threads that can execute requests sharing this constraint. A count of 0 or -1 is treated as if the constraint is not present. This means that no constraint is enforced for these two values. A count > 0 can be dynamically changed to 0 to indicate that constraint enforcement is no longer needed.",
+  "f-SelfTuning_MinThreadsConstraint-a-Count-help": "Minimum number of threads available for executing concurrent requests that share this constraint. A count of 0 or -1 is treated as if the constraint is not present. This means that the constraint is ignored for these two values. A count > 0 can be dynamically changed to 0 to indicate that constraint enforcement is no longer needed.",
 
   "a-CountOfRefreshFailuresTillDisable-label": "Count Of Refresh Failures Till Disable",
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-CountOfRefreshFailuresTillDisable-help": "Specifies the number of reconnect failures allowed before WebLogic Server disables a connection pool to minimize the delay in handling the connection request caused by a database failure. Zero means it is disabled.",
@@ -1560,7 +1577,10 @@
   "f-StartupClass-a-FailureIsFatal-help": "Specifies whether a failure in this startup class prevents the targeted server(s) from starting. If you specify that failure is not fatal, if the startup class fails, the server continues its startup process.",
 
   "a-FairShare-label": "Fair Share",
+  "f-SelfTuning_FairShareRequestClass-a-FairShare-help": "Fair share value between 1 and 1000. The default value is 50.",
+
   "a-FairShareRequestClass-label": "Fair Share Request Class",
+  "f-SelfTuning_WorkManager-a-FairShareRequestClass-help": "The name of the FairShareRequestClass that defines the fair share value to use for this request class. One of the components of work managers is a request class that indicates the proportional of the total server thread use time this request class gets. The default fair share value is 50.",
 
   "a-FanEnabled-label": "FAN Enabled",
   "f-JDBCSystemResource_JdbcResource_JDBCOracleParams-a-FanEnabled-help": "Enables the data source to subscribe to and process Oracle FAN (Fast Application Notification) events. This attribute is only applicable for RAC configurations that publish FAN notification events using the ONS protocol.",
@@ -1654,7 +1674,9 @@
   "a-GlobalTransactionsProtocol-label": "Global Transactions Protocol",
   "f-JDBCSystemResource_JdbcResource_JDBCDataSourceParams-a-GlobalTransactionsProtocol-help": "Determines the transaction protocol (global transaction processing behavior) for the data source.",
 
-  "a-GoalMs-label": "Goal Ms",
+  "a-GoalMs-label": "Goal Milliseconds",
+  "f-SelfTuning_ResponseTimeRequestClass-a-GoalMs-help": "A response time goal in milliseconds. You can either define a response time goal or keep the -1 default value, which acts as a placeholder for the response time goal. By doing so, you have not defined the response time goal at run time but can define one later.",
+
   "a-GracefulShutdownTimeout-label": "Graceful Shutdown Timeout",
   "a-GracefulShutdownTimeoutNumOfThreadDump-label": "Graceful Shutdown Timeout Num Of Thread Dump",
   "a-GracefulShutdownTimeoutThreadDumpInterval-label": "Graceful Shutdown Timeout Thread Dump Interval",
@@ -1665,7 +1687,10 @@
   "a-GroupHierarchyCacheTTL-label": "Group Hierarchy Cache Time-to-Live",
   "a-GroupMemberOf-label": "Group Member Of",
   "a-GroupMembershipSearching-label": "Group Membership Searching",
+
   "a-GroupName-label": "Group Name",
+  "f-SelfTuning_ContextRequestClass_ContextCase-a-GroupName-help": "The name of the user group whose requests are to be processed by the request class with the name specified in RequestClassName.",
+
   "a-GroupSearchScope-label": "Group Search Scope",
   "a-GroupsTokenClaim-label": "Groups Token Claim",
   "a-GuardianEnabled-label": "Guardian Enabled",
@@ -1759,7 +1784,10 @@
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-IgnoreInUseConnectionsEnabled-help4": "Enables the data source to be shutdown even if connections obtained from the pool are still in use.",
 
   "a-IgnoreSessionsDuringShutdown-label": "Ignore Sessions During Shutdown",
+
   "a-IgnoreStuckThreads-label": "Ignore Stuck Threads",
+  "f-SelfTuning_WorkManager-a-IgnoreStuckThreads-help": "Specifies whether this Work Manager ignores \"stuck\" threads. Typically, stuck threads will cause the associated Work Manager to take some action: either switching the application to Admin mode, shutting down the server, or shutting down the Work Manager. If this flag is set, then no thread in this Work Manager is ever considered stuck.",
+
   "a-ImageDir-label": "Image Dir",
   "a-ImageDirectory-label": "Image Directory",
   "a-ImageLockout-label": "Image Lockout",
@@ -2149,10 +2177,16 @@
   "a-MaxSingleHeaderSize-label": "Max Single Header Size",
   "a-MaxSize-label": "Max Size",
   "a-MaxStreamResets-label": "Max Stream Resets",
+
   "a-MaxStuckThreadTime-label": "Max Stuck Thread Time",
+  "f-SelfTuning_WorkManager_WorkManagerShutdownTrigger-a-MaxStuckThreadTime-help": "Time in seconds after which a executing thread is marked as stuck.",
+
   "a-MaxT3MessageSize-label": "Max T3 Message Size",
   "a-MaxThreadDumpCount-label": "Max Thread Dump Count",
+
   "a-MaxThreadsConstraint-label": "Max Threads Constraint",
+  "f-SelfTuning_WorkManager-a-MaxThreadsConstraint-help": "The name of the MaxThreadsConstraint that defines the maximum number of concurrent threads that can be allocated to execute requests.",
+
   "a-MaxThreadsConstraintQueueSize-label": "Max Threads Constraint Queue Size",
   "a-MaxTotalHeadersSize-label": "Max Total Headers Size",
   "a-MaxTransactions-label": "Max Transactions",
@@ -2257,7 +2291,10 @@
   "a-MinNumericOrSpecialCharacters-label": "Min Numeric Or Special Characters",
   "a-MinPasswordLength-label": "Min Password Length",
   "a-MinThreads-label": "Min Threads",
+
   "a-MinThreadsConstraint-label": "Min Threads Constraint",
+  "f-SelfTuning_WorkManager-a-MinThreadsConstraint-help": "The name of the MinThreadsConstraint that defines tht minimum number of threads allocated to resolve deadlocks.",
+
   "a-MinThreadsConstraintCap-label": "Min Threads Constraint Cap",
   "a-MinUppercaseCharacters-label": "Min Uppercase Characters",
 
@@ -2619,7 +2656,10 @@
 
   "a-QueueLength-label": "Queue Length",
   "a-QueueLengthThresholdPercent-label": "Queue Length Threshold Percent",
+
   "a-QueueSize-label": "Queue Size",
+  "f-SelfTuning_MaxThreadsConstraint-a-QueueSize-help": "Desired size of the MaxThreadsConstraint queue for requests pending execution.",
+
   "a-QuitEnabled-label": "Quit Enabled",
   "a-Quota-label": "Quota",
   "a-RCMHistoricalDataBufferLimit-label": "RCM Historical Data Buffer Limit",
@@ -2740,7 +2780,10 @@
   "a-RequestBufferingQueueJndiName-label": "Request Buffering Queue JNDI Name",
   "a-RequestCacheSize-label": "Request Cache Size",
   "a-RequestCacheTtl-label": "Request Cache TTL",
+
   "a-RequestClassName-label": "Request Class Name",
+  "f-SelfTuning_ContextRequestClass_ContextCase-a-RequestClassName-help": "The name of the request class to be used for processing requests for the specified user and/or group.",
+
   "a-RequireUnanimousPermit-label": "Require Unanimous Permit",
   "a-ResetDeliveryCountOnForward-label": "Reset Delivery Count On Forward",
   "a-ResolveDNSName-label": "Resolve DNS Name",
@@ -2766,7 +2809,10 @@
   "a-Resources-label": "Resources",
   "a-ResponseBufferingQueueJndiName-label": "Response Buffering Queue JNDI Name",
   "a-ResponseReadTimeout-label": "Response Read Timeout",
+
   "a-ResponseTimeRequestClass-label": "Response Time Request Class",
+  "f-SelfTuning_WorkManager-a-ResponseTimeRequestClass-help": "The name of the ResponseTimeRequestClass that defines the response time goal for this request class. Response time goals can be used to differentiate request classes. We do not try to meet a response time goal for an individual request. Rather we compute a tolerable waiting time for a request class by subtracting the observed average thread use time.",
+
   "a-ResponseTimeout-label": "Response Timeout",
   "a-RestInvocationMethodType-label": "Rest Invocation Method Type",
   "a-RestartDelay-label": "Restart Delay",
@@ -2784,7 +2830,10 @@
   "a-RestrictUserManagementAccessPattern-label": "Restrict User Management Access Pattern",
   "a-RestrictiveJmxPolicies-label": "Restrictive Jmx Policies",
   "a-ResultsTimeLimit-label": "Results Time Limit",
+
   "a-ResumeWhenUnstuck-label": "Resume When Unstuck",
+  "f-SelfTuning_WorkManager_WorkManagerShutdownTrigger-a-ResumeWhenUnstuck-help": "Whether to resume the work manager once the stuck threads are cleared.",
+
   "a-RetainOriginalURL-label": "Retain Original URL",
   "a-RetireTimeoutSeconds-label": "Retire Timeout Seconds",
   "a-RetransmissionExponentialBackoff-label": "Retransmission Exponential Backoff",
@@ -3114,7 +3163,10 @@
   "a-StreamChunkSize-label": "Stream Chunk Size",
   "a-StrictOwnershipCheck-label": "Strict Ownership Check",
   "a-StringToCompare-label": "String To Compare",
+
   "a-StuckThreadCount-label": "Stuck Thread Count",
+  "f-SelfTuning_WorkManager_WorkManagerShutdownTrigger-a-StuckThreadCount-help": "Number of stuck threads after which the WorkManager is shutdown.",
+
   "a-StuckThreadDiagnosticImageNotificationEnabled-label": "Stuck Thread Diagnostic Image Notification Enabled",
   "a-StuckThreadMaxTime-label": "Stuck Thread Max Time",
   "a-StuckThreadThreadDumpActionCount-label": "Stuck Thread Thread Dump Action Count",
@@ -3391,7 +3443,9 @@
 
   "a-UseStatefulAuthentication-label": "Use Stateful Authentication",
   "a-UseTokenGroupsForGroupMembershipLookup-label": "Use Token Groups For Group Membership Lookup",
+
   "a-UseVirtualThreads-label": "Use Virtual Threads",
+  "f-SelfTuning_WorkManager-a-UseVirtualThreads-help": "Whether the work manager should use virtual threads.",
 
   "a-UseXaDataSourceInterface-label": "Use XA Data Source Interface",
   "f-JDBCSystemResource_JdbcResource_JDBCDriverParams-a-UseXaDataSourceInterface-help": "Specifies that WebLogic Server should use the XA interface of the JDBC driver. If the JDBC driver class used to create database connections implements both XA and non-XA versions of a JDBC driver, you can set this attribute to indicate that WebLogic Server should treat the JDBC driver as an XA driver or as a non-XA driver.",
@@ -3416,6 +3470,7 @@
 
   "a-UserName-label": "User Name",
   "f-JMSBridgeDestination-a-UserName-help": "The optional user name the adapter uses to access the bridge destination. All operations on the specified destination are done using this user name and the corresponding password. Therefore, the User Name/Password for the source and target destinations must have permission to the access the underlying destinations in order for the messaging bridge to work.",
+  "f-SelfTuning_ContextRequestClass_ContextCase-a-UserName-help": "The name of the user whose requests are to be processed by the request class with the name specified in RequestClassName.",
 
   "a-UserNameAttribute-label": "User Name Attribute",
   "a-UserNameMapperClassName-label": "User Name Mapper Class Name",
@@ -3643,8 +3698,8 @@
   "f-any_COM-label": "COM",
   "f-any_Callout-label": "Callouts",
   "f-any_Callout-typeLabel": "Callout",
-  "f-any_Capacity-label": "Capacities",
-  "f-any_Capacity-typeLabel": "Capacity",
+  "f-any_Capacity-label": "Capacity Constraints",
+  "f-any_Capacity-typeLabel": "Capacity Constraint",
   "f-any_CdiContainer-label": "CDI Container",
   "f-any_CertPathProvider-label": "Cert Path Provider",
   "f-any_CertRevoc-label": "Cert Revoc",

@@ -1,0 +1,242 @@
+{
+  "SelfTuning": {
+    "sections": [
+      {
+        "type": "hidden",
+        "attributes": [
+          "PartitionFairShare",
+          "Notes"
+        ],
+        "folders": [
+          "Capacity",
+          "ContextRequestClass",
+          "FairShareRequestClass",
+          "MaxThreadsConstraint",
+          "MinThreadsConstraint",
+          "ResponseTimeRequestClass",
+          "WorkManager"
+        ],
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "SelfTuning/Capacity": {
+    "summaryAttributes": {
+      "Count": {},
+      "Target": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "Count",
+          "DeploymentOrder",
+          "Notes",
+          "Target"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "SelfTuning/ContextRequestClass": {
+    "summaryAttributes": {
+      "Target": {}
+    },
+    "sections": [
+      {
+        "type": "attributesTab",
+        "labelKey": "general-tab-label",
+        "attributes": [
+          "DeploymentOrder",
+          "Notes",
+          "Target"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "folderTab",
+        "folder": "ContextCase"
+      }
+    ]
+  },
+  "SelfTuning/ContextRequestClass/ContextCase": {
+    "summaryAttributes": {
+      "RequestClassName": {},
+      "Target": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "RequestClassName",
+          "UserName",
+          "GroupName",
+          "DeploymentOrder",
+          "Notes",
+          "Target"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "SelfTuning/FairShareRequestClass": {
+    "summaryAttributes": {
+      "FairShare": {},
+      "Target": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "FairShare",
+          "DeploymentOrder",
+          "Notes",
+          "Target"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "SelfTuning/MaxThreadsConstraint": {
+    "summaryAttributes": {
+      "Count": {},
+      "Target": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "Count",
+          "ConnectionPoolName",
+          "QueueSize",
+          "DeploymentOrder",
+          "Notes",
+          "Target"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "SelfTuning/MinThreadsConstraint": {
+    "summaryAttributes": {
+      "Count": {},
+      "Target": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "Count",
+          "DeploymentOrder",
+          "Notes",
+          "Target"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "SelfTuning/ResponseTimeRequestClass": {
+    "summaryAttributes": {
+      "GoalMs": {},
+      "Target": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "GoalMs",
+          "DeploymentOrder",
+          "Notes",
+          "Target"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "SelfTuning/WorkManager": {
+    "summaryAttributes": {
+      "Target": {}
+    },
+    "sections": [
+      {
+        "type": "attributesTab",
+        "labelKey": "general-tab-label",
+        "attributes": [
+          "MinThreadsConstraint",
+          "MaxThreadsConstraint",
+          "Capacity",
+          "FairShareRequestClass",
+          "ResponseTimeRequestClass",
+          "ContextRequestClass",
+          "IgnoreStuckThreads",
+          "ApplicationScope",
+          "DeploymentOrder",
+          "Notes",
+          "Target"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "UseVirtualThreads"
+        ]
+      },
+      {
+        "type": "folderTab",
+        "labelKey": "work-manager-shutdown-trigger-tab-label",
+        "folder": "WorkManagerShutdownTrigger"
+      }
+    ]
+  },
+  "SelfTuning/WorkManager/WorkManagerShutdownTrigger": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "StuckThreadCount",
+          "MaxStuckThreadTime",
+          "ResumeWhenUnstuck",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  }
+}

@@ -24,6 +24,7 @@ define(
     'text!./PluginDeployment.json',
     'text!./RCUDbInfo.json',
     'text!./SAFAgent.json',
+    'text!./SelfTuning.json',
     'text!./Server.json',
     'text!./ShutdownClass.json',
     'text!./SingletonService.json',
