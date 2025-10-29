@@ -576,6 +576,12 @@ function (ko, jsYaml, project, utils,
         displayType = 'integer';
       }
 
+      const aliasPath = AliasHelper.getAliasPath(attribute.path);
+      const typeOverride = MetaHelper.getAttributeTypeOverride(aliasPath, attribute.name);
+      if(typeOverride) {
+        displayType = typeOverride;
+      }
+
       if(!DISPLAY_TYPES.includes(displayType)) {
         WktLogger.error(`Unrecognized type '${displayType}' for attribute ${attribute.name}`);
       }

@@ -97,6 +97,13 @@
       }
     ]
   },
+  "CoherenceClusterSystemResource/CoherenceResource": {
+    "attributeDetails": {
+      "CustomClusterConfigurationFileName": {
+        "disabled": "notCustomClusterConfig"
+      }
+    }
+  },
   "CoherenceClusterSystemResource/CoherenceResource/CoherenceAddressProvider/CoherenceSocketAddress": {
     "summaryAttributes": {
       "Address": {},
@@ -110,6 +117,9 @@
           { "value": "unicast", "labelKey": "options-unicast-label" },
           { "value": "multicast", "labelKey": "options-multicast-label" }
         ]
+      },
+      "GlobalSocketProvider": {
+        "typeOverride": "string"
       },
       "MulticastListenAddress": {
         "disabled": "coherenceMulticastClusteringModeFields"
