@@ -947,6 +947,12 @@ h6.wkt-panel-heading {
   border-radius: var(--wkt-model-edit-border-radius);
 }
 
+/* help below list/dict tables, maybe some custom? */
+.wkt-model-edit-below-help {
+  display: block;
+  margin-top: 2px;
+}
+
 h6.wkt-under-breadcrumb {
   margin-top: 6px;
 }

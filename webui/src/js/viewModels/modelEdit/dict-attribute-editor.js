@@ -29,6 +29,8 @@ function(accUtils, ko, DialogHelper, ArrayDataProvider,
     this.addLabel = MessageHelper.getAddEntryLabel(ATTRIBUTE, ALIAS_PATH, false);
     this.deleteLabel = MessageHelper.getDeleteEntryLabel(ATTRIBUTE, ALIAS_PATH);
     this.noDataLabel = MessageHelper.getNoEntriesMessage(ATTRIBUTE, ALIAS_PATH);
+    this.helpText = MessageHelper.getAttributeHelp(ATTRIBUTE, ALIAS_PATH);
+
     const keyLabel = MessageHelper.getKeyLabel(ATTRIBUTE, ALIAS_PATH);
     const valueLabel = MessageHelper.getValueLabel(ATTRIBUTE, ALIAS_PATH);
 
