@@ -73,6 +73,14 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
           return type !== 'bySize' && type !== 'bySizeOrTime';
         });
       };
+
+      this.coherenceMulticastClusteringModeFields = attributeMap => {
+        const clusteringMode = attributeMap['ClusteringMode'];
+        return ko.computed(() => {
+          const mode = ModelEditHelper.getDerivedValue(clusteringMode.observable());
+          return mode !== 'multicast';
+        });
+      };
     }
 
     // return a singleton instance
