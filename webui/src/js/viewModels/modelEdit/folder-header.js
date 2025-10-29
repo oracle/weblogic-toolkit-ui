@@ -7,10 +7,10 @@
 
 define(['accUtils',
   'utils/modelEdit/alias-helper', 'utils/modelEdit/message-helper', 'utils/modelEdit/model-edit-helper',
-  'utils/modelEdit/navigation-helper', 'utils/dialog-helper',
+  'utils/modelEdit/navigation-helper', 'utils/modelEdit/meta-helper', 'utils/dialog-helper',
   'oj-c/button'
 ],
-function(accUtils, AliasHelper, MessageHelper, ModelEditHelper, NavigationHelper, DialogHelper) {
+function(accUtils, AliasHelper, MessageHelper, ModelEditHelper, NavigationHelper, MetaHelper, DialogHelper) {
   function FolderHeaderViewModel(args) {
     const MODEL_PATH = args.modelPath;
     const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
@@ -28,30 +28,36 @@ function(accUtils, AliasHelper, MessageHelper, ModelEditHelper, NavigationHelper
       breadcrumbPath = MODEL_PATH.slice(0, -1);
     }
 
+    let lastMergeFolder;
     this.crumbs = [];
     if(breadcrumbPath && breadcrumbPath.length) {
       let currentPath = [];
       breadcrumbPath.forEach(modelElement => {
         currentPath.push(modelElement);
-        let link = null;
         let label;
+        let link;
         if(AliasHelper.isNamedPath(currentPath)) {
           label = modelElement;
           link = [...currentPath];  // shallow copy
         } else {
           const aliasPath = AliasHelper.getAliasPath(currentPath);
-          if(!aliasPath) {
-            label = MessageHelper.getFolderNameLabel(currentPath[currentPath.length - 1]);
-          } else {
-            label = MessageHelper.getFolderLabel(aliasPath);
-            link = [...currentPath];  // shallow copy
+          if(!lastMergeFolder) {  // skip this folder if parent had a merged folder
+            if(!aliasPath) {  // probably a non-alias root folder like Deployments
+              label = MessageHelper.getFolderNameLabel(currentPath[currentPath.length - 1]);
+            } else {
+              label = MessageHelper.getFolderLabel(aliasPath);
+              link = [...currentPath];  // shallow copy
+            }
           }
+          lastMergeFolder = aliasPath ? MetaHelper.getMergeFolder(aliasPath) : null;
         }
 
-        this.crumbs.push({
-          label,
-          link
-        });
+        if(label) {
+          this.crumbs.push({
+            label,
+            link
+          });
+        }
       });
     }
 
