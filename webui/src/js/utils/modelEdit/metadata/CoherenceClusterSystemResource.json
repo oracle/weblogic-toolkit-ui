@@ -1,5 +1,324 @@
 {
   "CoherenceClusterSystemResource": {
-    "mergeFolder": "CoherenceResource"
+    "mergeFolder": "CoherenceResource",
+    "summaryAttributes": {
+      "Target": {}
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "DescriptorFileName",
+              "DeploymentOrder",
+              "Notes",
+              "Target"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "attributes": [
+              "UsingCustomClusterConfigurationFile",
+              "CustomClusterConfigurationFileName",
+              "ReportGroupFile",
+              "DeploymentPrincipalName",
+              "SourcePath",
+              "ModuleType",
+              "CompatibilityName"
+            ],
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "CustomClusterConfigurationFileLastUpdatedTimestamp",
+          "Version"
+        ],
+        "folders": [
+          "SubDeployment"
+        ]
+      },
+      {
+        "type": "folderTab",
+        "folder": "CoherenceResource/CoherenceClusterParams"
+      },
+      {
+        "type": "folderTab",
+        "folder": "CoherenceCacheConfig"
+      },
+      {
+        "type": "folderTab",
+        "folder": "CoherenceResource/CoherencePersistenceParams"
+      },
+      {
+        "type": "folderTab",
+        "folder": "CoherenceResource/CoherenceFederationParams"
+      },
+      {
+        "type": "folderTab",
+        "folder": "CoherenceResource/CoherenceLoggingParams"
+      },
+      {
+        "type": "folderTab",
+        "folder": "CoherenceResource/CoherenceAddressProvider"
+      }
+    ]
+  },
+  "CoherenceClusterSystemResource/CoherenceCacheConfig": {
+    "summaryAttributes": {
+      "CacheConfigurationFile": {},
+      "Target": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "CacheConfigurationFile",
+          "RuntimeCacheConfigurationUri",
+          "JNDIName",
+          "Notes",
+          "Target"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "attributes": [
+          "CompatibilityName",
+          "ModuleType"
+        ],
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "CoherenceClusterSystemResource/CoherenceResource/CoherenceAddressProvider/CoherenceSocketAddress": {
+    "summaryAttributes": {
+      "Address": {},
+      "Port": {}
+    }
+  },
+  "CoherenceClusterSystemResource/CoherenceResource/CoherenceClusterParams": {
+    "attributeDetails": {
+      "ClusteringMode": {
+        "options": [
+          { "value": "unicast", "labelKey": "options-unicast-label" },
+          { "value": "multicast", "labelKey": "options-multicast-label" }
+        ]
+      },
+      "MulticastListenAddress": {
+        "disabled": "coherenceMulticastClusteringModeFields"
+      },
+      "TimeToLive": {
+        "disabled": "coherenceMulticastClusteringModeFields"
+      },
+      "Transport": {
+        "options": [
+          { "value": "tmb", "label": "TMB" },
+          { "value": "tcp", "label": "TCP" },
+          { "value": "udp", "label": "UDP" },
+          { "value": "ssl", "label": "SSL" },
+          { "value": "ssludp", "label": "SSLUDP" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "ClusteringMode",
+              "Transport",
+              "MulticastListenAddress",
+              "ClusterListenPort",
+              "TimeToLive",
+              "SecuredProduction",
+              "IgnoreHostnameVerification"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "attributes": [
+              "DiscoveryAddress",
+              "SecurityFrameworkEnabled",
+              "GlobalSocketProvider"
+            ],
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "hidden",
+        "folders": [
+          "CoherenceCache",
+          "CoherenceService"
+        ],
+        "attributes": [
+          "UnicastListenAddress",
+          "UnicastListenPort",
+          "MulticastListenPort",
+          "UnicastPortAutoAdjust",
+          "UseVirtualThreads"
+        ]
+      },
+      {
+        "type": "folderTab",
+        "folder": "CoherenceKeystoreParams"
+      },
+      {
+        "type": "folderTab",
+        "folder": "CoherenceClusterWellKnownAddress"
+      },
+      {
+        "type": "folderTab",
+        "folder": "CoherenceIdentityAsserter"
+      }
+    ]
+  },
+  "CoherenceClusterSystemResource/CoherenceResource/CoherenceClusterParams/CoherenceIdentityAsserter/CoherenceInitParam": {
+    "summaryAttributes": {
+      "ParamType": {},
+      "ParamValue": {}
+    },
+    "attributeDetails": {
+      "ParamType": {
+        "options": [
+          { "value":  "string", "label": "string" },
+          { "value":  "java.lang.String", "label": "java.lang.String" },
+          { "value":  "boolean", "label": "boolean" },
+          { "value":  "java.lang.Boolean", "label": "java.lang.Boolean" },
+          { "value":  "int", "label": "int" },
+          { "value":  "java.lang.Integer", "label": "java.lang.Integer" },
+          { "value":  "long", "label": "long" },
+          { "value":  "java.lang.Long", "label": "java.lang.Long" },
+          { "value":  "double", "label": "double" },
+          { "value":  "java.lang.Double", "label": "java.lang.Double" },
+          { "value":  "decimal", "label": "decimal" },
+          { "value":  "java.math.BigDecimal", "label": "java.math.BigDecimal" },
+          { "value":  "file", "label": "file" },
+          { "value":  "java.io.File", "label": "java.io.File" },
+          { "value":  "date", "label": "date" },
+          { "value":  "java.sql.Date", "label": "java.sql.Date" },
+          { "value":  "time", "label": "time" },
+          { "value":  "java.sql.Time", "label": "java.sql.Time" },
+          { "value":  "datetime", "label": "datetime" },
+          { "value":  "java.sql.Timestamp", "label": "java.sql.Timestamp" }
+        ]
+      }
+    }
+  },
+  "CoherenceClusterSystemResource/CoherenceResource/CoherenceClusterParams/CoherenceKeystoreParams": {
+    "attributeDetails": {
+      "CoherenceClientAuth": {
+        "options": [
+          { "value": "none", "labelKey": "options-none-label" },
+          { "value": "required", "labelKey": "options-required-label" },
+          { "value": "wanted", "labelKey": "options-wanted-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "CoherenceIdentityAlias",
+          "CoherencePrivateKeyPassPhraseEncrypted",
+          "CoherenceClientAuth",
+          "CoherenceKeyRefreshPeriod"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "CoherenceClusterSystemResource/CoherenceResource/CoherenceClusterParams/CoherenceClusterWellKnownAddress": {
+    "summaryAttributes": {
+      "ListenAddress": {}
+    },
+    "sections": [
+      {
+        "type": "hidden",
+        "attributes": [
+          "ListenPort"
+        ]
+      }
+    ]
+  },
+  "CoherenceClusterSystemResource/CoherenceResource/CoherenceFederationParams": {
+    "summaryAttributes": {
+      "FederationTopology": {},
+      "RemoteCoherenceClusterName": {}
+    },
+    "attributeDetails": {
+      "FederationTopology": {
+        "options": [
+          { "value": "none", "labelKey": "options-none-label" },
+          { "value": "active-active", "labelKey": "options-active-active-label" },
+          { "value": "active-passive", "labelKey": "options-active-passive-label" },
+          { "value": "passive-active", "labelKey": "options-passive-active-label" }
+        ]
+      }
+    }
+  },
+  "CoherenceClusterSystemResource/CoherenceResource/CoherenceLoggingParams": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "Enabled",
+          "LoggerName",
+          "MessageFormat",
+          "SeverityLevel",
+          "CharacterLimit"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "CoherenceClusterSystemResource/CoherenceResource/CoherencePersistenceParams": {
+    "attributeDetails": {
+      "FederationTopology": {
+        "options": [
+          { "value": "on-demand", "labelKey": "options-on-demand-label" },
+          { "value": "active", "labelKey": "options-active-label" },
+          { "value": "active-backup", "labelKey": "options-active-backup-label" },
+          { "value": "active-async", "labelKey": "options-active-async-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "DefaultPersistenceMode",
+          "ActiveDirectory",
+          "BackupDirectory",
+          "EventsDirectory",
+          "SnapshotDirectory",
+          "TrashDirectory"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
   }
 }

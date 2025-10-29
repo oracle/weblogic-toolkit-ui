@@ -89,7 +89,17 @@
   "options-transaction-label": "Transaction",
   "options-lru-label": "Least Recently Used",
   "options-fixed-label": "Fixed",
-
+  "options-multicast-label": "Multicast",
+  "options-unicast-label": "Unicast",
+  "options-required-label": "Required",
+  "options-wanted-label": "Wanted",
+  "options-active-active-label": "Active-Active",
+  "options-active-passive-label": "Active-Passive",
+  "options-passive-active-label": "Passive-Active",
+  "options-on-demand-label": "On Demand",
+  "options-active-label": "Active",
+  "options-active-backup-label": "Active-Backup",
+  "options-active-async-label": "Active-Async",
 
   "direction-jms-queue-to-tuxedo-queue-label": "JMS Queue to Tuxedo Queue",
   "direction-tuxedo-queue-to-jms-queue-label": "Tuxedo Queue to JMS Queue",
@@ -219,7 +229,9 @@
   "a-Action-label": "Action",
   "a-Active-label": "Active",
   "a-ActiveContextHandlerEntry-label": "Active Context Handler Entry",
+
   "a-ActiveDirectory-label": "Active Directory",
+  "f-CoherenceClusterSystemResource_CoherenceResource_CoherencePersistenceParams-a-ActiveDirectory-help": "The active directory for the default persistence environment. If no value is specified, the directory which will be used is the coherence/active sub-directory under Domain Home directory.",
 
   "a-ActiveGridlink-label": "Active Gridlink",
   "f-JDBCSystemResource_JdbcResource_JDBCOracleParams-a-ActiveGridlink-help": "Indicates a configured Active GridLink datasource. This attributed is set to true when using the console to create an Active GridLink datasource. It is ignored if FanEnabled is true or OnsNodeList is a non-null string.",
@@ -240,6 +252,8 @@
   "f-SingletonService-a-AdditionalMigrationAttempts-help": "A migratable service could fail to come up on every possible configured server. This attribute controls how many further attempts, after the service has failed on every server at least once, should be tried. Note that each attempt specified here indicates another full circuit of migrations amongst all the configured servers. So for a 3-server cluster, and a value of 2, a total of 4 additional migrations will be attempted (the original server is never a valid destination).",
 
   "a-Address-label": "Address",
+  "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceAddressProvider_CoherenceSocketAddress-a-Address-help": "The DNS Name or IP Address.",
+
   "a-AdjudicatorTypes-label": "Adjudicator Types",
   "a-AdminHost-label": "Admin Host",
   "a-AdminPassword-label": "Admin Password",
@@ -377,7 +391,10 @@
   "a-AvailableTargets-label": "Available Targets",
   "a-BackgroundDeployment-label": "Background Deployment",
   "a-BackupCopies-label": "Backup Copies",
+
   "a-BackupDirectory-label": "Backup Directory",
+  "f-CoherenceClusterSystemResource_CoherenceResource_CoherencePersistenceParams-a-BackupDirectory-help": "The backup directory for the default persistence environment. If no value is specified, the directory which will be used is the coherence/backup sub-directory under Domain Home directory.",
+
   "a-BackupHour-label": "Backup Hour",
   "a-BackupMinute-label": "Backup Minute",
   "a-Base64DecodingRequired-label": "Base 64 Decoding Required",
@@ -439,7 +456,9 @@
   "f-SAFAgent-a-BytesThresholdLow-help": "The lower threshold that triggers events based on the number of bytes stored in the SAF agent. The default value of -1 disables the events for this SAF agent.",
 
   "a-COMEnabled-label": "COM Enabled",
+
   "a-CacheConfigurationFile-label": "Cache Configuration File",
+  "a-CacheConfigurationFile-help": "The cache configuration file being used by this CoherenceCacheConfigMBean.",
 
   "a-CacheDirectory-label": "Cache Directory",
   "f-FileStore-a-CacheDirectory-help": "The location of the cache directory for Direct-Write-With-Cache, ignored for other policies. When Direct-Write-With-Cache is specified as the SynchronousWritePolicy, cache files are created in addition to primary files (see Directory for the location of primary files). If a cache directory location is specified, the cache file path is CacheDirectory/WLStoreCache/StoreNameFileNum.DAT.cache. When specified, Oracle recommends using absolute paths, but if the directory location is a relative path, then CacheDirectory is created relative to the WebLogic Server instance's home directory. If \"\" or Null is specified, the Cache Directory is located in the current operating system temp directory as determined by the java.io.tmpdir Java System property (JDK's default: /tmp on UNIX, %TEMP% on Windows) and is TempDirectory/WLStoreCache/DomainName/unique-id/ StoreNameFileNum.DAT.cache. The value of java.io.tmpdir varies between operating systems and configurations, and can be overridden by passing -Djava.io.tmpdir=My_path on the JVM command line.",
@@ -482,7 +501,10 @@
   "a-ChangeSessionIDOnAuthentication-label": "Change Session ID On Authentication",
   "a-ChannelIdentityCustomized-label": "Channel Identity Customized",
   "a-ChannelWeight-label": "Channel Weight",
+
   "a-CharacterLimit-label": "Character Limit",
+  "a-CharacterLimit-help": "The character limit for Coherence logs.",
+
   "a-Charsets-label": "Charsets",
   "a-CheckCertificatesExpirationDays-label": "Check Certificates Expiration Days",
   "a-CheckCertificatesIntervalDays-label": "Check Certificates Interval Days",
@@ -505,6 +527,7 @@
   "f-ShutdownClass-a-ClassName-help": "The fully qualified name of the Shutdown class to load and run. The class must be on the server's classpath.",
   "f-StartupClass-a-ClassName-help": "The fully qualified name of the Startup class to load and run. The class must be on the server's classpath.",
   "f-SingletonService-a-ClassName-help": "The fully qualified name of a SingletonServices class to load and run. The class must be on the server's classpath.",
+  "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceClusterParams_CoherenceIdentityAsserter-a-ClassName-help": "The class that implements com.tangosol.net.security.IdentityAsserter. If className is empty, no IdentityAsserter will be configured.",
 
   "a-ClassPath-label": "Class Path",
   "a-ClassloaderWebApp-label": "Classloader Web App",
@@ -541,13 +564,19 @@
   "a-ClusterBroadcastChannel-label": "Cluster Broadcast Channel",
   "a-ClusterConstraintsEnabled-label": "Cluster Constraints Enabled",
   "a-ClusterHosts-label": "Cluster Hosts",
+
   "a-ClusterListenPort-label": "Cluster Listen Port",
+  "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceClusterParams-a-ClusterListenPort-help": "The cluster listen port used by Coherence; Coherence cluster members use this port to discover and join, or create the cluster.",
+
   "a-ClusterMessagingMode-label": "Cluster Messaging Mode",
   "a-ClusterName-label": "Cluster Name",
   "a-ClusterRuntime-label": "Cluster Runtime",
   "a-ClusterType-label": "Cluster Type",
   "a-ClusterWeight-label": "Cluster Weight",
+
   "a-ClusteringMode-label": "Clustering Mode",
+  "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceClusterParams-a-ClusteringMode-help": "Specifies a clustering mode of either Unicast (default) or Multicast. If multicast is undesirable or unavailable in an environment, or when an environment is not properly configured to support multicast, then setting up the Well Known Addresses (WKA) feature is required. All cluster multicast communication is disabled if any of WKA, SSL, and/or secured production mode is/are enabled.",
+
   "a-ClusterwideRecoveryEnabled-label": "Clusterwide Recovery Enabled",
 
   "a-CmpLimit-label": "Compression Limit",
@@ -555,11 +584,21 @@
   "f-WTCServer_WTCRemoteTuxDom-a-CmpLimit-help": "The compression threshold this remote Tuxedo access point uses when sending data to a local Tuxedo access point. Application buffers larger than this size are compressed. Must be between 0 and 2147483647, where 2147483647 is the default value if not specified",
 
   "a-CoherenceClassesAlwaysBlock-label": "Coherence Classes Always Block",
-  "a-CoherenceClientAuth-label": "Coherence Client Auth",
+
+  "a-CoherenceClientAuth-label": "Client Authentication Mode",
+  "a-CoherenceClientAuth-help": "The client authentication mode to use.",
+
   "a-CoherenceClusterSystemResource-label": "Coherence Cluster System Resource",
-  "a-CoherenceIdentityAlias-label": "Coherence Identity Alias",
-  "a-CoherenceKeyRefreshPeriod-label": "Coherence Key Refresh Period",
-  "a-CoherencePrivateKeyPassPhraseEncrypted-label": "Coherence Private Key Pass Phrase Encrypted",
+
+  "a-CoherenceIdentityAlias-label": "Identity Alias",
+  "a-CoherenceIdentityAlias-help": "The string alias used to store and retrieve the Coherence Identity private key in the keystore. This private key is associated with the Coherence Identity digital certificate. If this alias is null, the Server SSL identity alias will be used.",
+
+  "a-CoherenceKeyRefreshPeriod-label": "Key Refresh Period",
+  "a-CoherenceKeyRefreshPeriod-help": "he period to use to attempt to refresh keys and certs. This is used in cases where keys or certs have a short lifetime and need to be refreshed at runtime. If this element is omitted or is set to a value less than or equal to zero, then keys and certs will not be refreshed.",
+
+  "a-CoherencePrivateKeyPassPhraseEncrypted-label": "Private Key Pass Phrase Encrypted",
+  "a-CoherencePrivateKeyPassPhraseEncrypted-help": "The passphrase used to retrieve the private key for the Coherence Identity specified in the server configured keystore. This passphrase is assigned to the private key when the private key is generated.",
+
   "a-CoherenceStartScriptEnabled-label": "Coherence Start Script Enabled",
   "a-CoherenceStartScriptName-label": "Coherence Start Script Name",
   "a-CoherenceWebFederatedStorageEnabled-label": "Coherence Web Federated Storage Enabled",
@@ -747,7 +786,10 @@
   "f-WTCServer_WTCRemoteTuxDom-a-CustomAppKeyClassParam-help": "The optional parameters to be used by the custom AppKey class at the class initialization time. This class is only relevant if you specify Custom as the AppKey Generator Plug-in.",
 
   "a-CustomClusterConfigurationFileLastUpdatedTimestamp-label": "Custom Cluster Configuration File Last Updated Timestamp",
+
   "a-CustomClusterConfigurationFileName-label": "Custom Cluster Configuration File Name",
+  "a-CustomClusterConfigurationFileName-help": "The name of the external custom Coherence operational configuration override file. The user must make sure the file exist and is located in either the WDT archive file or in the domain home under the config/coherence/$CoherenceClusterName directory",
+
   "a-CustomConfigFileLastUpdatedTime-label": "Custom Config File Last Updated Time",
   "a-CustomIdentityAlias-label": "Custom Identity Alias",
   "a-CustomIdentityKeyStoreFileName-label": "Custom Identity Key Store File Name",
@@ -1319,7 +1361,10 @@
   "a-DefaultLogicalStoreName-label": "Default Logical Store Name",
   "a-DefaultMaximumObjectLifetime-label": "Default Maximum Object Lifetime",
   "a-DefaultMinorVersion-label": "Default Minor Version",
+
   "a-DefaultPersistenceMode-label": "Default Persistence Mode",
+  "f-CoherenceClusterSystemResource_CoherenceResource_CoherencePersistenceParams-a-DefaultPersistenceMode-help": "The default persistence mode.",
+
   "a-DefaultPriority-label": "Default Priority",
   "a-DefaultProtocol-label": "Default Protocol",
   "a-DefaultRealm-label": "Default Realm",
@@ -1394,6 +1439,7 @@
 
   "a-DeploymentPrincipalName-label": "Deployment Principal Name",
   "f-Application-a-DeploymentPrincipalName-help": "A string value that indicates the principal that should be used when deploying the file or archive during startup and shutdown. This principal will be used to set the current subject when calling out into application code for interfaces such as ApplicationLifecycleListener. If no principal name is specified, then the anonymous principal will be used.",
+  "f-CoherenceClusterSystemResource-a-DeploymentPrincipalName-help": "A string value that indicates the principal that should be used when deploying the file or archive during startup and shutdown. This principal will be used to set the current subject when calling out into application code for interfaces such as ApplicationLifecycleListener. If no principal name is specified, then the anonymous principal will be used.",
   "f-JDBCSystemResource-a-DeploymentPrincipalName-help": "A string value that indicates the principal that should be used when deploying the file or archive during startup and shutdown. This principal will be used to set the current subject when calling out into application code for interfaces such as ApplicationLifecycleListener. If no principal name is specified, then the anonymous principal will be used.",
 
   "a-DeploymentState-label": "Deployment State",
@@ -1402,6 +1448,7 @@
   "a-DescriptorBeanClass-label": "Descriptor Bean Class",
 
   "a-DescriptorFileName-label": "Descriptor File Name",
+  "f-CoherenceClusterSystemResource-a-DescriptorFileName-help": "The name of the file that contains the module configuration. By default the file resides in the DOMAIN_DIR/config/coherence/bean_name directory. The module file derives its name from the bean name using the following pattern: <beanName>.xml. Note that this is a read-only property that can only be set when the bean is created.",
   "f-JDBCSystemResource-a-DescriptorFileName-help": "The name of the file containing this configuration. This is a relative name rooted at DOMAIN_DIR/config. By default the file resides in the jdbc subdirectory and derives its name from the bean name using the following pattern: <beanName>.xml. Note that this is a read-only property that can only be set when the bean is created.",
 
   "a-Destination-label": "Destination",
@@ -1445,6 +1492,8 @@
   "f-FileStore-a-Directory-help": "The path name to the file system directory where the file store maintains its data files.",
 
   "a-DiscoveryAddress-label": "Discovery Address",
+  "a-DiscoveryAddress-help": "Controls whether the discovery address is set. If this property is set, then Coherence will configure the discovery address to the unicast listen address if there is one.",
+
   "a-DispatchPolicy-label": "Dispatch Policy",
   "a-DistinguishedName-label": "Distinguished Name",
 
@@ -1508,7 +1557,10 @@
   "a-EnableJTATLogDBPersistence-label": "Enable JTA TLog Database Persistence",
   "a-EnableSIDtoGroupLookupCaching-label": "Enable SI Dto Group Lookup Caching",
   "a-EnableWebLogicPrincipalValidatorCache-label": "Enable WebLogic Principal Validator Cache",
+
   "a-Enabled-label": "Enabled",
+  "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceLoggingParams-a-Enabled-help": "Specifies whether custom Coherence logging is enabled.",
+
   "a-EnabledServer-label": "Enabled Server",
   "a-EnabledServerDebugAttribute-label": "Enabled Server Debug Attribute",
   "a-Encoding-label": "Encoding",
@@ -1532,7 +1584,10 @@
   "a-ErrorManager-label": "Error Manager",
   "a-ErrorPath-label": "Error Path",
   "a-EventPersistenceInterval-label": "Event Persistence Interval",
+
   "a-EventsDirectory-label": "Events Directory",
+  "f-CoherenceClusterSystemResource_CoherenceResource_CoherencePersistenceParams-a-EventsDirectory-help": "The events directory for the default persistence environment used to store durable events. If no value is specified, the directory which will be used is the coherence/events sub-directory under Domain Home directory.",
+
   "a-EventsImageCaptureInterval-label": "Events Image Capture Interval",
   "a-ExactlyOnceLoadBalancingPolicy-label": "Exactly Once Load Balancing Policy",
   "a-ExalogicOptimizationsEnabled-label": "Exalogic Optimizations Enabled",
@@ -1596,7 +1651,9 @@
   "a-FederationRemoteClusterListenPort-label": "Federation Remote Cluster Listen Port",
   "a-FederationRemoteClusterName-label": "Federation Remote Cluster Name",
   "a-FederationRemoteParticipantHost-label": "Federation Remote Participant Host",
+
   "a-FederationTopology-label": "Federation Topology",
+  "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceFederationParams-a-FederationTopology-help": "The federation topology to use.",
 
   "a-FederationURL-label": "Federation URL",
   "f-WTCServer_WTCRemoteTuxDom-a-FederationURL-help": "The URL for a foreign name service that is federated into JNDI. Note that the WebLogic Tuxedo Connector can federate to non-CORBA service providers. If this value is not specified, the WebLogic Tuxedo Connector assumes there is a CosNaming server in the foreign domain and federates to the CosNaming server using TGIOP.",
@@ -1669,7 +1726,9 @@
   "a-GatheredWritesEnabled-label": "Gathered Writes Enabled",
   "a-GenerateAttributes-label": "Generate Attributes",
   "a-GlassFishWebAppParser-label": "Glass Fish Web App Parser",
+
   "a-GlobalSocketProvider-label": "Global Socket Provider",
+  "a-GlobalSocketProvider-help": "Specify the Global Socket Provider name. If not specified and secured production mode is enabled, Coherence uses WebLogic SSL configuration as Global Socket Provider. Otherwise, use the specified Global Socket Provider. Prior to 14.1.2, this parameter is expected to be a boolean instead of a string so make sure to enter \"true\" or \"false\" for the value.",
 
   "a-GlobalTransactionsProtocol-label": "Global Transactions Protocol",
   "f-JDBCSystemResource_JdbcResource_JDBCDataSourceParams-a-GlobalTransactionsProtocol-help": "Determines the transaction protocol (global transaction processing behavior) for the data source.",
@@ -1778,7 +1837,9 @@
   "f-MessagingBridge-a-IdleTimeMaximum-help": "The maximum amount of time, in seconds, that a messaging bridge instance remains idle. In asynchronous mode, this is the longest amount of time a messaging bridge instance stays idle before it checks the sanity of its connection to the source. In synchronous mode, this is the amount of time the messaging bridge can block on a receive call if no transaction is involved.",
 
   "a-IgnoreDuplicateMembership-label": "Ignore Duplicate Membership",
+
   "a-IgnoreHostnameVerification-label": "Ignore Hostname Verification",
+  "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceClusterParams-a-IgnoreHostnameVerification-help": "Check if ignore hostname verification is set. In Secured Production Mode, Coherence hostname verification is enabled by default. If WebLogic isHostnameVerificationIgnored is set, then Coherence will inherit it through this property.",
 
   "a-IgnoreInUseConnectionsEnabled-label": "Ignore In Use Connections Enabled",
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-IgnoreInUseConnectionsEnabled-help4": "Enables the data source to be shutdown even if connections obtained from the pool are still in use.",
@@ -1888,6 +1949,7 @@
   "a-JMSTopicConnectionFactory-label": "JMS Topic Connection Factory",
 
   "a-JNDIName-label": "JNDI Name",
+  "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceCacheConfig-a-JNDIName-help": "The JNDI Name for this CoherenceCacheConfigMBean.",
   "f-JDBCSystemResource_JdbcResource_JDBCDataSourceParams-a-JNDIName-help": "The JNDI path for this Data Source. By default, the JNDI name is the name of the data source.",
 
   "a-JNDIPasswordEncrypted-label": "JNDI Password Encrypted",
@@ -1979,10 +2041,16 @@
   "a-LaxPrecision-label": "Lax Precision",
   "a-LeaderHeartbeatPeriod-label": "Leader Heartbeat Period",
   "a-Level-label": "Level",
+
   "a-ListenAddress-label": "Listen Address",
+  "a-ListenAddress-help": "The DNS name or IP address.",
+
   "a-ListenBacklog-label": "Listen Backlog",
   "a-ListenDelaySecs-label": "Listen Delay Secs",
+
   "a-ListenPort-label": "Listen Port",
+  "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceClusterParams_CoherenceClusterWellKnownAddress-a-ListenPort-help": "The listen port. Deprecated in 12.2.1 since the well-known address no longer needs a port to bne specified.",
+
   "a-ListenPortEnabled-label": "Listen Port Enabled",
   "a-ListenThreadDebug-label": "Listen Thread Debug",
   "a-ListenThreadStartDelaySecs-label": "Listen Thread Start Delay Secs",
@@ -2067,7 +2135,10 @@
   "a-LogTimeInGMT-label": "Log Time In GMT",
   "a-LogToStderr-label": "Log To Stderr",
   "a-LogWatchSeverity-label": "Log Watch Severity",
+
   "a-LoggerName-label": "Logger Name",
+  "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceLoggingParams-a-LoggerName-help": "The logger name for Coherence logs.",
+
   "a-LoggerSeverity-label": "Logger Severity",
   "a-LoggerSeverityProperties-label": "Logger Severity Properties",
 
@@ -2224,7 +2295,10 @@
 
   "a-MessageCompressionOptionsOverride-label": "Message Compression Options Override",
   "a-MessageDeliveryTimeout-label": "Message Delivery Timeout",
+
   "a-MessageFormat-label": "Message Format",
+  "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceLoggingParams-a-MessageFormat-help": "The Coherence logs message format.",
+
   "a-MessageId-label": "Message ID",
   "a-MessageIdPrefixEnabled-label": "Message ID Prefix Enabled",
   "a-MessageLoggingEnabled-label": "Message Logging Enabled",
@@ -2308,8 +2382,7 @@
   "a-Minute-label": "Minute",
 
   "a-ModuleType-label": "Module Type",
-  "f-Application-a-ModuleType-help": "The type of the module (ear, jar, war, or rar).",
-  "f-JDBCSystemResource-a-ModuleType-help": "The type of the module (ear, jar, war, or rar).",
+  "a-ModuleType-help": "The type of the module (ear, jar, war, or rar).",
 
   "a-Modulus-label": "Modulus",
   "a-MonitoredAttributeName-label": "Monitored Attribute Name",
@@ -2322,8 +2395,13 @@
   "a-MulticastAddress-label": "Multicast Address",
   "a-MulticastBufferSize-label": "Multicast Buffer Size",
   "a-MulticastDataEncryption-label": "Multicast Data Encryption",
+
   "a-MulticastListenAddress-label": "Multicast Listen Address",
+  "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceClusterParams-a-MulticastListenAddress-help": "The IP address for the cluster multicast listener.",
+
   "a-MulticastListenPort-label": "Multicast Listen Port",
+  "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceClusterParams-a-MulticastListenPort-help": "The port for the cluster multicast listener. Deprecated in 12.2.1. Use ClusterListenPort instead.",
+
   "a-MulticastOverrunPolicy-label": "Multicast Overrun Policy",
   "a-MulticastPort-label": "Multicast Port",
   "a-MulticastSendDelay-label": "Multicast Send Delay",
@@ -2485,8 +2563,13 @@
 
   "a-ParallelXADispatchPolicy-label": "Parallel XA Dispatch Policy",
   "a-ParallelXAEnabled-label": "Parallel XA Enabled",
+
   "a-ParamType-label": "Param Type",
+  "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceClusterParams_CoherenceIdentityAsserter_CoherenceInitParam-a-ParamType-help": "The parameter type.",
+
   "a-ParamValue-label": "Param Value",
+  "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceClusterParams_CoherenceIdentityAsserter_CoherenceInitParam-a-ParamValue-help": "The parameter value that matches the specified ParamType.",
+
   "a-Parameter-label": "Parameter",
   "a-ParserClassName-label": "Parser Class Name",
 
@@ -2565,7 +2648,11 @@
   "a-PolicyDeploymentEnabled-label": "Policy Deployment Enabled",
   "a-PolicySelectionPreference-label": "Policy Selection Preference",
   "a-PollingInterval-label": "Polling Interval",
+
   "a-Port-label": "Port",
+  "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceAddressProvider_CoherenceSocketAddress-a-Port-help": "The listen port.",
+
+
   "a-PortOffset-label": "Port Offset",
   "a-PortablePartitionHelper-label": "Portable Partition Helper",
   "a-PostBindGID-label": "Post Bind GID",
@@ -2733,8 +2820,13 @@
   "a-RemoteAnonymousRmiiiopEnabled-label": "Remote Anonymous Rmiiiop Enabled",
   "a-RemoteAnonymousRmit3Enabled-label": "Remote Anonymous RMIT 3 Enabled",
   "a-RemoteClusterAddress-label": "Remote Cluster Address",
+
   "a-RemoteCoherenceClusterListenPort-label": "Remote Coherence Cluster Listen Port",
+  "a-RemoteCoherenceClusterListenPort-help": "The Coherence Cluster Listen Port of the remote participant.",
+
   "a-RemoteCoherenceClusterName-label": "Remote Coherence Cluster Name",
+  "a-RemoteCoherenceClusterName-help": "The Coherence Cluster Name of the remote participant cluster.",
+
   "a-RemoteConsoleHelperEnabled-label": "Remote Console Helper Enabled",
   "a-RemoteDomain-label": "Remote Domain",
   "a-RemoteHost-label": "Remote Host",
@@ -2749,6 +2841,7 @@
   "f-WTCServer_WTCImport-a-RemoteName-help": "The remote name of this service. Note that if not specified, the ResourceName value is used.",
 
   "a-RemoteParticipantHost-label": "Remote Participant Host",
+  "a-RemoteParticipantHost-help": "The list of remote participant hosts, who will be added as participants in the federation topology.",
 
   "a-RemotePassword-label": "Remote Password",
   "a-RemotePassword-help": "The remote password used to authenticate connections between the local access point and remote access point. Note that this password is used to authenticate connections between the local Tuxedo access point identified by LocalAccessPoint and the remote Tuxedo access point identified by RemoteAccessPoint.",
@@ -2776,7 +2869,10 @@
   "f-WTCServer_WTCtBridgeRedirect-a-ReplyQ-help": "The name of the JMS queue used specifically for synchronous calls to a Tuxedo service. The response is returned to the JMS ReplyQ.",
 
   "a-ReplyToSAFRemoteContextName-label": "Reply To SAF Remote Context Name",
+
   "a-ReportGroupFile-label": "Report Group File",
+  "f-CoherenceClusterSystemResource-a-ReportGroupFile-help": "The report group file representing the superset of runtime metrics to be collected for this cluster.",
+
   "a-RequestBufferingQueueJndiName-label": "Request Buffering Queue JNDI Name",
   "a-RequestCacheSize-label": "Request Cache Size",
   "a-RequestCacheTtl-label": "Request Cache TTL",
@@ -2884,7 +2980,10 @@
   "a-RtexprvalueJspParamName-label": "Rtexprvalue Jsp Param Name",
   "a-RuleExpression-label": "Rule Expression",
   "a-RuleType-label": "Rule Type",
+
   "a-RuntimeCacheConfigurationUri-label": "Runtime Cache Configuration URI",
+  "a-RuntimeCacheConfigurationUri-help": "The cache configuration file used at runtime.",
+
   "a-RuntimeMBeanServerEnabled-label": "Runtime MBean Server Enabled",
   "a-SAFErrorHandling-label": "SAF Error Handling",
   "a-SAFRemoteContext-label": "SAF Remote Context",
@@ -2952,7 +3051,9 @@
   "a-SecureListener-label": "Secure Listener",
   "a-SecureModeEnabled-label": "Secure Mode Enabled",
   "a-SecureReplicationEnabled-label": "Secure Replication Enabled",
+
   "a-SecuredProduction-label": "Secured Production",
+  "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceClusterParams-a-SecuredProduction-help": "Specify whether secured production mode is enabled. When it is not set, Coherence inherits the Secured Production Mode from WebLogic. Once Coherence Secured Production Mode is specified (Yes or No), then Coherence will no longer inherit the mode from WebLogic.",
 
   "a-Security-label": "Security",
   "f-WTCServer_WTCLocalTuxDom-a-Security-help": "The type of application security enforced. NONE means that no security is used. APP_PW means that password security is enforced when a connection is established from a remote domain; the application password is defined in the WTCResourcesMBean. DM_PW means that the domain password security is enforced when a connection is established from a remote domain; the domain password is defined in the WTCPasswordsMBean.",
@@ -2963,7 +3064,10 @@
   "f-Application-a-SecurityDDModel-help": "The security model that is used to secure a deployed module. To set this value, you can use the weblogic.Deployer command-line tool, the Deployment Assistant in the Administration Console, the WebLogic Scripting Tool (WLST), or another JMX client. If you deploy a module using one of the previously mentioned tools and you do not specify a security model value, the module is secured with the security realm's default model. If you deploy a module by modifying the domain's config.xml file and restarting the server, and if you do not specify a security model value for the module in config.xml, the module is secured with the DDOnly model, which is the default value of this AppDeploymentMBean attribute.",
 
   "a-SecurityEncryptionService-label": "Security Encryption Service",
+
   "a-SecurityFrameworkEnabled-label": "Security Framework Enabled",
+  "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceClusterParams-a-SecurityFrameworkEnabled-help": "Control the use of the Coherence security framework.",
+
   "a-SecurityInteropMode-label": "Security Interop Mode",
   "a-SecurityLevel-label": "Security Level",
   "a-SecurityName-label": "Security Name",
@@ -3040,7 +3144,10 @@
   "a-SessionUsername-label": "Session Username",
   "a-SessionsMaximum-label": "Sessions Maximum",
   "a-Severity-label": "Severity",
+
   "a-SeverityLevel-label": "Severity Level",
+  "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceLoggingParams-a-SeverityLevel-help": "The logging severity level for Coherence logs.",
+
   "a-Shared-label": "Shared",
   "a-SharedCapacityForWorkManagers-label": "Shared Capacity For Work Managers",
   "a-SharedCapacityPercent-label": "Shared Capacity Percent",
@@ -3072,7 +3179,10 @@
   "a-SitConfigRequired-label": "Sit Config Required",
   "a-SiteName-label": "Site Name",
   "a-SlaveDeployer-label": "Slave Deployer",
+
   "a-SnapshotDirectory-label": "Snapshot Directory",
+  "f-CoherenceClusterSystemResource_CoherenceResource_CoherencePersistenceParams-a-SnapshotDirectory-help": "The snapshot directory for the default persistence environment. If no value is specified, the directory which will be used is coherence/snapshot sub-directory under Domain Home directory.",
+
   "a-SnmpAccessForUserMBeansEnabled-label": "SNMP Access For User MBeans Enabled",
   "a-SnmpEngineId-label": "SNMP Engine ID",
   "a-SocketBufferSizeAsChunkSize-label": "Socket Buffer Size As Chunk Size",
@@ -3287,7 +3397,10 @@
   "a-ThresholdLow-label": "Threshold Low",
   "a-TightlyCoupledTransactionsEnabled-label": "Tightly Coupled Transactions Enabled",
   "a-TimeToDeliver-label": "Time To Deliver",
+
   "a-TimeToLive-label": "Time To Live",
+  "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceClusterParams-a-TimeToLive-help": "Sets the time-to-live (TTL) setting for the multicast message. The TTL setting designates how far multicast UDP/IP packets can travel on a network. The TTL is expressed in terms of how many hops a packet survives; each network interface, router, and managed switch is considered one hop. The TTL value should be set to the lowest integer value that works. Setting the value too high can use unnecessary bandwidth on other LAN segments and can even cause the operating system or network devices to disable multicast traffic. Typically, setting the TTL value to 1 works on a simple switched backbone. A value of 2 or more may be required on an advanced backbone with intelligent switching. A value of 0 is used for single server clusters that are used for development and testing.",
+
   "a-TimeToLiveDefault-label": "Time To Live Default",
   "a-TimedOutRefIsolationTime-label": "Timed Out Ref Isolation Time",
 
@@ -3334,9 +3447,14 @@
   "a-TranslateFML-help": "The type of XML/FML translation.  NO indicates that no data translation is performed. FLAT indicates that the message payload is transformed using the WebLogic Tuxedo Connector translator. WLXT indicates that translation is performed by the XML-to-non-XML WebLogic XML Translator (WLXT).",
 
   "a-Transport-label": "Transport",
+  "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceClusterParams-Transport-help": "Specify the underlying transport protocol to use for cluster communication. Default is SSL when secured production mode is enabled; TMB otherwise.",
+
   "a-TransportLayerSecurityKeyAlias-label": "Transport Layer Security Key Alias",
   "a-TransportLayerSecurityKeyPassPhraseEncrypted-label": "Transport Layer Security Key Pass Phrase Encrypted",
+
   "a-TrashDirectory-label": "Trash Directory",
+  "f-CoherenceClusterSystemResource_CoherenceResource_CoherencePersistenceParams-a-TrashDirectory-help": "The trash directory for the default persistence environment. If no value is specified, the directory which will be used is coherence/trash sub-directory under Domain Home directory.",
+
   "a-TriggerTruncationStackFrameDepthAfterTrigger-label": "Trigger Truncation Stack Frame Depth After Trigger",
   "a-TriggerTruncationStackFrameTriggerDepth-label": "Trigger Truncation Stack Frame Trigger Depth",
 
@@ -3486,7 +3604,10 @@
   "a-UserSearchScope-label": "User Search Scope",
   "a-Username-label": "Username",
   "a-UsernameAttribute-label": "Username Attribute",
+
   "a-UsingCustomClusterConfigurationFile-label": "Using Custom Cluster Configuration File",
+  "a-UsingCustomClusterConfigurationFile-help": "Specifies whether you are using a custom external Coherence cluster configuration file.",
+
   "a-ValidProtocols-label": "Valid Protocols",
 
   "a-ValidateDDSecurityData-label": "Validate DD Security Data",
@@ -3717,34 +3838,36 @@
   "f-any_Cluster-noInstancesMessage": "No clusters specified",
   "f-any_Cluster-typeLabel": "Cluster",
   "f-any_Cluster_DatabaseLessLeasingBasis-label": "Database-Less Leasing Basis",
-  "f-any_CoherenceAddressProvider-label": "Coherence Address Providers",
-  "f-any_CoherenceAddressProvider-typeLabel": "Coherence Address Provider",
+  "f-any_CoherenceAddressProvider-label": "Address Providers",
+  "f-any_CoherenceAddressProvider-typeLabel": "Address Provider",
   "f-any_CoherenceCache-label": "Coherence Caches",
   "f-any_CoherenceCache-typeLabel": "Coherence Cache",
-  "f-any_CoherenceCacheConfig-label": "Coherence Cache Configs",
-  "f-any_CoherenceCacheConfig-typeLabel": "Coherence Cache Config",
-  "f-any_CoherenceClusterParams-label": "Coherence Cluster Params",
+
+  "f-any_CoherenceCacheConfig-label": "Cache Configurations",
+  "f-any_CoherenceCacheConfig-typeLabel": "Cache Configuration",
+
+  "f-any_CoherenceClusterParams-label": "Cluster Parameters",
   "f-any_CoherenceClusterSystemResource-label": "Coherence Cluster System Resources",
   "f-any_CoherenceClusterSystemResource-typeLabel": "Coherence Cluster System Resource",
-  "f-any_CoherenceClusterWellKnownAddress-label": "Coherence Cluster Well Known Addresses",
-  "f-any_CoherenceClusterWellKnownAddress-typeLabel": "Coherence Cluster Well Known Address",
-  "f-any_CoherenceFederationParams-label": "Coherence Federation Params",
-  "f-any_CoherenceIdentityAsserter-label": "Coherence Identity Asserter",
-  "f-any_CoherenceInitParam-label": "Coherence Init Params",
-  "f-any_CoherenceInitParam-typeLabel": "Coherence Init Param",
-  "f-any_CoherenceKeystoreParams-label": "Coherence Keystore Params",
-  "f-any_CoherenceLoggingParams-label": "Coherence Logging Params",
+  "f-any_CoherenceClusterWellKnownAddress-label": "Well Known Addresses",
+  "f-any_CoherenceClusterWellKnownAddress-typeLabel": "Well Known Address",
+  "f-any_CoherenceFederationParams-label": "Federation Parameters",
+  "f-any_CoherenceIdentityAsserter-label": "Identity Asserter",
+  "f-any_CoherenceInitParam-label": "Initialization Parameters",
+  "f-any_CoherenceInitParam-typeLabel": "Initialization Parameter",
+  "f-any_CoherenceKeystoreParams-label": "Keystore Parameters",
+  "f-any_CoherenceLoggingParams-label": "Logging Parameters",
   "f-any_CoherenceMemberConfig-label": "Coherence Member Config",
   "f-any_CoherencePartitionCacheConfig-label": "Coherence Partition Cache Configs",
   "f-any_CoherencePartitionCacheConfig-typeLabel": "Coherence Partition Cache Config",
   "f-any_CoherencePartitionCacheProperty-label": "Coherence Partition Cache Properties",
   "f-any_CoherencePartitionCacheProperty-typeLabel": "Coherence Partition Cache Property",
-  "f-any_CoherencePersistenceParams-label": "Coherence Persistence Params",
+  "f-any_CoherencePersistenceParams-label": "Persistence Parameters",
   "f-any_CoherenceResource-label": "Coherence Resource",
   "f-any_CoherenceService-label": "Coherence Services",
   "f-any_CoherenceService-typeLabel": "Coherence Service",
-  "f-any_CoherenceSocketAddress-label": "Coherence Socket Addresses",
-  "f-any_CoherenceSocketAddress-typeLabel": "Coherence Socket Address",
+  "f-any_CoherenceSocketAddress-label": "Socket Addresses",
+  "f-any_CoherenceSocketAddress-typeLabel": "Socket Address",
   "f-any_CoherenceTier-label": "Coherence Tier",
   "f-any_ConfigurationProperty-label": "Configuration Properties",
   "f-any_ConfigurationProperty-typeLabel": "Configuration Property",
