@@ -27,6 +27,7 @@ function(accUtils, ko, DialogHelper, ArrayDataProvider,
     this.addLabel = MessageHelper.getAddItemLabel(ATTRIBUTE, ALIAS_PATH, false);
     this.deleteLabel = MessageHelper.getDeleteItemLabel(ATTRIBUTE, ALIAS_PATH);
     this.noDataLabel = MessageHelper.getNoItemsMessage(ATTRIBUTE, ALIAS_PATH);
+    this.helpText = MessageHelper.getAttributeHelp(ATTRIBUTE, ALIAS_PATH);
 
     const subscriptions = [];
 
