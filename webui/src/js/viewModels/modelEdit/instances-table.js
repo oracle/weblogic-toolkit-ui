@@ -78,8 +78,7 @@ function(accUtils, ko, InstanceHelper, ModelEditHelper, MessageHelper, Navigatio
           let displayValue = ModelEditHelper.getDerivedValue(modelValue);
 
           // may need to get the display label from the list of options
-          const attributeDetails = MetaHelper.getAttributeDetails(attributePath, attributeKey);
-          const options = attributeDetails.options || [];
+          const options = MetaHelper.getAttributeOptions(attributePath, attributeKey) || [];
           const option = options.find(option => option.value === displayValue);
           displayValue = option ? option.label : displayValue;
 

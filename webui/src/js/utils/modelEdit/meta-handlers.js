@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2024, 2025, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -22,7 +22,7 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
         const appKeyPluginType = attributeMap['AppKey'];
         return ko.computed(() => {
           const type = ModelEditHelper.getDerivedValue(appKeyPluginType.observable());
-          return type !== 'TpUsrFile'
+          return type !== 'TpUsrFile';
         });
       };
 
@@ -30,7 +30,7 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
         const appKeyPluginType = attributeMap['AppKey'];
         return ko.computed(() => {
           const type = ModelEditHelper.getDerivedValue(appKeyPluginType.observable());
-          return type !== 'LDAP'
+          return type !== 'LDAP';
         });
       };
 
@@ -38,7 +38,7 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
         const appKeyPluginType = attributeMap['AppKey'];
         return ko.computed(() => {
           const type = ModelEditHelper.getDerivedValue(appKeyPluginType.observable());
-          return type !== 'Custom'
+          return type !== 'Custom';
         });
       };
 
@@ -54,7 +54,7 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
         const restartInPlace = attributeMap['RestartInPlace'];
         return ko.computed(() => {
           const restart = ModelEditHelper.getDerivedValue(restartInPlace.observable());
-          return restart !== true
+          return restart !== true;
         });
       };
 
@@ -79,6 +79,14 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
         return ko.computed(() => {
           const mode = ModelEditHelper.getDerivedValue(clusteringMode.observable());
           return mode !== 'multicast';
+        });
+      };
+
+      this.notCustomClusterConfig = attributeMap => {
+        const clusteringMode = attributeMap['UsingCustomClusterConfigurationFile'];
+        return ko.computed(() => {
+          const usesConfig = ModelEditHelper.getDerivedValue(clusteringMode.observable());
+          return !usesConfig;
         });
       };
     }

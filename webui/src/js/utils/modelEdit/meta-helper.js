@@ -34,6 +34,16 @@ define(['utils/modeledit/metadata/all-metadata'],
         return attributes[attributeName] || {};
       };
 
+      this.getAttributeOptions = (aliasPath, attributeName) => {
+        const attributeDetails = this.getAttributeDetails(aliasPath, attributeName);
+        return attributeDetails['options'];
+      };
+
+      this.getAttributeTypeOverride = (aliasPath, attributeName) => {
+        const attributeDetails = this.getAttributeDetails(aliasPath, attributeName);
+        return attributeDetails['typeOverride'];
+      };
+
       this.getSections = aliasPath => {
         const metadata = this.getMetadata(aliasPath);
         return metadata['sections'] || [];
