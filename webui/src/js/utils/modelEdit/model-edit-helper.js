@@ -180,6 +180,10 @@ function (ko, jsYaml, project, utils,
     this.updateAttributeMap = (attributeMap, modelPath, subscriptions) => {
       const aliasAttributesMap = AliasHelper.getAttributesMap(modelPath);
       for (const [attributeName, valueMap] of Object.entries(aliasAttributesMap)) {
+        if(attributeName in attributeMap) {  // attribute may be in merged folder and parent
+          continue;
+        }
+
         const attribute = {
           name: attributeName,
           path: modelPath,
