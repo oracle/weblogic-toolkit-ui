@@ -3,3 +3,4 @@ Languages: Std_Admin
 electron/app/locales/%J
     electron.json FileType: i18next-json
     webui.json FileType: i18next-json
+    modeledit.json FileType: i18next-json

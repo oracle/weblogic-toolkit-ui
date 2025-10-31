@@ -62,7 +62,6 @@
                   "CacheInAppDirectory",
                   "ParallelDeployModules",
                   "MultiVersionApp",
-                  "Untargeted",
                   "CompatibilityName"
                 ]
               },
@@ -83,7 +82,8 @@
                 "type": "hidden",
                 "attributes": [
                   "AltDescriptorDir",
-                  "ConfiguredApplicationIdentifier"
+                  "ConfiguredApplicationIdentifier",
+                  "Untargeted"
                 ]
               }
             ]
@@ -104,9 +104,14 @@
         "attributes": [
           "CompatibilityName",
           "ModuleType",
-          "Untargeted",
           "Notes",
           "Target"
+        ]
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "Untargeted"
         ]
       }
     ]

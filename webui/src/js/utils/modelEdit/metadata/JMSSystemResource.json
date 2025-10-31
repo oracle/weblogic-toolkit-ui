@@ -1,5 +1,1840 @@
 {
   "JMSSystemResource": {
-    "mergeFolder": "JmsResource"
+    "mergeFolder": "JmsResource",
+    "summaryAttributes": {
+      "Target": {}
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "DescriptorFileName",
+              "DeploymentOrder",
+              "Notes",
+              "Target"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "attributes": [
+              "CompatibilityName",
+              "DeploymentPrincipalName",
+              "ModuleType"
+            ],
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "PartitionName",
+          "SourcePath",
+          "Version"
+        ],
+        "folders": [
+          "JmsResource/DistributedQueue",
+          "JmsResource/DistributedTopic"
+        ]
+      },
+      {
+        "type": "folderTab",
+        "folder": "SubDeployment"
+      },
+      {
+        "type": "folderTab",
+        "folder": "JmsResource/ConnectionFactory"
+      },
+      {
+        "type": "folderTab",
+        "folder": "JmsResource/Queue"
+      },
+      {
+        "type": "folderTab",
+        "folder": "JmsResource/Topic"
+      },
+      {
+        "type": "folderTab",
+        "folder": "JmsResource/UniformDistributedQueue"
+      },
+      {
+        "type": "folderTab",
+        "folder": "JmsResource/UniformDistributedTopic"
+      },
+      {
+        "type": "folderTab",
+        "folder": "JmsResource/Template"
+      },
+      {
+        "type": "folderTab",
+        "folder": "JmsResource/ForeignServer"
+      },
+      {
+        "type": "folderTab",
+        "folder": "JmsResource/SAFRemoteContext"
+      },
+      {
+        "type": "folderTab",
+        "folder": "JmsResource/SAFImportedDestinations"
+      },
+      {
+        "type": "folderTab",
+        "folder": "JmsResource/SAFErrorHandling"
+      },
+      {
+        "type": "folderTab",
+        "folder": "JmsResource/Quota"
+      },
+      {
+        "type": "folderTab",
+        "folder": "JmsResource/DestinationKey"
+      }
+    ]
+  },
+  "JMSSystemResource/SubDeployment": {
+    "summaryAttributes": {
+      "Target": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "Notes",
+          "Target"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "attributes": [
+          "CompatibilityName",
+          "ModuleType"
+        ],
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "Untargeted"
+        ]
+      }
+    ]
+  },
+  "JMSSystemResource/JmsResource/ConnectionFactory": {
+    "summaryAttributes": {
+      "JNDIName": {},
+      "LocalJNDIName": {}
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "JNDIName",
+              "LocalJNDIName",
+              "DefaultTargetingEnabled",
+              "SubDeploymentName",
+              "Notes"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "folderTab",
+        "folder": "ClientParams"
+      },
+      {
+        "type": "folderTab",
+        "folder": "DefaultDeliveryParams"
+      },
+      {
+        "type": "folderTab",
+        "folder": "FlowControlParams"
+      },
+      {
+        "type": "folderTab",
+        "folder": "LoadBalancingParams"
+      },
+      {
+        "type": "folderTab",
+        "folder": "TransactionParams"
+      },
+      {
+        "type": "folderTab",
+        "folder": "SecurityParams"
+      }
+    ]
+  },
+  "JMSSystemResource/JmsResource/ConnectionFactory/ClientParams": {
+    "attributeDetails": {
+      "AcknowledgePolicy": {
+        "options": [
+          { "value": "All", "labelKey": "options-all-label" },
+          { "value": "Previous", "labelKey": "options-previous-label" }
+        ]
+      },
+      "ClientIdPolicy": {
+        "options": [
+          { "value": "CLIENT_ID_POLICY_RESTRICTED", "labelKey": "options-client-id-policy-restricted-label" },
+          { "value": "CLIENT_ID_POLICY_UNRESTRICTED", "labelKey": "options-client-id-policy-unrestricted-label" }
+        ]
+      },
+      "MulticastOverrunPolicy": {
+        "options": [
+          { "value": "KeepOld", "labelKey": "options-keep-old-label" },
+          { "value": "KeepNew", "labelKey": "options-keep-new-label" }
+        ]
+      },
+      "ReconnectPolicy": {
+        "options": [
+          { "value": "None", "labelKey": "options-none-label" },
+          { "value": "Producers", "labelKey": "options-producers-label" },
+          { "value": "All", "labelKey": "options-all-label" }
+        ]
+      },
+      "SubscriptionSharingPolicy": {
+        "options": [
+          { "value": "Exclusive", "labelKey": "options-exclusive-label" },
+          { "value": "Sharable", "labelKey": "options-sharable-label" }
+        ]
+      },
+      "SynchronousPrefetchMode": {
+        "options": [
+          { "value": "Disabled", "labelKey": "options-disabled-label" },
+          { "value": "Enabled", "labelKey": "options-enabled-label" },
+          { "value": "Topic Subscriber Only", "labelKey": "options-topic-subscriber-only-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "AcknowledgePolicy",
+          "ReconnectPolicy",
+          "SubscriptionSharingPolicy",
+          "SynchronousPrefetchMode",
+          "ClientIdPolicy",
+          "MulticastOverrunPolicy",
+          "ClientId",
+          "MessagesMaximum",
+          "ReconnectBlockingMillis",
+          "TotalReconnectPeriodMillis",
+          "AllowCloseInOnMessage"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "JMSSystemResource/JmsResource/ConnectionFactory/DefaultDeliveryParams": {
+    "attributeDetails": {
+      "DefaultDeliveryMode": {
+        "options": [
+          { "value": "Persistent", "labelKey": "options-persistent-label" },
+          { "value": "Non-Persistent", "labelKey": "options-non-persistent-label" }
+        ]
+      },
+      "DefaultUnitOfOrder": {
+        "options": [
+          { "value": "System-generated", "labelKey": "options-system-generated-label" },
+          { "value": "User-Generated", "labelKey": "options-user-generated-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "DefaultDeliveryMode",
+          "DefaultPriority",
+          "DefaultTimeToLive",
+          "DefaultTimeToDeliver",
+          "DefaultRedeliveryDelay",
+          "DefaultUnitOfOrder",
+          "DefaultCompressionThreshold",
+          "SendTimeout"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "JMSSystemResource/JmsResource/ConnectionFactory/FlowControlParams": {
+    "attributeDetails": {
+      "OneWaySendMode": {
+        "options": [
+          { "value": "Disabled", "labelKey": "options-disabled-label" },
+          { "value": "Enabled", "labelKey": "options-enabled-label" },
+          { "value": "Topic Only", "labelKey": "options-topic-only-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "FlowControlEnabled"
+        ]
+      },
+      {
+        "type": "attributes",
+        "attributes": [
+          "FlowMinimum",
+          "FlowMaximum",
+          "FlowInterval",
+          "FlowSteps",
+          "OneWaySendMode",
+          "OneWaySendWindowSize"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "JMSSystemResource/JmsResource/ConnectionFactory/LoadBalancingParams": {
+    "attributeDetails": {
+      "ProducerLoadBalancingPolicy": {
+        "options": [
+          { "value": "Per-Member", "labelKey": "options-per-member-label" },
+          { "value": "Per-JVM", "labelKey": "options-per-jvm-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "ServerAffinityEnabled",
+          "LoadBalancingEnabled",
+          "ProducerLoadBalancingPolicy"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "JMSSystemResource/JmsResource/ConnectionFactory/SecurityParams": {
+    "attributeDetails": {
+      "SecurityPolicy": {
+        "options": [
+          { "value": "ThreadBased", "labelKey": "options-thread-based-label" },
+          { "value": "ObjectBasedDelegated", "labelKey": "options-object-based-delegated-label" },
+          { "value": "ObjectBasedAnonymous", "labelKey": "options-object-based-anonymous-label" },
+          { "value": "ObjectBasedThread", "labelKey": "options-object-based-thread-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "AttachJMSXUserId",
+          "SecurityPolicy"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "JMSSystemResource/JmsResource/ConnectionFactory/TransactionParams": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "XAConnectionFactoryEnabled",
+          "TransactionTimeout"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "JMSSystemResource/JmsResource/DestinationKey": {
+    "summaryAttributes": {
+      "Property": {},
+      "SortOrder": {}
+    },
+    "attributeDetails": {
+      "KeyType": {
+        "options": [
+          { "value": "String", "labelKey": "options-string-label" },
+          { "value": "Boolean", "labelKey": "options-boolean-label" },
+          { "value": "Byte", "labelKey": "options-byte-label" },
+          { "value": "Short", "labelKey": "options-short-label" },
+          { "value": "Int", "labelKey": "options-int-label" },
+          { "value": "Long", "labelKey": "options-long-label" },
+          { "value": "Float", "labelKey": "options-float-label" },
+          { "value": "Double", "labelKey": "options-double-label" }
+        ]
+      },
+      "Property": {
+        "options": [
+          { "value": "JMSMessageID", "label": "JMSMessageID" },
+          { "value": "JMSTimestamp", "label": "JMSTimestamp" },
+          { "value": "JMSCorrelationID", "label": "JMSCorrelationID" },
+          { "value": "JMSPriority", "label": "JMSPriority" },
+          { "value": "JMSExpiration", "label": "JMSExpiration" },
+          { "value": "JMSType", "label": "JMSType" },
+          { "value": "JMSRedelivered", "label": "JMSRedelivered" },
+          { "value": "JMSDeliveryTime", "label": "JMSDeliveryTime" },
+          { "value": "JMS_BEA_Size", "label": "JMS_BEA_Size" },
+          { "value": "JMS_BEA_UnitOfOrder", "label": "JMS_BEA_UnitOfOrder" }
+        ]
+      },
+      "SortOrder": {
+        "options": [
+          { "value": "Ascending", "labelKey": "options-ascending-label" },
+          { "value": "Descending", "labelKey": "options-descending-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "KeyType",
+          "Property",
+          "SortOrder",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "JMSSystemResource/JmsResource/ForeignServer": {
+    "summaryAttributes": {
+      "ConnectionURL": {},
+      "DefaultTargetingEnabled": {},
+      "SubDeploymentName": {}
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "ConnectionURL",
+              "InitialContextFactory",
+              "DefaultTargetingEnabled",
+              "SubDeploymentName",
+              "JNDIPropertiesCredentialEncrypted",
+              "Notes"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "folderTab",
+        "folder": "JNDIProperty"
+      },
+      {
+        "type": "folderTab",
+        "folder": "ForeignConnectionFactory"
+      },
+      {
+        "type": "folderTab",
+        "folder": "ForeignDestination"
+      }
+    ]
+  },
+  "JMSSystemResource/JmsResource/ForeignServer/ForeignConnectionFactory": {
+    "summaryAttributes": {
+      "LocalJNDIName": {},
+      "RemoteJndiName": {}
+    },
+    "attributeDetails": {
+      "ConnectionHealthChecking": {
+        "options": [
+          { "value": "Enabled", "labelKey": "options-enabled-label" },
+          { "value": "Disabled", "labelKey": "options-disabled-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "LocalJNDIName",
+          "RemoteJndiName",
+          "Username",
+          "PasswordEncrypted",
+          "ConnectionHealthChecking",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "JMSSystemResource/JmsResource/ForeignServer/ForeignDestination": {
+    "summaryAttributes": {
+      "LocalJNDIName": {},
+      "RemoteJndiName": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "LocalJNDIName",
+          "RemoteJndiName",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "JMSSystemResource/JmsResource/ForeignServer/JNDIProperty": {
+    "summaryAttributes": {
+      "Key": {},
+      "Value": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "Key",
+          "Value"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "JMSSystemResource/JmsResource/Queue": {
+    "summaryAttributes": {
+      "JNDIName": {},
+      "LocalJNDIName": {},
+      "DefaultTargetingEnabled": {},
+      "SubDeploymentName": {}
+    },
+    "attributeDetails": {
+      "AttachSender": {
+        "options": [
+          { "value": "supports", "labelKey": "options-supports-label" },
+          { "value": "never", "labelKey": "options-never-label" },
+          { "value": "always", "labelKey": "options-always-label" }
+        ]
+      },
+      "DefaultUnitOfOrder": {
+        "options": [
+          { "value": "System-generated", "labelKey": "options-system-generated-label" },
+          { "value": "User-Generated", "labelKey": "options-user-generated-label" }
+        ]
+      },
+      "LoadBalancingPolicy": {
+        "options": [
+          { "value": "Round-Robin", "labelKey": "options-round-robin-label" },
+          { "value": "Random", "labelKey": "options-random-label" }
+        ]
+      },
+      "SafExportPolicy": {
+        "options": [
+          { "value": "All", "labelKey": "options-all-label" },
+          { "value": "None", "labelKey": "options-none-label" }
+        ]
+      },
+      "UnitOfWorkHandlingPolicy": {
+        "options": [
+          { "value": "PassThrough", "labelKey": "options-pass-through-label" },
+          { "value": "SingleMessageDelivery", "labelKey": "options-single-message-delivery-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "JNDIName",
+              "LocalJNDIName",
+              "DefaultTargetingEnabled",
+              "SubDeploymentName",
+              "Notes"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "attributes": [
+              "Template",
+              "Quota",
+              "DestinationKey",
+              "DefaultUnitOfOrder",
+              "AttachSender",
+              "LoadBalancingPolicy",
+              "UnitOfWorkHandlingPolicy",
+              "IncompleteWorkExpirationTime",
+              "SafExportPolicy",
+              "MaximumMessageSize",
+              "MessagingPerformancePreference",
+              "JmsCreateDestinationIdentifier",
+              "ConsumptionPausedAtStartup",
+              "InsertionPausedAtStartup",
+              "ProductionPausedAtStartup"
+            ],
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "ForwardDelay",
+          "ResetDeliveryCountOnForward",
+          "UnitOfOrderRouting"
+        ]
+      },
+      {
+        "type": "folderTab",
+        "folder": "DeliveryParamsOverrides"
+      },
+      {
+        "type": "folderTab",
+        "folder": "DeliveryFailureParams"
+      },
+      {
+        "type": "folderTab",
+        "folder": "Thresholds"
+      },
+      {
+        "type": "folderTab",
+        "folder": "MessageLoggingParams"
+      }
+    ]
+  },
+  "JMSSystemResource/JmsResource/Queue/DeliveryFailureParams": {
+    "attributeDetails": {
+      "ExpirationPolicy": {
+        "options": [
+          { "value": "Discard", "labelKey": "options-discard-label" },
+          { "value": "Log", "labelKey": "options-log-label" },
+          { "value": "Redirect", "labelKey": "options-redirect-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "ErrorDestination",
+          "ExpirationPolicy",
+          "ExpirationLoggingPolicy",
+          "RedeliveryLimit"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "JMSSystemResource/JmsResource/Queue/DeliveryParamsOverrides": {
+    "attributeDetails": {
+      "DeliveryMode": {
+        "options": [
+          { "value": "Persistent", "labelKey": "options-persistent-label" },
+          { "value": "Non-Persistent", "labelKey": "options-non-persistent-label" },
+          { "value": "No-Delivery", "labelKey": "options-no-delivery-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "DeliveryMode",
+          "Priority",
+          "RedeliveryDelay",
+          "TimeToLive",
+          "TimeToDeliver"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "JMSSystemResource/JmsResource/Queue/MessageLoggingParams": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "MessageLoggingEnabled",
+          "MessageLoggingFormat"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "JMSSystemResource/JmsResource/Queue/Thresholds": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "BytesLow",
+          "MessagesLow",
+          "BytesHigh",
+          "MessagesHigh"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "JMSSystemResource/JmsResource/Quota": {
+    "summaryAttributes": {
+      "BytesMaximum": {},
+      "MessagesMaximum": {},
+      "Policy": {},
+      "Shared": {}
+    },
+    "attributeDetails": {
+      "Policy": {
+        "options": [
+          { "value": "FIFO", "labelKey": "options-fifo-label" },
+          { "value": "Preemptive", "labelKey": "options-preemptive-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "BytesMaximum",
+          "MessagesMaximum",
+          "Policy",
+          "Shared",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "JMSSystemResource/JmsResource/SAFErrorHandling": {
+    "summaryAttributes": {
+      "Policy": {},
+      "SafErrorDestination": {}
+    },
+    "attributeDetails": {
+      "Policy": {
+        "options": [
+          { "value": "Discard", "labelKey": "options-discard-label" },
+          { "value": "Log", "labelKey": "options-log-label" },
+          { "value": "Redirect", "labelKey": "options-redirect-label" },
+          { "value": "Always-Forward", "labelKey": "options-always-forward-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "Policy",
+          "SafErrorDestination",
+          "LogFormat",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "JMSSystemResource/JmsResource/SAFImportedDestinations": {
+    "summaryAttributes": {
+      "SAFRemoteContext": {},
+      "SAFErrorHandling": {},
+      "DefaultTargetingEnabled": {},
+      "SubDeploymentName": {}
+    },
+    "attributeDetails": {
+      "ExactlyOnceLoadBalancingPolicy": {
+        "options": [
+          { "value": "Per-Member", "labelKey": "options-per-member-label" },
+          { "value": "Per-JVM", "labelKey": "options-per-jvm-label" }
+        ]
+      },
+      "UnitOfOrderRouting": {
+        "options": [
+          { "value": "Hash", "labelKey": "options-hash-label" },
+          { "value": "PathService", "labelKey": "options-path-service-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "SAFRemoteContext",
+              "SAFErrorHandling",
+              "JNDIPrefix",
+              "ExactlyOnceLoadBalancingPolicy",
+              "DefaultTargetingEnabled",
+              "SubDeploymentName",
+              "UseSAFTimeToLiveDefault",
+              "TimeToLiveDefault",
+              "UnitOfOrderRouting",
+              "Notes"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "folderTab",
+        "folder": "SAFQueue"
+      },
+      {
+        "type": "folderTab",
+        "folder": "SAFTopic"
+      },
+      {
+        "type": "folderTab",
+        "folder": "MessageLoggingParams"
+      }
+    ]
+  },
+  "JMSSystemResource/JmsResource/SAFImportedDestinations/SAFQueue": {
+    "summaryAttributes": {
+      "SAFErrorHandling": {},
+      "LocalJNDIName": {},
+      "RemoteJndiName": {}
+    },
+    "attributeDetails": {
+      "NonPersistentQos": {
+        "options": [
+          { "value": "Exactly-Once", "labelKey": "options-exactly-once-label" },
+          { "value": "At-Least-Once", "labelKey": "options-at-least-once-label" },
+          { "value": "At-Most-Once", "labelKey": "options-at-most-once-label" }
+        ]
+      },
+      "PersistentQos": {
+        "options": [
+          { "value": "Exactly-Once", "labelKey": "options-exactly-once-label" },
+          { "value": "At-Least-Once", "labelKey": "options-at-least-once-label" },
+          { "value": "At-Most-Once", "labelKey": "options-at-most-once-label" }
+        ]
+      },
+      "UnitOfOrderRouting": {
+        "options": [
+          { "value": "Hash", "labelKey": "options-hash-label" },
+          { "value": "PathService", "labelKey": "options-path-service-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "LocalJNDIName",
+              "RemoteJndiName",
+              "SAFErrorHandling",
+              "UnitOfOrderRouting",
+              "PersistentQos",
+              "NonPersistentQos",
+              "UseSAFTimeToLiveDefault",
+              "TimeToLiveDefault",
+              "Notes"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "folderTab",
+        "folder": "MessageLoggingParams"
+      }
+    ]
+  },
+  "JMSSystemResource/JmsResource/SAFImportedDestinations/SAFTopic": {
+    "summaryAttributes": {
+      "SAFErrorHandling": {},
+      "LocalJNDIName": {},
+      "RemoteJndiName": {}
+    },
+    "attributeDetails": {
+      "NonPersistentQos": {
+        "options": [
+          { "value": "Exactly-Once", "labelKey": "options-exactly-once-label" },
+          { "value": "At-Least-Once", "labelKey": "options-at-least-once-label" },
+          { "value": "At-Most-Once", "labelKey": "options-at-most-once-label" }
+        ]
+      },
+      "PersistentQos": {
+        "options": [
+          { "value": "Exactly-Once", "labelKey": "options-exactly-once-label" },
+          { "value": "At-Least-Once", "labelKey": "options-at-least-once-label" },
+          { "value": "At-Most-Once", "labelKey": "options-at-most-once-label" }
+        ]
+      },
+      "UnitOfOrderRouting": {
+        "options": [
+          { "value": "Hash", "labelKey": "options-hash-label" },
+          { "value": "PathService", "labelKey": "options-path-service-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "LocalJNDIName",
+              "RemoteJndiName",
+              "SAFErrorHandling",
+              "UnitOfOrderRouting",
+              "PersistentQos",
+              "NonPersistentQos",
+              "UseSAFTimeToLiveDefault",
+              "TimeToLiveDefault",
+              "Notes"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "folderTab",
+        "folder": "MessageLoggingParams"
+      }
+    ]
+  },
+  "JMSSystemResource/JmsResource/SAFRemoteContext": {
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "ReplyToSAFRemoteContextName",
+              "CompressionThreshold",
+              "Notes"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "folderTab",
+        "folder": "SAFLoginContext"
+      }
+    ]
+  },
+  "JMSSystemResource/JmsResource/SAFRemoteContext/SAFLoginContext": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "LoginURL"
+        ]
+      },
+      {
+        "type": "attributes",
+        "attributes": [
+          "Username",
+          "PasswordEncrypted"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "JMSSystemResource/JmsResource/Template": {
+    "summaryAttributes": {
+      "DestinationKey": {},
+      "Quota": {}
+    },
+    "attributeDetails": {
+      "AttachSender": {
+        "options": [
+          { "value": "supports", "labelKey": "options-supports-label" },
+          { "value": "never", "labelKey": "options-never-label" },
+          { "value": "always", "labelKey": "options-always-label" }
+        ]
+      },
+      "DefaultUnitOfOrder": {
+        "options": [
+          { "value": "System-generated", "labelKey": "options-system-generated-label" },
+          { "value": "User-Generated", "labelKey": "options-user-generated-label" }
+        ]
+      },
+      "SafExportPolicy": {
+        "options": [
+          { "value": "All", "labelKey": "options-all-label" },
+          { "value": "None", "labelKey": "options-none-label" }
+        ]
+      },
+      "UnitOfWorkHandlingPolicy": {
+        "options": [
+          { "value": "PassThrough", "labelKey": "options-pass-through-label" },
+          { "value": "SingleMessageDelivery", "labelKey": "options-single-message-delivery-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "Quota",
+              "DestinationKey",
+              "DefaultUnitOfOrder",
+              "AttachSender",
+              "UnitOfWorkHandlingPolicy",
+              "IncompleteWorkExpirationTime",
+              "SafExportPolicy",
+              "MaximumMessageSize",
+              "MessagingPerformancePreference",
+              "ConsumptionPausedAtStartup",
+              "InsertionPausedAtStartup",
+              "ProductionPausedAtStartup",
+              "Notes"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "folderTab",
+        "folder": "DeliveryParamsOverrides"
+      },
+      {
+        "type": "folderTab",
+        "folder": "DeliveryFailureParams"
+      },
+      {
+        "type": "folderTab",
+        "folder": "Thresholds"
+      },
+      {
+        "type": "folderTab",
+        "folder": "GroupParams"
+      },
+      {
+        "type": "folderTab",
+        "folder": "MessageLoggingParams"
+      },
+      {
+        "type": "folderTab",
+        "folder": "TopicSubscriptionParams"
+      },
+      {
+        "type": "folderTab",
+        "folder": "Multicast"
+      }
+    ]
+  },
+  "JMSSystemResource/JmsResource/Template/DeliveryFailureParams": {
+    "attributeDetails": {
+      "ExpirationPolicy": {
+        "options": [
+          { "value": "Discard", "labelKey": "options-discard-label" },
+          { "value": "Log", "labelKey": "options-log-label" },
+          { "value": "Redirect", "labelKey": "options-redirect-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "ErrorDestination",
+          "ExpirationPolicy",
+          "ExpirationLoggingPolicy",
+          "RedeliveryLimit"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "JMSSystemResource/JmsResource/Template/DeliveryParamsOverrides": {
+    "attributeDetails": {
+      "DeliveryMode": {
+        "options": [
+          { "value": "Persistent", "labelKey": "options-persistent-label" },
+          { "value": "Non-Persistent", "labelKey": "options-non-persistent-label" },
+          { "value": "No-Delivery", "labelKey": "options-no-delivery-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "DeliveryMode",
+          "Priority",
+          "RedeliveryDelay",
+          "TimeToLive",
+          "TimeToDeliver"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "JMSSystemResource/JmsResource/Template/GroupParams": {
+    "summaryAttributes": {
+      "ErrorDestination": {},
+      "SubDeploymentName": {}
+    }
+  },
+  "JMSSystemResource/JmsResource/Template/Multicast": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "MulticastAddress",
+          "MulticastPort",
+          "MulticastTimeToLive"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "JMSSystemResource/JmsResource/Template/Thresholds": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "BytesLow",
+          "MessagesLow",
+          "BytesHigh",
+          "MessagesHigh"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "JMSSystemResource/JmsResource/Topic": {
+    "summaryAttributes": {
+      "JNDIName": {},
+      "LocalJNDIName": {},
+      "DefaultTargetingEnabled": {},
+      "SubDeploymentName": {}
+    },
+    "attributeDetails": {
+      "AttachSender": {
+        "options": [
+          { "value": "supports", "labelKey": "options-supports-label" },
+          { "value": "never", "labelKey": "options-never-label" },
+          { "value": "always", "labelKey": "options-always-label" }
+        ]
+      },
+      "DefaultUnitOfOrder": {
+        "options": [
+          { "value": "System-generated", "labelKey": "options-system-generated-label" },
+          { "value": "User-Generated", "labelKey": "options-user-generated-label" }
+        ]
+      },
+      "LoadBalancingPolicy": {
+        "options": [
+          { "value": "Round-Robin", "labelKey": "options-round-robin-label" },
+          { "value": "Random", "labelKey": "options-random-label" }
+        ]
+      },
+      "SafExportPolicy": {
+        "options": [
+          { "value": "All", "labelKey": "options-all-label" },
+          { "value": "None", "labelKey": "options-none-label" }
+        ]
+      },
+      "UnitOfWorkHandlingPolicy": {
+        "options": [
+          { "value": "PassThrough", "labelKey": "options-pass-through-label" },
+          { "value": "SingleMessageDelivery", "labelKey": "options-single-message-delivery-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "JNDIName",
+              "LocalJNDIName",
+              "DefaultTargetingEnabled",
+              "SubDeploymentName",
+              "Notes"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "attributes": [
+              "Template",
+              "Quota",
+              "DestinationKey",
+              "DefaultUnitOfOrder",
+              "AttachSender",
+              "UnitOfWorkHandlingPolicy",
+              "IncompleteWorkExpirationTime",
+              "SafExportPolicy",
+              "MaximumMessageSize",
+              "MessagingPerformancePreference",
+              "JmsCreateDestinationIdentifier",
+              "ConsumptionPausedAtStartup",
+              "InsertionPausedAtStartup",
+              "ProductionPausedAtStartup"
+            ],
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "ForwardingPolicy",
+          "LoadBalancingPolicy",
+          "UnitOfOrderRouting"
+        ]
+      },
+      {
+        "type": "folderTab",
+        "folder": "DeliveryParamsOverrides"
+      },
+      {
+        "type": "folderTab",
+        "folder": "DeliveryFailureParams"
+      },
+      {
+        "type": "folderTab",
+        "folder": "Thresholds"
+      },
+      {
+        "type": "folderTab",
+        "folder": "MessageLoggingParams"
+      },
+      {
+        "type": "folderTab",
+        "folder": "TopicSubscriptionParams"
+      },
+      {
+        "type": "folderTab",
+        "folder": "Multicast"
+      }
+    ]
+  },
+  "JMSSystemResource/JmsResource/Topic/DeliveryFailureParams": {
+    "attributeDetails": {
+      "ExpirationPolicy": {
+        "options": [
+          { "value": "Discard", "labelKey": "options-discard-label" },
+          { "value": "Log", "labelKey": "options-log-label" },
+          { "value": "Redirect", "labelKey": "options-redirect-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "ErrorDestination",
+          "ExpirationPolicy",
+          "ExpirationLoggingPolicy",
+          "RedeliveryLimit"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "JMSSystemResource/JmsResource/Topic/DeliveryParamsOverrides": {
+    "attributeDetails": {
+      "DeliveryMode": {
+        "options": [
+          { "value": "Persistent", "labelKey": "options-persistent-label" },
+          { "value": "Non-Persistent", "labelKey": "options-non-persistent-label" },
+          { "value": "No-Delivery", "labelKey": "options-no-delivery-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "DeliveryMode",
+          "Priority",
+          "RedeliveryDelay",
+          "TimeToLive",
+          "TimeToDeliver"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "JMSSystemResource/JmsResource/Topic/Multicast": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "MulticastAddress",
+          "MulticastPort",
+          "MulticastTimeToLive"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "JMSSystemResource/JmsResource/Topic/Thresholds": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "BytesLow",
+          "MessagesLow",
+          "BytesHigh",
+          "MessagesHigh"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "JMSSystemResource/JmsResource/UniformDistributedQueue": {
+    "summaryAttributes": {
+      "JNDIName": {},
+      "LocalJNDIName": {},
+      "DefaultTargetingEnabled": {},
+      "SubDeploymentName": {}
+    },
+    "attributeDetails": {
+      "AttachSender": {
+        "options": [
+          { "value": "supports", "labelKey": "options-supports-label" },
+          { "value": "never", "labelKey": "options-never-label" },
+          { "value": "always", "labelKey": "options-always-label" }
+        ]
+      },
+      "DefaultUnitOfOrder": {
+        "options": [
+          { "value": "System-generated", "labelKey": "options-system-generated-label" },
+          { "value": "User-Generated", "labelKey": "options-user-generated-label" }
+        ]
+      },
+      "LoadBalancingPolicy": {
+        "options": [
+          { "value": "Round-Robin", "labelKey": "options-round-robin-label" },
+          { "value": "Random", "labelKey": "options-random-label" }
+        ]
+      },
+      "SafExportPolicy": {
+        "options": [
+          { "value": "All", "labelKey": "options-all-label" },
+          { "value": "None", "labelKey": "options-none-label" }
+        ]
+      },
+      "UnitOfOrderRouting": {
+        "options": [
+          { "value": "Hash", "labelKey": "options-hash-label" },
+          { "value": "PathService", "labelKey": "options-path-service-label" }
+        ]
+      },
+      "UnitOfWorkHandlingPolicy": {
+        "options": [
+          { "value": "PassThrough", "labelKey": "options-pass-through-label" },
+          { "value": "SingleMessageDelivery", "labelKey": "options-single-message-delivery-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "JNDIName",
+              "LocalJNDIName",
+              "DefaultTargetingEnabled",
+              "SubDeploymentName",
+              "Notes"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "attributes": [
+              "Template",
+              "Quota",
+              "DestinationKey",
+              "DefaultUnitOfOrder",
+              "UnitOfOrderRouting",
+              "AttachSender",
+              "LoadBalancingPolicy",
+              "UnitOfWorkHandlingPolicy",
+              "IncompleteWorkExpirationTime",
+              "SafExportPolicy",
+              "MaximumMessageSize",
+              "MessagingPerformancePreference",
+              "JmsCreateDestinationIdentifier",
+              "ForwardDelay",
+              "ResetDeliveryCountOnForward",
+              "ConsumptionPausedAtStartup",
+              "InsertionPausedAtStartup",
+              "ProductionPausedAtStartup"
+            ],
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "folderTab",
+        "folder": "DeliveryParamsOverrides"
+      },
+      {
+        "type": "folderTab",
+        "folder": "DeliveryFailureParams"
+      },
+      {
+        "type": "folderTab",
+        "folder": "Thresholds"
+      },
+      {
+        "type": "folderTab",
+        "folder": "MessageLoggingParams"
+      }
+    ]
+  },
+  "JMSSystemResource/JmsResource/UniformDistributedQueue/DeliveryFailureParams": {
+    "attributeDetails": {
+      "ExpirationPolicy": {
+        "options": [
+          { "value": "Discard", "labelKey": "options-discard-label" },
+          { "value": "Log", "labelKey": "options-log-label" },
+          { "value": "Redirect", "labelKey": "options-redirect-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "ErrorDestination",
+          "ExpirationPolicy",
+          "ExpirationLoggingPolicy",
+          "RedeliveryLimit"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "JMSSystemResource/JmsResource/UniformDistributedQueue/DeliveryParamsOverrides": {
+    "attributeDetails": {
+      "DeliveryMode": {
+        "options": [
+          { "value": "Persistent", "labelKey": "options-persistent-label" },
+          { "value": "Non-Persistent", "labelKey": "options-non-persistent-label" },
+          { "value": "No-Delivery", "labelKey": "options-no-delivery-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "DeliveryMode",
+          "Priority",
+          "RedeliveryDelay",
+          "TimeToLive",
+          "TimeToDeliver"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "JMSSystemResource/JmsResource/UniformDistributedQueue/MessageLoggingParams": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "MessageLoggingEnabled",
+          "MessageLoggingFormat"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "JMSSystemResource/JmsResource/UniformDistributedQueue/Thresholds": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "BytesLow",
+          "MessagesLow",
+          "BytesHigh",
+          "MessagesHigh"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "JMSSystemResource/JmsResource/UniformDistributedTopic": {
+    "summaryAttributes": {
+      "JNDIName": {},
+      "LocalJNDIName": {},
+      "DefaultTargetingEnabled": {},
+      "SubDeploymentName": {}
+    },
+    "attributeDetails": {
+      "AttachSender": {
+        "options": [
+          { "value": "supports", "labelKey": "options-supports-label" },
+          { "value": "never", "labelKey": "options-never-label" },
+          { "value": "always", "labelKey": "options-always-label" }
+        ]
+      },
+      "DefaultUnitOfOrder": {
+        "options": [
+          { "value": "System-generated", "labelKey": "options-system-generated-label" },
+          { "value": "User-Generated", "labelKey": "options-user-generated-label" }
+        ]
+      },
+      "ForwardingPolicy": {
+        "options": [
+          { "value": "Replicated", "labelKey": "options-replicated-label" },
+          { "value": "Partitioned", "labelKey": "options-partitioned-label" }
+        ]
+      },
+      "LoadBalancingPolicy": {
+        "options": [
+          { "value": "Round-Robin", "labelKey": "options-round-robin-label" },
+          { "value": "Random", "labelKey": "options-random-label" }
+        ]
+      },
+      "SafExportPolicy": {
+        "options": [
+          { "value": "All", "labelKey": "options-all-label" },
+          { "value": "None", "labelKey": "options-none-label" }
+        ]
+      },
+      "UnitOfOrderRouting": {
+        "options": [
+          { "value": "Hash", "labelKey": "options-hash-label" },
+          { "value": "PathService", "labelKey": "options-path-service-label" }
+        ]
+      },
+      "UnitOfWorkHandlingPolicy": {
+        "options": [
+          { "value": "PassThrough", "labelKey": "options-pass-through-label" },
+          { "value": "SingleMessageDelivery", "labelKey": "options-single-message-delivery-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "JNDIName",
+              "LocalJNDIName",
+              "DefaultTargetingEnabled",
+              "SubDeploymentName",
+              "Notes"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "attributes": [
+              "Template",
+              "Quota",
+              "DestinationKey",
+              "DefaultUnitOfOrder",
+              "UnitOfOrderRouting",
+              "AttachSender",
+              "LoadBalancingPolicy",
+              "UnitOfWorkHandlingPolicy",
+              "IncompleteWorkExpirationTime",
+              "SafExportPolicy",
+              "MaximumMessageSize",
+              "MessagingPerformancePreference",
+              "JmsCreateDestinationIdentifier",
+              "ForwardingPolicy",
+              "ConsumptionPausedAtStartup",
+              "InsertionPausedAtStartup",
+              "ProductionPausedAtStartup"
+            ],
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "folderTab",
+        "folder": "DeliveryParamsOverrides"
+      },
+      {
+        "type": "folderTab",
+        "folder": "DeliveryFailureParams"
+      },
+      {
+        "type": "folderTab",
+        "folder": "Thresholds"
+      },
+      {
+        "type": "folderTab",
+        "folder": "MessageLoggingParams"
+      },
+      {
+        "type": "folderTab",
+        "folder": "TopicSubscriptionParams"
+      },
+      {
+        "type": "folderTab",
+        "folder": "Multicast"
+      }
+    ]
+  },
+  "JMSSystemResource/JmsResource/UniformDistributedTopic/DeliveryFailureParams": {
+    "attributeDetails": {
+      "ExpirationPolicy": {
+        "options": [
+          { "value": "Discard", "labelKey": "options-discard-label" },
+          { "value": "Log", "labelKey": "options-log-label" },
+          { "value": "Redirect", "labelKey": "options-redirect-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "ErrorDestination",
+          "ExpirationPolicy",
+          "ExpirationLoggingPolicy",
+          "RedeliveryLimit"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "JMSSystemResource/JmsResource/UniformDistributedTopic/DeliveryParamsOverrides": {
+    "attributeDetails": {
+      "DeliveryMode": {
+        "options": [
+          { "value": "Persistent", "labelKey": "options-persistent-label" },
+          { "value": "Non-Persistent", "labelKey": "options-non-persistent-label" },
+          { "value": "No-Delivery", "labelKey": "options-no-delivery-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "DeliveryMode",
+          "Priority",
+          "RedeliveryDelay",
+          "TimeToLive",
+          "TimeToDeliver"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "JMSSystemResource/JmsResource/UniformDistributedTopic/Multicast": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "MulticastAddress",
+          "MulticastPort",
+          "MulticastTimeToLive"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "JMSSystemResource/JmsResource/UniformDistributedTopic/Thresholds": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "BytesLow",
+          "MessagesLow",
+          "BytesHigh",
+          "MessagesHigh"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
   }
 }
