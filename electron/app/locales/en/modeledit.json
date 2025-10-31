@@ -1722,8 +1722,13 @@
   "a-Expression-label": "Expression",
   "a-ExpressionLanguage-label": "Expression Language",
   "a-ExternalDNSName-label": "External DNS Name",
-  "a-ExtraEjbcOptions-label": "Extra Ejbc Options",
-  "a-ExtraRmicOptions-label": "Extra Rmic Options",
+
+  "a-ExtraEjbcOptions-label": "Extra EJB Compiler Options",
+  "a-ExtraEjbcOptions-help": "The extra options passed to ejbc during the dynamic ejbc of a jar file. For example: -J-mx128m By default this value is null. If no ExtraEJBCOptions are specified on the EJBComponent, the default will be pulled from the Server.ExtraEJBCOptions.",
+
+  "a-ExtraRmicOptions-label": "Extra RMI Compiler Options",
+  "a-ExtraRmicOptions-help": "The extra options passed to rmic during server-side generation are noted here. The default for this attribute must be null. If no ExtraRmicOptions are specified on the EJBComponent, the default will be pulled from Server.ExtraRmicOptions.",
+
   "a-FailOnUnknownRevocStatus-label": "Fail On Unknown Revoc Status",
 
   "a-FailOverLimit-label": "Fail Over Limit",
@@ -1829,7 +1834,10 @@
   "a-FollowReferrals-label": "Follow Referrals",
   "a-ForceAuthn-label": "Force Authn",
   "a-ForceGCEachDGCPeriod-label": "Force GC Each DGC Period",
+
   "a-ForceGeneration-label": "Force Generation",
+  "f-EJBContainer-a-ForceGeneration-help": "Specifies whether ForceGeneration is enabled.",
+
   "a-ForceShutdownTimeoutNumOfThreadDump-label": "Force Shutdown Timeout Num Of Thread Dump",
   "a-ForceShutdownTimeoutThreadDumpInterval-label": "Force Shutdown Timeout Thread Dump Interval",
   "a-ForgetHeuristics-label": "Forget Heuristics",
@@ -2107,9 +2115,16 @@
   "a-JSPCompilerBackwardsCompatible-label": "JSP Compiler Backwards Compatible",
   "a-JSSEEnabled-label": "JSSE Enabled",
   "a-JTAMigratableTarget-label": "JTA Migratable Target",
+
   "a-JavaCompiler-label": "Java Compiler",
+  "f-EJBContainer-a-JavaCompiler-help": "The path to the Java compiler to use to compile EJBs (e.g. \"sj\" or \"javac\"). Note: the default must be null. If no JavaCompiler is specified on this specific EJBComponent, the default will be pulled in the following order from - EJBContainerMBean - Server.JavaCompiler.",
+
   "a-JavaCompilerPostClassPath-label": "Java Compiler Post Class Path",
+  "f-EJBContainer-a-JavaCompilerPostClassPath-help": "Provides a list of the options to append to the Java compiler classpath when you compile Java code.",
+
   "a-JavaCompilerPreClassPath-label": "Java Compiler Pre Class Path",
+  "f-EJBContainer-a-JavaCompilerPreClassPath-help": "Provides a list of the options to prepend to the Java compiler classpath when you compile Java code.",
+
   "a-JavaHome-label": "Java Home",
   "a-JavaServiceConsoleEnabled-label": "Java Service Console Enabled",
   "a-JavaServiceEnabled-label": "Java Service Enabled",
@@ -2154,7 +2169,9 @@
   "f-JDBCSystemResource_JdbcResource_JDBCDataSourceParams-a-KeepConnAfterGlobalTx-help": "Enables WebLogic Server to keep the physical database connection associated with the logical connection when committing a global transaction instead releasing it and getting another physical connection when needed. Setting this option to true may require additional connections to be configured on the database. Use this setting to work around specific problems with JDBC XA drivers.",
 
   "a-KeepConnAfterLocalTx-label": "Keep Conn After Local Tx",
+
   "a-KeepGenerated-label": "Keep Generated",
+  "f-EJBContainer-a-KeepGenerated-help": "Specifies whether KeepGenerated is enabled and the EJB compiler source files will be kept.",
 
   "a-KeepLogicalConnOpenOnRelease-label": "Keep Logical Connection Open On Release",
   "f-JDBCSystemResource_JdbcResource_JDBCXAParams-a-KeepLogicalConnOpenOnRelease-help": "Enables WebLogic Server to keep the logical JDBC connection open for a global transaction when the physical XA connection is returned to the connection pool. Select this option if the XA driver used to create database connections or the DBMS requires that a logical JDBC connection be kept open while transaction processing continues (although the physical XA connection can be returned to the connection pool). Only applies to data sources that use an XA driver. Use this setting to work around specific problems with JDBC XA drivers.",
@@ -3710,7 +3727,10 @@
   "a-TimeoutSeconds-label": "Timeout Seconds",
   "a-Timezone-label": "Timezone",
   "a-TlogWriteWhenDeterminerExistsEnabled-label": "TLOG Write When Determiner Exists Enabled",
-  "a-TmpPath-label": "Tmp Path",
+
+  "a-TmpPath-label": "Temporary Directory Path",
+  "f-EJBContainer-a-TmpPath-help": "The temporary directory where generated files are stored by ejbc. Deprecated: All EJB compiler output is now stored in the EJBCompilerCache subdirectory of the server staging directory. This directory should not be described as \"temporary\" since removing it would cause the EJB compiler to be rerun as necessary the next time the server is restarted.",
+
   "a-TokenCacheEnabled-label": "Token Cache Enabled",
   "a-TokenClockSkew-label": "Token Clock Skew",
   "a-TokenSecureTransportRequired-label": "Token Secure Transport Required",
