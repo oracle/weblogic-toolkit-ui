@@ -5,9 +5,6 @@
       "modelPath": ["resources", "CoherenceClusterSystemResource"]
     },
     {
-      "modelPath": ["resources", "CustomResource"]
-    },
-    {
       "modelPath": ["resources", "EJBContainer"]
     },
     {
@@ -54,9 +51,6 @@
     },
     {
       "modelPath": ["resources", "OHS"]
-    },
-    {
-      "modelPath": ["resources", "OptionalFeatureDeployment"]
     },
     {
       "modelPath": ["resources", "PathService"]
