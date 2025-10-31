@@ -1,44 +1,33 @@
 {
   "modelPath": ["domainInfo"],
-  "icon": "oj-ux-ico-folder",
   "children": [
     {
       "modelPath": ["domainInfo", "OPSSInitialization"],
-      "icon": "oj-ux-ico-file",
-      "page": "../empty-view",
       "children": [
         {
-          "icon": "oj-ux-ico-list",
           "modelPath": ["domainInfo", "OPSSInitialization", "Credential"]
         }
       ]
     },
     {
-      "modelPath": ["domainInfo", "RCUDbInfo"],
-      "icon": "oj-ux-ico-file"
+      "modelPath": ["domainInfo", "RCUDbInfo"]
     },
     {
       "modelPath": ["domainInfo", "WLSUserPasswordCredentialMappings"],
-      "icon": "oj-ux-ico-file",
-      "page": "../empty-view",
       "children": [
         {
-          "icon": "oj-ux-ico-list",
           "modelPath": ["domainInfo", "WLSUserPasswordCredentialMappings", "CrossDomain"]
         },
         {
-          "icon": "oj-ux-ico-list",
           "modelPath": ["domainInfo", "WLSUserPasswordCredentialMappings", "RemoteResource"]
         }
       ]
     },
     {
-      "modelPath": ["domainInfo", "WLSPolicies"],
-      "icon": "oj-ux-ico-file"
+      "modelPath": ["domainInfo", "WLSPolicies"]
     },
     {
-      "modelPath": ["domainInfo", "WLSRoles"],
-      "icon": "oj-ux-ico-file"
+      "modelPath": ["domainInfo", "WLSRoles"]
     }
   ]
 }

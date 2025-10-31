@@ -5,25 +5,23 @@
  */
 'use strict';
 
-define(['accUtils', 'utils/i18n', 'knockout', 'utils/modelEdit/model-edit-helper',
+define(['accUtils', 'knockout', 'utils/modelEdit/model-edit-helper',
   'utils/modelEdit/alias-helper', 'utils/modelEdit/meta-helper', 'utils/modelEdit/navigation-helper',
   'utils/modelEdit/message-helper', 'utils/wkt-logger',
   'ojs/ojmodule-element-utils'],
-function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, MetaHelper, NavigationHelper, MessageHelper,
+function(accUtils, ko, ModelEditHelper, AliasHelper, MetaHelper, NavigationHelper, MessageHelper,
   wktLogger, ModuleElementUtils) {
 
   function ModelEditViewModel() {
-    this.i18n = i18n;
-
     const subscriptions = [];
 
-    this.contentPath = NavigationHelper.contentPath;
+    this.viewInfo = NavigationHelper.viewInfo;
 
     this.connected = () => {
       accUtils.announce('Model Edit Page loaded.', 'assertive');
 
       this.updateView();
-      subscriptions.push(this.contentPath.subscribe(() => {
+      subscriptions.push(this.viewInfo.subscribe(() => {
         this.updateView();
       }));
 
@@ -38,22 +36,18 @@ function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, MetaHelper, Navigatio
       });
     };
 
-    this.labelMapper = (labelId, payload) => {
-      return i18n.t(`model-edit-${labelId}`, payload);
-    };
-
     this.aliasDataLoaded = ko.computed(() => {
       return AliasHelper.aliasDataLoaded();
     });
 
     this.aliasDataError = ko.computed(() => {
       if(AliasHelper.aliasDataError()) {
-        return this.labelMapper('alias-load-error');
+        return MessageHelper.t('alias-load-error');
       }
       return null;
     });
 
-    // Setup for archive module
+    // Setup for nav module
     this.navModuleConfig = ModuleElementUtils.createConfig({
       name: 'modelEdit/navigation',
       params: {}
@@ -62,18 +56,22 @@ function(accUtils, i18n, ko, ModelEditHelper, AliasHelper, MetaHelper, Navigatio
     this.editPage = ko.observable(ModuleElementUtils.createConfig({ name: 'empty-view' }));
 
     this.updateView = () => {
-      const modelPath = this.contentPath();
-      if(modelPath) {
-        const aliasPath = AliasHelper.getAliasPath(modelPath);
-        let metaPage = MetaHelper.getMetadata(aliasPath)['page'];
-        if(AliasHelper.isMultiplePath(modelPath)) {
-          metaPage = metaPage || 'instances-page';
+      const viewInfo = this.viewInfo();
+      if(viewInfo) {
+        let pageView = viewInfo.page;
+        const modelPath = viewInfo.modelPath;
+        if(modelPath) {
+          const aliasPath = AliasHelper.getAliasPath(modelPath);
+          let metaView = MetaHelper.getMetadata(aliasPath)['page'];
+          pageView = pageView || metaView;  // navigation page takes precedence
+          pageView = pageView || (AliasHelper.isMultiplePath(modelPath) ? 'instances-page' : 'folder-page');
         }
-        metaPage = metaPage || 'folder-page';
+
+        pageView = pageView || '../empty-view';
 
         this.editPage(
           ModuleElementUtils.createConfig({
-            name: `modelEdit/${metaPage}`,
+            name: `modelEdit/${pageView}`,
             params: {
               modelPath: modelPath
             }

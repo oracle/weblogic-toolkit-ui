@@ -20,6 +20,10 @@ function(accUtils, ko, NavigationHelper, MessageHelper, wktLogger,
     this.t = (labelId, payload) => {
       return MessageHelper.t(labelId, payload);
     };
+
+    this.isSelectable = item => {
+      return !item.data['noSelect'];
+    };
   }
 
   return NavigationViewModel;

@@ -6,11 +6,15 @@
 'use strict';
 
 define(['knockout', 'utils/modeledit/navigation/all-navigation', 'utils/modelEdit/model-edit-helper',
-  'utils/modelEdit/alias-helper', 'utils/modelEdit/message-helper', 'ojs/ojarraytreedataprovider'],
-function (ko, allNavigation, ModelEditHelper, AliasHelper, MessageHelper, ArrayTreeDataProvider) {
+  'utils/modelEdit/alias-helper', 'utils/modelEdit/meta-helper', 'utils/modelEdit/message-helper',
+  'ojs/ojarraytreedataprovider'],
+function (ko, allNavigation, ModelEditHelper, AliasHelper, MetaHelper, MessageHelper, ArrayTreeDataProvider) {
 
   function NavigationHelper() {
     // maintain and update the navigation state
+
+    const SINGLE_ICON = 'oj-ux-ico-file';
+    const MULTIPLE_ICON = 'oj-ux-ico-list';
 
     const navObservable = ko.observableArray();
     let overrideContentPath;  // navigateToElement may have a content path that is not a nav entry
@@ -19,7 +23,7 @@ function (ko, allNavigation, ModelEditHelper, AliasHelper, MessageHelper, ArrayT
     this.navDataProvider = new ArrayTreeDataProvider(navObservable, { keyAttributes: 'id' });
     this.menuKey = ko.observable().extend({ notify: 'always' });  // a string with navigation menu key
     this.menuExpanded = ko.observable();   // a keySet with all the expanded menu nodes
-    this.contentPath = ko.observable();  // the content path of the selected item (may not be a nav item)
+    this.viewInfo = ko.observable();  // the content path of the selected item (may not be a nav item)
 
     this.initialize = () => {
       // initialize once, after alias data is loaded
@@ -55,25 +59,25 @@ function (ko, allNavigation, ModelEditHelper, AliasHelper, MessageHelper, ArrayT
     // set the content path when menu selection changes
     this.menuItemSelected = () => {
       const menuKey = this.menuKey();
-
-      if(overrideContentPath) {
-        this.contentPath(overrideContentPath);
-        overrideContentPath = null;
-
-      } else if(menuKey) {
+      if(menuKey) {
         this.navDataProvider.fetchByKeys({keys: [menuKey]})
           .then(result => {
             const keyResult = result.results.get(menuKey);
             if (keyResult) {
               const entry = keyResult.data;
-              this.contentPath(entry.modelPath);
+              const modelPath = overrideContentPath ? overrideContentPath : entry.modelPath;
+              overrideContentPath = null;
+              this.viewInfo({
+                page: entry.page,
+                modelPath
+              });
             } else {
-              this.contentPath(null);
+              this.viewInfo(null);
             }
           });
 
       } else {
-        this.contentPath(null);
+        this.viewInfo(null);
       }
     };
 
@@ -126,15 +130,16 @@ function (ko, allNavigation, ModelEditHelper, AliasHelper, MessageHelper, ArrayT
           const aliasPath = AliasHelper.getAliasPath(navEntry.modelPath);
           navEntry.id = navEntry.id || navEntry.modelPath.join('/');
           navEntry.label = navEntry.label || MessageHelper.getFolderLabel(aliasPath);
+          navEntry.noSelect = navEntry.noSelect || MetaHelper.hasNoSelect(aliasPath);
 
+          let defaultIcon = SINGLE_ICON;
           if(AliasHelper.isMultiplePath(navEntry.modelPath)) {
+            defaultIcon = MULTIPLE_ICON;
             navEntry.children = navEntry.children || ko.observableArray();
-            navEntry.page = navEntry.page || 'instances-page';
-            navEntry.childPage = navEntry.childPage || 'folder-page';
           }
-        }
 
-        navEntry.page = navEntry.page || 'folder-page';
+          navEntry.icon = navEntry.icon || defaultIcon;
+        }
 
         if(Array.isArray(navEntry.children)) {
           this.initializeNavList(navEntry.children);
@@ -166,15 +171,19 @@ function (ko, allNavigation, ModelEditHelper, AliasHelper, MessageHelper, ArrayT
       const modelKeys = [];
       const modelFolder = ModelEditHelper.getFolder(modelPath);
       Object.keys(modelFolder).forEach((name) => {
-        const id = modelPath.join('/') + '/' + name;
+        const instanceModelPath = [...modelPath, name];
+        const id = instanceModelPath.join('/');
+        const isMultiple = AliasHelper.isMultiplePath(instanceModelPath);
+        const icon = isMultiple ? MULTIPLE_ICON : SINGLE_ICON;
+
         if(!folderKeys.includes(name)) {
           folderList.push({
-            modelPath: [...modelPath, name],
-            name: name,
+            modelPath: instanceModelPath,
+            name,
             label: name,
-            id: id,
-            page: page,
-            icon: 'oj-ux-ico-page-template'
+            id,
+            page,
+            icon
           });
         }
         modelKeys.push(name);

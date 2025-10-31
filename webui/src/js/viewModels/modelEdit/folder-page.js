@@ -26,15 +26,7 @@ function(accUtils, ModelEditHelper, MessageHelper, AliasHelper, MetaHelper, Modu
       }
     });
 
-    const metaContentPath = MetaHelper.getContentPath(ALIAS_PATH);
-    const contentPath = metaContentPath || 'folder-content';
-
-    this.folderContentModuleConfig = ModuleElementUtils.createConfig({
-      name: 'modelEdit/' + contentPath,
-      params: {
-        modelPath: MODEL_PATH,
-      }
-    });
+    this.folderContentModuleConfig = ModelEditHelper.createFolderContentConfig(MODEL_PATH);
   }
 
   return FolderPageViewModel;
