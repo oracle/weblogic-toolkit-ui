@@ -1,0 +1,31 @@
+{
+  "EJBContainer": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "JavaCompiler",
+          "JavaCompilerPreClassPath",
+          "JavaCompilerPostClassPath",
+          "TmpPath",
+          "KeepGenerated",
+          "ForceGeneration",
+          "ExtraEjbcOptions",
+          "ExtraRmicOptions",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "VerboseEJBDeploymentEnabled"
+        ]
+      }
+    ]
+  }
+}

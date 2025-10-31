@@ -13,6 +13,7 @@ define(
     'text!./DbClientDataDirectory.json',
     'text!./Deployments.json',
     'text!./DomainInfo.json',
+    'text!./EJBContainer.json',
     'text!./FileStore.json',
     'text!./JDBCStore.json',
     'text!./JDBCSystemResource.json',
