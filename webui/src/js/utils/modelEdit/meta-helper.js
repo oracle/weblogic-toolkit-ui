@@ -23,11 +23,6 @@ define(['utils/modeledit/metadata/all-metadata'],
         }
       };
 
-      this.getContentPath = aliasPath => {
-        const metadata = this.getMetadata(aliasPath);
-        return metadata['contentPath'];
-      };
-
       this.getAttributeDetails = (aliasPath, attributeName) => {
         const metadata = this.getMetadata(aliasPath);
         const attributes = metadata['attributeDetails'] || {};
@@ -52,6 +47,11 @@ define(['utils/modeledit/metadata/all-metadata'],
       this.getMergeFolder = aliasPath => {
         const metadata = this.getMetadata(aliasPath);
         return metadata['mergeFolder'];
+      };
+
+      this.hasNoSelect = aliasPath => {
+        const metadata = this.getMetadata(aliasPath);
+        return metadata['noSelect'];
       };
 
       this.getNameValidators = aliasPath => {

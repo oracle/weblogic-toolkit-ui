@@ -10,6 +10,15 @@ define(['knockout', 'utils/wkt-logger'],
     function AliasHelper() {
       // maintain configuration derived from WDT aliases
 
+      const ROOT_FOLDER_ALIAS_NAMES = {
+        domainInfo: 'DomainInfo',
+        topology: 'Topology',
+        resources: 'Resources',
+        appDeployments: 'Deployments',
+      };
+
+      const NO_ALIAS_KEYS = ['Resources', 'Deployments'];
+
       this.aliasData = ko.observable();
 
       this.aliasDataLoaded = ko.computed(() => {
@@ -39,13 +48,12 @@ define(['knockout', 'utils/wkt-logger'],
         if(aliasData) {
           // special cases for top-level folders
           if (modelPath.length === 1) {
-            if (modelPath[0] === 'domainInfo') {
-              return ['DomainInfo'];
+            const rootFolderName = modelPath[0];
+            const aliasName = ROOT_FOLDER_ALIAS_NAMES[rootFolderName];
+            if(aliasName) {
+              return [aliasName];
             }
-            if (modelPath[0] === 'topology') {
-              return ['Topology'];
-            }
-            return null;  // no alias path for resources, appDeployments
+            throw new Error('Bad top-level path: ' + modelPath);
           }
 
           let aliasPath = [];
@@ -54,7 +62,7 @@ define(['knockout', 'utils/wkt-logger'],
           modelPath.forEach(dir => {
             if(!first && !nameNext) {
               aliasPath.push(dir);
-              const aliasNode = aliasData.paths[aliasPath.join('/')];
+              const aliasNode = this.getAliasNode(aliasPath);
               if (!aliasNode) {
                 WktLogger.error(`getAliasPath: Alias folder path ${dir} not found for path ${modelPath}`);
               }
@@ -83,7 +91,7 @@ define(['knockout', 'utils/wkt-logger'],
           parentPath.forEach(dir => {
             if(!first && !nameNext) {
               aliasPath.push(dir);
-              const aliasNode = aliasData.paths[aliasPath.join('/')];
+              const aliasNode = this.getAliasNode(aliasPath);
               if (!aliasNode) {
                 WktLogger.error(`isNamedPath: Alias folder path ${dir} not found for path ${modelPath}`);
               }
@@ -101,40 +109,18 @@ define(['knockout', 'utils/wkt-logger'],
       // multiple path: topology/Server
       // not multiple paths: topology/Server/myServer, topology/Server/myServer/SSL,
       this.isMultiplePath = modelPath => {
-        const aliasData = this.aliasData();
-        if(aliasData) {
-          if (this.isNamedPath(modelPath)) {
-            return false;
-          }
-          const aliasPath = this.getAliasPath(modelPath);
-          const aliasNode = aliasData.paths[aliasPath.join('/')];
-          if(!aliasNode) {
-            WktLogger.error(`isMultiplePath: Alias folder path ${aliasNode} not found for path ${modelPath}`);
-            return false;
-          }
-          return aliasNode['isMultiple'];
+        if (this.isNamedPath(modelPath)) {
+          return false;
         }
-        return false;
+        return this.getAliasValue(modelPath, 'isMultiple');
       };
 
       this.getAttributesMap = modelPath => {
-        const aliasData = this.aliasData();
-        if(aliasData) {
-          const aliasPath = this.getAliasPath(modelPath);
-          const node = aliasData.paths[aliasPath.join('/')];
-          return node['attributes'];
-        }
-        return null;
+        return this.getAliasValue(modelPath, 'attributes');
       };
 
       this.getFolderNames = modelPath => {
-        const aliasData = this.aliasData();
-        if(aliasData) {
-          const aliasPath = this.getAliasPath(modelPath);
-          const node = aliasData.paths[aliasPath.join('/')];
-          return node['folders'];
-        }
-        return null;
+        return this.getAliasValue(modelPath, 'folders');
       };
 
       // currently map to empty values, alias data structure for folders will probably change
@@ -145,6 +131,25 @@ define(['knockout', 'utils/wkt-logger'],
           foldersMap[folderName] = {};
         });
         return foldersMap;
+      };
+
+      this.getAliasValue = (modelPath, key) => {
+        const aliasPath = this.getAliasPath(modelPath);
+        const aliasNode = this.getAliasNode(aliasPath);
+        if(!aliasNode) {
+          WktLogger.error(`getAliasValue: Alias folder path ${aliasNode} not found for path ${modelPath}`);
+          return null;
+        }
+        return aliasNode[key];
+      };
+
+      this.getAliasNode = aliasPath => {
+        const aliasKey = aliasPath.join('/');
+        if(NO_ALIAS_KEYS.includes(aliasKey)) {
+          return {attributes: {}, folders: []};
+        }
+        const aliasData = this.aliasData();
+        return aliasData ? aliasData.paths[aliasKey] : null;
       };
     }
 

@@ -1,109 +1,82 @@
 {
   "modelPath": ["topology"],
-  "icon": "oj-ux-ico-folder",
   "children": [
     {
-      "icon": "oj-ux-ico-folder",
       "modelPath": ["topology", "AdminConsole"]
     },
     {
-      "icon": "oj-ux-ico-folder",
       "modelPath": ["topology", "AllowList"]
     },
     {
-      "icon": "oj-ux-ico-list",
       "modelPath": ["topology", "Callout"]
     },
     {
-      "icon": "oj-ux-ico-folder",
       "modelPath": ["topology", "CdiContainer"]
     },
     {
-      "icon": "oj-ux-ico-list",
       "modelPath": ["topology", "Cluster"]
     },
     {
-      "icon": "oj-ux-ico-folder",
       "modelPath": ["topology", "EmbeddedLDAP"]
     },
     {
-      "icon": "oj-ux-ico-folder",
       "modelPath": ["topology", "HealthScore"]
     },
     {
-      "icon": "oj-ux-ico-folder",
       "modelPath": ["topology", "JMX"]
     },
     {
-      "icon": "oj-ux-ico-folder",
       "modelPath": ["topology", "JPA"]
     },
     {
-      "icon": "oj-ux-ico-folder",
       "modelPath": ["topology", "JTA"]
     },
     {
-      "icon": "oj-ux-ico-folder",
       "modelPath": ["topology", "Log"]
     },
     {
-      "icon": "oj-ux-ico-list",
       "modelPath": ["topology", "LogFilter"]
     },
     {
-      "icon": "oj-ux-ico-list",
       "modelPath": ["topology", "Machine"]
     },
     {
-      "icon": "oj-ux-ico-list",
       "modelPath": ["topology", "MigratableTarget"]
     },
     {
-      "icon": "oj-ux-ico-folder",
       "modelPath": ["topology", "NMProperties"]
     },
     {
-      "icon": "oj-ux-ico-folder",
       "modelPath": ["topology", "RemoteConsoleHelper"]
     },
     {
-      "icon": "oj-ux-ico-folder",
       "modelPath": ["topology", "RestfulManagementServices"]
     },
     {
-      "icon": "oj-ux-ico-folder",
       "modelPath": ["topology", "SecurityConfiguration"]
     },
     {
-      "icon": "oj-ux-ico-list",
       "modelPath": ["topology", "Server"]
     },
     {
-      "icon": "oj-ux-ico-list",
       "modelPath": ["topology", "ServerTemplate"]
     },
     {
-      "icon": "oj-ux-ico-list",
       "modelPath": ["topology", "UnixMachine"]
     },
     {
-      "icon": "oj-ux-ico-list",
       "modelPath": ["topology", "VirtualHost"]
     },
     {
-      "icon": "oj-ux-ico-list",
       "modelPath": ["topology", "WSReliableDeliveryPolicy"]
     },
     {
-      "icon": "oj-ux-ico-list",
       "modelPath": ["topology", "WebserviceSecurity"]
     },
     {
-      "icon": "oj-ux-ico-list",
       "modelPath": ["topology", "XMLEntityCache"]
     },
     {
-      "icon": "oj-ux-ico-list",
       "modelPath": ["topology", "XMLRegistry"]
     }
   ]

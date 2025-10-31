@@ -42,10 +42,9 @@ function(accUtils, AliasHelper, MessageHelper, ModelEditHelper, NavigationHelper
         } else {
           const aliasPath = AliasHelper.getAliasPath(currentPath);
           if(!lastMergeFolder) {  // skip this folder if parent had a merged folder
-            if(!aliasPath) {  // probably a non-alias root folder like Deployments
-              label = MessageHelper.getFolderNameLabel(currentPath[currentPath.length - 1]);
-            } else {
-              label = MessageHelper.getFolderLabel(aliasPath);
+            label = MessageHelper.getFolderLabel(aliasPath);
+            const noSelect = MetaHelper.hasNoSelect(aliasPath);
+            if(!noSelect) {
               link = [...currentPath];  // shallow copy
             }
           }

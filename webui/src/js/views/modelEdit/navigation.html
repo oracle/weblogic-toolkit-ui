@@ -18,5 +18,6 @@
                     drill-mode="collapsible"
                     expanded="{{menuExpanded}}"
                     item.renderer="[[KnockoutTemplateUtils.getRenderer('editNavTemplate', true)]]"
+                    item.selectable="[[isSelectable]]"
                     selection="{{menuKey}}">
 </oj-navigation-list>

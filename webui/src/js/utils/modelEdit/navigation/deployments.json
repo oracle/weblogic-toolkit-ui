@@ -1,23 +1,16 @@
 {
-  "name": "nav-deployments-label",
-  "id": "deployments-id",
-  "icon": "oj-ux-ico-folder",
-  "page": "../empty-view",
+  "modelPath": ["appDeployments"],
   "children": [
     {
-      "icon": "oj-ux-ico-list",
       "modelPath": ["appDeployments", "Application"]
     },
     {
-      "icon": "oj-ux-ico-list",
       "modelPath": ["appDeployments", "DbClientDataDirectory"]
     },
     {
-      "icon": "oj-ux-ico-list",
       "modelPath": ["appDeployments", "Library"]
     },
     {
-      "icon": "oj-ux-ico-list",
       "modelPath": ["appDeployments", "PluginDeployment"]
     }
   ]

@@ -1,4 +1,7 @@
 {
+  "OPSSInitialization": {
+    "noSelect": true
+  },
   "OPSSInitialization/Credential/TargetKey": {
     "summaryAttributes": {
       "Username": {}
