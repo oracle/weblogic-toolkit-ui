@@ -48,6 +48,8 @@
   "connection-testing-tab-label": "Connection Testing",
   "diagnostics-tab-label": "Diagnostics",
   "work-manager-shutdown-trigger-tab-label": "Shutdown Trigger",
+  "security-tab-label": "Security Configuration",
+  "ssl-tab-label": "SSL Configuration",
 
   "security-model-advanced-label": "Advanced",
   "security-model-custom-roles-label": "Custom Roles",
@@ -387,7 +389,9 @@
   "a-ApplicationContainer-label": "Application Container",
   "a-ApplicationIdentifier-label": "Application Identifier",
   "a-ApplicationName-label": "Application Name",
-  "a-ApplicationPasswordEncrypted-label": "Application Password Encrypted",
+
+  "a-ApplicationPasswordEncrypted-label": "Application Password",
+  "f-JoltConnectionPool-a-ApplicationPasswordEncrypted-help": "The application password for this Jolt connection pool. (This is required only when the security level in the Tuxedo domain is USER_AUTH, ACL or MANDATORY_ACL).",
 
   "a-ApplicationScope-label": "Application Scope",
   "f-SelfTuning_WorkManager-a-ApplicationScope-help": "Specifies whether this work manager should be scoped to an application. By default, work managers are scoped to an application. Set this value to false if the work manager is to be scoped to a domain.",
@@ -405,7 +409,7 @@
   "a-ArtifactTimeout-label": "Artifact Timeout",
   "a-AssertionConsumerUri-label": "Assertion Consumer URI",
   "a-AssertionEncryptionDecryptionKeyAlias-label": "Assertion Encryption Decryption Key Alias",
-  "a-AssertionEncryptionDecryptionKeyPassPhraseEncrypted-label": "Assertion Encryption Decryption Key Pass Phrase Encrypted",
+  "a-AssertionEncryptionDecryptionKeyPassPhraseEncrypted-label": "Assertion Encryption Decryption Key Passphrase Encrypted",
   "a-AssertionEncryptionEnabled-label": "Assertion Encryption Enabled",
   "a-AssertionRetrievalUri-label": "Assertion Retrieval URI",
   "a-AssertionStoreClassName-label": "Assertion Store Class Name",
@@ -605,7 +609,7 @@
   "a-ClearTextCredentialAccessEnabled-label": "Clear Text Credential Access Enabled",
   "a-ClientAsUserPrincipalEnabled-label": "Client As User Principal Enabled",
   "a-ClientCertAlias-label": "Client Cert Alias",
-  "a-ClientCertPrivateKeyPassPhraseEncrypted-label": "Client Cert Private Key Pass Phrase Encrypted",
+  "a-ClientCertPrivateKeyPassPhraseEncrypted-label": "Client Cert Private Key Passphrase Encrypted",
   "a-ClientCertProxyEnabled-label": "Client Cert Proxy Enabled",
   "a-ClientCertificateEnforced-label": "Client Certificate Enforced",
 
@@ -666,7 +670,7 @@
   "a-CoherenceKeyRefreshPeriod-label": "Key Refresh Period",
   "a-CoherenceKeyRefreshPeriod-help": "he period to use to attempt to refresh keys and certs. This is used in cases where keys or certs have a short lifetime and need to be refreshed at runtime. If this element is omitted or is set to a value less than or equal to zero, then keys and certs will not be refreshed.",
 
-  "a-CoherencePrivateKeyPassPhraseEncrypted-label": "Private Key Pass Phrase Encrypted",
+  "a-CoherencePrivateKeyPassPhraseEncrypted-label": "Private Key Passphrase Encrypted",
   "a-CoherencePrivateKeyPassPhraseEncrypted-help": "The passphrase used to retrieve the private key for the Coherence Identity specified in the server configured keystore. This passphrase is assigned to the private key when the private key is generated.",
 
   "a-CoherenceStartScriptEnabled-label": "Coherence Start Script Enabled",
@@ -870,16 +874,16 @@
   "a-CustomConfigFileLastUpdatedTime-label": "Custom Config File Last Updated Time",
   "a-CustomIdentityAlias-label": "Custom Identity Alias",
   "a-CustomIdentityKeyStoreFileName-label": "Custom Identity Key Store File Name",
-  "a-CustomIdentityKeyStorePassPhrase-label": "Custom Identity Key Store Pass Phrase",
-  "a-CustomIdentityKeyStorePassPhraseEncrypted-label": "Custom Identity Key Store Pass Phrase Encrypted",
+  "a-CustomIdentityKeyStorePassPhrase-label": "Custom Identity Key Store Passphrase",
+  "a-CustomIdentityKeyStorePassPhraseEncrypted-label": "Custom Identity Key Store Passphrase Encrypted",
   "a-CustomIdentityKeyStoreType-label": "Custom Identity Key Store Type",
-  "a-CustomIdentityPrivateKeyPassPhrase-label": "Custom Identity Private Key Pass Phrase",
+  "a-CustomIdentityPrivateKeyPassPhrase-label": "Custom Identity Private Key Passphrase",
   "a-CustomNotificationProperties-label": "Custom Notification Properties",
   "a-CustomPrivateKeyAlias-label": "Custom Private Key Alias",
-  "a-CustomPrivateKeyPassPhraseEncrypted-label": "Custom Private Key Pass Phrase Encrypted",
+  "a-CustomPrivateKeyPassPhraseEncrypted-label": "Custom Private Key Passphrase Encrypted",
   "a-CustomProperties-label": "Custom Properties",
   "a-CustomTrustKeyStoreFileName-label": "Custom Trust Key Store File Name",
-  "a-CustomTrustKeyStorePassPhraseEncrypted-label": "Custom Trust Key Store Pass Phrase Encrypted",
+  "a-CustomTrustKeyStorePassPhraseEncrypted-label": "Custom Trust Key Store Passphrase Encrypted",
   "a-CustomTrustKeyStoreType-label": "Custom Trust Key Store Type",
   "a-DGCIdlePeriodsUntilTimeout-label": "DGC Idle Periods Until Timeout",
   "a-DataEncryptionAlgorithm-label": "Data Encryption Algorithm",
@@ -1742,6 +1746,7 @@
   "f-MessagingBridge-a-FailbackDelaySeconds-help": "Specifies the amount of time, in seconds, to delay before failing a cluster-targeted JMS artifact instance back to its preferred server after the preferred server failed and was restarted. This delay allows time for the system to stabilize and dependent services to be restarted, preventing a system failure during a reboot. A value > 0 specifies the time, in seconds, to delay before failing a JMS artifact back to its user preferred server. A value of 0 indicates that the instance would never failback. A value of -1 indicates that there is no delay and the instance would failback immediately.",
 
   "a-FailoverAddress-label": "Failover Address",
+  "f-JoltConnectionPool-a-FailoverAddress-help": "The list of Jolt Server Listeners (JSLs) addresses that is used if the connection pool cannot establish connections to the Primary Addresses, or if the primary connections fail. The format of each address is: //hostname:port. Multiple addresses should be separated by commas. These JSLs need not reside on the same host as the primary JSLs.",
 
   "a-FailoverRequestIfBusy-label": "Failover Request If Busy",
   "f-JDBCSystemResource_JdbcResource_JDBCDataSourceParams-a-FailoverRequestIfBusy-help": "For multi data sources with the failover algorithm, enables the multi data source to failover connection requests to the next data source if all connections in the current data source are in use.",
@@ -1959,8 +1964,8 @@
   "a-IdentityKeyStoreFileName-label": "Identity Key Store File Name",
   "f-WTCServer_WTCLocalTuxDom-a-IdentityKeyStoreFileName-help": "The path and file name of the identity keystore. The path name must either be absolute or relative to where the server was booted. The identity key store file name is only used if KeystoreLocation is \"Custom Stores\".",
 
-  "a-IdentityKeyStorePassPhraseEncrypted-label": "Identity Key Store Pass Phrase Encrypted",
-  "f-WTCServer_WTCLocalTuxDom-a-IdentityKeyStorePassPhraseEncrypted-help": "The custom identity keystore's passphrase. If empty or null, then the keystore will be opened without a passphrase. This attribute is only used if KeyStores is \"Custom Stores\".",
+  "a-IdentityKeyStorePassPhraseEncrypted-label": "Identity Key Store Passphrase Encrypted",
+  "f-WTCServer_WTCLocalTuxDom-a-IdentityKeyStorePassPhraseEncrypted-help": "The custom identity keystore passphrase. If empty or null, then the keystore will be opened without a passphrase. This attribute is only used if KeyStores is \"Custom Stores\".",
 
   "a-IdentityProviderArtifactBindingEnabled-label": "Identity Provider Artifact Binding Enabled",
   "a-IdentityProviderEnabled-label": "Identity Provider Enabled",
@@ -2131,8 +2136,8 @@
   "a-JavaServiceEnabled-label": "Java Service Enabled",
   "a-JavaServiceResourcesEnabled-label": "Java Service Resources Enabled",
   "a-JavaStandardTrustEnabled-label": "Java Standard Trust Enabled",
-  "a-JavaStandardTrustKeyStorePassPhrase-label": "Java Standard Trust Key Store Pass Phrase",
-  "a-JavaStandardTrustKeyStorePassPhraseEncrypted-label": "Java Standard Trust Key Store Pass Phrase Encrypted",
+  "a-JavaStandardTrustKeyStorePassPhrase-label": "Java Standard Trust Key Store Passphrase",
+  "a-JavaStandardTrustKeyStorePassPhraseEncrypted-label": "Java Standard Trust Key Store Passphrase Encrypted",
   "a-JavaVendor-label": "Java Vendor",
   "a-JaxRsMonitoringDefaultBehavior-label": "Jax Rs Monitoring Default Behavior",
   "a-JmsConnectionFactory-label": "JMS Connection Factory",
@@ -2188,11 +2193,19 @@
   "a-KeyEncrypted-label": "Key Encrypted",
   "a-KeyEncryptionAlgorithm-label": "Key Encryption Algorithm",
   "a-KeyFile-label": "Key File",
-  "a-KeyPassPhraseEncrypted-label": "Key Pass Phrase Encrypted",
+
+  "a-KeyPassPhraseEncrypted-label": "Key Passphrase",
+  "f-JoltConnectionPool-a-KeyPassPhraseEncrypted-help": "The identity private key's passphrase.",
+
   "a-KeyPassword-label": "Key Password",
   "a-KeyStoreFileName-label": "Key Store File Name",
+
   "a-KeyStoreName-label": "Key Store Name",
-  "a-KeyStorePassPhraseEncrypted-label": "Key Store Pass Phrase Encrypted",
+  "f-JoltConnectionPool-a-KeyStoreName-help": "The path and file name of the identity keystore containing the private key used in SSL mutual authentication.",
+
+  "a-KeyStorePassPhraseEncrypted-label": "Key Store Passphrase",
+  "f-JoltConnectionPool-a-KeyStorePassPhraseEncrypted-help": "The identity keystore passphrase. If empty or null, then the keystore will be opened without a passphrase.",
+
   "a-KeyStoreProvider-label": "Key Store Provider",
   "a-KeyStoreType-label": "Key Store Type",
   "a-KeyStoreTypes-label": "Key Store Types",
@@ -2471,6 +2484,8 @@
   "f-JMSSystemResource_JmsResource_UniformDistributedTopic-a-MaximumMessageSize-help": "The maximum size of a message that is accepted from producers on this destination. The message size includes the message body, any user-defined properties, and the user-defined JMS header fields: JMSCorrelationID and JMSType. Producers sending messages that exceed the configured maximum message size for the destination receive a ResourceAllocationException. The maximum message size is only enforced for the initial production of a message. Messages that are redirected to an error destination or forwarded to a member of a distributed destination are not checked for size. For instance, if a destination and its corresponding error destination are configured with a maximum message size of 128K bytes and 64K bytes, respectively, a message of 96K bytes could be redirected to the error destination (even though it exceeds the 64K byte maximum), but a producer could not directly send the 96K byte message to the error destination.",
 
   "a-MaximumPoolSize-label": "Maximum Pool Size",
+  "f-JoltConnectionPool-a-MaximumPoolSize-help": "The maximum number of connections that can be made from this Jolt connection pool.",
+
   "a-MemberDeathDetectorEnabled-label": "Member Death Detector Enabled",
   "a-MemberDiscoveryTimeout-label": "Member Discovery Timeout",
   "a-MemberWarmupTimeoutSeconds-label": "Member Warmup Timeout Seconds",
@@ -2589,7 +2604,10 @@
 
   "a-MinimumParserPoolSize-label": "Minimum Parser Pool Size",
   "a-MinimumPasswordLength-label": "Minimum Password Length",
+
   "a-MinimumPoolSize-label": "Minimum Pool Size",
+  "f-JoltConnectionPool-a-MinimumPoolSize-help": "The minimum number of connections to be added to this Jolt connection pool when WebLogic Server starts.",
+
   "a-MinimumTlsProtocolVersion-label": "Minimum Tls Protocol Version",
   "a-Minute-label": "Minute",
 
@@ -2753,8 +2771,8 @@
   "a-OutboundEnabled-label": "Outbound Enabled",
   "a-OutboundPrivateKeyAlias-label": "Outbound Private Key Alias",
   "a-OutboundPrivateKeyEnabled-label": "Outbound Private Key Enabled",
-  "a-OutboundPrivateKeyPassPhrase-label": "Outbound Private Key Pass Phrase",
-  "a-OutboundPrivateKeyPassPhraseEncrypted-label": "Outbound Private Key Pass Phrase Encrypted",
+  "a-OutboundPrivateKeyPassPhrase-label": "Outbound Private Key Passphrase",
+  "a-OutboundPrivateKeyPassPhraseEncrypted-label": "Outbound Private Key Passphrase Encrypted",
   "a-OutboundReferenceHostAllowList-label": "Outbound Reference Host Allow List",
   "a-OutputMedium-label": "Output Medium",
   "a-OverloadProtectionEnabled-label": "Overload Protection Enabled",
@@ -2920,7 +2938,10 @@
   "f-MessagingBridge-a-PreserveMsgProperty-help": "Specifies if message properties are preserved when messages are forwarded by a bridge instance.  See the WebLogic Server MBean Reference to see which properties are preserved in your scenario.",
 
   "a-Preserved-label": "Preserved",
+
   "a-PrimaryAddress-label": "Primary Address",
+  "f-JoltConnectionPool-a-PrimaryAddress-help": "The list of addresses for the primary Jolt Server Listeners (JSLs) on the Tuxedo system. The format of each address is: //hostname:port. Multiple addresses should be separated by commas.",
+
   "a-PrimaryIdentityDomain-label": "Primary Identity Domain",
   "a-Principal-label": "Principal",
   "a-PrincipalEqualsCaseInsensitive-label": "Principal Equals Case Insensitive",
@@ -2935,9 +2956,9 @@
   "a-PrivateKeyAlias-label": "Private Key Alias",
   "f-WTCServer_WTCLocalTuxDom-a-PrivateKeyAlias-help": "The string alias used to store and retrieve the Local Tuxedo access point's private key in the keystore. This private key is associated with the Local Tuxedo access point's digital certificate.",
 
-  "a-PrivateKeyPassPhrase-label": "Private Key Pass Phrase",
+  "a-PrivateKeyPassPhrase-label": "Private Key Passphrase",
 
-  "a-PrivateKeyPassPhraseEncrypted-label": "Private Key Pass Phrase Encrypted",
+  "a-PrivateKeyPassPhraseEncrypted-label": "Private Key Passphrase Encrypted",
   "f-WTCServer_WTCLocalTuxDom-a-PrivateKeyPassPhraseEncrypted-help": "The encrypted passphrase used to retrieve the Local Tuxedo access point's private key from the keystore. This passphrase is assigned to the private key when it is generated.",
 
   "a-ProcessDestroyTimeout-label": "Process Destroy Timeout",
@@ -3059,7 +3080,10 @@
 
   "a-RecoverySiteName-label": "Recovery Site Name",
   "a-RecoveryThresholdMillis-label": "Recovery Threshold Millis",
-  "a-RecvTimeout-label": "Recv Timeout",
+
+  "a-RecvTimeout-label": "Receive Timeout",
+  "f-JoltConnectionPool-a-RecvTimeout-help": "The number of seconds the client waits to receive a response before timing out.",
+
   "a-RedefiningClassLoader-label": "Redefining Class Loader",
 
   "a-RedeliveryDelay-label": "Redelivery Delay",
@@ -3353,6 +3377,7 @@
   "f-WTCServer_WTCLocalTuxDom-a-Security-help": "The type of application security enforced. NONE means that no security is used. APP_PW means that password security is enforced when a connection is established from a remote domain; the application password is defined in the WTCResourcesMBean. DM_PW means that the domain password security is enforced when a connection is established from a remote domain; the domain password is defined in the WTCPasswordsMBean.",
 
   "a-SecurityContextEnabled-label": "Security Context Enabled",
+  "f-JoltConnectionPool-a-SecurityContextEnabled-help": "Indicates whether this Jolt connection pool passes the connection pool's security context (user name, password and other information) from the WebLogic Server user to the Tuxedo domain. If you enable the connection pool to pass the security context, you must start the Jolt Service Handler (JSH) with the -a option. When the JSH gets a message with the caller's identity, it calls impersonate_user() to get the appkey for the user. JSH caches the appkey, so the next time the caller makes a request, the appkey is retrieved from the cache and the request is forwarded to the service. A cache is maintained by each JSH, which means that there will be a cache maintained for all the session pools connected to the same JSH. You must enable Security Context if Tuxedo requires secured connections.",
 
   "a-SecurityDDModel-label": "Security Deployment Descriptor Model",
   "f-Application-a-SecurityDDModel-help": "The security model that is used to secure a deployed module. To set this value, you can use the weblogic.Deployer command-line tool, the Deployment Assistant in the Administration Console, the WebLogic Scripting Tool (WLST), or another JMX client. If you deploy a module using one of the previously mentioned tools and you do not specify a security model value, the module is secured with the security realm's default model. If you deploy a module by modifying the domain's config.xml file and restarting the server, and if you do not specify a security model value for the module in config.xml, the module is secured with the DDOnly model, which is the default value of this AppDeploymentMBean attribute.",
@@ -3414,7 +3439,7 @@
   "a-ServerNameStartingIndex-label": "Server Name Starting Index",
   "a-ServerNotAvailableCounterInterval-label": "Server Not Available Counter Interval",
   "a-ServerPrivateKeyAlias-label": "Server Private Key Alias",
-  "a-ServerPrivateKeyPassPhraseEncrypted-label": "Server Private Key Pass Phrase Encrypted",
+  "a-ServerPrivateKeyPassPhraseEncrypted-label": "Server Private Key Passphrase Encrypted",
   "a-ServerStartMode-label": "Server Start Mode",
   "a-ServerStatusCheckIntervalFactor-label": "Server Status Check Interval Factor",
   "a-ServerTemplate-label": "Server Template",
@@ -3475,7 +3500,7 @@
   "a-SignAuthnRequests-label": "Sign Authn Requests",
   "a-SignaturePreferX509Certificate-label": "Signature Prefer X509 Certificate",
   "a-SigningKeyAlias-label": "Signing Key Alias",
-  "a-SigningKeyPassPhraseEncrypted-label": "Signing Key Pass Phrase Encrypted",
+  "a-SigningKeyPassPhraseEncrypted-label": "Signing Key Passphrase Encrypted",
   "a-SinglePurposeCertificatesEnabled-label": "Single Purpose Certificates Enabled",
   "a-SingleSignonDisabled-label": "Single Signon Disabled",
   "a-SingletonSQLQueryHelper-label": "Singleton SQL Query Helper",
@@ -3521,7 +3546,7 @@
   "a-SourceSiteUrl-label": "Source Site URL",
   "a-SsLv2HelloEnabled-label": "SSL v2 Hello Enabled",
   "a-SslClientIdentityAlias-label": "SSL Client Identity Alias",
-  "a-SslClientIdentityPassPhraseEncrypted-label": "SSL Client Identity Pass Phrase Encrypted",
+  "a-SslClientIdentityPassPhraseEncrypted-label": "SSL Client Identity Passphrase Encrypted",
   "a-SslEnabled-label": "SSL Enabled",
 
   "a-SslProtocolVersion-label": "SSL Protocol Version",
@@ -3530,7 +3555,7 @@
 
   "a-SsoLogoutUrl-label": "SSO Logout URL",
   "a-SsoSigningKeyAlias-label": "SSO Signing Key Alias",
-  "a-SsoSigningKeyPassPhraseEncrypted-label": "SSO Signing Key Pass Phrase Encrypted",
+  "a-SsoSigningKeyPassPhraseEncrypted-label": "SSO Signing Key Passphrase Encrypted",
   "a-StacktraceDepth-label": "Stacktrace Depth",
   "a-StagingDirectoryName-label": "Staging Directory Name",
 
@@ -3783,7 +3808,7 @@
   "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceClusterParams-Transport-help": "Specify the underlying transport protocol to use for cluster communication. Default is SSL when secured production mode is enabled; TMB otherwise.",
 
   "a-TransportLayerSecurityKeyAlias-label": "Transport Layer Security Key Alias",
-  "a-TransportLayerSecurityKeyPassPhraseEncrypted-label": "Transport Layer Security Key Pass Phrase Encrypted",
+  "a-TransportLayerSecurityKeyPassPhraseEncrypted-label": "Transport Layer Security Key Passphrase Encrypted",
 
   "a-TrashDirectory-label": "Trash Directory",
   "f-CoherenceClusterSystemResource_CoherenceResource_CoherencePersistenceParams-a-TrashDirectory-help": "The trash directory for the default persistence environment. If no value is specified, the directory which will be used is coherence/trash sub-directory under Domain Home directory.",
@@ -3794,11 +3819,15 @@
   "a-TrustKeyStoreFileName-label": "Trust Key Store File Name",
   "f-WTCServer_WTCLocalTuxDom-a-TrustKeyStoreFileName-help": "The path and file name of the trust keystore. The path name must either be absolute or relative to where the server was booted. This file name is only used if KeyStores is \"Custom Stores\".",
 
-  "a-TrustKeyStorePassPhraseEncrypted-label": "Trust Key Store Pass Phrase Encrypted",
-  "f-WTCServer_WTCLocalTuxDom-a-TrustKeyStorePassPhraseEncrypted-help": "he trust keystore's passphrase. If empty or null, then the keystore will be opened without a passphrase. This attribute is only used if KeyStores is \"Custom Stores\".",
+  "a-TrustKeyStorePassPhraseEncrypted-label": "Trust Key Store Passphrase Encrypted",
+  "f-WTCServer_WTCLocalTuxDom-a-TrustKeyStorePassPhraseEncrypted-help": "The trust keystore passphrase. If empty or null, then the keystore will be opened without a passphrase. This attribute is only used if KeyStores is \"Custom Stores\".",
 
   "a-TrustStoreName-label": "Trust Store Name",
-  "a-TrustStorePassPhraseEncrypted-label": "Trust Store Pass Phrase Encrypted",
+  "f-JoltConnectionPool-a-TrustStoreName-help": "The path and file name of the keystore containing the trust certificates.",
+
+  "a-TrustStorePassPhraseEncrypted-label": "Trust Store Passphrase",
+  "f-JoltConnectionPool-a-TrustStorePassPhraseEncrypted-help": "The trust keystore passphrase. If empty or null, then the keystore will be opened without a passphrase.",
+
   "a-TrustedCAFileName-label": "Trusted CA File Name",
   "a-TrustedClientPrincipal-label": "Trusted Client Principal",
   "a-TunnelingClientPingSecs-label": "Tunneling Client Ping Secs",
@@ -3937,6 +3966,7 @@
   "a-UserName-label": "User Name",
   "f-JMSBridgeDestination-a-UserName-help": "The optional user name the adapter uses to access the bridge destination. All operations on the specified destination are done using this user name and the corresponding password. Therefore, the User Name/Password for the source and target destinations must have permission to the access the underlying destinations in order for the messaging bridge to work.",
   "f-SelfTuning_ContextRequestClass_ContextCase-a-UserName-help": "The name of the user whose requests are to be processed by the request class with the name specified in RequestClassName.",
+  "f-JoltConnectionPool-a-UserName-help": "A user name that applications specify to connect to this Jolt connection pool. If Security Context is enabled, this name must be the name of an authorized Tuxedo user. (Specifying a Tuxedo user name is required if the Tuxedo authentication level is USER_AUTH.)",
 
   "a-UserNameAttribute-label": "User Name Attribute",
   "a-UserNameMapperClassName-label": "User Name Mapper Class Name",
@@ -3944,11 +3974,15 @@
   "a-UserNameTokenClaim-label": "User Name Token Claim",
   "a-UserObjectClass-label": "User Object Class",
 
-  "a-UserPasswordEncrypted-label": "User Password Encrypted",
+  "a-UserPasswordEncrypted-label": "User Password",
   "f-JMSBridgeDestination-a-UserPasswordEncrypted-help": "The user password that the adapter uses to access the bridge destination.",
+  "f-JoltConnectionPool-a-UserPasswordEncrypted-help": "The user password for this Jolt connection pool.",
 
   "a-UserPreferredServer-label": "User Preferred Server",
+
   "a-UserRole-label": "User Role",
+  "f-JoltConnectionPool-a-UserRole-help": "The Tuxedo user role for this Jolt connection pool. (This is required only when the security level in the Tuxedo domain is USER_AUTH, ACL, or MANDATORY_ACL).",
+
   "a-UserSearchScope-label": "User Search Scope",
 
   "a-Username-label": "Username",
@@ -4663,7 +4697,7 @@
   "f-any_XMLParserSelectRegistryEntry-typeLabel": "XML Parser Select Registry Entry",
   "f-any_XMLRegistry-label": "XML Registries",
   "f-any_XMLRegistry-typeLabel": "XML Registry",
-  "f-any_appDeployments-label": "Deployments",
-  "f-any_resources-label": "Resources",
+  "f-any_Deployments-label": "Deployments",
+  "f-any_Resources-label": "Resources",
   "f-any_weblogic.security.providers.authentication.OracleIdentityCloudIntegrator-label": "weblogicsecurityprovidersauthentication Oracle Identity Cloud Integrator"
 }
