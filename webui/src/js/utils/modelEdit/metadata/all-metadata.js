@@ -29,6 +29,8 @@ define(
     'text!./ManagedThreadFactoryTemplate.json',
     'text!./MessagingBridge.json',
     'text!./OPSSInitialization.json',
+    'text!./ODLConfiguration.json',
+    'text!./PathService.json',
     'text!./PluginDeployment.json',
     'text!./RCUDbInfo.json',
     'text!./Resources.json',

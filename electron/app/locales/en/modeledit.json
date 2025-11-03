@@ -298,7 +298,7 @@
 
   "a-AdapterName-label": "Adapter Name",
   "a-AdapterVersion-label": "Adapter Version",
-  "a-AddJvmNumber-label": "Add Jvm Number",
+  "a-AddJvmNumber-label": "Add JVM Number",
   "a-AddWorkManagerThreadsByCpuCount-label": "Add Work Manager Threads By CPU Count",
   "a-AdditionalAutoMigrationAttempts-label": "Additional Auto Migration Attempts",
 
@@ -2889,6 +2889,7 @@
 
   "a-PersistentStore-label": "Persistent Store",
   "f-JMSServer-a-PersistentStore-help": "The file or database in which this JMS server stores persistent messages. If unspecified, the JMS server uses the default persistent store that is configured on each targeted WebLogic Server instance. If the JMS server has a store configured, then the configured store is used to store persistent messages.",
+  "f-PathService-a-PersistentStore-help": "The name of the persistent store used to store the routing path for this path service instance.",
 
   "a-PhysicalDestinationName-label": "Physical Destination Name",
   "a-PhysicalStoreName-label": "Physical Store Name",

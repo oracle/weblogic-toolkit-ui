@@ -103,6 +103,9 @@
       "modelPath": ["resources", "SNMPAgent"]
     },
     {
+      "modelPath": ["resources", "SnmpAgentDeployment"]
+    },
+    {
       "modelPath": ["resources", "SelfTuning"],
       "children": [
         {
