@@ -1604,6 +1604,9 @@
   "a-DiscoveryAddress-help": "Controls whether the discovery address is set. If this property is set, then Coherence will configure the discovery address to the unicast listen address if there is one.",
 
   "a-DispatchPolicy-label": "Dispatch Policy",
+  "f-ManagedExecutorServiceTemplate-a-DispatchPolicy-help": "The name of the Work Manager to use for this Concurrent Managed Object (CMO). If a Work Manager is not specified, the default one is used.",
+  "f-ManagedScheduledExecutorServiceTemplate-a-DispatchPolicy-help": "The name of the Work Manager to use for this Concurrent Managed Object (CMO). If a Work Manager is not specified, the default one is used.",
+
   "a-DistinguishedName-label": "Distinguished Name",
 
   "a-DistributionPolicy-label": "Distribution Policy",
@@ -2364,7 +2367,11 @@
   "f-JMSSystemResource_JmsResource_SAFRemoteContext_SAFLoginContext-a-LoginURL-help": "Specifies the URL to connect to when using this SAF Login Context. SAFImportedDestinations are associated with a SAFRemoteContext that has a SAFLoginContext. This SAFLoginContext defines the URL to use to connect.",
 
   "a-LoginUrl-label": "Login URL",
+
   "a-LongRunningPriority-label": "Long Running Priority",
+  "f-ManagedExecutorServiceTemplate-a-LongRunningPriority-help": "An integer that specifies the long-running daemon thread's priority. If a value is specified, all long-running threads are affected.",
+  "f-ManagedScheduledExecutorServiceTemplate-a-LongRunningPriority-help": "An integer that specifies the long-running daemon thread's priority. If a value is specified, all long-running threads are affected.",
+
   "a-LowMemoryGCThreshold-label": "Low Memory GC Threshold",
   "a-LowMemoryGranularityLevel-label": "Low Memory Granularity Level",
   "a-LowMemorySampleSize-label": "Low Memory Sample Size",
@@ -2402,7 +2409,12 @@
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-MaxCapacity-help": "The maximum number of physical connections that this connection pool can contain.",
 
   "a-MaxConcurrentLongRunningRequests-label": "Max Concurrent Long Running Requests",
+  "f-ManagedExecutorServiceTemplate-a-MaxConcurrentLongRunningRequests-help": "The maximum number of running long-running tasks submitted to this Concurrent Managed Object (CMO).",
+  "f-ManagedScheduledExecutorServiceTemplate-a-MaxConcurrentLongRunningRequests-help": "The maximum number of running long-running tasks submitted to this Concurrent Managed Object (CMO).",
+
   "a-MaxConcurrentNewThreads-label": "Max Concurrent New Threads",
+  "f-ManagedThreadFactoryTemplate-a-MaxConcurrentNewThreads-help": "The maximum number of concurrent new threads that can be created by this Managed Thread Factory (MTF).",
+
   "a-MaxConcurrentStreams-label": "Max Concurrent Streams",
   "a-MaxConnectedClients-label": "Max Connected Clients",
   "a-MaxConsecutiveCharacters-label": "Max Consecutive Characters",
@@ -2951,6 +2963,7 @@
 
   "a-Priority-label": "Priority",
   "a-Priority-help": "The priority assigned to all messages that arrive at this destination, regardless of the Priority specified by the message producer. The default value (-1) specifies that the destination will not override the Priority set by the message producer.",
+  "f-ManagedThreadFactoryTemplate-a-Priority-help": "An integer that specifies the daemon thread's priority. If a value is specified, all concurrent new threads created by this Managed Thread Factory (MTF) are affected.",
 
   "a-PrivacyProtocol-label": "Privacy Protocol",
 

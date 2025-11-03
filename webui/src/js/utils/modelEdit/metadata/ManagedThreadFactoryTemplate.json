@@ -1,0 +1,26 @@
+{
+  "ManagedThreadFactoryTemplate": {
+    "summaryAttributes": {
+      "MaxConcurrentNewThreads": {},
+      "Priority": {},
+      "Target": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "MaxConcurrentNewThreads",
+          "Priority",
+          "DeploymentOrder",
+          "Notes",
+          "Target"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  }
+}

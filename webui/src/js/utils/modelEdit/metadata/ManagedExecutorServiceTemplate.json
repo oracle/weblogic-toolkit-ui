@@ -1,0 +1,26 @@
+{
+  "ManagedExecutorServiceTemplate": {
+    "summaryAttributes": {
+      "DispatchPolicy": {},
+      "Target": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "DispatchPolicy",
+          "MaxConcurrentLongRunningRequests",
+          "LongRunningPriority",
+          "DeploymentOrder",
+          "Notes",
+          "Target"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  }
+}
