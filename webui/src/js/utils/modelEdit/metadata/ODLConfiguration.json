@@ -1,0 +1,43 @@
+{
+  "ODLConfiguration": {
+    "summaryAttributes": {
+      "Servers": {}
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "Servers",
+              "HandlerDefaults",
+              "AddJvmNumber"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "folderTab",
+        "folder": "Handler"
+      },
+      {
+        "type": "folderTab",
+        "folder": "Logger"
+      }
+    ]
+  },
+  "ODLConfiguration/Handler": {
+    "summaryAttributes": {
+      "Class": {}
+    }
+  },
+  "ODLConfiguration/Logger": {
+  }
+}
