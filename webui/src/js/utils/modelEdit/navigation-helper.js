@@ -121,7 +121,8 @@ function (ko, allNavigation, ModelEditHelper, AliasHelper, MetaHelper, MessageHe
       }
     };
 
-    // assign IDs and names based on model path, add child observables, ...
+    // initialize the static parts of the navigation.
+    // if model path is specified, assign IDs, labels, icons, child arrays/observables, etc.
     this.initializeNavList = navList => {
       navList.forEach(navEntry => {
         navEntry.label = navEntry.name ? MessageHelper.t(navEntry.name) : null;
@@ -151,10 +152,12 @@ function (ko, allNavigation, ModelEditHelper, AliasHelper, MetaHelper, MessageHe
       this.updateNavList(allNavigation);
     };
 
+    // update only multiple instance lists on model change
     this.updateNavList = navList => {
       navList.forEach(navEntry => {
         if(navEntry.modelPath && AliasHelper.isMultiplePath(navEntry.modelPath)) {
-          this.updateChildFoldersFromModel(navEntry.modelPath, navEntry.children, navEntry.childPage);
+          this.updateChildFoldersFromModel(navEntry);
+          this.updateNavList(navEntry.children());
 
         } else if(Array.isArray(navEntry.children)) {
           this.updateNavList(navEntry.children);
@@ -163,24 +166,43 @@ function (ko, allNavigation, ModelEditHelper, AliasHelper, MetaHelper, MessageHe
     };
 
     // take extra care to leave current existing entries alone
-    this.updateChildFoldersFromModel = (modelPath, folderList, page) => {
+    this.updateChildFoldersFromModel = navEntry => {
+      const modelPath = navEntry.modelPath;
+      const folderList = navEntry.children;
+      const page = navEntry.childPage;
+      const instanceChildren = navEntry.instanceChildren || [];
+
       const folderKeys = [];
       folderList().forEach(folder => folderKeys.push(folder.name));
 
-      // add model folders that aren't in navigation
+      // add instance folders that aren't in navigation files
       const modelKeys = [];
       const modelFolder = ModelEditHelper.getFolder(modelPath);
       Object.keys(modelFolder).forEach((name) => {
         const instanceModelPath = [...modelPath, name];
         const id = instanceModelPath.join('/');
         const isMultiple = AliasHelper.isMultiplePath(instanceModelPath);
-        const icon = isMultiple ? MULTIPLE_ICON : SINGLE_ICON;
+        let icon = isMultiple ? MULTIPLE_ICON : SINGLE_ICON;
+        icon = navEntry.instanceIcon ? navEntry.instanceIcon : icon;
+
+        // this named instance may have its own children
+        let children = null;
+        if(instanceChildren.length) {
+          children = [];
+          instanceChildren.forEach(instanceChild => {
+            const eachInstanceChild = structuredClone(instanceChild);
+            eachInstanceChild.modelPath = [...instanceModelPath, ...instanceChild.modelPath];
+            children.push(eachInstanceChild);
+          });
+          this.initializeNavList(children);
+        }
 
         if(!folderKeys.includes(name)) {
           folderList.push({
             modelPath: instanceModelPath,
             name,
             label: name,
+            children,
             id,
             page,
             icon

@@ -866,6 +866,14 @@ h6.wkt-panel-heading {
   padding-left: 3em !important;
 }
 
+.wkt-model-editor-nav-list .oj-navigationlist-depth-4 .oj-navigationlist-item-content {
+  padding-left: 4em !important;
+}
+
+.wkt-model-editor-nav-list .oj-navigationlist-depth-5 .oj-navigationlist-item-content {
+  padding-left: 5em !important;
+}
+
 .wkt-model-edit-section {
   margin-top: 1em;
 }

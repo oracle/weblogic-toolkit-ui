@@ -26,7 +26,48 @@
       "modelPath": ["resources", "JMSServer"]
     },
     {
-      "modelPath": ["resources", "JMSSystemResource"]
+      "modelPath": ["resources", "JMSSystemResource"],
+      "instanceChildren": [
+        {
+          "modelPath": ["SubDeployment"]
+        },
+        {
+          "modelPath": ["JmsResource", "ConnectionFactory"]
+        },
+        {
+          "modelPath": ["JmsResource", "Queue"]
+        },
+        {
+          "modelPath": ["JmsResource", "Topic"]
+        },
+        {
+          "modelPath": ["JmsResource", "UniformDistributedQueue"]
+        },
+        {
+          "modelPath": ["JmsResource", "UniformDistributedTopic"]
+        },
+        {
+          "modelPath": ["JmsResource", "Template"]
+        },
+        {
+          "modelPath": ["JmsResource", "ForeignServer"]
+        },
+        {
+          "modelPath": ["JmsResource", "SAFRemoteContext"]
+        },
+        {
+          "modelPath": ["JmsResource", "SAFImportedDestinations"]
+        },
+        {
+          "modelPath": ["JmsResource", "SAFErrorHandling"]
+        },
+        {
+          "modelPath": ["JmsResource", "Quota"]
+        },
+        {
+          "modelPath": ["JmsResource", "DestinationKey"]
+        }
+      ]
     },
     {
       "modelPath": ["resources", "JoltConnectionPool"]
