@@ -7,10 +7,10 @@
 
 define(['accUtils', 'knockout', 'utils/modelEdit/model-edit-helper',
   'utils/modelEdit/alias-helper', 'utils/modelEdit/meta-helper', 'utils/modelEdit/navigation-helper',
-  'utils/modelEdit/message-helper', 'utils/wkt-logger',
+  'utils/modelEdit/message-helper', 'utils/screen-utils', 'utils/wkt-logger',
   'ojs/ojmodule-element-utils'],
 function(accUtils, ko, ModelEditHelper, AliasHelper, MetaHelper, NavigationHelper, MessageHelper,
-  wktLogger, ModuleElementUtils) {
+  ScreenUtils, wktLogger, ModuleElementUtils) {
 
   function ModelEditViewModel() {
     const subscriptions = [];
@@ -24,6 +24,11 @@ function(accUtils, ko, ModelEditHelper, AliasHelper, MetaHelper, NavigationHelpe
       subscriptions.push(this.viewInfo.subscribe(() => {
         this.updateView();
       }));
+
+      const hSlider = document.getElementById('wkt-model-edit-slider');
+      const leftPane  = document.getElementById('wkt-model-editor-nav-container');
+      const rightPane = document.getElementById('wkt-model-editor-content-container');
+      ScreenUtils.sliderPane(hSlider, leftPane, rightPane, 'modelEdit', false);
 
       // subscribing to wkt-model-definition.propertiesContent won't fire on value changes.
       // update on page load, but may be out of sync if new project is loaded.

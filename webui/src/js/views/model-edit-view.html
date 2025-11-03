@@ -3,23 +3,28 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 
-<div id="wkt-container" class="oj-sm-flex-wrap-nowrap oj-flex wkt-model-edit-container">
+<div class="oj-sm-flex-wrap-nowrap oj-flex wkt-model-edit-container">
   <oj-bind-if test="[[aliasDataError]]">
     <div class="wkt-content">
       <oj-bind-text value="[[aliasDataError]]"> </oj-bind-text>
     </div>
   </oj-bind-if>
 
-  <oj-bind-if test="[[aliasDataLoaded]]">
-    <div id="wkt-model-editor-nav-container"
-         class="wkt-model-editor-nav-container"
-    >
-      <oj-module config="[[navModuleConfig]]"></oj-module>
-    </div>
+  <oj-bind-if test="[[!aliasDataError()]]">
+    <div class="wkt-model-edit-nav-content">
+      <div id="wkt-model-editor-nav-container"
+           class="wkt-model-editor-nav-container"
+      >
+        <oj-module config="[[navModuleConfig]]"></oj-module>
+      </div>
 
-    <div class="wkt-right-pane">
-      <oj-module role="main" class="wkt-model-edit-view-content" config="[[editPage]]">
-      </oj-module>
+      <div id="wkt-model-edit-slider" class="wkt-horizontal-splitter"></div>
+
+      <div id="wkt-model-editor-content-container"
+           class="wkt-model-editor-content-container">
+        <oj-module role="main" class="wkt-model-edit-view-content" config="[[editPage]]">
+        </oj-module>
+      </div>
     </div>
   </oj-bind-if>
 </div>
