@@ -14,6 +14,7 @@ define(
     'text!./Deployments.json',
     'text!./DomainInfo.json',
     'text!./EJBContainer.json',
+    'text!./ForeignJNDIProvider.json',
     'text!./FileStore.json',
     'text!./JDBCStore.json',
     'text!./JDBCSystemResource.json',
