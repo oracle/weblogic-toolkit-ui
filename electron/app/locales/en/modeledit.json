@@ -2026,6 +2026,7 @@
   "a-InitialContextFactory-label": "Initial Context Factory Class Name",
   "f-JMSBridgeDestination-a-InitialContextFactory-help": "The initial context factory class name for this JMS bridge destination. The default value is weblogic.jndi.WLInitialContextFactory.",
   "f-JMSSystemResource_JmsResource_ForeignServer-a-InitialContextFactory-help": "The name of the class that must be instantiated to access the JNDI provider. This class name depends on the JNDI provider and the vendor that are being used. This value corresponds to the standard JNDI property, java.naming.factory.initial. Note: This value defaults to weblogic.jndi.WLInitialContextFactory, which is the correct value for WebLogic Server.",
+  "f-ForeignJNDIProvider-a-InitialContextFactory-help": "The initial context factory to use to connect. This class name depends on the JNDI provider and the vendor you are using. The value corresponds to the standard JNDI property, java.naming.factory.initial.",
 
   "a-InitialSize-label": "Initial Size",
   "f-FileStore-a-InitialSize-help": "The initial file size, in bytes.",
@@ -2266,6 +2267,7 @@
   "f-JMSSystemResource_JmsResource_Topic-a-LocalJNDIName-help": "The local JNDI name used to look up the destination within the JNDI namespace of the server where the destination resource is targeted. In a clustered environment, this name is bound only on the local server instance and is not propagated to the rest of the cluster. A destination can have both a local JNDI name and a (global) JNDI name.",
   "f-JMSSystemResource_JmsResource_UniformDistributedQueue-a-LocalJNDIName-help": "The local JNDI name used to look up the destination within the JNDI namespace of the server where the destination resource is targeted. In a clustered environment, this name is bound only on the local server instance and is not propagated to the rest of the cluster. A destination can have both a local JNDI name and a (global) JNDI name.",
   "f-JMSSystemResource_JmsResource_UniformDistributedTopic-a-LocalJNDIName-help": "The local JNDI name used to look up the destination within the JNDI namespace of the server where the destination resource is targeted. In a clustered environment, this name is bound only on the local server instance and is not propagated to the rest of the cluster. A destination can have both a local JNDI name and a (global) JNDI name.",
+  "f-ForeignJNDIProvider_ForeignJNDILink-a-LocalJNDIName-help": "The JNDI name that the foreign JNDI object will be bound to in the local JNDI namespace.",
 
   "a-LocalPassword-label": "Local Password",
   "f-WTCServer_WTCPassword-a-LocalPassword-help": "The local password used to authenticate connections between the local access point and the remote access point. Note that this password is used to authenticate connections between the local Tuxedo access point identified by LocalAccessPoint and the remote Tuxedo access point identified by RemoteAccessPoint.",
@@ -2832,6 +2834,7 @@
   "f-JDBCSystemResource_JdbcResource_JDBCDriverParams-a-PasswordEncrypted-help": "The password attribute passed to the JDBC driver when creating physical database connections.",
   "f-JMSSystemResource_JmsResource_ForeignServer_ForeignConnectionFactory-a-PasswordEncrypted-help": "The password used in conjunction with the user name specified in the Username parameter to access the remote connection factory.",
   "f-JMSSystemResource_JmsResource_SAFRemoteContext_SAFLoginContext-a-PasswordEncrypted-help": "The password for the username used to log into the remote URL.",
+  "f-ForeignJNDIProvider-a-PasswordEncrypted-help": "The remote server's user password.",
 
   "a-PasswordStyle-label": "Password Style",
   "a-PasswordStyleRetained-label": "Password Style Retained",
@@ -2959,7 +2962,10 @@
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-ProfileType-help": "Specifies the type of profile data to be collected for the JDBC subsystem. To enable a multiple profiling options, the value should be set to the sum of each option's numeric value. For example, to enable the Connection Usage, Connection Leak and Connection Unwrap Usage options the value would be set to 261 (1 + 4 + 256) or 0x105 (0x001 + 0x004 + 0x100).",
 
   "a-PropagateCauseForLoginException-label": "Propagate Cause For Login Exception",
+
   "a-Properties-label": "Properties",
+  "f-ForeignJNDIProvider-a-Properties-help": "Any additional properties that must be set for the JNDI provider. These properties will be passed directly to the constructor for the JNDI provider's InitialContext class.",
+
   "a-PropertiesVersion-label": "Properties Version",
 
   "a-Property-label": "Property",
@@ -2968,7 +2974,10 @@
   "a-ProtectedCookieEnabled-label": "Protected Cookie Enabled",
   "a-Protocol-label": "Protocol",
   "a-ProviderClassName-label": "Provider Class Name",
+
   "a-ProviderUrl-label": "Provider URL",
+  "f-ForeignJNDIProvider-a-ProviderUrl-help": "The foreign JNDI provider URL. This value corresponds to the standard JNDI property, java.naming.provider.url.",
+
   "a-ProvisionedCertificatesIssuerEnabled-label": "Provisioned Certificates Issuer Enabled",
   "a-ProxyAddress-label": "Proxy Address",
   "a-ProxyPort-label": "Proxy Port",
@@ -3093,7 +3102,9 @@
   "a-RemoteConsoleHelperEnabled-label": "Remote Console Helper Enabled",
   "a-RemoteDomain-label": "Remote Domain",
   "a-RemoteHost-label": "Remote Host",
+
   "a-RemoteJNDIName-label": "Remote JNDI Name",
+  "f-ForeignJNDIProvider_ForeignJNDILink-a-RemoteJNDIName-help": "The JNDI name in the foreign JNDI provider's namespace.",
 
   "a-RemoteJndiName-label": "Remote JNDI Name",
   "f-JMSSystemResource_JmsResource_ForeignServer_ForeignConnectionFactory-a-RemoteJndiName-help": "The name of the remote object that will be looked up in the remote JNDI directory.",
@@ -3904,7 +3915,10 @@
 
   "a-UsedAssertionCacheClassName-label": "Used Assertion Cache Class Name",
   "a-UsedAssertionCacheProperties-label": "Used Assertion Cache Properties",
+
   "a-User-label": "User",
+  "f-ForeignJNDIProvider-a-User-help": "The remote server's user name.",
+
   "a-UserAuthenticationAssertionAttribute-label": "User Authentication Assertion Attribute",
   "a-UserBaseDn-label": "User Base Dn",
   "a-UserDefinedMib-label": "User Defined Mib",

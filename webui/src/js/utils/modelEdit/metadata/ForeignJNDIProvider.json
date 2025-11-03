@@ -1,0 +1,55 @@
+{
+  "ForeignJNDIProvider": {
+    "summaryAttributes": {
+      "ProviderURL": {},
+      "Target": {}
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "ProviderUrl",
+              "Properties",
+              "User",
+              "PasswordEncrypted",
+              "InitialContextFactory",
+              "DeploymentOrder",
+              "Notes",
+              "Target"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "addRemainingAttributes": true
+          }
+        ]
+      }
+    ]
+  },
+  "ForeignJNDIProvider/ForeignJNDILink": {
+    "summaryAttributes": {
+      "RemoteJNDIName": {},
+      "LocalJNDIName": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "RemoteJNDIName",
+          "LocalJNDIName",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  }
+}
