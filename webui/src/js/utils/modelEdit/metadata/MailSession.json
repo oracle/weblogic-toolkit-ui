@@ -1,0 +1,27 @@
+{
+  "MailSession": {
+    "summaryAttributes": {
+      "JNDIName": {},
+      "Target": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "JNDIName",
+          "Properties",
+          "SessionUsername",
+          "SessionPasswordEncrypted",
+          "DeploymentOrder",
+          "Notes",
+          "Target"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  }
+}

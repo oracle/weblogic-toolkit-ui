@@ -2106,6 +2106,7 @@
   "f-JMSSystemResource_JmsResource_Topic-a-JNDIName-help": "The JNDI Name for this JMS topic. The global JNDI name used to look up a connection factory within a clustered JNDI namespace. In a clustered environment, this name is propagated to the entire cluster. If you want the JNDI name to be bound only on the local server, and not propagated to the rest of the cluster, then use the Local JNDI Name setting. If not specified, then the connection factory is not bound into a clustered JNDI namespace.",
   "f-JMSSystemResource_JmsResource_UniformDistributedQueue-a-JNDIName-help": "The JNDI Name for this JMS uniform distributed queue. The global JNDI name used to look up a connection factory within a clustered JNDI namespace. In a clustered environment, this name is propagated to the entire cluster. If you want the JNDI name to be bound only on the local server, and not propagated to the rest of the cluster, then use the Local JNDI Name setting. If not specified, then the connection factory is not bound into a clustered JNDI namespace.",
   "f-JMSSystemResource_JmsResource_UniformDistributedTopic-a-JNDIName-help": "The JNDI Name for this JMS uniform distributed topic. The global JNDI name used to look up a connection factory within a clustered JNDI namespace. In a clustered environment, this name is propagated to the entire cluster. If you want the JNDI name to be bound only on the local server, and not propagated to the rest of the cluster, then use the Local JNDI Name setting. If not specified, then the connection factory is not bound into a clustered JNDI namespace.",
+  "f-MailSession-a-JNDIName-help": "The JNDI Name for this JavaMail session.",
 
   "a-JNDIPasswordEncrypted-label": "JNDI Password Encrypted",
 
@@ -2986,6 +2987,7 @@
 
   "a-Properties-label": "Properties",
   "f-ForeignJNDIProvider-a-Properties-help": "Any additional properties that must be set for the JNDI provider. These properties will be passed directly to the constructor for the JNDI provider's InitialContext class.",
+  "f-MailSession-a-Properties-help": "The configuration options and user authentication data that this JavaMail session uses to interact with the email server. Each property that you specify overrides the default property value as defined by the JavaMail API Design Specification. Include only the properties defined by the JavaMail API Design Specification. If you do not specify any properties, this mail session will use the JavaMail default property values.",
 
   "a-PropertiesVersion-label": "Properties Version",
 
@@ -3464,12 +3466,18 @@
   "a-SessionFlushInterval-label": "Session Flush Interval",
   "a-SessionFlushThreshold-label": "Session Flush Threshold",
   "a-SessionLazyDeserializationEnabled-label": "Session Lazy Deserialization Enabled",
-  "a-SessionPasswordEncrypted-label": "Session Password Encrypted",
+
+  "a-SessionPasswordEncrypted-label": "Session Password",
+  "f-MailSession-a-SessionPasswordEncrypted-help": "The JavaMail Session password attribute.",
+
   "a-SessionReplicationOnShutdownEnabled-label": "Session Replication On Shutdown Enabled",
   "a-SessionStateQueryProtocolEnabled-label": "Session State Query Protocol Enabled",
   "a-SessionStateQueryRequestTimeout-label": "Session State Query Request Timeout",
   "a-SessionTimeout-label": "Session Timeout",
+
   "a-SessionUsername-label": "Session Username",
+  "f-MailSession-a-SessionUsername-help": "The username to be used to create an authenticated JavaMail Session, using a JavaMail Authenticator instance; if this is not set, it will be assumed that the Session is not to be authenticated.",
+
   "a-SessionsMaximum-label": "Sessions Maximum",
   "a-Severity-label": "Severity",
 

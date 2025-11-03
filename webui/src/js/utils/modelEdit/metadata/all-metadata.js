@@ -23,6 +23,7 @@ define(
     'text!./JMSSystemResource.json',
     'text!./JoltConnectionPool.json',
     'text!./Library.json',
+    'text!./MailSession.json',
     'text!./MessagingBridge.json',
     'text!./OPSSInitialization.json',
     'text!./PluginDeployment.json',
