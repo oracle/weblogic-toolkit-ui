@@ -1,0 +1,56 @@
+{
+  "JoltConnectionPool": {
+    "summaryAttributes": {
+      "PrimaryAddress": {},
+      "Target": {}
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "PrimaryAddress",
+              "FailoverAddress",
+              "MinimumPoolSize",
+              "MaximumPoolSize",
+              "RecvTimeout",
+              "DeploymentOrder",
+              "Notes",
+              "Target"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "security-tab-label",
+        "attributes": [
+          "UserName",
+          "UserRole",
+          "UserPasswordEncrypted",
+          "ApplicationPasswordEncrypted",
+          "SecurityContextEnabled"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "ssl-tab-label",
+        "attributes": [
+          "KeyStoreName",
+          "KeyStorePassPhraseEncrypted",
+          "TrustStoreName",
+          "TrustStorePassPhraseEncrypted",
+          "KeyPassPhraseEncrypted"
+        ]
+      }
+    ]
+  }
+}

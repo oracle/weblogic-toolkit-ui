@@ -21,6 +21,7 @@ define(
     'text!./JMSBridgeDestination.json',
     'text!./JMSServer.json',
     'text!./JMSSystemResource.json',
+    'text!./JoltConnectionPool.json',
     'text!./Library.json',
     'text!./MessagingBridge.json',
     'text!./OPSSInitialization.json',
