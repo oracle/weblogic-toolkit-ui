@@ -1,0 +1,123 @@
+{
+  "WebAppContainer": {
+    "attributeDetails": {
+      "XPoweredByHeaderLevel": {
+        "options": [
+          { "value": "NONE", "labelKey":  "options-none-label" },
+          { "value": "SHORT", "labelKey":  "options-short-label" },
+          { "value": "MEDIUM", "labelKey":  "options-medium-label" },
+          { "value": "FULL", "labelKey":  "options-full-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "ServletReloadCheckSecs",
+              "PostTimeoutSecs",
+              "MaxPostTimeSecs",
+              "MaxPostSize",
+              "MaxSingleHeaderSize",
+              "MaxTotalHeadersSize",
+              "MaxRequestParameterCount",
+              "XPoweredByHeaderLevel",
+              "MimeMappingFile",
+              "WeblogicPluginEnabled",
+              "WAPEnabled",
+              "AuthCookieEnabled",
+              "ReloginEnabled",
+              "AllowAllRoles",
+              "FilterDispatchedRequestsEnabled",
+              "OverloadProtectionEnabled",
+              "OptimisticSerialization",
+              "RtexprvalueJspParamName",
+              "ClientCertProxyEnabled",
+              "HttpTraceSupportEnabled",
+              "ChangeSessionIDOnAuthentication",
+              "SynchronizedSessionTimeoutEnabled",
+              "WorkContextPropagationEnabled",
+              "JSPCompilerBackwardsCompatible",
+              "ShowArchivedRealPathEnabled",
+              "RejectMaliciousPathParameters",
+              "JaxRsMonitoringDefaultBehavior",
+              "RetainOriginalURL",
+              "ServletAuthenticationFormURL",
+              "SameSiteFilterSecureChannelRequired",
+              "SameSiteFilterCookieSetting",
+              "SameSiteFilterUserAgentRegEx",
+              "P3PHeaderValue",
+              "FormAuthXFrameOptionsHeaderValue",
+              "RestrictUserManagementAccessPattern",
+              "Notes"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "MaxRequestParamterCount"
+        ]
+      },
+      {
+        "type": "folderTab",
+        "folder": "Http2Config"
+      },
+      {
+        "type": "folderTab",
+        "folder": "GzipCompression"
+      }
+    ]
+  },
+  "WebAppContainer/GzipCompression": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "GzipCompressionEnabled",
+          "GzipCompressionContentType",
+          "GzipCompressionMinContentLength",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "WebAppContainer/Http2Config": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "MaxConcurrentStreams",
+          "MaxFrameSize",
+          "MaxStreamResets",
+          "MaxHeaderListSize",
+          "InitialWindowSize",
+          "ContinuationFramesLimit",
+          "HeaderTableSize",
+          "FrameCountLimitResetInterval",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  }
+}

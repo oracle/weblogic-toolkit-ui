@@ -160,7 +160,8 @@
   "options-no-priv-label": "No Privacy",
   "options-aes-128-label": "AES (128-bit)",
   "options-no-auth-label": "No Authentication",
-  "options-md5-label": "",
+  "options-medium-label": "Medium",
+  "options-full-label": "Full",
 
   "direction-jms-queue-to-tuxedo-queue-label": "JMS Queue to Tuxedo Queue",
   "direction-tuxedo-queue-to-jms-queue-label": "Tuxedo Queue to JMS Queue",
@@ -344,7 +345,9 @@
   "a-AllCandidateServers-label": "All Candidate Servers",
   "a-AllGroupsFilter-label": "All Groups Filter",
   "a-AllUsersFilter-label": "All Users Filter",
+
   "a-AllowAllRoles-label": "Allow All Roles",
+  "f-WebAppContainer-a-AllowAllRoles-help": "In the security-constraints elements defined in a web application's web.xml deployment descriptor, the auth-constraint element indicates the user roles that should be permitted access to this resource collection. Here role-name = \"*\" is a compact syntax for indicating all roles in the Web application. In previous releases, role-name = \"*\" was treated as all users/roles defined in the realm. This parameter is a backward-compatibility switch to restore old behavior. Default behavior is one required by the specification, meaning all roles defined in the web application. If set, the value defined in weblogic.xml (container-descriptor -> allow-all-roles) takes precedence (if set) over this value.",
 
   "a-AllowAnonymous-label": "Allow Anonymous",
   "f-WTCServer_WTCRemoteTuxDom-a-AllowAnonymous-help": "Specifies whether the anonymous user is allowed to access remote Tuxedo services. Note that if the anonymous user is allowed to access Tuxedo, the default AppKey will be used for TpUsrFile and LDAP AppKey plug-ins. Interaction with the Custom AppKey plug-in depends on the design of the Custom AppKey generator.",
@@ -455,7 +458,10 @@
 
   "a-AudienceEnabled-label": "Audience Enabled",
   "a-AuditorTypes-label": "Auditor Types",
+
   "a-AuthCookieEnabled-label": "Auth Cookie Enabled",
+  "f-WebAppContainer-a-AuthCookieEnabled-help": "Specifies whether the AuthCookie feature is enabled or not.",
+
   "a-AuthMethods-label": "Auth Methods",
   "a-AuthenticationEnabled-label": "Authentication Enabled",
 
@@ -595,7 +601,10 @@
   "a-CertificateRefreshWindow-label": "Certificate Refresh Window",
   "a-CertificateRequestProperties-label": "Certificate Request Properties",
   "a-CertificateValidityPeriod-label": "Certificate Validity Period",
+
   "a-ChangeSessionIDOnAuthentication-label": "Change Session ID On Authentication",
+  "f-WebAppContainer-a-ChangeSessionIDOnAuthentication-help": "Global property to determine if we need to generate a new SessionID after authentication. When this property is set to \"false\", the previous sessionID will be retained even after authorization.",
+
   "a-ChannelIdentityCustomized-label": "Channel Identity Customized",
   "a-ChannelWeight-label": "Channel Weight",
 
@@ -640,7 +649,10 @@
   "a-ClientAsUserPrincipalEnabled-label": "Client As User Principal Enabled",
   "a-ClientCertAlias-label": "Client Cert Alias",
   "a-ClientCertPrivateKeyPassPhraseEncrypted-label": "Client Cert Private Key Passphrase Encrypted",
+
   "a-ClientCertProxyEnabled-label": "Client Cert Proxy Enabled",
+  "f-WebAppContainer-a-ClientCertProxyEnabled-help": "Specifies whether or not to honor the WL-Proxy-Client-Cert header coming with the request.",
+
   "a-ClientCertificateEnforced-label": "Client Certificate Enforced",
 
   "a-ClientId-label": "Client ID",
@@ -838,6 +850,8 @@
   "f-SelfTuning_WorkManager-a-ContextRequestClass-help": "The name of the ContextRequestClass that defines the mapping between the current context (security principal, group) and the request class to use. ContextRequestClass provides a mapping between security names/groups and request classes. During work schedule, the exact request class is determined by looking at the security information of the caller. ContextRequestClass is not a request class by itself and is used to hold the mapping of request classes.",
 
   "a-ContinuationFramesLimit-label": "Continuation Frames Limit",
+  "f-WebAppContainer_Http2Config-a-ContinuationFramesLimit-help": "The number of CONTINUATION frames allowed per stream.",
+
   "a-ControlFlag-label": "Control Flag",
 
   "a-ConversationIdleTimeMaximum-label": "Conversation Idle Time Maximum",
@@ -1862,7 +1876,10 @@
   "f-SAFAgent_JmssafMessageLogFile-a-FileTimeSpanFactor-help": "This factor is defined so that log rotation can be tested at a different frequency. The default value is 3600000.",
 
   "a-Filter-label": "Filter",
+
   "a-FilterDispatchedRequestsEnabled-label": "Filter Dispatched Requests Enabled",
+  "f-WebAppContainer-a-FilterDispatchedRequestsEnabled-help": "Indicates whether or not to apply filters to dispatched requests. This is a backward compatibility flag. Until version 8.1, WebLogic Server applied ServletFilters (if configured for the web application) on request dispatches (and includes/forwards). Servlet 2.4 has introduced the \"Dispatcher\" element to make this behavior explicit. The default value is Dispatcher=REQUEST. In order to be compliant with the Java EE specification, the default value for FilterDispatchedRequestsEnabled is false beginning with WebLogic Server 9.0. Note that if you are using old descriptors (meaning web.xml does not have version=2.4), then WebLogic Server automatically uses FilterDispatchedRequestsEnabled = true for the web applications, unless filter-dispatched-requests-enabled is explicitly set to false in weblogic.xml. This means that old applications will work fine without any modification. Additionally, during migration of old domains to the 9.0 domain, the migration plug-in automatically sets this flag to true.",
+
   "a-FilterExpression-label": "Filter Expression",
 
   "a-FldTbl16Class-label": "FMW Field Table 16-bit Class",
@@ -1895,7 +1912,10 @@
   "a-ForceShutdownTimeoutNumOfThreadDump-label": "Force Shutdown Timeout Num Of Thread Dump",
   "a-ForceShutdownTimeoutThreadDumpInterval-label": "Force Shutdown Timeout Thread Dump Interval",
   "a-ForgetHeuristics-label": "Forget Heuristics",
-  "a-FormAuthXFrameOptionsHeaderValue-label": "Form Auth X Frame Options Header Value",
+
+  "a-FormAuthXFrameOptionsHeaderValue-label": "Form Authentication X-Frame-Options Header Value",
+  "f-WebAppContainer-a-FormAuthXFrameOptionsHeaderValue-help": "Returns the X-Frame-Options header value (DENY, SAMEORIGIN, or ALLOW-FROM uri) that will be set in the responses for all requests to the \"j_security_check\" endpoint when using FORM authentication.",
+
   "a-FormBasedNegotiationEnabled-label": "Form Based Negotiation Enabled",
   "a-Formatter-label": "Formatter",
 
@@ -1909,6 +1929,8 @@
   "a-ForwardingPolicy-help": "The uniform distributed topic message Forwarding Policy specifies whether a sent message is forwarded to all members. Note: This attribute is ignored by standalone/singleton Topics, it only applies to distributed topics.",
 
   "a-FrameCountLimitResetInterval-label": "Frame Count Limit Reset Interval",
+  "f-WebAppContainer_Http2Config-a-FrameCountLimitResetInterval-help": "The frame count limit reset interval.",
+
   "a-FreeMemoryPercentHighThreshold-label": "Free Memory Percent High Threshold",
   "a-FreeMemoryPercentLowThreshold-label": "Free Memory Percent Low Threshold",
   "a-FrontendHTTPPort-label": "Frontend HTTP Port",
@@ -1946,9 +1968,16 @@
   "a-GroupsTokenClaim-label": "Groups Token Claim",
   "a-GuardianEnabled-label": "Guardian Enabled",
   "a-GuidAttribute-label": "Guid Attribute",
-  "a-GzipCompressionContentType-label": "Gzip Compression Content Type",
-  "a-GzipCompressionEnabled-label": "Gzip Compression Enabled",
-  "a-GzipCompressionMinContentLength-label": "Gzip Compression Min Content Length",
+
+  "a-GzipCompressionContentType-label": "GZIP Compression Content Type",
+  "f-WebAppContainer_GzipCompression-a-GzipCompressionContentType-help": "The list of content MIME types to be included in compression.",
+
+  "a-GzipCompressionEnabled-label": "GZIP Compression Enabled",
+  "f-WebAppContainer_GzipCompression-a-GzipCompressionEnabled-help": "This global property determines whether or not the container should provide GZIP compression.",
+
+  "a-GzipCompressionMinContentLength-label": "GZIP Compression Min Content Length",
+  "f-WebAppContainer_GzipCompression-a-GzipCompressionMinContentLength-help": "The minimum content length to trigger GZIP compression. This allows you to bypass small-sized resources where compression does not yield a great return and uses unnecessary CPU.",
+
   "a-HandleEntityInvalidation-label": "Handle Entity Invalidation",
   "a-HandlerDefaults-label": "Handler Defaults",
   "a-HandlerEnabled-label": "Handler Enabled",
@@ -1960,7 +1989,10 @@
 
   "a-HarvestedAttribute-label": "Harvested Attribute",
   "a-HarvestedInstance-label": "Harvested Instance",
+
   "a-HeaderTableSize-label": "Header Table Size",
+  "f-WebAppContainer_Http2Config-a-HeaderTableSize-help": "The server's maximum size of the header compression table used to decode header blocks, in octets.",
+
   "a-HealthCheckIntervalMillis-label": "Health Check Interval Millis",
   "a-HealthCheckIntervalSeconds-label": "Health Check Interval Seconds",
   "a-HealthCheckPeriodsUntilFencing-label": "Health Check Periods Until Fencing",
@@ -1993,7 +2025,10 @@
   "a-HttpAuthenticationUserName-label": "HTTP Authentication User Name",
   "a-HttpEnabledForThisProtocol-label": "HTTP Enabled For This Protocol",
   "a-HttpPingRetryCount-label": "HTTP Ping Retry Count",
+
   "a-HttpTraceSupportEnabled-label": "HTTP Trace Support Enabled",
+  "f-WebAppContainer-a-HttpTraceSupportEnabled-help": "The value of HttpTraceSupportEnabled.",
+
   "a-HttpdEnabled-label": "Httpd Enabled",
   "a-HttpsKeepAliveSecs-label": "Https Keep Alive Secs",
   "a-IIOPConnectionPools-label": "IIOP Connection Pools",
@@ -2094,6 +2129,7 @@
   "f-FileStore-a-InitialSize-help": "The initial file size, in bytes.",
 
   "a-InitialWindowSize-label": "Initial Window Size",
+  "f-WebAppContainer_Http2Config-a-InitialWindowSize-help": "The server's initial window size (in octets) for stream-level flow control. This setting affects the window size of all streams.",
 
   "a-InsertionPausedAtStartup-label": "Insertion Paused At Startup",
   "a-InsertionPausedAtStartup-help": "Specifies whether new message insertion is paused on a destination at startup.",
@@ -2176,7 +2212,10 @@
   "a-JNDITransportableObjectFactoryList-label": "JNDI Transportable Object Factory List",
   "a-JNDIUsername-label": "JNDI Username",
   "a-JRMPEnabled-label": "JRMP Enabled",
+
   "a-JSPCompilerBackwardsCompatible-label": "JSP Compiler Backwards Compatible",
+  "f-WebAppContainer-a-JSPCompilerBackwardsCompatible-help": "Global property to determine the behavior of the JSP compiler. When this property set to \"true\", the JSP compiler throws a translation error for JSPs that do not conform to the JSP2.0 specification. This property exists for backward compatibility.",
+
   "a-JSSEEnabled-label": "JSSE Enabled",
   "a-JTAMigratableTarget-label": "JTA Migratable Target",
 
@@ -2202,7 +2241,9 @@
   "a-JavaVendor-label": "Java Vendor",
   "f-SystemComponent_SystemComponentStart-a-JavaVendor-help": "The Java Vendor value to use when starting this server. If the server is part of a cluster and configured for automatic migration across possibly different platforms with different vendors providing the JDKs, then, both JavaVendor and JavaHome should be set in the generated configuration file instead.",
 
-  "a-JaxRsMonitoringDefaultBehavior-label": "Jax Rs Monitoring Default Behavior",
+  "a-JaxRsMonitoringDefaultBehavior-label": "JAX-RS Monitoring Default Behavior",
+  "f-WebAppContainer-a-JaxRsMonitoringDefaultBehavior-help": "Global property to determine the behavior of monitoring in JAX-RS applications. When the property is set to true (or not set) the monitoring is turned on (if not overridden by properties set directly in application). If the property is set to false the monitoring for all JAX-RS applications is disabled.",
+
   "a-JmsConnectionFactory-label": "JMS Connection Factory",
   "a-JmsConnectionFactoryUnmappedResRefMode-label": "JMS Connection Factory Unmapped Res Ref Mode",
 
@@ -2489,6 +2530,8 @@
   "f-ManagedThreadFactoryTemplate-a-MaxConcurrentNewThreads-help": "The maximum number of concurrent new threads that can be created by this Managed Thread Factory (MTF).",
 
   "a-MaxConcurrentStreams-label": "Max Concurrent Streams",
+  "f-WebAppContainer_Http2Config-a-MaxConcurrentStreams-help": "The maximum number of concurrent streams that the server will allow. This limit is directional: it applies to the number of streams that the server permits the receiver to create.",
+
   "a-MaxConnectedClients-label": "Max Connected Clients",
   "a-MaxConsecutiveCharacters-label": "Max Consecutive Characters",
   "a-MaxDynamicClusterSize-label": "Max Dynamic Cluster Size",
@@ -2501,10 +2544,15 @@
   "f-FileStore-a-MaxFileSize-help": "The maximum file size, in bytes, of an individual data file. A small number of larger files is normally preferred over a large number of smaller files as each file allocates Window Buffer and file handles. If MaxFileSize is larger than 2^24 * BlockSize, then MaxFileSize is ignored, and the value becomes 2^24 * BlockSize. The default BlockSize is 512, and 2^24 * 512 is 8 GB.",
 
   "a-MaxFrameSize-label": "Max Frame Size",
+  "f-WebAppContainer_Http2Config-a-MaxFrameSize-help": "The size of the largest frame payload that the server is willing to receive, in octets.",
+
   "a-MaxGroupHierarchiesInCache-label": "Max Group Hierarchies In Cache",
   "a-MaxGroupMembershipSearchLevel-label": "Max Group Membership Search Level",
   "a-MaxHTTPMessageSize-label": "Max HTTP Message Size",
+
   "a-MaxHeaderListSize-label": "Max Header List Size",
+  "f-WebAppContainer_Http2Config-a-MaxHeaderListSize-help": "The maximum size of header list that the server is prepared to accept, in octets. The value is based on the uncompressed size of header fields, including the length of the name and value in octets plus an overhead of 32 octets for each header field.",
+
   "a-MaxHeapDumpCount-label": "Max Heap Dump Count",
   "a-MaxIIOPMessageSize-label": "Max IIOP Message Size",
 
@@ -2515,11 +2563,18 @@
   "a-MaxMessageSize-label": "Max Message Size",
   "a-MaxOpenSockCount-label": "Max Open Sock Count",
   "a-MaxPasswordLength-label": "Max Password Length",
+
   "a-MaxPostSize-label": "Max Post Size",
+  "f-WebAppContainer-a-MaxPostSize-help": "The maximum post size this server allows for reading HTTP POST data in a servlet request. A value less than 0 indicates an unlimited size.",
+
   "a-MaxPostTimeSecs-label": "Max Post Time Secs",
+  "f-WebAppContainer-a-MaxPostTimeSecs-help": "Maximum post time (in seconds) for reading HTTP POST data in a servlet request. MaxPostTime < 0 means unlimited.",
+
   "a-MaxProcessingDelay-label": "Max Processing Delay",
+
   "a-MaxRequestParameterCount-label": "Max Request Parameter Count",
-  "a-MaxRequestParamterCount-label": "Max Request Paramter Count",
+  "f-WebAppContainer-a-MaxRequestParameterCount-help": "The maximum request parameter count this server allows for reading maximum HTTP POST parameters count in a servlet request. Gets the maxRequestParameterCount attribute of the WebServerMBean object.",
+
   "a-MaxResourceRequestsOnServer-label": "Max Resource Requests On Server",
   "a-MaxResourceUnavailableMillis-label": "Max Resource Unavailable Millis",
   "a-MaxRestartAllowed-label": "Max Restart Allowed",
@@ -2537,9 +2592,14 @@
   "a-MaxSIDToGroupLookupsInCache-label": "Max SID To Group Lookups In Cache",
   "a-MaxSecondarySelectionAttempts-label": "Max Secondary Selection Attempts",
   "a-MaxServerCountForHttpPing-label": "Max Server Count For HTTP Ping",
+
   "a-MaxSingleHeaderSize-label": "Max Single Header Size",
+  "f-WebAppContainer-a-MaxSingleHeaderSize-help": "The maximum size of a single header (name and value) this server allows in a servlet request. A value less than 0 indicates an unlimited size.",
+
   "a-MaxSize-label": "Max Size",
+
   "a-MaxStreamResets-label": "Max Stream Resets",
+  "f-WebAppContainer_Http2Config-a-MaxStreamResets-help": "Gets the maximum number of stream resets(RST_STREAM frames) allowed per connection.",
 
   "a-MaxStuckThreadTime-label": "Max Stuck Thread Time",
   "f-SelfTuning_WorkManager_WorkManagerShutdownTrigger-a-MaxStuckThreadTime-help": "Time in seconds after which a executing thread is marked as stuck.",
@@ -2550,8 +2610,9 @@
   "a-MaxThreadsConstraint-label": "Max Threads Constraint",
   "f-SelfTuning_WorkManager-a-MaxThreadsConstraint-help": "The name of the MaxThreadsConstraint that defines the maximum number of concurrent threads that can be allocated to execute requests.",
 
-  "a-MaxThreadsConstraintQueueSize-label": "Max Threads Constraint Queue Size",
   "a-MaxTotalHeadersSize-label": "Max Total Headers Size",
+  "f-WebAppContainer-a-MaxTotalHeadersSize-help": "The maximum total headers size this server allows for reading HTTP headers in a servlet request. A value less than 0 indicates an unlimited size.",
+
   "a-MaxTransactions-label": "Max Transactions",
   "a-MaxTransactionsHealthIntervalMillis-label": "Max Transactions Health Interval Millis",
   "a-MaxUniqueNameStatistics-label": "Max Unique Name Statistics",
@@ -2671,7 +2732,10 @@
   "f-SingletonService-a-MillisToSleepBetweenAttempts-help": "Controls how long of a pause there should be between the migration attempts described in getAdditionalMigrationAttempts(). Note that this delay only happens when the service has failed to come up on every server. It does not cause any sort of delay between attempts to migrate otherwise.",
 
   "a-MillisToSleepBetweenAutoMigrationAttempts-label": "Milliseconds To Sleep Between Auto Migration Attempts",
+
   "a-MimeMappingFile-label": "Mime Mapping File",
+  "f-WebAppContainer-a-MimeMappingFile-help": "The name of the file containing mime-mappings for the domain. The format of the file should be: extension=mime-type.",
+
   "a-MinAlphabeticCharacters-label": "Min Alphabetic Characters",
 
   "a-MinCapacity-label": "Min Capacity",
@@ -2878,6 +2942,8 @@
   "f-JDBCSystemResource_JdbcResource_JDBCOracleParams-a-OnsWalletPasswordEncrypted-help": "The wallet password attribute that is included as part of the ONS client configuration string. This attribute is only required when ONS is configured to use the SSL protocol.",
 
   "a-OptimisticSerialization-label": "Optimistic Serialization",
+  "f-WebAppContainer-a-OptimisticSerialization-help": "When OptimisticSerialization is turned on, WebLogic Server does not serialize-deserialize context and request attributes upon getAttribute(name) when a request gets dispatched across servlet contexts. This means you will need to make sure that the attributes common to web applications are scoped to a common parent classloader (they are application-scoped) or placed in the system classpath if the two web applications do not belong to the same application. When OptimisticSerialization is turned off (which is the default), WebLogic Server does serialize-deserialize context and request attributes upon getAttribute(name) to avoid the possibility of ClassCastExceptions. The value of OptimisticSerialization can also be overridden for specific web applications by setting the optimistic-serialization value in weblogic.xml.",
+
   "a-OracleEnableJavaNetFastPath-label": "Oracle Enable Java Net Fast Path",
 
   "a-OracleOptimizeUtf8Conversion-label": "Oracle Optimize UTF8 Conversion",
@@ -2900,9 +2966,14 @@
   "a-OutboundPrivateKeyPassPhraseEncrypted-label": "Outbound Private Key Passphrase Encrypted",
   "a-OutboundReferenceHostAllowList-label": "Outbound Reference Host Allow List",
   "a-OutputMedium-label": "Output Medium",
+
   "a-OverloadProtectionEnabled-label": "Overload Protection Enabled",
+  "f-WebAppContainer-a-OverloadProtectionEnabled-help": "This parameter is used to enable overload protection in the web application container against low memory conditions. When a low memory situation occurs, new session creation attempts will result in weblogic.servlet.SessionCreationException. The application code needs to catch this exception and take proper action. Alternatively appropriate error-pages can be configured in web.xml against weblogic.servlet.SessionCreationException. This check is performed only on memory and replicated sessions.",
+
   "a-OverloadResponseCode-label": "Overload Response Code",
+
   "a-P3PHeaderValue-label": "P3P Header Value",
+  "f-WebAppContainer-a-P3PHeaderValue-help": "Returns the P3P header value that will be sent with all responses for HTTP requests (if non-null). The value of this header points to the location of the policy reference file for the website. Alternatively, a servlet filter can be used to set the P3P header.",
 
   "a-PagingBlockSize-label": "Paging Block Size",
   "f-JMSServer-a-PagingBlockSize-help": "The smallest addressable block, in bytes, of a file. When a native wlfileio driver is available and the paging block size has not been configured by the user, the store selects the minimum OS specific value for unbuffered (direct) I/O, if it is within the range [512, 8192]. A paging store's block size does not change once the paging store creates its files. Changes to block size only take effect for new paging stores or after the current files have been deleted.",
@@ -3055,7 +3126,10 @@
   "a-PostRecipientCheckEnabled-label": "Post Recipient Check Enabled",
   "a-PostScript-label": "Post Script",
   "a-PostScriptFailureFatal-label": "Post Script Failure Fatal",
-  "a-PostTimeoutSecs-label": "Post Timeout Secs",
+
+  "a-PostTimeoutSecs-label": "Post Timeout Seconds",
+  "f-WebAppContainer-a-PostTimeoutSecs-help": "The amount of time (in seconds) the server waits between receiving chunks of data in an HTTP POST data before it times out. (This is used to prevent denial-of-service attacks that attempt to overload the server with POST data.)",
+
   "a-PreScript-label": "Pre Script",
   "a-PreferAltId-label": "Prefer Alt ID",
   "a-PreferredSecondaryGroup-label": "Preferred Secondary Group",
@@ -3236,9 +3310,14 @@
   "a-RefreshReplicaAtStartup-label": "Refresh Replica At Startup",
   "a-RejectEqualOrContainReverseUsername-label": "Reject Equal Or Contain Reverse Username",
   "a-RejectEqualOrContainUsername-label": "Reject Equal Or Contain Username",
+
   "a-RejectMaliciousPathParameters-label": "Reject Malicious Path Parameters",
+  "f-WebAppContainer-a-RejectMaliciousPathParameters-help": "Specifies whether URIs with malicious path parameters will be rejected. By default, URIs with malicious path parameters will be rejected.",
+
   "a-ReliableDeliveryPolicy-label": "Reliable Delivery Policy",
-  "a-ReloginEnabled-label": "Relogin Enabled",
+
+  "a-ReloginEnabled-label": "Re-Login Enabled",
+  "f-WebAppContainer-a-ReloginEnabled-help": "Beginning with the 9.0 release, the FORM/BASIC authentication behavior has been modified to conform strictly to the Java EE Specification. If a user has logged-in but does not have privileges to access a resource, the 403 (FORBIDDEN) page will be returned. Turn this flag on to enable the old behavior, which was to return the user to the login form.",
 
   "a-RemoteAccessPoint-label": "Remote Access Point",
   "a-RemoteAccessPoint-help": "The name of the remote access point to which this password applies.",
@@ -3371,7 +3450,10 @@
   "f-SystemComponent-a-RestartMax-help": "The number of times that the Node Manager can restart this server within the interval specified in RestartIntervalSeconds.",
 
   "a-RestartOnFailure-label": "Restart On Failure",
+
   "a-RestrictUserManagementAccessPattern-label": "Restrict User Management Access Pattern",
+  "f-WebAppContainer-a-RestrictUserManagementAccessPattern-help": "The Username patterns for the WebLogic Restrict User Management Access Servlet Filter. Specify username patterns for the WebLogic Restrict User Management Access Servlet (RestrictUserManagementAccess) filter. Username patterns consist of a string array of regular expressions. When the RestrictUserManagementAccess filter matches any of the specified regular expressions with the principal name of the user in the security context for the HTTP request of a WebLogic management application (such as WebLogic Remote Console, REST APIs, and so on), the filter will block the user from accessing the application and terminate the user session. The messages about blocked requests will appear in the server log file. The regular expression must follow the Java Pattern syntax specification.",
+
   "a-RestrictiveJmxPolicies-label": "Restrictive Jmx Policies",
   "a-ResultsTimeLimit-label": "Results Time Limit",
 
@@ -3379,6 +3461,8 @@
   "f-SelfTuning_WorkManager_WorkManagerShutdownTrigger-a-ResumeWhenUnstuck-help": "Whether to resume the work manager once the stuck threads are cleared.",
 
   "a-RetainOriginalURL-label": "Retain Original URL",
+  "f-WebAppContainer-a-RetainOriginalURL-help": "The retain-original-url property is used in FORM based authentication scenarios. When this property is set to true, after a successful authentication, WebLogic Server will redirect back to the web resource (page/servlet) retaining the protocol (http/https) used to access the protected resource in the original request. If set to false (which is the default value), WebLogic Server will redirect back to the protected resource using the current protocol. The retain-original-url value can also be specified at per web application level in weblogic.xml. The value in weblogic.xml, if specified, overrides the domain level value.",
+
   "a-RetireTimeoutSeconds-label": "Retire Timeout Seconds",
   "a-RetransmissionExponentialBackoff-label": "Retransmission Exponential Backoff",
 
@@ -3428,7 +3512,10 @@
 
   "a-RowPrefetch-label": "Row Prefetch",
   "a-RowPrefetchSize-label": "Row Prefetch Size",
-  "a-RtexprvalueJspParamName-label": "Rtexprvalue Jsp Param Name",
+
+  "a-RtexprvalueJspParamName-label": "Error on JSP Param Name with Request Time Value",
+  "f-WebAppContainer-a-RtexprvalueJspParamName-help": "Global property which determines the behavior of the JSP compiler when a jsp:param attribute \"name\" has a request time value. Without this property set to \"true\", the JSP compiler throws an error for a JSP using a request time value for the \"name\" attribute as mandated by the JSP 2.0 specification. This property exists for backward compatibility.",
+
   "a-RuleExpression-label": "Rule Expression",
   "a-RuleType-label": "Rule Type",
 
@@ -3494,9 +3581,15 @@
   "a-SafExportPolicy-help": "Specifies whether a user can send messages to a destination using Store-and-Forward.",
   "f-JMSSystemResource_JmsResource_Template-a-SafExportPolicy-help": "Specifies whether a user can send messages to destinations that use this template using Store-and-Forward.",
 
-  "a-SameSiteFilterCookieSetting-label": "Same Site Filter Cookie Setting",
-  "a-SameSiteFilterSecureChannelRequired-label": "Same Site Filter Secure Channel Required",
-  "a-SameSiteFilterUserAgentRegEx-label": "Same Site Filter User Agent Reg Ex",
+  "a-SameSiteFilterCookieSetting-label": "SameSite Filter Cookie Setting",
+  "f-WebAppContainer-a-SameSiteFilterCookieSetting-help": "The HTTP Cookie configuration for the WebLogic HTTP SameSite Java EE Servlet Filter. The Cookie configuration specifies a String array of settings. Each setting specifies a match for the Cookie name using a regular expression, a value for the SameSite attribute and optionally, a secure setting for the Cookie. The regular expression follows the Java Pattern syntax specification.",
+
+  "a-SameSiteFilterSecureChannelRequired-label": "SameSite Filter Secure Channel Required",
+  "f-WebAppContainer-a-SameSiteFilterSecureChannelRequired-help": "The Secure Channel configuration specifies if a secure channel is required when setting the SameSite Cookie attribute where the Secure attribute is also set to true for the specific Cookie. By default, the Secure attribute setting will be applied for any channel as the user agent may reside in front of a proxy or load balancer when accessing resources.",
+
+  "a-SameSiteFilterUserAgentRegEx-label": "SameSite Filter User Agent Regular Expression",
+  "f-WebAppContainer-a-SameSiteFilterUserAgentRegEx-help": "The User Agent configuration specifies a String array of regular expressions. When the WebLogic HTTP SameSite filter matches any of these expressions with the HTTP User-Agent header value, then the Cookie settings will be applied for the HTTP request. The regular expression follows the Java Pattern syntax specification. By default, there are no expressions, thus the SameSite Cookie settings are applied for all requests.",
+
   "a-SamplePeriod-label": "Sample Period",
   "a-ScalingSize-label": "Scaling Size",
   "a-ScatteredReadsEnabled-label": "Scattered Reads Enabled",
@@ -3622,7 +3715,11 @@
   "f-SAFAgent-a-ServiceType-help": "The type of service that this SAF agent provides. JMS requires only a Sending agent on the sending side for messages. Whereas, Web Services Reliable Messaging requires both a Sending and Receiving agent for messages.",
 
   "a-ServletAuthenticationFormURL-label": "Servlet Authentication Form URL",
-  "a-ServletReloadCheckSecs-label": "Servlet Reload Check Secs",
+  "f-WebAppContainer-a-ServletAuthenticationFormURL-help": "ServletAuthenticationFormURL is used for backward compatibility with previous releases of Weblogic Server. If ServletAuthenticationFormURL is set to true (default), then ServletAuthentication.getTargetURLForFormAuthentication() and HttpSession.getAttribute(AuthFilter.TARGET_URL) will return the URL of the protected target resource. If set to false, the above APIs will return the URI of the protected target resource. By default, the value is set to true.(new method added in 9.0.0.1).",
+
+  "a-ServletReloadCheckSecs-label": "Servlet Reload Check Seconds",
+  "f-WebAppContainer-a-ServletReloadCheckSecs-help": "Controls how often WebLogic Server checks for modifications to servlets and reloads them if changes are detected.",
+
   "a-SessionFlushInterval-label": "Session Flush Interval",
   "a-SessionFlushThreshold-label": "Session Flush Threshold",
   "a-SessionLazyDeserializationEnabled-label": "Session Lazy Deserialization Enabled",
@@ -3652,7 +3749,9 @@
   "a-SharedCapacityForWorkManagers-label": "Shared Capacity For Work Managers",
   "a-SharedCapacityPercent-label": "Shared Capacity Percent",
   "a-ShellCommand-label": "Shell Command",
+
   "a-ShowArchivedRealPathEnabled-label": "Show Archived Real Path Enabled",
+  "f-WebAppContainer-a-ShowArchivedRealPathEnabled-help": "Global property to determine the behavior of getRealPath() for archived web applications. When this property is set to \"true\", getRealPath() will return the canonical path of the resource files.",
 
   "a-ShrinkFactorPercent-label": "Shrink Factor Percent",
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-ShrinkFactorPercent-help": "The percentage of the number of available connections to shrink from current pool capacity to the maximum of the configured minimum capacity, the current number of in-use connections or the running average (if configured).",
@@ -3823,7 +3922,10 @@
   "a-SyncFilterOnlyClientCertRequests-label": "Sync Filter Only Client Cert Requests",
   "a-SyncFilterPreferHeader-label": "Sync Filter Prefer Header",
   "a-SyncFilterUserHeaderName-label": "Sync Filter User Header Name",
+
   "a-SynchronizedSessionTimeoutEnabled-label": "Synchronized Session Timeout Enabled",
+  "f-WebAppContainer-a-SynchronizedSessionTimeoutEnabled-help": "Indicates whether to also invalidate all the other sessions when one of the sessions that share the same ID expires.",
+
   "a-SynchronousEventPersistenceEnabled-label": "Synchronous Event Persistence Enabled",
 
   "a-SynchronousPrefetchMode-label": "Synchronous Prefetch Mode",
@@ -4213,7 +4315,10 @@
   "a-VirtualThreadEnableOption-label": "Virtual Thread Enable Option",
   "a-VirtualUserAllowed-label": "Virtual User Allowed",
   "a-WANSessionPersistenceTableName-label": "WAN Session Persistence Table Name",
+
   "a-WAPEnabled-label": "WAP Enabled",
+  "f-WebAppContainer-a-WAPEnabled-help": "Indicates whether the session ID should include JVM information. (Checking this box may be necessary when using URL rewriting with WAP devices that limit the size of the URL to 128 characters, and may also affect the use of replicated sessions in a cluster.) When this box is selected, the default size of the URL will be set at 52 characters, and it will not contain any special characters.",
+
   "a-WLDFBuiltinSystemResourceDescriptorBean-label": "WLDF Builtin System Resource Descriptor Bean",
   "a-WaitForAllSessionsDuringShutdown-label": "Wait For All Sessions During Shutdown",
   "a-WantArtifactRequestsSigned-label": "Want Artifact Requests Signed",
@@ -4241,7 +4346,10 @@
   "a-WebLogicHome-label": "WebLogic Home",
   "a-WebModule-label": "Web Module",
   "a-WebRjvmSupport-label": "Web RJVM Support",
+
   "a-WeblogicPluginEnabled-label": "WebLogic Plug-in Enabled",
+  "f-WebAppContainer-a-WeblogicPluginEnabled-help": "Specifies whether or not the proprietary WL-Proxy-Client-IP header should be honored. (This is needed only when WebLogic Server plug-ins are configured.)",
+
   "a-Weight-label": "Weight",
   "a-WhenToCache-label": "When To Cache",
 
@@ -4258,6 +4366,8 @@
   "f-WTCServer_WTCtBridgeGlobal-a-WlsErrorDestination-help": "The name of the location used to store WebLogic Server JMS messages when a message cannot be redirected. If not specified, all messages not redirected are lost. If the message cannot be placed into WlsErrorDestination for any reason, an error is logged and the message is lost.",
 
   "a-WorkContextPropagationEnabled-label": "Work Context Propagation Enabled",
+  "f-WebAppContainer-a-WorkContextPropagationEnabled-help": "Indicates whether or not WorkContextPropagation is enabled. By default, it is turned on. There is a little overhead involved in propagating WorkContexts. Therefore, if you don't want WorkContext propagation, turn this value off in production environments.",
+
   "a-WorkManagerForRemoteSessionFetching-label": "Work Manager For Remote Session Fetching",
 
   "a-WorkerCount-label": "Worker Count",
@@ -4287,7 +4397,10 @@
 
   "a-XMLEntityCache-label": "XML Entity Cache",
   "a-XMLRegistry-label": "XML Registry",
-  "a-XPoweredByHeaderLevel-label": "X Powered By Header Level",
+
+  "a-XPoweredByHeaderLevel-label": "X-Powered-By Header Level",
+  "f-WebAppContainer-a-XPoweredByHeaderLevel-help": "WebLogic Server uses the X-Powered-By HTTP header, as recommended by the Servlet 3.1 specification, to publish its implementation information.",
+
   "a-XaEndOnlyOnce-label": "XA End Only Once",
 
   "a-XaRetryDurationSeconds-label": "XA Retry Duration Seconds",
@@ -4535,7 +4648,7 @@
   "f-any_Group-typeLabel": "Group",
   "f-any_GroupParams-label": "Group Parameters",
   "f-any_GroupParams-typeLabel": "Group Param",
-  "f-any_GzipCompression-label": "Gzip Compression",
+  "f-any_GzipCompression-label": "GZIP Compression",
   "f-any_Handler-label": "Handlers",
   "f-any_Handler-typeLabel": "Handler",
   "f-any_HarvestedType-label": "Harvested Types",
@@ -4545,7 +4658,7 @@
   "f-any_HeapDumpAction-label": "Heap Dump Actions",
   "f-any_HeapDumpAction-typeLabel": "Heap Dump Action",
   "f-any_HeapRetained-label": "Heap Retained",
-  "f-any_Http2Config-label": "HTTP 2 Config",
+  "f-any_Http2Config-label": "HTTP/2 Configuration",
   "f-any_IIOP-label": "IIOP",
   "f-any_IPlanetAuthenticator-label": "I Planet Authenticator",
   "f-any_ImageNotification-label": "Image Notifications",

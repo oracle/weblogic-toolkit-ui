@@ -44,6 +44,7 @@ define(
     'text!./StartupClass.json',
     'text!./SystemComponent.json',
     'text!./Topology.json',
+    'text!./WebAppContainer.json',
     'text!./WLDFSystemResource.json',
     'text!./WLSPolicies.json',
     'text!./WLSRoles.json',
