@@ -409,7 +409,10 @@
   "a-ArchiveConfigurationCount-label": "Archive Configuration Count",
 
   "a-Argument-label": "Argument",
+
   "a-Arguments-label": "Arguments",
+  "f-SystemComponent_SystemComponentStart-a-Arguments-help": "The arguments to use when starting this server. These are the first arguments appended immediately after java portion of the startup command. For example, you can set Java heap memory or specify any weblogic.nodemanager.server.provider.WeblogicCacheServer option.\n\n",
+
   "f-StartupClass-a-Arguments-help": "Arguments that a server uses to initialize the Startup class. Separate multiple arguments with a comma.",
   "f-ShutdownClass-a-Arguments-help": "Arguments that a server uses to initialize the Shutdown class. Separate multiple arguments with a comma.",
 
@@ -471,7 +474,10 @@
   "a-AutoMigrationTableCreationDdlFile-label": "Auto Migration Table Creation DDL File",
   "a-AutoMigrationTableCreationPolicy-label": "Auto Migration Table Creation Policy",
   "a-AutoMigrationTableName-label": "Auto Migration Table Name",
+
   "a-AutoRestart-label": "Auto Restart",
+  "f-SystemComponent-a-AutoRestart-help": "Specifies whether the Node Manager can automatically restart this server if it crashes or otherwise goes down unexpectedly.",
+
   "a-AutoRestartOnNonDynamicChanges-label": "Auto Restart On Non Dynamic Changes",
   "a-AutoTargetAdminServer-label": "Auto Target Admin Server",
   "a-AvailableTargets-label": "Available Targets",
@@ -621,6 +627,8 @@
   "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceClusterParams_CoherenceIdentityAsserter-a-ClassName-help": "The class that implements com.tangosol.net.security.IdentityAsserter. If className is empty, no IdentityAsserter will be configured.",
 
   "a-ClassPath-label": "Class Path",
+  "f-SystemComponent_SystemComponentStart-a-ClassPath-help": "The classpath (path on the machine running Node Manager) to use when starting this server. If you need to add user classes to the classpath, in addition you will need to add the following: FEATURES_HOME/weblogic.server.modules.coherence.integration.jar:COHERENCE_HOME/lib/coherence.jar where FEATURES_HOME is the features directory (typically $WL_HOME/modules/features) and COHERENCE_HOME the coherence directory (typically $ORACLE_HOME/coherence) on the Node Manager machine. If you do not specify a classpath the above will be used automatically. The operating system determines which character separates path elements. On Windows, use a semicolon (;). On UNIX a colon (:).",
+
   "a-ClassloaderWebApp-label": "Classloader Web App",
   "a-Classpath-label": "Classpath",
   "a-ClasspathServlet-label": "Classpath Servlet",
@@ -729,7 +737,9 @@
   "a-CompleteT3MessageTimeout-label": "Complete T3 Message Timeout",
   "a-CompleteWriteTimeout-label": "Complete Write Timeout",
   "a-CompletionTimeoutSeconds-label": "Completion Timeout Seconds",
+
   "a-ComponentType-label": "Component Type",
+  "f-SystemComponent-a-ComponentType-help": "The system component type Examples of types may include \"OHS\", \"Coherence\". New System Components may be added in the future so the list of types is not static.",
 
   "a-CompressionThreshold-label": "Compression Threshold",
   "f-JMSSystemResource_JmsResource_SAFRemoteContext-a-CompressionThreshold-help": "The number of bytes for a serialized message body so that any message that exceeds this limit triggers message compression when the message is about to be sent across a SAF agent's JVM boundary. The compression will occur on the sending-side SAF agent's JVM if the message body size exceeds the threshold limit.",
@@ -2180,13 +2190,18 @@
   "f-EJBContainer-a-JavaCompilerPreClassPath-help": "Provides a list of the options to prepend to the Java compiler classpath when you compile Java code.",
 
   "a-JavaHome-label": "Java Home",
+  "f-SystemComponent_SystemComponentStart-a-JavaHome-help": "The Java home directory (path on the machine running Node Manager) to use when starting this server.",
+
   "a-JavaServiceConsoleEnabled-label": "Java Service Console Enabled",
   "a-JavaServiceEnabled-label": "Java Service Enabled",
   "a-JavaServiceResourcesEnabled-label": "Java Service Resources Enabled",
   "a-JavaStandardTrustEnabled-label": "Java Standard Trust Enabled",
   "a-JavaStandardTrustKeyStorePassPhrase-label": "Java Standard Trust Key Store Passphrase",
   "a-JavaStandardTrustKeyStorePassPhraseEncrypted-label": "Java Standard Trust Key Store Passphrase Encrypted",
+
   "a-JavaVendor-label": "Java Vendor",
+  "f-SystemComponent_SystemComponentStart-a-JavaVendor-help": "The Java Vendor value to use when starting this server. If the server is part of a cluster and configured for automatic migration across possibly different platforms with different vendors providing the JDKs, then, both JavaVendor and JavaHome should be set in the generated configuration file instead.",
+
   "a-JaxRsMonitoringDefaultBehavior-label": "Jax Rs Monitoring Default Behavior",
   "a-JmsConnectionFactory-label": "JMS Connection Factory",
   "a-JmsConnectionFactoryUnmappedResRefMode-label": "JMS Connection Factory Unmapped Res Ref Mode",
@@ -2434,7 +2449,10 @@
 
   "a-MSIFileReplicationEnabled-label": "MSI File Replication Enabled",
   "a-MTUSize-label": "MTU Size",
+
   "a-Machine-label": "Machine",
+  "f-SystemComponent-a-Machine-help": "The WebLogic Server host computer (machine) on which this server is meant to run. If you want to use a Node Manager to start this server, you must assign the server to a machine and you must configure the machine for the Node Manager.",
+
   "a-MachineMatchExpression-label": "Machine Match Expression",
   "a-MachineMatchType-label": "Machine Match Type",
   "a-MachineNameMatchExpression-label": "Machine Name Match Expression",
@@ -2740,8 +2758,13 @@
   "a-MulticastTimeToLive-help": "The number of routers that a message traverses en route to a consumer. A value of 1 limits the message to one subnet (which prevents it from traversing any routers). This value is independent of the JMSExpirationTime value.",
 
   "a-MuxerClass-label": "Muxer Class",
-  "a-MwHome-label": "Mw Home",
-  "a-NMSocketCreateTimeoutInMillis-label": "NM Socket Create Timeout In Millis",
+
+  "a-MwHome-label": "Middleware Home",
+  "f-SystemComponent_SystemComponentStart-a-MwHome-help": "The Middleware Home directory (path on the machine running Node Manager) to use when starting this server. Specify the directory on the Node Manager machine under which all of Oracle's MW products were installed. For example, c:\\Oracle\\Middleware\\.",
+
+  "a-NMSocketCreateTimeoutInMillis-label": "Node Manager Socket Create Timeout In Milliseconds",
+  "f-SystemComponent-a-NMSocketCreateTimeoutInMillis-help": "The timeout value to be used by NodeManagerRuntime when creating a socket connection to the agent. Default set high as SSH agent may require a high connection establishment time.",
+
   "a-NMType-label": "NM Type",
   "a-NTAuthHost-label": "NT Auth Host",
 
@@ -3330,7 +3353,9 @@
   "a-ResponseTimeout-label": "Response Timeout",
   "a-RestInvocationMethodType-label": "Rest Invocation Method Type",
   "a-RestartDelay-label": "Restart Delay",
+
   "a-RestartDelaySeconds-label": "Restart Delay Seconds",
+  "f-SystemComponent-a-RestartDelaySeconds-help": "The number of seconds the Node Manager should wait before restarting this server. After killing a server process, the system might need several seconds to release the TCP port(s) the server was using. If Node Manager attempts to restart the Managed Server while its ports are still active, the startup attempt fails. If AutoMigration is enabled and RestartDelaySeconds is 0, the RestartDelaySeconds is automatically set to the lease time. This prevents the server from failing to restart after migration when the previous lease is still valid.",
 
   "a-RestartInPlace-label": "Restart In Place",
   "f-FileStore-a-RestartInPlace-help": "Enables a periodic automatic in-place restart of failed cluster-targeted or standalone-server-targeted JMS artifact instance(s) running on healthy WebLogic Server instances. See the migratable target settings for in-place restarts of migratable-targeted JMS artifacts. When the Restart In Place setting is configured on a store, it applies to all JMS artifacts that reference the store.",
@@ -3338,8 +3363,13 @@
   "f-MessagingBridge-a-RestartInPlace-help": "Enables a periodic automatic in-place restart of failed cluster-targeted or standalone-server-targeted JMS artifact instance(s) running on healthy WebLogic Server instances. See the migratable target settings for in-place restarts of migratable-targeted JMS artifacts. When the Restart In Place setting is configured on a store, it applies to all JMS artifacts that reference the store.",
 
   "a-RestartIntervalSeconds-label": "Restart Interval Seconds",
+  "f-SystemComponent-a-RestartIntervalSeconds-help": "The number of seconds during which this server can be restarted, up to the number of times specified in RestartMax.",
+
   "a-RestartLoopProtectionEnabled-label": "Restart Loop Protection Enabled",
+
   "a-RestartMax-label": "Restart Max",
+  "f-SystemComponent-a-RestartMax-help": "The number of times that the Node Manager can restart this server within the interval specified in RestartIntervalSeconds.",
+
   "a-RestartOnFailure-label": "Restart On Failure",
   "a-RestrictUserManagementAccessPattern-label": "Restrict User Management Access Pattern",
   "a-RestrictiveJmxPolicies-label": "Restrictive Jmx Policies",
@@ -3377,7 +3407,10 @@
   "a-RoleName-label": "Role Name",
   "a-RollbackLocalTxUponConnClose-label": "Rollback Local Tx Upon Conn Close",
   "a-Root-label": "Root",
+
   "a-RootDirectory-label": "Root Directory",
+  "f-SystemComponent_SystemComponentStart-a-RootDirectory-help": "The directory that this server uses as its root directory. This directory must be on the computer that hosts the Node Manager. If you do not specify a Root Directory value, the domain directory is used by default.",
+
   "a-RootElementTag-label": "Root Element Tag",
   "a-RootStagingDir-label": "Root Staging Dir",
 
