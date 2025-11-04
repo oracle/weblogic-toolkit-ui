@@ -39,6 +39,8 @@ define(
     'text!./Server.json',
     'text!./ShutdownClass.json',
     'text!./SingletonService.json',
+    'text!./SNMPAgent.json',
+    'text!./SnmpAgentDeployment.json',
     'text!./StartupClass.json',
     'text!./Topology.json',
     'text!./WLDFSystemResource.json',

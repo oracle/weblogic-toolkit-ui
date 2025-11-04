@@ -100,12 +100,6 @@
       "modelPath": ["resources", "SAFAgent"]
     },
     {
-      "modelPath": ["resources", "SNMPAgent"]
-    },
-    {
-      "modelPath": ["resources", "SnmpAgentDeployment"]
-    },
-    {
       "modelPath": ["resources", "SelfTuning"],
       "children": [
         {
@@ -138,9 +132,57 @@
       "modelPath": ["resources", "SingletonService"]
     },
     {
-      "modelPath": ["resources", "SnmpAgentDeployment"]
+      "modelPath": ["resources", "SNMPAgent"],
+      "children": [
+        {
+          "modelPath": ["resources", "SNMPAgent", "SNMPProxy"]
+        },
+        {
+          "modelPath": ["resources", "SNMPAgent", "SNMPGaugeMonitor"]
+        },
+        {
+          "modelPath": ["resources", "SNMPAgent", "SNMPStringMonitor"]
+        },
+        {
+          "modelPath": ["resources", "SNMPAgent", "SNMPCounterMonitor"]
+        },
+        {
+          "modelPath": ["resources", "SNMPAgent", "SNMPLogFilter"]
+        },
+        {
+          "modelPath": ["resources", "SNMPAgent", "SNMPAttributeChange"]
+        },
+        {
+          "modelPath": ["resources", "SNMPAgent", "SNMPTrapDestination"]
+        }
+      ]
     },
     {
+      "modelPath": ["resources", "SnmpAgentDeployment"],
+      "instanceChildren": [
+        {
+          "modelPath": ["SNMPProxy"]
+        },
+        {
+          "modelPath": ["SNMPGaugeMonitor"]
+        },
+        {
+          "modelPath": ["SNMPStringMonitor"]
+        },
+        {
+          "modelPath": ["SNMPCounterMonitor"]
+        },
+        {
+          "modelPath": ["SNMPLogFilter"]
+        },
+        {
+          "modelPath": ["SNMPAttributeChange"]
+        },
+        {
+          "modelPath": ["SNMPTrapDestination"]
+        }
+      ]
+    },    {
       "modelPath": ["resources", "StartupClass"]
     },
     {

@@ -1,0 +1,311 @@
+{
+  "SNMPAgent": {
+    "summaryAttributes": {
+      "Enabled": {},
+      "SNMPTrapVersion": {},
+      "ListenAddress": {},
+      "SNMPPort": {}
+    },
+    "attributeDetails": {
+      "AuthenticationProtocol": {
+        "options": [
+          { "value": "noAuth", "labelKey": "options-no-auth-label" },
+          { "value": "MD5", "label": "MD5" },
+          { "value": "SHA", "label": "SHA" }
+        ]
+      },
+      "PrivacyProtocol": {
+        "options": [
+          { "value": "noPriv", "labelKey": "options-no-priv-label" },
+          { "value": "DES", "label": "DES" },
+          { "value": "AES_128", "labelKey": "options-aes-128-label" }
+        ]
+      },
+      "SNMPTrapVersion": {
+        "options": [
+          { "value": "1", "labelKey": "options-v1-label" },
+          { "value": "2", "labelKey": "options-v2-label" },
+          { "value": "3", "labelKey": "options-v3-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "Enabled",
+              "ListenAddress",
+              "SNMPPort",
+              "MasterAgentXPort",
+              "CommunityBasedAccessEnabled",
+              "CommunityPrefix",
+              "SNMPTrapVersion",
+              "SendAutomaticTrapsEnabled",
+              "SnmpEngineId",
+              "AuthenticationProtocol",
+              "PrivacyProtocol",
+              "InformEnabled",
+              "InformRetryInterval",
+              "MaxInformRetryCount",
+              "LocalizedKeyCacheInvalidationInterval",
+              "SnmpAccessForUserMBeansEnabled",
+              "Notes"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type":"hidden",
+        "attributes": [
+          "DebugLevel",
+          "MibDataRefreshInterval",
+          "ServerStatusCheckIntervalFactor",
+          "UserDefinedMib"
+        ]
+      },
+      {
+        "type": "folderTab",
+        "folder": "SNMPProxy"
+      },
+      {
+        "type": "folderTab",
+        "folder": "SNMPGaugeMonitor"
+      },
+      {
+        "type": "folderTab",
+        "folder": "SNMPStringMonitor"
+      },
+      {
+        "type": "folderTab",
+        "folder": "SNMPCounterMonitor"
+      },
+      {
+        "type": "folderTab",
+        "folder": "SNMPLogFilter"
+      },
+      {
+        "type": "folderTab",
+        "folder": "SNMPAttributeChange"
+      },
+      {
+        "type": "folderTab",
+        "folder": "SNMPTrapDestination"
+      }
+    ]
+  },
+  "SNMPAgent/SNMPAttributeChange": {
+    "summaryAttributes": {
+      "AttributeMBeanName": {},
+      "AttributeMBeanType": {},
+      "AttributeName": {},
+      "EnabledServer": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "AttributeMBeanName",
+          "AttributeMBeanType",
+          "AttributeName",
+          "Notes",
+          "EnabledServer"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "SNMPAgent/SNMPCounterMonitor": {
+    "summaryAttributes": {
+      "MonitoredMBeanName": {},
+      "MonitoredMBeanType": {},
+      "MonitoredAttributeName": {},
+      "EnabledServer": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "MonitoredMBeanName",
+          "MonitoredMBeanType",
+          "MonitoredAttributeName",
+          "PollingInterval",
+          "Offset",
+          "Modulus",
+          "Threshold",
+          "Notes",
+          "EnabledServer"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "SNMPAgent/SNMPGaugeMonitor": {
+    "summaryAttributes": {
+      "MonitoredMBeanName": {},
+      "MonitoredMBeanType": {},
+      "MonitoredAttributeName": {},
+      "EnabledServer": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "MonitoredMBeanName",
+          "MonitoredMBeanType",
+          "MonitoredAttributeName",
+          "PollingInterval",
+          "ThresholdLow",
+          "ThresholdHigh",
+          "Notes",
+          "EnabledServer"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "SNMPAgent/SNMPLogFilter": {
+    "summaryAttributes": {
+      "SubsystemName": {},
+      "MessageId": {},
+      "EnabledServer": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "SubsystemName",
+          "SeverityLevel",
+          "MessageId",
+          "UserId",
+          "MessageSubstring",
+          "Notes",
+          "EnabledServer"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "SNMPAgent/SNMPProxy": {
+    "summaryAttributes": {
+      "ListenAddress": {},
+      "Port": {},
+      "OidRoot": {}
+    },
+    "attributeDetails": {
+      "SecurityLevel": {
+        "options": [
+          { "value": "noAuthNoPriv", "labelKey":  "options-no-auth-no-priv-label" },
+          { "value": "authNoPriv", "labelKey":  "options-auth-no-priv-label" },
+          { "value": "authPriv", "labelKey":  "options-auth-priv-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "ListenAddress",
+          "Port",
+          "OidRoot",
+          "Timeout",
+          "SecurityLevel",
+          "SecurityName",
+          "Community",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "SNMPAgent/SNMPStringMonitor": {
+    "summaryAttributes": {
+      "MonitoredMBeanName": {},
+      "MonitoredMBeanType": {},
+      "MonitoredAttributeName": {},
+      "EnabledServer": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "MonitoredMBeanName",
+          "MonitoredMBeanType",
+          "MonitoredAttributeName",
+          "PollingInterval",
+          "NotifyMatch",
+          "NotifyDiffer",
+          "StringToCompare",
+          "Notes",
+          "EnabledServer"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "SNMPAgent/SNMPTrapDestination": {
+    "summaryAttributes": {
+      "Host": {},
+      "Port": {}
+    },
+    "attributeDetails": {
+      "SecurityLevel": {
+        "options": [
+          { "value": "noAuthNoPriv", "labelKey":  "options-no-auth-no-priv-label" },
+          { "value": "authNoPriv", "labelKey":  "options-auth-no-priv-label" },
+          { "value": "authPriv", "labelKey":  "options-auth-priv-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "Host",
+          "Port",
+          "SecurityLevel",
+          "SecurityName",
+          "Community",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  }
+}
