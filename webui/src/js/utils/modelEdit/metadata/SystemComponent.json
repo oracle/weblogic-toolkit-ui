@@ -1,0 +1,65 @@
+{
+  "SystemComponent": {
+    "summaryAttributes": {
+      "ComponentType": {},
+      "Machine": {}
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "ComponentType",
+              "Machine",
+              "AutoRestart",
+              "RestartDelaySeconds",
+              "RestartIntervalSeconds",
+              "RestartMax",
+              "NMSocketCreateTimeoutInMillis",
+              "Notes"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "folderTab",
+        "folder": "SystemComponentStart"
+      }
+    ]
+  },
+  "SystemComponent/SystemComponentStart": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "JavaHome",
+          "JavaVendor",
+          "MwHome",
+          "RootDirectory",
+          "ClassPath",
+          "Arguments",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "BeaHome"
+        ]
+      }
+    ]
+  }
+}

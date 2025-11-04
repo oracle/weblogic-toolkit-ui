@@ -42,6 +42,7 @@ define(
     'text!./SNMPAgent.json',
     'text!./SnmpAgentDeployment.json',
     'text!./StartupClass.json',
+    'text!./SystemComponent.json',
     'text!./Topology.json',
     'text!./WLDFSystemResource.json',
     'text!./WLSPolicies.json',
