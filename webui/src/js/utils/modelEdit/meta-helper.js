@@ -24,12 +24,21 @@ define(['utils/modeledit/metadata/all-metadata'],
       };
 
       this.getAttributeDetails = (aliasPath, attributeName) => {
+        // try at full alias path
         let metadata = this.getMetadata(aliasPath);
         let attributeDetails = metadata['attributeDetails'] || {};
         if(attributeName in attributeDetails) {
           return attributeDetails[attributeName];
         }
 
+        // try at top alias path
+        metadata = this.getMetadata(aliasPath.slice(0, 1));
+        attributeDetails = metadata['attributeDetails'] || {};
+        if(attributeName in attributeDetails) {
+          return attributeDetails[attributeName];
+        }
+
+        // try at global level
         metadata = this.getMetadata(['any']);
         attributeDetails = metadata['attributeDetails'] || {};
         return attributeDetails[attributeName] || {};
