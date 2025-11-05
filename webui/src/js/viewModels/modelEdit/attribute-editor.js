@@ -6,12 +6,13 @@
 'use strict';
 
 define(['accUtils', 'knockout', 'utils/dialog-helper', 'utils/wkt-logger', 'ojs/ojarraydataprovider',
-  'ojs/ojmodule-element-utils', 'utils/modelEdit/meta-handlers', 'utils/modelEdit/meta-validators',
-  'utils/modelEdit/model-edit-helper', 'utils/modelEdit/message-helper', 'utils/modelEdit/alias-helper',
-  'oj-c/button', 'oj-c/input-text', 'oj-c/list-view', 'oj-c/input-password'
+  'ojs/ojmodule-element-utils', 'utils/modelEdit/meta-handlers', 'utils/modelEdit/meta-options',
+  'utils/modelEdit/meta-validators', 'utils/modelEdit/model-edit-helper', 'utils/modelEdit/message-helper',
+  'utils/modelEdit/alias-helper', 'oj-c/button', 'oj-c/input-text', 'oj-c/list-view', 'oj-c/input-password',
+  'oj-c/select-single', 'oj-c/select-multiple', 'ojs/ojselectcombobox'
 ],
 function(accUtils, ko, DialogHelper, WktLogger, ArrayDataProvider,
-  ModuleElementUtils, MetaHandlers, MetaValidators, ModelEditHelper, MessageHelper, AliasHelper) {
+  ModuleElementUtils, MetaHandlers, MetaOptions, MetaValidators, ModelEditHelper, MessageHelper, AliasHelper) {
 
   function AttributeEditor(args) {
     const ATTRIBUTE = args.attribute;
@@ -22,7 +23,7 @@ function(accUtils, ko, DialogHelper, WktLogger, ArrayDataProvider,
 
     this.attribute = ATTRIBUTE;
     this.observable = ATTRIBUTE.observable;
-    this.displayType = ModelEditHelper.getDisplayType(ATTRIBUTE);
+    this.editorType = ModelEditHelper.getEditorType(ATTRIBUTE);
 
     // this.menuIconClass = 'oj-ux-ico-edit-box';
     // this.menuIconClass = 'oj-ux-ico-three-boxes-vertical';
@@ -38,16 +39,12 @@ function(accUtils, ko, DialogHelper, WktLogger, ArrayDataProvider,
       return MessageHelper.t(`attribute-editor-${labelId}`, payload);
     };
 
-    this.attributeLabel = attribute => {
-      return MessageHelper.getAttributeLabel(attribute, ALIAS_PATH);
-    };
+    this.attributeLabel = MessageHelper.getAttributeLabel(ATTRIBUTE, ALIAS_PATH);
 
-    this.attributeHelp = attribute => {
-      return MessageHelper.getAttributeHelp(attribute, ALIAS_PATH);
-    };
+    this.attributeHelp = MessageHelper.getAttributeHelp(ATTRIBUTE, ALIAS_PATH);
 
-    this.isTextDisplayType = () => {
-      return ['string', 'integer', 'double'].includes(this.displayType);
+    this.isTextEditorType = () => {
+      return ['string', 'integer', 'double'].includes(this.editorType);
     };
 
     this.variableName = ko.computed(() => {
@@ -105,10 +102,12 @@ function(accUtils, ko, DialogHelper, WktLogger, ArrayDataProvider,
       }
     });
 
-    this.optionsProvider = null;
-    if(ATTRIBUTE.options) {
-      this.optionsProvider = new ArrayDataProvider(ATTRIBUTE.options, {keyAttributes: 'key'});
+    let options = ATTRIBUTE.options || [];
+    const optionsMethod = ATTRIBUTE.optionsMethod;
+    if(optionsMethod) {
+      options = MetaOptions[optionsMethod](ATTRIBUTE, ATTRIBUTE_MAP);
     }
+    this.optionsProvider = new ArrayDataProvider(options, { keyAttributes: 'value' });
 
     this.validators = [];
     // if validators assigned to attribute, skip any default validation
@@ -116,9 +115,9 @@ function(accUtils, ko, DialogHelper, WktLogger, ArrayDataProvider,
       ATTRIBUTE.validators.forEach(validator => {
         this.validators.push(MetaValidators[validator]);
       });
-    } else if(this.displayType === 'integer') {
+    } else if(this.editorType === 'integer') {
       this.validators.push(MetaValidators.integerValidator);
-    } else if(this.displayType === 'double') {
+    } else if(this.editorType === 'double') {
       this.validators.push(MetaValidators.doubleValidator);
     }
 

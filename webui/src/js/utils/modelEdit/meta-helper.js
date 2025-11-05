@@ -24,19 +24,20 @@ define(['utils/modeledit/metadata/all-metadata'],
       };
 
       this.getAttributeDetails = (aliasPath, attributeName) => {
-        const metadata = this.getMetadata(aliasPath);
-        const attributes = metadata['attributeDetails'] || {};
-        return attributes[attributeName] || {};
+        let metadata = this.getMetadata(aliasPath);
+        let attributeDetails = metadata['attributeDetails'] || {};
+        if(attributeName in attributeDetails) {
+          return attributeDetails[attributeName];
+        }
+
+        metadata = this.getMetadata(['any']);
+        attributeDetails = metadata['attributeDetails'] || {};
+        return attributeDetails[attributeName] || {};
       };
 
       this.getAttributeOptions = (aliasPath, attributeName) => {
         const attributeDetails = this.getAttributeDetails(aliasPath, attributeName);
         return attributeDetails['options'];
-      };
-
-      this.getAttributeTypeOverride = (aliasPath, attributeName) => {
-        const attributeDetails = this.getAttributeDetails(aliasPath, attributeName);
-        return attributeDetails['typeOverride'];
       };
 
       this.getSections = aliasPath => {

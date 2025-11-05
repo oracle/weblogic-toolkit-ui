@@ -20,8 +20,10 @@ function (ko, jsYaml, project, utils,
     const FALSE_VALUES= ['false', '0'];
 
     // types that UI has editors for, not all alias types
-    const DISPLAY_TYPES = ['boolean', 'credential', 'dict', 'double', 'integer', 'list',
-      'select','string'];
+    const EDITOR_TYPES = ['boolean', 'combo', 'comboMulti', 'credential', 'dict', 'double',
+      'integer', 'list', 'select', 'selectMulti', 'string'];
+
+    const LIST_EDITOR_TYPES = ['comboMulti', 'list', 'selectMulti'];
 
     this.modelObject = ko.observable();
     this.variableMap = ko.observable({});
@@ -197,7 +199,6 @@ function (ko, jsYaml, project, utils,
         // translate labels and set keys for any option lists
         const options = details.options || [];
         for (const option of options) {
-          option.key = option.value;
           if(!option.label) {
             option.label = MessageHelper.t(option.labelKey);
           }
@@ -248,13 +249,32 @@ function (ko, jsYaml, project, utils,
     };
 
     this.getObservableValue = (attribute, modelValue) => {
+      if(modelValue == null) {
+        return modelValue;
+      }
+
+      const editorType = getEditorType(attribute);
+
       // convert model type to observable type
-      if(attribute.type === 'boolean') {
+      if(editorType === 'boolean') {
         // YAML 1.2 only allows false, but WDT allows 'false', '0', 0 (0 is false for JS).
         // leave the value alone otherwise, it may be a token.
         const testValue = isString(modelValue) ? modelValue.toLowerCase() : modelValue;
         return (FALSE_VALUES.includes(testValue)) ? false : modelValue;
       }
+
+      if(LIST_EDITOR_TYPES.includes(editorType) && !Array.isArray(modelValue)) {
+        const textValue = modelValue.toString();
+        const elements = textValue.split(',');
+        modelValue = elements.map(item => item.toString().trim());
+        // continue for selectMulti check
+      }
+
+      // Jet oj-c-select-multiple uses Set
+      if(editorType === 'selectMulti') {
+        modelValue = new Set(modelValue);
+      }
+
       return modelValue;
     };
 
@@ -423,13 +443,14 @@ function (ko, jsYaml, project, utils,
     };
 
     // get the secret name for tokens like @@SECRET:<name>:<token>@@
-    this.getSecretName = token => {
-      if(isString(token)) {
+    this.getSecretName = value => {
+      value = this.getCheckToken(value);
+      if(isString(value)) {
         // prepareModel and discover targets may do this
         const domainName = this.getDomainName();
-        token = token.replace('@@ENV:DOMAIN_UID@@', utils.toLegalK8sName(domainName));
+        value = value.replace('@@ENV:DOMAIN_UID@@', utils.toLegalK8sName(domainName));
 
-        const result = token.match(/^@@SECRET:([\w.:-]+)@@$/);
+        const result = value.match(/^@@SECRET:([\w.:-]+)@@$/);
         if(result && (result.length > 1)) {
           return result[1];
         }
@@ -438,9 +459,10 @@ function (ko, jsYaml, project, utils,
     };
 
     // get the variable name for tokens like @@PROP:<token>@@
-    this.getVariableName = token => {
-      if(isString(token)) {
-        const result = token.match(/^@@PROP:([\w.-]+)@@$/);
+    this.getVariableName = value => {
+      value = this.getCheckToken(value);
+      if(isString(value)) {
+        const result = value.match(/^@@PROP:([\w.-]+)@@$/);
         if(result && (result.length > 1)) {
           return result[1];
         }
@@ -460,7 +482,18 @@ function (ko, jsYaml, project, utils,
       return `@@PROP:${variableName}@@`;
     };
 
-    this.getDisplayType = getDisplayType;
+    // the first element of a Set or array may be the token
+    this.getCheckToken = value => {
+      if(value instanceof Set) {  // Jet oj-c-select-multiple uses Set, change to array
+        value = [...value];
+      }
+      if(Array.isArray(value) && (value.length === 1)) {
+        value = value[0];
+      }
+      return value;
+    };
+
+    this.getEditorType = getEditorType;
 
     // *******************
     // internal functions
@@ -525,18 +558,25 @@ function (ko, jsYaml, project, utils,
 
     // refine attribute value for use in the model
     function getModelValue(value, attribute) {
-      if ((getDisplayType(attribute) === 'integer') && isString(value)) {
+      const editorType = getEditorType(attribute);
+
+      if ((editorType === 'integer') && isString(value)) {
         const integerValue = MetaValidators.getIntegerValue(value);
         if(integerValue != null) {
           return integerValue;
         }
       }
 
-      if ((getDisplayType(attribute) === 'double') && isString(value)) {
+      if ((editorType === 'double') && isString(value)) {
         const doubleValue = MetaValidators.getDoubleValue(value);
         if(doubleValue != null) {
           return doubleValue;
         }
+      }
+
+      // Jet oj-c-select-multiple uses Set, change to array
+      if (value instanceof Set) {
+        return [...value];
       }
 
       return value;
@@ -546,51 +586,50 @@ function (ko, jsYaml, project, utils,
       return typeof value === 'string' || value instanceof String;
     }
 
-    function getDisplayType(attribute) {
-      let displayType = attribute.type;
+    function getEditorType(attribute) {
+      let editorType = attribute.type;
 
       // some alias attributes have wlst_type like ${offline:online},
       // in this case use the first value
-      const result = displayType.match(/^\$\{(.*):(.*)}$/);
+      const result = editorType.match(/^\$\{(.*):(.*)}$/);
       if(result && (result.length > 1)) {
-        displayType = result[1];
+        editorType = result[1];
       }
 
-      if('password' === displayType) {
-        displayType = 'credential';
+      if('password' === editorType) {
+        editorType = 'credential';
       }
 
-      if('java.lang.Boolean' === displayType) {
-        displayType = 'boolean';
+      if('java.lang.Boolean' === editorType) {
+        editorType = 'boolean';
       }
 
-      if('properties' === displayType) {
-        displayType = 'dict';
+      if('properties' === editorType) {
+        editorType = 'dict';
       }
 
-      if(('jarray' === displayType) || displayType.startsWith('delimited_string')) {
-        displayType = 'list';
+      if(('jarray' === editorType) || editorType.startsWith('delimited_string')) {
+        editorType = 'list';
       }
 
-      if(attribute['options']) {
-        displayType = 'select';
+      if(('options' in attribute) || ('optionsMethod' in attribute)) {
+        editorType = 'select';
       }
 
-      if('long' === displayType) {
-        displayType = 'integer';
+      if('long' === editorType) {
+        editorType = 'integer';
       }
 
-      const aliasPath = AliasHelper.getAliasPath(attribute.path);
-      const typeOverride = MetaHelper.getAttributeTypeOverride(aliasPath, attribute.name);
+      const typeOverride = attribute['editorType'];
       if(typeOverride) {
-        displayType = typeOverride;
+        editorType = typeOverride;
       }
 
-      if(!DISPLAY_TYPES.includes(displayType)) {
-        WktLogger.error(`Unrecognized type '${displayType}' for attribute ${attribute.name}`);
+      if(!EDITOR_TYPES.includes(editorType)) {
+        WktLogger.error(`Unrecognized type '${editorType}' for attribute ${attribute.name}`);
       }
 
-      return displayType;
+      return editorType;
     }
   }
 

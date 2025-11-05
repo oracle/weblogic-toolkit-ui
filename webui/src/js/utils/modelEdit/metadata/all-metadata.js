@@ -7,6 +7,7 @@
 
 define(
   [
+    'text!./any.json',
     'text!./Application.json',
     'text!./Cluster.json',
     'text!./CoherenceClusterSystemResource.json',
