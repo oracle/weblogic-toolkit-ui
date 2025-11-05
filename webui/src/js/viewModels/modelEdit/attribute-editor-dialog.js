@@ -33,8 +33,13 @@ function(accUtils, ko, project, ArrayDataProvider,
       existingValue = null;  // should we try to get this?
     }
 
+    // Jet oj-c-select-multiple uses Set, convert to array
+    if(existingValue && existingValue instanceof Set) {
+      existingValue = [...existingValue];
+    }
+
+    // change list to comma-separated string to tokenize
     if(existingValue && Array.isArray(existingValue)) {
-      // lists can be turned into variables
       existingValue = existingValue.join(',');
     }
 
@@ -72,7 +77,7 @@ function(accUtils, ko, project, ArrayDataProvider,
     ];
 
     // dictionary attributes can't be tokenized
-    if(ModelEditHelper.getDisplayType(ATTRIBUTE) !== 'dict') {
+    if(ModelEditHelper.getEditorType(ATTRIBUTE) !== 'dict') {
       this.editOptions.push({ value: 'variable', label: this.labelMapper('option-variable') });
       this.editOptions.push({ value: 'newVariable', label: this.labelMapper('option-newVariable') });
     }
@@ -144,7 +149,7 @@ function(accUtils, ko, project, ArrayDataProvider,
           ATTRIBUTE.observable(ModelEditHelper.getVariableToken(this.newVariableName()));
           break;
         default:  // use the existing value, we may be de-tokenizing
-          ATTRIBUTE.observable(existingValue);
+          ATTRIBUTE.observable(ModelEditHelper.getObservableValue(ATTRIBUTE, existingValue));
           break;
       }
 

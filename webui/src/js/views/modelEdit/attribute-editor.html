@@ -6,10 +6,10 @@
 <div class="wkt-model-edit-attribute-container">
   <div class="wkt-model-edit-attribute-container-main">
 
-    <oj-bind-if test="[[displayType === 'credential']]">
+    <oj-bind-if test="[[editorType === 'credential']]">
       <oj-c-input-password
-        label-hint="[[attributeLabel(attribute)]]"
-        help.instruction="[[attributeHelp(attribute)]]"
+        label-hint="[[attributeLabel]]"
+        help.instruction="[[attributeHelp]]"
         value="{{getValueObservable()}}"
         disabled="[[disabled]]"
         readOnly="[[readOnly]]"
@@ -18,10 +18,10 @@
       </oj-c-input-password>
     </oj-bind-if>
 
-    <oj-bind-if test="[[isTextDisplayType()]]">
+    <oj-bind-if test="[[isTextEditorType()]]">
       <oj-c-input-text
-        label-hint="[[attributeLabel(attribute)]]"
-        help.instruction="[[attributeHelp(attribute)]]"
+        label-hint="[[attributeLabel]]"
+        help.instruction="[[attributeHelp]]"
         value="{{getValueObservable()}}"
         disabled="[[disabled]]"
         readOnly="[[readOnly]]"
@@ -30,19 +30,19 @@
       </oj-c-input-text>
     </oj-bind-if>
 
-    <oj-bind-if test="[[displayType === 'list']]">
+    <oj-bind-if test="[[editorType === 'list']]">
       <oj-module config="[[createModuleConfig('modelEdit/list-attribute-editor')]]"></oj-module>
     </oj-bind-if>
 
-    <oj-bind-if test="[[displayType === 'dict']]">
+    <oj-bind-if test="[[editorType === 'dict']]">
       <oj-module config="[[createModuleConfig('modelEdit/dict-attribute-editor')]]"></oj-module>
     </oj-bind-if>
 
-    <oj-bind-if test="[[displayType === 'boolean']]">
+    <oj-bind-if test="[[editorType === 'boolean']]">
       <div class="wkt-model-edit-boolean-box">
         <oj-switch
-          label-hint="[[attributeLabel(attribute)]]"
-          help.instruction="[[attributeHelp(attribute)]]"
+          label-hint="[[attributeLabel]]"
+          help.instruction="[[attributeHelp]]"
           value="{{getValueObservable()}}"
           translations="[[switchTranslations]]"
           disabled="[[disabled]]"
@@ -52,22 +52,60 @@
       </div>
     </oj-bind-if>
 
-    <oj-bind-if test="[[displayType === 'select']]">
-      <oj-select-single
-        label-hint="[[attributeLabel(attribute)]]"
-        help.instruction="[[attributeHelp(attribute)]]"
+    <oj-bind-if test="[[editorType === 'select']]">
+      <oj-c-select-single
+        item-text="label"
+        label-hint="[[attributeLabel]]"
+        help.instruction="[[attributeHelp]]"
         value="{{getValueObservable()}}"
         disabled="[[disabled]]"
         readOnly="[[readOnly]]"
         data="[[optionsProvider]]"
       >
-      </oj-select-single>
+      </oj-c-select-single>
     </oj-bind-if>
 
-    <oj-bind-if test="[[displayType === 'unknown']]">
+    <oj-bind-if test="[[editorType === 'selectMulti']]">
+      <oj-c-select-multiple
+        item-text="label"
+        label-hint="[[attributeLabel]]"
+        help.instruction="[[attributeHelp]]"
+        value="{{getValueObservable()}}"
+        disabled="[[disabled]]"
+        readOnly="[[readOnly]]"
+        data="[[optionsProvider]]"
+      >
+      </oj-c-select-multiple>
+    </oj-bind-if>
+
+    <oj-bind-if test="[[editorType === 'combo']]">
+      <oj-combobox-one
+        label-hint="[[attributeLabel]]"
+        help.instruction="[[attributeHelp]]"
+        value="{{getValueObservable()}}"
+        disabled="[[disabled]]"
+        readOnly="[[readOnly]]"
+        options="[[optionsProvider]]"
+      >
+      </oj-combobox-one>
+    </oj-bind-if>
+
+    <oj-bind-if test="[[editorType === 'comboMulti']]">
+      <oj-combobox-many
+        label-hint="[[attributeLabel]]"
+        help.instruction="[[attributeHelp]]"
+        value="{{getValueObservable()}}"
+        disabled="[[disabled]]"
+        readOnly="[[readOnly]]"
+        options="[[optionsProvider]]"
+      >
+      </oj-combobox-many>
+    </oj-bind-if>
+
+    <oj-bind-if test="[[editorType === 'unknown']]">
       <oj-c-input-text
-        label-hint="[[attributeLabel(attribute) + ' (' + attribute.type + ' ???)']]"
-        help.instruction="[[attributeHelp(attribute)]]"
+        label-hint="[[attributeLabel + ' (' + attribute.type + ' ???)']]"
+        help.instruction="[[attributeHelp]]"
         value="{{getValueObservable()}}"
         disabled="[[disabled]]"
         readOnly="[[readOnly]]"

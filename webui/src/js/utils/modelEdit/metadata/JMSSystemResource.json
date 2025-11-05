@@ -100,6 +100,12 @@
     "summaryAttributes": {
       "Target": {}
     },
+    "attributeDetails": {
+      "Target": {
+        "editorType": "comboMulti",
+        "optionsMethod": "jmsTargetOptions"
+      }
+    },
     "sections": [
       {
         "type": "attributes",

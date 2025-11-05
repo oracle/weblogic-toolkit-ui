@@ -1,0 +1,10 @@
+{
+  "any": {
+    "attributeDetails": {
+      "Target": {
+        "editorType": "comboMulti",
+        "optionsMethod": "targetOptions"
+      }
+    }
+  }
+}
