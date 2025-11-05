@@ -4,6 +4,59 @@
     "summaryAttributes": {
       "Target": {}
     },
+    "attributeDetails": {
+      "AttachSender": {
+        "options": [
+          { "value": "supports", "labelKey": "options-supports-label" },
+          { "value": "never", "labelKey": "options-never-label" },
+          { "value": "always", "labelKey": "options-always-label" }
+        ]
+      },
+      "DefaultUnitOfOrder": {
+        "options": [
+          { "value": "System-generated", "labelKey": "options-system-generated-label" },
+          { "value": "User-Generated", "labelKey": "options-user-generated-label" }
+        ]
+      },
+      "DeliveryMode": {
+        "options": [
+          { "value": "Persistent", "labelKey": "options-persistent-label" },
+          { "value": "Non-Persistent", "labelKey": "options-non-persistent-label" },
+          { "value": "No-Delivery", "labelKey": "options-no-delivery-label" }
+        ]
+      },
+      "ExpirationPolicy": {
+        "options": [
+          { "value": "Discard", "labelKey": "options-discard-label" },
+          { "value": "Log", "labelKey": "options-log-label" },
+          { "value": "Redirect", "labelKey": "options-redirect-label" }
+        ]
+      },
+      "LoadBalancingPolicy": {
+        "options": [
+          { "value": "Round-Robin", "labelKey": "options-round-robin-label" },
+          { "value": "Random", "labelKey": "options-random-label" }
+        ]
+      },
+      "SafExportPolicy": {
+        "options": [
+          { "value": "All", "labelKey": "options-all-label" },
+          { "value": "None", "labelKey": "options-none-label" }
+        ]
+      },
+      "UnitOfWorkHandlingPolicy": {
+        "options": [
+          { "value": "PassThrough", "labelKey": "options-pass-through-label" },
+          { "value": "SingleMessageDelivery", "labelKey": "options-single-message-delivery-label" }
+        ]
+      },
+      "UnitOfOrderRouting": {
+        "options": [
+          { "value": "Hash", "labelKey": "options-hash-label" },
+          { "value": "PathService", "labelKey": "options-path-service-label" }
+        ]
+      }
+    },
     "sections": [
       {
         "type": "tab",
@@ -255,12 +308,6 @@
         "options": [
           { "value": "Persistent", "labelKey": "options-persistent-label" },
           { "value": "Non-Persistent", "labelKey": "options-non-persistent-label" }
-        ]
-      },
-      "DefaultUnitOfOrder": {
-        "options": [
-          { "value": "System-generated", "labelKey": "options-system-generated-label" },
-          { "value": "User-Generated", "labelKey": "options-user-generated-label" }
         ]
       }
     },
@@ -566,39 +613,6 @@
       "DefaultTargetingEnabled": {},
       "SubDeploymentName": {}
     },
-    "attributeDetails": {
-      "AttachSender": {
-        "options": [
-          { "value": "supports", "labelKey": "options-supports-label" },
-          { "value": "never", "labelKey": "options-never-label" },
-          { "value": "always", "labelKey": "options-always-label" }
-        ]
-      },
-      "DefaultUnitOfOrder": {
-        "options": [
-          { "value": "System-generated", "labelKey": "options-system-generated-label" },
-          { "value": "User-Generated", "labelKey": "options-user-generated-label" }
-        ]
-      },
-      "LoadBalancingPolicy": {
-        "options": [
-          { "value": "Round-Robin", "labelKey": "options-round-robin-label" },
-          { "value": "Random", "labelKey": "options-random-label" }
-        ]
-      },
-      "SafExportPolicy": {
-        "options": [
-          { "value": "All", "labelKey": "options-all-label" },
-          { "value": "None", "labelKey": "options-none-label" }
-        ]
-      },
-      "UnitOfWorkHandlingPolicy": {
-        "options": [
-          { "value": "PassThrough", "labelKey": "options-pass-through-label" },
-          { "value": "SingleMessageDelivery", "labelKey": "options-single-message-delivery-label" }
-        ]
-      }
-    },
     "sections": [
       {
         "type": "tab",
@@ -665,15 +679,6 @@
     ]
   },
   "JMSSystemResource/JmsResource/Queue/DeliveryFailureParams": {
-    "attributeDetails": {
-      "ExpirationPolicy": {
-        "options": [
-          { "value": "Discard", "labelKey": "options-discard-label" },
-          { "value": "Log", "labelKey": "options-log-label" },
-          { "value": "Redirect", "labelKey": "options-redirect-label" }
-        ]
-      }
-    },
     "sections": [
       {
         "type": "attributes",
@@ -692,15 +697,6 @@
     ]
   },
   "JMSSystemResource/JmsResource/Queue/DeliveryParamsOverrides": {
-    "attributeDetails": {
-      "DeliveryMode": {
-        "options": [
-          { "value": "Persistent", "labelKey": "options-persistent-label" },
-          { "value": "Non-Persistent", "labelKey": "options-non-persistent-label" },
-          { "value": "No-Delivery", "labelKey": "options-no-delivery-label" }
-        ]
-      }
-    },
     "sections": [
       {
         "type": "attributes",
@@ -831,12 +827,6 @@
           { "value": "Per-Member", "labelKey": "options-per-member-label" },
           { "value": "Per-JVM", "labelKey": "options-per-jvm-label" }
         ]
-      },
-      "UnitOfOrderRouting": {
-        "options": [
-          { "value": "Hash", "labelKey": "options-hash-label" },
-          { "value": "PathService", "labelKey": "options-path-service-label" }
-        ]
       }
     },
     "sections": [
@@ -900,12 +890,6 @@
           { "value": "At-Least-Once", "labelKey": "options-at-least-once-label" },
           { "value": "At-Most-Once", "labelKey": "options-at-most-once-label" }
         ]
-      },
-      "UnitOfOrderRouting": {
-        "options": [
-          { "value": "Hash", "labelKey": "options-hash-label" },
-          { "value": "PathService", "labelKey": "options-path-service-label" }
-        ]
       }
     },
     "sections": [
@@ -959,12 +943,6 @@
           { "value": "Exactly-Once", "labelKey": "options-exactly-once-label" },
           { "value": "At-Least-Once", "labelKey": "options-at-least-once-label" },
           { "value": "At-Most-Once", "labelKey": "options-at-most-once-label" }
-        ]
-      },
-      "UnitOfOrderRouting": {
-        "options": [
-          { "value": "Hash", "labelKey": "options-hash-label" },
-          { "value": "PathService", "labelKey": "options-path-service-label" }
         ]
       }
     },
@@ -1054,33 +1032,6 @@
       "DestinationKey": {},
       "Quota": {}
     },
-    "attributeDetails": {
-      "AttachSender": {
-        "options": [
-          { "value": "supports", "labelKey": "options-supports-label" },
-          { "value": "never", "labelKey": "options-never-label" },
-          { "value": "always", "labelKey": "options-always-label" }
-        ]
-      },
-      "DefaultUnitOfOrder": {
-        "options": [
-          { "value": "System-generated", "labelKey": "options-system-generated-label" },
-          { "value": "User-Generated", "labelKey": "options-user-generated-label" }
-        ]
-      },
-      "SafExportPolicy": {
-        "options": [
-          { "value": "All", "labelKey": "options-all-label" },
-          { "value": "None", "labelKey": "options-none-label" }
-        ]
-      },
-      "UnitOfWorkHandlingPolicy": {
-        "options": [
-          { "value": "PassThrough", "labelKey": "options-pass-through-label" },
-          { "value": "SingleMessageDelivery", "labelKey": "options-single-message-delivery-label" }
-        ]
-      }
-    },
     "sections": [
       {
         "type": "tab",
@@ -1142,15 +1093,6 @@
     ]
   },
   "JMSSystemResource/JmsResource/Template/DeliveryFailureParams": {
-    "attributeDetails": {
-      "ExpirationPolicy": {
-        "options": [
-          { "value": "Discard", "labelKey": "options-discard-label" },
-          { "value": "Log", "labelKey": "options-log-label" },
-          { "value": "Redirect", "labelKey": "options-redirect-label" }
-        ]
-      }
-    },
     "sections": [
       {
         "type": "attributes",
@@ -1169,15 +1111,6 @@
     ]
   },
   "JMSSystemResource/JmsResource/Template/DeliveryParamsOverrides": {
-    "attributeDetails": {
-      "DeliveryMode": {
-        "options": [
-          { "value": "Persistent", "labelKey": "options-persistent-label" },
-          { "value": "Non-Persistent", "labelKey": "options-non-persistent-label" },
-          { "value": "No-Delivery", "labelKey": "options-no-delivery-label" }
-        ]
-      }
-    },
     "sections": [
       {
         "type": "attributes",
@@ -1243,39 +1176,6 @@
       "LocalJNDIName": {},
       "DefaultTargetingEnabled": {},
       "SubDeploymentName": {}
-    },
-    "attributeDetails": {
-      "AttachSender": {
-        "options": [
-          { "value": "supports", "labelKey": "options-supports-label" },
-          { "value": "never", "labelKey": "options-never-label" },
-          { "value": "always", "labelKey": "options-always-label" }
-        ]
-      },
-      "DefaultUnitOfOrder": {
-        "options": [
-          { "value": "System-generated", "labelKey": "options-system-generated-label" },
-          { "value": "User-Generated", "labelKey": "options-user-generated-label" }
-        ]
-      },
-      "LoadBalancingPolicy": {
-        "options": [
-          { "value": "Round-Robin", "labelKey": "options-round-robin-label" },
-          { "value": "Random", "labelKey": "options-random-label" }
-        ]
-      },
-      "SafExportPolicy": {
-        "options": [
-          { "value": "All", "labelKey": "options-all-label" },
-          { "value": "None", "labelKey": "options-none-label" }
-        ]
-      },
-      "UnitOfWorkHandlingPolicy": {
-        "options": [
-          { "value": "PassThrough", "labelKey": "options-pass-through-label" },
-          { "value": "SingleMessageDelivery", "labelKey": "options-single-message-delivery-label" }
-        ]
-      }
     },
     "sections": [
       {
@@ -1350,15 +1250,6 @@
     ]
   },
   "JMSSystemResource/JmsResource/Topic/DeliveryFailureParams": {
-    "attributeDetails": {
-      "ExpirationPolicy": {
-        "options": [
-          { "value": "Discard", "labelKey": "options-discard-label" },
-          { "value": "Log", "labelKey": "options-log-label" },
-          { "value": "Redirect", "labelKey": "options-redirect-label" }
-        ]
-      }
-    },
     "sections": [
       {
         "type": "attributes",
@@ -1377,15 +1268,6 @@
     ]
   },
   "JMSSystemResource/JmsResource/Topic/DeliveryParamsOverrides": {
-    "attributeDetails": {
-      "DeliveryMode": {
-        "options": [
-          { "value": "Persistent", "labelKey": "options-persistent-label" },
-          { "value": "Non-Persistent", "labelKey": "options-non-persistent-label" },
-          { "value": "No-Delivery", "labelKey": "options-no-delivery-label" }
-        ]
-      }
-    },
     "sections": [
       {
         "type": "attributes",
@@ -1445,45 +1327,6 @@
       "LocalJNDIName": {},
       "DefaultTargetingEnabled": {},
       "SubDeploymentName": {}
-    },
-    "attributeDetails": {
-      "AttachSender": {
-        "options": [
-          { "value": "supports", "labelKey": "options-supports-label" },
-          { "value": "never", "labelKey": "options-never-label" },
-          { "value": "always", "labelKey": "options-always-label" }
-        ]
-      },
-      "DefaultUnitOfOrder": {
-        "options": [
-          { "value": "System-generated", "labelKey": "options-system-generated-label" },
-          { "value": "User-Generated", "labelKey": "options-user-generated-label" }
-        ]
-      },
-      "LoadBalancingPolicy": {
-        "options": [
-          { "value": "Round-Robin", "labelKey": "options-round-robin-label" },
-          { "value": "Random", "labelKey": "options-random-label" }
-        ]
-      },
-      "SafExportPolicy": {
-        "options": [
-          { "value": "All", "labelKey": "options-all-label" },
-          { "value": "None", "labelKey": "options-none-label" }
-        ]
-      },
-      "UnitOfOrderRouting": {
-        "options": [
-          { "value": "Hash", "labelKey": "options-hash-label" },
-          { "value": "PathService", "labelKey": "options-path-service-label" }
-        ]
-      },
-      "UnitOfWorkHandlingPolicy": {
-        "options": [
-          { "value": "PassThrough", "labelKey": "options-pass-through-label" },
-          { "value": "SingleMessageDelivery", "labelKey": "options-single-message-delivery-label" }
-        ]
-      }
     },
     "sections": [
       {
@@ -1546,15 +1389,6 @@
     ]
   },
   "JMSSystemResource/JmsResource/UniformDistributedQueue/DeliveryFailureParams": {
-    "attributeDetails": {
-      "ExpirationPolicy": {
-        "options": [
-          { "value": "Discard", "labelKey": "options-discard-label" },
-          { "value": "Log", "labelKey": "options-log-label" },
-          { "value": "Redirect", "labelKey": "options-redirect-label" }
-        ]
-      }
-    },
     "sections": [
       {
         "type": "attributes",
@@ -1573,15 +1407,6 @@
     ]
   },
   "JMSSystemResource/JmsResource/UniformDistributedQueue/DeliveryParamsOverrides": {
-    "attributeDetails": {
-      "DeliveryMode": {
-        "options": [
-          { "value": "Persistent", "labelKey": "options-persistent-label" },
-          { "value": "Non-Persistent", "labelKey": "options-non-persistent-label" },
-          { "value": "No-Delivery", "labelKey": "options-no-delivery-label" }
-        ]
-      }
-    },
     "sections": [
       {
         "type": "attributes",
@@ -1642,47 +1467,10 @@
       "SubDeploymentName": {}
     },
     "attributeDetails": {
-      "AttachSender": {
-        "options": [
-          { "value": "supports", "labelKey": "options-supports-label" },
-          { "value": "never", "labelKey": "options-never-label" },
-          { "value": "always", "labelKey": "options-always-label" }
-        ]
-      },
-      "DefaultUnitOfOrder": {
-        "options": [
-          { "value": "System-generated", "labelKey": "options-system-generated-label" },
-          { "value": "User-Generated", "labelKey": "options-user-generated-label" }
-        ]
-      },
       "ForwardingPolicy": {
         "options": [
           { "value": "Replicated", "labelKey": "options-replicated-label" },
           { "value": "Partitioned", "labelKey": "options-partitioned-label" }
-        ]
-      },
-      "LoadBalancingPolicy": {
-        "options": [
-          { "value": "Round-Robin", "labelKey": "options-round-robin-label" },
-          { "value": "Random", "labelKey": "options-random-label" }
-        ]
-      },
-      "SafExportPolicy": {
-        "options": [
-          { "value": "All", "labelKey": "options-all-label" },
-          { "value": "None", "labelKey": "options-none-label" }
-        ]
-      },
-      "UnitOfOrderRouting": {
-        "options": [
-          { "value": "Hash", "labelKey": "options-hash-label" },
-          { "value": "PathService", "labelKey": "options-path-service-label" }
-        ]
-      },
-      "UnitOfWorkHandlingPolicy": {
-        "options": [
-          { "value": "PassThrough", "labelKey": "options-pass-through-label" },
-          { "value": "SingleMessageDelivery", "labelKey": "options-single-message-delivery-label" }
         ]
       }
     },
@@ -1754,15 +1542,6 @@
     ]
   },
   "JMSSystemResource/JmsResource/UniformDistributedTopic/DeliveryFailureParams": {
-    "attributeDetails": {
-      "ExpirationPolicy": {
-        "options": [
-          { "value": "Discard", "labelKey": "options-discard-label" },
-          { "value": "Log", "labelKey": "options-log-label" },
-          { "value": "Redirect", "labelKey": "options-redirect-label" }
-        ]
-      }
-    },
     "sections": [
       {
         "type": "attributes",
@@ -1781,15 +1560,6 @@
     ]
   },
   "JMSSystemResource/JmsResource/UniformDistributedTopic/DeliveryParamsOverrides": {
-    "attributeDetails": {
-      "DeliveryMode": {
-        "options": [
-          { "value": "Persistent", "labelKey": "options-persistent-label" },
-          { "value": "Non-Persistent", "labelKey": "options-non-persistent-label" },
-          { "value": "No-Delivery", "labelKey": "options-no-delivery-label" }
-        ]
-      }
-    },
     "sections": [
       {
         "type": "attributes",
