@@ -1,5 +1,782 @@
 {
   "WLDFSystemResource": {
-    "mergeFolder": "WLDFResource"
+    "mergeFolder": "WLDFResource",
+    "summaryAttributes": {
+      "Target": {}
+    },
+    "attributeDetails": {
+      "Severity": {
+        "options": [
+          { "value": "Info", "labelKey": "options-info-label" },
+          { "value": "Warning", "labelKey": "options-warning-label" },
+          { "value": "Error", "labelKey": "options-error-label" },
+          { "value": "Notice", "labelKey": "options-notice-label" },
+          { "value": "Critical", "labelKey": "options-critical-label" },
+          { "value": "Alert", "labelKey": "options-alert-label" },
+          { "value": "Emergency", "labelKey": "options-emergency-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "Description",
+              "DescriptorFileName",
+              "DeploymentOrder",
+              "Notes",
+              "Target"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "attributes": [
+              "CompatibilityName",
+              "DeploymentPrincipalName",
+              "ModuleType"
+            ],
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "PartitionName",
+          "SourcePath"
+        ],
+        "folders": [
+          "SubDeployment"
+        ]
+      }
+    ]
+  },
+  "WLDFSystemResource/WLDFResource/Harvester/HarvestedType": {
+    "summaryAttributes": {
+      "Enabled": {},
+      "Namespace": {},
+      "KnownType": {}
+    },
+    "attributeDetails": {
+      "Namespace": {
+        "options": [
+          { "value": "ServerRuntime", "labelKey": "options-server-runtime-label" },
+          { "value": "DomainRuntime", "labelKey": "options-domain-runtime-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "Enabled",
+          "KnownType",
+          "Namespace",
+          "HarvestedAttribute",
+          "HarvestedInstance"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "WLDFSystemResource/WLDFResource/Instrumentation/WLDFInstrumentationMonitor": {
+    "summaryAttributes": {
+      "Enabled": {},
+      "Description": {}
+    },
+    "attributeDetails": {
+      "Action": {
+        "editorType": "selectMulti",
+        "options": [
+          { "value": "TraceAction", "label": "TraceAction" },
+          { "value": "DisplayArgumentsAction", "label": "DisplayArgumentsAction" },
+          { "value": "MethodInvocationStatisticsAction", "label": "MethodInvocationStatisticsAction" },
+          { "value": "MethodMemoryAllocationStatisticsAction", "label": "MethodMemoryAllocationStatisticsAction" },
+          { "value": "StackDumpAction", "label": "StackDumpAction" },
+          { "value": "ThreadDumpAction", "label": "ThreadDumpAction" },
+          { "value": "TraceElapsedTimeAction", "label": "TraceElapsedTimeAction" },
+          { "value": "TraceMemoryAllocationAction", "label": "TraceMemoryAllocationAction" }
+        ]
+      },
+      "DyeMask": {
+        "editorType": "selectMulti",
+        "options": [
+          { "value": "ADDR1", "label": "ADDR1" },
+          { "value": "ADDR2", "label": "ADDR2" },
+          { "value": "ADDR3", "label": "ADDR3" },
+          { "value": "ADDR4", "label": "ADDR4" },
+          { "value": "CONNECTOR1", "label": "CONNECTOR1" },
+          { "value": "CONNECTOR2", "label": "CONNECTOR2" },
+          { "value": "CONNECTOR3", "label": "CONNECTOR3" },
+          { "value": "CONNECTOR4", "label": "CONNECTOR4" },
+          { "value": "COOKIE1", "label": "COOKIE1" },
+          { "value": "COOKIE2", "label": "COOKIE2" },
+          { "value": "COOKIE3", "label": "COOKIE3" },
+          { "value": "COOKIE4", "label": "COOKIE4" },
+          { "value": "DYE_0", "label": "DYE_0" },
+          { "value": "DYE_1", "label": "DYE_1" },
+          { "value": "DYE_2", "label": "DYE_2" },
+          { "value": "DYE_3", "label": "DYE_3" },
+          { "value": "DYE_4", "label": "DYE_4" },
+          { "value": "DYE_5", "label": "DYE_5" },
+          { "value": "DYE_6", "label": "DYE_6" },
+          { "value": "DYE_7", "label": "DYE_7" },
+          { "value": "EXECQ1", "label": "EXECQ1" },
+          { "value": "EXECQ2", "label": "EXECQ2" },
+          { "value": "EXECQ3", "label": "EXECQ3" },
+          { "value": "EXECQ4", "label": "EXECQ4" },
+          { "value": "JFR_THROTTLE", "label": "JFR_THROTTLE" },
+          { "value": "PROTOCOL_HTTP", "label": "PROTOCOL_HTTP" },
+          { "value": "PROTOCOL_IIOP", "label": "PROTOCOL_IIOP" },
+          { "value": "PROTOCOL_JRMP", "label": "PROTOCOL_JRMP" },
+          { "value": "PROTOCOL_RMI", "label": "PROTOCOL_RMI" },
+          { "value": "PROTOCOL_SOAP", "label": "PROTOCOL_SOAP" },
+          { "value": "PROTOCOL_SSL", "label": "PROTOCOL_SSL" },
+          { "value": "PROTOCOL_T3", "label": "PROTOCOL_T3" },
+          { "value": "THREADGROUP1", "label": "THREADGROUP1" },
+          { "value": "THREADGROUP2", "label": "THREADGROUP2" },
+          { "value": "THREADGROUP3", "label": "THREADGROUP3" },
+          { "value": "THREADGROUP4", "label": "THREADGROUP4" },
+          { "value": "THROTTLE", "label": "THROTTLE" },
+          { "value": "USER1", "label": "USER1" },
+          { "value": "USER2", "label": "USER2" },
+          { "value": "USER3", "label": "USER3" },
+          { "value": "USER4", "label": "USER4" }
+        ]
+      },
+      "LocationType": {
+        "options": [
+          { "value": "before", "labelKey": "options-before-label" },
+          { "value": "after", "labelKey": "options-after-label" },
+          { "value": "around", "labelKey": "options-around-label" }
+        ]
+      },
+      "Name": {
+        "editorType": "combo",
+        "options": [
+          { "value": "DyeInjection", "label": "DyeInjection" },
+          { "value": "HttpSessionDebug", "label": "HttpSessionDebug" },
+          { "value": "Servlet_Before_Service", "label": "Servlet_Before_Service" },
+          { "value": "Servlet_Before_Session", "label": "Servlet_Before_Session" },
+          { "value": "Servlet_Before_Tags", "label": "Servlet_Before_Tags" },
+          { "value": "Servlet_After_Service", "label": "Servlet_After_Service" },
+          { "value": "Servlet_After_Session", "label": "Servlet_After_Session" },
+          { "value": "Servlet_After_Tags", "label": "Servlet_After_Tags" },
+          { "value": "Servlet_Around_Service", "label": "Servlet_Around_Service" },
+          { "value": "Servlet_Around_Session", "label": "Servlet_Around_Session" },
+          { "value": "Servlet_Around_Tags", "label": "Servlet_Around_Tags" },
+          { "value": "JNDI_Before_Lookup", "label": "JNDI_Before_Lookup" },
+          { "value": "JNDI_After_Lookup", "label": "JNDI_After_Lookup" },
+          { "value": "JNDI_Around_Lookup", "label": "JNDI_Around_Lookup" },
+          { "value": "JMS_Before_TopicPublished", "label": "JMS_Before_TopicPublished" },
+          { "value": "JMS_Before_MessageSent", "label": "JMS_Before_MessageSent" },
+          { "value": "JMS_Before_AsyncMessageReceived", "label": "JMS_Before_AsyncMessageReceived" },
+          { "value": "JMS_Before_SyncMessageReceived", "label": "JMS_Before_SyncMessageReceived" },
+          { "value": "JMS_After_TopicPublished", "label": "JMS_After_TopicPublished" },
+          { "value": "JMS_After_MessageSent", "label": "JMS_After_MessageSent" },
+          { "value": "JMS_After_AsyncMessageReceived", "label": "JMS_After_AsyncMessageReceived" },
+          { "value": "JMS_After_SyncMessageReceived", "label": "JMS_After_SyncMessageReceived" },
+          { "value": "JMS_Around_TopicPublished", "label": "JMS_Around_TopicPublished" },
+          { "value": "JMS_Around_MessageSent", "label": "JMS_Around_MessageSent" },
+          { "value": "JMS_Around_AsyncMessageReceived", "label": "JMS_Around_AsyncMessageReceived" },
+          { "value": "JMS_Around_SyncMessageReceived", "label": "JMS_Around_SyncMessageReceived" },
+          { "value": "JDBC_Before_GetConnection", "label": "JDBC_Before_GetConnection" },
+          { "value": "JDBC_Before_CloseConnection", "label": "JDBC_Before_CloseConnection" },
+          { "value": "JDBC_Before_CommitRollback", "label": "JDBC_Before_CommitRollback" },
+          { "value": "JDBC_Before_Statement", "label": "JDBC_Before_Statement" },
+          { "value": "JDBC_Before_Execute", "label": "JDBC_Before_Execute" },
+          { "value": "JDBC_After_GetConnection", "label": "JDBC_After_GetConnection" },
+          { "value": "JDBC_After_CloseConnection", "label": "JDBC_After_CloseConnection" },
+          { "value": "JDBC_After_CommitRollback", "label": "JDBC_After_CommitRollback" },
+          { "value": "JDBC_After_Statement", "label": "JDBC_After_Statement" },
+          { "value": "JDBC_After_Execute", "label": "JDBC_After_Execute" },
+          { "value": "JDBC_Around_GetConnection", "label": "JDBC_Around_GetConnection" },
+          { "value": "JDBC_Around_CloseConnection", "label": "JDBC_Around_CloseConnection" },
+          { "value": "JDBC_Around_CommitRollback", "label": "JDBC_Around_CommitRollback" },
+          { "value": "JDBC_Around_Statement", "label": "JDBC_Around_Statement" },
+          { "value": "JDBC_Around_Execute", "label": "JDBC_Around_Execute" },
+          { "value": "EJB_Before_SessionEjbMethods", "label": "EJB_Before_SessionEjbMethods" },
+          { "value": "EJB_Before_SessionEjbSemanticMethods", "label": "EJB_Before_SessionEjbSemanticMethods" },
+          { "value": "EJB_Before_SessionEjbBusinessMethods", "label": "EJB_Before_SessionEjbBusinessMethods" },
+          { "value": "EJB_After_SessionEjbMethods", "label": "EJB_After_SessionEjbMethods" },
+          { "value": "EJB_After_SessionEjbSemanticMethods", "label": "EJB_After_SessionEjbSemanticMethods" },
+          { "value": "EJB_After_SessionEjbBusinessMethods", "label": "EJB_After_SessionEjbBusinessMethods" },
+          { "value": "EJB_Around_SessionEjbMethods", "label": "EJB_Around_SessionEjbMethods" },
+          { "value": "EJB_Around_SessionEjbSemanticMethods", "label": "EJB_Around_SessionEjbSemanticMethods" },
+          { "value": "EJB_Around_SessionEjbBusinessMethods", "label": "EJB_Around_SessionEjbBusinessMethods" },
+          { "value": "EJB_Before_EntityEjbMethods", "label": "EJB_Before_EntityEjbMethods" },
+          { "value": "EJB_Before_EntityEjbSemanticMethods", "label": "EJB_Before_EntityEjbSemanticMethods" },
+          { "value": "EJB_Before_EntityEjbBusinessMethods", "label": "EJB_Before_EntityEjbBusinessMethods" },
+          { "value": "EJB_After_EntityEjbMethods", "label": "EJB_After_EntityEjbMethods" },
+          { "value": "EJB_After_EntityEjbSemanticMethods", "label": "EJB_After_EntityEjbSemanticMethods" },
+          { "value": "EJB_After_EntityEjbBusinessMethods", "label": "EJB_After_EntityEjbBusinessMethods" },
+          { "value": "EJB_Around_EntityEjbMethods", "label": "EJB_Around_EntityEjbMethods" },
+          { "value": "EJB_Around_EntityEjbSemanticMethods", "label": "EJB_Around_EntityEjbSemanticMethods" },
+          { "value": "EJB_Around_EntityEjbBusinessMethods", "label": "EJB_Around_EntityEjbBusinessMethods" },
+          { "value": "MDB_Before_MessageReceived", "label": "MDB_Before_MessageReceived" },
+          { "value": "MDB_Before_SetMessageDrivenContext", "label": "MDB_Before_SetMessageDrivenContext" },
+          { "value": "MDB_Before_Remove", "label": "MDB_Before_Remove" },
+          { "value": "MDB_After_MessageReceived", "label": "MDB_After_MessageReceived" },
+          { "value": "MDB_After_SetMessageDrivenContext", "label": "MDB_After_SetMessageDrivenContext" },
+          { "value": "MDB_After_Remove", "label": "MDB_After_Remove" },
+          { "value": "MDB_Around_MessageReceived", "label": "MDB_Around_MessageReceived" },
+          { "value": "MDB_Around_SetMessageDrivenContext", "label": "MDB_Around_SetMessageDrivenContext" },
+          { "value": "MDB_Around_Remove", "label": "MDB_Around_Remove" },
+          { "value": "JTA_Before_Start", "label": "JTA_Before_Start" },
+          { "value": "JTA_Before_Commit", "label": "JTA_Before_Commit" },
+          { "value": "JTA_Before_Rollback", "label": "JTA_Before_Rollback" },
+          { "value": "JTA_After_Start", "label": "JTA_After_Start" },
+          { "value": "JTA_After_Commit", "label": "JTA_After_Commit" },
+          { "value": "JTA_After_Rollback", "label": "JTA_After_Rollback" },
+          { "value": "JTA_Around_Start", "label": "JTA_Around_Start" },
+          { "value": "JTA_Around_Commit", "label": "JTA_Around_Commit" },
+          { "value": "JTA_Around_Rollback", "label": "JTA_Around_Rollback" },
+          { "value": "Connector_Before_Inbound", "label": "Connector_Before_Inbound" },
+          { "value": "Connector_Before_Outbound", "label": "Connector_Before_Outbound" },
+          { "value": "Connector_Before_Work", "label": "Connector_Before_Work" },
+          { "value": "Connector_Before_Tx", "label": "Connector_Before_Tx" },
+          { "value": "Connector_After_Inbound", "label": "Connector_After_Inbound" },
+          { "value": "Connector_After_Outbound", "label": "Connector_After_Outbound" },
+          { "value": "Connector_After_Work", "label": "Connector_After_Work" },
+          { "value": "Connector_After_Tx", "label": "Connector_After_Tx" },
+          { "value": "Connector_Around_Inbound", "label": "Connector_Around_Inbound" },
+          { "value": "Connector_Around_Outbound", "label": "Connector_Around_Outbound" },
+          { "value": "Connector_Around_Work", "label": "Connector_Around_Work" },
+          { "value": "Connector_Around_Tx", "label": "Connector_Around_Tx" },
+          { "value": "Log_Record_Diagnostic_Volume_Before_Low", "label": "Log_Record_Diagnostic_Volume_Before_Low" },
+          { "value": "WLLog_Record_Diagnostic_Volume_Before_Low", "label": "WLLog_Record_Diagnostic_Volume_Before_Low" },
+          { "value": "Logging_Event_Diagnostic_Volume_Before_Low", "label": "Logging_Event_Diagnostic_Volume_Before_Low" },
+          { "value": "Servlet_LoadWebApp_Around_Low", "label": "Servlet_LoadWebApp_Around_Low" },
+          { "value": "Servlet_UnloadWebApp_Around_Low", "label": "Servlet_UnloadWebApp_Around_Low" },
+          { "value": "Servlet_Invocation_Around_Low", "label": "Servlet_Invocation_Around_Low" },
+          { "value": "Servlet_Request_Run_Around_Low", "label": "Servlet_Request_Run_Around_Low" },
+          { "value": "Servlet_Execute_Around_Medium", "label": "Servlet_Execute_Around_Medium" },
+          { "value": "Servlet_Request_Dispatch_Around_Medium", "label": "Servlet_Request_Dispatch_Around_Medium" },
+          { "value": "Servlet_Request_Action_Around_Medium", "label": "Servlet_Request_Action_Around_Medium" },
+          { "value": "Servlet_Filter_Around_Medium", "label": "Servlet_Filter_Around_Medium" },
+          { "value": "Servlet_Async_Action_Around_Medium", "label": "Servlet_Async_Action_Around_Medium" },
+          { "value": "Servlet_Context_Execute_Around_Medium", "label": "Servlet_Context_Execute_Around_Medium" },
+          { "value": "Servlet_Response_Write_Headers_Around_Medium", "label": "Servlet_Response_Write_Headers_Around_Medium" },
+          { "value": "Servlet_Response_Send_Around_Medium", "label": "Servlet_Response_Send_Around_Medium" },
+          { "value": "Servlet_Stale_Resource_Around_Medium", "label": "Servlet_Stale_Resource_Around_Medium" },
+          { "value": "Servlet_Check_Access_Around_Medium", "label": "Servlet_Check_Access_Around_Medium" },
+          { "value": "Servlet_Request_Overload_Around_High", "label": "Servlet_Request_Overload_Around_High" },
+          { "value": "Servlet_Request_Cancel_Around_High", "label": "Servlet_Request_Cancel_Around_High" },
+          { "value": "Servlet_Context_Handle_Throwable_Around_Low", "label": "Servlet_Context_Handle_Throwable_Around_Low" },
+          { "value": "JDBC_Diagnostic_Statement_Creation_Around_Medium", "label": "JDBC_Diagnostic_Statement_Creation_Around_Medium" },
+          { "value": "JDBC_Diagnostic_Statement_Execute_Around_Low", "label": "JDBC_Diagnostic_Statement_Execute_Around_Low" },
+          { "value": "JDBC_Diagnostic_Connection_Create_Statement_Around_Medium", "label": "JDBC_Diagnostic_Connection_Create_Statement_Around_Medium" },
+          { "value": "JDBC_Diagnostic_Connection_Prepare_Around_Medium", "label": "JDBC_Diagnostic_Connection_Prepare_Around_Medium" },
+          { "value": "JDBC_Diagnostic_Connection_Close_Around_Medium", "label": "JDBC_Diagnostic_Connection_Close_Around_Medium" },
+          { "value": "JDBC_Diagnostic_Connection_Commit_Around_Medium", "label": "JDBC_Diagnostic_Connection_Commit_Around_Medium" },
+          { "value": "JDBC_Diagnostic_Connection_Rollback_Around_Low", "label": "JDBC_Diagnostic_Connection_Rollback_Around_Low" },
+          { "value": "JDBC_Diagnostic_Datasource_Get_Connection_Around_Medium", "label": "JDBC_Diagnostic_Datasource_Get_Connection_Around_Medium" },
+          { "value": "JDBC_Diagnostic_Driver_Connect_Around_Medium", "label": "JDBC_Diagnostic_Driver_Connect_Around_Medium" },
+          { "value": "JDBC_Diagnostic_Connection_Reserve_Around_Medium", "label": "JDBC_Diagnostic_Connection_Reserve_Around_Medium" },
+          { "value": "JDBC_Diagnostic_Connection_Release_Around_Medium", "label": "JDBC_Diagnostic_Connection_Release_Around_Medium" },
+          { "value": "JDBC_Diagnostic_Connection_Get_Vendor_Connection_After_Medium", "label": "JDBC_Diagnostic_Connection_Get_Vendor_Connection_After_Medium" },
+          { "value": "JDBC_Diagnostic_Transaction_Start_Before_High", "label": "JDBC_Diagnostic_Transaction_Start_Before_High" },
+          { "value": "JDBC_Diagnostic_Transaction_End_Before_High", "label": "JDBC_Diagnostic_Transaction_End_Before_High" },
+          { "value": "JDBC_Diagnostic_Transaction_Prepare_Before_High", "label": "JDBC_Diagnostic_Transaction_Prepare_Before_High" },
+          { "value": "JDBC_Diagnostic_Transaction_Is_SameRM_Before_High", "label": "JDBC_Diagnostic_Transaction_Is_SameRM_Before_High" },
+          { "value": "JDBC_Diagnostic_Transaction_Get_XA_Resource_Before_High", "label": "JDBC_Diagnostic_Transaction_Get_XA_Resource_Before_High" },
+          { "value": "JDBC_Diagnostic_Transaction_Commit_Before_High", "label": "JDBC_Diagnostic_Transaction_Commit_Before_High" },
+          { "value": "JDBC_Diagnostic_Transaction_Rollback_Before_Low", "label": "JDBC_Diagnostic_Transaction_Rollback_Before_Low" },
+          { "value": "EJB_Diagnostic_Business_Method_Invoke_Wrapper_Around_Low", "label": "EJB_Diagnostic_Business_Method_Invoke_Wrapper_Around_Low" },
+          { "value": "EJB_Diagnostic_Business_Method_Postinvoke_Before_Low", "label": "EJB_Diagnostic_Business_Method_Postinvoke_Before_Low" },
+          { "value": "EJB_Diagnostic_Pool_Manager_Postinvoke_Before_Medium", "label": "EJB_Diagnostic_Pool_Manager_Postinvoke_Before_Medium" },
+          { "value": "EJB_Diagnostic_Pool_Manager_Postinvoke_Entity_Before_Medium", "label": "EJB_Diagnostic_Pool_Manager_Postinvoke_Entity_Before_Medium" },
+          { "value": "EJB_Diagnostic_Business_Method_Preinvoke_After_Low", "label": "EJB_Diagnostic_Business_Method_Preinvoke_After_Low" },
+          { "value": "EJB_Diagnostic_Pool_Manager_Preinvoke_After_Medium", "label": "EJB_Diagnostic_Pool_Manager_Preinvoke_After_Medium" },
+          { "value": "EJB_Diagnostic_Pool_Manager_Preinvoke_Entity_After_Medium", "label": "EJB_Diagnostic_Pool_Manager_Preinvoke_Entity_After_Medium" },
+          { "value": "EJB_Diagnostic_Home_Create_Around_Medium", "label": "EJB_Diagnostic_Home_Create_Around_Medium" },
+          { "value": "EJB_Diagnostic_Home_Remove_Around_Medium", "label": "EJB_Diagnostic_Home_Remove_Around_Medium" },
+          { "value": "EJB_Diagnostic_Pool_Manager_Create_Around_Medium", "label": "EJB_Diagnostic_Pool_Manager_Create_Around_Medium" },
+          { "value": "EJB_Diagnostic_Database_Access_Around_High", "label": "EJB_Diagnostic_Database_Access_Around_High" },
+          { "value": "EJB_Diagnostic_Business_Method_Postinvoke_Cleanup_Around_High", "label": "EJB_Diagnostic_Business_Method_Postinvoke_Cleanup_Around_High" },
+          { "value": "EJB_Diagnostic_Pool_Manager_Remove_Around_High", "label": "EJB_Diagnostic_Pool_Manager_Remove_Around_High" },
+          { "value": "EJB_Diagnostic_Replicated_Session_Manager_Around_High", "label": "EJB_Diagnostic_Replicated_Session_Manager_Around_High" },
+          { "value": "EJB_Diagnostic_Timer_Manager_Around_High", "label": "EJB_Diagnostic_Timer_Manager_Around_High" },
+          { "value": "JMS_Diagnostic_Volume_Before_Medium", "label": "JMS_Diagnostic_Volume_Before_Medium" },
+          { "value": "JTA_Diagnostic_XA_Resourceinfo_Start_Before_High", "label": "JTA_Diagnostic_XA_Resourceinfo_Start_Before_High" },
+          { "value": "JTA_Diagnostic_XA_Resourceinfo_End_Before_High", "label": "JTA_Diagnostic_XA_Resourceinfo_End_Before_High" },
+          { "value": "JTA_Diagnostic_XA_Resourceinfo_Prepare_Before_High", "label": "JTA_Diagnostic_XA_Resourceinfo_Prepare_Before_High" },
+          { "value": "JTA_Diagnostic_XA_Resourceinfo_Prepared_Before_High", "label": "JTA_Diagnostic_XA_Resourceinfo_Prepared_Before_High" },
+          { "value": "JTA_Diagnostic_XA_Resourceinfo_Commit_Before_High", "label": "JTA_Diagnostic_XA_Resourceinfo_Commit_Before_High" },
+          { "value": "Connector_Endpoint_Activate_Low", "label": "Connector_Endpoint_Activate_Low" },
+          { "value": "Connector_Endpoint_Deactivate_Low", "label": "Connector_Endpoint_Deactivate_Low" },
+          { "value": "Connector_Reserve_Connection_Low", "label": "Connector_Reserve_Connection_Low" },
+          { "value": "Connector_Release_Connection_Low", "label": "Connector_Release_Connection_Low" },
+          { "value": "Connector_Destroy_Connection_Low", "label": "Connector_Destroy_Connection_Low" },
+          { "value": "Connector_Connection_Closed_Low", "label": "Connector_Connection_Closed_Low" },
+          { "value": "Connector_Connection_Error_Low", "label": "Connector_Connection_Error_Low" },
+          { "value": "Connector_Register_Resource_Low", "label": "Connector_Register_Resource_Low" },
+          { "value": "Connector_Unregister_Resource_Low", "label": "Connector_Unregister_Resource_Low" },
+          { "value": "Connector_Enlist_Resource_Low", "label": "Connector_Enlist_Resource_Low" },
+          { "value": "Connector_Inbound_Transaction_Start_Medium", "label": "Connector_Inbound_Transaction_Start_Medium" },
+          { "value": "Connector_Inbound_Transaction_Commmit_Medium", "label": "Connector_Inbound_Transaction_Commmit_Medium" },
+          { "value": "Connector_Inbound_Transaction_Rollback_Low", "label": "Connector_Inbound_Transaction_Rollback_Low" },
+          { "value": "Connector_Outbound_Transaction_Start_Medium", "label": "Connector_Outbound_Transaction_Start_Medium" },
+          { "value": "Connector_Outbound_Transaction_Commmit_Medium", "label": "Connector_Outbound_Transaction_Commmit_Medium" },
+          { "value": "Connector_Outbound_Transaction_Rollback_Low", "label": "Connector_Outbound_Transaction_Rollback_Low" },
+          { "value": "Webservices_JAXWS_Diagnostic_Request_Action_Around_Low", "label": "Webservices_JAXWS_Diagnostic_Request_Action_Around_Low" },
+          { "value": "Webservices_JAXWS_Diagnostic_Resource_After_Low", "label": "Webservices_JAXWS_Diagnostic_Resource_After_Low" },
+          { "value": "Webservices_JAXWS_Diagnostic_Endpoint_Around_Low", "label": "Webservices_JAXWS_Diagnostic_Endpoint_Around_Low" },
+          { "value": "Webservices_JAXRPC_Diagnostic_Request_Action_Around_Low", "label": "Webservices_JAXRPC_Diagnostic_Request_Action_Around_Low" },
+          { "value": "Webservices_JAXRPC_Diagnostic_Dispatch_Action_Around_Low", "label": "Webservices_JAXRPC_Diagnostic_Dispatch_Action_Around_Low" },
+          { "value": "Webservices_JAXRPC_Diagnostic_Response_Action_Around_Low", "label": "Webservices_JAXRPC_Diagnostic_Response_Action_Around_Low" },
+          { "value": "Webservices_JAXRPC_Diagnostic_Client_Request_Action_Around_Low", "label": "Webservices_JAXRPC_Diagnostic_Client_Request_Action_Around_Low" },
+          { "value": "Webservices_JAXRPC_Diagnostic_Client_Response_Action_Around_Low", "label": "Webservices_JAXRPC_Diagnostic_Client_Response_Action_Around_Low" },
+          { "value": "Globalinfo_Diagnostic_Volume_After_Off", "label": "Globalinfo_Diagnostic_Volume_After_Off" },
+          { "value": "Throttleinfo_Diagnostic_Volume_After_Low", "label": "Throttleinfo_Diagnostic_Volume_After_Low" },
+          { "value": "Deployment_Abstract_Operation_Before_Low", "label": "Deployment_Abstract_Operation_Before_Low" },
+          { "value": "Deployment_Do_Prepare_Before_Low", "label": "Deployment_Do_Prepare_Before_Low" },
+          { "value": "Deployment_Complete_Before_Low", "label": "Deployment_Complete_Before_Low" },
+          { "value": "Deployment_Do_Cancel_Before_Low", "label": "Deployment_Do_Cancel_Before_Low" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "Enabled",
+          "Description",
+          "Exclude",
+          "Include",
+          "Action",
+          "LocationType",
+          "DyeFilteringEnabled",
+          "DyeMask",
+          "Pointcut",
+          "Properties"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "WLDFSystemResource/WLDFResource/WatchNotification": {
+    "summaryAttributes": {
+      "Enabled": {},
+      "Severity": {},
+      "LogWatchSeverity": {}
+    },
+    "attributeDetails": {
+      "LogWatchSeverity": {
+        "options": [
+          { "value": "Info", "labelKey": "options-info-label" },
+          { "value": "Warning", "labelKey": "options-warning-label" },
+          { "value": "Error", "labelKey": "options-error-label" },
+          { "value": "Notice", "labelKey": "options-notice-label" },
+          { "value": "Critical", "labelKey": "options-critical-label" },
+          { "value": "Alert", "labelKey": "options-alert-label" },
+          { "value": "Emergency", "labelKey": "options-emergency-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "Enabled",
+              "Severity",
+              "LogWatchSeverity"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "folderTab",
+        "folder": "SMTPNotification"
+      },
+      {
+        "type": "folderTab",
+        "folder": "SNMPNotification"
+      },
+      {
+        "type": "folderTab",
+        "folder": "JMXNotification"
+      },
+      {
+        "type": "folderTab",
+        "folder": "LogAction"
+      },
+      {
+        "type": "folderTab",
+        "folder": "ImageNotification"
+      },
+      {
+        "type": "folderTab",
+        "folder": "RestNotification"
+      },
+      {
+        "type": "folderTab",
+        "folder": "JMSNotification"
+      },
+      {
+        "type": "folderTab",
+        "folder": "ScaleDownAction"
+      },
+      {
+        "type": "folderTab",
+        "folder": "ScaleUpAction"
+      },
+      {
+        "type": "folderTab",
+        "folder": "ScriptAction"
+      },
+      {
+        "type": "folderTab",
+        "folder": "ThreadDumpAction"
+      },
+      {
+        "type": "folderTab",
+        "folder": "HeapDumpAction"
+      },
+      {
+        "type": "folderTab",
+        "folder": "Watch"
+      }
+    ]
+  },
+  "WLDFSystemResource/WLDFResource/WatchNotification/HeapDumpAction": {
+    "summaryAttributes": {
+      "Enabled": {}
+    }
+  },
+  "WLDFSystemResource/WLDFResource/WatchNotification/ImageNotification": {
+    "summaryAttributes": {
+      "Enabled": {}
+    }
+  },
+  "WLDFSystemResource/WLDFResource/WatchNotification/JMSNotification": {
+    "summaryAttributes": {
+      "Enabled": {},
+      "ConnectionFactoryJndiName": {},
+      "DestinationJndiName": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "Enabled",
+          "Timeout",
+          "ConnectionFactoryJndiName",
+          "DestinationJndiName"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "WLDFSystemResource/WLDFResource/WatchNotification/JMXNotification": {
+    "summaryAttributes": {
+      "Enabled": {},
+      "NotificationType": {}
+    }
+  },
+  "WLDFSystemResource/WLDFResource/WatchNotification/LogAction": {
+    "summaryAttributes": {
+      "Enabled": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "Enabled",
+          "Timeout",
+          "Severity",
+          "SubsystemName",
+          "Message"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "WLDFSystemResource/WLDFResource/WatchNotification/RestNotification": {
+    "summaryAttributes": {
+      "Enabled": {},
+      "EndpointUrl": {},
+      "HttpAuthenticationMode": {}
+    },
+    "attributeDetails": {
+      "AcceptedResponseType": {
+        "options": [
+          { "value": "application/json", "labelKey":  "options-application-json-label" },
+          { "value": "text/plain", "labelKey":  "options-text-plain-label" },
+          { "value": "text/xml", "labelKey":  "options-text-xml-label" },
+          { "value": "text/html", "labelKey":  "options-text-html-label" }
+        ]
+      },
+      "HttpAuthenticationMode": {
+        "options": [
+          { "value": "None", "labelKey":  "options-none-label" },
+          { "value": "Basic", "labelKey":  "options-basic-label" }
+        ]
+      },
+      "HttpAuthenticationUserName": {
+        "disabled": "wldfRestNotUsingBasicAuth"
+      },
+      "HttpAuthenticationPasswordEncrypted": {
+        "disabled": "wldfRestNotUsingBasicAuth"
+      },
+      "RestInvocationMethodType": {
+        "options": [
+          { "value": "PUT", "label":  "PUT" },
+          { "value": "POST", "label":  "POST" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "Enabled",
+          "Timeout",
+          "EndpointUrl",
+          "RestInvocationMethodType",
+          "AcceptedResponseType",
+          "HttpAuthenticationMode",
+          "HttpAuthenticationUserName",
+          "HttpAuthenticationPasswordEncrypted",
+          "CustomNotificationProperties"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "WLDFSystemResource/WLDFResource/WatchNotification/ScaleDownAction": {
+    "summaryAttributes": {
+      "Enabled": {},
+      "ClusterName": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "Enabled",
+          "Timeout",
+          "ClusterName",
+          "ScalingSize"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "WLDFSystemResource/WLDFResource/WatchNotification/ScaleUpAction": {
+    "summaryAttributes": {
+      "Enabled": {},
+      "ClusterName": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "Enabled",
+          "Timeout",
+          "ClusterName",
+          "ScalingSize"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "WLDFSystemResource/WLDFResource/WatchNotification/ScriptAction": {
+    "summaryAttributes": {
+      "Enabled": {},
+      "PathToScript": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "Enabled",
+          "Timeout",
+          "PathToScript",
+          "WorkingDirectory",
+          "Parameter",
+          "Environment"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "WLDFSystemResource/WLDFResource/WatchNotification/SMTPNotification": {
+    "summaryAttributes": {
+      "Enabled": {},
+      "MailSessionJndiName": {},
+      "Recipient": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "Enabled",
+          "Timeout",
+          "MailSessionJndiName",
+          "Recipient",
+          "Subject",
+          "Body"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "WLDFSystemResource/WLDFResource/WatchNotification/SNMPNotification": {
+    "summaryAttributes": {
+      "Enabled": {}
+    }
+  },
+  "WLDFSystemResource/WLDFResource/WatchNotification/ThreadDumpAction": {
+    "summaryAttributes": {
+      "Enabled": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "Enabled",
+          "Timeout",
+          "ThreadDumpCount",
+          "ThreadDumpDelaySeconds"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "WLDFSystemResource/WLDFResource/WatchNotification/Watch": {
+    "summaryAttributes": {
+      "Enabled": {},
+      "RuleType": {},
+      "AlarmType": {}
+    },
+    "attributeDetails": {
+      "AlarmType": {
+        "options": [
+          { "value": "None", "labelKey": "options-none-label" },
+          { "value": "ManualReset", "labelKey": "options-manual-reset-label" },
+          { "value": "AutomaticReset", "labelKey": "options-automatic-reset-label" }
+        ]
+      },
+      "ExpressionLanguage": {
+        "options": [
+          { "value": "EL", "label": "EL" },
+          { "value": "WLDF", "label": "WLDF" }
+        ]
+      },
+      "RuleType": {
+        "options": [
+          { "value": "Harvester", "labelKey": "options-harvester-label" },
+          { "value": "Log", "labelKey": "options-log-label" },
+          { "value": "DomainLog", "labelKey": "options-domain-log-label" },
+          { "value": "EventData", "labelKey": "options-event-data-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "Enabled",
+              "ExpressionLanguage",
+              "Notification",
+              "Severity",
+              "RuleType",
+              "RuleExpression",
+              "AlarmType",
+              "AlarmResetPeriod"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "folderTab",
+        "folder": "Schedule"
+      }
+    ]
+  },
+  "WLDFSystemResource/WLDFResource/WatchNotification/Watch/Schedule": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "Hour",
+          "Minute",
+          "Second",
+          "Timezone",
+          "DayOfWeek",
+          "DayOfMonth",
+          "Month",
+          "Year"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
   }
 }

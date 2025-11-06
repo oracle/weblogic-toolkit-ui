@@ -82,11 +82,19 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
         });
       };
 
-      this.notCustomClusterConfig = attributeMap => {
+      this.coherenceNotUsingCustomClusterConfig = attributeMap => {
         const clusteringMode = attributeMap['UsingCustomClusterConfigurationFile'];
         return ko.computed(() => {
           const usesConfig = ModelEditHelper.getDerivedValue(clusteringMode.observable());
           return !usesConfig;
+        });
+      };
+
+      this.wldfRestNotUsingBasicAuth = attributeMap => {
+        const authMode = attributeMap['HttpAuthenticationMode'];
+        return ko.computed(() => {
+          const mode = ModelEditHelper.getDerivedValue(authMode.observable());
+          return mode !== 'Basic';
         });
       };
     }

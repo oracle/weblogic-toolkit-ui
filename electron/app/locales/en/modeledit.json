@@ -162,6 +162,28 @@
   "options-no-auth-label": "No Authentication",
   "options-medium-label": "Medium",
   "options-full-label": "Full",
+  "options-server-runtime-label": "Server Runtime MBean Tree",
+  "options-domain-runtime-label": "Domain Runtime MBean Tree",
+  "options-before-label": "Before",
+  "options-after-label": "After",
+  "options-around-label": "Around",
+  "options-info-label": "Information",
+  "options-warning-label": "Warning",
+  "options-error-label": "Error",
+  "options-notice-label": "Notice",
+  "options-critical-label": "Critical",
+  "options-alert-label": "Alert",
+  "options-emergency-label": "Emergency",
+  "options-application-json-label": "JSON",
+  "options-text-plain-label": "Plain Text",
+  "options-text-xml-label": "XML",
+  "options-text-html-label": "HTML",
+  "options-basic-label": "Basic Authentication",
+  "options-automatic-reset-label": "Automatic Reset",
+  "options-manual-reset-label": "Manual Reset",
+  "options-harvester-label": "Harvester",
+  "options-domain-log-label": "Domain Log",
+  "options-event-data-label": "Event Data",
 
   "direction-jms-queue-to-tuxedo-queue-label": "JMS Queue to Tuxedo Queue",
   "direction-tuxedo-queue-to-jms-queue-label": "Tuxedo Queue to JMS Queue",
@@ -264,7 +286,9 @@
   "a-AcceptBacklog-label": "Accept Backlog",
   "a-AcceptContextPathInGetRealPath-label": "Accept Context Path In Get Real Path",
   "a-AcceptKssDemoCertsEnabled-label": "Accept KSS Demo Certs Enabled",
+
   "a-AcceptedResponseType-label": "Accepted Response Type",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_RestNotification-a-AcceptedResponseType-help": "Configures the Accept header of the HTTP request to the REST endpoint.",
 
   "a-AccessPoint-label": "Access Point",
   "f-WTCServer_WTCLocalTuxDom-a-AccessPoint-help": "The unique name used to identify this local Tuxedo access point. This name should be unique for all local and remote Tuxedo access points defined within a WTC Service. This allows you to define unique configurations having the same Access Point ID.",
@@ -291,7 +315,10 @@
   "f-WTCServer_WTCRemoteTuxDom-a-AclPolicy-help": "The inbound access control list (ACL) policy toward requests from a remote Tuxedo access point.  The allowed values are Local or Global. Local causes the local Tuxedo access point modifies the identity of service requests received from a given remote Tuxedo access point to the principal name specified in the local principal name for a given remote Tuxedo access point. Global causes tocal Tuxedo access point passes the service request with no change in identity. Note that if Interoperate is set to Yes, the AclPolicy is ignored.",
 
   "a-AcsRequiresSsl-label": "ACS Requires SSL",
+
   "a-Action-label": "Action",
+  "f-WLDFSystemResource_WLDFResource_Instrumentation_WLDFInstrumentationMonitor-a-Action-help": "The diagnostic actions attached to this monitor. Actions are relevant only for delegating and custom monitors.",
+
   "a-Active-label": "Active",
   "a-ActiveContextHandlerEntry-label": "Active Context Handler Entry",
 
@@ -337,7 +364,10 @@
   "f-JDBCSystemResource_JdbcResource_JDBCOracleParams-a-AffinityPolicy-help": "The affinity policy determines how JDBC connections to specific Oracle RAC instances are selected and returned to the application. When an initial connection is returned to the application, an affinity context is created that identifies the RAC instance. The affinity context is stored in the application context (global transaction or http session), propagates with the context, and is used during subsequent connection requests to return a connection to the same instance. The affinity policy only applies to Active GridLink data sources.",
 
   "a-AlarmResetPeriod-label": "Alarm Reset Period",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_Watch-a-AlarmResetPeriod-help": "For automatic alarms, the time period, in milliseconds, to wait after the policy evaluates to true before the alarm is automatically reset. The default reset period is 60000 milliseconds, which is equivalent to 60 seconds.",
+
   "a-AlarmType-label": "Alarm Type",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_Watch-a-AlarmType-help": "The alarm type for the policy: manual or automatic. The default alarm type is manual. Once a manually set alarm has triggered, it must be reset through the WebLogic Server Administration Console or programmatically before it can trigger again. An automatic reset alarm will reset after the specified time period has elapsed.",
 
   "a-AlgorithmType-label": "Algorithm Type",
   "f-JDBCSystemResource_JdbcResource_JDBCDataSourceParams-a-AlgorithmType-help": "The algorithm determines the connection request processing for the multi data source.",
@@ -414,7 +444,7 @@
   "a-Argument-label": "Argument",
 
   "a-Arguments-label": "Arguments",
-  "f-SystemComponent_SystemComponentStart-a-Arguments-help": "The arguments to use when starting this server. These are the first arguments appended immediately after java portion of the startup command. For example, you can set Java heap memory or specify any weblogic.nodemanager.server.provider.WeblogicCacheServer option.\n\n",
+  "f-SystemComponent_SystemComponentStart-a-Arguments-help": "The arguments to use when starting this server. These are the first arguments appended immediately after java portion of the startup command. For example, you can set Java heap memory or specify any weblogic.nodemanager.server.provider.WeblogicCacheServer option.",
 
   "f-StartupClass-a-Arguments-help": "Arguments that a server uses to initialize the Startup class. Separate multiple arguments with a comma.",
   "f-ShutdownClass-a-Arguments-help": "Arguments that a server uses to initialize the Shutdown class. Separate multiple arguments with a comma.",
@@ -526,6 +556,8 @@
   "f-JMSServer-a-BlockingSendPolicy-help": "Determines whether the JMS server delivers smaller messages before larger ones when a destination has exceeded its maximum number of messages. FIFO prevents the JMS server from delivering smaller messages when larger ones are already waiting for space. Preemptive allows smaller send requests to preempt previous larger ones when there is sufficient space for smaller messages on the destination. This policy is defined only for the JMS server; it cannot be set on individual destinations.",
 
   "a-Body-label": "Body",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_SMTPNotification-a-Body-help": "The body for the mail message. If the body is not specified, a body is created from the action information.",
+
   "a-BootAuthenticationMaxRetryDelay-label": "Boot Authentication Max Retry Delay",
   "a-BootAuthenticationRetryCount-label": "Boot Authentication Retry Count",
   "a-BootProperties-label": "Boot Properties",
@@ -685,7 +717,11 @@
   "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceClusterParams-a-ClusterListenPort-help": "The cluster listen port used by Coherence; Coherence cluster members use this port to discover and join, or create the cluster.",
 
   "a-ClusterMessagingMode-label": "Cluster Messaging Mode",
+
   "a-ClusterName-label": "Cluster Name",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_ScaleDownAction-a-ClusterName-help": "Indicates the name of the cluster on which to perform the scaling action.",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_ScaleUpAction-a-ClusterName-help": "Indicates the name of the cluster on which to perform the scaling action.",
+
   "a-ClusterRuntime-label": "Cluster Runtime",
   "a-ClusterType-label": "Cluster Type",
   "a-ClusterWeight-label": "Cluster Weight",
@@ -778,6 +814,7 @@
 
   "a-ConnectionFactoryJndiName-label": "Connection Factory JNDI Name",
   "f-JMSBridgeDestination-a-ConnectionFactoryJndiName-help": "The connection factory's JNDI name for this JMS bridge destination.",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_JMSNotification-a-ConnectionFactoryJndiName-help": "The JNDI name of the JMS connection factory. If a name has not been specified, the default JMS connection factory is used.",
 
   "a-ConnectionFilter-label": "Connection Filter",
   "a-ConnectionFilterIgnoreRuleErrorsEnabled-label": "Connection Filter Ignore Rule Errors Enabled",
@@ -934,7 +971,10 @@
   "a-CustomIdentityKeyStorePassPhraseEncrypted-label": "Custom Identity Key Store Passphrase Encrypted",
   "a-CustomIdentityKeyStoreType-label": "Custom Identity Key Store Type",
   "a-CustomIdentityPrivateKeyPassPhrase-label": "Custom Identity Private Key Passphrase",
+
   "a-CustomNotificationProperties-label": "Custom Notification Properties",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_RestNotification-a-CustomNotificationProperties-help": "Allows customizing the JSON object delivered to the REST endpoint.",
+
   "a-CustomPrivateKeyAlias-label": "Custom Private Key Alias",
   "a-CustomPrivateKeyPassPhraseEncrypted-label": "Custom Private Key Passphrase Encrypted",
   "a-CustomProperties-label": "Custom Properties",
@@ -968,7 +1008,11 @@
   "f-SAFAgent_JmssafMessageLogFile-a-DateFormatPattern-help": "The date format pattern used for rendering dates in the log. The DateFormatPattern string conforms to the specification of the java.text.SimpleDateFormat class.",
 
   "a-DayOfMonth-label": "Day Of Month",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_Watch_Schedule-a-DayOfMonth-help": "Indicates the day of the month for the schedule. Defaults to \"*\" (every day).",
+
   "a-DayOfWeek-label": "Day Of Week",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_Watch_Schedule-a-DayOfWeek-help": "Indicates the day of the week for the schedule. Defaults to \"*\" (every day).",
+
   "a-DbPassiveMode-label": "DB Passive Mode",
   "a-DbPassiveModeGracePeriodSeconds-label": "DB Passive Mode Grace Period Seconds",
   "a-DeathDetectorHeartbeatPeriod-label": "Death Detector Heartbeat Period",
@@ -1358,9 +1402,9 @@
   "a-DebugReplicationSize-label": "Debug Replication Size",
   "a-DebugRequestManager-label": "Debug Request Manager",
   "a-DebugResourceGroupMigration-label": "Debug Resource Group Migration",
-  "a-DebugRestJersey1Integration-label": "Debug Rest Jersey 1 Integration",
-  "a-DebugRestJersey2Integration-label": "Debug Rest Jersey 2 Integration",
-  "a-DebugRestNotifications-label": "Debug Rest Notifications",
+  "a-DebugRestJersey1Integration-label": "Debug REST Jersey 1 Integration",
+  "a-DebugRestJersey2Integration-label": "Debug REST Jersey 2 Integration",
+  "a-DebugRestNotifications-label": "Debug REST Notifications",
   "a-DebugRestartInPlace-label": "Debug Restart In Place",
   "a-DebugRjvmRequestResponse-label": "Debug RJVM Request Response",
   "a-DebugRmiDetailed-label": "Debug Rmi Detailed",
@@ -1601,9 +1645,14 @@
   "f-CoherenceClusterSystemResource-a-DeploymentPrincipalName-help": "A string value that indicates the principal that should be used when deploying the file or archive during startup and shutdown. This principal will be used to set the current subject when calling out into application code for interfaces such as ApplicationLifecycleListener. If no principal name is specified, then the anonymous principal will be used.",
   "f-JDBCSystemResource-a-DeploymentPrincipalName-help": "A string value that indicates the principal that should be used when deploying the file or archive during startup and shutdown. This principal will be used to set the current subject when calling out into application code for interfaces such as ApplicationLifecycleListener. If no principal name is specified, then the anonymous principal will be used.",
   "f-JMSSystemResource-a-DeploymentPrincipalName-help": "A string value that indicates the principal that should be used when deploying the file or archive during startup and shutdown. This principal will be used to set the current subject when calling out into application code for interfaces such as ApplicationLifecycleListener. If no principal name is specified, then the anonymous principal will be used.",
+  "f-WLDFSystemResource-a-DeploymentPrincipalName-help": "A string value that indicates the principal that should be used when deploying the file or archive during startup and shutdown. This principal will be used to set the current subject when calling out into application code for interfaces such as ApplicationLifecycleListener. If no principal name is specified, then the anonymous principal will be used.",
 
   "a-DeploymentState-label": "Deployment State",
+
   "a-Description-label": "Description",
+  "f-WLDFSystemResource_WLDFResource_Instrumentation_WLDFInstrumentationMonitor-a-Description-help": "Optional description of this monitor.",
+  "f-WLDFSystemResource-a-Description-help": "Optional short description of this WLDFSystemResource. If provided, the WebLogic Server Administration Console will display the resource description.",
+
   "a-DescriptionsSupported-label": "Descriptions Supported",
   "a-DescriptorBeanClass-label": "Descriptor Bean Class",
 
@@ -1611,6 +1660,7 @@
   "f-CoherenceClusterSystemResource-a-DescriptorFileName-help": "The name of the file that contains the module configuration. By default the file resides in the DOMAIN_DIR/config/coherence/bean_name directory. The module file derives its name from the bean name using the following pattern: <beanName>.xml. Note that this is a read-only property that can only be set when the bean is created.",
   "f-JDBCSystemResource-a-DescriptorFileName-help": "The name of the file containing this configuration. This is a relative name rooted at DOMAIN_DIR/config. By default the file resides in the jdbc subdirectory and derives its name from the bean name using the following pattern: <beanName>.xml. Note that this is a read-only property that can only be set when the bean is created.",
   "f-JMSSystemResource-a-DescriptorFileName-help": "The name of the file that contains the module configuration. By default the file resides in the DOMAIN_DIR/config/jms directory. The module file derives its name from the bean name using the following pattern: <beanName>.xml. Note that this is a read-only property that can only be set when the bean is created.",
+  "f-WLDFSystemResource-a-DescriptorFileName-help": "The name of the descriptor file that contains the XML configuration information for this system-level resource. The location of this file is a relative path rooted at DOMAIN_DIR/config. By default the file resides in the DOMAIN_DIR/config/diagnostics directory, and derives its name from the bean name using the following pattern:\n\n<beanName>.xml. Note that the filename is a read-only property, which is set when the WLDF resource is created.",
 
   "a-Destination-label": "Destination",
 
@@ -1618,6 +1668,7 @@
   "f-JMSBridgeDestination-a-DestinationJNDIName-help": "The destination JNDI name for this JMS bridge destination.",
 
   "a-DestinationJndiName-label": "Destination JNDI Name",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_JMSNotification-a-DestinationJndiName-help": "The JNDI name of the JMS destination.",
 
   "a-DestinationKey-label": "Destination Key",
   "a-DestinationKey-help": "The list of potential destination keys for sorting the messages that arrive on a JMS destination. The keys are ordered from most significant to least significant. If more than one key is specified, a key based on the JMSMessageID can only be the last key in the list. Note: If JMSMessageID is not defined in the key, it is implicitly assumed to be the last key and is set as \"Ascending\" (FIFO) for the sort order.",
@@ -1695,7 +1746,11 @@
   "f-MessagingBridge-a-DurabilityEnabled-help": "Specifies whether or not the messaging bridge allows durable messages. When enabled and the source destination is a JMS topic, a messaging bridge instance uses a durable subscription to ensure that no messages are lost in the event of a failure. DurabilityEnabled ignored if the source destination is a JMS queue.",
 
   "a-DyeFilteringEnabled-label": "Dye Filtering Enabled",
+  "f-WLDFSystemResource_WLDFResource_Instrumentation_WLDFInstrumentationMonitor-a-DyeFilteringEnabled-help": "Specifies whether dye filtering is enabled for the diagnostic actions associated with this monitor.",
+
   "a-DyeMask-label": "Dye Mask",
+  "f-WLDFSystemResource_WLDFResource_Instrumentation_WLDFInstrumentationMonitor-a-DyeMask-help": "The dye mask for all diagnostic actions associated with this monitor.",
+
   "a-DynamicClusterCooloffPeriodSeconds-label": "Dynamic Cluster Cooloff Period Seconds",
   "a-DynamicClusterServerGroupTargetingLimits-entryLabel": "Dynamic Cluster Server Group Targeting Limit",
   "a-DynamicClusterServerGroupTargetingLimits-keyHelp": "The name of the server group",
@@ -1730,6 +1785,24 @@
   "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceLoggingParams-a-Enabled-help": "Specifies whether custom Coherence logging is enabled.",
   "f-SNMPAgent-a-Enabled-help": "Specifies whether this SNMP agent is enabled.",
   "f-SnmpAgentDeployment-a-Enabled-help": "Specifies whether this SNMP agent is enabled.",
+  "f-WLDFSystemResource_WLDFResource_Harvester_HarvestedType-a-Enabled-help": "Specifies whether this type is enabled. Note that enabling a type will have no effect unless the Harvester component is also enabled. A true value means that this type is harvested. A false value indicates that that this type is not harvested.",
+  "f-WLDFSystemResource_WLDFResource_Harvester-a-Enabled-help": "Specifies whether the Harvester component is enabled. If true, all types that are both configured and enabled are harvested. If false, nothing is harvested.",
+  "f-WLDFSystemResource_WLDFResource_Instrumentation_WLDFInstrumentationMonitor-a-Enabled-help": "Specifies whether the monitor and its associated diagnostics actions are enabled.",
+  "f-WLDFSystemResource_WLDFResource_Instrumentation-a-Enabled-help": "The state of the instrumentation behavior for the server or application. If false, there will no weaving (inserting of diagnostic code) in the application or server code during class loading. In addition, if woven classes are already loaded, disabling instrumentation will disable all the monitors in this scope.",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_HeapDumpAction-a-Enabled-help": "Specifies whether this action is enabled.",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_ImageNotification-a-Enabled-help": "Specifies whether this action is enabled.",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_JMSNotification-a-Enabled-help": "Specifies whether this action is enabled.",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_JMXNotification-a-Enabled-help": "Specifies whether this action is enabled.",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_LogAction-a-Enabled-help": "Specifies whether this action is enabled.",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_RestNotification-a-Enabled-help": "Specifies whether this action is enabled.",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_ScaleDownAction-a-Enabled-help": "Specifies whether this action is enabled.",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_ScaleUpAction-a-Enabled-help": "Specifies whether this action is enabled.",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_ScriptAction-a-Enabled-help": "Specifies whether this action is enabled.",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_SMTPNotification-a-Enabled-help": "Specifies whether this action is enabled.",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_SNMPNotification-a-Enabled-help": "Specifies whether this action is enabled.",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_ThreadDumpAction-a-Enabled-help": "Specifies whether this action is enabled.",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_Watch-a-Enabled-help": "Specifies whether this action is enabled.",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification-a-Enabled-help": "Specifies whether the policy and action component is enabled. If true (the default), all configured policies are activated, incoming data or events are evaluated against the policies, and actions are generated when policy conditions are met. If false, all policies are rendered inactive.",
 
   "a-EnabledServer-label": "Enabled Server",
   "a-EnabledServer-help": "This attribute is applicable only when the SNMP Agent is running on the Admin Server of a WebLogic Domain. The EnabledServers attribute allows the users to limit the scope of the monitored data sources to the specific named Servers. The EnabledServers list is ignored when the SNMAgentDeploymentMBean is targeted to a Managed Server. In the case of a Managed Server the SNMP Agent only looks at the data available in the WebLogic Server where the SNMP Agent is deployed. For traps based on MBean attributes the SNMP Agent refers to the Domain Runtime MBean Server when it is running on the Admin Server and the Runtime MBean Server when it is deployed to a Managed Server.",
@@ -1743,6 +1816,8 @@
 
   "a-EndMarker-label": "End Marker",
   "a-EndpointUrl-label": "Endpoint URL",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_RestNotification-a-EndpointUrl-help": "The REST endpoint URL which will be invoked with the action payload.",
+
   "a-EnforceStrictURLPattern-label": "Enforce Strict URL Pattern",
   "a-EnforceValidBasicAuthCredentials-label": "Enforce Valid Basic Auth Credentials",
   "a-EntityCacheCurrentRuntime-label": "Entity Cache Current Runtime",
@@ -1750,7 +1825,10 @@
   "a-EntityCacheSessionRuntime-label": "Entity Cache Session Runtime",
   "a-EntityId-label": "Entity ID",
   "a-EntityURI-label": "Entity URI",
+
   "a-Environment-label": "Environment",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_ScriptAction-a-Environment-help": "A map of environment variables to set for the child process.",
+
   "a-ErrorAuditSeverityEnabled-label": "Error Audit Severity Enabled",
 
   "a-ErrorDestination-label": "Error Destination",
@@ -1770,7 +1848,11 @@
   "a-ExactlyOnceLoadBalancingPolicy-help": "Controls the load balancing behavior when the SAF service forwards messages to a distributed destination with the Exactly-Once quality of service (QOS).",
 
   "a-ExalogicOptimizationsEnabled-label": "ExaLogic Optimizations Enabled",
+
   "a-Exclude-label": "Exclude",
+  "f-WLDFSystemResource_WLDFResource_Instrumentation_WLDFInstrumentationMonitor-a-Exclude-help": "Pattern expressions for classes that will be excluded for this instrumentation monitor. If specified, classes matching given patterns will not be instrumented with this monitor.",
+  "f-WLDFSystemResource_WLDFResource_Instrumentation-a-Exclude-help": "Pattern expressions for classes that will be excluded from this instrumentation scope. If specified, classes matching given patterns will not be instrumented.",
+
   "a-ExcludedCiphersuite-label": "Excluded Ciphersuite",
   "a-ExcludedDomainName-label": "Excluded Domain Name",
   "a-ExpectedToRun-label": "Expected To Run",
@@ -1787,7 +1869,10 @@
   "a-ExplicitPort-label": "Explicit Port",
   "a-ExportKeyLifespan-label": "Export Key Lifespan",
   "a-Expression-label": "Expression",
+
   "a-ExpressionLanguage-label": "Expression Language",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_Watch-a-ExpressionLanguage-help": "Returns the expression language type used by the policy, either \"EL\" or \"WLDF\" (deprecated).",
+
   "a-ExternalDNSName-label": "External DNS Name",
 
   "a-ExtraEjbcOptions-label": "Extra EJB Compiler Options",
@@ -1988,7 +2073,10 @@
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-HangDetectionMaxTestWaitSeconds-help": "The amount of time to wait for connection tests to complete before the connection pool determines that a connection test is hung. Setting the value to 0 disables the hang detection feature.",
 
   "a-HarvestedAttribute-label": "Harvested Attribute",
+  "a-HarvestedAttribute-help": "The harvested attributes for this type. If a list of attributes is provided, only those attributes are harvested; otherwise all harvestable attributes are harvested.",
+
   "a-HarvestedInstance-label": "Harvested Instance",
+  "a-HarvestedInstance-help": "The harvested instances of this type. The configuration of a type can optionally provide a set of identifiers for specific instances. If this list is provided, only the provided instances are harvested; otherwise all instances of the type are harvested. The identifier for an instance must be a valid JMX ObjectName or an ObjectName pattern.",
 
   "a-HeaderTableSize-label": "Header Table Size",
   "f-WebAppContainer_Http2Config-a-HeaderTableSize-help": "The server's maximum size of the header compression table used to decode header blocks, in octets.",
@@ -2019,10 +2107,19 @@
   "a-HostnameVerificationIgnored-label": "Hostname Verification Ignored",
   "a-HostnameVerifier-label": "Hostname Verifier",
   "a-HostsMigratableServices-label": "Hosts Migratable Services",
+
   "a-Hour-label": "Hour",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_Watch_Schedule-a-Hour-help": "Indicates the hour(s) of the day for the schedule. Defaults to \"*\" (every hour).",
+
   "a-HttpAuthenticationMode-label": "HTTP Authentication Mode",
-  "a-HttpAuthenticationPasswordEncrypted-label": "HTTP Authentication Password Encrypted",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_RestNotification-a-HttpAuthenticationMode-help": "The HTTP authentication mode when invoking the REST endpoint URL.",
+
+  "a-HttpAuthenticationPasswordEncrypted-label": "HTTP Authentication Password",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_RestNotification-a-HttpAuthenticationPasswordEncrypted-help": "The HTTP authentication password when the REST endpoint is secured.",
+
   "a-HttpAuthenticationUserName-label": "HTTP Authentication User Name",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_RestNotification-a-HttpAuthenticationUserName-help": "The HTTP authentication user name when the REST endpoint is secured.",
+
   "a-HttpEnabledForThisProtocol-label": "HTTP Enabled For This Protocol",
   "a-HttpPingRetryCount-label": "HTTP Ping Retry Count",
 
@@ -2081,8 +2178,13 @@
   "f-SelfTuning_WorkManager-a-IgnoreStuckThreads-help": "Specifies whether this Work Manager ignores \"stuck\" threads. Typically, stuck threads will cause the associated Work Manager to take some action: either switching the application to Admin mode, shutting down the server, or shutting down the Work Manager. If this flag is set, then no thread in this Work Manager is ever considered stuck.",
 
   "a-ImageDir-label": "Image Dir",
+
   "a-ImageDirectory-label": "Image Directory",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_ImageNotification-a-ImageDirectory-help": "The directory where diagnostic images are stored. The default directory, relative to a server's root directory, is ./logs/diagnostic_images.",
+
   "a-ImageLockout-label": "Image Lockout",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_ImageNotification-a-ImageLockout-help": "The length of time, in minutes, during which no diagnostic images requests will be accepted; that is, the minimum amount of time between image capture requests.",
+
   "a-ImageTimeout-label": "Image Timeout",
   "a-Immutable-label": "Immutable",
   "a-ImplicitBeanDiscoveryEnabled-label": "Implicit Bean Discovery Enabled",
@@ -2092,7 +2194,11 @@
 
   "a-InactivityTimeout-label": "Inactivity Timeout",
   "a-InboundCertificateValidation-label": "Inbound Certificate Validation",
+
   "a-Include-label": "Include",
+  "f-WLDFSystemResource_WLDFResource_Instrumentation_WLDFInstrumentationMonitor-a-Include-help": "Pattern expressions for classes that are included for this instrumentation monitor. If specified, only included classes will be instrumented with this monitor. If not specified, all classes loaded within the application and which are not explicitly excluded are eligible for instrumentation with this monitor. A pattern can end with an asterisk (*), in which case it will match with all classes whose fully qualified classname starts with the prefix of the pattern. For example, weblogic.rmi.* will match with all classes in weblogic.rmi and its subpackages.",
+  "f-WLDFSystemResource_WLDFResource_Instrumentation-a-Include-help": "Pattern expressions for classes that are included in this instrumentation scope. If specified, only included classes will be instrumented. If not specified, all classes loaded within the application and which are not explicitly excluded are eligible for instrumentation. A pattern can end with an asterisk (*), in which case it will match with all classes whose fully qualified classname starts with the prefix of the pattern. For example, weblogic.rmi.* will match with all classes in weblogic.rmi and its subpackages.",
+
   "a-IncludeRootCertificateInChain-label": "Include Root Certificate In Chain",
 
   "a-IncomingPausedAtStartup-label": "Incoming Paused At Startup",
@@ -2323,7 +2429,10 @@
 
   "a-KnownTenantEmptyMetadataTtl-label": "Known Tenant Empty Metadata TTL",
   "a-KnownTenantPrefix-label": "Known Tenant Prefix",
+
   "a-KnownType-label": "Known Type",
+  "a-KnownType-help": "Specifies whether this type is known at startup. Normally, if a type is not available, the Harvester will keep looking for it. If a type is designated as \"known\", the Harvester issues a validation fault if the type cannot be immediately resolved. A true value means that this type is known. A false value indicates that this type may not be known. This flag is useful for WebLogic Server types, where the type information is always available. In this case, setting the flag to true results in earlier detection and reporting of problems. This flag is optional, but is recommended for WebLogic Server types.",
+
   "a-LastModificationTime-label": "Last Modification Time",
   "a-LaxPrecision-label": "Lax Precision",
   "a-LeaderHeartbeatPeriod-label": "Leader Heartbeat Period",
@@ -2347,7 +2456,9 @@
   "a-ListenThreadStartDelaySecs-label": "Listen Thread Start Delay Secs",
   "a-ListenerClass-label": "Listener Class",
   "a-ListenersBindEarly-label": "Listeners Bind Early",
+
   "a-LiveSetOnly-label": "Live Set Only",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_HeapDumpAction-a-LiveSetOnly-help": "Indicates whether or not to include the set of live objects in the heap dump capture.",
 
   "a-LoadAfterAppsRunning-label": "Load After Apps Running",
   "f-StartupClass-a-LoadAfterAppsRunning-help": "Specifies whether the targeted servers load and run this startup class after applications and EJBs are running. If you enable this feature for a startup class, a server loads and runs the startup class after the activate phase. At this point, JMS and JDBC services are available. (Deployment for applications and EJBs consists of three phases: prepare, admin and activate.)",
@@ -2407,7 +2518,10 @@
 
   "a-Location-label": "Location",
   "a-LocationForwardPolicy-label": "Location Forward Policy",
+
   "a-LocationType-label": "Location Type",
+  "f-WLDFSystemResource_WLDFResource_Instrumentation_WLDFInstrumentationMonitor-a-LocationType-help": "Attached actions are applied at selected locations: before, after, or around pointcuts. This is relevant only for custom monitors. (A location where diagnostic code is added is called a diagnostic joinpoint. A set of joinpoints, identified by an expression, is called a pointcut.)",
+
   "a-LockedUsersCurrentCount-label": "Locked Users Current Count",
   "a-LockoutCacheSize-label": "Lockout Cache Size",
   "a-LockoutDuration-label": "Lockout Duration",
@@ -2446,7 +2560,9 @@
   "a-LogRemoteExceptionsEnabled-label": "Log Remote Exceptions Enabled",
   "a-LogTimeInGMT-label": "Log Time In GMT",
   "a-LogToStderr-label": "Log To Stderr",
+
   "a-LogWatchSeverity-label": "Log Watch Severity",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification-a-LogWatchSeverity-help": "The threshold severity level of log messages evaluated by log policies. Messages with a lower severity than this value will be ignored and not evaluated against the policies. Do not confuse LogWatchSeverity with Severity. LogWatchSeverity filters which log messages will be evaluated; Severity sets the default severity level for an action.",
 
   "a-LoggerName-label": "Logger Name",
   "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceLoggingParams-a-LoggerName-help": "The logger name for Coherence logs.",
@@ -2501,7 +2617,10 @@
   "a-MagicThreadDumpEnabled-label": "Magic Thread Dump Enabled",
   "a-MagicThreadDumpFile-label": "Magic Thread Dump File",
   "a-MagicThreadDumpHost-label": "Magic Thread Dump Host",
+
   "a-MailSessionJndiName-label": "Mail Session JNDI Name",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_SMTPNotification-a-MailSessionJndiName-help": "The JNDI name of the mail session. This name must match the attribute in the corresponding MailSessionMBean.",
+
   "a-ManagedServerIndependenceEnabled-label": "Managed Server Independence Enabled",
   "a-ManagedServerNotificationsEnabled-label": "Managed Server Notifications Enabled",
   "a-ManagementAppletCreateEnabled-label": "Management Applet Create Enabled",
@@ -2643,7 +2762,9 @@
   "a-MemoryBufferSeverity-label": "Memory Buffer Severity",
   "a-MemoryBufferSize-label": "Memory Buffer Size",
   "a-MemoryLoggingEnabled-label": "Memory Logging Enabled",
+
   "a-Message-label": "Message",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_LogAction-a-Message-help": "The customized log message for this action.",
 
   "a-MessageBufferSize-label": "Message Buffer Size",
   "f-JMSServer-a-MessageBufferSize-help": "The amount of memory (in bytes) that this JMS server can use to store message bodies before it writes them to disk. When the JMS server writes the message bodies to disk, it clears them from memory. A value of -1 (the default) specifies that the server will automatically determine a size based on the maximum heap size of the JVM. This default will be set to either one-third the maximum heap size, or 512 megabytes, whichever is smaller.",
@@ -2770,7 +2891,9 @@
   "f-JoltConnectionPool-a-MinimumPoolSize-help": "The minimum number of connections to be added to this Jolt connection pool when WebLogic Server starts.",
 
   "a-MinimumTlsProtocolVersion-label": "Minimum Tls Protocol Version",
+
   "a-Minute-label": "Minute",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_Watch_Schedule-a-Minute-help": "Indicates the minutes of the hour for the schedule. Defaults to every five minutes of the hour (*/5).",
 
   "a-ModuleType-label": "Module Type",
   "a-ModuleType-help": "The type of the module (ear, jar, war, or rar).",
@@ -2789,6 +2912,8 @@
   "a-MonitoredMBeanType-help": "The MBean type that defines the attribute you want to monitor. Do not include the MBean suffix. For example, ServerRuntime.",
 
   "a-Month-label": "Month",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_Watch_Schedule-a-Month-help": "Indicates the month for the schedule. Defaults to \"*\" (every month).",
+
   "a-MoreThanOneTargetAllowed-label": "More Than One Target Allowed",
   "a-MsgIdPrefixCompatibilityEnabled-label": "Msg ID Prefix Compatibility Enabled",
   "a-MultiVersionApp-label": "Multi Version App",
@@ -2840,7 +2965,10 @@
   "a-NameCallbackAllowed-label": "Name Callback Allowed",
   "a-NameMapperClassName-label": "Name Mapper Class Name",
   "a-NameQualifier-label": "Name Qualifier",
+
   "a-Namespace-label": "Namespace",
+  "f-WLDFSystemResource_WLDFResource_Harvester_HarvestedType-a-Namespace-help": "The namespace for the harvested type definition.",
+
   "a-NativeIOEnabled-label": "Native I/O Enabled",
   "a-NativeModeEnabled-label": "Native Mode Enabled",
   "a-NativeVersionEnabled-label": "Native Version Enabled",
@@ -2872,8 +3000,12 @@
   "a-Notes-help": "Optional information that you can include to describe this configuration.",
 
   "a-Notification-label": "Notification",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_Watch-a-Notification-help": "The actions enabled for this policy.",
+
   "a-NotificationProperties-label": "Notification Properties",
+
   "a-NotificationType-label": "Notification Type",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_JMXNotification-a-NotificationType-help": "The JMX notification type assigned to the resulting JMX notification.",
 
   "a-NotifyDiffer-label": "Notify Differ",
   "f-SNMPAgent_SNMPStringMonitor-a-NotifyDiffer-help": "Generates a notification if the value of the monitored attribute and the value of String to Compare are different.",
@@ -3019,6 +3151,8 @@
   "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceClusterParams_CoherenceIdentityAsserter_CoherenceInitParam-a-ParamValue-help": "The parameter value that matches the specified ParamType.",
 
   "a-Parameter-label": "Parameter",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_ScriptAction-a-Parameter-help": "An array of ordered command-line arguments to the target script.",
+
   "a-ParserClassName-label": "Parser Class Name",
 
   "a-PartialClusterStabilityDelaySeconds-label": "Partial Cluster Stability Delay Seconds",
@@ -3054,7 +3188,10 @@
   "a-PasswordStyleRetained-label": "Password Style Retained",
   "a-PasswordValidatorTypes-label": "Password Validator Types",
   "a-Path-label": "Path",
+
   "a-PathToScript-label": "Path To Script",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_ScriptAction-a-PathToScript-help": "The full path to the script to execute.",
+
   "a-PeerValidationEnforced-label": "Peer Validation Enforced",
   "a-PeriodLength-label": "Period Length",
   "a-PeriodicSrmCheckEnabled-label": "Periodic SRM Check Enabled",
@@ -3097,7 +3234,9 @@
   "a-PluginClassName-label": "Plug-in Class Name",
   "a-PluginProperties-label": "Plug-in Properties",
   "a-PluginType-label": "Plug-in Type",
+
   "a-Pointcut-label": "Pointcut",
+  "f-WLDFSystemResource_WLDFResource_Instrumentation_WLDFInstrumentationMonitor-a-Pointcut-help": "The pointcut expression for this monitor. Setting a pointcut expression is relevant only for custom monitors; for standard and delegating monitors, this definition is implicitly defined by WLDF.",
 
   "a-Policy-label": "Policy",
   "f-JMSSystemResource_JmsResource_Quota-a-Policy-help": "For destinations that use this quota, this policy determines whether to deliver smaller messages before larger ones when a destination has exceeded its message quota. FIFO (first-in, first-out) indicates that requests for quota are submitted in the order they are received. If a given request for quota cannot be satisfied, and the client requesting the quota is willing to wait, then that request will block all other requests for quota until the request is satisfied or times out. This prevents smaller messages from being delivered when larger requests are already waiting for space. Preemptive indicates that subsequent requests can preempt previously unsatisfied requests. That is, if there is sufficient quota for the current request, then that space is used even if there are other requests waiting for quota. When quota is limited, the Preemptive policy can result in the starvation of larger requests.",
@@ -3194,6 +3333,7 @@
   "a-Properties-label": "Properties",
   "f-ForeignJNDIProvider-a-Properties-help": "Any additional properties that must be set for the JNDI provider. These properties will be passed directly to the constructor for the JNDI provider's InitialContext class.",
   "f-MailSession-a-Properties-help": "The configuration options and user authentication data that this JavaMail session uses to interact with the email server. Each property that you specify overrides the default property value as defined by the JavaMail API Design Specification. Include only the properties defined by the JavaMail API Design Specification. If you do not specify any properties, this mail session will use the JavaMail default property values.",
+  "f-WLDFSystemResource_WLDFResource_Instrumentation_WLDFInstrumentationMonitor-a-Properties-help": "Properties for this monitor.",
 
   "a-PropertiesVersion-label": "Properties Version",
 
@@ -3260,6 +3400,8 @@
   "f-SAFAgent-a-ReceivingPausedAtStartup-help": "Specifies whether the agent is paused for receiving messages at the startup time. When enabled, the sending agent receives messages. Otherwise, the sending agent does not receive any messages. If the value is changed and activated, you need to restart any servers to which the MBean is targeted before the value will take effect.",
 
   "a-Recipient-label": "Recipient",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_SMTPNotification-a-Recipient-help": "The address of the recipient or recipients of the SMTP action mail. The address uses the syntax defined in RFC822. Typical address syntax is of the form user@host.domain or Personal Name. An address can include multiple recipients, separated by commas or spaces.",
+
   "a-RecipientCheckEnabled-label": "Recipient Check Enabled",
 
   "a-ReconnectBlockingMillis-label": "Reconnect Blocking Milliseconds",
@@ -3430,7 +3572,10 @@
   "f-SelfTuning_WorkManager-a-ResponseTimeRequestClass-help": "The name of the ResponseTimeRequestClass that defines the response time goal for this request class. Response time goals can be used to differentiate request classes. We do not try to meet a response time goal for an individual request. Rather we compute a tolerable waiting time for a request class by subtracting the observed average thread use time.",
 
   "a-ResponseTimeout-label": "Response Timeout",
-  "a-RestInvocationMethodType-label": "Rest Invocation Method Type",
+
+  "a-RestInvocationMethodType-label": "REST Invocation Method Type",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_RestNotification-a-RestInvocationMethodType-help": "The REST method for invoking the endpoint.",
+
   "a-RestartDelay-label": "Restart Delay",
 
   "a-RestartDelaySeconds-label": "Restart Delay Seconds",
@@ -3517,7 +3662,10 @@
   "f-WebAppContainer-a-RtexprvalueJspParamName-help": "Global property which determines the behavior of the JSP compiler when a jsp:param attribute \"name\" has a request time value. Without this property set to \"true\", the JSP compiler throws an error for a JSP using a request time value for the \"name\" attribute as mandated by the JSP 2.0 specification. This property exists for backward compatibility.",
 
   "a-RuleExpression-label": "Rule Expression",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_Watch-a-RuleExpression-help": "The expression used to evaluate the policy.",
+
   "a-RuleType-label": "Rule Type",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_Watch-a-RuleType-help": "The expression type for the policy: Harvester refers to harvested data, Log refers to server log entry data, DomainLog refers to domain log entry data, and EventData refers to instrumentation event data. The default type is Harvester.",
 
   "a-RuntimeCacheConfigurationUri-label": "Runtime Cache Configuration URI",
   "a-RuntimeCacheConfigurationUri-help": "The cache configuration file used at runtime.",
@@ -3591,13 +3739,20 @@
   "f-WebAppContainer-a-SameSiteFilterUserAgentRegEx-help": "The User Agent configuration specifies a String array of regular expressions. When the WebLogic HTTP SameSite filter matches any of these expressions with the HTTP User-Agent header value, then the Cookie settings will be applied for the HTTP request. The regular expression follows the Java Pattern syntax specification. By default, there are no expressions, thus the SameSite Cookie settings are applied for all requests.",
 
   "a-SamplePeriod-label": "Sample Period",
+  "f-WLDFSystemResource_WLDFResource_Harvester-a-SamplePeriod-help": "The interval, in milliseconds, between samples.  The default value is 300000.",
+
   "a-ScalingSize-label": "Scaling Size",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_ScaleDownAction-a-ScalingSize-help": "Indicates the number of instances to scale by when the action is invoked.",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_ScaleUpAction-a-ScalingSize-help": "Indicates the number of instances to scale by when the action is invoked.",
+
   "a-ScatteredReadsEnabled-label": "Scattered Reads Enabled",
   "a-SchemaFactory-label": "Schema Factory",
   "a-Scope-label": "Scope",
   "a-ScriptExecutorCommand-label": "Script Executor Command",
   "a-SdpEnabled-label": "Sdp Enabled",
+
   "a-Second-label": "Second",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_Watch_Schedule-a-Second-help": "Indicates the second(s) of the minute for the schedule. Defaults to \"0\" (at the \"0\" second of each minute).",
 
   "a-SecondsBetweenRestarts-label": "Seconds Between Restarts",
   "f-FileStore-a-SecondsBetweenRestarts-help": "Specifies the amount of time, in seconds, to wait in between attempts to restart a failed service instance.",
@@ -3736,7 +3891,11 @@
   "f-MailSession-a-SessionUsername-help": "The username to be used to create an authenticated JavaMail Session, using a JavaMail Authenticator instance; if this is not set, it will be assumed that the Session is not to be authenticated.",
 
   "a-SessionsMaximum-label": "Sessions Maximum",
+
   "a-Severity-label": "Severity",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_LogAction-a-Severity-help": "The severity of the log message recorded by this action.",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_Watch-a-Severity-help": "The severity level of the actions sent when this policy evaluates to true. When set, this level overrides the default value provided in the parent MBean. However, if no severity level is set (null), the value provided in the parent MBean is returned.",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification-a-Severity-help": "The default action severity level for all policies. When a policy triggers, the severity level is delivered with the action.",
 
   "a-SeverityLevel-label": "Severity Level",
   "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceLoggingParams-a-SeverityLevel-help": "The logging severity level for Coherence logs.",
@@ -3898,6 +4057,8 @@
   "f-JMSSystemResource_JmsResource_Template_GroupParams-a-SubDeploymentName-help": "The name of the subdeployment that template parameters apply to. A subdeployment with the specified name must exist in the topic or queue for the parameters to apply.",
 
   "a-Subject-label": "Subject",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_SMTPNotification-a-Subject-help": "The subject for the mail message. If the subject is not specified, a subject is created from the action information.",
+
   "a-SubjectAlternativeNames-label": "Subject Alternative Names",
   "a-SubjectCommonName-label": "Subject Common Name",
 
@@ -3907,6 +4068,7 @@
   "a-SubsystemName-label": "Subsystem Name",
   "f-SNMPAgent_SNMPLogFilter-a-SubsystemName-help": "A list of subsystems whose messages are selected by this log filter. If none are specified, messages from all subsystems are selected.",
   "f-SnmpAgentDeployment_SNMPLogFilter-a-SubsystemName-help": "A list of subsystems whose messages are selected by this log filter. If none are specified, messages from all subsystems are selected.",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_LogAction-a-SubsystemName-help": "The subsystem name to be assigned to the log message.",
 
   "a-SuccessAuditSeverityEnabled-label": "Success Audit Severity Enabled",
   "a-SupportedContextHandlerEntries-label": "Supported Context Handler Entries",
@@ -4004,8 +4166,13 @@
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-TestTimeoutSeconds-help": "The time after which a test statement, or isValid method, currently being executed will time out. TestTimeout relies on underlying JDBC driver support. WebLogic Server passes the time specified to the JDBC driver using the java.sql.Statement.setQueryTimeout() method. If your JDBC driver does not support this method, it may throw an exception and the timeout value is ignored. A value of -1 disables this feature. A value of 0 means that test statements will not time out.",
 
   "a-ThreadCount-label": "Thread Count",
+
   "a-ThreadDumpCount-label": "Thread Dump Count",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_ThreadDumpAction-a-ThreadDumpCount-help": "The number of thread dumps to capture.",
+
   "a-ThreadDumpDelaySeconds-label": "Thread Dump Delay Seconds",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_ThreadDumpAction-a-ThreadDumpDelaySeconds-help": "The delay, in seconds, to pause between thread dump captures.",
+
   "a-ThreadLockTimeout-label": "Thread Lock Timeout",
   "a-ThreadPoolPercentSocketReaders-label": "Thread Pool Percent Socket Readers",
   "a-ThreadPoolSize-label": "Thread Pool Size",
@@ -4051,10 +4218,25 @@
   "f-WTCServer_WTCtBridgeGlobal-a-Timeout-help": "The number of timeout seconds for an entire redirection when this Tuxedo queuing bridge places a message on the target location. A value of 0 specifies an infinite wait and the default value is 60.",
   "f-SNMPAgent_SNMPProxy-a-Timeout-help": "The number of milliseconds that the WebLogic Server SNMP agent waits for a response to requests that it forwards to this proxy agent. If the interval elapses without a response, the WebLogic SNMP agent sends an error to the requesting manager.",
   "f-SnmpAgentDeployment_SNMPProxy-a-Timeout-help": "The number of milliseconds that the WebLogic Server SNMP agent waits for a response to requests that it forwards to this proxy agent. If the interval elapses without a response, the WebLogic SNMP agent sends an error to the requesting manager.",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_HeapDumpAction-a-Timeout-help": "The length of time, in seconds, that an action has to complete execution. By default, the timeout period is 0, which disables the action timeout.",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_ImageNotification-a-Timeout-help": "The length of time, in seconds, that an action has to complete execution. By default, the timeout period is 0, which disables the action timeout.",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_JMSNotification-a-Timeout-help": "The length of time, in seconds, that an action has to complete execution. By default, the timeout period is 0, which disables the action timeout.",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_JMXNotification-a-Timeout-help": "The length of time, in seconds, that an action has to complete execution. By default, the timeout period is 0, which disables the action timeout.",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_LogAction-a-Timeout-help": "The length of time, in seconds, that an action has to complete execution. By default, the timeout period is 0, which disables the action timeout.",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_RestNotification-a-Timeout-help": "The length of time, in seconds, that an action has to complete execution. By default, the timeout period is 0, which disables the action timeout.",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_ScaleDownAction-a-Timeout-help": "The length of time, in seconds, that an action has to complete execution. By default, the timeout period is 0, which disables the action timeout.",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_ScaleUpAction-a-Timeout-help": "The length of time, in seconds, that an action has to complete execution. By default, the timeout period is 0, which disables the action timeout.",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_ScriptAction-a-Timeout-help": "The length of time, in seconds, that an action has to complete execution. By default, the timeout period is 0, which disables the action timeout.",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_SMTPNotification-a-Timeout-help": "The length of time, in seconds, that an action has to complete execution. By default, the timeout period is 0, which disables the action timeout.",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_SNMPNotification-a-Timeout-help": "The length of time, in seconds, that an action has to complete execution. By default, the timeout period is 0, which disables the action timeout.",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_ThreadDumpAction-a-Timeout-help": "The length of time, in seconds, that an action has to complete execution. By default, the timeout period is 0, which disables the action timeout.",
 
   "a-TimeoutConnectionWithPendingResponses-label": "Timeout Connection With Pending Responses",
   "a-TimeoutSeconds-label": "Timeout Seconds",
+
   "a-Timezone-label": "Timezone",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_Watch_Schedule-a-Timezone-help": "Indicates the time zone for the schedule. Defaults to the default time zone for the local VM.",
+
   "a-TlogWriteWhenDeterminerExistsEnabled-label": "TLOG Write When Determiner Exists Enabled",
 
   "a-TmpPath-label": "Temporary Directory Path",
@@ -4377,6 +4559,7 @@
   "f-JDBCStore-a-WorkerPreferredBatchSize-help": "Specifies the batch size when the Worker Count attribute is configured to a value greater than 1. Used to configure the workload the JDBC store incrementally puts on each worker thread. The workload consists of I/O requests which are grouped and pushed to each JDBC worker thread for processing. If the I/O request is very large (for example 1M), then tune this attribute to a smaller value.",
 
   "a-WorkingDirectory-label": "Working Directory",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_ScriptAction-a-WorkingDirectory-help": "The working directory for the child process. If not set the working directory will be the same as the WebLogic Server parent process.",
 
   "a-WrapJdbc-label": "Wrap JDBC",
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-WrapJdbc-help": "By default, SQL objects for CallableStatement, PreparedStatement, ResultSet, Statement, and DatabaseMetaData are wrapped with a WebLogic wrapper. Wrapping allows features like debugging and connection usage to be performed by the server. When false, wrapping is disabled. This improves performance, in some cases significantly, and allows for the application to use the native driver objects directly. A value of false also disables data type wrapping.",
@@ -4421,7 +4604,10 @@
   "a-XmlInputFactory-label": "Xml Input Factory",
   "a-XmlOutputFactory-label": "Xml Output Factory",
   "a-XpathFactory-label": "Xpath Factory",
+
   "a-Year-label": "Year",
+  "f-WLDFSystemResource_WLDFResource_WatchNotification_Watch_Schedule-a-Year-help": "Indicates the year for the schedule. Defaults to \"*\" (every year).",
+
   "a-atp_default_tablespace-label": "ATP Default Tablespace",
   "a-atp_temp_tablespace-label": "ATP Temp Tablespace",
   "a-c-label": "c",
@@ -4811,8 +4997,8 @@
   "f-any_ResourceManager-typeLabel": "Resource Manager",
   "f-any_ResponseTimeRequestClass-label": "Response Time Request Classes",
   "f-any_ResponseTimeRequestClass-typeLabel": "Response Time Request Class",
-  "f-any_RestNotification-label": "Rest Notifications",
-  "f-any_RestNotification-typeLabel": "Rest Notification",
+  "f-any_RestNotification-label": "REST Notifications",
+  "f-any_RestNotification-typeLabel": "REST Notification",
   "f-any_RestartLoopProtection-label": "Restart Loop Protection",
   "f-any_RestfulManagementServices-label": "Restful Management Services",
   "f-any_RoleMapper-label": "Role Mapper",
