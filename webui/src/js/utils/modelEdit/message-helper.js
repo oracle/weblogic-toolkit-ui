@@ -291,21 +291,25 @@ function (ko, i18n, AliasHelper) {
     function getAttributeMessage(attribute, suffix, aliasPath, args) {
       const key = getAttributeKey(attribute.name);
       const folderPrefix = getFolderPrefix(aliasPath);
-      const folderAttributeKey = `${folderPrefix}-a-${key}-${suffix}`;
-      const folderKey = `${folderPrefix}-a-any-${suffix}`;
-      const attributeKey = `a-${key}-${suffix}`;
-      const genericKey = `a-any-${suffix}`;
-      args = args || {};
+      const lastFolder = aliasPath[aliasPath.length - 1];
 
-      if(messageKeys.includes(folderAttributeKey)) {  // specific to folder + attribute
-        return t(folderAttributeKey, args);
-      } else if(messageKeys.includes(attributeKey)) {  // specific to attribute
-        return t(attributeKey, args);
-      } else if(messageKeys.includes(folderKey)) {  // specific to folder
-        return t(folderKey, args);
-      } else {  // default for any attribute, log as missing if unavailable
-        return t(genericKey, args);
+      // ordered by priority
+      const matchKeys = [
+        `${folderPrefix}-a-${key}-${suffix}`,      // specific to folder + attribute
+        `f-any_${lastFolder}-a-${key}-${suffix}`,  // specific to last folder + attribute
+        `a-${key}-${suffix}`,                      // specific to attribute
+        `${folderPrefix}-a-any-${suffix}`          // specific to folder
+      ];
+      const defaultKey = `a-any-${suffix}`;
+
+      args = args || {};
+      for (const matchKey of matchKeys) {
+        if(messageKeys.includes(matchKey)) {
+          return t(matchKey, args);
+        }
       }
+
+      return t(defaultKey, args);
     }
 
     function hasAssignedAttributeMessage(attribute, suffix, aliasPath) {

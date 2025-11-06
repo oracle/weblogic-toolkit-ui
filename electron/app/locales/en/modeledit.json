@@ -475,16 +475,13 @@
   "f-JMSSystemResource_JmsResource_Template-a-AttachSender-help": "Specifies whether messages landing on destinations that use this template should attach the credential of the sending user.",
 
   "a-AttributeMBeanName-label": "Attribute MBean Name",
-  "f-SNMPAgent_SNMPAttributeChange-a-AttributeMBeanName-help": "The name of the MBean instance that you want to monitor. If you leave the name undefined, WebLogic Server monitors all instances of the MBean type that you specify in Monitored MBean Type.",
-  "f-SnmpAgentDeployment_SNMPAttributeChange-a-AttributeMBeanName-help": "The name of the MBean instance that you want to monitor. If you leave the name undefined, WebLogic Server monitors all instances of the MBean type that you specify in Monitored MBean Type.",
+  "f-any_SNMPAttributeChange-a-AttributeMBeanName-help": "The name of the MBean instance that you want to monitor. If you leave the name undefined, WebLogic Server monitors all instances of the MBean type that you specify in Monitored MBean Type.",
 
   "a-AttributeMBeanType-label": "Attribute MBean Type",
-  "f-SNMPAgent_SNMPAttributeChange-a-AttributeMBeanType-help": "The MBean type that defines the attribute you want to monitor. Do not include the MBean suffix. For example, specify Server to monitor a ServerMBean.",
-  "f-SnmpAgentDeployment_SNMPAttributeChange-a-AttributeMBeanType-help": "The MBean type that defines the attribute you want to monitor. Do not include the MBean suffix. For example, specify Server to monitor a ServerMBean.",
+  "f-any_SNMPAttributeChange-a-AttributeMBeanType-help": "The MBean type that defines the attribute you want to monitor. Do not include the MBean suffix. For example, specify Server to monitor a ServerMBean.",
 
   "a-AttributeName-label": "Attribute Name",
-  "f-SNMPAgent_SNMPAttributeChange-a-AttributeName-help": "The name of the attribute that you want to monitor. This attribute must be in the WebLogic Server MIB.",
-  "f-SnmpAgentDeployment_SNMPAttributeChange-a-AttributeName-help": "The name of the attribute that you want to monitor. This attribute must be in the WebLogic Server MIB.",
+  "f-any_SNMPAttributeChange-a-AttributeName-help": "The name of the attribute that you want to monitor. This attribute must be in the WebLogic Server MIB.",
 
   "a-AudienceEnabled-label": "Audience Enabled",
   "a-AuditorTypes-label": "Auditor Types",
@@ -758,10 +755,8 @@
   "a-CombinedRoleMappingEnabled-label": "Combined Role Mapping Enabled",
 
   "a-Community-label": "Community",
-  "f-SNMPAgent_SNMPProxy-a-Community-help": "The community name to be passed on for all SNMPv1 requests to this proxied SNMP agent. If you specify a security name for this proxied agent, the WebLogic SNMP agent ignores this community name. Instead, the agent encodes the security name in an SNMPv3 request and forwards the SNMPv3 request to this proxied agent.",
-  "f-SNMPAgent_SNMPTrapDestination-a-Community-help": "The password (community name) that a WebLogic Server SNMP agent sends to the SNMP manager when the agent generates SNMPv1 or SNMPv2 notifications. The community name that you enter in this trap destination must match the name that the SNMP manager defines.",
-  "f-SnmpAgentDeployment_SNMPProxy-a-Community-help": "The community name to be passed on for all SNMPv1 requests to this proxied SNMP agent. If you specify a security name for this proxied agent, the WebLogic SNMP agent ignores this community name. Instead, the agent encodes the security name in an SNMPv3 request and forwards the SNMPv3 request to this proxied agent.",
-  "f-SnmpAgentDeployment_SNMPTrapDestination-a-Community-help": "The password (community name) that a WebLogic Server SNMP agent sends to the SNMP manager when the agent generates SNMPv1 or SNMPv2 notifications. The community name that you enter in this trap destination must match the name that the SNMP manager defines.",
+  "f-any_SNMPProxy-a-Community-help": "The community name to be passed on for all SNMPv1 requests to this proxied SNMP agent. If you specify a security name for this proxied agent, the WebLogic SNMP agent ignores this community name. Instead, the agent encodes the security name in an SNMPv3 request and forwards the SNMPv3 request to this proxied agent.",
+  "f-any_SNMPTrapDestination-a-Community-help": "The password (community name) that a WebLogic Server SNMP agent sends to the SNMP manager when the agent generates SNMPv1 or SNMPv2 notifications. The community name that you enter in this trap destination must match the name that the SNMP manager defines.",
 
   "a-CommunityBasedAccessEnabled-label": "Community-Based Access Enabled",
   "a-CommunityBasedAccessEnabled-help": "Specifies whether this SNMP agent supports SNMPv1 and v2. SNMPv1 and v2 use community strings for authentication. If you disable community strings for this SNMP agent, the agent will process only SNMPv3 requests. If an SNMP manager sends a v1 or v2 message, the agent discards the message and returns an error code to the manager.",
@@ -2095,8 +2090,7 @@
   "a-HookPoint-label": "Hook Point",
 
   "a-Host-label": "Host",
-  "f-SNMPAgent_SNMPTrapDestination-a-Host-help": "The DNS name or IP address of the computer on which the SNMP manager is running. The WebLogic SNMP agent sends trap notifications to the host and port that you specify.",
-  "f-SnmpAgentDeployment_SNMPTrapDestination-a-Host-help": "The DNS name or IP address of the computer on which the SNMP manager is running. The WebLogic SNMP agent sends trap notifications to the host and port that you specify.",
+  "f-any_SNMPTrapDestination-a-Host-help": "The DNS name or IP address of the computer on which the SNMP manager is running. The WebLogic SNMP agent sends trap notifications to the host and port that you specify.",
 
   "a-HostName-label": "Host Name",
   "a-HostingServer-label": "Hosting Server",
@@ -2440,9 +2434,8 @@
 
   "a-ListenAddress-label": "Listen Address",
   "a-ListenAddress-help": "The DNS name or IP address.",
-  "f-SNMPAgent_SNMPProxy-a-ListenAddress-help": "The address on which the external SNMP agent for which the WebLogic SNMP Agent is acting as a proxy is listening for incoming requests from SNMP managers that use the UDP protocol. If not specified the Server's ListenAddress is used as the ListenAddress of the external SNMPAgent.",
+  "f-any_SNMPProxy-a-ListenAddress-help": "The address on which the external SNMP agent for which the WebLogic SNMP Agent is acting as a proxy is listening for incoming requests from SNMP managers that use the UDP protocol. If not specified the Server's ListenAddress is used as the ListenAddress of the external SNMPAgent.",
   "f-SNMPAgent-a-ListenAddress-help": "The listen address on which you want this SNMP agent to listen for incoming requests from SNMP managers that use the UDP protocol. If not specified the Server's ListenAddress is used as the ListenAddress for the SNMPAgent.",
-  "f-SnmpAgentDeployment_SNMPProxy-a-ListenAddress-help": "The address on which the external SNMP agent for which the WebLogic SNMP Agent is acting as a proxy is listening for incoming requests from SNMP managers that use the UDP protocol. If not specified the Server's ListenAddress is used as the ListenAddress of the external SNMPAgent.",
   "f-SnmpAgentDeployment-a-ListenAddress-help": "The listen address on which you want this SNMP agent to listen for incoming requests from SNMP managers that use the UDP protocol. If not specified the Server's ListenAddress is used as the ListenAddress for the SNMPAgent.",
 
   "a-ListenBacklog-label": "Listen Backlog",
@@ -2781,8 +2774,7 @@
   "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceLoggingParams-a-MessageFormat-help": "The Coherence logs message format.",
 
   "a-MessageId-label": "Message ID",
-  "f-SNMPAgent_SNMPLogFilter-a-MessageId-help": "A list of message IDs or ID ranges that cause a WebLogic Server SNMP agent to generate a notification. If no IDs are specified, this filter selects all message IDs.  Example list: 20,50-100,300",
-  "f-SnmpAgentDeployment_SNMPLogFilter-a-MessageId-help": "A list of message IDs or ID ranges that cause a WebLogic Server SNMP agent to generate a notification. If no IDs are specified, this filter selects all message IDs.  Example list: 20,50-100,300",
+  "f-any_SNMPLogFilter-a-MessageId-help": "A list of message IDs or ID ranges that cause a WebLogic Server SNMP agent to generate a notification. If no IDs are specified, this filter selects all message IDs.  Example list: 20,50-100,300",
 
   "a-MessageIdPrefixEnabled-label": "Message ID Prefix Enabled",
 
@@ -2795,8 +2787,7 @@
   "a-MessageOrderingEnabled-label": "Message Ordering Enabled",
 
   "a-MessageSubstring-label": "Message Substring",
-  "f-SNMPAgent_SNMPLogFilter-a-MessageSubstring-help": "A string that is searched for in the message text. Only messages that contain the string are selected. If a string is not specified, all messages are selected.",
-  "f-SnmpAgentDeployment_SNMPLogFilter-a-MessageSubstring-help": "A string that is searched for in the message text. Only messages that contain the string are selected. If a string is not specified, all messages are selected.",
+  "f-any_SNMPLogFilter-a-MessageSubstring-help":           "A string that is searched for in the message text. Only messages that contain the string are selected. If a string is not specified, all messages are selected.",
 
   "a-MessagesHigh-label": "Messages High",
   "a-MessagesHigh-help": "The upper threshold (total number of messages in this destination) that triggers logging or flow control events. The value of java.lang.Long.MAX_VALUE disables logging and flow control events for the destination.",
@@ -2899,8 +2890,7 @@
   "a-ModuleType-help": "The type of the module (ear, jar, war, or rar).",
 
   "a-Modulus-label": "Modulus",
-  "f-SNMPAgent_SNMPCounterMonitor-a-Modulus-help": "A value to be subtracted from the threshold value when the threshold value is crossed. If Modulus is 0, a notification is generated each time the agent polls the monitored attribute and its value still exceeds or equals the threshold value. If Modulus is larger than 0, the value of the modulus is subtracted from the threshold each time the threshold is crossed.",
-  "f-SnmpAgentDeployment_SNMPCounterMonitor-a-Modulus-help": "A value to be subtracted from the threshold value when the threshold value is crossed. If Modulus is 0, a notification is generated each time the agent polls the monitored attribute and its value still exceeds or equals the threshold value. If Modulus is larger than 0, the value of the modulus is subtracted from the threshold each time the threshold is crossed.",
+  "f-any_SNMPCounterMonitor-a-Modulus-help": "A value to be subtracted from the threshold value when the threshold value is crossed. If Modulus is 0, a notification is generated each time the agent polls the monitored attribute and its value still exceeds or equals the threshold value. If Modulus is larger than 0, the value of the modulus is subtracted from the threshold each time the threshold is crossed.",
 
   "a-MonitoredAttributeName-label": "Monitored Attribute Name",
   "a-MonitoredAttributeName-help": "The name of an MBean attribute to monitor. This attribute must be in the WebLogic Server MIB.",
@@ -3008,12 +2998,10 @@
   "f-WLDFSystemResource_WLDFResource_WatchNotification_JMXNotification-a-NotificationType-help": "The JMX notification type assigned to the resulting JMX notification.",
 
   "a-NotifyDiffer-label": "Notify Differ",
-  "f-SNMPAgent_SNMPStringMonitor-a-NotifyDiffer-help": "Generates a notification if the value of the monitored attribute and the value of String to Compare are different.",
-  "f-SnmpAgentDeployment_SNMPStringMonitor-a-NotifyDiffer-help": "Generates a notification if the value of the monitored attribute and the value of String to Compare are different.",
+  "f-any_SNMPStringMonitor-a-NotifyDiffer-help": "Generates a notification if the value of the monitored attribute and the value of String to Compare are different.",
 
   "a-NotifyMatch-label": "Notify Match",
-  "f-SNMPAgent_SNMPStringMonitor-a-NotifyMatch-help": "Generates a notification if the value of the monitored attribute and the value of String to Compare are the same.",
-  "f-SnmpAgentDeployment_SNMPStringMonitor-a-NotifyMatch-help": "Generates a notification if the value of the monitored attribute and the value of String to Compare are the same.",
+  "f-any_SNMPStringMonitor-a-NotifyMatch-help": "Generates a notification if the value of the monitored attribute and the value of String to Compare are the same.",
 
   "a-NumOfRetriesBeforeMsiMode-label": "Num Of Retries Before Msi Mode",
   "a-NumberOfFilesLimit-label": "Number Of Files Limit",
@@ -3045,12 +3033,10 @@
   "a-OcspTimeTolerance-label": "Ocsp Time Tolerance",
 
   "a-Offset-label": "Offset",
-  "f-SNMPAgent_SNMPCounterMonitor-Offset-help": "A value to be added to the threshold value each time the observed value equals or exceeds the threshold.",
-  "f-SnmpAgentDeployment_SNMPCounterMonitor-Offset-help": "A value to be added to the threshold value each time the observed value equals or exceeds the threshold.",
+  "f-any_SNMPCounterMonitor-a-Offset-help": "A value to be added to the threshold value each time the observed value equals or exceeds the threshold.",
 
-  "a-OidRoot-label": "Oid Root",
-  "f-SNMPAgent_SNMPProxy-a-OidRoot-help": "The root of the object identifier (OID) tree that this proxied SNMP agent controls.",
-  "f-SnmpAgentDeployment_SNMPProxy-a-OidRoot-help": "The root of the object identifier (OID) tree that this proxied SNMP agent controls.",
+  "a-OidRoot-label": "OID Root",
+  "f-any_SNMPProxy-a-OidRoot-help": "The root of the object identifier (OID) tree that this proxied SNMP agent controls.",
 
   "a-OnDemandContextPaths-label": "On Demand Context Paths",
   "a-OnDemandDisplayRefresh-label": "On Demand Display Refresh",
@@ -3250,10 +3236,8 @@
 
   "a-Port-label": "Port",
   "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceAddressProvider_CoherenceSocketAddress-a-Port-help": "The listen port.",
-  "f-SNMPAgent_SNMPProxy-a-Port-help": "The UDP port number on which this proxied SNMP agent is listening.",
-  "f-SNMPAgent_SNMPTrapDestination-a-Port-help": "The UDP port on which the SNMP manager is listening.",
-  "f-SnmpAgentDeployment_SNMPProxy-a-Port-help": "The UDP port number on which this proxied SNMP agent is listening.",
-  "f-SnmpAgentDeployment_SNMPTrapDestination-a-Port-help": "The UDP port on which the SNMP manager is listening.",
+  "f-any_SNMPProxy-a-Port-help": "The UDP port number on which this proxied SNMP agent is listening.",
+  "f-any_SNMPTrapDestination-a-Port-help": "The UDP port on which the SNMP manager is listening.",
 
   "a-PortOffset-label": "Port Offset",
   "a-PortablePartitionHelper-label": "Portable Partition Helper",
@@ -3787,16 +3771,12 @@
   "a-SecurityInteropMode-label": "Security Interop Mode",
 
   "a-SecurityLevel-label": "Security Level",
-  "f-SNMPAgent_SNMPProxy-a-SecurityLevel-help": "The security level that the proxied SNMP agent expects for the specified security name.",
-  "f-SNMPAgent_SNMPTrapDestination-a-SecurityLevel-help": "Specifies the security protocols that the SNMP agent uses when sending SNMPv3 responses or notifications to the SNMP manager that this trap destination represents. Requires you to specify a security name for this trap destination.",
-  "f-SnmpAgentDeployment_SNMPProxy-a-SecurityLevel-help": "The security level that the proxied SNMP agent expects for the specified security name.",
-  "f-SnmpAgentDeployment_SNMPTrapDestination-a-SecurityLevel-help": "Specifies the security protocols that the SNMP agent uses when sending SNMPv3 responses or notifications to the SNMP manager that this trap destination represents. Requires you to specify a security name for this trap destination.",
+  "f-any_SNMPProxy-a-SecurityLevel-help": "The security level that the proxied SNMP agent expects for the specified security name.",
+  "f-any_SNMPTrapDestination-a-SecurityLevel-help": "Specifies the security protocols that the SNMP agent uses when sending SNMPv3 responses or notifications to the SNMP manager that this trap destination represents. Requires you to specify a security name for this trap destination.",
 
   "a-SecurityName-label": "Security Name",
-  "f-SNMPAgent_SNMPProxy-a-SecurityName-help": "The user name on whose behalf the WebLogic SNMP agent forwards v3 requests. If not specified, the request is forwarded as a v1 request. If you specify a security name, you must also specify a security level that is equal to or lower than the security level that is configured for communication between the WebLogic SNMP agent and SNMP managers. For example, if the WebLogic SNMP agent requires incoming SNMPv3 requests to use the authentication protocol but no privacy protocol, the security level for this proxy must be either Authentication Only or None. Note that if you want to use the authorization or privacy protocols, you must configure credential mapping in the WebLogic Server security realm. The WebLogic SNMP agent cannot forward or pass through the credentials that are contained in SNMPv3 requests from SNMP managers. Instead, the agent authenticates and performs other security operations on incoming requests, and then constructs a new request to forward to a proxied agent.",
-  "f-SNMPAgent_SNMPTrapDestination-a-SecurityName-help": "Specifies the user name that the WebLogic Server SNMP agent encodes into SNMPv3 responses or notifications. Requires you to create a credential map for this user name in the WebLogic Server security realm. The credential map contains an authentication password and an optional privacy password for this user. The user name and passwords must match the credentials required by the SNMP manager that this trap destination represents.",
-  "f-SnmpAgentDeployment_SNMPProxy-a-SecurityName-help": "The user name on whose behalf the WebLogic SNMP agent forwards v3 requests. If not specified, the request is forwarded as a v1 request. If you specify a security name, you must also specify a security level that is equal to or lower than the security level that is configured for communication between the WebLogic SNMP agent and SNMP managers. For example, if the WebLogic SNMP agent requires incoming SNMPv3 requests to use the authentication protocol but no privacy protocol, the security level for this proxy must be either Authentication Only or None. Note that if you want to use the authorization or privacy protocols, you must configure credential mapping in the WebLogic Server security realm. The WebLogic SNMP agent cannot forward or pass through the credentials that are contained in SNMPv3 requests from SNMP managers. Instead, the agent authenticates and performs other security operations on incoming requests, and then constructs a new request to forward to a proxied agent.",
-  "f-SnmpAgentDeployment_SNMPTrapDestination-a-SecurityName-help": "Specifies the user name that the WebLogic Server SNMP agent encodes into SNMPv3 responses or notifications. Requires you to create a credential map for this user name in the WebLogic Server security realm. The credential map contains an authentication password and an optional privacy password for this user. The user name and passwords must match the credentials required by the SNMP manager that this trap destination represents.",
+  "f-any_SNMPProxy-a-SecurityName-help": "The user name on whose behalf the WebLogic SNMP agent forwards v3 requests. If not specified, the request is forwarded as a v1 request. If you specify a security name, you must also specify a security level that is equal to or lower than the security level that is configured for communication between the WebLogic SNMP agent and SNMP managers. For example, if the WebLogic SNMP agent requires incoming SNMPv3 requests to use the authentication protocol but no privacy protocol, the security level for this proxy must be either Authentication Only or None. Note that if you want to use the authorization or privacy protocols, you must configure credential mapping in the WebLogic Server security realm. The WebLogic SNMP agent cannot forward or pass through the credentials that are contained in SNMPv3 requests from SNMP managers. Instead, the agent authenticates and performs other security operations on incoming requests, and then constructs a new request to forward to a proxied agent.",
+  "f-any_SNMPTrapDestination-a-SecurityName-help": "Specifies the user name that the WebLogic Server SNMP agent encodes into SNMPv3 responses or notifications. Requires you to create a credential map for this user name in the WebLogic Server security realm. The credential map contains an authentication password and an optional privacy password for this user. The user name and passwords must match the credentials required by the SNMP manager that this trap destination represents.",
 
   "a-SecurityPolicy-label": "Security Policy",
   "f-JMSSystemResource_JmsResource_ConnectionFactory_SecurityParams-a-SecurityPolicy-help": "The security policy used for the connection factory. The default security policy is Thread-Based.",
@@ -3899,8 +3879,7 @@
 
   "a-SeverityLevel-label": "Severity Level",
   "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceLoggingParams-a-SeverityLevel-help": "The logging severity level for Coherence logs.",
-  "f-SNMPAgent_SNMPLogFilter-a-SeverityLevel-help": "The minimum severity of a message that causes a WebLogic Server SNMP agent to generate a notification.",
-  "f-SnmpAgentDeployment_SNMPLogFilter-a-SeverityLevel-help": "The minimum severity of a message that causes a WebLogic Server SNMP agent to generate a notification.",
+  "f-any_SNMPLogFilter-a-SeverityLevel-help": "The minimum severity of a message that causes a WebLogic Server SNMP agent to generate a notification.",
 
   "a-Shared-label": "Shared",
   "f-JMSSystemResource_JmsResource_Quota-a-Shared-help": "Indicates whether this quota is shared by multiple destinations that refer to it. If Shared is enabled (the default), all destinations referring to the quota object compete for resources the resources defined by that object. If one destination consumes a large number of messages or bytes, then this will prevent other destinations from obtaining quota. If Shared is disabled, the quota object behaves as a template. Each destination referring to the quota object gets its own internal instance of the object for tracking quota. Destinations within the same JMS module may share quotas in any way they want. However, quota sharing only takes place for destinations within the same JMS server. In other words, if destinations X and Y both share the same quota Q, and the quota Q has Shared enabled, then X and Y will only share quota if both are deployed to the same JMS server.",
@@ -4038,8 +4017,7 @@
   "a-StrictOwnershipCheck-label": "Strict Ownership Check",
 
   "a-StringToCompare-label": "String To Compare",
-  "f-SNMPAgent_SNMPStringMonitor-a-StringToCompare-help": "The string against which the value of the monitored attribute will be compared. A notification is generated when the criteria specified by Notify Match or Notify Differ is satisfied.",
-  "f-SnmpAgentDeployment_SNMPStringMonitor-a-StringToCompare-help": "The string against which the value of the monitored attribute will be compared. A notification is generated when the criteria specified by Notify Match or Notify Differ is satisfied.",
+  "f-any_SNMPStringMonitor-a-StringToCompare-help": "The string against which the value of the monitored attribute will be compared. A notification is generated when the criteria specified by Notify Match or Notify Differ is satisfied.",
 
   "a-StuckThreadCount-label": "Stuck Thread Count",
   "f-SelfTuning_WorkManager_WorkManagerShutdownTrigger-a-StuckThreadCount-help": "Number of stuck threads after which the WorkManager is shutdown.",
@@ -4066,8 +4044,7 @@
   "f-JMSSystemResource_JmsResource_ConnectionFactory_ClientParams-a-SubscriptionSharingPolicy-help": "Specifies the subscription sharing policy on this connection.",
 
   "a-SubsystemName-label": "Subsystem Name",
-  "f-SNMPAgent_SNMPLogFilter-a-SubsystemName-help": "A list of subsystems whose messages are selected by this log filter. If none are specified, messages from all subsystems are selected.",
-  "f-SnmpAgentDeployment_SNMPLogFilter-a-SubsystemName-help": "A list of subsystems whose messages are selected by this log filter. If none are specified, messages from all subsystems are selected.",
+  "f-any_SNMPLogFilter-a-SubsystemName-help": "A list of subsystems whose messages are selected by this log filter. If none are specified, messages from all subsystems are selected.",
   "f-WLDFSystemResource_WLDFResource_WatchNotification_LogAction-a-SubsystemName-help": "The subsystem name to be assigned to the log message.",
 
   "a-SuccessAuditSeverityEnabled-label": "Success Audit Severity Enabled",
@@ -4185,16 +4162,13 @@
   "f-JDBCStore-a-ThreeStepThreshold-help": "Specifies the threshold, in bytes, when the JDBC store uses 3 steps (insert, select, populate) instead of 1 step (insert) to populate an Oracle Blob data type. Applies only to Oracle databases where a Blob data type is used instead of the default Long Raw data type for record data. The default value is 200000.",
 
   "a-Threshold-label": "Threshold",
-  "f-SNMPAgent_SNMPCounterMonitor-a-Threshold-help": "Specifies a value that triggers the Counter Monitor to generate a notification. The monitor generates a notification the first time the observed value transitions from below the threshold to at or above the threshold. While the observed value remains at or above the threshold, the Counter Monitor does not generate additional notifications. If the observed value falls below the threshold and then later equals or exceeds the threshold, the SNMP Counter Monitor will generate a notification every time the threshold is crossed. You can specify an offset value to cause this threshold value to increase each time the observed value equals or exceeds the threshold. The first time the observed value equals or exceeds the new threshold value, this monitor generates a notification and adds the offset value to the new threshold value. For example, if you set Threshold to 1000 and Offset to 2000, when the observed attribute equals or exceeds 1000, the Counter Monitor sends a notification and increases the threshold to 3000. When the observed attribute equals or exceeds 3000, the Counter Monitor sends a notification and increases the threshold again to 5000.",
-  "f-SnmpAgentDeployment_SNMPCounterMonitor-a-Threshold-help": "Specifies a value that triggers the Counter Monitor to generate a notification. The monitor generates a notification the first time the observed value transitions from below the threshold to at or above the threshold. While the observed value remains at or above the threshold, the Counter Monitor does not generate additional notifications. If the observed value falls below the threshold and then later equals or exceeds the threshold, the SNMP Counter Monitor will generate a notification every time the threshold is crossed. You can specify an offset value to cause this threshold value to increase each time the observed value equals or exceeds the threshold. The first time the observed value equals or exceeds the new threshold value, this monitor generates a notification and adds the offset value to the new threshold value. For example, if you set Threshold to 1000 and Offset to 2000, when the observed attribute equals or exceeds 1000, the Counter Monitor sends a notification and increases the threshold to 3000. When the observed attribute equals or exceeds 3000, the Counter Monitor sends a notification and increases the threshold again to 5000.",
+  "f-any_SNMPCounterMonitor-a-Threshold-help": "Specifies a value that triggers the Counter Monitor to generate a notification. The monitor generates a notification the first time the observed value transitions from below the threshold to at or above the threshold. While the observed value remains at or above the threshold, the Counter Monitor does not generate additional notifications. If the observed value falls below the threshold and then later equals or exceeds the threshold, the SNMP Counter Monitor will generate a notification every time the threshold is crossed. You can specify an offset value to cause this threshold value to increase each time the observed value equals or exceeds the threshold. The first time the observed value equals or exceeds the new threshold value, this monitor generates a notification and adds the offset value to the new threshold value. For example, if you set Threshold to 1000 and Offset to 2000, when the observed attribute equals or exceeds 1000, the Counter Monitor sends a notification and increases the threshold to 3000. When the observed attribute equals or exceeds 3000, the Counter Monitor sends a notification and increases the threshold again to 5000.",
 
   "a-ThresholdHigh-label": "Threshold High",
-  "f-SNMPAgent_SNMPGaugeMonitor-a-ThresholdHigh-help": "The high threshold at which a notification should be generated. A notification is generated the first time the monitored value is equal to or greater than this value. Subsequent crossings of the high threshold value do not cause additional notifications unless the attribute value becomes equal to or less than the low threshold value.",
-  "f-SnmpAgentDeployment_SNMPGaugeMonitor-a-ThresholdHigh-help": "The high threshold at which a notification should be generated. A notification is generated the first time the monitored value is equal to or greater than this value. Subsequent crossings of the high threshold value do not cause additional notifications unless the attribute value becomes equal to or less than the low threshold value.",
+  "f-any_SNMPGaugeMonitor-a-ThresholdHigh-help": "The high threshold at which a notification should be generated. A notification is generated the first time the monitored value is equal to or greater than this value. Subsequent crossings of the high threshold value do not cause additional notifications unless the attribute value becomes equal to or less than the low threshold value.",
 
   "a-ThresholdLow-label": "Threshold Low",
-  "f-SNMPAgent_SNMPGaugeMonitor-a-ThresholdLow-help": "The low threshold at which a notification should be generated. A notification is generated the first time the monitored value is less than or equal to this value. Subsequent crossings of the low threshold value do not cause additional notifications unless the attribute value becomes equal to or greater than the high threshold value.",
-  "f-SnmpAgentDeployment_SNMPGaugeMonitor-a-ThresholdLow-help": "The low threshold at which a notification should be generated. A notification is generated the first time the monitored value is less than or equal to this value. Subsequent crossings of the low threshold value do not cause additional notifications unless the attribute value becomes equal to or greater than the high threshold value.",
+  "f-any_SNMPGaugeMonitor-a-ThresholdLow-help": "The low threshold at which a notification should be generated. A notification is generated the first time the monitored value is less than or equal to this value. Subsequent crossings of the low threshold value do not cause additional notifications unless the attribute value becomes equal to or greater than the high threshold value.",
 
   "a-TightlyCoupledTransactionsEnabled-label": "Tightly Coupled Transactions Enabled",
 
@@ -4216,8 +4190,7 @@
 
   "a-Timeout-label": "Timeout",
   "f-WTCServer_WTCtBridgeGlobal-a-Timeout-help": "The number of timeout seconds for an entire redirection when this Tuxedo queuing bridge places a message on the target location. A value of 0 specifies an infinite wait and the default value is 60.",
-  "f-SNMPAgent_SNMPProxy-a-Timeout-help": "The number of milliseconds that the WebLogic Server SNMP agent waits for a response to requests that it forwards to this proxy agent. If the interval elapses without a response, the WebLogic SNMP agent sends an error to the requesting manager.",
-  "f-SnmpAgentDeployment_SNMPProxy-a-Timeout-help": "The number of milliseconds that the WebLogic Server SNMP agent waits for a response to requests that it forwards to this proxy agent. If the interval elapses without a response, the WebLogic SNMP agent sends an error to the requesting manager.",
+  "f-any_SNMPProxy-a-Timeout-help": "The number of milliseconds that the WebLogic Server SNMP agent waits for a response to requests that it forwards to this proxy agent. If the interval elapses without a response, the WebLogic SNMP agent sends an error to the requesting manager.",
   "f-WLDFSystemResource_WLDFResource_WatchNotification_HeapDumpAction-a-Timeout-help": "The length of time, in seconds, that an action has to complete execution. By default, the timeout period is 0, which disables the action timeout.",
   "f-WLDFSystemResource_WLDFResource_WatchNotification_ImageNotification-a-Timeout-help": "The length of time, in seconds, that an action has to complete execution. By default, the timeout period is 0, which disables the action timeout.",
   "f-WLDFSystemResource_WLDFResource_WatchNotification_JMSNotification-a-Timeout-help": "The length of time, in seconds, that an action has to complete execution. By default, the timeout period is 0, which disables the action timeout.",
@@ -4433,7 +4406,7 @@
 
   "a-UserId-label": "User ID",
   "f-WTCServer_WTCtBridgeGlobal-a-UserId-help": "The user identity for all messages handled by this Tuxedo queuing bridge for ACL checks when security is configured. All messages assume this identity until the security/authentication contexts are passed between the subsystems. Until the security contexts are passed, there is no secure method to identify who generated a message received from the source location. The user argument may be specified as either a user name or a user identification number (uid).",
-  "f-SNMPAgent_SNMPLogFilter-a-UserId-help": "A list of user IDs that causes a WebLogic Server SNMP agent to generate a notification. Every message includes the user ID from the security context in which the message was generated. If the user ID field for a message matches one of the user IDs you specify in the filter, WebLogic Server generates a notification. If this log filter doesn't specify user IDs, WebLogic Server can generate a notification for messages from all user IDs.",
+  "f-any_SNMPLogFilter-a-UserId-help": "A list of user IDs that causes a WebLogic Server SNMP agent to generate a notification. Every message includes the user ID from the security context in which the message was generated. If the user ID field for a message matches one of the user IDs you specify in the filter, WebLogic Server generates a notification. If this log filter doesn't specify user IDs, WebLogic Server can generate a notification for messages from all user IDs.",
 
   "a-UserIdResourceAttribute-label": "User ID Resource Attribute",
   "a-UserIdTokenClaim-label": "User ID Token Claim",
