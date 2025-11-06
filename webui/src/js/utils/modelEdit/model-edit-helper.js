@@ -271,9 +271,9 @@ function (ko, jsYaml, project, utils,
       }
 
       // Jet oj-c-select-multiple uses Set
-      if(editorType === 'selectMulti') {
-        modelValue = new Set(modelValue);
-      }
+      // if(editorType === 'selectMulti') {
+      //   modelValue = new Set(modelValue);
+      // }
 
       return modelValue;
     };

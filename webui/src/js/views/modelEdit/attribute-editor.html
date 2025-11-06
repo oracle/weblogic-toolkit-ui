@@ -66,16 +66,18 @@
     </oj-bind-if>
 
     <oj-bind-if test="[[editorType === 'selectMulti']]">
-      <oj-c-select-multiple
+      <!-- oj-c-select-multiple broken: Jira JET-76802 -->
+      <!-- oj-c-select-multiple uses data="..." instead of options="..." -->
+      <oj-select-many
         item-text="label"
         label-hint="[[attributeLabel]]"
         help.instruction="[[attributeHelp]]"
         value="{{getValueObservable()}}"
         disabled="[[disabled]]"
         readOnly="[[readOnly]]"
-        data="[[optionsProvider]]"
+        options="[[optionsProvider]]"
       >
-      </oj-c-select-multiple>
+      </oj-select-many>
     </oj-bind-if>
 
     <oj-bind-if test="[[editorType === 'combo']]">
