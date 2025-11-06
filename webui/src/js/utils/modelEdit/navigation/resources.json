@@ -189,13 +189,24 @@
       "modelPath": ["resources", "SystemComponent"]
     },
     {
-      "modelPath": ["resources", "WLDFSystemResource"]
+      "modelPath": ["resources", "WebAppContainer"]
     },
     {
       "modelPath": ["resources", "WTCServer"]
     },
     {
-      "modelPath": ["resources", "WebAppContainer"]
+      "modelPath": ["resources", "WLDFSystemResource"],
+      "instanceChildren": [
+        {
+          "modelPath": ["WLDFResource", "Harvester"]
+        },
+        {
+          "modelPath": ["WLDFResource", "Instrumentation"]
+        },
+        {
+          "modelPath": ["WLDFResource", "WatchNotification"]
+        }
+      ]
     }
   ]
 }
