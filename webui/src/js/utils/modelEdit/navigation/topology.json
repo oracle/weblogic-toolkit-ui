@@ -1,83 +1,83 @@
 {
-  "modelPath": ["topology"],
+  "path": "topology",
   "children": [
     {
-      "modelPath": ["topology", "AdminConsole"]
+      "path": "AdminConsole"
     },
     {
-      "modelPath": ["topology", "AllowList"]
+      "path": "AllowList"
     },
     {
-      "modelPath": ["topology", "Callout"]
+      "path": "Callout"
     },
     {
-      "modelPath": ["topology", "CdiContainer"]
+      "path": "CdiContainer"
     },
     {
-      "modelPath": ["topology", "Cluster"]
+      "path": "Cluster"
     },
     {
-      "modelPath": ["topology", "EmbeddedLDAP"]
+      "path": "EmbeddedLDAP"
     },
     {
-      "modelPath": ["topology", "HealthScore"]
+      "path": "HealthScore"
     },
     {
-      "modelPath": ["topology", "JMX"]
+      "path": "JMX"
     },
     {
-      "modelPath": ["topology", "JPA"]
+      "path": "JPA"
     },
     {
-      "modelPath": ["topology", "JTA"]
+      "path": "JTA"
     },
     {
-      "modelPath": ["topology", "Log"]
+      "path": "Log"
     },
     {
-      "modelPath": ["topology", "LogFilter"]
+      "path": "LogFilter"
     },
     {
-      "modelPath": ["topology", "Machine"]
+      "path": "Machine"
     },
     {
-      "modelPath": ["topology", "MigratableTarget"]
+      "path": "MigratableTarget"
     },
     {
-      "modelPath": ["topology", "NMProperties"]
+      "path": "NMProperties"
     },
     {
-      "modelPath": ["topology", "RemoteConsoleHelper"]
+      "path": "RemoteConsoleHelper"
     },
     {
-      "modelPath": ["topology", "RestfulManagementServices"]
+      "path": "RestfulManagementServices"
     },
     {
-      "modelPath": ["topology", "SecurityConfiguration"]
+      "path": "SecurityConfiguration"
     },
     {
-      "modelPath": ["topology", "Server"]
+      "path": "Server"
     },
     {
-      "modelPath": ["topology", "ServerTemplate"]
+      "path": "ServerTemplate"
     },
     {
-      "modelPath": ["topology", "UnixMachine"]
+      "path": "UnixMachine"
     },
     {
-      "modelPath": ["topology", "VirtualHost"]
+      "path": "VirtualHost"
     },
     {
-      "modelPath": ["topology", "WSReliableDeliveryPolicy"]
+      "path": "WSReliableDeliveryPolicy"
     },
     {
-      "modelPath": ["topology", "WebserviceSecurity"]
+      "path": "WebserviceSecurity"
     },
     {
-      "modelPath": ["topology", "XMLEntityCache"]
+      "path": "XMLEntityCache"
     },
     {
-      "modelPath": ["topology", "XMLRegistry"]
+      "path": "XMLRegistry"
     }
   ]
 }

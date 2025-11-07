@@ -1,33 +1,33 @@
 {
-  "modelPath": ["domainInfo"],
+  "path": "domainInfo",
   "children": [
     {
-      "modelPath": ["domainInfo", "OPSSInitialization"],
+      "path": "OPSSInitialization",
       "children": [
         {
-          "modelPath": ["domainInfo", "OPSSInitialization", "Credential"]
+          "path": "Credential"
         }
       ]
     },
     {
-      "modelPath": ["domainInfo", "RCUDbInfo"]
+      "path": "RCUDbInfo"
     },
     {
-      "modelPath": ["domainInfo", "WLSUserPasswordCredentialMappings"],
+      "path": "WLSUserPasswordCredentialMappings",
       "children": [
         {
-          "modelPath": ["domainInfo", "WLSUserPasswordCredentialMappings", "CrossDomain"]
+          "path": "CrossDomain"
         },
         {
-          "modelPath": ["domainInfo", "WLSUserPasswordCredentialMappings", "RemoteResource"]
+          "path": "RemoteResource"
         }
       ]
     },
     {
-      "modelPath": ["domainInfo", "WLSPolicies"]
+      "path": "WLSPolicies"
     },
     {
-      "modelPath": ["domainInfo", "WLSRoles"]
+      "path": "WLSRoles"
     }
   ]
 }
