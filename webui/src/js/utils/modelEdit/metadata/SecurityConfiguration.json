@@ -1,0 +1,593 @@
+{
+  "SecurityConfiguration": {
+    "attributeDetails": {
+      "CrossDomainSecurityCacheEnabled": {
+        "disabled": "secConfigCrossDomainSecurityFields"
+      },
+      "CrossDomainSecurityCacheTtl": {
+        "disabled": "secConfigCrossDomainSecurityFields"
+      },
+      "DefaultRealm": {
+        "editorType": "combo",
+        "optionsMethod": "getDefaultRealmOptions"
+      },
+      "MethodOrder": {
+        "options": [
+          { "value": "OCSP", "labelKey": "options-ocsp-only-label" },
+          { "value": "CRL", "labelKey": "options-crl-only-label" },
+          { "value": "OCSP_THEN_CRL", "labelKey": "options-ocsp-then-crl-label" },
+          { "value": "CRL_THEN_OCSP", "labelKey": "options-crl-then-ocsp-label" }
+        ]
+      },
+      "WebAppFilesCaseInsensitive": {
+        "options": [
+          { "value":  "os", "labelKey":  "options-os-label" },
+          { "value":  "true", "labelKey":  "options-true-label" },
+          { "value":  "false", "labelKey":  "options-false-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "DefaultRealm",
+              "AdministrativeIdentityDomain",
+              "CrossDomainSecurityEnabled",
+              "CredentialEncrypted",
+              "NodeManagerUsername",
+              "NodeManagerPasswordEncrypted",
+              "IdentityDomainDefaultEnabled",
+              "IdentityDomainAwareProvidersRequired",
+              "ExcludedDomainName",
+              "Notes"
+            ]
+          },
+          {
+            "type": "collapsible",
+            "labelKey": "advanced-label",
+            "sections": [
+              {
+                "type": "attributes",
+                "labelKey": "anonymous-access-title",
+                "attributes": [
+                  "RemoteAnonymousRmit3Enabled",
+                  "RemoteAnonymousRmiiiopEnabled",
+                  "RemoteAnonymousJndiEnabled",
+                  "AnonymousAdminLookupEnabled"
+                ]
+              },
+              {
+                "type": "attributes",
+                "labelKey": "check-certificates-settings-title",
+                "attributes": [
+                  "CheckIdentityCertificates",
+                  "CheckTrustCertificates",
+                  "CheckCertificatesExpirationDays",
+                  "CheckCertificatesIntervalDays"
+                ]
+              },
+              {
+                "type": "attributes",
+                "labelKey": "connection-filter-title",
+                "attributes": [
+                  "ConnectionLoggerEnabled",
+                  "CompatibilityConnectionFiltersEnabled",
+                  "ConnectionFilter",
+                  "ConnectionFilterRule",
+                  "ConnectionFilterIgnoreRuleErrorsEnabled",
+                  "ConnectionLoggerEnabled"
+                ]
+              },
+              {
+                "type": "attributes",
+                "labelKey": "cross-domain-security-cache-title",
+                "attributes": [
+                  "CrossDomainSecurityCacheEnabled",
+                  "CrossDomainSecurityCacheTtl"
+                ]
+              },
+              {
+                "type": "attributes",
+                "labelKey": "principal-settings-title",
+                "attributes": [
+                  "DowngradeUntrustedPrincipals",
+                  "PrincipalEqualsCaseInsensitive",
+                  "PrincipalEqualsCompareDnAndGuid"
+                ]
+              },
+              {
+                "type": "attributes",
+                "labelKey": "boot-authentication-retries-title",
+                "attributes": [
+                  "BootAuthenticationMaxRetryDelay",
+                  "BootAuthenticationRetryCount"
+                ]
+              },
+              {
+                "type": "attributes",
+                "labelKey": "web-app-settings-title",
+                "attributes": [
+                  "WebAppFilesCaseInsensitive",
+                  "EnforceStrictURLPattern",
+                  "EnforceValidBasicAuthCredentials"
+                ]
+              },
+              {
+                "type": "attributes",
+                "labelKey": "miscellaneous-attributes-label",
+                "attributes": [
+                  "TwoWayTLSRequiredForAdminClients",
+                  "UseKSSForDemo",
+                  "NonceTimeoutSeconds",
+                  "OutboundReferenceHostAllowList",
+                  "ClearTextCredentialAccessEnabled",
+                  "ConsoleFullDelegationEnabled"
+                ],
+                "addRemainingAttributes": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "DefaultRealmInternal",
+          "CredentialGenerated",
+          "RealmBootStrapVersion"
+        ]
+      },
+      {
+        "type": "folderTab",
+        "folder": "Realm"
+      },
+      {
+        "type": "folderTab",
+        "folder": "SecureMode"
+      },
+      {
+        "type": "folderTab",
+        "folder": "CertificateManagement"
+      },
+      {
+        "type": "folderTab",
+        "folder": "CredentialSet"
+      },
+      {
+        "type": "folderTab",
+        "folder": "CertRevoc"
+      },
+      {
+        "type": "folderTab",
+        "folder": "CertRevoc/CertRevocCa"
+      }
+    ]
+  },
+  "SecurityConfiguration/CertRevoc": {
+    "attributeDetails": {
+      "CrlCacheRefreshPeriodPercent": {
+        "disabled": "secConfigCertRevocCrlFields"
+      },
+      "CrlCacheType": {
+        "disabled": "secConfigCertRevocCrlFields",
+        "options": [
+          { "value": "FILE", "labelKey": "options-file-label" },
+          { "value": "LDAP", "label": "LDAP" }
+        ]
+      },
+      "CrlCacheTypeLdapHostname": {
+        "disabled": "secConfigCertRevocCrlLdapFields"
+      },
+      "CrlCacheTypeLdapPort": {
+        "disabled": "secConfigCertRevocCrlLdapFields"
+      },
+      "CrlCacheTypeLdapSearchTimeout": {
+        "disabled": "secConfigCertRevocCrlLdapFields"
+      },
+      "CrlDpBackgroundDownloadEnabled": {
+        "disabled": "secConfigCertRevocCrlDpFields"
+      },
+      "CrlDpDownloadTimeout": {
+        "disabled": "secConfigCertRevocCrlDpFields"
+      },
+      "CrlDpEnabled": {
+        "disabled": "secConfigCertRevocCrlFields"
+      },
+      "OcspNonceEnabled": {
+        "disabled": "secConfigCertRevocOcspFields"
+      },
+      "OcspResponseCacheCapacity": {
+        "disabled": "secConfigCertRevocOcspCacheFields"
+      },
+      "OcspResponseCacheEnabled": {
+        "disabled": "secConfigCertRevocOcspFields"
+      },
+      "OcspResponseCacheRefreshPeriodPercent": {
+        "disabled": "secConfigCertRevocOcspCacheFields"
+      },
+      "OcspResponseTimeout": {
+        "disabled": "secConfigCertRevocOcspFields"
+      },
+      "OcspTimeTolerance": {
+        "disabled": "secConfigCertRevocOcspFields"
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "CheckingEnabled",
+          "MethodOrder",
+          "FailOnUnknownRevocStatus",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributes",
+        "labelKey": "cert-revoc-list-cache-title",
+        "attributes": [
+          "CrlCacheType",
+          "CrlCacheRefreshPeriodPercent",
+          "CrlCacheTypeLdapHostname",
+          "CrlCacheTypeLdapPort",
+          "CrlCacheTypeLdapSearchTimeout",
+          "CrlDpEnabled",
+          "CrlDpBackgroundDownloadEnabled",
+          "CrlDpDownloadTimeout"
+        ]
+      },
+      {
+        "type": "attributes",
+        "labelKey": "cert-revoc-ocsp-title",
+        "attributes": [
+          "OcspNonceEnabled",
+          "OcspResponseCacheEnabled",
+          "OcspResponseCacheCapacity",
+          "OcspResponseCacheRefreshPeriodPercent",
+          "OcspResponseTimeout",
+          "OcspTimeTolerance"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "folders": [
+          "CertRevocCa"
+        ]
+      }
+    ]
+  },
+  "SecurityConfiguration/CertRevoc/CertRevocCa": {
+    "summaryAttributes": {
+      "CheckingDisabled": {},
+      "MethodOrder": {},
+      "DistinguishedName": {}
+    },
+    "attributeDetails": {
+      "CrlDpBackgroundDownloadEnabled": {
+        "disabled": "secConfigCertRevocCACrlDpFields"
+      },
+      "CrlDpDownloadTimeout": {
+        "disabled": "secConfigCertRevocCACrlDpFields"
+      },
+      "CrlDpEnabled": {
+        "disabled": "secConfigCertRevocCACrlFields"
+      },
+      "CrlDpUrl": {
+        "disabled": "secConfigCertRevocCACrlDpFields"
+      },
+      "CrlDpUrlUsage": {
+        "disabled": "secConfigCertRevocCACrlDpFields",
+        "options": [
+          { "value": "FAILOVER", "labelKey":  "options-failover-label" },
+          { "value": "OVERRIDE", "labelKey":  "options-override-label" }
+        ]
+      },
+      "OcspNonceEnabled": {
+        "disabled": "secConfigCertRevocCAOcspFields"
+      },
+      "OcspResponderCertIssuerName": {
+        "disabled": "secConfigCertRevocCAOcspFields"
+      },
+      "OcspResponderCertSerialNumber": {
+        "disabled": "secConfigCertRevocCAOcspFields"
+      },
+      "OcspResponderCertSubjectName": {
+        "disabled": "secConfigCertRevocCAOcspFields"
+      },
+      "OcspResponderExplicitTrustMethod": {
+        "disabled": "secConfigCertRevocCAOcspFields",
+        "options": [
+          { "value": "NONE", "labelKey":  "options-none-label" },
+          { "value": "USE_SUBJECT", "labelKey":  "options-use-subject-label" },
+          { "value": "USE_ISSUER_SERIAL_NUMBER", "labelKey":  "options-use-issuer-serial-number-label" }
+        ]
+      },
+      "OcspResponderUrl": {
+        "disabled": "secConfigCertRevocCAOcspFields"
+      },
+      "OcspResponderUrlUsage": {
+        "disabled": "secConfigCertRevocCAOcspFields",
+        "options": [
+          { "value": "FAILOVER", "labelKey":  "options-failover-label" },
+          { "value": "OVERRIDE", "labelKey":  "options-override-label" }
+        ]
+      },
+      "OcspResponseCacheEnabled": {
+        "disabled": "secConfigCertRevocCAOcspFields"
+      },
+      "OcspResponseTimeout": {
+        "disabled": "secConfigCertRevocCAOcspFields"
+      },
+      "OcspTimeTolerance": {
+        "disabled": "secConfigCertRevocCAOcspFields"
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "CheckingDisabled",
+          "MethodOrder",
+          "DistinguishedName",
+          "FailOnUnknownRevocStatus",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributes",
+        "labelKey": "ca-cert-revoc-list-dp-title",
+        "attributes": [
+          "CrlDpEnabled",
+          "CrlDpUrl",
+          "CrlDpUrlUsage",
+          "CrlDpBackgroundDownloadEnabled",
+          "CrlDpDownloadTimeout"
+        ]
+      },
+      {
+        "type": "attributes",
+        "labelKey": "ca-cert-revoc-ocsp-title",
+        "attributes": [
+          "OcspResponderCertSubjectName",
+          "OcspResponderCertIssuerName",
+          "OcspResponderCertSerialNumber",
+          "OcspResponderExplicitTrustMethod",
+          "OcspResponderUrl",
+          "OcspResponderUrlUsage",
+          "OcspNonceEnabled",
+          "OcspResponseCacheEnabled",
+          "OcspResponseTimeout",
+          "OcspTimeTolerance"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "SecurityConfiguration/CertificateManagement": {
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "Enabled",
+              "SinglePurposeCertificatesEnabled",
+              "ProvisionedCertificatesIssuerEnabled",
+              "JavaStandardTrustEnabled",
+              "SubjectCommonName",
+              "SubjectAlternativeNames",
+              "CertificateValidityPeriod",
+              "CertificateAuthorityValidityPeriod",
+              "CertificateCheckInterval",
+              "CertificateRefreshWindow",
+              "IncludeRootCertificateInChain",
+              "Notes"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "folderTab",
+        "folder": "CertificateIssuerPlugin"
+      },
+      {
+        "type": "folderTab",
+        "folder": "ConfigurationProperty"
+      }
+    ]
+  },
+  "SecurityConfiguration/CertificateManagement/CertificateIssuerPlugin": {
+    "summaryAttributes": {
+      "Enabled": {},
+      "Deployment": {},
+      "CredentialSet": {}
+    },
+    "attributeDetails": {
+      "CredentialSet": {
+        "editorType": "combo",
+        "optionsMethod": "getCertIssuerPluginCredentialSetOptions"
+      },
+      "Deployment": {
+        "editorType": "combo",
+        "optionsMethod": "getCertIssuerPluginDeploymentOptions"
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "Enabled"
+        ]
+      },
+      {
+        "type": "attributes",
+        "attributes": [
+          "Deployment",
+          "CredentialSet",
+          "CertificateRequestProperties",
+          "Properties",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "SecurityConfiguration/CertificateManagement/ConfigurationProperty": {
+    "summaryAttributes": {
+      "EncryptValueRequired": {},
+      "Value": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "Value",
+          "EncryptValueRequired",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "SecurityConfiguration/CredentialSet": {
+    "summaryAttributes": {
+      "Notes": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "Notes"
+        ]
+      },
+      {
+        "type": "folder",
+        "folder": "EncryptedProperty"
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "SecurityConfiguration/CredentialSet/EncryptedProperty": {
+    "summaryAttributes": {
+      "Notes": {}
+    }
+  },
+  "SecurityConfiguration/Realm": {
+    "attributeDetails": {
+      "CertPathBuilder": {
+        "editorType": "combo",
+        "optionsMethod": "getCertPathBuilderInRealmOptions"
+      }
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "SecurityDDModel",
+              "ValidateDDSecurityData",
+              "DeployPolicyIgnored",
+              "DeployRoleIgnored",
+              "FullyDelegateAuthorization",
+              "CombinedRoleMappingEnabled",
+              "ManagementIdentityDomain",
+              "CertPathBuilder",
+              "AutoRestartOnNonDynamicChanges",
+              "DelegateMBeanAuthorization",
+              "DeployCredentialMappingIgnored",
+              "DeployableProviderSynchronizationEnabled",
+              "DeployableProviderSynchronizationTimeout",
+              "EnableWebLogicPrincipalValidatorCache",
+              "IdentityAssertionCacheEnabled",
+              "IdentityAssertionCacheTtl",
+              "IdentityAssertionDoNotCacheContextElement",
+              "IdentityAssertionHeaderNamePrecedence",
+              "MaxWebLogicPrincipalsInCache",
+              "RetireTimeoutSeconds",
+              "AuthMethods"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "attributes": [
+              "CompatibilityObjectName"
+            ],
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "DefaultRealm"
+        ]
+      }
+    ]
+  },
+  "SecurityConfiguration/SecureMode": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "SecureModeEnabled",
+          "RestrictiveJmxPolicies",
+          "WarnOnAnonymousRequests",
+          "WarnOnAuditing",
+          "WarnOnInsecureApplications",
+          "WarnOnInsecureDataSources",
+          "WarnOnInsecureFileSystem",
+          "WarnOnInsecureSsl",
+          "WarnOnJavaSecurityManager",
+          "WarnOnPatches",
+          "WarnOnPorts",
+          "WarnOnSamples",
+          "WarnOnUserLockout",
+          "WarnOnUsernamePasswords",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  }
+}

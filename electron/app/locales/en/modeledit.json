@@ -19,6 +19,18 @@
   "rename-label": "Rename",
   "rename-title": "Rename {{type}} \"{{name}}\"",
 
+  "anonymous-access-title": "Anonymous Access",
+  "cross-domain-security-cache-title": "Cross Domain Security Cache",
+  "boot-authentication-retries-title": "Boot Authentication Retries",
+  "check-certificates-settings-title": "Check Certificates Settings",
+  "web-app-settings-title": "Web App Settings",
+  "connection-filter-title": "Connection Filter Settings",
+  "principal-settings-title": "Principal Settings",
+  "cert-revoc-list-cache-title": "Certificate Revocation List (CRL) Cache",
+  "cert-revoc-ocsp-title": "Online Certificate Status Protocol (OCSP) Settings",
+  "ca-cert-revoc-list-dp-title": "Certificate Authority CRL Distribution Point Settings",
+  "ca-cert-revoc-ocsp-title": "Certificate Authority OCSP Settings",
+
   "general-tab-label": "General",
   "attributes-tab-label": "Attributes",
   "candidates-tab-label": "Candidates",
@@ -184,6 +196,21 @@
   "options-harvester-label": "Harvester",
   "options-domain-log-label": "Domain Log",
   "options-event-data-label": "Event Data",
+  "options-os-label": "Operating System",
+  "options-true-label": "True",
+  "options-false-label": "False",
+  "options-file-label": "File",
+  "options-override-label": "Override",
+  "options-use-subject-label": "Use Subject",
+  "options-use-issuer-serial-number-label": "Use Issuer Serial Number",
+  "options-ocsp-only-label": "OCSP Only",
+  "options-crl-only-label": "CRL Only",
+  "options-ocsp-then-crl-label": "OCSP then CRL",
+  "options-crl-then-ocsp-label": "CRL then OCSP",
+  "options-dd-only-label": "Deployment Descriptors Only",
+  "options-custom-roles-label": "Custom Roles Only",
+  "options-custom-roles-and-policies-label": "Custom Roles and Policies",
+  "options-advanced-label": "Advanced",
 
   "direction-jms-queue-to-tuxedo-queue-label": "JMS Queue to Tuxedo Queue",
   "direction-tuxedo-queue-to-jms-queue-label": "Tuxedo Queue to JMS Queue",
@@ -646,7 +673,10 @@
   "a-CheckIdentityCertificates-label": "Check Identity Certificates",
   "a-CheckTrustCertificates-label": "Check Trust Certificates",
   "a-CheckUserEnabledAttribute-label": "Check User Enabled Attribute",
+
   "a-CheckingDisabled-label": "Checking Disabled",
+  "f-any_CertRevocCa-a-CheckingDisabled-help": "For this CA, determines whether certificate revocation checking is disabled.",
+
   "a-CheckingEnabled-label": "Checking Enabled",
   "a-CheckpointIntervalSeconds-label": "Checkpoint Interval Seconds",
   "a-ChunkedTransferDisabled-label": "Chunked Transfer Disabled",
@@ -932,14 +962,25 @@
   "a-Critical-label": "Critical",
   "a-CrlCacheRefreshPeriodPercent-label": "CRL Cache Refresh Period Percent",
   "a-CrlCacheType-label": "CRL Cache Type",
-  "a-CrlCacheTypeLdapHostname-label": "CRL Cache Type Ldap Hostname",
-  "a-CrlCacheTypeLdapPort-label": "CRL Cache Type Ldap Port",
-  "a-CrlCacheTypeLdapSearchTimeout-label": "CRL Cache Type Ldap Search Timeout",
-  "a-CrlDpBackgroundDownloadEnabled-label": "CRL Dp Background Download Enabled",
-  "a-CrlDpDownloadTimeout-label": "CRL Dp Download Timeout",
-  "a-CrlDpEnabled-label": "CRL Dp Enabled",
-  "a-CrlDpUrl-label": "CRL Dp URL",
-  "a-CrlDpUrlUsage-label": "CRL Dp URL Usage",
+  "a-CrlCacheTypeLdapHostname-label": "CRL Cache Type LDAP Hostname",
+  "a-CrlCacheTypeLdapPort-label": "CRL Cache Type LDAP Port",
+  "a-CrlCacheTypeLdapSearchTimeout-label": "CRL Cache Type LDAP Search Timeout",
+
+  "a-CrlDpBackgroundDownloadEnabled-label": "CRL Distribution Point Background Download Enabled",
+  "f-any_CertRevocCa-a-CrlDpBackgroundDownloadEnabled-help": "For this CA, determines whether the CRL Distribution Point background downloading, to automatically update the local CRL cache, is enabled.",
+
+  "a-CrlDpDownloadTimeout-label": "CRL Distribution Point Download Timeout",
+  "f-any_CertRevocCa-a-CrlDpDownloadTimeout-help": "For this CA, determines the overall timeout for the Distribution Point CRL download, expressed in seconds.",
+
+  "a-CrlDpEnabled-label": "CRL Distribution Point Enabled",
+  "f-any_CertRevocCa-a-CrlDpEnabled-help": "For this CA, determines whether the CRL Distribution Point processing to update the local CRL cache is enabled.",
+
+  "a-CrlDpUrl-label": "CRL Distribution Point URL",
+  "f-any_CertRevocCa-a-CrlDpUrl-help": "For this CA, determines the CRL Distribution Point URL to use as failover or override for the URL found in the CRLDistributionPoints extension in the certificate.",
+
+  "a-CrlDpUrlUsage-label": "CRL Distribution Point URL Usage",
+  "f-any_CertRevocCa-a-CrlDpUrlUsage-help": "For this CA, determines how getCrlDpUrl is used: as failover in case the URL in the certificate CRLDistributionPoints extension is invalid or not found, or as a value overriding the URL found in the certificate CRLDistributionPoints extension.",
+
   "a-CrossDomainRecoveryRetryInterval-label": "Cross Domain Recovery Retry Interval",
   "a-CrossDomainSecurityCacheEnabled-label": "Cross Domain Security Cache Enabled",
   "a-CrossDomainSecurityCacheTtl-label": "Cross Domain Security Cache TTL",
@@ -1655,7 +1696,7 @@
   "f-CoherenceClusterSystemResource-a-DescriptorFileName-help": "The name of the file that contains the module configuration. By default the file resides in the DOMAIN_DIR/config/coherence/bean_name directory. The module file derives its name from the bean name using the following pattern: <beanName>.xml. Note that this is a read-only property that can only be set when the bean is created.",
   "f-JDBCSystemResource-a-DescriptorFileName-help": "The name of the file containing this configuration. This is a relative name rooted at DOMAIN_DIR/config. By default the file resides in the jdbc subdirectory and derives its name from the bean name using the following pattern: <beanName>.xml. Note that this is a read-only property that can only be set when the bean is created.",
   "f-JMSSystemResource-a-DescriptorFileName-help": "The name of the file that contains the module configuration. By default the file resides in the DOMAIN_DIR/config/jms directory. The module file derives its name from the bean name using the following pattern: <beanName>.xml. Note that this is a read-only property that can only be set when the bean is created.",
-  "f-WLDFSystemResource-a-DescriptorFileName-help": "The name of the descriptor file that contains the XML configuration information for this system-level resource. The location of this file is a relative path rooted at DOMAIN_DIR/config. By default the file resides in the DOMAIN_DIR/config/diagnostics directory, and derives its name from the bean name using the following pattern:\n\n<beanName>.xml. Note that the filename is a read-only property, which is set when the WLDF resource is created.",
+  "f-WLDFSystemResource-a-DescriptorFileName-help": "The name of the descriptor file that contains the XML configuration information for this system-level resource. The location of this file is a relative path rooted at DOMAIN_DIR/config. By default the file resides in the DOMAIN_DIR/config/diagnostics directory, and derives its name from the bean name using the following pattern: <beanName>.xml. Note that the filename is a read-only property, which is set when the WLDF resource is created.",
 
   "a-Destination-label": "Destination",
 
@@ -1710,6 +1751,7 @@
   "f-ManagedScheduledExecutorServiceTemplate-a-DispatchPolicy-help": "The name of the Work Manager to use for this Concurrent Managed Object (CMO). If a Work Manager is not specified, the default one is used.",
 
   "a-DistinguishedName-label": "Distinguished Name",
+  "f-any_CertRevocCa-a-DistinguishedName-help": "Determines the identity of this per-CA configuration using the distinguished name (defined in RFC 2253), which is used in certificates issued by the represented certificate authority. For example:\"CN=CertGenCAB, OU=FOR TESTING ONLY, O=MyOrganization, L=MyTown, ST=MyState, C=US\". This will be used to match this configuration to issued certificates requiring revocation checking.",
 
   "a-DistributionPolicy-label": "Distribution Policy",
   "f-FileStore-a-DistributionPolicy-help": "Specifies how the instances of a configured JMS artifact are named and distributed when cluster-targeted. A JMS artifact is cluster-targeted when its target is directly set to a cluster, or when it is scoped to a resource group and the resource group is in turn targeted to a cluster. When this setting is configured on a store, it applies to all JMS artifacts that reference the store.",
@@ -1876,7 +1918,8 @@
   "a-ExtraRmicOptions-label": "Extra RMI Compiler Options",
   "a-ExtraRmicOptions-help": "The extra options passed to rmic during server-side generation are noted here. The default for this attribute must be null. If no ExtraRmicOptions are specified on the EJBComponent, the default will be pulled from Server.ExtraRmicOptions.",
 
-  "a-FailOnUnknownRevocStatus-label": "Fail On Unknown Revoc Status",
+  "a-FailOnUnknownRevocStatus-label": "Fail On Unknown Revocation Status",
+  "f-any_CertRevocCa-a-FailOnUnknownRevocStatus-help": "For this CA, determines whether certificate path checking should fail, if revocation status could not be determined.",
 
   "a-FailOverLimit-label": "Fail Over Limit",
   "f-FileStore-a-FailOverLimit-help": "Specify a limit for the number of cluster-targeted JMS artifact instances that can fail over to a particular JVM. This can be used to prevent too many instances from starting on a server, avoiding a system failure when starting too few servers of a formerly large cluster. A typical limit value should allow all instances to run in the smallest desired cluster size, which means (smallest-cluster-size * (limit + 1)) should equal or exceed the total number of instances. A value of -1 means there is no fail over limit (unlimited). A value of 0 prevents any fail overs of cluster-targeted JMS artifact instances, so no more than 1 instance will run per server (this is an instance that has not failed over). A value of 1 allows one fail-over instance on each server, so no more than two instances will run per server (one failed over instance plus an instance that has not failed over).",
@@ -2828,7 +2871,9 @@
 
   "a-MetadataEncryptionAlgorithm-label": "Metadata Encryption Algorithm",
   "a-Method-label": "Method",
+
   "a-MethodOrder-label": "Method Order",
+  "f-any_CertRevocCa-a-MethodOrder-help": "For this CA, determines the certificate revocation checking method order. NOTE THAT omission of a specific method disables that method.",
 
   "a-MibDataRefreshInterval-label": "MIB Data Refresh Interval",
 
@@ -3019,18 +3064,23 @@
   "a-OCMEnabled-label": "OCM Enabled",
   "a-OPSSSecrets-label": "OPSS Secrets",
   "a-OPSSWalletPassphrase-label": "OPSS Wallet Passphrase",
-  "a-OcspNonceEnabled-label": "Ocsp Nonce Enabled",
-  "a-OcspResponderCertIssuerName-label": "Ocsp Responder Cert Issuer Name",
-  "a-OcspResponderCertSerialNumber-label": "Ocsp Responder Cert Serial Number",
-  "a-OcspResponderCertSubjectName-label": "Ocsp Responder Cert Subject Name",
-  "a-OcspResponderExplicitTrustMethod-label": "Ocsp Responder Explicit Trust Method",
-  "a-OcspResponderUrl-label": "Ocsp Responder URL",
-  "a-OcspResponderUrlUsage-label": "Ocsp Responder URL Usage",
-  "a-OcspResponseCacheCapacity-label": "Ocsp Response Cache Capacity",
-  "a-OcspResponseCacheEnabled-label": "Ocsp Response Cache Enabled",
-  "a-OcspResponseCacheRefreshPeriodPercent-label": "Ocsp Response Cache Refresh Period Percent",
-  "a-OcspResponseTimeout-label": "Ocsp Response Timeout",
-  "a-OcspTimeTolerance-label": "Ocsp Time Tolerance",
+
+  "a-OcspNonceEnabled-label": "OCSP Nonce Enabled",
+  "f-any_CertRevocCa-a-OcspNonceEnabled-help": "For this CA, determines whether a nonce is sent with OCSP requests, to force a fresh (not pre-signed) response.",
+
+  "a-OcspResponderCertIssuerName-label": "OCSP Responder Cert Issuer Name",
+  "f-any_CertRevocCa-a-OcspResponderCertIssuerName-help": "For this CA, determines the explicitly trusted OCSP responder certificate issuer name, when the attribute returned by getOcspResponderExplicitTrustMethod is \"USE_ISSUER_SERIAL_NUMBER\". The issuer name is formatted as a distinguished name per RFC 2253, for example \"CN=CertGenCAB, OU=FOR TESTING ONLY, O=MyOrganization, L=MyTown, ST=MyState, C=US\". When OcspResponderCertIssuerName returns a non-null value then the OcspResponderCertSerialNumber must also be set.",
+
+  "a-OcspResponderCertSerialNumber-label": "OCSP Responder Cert Serial Number",
+  "a-OcspResponderCertSubjectName-label": "OCSP Responder Cert Subject Name",
+  "a-OcspResponderExplicitTrustMethod-label": "OCSP Responder Explicit Trust Method",
+  "a-OcspResponderUrl-label": "OCSP Responder URL",
+  "a-OcspResponderUrlUsage-label": "OCSP Responder URL Usage",
+  "a-OcspResponseCacheCapacity-label": "OCSP Response Cache Capacity",
+  "a-OcspResponseCacheEnabled-label": "OCSP Response Cache Enabled",
+  "a-OcspResponseCacheRefreshPeriodPercent-label": "OCSP Response Cache Refresh Period Percent",
+  "a-OcspResponseTimeout-label": "OCSP Response Timeout",
+  "a-OcspTimeTolerance-label": "OCSP Time Tolerance",
 
   "a-Offset-label": "Offset",
   "f-any_SNMPCounterMonitor-a-Offset-help": "A value to be added to the threshold value each time the observed value equals or exceeds the threshold.",
@@ -4675,10 +4725,10 @@
   "f-any_Capacity-label": "Capacity Constraints",
   "f-any_Capacity-typeLabel": "Capacity Constraint",
   "f-any_CdiContainer-label": "CDI Container",
-  "f-any_CertPathProvider-label": "Cert Path Provider",
-  "f-any_CertRevoc-label": "Cert Revoc",
-  "f-any_CertRevocCa-label": "Cert Revoc CAs",
-  "f-any_CertRevocCa-typeLabel": "Cert Revoc CA",
+  "f-any_CertPathProvider-label": "Certificate Path Provider",
+  "f-any_CertRevoc-label": "Certificate Revocation",
+  "f-any_CertRevocCa-label": "Certificate Revocation for CAs",
+  "f-any_CertRevocCa-typeLabel": "Certificate Revocation for  CA",
   "f-any_CertificateIssuerPlugin-label": "Certificate Issuer Plug-ins",
   "f-any_CertificateIssuerPlugin-typeLabel": "Certificate Issuer Plug-in",
   "f-any_CertificateManagement-label": "Certificate Management",

@@ -97,6 +97,58 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
           return mode !== 'Basic';
         });
       };
+
+      this.secConfigCrossDomainSecurityFields = attributeMap => {
+        const crossDomainSecurityEnabled = attributeMap['CrossDomainSecurityEnabled'];
+        return ko.computed(() => {
+          const enabled = ModelEditHelper.getDerivedValue(crossDomainSecurityEnabled.observable());
+          return !enabled;
+        });
+      };
+
+      this.secConfigCertRevocCrlLdapFields = attributeMap => {
+        const crlCacheType = attributeMap['CrlCacheType'];
+        return ko.computed(() => {
+          const type = ModelEditHelper.getDerivedValue(crlCacheType.observable());
+          return type !== 'LDAP'
+        });
+      };
+
+      this.secConfigCertRevocCrlFields = attributeMap => {
+        const methodOrder = attributeMap['MethodOrder'];
+        return ko.computed(() => {
+          const order = ModelEditHelper.getDerivedValue(methodOrder.observable());
+          return order === undefined || order === 'OCSP';
+        });
+      };
+
+      this.secConfigCertRevocCrlDpFields = attributeMap => {
+        const crlDpEnabled = attributeMap['CrlDpEnabled'];
+        return ko.computed(() => {
+          const enabled = ModelEditHelper.getDerivedValue(crlDpEnabled.observable());
+          return !enabled;
+        });
+      };
+
+      this.secConfigCertRevocOcspFields = attributeMap => {
+        const methodOrder = attributeMap['MethodOrder'];
+        return ko.computed(() => {
+          const order = ModelEditHelper.getDerivedValue(methodOrder.observable());
+          return order === undefined || order === 'CRL';
+        });
+      };
+
+      this.secConfigCertRevocOcspCacheFields = attributeMap => {
+        const ocspCacheEnabled = attributeMap['OcspResponseCacheEnabled'];
+        return ko.computed(() => {
+          const enabled = ModelEditHelper.getDerivedValue(ocspCacheEnabled.observable());
+          return !enabled;
+        });
+      };
+
+      this.secConfigCertRevocCACrlFields = this.secConfigCertRevocCrlFields;
+      this.secConfigCertRevocCACrlDpFields = this.secConfigCertRevocCrlDpFields;
+      this.secConfigCertRevocCAOcspFields = this.secConfigCertRevocOcspFields;
     }
 
     // return a singleton instance

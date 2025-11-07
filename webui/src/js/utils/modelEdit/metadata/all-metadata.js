@@ -36,6 +36,7 @@ define(
     'text!./RCUDbInfo.json',
     'text!./Resources.json',
     'text!./SAFAgent.json',
+    'text!./SecurityConfiguration.json',
     'text!./SelfTuning.json',
     'text!./Server.json',
     'text!./ShutdownClass.json',
