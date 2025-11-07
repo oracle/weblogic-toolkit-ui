@@ -852,6 +852,7 @@ h6.wkt-panel-heading {
 
 .wkt-model-editor-nav-container {
   background-color: rgb(220, 214, 209);
+  width: 280px;  /* slider will adjust */
   min-width: 100px;
   overflow: auto;
 }

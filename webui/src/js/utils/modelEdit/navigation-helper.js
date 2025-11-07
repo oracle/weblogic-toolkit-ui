@@ -31,7 +31,7 @@ function (ko, allNavigation, ModelEditHelper, AliasHelper, MetaHelper, MessageHe
         return;
       }
 
-      this.initializeNavList(allNavigation);
+      this.initializeNavList(allNavigation, []);
 
       allNavigation.forEach(navEntry => {
         navObservable.push(navEntry);
@@ -123,11 +123,13 @@ function (ko, allNavigation, ModelEditHelper, AliasHelper, MetaHelper, MessageHe
 
     // initialize the static parts of the navigation.
     // if model path is specified, assign IDs, labels, icons, child arrays/observables, etc.
-    this.initializeNavList = navList => {
+    this.initializeNavList = (navList, parentPath) => {
       navList.forEach(navEntry => {
         navEntry.label = navEntry.name ? MessageHelper.t(navEntry.name) : null;
 
-        if(navEntry.modelPath) {
+        if (navEntry.path) {
+          const relativePath = navEntry.path.split('/');
+          navEntry.modelPath = [...parentPath, ...relativePath];
           const aliasPath = AliasHelper.getAliasPath(navEntry.modelPath);
           navEntry.id = navEntry.id || navEntry.modelPath.join('/');
           navEntry.label = navEntry.label || MessageHelper.getFolderLabel(aliasPath);
@@ -143,7 +145,7 @@ function (ko, allNavigation, ModelEditHelper, AliasHelper, MetaHelper, MessageHe
         }
 
         if(Array.isArray(navEntry.children)) {
-          this.initializeNavList(navEntry.children);
+          this.initializeNavList(navEntry.children, navEntry.modelPath);
         }
       });
     };
@@ -191,14 +193,14 @@ function (ko, allNavigation, ModelEditHelper, AliasHelper, MetaHelper, MessageHe
           children = [];
           instanceChildren.forEach(instanceChild => {
             const eachInstanceChild = structuredClone(instanceChild);
-            eachInstanceChild.modelPath = [...instanceModelPath, ...instanceChild.modelPath];
             children.push(eachInstanceChild);
           });
-          this.initializeNavList(children);
+          this.initializeNavList(children, instanceModelPath);
         }
 
         if(!folderKeys.includes(name)) {
           folderList.push({
+            path: name,
             modelPath: instanceModelPath,
             name,
             label: name,

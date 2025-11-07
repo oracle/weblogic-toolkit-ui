@@ -1,17 +1,17 @@
 {
-  "modelPath": ["appDeployments"],
+  "path": "appDeployments",
   "children": [
     {
-      "modelPath": ["appDeployments", "Application"]
+      "path": "Application"
     },
     {
-      "modelPath": ["appDeployments", "DbClientDataDirectory"]
+      "path": "DbClientDataDirectory"
     },
     {
-      "modelPath": ["appDeployments", "Library"]
+      "path": "Library"
     },
     {
-      "modelPath": ["appDeployments", "PluginDeployment"]
+      "path": "PluginDeployment"
     }
   ]
 }

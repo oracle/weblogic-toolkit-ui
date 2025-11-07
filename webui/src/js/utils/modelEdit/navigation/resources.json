@@ -1,210 +1,215 @@
 {
-  "modelPath": ["resources"],
+  "path": "resources",
   "children": [
     {
-      "modelPath": ["resources", "CoherenceClusterSystemResource"]
+      "path": "CoherenceClusterSystemResource"
     },
     {
-      "modelPath": ["resources", "EJBContainer"]
+      "path": "EJBContainer"
     },
     {
-      "modelPath": ["resources", "FileStore"]
+      "path": "FileStore"
     },
     {
-      "modelPath": ["resources", "ForeignJNDIProvider"]
+      "path": "ForeignJNDIProvider"
     },
     {
-      "modelPath": ["resources", "JDBCStore"]
+      "path": "JDBCStore"
     },
     {
-      "modelPath": ["resources", "JDBCSystemResource"]
+      "path": "JDBCSystemResource"
     },
     {
-      "modelPath": ["resources", "JMSBridgeDestination"]
+      "path": "JMSBridgeDestination"
     },
     {
-      "modelPath": ["resources", "JMSServer"]
+      "path": "JMSServer"
     },
     {
-      "modelPath": ["resources", "JMSSystemResource"],
+      "path": "JMSSystemResource",
       "instanceChildren": [
         {
-          "modelPath": ["SubDeployment"]
+          "path": "SubDeployment"
         },
         {
-          "modelPath": ["JmsResource", "ConnectionFactory"]
+          "path": "JmsResource/ConnectionFactory"
         },
         {
-          "modelPath": ["JmsResource", "Queue"]
+          "path": "JmsResource/Queue"
         },
         {
-          "modelPath": ["JmsResource", "Topic"]
+          "path": "JmsResource/Topic"
         },
         {
-          "modelPath": ["JmsResource", "UniformDistributedQueue"]
+          "path": "JmsResource/UniformDistributedQueue"
         },
         {
-          "modelPath": ["JmsResource", "UniformDistributedTopic"]
+          "path": "JmsResource/UniformDistributedTopic"
         },
         {
-          "modelPath": ["JmsResource", "Template"]
+          "path": "JmsResource/Template"
         },
         {
-          "modelPath": ["JmsResource", "ForeignServer"]
+          "path": "JmsResource/ForeignServer"
         },
         {
-          "modelPath": ["JmsResource", "SAFRemoteContext"]
+          "path": "JmsResource/SAFRemoteContext"
         },
         {
-          "modelPath": ["JmsResource", "SAFImportedDestinations"]
+          "path": "JmsResource/SAFImportedDestinations"
         },
         {
-          "modelPath": ["JmsResource", "SAFErrorHandling"]
+          "path": "JmsResource/SAFErrorHandling"
         },
         {
-          "modelPath": ["JmsResource", "Quota"]
+          "path": "JmsResource/Quota"
         },
         {
-          "modelPath": ["JmsResource", "DestinationKey"]
+          "path": "JmsResource/DestinationKey"
         }
       ]
     },
     {
-      "modelPath": ["resources", "JoltConnectionPool"]
+      "path": "JoltConnectionPool"
     },
     {
-      "modelPath": ["resources", "MailSession"]
+      "path": "MailSession"
     },
     {
-      "modelPath": ["resources", "ManagedExecutorServiceTemplate"]
+      "path": "ManagedExecutorServiceTemplate"
     },
     {
-      "modelPath": ["resources", "ManagedScheduledExecutorServiceTemplate"]
+      "path": "ManagedScheduledExecutorServiceTemplate"
     },
     {
-      "modelPath": ["resources", "ManagedThreadFactoryTemplate"]
+      "path": "ManagedThreadFactoryTemplate"
     },
     {
-      "modelPath": ["resources", "MessagingBridge"]
+      "path": "MessagingBridge"
     },
     {
-      "modelPath": ["resources", "ODLConfiguration"]
+      "path": "ODLConfiguration"
     },
     {
-      "modelPath": ["resources", "OHS"]
+      "path": "OHS"
     },
     {
-      "modelPath": ["resources", "PathService"]
+      "path": "PathService"
     },
     {
-      "modelPath": ["resources", "SAFAgent"]
+      "path": "SAFAgent"
     },
     {
-      "modelPath": ["resources", "SelfTuning"],
+      "path": "SelfTuning",
       "children": [
         {
-          "modelPath": ["resources", "SelfTuning", "WorkManager"]
+          "path": "WorkManager"
         },
         {
-          "modelPath": ["resources", "SelfTuning", "Capacity"]
+          "path": "Capacity"
         },
         {
-          "modelPath": ["resources", "SelfTuning", "MinThreadsConstraint"]
+          "path": "MinThreadsConstraint"
         },
         {
-          "modelPath": ["resources", "SelfTuning", "MaxThreadsConstraint"]
+          "path": "MaxThreadsConstraint"
         },
         {
-          "modelPath": ["resources", "SelfTuning", "FairShareRequestClass"]
+          "path": "FairShareRequestClass"
         },
         {
-          "modelPath": ["resources", "SelfTuning", "ResponseTimeRequestClass"]
+          "path": "ResponseTimeRequestClass"
         },
         {
-          "modelPath": ["resources", "SelfTuning", "ContextRequestClass"]
+          "path": "ContextRequestClass"
         }
       ]
     },
     {
-      "modelPath": ["resources", "ShutdownClass"]
+      "path": "ShutdownClass"
     },
     {
-      "modelPath": ["resources", "SingletonService"]
+      "path": "SingletonService"
     },
     {
-      "modelPath": ["resources", "SNMPAgent"],
+      "path": "SNMPAgent",
       "children": [
         {
-          "modelPath": ["resources", "SNMPAgent", "SNMPProxy"]
+          "path": "SNMPProxy"
         },
         {
-          "modelPath": ["resources", "SNMPAgent", "SNMPGaugeMonitor"]
+          "path": "SNMPGaugeMonitor"
         },
         {
-          "modelPath": ["resources", "SNMPAgent", "SNMPStringMonitor"]
+          "path": "SNMPStringMonitor"
         },
         {
-          "modelPath": ["resources", "SNMPAgent", "SNMPCounterMonitor"]
+          "path": "SNMPCounterMonitor"
         },
         {
-          "modelPath": ["resources", "SNMPAgent", "SNMPLogFilter"]
+          "path": "SNMPLogFilter"
         },
         {
-          "modelPath": ["resources", "SNMPAgent", "SNMPAttributeChange"]
+          "path": "SNMPAttributeChange"
         },
         {
-          "modelPath": ["resources", "SNMPAgent", "SNMPTrapDestination"]
+          "path": "SNMPTrapDestination"
         }
       ]
     },
     {
-      "modelPath": ["resources", "SnmpAgentDeployment"],
+      "path": "SnmpAgentDeployment",
       "instanceChildren": [
         {
-          "modelPath": ["SNMPProxy"]
+          "path": "SNMPProxy"
         },
         {
-          "modelPath": ["SNMPGaugeMonitor"]
+          "path": "SNMPGaugeMonitor"
         },
         {
-          "modelPath": ["SNMPStringMonitor"]
+          "path": "SNMPStringMonitor"
         },
         {
-          "modelPath": ["SNMPCounterMonitor"]
+          "path": "SNMPCounterMonitor"
         },
         {
-          "modelPath": ["SNMPLogFilter"]
+          "path": "SNMPLogFilter"
         },
         {
-          "modelPath": ["SNMPAttributeChange"]
+          "path": "SNMPAttributeChange"
         },
         {
-          "modelPath": ["SNMPTrapDestination"]
+          "path": "SNMPTrapDestination"
         }
       ]
     },    {
-      "modelPath": ["resources", "StartupClass"]
+      "path": "StartupClass"
     },
     {
-      "modelPath": ["resources", "SystemComponent"]
+      "path": "SystemComponent"
     },
     {
-      "modelPath": ["resources", "WebAppContainer"]
+      "path": "WebAppContainer"
     },
     {
-      "modelPath": ["resources", "WTCServer"]
+      "path": "WTCServer"
     },
     {
-      "modelPath": ["resources", "WLDFSystemResource"],
+      "path": "WLDFSystemResource",
       "instanceChildren": [
         {
-          "modelPath": ["WLDFResource", "Harvester"]
+          "path": "WLDFResource/Harvester",
+          "children": [
+            {
+              "path": "HarvestedType"
+            }
+          ]
         },
         {
-          "modelPath": ["WLDFResource", "Instrumentation"]
+          "path": "WLDFResource/Instrumentation"
         },
         {
-          "modelPath": ["WLDFResource", "WatchNotification"]
+          "path": "WLDFResource/WatchNotification"
         }
       ]
     }
