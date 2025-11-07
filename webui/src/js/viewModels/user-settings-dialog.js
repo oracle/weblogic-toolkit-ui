@@ -77,7 +77,7 @@ function(accUtils, ko, utils, i18n, ArrayDataProvider, project, validationHelper
       }
 
       if ('gitHubAuthToken' in this.userSettings) {
-        this.gitHubAuthToken(this.userSettings.gitHubAuthToken)
+        this.gitHubAuthToken(this.userSettings.gitHubAuthToken);
       }
 
       if ('linux' in this.userSettings) {
@@ -163,7 +163,7 @@ function(accUtils, ko, utils, i18n, ArrayDataProvider, project, validationHelper
     this.storeUserSettings = () => {
       project.setHttpsProxyUrl(this.proxyUrl());
       project.setBypassProxyHosts(this.bypassProxyHosts());
-      this._storeSetting('gitHubAuthToken', this.gitHubAuthToken)
+      this._storeSetting('gitHubAuthToken', this.gitHubAuthToken);
       this._storeSetting('tools.wktToolsExternalStagingDirectory', this.wktToolsExternalStagingDirectory);
       this._storeSetting('linux.disableLinuxHardwareAcceleration', this.disableLinuxHardwareAcceleration);
       this._storeSetting('proxy.httpsProxyUrl', this.proxyUrl);

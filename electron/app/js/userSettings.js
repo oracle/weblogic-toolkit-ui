@@ -9,7 +9,7 @@ const path = require('path');
 const uuid = require('uuid');
 
 const { getErrorMessage } = require('./errorUtils');
-const CredentialEncryptor = require("./credentialEncryptor");
+const CredentialEncryptor = require('./credentialEncryptor');
 
 // eslint-disable-next-line no-unused-vars
 const userSettableFieldNames = [

@@ -98,7 +98,7 @@ function getFetchOptions(proxyAgent, authToken = undefined) {
   if (authToken) {
     options.headers = {
       Authorization: `Bearer ${authToken}`
-    }
+    };
   }
   return options;
 }

@@ -1,6 +1,14 @@
 {
   "any": {
     "attributeDetails": {
+      "SecurityDDModel": {
+        "options": [
+          { "value": "DDOnly", "labelKey": "options-dd-only-label" },
+          { "value": "CustomRoles", "labelKey": "options-custom-roles-label" },
+          { "value": "CustomRolesAndPolicies", "labelKey": "options-custom-roles-and-policies-label" },
+          { "value": "Advanced", "labelKey": "options-advanced-label" }
+        ]
+      },
       "Target": {
         "editorType": "comboMulti",
         "optionsMethod": "targetOptions"
