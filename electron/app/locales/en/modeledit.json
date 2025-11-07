@@ -211,6 +211,22 @@
   "options-custom-roles-label": "Custom Roles Only",
   "options-custom-roles-and-policies-label": "Custom Roles and Policies",
   "options-advanced-label": "Advanced",
+  "options-hostname-label": "Hostname",
+  "options-all-hostnames-label": "All Hostnames",
+  "options-address-label": "IP Address",
+  "options-all-addresses-label": "All IP Addresses",
+  "options-all-ipv4-addresses-label": "All IPv4 Addresses",
+  "options-all-ipv6-addresses-label": "All IPv6 Addresses",
+  "options-loopback-label": "Loopback",
+  "options-loopback-hostname-label": "Loopback Hostname",
+  "options-loopback-address-label": "Loopback IP Address",
+  "options-loopback-ipv4-address-label": "Loopback IPv4 Address",
+  "options-loopback-ipv6-address-label": "Loopback IPv6 Address",
+  "options-listen-address-label": "Listen Address",
+  "options-all-listen-addresses-label": "All Listen Addresses",
+  "options-listen-address-prefix-label": "Listen Address Prefix",
+  "options-all-virtual-hosts-label": "All Virtual Hosts",
+  "options-virtual-host-prefix-label": "Virtual Host Prefix",
 
   "direction-jms-queue-to-tuxedo-queue-label": "JMS Queue to Tuxedo Queue",
   "direction-tuxedo-queue-to-jms-queue-label": "Tuxedo Queue to JMS Queue",
@@ -385,7 +401,9 @@
   "a-AdministrationPortEnabled-label": "Administration Port Enabled",
   "a-AdministrationProtocol-label": "Administration Protocol",
   "a-Administrative-label": "Administrative",
+
   "a-AdministrativeIdentityDomain-label": "Administrative Identity Domain",
+  "f-SecurityConfiguration-a-AdministrativeIdentityDomain-help": "Domain's administrative identity domain.",
 
   "a-AffinityPolicy-label": "Affinity Policy",
   "f-JDBCSystemResource_JdbcResource_JDBCOracleParams-a-AffinityPolicy-help": "The affinity policy determines how JDBC connections to specific Oracle RAC instances are selected and returned to the application. When an initial connection is returned to the application, an affinity context is created that identifies the RAC instance. The affinity context is stored in the application context (global transaction or http session), propagates with the context, and is used during subsequent connection requests to return a connection to the same instance. The affinity policy only applies to Active GridLink data sources.",
@@ -439,6 +457,8 @@
   "a-AltWLSDescriptorPath-help": "A path on the file system for the WebLogic Server-specific application descriptor for this application. If null, the usual location within the EAR file is used.",
 
   "a-AnonymousAdminLookupEnabled-label": "Anonymous Admin Lookup Enabled",
+  "f-SecurityConfiguration-a-AnonymousAdminLookupEnabled-help": "Set to true if anonymous JNDI access for Admin MBean home is permitted. Deprecated in 12.2.1.0.0.",
+
   "a-AnonymousBindAllowed-label": "Anonymous Bind Allowed",
   "a-AnyIdentityDomainEnabled-label": "Any Identity Domain Enabled",
   "a-ApartmentThreaded-label": "Apartment Threaded",
@@ -516,7 +536,9 @@
   "a-AuthCookieEnabled-label": "Auth Cookie Enabled",
   "f-WebAppContainer-a-AuthCookieEnabled-help": "Specifies whether the AuthCookie feature is enabled or not.",
 
-  "a-AuthMethods-label": "Auth Methods",
+  "a-AuthMethods-label": "Authentication Methods",
+  "f-any_Realm-a-AuthMethods-help": "The list of authentication methods that should be used when the Web application specifies \"REALM\" as its auth-method. The authentication methods will be applied in order in which they appear in the list.",
+
   "a-AuthenticationEnabled-label": "Authentication Enabled",
 
   "a-AuthenticationProtocol-label": "Authentication Protocol",
@@ -539,6 +561,8 @@
   "f-SystemComponent-a-AutoRestart-help": "Specifies whether the Node Manager can automatically restart this server if it crashes or otherwise goes down unexpectedly.",
 
   "a-AutoRestartOnNonDynamicChanges-label": "Auto Restart On Non Dynamic Changes",
+  "f-any_Realm-a-AutoRestartOnNonDynamicChanges-help": "Specifies whether the Realm will be auto-restarted if non-dynamic changes are made to the realm or providers within the realm.",
+
   "a-AutoTargetAdminServer-label": "Auto Target Admin Server",
   "a-AvailableTargets-label": "Available Targets",
   "a-BackgroundDeployment-label": "Background Deployment",
@@ -583,7 +607,11 @@
   "f-WLDFSystemResource_WLDFResource_WatchNotification_SMTPNotification-a-Body-help": "The body for the mail message. If the body is not specified, a body is created from the action information.",
 
   "a-BootAuthenticationMaxRetryDelay-label": "Boot Authentication Max Retry Delay",
+  "f-SecurityConfiguration-a-BootAuthenticationMaxRetryDelay-help": "The maximum length of time, in milliseconds, the boot process will wait before retrying the authentication after a login server not available exception. The boot process will use a backoff algorithm starting at 100 milliseconds increasing on each failure until the delay time reaches the MaxRetryDelay value.",
+
   "a-BootAuthenticationRetryCount-label": "Boot Authentication Retry Count",
+  "f-SecurityConfiguration-a-BootAuthenticationRetryCount-help": "The maximum number of times the boot process will try to authenticate the boot user with the authentication providers. The authentication will be retried only if a failure occurs that indicates the login server is not available.",
+
   "a-BootProperties-label": "Boot Properties",
 
   "a-BufferSizeKb-label": "Buffer Size in Kilobytes",
@@ -646,17 +674,32 @@
 
   "a-CapacityIncrement-label": "Capacity Increment",
   "a-CertAuthenticator-label": "Cert Authenticator",
-  "a-CertPathBuilder-label": "Cert Path Builder",
+
+  "a-CertPathBuilder-label": "Certificate Path Builder",
+  "f-any_Realm-a-CertPathBuilder-help": "The CertPath Builder provider in this security realm that will be used by the security system to build certification paths. The provider must be one of this security realm's CertPathProviders.",
+
   "a-CertPathProviderTypes-label": "Cert Path Provider Types",
   "a-CertificateAttribute-label": "Certificate Attribute",
+
   "a-CertificateAuthorityValidityPeriod-label": "Certificate Authority Validity Period",
+  "f-any_CertificateManagement-a-CertificateAuthorityValidityPeriod-help": "Returns the validity period (certificate lifetime) that the Domain Certificates Issuer should set when generating a new Certificate Authority certificate. The validity period is expressed in days.",
+
   "a-CertificateCacheSize-label": "Certificate Cache Size",
+
   "a-CertificateCheckInterval-label": "Certificate Check Interval",
+  "f-any_CertificateManagement-a-CertificateCheckInterval-help": "Specifies how often the Certificate Management Service should check for/refresh expiring certificates (in days).",
+
   "a-CertificateFile-label": "Certificate File",
   "a-CertificateMapping-label": "Certificate Mapping",
+
   "a-CertificateRefreshWindow-label": "Certificate Refresh Window",
+  "f-any_CertificateManagement-a-CertificateRefreshWindow-help": "The Certificate Management Service will refresh an expiring certificate when its remaining lifetime is less than this number of days.",
+
   "a-CertificateRequestProperties-label": "Certificate Request Properties",
+  "f-any_CertificateIssuerPlugin-a-CertificateRequestProperties-help": "Returns the properties to be passed to the issuer when the Certificate Service requests a certificate.",
+
   "a-CertificateValidityPeriod-label": "Certificate Validity Period",
+  "f-any_CertificateManagement-a-CertificateValidityPeriod-help": "The validity period (certificate lifetime) that the Domain Certificates Issuer should set when generating a new certificate, specified in days.",
 
   "a-ChangeSessionIDOnAuthentication-label": "Change Session ID On Authentication",
   "f-WebAppContainer-a-ChangeSessionIDOnAuthentication-help": "Global property to determine if we need to generate a new SessionID after authentication. When this property is set to \"false\", the previous sessionID will be retained even after authorization.",
@@ -668,16 +711,27 @@
   "a-CharacterLimit-help": "The character limit for Coherence logs.",
 
   "a-Charsets-label": "Charsets",
+
   "a-CheckCertificatesExpirationDays-label": "Check Certificates Expiration Days",
+  "f-SecurityConfiguration-a-CheckCertificatesExpirationDays-help": "Specifies the number of days before certificate expiration that warnings should be issued.",
+
   "a-CheckCertificatesIntervalDays-label": "Check Certificates Interval Days",
+  "f-SecurityConfiguration-a-CheckCertificatesIntervalDays-help": "Specifies the interval between checks for certificate expiration.",
+
   "a-CheckIdentityCertificates-label": "Check Identity Certificates",
+  "f-SecurityConfiguration-a-CheckIdentityCertificates-help": "Specifies whether identity certificates should be checked periodically for expiration.",
+
   "a-CheckTrustCertificates-label": "Check Trust Certificates",
+  "f-SecurityConfiguration-a-CheckTrustCertificates-help": "Specifies whether trust certificates should be checked periodically for expiration.",
+
   "a-CheckUserEnabledAttribute-label": "Check User Enabled Attribute",
 
   "a-CheckingDisabled-label": "Checking Disabled",
   "f-any_CertRevocCa-a-CheckingDisabled-help": "For this CA, determines whether certificate revocation checking is disabled.",
 
   "a-CheckingEnabled-label": "Checking Enabled",
+  "f-any_CertRevoc-a-CheckingEnabled-help": "Determines whether certificate revocation checking is enabled.",
+
   "a-CheckpointIntervalSeconds-label": "Checkpoint Interval Seconds",
   "a-ChunkedTransferDisabled-label": "Chunked Transfer Disabled",
   "a-CipherSuites-label": "Cipher Suites",
@@ -704,7 +758,10 @@
   "a-ClasspathServletSecureModeEnabled-label": "Classpath Servlet Secure Mode Enabled",
   "a-CleanerInterval-label": "Cleaner Interval",
   "a-CleanupOrphanedSessionsEnabled-label": "Cleanup Orphaned Sessions Enabled",
+
   "a-ClearTextCredentialAccessEnabled-label": "Clear Text Credential Access Enabled",
+  "f-SecurityConfiguration-a-ClearTextCredentialAccessEnabled-help": "Specifies whether to allow access to credential in clear text.",
+
   "a-ClientAsUserPrincipalEnabled-label": "Client As User Principal Enabled",
   "a-ClientCertAlias-label": "Client Cert Alias",
   "a-ClientCertPrivateKeyPassPhraseEncrypted-label": "Client Cert Private Key Passphrase Encrypted",
@@ -782,7 +839,9 @@
   "a-CoherenceStartScriptName-label": "Coherence Start Script Name",
   "a-CoherenceWebFederatedStorageEnabled-label": "Coherence Web Federated Storage Enabled",
   "a-CoherenceWebLocalStorageEnabled-label": "Coherence Web Local Storage Enabled",
+
   "a-CombinedRoleMappingEnabled-label": "Combined Role Mapping Enabled",
+  "f-any_Realm-a-CombinedRoleMappingEnabled-help": "Determines how the role mappings in the Enterprise Application, Web application, and EJB containers interact. This setting is valid only for Web applications and EJBs that use the Advanced security model and that initialize roles from deployment descriptors.",
 
   "a-Community-label": "Community",
   "f-any_SNMPProxy-a-Community-help": "The community name to be passed on for all SNMPv1 requests to this proxied SNMP agent. If you specify a security name for this proxied agent, the WebLogic SNMP agent ignores this community name. Instead, the agent encodes the security name in an SNMPv3 request and forwards the SNMPv3 request to this proxied agent.",
@@ -795,6 +854,8 @@
   "a-CommunityPrefix-help": "The password (community name) that you want this SNMP agent to use to secure SNMPv1 or v2 communication with SNMP managers. Requires you to enable community based access for this agent. SNMPv3 does not use community names. Instead, it encrypts user names and passwords in its PDUs.",
 
   "a-CompatibilityConnectionFiltersEnabled-label": "Compatibility Connection Filters Enabled",
+  "f-SecurityConfiguration-a-CompatibilityConnectionFiltersEnabled-help": "Specifies whether this WebLogic Server domain enables compatiblity with previous connection filters. This attribute changes the protocols names used when filtering needs to be performed.",
+
   "a-CompatibilityMBeanServerEnabled-label": "Compatibility MBean Server Enabled",
 
   "a-CompatibilityName-label": "Compatibility Name",
@@ -842,8 +903,13 @@
   "f-WLDFSystemResource_WLDFResource_WatchNotification_JMSNotification-a-ConnectionFactoryJndiName-help": "The JNDI name of the JMS connection factory. If a name has not been specified, the default JMS connection factory is used.",
 
   "a-ConnectionFilter-label": "Connection Filter",
+  "f-SecurityConfiguration-a-ConnectionFilter-help": "The name of the Java class that implements a connection filter (that is, the weblogic.security.net.ConnectionFilter interface). If no class name is specified, no connection filter will be used.",
+
   "a-ConnectionFilterIgnoreRuleErrorsEnabled-label": "Connection Filter Ignore Rule Errors Enabled",
+  "f-SecurityConfiguration-a-ConnectionFilterIgnoreRuleErrorsEnabled-help": "Specifies whether the WebLogic Server should ignore filter rule errors during server startup.",
+
   "a-ConnectionFilterRule-label": "Connection Filter Rule",
+  "f-SecurityConfiguration-a-ConnectionFilterRule-help": "The rules used by any connection filter that implements the ConnectionFilterRulesListener interface. When using the default implementation and when no rules are specified, all connections are accepted. The default implementation rules are in the format: target localAddress localPort action protocols.",
 
   "a-ConnectionHarvestMaxCount-label": "Connection Harvest Max Count",
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-ConnectionHarvestMaxCount-help": "The maximum number of connections that may be harvested when the connection harvesting occurs. The range of valid values is 1 to MaxCapacity.",
@@ -861,6 +927,7 @@
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-ConnectionLabelingCallback-help": "The class name of the connection labeling callback. This is automatically passed to registerConnectionLabelingCallback when the datasource is created. The class must implement oracle.ucp.ConnectionLabelingCallback.",
 
   "a-ConnectionLoggerEnabled-label": "Connection Logger Enabled",
+  "f-SecurityConfiguration-a-ConnectionLoggerEnabled-help": "Specifies whether this WebLogic Server domain should log accepted connections.\n\nThis attribute can be used by a system administrator to dynamically check the incoming connections in the log file to determine if filtering needs to be performed.",
 
   "a-ConnectionPolicy-label": "Connection Policy",
   "f-WTCServer_WTCLocalTuxDom-a-ConnectionPolicy-help": "The conditions under which this local Tuxedo access point establishes a session connection with a remote Tuxedo access point. ON_DEMAND means that a connection is attempted only when requested by either a client request to a remote service or an administrative connect command. ON_STARTUP means that a domain gateway attempts to establish a connection with its remote Tuxedo access points at gateway server initialization time. Remote services (services advertised in JNDI by the domain gateway for this local access point) are advertised only if a connection is successfully established to that remote Tuxedo access point. If there is no active connection to a remote Tuxedo access point, then the remote services are suspended. By default, this connection policy retries failed connections every 60 seconds. Use the MaxRetry and RetryInterval values to specify application specific values. INCOMING_ONLY means that a domain gateway does not attempt an initial connection to remote Tuxedo access points at startup and remote services are initially suspended. The domain gateway is available for incoming connections from remote Tuxedo access points and remote services are advertised when the domain gateway for this local Tuxedo access point receives an incoming connection. Connection retry processing is not allowed.",
@@ -891,7 +958,10 @@
   "a-ConsoleContextPath-label": "Console Context Path",
   "a-ConsoleEnabled-label": "Console Enabled",
   "a-ConsoleExtensionDirectory-label": "Console Extension Directory",
+
   "a-ConsoleFullDelegationEnabled-label": "Console Full Delegation Enabled",
+  "f-SecurityConfiguration-a-ConsoleFullDelegationEnabled-help": "Indicates whether the console is enabled for fully delegate authorization. Deprecated in 14.1.2.0.0",
+
   "a-ConsoleInputEnabled-label": "Console Input Enabled",
   "a-ConstrainedCandidateServer-label": "Constrained Candidate Server",
 
@@ -947,7 +1017,10 @@
 
   "a-CredCacheMinViableTtl-label": "Cred Cache Min Viable TTL",
   "a-CredCacheSize-label": "Cred Cache Size",
-  "a-CredentialEncrypted-label": "Credential Encrypted",
+
+  "a-CredentialEncrypted-label": "Credential",
+  "f-SecurityConfiguration-a-CredentialEncrypted-help": "The password for the domain. In WebLogic Server version 6.0, this attribute was the password of the system user. In WebLogic Server version 7.0, this attribute can be any string. For the two domains to interoperate with Global Trust, the string must be the same for both domains.",
+
   "a-CredentialGenerated-label": "Credential Generated",
   "a-CredentialMapperTypes-label": "Credential Mapper Types",
   "a-CredentialMappingDeploymentEnabled-label": "Credential Mapping Deployment Enabled",
@@ -959,20 +1032,35 @@
   "f-WTCServer_WTCRemoteTuxDom-a-CredentialPolicy-help": "he outbound access control list (ACL) policy toward requests to a remote Tuxedo access point.  Local means that the remote Tuxedo access point controls the identity of service requests received from the local Tuxedo access point to the principal name specified in the local principal name for this remote Tuxedo access point. GLOBAL means that the remote Tuxedo access point passes the service request with no change. Note that if Interoperate is set to Yes, CredentialPolicy is ignored.",
 
   "a-CredentialSet-label": "Credential Set",
+  "f-any_CertificateIssuerPlugin-a-CredentialSet-help": "The credential set for this plugin configuration.",
+
   "a-Critical-label": "Critical",
+
   "a-CrlCacheRefreshPeriodPercent-label": "CRL Cache Refresh Period Percent",
+  "f-any_CertRevoc-a-CrlCacheRefreshPeriodPercent-help": "Determines the refresh period for the CRL local cache, expressed as a percentage of the validity period of the CRL. For example, for a validity period of 10 hours, a value of 10% specifies a refresh every 1 hour. The validity period is determined by the CRL, and is calculated as the (next reported update time) - (this update time). The valid range is 1 through 100.",
+
   "a-CrlCacheType-label": "CRL Cache Type",
+  "f-any_CertRevoc-a-CrlCacheType-help": "Determines the type of CRL cache, related to the physical storage of the CRLs. The LDAP CRL cache type can be specified, but is not currently supported.",
+
   "a-CrlCacheTypeLdapHostname-label": "CRL Cache Type LDAP Hostname",
+  "f-any_CertRevoc-a-CrlCacheTypeLdapHostname-help": "Determines the remote hostname for the LDAP server containing CRLs.",
+
   "a-CrlCacheTypeLdapPort-label": "CRL Cache Type LDAP Port",
+  "f-any_CertRevoc-a-CrlCacheTypeLdapPort-help": "Determines the remote port for the LDAP server containing CRLs.",
+
   "a-CrlCacheTypeLdapSearchTimeout-label": "CRL Cache Type LDAP Search Timeout",
+  "f-any_CertRevoc-a-CrlCacheTypeLdapSearchTimeout-help": "Determines how long to wait for CRL search results from the LDAP server.",
 
   "a-CrlDpBackgroundDownloadEnabled-label": "CRL Distribution Point Background Download Enabled",
+  "f-any_CertRevoc-a-CrlDpBackgroundDownloadEnabled-help": "Determines whether the CRL Distribution Point background downloading, to automatically update the local CRL cache, is enabled.",
   "f-any_CertRevocCa-a-CrlDpBackgroundDownloadEnabled-help": "For this CA, determines whether the CRL Distribution Point background downloading, to automatically update the local CRL cache, is enabled.",
 
   "a-CrlDpDownloadTimeout-label": "CRL Distribution Point Download Timeout",
+  "f-any_CertRevoc-a-CrlDpDownloadTimeout-help": "Determines the overall timeout for the Distribution Point CRL download, expressed in seconds.",
   "f-any_CertRevocCa-a-CrlDpDownloadTimeout-help": "For this CA, determines the overall timeout for the Distribution Point CRL download, expressed in seconds.",
 
   "a-CrlDpEnabled-label": "CRL Distribution Point Enabled",
+  "f-any_CertRevoc-a-CrlDpEnabled-help": "Determines whether the CRL Distribution Point processing to update the local CRL cache is enabled.",
   "f-any_CertRevocCa-a-CrlDpEnabled-help": "For this CA, determines whether the CRL Distribution Point processing to update the local CRL cache is enabled.",
 
   "a-CrlDpUrl-label": "CRL Distribution Point URL",
@@ -982,9 +1070,16 @@
   "f-any_CertRevocCa-a-CrlDpUrlUsage-help": "For this CA, determines how getCrlDpUrl is used: as failover in case the URL in the certificate CRLDistributionPoints extension is invalid or not found, or as a value overriding the URL found in the certificate CRLDistributionPoints extension.",
 
   "a-CrossDomainRecoveryRetryInterval-label": "Cross Domain Recovery Retry Interval",
+
   "a-CrossDomainSecurityCacheEnabled-label": "Cross Domain Security Cache Enabled",
+  "f-SecurityConfiguration-a-CrossDomainSecurityCacheEnabled-help": "Specifies whether the Cross Domain Security subject cache is enabled.",
+
   "a-CrossDomainSecurityCacheTtl-label": "Cross Domain Security Cache TTL",
+  "f-SecurityConfiguration-a-CrossDomainSecurityCacheTtl-help": "Specifies the time-to-live (TTL), in seconds, of the Cross Domain Security subject cache. This value is used only if CrossDomainSecurityCacheEnabled is set to true.",
+
   "a-CrossDomainSecurityEnabled-label": "Cross Domain Security Enabled",
+  "f-SecurityConfiguration-a-CrossDomainSecurityEnabled-help": "Specifies whether cross-domain security is enabled.",
+
   "a-CrossSiteRecoveryLeaseExpiration-label": "Cross Site Recovery Lease Expiration",
   "a-CrossSiteRecoveryLeaseUpdate-label": "Cross Site Recovery Lease Update",
   "a-CrossSiteRecoveryRetryInterval-label": "Cross Site Recovery Retry Interval",
@@ -1644,7 +1739,10 @@
   "a-DefaultUserNameMapperAttributeType-label": "Default User Name Mapper Attribute Type",
   "a-DefaultWebAppContextRoot-label": "Default Web App Context Root",
   "a-DefaultWideCharCodeset-label": "Default Wide Char Codeset",
+
   "a-DelegateMBeanAuthorization-label": "Delegate MBean Authorization",
+  "f-any_Realm-a-DelegateMBeanAuthorization-help": "Configures the WebLogic Server MBean servers to use the security realm's Authorization providers to determine whether a JMX client has permission to access an MBean attribute or invoke an MBean operation. You can continue to use WebLogic Server's default security settings or modify the defaults to suit your needs. If you do not delegate authorization to the realm's Authorization providers, the WebLogic MBean servers allow access only to the four default security roles (Admin, Deployer, Operator, and Monitor) and only as specified by WebLogic Server's default security settings.",
+
   "a-DelegatedRequestConnectTimeoutMillis-label": "Delegated Request Connect Timeout Millis",
   "a-DelegatedRequestMaxWaitMillis-label": "Delegated Request Max Wait Millis",
   "a-DelegatedRequestMinThreads-label": "Delegated Request Min Threads",
@@ -1666,9 +1764,15 @@
   "a-DeployCredentialMappingIgnored-label": "Deploy Credential Mapping Ignored",
   "a-DeployPolicyIgnored-label": "Deploy Policy Ignored",
   "a-DeployRoleIgnored-label": "Deploy Role Ignored",
+
   "a-DeployableProviderSynchronizationEnabled-label": "Deployable Provider Synchronization Enabled",
+  "f-any_Realm-a-DeployableProviderSynchronizationEnabled-help": "Specifies whether synchronization for deployable Authorization and Role Mapping providers is enabled. The Authorization and Role Mapping providers may or may not support parallel security policy and role modification, respectively, in the security provider database. If the security providers do not support parallel modification, the WebLogic Security Framework enforces a synchronization mechanism that results in each application and module being placed in a queue and deployed sequentially.",
+
   "a-DeployableProviderSynchronizationTimeout-label": "Deployable Provider Synchronization Timeout",
+  "f-any_Realm-a-DeployableProviderSynchronizationTimeout-help": "The timeout value, in milliseconds, for the deployable security provider synchronization operation. This value is only used if DeployableProviderSynchronizationEnabled is set to true",
+
   "a-Deployment-label": "Deployment",
+  "f-any_CertificateIssuerPlugin-a-Deployment-help": "The plugin deployment for this plugin configuration.",
 
   "a-DeploymentOrder-label": "Deployment Order",
   "a-DeploymentOrder-help": "A priority that the server uses to determine when it deploys an item. The priority is relative to other deployable items of the same type. Items with the lowest Deployment Order value are deployed first.",
@@ -1771,7 +1875,9 @@
   "a-DomainsDirRemoteSharingEnabled-label": "Domains Dir Remote Sharing Enabled",
   "a-DomainsFile-label": "Domains File",
   "a-DomainsFileEnabled-label": "Domains File Enabled",
+
   "a-DowngradeUntrustedPrincipals-label": "Downgrade Untrusted Principals",
+  "f-SecurityConfiguration-a-DowngradeUntrustedPrincipals-help": "Whether or not to downgrade to anonymous principals that cannot be verified. This is useful for server-server communication between untrusted domains.",
 
   "a-DriverInterceptor-label": "Driver Interceptor",
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-DriverInterceptor-help": "Specifies the absolute name of the application class used to intercept method calls to the JDBC driver. The application specified must implement the weblogic.jdbc.extensions.DriverInterceptor interface.",
@@ -1816,7 +1922,9 @@
   "a-EnableJMSStoreDBPersistence-label": "Enable JMS Store Database Persistence",
   "a-EnableJTATLogDBPersistence-label": "Enable JTA TLog Database Persistence",
   "a-EnableSIDtoGroupLookupCaching-label": "Enable SI Dto Group Lookup Caching",
+
   "a-EnableWebLogicPrincipalValidatorCache-label": "Enable WebLogic Principal Validator Cache",
+  "f-any_Realm-a-EnableWebLogicPrincipalValidatorCache-help": "Specifies whether the WebLogic Principal Validator caching is enabled. The Principal Validator is used by Oracle supplied authentication providers and may be used by custom authentication providers. If enabled, the default principal validator will cache WebLogic Principal signatures.",
 
   "a-Enabled-label": "Enabled",
   "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceLoggingParams-a-Enabled-help": "Specifies whether custom Coherence logging is enabled.",
@@ -1840,23 +1948,33 @@
   "f-WLDFSystemResource_WLDFResource_WatchNotification_ThreadDumpAction-a-Enabled-help": "Specifies whether this action is enabled.",
   "f-WLDFSystemResource_WLDFResource_WatchNotification_Watch-a-Enabled-help": "Specifies whether this action is enabled.",
   "f-WLDFSystemResource_WLDFResource_WatchNotification-a-Enabled-help": "Specifies whether the policy and action component is enabled. If true (the default), all configured policies are activated, incoming data or events are evaluated against the policies, and actions are generated when policy conditions are met. If false, all policies are rendered inactive.",
+  "f-any_CertificateIssuerPlugin-a-Enabled-help": "Whether this plugin configuration is enabled or not.",
+  "f-any_CertificateManagement-a-Enabled-help": "Specified whether the Certificate Management Service is enabled or not.",
 
   "a-EnabledServer-label": "Enabled Server",
   "a-EnabledServer-help": "This attribute is applicable only when the SNMP Agent is running on the Admin Server of a WebLogic Domain. The EnabledServers attribute allows the users to limit the scope of the monitored data sources to the specific named Servers. The EnabledServers list is ignored when the SNMAgentDeploymentMBean is targeted to a Managed Server. In the case of a Managed Server the SNMP Agent only looks at the data available in the WebLogic Server where the SNMP Agent is deployed. For traps based on MBean attributes the SNMP Agent refers to the Domain Runtime MBean Server when it is running on the Admin Server and the Runtime MBean Server when it is deployed to a Managed Server.",
 
   "a-EnabledServerDebugAttribute-label": "Enabled Server Debug Attribute",
   "a-Encoding-label": "Encoding",
+
   "a-EncryptValueRequired-label": "Encrypt Value Required",
+  "f-any_ConfigurationProperty-a-EncryptValueRequired-help": "Specifies whether the property should be encrypted. By default, the value of a property is not encrypted and anyone using the Administration Console can view the value of the property. If this attribute is set to true, then the value of the property on the Administration Console will be set to all asterisks.",
 
   "a-EncryptedValueEncrypted-label": "Encrypted Value Encrypted",
+  "f-SecurityConfiguration_CredentialSet_EncryptedProperty-a-EncryptedValueEncrypted-label": "Value",
   "f-JDBCSystemResource_JdbcResource_JDBCDriverParams_Properties-a-EncryptedValueEncrypted-help": "The value of the encrypted property value.",
+  "f-SecurityConfiguration_CredentialSet_EncryptedProperty-a-EncryptedValueEncrypted-help": "The value of the property.",
 
   "a-EndMarker-label": "End Marker",
   "a-EndpointUrl-label": "Endpoint URL",
   "f-WLDFSystemResource_WLDFResource_WatchNotification_RestNotification-a-EndpointUrl-help": "The REST endpoint URL which will be invoked with the action payload.",
 
   "a-EnforceStrictURLPattern-label": "Enforce Strict URL Pattern",
+  "f-SecurityConfiguration-a-EnforceStrictURLPattern-help": "Whether or not the system should enforce strict URL pattern.",
+
   "a-EnforceValidBasicAuthCredentials-label": "Enforce Valid Basic Auth Credentials",
+  "f-SecurityConfiguration-a-EnforceValidBasicAuthCredentials-help": "Whether or not the system should allow requests with invalid Basic Authentication credentials to access unsecure resources.",
+
   "a-EntityCacheCurrentRuntime-label": "Entity Cache Current Runtime",
   "a-EntityCacheHistoricalRuntime-label": "Entity Cache Historical Runtime",
   "a-EntityCacheSessionRuntime-label": "Entity Cache Session Runtime",
@@ -1891,7 +2009,10 @@
   "f-WLDFSystemResource_WLDFResource_Instrumentation-a-Exclude-help": "Pattern expressions for classes that will be excluded from this instrumentation scope. If specified, classes matching given patterns will not be instrumented.",
 
   "a-ExcludedCiphersuite-label": "Excluded Ciphersuite",
+
   "a-ExcludedDomainName-label": "Excluded Domain Name",
+  "f-SecurityConfiguration-a-ExcludedDomainName-help": "Specifies a list of remote domains for which cross-domain check should not be applied.",
+
   "a-ExpectedToRun-label": "Expected To Run",
 
   "a-ExpirationLoggingPolicy-label": "Expiration Logging Policy",
@@ -1919,6 +2040,7 @@
   "a-ExtraRmicOptions-help": "The extra options passed to rmic during server-side generation are noted here. The default for this attribute must be null. If no ExtraRmicOptions are specified on the EJBComponent, the default will be pulled from Server.ExtraRmicOptions.",
 
   "a-FailOnUnknownRevocStatus-label": "Fail On Unknown Revocation Status",
+  "f-any_CertRevoc-a-FailOnUnknownRevocStatus-help": "Determines whether certificate path checking should fail, if revocation status could not be determined.",
   "f-any_CertRevocCa-a-FailOnUnknownRevocStatus-help": "For this CA, determines whether certificate path checking should fail, if revocation status could not be determined.",
 
   "a-FailOverLimit-label": "Fail Over Limit",
@@ -2170,17 +2292,30 @@
   "a-IIOPLocationForwardPolicy-label": "IIOP Location Forward Policy",
   "a-IIOPTxMechanism-label": "IIOP Tx Mechanism",
   "a-IdentityAndTrustLocations-label": "Identity And Trust Locations",
+
   "a-IdentityAssertionCacheEnabled-label": "Identity Assertion Cache Enabled",
+  "f-any_Realm-a-IdentityAssertionCacheEnabled-help": "Specifies whether the Identity Assertion cache is enabled.",
+
   "a-IdentityAssertionCacheTtl-label": "Identity Assertion Cache TTL",
+  "f-any_Realm-a-IdentityAssertionCacheTtl-help": "The time-to-live (TTL), in seconds, of the Identity Assertion cache. This value is used only if IdentityAssertionCacheEnabled is set to true.",
+
   "a-IdentityAssertionDoNotCacheContextElement-label": "Identity Assertion Do Not Cache Context Element",
+  "f-any_Realm-a-IdentityAssertionDoNotCacheContextElement-help": "Specifies the names of the ContextElements that are not stored in the Identity Assertion cache because these elements are present in the ContextHandler of the requests. This value is used only if IdentityAssertionCacheEnabled is set to true.",
+
   "a-IdentityAssertionHeaderNamePrecedence-label": "Identity Assertion Header Name Precedence",
+  "f-any_Realm-a-IdentityAssertionHeaderNamePrecedence-help": "Specifies an ordered list of token type names used for Identity Assertion with HTTP request headers. The list determines the precedence order when multiple HTTP headers are present in an HTTP request based on the list of active token types maintained on the configured Authentication providers.",
 
   "a-IdentityBasedConnectionPoolingEnabled-label": "Identity-Based Connection Pooling Enabled",
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-IdentityBasedConnectionPoolingEnabled-help": "Enables identity-based-connection-pooling for the data source. When an application requests a database connection, WebLogic Server picks or creates a physical connection with requested DBMS identity based on a map of WebLogic user IDs and database IDs. You must also specify the map of WebLogic Server user IDs to database user IDs (credential mapping).",
 
   "a-IdentityDomain-label": "Identity Domain",
+
   "a-IdentityDomainAwareProvidersRequired-label": "Identity Domain Aware Providers Required",
+  "f-SecurityConfiguration-a-IdentityDomainAwareProvidersRequired-help": "Specifies whether the identity domain values should be defaulted for the Administrative Identity Domain, Partition Primary Identity Domain, and Default Authenticator Identity Domain attributes.",
+
   "a-IdentityDomainDefaultEnabled-label": "Identity Domain Default Enabled",
+  "f-SecurityConfiguration-a-IdentityDomainDefaultEnabled-help": "Specifies whether all role mapping, authorization, credential mapping, and audit providers configured in the domain must support the IdentityDomainAwareProviderMBean interface's administrative identity domain.",
+
   "a-IdentityDomains-label": "Identity Domains",
 
   "a-IdentityKeyStoreFileName-label": "Identity Key Store File Name",
@@ -2237,6 +2372,7 @@
   "f-WLDFSystemResource_WLDFResource_Instrumentation-a-Include-help": "Pattern expressions for classes that are included in this instrumentation scope. If specified, only included classes will be instrumented. If not specified, all classes loaded within the application and which are not explicitly excluded are eligible for instrumentation. A pattern can end with an asterisk (*), in which case it will match with all classes whose fully qualified classname starts with the prefix of the pattern. For example, weblogic.rmi.* will match with all classes in weblogic.rmi and its subpackages.",
 
   "a-IncludeRootCertificateInChain-label": "Include Root Certificate In Chain",
+  "f-any_CertificateManagement-a-IncludeRootCertificateInChain-help": "Whether the Domain Certificates Issuer should include the self-signed root CA in the certificate chain for a generated certificate.",
 
   "a-IncomingPausedAtStartup-label": "Incoming Paused At Startup",
   "f-SAFAgent-a-IncomingPausedAtStartup-help": "Specifies whether the agent is paused for incoming messages at startup time. When enabled, the sending agent accepts new messages. Otherwise, the sending agent does not accept any new messages. If the value is changed and activated, you need to restart any servers to which the MBean is targeted before the value will take effect.",
@@ -2377,7 +2513,10 @@
   "a-JavaServiceConsoleEnabled-label": "Java Service Console Enabled",
   "a-JavaServiceEnabled-label": "Java Service Enabled",
   "a-JavaServiceResourcesEnabled-label": "Java Service Resources Enabled",
+
   "a-JavaStandardTrustEnabled-label": "Java Standard Trust Enabled",
+  "f-any_CertificateManagement-a-JavaStandardTrustEnabled-help": "Whether or not the domain should trust the Java Standard Trust certificates, in addition to the Domain Certificate Authority certificate(s) and any Provisioned Trust certificates. Java Standard Trust is a collection of well-known, trusted root certificate authorities distributed (and updated) as part of the JDK.",
+
   "a-JavaStandardTrustKeyStorePassPhrase-label": "Java Standard Trust Key Store Passphrase",
   "a-JavaStandardTrustKeyStorePassPhraseEncrypted-label": "Java Standard Trust Key Store Passphrase Encrypted",
 
@@ -2661,7 +2800,10 @@
   "a-ManagedServerNotificationsEnabled-label": "Managed Server Notifications Enabled",
   "a-ManagementAppletCreateEnabled-label": "Management Applet Create Enabled",
   "a-ManagementEJBEnabled-label": "Management EJB Enabled",
+
   "a-ManagementIdentityDomain-label": "Management Identity Domain",
+  "f-any_Realm-a-ManagementIdentityDomain-help": "Sets the Management Identity Domain value for the realm.",
+
   "a-ManagementProxy-label": "Management Proxy",
   "a-ManagementTokenMaxTimeout-label": "Management Token Max Timeout",
 
@@ -2771,7 +2913,9 @@
   "a-MaxTransactions-label": "Max Transactions",
   "a-MaxTransactionsHealthIntervalMillis-label": "Max Transactions Health Interval Millis",
   "a-MaxUniqueNameStatistics-label": "Max Unique Name Statistics",
+
   "a-MaxWebLogicPrincipalsInCache-label": "Max WebLogic Principals In Cache",
+  "f-any_Realm-a-MaxWebLogicPrincipalsInCache-help": "The maximum size of the LRU cache for holding WebLogic Principal signatures. This value is only used if EnableWebLogicPrincipalValidatorCache is set to true",
 
   "a-MaxWindowBufferSize-label": "Max Window Buffer Size",
   "f-FileStore-a-MaxWindowBufferSize-help": "The maximum amount of data, in bytes and rounded down to the nearest power of 2, mapped into the JVM's address space per primary store file. Applies to synchronous write policies Direct-Write-With-Cache and Disabled but only when the native wlfileio library is loaded. A window buffer does not consume Java heap memory, but does consume off-heap (native) memory. If the store is unable to allocate the requested buffer size, it allocates smaller and smaller buffers until it reaches MinWindowBufferSize, and then fails if cannot honor MinWindowBufferSize.",
@@ -2873,6 +3017,7 @@
   "a-Method-label": "Method",
 
   "a-MethodOrder-label": "Method Order",
+  "f-any_CertRevoc-a-MethodOrder-help": "Determines the certificate revocation checking method order.",
   "f-any_CertRevocCa-a-MethodOrder-help": "For this CA, determines the certificate revocation checking method order. NOTE THAT omission of a specific method disables that method.",
 
   "a-MibDataRefreshInterval-label": "MIB Data Refresh Interval",
@@ -3019,9 +3164,15 @@
   "f-JDBCSystemResource_JdbcResource_JDBCXAParams-a-NewXaConnForCommit-help": "Specifies that a dedicated XA connection is used for commit and rollback processing for a global transaction. Only applies to data sources that use an XA driver. Use this setting to work around specific problems with JDBC XA drivers.",
 
   "a-NodeManagerHome-label": "Node Manager Home",
-  "a-NodeManagerPasswordEncrypted-label": "Node Manager Password Encrypted",
+
+  "a-NodeManagerPasswordEncrypted-label": "Node Manager Password",
+  "f-SecurityConfiguration-a-NodeManagerPasswordEncrypted-help": "The password that the Administration Server uses to communicate with Node Manager when starting, stopping, or restarting Managed Servers.",
+
   "a-NodeManagerTimeoutMillis-label": "Node Manager Timeout Millis",
+
   "a-NodeManagerUsername-label": "Node Manager Username",
+  "f-SecurityConfiguration-a-NodeManagerUsername-help": "The user name that the Administration Server uses to communicate with Node Manager when starting, stopping, or restarting Managed Servers.",
+
   "a-NonBufferedDestination-label": "Non-Buffered Destination",
   "a-NonBufferedSource-label": "Non-Buffered Source",
   "a-NonLocalPostAllowed-label": "Non-Local Post Allowed",
@@ -3030,6 +3181,7 @@
   "a-NonPersistentQos-help": "Specifies the quality-of-service (QOS) for non-persistent messages.",
 
   "a-NonceTimeoutSeconds-label": "Nonce Timeout Seconds",
+  "f-SecurityConfiguration-a-NonceTimeoutSeconds-help": "Specifies the value of the nonce timeout in seconds.",
 
   "a-Notes-label": "Notes",
   "a-Notes-help": "Optional information that you can include to describe this configuration.",
@@ -3066,21 +3218,44 @@
   "a-OPSSWalletPassphrase-label": "OPSS Wallet Passphrase",
 
   "a-OcspNonceEnabled-label": "OCSP Nonce Enabled",
+  "f-any_CertRevoc-a-OcspNonceEnabled-help": "Determines whether a nonce is sent with OCSP requests, to force a fresh (not pre-signed) response.",
   "f-any_CertRevocCa-a-OcspNonceEnabled-help": "For this CA, determines whether a nonce is sent with OCSP requests, to force a fresh (not pre-signed) response.",
 
-  "a-OcspResponderCertIssuerName-label": "OCSP Responder Cert Issuer Name",
-  "f-any_CertRevocCa-a-OcspResponderCertIssuerName-help": "For this CA, determines the explicitly trusted OCSP responder certificate issuer name, when the attribute returned by getOcspResponderExplicitTrustMethod is \"USE_ISSUER_SERIAL_NUMBER\". The issuer name is formatted as a distinguished name per RFC 2253, for example \"CN=CertGenCAB, OU=FOR TESTING ONLY, O=MyOrganization, L=MyTown, ST=MyState, C=US\". When OcspResponderCertIssuerName returns a non-null value then the OcspResponderCertSerialNumber must also be set.",
+  "a-OcspResponderCertIssuerName-label": "OCSP Responder Certificate Issuer Name",
+  "f-any_CertRevocCa-a-OcspResponderCertIssuerName-help": "For this CA, determines the explicitly trusted OCSP responder certificate issuer name, when the attribute OcspResponderExplicitTrustMethod is set to \"USE_ISSUER_SERIAL_NUMBER\". The issuer name is formatted as a distinguished name per RFC 2253, for example \"CN=CertGenCAB, OU=FOR TESTING ONLY, O=MyOrganization, L=MyTown, ST=MyState, C=US\". When OcspResponderCertIssuerName returns a non-null value then the OcspResponderCertSerialNumber must also be set.",
 
-  "a-OcspResponderCertSerialNumber-label": "OCSP Responder Cert Serial Number",
-  "a-OcspResponderCertSubjectName-label": "OCSP Responder Cert Subject Name",
+  "a-OcspResponderCertSerialNumber-label": "OCSP Responder Certificate Serial Number",
+  "f-any_CertRevocCa-a-OcspResponderCertSerialNumber-help": "For this CA, determines the explicitly trusted OCSP responder certificate serial number, when the attribute OcspResponderExplicitTrustMethod is set to \"USE_ISSUER_SERIAL_NUMBER\". The serial number is formatted as a hexadecimal string, with optional colon or space separators, for example \"2A:FF:00\". When OcspResponderCertSerialNumber returns a non-null value then the OcspResponderCertIssuerName must also be set.",
+
+  "a-OcspResponderCertSubjectName-label": "OCSP Responder Certificate Subject Name",
+  "f-any_CertRevocCa-a-OcspResponderCertSubjectName-help": "For this CA, determines the explicitly trusted OCSP responder certificate subject name, when the attribute OcspResponderExplicitTrustMethod is set to \"USE_SUBJECT\". The subject name is formatted as a distinguished name per RFC 2253, for example \"CN=CertGenCAB, OU=FOR TESTING ONLY, O=MyOrganization, L=MyTown, ST=MyState, C=US\". In cases where the subject name alone is not sufficient to uniquely identify the certificate, then both the OcspResponderCertIssuerName and OcspResponderCertSerialNumber may be used instead.",
+
   "a-OcspResponderExplicitTrustMethod-label": "OCSP Responder Explicit Trust Method",
+  "f-any_CertRevocCa-a-OcspResponderExplicitTrustMethod-help": "For this CA, determines whether the OCSP Explicit Trust model is enabled and how the trusted certificate is specified.",
+
   "a-OcspResponderUrl-label": "OCSP Responder URL",
+  "f-any_CertRevocCa-a-OcspResponderUrl-help": "For this CA, determines the OCSP responder URL to use as failover or override for the URL found in the certificate AIA. The usage is determined by the value of the OcspResponderUrlUsage attribute.",
+
   "a-OcspResponderUrlUsage-label": "OCSP Responder URL Usage",
+  "f-any_CertRevocCa-a-OcspResponderUrlUsage-help": "For this CA, determines how the OcspResponderUrl attribute is used: as failover in case the URL in the certificate AIA is invalid or not found, or as a value overriding the URL found in the certificate AIA.",
+
   "a-OcspResponseCacheCapacity-label": "OCSP Response Cache Capacity",
+  "f-any_CertRevoc-a-OcspResponseCacheCapacity-help": "Determines the maximum number of entries supported by the OCSP response local cache. The minimum value is 1.",
+
   "a-OcspResponseCacheEnabled-label": "OCSP Response Cache Enabled",
+  "f-any_CertRevoc-a-OcspResponseCacheEnabled-help": "Determines whether the OCSP response local cache is enabled.",
+  "f-any_CertRevocCa-a-OcspResponseCacheEnabled-help": "For this CA, determines whether the OCSP response local cache is enabled.",
+
   "a-OcspResponseCacheRefreshPeriodPercent-label": "OCSP Response Cache Refresh Period Percent",
+  "f-any_CertRevoc-a-OcspResponseCacheRefreshPeriodPercent-help": "Determines the refresh period for the OCSP response local cache, expressed as a percentage of the validity period of the response. For example, for a validity period of 10 hours, a value of 10% specifies a refresh every 1 hour. The validity period is determined by the OCSP response, and is calculated as the (next reported update time) - (this update time). The valid range is 1 through 100.",
+
   "a-OcspResponseTimeout-label": "OCSP Response Timeout",
+  "f-any_CertRevoc-a-OcspResponseTimeout-help": "Determines the timeout for the OCSP response, expressed in seconds.",
+  "f-any_CertRevocCa-a-OcspResponseTimeout-help": "For this CA, determines the timeout for the OCSP response, expressed in seconds.",
+
   "a-OcspTimeTolerance-label": "OCSP Time Tolerance",
+  "f-any_CertRevoc-a-OcspTimeTolerance-help": "Determines the time tolerance value for handling clock-skew differences between clients and responders, expressed in seconds. The validity period of the response is extended both into the future and into the past by the specified amount of time, effectively widening the validity interval. The value is >= 0 and <= 900. The maximum allowed tolerance is 15 minutes.",
+  "f-any_CertRevocCa-a-OcspTimeTolerance-help": "For this CA, determines the time tolerance value for handling clock-skew differences between clients and responders, expressed in seconds. The validity period of the response is extended both into the future and into the past by the specified amount of time, effectively widening the validity interval. The value is >= 0 and <= 900. The maximum allowed tolerance is 15 minutes.",
 
   "a-Offset-label": "Offset",
   "f-any_SNMPCounterMonitor-a-Offset-help": "A value to be added to the threshold value each time the observed value equals or exceeds the threshold.",
@@ -3132,7 +3307,10 @@
   "a-OutboundPrivateKeyEnabled-label": "Outbound Private Key Enabled",
   "a-OutboundPrivateKeyPassPhrase-label": "Outbound Private Key Passphrase",
   "a-OutboundPrivateKeyPassPhraseEncrypted-label": "Outbound Private Key Passphrase Encrypted",
+
   "a-OutboundReferenceHostAllowList-label": "Outbound Reference Host Allow List",
+  "f-SecurityConfiguration-a-OutboundReferenceHostAllowList-help": "Specifies the list of hosts from which WebLogic Server may retrieve an object specified by a URL. This can prevent SSRF attacks that send a URL or IOR and expect WebLogic Server to try to resolve it. Defaults to '*', meaning no restrictions.",
+
   "a-OutputMedium-label": "Output Medium",
 
   "a-OverloadProtectionEnabled-label": "Overload Protection Enabled",
@@ -3322,8 +3500,13 @@
 
   "a-PrimaryIdentityDomain-label": "Primary Identity Domain",
   "a-Principal-label": "Principal",
+
   "a-PrincipalEqualsCaseInsensitive-label": "Principal Equals Case Insensitive",
-  "a-PrincipalEqualsCompareDnAndGuid-label": "Principal Equals Compare Dn And Guid",
+  "f-SecurityConfiguration-a-PrincipalEqualsCaseInsensitive-help": "Specifies whether the WebLogic Server principal name is compared using a case insensitive match when the equals method for the principal object is performed.",
+
+  "a-PrincipalEqualsCompareDnAndGuid-label": "Principal Equals Compare DN and GUID",
+  "f-SecurityConfiguration-a-PrincipalEqualsCompareDnAndGuid-help": "Specifies whether the GUID and DN data in a WebLogic Server principal object are used when the equals method of that object is invoked. If enabled, the GUID and DN data (if included among the attributes in a WebLogic Server principal object) and the principal name are compared when this method is invoked.",
+
   "a-PrintStackTraceInProduction-label": "Print Stack Trace In Production",
 
   "a-Priority-label": "Priority",
@@ -3368,6 +3551,7 @@
   "f-ForeignJNDIProvider-a-Properties-help": "Any additional properties that must be set for the JNDI provider. These properties will be passed directly to the constructor for the JNDI provider's InitialContext class.",
   "f-MailSession-a-Properties-help": "The configuration options and user authentication data that this JavaMail session uses to interact with the email server. Each property that you specify overrides the default property value as defined by the JavaMail API Design Specification. Include only the properties defined by the JavaMail API Design Specification. If you do not specify any properties, this mail session will use the JavaMail default property values.",
   "f-WLDFSystemResource_WLDFResource_Instrumentation_WLDFInstrumentationMonitor-a-Properties-help": "Properties for this monitor.",
+  "f-any_CertificateIssuerPlugin-a-Properties-help": "The configuration properties for the certificate issues plugin provider.",
 
   "a-PropertiesVersion-label": "Properties Version",
 
@@ -3382,6 +3566,8 @@
   "f-ForeignJNDIProvider-a-ProviderUrl-help": "The foreign JNDI provider URL. This value corresponds to the standard JNDI property, java.naming.provider.url.",
 
   "a-ProvisionedCertificatesIssuerEnabled-label": "Provisioned Certificates Issuer Enabled",
+  "f-any_CertificateManagement-a-ProvisionedCertificatesIssuerEnabled-help": "Indicate whether the Provisioned Certificates Issuer is enabled or not.",
+
   "a-ProxyAddress-label": "Proxy Address",
   "a-ProxyPort-label": "Proxy Port",
   "a-ProxyServer-label": "Proxy Server",
@@ -3502,8 +3688,14 @@
   "a-RemoteAccessPointList-help": "The comma-separated failover list that identifies the remote domain access points through which resources are imported.",
 
   "a-RemoteAnonymousJndiEnabled-label": "Remote Anonymous JNDI Enabled",
+  "f-SecurityConfiguration-a-RemoteAnonymousJndiEnabled-help": "Specified whether remote anonymous JNDI access is permitted for list and modify operations.",
+
   "a-RemoteAnonymousRmiiiopEnabled-label": "Remote Anonymous RMI/IIOP Enabled",
+  "f-SecurityConfiguration-a-RemoteAnonymousRmiiiopEnabled-help": "Specified whether remote anonymous RMI access via IIOP is permitted. If remote anonymous RMI access is not allowed, then client requests that do not specify a username / password may fail.",
+
   "a-RemoteAnonymousRmit3Enabled-label": "Remote Anonymous RMI/T3 Enabled",
+  "f-SecurityConfiguration-a-RemoteAnonymousRmit3Enabled-help": "Specified whether remote anonymous RMI access via T3 is permitted. If remote anonymous RMI access is not allowed, then client requests that do not specify a username / password may fail.",
+
   "a-RemoteClusterAddress-label": "Remote Cluster Address",
 
   "a-RemoteCoherenceClusterListenPort-label": "Remote Coherence Cluster Listen Port",
@@ -3634,6 +3826,8 @@
   "f-WebAppContainer-a-RestrictUserManagementAccessPattern-help": "The Username patterns for the WebLogic Restrict User Management Access Servlet Filter. Specify username patterns for the WebLogic Restrict User Management Access Servlet (RestrictUserManagementAccess) filter. Username patterns consist of a string array of regular expressions. When the RestrictUserManagementAccess filter matches any of the specified regular expressions with the principal name of the user in the security context for the HTTP request of a WebLogic management application (such as WebLogic Remote Console, REST APIs, and so on), the filter will block the user from accessing the application and terminate the user session. The messages about blocked requests will appear in the server log file. The regular expression must follow the Java Pattern syntax specification.",
 
   "a-RestrictiveJmxPolicies-label": "Restrictive Jmx Policies",
+  "f-any_SecureMode-a-RestrictiveJmxPolicies-help": "Specifies whether restrictive policies will be used for JMX authorization. If secure mode is enabled and restrictive policies are enabled, then the default policies for JMX only allow MBean access to the standard WLS roles (Admin, Deployer, Operator, or Monitor).",
+
   "a-ResultsTimeLimit-label": "Results Time Limit",
 
   "a-ResumeWhenUnstuck-label": "Resume When Unstuck",
@@ -3643,6 +3837,8 @@
   "f-WebAppContainer-a-RetainOriginalURL-help": "The retain-original-url property is used in FORM based authentication scenarios. When this property is set to true, after a successful authentication, WebLogic Server will redirect back to the web resource (page/servlet) retaining the protocol (http/https) used to access the protected resource in the original request. If set to false (which is the default value), WebLogic Server will redirect back to the protected resource using the current protocol. The retain-original-url value can also be specified at per web application level in weblogic.xml. The value in weblogic.xml, if specified, overrides the domain level value.",
 
   "a-RetireTimeoutSeconds-label": "Retire Timeout Seconds",
+  "f-any_Realm-a-RetireTimeoutSeconds-help": "Specifies the retire timeout for a realm that is restarted. The old realm will be shutdown after the specified timeout period has elapsed.",
+
   "a-RetransmissionExponentialBackoff-label": "Retransmission Exponential Backoff",
 
   "a-Retries-label": "Retries",
@@ -3798,7 +3994,10 @@
 
   "a-SecureClusterBroadcastEnabled-label": "Secure Cluster Broadcast Enabled",
   "a-SecureListener-label": "Secure Listener",
+
   "a-SecureModeEnabled-label": "Secure Mode Enabled",
+  "f-any_SecureMode-a-SecureModeEnabled-help": "Specifies whether the domain will run in secure mode. In secure mode, the configuration defaults are those recommended for securing a domain. The authorization policies for JNDI and MBean access are more restrictive in secure mode. In addition, WLS will validate the domain configuration and log warnings and errors for any insecure settings. Secure mode requires the domain to be in production mode.",
+
   "a-SecureReplicationEnabled-label": "Secure Replication Enabled",
 
   "a-SecuredProduction-label": "Secured Production",
@@ -3812,6 +4011,7 @@
 
   "a-SecurityDDModel-label": "Security Deployment Descriptor Model",
   "f-Application-a-SecurityDDModel-help": "The security model that is used to secure a deployed module. To set this value, you can use the weblogic.Deployer command-line tool, the Deployment Assistant in the Administration Console, the WebLogic Scripting Tool (WLST), or another JMX client. If you deploy a module using one of the previously mentioned tools and you do not specify a security model value, the module is secured with the security realm's default model. If you deploy a module by modifying the domain's config.xml file and restarting the server, and if you do not specify a security model value for the module in config.xml, the module is secured with the DDOnly model, which is the default value of this AppDeploymentMBean attribute.",
+  "f-any_Realm-a-SecurityDDModel-help": "Specifies the default security model for Web applications or EJBs that are secured by this security realm. You can override this default during deployment.",
 
   "a-SecurityEncryptionService-label": "Security Encryption Service",
 
@@ -3958,7 +4158,10 @@
   "a-SignaturePreferX509Certificate-label": "Signature Prefer X509 Certificate",
   "a-SigningKeyAlias-label": "Signing Key Alias",
   "a-SigningKeyPassPhraseEncrypted-label": "Signing Key Passphrase Encrypted",
+
   "a-SinglePurposeCertificatesEnabled-label": "Single Purpose Certificates Enabled",
+  "f-any_CertificateManagement-a-SinglePurposeCertificatesEnabled-help": "Whether the Domain Certificates Issuer should generate separate, single-purpose certificates for different purposes (server authentication, client authentication, signing and encryption), or generate one certificate that supports all those purposes.",
+
   "a-SingleSignonDisabled-label": "Single Signon Disabled",
   "a-SingletonSQLQueryHelper-label": "Singleton SQL Query Helper",
   "a-SingletonServiceRequestTimeout-label": "Singleton Service Request Timeout",
@@ -4088,7 +4291,10 @@
   "f-WLDFSystemResource_WLDFResource_WatchNotification_SMTPNotification-a-Subject-help": "The subject for the mail message. If the subject is not specified, a subject is created from the action information.",
 
   "a-SubjectAlternativeNames-label": "Subject Alternative Names",
+  "f-any_CertificateManagement-a-SubjectAlternativeNames-help": "A list of words representing the Subject Alternative Names that the Domain Certificates Issuer should include when generating a server certificate. Each word must be one of the subject name constants defined by the CertificateConfigurationConstants interface. When generating a certificate, the Certificate Management Service replaces each constant with the corresponding value(s) obtained from the target server's configuration or the host it's running on. The certificate's CN attribute will be included as a Subject Alternative Name even if it is not explicitly configured here.",
+
   "a-SubjectCommonName-label": "Subject Common Name",
+  "f-any_CertificateManagement-a-SubjectCommonName-help": "The name the Domain Certificates Issuer should use for the CN attribute of a certificate's Subject: either the local hostname (hostname) or the server's listen address (listen_address). If no listen address is configured for the server, hostname will be used instead, regardless of the value set here. The CN value will also be added as a Subject Alternative Name (even if it is not explicitly configured as a Subject Alternative Name).",
 
   "a-SubscriptionSharingPolicy-label": "Subscription Sharing Policy",
   "f-JMSSystemResource_JmsResource_ConnectionFactory_ClientParams-a-SubscriptionSharingPolicy-help": "Specifies the subscription sharing policy on this connection.",
@@ -4349,7 +4555,10 @@
 
   "a-TwoPhaseEnabled-label": "Two Phase Enabled",
   "a-TwoWaySSLEnabled-label": "Two Way SSL Enabled",
+
   "a-TwoWayTLSRequiredForAdminClients-label": "Two Way TLS Required For Admin Clients",
+  "f-SecurityConfiguration-a-TwoWayTLSRequiredForAdminClients-help": "Specifies whether the WebLogic Server domain should require 2 way TLS for admin clients.",
+
   "a-TxMechanism-label": "Tx Mechanism",
   "a-TxnAffinityEnabled-label": "TXN Affinity Enabled",
 
@@ -4408,7 +4617,10 @@
   "a-UseInitiatorGroupNames-label": "Use Initiator Group Names",
   "a-UseJava-label": "Use Java",
   "a-UseJavaSerialization-label": "Use Java Serialization",
+
   "a-UseKSSForDemo-label": "Use KSS For Demo",
+  "f-SecurityConfiguration-a-UseKSSForDemo-help": "Determines whether the Demo Identity and Demo Trust key stores should be obtained from the Oracle Key Store Service (KSS). If enabled, WebLogic Server will request the Demo Identity and Domain Trust key stores from KSS. Subsequent to installation however, the KSS Demo key stores may have been manipulated such that appropriate Demo certificates or keys are not available.",
+
   "a-UseLocateRequest-label": "Use Locate Request",
   "a-UseMemberuidForGroupSearch-label": "Use Memberuid For Group Search",
   "a-UseNonSecureAddressesForDomain-label": "Use Non Secure Addresses For Domain",
@@ -4496,13 +4708,14 @@
   "a-ValidProtocols-label": "Valid Protocols",
 
   "a-ValidateDDSecurityData-label": "Validate DD Security Data",
-  "f-Application-a-ValidateDDSecurityData-help": "Whether to validate the deployment descriptor security data.  Not used in modern versions of WebLogic Server.",
+  "a-ValidateDDSecurityData-help": "Whether to validate the deployment descriptor security data.  Not used in modern versions of WebLogic Server.",
 
   "a-ValidityPeriod-label": "Validity Period",
 
   "a-Value-label": "Value",
   "f-JDBCSystemResource_JdbcResource_JDBCDriverParams_Properties-a-Value-help": "The value of the JDBC driver property.",
   "f-JMSSystemResource_JmsResource_ForeignServer_JNDIProperty-a-Value-help": "The value of the JNDI property.",
+  "f-any_ConfigurationProperty-a-Value-help": "Specifies the value of the property.",
 
   "a-VerboseEJBDeploymentEnabled-label": "Verbose EJB Deployment Enabled",
   "a-VerboseLoggingEnabled-label": "Verbose Logging Enabled",
@@ -4533,20 +4746,48 @@
   "a-WantResponsesSigned-label": "Want Responses Signed",
   "a-WantTransportLayerSecurityClientAuthentication-label": "Want Transport Layer Security Client Authentication",
   "a-WarExtraction-label": "War Extraction",
+
   "a-WarnOnAnonymousRequests-label": "Warn On Anonymous Requests",
+  "f-any_SecureMode-a-WarnOnAnonymousRequests-help": "Specifies whether a warning should be logged if anonymous RMI requests are enabled. If the warning is enabled, then a message will be logged if anonymous RMI requests are enabled.",
+
   "a-WarnOnAuditing-label": "Warn On Auditing",
+  "f-any_SecureMode-a-WarnOnAuditing-help": "Specifies whether warnings should be logged if auditing not enabled. If secure mode is enabled and warnings are enabled, then messages will be logged if auditing is not enabled.",
+
   "a-WarnOnInsecureApplications-label": "Warn On Insecure Applications",
+  "f-any_SecureMode-a-WarnOnInsecureApplications-help": "Specifies whether warnings should be logged if applications are not secure. If secure mode is enabled and warnings are enabled, then messages will be logged for insecure application elements.",
+
   "a-WarnOnInsecureDataSources-label": "Warn On Insecure Data Sources",
+  "f-any_SecureMode-a-WarnOnInsecureDataSources-help": "Specifies whether warnings should be logged if data sources are not secure. If production mode is enabled and warnings are enabled, then messages will be logged for insecure data sources.",
+
   "a-WarnOnInsecureFileSystem-label": "Warn On Insecure File System",
+  "f-any_SecureMode-a-WarnOnInsecureFileSystem-help": "Specifies whether warnings should be logged if the File System is not secure. If secure mode is enabled and warnings are enabled, then messages will be logged for insecure file system setting.",
+
   "a-WarnOnInsecureSsl-label": "Warn On Insecure SSL",
+  "f-any_SecureMode-a-WarnOnInsecureSsl-help": "Specifies whether warnings should be logged if the SSL configuration is not secure. If secure mode is enabled and warnings are enabled, then messages will be logged for insecure SSL configuration settings.",
+
   "a-WarnOnJavaSecurityManager-label": "Warn On Java Security Manager",
+  "f-any_SecureMode-a-WarnOnJavaSecurityManager-help": "Specifies whether warnings should be logged if the Java Security Manager is not enabled. If secure mode is enabled and warning is enabled, then a messages will be logged if the Java Security Manager is not enabled.",
+
   "a-WarnOnPatches-label": "Warn On Patches",
+  "f-any_SecureMode-a-WarnOnPatches-help": "Specifies whether a warning should be logged if required WebLogic Server or Coherence CPU patches are not applied. If the warning is enabled, then a message will be logged if required CPU patches are not applied.",
+
   "a-WarnOnPorts-label": "Warn On Ports",
+  "f-any_SecureMode-a-WarnOnPorts-help": "Specifies whether a warning should be logged if ports configuration is insecure. If the warning is enabled, then a message will be logged if the network port configuration is insecure.",
+
   "a-WarnOnSamples-label": "Warn On Samples",
+  "f-any_SecureMode-a-WarnOnSamples-help": "Specifies whether a warning should be logged if samples are installed. If the warning is enabled, then a message will be logged if samples are installed.",
+
   "a-WarnOnUserLockout-label": "Warn On User Lockout",
+  "f-any_SecureMode-a-WarnOnUserLockout-help": "Specifies whether a warning should be logged if the user lockout configuration is not secure. If the warning is enabled, then a message will be logged if the user lockout settings are not secure.",
+
   "a-WarnOnUsernamePasswords-label": "Warn On Username Passwords",
+  "f-any_SecureMode-a-WarnOnUsernamePasswords-help": "Specifies whether a warning should be logged if usernames or password configuration is insecure. If the warning is enabled and the domain is in secured production mode, then a message will be logged if well known administrator usernames are present or password validation configuration is insecure.",
+
   "a-WarningAuditSeverityEnabled-label": "Warning Audit Severity Enabled",
+
   "a-WebAppFilesCaseInsensitive-label": "Web App Files Case Insensitive",
+  "f-SecurityConfiguration-a-WebAppFilesCaseInsensitive-help": "This property defines the case sensitive URL-pattern matching behavior for security constraints, servlets, filters, virtual-hosts, and so on, in the Web application container and external security policies. Note: This is a Windows-only flag that is provided for backward compatibility when upgrading from pre-9.0 versions of WebLogic Server. On Unix platforms, setting this value to true causes undesired behavior and is not supported. When the value is set to os, the pattern matching will be case- sensitive on all platforms except the Windows file system. Note that on non-Windows file systems, WebLogic Server does not enforce case sensitivity and relies on the file system for optimization. As a result, if you have a Windows Samba mount from Unix or Mac OS that has been installed in case-insensitive mode, there is a chance of a security risk. If so, specify case-insensitive lookups by setting this attribute to true. Note also that this property is used to preserve backward compatibility on Windows file systems only. In prior releases, WebLogic Server was case- insensitive on Windows. As of WebLogic Server 9.0, URL-pattern matching is strictly enforced. During the upgrade of older domains, the value of this parameter is explicitly set to os by the upgrade plug-in to preserve backward compatibility.",
+
   "a-WebDeployment-label": "Web Deployment",
   "a-WebLogicHome-label": "WebLogic Home",
   "a-WebModule-label": "Web Module",

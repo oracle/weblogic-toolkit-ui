@@ -57,8 +57,7 @@
                 "attributes": [
                   "RemoteAnonymousRmit3Enabled",
                   "RemoteAnonymousRmiiiopEnabled",
-                  "RemoteAnonymousJndiEnabled",
-                  "AnonymousAdminLookupEnabled"
+                  "RemoteAnonymousJndiEnabled"
                 ]
               },
               {
@@ -137,6 +136,7 @@
       {
         "type": "hidden",
         "attributes": [
+          "AnonymousAdminLookupEnabled",
           "DefaultRealmInternal",
           "CredentialGenerated",
           "RealmBootStrapVersion"
@@ -358,12 +358,12 @@
         "type": "attributes",
         "labelKey": "ca-cert-revoc-ocsp-title",
         "attributes": [
+          "OcspResponderExplicitTrustMethod",
           "OcspResponderCertSubjectName",
           "OcspResponderCertIssuerName",
           "OcspResponderCertSerialNumber",
-          "OcspResponderExplicitTrustMethod",
-          "OcspResponderUrl",
           "OcspResponderUrlUsage",
+          "OcspResponderUrl",
           "OcspNonceEnabled",
           "OcspResponseCacheEnabled",
           "OcspResponseTimeout",
@@ -378,6 +378,35 @@
     ]
   },
   "SecurityConfiguration/CertificateManagement": {
+    "attributeDetails": {
+      "SubjectAlternativeNames": {
+        "editorType": "selectMulti",
+        "options": [
+          { "value": "hostname", "labelKey": "options-hostname-label" },
+          { "value": "hostname_all", "labelKey": "options-all-hostnames-label" },
+          { "value": "address", "labelKey": "options-address-label" },
+          { "value": "address_all", "labelKey": "options-all-addresses-label" },
+          { "value": "address_all_ipv4", "labelKey": "options-all-ipv4-addresses-label" },
+          { "value": "address_all_ipv6", "labelKey": "options-all-ipv6-addresses-label" },
+          { "value": "loopback", "labelKey": "options-loopback-label" },
+          { "value": "loopback_hostname", "labelKey": "options-loopback-hostname-label" },
+          { "value": "loopback_address", "labelKey": "options-loopback-address-label" },
+          { "value": "loopback_address_ipv4", "labelKey": "options-loopback-ipv4-address-label" },
+          { "value": "loopback_address_ipv6", "labelKey": "options-loopback-ipv6-address-label" },
+          { "value": "listen_address", "labelKey": "options-listen-address-label" },
+          { "value": "listen_address_all", "labelKey": "options-all-listen-addresses-label" },
+          { "value": "listen_address_", "labelKey": "options-listen-address-prefix-label" },
+          { "value": "virtual_host_all", "labelKey": "options-all-virtual-hosts-label" },
+          { "value": "virtual_host_", "labelKey": "options-virtual-host-prefix-label" }
+        ]
+      },
+      "SubjectCommonName": {
+        "options": [
+          { "value": "hostname", "labelKey": "options-hostname-label" },
+          { "value": "listen_address", "labelKey": "options-listen-address-label" }
+        ]
+      }
+    },
     "sections": [
       {
         "type": "tab",
@@ -510,6 +539,18 @@
       "CertPathBuilder": {
         "editorType": "combo",
         "optionsMethod": "getCertPathBuilderInRealmOptions"
+      },
+      "DeployableProviderSynchronizationTimeout": {
+        "disabled": "secConfigRealmDeployableProviderSyncFields"
+      },
+      "IdentityAssertionCacheTtl": {
+        "disabled": "secConfigRealmIdentityAssertionCacheFields"
+      },
+      "IdentityAssertionDoNotCacheContextElement": {
+        "disabled": "secConfigRealmIdentityAssertionCacheFields"
+      },
+      "MaxWebLogicPrincipalsInCache": {
+        "disabled": "secConfigRealmWlsPrincipalValidatorCacheFields"
       }
     },
     "sections": [
@@ -521,23 +562,18 @@
             "type": "attributes",
             "attributes": [
               "SecurityDDModel",
-              "ValidateDDSecurityData",
-              "DeployPolicyIgnored",
-              "DeployRoleIgnored",
-              "FullyDelegateAuthorization",
               "CombinedRoleMappingEnabled",
               "ManagementIdentityDomain",
               "CertPathBuilder",
               "AutoRestartOnNonDynamicChanges",
               "DelegateMBeanAuthorization",
-              "DeployCredentialMappingIgnored",
               "DeployableProviderSynchronizationEnabled",
               "DeployableProviderSynchronizationTimeout",
-              "EnableWebLogicPrincipalValidatorCache",
               "IdentityAssertionCacheEnabled",
               "IdentityAssertionCacheTtl",
               "IdentityAssertionDoNotCacheContextElement",
               "IdentityAssertionHeaderNamePrecedence",
+              "EnableWebLogicPrincipalValidatorCache",
               "MaxWebLogicPrincipalsInCache",
               "RetireTimeoutSeconds",
               "AuthMethods"
@@ -546,9 +582,6 @@
           {
             "type": "attributesCollapsible",
             "labelKey": "advanced-label",
-            "attributes": [
-              "CompatibilityObjectName"
-            ],
             "addRemainingAttributes": true
           }
         ]
@@ -556,7 +589,13 @@
       {
         "type": "hidden",
         "attributes": [
-          "DefaultRealm"
+          "CompatibilityObjectName",
+          "DefaultRealm",
+          "DeployCredentialMappingIgnored",
+          "DeployPolicyIgnored",
+          "DeployRoleIgnored",
+          "FullyDelegateAuthorization",
+          "ValidateDDSecurityData"
         ]
       }
     ]

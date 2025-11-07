@@ -46,7 +46,6 @@
               "PlanPath",
               "InstallDir",
               "DeploymentPrincipalName",
-              "ValidateDDSecurityData",
               "Notes",
               "Target"
             ]
@@ -77,15 +76,16 @@
                 "type": "attributes",
                 "labelKey": "miscellaneous-attributes-label",
                 "addRemainingAttributes": true
-              },
-              {
-                "type": "hidden",
-                "attributes": [
-                  "AltDescriptorDir",
-                  "ConfiguredApplicationIdentifier",
-                  "Untargeted"
-                ]
               }
+            ]
+          },
+          {
+            "type": "hidden",
+            "attributes": [
+              "AltDescriptorDir",
+              "ConfiguredApplicationIdentifier",
+              "Untargeted",
+              "ValidateDDSecurityData"
             ]
           }
         ]

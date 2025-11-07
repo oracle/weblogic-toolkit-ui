@@ -149,6 +149,30 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
       this.secConfigCertRevocCACrlFields = this.secConfigCertRevocCrlFields;
       this.secConfigCertRevocCACrlDpFields = this.secConfigCertRevocCrlDpFields;
       this.secConfigCertRevocCAOcspFields = this.secConfigCertRevocOcspFields;
+
+      this.secConfigRealmDeployableProviderSyncFields = attributeMap => {
+        const providerSyncEnabled = attributeMap['DeployableProviderSynchronizationEnabled'];
+        return ko.computed(() => {
+          const enabled = ModelEditHelper.getDerivedValue(providerSyncEnabled.observable());
+          return !enabled;
+        });
+      };
+
+      this.secConfigRealmIdentityAssertionCacheFields = attributeMap => {
+        const identityAssertionCacheEnabled = attributeMap['IdentityAssertionCacheEnabled'];
+        return ko.computed(() => {
+          const enabled = ModelEditHelper.getDerivedValue(identityAssertionCacheEnabled.observable());
+          return !enabled;
+        });
+      };
+
+      this.secConfigRealmWlsPrincipalValidatorCacheFields = attributeMap => {
+        const wlsPrincipalValidatorCacheEnabled = attributeMap['EnableWebLogicPrincipalValidatorCache'];
+        return ko.computed(() => {
+          const enabled = ModelEditHelper.getDerivedValue(wlsPrincipalValidatorCacheEnabled.observable());
+          return !enabled;
+        });
+      };
     }
 
     // return a singleton instance
