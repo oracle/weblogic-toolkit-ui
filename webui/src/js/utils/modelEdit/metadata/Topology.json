@@ -8,6 +8,14 @@
       {
         "type": "folderTab",
         "folder": "JTA"
+      },
+      {
+        "type": "folderTab",
+        "folder": "RemoteConsoleHelper"
+      },
+      {
+        "type": "folderTab",
+        "folder": "AdminConsole"
       }
     ]
   }

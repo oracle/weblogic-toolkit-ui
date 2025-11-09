@@ -1,0 +1,22 @@
+{
+  "RemoteConsoleHelper": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "CookieName",
+          "ProtectedCookieEnabled",
+          "SessionTimeout",
+          "TokenTimeout",
+          "ContextPath",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  }
+}

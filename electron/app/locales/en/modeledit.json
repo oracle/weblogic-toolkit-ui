@@ -976,7 +976,9 @@
   "a-ContactPersonSurName-label": "Contact Person Sur Name",
   "a-ContactPersonTelephoneNumber-label": "Contact Person Telephone Number",
   "a-ContactPersonType-label": "Contact Person Type",
+
   "a-ContextPath-label": "Context Path",
+  "f-RemoteConsoleHelper-a-ContextPath-help": "The context path used in URLs that specify the Remote Console Helper.",
 
   "a-ContextRequestClass-label": "Context Request Class",
   "f-SelfTuning_WorkManager-a-ContextRequestClass-help": "The name of the ContextRequestClass that defines the mapping between the current context (security principal, group) and the request class to use. ContextRequestClass provides a mapping between security names/groups and request classes. During work schedule, the exact request class is determined by looking at the security information of the caller. ContextRequestClass is not a request class by itself and is used to hold the mapping of request classes.",
@@ -990,6 +992,9 @@
   "f-SAFAgent-a-ConversationIdleTimeMaximum-help": "The maximum amount of time allowed, in milliseconds, before a sending side releases the resources used by a conversation. A value of 0 specifies that resources for a conversation are not released unless the application explicitly closes the conversation.",
 
   "a-CookieName-label": "Cookie Name",
+  "f-AdminConsole-a-CookieName-help": "Specifies the Cookie Name used by the Administration Console.",
+  "f-RemoteConsoleHelper-a-CookieName-help": "The cookie name used by the Remote Console Helper.",
+
   "a-CorExposedHeaders-label": "Cor Exposed Headers",
   "a-CorsAllowedCredentials-label": "CORS Allowed Credentials",
   "a-CorsAllowedHeaders-label": "CORS Allowed Headers",
@@ -3054,7 +3059,9 @@
   "a-MinNumericCharacters-label": "Min Numeric Characters",
   "a-MinNumericOrSpecialCharacters-label": "Min Numeric Or Special Characters",
   "a-MinPasswordLength-label": "Min Password Length",
+
   "a-MinThreads-label": "Min Threads",
+  "f-AdminConsole-a-MinThreads-help": "Specifies the minimum number of threads that should be available to the Administration Console. These threads are used to interact with managed servers in parallel for improved responsiveness in large domains. 5 is the smallest accepted number.",
 
   "a-MinThreadsConstraint-label": "Min Threads Constraint",
   "f-SelfTuning_WorkManager-a-MinThreadsConstraint-help": "The name of the MinThreadsConstraint that defines the minimum number of threads allocated to resolve deadlocks.",
@@ -3559,6 +3566,9 @@
   "f-JMSSystemResource_JmsResource_DestinationKey-a-Property-help": "Specifies a message property name or the name of a message header field on which to sort messages. Message header field keys ignore the key type and reference message header fields rather than message properties.",
 
   "a-ProtectedCookieEnabled-label": "Protected Cookie Enabled",
+  "f-AdminConsole-a-ProtectedCookieEnabled-help": "Specifies whether the Administration Console's session cookie is protected so that it is only visible to the Console. This may prevent use of this shared cookie in other applications.",
+  "f-RemoteConsoleHelper-a-ProtectedCookieEnabled-help": "Specifies whether the Remote Console Helper session cookie is protected so that it is only visible to the helper. This may prevent use of this shared cookie in other applications.",
+
   "a-Protocol-label": "Protocol",
   "a-ProviderClassName-label": "Provider Class Name",
 
@@ -4115,7 +4125,10 @@
   "a-SessionReplicationOnShutdownEnabled-label": "Session Replication On Shutdown Enabled",
   "a-SessionStateQueryProtocolEnabled-label": "Session State Query Protocol Enabled",
   "a-SessionStateQueryRequestTimeout-label": "Session State Query Request Timeout",
+
   "a-SessionTimeout-label": "Session Timeout",
+  "f-AdminConsole-a-SessionTimeout-help": "Specifies the Session Timeout value (in seconds) for Administration Console.",
+  "f-RemoteConsoleHelper-a-SessionTimeout-help": "Specifies the Session Timeout value (in seconds) for the Remote Console Helper.",
 
   "a-SessionUsername-label": "Session Username",
   "f-MailSession-a-SessionUsername-help": "The username to be used to create an authenticated JavaMail Session, using a JavaMail Authenticator instance; if this is not set, it will be assumed that the Session is not to be authenticated.",
@@ -4218,6 +4231,8 @@
   "f-WTCServer_WTCRemoteTuxDom-a-SslProtocolVersion-help": "The protocol version of the SSL connection this remote access point uses when establishing a SSL connection with specific local access point.",
 
   "a-SsoLogoutUrl-label": "SSO Logout URL",
+  "f-AdminConsole-a-SsoLogoutUrl-help": "Specifies the log out URL for the Administration Console in a single sign-on (SSO) environment. Only needed when you use the Console with an SSO provider that requires a log out URL so that it can clean up its SSO session state. See the SSO provider documentation for details on the URL value.",
+
   "a-SsoSigningKeyAlias-label": "SSO Signing Key Alias",
   "a-SsoSigningKeyPassPhraseEncrypted-label": "SSO Signing Key Passphrase Encrypted",
   "a-StacktraceDepth-label": "Stacktrace Depth",
@@ -4474,7 +4489,10 @@
   "a-TokenCacheEnabled-label": "Token Cache Enabled",
   "a-TokenClockSkew-label": "Token Clock Skew",
   "a-TokenSecureTransportRequired-label": "Token Secure Transport Required",
+
   "a-TokenTimeout-label": "Token Timeout",
+  "f-RemoteConsoleHelper-a-TokenTimeout-help": "Specifies the token timeout (in minutes) of the user token from the Remote Console Helper.",
+
   "a-TokenType-label": "Token Type",
   "a-TokenValidationLevel-label": "Token Validation Level",
   "a-TokenVirtualUserAllowed-label": "Token Virtual User Allowed",

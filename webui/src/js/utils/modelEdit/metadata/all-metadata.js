@@ -8,6 +8,7 @@
 define(
   [
     'text!./any.json',
+    'text!./AdminConsole.json',
     'text!./Application.json',
     'text!./Cluster.json',
     'text!./CoherenceClusterSystemResource.json',
@@ -34,6 +35,7 @@ define(
     'text!./PathService.json',
     'text!./PluginDeployment.json',
     'text!./RCUDbInfo.json',
+    'text!./RemoteConsoleHelper.json',
     'text!./Resources.json',
     'text!./SAFAgent.json',
     'text!./SecurityConfiguration.json',

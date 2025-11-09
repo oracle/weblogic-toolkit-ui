@@ -206,10 +206,56 @@
           ]
         },
         {
-          "path": "WLDFResource/Instrumentation"
+          "path": "WLDFResource/Instrumentation",
+          "children": [
+            {
+              "path": "WLDFInstrumentationMonitor"
+            }
+          ]
         },
         {
-          "path": "WLDFResource/WatchNotification"
+          "path": "WLDFResource/WatchNotification",
+          "children": [
+            {
+              "path": "HeapDumpAction"
+            },
+            {
+              "path": "ImageNotification"
+            },
+            {
+              "path": "JMSNotification"
+            },
+            {
+              "path": "JMXNotification"
+            },
+            {
+              "path": "LogAction"
+            },
+            {
+              "path": "RestNotification"
+            },
+            {
+              "path": "ScaleDownAction"
+            },
+            {
+              "path": "ScaleUpAction"
+            },
+            {
+              "path": "ScriptAction"
+            },
+            {
+              "path": "SMTPNotification"
+            },
+            {
+              "path": "SNMPNotification"
+            },
+            {
+              "path": "ThreadDumpAction"
+            },
+            {
+              "path": "Watch"
+            }
+          ]
         }
       ]
     }
