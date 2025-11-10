@@ -1,0 +1,193 @@
+{
+  "Log": {
+    "attributeDetails": {
+      "DomainLogBroadcastFilter": {
+        "editorType": "combo",
+        "optionsMethod": "getLogFilterOptions"
+      },
+      "DomainLogBroadcastSeverity": {
+        "options": [
+          { "value": "Debug", "labelKey": "options-debug-label" },
+          { "value": "Info", "labelKey": "options-info-label" },
+          { "value": "Warning", "labelKey": "options-warning-label" },
+          { "value": "Error", "labelKey": "options-error-label" },
+          { "value": "Notice", "labelKey": "options-notice-label" },
+          { "value": "Critical", "labelKey": "options-critical-label" },
+          { "value": "Alert", "labelKey": "options-alert-label" },
+          { "value": "Emergency", "labelKey": "options-emergency-label" },
+          { "value": "Off", "labelKey": "options-off-label" }
+        ]
+      },
+      "FileCount": {
+        "disabled": "logRotationFileCountLimitedFields"
+      },
+      "FileMinSize": {
+        "disabled": "logRotationBySizeFields"
+      },
+      "FileTimeSpan": {
+        "disabled": "logRotationByTimeFields"
+      },
+      "FileTimeSpanFactor": {
+        "disabled": "logRotationByTimeFields"
+      },
+      "LogFileFilter": {
+        "editorType": "combo",
+        "optionsMethod": "getLogFilterOptions"
+      },
+      "LogFileSeverity": {
+        "options": [
+          { "value": "Trace", "labelKey": "options-trace-label" },
+          { "value": "Debug", "labelKey": "options-debug-label" },
+          { "value": "Info", "labelKey": "options-info-label" },
+          { "value": "Warning", "labelKey": "options-warning-label" },
+          { "value": "Notice", "labelKey": "options-notice-label" }
+        ]
+      },
+      "LoggerSeverity": {
+        "options": [
+          { "value": "Trace", "labelKey": "options-trace-label" },
+          { "value": "Debug", "labelKey": "options-debug-label" },
+          { "value": "Info", "labelKey": "options-info-label" },
+          { "value": "Warning", "labelKey": "options-warning-label" },
+          { "value": "Notice", "labelKey": "options-notice-label" }
+        ]
+      },
+      "LogMonitoringIntervalSecs":{
+        "disabled": "logMonitoringFields"
+      },
+      "LogMonitoringMaxThrottleMessageSignatureCount":{
+        "disabled": "logMonitoringFields"
+      },
+      "LogMonitoringThrottleMessageLength":{
+        "disabled": "logMonitoringFields"
+      },
+      "LogMonitoringThrottleThreshold":{
+        "disabled": "logMonitoringFields"
+      },
+      "RotationTime": {
+        "disabled": "logRotationByTimeFields"
+      },
+      "RotationType": {
+        "options": [
+          { "value": "bySize", "labelKey": "options-by-size-label" },
+          { "value": "byTime", "labelKey": "options-by-time-label" },
+          { "value": "bySizeOrTime", "labelKey": "options-by-size-or-time-label" },
+          { "value": "none", "labelKey": "options-none-label" }
+        ]
+      },
+      "StdoutFilter": {
+        "editorType": "combo",
+        "optionsMethod": "getLogFilterOptions"
+      },
+      "StdoutFormat": {
+        "options": [
+          { "value": "standard", "labelKey": "options-standard-label" },
+          { "value": "noid", "labelKey": "options-noid-label" }
+        ]
+      },
+      "StdoutSeverity": {
+        "options": [
+          { "value": "Trace", "labelKey": "options-trace-label" },
+          { "value": "Debug", "labelKey": "options-debug-label" },
+          { "value": "Info", "labelKey": "options-info-label" },
+          { "value": "Warning", "labelKey": "options-warning-label" },
+          { "value": "Error", "labelKey": "options-error-label" },
+          { "value": "Notice", "labelKey": "options-notice-label" },
+          { "value": "Critical", "labelKey": "options-critical-label" },
+          { "value": "Alert", "labelKey": "options-alert-label" },
+          { "value": "Emergency", "labelKey": "options-emergency-label" },
+          { "value": "Off", "labelKey": "options-off-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "FileName",
+          "RotationType",
+          "FileMinSize",
+          "RotationTime",
+          "FileTimeSpan",
+          "FileTimeSpanFactor",
+          "NumberOfFilesLimited",
+          "FileCount",
+          "LogFileRotationDir",
+          "RotateLogOnStartup",
+          "Notes"
+        ]
+      },
+      {
+        "type": "collapsible",
+        "labelKey": "advanced-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "BufferSizeKb",
+              "DateFormatPattern",
+              "LogFileSeverity",
+              "LogFileFilter",
+              "LoggerSeverity",
+              "LoggerSeverityProperties",
+              "PlatformLoggerLevels"
+            ]
+          },
+          {
+            "type": "attributes",
+            "labelKey": "domain-log-broadcaster-settings-title",
+            "attributes": [
+              "DomainLogBroadcastSeverity",
+              "DomainLogBroadcasterBufferSize",
+              "DomainLogBroadcastFilter"
+            ]
+          },
+          {
+            "type": "attributes",
+            "labelKey": "log-monitoring-settings-title",
+            "attributes": [
+              "LogMonitoringEnabled",
+              "LogMonitoringIntervalSecs",
+              "LogMonitoringThrottleThreshold",
+              "LogMonitoringThrottleMessageLength",
+              "LogMonitoringMaxThrottleMessageSignatureCount"
+            ]
+          },
+          {
+            "type": "attributes",
+            "labelKey": "stdout-log-settings-title",
+            "attributes": [
+              "RedirectStdoutToServerLogEnabled",
+              "RedirectStderrToServerLogEnabled",
+              "StdoutSeverity",
+              "StdoutFormat",
+              "StdoutLogStack",
+              "StacktraceDepth",
+              "StdoutFilter"
+            ]
+          },
+          {
+            "type": "attributes",
+            "labelKey": "miscellaneous-attributes-label",
+            "attributes": [
+              "TriggerTruncationStackFrameTriggerDepth",
+              "TriggerTruncationStackFrameDepthAfterTrigger"
+            ],
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "Log4jLoggingEnabled",
+          "MemoryBufferSeverity",
+          "MemoryBufferSize",
+          "MemoryBufferFilter",
+          "ServerLoggingBridgeAtRootLoggerEnabled",
+          "ServerLoggingBridgeUseParentLoggersEnabled"
+        ]
+      }
+    ]
+  }
+}

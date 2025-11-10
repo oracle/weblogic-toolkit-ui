@@ -5,18 +5,6 @@
       "path": "Cluster"
     },
     {
-      "path": "EmbeddedLDAP"
-    },
-    {
-      "path": "HealthScore"
-    },
-    {
-      "path": "Log"
-    },
-    {
-      "path": "LogFilter"
-    },
-    {
       "path": "Machine"
     },
     {

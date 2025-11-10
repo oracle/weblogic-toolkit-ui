@@ -23,6 +23,22 @@
       },
       {
         "type": "folderTab",
+        "folder": "Log"
+      },
+      {
+        "type": "folderTab",
+        "folder": "LogFilter"
+      },
+      {
+        "type": "folderTab",
+        "folder": "HealthScore"
+      },
+      {
+        "type": "folderTab",
+        "folder": "EmbeddedLDAP"
+      },
+      {
+        "type": "folderTab",
         "folder": "Callout"
       },
       {

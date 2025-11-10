@@ -1,0 +1,26 @@
+{
+  "LogFilter": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "FilterExpression",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "SeverityLevel",
+          "SubsystemName",
+          "UserId"
+        ]
+      }
+    ]
+  }
+}

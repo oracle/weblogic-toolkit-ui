@@ -1,0 +1,20 @@
+{
+  "HealthScore": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "Enabled",
+          "PluginClassName",
+          "CalculateIntervalSecs",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  }
+}
