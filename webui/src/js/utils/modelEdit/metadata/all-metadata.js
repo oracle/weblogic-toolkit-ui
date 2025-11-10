@@ -9,7 +9,10 @@ define(
   [
     'text!./any.json',
     'text!./AdminConsole.json',
+    'text!./AllowList.json',
     'text!./Application.json',
+    'text!./Callout.json',
+    'text!./CdiContainer.json',
     'text!./Cluster.json',
     'text!./CoherenceClusterSystemResource.json',
     'text!./DbClientDataDirectory.json',

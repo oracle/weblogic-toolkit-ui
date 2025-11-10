@@ -1,0 +1,27 @@
+{
+  "CdiContainer": {
+    "attributeDetails": {
+      "Policy": {
+        "options": [
+          { "value": "Enabled", "labelKey":  "options-enabled-label" },
+          { "value": "Disabled", "labelKey":  "options-disabled-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "Policy",
+          "ImplicitBeanDiscoveryEnabled",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  }
+}

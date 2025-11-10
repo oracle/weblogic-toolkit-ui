@@ -11,7 +11,19 @@
       },
       {
         "type": "folderTab",
+        "folder": "AllowList"
+      },
+      {
+        "type": "folderTab",
         "folder": "JMX"
+      },
+      {
+        "type": "folderTab",
+        "folder": "CdiContainer"
+      },
+      {
+        "type": "folderTab",
+        "folder": "Callout"
       },
       {
         "type": "folderTab",
