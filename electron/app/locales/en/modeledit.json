@@ -30,6 +30,9 @@
   "cert-revoc-ocsp-title": "Online Certificate Status Protocol (OCSP) Settings",
   "ca-cert-revoc-list-dp-title": "Certificate Authority CRL Distribution Point Settings",
   "ca-cert-revoc-ocsp-title": "Certificate Authority OCSP Settings",
+  "domain-log-broadcaster-settings-title": "Domain Log Broadcaster Settings",
+  "log-monitoring-settings-title": "Log Monitoring Settings",
+  "stdout-log-settings-title": "Standard Out Log Settings",
 
   "general-tab-label": "General",
   "attributes-tab-label": "Attributes",
@@ -233,6 +236,10 @@
   "options-client-cert-required-label": "Client Certificate Required",
   "options-deny-label": "Deny",
   "options-ignore-label": "Ignore",
+  "options-debug-label": "Debug",
+  "options-trace-label": "Trace",
+  "options-standard-label": "Standard",
+  "options-noid-label": "No Message ID",
 
   "direction-jms-queue-to-tuxedo-queue-label": "JMS Queue to Tuxedo Queue",
   "direction-tuxedo-queue-to-jms-queue-label": "Tuxedo Queue to JMS Queue",
@@ -471,6 +478,8 @@
   "f-SecurityConfiguration-a-AnonymousAdminLookupEnabled-help": "Set to true if anonymous JNDI access for Admin MBean home is permitted. Deprecated in 12.2.1.0.0.",
 
   "a-AnonymousBindAllowed-label": "Anonymous Bind Allowed",
+  "f-EmbeddedLDAP-a-AnonymousBindAllowed-help": "Specifies whether the embedded LDAP server should allow anonymous connections.",
+
   "a-AnyIdentityDomainEnabled-label": "Any Identity Domain Enabled",
   "a-ApartmentThreaded-label": "Apartment Threaded",
   "a-AppDir-label": "Application Directory",
@@ -578,13 +587,19 @@
   "a-AutoTargetAdminServer-label": "Auto Target Admin Server",
   "a-AvailableTargets-label": "Available Targets",
   "a-BackgroundDeployment-label": "Background Deployment",
+
   "a-BackupCopies-label": "Backup Copies",
+  "f-EmbeddedLDAP-a-BackupCopies-help": "The maximum number of backup copies that should be made for the embedded LDAP server. This value limits the number of zip files in the ldap/backup directory.",
 
   "a-BackupDirectory-label": "Backup Directory",
   "f-CoherenceClusterSystemResource_CoherenceResource_CoherencePersistenceParams-a-BackupDirectory-help": "The backup directory for the default persistence environment. If no value is specified, the directory which will be used is the coherence/backup sub-directory under Domain Home directory.",
 
   "a-BackupHour-label": "Backup Hour",
+  "f-EmbeddedLDAP-a-BackupHour-help": "The hour at which the embedded LDAP server should be backed up.\n\nThe Backup Hour value is used in conjunction with the Backup Minute value to determine the time at which the embedded LDAP server data files are backed up. At the specified time, WebLogic Server suspends writes to the embedded LDAP server, backs up the data files into a zip files in the ldap/backup directory, and then resumes writes.",
+
   "a-BackupMinute-label": "Backup Minute",
+  "f-EmbeddedLDAP-a-BackupMinute-help": "The minute at which the embedded LDAP server should be backed up.\n\nThe Backup Minute value is used in conjunction with the Back Up Hour value to determine the time at which the embedded LDAP server data files are backed up.",
+
   "a-Base64DecodingRequired-label": "Base 64 Decoding Required",
   "a-Base64EncodingException-label": "Base 64 Encoding Exception",
   "a-BasePath-label": "Base Path",
@@ -630,6 +645,8 @@
   "a-BootProperties-label": "Boot Properties",
 
   "a-BufferSizeKb-label": "Buffer Size in Kilobytes",
+  "f-Log-a-BufferSizeKb-help": "Specifies the underlying log buffer size in kilobytes.",
+
   "f-JMSServer_JmsMessageLogFile-a-BufferSizeKb-help": "Sets the underlying log buffer size in kilobytes.",
   "f-SAFAgent_JmssafMessageLogFile-a-BufferSizeKb-help": "Sets the underlying log buffer size in kilobytes.",
 
@@ -666,16 +683,27 @@
   "f-FileStore-a-CacheDirectory-help": "The location of the cache directory for Direct-Write-With-Cache, ignored for other policies. When Direct-Write-With-Cache is specified as the SynchronousWritePolicy, cache files are created in addition to primary files (see Directory for the location of primary files). If a cache directory location is specified, the cache file path is CacheDirectory/WLStoreCache/StoreNameFileNum.DAT.cache. When specified, Oracle recommends using absolute paths, but if the directory location is a relative path, then CacheDirectory is created relative to the WebLogic Server instance's home directory. If \"\" or Null is specified, the Cache Directory is located in the current operating system temp directory as determined by the java.io.tmpdir Java System property (JDK's default: /tmp on UNIX, %TEMP% on Windows) and is TempDirectory/WLStoreCache/DomainName/unique-id/ StoreNameFileNum.DAT.cache. The value of java.io.tmpdir varies between operating systems and configurations, and can be overridden by passing -Djava.io.tmpdir=My_path on the JVM command line.",
 
   "a-CacheDiskSize-label": "Cache Disk Size",
+
   "a-CacheEnabled-label": "Cache Enabled",
+  "f-EmbeddedLDAP-a-CacheEnabled-help": "Specifies whether a cache is used with the embedded LDAP server. This cache is used when a managed server is reading or writing to the master embedded LDAP server that is running on the Administration server.",
+
   "a-CacheInAppDirectory-label": "Cache In App Directory",
   "a-CacheLocation-label": "Cache Location",
   "a-CacheMemorySize-label": "Cache Memory Size",
   "a-CacheName-label": "Cache Name",
+
   "a-CacheSize-label": "Cache Size",
-  "a-CacheTTL-label": "Cache TTL",
+  "f-EmbeddedLDAP-a-CacheSize-help": "The size of the cache (in kilobytes) that is used with the embedded LDAP server.",
+
+  "a-CacheTTL-label": "Cache Time-to-Live",
+  "f-EmbeddedLDAP-a-CacheTTL-help": "The time-to-live of the cache (in seconds) that is used with the embedded LDAP server.",
+
   "a-CacheTimeoutInterval-label": "Cache Timeout Interval",
   "a-CacheTtl-label": "Cache TTL",
-  "a-CalculateIntervalSecs-label": "Calculate Interval Secs",
+
+  "a-CalculateIntervalSecs-label": "Calculate Interval Seconds",
+  "f-HealthScore-a-CalculateIntervalSecs-help": "The interval time (in seconds) that WebLogic Server will call the health score plugin for calculating the server's health score.",
+
   "a-CalculatedListenPorts-label": "Calculated Listen Ports",
   "a-CalculatedMachineNames-label": "Calculated Machine Names",
   "a-CallbackQueue-label": "Callback Queue",
@@ -1048,6 +1076,7 @@
 
   "a-CredentialEncrypted-label": "Credential",
   "f-SecurityConfiguration-a-CredentialEncrypted-help": "The password for the domain. In WebLogic Server version 6.0, this attribute was the password of the system user. In WebLogic Server version 7.0, this attribute can be any string. For the two domains to interoperate with Global Trust, the string must be the same for both domains.",
+  "f-EmbeddedLDAP-a-CredentialEncrypted-help": "The credential (usually a password) used to connect to the embedded LDAP server. If this credential has not been set, WebLogic Server generates a password at startup, initializes the attribute, and saves the configuration to the config.xml file. If you want to connect to the embedded LDAP server using an external LDAP browser and the embedded LDAP administrator account (cn=Admin), change this attribute from the generated value.",
 
   "a-CredentialGenerated-label": "Credential Generated",
   "a-CredentialMapperTypes-label": "Credential Mapper Types",
@@ -1171,6 +1200,7 @@
   "a-DateFormatPattern-label": "Date Format Pattern",
   "f-JMSServer_JmsMessageLogFile-a-DateFormatPattern-help": "The date format pattern used for rendering dates in the log. The DateFormatPattern string conforms to the specification of the java.text.SimpleDateFormat class.",
   "f-SAFAgent_JmssafMessageLogFile-a-DateFormatPattern-help": "The date format pattern used for rendering dates in the log. The DateFormatPattern string conforms to the specification of the java.text.SimpleDateFormat class.",
+  "f-Log-a-DateFormatPattern-help": "The date format pattern used for rendering dates in the log. The DateFormatPattern string conforms to the specification of the java.text.SimpleDateFormat class.",
 
   "a-DayOfMonth-label": "Day Of Month",
   "f-WLDFSystemResource_WLDFResource_WatchNotification_Watch_Schedule-a-DayOfMonth-help": "Indicates the day of the month for the schedule. Defaults to \"*\" (every day).",
@@ -1905,9 +1935,15 @@
   "a-DomainKeystoresClientCertAlias-label": "Domain Keystores Client Cert Alias",
   "a-DomainKeystoresDomain-label": "Domain Keystores Domain",
   "a-DomainKeystoresServerCertAlias-label": "Domain Keystores Server Cert Alias",
+
   "a-DomainLogBroadcastFilter-label": "Domain Log Broadcast Filter",
+  "f-Log-a-DomainLogBroadcastFilter-help": "The filter configuration for log events being sent to the domain log.",
+
   "a-DomainLogBroadcastSeverity-label": "Domain Log Broadcast Severity",
+  "f-Log-a-DomainLogBroadcastSeverity-help": "The minimum severity of log messages going to the domain log from this server's log broadcaster. Messages with a lower severity than the specified value will not be published to the domain log.",
+
   "a-DomainLogBroadcasterBufferSize-label": "Domain Log Broadcaster Buffer Size",
+  "f-Log-a-DomainLogBroadcasterBufferSize-help": "Broadcasts log messages to the domain log in batch mode. The size of the buffer for log messages that are sent to the domain log. The buffer is maintained on the Managed Server and is broadcasted to the domain log when it is full. If you notice performance issues due to a high rate of log messages being generated, set this value higher. This will cause the buffer to be broadcasted less frequently from the Managed Server to the domain log. In production environments, it is not recommended to set the buffer size lower than the production default of 10.",
 
   "a-DomainMBeanServerEnabled-label": "Domain MBean Server Enabled",
   "f-JMX-a-DomainMBeanServerEnabled-help": "Specifies whether the Administration Server initializes the Domain MBean Server, which provides federated access to all run-time MBeans and read-only configuration MBeans in the domain. Through it, JMX clients can access all MBeans in a domain through a single connection. The Administration Console and the WebLogic Scripting Tool use this MBean server for many (but not all) of their read operations. This MBean server exists only on the Administration Server. The Administration Server initializes it the first time a JMX client requests a connection to it. If you set this attribute to false, the Administration Server will not start this MBean server and JMX clients cannot connect to it.",
@@ -1995,6 +2031,7 @@
   "f-WLDFSystemResource_WLDFResource_WatchNotification-a-Enabled-help": "Specifies whether the policy and action component is enabled. If true (the default), all configured policies are activated, incoming data or events are evaluated against the policies, and actions are generated when policy conditions are met. If false, all policies are rendered inactive.",
   "f-any_CertificateIssuerPlugin-a-Enabled-help": "Whether this plugin configuration is enabled or not.",
   "f-any_CertificateManagement-a-Enabled-help": "Specified whether the Certificate Management Service is enabled or not.",
+  "f-HealthScore-a-Enabled-help": "Specifies whether the health score service is enabled.",
 
   "a-EnabledServer-label": "Enabled Server",
   "a-EnabledServer-help": "This attribute is applicable only when the SNMP Agent is running on the Admin Server of a WebLogic Domain. The EnabledServers attribute allows the users to limit the scope of the monitored data sources to the specific named Servers. The EnabledServers list is ignored when the SNMAgentDeploymentMBean is targeted to a Managed Server. In the case of a Managed Server the SNMP Agent only looks at the data available in the WebLogic Server where the SNMP Agent is deployed. For traps based on MBean attributes the SNMP Agent refers to the Domain Runtime MBean Server when it is running on the Admin Server and the Runtime MBean Server when it is deployed to a Managed Server.",
@@ -2145,6 +2182,7 @@
   "a-FileCount-label": "File Count",
   "f-JMSServer_JmsMessageLogFile-a-FileCount-help": "The maximum number of log files that the server creates when it rotates the log. This number does not include the file that the server uses to store current messages. (Requires that you enable Number of Files Limited.)",
   "f-SAFAgent_JmssafMessageLogFile-a-FileCount-help": "The maximum number of log files that the server creates when it rotates the log. This number does not include the file that the server uses to store current messages. (Requires that you enable Number of Files Limited.)",
+  "f-Log-a-FileCount-help": "The maximum number of log files that the server creates when it rotates the log. This number does not include the file that the server uses to store current messages. (Requires that you enable Number of Files Limited.)",
 
   "a-FileLockingEnabled-label": "File Locking Enabled",
   "f-FileStore-a-FileLockingEnabled-help": "Determines whether OS file locking is used. When file locking protection is enabled, a store boot fails if another store instance already has opened the store files. Do not disable this setting unless you have procedures in place to prevent multiple store instances from opening the same file. File locking is not required but helps prevent corruption in the event that two same-named file store instances attempt to operate in the same directories. This setting applies to both primary and cache files.",
@@ -2152,18 +2190,20 @@
   "a-FileMinSize-label": "File Min Size",
   "f-JMSServer_JmsMessageLogFile-a-FileMinSize-help": "The size (1 - 2097150 kilobytes) that triggers the server to move log messages to a separate file. The default is 500 kilobytes. After the log file reaches the specified minimum size, the next time the server checks the file size, it will rename the current log file as SERVER_NAME.lognnnnn and create a new one to store subsequent messages. (Requires that you specify a file rotation type of Size.)",
   "f-SAFAgent_JmssafMessageLogFile-a-FileMinSize-help": "The size (1 - 2097150 kilobytes) that triggers the server to move log messages to a separate file. The default is 500 kilobytes. After the log file reaches the specified minimum size, the next time the server checks the file size, it will rename the current log file as SERVER_NAME.lognnnnn and create a new one to store subsequent messages. (Requires that you specify a file rotation type of Size.)",
+  "f-Log-a-FileMinSize-help": "The size (1 - 2097150 kilobytes) that triggers the server to move log messages to a separate file. The default is 500 kilobytes. After the log file reaches the specified minimum size, the next time the server checks the file size, it will rename the current log file as DOMAIN_NAME.lognnnnn and create a new one to store subsequent messages. (Requires that you specify a file rotation type of Size.)",
 
   "a-FileName-label": "File Name",
   "f-JMSServer_JmsMessageLogFile-a-FileName-help": "The name of the file that stores current JMS server log messages. Usually it is a computed value based on the name of the parent of this MBean. For example, for a JMS server log, it is jmsserverName.log. However, if the name of the parent cannot be obtained, the file name is weblogic.log. If you specify a relative pathname, it is interpreted as relative to the server's root directory.",
   "f-SAFAgent_JmssafMessageLogFile-a-FileName-help": "The name of the file that stores current SAF agent log messages.",
+  "f-Log-a-FileName-help": "The name of the file that stores domain log messages. Usually it is a computed value based on the name of the parent of this MBean. For example, for a domain log, it is DOMAIN_NAME.log. However, if the name of the parent cannot be obtained, the file name is weblogic.log. If you specify a relative pathname, it is interpreted as relative to the server's root directory. To include a time and date stamp in the file name when the log file is rotated, add java.text.SimpleDateFormat variables to the file name. Surround each variable with percentage (%) characters. For example, if the file name is defined to be mydomain_%yyyy%_%MM%_%dd%_%hh%_%mm%.log, the log file will be named mydomain_yyyy_mm_dd_hh_mm.log. When the log file is rotated, the rotated file name contains the date stamp. For example, if the log file is rotated for the first time on 2 April, 2003 at 10:05 AM, the log file that contains the old messages will be named mydomain_2003_04_02_10_05.log00001. If you do not include a time and date stamp, the rotated log files are numbered in order of creation. For example, mydomain.log00007.",
 
   "a-FileTimeSpan-label": "File Time Span",
   "f-JMSServer_JmsMessageLogFile-a-FileTimeSpan-help": "The interval (in hours) at which the server saves old log messages to another file. (Requires that you specify a file rotation type of TIME.)",
   "f-SAFAgent_JmssafMessageLogFile-a-FileTimeSpan-help": "The interval (in hours) at which the server saves old log messages to another file. (Requires that you specify a file rotation type of TIME.)",
+  "f-Log-a-FileTimeSpan-help": "The interval (in hours) at which the server saves old log messages to another file. (Requires that you specify a file rotation type of TIME.)",
 
   "a-FileTimeSpanFactor-label": "File Time Span Factor",
-  "f-JMSServer_JmsMessageLogFile-a-FileTimeSpanFactor-help": "This factor is defined so that log rotation can be tested at a different frequency. The default value is 3600000.",
-  "f-SAFAgent_JmssafMessageLogFile-a-FileTimeSpanFactor-help": "This factor is defined so that log rotation can be tested at a different frequency. The default value is 3600000.",
+  "a-FileTimeSpanFactor-help": "This factor is defined so that log rotation can be tested at a different frequency. The default value is 3600000.",
 
   "a-Filter-label": "Filter",
 
@@ -2171,6 +2211,7 @@
   "f-WebAppContainer-a-FilterDispatchedRequestsEnabled-help": "Indicates whether or not to apply filters to dispatched requests. This is a backward compatibility flag. Until version 8.1, WebLogic Server applied ServletFilters (if configured for the web application) on request dispatches (and includes/forwards). Servlet 2.4 has introduced the \"Dispatcher\" element to make this behavior explicit. The default value is Dispatcher=REQUEST. In order to be compliant with the Java EE specification, the default value for FilterDispatchedRequestsEnabled is false beginning with WebLogic Server 9.0. Note that if you are using old descriptors (meaning web.xml does not have version=2.4), then WebLogic Server automatically uses FilterDispatchedRequestsEnabled = true for the web applications, unless filter-dispatched-requests-enabled is explicitly set to false in weblogic.xml. This means that old applications will work fine without any modification. Additionally, during migration of old domains to the 9.0 domain, the migration plug-in automatically sets this flag to true.",
 
   "a-FilterExpression-label": "Filter Expression",
+  "f-LogFilter-a-FilterExpression-help": "The filter expression to be evaluated for qualifying log messages. The filter expression is specified as a string in the query language. The query language supports Boolean operators: AND, OR, and NOT, and relational operators. You can use the following column names (message attributes) in a query to filter data going to a log destination: RECORDID, DATE, SEVERITY, SUBSYSTEM, MACHINE, SERVER, THREAD, USERID, TXID, CONTEXTID, TIMESTAMP, MSGID, and MESSAGE.",
 
   "a-FldTbl16Class-label": "FMW Field Table 16-bit Class",
   "a-FldTbl16Class-help": "The names of FldTbl16Classes that are loaded via a class loader and added to a FldTbl array. Use the fully-qualified class names.  Use a comma to separate multiple entries.",
@@ -2603,6 +2644,8 @@
   "f-WTCServer_WTCRemoteTuxDom-a-KeepAlive-help": "Indicates whether this remote Tuxedo access point is configured with Application Level Keep Alive. Greater than 0 means that the application-level Keep Alive is enabled and the value indicates the amount of idle time, in milliseconds rounded to the nearest second, allowed before starting the wait timer.",
 
   "a-KeepAliveEnabled-label": "Keep Alive Enabled",
+  "f-EmbeddedLDAP-a-KeepAliveEnabled-help": "Whether keep alive is enabled on the socket connection.",
+
   "a-KeepAliveSecs-label": "Keep Alive Secs",
 
   "a-KeepAliveWait-label": "Keep Alive Wait",
@@ -2769,28 +2812,44 @@
   "a-LogCriticalRemoteExceptionsEnabled-label": "Log Critical Remote Exceptions Enabled",
   "a-LogDGCStatistics-label": "Log DGC Statistics",
   "a-LogFile-label": "Log File",
+
   "a-LogFileFilter-label": "Log File Filter",
+  "f-Log-a-LogFileFilter-help": "The filter configuration for the domain log file. A filter configuration defines simple filtering rules to limit the volume of log messages written to the log file.",
+
   "a-LogFileFormat-label": "Log File Format",
 
   "a-LogFileRotationDir-label": "Log File Rotation Directory",
   "f-JMSServer_JmsMessageLogFile-a-LogFileRotationDir-help": "The directory where the rotated log files will be stored. By default the rotated files are stored in the same directory where the log file is stored.",
   "f-SAFAgent_JmssafMessageLogFile-a-LogFileRotationDir-help": "The directory where the rotated log files will be stored. By default the rotated files are stored in the same directory where the log file is stored.",
+  "f-Log-a-LogFileRotationDir-help": "The directory where the rotated log files will be stored. By default the rotated files are stored in the same directory where the log file is stored.",
 
   "a-LogFileSeverity-label": "Log File Severity",
 
   "a-LogFormat-label": "Log Format",
   "f-JMSSystemResource_JmsResource_SAFErrorHandling-a-LogFormat-help": "Specifies how information is logged when Message Handling Policy is set to Log. When specifying multiple values, enter them as a comma-separated list. The %header% and %properties% values are not case sensitive. For example, you could use \"%header%,%properties%\" for all the JMS header fields and user properties. However, the enumeration of individual JMS header fields and user-defined properties are case sensitive. To enumerate only individual JMS header fields you could use \"%header, name, address, city, state, zip\". Note: The JMSMessageID field is always logged and cannot be turned off. Therefore, if the Log Format is not defined (i.e., null) or is defined as an empty string, then the output to the log file contains only the JMSMessageID of the message.",
+  "f-Log-a-LogFileSeverity-help": "The minimum severity of log messages going to the domain log file.",
 
   "a-LogFormatCompatibilityEnabled-label": "Log Format Compatibility Enabled",
   "a-LogFormatter-label": "Log Formatter",
   "a-LogLevel-label": "Log Level",
   "a-LogLimit-label": "Log Limit",
   "a-LogMilliSeconds-label": "Log Milli Seconds",
+
   "a-LogMonitoringEnabled-label": "Log Monitoring Enabled",
-  "a-LogMonitoringIntervalSecs-label": "Log Monitoring Interval Secs",
+  "f-Log-a-LogMonitoringEnabled-help": "Specifies whether log monitoring is enabled.",
+
+  "a-LogMonitoringIntervalSecs-label": "Log Monitoring Interval Seconds",
+  "f-Log-a-LogMonitoringIntervalSecs-help": "Timer interval in seconds to check the counts of messages logged during the interval.",
+
   "a-LogMonitoringMaxThrottleMessageSignatureCount-label": "Log Monitoring Max Throttle Message Signature Count",
+  "f-Log-a-LogMonitoringMaxThrottleMessageSignatureCount-help": "Maximum number of unique message signatures that will be monitored during the throttle interval.",
+
   "a-LogMonitoringThrottleMessageLength-label": "Log Monitoring Throttle Message Length",
+  "f-Log-a-LogMonitoringThrottleMessageLength-help": "Cut-off length of the log message for evaluation during throttle period. The log message length is truncated to this length for evaluation of repeated logging events.",
+
   "a-LogMonitoringThrottleThreshold-label": "Log Monitoring Throttle Threshold",
+  "f-Log-a-LogMonitoringThrottleThreshold-help": "The threshold number of messages logged during the evaluation period which enables or disables the throttling. Once throttling is enabled messages with the same repeating message signatures are throttled. Every nth repeated message specified by this attribute is logged in a monitoring cycle.",
+
   "a-LogRemoteExceptionsEnabled-label": "Log Remote Exceptions Enabled",
   "a-LogTimeInGMT-label": "Log Time In GMT",
   "a-LogToStderr-label": "Log To Stderr",
@@ -2802,7 +2861,10 @@
   "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceLoggingParams-a-LoggerName-help": "The logger name for Coherence logs.",
 
   "a-LoggerSeverity-label": "Logger Severity",
+  "f-Log-a-LoggerSeverity-help": "The minimum severity of log messages going to all log destinations.",
+
   "a-LoggerSeverityProperties-label": "Logger Severity Properties",
+  "f-Log-a-LoggerSeverityProperties-help": "The configuration of the different logger severities keyed by name. The values are one of the predefined Severity strings namely Emergency, Alert, Critical, Error, Warning, Notice, Info, Debug, Trace.",
 
   "a-LoggingEnabled-label": "Logging Enabled",
   "f-SAFAgent-a-LoggingEnabled-help": "Specifies whether a message is logged in the server log file when a message fails to be forwarded. If selected, this applies to messages that fail to be forwarded and delivered to the final destination when there is no error handling in a SAF application or the application's error handling fails.",
@@ -2876,7 +2938,10 @@
   "a-MasterAgentXPort-help": "The port that this SNMP agent uses to communicate with its subagents. The agent uses subagents to provide access to custom MBeans (MBeans that you create and register) and to other software components. WebLogic Server SNMP agents do not enable users to register their own subagents.",
 
   "a-MasterDeployer-label": "Master Deployer",
+
   "a-MasterFirst-label": "Master First",
+  "f-EmbeddedLDAP-a-MasterFirst-help": "Specifies whether a Managed Server should always connect to the master LDAP server (contained in the Administration Server), instead of connecting to the local replicated LDAP server (contained in the Managed Server).",
+
   "a-MatchGroupBaseDn-label": "Match Group Base Dn",
   "a-MaxBackoffBetweenFailures-label": "Max Backoff Between Failures",
   "a-MaxCOMMessageSize-label": "Max COM Message Size",
@@ -3286,8 +3351,7 @@
   "a-NumberOfFilesLimit-label": "Number Of Files Limit",
 
   "a-NumberOfFilesLimited-label": "Number Of Files Limited",
-  "f-JMSServer_JmsMessageLogFile-a-NumberOfFilesLimited-help": "Indicates whether to limit the number of log files that this server instance creates to store old messages. (Requires that you specify a file rotation type of SIZE or TIME.) After the server reaches this limit, it deletes the oldest log file and creates a new log file with the latest suffix. If you do not enable this option, the server creates new files indefinitely and you must clean up these files as you require.",
-  "f-SAFAgent_JmssafMessageLogFile-a-NumberOfFilesLimited-help": "Indicates whether to limit the number of log files that this server instance creates to store old messages. (Requires that you specify a file rotation type of SIZE or TIME.) After the server reaches this limit, it deletes the oldest log file and creates a new log file with the latest suffix. If you do not enable this option, the server creates new files indefinitely and you must clean up these files as you require.",
+  "a-NumberOfFilesLimited-help": "Indicates whether to limit the number of log files that this server instance creates to store old messages. (Requires that you specify a file rotation type of SIZE or TIME.) After the server reaches this limit, it deletes the oldest log file and creates a new log file with the latest suffix. If you do not enable this option, the server creates new files indefinitely and you must clean up these files as you require.",
 
   "a-NumberOfRestartAttempts-label": "Number Of Restart Attempts",
   "f-FileStore-a-NumberOfRestartAttempts-help": "Specifies the maximum number of restart attempts. A value > 0 specifies the maximum number of restart attempts. A value of 0 specifies the same behavior as setting RestartInPlace to false. A value of -1 means infinite retry restart until it either starts or the server instance shuts down.",
@@ -3528,6 +3592,7 @@
   "a-PlanStagingMode-help": "Specifies whether an application's deployment plan is copied from a source on the Administration Server to the Managed Server's staging area during application preparation. Plan staging mode for an application can only be set the first time the application is deployed. Once the plan staging mode for an application is set, it cannot be changed while the application is configured in the domain. The only way to change the plan staging mode is to undeploy and then redeploy the application. This attribute overrides the server's plan staging mode.",
 
   "a-PlatformLoggerLevels-label": "Platform Logger Levels",
+  "a-PlatformLoggerLevels-help": "Specifies the platform logger and the associated level names set through the WebLogic Server configuration.",
 
   "a-PlatformMBeanServerEnabled-label": "Platform MBean Server Enabled",
   "f-JMX-a-PlatformMBeanServerEnabled-help": "Specifies whether each server instance initializes the JDK's platform MBean server. Enabling it, along with isPlatformMBeanServerUsed, causes WebLogic Server to use the platform MBean server as its Runtime MBean Server. As of JDK 1.5, JVMs provide a platform MBean server that local processes can instantiate. There can be only one instance of the platform MBean server for each JVM. When a process instantiates this MBean server, the JVM creates several platform MXBeans that provide monitoring data for the JVM itself. If you set this attribute to true, each WebLogic Server instance invokes the method java.lang.management.ManagementFactory.getPlatformMBeanServer() and thus causes the initialization of the JVM's MXBeans.",
@@ -3536,6 +3601,8 @@
   "f-JMX-a-PlatformMBeanServerUsed-help": "Specifies whether WebLogic Server will use the platform MBean server for its Runtime MBean Server. Previously, WebLogic Server used the platform MBean server by default if it was enabled. This attribute provides a separation between enabling the platform MBean server and using it for WebLogic Server MBeans. The default value for this attribute is based on the DomainVersion attribute of the DomainMBean. If the domain version is prior to 10.3.3.0, then the default value of this attribute is false and the platform MBean server is not used. If the domain version is 10.3.3.0 or higher, then the default value of this attribute is true and the platform MBean server is used. In this case, the server's Runtime MBean Server uses the MBeanServer returned by java.lang.management.ManagementFactory.getPlatformMBeanServer() method as its MBean Server. This makes it possible to access the WebLogic Server MBeans and the JVM platform MXBeans from a single MBean server. In addition, if you enable the Runtime MBean Server to be the Platform MBean Server, local processes in the JVM can directly access this MBean server through the MBeanServer interface that java.lang.management.ManagementFactory.getPlatformMBeanServer() returns.",
 
   "a-PluginClassName-label": "Plug-in Class Name",
+  "f-HealthScore-a-PluginClassName-help": "The class name of the health score plugin to be instantiated and used by the health score service to calculate the health score of the server. The default value is weblogic.health.DefaultHealthScorePlugin.",
+
   "a-PluginProperties-label": "Plug-in Properties",
   "a-PluginType-label": "Plug-in Type",
 
@@ -3761,13 +3828,19 @@
   "a-RedeliveryLimit-help": "The number of redelivery tries a message can have before it is moved to the error destination. This setting overrides any redelivery limit set by the message sender. If the redelivery limit is configured, but no error destination is configured, then persistent and non-persistent messages are simply dropped (deleted) when they reach their redelivery limit. The default value (-1) specifies that the destination will not override the message sender's redelivery limit setting. Note: WebLogic Server supports the JMSXDeliveryCount message property, which specifies the number of message delivery attempts, where the first attempt is 1, the next attempt is 2, and so on. WebLogic Server makes a best effort to persist the delivery count, so that the delivery count does not reset back to 1 after a server reboot.",
 
   "a-RedirectStderrToServerLogEnabled-label": "Redirect Stderr To Server Log Enabled",
+  "a-RedirectStderrToServerLogEnabled-help": "Specifies whether the stderr of the JVM in which a WebLogic Server instance runs is redirected to the WebLogic Logging system. When this attribute is enabled, the stderr content is published to all the registered log destinations, such as the server terminal console and log file.",
+
   "a-RedirectStdoutToServerLogEnabled-label": "Redirect Stdout To Server Log Enabled",
+  "a-RedirectStdoutToServerLogEnabled-help": "Specifies whether the stdout of the JVM in which a WebLogic Server instance runs is redirected to the WebLogic logging system. When this attribute is enabled, the stdout content is published to all the registered log destinations, such as the server terminal console and log file.",
 
   "a-RefreshAvailableAfterTestFailure-label": "Refresh Available After Test Failure",
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-RefreshAvailableAfterTestFailure-help": "When true, the connection pool will attempt to replace a connection that fails the periodic connection test. When false, a connection that fails the periodic test will be immediately removed.",
 
   "a-RefreshClientRuntimeDescriptor-label": "Refresh Client Runtime Descriptor",
+
   "a-RefreshReplicaAtStartup-label": "Refresh Replica At Startup",
+  "f-EmbeddedLDAP-a-RefreshReplicaAtStartup-help": "Specifies whether a Managed Server should refresh all replicated data at boot time. (This is useful if you have made a large amount of changes when the Managed Server was not active, and you want to download the entire replica instead of having the Administration Server push each change to the Managed Server.)",
+
   "a-RejectEqualOrContainReverseUsername-label": "Reject Equal Or Contain Reverse Username",
   "a-RejectEqualOrContainUsername-label": "Reject Equal Or Contain Username",
 
@@ -4332,7 +4405,10 @@
 
   "a-SsoSigningKeyAlias-label": "SSO Signing Key Alias",
   "a-SsoSigningKeyPassPhraseEncrypted-label": "SSO Signing Key Passphrase Encrypted",
+
   "a-StacktraceDepth-label": "Stacktrace Depth",
+  "a-StacktraceDepth-help": "Determines the number of stacktrace frames to display on standard out. All frames are displayed in the log file. A value of -1 means all frames are displayed.",
+
   "a-StagingDirectoryName-label": "Staging Directory Name",
 
   "a-StagingMode-label": "Staging Mode",
@@ -4361,10 +4437,18 @@
   "a-StaticGroupNameAttribute-label": "Static Group Name Attribute",
   "a-StaticGroupObjectClass-label": "Static Group Object Class",
   "a-StaticMemberDNAttribute-label": "Static Member DN Attribute",
+
   "a-StdoutFilter-label": "Stdout Filter",
+  "a-StdoutFilter-help": "The filter configuration for log events being sent to the standard out.",
+
   "a-StdoutFormat-label": "Stdout Format",
+  "a-StdoutFormat-help": "The output format to use when logging to the console.",
+
   "a-StdoutLogStack-label": "Stdout Log Stack",
+  "a-StdoutLogStack-help": "Specifies whether to dump stack traces to the console when included in logged message.",
+
   "a-StdoutSeverity-label": "Stdout Severity",
+  "a-StdoutSeverity-help": "The minimum severity of log messages going to the standard out. Messages with a lower severity than the specified value will not be published to standard out.",
 
   "a-Store-label": "Persistent Store",
   "f-SAFAgent-a-Store-help": "The persistent disk-based file store or JDBC-accessible database for the SAF agent. If a store is not configured, the server's default store is used.",
@@ -4573,6 +4657,7 @@
   "f-WLDFSystemResource_WLDFResource_WatchNotification_SMTPNotification-a-Timeout-help": "The length of time, in seconds, that an action has to complete execution. By default, the timeout period is 0, which disables the action timeout.",
   "f-WLDFSystemResource_WLDFResource_WatchNotification_SNMPNotification-a-Timeout-help": "The length of time, in seconds, that an action has to complete execution. By default, the timeout period is 0, which disables the action timeout.",
   "f-WLDFSystemResource_WLDFResource_WatchNotification_ThreadDumpAction-a-Timeout-help": "The length of time, in seconds, that an action has to complete execution. By default, the timeout period is 0, which disables the action timeout.",
+  "f-EmbeddedLDAP-a-Timeout-help": "Specifies the maximum number of seconds to wait for results from the embedded LDAP server before timing out. If this option is set to 0, there is no maximum time limit.",
 
   "a-TimeoutConnectionWithPendingResponses-label": "Timeout Connection With Pending Responses",
 
@@ -4638,7 +4723,10 @@
   "f-CoherenceClusterSystemResource_CoherenceResource_CoherencePersistenceParams-a-TrashDirectory-help": "The trash directory for the default persistence environment. If no value is specified, the directory which will be used is coherence/trash sub-directory under Domain Home directory.",
 
   "a-TriggerTruncationStackFrameDepthAfterTrigger-label": "Trigger Truncation Stack Frame Depth After Trigger",
+  "a-TriggerTruncationStackFrameDepthAfterTrigger-help": "Defines the maximum depth of truncated stack frame after the trigger condition already met.",
+
   "a-TriggerTruncationStackFrameTriggerDepth-label": "Trigger Truncation Stack Frame Trigger Depth",
+  "a-TriggerTruncationStackFrameTriggerDepth-help": "Defines the depth of stack frame that will trigger the truncation of stack frame for the remaining cascaded causes.",
 
   "a-TrustKeyStoreFileName-label": "Trust Key Store File Name",
   "f-WTCServer_WTCLocalTuxDom-a-TrustKeyStoreFileName-help": "The path and file name of the trust keystore. The path name must either be absolute or relative to where the server was booted. This file name is only used if KeyStores is \"Custom Stores\".",

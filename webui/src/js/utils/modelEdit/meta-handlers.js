@@ -83,11 +83,7 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
       };
 
       this.coherenceNotUsingCustomClusterConfig = attributeMap => {
-        const clusteringMode = attributeMap['UsingCustomClusterConfigurationFile'];
-        return ko.computed(() => {
-          const usesConfig = ModelEditHelper.getDerivedValue(clusteringMode.observable());
-          return !usesConfig;
-        });
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'UsingCustomClusterConfigurationFile');
       };
 
       this.wldfRestNotUsingBasicAuth = attributeMap => {
@@ -99,11 +95,7 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
       };
 
       this.secConfigCrossDomainSecurityFields = attributeMap => {
-        const crossDomainSecurityEnabled = attributeMap['CrossDomainSecurityEnabled'];
-        return ko.computed(() => {
-          const enabled = ModelEditHelper.getDerivedValue(crossDomainSecurityEnabled.observable());
-          return !enabled;
-        });
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'CrossDomainSecurityEnabled');
       };
 
       this.secConfigCertRevocCrlLdapFields = attributeMap => {
@@ -123,11 +115,7 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
       };
 
       this.secConfigCertRevocCrlDpFields = attributeMap => {
-        const crlDpEnabled = attributeMap['CrlDpEnabled'];
-        return ko.computed(() => {
-          const enabled = ModelEditHelper.getDerivedValue(crlDpEnabled.observable());
-          return !enabled;
-        });
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'CrlDpEnabled');
       };
 
       this.secConfigCertRevocOcspFields = attributeMap => {
@@ -139,11 +127,7 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
       };
 
       this.secConfigCertRevocOcspCacheFields = attributeMap => {
-        const ocspCacheEnabled = attributeMap['OcspResponseCacheEnabled'];
-        return ko.computed(() => {
-          const enabled = ModelEditHelper.getDerivedValue(ocspCacheEnabled.observable());
-          return !enabled;
-        });
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'OcspResponseCacheEnabled');
       };
 
       this.secConfigCertRevocCACrlFields = this.secConfigCertRevocCrlFields;
@@ -151,25 +135,49 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
       this.secConfigCertRevocCAOcspFields = this.secConfigCertRevocOcspFields;
 
       this.secConfigRealmDeployableProviderSyncFields = attributeMap => {
-        const providerSyncEnabled = attributeMap['DeployableProviderSynchronizationEnabled'];
-        return ko.computed(() => {
-          const enabled = ModelEditHelper.getDerivedValue(providerSyncEnabled.observable());
-          return !enabled;
-        });
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'DeployableProviderSynchronizationEnabled');
       };
 
       this.secConfigRealmIdentityAssertionCacheFields = attributeMap => {
-        const identityAssertionCacheEnabled = attributeMap['IdentityAssertionCacheEnabled'];
-        return ko.computed(() => {
-          const enabled = ModelEditHelper.getDerivedValue(identityAssertionCacheEnabled.observable());
-          return !enabled;
-        });
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'IdentityAssertionCacheEnabled');
       };
 
       this.secConfigRealmWlsPrincipalValidatorCacheFields = attributeMap => {
-        const wlsPrincipalValidatorCacheEnabled = attributeMap['EnableWebLogicPrincipalValidatorCache'];
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'EnableWebLogicPrincipalValidatorCache');
+      };
+
+      this.embeddedLdapCacheFields = attributeMap => {
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'CacheEnabled');
+      };
+
+      this.logRotationFileCountLimitedFields = attributeMap => {
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'NumberOfFilesLimited');
+      };
+
+      this.logRotationBySizeFields = attributeMap => {
+        const rotationType = attributeMap['RotationType'];
         return ko.computed(() => {
-          const enabled = ModelEditHelper.getDerivedValue(wlsPrincipalValidatorCacheEnabled.observable());
+          const type = ModelEditHelper.getDerivedValue(rotationType.observable());
+          return type !== 'bySize' && type !== 'bySizeOrTime';
+        });
+      };
+
+      this.logRotationByTimeFields = attributeMap => {
+        const rotationType = attributeMap['RotationType'];
+        return ko.computed(() => {
+          const type = ModelEditHelper.getDerivedValue(rotationType.observable());
+          return type !== 'byTime' && type !== 'bySizeOrTime';
+        });
+      };
+
+      this.logMonitoringFields = attributeMap => {
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'LogMonitoringEnabled');
+      };
+
+      this._disableFieldsUsingBooleanAttribute = (attributeMap, booleanAttributeName) => {
+        const fieldObservable = attributeMap[booleanAttributeName];
+        return ko.computed(() => {
+          const enabled = ModelEditHelper.getDerivedValue(fieldObservable.observable());
           return !enabled;
         });
       };

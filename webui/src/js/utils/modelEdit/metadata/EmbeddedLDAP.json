@@ -1,0 +1,37 @@
+{
+  "EmbeddedLDAP": {
+    "attributeDetails": {
+      "CacheSize": {
+        "disabled": "embeddedLdapCacheFields"
+      },
+      "CacheTTL": {
+        "disabled": "embeddedLdapCacheFields"
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "CredentialEncrypted",
+          "KeepAliveEnabled",
+          "MasterFirst",
+          "AnonymousBindAllowed",
+          "Timeout",
+          "BackupCopies",
+          "BackupHour",
+          "BackupMinute",
+          "RefreshReplicaAtStartup",
+          "CacheEnabled",
+          "CacheSize",
+          "CacheTTL",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  }
+}

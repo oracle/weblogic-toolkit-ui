@@ -48,14 +48,14 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
           }
         });
         return options;
-      }
+      };
 
       this.getCertIssuerPluginCredentialSetOptions = () => {
         const options = []
         const credentialSetNames = getInstanceNames(['topology', 'SecurityConfiguration', 'CredentialSet']);
         credentialSetNames.forEach(credentialSetName => options.push({ value: credentialSetName, label: credentialSetName }));
         return options;
-      }
+      };
 
       this.getCertIssuerPluginDeploymentOptions = () => {
         const defaultOciCertIssuerDeploymentName = 'cert-issuer-for-oci-cert-svc'
@@ -69,7 +69,7 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
           }
         });
         return options;
-      }
+      };
 
       this.getCertPathBuilderInRealmOptions = (attribute) => {
         const modelPath = attribute.path;
@@ -77,7 +77,16 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
         const certPathProviderNames = getInstanceNames([...modelPath, 'CertPathProvider']);
         certPathProviderNames.forEach(certPathProviderName => options.push({ value: certPathProviderName, label: certPathProviderName }));
         return options;
-      }
+      };
+
+      this.getLogFilterOptions = () => {
+        const options = [];
+        const logFilterNames = getInstanceNames(['topology', 'LogFilter']);
+        logFilterNames.forEach(logFilterName => {
+          options.push({ value: logFilterName, label: logFilterName });
+        });
+        return options;
+      };
 
       function getInstanceNames(modelPath) {
         const folder = ModelEditHelper.getFolder(modelPath);
