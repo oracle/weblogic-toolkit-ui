@@ -1,0 +1,27 @@
+{
+  "WSReliableDeliveryPolicy": {
+    "attributeDetails": {
+      "JMSServer": {
+        "editorType": "combo",
+        "optionsMethod": "getJmsServerOptions"
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "JMSServer",
+          "DefaultTimeToLive",
+          "DefaultRetryCount",
+          "DefaultRetryInterval",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  }
+}

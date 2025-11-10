@@ -174,6 +174,10 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
         return this._disableFieldsUsingBooleanAttribute(attributeMap, 'LogMonitoringEnabled');
       };
 
+      this.restfulManagementServicesCorsFields = attributeMap => {
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'CorsEnabled');
+      };
+
       this._disableFieldsUsingBooleanAttribute = (attributeMap, booleanAttributeName) => {
         const fieldObservable = attributeMap[booleanAttributeName];
         return ko.computed(() => {

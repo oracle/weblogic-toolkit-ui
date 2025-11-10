@@ -1,0 +1,54 @@
+{
+  "RestfulManagementServices": {
+    "attributeDetails": {
+      "CorsAllowedCredentials": {
+        "disabled": "restfulManagementServicesCorsFields"
+      },
+      "CorsAllowedHeaders": {
+        "disabled": "restfulManagementServicesCorsFields"
+      },
+      "CorsAllowedMethods": {
+        "disabled": "restfulManagementServicesCorsFields"
+      },
+      "CorsAllowedOrigin": {
+        "disabled": "restfulManagementServicesCorsFields"
+      },
+      "CorExposedHeaders": {
+        "disabled": "restfulManagementServicesCorsFields"
+      },
+      "CorsExposedHeaders": {
+        "disabled": "restfulManagementServicesCorsFields"
+      },
+      "CorsMaxAge": {
+        "disabled": "restfulManagementServicesCorsFields"
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "Enabled",
+          "FannedOutRequestMaxWaitMillis",
+          "DelegatedRequestMinThreads",
+          "DelegatedRequestMaxWaitMillis",
+          "DelegatedRequestConnectTimeoutMillis",
+          "DelegatedRequestReadTimeoutMillis",
+          "CorsEnabled",
+          "CorsAllowedCredentials",
+          "CorsAllowedOrigin",
+          "CorsAllowedMethods",
+          "CorsAllowedHeaders",
+          "CorExposedHeaders",
+          "CorsMaxAge",
+          "JavaServiceResourcesEnabled",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  }
+}

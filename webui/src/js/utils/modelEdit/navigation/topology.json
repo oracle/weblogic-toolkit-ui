@@ -14,9 +14,6 @@
       "path": "NMProperties"
     },
     {
-      "path": "RestfulManagementServices"
-    },
-    {
       "path": "SecurityConfiguration"
     },
     {
@@ -30,9 +27,6 @@
     },
     {
       "path": "VirtualHost"
-    },
-    {
-      "path": "WSReliableDeliveryPolicy"
     },
     {
       "path": "WebserviceSecurity"
