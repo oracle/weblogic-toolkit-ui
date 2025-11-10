@@ -129,6 +129,14 @@ function (ko, i18n, AliasHelper) {
       return t('rename-title', {type: typeLabel, name: instanceName});
     };
 
+    this.getProviderTypeLabel = (aliasPath, providerGroup) => {
+      return getFolderMessage(aliasPath, 'providerTypeLabel', {providerGroup});
+    };
+
+    this.getProviderTypeHelp = (aliasPath, providerGroup) => {
+      return getFolderMessage(aliasPath, 'providerTypeHelp', {providerGroup});
+    };
+
     // *******************
     // attribute messages
     // *******************
@@ -146,15 +154,24 @@ function (ko, i18n, AliasHelper) {
       // if none is available, i18n will log to webui.missing.json, and we return a readable name.
       const attributeKey = getAttributeKey(attributeName);
       const folderPrefix = getFolderPrefix(aliasPath);
-      const folderAttributeKey = `${folderPrefix}-a-${attributeKey}-label`;
+      const lastFolder = aliasPath[aliasPath.length - 1];
+
+      // ordered by priority
+      const matchKeys = [
+        `${folderPrefix}-a-${attributeKey}-label`,      // specific to folder + attribute
+        `f-any_${lastFolder}-a-${attributeKey}-label`,  // specific to last folder + attribute
+      ];
       const onlyAttributeKey = `a-${attributeKey}-label`;
 
-      if(messageKeys.includes(folderAttributeKey)) {  // specific to folder + attribute
-        return t(folderAttributeKey);
-      } else {  // specific to attribute, log as missing if unavailable
-        const label = t(onlyAttributeKey);
-        return (label === onlyAttributeKey) ? getReadableLabel(attributeName) : label;
+      for (const matchKey of matchKeys) {
+        if(messageKeys.includes(matchKey)) {
+          return t(matchKey);
+        }
       }
+
+      // specific to attribute, log as missing if unavailable
+      const label = t(onlyAttributeKey);
+      return (label === onlyAttributeKey) ? getReadableLabel(attributeName) : label;
     };
 
     this.getAttributeHelp = (attribute, aliasPath) => {

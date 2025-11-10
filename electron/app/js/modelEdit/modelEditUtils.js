@@ -22,6 +22,7 @@ const acronyms = [
 /* global __dirname */
 
 const MESSAGES_FILE = path.normalize(path.join(__dirname, '..', '..', 'locales', 'en', 'modeledit.json'));
+const MULTIPLE_CHILD_TYPES = ['multiple', 'multiple_with_type_subfolder'];
 
 async function getAliasInfo(wdtLibraryJar) {
   const WDT_ALIAS_REGEX= /^oracle\/weblogic\/deploy\/aliases\/category_modules\/(.*)\.json$/;
@@ -74,7 +75,8 @@ function getMessageMap() {
 
 function addPaths(aliasFolder, path, pathMap) {
   const child_type = aliasFolder['child_folders_type'];
-  const isMultiple = child_type === 'multiple';
+  const isMultiple = MULTIPLE_CHILD_TYPES.includes(child_type);
+  const usesTypeFolders = child_type === 'multiple_with_type_subfolder';
 
   const attributes = {};
   for(const [key, value] of Object.entries(aliasFolder['attributes'])) {
@@ -103,6 +105,7 @@ function addPaths(aliasFolder, path, pathMap) {
 
   pathMap[path] = {
     isMultiple,
+    usesTypeFolders,
     attributes,
     folders
   };

@@ -1024,6 +1024,11 @@ h6.wkt-under-breadcrumb {
   font-size: 0.75em;
 }
 
+.wkt-model-edit-provider-type {
+  font-size: 1em;
+  margin-top: -8px;
+}
+
 .wkt-collapsible h6.wkt-collapsible-heading {
   font-size: 1em;
   margin-left: -1em !important;  /* oj-c-collapsible has large horizontal space */

@@ -14,7 +14,38 @@
       "path": "NMProperties"
     },
     {
-      "path": "SecurityConfiguration"
+      "path": "SecurityConfiguration",
+      "children": [
+        {
+          "path": "Realm",
+          "instanceChildren": [
+            {
+              "path": "Adjudicator"
+            },
+            {
+              "path": "Auditor"
+            },
+            {
+              "path": "AuthenticationProvider"
+            },
+            {
+              "path": "Authorizer"
+            },
+            {
+              "path": "CertPathProvider"
+            },
+            {
+              "path": "CredentialMapper"
+            },
+            {
+              "path": "PasswordValidator"
+            },
+            {
+              "path": "RoleMapper"
+            }
+          ]
+        }
+      ]
     },
     {
       "path": "Server"
