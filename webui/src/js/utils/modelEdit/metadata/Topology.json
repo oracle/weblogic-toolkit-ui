@@ -11,6 +11,10 @@
       },
       {
         "type": "folderTab",
+        "folder": "JMX"
+      },
+      {
+        "type": "folderTab",
         "folder": "RemoteConsoleHelper"
       },
       {

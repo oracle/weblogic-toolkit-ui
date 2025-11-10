@@ -1,0 +1,102 @@
+{
+  "JTA": {
+    "attributeDetails": {
+      "SecurityInteropMode": {
+        "options": [
+          { "value": "default", "labelKey": "options-default-label" },
+          { "value": "performance", "labelKey": "options-performance-label" }
+        ]
+      },
+      "WsatTransportSecurityMode": {
+        "options": [
+          { "value": "SSLNotRequired", "labelKey": "options-ssl-not-required-label" },
+          { "value": "SSLRequired", "labelKey": "options-ssl-required-label" },
+          { "value": "ClientCertRequired", "labelKey": "options-client-cert-required-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "TimeoutSeconds",
+              "AbandonTimeoutSeconds",
+              "BeforeCompletionIterationLimit",
+              "MaxTransactions",
+              "MaxUniqueNameStatistics",
+              "CheckpointIntervalSeconds",
+              "Determiner",
+              "TlogWriteWhenDeterminerExistsEnabled",
+              "MaxRetrySecondsBeforeDeterminerFail",
+              "ForgetHeuristics",
+              "TwoPhaseEnabled",
+              "ParallelXAEnabled",
+              "ParallelXADispatchPolicy",
+              "TightlyCoupledTransactionsEnabled",
+              "ClusterwideRecoveryEnabled",
+              "Notes"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "attributes": [
+              "SecurityInteropMode",
+              "CompletionTimeoutSeconds",
+              "MaxXACallMillis",
+              "MaxTransactionsHealthIntervalMillis",
+              "MaxResourceUnavailableMillis",
+              "MaxResourceRequestsOnServer",
+              "WsatTransportSecurityMode",
+              "WsatIssuedTokenEnabled",
+              "MigrationCheckpointIntervalSeconds",
+              "PurgeResourceFromCheckpointIntervalSeconds",
+              "SerializeEnlistmentsGCIntervalMillis",
+              "ShutdownGracePeriod",
+              "UnregisterResourceGracePeriod",
+              "RecoverySiteName",
+              "CrossDomainRecoveryRetryInterval",
+              "CrossSiteRecoveryRetryInterval",
+              "CrossSiteRecoveryLeaseExpiration",
+              "CrossSiteRecoveryLeaseUpdate",
+              "UsePublicAddressesForRemoteDomain",
+              "UseNonSecureAddressesForDomain",
+              "LocalDomainSecurityEnabled",
+              "LocalDomainSecurityCacheEnabled",
+              "LocalDomainSecurityCacheTtl"
+            ],
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "RecoveryThresholdMillis"
+        ]
+      },
+      {
+        "type": "folderTab",
+        "folder": "JtaRemoteDomain"
+      }
+    ]
+  },
+  "JTA/JtaRemoteDomain": {
+    "summaryAttributes": {
+      "Url": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "Url",
+          "Notes"
+        ]
+      }
+    ]
+  }
+}

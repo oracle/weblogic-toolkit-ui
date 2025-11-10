@@ -227,6 +227,10 @@
   "options-listen-address-prefix-label": "Listen Address Prefix",
   "options-all-virtual-hosts-label": "All Virtual Hosts",
   "options-virtual-host-prefix-label": "Virtual Host Prefix",
+  "options-performance-label": "Performance",
+  "options-ssl-not-required-label": "SSL Not Required",
+  "options-ssl-required-label": "SSL Required",
+  "options-client-cert-required-label": "Client Certificate Required",
 
   "direction-jms-queue-to-tuxedo-queue-label": "JMS Queue to Tuxedo Queue",
   "direction-tuxedo-queue-to-jms-queue-label": "Tuxedo Queue to JMS Queue",
@@ -320,6 +324,8 @@
   "a-any-valueLabel": "Value",
 
   "a-AbandonTimeoutSeconds-label": "Abandon Timeout Seconds",
+  "f-JTA-a-AbandonTimeoutSeconds-help": "Specifies the maximum amount of time, in seconds, a transaction manager persists in attempting to complete the second phase of a two-phase commit transaction. During the second phase of a two-phase commit transaction, the transaction manager continues to try to complete the transaction until all resource managers indicate that the transaction is completed. After the abandon transaction timer expires, no further attempt is made to resolve the transaction. If the transaction is in a prepared state before being abandoned, the transaction manager rolls back the transaction to release any locks held on behalf of the abandoned transaction.",
+
   "a-AbsoluteAltDescriptorDir-label": "Absolute Alt Descriptor Dir",
   "a-AbsoluteAltDescriptorPath-label": "Absolute Alt Descriptor Path",
   "a-AbsoluteInstallDir-label": "Absolute Install Dir",
@@ -590,7 +596,10 @@
   "f-MessagingBridge-a-BatchSize-help": "The number of messages that are processed within one transaction. Batch Size only applies to a messaging bridge instance forwarding messages in synchronous mode and has a QOS (quality of service) that requires two-phase transactions.",
 
   "a-BeaHome-label": "Bea Home",
+
   "a-BeforeCompletionIterationLimit-label": "Before Completion Iteration Limit",
+  "f-JTA-a-BeforeCompletionIterationLimit-help": "The maximum number of cycles that the transaction manager performs the beforeCompletion synchronization callback for this WebLogic Server domain. Nothing prevents a Synchronization object from registering another during beforeCompletion, even those whose beforeCompletions have already been called. For example, an EJB can call another in its ejbStore() method. To accommodate this, the transaction manager calls all Synchronization objects, then repeats the cycle if new ones have been registered. This count sets a limit to the number of cycles that synchronization occurs.",
+
   "a-BeginMarker-label": "Begin Marker",
   "a-BindAnonymouslyOnReferrals-label": "Bind Anonymously On Referrals",
 
@@ -733,6 +742,8 @@
   "f-any_CertRevoc-a-CheckingEnabled-help": "Determines whether certificate revocation checking is enabled.",
 
   "a-CheckpointIntervalSeconds-label": "Checkpoint Interval Seconds",
+  "f-JTA-a-CheckpointIntervalSeconds-help": "The interval at which the transaction manager creates a new transaction log file and checks all old transaction log files to see if they are ready to be deleted.",
+
   "a-ChunkedTransferDisabled-label": "Chunked Transfer Disabled",
   "a-CipherSuites-label": "Cipher Suites",
   "a-Ciphersuite-label": "Ciphersuite",
@@ -813,7 +824,8 @@
   "a-ClusteringMode-label": "Clustering Mode",
   "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceClusterParams-a-ClusteringMode-help": "Specifies a clustering mode of either Unicast (default) or Multicast. If multicast is undesirable or unavailable in an environment, or when an environment is not properly configured to support multicast, then setting up the Well Known Addresses (WKA) feature is required. All cluster multicast communication is disabled if any of WKA, SSL, and/or secured production mode is/are enabled.",
 
-  "a-ClusterwideRecoveryEnabled-label": "Clusterwide Recovery Enabled",
+  "a-ClusterwideRecoveryEnabled-label": "Cluster-Wide Recovery Enabled",
+  "f-JTA-a-ClusterwideRecoveryEnabled-help": "Indicates that cluster-wide recovery is used for distributed transactions. When enabled, recovery operations for a distributed transaction are applied to all the servers of the cluster hosting a InterposedTransactionManager rather than just the server hosting the InterposedTransactionManager.",
 
   "a-CmpLimit-label": "Compression Limit",
   "f-WTCServer_WTCLocalTuxDom-a-CmpLimit-help": "The compression threshold this local Tuxedo access point uses when sending data to a remote Tuxedo access point. Application buffers larger than this size are compressed. Must be between 0 and 2147483647, where 2147483647 is the default value if not specified",
@@ -857,6 +869,7 @@
   "f-SecurityConfiguration-a-CompatibilityConnectionFiltersEnabled-help": "Specifies whether this WebLogic Server domain enables compatiblity with previous connection filters. This attribute changes the protocols names used when filtering needs to be performed.",
 
   "a-CompatibilityMBeanServerEnabled-label": "Compatibility MBean Server Enabled",
+  "f-JMX-a-CompatibilityMBeanServerEnabled-help": "Enables JMX clients to use the deprecated MBeanHome interface. Prior to 9.0, WebLogic Server supported a typed API layer over its JMX layer. Your JMX application classes could import type-safe interfaces for WebLogic Server MBeans, retrieve a reference to the MBeans through the weblogic.management.MBeanHome interface, and invoke the MBean methods directly.",
 
   "a-CompatibilityName-label": "Compatibility Name",
   "a-CompatibilityName-help": "This is only set for beans created as a result of conversion from an 8.1 application configured using ApplicationMBean and ComponentMBean. Standalone modules in 8.1 have both an ApplicationMBean name and ComponentMBean name. This attribute stores the name of the latter, to be used when the server creates the transient ComponentMBean for backward compatibility.",
@@ -870,7 +883,9 @@
   "a-CompleteMessageTimeout-label": "Complete Message Timeout",
   "a-CompleteT3MessageTimeout-label": "Complete T3 Message Timeout",
   "a-CompleteWriteTimeout-label": "Complete Write Timeout",
+
   "a-CompletionTimeoutSeconds-label": "Completion Timeout Seconds",
+  "f-JTA-a-CompletionTimeoutSeconds-help": "Specifies the maximum amount of time, in seconds, a transaction manager waits for all resource managers to respond and indicate if the transaction can be committed or rolled back. The default value is 0, which sets the value to approximately twice the default transaction-timeout value with a maximum value of 120 seconds. This value provides backward compatibility for prior releases without this setting. nIf the specified value is -1, the maximum value supported by this attribute is used. If the specified value exceeds the value set for abandon-timeout-seconds, the value of abandon-timeout-seconds is used.",
 
   "a-ComponentType-label": "Component Type",
   "f-SystemComponent-a-ComponentType-help": "The system component type Examples of types may include \"OHS\", \"Coherence\". New System Components may be added in the future so the list of types is not static.",
@@ -1075,6 +1090,7 @@
   "f-any_CertRevocCa-a-CrlDpUrlUsage-help": "For this CA, determines how getCrlDpUrl is used: as failover in case the URL in the certificate CRLDistributionPoints extension is invalid or not found, or as a value overriding the URL found in the certificate CRLDistributionPoints extension.",
 
   "a-CrossDomainRecoveryRetryInterval-label": "Cross Domain Recovery Retry Interval",
+  "f-JTA-a-CrossDomainRecoveryRetryInterval-help": "The interval at which a store lock for a given server in a recovery domain will be checked for takeover eligibility. Deprecated in 12.2.1.1.0.",
 
   "a-CrossDomainSecurityCacheEnabled-label": "Cross Domain Security Cache Enabled",
   "f-SecurityConfiguration-a-CrossDomainSecurityCacheEnabled-help": "Specifies whether the Cross Domain Security subject cache is enabled.",
@@ -1086,8 +1102,13 @@
   "f-SecurityConfiguration-a-CrossDomainSecurityEnabled-help": "Specifies whether cross-domain security is enabled.",
 
   "a-CrossSiteRecoveryLeaseExpiration-label": "Cross Site Recovery Lease Expiration",
+  "f-JTA-a-CrossSiteRecoveryLeaseExpiration-help": "The time in seconds after which a lease expires making it eligible for recovery by another site. Deprecated in 12.2.1.4.",
+
   "a-CrossSiteRecoveryLeaseUpdate-label": "Cross Site Recovery Lease Update",
+  "f-JTA-a-CrossSiteRecoveryLeaseUpdate-help": "The time in seconds in which to update a lease timestamp. Deprecated in 12.2.1.4.",
+
   "a-CrossSiteRecoveryRetryInterval-label": "Cross Site Recovery Retry Interval",
+  "f-JTA-a-CrossSiteRecoveryRetryInterval-help": "The interval at which a lease for a given server in a recovery domain will be checked for takeover eligibility. Deprecated in 12.2.1.4.",
 
   "a-CustomAppKeyClass-label": "Custom App Key Class",
   "f-WTCServer_WTCRemoteTuxDom-a-CustomAppKeyClass-help": "The full pathname to the custom AppKey generator class. This class is only relevant if you specify Custom as the AppKey Generator. This class is loaded at runtime if the Custom AppKey generator plug-in is selected.",
@@ -1679,7 +1700,10 @@
   "a-DefaultIIOPPasswordEncrypted-label": "Default IIOP Password Encrypted",
   "a-DefaultIIOPUser-label": "Default IIOP User",
   "a-DefaultInternalServletsDisabled-label": "Default Internal Servlets Disabled",
+
   "a-DefaultJpaProvider-label": "Default JPA Provider",
+  "f-JPA-a-DefaultJPAProvider-help": "The configured default JPA provider for the domain. The default value is org.eclipse.persistence.jpa.PersistenceProvider",
+
   "a-DefaultLoadAlgorithm-label": "Default Load Algorithm",
   "a-DefaultLogicalStoreName-label": "Default Logical Store Name",
   "a-DefaultMaximumObjectLifetime-label": "Default Maximum Object Lifetime",
@@ -1826,6 +1850,8 @@
   "f-JMSBridgeDestination-a-DestinationType-help": "The destination type (queue or topic) for this JMS bridge destination. The default value is Queue",
 
   "a-Determiner-label": "Determiner",
+  "f-JTA-a-Determiner-help": "Select a transaction resource (determiner) from the list of resources. For JMS, select WebLogic JMS as the determiner. When a determiner is configured, the determiner's in-doubt transaction records are used during transaction recovery.",
+
   "a-DeterminerCandidateResourceInfoList-label": "Determiner Candidate Resource Info List",
   "a-DevPollDisabled-label": "Dev Poll Disabled",
   "a-DiagnosticContextCompatibilityModeEnabled-label": "Diagnostic Context Compatibility Mode Enabled",
@@ -1874,7 +1900,10 @@
   "a-DomainLogBroadcastFilter-label": "Domain Log Broadcast Filter",
   "a-DomainLogBroadcastSeverity-label": "Domain Log Broadcast Severity",
   "a-DomainLogBroadcasterBufferSize-label": "Domain Log Broadcaster Buffer Size",
+
   "a-DomainMBeanServerEnabled-label": "Domain MBean Server Enabled",
+  "f-JMX-a-DomainMBeanServerEnabled-help": "Specifies whether the Administration Server initializes the Domain MBean Server, which provides federated access to all run-time MBeans and read-only configuration MBeans in the domain. Through it, JMX clients can access all MBeans in a domain through a single connection. The Administration Console and the WebLogic Scripting Tool use this MBean server for many (but not all) of their read operations. This MBean server exists only on the Administration Server. The Administration Server initializes it the first time a JMX client requests a connection to it. If you set this attribute to false, the Administration Server will not start this MBean server and JMX clients cannot connect to it.",
+
   "a-DomainRegistrationEnabled-label": "Domain Registration Enabled",
   "a-DomainVersion-label": "Domain Version",
   "a-DomainsDirRemoteSharingEnabled-label": "Domains Dir Remote Sharing Enabled",
@@ -1919,7 +1948,10 @@
   "a-ELFFields-label": "ELF Fields",
   "a-EagerThreadLocalCleanup-label": "Eager Thread Local Cleanup",
   "a-EagerTrackingOfResourceMetricsEnabled-label": "Eager Tracking Of Resource Metrics Enabled",
+
   "a-EditMBeanServerEnabled-label": "Edit MBean Server Enabled",
+  "f-JMX-a-EditMBeanServerEnabled-help": "Specifies whether the Administration Server initializes the Edit MBean Server, which contains the hierarchy of MBeans used to make modifications to the domain's configuration. All JMX clients, including utilities such as the Administration Console and the WebLogic Scripting Tool, use the Edit MBean Server to modify a domain's configuration. This MBean server exists only on the Administration Server. By default, when the Administration Server starts, it starts the Edit MBean Server. If you set the EditMBeanServerEnabled attribute to false, the Administration Server will not start this MBean server. If you disable this MBean server, JMX clients cannot modify the domain's configuration. You can, however, modify the domain configuration through the offline editing feature of WebLogic Scripting Tool.",
+
   "a-EnableCacheStatistics-label": "Enable Cache Statistics",
   "a-EnableEeCompliantClassloadingForEmbeddedAdapters-label": "Enable Ee Compliant Classloading For Embedded Adapters",
   "a-EnableGroupMembershipLookupHierarchyCaching-label": "Enable Group Membership Lookup Hierarchy Caching",
@@ -2161,7 +2193,9 @@
 
   "a-ForceShutdownTimeoutNumOfThreadDump-label": "Force Shutdown Timeout Num Of Thread Dump",
   "a-ForceShutdownTimeoutThreadDumpInterval-label": "Force Shutdown Timeout Thread Dump Interval",
+
   "a-ForgetHeuristics-label": "Forget Heuristics",
+  "f-JTA-a-ForgetHeuristics-help": "Specifies whether the transaction manager automatically performs an XA Resource forget operation for heuristic transaction completions. When enabled, the transaction manager automatically performs an XA Resource forget() operation for all resources as soon as the transaction learns of a heuristic outcome. Disable this feature only if you know what to do with the resource when it reports a heuristic decision.",
 
   "a-FormAuthXFrameOptionsHeaderValue-label": "Form Authentication X-Frame-Options Header Value",
   "f-WebAppContainer-a-FormAuthXFrameOptionsHeaderValue-help": "Returns the X-Frame-Options header value (DENY, SAMEORIGIN, or ALLOW-FROM uri) that will be set in the responses for all requests to the \"j_security_check\" endpoint when using FORM authentication.",
@@ -2442,7 +2476,9 @@
   "a-IntersiteTransferUri-label": "Intersite Transfer URI",
   "a-InvalidLoginAttemptsTotalCount-label": "Invalid Login Attempts Total Count",
   "a-InvalidLoginUsersHighCount-label": "Invalid Login Users High Count",
+
   "a-InvocationTimeoutSeconds-label": "Invocation Timeout Seconds",
+  "f-JMX-a-InvocationTimeoutSeconds-help": "The number of seconds that internal WebLogic Server processes wait to connect to an MBean server, invoke an MBean server method, and return the results of the invocation. If the MBean server method does not complete (return) within the timeout period, WebLogic Server abandons its invocation attempt. Some internal management processes within WebLogic Server require a server instance to connect to MBean servers in other WebLogic Server instances and invoke an MBean server method. The timeout period prevents the internal process from locking up if an MBean server cannot successfully return a method invocation. A value of 0 (zero) prevents the method invocation from timing out. With such a value, the internal process will wait indefinitely until the MBean server's method returns.",
 
   "a-InvokeBeginEndRequest-label": "Invoke Begin End Request",
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-InvokeBeginEndRequest-help": "When true, and when a JDBC 4.3 compatible driver is used, the connection pool will invoke Connection.beginRequest() prior to returning the connection to the application, and will invoke Connection.endRequest() before the connection is released to the pool.",
@@ -2664,9 +2700,16 @@
   "f-WTCServer_WTCPassword-a-LocalAccessPoint-help": "The name of the local access point to which this password applies.",
 
   "a-LocalAltDescriptorPath-label": "Local Alt Descriptor Path",
+
   "a-LocalDomainSecurityCacheEnabled-label": "Local Domain Security Cache Enabled",
-  "a-LocalDomainSecurityCacheTtl-label": "Local Domain Security Cache TTL",
+  "f-JTA-a-LocalDomainSecurityCacheEnabled-help": "Specifies whether the Local Domain Security subject cache is enabled.",
+
+  "a-LocalDomainSecurityCacheTtl-label": "Local Domain Security Cache Time-to-Live",
+  "f-JTA-a-LocalDomainSecurityCacheTtl-help": "Specifies the time-to-live (TTL), in seconds, of the Local Domain Security subject cache. This value is used only if LocalDomainSecurityCacheEnabled is set to true.",
+
   "a-LocalDomainSecurityEnabled-label": "Local Domain Security Enabled",
+  "f-JTA-a-LocalDomainSecurityEnabled-help": "Specifies whether Local Domain Security is enabled.\n\nWhen enabled, the transaction coordinator makes intra-domain calls using an identity from the credential mapper where remoteHost equals the local domain name and protocol is cross-domain-protocol. When disabled, the subject used for intra-domain communication is determined by the Security Interop Mode setting.",
+
   "a-LocalInstallDir-label": "Local Install Dir",
 
   "a-LocalJNDIName-label": "Local JNDI Name",
@@ -2802,9 +2845,15 @@
   "f-WLDFSystemResource_WLDFResource_WatchNotification_SMTPNotification-a-MailSessionJndiName-help": "The JNDI name of the mail session. This name must match the attribute in the corresponding MailSessionMBean.",
 
   "a-ManagedServerIndependenceEnabled-label": "Managed Server Independence Enabled",
+
   "a-ManagedServerNotificationsEnabled-label": "Managed Server Notifications Enabled",
+  "f-JMX-a-ManagedServerNotificationsEnabled-help": "Specifies whether the WebLogic Server Domain Runtime MBean Server will support notifications from the federated Runtime MBean Servers on the managed and administration servers. Supporting notifications requires a significant amount of memory resources. A list of ObjectNames is maintained for each MBean from the Runtime MBean Servers. If notifications are not required for this domain, then disabling them will save on CPU and memory resources. This is particularly critical if there are large numbers of runtime MBeans and/or large numbers of servers.",
+
   "a-ManagementAppletCreateEnabled-label": "Management Applet Create Enabled",
+  "f-JMX-a-ManagementAppletCreateEnabled-help": "Specifies whether the WebLogic Server MBean Servers will support creation of management applet (MLet) MBeans. MLet MBeans allow a user to upload the MBean implementation from a remote server and should only be enabled if the environment and security manager restrict access to trusted JMX clients.",
+
   "a-ManagementEJBEnabled-label": "Management EJB Enabled",
+  "f-JMX-a-ManagementEJBEnabled-help": "Enables access to the Management EJB (MEJB), which is part of the Java EE Management APIs (JSR-77). The Management API specification provides a standardized management data model for common resources on Java EE Web application servers. The MEJB provides access to Java EE Managed Objects (JMOs), which describe the common Java EE resources. If you set this attribute to false, WebLogic Server does not register the MEJB in the JNDI tree, and effectively disables the Java EE Management APIs for the domain.",
 
   "a-ManagementIdentityDomain-label": "Management Identity Domain",
   "f-any_Realm-a-ManagementIdentityDomain-help": "Sets the Management Identity Domain value for the realm.",
@@ -2878,7 +2927,11 @@
   "f-WebAppContainer-a-MaxRequestParameterCount-help": "The maximum request parameter count this server allows for reading maximum HTTP POST parameters count in a servlet request. Gets the maxRequestParameterCount attribute of the WebServerMBean object.",
 
   "a-MaxResourceRequestsOnServer-label": "Max Resource Requests On Server",
-  "a-MaxResourceUnavailableMillis-label": "Max Resource Unavailable Millis",
+  "f-JTA-a-MaxResourceRequestsOnServer-help": "Maximum number of concurrent requests to resources allowed for each server.",
+
+  "a-MaxResourceUnavailableMillis-label": "Max Resource Unavailable Milliseconds",
+  "f-JTA-a-MaxResourceUnavailableMillis-help": "Maximum duration time, in milliseconds, that a resource is declared dead. After the duration, the resource is declared available again, even if the resource provider does not explicitly re-register the resource.",
+
   "a-MaxRestartAllowed-label": "Max Restart Allowed",
   "a-MaxRestartAllowedInterval-label": "Max Restart Allowed Interval",
   "a-MaxRestartCount-label": "Max Restart Count",
@@ -2888,6 +2941,8 @@
   "f-WTCServer_WTCRemoteTuxDom-a-MaxRetries-help": "The maximum encryption key length (in bits) this remote Tuxedo access point uses when establishing a session connection. A value of 0 indicates no encryption is used. Note that when the ConnectionPolicy value is LOCAL, the MaxRetries value from the local Tuxedo access point is used. When the ConnectionPolicy value is ON_STARTUP, a value of -1 indicates 9223372036854775807.",
 
   "a-MaxRetrySecondsBeforeDeterminerFail-label": "Max Retry Seconds Before Determiner Fail",
+  "f-JTA-a-MaxRetrySecondsBeforeDeterminerFail-help": "The maximum amount of time, in seconds, WebLogic Server waits for the determiner to recover from a failure. If the determiner does not recover after this period, WebLogic Server sets the TLog health state to HEALTH_FAILED.",
+
   "a-MaxRetrySecondsBeforeTlogFail-label": "Max Retry Seconds Before TLOG Fail",
   "a-MaxRetrySecondsBeforeTxException-label": "Max Retry Seconds Before Tx Exception",
   "a-MaxRetrySecondsBeforeTxRollback-label": "Max Retry Seconds Before Tx Rollback",
@@ -2916,8 +2971,13 @@
   "f-WebAppContainer-a-MaxTotalHeadersSize-help": "The maximum total headers size this server allows for reading HTTP headers in a servlet request. A value less than 0 indicates an unlimited size.",
 
   "a-MaxTransactions-label": "Max Transactions",
+  "f-JTA-a-MaxTransactions-help": "The maximum number of simultaneous in-progress transactions allowed on a server in this WebLogic Server domain.",
+
   "a-MaxTransactionsHealthIntervalMillis-label": "Max Transactions Health Interval Millis",
+  "f-JTA-a-MaxTransactionsHealthIntervalMillis-help": "The time interval, in milliseconds, for which the transaction map must be full for the JTA subsystem to declare its health as CRITICAL.",
+
   "a-MaxUniqueNameStatistics-label": "Max Unique Name Statistics",
+  "f-JTA-a-MaxUniqueNameStatistics-help": "The maximum number of unique transaction names for which statistics are maintained. The first 1001 unique transaction names are maintained as their own transaction name and stored in each statistic. After the 1001st transaction name is reached, the transaction name is stored as weblogic.transaction.statistics.namedOverflow, and the transaction statistic is also merged and maintained in weblogic.transaction.statistics.namedOverflow. A transaction name typically represents a category of business transactions, such as \"funds-transfer.\"",
 
   "a-MaxWebLogicPrincipalsInCache-label": "Max WebLogic Principals In Cache",
   "f-any_Realm-a-MaxWebLogicPrincipalsInCache-help": "The maximum size of the LRU cache for holding WebLogic Principal signatures. This value is only used if EnableWebLogicPrincipalValidatorCache is set to true",
@@ -2925,7 +2985,9 @@
   "a-MaxWindowBufferSize-label": "Max Window Buffer Size",
   "f-FileStore-a-MaxWindowBufferSize-help": "The maximum amount of data, in bytes and rounded down to the nearest power of 2, mapped into the JVM's address space per primary store file. Applies to synchronous write policies Direct-Write-With-Cache and Disabled but only when the native wlfileio library is loaded. A window buffer does not consume Java heap memory, but does consume off-heap (native) memory. If the store is unable to allocate the requested buffer size, it allocates smaller and smaller buffers until it reaches MinWindowBufferSize, and then fails if cannot honor MinWindowBufferSize.",
 
-  "a-MaxXACallMillis-label": "Max XA Call Millis",
+  "a-MaxXACallMillis-label": "Max XA Call Milliseconds",
+  "f-JTA-a-MaxXACallMillis-help": "Maximum allowed time duration, in milliseconds, for XA calls to resources. If a particular XA call to a resource exceeds the limit, the resource is declared unavailable.",
+
   "a-MaximumDynamicServerCount-label": "Maximum Dynamic Server Count",
 
   "a-MaximumMessageSize-label": "Maximum Message Size",
@@ -3028,7 +3090,9 @@
   "a-MibDataRefreshInterval-label": "MIB Data Refresh Interval",
 
   "a-MigrationBasis-label": "Migration Basis",
+
   "a-MigrationCheckpointIntervalSeconds-label": "Migration Checkpoint Interval Seconds",
+  "f-JTA-a-MigrationCheckpointIntervalSeconds-help": "The time interval, in seconds, that the checkpoint is done for the migrated transaction logs (TLOGs).",
 
   "a-MigrationPolicy-label": "Migration Policy",
   "f-FileStore-a-MigrationPolicy-help": "Controls migration and restart behavior of cluster-targeted JMS service artifact instances. When this setting is configured on a cluster-targeted store, it applies to all JMS artifacts that reference the store. See the migratable target settings for enabling migration and restart on migratable-targeted JMS artifacts.",
@@ -3363,7 +3427,10 @@
   "a-ParallelDeployModules-help": "Determines if the modules of applications will be deployed in parallel.",
 
   "a-ParallelXADispatchPolicy-label": "Parallel XA Dispatch Policy",
+  "f-JTA-a-ParallelXADispatchPolicy-help": "The dispatch policy to use when performing XA operations in parallel. By default the policy of the thread coordinating the transaction is used. Note that the named execute queue must be configured on the target server.",
+
   "a-ParallelXAEnabled-label": "Parallel XA Enabled",
+  "f-JTA-a-ParallelXAEnabled-help": "Specifies that XA calls are executed in parallel if there are available threads.",
 
   "a-ParamType-label": "Param Type",
   "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceClusterParams_CoherenceIdentityAsserter_CoherenceInitParam-a-ParamType-help": "The parameter type.",
@@ -3450,8 +3517,13 @@
   "a-PlanStagingMode-help": "Specifies whether an application's deployment plan is copied from a source on the Administration Server to the Managed Server's staging area during application preparation. Plan staging mode for an application can only be set the first time the application is deployed. Once the plan staging mode for an application is set, it cannot be changed while the application is configured in the domain. The only way to change the plan staging mode is to undeploy and then redeploy the application. This attribute overrides the server's plan staging mode.",
 
   "a-PlatformLoggerLevels-label": "Platform Logger Levels",
+
   "a-PlatformMBeanServerEnabled-label": "Platform MBean Server Enabled",
+  "f-JMX-a-PlatformMBeanServerEnabled-help": "Specifies whether each server instance initializes the JDK's platform MBean server. Enabling it, along with isPlatformMBeanServerUsed, causes WebLogic Server to use the platform MBean server as its Runtime MBean Server. As of JDK 1.5, JVMs provide a platform MBean server that local processes can instantiate. There can be only one instance of the platform MBean server for each JVM. When a process instantiates this MBean server, the JVM creates several platform MXBeans that provide monitoring data for the JVM itself. If you set this attribute to true, each WebLogic Server instance invokes the method java.lang.management.ManagementFactory.getPlatformMBeanServer() and thus causes the initialization of the JVM's MXBeans.",
+
   "a-PlatformMBeanServerUsed-label": "Platform MBean Server Used",
+  "f-JMX-a-PlatformMBeanServerUsed-help": "Specifies whether WebLogic Server will use the platform MBean server for its Runtime MBean Server. Previously, WebLogic Server used the platform MBean server by default if it was enabled. This attribute provides a separation between enabling the platform MBean server and using it for WebLogic Server MBeans. The default value for this attribute is based on the DomainVersion attribute of the DomainMBean. If the domain version is prior to 10.3.3.0, then the default value of this attribute is false and the platform MBean server is not used. If the domain version is 10.3.3.0 or higher, then the default value of this attribute is true and the platform MBean server is used. In this case, the server's Runtime MBean Server uses the MBeanServer returned by java.lang.management.ManagementFactory.getPlatformMBeanServer() method as its MBean Server. This makes it possible to access the WebLogic Server MBeans and the JVM platform MXBeans from a single MBean server. In addition, if you enable the Runtime MBean Server to be the Platform MBean Server, local processes in the JVM can directly access this MBean server through the MBeanServer interface that java.lang.management.ManagementFactory.getPlatformMBeanServer() returns.",
+
   "a-PluginClassName-label": "Plug-in Class Name",
   "a-PluginProperties-label": "Plug-in Properties",
   "a-PluginType-label": "Plug-in Type",
@@ -3592,7 +3664,9 @@
   "a-PublicId-label": "Public ID",
   "a-PublicPort-label": "Public Port",
   "a-PublishedSiteUrl-label": "Published Site URL",
+
   "a-PurgeResourceFromCheckpointIntervalSeconds-label": "Purge Resource From Checkpoint Interval Seconds",
+  "f-JTA-a-PurgeResourceFromCheckpointIntervalSeconds-help": "The interval that a particular resource must be accessed within for it to be included in the checkpoint record.",
 
   "a-QosDegradationAllowed-label": "Quality of Service Degradation Allowed",
   "f-MessagingBridge-a-QOSDegradationAllowed-help": "Specifies if this messaging bridge instance allows the degradation of its QOS (quality of service) when the configured QOS is not available. When not enabled, if messaging bridge instance cannot satisfy the quality of service requested, an error results and the messaging bridge instance does not start.",
@@ -3659,6 +3733,8 @@
   "f-JDBCSystemResource_JdbcResource_JDBCXAParams-a-RecoverOnlyOnce-help": "Specifies that the transaction manager calls recover on the resource only once. Only applies to data sources that use an XA driver. Use this setting to work around specific problems with JDBC XA drivers.",
 
   "a-RecoverySiteName-label": "Recovery Site Name",
+  "f-JTA-a-RecoverySiteName-help": "The name of the site whose transactions this site/domain will recover in the event that intra-cluster transaction service migration is not successful or efficient. Deprecated in 12.2.1.4.",
+
   "a-RecoveryThresholdMillis-label": "Recovery Threshold Millis",
 
   "a-RecvTimeout-label": "Receive Timeout",
@@ -3911,6 +3987,7 @@
   "a-RuntimeCacheConfigurationUri-help": "The cache configuration file used at runtime.",
 
   "a-RuntimeMBeanServerEnabled-label": "Runtime MBean Server Enabled",
+  "f-JMX-a-RuntimeMBeanServerEnabled-help": "Specifies whether each server instance in the domain initializes its Runtime MBean Server, which provides access to a server's run-time MBeans and read-only configuration MBeans. The Administration Console and the WebLogic Scripting Tool use this MBean server for some (but not all) of their read operations. If RuntimeMBeanServerEnabled is true, each server starts its Runtime MBean Server during the server's startup cycle. If this attribute is false, no server instance in the domain will start its Runtime MBean Server.",
 
   "a-SAFErrorHandling-label": "SAF Error Handling",
   "a-SAFErrorHandling-help": "Specifies the error handling configuration used by this SAF destination.",
@@ -4029,6 +4106,7 @@
   "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceClusterParams-a-SecurityFrameworkEnabled-help": "Control the use of the Coherence security framework.",
 
   "a-SecurityInteropMode-label": "Security Interop Mode",
+  "f-JTA-a-SecurityInteropMode-help": "Specifies the security mode of the communication channel used for XA calls between servers that participate in a global transaction. All server instances in a domain must have the same security mode setting. In default mode, the transaction coordinator makes calls using the kernel identity over an admin channel if it is enabled, and anonymous otherwise. Man-in-the-middle attacks are possible if the admin channel is not enabled. In performance mode, the transaction coordinator makes calls using anonymous at all times. This implies a security risk since a malicious third party could then try to affect the outcome of transactions using a man-in-the-middle attack.",
 
   "a-SecurityLevel-label": "Security Level",
   "f-any_SNMPProxy-a-SecurityLevel-help": "The security level that the proxied SNMP agent expects for the specified security name.",
@@ -4059,7 +4137,10 @@
 
   "a-SequenceExpiration-label": "Sequence Expiration",
   "a-SerialPropFilePollingInterval-label": "Serial Prop File Polling Interval",
-  "a-SerializeEnlistmentsGCIntervalMillis-label": "Serialize Enlistments GC Interval Millis",
+
+  "a-SerializeEnlistmentsGCIntervalMillis-label": "Serialize Enlistments GC Interval Milliseconds",
+  "f-JTA-a-SerializeEnlistmentsGCIntervalMillis-help": "The time interval, in milliseconds, at which internal objects used to serialize resource enlistment are cleaned up.",
+
   "a-Server-label": "Server",
 
   "a-ServerAffinityEnabled-label": "Server Affinity Enabled",
@@ -4167,6 +4248,8 @@
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-ShrinkSpareCapacityPercent-help": "Specifies the number of additional number of connections to maintain above the current connection usage or the running average when shrinking. For example, a value of 20 indicates that the pool will not shrink lower than the current usage or running average plus 20%.",
 
   "a-ShutdownGracePeriod-label": "Shutdown Grace Period",
+  "f-JTA-a-ShutdownGracePeriod-help": "Specifies how long the server should wait for active transactions to complete before allowing shutdown.",
+
   "a-SignAuthnRequests-label": "Sign Authn Requests",
   "a-SignaturePreferX509Certificate-label": "Signature Prefer X509 Certificate",
   "a-SigningKeyAlias-label": "Signing Key Alias",
@@ -4441,7 +4524,8 @@
   "a-ThresholdLow-label": "Threshold Low",
   "f-any_SNMPGaugeMonitor-a-ThresholdLow-help": "The low threshold at which a notification should be generated. A notification is generated the first time the monitored value is less than or equal to this value. Subsequent crossings of the low threshold value do not cause additional notifications unless the attribute value becomes equal to or greater than the high threshold value.",
 
-  "a-TightlyCoupledTransactionsEnabled-label": "Tightly Coupled Transactions Enabled",
+  "a-TightlyCoupledTransactionsEnabled-label": "Tightly-Coupled Transactions Enabled",
+  "f-JTA-a-TightlyCoupledTransactionsEnabled-help": "Specifies whether tight coupling of transaction branches that span different transaction manager systems are enabled. When enabled, WebLogic uses the transaction identifier of a transaction imported by the InterposedTransactionManager for XA calls rather than an internally mapped Xid. This applies to inter-domain WebLogic transactions and transactions imported from Tuxedo. This allows for tight coupling of transaction branches for transactions that span across different transaction manager systems. If a transaction between WebLogic and Tuxedo resources uses a GridLink Data Source with GridLink Affinity enabled, the XA Affinity context is automatically used for the transaction.",
 
   "a-TimeToDeliver-label": "Time To Deliver",
   "a-TimeToDeliver-help": "The default delay, either in milliseconds or as a schedule, between when a message is produced and when it is made visible on its target destination, regardless of the delivery time specified by the producer and/or connection factory. The default value (-1) specifies that the destination will not override the TimeToDeliver setting specified by the producer and/or connection factory. The TimeToDeliver override can be specified either as a long or as a schedule.",
@@ -4476,12 +4560,15 @@
   "f-WLDFSystemResource_WLDFResource_WatchNotification_ThreadDumpAction-a-Timeout-help": "The length of time, in seconds, that an action has to complete execution. By default, the timeout period is 0, which disables the action timeout.",
 
   "a-TimeoutConnectionWithPendingResponses-label": "Timeout Connection With Pending Responses",
+
   "a-TimeoutSeconds-label": "Timeout Seconds",
+  "f-JTA-a-TimeoutSeconds-help": "Specifies the maximum amount of time, in seconds, an active transaction is allowed to be in the first phase of a two-phase commit transaction. If the specified amount of time expires, the transaction is automatically rolled back.",
 
   "a-Timezone-label": "Timezone",
   "f-WLDFSystemResource_WLDFResource_WatchNotification_Watch_Schedule-a-Timezone-help": "Indicates the time zone for the schedule. Defaults to the default time zone for the local VM.",
 
   "a-TlogWriteWhenDeterminerExistsEnabled-label": "TLOG Write When Determiner Exists Enabled",
+  "f-JTA-a-TlogWriteWhenDeterminerExistsEnabled-help": "Specifies whether two-phase transaction recovery logs are written even if one or more determiners are configured.",
 
   "a-TmpPath-label": "Temporary Directory Path",
   "f-EJBContainer-a-TmpPath-help": "The temporary directory where generated files are stored by ejbc. Deprecated: All EJB compiler output is now stored in the EJBCompilerCache subdirectory of the server staging directory. This directory should not be described as \"temporary\" since removing it would cause the EJB compiler to be rerun as necessary the next time the server is restarted.",
@@ -4572,6 +4659,8 @@
   "a-TuxedoUidKw-help": "The keyword for Tuxedo UID (User ID) used in the WlsUser when using the Tuxedo migration utility tpmigldap. This keyword is only relevant if you specify LDAP as the AppKey Generator. The keyword is used to find Tuxedo UID in the user record in the embedded LDAP database.",
 
   "a-TwoPhaseEnabled-label": "Two Phase Enabled",
+  "f-JTA-a-TwoPhaseEnabled-help": "Specifies whether the two-phase commit protocol is used to coordinate transactions across two or more resource managers.",
+
   "a-TwoWaySSLEnabled-label": "Two Way SSL Enabled",
 
   "a-TwoWayTLSRequiredForAdminClients-label": "Two Way TLS Required For Admin Clients",
@@ -4603,7 +4692,9 @@
 
   "a-UnknownTenantEmptyMetadataTtl-label": "Unknown Tenant Empty Metadata TTL",
   "a-UnlockedUsersTotalCount-label": "Unlocked Users Total Count",
+
   "a-UnregisterResourceGracePeriod-label": "Unregister Resource Grace Period",
+  "f-JTA-a-UnregisterResourceGracePeriod-help": "The amount of time, in seconds, a transaction manager waits for transactions involving the resource to complete before unregistering a resource. This grace period helps minimize the risk of abandoned transactions because of an unregistered resource, such as a JDBC data source module packaged with an application. During the specified grace period, the unregisterResource call blocks until the call returns and no new transactions are started for the associated resource. If the number of outstanding transactions for the resource goes to 0, the unregisterResource call returns immediately. At the end of the grace period, if outstanding transactions are associated with the resource, the unregisterResource call returns and a log message is written to the server on which the resource was previously registered.",
 
   "a-Untargeted-label": "Untargeted",
   "a-Untargeted-help": "Only relevant for deployments in resource group templates. This flag, when specified as true, indicates that the application deployment must not be deployed in the referring partition.",
@@ -4612,7 +4703,9 @@
   "a-UploadDirectoryName-label": "Upload Directory Name",
   "a-UriPath-label": "URI Path",
   "a-UriPrefix-label": "URI Prefix",
+
   "a-Url-label": "URL",
+  "f-JTA_JtaRemoteDomain-a-Url-help": "Specifies the connection URL for a remote domain.",
 
   "a-Use81StyleExecuteQueues-label": "Use 8.1-Style Execute Queues",
   "a-UseClientCertForOutbound-label": "Use Client Cert For Outbound",
@@ -4641,13 +4734,18 @@
 
   "a-UseLocateRequest-label": "Use Locate Request",
   "a-UseMemberuidForGroupSearch-label": "Use Memberuid For Group Search",
-  "a-UseNonSecureAddressesForDomain-label": "Use Non Secure Addresses For Domain",
+
+  "a-UseNonSecureAddressesForDomain-label": "Use Non-Secure Addresses For Domain",
+  "f-JTA-a-UseNonSecureAddressesForDomain-help": "Specifies the domains for which non-secure protocols should be used for internal JTA communication if the servers in the domains are configured to use network channels.",
+
   "a-UseParentHandlers-label": "Use Parent Handlers",
 
   "a-UsePasswordIndirection-label": "Use Password Indirection",
   "f-JDBCSystemResource_JdbcResource_JDBCDriverParams-a-UsePasswordIndirection-help": "Specifies whether the database credentials are to be obtained from the credential mapper using the \"user\" property as the key. When true, the credentials are obtained from the credential mapper. When false, the database user name and password are obtained from the \"user\" property and Password element, respectively.",
 
   "a-UsePublicAddressesForRemoteDomain-label": "Use Public Addresses For Remote Domain",
+  "f-JTA-a-UsePublicAddressesForRemoteDomain-help": "Specifies the remote domains for which public addresses should be used if the servers in the domains are configured to use network channels for internal JTA communication.",
+
   "a-UseResourceHierarchy-label": "Use Resource Hierarchy",
   "a-UseRetrievedUserNameAsPrincipal-label": "Use Retrieved User Name As Principal",
 
@@ -4850,8 +4948,12 @@
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-WrapTypes-help": "By default, data type objects for Array, Blob, Clob, NClob, Ref, SQLXML, and Struct, plus ParameterMetaData and ResultSetMetaData objects are wrapped with a WebLogic wrapper. This allows for features like debugging and connection usage to be done by the server. The wrapping can be turned off by setting this value to false. This improves performance, in some cases significantly, and allows for the application to use the native driver objects directly.",
 
   "a-WriteChunkBytes-label": "Write Chunk Bytes",
-  "a-WsatIssuedTokenEnabled-label": "WSAT Issued Token Enabled",
-  "a-WsatTransportSecurityMode-label": "WSAT Transport Security Mode",
+
+  "a-WsatIssuedTokenEnabled-label": "WS-AT Issued Token Enabled",
+  "f-JTA-a-WsatIssuedTokenEnabled-help": "Specifies whether to use issuedtoken to enable authentication between the WS-AT coordinator and participant.",
+
+  "a-WsatTransportSecurityMode-label": "WS-AT Transport Security Mode",
+  "f-JTA-a-WsatTransportSecurityMode-help": "Specifies transport security mode required by Web Services Atomic Transaction endpoints.",
 
   "a-XAConnectionFactoryEnabled-label": "XA Connection Factory Enabled",
   "f-JMSSystemResource_JmsResource_ConnectionFactory_TransactionParams-a-XAConnectionFactoryEnabled-help": "Indicates whether a XA queue or XA topic connection factory is returned, instead of a queue or topic connection factory. An XA connection factory can be used to create an XAConnection, which in turn may be used to create an XASession, which in turn may be used to obtain an XAResource for use inside a transaction manager. In addition, this attribute indicates whether or not a connection factory creates sessions that are JTA aware. If true, the associated message producers and message consumers look into the running thread for a transaction context. Otherwise, the current JTA transaction will be ignored. Note: Transacted sessions ignore the current threads transaction context in favor of their own internal transaction, regardless of the setting. This setting only affects non-transacted sessions.",
