@@ -1,0 +1,27 @@
+{
+  "JMX": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "EditMBeanServerEnabled",
+          "RuntimeMBeanServerEnabled",
+          "PlatformMBeanServerEnabled",
+          "PlatformMBeanServerUsed",
+          "DomainMBeanServerEnabled",
+          "CompatibilityMBeanServerEnabled",
+          "ManagedServerNotificationsEnabled",
+          "ManagementAppletCreateEnabled",
+          "ManagementEJBEnabled",
+          "InvocationTimeoutSeconds",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  }
+}
