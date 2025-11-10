@@ -60,6 +60,7 @@ define(
     'text!./Topology.json',
     'text!./WebAppContainer.json',
     'text!./WLDFSystemResource.json',
+    'text!./WebserviceSecurity.json',
     'text!./WLSPolicies.json',
     'text!./WLSRoles.json',
     'text!./WLSUserPasswordCredentialMappings.json',

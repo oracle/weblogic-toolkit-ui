@@ -1,0 +1,254 @@
+{
+  "WebserviceSecurity": {
+    "summaryAttributes": {
+      "PolicySelectionPreference": {},
+      "DefaultCredentialProviderStsuri": {}
+    },
+    "attributeDetails": {
+      "PolicySelectionPreference": {
+        "options": [
+          { "value": "NONE", "labelKey": "options-none-label" },
+          { "value": "SCP", "labelKey": "options-scp-label" },
+          { "value": "SPC", "labelKey": "options-spc-label" },
+          { "value": "CSP", "labelKey": "options-csp-label" },
+          { "value": "CPS", "labelKey": "options-cps-label" },
+          { "value": "PCS", "labelKey": "options-pcs-label" },
+          { "value": "PSC", "labelKey": "options-psc-label" }
+        ]
+      },
+      "TokenType": {
+        "options": [
+          { "value": "ut", "labelKey": "options-username-token-profile-label" },
+          { "value": "x509", "labelKey": "options-x509-token-profile-label" },
+          { "value": "saml", "labelKey": "options-saml-token-profile-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "PolicySelectionPreference",
+              "DefaultCredentialProviderStsuri",
+              "CompatibilityPreference",
+              "CompatibilityOrderingPreference",
+              "Notes"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "folderTab",
+        "folder": "WebserviceCredentialProvider"
+      },
+      {
+        "type": "folderTab",
+        "folder": "WebserviceSecurityToken"
+      },
+      {
+        "type": "folderTab",
+        "folder": "WebserviceTokenHandler"
+      },
+      {
+        "type": "folderTab",
+        "folder": "WebserviceTimestamp"
+      }
+    ]
+  },
+  "WebserviceSecurity/WebserviceCredentialProvider": {
+    "summaryAttributes": {
+      "TokenType": {},
+      "ClassName": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "ClassName",
+          "TokenType",
+          "Notes"
+        ]
+      },
+      {
+        "type": "folder",
+        "labelKey": "configuration-properties-title",
+        "folder": "ConfigurationProperty"
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "WebserviceSecurity/WebserviceCredentialProvider/ConfigurationProperty": {
+    "summaryAttributes": {
+      "EncryptValueRequired": {},
+      "Value": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "Value",
+          "EncryptValueRequired",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "EncryptedValueEncrypted"
+        ]
+      }
+    ]
+  },
+  "WebserviceSecurity/WebserviceSecurityToken": {
+    "summaryAttributes": {
+      "TokenType": {},
+      "ClassName": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "ClassName",
+          "TokenType",
+          "Notes"
+        ]
+      },
+      {
+        "type": "folder",
+        "labelKey": "configuration-properties-title",
+        "folder": "ConfigurationProperty"
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "WebserviceSecurity/WebserviceSecurityToken/ConfigurationProperty": {
+    "summaryAttributes": {
+      "EncryptValueRequired": {},
+      "Value": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "Value",
+          "EncryptValueRequired",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "EncryptedValueEncrypted"
+        ]
+      }
+    ]
+  },
+  "WebserviceSecurity/WebserviceTimestamp": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "ClockSynchronized",
+          "ClockSkew",
+          "ValidityPeriod",
+          "MaxProcessingDelay",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "ClockPrecision",
+          "LaxPrecision"
+        ]
+      }
+    ]
+  },
+  "WebserviceSecurity/WebserviceTokenHandler": {
+    "summaryAttributes": {
+      "HandlingOrder": {},
+      "TokenType": {},
+      "ClassName": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "ClassName",
+          "TokenType",
+          "HandlingOrder",
+          "Notes"
+        ]
+      },
+      {
+        "type": "folder",
+        "labelKey": "configuration-properties-title",
+        "folder": "ConfigurationProperty"
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "WebserviceSecurity/WebserviceTokenHandler/ConfigurationProperty": {
+    "summaryAttributes": {
+      "EncryptValueRequired": {},
+      "Value": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "Value",
+          "EncryptValueRequired",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "EncryptedValueEncrypted"
+        ]
+      }
+    ]
+  }
+}
