@@ -88,6 +88,15 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
         return options;
       };
 
+      this.getJmsServerOptions = () => {
+        const options = [];
+        const jmsServerNames = getInstanceNames(['resources', 'JMSServer']);
+        jmsServerNames.forEach(jmsServerName => {
+          options.push({ value: jmsServerName, label: jmsServerName });
+        });
+        return options;
+      };
+
       function getInstanceNames(modelPath) {
         const folder = ModelEditHelper.getFolder(modelPath);
         return Object.keys(folder);

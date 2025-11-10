@@ -1046,13 +1046,28 @@
   "f-AdminConsole-a-CookieName-help": "Specifies the Cookie Name used by the Administration Console.",
   "f-RemoteConsoleHelper-a-CookieName-help": "The cookie name used by the Remote Console Helper.",
 
-  "a-CorExposedHeaders-label": "Cor Exposed Headers",
   "a-CorsAllowedCredentials-label": "CORS Allowed Credentials",
+  "a-CorsAllowedCredentials-help": "Determines if credentials are allowed for CORS requests. When the value is false, the response will not include the corresponding CORS HTTP header.",
+
   "a-CorsAllowedHeaders-label": "CORS Allowed Headers",
+  "a-CorsAllowedHeaders-help": "Determines the value of allowed HTTP headers for CORS requests. The allowed headers value is a string that contains a comma separated list of HTTP header names. The default setting allows all headers. When the value is empty or not specified, the response will not include the corresponding CORS HTTP header.",
+
   "a-CorsAllowedMethods-label": "CORS Allowed Methods",
+  "a-CorsAllowedMethods-help": "Determines the value of allowed HTTP methods for CORS requests. The allowed methods value is a string that contains a comma separated list of HTTP method names. The default setting allows all methods. When the value is empty or not specified, the response will not include the corresponding CORS HTTP header.",
+
   "a-CorsAllowedOrigin-label": "CORS Allowed Origin",
+  "a-CorsAllowedOrigin-help": "Determines the list of allowed origins for CORS requests. When the list is empty or not specified and CORS support is enabled then all origins are accepted. When specified the HTTP Origin header must match exactly one of the values configured as allowed. CORS origin values include protocol and domain name, they may also contain port numbers. Multiple variants of the allowed origin may need to be specified based on the origin used by the browser.",
+
   "a-CorsEnabled-label": "CORS Enabled",
+  "f-RestfulManagementServices-a-CorsEnabled-help": "Enables the support of CORS (Cross-Origin Resource Sharing) processing in the RESTful Management Services Web application.",
+
+  "a-CorExposedHeaders-label": "CORS Exposed Headers",
+  "a-CorsExposedHeaders-label": "CORS Exposed Headers",
+  "a-CorExposedHeaders-help": "Determines the value of exposed HTTP headers for CORS requests. The exposed headers value is a string that contains a comma separated list of HTTP header names. The default setting does not specify any specific headers. When the value is empty or not specified, the response will not include the corresponding CORS HTTP header.",
+  "a-CorsExposedHeaders-help": "Determines the value of exposed HTTP headers for CORS requests. The exposed headers value is a string that contains a comma separated list of HTTP header names. The default setting does not specify any specific headers. When the value is empty or not specified, the response will not include the corresponding CORS HTTP header.",
+
   "a-CorsMaxAge-label": "CORS Max Age",
+  "a-CorsMaxAge-help": "Determines the number of seconds for a browser cache of CORS preflight requests. The max age value is a string that contains a numeric value with the number of seconds used for the browser cache. The default setting does not specify any value. When the value is empty or not specified, the response will not include the corresponding CORS HTTP header.",
 
   "a-Count-label": "Count",
   "f-SelfTuning_Capacity-a-Count-help": "Total number of requests that can be accepted.  This included both requests already executing as well as those stilling in the execute queue.",
@@ -1764,6 +1779,7 @@
   "f-WTCServer_WTCtBridgeGlobal-a-DefaultReplyDeliveryMode-help": "The reply delivery mode to associate with a message when placing messages onto the target location.",
 
   "a-DefaultRetryCount-label": "Default Retry Count",
+  "f-WSReliableDeliveryPolicy-a-DefaultRetryCount-help": "The default maximum number of times that the sender runtime should attempt to redeliver a message that the receiver WebLogic Server has not yet acknowledged. The default maximum number of times that the sender should attempt to redeliver a message that the receiver WebLogic Web service has not yet acknowledged.",
 
   "a-DefaultRetryDelayBase-label": "Default Retry Delay Base",
   "f-SAFAgent-a-DefaultRetryDelayBase-help": "The amount of time, in milliseconds, between the original delivery attempt and the first retry. If RetryDelayMultiplier is set to 1, this defines the interval between any two successive retry attempts.",
@@ -1775,6 +1791,8 @@
   "f-SAFAgent-a-DefaultRetryDelayMultiplier-help": "The factor used to multiply the previous delay time to calculate the next delay time to be used.  The default value is 1.0",
 
   "a-DefaultRetryInterval-label": "Default Retry Interval",
+  "f-WSReliableDeliveryPolicy-a-DefaultRetryInterval-help": "The default minimum number of seconds that the sender runtime should wait between retries if the receiver does not send an acknowledgement of receiving the message, or if the sender runtime detects a communications error while attempting to send a message. The default minimum number of seconds that the sender should wait between retries if the receiver does not send an acknowledgement of receiving the message, or if the sender detects a communications error while attempting to send a message.",
+
   "a-DefaultRjvmDiagMessages-label": "Default RJVM Diag Messages",
   "a-DefaultSecureProtocol-label": "Default Secure Protocol",
   "a-DefaultStore-label": "Default Store",
@@ -1790,6 +1808,8 @@
   "f-JMSSystemResource_JmsResource_ConnectionFactory_DefaultDeliveryParams-a-DefaultTimeToDeliver-help": "The delay time, in milliseconds, between when a message is produced and when it is made visible on its destination. All messages produced by a producer created with this factory that have a DefaultTimeToDeliver of -1 will use this value.",
 
   "a-DefaultTimeToLive-label": "Default Time-to-Live",
+  "f-WSReliableDeliveryPolicy-a-DefaultTimeToLive-help": "The default number of seconds that the receiver of the reliable message should persist the history of the reliable message in its store. The default minimum number of seconds that the receiver of the reliably sent message should persist the message in its storage. If the DefaultTimeToLive number of message have passed since the message was first sent, the sender should not resent a message with the same message id. If a sender cannot send a message successfully before the DefaultTimeToLive has passed, the sender should report a delivery failure. The receiver, after recovering from a crash, will not dispatch saved messages that have expired.",
+
   "f-SAFAgent-a-DefaultTimeToLive-help": "The default amount of time, in milliseconds, that the agent guarantees to reliably send messages. A value of 0 means the agent guarantees to reliably send messages for the duration of the conversation.",
   "f-JMSSystemResource_JmsResource_ConnectionFactory_DefaultDeliveryParams-a-DefaultTimeToLive-help": "The maximum length of time, in milliseconds, that a message exists. This value is used for messages when both the time-to-live is not explicitly set by the sender application that is using this connection factory and the time-to-live is not explicitly overridden by the destination's TimeToLiveOverride attribute . A value of 0 indicates that the message has an infinite amount time to live.",
 
@@ -1810,10 +1830,17 @@
   "a-DelegateMBeanAuthorization-label": "Delegate MBean Authorization",
   "f-any_Realm-a-DelegateMBeanAuthorization-help": "Configures the WebLogic Server MBean servers to use the security realm's Authorization providers to determine whether a JMX client has permission to access an MBean attribute or invoke an MBean operation. You can continue to use WebLogic Server's default security settings or modify the defaults to suit your needs. If you do not delegate authorization to the realm's Authorization providers, the WebLogic MBean servers allow access only to the four default security roles (Admin, Deployer, Operator, and Monitor) and only as specified by WebLogic Server's default security settings.",
 
-  "a-DelegatedRequestConnectTimeoutMillis-label": "Delegated Request Connect Timeout Millis",
-  "a-DelegatedRequestMaxWaitMillis-label": "Delegated Request Max Wait Millis",
+  "a-DelegatedRequestConnectTimeoutMillis-label": "Delegated Request Connect Timeout Milliseconds",
+  "a-DelegatedRequestConnectTimeoutMillis-help": "Determines the connection timeout, in milliseconds, when the Management Services Web application propagates an idempotent REST request from the admin server to a managed server. If DelegatedRequestConnectTimeoutMillis is zero, then the default underlying JAX-RS client API connection timeout will be used.",
+
+  "a-DelegatedRequestMaxWaitMillis-label": "Delegated Request Max Wait Milliseconds",
+  "a-DelegatedRequestMaxWaitMillis-help": "Determines how long the Management Services Web application will wait, in milliseconds, when it propagates an idempotent REST request from the admin server to a managed server. If zero, then it will try to propagate the request once. If greater than zero, then it will retry the request until it finishes or until it detects that the time limit has been exceeded. A request can override this value by specifying the requestMaxWaitMillis query parameter.",
+
   "a-DelegatedRequestMinThreads-label": "Delegated Request Min Threads",
-  "a-DelegatedRequestReadTimeoutMillis-label": "Delegated Request Read Timeout Millis",
+  "a-DelegatedRequestMinThreads-help": "Specifies the minimum number of threads that should be dedicated to the Management Services Web application when interacting with managed servers in parallel for improved responsiveness in large domains.",
+
+  "a-DelegatedRequestReadTimeoutMillis-label": "Delegated Request Read Timeout Milliseconds",
+  "a-DelegatedRequestReadTimeoutMillis-help": "Determines the read timeout, in milliseconds, when the Management Services Web application propagates an idempotent REST request from the admin server to a managed server. If DelegatedRequestReadTimeoutMillis is zero, then the default underlying JAX-RS client API read timeout will be used.",
 
   "a-DeletesPerBatchMaximum-label": "Deletes Per Batch Maximum",
   "f-JDBCStore-a-DeletesPerBatchMaximum-help": "The maximum number of table rows that are deleted per database call. The default value is 20.",
@@ -2032,6 +2059,7 @@
   "f-any_CertificateIssuerPlugin-a-Enabled-help": "Whether this plugin configuration is enabled or not.",
   "f-any_CertificateManagement-a-Enabled-help": "Specified whether the Certificate Management Service is enabled or not.",
   "f-HealthScore-a-Enabled-help": "Specifies whether the health score service is enabled.",
+  "f-RestfulManagementServices-a-Enabled-help": "Enables the monitoring of this WebLogic Server domain through the Restful Management Services Web application.",
 
   "a-EnabledServer-label": "Enabled Server",
   "a-EnabledServer-help": "This attribute is applicable only when the SNMP Agent is running on the Admin Server of a WebLogic Domain. The EnabledServers attribute allows the users to limit the scope of the monitored data sources to the specific named Servers. The EnabledServers list is ignored when the SNMAgentDeploymentMBean is targeted to a Managed Server. In the case of a Managed Server the SNMP Agent only looks at the data available in the WebLogic Server where the SNMP Agent is deployed. For traps based on MBean attributes the SNMP Agent refers to the Domain Runtime MBean Server when it is running on the Admin Server and the Runtime MBean Server when it is deployed to a Managed Server.",
@@ -2157,6 +2185,7 @@
   "f-JDBCSystemResource_JdbcResource_JDBCOracleParams-a-FanEnabled-help": "Enables the data source to subscribe to and process Oracle FAN (Fast Application Notification) events. This attribute is only applicable for RAC configurations that publish FAN notification events using the ONS protocol.",
 
   "a-FannedOutRequestMaxWaitMillis-label": "Fanned Out Request Max Wait Millis",
+  "a-FannedOutRequestMaxWaitMillis-help": "Determines how long the Management Services Web application will wait, in milliseconds, when it fans out an idempotent REST request from the admin server to all the managed servers. If zero, then it will choose an appropriate timeout. A request can override this value by specifying the requestMaxWaitMillis query parameter.",
 
   "a-FatalErrorCodes-label": "Fatal Error Codes",
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-FatalErrorCodes-help": "Specifies a comma-separated list of error codes that are treated as fatal errors. These errors include deployment errors that cause a server to fail to boot and connection errors that prevent a connection from being put back in the connection pool. This optional attribute is used to define fatal error codes, that when specified as the exception code within a SQLException (retrieved by sqlException.getErrorCode()), indicate that a fatal error has occurred and the connection is no longer usable",
@@ -2558,7 +2587,10 @@
 
   "a-JMSDefaultConnectionFactoriesEnabled-label": "JMS Default Connection Factories Enabled",
   "a-JMSExceptionReconnectAttempts-label": "JMS Exception Reconnect Attempts",
+
   "a-JMSServer-label": "JMS Server",
+  "f-WSReliableDeliveryPolicy-a-JMSServer-help": "The JMS server used by WebLogic Server, in its role as a sender, to persist the reliable messages that it sends, or the JMS server used by the receiver WebLogic Server to persist the history of a reliable message sent by a sender.",
+
   "a-JMSThreadPoolSize-label": "JMS Thread Pool Size",
   "a-JMSTopic-label": "JMS Topic",
   "a-JMSTopicConnectionFactory-label": "JMS Topic Connection Factory",
@@ -2605,7 +2637,9 @@
 
   "a-JavaServiceConsoleEnabled-label": "Java Service Console Enabled",
   "a-JavaServiceEnabled-label": "Java Service Enabled",
+
   "a-JavaServiceResourcesEnabled-label": "Java Service Resources Enabled",
+  "f-RestfulManagementServices-a-JavaServiceResourcesEnabled-help": "Specifies whether the REST resource features for administering WebLogic Server as a Java Service within a cloud environment should be enabled in this domain.",
 
   "a-JavaStandardTrustEnabled-label": "Java Standard Trust Enabled",
   "f-any_CertificateManagement-a-JavaStandardTrustEnabled-help": "Whether or not the domain should trust the Java Standard Trust certificates, in addition to the Domain Certificate Authority certificate(s) and any Provisioned Trust certificates. Java Standard Trust is a collection of well-known, trusted root certificate authorities distributed (and updated) as part of the JDK.",

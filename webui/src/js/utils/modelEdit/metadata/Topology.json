@@ -31,6 +31,10 @@
       },
       {
         "type": "folderTab",
+        "folder": "WSReliableDeliveryPolicy"
+      },
+      {
+        "type": "folderTab",
         "folder": "HealthScore"
       },
       {
@@ -40,6 +44,10 @@
       {
         "type": "folderTab",
         "folder": "Callout"
+      },
+      {
+        "type": "folderTab",
+        "folder": "RestfulManagementServices"
       },
       {
         "type": "folderTab",

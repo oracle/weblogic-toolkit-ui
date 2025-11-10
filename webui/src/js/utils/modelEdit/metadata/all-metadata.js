@@ -46,6 +46,7 @@ define(
     'text!./RCUDbInfo.json',
     'text!./RemoteConsoleHelper.json',
     'text!./Resources.json',
+    'text!./RestfulManagementServices.json',
     'text!./SAFAgent.json',
     'text!./SecurityConfiguration.json',
     'text!./SelfTuning.json',
@@ -62,6 +63,7 @@ define(
     'text!./WLSPolicies.json',
     'text!./WLSRoles.json',
     'text!./WLSUserPasswordCredentialMappings.json',
+    'text!./WSReliableDeliveryPolicy.json',
     'text!./WTCServer.json',
   ],
   function() {
