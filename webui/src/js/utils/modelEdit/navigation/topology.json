@@ -2,15 +2,6 @@
   "path": "topology",
   "children": [
     {
-      "path": "AllowList"
-    },
-    {
-      "path": "Callout"
-    },
-    {
-      "path": "CdiContainer"
-    },
-    {
       "path": "Cluster"
     },
     {

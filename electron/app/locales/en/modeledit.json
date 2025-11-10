@@ -231,6 +231,8 @@
   "options-ssl-not-required-label": "SSL Not Required",
   "options-ssl-required-label": "SSL Required",
   "options-client-cert-required-label": "Client Certificate Required",
+  "options-deny-label": "Deny",
+  "options-ignore-label": "Ignore",
 
   "direction-jms-queue-to-tuxedo-queue-label": "JMS Queue to Tuxedo Queue",
   "direction-tuxedo-queue-to-jms-queue-label": "Tuxedo Queue to JMS Queue",
@@ -437,7 +439,10 @@
   "f-JMSSystemResource_JmsResource_ConnectionFactory_ClientParams-a-AllowCloseInOnMessage-help": "Specifies whether a connection factory creates message consumers that allow a close() or stop() method to be issued within its onMessage() method call.",
 
   "a-AllowListRecordingEnabled-label": "Allow List Recording Enabled",
+  "a-AllowListRecordingEnabled-help": "Specifies whether the domain will run with recording enabled to record allowlists.",
+
   "a-AllowListViolationAction-label": "Allow List Violation Action",
+  "a-AllowListViolationAction-help": "Defines the AllowListViolationAction of all servers in a domain.",
 
   "a-AllowNonStandardTypes-label": "Allow Non-Standard Types",
   "f-WTCServer_WTCtBridgeGlobal-a-AllowNonStandardTypes-help": "Specifies whether non-standard data types are allowed to pass through this Tuxedo queuing bridge. A value of NO means that non standard types are rejected and placed onto a specified error location; a value of YES means that non-standard types are placed on the target location as BLOBs with a tag indicating the original type. Standard types are ASCII text (TextMessage, STRING) or BLOB (BytesMessage, CARRAY).",
@@ -495,6 +500,7 @@
   "a-ArchiveConfigurationCount-label": "Archive Configuration Count",
 
   "a-Argument-label": "Argument",
+  "f-Callout-a-Argument-help": "Specifies the argument to pass to the class.",
 
   "a-Arguments-label": "Arguments",
   "f-SystemComponent_SystemComponentStart-a-Arguments-help": "The arguments to use when starting this server. These are the first arguments appended immediately after java portion of the startup command. For example, you can set Java heap memory or specify any weblogic.nodemanager.server.provider.WeblogicCacheServer option.",
@@ -758,6 +764,7 @@
   "f-StartupClass-a-ClassName-help": "The fully qualified name of the Startup class to load and run. The class must be on the server's classpath.",
   "f-SingletonService-a-ClassName-help": "The fully qualified name of a SingletonServices class to load and run. The class must be on the server's classpath.",
   "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceClusterParams_CoherenceIdentityAsserter-a-ClassName-help": "The class that implements com.tangosol.net.security.IdentityAsserter. If className is empty, no IdentityAsserter will be configured.",
+  "f-Callout-a-ClassName-help": "Specifies the fully qualified name of a class to load and run.",
 
   "a-ClassPath-label": "Class Path",
   "f-SystemComponent_SystemComponentStart-a-ClassPath-help": "The classpath (path on the machine running Node Manager) to use when starting this server. If you need to add user classes to the classpath, in addition you will need to add the following: FEATURES_HOME/weblogic.server.modules.coherence.integration.jar:COHERENCE_HOME/lib/coherence.jar where FEATURES_HOME is the features directory (typically $WL_HOME/modules/features) and COHERENCE_HOME the coherence directory (typically $ORACLE_HOME/coherence) on the Node Manager machine. If you do not specify a classpath the above will be used automatically. The operating system determines which character separates path elements. On Windows, use a semicolon (;). On UNIX a colon (:).",
@@ -832,6 +839,7 @@
   "f-WTCServer_WTCRemoteTuxDom-a-CmpLimit-help": "The compression threshold this remote Tuxedo access point uses when sending data to a local Tuxedo access point. Application buffers larger than this size are compressed. Must be between 0 and 2147483647, where 2147483647 is the default value if not specified",
 
   "a-CoherenceClassesAlwaysBlock-label": "Coherence Classes Always Block",
+  "f-AllowList-a-CoherenceClassesAlwaysBlock-help": "Specifies whether the domain will run with blocking all the coherence classes if the CoherenceClusterSystemResourceMBean is not used in the domain.",
 
   "a-CoherenceClientAuth-label": "Client Authentication Mode",
   "a-CoherenceClientAuth-help": "The client authentication mode to use.",
@@ -2292,6 +2300,7 @@
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-HighestNumWaiters-help": "The maximum number of connection requests that can concurrently block threads while waiting to reserve a connection from the data source's connection pool.",
 
   "a-HookPoint-label": "Hook Point",
+  "f-Callout-a-HookPoint-help": "Specifies the hookpoint to which the callout is bound.",
 
   "a-Host-label": "Host",
   "f-any_SNMPTrapDestination-a-Host-help": "The DNS name or IP address of the computer on which the SNMP manager is running. The WebLogic SNMP agent sends trap notifications to the host and port that you specify.",
@@ -2398,7 +2407,9 @@
 
   "a-ImageTimeout-label": "Image Timeout",
   "a-Immutable-label": "Immutable",
+
   "a-ImplicitBeanDiscoveryEnabled-label": "Implicit Bean Discovery Enabled",
+  "f-CdiContainer-a-ImplicitBeanDiscoveryEnabled-help": "Specifies whether to limit implicit bean discovery.",
 
   "a-InactiveConnectionTimeoutSeconds-label": "Inactive Connection Timeout Seconds",
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-InactiveConnectionTimeoutSeconds-help": "The number of inactive seconds on a reserved connection before WebLogic Server reclaims the connection and releases it back into the connection pool. You can use the Inactive Connection Timeout feature to reclaim leaked connections - connections that were not explicitly closed by the application. Note that this feature is not intended to be used in place of properly closing connections. When set to 0, the feature is disabled.",
@@ -3534,6 +3545,7 @@
   "a-Policy-label": "Policy",
   "f-JMSSystemResource_JmsResource_Quota-a-Policy-help": "For destinations that use this quota, this policy determines whether to deliver smaller messages before larger ones when a destination has exceeded its message quota. FIFO (first-in, first-out) indicates that requests for quota are submitted in the order they are received. If a given request for quota cannot be satisfied, and the client requesting the quota is willing to wait, then that request will block all other requests for quota until the request is satisfied or times out. This prevents smaller messages from being delivered when larger requests are already waiting for space. Preemptive indicates that subsequent requests can preempt previously unsatisfied requests. That is, if there is sufficient quota for the current request, then that space is used even if there are other requests waiting for quota. When quota is limited, the Preemptive policy can result in the starvation of larger requests.",
   "f-JMSSystemResource_JmsResource_SAFErrorHandling-a-Policy-help": "The error handling policy for this SAF error handling resource.",
+  "f-CdiContainer-a-Policy-help": "Specifies the CDI policy. CDI can be \"Enabled\" (the default) or \"Disabled\". If CDI is disabled then no CDI processing will occur including scanning of pojos and initialization of Weld and CDI will not be available to the application via the CDI apis.",
 
   "a-PolicyDeploymentEnabled-label": "Policy Deployment Enabled",
   "a-PolicySelectionPreference-label": "Policy Selection Preference",
@@ -4136,7 +4148,9 @@
   "f-JMSSystemResource_JmsResource_ConnectionFactory_DefaultDeliveryParams-a-SendTimeout-help": "The maximum length of time, in milliseconds, that a sender will wait when there isn't enough available space (no quota) on a destination to accommodate the message being sent. The default time is 10 milliseconds. A value of 0 indicates that the sender does not want to wait for space.",
 
   "a-SequenceExpiration-label": "Sequence Expiration",
-  "a-SerialPropFilePollingInterval-label": "Serial Prop File Polling Interval",
+
+  "a-SerialPropFilePollingInterval-label": "Serial Properties File Polling Interval",
+  "f-AllowList-a-SerialPropFilePollingInterval-help": "Specifies the polling interval, in seconds, for finding the serial properties file in the filesystem.",
 
   "a-SerializeEnlistmentsGCIntervalMillis-label": "Serialize Enlistments GC Interval Milliseconds",
   "f-JTA-a-SerializeEnlistmentsGCIntervalMillis-help": "The time interval, in milliseconds, at which internal objects used to serialize resource enlistment are cleaned up.",
@@ -4428,6 +4442,7 @@
   "f-FileStore-a-SynchronousWritePolicy-help": "The disk write policy that determines how the file store writes data to disk. This policy also affects the JMS file store's performance, scalability, and reliability. Oracle recommends Direct-Write-With-Cache which tends to have the highest performance. The default value is Direct-Write.",
 
   "a-SynthesizeAllowListEnabled-label": "Synthesize Allow List Enabled",
+  "a-SynthesizeAllowListEnabled-help": "Specifies whether we have to synthesize the AllowList.",
 
   "a-SysPropValue-label": "System Property Value",
   "f-JDBCSystemResource_JdbcResource_JDBCDriverParams_Properties-a-SysPropValue-help": "The system property name from which to get the value.",

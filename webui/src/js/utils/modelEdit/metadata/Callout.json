@@ -1,0 +1,24 @@
+{
+  "Callout": {
+    "summaryAttributes": {
+      "HookPoint": {},
+      "ClassName": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "ClassName",
+          "Argument",
+          "HookPoint",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  }
+}
