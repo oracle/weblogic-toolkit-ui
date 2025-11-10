@@ -13,10 +13,34 @@ function(accUtils, ModelEditHelper, MessageHelper, AliasHelper, MetaHelper, Modu
   function FolderPageViewModel(args) {
     const MODEL_PATH = args.modelPath;
 
-    const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
+    let contentPath = MODEL_PATH;
+    let typeName = null;
+    let typeLabel = null;
+
+    this.useTypeFolder = AliasHelper.usesTypeFolders(MODEL_PATH);
+
+    // content path may be below model path, or undefined, for type folder case
+    if(this.useTypeFolder) {
+      contentPath = null;
+      typeName = ModelEditHelper.getTypeFolderName(MODEL_PATH);
+      typeLabel = typeName;
+      if(typeName && ModelEditHelper.isKnownTypeName(MODEL_PATH, typeName)) {
+        contentPath = [...MODEL_PATH, typeName];
+        const aliasContentPath = AliasHelper.getAliasPath(contentPath);
+        typeLabel = MessageHelper.getFolderLabel(aliasContentPath);
+      }
+    }
 
     this.connected = () => {
       accUtils.announce('Folder Page loaded.', 'assertive');
+    };
+
+    this.typeMessage = () => {
+      if(typeLabel) {
+        const key = contentPath ? 'knownProviderType' : 'unknownProviderType';
+        return MessageHelper.t(key, { providerType: typeLabel });
+      }
+      return MessageHelper.t('noProviderType');
     };
 
     this.folderHeaderModuleConfig = ModuleElementUtils.createConfig({
@@ -26,7 +50,9 @@ function(accUtils, ModelEditHelper, MessageHelper, AliasHelper, MetaHelper, Modu
       }
     });
 
-    this.folderContentModuleConfig = ModelEditHelper.createFolderContentConfig(MODEL_PATH);
+    this.folderContentModuleConfig = contentPath ?
+      ModelEditHelper.createFolderContentConfig(contentPath) :
+      ModelEditHelper.createEmptyConfig(contentPath);
   }
 
   return FolderPageViewModel;

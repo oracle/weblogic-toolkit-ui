@@ -113,6 +113,19 @@ function (ko, jsYaml, project, utils,
       return folder[attribute];
     };
 
+    // return the model's type folder name (for security providers)
+    this.getTypeFolderName = providerPath => {
+      const parentFolder = this.getFolder(providerPath);
+      const folderNames = Object.keys(parentFolder);
+      return folderNames.length ? folderNames[0] : null;
+    };
+
+    // check if type name is in the aliases (for security providers)
+    this.isKnownTypeName = (modelPath, typeName) => {
+      const typeNames = AliasHelper.getFolderNames(modelPath);
+      return typeNames.includes(typeName);
+    };
+
     this.deleteIfEmpty = (modelPath, tempModel) => {
       if(!AliasHelper.isNamedPath(modelPath)) {
         const folder = this.getFolder(modelPath, tempModel);

@@ -115,6 +115,10 @@ define(['knockout', 'utils/wkt-logger'],
         return this.getAliasValue(modelPath, 'isMultiple');
       };
 
+      this.usesTypeFolders = modelPath => {
+        return this.getAliasValue(modelPath, 'usesTypeFolders');
+      };
+
       this.getAttributesMap = modelPath => {
         return this.getAliasValue(modelPath, 'attributes');
       };

@@ -8,7 +8,7 @@
 define(['accUtils', 'knockout', 'models/wkt-project', 'utils/modelEdit/instance-helper',
   'utils/modelEdit/model-edit-helper', 'utils/modelEdit/message-helper', 'utils/modelEdit/alias-helper',
   'utils/validation-helper', 'utils/view-helper',
-  'oj-c/input-text', 'oj-c/button', 'ojs/ojdialog', 'ojs/ojvalidationgroup'],
+  'oj-c/input-text', 'oj-c/button', 'ojs/ojdialog', 'ojs/ojvalidationgroup', 'ojs/ojselectcombobox'],
 function(accUtils, ko, project,
   InstanceHelper, ModelEditHelper, MessageHelper, AliasHelper, validationHelper, viewHelper) {
 
@@ -21,6 +21,22 @@ function(accUtils, ko, project,
 
     const newInstanceName = InstanceHelper.getNewInstanceName(MODEL_PATH);
     const newInstancePath = [...MODEL_PATH, newInstanceName];
+
+    const providerGroupLabel = MessageHelper.getFolderTypeLabel(MODEL_PATH);
+    const typeFolderNames = AliasHelper.getFolderNames(MODEL_PATH);
+    this.useTypeFolder = AliasHelper.usesTypeFolders(MODEL_PATH);
+
+    this.providerTypeLabel = MessageHelper.getProviderTypeLabel(ALIAS_PATH, providerGroupLabel);
+    this.providerTypeHelp = MessageHelper.getProviderTypeHelp(ALIAS_PATH, providerGroupLabel);
+    this.providerType = ko.observable();
+    this.providerTypeOptions = [];
+    typeFolderNames.forEach(typeName => {
+      const typePath = [...ALIAS_PATH, typeName];
+      this.providerTypeOptions.push({
+        value: typeName,
+        label: MessageHelper.getFolderLabel(typePath)
+      });
+    });
 
     this.instanceName = ko.observable(newInstanceName);
     this.title = MessageHelper.getAddInstanceMessage(ALIAS_PATH);
@@ -58,7 +74,8 @@ function(accUtils, ko, project,
       this.dialogContainer.close();
 
       const result = {
-        instanceName: this.instanceName()
+        instanceName: this.instanceName(),
+        providerType: this.providerType()
       };
 
       args.setValue(result);

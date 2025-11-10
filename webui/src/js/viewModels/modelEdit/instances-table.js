@@ -28,6 +28,8 @@ function(accUtils, ko, InstanceHelper, ModelEditHelper, MessageHelper, Navigatio
     this.emptyMessage = MessageHelper.getNoInstancesMessage(ALIAS_PATH);
     this.ariaLabel = MODEL_PATH[MODEL_PATH.length - 1] + ' Instances Table';
 
+    this.useTypeFolder = AliasHelper.usesTypeFolders(MODEL_PATH);
+
     this.connected = () => {
       accUtils.announce('Instances table loaded.', 'assertive');
 
@@ -88,13 +90,25 @@ function(accUtils, ko, InstanceHelper, ModelEditHelper, MessageHelper, Navigatio
       }
     };
 
+    const reorderable = this.useTypeFolder;  // TODO: allow metadata configuration, implement reordering
+    const defaultSortable = reorderable ? 'disabled' : 'enabled';
+
     this.instancesColumnData = [
       {
         headerText: MessageHelper.t('table-name-label'),
+        sortable: defaultSortable,
         sortProperty: 'name',
         resizable: 'enabled'
       }
     ];
+
+    if(this.useTypeFolder) {
+      this.instancesColumnData.push({
+        headerText: MessageHelper.t('table-type-label'),
+        sortable: defaultSortable,
+        resizable: 'enabled'
+      });
+    }
 
     // attributePath is usually a simple name, but may be qualified, like "SSL/ListenPort"
     for (const [attributePath, options] of Object.entries(this.summaryAttributes)) {
@@ -110,6 +124,7 @@ function(accUtils, ko, InstanceHelper, ModelEditHelper, MessageHelper, Navigatio
 
       this.instancesColumnData.push({
         headerText: MessageHelper.getAttributeLabelFromName(attributeName, aliasPath),
+        sortable: defaultSortable,
         sortProperty: attributeName,
         resizable: 'enabled'
       });
@@ -120,7 +135,7 @@ function(accUtils, ko, InstanceHelper, ModelEditHelper, MessageHelper, Navigatio
       headerClassName: 'wkt-table-add-header',
       headerTemplate: 'addHeaderTemplate',
       template: 'actionTemplate',
-      sortable: 'disable',
+      sortable: 'disabled',
       width: ViewHelper.BUTTON_COLUMN_WIDTH
     });
 
@@ -142,8 +157,26 @@ function(accUtils, ko, InstanceHelper, ModelEditHelper, MessageHelper, Navigatio
           const newName = result.instanceName;
           if (newName) {
             ModelEditHelper.addFolder(MODEL_PATH, newName);
+
+            if(this.useTypeFolder && result.providerType) {
+              const instancePath = [...MODEL_PATH, newName];
+              ModelEditHelper.addFolder(instancePath, result.providerType);
+            }
           }
         });
+    };
+
+    this.providerType = rowData => {
+      // get the type from the model
+      const providerPath = [...MODEL_PATH, rowData.name];
+      let typeName = ModelEditHelper.getTypeFolderName(providerPath);
+
+      // if this is a known type, translate the alias name
+      if(ModelEditHelper.isKnownTypeName(MODEL_PATH, typeName)) {
+        const typePath = [...ALIAS_PATH, typeName];
+        typeName = MessageHelper.getFolderLabel(typePath);
+      }
+      return typeName;
     };
 
     this.deleteInstance = (event, context) => {

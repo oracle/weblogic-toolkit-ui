@@ -9,15 +9,27 @@
   <div slot="body">
     <oj-validation-group id="modelNewEntryTracker">
       <div class="oj-panel">
-        <oj-c-input-text
-          class="wkt-model-edit-attribute-stacked"
-          label-hint="[[nameLabel]]"
-          help.instruction="[[helpLabel]]"
-          value="{{instanceName}}"
-          required="true"
-          validators="[[nameValidators]]"
-        >
-        </oj-c-input-text>
+        <oj-c-form-layout class="wkt-model-edit-attribute-form" max-columns="1">
+          <oj-c-input-text
+            class="wkt-model-edit-attribute-stacked"
+            label-hint="[[nameLabel]]"
+            help.instruction="[[helpLabel]]"
+            value="{{instanceName}}"
+            required="true"
+            validators="[[nameValidators]]"
+          >
+          </oj-c-input-text>
+          <oj-bind-if test="[[useTypeFolder]]">
+            <oj-combobox-one
+              label-hint="[[providerTypeLabel]]"
+              help.instruction="[[providerTypeHelp]]"
+              value="{{providerType}}"
+              options="[[providerTypeOptions]]"
+              required="true"
+            >
+            </oj-combobox-one>
+          </oj-bind-if>
+        </oj-c-form-layout>
       </div>
     </oj-validation-group>
   </div>
