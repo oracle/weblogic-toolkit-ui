@@ -1102,9 +1102,7 @@
   "a-CorsEnabled-label": "CORS Enabled",
   "f-RestfulManagementServices-a-CorsEnabled-help": "Enables the support of CORS (Cross-Origin Resource Sharing) processing in the RESTful Management Services Web application.",
 
-  "a-CorExposedHeaders-label": "CORS Exposed Headers",
   "a-CorsExposedHeaders-label": "CORS Exposed Headers",
-  "a-CorExposedHeaders-help": "Determines the value of exposed HTTP headers for CORS requests. The exposed headers value is a string that contains a comma separated list of HTTP header names. The default setting does not specify any specific headers. When the value is empty or not specified, the response will not include the corresponding CORS HTTP header.",
   "a-CorsExposedHeaders-help": "Determines the value of exposed HTTP headers for CORS requests. The exposed headers value is a string that contains a comma separated list of HTTP header names. The default setting does not specify any specific headers. When the value is empty or not specified, the response will not include the corresponding CORS HTTP header.",
 
   "a-CorsMaxAge-label": "CORS Max Age",

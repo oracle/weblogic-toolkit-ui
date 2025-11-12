@@ -13,9 +13,6 @@
       "CorsAllowedOrigin": {
         "disabled": "restfulManagementServicesCorsFields"
       },
-      "CorExposedHeaders": {
-        "disabled": "restfulManagementServicesCorsFields"
-      },
       "CorsExposedHeaders": {
         "disabled": "restfulManagementServicesCorsFields"
       },
@@ -38,7 +35,7 @@
           "CorsAllowedOrigin",
           "CorsAllowedMethods",
           "CorsAllowedHeaders",
-          "CorExposedHeaders",
+          "CorsExposedHeaders",
           "CorsMaxAge",
           "JavaServiceResourcesEnabled",
           "Notes"
