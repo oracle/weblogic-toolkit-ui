@@ -1,0 +1,180 @@
+{
+  "NMProperties": {
+    "attributeDetails": {
+      "coherence.StartScriptName": {
+        "disabled": "nodeManagerCoherenceStartScriptFields"
+      },
+      "CustomIdentityAlias": {
+        "disabled": "nodeManagerCustomIdentityFields"
+      },
+      "CustomIdentityKeyStoreFileName": {
+        "disabled": "nodeManagerCustomIdentityFields"
+      },
+      "CustomIdentityKeyStorePassPhrase": {
+        "disabled": "nodeManagerCustomIdentityFields"
+      },
+      "CustomIdentityKeyStoreType": {
+        "disabled": "nodeManagerCustomIdentityFields",
+        "options": [
+          { "value": "PKCS12", "label": "PKCS12" },
+          { "value": "JKS", "label": "JKS" }
+        ]
+      },
+      "CustomIdentityPrivateKeyPassPhrase": {
+        "disabled": "nodeManagerCustomIdentityFields"
+      },
+      "DomainKeystoresDomain": {
+        "disabled": "nodeManagerDomainKeystoresFields"
+      },
+      "DomainsFile": {
+        "disabled": "nodeManagerDomainsFileFields"
+      },
+      "JavaStandardTrustKeyStorePassPhrase": {
+        "disabled": "nodeManagerJavaTrustFields"
+      },
+      "KeyStores": {
+        "options": [
+          { "value": "DomainKeystores", "labelKey": "options-domain-keystores-label" },
+          { "value": "DemoIdentityAndDemoTrust", "labelKey": "options-demo-identity-and-demo-trust-label" },
+          { "value": "CustomIdentityAndCustomTrust", "labelKey": "options-custom-identity-and-custom-trust-label" },
+          { "value": "CustomIdentityAndJavaStandardTrust", "labelKey": "options-custom-identity-and-java-standard-trust-label" }
+        ]
+      },
+      "UseKSSForDemo": {
+        "disabled": "nodeManagerDemoIdentityAndTrustFields"
+      },
+      "weblogic.StartScriptName": {
+        "disabled": "nodeManagerWebLogicStartScriptFields"
+      },
+      "weblogic.StopScriptName": {
+        "disabled": "nodeManagerWebLogicStopScriptFields"
+      }
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "ListenAddress",
+              "ListenPort",
+              "NativeVersionEnabled",
+              "SecureListener",
+              "AuthenticationEnabled"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "attributes": [
+              "ListenBacklog",
+              "StateCheckInterval",
+              "WebLogicHome",
+              "NodeManagerHome",
+              "DomainsFileEnabled",
+              "DomainsFile",
+              "DomainsDirRemoteSharingEnabled",
+              "CrashRecoveryEnabled",
+              "QuitEnabled",
+              "ProcessDestroyTimeout"
+            ],
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "CertificateFile",
+          "CoherenceStartScriptEnabled",
+          "CoherenceStartScriptName",
+          "DomainRegistrationEnabled",
+          "JavaHome",
+          "KeyFile",
+          "KeyPassword",
+          "PropertiesVersion"
+        ]
+      },
+      {
+        "type": "tab",
+        "labelKey": "node-manager-start-stop-scripts-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "weblogic.StartScriptEnabled",
+              "weblogic.StartScriptName",
+              "weblogic.StopScriptEnabled",
+              "weblogic.StopScriptName"
+            ]
+          },
+          {
+            "type": "attributes",
+            "labelKey": "node-manager-coherence-start-scripts-title",
+            "attributes": [
+              "coherence.StartScriptEnabled",
+              "coherence.StartScriptName"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "tab",
+        "labelKey": "node-manager-ssl-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "KeyStores",
+              "UseKSSForDemo",
+              "DomainKeystoresDomain",
+              "JavaStandardTrustKeyStorePassPhrase",
+              "CustomIdentityAlias",
+              "CustomIdentityKeyStoreFileName",
+              "CustomIdentityKeyStorePassPhrase",
+              "CustomIdentityKeyStoreType",
+              "CustomIdentityPrivateKeyPassPhrase",
+              "CipherSuites"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "tab",
+        "labelKey": "node-manager-logging-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "LogFile",
+              "LogLevel",
+              "LogCount",
+              "LogLimit",
+              "LogToStderr",
+              "LogAppend",
+              "LogFormatter"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "tab",
+        "labelKey": "node-manager-network-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "Interface",
+              "InterfaceName",
+              "NetMask",
+              "weblogic.IfConfigDir",
+              "weblogic.UseMACBroadcast"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

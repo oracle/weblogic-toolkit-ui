@@ -34,6 +34,7 @@
   "log-monitoring-settings-title": "Log Monitoring Settings",
   "stdout-log-settings-title": "Standard Out Log Settings",
   "configuration-properties-title": "Configuration Properties",
+  "node-manager-coherence-start-scripts-title": "Coherence Start Script Settings",
 
   "general-tab-label": "General",
   "attributes-tab-label": "Attributes",
@@ -66,6 +67,10 @@
   "work-manager-shutdown-trigger-tab-label": "Shutdown Trigger",
   "security-tab-label": "Security Configuration",
   "ssl-tab-label": "SSL Configuration",
+  "node-manager-start-stop-scripts-tab-label": "Start/Stop Scripts",
+  "node-manager-ssl-tab-label": "SSL Configuration",
+  "node-manager-network-tab-label": "Network Configuration",
+  "node-manager-logging-tab-label": "Logging",
 
   "security-model-advanced-label": "Advanced",
   "security-model-custom-roles-label": "Custom Roles",
@@ -250,6 +255,11 @@
   "options-username-token-profile-label": "Username Token Profile",
   "options-x509-token-profile-label": "X.509 Token Profile",
   "options-saml-token-profile-label": "SAML Token Profile",
+  "options-domain-keystores-label": "Domain Keystores",
+  "options-demo-identity-and-demo-trust-label": "Demo Identity and Demo Trust",
+  "options-custom-identity-and-java-standard-trust-label": "Custom Identity and Java Standard Trust",
+  "options-custom-identity-and-custom-trust-label": "Custom Identity and Custom Trust",
+  "options-custom-identity-and-command-line-trust-label": "Custom Identity and Command-Line Trust",
 
   "direction-jms-queue-to-tuxedo-queue-label": "JMS Queue to Tuxedo Queue",
   "direction-tuxedo-queue-to-jms-queue-label": "Tuxedo Queue to JMS Queue",
@@ -576,6 +586,7 @@
   "f-any_Realm-a-AuthMethods-help": "The list of authentication methods that should be used when the Web application specifies \"REALM\" as its auth-method. The authentication methods will be applied in order in which they appear in the list.",
 
   "a-AuthenticationEnabled-label": "Authentication Enabled",
+  "f-NMProperties-a-AuthenticationEnabled-help": "If set to true, Node Manager authenticates the credentials against the domain.",
 
   "a-AuthenticationProtocol-label": "Authentication Protocol",
   "a-AuthenticationProtocol-help": "The protocol that this SNMP agent uses to ensure that only authorized users can request or receive information about your WebLogic Server domain. Applicable only with SNMPv3. The protocol also ensures message integrity and prevents masquerading and reordered, delayed, or replayed messages. To use this protocol when receiving requests from SNMP managers, you must configure credential mapping in the WebLogic Server security realm. To use this protocol when sending responses or notifications, you must configure the security level of your trap destinations. If you do not choose an authentication protocol, then the SNMP agent does not authenticate incoming SNMPv3 requests; anyone can use SNMPv3 to retrieve information about your WebLogic Server domain.",
@@ -794,7 +805,10 @@
   "f-JTA-a-CheckpointIntervalSeconds-help": "The interval at which the transaction manager creates a new transaction log file and checks all old transaction log files to see if they are ready to be deleted.",
 
   "a-ChunkedTransferDisabled-label": "Chunked Transfer Disabled",
+
   "a-CipherSuites-label": "Cipher Suites",
+  "f-NMProperties-a-CipherSuites-help": "Specifies the name of the cipher suites to use with the node manager's SSL listener. You can specify multiple cipher suite values separated by a comma, for example: CipherSuites=SUITE_A,SUITE_B,SUITE_C. The strongest negotiated cipher suite is chosen during the SSL handshake. The set of cipher suites used by default by JSSE depends on the specific JDK version with which node manager is configured.",
+
   "a-Ciphersuite-label": "Ciphersuite",
   "a-Class-label": "Class",
   "a-ClassChangeNotifier-label": "Class Change Notifier",
@@ -1108,6 +1122,8 @@
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-CountOfTestFailuresTillFlush-help": "Specifies the number of test failures allowed before WebLogic Server closes all unused connections in a connection pool to minimize the delay caused by further database testing. Zero means it is disabled.",
 
   "a-CrashRecoveryEnabled-label": "Crash Recovery Enabled",
+  "f-NMProperties-a-CrashRecoveryEnabled-help": "Specifies whether the node manager is allowed to restart a failed server while the node manager was not running.",
+
   "a-CreateOnDemand-label": "Create On Demand",
 
   "a-CreateTableDDLFile-label": "Create Table DDL File",
@@ -1201,12 +1217,23 @@
   "a-CustomClusterConfigurationFileName-help": "The name of the external custom Coherence operational configuration override file. The user must make sure the file exist and is located in either the WDT archive file or in the domain home under the config/coherence/$CoherenceClusterName directory",
 
   "a-CustomConfigFileLastUpdatedTime-label": "Custom Config File Last Updated Time",
+
   "a-CustomIdentityAlias-label": "Custom Identity Alias",
+  "f-NMProperties-a-CustomIdentityAlias-help": "Specifies the alias when loading the private key into the keystore. This property is required when the Keystores property is set as CustomIdentityAndCustomTrust or CustomIdentityAndJavaStandardTrust.",
+
   "a-CustomIdentityKeyStoreFileName-label": "Custom Identity Key Store File Name",
+  "f-NMProperties-a-CustomIdentityKeyStoreFileName-help": "Specifies the file location and name of the identity keystore (meaning the keystore that contains the certificate and private key for the Node Manager). This property is required when the Keystores property is set as CustomIdentityAndCustomTrust or CustomIdentityAndJavaStandardTrust.",
+
   "a-CustomIdentityKeyStorePassPhrase-label": "Custom Identity Key Store Passphrase",
+  "f-NMProperties-a-CustomIdentityKeyStorePassPhrase-help": "Specifies the password defined when creating the Identity keystore. This field is optional or required depending on the type of keystore. All keystores require the passphrase to write to the keystore. However, some keystores do not require the passphrase to read from the keystore. Oracle WebLogic Server reads only from the keystore. So, whether or not you define this property depends on the requirements of the keystore.",
+
   "a-CustomIdentityKeyStorePassPhraseEncrypted-label": "Custom Identity Key Store Passphrase Encrypted",
+
   "a-CustomIdentityKeyStoreType-label": "Custom Identity Key Store Type",
+  "f-NMProperties-a-CustomIdentityKeyStoreType-help": "Specifies the type of the identity keystore. Generally, this is JKS or PKCS12. This property is optional. If not specified, the JDK default keystore type in the java.security file is used.",
+
   "a-CustomIdentityPrivateKeyPassPhrase-label": "Custom Identity Private Key Passphrase",
+  "f-NMProperties-a-CustomIdentityPrivateKeyPassPhrase-help": "Specifies the password used to retrieve the private key for Oracle WebLogic Server from the Identity keystore. This property is required when the Keystores property is set as CustomIdentityAndCustomTrust or CustomIdentityAndJavaStandardTrust.",
 
   "a-CustomNotificationProperties-label": "Custom Notification Properties",
   "f-WLDFSystemResource_WLDFResource_WatchNotification_RestNotification-a-CustomNotificationProperties-help": "Allows customizing the JSON object delivered to the REST endpoint.",
@@ -1988,7 +2015,10 @@
 
   "a-DocumentBuilderFactory-label": "Document Builder Factory",
   "a-DomainKeystoresClientCertAlias-label": "Domain Keystores Client Cert Alias",
+
   "a-DomainKeystoresDomain-label": "Domain Keystores Domain",
+  "f-NMProperties-a-DomainKeystoresDomain-help": "Specifies the domain name of the domain that hosts the machine keystores for this Node Manager instance. The domain name must match one of the domains in the nodemanager.domains file. Only set this property if KeyStores is set to DomainKeystores and this is a per-host (not per-domain) configuration.",
+
   "a-DomainKeystoresServerCertAlias-label": "Domain Keystores Server Cert Alias",
 
   "a-DomainLogBroadcastFilter-label": "Domain Log Broadcast Filter",
@@ -2005,9 +2035,15 @@
 
   "a-DomainRegistrationEnabled-label": "Domain Registration Enabled",
   "a-DomainVersion-label": "Domain Version",
-  "a-DomainsDirRemoteSharingEnabled-label": "Domains Dir Remote Sharing Enabled",
+
+  "a-DomainsDirRemoteSharingEnabled-label": "Domains Directory Remote Sharing Enabled",
+  "f-NMProperties-a-DomainsDirRemoteSharingEnabled-help": "Specifies whether Node Manager is monitoring a shared domain directory. As such, more than one Node Manager may be monitoring the shared directory from different machines. Set to true to indicate that you have a shared domain directory (mounted directory or Windows NFS) that multiple nodes will be sharing. Enabling this property allows multiple Node Managers to share the domain without affecting each other.",
+
   "a-DomainsFile-label": "Domains File",
+  "f-NMProperties-a-DomainsFile-help": "The path to the node manager's nodemanager.domains file. This property is only relevant for a per-host node manager configuration.",
+
   "a-DomainsFileEnabled-label": "Domains File Enabled",
+  "f-NMProperties-a-DomainsFileEnabled-help": "If set to true, use the file specified in DomainsFile. If false, assumes the domain of the current directory or of WL_HOME. This property is only relevant for a per-host node manager configuration.",
 
   "a-DowngradeUntrustedPrincipals-label": "Downgrade Untrusted Principals",
   "f-SecurityConfiguration-a-DowngradeUntrustedPrincipals-help": "Whether or not to downgrade to anonymous principals that cannot be verified. This is useful for server-server communication between untrusted domains.",
@@ -2575,9 +2611,15 @@
   "a-InstalledVMMAdapter-label": "Installed VMM Adapter",
   "a-InstrumentStackTraceEnabled-label": "Instrument Stack Trace Enabled",
   "a-InterClusterCommLinkHealthCheckInterval-label": "Inter Cluster Comm Link Health Check Interval",
+
   "a-Interface-label": "Interface",
+  "f-NMProperties-a-Interface-help": "The primary interface names used by migratable servers. For server migration, the primary interface names used by migratable servers must be the same.\n\nSee the <InterfaceName> property for more flexibility specifying multiple interfaces and a corresponding range of IP addresses that should be bound to a specific interface.",
+
   "a-InterfaceAddress-label": "Interface Address",
+
   "a-InterfaceName-label": "Interface Name",
+  "f-NMProperties-a-InterfaceName-help": "An interface name along with a corresponding range of IP addresses and optional netmask value that should be bound to this specific network interface when migratable servers are started. Syntax: <InterfaceName>=<IP_RANGE_MIN>-<IP_RANGE_MAX>,(optional) NetMask=<NETMASK_ADDRESS>",
+
   "a-InternalApp-label": "Internal App",
   "a-InternalAppsDeployOnDemandEnabled-label": "Internal Apps Deploy On Demand Enabled",
 
@@ -2675,6 +2717,8 @@
   "f-any_CertificateManagement-a-JavaStandardTrustEnabled-help": "Whether or not the domain should trust the Java Standard Trust certificates, in addition to the Domain Certificate Authority certificate(s) and any Provisioned Trust certificates. Java Standard Trust is a collection of well-known, trusted root certificate authorities distributed (and updated) as part of the JDK.",
 
   "a-JavaStandardTrustKeyStorePassPhrase-label": "Java Standard Trust Key Store Passphrase",
+  "f-NMProperties-a-JavaStandardTrustKeyStorePassPhrase-help": "Specifies the password defined when creating the Trust keystore. This field is optional or required depending on the type of keystore. All keystores require the passphrase in order to write to the keystore. However, some keystores do not require the passphrase to read from the keystore. Oracle WebLogic Server reads only from the keystore, so whether or not you define this property depends on the requirements of the keystore. This property is required when the Keystores property is set as CustomIdentityAndJavaStandardTrust or DemoIdentityAndDemoTrust.",
+
   "a-JavaStandardTrustKeyStorePassPhraseEncrypted-label": "Java Standard Trust Key Store Passphrase Encrypted",
 
   "a-JavaVendor-label": "Java Vendor",
@@ -2754,7 +2798,9 @@
   "a-KeyStoreProvider-label": "Key Store Provider",
   "a-KeyStoreType-label": "Key Store Type",
   "a-KeyStoreTypes-label": "Key Store Types",
+
   "a-KeyStores-label": "Key Stores",
+  "f-NMProperties-a-KeyStores-help": "Specifies the configuration that Node Manager uses to find its identity (private key and digital certificate) and trust (trusted CA certificates) keystores.",
 
   "a-KeyStoresLocation-label": "Key Stores Location",
   "f-WTCServer_WTCLocalTuxDom-a-KeyStoresLocation-help": "Provides the configuration rule to be used for finding Local Access Point's identity key store and trust key store. In plain text, it contains information on where the identity key store and trust key store are configured. When KeyStoreLocation is configured with WLS Store, WTC uses configuration information from the WLS Key Stores configuration. Otherwise, it uses the key stores information configured in the Local Access Point.",
@@ -2778,12 +2824,16 @@
   "f-any_SNMPProxy-a-ListenAddress-help": "The address on which the external SNMP agent for which the WebLogic SNMP Agent is acting as a proxy is listening for incoming requests from SNMP managers that use the UDP protocol. If not specified the Server's ListenAddress is used as the ListenAddress of the external SNMPAgent.",
   "f-SNMPAgent-a-ListenAddress-help": "The listen address on which you want this SNMP agent to listen for incoming requests from SNMP managers that use the UDP protocol. If not specified the Server's ListenAddress is used as the ListenAddress for the SNMPAgent.",
   "f-SnmpAgentDeployment-a-ListenAddress-help": "The listen address on which you want this SNMP agent to listen for incoming requests from SNMP managers that use the UDP protocol. If not specified the Server's ListenAddress is used as the ListenAddress for the SNMPAgent.",
+  "f-NMProperties-a-ListenAddress-help": "Any address upon which the machine running Node Manager can listen for connection requests.",
 
   "a-ListenBacklog-label": "Listen Backlog",
+  "f-NMProperties-a-ListenBacklog-help": "Maximum number of Node Manager backlog requests that the listener will accept; the default value is 50. Additional incoming requests will be dropped until the backlogged requests are handled. Typically, you need not adjust this property.",
+
   "a-ListenDelaySecs-label": "Listen Delay Secs",
 
   "a-ListenPort-label": "Listen Port",
   "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceClusterParams_CoherenceClusterWellKnownAddress-a-ListenPort-help": "The listen port. Deprecated in 12.2.1 since the well-known address no longer needs a port to bne specified.",
+  "f-NMProperties-a-ListenPort-help": "Specifies the TCP port number on which Node Manager listens for connection requests.",
 
   "a-ListenPortEnabled-label": "Listen Port Enabled",
   "a-ListenThreadDebug-label": "Listen Thread Debug",
@@ -2871,11 +2921,18 @@
   "a-LockoutResetDuration-label": "Lockout Reset Duration",
   "a-LockoutThreshold-label": "Lockout Threshold",
   "a-Log4jLoggingEnabled-label": "Log 4j Logging Enabled",
+
   "a-LogAppend-label": "Log Append",
+  "f-NMProperties-a-LogAppend-help": "If set to true, then a new log file is not created when Node Manager restarts; the existing log is appended instead.",
+
   "a-LogCount-label": "Log Count",
+  "f-NMProperties-a-LogCount-help": "Maximum number of log files to create when LogLimit exceeds.",
+
   "a-LogCriticalRemoteExceptionsEnabled-label": "Log Critical Remote Exceptions Enabled",
   "a-LogDGCStatistics-label": "Log DGC Statistics",
+
   "a-LogFile-label": "Log File",
+  "f-NMProperties-a-LogFile-help": "Location of the Node Manager log file.",
 
   "a-LogFileFilter-label": "Log File Filter",
   "f-Log-a-LogFileFilter-help": "The filter configuration for the domain log file. A filter configuration defines simple filtering rules to limit the volume of log messages written to the log file.",
@@ -2894,9 +2951,16 @@
   "f-Log-a-LogFileSeverity-help": "The minimum severity of log messages going to the domain log file.",
 
   "a-LogFormatCompatibilityEnabled-label": "Log Format Compatibility Enabled",
+
   "a-LogFormatter-label": "Log Formatter",
+  "f-NMProperties-a-LogFormatter-help": "Specifies the formatter classname to use for Node Manager log messages.",
+
   "a-LogLevel-label": "Log Level",
+  "f-NMProperties-LogLevel-help": "Severity level of logging used for the Node Manager log. Node Manager uses the standard logging levels from the java.util.logging.level package.",
+
   "a-LogLimit-label": "Log Limit",
+  "f-NMProperties-a-LogLimit-help": "Specifies the maximum size of the Node Manager log specified as an integer in bytes. When this limit is reached, a new log file is started.",
+
   "a-LogMilliSeconds-label": "Log Milli Seconds",
 
   "a-LogMonitoringEnabled-label": "Log Monitoring Enabled",
@@ -2916,7 +2980,9 @@
 
   "a-LogRemoteExceptionsEnabled-label": "Log Remote Exceptions Enabled",
   "a-LogTimeInGMT-label": "Log Time In GMT",
+
   "a-LogToStderr-label": "Log To Stderr",
+  "f-NMProperties-a-LogToStderr-help": "If set to true, the log output is also sent to the standard error output.",
 
   "a-LogWatchSeverity-label": "Log Watch Severity",
   "f-WLDFSystemResource_WLDFResource_WatchNotification-a-LogWatchSeverity-help": "The threshold severity level of log messages evaluated by log policies. Messages with a lower severity than this value will be ignored and not evaluated against the policies. Do not confuse LogWatchSeverity with Severity. LogWatchSeverity filters which log messages will be evaluated; Severity sets the default severity level for an action.",
@@ -3363,12 +3429,16 @@
 
   "a-NativeIOEnabled-label": "Native I/O Enabled",
   "a-NativeModeEnabled-label": "Native Mode Enabled",
+
   "a-NativeVersionEnabled-label": "Native Version Enabled",
+  "f-NMProperties-a-NativeVersionEnabled-help": "A value of true causes native libraries for the operating system to be used. For UNIX systems other than Solaris or Linux, set this property to false to run Node Manager in non-native mode. nFor MacOS, set NativeVersionEnabled=false or Node Manager will fail to start.",
 
   "a-NeedTxCtxOnClose-label": "Need Transaction Context On Close",
   "f-JDBCSystemResource_JdbcResource_JDBCXAParams-a-NeedTxCtxOnClose-help": "Specifies whether the XA driver requires a distributed transaction context when closing various JDBC objects (result sets, statements, connections, and so forth). Only applies to connection pools that use an XA driver. When enabled, SQL exceptions that are thrown while closing the JDBC objects without a transaction context will be suppressed. Use this setting to work around specific problems with JDBC XA drivers.",
 
   "a-NetMask-label": "Net Mask",
+  "f-NMProperties-a-NetMask-help": "The subnet mask for your network. For server migration, each Managed Server must use the same subnet mask to enable unicast and multicast communication among servers. See the <InterfaceName> property for more flexibility entering multiple interfaces and corresponding netmask values.",
+
   "a-NetworkAccessPoint-label": "Network Access Point",
   "a-NetworkClassLoadingEnabled-label": "Network Class Loading Enabled",
 
@@ -3376,6 +3446,7 @@
   "f-JDBCSystemResource_JdbcResource_JDBCXAParams-a-NewXaConnForCommit-help": "Specifies that a dedicated XA connection is used for commit and rollback processing for a global transaction. Only applies to data sources that use an XA driver. Use this setting to work around specific problems with JDBC XA drivers.",
 
   "a-NodeManagerHome-label": "Node Manager Home",
+  "f-NMProperties-a-NodeManagerHome-help": "Node Manager root directory which contains the node manager's following configuration and log files.",
 
   "a-NodeManagerPasswordEncrypted-label": "Node Manager Password",
   "f-SecurityConfiguration-a-NodeManagerPasswordEncrypted-help": "The password that the Administration Server uses to communicate with Node Manager when starting, stopping, or restarting Managed Servers.",
@@ -3750,6 +3821,7 @@
   "f-WTCServer_WTCLocalTuxDom-a-PrivateKeyPassPhraseEncrypted-help": "The encrypted passphrase used to retrieve the Local Tuxedo access point's private key from the keystore. This passphrase is assigned to the private key when it is generated.",
 
   "a-ProcessDestroyTimeout-label": "Process Destroy Timeout",
+  "f-NMProperties-a-ProcessDestroyTimeout-help": "Specifies the time a NodeManager waits to check if the Managed Server that was started by the start script is stopped. If NativeVersionEnabled is set to false (default value is true), a start script starts the monitored Managed Server and that will be a child process. In this case, the ProcessDestroyTimeout value (by default 20 seconds) determines how long the Node Manager should wait to check if the Managed Server is stopped.",
 
   "a-ProducerLoadBalancingPolicy-label": "Producer Load Balancing Policy",
   "a-ProducerLoadBalancingPolicy-help": "The Producer Load Balancing Policy restricts where a JMS Message Producer can load balance its messages among members of a distributed destination (DD).",
@@ -3827,6 +3899,7 @@
   "f-SelfTuning_MaxThreadsConstraint-a-QueueSize-help": "Desired size of the MaxThreadsConstraint queue for requests pending execution.",
 
   "a-QuitEnabled-label": "Quit Enabled",
+  "f-NMProperties-a-QuitEnabled-help": "If set to true, allows you to remotely stop Node Manager. WLST overrides the default value, false, when stopping Node Manager using the stopNodeManager() command.",
 
   "a-Quota-label": "Quota",
   "a-Quota-help": "The Quota name that controls the allotment of system resources available to the destination. For example, the number of bytes a destination is allowed to store can be configured with a Quota.",
@@ -4232,7 +4305,9 @@
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-SecondsToTrustAnIdlePoolConnection-help": "The number of seconds within a connection use that WebLogic Server trusts that the connection is still viable and will skip the connection test, either before delivering it to an application or during the periodic connection testing process. This option is an optimization that minimizes the performance impact of connection testing, especially during heavy traffic.",
 
   "a-SecureClusterBroadcastEnabled-label": "Secure Cluster Broadcast Enabled",
+
   "a-SecureListener-label": "Secure Listener",
+  "f-NMProperties-a-SecureListener-help": "If set to true, use the SSL listener, otherwise use the plain socket.",
 
   "a-SecureModeEnabled-label": "Secure Mode Enabled",
   "f-any_SecureMode-a-SecureModeEnabled-help": "Specifies whether the domain will run in secure mode. In secure mode, the configuration defaults are those recommended for securing a domain. The authorization policies for JNDI and MBean access are more restrictive in secure mode. In addition, WLS will validate the domain configuration and log warnings and errors for any insecure settings. Secure mode requires the domain to be in production mode.",
@@ -4489,7 +4564,9 @@
   "a-StartupTimeout-label": "Startup Timeout",
   "a-StartupTimeoutNumOfThreadDump-label": "Startup Timeout Num Of Thread Dump",
   "a-StartupTimeoutThreadDumpInterval-label": "Startup Timeout Thread Dump Interval",
+
   "a-StateCheckInterval-label": "State Check Interval",
+  "f-NMProperties-a-StateCheckInterval-help": "Specifies the interval Node Manager waits to perform a check of the server state.",
 
   "a-StatementCacheSize-label": "Statement Cache Size",
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-StatementCacheSize-help": "The number of prepared and callable statements stored in the cache. (This may increase server performance.) WebLogic Server can reuse statements in the cache without reloading the statements, which can increase server performance. Each connection in the connection pool has its own cache of statements. Setting the size of the statement cache to 0 turns off statement caching.",
@@ -5078,7 +5155,10 @@
   "f-SecurityConfiguration-a-WebAppFilesCaseInsensitive-help": "This property defines the case sensitive URL-pattern matching behavior for security constraints, servlets, filters, virtual-hosts, and so on, in the Web application container and external security policies. Note: This is a Windows-only flag that is provided for backward compatibility when upgrading from pre-9.0 versions of WebLogic Server. On Unix platforms, setting this value to true causes undesired behavior and is not supported. When the value is set to os, the pattern matching will be case- sensitive on all platforms except the Windows file system. Note that on non-Windows file systems, WebLogic Server does not enforce case sensitivity and relies on the file system for optimization. As a result, if you have a Windows Samba mount from Unix or Mac OS that has been installed in case-insensitive mode, there is a chance of a security risk. If so, specify case-insensitive lookups by setting this attribute to true. Note also that this property is used to preserve backward compatibility on Windows file systems only. In prior releases, WebLogic Server was case- insensitive on Windows. As of WebLogic Server 9.0, URL-pattern matching is strictly enforced. During the upgrade of older domains, the value of this parameter is explicitly set to os by the upgrade plug-in to preserve backward compatibility.",
 
   "a-WebDeployment-label": "Web Deployment",
+
   "a-WebLogicHome-label": "WebLogic Home",
+  "f-NMProperties-a-WebLogicHome-help": "Root directory of the Oracle WebLogic Server installation. This is used as the default value of -Dweblogic.RootDirectory for a Managed Server that does not have a root directory configured in its Remote Start page. If not specified in either place, Node Manager starts the Managed Server in the directory where Node Manager runs.",
+
   "a-WebModule-label": "Web Module",
   "a-WebRjvmSupport-label": "Web RJVM Support",
 
@@ -5168,8 +5248,13 @@
   "a-atp_default_tablespace-label": "ATP Default Tablespace",
   "a-atp_temp_tablespace-label": "ATP Temp Tablespace",
   "a-c-label": "c",
+
   "a-coherence_StartScriptEnabled-label": "Coherence Start Script Enabled",
+  "f-NMProperties-a-coherence_StartScriptEnabled-help": "If set to true, execute the start script specified by coherence.StartScriptName to start the server instance.",
+
   "a-coherence_StartScriptName-label": "Coherence Start Script Name",
+  "f-NMProperties-a-coherence_StartScriptName-help": "The name of the script to be executed to start the server.",
+
   "a-compInfoXMLLocation-label": "Comp Info XML Location",
   "a-databaseType-label": "Database Type",
   "a-departmentnumber-label": "departmentnumber",
@@ -5219,12 +5304,24 @@
   "a-telephonenumber-label": "telephonenumber",
   "a-title-label": "title",
   "a-tns_alias-label": "TNS Alias",
-  "a-weblogic_IfConfigDir-label": "WebLogic If Config Dir",
+
+  "a-weblogic_IfConfigDir-label": "WebLogic IfConfig Directory",
+  "f-NMProperties-a-weblogic_IfConfigDir-help": "This configuration property sets a different directory for the location of the wlsifconfig.sh/.cmd script.",
+
   "a-weblogic_StartScriptEnabled-label": "WebLogic Start Script Enabled",
+  "f-NMProperties-a-weblogic_StartScriptEnabled-help": "If set to true, execute the start script specified by weblogic.StartScriptName to start the server instance.",
+
   "a-weblogic_StartScriptName-label": "WebLogic Start Script Name",
+  "f-NMProperties-a-weblogic_StartScriptName-help": "The name of the script to be executed to start the server.",
+
   "a-weblogic_StopScriptEnabled-label": "WebLogic Stop Script Enabled",
+  "f-NMProperties-a-weblogic_StopScriptEnabled-help": "If set to true, execute the stop script specified by weblogic.StopScriptName to stop the server instance.",
+
   "a-weblogic_StopScriptName-label": "WebLogic Stop Script Name",
+  "f-NMProperties-a-weblogic_StopScriptName-help": "The name of the script to be executed to shutdown the server.",
+
   "a-weblogic_UseMACBroadcast-label": "WebLogic Use MAC Broadcast",
+  "f-NMProperties-a-weblogic_UseMACBroadcast-help": "Specifies whether or not to use a node's MAC address when sending ARP packets, that is, whether or not to use the -b flag in the arping command. When Node Manager binds IP addresses for automatic server migration, it also uses the arping command to attempt to notify nodes in the network that the machine is now using the virtual IP address. When weblogic.UseMACBroadcast=true, Node Manager uses the arping command with the -b flag.",
 
   "f-any-nameHelp": "Name of {{folderType}}",
   "f-any-nameLabel": "{{folderType}} Name",
