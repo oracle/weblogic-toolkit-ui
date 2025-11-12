@@ -178,6 +178,54 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
         return this._disableFieldsUsingBooleanAttribute(attributeMap, 'CorsEnabled');
       };
 
+      this.nodeManagerDomainsFileFields = attributeMap => {
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'DomainsFileEnabled');
+      };
+
+      this.nodeManagerDemoIdentityAndTrustFields = attributeMap => {
+        const keystoresType = attributeMap['KeyStores'];
+        return ko.computed(() => {
+          const type = ModelEditHelper.getDerivedValue(keystoresType.observable());
+          return type !== 'DemoIdentityAndDemoTrust';
+        });
+      };
+
+      this.nodeManagerJavaTrustFields = attributeMap => {
+        const keystoresType = attributeMap['KeyStores'];
+        return ko.computed(() => {
+          const type = ModelEditHelper.getDerivedValue(keystoresType.observable());
+          return type !== 'CustomIdentityAndJavaStandardTrust' && type !== 'DemoIdentityAndDemoTrust';
+        });
+      };
+
+      this.nodeManagerCustomIdentityFields = attributeMap => {
+        const keystoresType = attributeMap['KeyStores'];
+        return ko.computed(() => {
+          const type = ModelEditHelper.getDerivedValue(keystoresType.observable());
+          return type !== 'CustomIdentityAndJavaStandardTrust' && type !== 'CustomIdentityAndCustomTrust';
+        });
+      };
+
+      this.nodeManagerDomainKeystoresFields = attributeMap => {
+        const keystoresType = attributeMap['KeyStores'];
+        return ko.computed(() => {
+          const type = ModelEditHelper.getDerivedValue(keystoresType.observable());
+          return type !== 'DomainKeystores';
+        });
+      };
+
+      this.nodeManagerCoherenceStartScriptFields = attributeMap => {
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'coherence.StartScriptEnabled');
+      };
+
+      this.nodeManagerWebLogicStartScriptFields = attributeMap => {
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'weblogic.StartScriptEnabled');
+      };
+
+      this.nodeManagerWebLogicStopScriptFields = attributeMap => {
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'weblogic.StopScriptEnabled');
+      };
+
       this._disableFieldsUsingBooleanAttribute = (attributeMap, booleanAttributeName) => {
         const fieldObservable = attributeMap[booleanAttributeName];
         return ko.computed(() => {

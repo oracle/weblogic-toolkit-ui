@@ -59,7 +59,6 @@
               "ShutdownGracePeriod",
               "UnregisterResourceGracePeriod",
               "RecoverySiteName",
-              "CrossDomainRecoveryRetryInterval",
               "CrossSiteRecoveryRetryInterval",
               "CrossSiteRecoveryLeaseExpiration",
               "CrossSiteRecoveryLeaseUpdate",
@@ -76,6 +75,7 @@
       {
         "type": "hidden",
         "attributes": [
+          "CrossDomainRecoveryRetryInterval",
           "RecoveryThresholdMillis"
         ]
       },
