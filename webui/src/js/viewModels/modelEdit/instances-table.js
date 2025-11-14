@@ -174,6 +174,8 @@ function(accUtils, ko, InstanceHelper, ModelEditHelper, MessageHelper, Navigatio
               const instancePath = [...MODEL_PATH, newName];
               ModelEditHelper.addFolder(instancePath, result.providerType);
             }
+
+            NavigationHelper.openNavigation(MODEL_PATH);  // open parent
           }
         });
     };
