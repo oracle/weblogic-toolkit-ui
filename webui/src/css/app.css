@@ -959,6 +959,16 @@ h6.wkt-panel-heading {
   border-bottom: var(--wkt-model-edit-table-grid-border);
 }
 
+.wkt-model-edit-reorder-cell {
+  display: flex;
+  flex-direction: column;
+}
+
+.wkt-model-edit-reorder-cell button {
+  height: 21px;
+  min-width: 21px;
+}
+
 /* for list table, change the style of the existing border */
 .wkt-model-edit-list-table {
   border-color: var(--wkt-model-edit-border-color) !important;

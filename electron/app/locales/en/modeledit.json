@@ -18,6 +18,8 @@
   "delete-title": "Delete {{type}} \"{{name}}\"?",
   "rename-label": "Rename",
   "rename-title": "Rename {{type}} \"{{name}}\"",
+  "move-up-label": "Move Up",
+  "move-down-label": "Move Down",
 
   "anonymous-access-title": "Anonymous Access",
   "cross-domain-security-cache-title": "Cross Domain Security Cache",

@@ -25,6 +25,8 @@ function(accUtils, ko, InstanceHelper, ModelEditHelper, MessageHelper, Navigatio
 
     this.addLabel = MessageHelper.getAddInstanceMessage(ALIAS_PATH);
     this.deleteLabel = MessageHelper.getDeleteInstanceMessage(ALIAS_PATH);
+    this.moveUpLabel = MessageHelper.t('move-up-label');
+    this.moveDownLabel = MessageHelper.t('move-down-label');
     this.emptyMessage = MessageHelper.getNoInstancesMessage(ALIAS_PATH);
     this.ariaLabel = MODEL_PATH[MODEL_PATH.length - 1] + ' Instances Table';
 
@@ -90,8 +92,8 @@ function(accUtils, ko, InstanceHelper, ModelEditHelper, MessageHelper, Navigatio
       }
     };
 
-    const reorderable = this.useTypeFolder;  // TODO: allow metadata configuration, implement reordering
-    const defaultSortable = reorderable ? 'disabled' : 'enabled';
+    this.reorderable = MetaHelper.canReorder(ALIAS_PATH) || this.useTypeFolder;
+    const defaultSortable = this.reorderable ? 'disabled' : 'enabled';
 
     this.instancesColumnData = [
       {
@@ -127,6 +129,16 @@ function(accUtils, ko, InstanceHelper, ModelEditHelper, MessageHelper, Navigatio
         sortable: defaultSortable,
         sortProperty: attributeName,
         resizable: 'enabled'
+      });
+    }
+
+    if (this.reorderable) {
+      this.instancesColumnData.push({
+        className: 'wkt-table-delete-cell',
+        headerClassName: 'wkt-table-add-header',
+        template: 'actionTemplate',
+        sortable: 'disabled',
+        width: '30px'
       });
     }
 
@@ -186,6 +198,30 @@ function(accUtils, ko, InstanceHelper, ModelEditHelper, MessageHelper, Navigatio
 
     this.editInstance = (event, context) => {
       NavigationHelper.navigateToElement(MODEL_PATH, context.item.data.name);
+    };
+
+    this.canMoveUp = rowData => {
+      const parentFolder = ModelEditHelper.getFolder(MODEL_PATH);
+      const folderNames = Object.keys(parentFolder);
+      const folderName = rowData.name;
+      return folderNames.indexOf(folderName) > 0;
+    };
+
+    this.canMoveDown = rowData => {
+      const parentFolder = ModelEditHelper.getFolder(MODEL_PATH);
+      const folderNames = Object.keys(parentFolder);
+      const folderName = rowData.name;
+      return folderNames.indexOf(folderName) < folderNames.length - 1;
+    };
+
+    this.moveUp = (event, context) => {
+      const folderName = context.item.data.name;
+      ModelEditHelper.moveFolder(folderName, MODEL_PATH, true);
+    };
+
+    this.moveDown = (event, context) => {
+      const folderName = context.item.data.name;
+      ModelEditHelper.moveFolder(folderName, MODEL_PATH, false);
     };
   }
 

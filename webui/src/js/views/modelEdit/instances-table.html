@@ -30,6 +30,28 @@
           <td><oj-bind-text value="[[row.data[eachAttribute.data]]]"></oj-bind-text></td>
         </template>
       </oj-bind-for-each>
+      <oj-bind-if test="[[reorderable]]">
+        <td>
+          <div class="wkt-model-edit-reorder-cell">
+          <oj-c-button display="icons"
+                       chroming="borderless"
+                       size="sm"
+                       label="[[moveUpLabel]]"
+                       disabled="[[!canMoveUp(row.data)]]"
+                       on-oj-action="[[moveUp]]">
+            <span slot="endIcon" class="oj-ux-ico-chevron-up"></span>
+          </oj-c-button>
+          <oj-c-button display="icons"
+                       chroming="borderless"
+                       size="sm"
+                       label="[[moveDownLabel]]"
+                       disabled="[[!canMoveDown(row.data)]]"
+                       on-oj-action="[[moveDown]]">
+            <span slot="endIcon" class="oj-ux-ico-chevron-down"></span>
+          </oj-c-button>
+          </div>
+        </td>
+      </oj-bind-if>
       <td>
         <oj-c-button display="icons"
                      chroming="borderless"
