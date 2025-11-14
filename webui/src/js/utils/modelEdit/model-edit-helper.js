@@ -147,6 +147,27 @@ function (ko, jsYaml, project, utils,
       return findOrCreatePath(editModel, modelPath);
     };
 
+    this.moveFolder = (folderName, modelPath, moveUp) => {
+      const parentFolder = this.getFolder(modelPath);
+      const originalFolders = {...parentFolder};
+      const folderNames = Object.keys(parentFolder);
+      const index = folderNames.indexOf(folderName);
+
+      const newIndex = moveUp ? (index - 1) : (index + 1);
+      folderNames.splice(index, 1);  // remove from old location
+      folderNames.splice(newIndex, 0, folderName);
+
+      for (const key in parentFolder) {  // remove all entries from parent folder
+        delete parentFolder[key];
+      }
+
+      for (const eachName of folderNames) {  // add entries to parent folder in order
+        parentFolder[eachName] = originalFolders[eachName];
+      }
+
+      this.writeModel();
+    };
+
     this.getModelCopy = () => {
       return structuredClone(this.modelObject());
     };

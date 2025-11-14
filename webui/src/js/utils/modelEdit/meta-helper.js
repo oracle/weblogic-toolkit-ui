@@ -59,6 +59,11 @@ define(['utils/modeledit/metadata/all-metadata'],
         return metadata['mergeFolder'];
       };
 
+      this.canReorder = aliasPath => {
+        const metadata = this.getMetadata(aliasPath);
+        return metadata['canReorder'];
+      };
+
       this.hasNoSelect = aliasPath => {
         const metadata = this.getMetadata(aliasPath);
         return metadata['noSelect'];

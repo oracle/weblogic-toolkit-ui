@@ -180,25 +180,25 @@ function (ko, allNavigation, ModelEditHelper, AliasHelper, MetaHelper, MessageHe
       // add instance folders that aren't in navigation files
       const modelKeys = [];
       const modelFolder = ModelEditHelper.getFolder(modelPath);
-      Object.keys(modelFolder).forEach((name) => {
-        const instanceModelPath = [...modelPath, name];
-        const id = instanceModelPath.join('/');
-        const isMultiple = AliasHelper.isMultiplePath(instanceModelPath);
-        let icon = isMultiple ? MULTIPLE_ICON : SINGLE_ICON;
-        icon = navEntry.instanceIcon ? navEntry.instanceIcon : icon;
-
-        // this named instance may have its own children
-        let children = null;
-        if(instanceChildren.length) {
-          children = [];
-          instanceChildren.forEach(instanceChild => {
-            const eachInstanceChild = structuredClone(instanceChild);
-            children.push(eachInstanceChild);
-          });
-          this.initializeNavList(children, instanceModelPath);
-        }
-
+      Object.keys(modelFolder).forEach(name => {
         if(!folderKeys.includes(name)) {
+          const instanceModelPath = [...modelPath, name];
+          const id = instanceModelPath.join('/');
+          const isMultiple = AliasHelper.isMultiplePath(instanceModelPath);
+          let icon = isMultiple ? MULTIPLE_ICON : SINGLE_ICON;
+          icon = navEntry.instanceIcon ? navEntry.instanceIcon : icon;
+
+          // this named instance may have its own children
+          let children = null;
+          if(instanceChildren.length) {
+            children = [];
+            instanceChildren.forEach(instanceChild => {
+              const eachInstanceChild = structuredClone(instanceChild);
+              children.push(eachInstanceChild);
+            });
+            this.initializeNavList(children, instanceModelPath);
+          }
+
           folderList.push({
             path: name,
             modelPath: instanceModelPath,
@@ -223,9 +223,15 @@ function (ko, allNavigation, ModelEditHelper, AliasHelper, MetaHelper, MessageHe
         }
       });
 
-      // needed to prevent duplicate entries from displaying
+      // give every folderList element a sortIndex
+      folderList().forEach(folder => {
+        folder.sortIndex = modelKeys.indexOf(folder.name);
+      });
+
+      // sort by model order.
+      // also needed to prevent duplicate entries from displaying
       folderList.sort(function(a, b) {
-        return (a.name < b.name) ? -1 : ((a.name > b.name) ? 1 : 0);
+        return (a.sortIndex < b.sortIndex) ? -1 : ((a.sortIndex > b.sortIndex) ? 1 : 0);
       });
     };
   }
