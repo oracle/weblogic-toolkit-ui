@@ -128,7 +128,7 @@ define(['knockout', 'utils/wkt-logger', 'utils/modelEdit/model-edit-helper'],
       };
 
       this.secConfigCertRevocCrlDpFields = attributeMap => {
-        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'CrlDpEnabled');
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'CrlDpEnabled', true);
       };
 
       this.secConfigCertRevocOcspFields = attributeMap => {
@@ -140,7 +140,7 @@ define(['knockout', 'utils/wkt-logger', 'utils/modelEdit/model-edit-helper'],
       };
 
       this.secConfigCertRevocOcspCacheFields = attributeMap => {
-        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'OcspResponseCacheEnabled');
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'OcspResponseCacheEnabled', true);
       };
 
       this.secConfigCertRevocCACrlFields = this.secConfigCertRevocCrlFields;
@@ -152,19 +152,19 @@ define(['knockout', 'utils/wkt-logger', 'utils/modelEdit/model-edit-helper'],
       };
 
       this.secConfigRealmIdentityAssertionCacheFields = attributeMap => {
-        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'IdentityAssertionCacheEnabled');
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'IdentityAssertionCacheEnabled', true);
       };
 
       this.secConfigRealmWlsPrincipalValidatorCacheFields = attributeMap => {
-        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'EnableWebLogicPrincipalValidatorCache');
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'EnableWebLogicPrincipalValidatorCache', true);
       };
 
       this.embeddedLdapCacheFields = attributeMap => {
-        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'CacheEnabled');
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'CacheEnabled', true);
       };
 
       this.logRotationFileCountLimitedFields = attributeMap => {
-        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'NumberOfFilesLimited');
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'NumberOfFilesLimited', true);
       };
 
       this.logRotationBySizeFields = attributeMap => {
@@ -184,7 +184,7 @@ define(['knockout', 'utils/wkt-logger', 'utils/modelEdit/model-edit-helper'],
       };
 
       this.logMonitoringFields = attributeMap => {
-        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'LogMonitoringEnabled');
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'LogMonitoringEnabled', true);
       };
 
       this.restfulManagementServicesCorsFields = attributeMap => {
@@ -239,10 +239,98 @@ define(['knockout', 'utils/wkt-logger', 'utils/modelEdit/model-edit-helper'],
         return this._disableFieldsUsingBooleanAttribute(attributeMap, 'weblogic.StopScriptEnabled');
       };
 
-      this._disableFieldsUsingBooleanAttribute = (attributeMap, booleanAttributeName) => {
+      this.defaultAuditorRotateBySizeFields = attributeMap => {
+        const rotationType = attributeMap['RotationType'];
+        return ko.computed(() => {
+          const type = ModelEditHelper.getDerivedValue(rotationType.observable());
+          return type !== 'bySize';
+        });
+      };
+
+      this.defaultAuditorRotateByTimeFields = attributeMap => {
+        const rotationType = attributeMap['RotationType'];
+        return ko.computed(() => {
+          const type = ModelEditHelper.getDerivedValue(rotationType.observable());
+          return type !== 'byTime';
+        });
+      };
+
+      this.defaultAuditorCustomSeverityFields = attributeMap => {
+        const severityLevel = attributeMap['Severity'];
+        return ko.computed(() => {
+          const severity = ModelEditHelper.getDerivedValue(severityLevel.observable());
+          return severity !== 'CUSTOM';
+        });
+      };
+
+      this.ldapAuthenticatorsCacheFields = attributeMap => {
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'CacheEnabled', true);
+      }
+
+      this.activeDirectoryAuthenticatorEnableSIDtoGroupLookupCachingField = attributeMap => {
+        const cachingEnabled = attributeMap['CacheEnabled'];
+        const useTokenGroupsForGroupMembershipLookup = attributeMap['UseTokenGroupsForGroupMembershipLookup'];
+        return ko.computed(() => {
+          const cacheEnabled = ModelEditHelper.getDerivedValue(cachingEnabled.observable());
+          const useTokenGroups = ModelEditHelper.getDerivedValue(useTokenGroupsForGroupMembershipLookup.observable());
+          return !(cacheEnabled && useTokenGroups);
+        });
+      };
+
+      this.activeDirectoryAuthenticatorSIDtoGroupLookupCachingFields = attributeMap => {
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'EnableSIDtoGroupLookupCaching');
+      }
+
+      this.authenticatorsGroupMembershipSearchFields = attributeMap => {
+        const groupMembershipSearching = attributeMap['GroupMembershipSearching'];
+        return ko.computed(() => {
+          const searching = ModelEditHelper.getDerivedValue(groupMembershipSearching.observable());
+          return searching !== 'limited'
+        });
+      };
+
+      this.authenticatorGroupMembershipLookupHierarchyCachingFields = attributeMap => {
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'EnableGroupMembershipLookupHierarchyCaching', true);
+      };
+
+      this.defaultIdentityAsserterDefaultUserNameMapperFields = attributeMap => {
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'UseDefaultUserNameMapper');
+      };
+
+      this.defaultIdentityAsserterCustomUserNameMapperFields = attributeMap => {
+        const useDefaultUserNameMapper = attributeMap['UseDefaultUserNameMapper'];
+        return ko.computed(() => {
+          return ModelEditHelper.getDerivedValue(useDefaultUserNameMapper.observable());
+        });
+      };
+
+      this.defaultIdentityAsserterBase64EncodingFields = attributeMap => {
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'Base64DecodingRequired', true);
+      };
+
+      this.defaultIdentityAsserterDigestReplayDetectionFields = attributeMap => {
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'DigestReplayDetectionEnabled');
+      };
+
+      this.oracleUnifiedDirectoryAuthenticatorMemberUIDForGroupSearchFields = attributeMap => {
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'UseMemberuidForGroupSearch');
+      }
+
+      this.sqlAuthenticatorsGetDescriptionFields = attributeMap => {
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'DescriptionsSupported');
+      };
+
+      this.userLockoutManagerLockoutFields = attributeMap => {
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'LockoutEnabled', true);
+      };
+
+      this._disableFieldsUsingBooleanAttribute = (attributeMap, booleanAttributeName, enableOnUndefined = false) => {
         const fieldObservable = attributeMap[booleanAttributeName];
         return ko.computed(() => {
-          const enabled = ModelEditHelper.getDerivedValue(fieldObservable.observable());
+          let enabled = ModelEditHelper.getDerivedValue(fieldObservable.observable());
+          if (enabled === undefined && enableOnUndefined) {
+            enabled = true
+          }
           return !enabled;
         });
       };

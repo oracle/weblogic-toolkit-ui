@@ -1,6 +1,14 @@
 {
   "SecurityConfiguration": {
     "attributeDetails": {
+      "ControlFlag": {
+        "options": [
+          { "value": "REQUIRED", "labelKey": "options-required-label" },
+          { "value": "REQUISITE", "labelKey": "options-requisite-label" },
+          { "value": "SUFFICIENT", "labelKey": "options-sufficient-label" },
+          { "value": "OPTIONAL", "labelKey": "options-optional-label" }
+        ]
+      },
       "CrossDomainSecurityCacheEnabled": {
         "disabled": "secConfigCrossDomainSecurityFields"
       },
@@ -10,6 +18,13 @@
       "DefaultRealm": {
         "editorType": "combo",
         "optionsMethod": "getDefaultRealmOptions"
+      },
+      "GroupMembershipSearching": {
+        "options": [
+          { "value": "unlimited", "labelKey": "options-unlimited-label" },
+          { "value": "limited", "labelKey": "options-limited-label" },
+          { "value": "off", "labelKey": "options-off-label" }
+        ]
       },
       "MethodOrder": {
         "options": [
@@ -596,6 +611,2429 @@
           "DeployRoleIgnored",
           "FullyDelegateAuthorization",
           "ValidateDDSecurityData"
+        ],
+        "folders": [
+          "CertPathProvider"
+        ]
+      },
+      {
+        "type": "folderTab",
+        "folder": "AuthenticationProvider"
+      },
+      {
+        "type": "folderTab",
+        "folder": "PasswordValidator"
+      },
+      {
+        "type": "folderTab",
+        "folder": "UserLockoutManager"
+      },
+      {
+        "type": "folderTab",
+        "folder": "Authorizer"
+      },
+      {
+        "type": "folderTab",
+        "folder": "CredentialMapper"
+      },
+      {
+        "type": "folderTab",
+        "folder": "RoleMapper"
+      },
+      {
+        "type": "folderTab",
+        "folder": "CertPathProvider"
+      },
+      {
+        "type": "folderTab",
+        "folder": "Auditor"
+      },
+      {
+        "type": "folderTab",
+        "folder": "Adjudicator"
+      },
+      {
+        "type": "folderTab",
+        "folder": "RDBMSSecurityStore"
+      }
+    ]
+  },
+  "SecurityConfiguration/Realm/Adjudicator/DefaultAdjudicator": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "RequireUnanimousPermit"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "CompatibilityObjectName"
+        ]
+      }
+    ]
+  },
+  "SecurityConfiguration/Realm/Auditor/DefaultAuditor": {
+    "attributeDetails": {
+      "ErrorAuditSeverityEnabled": {
+        "disabled": "defaultAuditorCustomSeverityFields"
+      },
+      "FailureAuditSeverityEnabled": {
+        "disabled": "defaultAuditorCustomSeverityFields"
+      },
+      "InformationAuditSeverityEnabled": {
+        "disabled": "defaultAuditorCustomSeverityFields"
+      },
+      "RotationMinutes": {
+        "disabled": "defaultAuditorRotateByTimeFields"
+      },
+      "RotationSize": {
+        "disabled": "defaultAuditorRotateBySizeFields"
+      },
+      "RotationType": {
+        "options": [
+          { "value": "byTime", "labelKey": "options-by-time-label" },
+          { "value": "bySize", "labelKey": "options-by-size-label" }
+        ]
+      },
+      "Severity": {
+        "options": [
+          { "value": "INFORMATION", "labelKey": "options-information-label" },
+          { "value": "WARNING", "labelKey": "options-warning-label" },
+          { "value": "ERROR", "labelKey": "options-error-label" },
+          { "value": "SUCCESS", "labelKey": "options-success-label" },
+          { "value": "FAILURE", "labelKey": "options-failure-label" },
+          { "value": "CUSTOM", "labelKey": "options-custom-label" }
+        ]
+      },
+      "SuccessAuditSeverityEnabled": {
+        "disabled": "defaultAuditorCustomSeverityFields"
+      },
+      "WarningAuditSeverityEnabled": {
+        "disabled": "defaultAuditorCustomSeverityFields"
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "BeginMarker",
+          "EndMarker",
+          "FieldPrefix",
+          "FieldSuffix",
+          "Severity",
+          "InformationAuditSeverityEnabled",
+          "WarningAuditSeverityEnabled",
+          "ErrorAuditSeverityEnabled",
+          "SuccessAuditSeverityEnabled",
+          "FailureAuditSeverityEnabled",
+          "RotationType",
+          "NumberOfFilesLimit",
+          "RotationSize",
+          "RotationMinutes",
+          "ActiveContextHandlerEntry"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "CompatibilityObjectName",
+          "OutputMedium"
+        ]
+      }
+    ]
+  },
+  "SecurityConfiguration/Realm/AuthenticationProvider/ActiveDirectoryAuthenticator": {
+    "attributeDetails": {
+      "CacheSize": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "CacheTtl": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "EnableCacheStatistics": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "EnableGroupMembershipLookupHierarchyCaching": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "EnableSIDtoGroupLookupCaching": {
+        "disabled": "activeDirectoryAuthenticatorEnableSIDtoGroupLookupCachingField"
+      },
+      "GroupHierarchyCacheTTL": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "GroupSearchScope": {
+        "options": [
+          { "value": "subtree", "labelKey": "options-subtree-label" },
+          { "value": "onelevel", "labelKey": "options-one-level-label" }
+        ]
+      },
+      "MaxGroupHierarchiesInCache": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "MaxGroupMembershipSearchLevel": {
+        "disabled": "authenticatorsGroupMembershipSearchFields"
+      },
+      "MaxSIDToGroupLookupsInCache": {
+        "disabled": "activeDirectoryAuthenticatorSIDtoGroupLookupCachingFields"
+      },
+      "UserDescriptionAttribute": {
+        "options": [
+          { "value": "description", "label": "description" },
+          { "value": "displayName", "label": "displayName" },
+          { "value": "givenName", "label": "givenName" }
+        ]
+      },
+      "UserSearchScope": {
+        "options": [
+          { "value": "subtree", "labelKey": "options-subtree-label" },
+          { "value": "onelevel", "labelKey": "options-one-level-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "Host",
+              "Port",
+              "Principal",
+              "CredentialEncrypted",
+              "ControlFlag",
+              "SSLEnabled",
+              "BindAnonymouslyOnReferrals",
+              "FollowReferrals"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "attributes": [
+              "IdentityDomain",
+              "IgnoreDuplicateMembership",
+              "PropagateCauseForLoginException"
+            ],
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "CompatibilityObjectName"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "users-settings-tab-label",
+        "attributes": [
+          "AllUsersFilter",
+          "UserBaseDn",
+          "GuidAttribute",
+          "UserNameAttribute",
+          "UserObjectClass",
+          "UserSearchScope",
+          "UserDescriptionAttribute",
+          "UserFromNameFilter",
+          "RetrievePrincipalFromUserDn",
+          "RetrieveUserAccountControl",
+          "UseRetrievedUserNameAsPrincipal"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "groups-settings-tab-label",
+        "attributes": [
+          "AllGroupsFilter",
+          "GroupBaseDN",
+          "GroupSearchScope",
+          "MatchGroupBaseDn",
+          "GroupFromNameFilter",
+          "GroupMembershipSearching",
+          "MaxGroupMembershipSearchLevel",
+          "UseTokenGroupsForGroupMembershipLookup"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "static-dynamic-bindings-tab-label",
+        "attributes": [
+          "StaticGroupDNsfromMemberDNFilter",
+          "StaticGroupNameAttribute",
+          "StaticGroupObjectClass",
+          "StaticMemberDNAttribute",
+          "DynamicMemberUrlAttribute",
+          "DynamicGroupNameAttribute",
+          "DynamicGroupObjectClass",
+          "UserDynamicGroupDnAttribute"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "tuning-tab-label",
+        "attributes": [
+          "ConnectTimeout",
+          "ConnectionPoolSize",
+          "ConnectionRetryLimit",
+          "KeepAliveEnabled",
+          "ParallelConnectDelay",
+          "ResultsTimeLimit"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "caching-tab-label",
+        "attributes": [
+          "CacheEnabled",
+          "CacheSize",
+          "CacheTtl",
+          "EnableCacheStatistics",
+          "EnableGroupMembershipLookupHierarchyCaching",
+          "EnableSIDtoGroupLookupCaching",
+          "GroupHierarchyCacheTTL",
+          "MaxGroupHierarchiesInCache",
+          "MaxSIDToGroupLookupsInCache"
+        ]
+      }
+    ]
+  },
+  "SecurityConfiguration/Realm/AuthenticationProvider/CustomDBMSAuthenticator": {
+    "attributeDetails": {
+      "GroupHierarchyCacheTTL": {
+        "disabled": "authenticatorGroupMembershipLookupHierarchyCachingFields"
+      },
+      "GroupMembershipSearching": {
+        "options": [
+          { "value": "unlimited", "labelKey": "options-unlimited-label" },
+          { "value": "limited", "labelKey": "options-limited-label" }
+        ]
+      },
+      "MaxGroupHierarchiesInCache": {
+        "disabled": "authenticatorGroupMembershipLookupHierarchyCachingFields"
+      },
+      "MaxGroupMembershipSearchLevel": {
+        "disabled": "authenticatorsGroupMembershipSearchFields"
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "PluginClassName",
+          "PluginProperties",
+          "ControlFlag",
+          "DataSourceName",
+          "GroupMembershipSearching",
+          "MaxGroupMembershipSearchLevel",
+          "EnableGroupMembershipLookupHierarchyCaching",
+          "GroupHierarchyCacheTTL",
+          "MaxGroupHierarchiesInCache"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "attributes": [
+          "IdentityDomain",
+          "PlaintextPasswordsEnabled"
+        ],
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "CompatibilityObjectName"
+        ]
+      }
+    ]
+  },
+  "SecurityConfiguration/Realm/AuthenticationProvider/DefaultAuthenticator": {
+    "attributeDetails": {
+      "GroupHierarchyCacheTTL": {
+        "disabled": "authenticatorGroupMembershipLookupHierarchyCachingFields"
+      },
+      "GroupMembershipSearching": {
+        "options": [
+          { "value": "unlimited", "labelKey": "options-unlimited-label" },
+          { "value": "limited", "labelKey": "options-limited-label" }
+        ]
+      },
+      "MaxGroupHierarchiesInCache": {
+        "disabled": "authenticatorGroupMembershipLookupHierarchyCachingFields"
+      },
+      "MaxGroupMembershipSearchLevel": {
+        "disabled": "authenticatorsGroupMembershipSearchFields"
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "ControlFlag",
+          "UseRetrievedUserNameAsPrincipal",
+          "NameCallbackAllowed",
+          "MinimumPasswordLength",
+          "GroupMembershipSearching",
+          "MaxGroupMembershipSearchLevel",
+          "EnableGroupMembershipLookupHierarchyCaching",
+          "GroupHierarchyCacheTTL",
+          "MaxGroupHierarchiesInCache",
+          "KeepAliveEnabled"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "attributes": [
+          "IdentityDomain",
+          "IdentityDomains",
+          "PropagateCauseForLoginException",
+          "PasswordDigestEnabled"
+        ],
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "CompatibilityObjectName"
+        ]
+      }
+    ]
+  },
+  "SecurityConfiguration/Realm/AuthenticationProvider/DefaultIdentityAsserter": {
+    "attributeDetails": {
+      "Base64EncodingException": {
+        "disabled": "defaultIdentityAsserterBase64EncodingFields"
+      },
+      "DefaultUserNameMapperAttributeDelimiter": {
+        "disabled": "defaultIdentityAsserterDefaultUserNameMapperFields"
+      },
+      "DefaultUserNameMapperAttributeType": {
+        "disabled": "defaultIdentityAsserterDefaultUserNameMapperFields",
+        "options": [
+          { "value": "C", "label": "C" },
+          { "value": "CN", "label": "CN" },
+          { "value": "E", "label": "E" },
+          { "value": "L", "label": "L" },
+          { "value": "O", "label": "O" },
+          { "value": "OU", "label": "OU" },
+          { "value": "S", "label": "S" },
+          { "value": "STREET", "label": "STREET" }
+        ]
+      },
+      "DigestDataSourceName": {
+        "disabled": "defaultIdentityAsserterDigestReplayDetectionFields"
+      },
+      "DigestExpirationTimePeriod": {
+        "disabled": "defaultIdentityAsserterDigestReplayDetectionFields"
+      },
+      "UserNameMapperClassName": {
+        "disabled": "defaultIdentityAsserterCustomUserNameMapperFields"
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "ActiveType",
+          "DigestReplayDetectionEnabled",
+          "DigestDataSourceName",
+          "DigestExpirationTimePeriod",
+          "UseDefaultUserNameMapper",
+          "UserNameMapperClassName",
+          "DefaultUserNameMapperAttributeType",
+          "DefaultUserNameMapperAttributeDelimiter",
+          "VirtualUserAllowed",
+          "TrustedClientPrincipal",
+          "Base64DecodingRequired",
+          "Base64EncodingException"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "attributes": [
+          "IdentityDomain"
+        ],
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "CompatibilityObjectName"
+        ]
+      }
+    ]
+  },
+  "SecurityConfiguration/Realm/AuthenticationProvider/IPlanetAuthenticator": {
+    "attributeDetails": {
+      "CacheSize": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "CacheTtl": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "EnableCacheStatistics": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "EnableGroupMembershipLookupHierarchyCaching": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "GroupHierarchyCacheTTL": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "GroupSearchScope": {
+        "options": [
+          { "value": "subtree", "labelKey": "options-subtree-label" },
+          { "value": "onelevel", "labelKey": "options-one-level-label" }
+        ]
+      },
+      "MaxGroupHierarchiesInCache": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "MaxGroupMembershipSearchLevel": {
+        "disabled": "authenticatorsGroupMembershipSearchFields"
+      },
+      "UserDescriptionAttribute": {
+        "options": [
+          { "value": "description", "label": "description" },
+          { "value": "displayName", "label": "displayName" },
+          { "value": "givenName", "label": "givenName" }
+        ]
+      },
+      "UserSearchScope": {
+        "options": [
+          { "value": "subtree", "labelKey": "options-subtree-label" },
+          { "value": "onelevel", "labelKey": "options-one-level-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "Host",
+              "Port",
+              "Principal",
+              "CredentialEncrypted",
+              "ControlFlag",
+              "SSLEnabled",
+              "BindAnonymouslyOnReferrals",
+              "FollowReferrals"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "attributes": [
+              "IdentityDomain",
+              "IgnoreDuplicateMembership",
+              "PropagateCauseForLoginException"
+            ],
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "CompatibilityObjectName"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "users-settings-tab-label",
+        "attributes": [
+          "AllUsersFilter",
+          "UserBaseDn",
+          "GuidAttribute",
+          "UserNameAttribute",
+          "UserObjectClass",
+          "UserSearchScope",
+          "UserDescriptionAttribute",
+          "UserFromNameFilter",
+          "RetrievePrincipalFromUserDn",
+          "UseRetrievedUserNameAsPrincipal"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "groups-settings-tab-label",
+        "attributes": [
+          "AllGroupsFilter",
+          "GroupBaseDN",
+          "GroupSearchScope",
+          "MatchGroupBaseDn",
+          "GroupFromNameFilter",
+          "GroupMembershipSearching",
+          "MaxGroupMembershipSearchLevel",
+          "UseMemberuidForGroupSearch",
+          "GroupFromUserFilterForMemberuid"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "static-dynamic-bindings-tab-label",
+        "attributes": [
+          "StaticGroupDNsfromMemberDNFilter",
+          "StaticGroupNameAttribute",
+          "StaticGroupObjectClass",
+          "StaticMemberDNAttribute",
+          "DynamicMemberUrlAttribute",
+          "DynamicGroupNameAttribute",
+          "DynamicGroupObjectClass",
+          "UserDynamicGroupDnAttribute"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "tuning-tab-label",
+        "attributes": [
+          "ConnectTimeout",
+          "ConnectionPoolSize",
+          "ConnectionRetryLimit",
+          "KeepAliveEnabled",
+          "ParallelConnectDelay",
+          "ResultsTimeLimit"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "caching-tab-label",
+        "attributes": [
+          "CacheEnabled",
+          "CacheSize",
+          "CacheTtl",
+          "EnableCacheStatistics",
+          "EnableGroupMembershipLookupHierarchyCaching",
+          "GroupHierarchyCacheTTL",
+          "MaxGroupHierarchiesInCache"
+        ]
+      }
+    ]
+  },
+  "SecurityConfiguration/Realm/AuthenticationProvider/LDAPAuthenticator": {
+    "attributeDetails": {
+      "CacheSize": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "CacheTtl": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "EnableCacheStatistics": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "EnableGroupMembershipLookupHierarchyCaching": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "GroupHierarchyCacheTTL": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "GroupSearchScope": {
+        "options": [
+          { "value": "subtree", "labelKey": "options-subtree-label" },
+          { "value": "onelevel", "labelKey": "options-one-level-label" }
+        ]
+      },
+      "MaxGroupHierarchiesInCache": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "MaxGroupMembershipSearchLevel": {
+        "disabled": "authenticatorsGroupMembershipSearchFields"
+      },
+      "UserDescriptionAttribute": {
+        "options": [
+          { "value": "description", "label": "description" },
+          { "value": "displayName", "label": "displayName" },
+          { "value": "givenName", "label": "givenName" }
+        ]
+      },
+      "UserSearchScope": {
+        "options": [
+          { "value": "subtree", "labelKey": "options-subtree-label" },
+          { "value": "onelevel", "labelKey": "options-one-level-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "Host",
+              "Port",
+              "Principal",
+              "CredentialEncrypted",
+              "ControlFlag",
+              "SSLEnabled",
+              "BindAnonymouslyOnReferrals",
+              "FollowReferrals"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "attributes": [
+              "IdentityDomain",
+              "IgnoreDuplicateMembership",
+              "PropagateCauseForLoginException"
+            ],
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "CompatibilityObjectName"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "users-settings-tab-label",
+        "attributes": [
+          "AllUsersFilter",
+          "UserBaseDn",
+          "GuidAttribute",
+          "UserNameAttribute",
+          "UserObjectClass",
+          "UserSearchScope",
+          "UserDescriptionAttribute",
+          "UserFromNameFilter",
+          "RetrievePrincipalFromUserDn",
+          "UseRetrievedUserNameAsPrincipal"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "groups-settings-tab-label",
+        "attributes": [
+          "AllGroupsFilter",
+          "GroupBaseDN",
+          "GroupSearchScope",
+          "MatchGroupBaseDn",
+          "GroupFromNameFilter",
+          "GroupMembershipSearching",
+          "MaxGroupMembershipSearchLevel"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "static-dynamic-bindings-tab-label",
+        "attributes": [
+          "StaticGroupDNsfromMemberDNFilter",
+          "StaticGroupNameAttribute",
+          "StaticGroupObjectClass",
+          "StaticMemberDNAttribute",
+          "DynamicMemberUrlAttribute",
+          "DynamicGroupNameAttribute",
+          "DynamicGroupObjectClass",
+          "UserDynamicGroupDnAttribute"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "tuning-tab-label",
+        "attributes": [
+          "ConnectTimeout",
+          "ConnectionPoolSize",
+          "ConnectionRetryLimit",
+          "KeepAliveEnabled",
+          "ParallelConnectDelay",
+          "ResultsTimeLimit"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "caching-tab-label",
+        "attributes": [
+          "CacheEnabled",
+          "CacheSize",
+          "CacheTtl",
+          "EnableCacheStatistics",
+          "EnableGroupMembershipLookupHierarchyCaching",
+          "GroupHierarchyCacheTTL",
+          "MaxGroupHierarchiesInCache"
+        ]
+      }
+    ]
+  },
+  "SecurityConfiguration/Realm/AuthenticationProvider/LDAPX509IdentityAsserter": {
+    "attributeDetails": {
+      "CacheSize": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "CacheTtl": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      }
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "ActiveType",
+              "Base64DecodingRequired",
+              "CertificateMapping",
+              "CertificateAttribute",
+              "UsernameAttribute",
+              "UserFilterAttribute"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "attributes": [
+              "IdentityDomain"
+            ],
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "CompatibilityObjectName"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "ldap-server-tab-label",
+        "attributes": [
+          "Host",
+          "Port",
+          "Principal",
+          "CredentialEncrypted",
+          "BindAnonymouslyOnReferrals",
+          "FollowReferrals",
+          "SSLEnabled"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "tuning-tab-label",
+        "attributes": [
+          "ConnectTimeout",
+          "ConnectionPoolSize",
+          "ConnectionRetryLimit",
+          "ParallelConnectDelay",
+          "ResultsTimeLimit"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "caching-tab-label",
+        "attributes": [
+          "CacheEnabled",
+          "CacheSize",
+          "CacheTtl"
+        ]
+      }
+    ]
+  },
+  "SecurityConfiguration/Realm/AuthenticationProvider/NegotiateIdentityAsserter": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "ActiveType",
+          "Base64DecodingRequired",
+          "FormBasedNegotiationEnabled"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "attributes": [
+          "IdentityDomain"
+        ],
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "CompatibilityObjectName"
+        ]
+      }
+    ]
+  },
+  "SecurityConfiguration/Realm/AuthenticationProvider/NovellAuthenticator": {
+    "attributeDetails": {
+      "CacheSize": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "CacheTtl": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "EnableCacheStatistics": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "EnableGroupMembershipLookupHierarchyCaching": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "GroupHierarchyCacheTTL": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "GroupSearchScope": {
+        "options": [
+          { "value": "subtree", "labelKey": "options-subtree-label" },
+          { "value": "onelevel", "labelKey": "options-one-level-label" }
+        ]
+      },
+      "MaxGroupHierarchiesInCache": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "MaxGroupMembershipSearchLevel": {
+        "disabled": "authenticatorsGroupMembershipSearchFields"
+      },
+      "UserDescriptionAttribute": {
+        "options": [
+          { "value": "description", "label": "description" },
+          { "value": "displayName", "label": "displayName" },
+          { "value": "givenName", "label": "givenName" }
+        ]
+      },
+      "UserSearchScope": {
+        "options": [
+          { "value": "subtree", "labelKey": "options-subtree-label" },
+          { "value": "onelevel", "labelKey": "options-one-level-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "Host",
+              "Port",
+              "Principal",
+              "CredentialEncrypted",
+              "ControlFlag",
+              "SSLEnabled",
+              "BindAnonymouslyOnReferrals",
+              "FollowReferrals"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "attributes": [
+              "IdentityDomain",
+              "IgnoreDuplicateMembership",
+              "PropagateCauseForLoginException"
+            ],
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "CompatibilityObjectName"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "users-settings-tab-label",
+        "attributes": [
+          "AllUsersFilter",
+          "UserBaseDn",
+          "GuidAttribute",
+          "UserNameAttribute",
+          "UserObjectClass",
+          "UserSearchScope",
+          "UserDescriptionAttribute",
+          "UserFromNameFilter",
+          "RetrievePrincipalFromUserDn",
+          "UseRetrievedUserNameAsPrincipal"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "groups-settings-tab-label",
+        "attributes": [
+          "AllGroupsFilter",
+          "GroupBaseDN",
+          "GroupSearchScope",
+          "MatchGroupBaseDn",
+          "GroupFromNameFilter",
+          "GroupMembershipSearching",
+          "MaxGroupMembershipSearchLevel"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "static-dynamic-bindings-tab-label",
+        "attributes": [
+          "StaticGroupDNsfromMemberDNFilter",
+          "StaticGroupNameAttribute",
+          "StaticGroupObjectClass",
+          "StaticMemberDNAttribute",
+          "DynamicMemberUrlAttribute",
+          "DynamicGroupNameAttribute",
+          "DynamicGroupObjectClass",
+          "UserDynamicGroupDnAttribute"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "tuning-tab-label",
+        "attributes": [
+          "ConnectTimeout",
+          "ConnectionPoolSize",
+          "ConnectionRetryLimit",
+          "KeepAliveEnabled",
+          "ParallelConnectDelay",
+          "ResultsTimeLimit"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "caching-tab-label",
+        "attributes": [
+          "CacheEnabled",
+          "CacheSize",
+          "CacheTtl",
+          "EnableCacheStatistics",
+          "EnableGroupMembershipLookupHierarchyCaching",
+          "GroupHierarchyCacheTTL",
+          "MaxGroupHierarchiesInCache"
+        ]
+      }
+    ]
+  },
+  "SecurityConfiguration/Realm/AuthenticationProvider/OIDCIdentityAsserter": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "ActiveType",
+          "Base64DecodingRequired",
+          "UserIdTokenClaim",
+          "UserNameTokenClaim",
+          "VirtualUserAllowed",
+          "ClockSkew",
+          "KeyCacheSize",
+          "KeyCacheTtl",
+          "RequestCacheSize",
+          "RequestCacheTtl"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "attributes": [
+          "IdentityDomain"
+        ],
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "CompatibilityObjectName"
+        ]
+      }
+    ]
+  },
+  "SecurityConfiguration/Realm/AuthenticationProvider/OpenLDAPAuthenticator": {
+    "attributeDetails": {
+      "CacheSize": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "CacheTtl": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "EnableCacheStatistics": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "EnableGroupMembershipLookupHierarchyCaching": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "GroupHierarchyCacheTTL": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "GroupSearchScope": {
+        "options": [
+          { "value": "subtree", "labelKey": "options-subtree-label" },
+          { "value": "onelevel", "labelKey": "options-one-level-label" }
+        ]
+      },
+      "MaxGroupHierarchiesInCache": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "MaxGroupMembershipSearchLevel": {
+        "disabled": "authenticatorsGroupMembershipSearchFields"
+      },
+      "UserDescriptionAttribute": {
+        "options": [
+          { "value": "description", "label": "description" },
+          { "value": "displayName", "label": "displayName" },
+          { "value": "givenName", "label": "givenName" }
+        ]
+      },
+      "UserSearchScope": {
+        "options": [
+          { "value": "subtree", "labelKey": "options-subtree-label" },
+          { "value": "onelevel", "labelKey": "options-one-level-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "Host",
+              "Port",
+              "Principal",
+              "CredentialEncrypted",
+              "ControlFlag",
+              "SSLEnabled",
+              "BindAnonymouslyOnReferrals",
+              "FollowReferrals"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "attributes": [
+              "IdentityDomain",
+              "IgnoreDuplicateMembership",
+              "PropagateCauseForLoginException"
+            ],
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "CompatibilityObjectName"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "users-settings-tab-label",
+        "attributes": [
+          "AllUsersFilter",
+          "UserBaseDn",
+          "GuidAttribute",
+          "UserNameAttribute",
+          "UserObjectClass",
+          "UserSearchScope",
+          "UserDescriptionAttribute",
+          "UserFromNameFilter",
+          "RetrievePrincipalFromUserDn",
+          "UseRetrievedUserNameAsPrincipal"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "groups-settings-tab-label",
+        "attributes": [
+          "AllGroupsFilter",
+          "GroupBaseDN",
+          "GroupSearchScope",
+          "MatchGroupBaseDn",
+          "GroupFromNameFilter",
+          "GroupMembershipSearching",
+          "MaxGroupMembershipSearchLevel"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "static-dynamic-bindings-tab-label",
+        "attributes": [
+          "StaticGroupDNsfromMemberDNFilter",
+          "StaticGroupNameAttribute",
+          "StaticGroupObjectClass",
+          "StaticMemberDNAttribute",
+          "DynamicMemberUrlAttribute",
+          "DynamicGroupNameAttribute",
+          "DynamicGroupObjectClass",
+          "UserDynamicGroupDnAttribute"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "tuning-tab-label",
+        "attributes": [
+          "ConnectTimeout",
+          "ConnectionPoolSize",
+          "ConnectionRetryLimit",
+          "KeepAliveEnabled",
+          "ParallelConnectDelay",
+          "ResultsTimeLimit"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "caching-tab-label",
+        "attributes": [
+          "CacheEnabled",
+          "CacheSize",
+          "CacheTtl",
+          "EnableCacheStatistics",
+          "EnableGroupMembershipLookupHierarchyCaching",
+          "GroupHierarchyCacheTTL",
+          "MaxGroupHierarchiesInCache"
+        ]
+      }
+    ]
+  },
+  "SecurityConfiguration/Realm/AuthenticationProvider/weblogic.security.providers.authentication.OracleIdentityCloudIntegrator": {
+    "attributeDetails": {
+      "TokenValidationLevel": {
+        "options": [
+          { "value": "FULL", "labelKey":  "options-full-label" },
+          { "value": "NORMAL", "labelKey":  "options-normal-label" },
+          { "value": "SIGNATURE", "labelKey":  "options-signature-label" },
+          { "value": "NONE", "labelKey":  "options-none-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "Host",
+              "Port",
+              "SslEnabled",
+              "TenantHostNameTemplate",
+              "Tenant",
+              "TenantName",
+              "BasePath",
+              "TenantHeaderName",
+              "AppNameFilterHeaderName",
+              "ClientTenant",
+              "ClientId",
+              "ClientSecretEncrypted",
+              "ControlFlag",
+              "AnyIdentityDomainEnabled"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "attributes": [
+              "TokenSecureTransportRequired",
+              "KnownTenantPrefix",
+              "KnownTenantEmptyMetadataTtl",
+              "UnknownTenantEmptyMetadataTtl",
+              "ServerNotAvailableCounterInterval",
+              "AccessTokenContextPath",
+              "PreferAltId",
+              "AltIdTokenClaim",
+              "AltClientIdTokenClaim",
+              "ServerBackoffEnabled"
+            ],
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "CompatibilityObjectName"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "identity-asserter-configuration-tab-label",
+        "attributes": [
+          "ActiveType",
+          "TokenVirtualUserAllowed",
+          "Issuer",
+          "JsonWebKeySetUri",
+          "TokenClockSkew",
+          "SignaturePreferX509Certificate",
+          "UserNameTokenClaim",
+          "GroupsTokenClaim",
+          "UserIdTokenClaim",
+          "AppRolesTokenClaim",
+          "TenantTokenClaim",
+          "OnlyUserTokenClaimsEnabled",
+          "TenantDataReloadEnabled",
+          "TenantDataReloadInterval",
+          "TokenValidationLevel"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "authorization-bearer-tab-label",
+        "attributes": [
+          "ClientNameTokenClaim",
+          "ClientIdTokenClaim",
+          "ClientTenantTokenClaim",
+          "ResourceTenantTokenClaim",
+          "AudienceEnabled",
+          "ClientAsUserPrincipalEnabled",
+          "ClientIdResourceAttribute"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "scim-authentication-tab-label",
+        "attributes": [
+          "UserAuthenticationAssertionAttribute",
+          "UserNameResourceAttribute",
+          "UserIdResourceAttribute",
+          "UseRetrievedUserNameAsPrincipal"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "sync-filter-configuration-tab-label",
+        "attributes": [
+          "SyncFilterEnabled",
+          "SyncFilterOnlyClientCertRequests",
+          "SyncFilterMatchCase",
+          "SyncFilterPreferHeader",
+          "SyncFilterUserHeaderName",
+          "TenantHeaderName"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "tuning-tab-label",
+        "attributes": [
+          "ConnectTimeout",
+          "ResponseReadTimeout",
+          "ThreadLockTimeout",
+          "AccessTokenTimeoutWindow",
+          "TenantDataFlushInterval"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "caching-tab-label",
+        "attributes": [
+          "CacheEnabled",
+          "CacheSize",
+          "CacheTtl",
+          "TokenCacheEnabled"
+        ]
+      }
+    ]
+  },
+  "SecurityConfiguration/Realm/AuthenticationProvider/OracleInternetDirectoryAuthenticator": {
+    "attributeDetails": {
+      "CacheSize": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "CacheTtl": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "EnableCacheStatistics": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "EnableGroupMembershipLookupHierarchyCaching": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "GroupHierarchyCacheTTL": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "GroupSearchScope": {
+        "options": [
+          { "value": "subtree", "labelKey": "options-subtree-label" },
+          { "value": "onelevel", "labelKey": "options-one-level-label" }
+        ]
+      },
+      "MaxGroupHierarchiesInCache": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "MaxGroupMembershipSearchLevel": {
+        "disabled": "authenticatorsGroupMembershipSearchFields"
+      },
+      "UserDescriptionAttribute": {
+        "options": [
+          { "value": "description", "label": "description" },
+          { "value": "displayName", "label": "displayName" },
+          { "value": "givenName", "label": "givenName" }
+        ]
+      },
+      "UserSearchScope": {
+        "options": [
+          { "value": "subtree", "labelKey": "options-subtree-label" },
+          { "value": "onelevel", "labelKey": "options-one-level-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "Host",
+              "Port",
+              "Principal",
+              "CredentialEncrypted",
+              "ControlFlag",
+              "SSLEnabled",
+              "BindAnonymouslyOnReferrals",
+              "FollowReferrals"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "attributes": [
+              "IdentityDomain",
+              "IgnoreDuplicateMembership",
+              "PropagateCauseForLoginException"
+            ],
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "CompatibilityObjectName"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "users-settings-tab-label",
+        "attributes": [
+          "AllUsersFilter",
+          "UserBaseDn",
+          "GuidAttribute",
+          "UserNameAttribute",
+          "UserObjectClass",
+          "UserSearchScope",
+          "UserDescriptionAttribute",
+          "UserFromNameFilter",
+          "RetrievePrincipalFromUserDn",
+          "UseRetrievedUserNameAsPrincipal",
+          "CheckUserEnabledAttribute"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "groups-settings-tab-label",
+        "attributes": [
+          "AllGroupsFilter",
+          "GroupBaseDN",
+          "GroupSearchScope",
+          "MatchGroupBaseDn",
+          "GroupFromNameFilter",
+          "GroupMembershipSearching",
+          "MaxGroupMembershipSearchLevel"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "static-dynamic-bindings-tab-label",
+        "attributes": [
+          "StaticGroupDNsfromMemberDNFilter",
+          "StaticGroupNameAttribute",
+          "StaticGroupObjectClass",
+          "StaticMemberDNAttribute",
+          "DynamicMemberUrlAttribute",
+          "DynamicGroupNameAttribute",
+          "DynamicGroupObjectClass",
+          "UserDynamicGroupDnAttribute"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "tuning-tab-label",
+        "attributes": [
+          "ConnectTimeout",
+          "ConnectionPoolSize",
+          "ConnectionRetryLimit",
+          "KeepAliveEnabled",
+          "ParallelConnectDelay",
+          "ResultsTimeLimit"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "caching-tab-label",
+        "attributes": [
+          "CacheEnabled",
+          "CacheSize",
+          "CacheTtl",
+          "EnableCacheStatistics",
+          "EnableGroupMembershipLookupHierarchyCaching",
+          "GroupHierarchyCacheTTL",
+          "MaxGroupHierarchiesInCache"
+        ]
+      }
+    ]
+  },
+  "SecurityConfiguration/Realm/AuthenticationProvider/OracleUnifiedDirectoryAuthenticator": {
+    "attributeDetails": {
+      "CacheSize": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "CacheTtl": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "EnableCacheStatistics": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "EnableGroupMembershipLookupHierarchyCaching": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "GroupFromUserFilterForMemberuid": {
+        "disabled": "oracleUnifiedDirectoryAuthenticatorMemberUIDForGroupSearchFields"
+      },
+      "GroupHierarchyCacheTTL": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "GroupSearchScope": {
+        "options": [
+          { "value": "subtree", "labelKey": "options-subtree-label" },
+          { "value": "onelevel", "labelKey": "options-one-level-label" }
+        ]
+      },
+      "MaxGroupHierarchiesInCache": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "MaxGroupMembershipSearchLevel": {
+        "disabled": "authenticatorsGroupMembershipSearchFields"
+      },
+      "UserDescriptionAttribute": {
+        "options": [
+          { "value": "description", "label": "description" },
+          { "value": "displayName", "label": "displayName" },
+          { "value": "givenName", "label": "givenName" }
+        ]
+      },
+      "UserSearchScope": {
+        "options": [
+          { "value": "subtree", "labelKey": "options-subtree-label" },
+          { "value": "onelevel", "labelKey": "options-one-level-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "Host",
+              "Port",
+              "Principal",
+              "CredentialEncrypted",
+              "ControlFlag",
+              "SSLEnabled",
+              "BindAnonymouslyOnReferrals",
+              "FollowReferrals"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "attributes": [
+              "IdentityDomain",
+              "IgnoreDuplicateMembership",
+              "PropagateCauseForLoginException"
+            ],
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "CompatibilityObjectName"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "users-settings-tab-label",
+        "attributes": [
+          "AllUsersFilter",
+          "UserBaseDn",
+          "GuidAttribute",
+          "UserNameAttribute",
+          "UserObjectClass",
+          "UserSearchScope",
+          "UserDescriptionAttribute",
+          "UserFromNameFilter",
+          "RetrievePrincipalFromUserDn",
+          "UseRetrievedUserNameAsPrincipal"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "groups-settings-tab-label",
+        "attributes": [
+          "AllGroupsFilter",
+          "GroupBaseDN",
+          "GroupSearchScope",
+          "MatchGroupBaseDn",
+          "GroupFromNameFilter",
+          "GroupMembershipSearching",
+          "MaxGroupMembershipSearchLevel",
+          "UseMemberuidForGroupSearch",
+          "GroupFromUserFilterForMemberuid"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "static-dynamic-bindings-tab-label",
+        "attributes": [
+          "StaticGroupDNsfromMemberDNFilter",
+          "StaticGroupNameAttribute",
+          "StaticGroupObjectClass",
+          "StaticMemberDNAttribute",
+          "DynamicMemberUrlAttribute",
+          "DynamicGroupNameAttribute",
+          "DynamicGroupObjectClass",
+          "UserDynamicGroupDnAttribute"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "tuning-tab-label",
+        "attributes": [
+          "ConnectTimeout",
+          "ConnectionPoolSize",
+          "ConnectionRetryLimit",
+          "KeepAliveEnabled",
+          "ParallelConnectDelay",
+          "ResultsTimeLimit"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "caching-tab-label",
+        "attributes": [
+          "CacheEnabled",
+          "CacheSize",
+          "CacheTtl",
+          "EnableCacheStatistics",
+          "EnableGroupMembershipLookupHierarchyCaching",
+          "GroupHierarchyCacheTTL",
+          "MaxGroupHierarchiesInCache"
+        ]
+      }
+    ]
+  },
+  "SecurityConfiguration/Realm/AuthenticationProvider/OracleVirtualDirectoryAuthenticator": {
+    "attributeDetails": {
+      "CacheSize": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "CacheTtl": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "EnableCacheStatistics": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "EnableGroupMembershipLookupHierarchyCaching": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "GroupHierarchyCacheTTL": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "GroupSearchScope": {
+        "options": [
+          { "value": "subtree", "labelKey": "options-subtree-label" },
+          { "value": "onelevel", "labelKey": "options-one-level-label" }
+        ]
+      },
+      "MaxGroupHierarchiesInCache": {
+        "disabled": "ldapAuthenticatorsCacheFields"
+      },
+      "MaxGroupMembershipSearchLevel": {
+        "disabled": "authenticatorsGroupMembershipSearchFields"
+      },
+      "UserDescriptionAttribute": {
+        "options": [
+          { "value": "description", "label": "description" },
+          { "value": "displayName", "label": "displayName" },
+          { "value": "givenName", "label": "givenName" }
+        ]
+      },
+      "UserSearchScope": {
+        "options": [
+          { "value": "subtree", "labelKey": "options-subtree-label" },
+          { "value": "onelevel", "labelKey": "options-one-level-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "Host",
+              "Port",
+              "Principal",
+              "CredentialEncrypted",
+              "ControlFlag",
+              "SSLEnabled",
+              "BindAnonymouslyOnReferrals",
+              "FollowReferrals"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "attributes": [
+              "IdentityDomain",
+              "IgnoreDuplicateMembership",
+              "PropagateCauseForLoginException"
+            ],
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "CompatibilityObjectName"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "users-settings-tab-label",
+        "attributes": [
+          "AllUsersFilter",
+          "UserBaseDn",
+          "GuidAttribute",
+          "UserNameAttribute",
+          "UserObjectClass",
+          "UserSearchScope",
+          "UserDescriptionAttribute",
+          "UserFromNameFilter",
+          "RetrievePrincipalFromUserDn",
+          "UseRetrievedUserNameAsPrincipal"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "groups-settings-tab-label",
+        "attributes": [
+          "AllGroupsFilter",
+          "GroupBaseDN",
+          "GroupSearchScope",
+          "MatchGroupBaseDn",
+          "GroupFromNameFilter",
+          "GroupMembershipSearching",
+          "MaxGroupMembershipSearchLevel"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "static-dynamic-bindings-tab-label",
+        "attributes": [
+          "StaticGroupDNsfromMemberDNFilter",
+          "StaticGroupNameAttribute",
+          "StaticGroupObjectClass",
+          "StaticMemberDNAttribute",
+          "DynamicMemberUrlAttribute",
+          "DynamicGroupNameAttribute",
+          "DynamicGroupObjectClass",
+          "UserDynamicGroupDnAttribute"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "tuning-tab-label",
+        "attributes": [
+          "ConnectTimeout",
+          "ConnectionPoolSize",
+          "ConnectionRetryLimit",
+          "KeepAliveEnabled",
+          "ParallelConnectDelay",
+          "ResultsTimeLimit"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "labelKey": "caching-tab-label",
+        "attributes": [
+          "CacheEnabled",
+          "CacheSize",
+          "CacheTtl",
+          "EnableCacheStatistics",
+          "EnableGroupMembershipLookupHierarchyCaching",
+          "GroupHierarchyCacheTTL",
+          "MaxGroupHierarchiesInCache"
+        ]
+      }
+    ]
+  },
+  "SecurityConfiguration/Realm/AuthenticationProvider/ReadOnlySQLAuthenticator": {
+    "attributeDetails": {
+      "GroupHierarchyCacheTTL": {
+        "disabled": "authenticatorGroupMembershipLookupHierarchyCachingFields"
+      },
+      "GroupMembershipSearching": {
+        "options": [
+          { "value": "unlimited", "labelKey": "options-unlimited-label" },
+          { "value": "limited", "labelKey": "options-limited-label" }
+        ]
+      },
+      "MaxGroupHierarchiesInCache": {
+        "disabled": "authenticatorGroupMembershipLookupHierarchyCachingFields"
+      },
+      "MaxGroupMembershipSearchLevel": {
+        "disabled": "authenticatorsGroupMembershipSearchFields"
+      },
+      "SQLGetGroupDescription": {
+        "disabled": "sqlAuthenticatorsGetDescriptionFields"
+      },
+      "SQLGetUserDescription": {
+        "disabled": "sqlAuthenticatorsGetDescriptionFields"
+      }
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "ControlFlag",
+              "DataSourceName",
+              "GroupMembershipSearching",
+              "MaxGroupMembershipSearchLevel",
+              "EnableGroupMembershipLookupHierarchyCaching",
+              "GroupHierarchyCacheTTL",
+              "MaxGroupHierarchiesInCache"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "attributes": [
+              "IdentityDomain",
+              "PlaintextPasswordsEnabled"
+            ],
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "CompatibilityObjectName"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "label": "SQL",
+        "attributes": [
+          "SQLListUsers",
+          "SQLUserExists",
+          "SQLGetUsersPassword",
+          "SQLIsMember",
+          "SQLListGroups",
+          "SQLListMemberGroups",
+          "SQLGroupExists",
+          "DescriptionsSupported",
+          "SQLGetUserDescription",
+          "SQLGetGroupDescription"
+        ]
+      }
+    ]
+  },
+  "SecurityConfiguration/Realm/AuthenticationProvider/SAML2IdentityAsserter": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "Base64DecodingRequired",
+          "LoginTokenAssociatonEnabled",
+          "ReplicatedCacheEnabled",
+          "NameMapperClassName"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "attributes": [
+          "IdentityDomain"
+        ],
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "CompatibilityObjectName"
+        ]
+      }
+    ]
+  },
+  "SecurityConfiguration/Realm/AuthenticationProvider/SAMLAuthenticator": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "ControlFlag"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "attributes": [
+          "IdentityDomain"
+        ],
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "CompatibilityObjectName"
+        ]
+      }
+    ]
+  },
+  "SecurityConfiguration/Realm/AuthenticationProvider/SAMLIdentityAsserterV2": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "Base64DecodingRequired",
+          "MinimumParserPoolSize",
+          "NameMapperClassName"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "attributes": [
+          "IdentityDomain"
+        ],
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "CompatibilityObjectName"
+        ]
+      }
+    ]
+  },
+  "SecurityConfiguration/Realm/AuthenticationProvider/SQLAuthenticator": {
+    "attributeDetails": {
+      "GroupHierarchyCacheTTL": {
+        "disabled": "authenticatorGroupMembershipLookupHierarchyCachingFields"
+      },
+      "GroupMembershipSearching": {
+        "options": [
+          { "value": "unlimited", "labelKey": "options-unlimited-label" },
+          { "value": "limited", "labelKey": "options-limited-label" }
+        ]
+      },
+      "MaxGroupHierarchiesInCache": {
+        "disabled": "authenticatorGroupMembershipLookupHierarchyCachingFields"
+      },
+      "MaxGroupMembershipSearchLevel": {
+        "disabled": "authenticatorsGroupMembershipSearchFields"
+      },
+      "SQLGetGroupDescription": {
+        "disabled": "sqlAuthenticatorsGetDescriptionFields"
+      },
+      "SQLSetGroupDescription": {
+        "disabled": "sqlAuthenticatorsGetDescriptionFields"
+      },
+      "SQLGetUserDescription": {
+        "disabled": "sqlAuthenticatorsGetDescriptionFields"
+      },
+      "SQLSetUserDescription": {
+        "disabled": "sqlAuthenticatorsGetDescriptionFields"
+      }
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "ControlFlag",
+              "DataSourceName",
+              "GroupMembershipSearching",
+              "MaxGroupMembershipSearchLevel",
+              "EnableGroupMembershipLookupHierarchyCaching",
+              "GroupHierarchyCacheTTL",
+              "MaxGroupHierarchiesInCache"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "attributes": [
+              "IdentityDomain",
+              "PlaintextPasswordsEnabled",
+              "PasswordStyle",
+              "PasswordStyleRetained",
+              "PasswordAlgorithm"
+            ],
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "CompatibilityObjectName",
+          "SSLEnabled",
+          "SSLEnabled2",
+          "SSLEnabled3",
+          "SSLEnabled4",
+          "SSLEnabled5",
+          "SSLEnabled6",
+          "SSLEnabled7",
+          "SSLEnabled8",
+          "SSLEnabled9",
+          "SSLEnabled10",
+          "SSLEnabled11",
+          "SSLEnabled12"
+        ]
+      },
+      {
+        "type": "attributesTab",
+        "label": "SQL",
+        "attributes": [
+          "SQLCreateUser",
+          "SQLRemoveUser",
+          "SQLListUsers",
+          "SQLUserExists",
+          "SQLGetUsersPassword",
+          "SQLSetUserPassword",
+          "SQLIsMember",
+          "SQLCreateGroup",
+          "SQLAddMemberToGroup",
+          "SQLRemoveGroup",
+          "SQLRemoveGroupMember",
+          "SQLRemoveGroupMemberships",
+          "SQLRemoveMemberFromGroup",
+          "SQLListGroups",
+          "SQLListGroupMembers",
+          "SQLListMemberGroups",
+          "SQLGroupExists",
+          "DescriptionsSupported",
+          "SQLGetUserDescription",
+          "SQLGetGroupDescription",
+          "SQLSetGroupDescription",
+          "SQLSetUserDescription"
+        ]
+      }
+    ]
+  },
+  "SecurityConfiguration/Realm/AuthenticationProvider/TrustServiceIdentityAsserter": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "ActiveType"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "CompatibilityObjectName"
+        ]
+      }
+    ]
+  },
+  "SecurityConfiguration/Realm/AuthenticationProvider/VirtualUserAuthenticator": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "ControlFlag"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "attributes": [
+          "IdentityDomain",
+          "IdentityDomains"
+        ],
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "CompatibilityObjectName"
+        ]
+      }
+    ]
+  },
+  "SecurityConfiguration/Realm/Authorizer/DefaultAuthorizer": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "PolicyDeploymentEnabled"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "CompatibilityObjectName"
+        ]
+      }
+    ]
+  },
+  "SecurityConfiguration/Realm/Authorizer/XACMLAuthorizer": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "PolicyDeploymentEnabled"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "CompatibilityObjectName"
+        ]
+      }
+    ]
+  },
+  "SecurityConfiguration/Realm/CertPathProvider/CertificateRegistry": {
+    "sections": [
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "CompatibilityObjectName"
+        ]
+      }
+    ]
+  },
+  "SecurityConfiguration/Realm/CertPathProvider/WebLogicCertPathProvider": {
+    "sections": [
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "CompatibilityObjectName"
+        ]
+      }
+    ]
+  },
+  "SecurityConfiguration/Realm/CredentialMapper/DefaultCredentialMapper": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "CredentialMappingDeploymentEnabled",
+          "JwtTokenExpiration",
+          "ManagementTokenMaxTimeout"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "CompatibilityObjectName"
+        ]
+      }
+    ]
+  },
+  "SecurityConfiguration/Realm/CredentialMapper/PKICredentialMapper": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "KeyStoreFileName",
+          "KeyStorePassPhraseEncrypted",
+          "KeyStoreProvider",
+          "KeyStoreType",
+          "UseInitiatorGroupNames",
+          "UseResourceHierarchy"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "CompatibilityObjectName"
+        ]
+      }
+    ]
+  },
+  "SecurityConfiguration/Realm/CredentialMapper/SAML2CredentialMapper": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "IssuerUri",
+          "GenerateAttributes",
+          "NameMapperClassName",
+          "NameQualifier",
+          "SigningKeyAlias",
+          "SigningKeyPassPhraseEncrypted",
+          "DefaultTimeToLive",
+          "DefaultTimeToLiveOffset",
+          "CredCacheSize",
+          "CredCacheMinViableTtl"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "CompatibilityObjectName"
+        ]
+      }
+    ]
+  },
+  "SecurityConfiguration/Realm/CredentialMapper/SAMLCredentialMapperV2": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "IssuerUri",
+          "MinimumParserPoolSize",
+          "NameMapperClassName",
+          "NameQualifier",
+          "SigningKeyAlias",
+          "SigningKeyPassPhraseEncrypted",
+          "DefaultTimeToLive",
+          "DefaultTimeToLiveDelta",
+          "CredCacheSize",
+          "CredCacheMinViableTtl"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "CompatibilityObjectName"
+        ]
+      }
+    ]
+  },
+  "SecurityConfiguration/Realm/PasswordValidator/SystemPasswordValidator": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "MinPasswordLength",
+          "MaxPasswordLength",
+          "MaxConsecutiveCharacters",
+          "MaxInstancesOfAnyCharacter",
+          "MinAlphabeticCharacters",
+          "MinNonAlphanumericCharacters",
+          "MinLowercaseCharacters",
+          "MinUppercaseCharacters",
+          "MinNumericCharacters",
+          "MinNumericOrSpecialCharacters",
+          "RejectEqualOrContainUsername",
+          "RejectEqualOrContainReverseUsername"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "CompatibilityObjectName"
+        ]
+      }
+    ]
+  },
+  "SecurityConfiguration/Realm/RDBMSSecurityStore": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "DriverName",
+          "ConnectionURL",
+          "Username",
+          "PasswordEncrypted",
+          "ConnectionProperties",
+          "JMSTopicConnectionFactory",
+          "JMSTopic",
+          "JNDIUsername",
+          "JNDIPasswordEncrypted",
+          "JMSExceptionReconnectAttempts",
+          "NotificationProperties"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "SecurityConfiguration/Realm/RoleMapper/DefaultRoleMapper": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "RoleDeploymentEnabled"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "CompatibilityObjectName"
+        ]
+      }
+    ]
+  },
+  "SecurityConfiguration/Realm/RoleMapper/XACMLRoleMapper": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "RoleDeploymentEnabled",
+          "DeployBasePredicatesEnabled"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "CompatibilityObjectName"
+        ]
+      }
+    ]
+  },
+  "SecurityConfiguration/Realm/UserLockoutManager": {
+    "attributeDetails": {
+      "LockoutCacheSize": {
+        "disabled": "userLockoutManagerLockoutFields"
+      },
+      "LockoutDuration": {
+        "disabled": "userLockoutManagerLockoutFields"
+      },
+      "LockoutGcThreshold": {
+        "disabled": "userLockoutManagerLockoutFields"
+      },
+      "LockoutResetDuration": {
+        "disabled": "userLockoutManagerLockoutFields"
+      },
+      "LockoutThreshold": {
+        "disabled": "userLockoutManagerLockoutFields"
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "LockoutEnabled",
+          "LockoutThreshold",
+          "LockoutDuration",
+          "LockoutResetDuration",
+          "LockoutGcThreshold",
+          "LockoutCacheSize"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "CompatibilityObjectName"
         ]
       }
     ]

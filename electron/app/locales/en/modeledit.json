@@ -73,6 +73,16 @@
   "node-manager-ssl-tab-label": "SSL Configuration",
   "node-manager-network-tab-label": "Network Configuration",
   "node-manager-logging-tab-label": "Logging",
+  "caching-tab-label": "Caching",
+  "users-settings-tab-label": "Users",
+  "groups-settings-tab-label": "Groups",
+  "static-dynamic-bindings-tab-label": "Static/Dynamic Bindings",
+  "tuning-title": "Tuning",
+  "ldap-server-tab-label": "LDAP Settings",
+  "identity-asserter-configuration-tab-label": "Identity Asserter Configuration",
+  "authorization-bearer-tab-label": "Authorization Bearer",
+  "scim-authentication-tab-label": "SCIM Authentication",
+  "sync-filter-configuration-tab-label": "Sync Filter Configuration",
 
   "security-model-advanced-label": "Advanced",
   "security-model-custom-roles-label": "Custom Roles",
@@ -262,6 +272,19 @@
   "options-custom-identity-and-java-standard-trust-label": "Custom Identity and Java Standard Trust",
   "options-custom-identity-and-custom-trust-label": "Custom Identity and Custom Trust",
   "options-custom-identity-and-command-line-trust-label": "Custom Identity and Command-Line Trust",
+  "options-information-label": "Information",
+  "options-success-label": "Success",
+  "options-failure-label": "Failure",
+  "options-custom-label": "Custom",
+  "options-requisite-label": "Requisite",
+  "options-sufficient-label": "Sufficient",
+  "options-optional-label": "Optional",
+  "options-subtree-label": "Subtree",
+  "options-one-level-label": "One Level",
+  "options-unlimited-label": "Unlimited",
+  "options-limited-label": "Limited",
+  "options-normal-label": "Normal",
+  "options-signature-label": "Signature",
 
   "direction-jms-queue-to-tuxedo-queue-label": "JMS Queue to Tuxedo Queue",
   "direction-tuxedo-queue-to-jms-queue-label": "Tuxedo Queue to JMS Queue",
@@ -384,7 +407,10 @@
   "f-WTCServer_WTCRemoteTuxDom-a-AccessPointId-help": "The connection principal name used to identify this remote domain access point when attempting to establish a session connection to local Tuxedo access points. This value must be globally unique among all interconnected Tuxedo and WTC Domains.",
 
   "a-AccessTokenContextPath-label": "Access Token Context Path",
+  "a-AccessTokenContextPath-help": "Specifies the list of context paths that will be allowed to use an IDCS access token. The default is to allow any context path to use an IDCS access token.",
+
   "a-AccessTokenTimeoutWindow-label": "Access Token Timeout Window",
+  "a-AccessTokenTimeoutWindow-help": "Specifies the number of seconds before an access token times out that a new access token is requested. Adjusting the timeout window impacts how long access tokens are cached for reuse before an updated access token is requested from the authorization server.",
 
   "a-AcknowledgeInterval-label": "Acknowledge Interval",
   "f-SAFAgent-a-AcknowledgeInterval-help": "The maximum interval between two successive acknowledgements sent by the receiving side. A value of -1 specifies that there is no time limit between successive acknowledgement.",
@@ -405,7 +431,9 @@
   "f-WLDFSystemResource_WLDFResource_Instrumentation_WLDFInstrumentationMonitor-a-Action-help": "The diagnostic actions attached to this monitor. Actions are relevant only for delegating and custom monitors.",
 
   "a-Active-label": "Active",
+
   "a-ActiveContextHandlerEntry-label": "Active Context Handler Entry",
+  "f-any_DefaultAuditor-a-ActiveContextHandlerEntry-help": "Specifies the ContextHandler entries that the Audit provider should process.",
 
   "a-ActiveDirectory-label": "Active Directory",
   "f-CoherenceClusterSystemResource_CoherenceResource_CoherencePersistenceParams-a-ActiveDirectory-help": "The active directory for the default persistence environment. If no value is specified, the directory which will be used is the coherence/active sub-directory under Domain Home directory.",
@@ -414,6 +442,11 @@
   "f-JDBCSystemResource_JdbcResource_JDBCOracleParams-a-ActiveGridlink-help": "Indicates a configured Active GridLink datasource. This attributed is set to true when using the console to create an Active GridLink datasource. It is ignored if FanEnabled is true or OnsNodeList is a non-null string.",
 
   "a-ActiveType-label": "Active Type",
+  "f-any_DefaultIdentityAsserter-a-ActiveType-help": "Specifies the token types that are currently active. The default value includes \"AuthenticatedUser\" and \"weblogic-jwt-token\".",
+  "f-any_LDAPX509IdentityAsserter-a-ActiveType-help": "Specifies the token types that are currently active. The default value includes \"X.509\".",
+  "f-any_weblogic.security.providers.authentication.OracleIdentityCloudIntegrator-a-ActiveType-help": "Specifies the token types that are currently active. The default value includes \"idcs_user_assertion\" and \"Idcs_user_assertion\".",
+  "f-any_TrustServiceIdentityAsserter-a-ActiveType-help": "Specifies the token types that are currently active.",
+
   "a-Adapter-label": "Adapter",
 
   "a-AdapterJNDIName-label": "Adapter JNDI Name",
@@ -460,8 +493,12 @@
   "f-JDBCSystemResource_JdbcResource_JDBCDataSourceParams-a-AlgorithmType-help": "The algorithm determines the connection request processing for the multi data source.",
 
   "a-AllCandidateServers-label": "All Candidate Servers",
+
   "a-AllGroupsFilter-label": "All Groups Filter",
+  "a-AllGroupsFilter-help": "An LDAP search filter for finding all groups beneath the base group distinguished name (DN). If the attribute is not specified (that is, if the attribute is null or empty), a default search filter is created based on the Group schema.",
+
   "a-AllUsersFilter-label": "All Users Filter",
+  "a-AllUsersFilter-help": "An LDAP search filter for finding all users beneath the base user distinguished name (DN). If the attribute (user object class) is not specified (that is, if the attribute is null or empty), a default search filter is created based on the user schema.",
 
   "a-AllowAllRoles-label": "Allow All Roles",
   "f-WebAppContainer-a-AllowAllRoles-help": "In the security-constraints elements defined in a web application's web.xml deployment descriptor, the auth-constraint element indicates the user roles that should be permitted access to this resource collection. Here role-name = \"*\" is a compact syntax for indicating all roles in the Web application. In previous releases, role-name = \"*\" was treated as all users/roles defined in the realm. This parameter is a backward-compatibility switch to restore old behavior. Default behavior is one required by the specification, meaning all roles defined in the web application. If set, the value defined in weblogic.xml (container-descriptor -> allow-all-roles) takes precedence (if set) over this value.",
@@ -489,6 +526,7 @@
   "f-JMSServer-a-AllowsPersistentDowngrade-help": "Specifies whether JMS clients will get an exception when sending persistent messages to a destination targeted to a JMS server that does not have a persistent store configured. This parameter only has effect when the Store Enabled parameter is disabled (false).",
 
   "a-AltClientIdTokenClaim-label": "Alt Client ID Token Claim",
+  "a-AltClientIdTokenClaim-help": "Specifies the token attribute to use to get the alternate client ID from the token. The default value is \"client_faId\".",
 
   "a-AltDescriptorDir-label": "Alternative Descriptor Dir",
   "a-AltDescriptorDir-help": "The location of this application's configuration area. This directory can contain alternate descriptor files. If the alternate descriptor directory is a relative path, it is resolved relative to InstallDir if InstallDir is not null; otherwise, it is resolved relative to the domain root.",
@@ -497,6 +535,7 @@
   "a-AltDescriptorPath-help": "A path on the file system for the application descriptor for this application. If null, the usual location within the EAR is used (META-INF/application.xml).",
 
   "a-AltIdTokenClaim-label": "Alt ID Token Claim",
+  "a-AltIdTokenClaim-help": "Specifies the token attribute used to get the alternate user ID from the token. The default value is \"client_faId\".",
 
   "a-AltWLSDescriptorPath-label": "Alternative WLS Descriptor Path",
   "a-AltWLSDescriptorPath-help": "A path on the file system for the WebLogic Server-specific application descriptor for this application. If null, the usual location within the EAR file is used.",
@@ -508,6 +547,8 @@
   "f-EmbeddedLDAP-a-AnonymousBindAllowed-help": "Specifies whether the embedded LDAP server should allow anonymous connections.",
 
   "a-AnyIdentityDomainEnabled-label": "Any Identity Domain Enabled",
+  "a-AnyIdentityDomainEnabled-help": "Specifies whether the provider enables support of any identity domain mappers. The default value is false.",
+
   "a-ApartmentThreaded-label": "Apartment Threaded",
   "a-AppDir-label": "Application Directory",
 
@@ -515,6 +556,7 @@
   "a-AppKey-help": "Specifies the type of AppKey plug-in used.  The allowed values are TpUsrFile, LDAP, and Custom.  TpUsrFile is the default plug-in and uses an imported Tuxedo TPUSR file to provide user security information. The LDAP plug-in utilizes an embedded LDAP server to provide user security information; the user record must define the Tuxedo UID and GID information in the description field. The Custom plug-in provides the ability to write your own AppKey generator class to provide the security information required by Tuxedo.",
 
   "a-AppNameFilterHeaderName-label": "App Name Filter Header Name",
+  "a-AppNameFilterHeaderName-help": "Specifies the name of the HTTP header used to determine the application name applied when filtering the authentication and assertion requests to the Oracle Identity Cloud Service. When no value is supplied or can be determined, requests are not filtered by an application.",
 
   "a-AppPassword-label": "App Password",
   "f-WTCServer_WTCResources-a-AppPassword-help": "The application password as returned from the genpasswd utility. This Tuxedo application password is the encrypted password used to authenticate connections.",
@@ -523,6 +565,8 @@
   "f-WTCServer_WTCResources-a-AppPasswordIv-help": "The initialization vector used to encrypt the AppPassword. Note that this value is returned from the genpasswd utility with the AppPassword.",
 
   "a-AppRolesTokenClaim-label": "App Roles Token Claim",
+  "a-AppRolesTokenClaim-help": "Specifies the token attribute ssed to get AppRoles from the token.",
+
   "a-ApplicationContainer-label": "Application Container",
   "a-ApplicationIdentifier-label": "Application Identifier",
   "a-ApplicationName-label": "Application Name",
@@ -579,6 +623,8 @@
   "f-any_SNMPAttributeChange-a-AttributeName-help": "The name of the attribute that you want to monitor. This attribute must be in the WebLogic Server MIB.",
 
   "a-AudienceEnabled-label": "Audience Enabled",
+  "a-AudienceEnabled-help": "Specifies whether the audience from the access token is stored in the subject for later use by the application.",
+
   "a-AuditorTypes-label": "Auditor Types",
 
   "a-AuthCookieEnabled-label": "Auth Cookie Enabled",
@@ -629,8 +675,14 @@
   "f-EmbeddedLDAP-a-BackupMinute-help": "The minute at which the embedded LDAP server should be backed up.\n\nThe Backup Minute value is used in conjunction with the Back Up Hour value to determine the time at which the embedded LDAP server data files are backed up.",
 
   "a-Base64DecodingRequired-label": "Base 64 Decoding Required",
+  "a-Base64DecodingRequired-help": "Specifies whether the tokens that are passed to the Identity Assertion provider will be base64 decoded first. If false then the server will not base64 decode the token before passing it to the identity asserter. This defaults to true for backwards compatibility but most providers will probably want to set this to false.",
+
   "a-Base64EncodingException-label": "Base 64 Encoding Exception",
+  "f-any_DefaultIdentityAsserter-a-Base64EncodingException-help": "Specifies the list of token types whose tokens do not need to be Base64 decoded.",
+
   "a-BasePath-label": "Base Path",
+  "a-BasePath-help": "Specifies the URI base path used for the connection to the Oracle Identity Cloud Service.",
+
   "a-BaseRetransmissionInterval-label": "Base Retransmission Interval",
   "a-BasicAuthPasswordEncrypted-label": "Basic Auth Password Encrypted",
   "a-BasicAuthUsername-label": "Basic Auth Username",
@@ -650,7 +702,10 @@
   "f-JTA-a-BeforeCompletionIterationLimit-help": "The maximum number of cycles that the transaction manager performs the beforeCompletion synchronization callback for this WebLogic Server domain. Nothing prevents a Synchronization object from registering another during beforeCompletion, even those whose beforeCompletions have already been called. For example, an EJB can call another in its ejbStore() method. To accommodate this, the transaction manager calls all Synchronization objects, then repeats the cycle if new ones have been registered. This count sets a limit to the number of cycles that synchronization occurs.",
 
   "a-BeginMarker-label": "Begin Marker",
+  "f-any_DefaultAuditor-a-BeginMarker-help": "The marker that indicates the beginning of the audit record.",
+
   "a-BindAnonymouslyOnReferrals-label": "Bind Anonymously On Referrals",
+  "a-BindAnonymouslyOnReferrals-help": "Specifies whether to anonymously bind when following referrals within the LDAP directory. If set to false, then the current Principal and Credential will be used.",
 
   "a-BlockSize-label": "Block Size",
   "f-FileStore-a-BlockSize-help": "The smallest addressable block, in bytes, of a file. When a native wlfileio driver is available and the block size has not been configured by the user, the store selects the minimum OS specific value for unbuffered (direct) I/O, if it is within the range [512, 8192]. A file store's block size does not change once the file store creates its files. Changes to block size only take effect for new file stores or after the current files have been deleted. See \"Tuning the Persistent Store\" in Tuning Performance of Oracle WebLogic Server.",
@@ -714,6 +769,16 @@
 
   "a-CacheEnabled-label": "Cache Enabled",
   "f-EmbeddedLDAP-a-CacheEnabled-help": "Specifies whether a cache is used with the embedded LDAP server. This cache is used when a managed server is reading or writing to the master embedded LDAP server that is running on the Administration server.",
+  "f-any_ActiveDirectoryAuthenticator-a-CacheEnabled-help": "Specifies whether to cache LDAP requests with the LDAP server.",
+  "f-any_IPlanetAuthenticator-a-CacheEnabled-help": "Specifies whether to cache LDAP requests with the LDAP server.",
+  "f-any_LDAPAuthenticator-a-CacheEnabled-help": "Specifies whether to cache LDAP requests with the LDAP server.",
+  "f-any_LDAPX509IdentityAsserter-a-CacheEnabled-help": "Specifies whether to cache LDAP requests with the LDAP server.",
+  "f-any_NovellAuthenticator-a-CacheEnabled-help": "Specifies whether to cache LDAP requests with the LDAP server.",
+  "f-any_OpenLDAPAuthenticator-a-CacheEnabled-help": "Specifies whether to cache LDAP requests with the LDAP server.",
+  "f-any_OracleInternetDirectoryAuthenticator-a-CacheEnabled-help": "Specifies whether to cache LDAP requests with the LDAP server.",
+  "f-any_OracleUnifiedDirectoryAuthenticator-a-CacheEnabled-help": "Specifies whether to cache LDAP requests with the LDAP server.",
+  "f-any_OracleVirtualDirectoryAuthenticator-a-CacheEnabled-help": "Specifies whether to cache LDAP requests with the LDAP server.",
+  "f-any_weblogic.security.providers.authentication.OracleIdentityCloudIntegrator-a-CacheEnabled-help": "Specifies whether to cache the Oracle Identity Cloud Service user's information.",
 
   "a-CacheInAppDirectory-label": "Cache In App Directory",
   "a-CacheLocation-label": "Cache Location",
@@ -721,13 +786,35 @@
   "a-CacheName-label": "Cache Name",
 
   "a-CacheSize-label": "Cache Size",
-  "f-EmbeddedLDAP-a-CacheSize-help": "The size of the cache (in kilobytes) that is used with the embedded LDAP server.",
+  "f-EmbeddedLDAP-a-CacheSize-help": "Specifies the size of the cache (in kilobytes) that is used with the embedded LDAP server.",
+  "f-any_ActiveDirectoryAuthenticator-a-CacheSize-help": "Specifies the size of the cache in KBs. The default value is 32.",
+  "f-any_IPlanetAuthenticator-a-CacheSize-help": "Specifies the size of the cache in KBs. The default value is 32.",
+  "f-any_LDAPAuthenticator-a-CacheSize-help": "Specifies the size of the cache in KBs. The default value is 32.",
+  "f-any_LDAPX509IdentityAsserter-a-CacheSize-help": "Specifies the size of the cache in KBs. The default value is 32.",
+  "f-any_NovellAuthenticator-a-CacheSize-help": "Specifies the size of the cache in KBs. The default value is 32.",
+  "f-any_OpenLDAPAuthenticator-a-CacheSize-help": "Specifies the size of the cache in KBs. The default value is 32.",
+  "f-any_OracleInternetDirectoryAuthenticator-a-CacheSize-help": "Specifies the size of the cache in KBs. The default value is 32.",
+  "f-any_OracleUnifiedDirectoryAuthenticator-a-CacheSize-help": "Specifies the size of the cache in KBs. The default value is 32.",
+  "f-any_OracleVirtualDirectoryAuthenticator-a-CacheSize-help": "Specifies the size of the cache in KBs. The default value is 32.",
+  "f-any_weblogic.security.providers.authentication.OracleIdentityCloudIntegrator-a-CacheSize-help": "Specifies the maximum number of entries to cache. The default value is 500.",
+
 
   "a-CacheTTL-label": "Cache Time-to-Live",
   "f-EmbeddedLDAP-a-CacheTTL-help": "The time-to-live of the cache (in seconds) that is used with the embedded LDAP server.",
 
   "a-CacheTimeoutInterval-label": "Cache Timeout Interval",
-  "a-CacheTtl-label": "Cache TTL",
+
+  "a-CacheTtl-label": "Cache Time-to-Live",
+  "f-any_ActiveDirectoryAuthenticator-a-CacheTtl-help": "Specifies the time-to-live (TTL) of the cache in seconds. The default value is 60.",
+  "f-any_IPlanetAuthenticator-a-CacheTtl-help": "Specifies the time-to-live (TTL) of the cache in seconds. The default value is 60.",
+  "f-any_LDAPAuthenticator-a-CacheTtl-help": "Specifies the time-to-live (TTL) of the cache in seconds. The default value is 60.",
+  "f-any_LDAPX509IdentityAsserter-a-CacheTtl-help": "Specifies the time-to-live (TTL) of the cache in seconds. The default value is 60.",
+  "f-any_NovellAuthenticator-a-CacheTtl-help": "Specifies the time-to-live (TTL) of the cache in seconds. The default value is 60.",
+  "f-any_OpenLDAPAuthenticator-a-CacheTtl-help": "Specifies the time-to-live (TTL) of the cache in seconds. The default value is 60.",
+  "f-any_OracleInternetDirectoryAuthenticator-a-CacheTtl-help": "Specifies the time-to-live (TTL) of the cache in seconds. The default value is 60.",
+  "f-any_OracleUnifiedDirectoryAuthenticator-a-CacheTtl-help": "Specifies the time-to-live (TTL) of the cache in seconds. The default value is 60.",
+  "f-any_OracleVirtualDirectoryAuthenticator-a-CacheTtl-help": "Specifies the time-to-live (TTL) of the cache in seconds. The default value is 60.",
+  "f-any_weblogic.security.providers.authentication.OracleIdentityCloudIntegrator-a-CacheTtl-help": "Specifies the time-to-live (TTL) of the Oracle Identity Cloud Service user cache, in seconds. The default value is 300.",
 
   "a-CalculateIntervalSecs-label": "Calculate Interval Seconds",
   "f-HealthScore-a-CalculateIntervalSecs-help": "The interval time (in seconds) that WebLogic Server will call the health score plugin for calculating the server's health score.",
@@ -750,7 +837,9 @@
   "f-any_Realm-a-CertPathBuilder-help": "The CertPath Builder provider in this security realm that will be used by the security system to build certification paths. The provider must be one of this security realm's CertPathProviders.",
 
   "a-CertPathProviderTypes-label": "Cert Path Provider Types",
+
   "a-CertificateAttribute-label": "Certificate Attribute",
+  "f-any_LDAPX509IdentityAsserter-a-CertificateAttribute-help": "Specifies the name of the LDAP attribute representing the user's identity.",
 
   "a-CertificateAuthorityValidityPeriod-label": "Certificate Authority Validity Period",
   "f-any_CertificateManagement-a-CertificateAuthorityValidityPeriod-help": "Returns the validity period (certificate lifetime) that the Domain Certificates Issuer should set when generating a new Certificate Authority certificate. The validity period is expressed in days.",
@@ -761,7 +850,9 @@
   "f-any_CertificateManagement-a-CertificateCheckInterval-help": "Specifies how often the Certificate Management Service should check for/refresh expiring certificates (in days).",
 
   "a-CertificateFile-label": "Certificate File",
+
   "a-CertificateMapping-label": "Certificate Mapping",
+  "f-any_LDAPX509IdentityAsserter-a-CertificateMapping-help": "Specifies the mapping of certificate attributes to directory attributes.",
 
   "a-CertificateRefreshWindow-label": "Certificate Refresh Window",
   "f-any_CertificateManagement-a-CertificateRefreshWindow-help": "The Certificate Management Service will refresh an expiring certificate when its remaining lifetime is less than this number of days.",
@@ -796,6 +887,7 @@
   "f-SecurityConfiguration-a-CheckTrustCertificates-help": "Specifies whether trust certificates should be checked periodically for expiration.",
 
   "a-CheckUserEnabledAttribute-label": "Check User Enabled Attribute",
+  "f-any_OracleInternetDirectoryAuthenticator-a-CheckUserEnabledAttribute-help": "Specifies whether to check if the user is enabled, e.g. check the OrclIsEnabled attribute value from the Oracle Internet Directory LDAP server. The default value is false.",
 
   "a-CheckingDisabled-label": "Checking Disabled",
   "f-any_CertRevocCa-a-CheckingDisabled-help": "For this CA, determines whether certificate revocation checking is disabled.",
@@ -843,6 +935,8 @@
   "f-SecurityConfiguration-a-ClearTextCredentialAccessEnabled-help": "Specifies whether to allow access to credential in clear text.",
 
   "a-ClientAsUserPrincipalEnabled-label": "Client As User Principal Enabled",
+  "a-ClientAsUserPrincipalEnabled-help": "Specifies whether the client name from the access token is stored in the subject as the username for later use by the application.",
+
   "a-ClientCertAlias-label": "Client Cert Alias",
   "a-ClientCertPrivateKeyPassPhraseEncrypted-label": "Client Cert Private Key Passphrase Encrypted",
 
@@ -853,18 +947,32 @@
 
   "a-ClientId-label": "Client ID",
   "f-JMSSystemResource_JmsResource_ConnectionFactory_ClientParams-a-ClientId-help": "An optional Client ID for applications that use this JMS connection factory. If the Client ID Policy is set to Restricted (the default), then configuring a Client ID on the connection factory prevents more than one JMS client from using a connection from this factory.",
+  "f-any_weblogic.security.providers.authentication.OracleIdentityCloudIntegrator-a-ClientId-help": "Specifies the Client Id used when retrieving tokens from the Oracle Identity Cloud Service.",
 
   "a-ClientIdPolicy-label": "Client ID Policy",
   "f-JMSSystemResource_JmsResource_ConnectionFactory_ClientParams-a-ClientIdPolicy-help": "The Client ID Policy indicates whether more than one JMS connection can use the same Client ID.",
 
   "a-ClientIdResourceAttribute-label": "Client ID Resource Attribute",
+  "a-ClientIdResourceAttribute-help": "Specifies the attribute used for Client ID App Assertion. The default value results in the use of the attribute configured by the Oracle Identity Cloud Service.",
+
   "a-ClientIdTokenClaim-label": "Client ID Token Claim",
+  "a-ClientIdTokenClaim-help": "Specifies the token attribute used to get the client Id (GUID) from the access token. The default value is \"client_id\".",
+
   "a-ClientInitSecureRenegotiationAccepted-label": "Client Init Secure Renegotiation Accepted",
   "a-ClientIpHeader-label": "Client Ip Header",
+
   "a-ClientNameTokenClaim-label": "Client Name Token Claim",
+  "a-ClientNameTokenClaim-help": "Specifies the token attribute used to get the client name from the access token. The default value is \"client_name\".",
+
   "a-ClientSecretEncrypted-label": "Client Secret Encrypted",
+  "a-ClientSecretEncrypted-help": "Specifies the Client secret used when retrieving tokens from the Oracle Identity Cloud Service.",
+
   "a-ClientTenant-label": "Client Tenant",
+  "a-ClientTenant-help": "Specifies the tenant in which the Client Id resides from the Oracle Identity Cloud Service. When no client tenant name is configured, the tenant configured for the provider is used.",
+
   "a-ClientTenantTokenClaim-label": "Client Tenant Token Claim",
+  "a-ClientTenantTokenClaim-help": "Specifies the token attribute used to get the Identity Domain for the client from the access token. The default value is \"client_tenantname\".",
+
   "a-ClockPrecision-label": "Clock Precision",
 
   "a-ClockSkew-label": "Clock Skew",
@@ -913,13 +1021,13 @@
   "a-CoherenceClusterSystemResource-label": "Coherence Cluster System Resource",
 
   "a-CoherenceIdentityAlias-label": "Identity Alias",
-  "a-CoherenceIdentityAlias-help": "The string alias used to store and retrieve the Coherence Identity private key in the keystore. This private key is associated with the Coherence Identity digital certificate. If this alias is null, the Server SSL identity alias will be used.",
+  "a-CoherenceIdentityAlias-help": "The string alias used to store and retrieve the Coherence Identity private key in the key store. This private key is associated with the Coherence Identity digital certificate. If this alias is null, the Server SSL identity alias will be used.",
 
   "a-CoherenceKeyRefreshPeriod-label": "Key Refresh Period",
   "a-CoherenceKeyRefreshPeriod-help": "he period to use to attempt to refresh keys and certs. This is used in cases where keys or certs have a short lifetime and need to be refreshed at runtime. If this element is omitted or is set to a value less than or equal to zero, then keys and certs will not be refreshed.",
 
   "a-CoherencePrivateKeyPassPhraseEncrypted-label": "Private Key Passphrase Encrypted",
-  "a-CoherencePrivateKeyPassPhraseEncrypted-help": "The passphrase used to retrieve the private key for the Coherence Identity specified in the server configured keystore. This passphrase is assigned to the private key when the private key is generated.",
+  "a-CoherencePrivateKeyPassPhraseEncrypted-help": "The passphrase used to retrieve the private key for the Coherence Identity specified in the server configured key store. This passphrase is assigned to the private key when the private key is generated.",
 
   "a-CoherenceStartScriptEnabled-label": "Coherence Start Script Enabled",
   "a-CoherenceStartScriptName-label": "Coherence Start Script Name",
@@ -983,6 +1091,16 @@
   "f-WTCServer_WTCRemoteTuxDom-a-ConnPrincipalName-help": "The principal name used to verify the identity of this remote Tuxedo access point when it establishes a session connection with a local Tuxedo access point. If not specified, the connection principal name defaults to the AccessPointID for this access point. Note that this parameter only applies to domains of type TDOMAIN that are running Oracle Tuxedo 7.1 or later software.",
 
   "a-ConnectTimeout-label": "Connect Timeout",
+  "f-any_ActiveDirectoryAuthenticator-a-ConnectTimeout-help": "Specifies the maximum number of seconds to wait for the LDAP connection to be established.",
+  "f-any_IPlanetAuthenticator-a-ConnectTimeout-help": "Specifies the maximum number of seconds to wait for the LDAP connection to be established.",
+  "f-any_LDAPAuthenticator-a-ConnectTimeout-help": "Specifies the maximum number of seconds to wait for the LDAP connection to be established.",
+  "f-any_LDAPX509IdentityAsserter-a-ConnectTimeout-help": "Specifies the maximum number of seconds to wait for the LDAP connection to be established.",
+  "f-any_NovellAuthenticator-a-ConnectTimeout-help": "Specifies the maximum number of seconds to wait for the LDAP connection to be established.",
+  "f-any_OpenLDAPAuthenticator-a-ConnectTimeout-help": "Specifies the maximum number of seconds to wait for the LDAP connection to be established.",
+  "f-any_OracleInternetDirectoryAuthenticator-a-ConnectTimeout-help": "Specifies the maximum number of seconds to wait for the LDAP connection to be established.",
+  "f-any_OracleUnifiedDirectoryAuthenticator-a-ConnectTimeout-help": "Specifies the maximum number of seconds to wait for the LDAP connection to be established.",
+  "f-any_OracleVirtualDirectoryAuthenticator-a-ConnectTimeout-help": "Specifies the maximum number of seconds to wait for the LDAP connection to be established.",
+  "f-any_weblogic.security.providers.authentication.OracleIdentityCloudIntegrator-a-ConnectTimeout-help": "Specifies the maximum time to wait, in seconds, for the connection to the Oracle Identity Cloud Service to be established. The default value is 60.",
 
   "a-ConnectionCachingPolicy-label": "Connection Caching Policy",
   "f-JDBCStore-a-ConnectionCachingPolicy-help": "For advanced use only: sets the connection caching policy for the JDBC store.",
@@ -1036,12 +1154,31 @@
   "f-SelfTuning_MaxThreadsConstraint-a-ConnectionPoolName-help": "Name of the connection pool whose size is taken as the max constraint. This can be the name of a JDBC data source. The max capacity of the data source is used as the constraint.",
 
   "a-ConnectionPoolSize-label": "Connection Pool Size",
+  "f-any_ActiveDirectoryAuthenticator-a-ConnectionPoolSize-help": "Specifies the LDAP connection pool size. The default value is 6.",
+  "f-any_IPlanetAuthenticator-a-ConnectionPoolSize-help": "Specifies the LDAP connection pool size. The default value is 6.",
+  "f-any_LDAPAuthenticator-a-ConnectionPoolSize-help": "Specifies the LDAP connection pool size. The default value is 6.",
+  "f-any_LDAPX509IdentityAsserter-a-ConnectionPoolSize-help": "Specifies the LDAP connection pool size. The default value is 6.",
+  "f-any_NovellAuthenticator-a-ConnectionPoolSize-help": "Specifies the LDAP connection pool size. The default value is 6.",
+  "f-any_OpenLDAPAuthenticator-a-ConnectionPoolSize-help": "Specifies the LDAP connection pool size. The default value is 6.",
+  "f-any_OracleInternetDirectoryAuthenticator-a-ConnectionPoolSize-help": "Specifies the LDAP connection pool size. The default value is 6.",
+  "f-any_OracleUnifiedDirectoryAuthenticator-a-ConnectionPoolSize-help": "Specifies the LDAP connection pool size. The default value is 6.",
+  "f-any_OracleVirtualDirectoryAuthenticator-a-ConnectionPoolSize-help": "Specifies the LDAP connection pool size. The default value is 6.",
+
   "a-ConnectionProperties-label": "Connection Properties",
 
   "a-ConnectionReserveTimeoutSeconds-label": "Connection Reserve Timeout Seconds",
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-ConnectionReserveTimeoutSeconds-help": "The number of seconds after which a call to reserve a connection from the connection pool will timeout. When set to 0, a call will never timeout. When set to -1, a call will timeout immediately.",
 
   "a-ConnectionRetryLimit-label": "Connection Retry Limit",
+  "f-any_ActiveDirectoryAuthenticator-a-ConnectionRetryLimit-help": "Specifies the number of times to attempt to connect to the LDAP server if the initial connection failed.",
+  "f-any_IPlanetAuthenticator-a-ConnectionRetryLimit-help": "Specifies the number of times to attempt to connect to the LDAP server if the initial connection failed.",
+  "f-any_LDAPAuthenticator-a-ConnectionRetryLimit-help": "Specifies the number of times to attempt to connect to the LDAP server if the initial connection failed.",
+  "f-any_LDAPX509IdentityAsserter-a-ConnectionRetryLimit-help": "Specifies the number of times to attempt to connect to the LDAP server if the initial connection failed.",
+  "f-any_NovellAuthenticator-a-ConnectionRetryLimit-help": "Specifies the number of times to attempt to connect to the LDAP server if the initial connection failed.",
+  "f-any_OpenLDAPAuthenticator-a-ConnectionRetryLimit-help": "Specifies the number of times to attempt to connect to the LDAP server if the initial connection failed.",
+  "f-any_OracleInternetDirectoryAuthenticator-a-ConnectionRetryLimit-help": "Specifies the number of times to attempt to connect to the LDAP server if the initial connection failed.",
+  "f-any_OracleUnifiedDirectoryAuthenticator-a-ConnectionRetryLimit-help": "Specifies the number of times to attempt to connect to the LDAP server if the initial connection failed.",
+  "f-any_OracleVirtualDirectoryAuthenticator-a-ConnectionRetryLimit-help": "Specifies the number of times to attempt to connect to the LDAP server if the initial connection failed.",
 
   "a-ConnectionURL-label": "Connection URL",
   "f-JMSBridgeDestination-a-ConnectionURL-help": "The connection URL for this JMS bridge destination.",
@@ -1081,6 +1218,7 @@
   "f-WebAppContainer_Http2Config-a-ContinuationFramesLimit-help": "The number of CONTINUATION frames allowed per stream.",
 
   "a-ControlFlag-label": "Control Flag",
+  "a-ControlFlag-help": "Specifies how the login sequence uses the Authentication provider.",
 
   "a-ConversationIdleTimeMaximum-label": "Conversation Idle Time Maximum",
   "f-SAFAgent-a-ConversationIdleTimeMaximum-help": "The maximum amount of time allowed, in milliseconds, before a sending side releases the resources used by a conversation. A value of 0 specifies that resources for a conversation are not released unless the application explicitly closes the conversation.",
@@ -1129,16 +1267,30 @@
   "a-CreateTableDDLFile-label": "Create Table DDL File",
   "f-JDBCStore-a-CreateTableDDLFile-help": "Specifies the DDL (Data Definition Language) file to use for creating the JDBC store's backing table. This field is ignored when the JDBC store's backing table, WLStore, already exists.",
 
-  "a-CredCacheMinViableTtl-label": "Cred Cache Min Viable TTL",
-  "a-CredCacheSize-label": "Cred Cache Size",
+  "a-CredCacheMinViableTtl-label": "Credential Cache Minimum Viable Time-to-Live",
+  "a-CredCacheMinViableTtl-help": "Specifies the minimum time, in seconds, that assertion credentials must be viable before it is eligible to be cached. If an entry in the cache has less time to live than this value, the corresponding assertion will not be used. Instead, a new assertion will be generated. Default value is 20. This attribute avoids the situation where an assertion is returned from the cache but expires before it can be evaluated at its destination. If the cached assertion's remaining time-to-live is too short, it will not be used.",
+
+  "a-CredCacheSize-label": "Credential Cache Size",
+  "a-CredCacheSize-help": "Specifies the size of the cache used to store assertion credentials. If the value is not specified or not a positive number, the cache will have unlimited size. Default value is 0. The cache stores assertion credentials so that requests for the same assertion may return a result from cache, rather than generate a new assertion. This can improve performance in cases where an application may make multiple requests for the same assertion, for the same user, within a short period of time.",
 
   "a-CredentialEncrypted-label": "Credential",
   "f-SecurityConfiguration-a-CredentialEncrypted-help": "The password for the domain. In WebLogic Server version 6.0, this attribute was the password of the system user. In WebLogic Server version 7.0, this attribute can be any string. For the two domains to interoperate with Global Trust, the string must be the same for both domains.",
   "f-EmbeddedLDAP-a-CredentialEncrypted-help": "The credential (usually a password) used to connect to the embedded LDAP server. If this credential has not been set, WebLogic Server generates a password at startup, initializes the attribute, and saves the configuration to the config.xml file. If you want to connect to the embedded LDAP server using an external LDAP browser and the embedded LDAP administrator account (cn=Admin), change this attribute from the generated value.",
+  "f-any_ActiveDirectoryAuthenticator-a-CredentialEncrypted-help": "The credential (generally a password) used to authenticate the LDAP user that is defined in the Principal attribute.",
+  "f-any_IPlanetAuthenticator-a-CredentialEncrypted-help": "The credential (generally a password) used to authenticate the LDAP user that is defined in the Principal attribute.",
+  "f-any_LDAPAuthenticator-a-CredentialEncrypted-help": "The credential (generally a password) used to authenticate the LDAP user that is defined in the Principal attribute.",
+  "f-any_LDAPX509IdentityAsserter-a-CredentialEncrypted-help": "The credential (generally a password) used to authenticate the LDAP user that is defined in the Principal attribute.",
+  "f-any_NovellAuthenticator-a-CredentialEncrypted-help": "The credential (generally a password) used to authenticate the LDAP user that is defined in the Principal attribute.",
+  "f-any_OpenLDAPAuthenticator-a-CredentialEncrypted-help": "The credential (generally a password) used to authenticate the LDAP user that is defined in the Principal attribute.",
+  "f-any_OracleInternetDirectoryAuthenticator-a-CredentialEncrypted-help": "The credential (generally a password) used to authenticate the LDAP user that is defined in the Principal attribute.",
+  "f-any_OracleUnifiedDirectoryAuthenticator-a-CredentialEncrypted-help": "The credential (generally a password) used to authenticate the LDAP user that is defined in the Principal attribute.",
+  "f-any_OracleVirtualDirectoryAuthenticator-a-CredentialEncrypted-help": "The credential (generally a password) used to authenticate the LDAP user that is defined in the Principal attribute.",
 
   "a-CredentialGenerated-label": "Credential Generated",
   "a-CredentialMapperTypes-label": "Credential Mapper Types",
+
   "a-CredentialMappingDeploymentEnabled-label": "Credential Mapping Deployment Enabled",
+  "a-CredentialMappingDeploymentEnabled-help": "Specifies whether this Credential Mapping provider stores stores credential maps created when deploying a resource adapter. The default value is true.",
 
   "a-CredentialMappingEnabled-label": "Credential Mapping Enabled",
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-CredentialMappingEnabled-help": "Enables Set Client ID on connection for the data source. When an application requests a database connection, WebLogic Server sets a light-weight client ID on the database connection. By default, it uses the credential mapping to map WebLogic Server user IDs to database user IDs. However, if use-database-credentials is set to true, then the credential mapping is not done and the ID is used directly as a database user ID. It is currently supported for IBM DB2 driver and Oracle thin driver. Support for this feature will be dropped in a future Oracle thin driver release. Oracle recommends using proxy authentication instead of this feature.",
@@ -1219,21 +1371,21 @@
   "a-CustomConfigFileLastUpdatedTime-label": "Custom Config File Last Updated Time",
 
   "a-CustomIdentityAlias-label": "Custom Identity Alias",
-  "f-NMProperties-a-CustomIdentityAlias-help": "Specifies the alias when loading the private key into the keystore. This property is required when the Keystores property is set as CustomIdentityAndCustomTrust or CustomIdentityAndJavaStandardTrust.",
+  "f-NMProperties-a-CustomIdentityAlias-help": "Specifies the alias when loading the private key into the key store. This property is required when the Keystores property is set as CustomIdentityAndCustomTrust or CustomIdentityAndJavaStandardTrust.",
 
   "a-CustomIdentityKeyStoreFileName-label": "Custom Identity Key Store File Name",
-  "f-NMProperties-a-CustomIdentityKeyStoreFileName-help": "Specifies the file location and name of the identity keystore (meaning the keystore that contains the certificate and private key for the Node Manager). This property is required when the Keystores property is set as CustomIdentityAndCustomTrust or CustomIdentityAndJavaStandardTrust.",
+  "f-NMProperties-a-CustomIdentityKeyStoreFileName-help": "Specifies the file location and name of the identity key store (meaning the key store that contains the certificate and private key for the Node Manager). This property is required when the Keystores property is set as CustomIdentityAndCustomTrust or CustomIdentityAndJavaStandardTrust.",
 
   "a-CustomIdentityKeyStorePassPhrase-label": "Custom Identity Key Store Passphrase",
-  "f-NMProperties-a-CustomIdentityKeyStorePassPhrase-help": "Specifies the password defined when creating the Identity keystore. This field is optional or required depending on the type of keystore. All keystores require the passphrase to write to the keystore. However, some keystores do not require the passphrase to read from the keystore. Oracle WebLogic Server reads only from the keystore. So, whether or not you define this property depends on the requirements of the keystore.",
+  "f-NMProperties-a-CustomIdentityKeyStorePassPhrase-help": "Specifies the password defined when creating the Identity key store. This field is optional or required depending on the type of key store. All key stores require the passphrase to write to the key store. However, some key stores do not require the passphrase to read from the key store. Oracle WebLogic Server reads only from the key store. So, whether or not you define this property depends on the requirements of the key store.",
 
   "a-CustomIdentityKeyStorePassPhraseEncrypted-label": "Custom Identity Key Store Passphrase Encrypted",
 
   "a-CustomIdentityKeyStoreType-label": "Custom Identity Key Store Type",
-  "f-NMProperties-a-CustomIdentityKeyStoreType-help": "Specifies the type of the identity keystore. Generally, this is JKS or PKCS12. This property is optional. If not specified, the JDK default keystore type in the java.security file is used.",
+  "f-NMProperties-a-CustomIdentityKeyStoreType-help": "Specifies the type of the identity key store. Generally, this is JKS or PKCS12. This property is optional. If not specified, the JDK default key store type in the java.security file is used.",
 
   "a-CustomIdentityPrivateKeyPassPhrase-label": "Custom Identity Private Key Passphrase",
-  "f-NMProperties-a-CustomIdentityPrivateKeyPassPhrase-help": "Specifies the password used to retrieve the private key for Oracle WebLogic Server from the Identity keystore. This property is required when the Keystores property is set as CustomIdentityAndCustomTrust or CustomIdentityAndJavaStandardTrust.",
+  "f-NMProperties-a-CustomIdentityPrivateKeyPassPhrase-help": "Specifies the password used to retrieve the private key for Oracle WebLogic Server from the Identity key store. This property is required when the Keystores property is set as CustomIdentityAndCustomTrust or CustomIdentityAndJavaStandardTrust.",
 
   "a-CustomNotificationProperties-label": "Custom Notification Properties",
   "f-WLDFSystemResource_WLDFResource_WatchNotification_RestNotification-a-CustomNotificationProperties-help": "Allows customizing the JSON object delivered to the REST endpoint.",
@@ -1260,6 +1412,10 @@
   "f-JDBCSystemResource_JdbcResource_JDBCDataSourceParams-a-DataSourceList-help": "The list of data sources to which the multi data source will route connection requests. The order of data sources in the list determines the failover order.",
 
   "a-DataSourceName-label": "Data Source Name",
+  "f-any_CustomDBMSAuthenticator-a-DataSourceName-help": "Specifies the name of the JDBC data source used for database access.",
+  "f-any_ReadOnlySQLAuthenticator-a-DataSourceName-help": "Specifies the name of the JDBC data source used for database access.",
+  "f-any_SQLAuthenticator-a-DataSourceName-help": "Specifies the name of the JDBC data source used for database access.",
+
   "a-DatabaseLeasingBasisConnectionRetryCount-label": "Database Leasing Basis Connection Retry Count",
   "a-DatabaseLeasingBasisConnectionRetryDelay-label": "Database Leasing Basis Connection Retry Delay",
 
@@ -1864,12 +2020,16 @@
 
   "a-DefaultTimeToLive-label": "Default Time-to-Live",
   "f-WSReliableDeliveryPolicy-a-DefaultTimeToLive-help": "The default number of seconds that the receiver of the reliable message should persist the history of the reliable message in its store. The default minimum number of seconds that the receiver of the reliably sent message should persist the message in its storage. If the DefaultTimeToLive number of message have passed since the message was first sent, the sender should not resent a message with the same message id. If a sender cannot send a message successfully before the DefaultTimeToLive has passed, the sender should report a delivery failure. The receiver, after recovering from a crash, will not dispatch saved messages that have expired.",
-
   "f-SAFAgent-a-DefaultTimeToLive-help": "The default amount of time, in milliseconds, that the agent guarantees to reliably send messages. A value of 0 means the agent guarantees to reliably send messages for the duration of the conversation.",
   "f-JMSSystemResource_JmsResource_ConnectionFactory_DefaultDeliveryParams-a-DefaultTimeToLive-help": "The maximum length of time, in milliseconds, that a message exists. This value is used for messages when both the time-to-live is not explicitly set by the sender application that is using this connection factory and the time-to-live is not explicitly overridden by the destination's TimeToLiveOverride attribute . A value of 0 indicates that the message has an infinite amount time to live.",
+  "f-any_SAML2CredentialMapper-a-DefaultTimeToLive-help": "Specifies the time in seconds that, by default, an assertion should remain valid. Default value is 120 seconds (2 minutes). If the value is zero, then assertions have an infinite lifetime. Using assertions with an infinite lifetime is not recommended, however.",
+  "f-any_SAMLCredentialMapperV2-a-DefaultTimeToLive-help": "Specifies the time in seconds that, by default, an assertion should remain valid. Default value is 120 seconds (2 minutes). If the value is zero, then assertions have an infinite lifetime. Using assertions with an infinite lifetime is not recommended, however.",
 
   "a-DefaultTimeToLiveDelta-label": "Default Time-to-Live Delta",
+  "a-DefaultTimeToLiveDelta-help": "Specifies a time factor you can use to allow the Credential Mapper to compensate for clock differences between the source and destination sites. The value is a positive or negative integer representing seconds. Normally, an assertion is valid from the NotBefore time, which defaults to (roughly) the time the assertion was generated, until the NotOnOrAfter time, which is calculated as (NotBefore + TimeToLive). This value is a positive or negative integer indicating how many seconds before or after \"now\" the assertions NotBefore should be set to. If you set a value for DefaultTimeToLiveDelta, then the assertion lifetime is still calculated as (NotBefore + TimeToLive), but the NotBefore value is set to (now + TimeToLiveDelta). So, an assertion might have a two minute (120 second) lifetime that starts thirty seconds ago, or starts one minute from now. This allows the Credential Mapper to compensate for clock differences between the source and destination sites. The default can be overridden for specific assertions.",
+
   "a-DefaultTimeToLiveOffset-label": "Default Time-to-Live Offset",
+  "a-DefaultTimeToLiveOffset-help": "Specifies the time factor you can use to allow the Credential Mapper to compensate for clock differences between the Identity Provider and Service Provider sites. The value is a positive or negative integer representing seconds. Default value is -5. Normally, an assertion is valid from the NotBefore time, which defaults to (roughly) the time the assertion was generated, until the NotOnOrAfter time, which is calculated as (NotBefore + TimeToLive). This value is a positive or negative integer indicating how many seconds before or after \"now\" the assertions NotBefore should be set to. If you set a value for DefaultTimeToLiveOffset, then the assertion lifetime is still calculated as (NotBefore + TimeToLive), but the NotBefore value is set to (now + TimeToLiveOffset). So, an assertion might have a two minute (120 second) lifetime that starts thirty seconds ago, or starts one minute from now.",
 
   "a-DefaultUnitOfOrder-label": "Default Unit Of Order",
   "a-DefaultUnitOfOrder-help": "Specifies whether WebLogic Server creates a system-generated unit-of-order name based on the domain, JMS server, and destination name. Any message arriving at this destination that does not already belong to a unit-of-order is assigned this default name.",
@@ -1877,8 +2037,13 @@
   "f-JMSSystemResource_JmsResource_Template-a-DefaultUnitOfOrder-help": "Specifies whether WebLogic Server creates a system-generated unit-of-order name based on the domain, JMS server, and destination name. Any message arriving at a destination using this template that does not already belong to a unit-of-order is assigned this default name.",
 
   "a-DefaultUrl-label": "Default URL",
+
   "a-DefaultUserNameMapperAttributeDelimiter-label": "Default User Name Mapper Attribute Delimiter",
+  "f-any_DefaultIdentityAsserter-a-DefaultUserNameMapperAttributeDelimiter-help": "Specifies the delimiter that ends the attribute value when mapping from the X.509 certificate or X.500 name token to the WebLogic user name. The default value is \"@\".",
+
   "a-DefaultUserNameMapperAttributeType-label": "Default User Name Mapper Attribute Type",
+  "f-any_DefaultIdentityAsserter-a-DefaultUserNameMapperAttributeType-help": "Specifies the name of the attribute from the subject DN to use when mapping from the X.509 certificate or X.500 name token to the WebLogic user name. The default value is \"E\".",
+
   "a-DefaultWebAppContextRoot-label": "Default Web App Context Root",
   "a-DefaultWideCharCodeset-label": "Default Wide Char Codeset",
 
@@ -1910,6 +2075,8 @@
   "f-WTCServer_WTCtBridgeGlobal-a-DeliveryModeOverride-help": "The delivery mode to use when placing messages onto the target location. If this value is not specified, the message is placed on the target location with the same delivery mode specified from the source location. Note that this value overrides any delivery mode associated with a message.",
 
   "a-DeployBasePredicatesEnabled-label": "Deploy Base Predicates Enabled",
+  "a-DeployBasePredicatesEnabled-help": "Specifies whether to use the original predicates Grp, Usr to construct the role expressions during the application deployments.",
+
   "a-DeployCredentialMappingIgnored-label": "Deploy Credential Mapping Ignored",
   "a-DeployPolicyIgnored-label": "Deploy Policy Ignored",
   "a-DeployRoleIgnored-label": "Deploy Role Ignored",
@@ -1941,8 +2108,11 @@
   "a-Description-label": "Description",
   "f-WLDFSystemResource_WLDFResource_Instrumentation_WLDFInstrumentationMonitor-a-Description-help": "Optional description of this monitor.",
   "f-WLDFSystemResource-a-Description-help": "Optional short description of this WLDFSystemResource. If provided, the WebLogic Server Administration Console will display the resource description.",
+  "f-any_DefaultAuditor-a-Description-help": "A short description of the WebLogic Auditing provider.",
 
   "a-DescriptionsSupported-label": "Descriptions Supported",
+  "a-DescriptionsSupported-help": "Specifies whether user and group descriptions are supported by the database used by the authentication provider.",
+
   "a-DescriptorBeanClass-label": "Descriptor Bean Class",
 
   "a-DescriptorFileName-label": "Descriptor File Name",
@@ -1988,9 +2158,15 @@
   "a-DiagnosticStoreMaxFileSize-label": "Diagnostic Store Max File Size",
   "a-DiagnosticStoreMaxWindowBufferSize-label": "Diagnostic Store Max Window Buffer Size",
   "a-DiagnosticStoreMinWindowBufferSize-label": "Diagnostic Store Min Window Buffer Size",
+
   "a-DigestDataSourceName-label": "Digest Data Source Name",
+  "f-any_DefaultIdentityAsserter-a-DigestDataSourceName-help": "Specifies the name of the data source to use for storing digest values. These digest values are used to detect replay attacks.",
+
   "a-DigestExpirationTimePeriod-label": "Digest Expiration Time Period",
+  "f-any_DefaultIdentityAsserter-a-DigestExpirationTimePeriod-help": "Specifies how long digests are valid. A digest that was created before the specified time will not be valid. This setting impacts how long previous digest values must be stored in the database for use in detecting replay attacks.",
+
   "a-DigestReplayDetectionEnabled-label": "Digest Replay Detection Enabled",
+  "f-any_DefaultIdentityAsserter-a-DigestReplayDetectionEnabled-help": "Enables the storage of the digest nonce values used to detect replay attacks. If this setting is enabled, you must configure a data source to store the nonces for the specified expiration period. WebLogic Server then stores all the nonces from digest authentication attempts for all the machines in the domain. On each digest authentication attempt, the nonce is validated against the stored nonces. If the nonce is present, a replay attack has occurred and the digest authentication attempt fails.",
 
   "a-Direction-label": "Direction",
   "f-WTCServer_WTCtBridgeRedirect-a-Direction-help": "The direction of data flow. At least one redirection must be specified or the Tuxedo queuing bridge will fail to start and an error will be logged. Each defined direction is handled by starting a new thread.",
@@ -2017,7 +2193,7 @@
   "a-DomainKeystoresClientCertAlias-label": "Domain Keystores Client Cert Alias",
 
   "a-DomainKeystoresDomain-label": "Domain Keystores Domain",
-  "f-NMProperties-a-DomainKeystoresDomain-help": "Specifies the domain name of the domain that hosts the machine keystores for this Node Manager instance. The domain name must match one of the domains in the nodemanager.domains file. Only set this property if KeyStores is set to DomainKeystores and this is a per-host (not per-domain) configuration.",
+  "f-NMProperties-a-DomainKeystoresDomain-help": "Specifies the domain name of the domain that hosts the machine key stores for this Node Manager instance. The domain name must match one of the domains in the nodemanager.domains file. Only set this property if KeyStores is set to DomainKeystores and this is a per-host (not per-domain) configuration.",
 
   "a-DomainKeystoresServerCertAlias-label": "Domain Keystores Server Cert Alias",
 
@@ -2072,9 +2248,16 @@
   "a-DynamicClusterServerGroupTargetingLimits-valueLabel": "Targets",
   "a-DynamicClusterShutdownTimeoutSeconds-label": "Dynamic Cluster Shutdown Timeout Seconds",
   "a-DynamicClusterSize-label": "Dynamic Cluster Size",
+
   "a-DynamicGroupNameAttribute-label": "Dynamic Group Name Attribute",
+  "a-DynamicGroupNameAttribute-help": "Specifies the attribute of a dynamic LDAP group object that specifies the name of the group.",
+
   "a-DynamicGroupObjectClass-label": "Dynamic Group Object Class",
+  "a-DynamicGroupObjectClass-help": "Specifies the LDAP object class that stores dynamic groups.",
+
   "a-DynamicMemberUrlAttribute-label": "Dynamic Member URL Attribute",
+  "a-DynamicMemberUrlAttribute-help": "Specifies the attribute of the dynamic LDAP group object that specifies the URLs of the members of the dynamic group.",
+
   "a-DynamicServerName-label": "Dynamic Server Name",
 
   "a-EJBName-label": "EJB Name",
@@ -2088,12 +2271,26 @@
   "f-JMX-a-EditMBeanServerEnabled-help": "Specifies whether the Administration Server initializes the Edit MBean Server, which contains the hierarchy of MBeans used to make modifications to the domain's configuration. All JMX clients, including utilities such as the Administration Console and the WebLogic Scripting Tool, use the Edit MBean Server to modify a domain's configuration. This MBean server exists only on the Administration Server. By default, when the Administration Server starts, it starts the Edit MBean Server. If you set the EditMBeanServerEnabled attribute to false, the Administration Server will not start this MBean server. If you disable this MBean server, JMX clients cannot modify the domain's configuration. You can, however, modify the domain configuration through the offline editing feature of WebLogic Scripting Tool.",
 
   "a-EnableCacheStatistics-label": "Enable Cache Statistics",
-  "a-EnableEeCompliantClassloadingForEmbeddedAdapters-label": "Enable Ee Compliant Classloading For Embedded Adapters",
+  "f-any_ActiveDirectoryAuthenticator-a-EnableCacheStatistics-help": "Specifies whether to enable cache statistics if LDAP Server Cache and Group Membership Lookup Hierarchy Cache are enabled. If true, the number of the cache entries, queries and hits will be recorded.",
+  "f-any_IPlanetAuthenticator-a-EnableCacheStatistics-help": "Specifies whether to enable cache statistics if LDAP Server Cache and Group Membership Lookup Hierarchy Cache are enabled. If true, the number of the cache entries, queries and hits will be recorded.",
+  "f-any_LDAPAuthenticator-a-EnableCacheStatistics-help": "Specifies whether to enable cache statistics if LDAP Server Cache and Group Membership Lookup Hierarchy Cache are enabled. If true, the number of the cache entries, queries and hits will be recorded.",
+  "f-any_NovellAuthenticator-a-EnableCacheStatistics-help": "Specifies whether to enable cache statistics if LDAP Server Cache and Group Membership Lookup Hierarchy Cache are enabled. If true, the number of the cache entries, queries and hits will be recorded.",
+  "f-any_OpenLDAPAuthenticator-a-EnableCacheStatistics-help": "Specifies whether to enable cache statistics if LDAP Server Cache and Group Membership Lookup Hierarchy Cache are enabled. If true, the number of the cache entries, queries and hits will be recorded.",
+  "f-any_OracleInternetDirectoryAuthenticator-a-EnableCacheStatistics-help": "Specifies whether to enable cache statistics if LDAP Server Cache and Group Membership Lookup Hierarchy Cache are enabled. If true, the number of the cache entries, queries and hits will be recorded.",
+  "f-any_OracleUnifiedDirectoryAuthenticator-a-EnableCacheStatistics-help": "Specifies whether to enable cache statistics if LDAP Server Cache and Group Membership Lookup Hierarchy Cache are enabled. If true, the number of the cache entries, queries and hits will be recorded.",
+  "f-any_OracleVirtualDirectoryAuthenticator-a-EnableCacheStatistics-help": "Specifies whether to enable cache statistics if LDAP Server Cache and Group Membership Lookup Hierarchy Cache are enabled. If true, the number of the cache entries, queries and hits will be recorded.",
+
+  "a-EnableEeCompliantClassloadingForEmbeddedAdapters-label": "Enable EE-Compliant Classloading For Embedded Adapters",
+
   "a-EnableGroupMembershipLookupHierarchyCaching-label": "Enable Group Membership Lookup Hierarchy Caching",
+  "a-EnableGroupMembershipLookupHierarchyCaching-help": "Specifies whether to cache group membership hierarchies found during recursive membership lookup. If true, each subtree found will be cached. This overwrites the default value defined in GroupMembershipHierarchyCacheMBean.",
+
   "a-EnableIORServlet-label": "Enable IOR Servlet",
   "a-EnableJMSStoreDBPersistence-label": "Enable JMS Store Database Persistence",
   "a-EnableJTATLogDBPersistence-label": "Enable JTA TLog Database Persistence",
-  "a-EnableSIDtoGroupLookupCaching-label": "Enable SI Dto Group Lookup Caching",
+
+  "a-EnableSIDtoGroupLookupCaching-label": "Enable SID-to-Group Lookup Caching",
+  "f-any_ActiveDirectoryAuthenticator-a-EnableSIDtoGroupLookupCaching-help": "Specifies whether SID to group name lookup results are cached or not. This is only used if the token group membership lookup algorithm is enabled.",
 
   "a-EnableWebLogicPrincipalValidatorCache-label": "Enable WebLogic Principal Validator Cache",
   "f-any_Realm-a-EnableWebLogicPrincipalValidatorCache-help": "Specifies whether the WebLogic Principal Validator caching is enabled. The Principal Validator is used by Oracle supplied authentication providers and may be used by custom authentication providers. If enabled, the default principal validator will cache WebLogic Principal signatures.",
@@ -2140,6 +2337,8 @@
   "f-SecurityConfiguration_CredentialSet_EncryptedProperty-a-EncryptedValueEncrypted-help": "The value of the property.",
 
   "a-EndMarker-label": "End Marker",
+  "f-any_DefaultAuditor-a-EndMarker-help": "The marker that indicates the end of the audit record.",
+
   "a-EndpointUrl-label": "Endpoint URL",
   "f-WLDFSystemResource_WLDFResource_WatchNotification_RestNotification-a-EndpointUrl-help": "The REST endpoint URL which will be invoked with the action payload.",
 
@@ -2159,6 +2358,7 @@
   "f-WLDFSystemResource_WLDFResource_WatchNotification_ScriptAction-a-Environment-help": "A map of environment variables to set for the child process.",
 
   "a-ErrorAuditSeverityEnabled-label": "Error Audit Severity Enabled",
+  "f-any_DefaultAuditor-a-ErrorAuditSeverityEnabled-help": "If the Severity value is set to Custom, causes the Auditing provider to generate audit records for events with a severity level of ERROR.",
 
   "a-ErrorDestination-label": "Error Destination",
   "a-ErrorDestination-help": "The name of the target error destination for messages that have expired or reached their redelivery limit. If no error destination is configured, then such messages are simply dropped. If a message has expired or reached its redelivery limit, and the Expiration Policy is set to Redirect, then the message is moved to the specified Error Destination. For standalone destinations, an error destination must be another standalone destination that is targeted to the same JMS server as the destinations for which the error destination is defined. For uniform distributed destinations (UDDs), the error destination must be another UDD that shares the same subdeployment (i.e., targets) as the current UDD.",
@@ -2234,7 +2434,9 @@
   "f-JDBCSystemResource_JdbcResource_JDBCDataSourceParams-a-FailoverRequestIfBusy-help": "For multi data sources with the failover algorithm, enables the multi data source to failover connection requests to the next data source if all connections in the current data source are in use.",
 
   "a-FailureAction-label": "Failure Action",
+
   "a-FailureAuditSeverityEnabled-label": "Failure Audit Severity Enabled",
+  "f-any_DefaultAuditor-a-FailureAuditSeverityEnabled-help": "If the Severity value is set to Custom, causes the Auditing provider to generate audit records for events with a severity level of FAILURE.",
 
   "a-FailureIsFatal-label": "Failure Is Fatal",
   "f-StartupClass-a-FailureIsFatal-help": "Specifies whether a failure in this startup class prevents the targeted server(s) from starting. If you specify that failure is not fatal, if the startup class fails, the server continues its startup process.",
@@ -2269,8 +2471,12 @@
 
   "a-FenceTimeout-label": "Fence Timeout",
   "a-FencingGracePeriodMillis-label": "Fencing Grace Period Millis",
+
   "a-FieldPrefix-label": "Field Prefix",
+  "f-any_DefaultAuditor-a-FieldPrefix-help": "The prefix character that indicates the beginning of a field in the audit record.",
+
   "a-FieldSuffix-label": "Field Suffix",
+  "f-any_DefaultAuditor-a-FieldSuffix-help": "The suffix character that indicates the end of a field in the audit record.",
 
   "a-FileCount-label": "File Count",
   "f-JMSServer_JmsMessageLogFile-a-FileCount-help": "The maximum number of log files that the server creates when it rotates the log. This number does not include the file that the server uses to store current messages. (Requires that you enable Number of Files Limited.)",
@@ -2327,6 +2533,8 @@
   "a-FlowSteps-help": "The number of steps used when a producer is adjusting its flow from the Flow Maximum amount of messages to the Flow Minimum amount, or vice versa. Specifically, the Flow Interval adjustment period is divided into the number of Flow Steps (for example, 60 seconds divided by 6 steps is 10 seconds per step).",
 
   "a-FollowReferrals-label": "Follow Referrals",
+  "a-FollowReferrals-help": "Specifies whether referrals will automatically be followed within the LDAP Directory. If set to false, then a Referral exception will be thrown when referrals are encountered during LDAP requests.",
+
   "a-ForceAuthn-label": "Force Authn",
   "a-ForceGCEachDGCPeriod-label": "Force GC Each DGC Period",
 
@@ -2364,7 +2572,10 @@
   "a-FrontendHost-label": "Frontend Host",
   "a-FullyDelegateAuthorization-label": "Fully Delegate Authorization",
   "a-GatheredWritesEnabled-label": "Gathered Writes Enabled",
+
   "a-GenerateAttributes-label": "Generate Attributes",
+  "a-GenerateAttributes-help": "Specifies whether to generate <AttributeStatement> in the assertion for this partner. If true, the default implementation will generate group information as an <AttributeStatement> in the assertion if there is any.",
+
   "a-GlassFishWebAppParser-label": "Glass Fish Web App Parser",
 
   "a-GlobalSocketProvider-label": "Global Socket Provider",
@@ -2380,20 +2591,40 @@
   "a-GracefulShutdownTimeoutNumOfThreadDump-label": "Graceful Shutdown Timeout Num Of Thread Dump",
   "a-GracefulShutdownTimeoutThreadDumpInterval-label": "Graceful Shutdown Timeout Thread Dump Interval",
   "a-GreedySessionFlushInterval-label": "Greedy Session Flush Interval",
+
   "a-GroupBaseDN-label": "Group Base DN",
+  "a-GroupBaseDN-help": "Specifies the attribute of an LDAP user object that specifies the Distinguished Names (DNs) of dynamic groups to which the user belongs.",
+
   "a-GroupFromNameFilter-label": "Group From Name Filter",
+  "a-GroupFromNameFilter-help": "Specifies the LDAP search filter for finding a group given the name of the group. If the attribute is not specified (that is, if the attribute is null or empty), a default search filter is created based on the group schema.",
+
   "a-GroupFromUserFilterForMemberuid-label": "Group From User Filter For Member UID",
+  "a-GroupFromUserFilterForMemberuid-help": "This field is used when the UseMemberuidForGroupSearch field is checked. This LDAP search filter describes how to search groups for a user given the username.",
+
   "a-GroupHierarchyCacheTTL-label": "Group Hierarchy Cache Time-to-Live",
+  "a-GroupHierarchyCacheTTL-help": "Specifies the maximum number of seconds a group membership hierarchy entry is valid in the LRU cache. The default value is 60.",
+
   "a-GroupMemberOf-label": "Group Member Of",
+
   "a-GroupMembershipSearching-label": "Group Membership Searching",
+  "a-GroupMembershipSearching-help": "Specifies whether group searches into nested groups are unlimited, limited or off. For configurations that use only the first level of nested group hierarchy, this attribute allows improved performance during user searches by turning off the group search or limiting the group search level. If a limited search is specified, the Max Group Membership Search Level attribute must be specified. If an unlimited search is specified, the Max Group Membership Search Level attribute is ignored. If an off is specified, the Max Group Membership Search Level attribute is ignored. Note that when Use Token Groups For Group Membership Lookup is used during authentication, all the groups are returned in a single call, and the recursion limits and depth limits do not apply. They will apply in management operations.",
+  "f-any_CustomDBMSAuthenticator-a-GroupMembershipSearching-help": "Specifies whether recursive group membership searching is unlimited or limited.",
+  "f-any_ReadOnlySQLAuthenticator-a-GroupMembershipSearching-help": "Specifies whether recursive group membership searching is unlimited or limited.",
+  "f-any_SQLAuthenticator-a-GroupMembershipSearching-help": "Specifies whether recursive group membership searching is unlimited or limited.",
 
   "a-GroupName-label": "Group Name",
   "f-SelfTuning_ContextRequestClass_ContextCase-a-GroupName-help": "The name of the user group whose requests are to be processed by the request class with the name specified in RequestClassName.",
 
   "a-GroupSearchScope-label": "Group Search Scope",
+  "a-GroupSearchScope-help": "Specifies how deep in the LDAP directory tree to search for groups. The default value is subtree.",
+
   "a-GroupsTokenClaim-label": "Groups Token Claim",
+  "a-GroupsTokenClaim-help": "Specifies the token attribute used to get groups from the token. The default value is \"groups\".",
+
   "a-GuardianEnabled-label": "Guardian Enabled",
-  "a-GuidAttribute-label": "Guid Attribute",
+
+  "a-GuidAttribute-label": "GUID Attribute",
+  "a-GuidAttribute-help": "Specifies the name of the GUID attribute defined in the Active Directory LDAP server. The default value is objectguid.",
 
   "a-GzipCompressionContentType-label": "GZIP Compression Content Type",
   "f-WebAppContainer_GzipCompression-a-GzipCompressionContentType-help": "The list of content MIME types to be included in compression.",
@@ -2440,6 +2671,16 @@
 
   "a-Host-label": "Host",
   "f-any_SNMPTrapDestination-a-Host-help": "The DNS name or IP address of the computer on which the SNMP manager is running. The WebLogic SNMP agent sends trap notifications to the host and port that you specify.",
+  "f-any_ActiveDirectoryAuthenticator-a-Host-help": "Specifies the host name or IP address of the LDAP server.",
+  "f-any_IPlanetAuthenticator-a-Host-help": "Specifies the host name or IP address of the LDAP server.",
+  "f-any_LDAPAuthenticator-a-Host-help": "Specifies the host name or IP address of the LDAP server.",
+  "f-any_LDAPX509IdentityAsserter-a-Host-help": "Specifies the host name or IP address of the LDAP server.",
+  "f-any_NovellAuthenticator-a-Host-help": "Specifies the host name or IP address of the LDAP server.",
+  "f-any_OpenLDAPAuthenticator-a-Host-help": "Specifies the host name or IP address of the LDAP server.",
+  "f-any_OracleInternetDirectoryAuthenticator-a-Host-help": "Specifies the host name or IP address of the LDAP server.",
+  "f-any_OracleUnifiedDirectoryAuthenticator-a-Host-help": "Specifies the host name or IP address of the LDAP server.",
+  "f-any_OracleVirtualDirectoryAuthenticator-a-Host-help": "Specifies the host name or IP address of the LDAP server.",
+  "f-any_weblogic.security.providers.authentication.OracleIdentityCloudIntegrator-a-Host-help": "Specifies the host name used to connect to the Oracle Identity Cloud Service. The default value is localhost.",
 
   "a-HostName-label": "Host Name",
   "a-HostingServer-label": "Hosting Server",
@@ -2493,6 +2734,7 @@
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-IdentityBasedConnectionPoolingEnabled-help": "Enables identity-based-connection-pooling for the data source. When an application requests a database connection, WebLogic Server picks or creates a physical connection with requested DBMS identity based on a map of WebLogic user IDs and database IDs. You must also specify the map of WebLogic Server user IDs to database user IDs (credential mapping).",
 
   "a-IdentityDomain-label": "Identity Domain",
+  "a-IdentityDomain-help": "Specifies the name of the identity domain.",
 
   "a-IdentityDomainAwareProvidersRequired-label": "Identity Domain Aware Providers Required",
   "f-SecurityConfiguration-a-IdentityDomainAwareProvidersRequired-help": "Specifies whether the identity domain values should be defaulted for the Administrative Identity Domain, Partition Primary Identity Domain, and Default Authenticator Identity Domain attributes.",
@@ -2501,12 +2743,13 @@
   "f-SecurityConfiguration-a-IdentityDomainDefaultEnabled-help": "Specifies whether all role mapping, authorization, credential mapping, and audit providers configured in the domain must support the IdentityDomainAwareProviderMBean interface's administrative identity domain.",
 
   "a-IdentityDomains-label": "Identity Domains",
+  "a-IdentityDomains-help": "Sets the identity domains that the provider supports. This overwrites the default value defined in MultiIdentityDomainAuthenticatorMBean.",
 
   "a-IdentityKeyStoreFileName-label": "Identity Key Store File Name",
-  "f-WTCServer_WTCLocalTuxDom-a-IdentityKeyStoreFileName-help": "The path and file name of the identity keystore. The path name must either be absolute or relative to where the server was booted. The identity key store file name is only used if KeystoreLocation is \"Custom Stores\".",
+  "f-WTCServer_WTCLocalTuxDom-a-IdentityKeyStoreFileName-help": "The path and file name of the identity key store. The path name must either be absolute or relative to where the server was booted. The identity key store file name is only used if KeystoreLocation is \"Custom Stores\".",
 
   "a-IdentityKeyStorePassPhraseEncrypted-label": "Identity Key Store Passphrase Encrypted",
-  "f-WTCServer_WTCLocalTuxDom-a-IdentityKeyStorePassPhraseEncrypted-help": "The custom identity keystore passphrase. If empty or null, then the keystore will be opened without a passphrase. This attribute is only used if KeyStores is \"Custom Stores\".",
+  "f-WTCServer_WTCLocalTuxDom-a-IdentityKeyStorePassPhraseEncrypted-help": "The custom identity key store passphrase. If empty or null, then the key store will be opened without a passphrase. This attribute is only used if KeyStores is \"Custom Stores\".",
 
   "a-IdentityProviderArtifactBindingEnabled-label": "Identity Provider Artifact Binding Enabled",
   "a-IdentityProviderEnabled-label": "Identity Provider Enabled",
@@ -2521,6 +2764,7 @@
   "f-MessagingBridge-a-IdleTimeMaximum-help": "The maximum amount of time, in seconds, that a messaging bridge instance remains idle. In asynchronous mode, this is the longest amount of time a messaging bridge instance stays idle before it checks the sanity of its connection to the source. In synchronous mode, this is the amount of time the messaging bridge can block on a receive call if no transaction is involved.",
 
   "a-IgnoreDuplicateMembership-label": "Ignore Duplicate Membership",
+  "a-IgnoreDuplicateMembership-help": "Specifies whether duplicate members are ignored when adding groups. The attribute cycles in the Group membership.",
 
   "a-IgnoreHostnameVerification-label": "Ignore Hostname Verification",
   "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceClusterParams-a-IgnoreHostnameVerification-help": "Check if ignore hostname verification is set. In Secured Production Mode, Coherence hostname verification is enabled by default. If WebLogic isHostnameVerificationIgnored is set, then Coherence will inherit it through this property.",
@@ -2574,6 +2818,8 @@
   "a-InformRetryInterval-help": "The number of milliseconds that this SNMP agent will wait for a response to an INFORM notification. If the agent does not receive a response within the specified interval, it will resend the notification.",
 
   "a-InformationAuditSeverityEnabled-label": "Information Audit Severity Enabled",
+  "f-any_DefaultAuditor-a-InformationAuditSeverityEnabled-help": "If the Severity value is set to Custom, causes the Auditing provider to generate audit records for events with a severity level of INFORMATION.",
+
   "a-InitSql-label": "Initialization SQL",
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-InitSql-help": "SQL statement to execute that will initialize newly created physical database connections. Start the statement with SQL followed by a space. If the Init SQL value begins with \"SQL \", then the rest of the string following that leading token will be taken as a literal SQL statement that will be used to initialize database connections. If the Init SQL value does not begin with \"SQL \", the value will be treated as the name of a table and the following SQL statement will be used to initialize connections: \"select count(*) from InitSQL\"",
 
@@ -2641,8 +2887,13 @@
 
   "a-IsDefaultAdmin-label": "Is Default Admin",
   "a-IsolatePartitionThreadLocals-label": "Isolate Partition Thread Locals",
+
   "a-Issuer-label": "Issuer",
+  "a-Issuer-help": "Specifies an override for the token issuer value used during validation. The issuer is normally obtained from the Oracle Identity Cloud Service Discovery Metadata. When configured, the issuer value is used for all tenants.",
+
   "a-IssuerUri-label": "Issuer URI",
+  "a-IssuerUri-help": "Specifies the Issuer URI (name) of this SAML2 Identity Provider.",
+
   "a-ItsRequiresSsl-label": "Its Requires SSL",
   "a-J2EE12OnlyModeEnabled-label": "J2EE12 Only Mode Enabled",
   "a-J2EE13WarningEnabled-label": "J2EE13 Warning Enabled",
@@ -2717,7 +2968,7 @@
   "f-any_CertificateManagement-a-JavaStandardTrustEnabled-help": "Whether or not the domain should trust the Java Standard Trust certificates, in addition to the Domain Certificate Authority certificate(s) and any Provisioned Trust certificates. Java Standard Trust is a collection of well-known, trusted root certificate authorities distributed (and updated) as part of the JDK.",
 
   "a-JavaStandardTrustKeyStorePassPhrase-label": "Java Standard Trust Key Store Passphrase",
-  "f-NMProperties-a-JavaStandardTrustKeyStorePassPhrase-help": "Specifies the password defined when creating the Trust keystore. This field is optional or required depending on the type of keystore. All keystores require the passphrase in order to write to the keystore. However, some keystores do not require the passphrase to read from the keystore. Oracle WebLogic Server reads only from the keystore, so whether or not you define this property depends on the requirements of the keystore. This property is required when the Keystores property is set as CustomIdentityAndJavaStandardTrust or DemoIdentityAndDemoTrust.",
+  "f-NMProperties-a-JavaStandardTrustKeyStorePassPhrase-help": "Specifies the password defined when creating the Trust key store. This field is optional or required depending on the type of key store. All key stores require the passphrase in order to write to the key store. However, some key stores do not require the passphrase to read from the key store. Oracle WebLogic Server reads only from the key store, so whether or not you define this property depends on the requirements of the key store. This property is required when the Keystores property is set as CustomIdentityAndJavaStandardTrust or DemoIdentityAndDemoTrust.",
 
   "a-JavaStandardTrustKeyStorePassPhraseEncrypted-label": "Java Standard Trust Key Store Passphrase Encrypted",
 
@@ -2744,14 +2995,19 @@
 
   "a-JndiPropertiesCredentialEncrypted-label": "JNDI Properties Credential Encrypted",
   "a-JobSchedulerTableName-label": "Job Scheduler Table Name",
-  "a-JsonWebKeySetUri-label": "Json Web Key Set URI",
-  "a-JwtTokenExpiration-label": "Jwt Token Expiration",
+
+  "a-JsonWebKeySetUri-label": "JSON Web Key Set URI",
+  "a-JsonWebKeySetUri-help": "Specifies an override for the JSON Web Key Set location (jwks_uri) used during validation of tokens. A file location can be specified to load keys from the local environment. The location of the keys is normally obtained from the Oracle Identity Cloud Service Discovery Metadata. When configured, the URI is used for all tenants.",
+
+  "a-JwtTokenExpiration-label": "JWT Token Expiration",
+  "a-JwtTokenExpiration-help": "Specifies the time of the JWT token being valid after issuing, in minutes. The default value is 3.",
 
   "a-KeepAlive-label": "Keep Alive",
   "f-WTCServer_WTCLocalTuxDom-a-KeepAlive-help": "Return value tells whether this local Tuxedo access point is configured with Application Level Keep Alive, and it maximum idle time value before wait timer start ticking.",
   "f-WTCServer_WTCRemoteTuxDom-a-KeepAlive-help": "Indicates whether this remote Tuxedo access point is configured with Application Level Keep Alive. Greater than 0 means that the application-level Keep Alive is enabled and the value indicates the amount of idle time, in milliseconds rounded to the nearest second, allowed before starting the wait timer.",
 
   "a-KeepAliveEnabled-label": "Keep Alive Enabled",
+  "a-KeepAliveEnabled-help": "Specifies whether to use keep alive to prevent LDAP connections from timing out.",
   "f-EmbeddedLDAP-a-KeepAliveEnabled-help": "Whether keep alive is enabled on the socket connection.",
 
   "a-KeepAliveSecs-label": "Keep Alive Secs",
@@ -2787,20 +3043,27 @@
   "f-JoltConnectionPool-a-KeyPassPhraseEncrypted-help": "The identity private key's passphrase.",
 
   "a-KeyPassword-label": "Key Password",
+
   "a-KeyStoreFileName-label": "Key Store File Name",
+  "a-KeyStoreFileName-help": "Specifies the location of the key store relative to the directory where the server was started.",
 
   "a-KeyStoreName-label": "Key Store Name",
-  "f-JoltConnectionPool-a-KeyStoreName-help": "The path and file name of the identity keystore containing the private key used in SSL mutual authentication.",
+  "f-JoltConnectionPool-a-KeyStoreName-help": "The path and file name of the identity key store containing the private key used in SSL mutual authentication.",
 
   "a-KeyStorePassPhraseEncrypted-label": "Key Store Passphrase",
-  "f-JoltConnectionPool-a-KeyStorePassPhraseEncrypted-help": "The identity keystore passphrase. If empty or null, then the keystore will be opened without a passphrase.",
+  "f-JoltConnectionPool-a-KeyStorePassPhraseEncrypted-help": "The identity key store passphrase. If empty or null, then the key store will be opened without a passphrase.",
+  "f-any_PKICredentialMapper-a-KeyStorePassPhraseEncrypted-help": "Specifies the key store passphrase.",
 
   "a-KeyStoreProvider-label": "Key Store Provider",
+  "a-KeyStoreProvider-help": "Specifies the provider for the Java Security API that should be used.",
+
   "a-KeyStoreType-label": "Key Store Type",
+  "a-KeyStoreType-help": "Specifies the provider will generate a keystore object of this type. The default value is JKS.",
+
   "a-KeyStoreTypes-label": "Key Store Types",
 
   "a-KeyStores-label": "Key Stores",
-  "f-NMProperties-a-KeyStores-help": "Specifies the configuration that Node Manager uses to find its identity (private key and digital certificate) and trust (trusted CA certificates) keystores.",
+  "f-NMProperties-a-KeyStores-help": "Specifies the configuration that Node Manager uses to find its identity (private key and digital certificate) and trust (trusted CA certificates) key stores.",
 
   "a-KeyStoresLocation-label": "Key Stores Location",
   "f-WTCServer_WTCLocalTuxDom-a-KeyStoresLocation-help": "Provides the configuration rule to be used for finding Local Access Point's identity key store and trust key store. In plain text, it contains information on where the identity key store and trust key store are configured. When KeyStoreLocation is configured with WLS Store, WTC uses configuration information from the WLS Key Stores configuration. Otherwise, it uses the key stores information configured in the Local Access Point.",
@@ -2808,8 +3071,11 @@
   "a-KeyType-label": "Key Type",
   "f-JMSSystemResource_JmsResource_DestinationKey-a-KeyType-help": "The expected property type for this destination key.",
 
-  "a-KnownTenantEmptyMetadataTtl-label": "Known Tenant Empty Metadata TTL",
+  "a-KnownTenantEmptyMetadataTtl-label": "Known Tenant Empty Metadata Time-to-Live",
+  "a-KnownTenantEmptyMetadataTtl-help": "Specifies the time-to-live (TTL) of the empty metadata for known Oracle Identity Cloud Service tenants in Oracle Identity Cloud Service metadata cache, in seconds. The default value 300.",
+
   "a-KnownTenantPrefix-label": "Known Tenant Prefix",
+  "a-KnownTenantPrefix-help": "Specifies the list of tenant prefixes that would identify known or valid Oracle Identity Cloud Service tenant names. Used in combination with KnownTenantEmptyMetadataTTL to decide the TTL of cached empty metadata for Oracle Identity Cloud Service tenants. When no perfixes are configured, all tenants are considered as Oracle Identity Cloud Service tenants. The default value includes \"idcs-\".",
 
   "a-KnownType-label": "Known Type",
   "a-KnownType-help": "Specifies whether this type is known at startup. Normally, if a type is not available, the Harvester will keep looking for it. If a type is designated as \"known\", the Harvester issues a validation fault if the type cannot be immediately resolved. A true value means that this type is known. A false value indicates that this type may not be known. This flag is useful for WebLogic Server types, where the type information is always available. In this case, setting the flag to true results in earlier detection and reporting of problems. This flag is optional, but is recommended for WebLogic Server types.",
@@ -2914,12 +3180,25 @@
   "f-WLDFSystemResource_WLDFResource_Instrumentation_WLDFInstrumentationMonitor-a-LocationType-help": "Attached actions are applied at selected locations: before, after, or around pointcuts. This is relevant only for custom monitors. (A location where diagnostic code is added is called a diagnostic joinpoint. A set of joinpoints, identified by an expression, is called a pointcut.)",
 
   "a-LockedUsersCurrentCount-label": "Locked Users Current Count",
+
   "a-LockoutCacheSize-label": "Lockout Cache Size",
+  "a-LockoutCacheSize-help": "Specifies the number of invalid login records that the server places in a cache. The server creates one record for each invalid login. The default value is 5.",
+
   "a-LockoutDuration-label": "Lockout Duration",
+  "a-LockoutDuration-help": "Specifies the number of minutes that a user account is locked out. The default value is 30.",
+
   "a-LockoutEnabled-label": "Lockout Enabled",
-  "a-LockoutGcThreshold-label": "Lockout Gc Threshold",
+  "a-LockoutEnabled-help": "Specifies whether the server locks out users when there are invalid login attempts. A true value for this attribute causes the server to consider the other attributes of this MBean. A false value causes the server to ignore the other attributes of this MBean. The default value is true.",
+
+  "a-LockoutGcThreshold-label": "Lockout GC Threshold",
+  "a-LockoutGcThreshold-help": "Specifies the maximum number of invalid login records that the server keeps in memory. If the number of invalid login records is equal to or greater than this value, the server's garbage collection purges the records that have expired. A record expires when the user associated with the record has been locked out. The lower the threshold, the more often the server uses its resources to collect garbage. The default value is 400.",
+
   "a-LockoutResetDuration-label": "Lockout Reset Duration",
+  "a-LockoutResetDuration-help": "Specifies the number of minutes within which consecutive invalid login attempts cause the user account to be locked out. The default value is 5.",
+
   "a-LockoutThreshold-label": "Lockout Threshold",
+  "a-LockoutThreshold-help": "Specifies the maximum number of consecutive invalid login attempts before account is locked out. When the number of invalid logins within a specified period of time is greater than LockoutThreshold value, the user is locked out. For example, with a setting of 1, the user is locked out on the second consecutive invalid login. With a setting of 2, the user is locked out on the third consecutive invalid login. The default value is 5.",
+
   "a-Log4jLoggingEnabled-label": "Log 4j Logging Enabled",
 
   "a-LogAppend-label": "Log Append",
@@ -3011,7 +3290,9 @@
   "a-LoginReturnQueryParameter-label": "Login Return Query Parameter",
   "a-LoginTimeoutMillis-label": "Login Timeout Millis",
   "a-LoginTimeoutMillisSSL-label": "Login Timeout Millis SSL",
-  "a-LoginTokenAssociatonEnabled-label": "Login Token Associaton Enabled",
+
+  "a-LoginTokenAssociatonEnabled-label": "Login Token Association Enabled",
+  "a-LoginTokenAssociatonEnabled-help": "Specifies whether the SAML2 Assertion token is associated with the Session at the time of login.",
 
   "a-LoginURL-label": "Login URL",
   "f-JMSSystemResource_JmsResource_SAFRemoteContext_SAFLoginContext-a-LoginURL-help": "Specifies the URL to connect to when using this SAF Login Context. SAFImportedDestinations are associated with a SAFRemoteContext that has a SAFLoginContext. This SAFLoginContext defines the URL to use to connect.",
@@ -3062,7 +3343,9 @@
   "f-any_Realm-a-ManagementIdentityDomain-help": "Sets the Management Identity Domain value for the realm.",
 
   "a-ManagementProxy-label": "Management Proxy",
+
   "a-ManagementTokenMaxTimeout-label": "Management Token Max Timeout",
+  "a-ManagementTokenMaxTimeout-help": "Specifies the maximum time, specified in minutes, that a management token issued for a user can be valid. The default value is 480.",
 
   "a-MasterAgentXPort-label": "Master AgentX Port",
   "a-MasterAgentXPort-help": "The port that this SNMP agent uses to communicate with its subagents. The agent uses subagents to provide access to custom MBeans (MBeans that you create and register) and to other software components. WebLogic Server SNMP agents do not enable users to register their own subagents.",
@@ -3072,7 +3355,9 @@
   "a-MasterFirst-label": "Master First",
   "f-EmbeddedLDAP-a-MasterFirst-help": "Specifies whether a Managed Server should always connect to the master LDAP server (contained in the Administration Server), instead of connecting to the local replicated LDAP server (contained in the Managed Server).",
 
-  "a-MatchGroupBaseDn-label": "Match Group Base Dn",
+  "a-MatchGroupBaseDn-label": "Match Group Base DN",
+  "a-MatchGroupBaseDn-help": "Specifies whether or not the group membership search result should match the GroupBaseDN value.",
+
   "a-MaxBackoffBetweenFailures-label": "Max Backoff Between Failures",
   "a-MaxCOMMessageSize-label": "Max COM Message Size",
 
@@ -3090,7 +3375,10 @@
   "f-WebAppContainer_Http2Config-a-MaxConcurrentStreams-help": "The maximum number of concurrent streams that the server will allow. This limit is directional: it applies to the number of streams that the server permits the receiver to create.",
 
   "a-MaxConnectedClients-label": "Max Connected Clients",
+
   "a-MaxConsecutiveCharacters-label": "Max Consecutive Characters",
+  "a-MaxConsecutiveCharacters-help": "Specifies the maximum number of repeating consecutive characters that is allowed in the password. A value of 0 means no restriction. For example, with a value of 2, user can not create a password such as \"baaag\". Valid value for this attribute must be greater than or equal to 0.",
+
   "a-MaxDynamicClusterSize-label": "Max Dynamic Cluster Size",
 
   "a-MaxEncryptBits-label": "Max Encrypt Bits",
@@ -3104,7 +3392,11 @@
   "f-WebAppContainer_Http2Config-a-MaxFrameSize-help": "The size of the largest frame payload that the server is willing to receive, in octets.",
 
   "a-MaxGroupHierarchiesInCache-label": "Max Group Hierarchies In Cache",
+  "a-MaxGroupHierarchiesInCache-help": "Specifies the maximum size of the LRU cache for holding group membership hierarchies if caching is enabled. The default value is 100.",
+
   "a-MaxGroupMembershipSearchLevel-label": "Max Group Membership Search Level",
+  "a-MaxGroupMembershipSearchLevel-help": "Specifies how many levels of group membership can be searched. This setting is valid only if GroupMembershipSearching is set to limited. Valid values are 0 and positive integers. For example, 0 indicates only direct group memberships will be found, and a positive number indicates the number of levels to search. Note that when Use Token Groups For Group Membership Lookup is used during authentication, all the groups are returned in a single call, and the recursion limits and depth limits do not apply. They will apply in management operations.",
+
   "a-MaxHTTPMessageSize-label": "Max HTTP Message Size",
 
   "a-MaxHeaderListSize-label": "Max Header List Size",
@@ -3117,9 +3409,13 @@
   "a-MaxInformRetryCount-help": "The maximum number of times that this SNMP agent will resend INFORM notifications for which it has not received a response.",
 
   "a-MaxInstancesOfAnyCharacter-label": "Max Instances Of Any Character",
+  "a-MaxInstancesOfAnyCharacter-help": "Specifies the maximum number of times the same character can appear in a password. \"0\" means no restriction. For example, with a value of 2, user can not create a password such as \"abagia\". Valid value for this attribute must be greater than or equal to 0.",
+
   "a-MaxMessageSize-label": "Max Message Size",
   "a-MaxOpenSockCount-label": "Max Open Sock Count",
+
   "a-MaxPasswordLength-label": "Max Password Length",
+  "a-MaxPasswordLength-help": "Specifies the maximum length of password, a password length must be greater than or equal to the value. \"0\" means no restriction. Valid value for this attribute must be greater than or equal to 0.",
 
   "a-MaxPostSize-label": "Max Post Size",
   "f-WebAppContainer-a-MaxPostSize-help": "The maximum post size this server allows for reading HTTP POST data in a servlet request. A value less than 0 indicates an unlimited size.",
@@ -3153,7 +3449,10 @@
   "a-MaxRetrySecondsBeforeTlogFail-label": "Max Retry Seconds Before TLOG Fail",
   "a-MaxRetrySecondsBeforeTxException-label": "Max Retry Seconds Before Tx Exception",
   "a-MaxRetrySecondsBeforeTxRollback-label": "Max Retry Seconds Before Tx Rollback",
-  "a-MaxSIDToGroupLookupsInCache-label": "Max SID To Group Lookups In Cache",
+
+  "a-MaxSIDToGroupLookupsInCache-label": "Max SID-to-Group Lookups In Cache",
+  "f-any_ActiveDirectoryAuthenticator-a-MaxSIDToGroupLookupsInCache-help": "The maximum size of the LRU cache for holding SID to group lookups if caching of SID to group name mappings is enabled and if the tokenGroups group membership lookup is enabled. The default value is 500.",
+
   "a-MaxSecondarySelectionAttempts-label": "Max Secondary Selection Attempts",
   "a-MaxServerCountForHttpPing-label": "Max Server Count For HTTP Ping",
 
@@ -3315,6 +3614,7 @@
   "f-WebAppContainer-a-MimeMappingFile-help": "The name of the file containing mime-mappings for the domain. The format of the file should be: extension=mime-type.",
 
   "a-MinAlphabeticCharacters-label": "Min Alphabetic Characters",
+  "a-MinAlphabeticCharacters-help": "Specifies the minimum number of alphabetic characters that a password must contain. Valid value for this attribute must be greater than or equal to 0.",
 
   "a-MinCapacity-label": "Min Capacity",
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-MinCapacity-help": "The minimum number of physical connections that this connection pool can contain after it is initialized.",
@@ -3326,10 +3626,19 @@
   "f-WTCServer_WTCRemoteTuxDom-a-MinEncryptBits-help": "The minimum encryption key length (in bits) this remote Tuxedo access point uses when establishing a session connection. A value of 0 indicates no encryption is used.",
 
   "a-MinLowercaseCharacters-label": "Min Lowercase Characters",
+  "a-MinLowercaseCharacters-help": "Specifies the minimum number of lowercase characters that a password must contain. Valid value for this attribute must be greater than or equal to 0.",
+
   "a-MinNonAlphanumericCharacters-label": "Min Non Alphanumeric Characters",
+  "a-MinNonAlphanumericCharacters-help": "Specifies the minimum number of non-alphanumeric characters that a password must contain. Valid value for this attribute must be greater than or equal to 0.",
+
   "a-MinNumericCharacters-label": "Min Numeric Characters",
+  "a-MinNumericCharacters-help": "Specifies the minimum number of numeric characters that a password must contain. Valid value for this attribute must be greater than or equal to 0.",
+
   "a-MinNumericOrSpecialCharacters-label": "Min Numeric Or Special Characters",
+  "a-MinNumericOrSpecialCharacters-help": "Specifies the minimum number of numeric or special characters that a password must contain. Valid value for this attribute must be greater than or equal to 0.",
+
   "a-MinPasswordLength-label": "Min Password Length",
+  "a-MinPasswordLength-help": "Specifies the minimum length of password, a password length must be greater than or equal to the value. Valid value for this attribute must be greater than or equal to 0.",
 
   "a-MinThreads-label": "Min Threads",
   "f-AdminConsole-a-MinThreads-help": "Specifies the minimum number of threads that should be available to the Administration Console. These threads are used to interact with managed servers in parallel for improved responsiveness in large domains. 5 is the smallest accepted number.",
@@ -3338,13 +3647,18 @@
   "f-SelfTuning_WorkManager-a-MinThreadsConstraint-help": "The name of the MinThreadsConstraint that defines the minimum number of threads allocated to resolve deadlocks.",
 
   "a-MinThreadsConstraintCap-label": "Min Threads Constraint Cap",
+
   "a-MinUppercaseCharacters-label": "Min Uppercase Characters",
+  "a-MinUppercaseCharacters-help": "Specifies the minimum number of uppercase characters that a password must contain. Valid value for this attribute must be greater than or equal to 0.",
 
   "a-MinWindowBufferSize-label": "Min Window Buffer Size",
   "f-FileStore-a-MinWindowBufferSize-help": "The minimum amount of data, in bytes and rounded down to the nearest power of 2, mapped into the JVM's address space per primary store file. Applies to synchronous write policies Direct-Write-With-Cache and Disabled, but only when a native wlfileio library is loaded.",
 
   "a-MinimumParserPoolSize-label": "Minimum Parser Pool Size",
+  "a-MinimumParserPoolSize-help": "Specifies the minimum number of parsers to maintain in the parser pool. The default value is 5.",
+
   "a-MinimumPasswordLength-label": "Minimum Password Length",
+  "f-any_DefaultAuthenticator-a-MinimumPasswordLength-help": "Specifies the minimum number of characters required in a password.",
 
   "a-MinimumPoolSize-label": "Minimum Pool Size",
   "f-JoltConnectionPool-a-MinimumPoolSize-help": "The minimum number of connections to be added to this Jolt connection pool when WebLogic Server starts.",
@@ -3420,9 +3734,16 @@
   "f-WTCServer_WTCRemoteTuxDom-a-NWAddr-help": "The network address and port number of this remote Tuxedo access point.  Specify the address in either TCP/IP or SDP format",
 
   "a-Name-label": "Name",
+
   "a-NameCallbackAllowed-label": "Name Callback Allowed",
+  "f-any_DefaultAuthenticator-a-NameCallbackAllowed-help": "Specifies whether the provider is allowed to get the user name from a NameCallback versus getting the user name (and identity domain) from an IdentityDomainUserCallback when the provider is configured with an identity domain.",
+
   "a-NameMapperClassName-label": "Name Mapper Class Name",
+  "a-NameMapperClassName-help": "Specifies the qualified name of the Java class that maps SAML Assertion name information to local Subjects. When no mapper is supplied the default mapper implementation is used.",
+  "f-any_SAML2CredentialMapper-a-NameMapperClassName-help": "Specifies the qualified name of the Java class that maps Subjects to SAML Assertion name information. When no mapper is specified, the default mapper implementation is used.",
+
   "a-NameQualifier-label": "Name Qualifier",
+  "a-NameQualifier-help": "Specifies the Name Qualifier value used by the Name Mapper. The value of the Name Qualifier is the security or administrative domain that qualifies the name of the subject. This provides a means to federate names from disparate user stores while avoiding the possibility of subject name collision.",
 
   "a-Namespace-label": "Namespace",
   "f-WLDFSystemResource_WLDFResource_Harvester_HarvestedType-a-Namespace-help": "The namespace for the harvested type definition.",
@@ -3484,7 +3805,9 @@
   "f-any_SNMPStringMonitor-a-NotifyMatch-help": "Generates a notification if the value of the monitored attribute and the value of String to Compare are the same.",
 
   "a-NumOfRetriesBeforeMsiMode-label": "Num Of Retries Before Msi Mode",
+
   "a-NumberOfFilesLimit-label": "Number Of Files Limit",
+  "f-any_DefaultAuditor-a-NumberOfFilesLimit-help": "Specifies the number of audit log files that can be retained. After the server reaches this limit, it deletes the oldest log file and creates a new log file with the latest suffix.",
 
   "a-NumberOfFilesLimited-label": "Number Of Files Limited",
   "a-NumberOfFilesLimited-help": "Indicates whether to limit the number of log files that this server instance creates to store old messages. (Requires that you specify a file rotation type of SIZE or TIME.) After the server reaches this limit, it deletes the oldest log file and creates a new log file with the latest suffix. If you do not enable this option, the server creates new files indefinitely and you must clean up these files as you require.",
@@ -3556,6 +3879,7 @@
   "a-OneWaySendWindowSize-help": "Specifies the maximum number of sent messages per window when One-Way Send Mode is set to allow queue senders and/or topic publishers to make one-way sends. The window size determines when a two-way message is required to regulate the producer before it can continue making additional one-way sends. To benefit from one-way performance, the default One-Way Send Window Size value must be configured higher in addition to enabling one-way sends. After every OneWaySendWindowSize - 1 number of messages, a two-way is used instead of a one-way, so all messages are actually two-way when the OneWaySendWindowSize = 1.",
 
   "a-OnlyUserTokenClaimsEnabled-label": "Only User Token Claims Enabled",
+  "a-OnlyUserTokenClaimsEnabled-help": "Specifies whether the claims about the user from the token are the only claims processed when a subject is created. Any additional information in the subject about the user, including groups and application roles, is obtained from the Oracle Identity Cloud Service.",
 
   "a-OnsNodeList-label": "ONS Node List",
   "f-JDBCSystemResource_JdbcResource_JDBCOracleParams-a-OnsNodeList-help": "A comma-separate list of ONS daemon listen addresses and ports to which connect to for receiving ONS-based FAN events. It is required when connecting to Oracle 11g databases and optional when connecting to Oracle database releases 12c and higher.",
@@ -3594,6 +3918,7 @@
   "f-SecurityConfiguration-a-OutboundReferenceHostAllowList-help": "Specifies the list of hosts from which WebLogic Server may retrieve an object specified by a URL. This can prevent SSRF attacks that send a URL or IOR and expect WebLogic Server to try to resolve it. Defaults to '*', meaning no restrictions.",
 
   "a-OutputMedium-label": "Output Medium",
+  "f-any_DefaultAuditor-a-OutputMedium-help": "",
 
   "a-OverloadProtectionEnabled-label": "Overload Protection Enabled",
   "f-WebAppContainer-a-OverloadProtectionEnabled-help": "This parameter is used to enable overload protection in the web application container against low memory conditions. When a low memory situation occurs, new session creation attempts will result in weblogic.servlet.SessionCreationException. The application code needs to catch this exception and take proper action. Alternatively appropriate error-pages can be configured in web.xml against weblogic.servlet.SessionCreationException. This check is performed only on memory and replicated sessions.",
@@ -3630,7 +3955,10 @@
   "f-JMSServer-a-PagingMinWindowBufferSize-help": "The minimum amount of data, in bytes and rounded down to the nearest power of 2, mapped into the JVM's address space per paging store file. Applies only when a native wlfileio library is loaded. See Paging Maximum Window Buffer Size. If the value is changed and activated, you need to restart any servers to which the MBean is targeted before the value will take effect.",
 
   "a-PanicAction-label": "Panic Action",
+
   "a-ParallelConnectDelay-label": "Parallel Connect Delay",
+  "a-ParallelConnectDelay-help": "Specifies the number of seconds to delay when making concurrent attempts to connect to multiple servers. If set to 0, connection attempts are serialized. An attempt is made to connect to the first server in the list. The next entry in the list is tried only if the attempt to connect to the current host fails. This might cause your application to block for unacceptably long time if a host is down. If set to greater than 0, another connection setup thread is started after this number of delay seconds has passed.",
+
   "a-ParallelDeployApplicationModules-label": "Parallel Deploy Application Modules",
   "a-ParallelDeployApplications-label": "Parallel Deploy Applications",
 
@@ -3674,8 +4002,12 @@
   "a-PartitionWorkManagerRef-label": "Partition Work Manager Ref",
   "a-Passive-label": "Passive",
   "a-Password-label": "Password",
+
   "a-PasswordAlgorithm-label": "Password Algorithm",
+  "a-PasswordAlgorithm-help": "Specifies the message digest algorithm used to hash passwords for storage. The name is a standard algorithm name and must be recognized by a Java Cryptography Extension (JCE) provider that is available at runtime.",
+
   "a-PasswordDigestEnabled-label": "Password Digest Enabled",
+  "a-PasswordDigestEnabled-help": "Enables the storage of password information required to support Web Services Security Password Digest and other digest authentication algorithms. If set to true, the WebLogic Authentication provider stores the user password in a 2-way encrypted form. The original password can then be retrieved and used for digest authentication.",
 
   "a-PasswordEncrypted-label": "Password Encrypted",
   "f-JDBCSystemResource_JdbcResource_JDBCDriverParams-a-PasswordEncrypted-help": "The password attribute passed to the JDBC driver when creating physical database connections.",
@@ -3684,7 +4016,11 @@
   "f-ForeignJNDIProvider-a-PasswordEncrypted-help": "The remote server's user password.",
 
   "a-PasswordStyle-label": "Password Style",
+  "a-PasswordStyle-help": "Specifies the password style that is used when storing passwords for users that are created and for changing the user's password if Password Style Retained is disabled.",
+
   "a-PasswordStyleRetained-label": "Password Style Retained",
+  "a-PasswordStyleRetained-help": "Controls how a password is stored in the database when updating an existing user's password. True indicates the password style and algorithm that were used for the original password in the database should be used for the new password. This setting is the default. False indicates the settings for Password Algorithm and Password Style will be used for the new password.",
+
   "a-PasswordValidatorTypes-label": "Password Validator Types",
   "a-Path-label": "Path",
 
@@ -3717,6 +4053,7 @@
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-PinnedToThread-help": "Enables an option to improve performance by enabling execute threads to keep a pooled database connection even after the application closes the logical connection.",
 
   "a-PlaintextPasswordsEnabled-label": "Plaintext Passwords Enabled",
+  "a-PlaintextPasswordsEnabled-help": "Specifies whether plaintext passwords are allowed to be used.",
 
   "a-PlanDir-label": "Plan Dir",
   "a-PlanDir-help": "The location of this application's configuration area. This directory can contain external descriptor files as specified within the deployment plan document. f the plan directory is a relative path, it is resolved relative to InstallDir if InstallDir is not null; otherwise, it is resolved relative to the domain root.",
@@ -3738,8 +4075,11 @@
 
   "a-PluginClassName-label": "Plug-in Class Name",
   "f-HealthScore-a-PluginClassName-help": "The class name of the health score plugin to be instantiated and used by the health score service to calculate the health score of the server. The default value is weblogic.health.DefaultHealthScorePlugin.",
+  "f-any_CustomDBMSAuthenticator-a-PluginClassName-help": "Specifies the name of a class that implements the weblogic.security.providers.authentication.CustomDBMSAuthenticatorPlugin interface. The class must exist in the CLASSPATH. The value is required and there is no default value.",
 
   "a-PluginProperties-label": "Plug-in Properties",
+  "f-any_CustomDBMSAuthenticator-a-PluginProperties-help": "Defines configuration properties for the specified plug-in class, if any. The property names and supported values are defined by the plug-in class.",
+
   "a-PluginType-label": "Plug-in Type",
 
   "a-Pointcut-label": "Pointcut",
@@ -3751,6 +4091,7 @@
   "f-CdiContainer-a-Policy-help": "Specifies the CDI policy. CDI can be \"Enabled\" (the default) or \"Disabled\". If CDI is disabled then no CDI processing will occur including scanning of pojos and initialization of Weld and CDI will not be available to the application via the CDI apis.",
 
   "a-PolicyDeploymentEnabled-label": "Policy Deployment Enabled",
+  "a-PolicyDeploymentEnabled-help": "Specifies whether this Authorization provider stores policies that are created while deploying a Web application or EJB.",
 
   "a-PolicySelectionPreference-label": "Policy Selection Preference",
   "f-WebserviceSecurity-a-PolicySelectionPreference-help": "Specifies the value of the PolicySelectionPreference attribute. f NONE is specified, no preference is applied - the first policy alternative is always chosen, and optional policy assertions are ignored.",
@@ -3759,6 +4100,17 @@
   "a-PollingInterval-help": "The frequency (in seconds) that WebLogic Server checks the attribute value.  The default value is 10.",
 
   "a-Port-label": "Port",
+  "f-any_ActiveDirectoryAuthenticator-a-Port-help": "Specifies the port number on which the LDAP server is listening.",
+  "f-any_IPlanetAuthenticator-a-Port-help": "Specifies the port number on which the LDAP server is listening.",
+  "f-any_LDAPAuthenticator-a-Port-help": "Specifies the port number on which the LDAP server is listening.",
+  "f-any_LDAPX509IdentityAsserter-a-Port-help": "Specifies the port number on which the LDAP server is listening.",
+  "f-any_NovellAuthenticator-a-Port-help": "Specifies the port number on which the LDAP server is listening.",
+  "f-any_OpenLDAPAuthenticator-a-Port-help": "Specifies the port number on which the LDAP server is listening.",
+  "f-any_OracleInternetDirectoryAuthenticator-a-Port-help": "Specifies the port number on which the LDAP server is listening.",
+  "f-any_OracleUnifiedDirectoryAuthenticator-a-Port-help": "Specifies the port number on which the LDAP server is listening.",
+  "f-any_OracleVirtualDirectoryAuthenticator-a-Port-help": "Specifies the port number on which the LDAP server is listening.",
+  "f-any_weblogic.security.providers.authentication.OracleIdentityCloudIntegrator-a-Port-help": "Specifies the port number used to connect to the Oracle Identity Cloud Service.",
+
   "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceAddressProvider_CoherenceSocketAddress-a-Port-help": "The listen port.",
   "f-any_SNMPProxy-a-Port-help": "The UDP port number on which this proxied SNMP agent is listening.",
   "f-any_SNMPTrapDestination-a-Port-help": "The UDP port on which the SNMP manager is listening.",
@@ -3778,7 +4130,9 @@
   "f-WebAppContainer-a-PostTimeoutSecs-help": "The amount of time (in seconds) the server waits between receiving chunks of data in an HTTP POST data before it times out. (This is used to prevent denial-of-service attacks that attempt to overload the server with POST data.)",
 
   "a-PreScript-label": "Pre Script",
-  "a-PreferAltId-label": "Prefer Alt ID",
+  "a-PreferAltId-label": "Prefer Alternate ID",
+  "a-PreferAltId-help": "Specifies whether to use the alternate user ID instead of user ID to populate as the GUID in the user principal.",
+
   "a-PreferredSecondaryGroup-label": "Preferred Secondary Group",
   "a-PreferredStoreSizeLimit-label": "Preferred Store Size Limit",
   "a-PrefetchEnums-label": "Prefetch Enums",
@@ -3795,7 +4149,9 @@
   "f-JoltConnectionPool-a-PrimaryAddress-help": "The list of addresses for the primary Jolt Server Listeners (JSLs) on the Tuxedo system. The format of each address is: //hostname:port. Multiple addresses should be separated by commas.",
 
   "a-PrimaryIdentityDomain-label": "Primary Identity Domain",
+
   "a-Principal-label": "Principal",
+  "a-Principal-help": "Specifies the Distinguished Name (DN) of the LDAP user that is used by WebLogic Server to connect to the LDAP server.",
 
   "a-PrincipalEqualsCaseInsensitive-label": "Principal Equals Case Insensitive",
   "f-SecurityConfiguration-a-PrincipalEqualsCaseInsensitive-help": "Specifies whether the WebLogic Server principal name is compared using a case insensitive match when the equals method for the principal object is performed.",
@@ -3813,12 +4169,12 @@
   "a-PrivacyProtocol-help": "The protocol that this SNMP agent uses to encrypt and unencrypt messages. Applicable only with SNMPv3. Requires you to also use an authentication protocol. To use this protocol when sending responses or notifications, you must also configure the security level of your trap destinations. If you do not choose a privacy protocol, then communication between this agent and managers can be viewed (but not altered) by unauthorized users.",
 
   "a-PrivateKeyAlias-label": "Private Key Alias",
-  "f-WTCServer_WTCLocalTuxDom-a-PrivateKeyAlias-help": "The string alias used to store and retrieve the Local Tuxedo access point's private key in the keystore. This private key is associated with the Local Tuxedo access point's digital certificate.",
+  "f-WTCServer_WTCLocalTuxDom-a-PrivateKeyAlias-help": "The string alias used to store and retrieve the Local Tuxedo access point's private key in the key store. This private key is associated with the Local Tuxedo access point's digital certificate.",
 
   "a-PrivateKeyPassPhrase-label": "Private Key Passphrase",
 
   "a-PrivateKeyPassPhraseEncrypted-label": "Private Key Passphrase Encrypted",
-  "f-WTCServer_WTCLocalTuxDom-a-PrivateKeyPassPhraseEncrypted-help": "The encrypted passphrase used to retrieve the Local Tuxedo access point's private key from the keystore. This passphrase is assigned to the private key when it is generated.",
+  "f-WTCServer_WTCLocalTuxDom-a-PrivateKeyPassPhraseEncrypted-help": "The encrypted passphrase used to retrieve the Local Tuxedo access point's private key from the key store. This passphrase is assigned to the private key when it is generated.",
 
   "a-ProcessDestroyTimeout-label": "Process Destroy Timeout",
   "f-NMProperties-a-ProcessDestroyTimeout-help": "Specifies the time a NodeManager waits to check if the Managed Server that was started by the start script is stopped. If NativeVersionEnabled is set to false (default value is true), a start script starts the monitored Managed Server and that will be a child process. In this case, the ProcessDestroyTimeout value (by default 20 seconds) determines how long the Node Manager should wait to check if the Managed Server is stopped.",
@@ -3843,6 +4199,7 @@
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-ProfileType-help": "Specifies the type of profile data to be collected for the JDBC subsystem. To enable a multiple profiling options, the value should be set to the sum of each option's numeric value. For example, to enable the Connection Usage, Connection Leak and Connection Unwrap Usage options the value would be set to 261 (1 + 4 + 256) or 0x105 (0x001 + 0x004 + 0x100).",
 
   "a-PropagateCauseForLoginException-label": "Propagate Cause For Login Exception",
+  "a-PropagateCauseForLoginException-help": "Specifies whether to propagate the cause of the LoginException.",
 
   "a-Properties-label": "Properties",
   "f-ForeignJNDIProvider-a-Properties-help": "Any additional properties that must be set for the JNDI provider. These properties will be passed directly to the constructor for the JNDI provider's InitialContext class.",
@@ -3982,7 +4339,10 @@
   "f-EmbeddedLDAP-a-RefreshReplicaAtStartup-help": "Specifies whether a Managed Server should refresh all replicated data at boot time. (This is useful if you have made a large amount of changes when the Managed Server was not active, and you want to download the entire replica instead of having the Administration Server push each change to the Managed Server.)",
 
   "a-RejectEqualOrContainReverseUsername-label": "Reject Equal Or Contain Reverse Username",
+  "a-RejectEqualOrContainReverseUsername-help": "Specifies whether the password can contain or be equal to the reverse username. This check will be case insensitive. If the value is \"true\", the password must not contain or be equal to the reverse username.",
+
   "a-RejectEqualOrContainUsername-label": "Reject Equal Or Contain Username",
+  "a-RejectEqualOrContainUsername-help": "Specifies whether the password can contain or be equal to the username. This check will be case insensitive. If the value is \"true\", the password must not contain or be equal to the username.",
 
   "a-RejectMaliciousPathParameters-label": "Reject Malicious Path Parameters",
   "f-WebAppContainer-a-RejectMaliciousPathParameters-help": "Specifies whether URIs with malicious path parameters will be rejected. By default, URIs with malicious path parameters will be rejected.",
@@ -4054,6 +4414,8 @@
   "f-JDBCSystemResource_JdbcResource_JDBCOracleParams-a-ReplayInitiationTimeout-help": "The amount of time, in seconds, a data source allows for Application Continuity replay processing before timing out and ending a replay session context. When set to zero seconds, replay processing (failover) is disabled, although begin/endRequest are still called. You can use this for collecting coverage and measuring performance. The default value is 3600 seconds.",
 
   "a-ReplicatedCacheEnabled-label": "Replicated Cache Enabled",
+  "a-ReplicatedCacheEnabled-help": "Specifies whether the replicated cache is used or not. To support cluster, this flag must be set to true.",
+
   "a-ReplicationChannel-label": "Replication Channel",
   "a-ReplicationGroup-label": "Replication Group",
   "a-ReplicationPorts-label": "Replication Ports",
@@ -4077,6 +4439,7 @@
   "f-SelfTuning_ContextRequestClass_ContextCase-a-RequestClassName-help": "The name of the request class to be used for processing requests for the specified user and/or group.",
 
   "a-RequireUnanimousPermit-label": "Require Unanimous Permit",
+  "f-any_DefaultAdjudicator-a-RequireUnanimousPermit-help": "Requires all authorization providers to vote PERMIT in order for the adjudication provider to vote PERMIT. If the attribute is set to disabled, ABSTAIN votes are ignored.",
 
   "a-ResetDeliveryCountOnForward-label": "Reset Delivery Count On Forward",
   "a-ResetDeliveryCountOnForward-help": "Determines whether or not the delivery count is reset during message forwarding between distributed queue members. The default value of true resets the delivery counts on messages when they are forwarded to another distributed queue member. Note: This attribute is ignored by standalone/singleton Queues, it only applies to distributed queues.",
@@ -4101,9 +4464,13 @@
   "f-WTCServer_WTCImport-a-ResourceName-help": "The name used to identify this imported service. Note that this name must be unique within defined Imports. This allows you to define unique configurations having the same Remote Name.",
 
   "a-ResourceTenantTokenClaim-label": "Resource Tenant Token Claim",
+  "a-ResourceTenantTokenClaim-help": "Specifies the token attribute used to get the Identity Domain for the resource from the access token. The default value is \"tenant\".",
+
   "a-Resources-label": "Resources",
   "a-ResponseBufferingQueueJndiName-label": "Response Buffering Queue JNDI Name",
+
   "a-ResponseReadTimeout-label": "Response Read Timeout",
+  "a-ResponseReadTimeout-help": "Specifies the maximum time to wait, in seconds, for a response from the Oracle Identity Cloud Service. The default value is 60.",
 
   "a-ResponseTimeRequestClass-label": "Response Time Request Class",
   "f-SelfTuning_WorkManager-a-ResponseTimeRequestClass-help": "The name of the ResponseTimeRequestClass that defines the response time goal for this request class. Response time goals can be used to differentiate request classes. We do not try to meet a response time goal for an individual request. Rather we compute a tolerable waiting time for a request class by subtracting the observed average thread use time.",
@@ -4140,6 +4507,7 @@
   "f-any_SecureMode-a-RestrictiveJmxPolicies-help": "Specifies whether restrictive policies will be used for JMX authorization. If secure mode is enabled and restrictive policies are enabled, then the default policies for JMX only allow MBean access to the standard WLS roles (Admin, Deployer, Operator, or Monitor).",
 
   "a-ResultsTimeLimit-label": "Results Time Limit",
+  "a-ResultsTimeLimit-help": "Specifies the maximum number of milliseconds to wait for results before timing out. If set to 0, there is no maximum time limit.",
 
   "a-ResumeWhenUnstuck-label": "Resume When Unstuck",
   "f-SelfTuning_WorkManager_WorkManagerShutdownTrigger-a-ResumeWhenUnstuck-help": "Whether to resume the work manager once the stuck threads are cleared.",
@@ -4155,8 +4523,12 @@
   "a-Retries-label": "Retries",
   "f-WTCServer_WTCtBridgeGlobal-a-Retries-help": "The number of attempts to redirect a message before this Tuxedo queuing bridge places the message in the specified error location and logs an error.  Must be between 0 and 2147483647.",
 
-  "a-RetrievePrincipalFromUserDn-label": "Retrieve Principal From User Dn",
+  "a-RetrievePrincipalFromUserDn-label": "Retrieve Principal From User DN",
+  "a-RetrievePrincipalFromUserDn-help": "Specifies whether to retrieve the user principal from the userDN or the username attribute.",
+
   "a-RetrieveUserAccountControl-label": "Retrieve User Account Control",
+  "f-any_ActiveDirectoryAuthenticator-a-RetrieveUserAccountControl-help": "Specifies whether to retrieve the userAccountControl attribute from Active Directory. The default value is true.",
+
   "a-RetryCount-label": "Retry Count",
 
   "a-RetryDelay-label": "Retry Delay",
@@ -4171,8 +4543,11 @@
   "a-ReverseDNSAllowed-label": "Reverse DNS Allowed",
   "a-RjvmIdleTimeout-label": "RJVM Idle Timeout",
   "a-RmiDeserializationMaxTimeLimit-label": "Rmi Deserialization Max Time Limit",
-  "a-RmiJDBCSecurity-label": "Rmi JDBC Security",
+  "a-RmiJDBCSecurity-label": "RMI JDBC Security",
+
   "a-RoleDeploymentEnabled-label": "Role Deployment Enabled",
+  "a-RoleDeploymentEnabled-help": "Specifies whether this Role Mapping provider stores roles that are created while deploying a Web application or EJB.",
+
   "a-RoleMapperTypes-label": "Role Mapper Types",
   "a-RoleName-label": "Role Name",
   "a-RollbackLocalTxUponConnClose-label": "Rollback Local Tx Upon Conn Close",
@@ -4188,13 +4563,16 @@
   "a-RotateLogOnStartup-help": "Specifies whether a server rotates its log file during its startup cycle. The default value in production mode is false.",
 
   "a-RotationMinutes-label": "Rotation Minutes",
+  "f-any_DefaultAuditor-a-RotationMinutes-help": "Specifies how many minutes to wait before creating a new DefaultAuditRecorder.log file. At the specified time, the audit file is closed and a new one is created.  The default value is 1440 (one day)",
+
   "a-RotationSize-label": "Rotation Size",
+  "f-any_DefaultAuditor-a-RotationSize-help": "Specifies the size limit to reach before creating a new DefaultAuditRecorder.log file. After the size limit is reached, the audit file is closed and a new one is created.",
 
   "a-RotationTime-label": "Rotation Time",
   "a-RotationTime-help": "Determines the start time (hour and minute) for a time-based rotation sequence. At the time that this value specifies, the server renames the current log file. Thereafter, the server renames the log file at an interval that you specify in File Time Span. Note that WebLogic Server sets a threshold size limit of 500 MB before it forces a hard rotation to prevent excessive log file growth.",
 
   "a-RotationType-label": "Rotation Type",
-  "a-RotationType-help": "Criteria for moving old log messages to a separate file.",
+  "a-RotationType-help": "Specifies the criteria for moving old audit records to a separate file. The default value is byTime.",
 
   "a-RowPrefetch-label": "Row Prefetch",
   "a-RowPrefetchSize-label": "Row Prefetch Size",
@@ -4229,27 +4607,79 @@
   "a-SNMPTrapVersion-help": "The SNMP notification version that this SNMP agent generates.",
 
   "a-SQLAddMemberToGroup-label": "SQL Add Member To Group",
+  "a-SQLAddMemberToGroup-help": "Specifies the SQL statement used to add a specific member to a group. The SQL statement requires two parameters: the group name and the group member being added.",
+
   "a-SQLCreateGroup-label": "SQL Create Group",
+  "a-SQLCreateGroup-help": "Specifies the SQL statement used to create a new group. The SQL statement requirements depend on the value of Descriptions Supported. There is a minimum of one parameter, the group name. If Descriptions Supported is true, the group's description is required. The default SQL is based on the default setting of Descriptions Supported. The setting of Create Group must be updated manually if the setting of Descriptions Supported changes.",
+
   "a-SQLCreateUser-label": "SQL Create User",
+  "a-SQLCreateUser-help": "Specifies the SQL statement used to create a new user record. The SQL statement requirements depend on the value of Descriptions Supported. There is a minimum of two parameters: a username and its associated password. If Descriptions Supported is true, the user's description is required. The default SQL is based on the default setting of Descriptions Supported. The setting of Create User must be updated manually if the setting of Descriptions Supported changes.",
+
   "a-SQLGetGroupDescription-label": "SQL Get Group Description",
+  "a-SQLGetGroupDescription-help": "Specifies the SQL statement used to retrieve the description of a group. Only valid if Descriptions Supported is enabled. The SQL statement requires a single parameter for the group name and must return a resultSet containing at most a single record containing the group description.",
+
   "a-SQLGetUserDescription-label": "SQL Get User Description",
+  "a-SQLGetUserDescription-help": "Specifies the SQL statement used to retrieve the description of a specific user. Only valid if Descriptions Supported is enabled. The SQL statement requires a single parameter for the username and must return a resultSet containing at most a single record containing the user description.",
+
   "a-SQLGetUsersPassword-label": "SQL Get Users Password",
+  "a-SQLGetUsersPassword-help": "Specifies the SQL statement used to look up a user's password. The SQL statement requires a single parameter for the username and must return a resultSet containing at most a single record containing the password.",
+
   "a-SQLGroupExists-label": "SQL Group Exists",
+  "a-SQLGroupExists-help": "Specifies the SQL statement used to look up a group. The SQL statement requires a single parameter for the group name and must return a resultSet containing at most a single record containing the group.",
+
   "a-SQLIsMember-label": "SQL Is Member",
+  "a-SQLIsMember-help": "Specifies the SQL statement used to look up members of a group. The SQL statement requires two parameters: a group name and a member or group name. It must return a resultSet containing the group names that matched.",
+
   "a-SQLListGroupMembers-label": "SQL List Group Members",
+  "a-SQLListGroupMembers-help": "Specifies the SQL statement used to list groups that have a group name with a list of wildcarded member names. The SQL statement requires two parameters: the group name and the wildcarded member name.",
+
   "a-SQLListGroups-label": "SQL List Groups",
+  "a-SQLListGroups-help": "Specifies the SQL statement used to retrieve group names that match a wildcard The SQL statement requires a single parameter for the wildcarded group name and return a resultSet containing matching group names.",
+
   "a-SQLListMemberGroups-label": "SQL List Member Groups",
+  "a-SQLListMemberGroups-help": "Specifies the SQL statement used to look up the groups a user or group is a member of. The SQL statement requires a single parameter for the username or group name and returns a resultSet containing the names of the groups that matched.",
+
   "a-SQLListUsers-label": "SQL List Users",
+  "a-SQLListUsers-help": "Specifies the SQL statement used to retrieve users that match a particular wildcard search The SQL statement requires a single parameter for the wildcarded usernames and returns a resultSet containing matching usernames.",
+
   "a-SQLRemoveGroup-label": "SQL Remove Group",
+  "a-SQLRemoveGroup-help": "Specifies the SQL statement used to remove a member from a group. The SQL statement requires a single parameter: the group name being removed.",
+
   "a-SQLRemoveGroupMember-label": "SQL Remove Group Member",
+  "a-SQLRemoveGroupMember-help": "Specifies the SQL statement used to remove a member from a group. The SQL statement requires a single parameter: the username or group name being removed.",
+
   "a-SQLRemoveGroupMemberships-label": "SQL Remove Group Memberships",
+  "a-SQLRemoveGroupMemberships-help": "Specifies the SQL statement used to delete a group member (either a user or group) from all groups to which it belongs. The SQL statement requires 2 parameters. Both parameters refer to the specific username or group name being removed.",
+
   "a-SQLRemoveMemberFromGroup-label": "SQL Remove Member From Group",
+  "a-SQLRemoveMemberFromGroup-help": "Specifies the SQL statement used to remove a member from a group. The SQL statement requires two parameters: the group name and the group member being deleted from the group.",
+
   "a-SQLRemoveUser-label": "SQL Remove User",
+  "a-SQLRemoveUser-help": "Specifies the SQL statement used for deleting a user. The SQL statement requires a single parameter, the username.",
+
   "a-SQLSetGroupDescription-label": "SQL Set Group Description",
+  "a-SQLSetGroupDescription-help": "Specifies the SQL statement used to specify a description for a group. Only valid if Descriptions Supported attribute is enabled. The SQL statement requires two parameters: the group description and the group name.",
+
   "a-SQLSetUserDescription-label": "SQL Set User Description",
+  "a-SQLSetUserDescription-help": "Specifies the SQL statement used to specify description for a user. Only valid if Descriptions Supported is true. The SQL statement requires two parameters: the username description and the username.",
+
   "a-SQLSetUserPassword-label": "SQL Set User Password",
+  "a-SQLSetUserPassword-help": "Specifies the SQL statement used to set the password for a user. The SQL statement requires two parameters: the password for the user and the username.",
+
   "a-SQLUserExists-label": "SQL User Exists",
+  "a-SQLUserExists-help": "Specifies the SQL statement used to look up a user. The SQL statement requires a single parameter for the username and must return a resultSet containing at most a single record containing the user.",
+
   "a-SSLEnabled-label": "SSL Enabled",
+  "f-any_ActiveDirectoryAuthenticator-a-SSLEnabled-help": "Specifies whether SSL will be used to connect to the LDAP server.",
+  "f-any_IPlanetAuthenticator-a-SSLEnabled-help": "Specifies whether SSL will be used to connect to the LDAP server.",
+  "f-any_LDAPAuthenticator-a-SSLEnabled-help": "Specifies whether SSL will be used to connect to the LDAP server.",
+  "f-any_LDAPX509IdentityAsserter-a-SSLEnabled-help": "Specifies whether SSL will be used to connect to the LDAP server.",
+  "f-any_NovellAuthenticator-a-SSLEnabled-help": "Specifies whether SSL will be used to connect to the LDAP server.",
+  "f-any_OpenLDAPAuthenticator-a-SSLEnabled-help": "Specifies whether SSL will be used to connect to the LDAP server.",
+  "f-any_OracleInternetDirectoryAuthenticator-a-SSLEnabled-help": "Specifies whether SSL will be used to connect to the LDAP server.",
+  "f-any_OracleUnifiedDirectoryAuthenticator-a-SSLEnabled-help": "Specifies whether SSL will be used to connect to the LDAP server.",
+  "f-any_OracleVirtualDirectoryAuthenticator-a-SSLEnabled-help": "Specifies whether SSL will be used to connect to the LDAP server.",
+
   "a-SSLEnabled10-label": "SSL Enabled 10",
   "a-SSLEnabled11-label": "SSL Enabled 11",
   "a-SSLEnabled12-label": "SSL Enabled 12",
@@ -4376,6 +4806,8 @@
   "a-ServerAffinityEnabled-help": "Specifies whether a server instance that is load balancing consumers or producers across multiple members destinations of a distributed destination, will first attempt to load balance across any other physical destinations that are also running on the same server instance.",
 
   "a-ServerBackoffEnabled-label": "Server Backoff Enabled",
+  "a-ServerBackoffEnabled-help": "Specifies whether to backoff and retry requests when Oracle Identity Cloud Service returns a response that too many requests are being processed in a specific time window. The default value is true.",
+
   "a-ServerCertificateChainFileName-label": "Server Certificate Chain File Name",
   "a-ServerCertificateFileName-label": "Server Certificate File Name",
   "a-ServerCipherSuitesOrderEnabled-label": "Server Cipher Suites Order Enabled",
@@ -4397,7 +4829,10 @@
   "a-ServerName-label": "Server Name",
   "a-ServerNamePrefix-label": "Server Name Prefix",
   "a-ServerNameStartingIndex-label": "Server Name Starting Index",
+
   "a-ServerNotAvailableCounterInterval-label": "Server Not Available Counter Interval",
+  "a-ServerNotAvailableCounterInterval-help": "Specifies the interval, in seconds, that the count of authentication failures caused by the Oracle Identity Cloud Service not being available are logged to the server log. Setting to zero (0) or negative value turns off the logging of the count. The default value is 300.",
+
   "a-ServerPrivateKeyAlias-label": "Server Private Key Alias",
   "a-ServerPrivateKeyPassPhraseEncrypted-label": "Server Private Key Passphrase Encrypted",
   "a-ServerStartMode-label": "Server Start Mode",
@@ -4420,7 +4855,7 @@
   "f-SAFAgent-a-ServiceType-help": "The type of service that this SAF agent provides. JMS requires only a Sending agent on the sending side for messages. Whereas, Web Services Reliable Messaging requires both a Sending and Receiving agent for messages.",
 
   "a-ServletAuthenticationFormURL-label": "Servlet Authentication Form URL",
-  "f-WebAppContainer-a-ServletAuthenticationFormURL-help": "ServletAuthenticationFormURL is used for backward compatibility with previous releases of Weblogic Server. If ServletAuthenticationFormURL is set to true (default), then ServletAuthentication.getTargetURLForFormAuthentication() and HttpSession.getAttribute(AuthFilter.TARGET_URL) will return the URL of the protected target resource. If set to false, the above APIs will return the URI of the protected target resource. By default, the value is set to true.(new method added in 9.0.0.1).",
+  "f-WebAppContainer-a-ServletAuthenticationFormURL-help": "ServletAuthenticationFormURL is used for backward compatibility with previous releases of WebLogic Server. If ServletAuthenticationFormURL is set to true (default), then ServletAuthentication.getTargetURLForFormAuthentication() and HttpSession.getAttribute(AuthFilter.TARGET_URL) will return the URL of the protected target resource. If set to false, the above APIs will return the URI of the protected target resource. By default, the value is set to true.(new method added in 9.0.0.1).",
 
   "a-ServletReloadCheckSecs-label": "Servlet Reload Check Seconds",
   "f-WebAppContainer-a-ServletReloadCheckSecs-help": "Controls how often WebLogic Server checks for modifications to servlets and reloads them if changes are detected.",
@@ -4449,6 +4884,7 @@
   "f-WLDFSystemResource_WLDFResource_WatchNotification_LogAction-a-Severity-help": "The severity of the log message recorded by this action.",
   "f-WLDFSystemResource_WLDFResource_WatchNotification_Watch-a-Severity-help": "The severity level of the actions sent when this policy evaluates to true. When set, this level overrides the default value provided in the parent MBean. However, if no severity level is set (null), the value provided in the parent MBean is returned.",
   "f-WLDFSystemResource_WLDFResource_WatchNotification-a-Severity-help": "The default action severity level for all policies. When a policy triggers, the severity level is delivered with the action.",
+  "f-any_DefaultAuditor-a-Severity-help": "The severity level at which auditing is initiated. Severity levels are ranked in this order: 1. INFORMATION, 2. WARNING, 3. ERROR, 4. SUCCESS, 5. FAILURE. If you select a given severity level, all events of that level or more will be audited. For example, if you set the severity to ERROR, then all FAILURE, SUCCESS, and ERROR events will be audited, but WARNING and INFORMATION events will not. You can instead set the severity to CUSTOM and then enable the specific severity level events you want to audit.",
 
   "a-SeverityLevel-label": "Severity Level",
   "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceLoggingParams-a-SeverityLevel-help": "The logging severity level for Coherence logs.",
@@ -4480,9 +4916,15 @@
   "f-JTA-a-ShutdownGracePeriod-help": "Specifies how long the server should wait for active transactions to complete before allowing shutdown.",
 
   "a-SignAuthnRequests-label": "Sign Authn Requests",
+
   "a-SignaturePreferX509Certificate-label": "Signature Prefer X509 Certificate",
+  "a-SignaturePreferX509Certificate-help": "If the optional X.509 certificate chain (\"x5c claim\") is available from the JSON Web Key Set, this attribute specifies whether the public key obtained from the X.509 certificate in the supplied chain is used during the verification of the token signature.",
+
   "a-SigningKeyAlias-label": "Signing Key Alias",
-  "a-SigningKeyPassPhraseEncrypted-label": "Signing Key Passphrase Encrypted",
+  "a-SigningKeyAlias-help": "Specifies the alias used to retrieve from the keystore the key that is used to sign assertions.",
+
+  "a-SigningKeyPassPhraseEncrypted-label": "Signing Key Passphrase",
+  "a-SigningKeyPassPhraseEncrypted-help": "Specifies the credential (password) used to retrieve from the keystore the keys used to sign assertions.",
 
   "a-SinglePurposeCertificatesEnabled-label": "Single Purpose Certificates Enabled",
   "f-any_CertificateManagement-a-SinglePurposeCertificatesEnabled-help": "Whether the Domain Certificates Issuer should generate separate, single-purpose certificates for different purposes (server authentication, client authentication, signing and encryption), or generate one certificate that supports all those purposes.",
@@ -4536,7 +4978,9 @@
   "a-SsLv2HelloEnabled-label": "SSL v2 Hello Enabled",
   "a-SslClientIdentityAlias-label": "SSL Client Identity Alias",
   "a-SslClientIdentityPassPhraseEncrypted-label": "SSL Client Identity Passphrase Encrypted",
+
   "a-SslEnabled-label": "SSL Enabled",
+  "a-SslEnabled-help": "Specifies whether the TLS/SSL protocol is used when connecting to the Oracle Identity Cloud Service.",
 
   "a-SslProtocolVersion-label": "SSL Protocol Version",
   "f-WTCServer_WTCLocalTuxDom-a-SslProtocolVersion-help": "The protocol version of the SSL connection this local access point uses when establishing a SSL connection.",
@@ -4577,10 +5021,17 @@
   "a-StatementTimeout-label": "Statement Timeout",
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-StatementTimeout-help": "The time after which a statement currently being executed will time out. StatementTimeout relies on underlying JDBC driver support. WebLogic Server passes the time specified to the JDBC driver using the java.sql.Statement.setQueryTimeout() method. If your JDBC driver does not support this method, it may throw an exception and the timeout value is ignored. A value of -1 disables this feature. A value of 0 means that statements will not time out.",
 
-  "a-StaticGroupDNsfromMemberDNFilter-label": "Static Group D Nsfrom Member DN Filter",
+  "a-StaticGroupDNsfromMemberDNFilter-label": "Static Group DNs from Member DN Filter",
+  "a-StaticGroupDNsfromMemberDNFilter-help": "An LDAP search filter that, given the distinguished name (DN) of a member of a group, returns the DNs of the static LDAP groups that contain that member.",
+
   "a-StaticGroupNameAttribute-label": "Static Group Name Attribute",
+  "a-StaticGroupNameAttribute-help": "Specifies the attribute of a static LDAP group object that specifies the name of the group. The default value is cn.",
+
   "a-StaticGroupObjectClass-label": "Static Group Object Class",
+  "a-StaticGroupObjectClass-help": "Specifies the name of the LDAP object class that stores static groups. The default value is group.",
+
   "a-StaticMemberDNAttribute-label": "Static Member DN Attribute",
+  "a-StaticMemberDNAttribute-help": "Specifies the attribute of the LDAP static group object that specifies the distinguished names (DNs) of the members of the group. The default value is member.",
 
   "a-StdoutFilter-label": "Stdout Filter",
   "a-StdoutFilter-help": "The filter configuration for log events being sent to the standard out.",
@@ -4644,6 +5095,8 @@
   "f-WLDFSystemResource_WLDFResource_WatchNotification_LogAction-a-SubsystemName-help": "The subsystem name to be assigned to the log message.",
 
   "a-SuccessAuditSeverityEnabled-label": "Success Audit Severity Enabled",
+  "f-any_DefaultAuditor-a-SuccessAuditSeverityEnabled-help": "If the Severity value is set to Custom, causes the Auditing provider to generate audit records for events with a severity level of SUCCESS.",
+
   "a-SupportedContextHandlerEntries-label": "Supported Context Handler Entries",
   "a-SupportedExportConstraints-label": "Supported Export Constraints",
   "a-SupportedExportFormats-label": "Supported Export Formats",
@@ -4652,11 +5105,21 @@
   "a-SupportedProtocol-label": "Supported Protocol",
   "a-SupportedTypes-label": "Supported Types",
   "a-SupportedUserAttributeNames-label": "Supported User Attribute Names",
+
   "a-SyncFilterEnabled-label": "Sync Filter Enabled",
+  "a-SyncFilterEnabled-help": "Specifies whether the synchronization filter is enabled for servlet applications deployed on the security realm.",
+
   "a-SyncFilterMatchCase-label": "Sync Filter Match Case",
+  "a-SyncFilterMatchCase-help": "Specifies whether the synchronization filter performs case match when comparing the session user and the remote user.",
+
   "a-SyncFilterOnlyClientCertRequests-label": "Sync Filter Only Client Cert Requests",
+  "a-SyncFilterOnlyClientCertRequests-help": "Specifies whether the synchronization filter only filters the requests with CLIENT_CERT or CLIENT-CERT Auth Type. The default value is true.",
+
   "a-SyncFilterPreferHeader-label": "Sync Filter Prefer Header",
+  "a-SyncFilterPreferHeader-help": "Specifies whether the synchronization filter looks into the requests header before looking at the token for the remote user and tenant. This attribute is used only when the synchronization filter is enabled for requests with all authentication types.",
+
   "a-SyncFilterUserHeaderName-label": "Sync Filter User Header Name",
+  "a-SyncFilterUserHeaderName-help": "Specifies the names of HTTP headers sent on requests that the synchronization filter uses to look for remote user information.",
 
   "a-SynchronizedSessionTimeoutEnabled-label": "Synchronized Session Timeout Enabled",
   "f-WebAppContainer-a-SynchronizedSessionTimeoutEnabled-help": "Indicates whether to also invalidate all the other sessions when one of the sessions that share the same ID expires.",
@@ -4719,13 +5182,28 @@
   "f-JMSServer-a-TemporaryTemplateResource-help": "The name of a JMS module that contains a template that this JMS server can use to create temporary destinations. Entering a JMS module name requires you to specify a temporary template name. However, a module name cannot be specified if the Hosting Temporary Destinations field is disabled.",
 
   "a-Tenant-label": "Tenant",
+  "a-Tenant-help": "Specifies the name of the primary tenant where users and groups reside from the Oracle Identity Cloud Service. When the primary tenant is not configured, the user authentication processing must identify the tenant name.",
+
   "a-TenantDataFlushInterval-label": "Tenant Data Flush Interval",
+  "a-TenantDataFlushInterval-help": "Specifies the interval, in seconds, that the cached data for all the tenants, including the metadata and public key is flushed. Adjusting the interval impacts how long the tenant data is cached for reuse before it is updated. The default value is 0, which means that tenant data from a previous download is not cleared unless triggered by an MBean operation or configuration change.",
+
   "a-TenantDataReloadEnabled-label": "Tenant Data Reload Enabled",
+  "a-TenantDataReloadEnabled-help": "Specifies whether to re-load Oracle Identity Cloud Service tenant data when a token validation error occurs.",
+
   "a-TenantDataReloadInterval-label": "Tenant Data Reload Interval",
+  "a-TenantDataReloadInterval-help": "Specifies the interval, in seconds, that the Oracle Identity Cloud Service tenant data would not be removed when a token validation error occurs. Adjusting the interval impacts how long the tenant data is cached for reuse before repeated token validation errors result in a tenant data re-load. The default value is 300.",
+
   "a-TenantHeaderName-label": "Tenant Header Name",
+  "a-TenantHeaderName-help": "Specifies the names of HTTP headers sent on requests to the Oracle Identity Cloud Service that are used to determine the tenancy during authentication.",
+
   "a-TenantHostNameTemplate-label": "Tenant Host Name Template",
+  "a-TenantHostNameTemplate-help": "Specifies the tenant-based host name, in Fully Qualified Domain name (FQDN) format, comprised of a tenant name and a host name. This attribute contains the tokens, such as {%tenant}.{%host}, that are replaced with the actual values.",
+
   "a-TenantName-label": "Tenant Name",
+  "a-TenantName-help": "Specifies the list of allowable tenant names consumed from the Oracle Identity Cloud Service. When no tenant names are configured, any tenant from the Oracle Identity Cloud Service is accessible.",
+
   "a-TenantTokenClaim-label": "Tenant Token Claim",
+  "a-TenantTokenClaim-help": "Specifies the token attribute used to get the Identity Domain from the token. The default value is \"user_tenantname\".",
 
   "a-TestConnectionsOnReserve-label": "Test Connections On Reserve",
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-TestConnectionsOnReserve-help": "Enables WebLogic Server to test a connection before giving it to a client. (Requires that you specify a Test Table Name.)",
@@ -4748,6 +5226,8 @@
   "f-WLDFSystemResource_WLDFResource_WatchNotification_ThreadDumpAction-a-ThreadDumpDelaySeconds-help": "The delay, in seconds, to pause between thread dump captures.",
 
   "a-ThreadLockTimeout-label": "Thread Lock Timeout",
+  "a-ThreadLockTimeout-help": "Specifies the maximum time to wait, in seconds, when a thread attempts to acquire a synchronization lock for obtaining metadata, keys and access tokens. The default value is 120.",
+
   "a-ThreadPoolPercentSocketReaders-label": "Thread Pool Percent Socket Readers",
   "a-ThreadPoolSize-label": "Thread Pool Size",
   "a-ThreadPriority-label": "Thread Priority",
@@ -4818,8 +5298,13 @@
   "f-EJBContainer-a-TmpPath-help": "The temporary directory where generated files are stored by ejbc. Deprecated: All EJB compiler output is now stored in the EJBCompilerCache subdirectory of the server staging directory. This directory should not be described as \"temporary\" since removing it would cause the EJB compiler to be rerun as necessary the next time the server is restarted.",
 
   "a-TokenCacheEnabled-label": "Token Cache Enabled",
+  "a-TokenCacheEnabled-help": "Specifies whether to cache Oracle Identity Cloud Service tokens after successful validation of the token. The default value is true.",
+
   "a-TokenClockSkew-label": "Token Clock Skew",
+  "a-TokenClockSkew-help": "Specifies the allowable variance, in seconds, for the token Expiration, Issued At, and Not Before attributes. The default value is 120.",
+
   "a-TokenSecureTransportRequired-label": "Token Secure Transport Required",
+  "a-TokenSecureTransportRequired-help": "Specifies whether the Oracle Identity Cloud Integrator provider checks for a secure transport connection before accepting active token types. When enabled and a secure transport connection cannot be determined, tokens are not accepted for identity assertion.",
 
   "a-TokenTimeout-label": "Token Timeout",
   "f-RemoteConsoleHelper-a-TokenTimeout-help": "Specifies the token timeout (in minutes) of the user token from the Remote Console Helper.",
@@ -4828,7 +5313,10 @@
   "a-TokenType-help": "Specifies the type of token used for the particular credential provider or token handler.",
 
   "a-TokenValidationLevel-label": "Token Validation Level",
+  "a-TokenValidationLevel-help": "Specifies the level of validation performed on Oracle Identity Cloud Service tokens passed to the Identity Asserter.",
+
   "a-TokenVirtualUserAllowed-label": "Token Virtual User Allowed",
+  "a-TokenVirtualUserAllowed-help": "Specifies whether to allow identity assertion to authenticate WebLogic Server users who are not represented in the security store.",
 
   "a-TotalReconnectPeriodMillis-label": "Total Reconnect Period Milliseconds",
   "f-JMSSystemResource_JmsResource_ConnectionFactory_ClientParams-a-TotalReconnectPeriodMillis-help": "The maximum length of time, in milliseconds, that JMS clients (particularly asynchronous consumers) will continue to try to reconnect to the server after either the initial network disconnect or the last synchronous call attempt, whichever occurred most recently, before giving up retrying. This attribute is effective only if the ReconnectPolicy attribute is set to either Producers or All. The default value of -1 means that that it will keep trying to reconnect indefinitely; a value of 0 means that there would be exactly one retry attempt.",
@@ -4875,19 +5363,22 @@
   "a-TriggerTruncationStackFrameTriggerDepth-help": "Defines the depth of stack frame that will trigger the truncation of stack frame for the remaining cascaded causes.",
 
   "a-TrustKeyStoreFileName-label": "Trust Key Store File Name",
-  "f-WTCServer_WTCLocalTuxDom-a-TrustKeyStoreFileName-help": "The path and file name of the trust keystore. The path name must either be absolute or relative to where the server was booted. This file name is only used if KeyStores is \"Custom Stores\".",
+  "f-WTCServer_WTCLocalTuxDom-a-TrustKeyStoreFileName-help": "The path and file name of the trust key store. The path name must either be absolute or relative to where the server was booted. This file name is only used if KeyStores is \"Custom Stores\".",
 
   "a-TrustKeyStorePassPhraseEncrypted-label": "Trust Key Store Passphrase Encrypted",
-  "f-WTCServer_WTCLocalTuxDom-a-TrustKeyStorePassPhraseEncrypted-help": "The trust keystore passphrase. If empty or null, then the keystore will be opened without a passphrase. This attribute is only used if KeyStores is \"Custom Stores\".",
+  "f-WTCServer_WTCLocalTuxDom-a-TrustKeyStorePassPhraseEncrypted-help": "The trust key store passphrase. If empty or null, then the key store will be opened without a passphrase. This attribute is only used if KeyStores is \"Custom Stores\".",
 
   "a-TrustStoreName-label": "Trust Store Name",
-  "f-JoltConnectionPool-a-TrustStoreName-help": "The path and file name of the keystore containing the trust certificates.",
+  "f-JoltConnectionPool-a-TrustStoreName-help": "The path and file name of the key store containing the trust certificates.",
 
   "a-TrustStorePassPhraseEncrypted-label": "Trust Store Passphrase",
-  "f-JoltConnectionPool-a-TrustStorePassPhraseEncrypted-help": "The trust keystore passphrase. If empty or null, then the keystore will be opened without a passphrase.",
+  "f-JoltConnectionPool-a-TrustStorePassPhraseEncrypted-help": "The trust key store passphrase. If empty or null, then the key store will be opened without a passphrase.",
 
   "a-TrustedCAFileName-label": "Trusted CA File Name",
+
   "a-TrustedClientPrincipal-label": "Trusted Client Principal",
+  "f-any_DefaultIdentityAsserter-a-TrustedClientPrincipal-help": "Specifies the list of trusted client principals to use in CSI v2 identity assertion. The wildcard character (*) can be used to specify all principals are trusted. If a client is not listed as a trusted client principal, the CSIv2 identity assertion fails and the invoke is rejected.",
+
   "a-TunnelingClientPingSecs-label": "Tunneling Client Ping Secs",
   "a-TunnelingClientTimeoutSecs-label": "Tunneling Client Timeout Secs",
   "a-TunnelingEnabled-label": "Tunneling Enabled",
@@ -4939,7 +5430,9 @@
   "a-UnitOfWorkHandlingPolicy-help": "Specifies whether the Unit-of-Work (UOW) feature is enabled for this destination. A UOW is a set of messages that are processed as a single unit.",
   "f-JMSSystemResource_JmsResource_Template-a-UnitOfWorkHandlingPolicy-help": "Specifies whether the Unit-of-Work (UOW) feature is enabled for destinations that use this template. A UOW is a set of messages that are processed as a single unit.",
 
-  "a-UnknownTenantEmptyMetadataTtl-label": "Unknown Tenant Empty Metadata TTL",
+  "a-UnknownTenantEmptyMetadataTtl-label": "Unknown Tenant Empty Metadata Tine-to-Live",
+  "a-UnknownTenantEmptyMetadataTtl-help": "Specifies the time-to-live (TTL) of the empty metadata for unknown tenants in Oracle Identity Cloud Service metadata cache, in seconds. The default value is 0 to disable the TTL.",
+
   "a-UnlockedUsersTotalCount-label": "Unlocked Users Total Count",
 
   "a-UnregisterResourceGracePeriod-label": "Unregister Resource Grace Period",
@@ -4964,7 +5457,10 @@
   "f-JDBCSystemResource_JdbcResource_JDBCOracleParams-a-UseDatabaseCredentials-help": "If enabled, Oracle database credentials are used in getConnection instead of application server credentials. The database credentials are used to get a proxy session without requiring any work in the credential mapper.",
 
   "a-UseDefaultTarget-label": "Use Default Target",
+
   "a-UseDefaultUserNameMapper-label": "Use Default User Name Mapper",
+  "f-any_DefaultIdentityAsserter-a-UseDefaultUserNameMapper-help": "Specified whether to use the user name mapping class provided by WebLogic Server. The default user name mapping class only validates that a certificate has not expired. If you require additional validation, you need to write your own user name mapping class. Writing your own user name mapping class also allows you to specify what attribute in the subject DN of the certificate is used to map to the user name.",
+
   "a-UseDetailedThreadName-label": "Use Detailed Thread Name",
   "a-UseEnhancedIncrementAdvisor-label": "Use Enhanced Increment Advisor",
   "a-UseEnhancedPriorityQueueForRequestManager-label": "Use Enhanced Priority Queue For Request Manager",
@@ -4974,7 +5470,10 @@
   "a-UseHeaderEncoding-label": "Use Header Encoding",
   "a-UseHighestCompatibleHTTPVersion-label": "Use Highest Compatible HTTP Version",
   "a-UseIIOPLocateRequest-label": "Use IIOP Locate Request",
+
   "a-UseInitiatorGroupNames-label": "Use Initiator Group Names",
+  "a-UseInitiatorGroupNames-help": "Specifies whether to enables selection of credential mappings based on the group names of the initiator.",
+
   "a-UseJava-label": "Use Java",
   "a-UseJavaSerialization-label": "Use Java Serialization",
 
@@ -4982,7 +5481,9 @@
   "f-SecurityConfiguration-a-UseKSSForDemo-help": "Determines whether the Demo Identity and Demo Trust key stores should be obtained from the Oracle Key Store Service (KSS). If enabled, WebLogic Server will request the Demo Identity and Domain Trust key stores from KSS. Subsequent to installation however, the KSS Demo key stores may have been manipulated such that appropriate Demo certificates or keys are not available.",
 
   "a-UseLocateRequest-label": "Use Locate Request",
-  "a-UseMemberuidForGroupSearch-label": "Use Memberuid For Group Search",
+
+  "a-UseMemberuidForGroupSearch-label": "Use Member UID For Group Search",
+  "a-UseMemberuidForGroupSearch-help": "Specifies whether to use \"memberuid\" attribute of the group entry to lookup groups of a user instead of using the member or uniqueMember attributes to lookup groups. When this field is checked, use the GroupFromUserFilterForMemberuid field to define the group search filter",
 
   "a-UseNonSecureAddressesForDomain-label": "Use Non-Secure Addresses For Domain",
   "f-JTA-a-UseNonSecureAddressesForDomain-help": "Specifies the domains for which non-secure protocols should be used for internal JTA communication if the servers in the domains are configured to use network channels.",
@@ -4996,7 +5497,11 @@
   "f-JTA-a-UsePublicAddressesForRemoteDomain-help": "Specifies the remote domains for which public addresses should be used if the servers in the domains are configured to use network channels for internal JTA communication.",
 
   "a-UseResourceHierarchy-label": "Use Resource Hierarchy",
+  "a-UseResourceHierarchy-help": "Specifies whether to enable selection of credential mappings by traversing up the resource hierarchy for each type of resource.",
+
   "a-UseRetrievedUserNameAsPrincipal-label": "Use Retrieved User Name As Principal",
+  "a-UseRetrievedUserNameAsPrincipal-help": "Specifies whether the user name retrieved from the LDAP server should be used as the Principal in the Subject.",
+  "f-any_weblogic.security.providers.authentication.OracleIdentityCloudIntegrator-a-UseRetrievedUserNameAsPrincipal-help": "Specifies whether to get the value of the \"userName\" attribute from the authentication response to create the Principal. The actual attribute name is obtained from the UserNameResourceAttribute attribute.",
 
   "a-UseSAFTimeToLiveDefault-label": "Use SAF Time-to-Live Default",
   "a-UseSAFTimeToLiveDefault-help": "Controls whether the Time-to-Live (expiration time) value set on imported JMS messages will be overridden by the value specified in the SAF Default Time-to-Live field.",
@@ -5009,7 +5514,9 @@
   "f-WTCServer_WTCLocalTuxDom-a-UseSSL-help": "Specifies if the connection initiated or accepted by this Local Tuxedo access point uses SSL on top of its transport layer. Note that if the SDP transport is configured for this access point, the configured value of this attribute is ignored and off is used.",
 
   "a-UseStatefulAuthentication-label": "Use Stateful Authentication",
+
   "a-UseTokenGroupsForGroupMembershipLookup-label": "Use Token Groups For Group Membership Lookup",
+  "f-any_ActiveDirectoryAuthenticator-a-UseTokenGroupsForGroupMembershipLookup-help": "Specifies whether to use TokenGroups attribute lookup algorithm instead of the standard recursive group membership lookup algorithm.",
 
   "a-UseVirtualThreads-label": "Use Virtual Threads",
   "f-SelfTuning_WorkManager-a-UseVirtualThreads-help": "Whether the work manager should use virtual threads.",
@@ -5024,19 +5531,35 @@
   "f-ForeignJNDIProvider-a-User-help": "The remote server's user name.",
 
   "a-UserAuthenticationAssertionAttribute-label": "User Authentication Assertion Attribute",
-  "a-UserBaseDn-label": "User Base Dn",
-  "a-UserDefinedMib-label": "User Defined Mib",
+  "a-UserAuthenticationAssertionAttribute-help": "Specifies the token attribute used for User Authentication and Identity Assertion. The default value results in the use of the attribute configured by the Oracle Identity Cloud Service.",
+
+  "a-UserBaseDn-label": "User Base DN",
+  "a-UserBaseDn-help": "Specifies the base Distinguished Name (DN) of the tree in the LDAP directory that contains users.",
+
+  "a-UserDefinedMib-label": "User Defined MIB",
+
   "a-UserDescriptionAttribute-label": "User Description Attribute",
-  "a-UserDynamicGroupDnAttribute-label": "User Dynamic Group Dn Attribute",
+  "a-UserDescriptionAttribute-help": "Specifies the name of the attribute on an ldap user object that contains the user's description. The default value is description.",
+
+  "a-UserDynamicGroupDnAttribute-label": "User Dynamic Group DN Attribute",
+  "a-UserDynamicGroupDnAttribute-help": "Specifies the attribute of an LDAP user object that specifies the distinguished names (DNs) of dynamic groups to which this user belongs. If such an attribute does not exist, WebLogic Server determines if a user is a member of a group by evaluating the URLs on the dynamic group. If a group contains other groups, WebLogic Server evaluates the URLs on any of the descendents (indicates parent relationship) of the group.",
+
   "a-UserFilterAttribute-label": "User Filter Attribute",
+  "a-UserFilterAttribute-help": "Specifies the name of the certificate attribute from the subject DN used to find the user in the directory.",
+
   "a-UserFromNameFilter-label": "User From Name Filter",
+  "a-UserFromNameFilter-help": "Specifies the LDAP search filter for finding a user given the name of the user. The default value is \"(&(cn=%u)(objectclass=user))\". In Active Directory, generally, cn stores a string that is a combination of the user's first name and last name, and sAMAccountName stores the user's login name. So it is recommended that you set \"(&(sAMAccountName=%u)(objectclass=user))\" to this property before using the Active Directory LDAP Authentication provider. It is for backward compatibility purpose that the default value is \"(&(cn=%u)(objectclass=user))\" instead of \"(&(sAMAccountName=%u)(objectclass=user))\".",
 
   "a-UserId-label": "User ID",
   "f-WTCServer_WTCtBridgeGlobal-a-UserId-help": "The user identity for all messages handled by this Tuxedo queuing bridge for ACL checks when security is configured. All messages assume this identity until the security/authentication contexts are passed between the subsystems. Until the security contexts are passed, there is no secure method to identify who generated a message received from the source location. The user argument may be specified as either a user name or a user identification number (uid).",
   "f-any_SNMPLogFilter-a-UserId-help": "A list of user IDs that causes a WebLogic Server SNMP agent to generate a notification. Every message includes the user ID from the security context in which the message was generated. If the user ID field for a message matches one of the user IDs you specify in the filter, WebLogic Server generates a notification. If this log filter doesn't specify user IDs, WebLogic Server can generate a notification for messages from all user IDs.",
 
   "a-UserIdResourceAttribute-label": "User ID Resource Attribute",
+  "a-UserIdResourceAttribute-help": "Specifies the SCIM User resource type attribute that specifies the name of the user. The default value is \"id\".",
+
   "a-UserIdTokenClaim-label": "User ID Token Claim",
+  "a-UserIdTokenClaim-help": "Specifies the token attribute used to get the user ID (GUID) from the token. Corresponds to the SCIM User ID resource type attribute. The default value is \"user_id\".",
+
   "a-UserLockoutTotalCount-label": "User Lockout Total Count",
 
   "a-UserName-label": "User Name",
@@ -5045,10 +5568,26 @@
   "f-JoltConnectionPool-a-UserName-help": "A user name that applications specify to connect to this Jolt connection pool. If Security Context is enabled, this name must be the name of an authorized Tuxedo user. (Specifying a Tuxedo user name is required if the Tuxedo authentication level is USER_AUTH.)",
 
   "a-UserNameAttribute-label": "User Name Attribute",
+  "a-UserNameAttribute-help": "Specifies the attribute of the LDAP User object that specifies the name of the user. The default value is \"cn\". In Active Directory, generally, cn stores a string that is a combination of the user's first name and last name, and sAMAccountName stores the user's login name. So it is recommended that you set \"sAMAccountName\" to this property before using the Active Directory LDAP Authentication provider. It is for backward compatibility purpose that the default value is \"cn\" instead of \"sAMAccountName\".",
+
   "a-UserNameMapperClassName-label": "User Name Mapper Class Name",
+  "f-any_DefaultIdentityAsserter-a-UserNameMapperClassName-help": "Specifies the name of the Java class that maps X.509 digital certificates and X.501 distinguished names to WebLogic user names.",
+
   "a-UserNameResourceAttribute-label": "User Name Resource Attribute",
+  "a-UserNameResourceAttribute-help": "Specifies the SCIM User resource type attribute that specifies the name of the user. The default value is \"userName\".",
+
   "a-UserNameTokenClaim-label": "User Name Token Claim",
+  "a-UserNameTokenClaim-help": "Specifies the token attribute used to get the user name from the token. Corresponds to the SCIM User name resource type attribute. If not set, the subject (\"sub claim\") is used.",
+
   "a-UserObjectClass-label": "User Object Class",
+  "f-any_ActiveDirectoryAuthenticator-a-UserObjectClass-help": "Specifies the name of the LDAP object class that stores users. The default value is \"user\".",
+  "f-any_IPlanetAuthenticator-a-UserObjectClass-help": "Specifies the name of the LDAP object class that stores users. The default value is \"person\".",
+  "f-any_LDAPAuthenticator-a-UserObjectClass-help": "Specifies the name of the LDAP object class that stores users. The default value is \"person\".",
+  "f-any_NovellAuthenticator-a-UserObjectClass-help": "Specifies the name of the LDAP object class that stores users. The default value is \"person\".",
+  "f-any_OpenLDAPAuthenticator-a-UserObjectClass-help": "Specifies the name of the LDAP object class that stores users. The default value is \"person\".",
+  "f-any_OracleInternetDirectoryAuthenticator-a-UserObjectClass-help": "Specifies the name of the LDAP object class that stores users. The default value is \"person\".",
+  "f-any_OracleUnifiedDirectoryAuthenticator-a-UserObjectClass-help": "Specifies the name of the LDAP object class that stores users. The default value is \"person\".",
+  "f-any_OracleVirtualDirectoryAuthenticator-a-UserObjectClass-help": "Specifies the name of the LDAP object class that stores users. The default value is \"person\".",
 
   "a-UserPasswordEncrypted-label": "User Password",
   "f-JMSBridgeDestination-a-UserPasswordEncrypted-help": "The user password that the adapter uses to access the bridge destination.",
@@ -5060,12 +5599,14 @@
   "f-JoltConnectionPool-a-UserRole-help": "The Tuxedo user role for this Jolt connection pool. (This is required only when the security level in the Tuxedo domain is USER_AUTH, ACL, or MANDATORY_ACL).",
 
   "a-UserSearchScope-label": "User Search Scope",
+  "a-UserSearchScope-help": "Specifies how deep in the LDAP directory tree to search for Users. The default value is subtree.",
 
   "a-Username-label": "Username",
   "f-JMSSystemResource_JmsResource_ForeignServer_ForeignConnectionFactory-a-Username-help": "The user name that is passed when opening a connection to the remote server (represented by this foreign connection factory).",
   "f-JMSSystemResource_JmsResource_SAFRemoteContext_SAFLoginContext-a-Username-help": "The name used to log into the remote URL.",
 
   "a-UsernameAttribute-label": "Username Attribute",
+  "a-UsernameAttribute-help": "Specifies the name of the LDAP attribute used to assert the user's identity.",
 
   "a-UsingCustomClusterConfigurationFile-label": "Using Custom Cluster Configuration File",
   "a-UsingCustomClusterConfigurationFile-help": "Specifies whether you are using a custom external Coherence cluster configuration file.",
@@ -5097,7 +5638,10 @@
   "a-VirtualHostName-label": "Virtual Host Name",
   "a-VirtualMachineName-label": "Virtual Machine Name",
   "a-VirtualThreadEnableOption-label": "Virtual Thread Enable Option",
+
   "a-VirtualUserAllowed-label": "Virtual User Allowed",
+  "f-any_DefaultIdentityAsserter-a-VirtualUserAllowed-help": "Specifies whether to authenticate WebLogic Server users accessing via identity assertion, which are not represented in the security store. If this setting is enabled, WebLogic Server users not represented in the security store, will be authenticated. Note that in addition to this attribute, Subject Component mapper classes, which are a type of user name mapper, may disallow virtual users based on the token.",
+
   "a-WANSessionPersistenceTableName-label": "WAN Session Persistence Table Name",
 
   "a-WAPEnabled-label": "WAP Enabled",
@@ -5150,6 +5694,7 @@
   "f-any_SecureMode-a-WarnOnUsernamePasswords-help": "Specifies whether a warning should be logged if usernames or password configuration is insecure. If the warning is enabled and the domain is in secured production mode, then a message will be logged if well known administrator usernames are present or password validation configuration is insecure.",
 
   "a-WarningAuditSeverityEnabled-label": "Warning Audit Severity Enabled",
+  "f-any_DefaultAuditor-a-WarningAuditSeverityEnabled-help": "If the Severity value is set to Custom, causes the Auditing provider to generate audit records for events with a severity level of WARNING.",
 
   "a-WebAppFilesCaseInsensitive-label": "Web App Files Case Insensitive",
   "f-SecurityConfiguration-a-WebAppFilesCaseInsensitive-help": "This property defines the case sensitive URL-pattern matching behavior for security constraints, servlets, filters, virtual-hosts, and so on, in the Web application container and external security policies. Note: This is a Windows-only flag that is provided for backward compatibility when upgrading from pre-9.0 versions of WebLogic Server. On Unix platforms, setting this value to true causes undesired behavior and is not supported. When the value is set to os, the pattern matching will be case- sensitive on all platforms except the Windows file system. Note that on non-Windows file systems, WebLogic Server does not enforce case sensitivity and relies on the file system for optimization. As a result, if you have a Windows Samba mount from Unix or Mac OS that has been installed in case-insensitive mode, there is a chance of a security risk. If so, specify case-insensitive lookups by setting this attribute to true. Note also that this property is used to preserve backward compatibility on Windows file systems only. In prior releases, WebLogic Server was case- insensitive on Windows. As of WebLogic Server 9.0, URL-pattern matching is strictly enforced. During the upgrade of older domains, the value of this parameter is explicitly set to os by the upgrade plug-in to preserve backward compatibility.",
@@ -5643,7 +6188,7 @@
   "f-any_RCUDbInfo-a-any-help": "{{attribute}} for RCU database",
   "f-any_RCUDbInfo-label": "RCU DB Info",
   "f-any_RDBMSSecurityStore-label": "RDBMS Security Store",
-  "f-any_ReadOnlySQLAuthenticator-label": "Read Only SQL Authenticator",
+  "f-any_ReadOnlySQLAuthenticator-label": "Read-Only SQL Authenticator",
   "f-any_Realm-label": "Realms",
   "f-any_Realm-typeLabel": "Realm",
   "f-any_RemoteConsoleHelper-label": "Remote Console Helper",
