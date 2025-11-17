@@ -74,21 +74,18 @@ function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper, 
         const folderNames = folderName.split('/');
         const folderPath = [...MODEL_PATH, ...folderNames];
         const aliasPath = AliasHelper.getAliasPath(folderPath);
-        const label = tab.labelKey ? MessageHelper.t(tab.labelKey) : null;
-        tabEntry.label = label || MessageHelper.getFolderLabel(aliasPath);
+        tabEntry.label = MessageHelper.getLabel(tab) || MessageHelper.getFolderLabel(aliasPath);
         tabEntry.tabType = AliasHelper.isMultiplePath(folderPath) ? 'multiFolder' : 'singleFolder';
         tabEntry.folderPath = folderPath;
 
       } else if(tab.type === 'attributesTab') {
-        const tabLabelKey = tab.labelKey ? tab.labelKey : 'general-tab-label';
-        tabEntry.label = MessageHelper.t(tabLabelKey);
+        tabEntry.label = MessageHelper.getLabel(tab) || MessageHelper.t('general-tab-label');
         tabEntry.tabType = 'attributes';
         tabEntry.attributes = tab.attributes;
         tabEntry.addRemainingAttributes = tab.addRemainingAttributes;
 
       } else {
-        const tabLabelKey = tab.labelKey ? tab.labelKey : 'no-tab-label';
-        tabEntry.label = MessageHelper.t(tabLabelKey);
+        tabEntry.label = MessageHelper.getLabel(tab) || MessageHelper.t('no-tab-label');
         tabEntry.tabType = 'sections';
         tabEntry.sections = tab['sections'] || [];
       }

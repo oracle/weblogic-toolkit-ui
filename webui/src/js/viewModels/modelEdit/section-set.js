@@ -72,6 +72,7 @@ function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper) 
       else if(section.type === 'attributesCollapsible') {
         if(hasAnyAttributes(section)) {
           const fakeSection = {
+            label: section.label,
             labelKey: section.labelKey,
             sections: [
               {

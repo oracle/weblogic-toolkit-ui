@@ -6,9 +6,9 @@
 'use strict';
 
 define(['accUtils',
-  'utils/modelEdit/message-helper', 'ojs/ojmodule-element-utils'
+  'ojs/ojmodule-element-utils'
 ],
-function(accUtils, MessageHelper, ModuleElementUtils) {
+function(accUtils, ModuleElementUtils) {
   function InstancesPageViewModel(args) {
     // for model folders with multiple instances (such as Server/myServer).
     // display an instances table, usually for folders in the navigation tree.
@@ -17,10 +17,6 @@ function(accUtils, MessageHelper, ModuleElementUtils) {
 
     this.connected = () => {
       accUtils.announce('Instances Page loaded.', 'assertive');
-    };
-
-    this.getTitle = () => {
-      return MessageHelper.getPageTitle(MODEL_PATH);
     };
 
     this.folderHeaderModuleConfig = ModuleElementUtils.createConfig({
