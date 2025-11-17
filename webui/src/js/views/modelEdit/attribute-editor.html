@@ -39,7 +39,7 @@
     </oj-bind-if>
 
     <oj-bind-if test="[[editorType === 'boolean']]">
-      <div class="wkt-model-edit-boolean-box">
+      <div class="wkt-model-edit-boolean-box" :class="[[extraClass]]">
         <oj-switch
           label-hint="[[attributeLabel]]"
           help.instruction="[[attributeHelp]]"

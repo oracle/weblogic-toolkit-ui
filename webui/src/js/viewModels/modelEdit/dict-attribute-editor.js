@@ -7,21 +7,23 @@
 
 define(['accUtils', 'knockout', 'utils/dialog-helper','ojs/ojarraydataprovider',
   'ojs/ojbufferingdataprovider', 'utils/view-helper', 'utils/common-utilities', 'utils/modelEdit/message-helper',
-  'utils/modelEdit/alias-helper',
+  'utils/modelEdit/meta-handlers', 'utils/modelEdit/alias-helper',
   'oj-c/button', 'oj-c/input-text', 'oj-c/list-view', 'oj-c/input-password'
 ],
 function(accUtils, ko, DialogHelper, ArrayDataProvider,
-  BufferingDataProvider, ViewHelper, utils, MessageHelper, AliasHelper) {
+  BufferingDataProvider, ViewHelper, utils, MessageHelper, MetaHandlers, AliasHelper) {
 
   function DictAttributeEditor(args) {
     const MODEL_PATH = args.modelPath;
     const ATTRIBUTE = args.attribute;
+    const ATTRIBUTE_MAP = args.attributeMap;
 
     const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
 
     this.attribute = ATTRIBUTE;
     this.observable = ATTRIBUTE.observable;
-    this.disabled = ATTRIBUTE.hasOwnProperty('disabled') ? ATTRIBUTE.disabled : false;
+    this.disabled = MetaHandlers.getDisabledHandler(ATTRIBUTE, ATTRIBUTE_MAP);
+    this.extraClass = ko.computed(() => this.disabled() ? 'wkt-model-edit-table-disabled' : null);
 
     this.ariaLabel = MessageHelper.getAttributeLabel(ATTRIBUTE, ALIAS_PATH);
     this.title = MessageHelper.getAttributeLabel(ATTRIBUTE, ALIAS_PATH);
