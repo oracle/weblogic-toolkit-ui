@@ -5,13 +5,13 @@
  */
 'use strict';
 
-define(['accUtils', 'knockout', 'utils/dialog-helper', 'utils/wkt-logger', 'ojs/ojarraydataprovider',
+define(['accUtils', 'knockout', 'utils/dialog-helper', 'ojs/ojarraydataprovider',
   'ojs/ojmodule-element-utils', 'utils/modelEdit/meta-handlers', 'utils/modelEdit/meta-options',
   'utils/modelEdit/meta-validators', 'utils/modelEdit/model-edit-helper', 'utils/modelEdit/message-helper',
   'utils/modelEdit/alias-helper', 'oj-c/button', 'oj-c/input-text', 'oj-c/list-view', 'oj-c/input-password',
   'oj-c/select-single', 'oj-c/select-multiple', 'ojs/ojselectcombobox'
 ],
-function(accUtils, ko, DialogHelper, WktLogger, ArrayDataProvider,
+function(accUtils, ko, DialogHelper, ArrayDataProvider,
   ModuleElementUtils, MetaHandlers, MetaOptions, MetaValidators, ModelEditHelper, MessageHelper, AliasHelper) {
 
   function AttributeEditor(args) {
@@ -64,15 +64,8 @@ function(accUtils, ko, DialogHelper, WktLogger, ArrayDataProvider,
       return this.variableName() || this.secretName();
     });
 
-    this.disabled = false;
-    const disabledText = ATTRIBUTE['disabled'];
-    if (disabledText) {
-      if(MetaHandlers.hasOwnProperty(disabledText)) {
-        this.disabled = MetaHandlers[disabledText](ATTRIBUTE_MAP);
-      } else {
-        WktLogger.error(`No method ${disabledText} found for MetaHandlers`);
-      }
-    }
+    this.disabled = MetaHandlers.getDisabledHandler(ATTRIBUTE, ATTRIBUTE_MAP);
+    this.extraClass = ko.computed(() => this.disabled() ? 'wkt-model-edit-table-disabled' : null);
 
     this.getValueObservable = ko.computed(() => {
       // if a token is used, show the token value in a read-only control
@@ -131,6 +124,7 @@ function(accUtils, ko, DialogHelper, WktLogger, ArrayDataProvider,
         name: viewName,
         params: {
           attribute: ATTRIBUTE,
+          attributeMap: ATTRIBUTE_MAP,
           modelPath: MODEL_PATH
         }
       });

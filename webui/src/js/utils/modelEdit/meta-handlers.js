@@ -5,9 +5,22 @@
  */
 'use strict';
 
-define(['knockout', 'utils/modelEdit/model-edit-helper'],
-  function (ko, ModelEditHelper) {
+define(['knockout', 'utils/wkt-logger', 'utils/modelEdit/model-edit-helper'],
+  function (ko, WktLogger, ModelEditHelper) {
     function MetaHandlers() {
+
+      this.getDisabledHandler = (attribute, attributeMap) => {
+        let handler = false;
+        const disabledText = attribute['disabled'];
+        if (disabledText) {
+          if(this.hasOwnProperty(disabledText)) {
+            handler = this[disabledText](attributeMap);
+          } else {
+            WktLogger.error(`No method ${disabledText} found for MetaHandlers`);
+          }
+        }
+        return ko.isObservable(handler) ? handler : ko.observable(handler);
+      };
 
       // return an observable, since this is dependent on another attribute's value
       this.notOracleDatabaseType = attributeMap => {

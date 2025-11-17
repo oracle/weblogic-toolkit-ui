@@ -1,9 +1,9 @@
 <!--
- Copyright (c) 2024, Oracle and/or its affiliates.
+ Copyright (c) 2024, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 
-<div class="wkt-model-edit-dict-box">
+<div class="wkt-model-edit-dict-box" :class="[[extraClass]]">
   <div class="wkt-model-edit-table-title wkt-model-edit-attribute-label">
     <oj-bind-text value="[[title]]"></oj-bind-text>
   </div>
@@ -22,7 +22,7 @@
         <td><oj-bind-text value="[[row.data.name]]"></oj-bind-text></td>
         <td><oj-bind-text value="[[row.data.value]]"></oj-bind-text></td>
         <td>
-          <oj-button display="icons" chroming="borderless" on-oj-action="[[deleteItem]]">
+          <oj-button display="icons" chroming="borderless" on-oj-action="[[deleteItem]]" disabled="[[disabled]]">
             <span slot="endIcon" class="oj-ux-ico-trash"></span>
             <oj-bind-text value="[[deleteLabel]]"></oj-bind-text>
           </oj-button>
@@ -30,7 +30,7 @@
       </tr>
     </template>
     <template slot="headerTemplate" data-oj-as="header">
-      <oj-button display="icons" chroming="borderless" on-oj-action="[[addItem]]">
+      <oj-button display="icons" chroming="borderless" on-oj-action="[[addItem]]" disabled="[[disabled]]">
         <span slot="endIcon" class="oj-ux-ico-plus"></span>
         <oj-bind-text value="[[addLabel]]"></oj-bind-text>
       </oj-button>
@@ -40,6 +40,8 @@
     </template>
   </oj-table>
 </div>
-<div class="oj-helphints-inline-container wkt-model-edit-below-help">
-  <oj-bind-text value="[[helpText]]"></oj-bind-text>
-</div>
+<oj-bind-if test="[[!disabled()]]">
+  <div class="oj-helphints-inline-container wkt-model-edit-below-help">
+    <oj-bind-text value="[[helpText]]"></oj-bind-text>
+  </div>
+</oj-bind-if>
