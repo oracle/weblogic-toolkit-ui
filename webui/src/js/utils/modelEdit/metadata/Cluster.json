@@ -9,14 +9,24 @@
       "ClusterBroadcastChannel": {}
     },
     "attributeDetails": {
+      "DatabaseLeasingBasisConnectionRetryDelay": {
+        "validators": [
+          "range(0,)"
+        ]
+      },
+      "MemberWarmupTimeoutSeconds": {
+        "validators": [
+          "range(0,)"
+        ]
+      },
       "FrontendHTTPPort": {
         "validators": [
-          "portValidator"
+          "port"
         ]
       },
       "FrontendHTTPSPort": {
         "validators": [
-          "portValidator"
+          "port"
         ]
       }
     },
