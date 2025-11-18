@@ -50,16 +50,10 @@ function (ko, i18n, AliasHelper) {
       return t(key, args);
     };
 
-    this.getPageTitle = modelPath => {
-      const aliasPath = AliasHelper.getAliasPath(modelPath);
-      if(AliasHelper.isNamedPath(modelPath)) {
-        const name = modelPath[modelPath.length - 1];
-        if(hasAssignedFolderMessage(aliasPath, 'typeLabel')) {
-          return `${this.getFolderTypeLabel(aliasPath)} "${name}"`;
-        }
-        return `${this.getFolderLabel(aliasPath)} / ${modelPath[modelPath.length - 1]}`;
-      }
-      return this.getFolderLabel(aliasPath);
+    // metadata sections can have label or i18n label key
+    this.getLabel = section => {
+      const label = section.label;
+      return label || (section.labelKey ? t(section.labelKey) : null);
     };
 
     // *******************

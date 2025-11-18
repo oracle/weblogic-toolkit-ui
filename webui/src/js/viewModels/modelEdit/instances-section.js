@@ -22,9 +22,7 @@ function(accUtils, ko, ModelEditHelper, MessageHelper, AliasHelper) {
       accUtils.announce('Instances section loaded.', 'assertive');
     };
 
-    const labelKey = META_SECTION.labelKey;
-    const label = labelKey ? MessageHelper.t(labelKey) : null;
-    this.title = label || MessageHelper.getFolderLabel(ALIAS_PATH);
+    this.title = MessageHelper.getLabel(META_SECTION) || MessageHelper.getFolderLabel(ALIAS_PATH);
 
     this.tableConfig = ModelEditHelper.createInstancesTableConfig(MODEL_PATH);
   }

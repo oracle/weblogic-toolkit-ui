@@ -19,9 +19,7 @@ function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper) 
       accUtils.announce('Folder Section loaded.', 'assertive');
     };
 
-    const labelKey = META_SECTION.labelKey;
-    const label = labelKey ? MessageHelper.t(labelKey) : null;
-    this.title = label || MessageHelper.getFolderLabel(ALIAS_PATH);
+    this.title = MessageHelper.getLabel(META_SECTION) || MessageHelper.getFolderLabel(ALIAS_PATH);
 
     this.folderConfig = ModelEditHelper.createFolderContentConfig(MODEL_PATH);
   }
