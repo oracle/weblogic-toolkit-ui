@@ -21,9 +21,11 @@ function (ko, jsYaml, project, utils,
 
     // types that UI has editors for, not all alias types
     const EDITOR_TYPES = ['boolean', 'combo', 'comboMulti', 'credential', 'dict', 'double',
-      'integer', 'list', 'select', 'selectMulti', 'string'];
+      'integer', 'list', 'long', 'select', 'selectMulti', 'string'];
 
     const LIST_EDITOR_TYPES = ['comboMulti', 'list', 'selectMulti'];
+
+    const VALIDATOR_REGEX = /^(\w*)(?:\((.*)\))?$/;
 
     this.modelObject = ko.observable();
     this.variableMap = ko.observable({});
@@ -594,6 +596,15 @@ function (ko, jsYaml, project, utils,
     function getModelValue(value, attribute) {
       const editorType = getEditorType(attribute);
 
+      // for type "long", we may need to leave as a string for the model.
+      // YAML won't accept BigInt type.
+      if ((editorType === 'long') && isString(value)) {
+        const longValue = MetaValidators.getLongValue(value);
+        if(longValue != null && longValue >= Number.MIN_SAFE_INTEGER && longValue <= Number.MAX_SAFE_INTEGER) {
+          return Number(longValue);
+        }
+      }
+
       if ((editorType === 'integer') && isString(value)) {
         const integerValue = MetaValidators.getIntegerValue(value);
         if(integerValue != null) {
@@ -619,6 +630,39 @@ function (ko, jsYaml, project, utils,
     function isString(value) {
       return typeof value === 'string' || value instanceof String;
     }
+
+    this.getValidators = attribute => {
+      const editorType = this.getEditorType(attribute);
+      const validators = [];
+
+      // if validators assigned to attribute, skip any default validation
+      if(attribute.validators) {
+        attribute.validators.forEach(validator => {
+          const result = validator.match(VALIDATOR_REGEX);
+          if(!result) {
+            WktLogger.error(`Unable to parse validator method ${validator} for attribute ${attribute.name}`);
+            return;
+          }
+
+          const method = result[1];
+          const argsText = result[2];
+          const args = argsText ? argsText.split(',') : [];
+          validators.push(MetaValidators[method](args, this.getEditorType(attribute)));
+        });
+
+      } else if(editorType === 'integer') {
+        validators.push(MetaValidators.defaultInteger());
+
+      } else if(editorType === 'long') {
+        validators.push(MetaValidators.defaultLong());
+
+      } else if(editorType === 'double') {
+        validators.push(MetaValidators.defaultDouble());
+      }
+
+      return validators;
+    };
+
 
     function getEditorType(attribute) {
       let editorType = attribute.type;
@@ -648,10 +692,6 @@ function (ko, jsYaml, project, utils,
 
       if(('options' in attribute) || ('optionsMethod' in attribute)) {
         editorType = 'select';
-      }
-
-      if('long' === editorType) {
-        editorType = 'integer';
       }
 
       const typeOverride = attribute['editorType'];

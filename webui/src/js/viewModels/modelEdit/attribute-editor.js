@@ -44,7 +44,7 @@ function(accUtils, ko, DialogHelper, ArrayDataProvider,
     this.attributeHelp = MessageHelper.getAttributeHelp(ATTRIBUTE, ALIAS_PATH);
 
     this.isTextEditorType = () => {
-      return ['string', 'integer', 'double'].includes(this.editorType);
+      return ['string', 'integer', 'double', 'long'].includes(this.editorType);
     };
 
     this.variableName = ko.computed(() => {
@@ -102,17 +102,7 @@ function(accUtils, ko, DialogHelper, ArrayDataProvider,
     }
     this.optionsProvider = new ArrayDataProvider(options, { keyAttributes: 'value' });
 
-    this.validators = [];
-    // if validators assigned to attribute, skip any default validation
-    if(ATTRIBUTE.validators) {
-      ATTRIBUTE.validators.forEach(validator => {
-        this.validators.push(MetaValidators[validator]);
-      });
-    } else if(this.editorType === 'integer') {
-      this.validators.push(MetaValidators.integerValidator);
-    } else if(this.editorType === 'double') {
-      this.validators.push(MetaValidators.doubleValidator);
-    }
+    this.validators = ModelEditHelper.getValidators(ATTRIBUTE);
 
     this.showOptions = () => {
       const options = { attribute: ATTRIBUTE, modelPath: MODEL_PATH };
