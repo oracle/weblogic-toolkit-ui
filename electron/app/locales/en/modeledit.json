@@ -37,10 +37,11 @@
   "stdout-log-settings-title": "Standard Out Log Settings",
   "configuration-properties-title": "Configuration Properties",
   "node-manager-coherence-start-scripts-title": "Coherence Start Script Settings",
+  "wldf-elasticity-framework-settings-label": "WLDF Elasticity Framework Settings",
 
   "general-tab-label": "General",
   "attributes-tab-label": "Attributes",
-  "candidates-tab-label": "Candidates",
+  "database-less-leasing-basis-tab-label": "Database-Less Leasing Basis",
   "health-tab-label": "Health",
   "http-tab-label": "HTTP",
   "migration-tab-label": "Migration",
@@ -285,6 +286,20 @@
   "options-limited-label": "Limited",
   "options-normal-label": "Normal",
   "options-signature-label": "Signature",
+  "options-weight-based-label": "Weight-Based",
+  "options-round-robin-affinity-label": "Round-Robin with Affinity",
+  "options-weight-based-affinity-label": "Weight-Based with Affinity",
+  "options-random-affinity-label": "Random with Affinity",
+  "options-database-label": "Database",
+  "options-consensus-label": "Consensus",
+  "options-man-label": "Metropolitan Area Network (MAN)",
+  "options-wan-label": "Wide Area Network (WAN)",
+  "options-name-label": "Name",
+  "options-tag-label": "Tag",
+  "options-no-action-label": "No Action",
+  "options-force-shutdown-label": "Force Shutdown",
+  "options-admin-state-label": "Admin State",
+  "options-system-exit-label": "System Exit",
 
   "direction-jms-queue-to-tuxedo-queue-label": "JMS Queue to Tuxedo Queue",
   "direction-tuxedo-queue-to-jms-queue-label": "Tuxedo Queue to JMS Queue",
@@ -383,7 +398,7 @@
   "a-any-valueLabel": "Value",
 
   "a-AbandonTimeoutSeconds-label": "Abandon Timeout Seconds",
-  "f-JTA-a-AbandonTimeoutSeconds-help": "Specifies the maximum amount of time, in seconds, a transaction manager persists in attempting to complete the second phase of a two-phase commit transaction. During the second phase of a two-phase commit transaction, the transaction manager continues to try to complete the transaction until all resource managers indicate that the transaction is completed. After the abandon transaction timer expires, no further attempt is made to resolve the transaction. If the transaction is in a prepared state before being abandoned, the transaction manager rolls back the transaction to release any locks held on behalf of the abandoned transaction.",
+  "a-AbandonTimeoutSeconds-help": "Specifies the maximum amount of time, in seconds, a transaction manager persists in attempting to complete the second phase of a two-phase commit transaction. During the second phase of a two-phase commit transaction, the transaction manager continues to try to complete the transaction until all resource managers indicate that the transaction is completed. After the abandon transaction timer expires, no further attempt is made to resolve the transaction. If the transaction is in a prepared state before being abandoned, the transaction manager rolls back the transaction to release any locks held on behalf of the abandoned transaction.",
 
   "a-AbsoluteAltDescriptorDir-label": "Absolute Alt Descriptor Dir",
   "a-AbsoluteAltDescriptorPath-label": "Absolute Alt Descriptor Path",
@@ -437,6 +452,7 @@
 
   "a-ActiveDirectory-label": "Active Directory",
   "f-CoherenceClusterSystemResource_CoherenceResource_CoherencePersistenceParams-a-ActiveDirectory-help": "The active directory for the default persistence environment. If no value is specified, the directory which will be used is the coherence/active sub-directory under Domain Home directory.",
+  "f-Cluster-a-CoherenceClusterSystemResource-help": "Specifies the Coherence Cluster associated with this cluster.",
 
   "a-ActiveGridlink-label": "Active Gridlink",
   "f-JDBCSystemResource_JdbcResource_JDBCOracleParams-a-ActiveGridlink-help": "Indicates a configured Active GridLink datasource. This attributed is set to true when using the console to create an Active GridLink datasource. It is ignored if FanEnabled is true or OnsNodeList is a non-null string.",
@@ -456,7 +472,9 @@
   "a-AdapterVersion-label": "Adapter Version",
   "a-AddJvmNumber-label": "Add JVM Number",
   "a-AddWorkManagerThreadsByCpuCount-label": "Add Work Manager Threads By CPU Count",
+
   "a-AdditionalAutoMigrationAttempts-label": "Additional Auto Migration Attempts",
+  "f-Cluster-a-AdditionalAutoMigrationAttempts-help": "A migratable server could fail to come up on every possible configured machine. This attribute controls how many further attempts, after the first one, should be tried. Note that each attempt specified here indicates another full circuit of migrations amongst all the configured machines. So for a 3-server cluster, and the default value of 3, a total of 9 migrations will be attempted. If it is set to -1, migrations will go on forever until the server starts.",
 
   "a-AdditionalMigrationAttempts-label": "Additional Migration Attempts",
   "f-SingletonService-a-AdditionalMigrationAttempts-help": "A migratable service could fail to come up on every possible configured server. This attribute controls how many further attempts, after the service has failed on every server at least once, should be tried. Note that each attempt specified here indicates another full circuit of migrations amongst all the configured servers. So for a 3-server cluster, and a value of 2, a total of 4 additional migrations will be attempted (the original server is never a valid destination).",
@@ -605,6 +623,7 @@
   "f-MessagingBridge-a-AsyncEnabled-help": "Specifies if a messaging bridge instance forwards in asynchronous messaging mode. AsyncEnabled only applies to messaging bridge instances whose source destination supports asynchronous receiving. Messaging bridges instances that forward in asynchronous mode are driven by the source destination. A messaging bridge instance listens for messages and forwards them as they arrive. When AsyncEnabled is not selected, a bridge instance is forced to work in synchronous mode, even if the source supports asynchronous receiving. For a messaging bridge instance with a QOS of Exactly-once to work in asynchronous mode, the source destination has to support the MDBTransaction interface. Otherwise, the bridge automatically switches to synchronous mode if it detects that MDBTransaction is not supported by the source destination.",
 
   "a-AsyncSessionQueueTimeout-label": "Async Session Queue Timeout",
+  "f-Cluster-a-AsyncSessionQueueTimeout-help": "Specifies the interval in seconds until the producer thread will wait for the AsyncSessionQueue to become unblocked. Should be similar to the RequestTimeOut as that will determine the longest that the queue should remain full.",
 
   "a-AttachJMSXUserId-label": "Attach JMSXUserID",
   "a-AttachJMSXUserId-help": "Specifies whether WebLogic Server attaches the authenticated user name to sent messages. If enabled, the system will attach the authenticated username onto sent messages if the destination supports this behavior. The username is placed in the JMSXUserID user property. You should consult the JMSXUserID documentation in Programming WebLogic JMS before using this feature.",
@@ -648,9 +667,15 @@
   "a-AutoJDBCConnectionClose-label": "Auto JDBC Connection Close",
   "a-AutoKillIfFailed-label": "Auto Kill If Failed",
   "a-AutoMigrationEnabled-label": "Auto Migration Enabled",
+
   "a-AutoMigrationTableCreationDdlFile-label": "Auto Migration Table Creation DDL File",
+  "f-Cluster-a-AutoMigrationTableCreationDdlFile-help": "Specifies the absolute file path of a custom DDL file for creating the automatic migration database table. This setting applies only if the MigrationBasis attribute is set to database, the AutoMigrationTableCreationPolicy attribute is set to Always, and the table name specified by the AutoMigrationTableName attribute does not already exist in the database. If the above conditions apply, and this setting is set to the default, then the system will try to find a default DDL file for the creating the leasing database table in WL_HOME/server/db/DB_TYPE/leasing.ddl. Note that the system ignores (skips) any DROP commands in the DDL file, and substitutes the value configured in the AutoMigrationTableName attribute for all occurrences of the word ACTIVE in the file.",
+
   "a-AutoMigrationTableCreationPolicy-label": "Auto Migration Table Creation Policy",
+  "f-Cluster-a-AutoMigrationTableCreationPolicy-help": "Specifies the automatic leasing table creation behavior. This setting applies only if the MigrationBasis attribute is set to database.",
+
   "a-AutoMigrationTableName-label": "Auto Migration Table Name",
+  "f-Cluster-a-AutoMigrationTableName-help": "Specifies the name of the table to be used for server migration. This setting applies only if the MigrationBasis attribute is set to database. If the AutoMigrationTableCreationPolicy is set to Always, then the table name format must be specified in the form [[[mycatalog.]myschema.]mytablename; for example myschema.mytablename. Each period symbol format is significant, where schema generally corresponds to username in many databases. When no table name is specified, the table name is simply ACTIVE and the database implicitly determines the schema according to the JDBC data source user.",
 
   "a-AutoRestart-label": "Auto Restart",
   "f-SystemComponent-a-AutoRestart-help": "Specifies whether the Node Manager can automatically restart this server if it crashes or otherwise goes down unexpectedly.",
@@ -699,7 +724,7 @@
   "a-BeaHome-label": "Bea Home",
 
   "a-BeforeCompletionIterationLimit-label": "Before Completion Iteration Limit",
-  "f-JTA-a-BeforeCompletionIterationLimit-help": "The maximum number of cycles that the transaction manager performs the beforeCompletion synchronization callback for this WebLogic Server domain. Nothing prevents a Synchronization object from registering another during beforeCompletion, even those whose beforeCompletions have already been called. For example, an EJB can call another in its ejbStore() method. To accommodate this, the transaction manager calls all Synchronization objects, then repeats the cycle if new ones have been registered. This count sets a limit to the number of cycles that synchronization occurs.",
+  "a-BeforeCompletionIterationLimit-help": "The maximum number of cycles that the transaction manager performs the beforeCompletion synchronization callback for this WebLogic Server domain. Nothing prevents a Synchronization object from registering another during beforeCompletion, even those whose beforeCompletions have already been called. For example, an EJB can call another in its ejbStore() method. To accommodate this, the transaction manager calls all Synchronization objects, then repeats the cycle if new ones have been registered. This count sets a limit to the number of cycles that synchronization occurs.",
 
   "a-BeginMarker-label": "Begin Marker",
   "f-any_DefaultAuditor-a-BeginMarker-help": "The marker that indicates the beginning of the audit record.",
@@ -820,11 +845,17 @@
   "f-HealthScore-a-CalculateIntervalSecs-help": "The interval time (in seconds) that WebLogic Server will call the health score plugin for calculating the server's health score.",
 
   "a-CalculatedListenPorts-label": "Calculated Listen Ports",
+  "f-Cluster_DynamicServers-a-CalculatedListenPorts-help": "Specifies whether listen ports are calculated.",
+
   "a-CalculatedMachineNames-label": "Calculated Machine Names",
+  "f-Cluster_DynamicServers-a-CalculatedMachineNames-help": "Controls how server instances in a dynamic cluster are assigned to a machine. If the attribute is not set, then the dynamic servers will not be assigned to a machine. If the attribute is set, then the MachineNameMatchExpression attribute is used to select the set of machines to use for the dynamic servers.",
+
   "a-CallbackQueue-label": "Callback Queue",
   "a-CallbackQueueMdbRunAsPrincipalName-label": "Callback Queue MDB Run As Principal Name",
   "a-CandidateMachine-label": "Candidate Machine",
-  "a-CandidateMachinesForMigratableServer-label": "Candidate Machines For Migratable Server",
+
+  "a-CandidateMachinesForMigratableServer-label": "Candidate Machines for Migratable Server",
+  "f-Cluster-a-CandidateMachinesForMigratableServer-help": "Specifies the set of machines (and order of preference) on which Node Manager will restart failed servers. (Requires you to enable each server for automatic migration.) Each server can specify a subset of these cluster-wide candidates, which limits the machines on which the server can be restarted. Servers can also specify their own order of preference.",
 
   "a-Capacity-label": "Capacity",
   "f-SelfTuning_WorkManager-a-Capacity-label": "Capacity Constraint",
@@ -896,7 +927,7 @@
   "f-any_CertRevoc-a-CheckingEnabled-help": "Determines whether certificate revocation checking is enabled.",
 
   "a-CheckpointIntervalSeconds-label": "Checkpoint Interval Seconds",
-  "f-JTA-a-CheckpointIntervalSeconds-help": "The interval at which the transaction manager creates a new transaction log file and checks all old transaction log files to see if they are ready to be deleted.",
+  "a-CheckpointIntervalSeconds-help": "The interval at which the transaction manager creates a new transaction log file and checks all old transaction log files to see if they are ready to be deleted.",
 
   "a-ChunkedTransferDisabled-label": "Chunked Transfer Disabled",
 
@@ -941,7 +972,7 @@
   "a-ClientCertPrivateKeyPassPhraseEncrypted-label": "Client Cert Private Key Passphrase Encrypted",
 
   "a-ClientCertProxyEnabled-label": "Client Cert Proxy Enabled",
-  "f-WebAppContainer-a-ClientCertProxyEnabled-help": "Specifies whether or not to honor the WL-Proxy-Client-Cert header coming with the request.",
+  "a-ClientCertProxyEnabled-help": "Specifies whether or not to honor the WL-Proxy-Client-Cert header coming with the request.",
 
   "a-ClientCertificateEnforced-label": "Client Certificate Enforced",
 
@@ -985,7 +1016,11 @@
   "f-SingletonService-a-Cluster-help": "The cluster to which this SingletonService is assigned.",
 
   "a-ClusterAddress-label": "Cluster Address",
+  "f-Cluster-a-ClusterAddress-help": "Specifies the address that forms a portion of the URL a client uses to connect to this cluster, and that is used for generating EJB handles and entity EJB failover addresses. (This address may be either a DNS host name that maps to multiple IP addresses or a comma-separated list of single address host names or IP addresses.) Defines the address to be used by clients to connect to this cluster. This address may be either a DNS host name that maps to multiple IP addresses or a comma separated list of single address host names or IP addresses. If network channels are configured, it is possible to set the cluster address on a per channel basis.",
+
   "a-ClusterBroadcastChannel-label": "Cluster Broadcast Channel",
+  "f-Cluster-a-ClusterBroadcastChannel-help": "Specifies the channel used to handle communications within a cluster. If no channel is specified then the servers in the cluster will use the default secure channel (SSL Listen Port), if SecureClusterBroadcastEnabled attribute is true. If SecureClusterBroadcastEnabled attribute is false then servers in the cluster will use the default channel (Plain Listen Port). ClusterBroadcastChannel is only supported if the unicast messaging type is used.",
+
   "a-ClusterConstraintsEnabled-label": "Cluster Constraints Enabled",
   "a-ClusterHosts-label": "Cluster Hosts",
 
@@ -999,14 +1034,17 @@
   "f-WLDFSystemResource_WLDFResource_WatchNotification_ScaleUpAction-a-ClusterName-help": "Indicates the name of the cluster on which to perform the scaling action.",
 
   "a-ClusterRuntime-label": "Cluster Runtime",
+
   "a-ClusterType-label": "Cluster Type",
+  "f-Cluster-a-ClusterType-help": "Optimizes cross-cluster replication for the type of network that servers in the clusters use for administrative communication. To enhance the reliability of HTTP sessions, you can configure servers in one cluster to replicate the session data to servers in a different cluster. The default value is none.",
+
   "a-ClusterWeight-label": "Cluster Weight",
 
   "a-ClusteringMode-label": "Clustering Mode",
   "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceClusterParams-a-ClusteringMode-help": "Specifies a clustering mode of either Unicast (default) or Multicast. If multicast is undesirable or unavailable in an environment, or when an environment is not properly configured to support multicast, then setting up the Well Known Addresses (WKA) feature is required. All cluster multicast communication is disabled if any of WKA, SSL, and/or secured production mode is/are enabled.",
 
   "a-ClusterwideRecoveryEnabled-label": "Cluster-Wide Recovery Enabled",
-  "f-JTA-a-ClusterwideRecoveryEnabled-help": "Indicates that cluster-wide recovery is used for distributed transactions. When enabled, recovery operations for a distributed transaction are applied to all the servers of the cluster hosting a InterposedTransactionManager rather than just the server hosting the InterposedTransactionManager.",
+  "a-ClusterwideRecoveryEnabled-help": "Indicates that cluster-wide recovery is used for distributed transactions. When enabled, recovery operations for a distributed transaction are applied to all the servers of the cluster hosting a InterposedTransactionManager rather than just the server hosting the InterposedTransactionManager.",
 
   "a-CmpLimit-label": "Compression Limit",
   "f-WTCServer_WTCLocalTuxDom-a-CmpLimit-help": "The compression threshold this local Tuxedo access point uses when sending data to a remote Tuxedo access point. Application buffers larger than this size are compressed. Must be between 0 and 2147483647, where 2147483647 is the default value if not specified",
@@ -1031,8 +1069,12 @@
 
   "a-CoherenceStartScriptEnabled-label": "Coherence Start Script Enabled",
   "a-CoherenceStartScriptName-label": "Coherence Start Script Name",
+
   "a-CoherenceWebFederatedStorageEnabled-label": "Coherence Web Federated Storage Enabled",
+  "a-CoherenceWebFederatedStorageEnabled-help": "Specifies whether Federated Cache Storage is enabled for the Coherence Web cluster member.",
+
   "a-CoherenceWebLocalStorageEnabled-label": "Coherence Web Local Storage Enabled",
+  "a-CoherenceWebLocalStorageEnabled-help": "Specifies whether Local Storage is enabled for the Coherence Web cluster tier.",
 
   "a-CombinedRoleMappingEnabled-label": "Combined Role Mapping Enabled",
   "f-any_Realm-a-CombinedRoleMappingEnabled-help": "Determines how the role mappings in the Enterprise Application, Web application, and EJB containers interact. This setting is valid only for Web applications and EJBs that use the Advanced security model and that initialize roles from deployment descriptors.",
@@ -1072,7 +1114,7 @@
   "a-CompleteWriteTimeout-label": "Complete Write Timeout",
 
   "a-CompletionTimeoutSeconds-label": "Completion Timeout Seconds",
-  "f-JTA-a-CompletionTimeoutSeconds-help": "Specifies the maximum amount of time, in seconds, a transaction manager waits for all resource managers to respond and indicate if the transaction can be committed or rolled back. The default value is 0, which sets the value to approximately twice the default transaction-timeout value with a maximum value of 120 seconds. This value provides backward compatibility for prior releases without this setting. nIf the specified value is -1, the maximum value supported by this attribute is used. If the specified value exceeds the value set for abandon-timeout-seconds, the value of abandon-timeout-seconds is used.",
+  "a-CompletionTimeoutSeconds-help": "Specifies the maximum amount of time, in seconds, a transaction manager waits for all resource managers to respond and indicate if the transaction can be committed or rolled back. The default value is 0, which sets the value to approximately twice the default transaction-timeout value with a maximum value of 120 seconds. This value provides backward compatibility for prior releases without this setting. nIf the specified value is -1, the maximum value supported by this attribute is used. If the specified value exceeds the value set for abandon-timeout-seconds, the value of abandon-timeout-seconds is used.",
 
   "a-ComponentType-label": "Component Type",
   "f-SystemComponent-a-ComponentType-help": "The system component type Examples of types may include \"OHS\", \"Coherence\". New System Components may be added in the future so the list of types is not static.",
@@ -1081,6 +1123,8 @@
   "f-JMSSystemResource_JmsResource_SAFRemoteContext-a-CompressionThreshold-help": "The number of bytes for a serialized message body so that any message that exceeds this limit triggers message compression when the message is about to be sent across a SAF agent's JVM boundary. The compression will occur on the sending-side SAF agent's JVM if the message body size exceeds the threshold limit.",
 
   "a-ConcurrentSingletonActivationEnabled-label": "Concurrent Singleton Activation Enabled",
+  "f-Cluster-a-ConcurrentSingletonActivationEnabled-help": "Specifies whether to allow the concurrent activation, deactivation, or restart of two or more singleton services.",
+
   "a-ConfigBackupEnabled-label": "Config Backup Enabled",
   "a-ConfigurationAuditType-label": "Configuration Audit Type",
   "a-ConfigurationVersion-label": "Configuration Version",
@@ -1185,6 +1229,8 @@
   "f-JMSSystemResource_JmsResource_ForeignServer-a-ConnectionURL-help": "The URL that WebLogic Server will use to contact the JNDI provider. The syntax of this URL depends on which JNDI provider is being used. For WebLogic JMS, leave this field blank if you are referencing WebLogic JMS objects within the same cluster. This value corresponds to the standard JNDI property, java.naming.provider.url. Note: If this value is not specified, look-ups will be performed on the JNDI server within the WebLogic Server instance where this connection factory is deployed.",
 
   "a-ConsensusParticipants-label": "Consensus Participants",
+  "f-Cluster-a-ConsensusParticipants-help": "Controls the number of cluster participants in determining consensus.",
+
   "a-ConsensusProcessIdentifier-label": "Consensus Process Identifier",
   "a-ConsoleContextPath-label": "Console Context Path",
   "a-ConsoleEnabled-label": "Console Enabled",
@@ -1337,7 +1383,7 @@
   "f-any_CertRevocCa-a-CrlDpUrlUsage-help": "For this CA, determines how getCrlDpUrl is used: as failover in case the URL in the certificate CRLDistributionPoints extension is invalid or not found, or as a value overriding the URL found in the certificate CRLDistributionPoints extension.",
 
   "a-CrossDomainRecoveryRetryInterval-label": "Cross Domain Recovery Retry Interval",
-  "f-JTA-a-CrossDomainRecoveryRetryInterval-help": "The interval at which a store lock for a given server in a recovery domain will be checked for takeover eligibility. Deprecated in 12.2.1.1.0.",
+  "a-CrossDomainRecoveryRetryInterval-help": "The interval at which a store lock for a given server in a recovery domain will be checked for takeover eligibility. Deprecated in 12.2.1.1.0.",
 
   "a-CrossDomainSecurityCacheEnabled-label": "Cross Domain Security Cache Enabled",
   "f-SecurityConfiguration-a-CrossDomainSecurityCacheEnabled-help": "Specifies whether the Cross Domain Security subject cache is enabled.",
@@ -1349,13 +1395,13 @@
   "f-SecurityConfiguration-a-CrossDomainSecurityEnabled-help": "Specifies whether cross-domain security is enabled.",
 
   "a-CrossSiteRecoveryLeaseExpiration-label": "Cross Site Recovery Lease Expiration",
-  "f-JTA-a-CrossSiteRecoveryLeaseExpiration-help": "The time in seconds after which a lease expires making it eligible for recovery by another site. Deprecated in 12.2.1.4.",
+  "a-CrossSiteRecoveryLeaseExpiration-help": "The time in seconds after which a lease expires making it eligible for recovery by another site. Deprecated in 12.2.1.4.",
 
   "a-CrossSiteRecoveryLeaseUpdate-label": "Cross Site Recovery Lease Update",
-  "f-JTA-a-CrossSiteRecoveryLeaseUpdate-help": "The time in seconds in which to update a lease timestamp. Deprecated in 12.2.1.4.",
+  "a-CrossSiteRecoveryLeaseUpdate-help": "The time in seconds in which to update a lease timestamp. Deprecated in 12.2.1.4.",
 
   "a-CrossSiteRecoveryRetryInterval-label": "Cross Site Recovery Retry Interval",
-  "f-JTA-a-CrossSiteRecoveryRetryInterval-help": "The interval at which a lease for a given server in a recovery domain will be checked for takeover eligibility. Deprecated in 12.2.1.4.",
+  "a-CrossSiteRecoveryRetryInterval-help": "The interval at which a lease for a given server in a recovery domain will be checked for takeover eligibility. Deprecated in 12.2.1.4.",
 
   "a-CustomAppKeyClass-label": "Custom App Key Class",
   "f-WTCServer_WTCRemoteTuxDom-a-CustomAppKeyClass-help": "The full pathname to the custom AppKey generator class. This class is only relevant if you specify Custom as the AppKey Generator. This class is loaded at runtime if the Custom AppKey generator plug-in is selected.",
@@ -1405,8 +1451,13 @@
   "f-JDBCStore-a-DataSource-help": "The JDBC data source used by this JDBC store to access its backing table. The specified data source must use a non-XA JDBC driver since connection pools for XA JDBC drivers are not supported.",
 
   "a-DataSourceForAutomaticMigration-label": "Data Source For Automatic Migration",
+  "f-Cluster-a-DataSourceForAutomaticMigration-help": "Specifies the data source used by servers in the cluster during migration. (You must configure each Migratable Server within the cluster to use this data source.) This setting applies only if the MigrationBasis attribute is set to database.",
+
   "a-DataSourceForJobScheduler-label": "Data Source For Job Scheduler",
+  "f-Cluster-a-DataSourceForJobScheduler-help": "Specifies the data source required to support persistence of jobs scheduled with the job scheduler.",
+
   "a-DataSourceForSessionPersistence-label": "Data Source For Session Persistence",
+  "f-Cluster-a-DataSourceForSessionPersistence-help": "To support HTTP Session failover across data centers, a datasource is required to dump session state on disk.",
 
   "a-DataSourceList-label": "Data Source List",
   "f-JDBCSystemResource_JdbcResource_JDBCDataSourceParams-a-DataSourceList-help": "The list of data sources to which the multi data source will route connection requests. The order of data sources in the list determines the failover order.",
@@ -1417,7 +1468,10 @@
   "f-any_SQLAuthenticator-a-DataSourceName-help": "Specifies the name of the JDBC data source used for database access.",
 
   "a-DatabaseLeasingBasisConnectionRetryCount-label": "Database Leasing Basis Connection Retry Count",
+  "f-Cluster-a-DatabaseLeasingBasisConnectionRetryCount-help": "Specifies the maximum number of times Database Leasing will try to obtain a valid connection from the Data Source. The default value is 1.",
+
   "a-DatabaseLeasingBasisConnectionRetryDelay-label": "Database Leasing Basis Connection Retry Delay",
+  "f-Cluster-a-DatabaseLeasingBasisConnectionRetryDelay-help": "Specifies the length of time, in milliseconds,Database Leasing will wait before attempting to obtain a new connection from the Data Source when a connection has failed. The default value is 1000.",
 
   "a-DatasourceType-label": "Data Source Type",
   "f-JDBCSystemResource_JdbcResource-a-DatasourceType-help": "The data source type.",
@@ -1435,7 +1489,10 @@
 
   "a-DbPassiveMode-label": "DB Passive Mode",
   "a-DbPassiveModeGracePeriodSeconds-label": "DB Passive Mode Grace Period Seconds",
+
   "a-DeathDetectorHeartbeatPeriod-label": "Death Detector Heartbeat Period",
+  "f-Cluster-a-DeathDetectorHeartbeatPeriod-help": "Sets the Server DeathDetector HeartbeatPeriod value in seconds. The DeathDetector monitor sends a heartbeat every period seconds to ascertain the health of a member. Members monitor this heartbeat in order to ascertain the health of the server hosting the DeathDetector. In this case, the ClusterMaster.",
+
   "a-DebugAbbreviation-label": "Debug Abbreviation",
   "a-DebugAbbrevs-label": "Debug Abbrevs",
   "a-DebugAllowList-label": "Debug Allow List",
@@ -1969,6 +2026,8 @@
   "f-JPA-a-DefaultJPAProvider-help": "The configured default JPA provider for the domain. The default value is org.eclipse.persistence.jpa.PersistenceProvider",
 
   "a-DefaultLoadAlgorithm-label": "Default Load Algorithm",
+  "f-Cluster-a-DefaultLoadAlgorithm-help": "Defines the algorithm to be used for load-balancing between replicated services if none is specified for a particular service. The round-robin algorithm cycles through a list of WebLogic Server instances in order. Weight-based load balancing improves on the round-robin algorithm by taking into account a pre-assigned weight for each server. In random load balancing, requests are routed to servers at random.",
+
   "a-DefaultLogicalStoreName-label": "Default Logical Store Name",
   "a-DefaultMaximumObjectLifetime-label": "Default Maximum Object Lifetime",
   "a-DefaultMinorVersion-label": "Default Minor Version",
@@ -2140,7 +2199,7 @@
   "f-JMSBridgeDestination-a-DestinationType-help": "The destination type (queue or topic) for this JMS bridge destination. The default value is Queue",
 
   "a-Determiner-label": "Determiner",
-  "f-JTA-a-Determiner-help": "Select a transaction resource (determiner) from the list of resources. For JMS, select WebLogic JMS as the determiner. When a determiner is configured, the determiner's in-doubt transaction records are used during transaction recovery.",
+  "a-Determiner-help": "Select a transaction resource (determiner) from the list of resources. For JMS, select WebLogic JMS as the determiner. When a determiner is configured, the determiner's in-doubt transaction records are used during transaction recovery.",
 
   "a-DeterminerCandidateResourceInfoList-label": "Determiner Candidate Resource Info List",
   "a-DevPollDisabled-label": "Dev Poll Disabled",
@@ -2239,15 +2298,21 @@
   "a-DyeMask-label": "Dye Mask",
   "f-WLDFSystemResource_WLDFResource_Instrumentation_WLDFInstrumentationMonitor-a-DyeMask-help": "The dye mask for all diagnostic actions associated with this monitor.",
 
-  "a-DynamicClusterCooloffPeriodSeconds-label": "Dynamic Cluster Cooloff Period Seconds",
+  "a-DynamicClusterCooloffPeriodSeconds-label": "Dynamic Cluster Cool-Off Period Seconds",
+  "f-Cluster_DynamicServers-a-DynamicClusterCooloffPeriodSeconds-help": "Specifies the cool-off period (in seconds) used by the Elasticity Framework while performing scale up or scale down operations. If a scale up or scale down operation was performed, subsequent requests for scale up or down operations will be ignored by the Elasticity Framework during this period.",
+
   "a-DynamicClusterServerGroupTargetingLimits-entryLabel": "Dynamic Cluster Server Group Targeting Limit",
   "a-DynamicClusterServerGroupTargetingLimits-keyHelp": "The name of the server group",
   "a-DynamicClusterServerGroupTargetingLimits-keyLabel": "Server Group",
   "a-DynamicClusterServerGroupTargetingLimits-label": "Dynamic Cluster Server Group Targeting Limits",
   "a-DynamicClusterServerGroupTargetingLimits-valueHelp": "The targets for the server group",
   "a-DynamicClusterServerGroupTargetingLimits-valueLabel": "Targets",
+
   "a-DynamicClusterShutdownTimeoutSeconds-label": "Dynamic Cluster Shutdown Timeout Seconds",
+  "f-Cluster_DynamicServers-a-DynamicClusterShutdownTimeoutSeconds-help": "Specifies the timeout period (in seconds) used by the Elasticity Framework while gracefully shutting down a server. If the server does not shut down before the specified timeout period, the server will be forcibly shut down. With a negative time value, no timeout will be applied.",
+
   "a-DynamicClusterSize-label": "Dynamic Cluster Size",
+  "f-Cluster_DynamicServers-a-DynamicClusterSize-help": "Specifies the current size of the dynamic cluster (the number of dynamic server instances allowed to be created). The specified number of server instances are dynamically created as ServerMBeans at runtime and associated ServerLifeCycleRuntimeMBeans are created.",
 
   "a-DynamicGroupNameAttribute-label": "Dynamic Group Name Attribute",
   "a-DynamicGroupNameAttribute-help": "Specifies the attribute of a dynamic LDAP group object that specifies the name of the group.",
@@ -2434,6 +2499,7 @@
   "f-JDBCSystemResource_JdbcResource_JDBCDataSourceParams-a-FailoverRequestIfBusy-help": "For multi data sources with the failover algorithm, enables the multi data source to failover connection requests to the next data source if all connections in the current data source are in use.",
 
   "a-FailureAction-label": "Failure Action",
+  "a-FailureAction-help": "Enable automatic force shutdown of the server on failed state. The server self-health monitoring detects fatal failures and mark the server as failed. The server can be restarted using NodeManager or a HA agent.",
 
   "a-FailureAuditSeverityEnabled-label": "Failure Audit Severity Enabled",
   "f-any_DefaultAuditor-a-FailureAuditSeverityEnabled-help": "If the Severity value is set to Custom, causes the Auditing provider to generate audit records for events with a severity level of FAILURE.",
@@ -2470,7 +2536,10 @@
   "f-WTCServer_WTCRemoteTuxDom-a-FederationURL-help": "The URL for a foreign name service that is federated into JNDI. Note that the WebLogic Tuxedo Connector can federate to non-CORBA service providers. If this value is not specified, the WebLogic Tuxedo Connector assumes there is a CosNaming server in the foreign domain and federates to the CosNaming server using TGIOP.",
 
   "a-FenceTimeout-label": "Fence Timeout",
+  "f-Cluster_DatabaseLessLeasingBasis-a-FenceTimeout-help": "The timeout, in seconds, to wait and retry getting the server state when the NodeManager is unreachable. We try once more after waiting for the fence timeout period to make sure that the machine is really unavailable as opposed to heavy disk swapping. The default value is 5.",
+
   "a-FencingGracePeriodMillis-label": "Fencing Grace Period Millis",
+  "f-Cluster-a-FencingGracePeriodMillis-help": "During automatic migration, if the Cluster Master determines a server to be dead, it waits for this period of time (in milliseconds) before the Cluster Master migrates the service to another server in the cluster.",
 
   "a-FieldPrefix-label": "Field Prefix",
   "f-any_DefaultAuditor-a-FieldPrefix-help": "The prefix character that indicates the beginning of a field in the audit record.",
@@ -2545,7 +2614,7 @@
   "a-ForceShutdownTimeoutThreadDumpInterval-label": "Force Shutdown Timeout Thread Dump Interval",
 
   "a-ForgetHeuristics-label": "Forget Heuristics",
-  "f-JTA-a-ForgetHeuristics-help": "Specifies whether the transaction manager automatically performs an XA Resource forget operation for heuristic transaction completions. When enabled, the transaction manager automatically performs an XA Resource forget() operation for all resources as soon as the transaction learns of a heuristic outcome. Disable this feature only if you know what to do with the resource when it reports a heuristic decision.",
+  "a-ForgetHeuristics-help": "Specifies whether the transaction manager automatically performs an XA Resource forget operation for heuristic transaction completions. When enabled, the transaction manager automatically performs an XA Resource forget() operation for all resources as soon as the transaction learns of a heuristic outcome. Disable this feature only if you know what to do with the resource when it reports a heuristic decision.",
 
   "a-FormAuthXFrameOptionsHeaderValue-label": "Form Authentication X-Frame-Options Header Value",
   "f-WebAppContainer-a-FormAuthXFrameOptionsHeaderValue-help": "Returns the X-Frame-Options header value (DENY, SAMEORIGIN, or ALLOW-FROM uri) that will be set in the responses for all requests to the \"j_security_check\" endpoint when using FORM authentication.",
@@ -2566,10 +2635,20 @@
   "f-WebAppContainer_Http2Config-a-FrameCountLimitResetInterval-help": "The frame count limit reset interval.",
 
   "a-FreeMemoryPercentHighThreshold-label": "Free Memory Percent High Threshold",
+  "a-FreeMemoryPercentHighThreshold-help": "Percentage free memory after which the server overload condition is cleared. WorkManagers stop performing overloadActions and start regular execution once the overload condition is cleared.",
+
   "a-FreeMemoryPercentLowThreshold-label": "Free Memory Percent Low Threshold",
+  "a-FreeMemoryPercentLowThreshold-help": "Percentage free memory below which the server is considered overloaded. WorkManagers perform overloadAction once the server is marked as overloaded.",
+
   "a-FrontendHTTPPort-label": "Frontend HTTP Port",
+  "f-Cluster-a-FrontendHTTPPort-help": "The name of the HTTP port to which all redirected URLs will be sent. Sets the FrontendHTTPPort for the default webserver (not virtual hosts) for all the servers in the cluster. Provides a method to ensure that the webapp will always have the correct PORT information, even when the request is coming through a firewall or a proxy. If this parameter is configured, the HOST header will be ignored and the information in this parameter will be used in its place, when constructing the absolute urls for redirects.",
+
   "a-FrontendHTTPSPort-label": "Frontend HTTPS Port",
+  "f-Cluster-a-FrontendHTTPSPort-help": "The name of the secure HTTP port to which all redirected URLs will be sent. Sets the FrontendHTTPSPort for the default webserver (not virtual hosts) for all the servers in the cluster. Provides a method to ensure that the webapp will always have the correct PORT information, even when the request is coming through a firewall or a proxy. If this parameter is configured, the HOST header will be ignored and the information in this parameter will be used in its place, when constructing the absolute urls for redirects.",
+
   "a-FrontendHost-label": "Frontend Host",
+  "f-Cluster-a-FrontendHost-help": "The name of the host to which all redirected URLs will be sent. Sets the HTTP FrontendHost for the default webserver (not virtual hosts) for all the servers in the cluster. Provides a method to ensure that the webapp will always have the correct HOST information, even when the request is coming through a firewall or a proxy. If this parameter is configured, the HOST header will be ignored and the information in this parameter will be used in its place, when constructing the absolute urls for redirects.",
+
   "a-FullyDelegateAuthorization-label": "Fully Delegate Authorization",
   "a-GatheredWritesEnabled-label": "Gathered Writes Enabled",
 
@@ -2590,7 +2669,9 @@
   "a-GracefulShutdownTimeout-label": "Graceful Shutdown Timeout",
   "a-GracefulShutdownTimeoutNumOfThreadDump-label": "Graceful Shutdown Timeout Num Of Thread Dump",
   "a-GracefulShutdownTimeoutThreadDumpInterval-label": "Graceful Shutdown Timeout Thread Dump Interval",
+
   "a-GreedySessionFlushInterval-label": "Greedy Session Flush Interval",
+  "f-Cluster-a-GreedySessionFlushInterval-help": "Specifies the interval in seconds until HTTP Sessions are periodically flushed to secondary server.",
 
   "a-GroupBaseDN-label": "Group Base DN",
   "a-GroupBaseDN-help": "Specifies the attribute of an LDAP user object that specifies the Distinguished Names (DNs) of dynamic groups to which the user belongs.",
@@ -2656,12 +2737,21 @@
   "f-WebAppContainer_Http2Config-a-HeaderTableSize-help": "The server's maximum size of the header compression table used to decode header blocks, in octets.",
 
   "a-HealthCheckIntervalMillis-label": "Health Check Interval Millis",
+  "f-Cluster-a-HealthCheckIntervalMillis-help": "Specifies the interval in milliseconds at which Migratable Servers and Cluster Masters prove their liveness via the database.",
+
   "a-HealthCheckIntervalSeconds-label": "Health Check Interval Seconds",
+
   "a-HealthCheckPeriodsUntilFencing-label": "Health Check Periods Until Fencing",
+  "f-Cluster-a-HealthCheckPeriodsUntilFencing-help": "Specifies the maximum number of periods that a cluster member will wait before timing out a Cluster Master and also the maximum number of periods the Cluster Master will wait before timing out a Migratable Server.",
+
   "a-HealthCheckStartDelaySeconds-label": "Health Check Start Delay Seconds",
   "a-HealthCheckTimeoutSeconds-label": "Health Check Timeout Seconds",
-  "a-HeapDumpingOnDeadlock-label": "Heap Dumping On Deadlock",
-  "a-HeapDumpingOnMaxStuckThread-label": "Heap Dumping On Max Stuck Thread",
+
+  "a-HeapDumpingOnDeadlock-label": "Heap Dump On Deadlock",
+  "a-HeapDumpingOnDeadlock-help": "Specifies whether to perform a heap dump when a thread deadlock is detected.",
+
+  "a-HeapDumpingOnMaxStuckThread-label": "Heap Dump On Max Stuck Threads",
+  "a-HeapDumpingOnMaxStuckThread-help": "Specifies whether to perform a heap dump when the server detects that the number of stuck threads reaches StructThreadCount",
 
   "a-HighestNumWaiters-label": "Highest Number of Waiters",
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-HighestNumWaiters-help": "The maximum number of connection requests that can concurrently block threads while waiting to reserve a connection from the data source's connection pool.",
@@ -2705,10 +2795,12 @@
   "f-WLDFSystemResource_WLDFResource_WatchNotification_RestNotification-a-HttpAuthenticationUserName-help": "The HTTP authentication user name when the REST endpoint is secured.",
 
   "a-HttpEnabledForThisProtocol-label": "HTTP Enabled For This Protocol",
+
   "a-HttpPingRetryCount-label": "HTTP Ping Retry Count",
+  "f-Cluster-a-HttpPingRetryCount-help": "Set the number of HTTP pings to execute before declaring a server unreachable. This comes into effect only when MaxServerCountForHTTPPing is greater than zero.",
 
   "a-HttpTraceSupportEnabled-label": "HTTP Trace Support Enabled",
-  "f-WebAppContainer-a-HttpTraceSupportEnabled-help": "The value of HttpTraceSupportEnabled.",
+  "a-HttpTraceSupportEnabled-help": "Attackers may abuse HTTP TRACE functionality to gain access to information in HTTP headers such as cookies and authentication data. In the presence of other cross-domain vulnerabilities in web browsers, sensitive header information could be read from any domains that support the HTTP TRACE method. This attribute is for disabling HTTP TRACE support. The default value is false.",
 
   "a-HttpdEnabled-label": "Httpd Enabled",
   "a-HttpsKeepAliveSecs-label": "Https Keep Alive Secs",
@@ -2758,7 +2850,9 @@
   "a-IdentityProviderRedirectBindingEnabled-label": "Identity Provider Redirect Binding Enabled",
   "a-IdleConnectionTimeout-label": "Idle Connection Timeout",
   "a-IdleIIOPConnectionTimeout-label": "Idle IIOP Connection Timeout",
+
   "a-IdlePeriodsUntilTimeout-label": "Idle Periods Until Timeout",
+  "f-Cluster-a-IdlePeriodsUntilTimeout-help": "Specifies the maximum number of periods that a cluster member will wait before timing out a member of a cluster. The default value is 3.",
 
   "a-IdleTimeMaximum-label": "Idle Time Maximum",
   "f-MessagingBridge-a-IdleTimeMaximum-help": "The maximum amount of time, in seconds, that a messaging bridge instance remains idle. In asynchronous mode, this is the longest amount of time a messaging bridge instance stays idle before it checks the sanity of its connection to the source. In synchronous mode, this is the amount of time the messaging bridge can block on a receive call if no transaction is involved.",
@@ -2773,6 +2867,7 @@
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-IgnoreInUseConnectionsEnabled-help4": "Enables the data source to be shutdown even if connections obtained from the pool are still in use.",
 
   "a-IgnoreSessionsDuringShutdown-label": "Ignore Sessions During Shutdown",
+  "f-Cluster_DynamicServers-a-IgnoreSessionsDuringShutdown-help": "Indicates if the Elasticity Framework should ignore inflight HTTP sessions while shutting down servers.",
 
   "a-IgnoreStuckThreads-label": "Ignore Stuck Threads",
   "f-SelfTuning_WorkManager-a-IgnoreStuckThreads-help": "Specifies whether this Work Manager ignores \"stuck\" threads. Typically, stuck threads will cause the associated Work Manager to take some action: either switching the application to Admin mode, shutting down the server, or shutting down the Work Manager. If this flag is set, then no thread in this Work Manager is ever considered stuck.",
@@ -2856,7 +2951,9 @@
   "a-InstalledSoftwareVersion-label": "Installed Software Version",
   "a-InstalledVMMAdapter-label": "Installed VMM Adapter",
   "a-InstrumentStackTraceEnabled-label": "Instrument Stack Trace Enabled",
-  "a-InterClusterCommLinkHealthCheckInterval-label": "Inter Cluster Comm Link Health Check Interval",
+
+  "a-InterClusterCommLinkHealthCheckInterval-label": "Inter-Cluster Communication Link Health Check Interval",
+  "f-Cluster-a-InterClusterCommLinkHealthCheckInterval-help": "If the cluster link between two clusters goes down, a trigger will run periodically to see if the link is restored. The duration is specified in milliseconds and the default value is 30000.",
 
   "a-Interface-label": "Interface",
   "f-NMProperties-a-Interface-help": "The primary interface names used by migratable servers. For server migration, the primary interface names used by migratable servers must be the same.\n\nSee the <InterfaceName> property for more flexibility specifying multiple interfaces and a corresponding range of IP addresses that should be bound to a specific interface.",
@@ -2994,7 +3091,9 @@
   "f-WTCServer_WTCtBridgeGlobal-a-JndiFactory-help": "The name of the JNDI lookup factory. The default value is weblogic.jndi.WLInitialContextFactory.",
 
   "a-JndiPropertiesCredentialEncrypted-label": "JNDI Properties Credential Encrypted",
+
   "a-JobSchedulerTableName-label": "Job Scheduler Table Name",
+  "f-Cluster-a-JobSchedulerTableName-help": "Specifies the table name to use for storing timers active with the job scheduler.",
 
   "a-JsonWebKeySetUri-label": "JSON Web Key Set URI",
   "a-JsonWebKeySetUri-help": "Specifies an override for the JSON Web Key Set location (jwks_uri) used during validation of tokens. A file location can be specified to load keys from the local environment. The location of the keys is normally obtained from the Oracle Identity Cloud Service Discovery Metadata. When configured, the URI is used for all tenants.",
@@ -3082,7 +3181,10 @@
 
   "a-LastModificationTime-label": "Last Modification Time",
   "a-LaxPrecision-label": "Lax Precision",
+
   "a-LeaderHeartbeatPeriod-label": "Leader Heartbeat Period",
+  "f-Cluster_DatabaseLessLeasingBasis-a-LeaderHeartbeatPeriod-help": "Sets the LeaderHeartbeatPeriod value, in seconds. The cluster leader heartbeats a special leader heartbeat every period seconds to publish group view version and other cluster information. Members look at this heartbeat and perform any sync up operations if required. The default value is 10.",
+
   "a-Level-label": "Level",
 
   "a-ListenAddress-label": "Listen Address",
@@ -3136,13 +3238,13 @@
   "a-LocalAltDescriptorPath-label": "Local Alt Descriptor Path",
 
   "a-LocalDomainSecurityCacheEnabled-label": "Local Domain Security Cache Enabled",
-  "f-JTA-a-LocalDomainSecurityCacheEnabled-help": "Specifies whether the Local Domain Security subject cache is enabled.",
+  "a-LocalDomainSecurityCacheEnabled-help": "Specifies whether the Local Domain Security subject cache is enabled.",
 
   "a-LocalDomainSecurityCacheTtl-label": "Local Domain Security Cache Time-to-Live",
-  "f-JTA-a-LocalDomainSecurityCacheTtl-help": "Specifies the time-to-live (TTL), in seconds, of the Local Domain Security subject cache. This value is used only if LocalDomainSecurityCacheEnabled is set to true.",
+  "a-LocalDomainSecurityCacheTtl-help": "Specifies the time-to-live (TTL), in seconds, of the Local Domain Security subject cache. This value is used only if LocalDomainSecurityCacheEnabled is set to true.",
 
   "a-LocalDomainSecurityEnabled-label": "Local Domain Security Enabled",
-  "f-JTA-a-LocalDomainSecurityEnabled-help": "Specifies whether Local Domain Security is enabled.\n\nWhen enabled, the transaction coordinator makes intra-domain calls using an identity from the credential mapper where remoteHost equals the local domain name and protocol is cross-domain-protocol. When disabled, the subject used for intra-domain communication is determined by the Security Interop Mode setting.",
+  "a-LocalDomainSecurityEnabled-help": "Specifies whether Local Domain Security is enabled.\n\nWhen enabled, the transaction coordinator makes intra-domain calls using an identity from the credential mapper where remoteHost equals the local domain name and protocol is cross-domain-protocol. When disabled, the subject used for intra-domain communication is determined by the Security Interop Mode setting.",
 
   "a-LocalInstallDir-label": "Local Install Dir",
 
@@ -3167,7 +3269,9 @@
   "a-LocalPlanDir-label": "Local Plan Dir",
   "a-LocalPlanPath-label": "Local Plan Path",
   "a-LocalSourcePath-label": "Local Source Path",
+
   "a-LocalStorageEnabled-label": "Local Storage Enabled",
+  "a-LocalStorageEnabled-help": "Specifies whether Local Storage is enabled.",
 
   "a-LocalizedKeyCacheInvalidationInterval-label": "Localized Key Cache Invalidation Interval",
   "f-SNMPAgent-a-LocalizedKeyCacheInvalidationInterval-help": "The number of milliseconds after which WebLogic Server invalidates its cache of SNMP security keys. Setting a high value creates a risk that users whose credentials have been removed can still access SNMP data. An SNMP security key is an encrypted version of an SNMP agent's engine ID and an authentication password or privacy password. WebLogic Server generates one security key for each entry that you create in the SNMP credential map. When a WebLogic Server SNMP agent receives an SNMPv3 request, it compares the key that is in the request with its WebLogic Server keys. If it finds a match, it processes the request. The SNMP agent also encodes these keys in its responses and notifications. (You configure which keys are encoded when you create a trap destination.) Instead of regenerating the keys for each SNMPv3 communication, WebLogic Server caches the keys. To make sure that the cache contains the latest set of SNMP credentials, WebLogic Server periodically invalidates the cache. After the cache is invalidated, the next time an SNMP agent requests credentials, WebLogic Server regenerates the cache. Note that making a change to the credential map does not automatically update the cache. Instead, the cache is updated only after it has been invalidated.",
@@ -3318,8 +3422,14 @@
   "f-SystemComponent-a-Machine-help": "The WebLogic Server host computer (machine) on which this server is meant to run. If you want to use a Node Manager to start this server, you must assign the server to a machine and you must configure the machine for the Node Manager.",
 
   "a-MachineMatchExpression-label": "Machine Match Expression",
+  "f-Cluster_DynamicServers-a-MachineMatchExpression-help": "Specifies the machine tag expression to use when selecting machine names. If the MachineMatchType is \"name\", each value will either match a machine name exactly or, if specified with a trailing '*' suffix, will match multiple machine names. If the MachineMatchType is \"tag\", the values will match all of the machines that have all of the tag values.",
+
   "a-MachineMatchType-label": "Machine Match Type",
+  "f-Cluster_DynamicServers-a-MachineMatchType-help": "Specifies the machine tag expression to use when selecting machine names. If the MachineMatchType is \"name\", each value will either match a machine name exactly or, if specified with a trailing '*' suffix, will match multiple machine names. If the MachineMatchType is \"tag\", the values will match all of the machines that have all of the tag values.",
+
   "a-MachineNameMatchExpression-label": "Machine Name Match Expression",
+  "f-Cluster_DynamicServers-a-MachineNameMatchExpression-help": "The expression is used when determining machines to use for server assignments. If null, then all machines in the domain are used. If a expression is provided, then only the machines in the domain that match the expression will be used when assigning machine names to dynamic servers. The expression is a comma separated set of values that specify the machines to match. Each value will either match a machine name exactly or if specified with a trailing '*' suffix, the value will match multiple machine names.",
+
   "a-MagicThreadDumpBackToSocket-label": "Magic Thread Dump Back To Socket",
   "a-MagicThreadDumpEnabled-label": "Magic Thread Dump Enabled",
   "a-MagicThreadDumpFile-label": "Magic Thread Dump File",
@@ -3380,6 +3490,7 @@
   "a-MaxConsecutiveCharacters-help": "Specifies the maximum number of repeating consecutive characters that is allowed in the password. A value of 0 means no restriction. For example, with a value of 2, user can not create a password such as \"baaag\". Valid value for this attribute must be greater than or equal to 0.",
 
   "a-MaxDynamicClusterSize-label": "Max Dynamic Cluster Size",
+  "f-CXluster_DynamicServers-a-MaxDynamicClusterSize-help": "Specifies the upper bound on the DynamicClusterSize that the Elasticity Framework is allowed to assign to DynamicClusterSize.",
 
   "a-MaxEncryptBits-label": "Max Encrypt Bits",
   "f-WTCServer_WTCLocalTuxDom-a-MaxEncryptBits-help": "The maximum encryption key length (in bits) this local Tuxedo access point uses when establishing a session connection. A value of 0 indicates no encryption is used.",
@@ -3430,10 +3541,10 @@
   "f-WebAppContainer-a-MaxRequestParameterCount-help": "The maximum request parameter count this server allows for reading maximum HTTP POST parameters count in a servlet request. Gets the maxRequestParameterCount attribute of the WebServerMBean object.",
 
   "a-MaxResourceRequestsOnServer-label": "Max Resource Requests On Server",
-  "f-JTA-a-MaxResourceRequestsOnServer-help": "Maximum number of concurrent requests to resources allowed for each server.",
+  "a-MaxResourceRequestsOnServer-help": "Maximum number of concurrent requests to resources allowed for each server.",
 
   "a-MaxResourceUnavailableMillis-label": "Max Resource Unavailable Milliseconds",
-  "f-JTA-a-MaxResourceUnavailableMillis-help": "Maximum duration time, in milliseconds, that a resource is declared dead. After the duration, the resource is declared available again, even if the resource provider does not explicitly re-register the resource.",
+  "a-MaxResourceUnavailableMillis-help": "Maximum duration time, in milliseconds, that a resource is declared dead. After the duration, the resource is declared available again, even if the resource provider does not explicitly re-register the resource.",
 
   "a-MaxRestartAllowed-label": "Max Restart Allowed",
   "a-MaxRestartAllowedInterval-label": "Max Restart Allowed Interval",
@@ -3444,7 +3555,7 @@
   "f-WTCServer_WTCRemoteTuxDom-a-MaxRetries-help": "The maximum encryption key length (in bits) this remote Tuxedo access point uses when establishing a session connection. A value of 0 indicates no encryption is used. Note that when the ConnectionPolicy value is LOCAL, the MaxRetries value from the local Tuxedo access point is used. When the ConnectionPolicy value is ON_STARTUP, a value of -1 indicates 9223372036854775807.",
 
   "a-MaxRetrySecondsBeforeDeterminerFail-label": "Max Retry Seconds Before Determiner Fail",
-  "f-JTA-a-MaxRetrySecondsBeforeDeterminerFail-help": "The maximum amount of time, in seconds, WebLogic Server waits for the determiner to recover from a failure. If the determiner does not recover after this period, WebLogic Server sets the TLog health state to HEALTH_FAILED.",
+  "a-MaxRetrySecondsBeforeDeterminerFail-help": "The maximum amount of time, in seconds, WebLogic Server waits for the determiner to recover from a failure. If the determiner does not recover after this period, WebLogic Server sets the TLog health state to HEALTH_FAILED.",
 
   "a-MaxRetrySecondsBeforeTlogFail-label": "Max Retry Seconds Before TLOG Fail",
   "a-MaxRetrySecondsBeforeTxException-label": "Max Retry Seconds Before Tx Exception",
@@ -3454,7 +3565,10 @@
   "f-any_ActiveDirectoryAuthenticator-a-MaxSIDToGroupLookupsInCache-help": "The maximum size of the LRU cache for holding SID to group lookups if caching of SID to group name mappings is enabled and if the tokenGroups group membership lookup is enabled. The default value is 500.",
 
   "a-MaxSecondarySelectionAttempts-label": "Max Secondary Selection Attempts",
+  "f-Cluster-a-MaxSecondarySelectionAttempts-help": "Specifies the max number of attempts at choosing a suitable secondary server for replication. If it is set to 0,secondary server selection for replication will be tried on all servers in the cluster.",
+
   "a-MaxServerCountForHttpPing-label": "Max Server Count For HTTP Ping",
+  "f-Cluster-a-MaxServerCountForHttpPing-help": "Set the number of HTTP pings to execute before declaring a server unreachable. This comes into effect only when MaxServerCountForHTTPPing is > 0.",
 
   "a-MaxSingleHeaderSize-label": "Max Single Header Size",
   "f-WebAppContainer-a-MaxSingleHeaderSize-help": "The maximum size of a single header (name and value) this server allows in a servlet request. A value less than 0 indicates an unlimited size.",
@@ -3466,6 +3580,7 @@
 
   "a-MaxStuckThreadTime-label": "Max Stuck Thread Time",
   "f-SelfTuning_WorkManager_WorkManagerShutdownTrigger-a-MaxStuckThreadTime-help": "Time in seconds after which a executing thread is marked as stuck.",
+  "f-Cluster_OverloadProtection_ServerFailureTrigger-a-MaxStuckThreadTime-help": "The number of seconds that a thread must be continually working on a single request before this server diagnoses the thread as being stuck.",
 
   "a-MaxT3MessageSize-label": "Max T3 Message Size",
   "a-MaxThreadDumpCount-label": "Max Thread Dump Count",
@@ -3477,13 +3592,13 @@
   "f-WebAppContainer-a-MaxTotalHeadersSize-help": "The maximum total headers size this server allows for reading HTTP headers in a servlet request. A value less than 0 indicates an unlimited size.",
 
   "a-MaxTransactions-label": "Max Transactions",
-  "f-JTA-a-MaxTransactions-help": "The maximum number of simultaneous in-progress transactions allowed on a server in this WebLogic Server domain.",
+  "a-MaxTransactions-help": "The maximum number of simultaneous in-progress transactions allowed on a server in this WebLogic Server domain.",
 
   "a-MaxTransactionsHealthIntervalMillis-label": "Max Transactions Health Interval Millis",
-  "f-JTA-a-MaxTransactionsHealthIntervalMillis-help": "The time interval, in milliseconds, for which the transaction map must be full for the JTA subsystem to declare its health as CRITICAL.",
+  "a-MaxTransactionsHealthIntervalMillis-help": "The time interval, in milliseconds, for which the transaction map must be full for the JTA subsystem to declare its health as CRITICAL.",
 
   "a-MaxUniqueNameStatistics-label": "Max Unique Name Statistics",
-  "f-JTA-a-MaxUniqueNameStatistics-help": "The maximum number of unique transaction names for which statistics are maintained. The first 1001 unique transaction names are maintained as their own transaction name and stored in each statistic. After the 1001st transaction name is reached, the transaction name is stored as weblogic.transaction.statistics.namedOverflow, and the transaction statistic is also merged and maintained in weblogic.transaction.statistics.namedOverflow. A transaction name typically represents a category of business transactions, such as \"funds-transfer.\"",
+  "a-MaxUniqueNameStatistics-help": "The maximum number of unique transaction names for which statistics are maintained. The first 1001 unique transaction names are maintained as their own transaction name and stored in each statistic. After the 1001st transaction name is reached, the transaction name is stored as weblogic.transaction.statistics.namedOverflow, and the transaction statistic is also merged and maintained in weblogic.transaction.statistics.namedOverflow. A transaction name typically represents a category of business transactions, such as \"funds-transfer.\"",
 
   "a-MaxWebLogicPrincipalsInCache-label": "Max WebLogic Principals In Cache",
   "f-any_Realm-a-MaxWebLogicPrincipalsInCache-help": "The maximum size of the LRU cache for holding WebLogic Principal signatures. This value is only used if EnableWebLogicPrincipalValidatorCache is set to true",
@@ -3492,7 +3607,7 @@
   "f-FileStore-a-MaxWindowBufferSize-help": "The maximum amount of data, in bytes and rounded down to the nearest power of 2, mapped into the JVM's address space per primary store file. Applies to synchronous write policies Direct-Write-With-Cache and Disabled but only when the native wlfileio library is loaded. A window buffer does not consume Java heap memory, but does consume off-heap (native) memory. If the store is unable to allocate the requested buffer size, it allocates smaller and smaller buffers until it reaches MinWindowBufferSize, and then fails if cannot honor MinWindowBufferSize.",
 
   "a-MaxXACallMillis-label": "Max XA Call Milliseconds",
-  "f-JTA-a-MaxXACallMillis-help": "Maximum allowed time duration, in milliseconds, for XA calls to resources. If a particular XA call to a resource exceeds the limit, the resource is declared unavailable.",
+  "a-MaxXACallMillis-help": "Maximum allowed time duration, in milliseconds, for XA calls to resources. If a particular XA call to a resource exceeds the limit, the resource is declared unavailable.",
 
   "a-MaximumDynamicServerCount-label": "Maximum Dynamic Server Count",
 
@@ -3509,8 +3624,14 @@
   "f-JoltConnectionPool-a-MaximumPoolSize-help": "The maximum number of connections that can be made from this Jolt connection pool.",
 
   "a-MemberDeathDetectorEnabled-label": "Member Death Detector Enabled",
+  "f-Cluster-a-MemberDeathDetectorEnabled-help": "Enables faster Automatic Service Migration times with Database Leasing Basis.",
+
   "a-MemberDiscoveryTimeout-label": "Member Discovery Timeout",
+  "f-Cluster_DatabaseLessLeasingBasis-help": "Specifies the amount of time, in seconds, a server waits during or after startup to discover members that belong to the same cluster. This information is used to join or form a new cluster. The default value is 30.",
+
   "a-MemberWarmupTimeoutSeconds-label": "Member Warmup Timeout Seconds",
+  "f-Cluster-a-MemberWarmupTimeoutSeconds-help": "Maximum number of seconds that a cluster member will wait to discover and synchronize with other servers in the cluster. Normally, the member will be able to sync in 30 seconds. If the value of this attribute is higher, that does not necessarily mean that it will take longer for the member to warmup. Instead it defines an upper bound on the time that a server will wait to sync with the servers that it has discovered. If the value is set 0, servers will not attempt to discover other running server in the cluster during server initialization.",
+
   "a-MemoryBufferFilter-label": "Memory Buffer Filter",
   "a-MemoryBufferSeverity-label": "Memory Buffer Severity",
   "a-MemoryBufferSize-label": "Memory Buffer Size",
@@ -3528,7 +3649,9 @@
   "f-SAFAgent-a-MessageCompressionOptions-help": "Specifies the type of message compression used when JMS message body compression is enabled for Persistent Stores and JMS Paging Stores.",
 
   "a-MessageCompressionOptionsOverride-label": "Message Compression Options Override",
+
   "a-MessageDeliveryTimeout-label": "Message Delivery Timeout",
+  "f-Cluster_DatabaseLessLeasingBasis-a-MessageDeliveryTimeout-help": "Sets the message delivery timeout value in milliseconds that a server waits to get a response from the remote peer before taking recovery actions. The default value is 5000.",
 
   "a-MessageFormat-label": "Message Format",
   "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceLoggingParams-a-MessageFormat-help": "The Coherence logs message format.",
@@ -3545,9 +3668,10 @@
   "a-MessageLoggingFormat-help": "Defines which information about the message is logged. When specifying multiple values, enter them as a comma-separated list. The %header% and %properies% values are not case sensitive. For example, you could use \"%header%,%properties%\" for all the JMS header fields and user properties. However, the enumeration of individual JMS header fields and user-defined properties are case sensitive. To enumerate only individual JMS header fields you could use \"%header, name, address, city, state, zip\". Note: The JMSMessageID field is always logged and cannot be turned off. Therefore, if the Message Logging Format is not defined (i.e., null) or is defined as an empty string, then the output to the log file contains only the JMSMessageID of the message. Gets the message-logging-format element.",
 
   "a-MessageOrderingEnabled-label": "Message Ordering Enabled",
+  "f-Cluster-a-MessageOrderingEnabled-help": "Forces unicast messages to be processed in order. There are scenarios where JMS may update JNDI very frequently. It will result in a lot of messages over unicast. Due to the close proximity of messages the probability of out of order handling of messages increases which would trigger frequent state dumps. Frequent JNDI tree refresh may result in NameNotFoundException. Use this property to prevent out of order handling of messages.",
 
   "a-MessageSubstring-label": "Message Substring",
-  "f-any_SNMPLogFilter-a-MessageSubstring-help":           "A string that is searched for in the message text. Only messages that contain the string are selected. If a string is not specified, all messages are selected.",
+  "f-any_SNMPLogFilter-a-MessageSubstring-help": "A string that is searched for in the message text. Only messages that contain the string are selected. If a string is not specified, all messages are selected.",
 
   "a-MessagesHigh-label": "Messages High",
   "a-MessagesHigh-help": "The upper threshold (total number of messages in this destination) that triggers logging or flow control events. The value of java.lang.Long.MAX_VALUE disables logging and flow control events for the destination.",
@@ -3596,9 +3720,10 @@
   "a-MibDataRefreshInterval-label": "MIB Data Refresh Interval",
 
   "a-MigrationBasis-label": "Migration Basis",
+  "f-Cluster-a-MigrationBasis-help": "Controls the mechanism used for server and service migration.",
 
   "a-MigrationCheckpointIntervalSeconds-label": "Migration Checkpoint Interval Seconds",
-  "f-JTA-a-MigrationCheckpointIntervalSeconds-help": "The time interval, in seconds, that the checkpoint is done for the migrated transaction logs (TLOGs).",
+  "a-MigrationCheckpointIntervalSeconds-help": "The time interval, in seconds, that the checkpoint is done for the migrated transaction logs (TLOGs).",
 
   "a-MigrationPolicy-label": "Migration Policy",
   "f-FileStore-a-MigrationPolicy-help": "Controls migration and restart behavior of cluster-targeted JMS service artifact instances. When this setting is configured on a cluster-targeted store, it applies to all JMS artifacts that reference the store. See the migratable target settings for enabling migration and restart on migratable-targeted JMS artifacts.",
@@ -3609,6 +3734,7 @@
   "f-SingletonService-a-MillisToSleepBetweenAttempts-help": "Controls how long of a pause there should be between the migration attempts described in getAdditionalMigrationAttempts(). Note that this delay only happens when the service has failed to come up on every server. It does not cause any sort of delay between attempts to migrate otherwise.",
 
   "a-MillisToSleepBetweenAutoMigrationAttempts-label": "Milliseconds To Sleep Between Auto Migration Attempts",
+  "f-Cluster-a-MillisToSleepBetweenAutoMigrationAttempts-help": "Controls how long of a pause there should be between the migration attempts described in AdditionalAutoMigrationAttempts. Note that this delay only happens when the server has failed to come up on every machine.",
 
   "a-MimeMappingFile-label": "Mime Mapping File",
   "f-WebAppContainer-a-MimeMappingFile-help": "The name of the file containing mime-mappings for the domain. The format of the file should be: extension=mime-type.",
@@ -3620,6 +3746,7 @@
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-MinCapacity-help": "The minimum number of physical connections that this connection pool can contain after it is initialized.",
 
   "a-MinDynamicClusterSize-label": "Min Dynamic Cluster Size",
+  "f-Cluster_DynamicServers-a-MinDynamicClusterSize-help": "Specifies the minimum number of running server instances that the Elasticity Framework will attempt to keep in the dynamic cluster.",
 
   "a-MinEncryptBits-label": "Min Encrypt Bits",
   "f-WTCServer_WTCLocalTuxDom-a-MinEncryptBits-help": "The minimum encryption key length (in bits) this local Tuxedo access point uses when establishing a session connection. A value of 0 indicates no encryption is used.",
@@ -3691,12 +3818,17 @@
   "a-MultiVersionApp-label": "Multi Version App",
 
   "a-MulticastAddress-label": "Multicast Address",
+  "f-Cluster-a-MulticastAddress-help": "The multicast address used by cluster members to communicate with each other. The valid range is from from 224.0.0.0 to 239.255.255.255. The default value used by WebLogic Server is 239.192.0.0. You should avoid using multicast addresses in the range x.0.0.1. This address should be unique to this cluster and should not be shared by other applications.",
+
   "f-JMSSystemResource_JmsResource_Template_Multicast-a-MulticastAddress-help": "The IP address that a topic using this template uses to transmit messages to multicast consumers.",
   "f-JMSSystemResource_JmsResource_Topic_Multicast-a-MulticastAddress-help": "The IP address that this topic uses to transmit messages to multicast consumers.",
   "f-JMSSystemResource_JmsResource_UniformDistributedTopic_Multicast-a-MulticastAddress-help": "The IP address that this topic uses to transmit messages to multicast consumers.",
 
   "a-MulticastBufferSize-label": "Multicast Buffer Size",
+  "f-Cluster-a-MulticastBufferSize-help": "Specifies the multicast socket send/receive buffer size in kilobytes. The minimum and default values are 64.",
+
   "a-MulticastDataEncryption-label": "Multicast Data Encryption",
+  "f-Cluster-a-MulticastDataEncryption-help": "Enables multicast data to be encrypted. Only the multicast data is encrypted. Multicast header information is not encrypted.",
 
   "a-MulticastListenAddress-label": "Multicast Listen Address",
   "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceClusterParams-a-MulticastListenAddress-help": "The IP address for the cluster multicast listener.",
@@ -3711,9 +3843,13 @@
   "f-JMSSystemResource_JmsResource_Template_Multicast-a-MulticastPort-help": "The IP port that this topic using this template uses to transmit messages to multicast consumers.",
   "f-JMSSystemResource_JmsResource_Topic_Multicast-a-MulticastPort-help": "The IP port that this topic uses to transmit messages to multicast consumers.",
   "f-JMSSystemResource_JmsResource_UniformDistributedTopic_Multicast-a-MulticastPort-help": "The IP port that this topic uses to transmit messages to multicast consumers.",
+  "f-Cluster-a-MulticastPort-help": "Specifies the multicast port (between 1 and 65535) used by cluster members to communicate with each other. The default value is 7001.",
 
   "a-MulticastSendDelay-label": "Multicast Send Delay",
-  "a-MulticastTTL-label": "Multicast TTL",
+  "f-Cluster-a-MulticastSendDelay-help": "Defines the amount of time in milliseconds to delay sending message fragments over multicast in order to avoid OS-level buffer overflow. The default value is 3.",
+
+  "a-MulticastTTL-label": "Multicast Time-to-Live",
+  "f-Cluster-a-MulticastTTL-help": "Defines the number of network hops that a cluster multicast message is allowed to travel. The default value is 1, which restricts the cluster to one subnet.",
 
   "a-MulticastTimeToLive-label": "Multicast Time-to-Live",
   "a-MulticastTimeToLive-help": "The number of routers that a message traverses en route to a consumer. A value of 1 limits the message to one subnet (which prevents it from traversing any routers). This value is independent of the JMSExpirationTime value.",
@@ -3772,7 +3908,8 @@
   "a-NodeManagerPasswordEncrypted-label": "Node Manager Password",
   "f-SecurityConfiguration-a-NodeManagerPasswordEncrypted-help": "The password that the Administration Server uses to communicate with Node Manager when starting, stopping, or restarting Managed Servers.",
 
-  "a-NodeManagerTimeoutMillis-label": "Node Manager Timeout Millis",
+  "a-NodeManagerTimeoutMillis-label": "Node Manager Timeout Milliseconds",
+  "f-Cluster_DatabaseLessLeasingBasis-a-NodeManagerTimeoutMillis-help": "Amount of time in milliseconds to wait for a response from NodeManager. NodeManager is used to get server state and decide if a server is really dead. Note that the server automatically calculates a timeout value and this attribute is used as a upper bound. The default value is 180000.",
 
   "a-NodeManagerUsername-label": "Node Manager Username",
   "f-SecurityConfiguration-a-NodeManagerUsername-help": "The user name that the Administration Server uses to communicate with Node Manager when starting, stopping, or restarting Managed Servers.",
@@ -3818,6 +3955,8 @@
   "f-MessagingBridge-a-NumberOfRestartAttempts-help": "Specifies the maximum number of restart attempts. A value > 0 specifies the maximum number of restart attempts. A value of 0 specifies the same behavior as setting RestartInPlace to false. A value of -1 means infinite retry restart until it either starts or the server instance shuts down.",
 
   "a-NumberOfServersInClusterAddress-label": "Number Of Servers In Cluster Address",
+  "f-Cluster-a-NumberOfServersInClusterAddress-help": "Specifies the number of servers to be listed from this cluster when generating a cluster address automatically. This setting has no effect if ClusterAddress is explicitly set.",
+
   "a-OCMEnabled-label": "OCM Enabled",
   "a-OPSSSecrets-label": "OPSS Secrets",
   "a-OPSSWalletPassphrase-label": "OPSS Wallet Passphrase",
@@ -3870,7 +4009,9 @@
 
   "a-OnDemandContextPaths-label": "On Demand Context Paths",
   "a-OnDemandDisplayRefresh-label": "On Demand Display Refresh",
-  "a-OneWayRmiForReplicationEnabled-label": "One-Way Rmi For Replication Enabled",
+
+  "a-OneWayRmiForReplicationEnabled-label": "One-Way RMI For Replication Enabled",
+  "f-Cluster-a-OneWayRmiForReplicationEnabled-help": "Indicates if one-way RMI is being used for replication. One-way RMI also requires configuring replication ports on each server in the cluster.",
 
   "a-OneWaySendMode-label": "One-Way Send Mode",
   "a-OneWaySendMode-help": "Specifies whether message producers created using this connection factory are allowed to do one-way message sends to improve typical non-persistent, non-transactional messaging performance. When enabled, the associated queue senders and/or topic publishers can send messages without internally waiting for a response from the target destination's host JMS server.",
@@ -3955,6 +4096,7 @@
   "f-JMSServer-a-PagingMinWindowBufferSize-help": "The minimum amount of data, in bytes and rounded down to the nearest power of 2, mapped into the JVM's address space per paging store file. Applies only when a native wlfileio library is loaded. See Paging Maximum Window Buffer Size. If the value is changed and activated, you need to restart any servers to which the MBean is targeted before the value will take effect.",
 
   "a-PanicAction-label": "Panic Action",
+  "a-PanicAction-help": "Exit the server process when the kernel encounters a panic condition like an unhandled OOME. An unhandled OOME could lead to inconsistent state and a server restart is advisable if backed by node manager or a HA agent.",
 
   "a-ParallelConnectDelay-label": "Parallel Connect Delay",
   "a-ParallelConnectDelay-help": "Specifies the number of seconds to delay when making concurrent attempts to connect to multiple servers. If set to 0, connection attempts are serialized. An attempt is made to connect to the first server in the list. The next entry in the list is tried only if the attempt to connect to the current host fails. This might cause your application to block for unacceptably long time if a host is down. If set to greater than 0, another connection setup thread is started after this number of delay seconds has passed.",
@@ -3966,10 +4108,10 @@
   "a-ParallelDeployModules-help": "Determines if the modules of applications will be deployed in parallel.",
 
   "a-ParallelXADispatchPolicy-label": "Parallel XA Dispatch Policy",
-  "f-JTA-a-ParallelXADispatchPolicy-help": "The dispatch policy to use when performing XA operations in parallel. By default the policy of the thread coordinating the transaction is used. Note that the named execute queue must be configured on the target server.",
+  "a-ParallelXADispatchPolicy-help": "The dispatch policy to use when performing XA operations in parallel. By default the policy of the thread coordinating the transaction is used. Note that the named execute queue must be configured on the target server.",
 
   "a-ParallelXAEnabled-label": "Parallel XA Enabled",
-  "f-JTA-a-ParallelXAEnabled-help": "Specifies that XA calls are executed in parallel if there are available threads.",
+  "a-ParallelXAEnabled-help": "Specifies that XA calls are executed in parallel if there are available threads.",
 
   "a-ParamType-label": "Param Type",
   "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceClusterParams_CoherenceIdentityAsserter_CoherenceInitParam-a-ParamType-help": "The parameter type.",
@@ -4030,7 +4172,10 @@
   "a-PeerValidationEnforced-label": "Peer Validation Enforced",
   "a-PeriodLength-label": "Period Length",
   "a-PeriodicSrmCheckEnabled-label": "Periodic SRM Check Enabled",
+
   "a-PersistSessionsOnShutdown-label": "Persist Sessions On Shutdown",
+  "f-Cluster-a-PersistSessionsOnShutdown-help": "When shutting down servers, sessions are not updated. If the primary and secondary servers of a session are shut down with no session updates, the session will be lost. Turning on PersistSessionsOnShutdown will save any active sessions to the database specified in DataSourceForSessionPersistence when a server is shutdown. The sessions will not be written at any other time. (For example, they are not saved via this mechanism if there is a server crash.) This attribute is applicable both to session persistence on server shutdown or session persistence across a WAN. Rolling upgrade can potentially have a bad interaction with traditional in-memory session replication. As managed servers are shutdown and upgraded, in-memory servlet sessions will be lost if both primary and secondary are rebooted before a new request arrives for the session.",
+
   "a-PersistenceActiveDirectory-label": "Persistence Active Directory",
   "a-PersistenceBackupDirectory-label": "Persistence Backup Directory",
   "a-PersistenceDefaultMode-label": "Persistence Default Mode",
@@ -4227,6 +4372,7 @@
 
   "a-ProxyAddress-label": "Proxy Address",
   "a-ProxyPort-label": "Proxy Port",
+
   "a-ProxyServer-label": "Proxy Server",
 
   "a-ProxySwitchingCallback-label": "Proxy Switching Callback",
@@ -4241,7 +4387,7 @@
   "a-PublishedSiteUrl-label": "Published Site URL",
 
   "a-PurgeResourceFromCheckpointIntervalSeconds-label": "Purge Resource From Checkpoint Interval Seconds",
-  "f-JTA-a-PurgeResourceFromCheckpointIntervalSeconds-help": "The interval that a particular resource must be accessed within for it to be included in the checkpoint record.",
+  "a-PurgeResourceFromCheckpointIntervalSeconds-help": "The interval that a particular resource must be accessed within for it to be included in the checkpoint record.",
 
   "a-QosDegradationAllowed-label": "Quality of Service Degradation Allowed",
   "f-MessagingBridge-a-QOSDegradationAllowed-help": "Specifies if this messaging bridge instance allows the degradation of its QOS (quality of service) when the configured QOS is not available. When not enabled, if messaging bridge instance cannot satisfy the quality of service requested, an error results and the messaging bridge instance does not start.",
@@ -4266,7 +4412,9 @@
   "a-RackName-label": "Rack Name",
   "a-Realm-label": "Realm",
   "a-RealmBootStrapVersion-label": "Realm Boot Strap Version",
+
   "a-RebalanceDelayPeriods-label": "Rebalance Delay Periods",
+  "f-Cluster-a-RebalanceDelayPeriods-help": "Specifies the number of the rebalance periods to wait to rebalance cluster targeted JMS instances in an idle system (typically 10 seconds per period). Note: This setting only applies when a JMS artifact is cluster-targeted, its Rebalance Enabled is set to true, and its Migration Policy is set to On-Failure or Always. The default value is 2.",
 
   "a-RebalanceEnabled-label": "Rebalance Enabled",
   "f-FileStore-a-RebalanceEnabled-help": "If set to true, then rebalance running cluster-targeted JMS instances when the system is idle and instances are unevenly distributed. The system is considered idle when the Partial Cluster Stability Delay and Initial Boot Delay have passed, and no instances have moved plus no server status has changed within the last two system check periods (typically 10 seconds between each check). Two is the default, you can tune this higher using Rebalance Delay Periods on the Cluster bean.",
@@ -4309,7 +4457,7 @@
   "f-JDBCSystemResource_JdbcResource_JDBCXAParams-a-RecoverOnlyOnce-help": "Specifies that the transaction manager calls recover on the resource only once. Only applies to data sources that use an XA driver. Use this setting to work around specific problems with JDBC XA drivers.",
 
   "a-RecoverySiteName-label": "Recovery Site Name",
-  "f-JTA-a-RecoverySiteName-help": "The name of the site whose transactions this site/domain will recover in the event that intra-cluster transaction service migration is not successful or efficient. Deprecated in 12.2.1.4.",
+  "a-RecoverySiteName-help": "The name of the site whose transactions this site/domain will recover in the event that intra-cluster transaction service migration is not successful or efficient. Deprecated in 12.2.1.4.",
 
   "a-RecoveryThresholdMillis-label": "Recovery Threshold Millis",
 
@@ -4368,6 +4516,7 @@
   "f-SecurityConfiguration-a-RemoteAnonymousRmit3Enabled-help": "Specified whether remote anonymous RMI access via T3 is permitted. If remote anonymous RMI access is not allowed, then client requests that do not specify a username / password may fail.",
 
   "a-RemoteClusterAddress-label": "Remote Cluster Address",
+  "f-Cluster-a-RemoteClusterAddress-help": "Specifies the foreign cluster. Cluster infrastructure uses this address to connect to foreign cluster for HTTP Session WAN/MAN failover.",
 
   "a-RemoteCoherenceClusterListenPort-label": "Remote Coherence Cluster Listen Port",
   "a-RemoteCoherenceClusterListenPort-help": "The Coherence Cluster Listen Port of the remote participant.",
@@ -4417,10 +4566,16 @@
   "a-ReplicatedCacheEnabled-help": "Specifies whether the replicated cache is used or not. To support cluster, this flag must be set to true.",
 
   "a-ReplicationChannel-label": "Replication Channel",
+  "f-Cluster-a-ReplicationChannel-help": "The channel name to be used for replication traffic. Cluster infrastructure uses this channel to send updates for HTTP sessions and stateful session beans. If none is set then the default channel will be used. In order for this feature to work, the named channel must exist on all members of the cluster and must be configured to use the same protocol. It is valid for the selected channel to be configured to use a secure protocol.",
+
   "a-ReplicationGroup-label": "Replication Group",
   "a-ReplicationPorts-label": "Replication Ports",
+
   "a-ReplicationTimeoutEnabled-label": "Replication Timeout Enabled",
-  "a-ReplicationTimeoutMillis-label": "Replication Timeout Millis",
+  "f-Cluster-a-ReplicationTimeoutEnabled-help": "Specifies whether a timeout should be applied to session replication calls. The default value is true.",
+
+  "a-ReplicationTimeoutMillis-label": "Replication Timeout Milliseconds",
+  "f-Cluster-a-ReplicationTimeoutMillis-help": "Specifies the interval in milliseconds at which Migratable Servers and Cluster Masters prove their liveness via the database.",
 
   "a-ReplyQ-label": "Reply Q",
   "f-WTCServer_WTCtBridgeRedirect-a-ReplyQ-help": "The name of the JMS queue used specifically for synchronous calls to a Tuxedo service. The response is returned to the JMS ReplyQ.",
@@ -4735,6 +4890,7 @@
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-SecondsToTrustAnIdlePoolConnection-help": "The number of seconds within a connection use that WebLogic Server trusts that the connection is still viable and will skip the connection test, either before delivering it to an application or during the periodic connection testing process. This option is an optimization that minimizes the performance impact of connection testing, especially during heavy traffic.",
 
   "a-SecureClusterBroadcastEnabled-label": "Secure Cluster Broadcast Enabled",
+  "f-Cluster-a-SecureClusterBroadcastEnabled-help": "Servers in a cluster broadcast messages to each other using either unicast or multicast. If a broadcast channel is defined then cluster members broadcast messages using the named Network Access Point (NAP). If no broadcast channel is defined and secured cluster broadcast is enabled then messages will be sent over SSL using the default secured channel. However, this added security for broadcasting cluster messages comes with a significant cluster performance degradation. It should only be enabled if security is of greater concern than performance degradation. If secure cluster broadcast is not enabled then messages will be sent using the default channel.\n\nThe default value for this attribute is true if all cluster members have SSL enabled, and either secure mode is enabled. Otherwise, the default is false.",
 
   "a-SecureListener-label": "Secure Listener",
   "f-NMProperties-a-SecureListener-help": "If set to true, use the SSL listener, otherwise use the plain socket.",
@@ -4743,6 +4899,7 @@
   "f-any_SecureMode-a-SecureModeEnabled-help": "Specifies whether the domain will run in secure mode. In secure mode, the configuration defaults are those recommended for securing a domain. The authorization policies for JNDI and MBean access are more restrictive in secure mode. In addition, WLS will validate the domain configuration and log warnings and errors for any insecure settings. Secure mode requires the domain to be in production mode.",
 
   "a-SecureReplicationEnabled-label": "Secure Replication Enabled",
+  "f-Cluster-a-SecureReplicationEnabled-help": "Servers in a cluster replicate session data. If a replication channel is defined then the session data will be sent using the replication channel protocol and secured replication settings will be ignored. If no replication channel is defined and secured replication is enabled then session data for in-memory replication will be sent over SSL using the default secured channel. However, this added security for replication traffic comes with a significant cluster performance degradation. It should only be enabled if security is of greater concern than performance degradation. The default value for this attribute is true if all cluster members have SSL enabled, and either secure mode is enabled or no plaintext replication channel is available. Otherwise, the default is false.",
 
   "a-SecuredProduction-label": "Secured Production",
   "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceClusterParams-a-SecuredProduction-help": "Specify whether secured production mode is enabled. When it is not set, Coherence inherits the Secured Production Mode from WebLogic. Once Coherence Secured Production Mode is specified (Yes or No), then Coherence will no longer inherit the mode from WebLogic.",
@@ -4763,7 +4920,7 @@
   "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceClusterParams-a-SecurityFrameworkEnabled-help": "Control the use of the Coherence security framework.",
 
   "a-SecurityInteropMode-label": "Security Interop Mode",
-  "f-JTA-a-SecurityInteropMode-help": "Specifies the security mode of the communication channel used for XA calls between servers that participate in a global transaction. All server instances in a domain must have the same security mode setting. In default mode, the transaction coordinator makes calls using the kernel identity over an admin channel if it is enabled, and anonymous otherwise. Man-in-the-middle attacks are possible if the admin channel is not enabled. In performance mode, the transaction coordinator makes calls using anonymous at all times. This implies a security risk since a malicious third party could then try to affect the outcome of transactions using a man-in-the-middle attack.",
+  "a-SecurityInteropMode-help": "Specifies the security mode of the communication channel used for XA calls between servers that participate in a global transaction. All server instances in a domain must have the same security mode setting. In default mode, the transaction coordinator makes calls using the kernel identity over an admin channel if it is enabled, and anonymous otherwise. Man-in-the-middle attacks are possible if the admin channel is not enabled. In performance mode, the transaction coordinator makes calls using anonymous at all times. This implies a security risk since a malicious third party could then try to affect the outcome of transactions using a man-in-the-middle attack.",
 
   "a-SecurityLevel-label": "Security Level",
   "f-any_SNMPProxy-a-SecurityLevel-help": "The security level that the proxied SNMP agent expects for the specified security name.",
@@ -4798,7 +4955,7 @@
   "f-AllowList-a-SerialPropFilePollingInterval-help": "Specifies the polling interval, in seconds, for finding the serial properties file in the filesystem.",
 
   "a-SerializeEnlistmentsGCIntervalMillis-label": "Serialize Enlistments GC Interval Milliseconds",
-  "f-JTA-a-SerializeEnlistmentsGCIntervalMillis-help": "The time interval, in milliseconds, at which internal objects used to serialize resource enlistment are cleaned up.",
+  "a-SerializeEnlistmentsGCIntervalMillis-help": "The time interval, in milliseconds, at which internal objects used to serialize resource enlistment are cleaned up.",
 
   "a-Server-label": "Server",
 
@@ -4827,8 +4984,12 @@
   "a-ServerLoggingBridgeUseParentLoggersEnabled-label": "Server Logging Bridge Use Parent Loggers Enabled",
   "a-ServerMigrationHistorySize-label": "Server Migration History Size",
   "a-ServerName-label": "Server Name",
+
   "a-ServerNamePrefix-label": "Server Name Prefix",
+  "f-Cluster_DynamicServers-a-ServerNamePrefix-help": "The server name prefix is used to specify the naming convention when creating server names. When the server name prefix is defined, server names are calculated with the specified prefix followed by the index starting with the value specified by ServerNameStartingIndex.",
+
   "a-ServerNameStartingIndex-label": "Server Name Starting Index",
+  "f-Cluster_DynamicServers-a-ServerNameStartingIndex-help": "Specifies the starting index to use in server names. Server names are calculated with the prefix specified in ServerNamePrefix followed by an index starting with the value specified in this attribute.",
 
   "a-ServerNotAvailableCounterInterval-label": "Server Not Available Counter Interval",
   "a-ServerNotAvailableCounterInterval-help": "Specifies the interval, in seconds, that the count of authentication failures caused by the Oracle Identity Cloud Service not being available are logged to the server log. Setting to zero (0) or negative value turns off the logging of the count. The default value is 300.",
@@ -4837,11 +4998,19 @@
   "a-ServerPrivateKeyPassPhraseEncrypted-label": "Server Private Key Passphrase Encrypted",
   "a-ServerStartMode-label": "Server Start Mode",
   "a-ServerStatusCheckIntervalFactor-label": "Server Status Check Interval Factor",
+
   "a-ServerTemplate-label": "Server Template",
+  "f-Cluster_DynamicServers-a-ServerTemplate-help": "The server template used to create dynamic servers.",
+
   "a-ServerVersion-label": "Server Version",
   "a-Servers-label": "Servers",
+
   "a-ServiceActivationRequestResponseTimeout-label": "Service Activation Request Response Timeout",
+  "f-Cluster-a-ServiceActivationRequestResponseTimeout-help": "Specifies the maximum time, in milliseconds seconds, for services to wait for response from cluster members.",
+
   "a-ServiceAgeThresholdSeconds-label": "Service Age Threshold Seconds",
+  "f-Cluster-a-ServiceAgeThresholdSeconds-help": "Defines the number of seconds by which the age of two conflicting services must differ before one is considered older than the other. The default value is 180.",
+
   "a-ServiceMigrationHistorySize-label": "Service Migration History Size",
   "a-ServiceProviderArtifactBindingEnabled-label": "Service Provider Artifact Binding Enabled",
   "a-ServiceProviderEnabled-label": "Service Provider Enabled",
@@ -4861,15 +5030,24 @@
   "f-WebAppContainer-a-ServletReloadCheckSecs-help": "Controls how often WebLogic Server checks for modifications to servlets and reloads them if changes are detected.",
 
   "a-SessionFlushInterval-label": "Session Flush Interval",
+  "f-Cluster-a-SessionFlushInterval-help": "Defines the interval in seconds until HTTP Sessions are periodically flushed to the backup cluster to dump session state on disk.",
+
   "a-SessionFlushThreshold-label": "Session Flush Threshold",
+  "f-Cluster-a-SessionFlushThreshold-help": "When number of sessions to be flushed reaches this threshold limit, sessions will be flushed to the backup cluster before the flush interval. This helps the server to flush sessions faster under load. The default value is 10000.",
+
   "a-SessionLazyDeserializationEnabled-label": "Session Lazy Deserialization Enabled",
+  "f-Cluster-a-SessionLazyDeserializationEnabled-help": "Enables increased efficiency with session replication by not deserializing the secondary copy of the session until it is needed.",
 
   "a-SessionPasswordEncrypted-label": "Session Password",
   "f-MailSession-a-SessionPasswordEncrypted-help": "The JavaMail Session password attribute.",
 
   "a-SessionReplicationOnShutdownEnabled-label": "Session Replication On Shutdown Enabled",
+
   "a-SessionStateQueryProtocolEnabled-label": "Session State Query Protocol Enabled",
+  "f-Cluster-a-SessionStateQueryProtocolEnabled-help": "Indicates if session state query protocol is enabled. The Session State Query protocol will query the local cluster for the location of a session state instance if a request arrives at a server that is neither the primary or secondary server.",
+
   "a-SessionStateQueryRequestTimeout-label": "Session State Query Request Timeout",
+  "f-Cluster-a-SessionStateQueryRequestTimeout-help": "Specifies the maximum time, in seconds, for session state query request to wait for response from cluster members.",
 
   "a-SessionTimeout-label": "Session Timeout",
   "f-AdminConsole-a-SessionTimeout-help": "Specifies the Session Timeout value (in seconds) for Administration Console.",
@@ -4894,6 +5072,8 @@
   "f-JMSSystemResource_JmsResource_Quota-a-Shared-help": "Indicates whether this quota is shared by multiple destinations that refer to it. If Shared is enabled (the default), all destinations referring to the quota object compete for resources the resources defined by that object. If one destination consumes a large number of messages or bytes, then this will prevent other destinations from obtaining quota. If Shared is disabled, the quota object behaves as a template. Each destination referring to the quota object gets its own internal instance of the object for tracking quota. Destinations within the same JMS module may share quotas in any way they want. However, quota sharing only takes place for destinations within the same JMS server. In other words, if destinations X and Y both share the same quota Q, and the quota Q has Shared enabled, then X and Y will only share quota if both are deployed to the same JMS server.",
 
   "a-SharedCapacityForWorkManagers-label": "Shared Capacity For Work Managers",
+  "a-SharedCapacityForWorkManagers-help": "Total number of requests that can be present in the server. This includes requests that are enqueued and those under execution. The server performs a differentiated denial of service on reaching the shared capacity. A request with higher priority will be accepted in place of a lower priority request already in the queue. The lower priority request is kept waiting in the queue till all high priority requests are executed. Further enqueues of the low priority requests are rejected right away.",
+
   "a-SharedCapacityPercent-label": "Shared Capacity Percent",
   "a-ShellCommand-label": "Shell Command",
 
@@ -4913,7 +5093,7 @@
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-ShrinkSpareCapacityPercent-help": "Specifies the number of additional number of connections to maintain above the current connection usage or the running average when shrinking. For example, a value of 20 indicates that the pool will not shrink lower than the current usage or running average plus 20%.",
 
   "a-ShutdownGracePeriod-label": "Shutdown Grace Period",
-  "f-JTA-a-ShutdownGracePeriod-help": "Specifies how long the server should wait for active transactions to complete before allowing shutdown.",
+  "a-ShutdownGracePeriod-help": "Specifies how long the server should wait for active transactions to complete before allowing shutdown.",
 
   "a-SignAuthnRequests-label": "Sign Authn Requests",
 
@@ -4930,11 +5110,19 @@
   "f-any_CertificateManagement-a-SinglePurposeCertificatesEnabled-help": "Whether the Domain Certificates Issuer should generate separate, single-purpose certificates for different purposes (server authentication, client authentication, signing and encryption), or generate one certificate that supports all those purposes.",
 
   "a-SingleSignonDisabled-label": "Single Signon Disabled",
+
   "a-SingletonSQLQueryHelper-label": "Singleton SQL Query Helper",
+  "f-Cluster-a-SingletonSQLQueryHelper-help": "The Singleton Services uses certain SQL commands to talk to the database. By default, the commands are obtained from a WebLogic-supplied implementation of weblogic.cluster.singleton.QueryHelper. If the database is not supported, or the SQL needs to be more optimized or altered for a particular use case, one can change the class used by setting this variable. The classname provided will be loaded at boot time, and used to execute the various SQL queries.",
+
   "a-SingletonServiceRequestTimeout-label": "Singleton Service Request Timeout",
-  "a-SitConfigPollingInterval-label": "Sit Config Polling Interval",
-  "a-SitConfigRequired-label": "Sit Config Required",
+  "f-Cluster-a-SingletonServiceRequestTimeout-help": "Specifies the maximum time, in milliseconds, for service activation requests will wait for response from cluster members. A value of 0 means that the request will wait indefinitely to complete. The default value is 30000.",
+
+  "a-SitConfigPollingInterval-label": "Situational Config Polling Interval",
+  "a-SitConfigRequired-label": "Situational Config Required",
+
   "a-SiteName-label": "Site Name",
+  "f-Cluster-a-SiteName-help": "Specifies the name of the site with which this cluster is associated.",
+
   "a-SlaveDeployer-label": "Slave Deployer",
 
   "a-SnapshotDirectory-label": "Snapshot Directory",
@@ -5065,6 +5253,7 @@
 
   "a-StuckThreadCount-label": "Stuck Thread Count",
   "f-SelfTuning_WorkManager_WorkManagerShutdownTrigger-a-StuckThreadCount-help": "Number of stuck threads after which the WorkManager is shutdown.",
+  "f-Cluster_OverloadProtection_ServerFailureTrigger-a-StuckThreadCount-help": "The number of stuck threads after which the server is transitioned into FAILED state. There are options in OverloadProtectionMBean to suspend and shutdown a FAILED server. By default, the server continues to run in FAILED state. If the StuckThreadCount value is set to zero then the server never transitions into FAILED server irrespective of the number of stuck threads.",
 
   "a-StuckThreadDiagnosticImageNotificationEnabled-label": "Stuck Thread Diagnostic Image Notification Enabled",
   "a-StuckThreadMaxTime-label": "Stuck Thread Max Time",
@@ -5248,7 +5437,7 @@
   "f-any_SNMPGaugeMonitor-a-ThresholdLow-help": "The low threshold at which a notification should be generated. A notification is generated the first time the monitored value is less than or equal to this value. Subsequent crossings of the low threshold value do not cause additional notifications unless the attribute value becomes equal to or greater than the high threshold value.",
 
   "a-TightlyCoupledTransactionsEnabled-label": "Tightly-Coupled Transactions Enabled",
-  "f-JTA-a-TightlyCoupledTransactionsEnabled-help": "Specifies whether tight coupling of transaction branches that span different transaction manager systems are enabled. When enabled, WebLogic uses the transaction identifier of a transaction imported by the InterposedTransactionManager for XA calls rather than an internally mapped Xid. This applies to inter-domain WebLogic transactions and transactions imported from Tuxedo. This allows for tight coupling of transaction branches for transactions that span across different transaction manager systems. If a transaction between WebLogic and Tuxedo resources uses a GridLink Data Source with GridLink Affinity enabled, the XA Affinity context is automatically used for the transaction.",
+  "a-TightlyCoupledTransactionsEnabled-help": "Specifies whether tight coupling of transaction branches that span different transaction manager systems are enabled. When enabled, WebLogic uses the transaction identifier of a transaction imported by the InterposedTransactionManager for XA calls rather than an internally mapped Xid. This applies to inter-domain WebLogic transactions and transactions imported from Tuxedo. This allows for tight coupling of transaction branches for transactions that span across different transaction manager systems. If a transaction between WebLogic and Tuxedo resources uses a GridLink Data Source with GridLink Affinity enabled, the XA Affinity context is automatically used for the transaction.",
 
   "a-TimeToDeliver-label": "Time To Deliver",
   "a-TimeToDeliver-help": "The default delay, either in milliseconds or as a schedule, between when a message is produced and when it is made visible on its target destination, regardless of the delivery time specified by the producer and/or connection factory. The default value (-1) specifies that the destination will not override the TimeToDeliver setting specified by the producer and/or connection factory. The TimeToDeliver override can be specified either as a long or as a schedule.",
@@ -5286,13 +5475,13 @@
   "a-TimeoutConnectionWithPendingResponses-label": "Timeout Connection With Pending Responses",
 
   "a-TimeoutSeconds-label": "Timeout Seconds",
-  "f-JTA-a-TimeoutSeconds-help": "Specifies the maximum amount of time, in seconds, an active transaction is allowed to be in the first phase of a two-phase commit transaction. If the specified amount of time expires, the transaction is automatically rolled back.",
+  "a-TimeoutSeconds-help": "Specifies the maximum amount of time, in seconds, an active transaction is allowed to be in the first phase of a two-phase commit transaction. If the specified amount of time expires, the transaction is automatically rolled back.",
 
   "a-Timezone-label": "Timezone",
   "f-WLDFSystemResource_WLDFResource_WatchNotification_Watch_Schedule-a-Timezone-help": "Indicates the time zone for the schedule. Defaults to the default time zone for the local VM.",
 
   "a-TlogWriteWhenDeterminerExistsEnabled-label": "TLOG Write When Determiner Exists Enabled",
-  "f-JTA-a-TlogWriteWhenDeterminerExistsEnabled-help": "Specifies whether two-phase transaction recovery logs are written even if one or more determiners are configured.",
+  "a-TlogWriteWhenDeterminerExistsEnabled-help": "Specifies whether two-phase transaction recovery logs are written even if one or more determiners are configured.",
 
   "a-TmpPath-label": "Temporary Directory Path",
   "f-EJBContainer-a-TmpPath-help": "The temporary directory where generated files are stored by ejbc. Deprecated: All EJB compiler output is now stored in the EJBCompilerCache subdirectory of the server staging directory. This directory should not be described as \"temporary\" since removing it would cause the EJB compiler to be rerun as necessary the next time the server is restarted.",
@@ -5399,7 +5588,7 @@
   "a-TuxedoUidKw-help": "The keyword for Tuxedo UID (User ID) used in the WlsUser when using the Tuxedo migration utility tpmigldap. This keyword is only relevant if you specify LDAP as the AppKey Generator. The keyword is used to find Tuxedo UID in the user record in the embedded LDAP database.",
 
   "a-TwoPhaseEnabled-label": "Two Phase Enabled",
-  "f-JTA-a-TwoPhaseEnabled-help": "Specifies whether the two-phase commit protocol is used to coordinate transactions across two or more resource managers.",
+  "a-TwoPhaseEnabled-help": "Specifies whether the two-phase commit protocol is used to coordinate transactions across two or more resource managers.",
 
   "a-TwoWaySSLEnabled-label": "Two Way SSL Enabled",
 
@@ -5407,18 +5596,25 @@
   "f-SecurityConfiguration-a-TwoWayTLSRequiredForAdminClients-help": "Specifies whether the WebLogic Server domain should require 2 way TLS for admin clients.",
 
   "a-TxMechanism-label": "Tx Mechanism",
-  "a-TxnAffinityEnabled-label": "TXN Affinity Enabled",
+
+  "a-TxnAffinityEnabled-label": "Transaction Affinity Enabled",
+  "f-Cluster-a-TxnAffinityEnabled-help": "If enabled, a server's transaction requests go to servers in the cluster that are already participating in the global transaction.",
 
   "a-URL-label": "URL",
   "f-JDBCSystemResource_JdbcResource_JDBCDriverParams-a-URL-help": "The URL of the database to connect to. The format of the URL varies by JDBC driver. The URL is passed to the JDBC driver to create the physical database connections.",
 
   "a-URLResource-label": "URL Resource",
-  "a-UnicastDiscoveryPeriodMillis-label": "Unicast Discovery Period Millis",
+
+  "a-UnicastDiscoveryPeriodMillis-label": "Unicast Discovery Period Milliseconds",
+  "f-Cluster-a-UnicastDiscoveryPeriodMillis-help": "The time period, in milliseconds, that determines how often other members in the cluster are discovered in unicast messaging scheme. The default value is 3000.",
+
   "a-UnicastListenAddress-label": "Unicast Listen Address",
   "a-UnicastListenPort-label": "Unicast Listen Port",
   "a-UnicastPortAutoAdjust-label": "Unicast Port Auto Adjust",
   "a-UnicastPortAutoAdjustAttempts-label": "Unicast Port Auto Adjust Attempts",
+
   "a-UnicastReadTimeout-label": "Unicast Read Timeout",
+  "f-Cluster-a-UnicastReadTimeout-help": "Specifies the read timeout, in milliseconds, on a unicast connection. A timeout of zero is interpreted as an infinite timeout, that is blocking read forever. The default value is 15000.",
 
   "a-UnitOfOrderRouting-label": "Unit Of Order Routing",
   "a-UnitOfOrderRouting-help": "Determines how a distributed destination member is selected as the destination for a message that is part of a unit-of-order. Hash, indicates that a message producer computes the member destination from the hashCode of the unit-of-order. PathService indicates that the configured Path Service determines the member destination. Unit-of-Order Routing can be set programmatically with WLProducer, or administratively on the connection factory or destination. ",
@@ -5436,7 +5632,7 @@
   "a-UnlockedUsersTotalCount-label": "Unlocked Users Total Count",
 
   "a-UnregisterResourceGracePeriod-label": "Unregister Resource Grace Period",
-  "f-JTA-a-UnregisterResourceGracePeriod-help": "The amount of time, in seconds, a transaction manager waits for transactions involving the resource to complete before unregistering a resource. This grace period helps minimize the risk of abandoned transactions because of an unregistered resource, such as a JDBC data source module packaged with an application. During the specified grace period, the unregisterResource call blocks until the call returns and no new transactions are started for the associated resource. If the number of outstanding transactions for the resource goes to 0, the unregisterResource call returns immediately. At the end of the grace period, if outstanding transactions are associated with the resource, the unregisterResource call returns and a log message is written to the server on which the resource was previously registered.",
+  "a-UnregisterResourceGracePeriod-help": "The amount of time, in seconds, a transaction manager waits for transactions involving the resource to complete before unregistering a resource. This grace period helps minimize the risk of abandoned transactions because of an unregistered resource, such as a JDBC data source module packaged with an application. During the specified grace period, the unregisterResource call blocks until the call returns and no new transactions are started for the associated resource. If the number of outstanding transactions for the resource goes to 0, the unregisterResource call returns immediately. At the end of the grace period, if outstanding transactions are associated with the resource, the unregisterResource call returns and a log message is written to the server on which the resource was previously registered.",
 
   "a-Untargeted-label": "Untargeted",
   "a-Untargeted-help": "Only relevant for deployments in resource group templates. This flag, when specified as true, indicates that the application deployment must not be deployed in the referring partition.",
@@ -5486,7 +5682,7 @@
   "a-UseMemberuidForGroupSearch-help": "Specifies whether to use \"memberuid\" attribute of the group entry to lookup groups of a user instead of using the member or uniqueMember attributes to lookup groups. When this field is checked, use the GroupFromUserFilterForMemberuid field to define the group search filter",
 
   "a-UseNonSecureAddressesForDomain-label": "Use Non-Secure Addresses For Domain",
-  "f-JTA-a-UseNonSecureAddressesForDomain-help": "Specifies the domains for which non-secure protocols should be used for internal JTA communication if the servers in the domains are configured to use network channels.",
+  "a-UseNonSecureAddressesForDomain-help": "Specifies the domains for which non-secure protocols should be used for internal JTA communication if the servers in the domains are configured to use network channels.",
 
   "a-UseParentHandlers-label": "Use Parent Handlers",
 
@@ -5494,7 +5690,7 @@
   "f-JDBCSystemResource_JdbcResource_JDBCDriverParams-a-UsePasswordIndirection-help": "Specifies whether the database credentials are to be obtained from the credential mapper using the \"user\" property as the key. When true, the credentials are obtained from the credential mapper. When false, the database user name and password are obtained from the \"user\" property and Password element, respectively.",
 
   "a-UsePublicAddressesForRemoteDomain-label": "Use Public Addresses For Remote Domain",
-  "f-JTA-a-UsePublicAddressesForRemoteDomain-help": "Specifies the remote domains for which public addresses should be used if the servers in the domains are configured to use network channels for internal JTA communication.",
+  "a-UsePublicAddressesForRemoteDomain-help": "Specifies the remote domains for which public addresses should be used if the servers in the domains are configured to use network channels for internal JTA communication.",
 
   "a-UseResourceHierarchy-label": "Use Resource Hierarchy",
   "a-UseResourceHierarchy-help": "Specifies whether to enable selection of credential mappings by traversing up the resource hierarchy for each type of resource.",
@@ -5643,12 +5839,16 @@
   "f-any_DefaultIdentityAsserter-a-VirtualUserAllowed-help": "Specifies whether to authenticate WebLogic Server users accessing via identity assertion, which are not represented in the security store. If this setting is enabled, WebLogic Server users not represented in the security store, will be authenticated. Note that in addition to this attribute, Subject Component mapper classes, which are a type of user name mapper, may disallow virtual users based on the token.",
 
   "a-WANSessionPersistenceTableName-label": "WAN Session Persistence Table Name",
+  "f-Cluster-a-WANSessionPersistenceTableName-help": "Specifies the name of the table to be used for WAN session persistence. The default value is WLS_WAN_PERSISTENCE_TABLE.",
 
   "a-WAPEnabled-label": "WAP Enabled",
   "f-WebAppContainer-a-WAPEnabled-help": "Indicates whether the session ID should include JVM information. (Checking this box may be necessary when using URL rewriting with WAP devices that limit the size of the URL to 128 characters, and may also affect the use of replicated sessions in a cluster.) When this box is selected, the default size of the URL will be set at 52 characters, and it will not contain any special characters.",
 
   "a-WLDFBuiltinSystemResourceDescriptorBean-label": "WLDF Builtin System Resource Descriptor Bean",
+
   "a-WaitForAllSessionsDuringShutdown-label": "Wait For All Sessions During Shutdown",
+  "f-Cluster_DynamicServers-a-WaitForAllSessionsDuringShutdown-help": "Indicates if the Elasticity Framework should wait for all (persisted and non-persisted) HTTP sessions during inflight work handling while shutting down servers.",
+
   "a-WantArtifactRequestsSigned-label": "Want Artifact Requests Signed",
   "a-WantAssertionsSigned-label": "Want Assertions Signed",
   "a-WantAuthnRequestsSigned-label": "Want Authn Requests Signed",
@@ -5709,6 +5909,7 @@
 
   "a-WeblogicPluginEnabled-label": "WebLogic Plug-in Enabled",
   "f-WebAppContainer-a-WeblogicPluginEnabled-help": "Specifies whether or not the proprietary WL-Proxy-Client-IP header should be honored. (This is needed only when WebLogic Server plug-ins are configured.)",
+  "f-Cluster-a-WeblogicPluginEnabled-help": "Specifies if this cluster will receive requests from a proxy plug-in or HttpClusterServlet. Set this attribute to true if the cluster will receive requests from a proxy plug-in or HttpClusterServlet. A call to getRemoteAddr will return the address of the browser client from the proprietary WL-Proxy-Client-IP header instead of the Web server. Note: If you are using Oracle HTTP Server, the WebLogic Proxy Plug-In, or Oracle Traffic Director to distribute client requests to a Managed Server or a cluster, Oracle recommends setting this attribute to true.",
 
   "a-Weight-label": "Weight",
   "a-WhenToCache-label": "When To Cache",
@@ -5748,10 +5949,10 @@
   "a-WriteChunkBytes-label": "Write Chunk Bytes",
 
   "a-WsatIssuedTokenEnabled-label": "WS-AT Issued Token Enabled",
-  "f-JTA-a-WsatIssuedTokenEnabled-help": "Specifies whether to use issuedtoken to enable authentication between the WS-AT coordinator and participant.",
+  "a-WsatIssuedTokenEnabled-help": "Specifies whether to use issuedtoken to enable authentication between the WS-AT coordinator and participant.",
 
   "a-WsatTransportSecurityMode-label": "WS-AT Transport Security Mode",
-  "f-JTA-a-WsatTransportSecurityMode-help": "Specifies transport security mode required by Web Services Atomic Transaction endpoints.",
+  "a-WsatTransportSecurityMode-help": "Specifies transport security mode required by Web Services Atomic Transaction endpoints.",
 
   "a-XAConnectionFactoryEnabled-label": "XA Connection Factory Enabled",
   "f-JMSSystemResource_JmsResource_ConnectionFactory_TransactionParams-a-XAConnectionFactoryEnabled-help": "Indicates whether a XA queue or XA topic connection factory is returned, instead of a queue or topic connection factory. An XA connection factory can be used to create an XAConnection, which in turn may be used to create an XASession, which in turn may be used to obtain an XAResource for use inside a transaction manager. In addition, this attribute indicates whether or not a connection factory creates sessions that are JTA aware. If true, the associated message producers and message consumers look into the running thread for a transaction context. Otherwise, the current JTA transaction will be ignored. Note: Transacted sessions ignore the current threads transaction context in favor of their own internal transaction, regardless of the setting. This setting only affects non-transacted sessions.",

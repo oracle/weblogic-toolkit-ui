@@ -324,6 +324,50 @@ define(['knockout', 'utils/wkt-logger', 'utils/modelEdit/model-edit-helper'],
         return this._disableFieldsUsingBooleanAttribute(attributeMap, 'LockoutEnabled', true);
       };
 
+      this.clusterMigrationBasisDatabaseFields = attributeMap => {
+        const migrationBasis = attributeMap['MigrationBasis'];
+        return ko.computed(() => {
+          const basis = ModelEditHelper.getDerivedValue(migrationBasis.observable());
+          return basis !== undefined && basis !== 'database';
+        });
+      };
+
+      this.clusterMigrationBasisConsensusFields = attributeMap => {
+        const migrationBasis = attributeMap['MigrationBasis'];
+        return ko.computed(() => {
+          const basis = ModelEditHelper.getDerivedValue(migrationBasis.observable());
+          return basis !== 'consensus';
+        });
+      };
+
+      this.clusterMessagingUnicastFields = attributeMap => {
+        const clusterMessagingMode = attributeMap['ClusterMessagingMode'];
+        return ko.computed(() => {
+          const mode = ModelEditHelper.getDerivedValue(clusterMessagingMode.observable());
+          return mode !== undefined && mode !== 'unicast';
+        });
+      };
+
+      this.clusterMessagingMulticastFields = attributeMap => {
+        const clusterMessagingMode = attributeMap['ClusterMessagingMode'];
+        return ko.computed(() => {
+          const mode = ModelEditHelper.getDerivedValue(clusterMessagingMode.observable());
+          return mode !== 'multicast';
+        });
+      };
+
+      this.clusterTypeWANFields = attributeMap => {
+        const clusterType = attributeMap['ClusterType'];
+        return ko.computed(() => {
+          const type = ModelEditHelper.getDerivedValue(clusterType.observable());
+          return type !== 'wan';
+        });
+      };
+
+      this.clusterCalculatedMachineNamesFields = attributeMap => {
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'CalculatedMachineNames');
+      };
+
       this._disableFieldsUsingBooleanAttribute = (attributeMap, booleanAttributeName, enableOnUndefined = false) => {
         const fieldObservable = attributeMap[booleanAttributeName];
         return ko.computed(() => {
