@@ -5,29 +5,174 @@
       "ClusterMessagingMode": {},
       "MigrationBasis": {},
       "DefaultLoadAlgorithm": {},
-      "ClusterType": {},
-      "ClusterBroadcastChannel": {}
+      "ClusterType": {}
     },
     "attributeDetails": {
-      "DatabaseLeasingBasisConnectionRetryDelay": {
-        "validators": [
-          "range(0,)"
+      "AdditionalAutoMigrationAttempts": {
+        "validators": [ "range(-1,)" ]
+      },
+      "AsyncSessionQueueTimeout": {
+        "validators": [ "range(0,)" ]
+      },
+      "AutoMigrationTableName": {
+        "disabled": "clusterMigrationBasisDatabaseFields"
+      },
+      "AutoMigrationTableCreationDdlFile": {
+        "disabled": "clusterMigrationBasisDatabaseFields"
+      },
+      "AutoMigrationTableCreationPolicy": {
+        "disabled": "clusterMigrationBasisDatabaseFields",
+        "options": [
+          { "value": "Disabled", "labelKey": "options-disabled-label" },
+          { "value": "Always", "labelKey": "options-always-label" }
         ]
       },
-      "MemberWarmupTimeoutSeconds": {
-        "validators": [
-          "range(0,)"
+      "ClusterBroadcastChannel": {
+        "disabled": "clusterMessagingUnicastFields"
+      },
+      "ClusterMessagingMode": {
+        "options": [
+          { "value": "unicast", "labelKey": "options-unicast-label" },
+          { "value": "multicast", "labelKey": "options-multicast-label" }
         ]
+      },
+      "ClusterType": {
+        "options": [
+          { "value": "man", "labelKey": "options-man-label" },
+          { "value": "wan", "labelKey": "options-wan-label" },
+          { "value": "none", "labelKey": "options-none-label" }
+        ]
+      },
+      "ConsensusParticipants": {
+        "disabled": "clusterMigrationBasisConsensusFields"
+      },
+      "DatabaseLeasingBasisConnectionRetryCount": {
+        "disabled": "clusterMigrationBasisDatabaseFields",
+        "validators": [ "range(1,)" ]
+      },
+      "DatabaseLeasingBasisConnectionRetryDelay": {
+        "disabled": "clusterMigrationBasisDatabaseFields",
+        "validators": [ "range(0,)" ]
+      },
+      "DataSourceForAutomaticMigration": {
+        "disabled": "clusterMigrationBasisDatabaseFields",
+        "editorType": "combo",
+        "optionsMethod": "getDataSourceOptions"
+      },
+      "DefaultLoadAlgorithm": {
+        "options": [
+          { "value": "round-robin", "labelKey": "options-round-robin-label" },
+          { "value": "weight-based", "labelKey": "options-weight-based-label" },
+          { "value": "random", "labelKey": "options-random-label" },
+          { "value": "round-robin-affinity", "labelKey": "options-round-robin-affinity-label" },
+          { "value": "weight-based-affinity", "labelKey": "options-weight-based-affinity-label" },
+          { "value": "random-affinity", "labelKey": "options-random-affinity-label" }
+        ]
+      },
+      "FencingGracePeriodMillis": {
+        "validators": [ "range(0,)" ]
       },
       "FrontendHTTPPort": {
-        "validators": [
-          "port"
-        ]
+        "validators": [ "port" ]
       },
       "FrontendHTTPSPort": {
-        "validators": [
-          "port"
+        "validators": [ "port" ]
+      },
+      "GreedySessionFlushInterval": {
+        "validators": [ "range(0,)" ]
+      },
+      "HealthCheckIntervalMillis": {
+        "validators": [ "range(0,)" ]
+      },
+      "HealthCheckPeriodsUntilFencing": {
+        "validators": [ "range(2,)" ]
+      },
+      "IdlePeriodsUntilTimeout": {
+        "validators": [ "range(3,)" ]
+      },
+      "InterClusterCommLinkHealthCheckInterval": {
+        "validators": [ "range(0,)" ]
+      },
+      "MaxSecondarySelectionAttempts": {
+        "validators": [ "range(0,)" ]
+      },
+      "MaxServerCountForHttpPing": {
+        "validators": [ "range(0,)" ]
+      },
+      "MemberDeathDetectorEnabled": {
+        "disabled": "clusterMigrationBasisDatabaseFields"
+      },
+      "MemberWarmupTimeoutSeconds": {
+        "validators": [ "range(0,)" ]
+      },
+      "MigrationBasis": {
+        "options": [
+          { "value": "database", "labelKey": "options-database-label" },
+          { "value": "consensus", "labelKey": "options-consensus-label" }
         ]
+      },
+      "MillisToSleepBetweenAutoMigrationAttempts": {
+        "validators": [ "range(0,)" ]
+      },
+      "MulticastAddress": {
+        "disabled": "clusterMessagingMulticastFields"
+      },
+      "MulticastBufferSize": {
+        "disabled": "clusterMessagingMulticastFields",
+        "validators": [ "range(64,)" ]
+      },
+      "MulticastDataEncryption": {
+        "disabled": "clusterMessagingMulticastFields"
+      },
+      "MulticastPort": {
+        "disabled": "clusterMessagingMulticastFields",
+        "validators": [ "port" ]
+      },
+      "MulticastSendDelay": {
+        "disabled": "clusterMessagingMulticastFields",
+        "validators": [ "range(0,250)" ]
+      },
+      "MulticastTTL": {
+        "disabled": "clusterMessagingMulticastFields",
+        "validators": [ "range(1,255)" ]
+      },
+      "NumberOfServersInClusterAddress": {
+        "validators": [ "range(1,)" ]
+      },
+      "RebalanceDelayPeriods": {
+        "validators": [ "range(2,)" ]
+      },
+      "ReplicationTimeoutMillis": {
+        "validators": [ "range(0,)" ]
+      },
+      "ServiceActivationRequestResponseTimeout": {
+        "validators": [ "range(0,)" ]
+      },
+      "ServiceAgeThresholdSeconds": {
+        "validators": [ "range(0,65534)" ]
+      },
+      "SessionFlushInterval": {
+        "validators": [ "range(0,)" ]
+      },
+      "SessionFlushThreshold": {
+        "validators": [ "range(0,)" ]
+      },
+      "SessionStateQueryRequestTimeout": {
+        "validators": [ "range(1,)" ]
+      },
+      "SingletonServiceRequestTimeout": {
+        "validators": [ "range(0,)" ]
+      },
+      "UnicastDiscoveryPeriodMillis": {
+        "disabled": "clusterMessagingUnicastFields",
+        "validators": [ "range(1000,)" ]
+      },
+      "UnicastReadTimeout": {
+        "disabled": "clusterMessagingUnicastFields",
+        "validators": [ "range(0,)" ]
+      },
+      "WANSessionPersistenceTableName": {
+        "disabled": "clusterTypeWANFields"
       }
     },
     "sections": [
@@ -38,30 +183,32 @@
           {
             "type": "attributes",
             "attributes": [
-              "ClusterAddress",
               "DefaultLoadAlgorithm",
+              "SiteName",
+              "ClusterAddress",
               "NumberOfServersInClusterAddress",
-              "TxnAffinityEnabled",
               "ConcurrentSingletonActivationEnabled",
+              "TxnAffinityEnabled",
               "Notes"
             ]
           },
           {
-            "type": "collapsible",
+            "type": "attributesCollapsible",
             "labelKey": "advanced-label",
-            "sections": [
-              {
-                "type": "attributes",
-                "attributes": [
-                  "WeblogicPluginEnabled",
-                  "ServiceAgeThresholdSeconds",
-                  "ServiceActivationRequestResponseTimeout",
-                  "MemberWarmupTimeoutSeconds"
-                ],
-                "addRemainingAttributes": true
-              }
-            ]
+            "attributes": [
+              "WeblogicPluginEnabled",
+              "ClientCertProxyEnabled",
+              "ServiceAgeThresholdSeconds",
+              "ServiceActivationRequestResponseTimeout"
+            ],
+            "addRemainingAttributes": true
           }
+        ]
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "ProxyServer"
         ]
       },
       {
@@ -71,7 +218,9 @@
           "InterClusterCommLinkHealthCheckInterval",
           "HealthCheckIntervalMillis",
           "HealthCheckPeriodsUntilFencing",
-          "FencingGracePeriodMillis"
+          "FencingGracePeriodMillis",
+          "MaxServerCountForHttpPing",
+          "HttpPingRetryCount"
         ]
       },
       {
@@ -80,7 +229,8 @@
         "attributes": [
           "FrontendHost",
           "FrontendHTTPPort",
-          "FrontendHTTPSPort"
+          "FrontendHTTPSPort",
+          "HttpTraceSupportEnabled"
         ]
       },
       {
@@ -101,20 +251,19 @@
               "AutoMigrationTableCreationDdlFile",
               "AutoMigrationTableCreationPolicy",
               "MemberDeathDetectorEnabled",
+              "DatabaseLeasingBasisConnectionRetryCount",
+              "DatabaseLeasingBasisConnectionRetryDelay",
               "AdditionalAutoMigrationAttempts",
               "MillisToSleepBetweenAutoMigrationAttempts",
-              "RebalanceDelayPeriods"
-            ]
-          },
-          {
-            "type": "attributesTab",
-            "labelKey": "candidates-tab-label",
-            "attributes": [
-              "CandidateMachinesForMigratableServer"
+              "RebalanceDelayPeriods",
+              "ConsensusParticipants",
+              "CandidateMachinesForMigratableServer",
+              "SingletonSQLQueryHelper"
             ]
           },
           {
             "type": "folderTab",
+            "labelKey": "database-less-leasing-basis-tab-label",
             "folder": "DatabaseLessLeasingBasis"
           }
         ]
@@ -135,7 +284,8 @@
               "ReplicationChannel",
               "DataSourceForSessionPersistence",
               "PersistSessionsOnShutdown",
-              "SecureReplicationEnabled"
+              "SecureReplicationEnabled",
+              "WANSessionPersistenceTableName"
             ]
           },
           {
@@ -154,7 +304,9 @@
                   "ReplicationTimeoutMillis",
                   "OneWayRmiForReplicationEnabled",
                   "SessionLazyDeserializationEnabled",
-                  "MaxSecondarySelectionAttempts"
+                  "MaxSecondarySelectionAttempts",
+                  "AsyncSessionQueueTimeout",
+                  "GreedySessionFlushInterval"
                 ]
               }
             ]
@@ -183,7 +335,8 @@
               "ClusterMessagingMode",
               "ClusterBroadcastChannel",
               "MulticastAddress",
-              "MulticastPort"
+              "MulticastPort",
+              "SecureClusterBroadcastEnabled"
             ]
           },
           {
@@ -197,7 +350,13 @@
                   "MulticastTTL",
                   "MulticastBufferSize",
                   "IdlePeriodsUntilTimeout",
-                  "MulticastDataEncryption"
+                  "MulticastDataEncryption",
+                  "MessageOrderingEnabled",
+                  "SingletonServiceRequestTimeout",
+                  "UnicastDiscoveryPeriodMillis",
+                  "UnicastReadTimeout",
+                  "DeathDetectorHeartbeatPeriod",
+                  "MemberWarmupTimeoutSeconds"
                 ]
               }
             ]
@@ -219,6 +378,336 @@
             "folder": "CoherenceTier"
           }
         ]
+      }
+    ]
+  },
+  "Cluster/DatabaseLessLeasingBasis": {
+    "attributeDetails": {
+      "FenceTimeout": {
+        "validators": [ "range(0,)" ]
+      },
+      "setLeaderHeartbeatPeriod": {
+        "validators": [ "range(1,)" ]
+      },
+      "MemberDiscoveryTimeout": {
+        "validators": [ "range(10,)" ]
+      },
+      "setNodeManagerTimeoutMillis": {
+        "validators": [ "range(0,)" ]
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "MemberDiscoveryTimeout",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "attributes": [
+          "MessageDeliveryTimeout",
+          "LeaderHeartbeatPeriod",
+          "NodeManagerTimeoutMillis",
+          "FenceTimeout",
+          "PeriodicSrmCheckEnabled"
+        ],
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "Cluster/DynamicServers": {
+    "attributeDetails": {
+      "DynamicClusterCooloffPeriodSeconds": {
+        "validators": [ "range(0,)" ]
+      },
+      "DynamicClusterSize": {
+        "validators": [ "range(1,800)" ]
+      },
+      "MachineMatchType": {
+        "options": [
+          { "value": "name", "labelKey": "options-name-label" },
+          { "value": "tag", "labelKey": "options-tag-label" }
+        ]
+      },
+      "MachineNameMatchExpression": {
+        "disabled": "clusterCalculatedMachineNamesFields"
+      },
+      "MaxDynamicClusterSize": {
+        "validators": [ "range(1,800)" ]
+      },
+      "MinDynamicClusterSize": {
+        "validators": [ "range(1,800)" ]
+      },
+      "ServerNameStartingIndex": {
+        "validators": [ "range(0,2147480000)" ]
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "ServerTemplate",
+          "DynamicClusterSize",
+          "ServerNamePrefix",
+          "ServerNameStartingIndex",
+          "CalculatedListenPorts",
+          "CalculatedMachineNames",
+          "MachineNameMatchExpression",
+          "MachineMatchType",
+          "MachineMatchExpression",
+          "Notes"
+        ],
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "wldf-elasticity-framework-settings-label",
+        "attributes": [
+          "MinDynamicClusterSize",
+          "MaxDynamicClusterSize",
+          "DynamicClusterShutdownTimeoutSeconds",
+          "DynamicClusterCooloffPeriodSeconds",
+          "IgnoreSessionsDuringShutdown",
+          "WaitForAllSessionsDuringShutdown"
+        ]
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "MaximumDynamicServerCount"
+        ]
+      }
+    ]
+  },
+  "Cluster/JTACluster": {
+    "attributeDetails": {
+      "AbandonTimeoutSeconds": {
+        "validators": [ "range(1,)" ]
+      },
+      "BeforeCompletionIterationLimit": {
+        "validators": [ "range(1,)" ]
+      },
+      "CheckpointIntervalSeconds": {
+        "validators": [ "range(10,1800)" ]
+      },
+      "CompletionTimeoutSeconds": {
+        "validators": [ "range(-1,)" ]
+      },
+      "CrossSiteRecoveryLeaseExpiration": {
+        "validators": [ "range(1,)" ]
+      },
+      "CrossSiteRecoveryLeaseUpdate": {
+        "validators": [ "range(1,)" ]
+      },
+      "CrossSiteRecoveryRetryInterval": {
+        "validators": [ "range(1,)" ]
+      },
+      "LocalDomainSecurityCacheTtl": {
+        "validators": [ "range(0,)" ]
+      },
+      "MaxResourceRequestsOnServer": {
+        "validators": [ "range(10,)" ]
+      },
+      "MaxResourceUnavailableMillis": {
+        "validators": [ "range(0,)" ]
+      },
+      "MaxRetrySecondsBeforeDeterminerFail": {
+        "validators": [ "range(0,)" ]
+      },
+      "MaxTransactions": {
+        "validators": [ "range(1,)" ]
+      },
+      "MaxTransactionsHealthIntervalMillis": {
+        "validators": [ "range(1000,)" ]
+      },
+      "MaxUniqueNameStatistics": {
+        "validators": [ "range(0,)" ]
+      },
+      "MaxXACallMillis": {
+        "validators": [ "range(0,)" ]
+      },
+      "MigrationCheckpointIntervalSeconds": {
+        "validators": [ "range(1,)" ]
+      },
+      "PurgeResourceFromCheckpointIntervalSeconds": {
+        "validators": [ "range(0,)" ]
+      },
+      "RecoveryThresholdMillis": {
+        "validators": [ "range(60000,)" ]
+      },
+      "SecurityInteropMode": {
+        "options": [
+          { "value": "default", "labelKey": "options-default-label" },
+          { "value": "performance", "labelKey": "options-performance-label" }
+        ]
+      },
+      "SerializeEnlistmentsGCIntervalMillis": {
+        "validators": [ "range(0,)" ]
+      },
+      "ShutdownGracePeriod": {
+        "validators": [ "range(0,)" ]
+      },
+      "TimeoutSeconds": {
+        "validators": [ "range(0,)" ]
+      },
+      "UnregisterResourceGracePeriod": {
+        "validators": [ "range(1,)" ]
+      },
+      "WsatTransportSecurityMode": {
+        "options": [
+          { "value": "SSLNotRequired", "labelKey": "options-ssl-not-required-label" },
+          { "value": "SSLRequired", "labelKey": "options-ssl-required-label" },
+          { "value": "ClientCertRequired", "labelKey": "options-client-cert-required-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "TimeoutSeconds",
+              "AbandonTimeoutSeconds",
+              "BeforeCompletionIterationLimit",
+              "MaxTransactions",
+              "MaxUniqueNameStatistics",
+              "CheckpointIntervalSeconds",
+              "TlogWriteWhenDeterminerExistsEnabled",
+              "Determiner",
+              "MaxRetrySecondsBeforeDeterminerFail",
+              "ForgetHeuristics",
+              "UnregisterResourceGracePeriod",
+              "TwoPhaseEnabled",
+              "ParallelXAEnabled",
+              "ParallelXADispatchPolicy",
+              "TightlyCoupledTransactionsEnabled",
+              "ClusterwideRecoveryEnabled",
+              "Notes"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "attributes": [
+              "SecurityInteropMode",
+              "CompletionTimeoutSeconds",
+              "MaxXACallMillis",
+              "MaxTransactionsHealthIntervalMillis",
+              "MaxResourceUnavailableMillis",
+              "MaxResourceRequestsOnServer",
+              "WsatTransportSecurityMode",
+              "WsatIssuedTokenEnabled",
+              "MigrationCheckpointIntervalSeconds",
+              "PurgeResourceFromCheckpointIntervalSeconds",
+              "SerializeEnlistmentsGCIntervalMillis",
+              "ShutdownGracePeriod",
+              "RecoverySiteName",
+              "CrossSiteRecoveryRetryInterval",
+              "CrossSiteRecoveryLeaseExpiration",
+              "CrossSiteRecoveryLeaseUpdate",
+              "UsePublicAddressesForRemoteDomain",
+              "UseNonSecureAddressesForDomain",
+              "LocalDomainSecurityEnabled",
+              "LocalDomainSecurityCacheEnabled",
+              "LocalDomainSecurityCacheTtl"
+            ],
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "CrossDomainRecoveryRetryInterval",
+          "RecoveryThresholdMillis"
+        ]
+      },
+      {
+        "type": "folderTab",
+        "folder": "JtaRemoteDomain"
+      }
+    ]
+  },
+  "Cluster/JTACluster/JtaRemoteDomain": {
+    "summaryAttributes": {
+      "Url": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "Url",
+          "Notes"
+        ]
+      }
+    ]
+  },
+  "Cluster/OverloadProtection": {
+    "attributeDetails": {
+      "FailureAction": {
+        "options": [
+          { "value": "no-action", "labelKey": "options-no-action-label" },
+          { "value": "force-shutdown", "labelKey": "options-force-shutdown-label" },
+          { "value": "admin-state", "labelKey": "options-admin-state-label" }
+        ]
+      },
+      "FreeMemoryPercentHighThreshold": {
+        "validators": [ "range(0,99)" ]
+      },
+      "FreeMemoryPercentLowThreshold": {
+        "validators": [ "range(0,99)" ]
+      },
+      "PanicAction": {
+        "options": [
+          { "value": "no-action", "labelKey": "options-no-action-label" },
+          { "value": "system-exit", "labelKey": "options-system-exit-label" }
+        ]
+      },
+      "SharedCapacityForWorkManagers": {
+        "validators": [ "range(1,1073741824)" ]
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "SharedCapacityForWorkManagers",
+          "FreeMemoryPercentLowThreshold",
+          "FreeMemoryPercentHighThreshold",
+          "FailureAction",
+          "PanicAction",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "folderTab",
+        "folder": "ServerFailureTrigger"
+      }
+    ]
+  },
+  "Cluster/OverloadProtection/ServerFailureTrigger": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "StuckThreadCount",
+          "MaxStuckThreadTime",
+          "HeapDumpingOnMaxStuckThread",
+          "HeapDumpingOnDeadlock",
+          "Notes"
+        ],
+        "addRemainingAttributes": true
       }
     ]
   }

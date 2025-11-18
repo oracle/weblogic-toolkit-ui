@@ -97,6 +97,15 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
         return options;
       };
 
+      this.getDataSourceOptions = () => {
+        const options = [];
+        const dataSourceNames = getInstanceNames(['resources', 'JDBCSystemResource']);
+        dataSourceNames.forEach(dataSourceName => {
+          options.push({ value: dataSourceName, label: dataSourceName });
+        });
+        return options;
+      }
+
       function getInstanceNames(modelPath) {
         const folder = ModelEditHelper.getFolder(modelPath);
         return Object.keys(folder);

@@ -1,11 +1,77 @@
 {
   "JTA": {
     "attributeDetails": {
+      "AbandonTimeoutSeconds": {
+        "validators": [ "range(1,)" ]
+      },
+      "BeforeCompletionIterationLimit": {
+        "validators": [ "range(1,)" ]
+      },
+      "CheckpointIntervalSeconds": {
+        "validators": [ "range(10,1800)" ]
+      },
+      "CompletionTimeoutSeconds": {
+        "validators": [ "range(-1,)" ]
+      },
+      "CrossSiteRecoveryLeaseExpiration": {
+        "validators": [ "range(1,)" ]
+      },
+      "CrossSiteRecoveryLeaseUpdate": {
+        "validators": [ "range(1,)" ]
+      },
+      "CrossSiteRecoveryRetryInterval": {
+        "validators": [ "range(1,)" ]
+      },
+      "LocalDomainSecurityCacheTtl": {
+        "validators": [ "range(0,)" ]
+      },
+      "MaxResourceRequestsOnServer": {
+        "validators": [ "range(10,)" ]
+      },
+      "MaxResourceUnavailableMillis": {
+        "validators": [ "range(0,)" ]
+      },
+      "MaxRetrySecondsBeforeDeterminerFail": {
+        "validators": [ "range(0,)" ]
+      },
+      "MaxTransactions": {
+        "validators": [ "range(1,)" ]
+      },
+      "MaxTransactionsHealthIntervalMillis": {
+        "validators": [ "range(1000,)" ]
+      },
+      "MaxUniqueNameStatistics": {
+        "validators": [ "range(0,)" ]
+      },
+      "MaxXACallMillis": {
+        "validators": [ "range(0,)" ]
+      },
+      "MigrationCheckpointIntervalSeconds": {
+        "validators": [ "range(1,)" ]
+      },
+      "PurgeResourceFromCheckpointIntervalSeconds": {
+        "validators": [ "range(0,)" ]
+      },
+      "RecoveryThresholdMillis": {
+        "validators": [ "range(60000,)" ]
+      },
       "SecurityInteropMode": {
         "options": [
           { "value": "default", "labelKey": "options-default-label" },
           { "value": "performance", "labelKey": "options-performance-label" }
         ]
+      },
+      "SerializeEnlistmentsGCIntervalMillis": {
+        "validators": [ "range(0,)" ]
+      },
+      "ShutdownGracePeriod": {
+        "validators": [ "range(0,)" ]
+      },
+      "TimeoutSeconds": {
+        "validators": [ "range(0,)" ]
+      },
+      "UnregisterResourceGracePeriod": {
+        "validators": [ "range(1,)" ]
       },
       "WsatTransportSecurityMode": {
         "options": [
@@ -29,8 +95,8 @@
               "MaxTransactions",
               "MaxUniqueNameStatistics",
               "CheckpointIntervalSeconds",
-              "Determiner",
               "TlogWriteWhenDeterminerExistsEnabled",
+              "Determiner",
               "MaxRetrySecondsBeforeDeterminerFail",
               "ForgetHeuristics",
               "TwoPhaseEnabled",
