@@ -303,6 +303,9 @@
   "options-system-exit-label": "System Exit",
   "options-plain-label": "Plain",
   "options-certificate-issuer-plugin-label": "Certificate Issuer Plug-in",
+  "options-manual-label": "Manual",
+  "options-failure-recovery-label": "Failure Recovery",
+  "options-shutdown-recovery-label": "Shutdown Recovery",
 
   "direction-jms-queue-to-tuxedo-queue-label": "JMS Queue to Tuxedo Queue",
   "direction-tuxedo-queue-to-jms-queue-label": "Tuxedo Queue to JMS Queue",
@@ -469,7 +472,7 @@
   "f-Cluster-a-AdditionalAutoMigrationAttempts-help": "A migratable server could fail to come up on every possible configured machine. This attribute controls how many further attempts, after the first one, should be tried. Note that each attempt specified here indicates another full circuit of migrations amongst all the configured machines. So for a 3-server cluster, and the default value of 3, a total of 9 migrations will be attempted. If it is set to -1, migrations will go on forever until the server starts.",
 
   "a-AdditionalMigrationAttempts-label": "Additional Migration Attempts",
-  "f-SingletonService-a-AdditionalMigrationAttempts-help": "A migratable service could fail to come up on every possible configured server. This attribute controls how many further attempts, after the service has failed on every server at least once, should be tried. Note that each attempt specified here indicates another full circuit of migrations amongst all the configured servers. So for a 3-server cluster, and a value of 2, a total of 4 additional migrations will be attempted (the original server is never a valid destination).",
+  "a-AdditionalMigrationAttempts-help": "A migratable service could fail to come up on every possible configured server. This attribute controls how many further attempts, after the service has failed on every server at least once, should be tried. Note that each attempt specified here indicates another full circuit of migrations amongst all the configured servers. So for a 3-server cluster, and a value of 2, a total of 4 additional migrations will be attempted (the original server is never a valid destination).",
 
   "a-Address-label": "Address",
   "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceAddressProvider_CoherenceSocketAddress-a-Address-help": "The DNS Name or IP Address.",
@@ -1006,6 +1009,7 @@
 
   "a-Cluster-label": "Cluster",
   "f-SingletonService-a-Cluster-help": "The cluster to which this SingletonService is assigned.",
+  "f-MigratableTarget-a-Cluster-help": "The cluster to which this MigratableTarget is assigned.",
 
   "a-ClusterAddress-label": "Cluster Address",
   "f-Cluster-a-ClusterAddress-help": "Specifies the address that forms a portion of the URL a client uses to connect to this cluster, and that is used for generating EJB handles and entity EJB failover addresses. (This address may be either a DNS host name that maps to multiple IP addresses or a comma-separated list of single address host names or IP addresses.) Defines the address to be used by clients to connect to this cluster. This address may be either a DNS host name that maps to multiple IP addresses or a comma separated list of single address host names or IP addresses. If network channels are configured, it is possible to set the cluster address on a per channel basis.",
@@ -1232,7 +1236,9 @@
   "f-SecurityConfiguration-a-ConsoleFullDelegationEnabled-help": "Indicates whether the console is enabled for fully delegate authorization. Deprecated in 14.1.2.0.0",
 
   "a-ConsoleInputEnabled-label": "Console Input Enabled",
+
   "a-ConstrainedCandidateServer-label": "Constrained Candidate Server",
+  "a-ConstrainedCandidateServer-help": "The (user-restricted) list of servers that can host the migratable services deployed to this migratable target. The migratable service will not be allowed to migrate to a server that is not in the returned list of servers. For example, this feature may be used to configure two servers that have access to a dual-ported ported disk. All servers in this list must be part of the cluster that is associated with the migratable target.",
 
   "a-ConsumptionPausedAtStartup-label": "Consumption Paused At Startup",
   "a-ConsumptionPausedAtStartup-help": "Specifies whether consumption is paused on a destination at startup.",
@@ -1340,6 +1346,7 @@
   "f-any_CertificateIssuerPlugin-a-CredentialSet-help": "The credential set for this plugin configuration.",
 
   "a-Critical-label": "Critical",
+  "f-MigratableTarget-a-Critical-help": "Specifies whether the MigratableTarget is critical to the overall health of the WLS Server.",
 
   "a-CrlCacheRefreshPeriodPercent-label": "CRL Cache Refresh Period Percent",
   "f-any_CertRevoc-a-CrlCacheRefreshPeriodPercent-help": "Determines the refresh period for the CRL local cache, expressed as a percentage of the validity period of the CRL. For example, for a validity period of 10 hours, a value of 10% specifies a refresh every 1 hour. The validity period is determined by the CRL, and is calculated as the (next reported update time) - (this update time). The valid range is 1 through 100.",
@@ -3726,9 +3733,10 @@
   "f-FileStore-a-MigrationPolicy-help": "Controls migration and restart behavior of cluster-targeted JMS service artifact instances. When this setting is configured on a cluster-targeted store, it applies to all JMS artifacts that reference the store. See the migratable target settings for enabling migration and restart on migratable-targeted JMS artifacts.",
   "f-JDBCStore-a-MigrationPolicy-help": "Controls migration and restart behavior of cluster-targeted JMS service artifact instances. When this setting is configured on a cluster-targeted store, it applies to all JMS artifacts that reference the store. See the migratable target settings for enabling migration and restart on migratable-targeted JMS artifacts.",
   "f-MessagingBridge-a-MigrationPolicy-help": "Controls migration and restart behavior of cluster-targeted JMS service artifact instances. When this setting is configured on a cluster-targeted store, it applies to all JMS artifacts that reference the store. See the migratable target settings for enabling migration and restart on migratable-targeted JMS artifacts.",
+  "f-MigratableTarget-a-MigrationPolicy-help": "Defines the type of migration policy to use for the services hosted by this migratable target.",
 
   "a-MillisToSleepBetweenAttempts-label": "Milliseconds To Sleep Between Attempts",
-  "f-SingletonService-a-MillisToSleepBetweenAttempts-help": "Controls how long of a pause there should be between the migration attempts described in getAdditionalMigrationAttempts(). Note that this delay only happens when the service has failed to come up on every server. It does not cause any sort of delay between attempts to migrate otherwise.",
+  "a-MillisToSleepBetweenAttempts-help": "Controls how long of a pause there should be between the migration attempts described in getAdditionalMigrationAttempts(). Note that this delay only happens when the service has failed to come up on every server. It does not cause any sort of delay between attempts to migrate otherwise. The default value is 300000",
 
   "a-MillisToSleepBetweenAutoMigrationAttempts-label": "Milliseconds To Sleep Between Auto Migration Attempts",
   "f-Cluster-a-MillisToSleepBetweenAutoMigrationAttempts-help": "Controls how long of a pause there should be between the migration attempts described in AdditionalAutoMigrationAttempts. Note that this delay only happens when the server has failed to come up on every machine.",
@@ -3916,7 +3924,9 @@
 
   "a-NonBufferedDestination-label": "Non-Buffered Destination",
   "a-NonBufferedSource-label": "Non-Buffered Source",
-  "a-NonLocalPostAllowed-label": "Non-Local Post Allowed",
+
+  "a-NonLocalPostAllowed-label": "Non-Local Post-Deactivation Script Allowed",
+  "a-NonLocalPostAllowed-help": "Specifies whether or not the post-deactivation script is allowed to run on a different machine. Normally, when auto migration occurs, the post-deactivation script will be run on the service's current location, and the pre-activation script on the service's new location. If the current location is unreachable for some reason, this value will be checked to see if it is safe to run it on the service's new machine. This is useful if the post-deactivation script controls access to a networked resource and does not need any data from the current machine.",
 
   "a-NonPersistentQos-label": "Non-Persistent Quality of Service",
   "a-NonPersistentQos-help": "Specifies the quality-of-service (QOS) for non-persistent messages.",
@@ -3953,6 +3963,7 @@
   "f-FileStore-a-NumberOfRestartAttempts-help": "Specifies the maximum number of restart attempts. A value > 0 specifies the maximum number of restart attempts. A value of 0 specifies the same behavior as setting RestartInPlace to false. A value of -1 means infinite retry restart until it either starts or the server instance shuts down.",
   "f-JDBCStore-a-NumberOfRestartAttempts-help": "Specifies the maximum number of restart attempts. A value > 0 specifies the maximum number of restart attempts. A value of 0 specifies the same behavior as setting RestartInPlace to false. A value of -1 means infinite retry restart until it either starts or the server instance shuts down.",
   "f-MessagingBridge-a-NumberOfRestartAttempts-help": "Specifies the maximum number of restart attempts. A value > 0 specifies the maximum number of restart attempts. A value of 0 specifies the same behavior as setting RestartInPlace to false. A value of -1 means infinite retry restart until it either starts or the server instance shuts down.",
+  "f-MigratableTarget-a-NumberOfRestartAttempts-help": "Specifies how many restart attempts to make before migrating the failed service. Note that these are consecutive attempts. If the value is set to 6, and the service restart fails 5 times before succeeding, but then fails again later, it will not instantly migrate. Each failure gets its own count of restart attempts. A value of 0 is identical to setting RestartOnFailure to false. A value of -1 indicates the service should never be migrated; instead, it will be restarted until it either works or the server shuts down. The default value is 6.",
 
   "a-NumberOfServersInClusterAddress-label": "Number Of Servers In Cluster Address",
   "f-Cluster-a-NumberOfServersInClusterAddress-help": "Specifies the number of servers to be listed from this cluster when generating a cluster address automatically. This setting has no effect if ClusterAddress is explicitly set.",
@@ -4278,13 +4289,19 @@
 
   "a-PostOneUseCheckEnabled-label": "Post One Use Check Enabled",
   "a-PostRecipientCheckEnabled-label": "Post Recipient Check Enabled",
-  "a-PostScript-label": "Post Script",
-  "a-PostScriptFailureFatal-label": "Post Script Failure Fatal",
+
+  "a-PostScript-label": "Post-Deactivation Script",
+  "a-PostScript-help": "Specifies the path to the post-migration script to run after a migratable target is fully deactivated. The script must be in the DOMAIN_HOME/bin/service_migration directory. After the migratable target is deactivated, if there is a script specified, and Node Manager is available, then the script will run. Specifying a script without an available Node Manager will result in an error upon migration.",
+
+  "a-PostScriptFailureFatal-label": "Post-Deactivation Script Failure is Fatal",
+  "a-PostScriptFailureFatal-help": "Specifies whether a failure during execution of the post-deactivation script is fatal to the migration. If it is fatal, the migratable target will not be automatically migrated until an administrator manually migrates it to a server, thus reactivating it. Note: Enabling this value will result in weakening the exactly-once guarantee. It is provided to prevent more dangerous data corruption if the post-deactivation script fails. Also if this value is enabled, then the script may be called more than once by the migration framework after the Migratable Target is deactivated or the server or machine hosting the Migratable Target crashed or is network partitioned. The script is expected not to return different exit values when invoked multiple times in such scenarios.  The default value is true.",
 
   "a-PostTimeoutSecs-label": "Post Timeout Seconds",
   "f-WebAppContainer-a-PostTimeoutSecs-help": "The amount of time (in seconds) the server waits between receiving chunks of data in an HTTP POST data before it times out. (This is used to prevent denial-of-service attacks that attempt to overload the server with POST data.)",
 
-  "a-PreScript-label": "Pre Script",
+  "a-PreScript-label": "Pre-Migration Script",
+  "a-PreScript-help": "Specifies the path to the pre-migration script to run before a migratable target is actually activated. The script must be in the DOMAIN_HOME/bin/service_migration directory. Before the migratable target is activated, if there is a script specified, and Node Manager is available, then the script will run. Specifying a script without an available Node Manager will result in an error upon migration. If the script fails or cannot be found, migration will not proceed on the current server, and will be tried on the next suitable server. This could be the next server in the candidate server list, or in the cluster, if there is no candidate server list.",
+
   "a-PreferAltId-label": "Prefer Alternate ID",
   "a-PreferAltId-help": "Specifies whether to use the alternate user ID instead of user ID to populate as the GUID in the user principal.",
 
@@ -4664,6 +4681,7 @@
   "f-SystemComponent-a-RestartMax-help": "The number of times that the Node Manager can restart this server within the interval specified in RestartIntervalSeconds.",
 
   "a-RestartOnFailure-label": "Restart On Failure",
+  "a-RestartOnFailure-help": "Specifies whether a failed service will first be deactivated and reactivated in place, instead of being migrated. The number of restart attempts is controlled by NumberOfRestartAttempts . Once these restart attempts are exhausted, the service will migrate. A restarting migratable target will deactivate all services on it in order, then reactivate them all.",
 
   "a-RestrictUserManagementAccessPattern-label": "Restrict User Management Access Pattern",
   "f-WebAppContainer-a-RestrictUserManagementAccessPattern-help": "The Username patterns for the WebLogic Restrict User Management Access Servlet Filter. Specify username patterns for the WebLogic Restrict User Management Access Servlet (RestrictUserManagementAccess) filter. Username patterns consist of a string array of regular expressions. When the RestrictUserManagementAccess filter matches any of the specified regular expressions with the principal name of the user in the security context for the HTTP request of a WebLogic management application (such as WebLogic Remote Console, REST APIs, and so on), the filter will block the user from accessing the application and terminate the user session. The messages about blocked requests will appear in the server log file. The regular expression must follow the Java Pattern syntax specification.",
@@ -4895,6 +4913,7 @@
   "f-FileStore-a-SecondsBetweenRestarts-help": "Specifies the amount of time, in seconds, to wait in between attempts to restart a failed service instance.",
   "f-JDBCStore-a-SecondsBetweenRestarts-help": "Specifies the amount of time, in seconds, to wait in between attempts to restart a failed service instance.",
   "f-MessagingBridge-a-SecondsBetweenRestarts-help": "Specifies the amount of time, in seconds, to wait in between attempts to restart a failed service instance.",
+  "f-MigratableTarget-a-SecondsBetweenRestarts-help": "Specifies how many seconds to wait in between attempts to restart the failed migratable target. The default value is 30.",
 
   "a-SecondsToTrustAnIdlePoolConnection-label": "Seconds To Trust An Idle Pool Connection",
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-SecondsToTrustAnIdlePoolConnection-help": "The number of seconds within a connection use that WebLogic Server trusts that the connection is still viable and will skip the connection test, either before delivering it to an application or during the periodic connection testing process. This option is an optimization that minimizes the performance impact of connection testing, especially during heavy traffic.",
@@ -5803,6 +5822,8 @@
   "f-JoltConnectionPool-a-UserPasswordEncrypted-help": "The user password for this Jolt connection pool.",
 
   "a-UserPreferredServer-label": "User Preferred Server",
+  "a-UserPreferredServer-help": "Specifies the server that the user prefers the singleton service to be active on.",
+  "f-MigratableTarget-a-UserPreferredServer-help": "Specifies the server that the user prefers the migratable target to be active on.",
 
   "a-UserRole-label": "User Role",
   "f-JoltConnectionPool-a-UserRole-help": "The Tuxedo user role for this Jolt connection pool. (This is required only when the security level in the Tuxedo domain is USER_AUTH, ACL, or MANDATORY_ACL).",

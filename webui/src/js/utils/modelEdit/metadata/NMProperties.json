@@ -15,6 +15,7 @@
       },
       "CustomIdentityKeyStoreType": {
         "disabled": "nodeManagerCustomIdentityFields",
+        "optionsMatch": "upper",
         "options": [
           { "value": "PKCS12", "label": "PKCS12" },
           { "value": "JKS", "label": "JKS" }
