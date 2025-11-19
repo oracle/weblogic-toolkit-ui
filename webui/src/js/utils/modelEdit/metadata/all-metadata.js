@@ -40,6 +40,7 @@ define(
     'text!./ManagedScheduledExecutorServiceTemplate.json',
     'text!./ManagedThreadFactoryTemplate.json',
     'text!./MessagingBridge.json',
+    'text!./MigratableTarget.json',
     'text!./NMProperties.json',
     'text!./OPSSInitialization.json',
     'text!./ODLConfiguration.json',

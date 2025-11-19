@@ -106,6 +106,31 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
         return options;
       }
 
+      this.getClusterOptions = () => {
+        const options = [];
+        const clusterNames = getInstanceNames(['topology', 'Cluster']);
+        clusterNames.forEach(clusterName => {
+          options.push({ value: clusterName, label: clusterName });
+        });
+        return options;
+      };
+
+      this.getServersInClusterOptions = (attribute) => {
+        const options = [];
+        const modelPath = attribute.path;
+        const folder = ModelEditHelper.getFolder(modelPath);
+        if (folder.hasOwnProperty('Cluster') && folder.Cluster) {
+          const clusterName = folder.Cluster;
+          const servers = ModelEditHelper.getFolder(['topology', 'Server']);
+          Object.entries(servers).forEach(([name, server]) => {
+            if (server['Cluster'] === clusterName) {
+              options.push({ value: name, label: name });
+            }
+          });
+        }
+        return options;
+      };
+
       function getInstanceNames(modelPath) {
         const folder = ModelEditHelper.getFolder(modelPath);
         return Object.keys(folder);

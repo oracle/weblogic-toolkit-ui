@@ -1,0 +1,73 @@
+{
+  "MigratableTarget": {
+    "summaryAttributes": {
+      "Cluster": {},
+      "UserPreferredServer": {}
+    },
+    "attributeDetails": {
+      "AdditionalMigrationAttempts": {
+        "validators": [ "range(0,)" ]
+      },
+      "Cluster": {
+        "editorType": "combo",
+        "optionsMethod": "getClusterOptions"
+      },
+      "ConstrainedCandidateServer": {
+        "optionsMethod": "getServersInClusterOptions"
+      },
+      "MigrationPolicy": {
+        "options": [
+          { "value": "manual", "labelKey": "options-manual-label" },
+          { "value": "exactly-once", "labelKey": "options-exactly-once-label" },
+          { "value": "failure-recovery", "labelKey": "options-failure-recovery-label" },
+          { "value": "shutdown-recovery", "labelKey": "options-shutdown-recovery-label" }
+        ]
+      },
+      "MillisToSleepBetweenAttempts": {
+        "validators": [ "range(0,)" ]
+      },
+      "NumberOfRestartAttempts": {
+        "validators": [ "range(-1,)" ]
+      },
+      "SecondsBetweenRestarts": {
+        "validators": [ "range(0,)" ]
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "Cluster",
+          "MigrationPolicy",
+          "PreScript",
+          "PostScript",
+          "NonLocalPostAllowed",
+          "PostScriptFailureFatal",
+          "RestartOnFailure",
+          "Critical",
+          "NumberOfRestartAttempts",
+          "SecondsBetweenRestarts",
+          "AdditionalMigrationAttempts",
+          "MillisToSleepBetweenAttempts",
+          "UserPreferredServer",
+          "ConstrainedCandidateServer",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "attributes": [
+        ],
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "DestinationServer",
+          "HostingServer"
+        ]
+      }
+    ]
+  }
+}
