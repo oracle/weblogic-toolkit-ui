@@ -84,6 +84,7 @@
   "authorization-bearer-tab-label": "Authorization Bearer",
   "scim-authentication-tab-label": "SCIM Authentication",
   "sync-filter-configuration-tab-label": "Sync Filter Configuration",
+  "node-manager-tab-label": "Node Manager",
 
   "security-model-advanced-label": "Advanced",
   "security-model-custom-roles-label": "Custom Roles",
@@ -300,6 +301,7 @@
   "options-force-shutdown-label": "Force Shutdown",
   "options-admin-state-label": "Admin State",
   "options-system-exit-label": "System Exit",
+  "options-plain-label": "Plain",
 
   "direction-jms-queue-to-tuxedo-queue-label": "JMS Queue to Tuxedo Queue",
   "direction-tuxedo-queue-to-jms-queue-label": "Tuxedo Queue to JMS Queue",
@@ -1649,7 +1651,10 @@
   "a-DebugEmbeddedLDAPLogLevel-label": "Debug Embedded LDAP Log Level",
   "a-DebugEmbeddedLDAPLogToConsole-label": "Debug Embedded LDAP Log To Console",
   "a-DebugEmbeddedLDAPWriteOverrideProps-label": "Debug Embedded LDAP Write Override Props",
+
   "a-DebugEnabled-label": "Debug Enabled",
+  "f-any_NodeManager-a-DebugEnabled-help": "Specifies whether communication with this Node Manager needs to be debugged. When enabled, connections to the NodeManager from the server or clients on the server will result in more information sent to the server log.",
+
   "a-DebugEventManager-label": "Debug Event Manager",
   "a-DebugExpressionBeanLocalizer-label": "Debug Expression Bean Localizer",
   "a-DebugExpressionExtensionsManager-label": "Debug Expression Extensions Manager",
@@ -3193,6 +3198,7 @@
   "f-SNMPAgent-a-ListenAddress-help": "The listen address on which you want this SNMP agent to listen for incoming requests from SNMP managers that use the UDP protocol. If not specified the Server's ListenAddress is used as the ListenAddress for the SNMPAgent.",
   "f-SnmpAgentDeployment-a-ListenAddress-help": "The listen address on which you want this SNMP agent to listen for incoming requests from SNMP managers that use the UDP protocol. If not specified the Server's ListenAddress is used as the ListenAddress for the SNMPAgent.",
   "f-NMProperties-a-ListenAddress-help": "Any address upon which the machine running Node Manager can listen for connection requests.",
+  "f-any_NodeManager-a-ListenAddress-help": "Specifies the host name or IP address of the NodeManager for the server or clients on the server to use when connecting to the NodeManager instance.",
 
   "a-ListenBacklog-label": "Listen Backlog",
   "f-NMProperties-a-ListenBacklog-help": "Maximum number of Node Manager backlog requests that the listener will accept; the default value is 50. Additional incoming requests will be dropped until the backlogged requests are handled. Typically, you need not adjust this property.",
@@ -3202,6 +3208,7 @@
   "a-ListenPort-label": "Listen Port",
   "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceClusterParams_CoherenceClusterWellKnownAddress-a-ListenPort-help": "The listen port. Deprecated in 12.2.1 since the well-known address no longer needs a port to bne specified.",
   "f-NMProperties-a-ListenPort-help": "Specifies the TCP port number on which Node Manager listens for connection requests.",
+  "f-any_NodeManager-a-ListenPort-help": "Specifies the port number of the NodeManager for the server or clients on the server to use when connecting to the NodeManager instance.",
 
   "a-ListenPortEnabled-label": "Listen Port Enabled",
   "a-ListenThreadDebug-label": "Listen Thread Debug",
@@ -3860,9 +3867,11 @@
   "f-SystemComponent_SystemComponentStart-a-MwHome-help": "The Middleware Home directory (path on the machine running Node Manager) to use when starting this server. Specify the directory on the Node Manager machine under which all of Oracle's MW products were installed. For example, c:\\Oracle\\Middleware\\.",
 
   "a-NMSocketCreateTimeoutInMillis-label": "Node Manager Socket Create Timeout In Milliseconds",
-  "f-SystemComponent-a-NMSocketCreateTimeoutInMillis-help": "The timeout value to be used by NodeManagerRuntime when creating a socket connection to the agent. Default set high as SSH agent may require a high connection establishment time.",
+  "a-NMSocketCreateTimeoutInMillis-help": "Specifies the timeout value to be used by NodeManagerRuntime when creating a a socket connection to the agent. Default set high as SSH agent may require a high connection establishment time. The default value is 15000.",
 
-  "a-NMType-label": "NM Type",
+  "a-NMType-label": "Node Manager Type",
+  "a-NMType-help": "Specifies the node manager type for the server or clients on the server to use when connecting to the NodeManager instance. The default value is SSL.",
+
   "a-NTAuthHost-label": "NT Auth Host",
 
   "a-NWAddr-label": "Network Address",
@@ -3904,6 +3913,7 @@
 
   "a-NodeManagerHome-label": "Node Manager Home",
   "f-NMProperties-a-NodeManagerHome-help": "Node Manager root directory which contains the node manager's following configuration and log files.",
+  "f-any_NodeManager-a-NodeManagerHome-help": "Specifies the node manager home directory that will be used to substitute for the shell command template.",
 
   "a-NodeManagerPasswordEncrypted-label": "Node Manager Password",
   "f-SecurityConfiguration-a-NodeManagerPasswordEncrypted-help": "The password that the Administration Server uses to communicate with Node Manager when starting, stopping, or restarting Managed Servers.",
@@ -4156,6 +4166,7 @@
   "f-JMSSystemResource_JmsResource_ForeignServer_ForeignConnectionFactory-a-PasswordEncrypted-help": "The password used in conjunction with the user name specified in the Username parameter to access the remote connection factory.",
   "f-JMSSystemResource_JmsResource_SAFRemoteContext_SAFLoginContext-a-PasswordEncrypted-help": "The password for the username used to log into the remote URL.",
   "f-ForeignJNDIProvider-a-PasswordEncrypted-help": "The remote server's user password.",
+  "f-any_NodeManager-a-PasswordEncrypted-help": "Specifies the password used by a Node Manager client to connect to the underlying service to which the Node Manager client delegates operations.",
 
   "a-PasswordStyle-label": "Password Style",
   "a-PasswordStyle-help": "Specifies the password style that is used when storing passwords for users that are created and for changing the user's password if Password Style Retained is disabled.",
@@ -4262,10 +4273,19 @@
 
   "a-PortOffset-label": "Port Offset",
   "a-PortablePartitionHelper-label": "Portable Partition Helper",
+
   "a-PostBindGID-label": "Post Bind GID",
+  "a-PostBindGID-help": "Specifies the UNIX group ID (GID) that a server running on this machine will run under after it has carried out all privileged startup actions. Otherwise, the server will continue to run under the group under which it was started. The default value is \"nobody\".",
+
   "a-PostBindGIDEnabled-label": "Post Bind GID Enabled",
+  "a-PostBindGIDEnabled-help": "Specifies whether a server running on this machine binds to a UNIX Group ID (GID) after it has carried out all privileged startup actions.",
+
   "a-PostBindUID-label": "Post Bind UID",
+  "a-PostBindUID-help": "Specifies the UNIX user ID (UID) that a server running on this machine will run under after it has carried out all privileged startup actions. Otherwise, the server will continue to run under the account under which it was started. The default value is \"nobody\".",
+
   "a-PostBindUIDEnabled-label": "Post Bind UID Enabled",
+  "a-PostBindUIDEnabled-help": "Specifies whether a server running on this machine binds to a UNIX User ID (UID) after it has carried out all privileged startup actions.",
+
   "a-PostOneUseCheckEnabled-label": "Post One Use Check Enabled",
   "a-PostRecipientCheckEnabled-label": "Post Recipient Check Enabled",
   "a-PostScript-label": "Post Script",
@@ -5075,7 +5095,9 @@
   "a-SharedCapacityForWorkManagers-help": "Total number of requests that can be present in the server. This includes requests that are enqueued and those under execution. The server performs a differentiated denial of service on reaching the shared capacity. A request with higher priority will be accepted in place of a lower priority request already in the queue. The lower priority request is kept waiting in the queue till all high priority requests are executed. Further enqueues of the low priority requests are rejected right away.",
 
   "a-SharedCapacityPercent-label": "Shared Capacity Percent",
+
   "a-ShellCommand-label": "Shell Command",
+  "f-any_NodeManager-a-ShellCommand-help": "Specifies the local command line to use when invoking SSH or RSH node manager functions.",
 
   "a-ShowArchivedRealPathEnabled-label": "Show Archived Real Path Enabled",
   "f-WebAppContainer-a-ShowArchivedRealPathEnabled-help": "Global property to determine the behavior of getRealPath() for archived web applications. When this property is set to \"true\", getRealPath() will return the canonical path of the resource files.",
@@ -5762,6 +5784,7 @@
   "f-JMSBridgeDestination-a-UserName-help": "The optional user name the adapter uses to access the bridge destination. All operations on the specified destination are done using this user name and the corresponding password. Therefore, the User Name/Password for the source and target destinations must have permission to the access the underlying destinations in order for the messaging bridge to work.",
   "f-SelfTuning_ContextRequestClass_ContextCase-a-UserName-help": "The name of the user whose requests are to be processed by the request class with the name specified in RequestClassName.",
   "f-JoltConnectionPool-a-UserName-help": "A user name that applications specify to connect to this Jolt connection pool. If Security Context is enabled, this name must be the name of an authorized Tuxedo user. (Specifying a Tuxedo user name is required if the Tuxedo authentication level is USER_AUTH.)",
+  "f-any_NodeManager-a-UserName-help": "Specifies the Node Manager client user name used to connect to the underlying service to which the client delegates operations.",
 
   "a-UserNameAttribute-label": "User Name Attribute",
   "a-UserNameAttribute-help": "Specifies the attribute of the LDAP User object that specifies the name of the user. The default value is \"cn\". In Active Directory, generally, cn stores a string that is a combination of the user's first name and last name, and sAMAccountName stores the user's login name. So it is recommended that you set \"sAMAccountName\" to this property before using the Active Directory LDAP Authentication provider. It is for backward compatibility purpose that the default value is \"cn\" instead of \"sAMAccountName\".",

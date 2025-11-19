@@ -1,0 +1,96 @@
+{
+  "UnixMachine": {
+    "mergeFolder": "NodeManager",
+    "summaryAttributes": {
+      "NodeManager/NMType": {},
+      "NodeManager/ListenAddress": {},
+      "NodeManager/ListenPort": {}
+    },
+    "attributeDetails": {
+      "NMSocketCreateTimeoutInMillis": {
+        "disabled": "nodeManagerShellTypeFields",
+        "validators": [ "range(0,)" ]
+      },
+      "NMType": {
+        "optionsMatch": "lower",
+        "options": [
+          { "value": "plain", "labelKey": "options-plain-label" },
+          { "value": "ssl", "label": "SSL" },
+          { "value": "rsh", "label": "RSH" },
+          { "value": "ssh", "label": "SSH" }
+        ]
+      },
+      "NodeManagerHome": {
+        "disabled": "nodeManagerShellTypeFields"
+      },
+      "PasswordEncrypted": {
+        "disabled": "nodeManagerShellTypeFields"
+      },
+      "PostBindGID": {
+        "disabled": "unixNodeManagerPostBindGIDFields"
+      },
+      "PostBindUID": {
+        "disabled": "unixNodeManagerPostBindUIDFields"
+      },
+      "ShellCommand": {
+        "disabled": "nodeManagerShellTypeFields"
+      },
+      "UserName": {
+        "disabled": "nodeManagerShellTypeFields"
+      }
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "PostBindUIDEnabled",
+              "PostBindUID",
+              "PostBindGIDEnabled",
+              "PostBindGID",
+              "Notes"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "Address",
+          "InstalledVMMAdapter",
+          "Adapter",
+          "AdapterName",
+          "AdapterVersion"
+        ]
+      },
+      {
+        "type": "tab",
+        "labelKey": "node-manager-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "NMType",
+              "DebugEnabled",
+              "ListenAddress",
+              "ListenPort",
+              "ShellCommand",
+              "NodeManagerHome",
+              "UserName",
+              "PasswordEncrypted",
+              "NMSocketCreateTimeoutInMillis"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "addRemainingAttributes": true
+          }
+        ]
+      }
+    ]
+  }
+}
