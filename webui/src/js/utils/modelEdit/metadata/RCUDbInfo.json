@@ -4,33 +4,33 @@
       "javax.net.ssl.keyStoreType": {
         "optionsMatch": "upper",
         "options": [
-          { "value": "SSO", "labelKey": "sso-type-label" },
-          { "value": "PKCS12", "labelKey": "pkcs12-type-label" },
-          { "value": "JKS", "labelKey": "jks-type-label" }
+          { "value": "SSO", "label": "SSO" },
+          { "value": "PKCS12", "label": "PKCS12" },
+          { "value": "JKS", "label": "JKS" }
         ]
       },
       "javax.net.ssl.trustStoreType": {
         "optionsMatch": "upper",
         "options": [
-          { "value": "SSO", "labelKey": "sso-type-label" },
-          { "value": "PKCS12", "labelKey": "pkcs12-type-label" },
-          { "value": "JKS", "labelKey": "jks-type-label" }
+          { "value": "SSO", "label": "SSO" },
+          { "value": "PKCS12", "label": "PKCS12" },
+          { "value": "JKS", "label": "JKS" }
         ]
       },
       "oracle_database_connection_type": {
         "disabled": "notOracleDatabaseType",
         "options": [
-          { "value": "SSL", "labelKey": "ssl-type-label" },
-          { "value": "ATP", "labelKey": "atp-type-label" }
+          { "value": "SSL", "label": "SSL" },
+          { "value": "ATP", "label": "ATP" }
         ]
       },
       "rcu_database_type": {
         "options": [
-          { "value": "ORACLE", "labelKey": "oracle-type-label" },
-          { "value": "EBR", "labelKey": "ebr-type-label" },
-          { "value": "SQLSERVER", "labelKey": "sqlserver-type-label" },
-          { "value": "DB2", "labelKey": "db2-type-label" },
-          { "value": "MYSQL", "labelKey": "mysql-type-label" }
+          { "value": "ORACLE", "label": "Oracle" },
+          { "value": "EBR", "label": "EBR" },
+          { "value": "SQLSERVER", "label": "SQL Server" },
+          { "value": "DB2", "label": "Db2" },
+          { "value": "MYSQL", "label": "MySQL" }
         ]
       }
     },
