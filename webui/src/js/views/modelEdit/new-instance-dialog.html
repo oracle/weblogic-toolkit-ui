@@ -10,15 +10,46 @@
     <oj-validation-group id="modelNewEntryTracker">
       <div class="oj-panel">
         <oj-c-form-layout class="wkt-model-edit-attribute-form" max-columns="1">
-          <oj-c-input-text
-            class="wkt-model-edit-attribute-stacked"
-            label-hint="[[nameLabel]]"
-            help.instruction="[[helpLabel]]"
-            value="{{instanceName}}"
-            required="true"
-            validators="[[nameValidators]]"
-          >
-          </oj-c-input-text>
+
+          <oj-bind-if test="[[editorType === 'string']]">
+             <oj-c-input-text
+              class="wkt-model-edit-attribute-stacked"
+              label-hint="[[nameLabel]]"
+              help.instruction="[[helpLabel]]"
+              value="{{instanceName}}"
+              required="true"
+              validators="[[nameValidators]]"
+            >
+            </oj-c-input-text>
+          </oj-bind-if>
+
+          <oj-bind-if test="[[editorType === 'select']]">
+            <oj-c-select-single
+              class="wkt-model-edit-attribute-stacked"
+              item-text="label"
+              label-hint="[[nameLabel]]"
+              help.instruction="[[helpLabel]]"
+              value="{{instanceName}}"
+              data="[[optionsProvider]]"
+              required="true"
+              validators="[[nameValidators]]"
+            >
+            </oj-c-select-single>
+          </oj-bind-if>
+
+          <oj-bind-if test="[[editorType === 'combo']]">
+            <oj-combobox-one
+              class="wkt-model-edit-attribute-stacked"
+              label-hint="[[nameLabel]]"
+              help.instruction="[[helpLabel]]"
+              value="{{instanceName}}"
+              options="[[optionsProvider]]"
+              required="true"
+              validators="[[nameValidators]]"
+            >
+            </oj-combobox-one>
+          </oj-bind-if>
+
           <oj-bind-if test="[[useTypeFolder]]">
             <oj-combobox-one
               label-hint="[[providerTypeLabel]]"

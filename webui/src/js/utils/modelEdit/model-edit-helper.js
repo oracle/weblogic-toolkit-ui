@@ -234,11 +234,7 @@ function (ko, jsYaml, project, utils,
 
         // translate labels and set keys for any option lists
         const options = details.options || [];
-        for (const option of options) {
-          if(!option.label) {
-            option.label = MessageHelper.t(option.labelKey);
-          }
-        }
+        this.updateOptionLabels(options);
 
         Object.assign(attribute, details);
 
@@ -257,6 +253,13 @@ function (ko, jsYaml, project, utils,
         }));
 
         attributeMap[attributeName] = attribute;
+      }
+    };
+
+    // translate options that only have option key
+    this.updateOptionLabels = options => {
+      for (const option of options) {
+        option.label = MessageHelper.getLabel(option);
       }
     };
 
@@ -304,6 +307,19 @@ function (ko, jsYaml, project, utils,
         const elements = textValue.split(',');
         modelValue = elements.map(item => item.toString().trim());
         // continue for selectMulti check
+      }
+
+      if(attribute.optionsMatch) {
+        switch(attribute.optionsMatch) {
+          case 'lower':
+            modelValue = modelValue.toString().toLowerCase();
+            break;
+          case 'upper':
+            modelValue = modelValue.toString().toUpperCase();
+            break;
+          default:
+            WktLogger.error(`Unknown optionsMatch value ${attribute.optionsMatch} for attribute ${attribute.name}`);
+        }
       }
 
       // Jet oj-c-select-multiple uses Set
@@ -662,7 +678,6 @@ function (ko, jsYaml, project, utils,
 
       return validators;
     };
-
 
     function getEditorType(attribute) {
       let editorType = attribute.type;

@@ -2,6 +2,7 @@
   "RCUDbInfo": {
     "attributeDetails": {
       "javax.net.ssl.keyStoreType": {
+        "optionsMatch": "upper",
         "options": [
           { "value": "SSO", "labelKey": "sso-type-label" },
           { "value": "PKCS12", "labelKey": "pkcs12-type-label" },
@@ -9,6 +10,7 @@
         ]
       },
       "javax.net.ssl.trustStoreType": {
+        "optionsMatch": "upper",
         "options": [
           { "value": "SSO", "labelKey": "sso-type-label" },
           { "value": "PKCS12", "labelKey": "pkcs12-type-label" },

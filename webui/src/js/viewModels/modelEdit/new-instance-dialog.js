@@ -6,11 +6,13 @@
 'use strict';
 
 define(['accUtils', 'knockout', 'models/wkt-project', 'utils/modelEdit/instance-helper',
-  'utils/modelEdit/model-edit-helper', 'utils/modelEdit/message-helper', 'utils/modelEdit/alias-helper',
-  'utils/validation-helper', 'utils/view-helper',
+  'utils/modelEdit/model-edit-helper', 'utils/modelEdit/message-helper', 'utils/modelEdit/meta-helper',
+  'utils/modelEdit/meta-options', 'utils/modelEdit/alias-helper', 'utils/view-helper',
+  'ojs/ojarraydataprovider',
   'oj-c/input-text', 'oj-c/button', 'ojs/ojdialog', 'ojs/ojvalidationgroup', 'ojs/ojselectcombobox'],
 function(accUtils, ko, project,
-  InstanceHelper, ModelEditHelper, MessageHelper, AliasHelper, validationHelper, viewHelper) {
+  InstanceHelper, ModelEditHelper, MessageHelper, MetaHelper, MetaOptions, AliasHelper,
+  ViewHelper, ArrayDataProvider) {
 
   function NewInstanceDialogModel(args) {
     const DIALOG_SELECTOR = '#newInstanceDialog';
@@ -50,7 +52,7 @@ function(accUtils, ko, project,
 
       // open the dialog when the container is ready.
       // using oj-dialog initial-visibility="show" causes vertical centering issues.
-      viewHelper.componentReady(this.dialogContainer).then(() => {
+      ViewHelper.componentReady(this.dialogContainer).then(() => {
         this.dialogContainer.open();
       });
     };
@@ -60,6 +62,19 @@ function(accUtils, ko, project,
     this.t = (labelId, arg) => {
       return MessageHelper.t(labelId, arg);
     };
+
+    const nameDetails = MetaHelper.getNameDetails(ALIAS_PATH);
+    const hasOptions = ('options' in nameDetails) || ('optionsMethod' in nameDetails);
+    const defaultEditorType = hasOptions ? 'select' : 'string';
+    this.editorType = nameDetails.editorType || defaultEditorType;
+
+    let options = nameDetails.options || [];
+    const optionsMethod = nameDetails.optionsMethod;
+    if(optionsMethod) {
+      options = MetaOptions[optionsMethod]();
+    }
+    ModelEditHelper.updateOptionLabels(options);
+    this.optionsProvider = new ArrayDataProvider(options, { keyAttributes: 'value' });
 
     this.okInput = () => {
       let tracker = document.getElementById('modelNewEntryTracker');

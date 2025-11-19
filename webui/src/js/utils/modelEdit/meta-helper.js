@@ -44,6 +44,14 @@ define(['utils/modeledit/metadata/all-metadata'],
         return attributeDetails[attributeName] || {};
       };
 
+      // details about the Name attribute can be used for instance creation
+      this.getNameDetails = aliasPath => {
+        // try at full alias path only, these are not inherited or global
+        let metadata = this.getMetadata(aliasPath);
+        let attributeDetails = metadata['attributeDetails'] || {};
+        return attributeDetails['Name'] || {};
+      };
+
       this.getAttributeOptions = (aliasPath, attributeName) => {
         const attributeDetails = this.getAttributeDetails(aliasPath, attributeName);
         return attributeDetails['options'];
