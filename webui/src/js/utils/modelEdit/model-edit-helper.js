@@ -21,7 +21,7 @@ function (ko, jsYaml, project, utils,
 
     // types that UI has editors for, not all alias types
     const EDITOR_TYPES = ['boolean', 'combo', 'comboMulti', 'credential', 'dict', 'double',
-      'integer', 'list', 'long', 'select', 'selectMulti', 'string'];
+      'integer', 'list', 'long', 'select', 'selectMulti', 'string', 'textArea'];
 
     const LIST_EDITOR_TYPES = ['comboMulti', 'list', 'selectMulti'];
 

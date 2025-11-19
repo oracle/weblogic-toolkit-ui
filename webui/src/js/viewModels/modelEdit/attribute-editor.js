@@ -9,7 +9,7 @@ define(['accUtils', 'knockout', 'utils/dialog-helper', 'ojs/ojarraydataprovider'
   'ojs/ojmodule-element-utils', 'utils/modelEdit/meta-handlers', 'utils/modelEdit/meta-options',
   'utils/modelEdit/meta-validators', 'utils/modelEdit/model-edit-helper', 'utils/modelEdit/message-helper',
   'utils/modelEdit/alias-helper', 'oj-c/button', 'oj-c/input-text', 'oj-c/list-view', 'oj-c/input-password',
-  'oj-c/select-single', 'oj-c/select-multiple', 'ojs/ojselectcombobox'
+  'oj-c/select-single', 'oj-c/select-multiple', 'oj-c/text-area', 'ojs/ojselectcombobox'
 ],
 function(accUtils, ko, DialogHelper, ArrayDataProvider,
   ModuleElementUtils, MetaHandlers, MetaOptions, MetaValidators, ModelEditHelper, MessageHelper, AliasHelper) {
