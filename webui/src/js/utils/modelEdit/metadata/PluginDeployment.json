@@ -3,7 +3,7 @@
     "attributeDetails": {
       "PluginType": {
         "options": [
-          { "value": "CertificateIssuerPlugin", "labelKey": "certificate-issuer-plugin-label" }
+          { "value": "CertificateIssuerPlugin", "labelKey": "options-certificate-issuer-plugin-label" }
         ]
       },
       "StagingMode": {
