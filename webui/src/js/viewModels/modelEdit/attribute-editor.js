@@ -100,6 +100,7 @@ function(accUtils, ko, DialogHelper, ArrayDataProvider,
     if(optionsMethod) {
       options = MetaOptions[optionsMethod](ATTRIBUTE, ATTRIBUTE_MAP);
     }
+    ModelEditHelper.updateOptionLabels(options);
     this.optionsProvider = new ArrayDataProvider(options, { keyAttributes: 'value' });
 
     this.validators = ModelEditHelper.getValidators(ATTRIBUTE);
