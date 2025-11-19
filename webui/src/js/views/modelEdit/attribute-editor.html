@@ -104,6 +104,18 @@
       </oj-combobox-many>
     </oj-bind-if>
 
+    <oj-bind-if test="[[editorType === 'textArea']]">
+      <oj-c-text-area
+        label-hint="[[attributeLabel]]"
+        help.instruction="[[attributeHelp]]"
+        value="{{getValueObservable()}}"
+        disabled="[[disabled]]"
+        readOnly="[[readOnly]]"
+        rows="3"
+      >
+      </oj-c-text-area>
+    </oj-bind-if>
+
     <oj-bind-if test="[[editorType === 'unknown']]">
       <oj-c-input-text
         label-hint="[[attributeLabel + ' (' + attribute.type + ' ???)']]"

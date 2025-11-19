@@ -1,6 +1,9 @@
 {
   "any": {
     "attributeDetails": {
+      "Notes": {
+        "editorType": "textArea"
+      },
       "SecurityDDModel": {
         "options": [
           { "value": "DDOnly", "labelKey": "options-dd-only-label" },
