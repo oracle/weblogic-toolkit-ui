@@ -368,6 +368,25 @@ define(['knockout', 'utils/wkt-logger', 'utils/modelEdit/model-edit-helper'],
         return this._disableFieldsUsingBooleanAttribute(attributeMap, 'CalculatedMachineNames');
       };
 
+      this.nodeManagerShellTypeFields = attributeMap => {
+        const nodeManagerType = attributeMap['NMType'];
+        return ko.computed(() => {
+          let nmType = ModelEditHelper.getDerivedValue(nodeManagerType.observable());
+          if (!!nmType) {
+            nmType = nmType.toLowerCase();
+          }
+          return nmType !== 'rsh' && nmType !== 'ssh'
+        });
+      };
+
+      this.unixNodeManagerPostBindGIDFields = attributeMap => {
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'PostBindGIDEnabled');
+      };
+
+      this.unixNodeManagerPostBindUIDFields = attributeMap => {
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'PostBindUIDEnabled');
+      };
+
       this._disableFieldsUsingBooleanAttribute = (attributeMap, booleanAttributeName, enableOnUndefined = false) => {
         const fieldObservable = attributeMap[booleanAttributeName];
         return ko.computed(() => {
