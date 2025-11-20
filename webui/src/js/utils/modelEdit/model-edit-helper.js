@@ -258,6 +258,7 @@ function (ko, jsYaml, project, utils,
 
     // translate options that only have option key
     this.updateOptionLabels = options => {
+      options = ko.isObservable(options) ? options() : options;
       for (const option of options) {
         option.label = MessageHelper.getLabel(option);
       }

@@ -20,7 +20,7 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
           const names = getInstanceNames(['topology', folder]);
           names.forEach(name => {
             if (name !== adminServerName) {
-              options.push({ value: name, label: name })
+              options.push({ value: name, label: name });
             }
           });
         });
@@ -40,7 +40,7 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
         const defaultRealmName = 'myrealm';
         const options = [
           { value: defaultRealmName, label: defaultRealmName },
-        ]
+        ];
         const realmNames = getInstanceNames(['topology', 'SecurityConfiguration', 'Realm']);
         realmNames.forEach(name => {
           if (name !== defaultRealmName) {
@@ -51,14 +51,14 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
       };
 
       this.getCertIssuerPluginCredentialSetOptions = () => {
-        const options = []
+        const options = [];
         const credentialSetNames = getInstanceNames(['topology', 'SecurityConfiguration', 'CredentialSet']);
         credentialSetNames.forEach(credentialSetName => options.push({ value: credentialSetName, label: credentialSetName }));
         return options;
       };
 
       this.getCertIssuerPluginDeploymentOptions = () => {
-        const defaultOciCertIssuerDeploymentName = 'cert-issuer-for-oci-cert-svc'
+        const defaultOciCertIssuerDeploymentName = 'cert-issuer-for-oci-cert-svc';
         const options = [
           { value: defaultOciCertIssuerDeploymentName, label: defaultOciCertIssuerDeploymentName }
         ];
@@ -104,7 +104,7 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
           options.push({ value: dataSourceName, label: dataSourceName });
         });
         return options;
-      }
+      };
 
       this.getClusterOptions = () => {
         const options = [];
@@ -115,20 +115,16 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
         return options;
       };
 
-      this.getServersInClusterOptions = (attribute) => {
-        const options = [];
-        const modelPath = attribute.path;
-        const folder = ModelEditHelper.getFolder(modelPath);
-        if (folder.hasOwnProperty('Cluster') && folder.Cluster) {
-          const clusterName = folder.Cluster;
-          const servers = ModelEditHelper.getFolder(['topology', 'Server']);
-          Object.entries(servers).forEach(([name, server]) => {
-            if (server['Cluster'] === clusterName) {
-              options.push({ value: name, label: name });
-            }
-          });
-        }
-        return options;
+      // return an observableArray that changes with cluster selection.
+      // add any subscriptions to the list to be cleaned up by caller.
+      this.getServersInClusterOptions = (attribute, attributeMap, subscriptions) => {
+        const clusterObservable = attributeMap['Cluster'].observable;
+        const clusterName = clusterObservable();
+        const optionsArray = ko.observableArray(getClusterServerOptions(clusterName));
+        subscriptions.push(clusterObservable.subscribe(clusterName => {
+          optionsArray(getClusterServerOptions(clusterName));
+        }));
+        return optionsArray;
       };
 
       function getInstanceNames(modelPath) {
@@ -143,6 +139,20 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
           result = folder.AdminServerName;
         }
         return result;
+      }
+
+      // return options for servers that are in the specified cluster
+      function getClusterServerOptions(clusterName) {
+        const serverOptions = [];
+        if(clusterName) {
+          const servers = ModelEditHelper.getFolder(['topology', 'Server']);
+          Object.entries(servers).forEach(([name, server]) => {
+            if (server['Cluster'] === clusterName) {
+              serverOptions.push({value: name, label: name});
+            }
+          });
+        }
+        return serverOptions;
       }
     }
 

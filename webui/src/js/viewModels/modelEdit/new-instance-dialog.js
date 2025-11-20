@@ -26,6 +26,15 @@ function(accUtils, ko, project,
 
     const providerGroupLabel = MessageHelper.getFolderTypeLabel(MODEL_PATH);
     const typeFolderNames = AliasHelper.getFolderNames(MODEL_PATH);
+
+    const subscriptions = [];
+
+    this.disconnected = () => {
+      subscriptions.forEach((subscription) => {
+        subscription.dispose();
+      });
+    };
+
     this.useTypeFolder = AliasHelper.usesTypeFolders(MODEL_PATH);
 
     this.providerTypeLabel = MessageHelper.getProviderTypeLabel(ALIAS_PATH, providerGroupLabel);
@@ -71,7 +80,7 @@ function(accUtils, ko, project,
     let options = nameDetails.options || [];
     const optionsMethod = nameDetails.optionsMethod;
     if(optionsMethod) {
-      options = MetaOptions[optionsMethod]();
+      options = MetaOptions[optionsMethod]({}, {}, subscriptions);
     }
     ModelEditHelper.updateOptionLabels(options);
     this.optionsProvider = new ArrayDataProvider(options, { keyAttributes: 'value' });
