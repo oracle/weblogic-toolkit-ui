@@ -21,6 +21,14 @@ function(accUtils, ko, DialogHelper, ArrayDataProvider,
     const MODEL_PATH = ATTRIBUTE.path;
     const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
 
+    const subscriptions = [];
+
+    this.disconnected = () => {
+      subscriptions.forEach((subscription) => {
+        subscription.dispose();
+      });
+    };
+
     this.attribute = ATTRIBUTE;
     this.observable = ATTRIBUTE.observable;
     this.editorType = ModelEditHelper.getEditorType(ATTRIBUTE);
@@ -98,7 +106,7 @@ function(accUtils, ko, DialogHelper, ArrayDataProvider,
     let options = ATTRIBUTE.options || [];
     const optionsMethod = ATTRIBUTE.optionsMethod;
     if(optionsMethod) {
-      options = MetaOptions[optionsMethod](ATTRIBUTE, ATTRIBUTE_MAP);
+      options = MetaOptions[optionsMethod](ATTRIBUTE, ATTRIBUTE_MAP, subscriptions);
     }
     ModelEditHelper.updateOptionLabels(options);
     this.optionsProvider = new ArrayDataProvider(options, { keyAttributes: 'value' });
