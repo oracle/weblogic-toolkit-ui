@@ -479,6 +479,10 @@ define(['knockout', 'utils/wkt-logger', 'utils/modelEdit/model-edit-helper'],
         });
       };
 
+      this.domainDbPassiveModeFields = attributeMap => {
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'DbPassiveMode');
+      }
+
       this._disableFieldsUsingBooleanAttribute = (attributeMap, booleanAttributeName, enableOnUndefined = false) => {
         const fieldObservable = attributeMap[booleanAttributeName];
         return ko.computed(() => {

@@ -117,15 +117,6 @@
           { "value": "FailSafe", "labelKey":  "options-fail-safe-label" }
         ]
       },
-      "KeyStores": {
-        "options": [
-          { "value": "DomainKeystores", "labelKey":  "options-domain-keystores-label" },
-          { "value": "DemoIdentityAndDemoTrust", "labelKey":  "options-demo-identity-and-demo-trust-label" },
-          { "value": "CustomIdentityAndJavaStandardTrust", "labelKey":  "options-custom-identity-and-java-standard-trust-label" },
-          { "value": "CustomIdentityAndCustomTrust", "labelKey":  "options-custom-identity-and-custom-trust-label" },
-          { "value": "CustomIdentityAndCommandLineTrust", "labelKey":  "options-custom-identity-and-command-line-trust-label" }
-        ]
-      },
       "ListenPort": {
         "disabled": "serverListenPortFields",
         "validators": [ "port" ]
@@ -252,12 +243,6 @@
       "TunnelingClientTimeoutSecs": {
         "disabled": "serverTunnelingFields",
         "validators": [ "range(1,)" ]
-      },
-      "VirtualThreadEnableOption": {
-        "options": [
-          { "value": "disabled", "labelKey": "options-disabled-label" },
-          { "value": "enabled", "labelKey": "options-enabled-label" }
-        ]
       },
       "XMLEntityCache": {
         "editorType": "combo",
