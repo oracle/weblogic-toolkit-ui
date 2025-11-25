@@ -1,0 +1,30 @@
+<!--
+ Copyright (c) 2024, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<oj-dialog id="fileSelectDialog" class="wkt-model-edit-file-select-dialog" initial-visibility="hide">
+  <div slot="header">
+    <span id="dialog-title-id" class="oj-dialog-title"><oj-bind-text value="[[title]]"></oj-bind-text></span>
+  </div>
+  <div slot="body">
+    <oj-validation-group id="modelEditFileSelectTracker">
+      <div class="oj-panel">
+        <oj-c-radioset
+          id="radiosetId"
+          label-hint="[[labelMapper('label')]]"
+          label-edge="inside"
+          required="true"
+          options="[[selectOptions]]"
+          value="{{selectOption}}">
+        </oj-c-radioset>
+      </div>
+    </oj-validation-group>
+  </div>
+
+  <div slot="footer">
+    <oj-c-button id="okButton" label="[[t('dialog-button-ok')]]" on-oj-action="[[okInput]]">
+    </oj-c-button>
+    <oj-c-button id="cancelButton" label="[[t('dialog-button-cancel')]]" on-oj-action="[[cancelInput]]">
+    </oj-c-button>
+  </div>
+</oj-dialog>

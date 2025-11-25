@@ -8,11 +8,12 @@
 define(['accUtils', 'knockout', 'utils/dialog-helper', 'ojs/ojarraydataprovider',
   'ojs/ojmodule-element-utils', 'utils/modelEdit/meta-handlers', 'utils/modelEdit/meta-options',
   'utils/modelEdit/meta-validators', 'utils/modelEdit/model-edit-helper', 'utils/modelEdit/message-helper',
-  'utils/modelEdit/alias-helper', 'oj-c/button', 'oj-c/input-text', 'oj-c/list-view', 'oj-c/input-password',
+  'utils/modelEdit/alias-helper', 'utils/modelEdit/file-select-helper',
+  'oj-c/button', 'oj-c/input-text', 'oj-c/list-view', 'oj-c/input-password',
   'oj-c/select-single', 'oj-c/select-multiple', 'oj-c/text-area', 'ojs/ojselectcombobox'
 ],
-function(accUtils, ko, DialogHelper, ArrayDataProvider,
-  ModuleElementUtils, MetaHandlers, MetaOptions, MetaValidators, ModelEditHelper, MessageHelper, AliasHelper) {
+function(accUtils, ko, DialogHelper, ArrayDataProvider, ModuleElementUtils, MetaHandlers, MetaOptions,
+  MetaValidators, ModelEditHelper, MessageHelper, AliasHelper, FileSelectHelper ) {
 
   function AttributeEditor(args) {
     const ATTRIBUTE = args.attribute;
@@ -112,6 +113,13 @@ function(accUtils, ko, DialogHelper, ArrayDataProvider,
     this.optionsProvider = new ArrayDataProvider(options, { keyAttributes: 'value' });
 
     this.validators = ModelEditHelper.getValidators(ATTRIBUTE);
+
+    this.selectFile = async() => {
+      const selectedFile = await FileSelectHelper.selectFile(ATTRIBUTE, ATTRIBUTE.observable());
+      if(selectedFile) {  // null value indicates cancel
+        this.getValueObservable()(selectedFile);
+      }
+    };
 
     this.showOptions = () => {
       const options = { attribute: ATTRIBUTE, modelPath: MODEL_PATH };

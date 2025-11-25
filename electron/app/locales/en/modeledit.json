@@ -91,6 +91,15 @@
   "security-model-custom-roles-and-policies-label": "Custom Roles and Policies",
   "security-model-dd-only-label": "Deployment Descriptor Only",
 
+  "file-select-title": "Select {{attribute}}",
+  "file-select-label": "Selection type",
+  "file-select-type-file": "File",
+  "file-select-type-dir": "Directory",
+  "file-select-archive-title": "{{attribute}} Location",
+  "file-select-archive-label": "Location Type",
+  "file-select-use-file-location": "Use {{fileName}} in current location",
+  "file-select-add-to-archive": "Add {{fileName}} to archive file",
+
   "options-default-label": "Default",
   "options-persist-label": "Persistent",
   "options-non-persist-label": "Not Persistent",
@@ -360,6 +369,7 @@
   "attribute-editor-from-variable": "From variable \"{{variable}}\"",
   "attribute-editor-missing-variable": "Missing variable \"{{variable}}\"",
   "attribute-editor-options": "Options",
+  "attribute-editor-select": "Select",
 
   "invalid-integer-error": "Value must be an integer",
   "invalid-double-error": "Value must be a decimal number, such as 4 or 3.5",
@@ -716,7 +726,7 @@
   "a-BatchSize-label": "Batch Size",
   "f-MessagingBridge-a-BatchSize-help": "The number of messages that are processed within one transaction. Batch Size only applies to a messaging bridge instance forwarding messages in synchronous mode and has a QOS (quality of service) that requires two-phase transactions.",
 
-  "a-BeaHome-label": "Bea Home",
+  "a-BeaHome-label": "BEA Home",
 
   "a-BeforeCompletionIterationLimit-label": "Before Completion Iteration Limit",
   "a-BeforeCompletionIterationLimit-help": "The maximum number of cycles that the transaction manager performs the beforeCompletion synchronization callback for this WebLogic Server domain. Nothing prevents a Synchronization object from registering another during beforeCompletion, even those whose beforeCompletions have already been called. For example, an EJB can call another in its ejbStore() method. To accommodate this, the transaction manager calls all Synchronization objects, then repeats the cycle if new ones have been registered. This count sets a limit to the number of cycles that synchronization occurs.",
@@ -4213,7 +4223,7 @@
   "a-PlaintextPasswordsEnabled-help": "Specifies whether plaintext passwords are allowed to be used.",
 
   "a-PlanDir-label": "Plan Dir",
-  "a-PlanDir-help": "The location of this application's configuration area. This directory can contain external descriptor files as specified within the deployment plan document. f the plan directory is a relative path, it is resolved relative to InstallDir if InstallDir is not null; otherwise, it is resolved relative to the domain root.",
+  "a-PlanDir-help": "The location of this application's configuration area. This directory can contain external descriptor files as specified within the deployment plan document. If the plan directory is a relative path, it is resolved relative to InstallDir if InstallDir is not null; otherwise, it is resolved relative to the domain root.",
 
   "a-PlanPath-label": "Plan Path",
   "a-PlanPath-help": "The path to the deployment plan document on the Administration Server. If the plan path is a relative path, it is resolved relative to PlanDir if PlanDir is not null; otherwise, it is resolved relative to the domain root.",

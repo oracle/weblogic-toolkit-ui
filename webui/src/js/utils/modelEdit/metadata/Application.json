@@ -5,12 +5,18 @@
       "Target": {}
     },
     "attributeDetails": {
+      "PlanPath": {
+        "archiveTypes": ["applicationDeploymentPlan"]
+      },
       "PlanStagingMode": {
         "options": [
           { "value": "stage", "labelKey": "staging-stage-label" },
           { "value": "nostage", "labelKey": "staging-no-stage-label" },
           { "value": "external_stage", "labelKey": "staging-external-label" }
         ]
+      },
+      "SourcePath": {
+        "archiveTypes": ["application"]
       },
       "StagingMode": {
         "options": [

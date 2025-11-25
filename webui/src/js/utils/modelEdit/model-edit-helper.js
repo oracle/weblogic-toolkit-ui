@@ -21,7 +21,7 @@ function (ko, jsYaml, project, utils,
 
     // types that UI has editors for, not all alias types
     const EDITOR_TYPES = ['boolean', 'combo', 'comboMulti', 'credential', 'dict', 'double',
-      'integer', 'list', 'long', 'select', 'selectMulti', 'string', 'textArea'];
+      'fileSelect', 'integer', 'list', 'long', 'select', 'selectMulti', 'string', 'textArea'];
 
     const LIST_EDITOR_TYPES = ['comboMulti', 'list', 'selectMulti'];
 
@@ -226,6 +226,7 @@ function (ko, jsYaml, project, utils,
           name: attributeName,
           path: modelPath,
           type: valueMap['wlstType'],
+          usesPath: valueMap['usesPath'],
           observable: ko.observable()
         };
 
@@ -681,13 +682,13 @@ function (ko, jsYaml, project, utils,
     };
 
     function getEditorType(attribute) {
-      let editorType = attribute.type;
+      let editorType = getOfflineValue(attribute.type);
+      let usesPath = getOfflineValue(attribute.usesPath);
+      usesPath = usesPath === true || usesPath === 'true';
 
-      // some alias attributes have wlst_type like ${offline:online},
-      // in this case use the first value
-      const result = editorType.match(/^\$\{(.*):(.*)}$/);
-      if(result && (result.length > 1)) {
-        editorType = result[1];
+      if('string' === editorType && usesPath) {
+        // lists that use file select are handled as entries are added
+        editorType = 'fileSelect';
       }
 
       if('password' === editorType) {
@@ -720,6 +721,16 @@ function (ko, jsYaml, project, utils,
       }
 
       return editorType;
+    }
+
+    // some alias attributes have wlst_type like ${offline:online},
+    // in this case use the first value
+    function getOfflineValue(aliasValue) {
+      const result = isString(aliasValue) && aliasValue.match(/^\$\{(.*):(.*)}$/);
+      if(result && (result.length > 1)) {
+        aliasValue = result[1];
+      }
+      return aliasValue;
     }
   }
 

@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 
@@ -210,14 +210,17 @@ function getEntryTypes() {
 }
 
 async function chooseArchiveEntryFile(targetWindow, entryType, fileType, fileExtensions, currentValue) {
-  const i18n = require('./i18next.config');
-
   const typeDetail = getEntryTypes()[entryType];
   if (!typeDetail) {
     return Promise.reject(new Error(`Unknown archive entry type: ${entryType}`));
   }
+  return chooseAttributeFile(targetWindow, typeDetail.name, fileType, fileExtensions, currentValue, 'dialog-chooseArchiveEntry');
+}
 
-  const title = i18n.t('dialog-chooseArchiveEntry', {entryType: typeDetail.name});
+async function chooseAttributeFile(targetWindow, typeName, fileType, fileExtensions, currentValue, titleKey) {
+  const i18n = require('./i18next.config');
+
+  const title = i18n.t(titleKey, {entryType: typeName});
   const openProperty = fileType === 'dir' ? 'openDirectory' : 'openFile';
 
   let options = {
@@ -233,7 +236,7 @@ async function chooseArchiveEntryFile(targetWindow, entryType, fileType, fileExt
   }
 
   if (fileType === 'file' && Array.isArray(fileExtensions) && fileExtensions.length > 0) {
-    const filterName = i18n.t('dialog-archiveEntryFilter', {entryType: typeDetail.name});
+    const filterName = i18n.t('dialog-archiveEntryFilter', {entryType: typeName});
     options['filters'] = [ {name: filterName, extensions: fileExtensions} ];
   }
 
@@ -728,5 +731,6 @@ module.exports = {
   getEntryTypes,
   addArchiveEntry,
   chooseArchiveEntryFile,
+  chooseAttributeFile,
   wrcGetArchiveEntry
 };

@@ -202,6 +202,7 @@
   "dialog-tls-certfile": "Select TLS cert file",
 
   "dialog-chooseArchiveEntry": "Choose {{entryType}} for Archive",
+  "dialog-chooseAttributeFile": "Choose {{entryType}}",
   "dialog-archiveEntryFilter": "{{entryType}}",
   "dialog-getWebLogicRemoteConsoleHome": "Select the WebLogic Remote Console Installation",
   "dialog-getWebLogicRemoteConsoleAppImage": "Select the WebLogic Remote Console AppImage file",

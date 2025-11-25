@@ -100,7 +100,9 @@
   "CoherenceClusterSystemResource/CoherenceResource": {
     "attributeDetails": {
       "CustomClusterConfigurationFileName": {
-        "disabled": "coherenceNotUsingCustomClusterConfig"
+        "disabled": "coherenceNotUsingCustomClusterConfig",
+        "archiveTypes": ["coherenceConfig"],
+        "segregateFolder": "CoherenceClusterSystemResource"
       }
     }
   },
