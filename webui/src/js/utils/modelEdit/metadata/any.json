@@ -4,6 +4,17 @@
       "Notes": {
         "editorType": "textArea"
       },
+      "DeploymentOrder": {
+        "validators": [ "range(0,)" ]
+      },
+      "RotationType": {
+        "options": [
+          { "value": "bySize", "labelKey": "options-by-size-label" },
+          { "value": "byTime", "labelKey": "options-by-time-label" },
+          { "value": "bySizeOrTime", "labelKey": "options-by-size-or-time-label" },
+          { "value": "none", "labelKey": "options-none-label" }
+        ]
+      },
       "SecurityDDModel": {
         "options": [
           { "value": "DDOnly", "labelKey": "options-dd-only-label" },
