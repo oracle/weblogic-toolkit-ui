@@ -358,6 +358,8 @@
   "options-extended-label": "Extended",
   "options-local-access-only-label": "Local Access Only",
   "options-in-memory-label": "In Memory",
+  "options-audit-label": "Audit",
+  "options-log-and-audit-label": "Log and Audit",
 
   "direction-jms-queue-to-tuxedo-queue-label": "JMS Queue to Tuxedo Queue",
   "direction-tuxedo-queue-to-jms-queue-label": "Tuxedo Queue to JMS Queue",
@@ -528,7 +530,7 @@
   "a-AddJvmNumber-label": "Add JVM Number",
 
   "a-AddWorkManagerThreadsByCpuCount-label": "Add Work Manager Threads By CPU Count",
-  "a-AddWorkManagerThreadsByCpuCount-help": "Enables increased efficiency of the self-tuning thread pool by aligning it with the ExaLogic processor architecture threading capabilities. The default value is controlled by the effective value of the DomainMBean's ExalogicOptimizationEnabled attribute.",
+  "a-AddWorkManagerThreadsByCpuCount-help": "Enables increased efficiency of the self-tuning thread pool by aligning it with the Exalogic processor architecture threading capabilities. The default value is controlled by the effective value of the DomainMBean's ExalogicOptimizationEnabled attribute.",
 
   "a-AdditionalAutoMigrationAttempts-label": "Additional Auto Migration Attempts",
   "f-Cluster-a-AdditionalAutoMigrationAttempts-help": "A migratable server could fail to come up on every possible configured machine. This attribute controls how many further attempts, after the first one, should be tried. Note that each attempt specified here indicates another full circuit of migrations amongst all the configured machines. So for a 3-server cluster, and the default value of 3, a total of 9 migrations will be attempted. If it is set to -1, migrations will go on forever until the server starts.",
@@ -548,15 +550,22 @@
   "a-AdminReconnectIntervalSeconds-help": "The number of seconds between reconnection attempts to the admin server. When the admin server fails the managed server will periodically try to connect back to it. The default value is 10.",
 
   "a-AdminServerName-label": "Admin Server Name",
+  "a-AdminServerName-help": "Specifies the name of the server that will act as the administration server for this domain.  The default value is \"AdminServer\".",
+
   "a-AdminUserName-label": "Admin User Name",
   "a-AdministrationMBeanAuditingEnabled-label": "Administration MBean Auditing Enabled",
 
   "a-AdministrationPort-label": "Administration Port",
   "f-Server-a-AdministrationPort-help": "The secure administration port for the server. This port requires that you enable the domain's administration port and that SSL is configured and enabled. By default, the server uses the administration port that is specified at the domain level. To override the domain-level administration port for the current server instance, set this server's administration port.",
   "f-ServerTemplate-a-AdministrationPort-help": "The secure administration port for the servers created with this server template. This port requires that you enable the domain's administration port and that SSL is configured and enabled. By default, the server uses the administration port that is specified at the domain level. To override the domain-level administration port for the current server instance, set this server's administration port.",
+  "f-Topology-a-AdministrationPort-help": "The common secure administration port for this WebLogic Server domain. Requires enabling the administration port either using AdministrationPortEnabled or putting the domain in secure production mode. The default value is 9002.",
 
   "a-AdministrationPortEnabled-label": "Administration Port Enabled",
+  "a-AdministrationPortEnabled-help": "Specifies whether the domain-wide administration port should be enabled for this WebLogic Server domain. Because the administration port uses SSL, enabling the administration port requires that SSL must be configured for all servers in the domain. The default value is false except in secure production mode, where it defaults to true.",
+
   "a-AdministrationProtocol-label": "Administration Protocol",
+  "a-AdministrationProtocol-help": "The default protocol for communicating through the administration port or administration channels. (Requires you to enable the administration port or to create an administration channel.) If requests through the administration port or an administration channel do not specify a protocol, WebLogic Server uses the protocol specified here. The default value is \"t3s\".",
+
   "a-Administrative-label": "Administrative",
 
   "a-AdministrativeIdentityDomain-label": "Administrative Identity Domain",
@@ -669,6 +678,7 @@
   "f-SelfTuning_WorkManager-a-ApplicationScope-help": "Specifies whether this work manager should be scoped to an application. By default, work managers are scoped to an application. Set this value to false if the work manager is to be scoped to a domain.",
 
   "a-ArchiveConfigurationCount-label": "Archive Configuration Count",
+  "a-ArchiveConfigurationCount-help": "The number of archival versions of config.xml saved by the Administration Server each time the domain configuration is modified. The default value is 0.",
 
   "a-Argument-label": "Argument",
   "f-Callout-a-Argument-help": "Specifies the argument to pass to the class.",
@@ -816,7 +826,10 @@
   "f-MessagingBridge-a-BatchInterval-help": "The maximum amount of time, in milliseconds, that a messaging bridge instance waits before sending a batch of messages in one transaction, regardless of whether the Batch Size has been reached or not. Only applies to a messaging bridge instance forwarding messages in synchronous mode and has a QOS (quality of service) that requires two-phase transactions. The default value of -1 indicates that the bridge instance waits until the number of messages reaches the Batch Size before it completes a transaction.",
 
   "a-BatchJobsDataSourceJndiName-label": "Batch Jobs Data Source JNDI Name",
+  "a-BatchJobsDataSourceJndiName-help": "Specifies the Batch DataSource jndi name. This jndi name will be used to lookup an instance of a DataSource that will be used to store the Batch jobs data.",
+
   "a-BatchJobsExecutorServiceName-label": "Batch Jobs Executor Service Name",
+  "a-BatchJobsExecutorServiceName-help": "Specifies the name of the application-scoped ManagedExecutorService. This ManagedExecutorService instance will be used to run batch jobs that are submitted from applications deployed to the domain. The ManagedExecutorServiceTemplate by the same name must exist when a batch job is submitted in the domain. If this returns null, then the batch runtime will look to use the default Java EE ManagedExecutorService that is bound to the JNDI name: java:comp/DefaultManagedExecutorService.",
 
   "a-BatchSize-label": "Batch Size",
   "f-MessagingBridge-a-BatchSize-help": "The number of messages that are processed within one transaction. Batch Size only applies to a messaging bridge instance forwarding messages in synchronous mode and has a QOS (quality of service) that requires two-phase transactions.",
@@ -1160,6 +1173,8 @@
   "f-Cluster-a-ClusterBroadcastChannel-help": "Specifies the channel used to handle communications within a cluster. If no channel is specified then the servers in the cluster will use the default secure channel (SSL Listen Port), if SecureClusterBroadcastEnabled attribute is true. If SecureClusterBroadcastEnabled attribute is false then servers in the cluster will use the default channel (Plain Listen Port). ClusterBroadcastChannel is only supported if the unicast messaging type is used.",
 
   "a-ClusterConstraintsEnabled-label": "Cluster Constraints Enabled",
+  "a-ClusterConstraintsEnabled-help": "Specifies that deployments targeted to a cluster succeed only if all servers in the cluster are running. By default, cluster constraints are disabled and deployment is attempted only on the servers that are reachable at the time of deployment from the Administration Server. Any servers that have been shut down or are temporarily partitioned from the Administration Server will retrieve the deployment during server startup or shortly after the network partition is resolved.",
+
   "a-ClusterHosts-label": "Cluster Hosts",
 
   "a-ClusterListenPort-label": "Cluster Listen Port",
@@ -1272,8 +1287,12 @@
   "a-ConcurrentSingletonActivationEnabled-label": "Concurrent Singleton Activation Enabled",
   "f-Cluster-a-ConcurrentSingletonActivationEnabled-help": "Specifies whether to allow the concurrent activation, deactivation, or restart of two or more singleton services.",
 
-  "a-ConfigBackupEnabled-label": "Config Backup Enabled",
+  "a-ConfigBackupEnabled-label": "Configuration Backup Enabled",
+  "a-ConfigBackupEnabled-help": "If true, then backups of the configuration will be made during server boot. The default value is false.",
+
   "a-ConfigurationAuditType-label": "Configuration Audit Type",
+  "a-ConfigurationAuditType-help": "Specifies the criteria used for auditing configuration events (configuration changes and other operations). The default value is none except in secure production mode, where the value defaults to audit.",
+
   "a-ConfigurationVersion-label": "Configuration Version",
   "a-ConfiguredApplicationIdentifier-label": "Configured Application Identifier",
 
@@ -1383,9 +1402,15 @@
   "f-Cluster-a-ConsensusParticipants-help": "Controls the number of cluster participants in determining consensus.",
 
   "a-ConsensusProcessIdentifier-label": "Consensus Process Identifier",
+
   "a-ConsoleContextPath-label": "Console Context Path",
+  "a-ConsoleContextPath-help": "The context path that you want to use in URLs that specify the Administration Console. Deprecated in 14.1.2. The default value is \"console\".",
+
   "a-ConsoleEnabled-label": "Console Enabled",
+  "a-ConsoleEnabled-help": "Specifies whether the Administration Server automatically deploys the Administration Console in the current domain. If the Administration Console is not deployed, you can still use the WebLogic Scripting Tool or the management APIs to configure and monitor the domain. Deprecated in 14.1.2.",
+
   "a-ConsoleExtensionDirectory-label": "Console Extension Directory",
+  "a-ConsoleExtensionDirectory-help": "Specifies the directory path from which console extensions are loaded. Deprecated. 14.1.2. The default value is \"console-ext\".",
 
   "a-ConsoleFullDelegationEnabled-label": "Console Full Delegation Enabled",
   "f-SecurityConfiguration-a-ConsoleFullDelegationEnabled-help": "Indicates whether the console is enabled for fully delegate authorization. Deprecated in 14.1.2.0.0",
@@ -1674,7 +1699,10 @@
   "f-WLDFSystemResource_WLDFResource_WatchNotification_Watch_Schedule-a-DayOfWeek-help": "Indicates the day of the week for the schedule. Defaults to \"*\" (every day).",
 
   "a-DbPassiveMode-label": "DB Passive Mode",
+  "a-DbPassiveMode-help": "Specifies whether the domain should enter database passive mode. Deprecated in 14.1.2. The default value is false.",
+
   "a-DbPassiveModeGracePeriodSeconds-label": "DB Passive Mode Grace Period Seconds",
+  "a-DbPassiveModeGracePeriodSeconds-help": "Specifies the maximum amount of time, in seconds, that is allowed for in-progress work to complete before entering database passive mode. Deprecated in 14.1.2. The default value is 30.",
 
   "a-DeathDetectorHeartbeatPeriod-label": "Death Detector Heartbeat Period",
   "f-Cluster-a-DeathDetectorHeartbeatPeriod-help": "Sets the Server DeathDetector HeartbeatPeriod value in seconds. The DeathDetector monitor sends a heartbeat every period seconds to ascertain the health of a member. Members monitor this heartbeat in order to ascertain the health of the server hosting the DeathDetector. In this case, the ClusterMaster.",
@@ -2429,7 +2457,9 @@
 
   "a-DeterminerCandidateResourceInfoList-label": "Determiner Candidate Resource Info List",
   "a-DevPollDisabled-label": "Dev Poll Disabled",
+
   "a-DiagnosticContextCompatibilityModeEnabled-label": "Diagnostic Context Compatibility Mode Enabled",
+  "a-DiagnosticContextCompatibilityModeEnabled-help": "Specifies whether WLDF sends a pre-12.2.1-style diagnostic context along with the current-style diagnostic context. If outbound communication to pre-12.2.1 servers is possible, this setting should always be enabled to ensure that those servers receive a diagnostic context that they can process. Disabling this setting in those scenarios can result in correlation information being lost across tiers, and in information reported by WLDF and DMS to become of sync in some situations. If there is no outbound communication to pre-12.2.1 servers possible, it is suggested to disable this mode as only the current-style diagnostic context is needed to be propagated outbound (propagating the old style will not cause a failure, but is unnecessary overhead in that situation). This setting affects outbound only, inbound pre-12.2.1 style diagnostic contexts are always understood and handled.",
 
   "a-DiagnosticContextDebugMode-label": "Diagnostic Context Debug Mode",
   "a-DiagnosticContextDebugMode-help": "Specifies how context based debugging is enabled for the Server. The default behavior in the Off mode is that debug output is emitted for all requests. The DiagnosticContextDebugMode works in conjunction with the DebugMaskCriteria specified in the And or Or modes. For context based debugging the WLDF Instrumentation needs to be enabled and DyeInjection monitor needs to be configured for the Server. When the context debug mode is set to And mode, debug is emitted only for the requests that have all the bits in the WLDF dye vector set for the flags specified in the DebugMaskCriteria attribute. When the context debug mode is set to Or mode, debug is emitted only for the requests that have any one of the bits in the WLDF dye vector set for the flags specified in the DebugMaskCriteria attribute. The default value is off.",
@@ -2605,6 +2635,7 @@
   "f-any_OracleVirtualDirectoryAuthenticator-a-EnableCacheStatistics-help": "Specifies whether to enable cache statistics if LDAP Server Cache and Group Membership Lookup Hierarchy Cache are enabled. If true, the number of the cache entries, queries and hits will be recorded.",
 
   "a-EnableEeCompliantClassloadingForEmbeddedAdapters-label": "Enable EE-Compliant Classloading For Embedded Adapters",
+  "a-EnableEeCompliantClassloadingForEmbeddedAdapters-help": "Specifies the class loading behavior for embedded adapters. If you enable this option, embedded adapters in the domain will use Jakarta EE compliant class loading. The embedded adapter's classes will be accessible from other modules in the same application.",
 
   "a-EnableGroupMembershipLookupHierarchyCaching-label": "Enable Group Membership Lookup Hierarchy Caching",
   "a-EnableGroupMembershipLookupHierarchyCaching-help": "Specifies whether to cache group membership hierarchies found during recursive membership lookup. If true, each subtree found will be cached. This overwrites the default value defined in GroupMembershipHierarchyCacheMBean.",
@@ -2713,7 +2744,8 @@
   "a-ExactlyOnceLoadBalancingPolicy-label": "Exactly-Once Load Balancing Policy",
   "a-ExactlyOnceLoadBalancingPolicy-help": "Controls the load balancing behavior when the SAF service forwards messages to a distributed destination with the Exactly-Once quality of service (QOS).",
 
-  "a-ExalogicOptimizationsEnabled-label": "ExaLogic Optimizations Enabled",
+  "a-ExalogicOptimizationsEnabled-label": "Exalogic Optimizations Enabled",
+  "a-ExalogicOptimizationsEnabled-help": "Specifies whether optimizations for Oracle Exalogic should be enabled. Optimizations include improved thread management and request processing, and reduced lock contention. This attribute should be enabled only when configuring a WebLogic domain for Oracle Exalogic.",
 
   "a-Exclude-label": "Exclude",
   "f-WLDFSystemResource_WLDFResource_Instrumentation_WLDFInstrumentationMonitor-a-Exclude-help": "Pattern expressions for classes that will be excluded for this instrumentation monitor. If specified, classes matching given patterns will not be instrumented with this monitor.",
@@ -2930,7 +2962,7 @@
   "a-FullyDelegateAuthorization-label": "Fully Delegate Authorization",
 
   "a-GatheredWritesEnabled-label": "Gathered Writes Enabled",
-  "a-GatheredWritesEnabled-help": "Enables gathered writes over NIO socket channels. Enabling this attribute increases efficiency during I/O in environments with high network throughput and should be used only when configuring a WebLogic domain for Oracle ExaLogic. The default value is false.",
+  "a-GatheredWritesEnabled-help": "Enables gathered writes over NIO socket channels. Enabling this attribute increases efficiency during I/O in environments with high network throughput and should be used only when configuring a WebLogic domain for Oracle Exalogic. The default value is false.",
 
   "a-GenerateAttributes-label": "Generate Attributes",
   "a-GenerateAttributes-help": "Specifies whether to generate <AttributeStatement> in the assertion for this partner. If true, the default implementation will generate group information as an <AttributeStatement> in the assertion if there is any.",
@@ -3273,6 +3305,8 @@
   "f-Application-a-InstallDir-help": "The path to the application's install-root directory, relative to the domain/config/deployments directory. When the installation directory is specified, SourcePath, PlanDir, and PlanPath are derived from this path and need not be specified. The default value for this is the name of the deployment.",
 
   "a-InstalledSoftwareVersion-label": "Installed Software Version",
+  "a-InstalledSoftwareVersion-help": "Installed software version that can be used for rolling updates of config changes.",
+
   "a-InstalledVMMAdapter-label": "Installed VMM Adapter",
 
   "a-InstrumentStackTraceEnabled-label": "Instrument Stack Trace Enabled",
@@ -3291,7 +3325,9 @@
   "f-NMProperties-a-InterfaceName-help": "An interface name along with a corresponding range of IP addresses and optional netmask value that should be bound to this specific network interface when migratable servers are started. Syntax: <InterfaceName>=<IP_RANGE_MIN>-<IP_RANGE_MAX>,(optional) NetMask=<NETMASK_ADDRESS>",
 
   "a-InternalApp-label": "Internal App",
+
   "a-InternalAppsDeployOnDemandEnabled-label": "Internal Apps Deploy On Demand Enabled",
+  "a-InternalAppsDeployOnDemandEnabled-help": "Specifies whether internal applications such as the console, uddi, wlstestclient, and uddiexplorer are deployed on demand (first access) instead of during server startup. The default value is true.",
 
   "a-Interoperate-label": "Interoperate",
   "a-Interoperate-help":  "Specifies whether this local Tuxedo access point interoperates with remote Tuxedo access points that are based upon Tuxedo release 6.5. If this value is set to Yes, the local Tuxedo access point interoperates with a Tuxedo 6.5 domain.",
@@ -3395,7 +3431,10 @@
   "f-any_ServerStart-a-JavaHome-help": "The Java home directory (on the machine running Node Manager) to use when starting this server.",
 
   "a-JavaServiceConsoleEnabled-label": "Java Service Console Enabled",
+  "a-JavaServiceConsoleEnabled-help": "Specifies whether the Administration Server automatically deploys the Java Service Administration Console in the current domain. The default value is derived from the JavaServiceEnabled attribute value.",
+
   "a-JavaServiceEnabled-label": "Java Service Enabled",
+  "a-JavaServiceEnabled-help": "Specifies whether features to support the use of this WebLogic Server as a Java Service in a cloud environment should be enabled. The default value is false.",
 
   "a-JavaServiceResourcesEnabled-label": "Java Service Resources Enabled",
   "f-RestfulManagementServices-a-JavaServiceResourcesEnabled-help": "Specifies whether the REST resource features for administering WebLogic Server as a Java Service within a cloud environment should be enabled in this domain.",
@@ -3561,6 +3600,7 @@
 
   "a-ListenPortEnabled-label": "Listen Port Enabled",
   "a-ListenPortEnabled-help": "Specifies whether this server can be reached through the default plain-text (non-SSL) listen port.",
+  "f-Topology-a-ListenPortEnabled-help": "Specifies the domain-wide setting for whether the server ListenPorts are enabled. Can be overridden at the server level. The default value is true except in secure production mode.",
 
   "a-ListenThreadDebug-label": "Listen Thread Debug",
 
@@ -3701,6 +3741,7 @@
    "f-any_Log-a-LogFileSeverity-help": "The minimum severity of log messages going to the domain log file.",
 
   "a-LogFormatCompatibilityEnabled-label": "Log Format Compatibility Enabled",
+  "a-LogFormatCompatibilityEnabled-help": "Specifies whether log messages will be logged in legacy format without supplemental attributes. The default value is false.",
 
   "a-LogFormatter-label": "Log Formatter",
   "f-NMProperties-a-LogFormatter-help": "Specifies the formatter classname to use for Node Manager log messages.",
@@ -3861,10 +3902,12 @@
   "a-MaxConcurrentLongRunningRequests-help": "The maximum number of running long-running requests that can be submitted to all the Managed Executor Services or Managed Scheduled Executor Services in the server. The default value is 100.",
   "f-ManagedExecutorServiceTemplate-a-MaxConcurrentLongRunningRequests-help": "The maximum number of running long-running tasks submitted to this Concurrent Managed Object (CMO).",
   "f-ManagedScheduledExecutorServiceTemplate-a-MaxConcurrentLongRunningRequests-help": "The maximum number of running long-running tasks submitted to this Concurrent Managed Object (CMO).",
+  "f-Topology-a-MaxConcurrentLongRunningRequests-help": "The domain-wide default for the maximum number of running long-running requests that can be submitted to all the Managed Executor Services or Managed Scheduled Executor Services on a server. The default value is 50.",
 
   "a-MaxConcurrentNewThreads-label": "Max Concurrent New Threads",
   "a-MaxConcurrentNewThreads-help": "The maximum number of running threads that can be created by all the Managed Thread Factories in the server.",
   "f-ManagedThreadFactoryTemplate-a-MaxConcurrentNewThreads-help": "The maximum number of concurrent new threads that can be created by this Managed Thread Factory (MTF). The default value is 100.",
+  "f-Topology-a-MaxConcurrentNewThreads-help": "The domain-wide default for the maximum number of running threads that can be created by all the Managed Thread Factories on a server. The default value is 50.",
 
   "a-MaxConcurrentStreams-label": "Max Concurrent Streams",
   "f-WebAppContainer_Http2Config-a-MaxConcurrentStreams-help": "The maximum number of concurrent streams that the server will allow. This limit is directional: it applies to the number of streams that the server permits the receiver to create.",
@@ -4552,7 +4595,10 @@
   "a-ParallelConnectDelay-help": "Specifies the number of seconds to delay when making concurrent attempts to connect to multiple servers. If set to 0, connection attempts are serialized. An attempt is made to connect to the first server in the list. The next entry in the list is tried only if the attempt to connect to the current host fails. This might cause your application to block for unacceptably long time if a host is down. If set to greater than 0, another connection setup thread is started after this number of delay seconds has passed.",
 
   "a-ParallelDeployApplicationModules-label": "Parallel Deploy Application Modules",
+  "a-ParallelDeployApplicationModules-help": "Determines if the modules of applications will be deployed in parallel. The default value is false.",
+
   "a-ParallelDeployApplications-label": "Parallel Deploy Applications",
+  "a-ParallelDeployApplications-help": "Determines if applications will be deployed in parallel. The default value is true for version 12.2.1 and newer.",
 
   "a-ParallelDeployModules-label": "Parallel Deploy Modules",
   "a-ParallelDeployModules-help": "Determines if the modules of applications will be deployed in parallel.",
@@ -4812,6 +4858,7 @@
   "a-ProducerLoadBalancingPolicy-help": "The Producer Load Balancing Policy restricts where a JMS Message Producer can load balance its messages among members of a distributed destination (DD).",
 
   "a-ProductionModeEnabled-label": "Production Mode Enabled",
+  "a-ProductionModeEnabled-help": "Specifies whether all servers in this domain run in production mode.",
 
   "a-ProductionPausedAtStartup-label": "Production Paused At Startup",
   "a-ProductionPausedAtStartup-help": "Specifies whether new message production is paused on a destination at startup.",
@@ -5025,6 +5072,8 @@
   "a-RemoteCoherenceClusterName-help": "The Coherence Cluster Name of the remote participant cluster.",
 
   "a-RemoteConsoleHelperEnabled-label": "Remote Console Helper Enabled",
+  "a-RemoteConsoleHelperEnabled-help": "Specifies whether the Administration Server automatically deploys the Remote Console Helper in the current domain. The default value is true.",
+
   "a-RemoteDomain-label": "Remote Domain",
   "a-RemoteHost-label": "Remote Host",
 
@@ -5073,7 +5122,7 @@
   "a-ReplicationGroup-help": "Defines preferred clustered instances considered for hosting replicas of the primary HTTP session states created on the server.",
 
   "a-ReplicationPorts-label": "Replication Ports",
-  "a-ReplicationPorts-help": "When WLS is running on ExaLogic machines, cluster replication traffic could go over multiple replication channels. However multiple replication channels need not be configured on each clustered server instance. Only one replication channel with explicit IP-Address needs to be configured for each server and replicationPorts range can be specified for each server. For eg. range 7001-7010 will create 10 replication channels with ports 7001 to 7010 for the given server. These channels inherits all the properties of the configured replication channel except the listen port.Names of these channels will be derived from the configured replication channel with suffix {x} added where x could be 1,2.. as per the number of ports specified. Public ports are same as the listen port for these additional channels.",
+  "a-ReplicationPorts-help": "When WLS is running on Exalogic machines, cluster replication traffic could go over multiple replication channels. However multiple replication channels need not be configured on each clustered server instance. Only one replication channel with explicit IP-Address needs to be configured for each server and replicationPorts range can be specified for each server. For eg. range 7001-7010 will create 10 replication channels with ports 7001 to 7010 for the given server. These channels inherits all the properties of the configured replication channel except the listen port.Names of these channels will be derived from the configured replication channel with suffix {x} added where x could be 1,2.. as per the number of ports specified. Public ports are same as the listen port for these additional channels.",
 
   "a-ReplicationTimeoutEnabled-label": "Replication Timeout Enabled",
   "f-Cluster-a-ReplicationTimeoutEnabled-help": "Specifies whether a timeout should be applied to session replication calls. The default value is true.",
@@ -5362,6 +5411,7 @@
   "f-any_OracleInternetDirectoryAuthenticator-a-SSLEnabled-help": "Specifies whether SSL will be used to connect to the LDAP server.",
   "f-any_OracleUnifiedDirectoryAuthenticator-a-SSLEnabled-help": "Specifies whether SSL will be used to connect to the LDAP server.",
   "f-any_OracleVirtualDirectoryAuthenticator-a-SSLEnabled-help": "Specifies whether SSL will be used to connect to the LDAP server.",
+  "f-Topology-a-SSLEnabled-help": "Specifies the domain-wide value for whether the servers' SSL ListenPorts are enabled. Can be overridden at the server level. The default value is false except in secure production mode.",
 
   "a-SSLEnabled10-label": "SSL Enabled 10",
   "a-SSLEnabled11-label": "SSL Enabled 11",
@@ -5403,7 +5453,7 @@
   "f-WLDFSystemResource_WLDFResource_WatchNotification_ScaleUpAction-a-ScalingSize-help": "Indicates the number of instances to scale by when the action is invoked.",
 
   "a-ScatteredReadsEnabled-label": "Scattered Reads Enabled",
-  "a-ScatteredReadsEnabled-help": "Enables scattered reads over NIO socket channels. Enabling this attribute increases efficiency during I/O in environments with high network throughput and should be used only when configuring a WebLogic domain for Oracle ExaLogic.",
+  "a-ScatteredReadsEnabled-help": "Enables scattered reads over NIO socket channels. Enabling this attribute increases efficiency during I/O in environments with high network throughput and should be used only when configuring a WebLogic domain for Oracle Exalogic.",
 
   "a-SchemaFactory-label": "Schema Factory",
   "a-Scope-label": "Scope",
@@ -5520,14 +5570,19 @@
   "a-ServerGroupTargetingLimits-valueLabel": "Targets",
   "a-ServerHelper-label": "Server Helper",
   "a-ServerKeyFileName-label": "Server Key File Name",
+
   "a-ServerKeyStores-label": "Server Key Stores",
+  "a-ServerKeyStores-help": "Specifies the domain-wide default value for the per-server KeyStores attribute. This value can be overridden at the server level. The server KeyStores attribute selects the set of Identity and Trust keystores the server will use. The default value is \"DemoIdentityAndDemoTrust\".",
 
   "a-ServerLifeCycleTimeoutVal-label": "Server Life Cycle Timeout Value",
   "a-ServerLifeCycleTimeoutVal-help": "Number of seconds a force shutdown operation waits before timing out and killing itself. If the operation does not complete within the configured timeout seconds, the server will shutdown automatically if the state of the server at that time was SHUTTING_DOWN. A value of 0 means that the server will wait indefinitely for life cycle operation to complete. The default value is 30 unless in secure production mode where it is 120.",
 
   "a-ServerLoggingBridgeAtRootLoggerEnabled-label": "Server Logging Bridge At Root Logger Enabled",
   "a-ServerLoggingBridgeUseParentLoggersEnabled-label": "Server Logging Bridge Use Parent Loggers Enabled",
+
   "a-ServerMigrationHistorySize-label": "Server Migration History Size",
+  "a-ServerMigrationHistorySize-help": "Specifies the history size of server migrations. A value of -1 indicates that the history size is unlimited. The default value is 100.",
+
   "a-ServerName-label": "Server Name",
 
   "a-ServerNamePrefix-label": "Server Name Prefix",
@@ -5562,6 +5617,7 @@
   "f-Cluster-a-ServiceAgeThresholdSeconds-help": "Defines the number of seconds by which the age of two conflicting services must differ before one is considered older than the other. The default value is 180.",
 
   "a-ServiceMigrationHistorySize-label": "Service Migration History Size",
+  "a-ServiceMigrationHistorySize-help": "Specifies the history size of service migrations. A value of -1 indicates that the history size is unlimited. The default value is 100.",
 
   "a-ServiceProviderArtifactBindingEnabled-label": "Service Provider Artifact Binding Enabled",
   "f-any_SingleSignOnServices-a-ServiceProviderArtifactBindingEnabled-help": "Specifies whether the Artifact binding is enabled for the Service Provider. The default value is true.",
@@ -5695,6 +5751,7 @@
   "a-SiteName-label": "Site Name",
   "f-Cluster-a-SiteName-help": "Specifies the name of the site with which this cluster is associated.",
   "f-any_CoherenceMemberConfig-a-SiteName-help": "Specifies the name of the geographic site where this member is hosted.",
+  "f-Topology-a-SiteName-help": "The name of the site with which the domain is associated. Deprecated in 12.2.1.4.",
 
   "a-SlaveDeployer-label": "Slave Deployer",
 
@@ -6344,7 +6401,7 @@
   "a-UseEnhancedIncrementAdvisor-help": "Specifies whether self-tuning should use the enhanced IncrementAdvisor implementation that uses a different algorithm to adjust the size of the self-tuning thread pool. The default value is true.",
 
   "a-UseEnhancedPriorityQueueForRequestManager-label": "Use Enhanced Priority Queue For Request Manager",
-  "a-UseEnhancedPriorityQueueForRequestManager-help": "Reduces lock contention by using the enhanced ConcurrentCalendarQueue as the priority based queue for pending requests that are waiting for a thread. This attribute should be enabled only in an Oracle ExaLogic environment. The default value is false.",
+  "a-UseEnhancedPriorityQueueForRequestManager-help": "Reduces lock contention by using the enhanced ConcurrentCalendarQueue as the priority based queue for pending requests that are waiting for a thread. This attribute should be enabled only in an Oracle Exalogic environment. The default value is false.",
 
   "a-UseFastSerialization-label": "Use Fast Serialization",
   "f-any_NetworkAccessPoint-a-UseFastSerialization-help": "Specifies whether to use non-standard object serialization for performance. This option works in different ways for different protocols. In particular, under IIOP this option uses Java serialization rather than RMI-IIOP serialization. In general, using non-standard serialization is not suitable for interoperability scenarios and may imply some feature loss.",

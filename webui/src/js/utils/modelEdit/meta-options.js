@@ -191,6 +191,15 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
         return options;
       };
 
+      this.getManagedExecutorServiceTemplateOptions = () => {
+        const options = [];
+        const mesTemplateNames = getInstanceNames(['resources', 'ManagedExecutorServiceTemplate']);
+        mesTemplateNames.forEach(templateName => {
+          options.push({ value: templateName, label: templateName });
+        });
+        return options;
+      }
+
       function getInstanceNames(modelPath) {
         const folder = ModelEditHelper.getFolder(modelPath);
         return Object.keys(folder);

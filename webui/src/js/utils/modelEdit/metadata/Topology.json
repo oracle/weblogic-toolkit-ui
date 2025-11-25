@@ -1,6 +1,125 @@
 {
   "Topology": {
+    "attributeDetails": {
+      "AdministrationPort": {
+        "validators": [ "port" ]
+      },
+      "AdministrationProtocol": {
+        "optionsMatch": "lower",
+        "options": [
+          { "value": "t3s", "label": "T3S" },
+          { "value": "https", "label": "HTTPS" },
+          { "value": "iiops", "label": "IIOPS" }
+        ]
+      },
+      "ArchiveConfigurationCount": {
+        "validators": [ "range(0,)" ]
+      },
+      "BatchJobsExecutorServiceName": {
+        "editorType": "combo",
+        "optionsMethod": "getManagedExecutorServiceTemplateOptions"
+      },
+      "ConfigurationAuditType": {
+        "options": [
+          { "value": "none", "labelKey": "options-none-label" },
+          { "value": "log", "labelKey": "options-log-label" },
+          { "value": "audit", "labelKey": "options-audit-label" },
+          { "value": "logaudit", "labelKey": "options-log-audit-label" }
+        ]
+      },
+      "DbPassiveModeGracePeriodSeconds": {
+        "disabled": "domainDbPassiveModeFields",
+        "validators": [ "range(0,)" ]
+      },
+      "MaxConcurrentLongRunningRequests": {
+        "validators": [ "range(0,65534)" ]
+      },
+      "MaxConcurrentNewThreads": {
+        "validators": [ "range(0,65534)" ]
+      },
+      "ServerKeyStores": {
+        "options": [
+          { "value": "DomainKeystores", "labelKey":  "options-domain-keystores-label" },
+          { "value": "DemoIdentityAndDemoTrust", "labelKey":  "options-demo-identity-and-demo-trust-label" },
+          { "value": "CustomIdentityAndJavaStandardTrust", "labelKey":  "options-custom-identity-and-java-standard-trust-label" },
+          { "value": "CustomIdentityAndCustomTrust", "labelKey":  "options-custom-identity-and-custom-trust-label" },
+          { "value": "CustomIdentityAndCommandLineTrust", "labelKey":  "options-custom-identity-and-command-line-trust-label" }
+        ]
+      },
+      "ServerMigrationHistorySize": {
+        "validators": [ "range(-1,)" ]
+      },
+      "ServiceMigrationHistorySize": {
+        "validators": [ "range(-1,)" ]
+      }
+    },
     "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "AdminServerName",
+              "ProductionModeEnabled",
+              "AdministrationPortEnabled",
+              "AdministrationPort",
+              "ListenPortEnabled",
+              "SSLEnabled",
+              "ServerKeyStores",
+              "JavaServiceEnabled",
+              "RemoteConsoleHelperEnabled",
+              "Notes"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "attributes": [
+              "AdministrationProtocol",
+              "ConfigurationAuditType",
+              "ExalogicOptimizationsEnabled",
+              "ParallelDeployApplications",
+              "ParallelDeployApplicationModules",
+              "ClusterConstraintsEnabled",
+              "ConfigBackupEnabled",
+              "ArchiveConfigurationCount",
+              "LogFormatCompatibilityEnabled",
+              "EnableEeCompliantClassloadingForEmbeddedAdapters",
+              "ServerMigrationHistorySize",
+              "ServiceMigrationHistorySize",
+              "BatchJobsDataSourceJndiName",
+              "BatchJobsExecutorServiceName",
+              "MaxConcurrentLongRunningRequests",
+              "MaxConcurrentNewThreads",
+              "InternalAppsDeployOnDemandEnabled",
+              "ConsoleEnabled",
+              "ConsoleContextPath",
+              "ConsoleExtensionDirectory",
+              "JavaServiceConsoleEnabled",
+              "DiagnosticContextCompatibilityModeEnabled",
+              "DbPassiveMode",
+              "DbPassiveModeGracePeriodSeconds",
+              "InstalledSoftwareVersion",
+              "SiteName"
+            ],
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "AdministrationMBeanAuditingEnabled",
+          "AutoDeployForSubmodulesEnabled",
+          "GuardianEnabled",
+          "MsgIdPrefixCompatibilityEnabled",
+          "OCMEnabled",
+          "PartitionUriSpace",
+          "VirtualThreadEnableOption"
+        ]
+      },
       {
         "type": "folderTab",
         "folder": "JPA"
