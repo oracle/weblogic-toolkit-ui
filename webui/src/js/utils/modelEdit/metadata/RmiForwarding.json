@@ -1,0 +1,53 @@
+{
+  "RmiForwarding": {
+    "summaryAttributes": {
+      "Url": {}
+    },
+    "sections": [
+      {
+        "type": "attributesTab",
+        "labelKey": "general-tab-label",
+        "attributes": [
+          "Url",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "folderTab",
+        "folder": "ConfigurationProperty"
+      }
+    ]
+  },
+  "RmiForwarding/ConfigurationProperty": {
+    "summaryAttributes": {
+      "EncryptValueRequired": {},
+      "Value": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "Value",
+          "EncryptValueRequired",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "EncryptedValueEncrypted"
+        ]
+      }
+    ]
+  }
+}

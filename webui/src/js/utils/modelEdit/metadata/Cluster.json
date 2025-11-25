@@ -225,7 +225,7 @@
       },
       {
         "type": "attributesTab",
-        "labelKey": "http-tab-label",
+        "label": "HTTP",
         "attributes": [
           "FrontendHost",
           "FrontendHTTPPort",
@@ -697,6 +697,14 @@
     ]
   },
   "Cluster/OverloadProtection/ServerFailureTrigger": {
+    "attributeDetails": {
+      "MaxStuckThreadTime": {
+        "validators": [ "range(0,)" ]
+      },
+      "StuckThreadCount": {
+        "validators": [ "range(0,)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",

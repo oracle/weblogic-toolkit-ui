@@ -161,7 +161,6 @@
         ]
       },
       "Name": {
-        "editorType": "combo",
         "options": [
           { "value": "DyeInjection", "label": "DyeInjection" },
           { "value": "HttpSessionDebug", "label": "HttpSessionDebug" },

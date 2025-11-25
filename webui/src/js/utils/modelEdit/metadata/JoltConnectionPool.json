@@ -31,7 +31,7 @@
       },
       {
         "type": "attributesTab",
-        "labelKey": "security-tab-label",
+        "labelKey": "security-configuration-tab-label",
         "attributes": [
           "UserName",
           "UserRole",

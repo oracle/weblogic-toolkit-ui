@@ -48,10 +48,140 @@
       ]
     },
     {
-      "path": "Server"
+      "path": "Server",
+      "instanceChildren": [
+        {
+          "path": "CoherenceMemberConfig"
+        },
+        {
+          "path": "COM"
+        },
+        {
+          "path": "ConfigurationProperty"
+        },
+        {
+          "path": "DataSource"
+        },
+        {
+          "path": "DefaultFileStore"
+        },
+        {
+          "path": "ExecuteQueue"
+        },
+        {
+          "path": "HealthScore"
+        },
+        {
+          "path": "IIOP"
+        },
+        {
+          "path": "JTAMigratableTarget"
+        },
+        {
+          "path": "Log"
+        },
+        {
+          "path": "NetworkAccessPoint"
+        },
+        {
+          "path": "OverloadProtection"
+        },
+        {
+          "path": "RmiForwarding"
+        },
+        {
+          "path": "ServerDebug"
+        },
+        {
+          "path": "ServerDiagnosticConfig"
+        },
+        {
+          "path": "ServerStart"
+        },
+        {
+          "path": "SingleSignOnServices"
+        },
+        {
+          "path": "SSL"
+        },
+        {
+          "path": "TransactionLogJDBCStore"
+        },
+        {
+          "path": "WebServer"
+        },
+        {
+          "path": "WebService"
+        }
+      ]
     },
     {
-      "path": "ServerTemplate"
+      "path": "ServerTemplate",
+      "instanceChildren": [
+        {
+          "path": "CoherenceMemberConfig"
+        },
+        {
+          "path": "COM"
+        },
+        {
+          "path": "ConfigurationProperty"
+        },
+        {
+          "path": "DataSource"
+        },
+        {
+          "path": "DefaultFileStore"
+        },
+        {
+          "path": "ExecuteQueue"
+        },
+        {
+          "path": "HealthScore"
+        },
+        {
+          "path": "IIOP"
+        },
+        {
+          "path": "JTAMigratableTarget"
+        },
+        {
+          "path": "Log"
+        },
+        {
+          "path": "NetworkAccessPoint"
+        },
+        {
+          "path": "OverloadProtection"
+        },
+        {
+          "path": "RmiForwarding"
+        },
+        {
+          "path": "ServerDebug"
+        },
+        {
+          "path": "ServerDiagnosticConfig"
+        },
+        {
+          "path": "ServerStart"
+        },
+        {
+          "path": "SingleSignOnServices"
+        },
+        {
+          "path": "SSL"
+        },
+        {
+          "path": "TransactionLogJDBCStore"
+        },
+        {
+          "path": "WebServer"
+        },
+        {
+          "path": "WebService"
+        }
+      ]
     },
     {
       "path": "UnixMachine"

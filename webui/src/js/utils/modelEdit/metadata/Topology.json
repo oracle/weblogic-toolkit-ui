@@ -47,6 +47,10 @@
       },
       {
         "type": "folderTab",
+        "folder": "RmiForwarding"
+      },
+      {
+        "type": "folderTab",
         "folder": "RestfulManagementServices"
       },
       {
