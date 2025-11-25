@@ -191,6 +191,34 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
         return options;
       };
 
+      this.getAllNetworkAccessPointsOptions = () => {
+        const options = [];
+        const napNamesSet = new Set();
+
+        const serverNames = getInstanceNames(['topology', 'Server']);
+        serverNames.forEach(serverName => {
+          const napNames = getInstanceNames(['topology', 'Server', serverName, 'NetworkAccessPoint']);
+          napNames.forEach(napName => {
+            napNamesSet.add(napName);
+          });
+        });
+
+        const serverTemplateNames = getInstanceNames(['topology', 'ServerTemplate']);
+        serverTemplateNames.forEach(serverTemplateName => {
+          const napNames = getInstanceNames(['topology', 'ServerTemplate', serverTemplateName, 'NetworkAccessPoint']);
+          napNames.forEach(napName => {
+            napNamesSet.add(napName);
+          });
+        });
+
+        const iterator = napNamesSet.values()
+        for (let i = 0; i < napNamesSet.size; i++) {
+          const name = iterator.next().value;
+          options.push({ value: name, label: name });
+        }
+        return options;
+      };
+
       this.getManagedExecutorServiceTemplateOptions = () => {
         const options = [];
         const mesTemplateNames = getInstanceNames(['resources', 'ManagedExecutorServiceTemplate']);

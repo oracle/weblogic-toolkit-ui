@@ -64,6 +64,7 @@ define(
     'text!./SystemComponent.json',
     'text!./Topology.json',
     'text!./UnixMachine.json',
+    'text!./VirtualHost.json',
     'text!./WebAppContainer.json',
     'text!./WLDFSystemResource.json',
     'text!./WebserviceSecurity.json',

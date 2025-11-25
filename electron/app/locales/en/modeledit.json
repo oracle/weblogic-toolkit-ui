@@ -4364,6 +4364,8 @@
   "f-NMProperties-a-NetMask-help": "The subnet mask for your network. For server migration, each Managed Server must use the same subnet mask to enable unicast and multicast communication among servers. See the <InterfaceName> property for more flexibility entering multiple interfaces and corresponding netmask values.",
 
   "a-NetworkAccessPoint-label": "Network Access Point",
+  "f-VirtualHost-a-NetworkAccessPoint-help": "The dedicated server channel name (NetworkAccessPoint) for which this virtual host will serve http request. If the NetworkAccessPoint for a given http request doesn't match any virtual host's NetworkAccessPoint, incoming HOST header will be matched with the VirtualHostNames in order to resolve the right virtual host.",
+
   "a-NetworkClassLoadingEnabled-label": "Network Class Loading Enabled",
 
   "a-NewXaConnForCommit-label": "New XA Connection For Commit",
@@ -6601,6 +6603,8 @@
   "a-ViewTbl32Class-help": "The names of ViewTbl32Classes that are loaded via a class loader and added to a ViewTbl array. Use the fully qualified class names of the desired classes. Use a comma to separate multiple class name entries.",
 
   "a-VirtualHostName-label": "Virtual Host Name",
+  "a-VirtualHostName-help": "The list of host names for which this virtual host will serve requests.",
+
   "a-VirtualMachineName-label": "Virtual Machine Name",
   "a-VirtualThreadEnableOption-label": "Virtual Thread Enable Option",
 
