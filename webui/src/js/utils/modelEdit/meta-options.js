@@ -115,6 +115,20 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
         return options;
       };
 
+      this.getCoherenceClusterSystemResourceOptions = () => {
+        const defaultCoherenceClusterName = "defaultCoherenceCluster"
+        const options = [
+          { "value": defaultCoherenceClusterName, label: defaultCoherenceClusterName }
+        ];
+        const coherenceClusterNames = getInstanceNames(['topology', 'CoherenceClusterSystemResource']);
+        coherenceClusterNames.forEach(clusterName => {
+          if (clusterName !== defaultCoherenceClusterName) {
+            options.push({ value: clusterName, label: clusterName });
+          }
+        })
+        return options;
+      }
+
       // return an observableArray that changes with cluster selection.
       // add any subscriptions to the list to be cleaned up by caller.
       this.getServersInClusterOptions = (attribute, attributeMap, subscriptions) => {
@@ -126,6 +140,65 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
         }));
         return optionsArray;
       };
+
+      this.getMachineOptions = () => {
+        const options = [];
+        const machineNames = getInstanceNames(['topology', 'Machine']);
+        machineNames.forEach(machineName => {
+          options.push({ value: machineName, label: machineName });
+        });
+        const unixMachineNames = getInstanceNames(['topology', 'UnixMachine']);
+        unixMachineNames.forEach(unixMachineName => {
+          options.push({ value: unixMachineName, label: unixMachineName });
+        });
+        return options;
+      };
+
+      this.getServerNetworkAccessPointOptions = (attribute) => {
+        const modelPath = attribute.path;
+        const options = [];
+        const networkAccessPointNames = getInstanceNames([...modelPath, 'NetworkAccessPoint']);
+        networkAccessPointNames.forEach(networkAccessPointName => {
+          options.push({ value: networkAccessPointName, label: networkAccessPointName });
+        });
+        return options;
+      };
+
+      this.getWSReliableDeliveryPolicyOptions = () => {
+        const options = [];
+        const policyNames = getInstanceNames(['resources', 'WSReliableDeliveryPolicy']);
+        policyNames.forEach(policyName => {
+          options.push({ value: policyName, label: policyName });
+        });
+        return options;
+      };
+
+      this.getXmlEntityCacheOptions = () => {
+        const options = [];
+        const xmlEntityCacheNames = getInstanceNames(['topology', 'XMLEntityCache']);
+        xmlEntityCacheNames.forEach(xmlEntityCacheName => {
+          options.push({ value: xmlEntityCacheName, label: xmlEntityCacheName });
+        });
+        return options;
+      };
+
+      this.getXmlRegistryOptions = () => {
+        const options = [];
+        const xmlRegistryNames = getInstanceNames(['topology', 'XMLRegistry']);
+        xmlRegistryNames.forEach(xmlRegistryName => {
+          options.push({ value: xmlRegistryName, label: xmlRegistryName });
+        });
+        return options;
+      };
+
+      this.getManagedExecutorServiceTemplateOptions = () => {
+        const options = [];
+        const mesTemplateNames = getInstanceNames(['resources', 'ManagedExecutorServiceTemplate']);
+        mesTemplateNames.forEach(templateName => {
+          options.push({ value: templateName, label: templateName });
+        });
+        return options;
+      }
 
       function getInstanceNames(modelPath) {
         const folder = ModelEditHelper.getFolder(modelPath);

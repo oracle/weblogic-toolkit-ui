@@ -67,14 +67,6 @@
       "RotationTime": {
         "disabled": "logRotationByTimeFields"
       },
-      "RotationType": {
-        "options": [
-          { "value": "bySize", "labelKey": "options-by-size-label" },
-          { "value": "byTime", "labelKey": "options-by-time-label" },
-          { "value": "bySizeOrTime", "labelKey": "options-by-size-or-time-label" },
-          { "value": "none", "labelKey": "options-none-label" }
-        ]
-      },
       "StdoutFilter": {
         "editorType": "combo",
         "optionsMethod": "getLogFilterOptions"

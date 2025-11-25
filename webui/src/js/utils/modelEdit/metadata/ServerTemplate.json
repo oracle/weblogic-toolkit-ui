@@ -1,9 +1,7 @@
 {
-  "Server": {
+  "ServerTemplate": {
     "summaryAttributes": {
-      "Machine": {},
       "Cluster": {},
-      "ListenAddress": {},
       "ListenPort": {},
       "SSL/ListenPort": {}
     },
@@ -276,7 +274,6 @@
             "type": "attributesCollapsible",
             "labelKey": "advanced-label",
             "attributes": [
-              "ServerTemplate",
               "ExternalDNSName",
               "OutboundEnabled",
               "OutboundPrivateKeyEnabled",
@@ -733,7 +730,7 @@
       }
     ]
   },
-  "Server/CoherenceMemberConfig": {
+  "ServerTemplate/CoherenceMemberConfig": {
     "attributeDetails": {
       "UnicastListenPort": {
         "validators": [ "range(0,65535)" ]
@@ -774,7 +771,7 @@
       }
     ]
   },
-  "Server/COM": {
+  "ServerTemplate/COM": {
     "attributeDetails": {
       "ApartmentThreaded": {
         "disabled": "serverCOMNativeModeFields"
@@ -795,7 +792,7 @@
       }
     ]
   },
-  "Server/ConfigurationProperty": {
+  "ServerTemplate/ConfigurationProperty": {
     "summaryAttributes": {
       "EncryptValueRequired": {},
       "Value": {}
@@ -822,7 +819,7 @@
       }
     ]
   },
-  "Server/DataSource": {
+  "ServerTemplate/DataSource": {
     "attributeDetails": {
       "RmiJDBCSecurity": {
         "options": [
@@ -854,7 +851,7 @@
       }
     ]
   },
-  "Server/DataSource/DataSourceLogFile": {
+  "ServerTemplate/DataSource/DataSourceLogFile": {
     "attributeDetails": {
       "FileCount": {
         "disabled": "logRotationFileCountLimitedFields"
@@ -900,7 +897,7 @@
       }
     ]
   },
-  "Server/DefaultFileStore": {
+  "ServerTemplate/DefaultFileStore": {
     "attributeDetails": {
       "BlockSize": {
         "validators": [ "range(-1,8192)" ]
@@ -960,7 +957,7 @@
       }
     ]
   },
-  "Server/ExecuteQueue": {
+  "ServerTemplate/ExecuteQueue": {
     "summaryAttributes": {
       "QueueLength": {},
       "ThreadCount": {}
@@ -1011,7 +1008,7 @@
       }
     ]
   },
-  "Server/HealthScore":{
+  "ServerTemplate/HealthScore":{
     "attributeDetails": {
       "CalculateIntervalSecs": {
         "disabled": "serverHealthScoreServiceFields",
@@ -1038,7 +1035,7 @@
       }
     ]
   },
-  "Server/IIOP": {
+  "ServerTemplate/IIOP": {
     "attributeDetails": {
       "DefaultCharCodeset": {
         "options": [
@@ -1111,7 +1108,7 @@
       }
     ]
   },
-  "Server/JTAMigratableTarget": {
+  "ServerTemplate/JTAMigratableTarget": {
     "attributeDetails": {
       "AdditionalMigrationAttempts": {
         "validators": [ "range(0,)" ]
@@ -1177,7 +1174,7 @@
       }
     ]
   },
-  "Server/Log": {
+  "ServerTemplate/Log": {
     "attributeDetails": {
       "BufferSizeKb": {
         "validators": [ "range(0,)" ]
@@ -1380,7 +1377,7 @@
       }
     ]
   },
-  "Server/NetworkAccessPoint": {
+  "ServerTemplate/NetworkAccessPoint": {
     "attributeDetails": {
       "AcceptBacklog": {
         "validators": [ "range(-1,)" ]
@@ -1603,7 +1600,7 @@
       }
     ]
   },
-  "Server/OverloadProtection": {
+  "ServerTemplate/OverloadProtection": {
     "attributeDetails": {
       "FailureAction": {
         "options": [
@@ -1651,7 +1648,7 @@
       }
     ]
   },
-  "Server/OverloadProtection/ServerFailureTrigger": {
+  "ServerTemplate/OverloadProtection/ServerFailureTrigger": {
     "attributeDetails": {
       "MaxStuckThreadTime": {
         "validators": [ "range(0,)" ]
@@ -1678,7 +1675,7 @@
       }
     ]
   },
-  "Server/RmiForwarding": {
+  "ServerTemplate/RmiForwarding": {
     "summaryAttributes": {
       "Url": {}
     },
@@ -1702,7 +1699,7 @@
       }
     ]
   },
-  "Server/RmiForwarding/ConfigurationProperty": {
+  "ServerTemplate/RmiForwarding/ConfigurationProperty": {
     "summaryAttributes": {
       "EncryptValueRequired": {},
       "Value": {}
@@ -1729,7 +1726,7 @@
       }
     ]
   },
-  "Server/ServerDebug": {
+  "ServerTemplate/ServerDebug": {
     "attributeDetails": {
       "DebugJAXPDebugLevel": {
         "validators": [ "range(0,3)" ]
@@ -2405,7 +2402,7 @@
       }
     ]
   },
-  "Server/ServerDebug/DebugScope": {
+  "ServerTemplate/ServerDebug/DebugScope": {
     "summaryAttributes": {
       "Enabled": {}
     },
@@ -2704,7 +2701,7 @@
       }
     ]
   },
-  "Server/ServerDiagnosticConfig": {
+  "ServerTemplate/ServerDiagnosticConfig": {
     "attributeDetails": {
       "DiagnosticDataArchiveType": {
         "options": [
@@ -2835,7 +2832,7 @@
       }
     ]
   },
-  "Server/ServerDiagnosticConfig/WldfBuiltinWatchConfiguration": {
+  "ServerTemplate/ServerDiagnosticConfig/WldfBuiltinWatchConfiguration": {
     "attributeDetails": {
       "StuckThreadThreadDumpActionCount": {
         "validators": [ "range(1,20)" ]
@@ -2863,7 +2860,7 @@
       }
     ]
   },
-  "Server/ServerStart": {
+  "ServerTemplate/ServerStart": {
     "sections": [
       {
         "type": "attributes",
@@ -2894,7 +2891,7 @@
       }
     ]
   },
-  "Server/SingleSignOnServices": {
+  "ServerTemplate/SingleSignOnServices": {
     "attributeDetails": {
       "ArtifactMaxCacheSize": {
         "validators": [ "range(0,)" ]
@@ -3022,7 +3019,7 @@
       }
     ]
   },
-  "Server/SSL": {
+  "ServerTemplate/SSL": {
     "attributeDetails": {
       "ClientCertAlias": {
         "disabled": "serverSSLClientCertFields"
@@ -3124,7 +3121,7 @@
       }
     ]
   },
-  "Server/TransactionLogJDBCStore": {
+  "ServerTemplate/TransactionLogJDBCStore": {
     "attributeDetails": {
       "ConnectionCachingPolicy": {
         "options": [
@@ -3272,7 +3269,7 @@
       }
     ]
   },
-  "Server/WebServer": {
+  "ServerTemplate/WebServer": {
     "attributeDetails": {
       "HttpsKeepAliveSecs": {
         "disabled": "serverWebServerKeepAliveFields",
@@ -3366,7 +3363,7 @@
       }
     ]
   },
-  "Server/WebServer/WebServerLog": {
+  "ServerTemplate/WebServer/WebServerLog": {
     "attributeDetails": {
       "BufferSizeKb": {
         "validators": [ "range(0,)" ]
@@ -3443,7 +3440,7 @@
       }
     ]
   },
-  "Server/WebService": {
+  "ServerTemplate/WebService": {
     "sections": [
       {
         "type": "tab",
@@ -3485,7 +3482,7 @@
       }
     ]
   },
-  "Server/WebService/WebServiceBuffering": {
+  "ServerTemplate/WebService/WebServiceBuffering": {
     "attributeDetails": {
       "RetryCount": {
         "validators": [ "range(0,)" ]
@@ -3515,7 +3512,7 @@
       }
     ]
   },
-  "Server/WebService/WebServiceBuffering/WebServiceRequestBufferingQueue": {
+  "ServerTemplate/WebService/WebServiceBuffering/WebServiceRequestBufferingQueue": {
     "attributeDetails": {
       "ConnectionFactoryJndiName": {
         "disabled": "serverWebServiceBufferingQueueFields"
@@ -3537,7 +3534,7 @@
       }
     ]
   },
-  "Server/WebService/WebServiceBuffering/WebServiceResponseBufferingQueue": {
+  "ServerTemplate/WebService/WebServiceBuffering/WebServiceResponseBufferingQueue": {
     "attributeDetails": {
       "ConnectionFactoryJndiName": {
         "disabled": "serverWebServiceBufferingQueueFields"
@@ -3559,7 +3556,7 @@
       }
     ]
   },
-  "Server/WebService/WebServicePersistence": {
+  "ServerTemplate/WebService/WebServicePersistence": {
     "sections": [
       {
         "type": "attributes",
@@ -3579,7 +3576,7 @@
       }
     ]
   },
-  "Server/WebService/WebServicePersistence/WebServiceLogicalStore": {
+  "ServerTemplate/WebService/WebServicePersistence/WebServiceLogicalStore": {
     "summaryAttributes": {
       "PersistenceStrategy": {},
       "PhysicalStoreName": {}
@@ -3617,7 +3614,7 @@
       }
     ]
   },
-  "Server/WebService/WebServicePersistence/WebServicePhysicalStore": {
+  "ServerTemplate/WebService/WebServicePersistence/WebServicePhysicalStore": {
     "summaryAttributes": {
       "StoreType": {},
       "Location": {}
@@ -3650,7 +3647,7 @@
       }
     ]
   },
-  "Server/WebService/WebServiceReliability": {
+  "ServerTemplate/WebService/WebServiceReliability": {
     "sections": [
       {
         "type": "attributes",
@@ -3668,7 +3665,7 @@
       }
     ]
   },
-  "Server/WebService/WebServiceResiliency": {
+  "ServerTemplate/WebService/WebServiceResiliency": {
     "attributeDetails": {
       "RetryCount": {
         "validators": [ "range(0,)" ]

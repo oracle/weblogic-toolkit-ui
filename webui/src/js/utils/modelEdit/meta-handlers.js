@@ -387,6 +387,102 @@ define(['knockout', 'utils/wkt-logger', 'utils/modelEdit/model-edit-helper'],
         return this._disableFieldsUsingBooleanAttribute(attributeMap, 'PostBindUIDEnabled');
       };
 
+      this.serverListenPortFields = attributeMap => {
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'ListenPortEnabled', true);
+      };
+
+      this.serverBuzzFields = attributeMap => {
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'BuzzEnabled');
+      };
+
+      this.serverTunnelingFields = attributeMap => {
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'TunnelingEnabled');
+      };
+
+      this.serverIIOPFields = attributeMap => {
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'IIOPEnabled', true);
+      };
+
+      this.serverTGIOPFields = attributeMap => {
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'TGIOPEnabled', true);
+      };
+
+      this.serverUse81StyleExecuteQueuesFields = attributeMap => {
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'Use81StyleExecuteQueues');
+      };
+
+      this.serverCOMNativeModeFields = attributeMap => {
+        this._disableFieldsUsingBooleanAttribute(attributeMap, 'NativeModeEnabled');
+      };
+
+      this.serverHealthScoreServiceFields = attributeMap => {
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'Enabled');
+      };
+
+      this.serverNetworkAccessPointOutboundFields = attributeMap => {
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'OutboundEnabled');
+      };
+
+      this.serverNetworkAccessPointHostnameVerificationFields = attributeMap => {
+        const hostnameVerificationIgnored = attributeMap['HostnameVerificationIgnored'];
+        return ko.computed(() => {
+          const ignored = ModelEditHelper.getDerivedValue(hostnameVerificationIgnored.observable());
+          return !!ignored;
+        });
+      };
+
+      this.serverDiagnosticConfigFileArchiveFields = attributeMap => {
+        const archiveType = attributeMap['DiagnosticDataArchiveType'];
+        return ko.computed(() => {
+          const type = ModelEditHelper.getDerivedValue(archiveType.observable());
+          return type !== undefined && type !== 'FileStoreArchive';
+        });
+      };
+
+      this.serverDiagnosticConfigJDBCArchiveFields = attributeMap => {
+        const archiveType = attributeMap['DiagnosticDataArchiveType'];
+        return ko.computed(() => {
+          const type = ModelEditHelper.getDerivedValue(archiveType.observable());
+          return type !== 'JDBCArchive';
+        });
+      };
+
+      this.serverSSLListenPortFields = attributeMap => {
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'Enabled', true);
+      };
+
+      this.serverSSLClientCertFields = attributeMap => {
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'UseClientCertForOutbound');
+      };
+
+      this.serverWebServerKeepAliveFields = attributeMap => {
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'KeepAliveEnabled');
+      };
+
+      this.serverWebServerLogFormatExtendedFields = attributeMap => {
+        const logFileFormat = attributeMap['LogFileFormat'];
+        return ko.computed(() => {
+          const format = ModelEditHelper.getDerivedValue(logFileFormat.observable());
+          return format !== 'extended';
+        });
+      };
+
+      this.serverWebServiceBufferingQueueFields = attributeMap => {
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'Enabled');
+      };
+
+      this.serverWebServiceLogicalStorePersistenceStrategyLocalAccessFields = attributeMap => {
+        const persistenceStrategy = attributeMap['PersistenceStrategy'];
+        return ko.computed(() => {
+          const strategy = ModelEditHelper.getDerivedValue(persistenceStrategy.observable());
+          return strategy !== undefined && strategy !== 'LOCAL_ACCESS_ONLY';
+        });
+      };
+
+      this.domainDbPassiveModeFields = attributeMap => {
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'DbPassiveMode');
+      }
+
       this._disableFieldsUsingBooleanAttribute = (attributeMap, booleanAttributeName, enableOnUndefined = false) => {
         const fieldObservable = attributeMap[booleanAttributeName];
         return ko.computed(() => {
