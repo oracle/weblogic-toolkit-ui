@@ -73,6 +73,8 @@ define(
     'text!./WLSUserPasswordCredentialMappings.json',
     'text!./WSReliableDeliveryPolicy.json',
     'text!./WTCServer.json',
+    'text!./XMLEntityCache.json',
+    'text!./XMLRegistry.json',
   ],
   function() {
     const allMetadata = {};

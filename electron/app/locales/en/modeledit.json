@@ -360,6 +360,10 @@
   "options-in-memory-label": "In Memory",
   "options-audit-label": "Audit",
   "options-log-and-audit-label": "Log and Audit",
+  "options-cache-on-reference-label": "Cache on Reference",
+  "options-cache-at-initialization-label": "Cache on Initialization",
+  "options-cache-never-label": "Cache Never",
+  "options-defer-to-registry-setting-label": "Defer to Registry Setting",
 
   "direction-jms-queue-to-tuxedo-queue-label": "JMS Queue to Tuxedo Queue",
   "direction-tuxedo-queue-to-jms-queue-label": "Tuxedo Queue to JMS Queue",
@@ -907,6 +911,7 @@
   "f-any_DefaultFileStore-a-CacheDirectory-help": "The location of the cache directory for Direct-Write-With-Cache, ignored for other policies. When Direct-Write-With-Cache is specified as the SynchronousWritePolicy, cache files are created in addition to primary files (see Directory for the location of primary files). If a cache directory location is specified, the cache file path is CacheDirectory/WLStoreCache/StoreNameFileNum.DAT.cache. When specified, Oracle recommends using absolute paths, but if the directory location is a relative path, then CacheDirectory is created relative to the WebLogic Server instance's home directory. If \"\" or Null is specified, the Cache Directory is located in the current operating system temp directory as determined by the java.io.tmpdir Java System property (JDK's default: /tmp on UNIX, %TEMP% on Windows) and is TempDirectory/WLStoreCache/DomainName/unique-id/ StoreNameFileNum.DAT.cache. The value of java.io.tmpdir varies between operating systems and configurations, and can be overridden by passing -Djava.io.tmpdir=My_path on the JVM command line.",
 
   "a-CacheDiskSize-label": "Cache Disk Size",
+  "a-CacheDiskSize-help": "The disk size, in MB, of the persistent disk cache. The default value is 5 MB.",
 
   "a-CacheEnabled-label": "Cache Enabled",
   "f-EmbeddedLDAP-a-CacheEnabled-help": "Specifies whether a cache is used with the embedded LDAP server. This cache is used when a managed server is reading or writing to the master embedded LDAP server that is running on the Administration server.",
@@ -922,8 +927,13 @@
   "f-any_weblogic.security.providers.authentication.OracleIdentityCloudIntegrator-a-CacheEnabled-help": "Specifies whether to cache the Oracle Identity Cloud Service user's information.",
 
   "a-CacheInAppDirectory-label": "Cache In App Directory",
+
   "a-CacheLocation-label": "Cache Location",
+  "a-CacheLocation-help": "Provides the path name for the persistent cache files. The default value is \"xmlcache\".",
+
   "a-CacheMemorySize-label": "Cache Memory Size",
+  "a-CacheMemorySize-help": "The memory size, in KB, of the cache. The default value is 500 KB.",
+
   "a-CacheName-label": "Cache Name",
 
   "a-CacheSize-label": "Cache Size",
@@ -944,6 +954,8 @@
   "f-EmbeddedLDAP-a-CacheTTL-help": "The time-to-live of the cache (in seconds) that is used with the embedded LDAP server.",
 
   "a-CacheTimeoutInterval-label": "Cache Timeout Interval",
+  "a-CacheTimeoutInterval-help": "The default timeout interval, in seconds, for the cache. The default value is 120 seconds.",
+  "f-any_XMLEntitySpecRegistryEntry-a-CacheTimeoutInterval-help": "Specifies the default timeout interval (in seconds) of the external entity cache. A value of -1 means that the entity cache timeout interval defers to the one specified for the XML registry of which this Entity Spec entry is a part. The default value is -1.",
 
   "a-CacheTtl-label": "Cache Time-to-Live",
   "f-any_ActiveDirectoryAuthenticator-a-CacheTtl-help": "Specifies the time-to-live (TTL) of the cache in seconds. The default value is 60.",
@@ -2529,6 +2541,8 @@
   "a-DistributionPolicy-help": "Specifies how the instances of a configured JMS artifact are named and distributed when cluster-targeted. A JMS artifact is cluster-targeted when its target is directly set to a cluster, or when it is scoped to a resource group and the resource group is in turn targeted to a cluster. When this setting is configured on a store, it applies to all JMS artifacts that reference the store. The default value is \"Distributed\".",
 
   "a-DocumentBuilderFactory-label": "Document Builder Factory",
+  "f-XMLRegistry-a-DocumentBuilderFactory-help": "The fully qualified name of the class that implements the DocumentBuilderFactory interface. The javax.xml.parsers.DocumentBuilderFactory factory API enables applications deployed to WebLogic Server to obtain an XML parser that produces DOM object trees from XML documents.",
+  "f-any_XMLParserSelectRegistryEntry-a-DocumentBuilderFactory-help": "Specifies the fully qualified name of the class that implements the DocumentBuilderFactory API. When WebLogic Server begins to parse an XML document identified by either the public ID, system ID, or root element specified in this entry, and the applications specifies it wants a DOM parser, then WebLogic Server uses this implementation class when using the javax.xml.parsers.DocumentBuilderFactory to obtain the DOM parser.",
 
   "a-DomainKeystoresClientCertAlias-label": "Domain Keystores Client Certificate Alias",
   "f-any_NetworkAccessPoint-a-DomainKeystoresClientCertAlias-help": "Specifies the alias of the client certificate for this NetworkAccessPoint when SSLMBean.KeyStores effective value is set to \"DomainKeystores\".",
@@ -2718,6 +2732,7 @@
   "f-any_SingleSignOnServices-a-EntityId-help": "The string that uniquely identifies the local site.",
 
   "a-EntityURI-label": "Entity URI",
+  "a-EntityURI-help": "The location of the external entity, either a pathname or URI. The location of the external entity can be either a pathname relative to the XML Registry directories, reachable by the Administration Server, or a URI of the entity location in some local repository.",
 
   "a-Environment-label": "Environment",
   "f-WLDFSystemResource_WLDFResource_WatchNotification_ScriptAction-a-Environment-help": "A map of environment variables to set for the child process.",
@@ -3034,6 +3049,9 @@
   "f-WebAppContainer_GzipCompression-a-GzipCompressionMinContentLength-help": "The minimum content length to trigger GZIP compression. This allows you to bypass small-sized resources where compression does not yield a great return and uses unnecessary CPU.",
 
   "a-HandleEntityInvalidation-label": "Handle Entity Invalidation",
+  "f-XMLRegistry-a-HandleEntityInvalidation-help": "Whether cached DTD/schema is invalidated when parsing error is encountered. The default value is false.",
+  "f-any_XMLEntitySpecRegistryEntry-a-HandleEntityInvalidation-help": "Whether cached DTD/schema is invalidated when parsing error is encountered. The default value is defer to registry setting.",
+
   "a-HandlerDefaults-label": "Handler Defaults",
   "a-HandlerEnabled-label": "Handler Enabled",
   "a-Handlers-label": "Handlers",
@@ -4014,6 +4032,7 @@
   "a-MaxSingleHeaderSize-help": "The maximum size of a single header (name and value) this server allows in a servlet request. A value less than 0 indicates an unlimited size. The default value is -1.",
 
   "a-MaxSize-label": "Max Size",
+  "a-MaxSize-help": "Provides the maximum number of entries that can be stored in the cache at any given time.",
 
   "a-MaxStreamResets-label": "Max Stream Resets",
   "f-WebAppContainer_Http2Config-a-MaxStreamResets-help": "Gets the maximum number of stream resets(RST_STREAM frames) allowed per connection.",
@@ -4923,6 +4942,8 @@
   "f-any_NetworkAccessPoint-a-PublicAddress-help": "The IP address or DNS name representing the external identity of this network channel. A value of null indicates that the network channel's Listen Address is also its external address. If the Listen Address is null,the network channel obtains its external identity from the server's configuration. This is required for the configurations which need to cross a firewall doing Network Address Translation.",
 
   "a-PublicId-label": "Public ID",
+  "f-any_XMLEntitySpecRegistryEntry-a-PublicId-help": "The public ID of the external entity. When WebLogic Server is parsing an XML document and it encounters an external entity with this public ID, WebLogic Server resolves the entity (to either a local file or a URL resource) according to the values set for this Entity spec entry.",
+  "f-any_XMLParserSelectRegistryEntry-a-PublicId-help": "Specifies the public ID of the XML document type for which this XML registry entry is being configured. When WebLogic Server starts to parse an XML document that is identified with this public ID, it uses the SAX or DOM parser factory implementation class specified by this registry entry, rather than the built-in or default, when obtaining a SAX or DOM parser.",
 
   "a-PublicPort-label": "Public Port",
   "f-any_NetworkAccessPoint-a-PublicPort-help": "The externally published listen port for this network channel. A value of -1 indicates that the network channel's Listen Port is also its public listen port. If the Listen Port is -1,the network channel obtains its public listen port from the server's configuration.",
@@ -5291,6 +5312,8 @@
   "f-any_ServerStart-a-RootDirectory-help": "The directory that this server uses as its root directory. This directory must be on the computer that hosts Node Manager. If you do not specify a Root Directory value, the domain directory is used by default.",
 
   "a-RootElementTag-label": "Root Element Tag",
+  "a-RootElementTag-help": "Specifies the root element of the XML document type for which this XML registry entry is being configured. When WebLogic Server starts to parse an XML document that is identified with this root element, it uses the SAX or DOM parser factory implementation class specified by this registry entry, rather than the built-in or default, when obtaining a SAX or DOM parser.",
+
   "a-RootStagingDir-label": "Root Staging Dir",
 
   "a-RotateLogOnStartup-label": "Rotate Log On Startup",
@@ -5333,6 +5356,8 @@
   "a-SAFRemoteContext-help": "Specifies the remote context used for the imported destinations.",
 
   "a-SAXParserFactory-label": "SAX Parser Factory",
+  "f-XMLRegistry-a-SAXParserFactory-help": "The fully qualified name of the class that implements the SAXParserFactory interface. The javax.xml.parsers.SAXParserFactory factory API enables applications deployed to WebLogic Server to configure and obtain a SAX-based XML parser to parse XML documents.",
+  "f-any_XMLParserSelectRegistryEntry-a-SAXParserFactory-help": "Specifies the fully qualified name of the class that implements the SAXParserFactory API. When WebLogic Server begins to parse an XML document identified by either the public ID, system ID, or root element specified in this entry, and the applications specifies it wants a SAX parser, then WebLogic Server uses this implementation class when using the javax.xml.parsers.SAXParserFactory to obtain the SAX parser.",
 
   "a-SNMPPort-label": "SNMP Port",
   "a-SNMPPort-help": "The port on which you want this SNMP agent to listen for incoming requests from SNMP managers that use the UDP protocol. SNMP managers can use this port to ping the SNMP agent and request the status of specific attributes. If you target this SNMP agent to multiple server instances, and if two or more servers are running on the same computer, WebLogic Server will automatically increment this UDP port value by 1 for each agent. WebLogic Server never assigns port 162 because it is the default port that an agent uses to send notifications. In addition, if any port is already in use, WebLogic Server skips the port and assigns the next available port.",
@@ -5458,6 +5483,8 @@
   "a-ScatteredReadsEnabled-help": "Enables scattered reads over NIO socket channels. Enabling this attribute increases efficiency during I/O in environments with high network throughput and should be used only when configuring a WebLogic domain for Oracle Exalogic.",
 
   "a-SchemaFactory-label": "Schema Factory",
+  "f-XMLRegistry-a-SchemaFactory-help": "The fully qualified name of the class that implements the SchemaFactory interface. The javax.xml.validation.SchemaFactory factory API enables applications deployed to WebLogic Server to configure and obtain a Schema object used to validate XML document using schema.",
+
   "a-Scope-label": "Scope",
   "a-ScriptExecutorCommand-label": "Script Executor Command",
 
@@ -6004,6 +6031,8 @@
   "f-JDBCSystemResource_JdbcResource_JDBCDriverParams_Properties-a-SysPropValue-help": "The system property name from which to get the value.",
 
   "a-SystemId-label": "System ID",
+  "f-any_XMLEntitySpecRegistryEntry-a-SystemId-help": "The system ID of the external entity. When WebLogic Server is parsing an XML document and it encounters an external entity with this system ID, WebLogic Server resolves the entity (to either a local file or a URL resource) according to the values set for this Entity spec entry.",
+  "f-any_XMLParserSelectRegistryEntry-a-SystemId-help": "Specifies the system ID of the XML document type for which this XML registry entry is being configured. When WebLogic Server starts to parse an XML document that is identified with this system ID, it uses the SAX or DOM parser factory implementation class specified by this registry entry, rather than the built-in or default, when obtaining a SAX or DOM parser.",
 
   "a-SystemPasswordEncrypted-label": "System Password Encrypted",
   "a-SystemPasswordEncrypted-help": "The password required to access administrative functions on this server.",
@@ -6241,6 +6270,8 @@
   "f-WTCServer_WTCtBridgeGlobal-a-Transactional-help": "Specifies whether this Tuxedo queuing bridge should use transactions when retrieving messages from a source location and when placing messages on a target location. A value of YES means that transactions are used for both operations; a value of NO means that transactions are not used for either operation.",
 
   "a-TransformerFactory-label": "Transformer Factory",
+  "f-XMLRegistry-a-TransformerFactory-help": "The fully qualified name of the class that implements the TransformerFactory interface. The javax.xml.transform.TransformerFactory factory API enables applications deployed to WebLogic Server to configure and obtain a Transformer object used to transform XML data into another format.",
+  "f-any_XMLParserSelectRegistryEntry-a-TransformerFactory-help": "Specifies the fully qualified name of the class that implements the TransformerFactory API. When WebLogic Server begins to transform an XML document identified by either the public ID, system ID, or root element specified in this entry, then WebLogic Server uses this implementation class when using the javax.xml.transform.TransformerFactory factory to obtain a Transformer object.",
 
   "a-TranslateFML-label": "Translate FML",
   "a-TranslateFML-help": "The type of XML/FML translation.  NO indicates that no data translation is performed. FLAT indicates that the message payload is transformed using the WebLogic Tuxedo Connector translator. WLXT indicates that translation is performed by the XML-to-non-XML WebLogic XML Translator (WLXT).",
@@ -6698,7 +6729,10 @@
   "f-Cluster-a-WeblogicPluginEnabled-help": "Specifies if this cluster will receive requests from a proxy plug-in or HttpClusterServlet. Set this attribute to true if the cluster will receive requests from a proxy plug-in or HttpClusterServlet. A call to getRemoteAddr will return the address of the browser client from the proprietary WL-Proxy-Client-IP header instead of the Web server. Note: If you are using Oracle HTTP Server, the WebLogic Proxy Plug-In, or Oracle Traffic Director to distribute client requests to a Managed Server or a cluster, Oracle recommends setting this attribute to true.",
 
   "a-Weight-label": "Weight",
+
   "a-WhenToCache-label": "When To Cache",
+  "f-XMLRegistry-a-WhenToCache-help": "Specifies when WebLogic Server should cache external entities that it retrieves from the Web. When WebLogic Server resolves an external entity within an XML file and retrieves the entity from the Web, you can specify that WebLogic Server cache this entity only when the entity is first referenced, when WebLogic Server first starts up, or not at all.",
+  "f-any_XMLEntitySpecRegistryEntry-a-WhenToCache-help": "Specifies when WebLogic Server should cache the external entities it retrieves from the Web. WebLogic Server can cache the entities when they are referenced, as soon as possible (that is, on initialization) or never. Additionally, WebLogic Server can defer to the XML registry's cache setting, which is the default value.",
 
   "a-WindowInterval-label": "Window Interval",
   "f-SAFAgent-a-WindowInterval-help": "The maximum amount of time, in milliseconds, that a JMS sending agent waits before forwarding messages in a single batch. For a distributed queue or topic, WindowInterval setting is ignored.",
@@ -6775,10 +6809,18 @@
 
   "a-XacmlDocument-label": "XACML Document",
   "a-XacmlStatus-label": "XACML Status",
+
   "a-XmlEventFactory-label": "Xml Event Factory",
+  "f-XMLRegistry-a-XmlEventFactory-help": "The fully qualified name of the class that implements the XMLEventFactory interface. The javax.xml.stream.XMLEventFactory factory API enables applications deployed to WebLogic Server to configure and obtain a XMLEvent object used to parse or build XML streams.",
+
   "a-XmlInputFactory-label": "Xml Input Factory",
+  "f-XMLRegistry-a-XmlInputFactory-help": "The fully qualified name of the class that implements the XMLInputFactory interface. The javax.xml.stream.XMLInputFactory factory API enables applications deployed to WebLogic Server to configure and obtain a XMLEventReader/XMLStreamReader object used to read XML streams.",
+
   "a-XmlOutputFactory-label": "Xml Output Factory",
+  "f-XMLRegistry-a-XmlOutputFactory-help": "The fully qualified name of the class that implements the XMLOutputFactory interface. The javax.xml.stream.XMLOutputFactory factory API enables applications deployed to WebLogic Server to configure and obtain a XMLEventWriter/XMLStreamWriter object used to write XML streams.",
+
   "a-XpathFactory-label": "Xpath Factory",
+  "f-XMLRegistry-a-XpathFactory-help": "The fully qualified name of the class that implements the XPathFactory interface. The javax.xml.xpath.XPathFactory factory API enables applications deployed to WebLogic Server to configure and obtain a XPath object used to search XML elements.",
 
   "a-Year-label": "Year",
   "f-WLDFSystemResource_WLDFResource_WatchNotification_Watch_Schedule-a-Year-help": "Indicates the year for the schedule. Defaults to \"*\" (every year).",
