@@ -1,16 +1,37 @@
 {
   "DomainInfo": {
+    "attributeDetails": {
+      "ServerStartMode": {
+        "options": [
+          { "value": "dev", "labelKey": "options-dev-mode-label" },
+          { "value": "prod", "labelKey": "options-prod-mode-label" },
+          { "value": "secure", "labelKey": "options-secure-mode-label" }
+        ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",
         "attributes": [
           "AdminUserName",
-          "AdminPassword"
+          "AdminPassword",
+          "ServerStartMode",
+          "AppDir",
+          "domainBin",
+          "domainLibraries"
         ]
       },
       {
         "type": "attributesCollapsible",
         "labelKey": "advanced-label",
+        "attributes": [
+          "OPSSWalletPassphrase",
+          "UseSampleDatabase",
+          "EnableJTATLogDBPersistence",
+          "EnableJMSStoreDBPersistence",
+          "ServerGroupTargetingLimits",
+          "DynamicClusterServerGroupTargetingLimits"
+        ],
         "addRemainingAttributes": true
       },
       {
