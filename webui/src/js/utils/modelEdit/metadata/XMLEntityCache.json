@@ -1,0 +1,41 @@
+{
+  "XMLEntityCache": {
+    "summaryAttributes": {
+      "CacheLocation": {},
+      "CacheDiskSize": {},
+      "CacheMemorySize": {}
+    },
+    "attributeDetails": {
+      "CacheDiskSize": {
+        "validators": [ "range(0,)" ]
+      },
+      "CacheMemorySize": {
+        "validators": [ "range(0,)" ]
+      },
+      "CacheTimeoutInterval": {
+        "validators": [ "range(0,)" ]
+      },
+      "MaxSize": {
+        "validators": [ "range(0,)" ]
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "CacheLocation",
+          "MaxSize",
+          "CacheDiskSize",
+          "CacheMemorySize",
+          "CacheTimeoutInterval",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  }
+}
