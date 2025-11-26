@@ -364,6 +364,9 @@
   "options-cache-at-initialization-label": "Cache on Initialization",
   "options-cache-never-label": "Cache Never",
   "options-defer-to-registry-setting-label": "Defer to Registry Setting",
+  "options-dev-mode-label": "Development Mode",
+  "options-prod-mode-label": "Production Mode",
+  "options-secure-mode-label": "Secure Production Mode",
 
   "direction-jms-queue-to-tuxedo-queue-label": "JMS Queue to Tuxedo Queue",
   "direction-tuxedo-queue-to-jms-queue-label": "Tuxedo Queue to JMS Queue",
@@ -547,7 +550,10 @@
 
   "a-AdjudicatorTypes-label": "Adjudicator Types",
   "a-AdminHost-label": "Admin Host",
+
   "a-AdminPassword-label": "Admin Password",
+  "a-AdminPassword-help": "The password for the WebLogic Server administrative user used to create a new domain.",
+
   "a-AdminPort-label": "Admin Port",
 
   "a-AdminReconnectIntervalSeconds-label": "Admin Server Reconnect Interval Seconds",
@@ -557,6 +563,8 @@
   "a-AdminServerName-help": "Specifies the name of the server that will act as the administration server for this domain.  The default value is \"AdminServer\".",
 
   "a-AdminUserName-label": "Admin User Name",
+  "a-AdminUserName-help": "The WebLogic Server administrative user name used to create a new domain. The default value is \"weblogic\".",
+
   "a-AdministrationMBeanAuditingEnabled-label": "Administration MBean Auditing Enabled",
 
   "a-AdministrationPort-label": "Administration Port",
@@ -655,6 +663,7 @@
   "f-any_COM-a-ApartmentThreaded-help": "Controls the flag that is used to initialize COM in native mode.",
 
   "a-AppDir-label": "Application Directory",
+  "a-AppDir-help": "The application home directory for a new FMW Infrastructure domain.",
 
   "a-AppKey-label": "App Key Generator Plug-in Type",
   "a-AppKey-help": "Specifies the type of AppKey plug-in used.  The allowed values are TpUsrFile, LDAP, and Custom.  TpUsrFile is the default plug-in and uses an imported Tuxedo TPUSR file to provide user security information. The LDAP plug-in utilizes an embedded LDAP server to provide user security information; the user record must define the Tuxedo UID and GID information in the description field. The Custom plug-in provides the ability to write your own AppKey generator class to provide the security information required by Tuxedo.",
@@ -2606,6 +2615,7 @@
   "a-DynamicClusterServerGroupTargetingLimits-label": "Dynamic Cluster Server Group Targeting Limits",
   "a-DynamicClusterServerGroupTargetingLimits-valueHelp": "The targets for the server group",
   "a-DynamicClusterServerGroupTargetingLimits-valueLabel": "Targets",
+  "a-DynamicClusterServerGroupTargetingLimits-help": "A map of template-defined dynamic server groups to targets used to target FMW Infrastructure resources to dynamic clusters.",
 
   "a-DynamicClusterShutdownTimeoutSeconds-label": "Dynamic Cluster Shutdown Timeout Seconds",
   "f-Cluster_DynamicServers-a-DynamicClusterShutdownTimeoutSeconds-help": "Specifies the timeout period (in seconds) used by the Elasticity Framework while gracefully shutting down a server. If the server does not shut down before the specified timeout period, the server will be forcibly shut down. With a negative time value, no timeout will be applied.",
@@ -2658,7 +2668,10 @@
   "a-EnableIORServlet-help": "Enables the getior servlet used to publish COS Naming Service IORs. The default value is false.",
 
   "a-EnableJMSStoreDBPersistence-label": "Enable JMS Store Database Persistence",
+  "a-EnableJMSStoreDBPersistence-help": "Whether to enable JMS JDBC stores when creating a new FMW Infrastructure domain.",
+
   "a-EnableJTATLogDBPersistence-label": "Enable JTA TLog Database Persistence",
+  "a-EnableJTATLogDBPersistence-help": "Whether to enable JTA JDBC stores when creating a new FMW Infrastructure domain.",
 
   "a-EnableSIDtoGroupLookupCaching-label": "Enable SID-to-Group Lookup Caching",
   "f-any_ActiveDirectoryAuthenticator-a-EnableSIDtoGroupLookupCaching-help": "Specifies whether SID to group name lookup results are cached or not. This is only used if the token group membership lookup algorithm is enabled.",
@@ -4455,7 +4468,9 @@
 
   "a-OCMEnabled-label": "OCM Enabled",
   "a-OPSSSecrets-label": "OPSS Secrets",
+
   "a-OPSSWalletPassphrase-label": "OPSS Wallet Passphrase",
+  "a-OPSSWalletPassphrase-help": "The passphrase for a previously extracted wallet from an existing FMW Infrastructure domain.  Using the extracted wallet and the passphrase, allows WDT to create a new domain that connects to the same schemas as the old domain.  This is intended as a disaster recovery mechanism in case the domain directory gets corrupted.",
 
   "a-OcspNonceEnabled-label": "OCSP Nonce Enabled",
   "f-any_CertRevoc-a-OcspNonceEnabled-help": "Determines whether a nonce is sent with OCSP requests, to force a fresh (not pre-signed) response.",
@@ -5590,6 +5605,7 @@
   "a-ServerCipherSuitesOrderEnabled-help": "Indicates whether to honor the server cipher suites preference. The default value is true.",
 
   "a-ServerFailureTrigger-label": "Server Failure Trigger",
+
   "a-ServerGroupTargetingLimits-entryLabel": "Server Group Targeting Limit",
   "a-ServerGroupTargetingLimits-keyHelp": "The name of the server group",
   "a-ServerGroupTargetingLimits-keyLabel": "Server Group",
@@ -5597,6 +5613,8 @@
   "a-ServerGroupTargetingLimits-noEntriesMessage": "No limits",
   "a-ServerGroupTargetingLimits-valueHelp": "The dynamic cluster targets for the server group",
   "a-ServerGroupTargetingLimits-valueLabel": "Targets",
+  "a-ServerGroupTargetingLimits-help": "A map of template-defined server groups to targets used to target FMW Infrastructure resources to servers or clusters.",
+
   "a-ServerHelper-label": "Server Helper",
   "a-ServerKeyFileName-label": "Server Key File Name",
 
@@ -5630,6 +5648,8 @@
   "f-any_SSL-a-ServerPrivateKeyPassPhraseEncrypted-help": "The passphrase used to retrieve the server's private key from the keystore. This passphrase is assigned to the private key when it is generated.",
 
   "a-ServerStartMode-label": "Server Start Mode",
+  "a-ServerStartMode-help": "The mode to use when creating a new domain. The default value is development mode.",
+
   "a-ServerStatusCheckIntervalFactor-label": "Server Status Check Interval Factor",
 
   "a-ServerTemplate-label": "Server Template",
@@ -6492,6 +6512,7 @@
   "a-UseSAFTimeToLiveDefault-help": "Controls whether the Time-to-Live (expiration time) value set on imported JMS messages will be overridden by the value specified in the SAF Default Time-to-Live field.",
 
   "a-UseSampleDatabase-label": "Use Sample Database",
+  "a-UseSampleDatabase-help": "The value to pass to WLST offline's setOption() call for the \"UseSampleDatabase\" option when creating a new domain.",
 
   "a-UseSerialFormatVersion2-label": "Use Serial Format Version 2",
   "a-UseSerialFormatVersion2-help": "Specify whether to advertise RMI objects and EJBs as supporting RMI-IIOP serial format version 2 for custom marshaled objects. The default value is false.",
@@ -6841,10 +6862,16 @@
   "a-displayname-label": "displayname",
   "a-domainBin-itemHelp": "Path to domain binary",
   "a-domainBin-itemLabel": "Domain Binary",
+
   "a-domainBin-label": "Domain Binaries",
+  "a-domainBin-help": "The list of scripts from the WDT archive file to place in the DOMAIN_HOME/bin directory when creating a new domain.",
+
   "a-domainLibraries-itemHelp": "Path to domain library",
   "a-domainLibraries-itemLabel": "Domain Library",
+
   "a-domainLibraries-label": "Domain Libraries",
+  "a-domainLibraries-help": "The list of files from the WDT archive file to place in the DOMAIN_HOME/lib directory when creating a new domain.",
+
   "a-employeenumber-label": "employeenumber",
   "a-employeetype-label": "employeetype",
   "a-facsimiletelephonenumber-label": "facsimiletelephonenumber",
