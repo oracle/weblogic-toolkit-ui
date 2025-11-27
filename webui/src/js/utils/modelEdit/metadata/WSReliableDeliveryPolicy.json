@@ -1,6 +1,15 @@
 {
   "WSReliableDeliveryPolicy": {
     "attributeDetails": {
+      "DefaultRetryCount": {
+        "validators": [ "range(0,)" ]
+      },
+      "DefaultRetryInterval": {
+        "validators": [ "range(0,)" ]
+      },
+      "DefaultTimeToLive": {
+        "validators": [ "range(0,)" ]
+      },
       "JMSServer": {
         "editorType": "combo",
         "optionsMethod": "getJmsServerOptions"

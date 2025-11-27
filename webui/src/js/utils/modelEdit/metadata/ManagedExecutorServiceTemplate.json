@@ -4,6 +4,14 @@
       "DispatchPolicy": {},
       "Target": {}
     },
+    "attributeDetails": {
+      "LongRunningPriority": {
+        "validators": [ "range(1,10)" ]
+      },
+      "MaxConcurrentLongRunningRequests": {
+        "validators": [ "range(0,65534)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",

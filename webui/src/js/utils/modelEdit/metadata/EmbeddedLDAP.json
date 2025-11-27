@@ -1,11 +1,25 @@
 {
   "EmbeddedLDAP": {
     "attributeDetails": {
+      "BackupCopies": {
+        "validators": [ "range(0,65534)" ]
+      },
+      "BackupHour": {
+        "validators": [ "range(0,23)" ]
+      },
+      "BackupMinute": {
+        "validators": [ "range(0,59)" ]
+      },
       "CacheSize": {
-        "disabled": "embeddedLdapCacheFields"
+        "disabled": "embeddedLdapCacheFields",
+        "validators": [ "range(0,)" ]
       },
       "CacheTTL": {
-        "disabled": "embeddedLdapCacheFields"
+        "disabled": "embeddedLdapCacheFields",
+        "validators": [ "range(0,)" ]
+      },
+      "Timeout": {
+        "validators": [ "range(0,)" ]
       }
     },
     "sections": [

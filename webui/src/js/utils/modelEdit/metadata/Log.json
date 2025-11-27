@@ -1,6 +1,12 @@
 {
   "Log": {
     "attributeDetails": {
+      "BufferSizeKb": {
+        "validators": [ "range(0,)" ]
+      },
+      "DomainLogBroadcasterBufferSize": {
+        "validators": [ "range(1,100)" ]
+      },
       "DomainLogBroadcastFilter": {
         "editorType": "combo",
         "optionsMethod": "getLogFilterOptions"
@@ -19,16 +25,20 @@
         ]
       },
       "FileCount": {
-        "disabled": "logRotationFileCountLimitedFields"
+        "disabled": "logRotationFileCountLimitedFields",
+        "validators": [ "range(0,99999)" ]
       },
       "FileMinSize": {
-        "disabled": "logRotationBySizeFields"
+        "disabled": "logRotationBySizeFields",
+        "validators": [ "range(1,2097150)" ]
       },
       "FileTimeSpan": {
-        "disabled": "logRotationByTimeFields"
+        "disabled": "logRotationByTimeFields",
+        "validators": [ "range(1,)" ]
       },
       "FileTimeSpanFactor": {
-        "disabled": "logRotationByTimeFields"
+        "disabled": "logRotationByTimeFields",
+        "validators": [ "range(0,)" ]
       },
       "LogFileFilter": {
         "editorType": "combo",
@@ -53,19 +63,26 @@
         ]
       },
       "LogMonitoringIntervalSecs":{
-        "disabled": "logMonitoringFields"
+        "disabled": "logMonitoringFields",
+        "validators": [ "range(5,)" ]
       },
       "LogMonitoringMaxThrottleMessageSignatureCount":{
-        "disabled": "logMonitoringFields"
+        "disabled": "logMonitoringFields",
+        "validators": [ "range(100,5000)" ]
       },
       "LogMonitoringThrottleMessageLength":{
-        "disabled": "logMonitoringFields"
+        "disabled": "logMonitoringFields",
+        "validators": [ "range(10,500)" ]
       },
       "LogMonitoringThrottleThreshold":{
-        "disabled": "logMonitoringFields"
+        "disabled": "logMonitoringFields",
+        "validators": [ "range(5,)" ]
       },
       "RotationTime": {
         "disabled": "logRotationByTimeFields"
+      },
+      "StacktraceDepth": {
+        "validators": [ "range(-1,)" ]
       },
       "StdoutFilter": {
         "editorType": "combo",
@@ -90,6 +107,12 @@
           { "value": "Emergency", "labelKey": "options-emergency-label" },
           { "value": "Off", "labelKey": "options-off-label" }
         ]
+      },
+      "TriggerTruncationStackFrameDepthAfterTrigger": {
+        "validators": [ "range(1,)" ]
+      },
+      "TriggerTruncationStackFrameTriggerDepth": {
+        "validators": [ "range(1,)" ]
       }
     },
     "sections": [

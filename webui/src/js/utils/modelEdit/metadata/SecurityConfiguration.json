@@ -1,6 +1,18 @@
 {
   "SecurityConfiguration": {
     "attributeDetails": {
+      "BootAuthenticationMaxRetryDelay": {
+        "validators": [ "range(0,)" ]
+      },
+      "BootAuthenticationRetryCount": {
+        "validators": [ "range(0,)" ]
+      },
+      "CheckCertificatesExpirationDays": {
+        "validators": [ "range(1,)" ]
+      },
+      "CheckCertificatesIntervalDays": {
+        "validators": [ "range(1,)" ]
+      },
       "ControlFlag": {
         "options": [
           { "value": "REQUIRED", "labelKey": "options-required-label" },
@@ -13,7 +25,8 @@
         "disabled": "secConfigCrossDomainSecurityFields"
       },
       "CrossDomainSecurityCacheTtl": {
-        "disabled": "secConfigCrossDomainSecurityFields"
+        "disabled": "secConfigCrossDomainSecurityFields",
+        "validators": [ "range(0,)" ]
       },
       "DefaultRealm": {
         "editorType": "combo",
@@ -33,6 +46,9 @@
           { "value": "OCSP_THEN_CRL", "labelKey": "options-ocsp-then-crl-label" },
           { "value": "CRL_THEN_OCSP", "labelKey": "options-crl-then-ocsp-label" }
         ]
+      },
+      "NonceTimeoutSeconds": {
+        "validators": [ "range(15,)" ]
       },
       "WebAppFilesCaseInsensitive": {
         "options": [
@@ -186,7 +202,8 @@
   "SecurityConfiguration/CertRevoc": {
     "attributeDetails": {
       "CrlCacheRefreshPeriodPercent": {
-        "disabled": "secConfigCertRevocCrlFields"
+        "disabled": "secConfigCertRevocCrlFields",
+        "validators": [ "range(1,100)" ]
       },
       "CrlCacheType": {
         "disabled": "secConfigCertRevocCrlFields",
@@ -199,16 +216,19 @@
         "disabled": "secConfigCertRevocCrlLdapFields"
       },
       "CrlCacheTypeLdapPort": {
-        "disabled": "secConfigCertRevocCrlLdapFields"
+        "disabled": "secConfigCertRevocCrlLdapFields",
+        "validators": [ "port" ]
       },
       "CrlCacheTypeLdapSearchTimeout": {
-        "disabled": "secConfigCertRevocCrlLdapFields"
+        "disabled": "secConfigCertRevocCrlLdapFields",
+        "validators": [ "range(1,300)" ]
       },
       "CrlDpBackgroundDownloadEnabled": {
         "disabled": "secConfigCertRevocCrlDpFields"
       },
       "CrlDpDownloadTimeout": {
-        "disabled": "secConfigCertRevocCrlDpFields"
+        "disabled": "secConfigCertRevocCrlDpFields",
+        "validators": [ "range(1,300)" ]
       },
       "CrlDpEnabled": {
         "disabled": "secConfigCertRevocCrlFields"
@@ -217,19 +237,23 @@
         "disabled": "secConfigCertRevocOcspFields"
       },
       "OcspResponseCacheCapacity": {
-        "disabled": "secConfigCertRevocOcspCacheFields"
+        "disabled": "secConfigCertRevocOcspCacheFields",
+        "validators": [ "range(1,)" ]
       },
       "OcspResponseCacheEnabled": {
         "disabled": "secConfigCertRevocOcspFields"
       },
       "OcspResponseCacheRefreshPeriodPercent": {
-        "disabled": "secConfigCertRevocOcspCacheFields"
+        "disabled": "secConfigCertRevocOcspCacheFields",
+        "validators": [ "range(1,100)" ]
       },
       "OcspResponseTimeout": {
-        "disabled": "secConfigCertRevocOcspFields"
+        "disabled": "secConfigCertRevocOcspFields",
+        "validators": [ "range(1,300)" ]
       },
       "OcspTimeTolerance": {
-        "disabled": "secConfigCertRevocOcspFields"
+        "disabled": "secConfigCertRevocOcspFields",
+        "validators": [ "range(0,900)" ]
       }
     },
     "sections": [
@@ -292,7 +316,8 @@
         "disabled": "secConfigCertRevocCACrlDpFields"
       },
       "CrlDpDownloadTimeout": {
-        "disabled": "secConfigCertRevocCACrlDpFields"
+        "disabled": "secConfigCertRevocCACrlDpFields",
+        "validators": [ "range(1,300)" ]
       },
       "CrlDpEnabled": {
         "disabled": "secConfigCertRevocCACrlFields"
@@ -341,10 +366,12 @@
         "disabled": "secConfigCertRevocCAOcspFields"
       },
       "OcspResponseTimeout": {
-        "disabled": "secConfigCertRevocCAOcspFields"
+        "disabled": "secConfigCertRevocCAOcspFields",
+        "validators": [ "range(1,300)" ]
       },
       "OcspTimeTolerance": {
-        "disabled": "secConfigCertRevocCAOcspFields"
+        "disabled": "secConfigCertRevocCAOcspFields",
+        "validators": [ "range(0,900)" ]
       }
     },
     "sections": [
@@ -394,6 +421,18 @@
   },
   "SecurityConfiguration/CertificateManagement": {
     "attributeDetails": {
+      "CertificateAuthorityValidityPeriod": {
+        "validators": [ "range(45,1825)" ]
+      },
+      "CertificateCheckInterval": {
+        "validators": [ "range(1,7)" ]
+      },
+      "CertificateRefreshWindow": {
+        "validators": [ "range(5,30)" ]
+      },
+      "CertificateValidityPeriod": {
+        "validators": [ "range(15,365)" ]
+      },
       "SubjectAlternativeNames": {
         "editorType": "selectMulti",
         "options": [
@@ -556,16 +595,21 @@
         "optionsMethod": "getCertPathBuilderInRealmOptions"
       },
       "DeployableProviderSynchronizationTimeout": {
-        "disabled": "secConfigRealmDeployableProviderSyncFields"
+        "disabled": "secConfigRealmDeployableProviderSyncFields",
+        "validators": [ "range(0,)" ]
       },
       "IdentityAssertionCacheTtl": {
-        "disabled": "secConfigRealmIdentityAssertionCacheFields"
+        "disabled": "secConfigRealmIdentityAssertionCacheFields",
+        "validators": [ "range(0,)" ]
       },
       "IdentityAssertionDoNotCacheContextElement": {
         "disabled": "secConfigRealmIdentityAssertionCacheFields"
       },
       "MaxWebLogicPrincipalsInCache": {
         "disabled": "secConfigRealmWlsPrincipalValidatorCacheFields"
+      },
+      "RetireTimeoutSeconds": {
+        "validators": [ "range(1,)" ]
       }
     },
     "sections": [
@@ -690,11 +734,16 @@
       "InformationAuditSeverityEnabled": {
         "disabled": "defaultAuditorCustomSeverityFields"
       },
+      "NumberOfFilesLimit": {
+        "validators": [ "range(1,)" ]
+      },
       "RotationMinutes": {
-        "disabled": "defaultAuditorRotateByTimeFields"
+        "disabled": "defaultAuditorRotateByTimeFields",
+        "validators": [ "range(1,)" ]
       },
       "RotationSize": {
-        "disabled": "defaultAuditorRotateBySizeFields"
+        "disabled": "defaultAuditorRotateBySizeFields",
+        "validators": [ "range(1,)" ]
       },
       "RotationType": {
         "options": [
@@ -757,10 +806,21 @@
   "SecurityConfiguration/Realm/AuthenticationProvider/ActiveDirectoryAuthenticator": {
     "attributeDetails": {
       "CacheSize": {
-        "disabled": "ldapAuthenticatorsCacheFields"
+        "disabled": "ldapAuthenticatorsCacheFields",
+        "validators": [ "range(0,)" ]
       },
       "CacheTtl": {
-        "disabled": "ldapAuthenticatorsCacheFields"
+        "disabled": "ldapAuthenticatorsCacheFields",
+        "validators": [ "range(0,)" ]
+      },
+      "ConnectionPoolSize": {
+        "validators": [ "range(0,)" ]
+      },
+      "ConnectionRetryLimit": {
+        "validators": [ "range(0,)" ]
+      },
+      "ConnectTimeout": {
+        "validators": [ "range(0,)" ]
       },
       "EnableCacheStatistics": {
         "disabled": "ldapAuthenticatorsCacheFields"
@@ -772,7 +832,8 @@
         "disabled": "activeDirectoryAuthenticatorEnableSIDtoGroupLookupCachingField"
       },
       "GroupHierarchyCacheTTL": {
-        "disabled": "ldapAuthenticatorsCacheFields"
+        "disabled": "ldapAuthenticatorsCacheFields",
+        "validators": [ "range(0,)" ]
       },
       "GroupSearchScope": {
         "options": [
@@ -781,13 +842,25 @@
         ]
       },
       "MaxGroupHierarchiesInCache": {
-        "disabled": "ldapAuthenticatorsCacheFields"
+        "disabled": "ldapAuthenticatorsCacheFields",
+        "validators": [ "range(0,)" ]
       },
       "MaxGroupMembershipSearchLevel": {
-        "disabled": "authenticatorsGroupMembershipSearchFields"
+        "disabled": "authenticatorsGroupMembershipSearchFields",
+        "validators": [ "range(0,)" ]
       },
       "MaxSIDToGroupLookupsInCache": {
-        "disabled": "activeDirectoryAuthenticatorSIDtoGroupLookupCachingFields"
+        "disabled": "activeDirectoryAuthenticatorSIDtoGroupLookupCachingFields",
+        "validators": [ "range(0,)" ]
+      },
+      "ParallelConnectDelay": {
+        "validators": [ "range(0,)" ]
+      },
+      "Port": {
+        "validators": [ "port" ]
+      },
+      "ResultsTimeLimit": {
+        "validators": [ "range(0,)" ]
       },
       "UserDescriptionAttribute": {
         "options": [
@@ -916,7 +989,8 @@
   "SecurityConfiguration/Realm/AuthenticationProvider/CustomDBMSAuthenticator": {
     "attributeDetails": {
       "GroupHierarchyCacheTTL": {
-        "disabled": "authenticatorGroupMembershipLookupHierarchyCachingFields"
+        "disabled": "authenticatorGroupMembershipLookupHierarchyCachingFields",
+        "validators": [ "range(0,)" ]
       },
       "GroupMembershipSearching": {
         "options": [
@@ -925,10 +999,12 @@
         ]
       },
       "MaxGroupHierarchiesInCache": {
-        "disabled": "authenticatorGroupMembershipLookupHierarchyCachingFields"
+        "disabled": "authenticatorGroupMembershipLookupHierarchyCachingFields",
+        "validators": [ "range(0,)" ]
       },
       "MaxGroupMembershipSearchLevel": {
-        "disabled": "authenticatorsGroupMembershipSearchFields"
+        "disabled": "authenticatorsGroupMembershipSearchFields",
+        "validators": [ "range(0,)" ]
       }
     },
     "sections": [
@@ -966,7 +1042,8 @@
   "SecurityConfiguration/Realm/AuthenticationProvider/DefaultAuthenticator": {
     "attributeDetails": {
       "GroupHierarchyCacheTTL": {
-        "disabled": "authenticatorGroupMembershipLookupHierarchyCachingFields"
+        "disabled": "authenticatorGroupMembershipLookupHierarchyCachingFields",
+        "validators": [ "range(0,)" ]
       },
       "GroupMembershipSearching": {
         "options": [
@@ -975,10 +1052,15 @@
         ]
       },
       "MaxGroupHierarchiesInCache": {
-        "disabled": "authenticatorGroupMembershipLookupHierarchyCachingFields"
+        "disabled": "authenticatorGroupMembershipLookupHierarchyCachingFields",
+        "validators": [ "range(0,)" ]
       },
       "MaxGroupMembershipSearchLevel": {
-        "disabled": "authenticatorsGroupMembershipSearchFields"
+        "disabled": "authenticatorsGroupMembershipSearchFields",
+        "validators": [ "range(0,)" ]
+      },
+      "MinimumPasswordLength": {
+        "validators": [ "range(0,)" ]
       }
     },
     "sections": [
@@ -1041,7 +1123,8 @@
         "disabled": "defaultIdentityAsserterDigestReplayDetectionFields"
       },
       "DigestExpirationTimePeriod": {
-        "disabled": "defaultIdentityAsserterDigestReplayDetectionFields"
+        "disabled": "defaultIdentityAsserterDigestReplayDetectionFields",
+        "validators": [ "range(0,)" ]
       },
       "UserNameMapperClassName": {
         "disabled": "defaultIdentityAsserterCustomUserNameMapperFields"
@@ -1084,10 +1167,21 @@
   "SecurityConfiguration/Realm/AuthenticationProvider/IPlanetAuthenticator": {
     "attributeDetails": {
       "CacheSize": {
-        "disabled": "ldapAuthenticatorsCacheFields"
+        "disabled": "ldapAuthenticatorsCacheFields",
+        "validators": [ "range(0,)" ]
       },
       "CacheTtl": {
-        "disabled": "ldapAuthenticatorsCacheFields"
+        "disabled": "ldapAuthenticatorsCacheFields",
+        "validators": [ "range(0,)" ]
+      },
+      "ConnectionPoolSize": {
+        "validators": [ "range(0,)" ]
+      },
+      "ConnectionRetryLimit": {
+        "validators": [ "range(0,)" ]
+      },
+      "ConnectTimeout": {
+        "validators": [ "range(0,)" ]
       },
       "EnableCacheStatistics": {
         "disabled": "ldapAuthenticatorsCacheFields"
@@ -1096,7 +1190,8 @@
         "disabled": "ldapAuthenticatorsCacheFields"
       },
       "GroupHierarchyCacheTTL": {
-        "disabled": "ldapAuthenticatorsCacheFields"
+        "disabled": "ldapAuthenticatorsCacheFields",
+        "validators": [ "range(0,)" ]
       },
       "GroupSearchScope": {
         "options": [
@@ -1105,10 +1200,21 @@
         ]
       },
       "MaxGroupHierarchiesInCache": {
-        "disabled": "ldapAuthenticatorsCacheFields"
+        "disabled": "ldapAuthenticatorsCacheFields",
+        "validators": [ "range(0,)" ]
       },
       "MaxGroupMembershipSearchLevel": {
-        "disabled": "authenticatorsGroupMembershipSearchFields"
+        "disabled": "authenticatorsGroupMembershipSearchFields",
+        "validators": [ "range(0,)" ]
+      },
+      "ParallelConnectDelay": {
+        "validators": [ "range(0,)" ]
+      },
+      "Port": {
+        "validators": [ "port" ]
+      },
+      "ResultsTimeLimit": {
+        "validators": [ "range(0,)" ]
       },
       "UserDescriptionAttribute": {
         "options": [
@@ -1235,10 +1341,21 @@
   "SecurityConfiguration/Realm/AuthenticationProvider/LDAPAuthenticator": {
     "attributeDetails": {
       "CacheSize": {
-        "disabled": "ldapAuthenticatorsCacheFields"
+        "disabled": "ldapAuthenticatorsCacheFields",
+        "validators": [ "range(0,)" ]
       },
       "CacheTtl": {
-        "disabled": "ldapAuthenticatorsCacheFields"
+        "disabled": "ldapAuthenticatorsCacheFields",
+        "validators": [ "range(0,)" ]
+      },
+      "ConnectionPoolSize": {
+        "validators": [ "range(0,)" ]
+      },
+      "ConnectionRetryLimit": {
+        "validators": [ "range(0,)" ]
+      },
+      "ConnectTimeout": {
+        "validators": [ "range(0,)" ]
       },
       "EnableCacheStatistics": {
         "disabled": "ldapAuthenticatorsCacheFields"
@@ -1247,7 +1364,8 @@
         "disabled": "ldapAuthenticatorsCacheFields"
       },
       "GroupHierarchyCacheTTL": {
-        "disabled": "ldapAuthenticatorsCacheFields"
+        "disabled": "ldapAuthenticatorsCacheFields",
+        "validators": [ "range(0,)" ]
       },
       "GroupSearchScope": {
         "options": [
@@ -1256,10 +1374,21 @@
         ]
       },
       "MaxGroupHierarchiesInCache": {
-        "disabled": "ldapAuthenticatorsCacheFields"
+        "disabled": "ldapAuthenticatorsCacheFields",
+        "validators": [ "range(0,)" ]
       },
       "MaxGroupMembershipSearchLevel": {
-        "disabled": "authenticatorsGroupMembershipSearchFields"
+        "disabled": "authenticatorsGroupMembershipSearchFields",
+        "validators": [ "range(0,)" ]
+      },
+      "ParallelConnectDelay": {
+        "validators": [ "range(0,)" ]
+      },
+      "Port": {
+        "validators": [ "port" ]
+      },
+      "ResultsTimeLimit": {
+        "validators": [ "range(0,)" ]
       },
       "UserDescriptionAttribute": {
         "options": [
@@ -1384,10 +1513,30 @@
   "SecurityConfiguration/Realm/AuthenticationProvider/LDAPX509IdentityAsserter": {
     "attributeDetails": {
       "CacheSize": {
-        "disabled": "ldapAuthenticatorsCacheFields"
+        "disabled": "ldapAuthenticatorsCacheFields",
+        "validators": [ "range(0,)" ]
       },
       "CacheTtl": {
-        "disabled": "ldapAuthenticatorsCacheFields"
+        "disabled": "ldapAuthenticatorsCacheFields",
+        "validators": [ "range(0,)" ]
+      },
+      "ConnectionPoolSize": {
+        "validators": [ "range(0,)" ]
+      },
+      "ConnectionRetryLimit": {
+        "validators": [ "range(0,)" ]
+      },
+      "ConnectTimeout": {
+        "validators": [ "range(0,)" ]
+      },
+      "ParallelConnectDelay": {
+        "validators": [ "range(0,)" ]
+      },
+      "Port": {
+        "validators": [ "port" ]
+      },
+      "ResultsTimeLimit": {
+        "validators": [ "range(0,)" ]
       }
     },
     "sections": [
@@ -1486,10 +1635,21 @@
   "SecurityConfiguration/Realm/AuthenticationProvider/NovellAuthenticator": {
     "attributeDetails": {
       "CacheSize": {
-        "disabled": "ldapAuthenticatorsCacheFields"
+        "disabled": "ldapAuthenticatorsCacheFields",
+        "validators": [ "range(0,)" ]
       },
       "CacheTtl": {
-        "disabled": "ldapAuthenticatorsCacheFields"
+        "disabled": "ldapAuthenticatorsCacheFields",
+        "validators": [ "range(0,)" ]
+      },
+      "ConnectionPoolSize": {
+        "validators": [ "range(0,)" ]
+      },
+      "ConnectionRetryLimit": {
+        "validators": [ "range(0,)" ]
+      },
+      "ConnectTimeout": {
+        "validators": [ "range(0,)" ]
       },
       "EnableCacheStatistics": {
         "disabled": "ldapAuthenticatorsCacheFields"
@@ -1498,7 +1658,8 @@
         "disabled": "ldapAuthenticatorsCacheFields"
       },
       "GroupHierarchyCacheTTL": {
-        "disabled": "ldapAuthenticatorsCacheFields"
+        "disabled": "ldapAuthenticatorsCacheFields",
+        "validators": [ "range(0,)" ]
       },
       "GroupSearchScope": {
         "options": [
@@ -1507,10 +1668,21 @@
         ]
       },
       "MaxGroupHierarchiesInCache": {
-        "disabled": "ldapAuthenticatorsCacheFields"
+        "disabled": "ldapAuthenticatorsCacheFields",
+        "validators": [ "range(0,)" ]
       },
       "MaxGroupMembershipSearchLevel": {
-        "disabled": "authenticatorsGroupMembershipSearchFields"
+        "disabled": "authenticatorsGroupMembershipSearchFields",
+        "validators": [ "range(0,)" ]
+      },
+      "ParallelConnectDelay": {
+        "validators": [ "range(0,)" ]
+      },
+      "Port": {
+        "validators": [ "port" ]
+      },
+      "ResultsTimeLimit": {
+        "validators": [ "range(0,)" ]
       },
       "UserDescriptionAttribute": {
         "options": [
@@ -1633,6 +1805,23 @@
     ]
   },
   "SecurityConfiguration/Realm/AuthenticationProvider/OIDCIdentityAsserter": {
+    "attributeDetails": {
+      "ClockSkew": {
+        "validators": [ "range(0,)" ]
+      },
+      "KeyCacheSize": {
+        "validators": [ "range(2,)" ]
+      },
+      "KeyCacheTtl": {
+        "validators": [ "range(120,)" ]
+      },
+      "RequestCacheSize": {
+        "validators": [ "range(100,)" ]
+      },
+      "RequestCacheTtl": {
+        "validators": [ "range(120,)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",
@@ -1668,10 +1857,21 @@
   "SecurityConfiguration/Realm/AuthenticationProvider/OpenLDAPAuthenticator": {
     "attributeDetails": {
       "CacheSize": {
-        "disabled": "ldapAuthenticatorsCacheFields"
+        "disabled": "ldapAuthenticatorsCacheFields",
+        "validators": [ "range(0,)" ]
       },
       "CacheTtl": {
-        "disabled": "ldapAuthenticatorsCacheFields"
+        "disabled": "ldapAuthenticatorsCacheFields",
+        "validators": [ "range(0,)" ]
+      },
+      "ConnectionPoolSize": {
+        "validators": [ "range(0,)" ]
+      },
+      "ConnectionRetryLimit": {
+        "validators": [ "range(0,)" ]
+      },
+      "ConnectTimeout": {
+        "validators": [ "range(0,)" ]
       },
       "EnableCacheStatistics": {
         "disabled": "ldapAuthenticatorsCacheFields"
@@ -1680,7 +1880,8 @@
         "disabled": "ldapAuthenticatorsCacheFields"
       },
       "GroupHierarchyCacheTTL": {
-        "disabled": "ldapAuthenticatorsCacheFields"
+        "disabled": "ldapAuthenticatorsCacheFields",
+        "validators": [ "range(0,)" ]
       },
       "GroupSearchScope": {
         "options": [
@@ -1689,10 +1890,21 @@
         ]
       },
       "MaxGroupHierarchiesInCache": {
-        "disabled": "ldapAuthenticatorsCacheFields"
+        "disabled": "ldapAuthenticatorsCacheFields",
+        "validators": [ "range(0,)" ]
       },
       "MaxGroupMembershipSearchLevel": {
-        "disabled": "authenticatorsGroupMembershipSearchFields"
+        "disabled": "authenticatorsGroupMembershipSearchFields",
+        "validators": [ "range(0,)" ]
+      },
+      "ParallelConnectDelay": {
+        "validators": [ "range(0,)" ]
+      },
+      "Port": {
+        "validators": [ "port" ]
+      },
+      "ResultsTimeLimit": {
+        "validators": [ "range(0,)" ]
       },
       "UserDescriptionAttribute": {
         "options": [
@@ -1816,6 +2028,42 @@
   },
   "SecurityConfiguration/Realm/AuthenticationProvider/weblogic.security.providers.authentication.OracleIdentityCloudIntegrator": {
     "attributeDetails": {
+      "AccessTokenTimeoutWindow": {
+        "validators": [ "range(0,)" ]
+      },
+      "CacheSize": {
+        "validators": [ "range(0,)" ]
+      },
+      "CacheTtl": {
+        "validators": [ "range(0,)" ]
+      },
+      "ConnectTimeout": {
+        "validators": [ "range(0,)" ]
+      },
+      "KnownTenantEmptyMetadataTtl": {
+        "validators": [ "range(0,)" ]
+      },
+      "Port": {
+        "validators": [ "port" ]
+      },
+      "ResponseReadTimeout": {
+        "validators": [ "range(0,)" ]
+      },
+      "ServerNotAvailableCounterInterval": {
+        "validators": [ "range(0,)" ]
+      },
+      "TenantDataFlushInterval": {
+        "validators": [ "range(0,)" ]
+      },
+      "TenantDataReloadInterval": {
+        "validators": [ "range(0,)" ]
+      },
+      "ThreadLockTimeout": {
+        "validators": [ "range(0,)" ]
+      },
+      "TokenClockSkew": {
+        "validators": [ "range(0,)" ]
+      },
       "TokenValidationLevel": {
         "options": [
           { "value": "FULL", "labelKey":  "options-full-label" },
@@ -1823,6 +2071,9 @@
           { "value": "SIGNATURE", "labelKey":  "options-signature-label" },
           { "value": "NONE", "labelKey":  "options-none-label" }
         ]
+      },
+      "UnknownTenantEmptyMetadataTtl": {
+        "validators": [ "range(0,)" ]
       }
     },
     "sections": [
@@ -1956,10 +2207,21 @@
   "SecurityConfiguration/Realm/AuthenticationProvider/OracleInternetDirectoryAuthenticator": {
     "attributeDetails": {
       "CacheSize": {
-        "disabled": "ldapAuthenticatorsCacheFields"
+        "disabled": "ldapAuthenticatorsCacheFields",
+        "validators": [ "range(0,)" ]
       },
       "CacheTtl": {
-        "disabled": "ldapAuthenticatorsCacheFields"
+        "disabled": "ldapAuthenticatorsCacheFields",
+        "validators": [ "range(0,)" ]
+      },
+      "ConnectionPoolSize": {
+        "validators": [ "range(0,)" ]
+      },
+      "ConnectionRetryLimit": {
+        "validators": [ "range(0,)" ]
+      },
+      "ConnectTimeout": {
+        "validators": [ "range(0,)" ]
       },
       "EnableCacheStatistics": {
         "disabled": "ldapAuthenticatorsCacheFields"
@@ -1968,7 +2230,8 @@
         "disabled": "ldapAuthenticatorsCacheFields"
       },
       "GroupHierarchyCacheTTL": {
-        "disabled": "ldapAuthenticatorsCacheFields"
+        "disabled": "ldapAuthenticatorsCacheFields",
+        "validators": [ "range(0,)" ]
       },
       "GroupSearchScope": {
         "options": [
@@ -1977,10 +2240,21 @@
         ]
       },
       "MaxGroupHierarchiesInCache": {
-        "disabled": "ldapAuthenticatorsCacheFields"
+        "disabled": "ldapAuthenticatorsCacheFields",
+        "validators": [ "range(0,)" ]
       },
       "MaxGroupMembershipSearchLevel": {
-        "disabled": "authenticatorsGroupMembershipSearchFields"
+        "disabled": "authenticatorsGroupMembershipSearchFields",
+        "validators": [ "range(0,)" ]
+      },
+      "ParallelConnectDelay": {
+        "validators": [ "range(0,)" ]
+      },
+      "Port": {
+        "validators": [ "port" ]
+      },
+      "ResultsTimeLimit": {
+        "validators": [ "range(0,)" ]
       },
       "UserDescriptionAttribute": {
         "options": [
@@ -2106,10 +2380,21 @@
   "SecurityConfiguration/Realm/AuthenticationProvider/OracleUnifiedDirectoryAuthenticator": {
     "attributeDetails": {
       "CacheSize": {
-        "disabled": "ldapAuthenticatorsCacheFields"
+        "disabled": "ldapAuthenticatorsCacheFields",
+        "validators": [ "range(0,)" ]
       },
       "CacheTtl": {
-        "disabled": "ldapAuthenticatorsCacheFields"
+        "disabled": "ldapAuthenticatorsCacheFields",
+        "validators": [ "range(0,)" ]
+      },
+      "ConnectionPoolSize": {
+        "validators": [ "range(0,)" ]
+      },
+      "ConnectionRetryLimit": {
+        "validators": [ "range(0,)" ]
+      },
+      "ConnectTimeout": {
+        "validators": [ "range(0,)" ]
       },
       "EnableCacheStatistics": {
         "disabled": "ldapAuthenticatorsCacheFields"
@@ -2121,7 +2406,8 @@
         "disabled": "oracleUnifiedDirectoryAuthenticatorMemberUIDForGroupSearchFields"
       },
       "GroupHierarchyCacheTTL": {
-        "disabled": "ldapAuthenticatorsCacheFields"
+        "disabled": "ldapAuthenticatorsCacheFields",
+        "validators": [ "range(0,)" ]
       },
       "GroupSearchScope": {
         "options": [
@@ -2130,10 +2416,21 @@
         ]
       },
       "MaxGroupHierarchiesInCache": {
-        "disabled": "ldapAuthenticatorsCacheFields"
+        "disabled": "ldapAuthenticatorsCacheFields",
+        "validators": [ "range(0,)" ]
       },
       "MaxGroupMembershipSearchLevel": {
-        "disabled": "authenticatorsGroupMembershipSearchFields"
+        "disabled": "authenticatorsGroupMembershipSearchFields",
+        "validators": [ "range(0,)" ]
+      },
+      "ParallelConnectDelay": {
+        "validators": [ "range(0,)" ]
+      },
+      "Port": {
+        "validators": [ "port" ]
+      },
+      "ResultsTimeLimit": {
+        "validators": [ "range(0,)" ]
       },
       "UserDescriptionAttribute": {
         "options": [
@@ -2260,10 +2557,21 @@
   "SecurityConfiguration/Realm/AuthenticationProvider/OracleVirtualDirectoryAuthenticator": {
     "attributeDetails": {
       "CacheSize": {
-        "disabled": "ldapAuthenticatorsCacheFields"
+        "disabled": "ldapAuthenticatorsCacheFields",
+        "validators": [ "range(0,)" ]
       },
       "CacheTtl": {
-        "disabled": "ldapAuthenticatorsCacheFields"
+        "disabled": "ldapAuthenticatorsCacheFields",
+        "validators": [ "range(0,)" ]
+      },
+      "ConnectionPoolSize": {
+        "validators": [ "range(0,)" ]
+      },
+      "ConnectionRetryLimit": {
+        "validators": [ "range(0,)" ]
+      },
+      "ConnectTimeout": {
+        "validators": [ "range(0,)" ]
       },
       "EnableCacheStatistics": {
         "disabled": "ldapAuthenticatorsCacheFields"
@@ -2272,7 +2580,8 @@
         "disabled": "ldapAuthenticatorsCacheFields"
       },
       "GroupHierarchyCacheTTL": {
-        "disabled": "ldapAuthenticatorsCacheFields"
+        "disabled": "ldapAuthenticatorsCacheFields",
+        "validators": [ "range(0,)" ]
       },
       "GroupSearchScope": {
         "options": [
@@ -2281,10 +2590,21 @@
         ]
       },
       "MaxGroupHierarchiesInCache": {
-        "disabled": "ldapAuthenticatorsCacheFields"
+        "disabled": "ldapAuthenticatorsCacheFields",
+        "validators": [ "range(0,)" ]
       },
       "MaxGroupMembershipSearchLevel": {
-        "disabled": "authenticatorsGroupMembershipSearchFields"
+        "disabled": "authenticatorsGroupMembershipSearchFields",
+        "validators": [ "range(0,)" ]
+      },
+      "ParallelConnectDelay": {
+        "validators": [ "range(0,)" ]
+      },
+      "Port": {
+        "validators": [ "port" ]
+      },
+      "ResultsTimeLimit": {
+        "validators": [ "range(0,)" ]
       },
       "UserDescriptionAttribute": {
         "options": [
@@ -2409,7 +2729,8 @@
   "SecurityConfiguration/Realm/AuthenticationProvider/ReadOnlySQLAuthenticator": {
     "attributeDetails": {
       "GroupHierarchyCacheTTL": {
-        "disabled": "authenticatorGroupMembershipLookupHierarchyCachingFields"
+        "disabled": "authenticatorGroupMembershipLookupHierarchyCachingFields",
+        "validators": [ "range(0,)" ]
       },
       "GroupMembershipSearching": {
         "options": [
@@ -2418,10 +2739,12 @@
         ]
       },
       "MaxGroupHierarchiesInCache": {
-        "disabled": "authenticatorGroupMembershipLookupHierarchyCachingFields"
+        "disabled": "authenticatorGroupMembershipLookupHierarchyCachingFields",
+        "validators": [ "range(0,)" ]
       },
       "MaxGroupMembershipSearchLevel": {
-        "disabled": "authenticatorsGroupMembershipSearchFields"
+        "disabled": "authenticatorsGroupMembershipSearchFields",
+        "validators": [ "range(0,)" ]
       },
       "SQLGetGroupDescription": {
         "disabled": "sqlAuthenticatorsGetDescriptionFields"
@@ -2534,6 +2857,11 @@
     ]
   },
   "SecurityConfiguration/Realm/AuthenticationProvider/SAMLIdentityAsserterV2": {
+    "attributeDetails": {
+      "MinimumParserPoolSize": {
+        "validators": [ "range(0,)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",
@@ -2562,7 +2890,8 @@
   "SecurityConfiguration/Realm/AuthenticationProvider/SQLAuthenticator": {
     "attributeDetails": {
       "GroupHierarchyCacheTTL": {
-        "disabled": "authenticatorGroupMembershipLookupHierarchyCachingFields"
+        "disabled": "authenticatorGroupMembershipLookupHierarchyCachingFields",
+        "validators": [ "range(0,)" ]
       },
       "GroupMembershipSearching": {
         "options": [
@@ -2571,10 +2900,12 @@
         ]
       },
       "MaxGroupHierarchiesInCache": {
-        "disabled": "authenticatorGroupMembershipLookupHierarchyCachingFields"
+        "disabled": "authenticatorGroupMembershipLookupHierarchyCachingFields",
+        "validators": [ "range(0,)" ]
       },
       "MaxGroupMembershipSearchLevel": {
-        "disabled": "authenticatorsGroupMembershipSearchFields"
+        "disabled": "authenticatorsGroupMembershipSearchFields",
+        "validators": [ "range(0,)" ]
       },
       "SQLGetGroupDescription": {
         "disabled": "sqlAuthenticatorsGetDescriptionFields"
@@ -2787,6 +3118,14 @@
     ]
   },
   "SecurityConfiguration/Realm/CredentialMapper/DefaultCredentialMapper": {
+    "attributeDetails": {
+      "JwtTokenExpiration": {
+        "validators": [ "range(0,)" ]
+      },
+      "ManagementTokenMaxTimeout": {
+        "validators": [ "range(0,)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",
@@ -2836,6 +3175,20 @@
     ]
   },
   "SecurityConfiguration/Realm/CredentialMapper/SAML2CredentialMapper": {
+    "attributeDetails": {
+      "CredCacheMinViableTtl": {
+        "validators": [ "range(0,)" ]
+      },
+      "CredCacheSize": {
+        "validators": [ "range(0,)" ]
+      },
+      "DefaultTimeToLive": {
+        "validators": [ "range(0,)" ]
+      },
+      "DefaultTimeToLiveOffset": {
+        "validators": [ "range(,)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",
@@ -2866,6 +3219,20 @@
     ]
   },
   "SecurityConfiguration/Realm/CredentialMapper/SAMLCredentialMapperV2": {
+    "attributeDetails": {
+      "CredCacheMinViableTtl": {
+        "validators": [ "range(0,)" ]
+      },
+      "CredCacheSize": {
+        "validators": [ "range(0,)" ]
+      },
+      "DefaultTimeToLive": {
+        "validators": [ "range(0,)" ]
+      },
+      "DefaultTimeToLiveDelta": {
+        "validators": [ "range(0,)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",
@@ -2896,6 +3263,38 @@
     ]
   },
   "SecurityConfiguration/Realm/PasswordValidator/SystemPasswordValidator": {
+    "attributeDetails": {
+      "MaxConsecutiveCharacters": {
+        "validators": [ "range(0,)" ]
+      },
+      "MaxInstancesOfAnyCharacter": {
+        "validators": [ "range(0,)" ]
+      },
+      "MaxPasswordLength": {
+        "validators": [ "range(0,)" ]
+      },
+      "MinAlphabeticCharacters": {
+        "validators": [ "range(0,)" ]
+      },
+      "MinLowercaseCharacters": {
+        "validators": [ "range(0,)" ]
+      },
+      "MinNonAlphanumericCharacters": {
+        "validators": [ "range(0,)" ]
+      },
+      "MinNumericCharacters": {
+        "validators": [ "range(0,)" ]
+      },
+      "MinNumericOrSpecialCharacters": {
+        "validators": [ "range(0,)" ]
+      },
+      "MinPasswordLength": {
+        "validators": [ "range(0,)" ]
+      },
+      "MinUppercaseCharacters": {
+        "validators": [ "range(0,)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",
@@ -2928,6 +3327,11 @@
     ]
   },
   "SecurityConfiguration/Realm/RDBMSSecurityStore": {
+    "attributeDetails": {
+      "JMSExceptionReconnectAttempts": {
+        "validators": [ "range(0,)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",
@@ -2998,19 +3402,24 @@
   "SecurityConfiguration/Realm/UserLockoutManager": {
     "attributeDetails": {
       "LockoutCacheSize": {
-        "disabled": "userLockoutManagerLockoutFields"
+        "disabled": "userLockoutManagerLockoutFields",
+        "validators": [ "range(0,)" ]
       },
       "LockoutDuration": {
-        "disabled": "userLockoutManagerLockoutFields"
+        "disabled": "userLockoutManagerLockoutFields",
+        "validators": [ "range(0,)" ]
       },
       "LockoutGcThreshold": {
-        "disabled": "userLockoutManagerLockoutFields"
+        "disabled": "userLockoutManagerLockoutFields",
+        "validators": [ "range(0,)" ]
       },
       "LockoutResetDuration": {
-        "disabled": "userLockoutManagerLockoutFields"
+        "disabled": "userLockoutManagerLockoutFields",
+        "validators": [ "range(1,)" ]
       },
       "LockoutThreshold": {
-        "disabled": "userLockoutManagerLockoutFields"
+        "disabled": "userLockoutManagerLockoutFields",
+        "validators": [ "range(1,)" ]
       }
     },
     "sections": [

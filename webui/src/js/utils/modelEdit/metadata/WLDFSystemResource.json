@@ -56,6 +56,13 @@
       }
     ]
   },
+  "WLDFSystemResource/WLDFResource/Harvester": {
+    "attributeDetails": {
+      "SamplePeriod": {
+        "validators": [ "range(1000,)" ]
+      }
+    }
+  },
   "WLDFSystemResource/WLDFResource/Harvester/HarvestedType": {
     "summaryAttributes": {
       "Enabled": {},
@@ -463,11 +470,24 @@
   "WLDFSystemResource/WLDFResource/WatchNotification/HeapDumpAction": {
     "summaryAttributes": {
       "Enabled": {}
+    },
+    "attributeDetails": {
+      "Timeout": {
+        "validators": [ "range(0,)" ]
+      }
     }
   },
   "WLDFSystemResource/WLDFResource/WatchNotification/ImageNotification": {
     "summaryAttributes": {
       "Enabled": {}
+    },
+    "attributeDetails": {
+      "ImageLockout": {
+        "validators": [ "range(0,)" ]
+      },
+      "Timeout": {
+        "validators": [ "range(0,)" ]
+      }
     }
   },
   "WLDFSystemResource/WLDFResource/WatchNotification/JMSNotification": {
@@ -475,6 +495,11 @@
       "Enabled": {},
       "ConnectionFactoryJndiName": {},
       "DestinationJndiName": {}
+    },
+    "attributeDetails": {
+      "Timeout": {
+        "validators": [ "range(0,)" ]
+      }
     },
     "sections": [
       {
@@ -497,11 +522,21 @@
     "summaryAttributes": {
       "Enabled": {},
       "NotificationType": {}
+    },
+    "attributeDetails": {
+      "Timeout": {
+        "validators": [ "range(0,)" ]
+      }
     }
   },
   "WLDFSystemResource/WLDFResource/WatchNotification/LogAction": {
     "summaryAttributes": {
       "Enabled": {}
+    },
+    "attributeDetails": {
+      "Timeout": {
+        "validators": [ "range(0,)" ]
+      }
     },
     "sections": [
       {
@@ -534,7 +569,10 @@
           { "value": "text/plain", "labelKey":  "options-text-plain-label" },
           { "value": "text/xml", "labelKey":  "options-text-xml-label" },
           { "value": "text/html", "labelKey":  "options-text-html-label" }
-        ]
+        ],
+        "Timeout": {
+          "validators": [ "range(0,)" ]
+        }
       },
       "HttpAuthenticationMode": {
         "options": [
@@ -582,6 +620,14 @@
       "Enabled": {},
       "ClusterName": {}
     },
+    "attributeDetails": {
+      "ScalingSize": {
+        "validators": [ "range(1,)" ]
+      },
+      "Timeout": {
+        "validators": [ "range(0,)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",
@@ -604,6 +650,14 @@
       "Enabled": {},
       "ClusterName": {}
     },
+    "attributeDetails": {
+      "ScalingSize": {
+        "validators": [ "range(1,)" ]
+      },
+      "Timeout": {
+        "validators": [ "range(0,)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",
@@ -625,6 +679,11 @@
     "summaryAttributes": {
       "Enabled": {},
       "PathToScript": {}
+    },
+    "attributeDetails": {
+      "Timeout": {
+        "validators": [ "range(0,)" ]
+      }
     },
     "sections": [
       {
@@ -651,6 +710,11 @@
       "MailSessionJndiName": {},
       "Recipient": {}
     },
+    "attributeDetails": {
+      "Timeout": {
+        "validators": [ "range(0,)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",
@@ -673,11 +737,27 @@
   "WLDFSystemResource/WLDFResource/WatchNotification/SNMPNotification": {
     "summaryAttributes": {
       "Enabled": {}
+    },
+    "attributeDetails": {
+      "Timeout": {
+        "validators": [ "range(0,)" ]
+      }
     }
   },
   "WLDFSystemResource/WLDFResource/WatchNotification/ThreadDumpAction": {
     "summaryAttributes": {
       "Enabled": {}
+    },
+    "attributeDetails": {
+      "ThreadDumpCount": {
+        "validators": [ "range(1,20)" ]
+      },
+      "ThreadDumpDelaySeconds": {
+        "validators": [ "range(1,)" ]
+      },
+      "Timeout": {
+        "validators": [ "range(0,)" ]
+      }
     },
     "sections": [
       {
@@ -703,6 +783,9 @@
       "AlarmType": {}
     },
     "attributeDetails": {
+      "AlarmResetPeriod": {
+        "validators": [ "range(1000,)" ]
+      },
       "AlarmType": {
         "options": [
           { "value": "None", "labelKey": "options-none-label" },

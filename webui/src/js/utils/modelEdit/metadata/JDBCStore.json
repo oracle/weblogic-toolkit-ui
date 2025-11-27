@@ -13,11 +13,29 @@
           { "value": "NONE", "labelKey": "options-none-label" }
         ]
       },
+      "DeletesPerBatchMaximum": {
+        "validators": [ "range(1,100)" ]
+      },
+      "DeletesPerStatementMaximum": {
+        "validators": [ "range(1,100)" ]
+      },
       "DistributionPolicy": {
         "options": [
           { "value": "Distributed", "labelKey": "store-distribution-policy-distributed-label" },
           { "value": "Singleton", "labelKey": "store-distribution-policy-singleton-label" }
         ]
+      },
+      "FailbackDelaySeconds": {
+        "validators": [ "range(-1,)" ]
+      },
+      "FailOverLimit": {
+        "validators": [ "range(-1,)" ]
+      },
+      "InitialBootDelaySeconds": {
+        "validators": [ "range(0,)" ]
+      },
+      "InsertsPerBatchMaximum": {
+        "validators": [ "range(1,100)" ]
       },
       "MigrationPolicy": {
         "options": [
@@ -27,10 +45,30 @@
         ]
       },
       "NumberOfRestartAttempts": {
-        "disabled": "persistentStoreDisableRestartFields"
+        "disabled": "persistentStoreDisableRestartFields",
+        "validators": [ "range(-1,)" ]
+      },
+      "PartialClusterStabilityDelaySeconds": {
+        "validators": [ "range(0,)" ]
+      },
+      "ReconnectRetryIntervalMillis": {
+        "validators": [ "range(100,10000)" ]
+      },
+      "ReconnectRetryPeriodMillis": {
+        "validators": [ "range(200,300000)" ]
       },
       "SecondsBetweenRestarts": {
-        "disabled": "persistentStoreDisableRestartFields"
+        "disabled": "persistentStoreDisableRestartFields",
+        "validators": [ "range(1,)" ]
+      },
+      "ThreeStepThreshold": {
+        "validators": [ "range(4000,)" ]
+      },
+      "WorkerCount": {
+        "validators": [ "range(1,1000)" ]
+      },
+      "WorkerPreferredBatchSize": {
+        "validators": [ "range(1,)" ]
       }
     },
     "sections": [

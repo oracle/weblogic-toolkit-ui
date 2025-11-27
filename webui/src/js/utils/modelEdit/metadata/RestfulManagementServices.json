@@ -18,6 +18,21 @@
       },
       "CorsMaxAge": {
         "disabled": "restfulManagementServicesCorsFields"
+      },
+      "DelegatedRequestConnectTimeoutMillis": {
+        "validators": [ "range(0,)" ]
+      },
+      "DelegatedRequestMaxWaitMillis": {
+        "validators": [ "range(0,)" ]
+      },
+      "DelegatedRequestMinThreads": {
+        "validators": [ "range(1,)" ]
+      },
+      "DelegatedRequestReadTimeoutMillis": {
+        "validators": [ "range(0,)" ]
+      },
+      "FannedOutRequestMaxWaitMillis": {
+        "validators": [ "range(0,)" ]
       }
     },
     "sections": [
