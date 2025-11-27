@@ -6,11 +6,29 @@
       "TargetDestination": {}
     },
     "attributeDetails": {
+      "BatchInterval": {
+        "validators": [ "range(-1,)" ]
+      },
+      "BatchSize": {
+        "validators": [ "range(0,)" ]
+      },
       "DistributionPolicy": {
         "options": [
           { "value": "Distributed", "labelKey": "store-distribution-policy-distributed-label" },
           { "value": "Singleton", "labelKey": "store-distribution-policy-singleton-label" }
         ]
+      },
+      "FailbackDelaySeconds": {
+        "validators": [ "range(-1,)" ]
+      },
+      "FailOverLimit": {
+        "validators": [ "range(-1,)" ]
+      },
+      "IdleTimeMaximum": {
+        "validators": [ "range(0,)" ]
+      },
+      "InitialBootDelaySeconds": {
+        "validators": [ "range(0,)" ]
       },
       "MigrationPolicy": {
         "options": [
@@ -19,12 +37,33 @@
           { "value": "Always", "labelKey": "options-always-label" }
         ]
       },
+      "NumberOfRestartAttempts": {
+        "validators": [ "range(-1,)" ]
+      },
+      "PartialClusterStabilityDelaySeconds": {
+        "validators": [ "range(0,)" ]
+      },
       "QualityOfService": {
         "options": [
           { "value": "Exactly-once", "labelKey":  "options-exactly-once-label" },
           { "value": "Atmost-once", "labelKey":  "options-at-most-once-label" },
           { "value": "Duplicates-okay", "labelKey":  "options-duplicates-okay-label" }
         ]
+      },
+      "ReconnectDelayIncrease": {
+        "validators": [ "range(0,)" ]
+      },
+      "ReconnectDelayMaximum": {
+        "validators": [ "range(0,)" ]
+      },
+      "ReconnectDelayMinimum": {
+        "validators": [ "range(0,)" ]
+      },
+      "SecondsBetweenRestarts": {
+        "validators": [ "range(1,)" ]
+      },
+      "TransactionTimeout": {
+        "validators": [ "range(0,)" ]
       }
     },
     "sections": [

@@ -171,6 +171,17 @@
     ]
   },
   "WebserviceSecurity/WebserviceTimestamp": {
+    "attributeDetails": {
+      "ClockSkew": {
+        "validators": [ "range(0,)" ]
+      },
+      "MaxProcessingDelay": {
+        "validators": [ "range(-1,)" ]
+      },
+      "ValidityPeriod": {
+        "validators": [ "range(1,)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",
@@ -201,6 +212,11 @@
       "HandlingOrder": {},
       "TokenType": {},
       "ClassName": {}
+    },
+    "attributeDetails": {
+      "HandlingOrder": {
+        "validators": [ "range(0,)" ]
+      }
     },
     "sections": [
       {

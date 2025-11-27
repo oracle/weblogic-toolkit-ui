@@ -1,0 +1,33 @@
+{
+  "OHS": {
+    "summaryAttributes": {
+      "ServerName": {},
+      "ListenAddress": {}
+    },
+    "attributeDetails": {
+      "AdminPort": {
+        "validators": [ "port" ]
+      },
+      "ListenPort": {
+        "validators": [ "port" ]
+      },
+      "SSLListenPort": {
+        "validators": [ "port" ]
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "ServerName",
+          "ListenAddress",
+          "ListenPort",
+          "SSLListenPort",
+          "AdminHost",
+          "AdminPort"
+        ],
+        "addRemainingAttributes": true
+      }
+    ]
+  }
+}

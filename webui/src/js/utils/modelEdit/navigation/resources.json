@@ -29,13 +29,34 @@
       "path": "JMSSystemResource",
       "instanceChildren": [
         {
-          "path": "SubDeployment"
-        },
-        {
           "path": "JmsResource/ConnectionFactory"
         },
         {
+          "path": "JmsResource/DestinationKey"
+        },
+        {
+          "path": "JmsResource/ForeignServer"
+        },
+        {
           "path": "JmsResource/Queue"
+        },
+        {
+          "path": "JmsResource/Quota"
+        },
+        {
+          "path": "JmsResource/SAFErrorHandling"
+        },
+        {
+          "path": "JmsResource/SAFImportedDestinations"
+        },
+        {
+          "path": "JmsResource/SAFRemoteContext"
+        },
+        {
+          "path": "SubDeployment"
+        },
+        {
+          "path": "JmsResource/Template"
         },
         {
           "path": "JmsResource/Topic"
@@ -45,27 +66,6 @@
         },
         {
           "path": "JmsResource/UniformDistributedTopic"
-        },
-        {
-          "path": "JmsResource/Template"
-        },
-        {
-          "path": "JmsResource/ForeignServer"
-        },
-        {
-          "path": "JmsResource/SAFRemoteContext"
-        },
-        {
-          "path": "JmsResource/SAFImportedDestinations"
-        },
-        {
-          "path": "JmsResource/SAFErrorHandling"
-        },
-        {
-          "path": "JmsResource/Quota"
-        },
-        {
-          "path": "JmsResource/DestinationKey"
         }
       ]
     },
@@ -103,25 +103,25 @@
       "path": "SelfTuning",
       "children": [
         {
-          "path": "WorkManager"
-        },
-        {
           "path": "Capacity"
         },
         {
-          "path": "MinThreadsConstraint"
-        },
-        {
-          "path": "MaxThreadsConstraint"
+          "path": "ContextRequestClass"
         },
         {
           "path": "FairShareRequestClass"
         },
         {
+          "path": "MaxThreadsConstraint"
+        },
+        {
+          "path": "MinThreadsConstraint"
+        },
+        {
           "path": "ResponseTimeRequestClass"
         },
         {
-          "path": "ContextRequestClass"
+          "path": "WorkManager"
         }
       ]
     },
@@ -135,22 +135,22 @@
       "path": "SNMPAgent",
       "children": [
         {
-          "path": "SNMPProxy"
-        },
-        {
-          "path": "SNMPGaugeMonitor"
-        },
-        {
-          "path": "SNMPStringMonitor"
+          "path": "SNMPAttributeChange"
         },
         {
           "path": "SNMPCounterMonitor"
         },
         {
+          "path": "SNMPGaugeMonitor"
+        },
+        {
           "path": "SNMPLogFilter"
         },
         {
-          "path": "SNMPAttributeChange"
+          "path": "SNMPProxy"
+        },
+        {
+          "path": "SNMPStringMonitor"
         },
         {
           "path": "SNMPTrapDestination"
@@ -161,28 +161,29 @@
       "path": "SnmpAgentDeployment",
       "instanceChildren": [
         {
-          "path": "SNMPProxy"
-        },
-        {
-          "path": "SNMPGaugeMonitor"
-        },
-        {
-          "path": "SNMPStringMonitor"
+          "path": "SNMPAttributeChange"
         },
         {
           "path": "SNMPCounterMonitor"
         },
         {
+          "path": "SNMPGaugeMonitor"
+        },
+        {
           "path": "SNMPLogFilter"
         },
         {
-          "path": "SNMPAttributeChange"
+          "path": "SNMPProxy"
+        },
+        {
+          "path": "SNMPStringMonitor"
         },
         {
           "path": "SNMPTrapDestination"
         }
       ]
-    },    {
+    },
+    {
       "path": "StartupClass"
     },
     {

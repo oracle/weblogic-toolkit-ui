@@ -4,6 +4,17 @@
       "PrimaryAddress": {},
       "Target": {}
     },
+    "attributeDetails": {
+      "MaximumPoolSize": {
+        "validators": [ "range(1,)" ]
+      },
+      "MinimumPoolSize": {
+        "validators": [ "range(0,)" ]
+      },
+      "RecvTimeout": {
+        "validators": [ "range(0,)" ]
+      }
+    },
     "sections": [
       {
         "type": "tab",

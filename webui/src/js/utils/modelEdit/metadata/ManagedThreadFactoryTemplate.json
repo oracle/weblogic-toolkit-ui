@@ -5,6 +5,14 @@
       "Priority": {},
       "Target": {}
     },
+    "attributeDetails": {
+      "MaxConcurrentNewThreads": {
+        "validators": [ "range(0,65534)" ]
+      },
+      "Priority": {
+        "validators": [ "range(1,10)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",

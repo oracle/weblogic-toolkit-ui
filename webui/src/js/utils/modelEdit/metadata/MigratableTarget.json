@@ -31,7 +31,7 @@
         "validators": [ "range(-1,)" ]
       },
       "SecondsBetweenRestarts": {
-        "validators": [ "range(0,)" ]
+        "validators": [ "range(1,)" ]
       }
     },
     "sections": [

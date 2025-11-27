@@ -96,14 +96,23 @@
   },
   "SAFAgent/JmssafMessageLogFile": {
     "attributeDetails": {
+      "BufferSizeKb": {
+        "validators": [ "range(0,)" ]
+      },
+      "FileCount": {
+        "validators": [ "range(1,99999)" ]
+      },
       "FileMinSize": {
-        "disabled": "jmsMessageLogRotateSizeFields"
+        "disabled": "jmsMessageLogRotateSizeFields",
+        "validators": [ "range(1,2097150)" ]
       },
       "FileTimeSpan": {
-        "disabled": "jmsMessageLogRotateTimeFields"
+        "disabled": "jmsMessageLogRotateTimeFields",
+        "validators": [ "range(1,)" ]
       },
       "FileTimeSpanFactor": {
-        "disabled": "jmsMessageLogRotateTimeFields"
+        "disabled": "jmsMessageLogRotateTimeFields",
+        "validators": [ "range(1,)" ]
       },
       "RotationTime": {
         "disabled": "jmsMessageLogRotateTimeFields"

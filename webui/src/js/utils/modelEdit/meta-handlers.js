@@ -481,6 +481,10 @@ define(['knockout', 'utils/wkt-logger', 'utils/modelEdit/model-edit-helper'],
 
       this.domainDbPassiveModeFields = attributeMap => {
         return this._disableFieldsUsingBooleanAttribute(attributeMap, 'DbPassiveMode');
+      };
+
+      this.jdbcXaParamsSetXaTransactionTimeoutFields = attributeMap => {
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'XaSetTransactionTimeout');
       }
 
       this._disableFieldsUsingBooleanAttribute = (attributeMap, booleanAttributeName, enableOnUndefined = false) => {

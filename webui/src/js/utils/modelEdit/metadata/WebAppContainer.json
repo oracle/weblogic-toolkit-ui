@@ -1,6 +1,27 @@
 {
   "WebAppContainer": {
     "attributeDetails": {
+      "MaxPostSize": {
+        "validators": [ "range(-1,)" ]
+      },
+      "MaxPostTimeSecs": {
+        "validators": [ "range(-1,)" ]
+      },
+      "MaxRequestParameterCount": {
+        "validators": [ "range(0,)" ]
+      },
+      "MaxSingleHeaderSize": {
+        "validators": [ "range(-1,)" ]
+      },
+      "MaxTotalHeadersSize": {
+        "validators": [ "range(-1,)" ]
+      },
+      "PostTimeoutSecs": {
+        "validators": [ "range(0,120)" ]
+      },
+      "ServletReloadCheckSecs": {
+        "validators": [ "range(-1,)" ]
+      },
       "XPoweredByHeaderLevel": {
         "options": [
           { "value": "NONE", "labelKey":  "options-none-label" },
@@ -80,6 +101,11 @@
     ]
   },
   "WebAppContainer/GzipCompression": {
+    "attributeDetails": {
+      "GzipCompressionMinContentLength": {
+        "validators": [ "range(0,)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",
@@ -98,6 +124,32 @@
     ]
   },
   "WebAppContainer/Http2Config": {
+    "attributeDetails": {
+      "ContinuationFramesLimit": {
+        "validators": [ "range(0,)" ]
+      },
+      "FrameCountLimitResetInterval": {
+        "validators": [ "range(0,)" ]
+      },
+      "HeaderTableSize": {
+        "validators": [ "range(0,)" ]
+      },
+      "InitialWindowSize": {
+        "validators": [ "range(0,)" ]
+      },
+      "MaxConcurrentStreams": {
+        "validators": [ "range(0,)" ]
+      },
+      "MaxFrameSize": {
+        "validators": [ "range(0,)" ]
+      },
+      "MaxHeaderListSize": {
+        "validators": [ "range(0,)" ]
+      },
+      "MaxStreamResets": {
+        "validators": [ "range(0,)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",

@@ -228,6 +228,50 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
         return options;
       }
 
+      this.getJmsSystemResourceSubDeploymentOptions = (attribute) => {
+        const modelPath = attribute.path;
+        // [ 'resources', 'JMSSystemResource', <module-name> ]
+        const jmsSystemResourcePath = modelPath.slice(0, 3);
+        const subDeploymentNames = getInstanceNames([...jmsSystemResourcePath, "SubDeployment"]);
+        const options = [];
+        subDeploymentNames.forEach(subDeploymentName => {
+          options.push({ value: subDeploymentName, label: subDeploymentName });
+        });
+        return options;
+      };
+
+      this.getJmsSystemResourceDestinationKeyOptions = (attribute) => {
+        return getJmsSystemResourceTypeOptions(attribute, 'DestinationKey')
+      };
+
+      this.getJmsSystemResourceQuotaOptions = (attribute) => {
+        return getJmsSystemResourceTypeOptions(attribute, 'Quota')
+      };
+
+      this.getJmsSystemResourceTemplateOptions = (attribute) => {
+        return getJmsSystemResourceTypeOptions(attribute, 'Template')
+      };
+
+      this.getJmsSystemResourceSAFErrorHandlingOptions = (attribute) => {
+        return getJmsSystemResourceTypeOptions(attribute, 'SAFErrorHandling')
+      };
+
+      this.getJmsSystemResourceSAFRemoteContextOptions = (attribute) => {
+        return getJmsSystemResourceTypeOptions(attribute, 'SAFRemoteContext')
+      };
+
+      function getJmsSystemResourceTypeOptions(attribute, typeName) {
+        const modelPath = attribute.path;
+        // [ 'resources', 'JMSSystemResource', <module-name>, 'JmsResource' ]
+        const jmsResourcePath = modelPath.slice(0, 4);
+        const options = [];
+        const resourceTypeNames = getInstanceNames([...jmsResourcePath, typeName]);
+        resourceTypeNames.forEach(resourceTypeName => {
+          options.push({ value: resourceTypeName, label: resourceTypeName });
+        });
+        return options;
+      }
+
       function getInstanceNames(modelPath) {
         const folder = ModelEditHelper.getFolder(modelPath);
         return Object.keys(folder);

@@ -853,17 +853,24 @@
   },
   "ServerTemplate/DataSource/DataSourceLogFile": {
     "attributeDetails": {
+      "BufferSizeKb": {
+        "validators": [ "range(0,)" ]
+      },
       "FileCount": {
-        "disabled": "logRotationFileCountLimitedFields"
+        "disabled": "logRotationFileCountLimitedFields",
+        "validators": [ "range(1,99999)" ]
       },
       "FileMinSize": {
-        "disabled": "logRotationBySizeFields"
+        "disabled": "logRotationBySizeFields",
+        "validators": [ "range(1,2097150)" ]
       },
       "FileTimeSpan": {
-        "disabled": "logRotationByTimeFields"
+        "disabled": "logRotationByTimeFields",
+        "validators": [ "range(1,)" ]
       },
       "FileTimeSpanFactor": {
-        "disabled": "logRotationByTimeFields"
+        "disabled": "logRotationByTimeFields",
+        "validators": [ "range(1,)" ]
       },
       "RotationTime": {
         "disabled": "logRotationByTimeFields"
@@ -1135,7 +1142,7 @@
         "validators": [ "range(-1,)" ]
       },
       "SecondsBetweenRestarts": {
-        "validators": [ "range(0,)" ]
+        "validators": [ "range(1,)" ]
       }
     },
     "sections": [
@@ -1255,6 +1262,9 @@
       },
       "RotationTime": {
         "disabled": "logRotationByTimeFields"
+      },
+      "StacktraceDepth": {
+        "validators": [ "range(-1,)" ]
       },
       "StdoutFilter": {
         "editorType": "combo",

@@ -108,6 +108,11 @@
     "summaryAttributes": {
       "Address": {},
       "Port": {}
+    },
+    "attributeDetails": {
+      "Port": {
+        "validators": [ "port" ]
+      }
     }
   },
   "CoherenceClusterSystemResource/CoherenceResource/CoherenceClusterParams": {
@@ -118,6 +123,9 @@
           { "value": "multicast", "labelKey": "options-multicast-label" }
         ]
       },
+      "ClusterListenPort": {
+        "validators": [ "port" ]
+      },
       "GlobalSocketProvider": {
         "editorType": "string"
       },
@@ -125,7 +133,8 @@
         "disabled": "coherenceMulticastClusteringModeFields"
       },
       "TimeToLive": {
-        "disabled": "coherenceMulticastClusteringModeFields"
+        "disabled": "coherenceMulticastClusteringModeFields",
+        "validators": [ "range(0,255)" ]
       },
       "Transport": {
         "options": [
@@ -279,10 +288,21 @@
           { "value": "active-passive", "labelKey": "options-active-passive-label" },
           { "value": "passive-active", "labelKey": "options-passive-active-label" }
         ]
+      },
+      "RemoteCoherenceClusterListenPort": {
+        "validators": [ "port" ]
       }
     }
   },
   "CoherenceClusterSystemResource/CoherenceResource/CoherenceLoggingParams": {
+    "attributeDetails": {
+      "CharacterLimit": {
+        "validators": [ "range(0,1048576)" ]
+      },
+      "SeverityLevel": {
+        "validators": [ "range(0,9)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",

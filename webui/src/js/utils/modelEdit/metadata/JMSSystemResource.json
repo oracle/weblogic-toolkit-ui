@@ -25,6 +25,10 @@
           { "value": "No-Delivery", "labelKey": "options-no-delivery-label" }
         ]
       },
+      "DestinationKey": {
+        "editorType": "combo",
+        "optionsMethod": "getJmsSystemResourceDestinationKeyOptions"
+      },
       "ExpirationPolicy": {
         "options": [
           { "value": "Discard", "labelKey": "options-discard-label" },
@@ -38,11 +42,31 @@
           { "value": "Random", "labelKey": "options-random-label" }
         ]
       },
+      "Quota": {
+        "editorType": "combo",
+        "optionsMethod": "getJmsSystemResourceQuotaOptions"
+      },
+      "SAFErrorHandling": {
+        "editorType": "combo",
+        "optionsMethod": "getJmsSystemResourceSAFErrorHandlingOptions"
+      },
       "SafExportPolicy": {
         "options": [
           { "value": "All", "labelKey": "options-all-label" },
           { "value": "None", "labelKey": "options-none-label" }
         ]
+      },
+      "SAFRemoteContext": {
+        "editorType": "combo",
+        "optionsMethod": "getJmsSystemResourceSAFRemoteContextOptions"
+      },
+      "SubDeploymentName": {
+        "editorType": "combo",
+        "optionsMethod": "getJmsSystemResourceSubDeploymentOptions"
+      },
+      "Template": {
+        "editorType": "combo",
+        "optionsMethod": "getJmsSystemResourceTemplateOptions"
       },
       "UnitOfWorkHandlingPolicy": {
         "options": [
@@ -251,11 +275,17 @@
           { "value": "CLIENT_ID_POLICY_UNRESTRICTED", "labelKey": "options-client-id-policy-unrestricted-label" }
         ]
       },
+      "MessagesMaximum": {
+        "validators": [ "range(-1,)" ]
+      },
       "MulticastOverrunPolicy": {
         "options": [
           { "value": "KeepOld", "labelKey": "options-keep-old-label" },
           { "value": "KeepNew", "labelKey": "options-keep-new-label" }
         ]
+      },
+      "ReconnectBlockingMillis": {
+        "validators": [ "range(-1,)" ]
       },
       "ReconnectPolicy": {
         "options": [
@@ -276,6 +306,9 @@
           { "value": "Enabled", "labelKey": "options-enabled-label" },
           { "value": "Topic Subscriber Only", "labelKey": "options-topic-subscriber-only-label" }
         ]
+      },
+      "TotalReconnectPeriodMillis": {
+        "validators": [ "range(-1,)" ]
       }
     },
     "sections": [
@@ -304,11 +337,26 @@
   },
   "JMSSystemResource/JmsResource/ConnectionFactory/DefaultDeliveryParams": {
     "attributeDetails": {
+      "DefaultCompressionThreshold": {
+        "validators": [ "range(0,)" ]
+      },
       "DefaultDeliveryMode": {
         "options": [
           { "value": "Persistent", "labelKey": "options-persistent-label" },
           { "value": "Non-Persistent", "labelKey": "options-non-persistent-label" }
         ]
+      },
+      "DefaultPriority": {
+        "validators": [ "range(0,9)" ]
+      },
+      "DefaultRedeliveryDelay": {
+        "validators": [ "range(0,)" ]
+      },
+      "DefaultTimeToLive": {
+        "validators": [ "range(0,)" ]
+      },
+      "SendTimeout": {
+        "validators": [ "range(0,)" ]
       }
     },
     "sections": [
@@ -334,12 +382,27 @@
   },
   "JMSSystemResource/JmsResource/ConnectionFactory/FlowControlParams": {
     "attributeDetails": {
+      "FlowInterval": {
+        "validators": [ "range(0,)" ]
+      },
+      "FlowMaximum": {
+        "validators": [ "range(1,)" ]
+      },
+      "FlowMinimum": {
+        "validators": [ "range(1,)" ]
+      },
+      "FlowSteps": {
+        "validators": [ "range(1,)" ]
+      },
       "OneWaySendMode": {
         "options": [
           { "value": "Disabled", "labelKey": "options-disabled-label" },
           { "value": "Enabled", "labelKey": "options-enabled-label" },
           { "value": "Topic Only", "labelKey": "options-topic-only-label" }
         ]
+      },
+      "OneWaySendWindowSize": {
+        "validators": [ "range(1,)" ]
       }
     },
     "sections": [
@@ -419,6 +482,11 @@
     ]
   },
   "JMSSystemResource/JmsResource/ConnectionFactory/TransactionParams": {
+    "attributeDetails": {
+      "TransactionTimeout": {
+        "validators": [ "range(0,)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",
@@ -613,6 +681,17 @@
       "DefaultTargetingEnabled": {},
       "SubDeploymentName": {}
     },
+    "attributeDetails": {
+      "IncompleteWorkExpirationTime": {
+        "validators": [ "range(-1,)" ]
+      },
+      "MaximumMessageSize": {
+        "validators": [ "range(0,)" ]
+      },
+      "MessagingPerformancePreference": {
+        "validators": [ "range(0,100)" ]
+      }
+    },
     "sections": [
       {
         "type": "tab",
@@ -679,6 +758,11 @@
     ]
   },
   "JMSSystemResource/JmsResource/Queue/DeliveryFailureParams": {
+    "attributeDetails": {
+      "RedeliveryLimit": {
+        "validators": [ "range(-1,)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",
@@ -697,6 +781,17 @@
     ]
   },
   "JMSSystemResource/JmsResource/Queue/DeliveryParamsOverrides": {
+    "attributeDetails": {
+      "Priority": {
+        "validators": [ "range(-1,9)" ]
+      },
+      "RedeliveryDelay": {
+        "validators": [ "range(-1,)" ]
+      },
+      "TimeToLive": {
+        "validators": [ "range(-1,)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",
@@ -732,6 +827,20 @@
     ]
   },
   "JMSSystemResource/JmsResource/Queue/Thresholds": {
+    "attributeDetails": {
+      "BytesHigh": {
+        "validators": [ "range(0,)" ]
+      },
+      "BytesLow": {
+        "validators": [ "range(0,)" ]
+      },
+      "MessagesHigh": {
+        "validators": [ "range(0,)" ]
+      },
+      "MessagesLow": {
+        "validators": [ "range(0,)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",
@@ -757,6 +866,12 @@
       "Shared": {}
     },
     "attributeDetails": {
+      "BytesMaximum": {
+        "validators": [ "range(-1,)" ]
+      },
+      "MessagesMaximum": {
+        "validators": [ "range(-1,)" ]
+      },
       "Policy": {
         "options": [
           { "value": "FIFO", "labelKey": "options-fifo-label" },
@@ -827,6 +942,9 @@
           { "value": "Per-Member", "labelKey": "options-per-member-label" },
           { "value": "Per-JVM", "labelKey": "options-per-jvm-label" }
         ]
+      },
+      "TimeToLiveDefault": {
+        "validators": [ "range(-1,)" ]
       }
     },
     "sections": [
@@ -890,6 +1008,9 @@
           { "value": "At-Least-Once", "labelKey": "options-at-least-once-label" },
           { "value": "At-Most-Once", "labelKey": "options-at-most-once-label" }
         ]
+      },
+      "TimeToLiveDefault": {
+        "validators": [ "range(-1,)" ]
       }
     },
     "sections": [
@@ -944,6 +1065,9 @@
           { "value": "At-Least-Once", "labelKey": "options-at-least-once-label" },
           { "value": "At-Most-Once", "labelKey": "options-at-most-once-label" }
         ]
+      },
+      "TimeToLiveDefault": {
+        "validators": [ "range(-1,)" ]
       }
     },
     "sections": [
@@ -979,6 +1103,11 @@
     ]
   },
   "JMSSystemResource/JmsResource/SAFRemoteContext": {
+    "attributeDetails": {
+      "CompressionThreshold": {
+        "validators": [ "range(0,)" ]
+      }
+    },
     "sections": [
       {
         "type": "tab",
@@ -1031,6 +1160,17 @@
     "summaryAttributes": {
       "DestinationKey": {},
       "Quota": {}
+    },
+    "attributeDetails": {
+      "IncompleteWorkExpirationTime": {
+        "validators": [ "range(-1,)" ]
+      },
+      "MaximumMessageSize": {
+        "validators": [ "range(0,)" ]
+      },
+      "MessagingPerformancePreference": {
+        "validators": [ "range(0,100)" ]
+      }
     },
     "sections": [
       {
@@ -1093,6 +1233,11 @@
     ]
   },
   "JMSSystemResource/JmsResource/Template/DeliveryFailureParams": {
+    "attributeDetails": {
+      "RedeliveryLimit": {
+        "validators": [ "range(-1,)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",
@@ -1111,6 +1256,17 @@
     ]
   },
   "JMSSystemResource/JmsResource/Template/DeliveryParamsOverrides": {
+    "attributeDetails": {
+      "Priority": {
+        "validators": [ "range(-1,9)" ]
+      },
+      "RedeliveryDelay": {
+        "validators": [ "range(-1,)" ]
+      },
+      "TimeToLive": {
+        "validators": [ "range(-1,)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",
@@ -1136,6 +1292,14 @@
     }
   },
   "JMSSystemResource/JmsResource/Template/Multicast": {
+    "attributeDetails": {
+      "MulticastPort": {
+        "validators": [ "port" ]
+      },
+      "MulticastTimeToLive": {
+        "validators": [ "range(0,255)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",
@@ -1153,6 +1317,20 @@
     ]
   },
   "JMSSystemResource/JmsResource/Template/Thresholds": {
+    "attributeDetails": {
+      "BytesHigh": {
+        "validators": [ "range(0,)" ]
+      },
+      "BytesLow": {
+        "validators": [ "range(0,)" ]
+      },
+      "MessagesHigh": {
+        "validators": [ "range(0,)" ]
+      },
+      "MessagesLow": {
+        "validators": [ "range(0,)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",
@@ -1176,6 +1354,17 @@
       "LocalJNDIName": {},
       "DefaultTargetingEnabled": {},
       "SubDeploymentName": {}
+    },
+    "attributeDetails": {
+      "IncompleteWorkExpirationTime": {
+        "validators": [ "range(-1,)" ]
+      },
+      "MaximumMessageSize": {
+        "validators": [ "range(0,)" ]
+      },
+      "MessagingPerformancePreference": {
+        "validators": [ "range(0,100)" ]
+      }
     },
     "sections": [
       {
@@ -1250,6 +1439,11 @@
     ]
   },
   "JMSSystemResource/JmsResource/Topic/DeliveryFailureParams": {
+    "attributeDetails": {
+      "RedeliveryLimit": {
+        "validators": [ "range(-1,)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",
@@ -1268,6 +1462,17 @@
     ]
   },
   "JMSSystemResource/JmsResource/Topic/DeliveryParamsOverrides": {
+    "attributeDetails": {
+      "Priority": {
+        "validators": [ "range(-1,9)" ]
+      },
+      "RedeliveryDelay": {
+        "validators": [ "range(-1,)" ]
+      },
+      "TimeToLive": {
+        "validators": [ "range(-1,)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",
@@ -1287,6 +1492,14 @@
     ]
   },
   "JMSSystemResource/JmsResource/Topic/Multicast": {
+    "attributeDetails": {
+      "MulticastPort": {
+        "validators": [ "port" ]
+      },
+      "MulticastTimeToLive": {
+        "validators": [ "range(0,255)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",
@@ -1304,6 +1517,20 @@
     ]
   },
   "JMSSystemResource/JmsResource/Topic/Thresholds": {
+    "attributeDetails": {
+      "BytesHigh": {
+        "validators": [ "range(0,)" ]
+      },
+      "BytesLow": {
+        "validators": [ "range(0,)" ]
+      },
+      "MessagesHigh": {
+        "validators": [ "range(0,)" ]
+      },
+      "MessagesLow": {
+        "validators": [ "range(0,)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",
@@ -1327,6 +1554,20 @@
       "LocalJNDIName": {},
       "DefaultTargetingEnabled": {},
       "SubDeploymentName": {}
+    },
+    "attributeDetails": {
+      "ForwardDelay": {
+        "validators": [ "range(-1,)" ]
+      },
+      "IncompleteWorkExpirationTime": {
+        "validators": [ "range(-1,)" ]
+      },
+      "MaximumMessageSize": {
+        "validators": [ "range(0,)" ]
+      },
+      "MessagingPerformancePreference": {
+        "validators": [ "range(0,100)" ]
+      }
     },
     "sections": [
       {
@@ -1389,6 +1630,11 @@
     ]
   },
   "JMSSystemResource/JmsResource/UniformDistributedQueue/DeliveryFailureParams": {
+    "attributeDetails": {
+      "RedeliveryLimit": {
+        "validators": [ "range(-1,)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",
@@ -1407,6 +1653,17 @@
     ]
   },
   "JMSSystemResource/JmsResource/UniformDistributedQueue/DeliveryParamsOverrides": {
+    "attributeDetails": {
+      "Priority": {
+        "validators": [ "range(-1,9)" ]
+      },
+      "RedeliveryDelay": {
+        "validators": [ "range(-1,)" ]
+      },
+      "TimeToLive": {
+        "validators": [ "range(-1,)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",
@@ -1442,6 +1699,20 @@
     ]
   },
   "JMSSystemResource/JmsResource/UniformDistributedQueue/Thresholds": {
+    "attributeDetails": {
+      "BytesHigh": {
+        "validators": [ "range(0,)" ]
+      },
+      "BytesLow": {
+        "validators": [ "range(0,)" ]
+      },
+      "MessagesHigh": {
+        "validators": [ "range(0,)" ]
+      },
+      "MessagesLow": {
+        "validators": [ "range(0,)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",
@@ -1472,6 +1743,15 @@
           { "value": "Replicated", "labelKey": "options-replicated-label" },
           { "value": "Partitioned", "labelKey": "options-partitioned-label" }
         ]
+      },
+      "IncompleteWorkExpirationTime": {
+        "validators": [ "range(-1,)" ]
+      },
+      "MaximumMessageSize": {
+        "validators": [ "range(0,)" ]
+      },
+      "MessagingPerformancePreference": {
+        "validators": [ "range(0,100)" ]
       }
     },
     "sections": [
@@ -1542,6 +1822,11 @@
     ]
   },
   "JMSSystemResource/JmsResource/UniformDistributedTopic/DeliveryFailureParams": {
+    "attributeDetails": {
+      "RedeliveryLimit": {
+        "validators": [ "range(-1,)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",
@@ -1560,6 +1845,17 @@
     ]
   },
   "JMSSystemResource/JmsResource/UniformDistributedTopic/DeliveryParamsOverrides": {
+    "attributeDetails": {
+      "Priority": {
+        "validators": [ "range(-1,9)" ]
+      },
+      "RedeliveryDelay": {
+        "validators": [ "range(-1,)" ]
+      },
+      "TimeToLive": {
+        "validators": [ "range(-1,)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",
@@ -1579,6 +1875,14 @@
     ]
   },
   "JMSSystemResource/JmsResource/UniformDistributedTopic/Multicast": {
+    "attributeDetails": {
+      "MulticastPort": {
+        "validators": [ "port" ]
+      },
+      "MulticastTimeToLive": {
+        "validators": [ "range(0,255)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",
@@ -1596,6 +1900,20 @@
     ]
   },
   "JMSSystemResource/JmsResource/UniformDistributedTopic/Thresholds": {
+    "attributeDetails": {
+      "BytesHigh": {
+        "validators": [ "range(0,)" ]
+      },
+      "BytesLow": {
+        "validators": [ "range(0,)" ]
+      },
+      "MessagesHigh": {
+        "validators": [ "range(0,)" ]
+      },
+      "MessagesLow": {
+        "validators": [ "range(0,)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",
