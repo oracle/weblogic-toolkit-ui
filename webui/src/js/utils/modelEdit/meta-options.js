@@ -116,18 +116,18 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
       };
 
       this.getCoherenceClusterSystemResourceOptions = () => {
-        const defaultCoherenceClusterName = "defaultCoherenceCluster"
+        const defaultCoherenceClusterName = 'defaultCoherenceCluster';
         const options = [
-          { "value": defaultCoherenceClusterName, label: defaultCoherenceClusterName }
+          { value: defaultCoherenceClusterName, label: defaultCoherenceClusterName }
         ];
         const coherenceClusterNames = getInstanceNames(['topology', 'CoherenceClusterSystemResource']);
         coherenceClusterNames.forEach(clusterName => {
           if (clusterName !== defaultCoherenceClusterName) {
             options.push({ value: clusterName, label: clusterName });
           }
-        })
+        });
         return options;
-      }
+      };
 
       // return an observableArray that changes with cluster selection.
       // add any subscriptions to the list to be cleaned up by caller.
@@ -211,7 +211,7 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
           });
         });
 
-        const iterator = napNamesSet.values()
+        const iterator = napNamesSet.values();
         for (let i = 0; i < napNamesSet.size; i++) {
           const name = iterator.next().value;
           options.push({ value: name, label: name });
@@ -226,13 +226,13 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
           options.push({ value: templateName, label: templateName });
         });
         return options;
-      }
+      };
 
       this.getJmsSystemResourceSubDeploymentOptions = (attribute) => {
         const modelPath = attribute.path;
         // [ 'resources', 'JMSSystemResource', <module-name> ]
         const jmsSystemResourcePath = modelPath.slice(0, 3);
-        const subDeploymentNames = getInstanceNames([...jmsSystemResourcePath, "SubDeployment"]);
+        const subDeploymentNames = getInstanceNames([...jmsSystemResourcePath, 'SubDeployment']);
         const options = [];
         subDeploymentNames.forEach(subDeploymentName => {
           options.push({ value: subDeploymentName, label: subDeploymentName });
@@ -241,23 +241,23 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
       };
 
       this.getJmsSystemResourceDestinationKeyOptions = (attribute) => {
-        return getJmsSystemResourceTypeOptions(attribute, 'DestinationKey')
+        return getJmsSystemResourceTypeOptions(attribute, 'DestinationKey');
       };
 
       this.getJmsSystemResourceQuotaOptions = (attribute) => {
-        return getJmsSystemResourceTypeOptions(attribute, 'Quota')
+        return getJmsSystemResourceTypeOptions(attribute, 'Quota');
       };
 
       this.getJmsSystemResourceTemplateOptions = (attribute) => {
-        return getJmsSystemResourceTypeOptions(attribute, 'Template')
+        return getJmsSystemResourceTypeOptions(attribute, 'Template');
       };
 
       this.getJmsSystemResourceSAFErrorHandlingOptions = (attribute) => {
-        return getJmsSystemResourceTypeOptions(attribute, 'SAFErrorHandling')
+        return getJmsSystemResourceTypeOptions(attribute, 'SAFErrorHandling');
       };
 
       this.getJmsSystemResourceSAFRemoteContextOptions = (attribute) => {
-        return getJmsSystemResourceTypeOptions(attribute, 'SAFRemoteContext')
+        return getJmsSystemResourceTypeOptions(attribute, 'SAFRemoteContext');
       };
 
       function getJmsSystemResourceTypeOptions(attribute, typeName) {

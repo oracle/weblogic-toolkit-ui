@@ -77,7 +77,7 @@ define(['utils/modeledit/metadata/all-metadata'],
         return metadata['noSelect'];
       };
 
-      this.getNameValidators = aliasPath => {
+      this.getNameValidators = (/*aliasPath*/) => {
         return [];  // TODO: implement this when needed
       };
 
