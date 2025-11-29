@@ -105,24 +105,17 @@
   },
   "VirtualHost/WebServerLog": {
     "attributeDetails": {
-      "BufferSizeKb": {
-        "validators": [ "range(0,)" ]
-      },
       "FileCount": {
-        "disabled": "logRotationFileCountLimitedFields",
-        "validators": [ "range(1,99999)" ]
+        "disabled": "logRotationFileCountLimitedFields"
       },
       "FileMinSize": {
-        "disabled": "logRotationBySizeFields",
-        "validators": [ "range(1,2097150)" ]
+        "disabled": "logRotationBySizeFields"
       },
       "FileTimeSpan": {
-        "disabled": "logRotationByTimeFields",
-        "validators": [ "range(1,)" ]
+        "disabled": "logRotationByTimeFields"
       },
       "FileTimeSpanFactor": {
-        "disabled": "logRotationByTimeFields",
-        "validators": [ "range(1,)" ]
+        "disabled": "logRotationByTimeFields"
       },
       "LogFileFormat": {
         "options": [

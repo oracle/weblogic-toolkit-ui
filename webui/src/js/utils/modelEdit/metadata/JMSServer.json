@@ -145,23 +145,14 @@
   },
   "JMSServer/JmsMessageLogFile": {
     "attributeDetails": {
-      "BufferSizeKb": {
-        "validators": [ "range(0,)" ]
-      },
-      "FileCount": {
-        "validators": [ "range(1,99999)" ]
-      },
       "FileMinSize": {
-        "disabled": "jmsMessageLogRotateSizeFields",
-        "validators": [ "range(1,2097150)" ]
+        "disabled": "jmsMessageLogRotateSizeFields"
       },
       "FileTimeSpan": {
-        "disabled": "jmsMessageLogRotateTimeFields",
-        "validators": [ "range(1,)" ]
+        "disabled": "jmsMessageLogRotateTimeFields"
       },
       "FileTimeSpanFactor": {
-        "disabled": "jmsMessageLogRotateTimeFields",
-        "validators": [ "range(0,)" ]
+        "disabled": "jmsMessageLogRotateTimeFields"
       },
       "RotationTime": {
         "disabled": "jmsMessageLogRotateTimeFields"
