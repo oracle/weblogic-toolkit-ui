@@ -11,17 +11,18 @@ const i18n = require('./i18next.config');
 const { getLogger } = require('./wktLogging');
 const errorUtils = require('./errorUtils');
 const { sendToWindow } = require('./windowUtils');
-const osUtils = require('./osUtils');
+// const osUtils = require('./osUtils');
 
 let _isDevMode;
 let _supportsAutoUpdate;
 let _downloadWindow;
 let _installType;
 
-/* global process */
 function initializeAutoUpdater(logger, isDevMode) {
   _isDevMode = isDevMode;
-  _supportsAutoUpdate = !(osUtils.isLinux() && !process.env.APPIMAGE);
+  // RPM and DEB claim to support auto-update now so commenting this line out.
+  // _supportsAutoUpdate = !(osUtils.isLinux() && !process.env.APPIMAGE);
+  _supportsAutoUpdate = true;
   autoUpdater.logger = logger;
   autoUpdater.autoDownload = false;
   autoUpdater.autoInstallOnAppQuit = true;
