@@ -208,6 +208,7 @@
     ]
   },
   "WebserviceSecurity/WebserviceTokenHandler": {
+    "canReorder": true,
     "summaryAttributes": {
       "HandlingOrder": {},
       "TokenType": {},
