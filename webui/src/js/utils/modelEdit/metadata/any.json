@@ -1,11 +1,35 @@
 {
   "any": {
     "attributeDetails": {
-      "Notes": {
-        "editorType": "textArea"
+      "BufferSizeKb": {
+        "validators": [ "range(0,)" ]
       },
       "DeploymentOrder": {
         "validators": [ "range(0,)" ]
+      },
+      "FileCount": {
+        "validators": [ "range(0,99999)" ]
+      },
+      "FileMinSize": {
+        "validators": [ "range(1,2097150)" ]
+      },
+      "FileTimeSpan": {
+        "validators": [ "range(1,)" ]
+      },
+      "FileTimeSpanFactor": {
+        "validators": [ "range(0,)" ]
+      },
+      "KeyStores": {
+        "options": [
+          { "value": "DomainKeystores", "labelKey":  "options-domain-keystores-label" },
+          { "value": "DemoIdentityAndDemoTrust", "labelKey":  "options-demo-identity-and-demo-trust-label" },
+          { "value": "CustomIdentityAndJavaStandardTrust", "labelKey":  "options-custom-identity-and-java-standard-trust-label" },
+          { "value": "CustomIdentityAndCustomTrust", "labelKey":  "options-custom-identity-and-custom-trust-label" },
+          { "value": "CustomIdentityAndCommandLineTrust", "labelKey":  "options-custom-identity-and-command-line-trust-label" }
+        ]
+      },
+      "Notes": {
+        "editorType": "textArea"
       },
       "RotationType": {
         "options": [
@@ -21,15 +45,6 @@
           { "value": "CustomRoles", "labelKey": "options-custom-roles-label" },
           { "value": "CustomRolesAndPolicies", "labelKey": "options-custom-roles-and-policies-label" },
           { "value": "Advanced", "labelKey": "options-advanced-label" }
-        ]
-      },
-      "KeyStores": {
-        "options": [
-          { "value": "DomainKeystores", "labelKey":  "options-domain-keystores-label" },
-          { "value": "DemoIdentityAndDemoTrust", "labelKey":  "options-demo-identity-and-demo-trust-label" },
-          { "value": "CustomIdentityAndJavaStandardTrust", "labelKey":  "options-custom-identity-and-java-standard-trust-label" },
-          { "value": "CustomIdentityAndCustomTrust", "labelKey":  "options-custom-identity-and-custom-trust-label" },
-          { "value": "CustomIdentityAndCommandLineTrust", "labelKey":  "options-custom-identity-and-command-line-trust-label" }
         ]
       },
       "Target": {
