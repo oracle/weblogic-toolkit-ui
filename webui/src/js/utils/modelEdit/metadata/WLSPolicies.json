@@ -2,6 +2,29 @@
   "WLSPolicies": {
     "summaryAttributes": {
       "ResourceID": {}
-    }
+    },
+    "attributeDetails": {
+      "XacmlStatus": {
+        "validators": [ "range(0,3)" ]
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "ResourceID",
+          "Policy"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "attributes": [
+          "XacmlStatus",
+          "XacmlDocument"
+        ],
+        "addRemainingAttributes": true
+      }
+    ]
   }
 }

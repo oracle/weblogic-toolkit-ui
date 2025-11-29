@@ -368,6 +368,9 @@
   "options-prod-mode-label": "Production Mode",
   "options-secure-mode-label": "Secure Production Mode",
   "options-oracle-ebr-label": "Oracle Edition-Based Redefinition (EBR)",
+  "options-append-label": "Append",
+  "options-prepend-label": "Prepend",
+  "options-replace-label": "Replace",
 
   "direction-jms-queue-to-tuxedo-queue-label": "JMS Queue to Tuxedo Queue",
   "direction-tuxedo-queue-to-jms-queue-label": "Tuxedo Queue to JMS Queue",
@@ -2804,6 +2807,7 @@
   "f-any_SSL-a-ExportKeyLifespan-help": "Indicates the number of times WebLogic Server can use an exportable key between a domestic server and an exportable client before generating a new key. The more secure you want WebLogic Server to be, the fewer times the key should be used before generating a new key. The default value is 500.",
 
   "a-Expression-label": "Expression",
+  "a-Expression-help": "The EntitleNet expression of the role. For example, \"?weblogic.entitlement.rules.AdministrativeGroup(AppMonitors)\" identifies the \"AppMonitors\" group.",
 
   "a-ExpressionLanguage-label": "Expression Language",
   "f-WLDFSystemResource_WLDFResource_WatchNotification_Watch-a-ExpressionLanguage-help": "Returns the expression language type used by the policy, either \"EL\" or \"WLDF\" (deprecated).",
@@ -4196,6 +4200,7 @@
   "f-any_SingleSignOnServices-a-MetadataEncryptionAlgorithm-help": "The default list of data, key encryption algorithms to be published in a WebLogic Service Partner's metadata.",
 
   "a-Method-label": "Method",
+  "f-any_RemoteResource-a-Method-help": "The HTTP method used to access the credential mapping's remote resource.",
 
   "a-MethodOrder-label": "Method Order",
   "f-any_CertRevoc-a-MethodOrder-help": "Determines the certificate revocation checking method order.",
@@ -4698,7 +4703,9 @@
   "a-PasswordStyleRetained-help": "Controls how a password is stored in the database when updating an existing user's password. True indicates the password style and algorithm that were used for the original password in the database should be used for the new password. This setting is the default. False indicates the settings for Password Algorithm and Password Style will be used for the new password.",
 
   "a-PasswordValidatorTypes-label": "Password Validator Types",
+
   "a-Path-label": "Path",
+  "f-any_RemoteResource-a-Path-help": "The URI path to use to access the credential mapping's remote resource.",
 
   "a-PathToScript-label": "Path To Script",
   "f-WLDFSystemResource_WLDFResource_WatchNotification_ScriptAction-a-PathToScript-help": "The full path to the script to execute.",
@@ -4776,6 +4783,7 @@
   "f-JMSSystemResource_JmsResource_Quota-a-Policy-help": "For destinations that use this quota, this policy determines whether to deliver smaller messages before larger ones when a destination has exceeded its message quota. FIFO (first-in, first-out) indicates that requests for quota are submitted in the order they are received. If a given request for quota cannot be satisfied, and the client requesting the quota is willing to wait, then that request will block all other requests for quota until the request is satisfied or times out. This prevents smaller messages from being delivered when larger requests are already waiting for space. Preemptive indicates that subsequent requests can preempt previously unsatisfied requests. That is, if there is sufficient quota for the current request, then that space is used even if there are other requests waiting for quota. When quota is limited, the Preemptive policy can result in the starvation of larger requests.",
   "f-JMSSystemResource_JmsResource_SAFErrorHandling-a-Policy-help": "The error handling policy for this SAF error handling resource.",
   "f-CdiContainer-a-Policy-help": "Specifies the CDI policy. CDI can be \"Enabled\" (the default) or \"Disabled\". If CDI is disabled then no CDI processing will occur including scanning of pojos and initialization of Weld and CDI will not be available to the application via the CDI apis.",
+  "f-WLSPolicies-a-Policy-help": "The policy to apply to the specified ResourceID.  For example, \"Grp(Administrators)|Grp(Operators)|Grp(Monitors)\" limits access to the resource to only users that are members of the \"Administrators\", \"Operators\", or \"Monitors\" groups.",
 
   "a-PolicyDeploymentEnabled-label": "Policy Deployment Enabled",
   "a-PolicyDeploymentEnabled-help": "Specifies whether this Authorization provider stores policies that are created while deploying a Web application or EJB.",
@@ -4930,6 +4938,7 @@
 
   "a-Protocol-label": "Protocol",
   "f-any_NetworkAccessPoint-a-Protocol-help": "The protocol this network channel should use for connections.",
+  "f-any_RemoteResource-a-Protocol-help": "The protocol to use to access the credential mapping's remote resource.",
 
   "a-ProviderClassName-label": "Provider Class Name",
 
@@ -5113,7 +5122,10 @@
   "a-RemoteConsoleHelperEnabled-help": "Specifies whether the Administration Server automatically deploys the Remote Console Helper in the current domain. The default value is true.",
 
   "a-RemoteDomain-label": "Remote Domain",
+  "f-any_CrossDomain-a-RemoteDomain-help": "The name of the remote domain to which the credential mapping applies.",
+
   "a-RemoteHost-label": "Remote Host",
+  "f-any_RemoteResource-a-RemoteHost-help": "The remote hostname or IP address to use to access the credential mapping's remote resource.",
 
   "a-RemoteJNDIName-label": "Remote JNDI Name",
   "f-ForeignJNDIProvider_ForeignJNDILink-a-RemoteJNDIName-help": "The JNDI name in the foreign JNDI provider's namespace.",
@@ -5136,12 +5148,18 @@
 
   "a-RemotePassword-label": "Remote Password",
   "a-RemotePassword-help": "The remote password used to authenticate connections between the local access point and remote access point. Note that this password is used to authenticate connections between the local Tuxedo access point identified by LocalAccessPoint and the remote Tuxedo access point identified by RemoteAccessPoint.",
+  "f-any_CrossDomain-a-RemotePassword-help": "The user's password to use for the specified remote domain.",
+  "f-any_RemoteResource-a-RemotePassword-help": "The remote user's password to use when authenticating to the credential mapping's remote resource.",
 
   "a-RemotePasswordIV-label": "Remote Password Initialization Vector",
   "a-RemotePasswordIV-help": "The initialization vector used to encrypt the remote password.",
 
   "a-RemotePort-label": "Remote Port",
+  "f-any_RemoteResource-a-RemotePort-help": "The remote port number to use to access the credential mapping's remote resource.",
+
   "a-RemoteUser-label": "Remote User",
+  "f-any_CrossDomain-a-RemoteUser-help": "The username to use for the specified remote domain.",
+  "f-any_RemoteResource-a-RemoteUser-help": "The remote user name to use to authenticate when accessing the credential mapping's remote resource.",
 
   "a-RemoveInfectedConnections-label": "Remove Infected Connections",
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-RemoveInfectedConnections-help": "Specifies whether a connection will be removed from the connection pool after the application uses the underlying vendor connection object. If you disable removing infected connections, you must make sure that the database connection is suitable for reuse by other applications. When set to true (the default), the physical connection is not returned to the connection pool after the application closes the logical connection. Instead, the physical connection is closed and recreated.",
@@ -5206,6 +5224,8 @@
   "f-JDBCSystemResource_JdbcResource_JDBCXAParams-a-ResourceHealthMonitoring-help": "Enables JTA resource health monitoring for an XA data source. When enabled, if an XA resource fails to respond to an XA call within the period specified in MaxXACallMillis, WebLogic Server marks the data source as unhealthy and blocks any further calls to the resource. This property applies to XA data sources only, and is ignored for data sources that use a non-XA driver.",
 
   "a-ResourceID-label": "Resource ID",
+  "f-WLSPolicies-a-ResourceID-help": "The resource ID for the object(s) and action(s) to which the policy should be applied. For example, \"type=<jms>, application=MyJmsModule, destinationType=queue, resource=MyQueue, action=send\" is identifying the \"send\" action on the JMS queue \"MyQueue\" defined in the JMS system resource \"MyJmsModule\".",
+
   "a-ResourceManagement-label": "Resource Management",
   "a-ResourceManagerRef-label": "Resource Manager Ref",
 
@@ -6419,6 +6439,7 @@
   "a-Untargeted-help": "Only relevant for deployments in resource group templates. This flag, when specified as true, indicates that the application deployment must not be deployed in the referring partition.",
 
   "a-UpdateMode-label": "Update Mode",
+  "a-UpdateMode-help": "Specifies how an existing role will be updated.",
 
   "a-UploadDirectoryName-label": "Upload Directory Name",
   "a-UploadDirectoryName-help": "The directory path on the Administration Server where all uploaded applications are placed. If an absolute directory name is not specified, the path is relative to the root directory \"/\". The default staging directory is \"stage\", relative to the server root. On the Managed Server this returns null, and is not configurable.",
@@ -6540,6 +6561,7 @@
 
   "a-User-label": "User",
   "f-ForeignJNDIProvider-a-User-help": "The remote server's user name.",
+  "f-any_RemoteResource-a-User-help": "The local user names to match against this credential mapping's remote resource.",
 
   "a-UserAuthenticationAssertionAttribute-label": "User Authentication Assertion Attribute",
   "a-UserAuthenticationAssertionAttribute-help": "Specifies the token attribute used for User Authentication and Identity Assertion. The default value results in the use of the attribute configured by the Oracle Identity Cloud Service.",
@@ -6829,7 +6851,11 @@
   "f-JDBCSystemResource_JdbcResource_JDBCXAParams-a-XaTransactionTimeout-help": "The number of seconds to set as the transaction branch timeout. If set, this value is passed as the transaction timeout value in the XAResource.setTransactionTimeout() call on the XA resource manager, typically the JDBC driver. When this value is set to 0, the WebLogic Server Transaction Manager passes the global WebLogic Server transaction timeout in seconds in the method. You must enable XaSetTransactionTimeout to enable setting the transaction branch timeout.",
 
   "a-XacmlDocument-label": "XACML Document",
+  "f-WLSPolicies-a-XacmlDocument-help": "The file path to the XACML document specifying the XACML definition of the policy. Note that WDT exposes this field but does not test it, preferring the EntitleNet policy expressions instead.",
+  "f-WLSRoles-a-XacmlDocument-help": "The file path to the XACML document specifying the XACML definition of the role. Note that WDT exposes this field but does not test it, preferring the EntitleNet policy expressions instead.",
+
   "a-XacmlStatus-label": "XACML Status",
+  "a-XacmlStatus-help": "The status of the policy. This is an advanced-usage field that should never be specified unless you know what you are doing. The default value is 3.",
 
   "a-XmlEventFactory-label": "Xml Event Factory",
   "f-XMLRegistry-a-XmlEventFactory-help": "The fully qualified name of the class that implements the XMLEventFactory interface. The javax.xml.stream.XMLEventFactory factory API enables applications deployed to WebLogic Server to configure and obtain a XMLEvent object used to parse or build XML streams.",
