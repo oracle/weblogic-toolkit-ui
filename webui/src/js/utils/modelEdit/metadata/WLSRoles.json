@@ -2,6 +2,47 @@
   "WLSRoles": {
     "summaryAttributes": {
       "Expression": {}
-    }
+    },
+    "attributeDetails": {
+      "UpdateMode": {
+        "options": [
+          {
+            "value": "append",
+            "labelKey": "options-append-label"
+          },
+          {
+            "value": "prepend",
+            "labelKey": "options-prepend-label"
+          },
+          {
+            "value": "replace",
+            "labelKey": "options-replace-label"
+          }
+        ]
+      },
+      "XacmlStatus": {
+        "validators": [
+          "range(0,3)"
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "Expression",
+          "UpdateMode"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "attributes": [
+          "XacmlStatus",
+          "XacmlDocument"
+        ],
+        "addRemainingAttributes": true
+      }
+    ]
   }
 }
