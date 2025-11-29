@@ -367,6 +367,7 @@
   "options-dev-mode-label": "Development Mode",
   "options-prod-mode-label": "Production Mode",
   "options-secure-mode-label": "Secure Production Mode",
+  "options-oracle-ebr-label": "Oracle Edition-Based Redefinition (EBR)",
 
   "direction-jms-queue-to-tuxedo-queue-label": "JMS Queue to Tuxedo Queue",
   "direction-tuxedo-queue-to-jms-queue-label": "Tuxedo Queue to JMS Queue",
@@ -433,7 +434,6 @@
   "table-type-label": "Type",
 
   "rcudbinfo-connection-label": "Connection",
-  "rcudbinfo-atp-label": "ATP Configuration",
   "rcudbinfo-stores-label": "Stores",
 
   "server-ssl-title": "SSL",
@@ -6857,6 +6857,8 @@
   "f-NMProperties-a-coherence_StartScriptName-help": "The name of the script to be executed to start the server.",
 
   "a-compInfoXMLLocation-label": "Comp Info XML Location",
+  "a-compInfoXMLLocation-help": "The full path to the location of the ComponentInfo.xml file. The default location is ORACLE_HOME/oracle_common/rcu/config.",
+
   "a-databaseType-label": "Database Type",
   "a-departmentnumber-label": "departmentnumber",
   "a-displayname-label": "displayname",
@@ -6878,39 +6880,86 @@
   "a-givenname-label": "givenname",
   "a-homephone-label": "homephone",
   "a-homepostaladdress-label": "homepostaladdress",
-  "a-javax_net_ssl_keyStore-label": "SSL Keystore",
-  "a-javax_net_ssl_keyStorePassword-label": "SSL Keystore Password",
-  "a-javax_net_ssl_keyStoreType-label": "SSL Keystore Type",
-  "a-javax_net_ssl_trustStore-label": "SSL Truststore",
-  "a-javax_net_ssl_trustStorePassword-label": "SSL Truststore Password",
-  "a-javax_net_ssl_trustStoreType-label": "SSL Truststore Type",
+
+  "a-javax_net_ssl_keyStore-label": "SSL Identity Keystore",
+  "a-javax_net_ssl_keyStore-help": "The path to the database identity keystore.",
+
+  "a-javax_net_ssl_keyStorePassword-label": "SSL Identity Keystore Passphrase",
+  "a-javax_net_ssl_keyStorePassword-help": "The passphrase to use to open the database identity keystore.",
+
+  "a-javax_net_ssl_keyStoreType-label": "SSL Identity Keystore Type",
+  "a-javax_net_ssl_keyStoreType-help": "The database identity keystore type.",
+
+  "a-javax_net_ssl_trustStore-label": "SSL Trust Keystore",
+  "a-javax_net_ssl_trustStore-help": "The path to the database trust keystore.",
+
+  "a-javax_net_ssl_trustStorePassword-label": "SSL Trust Keystore Passphrase",
+  "a-javax_net_ssl_trustStorePassword-help": "The passphrase to use to open the database trust keystore.",
+
+  "a-javax_net_ssl_trustStoreType-label": "SSL Trust Keystore Type",
+  "a-javax_net_ssl_trustStoreType-help": "The keystore type for the database trust keystore.",
+
   "a-l-label": "l",
   "a-mail-label": "mail",
   "a-mobile-label": "mobile",
+
   "a-oracle_database_admin_role-label": "Oracle Database Admin Role",
+  "a-oracle_database_admin_role-help": "The role to use when connecting as the Oracle database admin user.  The default value is \"SYSDBA\".",
+
   "a-oracle_database_connection_type-label": "Database Connection Type",
-  "a-oracle_net_tns_admin-label": "Oracle Net TNS Admin",
+  "a-oracle_database_connection_type-help": "When using an Oracle database, these types help WDT determine how to handle the RCU database settings.",
+
+  "a-oracle_net_tns_admin-label": "TNS Admin Directory",
+  "a-oracle_net_tns_admin-help": "The TNS admin directory is to use to find the Oracle Net Services configuration files like tnsnames.ora.",
+
   "a-pager-label": "pager",
   "a-postaladdress-label": "postaladdress",
   "a-postofficebox-label": "postofficebox",
   "a-preferredlanguage-label": "preferredlanguage",
-  "a-rcu_admin_password-label": "Admin Password",
-  "a-rcu_admin_user-label": "Admin User",
-  "a-rcu_database_type-label": "Database Type",
-  "a-rcu_db_conn_string-label": "Connection String",
+  "a-rcu_admin_password-label": "Database Admin Password",
+  "a-rcu_admin_password-help": "The database administrative user's password needed to create the RCU schemas. This value is requires if you want WDT to create the RCU schemas for you.",
+
+  "a-rcu_admin_user-label": "Database Admin User",
+  "a-rcu_admin_user-help": "The database administrative user needed to create the RCU schemas. The default value is \"SYS\".",
+
+  "a-rcu_database_type-label": "RCU Database Type",
+  "a-rcu_database_type-help": "The database type passed to RCU. Note that not all databases on this list are supported by a particular FMM release. Please consult the documentation for your release.",
+
+  "a-rcu_db_conn_string-label": "RCU Database Connection String",
+  "a-rcu_db_conn_string-help": "The database connection string used by RCU to connect to the database and by WDT to configure the RCU data sources.",
+
   "a-rcu_default_tablespace-label": "Default Tablespace",
+  "a-rcu_default_tablespace-help": "The default tablespace to use for the RCU schemas. The default value is \"USERS\" except when using an ATP database, where is it \"DATA\".",
+
   "a-rcu_edition-label": "RCU Edition",
-  "a-rcu_prefix-label": "Database Prefix",
+  "a-rcu_edition-help": "The edition to use when creating RCU Schemas with an Oracle database configured for edition-based redefinition (EBR).",
+
+  "a-rcu_prefix-label": "RCU Prefix",
+  "a-rcu_prefix-help": "The prefix added to the RCU schemas to make them unique to the domain. This value used by RCU to create the schemas and by WDT to configure the RCU data sources.",
+
   "a-rcu_schema_password-label": "Schema Password",
+  "a-rcu_schema_password-help": "The password to use for all RCU schemas. Provided that WDT is not running RCU, this value can be overridden on a per-data source basis. Please consult the WDT documentation for more details.",
+
   "a-rcu_temp_tablespace-label": "Temp Tablespace",
+  "a-rcu_temp_tablespace-help": "The temporary tablespace to use for the RCU schemas. The default value is \"TEMP\"",
+
   "a-rcu_unicode_support-label": "Unicode Support",
+  "a-rcu_unicode_support-help": "Whether to support unicode encoding. This parameter is only valid if you specify databaseType=SQLSERVER.",
+
   "a-rcu_variables-label": "RCU Variables",
+  "a-rcu_variables-help": "Extra, space-separated RCU command-line options that get appended to the RCU command-line. This parameter should not be needed in most situations.",
+
   "a-st-label": "st",
+
   "a-storageXMLLocation-label": "Storage XML Location",
+  "a-storageXMLLocation-help": "The full path to the location of the StorageInfo.xml file. The default location is ORACLE_HOME/oracle_common/rcu/config.",
+
   "a-street-label": "street",
   "a-telephonenumber-label": "telephonenumber",
   "a-title-label": "title",
+
   "a-tns_alias-label": "TNS Alias",
+  "a-tns_alias-help": "When using TNS configuration for RCS data sources, this value specifies the alias within the tnsnames.ora file for which entry should be used.",
 
   "a-weblogic_IfConfigDir-label": "WebLogic IfConfig Directory",
   "f-NMProperties-a-weblogic_IfConfigDir-help": "This configuration property sets a different directory for the location of the wlsifconfig.sh/.cmd script.",

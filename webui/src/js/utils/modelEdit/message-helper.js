@@ -287,12 +287,14 @@ function (ko, i18n, AliasHelper) {
       }
     }
 
+    /*
     function hasAssignedFolderMessage(aliasPath, suffix) {
       // look for folder-specific message only
       const folderPrefix = getFolderPrefix(aliasPath);
       const folderKey = `${folderPrefix}-${suffix}`;
       return messageKeys.includes(folderKey);
     }
+     */
 
     function getAttributeKey(attributeName) {
       return attributeName.replaceAll('.', '_');

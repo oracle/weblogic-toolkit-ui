@@ -6,7 +6,7 @@
     "coverage": "nyc --reporter=lcov --reporter=text-summary npm run test",
     "start": "ojet serve web --server-only",
     "build:release": "ojet build web --release",
-    "eslint": "npx eslint src/js/*.js src/js/models/*.js src/js/utils/*.js src/js/viewModels/*.js src/js/viewModels/quickstart/*.js src/test/*.js",
+    "eslint": "npx eslint src/js/*.js src/js/models/*.js src/js/utils/*.js src/js/utils/**/*.js src/js/viewModels/*.js src/js/viewModels/**/*.js src/test/*.js",
     "jet-audit": "ojaf"
   },
   "dependencies": {
