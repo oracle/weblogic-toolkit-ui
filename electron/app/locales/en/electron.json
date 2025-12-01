@@ -464,6 +464,13 @@
   "wdt-archiveType-serverSegregationLabel": "Server Name",
   "wdt-archiveType-serverSegregationHelp": "Enter the name of the server to use",
 
+  "wdt-archiveType-serverTemplateKeystore": "Server Template Keystore",
+  "wdt-archiveType-serverTemplateKeystore-fileLabel": "Server Template Keystore File",
+  "wdt-archiveType-serverTemplateKeystore-fileHelp": "Choose the full path to the server template keystore file to add under the specific server template",
+
+  "wdt-archiveType-serverTemplateSegregationLabel": "Server Template Name",
+  "wdt-archiveType-serverTemplateSegregationHelp": "Enter the name of the server template to use",
+
   "wdt-archiveType-sharedLibrary": "Shared Library",
   "wdt-archiveType-sharedLibrary-dirLabel": "Exploded Shared Library Directory",
   "wdt-archiveType-sharedLibrary-dirHelp": "Choose the full path to the exploded shared library directory",

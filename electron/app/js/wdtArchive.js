@@ -186,6 +186,15 @@ function getEntryTypes() {
       fileHelp: i18n.t('wdt-archiveType-serverKeystore-fileHelp'),
       pathPrefix: 'config/wlsdeploy/servers/'
     },
+    'serverTemplateKeystore': {
+      name: i18n.t('wdt-archiveType-serverTemplateKeystore'),
+      subtype: 'file',
+      segregatedLabel: i18n.t('wdt-archiveType-serverTemplateSegregationLabel'),
+      segregatedHelp: i18n.t('wdt-archiveType-serverTemplateSegregationHelp'),
+      fileLabel: i18n.t('wdt-archiveType-serverTemplateKeystore-fileLabel'),
+      fileHelp: i18n.t('wdt-archiveType-serverTemplateKeystore-fileHelp'),
+      pathPrefix: 'config/wlsdeploy/serverTemplates/'
+    },
     'sharedLibrary': {
       name: i18n.t('wdt-archiveType-sharedLibrary'),
       subtype: 'either',
@@ -384,6 +393,7 @@ async function _validateArchiveEntryData(targetWindow, entryType, typeDetail, en
       case 'coherenceConfig':
       case 'jmsForeignServerBinding':
       case 'serverKeystore':
+      case 'serverTemplateKeystore':
         if (!_validateRequiredString(targetWindow, entryType, typeDetail.segregatedLabel, entryData.segregatedName)) {
           resolve(false);
         } else {
