@@ -22,18 +22,28 @@
         <td><oj-bind-text value="[[row.data.name]]"></oj-bind-text></td>
         <td><oj-bind-text value="[[row.data.value]]"></oj-bind-text></td>
         <td>
-          <oj-button display="icons" chroming="borderless" on-oj-action="[[deleteItem]]" disabled="[[disabled]]">
+          <oj-c-button
+            display="icons"
+            label="[[deleteLabel]]"
+            chroming="borderless"
+            on-oj-action="[[deleteItem]]"
+            disabled="[[disabled]]"
+          >
             <span slot="endIcon" class="oj-ux-ico-trash"></span>
-            <oj-bind-text value="[[deleteLabel]]"></oj-bind-text>
-          </oj-button>
+          </oj-c-button>
         </td>
       </tr>
     </template>
     <template slot="headerTemplate" data-oj-as="header">
-      <oj-button display="icons" chroming="borderless" on-oj-action="[[addItem]]" disabled="[[disabled]]">
+      <oj-c-button
+        display="icons"
+        label="[[addLabel]]"
+        chroming="borderless"
+        on-oj-action="[[addItem]]"
+        disabled="[[disabled]]"
+      >
         <span slot="endIcon" class="oj-ux-ico-plus"></span>
-        <oj-bind-text value="[[addLabel]]"></oj-bind-text>
-      </oj-button>
+      </oj-c-button>
     </template>
     <template slot="noData">
       <div class="wkt-model-edit-table-no-data"><oj-bind-text value="[[noDataLabel]]"></oj-bind-text></div>
