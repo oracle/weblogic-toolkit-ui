@@ -36,8 +36,6 @@ const osUtils = require('./js/osUtils');
 const modelEditUtils = require('./js/modelEdit/modelEditUtils');
 const githubUtils = require('./js/githubUtils');
 const { initializeAutoUpdater, registerAutoUpdateListeners, installUpdates, getUpdateInformation } = require('./js/appUpdater');
-const { startWebLogicRemoteConsoleBackend, getDefaultDirectoryForOpenDialog, setWebLogicRemoteConsoleHomeAndStart,
-  getDefaultWebLogicRemoteConsoleHome, getWebLogicRemoteConsoleBackendPort } = require('./js/wlRemoteConsoleUtils');
 
 const { getHttpsProxyUrl, getBypassProxyHosts, getLinuxDisableHardwareAcceleration} = require('./js/userSettings');
 const { sendToWindow } = require('./js/windowUtils');
@@ -159,8 +157,6 @@ class Main {
           }
 
           createWindow(this._isJetDevMode, this._wktApp).then(win => {
-            startWebLogicRemoteConsoleBackend(win).then();
-
             if (filePath) {
               win.once('ready-to-show', () => {
                 this.openProjectFileInWindow(win, filePath);
@@ -229,17 +225,10 @@ class Main {
               }
 
               sendToWindow(currentWindow, 'show-startup-dialogs', startupInformation);
-              const port = getWebLogicRemoteConsoleBackendPort();
-              this._logger.debug('Sending Remote Console backend port %s to Window ID %s', port, currentWindow.id);
-              sendToWindow(currentWindow, 'set-wrc-backend-port', port);
             });
           }
 
           this._startupDialogsShownAlready = true;
-        } else {
-          const port = getWebLogicRemoteConsoleBackendPort();
-          this._logger.debug('Sending Remote Console backend port %s to Window ID %s', port, currentWindow.id);
-          sendToWindow(currentWindow, 'set-wrc-backend-port', port);
         }
       });
     });
@@ -325,11 +314,6 @@ class Main {
     // eslint-disable-next-line no-unused-vars
     ipcMain.handle('get-bypass-proxy-hosts', (event) => {
       return getBypassProxyHosts();
-    });
-
-    ipcMain.handle('get-show-new-model-editor-tab', () => {
-      this._logger.info('get-show-new-model-editor-tab returned ' + userSettings.getShowNewModelEditorTab());
-      return userSettings.getShowNewModelEditorTab();
     });
 
     ipcMain.handle('get-divider-locations', () => {
@@ -519,12 +503,6 @@ class Main {
 
     ipcMain.handle('get-archive-entry-types', async () => {
       return wdtArchive.getEntryTypes();
-    });
-
-    // This is used by the Model Design View...
-    //
-    ipcMain.handle('wrc-get-archive-entry', async (event, archiveEntryType, options) => {
-      return wdtArchive.wrcGetArchiveEntry(event.sender.getOwnerBrowserWindow(), archiveEntryType, options);
     });
 
     ipcMain.handle('choose-java-home', async (event, defaultPath) => {
@@ -997,40 +975,6 @@ class Main {
     ipcMain.handle('exit-app', async () => {
       // called before any projects opened, no need for extra checks
       app.quit();
-    });
-
-    ipcMain.handle('get-wrc-home-directory', async (event) => {
-      const title = i18n.t('dialog-getWebLogicRemoteConsoleHome');
-      const properties = osUtils.isMac() ? [ 'openFile', 'dontAddToRecent' ] : [ 'openDirectory', 'dontAddToRecent' ];
-      return chooseFromFileSystem(event.sender.getOwnerBrowserWindow(), {
-        title: title,
-        defaultPath: getDefaultDirectoryForOpenDialog(),
-        message: title,
-        buttonLabel: i18n.t('button-select'),
-        properties: properties
-      });
-    });
-
-    ipcMain.handle('get-wrc-app-image', async (event) => {
-      const title = i18n.t('dialog-getWebLogicRemoteConsoleAppImage');
-      return chooseFromFileSystem(event.sender.getOwnerBrowserWindow(), {
-        title: title,
-        defaultPath: getDefaultDirectoryForOpenDialog(true),
-        message: title,
-        buttonLabel: i18n.t('button-select'),
-        properties: [ 'openFile', 'dontAddToRecent' ],
-        filters: [
-          { name: 'AppImage Files', extensions: ['AppImage'] }
-        ]
-      });
-    });
-
-    ipcMain.handle('wrc-set-home-and-start', async (event, wlRemoteConsoleHome) => {
-      return setWebLogicRemoteConsoleHomeAndStart(event.sender.getOwnerBrowserWindow(), wlRemoteConsoleHome);
-    });
-
-    ipcMain.handle('wrc-get-home-default-value', async () => {
-      return getDefaultWebLogicRemoteConsoleHome();
     });
 
     ipcMain.handle('get-wko-release-versions', async (event, minimumVersion = '3.3.0') => {

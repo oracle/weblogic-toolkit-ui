@@ -119,10 +119,6 @@ function(accUtils, ko, utils, i18n, ArrayDataProvider, project, validationHelper
       if ('skipQuickstartAtStartup' in this.userSettings) {
         this.skipQuickstart(this.userSettings.skipQuickstartAtStartup);
       }
-
-      if ('webLogicRemoteConsoleHome' in this.userSettings) {
-        this.wlRemoteConsoleHome(this.userSettings.webLogicRemoteConsoleHome);
-      }
     };
 
     this.chooseExternalToolsStagingDirectory = async () => {
@@ -132,32 +128,6 @@ function(accUtils, ko, utils, i18n, ArrayDataProvider, project, validationHelper
 
     this.chooseLogFileDir = async () => {
       this.fileLogDir(await window.api.ipc.invoke('get-log-file-directory-location'));
-    };
-
-    this.chooseWebLogicRemoteConsoleHomeDirectory = async () => {
-      const rcHome = await window.api.ipc.invoke('get-wrc-home-directory');
-      if (rcHome) {
-        this.wlRemoteConsoleHome(rcHome);
-      }
-    };
-
-    this.chooseWebLogicRemoteConsoleAppImage = async () => {
-      const rcHome = await window.api.ipc.invoke('get-wrc-app-image');
-      if (rcHome) {
-        this.wlRemoteConsoleHome(rcHome);
-      }
-    };
-
-    this.getWebLogicRemoteConsoleHomeHelp = () => {
-      let helpKey;
-      if (window.api.process.isMac()) {
-        helpKey = 'wrc-home-macos-help';
-      } else if (window.api.process.isWindows()) {
-        helpKey = 'wrc-home-windows-help';
-      } else {
-        helpKey = 'wrc-home-linux-help';
-      }
-      return this.labelMapper(helpKey);
     };
 
     this.storeUserSettings = () => {
@@ -177,7 +147,6 @@ function(accUtils, ko, utils, i18n, ArrayDataProvider, project, validationHelper
           this.internalConnectivityTestTimeoutMilliseconds, payload.defaults.connectivityTestTimeoutMilliseconds);
       }
       this._storeSetting('skipQuickstartAtStartup', this.skipQuickstart, false);
-      this._storeSetting('webLogicRemoteConsoleHome', this.wlRemoteConsoleHome);
     };
 
     this._storeSetting = (key, observable, defaultValue) => {

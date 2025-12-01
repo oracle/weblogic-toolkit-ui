@@ -73,9 +73,6 @@ let _userSettingsFileName;
 //     },
 //     "navCollapsed": true
 //   },
-//   "developer": {
-//     "showNewModelEditorTab": "Whether to show the Model Edit Tab or not"
-//   },
 //   "skipQuickstartAtStartup": true,
 //   "connectivityTestTimeoutMilliseconds": 10000
 // }
@@ -119,20 +116,6 @@ function getGithubAuthToken() {
     result = userSettingsObj['gitHubAuthToken'];
   }
   return result;
-}
-
-function getWebLogicRemoteConsoleHome() {
-  let wlRemoteConsoleHome;
-  const userSettingsObj = _getUserSettings();
-  if ('webLogicRemoteConsoleHome' in userSettingsObj) {
-    wlRemoteConsoleHome = userSettingsObj['webLogicRemoteConsoleHome'];
-  }
-  return wlRemoteConsoleHome;
-}
-
-function setWebLogicRemoteConsoleHome(wlRemoteConsoleHome) {
-  const settings = _getUserSettings();
-  settings['webLogicRemoteConsoleHome'] = wlRemoteConsoleHome;
 }
 
 function getHttpsProxyUrl() {
@@ -338,24 +321,6 @@ function getOrCreateWindowSettings() {
   return window;
 }
 
-function getShowNewModelEditorTab() {
-  const developer = getOrCreateDeveloperSettings();
-  let showNewModelEditorTab = developer['showNewModelEditorTab'];
-  if (showNewModelEditorTab === undefined) {
-    showNewModelEditorTab = false;
-  }
-  return showNewModelEditorTab;
-}
-
-function getOrCreateDeveloperSettings() {
-  const settings = _getUserSettings();
-  let developer = settings['developer'];
-  if (!developer) {
-    developer = settings['developer'] = { 'showNewModelEditorTab': false};
-  }
-  return developer;
-}
-
 function getUserSettingsDirectory() {
   const i18n = require('./i18next.config');
 
@@ -516,6 +481,12 @@ function _updateSettings(settings) {
     Object.assign(settings['window']['dividers'], settings['dividers']);
     delete settings['dividers'];
   }
+  if (settings['webLogicRemoteConsoleHome']) {
+    delete settings['webLogicRemoteConsoleHome'];
+  }
+  if (settings['developer']) {
+    delete settings['developer'];
+  }
   return settings;
 }
 
@@ -555,9 +526,6 @@ module.exports = {
   getLoggingConfiguration,
   getUserSettingsForRemote,
   saveUserSettings,
-  getWebLogicRemoteConsoleHome,
-  setWebLogicRemoteConsoleHome,
-  getShowNewModelEditorTab,
   getWktToolsExternalStagingDirectory,
   setWktToolsExternalStagingDirectory,
   getLinuxDisableHardwareAcceleration,
