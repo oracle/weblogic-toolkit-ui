@@ -1,5 +1,13 @@
 {
   "RemoteConsoleHelper": {
+    "attributeDetails": {
+      "SessionTimeout": {
+        "validators": [ "range(0,)" ]
+      },
+      "TokenTimeout": {
+        "validators": [ "range(0,)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",

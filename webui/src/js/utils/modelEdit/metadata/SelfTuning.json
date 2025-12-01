@@ -26,6 +26,11 @@
       "Count": {},
       "Target": {}
     },
+    "attributeDetails": {
+      "Count": {
+        "validators": [ "range(-1,)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",
@@ -97,6 +102,11 @@
       "FairShare": {},
       "Target": {}
     },
+    "attributeDetails": {
+      "FairShare": {
+        "validators": [ "range(1,1000)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",
@@ -118,6 +128,14 @@
     "summaryAttributes": {
       "Count": {},
       "Target": {}
+    },
+    "attributeDetails": {
+      "Count": {
+        "validators": [ "range(-1,)" ]
+      },
+      "QueueSize": {
+        "validators": [ "range(256,1073741824)" ]
+      }
     },
     "sections": [
       {
@@ -143,6 +161,11 @@
       "Count": {},
       "Target": {}
     },
+    "attributeDetails": {
+      "Count": {
+        "validators": [ "range(-1,)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",
@@ -164,6 +187,11 @@
     "summaryAttributes": {
       "GoalMs": {},
       "Target": {}
+    },
+    "attributeDetails": {
+      "GoalMs": {
+        "validators": [ "range(-1,)" ]
+      }
     },
     "sections": [
       {
@@ -223,6 +251,14 @@
     ]
   },
   "SelfTuning/WorkManager/WorkManagerShutdownTrigger": {
+    "attributeDetails": {
+      "MaxStuckThreadTime": {
+        "validators": [ "range(0,)" ]
+      },
+      "StuckThreadCount": {
+        "validators": [ "range(0,)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",

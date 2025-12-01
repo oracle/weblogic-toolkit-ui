@@ -24,7 +24,7 @@
           { "value": "none", "labelKey": "options-none-label" },
           { "value": "log", "labelKey": "options-log-label" },
           { "value": "audit", "labelKey": "options-audit-label" },
-          { "value": "logaudit", "labelKey": "options-log-audit-label" }
+          { "value": "logaudit", "labelKey": "options-log-and-audit-label" }
         ]
       },
       "DbPassiveModeGracePeriodSeconds": {
@@ -61,6 +61,7 @@
           {
             "type": "attributes",
             "attributes": [
+              "Name",
               "AdminServerName",
               "ProductionModeEnabled",
               "AdministrationPortEnabled",

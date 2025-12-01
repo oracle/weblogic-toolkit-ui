@@ -1,0 +1,129 @@
+{
+  "XMLRegistry": {
+    "summaryAttributes": {
+      "DocumentBuilderFactory": {},
+      "SAXParserFactory": {},
+      "XpathFactory": {},
+      "TransformerFactory": {}
+    },
+    "attributeDetails": {
+      "WhenToCache": {
+        "options": [
+          { "value": "cache-on-reference", "labelKey": "options-cache-on-reference-label" },
+          { "value": "cache-at-initialization", "labelKey": "options-cache-at-initialization-label" },
+          { "value": "cache-never", "labelKey": "options-cache-never-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "DocumentBuilderFactory",
+              "SAXParserFactory",
+              "XpathFactory",
+              "TransformerFactory",
+              "SchemaFactory",
+              "XmlEventFactory",
+              "XmlInputFactory",
+              "XmlOutputFactory",
+              "WhenToCache",
+              "HandleEntityInvalidation",
+              "Notes"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "folderTab",
+        "folder": "XMLEntitySpecRegistryEntry"
+      },
+      {
+        "type": "folderTab",
+        "folder": "XMLParserSelectRegistryEntry"
+      }
+    ]
+  },
+  "XMLRegistry/XMLEntitySpecRegistryEntry": {
+    "summaryAttributes": {
+      "EntityURI": {},
+      "PublicId": {},
+      "SystemId": {}
+    },
+    "attributeDetails": {
+      "CacheTimeoutInterval": {
+        "validators": [ "range(-1,)"]
+      },
+      "HandleEntityInvalidation": {
+        "options": [
+          { "value": "true", "labelKey": "options-true-label" },
+          { "value": "false", "labelKey": "options-false-label" },
+          { "value": "defer-to-registry-setting", "labelKey": "options-defer-to-registry-setting-label" }
+        ]
+      },
+      "WhenToCache": {
+        "options": [
+          { "value": "cache-on-reference", "labelKey": "options-cache-on-reference-label" },
+          { "value": "cache-at-initialization", "labelKey": "options-cache-at-initialization-label" },
+          { "value": "cache-never", "labelKey": "options-cache-never-label" },
+          { "value": "defer-to-registry-setting", "labelKey": "options-defer-to-registry-setting-label" }
+        ]
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "EntityURI",
+          "WhenToCache",
+          "PublicId",
+          "SystemId",
+          "HandleEntityInvalidation",
+          "CacheTimeoutInterval",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "XMLRegistry/XMLParserSelectRegistryEntry": {
+    "summaryAttributes": {
+      "RootElementTag": {},
+      "PublicId": {},
+      "TransformerFactory": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "RootElementTag",
+          "PublicId",
+          "SystemId",
+          "DocumentBuilderFactory",
+          "SAXParserFactory",
+          "TransformerFactory",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "ParserClassName"
+        ]
+      }
+    ]
+  }
+}

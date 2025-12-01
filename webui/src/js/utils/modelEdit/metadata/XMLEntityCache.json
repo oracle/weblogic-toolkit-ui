@@ -1,28 +1,33 @@
 {
-  "WSReliableDeliveryPolicy": {
+  "XMLEntityCache": {
+    "summaryAttributes": {
+      "CacheLocation": {},
+      "CacheDiskSize": {},
+      "CacheMemorySize": {}
+    },
     "attributeDetails": {
-      "DefaultRetryCount": {
+      "CacheDiskSize": {
         "validators": [ "range(0,)" ]
       },
-      "DefaultRetryInterval": {
+      "CacheMemorySize": {
         "validators": [ "range(0,)" ]
       },
-      "DefaultTimeToLive": {
+      "CacheTimeoutInterval": {
         "validators": [ "range(0,)" ]
       },
-      "JMSServer": {
-        "editorType": "combo",
-        "optionsMethod": "getJmsServerOptions"
+      "MaxSize": {
+        "validators": [ "range(0,)" ]
       }
     },
     "sections": [
       {
         "type": "attributes",
         "attributes": [
-          "JMSServer",
-          "DefaultTimeToLive",
-          "DefaultRetryCount",
-          "DefaultRetryInterval",
+          "CacheLocation",
+          "MaxSize",
+          "CacheDiskSize",
+          "CacheMemorySize",
+          "CacheTimeoutInterval",
           "Notes"
         ]
       },

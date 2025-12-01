@@ -15,12 +15,27 @@
           { "value": "SHA", "label": "SHA" }
         ]
       },
+      "InformRetryInterval": {
+        "validators": [ "range(3000,30000)" ]
+      },
+      "LocalizedKeyCacheInvalidationInterval": {
+        "validators": [ "range(0,86400000)" ]
+      },
+      "MasterAgentXPort": {
+        "validators": [ "port" ]
+      },
+      "MaxInformRetryCount": {
+        "validators": [ "range(1,3)" ]
+      },
       "PrivacyProtocol": {
         "options": [
           { "value": "noPriv", "labelKey": "options-no-priv-label" },
           { "value": "DES", "label": "DES" },
           { "value": "AES_128", "labelKey": "options-aes-128-label" }
         ]
+      },
+      "SNMPPort": {
+        "validators": [ "port" ]
       },
       "SNMPTrapVersion": {
         "options": [
@@ -137,6 +152,17 @@
       "MonitoredAttributeName": {},
       "EnabledServer": {}
     },
+    "attributeDetails": {
+      "Modulus": {
+        "validators": [ "range(0,)" ]
+      },
+      "Offset": {
+        "validators": [ "range(0,)" ]
+      },
+      "PollingInterval": {
+        "validators": [ "range(1,65535)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",
@@ -165,6 +191,17 @@
       "MonitoredMBeanType": {},
       "MonitoredAttributeName": {},
       "EnabledServer": {}
+    },
+    "attributeDetails": {
+      "PollingInterval": {
+        "validators": [ "range(1,65535)" ]
+      },
+      "ThresholdHigh": {
+        "validators": [ "range(0,)" ]
+      },
+      "ThresholdLow": {
+        "validators": [ "range(0,)" ]
+      }
     },
     "sections": [
       {
@@ -220,12 +257,18 @@
       "OidRoot": {}
     },
     "attributeDetails": {
+      "Port": {
+        "validators": [ "port" ]
+      },
       "SecurityLevel": {
         "options": [
           { "value": "noAuthNoPriv", "labelKey":  "options-no-auth-no-priv-label" },
           { "value": "authNoPriv", "labelKey":  "options-auth-no-priv-label" },
           { "value": "authPriv", "labelKey":  "options-auth-priv-label" }
         ]
+      },
+      "Timeout": {
+        "validators": [ "range(0,)" ]
       }
     },
     "sections": [
@@ -256,6 +299,11 @@
       "MonitoredAttributeName": {},
       "EnabledServer": {}
     },
+    "attributeDetails": {
+      "PollingInterval": {
+        "validators": [ "range(1,65535)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",
@@ -284,6 +332,9 @@
       "Port": {}
     },
     "attributeDetails": {
+      "Port": {
+        "validators": [ "port" ]
+      },
       "SecurityLevel": {
         "options": [
           { "value": "noAuthNoPriv", "labelKey":  "options-no-auth-no-priv-label" },

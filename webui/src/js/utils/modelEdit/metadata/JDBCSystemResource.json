@@ -79,11 +79,86 @@
   },
   "JDBCSystemResource/JdbcResource/JDBCConnectionPoolParams": {
     "attributeDetails": {
+      "ConnectionCreationRetryFrequencySeconds": {
+        "validators": [ "range(0,)" ]
+      },
+      "ConnectionHarvestMaxCount": {
+        "validators": [ "range(1,)" ]
+      },
+      "ConnectionHarvestTriggerCount": {
+        "validators": [ "range(-1,)" ]
+      },
+      "ConnectionReserveTimeoutSeconds": {
+        "validators": [ "range(-1,)" ]
+      },
+      "CountOfRefreshFailuresTillDisable": {
+        "validators": [ "range(0,)" ]
+      },
+      "CountOfTestFailuresTillFlush": {
+        "validators": [ "range(0,)" ]
+      },
+      "HangDetectionMaxTestWaitSeconds": {
+        "validators": [ "range(0,)" ]
+      },
+      "HighestNumWaiters": {
+        "validators": [ "range(0,)" ]
+      },
+      "InactiveConnectionTimeoutSeconds": {
+        "validators": [ "range(0,)" ]
+      },
+      "InitialCapacity": {
+        "validators": [ "range(0,)" ]
+      },
+      "JDBCXADebugLevel": {
+        "validators": [ "range(0,100)" ]
+      },
+      "LoginDelaySeconds": {
+        "validators": [ "range(0,)" ]
+      },
+      "MaxCapacity": {
+        "validators": [ "range(1,)" ]
+      },
+      "MinCapacity": {
+        "validators": [ "range(0,)" ]
+      },
+      "ProfileConnectionLeakTimeoutSeconds": {
+        "validators": [ "range(0,)" ]
+      },
+      "ProfileHarvestFrequencySeconds": {
+        "validators": [ "range(0,)" ]
+      },
+      "SecondsToTrustAnIdlePoolConnection": {
+        "validators": [ "range(0,)" ]
+      },
+      "ShrinkFactorPercent": {
+        "validators": [ "range(1,100)" ]
+      },
+      "ShrinkFrequencySeconds": {
+        "validators": [ "range(0,)" ]
+      },
+      "ShrinkHistorySeconds": {
+        "validators": [ "range(0,)" ]
+      },
+      "ShrinkSpareCapacityPercent": {
+        "validators": [ "range(1,100)" ]
+      },
+      "StatementCacheSize": {
+        "validators": [ "range(0,1024)" ]
+      },
       "StatementCacheType": {
         "options": [
           { "value": "LRU", "labelKey": "options-lru-label" },
           { "value": "FIXED", "labelKey": "options-fixed-label" }
         ]
+      },
+      "StatementTimeout": {
+        "validators": [ "range(-1,)" ]
+      },
+      "TestFrequencySeconds": {
+        "validators": [ "range(0,)" ]
+      },
+      "TestTimeoutSeconds": {
+        "validators": [ "range(-1,)" ]
       }
     },
     "sections": [
@@ -267,6 +342,9 @@
           { "value": "Data", "labelKey": "options-data-label" },
           { "value": "None", "labelKey": "options-none-label" }
         ]
+      },
+      "ReplayInitiationTimeout": {
+        "validators": [ "range(0,)" ]
       }
     },
     "sections": [
@@ -301,13 +379,25 @@
     ]
   },
   "JDBCSystemResource/JdbcResource/JDBCXAParams": {
+    "attributeDetails": {
+      "XaRetryDurationSeconds": {
+        "validators": [ "range(0,)" ]
+      },
+      "XaRetryIntervalSeconds": {
+        "validators": [ "range(0,)" ]
+      },
+      "XaTransactionTimeout": {
+        "disabled": "jdbcXaParamsSetXaTransactionTimeoutFields",
+        "validators": [ "range(0,)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",
         "attributes": [
+          "XaSetTransactionTimeout",
           "XaTransactionTimeout",
           "XaRetryIntervalSeconds",
-          "XaSetTransactionTimeout",
           "XaRetryDurationSeconds",
           "KeepLogicalConnOpenOnRelease",
           "KeepXaConnTillTxComplete",

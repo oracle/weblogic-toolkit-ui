@@ -116,18 +116,18 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
       };
 
       this.getCoherenceClusterSystemResourceOptions = () => {
-        const defaultCoherenceClusterName = "defaultCoherenceCluster"
+        const defaultCoherenceClusterName = 'defaultCoherenceCluster';
         const options = [
-          { "value": defaultCoherenceClusterName, label: defaultCoherenceClusterName }
+          { value: defaultCoherenceClusterName, label: defaultCoherenceClusterName }
         ];
         const coherenceClusterNames = getInstanceNames(['topology', 'CoherenceClusterSystemResource']);
         coherenceClusterNames.forEach(clusterName => {
           if (clusterName !== defaultCoherenceClusterName) {
             options.push({ value: clusterName, label: clusterName });
           }
-        })
+        });
         return options;
-      }
+      };
 
       // return an observableArray that changes with cluster selection.
       // add any subscriptions to the list to be cleaned up by caller.
@@ -191,11 +191,83 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
         return options;
       };
 
+      this.getAllNetworkAccessPointsOptions = () => {
+        const options = [];
+        const napNamesSet = new Set();
+
+        const serverNames = getInstanceNames(['topology', 'Server']);
+        serverNames.forEach(serverName => {
+          const napNames = getInstanceNames(['topology', 'Server', serverName, 'NetworkAccessPoint']);
+          napNames.forEach(napName => {
+            napNamesSet.add(napName);
+          });
+        });
+
+        const serverTemplateNames = getInstanceNames(['topology', 'ServerTemplate']);
+        serverTemplateNames.forEach(serverTemplateName => {
+          const napNames = getInstanceNames(['topology', 'ServerTemplate', serverTemplateName, 'NetworkAccessPoint']);
+          napNames.forEach(napName => {
+            napNamesSet.add(napName);
+          });
+        });
+
+        const iterator = napNamesSet.values();
+        for (let i = 0; i < napNamesSet.size; i++) {
+          const name = iterator.next().value;
+          options.push({ value: name, label: name });
+        }
+        return options;
+      };
+
       this.getManagedExecutorServiceTemplateOptions = () => {
         const options = [];
         const mesTemplateNames = getInstanceNames(['resources', 'ManagedExecutorServiceTemplate']);
         mesTemplateNames.forEach(templateName => {
           options.push({ value: templateName, label: templateName });
+        });
+        return options;
+      };
+
+      this.getJmsSystemResourceSubDeploymentOptions = (attribute) => {
+        const modelPath = attribute.path;
+        // [ 'resources', 'JMSSystemResource', <module-name> ]
+        const jmsSystemResourcePath = modelPath.slice(0, 3);
+        const subDeploymentNames = getInstanceNames([...jmsSystemResourcePath, 'SubDeployment']);
+        const options = [];
+        subDeploymentNames.forEach(subDeploymentName => {
+          options.push({ value: subDeploymentName, label: subDeploymentName });
+        });
+        return options;
+      };
+
+      this.getJmsSystemResourceDestinationKeyOptions = (attribute) => {
+        return getJmsSystemResourceTypeOptions(attribute, 'DestinationKey');
+      };
+
+      this.getJmsSystemResourceQuotaOptions = (attribute) => {
+        return getJmsSystemResourceTypeOptions(attribute, 'Quota');
+      };
+
+      this.getJmsSystemResourceTemplateOptions = (attribute) => {
+        return getJmsSystemResourceTypeOptions(attribute, 'Template');
+      };
+
+      this.getJmsSystemResourceSAFErrorHandlingOptions = (attribute) => {
+        return getJmsSystemResourceTypeOptions(attribute, 'SAFErrorHandling');
+      };
+
+      this.getJmsSystemResourceSAFRemoteContextOptions = (attribute) => {
+        return getJmsSystemResourceTypeOptions(attribute, 'SAFRemoteContext');
+      };
+
+      function getJmsSystemResourceTypeOptions(attribute, typeName) {
+        const modelPath = attribute.path;
+        // [ 'resources', 'JMSSystemResource', <module-name>, 'JmsResource' ]
+        const jmsResourcePath = modelPath.slice(0, 4);
+        const options = [];
+        const resourceTypeNames = getInstanceNames([...jmsResourcePath, typeName]);
+        resourceTypeNames.forEach(resourceTypeName => {
+          options.push({ value: resourceTypeName, label: resourceTypeName });
         });
         return options;
       }

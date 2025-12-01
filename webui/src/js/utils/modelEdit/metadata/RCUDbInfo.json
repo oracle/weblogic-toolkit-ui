@@ -17,6 +17,9 @@
           { "value": "JKS", "label": "JKS" }
         ]
       },
+      "oracle_database_admin_role": {
+        "disabled": "notOracleDatabaseType"
+      },
       "oracle_database_connection_type": {
         "disabled": "notOracleDatabaseType",
         "options": [
@@ -24,14 +27,30 @@
           { "value": "ATP", "label": "ATP" }
         ]
       },
+      "oracle.net.tns_admin": {
+        "disabled": "notOracleDatabaseType"
+      },
       "rcu_database_type": {
         "options": [
           { "value": "ORACLE", "label": "Oracle" },
-          { "value": "EBR", "label": "EBR" },
+          { "value": "EBR", "labelKey": "options-oracle-ebr-label" },
           { "value": "SQLSERVER", "label": "SQL Server" },
           { "value": "DB2", "label": "Db2" },
           { "value": "MYSQL", "label": "MySQL" }
         ]
+      },
+      "rcu_edition": {
+        "disabled": "rcuDbInfoDbTypeEBRFields"
+      },
+      "rcu_unicode_support": {
+        "disabled": "rcuDbInfoDbTypeSQLServerFields",
+        "options": [
+          { "value": "Yes", "labelKey": "options-yes-label" },
+          { "value": "No", "labelKey": "options-no-label" }
+        ]
+      },
+      "tns.alias": {
+        "disabled": "notOracleDatabaseType"
       }
     },
     "sections": [
@@ -41,20 +60,14 @@
         "attributes": [
           "rcu_database_type",
           "oracle_database_connection_type",
-          "rcu_admin_password",
           "rcu_admin_user",
+          "rcu_admin_password",
+          "oracle_database_admin_role",
           "rcu_db_conn_string",
           "rcu_prefix",
           "rcu_schema_password",
+          "oracle.net.tns_admin",
           "tns.alias"
-        ]
-      },
-      {
-        "type": "attributes",
-        "labelKey": "rcudbinfo-atp-label",
-        "attributes": [
-          "atp.default.tablespace",
-          "atp.temp.tablespace"
         ]
       },
       {
@@ -62,10 +75,10 @@
         "labelKey": "rcudbinfo-stores-label",
         "attributes": [
           "javax.net.ssl.keyStore",
-          "javax.net.ssl.keyStoreType",
-          "javax.net.ssl.keyStorePassword",
           "javax.net.ssl.trustStore",
+          "javax.net.ssl.keyStoreType",
           "javax.net.ssl.trustStoreType",
+          "javax.net.ssl.keyStorePassword",
           "javax.net.ssl.trustStorePassword"
         ]
       },
@@ -76,7 +89,13 @@
           {
             "type": "attributes",
             "attributes": [
-              "rcu_unicode_support"
+              "rcu_default_tablespace",
+              "rcu_temp_tablespace",
+              "rcu_unicode_support",
+              "rcu_edition",
+              "storageXMLLocation",
+              "compInfoXMLLocation",
+              "rcu_variables"
             ],
             "addRemainingAttributes": true
           }
@@ -85,6 +104,8 @@
       {
         "type": "hidden",
         "attributes": [
+          "atp.default.tablespace",
+          "atp.temp.tablespace",
           "databaseType"
         ]
       }

@@ -1138,7 +1138,7 @@
         "validators": [ "range(-1,)" ]
       },
       "SecondsBetweenRestarts": {
-        "validators": [ "range(0,)" ]
+        "validators": [ "range(1,)" ]
       }
     },
     "sections": [
@@ -1179,9 +1179,6 @@
   },
   "Server/Log": {
     "attributeDetails": {
-      "BufferSizeKb": {
-        "validators": [ "range(0,)" ]
-      },
       "DomainLogBroadcasterBufferSize": {
         "validators": [ "range(1,100)" ]
       },
@@ -1203,20 +1200,16 @@
         ]
       },
       "FileCount": {
-        "disabled": "logRotationFileCountLimitedFields",
-        "validators": [ "range(1,99999)" ]
+        "disabled": "logRotationFileCountLimitedFields"
       },
       "FileMinSize": {
-        "disabled": "logRotationBySizeFields",
-        "validators": [ "range(1,2097150)" ]
+        "disabled": "logRotationBySizeFields"
       },
       "FileTimeSpan": {
-        "disabled": "logRotationByTimeFields",
-        "validators": [ "range(1,)" ]
+        "disabled": "logRotationByTimeFields"
       },
       "FileTimeSpanFactor": {
-        "disabled": "logRotationByTimeFields",
-        "validators": [ "range(1,)" ]
+        "disabled": "logRotationByTimeFields"
       },
       "LogFileFilter": {
         "editorType": "combo",
@@ -1258,6 +1251,9 @@
       },
       "RotationTime": {
         "disabled": "logRotationByTimeFields"
+      },
+      "StacktraceDepth": {
+        "validators": [ "range(-1,)" ]
       },
       "StdoutFilter": {
         "editorType": "combo",
@@ -3368,24 +3364,17 @@
   },
   "Server/WebServer/WebServerLog": {
     "attributeDetails": {
-      "BufferSizeKb": {
-        "validators": [ "range(0,)" ]
-      },
       "FileCount": {
-        "disabled": "logRotationFileCountLimitedFields",
-        "validators": [ "range(1,99999)" ]
+        "disabled": "logRotationFileCountLimitedFields"
       },
       "FileMinSize": {
-        "disabled": "logRotationBySizeFields",
-        "validators": [ "range(1,2097150)" ]
+        "disabled": "logRotationBySizeFields"
       },
       "FileTimeSpan": {
-        "disabled": "logRotationByTimeFields",
-        "validators": [ "range(1,)" ]
+        "disabled": "logRotationByTimeFields"
       },
       "FileTimeSpanFactor": {
-        "disabled": "logRotationByTimeFields",
-        "validators": [ "range(1,)" ]
+        "disabled": "logRotationByTimeFields"
       },
       "LogFileFormat": {
         "options": [

@@ -6,6 +6,14 @@
       "UserPreferredServer": {},
       "ConstrainedCandidateServer": {}
     },
+    "attributeDetails": {
+      "AdditionalMigrationAttempts": {
+        "validators": [ "range(0,)" ]
+      },
+      "MillisToSleepBetweenAttempts": {
+        "validators": [ "range(0,)" ]
+      }
+    },
     "sections": [
       {
         "type": "tab",

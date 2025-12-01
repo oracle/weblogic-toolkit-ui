@@ -41,6 +41,24 @@
           { "value": "CustomIdentityAndJavaStandardTrust", "labelKey": "options-custom-identity-and-java-standard-trust-label" }
         ]
       },
+      "ListenBacklog": {
+        "validators": [ "range(0,)" ]
+      },
+      "ListenPort": {
+        "validators": [ "port" ]
+      },
+      "LogCount": {
+        "validators": [ "range(0,)" ]
+      },
+      "LogLimit": {
+        "validators": [ "range(0,)" ]
+      },
+      "ProcessDestroyTimeout": {
+        "validators": [ "range(0,)" ]
+      },
+      "StateCheckInterval": {
+        "validators": [ "range(0,)" ]
+      },
       "UseKSSForDemo": {
         "disabled": "nodeManagerDemoIdentityAndTrustFields"
       },

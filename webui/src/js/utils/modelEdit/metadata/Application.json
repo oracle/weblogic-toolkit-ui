@@ -44,14 +44,14 @@
             "attributes": [
               "SourcePath",
               "ModuleType",
-              "DeploymentOrder",
+              "DeploymentPrincipalName",
               "SecurityDDModel",
               "StagingMode",
               "PlanStagingMode",
               "PlanDir",
               "PlanPath",
               "InstallDir",
-              "DeploymentPrincipalName",
+              "DeploymentOrder",
               "Notes",
               "Target"
             ]

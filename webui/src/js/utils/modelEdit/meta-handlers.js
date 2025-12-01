@@ -115,7 +115,7 @@ define(['knockout', 'utils/wkt-logger', 'utils/modelEdit/model-edit-helper'],
         const crlCacheType = attributeMap['CrlCacheType'];
         return ko.computed(() => {
           const type = ModelEditHelper.getDerivedValue(crlCacheType.observable());
-          return type !== 'LDAP'
+          return type !== 'LDAP';
         });
       };
 
@@ -265,7 +265,7 @@ define(['knockout', 'utils/wkt-logger', 'utils/modelEdit/model-edit-helper'],
 
       this.ldapAuthenticatorsCacheFields = attributeMap => {
         return this._disableFieldsUsingBooleanAttribute(attributeMap, 'CacheEnabled', true);
-      }
+      };
 
       this.activeDirectoryAuthenticatorEnableSIDtoGroupLookupCachingField = attributeMap => {
         const cachingEnabled = attributeMap['CacheEnabled'];
@@ -279,13 +279,13 @@ define(['knockout', 'utils/wkt-logger', 'utils/modelEdit/model-edit-helper'],
 
       this.activeDirectoryAuthenticatorSIDtoGroupLookupCachingFields = attributeMap => {
         return this._disableFieldsUsingBooleanAttribute(attributeMap, 'EnableSIDtoGroupLookupCaching');
-      }
+      };
 
       this.authenticatorsGroupMembershipSearchFields = attributeMap => {
         const groupMembershipSearching = attributeMap['GroupMembershipSearching'];
         return ko.computed(() => {
           const searching = ModelEditHelper.getDerivedValue(groupMembershipSearching.observable());
-          return searching !== 'limited'
+          return searching !== 'limited';
         });
       };
 
@@ -314,7 +314,7 @@ define(['knockout', 'utils/wkt-logger', 'utils/modelEdit/model-edit-helper'],
 
       this.oracleUnifiedDirectoryAuthenticatorMemberUIDForGroupSearchFields = attributeMap => {
         return this._disableFieldsUsingBooleanAttribute(attributeMap, 'UseMemberuidForGroupSearch');
-      }
+      };
 
       this.sqlAuthenticatorsGetDescriptionFields = attributeMap => {
         return this._disableFieldsUsingBooleanAttribute(attributeMap, 'DescriptionsSupported');
@@ -375,7 +375,7 @@ define(['knockout', 'utils/wkt-logger', 'utils/modelEdit/model-edit-helper'],
           if (!!nmType) {
             nmType = nmType.toLowerCase();
           }
-          return nmType !== 'rsh' && nmType !== 'ssh'
+          return nmType !== 'rsh' && nmType !== 'ssh';
         });
       };
 
@@ -481,14 +481,34 @@ define(['knockout', 'utils/wkt-logger', 'utils/modelEdit/model-edit-helper'],
 
       this.domainDbPassiveModeFields = attributeMap => {
         return this._disableFieldsUsingBooleanAttribute(attributeMap, 'DbPassiveMode');
-      }
+      };
+
+      this.jdbcXaParamsSetXaTransactionTimeoutFields = attributeMap => {
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'XaSetTransactionTimeout');
+      };
+
+      this.rcuDbInfoDbTypeEBRFields = attributeMap => {
+        const rcuDbType = attributeMap['rcu_database_type'];
+        return ko.computed(() => {
+          const dbType = ModelEditHelper.getDerivedValue(rcuDbType.observable());
+          return dbType !== 'EBR';
+        });
+      };
+
+      this.rcuDbInfoDbTypeSQLServerFields = attributeMap => {
+        const rcuDbType = attributeMap['rcu_database_type'];
+        return ko.computed(() => {
+          const dbType = ModelEditHelper.getDerivedValue(rcuDbType.observable());
+          return dbType !== 'SQLSERVER';
+        });
+      };
 
       this._disableFieldsUsingBooleanAttribute = (attributeMap, booleanAttributeName, enableOnUndefined = false) => {
         const fieldObservable = attributeMap[booleanAttributeName];
         return ko.computed(() => {
           let enabled = ModelEditHelper.getDerivedValue(fieldObservable.observable());
           if (enabled === undefined && enableOnUndefined) {
-            enabled = true
+            enabled = true;
           }
           return !enabled;
         });

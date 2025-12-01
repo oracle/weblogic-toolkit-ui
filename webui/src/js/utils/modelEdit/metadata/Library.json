@@ -44,7 +44,6 @@
             "attributes": [
               "SourcePath",
               "ModuleType",
-              "DeploymentOrder",
               "SecurityDDModel",
               "StagingMode",
               "PlanStagingMode",
@@ -53,6 +52,7 @@
               "InstallDir",
               "DeploymentPrincipalName",
               "ValidateDDSecurityData",
+              "DeploymentOrder",
               "Notes",
               "Target"
             ]

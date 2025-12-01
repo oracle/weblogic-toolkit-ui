@@ -5,6 +5,9 @@
       "Target": {}
     },
     "attributeDetails": {
+      "BlockSize": {
+        "validators": [ "range(-1,8192)" ]
+      },
       "CacheDirectory": {
         "disabled": "fileStoreDisableDirectWriteWithCacheFields"
       },
@@ -14,8 +17,27 @@
           { "value": "Singleton", "labelKey": "store-distribution-policy-singleton-label" }
         ]
       },
+      "FailbackDelaySeconds": {
+        "validators": [ "range(-1,)" ]
+      },
+      "FailOverLimit": {
+        "validators": [ "range(-1,)" ]
+      },
+      "InitialBootDelaySeconds": {
+        "validators": [ "range(0,)" ]
+      },
+      "InitialSize": {
+        "validators": [ "range(0,)" ]
+      },
+      "IoBufferSize": {
+        "validators": [ "range(-1,67108864)" ]
+      },
+      "MaxFileSize": {
+        "validators": [ "range(1048576,2139095040)" ]
+      },
       "MaxWindowBufferSize": {
-        "disabled": "fileStoreDisableDirectWriteWithCacheFields"
+        "disabled": "fileStoreDisableDirectWriteWithCacheFields",
+        "validators": [ "range(-1,1073741824)" ]
       },
       "MigrationPolicy": {
         "options": [
@@ -25,13 +47,19 @@
         ]
       },
       "MinWindowBufferSize": {
-        "disabled": "fileStoreDisableDirectWriteWithCacheFields"
+        "disabled": "fileStoreDisableDirectWriteWithCacheFields",
+        "validators": [ "range(-1,1073741824)" ]
       },
       "NumberOfRestartAttempts": {
-        "disabled": "persistentStoreDisableRestartFields"
+        "disabled": "persistentStoreDisableRestartFields",
+        "validators": [ "range(-1,)" ]
+      },
+      "PartialClusterStabilityDelaySeconds": {
+        "validators": [ "range(0,)" ]
       },
       "SecondsBetweenRestarts": {
-        "disabled": "persistentStoreDisableRestartFields"
+        "disabled": "persistentStoreDisableRestartFields",
+        "validators": [ "range(1,)" ]
       },
       "SynchronousWritePolicy": {
         "options": [

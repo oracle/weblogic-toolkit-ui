@@ -1,5 +1,13 @@
 {
   "AdminConsole": {
+    "attributeDetails": {
+      "MinThreads": {
+        "validators": [ "range(5,)" ]
+      },
+      "SessionTimeout": {
+        "validators": [ "range(0,)" ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",

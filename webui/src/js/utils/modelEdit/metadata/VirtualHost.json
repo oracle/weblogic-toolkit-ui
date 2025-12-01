@@ -1,0 +1,176 @@
+{
+  "VirtualHost": {
+    "summaryAttributes": {
+      "VirtualHostName": {}
+    },
+    "attributeDetails": {
+      "HttpsKeepAliveSecs": {
+        "disabled": "serverWebServerKeepAliveFields",
+        "validators": [ "range(30,360)" ]
+      },
+      "KeepAliveSecs": {
+        "disabled": "serverWebServerKeepAliveFields",
+        "validators": [ "range(5,3600)" ]
+      },
+      "MaxPostSize": {
+        "validators": [ "range(-1,)" ]
+      },
+      "MaxPostTimeSecs": {
+        "validators": [ "range(-1,120)" ]
+      },
+      "MaxRequestParameterCount": {
+        "validators": [ "range(0,)" ]
+      },
+      "MaxSingleHeaderSize": {
+        "validators": [ "range(-1,)" ]
+      },
+      "MaxTotalHeadersSize": {
+        "validators": [ "range(-1,)" ]
+      },
+      "NetworkAccessPoint": {
+        "editorType": "combo",
+        "optionsMethod": "getAllNetworkAccessPointsOptions"
+      },
+      "OverloadResponseCode": {
+        "validators": [ "range(100,599)" ]
+      },
+      "PostTimeoutSecs": {
+        "validators": [ "range(0,120)" ]
+      }
+    },
+    "sections":[
+      {
+        "type": "tab",
+        "labelKey": "general-tab-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "VirtualHostName",
+              "DefaultWebAppContextRoot",
+              "NetworkAccessPoint",
+              "PostTimeoutSecs",
+              "MaxPostSize",
+              "MaxPostTimeSecs",
+              "KeepAliveEnabled",
+              "KeepAliveSecs",
+              "HttpsKeepAliveSecs",
+              "FrontendHost",
+              "FrontendHTTPPort",
+              "FrontendHTTPSPort",
+              "WAPEnabled",
+              "ClientIpHeader",
+              "SendServerHeaderEnabled",
+              "AcceptContextPathInGetRealPath",
+              "MaxSingleHeaderSize",
+              "MaxTotalHeadersSize",
+              "MaxRequestParameterCount",
+              "DeploymentOrder",
+              "Target",
+              "Notes"
+            ]
+          },
+          {
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "attributes": [
+              "AuthCookieEnabled",
+              "SingleSignonDisabled",
+              "UseHeaderEncoding",
+              "UseHighestCompatibleHTTPVersion",
+              "ChunkedTransferDisabled",
+              "OverloadResponseCode",
+              "URLResource",
+              "Charsets"
+            ],
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "MaxRequestParamterCount",
+          "UriPath",
+          "WebDeployment",
+          "WorkManagerForRemoteSessionFetching",
+          "WriteChunkBytes"
+        ]
+      },
+      {
+        "type": "folderTab",
+        "folder": "WebServerLog"
+      }
+    ]
+  },
+  "VirtualHost/WebServerLog": {
+    "attributeDetails": {
+      "FileCount": {
+        "disabled": "logRotationFileCountLimitedFields"
+      },
+      "FileMinSize": {
+        "disabled": "logRotationBySizeFields"
+      },
+      "FileTimeSpan": {
+        "disabled": "logRotationByTimeFields"
+      },
+      "FileTimeSpanFactor": {
+        "disabled": "logRotationByTimeFields"
+      },
+      "LogFileFormat": {
+        "options": [
+          { "value": "common", "labelKey":  "options-common-label" },
+          { "value": "extended", "labelKey":  "options-extended-label" }
+        ]
+      },
+      "LogTimeInGMT": {
+        "disabled": "serverWebServerLogFormatExtendedFields"
+      },
+      "RotationTime": {
+        "disabled": "logRotationByTimeFields"
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "LoggingEnabled",
+          "LogFileFormat",
+          "FileName",
+          "RotationType",
+          "FileMinSize",
+          "RotationTime",
+          "FileTimeSpan",
+          "FileTimeSpanFactor",
+          "NumberOfFilesLimited",
+          "FileCount",
+          "LogFileRotationDir",
+          "RotateLogOnStartup",
+          "Notes"
+        ]
+      },
+      {
+        "type": "collapsible",
+        "labelKey": "advanced-label",
+        "sections": [
+          {
+            "type": "attributes",
+            "attributes": [
+              "BufferSizeKb",
+              "DateFormatPattern",
+              "ELFFields",
+              "LogTimeInGMT"
+            ],
+            "addRemainingAttributes": true
+          }
+        ]
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "LogMilliSeconds"
+        ]
+      }
+    ]
+  }
+}

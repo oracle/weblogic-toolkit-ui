@@ -70,6 +70,12 @@
       "NWAddr": {}
     },
     "attributeDetails": {
+      "BlockTime": {
+        "validators": [ "range(0,)" ]
+      },
+      "CmpLimit": {
+        "validators": [ "range(0,)" ]
+      },
       "ConnectionPolicy": {
         "options": [
           { "value": "ON_DEMAND", "labelKey": "tux-connection-policy-on-demand-label" },
@@ -82,6 +88,12 @@
           { "value": "YES", "labelKey": "options-yes-label" },
           { "value": "NO", "labelKey": "options-no-label" }
         ]
+      },
+      "KeepAlive": {
+        "validators": [ "range(0,)" ]
+      },
+      "KeepAliveWait": {
+        "validators": [ "range(0,)" ]
       },
       "KeyStoresLocation": {
         "options": [
@@ -98,6 +110,9 @@
           { "value": "256", "label": "256" }
         ]
       },
+      "MaxRetries": {
+        "validators": [ "range(0,)" ]
+      },
       "MinEncryptBits": {
         "options": [
           { "value": "0", "label": "0" },
@@ -106,6 +121,9 @@
           { "value": "128", "label": "128" },
           { "value": "256", "label": "256" }
         ]
+      },
+      "RetryInterval": {
+        "validators": [ "range(0,)" ]
       },
       "Security": {
         "options": [
@@ -206,6 +224,9 @@
           { "value": "Custom", "labelKey": "Custom" }
         ]
       },
+      "CmpLimit": {
+        "validators": [ "range(0,)" ]
+      },
       "ConnectionPolicy": {
         "options": [
           { "value": "ON_DEMAND", "labelKey": "tux-connection-policy-on-demand-label" },
@@ -226,6 +247,15 @@
       "CustomAppKeyClassParam":  {
         "disabled": "wtcDisableCustomAppKeyFields"
       },
+      "DefaultAppKey": {
+        "validators": [ "range(-1,)" ]
+      },
+      "KeepAlive": {
+        "validators": [ "range(-1,)" ]
+      },
+      "KeepAliveWait": {
+        "validators": [ "range(0,)" ]
+      },
       "MaxEncryptBits": {
         "options": [
           { "value": "0", "label": "0" },
@@ -235,6 +265,9 @@
           { "value": "256", "label": "256" }
         ]
       },
+      "MaxRetries": {
+        "validators": [ "range(-1,)" ]
+      },
       "MinEncryptBits": {
         "options": [
           { "value": "0", "label": "0" },
@@ -243,6 +276,9 @@
           { "value": "128", "label": "128" },
           { "value": "256", "label": "256" }
         ]
+      },
+      "RetryInterval": {
+        "validators": [ "range(-1,)" ]
       },
       "SslProtocolVersion": {
         "options": [
@@ -394,6 +430,15 @@
           { "value": "PERSIST", "labelKey": "options-persist-label" },
           { "value": "NONPERSIST", "labelKey": "options-non-persist-label" }
         ]
+      },
+      "Retries": {
+        "validators": [ "range(0,)" ]
+      },
+      "RetryDelay": {
+        "validators": [ "range(0,)" ]
+      },
+      "Timeout": {
+        "validators": [ "range(0,)" ]
       },
       "Transactional": {
         "options": [

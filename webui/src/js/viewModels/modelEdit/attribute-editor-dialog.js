@@ -120,7 +120,7 @@ function(accUtils, ko, project, ArrayDataProvider,
     };
 
     this.valueValidator = {
-      validate: (value) => {
+      validate: (/*value*/) => {
         // needs some validation
       }
     };

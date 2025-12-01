@@ -4,6 +4,20 @@
       "ComponentType": {},
       "Machine": {}
     },
+    "attributeDetails": {
+      "NMSocketCreateTimeoutInMillis": {
+        "validators": [ "range(0,)" ]
+      },
+      "RestartDelaySeconds": {
+        "validators": [ "range(0,)" ]
+      },
+      "RestartIntervalSeconds": {
+        "validators": [ "range(300,)" ]
+      },
+      "RestartMax": {
+        "validators": [ "range(0,)" ]
+      }
+    },
     "sections": [
       {
         "type": "tab",

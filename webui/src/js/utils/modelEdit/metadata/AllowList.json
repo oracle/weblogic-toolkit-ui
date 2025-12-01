@@ -7,6 +7,9 @@
           { "value": "deny", "labelKey": "options-deny-label" },
           { "value": "ignore", "labelKey": "options-ignore-label" }
         ]
+      },
+      "SerialPropFilePollingInterval": {
+        "validators": [ "range(1,65534)" ]
       }
     },
     "sections": [

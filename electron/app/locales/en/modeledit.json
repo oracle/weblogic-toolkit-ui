@@ -369,6 +369,17 @@
   "options-in-memory-label": "In Memory",
   "options-audit-label": "Audit",
   "options-log-and-audit-label": "Log and Audit",
+  "options-cache-on-reference-label": "Cache on Reference",
+  "options-cache-at-initialization-label": "Cache on Initialization",
+  "options-cache-never-label": "Cache Never",
+  "options-defer-to-registry-setting-label": "Defer to Registry Setting",
+  "options-dev-mode-label": "Development Mode",
+  "options-prod-mode-label": "Production Mode",
+  "options-secure-mode-label": "Secure Production Mode",
+  "options-oracle-ebr-label": "Oracle Edition-Based Redefinition (EBR)",
+  "options-append-label": "Append",
+  "options-prepend-label": "Prepend",
+  "options-replace-label": "Replace",
 
   "direction-jms-queue-to-tuxedo-queue-label": "JMS Queue to Tuxedo Queue",
   "direction-tuxedo-queue-to-jms-queue-label": "Tuxedo Queue to JMS Queue",
@@ -436,7 +447,6 @@
   "table-type-label": "Type",
 
   "rcudbinfo-connection-label": "Connection",
-  "rcudbinfo-atp-label": "ATP Configuration",
   "rcudbinfo-stores-label": "Stores",
 
   "server-ssl-title": "SSL",
@@ -553,7 +563,10 @@
 
   "a-AdjudicatorTypes-label": "Adjudicator Types",
   "a-AdminHost-label": "Admin Host",
+
   "a-AdminPassword-label": "Admin Password",
+  "a-AdminPassword-help": "The password for the WebLogic Server administrative user used to create a new domain.",
+
   "a-AdminPort-label": "Admin Port",
 
   "a-AdminReconnectIntervalSeconds-label": "Admin Server Reconnect Interval Seconds",
@@ -563,6 +576,8 @@
   "a-AdminServerName-help": "Specifies the name of the server that will act as the administration server for this domain.  The default value is \"AdminServer\".",
 
   "a-AdminUserName-label": "Admin User Name",
+  "a-AdminUserName-help": "The WebLogic Server administrative user name used to create a new domain. The default value is \"weblogic\".",
+
   "a-AdministrationMBeanAuditingEnabled-label": "Administration MBean Auditing Enabled",
 
   "a-AdministrationPort-label": "Administration Port",
@@ -661,6 +676,7 @@
   "f-any_COM-a-ApartmentThreaded-help": "Controls the flag that is used to initialize COM in native mode.",
 
   "a-AppDir-label": "Application Directory",
+  "a-AppDir-help": "The application home directory for a new FMW Infrastructure domain.",
 
   "a-AppKey-label": "App Key Generator Plug-in Type",
   "a-AppKey-help": "Specifies the type of AppKey plug-in used.  The allowed values are TpUsrFile, LDAP, and Custom.  TpUsrFile is the default plug-in and uses an imported Tuxedo TPUSR file to provide user security information. The LDAP plug-in utilizes an embedded LDAP server to provide user security information; the user record must define the Tuxedo UID and GID information in the description field. The Custom plug-in provides the ability to write your own AppKey generator class to provide the security information required by Tuxedo.",
@@ -917,6 +933,7 @@
   "f-any_DefaultFileStore-a-CacheDirectory-help": "The location of the cache directory for Direct-Write-With-Cache, ignored for other policies. When Direct-Write-With-Cache is specified as the SynchronousWritePolicy, cache files are created in addition to primary files (see Directory for the location of primary files). If a cache directory location is specified, the cache file path is CacheDirectory/WLStoreCache/StoreNameFileNum.DAT.cache. When specified, Oracle recommends using absolute paths, but if the directory location is a relative path, then CacheDirectory is created relative to the WebLogic Server instance's home directory. If \"\" or Null is specified, the Cache Directory is located in the current operating system temp directory as determined by the java.io.tmpdir Java System property (JDK's default: /tmp on UNIX, %TEMP% on Windows) and is TempDirectory/WLStoreCache/DomainName/unique-id/ StoreNameFileNum.DAT.cache. The value of java.io.tmpdir varies between operating systems and configurations, and can be overridden by passing -Djava.io.tmpdir=My_path on the JVM command line.",
 
   "a-CacheDiskSize-label": "Cache Disk Size",
+  "a-CacheDiskSize-help": "The disk size, in MB, of the persistent disk cache. The default value is 5 MB.",
 
   "a-CacheEnabled-label": "Cache Enabled",
   "f-EmbeddedLDAP-a-CacheEnabled-help": "Specifies whether a cache is used with the embedded LDAP server. This cache is used when a managed server is reading or writing to the master embedded LDAP server that is running on the Administration server.",
@@ -932,8 +949,13 @@
   "f-any_weblogic.security.providers.authentication.OracleIdentityCloudIntegrator-a-CacheEnabled-help": "Specifies whether to cache the Oracle Identity Cloud Service user's information.",
 
   "a-CacheInAppDirectory-label": "Cache In App Directory",
+
   "a-CacheLocation-label": "Cache Location",
+  "a-CacheLocation-help": "Provides the path name for the persistent cache files. The default value is \"xmlcache\".",
+
   "a-CacheMemorySize-label": "Cache Memory Size",
+  "a-CacheMemorySize-help": "The memory size, in KB, of the cache. The default value is 500 KB.",
+
   "a-CacheName-label": "Cache Name",
 
   "a-CacheSize-label": "Cache Size",
@@ -954,6 +976,8 @@
   "f-EmbeddedLDAP-a-CacheTTL-help": "The time-to-live of the cache (in seconds) that is used with the embedded LDAP server.",
 
   "a-CacheTimeoutInterval-label": "Cache Timeout Interval",
+  "a-CacheTimeoutInterval-help": "The default timeout interval, in seconds, for the cache. The default value is 120 seconds.",
+  "f-any_XMLEntitySpecRegistryEntry-a-CacheTimeoutInterval-help": "Specifies the default timeout interval (in seconds) of the external entity cache. A value of -1 means that the entity cache timeout interval defers to the one specified for the XML registry of which this Entity Spec entry is a part. The default value is -1.",
 
   "a-CacheTtl-label": "Cache Time-to-Live",
   "f-any_ActiveDirectoryAuthenticator-a-CacheTtl-help": "Specifies the time-to-live (TTL) of the cache in seconds. The default value is 60.",
@@ -2539,6 +2563,8 @@
   "a-DistributionPolicy-help": "Specifies how the instances of a configured JMS artifact are named and distributed when cluster-targeted. A JMS artifact is cluster-targeted when its target is directly set to a cluster, or when it is scoped to a resource group and the resource group is in turn targeted to a cluster. When this setting is configured on a store, it applies to all JMS artifacts that reference the store. The default value is \"Distributed\".",
 
   "a-DocumentBuilderFactory-label": "Document Builder Factory",
+  "f-XMLRegistry-a-DocumentBuilderFactory-help": "The fully qualified name of the class that implements the DocumentBuilderFactory interface. The javax.xml.parsers.DocumentBuilderFactory factory API enables applications deployed to WebLogic Server to obtain an XML parser that produces DOM object trees from XML documents.",
+  "f-any_XMLParserSelectRegistryEntry-a-DocumentBuilderFactory-help": "Specifies the fully qualified name of the class that implements the DocumentBuilderFactory API. When WebLogic Server begins to parse an XML document identified by either the public ID, system ID, or root element specified in this entry, and the applications specifies it wants a DOM parser, then WebLogic Server uses this implementation class when using the javax.xml.parsers.DocumentBuilderFactory to obtain the DOM parser.",
 
   "a-DomainKeystoresClientCertAlias-label": "Domain Keystores Client Certificate Alias",
   "f-any_NetworkAccessPoint-a-DomainKeystoresClientCertAlias-help": "Specifies the alias of the client certificate for this NetworkAccessPoint when SSLMBean.KeyStores effective value is set to \"DomainKeystores\".",
@@ -2602,6 +2628,7 @@
   "a-DynamicClusterServerGroupTargetingLimits-label": "Dynamic Cluster Server Group Targeting Limits",
   "a-DynamicClusterServerGroupTargetingLimits-valueHelp": "The targets for the server group",
   "a-DynamicClusterServerGroupTargetingLimits-valueLabel": "Targets",
+  "a-DynamicClusterServerGroupTargetingLimits-help": "A map of template-defined dynamic server groups to targets used to target FMW Infrastructure resources to dynamic clusters.",
 
   "a-DynamicClusterShutdownTimeoutSeconds-label": "Dynamic Cluster Shutdown Timeout Seconds",
   "f-Cluster_DynamicServers-a-DynamicClusterShutdownTimeoutSeconds-help": "Specifies the timeout period (in seconds) used by the Elasticity Framework while gracefully shutting down a server. If the server does not shut down before the specified timeout period, the server will be forcibly shut down. With a negative time value, no timeout will be applied.",
@@ -2654,7 +2681,10 @@
   "a-EnableIORServlet-help": "Enables the getior servlet used to publish COS Naming Service IORs. The default value is false.",
 
   "a-EnableJMSStoreDBPersistence-label": "Enable JMS Store Database Persistence",
+  "a-EnableJMSStoreDBPersistence-help": "Whether to enable JMS JDBC stores when creating a new FMW Infrastructure domain.",
+
   "a-EnableJTATLogDBPersistence-label": "Enable JTA TLog Database Persistence",
+  "a-EnableJTATLogDBPersistence-help": "Whether to enable JTA JDBC stores when creating a new FMW Infrastructure domain.",
 
   "a-EnableSIDtoGroupLookupCaching-label": "Enable SID-to-Group Lookup Caching",
   "f-any_ActiveDirectoryAuthenticator-a-EnableSIDtoGroupLookupCaching-help": "Specifies whether SID to group name lookup results are cached or not. This is only used if the token group membership lookup algorithm is enabled.",
@@ -2728,6 +2758,7 @@
   "f-any_SingleSignOnServices-a-EntityId-help": "The string that uniquely identifies the local site.",
 
   "a-EntityURI-label": "Entity URI",
+  "a-EntityURI-help": "The location of the external entity, either a pathname or URI. The location of the external entity can be either a pathname relative to the XML Registry directories, reachable by the Administration Server, or a URI of the entity location in some local repository.",
 
   "a-Environment-label": "Environment",
   "f-WLDFSystemResource_WLDFResource_WatchNotification_ScriptAction-a-Environment-help": "A map of environment variables to set for the child process.",
@@ -2786,6 +2817,7 @@
   "f-any_SSL-a-ExportKeyLifespan-help": "Indicates the number of times WebLogic Server can use an exportable key between a domestic server and an exportable client before generating a new key. The more secure you want WebLogic Server to be, the fewer times the key should be used before generating a new key. The default value is 500.",
 
   "a-Expression-label": "Expression",
+  "a-Expression-help": "The EntitleNet expression of the role. For example, \"?weblogic.entitlement.rules.AdministrativeGroup(AppMonitors)\" identifies the \"AppMonitors\" group.",
 
   "a-ExpressionLanguage-label": "Expression Language",
   "f-WLDFSystemResource_WLDFResource_WatchNotification_Watch-a-ExpressionLanguage-help": "Returns the expression language type used by the policy, either \"EL\" or \"WLDF\" (deprecated).",
@@ -3044,6 +3076,9 @@
   "f-WebAppContainer_GzipCompression-a-GzipCompressionMinContentLength-help": "The minimum content length to trigger GZIP compression. This allows you to bypass small-sized resources where compression does not yield a great return and uses unnecessary CPU.",
 
   "a-HandleEntityInvalidation-label": "Handle Entity Invalidation",
+  "f-XMLRegistry-a-HandleEntityInvalidation-help": "Whether cached DTD/schema is invalidated when parsing error is encountered. The default value is false.",
+  "f-any_XMLEntitySpecRegistryEntry-a-HandleEntityInvalidation-help": "Whether cached DTD/schema is invalidated when parsing error is encountered. The default value is defer to registry setting.",
+
   "a-HandlerDefaults-label": "Handler Defaults",
   "a-HandlerEnabled-label": "Handler Enabled",
   "a-Handlers-label": "Handlers",
@@ -4024,6 +4059,7 @@
   "a-MaxSingleHeaderSize-help": "The maximum size of a single header (name and value) this server allows in a servlet request. A value less than 0 indicates an unlimited size. The default value is -1.",
 
   "a-MaxSize-label": "Max Size",
+  "a-MaxSize-help": "Provides the maximum number of entries that can be stored in the cache at any given time.",
 
   "a-MaxStreamResets-label": "Max Stream Resets",
   "f-WebAppContainer_Http2Config-a-MaxStreamResets-help": "Gets the maximum number of stream resets(RST_STREAM frames) allowed per connection.",
@@ -4174,6 +4210,7 @@
   "f-any_SingleSignOnServices-a-MetadataEncryptionAlgorithm-help": "The default list of data, key encryption algorithms to be published in a WebLogic Service Partner's metadata.",
 
   "a-Method-label": "Method",
+  "f-any_RemoteResource-a-Method-help": "The HTTP method used to access the credential mapping's remote resource.",
 
   "a-MethodOrder-label": "Method Order",
   "f-any_CertRevoc-a-MethodOrder-help": "Determines the certificate revocation checking method order.",
@@ -4344,6 +4381,7 @@
   "f-WTCServer_WTCRemoteTuxDom-a-NWAddr-help": "The network address and port number of this remote Tuxedo access point.  Specify the address in either TCP/IP or SDP format",
 
   "a-Name-label": "Name",
+  "f-Topology-a-Name-help": "Specifies the domain name.",
 
   "a-NameCallbackAllowed-label": "Name Callback Allowed",
   "f-any_DefaultAuthenticator-a-NameCallbackAllowed-help": "Specifies whether the provider is allowed to get the user name from a NameCallback versus getting the user name (and identity domain) from an IdentityDomainUserCallback when the provider is configured with an identity domain.",
@@ -4374,6 +4412,8 @@
   "f-NMProperties-a-NetMask-help": "The subnet mask for your network. For server migration, each Managed Server must use the same subnet mask to enable unicast and multicast communication among servers. See the <InterfaceName> property for more flexibility entering multiple interfaces and corresponding netmask values.",
 
   "a-NetworkAccessPoint-label": "Network Access Point",
+  "f-VirtualHost-a-NetworkAccessPoint-help": "The dedicated server channel name (NetworkAccessPoint) for which this virtual host will serve http request. If the NetworkAccessPoint for a given http request doesn't match any virtual host's NetworkAccessPoint, incoming HOST header will be matched with the VirtualHostNames in order to resolve the right virtual host.",
+
   "a-NetworkClassLoadingEnabled-label": "Network Class Loading Enabled",
 
   "a-NewXaConnForCommit-label": "New XA Connection For Commit",
@@ -4444,7 +4484,9 @@
 
   "a-OCMEnabled-label": "OCM Enabled",
   "a-OPSSSecrets-label": "OPSS Secrets",
+
   "a-OPSSWalletPassphrase-label": "OPSS Wallet Passphrase",
+  "a-OPSSWalletPassphrase-help": "The passphrase for a previously extracted wallet from an existing FMW Infrastructure domain.  Using the extracted wallet and the passphrase, allows WDT to create a new domain that connects to the same schemas as the old domain.  This is intended as a disaster recovery mechanism in case the domain directory gets corrupted.",
 
   "a-OcspNonceEnabled-label": "OCSP Nonce Enabled",
   "f-any_CertRevoc-a-OcspNonceEnabled-help": "Determines whether a nonce is sent with OCSP requests, to force a fresh (not pre-signed) response.",
@@ -4672,7 +4714,9 @@
   "a-PasswordStyleRetained-help": "Controls how a password is stored in the database when updating an existing user's password. True indicates the password style and algorithm that were used for the original password in the database should be used for the new password. This setting is the default. False indicates the settings for Password Algorithm and Password Style will be used for the new password.",
 
   "a-PasswordValidatorTypes-label": "Password Validator Types",
+
   "a-Path-label": "Path",
+  "f-any_RemoteResource-a-Path-help": "The URI path to use to access the credential mapping's remote resource.",
 
   "a-PathToScript-label": "Path To Script",
   "f-WLDFSystemResource_WLDFResource_WatchNotification_ScriptAction-a-PathToScript-help": "The full path to the script to execute.",
@@ -4750,6 +4794,7 @@
   "f-JMSSystemResource_JmsResource_Quota-a-Policy-help": "For destinations that use this quota, this policy determines whether to deliver smaller messages before larger ones when a destination has exceeded its message quota. FIFO (first-in, first-out) indicates that requests for quota are submitted in the order they are received. If a given request for quota cannot be satisfied, and the client requesting the quota is willing to wait, then that request will block all other requests for quota until the request is satisfied or times out. This prevents smaller messages from being delivered when larger requests are already waiting for space. Preemptive indicates that subsequent requests can preempt previously unsatisfied requests. That is, if there is sufficient quota for the current request, then that space is used even if there are other requests waiting for quota. When quota is limited, the Preemptive policy can result in the starvation of larger requests.",
   "f-JMSSystemResource_JmsResource_SAFErrorHandling-a-Policy-help": "The error handling policy for this SAF error handling resource.",
   "f-CdiContainer-a-Policy-help": "Specifies the CDI policy. CDI can be \"Enabled\" (the default) or \"Disabled\". If CDI is disabled then no CDI processing will occur including scanning of pojos and initialization of Weld and CDI will not be available to the application via the CDI apis.",
+  "f-WLSPolicies-a-Policy-help": "The policy to apply to the specified ResourceID.  For example, \"Grp(Administrators)|Grp(Operators)|Grp(Monitors)\" limits access to the resource to only users that are members of the \"Administrators\", \"Operators\", or \"Monitors\" groups.",
 
   "a-PolicyDeploymentEnabled-label": "Policy Deployment Enabled",
   "a-PolicyDeploymentEnabled-help": "Specifies whether this Authorization provider stores policies that are created while deploying a Web application or EJB.",
@@ -4904,6 +4949,7 @@
 
   "a-Protocol-label": "Protocol",
   "f-any_NetworkAccessPoint-a-Protocol-help": "The protocol this network channel should use for connections.",
+  "f-any_RemoteResource-a-Protocol-help": "The protocol to use to access the credential mapping's remote resource.",
 
   "a-ProviderClassName-label": "Provider Class Name",
 
@@ -4931,6 +4977,8 @@
   "f-any_NetworkAccessPoint-a-PublicAddress-help": "The IP address or DNS name representing the external identity of this network channel. A value of null indicates that the network channel's Listen Address is also its external address. If the Listen Address is null,the network channel obtains its external identity from the server's configuration. This is required for the configurations which need to cross a firewall doing Network Address Translation.",
 
   "a-PublicId-label": "Public ID",
+  "f-any_XMLEntitySpecRegistryEntry-a-PublicId-help": "The public ID of the external entity. When WebLogic Server is parsing an XML document and it encounters an external entity with this public ID, WebLogic Server resolves the entity (to either a local file or a URL resource) according to the values set for this Entity spec entry.",
+  "f-any_XMLParserSelectRegistryEntry-a-PublicId-help": "Specifies the public ID of the XML document type for which this XML registry entry is being configured. When WebLogic Server starts to parse an XML document that is identified with this public ID, it uses the SAX or DOM parser factory implementation class specified by this registry entry, rather than the built-in or default, when obtaining a SAX or DOM parser.",
 
   "a-PublicPort-label": "Public Port",
   "f-any_NetworkAccessPoint-a-PublicPort-help": "The externally published listen port for this network channel. A value of -1 indicates that the network channel's Listen Port is also its public listen port. If the Listen Port is -1,the network channel obtains its public listen port from the server's configuration.",
@@ -5085,7 +5133,10 @@
   "a-RemoteConsoleHelperEnabled-help": "Specifies whether the Administration Server automatically deploys the Remote Console Helper in the current domain. The default value is true.",
 
   "a-RemoteDomain-label": "Remote Domain",
+  "f-any_CrossDomain-a-RemoteDomain-help": "The name of the remote domain to which the credential mapping applies.",
+
   "a-RemoteHost-label": "Remote Host",
+  "f-any_RemoteResource-a-RemoteHost-help": "The remote hostname or IP address to use to access the credential mapping's remote resource.",
 
   "a-RemoteJNDIName-label": "Remote JNDI Name",
   "f-ForeignJNDIProvider_ForeignJNDILink-a-RemoteJNDIName-help": "The JNDI name in the foreign JNDI provider's namespace.",
@@ -5108,12 +5159,18 @@
 
   "a-RemotePassword-label": "Remote Password",
   "a-RemotePassword-help": "The remote password used to authenticate connections between the local access point and remote access point. Note that this password is used to authenticate connections between the local Tuxedo access point identified by LocalAccessPoint and the remote Tuxedo access point identified by RemoteAccessPoint.",
+  "f-any_CrossDomain-a-RemotePassword-help": "The user's password to use for the specified remote domain.",
+  "f-any_RemoteResource-a-RemotePassword-help": "The remote user's password to use when authenticating to the credential mapping's remote resource.",
 
   "a-RemotePasswordIV-label": "Remote Password Initialization Vector",
   "a-RemotePasswordIV-help": "The initialization vector used to encrypt the remote password.",
 
   "a-RemotePort-label": "Remote Port",
+  "f-any_RemoteResource-a-RemotePort-help": "The remote port number to use to access the credential mapping's remote resource.",
+
   "a-RemoteUser-label": "Remote User",
+  "f-any_CrossDomain-a-RemoteUser-help": "The username to use for the specified remote domain.",
+  "f-any_RemoteResource-a-RemoteUser-help": "The remote user name to use to authenticate when accessing the credential mapping's remote resource.",
 
   "a-RemoveInfectedConnections-label": "Remove Infected Connections",
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-RemoveInfectedConnections-help": "Specifies whether a connection will be removed from the connection pool after the application uses the underlying vendor connection object. If you disable removing infected connections, you must make sure that the database connection is suitable for reuse by other applications. When set to true (the default), the physical connection is not returned to the connection pool after the application closes the logical connection. Instead, the physical connection is closed and recreated.",
@@ -5178,6 +5235,8 @@
   "f-JDBCSystemResource_JdbcResource_JDBCXAParams-a-ResourceHealthMonitoring-help": "Enables JTA resource health monitoring for an XA data source. When enabled, if an XA resource fails to respond to an XA call within the period specified in MaxXACallMillis, WebLogic Server marks the data source as unhealthy and blocks any further calls to the resource. This property applies to XA data sources only, and is ignored for data sources that use a non-XA driver.",
 
   "a-ResourceID-label": "Resource ID",
+  "f-WLSPolicies-a-ResourceID-help": "The resource ID for the object(s) and action(s) to which the policy should be applied. For example, \"type=<jms>, application=MyJmsModule, destinationType=queue, resource=MyQueue, action=send\" is identifying the \"send\" action on the JMS queue \"MyQueue\" defined in the JMS system resource \"MyJmsModule\".",
+
   "a-ResourceManagement-label": "Resource Management",
   "a-ResourceManagerRef-label": "Resource Manager Ref",
 
@@ -5299,6 +5358,8 @@
   "f-any_ServerStart-a-RootDirectory-help": "The directory that this server uses as its root directory. This directory must be on the computer that hosts Node Manager. If you do not specify a Root Directory value, the domain directory is used by default.",
 
   "a-RootElementTag-label": "Root Element Tag",
+  "a-RootElementTag-help": "Specifies the root element of the XML document type for which this XML registry entry is being configured. When WebLogic Server starts to parse an XML document that is identified with this root element, it uses the SAX or DOM parser factory implementation class specified by this registry entry, rather than the built-in or default, when obtaining a SAX or DOM parser.",
+
   "a-RootStagingDir-label": "Root Staging Dir",
 
   "a-RotateLogOnStartup-label": "Rotate Log On Startup",
@@ -5341,6 +5402,8 @@
   "a-SAFRemoteContext-help": "Specifies the remote context used for the imported destinations.",
 
   "a-SAXParserFactory-label": "SAX Parser Factory",
+  "f-XMLRegistry-a-SAXParserFactory-help": "The fully qualified name of the class that implements the SAXParserFactory interface. The javax.xml.parsers.SAXParserFactory factory API enables applications deployed to WebLogic Server to configure and obtain a SAX-based XML parser to parse XML documents.",
+  "f-any_XMLParserSelectRegistryEntry-a-SAXParserFactory-help": "Specifies the fully qualified name of the class that implements the SAXParserFactory API. When WebLogic Server begins to parse an XML document identified by either the public ID, system ID, or root element specified in this entry, and the applications specifies it wants a SAX parser, then WebLogic Server uses this implementation class when using the javax.xml.parsers.SAXParserFactory to obtain the SAX parser.",
 
   "a-SNMPPort-label": "SNMP Port",
   "a-SNMPPort-help": "The port on which you want this SNMP agent to listen for incoming requests from SNMP managers that use the UDP protocol. SNMP managers can use this port to ping the SNMP agent and request the status of specific attributes. If you target this SNMP agent to multiple server instances, and if two or more servers are running on the same computer, WebLogic Server will automatically increment this UDP port value by 1 for each agent. WebLogic Server never assigns port 162 because it is the default port that an agent uses to send notifications. In addition, if any port is already in use, WebLogic Server skips the port and assigns the next available port.",
@@ -5466,6 +5529,8 @@
   "a-ScatteredReadsEnabled-help": "Enables scattered reads over NIO socket channels. Enabling this attribute increases efficiency during I/O in environments with high network throughput and should be used only when configuring a WebLogic domain for Oracle Exalogic.",
 
   "a-SchemaFactory-label": "Schema Factory",
+  "f-XMLRegistry-a-SchemaFactory-help": "The fully qualified name of the class that implements the SchemaFactory interface. The javax.xml.validation.SchemaFactory factory API enables applications deployed to WebLogic Server to configure and obtain a Schema object used to validate XML document using schema.",
+
   "a-Scope-label": "Scope",
   "a-ScriptExecutorCommand-label": "Script Executor Command",
 
@@ -5571,6 +5636,7 @@
   "a-ServerCipherSuitesOrderEnabled-help": "Indicates whether to honor the server cipher suites preference. The default value is true.",
 
   "a-ServerFailureTrigger-label": "Server Failure Trigger",
+
   "a-ServerGroupTargetingLimits-entryLabel": "Server Group Targeting Limit",
   "a-ServerGroupTargetingLimits-keyHelp": "The name of the server group",
   "a-ServerGroupTargetingLimits-keyLabel": "Server Group",
@@ -5578,6 +5644,8 @@
   "a-ServerGroupTargetingLimits-noEntriesMessage": "No limits",
   "a-ServerGroupTargetingLimits-valueHelp": "The dynamic cluster targets for the server group",
   "a-ServerGroupTargetingLimits-valueLabel": "Targets",
+  "a-ServerGroupTargetingLimits-help": "A map of template-defined server groups to targets used to target FMW Infrastructure resources to servers or clusters.",
+
   "a-ServerHelper-label": "Server Helper",
   "a-ServerKeyFileName-label": "Server Key File Name",
 
@@ -5611,6 +5679,8 @@
   "f-any_SSL-a-ServerPrivateKeyPassPhraseEncrypted-help": "The passphrase used to retrieve the server's private key from the keystore. This passphrase is assigned to the private key when it is generated.",
 
   "a-ServerStartMode-label": "Server Start Mode",
+  "a-ServerStartMode-help": "The mode to use when creating a new domain. The default value is development mode.",
+
   "a-ServerStatusCheckIntervalFactor-label": "Server Status Check Interval Factor",
 
   "a-ServerTemplate-label": "Server Template",
@@ -6012,6 +6082,8 @@
   "f-JDBCSystemResource_JdbcResource_JDBCDriverParams_Properties-a-SysPropValue-help": "The system property name from which to get the value.",
 
   "a-SystemId-label": "System ID",
+  "f-any_XMLEntitySpecRegistryEntry-a-SystemId-help": "The system ID of the external entity. When WebLogic Server is parsing an XML document and it encounters an external entity with this system ID, WebLogic Server resolves the entity (to either a local file or a URL resource) according to the values set for this Entity spec entry.",
+  "f-any_XMLParserSelectRegistryEntry-a-SystemId-help": "Specifies the system ID of the XML document type for which this XML registry entry is being configured. When WebLogic Server starts to parse an XML document that is identified with this system ID, it uses the SAX or DOM parser factory implementation class specified by this registry entry, rather than the built-in or default, when obtaining a SAX or DOM parser.",
 
   "a-SystemPasswordEncrypted-label": "System Password Encrypted",
   "a-SystemPasswordEncrypted-help": "The password required to access administrative functions on this server.",
@@ -6249,6 +6321,8 @@
   "f-WTCServer_WTCtBridgeGlobal-a-Transactional-help": "Specifies whether this Tuxedo queuing bridge should use transactions when retrieving messages from a source location and when placing messages on a target location. A value of YES means that transactions are used for both operations; a value of NO means that transactions are not used for either operation.",
 
   "a-TransformerFactory-label": "Transformer Factory",
+  "f-XMLRegistry-a-TransformerFactory-help": "The fully qualified name of the class that implements the TransformerFactory interface. The javax.xml.transform.TransformerFactory factory API enables applications deployed to WebLogic Server to configure and obtain a Transformer object used to transform XML data into another format.",
+  "f-any_XMLParserSelectRegistryEntry-a-TransformerFactory-help": "Specifies the fully qualified name of the class that implements the TransformerFactory API. When WebLogic Server begins to transform an XML document identified by either the public ID, system ID, or root element specified in this entry, then WebLogic Server uses this implementation class when using the javax.xml.transform.TransformerFactory factory to obtain a Transformer object.",
 
   "a-TranslateFML-label": "Translate FML",
   "a-TranslateFML-help": "The type of XML/FML translation.  NO indicates that no data translation is performed. FLAT indicates that the message payload is transformed using the WebLogic Tuxedo Connector translator. WLXT indicates that translation is performed by the XML-to-non-XML WebLogic XML Translator (WLXT).",
@@ -6376,6 +6450,7 @@
   "a-Untargeted-help": "Only relevant for deployments in resource group templates. This flag, when specified as true, indicates that the application deployment must not be deployed in the referring partition.",
 
   "a-UpdateMode-label": "Update Mode",
+  "a-UpdateMode-help": "Specifies how an existing role will be updated.",
 
   "a-UploadDirectoryName-label": "Upload Directory Name",
   "a-UploadDirectoryName-help": "The directory path on the Administration Server where all uploaded applications are placed. If an absolute directory name is not specified, the path is relative to the root directory \"/\". The default staging directory is \"stage\", relative to the server root. On the Managed Server this returns null, and is not configurable.",
@@ -6469,6 +6544,7 @@
   "a-UseSAFTimeToLiveDefault-help": "Controls whether the Time-to-Live (expiration time) value set on imported JMS messages will be overridden by the value specified in the SAF Default Time-to-Live field.",
 
   "a-UseSampleDatabase-label": "Use Sample Database",
+  "a-UseSampleDatabase-help": "The value to pass to WLST offline's setOption() call for the \"UseSampleDatabase\" option when creating a new domain.",
 
   "a-UseSerialFormatVersion2-label": "Use Serial Format Version 2",
   "a-UseSerialFormatVersion2-help": "Specify whether to advertise RMI objects and EJBs as supporting RMI-IIOP serial format version 2 for custom marshaled objects. The default value is false.",
@@ -6496,6 +6572,7 @@
 
   "a-User-label": "User",
   "f-ForeignJNDIProvider-a-User-help": "The remote server's user name.",
+  "f-any_RemoteResource-a-User-help": "The local user names to match against this credential mapping's remote resource.",
 
   "a-UserAuthenticationAssertionAttribute-label": "User Authentication Assertion Attribute",
   "a-UserAuthenticationAssertionAttribute-help": "Specifies the token attribute used for User Authentication and Identity Assertion. The default value results in the use of the attribute configured by the Oracle Identity Cloud Service.",
@@ -6611,6 +6688,8 @@
   "a-ViewTbl32Class-help": "The names of ViewTbl32Classes that are loaded via a class loader and added to a ViewTbl array. Use the fully qualified class names of the desired classes. Use a comma to separate multiple class name entries.",
 
   "a-VirtualHostName-label": "Virtual Host Name",
+  "a-VirtualHostName-help": "The list of host names for which this virtual host will serve requests.",
+
   "a-VirtualMachineName-label": "Virtual Machine Name",
   "a-VirtualThreadEnableOption-label": "Virtual Thread Enable Option",
 
@@ -6704,7 +6783,10 @@
   "f-Cluster-a-WeblogicPluginEnabled-help": "Specifies if this cluster will receive requests from a proxy plug-in or HttpClusterServlet. Set this attribute to true if the cluster will receive requests from a proxy plug-in or HttpClusterServlet. A call to getRemoteAddr will return the address of the browser client from the proprietary WL-Proxy-Client-IP header instead of the Web server. Note: If you are using Oracle HTTP Server, the WebLogic Proxy Plug-In, or Oracle Traffic Director to distribute client requests to a Managed Server or a cluster, Oracle recommends setting this attribute to true.",
 
   "a-Weight-label": "Weight",
+
   "a-WhenToCache-label": "When To Cache",
+  "f-XMLRegistry-a-WhenToCache-help": "Specifies when WebLogic Server should cache external entities that it retrieves from the Web. When WebLogic Server resolves an external entity within an XML file and retrieves the entity from the Web, you can specify that WebLogic Server cache this entity only when the entity is first referenced, when WebLogic Server first starts up, or not at all.",
+  "f-any_XMLEntitySpecRegistryEntry-a-WhenToCache-help": "Specifies when WebLogic Server should cache the external entities it retrieves from the Web. WebLogic Server can cache the entities when they are referenced, as soon as possible (that is, on initialization) or never. Additionally, WebLogic Server can defer to the XML registry's cache setting, which is the default value.",
 
   "a-WindowInterval-label": "Window Interval",
   "f-SAFAgent-a-WindowInterval-help": "The maximum amount of time, in milliseconds, that a JMS sending agent waits before forwarding messages in a single batch. For a distributed queue or topic, WindowInterval setting is ignored.",
@@ -6780,11 +6862,23 @@
   "f-JDBCSystemResource_JdbcResource_JDBCXAParams-a-XaTransactionTimeout-help": "The number of seconds to set as the transaction branch timeout. If set, this value is passed as the transaction timeout value in the XAResource.setTransactionTimeout() call on the XA resource manager, typically the JDBC driver. When this value is set to 0, the WebLogic Server Transaction Manager passes the global WebLogic Server transaction timeout in seconds in the method. You must enable XaSetTransactionTimeout to enable setting the transaction branch timeout.",
 
   "a-XacmlDocument-label": "XACML Document",
+  "f-WLSPolicies-a-XacmlDocument-help": "The file path to the XACML document specifying the XACML definition of the policy. Note that WDT exposes this field but does not test it, preferring the EntitleNet policy expressions instead.",
+  "f-WLSRoles-a-XacmlDocument-help": "The file path to the XACML document specifying the XACML definition of the role. Note that WDT exposes this field but does not test it, preferring the EntitleNet policy expressions instead.",
+
   "a-XacmlStatus-label": "XACML Status",
+  "a-XacmlStatus-help": "The status of the policy. This is an advanced-usage field that should never be specified unless you know what you are doing. The default value is 3.",
+
   "a-XmlEventFactory-label": "Xml Event Factory",
+  "f-XMLRegistry-a-XmlEventFactory-help": "The fully qualified name of the class that implements the XMLEventFactory interface. The javax.xml.stream.XMLEventFactory factory API enables applications deployed to WebLogic Server to configure and obtain a XMLEvent object used to parse or build XML streams.",
+
   "a-XmlInputFactory-label": "Xml Input Factory",
+  "f-XMLRegistry-a-XmlInputFactory-help": "The fully qualified name of the class that implements the XMLInputFactory interface. The javax.xml.stream.XMLInputFactory factory API enables applications deployed to WebLogic Server to configure and obtain a XMLEventReader/XMLStreamReader object used to read XML streams.",
+
   "a-XmlOutputFactory-label": "Xml Output Factory",
+  "f-XMLRegistry-a-XmlOutputFactory-help": "The fully qualified name of the class that implements the XMLOutputFactory interface. The javax.xml.stream.XMLOutputFactory factory API enables applications deployed to WebLogic Server to configure and obtain a XMLEventWriter/XMLStreamWriter object used to write XML streams.",
+
   "a-XpathFactory-label": "Xpath Factory",
+  "f-XMLRegistry-a-XpathFactory-help": "The fully qualified name of the class that implements the XPathFactory interface. The javax.xml.xpath.XPathFactory factory API enables applications deployed to WebLogic Server to configure and obtain a XPath object used to search XML elements.",
 
   "a-Year-label": "Year",
   "f-WLDFSystemResource_WLDFResource_WatchNotification_Watch_Schedule-a-Year-help": "Indicates the year for the schedule. Defaults to \"*\" (every year).",
@@ -6800,54 +6894,109 @@
   "f-NMProperties-a-coherence_StartScriptName-help": "The name of the script to be executed to start the server.",
 
   "a-compInfoXMLLocation-label": "Comp Info XML Location",
+  "a-compInfoXMLLocation-help": "The full path to the location of the ComponentInfo.xml file. The default location is ORACLE_HOME/oracle_common/rcu/config.",
+
   "a-databaseType-label": "Database Type",
   "a-departmentnumber-label": "departmentnumber",
   "a-displayname-label": "displayname",
   "a-domainBin-itemHelp": "Path to domain binary",
   "a-domainBin-itemLabel": "Domain Binary",
+
   "a-domainBin-label": "Domain Binaries",
+  "a-domainBin-help": "The list of scripts from the WDT archive file to place in the DOMAIN_HOME/bin directory when creating a new domain.",
+
   "a-domainLibraries-itemHelp": "Path to domain library",
   "a-domainLibraries-itemLabel": "Domain Library",
+
   "a-domainLibraries-label": "Domain Libraries",
+  "a-domainLibraries-help": "The list of files from the WDT archive file to place in the DOMAIN_HOME/lib directory when creating a new domain.",
+
   "a-employeenumber-label": "employeenumber",
   "a-employeetype-label": "employeetype",
   "a-facsimiletelephonenumber-label": "facsimiletelephonenumber",
   "a-givenname-label": "givenname",
   "a-homephone-label": "homephone",
   "a-homepostaladdress-label": "homepostaladdress",
-  "a-javax_net_ssl_keyStore-label": "SSL Keystore",
-  "a-javax_net_ssl_keyStorePassword-label": "SSL Keystore Password",
-  "a-javax_net_ssl_keyStoreType-label": "SSL Keystore Type",
-  "a-javax_net_ssl_trustStore-label": "SSL Truststore",
-  "a-javax_net_ssl_trustStorePassword-label": "SSL Truststore Password",
-  "a-javax_net_ssl_trustStoreType-label": "SSL Truststore Type",
+
+  "a-javax_net_ssl_keyStore-label": "SSL Identity Keystore",
+  "a-javax_net_ssl_keyStore-help": "The path to the database identity keystore.",
+
+  "a-javax_net_ssl_keyStorePassword-label": "SSL Identity Keystore Passphrase",
+  "a-javax_net_ssl_keyStorePassword-help": "The passphrase to use to open the database identity keystore.",
+
+  "a-javax_net_ssl_keyStoreType-label": "SSL Identity Keystore Type",
+  "a-javax_net_ssl_keyStoreType-help": "The database identity keystore type.",
+
+  "a-javax_net_ssl_trustStore-label": "SSL Trust Keystore",
+  "a-javax_net_ssl_trustStore-help": "The path to the database trust keystore.",
+
+  "a-javax_net_ssl_trustStorePassword-label": "SSL Trust Keystore Passphrase",
+  "a-javax_net_ssl_trustStorePassword-help": "The passphrase to use to open the database trust keystore.",
+
+  "a-javax_net_ssl_trustStoreType-label": "SSL Trust Keystore Type",
+  "a-javax_net_ssl_trustStoreType-help": "The keystore type for the database trust keystore.",
+
   "a-l-label": "l",
   "a-mail-label": "mail",
   "a-mobile-label": "mobile",
+
   "a-oracle_database_admin_role-label": "Oracle Database Admin Role",
+  "a-oracle_database_admin_role-help": "The role to use when connecting as the Oracle database admin user.  The default value is \"SYSDBA\".",
+
   "a-oracle_database_connection_type-label": "Database Connection Type",
-  "a-oracle_net_tns_admin-label": "Oracle Net TNS Admin",
+  "a-oracle_database_connection_type-help": "When using an Oracle database, these types help WDT determine how to handle the RCU database settings.",
+
+  "a-oracle_net_tns_admin-label": "TNS Admin Directory",
+  "a-oracle_net_tns_admin-help": "The TNS admin directory is to use to find the Oracle Net Services configuration files like tnsnames.ora.",
+
   "a-pager-label": "pager",
   "a-postaladdress-label": "postaladdress",
   "a-postofficebox-label": "postofficebox",
   "a-preferredlanguage-label": "preferredlanguage",
-  "a-rcu_admin_password-label": "Admin Password",
-  "a-rcu_admin_user-label": "Admin User",
-  "a-rcu_database_type-label": "Database Type",
-  "a-rcu_db_conn_string-label": "Connection String",
+  "a-rcu_admin_password-label": "Database Admin Password",
+  "a-rcu_admin_password-help": "The database administrative user's password needed to create the RCU schemas. This value is requires if you want WDT to create the RCU schemas for you.",
+
+  "a-rcu_admin_user-label": "Database Admin User",
+  "a-rcu_admin_user-help": "The database administrative user needed to create the RCU schemas. The default value is \"SYS\".",
+
+  "a-rcu_database_type-label": "RCU Database Type",
+  "a-rcu_database_type-help": "The database type passed to RCU. Note that not all databases on this list are supported by a particular FMM release. Please consult the documentation for your release.",
+
+  "a-rcu_db_conn_string-label": "RCU Database Connection String",
+  "a-rcu_db_conn_string-help": "The database connection string used by RCU to connect to the database and by WDT to configure the RCU data sources.",
+
   "a-rcu_default_tablespace-label": "Default Tablespace",
+  "a-rcu_default_tablespace-help": "The default tablespace to use for the RCU schemas. The default value is \"USERS\" except when using an ATP database, where is it \"DATA\".",
+
   "a-rcu_edition-label": "RCU Edition",
-  "a-rcu_prefix-label": "Database Prefix",
+  "a-rcu_edition-help": "The edition to use when creating RCU Schemas with an Oracle database configured for edition-based redefinition (EBR).",
+
+  "a-rcu_prefix-label": "RCU Prefix",
+  "a-rcu_prefix-help": "The prefix added to the RCU schemas to make them unique to the domain. This value used by RCU to create the schemas and by WDT to configure the RCU data sources.",
+
   "a-rcu_schema_password-label": "Schema Password",
+  "a-rcu_schema_password-help": "The password to use for all RCU schemas. Provided that WDT is not running RCU, this value can be overridden on a per-data source basis. Please consult the WDT documentation for more details.",
+
   "a-rcu_temp_tablespace-label": "Temp Tablespace",
+  "a-rcu_temp_tablespace-help": "The temporary tablespace to use for the RCU schemas. The default value is \"TEMP\"",
+
   "a-rcu_unicode_support-label": "Unicode Support",
+  "a-rcu_unicode_support-help": "Whether to support unicode encoding. This parameter is only valid if you specify databaseType=SQLSERVER.",
+
   "a-rcu_variables-label": "RCU Variables",
+  "a-rcu_variables-help": "Extra, space-separated RCU command-line options that get appended to the RCU command-line. This parameter should not be needed in most situations.",
+
   "a-st-label": "st",
+
   "a-storageXMLLocation-label": "Storage XML Location",
+  "a-storageXMLLocation-help": "The full path to the location of the StorageInfo.xml file. The default location is ORACLE_HOME/oracle_common/rcu/config.",
+
   "a-street-label": "street",
   "a-telephonenumber-label": "telephonenumber",
   "a-title-label": "title",
+
   "a-tns_alias-label": "TNS Alias",
+  "a-tns_alias-help": "When using TNS configuration for RCS data sources, this value specifies the alias within the tnsnames.ora file for which entry should be used.",
 
   "a-weblogic_IfConfigDir-label": "WebLogic IfConfig Directory",
   "f-NMProperties-a-weblogic_IfConfigDir-help": "This configuration property sets a different directory for the location of the wlsifconfig.sh/.cmd script.",

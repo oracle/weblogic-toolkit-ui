@@ -42,8 +42,9 @@ define(
     'text!./MessagingBridge.json',
     'text!./MigratableTarget.json',
     'text!./NMProperties.json',
-    'text!./OPSSInitialization.json',
     'text!./ODLConfiguration.json',
+    'text!./OHS.json',
+    'text!./OPSSInitialization.json',
     'text!./PathService.json',
     'text!./PluginDeployment.json',
     'text!./RCUDbInfo.json',
@@ -64,6 +65,7 @@ define(
     'text!./SystemComponent.json',
     'text!./Topology.json',
     'text!./UnixMachine.json',
+    'text!./VirtualHost.json',
     'text!./WebAppContainer.json',
     'text!./WLDFSystemResource.json',
     'text!./WebserviceSecurity.json',
@@ -72,6 +74,8 @@ define(
     'text!./WLSUserPasswordCredentialMappings.json',
     'text!./WSReliableDeliveryPolicy.json',
     'text!./WTCServer.json',
+    'text!./XMLEntityCache.json',
+    'text!./XMLRegistry.json',
   ],
   function() {
     const allMetadata = {};

@@ -24,24 +24,35 @@ define(['utils/modeledit/metadata/all-metadata'],
       };
 
       this.getAttributeDetails = (aliasPath, attributeName) => {
-        // try at full alias path
-        let metadata = this.getMetadata(aliasPath);
+        // look for the global attributeDetails
+        let metadata = this.getMetadata(['any']);
         let attributeDetails = metadata['attributeDetails'] || {};
-        if(attributeName in attributeDetails) {
-          return attributeDetails[attributeName];
+        let globalAttributeDetailsForAttribute = {};
+        if (attributeName in attributeDetails) {
+          globalAttributeDetailsForAttribute = attributeDetails[attributeName];
         }
 
-        // try at top alias path
+        // look for attributeDetails at the top of the alias path
         metadata = this.getMetadata(aliasPath.slice(0, 1));
         attributeDetails = metadata['attributeDetails'] || {};
+        let aliasAttributeDetailsForAttribute = {};
         if(attributeName in attributeDetails) {
-          return attributeDetails[attributeName];
+          aliasAttributeDetailsForAttribute = attributeDetails[attributeName];
         }
 
-        // try at global level
-        metadata = this.getMetadata(['any']);
+        // try at full alias path
+        metadata = this.getMetadata(aliasPath);
         attributeDetails = metadata['attributeDetails'] || {};
-        return attributeDetails[attributeName] || {};
+        let localAttributeDetailsForAttribute = {};
+        if(attributeName in attributeDetails) {
+          localAttributeDetailsForAttribute = attributeDetails[attributeName];
+        }
+
+        const attributeDetailsForAttribute = {};
+        Object.assign(attributeDetailsForAttribute, globalAttributeDetailsForAttribute);
+        Object.assign(attributeDetailsForAttribute, aliasAttributeDetailsForAttribute);
+        Object.assign(attributeDetailsForAttribute, localAttributeDetailsForAttribute);
+        return attributeDetailsForAttribute;
       };
 
       // details about the Name attribute can be used for instance creation
@@ -77,7 +88,7 @@ define(['utils/modeledit/metadata/all-metadata'],
         return metadata['noSelect'];
       };
 
-      this.getNameValidators = aliasPath => {
+      this.getNameValidators = (/*aliasPath*/) => {
         return [];  // TODO: implement this when needed
       };
 
