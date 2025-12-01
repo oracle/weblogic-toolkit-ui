@@ -82,6 +82,12 @@ function addPaths(aliasFolder, path, pathMap) {
   for(const [key, value] of Object.entries(aliasFolder['attributes'])) {
     const firstValue = value[0];
 
+    // WDT quirk since the Topology Name field is the field used to get/set the domain name...
+    //
+    if (path === 'Topology' && key === 'Name') {
+      delete firstValue['access'];
+    }
+
     const access = firstValue['access'];  // exclude online+offline IGNORED attributes
     if(access === 'IGNORED') {
       continue;

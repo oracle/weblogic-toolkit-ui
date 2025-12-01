@@ -61,6 +61,7 @@
           {
             "type": "attributes",
             "attributes": [
+              "Name",
               "AdminServerName",
               "ProductionModeEnabled",
               "AdministrationPortEnabled",
