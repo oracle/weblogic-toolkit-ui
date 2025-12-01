@@ -4371,6 +4371,7 @@
   "f-WTCServer_WTCRemoteTuxDom-a-NWAddr-help": "The network address and port number of this remote Tuxedo access point.  Specify the address in either TCP/IP or SDP format",
 
   "a-Name-label": "Name",
+  "f-Topology-a-Name-help": "Specifies the domain name.",
 
   "a-NameCallbackAllowed-label": "Name Callback Allowed",
   "f-any_DefaultAuthenticator-a-NameCallbackAllowed-help": "Specifies whether the provider is allowed to get the user name from a NameCallback versus getting the user name (and identity domain) from an IdentityDomainUserCallback when the provider is configured with an identity domain.",
