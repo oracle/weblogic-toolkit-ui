@@ -16,7 +16,12 @@ function (MessageHelper, AliasHelper, MetaHelper,
 
     // modelPath should end with type name, like /topology/Server
     this.getNewInstanceName = (modelPath, model) => {
-      const typeName = modelPath[modelPath.length - 1];
+      let typeName = MessageHelper.getFolderTypeLabel(modelPath);
+      if (typeName) {
+        typeName = typeName.replace(/ /g, '');
+      } else {
+        typeName = modelPath[modelPath.length - 1];
+      }
       const modelFolder = ModelEditHelper.getFolder(modelPath, model);
       const instanceKeys = Object.keys(modelFolder);
       let i = 1;
