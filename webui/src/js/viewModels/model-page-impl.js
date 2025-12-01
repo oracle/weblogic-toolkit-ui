@@ -5,30 +5,13 @@
  */
 define([],
   function () {
-    function ModelPageImpl(args, accUtils, ko, i18n, ModuleRouterAdapter, ArrayDataProvider, validator, preparer, viewHelper, project, wktLogger) {
-
-      let subscriptions = [];
+    function ModelPageImpl(args, accUtils, ko, i18n, ModuleRouterAdapter, ArrayDataProvider, validator, preparer) {
 
       this.connected = () => {
         accUtils.announce('Model page loaded.', 'assertive');
-        if (project.wdtModel.internal.displayNewModelEditorTab.observable() === undefined) {
-          wktLogger.debug('displayNewModelEditorTab.observable() is undefined so creating a subscription');
-          subscriptions.push(project.wdtModel.internal.displayNewModelEditorTab.observable.subscribe((newValue) => {
-            wktLogger.debug('displayNewModelEditorTab.observable() value changed to %s', newValue);
-            if (newValue === false) {
-              this.navData.pop();
-            }
-          }));
-        } else if (project.wdtModel.internal.displayNewModelEditorTab.observable() === false) {
-          wktLogger.debug('displayNewModelEditorTab.observable() is false so popping the tab');
-          this.navData.pop();
-        }
       };
 
       this.disconnected = () => {
-        subscriptions.forEach((subscription) => {
-          subscription.dispose();
-        });
       };
 
       // Setup for Design / Code tab selection.
@@ -36,8 +19,7 @@ define([],
       const _navData = [
         {path: '', redirect: 'model-design-view'},
         {path: 'model-design-view', detail: {label: i18n.t('page-design-view')}},
-        {path: 'model-code-view', detail: {label: i18n.t('page-code-view')}},
-        {path: 'model-edit-view', detail: {label: i18n.t('page-edit-view')}}
+        {path: 'model-code-view', detail: {label: i18n.t('page-code-view')}}
       ];
 
       this.navData = ko.observableArray(_navData.slice(1));
@@ -71,28 +53,6 @@ define([],
       this.selectedItem.subscribe((newValue) => {
         router.go({path: newValue});
       });
-
-      this.disableSearch = ko.observable(false);
-      this.enterKeyPressedInSearchInput = (event) => {
-        if (event.detail.originalEvent.keyCode === 13) {
-          this.searchModel();
-        }
-      };
-
-      this.searchModel = () => {
-        const searchModelElement = document.getElementById('modelDesignSearchInput');
-        if (searchModelElement && searchModelElement.value) {
-          wktLogger.debug('found modelDesignSearchInput with value %s', searchModelElement.value);
-          const payload = {
-            bubbles: true,
-            detail: {
-              value: searchModelElement.value
-            }
-          };
-          wktLogger.debug('dispatched searchModel event with payload %s', payload);
-          viewHelper.dispatchEventFromRootElement(new CustomEvent('searchModel', payload));
-        }
-      };
     }
 
     /*

@@ -44,11 +44,7 @@ define(['knockout', 'utils/common-utilities', 'utils/observable-properties', 'js
         // internal values that are implemented as properties, but are excluded from default serialization
 
         this.internal = {
-          wlRemoteConsolePort: ko.observable(),
-          wlRemoteConsoleHome: props.createProperty(window.api.ipc.invoke('wrc-get-home-default-value')),
-          wlRemoteConsoleLogLevel: undefined,
-          propertiesContent: createPropertiesObject({}),
-          displayNewModelEditorTab: props.createProperty(window.api.ipc.invoke('get-show-new-model-editor-tab'))
+          propertiesContent: createPropertiesObject({})
         };
 
         this.archiveRoots = ko.observableArray();

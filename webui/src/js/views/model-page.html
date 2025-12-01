@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ Copyright (c) 2021, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 <div id="modelPage" class="wkt-content-layout">
@@ -15,23 +15,6 @@
         </li>
       </template>
     </oj-tab-bar>
-    <oj-bind-if test="[[inDesignView() === true]]">
-      <oj-input-text id="modelDesignSearchInput"
-                     disabled="[[disableSearch]]"
-                     on-value-changed="[[enterKeyPressedInSearchInput]]"
-                     label-hint="[[labelMapper('design-view-search-label')]]">
-        <oj-button
-                id="searchModelButton"
-                disabled="[[disableSearch]]"
-                slot="end"
-                display="icons"
-                chroming="borderless"
-                on-oj-action="[[searchModel]]">
-          <span slot="endIcon" class="oj-ux-ico-search" role="img"></span>
-          <oj-bind-text value="[[labelMapper('design-view-search-tooltip')]]"></oj-bind-text>
-        </oj-button>
-      </oj-input-text>
-    </oj-bind-if>
 
     <oj-button id="validateModelButton"
                disabled="[[disableValidate]]"

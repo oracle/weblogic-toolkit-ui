@@ -14,15 +14,13 @@ const modelEditUtils = require('./modelEdit/modelEditUtils');
 const WktApp = require('./wktApp');
 const osUtils = require('./osUtils');
 const i18n = require('./i18next.webui.config');
-const { compareVersions, getMinorVersionCompatibilityVersionString } = require('./versionUtils');
-const { wlRemoteConsoleFrontendVersion } = require('../webui.json');
+const { compareVersions } = require('./versionUtils');
 
 const wktApp = new WktApp();
 
 const exeMode = osUtils.getArgv('--wktMode');
 const language = osUtils.getArgv('--lang');
 const mainModule = osUtils.getArgv('--mainModule');
-const wrcFrontendCompatibilityVersion = getMinorVersionCompatibilityVersionString(wlRemoteConsoleFrontendVersion);
 
 i18n.changeLanguage(language).then();
 
@@ -56,7 +54,6 @@ contextBridge.exposeInMainWorld(
           'project-created',
           'project-opened',
           'project-saved',
-          'set-wrc-backend-port',
           'start-add-model-file',
           'start-add-variable-file',
           'start-add-archive-file',
@@ -105,7 +102,6 @@ contextBridge.exposeInMainWorld(
           'get-https-proxy-url',
           'get-bypass-proxy-hosts',
           'get-divider-locations',
-          'get-show-new-model-editor-tab',
           'get-navigation-collapsed',
           'get-additional-image-build-commands-file',
           'get-additional-image-build-files',
@@ -124,7 +120,6 @@ contextBridge.exposeInMainWorld(
           'get-latest-wko-version-number',
           'get-wko-release-versions',
           'get-archive-entry-types',
-          'wrc-get-archive-entry',
           'get-network-settings',
           'choose-archive-file',
           'choose-archive-entry-file',
@@ -215,10 +210,6 @@ contextBridge.exposeInMainWorld(
           'openssl-generate-certs',
           'validate-k8s-namespaces-exist',
           'validate-wko-domain-exist',
-          'get-wrc-home-directory',
-          'get-wrc-app-image',
-          'wrc-get-home-default-value',
-          'wrc-set-home-and-start',
           'get-alias-info',  // model edit
           'get-model-edit-message-keys', // model edit
           'get-external-tools-staging-directory-location'
@@ -243,10 +234,6 @@ contextBridge.exposeInMainWorld(
       joinAndConvertToUnixPath: (...paths) => path.join(...paths).replaceAll('\\', '/'),
       delimiter: path.delimiter,
       isValidFileName: (fileName) => fsUtils.isValidFileName(fileName),
-      // These three functions are used by wrc-jet-pack
-      exists: (filePath) => fsUtils.exists(filePath),
-      isFile: (filePath) => fsUtils.isFile(filePath),
-      isDirectory: (filePath) => fsUtils.isDirectory(filePath)
     },
     'k8s': {
       getDockerFilePath: () => fsUtils.getExecutableFilePath('docker', exeMode),
@@ -283,8 +270,7 @@ contextBridge.exposeInMainWorld(
       generateUuid: () => uuid.v4(),
       compareVersions: (version, otherVersion) => compareVersions(version, otherVersion),
       getErrorMessage: (err) => errorUtils.getErrorMessage(err),
-      mainModule: mainModule,
-      wrcFrontendCompatibilityVersion: wrcFrontendCompatibilityVersion,
+      mainModule: mainModule
     }
   }
 );

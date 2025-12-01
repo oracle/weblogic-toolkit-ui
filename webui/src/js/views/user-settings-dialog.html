@@ -62,27 +62,6 @@
     </oj-bind-if>
 
     <div class="oj-panel">
-      <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('wrc-section-title')]]"></oj-bind-text></h6>
-      <oj-form-layout max-columns="1" direction="row">
-        <oj-input-text label-hint="[[labelMapper('wrc-home-label')]]"
-                       value="{{wlRemoteConsoleHome}}"
-                       help.instruction="[[getWebLogicRemoteConsoleHomeHelp()]]">
-          <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[chooseWebLogicRemoteConsoleHomeDirectory]]">
-            <span slot="endIcon" class="oj-ux-ico-folder" role="img"></span>
-            <oj-bind-text value="[[labelMapper('wrc-home-tooltip')]]"></oj-bind-text>
-          </oj-button>
-          <oj-bind-if test="[[isLinux() === true]]">
-            <oj-button slot="end" display="icons" chroming="borderless" on-oj-action="[[chooseWebLogicRemoteConsoleAppImage]]">
-              <span slot="endIcon" class="oj-ux-ico-file-bin" role="img"></span>
-              <oj-bind-text value="[[labelMapper('wrc-appimage-tooltip')]]"></oj-bind-text>
-            </oj-button>
-          </oj-bind-if>
-        </oj-input-text>
-        <div></div>
-      </oj-form-layout>
-    </div>
-
-    <div class="oj-panel">
       <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('logging-section-title')]]"></oj-bind-text></h6>
       <oj-form-layout max-columns="1" direction="row">
         <oj-bind-if test="[[isDevMode() === true]]">
