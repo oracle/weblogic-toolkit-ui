@@ -4755,7 +4755,7 @@
   "a-PolicyDeploymentEnabled-help": "Specifies whether this Authorization provider stores policies that are created while deploying a Web application or EJB.",
 
   "a-PolicySelectionPreference-label": "Policy Selection Preference",
-  "f-WebserviceSecurity-a-PolicySelectionPreference-help": "Specifies the value of the PolicySelectionPreference attribute. f NONE is specified, no preference is applied - the first policy alternative is always chosen, and optional policy assertions are ignored.",
+  "f-WebserviceSecurity-a-PolicySelectionPreference-help": "Specifies the value of the PolicySelectionPreference attribute. If NONE is specified, no preference is applied - the first policy alternative is always chosen, and optional policy assertions are ignored.",
 
   "a-PollingInterval-label": "Polling Interval",
   "a-PollingInterval-help": "The frequency (in seconds) that WebLogic Server checks the attribute value.  The default value is 10.",
