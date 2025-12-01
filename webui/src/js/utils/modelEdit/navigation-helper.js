@@ -5,10 +5,10 @@
  */
 'use strict';
 
-define(['knockout', 'utils/modeledit/navigation/all-navigation', 'utils/modelEdit/model-edit-helper',
-  'utils/modelEdit/alias-helper', 'utils/modelEdit/meta-helper', 'utils/modelEdit/message-helper',
-  'ojs/ojarraytreedataprovider'],
-function (ko, allNavigation, ModelEditHelper, AliasHelper, MetaHelper, MessageHelper, ArrayTreeDataProvider) {
+define(['knockout', 'models/wkt-project', 'utils/modeledit/navigation/all-navigation',
+  'utils/modelEdit/model-edit-helper', 'utils/modelEdit/alias-helper', 'utils/modelEdit/meta-helper',
+  'utils/modelEdit/message-helper', 'ojs/ojarraytreedataprovider'],
+function (ko, WktProject, allNavigation, ModelEditHelper, AliasHelper, MetaHelper, MessageHelper, ArrayTreeDataProvider) {
 
   function NavigationHelper() {
     // maintain and update the navigation state
@@ -44,9 +44,13 @@ function (ko, allNavigation, ModelEditHelper, AliasHelper, MetaHelper, MessageHe
       ModelEditHelper.modelObject.subscribe(this.updateFromModel);
 
       if(!this.menuKey()) {  // if no previous selection, select first nav entry
-        const firstNavEntry = allNavigation[0];
-        this.navigateToElement(firstNavEntry.modelPath).then();
+        this.selectDefault();
       }
+
+      // if a new project is loaded, go to default menu item
+      WktProject.postOpen.subscribe(() => {
+        this.selectDefault();
+      });
 
       initialized = true;
     };
@@ -55,6 +59,11 @@ function (ko, allNavigation, ModelEditHelper, AliasHelper, MetaHelper, MessageHe
     AliasHelper.aliasDataLoaded.subscribe(() => {
       this.initialize();
     });
+
+    this.selectDefault = () => {
+      const firstNavEntry = allNavigation[0];
+      this.navigateToElement(firstNavEntry.modelPath).then();
+    };
 
     // set the content path when menu selection changes
     this.menuItemSelected = () => {
