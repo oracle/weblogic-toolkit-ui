@@ -48,6 +48,10 @@
       "ConnectTimeout": {
         "validators": [ "range(0,240)" ]
       },
+      "CustomIdentityKeyStoreFileName": {
+        "archiveTypes": ["serverKeystore"],
+        "segregateFolder": "Server"
+      },
       "CustomIdentityKeyStoreType": {
         "optionsMatch": "upper",
         "options": [
@@ -55,6 +59,10 @@
           { "value": "PKCS12", "label": "PKCS12" },
           { "value": "KSS", "labelKey": "options-key-store-service-label" }
         ]
+      },
+      "CustomTrustKeyStoreFileName": {
+        "archiveTypes": ["serverKeystore"],
+        "segregateFolder": "Server"
       },
       "CustomTrustKeyStoreType": {
         "optionsMatch": "upper",

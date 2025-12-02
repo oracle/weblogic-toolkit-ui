@@ -8,7 +8,8 @@
         "disabled": "nodeManagerCustomIdentityFields"
       },
       "CustomIdentityKeyStoreFileName": {
-        "disabled": "nodeManagerCustomIdentityFields"
+        "disabled": "nodeManagerCustomIdentityFields",
+        "archiveTypes": ["nodeManagerKeystore"]
       },
       "CustomIdentityKeyStorePassPhrase": {
         "disabled": "nodeManagerCustomIdentityFields"
