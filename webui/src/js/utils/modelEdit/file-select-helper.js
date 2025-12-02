@@ -28,6 +28,7 @@ function (DialogHelper, WktLogger, ArchiveHelper, MessageHelper) {
 
         const archiveType = archiveTypes[archiveTypeKey];
         const subtype = archiveType.subtype;
+        const segregateName = getSegregateName(attribute);
 
         if (['file', 'either'].includes(subtype)) {
           selectOptions.push({
@@ -36,7 +37,8 @@ function (DialogHelper, WktLogger, ArchiveHelper, MessageHelper) {
             extensions: archiveType.extensions,
             archiveType: archiveTypeKey,
             segregateLabel: archiveType.segregatedLabel,
-            segregateHelp: archiveType.segregatedHelp
+            segregateHelp: archiveType.segregatedHelp,
+            segregateName
           });
         }
 
@@ -46,7 +48,26 @@ function (DialogHelper, WktLogger, ArchiveHelper, MessageHelper) {
             label: archiveType.dirLabel,
             archiveType: archiveTypeKey,
             segregateLabel: archiveType.segregatedLabel,
-            segregateHelp: archiveType.segregatedHelp
+            segregateHelp: archiveType.segregatedHelp,
+            segregateName
+          });
+        }
+
+        if('emptyDir' === subtype) {
+          // bypass file selection and add to archive
+          selectOptions.push({
+            type: 'emptyDir',
+            labelKey: 'file-select-archive-empty-dir',
+            archiveType: archiveTypeKey,
+            segregateLabel: archiveType.segregatedLabel,
+            segregateHelp: archiveType.segregatedHelp,
+            segregateName
+          });
+
+          // simple file select with no archive option
+          selectOptions.push({
+            type: 'dir',
+            selectEmptyDir: true  // provide detailed description on dialog
           });
         }
       });
@@ -66,7 +87,7 @@ function (DialogHelper, WktLogger, ArchiveHelper, MessageHelper) {
       // ensure labels are assigned
       selectOptions.forEach(selectOption => {
         const selectType = selectOption.type;
-        if(!['file', 'dir'].includes(selectType)) {
+        if(!['file', 'dir', 'emptyDir'].includes(selectType)) {
           WktLogger.error('Invalid selection type: ' + selectType);
           return;  // cancel
         }
@@ -92,40 +113,88 @@ function (DialogHelper, WktLogger, ArchiveHelper, MessageHelper) {
 
       // IPC call to select file or directory based on selected option
 
-      const fileChosen = await ArchiveHelper.chooseAttributeFile(selectOption, currentValue);
-      if(!fileChosen) {  // no return value indicates cancel
-        return;
-      }
+      let addToArchive = false;
+      let segregateName = selectOption.segregateName;
+      let emptyDirName = null;
+      let fileType = null;
+      let fileChosen = null;
 
-      // ask about archive if archive path present
+      if(selectOption.type === 'emptyDir') {
+        addToArchive = true;
+        emptyDirName = getEmptyDirName(attribute);
 
-      let attributePath = fileChosen;
-      if(selectOption.archiveType) {
-        const args = { fileChosen, attribute, selectOption };
-        const archiveResult = await DialogHelper.promptDialog('modelEdit/file-archive-dialog', args);
-        if(!archiveResult) {
+      } else {
+        fileType = selectOption.type;
+        fileChosen = await ArchiveHelper.chooseAttributeFile(selectOption, currentValue);
+        if (!fileChosen) {  // no return value indicates cancel
           return;
         }
 
-        if(archiveResult.addToArchive) {
-          const addOptions = {
-            segregatedName: archiveResult.segregateName,
-            fileName: fileChosen,
-            fileType: selectOption.type
-          };
-
-          const addResult = await ArchiveHelper.addToArchive(selectOption.archiveType, addOptions);
-
-          // TODO: check exceptions?
-
-          if(addResult) {
-            attributePath = addResult;
+        // ask about archive if archive path present
+        if (selectOption.archiveType) {
+          const args = {fileChosen, attribute, selectOption};
+          const archiveResult = await DialogHelper.promptDialog('modelEdit/file-archive-dialog', args);
+          if (!archiveResult) {  // cancel
+            return;
           }
+          addToArchive = archiveResult.addToArchive;
+          segregateName = archiveResult.segregateName;
+        }
+      }
+
+      let attributePath = fileChosen;
+
+      if(addToArchive) {
+        const addOptions = {
+          segregatedName: segregateName,
+          emptyDirName,
+          fileName: fileChosen,
+          fileType
+        };
+
+        const addResult = await ArchiveHelper.addToArchive(selectOption.archiveType, addOptions);
+
+        if(addResult) {
+          attributePath = addResult;
         }
       }
 
       return attributePath;
     };
+
+    // try to determine segregate mame
+    function getSegregateName(attribute) {
+      const segregateName = attribute.segregateName;
+      if(segregateName) {
+        return segregateName;
+      }
+
+      const segregateFolder = attribute.segregateFolder;
+      if(segregateFolder) {
+        const modelPath = attribute.path;
+        const folderIndex = modelPath.indexOf(segregateFolder);
+        return (folderIndex === -1) ? null : modelPath[folderIndex + 1];
+      }
+
+      return null;
+    }
+
+    // try to determine empty dir mame
+    function getEmptyDirName(attribute) {
+      const emptyDirName = attribute.emptyDirName;
+      if(emptyDirName) {
+        return emptyDirName;
+      }
+
+      const emptyDirFolder = attribute.emptyDirFolder;
+      if(emptyDirFolder) {
+        const modelPath = attribute.path;
+        const folderIndex = modelPath.indexOf(emptyDirFolder);
+        return (folderIndex === -1) ? null : modelPath[folderIndex + 1];
+      }
+
+      return null;
+    }
   }
 
   return new FileSelectHelper();

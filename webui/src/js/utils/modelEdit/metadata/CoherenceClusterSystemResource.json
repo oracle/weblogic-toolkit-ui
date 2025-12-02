@@ -325,13 +325,38 @@
   },
   "CoherenceClusterSystemResource/CoherenceResource/CoherencePersistenceParams": {
     "attributeDetails": {
-      "FederationTopology": {
+      "ActiveDirectory": {
+        "archiveTypes": ["coherencePersistenceDirectory"],
+        "segregateFolder": "CoherenceClusterSystemResource",
+        "emptyDirName": "active"
+      },
+      "BackupDirectory": {
+        "archiveTypes": ["coherencePersistenceDirectory"],
+        "segregateFolder": "CoherenceClusterSystemResource",
+        "emptyDirName": "backup"
+      },
+      "EventsDirectory": {
+        "archiveTypes": ["coherencePersistenceDirectory"],
+        "segregateFolder": "CoherenceClusterSystemResource",
+        "emptyDirName": "events"
+      },
+      "DefaultPersistenceMode": {
         "options": [
           { "value": "on-demand", "labelKey": "options-on-demand-label" },
           { "value": "active", "labelKey": "options-active-label" },
           { "value": "active-backup", "labelKey": "options-active-backup-label" },
           { "value": "active-async", "labelKey": "options-active-async-label" }
         ]
+      },
+      "SnapshotDirectory": {
+        "archiveTypes": ["coherencePersistenceDirectory"],
+        "segregateFolder": "CoherenceClusterSystemResource",
+        "emptyDirName": "snapshot"
+      },
+      "TrashDirectory": {
+        "archiveTypes": ["coherencePersistenceDirectory"],
+        "segregateFolder": "CoherenceClusterSystemResource",
+        "emptyDirName": "trash"
       }
     },
     "sections": [

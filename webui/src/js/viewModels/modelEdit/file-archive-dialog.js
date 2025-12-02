@@ -51,13 +51,7 @@ function(accUtils, ko, MessageHelper, AliasHelper, viewHelper) {
 
     this.archiveOption = ko.observable(true);
 
-    // try to determine segregateName
-    let segregateName = null;
-    const segregateFolder = ATTRIBUTE.segregateFolder;
-    if(segregateFolder) {
-      const folderIndex = MODEL_PATH.indexOf(segregateFolder);
-      segregateName = (folderIndex === -1) ? null : MODEL_PATH[folderIndex + 1];
-    }
+    const segregateName = SELECT_OPTION.segregateName;
 
     // may need to request the segregate name
     this.showSegregate = SELECT_OPTION.segregateLabel && !segregateName;
