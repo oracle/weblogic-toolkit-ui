@@ -393,6 +393,8 @@
 
   "wdt-archiveType-coherenceStore": "Coherence Persistence Directory",
   "wdt-archiveType-coherenceStore-activeLabel": "Active",
+  "wdt-archiveType-coherenceStore-backupLabel": "Backup",
+  "wdt-archiveType-coherenceStore-eventsLabel": "Events",
   "wdt-archiveType-coherenceStore-snapshotLabel": "Snapshot",
   "wdt-archiveType-coherenceStore-trashLabel": "Trash",
   "wdt-archiveType-coherenceStore-emptyDirLabel": "Coherence Persistence Directory Name",
