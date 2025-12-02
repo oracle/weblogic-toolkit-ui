@@ -328,10 +328,22 @@ function (ko, i18n, AliasHelper) {
     function hasAssignedAttributeMessage(attribute, suffix, aliasPath) {
       // look for attribute-specific message only
       const key = getAttributeKey(attribute.name);
+      const lastFolder = aliasPath[aliasPath.length - 1];
       const folderPrefix = getFolderPrefix(aliasPath);
-      const folderAttributeKey = `${folderPrefix}-a-${key}-${suffix}`;
-      const attributeKey = `a-${key}-${suffix}`;
-      return messageKeys.includes(folderAttributeKey) || messageKeys.includes(attributeKey);
+
+      const matchKeys = [
+        `${folderPrefix}-a-${key}-${suffix}`,      // specific to folder + attribute
+        `f-any_${lastFolder}-a-${key}-${suffix}`,  // specific to last folder + attribute
+        `a-${key}-${suffix}`,                      // specific to attribute
+        `${folderPrefix}-a-any-${suffix}`          // specific to folder
+      ];
+
+      for (const matchKey of matchKeys) {
+        if(messageKeys.includes(matchKey)) {
+          return true;
+        }
+      }
+      return false;
     }
 
     function getReadableLabel(name) {

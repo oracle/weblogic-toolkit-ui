@@ -194,13 +194,6 @@
   "user-settings-dialog-github-auth-token-label": "GitHub Token",
   "user-settings-dialog-github-auth-token-help": "The GitHub token used to make GitHub API calls.  This token needs no special permissions since it is only used to read data that is already public.  It is simply used to increase the GitHub API rate limit on API calls by associating them with a user account instead of them being anonymous.",
 
-  "user-settings-dialog-wrc-section-title": "WebLogic Remote Console Configuration",
-  "user-settings-dialog-wrc-home-label": "WebLogic Remote Console Install Location",
-  "user-settings-dialog-wrc-home-macos-help": "The location of the WebLogic Remote Console.app, typically /Applications/WebLogic Remote Console.app.",
-  "user-settings-dialog-wrc-home-windows-help": "The location of the WebLogic Remote Console installation directory.",
-  "user-settings-dialog-wrc-home-linux-help": "The location of the WebLogic Remote Console installation.  For RPM or DEB installers, this will typically be /opt/WebLogic Remote Console.  If using the AppImage, simply point to the AppImage file directly.",
-  "user-settings-dialog-wrc-home-tooltip": "Choose the WebLogic Remote Console Install Directory",
-  "user-settings-dialog-wrc-appimage-tooltip": "Choose the WebLogic Remote Console AppImage File",
   "user-settings-dialog-external-tools-section-title": "AppImage WKT Tools Configuration",
   "user-settings-dialog-external-tools-staging-directory-label": "WKT Tools External Staging Directory",
   "user-settings-dialog-external-tools-staging-directory-help": "When running the AppImage binary, WKT Tools can only be updated using a writable directory outside of the binary.",
@@ -230,15 +223,6 @@
   "dialog-about-version": "Version {{version}} ({{buildVersion}})",
 
   "model-design-form-name": "Model",
-  "model-design-wrc-form-title": "WebLogic Remote Console Integration",
-  "model-design-wrc-home-label": "WebLogic Remote Console Install Location",
-  "model-design-wrc-install-description": "The Model Design View is provided through integration with the WebLogic Remote Console.  Install the WebLogic Remote Console on the local machine and use the form below to provide its location and start the daemon process with which the UI will communicate.  Note that this version of the WebLogic Kubernetes Toolkit UI requires version {{wrcVersion}} of the WebLogic Remote Console.",
-  "model-design-wrc-install-location-prefix": "Download and run the appropriate installer for your machine from the GitHub",
-  "model-design-wrc-link-text": "WebLogic Remote Console Releases",
-  "model-design-wrc-install-location-postfix": "page.",
-  "model-design-wrc-start-description": "After the WebLogic Remote Console is installed, set the WebLogic Remote Console Install Location field below accordingly and click Start WebLogic Remote Console.",
-  "model-design-button-startWebLogicRemoteConsole": "Start WebLogic Remote Console",
-  "model-design-hints-startWebLogicRemoteConsole": "Start the WebLogic Remote Console backend process",
 
   "model-code-form-name": "Code View tab of the Model",
   "image-page-hints-createImage": "Create Primary Image",
@@ -1407,8 +1391,6 @@
   "domain-creation-image-pusher-create-failed-title":"Push Image Failed",
   "domain-creation-image-pusher-create-failed-error-message":"Unable to push image {{imageTag}}: {{error}}.",
 
-  "model-page-design-view-search-label": "Search Model",
-  "model-page-design-view-search-tooltip": "Search Model",
   "model-page-button-validateModel": "Validate Model",
   "model-page-hints-validateModel": "Validate Model Files",
   "model-page-button-prepareModel": "Prepare Model",
@@ -1801,10 +1783,9 @@
   "quickstart-page5-list2-item-2": "Use the Model section to create new or edit existing model-related files.",
 
   "quickstart-page6-title": "Model Design View Page Anatomy",
-  "quickstart-page6-list-heading": "The Model Design View page allows the WebLogic Remote Console {{wrcVersion}} to provide a familiar graphical interface for viewing and editing the model-related files.",
+  "quickstart-page6-list-heading": "The Model Design View page provides a graphical interface for viewing and editing the model-related files.",
   "quickstart-page6-list-item-1": "On the left side is the Navigation bar that supports navigating into different areas of the model.",
   "quickstart-page6-list-item-2": "The right side shows the model content for the selected part of the model to add, remove, or edit model objects and values.",
-  "quickstart-page6-list-item-3": "Above the right side model content, the Search Model control provides access to the WebLogic Remote Console search functionality for locating objects in the model.",
   "quickstart-page6-paragraph-1": "In the action button bar, the Prepare Model button (or the Go menu item) optimizes the model for Kubernetes deployment.",
   "quickstart-page6-paragraph-2": "When running certain actions, such as Prepare Model, the collapsed Console panel automatically appears and displays the stdout and stderr streams.",
 
@@ -1873,14 +1854,6 @@
   "archive-type-SERVER_KEYSTORE": "Server Key Stores",
   "archive-type-SHARED_LIBRARIES": "Shared Libraries",
   "archive-type-SHLIB_PLAN": "Shared Library Plans",
-
-  "wrc-wdt-archive-add-empty-wrc-type-error": "Failed to add to archive because the WebLogic Remote Console entry type was empty.",
-  "wrc-wdt-archive-add-bad-wrc-type-error": "Failed to add to archive because the WebLogic Remote Console entry type {{wrcType}} was not known.",
-  "wrc-wdt-archive-add-empty-file-path-error": "Failed to add to archive because WebLogic Remote Console entry type {{wrcType}} requires a non-empty file path.",
-  "wrc-wdt-archive-add-failed-error": "Failed to add WebLogic Remote Console entry type {{wrcType}} to archive: {{error}}",
-  "wrc-wdt-archive-remove-empty-path-error": "Failed to remove from archive because the archive path was empty.",
-  "wrc-wdt-archive-remove-failed-to-match-path-error": "Failed to remove {{archivePath}} from the archive because an error occurred while trying to match the path to its archive entry: {{error}}.",
-  "wrc-wdt-archive-remove-no-matching-node-error": "Failed to match WRC archive path {{archivePath}}'",
 
   "wkt-project-verrazzano-removal-warning": "WKTUI 2.0 has removed support for Verrazzano so the project has been converted to remove all Verrazzano-related fields.",
   "wkt-project-keytar-removal-warning": "WKTUI 2.0 has removed support for the native credential store due to the deprecation of the keytar JavaScript library so the project has been updated to use the credential manager that stores encrypted credentials in the project file.",

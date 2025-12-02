@@ -34,14 +34,6 @@ module.exports = function (configObj) {
       }
     }
 
-    // Write the webui.json file that contains data
-    // that the electron side needs during startup.
-    //
-    const webuiJsonCreated = await generateWebuiJsonFile();
-    if (webuiJsonCreated) {
-      await moveFileToDirectory(webuiJsonFile, targetDirectory);
-    }
-
   	if (configObj.buildType === 'release') {
   	  console.log('Consolidating files for building the release');
   	  for (const sourceDirectory of sourceDirectories) {
@@ -95,38 +87,4 @@ async function isDirectory(testPath) {
   });
 
   return !result ? result: result.isDirectory();
-}
-
-async function generateWebuiJsonFile() {
-  const contents = {
-    // This default value should never be required once the npm dependency actually exists.
-    wlRemoteConsoleFrontendVersion: getRemoteConsoleFrontendVersion() || '2.3.0',
-  };
-
-  if (!existsSync(targetDirectory)) {
-    await mkdir(targetDirectory);
-  }
-
-  return new Promise((resolve) => {
-    fsPromises.writeFile(webuiJsonFile, JSON.stringify(contents, null, 2), {
-      encoding: 'utf8',
-      mode: 0o644
-    }).then(() => {
-      resolve(true)
-    }).catch(err => {
-      console.error(`Failed to write ${webuiJsonFile} file: ${err}`);
-      resolve(false);
-    });
-  });
-}
-
-function getRemoteConsoleFrontendVersion() {
-  let version;
-  try {
-    const packageLock = require('../../package-lock.json');
-    version = packageLock?.packages?.['node_modules/@oracle/wrc-jet-pack']?.version;
-  } catch {
-    // fall through to return undefined...
-  }
-  return version;
 }
