@@ -65,6 +65,8 @@ function getEntryTypes() {
       subtype: 'emptyDir',
       subtypeChoices: [
         { name: 'active', label: i18n.t('wdt-archiveType-coherenceStore-activeLabel')},
+        { name: 'backup', label: i18n.t('wdt-archiveType-coherenceStore-backupLabel')},
+        { name: 'events', label: i18n.t('wdt-archiveType-coherenceStore-eventsLabel')},
         { name: 'snapshot', label: i18n.t('wdt-archiveType-coherenceStore-snapshotLabel')},
         { name: 'trash', label: i18n.t('wdt-archiveType-coherenceStore-trashLabel')}
       ],
