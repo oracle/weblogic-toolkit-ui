@@ -123,7 +123,7 @@ define(['knockout', 'utils/wkt-logger', 'utils/modelEdit/model-edit-helper'],
         const methodOrder = attributeMap['MethodOrder'];
         return ko.computed(() => {
           const order = ModelEditHelper.getDerivedValue(methodOrder.observable());
-          return order === undefined || order === 'OCSP';
+          return isUndefined(order) || order === 'OCSP';
         });
       };
 
@@ -135,7 +135,7 @@ define(['knockout', 'utils/wkt-logger', 'utils/modelEdit/model-edit-helper'],
         const methodOrder = attributeMap['MethodOrder'];
         return ko.computed(() => {
           const order = ModelEditHelper.getDerivedValue(methodOrder.observable());
-          return order === undefined || order === 'CRL';
+          return isUndefined(order) || order === 'CRL';
         });
       };
 
@@ -328,7 +328,7 @@ define(['knockout', 'utils/wkt-logger', 'utils/modelEdit/model-edit-helper'],
         const migrationBasis = attributeMap['MigrationBasis'];
         return ko.computed(() => {
           const basis = ModelEditHelper.getDerivedValue(migrationBasis.observable());
-          return basis !== undefined && basis !== 'database';
+          return !isUndefined(basis) && basis !== 'database';
         });
       };
 
@@ -344,7 +344,7 @@ define(['knockout', 'utils/wkt-logger', 'utils/modelEdit/model-edit-helper'],
         const clusterMessagingMode = attributeMap['ClusterMessagingMode'];
         return ko.computed(() => {
           const mode = ModelEditHelper.getDerivedValue(clusterMessagingMode.observable());
-          return mode !== undefined && mode !== 'unicast';
+          return !isUndefined(mode) && mode !== 'unicast';
         });
       };
 
@@ -435,7 +435,7 @@ define(['knockout', 'utils/wkt-logger', 'utils/modelEdit/model-edit-helper'],
         const archiveType = attributeMap['DiagnosticDataArchiveType'];
         return ko.computed(() => {
           const type = ModelEditHelper.getDerivedValue(archiveType.observable());
-          return type !== undefined && type !== 'FileStoreArchive';
+          return !isUndefined(type) && type !== 'FileStoreArchive';
         });
       };
 
@@ -475,7 +475,7 @@ define(['knockout', 'utils/wkt-logger', 'utils/modelEdit/model-edit-helper'],
         const persistenceStrategy = attributeMap['PersistenceStrategy'];
         return ko.computed(() => {
           const strategy = ModelEditHelper.getDerivedValue(persistenceStrategy.observable());
-          return strategy !== undefined && strategy !== 'LOCAL_ACCESS_ONLY';
+          return !isUndefined(strategy) && strategy !== 'LOCAL_ACCESS_ONLY';
         });
       };
 
@@ -507,12 +507,16 @@ define(['knockout', 'utils/wkt-logger', 'utils/modelEdit/model-edit-helper'],
         const fieldObservable = attributeMap[booleanAttributeName];
         return ko.computed(() => {
           let enabled = ModelEditHelper.getDerivedValue(fieldObservable.observable());
-          if (enabled === undefined && enableOnUndefined) {
+          if (isUndefined(enabled) && enableOnUndefined) {
             enabled = true;
           }
           return !enabled;
         });
       };
+
+      function isUndefined(value) {
+        return (value === undefined) || (value === null);
+      }
     }
 
     // return a singleton instance
