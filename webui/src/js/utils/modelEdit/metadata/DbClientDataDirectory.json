@@ -4,6 +4,9 @@
       "SourcePath": {}
     },
     "attributeDetails": {
+      "SourcePath": {
+        "archiveTypes": ["databaseWallet"]
+      },
       "StagingMode": {
         "options": [
           { "value": "stage", "labelKey": "staging-stage-label" },
