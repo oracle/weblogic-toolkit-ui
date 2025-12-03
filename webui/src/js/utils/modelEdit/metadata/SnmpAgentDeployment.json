@@ -15,6 +15,10 @@
           { "value": "SHA", "label": "SHA" }
         ]
       },
+      "EnabledServer": {
+        "editorType": "comboMulti",
+        "optionsMethod": "getManagedServerOptions"
+      },
       "InformRetryInterval": {
         "validators": [ "range(3000,30000)" ]
       },
@@ -134,8 +138,8 @@
           "AttributeMBeanName",
           "AttributeMBeanType",
           "AttributeName",
-          "Notes",
-          "EnabledServer"
+          "EnabledServer",
+          "Notes"
         ]
       },
       {
@@ -174,8 +178,8 @@
           "Offset",
           "Modulus",
           "Threshold",
-          "Notes",
-          "EnabledServer"
+          "EnabledServer",
+          "Notes"
         ]
       },
       {
@@ -213,8 +217,8 @@
           "PollingInterval",
           "ThresholdLow",
           "ThresholdHigh",
-          "Notes",
-          "EnabledServer"
+          "EnabledServer",
+          "Notes"
         ]
       },
       {
@@ -239,8 +243,8 @@
           "MessageId",
           "UserId",
           "MessageSubstring",
-          "Notes",
-          "EnabledServer"
+          "EnabledServer",
+          "Notes"
         ]
       },
       {
@@ -315,8 +319,8 @@
           "NotifyMatch",
           "NotifyDiffer",
           "StringToCompare",
-          "Notes",
-          "EnabledServer"
+          "EnabledServer",
+          "Notes"
         ]
       },
       {

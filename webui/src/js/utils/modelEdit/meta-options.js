@@ -97,11 +97,38 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
         return options;
       };
 
+      this.getPersistentStoreOptions = () => {
+        const options = [];
+        const persistentFileStoreNames = getInstanceNames(['resources', 'FileStore']);
+        persistentFileStoreNames.forEach(persistentFileStoreName => {
+          options.push({ value: persistentFileStoreName, label: persistentFileStoreName });
+        });
+        const persistentJdbcStoreNames = getInstanceNames(['resources', 'JDBCStore']);
+        persistentJdbcStoreNames.forEach(persistentJdbcStoreName => {
+          options.push({ value: persistentJdbcStoreName });
+        });
+        return options;
+      };
+
       this.getDataSourceOptions = () => {
         const options = [];
         const dataSourceNames = getInstanceNames(['resources', 'JDBCSystemResource']);
         dataSourceNames.forEach(dataSourceName => {
           options.push({ value: dataSourceName, label: dataSourceName });
+        });
+        return options;
+      };
+
+      this.getServerOptions = () => {
+        const adminServerName = getAdminServerName();
+        const options = [
+          { value: adminServerName, label: adminServerName },
+        ];
+        const serverNames = getInstanceNames(['topology', 'Server']);
+        serverNames.forEach(serverName => {
+          if (serverName !== adminServerName) {
+            options.push({ value: serverName, label: serverName });
+          }
         });
         return options;
       };
@@ -124,6 +151,18 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
         coherenceClusterNames.forEach(clusterName => {
           if (clusterName !== defaultCoherenceClusterName) {
             options.push({ value: clusterName, label: clusterName });
+          }
+        });
+        return options;
+      };
+
+      this.getManagedServerOptions = () => {
+        const adminServerName = getAdminServerName();
+        const options = [];
+        const serverNames = getInstanceNames(['topology', 'Server']);
+        serverNames.forEach(serverName => {
+          if (serverName !== adminServerName) {
+            options.push({ value: serverName, label: serverName });
           }
         });
         return options;
@@ -258,6 +297,142 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
 
       this.getJmsSystemResourceSAFRemoteContextOptions = (attribute) => {
         return getJmsSystemResourceTypeOptions(attribute, 'SAFRemoteContext');
+      };
+
+      this.getOdlHandlerOptions = (attribute) => {
+        const modelPath = attribute.path;
+        // [ 'resources', 'ODLConfiguration', <odl-config-name> ]
+        const odlConfigurationPath = modelPath.slice(0, 3);
+        const odlHandlerNames = getInstanceNames([...odlConfigurationPath, 'Handler']);
+        const options = [];
+        odlHandlerNames.forEach(handlerName => {
+          options.push({ value: handlerName, label: handlerName });
+        });
+        return options;
+      };
+
+      this.getCapacityOptions = () => {
+        const options = [];
+        const capacityConstraintNames = getInstanceNames(['resources', 'SelfTuning', 'Capacity']);
+        capacityConstraintNames.forEach(constraintName => {
+          options.push({ value: constraintName, label: constraintName });
+        });
+        return options;
+      };
+
+      this.getContextRequestClassOptions = () => {
+        const options = [];
+        const contextRequestClassNames = getInstanceNames(['resources', 'SelfTuning', 'ContextRequestClass']);
+        contextRequestClassNames.forEach(contextRequestClassName => {
+          options.push({ value: contextRequestClassName, label: contextRequestClassName });
+        });
+        return options;
+      };
+
+      this.getFairShareRequestClassOptions = () => {
+        const options = [];
+        const fairShareRequestClassNames = getInstanceNames(['resources', 'SelfTuning', 'FairShareRequestClass']);
+        fairShareRequestClassNames.forEach(className => {
+          options.push({ value: className, label: className });
+        });
+        return options;
+      };
+
+      this.getMaxThreadsConstraintOptions = () => {
+        const options = [];
+        const maxThreadsConstraintNames = getInstanceNames(['resources', 'SelfTuning', 'MaxThreadsConstraint']);
+        maxThreadsConstraintNames.forEach(constraintName => {
+          options.push({ value: constraintName, label: constraintName });
+        });
+        return options;
+      };
+
+      this.getMinThreadsConstraintOptions = () => {
+        const options = [];
+        const minThreadsConstraintNames = getInstanceNames(['resources', 'SelfTuning', 'MinThreadsConstraint']);
+        minThreadsConstraintNames.forEach(constraintName => {
+          options.push({ value: constraintName, label: constraintName });
+        });
+        return options;
+      };
+
+      this.getResponseTimeRequestClassOptions = () => {
+        const options = [];
+        const responseTimeRequestClassNames = getInstanceNames(['resources', 'SelfTuning', 'ResponseTimeRequestClass']);
+        responseTimeRequestClassNames.forEach(responseTimeRequestClassName => {
+          options.push({ value: responseTimeRequestClassName, label: responseTimeRequestClassName });
+        });
+        return options;
+      };
+
+      this.getFairShareOrResponseTimeRequestClassOptions = () => {
+        const options = [];
+        const fairShareRequestClassNames = getInstanceNames(['resources', 'SelfTuning', 'FairShareRequestClass']);
+        fairShareRequestClassNames.forEach(className => {
+          options.push({ value: className, label: className });
+        });
+        const responseTimeRequestClassNames = getInstanceNames(['resources', 'SelfTuning', 'ResponseTimeRequestClass']);
+        responseTimeRequestClassNames.forEach(className => {
+          options.push({ value: className, label: className });
+        });
+        return options;
+      };
+
+      this.wldfSystemResourceWatchNotificationActionOptions = (attribute) => {
+        const modelPath = attribute.path;
+        const wldfWatchNotificationPath = [ ...modelPath.slice(0, 4), 'WatchNotification'];
+        console.log(`wldfWatchNotificationPath: ${JSON.stringify(wldfWatchNotificationPath)}`);
+        const heapDumpActionNames = getInstanceNames([...wldfWatchNotificationPath, 'HeapDumpAction']);
+        const imageNotificationNames = getInstanceNames([...wldfWatchNotificationPath, 'ImageNotification']);
+        const jmsNotificationNames = getInstanceNames([...wldfWatchNotificationPath, 'JMSNotification']);
+        const jmxNotificationNames = getInstanceNames([...wldfWatchNotificationPath, 'JMXNotification']);
+        const logActionNames = getInstanceNames([...wldfWatchNotificationPath, 'LogAction']);
+        const restNotificationNames = getInstanceNames([...wldfWatchNotificationPath, 'RestNotification']);
+        const scaleDownActionNames = getInstanceNames([...wldfWatchNotificationPath, 'ScaleDownAction']);
+        const scaleUpActionNames = getInstanceNames([...wldfWatchNotificationPath, 'ScaleUpAction']);
+        const scriptActionNames = getInstanceNames([...wldfWatchNotificationPath, 'ScriptAction']);
+        const smtpNotificationNames = getInstanceNames([...wldfWatchNotificationPath, 'SMTPNotification']);
+        const snmpNotificationNames = getInstanceNames([...wldfWatchNotificationPath, 'SNMPNotification']);
+        const threadDumpActionNames = getInstanceNames([...wldfWatchNotificationPath, 'ThreadDumpAction']);
+
+        const options = [];
+        heapDumpActionNames.forEach(actionName => {
+          options.push({ value: actionName, label: actionName });
+        });
+        imageNotificationNames.forEach(imageNotificationName => {
+          options.push({ value: imageNotificationName, label: imageNotificationName });
+        });
+        jmsNotificationNames.forEach(jmsNotificationName => {
+          options.push({ value: jmsNotificationName, label: jmsNotificationName });
+        });
+        jmxNotificationNames.forEach(jmxNotificationName => {
+          options.push({ value: jmxNotificationName, label: jmxNotificationName });
+        });
+        logActionNames.forEach(logActionName => {
+          options.push({ value: logActionName, label: logActionName });
+        });
+        restNotificationNames.forEach(restNotificationName => {
+          options.push({ value: restNotificationName, label: restNotificationName });
+        });
+        scaleDownActionNames.forEach(scaleDownActionName => {
+          options.push({ value: scaleDownActionName, label: scaleDownActionName });
+        });
+        scaleUpActionNames.forEach(scaleUpActionName => {
+          options.push({ value: scaleUpActionName, label: scaleUpActionName });
+        });
+        scriptActionNames.forEach(scriptActionName => {
+          options.push({ value: scriptActionName, label: scriptActionName });
+        });
+        smtpNotificationNames.forEach(smtpNotificationName => {
+          options.push({ value: smtpNotificationName, label: smtpNotificationName });
+        });
+        snmpNotificationNames.forEach(snmpNotificationName => {
+          options.push({ value: snmpNotificationName, label: snmpNotificationName });
+        });
+        threadDumpActionNames.forEach(threadDumpActionName => {
+          options.push({ value: threadDumpActionName, label: threadDumpActionName });
+        });
+        return options;
       };
 
       function getJmsSystemResourceTypeOptions(attribute, typeName) {

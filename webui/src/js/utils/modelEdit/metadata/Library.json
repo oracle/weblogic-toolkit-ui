@@ -5,6 +5,16 @@
       "Target": {}
     },
     "attributeDetails": {
+      "ModuleType": {
+        "editorType": "combo",
+        "optionsMatch": "lower",
+        "options": [
+          { "value": "ear", "label": "EAR" },
+          { "value": "jar", "label": "JAR" },
+          { "value": "war", "label": "WAR" },
+          { "value": "rar", "label": "RAR" }
+        ]
+      },
       "PlanStagingMode": {
         "options": [
           { "value": "stage", "labelKey": "staging-stage-label" },
@@ -38,12 +48,11 @@
             "attributes": [
               "SourcePath",
               "ModuleType",
-              "SecurityDDModel",
-              "StagingMode",
-              "PlanStagingMode",
               "PlanDir",
               "PlanPath",
-              "InstallDir",
+              "StagingMode",
+              "PlanStagingMode",
+              "SecurityDDModel",
               "DeploymentPrincipalName",
               "ValidateDDSecurityData",
               "DeploymentOrder",
@@ -62,6 +71,7 @@
                   "CacheInAppDirectory",
                   "ParallelDeployModules",
                   "MultiVersionApp",
+                  "InstallDir",
                   "CompatibilityName"
                 ]
               },

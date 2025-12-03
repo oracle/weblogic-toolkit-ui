@@ -219,9 +219,9 @@
       },
       "AppKey": {
         "options": [
-          { "value": "TpUsrFile", "labelKey": "Imported TPUSER File" },
-          { "value": "LDAP", "labelKey": "LDAP" },
-          { "value": "Custom", "labelKey": "Custom" }
+          { "value": "TpUsrFile", "labelKey": "options-imported-tpusr-file-label" },
+          { "value": "LDAP", "label": "LDAP" },
+          { "value": "Custom", "labelKey": "options-custom-label" }
         ]
       },
       "CmpLimit": {
