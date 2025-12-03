@@ -1,6 +1,17 @@
 {
   "DomainInfo": {
     "attributeDetails": {
+      "AppDir": {
+        "fileOptions": [{"type": "dir"}]
+      },
+      "domainBin": {
+        "archiveTypes": ["domainBin"],
+        "archiveOnly": true
+      },
+      "domainLibraries": {
+        "archiveTypes": ["domainLibrary"],
+        "archiveOnly": true
+      },
       "ServerStartMode": {
         "options": [
           { "value": "dev", "labelKey": "options-dev-mode-label" },

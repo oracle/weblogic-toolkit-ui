@@ -5,6 +5,15 @@
       "Target": {}
     },
     "attributeDetails": {
+      "AltDescriptorPath": {
+        "fileOptions": [{"type": "file", "extensions": ["xml"]}]
+      },
+      "AltWLSDescriptorPath": {
+        "fileOptions": [{"type": "file", "extensions": ["xml"]}]
+      },
+      "InstallDir": {
+        "fileOptions": [{"type": "dir"}]
+      },
       "ModuleType": {
         "editorType": "combo",
         "optionsMatch": "lower",
@@ -15,12 +24,21 @@
           { "value": "rar", "label": "RAR" }
         ]
       },
+      "PlanDir": {
+        "fileOptions": [{"type": "dir"}]
+      },
+      "PlanPath": {
+        "archiveTypes": ["sharedLibraryDeploymentPlan"]
+      },
       "PlanStagingMode": {
         "options": [
           { "value": "stage", "labelKey": "staging-stage-label" },
           { "value": "nostage", "labelKey": "staging-no-stage-label" },
           { "value": "external_stage", "labelKey": "staging-external-label" }
         ]
+      },
+      "SourcePath": {
+        "archiveTypes": ["sharedLibrary"]
       },
       "StagingMode": {
         "options": [

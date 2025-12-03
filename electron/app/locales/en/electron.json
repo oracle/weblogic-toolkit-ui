@@ -153,7 +153,7 @@
   "dialog-openProjectFileCredentialManagerErrorTitle": "Failed to Create Credential Manager",
   "dialog-openProjectFileCredentialManagerErrorMessage": "Unable to create credential manager for project file {{projectFileName}} due to an error: {{error}}",
   "dialog-openProjectFileSendToWindowErrorTitleErrorTitle": "Failed to Open Project",
-  "dialog-openProjectFileSendToWindowErrorTitleErrorMessage": "Unable to open project file {{projectFileName}} due to an error initializing the project window: {{err}}",
+  "dialog-openProjectFileSendToWindowErrorMessage": "Unable to open project file {{projectFileName}} due to an error initializing the project window: {{err}}",
   "dialog-createNewProjectTitle": "Create WebLogic Kubernetes Toolkit Project",
   "dialog-projectSaveFileLocationNotWritableTitle": "Project Directory Not Writable",
   "dialog-projectSaveFileLocationNotWritableError": "The {{projectFileDirectory}} directory chosen to write the new project file is not writable by the current process.",
@@ -202,6 +202,7 @@
   "dialog-tls-certfile": "Select TLS cert file",
 
   "dialog-chooseArchiveEntry": "Choose {{entryType}} for Archive",
+  "dialog-chooseAttributeFile": "Choose {{entryType}}",
   "dialog-archiveEntryFilter": "{{entryType}}",
   "dialog-getWebLogicRemoteConsoleHome": "Select the WebLogic Remote Console Installation",
   "dialog-getWebLogicRemoteConsoleAppImage": "Select the WebLogic Remote Console AppImage file",
@@ -392,6 +393,8 @@
 
   "wdt-archiveType-coherenceStore": "Coherence Persistence Directory",
   "wdt-archiveType-coherenceStore-activeLabel": "Active",
+  "wdt-archiveType-coherenceStore-backupLabel": "Backup",
+  "wdt-archiveType-coherenceStore-eventsLabel": "Events",
   "wdt-archiveType-coherenceStore-snapshotLabel": "Snapshot",
   "wdt-archiveType-coherenceStore-trashLabel": "Trash",
   "wdt-archiveType-coherenceStore-emptyDirLabel": "Coherence Persistence Directory Name",

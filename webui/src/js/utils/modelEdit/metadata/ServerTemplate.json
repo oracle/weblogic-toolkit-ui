@@ -46,6 +46,10 @@
       "ConnectTimeout": {
         "validators": [ "range(0,240)" ]
       },
+      "CustomIdentityKeyStoreFileName": {
+        "archiveTypes": ["serverTemplateKeystore"],
+        "segregateFolder": "ServerTemplate"
+      },
       "CustomIdentityKeyStoreType": {
         "optionsMatch": "upper",
         "options": [
@@ -53,6 +57,10 @@
           { "value": "PKCS12", "label": "PKCS12" },
           { "value": "KSS", "labelKey": "options-key-store-service-label" }
         ]
+      },
+      "CustomTrustKeyStoreFileName": {
+        "archiveTypes": ["serverTemplateKeystore"],
+        "segregateFolder": "ServerTemplate"
       },
       "CustomTrustKeyStoreType": {
         "optionsMatch": "upper",
@@ -2875,6 +2883,23 @@
     ]
   },
   "ServerTemplate/ServerStart": {
+    "attributeDetails": {
+      "ClassPath": {
+        "archiveTypes": ["classpathLibrary"]
+      },
+      "JavaHome": {
+        "fileOptions": [{"type": "dir"}]
+      },
+      "MwHome": {
+        "fileOptions": [{"type": "dir"}]
+      },
+      "RootDirectory": {
+        "fileOptions": [{"type": "dir"}]
+      },
+      "SecurityPolicyFile": {
+        "fileOptions": [{"type": "file"}]
+      }
+    },
     "sections": [
       {
         "type": "attributes",

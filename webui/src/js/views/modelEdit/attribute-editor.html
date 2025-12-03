@@ -104,6 +104,26 @@
       </oj-combobox-many>
     </oj-bind-if>
 
+    <oj-bind-if test="[[editorType === 'fileSelect']]">
+      <oj-c-input-text
+        label-hint="[[attributeLabel]]"
+        help.instruction="[[attributeHelp]]"
+        value="{{getValueObservable()}}"
+        disabled="[[disabled]]"
+        readOnly="[[readOnly]]"
+      >
+        <oj-c-button
+          slot="end"
+          label="[[labelMapper('select')]]"
+          display="icons"
+          chroming="borderless"
+          disabled="[[disabled() || readOnly()]]"
+          on-oj-action="[[selectFile]]">
+          <span slot="endIcon" class="oj-ux-ico-folder" role="img"></span>
+        </oj-c-button>
+      </oj-c-input-text>
+    </oj-bind-if>
+
     <oj-bind-if test="[[editorType === 'textArea']]">
       <oj-c-text-area
         label-hint="[[attributeLabel]]"
