@@ -153,7 +153,7 @@
   "dialog-openProjectFileCredentialManagerErrorTitle": "Failed to Create Credential Manager",
   "dialog-openProjectFileCredentialManagerErrorMessage": "Unable to create credential manager for project file {{projectFileName}} due to an error: {{error}}",
   "dialog-openProjectFileSendToWindowErrorTitleErrorTitle": "Failed to Open Project",
-  "dialog-openProjectFileSendToWindowErrorTitleErrorMessage": "Unable to open project file {{projectFileName}} due to an error initializing the project window: {{err}}",
+  "dialog-openProjectFileSendToWindowErrorMessage": "Unable to open project file {{projectFileName}} due to an error initializing the project window: {{err}}",
   "dialog-createNewProjectTitle": "Create WebLogic Kubernetes Toolkit Project",
   "dialog-projectSaveFileLocationNotWritableTitle": "Project Directory Not Writable",
   "dialog-projectSaveFileLocationNotWritableError": "The {{projectFileDirectory}} directory chosen to write the new project file is not writable by the current process.",
