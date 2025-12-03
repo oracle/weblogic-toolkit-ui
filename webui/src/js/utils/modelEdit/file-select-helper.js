@@ -86,8 +86,8 @@ function (DialogHelper, WktLogger, AliasHelper, ArchiveHelper, MessageHelper) {
       // if no options found, default is simple file or directory
       if(!selectOptions.length) {
         selectOptions.push(
-          { type: 'file' },
-          { type: 'dir' }
+          { type: 'file', chooserName: attributeLabel },
+          { type: 'dir', chooserName: attributeLabel }
         );
       }
 

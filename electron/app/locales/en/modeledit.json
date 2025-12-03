@@ -6896,7 +6896,7 @@
   "a-coherence_StartScriptName-label": "Coherence Start Script Name",
   "f-NMProperties-a-coherence_StartScriptName-help": "The name of the script to be executed to start the server.",
 
-  "a-compInfoXMLLocation-label": "Comp Info XML Location",
+  "a-compInfoXMLLocation-label": "Component Info XML Location",
   "a-compInfoXMLLocation-help": "The full path to the location of the ComponentInfo.xml file. The default location is ORACLE_HOME/oracle_common/rcu/config.",
 
   "a-databaseType-label": "Database Type",
@@ -6991,7 +6991,7 @@
 
   "a-st-label": "st",
 
-  "a-storageXMLLocation-label": "Storage XML Location",
+  "a-storageXMLLocation-label": "Storage Info XML Location",
   "a-storageXMLLocation-help": "The full path to the location of the StorageInfo.xml file. The default location is ORACLE_HOME/oracle_common/rcu/config.",
 
   "a-street-label": "street",
