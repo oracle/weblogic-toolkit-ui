@@ -325,6 +325,17 @@ Click on the link to go to your application, as shown in in the following image.
     </item>
     
     <item>
+      <title>Release 1.6.3</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.6.3/</link>
+      <pubDate>Thu, 03 Nov 2022 12:48:00 -0500</pubDate>
+      
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.6.3/</guid>
+      <description>Changes in Release 1.6.3  Major New Features Other Changes Bugs Fixes Known Issues  Major New Features None
+Other Changes  #294 - Updated Model Design View to use WebLogic Remote Console 2.4.8  Bug Fixes None
+Known Issues  On Linux, the open and save dialogs open behind the main application window. This is due to Electron bug 32857. When deploying a Verrazzano application, the Get Application Status button only checks the status of the project&amp;rsquo;s Verrazzano component containing the WebLogic domain specification.</description>
+    </item>
+    
+    <item>
       <title>Release 1.7.0</title>
       <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.7.0/</link>
       <pubDate>Thu, 03 Nov 2022 12:48:00 -0500</pubDate>
@@ -356,17 +367,6 @@ Other Changes  #287 - Added support for WebLogic Kubernetes Operator domain spec
     </item>
     
     <item>
-      <title>Release 1.6.3</title>
-      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.6.3/</link>
-      <pubDate>Thu, 03 Nov 2022 12:48:00 -0500</pubDate>
-      
-      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.6.3/</guid>
-      <description>Changes in Release 1.6.3  Major New Features Other Changes Bugs Fixes Known Issues  Major New Features None
-Other Changes  #294 - Updated Model Design View to use WebLogic Remote Console 2.4.8  Bug Fixes None
-Known Issues  On Linux, the open and save dialogs open behind the main application window. This is due to Electron bug 32857. When deploying a Verrazzano application, the Get Application Status button only checks the status of the project&amp;rsquo;s Verrazzano component containing the WebLogic domain specification.</description>
-    </item>
-    
-    <item>
       <title>Release 1.6.1</title>
       <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.6.1/</link>
       <pubDate>Thu, 03 Nov 2022 12:48:00 -0500</pubDate>
@@ -388,7 +388,7 @@ Other Changes  #242 - Added initial (very minimal) internationalization support 
     </item>
     
     <item>
-      <title>Release Notes 1.6.0</title>
+      <title>Release 1.6.0</title>
       <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.6.0/</link>
       <pubDate>Thu, 03 Nov 2022 12:48:00 -0500</pubDate>
       
