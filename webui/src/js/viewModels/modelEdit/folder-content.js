@@ -71,14 +71,9 @@ function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper) 
       };
       updateAssignmentInfo(assignmentInfo, metaSections);
 
-      let hasInlineSections = false;
       let hasTabSections = false;
 
       metaSections.forEach(section => {
-        if (['attributes', 'collapsible'].includes(section.type)) {
-          hasInlineSections = true;
-        }
-
         if (MetaHelper.isTabSection(section.type)) {
           hasTabSections = true;
         }
