@@ -2868,6 +2868,23 @@
     ]
   },
   "Server/ServerStart": {
+    "attributeDetails": {
+      "ClassPath": {
+        "archiveTypes": ["classpathLibrary"]
+      },
+      "JavaHome": {
+        "fileOptions": [{"type": "dir"}]
+      },
+      "MwHome": {
+        "fileOptions": [{"type": "dir"}]
+      },
+      "RootDirectory": {
+        "fileOptions": [{"type": "dir"}]
+      },
+      "SecurityPolicyFile": {
+        "fileOptions": [{"type": "file"}]
+      }
+    },
     "sections": [
       {
         "type": "attributes",

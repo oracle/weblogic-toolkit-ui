@@ -5,23 +5,26 @@
  */
 'use strict';
 
-define(['utils/dialog-helper', 'utils/wkt-logger', 'utils/wdt-archive-helper',
+define(['utils/dialog-helper', 'utils/wkt-logger', 'utils/modelEdit/alias-helper', 'utils/wdt-archive-helper',
   'utils/modelEdit/message-helper'],
-function (DialogHelper, WktLogger, ArchiveHelper, MessageHelper) {
+function (DialogHelper, WktLogger, AliasHelper, ArchiveHelper, MessageHelper) {
 
   function FileSelectHelper() {
     // support selecting files for attributes
 
     this.selectFile = async(attribute, currentValue) => {
-      const archiveTypes = await ArchiveHelper.getEntryTypes();
+      const aliasPath = AliasHelper.getAliasPath(attribute.path);
+      const attributeLabel = MessageHelper.getAttributeLabel(attribute, aliasPath);
 
+      const archiveTypes = await ArchiveHelper.getEntryTypes();
       const selectOptions = [];
 
       // possibly multiple archive types (app, custom?)
       const archiveTypeKeys = attribute.archiveTypes || [];
       archiveTypeKeys.forEach(archiveTypeKey => {
-        if (!archiveTypeKey in archiveTypes) {
+        if (!(archiveTypeKey in archiveTypes)) {
           WktLogger.error('Invalid archive type: ' + archiveTypeKey);
+          return;
         }
 
         // file dir either emptyDir
@@ -67,14 +70,18 @@ function (DialogHelper, WktLogger, ArchiveHelper, MessageHelper) {
           // simple file select with no archive option
           selectOptions.push({
             type: 'dir',
-            selectEmptyDir: true  // provide detailed description on dialog
+            labelKey: 'file-select-local-empty-dir',
+            chooserName: attributeLabel
           });
         }
       });
 
-      // options may be assigned in metadata
+      // file options may be assigned in metadata
       const fileOptions = attribute.fileOptions || [];
-      selectOptions.push(...fileOptions);
+      fileOptions.forEach(fileOption => {
+        fileOption.chooserName = attributeLabel;
+        selectOptions.push(fileOption);
+      });
 
       // if no options found, default is simple file or directory
       if(!selectOptions.length) {
@@ -132,13 +139,17 @@ function (DialogHelper, WktLogger, ArchiveHelper, MessageHelper) {
 
         // ask about archive if archive path present
         if (selectOption.archiveType) {
-          const args = {fileChosen, attribute, selectOption};
-          const archiveResult = await DialogHelper.promptDialog('modelEdit/file-archive-dialog', args);
-          if (!archiveResult) {  // cancel
-            return;
+          if(attribute.archiveOnly) {
+            addToArchive = true;
+          } else {
+            const args = {fileChosen, attribute, selectOption};
+            const archiveResult = await DialogHelper.promptDialog('modelEdit/file-archive-dialog', args);
+            if (!archiveResult) {  // cancel
+              return;
+            }
+            addToArchive = archiveResult.addToArchive;
+            segregateName = archiveResult.segregateName;
           }
-          addToArchive = archiveResult.addToArchive;
-          segregateName = archiveResult.segregateName;
         }
       }
 

@@ -43,14 +43,9 @@ function(accUtils, ko, MessageHelper, AliasHelper, viewHelper) {
 
     this.selectOptions = [];
     SELECT_OPTIONS.forEach(fileSelectOption => {
-      let label = fileSelectOption.label;
-      if(fileSelectOption.selectEmptyDir) {  // special label for local empty dir
-        label = this.t('file-select-local-empty-dir');
-      }
-
       this.selectOptions.push({
         value: fileSelectOption,
-        label
+        label: fileSelectOption.label
       });
     });
 

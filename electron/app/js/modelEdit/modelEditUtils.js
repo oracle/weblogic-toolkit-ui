@@ -166,7 +166,8 @@ function getMessagesFile() {
 }
 
 function chooseAttributeFile(targetWindow, fileOption, currentValue) {
-  return wdtArchive.chooseAttributeFile(targetWindow, fileOption.label, fileOption.type,
+  const label = fileOption.chooserName || fileOption.label;
+  return wdtArchive.chooseAttributeFile(targetWindow, label, fileOption.type,
     fileOption.extensions, currentValue, 'dialog-chooseAttributeFile');
 }
 
