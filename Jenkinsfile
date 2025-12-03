@@ -18,7 +18,7 @@ pipeline {
 
         npm_registry = "${env.ARTIFACTORY_NPM_REPO}"
         npm_noproxy = "${env.ORACLE_NO_PROXY}"
-        node_version = "18.20.2"
+        node_version = "22.19.0"
 
         project_name = "$JOB_NAME"
         version_prefix = sh(returnStdout: true, script: 'cat electron/package.json | grep version | awk \'match($0, /[0-9]+.[0-9]+.[0-9]+/) { print substr( $0, RSTART, RLENGTH )}\'').trim()
@@ -213,8 +213,8 @@ pipeline {
                         timeout(time: 300, unit: 'MINUTES')
                     }
                     environment {
-                        mac_node_dir_name = "node-v${node_version}-darwin-x64"
-                        mac_node_installer = "node-v${node_version}-darwin-x64.tar.gz"
+                        mac_node_dir_name = "node-v${node_version}-darwin-arm64"
+                        mac_node_installer = "node-v${node_version}-darwin-arm64.tar.gz"
                         mac_node_url = "https://nodejs.org/dist/v${node_version}/${mac_node_installer}"
                         mac_node_dir = "${WORKSPACE}/${mac_node_dir_name}"
                         mac_node_exe = "${mac_node_dir}/bin/node"
@@ -309,12 +309,14 @@ pipeline {
                             // WKTUI, we should have the WDT build/release process sign the native code in the jansi JAR
                             // the WDT installer includes so that WKTUI would never have an unsigned version of the JAR.
                             //
+                            // The JLine dependency on Jansi has been removed.  Clean this up once it is working.
+                            //
                             steps {
                                 sh '''
                                     cd "${WORKSPACE}/electron"
                                     PATH="${mac_node_dir}/bin:$PATH" HTTPS_PROXY=${WKTUI_PROXY} CSC_IDENTITY_AUTO_DISCOVERY=false ${mac_npm_exe} run build:jet
                                     PATH="${mac_node_dir}/bin:$PATH" HTTPS_PROXY=${WKTUI_PROXY} CSC_IDENTITY_AUTO_DISCOVERY=false ${mac_npm_exe} run install-tools
-                                    rm "${WORKSPACE}/tools/weblogic-deploy/lib/jansi-2.4.1.jar"
+                                    rm -f "${WORKSPACE}/tools/weblogic-deploy/lib/jansi-2.4.1.jar"
                                     PATH="${mac_node_dir}/bin:$PATH" HTTPS_PROXY=${WKTUI_PROXY} CSC_IDENTITY_AUTO_DISCOVERY=false ${mac_npm_exe} run build:installer -- --mac --x64 --arm64
                                     cd "${WORKSPACE}"
                                 '''
