@@ -21,7 +21,7 @@ pipeline {
         node_version = "22.19.0"
 
         project_name = "$JOB_NAME"
-        version_prefix = sh(returnStdout: true, script: 'cat electron/package.json | grep version | awk \'match($0, /[0-9]+.[0-9]+.[0-9]+/) { print substr( $0, RSTART, RLENGTH )}\'').trim()
+        version_prefix = sh(returnStdout: true, script: 'cat electron/package.json | grep version | awk \'match($0, /[0-9]+.[0-9]+.[0-9]+(?:-beta.[0-9]+)?/) { print substr( $0, RSTART, RLENGTH )}\'').trim()
         version_number = VersionNumber([versionNumberString: '-${BUILD_YEAR}${BUILD_MONTH,XX}${BUILD_DAY,XX}${BUILDS_TODAY_Z,XX}', versionPrefix: "${version_prefix}"])
         git_url = "${env.GIT_URL}"
         git_creds = "wktui-orahub-creds"
