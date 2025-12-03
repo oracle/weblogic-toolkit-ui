@@ -18,6 +18,13 @@
           { "value": "prod", "labelKey": "options-prod-mode-label" },
           { "value": "secure", "labelKey": "options-secure-mode-label" }
         ]
+      },
+      "UseSampleDatabase": {
+        "optionsMatch": "lower",
+        "options": [
+          { "value": "true", "labelKey": "options-true-label" },
+          { "value": "false", "labelKey": "options-false-label" }
+        ]
       }
     },
     "sections": [

@@ -14,6 +14,16 @@
       "InstallDir": {
         "fileOptions": [{"type": "dir"}]
       },
+      "ModuleType": {
+        "editorType": "combo",
+        "optionsMatch": "lower",
+        "options": [
+          { "value": "ear", "label": "EAR" },
+          { "value": "jar", "label": "JAR" },
+          { "value": "war", "label": "WAR" },
+          { "value": "rar", "label": "RAR" }
+        ]
+      },
       "PlanDir": {
         "fileOptions": [{"type": "dir"}]
       },
@@ -56,13 +66,12 @@
             "attributes": [
               "SourcePath",
               "ModuleType",
-              "DeploymentPrincipalName",
-              "SecurityDDModel",
-              "StagingMode",
-              "PlanStagingMode",
               "PlanDir",
               "PlanPath",
-              "InstallDir",
+              "StagingMode",
+              "PlanStagingMode",
+              "DeploymentPrincipalName",
+              "SecurityDDModel",
               "DeploymentOrder",
               "Notes",
               "Target"
@@ -79,6 +88,7 @@
                   "CacheInAppDirectory",
                   "ParallelDeployModules",
                   "MultiVersionApp",
+                  "InstallDir",
                   "CompatibilityName"
                 ]
               },

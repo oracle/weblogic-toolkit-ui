@@ -4,6 +4,12 @@
       "PersistentStore": {},
       "Target": {}
     },
+    "attributeDetails": {
+      "PersistentStore": {
+        "editorType": "combo",
+        "optionsMethod": "getPersistentStoreOptions"
+      }
+    },
     "sections": [
       {
         "type": "attributes",

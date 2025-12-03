@@ -419,6 +419,10 @@ define(['knockout', 'utils/wkt-logger', 'utils/modelEdit/model-edit-helper'],
         return this._disableFieldsUsingBooleanAttribute(attributeMap, 'Enabled');
       };
 
+      this.serverNetworkAccessPointEnabledFields = attributeMap => {
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'Enabled', true);
+      };
+
       this.serverNetworkAccessPointOutboundFields = attributeMap => {
         return this._disableFieldsUsingBooleanAttribute(attributeMap, 'OutboundEnabled');
       };

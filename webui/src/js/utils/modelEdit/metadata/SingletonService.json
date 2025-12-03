@@ -10,6 +10,14 @@
       "AdditionalMigrationAttempts": {
         "validators": [ "range(0,)" ]
       },
+      "Cluster": {
+        "editorType": "combo",
+        "optionsMethod": "getClusterOptions"
+      },
+      "ConstrainedCandidateServer": {
+        "editorType": "comboMulti",
+        "optionsMethod": "getServersInClusterOptions"
+      },
       "MillisToSleepBetweenAttempts": {
         "validators": [ "range(0,)" ]
       }

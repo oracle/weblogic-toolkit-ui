@@ -1396,6 +1396,9 @@
       "ChannelWeight": {
         "validators": [ "range(1,100)" ]
       },
+      "ClusterAddress": {
+        "disabled": "serverNetworkAccessPointEnabledFields"
+      },
       "CompleteMessageTimeout": {
         "validators": [ "range(-1,480)" ]
       },
@@ -1418,6 +1421,9 @@
           { "value": "KSS", "labelKey": "options-key-store-service-label" }
         ]
       },
+      "ExternalDNSName": {
+        "disabled": "serverNetworkAccessPointEnabledFields"
+      },
       "HostnameVerifier": {
         "disabled": "serverNetworkAccessPointHostnameVerificationFields"
       },
@@ -1430,7 +1436,11 @@
           { "value": "BuiltinSSLValidationAndCertPathValidators", "labelKey": "options-builtin-ssl-validation-and-cert-path-validators-label"}
         ]
       },
+      "ListenAddress": {
+        "disabled": "serverNetworkAccessPointEnabledFields"
+      },
       "ListenPort": {
+        "disabled": "serverNetworkAccessPointEnabledFields",
         "validators": [ "range(-1,65536)" ]
       },
       "LoginTimeoutMillis": {
@@ -1451,7 +1461,11 @@
           { "value": "BuiltinSSLValidationAndCertPathValidators", "labelKey": "options-builtin-ssl-validation-and-cert-path-validators-label"}
         ]
       },
+      "OutboundEnabled": {
+        "disabled": "serverNetworkAccessPointEnabledFields"
+      },
       "Protocol": {
+        "disabled": "serverNetworkAccessPointEnabledFields",
         "optionsMatch": "lower",
         "options": [
           { "value": "t3", "label": "T3" },
@@ -1471,7 +1485,11 @@
         "disabled": "serverNetworkAccessPointOutboundFields",
         "validators": [ "port" ]
       },
+      "PublicAddress": {
+        "disabled": "serverNetworkAccessPointEnabledFields"
+      },
       "PublicPort": {
+        "disabled": "serverNetworkAccessPointEnabledFields",
         "validators": [ "range(-1,65536)" ]
       },
       "TunnelingClientPingSecs": {
@@ -3152,10 +3170,10 @@
         ]
       },
       "DeletesPerBatchMaximum": {
-        "validators": [ "range(1.100)" ]
+        "validators": [ "range(1,100)" ]
       },
       "DeletesPerStatementMaximum": {
-        "validators": [ "range(1.100)" ]
+        "validators": [ "range(1,100)" ]
       },
       "DistributionPolicy": {
         "options": [
@@ -3173,7 +3191,7 @@
         "validators": [ "range(0,)" ]
       },
       "InsertsPerBatchMaximum": {
-        "validators": [ "range(1.100)" ]
+        "validators": [ "range(1,100)" ]
       },
       "MaxRetrySecondsBeforeTlogFail": {
         "validators": [ "range(0,)" ]

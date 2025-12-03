@@ -383,6 +383,7 @@
   "options-append-label": "Append",
   "options-prepend-label": "Prepend",
   "options-replace-label": "Replace",
+  "options-imported-tpusr-file-label": "Imported TPUSER File",
 
   "direction-jms-queue-to-tuxedo-queue-label": "JMS Queue to Tuxedo Queue",
   "direction-tuxedo-queue-to-jms-queue-label": "Tuxedo Queue to JMS Queue",
@@ -458,6 +459,9 @@
   "unknownProviderType": "Unrecognized type: {{providerType}}",
   "noProviderType": "No provider type specified",
 
+  "f-Server_ServerDebug-a-any-help": "Enable {{attribute}} for this server.",
+  "f-ServerTemplate_ServerDebug-a-any-help": "Enable {{attribute}} for servers created from this server template.",
+
   "a-any-entryLabel": "Entry",
   "a-any-help": "{{attribute}} for this element",
   "a-any-itemHelp": "Name of item",
@@ -500,7 +504,9 @@
   "f-WTCServer_WTCLocalTuxDom-a-AccessPointId-help": "The connection principal name used to identify this local Tuxedo access point when attempting to establish a session connection with remote Tuxedo access points. Note that the AccessPointId must match the corresponding DOMAINID in the *DM_REMOTE_DOMAINS section of your Tuxedo DMCONFIG file.",
   "f-WTCServer_WTCRemoteTuxDom-a-AccessPointId-help": "The connection principal name used to identify this remote domain access point when attempting to establish a session connection to local Tuxedo access points. This value must be globally unique among all interconnected Tuxedo and WTC Domains.",
 
-  "a-AccessTokenContextPath-label": "Access Token Context Path",
+  "a-AccessTokenContextPath-label": "Access Token Context Paths",
+  "a-AccessTokenContextPath-itemLabel": "Access Token Context Path",
+  "a-AccessTokenContextPath-itemHelp": "Specifies a context path to allow to use an IDCS access token.",
   "a-AccessTokenContextPath-help": "Specifies the list of context paths that will be allowed to use an IDCS access token. The default is to allow any context path to use an IDCS access token.",
 
   "a-AccessTokenTimeoutWindow-label": "Access Token Timeout Window",
@@ -527,7 +533,9 @@
 
   "a-Active-label": "Active",
 
-  "a-ActiveContextHandlerEntry-label": "Active Context Handler Entry",
+  "a-ActiveContextHandlerEntry-label": "Active Context Handler Entries",
+  "a-ActiveContextHandlerEntry-itemLabel": "Active Context Handler Entry",
+  "a-ActiveContextHandlerEntry-itemHelp": "Specifies a ContextHandler entry that the Audit provider should process.",
   "f-any_DefaultAuditor-a-ActiveContextHandlerEntry-help": "Specifies the ContextHandler entries that the Audit provider should process.",
 
   "a-ActiveDirectory-label": "Active Directory",
@@ -537,7 +545,9 @@
   "a-ActiveGridlink-label": "Active Gridlink",
   "f-JDBCSystemResource_JdbcResource_JDBCOracleParams-a-ActiveGridlink-help": "Indicates a configured Active GridLink datasource. This attributed is set to true when using the console to create an Active GridLink datasource. It is ignored if FanEnabled is true or OnsNodeList is a non-null string.",
 
-  "a-ActiveType-label": "Active Type",
+  "a-ActiveType-label": "Active Types",
+  "a-ActiveType-itemLabel": "Active Type",
+  "a-ActiveType-itemHelp": "Specifies a token type to add to the active list.",
   "f-any_DefaultIdentityAsserter-a-ActiveType-help": "Specifies the token types that are currently active. The default value includes \"AuthenticatedUser\" and \"weblogic-jwt-token\".",
   "f-any_LDAPX509IdentityAsserter-a-ActiveType-help": "Specifies the token types that are currently active. The default value includes \"X.509\".",
   "f-any_weblogic.security.providers.authentication.OracleIdentityCloudIntegrator-a-ActiveType-help": "Specifies the token types that are currently active. The default value includes \"idcs_user_assertion\" and \"Idcs_user_assertion\".",
@@ -645,7 +655,9 @@
   "f-any_NetworkAccessPoint-a-AllowUnencryptedNullCipher-help": "The AllowUnEncryptedNullCipher flag is used to control whether the NullCipher feature is enabled or not. If true, the SSL message may be unencrypted when SSL server and client shares no common cipher. Warning: this NullCipher feature should NOT be enabled for a production environment, as it may lead to unencrypted SSL messages.",
   "f-any_SSL-a-AllowUnencryptedNullCipher-help": "The AllowUnEncryptedNullCipher flag is used to control whether the NullCipher feature is enabled or not, if true, the SSL message may be unencrypted when SSL server and client shares no common cipher. his AllowUnEncryptedNullCipher flag is only effective to SSL providers which support the NullCipher feature. Warning: this NullCipher feature should NOT be enabled for a production environment, it may leads to unencrypted SSL message.",
 
-  "a-AllowedTargetHost-label": "Allowed Target Host",
+  "a-AllowedTargetHost-label": "Allowed Target Hosts",
+  "a-AllowedTargetHost-itemLabel": "Allowed Target Host",
+  "a-AllowedTargetHost-itemHelp": "Specify a host to add to the allowed target list.",
   "f-any_SingleSignOnServices-a-AllowedTargetHost-help": "List of hosts to compare against the host in the SAML SP target redirect URL. When the list is empty, the target redirect URL will not be checked.",
 
   "a-AllowsPersistentDowngrade-label": "Allows Persistent Downgrade",
@@ -713,6 +725,8 @@
   "f-Callout-a-Argument-help": "Specifies the argument to pass to the class.",
 
   "a-Arguments-label": "Arguments",
+  "a-Arguments-itemLabel": "Argument",
+  "a-Arguments-itemHelp": "Specify an argument to add to the list.",
   "f-SystemComponent_SystemComponentStart-a-Arguments-help": "The arguments to use when starting this server. These are the first arguments appended immediately after java portion of the startup command. For example, you can set Java heap memory or specify any weblogic.nodemanager.server.provider.WeblogicCacheServer option.",
   "f-any_ServerStart-a-Arguments-help": "The arguments to use when starting this server. These are the first arguments appended immediately after java portion of the startup command.",
 
@@ -836,7 +850,9 @@
   "a-Base64DecodingRequired-label": "Base 64 Decoding Required",
   "a-Base64DecodingRequired-help": "Specifies whether the tokens that are passed to the Identity Assertion provider will be base64 decoded first. If false then the server will not base64 decode the token before passing it to the identity asserter. This defaults to true for backwards compatibility but most providers will probably want to set this to false.",
 
-  "a-Base64EncodingException-label": "Base 64 Encoding Exception",
+  "a-Base64EncodingException-label": "Base 64 Encoding Exceptions",
+  "a-Base64EncodingException-itemLabel": "Base 64 Encoding Exception",
+  "a-Base64EncodingException-itemHelp": "Specifies a token type that does not require Base64 decoding to add to the list.",
   "f-any_DefaultIdentityAsserter-a-Base64EncodingException-help": "Specifies the list of token types whose tokens do not need to be Base64 decoded.",
 
   "a-BasePath-label": "Base Path",
@@ -1013,6 +1029,8 @@
   "a-CandidateMachine-help": "Limits the list of candidate machines that the cluster specifies. (Requires you to enable this server for automatic migration and to configure the cluster with a set of candidate machines.) If this server fails and if it is enabled for automatic migration, Node Manager automatically restarts it. By default, Node Manager restarts the server on any of the candidate machines that the cluster specifies (in order of preference that you configured in the cluster). To change the default, you use this server's list of candidate machines to create a subset of the cluster-wide candidates. You can also change the order of preference.",
 
   "a-CandidateMachinesForMigratableServer-label": "Candidate Machines for Migratable Server",
+  "a-CandidateMachinesForMigratableServer-itemLabel": "Candidate Machine",
+  "a-CandidateMachinesForMigratableServer-itemHelp": "Specify a candidate machine opn which a node manager can restart failed servers.",
   "f-Cluster-a-CandidateMachinesForMigratableServer-help": "Specifies the set of machines (and order of preference) on which Node Manager will restart failed servers. (Requires you to enable each server for automatic migration.) Each server can specify a subset of these cluster-wide candidates, which limits the machines on which the server can be restarted. Servers can also specify their own order of preference.",
 
   "a-Capacity-label": "Capacity",
@@ -1047,6 +1065,11 @@
   "f-any_CertificateManagement-a-CertificateRefreshWindow-help": "The Certificate Management Service will refresh an expiring certificate when its remaining lifetime is less than this number of days.",
 
   "a-CertificateRequestProperties-label": "Certificate Request Properties",
+  "a-CertificateRequestProperties-entryLabel": "Certificate Request Property",
+  "a-CertificateRequestProperties-keyLabel": "Property Name",
+  "a-CertificateRequestProperties-keyHelp": "Specifies the certificate request property name.",
+  "a-CertificateRequestProperties-valueLabel": "Property Value",
+  "a-CertificateRequestProperties-valueHelp": "Specifies the certificate request property value.",
   "f-any_CertificateIssuerPlugin-a-CertificateRequestProperties-help": "Returns the properties to be passed to the issuer when the Certificate Service requests a certificate.",
 
   "a-CertificateValidityPeriod-label": "Certificate Validity Period",
@@ -1064,7 +1087,12 @@
   "a-CharacterLimit-label": "Character Limit",
   "a-CharacterLimit-help": "The character limit for Coherence logs.",
 
-  "a-Charsets-label": "Charsets",
+  "a-Charsets-label": "Character Sets",
+  "a-Charsets-entryLabel": "Character Set",
+  "a-Charsets-keyLabel": "Internet Character Set Name",
+  "a-Charsets-keyHelp": "Specifies the name of the Internet character set to map.",
+  "a-Charsets-valueLabel": "Java Character Set Name",
+  "a-Charsets-valueHelp": "Specifies the name of the Java character set to which to map.",
   "a-Charsets-help": "Provides user defined mapping between internet and Java charset names.",
 
   "a-CheckCertificatesExpirationDays-label": "Check Certificates Expiration Days",
@@ -1097,7 +1125,9 @@
   "a-CipherSuites-label": "Cipher Suites",
   "f-NMProperties-a-CipherSuites-help": "Specifies the name of the cipher suites to use with the node manager's SSL listener. You can specify multiple cipher suite values separated by a comma, for example: CipherSuites=SUITE_A,SUITE_B,SUITE_C. The strongest negotiated cipher suite is chosen during the SSL handshake. The set of cipher suites used by default by JSSE depends on the specific JDK version with which node manager is configured.",
 
-  "a-Ciphersuite-label": "Ciphersuite",
+  "a-Ciphersuite-label": "Cipher Suites",
+  "a-Ciphersuite-itemLabel": "Cipher Suite",
+  "a-Ciphersuite-itemHelp": "Specify a cipher suite to add to the list.",
   "f-any_NetworkAccessPoint-a-Ciphersuite-help": "Indicates the cipher suites being used on a particular WebLogic Server channel. The strongest negotiated cipher suite is chosen during the SSL handshake. The set of cipher suites used by default by JSSE depends on the specific JDK version with which WebLogic Server is configured.",
   "f-any_SSL-a-Ciphersuite-help": "Indicates the cipher suites being used on a particular WebLogic Server. The strongest negotiated cipher suite is chosen during the SSL handshake. The set of cipher suites used by default by JSSE depends on the specific JDK version with which WebLogic Server is configured.",
 
@@ -1118,6 +1148,8 @@
   "f-WebserviceSecurity_WebserviceTokenHandler-a-ClassName-help": "The fully qualified name of the class that implements a particular credential provider or token handler.",
 
   "a-ClassPath-label": "Class Path",
+  "a-ClassPath-itemLabel": "Class Path Element",
+  "a-ClassPath-itemHelp": "Specify the file or directory to add to the class path.",
   "f-SystemComponent_SystemComponentStart-a-ClassPath-help": "The classpath (path on the machine running Node Manager) to use when starting this server. If you need to add user classes to the classpath, in addition you will need to add the following: FEATURES_HOME/weblogic.server.modules.coherence.integration.jar:COHERENCE_HOME/lib/coherence.jar where FEATURES_HOME is the features directory (typically $WL_HOME/modules/features) and COHERENCE_HOME the coherence directory (typically $ORACLE_HOME/coherence) on the Node Manager machine. If you do not specify a classpath the above will be used automatically. The operating system determines which character separates path elements. On Windows, use a semicolon (;). On UNIX a colon (:).",
   "f-any_ServerStart-a-ClassPath-help": "The classpath (on the machine running Node Manager) to use when starting this server. ",
 
@@ -1232,7 +1264,7 @@
   "a-ClusterWeight-help": "The proportion of the load that this server will bear, relative to other servers in a cluster. If all servers have the default weight or the same weight, each bears an equal proportion of the load. If one server has weight 50 and all other servers have weight 100, the 50-weight server will bear half as much load as any other server. The default value is 100.",
 
   "a-ClusteringMode-label": "Clustering Mode",
-  "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceClusterParams-a-ClusteringMode-help": "Specifies a clustering mode of either Unicast (default) or Multicast. If multicast is undesirable or unavailable in an environment, or when an environment is not properly configured to support multicast, then setting up the Well Known Addresses (WKA) feature is required. All cluster multicast communication is disabled if any of WKA, SSL, and/or secured production mode is/are enabled.",
+  "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceClusterParams-a-ClusteringMode-help": "Specifies a clustering mode of either Unicast (default) or Multicast. If multicast is undesirable or unavailable in an environment, or when an environment is not properly configured to support multicast, then setting up the Well-Known Addresses (WKA) feature is required. All cluster multicast communication is disabled if any of WKA, SSL, and/or secured production mode is/are enabled.",
 
   "a-ClusterwideRecoveryEnabled-label": "Cluster-Wide Recovery Enabled",
   "a-ClusterwideRecoveryEnabled-help": "Indicates that cluster-wide recovery is used for distributed transactions. When enabled, recovery operations for a distributed transaction are applied to all the servers of the cluster hosting a InterposedTransactionManager rather than just the server hosting the InterposedTransactionManager.",
@@ -1371,7 +1403,9 @@
   "a-ConnectionFilterIgnoreRuleErrorsEnabled-label": "Connection Filter Ignore Rule Errors Enabled",
   "f-SecurityConfiguration-a-ConnectionFilterIgnoreRuleErrorsEnabled-help": "Specifies whether the WebLogic Server should ignore filter rule errors during server startup.",
 
-  "a-ConnectionFilterRule-label": "Connection Filter Rule",
+  "a-ConnectionFilterRule-label": "Connection Filter Rules",
+  "a-ConnectionFilterRule-itemLabel": "Connection Filter Rule",
+  "a-ConnectionFilterRule-itemHelp": "Specify a rule to use for connection filters. The default implementation rules are in the format: target localAddress localPort action protocols.",
   "f-SecurityConfiguration-a-ConnectionFilterRule-help": "The rules used by any connection filter that implements the ConnectionFilterRulesListener interface. When using the default implementation and when no rules are specified, all connections are accepted. The default implementation rules are in the format: target localAddress localPort action protocols.",
 
   "a-ConnectionHarvestMaxCount-label": "Connection Harvest Max Count",
@@ -1454,7 +1488,9 @@
 
   "a-ConsoleInputEnabled-label": "Console Input Enabled",
 
-  "a-ConstrainedCandidateServer-label": "Constrained Candidate Server",
+  "a-ConstrainedCandidateServer-label": "Constrained Candidate Servers",
+  "a-ConstrainedCandidateServer-itemLabel": "Constrained Candidate Server",
+  "a-ConstrainedCandidateServer-itemHelp": "Add a server that can host a migratable service.",
   "a-ConstrainedCandidateServer-help": "The (user-restricted) list of servers that can host the migratable services deployed to this migratable target. The migratable service will not be allowed to migrate to a server that is not in the returned list of servers. For example, this feature may be used to configure two servers that have access to a dual-ported ported disk. All servers in this list must be part of the cluster that is associated with the migratable target.",
 
   "a-ConsumptionPausedAtStartup-label": "Consumption Paused At Startup",
@@ -1503,18 +1539,26 @@
   "a-CorsAllowedCredentials-help": "Determines if credentials are allowed for CORS requests. When the value is false, the response will not include the corresponding CORS HTTP header.",
 
   "a-CorsAllowedHeaders-label": "CORS Allowed Headers",
+  "a-CorsAllowedHeaders-itemLabel": "CORS Allowed Header",
+  "a-CorsAllowedHeaders-itemHelp": "Specify an HTTP header that is allowed for CORS requests.",
   "a-CorsAllowedHeaders-help": "Determines the value of allowed HTTP headers for CORS requests. The allowed headers value is a string that contains a comma separated list of HTTP header names. The default setting allows all headers. When the value is empty or not specified, the response will not include the corresponding CORS HTTP header.",
 
   "a-CorsAllowedMethods-label": "CORS Allowed Methods",
+  "a-CorsAllowedMethods-itemLabel": "CORS Allowed Method",
+  "a-CorsAllowedMethods-itemHelp": "Specify an HTTP method that should be allowed for CORS requests.",
   "a-CorsAllowedMethods-help": "Determines the value of allowed HTTP methods for CORS requests. The allowed methods value is a string that contains a comma separated list of HTTP method names. The default setting allows all methods. When the value is empty or not specified, the response will not include the corresponding CORS HTTP header.",
 
-  "a-CorsAllowedOrigin-label": "CORS Allowed Origin",
+  "a-CorsAllowedOrigin-label": "CORS Allowed Origins",
+  "a-CorsAllowedOrigin-itemLabel": "CORS Allowed Origin",
+  "a-CorsAllowedOrigin-itemHelp": "Specifies an allowed origin for CORS requests.",
   "a-CorsAllowedOrigin-help": "Determines the list of allowed origins for CORS requests. When the list is empty or not specified and CORS support is enabled then all origins are accepted. When specified the HTTP Origin header must match exactly one of the values configured as allowed. CORS origin values include protocol and domain name, they may also contain port numbers. Multiple variants of the allowed origin may need to be specified based on the origin used by the browser.",
 
   "a-CorsEnabled-label": "CORS Enabled",
   "f-RestfulManagementServices-a-CorsEnabled-help": "Enables the support of CORS (Cross-Origin Resource Sharing) processing in the RESTful Management Services Web application.",
 
   "a-CorsExposedHeaders-label": "CORS Exposed Headers",
+  "a-CorsExposedHeaders-itemLabel": "CORS Exposed Header",
+  "a-CorsExposedHeaders-itemHelp": "Specify an HTTP header that should be exposed for CORS requests.",
   "a-CorsExposedHeaders-help": "Determines the value of exposed HTTP headers for CORS requests. The exposed headers value is a string that contains a comma separated list of HTTP header names. The default setting does not specify any specific headers. When the value is empty or not specified, the response will not include the corresponding CORS HTTP header.",
 
   "a-CorsMaxAge-label": "CORS Max Age",
@@ -1667,6 +1711,11 @@
   "f-NMProperties-a-CustomIdentityPrivateKeyPassPhrase-help": "Specifies the password used to retrieve the private key for Oracle WebLogic Server from the Identity key store. This property is required when the Keystores property is set as CustomIdentityAndCustomTrust or CustomIdentityAndJavaStandardTrust.",
 
   "a-CustomNotificationProperties-label": "Custom Notification Properties",
+  "a-CustomNotificationProperties-entryLabel": "Custom Notification Property",
+  "a-CustomNotificationProperties-keyLabel": "Property Name",
+  "a-CustomNotificationProperties-keyHelp": "Specify a property name to add to the JSON object.",
+  "a-CustomNotificationProperties-valueLabel": "Property Value",
+  "a-CustomNotificationProperties-valueHelp": "Specify the property's value to add to the JSON object.",
   "f-WLDFSystemResource_WLDFResource_WatchNotification_RestNotification-a-CustomNotificationProperties-help": "Allows customizing the JSON object delivered to the REST endpoint.",
 
   "a-CustomPrivateKeyAlias-label": "Custom Private Key Alias",
@@ -1710,6 +1759,8 @@
   "f-Cluster-a-DataSourceForSessionPersistence-help": "To support HTTP Session failover across data centers, a datasource is required to dump session state on disk.",
 
   "a-DataSourceList-label": "Data Source List",
+  "a-DataSourceList-itemLabel": "Data Source",
+  "a-DataSourceList-itemHelp": "Specify a data source to add to the multi data source.",
   "f-JDBCSystemResource_JdbcResource_JDBCDataSourceParams-a-DataSourceList-help": "The list of data sources to which the multi data source will route connection requests. The order of data sources in the list determines the failover order.",
 
   "a-DataSourceName-label": "Data Source Name",
@@ -2073,6 +2124,8 @@
   "a-DebugManagementServicesResource-label": "Debug Management Services Resource",
 
   "a-DebugMaskCriteria-label": "Debug Mask Criteria",
+  "a-DebugMaskCriteria-itemLabel": "Debug Mask Criterion",
+  "a-DebugMaskCriteria-itemHelp": "Specify the dye mack criterion to add to the list.",
   "a-DebugMaskCriteria-help": "Dye mask criteria used to determine whether debug will be emitted for a request. Specifies the names of the Dye flags that will be inspected at runtime to determine whether debug needs to be emitted for a request.",
 
   "a-DebugMessaging-label": "Debug Messaging",
@@ -2098,6 +2151,11 @@
   "a-DebugPageFlowMonitoring-label": "Debug Page Flow Monitoring",
 
   "a-DebugParameters-label": "Debug Parameters",
+  "a-DebugParameters-entryLabel": "Debug Parameter",
+  "a-DebugParameters-keyLabel": "Parameter Name",
+  "a-DebugParameters-keyHelp": "Specify name of the parameter to add to the list. The parameter name is prefixed with the name of the debug flag.",
+  "a-DebugParameters-valueLabel": "Parameter Value",
+  "a-DebugParameters-valueHelp": "Specify the parameter's value.",
   "a-DebugParameters-help": "Parameters for debug logging defined as name-value pairs. The parameters are prefixed with the name of the debug flag. The parameter names supported for a debug flag is specific to the implementation of the debug output.",
 
   "a-DebugPartitionJmx-label": "Debug Partition JMX",
@@ -2489,7 +2547,9 @@
   "a-DestinationType-label": "Destination Type",
   "f-JMSBridgeDestination-a-DestinationType-help": "The destination type (queue or topic) for this JMS bridge destination. The default value is Queue",
 
-  "a-Determiner-label": "Determiner",
+  "a-Determiner-label": "Determiners",
+  "a-Determiner-itemLabel": "Determiner",
+  "a-Determiner-itemHelp": "Select a transaction resource (determiner) to add to the list.",
   "a-Determiner-help": "Select a transaction resource (determiner) from the list of resources. For JMS, select WebLogic JMS as the determiner. When a determiner is configured, the determiner's in-doubt transaction records are used during transaction recovery.",
 
   "a-DeterminerCandidateResourceInfoList-label": "Determiner Candidate Resource Info List",
@@ -2727,7 +2787,9 @@
   "f-any_WebServiceRequestBufferingQueue-a-Enabled-help": "A boolean flag indicating whether request buffering is enabled. Defaults to false.",
   "f-any_WebServiceResponseBufferingQueue-a-Enabled-help": "A boolean flag indicating whether response buffering is enabled. Defaults to false.",
 
-  "a-EnabledServer-label": "Enabled Server",
+  "a-EnabledServer-label": "Enabled Servers",
+  "a-EnabledServer-itemLabel": "Enabled Server",
+  "a-EnabledServer-itemHelp": "Add a server to the list.",
   "a-EnabledServer-help": "This attribute is applicable only when the SNMP Agent is running on the Admin Server of a WebLogic Domain. The EnabledServers attribute allows the users to limit the scope of the monitored data sources to the specific named Servers. The EnabledServers list is ignored when the SNMAgentDeploymentMBean is targeted to a Managed Server. In the case of a Managed Server the SNMP Agent only looks at the data available in the WebLogic Server where the SNMP Agent is deployed. For traps based on MBean attributes the SNMP Agent refers to the Domain Runtime MBean Server when it is running on the Admin Server and the Runtime MBean Server when it is deployed to a Managed Server.",
 
   "a-EnabledServerDebugAttribute-label": "Enabled Server Debug Attribute",
@@ -2763,7 +2825,12 @@
   "a-EntityURI-label": "Entity URI",
   "a-EntityURI-help": "The location of the external entity, either a pathname or URI. The location of the external entity can be either a pathname relative to the XML Registry directories, reachable by the Administration Server, or a URI of the entity location in some local repository.",
 
-  "a-Environment-label": "Environment",
+  "a-Environment-label": "Environment Variables",
+  "a-Environment-entryLabel": "Environment Variable",
+  "a-Environment-keyLabel": "Environment Variable Name",
+  "a-Environment-keyHelp": "Specify the name of the environment variable to add.",
+  "a-Environment-valueLabel": "Environment Variable Value",
+  "a-Environment-valueHelp": "Specify the environment variable's value to add.",
   "f-WLDFSystemResource_WLDFResource_WatchNotification_ScriptAction-a-Environment-help": "A map of environment variables to set for the child process.",
 
   "a-ErrorAuditSeverityEnabled-label": "Error Audit Severity Enabled",
@@ -2791,16 +2858,22 @@
   "a-ExalogicOptimizationsEnabled-label": "Exalogic Optimizations Enabled",
   "a-ExalogicOptimizationsEnabled-help": "Specifies whether optimizations for Oracle Exalogic should be enabled. Optimizations include improved thread management and request processing, and reduced lock contention. This attribute should be enabled only when configuring a WebLogic domain for Oracle Exalogic.",
 
-  "a-Exclude-label": "Exclude",
+  "a-Exclude-label": "Excludes",
+  "a-Exclude-itemLabel": "Exclude",
+  "a-Exclude-itemHelp": "Specify a pattern expression for classes to exclude.",
   "f-WLDFSystemResource_WLDFResource_Instrumentation_WLDFInstrumentationMonitor-a-Exclude-help": "Pattern expressions for classes that will be excluded for this instrumentation monitor. If specified, classes matching given patterns will not be instrumented with this monitor.",
   "f-WLDFSystemResource_WLDFResource_Instrumentation-a-Exclude-help": "Pattern expressions for classes that will be excluded from this instrumentation scope. If specified, classes matching given patterns will not be instrumented.",
 
   "a-ExcludedCiphersuite-label": "Excluded Cipher Suites",
+  "a-ExcludedCiphersuite-itemLabel": "Excluded Cipher Suite",
+  "a-ExcludedCiphersuite-itemHelp": "Specifies an excluded cipher suite to add to the list.",
   "a-ExcludedCiphersuite-help": "Specifies the list of cipher suites not to be used by WebLogic Server.",
   "f-any_NetworkAccessPoint-a-ExcludedCiphersuite-help": "Specifies the list of cipher suites not to be used with this channel.",
   "f-any_SSL-a-ExcludedCiphersuite-help": "Specifies the list of cipher suites not to be used with this server.",
 
-  "a-ExcludedDomainName-label": "Excluded Domain Name",
+  "a-ExcludedDomainName-label": "Excluded Domain Names",
+  "a-ExcludedDomainName-itemLabel": "Excluded Domain Name",
+  "a-ExcludedDomainName-itemHelp": "Specify a remote domain to exclude from cross-domain checks.",
   "f-SecurityConfiguration-a-ExcludedDomainName-help": "Specifies a list of remote domains for which cross-domain check should not be applied.",
 
   "a-ExpectedToRun-label": "Expected To Run",
@@ -2845,7 +2918,9 @@
   "a-FailbackDelaySeconds-label": "Failback Delay Seconds",
   "a-FailbackDelaySeconds-help": "Specifies the amount of time, in seconds, to delay before failing a cluster-targeted JMS artifact instance back to its preferred server after the preferred server failed and was restarted. This delay allows time for the system to stabilize and dependent services to be restarted, preventing a system failure during a reboot. A value > 0 specifies the time, in seconds, to delay before failing a JMS artifact back to its user preferred server. A value of 0 indicates that the instance would never failback. A value of -1 indicates that there is no delay and the instance would failback immediately.",
 
-  "a-FailoverAddress-label": "Failover Address",
+  "a-FailoverAddress-label": "Failover Addresses",
+  "a-FailoverAddress-itemLabel": "Failover Address",
+  "a-FailoverAddress-itemHelp": "Specify an address for a failover Jolt Server Listener (JSL).",
   "f-JoltConnectionPool-a-FailoverAddress-help": "The list of Jolt Server Listeners (JSLs) addresses that is used if the connection pool cannot establish connections to the Primary Addresses, or if the primary connections fail. The format of each address is: //hostname:port. Multiple addresses should be separated by commas. These JSLs need not reside on the same host as the primary JSLs.",
 
   "a-FailoverRequestIfBusy-label": "Failover Request If Busy",
@@ -2931,9 +3006,14 @@
   "a-FilterExpression-label": "Filter Expression",
   "f-LogFilter-a-FilterExpression-help": "The filter expression to be evaluated for qualifying log messages. The filter expression is specified as a string in the query language. The query language supports Boolean operators: AND, OR, and NOT, and relational operators. You can use the following column names (message attributes) in a query to filter data going to a log destination: RECORDID, DATE, SEVERITY, SUBSYSTEM, MACHINE, SERVER, THREAD, USERID, TXID, CONTEXTID, TIMESTAMP, MSGID, and MESSAGE.",
 
-  "a-FldTbl16Class-label": "FMW Field Table 16-bit Class",
+  "a-FldTbl16Class-label": "FMW Field Table 16-bit Classes",
+  "a-FldTbl16Class-itemLabel": "FMW Field Table 16-bit Class",
+  "a-FldTbl16Class-itemHelp": "Specifies the name of a FldTbl16Class to add to the FldTbl array.",
   "a-FldTbl16Class-help": "The names of FldTbl16Classes that are loaded via a class loader and added to a FldTbl array. Use the fully-qualified class names.  Use a comma to separate multiple entries.",
-  "a-FldTbl32Class-label": "FMW Field Table 32-bit Class",
+
+  "a-FldTbl32Class-label": "FMW Field Table 32-bit Classes",
+  "a-FldTbl32Class-itemLabel": "FMW Field Table 32-bit Class",
+  "a-FldTbl32Class-itemHelp": "Specifies the name of a FldTbl32Class to add to the FldTbl array.",
   "a-FldTbl32Class-help": "The names of FldTbl32Classes that are loaded via a class loader and added to a FldTbl array. Use the fully-qualified class names.  Use a comma to separate multiple entries.",
 
   "a-FlowControlEnabled-label": "Flow Control Enabled",
@@ -3069,7 +3149,9 @@
   "a-GuidAttribute-label": "GUID Attribute",
   "a-GuidAttribute-help": "Specifies the name of the GUID attribute defined in the Active Directory LDAP server. The default value is objectguid.",
 
-  "a-GzipCompressionContentType-label": "GZIP Compression Content Type",
+  "a-GzipCompressionContentType-label": "GZIP Compression Content Types",
+  "a-GzipCompressionContentType-itemLabel": "GZIP Compression Content Type",
+  "a-GzipCompressionContentType-itemHelp": "Specifies a MIME type to include in compression.",
   "f-WebAppContainer_GzipCompression-a-GzipCompressionContentType-help": "The list of content MIME types to be included in compression.",
 
   "a-GzipCompressionEnabled-label": "GZIP Compression Enabled",
@@ -3083,8 +3165,14 @@
   "f-any_XMLEntitySpecRegistryEntry-a-HandleEntityInvalidation-help": "Whether cached DTD/schema is invalidated when parsing error is encountered. The default value is defer to registry setting.",
 
   "a-HandlerDefaults-label": "Handler Defaults",
+  "a-HandlerDefaults-entryLabel": "Handler Default",
+
   "a-HandlerEnabled-label": "Handler Enabled",
+
   "a-Handlers-label": "Handlers",
+  "a-Handlers-itemLabel": "Handler",
+  "a-Handlers-itemHelp": "Add a handler to the list.",
+  "a-Handlers-help": "Specifies the list of handlers associated with the logger.",
 
   "a-HandlingOrder-label": "Handling Order",
   "a-HandlingOrder-help": "Specifies the order in which the token handlers execute on a given token. If you do not specify an order, it is determined by the order in which you added the token handlers.",
@@ -3092,10 +3180,14 @@
   "a-HangDetectionMaxTestWaitSeconds-label": "Hang Detection Max Test Wait Seconds",
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-HangDetectionMaxTestWaitSeconds-help": "The amount of time to wait for connection tests to complete before the connection pool determines that a connection test is hung. Setting the value to 0 disables the hang detection feature.",
 
-  "a-HarvestedAttribute-label": "Harvested Attribute",
+  "a-HarvestedAttribute-label": "Harvested Attributes",
+  "a-HarvestedAttribute-itemLabel": "Harvested Attribute",
+  "a-HarvestedAttribute-itemHelp": "Specify an attribute to add to the harvested attributes list.",
   "a-HarvestedAttribute-help": "The harvested attributes for this type. If a list of attributes is provided, only those attributes are harvested; otherwise all harvestable attributes are harvested.",
 
-  "a-HarvestedInstance-label": "Harvested Instance",
+  "a-HarvestedInstance-label": "Harvested Instances",
+  "a-HarvestedInstance-itemLabel": "Harvested Instance",
+  "a-HarvestedInstance-itemHelp": "Specify a harvested instance name. The name must be a valid JMX ObjectName or an ObjectName pattern.",
   "a-HarvestedInstance-help": "The harvested instances of this type. The configuration of a type can optionally provide a set of identifiers for specific instances. If this list is provided, only the provided instances are harvested; otherwise all instances of the type are harvested. The identifier for an instance must be a valid JMX ObjectName or an ObjectName pattern.",
 
   "a-HeaderTableSize-label": "Header Table Size",
@@ -3200,10 +3292,14 @@
   "a-IdentityAssertionCacheTtl-label": "Identity Assertion Cache TTL",
   "f-any_Realm-a-IdentityAssertionCacheTtl-help": "The time-to-live (TTL), in seconds, of the Identity Assertion cache. This value is used only if IdentityAssertionCacheEnabled is set to true.",
 
-  "a-IdentityAssertionDoNotCacheContextElement-label": "Identity Assertion Do Not Cache Context Element",
+  "a-IdentityAssertionDoNotCacheContextElement-label": "Identity Assertion Do Not Cache Context Elements",
+  "a-IdentityAssertionDoNotCacheContextElement-itemLabel": "Identity Assertion Do Not Cache Context Element",
+  "a-IdentityAssertionDoNotCacheContextElement-itemHelp": "Specifies the ContextElement name to not store in the Identity Assertion cache.",
   "f-any_Realm-a-IdentityAssertionDoNotCacheContextElement-help": "Specifies the names of the ContextElements that are not stored in the Identity Assertion cache because these elements are present in the ContextHandler of the requests. This value is used only if IdentityAssertionCacheEnabled is set to true.",
 
-  "a-IdentityAssertionHeaderNamePrecedence-label": "Identity Assertion Header Name Precedence",
+  "a-IdentityAssertionHeaderNamePrecedence-label": "Identity Assertion Header Names Precedence",
+  "a-IdentityAssertionHeaderNamePrecedence-itemLabel": "Identity Assertion Header Name",
+  "a-IdentityAssertionHeaderNamePrecedence-itemHelp": "Specifies a token type name  used for Identity Assertion with HTTP request headers.",
   "f-any_Realm-a-IdentityAssertionHeaderNamePrecedence-help": "Specifies an ordered list of token type names used for Identity Assertion with HTTP request headers. The list determines the precedence order when multiple HTTP headers are present in an HTTP request based on the list of active token types maintained on the configured Authentication providers.",
 
   "a-IdentityBasedConnectionPoolingEnabled-label": "Identity-Based Connection Pooling Enabled",
@@ -3219,6 +3315,8 @@
   "f-SecurityConfiguration-a-IdentityDomainDefaultEnabled-help": "Specifies whether all role mapping, authorization, credential mapping, and audit providers configured in the domain must support the IdentityDomainAwareProviderMBean interface's administrative identity domain.",
 
   "a-IdentityDomains-label": "Identity Domains",
+  "a-IdentityDomains-itemLabel": "Identity Domain",
+  "a-IdentityDomains-itemHelp": "Specifies an identity domain to add to the provider list.",
   "a-IdentityDomains-help": "Sets the identity domains that the provider supports. This overwrites the default value defined in MultiIdentityDomainAuthenticatorMBean.",
 
   "a-IdentityKeyStoreFileName-label": "Identity Key Store File Name",
@@ -3297,7 +3395,9 @@
   "a-InboundCertificateValidation-label": "Inbound Certificate Validation",
   "a-InboundCertificateValidation-help": "Indicates the client certificate validation rules for inbound SSL. This attribute only applies to ports and network channels using 2-way SSL.",
 
-  "a-Include-label": "Include",
+  "a-Include-label": "Includes",
+  "a-Include-itemLabel": "Include",
+  "a-Include-itemHelp": "Specify a pattern expression for classes to include.",
   "f-WLDFSystemResource_WLDFResource_Instrumentation_WLDFInstrumentationMonitor-a-Include-help": "Pattern expressions for classes that are included for this instrumentation monitor. If specified, only included classes will be instrumented with this monitor. If not specified, all classes loaded within the application and which are not explicitly excluded are eligible for instrumentation with this monitor. A pattern can end with an asterisk (*), in which case it will match with all classes whose fully qualified classname starts with the prefix of the pattern. For example, weblogic.rmi.* will match with all classes in weblogic.rmi and its subpackages.",
   "f-WLDFSystemResource_WLDFResource_Instrumentation-a-Include-help": "Pattern expressions for classes that are included in this instrumentation scope. If specified, only included classes will be instrumented. If not specified, all classes loaded within the application and which are not explicitly excluded are eligible for instrumentation. A pattern can end with an asterisk (*), in which case it will match with all classes whose fully qualified classname starts with the prefix of the pattern. For example, weblogic.rmi.* will match with all classes in weblogic.rmi and its subpackages.",
 
@@ -3349,7 +3449,7 @@
   "a-InsertsPerBatchMaximum-label": "Inserts Per Batch Maximum",
   "a-InsertsPerBatchMaximum-help": "The maximum number of table rows that are inserted per database call. The default value is 20.",
 
-  "a-InstallDir-label": "Install Dir",
+  "a-InstallDir-label": "Install Directory",
   "f-Application-a-InstallDir-help": "The path to the application's install-root directory, relative to the domain/config/deployments directory. When the installation directory is specified, SourcePath, PlanDir, and PlanPath are derived from this path and need not be specified. The default value for this is the name of the deployment.",
 
   "a-InstalledSoftwareVersion-label": "Installed Software Version",
@@ -3433,8 +3533,11 @@
   "a-JMSTopicConnectionFactory-label": "JMS Topic Connection Factory",
 
   "a-JNDIName-label": "JNDI Name",
-  "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceCacheConfig-a-JNDIName-help": "The JNDI Name for this CoherenceCacheConfigMBean.",
-  "f-JDBCSystemResource_JdbcResource_JDBCDataSourceParams-a-JNDIName-help": "The JNDI Name for this data source. By default, the JNDI name is the name of the data source.",
+  "f-any_CoherenceCacheConfig-a-JNDIName-help": "The JNDI Name for this CoherenceCacheConfigMBean.",
+  "f-JDBCSystemResource_JdbcResource_JDBCDataSourceParams-a-JNDIName-label": "JNDI Names",
+  "f-JDBCSystemResource_JdbcResource_JDBCDataSourceParams-a-JNDIName-itemLabel": "JNDI Name",
+  "f-JDBCSystemResource_JdbcResource_JDBCDataSourceParams-a-JNDIName-itemHelp": "Add a JNDI name to the data source.",
+  "f-JDBCSystemResource_JdbcResource_JDBCDataSourceParams-a-JNDIName-help": "The JNDI names for this data source. By default, the JNDI name is the name of the data source.",
   "f-JMSSystemResource_JmsResource_ConnectionFactory-a-JNDIName-help": "The JNDI Name for this JMS connection factory. The global JNDI name used to look up a connection factory within a clustered JNDI namespace. In a clustered environment, this name is propagated to the entire cluster. If you want the JNDI name to be bound only on the local server, and not propagated to the rest of the cluster, then use the Local JNDI Name setting. If not specified, then the connection factory is not bound into a clustered JNDI namespace.",
   "f-JMSSystemResource_JmsResource_Queue-a-JNDIName-help": "The JNDI Name for this JMS queue. The global JNDI name used to look up a connection factory within a clustered JNDI namespace. In a clustered environment, this name is propagated to the entire cluster. If you want the JNDI name to be bound only on the local server, and not propagated to the rest of the cluster, then use the Local JNDI Name setting. If not specified, then the connection factory is not bound into a clustered JNDI namespace.",
   "f-JMSSystemResource_JmsResource_Topic-a-JNDIName-help": "The JNDI Name for this JMS topic. The global JNDI name used to look up a connection factory within a clustered JNDI namespace. In a clustered environment, this name is propagated to the entire cluster. If you want the JNDI name to be bound only on the local server, and not propagated to the rest of the cluster, then use the Local JNDI Name setting. If not specified, then the connection factory is not bound into a clustered JNDI namespace.",
@@ -3451,6 +3554,8 @@
   "f-JMSSystemResource_JmsResource_ForeignServer-a-JNDIPropertiesCredentialEncrypted-help": "Any Credentials that must be set for the JNDI provider. These Credentials will be part of the properties will be passed directly to the constructor for the JNDI provider's InitialContext class. Some foreign providers require other properties to be set while obtaining an initial naming context. These properties can be set with a JNDIProperty bean.",
 
   "a-JNDITransportableObjectFactoryList-label": "JNDI Transportable Object Factory List",
+  "a-JNDITransportableObjectFactoryList-itemLabel": "JNDI Transportable Object Factory",
+  "a-JNDITransportableObjectFactoryList-itemHelp": "Specifies an object factory that creates transportable objects. ",
   "a-JNDITransportableObjectFactoryList-help": "Specifies the list of factories that create transportable objects.",
 
   "a-JNDIUsername-label": "JNDI Username",
@@ -3610,7 +3715,9 @@
   "a-KnownTenantEmptyMetadataTtl-label": "Known Tenant Empty Metadata Time-to-Live",
   "a-KnownTenantEmptyMetadataTtl-help": "Specifies the time-to-live (TTL) of the empty metadata for known Oracle Identity Cloud Service tenants in Oracle Identity Cloud Service metadata cache, in seconds. The default value 300.",
 
-  "a-KnownTenantPrefix-label": "Known Tenant Prefix",
+  "a-KnownTenantPrefix-label": "Known Tenant Prefixes",
+  "a-KnownTenantPrefix-itemLabel": "Known Tenant Prefix",
+  "a-KnownTenantPrefix-itemHelp": "Specifies a tenant prefix to add to the list.",
   "a-KnownTenantPrefix-help": "Specifies the list of tenant prefixes that would identify known or valid Oracle Identity Cloud Service tenant names. Used in combination with KnownTenantEmptyMetadataTTL to decide the TTL of cached empty metadata for Oracle Identity Cloud Service tenants. When no perfixes are configured, all tenants are considered as Oracle Identity Cloud Service tenants. The default value includes \"idcs-\".",
 
   "a-KnownType-label": "Known Type",
@@ -3836,6 +3943,11 @@
    "f-any_Log-a-LoggerSeverity-help": "The minimum severity of log messages going to all log destinations.",
 
   "a-LoggerSeverityProperties-label": "Logger Severity Properties",
+  "a-LoggerSeverityProperties-entryLabel": "Logger Severity Property",
+  "a-LoggerSeverityProperties-keyLabel": "Logger Name",
+  "a-LoggerSeverityProperties-keyHelp": "Specifies the name of the logger to which the severity level should be set.",
+  "a-LoggerSeverityProperties-valueLabel": "Severity Level",
+  "a-LoggerSeverityProperties-valueHelp": "Specifies the logger's severity level. Legal values are \"Emergency\", \"Alert\", \"Critical\", \"Error\", \"Warning\", \"Notice\", \"Info\", \"Debug\", or \"Trace\".",
   "f-any_Log-a-LoggerSeverityProperties-help": "The configuration of the different logger severities keyed by name. The values are one of the predefined Severity strings namely Emergency, Alert, Critical, Error, Warning, Notice, Info, Debug, Trace.",
 
   "a-LoggingEnabled-label": "Logging Enabled",
@@ -4151,8 +4263,10 @@
   "a-MessageFormat-label": "Message Format",
   "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceLoggingParams-a-MessageFormat-help": "The Coherence logs message format.",
 
-  "a-MessageId-label": "Message ID",
-  "f-any_SNMPLogFilter-a-MessageId-help": "A list of message IDs or ID ranges that cause a WebLogic Server SNMP agent to generate a notification. If no IDs are specified, this filter selects all message IDs.  Example list: 20,50-100,300",
+  "a-MessageId-label": "Message IDs",
+  "a-MessageId-itemLabel": "Message ID",
+  "a-MessageId-itemHelp": "Specifies the message ID or range of message IDs to add. Examples: 20 or 50-100.",
+  "f-any_SNMPLogFilter-a-MessageId-help": "A list of message IDs or ID ranges that cause a WebLogic Server SNMP agent to generate a notification. If no IDs are specified, this filter selects all message IDs.  Example list: 20,50-100,300.",
 
   "a-MessageIdPrefixEnabled-label": "Message ID Prefix Enabled",
   "a-MessageIdPrefixEnabled-help": "Indicates whether message IDs in logged messages will include a prefix. Message ids are 6 digit numeric strings that can be optionally presented in a log entry with a prefix. The prefix used by server messages is \"BEA-\".",
@@ -4209,7 +4323,9 @@
   "a-MetaDataFile-label": "Metadata File",
   "f-WTCServer_WTCtBridgeRedirect-a-MetaDataFile-help": "The name of the metadata file URL used to pass the call to the XML-to-non-XML WebLogic XML Translator (WLXT).",
 
-  "a-MetadataEncryptionAlgorithm-label": "Metadata Encryption Algorithm",
+  "a-MetadataEncryptionAlgorithm-label": "Metadata Encryption Algorithms",
+  "a-MetadataEncryptionAlgorithm-itemLabel": "Metadata Encryption Algorithm",
+  "a-MetadataEncryptionAlgorithm-itemHelp": "Specify an encryption algorithm to add to the published list.",
   "f-any_SingleSignOnServices-a-MetadataEncryptionAlgorithm-help": "The default list of data, key encryption algorithms to be published in a WebLogic Service Partner's metadata.",
 
   "a-Method-label": "Method",
@@ -4454,7 +4570,9 @@
   "a-Notes-label": "Notes",
   "a-Notes-help": "Optional information that you can include to describe this configuration.",
 
-  "a-Notification-label": "Notification",
+  "a-Notification-label": "Notifications",
+  "a-Notification-itemLabel": "Notification",
+  "a-Notification-itemHelp": "Specify an action to add to this policy.",
   "f-WLDFSystemResource_WLDFResource_WatchNotification_Watch-a-Notification-help": "The actions enabled for this policy.",
 
   "a-NotificationProperties-label": "Notification Properties",
@@ -4553,6 +4671,8 @@
   "a-OnlyUserTokenClaimsEnabled-help": "Specifies whether the claims about the user from the token are the only claims processed when a subject is created. Any additional information in the subject about the user, including groups and application roles, is obtained from the Oracle Identity Cloud Service.",
 
   "a-OnsNodeList-label": "ONS Node List",
+  "a-OnsNodeList-itemLabel": "ONS Node",
+  "a-OnsNodeList-itemHelp": "Add a ONS daemon listen address and port.",
   "f-JDBCSystemResource_JdbcResource_JDBCOracleParams-a-OnsNodeList-help": "A comma-separate list of ONS daemon listen addresses and ports to which connect to for receiving ONS-based FAN events. It is required when connecting to Oracle 11g databases and optional when connecting to Oracle database releases 12c and higher.",
 
   "a-OnsWalletFile-label": "ONS Wallet File",
@@ -4696,6 +4816,7 @@
   "f-any_SingleSignOnServices-a-Passive-help": "Determines whether the Identity Provider and the user must not take control of the user interface from the requester and interact with the user in a noticeable fashion. The default setting is false. The WebLogic Server SAML 2.0 services generate an exception if Passive (IsPassive) is enabled and the end user is not already authenticated at the Identity Provider site. In this situation, web single sign-on fails.",
 
   "a-Password-label": "Password",
+  "f-OPSSInitialization_Credential_TargetKey-a-Password-help": "The password or passphrase for the specified target key.",
 
   "a-PasswordAlgorithm-label": "Password Algorithm",
   "a-PasswordAlgorithm-help": "Specifies the message digest algorithm used to hash passwords for storage. The name is a standard algorithm name and must be recognized by a Java Cryptography Extension (JCE) provider that is available at runtime.",
@@ -4763,7 +4884,7 @@
   "a-PlaintextPasswordsEnabled-label": "Plaintext Passwords Enabled",
   "a-PlaintextPasswordsEnabled-help": "Specifies whether plaintext passwords are allowed to be used.",
 
-  "a-PlanDir-label": "Plan Dir",
+  "a-PlanDir-label": "Plan Directory",
   "a-PlanDir-help": "The location of this application's configuration area. This directory can contain external descriptor files as specified within the deployment plan document. If the plan directory is a relative path, it is resolved relative to InstallDir if InstallDir is not null; otherwise, it is resolved relative to the domain root.",
 
   "a-PlanPath-label": "Plan Path",
@@ -4773,7 +4894,12 @@
   "a-PlanStagingMode-help": "Specifies whether an application's deployment plan is copied from a source on the Administration Server to the Managed Server's staging area during application preparation. Plan staging mode for an application can only be set the first time the application is deployed. Once the plan staging mode for an application is set, it cannot be changed while the application is configured in the domain. The only way to change the plan staging mode is to undeploy and then redeploy the application. This attribute overrides the server's plan staging mode.",
 
   "a-PlatformLoggerLevels-label": "Platform Logger Levels",
-  "a-PlatformLoggerLevels-help": "Specifies the platform logger and the associated level names set through the WebLogic Server configuration.",
+  "a-PlatformLoggerLevels-entryLabel": "Platform Logger Level",
+  "a-PlatformLoggerLevels-keyLabel": "Logger Name",
+  "a-PlatformLoggerLevels-keyHelp": "The name of the java.util.logging.Logger instance in the JDK's default global LogManager to configure.",
+  "a-PlatformLoggerLevels-valueLabel": "Severity Level",
+  "a-PlatformLoggerLevels-valueHelp": "The java.util.logging.Level to use for the named logger. The legal values are \"ALL\", \"CONFIG\", \"FINE\", \"FINER\", \"FINEST\", \"INFO\", \"OFF\", \"SEVERE\", and \"WARNING\".",
+  "a-PlatformLoggerLevels-help": "Specifies the platform logger and the associated level names set through the WebLogic Server configuration. If your WebLogic domain includes Oracle JRF and is configured to use Oracle Diagnostic Logging (ODL), the java.util.logging levels set on the LogMBean.PlatformLoggerLevels attribute are ignored.",
 
   "a-PlatformMBeanServerEnabled-label": "Platform MBean Server Enabled",
   "f-JMX-a-PlatformMBeanServerEnabled-help": "Specifies whether each server instance initializes the JDK's platform MBean server. Enabling it, along with isPlatformMBeanServerUsed, causes WebLogic Server to use the platform MBean server as its Runtime MBean Server. As of JDK 1.5, JVMs provide a platform MBean server that local processes can instantiate. There can be only one instance of the platform MBean server for each JVM. When a process instantiates this MBean server, the JVM creates several platform MXBeans that provide monitoring data for the JVM itself. If you set this attribute to true, each WebLogic Server instance invokes the method java.lang.management.ManagementFactory.getPlatformMBeanServer() and thus causes the initialization of the JVM's MXBeans.",
@@ -4786,6 +4912,11 @@
   "f-any_CustomDBMSAuthenticator-a-PluginClassName-help": "Specifies the name of a class that implements the weblogic.security.providers.authentication.CustomDBMSAuthenticatorPlugin interface. The class must exist in the CLASSPATH. The value is required and there is no default value.",
 
   "a-PluginProperties-label": "Plug-in Properties",
+  "a-PluginProperties-entryLabel": "Plug-in Property",
+  "a-PluginProperties-keyLabel": "Property Name",
+  "a-PluginProperties-keyHelp": "Specifies the name of the plug-in property.",
+  "a-PluginProperties-valueLabel": "Property Value",
+  "a-PluginProperties-valueHelp": "Specifies the value of the plug-in property.",
   "f-any_CustomDBMSAuthenticator-a-PluginProperties-help": "Defines configuration properties for the specified plug-in class, if any. The property names and supported values are defined by the plug-in class.",
 
   "a-PluginType-label": "Plug-in Type",
@@ -4877,7 +5008,9 @@
 
   "a-Preserved-label": "Preserved",
 
-  "a-PrimaryAddress-label": "Primary Address",
+  "a-PrimaryAddress-label": "Primary Addresses",
+  "a-PrimaryAddress-itemLabel": "Primary Address",
+  "a-PrimaryAddress-itemHelp": "Specify an address for a primary Jolt Server Listener (JSL) on the Tuxedo system.",
   "f-JoltConnectionPool-a-PrimaryAddress-help": "The list of addresses for the primary Jolt Server Listeners (JSLs) on the Tuxedo system. The format of each address is: //hostname:port. Multiple addresses should be separated by commas.",
 
   "a-PrimaryIdentityDomain-label": "Primary Identity Domain",
@@ -4936,8 +5069,15 @@
   "a-PropagateCauseForLoginException-help": "Specifies whether to propagate the cause of the LoginException.",
 
   "a-Properties-label": "Properties",
+  "a-Properties-entryLabel": "Property",
+  "a-Properties-keyLabel": "Property Name",
+  "a-Properties-keyHelp": "Specifies the property name.",
+  "a-Properties-valueLabel": "Property Value",
+  "a-Properties-valueHelp": "Specifies the property value.",
   "f-ForeignJNDIProvider-a-Properties-help": "Any additional properties that must be set for the JNDI provider. These properties will be passed directly to the constructor for the JNDI provider's InitialContext class.",
   "f-MailSession-a-Properties-help": "The configuration options and user authentication data that this JavaMail session uses to interact with the email server. Each property that you specify overrides the default property value as defined by the JavaMail API Design Specification. Include only the properties defined by the JavaMail API Design Specification. If you do not specify any properties, this mail session will use the JavaMail default property values.",
+  "f-WLDFSystemResource_WLDFResource_Instrumentation_WLDFInstrumentationMonitor-a-Properties-itemLabel": "Property",
+  "f-WLDFSystemResource_WLDFResource_Instrumentation_WLDFInstrumentationMonitor-a-Properties-itemHelp": "Specify a property name=value pair for this monitor.",
   "f-WLDFSystemResource_WLDFResource_Instrumentation_WLDFInstrumentationMonitor-a-Properties-help": "Properties for this monitor.",
   "f-any_CertificateIssuerPlugin-a-Properties-help": "The configuration properties for the certificate issues plugin provider.",
 
@@ -5034,7 +5174,9 @@
   "a-ReceivingPausedAtStartup-label": "Receiving Paused At Startup",
   "f-SAFAgent-a-ReceivingPausedAtStartup-help": "Specifies whether the agent is paused for receiving messages at the startup time. When enabled, the sending agent receives messages. Otherwise, the sending agent does not receive any messages. If the value is changed and activated, you need to restart any servers to which the MBean is targeted before the value will take effect.",
 
-  "a-Recipient-label": "Recipient",
+  "a-Recipient-label": "Recipients",
+  "a-Recipient-itemLabel": "Recipient",
+  "a-Recipient-itemHelp": "Specify the email address of the recipient.",
   "f-WLDFSystemResource_WLDFResource_WatchNotification_SMTPNotification-a-Recipient-help": "The address of the recipient or recipients of the SMTP action mail. The address uses the syntax defined in RFC822. Typical address syntax is of the form user@host.domain or Personal Name. An address can include multiple recipients, separated by commas or spaces.",
 
   "a-RecipientCheckEnabled-label": "Recipient Check Enabled",
@@ -5157,8 +5299,10 @@
   "f-WTCServer_WTCExport-a-RemoteName-help": "The remote name of this service. Note that if not specified, the ResourceName value is used.",
   "f-WTCServer_WTCImport-a-RemoteName-help": "The remote name of this service. Note that if not specified, the ResourceName value is used.",
 
-  "a-RemoteParticipantHost-label": "Remote Participant Host",
+  "a-RemoteParticipantHost-label": "Remote Participant Hosts",
   "a-RemoteParticipantHost-help": "The list of remote participant hosts, who will be added as participants in the federation topology.",
+  "a-RemoteParticipantHost-itemLabel": "Remote Participant Host",
+  "a-RemoteParticipantHost-itemHelp": "A remote participant host to add to the list of participants in the federation topology.",
 
   "a-RemotePassword-label": "Remote Password",
   "a-RemotePassword-help": "The remote password used to authenticate connections between the local access point and remote access point. Note that this password is used to authenticate connections between the local Tuxedo access point identified by LocalAccessPoint and the remote Tuxedo access point identified by RemoteAccessPoint.",
@@ -5192,6 +5336,8 @@
   "a-ReplicationGroup-help": "Defines preferred clustered instances considered for hosting replicas of the primary HTTP session states created on the server.",
 
   "a-ReplicationPorts-label": "Replication Ports",
+  "a-ReplicationPorts-itemLabel": "Replication Port",
+  "a-ReplicationPorts-itemHelp": "Specify a replication port or port range to add to the list",
   "a-ReplicationPorts-help": "When WLS is running on Exalogic machines, cluster replication traffic could go over multiple replication channels. However multiple replication channels need not be configured on each clustered server instance. Only one replication channel with explicit IP-Address needs to be configured for each server and replicationPorts range can be specified for each server. For eg. range 7001-7010 will create 10 replication channels with ports 7001 to 7010 for the given server. These channels inherits all the properties of the configured replication channel except the listen port.Names of these channels will be derived from the configured replication channel with suffix {x} added where x could be 1,2.. as per the number of ports specified. Public ports are same as the listen port for these additional channels.",
 
   "a-ReplicationTimeoutEnabled-label": "Replication Timeout Enabled",
@@ -5285,8 +5431,10 @@
   "a-RestartOnFailure-label": "Restart On Failure",
   "a-RestartOnFailure-help": "Specifies whether a failed service will first be deactivated and reactivated in place, instead of being migrated. The number of restart attempts is controlled by NumberOfRestartAttempts . Once these restart attempts are exhausted, the service will migrate. A restarting migratable target will deactivate all services on it in order, then reactivate them all. The default value is false.",
 
-  "a-RestrictUserManagementAccessPattern-label": "Restrict User Management Access Pattern",
-  "f-WebAppContainer-a-RestrictUserManagementAccessPattern-help": "The Username patterns for the WebLogic Restrict User Management Access Servlet Filter. Specify username patterns for the WebLogic Restrict User Management Access Servlet (RestrictUserManagementAccess) filter. Username patterns consist of a string array of regular expressions. When the RestrictUserManagementAccess filter matches any of the specified regular expressions with the principal name of the user in the security context for the HTTP request of a WebLogic management application (such as WebLogic Remote Console, REST APIs, and so on), the filter will block the user from accessing the application and terminate the user session. The messages about blocked requests will appear in the server log file. The regular expression must follow the Java Pattern syntax specification.",
+  "a-RestrictUserManagementAccessPattern-label": "Restrict User Management Access Patterns",
+  "a-RestrictUserManagementAccessPattern-itemLabel": "Restrict User Management Access Pattern",
+  "a-RestrictUserManagementAccessPattern-itemHelp": "Specifies the user name pattern to add to the list.",
+  "f-WebAppContainer-a-RestrictUserManagementAccessPattern-help": "The user name patterns for the WebLogic Restrict User Management Access Servlet Filter. Specify username patterns for the WebLogic Restrict User Management Access Servlet (RestrictUserManagementAccess) filter. Username patterns consist of a string array of regular expressions. When the RestrictUserManagementAccess filter matches any of the specified regular expressions with the principal name of the user in the security context for the HTTP request of a WebLogic management application (such as WebLogic Remote Console, REST APIs, and so on), the filter will block the user from accessing the application and terminate the user session. The messages about blocked requests will appear in the server log file. The regular expression must follow the Java Pattern syntax specification.",
 
   "a-RestrictiveJmxPolicies-label": "Restrictive JMX Policies",
   "f-any_SecureMode-a-RestrictiveJmxPolicies-help": "Specifies whether restrictive policies will be used for JMX authorization. If secure mode is enabled and restrictive policies are enabled, then the default policies for JMX only allow MBean access to the standard WLS roles (Admin, Deployer, Operator, or Monitor).",
@@ -5512,13 +5660,17 @@
   "a-SafExportPolicy-help": "Specifies whether a user can send messages to a destination using Store-and-Forward.",
   "f-JMSSystemResource_JmsResource_Template-a-SafExportPolicy-help": "Specifies whether a user can send messages to destinations that use this template using Store-and-Forward.",
 
-  "a-SameSiteFilterCookieSetting-label": "SameSite Filter Cookie Setting",
+  "a-SameSiteFilterCookieSetting-label": "SameSite Filter Cookie Settings",
+  "a-SameSiteFilterCookieSetting-itemLabel": "SameSite Filter Cookie Setting",
+  "a-SameSiteFilterCookieSetting-itemHelp": "Specify a cookie setting to add to the list. The setting specifies a match for the Cookie name using a regular expression, a value for the SameSite attribute and optionally, a secure setting for the Cookie. The regular expression follows the Java Pattern syntax specification.",
   "f-WebAppContainer-a-SameSiteFilterCookieSetting-help": "The HTTP Cookie configuration for the WebLogic HTTP SameSite Java EE Servlet Filter. The Cookie configuration specifies a String array of settings. Each setting specifies a match for the Cookie name using a regular expression, a value for the SameSite attribute and optionally, a secure setting for the Cookie. The regular expression follows the Java Pattern syntax specification.",
 
   "a-SameSiteFilterSecureChannelRequired-label": "SameSite Filter Secure Channel Required",
   "f-WebAppContainer-a-SameSiteFilterSecureChannelRequired-help": "The Secure Channel configuration specifies if a secure channel is required when setting the SameSite Cookie attribute where the Secure attribute is also set to true for the specific Cookie. By default, the Secure attribute setting will be applied for any channel as the user agent may reside in front of a proxy or load balancer when accessing resources.",
 
-  "a-SameSiteFilterUserAgentRegEx-label": "SameSite Filter User Agent Regular Expression",
+  "a-SameSiteFilterUserAgentRegEx-label": "SameSite Filter User Agent Regular Expressions",
+  "a-SameSiteFilterUserAgentRegEx-itemLabel": "SameSite Filter User Agent Regular Expression",
+  "a-SameSiteFilterUserAgentRegEx-itemHelp": "Specifies a user agent regular expression to add to the list.",
   "f-WebAppContainer-a-SameSiteFilterUserAgentRegEx-help": "The User Agent configuration specifies a String array of regular expressions. When the WebLogic HTTP SameSite filter matches any of these expressions with the HTTP User-Agent header value, then the Cookie settings will be applied for the HTTP request. The regular expression follows the Java Pattern syntax specification. By default, there are no expressions, thus the SameSite Cookie settings are applied for all requests.",
 
   "a-SamplePeriod-label": "Sample Period",
@@ -5691,7 +5843,11 @@
   "f-Cluster_DynamicServers-a-ServerTemplate-help": "The server template used to create dynamic servers.",
 
   "a-ServerVersion-label": "Server Version",
+
   "a-Servers-label": "Servers",
+  "a-Servers-itemLabel": "Server",
+  "a-Servers-itemHelp": "Add a server to the list.",
+  "a-Servers-help": "Specifies the list of servers to which the ODL logging.xml is written",
 
   "a-ServiceActivationRequestResponseTimeout-label": "Service Activation Request Response Timeout",
   "f-Cluster-a-ServiceActivationRequestResponseTimeout-help": "Specifies the maximum time, in milliseconds seconds, for services to wait for response from cluster members.",
@@ -5720,7 +5876,9 @@
   "a-ServiceProviderSingleLogoutEnabled-label": "Service Provider Single Logout Enabled",
   "f-any_SingleSignOnServices-a-ServiceProviderSingleLogoutEnabled-help": "Specifies whether Single Logout is enabled for the Service Provider. The default value is true.",
 
-  "a-ServiceProviderSingleLogoutRedirectUri-label": "Service Provider Single Logout Redirect URI",
+  "a-ServiceProviderSingleLogoutRedirectUri-label": "Service Provider Single Logout Redirect URIs",
+  "a-ServiceProviderSingleLogoutRedirectUri-itemLabel": "Service Provider Single Logout Redirect URI",
+  "a-ServiceProviderSingleLogoutRedirectUri-itemHelp": "Specify an allowed redirect URI after logout.",
   "f-any_SingleSignOnServices-a-ServiceProviderSingleLogoutRedirectUri-help": "The list of allowed redirect URIs to be used by the initiating Service Provider for after Logout redirection.",
 
   "a-ServiceType-label": "Service Type",
@@ -6034,6 +6192,9 @@
   "f-JMSSystemResource_JmsResource_ConnectionFactory_ClientParams-a-SubscriptionSharingPolicy-help": "Specifies the subscription sharing policy on this connection.",
 
   "a-SubsystemName-label": "Subsystem Name",
+  "f-any_SNMPLogFilter-a-SubsystemName-label": "Subsystem Names",
+  "f-any_SNMPLogFilter-a-SubsystemName-itemLabel": "Subsystem Name",
+  "f-any_SNMPLogFilter-a-SubsystemName-itemHelp": "The name of the subsystem to add to the list selected by this log filter.",
   "f-any_SNMPLogFilter-a-SubsystemName-help": "A list of subsystems whose messages are selected by this log filter. If none are specified, messages from all subsystems are selected.",
   "f-WLDFSystemResource_WLDFResource_WatchNotification_LogAction-a-SubsystemName-help": "The subsystem name to be assigned to the log message.",
 
@@ -6061,7 +6222,9 @@
   "a-SyncFilterPreferHeader-label": "Sync Filter Prefer Header",
   "a-SyncFilterPreferHeader-help": "Specifies whether the synchronization filter looks into the requests header before looking at the token for the remote user and tenant. This attribute is used only when the synchronization filter is enabled for requests with all authentication types.",
 
-  "a-SyncFilterUserHeaderName-label": "Sync Filter User Header Name",
+  "a-SyncFilterUserHeaderName-label": "Sync Filter User Header Names",
+  "a-SyncFilterUserHeaderName-itemLabel": "Sync Filter User Header Name",
+  "a-SyncFilterUserHeaderName-itemHelp": "Specifies an HTTP header name to add to the list.",
   "a-SyncFilterUserHeaderName-help": "Specifies the names of HTTP headers sent on requests that the synchronization filter uses to look for remote user information.",
 
   "a-SynchronizedSessionTimeoutEnabled-label": "Synchronized Session Timeout Enabled",
@@ -6148,13 +6311,17 @@
   "a-TenantDataReloadInterval-label": "Tenant Data Reload Interval",
   "a-TenantDataReloadInterval-help": "Specifies the interval, in seconds, that the Oracle Identity Cloud Service tenant data would not be removed when a token validation error occurs. Adjusting the interval impacts how long the tenant data is cached for reuse before repeated token validation errors result in a tenant data re-load. The default value is 300.",
 
-  "a-TenantHeaderName-label": "Tenant Header Name",
+  "a-TenantHeaderName-label": "Tenant Header Names",
+  "a-TenantHeaderName-itemLabel": "Tenant Header Name",
+  "a-TenantHeaderName-itemHelp": "Specifies an HTTP header name to add to the list.",
   "a-TenantHeaderName-help": "Specifies the names of HTTP headers sent on requests to the Oracle Identity Cloud Service that are used to determine the tenancy during authentication.",
 
   "a-TenantHostNameTemplate-label": "Tenant Host Name Template",
   "a-TenantHostNameTemplate-help": "Specifies the tenant-based host name, in Fully Qualified Domain name (FQDN) format, comprised of a tenant name and a host name. This attribute contains the tokens, such as {%tenant}.{%host}, that are replaced with the actual values.",
 
-  "a-TenantName-label": "Tenant Name",
+  "a-TenantName-label": "Tenant Names",
+  "a-TenantName-itemLabel": "Tenant Name",
+  "a-TenantName-itemHelp": "Specifies a tenant name to add to the list.",
   "a-TenantName-help": "Specifies the list of allowable tenant names consumed from the Oracle Identity Cloud Service. When no tenant names are configured, any tenant from the Oracle Identity Cloud Service is accessible.",
 
   "a-TenantTokenClaim-label": "Tenant Token Claim",
@@ -6362,7 +6529,9 @@
 
   "a-TrustedCAFileName-label": "Trusted CA File Name",
 
-  "a-TrustedClientPrincipal-label": "Trusted Client Principal",
+  "a-TrustedClientPrincipal-label": "Trusted Client Principals",
+  "a-TrustedClientPrincipal-itemLabel": "Trusted Client Principal",
+  "a-TrustedClientPrincipal-itemHelp": "Specify a trusted client principal to use in CSI v2 identity assertion. The wildcard character (*) can be used to specify all principals are trusted.",
   "f-any_DefaultIdentityAsserter-a-TrustedClientPrincipal-help": "Specifies the list of trusted client principals to use in CSI v2 identity assertion. The wildcard character (*) can be used to specify all principals are trusted. If a client is not listed as a trusted client principal, the CSIv2 identity assertion fails and the invoke is rejected.",
 
   "a-TunnelingClientPingSecs-label": "Tunneling Client Ping Seconds",
@@ -6411,7 +6580,12 @@
   "a-URL-label": "URL",
   "f-JDBCSystemResource_JdbcResource_JDBCDriverParams-a-URL-help": "The URL of the database to connect to. The format of the URL varies by JDBC driver. The URL is passed to the JDBC driver to create the physical database connections.",
 
-  "a-URLResource-label": "URL Resource",
+  "a-URLResource-label": "URL Resources",
+  "a-URLResource-entryLabel": "URL Resource",
+  "a-URLResource-keyLabel": "URL",
+  "a-URLResource-keyHelp": "Specify the URL for which the connection factory will be bound into JNDI.",
+  "a-URLResource-valueLabel": "JNDI Name",
+  "a-URLResource-valueHelp": "Specify the JNDI name to use for the binding.",
   "a-URLResource-help": "Adds a URL connection factory resource into JNDI.",
 
   "a-UnicastDiscoveryPeriodMillis-label": "Unicast Discovery Period Milliseconds",
@@ -6525,7 +6699,9 @@
   "a-UseMemberuidForGroupSearch-label": "Use Member UID For Group Search",
   "a-UseMemberuidForGroupSearch-help": "Specifies whether to use \"memberuid\" attribute of the group entry to lookup groups of a user instead of using the member or uniqueMember attributes to lookup groups. When this field is checked, use the GroupFromUserFilterForMemberuid field to define the group search filter",
 
-  "a-UseNonSecureAddressesForDomain-label": "Use Non-Secure Addresses For Domain",
+  "a-UseNonSecureAddressesForDomain-label": "Use Non-Secure Addresses For Domains",
+  "a-UseNonSecureAddressesForDomain-itemLabel": "Domain",
+  "a-UseNonSecureAddressesForDomain-itemHelp": "Select a domain to the list of domains for which non-secure protocols.",
   "a-UseNonSecureAddressesForDomain-help": "Specifies the domains for which non-secure protocols should be used for internal JTA communication if the servers in the domains are configured to use network channels.",
 
   "a-UseParentHandlers-label": "Use Parent Handlers",
@@ -6533,7 +6709,9 @@
   "a-UsePasswordIndirection-label": "Use Password Indirection",
   "f-JDBCSystemResource_JdbcResource_JDBCDriverParams-a-UsePasswordIndirection-help": "Specifies whether the database credentials are to be obtained from the credential mapper using the \"user\" property as the key. When true, the credentials are obtained from the credential mapper. When false, the database user name and password are obtained from the \"user\" property and Password element, respectively.",
 
-  "a-UsePublicAddressesForRemoteDomain-label": "Use Public Addresses For Remote Domain",
+  "a-UsePublicAddressesForRemoteDomain-label": "Use Public Addresses For Remote Domains",
+  "a-UsePublicAddressesForRemoteDomain-itemLabel": "Remote Domain",
+  "a-UsePublicAddressesForRemoteDomain-itemHelp": "Select a Remote Domain for which public addresses should be used.",
   "a-UsePublicAddressesForRemoteDomain-help": "Specifies the remote domains for which public addresses should be used if the servers in the domains are configured to use network channels for internal JTA communication.",
 
   "a-UseResourceHierarchy-label": "Use Resource Hierarchy",
@@ -6547,7 +6725,7 @@
   "a-UseSAFTimeToLiveDefault-help": "Controls whether the Time-to-Live (expiration time) value set on imported JMS messages will be overridden by the value specified in the SAF Default Time-to-Live field.",
 
   "a-UseSampleDatabase-label": "Use Sample Database",
-  "a-UseSampleDatabase-help": "The value to pass to WLST offline's setOption() call for the \"UseSampleDatabase\" option when creating a new domain.",
+  "a-UseSampleDatabase-help": "Specifies whether the domain will be configured to use the sample database that comes with WebLogic Server or not.",
 
   "a-UseSerialFormatVersion2-label": "Use Serial Format Version 2",
   "a-UseSerialFormatVersion2-help": "Specify whether to advertise RMI objects and EJBs as supporting RMI-IIOP serial format version 2 for custom marshaled objects. The default value is false.",
@@ -6575,7 +6753,10 @@
 
   "a-User-label": "User",
   "f-ForeignJNDIProvider-a-User-help": "The remote server's user name.",
+  "f-any_RemoteResource-a-User-label": "Users",
   "f-any_RemoteResource-a-User-help": "The local user names to match against this credential mapping's remote resource.",
+  "f-any_RemoteResource-a-User-itemLabel": "User",
+  "f-any_RemoteResource-a-User-itemHelp": "A local user name.",
 
   "a-UserAuthenticationAssertionAttribute-label": "User Authentication Assertion Attribute",
   "a-UserAuthenticationAssertionAttribute-help": "Specifies the token attribute used for User Authentication and Identity Assertion. The default value results in the use of the attribute configured by the Oracle Identity Cloud Service.",
@@ -6591,7 +6772,9 @@
   "a-UserDynamicGroupDnAttribute-label": "User Dynamic Group DN Attribute",
   "a-UserDynamicGroupDnAttribute-help": "Specifies the attribute of an LDAP user object that specifies the distinguished names (DNs) of dynamic groups to which this user belongs. If such an attribute does not exist, WebLogic Server determines if a user is a member of a group by evaluating the URLs on the dynamic group. If a group contains other groups, WebLogic Server evaluates the URLs on any of the descendents (indicates parent relationship) of the group.",
 
-  "a-UserFilterAttribute-label": "User Filter Attribute",
+  "a-UserFilterAttribute-label": "User Filter Attributes",
+  "a-UserFilterAttribute-itemLabel": "User Filter Attribute",
+  "a-UserFilterAttribute-itemHelp": "Specify a certificate attribute name to add to the list.",
   "a-UserFilterAttribute-help": "Specifies the name of the certificate attribute from the subject DN used to find the user in the directory.",
 
   "a-UserFromNameFilter-label": "User From Name Filter",
@@ -6599,6 +6782,9 @@
 
   "a-UserId-label": "User ID",
   "f-WTCServer_WTCtBridgeGlobal-a-UserId-help": "The user identity for all messages handled by this Tuxedo queuing bridge for ACL checks when security is configured. All messages assume this identity until the security/authentication contexts are passed between the subsystems. Until the security contexts are passed, there is no secure method to identify who generated a message received from the source location. The user argument may be specified as either a user name or a user identification number (uid).",
+  "f-any_SNMPLogFilter-a-UserId-label": "User IDs",
+  "f-any_SNMPLogFilter-a-UserId-itemLabel": "User ID",
+  "f-any_SNMPLogFilter-a-UserId-itemHelp": "Specifies a user ID to add to the list.",
   "f-any_SNMPLogFilter-a-UserId-help": "A list of user IDs that causes a WebLogic Server SNMP agent to generate a notification. Every message includes the user ID from the security context in which the message was generated. If the user ID field for a message matches one of the user IDs you specify in the filter, WebLogic Server generates a notification. If this log filter doesn't specify user IDs, WebLogic Server can generate a notification for messages from all user IDs.",
 
   "a-UserIdResourceAttribute-label": "User ID Resource Attribute",
@@ -6656,6 +6842,7 @@
   "f-JMSSystemResource_JmsResource_ForeignServer_ForeignConnectionFactory-a-Username-help": "The user name that is passed when opening a connection to the remote server (represented by this foreign connection factory).",
   "f-JMSSystemResource_JmsResource_SAFRemoteContext_SAFLoginContext-a-Username-help": "The name used to log into the remote URL.",
   "f-any_ServerStart-a-Username-help": "The user name to use when booting this server.",
+  "f-OPSSInitialization_Credential_TargetKey-a-Username-help": "The user name for the specified target key.",
 
   "a-UsernameAttribute-label": "Username Attribute",
   "a-UsernameAttribute-help": "Specifies the name of the LDAP attribute used to assert the user's identity.",
@@ -6684,13 +6871,19 @@
   "a-Version-label": "Version",
   "a-VersionIdentifier-label": "Version Identifier",
 
-  "a-ViewTbl16Class-label": "View Table 16-bit Class",
+  "a-ViewTbl16Class-label": "View Table 16-bit Classes",
+  "a-ViewTbl16Class-itemLabel": "View Table 16-bit Class",
+  "a-ViewTbl16Class-itemHelp": "Specifies the name of a ViewTbl16Class to add to the ViewTbl array.",
   "a-ViewTbl16Class-help": "The names of ViewTbl16Classes that are loaded via a class loader and added to a ViewTbl array. Use the fully qualified class names of the desired classes. Use a comma to separate multiple class name entries.",
 
-  "a-ViewTbl32Class-label": "View Table 32-bit Class",
+  "a-ViewTbl32Class-label": "View Table 32-bit Classes",
+  "a-ViewTbl32Class-itemLabel": "View Table 32-bit Class",
+  "a-ViewTbl32Class-itemHelp": "Specifies the name of a ViewTbl32Class to add to the ViewTbl array.",
   "a-ViewTbl32Class-help": "The names of ViewTbl32Classes that are loaded via a class loader and added to a ViewTbl array. Use the fully qualified class names of the desired classes. Use a comma to separate multiple class name entries.",
 
-  "a-VirtualHostName-label": "Virtual Host Name",
+  "a-VirtualHostName-label": "Virtual Host Names",
+  "a-VirtualHostName-itemLabel": "Virtual Host Name",
+  "a-VirtualHostName-itemHelp": "Specify a host name to add to the list.",
   "a-VirtualHostName-help": "The list of host names for which this virtual host will serve requests.",
 
   "a-VirtualMachineName-label": "Virtual Machine Name",
@@ -6764,7 +6957,7 @@
   "f-any_SecureMode-a-WarnOnUserLockout-help": "Specifies whether a warning should be logged if the user lockout configuration is not secure. If the warning is enabled, then a message will be logged if the user lockout settings are not secure.",
 
   "a-WarnOnUsernamePasswords-label": "Warn On Username Passwords",
-  "f-any_SecureMode-a-WarnOnUsernamePasswords-help": "Specifies whether a warning should be logged if usernames or password configuration is insecure. If the warning is enabled and the domain is in secured production mode, then a message will be logged if well known administrator usernames are present or password validation configuration is insecure.",
+  "f-any_SecureMode-a-WarnOnUsernamePasswords-help": "Specifies whether a warning should be logged if usernames or password configuration is insecure. If the warning is enabled and the domain is in secured production mode, then a message will be logged if well-known administrator usernames are present or password validation configuration is insecure.",
 
   "a-WarningAuditSeverityEnabled-label": "Warning Audit Severity Enabled",
   "f-any_DefaultAuditor-a-WarningAuditSeverityEnabled-help": "If the Severity value is set to Custom, causes the Auditing provider to generate audit records for events with a severity level of WARNING.",
@@ -7086,8 +7279,8 @@
   "f-any_CoherenceClusterParams-label": "Cluster Parameters",
   "f-any_CoherenceClusterSystemResource-label": "Coherence Cluster System Resources",
   "f-any_CoherenceClusterSystemResource-typeLabel": "Coherence Cluster System Resource",
-  "f-any_CoherenceClusterWellKnownAddress-label": "Well Known Addresses",
-  "f-any_CoherenceClusterWellKnownAddress-typeLabel": "Well Known Address",
+  "f-any_CoherenceClusterWellKnownAddress-label": "Well-Known Addresses",
+  "f-any_CoherenceClusterWellKnownAddress-typeLabel": "Well-Known Address",
   "f-any_CoherenceFederationParams-label": "Federation Parameters",
   "f-any_CoherenceIdentityAsserter-label": "Identity Asserter",
   "f-any_CoherenceInitParam-label": "Initialization Parameters",
