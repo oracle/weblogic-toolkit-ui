@@ -5,6 +5,18 @@
       "Target": {}
     },
     "attributeDetails": {
+      "AltDescriptorPath": {
+        "fileOptions": [{"type": "file", "extensions": ["xml"]}]
+      },
+      "AltWLSDescriptorPath": {
+        "fileOptions": [{"type": "file", "extensions": ["xml"]}]
+      },
+      "InstallDir": {
+        "fileOptions": [{"type": "dir"}]
+      },
+      "PlanDir": {
+        "fileOptions": [{"type": "dir"}]
+      },
       "PlanPath": {
         "archiveTypes": ["applicationDeploymentPlan"]
       },
