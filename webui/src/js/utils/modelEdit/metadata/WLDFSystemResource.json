@@ -689,8 +689,14 @@
       "PathToScript": {}
     },
     "attributeDetails": {
+      "PathToScript": {
+        "archiveTypes": ["script"]
+      },
       "Timeout": {
         "validators": [ "range(0,)" ]
+      },
+      "WorkingDirectory": {
+        "fileOptions": [{"type": "dir"}]
       }
     },
     "sections": [

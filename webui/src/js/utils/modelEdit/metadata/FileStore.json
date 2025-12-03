@@ -9,7 +9,12 @@
         "validators": [ "range(-1,8192)" ]
       },
       "CacheDirectory": {
-        "disabled": "fileStoreDisableDirectWriteWithCacheFields"
+        "disabled": "fileStoreDisableDirectWriteWithCacheFields",
+        "fileOptions": [{ "type": "dir" }]
+      },
+      "Directory": {
+        "archiveTypes": ["fileStore"],
+        "emptyDirFolder": "FileStore"
       },
       "DistributionPolicy": {
         "options": [

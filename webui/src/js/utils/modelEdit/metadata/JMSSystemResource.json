@@ -564,6 +564,12 @@
       "DefaultTargetingEnabled": {},
       "SubDeploymentName": {}
     },
+    "attributeDetails": {
+      "ConnectionURL": {
+        "archiveTypes": ["jmsForeignServerBinding"],
+        "segregateFolder": "ForeignServer"
+      }
+    },
     "sections": [
       {
         "type": "tab",

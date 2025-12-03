@@ -123,6 +123,7 @@ contextBridge.exposeInMainWorld(
           'get-network-settings',
           'choose-archive-file',
           'choose-archive-entry-file',
+          'choose-attribute-file',
           'add-archive-entry',
           'choose-domain-home',
           'choose-java-home',

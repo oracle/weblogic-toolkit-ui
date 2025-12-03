@@ -65,6 +65,8 @@ function getEntryTypes() {
       subtype: 'emptyDir',
       subtypeChoices: [
         { name: 'active', label: i18n.t('wdt-archiveType-coherenceStore-activeLabel')},
+        { name: 'backup', label: i18n.t('wdt-archiveType-coherenceStore-backupLabel')},
+        { name: 'events', label: i18n.t('wdt-archiveType-coherenceStore-eventsLabel')},
         { name: 'snapshot', label: i18n.t('wdt-archiveType-coherenceStore-snapshotLabel')},
         { name: 'trash', label: i18n.t('wdt-archiveType-coherenceStore-trashLabel')}
       ],
@@ -217,14 +219,17 @@ function getEntryTypes() {
 }
 
 async function chooseArchiveEntryFile(targetWindow, entryType, fileType, fileExtensions, currentValue) {
-  const i18n = require('./i18next.config');
-
   const typeDetail = getEntryTypes()[entryType];
   if (!typeDetail) {
     return Promise.reject(new Error(`Unknown archive entry type: ${entryType}`));
   }
+  return chooseAttributeFile(targetWindow, typeDetail.name, fileType, fileExtensions, currentValue, 'dialog-chooseArchiveEntry');
+}
 
-  const title = i18n.t('dialog-chooseArchiveEntry', {entryType: typeDetail.name});
+async function chooseAttributeFile(targetWindow, typeName, fileType, fileExtensions, currentValue, titleKey) {
+  const i18n = require('./i18next.config');
+
+  const title = i18n.t(titleKey, {entryType: typeName});
   const openProperty = fileType === 'dir' ? 'openDirectory' : 'openFile';
 
   let options = {
@@ -240,7 +245,7 @@ async function chooseArchiveEntryFile(targetWindow, entryType, fileType, fileExt
   }
 
   if (fileType === 'file' && Array.isArray(fileExtensions) && fileExtensions.length > 0) {
-    const filterName = i18n.t('dialog-archiveEntryFilter', {entryType: typeDetail.name});
+    const filterName = i18n.t('dialog-archiveEntryFilter', {entryType: typeName});
     options['filters'] = [ {name: filterName, extensions: fileExtensions} ];
   }
 
@@ -487,5 +492,6 @@ async function _showArchiveEntryAddError(targetWindow, title, errMessage) {
 module.exports = {
   getEntryTypes,
   addArchiveEntry,
-  chooseArchiveEntryFile
+  chooseArchiveEntryFile,
+  chooseAttributeFile
 };

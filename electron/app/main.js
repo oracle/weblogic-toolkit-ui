@@ -478,6 +478,10 @@ class Main {
       return project.chooseArchiveFile(event.sender.getOwnerBrowserWindow());
     });
 
+    ipcMain.handle('choose-attribute-file', async (event, fileOption, currentValue) => {
+      return modelEditUtils.chooseAttributeFile(event.sender.getOwnerBrowserWindow(), fileOption, currentValue);
+    });
+
     ipcMain.handle('choose-archive-entry-file', async (event, itemType, fileType,
       fileExtensions, currentValue) => {
 

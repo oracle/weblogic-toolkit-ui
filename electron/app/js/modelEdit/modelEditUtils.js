@@ -11,6 +11,7 @@ const fsPromises = require('fs/promises');
 const JSZip = require('jszip');
 const fs = require('fs');
 const path = require('path');
+const wdtArchive = require('../wdtArchive');
 
 const acronyms = [
   'ACL', 'ACS', 'CCDI', 'CORS', 'CPU', 'CRL', 'DB', 'DDL', 'EJB', 'HTTP', 'ID', 'JDBC', 'JMS', 'JNDI',
@@ -94,11 +95,11 @@ function addPaths(aliasFolder, path, pathMap) {
     }
 
     const wlstType = firstValue['wlst_type'];
-
-    // TODO: fix WLST types that are ${abc:xyz}
+    const usesPath = firstValue['uses_path_tokens'];
 
     attributes[key] = {
-      wlstType: wlstType
+      wlstType,
+      usesPath
     };
   }
 
@@ -164,7 +165,14 @@ function getMessagesFile() {
   return MESSAGES_FILE;
 }
 
+function chooseAttributeFile(targetWindow, fileOption, currentValue) {
+  const label = fileOption.chooserName || fileOption.label;
+  return wdtArchive.chooseAttributeFile(targetWindow, label, fileOption.type,
+    fileOption.extensions, currentValue, 'dialog-chooseAttributeFile');
+}
+
 module.exports = {
+  chooseAttributeFile,
   getAliasInfo,
   getMessageKeys,
   getMessageMap,

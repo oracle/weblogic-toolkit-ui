@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -24,6 +24,10 @@ define(['knockout', 'models/wkt-project', 'utils/wkt-logger'],
       this.chooseArchiveEntryFile = async (archiveEntryTypeName, fileType, fileExtensions, fileName) => {
         return window.api.ipc.invoke('choose-archive-entry-file', archiveEntryTypeName, fileType,
           fileExtensions, fileName);
+      };
+
+      this.chooseAttributeFile = async (fileOption, fileName) => {
+        return window.api.ipc.invoke('choose-attribute-file', fileOption, fileName);
       };
 
       this.buildAddToArchiveOptions = (archiveEntryTypeName, archiveEntry, filePath, fileType, otherArgs) => {

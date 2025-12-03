@@ -1,6 +1,12 @@
 {
   "RCUDbInfo": {
     "attributeDetails": {
+      "compInfoXMLLocation": {
+        "fileOptions": [{"type": "dir"}]
+      },
+      "javax.net.ssl.keyStore": {
+        "fileOptions": [{"type": "file", "extensions": ["jks", "p12", "sso"]}]
+      },
       "javax.net.ssl.keyStoreType": {
         "optionsMatch": "upper",
         "options": [
@@ -8,6 +14,9 @@
           { "value": "PKCS12", "label": "PKCS12" },
           { "value": "JKS", "label": "JKS" }
         ]
+      },
+      "javax.net.ssl.trustStore": {
+        "fileOptions": [{"type": "file", "extensions": ["jks", "p12", "sso"]}]
       },
       "javax.net.ssl.trustStoreType": {
         "optionsMatch": "upper",
@@ -28,6 +37,7 @@
         ]
       },
       "oracle.net.tns_admin": {
+        "fileOptions": [{"type": "dir"}],
         "disabled": "notOracleDatabaseType"
       },
       "rcu_database_type": {
@@ -48,6 +58,9 @@
           { "value": "Yes", "labelKey": "options-yes-label" },
           { "value": "No", "labelKey": "options-no-label" }
         ]
+      },
+      "storageXMLLocation": {
+        "fileOptions": [{"type": "dir"}]
       },
       "tns.alias": {
         "disabled": "notOracleDatabaseType"

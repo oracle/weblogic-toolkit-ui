@@ -4,7 +4,7 @@
  -->
 <oj-dialog id="newListItemDialog" class="wkt-model-edit-attribute-dialog" initial-visibility="hide">
   <div slot="header">
-    <span id="dialog-title-id" class="oj-dialog-title"><oj-bind-text value="[[getTitle()]]"></oj-bind-text></span>
+    <span id="dialog-title-id" class="oj-dialog-title"><oj-bind-text value="[[title]]"></oj-bind-text></span>
   </div>
   <div slot="body">
     <oj-validation-group id="modelNewEntryTracker">
@@ -17,6 +17,16 @@
           required="true"
           validators="[[nameValidators]]"
         >
+          <oj-bind-if test="[[isFile]]">
+            <oj-c-button
+              slot="end"
+              label="[[fileLabel]]"
+              display="icons"
+              chroming="borderless"
+              on-oj-action="[[selectFile]]">
+              <span slot="endIcon" class="oj-ux-ico-folder" role="img"></span>
+            </oj-c-button>
+          </oj-bind-if>
         </oj-c-input-text>
       </div>
     </oj-validation-group>

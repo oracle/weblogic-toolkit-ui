@@ -13,6 +13,9 @@
           { "value": "NONE", "labelKey": "options-none-label" }
         ]
       },
+      "CreateTableDDLFile": {
+        "archiveTypes": ["script"]
+      },
       "DeletesPerBatchMaximum": {
         "validators": [ "range(1,100)" ]
       },

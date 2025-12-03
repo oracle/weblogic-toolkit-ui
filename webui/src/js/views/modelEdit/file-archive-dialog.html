@@ -1,0 +1,43 @@
+<!--
+ Copyright (c) 2024, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<oj-dialog id="fileArchiveDialog" class="wkt-model-edit-file-select-dialog" initial-visibility="hide">
+  <div slot="header">
+    <span id="dialog-title-id" class="oj-dialog-title"><oj-bind-text value="[[title]]"></oj-bind-text></span>
+  </div>
+  <div slot="body">
+    <oj-validation-group id="modelEditFileArchiveTracker">
+      <div class="oj-panel">
+        <oj-c-form-layout class="wkt-model-edit-attribute-form" max-columns="2" direction="row">
+          <oj-c-radioset
+            id="radiosetId"
+            label-hint="[[labelMapper('archive-label')]]"
+            label-edge="inside"
+            required="true"
+            options="[[archiveOptions]]"
+            value="{{archiveOption}}">
+          </oj-c-radioset>
+
+          <oj-bind-if test="[[showSegregate]]">
+            <oj-c-input-text
+              label-hint="[[segregateLabel]]"
+              help.instruction="[[segregateHelp]]"
+              value="{{segregateName}}"
+              disabled="[[!archiveOption()]]"
+              required="true"
+            >
+            </oj-c-input-text>
+          </oj-bind-if>
+        </oj-c-form-layout>
+      </div>
+    </oj-validation-group>
+  </div>
+
+  <div slot="footer">
+    <oj-c-button id="okButton" label="[[t('dialog-button-ok')]]" on-oj-action="[[okInput]]">
+    </oj-c-button>
+    <oj-c-button id="cancelButton" label="[[t('dialog-button-cancel')]]" on-oj-action="[[cancelInput]]">
+    </oj-c-button>
+  </div>
+</oj-dialog>

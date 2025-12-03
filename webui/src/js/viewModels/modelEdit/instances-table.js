@@ -113,7 +113,7 @@ function(accUtils, ko, InstanceHelper, ModelEditHelper, MessageHelper, Navigatio
     }
 
     // attributePath is usually a simple name, but may be qualified, like "SSL/ListenPort"
-    for (const [attributePath, options] of Object.entries(this.summaryAttributes)) {
+    for (const attributePath of Object.keys(this.summaryAttributes)) {
       let aliasPath = [...ALIAS_PATH];
 
       const parts = attributePath.split('/');

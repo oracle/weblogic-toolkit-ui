@@ -49,7 +49,6 @@ function(accUtils, ko, project,
       });
     });
 
-    this.instanceName = ko.observable(newInstanceName);
     this.title = MessageHelper.getAddInstanceMessage(ALIAS_PATH);
     this.nameLabel = MessageHelper.getInstanceNameLabel(ALIAS_PATH);
     this.helpLabel = MessageHelper.getInstanceNameHelp(ALIAS_PATH);
@@ -84,6 +83,9 @@ function(accUtils, ko, project,
     }
     ModelEditHelper.updateOptionLabels(options);
     this.optionsProvider = new ArrayDataProvider(options, { keyAttributes: 'value' });
+
+    const initialName = options.length ? null : newInstanceName;  // don't use generated name for select
+    this.instanceName = ko.observable(initialName);
 
     this.okInput = () => {
       let tracker = document.getElementById('modelNewEntryTracker');

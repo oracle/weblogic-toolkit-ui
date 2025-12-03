@@ -16,6 +16,9 @@
       "MaxTotalHeadersSize": {
         "validators": [ "range(-1,)" ]
       },
+      "MimeMappingFile": {
+        "archiveTypes": ["mimeMapping"]
+      },
       "PostTimeoutSecs": {
         "validators": [ "range(0,120)" ]
       },
