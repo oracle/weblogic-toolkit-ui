@@ -78,6 +78,12 @@
       "RequestClassName": {},
       "Target": {}
     },
+    "attributeDetails": {
+      "RequestClassName": {
+        "editorType": "combo",
+        "optionsMethod": "getFairShareOrResponseTimeRequestClassOptions"
+      }
+    },
     "sections": [
       {
         "type": "attributes",
@@ -130,6 +136,10 @@
       "Target": {}
     },
     "attributeDetails": {
+      "ConnectionPoolName": {
+        "editorType": "combo",
+        "optionsMethod": "getDataSourceOptions"
+      },
       "Count": {
         "validators": [ "range(-1,)" ]
       },
@@ -213,6 +223,32 @@
   "SelfTuning/WorkManager": {
     "summaryAttributes": {
       "Target": {}
+    },
+    "attributeDetails": {
+      "Capacity": {
+        "editorType": "combo",
+        "optionsMethod": "getCapacityOptions"
+      },
+      "ContextRequestClass": {
+        "editorType": "combo",
+        "optionsMethod": "getContextRequestClassOptions"
+      },
+      "FairShareRequestClass": {
+        "editorType": "combo",
+        "optionsMethod": "getFairShareRequestClassOptions"
+      },
+      "MaxThreadsConstraint": {
+        "editorType": "combo",
+        "optionsMethod": "getMaxThreadsConstraintOptions"
+      },
+      "MinThreadsConstraint": {
+        "editorType": "combo",
+        "optionsMethod": "getMinThreadsConstraintOptions"
+      },
+      "ResponseTimeRequestClass": {
+        "editorType": "combo",
+        "optionsMethod": "getResponseTimeRequestClassOptions"
+      }
     },
     "sections": [
       {

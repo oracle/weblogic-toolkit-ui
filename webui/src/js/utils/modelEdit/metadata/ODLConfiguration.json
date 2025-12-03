@@ -3,6 +3,12 @@
     "summaryAttributes": {
       "Servers": {}
     },
+    "attributeDetails": {
+      "Servers": {
+        "editorType": "comboMulti",
+        "optionsMethod": "getServerOptions"
+      }
+    },
     "sections": [
       {
         "type": "tab",
@@ -39,5 +45,11 @@
     }
   },
   "ODLConfiguration/Logger": {
+    "attributeDetails": {
+      "Handlers": {
+        "editorType": "comboMulti",
+        "optionsMethod": "getOdlHandlerOptions"
+      }
+    }
   }
 }

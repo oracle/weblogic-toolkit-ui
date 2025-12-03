@@ -18,7 +18,7 @@ function (MessageHelper, AliasHelper, MetaHelper,
     this.getNewInstanceName = (modelPath, model) => {
       let typeName = MessageHelper.getFolderTypeLabel(modelPath);
       if (typeName) {
-        typeName = typeName.replace(/ /g, '');
+        typeName = typeName.replace(/ /g, '').replace(/-/g, '');
       } else {
         typeName = modelPath[modelPath.length - 1];
       }

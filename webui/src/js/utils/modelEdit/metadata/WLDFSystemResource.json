@@ -621,6 +621,10 @@
       "ClusterName": {}
     },
     "attributeDetails": {
+      "ClusterName": {
+        "editorType": "combo",
+        "optionsMethod": "getClusterOptions"
+      },
       "ScalingSize": {
         "validators": [ "range(1,)" ]
       },
@@ -651,6 +655,10 @@
       "ClusterName": {}
     },
     "attributeDetails": {
+      "ClusterName": {
+        "editorType": "combo",
+        "optionsMethod": "getClusterOptions"
+      },
       "ScalingSize": {
         "validators": [ "range(1,)" ]
       },
@@ -798,6 +806,10 @@
           { "value": "EL", "label": "EL" },
           { "value": "WLDF", "label": "WLDF" }
         ]
+      },
+      "Notification": {
+        "editorType": "comboMulti",
+        "optionsMethod": "wldfSystemResourceWatchNotificationActionOptions"
       },
       "RuleType": {
         "options": [
