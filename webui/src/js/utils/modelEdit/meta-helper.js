@@ -5,7 +5,7 @@
  */
 'use strict';
 
-define(['utils/modeledit/metadata/all-metadata'],
+define(['utils/modelEdit/metadata/all-metadata'],
   function (metadata) {
     function MetaHelper() {
       const TAB_TYPES = [

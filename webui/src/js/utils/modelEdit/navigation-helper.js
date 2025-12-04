@@ -5,7 +5,7 @@
  */
 'use strict';
 
-define(['knockout', 'models/wkt-project', 'utils/modeledit/navigation/all-navigation',
+define(['knockout', 'models/wkt-project', 'utils/modelEdit/navigation/all-navigation',
   'utils/modelEdit/model-edit-helper', 'utils/modelEdit/alias-helper', 'utils/modelEdit/meta-helper',
   'utils/modelEdit/message-helper', 'ojs/ojarraytreedataprovider'],
 function (ko, WktProject, allNavigation, ModelEditHelper, AliasHelper, MetaHelper, MessageHelper, ArrayTreeDataProvider) {
