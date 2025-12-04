@@ -55,7 +55,7 @@
     "chai": "^4.5.0",
     "chai-as-promised": "^7.1.2",
     "electron": "^39.2.5",
-    "electron-builder": "^26.0.18",
+    "electron-builder": "^26.0.12",
     "eslint": "^9.39.1",
     "globals": "^16.5.0",
     "mocha": "^11.7.5",
