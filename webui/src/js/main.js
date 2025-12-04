@@ -43,25 +43,9 @@
         'proj4': 'libs/proj4js/dist/proj4-src',
         'touchr': 'libs/touchr/touchr',
         'chai': 'libs/chai/chai-4.5.0',
-        'ace': 'libs/ace/ace',
-        'wrc-translations': 'resources',
-        'wrc-frontend': 'jet-composites/wrc-frontend/1.0.0',
-        'wdt-model-designer': 'jet-composites/wdt-model-designer/1.0.0',
-        'cfe-navtree': 'jet-composites/cfe-navtree/1.0.0',
-        'cfe-multi-select': 'jet-composites/cfe-multi-select/1.0.0',
-        'cfe-property-list-editor': 'jet-composites/cfe-property-list-editor/1.0.0',
-        'cfe-policy-editor': 'jet-composites/cfe-policy-editor/1.0.0'
+        'ace': 'libs/ace/ace'
       }
       // endinjector
-
-      // This is required for the wrc-jet-pack to resolve its i18n labels...
-      , config: {
-        ojL10n: {
-          merge: {
-            'ojtranslations/nls/ojtranslations': 'resources/nls/frontend'
-          }
-        }
-      }
     }
   );
 }());
