@@ -1665,7 +1665,7 @@
         "addRemainingAttributes": true
       },
       {
-        "type": "folderTab",
+        "type": "folder",
         "folder": "ServerFailureTrigger"
       }
     ]
