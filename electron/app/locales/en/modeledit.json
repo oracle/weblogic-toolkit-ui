@@ -2578,7 +2578,7 @@
   "a-DiagnosticStoreBlockSize-label": "Diagnostic Store Block Size",
   "f-any_ServerDiagnosticConfig-a-DiagnosticStoreBlockSize-help": "The smallest addressable block, in bytes, of a file. When a native wlfileio driver is available and the block size has not been configured by the user, the store selects the minimum OS-specific value for unbuffered (direct) I/O, if it is within the range [512, 8192]. A file store's block size does not change once the file store creates its files. Changes to block size only take effect for new file stores or after the current files have been deleted. The default value is -1.",
 
-  "a-DiagnosticStoreDir-label": "Diagnostic Store Dir",
+  "a-DiagnosticStoreDir-label": "Diagnostic Store Directory",
   "f-any_ServerDiagnosticConfig-a-DiagnosticStoreDir-help": "The directory in which the current server maintains its diagnostic store. The default value is data/store/diagnostics.",
 
   "a-DiagnosticStoreFileLockingEnabled-label": "Diagnostic Store File Locking Enabled",
@@ -4013,8 +4013,12 @@
 
   "a-MagicThreadDumpBackToSocket-label": "Magic Thread Dump Back To Socket",
   "a-MagicThreadDumpEnabled-label": "Magic Thread Dump Enabled",
+
   "a-MagicThreadDumpFile-label": "Magic Thread Dump File",
+  "a-MagicThreadDumpFile-help": "Specifies the magic thread dump file name. The default value is \"debugMagicThreadDumpFile\".",
+
   "a-MagicThreadDumpHost-label": "Magic Thread Dump Host",
+  "a-MagicThreadDumpHost-help": "Specifies the magic thread dump hostname. The default value is 127.0.0.1.",
 
   "a-MailSessionJndiName-label": "Mail Session JNDI Name",
   "f-WLDFSystemResource_WLDFResource_WatchNotification_SMTPNotification-a-MailSessionJndiName-help": "The JNDI name of the mail session. This name must match the attribute in the corresponding MailSessionMBean.",
