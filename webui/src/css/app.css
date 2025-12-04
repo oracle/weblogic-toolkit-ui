@@ -1060,6 +1060,17 @@ h6.wkt-under-breadcrumb {
   margin-top: 0.5em !important;  /* oj-c-collapsible has no space between header and content */
 }
 
+.wkt-file-select-path-label {
+  font-size: 0.75em;
+  color: var(--wkt-model-edit-label-text-color);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.wkt-file-select-path {
+  overflow-wrap: break-word;
+}
+
 .wkt-token-error {
   color: red;
   font-weight: bold;

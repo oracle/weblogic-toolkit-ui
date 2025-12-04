@@ -42,11 +42,16 @@ function(accUtils, ko, MessageHelper, AliasHelper, viewHelper) {
     const attributeLabel = MessageHelper.getAttributeLabel(ATTRIBUTE, ALIAS_PATH);
     this.title = this.labelMapper('archive-title', { attribute: attributeLabel });
 
-    const fileName = FILE_CHOSEN.replace(/^.*[\\\/]/, '');
-    const optionArgs = { fileName };
+    const isDir = SELECT_OPTION.type === 'dir';
+    const pathLabelKey = isDir ? 'type-dir' : 'type-file';
+    this.pathLabel = this.labelMapper(pathLabelKey);
+    this.pathText = FILE_CHOSEN;
+
+    const archiveKey = isDir ? 'add-dir-to-archive' : 'add-file-to-archive';
+    const fileKey = isDir ? 'use-dir-location' : 'use-file-location';
     this.archiveOptions = [
-      { value: false, label: this.labelMapper('use-file-location', optionArgs) },
-      { value: true, label: this.labelMapper('add-to-archive', optionArgs) }
+      { value: true, label: this.labelMapper(archiveKey) },
+      { value: false, label: this.labelMapper(fileKey) }
     ];
 
     this.archiveOption = ko.observable(true);
