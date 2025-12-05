@@ -56,6 +56,10 @@
   text-align: center;
 }
 
+oj-navigation-list[id="modelDesignNav"].oj-navigationlist-vertical {
+  --oj-navigation-list-item-min-height: 1.75rem;
+}
+
 .oj-navigationlist-depth-1 .oj-navigationlist-item-content {
   padding-left: var(--oj-navigation-list-item-padding) !important;
 }
