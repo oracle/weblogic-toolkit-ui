@@ -2,7 +2,49 @@
   "path": "resources",
   "children": [
     {
-      "path": "CoherenceClusterSystemResource"
+      "path": "CoherenceClusterSystemResource",
+      "instanceChildren": [
+        {
+          "path": "CoherenceResource/CoherenceAddressProvider",
+          "instanceChildren": [
+            {
+              "path": "CoherenceSocketAddress"
+            }
+          ]
+        },
+        {
+          "path": "CoherenceCacheConfig"
+        },
+        {
+          "path": "CoherenceResource/CoherenceClusterParams",
+          "children": [
+            {
+              "path": "CoherenceCache"
+            },
+            {
+              "path": "CoherenceService"
+            },
+            {
+              "path": "CoherenceIdentityAsserter"
+            },
+            {
+              "path": "CoherenceKeystoreParams"
+            },
+            {
+              "path": "CoherenceClusterWellKnownAddress"
+            }
+          ]
+        },
+        {
+          "path": "CoherenceResource/CoherenceFederationParams"
+        },
+        {
+          "path": "CoherenceResource/CoherenceLoggingParams"
+        },
+        {
+          "path": "CoherenceResource/CoherencePersistenceParams"
+        }
+      ]
     },
     {
       "path": "EJBContainer"
@@ -11,13 +53,35 @@
       "path": "FileStore"
     },
     {
-      "path": "ForeignJNDIProvider"
+      "path": "ForeignJNDIProvider",
+      "instanceChildren": [
+        {
+          "path": "ForeignJNDILink"
+        }
+      ]
     },
     {
       "path": "JDBCStore"
     },
     {
-      "path": "JDBCSystemResource"
+      "path": "JDBCSystemResource",
+      "instanceChildren": [
+        {
+          "path": "JdbcResource/JDBCConnectionPoolParams"
+        },
+        {
+          "path": "JdbcResource/JDBCDataSourceParams"
+        },
+        {
+          "path": "JdbcResource/JDBCDriverParams"
+        },
+        {
+          "path": "JdbcResource/JDBCOracleParams"
+        },
+        {
+          "path": "JdbcResource/JDBCXAParams"
+        }
+      ]
     },
     {
       "path": "JMSBridgeDestination"
@@ -88,7 +152,15 @@
       "path": "MessagingBridge"
     },
     {
-      "path": "ODLConfiguration"
+      "path": "ODLConfiguration",
+      "instanceChildren": [
+        {
+          "path": "Handler"
+        },
+        {
+          "path": "Logger"
+        }
+      ]
     },
     {
       "path": "OHS"
@@ -190,10 +262,44 @@
       "path": "SystemComponent"
     },
     {
-      "path": "WebAppContainer"
+      "path": "WebAppContainer",
+      "children": [
+        {
+          "path": "GzipCompression"
+        },
+        {
+          "path": "Http2Config"
+        }
+      ]
     },
     {
-      "path": "WTCServer"
+      "path": "WTCServer",
+      "instanceChildren": [
+        {
+          "path": "WTCExport"
+        },
+        {
+          "path": "WTCImport"
+        },
+        {
+          "path": "WTCLocalTuxDom"
+        },
+        {
+          "path": "WTCPassword"
+        },
+        {
+          "path": "WTCRemoteTuxDom"
+        },
+        {
+          "path": "WTCResources"
+        },
+        {
+          "path": "WTCtBridgeGlobal"
+        },
+        {
+          "path": "WTCtBridgeRedirect"
+        }
+      ]
     },
     {
       "path": "WLDFSystemResource",

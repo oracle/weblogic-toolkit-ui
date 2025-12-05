@@ -2,7 +2,24 @@
   "path": "topology",
   "children": [
     {
-      "path": "Cluster"
+      "path": "Cluster",
+      "instanceChildren": [
+        {
+          "path": "CoherenceTier"
+        },
+        {
+          "path": "DatabaseLessLeasingBasis"
+        },
+        {
+          "path": "DynamicServers"
+        },
+        {
+          "path": "JTACluster"
+        },
+        {
+          "path": "OverloadProtection"
+        }
+      ]
     },
     {
       "path": "Machine"
@@ -16,6 +33,28 @@
     {
       "path": "SecurityConfiguration",
       "children": [
+        {
+          "path": "CertRevoc",
+          "children": [
+            {
+              "path": "CertRevocCa"
+            }
+          ]
+        },
+        {
+          "path": "CertificateManagement",
+          "children": [
+            {
+              "path": "CertificateIssuerPlugin"
+            },
+            {
+              "path": "ConfigurationProperty"
+            }
+          ]
+        },
+        {
+          "path": "CredentialSet"
+        },
         {
           "path": "Realm",
           "instanceChildren": [
@@ -44,6 +83,9 @@
               "path": "RoleMapper"
             }
           ]
+        },
+        {
+          "path": "SecureMode"
         }
       ]
     },
@@ -190,13 +232,35 @@
       "path": "VirtualHost"
     },
     {
-      "path": "WebserviceSecurity"
+      "path": "WebserviceSecurity",
+      "instanceChildren": [
+        {
+          "path": "WebserviceCredentialProvider"
+        },
+        {
+          "path": "WebserviceSecurityToken"
+        },
+        {
+          "path": "WebserviceTimestamp"
+        },
+        {
+          "path": "WebserviceTokenHandler"
+        }
+      ]
     },
     {
       "path": "XMLEntityCache"
     },
     {
-      "path": "XMLRegistry"
+      "path": "XMLRegistry",
+      "instanceChildren": [
+        {
+          "path": "XMLEntitySpecRegistryEntry"
+        },
+        {
+          "path": "XMLParserSelectRegistryEntry"
+        }
+      ]
     }
   ]
 }
