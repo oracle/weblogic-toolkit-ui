@@ -84,27 +84,6 @@
   "menu-go-uninstall-ingress": "수신 컨트롤러 설치 해제",
   "menu-go-uninstall-ingress-error-title": "활성 프로젝트 창 없음",
   "menu-go-uninstall-ingress-error-message": "활성 창이 없어서 설치 해제할 수신 컨트롤러 구성이 없으므로 수신 컨트롤러를 설치 해제할 수 없습니다.",
-  "menu-go-install-verrazzano": "Verrazzano 설치",
-  "menu-go-install-verrazzano-error-title": "활성 프로젝트 창 없음",
-  "menu-go-install-verrazzano-error-message": "활성 창이 없어서 설치할 Verrazzano 구성이 있는 프로젝트가 없으므로 Verrazzano를 설치할 수 없습니다.",
-  "menu-go-install-verrazzano-status": "Verrazzano 설치 상태 가져오기",
-  "menu-go-install-verrazzano-status-error-title": "활성 프로젝트 창 없음",
-  "menu-go-install-verrazzano-status-error-message": "활성 창이 없어서 설치할 Verrazzano 구성이 있는 프로젝트가 없으므로 Verrazzano 설치 상태를 가져올 수 없습니다.",
-  "menu-go-deploy-verrazzano-component": "Verrazzano 구성요소 배치",
-  "menu-go-deploy-verrazzano-component-error-title": "활성 프로젝트 창 없음",
-  "menu-go-deploy-verrazzano-component-error-message": "활성 창이 없어서 배치할 Verrazzano 구성요소 구성이 있는 프로젝트가 없으므로 Verrazzano 구성요소를 배치할 수 없습니다.",
-  "menu-go-undeploy-verrazzano-component": "Verrazzano 구성요소 배치 해제",
-  "menu-go-undeploy-verrazzano-component-error-title": "활성 프로젝트 창 없음",
-  "menu-go-undeploy-verrazzano-component-error-message": "활성 창이 없어서 배치 해제할 Verrazzano 구성요소 구성이 있는 프로젝트가 없으므로 Verrazzano 구성요소를 배치 해제할 수 없습니다.",
-  "menu-go-deploy-verrazzano-application": "Verrazzano 애플리케이션 배치",
-  "menu-go-deploy-verrazzano-application-error-title": "활성 프로젝트 창 없음",
-  "menu-go-deploy-verrazzano-application-error-message": "활성 창이 없어서 배치할 Verrazzano 애플리케이션 구성이 있는 프로젝트가 없으므로 Verrazzano 애플리케이션을 배치할 수 없습니다.",
-  "menu-go-check-verrazzano-application-status": "Verrazzano 애플리케이션 상태 검사",
-  "menu-go-check-verrazzano-application-status-error-title": "활성 프로젝트 창 없음",
-  "menu-go-check-verrazzano-application-status-error-message": "활성 창이 없어서 검사할 Verrazzano 애플리케이션 구성이 있는 프로젝트가 없으므로 Verrazzano 애플리케이션 상태를 검사할 수 없습니다.",
-  "menu-go-undeploy-verrazzano-application": "Verrazzano 애플리케이션 배치 해제",
-  "menu-go-undeploy-verrazzano-application-error-title": "활성 프로젝트 창 없음",
-  "menu-go-undeploy-verrazzano-application-error-message": "활성 창이 없어서 배치 해제할 Verrazzano 애플리케이션 구성이 있는 프로젝트가 없으므로 Verrazzano 애플리케이션을 배치 해제할 수 없습니다.",
 
   "menu-window": "창",
   "menu-window-minimize": "최소화",
@@ -141,7 +120,9 @@
   "auto-updater-disabled-unsupported-message": "자동 업데이터는 AppImage 실행파일에서 실행되지 않을 때 Linux에서 지원되지 않습니다.",
 
   "dialog-chooseArchiveFile": "아카이브 파일 선택",
+  "dialog-chooseExternalToolsStagingDirectory": "Choose WKT Tools External Staging Directory",
   "dialog-chooseModelFile": "모델 파일 선택",
+  "dialog-choosePrivateKey": "프라이빗 키 파일 선택",
   "dialog-chooseProjectSaveFile": "프로젝트 저장",
   "dialog-chooseVariableFile": "변수 파일 선택",
   "dialog-getJdkInstaller": "JDK 설치 프로그램 선택",
@@ -172,7 +153,7 @@
   "dialog-openProjectFileCredentialManagerErrorTitle": "인증서 관리자 생성 실패",
   "dialog-openProjectFileCredentialManagerErrorMessage": "오류로 인해 프로젝트 파일 {{projectFileName}}에 대한 인증서 관리자를 생성할 수 없음: {{error}}",
   "dialog-openProjectFileSendToWindowErrorTitleErrorTitle": "프로젝트 열기 실패",
-  "dialog-openProjectFileSendToWindowErrorTitleErrorMessage": "프로젝트 창을 초기화하는 중 오류로 인해 프로젝트 파일 {{projectFileName}}을(를) 열 수 없음: {{err}}",
+  "dialog-openProjectFileSendToWindowErrorMessage": "프로젝트 창을 초기화하는 중 오류로 인해 프로젝트 파일 {{projectFileName}}을(를) 열 수 없음: {{err}}",
   "dialog-createNewProjectTitle": "WebLogic Kubernetes Toolkit 프로젝트 생성",
   "dialog-projectSaveFileLocationNotWritableTitle": "프로젝트 디렉토리에 쓸 수 없음",
   "dialog-projectSaveFileLocationNotWritableError": "새 프로젝트 파일을 쓰기 위해 선택한 {{projectFileDirectory}} 디렉토리는 현재 프로세스에서 쓸 수 없습니다.",
@@ -221,6 +202,7 @@
   "dialog-tls-certfile": "TLS 인증서 파일 선택",
 
   "dialog-chooseArchiveEntry": "아카이브용 {{entryType}} 선택",
+  "dialog-chooseAttributeFile": "{{entryType}} 선택",
   "dialog-archiveEntryFilter": "{{entryType}}",
   "dialog-getWebLogicRemoteConsoleHome": "WebLogic Remote Console 설치 선택",
   "dialog-getWebLogicRemoteConsoleAppImage": "WebLogic Remote Console AppImage 파일 선택",
@@ -317,8 +299,6 @@
   "kubectl-apply-write-file-failed-error-message": "임시 파일에 데이터를 쓰는 중 오류로 인해 kubectl apply를 실행할 수 없음: {{error}}",
   "kubectl-apply-failed-error-message": "kubectl apply 명령 실패: {{error}}",
   "kubectl-apply-url-failed-error-message": "{{url}}에서 kubectl apply 명령 실패: {{error}}",
-  "kubectl-verify-vz-operator-rollout-stdout-error-message": "Verrazzano 플랫폼 운영자 롤아웃 상태가 예상한 텍스트를 반환하지 않음: {{message}}",
-  "kubectl-verify-vz-operator-rollout-error-message": "Verrazzano 플랫폼 운영자 롤아웃 상태 검사 실패: {{error}}",
   "kubectl-label-get-ns-failed-error-message": "Kubernetes 네임스페이스 {{namespace}}에 대한 기존 레이블을 가져오는 중 오류로 인해 네임스페이스에 {{label}} 레이블을 추가할 수 없음: {{error}}",
   "kubectl-label-ns-failed-error-message": "오류로 인해 Kubernetes 네임스페이스 {{namespace}}에 {{labels}} 레이블을 추가할 수 없음: {{error}}",
   "kubectl-delete-object-failed-error-message": "{{namespace}}의 {{object}} 삭제를 실패했습니다. 원인: {{error}}",
@@ -336,15 +316,7 @@
   "kubectl-tlsfile-not-specified-error-message": "TLS 파일 경로가 제공되지 않았습니다.",
   "kubectl-tlsfile-not-exists-error-message": "TLS 파일 {{filePath}}이(가) 존재하지 않습니다.",
   "kubectl-tlsfile-failed-error-message": "TLS 파일 {{filePath}}이(가) 존재하는지 확인할 수 없음: {{error}}",
-  "kubectl-get-vz-install-failed-error-message": "Verrazzano 설치를 가져올 수 없음: {{error}}",
-  "kubectl-get-named-vz-install-error-message": "{{name}} 이름의 Verrazzano 설치를 가져올 수 없음: {{error}}",
-  "kubectl-get-vz-application-status-error-message": "Verrazzano 애플리케이션 상태를 가져올 수 없음: {{error}}",
   "kubectl-get-operator-version-not-found-error-message": "로그 항목에서 운영자 버전 찾기를 실패했습니다.",
-  "kubectl-verify-vz-components-deployed-error-message": "{{namespace}} 네임스페이스에서 하나 이상의 구성요소를 찾을 수 없음: {{missingComponents}}",
-  "kubectl-get-vz-ingress-external-address-not-found": "Kubernetes 네임스페이스 {{gatewayNamespace}}에서 Istio 게이트웨이 서비스 {{gatewayService}}의 외부 IP 주소를 찾을 수 없습니다.",
-  "kubectl-get-vz-ingress-external-address-error-message": "Kubernetes 네임스페이스 {{gatewayNamespace}}에서 Istio 게이트웨이 서비스 {{gatewayService}}의 외부 IP 주소 찾기 실패: {{error}}",
-  "kubectl-get-vz-app-hostnames-error-message": "Verrazzano 애플리케이션 호스트 이름을 가져올 수 없음: {{error}}",
-  "kubectl-get-vz-app-hostnames-not-found": "Verrazzano 애플리케이션 호스트 이름을 찾을 수 없습니다.",
 
   "helm-not-specified-error-message": "Helm 실행파일 경로가 제공되지 않았습니다.",
   "helm-not-exists-error-message": "Helm 실행파일 {{filePath}}이(가) 존재하지 않습니다.",
@@ -421,6 +393,8 @@
 
   "wdt-archiveType-coherenceStore": "Coherence 지속성 디렉토리",
   "wdt-archiveType-coherenceStore-activeLabel": "활성",
+  "wdt-archiveType-coherenceStore-backupLabel": "Backup",
+  "wdt-archiveType-coherenceStore-eventsLabel": "Events",
   "wdt-archiveType-coherenceStore-snapshotLabel": "스냅샷",
   "wdt-archiveType-coherenceStore-trashLabel": "휴지통",
   "wdt-archiveType-coherenceStore-emptyDirLabel": "Coherence 지속성 디렉토리 이름",
@@ -433,6 +407,8 @@
   "wdt-archiveType-custom-fileHelp": "사용자정의 콘텐츠 파일의 전체 경로를 선택합니다.",
   "wdt-archiveType-custom-pathLabel": "사용자정의 콘텐츠 경로 접두어",
   "wdt-archiveType-custom-pathHelp": "추가된 콘텐츠를 배치할 사용자정의 콘텐츠 영역의 선택적 경로를 입력합니다. 기본값은 루트 위치입니다.",
+
+  "wdt-archiveType-custom-non-replicable": "사용자정의 콘텐츠(복제 불가능)",
 
   "wdt-archiveType-databaseWallet": "데이터베이스 전자 지갑",
   "wdt-archiveType-databaseWallet-dirLabel": "데이터베이스 전자 지갑 디렉토리",
@@ -491,6 +467,13 @@
   "wdt-archiveType-serverSegregationLabel": "서버 이름",
   "wdt-archiveType-serverSegregationHelp": "사용할 서버의 이름을 입력합니다.",
 
+  "wdt-archiveType-serverTemplateKeystore": "Server Template Keystore",
+  "wdt-archiveType-serverTemplateKeystore-fileLabel": "Server Template Keystore File",
+  "wdt-archiveType-serverTemplateKeystore-fileHelp": "Choose the full path to the server template keystore file to add under the specific server template",
+
+  "wdt-archiveType-serverTemplateSegregationLabel": "서버 템플리트 이름",
+  "wdt-archiveType-serverTemplateSegregationHelp": "Enter the name of the server template to use",
+
   "wdt-archiveType-sharedLibrary": "공유 라이브러리",
   "wdt-archiveType-sharedLibrary-dirLabel": "전개된 공유 라이브러리 디렉토리",
   "wdt-archiveType-sharedLibrary-dirHelp": "전개된 공유 라이브러리 디렉토리의 전체 경로를 선택합니다.",
@@ -526,11 +509,6 @@
   "project-save-model-files-error-title": "프로젝트 모델 파일 저장 오류",
   "project-save-model-files-error-message": "프로젝트와 연관된 WebLogic Deploy Tooling 모델 파일 중 하나를 저장하는 데 실패함: {{error}}",
 
-  "vz-installer-operator-not-ready-error-message": "Verrazzano 플랫폼 운영자가 준비되지 않아서 Verrazzano 설치를 진행할 수 없음: {{error}}",
-  "vz-installer-check-install-status-no-resource-error-message": "Verrazzano 설치가 없습니다.",
-  "vz-installer-check-install-status-failed-error-message": "오류로 인해 {{name}}에 대한 Verrazzano 설치 상태 검사를 진행할 수 없음: {{error}}",
-  "vz-installer-check-install-status-mismatched-names-error-message": "Verrazzano {{version}}은(는) {{name}} 이름으로 설치됩니다.",
-
   "wrc-home-error-title": "부적합한 WebLogic Remote Console 위치",
   "wrc-init-error-title": "WebLogic Remote Console 백엔드 초기화 실패",
   "wrc-location-existence-check-failed": "WebLogic Remote Console 백엔드가 존재하는지 확인하려는 중 오류로 인해 {{location}}에서 백엔드를 시작할 수 없음: {{error}}.",
@@ -550,5 +528,9 @@
   "wrc-app-image-file-version-no-match": "위치 {{rcHome}} AppImage 파일 이름 {{filename}}이(가) 버전 번호 추출에 필요한 예상된 파일명 패턴과 일치하지 않아서 WebLogic Remote Console 버전을 확인할 수 없습니다.",
   "wrc-version-incompatible-message": "설치된 WebLogic Remote Console 버전 {{backendVersion}}이(가) WebLogic Kubernetes Toolkit UI에 내장된 모델 디자인 뷰 구성요소 버전 {{frontendVersion}}과(와) 호환되지 않습니다. 주 버전과 부 버전이 일치하지 않습니다.",
   "wrc-version-verification-failed": "버전 호환성을 확인하려는 중 오류가 발생했기 때문에 WebLogic Remote Console 백엔드를 시작할 수 없음: {{error}}",
-  "wrc-home-not-exist": "구성된 위치 {{rcHome}}이(가) 존재하지 않아서 WebLogic Remote Console 백엔드를 시작할 수 없습니다."
+  "wrc-home-not-exist": "구성된 위치 {{rcHome}}이(가) 존재하지 않아서 WebLogic Remote Console 백엔드를 시작할 수 없습니다.",
+
+  "app-image-update-tools-failed-title": "Failed to Update WKT Tools for Linux AppImage",
+  "app-image-update-tools-external-dir-no-specified": "Unable to update WKT tools since the WKT Tools External Staging Directory was not specified in the user's settings.",
+  "app-image-update-tools-external-dir-not-exists": "Unable to update WKT tools since the WKT Tools External Staging Directory {{externalToolDirectory}} does not exist."
 }

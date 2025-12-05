@@ -20,6 +20,13 @@
           { "value": "GZIP_BEST_SPEED", "labelKey":  "jms-message-compression-fastest-compression-label" },
           { "value": "LZF", "labelKey":  "jms-message-compression-lzf-label" }
         ]
+      },
+      "PagingDirectory": {
+        "fileOptions": [ { "type": "dir" } ]
+      },
+      "Store": {
+        "editorType": "combo",
+        "optionsMethod": "getPersistentStoreOptions"
       }
     },
     "sections": [
@@ -99,11 +106,17 @@
       "FileMinSize": {
         "disabled": "jmsMessageLogRotateSizeFields"
       },
+      "FileName": {
+        "fileOptions": [ { "type": "file" } ]
+      },
       "FileTimeSpan": {
         "disabled": "jmsMessageLogRotateTimeFields"
       },
       "FileTimeSpanFactor": {
         "disabled": "jmsMessageLogRotateTimeFields"
+      },
+      "LogFileRotationDir": {
+        "fileOptions": [ { "type": "dir" } ]
       },
       "RotationTime": {
         "disabled": "jmsMessageLogRotateTimeFields"

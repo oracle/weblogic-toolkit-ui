@@ -31,7 +31,7 @@ define(['knockout', 'utils/wkt-logger', 'utils/modelEdit/model-edit-helper'],
         });
       };
 
-      this.wtcDisableTpUsrFileField = attributeMap => {
+      this.wtcRemoteTuxedoDomainDisableTpUsrFileField = attributeMap => {
         const appKeyPluginType = attributeMap['AppKey'];
         return ko.computed(() => {
           const type = ModelEditHelper.getDerivedValue(appKeyPluginType.observable());
@@ -69,6 +69,10 @@ define(['knockout', 'utils/wkt-logger', 'utils/modelEdit/model-edit-helper'],
           const restart = ModelEditHelper.getDerivedValue(restartInPlace.observable());
           return restart !== true;
         });
+      };
+
+      this.jmsServerHostingTemporaryDestinationsFields = attributeMap => {
+        return this._disableFieldsUsingBooleanAttribute(attributeMap, 'HostingTemporaryDestinations', true);
       };
 
       this.jmsMessageLogRotateTimeFields = attributeMap => {

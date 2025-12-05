@@ -5,6 +5,10 @@
       "Target": {}
     },
     "attributeDetails": {
+      "KeyStoreName": {
+        "usesPath": true,
+        "fileOptions": [ { "type": "file", "extensions": [ "jks", "p12" ] } ]
+      },
       "MaximumPoolSize": {
         "validators": [ "range(1,)" ]
       },
@@ -13,6 +17,10 @@
       },
       "RecvTimeout": {
         "validators": [ "range(0,)" ]
+      },
+      "TrustStoreName": {
+        "usesPath": true,
+        "fileOptions": [ { "type": "file", "extensions": [ "jks", "p12" ] } ]
       }
     },
     "sections": [

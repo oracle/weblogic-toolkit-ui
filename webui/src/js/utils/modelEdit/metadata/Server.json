@@ -198,6 +198,9 @@
       "SocketReaders": {
         "validators": [ "range(-1,65534)" ]
       },
+      "StagingDirectoryName": {
+        "fileOptions": [ { "type": "dir" } ]
+      },
       "StagingMode": {
         "options": [
           { "value": "stage", "labelKey":  "options-stage-label" },
@@ -251,6 +254,9 @@
       "TunnelingClientTimeoutSecs": {
         "disabled": "serverTunnelingFields",
         "validators": [ "range(1,)" ]
+      },
+      "UploadDirectoryName": {
+        "fileOptions": [ { "type": "dir" } ]
       },
       "XMLEntityCache": {
         "editorType": "combo",
@@ -870,11 +876,18 @@
       "FileMinSize": {
         "disabled": "logRotationBySizeFields"
       },
+      "FileName": {
+        "usesPath": true,
+        "fileOptions": [ { "type": "file" } ]
+      },
       "FileTimeSpan": {
         "disabled": "logRotationByTimeFields"
       },
       "FileTimeSpanFactor": {
         "disabled": "logRotationByTimeFields"
+      },
+      "LogFileRotationDir": {
+        "fileOptions": [ { "type": "dir" } ]
       },
       "RotationTime": {
         "disabled": "logRotationByTimeFields"
@@ -914,7 +927,11 @@
         "validators": [ "range(-1,8192)" ]
       },
       "CacheDirectory": {
-        "disabled": "fileStoreDisableDirectWriteWithCacheFields"
+        "disabled": "fileStoreDisableDirectWriteWithCacheFields",
+        "fileOptions": [ { "type": "dir" } ]
+      },
+      "Directory": {
+        "fileOptions": [ { "type": "dir" } ]
       },
       "InitialSize": {
         "validators": [ "range(0,)" ]
@@ -1213,6 +1230,9 @@
       "FileMinSize": {
         "disabled": "logRotationBySizeFields"
       },
+      "FileName": {
+        "fileOptions": [ { "type": "file" } ]
+      },
       "FileTimeSpan": {
         "disabled": "logRotationByTimeFields"
       },
@@ -1222,6 +1242,9 @@
       "LogFileFilter": {
         "editorType": "combo",
         "optionsMethod": "getLogFilterOptions"
+      },
+      "LogFileRotationDir": {
+        "fileOptions": [ { "type": "dir" } ]
       },
       "LogFileSeverity": {
         "options": [
@@ -2734,6 +2757,9 @@
           { "value": "JDBCArchive", "labelKey": "options-jdbc-archive-label" }
         ]
       },
+      "DiagnosticDumpsDir": {
+        "fileOptions": [ { "type": "dir" } ]
+      },
       "DiagnosticJDBCResource": {
         "disabled": "serverDiagnosticConfigJDBCArchiveFields",
         "editorType": "combo",
@@ -2746,7 +2772,8 @@
         "validators": [ "range(-1,8192)" ]
       },
       "DiagnosticStoreDir": {
-        "disabled": "serverDiagnosticConfigFileArchiveFields"
+        "disabled": "serverDiagnosticConfigFileArchiveFields",
+        "fileOptions": [ { "type": "dir" } ]
       },
       "DiagnosticStoreFileLockingEnabled": {
         "disabled": "serverDiagnosticConfigFileArchiveFields"
@@ -2768,6 +2795,9 @@
       },
       "EventsImageCaptureInterval": {
         "validators": [ "range(0,)" ]
+      },
+      "ImageDir": {
+        "fileOptions": [ { "type": "dir" } ]
       },
       "ImageTimeout": {
         "validators": [ "range(0,1440)" ]
@@ -3172,6 +3202,9 @@
           { "value": "NONE", "labelKey": "options-none-label" }
         ]
       },
+      "CreateTableDDLFile": {
+        "fileOptions": [ { "type": "file" } ]
+      },
       "DeletesPerBatchMaximum": {
         "validators": [ "range(1,100)" ]
       },
@@ -3215,6 +3248,9 @@
       },
       "PartialClusterStabilityDelaySeconds": {
         "validators": [ "range(0,)" ]
+      },
+      "PrefixName": {
+        "usesPath": false
       },
       "ReconnectRetryIntervalMillis": {
         "validators": [ "range(100,10000)" ]
@@ -3413,6 +3449,9 @@
       "FileMinSize": {
         "disabled": "logRotationBySizeFields"
       },
+      "FileName": {
+        "fileOptions": [ { "type": "file" } ]
+      },
       "FileTimeSpan": {
         "disabled": "logRotationByTimeFields"
       },
@@ -3424,6 +3463,9 @@
           { "value": "common", "labelKey":  "options-common-label" },
           { "value": "extended", "labelKey":  "options-extended-label" }
         ]
+      },
+      "LogFileRotationDir": {
+        "fileOptions": [ { "type": "dir" } ]
       },
       "LogTimeInGMT": {
         "disabled": "serverWebServerLogFormatExtendedFields"

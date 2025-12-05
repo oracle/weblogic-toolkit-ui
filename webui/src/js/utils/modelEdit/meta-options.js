@@ -267,6 +267,26 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
         return options;
       };
 
+      this.getJmsSystemResourceOptions = () => {
+        const options = [];
+        const jmsSystemResourceNames = getInstanceNames(['resources', 'JMSSystemResource']);
+        console.log(`jmsSystemResourceNames: ${JSON.stringify(jmsSystemResourceNames)}`);
+        jmsSystemResourceNames.forEach(resourceName => {
+          options.push({ value: resourceName, label: resourceName });
+        });
+        return options;
+      };
+
+      this.getTemplatesInJmsSystemResourceOptions = (attribute, attributeMap, subscriptions) => {
+        const jmsSystemResourceObservable = attributeMap['TemporaryTemplateResource'].observable;
+        const jmsSystemResourceName = jmsSystemResourceObservable();
+        const optionsArray = ko.observableArray(getJmsModuleTemplateOptions(jmsSystemResourceName));
+        subscriptions.push(jmsSystemResourceObservable.subscribe(jmsSystemResourceName => {
+          optionsArray(getJmsModuleTemplateOptions(jmsSystemResourceName));
+        }));
+        return optionsArray;
+      };
+
       this.getJmsSystemResourceSubDeploymentOptions = (attribute) => {
         const modelPath = attribute.path;
         // [ 'resources', 'JMSSystemResource', <module-name> ]
@@ -381,7 +401,6 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
       this.wldfSystemResourceWatchNotificationActionOptions = (attribute) => {
         const modelPath = attribute.path;
         const wldfWatchNotificationPath = [ ...modelPath.slice(0, 4), 'WatchNotification'];
-        console.log(`wldfWatchNotificationPath: ${JSON.stringify(wldfWatchNotificationPath)}`);
         const heapDumpActionNames = getInstanceNames([...wldfWatchNotificationPath, 'HeapDumpAction']);
         const imageNotificationNames = getInstanceNames([...wldfWatchNotificationPath, 'ImageNotification']);
         const jmsNotificationNames = getInstanceNames([...wldfWatchNotificationPath, 'JMSNotification']);
@@ -461,10 +480,21 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
         return result;
       }
 
+      function getJmsModuleTemplateOptions(jmsModuleName) {
+        const templateOptions = [];
+        if (jmsModuleName) {
+          const templateNames = getInstanceNames(['resources', 'JMSSystemResource', jmsModuleName, 'JmsResource', 'Template']);
+          templateNames.forEach(templateName => {
+            templateOptions.push({ value: templateName, label: templateName });
+          });
+        }
+        return templateOptions;
+      }
+
       // return options for servers that are in the specified cluster
       function getClusterServerOptions(clusterName) {
         const serverOptions = [];
-        if(clusterName) {
+        if (clusterName) {
           const servers = ModelEditHelper.getFolder(['topology', 'Server']);
           Object.entries(servers).forEach(([name, server]) => {
             if (server['Cluster'] === clusterName) {

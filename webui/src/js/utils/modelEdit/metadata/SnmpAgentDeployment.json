@@ -234,6 +234,12 @@
       "MessageId": {},
       "EnabledServer": {}
     },
+    "attributeDetails": {
+      "EnabledServer": {
+        "editorType": "comboMulti",
+        "optionsMethod": "getManagedServerOptions"
+      }
+    },
     "sections": [
       {
         "type": "attributes",

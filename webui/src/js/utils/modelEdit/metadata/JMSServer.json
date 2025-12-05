@@ -49,6 +49,9 @@
       "PagingBlockSize": {
         "validators": [ "range(-1,8192)" ]
       },
+      "PagingDirectory": {
+        "fileOptions": [ { "type": "dir" } ]
+      },
       "PagingIoBufferSize": {
         "validators": [ "range(-1,67108864)" ]
       },
@@ -60,6 +63,20 @@
       },
       "PagingMinWindowBufferSize": {
         "validators": [ "range(-1,1073741824)" ]
+      },
+      "PersistentStore": {
+        "editorType": "combo",
+        "optionsMethod": "getPersistentStoreOptions"
+      },
+      "TemporaryTemplateName": {
+        "disabled": "jmsServerHostingTemporaryDestinationsFields",
+        "editorType": "combo",
+        "optionsMethod": "getTemplatesInJmsSystemResourceOptions"
+      },
+      "TemporaryTemplateResource": {
+        "disabled": "jmsServerHostingTemporaryDestinationsFields",
+        "editorType": "combo",
+        "optionsMethod": "getJmsSystemResourceOptions"
       }
     },
     "sections": [
@@ -148,11 +165,17 @@
       "FileMinSize": {
         "disabled": "jmsMessageLogRotateSizeFields"
       },
+      "FileName": {
+        "fileOptions": [ { "type": "file" } ]
+      },
       "FileTimeSpan": {
         "disabled": "jmsMessageLogRotateTimeFields"
       },
       "FileTimeSpanFactor": {
         "disabled": "jmsMessageLogRotateTimeFields"
+      },
+      "LogFileRotationDir": {
+        "fileOptions": [ { "type": "dir" } ]
       },
       "RotationTime": {
         "disabled": "jmsMessageLogRotateTimeFields"

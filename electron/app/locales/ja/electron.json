@@ -84,27 +84,6 @@
   "menu-go-uninstall-ingress": "イングレス・コントローラのアンインストール",
   "menu-go-uninstall-ingress-error-title": "アクティブなプロジェクト・ウィンドウがありません",
   "menu-go-uninstall-ingress-error-message": "アクティブなウィンドウがないため、アンインストールするイングレス・コントローラ構成がありません。したがって、イングレス・コントローラをアンインストールすることはできません。",
-  "menu-go-install-verrazzano": "Verrazzanoのインストール",
-  "menu-go-install-verrazzano-error-title": "アクティブなプロジェクト・ウィンドウがありません",
-  "menu-go-install-verrazzano-error-message": "アクティブなウィンドウがないため、Verrazzano構成をインストールする必要のあるプロジェクトがありません。したがって、Verrazzanoをインストールすることはできません。",
-  "menu-go-install-verrazzano-status": "Verrazzanoインストール・ステータスの取得",
-  "menu-go-install-verrazzano-status-error-title": "アクティブなプロジェクト・ウィンドウがありません",
-  "menu-go-install-verrazzano-status-error-message": "アクティブなウィンドウがないため、Verrazzano構成をインストールする必要のあるプロジェクトがありません。したがって、Verrazzanoインストール・ステータスを取得することはできません。",
-  "menu-go-deploy-verrazzano-component": "Verrazzanoコンポーネントのデプロイ",
-  "menu-go-deploy-verrazzano-component-error-title": "アクティブなプロジェクト・ウィンドウがありません",
-  "menu-go-deploy-verrazzano-component-error-message": "アクティブなウィンドウがないため、Verrazzanoコンポーネント構成をデプロイする必要のあるプロジェクトがありません。したがって、Verrazzanoコンポーネントをデプロイすることはできません。",
-  "menu-go-undeploy-verrazzano-component": "Verrazzanoコンポーネントのアンデプロイ",
-  "menu-go-undeploy-verrazzano-component-error-title": "アクティブなプロジェクト・ウィンドウがありません",
-  "menu-go-undeploy-verrazzano-component-error-message": "アクティブなウィンドウがないため、Verrazzanoコンポーネント構成をアンデプロイする必要のあるプロジェクトがありません。したがって、Verrazzanoコンポーネントをアンデプロイすることはできません。",
-  "menu-go-deploy-verrazzano-application": "Verrazzanoアプリケーションのデプロイ",
-  "menu-go-deploy-verrazzano-application-error-title": "アクティブなプロジェクト・ウィンドウがありません",
-  "menu-go-deploy-verrazzano-application-error-message": "アクティブなウィンドウがないため、Verrazzanoアプリケーション構成をデプロイする必要のあるプロジェクトがありません。したがって、Verrazzanoアプリケーションをデプロイすることはできません。",
-  "menu-go-check-verrazzano-application-status": "Verrazzanoアプリケーション・ステータスの確認",
-  "menu-go-check-verrazzano-application-status-error-title": "アクティブなプロジェクト・ウィンドウがありません",
-  "menu-go-check-verrazzano-application-status-error-message": "アクティブなウィンドウがないため、Verrazzanoアプリケーション構成を確認する必要のあるプロジェクトがありません。したがって、Verrazzanoアプリケーション・ステータスを確認することはできません。",
-  "menu-go-undeploy-verrazzano-application": "Verrazzanoアプリケーションのアンデプロイ",
-  "menu-go-undeploy-verrazzano-application-error-title": "アクティブなプロジェクト・ウィンドウがありません",
-  "menu-go-undeploy-verrazzano-application-error-message": "アクティブなウィンドウがないため、Verrazzanoアプリケーション構成をアンデプロイする必要のあるプロジェクトがありません。したがって、Verrazzanoアプリケーションをアンデプロイすることはできません。",
 
   "menu-window": "ウィンドウ",
   "menu-window-minimize": "最小化",
@@ -141,7 +120,9 @@
   "auto-updater-disabled-unsupported-message": "AppImage実行可能ファイルから実行されていない場合、自動アップデータはLinuxではサポートされていません。",
 
   "dialog-chooseArchiveFile": "アーカイブ・ファイルの選択",
+  "dialog-chooseExternalToolsStagingDirectory": "Choose WKT Tools External Staging Directory",
   "dialog-chooseModelFile": "モデル・ファイルの選択",
+  "dialog-choosePrivateKey": "秘密キー・ファイルの選択",
   "dialog-chooseProjectSaveFile": "プロジェクトの保存",
   "dialog-chooseVariableFile": "変数ファイルの選択",
   "dialog-getJdkInstaller": "JDKインストーラの選択",
@@ -172,7 +153,7 @@
   "dialog-openProjectFileCredentialManagerErrorTitle": "資格証明マネージャの作成に失敗しました",
   "dialog-openProjectFileCredentialManagerErrorMessage": "エラーが発生したため、プロジェクト・ファイル{{projectFileName}}の資格証明マネージャを作成できません: {{error}}",
   "dialog-openProjectFileSendToWindowErrorTitleErrorTitle": "プロジェクトを開けませんでした",
-  "dialog-openProjectFileSendToWindowErrorTitleErrorMessage": "プロジェクト・ウィンドウの初期化中にエラーが発生したため、プロジェクト・ファイル{{projectFileName}}を開けません: {{err}}",
+  "dialog-openProjectFileSendToWindowErrorMessage": "プロジェクト・ウィンドウの初期化中にエラーが発生したため、プロジェクト・ファイル{{projectFileName}}を開けません: {{err}}",
   "dialog-createNewProjectTitle": "WebLogic Kubernetes Toolkitプロジェクトの作成",
   "dialog-projectSaveFileLocationNotWritableTitle": "プロジェクト・ディレクトリが書込み可能ではありません",
   "dialog-projectSaveFileLocationNotWritableError": "新しいプロジェクト・ファイルを書き込むために選択した{{projectFileDirectory}}ディレクトリは、現在のプロセスによる書込みができません。",
@@ -221,6 +202,7 @@
   "dialog-tls-certfile": "TLS証明書ファイルの選択",
 
   "dialog-chooseArchiveEntry": "アーカイブ用の{{entryType}}を選択",
+  "dialog-chooseAttributeFile": "Choose {{entryType}}",
   "dialog-archiveEntryFilter": "{{entryType}}",
   "dialog-getWebLogicRemoteConsoleHome": "WebLogic Remote Consoleインストールの選択",
   "dialog-getWebLogicRemoteConsoleAppImage": "WebLogic Remote Console AppImageファイルの選択",
@@ -317,8 +299,6 @@
   "kubectl-apply-write-file-failed-error-message": "一時ファイルへのデータの書込み中にエラーが発生したため、kubectl applyを実行できません: {{error}}",
   "kubectl-apply-failed-error-message": "kubectl applyコマンドが失敗しました: {{error}}",
   "kubectl-apply-url-failed-error-message": "{{url}}からのkubectl applyコマンドが失敗しました: {{error}}",
-  "kubectl-verify-vz-operator-rollout-stdout-error-message": "Verrazzanoプラットフォーム・オペレータのロールアウト・ステータスが予期したテキストを返しませんでした: {{message}}",
-  "kubectl-verify-vz-operator-rollout-error-message": "Verrazzanoプラットフォーム・オペレータのロールアウト・ステータスの確認に失敗しました: {{error}}",
   "kubectl-label-get-ns-failed-error-message": "ネームスペースの既存のラベルを取得中にエラーが発生したため、Kubernetesネームスペース{{namespace}}にラベル{{label}}を追加できません: {{error}}",
   "kubectl-label-ns-failed-error-message": "エラーが発生したため、Kubernetesネームスペース{{namespace}}にラベル{{labels}}を追加できません: {{error}}",
   "kubectl-delete-object-failed-error-message": "{{namespace}}で{{object}}の削除に失敗しました。理由: {{error}}",
@@ -336,15 +316,7 @@
   "kubectl-tlsfile-not-specified-error-message": "TLSファイルのパスが指定されていませんでした",
   "kubectl-tlsfile-not-exists-error-message": "TLSファイル{{filePath}}が存在しません",
   "kubectl-tlsfile-failed-error-message": "TLSファイル{{filePath}}が存在することを確認できません: {{error}}",
-  "kubectl-get-vz-install-failed-error-message": "Verrazzanoインストールを取得できません: {{error}}",
-  "kubectl-get-named-vz-install-error-message": "{{name}}という名前のVerrazzanoインストールを取得できません: {{error}}",
-  "kubectl-get-vz-application-status-error-message": "Verrazzanoアプリケーションのステータスを取得できません: {{error}}",
   "kubectl-get-operator-version-not-found-error-message": "ログ・エントリからオペレータのバージョンを検出できませんでした",
-  "kubectl-verify-vz-components-deployed-error-message": "ネームスペース{{namespace}}に1つ以上のコンポーネントが見つかりません: {{missingComponents}}",
-  "kubectl-get-vz-ingress-external-address-not-found": "Kubernetesネームスペース{{gatewayNamespace}}にIstioゲートウェイ・サービス{{gatewayService}}の外部IPアドレスが見つかりません",
-  "kubectl-get-vz-ingress-external-address-error-message": "Kubernetesネームスペース{{gatewayNamespace}}にIstioゲートウェイ・サービス{{gatewayService}}の外部IPアドレスが見つかりませんでした: {{error}}",
-  "kubectl-get-vz-app-hostnames-error-message": "Verrazzanoアプリケーションのホスト名を取得できません: {{error}}",
-  "kubectl-get-vz-app-hostnames-not-found": "Verrazzanoアプリケーションのホスト名が見つかりません",
 
   "helm-not-specified-error-message": "Helm実行可能ファイルのパスが指定されていませんでした",
   "helm-not-exists-error-message": "Helm実行可能ファイル{{filePath}}が存在しません",
@@ -421,6 +393,8 @@
 
   "wdt-archiveType-coherenceStore": "Coherence永続性ディレクトリ",
   "wdt-archiveType-coherenceStore-activeLabel": "アクティブ",
+  "wdt-archiveType-coherenceStore-backupLabel": "Backup",
+  "wdt-archiveType-coherenceStore-eventsLabel": "Events",
   "wdt-archiveType-coherenceStore-snapshotLabel": "スナップショット",
   "wdt-archiveType-coherenceStore-trashLabel": "ごみ箱",
   "wdt-archiveType-coherenceStore-emptyDirLabel": "Coherence永続性ディレクトリ名",
@@ -433,6 +407,8 @@
   "wdt-archiveType-custom-fileHelp": "カスタム・コンテンツ・ファイルへのフル・パスを選択します",
   "wdt-archiveType-custom-pathLabel": "カスタム・コンテンツ・パス接頭辞",
   "wdt-archiveType-custom-pathHelp": "カスタム・コンテンツ領域にオプションのパスを入力して、追加したコンテンツを配置します。デフォルトはルートの場所です",
+
+  "wdt-archiveType-custom-non-replicable": "カスタム・コンテンツ(レプリケート不可)",
 
   "wdt-archiveType-databaseWallet": "データベース・ウォレット",
   "wdt-archiveType-databaseWallet-dirLabel": "データベース・ウォレット・ディレクトリ",
@@ -491,6 +467,13 @@
   "wdt-archiveType-serverSegregationLabel": "サーバー名",
   "wdt-archiveType-serverSegregationHelp": "使用するサーバーの名前を入力します",
 
+  "wdt-archiveType-serverTemplateKeystore": "Server Template Keystore",
+  "wdt-archiveType-serverTemplateKeystore-fileLabel": "Server Template Keystore File",
+  "wdt-archiveType-serverTemplateKeystore-fileHelp": "Choose the full path to the server template keystore file to add under the specific server template",
+
+  "wdt-archiveType-serverTemplateSegregationLabel": "サーバー・テンプレート名",
+  "wdt-archiveType-serverTemplateSegregationHelp": "Enter the name of the server template to use",
+
   "wdt-archiveType-sharedLibrary": "共有ライブラリ",
   "wdt-archiveType-sharedLibrary-dirLabel": "展開された共有ライブラリ・ディレクトリ",
   "wdt-archiveType-sharedLibrary-dirHelp": "展開された共有ライブラリ・ディレクトリへのフル・パスを選択します",
@@ -526,11 +509,6 @@
   "project-save-model-files-error-title": "プロジェクト・モデル・ファイル保存エラー",
   "project-save-model-files-error-message": "プロジェクトに関連付けられているWebLogic Deploy Toolingモデル・ファイルの1つの保存に失敗しました: {{error}}",
 
-  "vz-installer-operator-not-ready-error-message": "Verrazzanoプラットフォーム・オペレータの準備ができていないため、Verrazzanoのインストールを続行できません: {{error}}",
-  "vz-installer-check-install-status-no-resource-error-message": "Verrazzanoのインストールが存在しません",
-  "vz-installer-check-install-status-failed-error-message": "エラーのため、{{name}}のVerrazzanoインストール・ステータス・チェックを続行できません: {{error}}",
-  "vz-installer-check-install-status-mismatched-names-error-message": "Verrazzano {{version}}は、{{name}}という名前でインストールされています",
-
   "wrc-home-error-title": "無効なWebLogic Remote Consoleの場所",
   "wrc-init-error-title": "WebLogic Remote Consoleバックエンドの初期化の失敗",
   "wrc-location-existence-check-failed": "存在を確認しようとしてエラーが発生したため、{{location}}でWebLogic Remote Consoleバックエンドを起動できません: {{error}}。",
@@ -550,5 +528,9 @@
   "wrc-app-image-file-version-no-match": "場所{{rcHome}} AppImageファイル名{{filename}}が、バージョン番号を抽出するために必要な予期されるファイル名パターンと一致しないため、WebLogic Remote Consoleのバージョンを特定できません。",
   "wrc-version-incompatible-message": "インストールされているWebLogic Remote Console のバージョン{{backendVersion}}は、WebLogic Kubernetes Toolkit UIの埋込みモデル・デザイン・ビュー・コンポーネントのバージョン{{frontendVersion}}と互換性がありません。メジャー・バージョンとマイナー・バージョンが一致しません。",
   "wrc-version-verification-failed": "バージョンの互換性を判断しようとしてエラーが発生したため、WebLogic Remote Consoleバックエンドを起動できません: {{error}}",
-  "wrc-home-not-exist": "構成された場所{{rcHome}}が存在しないため、WebLogic Remote Consoleバックエンドを起動できません。"
+  "wrc-home-not-exist": "構成された場所{{rcHome}}が存在しないため、WebLogic Remote Consoleバックエンドを起動できません。",
+
+  "app-image-update-tools-failed-title": "Failed to Update WKT Tools for Linux AppImage",
+  "app-image-update-tools-external-dir-no-specified": "Unable to update WKT tools since the WKT Tools External Staging Directory was not specified in the user's settings.",
+  "app-image-update-tools-external-dir-not-exists": "Unable to update WKT tools since the WKT Tools External Staging Directory {{externalToolDirectory}} does not exist."
 }

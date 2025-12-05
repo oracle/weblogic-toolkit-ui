@@ -5,6 +5,12 @@
       "JdbcResource/DatasourceType": {},
       "Target": {}
     },
+    "attributeDetails": {
+      "DescriptorFileName": {
+        "usesPath": true,
+        "fileOptions": [ { "type": "file", "extensions": [ "xml" ] } ]
+      }
+    },
     "sections": [
       {
         "type": "tab",
@@ -342,6 +348,10 @@
           { "value": "Data", "labelKey": "options-data-label" },
           { "value": "None", "labelKey": "options-none-label" }
         ]
+      },
+      "OnsWalletFile": {
+        "usesPath": true,
+        "fileOptions": [ { "type": "file", "extensions": [ "sso", "p12" ] } ]
       },
       "ReplayInitiationTimeout": {
         "validators": [ "range(0,)" ]

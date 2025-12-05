@@ -1,5 +1,10 @@
 {
   "EJBContainer": {
+    "attributeDetails": {
+      "TmpPath": {
+        "fileOptions": [ { "type": "dir" } ]
+      }
+    },
     "sections": [
       {
         "type": "attributes",

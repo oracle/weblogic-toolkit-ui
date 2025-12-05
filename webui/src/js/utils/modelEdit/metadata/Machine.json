@@ -21,13 +21,15 @@
         ]
       },
       "NodeManagerHome": {
-        "disabled": "nodeManagerShellTypeFields"
+        "disabled": "nodeManagerShellTypeFields",
+        "fileOptions": [ { "type": "dir" } ]
       },
       "PasswordEncrypted": {
         "disabled": "nodeManagerShellTypeFields"
       },
       "ShellCommand": {
-        "disabled": "nodeManagerShellTypeFields"
+        "disabled": "nodeManagerShellTypeFields",
+        "usesPath": false
       },
       "UserName": {
         "disabled": "nodeManagerShellTypeFields"

@@ -5,6 +5,10 @@
       "Target": {}
     },
     "attributeDetails": {
+      "DescriptorFileName": {
+        "usesPath": true,
+        "fileOptions": [ { "type": "file", "extensions": [ "xml" ] } ]
+      },
       "Severity": {
         "options": [
           { "value": "Info", "labelKey": "options-info-label" },
@@ -482,6 +486,9 @@
       "Enabled": {}
     },
     "attributeDetails": {
+      "ImageDirectory": {
+        "fileOptions": [ { "type": "dir" } ]
+      },
       "ImageLockout": {
         "validators": [ "range(0,)" ]
       },

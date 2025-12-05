@@ -84,27 +84,6 @@
   "menu-go-uninstall-ingress": "解除安裝傳入控制器",
   "menu-go-uninstall-ingress-error-title": "沒有作用中專案視窗",
   "menu-go-uninstall-ingress-error-message": "沒有作用中視窗，因此無法解除安裝「傳入控制器」，所以沒有應解除安裝的傳入控制器組態。",
-  "menu-go-install-verrazzano": "安裝 Verrazzano",
-  "menu-go-install-verrazzano-error-title": "沒有作用中專案視窗",
-  "menu-go-install-verrazzano-error-message": "沒有作用中視窗，因此無法安裝 Verrazzano，所以沒有應安裝 Verrazzano 組態的專案。",
-  "menu-go-install-verrazzano-status": "取得 Verrazzano 安裝狀態",
-  "menu-go-install-verrazzano-status-error-title": "沒有作用中專案視窗",
-  "menu-go-install-verrazzano-status-error-message": "沒有作用中視窗，因此無法取得 Verrazzano 安裝狀態，所以沒有應安裝 Verrazzano 組態的專案。",
-  "menu-go-deploy-verrazzano-component": "部署 Verrazzano 元件",
-  "menu-go-deploy-verrazzano-component-error-title": "沒有作用中專案視窗",
-  "menu-go-deploy-verrazzano-component-error-message": "沒有作用中視窗，因此無法部署 Verrazzano 元件，所以沒有應部署 Verrazzano 元件組態的專案。",
-  "menu-go-undeploy-verrazzano-component": "取消部署 Verrazzano 元件",
-  "menu-go-undeploy-verrazzano-component-error-title": "沒有作用中專案視窗",
-  "menu-go-undeploy-verrazzano-component-error-message": "沒有作用中視窗，因此無法取消部署 Verrazzano 元件，所以沒有應取消部署 Verrazzano 元件組態的專案。",
-  "menu-go-deploy-verrazzano-application": "部署 Verrazzano 應用程式",
-  "menu-go-deploy-verrazzano-application-error-title": "沒有作用中專案視窗",
-  "menu-go-deploy-verrazzano-application-error-message": "沒有作用中視窗，因此無法部署 Verrazzano 應用程式，所以沒有應部署 Verrazzano 應用程式組態的專案。",
-  "menu-go-check-verrazzano-application-status": "檢查 Verrazzano 應用程式狀態",
-  "menu-go-check-verrazzano-application-status-error-title": "沒有作用中專案視窗",
-  "menu-go-check-verrazzano-application-status-error-message": "沒有作用中視窗，因此無法檢查 Verrazzano 應用程式狀態，所以沒有應檢查 Verrazzano 應用程式組態的專案。",
-  "menu-go-undeploy-verrazzano-application": "取消部署 Verrazzano 應用程式",
-  "menu-go-undeploy-verrazzano-application-error-title": "沒有作用中專案視窗",
-  "menu-go-undeploy-verrazzano-application-error-message": "沒有作用中視窗，因此無法取消部署 Verrazzano 應用程式，所以沒有應取消部署 Verrazzano 應用程式組態的專案。",
 
   "menu-window": "視窗",
   "menu-window-minimize": "最小化",
@@ -141,7 +120,9 @@
   "auto-updater-disabled-unsupported-message": "Linux 若不是從 AppImage 執行檔執行，便不支援自動更新程式。",
 
   "dialog-chooseArchiveFile": "選取封存檔",
+  "dialog-chooseExternalToolsStagingDirectory": "Choose WKT Tools External Staging Directory",
   "dialog-chooseModelFile": "選取模型檔",
+  "dialog-choosePrivateKey": "選取私密金鑰檔案",
   "dialog-chooseProjectSaveFile": "儲存專案",
   "dialog-chooseVariableFile": "選取變數檔",
   "dialog-getJdkInstaller": "選取 JDK 安裝程式",
@@ -172,7 +153,7 @@
   "dialog-openProjectFileCredentialManagerErrorTitle": "無法建立證明資料管理程式",
   "dialog-openProjectFileCredentialManagerErrorMessage": "發生以下錯誤，因此無法建立專案檔案 {{projectFileName}} 的證明資料管理程式：{{error}}",
   "dialog-openProjectFileSendToWindowErrorTitleErrorTitle": "無法開啟專案",
-  "dialog-openProjectFileSendToWindowErrorTitleErrorMessage": "起始專案視窗時發生錯誤，因此無法開啟專案檔案 {{projectFileName}}：{{err}}",
+  "dialog-openProjectFileSendToWindowErrorMessage": "起始專案視窗時發生錯誤，因此無法開啟專案檔案 {{projectFileName}}：{{err}}",
   "dialog-createNewProjectTitle": "建立 WebLogic Kubernetes Toolkit 專案",
   "dialog-projectSaveFileLocationNotWritableTitle": "無法寫入專案目錄",
   "dialog-projectSaveFileLocationNotWritableError": "目前的處理作業無法寫入選擇用於寫入新專案檔案的 {{projectFileDirectory}} 目錄。",
@@ -221,6 +202,7 @@
   "dialog-tls-certfile": "選取 TLS 憑證檔案",
 
   "dialog-chooseArchiveEntry": "選擇要封存的 {{entryType}}",
+  "dialog-chooseAttributeFile": "選擇 {{entryType}}",
   "dialog-archiveEntryFilter": "{{entryType}}",
   "dialog-getWebLogicRemoteConsoleHome": "選取安裝的 WebLogic Remote Console",
   "dialog-getWebLogicRemoteConsoleAppImage": "選取 WebLogic Remote Console AppImage 檔案",
@@ -317,8 +299,6 @@
   "kubectl-apply-write-file-failed-error-message": "將資料寫入暫存檔時發生錯誤，因此無法執行 kubectl apply：{{error}}",
   "kubectl-apply-failed-error-message": "kubectl apply 命令失敗：{{error}}",
   "kubectl-apply-url-failed-error-message": "{{url}} 的 kubectl apply 命令失敗：{{error}}",
-  "kubectl-verify-vz-operator-rollout-stdout-error-message": "Verrazzano Platform Operator 上線狀態未傳回預期的文字：{{message}}",
-  "kubectl-verify-vz-operator-rollout-error-message": "Verrazzano Platform Operator 上線狀態檢查失敗：{{error}}",
   "kubectl-label-get-ns-failed-error-message": "取得 Kubernetes 命名空間 {{namespace}} 的現有標籤時發生錯誤，因此無法新增 {{label}} 標籤至此命名空間：{{error}}",
   "kubectl-label-ns-failed-error-message": "無法新增 {{labels}} 標籤至 Kubernetes 命名空間 {{namespace}}，發生錯誤：{{error}}",
   "kubectl-delete-object-failed-error-message": "無法刪除 {{namespace}} 中的 {{object}}，原因：{{error}}",
@@ -336,15 +316,7 @@
   "kubectl-tlsfile-not-specified-error-message": "未提供 TLS 檔案路徑",
   "kubectl-tlsfile-not-exists-error-message": "TLS 檔案 {{filePath}} 不存在",
   "kubectl-tlsfile-failed-error-message": "無法確認 TLS 檔案 {{filePath}} 存在：{{error}}",
-  "kubectl-get-vz-install-failed-error-message": "無法取得 Verrazzano 安裝：{{error}}",
-  "kubectl-get-named-vz-install-error-message": "無法取得名稱為 {{name}} 的 Verrazzano 安裝：{{error}}",
-  "kubectl-get-vz-application-status-error-message": "無法取得 Verrazzano 應用程式狀態：{{error}}",
   "kubectl-get-operator-version-not-found-error-message": "無法從 Operator 的日誌項目找到其版本",
-  "kubectl-verify-vz-components-deployed-error-message": "在命名空間 {{namespace}} 中找不到一或多個元件：{{missingComponents}}",
-  "kubectl-get-vz-ingress-external-address-not-found": "在 Kubernetes 命名空間 {{gatewayNamespace}} 的 Istio 閘道服務 {{gatewayService}} 中找不到外部 IP 位址",
-  "kubectl-get-vz-ingress-external-address-error-message": "在 Kubernetes 命名空間 {{gatewayNamespace}} 的 Istio 閘道服務 {{gatewayService}} 中找不到外部 IP 位址：{{error}}",
-  "kubectl-get-vz-app-hostnames-error-message": "無法取得 Verrazzano 應用程式主機名稱：{{error}}",
-  "kubectl-get-vz-app-hostnames-not-found": "找不到 Verrazzano 應用程式主機名稱",
 
   "helm-not-specified-error-message": "未提供 Helm 執行檔路徑",
   "helm-not-exists-error-message": "Helm 執行檔 {{filePath}} 不存在",
@@ -421,6 +393,8 @@
 
   "wdt-archiveType-coherenceStore": "Coherence 保存目錄",
   "wdt-archiveType-coherenceStore-activeLabel": "作用中",
+  "wdt-archiveType-coherenceStore-backupLabel": "Backup",
+  "wdt-archiveType-coherenceStore-eventsLabel": "Events",
   "wdt-archiveType-coherenceStore-snapshotLabel": "快照",
   "wdt-archiveType-coherenceStore-trashLabel": "資源回收",
   "wdt-archiveType-coherenceStore-emptyDirLabel": "Coherence 保存目錄名稱",
@@ -433,6 +407,8 @@
   "wdt-archiveType-custom-fileHelp": "選擇自訂內容檔案的完整路徑",
   "wdt-archiveType-custom-pathLabel": "自訂內容路徑前置碼",
   "wdt-archiveType-custom-pathHelp": "在自訂內容區域中輸入放置新增內容的選擇性路徑。預設值為根目錄位置。",
+
+  "wdt-archiveType-custom-non-replicable": "自訂內容 (不可複製)",
 
   "wdt-archiveType-databaseWallet": "資料庫公事包",
   "wdt-archiveType-databaseWallet-dirLabel": "資料庫公事包目錄",
@@ -491,6 +467,13 @@
   "wdt-archiveType-serverSegregationLabel": "伺服器名稱",
   "wdt-archiveType-serverSegregationHelp": "輸入要使用的伺服器名稱",
 
+  "wdt-archiveType-serverTemplateKeystore": "Server Template Keystore",
+  "wdt-archiveType-serverTemplateKeystore-fileLabel": "Server Template Keystore File",
+  "wdt-archiveType-serverTemplateKeystore-fileHelp": "Choose the full path to the server template keystore file to add under the specific server template",
+
+  "wdt-archiveType-serverTemplateSegregationLabel": "伺服器樣板名稱",
+  "wdt-archiveType-serverTemplateSegregationHelp": "Enter the name of the server template to use",
+
   "wdt-archiveType-sharedLibrary": "共用程式庫",
   "wdt-archiveType-sharedLibrary-dirLabel": "展開共用程式庫目錄",
   "wdt-archiveType-sharedLibrary-dirHelp": "選擇展開共用程式庫目錄的完整路徑",
@@ -526,11 +509,6 @@
   "project-save-model-files-error-title": "專案模型檔儲存錯誤",
   "project-save-model-files-error-message": "無法儲存與專案關聯的其中一個 WebLogic Deploy Tooling 模型檔：{{error}}",
 
-  "vz-installer-operator-not-ready-error-message": "Verrazzano Platform Operator 未就緒，因此無法繼續安裝 Verrazzano：{{error}}",
-  "vz-installer-check-install-status-no-resource-error-message": "未安裝 Verrazzano",
-  "vz-installer-check-install-status-failed-error-message": "發生錯誤，因此無法繼續 {{name}} 的 Verrazzano 安裝狀態檢查：{{error}}",
-  "vz-installer-check-install-status-mismatched-names-error-message": "Verrazzano {{version}} 的安裝名稱為 {{name}}",
-
   "wrc-home-error-title": "WebLogic Remote Console 位置無效",
   "wrc-init-error-title": "起始 WebLogic Remote Console 後端失敗",
   "wrc-location-existence-check-failed": "無法在 {{location}} 啟動 WebLogic Remote Console 後端，因為嘗試判斷它是否存在時發生錯誤：{{error}}。",
@@ -550,5 +528,9 @@
   "wrc-app-image-file-version-no-match": "{{rcHome}} 位置的 AppImage 檔案名稱 {{filename}} 與擷取版本號碼所需的預期檔案名稱樣式不符，因此無法判斷 WebLogic Remote Console 版本。",
   "wrc-version-incompatible-message": "安裝的 WebLogic Remote Console 版本 {{backendVersion}} 與 WebLogic Kubernetes Toolkit UI 內嵌的模型設計檢視元件版本 {{frontendVersion}} 不相容，因為主要版本與次要版本不相符。",
   "wrc-version-verification-failed": "嘗試判斷版本相容性時發生錯誤，因此無法啟動 WebLogic Remote Console 後端：{{error}}。",
-  "wrc-home-not-exist": "設定的 {{rcHome}} 位置不存在，因此無法啟動 WebLogic Remote Console 後端。"
+  "wrc-home-not-exist": "設定的 {{rcHome}} 位置不存在，因此無法啟動 WebLogic Remote Console 後端。",
+
+  "app-image-update-tools-failed-title": "Failed to Update WKT Tools for Linux AppImage",
+  "app-image-update-tools-external-dir-no-specified": "Unable to update WKT tools since the WKT Tools External Staging Directory was not specified in the user's settings.",
+  "app-image-update-tools-external-dir-not-exists": "Unable to update WKT tools since the WKT Tools External Staging Directory {{externalToolDirectory}} does not exist."
 }
