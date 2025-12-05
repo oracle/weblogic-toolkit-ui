@@ -29,7 +29,8 @@
         "disabled": "nodeManagerDomainKeystoresFields"
       },
       "DomainsFile": {
-        "disabled": "nodeManagerDomainsFileFields"
+        "disabled": "nodeManagerDomainsFileFields",
+        "fileOptions": [ { "type": "file", "extensions": ["domains"] } ]
       },
       "JavaStandardTrustKeyStorePassPhrase": {
         "disabled": "nodeManagerJavaTrustFields"
@@ -51,8 +52,14 @@
       "LogCount": {
         "validators": [ "range(0,)" ]
       },
+      "LogFile": {
+        "fileOptions": [ { "type": "file" } ]
+      },
       "LogLimit": {
         "validators": [ "range(0,)" ]
+      },
+      "NodeManagerHome": {
+        "fileOptions": [ { "type": "dir" } ]
       },
       "ProcessDestroyTimeout": {
         "validators": [ "range(0,)" ]
@@ -68,6 +75,9 @@
       },
       "weblogic.StopScriptName": {
         "disabled": "nodeManagerWebLogicStopScriptFields"
+      },
+      "WebLogicHome": {
+        "fileOptions": [ { "type": "dir" } ]
       }
     },
     "sections": [

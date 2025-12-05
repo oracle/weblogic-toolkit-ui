@@ -27,6 +27,12 @@
           { "value": "logaudit", "labelKey": "options-log-and-audit-label" }
         ]
       },
+      "ConsoleContextPath": {
+        "usesPath": false
+      },
+      "ConsoleExtensionDir": {
+        "fileOptions": [ { "type": "dir" } ]
+      },
       "DbPassiveModeGracePeriodSeconds": {
         "disabled": "domainDbPassiveModeFields",
         "validators": [ "range(0,)" ]

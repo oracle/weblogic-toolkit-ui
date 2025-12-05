@@ -25,6 +25,10 @@
           { "value": "No-Delivery", "labelKey": "options-no-delivery-label" }
         ]
       },
+      "DescriptorFileName": {
+        "usesPath": true,
+        "fileOptions": [ { "type": "file", "extensions": [ "xml" ] } ]
+      },
       "DestinationKey": {
         "editorType": "combo",
         "optionsMethod": "getJmsSystemResourceDestinationKeyOptions"
@@ -566,6 +570,8 @@
     },
     "attributeDetails": {
       "ConnectionURL": {
+        "comment": "The use of file URLs here is rare so disabling this for now.",
+        "usesPath": false,
         "archiveTypes": ["jmsForeignServerBinding"],
         "segregateFolder": "ForeignServer"
       }
@@ -1109,6 +1115,9 @@
     ]
   },
   "JMSSystemResource/JmsResource/SAFRemoteContext": {
+    "summaryAttributes": {
+      "SAFLoginContext/LoginURL": {}
+    },
     "attributeDetails": {
       "CompressionThreshold": {
         "validators": [ "range(0,)" ]

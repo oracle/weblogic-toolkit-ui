@@ -63,6 +63,56 @@
       }
     ]
   },
+  "WTCServer/WTCExport": {
+    "summaryAttributes": {
+      "ResourceName": {},
+      "LocalAccessPoint":  {},
+      "EJBName": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "ResourceName",
+          "LocalAccessPoint",
+          "EJBName",
+          "RemoteName",
+          "TargetClass",
+          "TargetJar",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "WTCServer/WTCImport": {
+    "summaryAttributes": {
+      "ResourceName": {},
+      "LocalAccessPoint":  {},
+      "RemoteAccessPointList": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "ResourceName",
+          "LocalAccessPoint",
+          "RemoteAccessPointList",
+          "RemoteName",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
   "WTCServer/WTCLocalTuxDom": {
     "summaryAttributes": {
       "AccessPoint": {},
@@ -82,6 +132,10 @@
           { "value": "ON_STARTUP", "labelKey": "tux-connection-policy-on-startup-label" },
           { "value": "INCOMING_ONLY", "labelKey": "tux-connection-policy-incoming-only-label" }
         ]
+      },
+      "IdentityKeyStoreFileName": {
+        "usesPath": true,
+        "fileOptions": [ { "type": "file", "extensions": [ "jks", "p12" ] } ]
       },
       "Interoperate": {
         "options": [
@@ -138,6 +192,10 @@
           { "value": "TLSv1.1", "label": "TLS v1.1" },
           { "value": "TLSv1.2", "label": "TLS v1.2" }
         ]
+      },
+      "TrustKeyStoreFileName": {
+        "usesPath": true,
+        "fileOptions": [ { "type": "file", "extensions": [ "jks", "p12" ] } ]
       },
       "UseSsl": {
         "options": [
@@ -200,6 +258,31 @@
           "MinEncryptBits",
           "MaxEncryptBits"
         ]
+      }
+    ]
+  },
+  "WTCServer/WTCPassword": {
+    "summaryAttributes": {
+      "LocalAccessPoint": {},
+      "RemoteAccessPoint": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "LocalAccessPoint",
+          "RemoteAccessPoint",
+          "LocalPassword",
+          "RemotePassword",
+          "LocalPasswordIV",
+          "RemotePasswordIV",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
       }
     ]
   },
@@ -288,7 +371,9 @@
         ]
       },
       "TpUsrFile": {
-        "disabled": "wtcDisableTpUsrFileField"
+        "disabled": "wtcRemoteTuxedoDomainDisableTpUsrFileField",
+        "usesPath": true,
+        "fileOptions": [ { "type": "file" } ]
       },
       "TuxedoGidKw": {
         "disabled": "wtcDisableUserGroupIDKeywordFields"
@@ -355,46 +440,30 @@
       }
     ]
   },
-  "WTCServer/WTCImport": {
-    "summaryAttributes": {
-      "ResourceName": {},
-      "LocalAccessPoint":  {},
-      "RemoteAccessPointList": {}
-    },
-    "sections": [
-      {
-        "type": "attributes",
-        "attributes": [
-          "ResourceName",
-          "LocalAccessPoint",
-          "RemoteAccessPointList",
-          "RemoteName",
-          "Notes"
-        ]
+  "WTCServer/WTCResources": {
+    "attributeDetails": {
+      "MBEncodingMapFile": {
+        "usesPath": true,
+        "fileOptions": [ { "type": "file" } ]
       },
-      {
-        "type": "attributesCollapsible",
-        "labelKey": "advanced-label",
-        "addRemainingAttributes": true
+      "TpUsrFile": {
+        "usesPath": true,
+        "fileOptions": [ { "type": "file" } ]
       }
-    ]
-  },
-  "WTCServer/WTCExport": {
-    "summaryAttributes": {
-      "ResourceName": {},
-      "LocalAccessPoint":  {},
-      "EJBName": {}
     },
     "sections": [
       {
         "type": "attributes",
         "attributes": [
-          "ResourceName",
-          "LocalAccessPoint",
-          "EJBName",
-          "RemoteName",
-          "TargetClass",
-          "TargetJar",
+          "FldTbl16Class",
+          "ViewTbl16Class",
+          "FldTbl32Class",
+          "ViewTbl32Class",
+          "RemoteMBEncoding",
+          "MBEncodingMapFile",
+          "AppPassword",
+          "AppPasswordIv",
+          "TpUsrFile",
           "Notes"
         ]
       },
@@ -515,6 +584,10 @@
           { "value": "JmsQ2JmsQ", "labelKey":  "direction-jms-queue-to-jms-queue-label" }
         ]
       },
+      "MetaDataFile": {
+        "usesPath": true,
+        "fileOptions": [ { "type": "file" } ]
+      },
       "TranslateFML": {
         "options": [
           { "value": "NO", "labelKey": "options-no-label" },
@@ -537,55 +610,6 @@
           "TargetAccessPoint",
           "SourceQspace",
           "TargetQspace",
-          "Notes"
-        ]
-      },
-      {
-        "type": "attributesCollapsible",
-        "labelKey": "advanced-label",
-        "addRemainingAttributes": true
-      }
-    ]
-  },
-  "WTCServer/WTCResources": {
-    "sections": [
-      {
-        "type": "attributes",
-        "attributes": [
-          "FldTbl16Class",
-          "ViewTbl16Class",
-          "FldTbl32Class",
-          "ViewTbl32Class",
-          "RemoteMBEncoding",
-          "MBEncodingMapFile",
-          "AppPassword",
-          "AppPasswordIv",
-          "TpUsrFile",
-          "Notes"
-        ]
-      },
-      {
-        "type": "attributesCollapsible",
-        "labelKey": "advanced-label",
-        "addRemainingAttributes": true
-      }
-    ]
-  },
-  "WTCServer/WTCPassword": {
-    "summaryAttributes": {
-      "LocalAccessPoint": {},
-      "RemoteAccessPoint": {}
-    },
-    "sections": [
-      {
-        "type": "attributes",
-        "attributes": [
-          "LocalAccessPoint",
-          "RemoteAccessPoint",
-          "LocalPassword",
-          "RemotePassword",
-          "LocalPasswordIV",
-          "RemotePasswordIV",
           "Notes"
         ]
       },

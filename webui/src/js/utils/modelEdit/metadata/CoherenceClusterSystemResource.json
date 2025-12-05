@@ -4,6 +4,18 @@
     "summaryAttributes": {
       "Target": {}
     },
+    "attributeDetails": {
+      "DescriptorFileName": {
+        "usesPath": true,
+        "fileOptions": [ { "type": "file", "extensions": [ "xml" ] } ]
+      },
+      "ReportGroupFile": {
+        "fileOptions": [ { "type": "file", "extensions": [ "xml" ] } ]
+      },
+      "SourcePath": {
+        "fileOptions": [ { "type": "file", "extensions": [ "xml" ] } ]
+      }
+    },
     "sections": [
       {
         "type": "tab",
@@ -74,6 +86,14 @@
     "summaryAttributes": {
       "CacheConfigurationFile": {},
       "Target": {}
+    },
+    "attributeDetails": {
+      "CacheConfigurationFile": {
+        "fileOptions": [ { "type": "file", "extensions": [ "xml" ] } ]
+      },
+      "RuntimeCacheConfigurationUri": {
+        "fileOptions": [ { "type": "file", "extensions": [ "xml" ] } ]
+      }
     },
     "sections": [
       {

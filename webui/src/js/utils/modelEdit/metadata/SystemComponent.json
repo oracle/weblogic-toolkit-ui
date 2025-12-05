@@ -5,6 +5,10 @@
       "Machine": {}
     },
     "attributeDetails": {
+      "Machine": {
+        "editorType": "combo",
+        "optionsMethod": "getMachineOptions"
+      },
       "NMSocketCreateTimeoutInMillis": {
         "validators": [ "range(0,)" ]
       },

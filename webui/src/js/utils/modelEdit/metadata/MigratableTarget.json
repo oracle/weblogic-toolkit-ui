@@ -30,6 +30,14 @@
       "NumberOfRestartAttempts": {
         "validators": [ "range(-1,)" ]
       },
+      "PostScript": {
+        "usesPath": true,
+        "fileOptions": [ { "type": "file", "extensions": ["sh", "cmd"] } ]
+      },
+      "PreScript": {
+        "usesPath": true,
+        "fileOptions": [ { "type": "file", "extensions": ["sh", "cmd"] } ]
+      },
       "SecondsBetweenRestarts": {
         "validators": [ "range(1,)" ]
       }

@@ -84,27 +84,6 @@
   "menu-go-uninstall-ingress": "Desinstalar Ingress Controller",
   "menu-go-uninstall-ingress-error-title": "No hay ninguna ventana de proyecto activa",
   "menu-go-uninstall-ingress-error-message": "No se puede desinstalar Ingress Controller porque no hay ninguna ventana activa y, por tanto, no hay ninguna configuración de Ingress Controller que desinstalar.",
-  "menu-go-install-verrazzano": "Instalar Verrazzano",
-  "menu-go-install-verrazzano-error-title": "No hay ninguna ventana de proyecto activa",
-  "menu-go-install-verrazzano-error-message": "No se puede instalar Verrazzano porque no hay ninguna ventana activa y, por tanto, no hay ningún proyecto con la configuración de Verrazzano que instalar.",
-  "menu-go-install-verrazzano-status": "Obtener estado de instalación de Verrazzano",
-  "menu-go-install-verrazzano-status-error-title": "No hay ninguna ventana de proyecto activa",
-  "menu-go-install-verrazzano-status-error-message": "No se puede obtener el estado de instalación de Verrazzano porque no hay ninguna ventana activa y, por tanto, no hay ningún proyecto con una configuración de Verrazzano que instalar.",
-  "menu-go-deploy-verrazzano-component": "Desplegar componente de Verrazzano",
-  "menu-go-deploy-verrazzano-component-error-title": "No hay ninguna ventana de proyecto activa",
-  "menu-go-deploy-verrazzano-component-error-message": "No se puede desplegar el componente de Verrazzano porque no hay ninguna ventana activa y, por tanto, no hay ningún proyecto con la configuración de componente de Verrazzano que desplegar.",
-  "menu-go-undeploy-verrazzano-component": "Anular despliegue de componente de Verrazzano",
-  "menu-go-undeploy-verrazzano-component-error-title": "No hay ninguna ventana de proyecto activa",
-  "menu-go-undeploy-verrazzano-component-error-message": "No se puede anular el despliegue del componente de Verrazzano porque no hay ninguna ventana activa y, por tanto, no hay ningún proyecto con la configuración de componente de Verrazzano cuyo despliegue anular.",
-  "menu-go-deploy-verrazzano-application": "Desplegar aplicación de Verrazzano",
-  "menu-go-deploy-verrazzano-application-error-title": "No hay ninguna ventana de proyecto activa",
-  "menu-go-deploy-verrazzano-application-error-message": "No se puede desplegar la aplicación de Verrazzano porque no hay ninguna ventana activa y, por tanto, no hay ningún proyecto con la configuración de aplicación de Verrazzano que desplegar.",
-  "menu-go-check-verrazzano-application-status": "Comprobar estado de la aplicación de Verrazzano",
-  "menu-go-check-verrazzano-application-status-error-title": "No hay ninguna ventana de proyecto activa",
-  "menu-go-check-verrazzano-application-status-error-message": "No se puede comprobar el estado de la aplicación de Verrazzano porque no hay ninguna ventana activa y, por tanto, no hay ningún proyecto con la configuración de aplicación de Verrazzano que comprobar.",
-  "menu-go-undeploy-verrazzano-application": "Anular despliegue de la aplicación de Verrazzano",
-  "menu-go-undeploy-verrazzano-application-error-title": "No hay ninguna ventana de proyecto activa",
-  "menu-go-undeploy-verrazzano-application-error-message": "No se puede anular el despliegue de la aplicación de Verrazzano porque no hay ninguna ventana activa y, por tanto, no hay ningún proyecto con la configuración de aplicación de Verrazzano cuyo despliegue anular.",
 
   "menu-window": "Ventana",
   "menu-window-minimize": "Minimizar",
@@ -141,7 +120,9 @@
   "auto-updater-disabled-unsupported-message": "El actualizador automático no está soportado en Linux cuando no se ejecuta desde el ejecutable AppImage.",
 
   "dialog-chooseArchiveFile": "Seleccionar archivo de almacenamiento",
+  "dialog-chooseExternalToolsStagingDirectory": "Choose WKT Tools External Staging Directory",
   "dialog-chooseModelFile": "Seleccionar archivo de modelo",
+  "dialog-choosePrivateKey": "Seleccionar un archivo de clave privada",
   "dialog-chooseProjectSaveFile": "Guardar proyecto",
   "dialog-chooseVariableFile": "Seleccionar archivo de variables",
   "dialog-getJdkInstaller": "Seleccionar instalador de JDK",
@@ -172,7 +153,7 @@
   "dialog-openProjectFileCredentialManagerErrorTitle": "Fallo al crear el gestor de credenciales",
   "dialog-openProjectFileCredentialManagerErrorMessage": "No se ha podido crear el gestor de credenciales para el archivo de proyecto {{projectFileName}} debido a un error: {{error}}",
   "dialog-openProjectFileSendToWindowErrorTitleErrorTitle": "Fallo al abrir el proyecto",
-  "dialog-openProjectFileSendToWindowErrorTitleErrorMessage": "No se ha podido abrir el archivo de proyecto {{projectFileName}} debido a un error al inicializar la ventana del proyecto: {{err}}",
+  "dialog-openProjectFileSendToWindowErrorMessage": "No se ha podido abrir el archivo de proyecto {{projectFileName}} debido a un error al inicializar la ventana del proyecto: {{err}}",
   "dialog-createNewProjectTitle": "Crear proyecto de WebLogic Kubernetes Toolkit",
   "dialog-projectSaveFileLocationNotWritableTitle": "No se puede escribir en el directorio de proyecto",
   "dialog-projectSaveFileLocationNotWritableError": "El proceso actual no puede escribir en el directorio {{projectFileDirectory}} seleccionado donde se iba a escribir el nuevo archivo de proyecto.",
@@ -221,6 +202,7 @@
   "dialog-tls-certfile": "Seleccionar archivo de certificado de TLS",
 
   "dialog-chooseArchiveEntry": "Seleccionar {{entryType}} para archivo",
+  "dialog-chooseAttributeFile": "Seleccionar {{entryType}}",
   "dialog-archiveEntryFilter": "{{entryType}}",
   "dialog-getWebLogicRemoteConsoleHome": "Seleccione la instalación de WebLogic Remote Console",
   "dialog-getWebLogicRemoteConsoleAppImage": "Seleccione el archivo de AppImage de WebLogic Remote Console",
@@ -317,8 +299,6 @@
   "kubectl-apply-write-file-failed-error-message": "No se ha podido ejecutar kubectl apply debido a un error al escribir los datos en un archivo temporal: {{error}}",
   "kubectl-apply-failed-error-message": "Fallo del comando kubectl apply: {{error}}",
   "kubectl-apply-url-failed-error-message": "Fallo del comando kubectl apply de {{url}}: {{error}}",
-  "kubectl-verify-vz-operator-rollout-stdout-error-message": "El estado de transferencia de Verrazzano Platform Operator no ha devuelto el texto esperado: {{message}}",
-  "kubectl-verify-vz-operator-rollout-error-message": "Fallo al comprobar el estado de la transferencia de Verrazzano Platform Operator: {{error}}",
   "kubectl-label-get-ns-failed-error-message": "No se ha podido agregar la etiqueta {{label}} al espacio de nombres de Kubernetes {{namespace}} debido a un error al obtener las etiquetas existentes para el espacio de nombres: {{error}}",
   "kubectl-label-ns-failed-error-message": "No se han podido agregar etiquetas {{labels}} al espacio de nombres de Kubernetes {{namespace}} debido a un error: {{error}}",
   "kubectl-delete-object-failed-error-message": "Fallo al suprimir {{object}} en {{namespace}}, motivo: {{error}}",
@@ -336,15 +316,7 @@
   "kubectl-tlsfile-not-specified-error-message": "No se ha proporcionado la ruta al archivo TLS",
   "kubectl-tlsfile-not-exists-error-message": "El archivo TLS {{filePath}} no existe",
   "kubectl-tlsfile-failed-error-message": "No se ha podido verificar que exista el archivo TLS {{filePath}}: {{error}}",
-  "kubectl-get-vz-install-failed-error-message": "No se ha podido obtener la instalación de Verrazzano: {{error}}",
-  "kubectl-get-named-vz-install-error-message": "No se ha podido obtener la instalación de Verrazzano con el nombre {{name}}: {{error}}",
-  "kubectl-get-vz-application-status-error-message": "No se ha podido obtener el estado de la aplicación de Verrazzano: {{error}}",
   "kubectl-get-operator-version-not-found-error-message": "No se ha encontrado la versión de Operator en sus entradas de log",
-  "kubectl-verify-vz-components-deployed-error-message": "No se han encontrado uno o más componentes en el espacio de nombres {{namespace}}: {{missingComponents}}",
-  "kubectl-get-vz-ingress-external-address-not-found": "No se ha encontrado la dirección IP externa en el servicio Istio Gateway {{gatewayService}} en el espacio de nombres de Kubernetes {{gatewayNamespace}}",
-  "kubectl-get-vz-ingress-external-address-error-message": "No se ha encontrado la dirección IP externa en el servicio Istio Gateway {{gatewayService}} en el espacio de nombres de Kubernetes {{gatewayNamespace}}: {{error}}",
-  "kubectl-get-vz-app-hostnames-error-message": "No se han podido obtener los nombres de host de la aplicación de Verrazzano: {{error}}",
-  "kubectl-get-vz-app-hostnames-not-found": "No se han encontrado los nombres de host de la aplicación de Verrazzano",
 
   "helm-not-specified-error-message": "No se ha proporcionado la ruta al ejecutable de Helm",
   "helm-not-exists-error-message": "No existe el ejecutable de Helm {{filePath}}",
@@ -421,6 +393,8 @@
 
   "wdt-archiveType-coherenceStore": "Directorio de persistencia de Coherence",
   "wdt-archiveType-coherenceStore-activeLabel": "Activo",
+  "wdt-archiveType-coherenceStore-backupLabel": "Backup",
+  "wdt-archiveType-coherenceStore-eventsLabel": "Events",
   "wdt-archiveType-coherenceStore-snapshotLabel": "Instantánea",
   "wdt-archiveType-coherenceStore-trashLabel": "Papelera",
   "wdt-archiveType-coherenceStore-emptyDirLabel": "Nombre del directorio de persistencia de Coherence",
@@ -433,6 +407,8 @@
   "wdt-archiveType-custom-fileHelp": "Seleccione la ruta completa al archivo contenido personalizado",
   "wdt-archiveType-custom-pathLabel": "Prefijo de ruta de contenido personalizado",
   "wdt-archiveType-custom-pathHelp": "Introduzca la ruta opcional en el área de contenido personalizado para colocar el contenido agregado. El valor por defecto es la ubicación raíz",
+
+  "wdt-archiveType-custom-non-replicable": "Contenido personalizado (no se puede replicar)",
 
   "wdt-archiveType-databaseWallet": "Cartera de la base de datos",
   "wdt-archiveType-databaseWallet-dirLabel": "Directorio de la cartera de la base de datos",
@@ -491,6 +467,13 @@
   "wdt-archiveType-serverSegregationLabel": "Nombre de servidor",
   "wdt-archiveType-serverSegregationHelp": "Introduzca el nombre del servidor que usar",
 
+  "wdt-archiveType-serverTemplateKeystore": "Server Template Keystore",
+  "wdt-archiveType-serverTemplateKeystore-fileLabel": "Server Template Keystore File",
+  "wdt-archiveType-serverTemplateKeystore-fileHelp": "Choose the full path to the server template keystore file to add under the specific server template",
+
+  "wdt-archiveType-serverTemplateSegregationLabel": "Nombre de la Plantilla de Servidor",
+  "wdt-archiveType-serverTemplateSegregationHelp": "Enter the name of the server template to use",
+
   "wdt-archiveType-sharedLibrary": "Biblioteca Compartida",
   "wdt-archiveType-sharedLibrary-dirLabel": "Directorio de biblioteca compartida separado",
   "wdt-archiveType-sharedLibrary-dirHelp": "Seleccione la ruta completa al directorio de la biblioteca compartida separado",
@@ -526,11 +509,6 @@
   "project-save-model-files-error-title": "Error de almacenamiento de los archivos de modelo del proyecto",
   "project-save-model-files-error-message": "Fallo al guardar uno de los archivos de modelo de WebLogic Deploy Tooling asociados al proyecto: {{error}}",
 
-  "vz-installer-operator-not-ready-error-message": "No se puede continuar con la instalación de Verrazzano porque Verrazzano Platform Operator no está preparado: {{error}}",
-  "vz-installer-check-install-status-no-resource-error-message": "No existe ninguna instalación de Verrazzano",
-  "vz-installer-check-install-status-failed-error-message": "No se puede continuar con la comprobación del estado de la instalación de Verrazzano de {{name}} debido a un error: {{error}}",
-  "vz-installer-check-install-status-mismatched-names-error-message": "Verrazzano {{version}} se ha instalado con el nombre {{name}}",
-
   "wrc-home-error-title": "Ubicación de WebLogic Remote Console no válida",
   "wrc-init-error-title": "Fallo al inicializar el backend de WebLogic Remote Console",
   "wrc-location-existence-check-failed": "No se ha podido iniciar el backend de WebLogic Remote Console en {{location}} debido a un error al intentar determinar si existe: {{error}}.",
@@ -550,5 +528,9 @@
   "wrc-app-image-file-version-no-match": "No se ha podido determinar la versión de WebLogic Remote Console porque el nombre de archivo AppImage {{filename}} de la ubicación {{rcHome}} no coincide con el patrón de nombre de archivo esperado que se necesita para extraer el número de versión.",
   "wrc-version-incompatible-message": "La versión instalada de WebLogic Remote Console, {{backendVersion}}, no es compatible con la versión del componente de la vista de diseño del modelo embebido de WebLogic Kubernetes Toolkit UI {{frontendVersion}} porque la versión principal y secundaria no coinciden.",
   "wrc-version-verification-failed": "No se ha podido iniciar el backend de WebLogic Remote Console porque se ha producido un error al intentar determinar la compatibilidad de la versión: {{error}}",
-  "wrc-home-not-exist": "No se ha podido iniciar el backend de WebLogic Remote Console porque la ubicación configurada {{rcHome}} no existe."
+  "wrc-home-not-exist": "No se ha podido iniciar el backend de WebLogic Remote Console porque la ubicación configurada {{rcHome}} no existe.",
+
+  "app-image-update-tools-failed-title": "Failed to Update WKT Tools for Linux AppImage",
+  "app-image-update-tools-external-dir-no-specified": "Unable to update WKT tools since the WKT Tools External Staging Directory was not specified in the user's settings.",
+  "app-image-update-tools-external-dir-not-exists": "Unable to update WKT tools since the WKT Tools External Staging Directory {{externalToolDirectory}} does not exist."
 }
