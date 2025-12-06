@@ -161,7 +161,7 @@
   "project-settings-container-image-registries-credentials-email-heading": "Email Address",
   "project-settings-container-image-registries-credentials-username-heading": "User Name",
   "project-settings-container-image-registries-credentials-password-heading": "Password",
-  "project-settings-container-image-registries-credentials-answer-message": "The credentials needed to create secrets and otherwise access container image registries.",
+  "project-settings-container-image-registries-credentials-answer-message": "The credentials needed to create secrets and otherwise access container image registries.  Note that the Email Address field is only used when creating a Kubernetes pull secret.",
 
   "project-settings-credential-store-policy-question": "How should the project's credentials be stored for this project?",
   "project-settings-credential-store-policy-label": "Credential Store Policy",
