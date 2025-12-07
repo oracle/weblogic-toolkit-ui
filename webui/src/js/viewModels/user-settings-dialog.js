@@ -64,7 +64,6 @@ function(accUtils, ko, utils, i18n, ArrayDataProvider, project, validationHelper
     this.internalConnectivityTestTimeoutMilliseconds = ko.observable(payload.defaults.connectivityTestTimeoutMilliseconds);
     this.skipQuickstart = ko.observable(false);
     this.disableLinuxHardwareAcceleration = ko.observable(false);
-    this.wlRemoteConsoleHome = ko.observable();
 
     this.loadUserSettings = () => {
       if ('proxy' in this.userSettings) {
