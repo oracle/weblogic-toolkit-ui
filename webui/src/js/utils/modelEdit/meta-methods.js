@@ -28,7 +28,7 @@ function (ko, WktLogger, DialogHelper, ArchiveHelper, ModelEditHelper, Navigatio
 
       if(newResult.useAppInstallDir) {
         const appResult = await DialogHelper.promptDialog('modelEdit/app-install-dir-dialog', options);
-        if (!appResult) {  // cancel
+        if (!appResult.installDir) {  // cancel
           return;
         }
 
