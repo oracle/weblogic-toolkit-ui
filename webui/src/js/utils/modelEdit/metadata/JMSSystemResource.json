@@ -38,7 +38,8 @@
           { "value": "Discard", "labelKey": "options-discard-label" },
           { "value": "Log", "labelKey": "options-log-label" },
           { "value": "Redirect", "labelKey": "options-redirect-label" }
-        ]
+        ],
+        "reorderable": true
       },
       "LoadBalancingPolicy": {
         "options": [
