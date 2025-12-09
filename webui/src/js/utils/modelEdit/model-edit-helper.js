@@ -7,10 +7,10 @@
 
 define(['knockout', 'js-yaml', 'models/wkt-project', 'utils/common-utilities',
   'utils/wkt-logger', 'utils/modelEdit/alias-helper', 'utils/modelEdit/meta-helper', 'utils/modelEdit/message-helper',
-  'utils/modelEdit/meta-validators',
+  'utils/modelEdit/meta-validators', 'utils/wdt-archive-helper',
   'ojs/ojmodule-element-utils'],
 function (ko, jsYaml, project, utils,
-  WktLogger, AliasHelper, MetaHelper, MessageHelper, MetaValidators, ModuleElementUtils) {
+  WktLogger, AliasHelper, MetaHelper, MessageHelper, MetaValidators, ArchiveHelper, ModuleElementUtils) {
 
   function ModelEditHelper() {
     // parse, write, and maintain the model object structure.
@@ -29,6 +29,24 @@ function (ko, jsYaml, project, utils,
 
     this.modelObject = ko.observable();
     this.variableMap = ko.observable({});
+
+    this.archiveTypes = ko.observable();
+
+    this.dataLoaded = ko.computed(() => {
+      return !!this.archiveTypes() && !!AliasHelper.aliasDataLoaded();
+    });
+
+    ArchiveHelper.getEntryTypes().then(types => {
+      this.archiveTypes(types);
+    });
+
+    this.getArchiveType = typeName => {
+      const archiveType = this.archiveTypes()[typeName];
+      if(archiveType == null) {
+        WktLogger.error('Invalid archive type: ' + typeName);
+      }
+      return archiveType;
+    };
 
     // **********************
     // read and update model
@@ -55,47 +73,39 @@ function (ko, jsYaml, project, utils,
     };
 
     // add an empty folder and return the folder
-    this.addFolder = (modelPath, key, tempModel) => {
-      const editModel = tempModel || this.getCurrentModel();
-      const folder = findOrCreatePath(editModel, modelPath);
-      const newFolder = {};
+    this.addFolder = (modelPath, key, content) => {
+      const folder = this.findOrCreatePath(modelPath);
+      const newFolder = content || {};
       folder[key] = newFolder;
-      if(!tempModel) {
-        this.writeModel();
-      }
+      this.writeModel();
       return newFolder;
     };
 
     // delete the specified folder or attribute
-    this.deleteModelElement = (modelPath, key, tempModel) => {
-      const modelFolder = this.getFolder(modelPath, tempModel);
+    this.deleteModelElement = (modelPath, key) => {
+      const modelFolder = this.getFolder(modelPath);
       delete modelFolder[key];
-      this.deleteIfEmpty(modelPath, tempModel);
-      if(!tempModel) {
-        this.writeModel();
-      }
+      this.deleteIfEmpty(modelPath);
+      this.writeModel();
     };
 
     // rename the specified folder
-    this.renameInstance = (modelPath, newName, tempModel) => {
-      const editModel = tempModel || this.getCurrentModel();
+    this.renameInstance = (modelPath, newName) => {
       const parentPath = modelPath.slice(0, -1);
       const oldName = modelPath.slice(-1);
-      const instanceContent = this.getFolder(modelPath, editModel);
-      this.deleteModelElement(parentPath, oldName, editModel);
-      const instanceFolder = this.addFolder(parentPath, newName, editModel);
+      const instanceContent = this.getFolder(modelPath);
+      this.deleteModelElement(parentPath, oldName);
+      const instanceFolder = this.addFolder(parentPath, newName);
       Object.assign(instanceFolder, instanceContent);
 
       this.folderWasRenamed(modelPath, newName);
 
-      if(!tempModel) {
-        this.writeModel();
-      }
+      this.writeModel();
     };
 
-    this.getFolder = (path, tempModel) => {
-      const editModel = tempModel || this.getCurrentModel();
-      return this.getChildFolder(editModel, path);
+    this.getFolder = (path) => {
+      const topFolder = this.getCurrentModel();
+      return this.getChildFolder(topFolder, path);
     };
 
     this.getChildFolder = (parent, path) => {
@@ -128,25 +138,25 @@ function (ko, jsYaml, project, utils,
       return typeNames.includes(typeName);
     };
 
-    this.deleteIfEmpty = (modelPath, tempModel) => {
+    this.deleteIfEmpty = (modelPath) => {
       if(!AliasHelper.isNamedPath(modelPath)) {
-        const folder = this.getFolder(modelPath, tempModel);
+        const folder = this.getFolder(modelPath);
         if (Object.keys(folder).length === 0) {
           const folderKey = modelPath[modelPath.length - 1];
           const parentPath = modelPath.slice(0, -1);
-          const parentFolder = this.getFolder(parentPath, tempModel);
+          const parentFolder = this.getFolder(parentPath);
           delete parentFolder[folderKey];
 
           if (parentPath.length > 0) {
-            this.deleteIfEmpty(parentPath, tempModel);
+            this.deleteIfEmpty(parentPath);
           }
         }
       }
     };
 
-    this.findOrCreatePath = (modelPath, tempModel) => {
-      const editModel = tempModel || this.getCurrentModel();
-      return findOrCreatePath(editModel, modelPath);
+    this.findOrCreatePath = modelPath => {
+      const topFolder = this.getCurrentModel();
+      return findOrCreatePath(topFolder, modelPath);
     };
 
     this.moveFolder = (folderName, modelPath, moveUp) => {
@@ -246,8 +256,7 @@ function (ko, jsYaml, project, utils,
           if(newValue === null) {
             this.deleteModelElement(attribute.path, attribute.name);
           } else {
-            const editModel = this.getCurrentModel();
-            const folder = findOrCreatePath(editModel, attribute.path);
+            const folder = this.findOrCreatePath(attribute.path);
             folder[attribute.name] = getModelValue(newValue, attribute);
           }
           this.writeModel();

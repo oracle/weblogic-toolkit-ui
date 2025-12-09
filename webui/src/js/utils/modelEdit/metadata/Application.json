@@ -1,5 +1,6 @@
 {
   "Application": {
+    "addHandler": "addApplication",
     "summaryAttributes": {
       "SourcePath": {},
       "Target": {}

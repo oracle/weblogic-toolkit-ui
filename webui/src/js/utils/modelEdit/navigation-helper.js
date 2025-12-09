@@ -27,7 +27,7 @@ function (ko, WktProject, allNavigation, ModelEditHelper, AliasHelper, MetaHelpe
 
     this.initialize = () => {
       // initialize once, after alias data is loaded
-      if(initialized || !AliasHelper.aliasDataLoaded()) {
+      if(initialized || !ModelEditHelper.dataLoaded()) {
         return;
       }
 
@@ -56,7 +56,7 @@ function (ko, WktProject, allNavigation, ModelEditHelper, AliasHelper, MetaHelpe
     };
 
     this.initialize();
-    AliasHelper.aliasDataLoaded.subscribe(() => {
+    ModelEditHelper.dataLoaded.subscribe(() => {
       this.initialize();
     });
 
