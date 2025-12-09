@@ -1044,12 +1044,12 @@
   "a-CallbackQueueMdbRunAsPrincipalName-label": "Callback Queue MDB Run As Principal Name",
   "a-CallbackQueueMdbRunAsPrincipalName-help": "For use only with the JAX-RPC stack. For JAX-WS, use WebServiceBufferingMBean instead.",
 
-  "a-CandidateMachine-label": "Candidate Machine",
+  "a-CandidateMachine-label": "Candidate Machines",
   "a-CandidateMachine-help": "Limits the list of candidate machines that the cluster specifies. (Requires you to enable this server for automatic migration and to configure the cluster with a set of candidate machines.) If this server fails and if it is enabled for automatic migration, Node Manager automatically restarts it. By default, Node Manager restarts the server on any of the candidate machines that the cluster specifies (in order of preference that you configured in the cluster). To change the default, you use this server's list of candidate machines to create a subset of the cluster-wide candidates. You can also change the order of preference.",
 
   "a-CandidateMachinesForMigratableServer-label": "Candidate Machines for Migratable Server",
   "a-CandidateMachinesForMigratableServer-itemLabel": "Candidate Machine",
-  "a-CandidateMachinesForMigratableServer-itemHelp": "Specify a candidate machine opn which a node manager can restart failed servers.",
+  "a-CandidateMachinesForMigratableServer-itemHelp": "Specify a candidate machine on which a node manager can restart failed servers.",
   "f-Cluster-a-CandidateMachinesForMigratableServer-help": "Specifies the set of machines (and order of preference) on which Node Manager will restart failed servers. (Requires you to enable each server for automatic migration.) Each server can specify a subset of these cluster-wide candidates, which limits the machines on which the server can be restarted. Servers can also specify their own order of preference.",
 
   "a-Capacity-label": "Capacity",

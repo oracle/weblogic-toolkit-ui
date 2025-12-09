@@ -256,6 +256,9 @@
           { "value": "Load-Balancing", "labelKey": "options-load-balancing-label" }
         ]
       },
+      "DataSourceList": {
+        "reorderable": true
+      },
       "GlobalTransactionsProtocol": {
         "options": [
           { "value": "OnePhaseCommit", "labelKey": "options-one-phase-commit-label" },

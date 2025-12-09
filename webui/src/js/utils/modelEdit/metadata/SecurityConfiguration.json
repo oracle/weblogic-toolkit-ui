@@ -590,6 +590,9 @@
   },
   "SecurityConfiguration/Realm": {
     "attributeDetails": {
+      "AuthMethods": {
+        "reorderable": true
+      },
       "CertPathBuilder": {
         "editorType": "combo",
         "optionsMethod": "getCertPathBuilderInRealmOptions"
@@ -604,6 +607,9 @@
       },
       "IdentityAssertionDoNotCacheContextElement": {
         "disabled": "secConfigRealmIdentityAssertionCacheFields"
+      },
+      "IdentityAssertionHeaderNamePrecedence": {
+        "reorderable": true
       },
       "MaxWebLogicPrincipalsInCache": {
         "disabled": "secConfigRealmWlsPrincipalValidatorCacheFields"

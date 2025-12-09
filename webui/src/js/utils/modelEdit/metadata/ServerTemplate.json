@@ -24,7 +24,8 @@
       },
       "CandidateMachine": {
         "editorType": "combo",
-        "optionsMethod": "getMachineOptions"
+        "optionsMethod": "getMachineOptions",
+        "reorderable": true
       },
       "Cluster": {
         "editorType": "combo",
