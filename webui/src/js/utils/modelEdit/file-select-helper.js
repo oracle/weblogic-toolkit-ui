@@ -5,65 +5,79 @@
  */
 'use strict';
 
-define(['utils/dialog-helper', 'utils/wkt-logger', 'utils/modelEdit/alias-helper', 'utils/wdt-archive-helper',
-  'utils/modelEdit/message-helper'],
-function (DialogHelper, WktLogger, AliasHelper, ArchiveHelper, MessageHelper) {
+define(['utils/dialog-helper', 'utils/wkt-logger', 'utils/modelEdit/model-edit-helper',
+  'utils/modelEdit/alias-helper', 'utils/wdt-archive-helper', 'utils/modelEdit/message-helper'],
+function (DialogHelper, WktLogger, ModelEditHelper, AliasHelper, ArchiveHelper, MessageHelper) {
 
   function FileSelectHelper() {
     // support selecting files for attributes
 
-    this.selectFile = async(attribute, currentValue) => {
+    // matching wdtArchive subtypes
+    const DIR_TYPES = ['dir', 'either', 'emptyDir'];
+    const FILE_TYPES = ['file', 'either'];
+
+    this.canChooseDirectory = attribute => {
+      return canChoose(DIR_TYPES, attribute);
+    };
+
+    this.canChooseFile = attribute => {
+      return canChoose(FILE_TYPES, attribute);
+    };
+
+    function canChoose(matchTypes, attribute) {
+      const archiveTypeKeys = attribute.archiveTypes || [];
+      for(const archiveTypeKey of archiveTypeKeys) {
+        const archiveType = ModelEditHelper.getArchiveType(archiveTypeKey) || {};
+        if(matchTypes.includes(archiveType.subtype)) {
+          return true;
+        }
+      }
+      const fileOptions = attribute.fileOptions || [];
+      for(const fileOption of fileOptions) {
+        if(matchTypes.includes(fileOption.type)) {
+          return true;
+        }
+      }
+      // if no archive or file options found, allow file or dir
+      return !archiveTypeKeys.length && !fileOptions.length;
+    }
+
+    this.chooseDirectory = async(attribute, currentValue) => {
+      return choosePath(attribute, 'dir', currentValue);
+    };
+
+    this.chooseFile = async(attribute, currentValue) => {
+      return choosePath(attribute, 'file', currentValue);
+    };
+
+    async function choosePath(attribute, matchType, currentValue) {
       const aliasPath = AliasHelper.getAliasPath(attribute.path);
       const attributeLabel = MessageHelper.getAttributeLabel(attribute, aliasPath);
 
-      const archiveTypes = await ArchiveHelper.getEntryTypes();
+      // build a list of select options based on archive and file options
       const selectOptions = [];
 
       // possibly multiple archive types (app, custom?)
       const archiveTypeKeys = attribute.archiveTypes || [];
       archiveTypeKeys.forEach(archiveTypeKey => {
-        if (!(archiveTypeKey in archiveTypes)) {
-          WktLogger.error('Invalid archive type: ' + archiveTypeKey);
+        const archiveType = ModelEditHelper.getArchiveType(archiveTypeKey);
+        if (!archiveType) {
           return;
         }
 
-        // file dir either emptyDir
-
-        const archiveType = archiveTypes[archiveTypeKey];
         const subtype = archiveType.subtype;
         const segregateName = getSegregateName(attribute);
+        const segregateLabel = archiveType.segregatedLabel;
+        const segregateHelp = archiveType.segregatedHelp;
 
-        if (['file', 'either'].includes(subtype)) {
-          selectOptions.push({
-            type: 'file',
-            label: archiveType.fileLabel,
-            extensions: archiveType.extensions,
-            archiveType: archiveTypeKey,
-            segregateLabel: archiveType.segregatedLabel,
-            segregateHelp: archiveType.segregatedHelp,
-            segregateName
-          });
-        }
-
-        if (['dir', 'either'].includes(subtype)) {
-          selectOptions.push({
-            type: 'dir',
-            label: archiveType.dirLabel,
-            archiveType: archiveTypeKey,
-            segregateLabel: archiveType.segregatedLabel,
-            segregateHelp: archiveType.segregatedHelp,
-            segregateName
-          });
-        }
-
-        if('emptyDir' === subtype) {
+        if('emptyDir' === subtype) {  // add two specific options
           // bypass file selection and add to archive
           selectOptions.push({
             type: 'emptyDir',
             labelKey: 'file-select-archive-empty-dir',
             archiveType: archiveTypeKey,
-            segregateLabel: archiveType.segregatedLabel,
-            segregateHelp: archiveType.segregatedHelp,
+            segregateLabel,
+            segregateHelp,
             segregateName
           });
 
@@ -73,6 +87,23 @@ function (DialogHelper, WktLogger, AliasHelper, ArchiveHelper, MessageHelper) {
             labelKey: 'file-select-local-empty-dir',
             chooserName: attributeLabel
           });
+
+        } else {  // add one option based on match type
+          const fileMatch = matchType === 'file' && FILE_TYPES.includes(subtype);
+          const dirMatch = matchType === 'dir' && DIR_TYPES.includes(subtype);
+          const label = dirMatch ? archiveType.dirLabel : archiveType.fileLabel;
+
+          if (dirMatch || fileMatch) {
+            selectOptions.push({
+              type: matchType,
+              label,
+              extensions: archiveType.extensions,
+              archiveType: archiveTypeKey,
+              segregateLabel,
+              segregateHelp,
+              segregateName
+            });
+          }
         }
       });
 
@@ -83,11 +114,10 @@ function (DialogHelper, WktLogger, AliasHelper, ArchiveHelper, MessageHelper) {
         selectOptions.push(fileOption);
       });
 
-      // if no options found, default is simple file or directory
+      // if archive or file options found, default is choose specified type
       if(!selectOptions.length) {
         selectOptions.push(
-          { type: 'file', chooserName: attributeLabel },
-          { type: 'dir', chooserName: attributeLabel }
+          { type: matchType, chooserName: attributeLabel }
         );
       }
 
@@ -96,17 +126,14 @@ function (DialogHelper, WktLogger, AliasHelper, ArchiveHelper, MessageHelper) {
         const selectType = selectOption.type;
         if(!['file', 'dir', 'emptyDir'].includes(selectType)) {
           WktLogger.error('Invalid selection type: ' + selectType);
-          return;  // cancel
         }
-
         const defaultLabel = MessageHelper.t('file-select-type-' + selectOption.type);
         selectOption.label = MessageHelper.getLabel(selectOption) || defaultLabel;
       });
 
       let selectOption;
 
-      // prompt for select option if more than one type is present in metadata
-      // const fileSelectOptions = attribute.fileSelectOptions || [];
+      // prompt for select option if more than one type is present.
       if(selectOptions.length === 1) {
         selectOption = selectOptions[0];
       } else {

@@ -7,11 +7,12 @@
 
 define(['accUtils', 'knockout', 'utils/modelEdit/instance-helper', 'utils/modelEdit/model-edit-helper',
   'utils/modelEdit/message-helper', 'utils/modelEdit/navigation-helper', 'utils/modelEdit/alias-helper',
-  'utils/common-utilities', 'utils/dialog-helper', 'utils/view-helper', 'utils/modelEdit/meta-helper', 'ojs/ojarraydataprovider',
-  'ojs/ojtable', 'oj-c/button', 'oj-c/labelled-link'
+  'utils/common-utilities', 'utils/dialog-helper', 'utils/view-helper', 'utils/modelEdit/meta-helper',
+  'utils/modelEdit/meta-methods',
+  'ojs/ojarraydataprovider', 'ojs/ojtable', 'oj-c/button', 'oj-c/labelled-link'
 ],
 function(accUtils, ko, InstanceHelper, ModelEditHelper, MessageHelper, NavigationHelper, AliasHelper,
-  utils, DialogHelper, ViewHelper, MetaHelper, ArrayDataProvider) {
+  utils, DialogHelper, ViewHelper, MetaHelper, MetaMethods, ArrayDataProvider) {
 
   function InstancesTableViewModel(args) {
     // for model folders with multiple instances (such as Server/myServer).
@@ -159,6 +160,12 @@ function(accUtils, ko, InstanceHelper, ModelEditHelper, MessageHelper, Navigatio
     this.addInstance = () => {
       // if instances of this type already exist, prompt for a new name.
       // otherwise, prompt for a name and folder contents.
+
+      const addHandler = MetaHelper.getAddHandler(ALIAS_PATH);
+      if(addHandler) {
+        MetaMethods[addHandler](MODEL_PATH, NAME_VALIDATORS);
+        return;
+      }
 
       const options = {
         modelPath: MODEL_PATH,

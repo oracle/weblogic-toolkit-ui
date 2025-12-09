@@ -88,6 +88,11 @@ define(['utils/modelEdit/metadata/all-metadata'],
         return metadata['noSelect'];
       };
 
+      this.getAddHandler = aliasPath => {
+        const metadata = this.getMetadata(aliasPath);
+        return metadata['addHandler'];
+      };
+
       this.getNameValidators = (/*aliasPath*/) => {
         return [];  // TODO: implement this when needed
       };

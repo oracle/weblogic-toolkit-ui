@@ -1,0 +1,101 @@
+<!--
+ Copyright (c) 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<oj-dialog id="appInstallDirDialog" class="wkt-model-edit-attribute-dialog" initial-visibility="hide">
+  <div slot="header">
+    <span id="dialog-title-id" class="oj-dialog-title"><oj-bind-text value="[[title]]"></oj-bind-text></span>
+  </div>
+  <div slot="body">
+    <oj-validation-group id="appInstallDirTracker">
+      <div class="oj-panel">
+        <oj-c-form-layout class="wkt-model-edit-attribute-form" max-columns="1">
+          <oj-c-input-text
+            class="wkt-model-edit-attribute-stacked"
+            label-hint="[[installDirLabel]]"
+            help.instruction="[[installDirHelp]]"
+            value="{{installDir}}"
+            required="true"
+            messages-custom="{{installDirMessages}}"
+          >
+            <oj-c-button
+              slot="end"
+              label="[[selectDirectoryLabel]]"
+              display="icons"
+              chroming="borderless"
+              on-oj-action="[[selectInstallDirectory]]">
+              <span slot="endIcon" class="oj-ux-ico-folder" role="img"></span>
+            </oj-c-button>
+          </oj-c-input-text>
+          <oj-c-input-text
+            label-hint="[[sourcePathLabel]]"
+            help.instruction="[[sourcePathHelp]]"
+            value="{{sourcePath}}"
+            required="true"
+            messages-custom="{{sourcePathMessages}}"
+          >
+            <oj-c-button
+              slot="end"
+              label="[[selectFileLabel]]"
+              display="icons"
+              chroming="borderless"
+              on-oj-action="[[selectSourceFile]]">
+              <span slot="endIcon" class="oj-ux-ico-file-text" role="img"></span>
+            </oj-c-button>
+            <oj-c-button
+              slot="end"
+              label="[[selectDirectoryLabel]]"
+              display="icons"
+              chroming="borderless"
+              on-oj-action="[[selectSourceDirectory]]">
+              <span slot="endIcon" class="oj-ux-ico-folder" role="img"></span>
+            </oj-c-button>
+          </oj-c-input-text>
+          <oj-c-input-text
+            label-hint="[[planDirLabel]]"
+            help.instruction="[[planDirHelp]]"
+            value="{{planDir}}"
+            messages-custom="{{planDirMessages}}"
+          >
+            <oj-c-button
+              slot="end"
+              label="[[selectDirectoryLabel]]"
+              display="icons"
+              chroming="borderless"
+              on-oj-action="[[selectPlanDirectory]]">
+              <span slot="endIcon" class="oj-ux-ico-folder" role="img"></span>
+            </oj-c-button>
+          </oj-c-input-text>
+          <oj-c-input-text
+            label-hint="[[planPathLabel]]"
+            help.instruction="[[planPathHelp]]"
+            value="{{planPath}}"
+            messages-custom="{{planPathMessages}}"
+          >
+            <oj-c-button
+              slot="end"
+              label="[[selectFileLabel]]"
+              display="icons"
+              chroming="borderless"
+              on-oj-action="[[selectPlanPath]]">
+              <span slot="endIcon" class="oj-ux-ico-file-text" role="img"></span>
+            </oj-c-button>
+          </oj-c-input-text>
+          <oj-switch
+            label-hint="[[addToArchiveLabel]]"
+            help.instruction="[[addToArchiveHelp]]"
+            value="{{addToArchive}}"
+          >
+          </oj-switch>
+        </oj-c-form-layout>
+      </div>
+    </oj-validation-group>
+  </div>
+
+  <div slot="footer">
+    <oj-c-button id="okButton" label="[[t('dialog-button-ok')]]" on-oj-action="[[okInput]]">
+    </oj-c-button>
+    <oj-c-button id="cancelButton" label="[[t('dialog-button-cancel')]]" on-oj-action="[[cancelInput]]">
+    </oj-c-button>
+  </div>
+</oj-dialog>

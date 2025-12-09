@@ -58,6 +58,7 @@
 
 oj-navigation-list[id="modelDesignNav"].oj-navigationlist-vertical {
   --oj-navigation-list-item-min-height: 1.75rem;
+  margin: 8px 0 6px 0;
 }
 
 .oj-navigationlist-depth-1 .oj-navigationlist-item-content {
@@ -1062,6 +1063,17 @@ h6.wkt-under-breadcrumb {
 
 .wkt-collapsible .oj-panel {
   margin-top: 0.5em !important;  /* oj-c-collapsible has no space between header and content */
+}
+
+.wkt-file-select-path-label {
+  font-size: 0.75em;
+  color: var(--wkt-model-edit-label-text-color);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.wkt-file-select-path {
+  overflow-wrap: break-word;
 }
 
 .wkt-token-error {

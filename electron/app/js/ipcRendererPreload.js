@@ -229,10 +229,12 @@ contextBridge.exposeInMainWorld(
     path: {
       basename: (filePath, ext) => path.basename(filePath, ext),
       dirname: (filePath) => path.dirname(filePath),
+      exists: (filePath) => path.exists(filePath),
       extname: (filePath) => path.extname(filePath),
       isAbsolute: (filePath) => path.isAbsolute(filePath),
       join: (...paths) => path.join(...paths),
       joinAndConvertToUnixPath: (...paths) => path.join(...paths).replaceAll('\\', '/'),
+      relative: (filePath1, filePath2) => path.relative(filePath1, filePath2),
       delimiter: path.delimiter,
       isValidFileName: (fileName) => fsUtils.isValidFileName(fileName),
     },
@@ -263,9 +265,10 @@ contextBridge.exposeInMainWorld(
       }
     },
     'modelEdit': {
-      getReadableLabel: aliasName => {
-        return modelEditUtils.getReadableLabel(aliasName);
-      }
+      exists: path => fsUtils.exists(path),
+      getReadableLabel: aliasName => modelEditUtils.getReadableLabel(aliasName),
+      isDirectory: path => fsUtils.isDirectory(path),
+      isFile: path => fsUtils.isFile(path)
     },
     'utils': {
       generateUuid: () => uuid.v4(),

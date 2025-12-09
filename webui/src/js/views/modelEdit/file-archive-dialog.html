@@ -10,6 +10,11 @@
     <oj-validation-group id="modelEditFileArchiveTracker">
       <div class="oj-panel">
         <oj-c-form-layout class="wkt-model-edit-attribute-form" max-columns="2" direction="row">
+          <div>
+            <div class="wkt-file-select-path-label"><oj-bind-text value="[[pathLabel]]"></oj-bind-text></div>
+            <div class="wkt-file-select-path"><oj-bind-text value="[[pathText]]"></oj-bind-text></div>
+          </div>
+
           <oj-c-radioset
             id="radiosetId"
             label-hint="[[labelMapper('archive-label')]]"
