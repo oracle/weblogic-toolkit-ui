@@ -9,15 +9,14 @@ applications to run in Linux containers on a Kubernetes cluster.  WKT includes t
   images for running WebLogic domains.
 - [WebLogic Kubernetes Operator (WKO)](https://github.com/oracle/weblogic-kubernetes-operator) - A Kubernetes operator
   that allows WebLogic domains to run natively in a Kubernetes cluster.
-- [WebLogic Remote Console](https://github.com/oracle/weblogic-remote-console) - A lightweight console for managing
-  WebLogic Server domains running anywhere.
 
 The WKT UI provides a graphical user interface that wraps the WKT tools, Docker, Helm, and the Kubernetes client
 (`kubectl`) and helps guide you through the process of creating and modifying a model of your WebLogic domain, creating
 a Linux container image to use to run the domain, and setting up and deploying the software and configuration
 necessary to deploy and access the domain in your Kubernetes cluster.
 
-Be sure to check out the [Quick Start]({{< relref "/setup/quickstart/" >}}) guide for a tutorial, which will step you through WebLogic Kubernetes Toolkit UI (WKTUI) functionality and familiarize you with its capabilities.
+Be sure to check out the [Quick Start]({{< relref "/setup/quickstart/" >}}) guide for a tutorial, which will step you
+through WebLogic Kubernetes Toolkit UI (WKTUI) functionality and familiarize you with its capabilities.
 
 ### Current release
 
@@ -32,7 +31,6 @@ For detailed user information, read the following:
     - [Model]({{< relref "/navigate/model.md" >}})
     - [Image]({{< relref "/navigate/image.md" >}})
     - [Kubernetes]({{< relref "/navigate/kubernetes/" >}})
-    - [Verrazzano]({{< relref "/navigate/verrazzano/" >}})
 
 For developer information, see [WebLogic Kubernetes Toolkit UI Project]({{< relref "/developer/" >}}).
 
@@ -50,4 +48,3 @@ For detailed documentation and access to WebLogic Toolkit-related projects, see:
 - [WebLogic Kubernetes Operator](https://oracle.github.io/weblogic-kubernetes-operator/)
 - [WebLogic Deploy Tooling](https://oracle.github.io/weblogic-deploy-tooling/)
 - [WebLogic Image Tool](https://oracle.github.io/weblogic-image-tool/)
-- [Verrazzano](https://verrazzano.io/latest/docs/)

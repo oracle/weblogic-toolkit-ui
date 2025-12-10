@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Navigate the UI on WebLogic Kubernetes Toolkit UI</title>
+    <link>http://localhost:1313/weblogic-toolkit-ui/navigate/</link>
+    <description>Recent content in Navigate the UI on WebLogic Kubernetes Toolkit UI</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 22 Feb 2019 15:44:42 -0500</lastBuildDate>
+    <atom:link href="http://localhost:1313/weblogic-toolkit-ui/navigate/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Project Settings</title>
+      <link>http://localhost:1313/weblogic-toolkit-ui/navigate/project-settings/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      <guid>http://localhost:1313/weblogic-toolkit-ui/navigate/project-settings/</guid>
+      <description>&lt;p&gt;The first stop for every new project is &lt;code&gt;Project Settings&lt;/code&gt;.  In this section, you make decisions and provide&#xA;input for the project on:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#choosing-a-credential-storage-scheme&#34;&gt;Credential Storage&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#choosing-a-domain-location&#34;&gt;Domain Location&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#choosing-a-kubernetes-environment-target-type&#34;&gt;Kubernetes Environment Target Type&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#choosing-the-java-and-oracle-installation-directories&#34;&gt;JDK and WebLogic Server Installation Directories&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#choosing-the-image-build-tool&#34;&gt;Image Build Tool Type and Executable Location&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;When running the WKT UI application on Windows or Linux, the application inherits its environment from the user. For example,&#xA;adding a directory to the PATH used by the application is just a matter of changing your&#xA;PATH environment variable and restarting the application. On macOS, things are a bit more complicated.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Model</title>
+      <link>http://localhost:1313/weblogic-toolkit-ui/navigate/model/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      <guid>http://localhost:1313/weblogic-toolkit-ui/navigate/model/</guid>
+      <description>&lt;h3 id=&#34;contents&#34;&gt;Contents&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#model&#34;&gt;Model&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#design-view&#34;&gt;Design View&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#code-view&#34;&gt;Code View&lt;/a&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#model-editor&#34;&gt;Model Editor&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#variables-editor&#34;&gt;Variables Editor&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#archive-editor&#34;&gt;Archive Editor&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#validate-model&#34;&gt;Validate Model&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#prepare-model&#34;&gt;Prepare Model&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;model&#34;&gt;Model&lt;/h3&gt;&#xA;&lt;p&gt;The &lt;code&gt;Model&lt;/code&gt; section helps you work with WebLogic Deploy Tooling models for a WebLogic domain.  A WebLogic&#xA;Deploy Tooling model for a domain can include the following file types:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Model file - A declarative definition of the domain configuration.&lt;/li&gt;&#xA;&lt;li&gt;Variable file - A property file that maps names to values.  These names can be referenced from the model file to&#xA;allow a model to be used across environments by applying the variable file for a particular environment to the model.&lt;/li&gt;&#xA;&lt;li&gt;Archive file - A ZIP file containing application binaries and other files and directories needed to run the domain.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;For more information about WebLogic Deploy Tooling models, see &lt;a href=&#34;https://oracle.github.io/weblogic-deploy-tooling/concepts/model/&#34;&gt;Metadata Model&lt;/a&gt;&#xA;and &lt;a href=&#34;https://oracle.github.io/weblogic-deploy-tooling/concepts/archive/&#34;&gt;Archive File&lt;/a&gt; in the WebLogic Deploy&#xA;Tooling documentation.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Image</title>
+      <link>http://localhost:1313/weblogic-toolkit-ui/navigate/image/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      <guid>http://localhost:1313/weblogic-toolkit-ui/navigate/image/</guid>
+      <description>&lt;h3 id=&#34;contents&#34;&gt;Contents&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#image&#34;&gt;Image&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#design-view&#34;&gt;Design View&lt;/a&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#target-image-name-and-registr-credentials&#34;&gt;Target Image Name and Registry Credentials&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#base-image-to-use&#34;&gt;Base Image to Use&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#installers-for-building-the-image&#34;&gt;Installers for Building the Image&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#patch-oracle-home&#34;&gt;Patch Oracle Home&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#weblogic-deploy-tooling-configuration&#34;&gt;WebLogic Deploy Tooling Configuration&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#image-build-configuration&#34;&gt;Image Build Configuration&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#code-view&#34;&gt;Code View&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#create-images&#34;&gt;Create Images&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#push-images&#34;&gt;Push Images&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;image&#34;&gt;Image&lt;/h3&gt;&#xA;&lt;p&gt;The &lt;code&gt;Image&lt;/code&gt; section helps you build container images for deploying WebLogic-based applications&#xA;in a Kubernetes environment using the &lt;a href=&#34;https://oracle.github.io/weblogic-image-tool/&#34;&gt;WebLogic Image Tool&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;h3 id=&#34;design-view&#34;&gt;Design View&lt;/h3&gt;&#xA;&lt;p&gt;&lt;code&gt;Design View&lt;/code&gt; helps you specify the necessary data needed to run the WebLogic Image Tool to build an image for&#xA;running the WebLogic domain.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

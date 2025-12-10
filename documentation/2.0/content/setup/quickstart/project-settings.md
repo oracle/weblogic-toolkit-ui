@@ -22,11 +22,7 @@ Unlike Windows or Linux, applications on macOS that are started from the Finder,
 
 ### Storing the Project Credentials
 
-WKTUI realizes that different organizations and different projects have different security standards for storing credentials.  As such, you have three options in WKTUI for how to store a project’s credentials:
-
-- `Store in the Native OS Credential Store` – This option lets you store each credential field in a separate field in the operating system’s credential store (for example, Windows Credential Manager, macOS Keychain).  When using this option, the project file stores only an indicator for each field stored in the credential store.  When the project is opened, WKTUI tries to load each credential from the credential store into memory.  When the project is saved, WKTUI writes each credential field with a value to the credential store and updates the markers in the project file.  With this option, you have a secure means of storing your credentials on the local machine.  If you try to open the project on a new machine, the credentials will not be found so you will need to re-enter them.
-
-   **NOTE**: When opening a project in a new version of WKTUI, the operating system will likely prompt you for your login password to allow the application to access the credential in the credential store.  The tedious part is that the prompt is per credential, so if you have 15 credential fields, you will be prompted by the operating system to enter your password 15 times.
+WKTUI realizes that different organizations and different projects have different security standards for storing credentials.  As such, you have two options in WKTUI for how to store a project’s credentials:
 
 - `Store Encrypted in Project File` – This option lets you store the credentials directly in the project file.  WKTUI encrypts each credential field using a passphrase that you provide and modern AES 256 bit encryption algorithms and techniques.  On opening the project, WKTUI will prompt you for the encryption passphrase to use to decrypt the credential fields loaded into memory.  If you remember the encryption passphrase, you can easily move the project files from machine to machine without losing the project credentials.
 
@@ -38,17 +34,11 @@ For this project, you will choose the `Store Encrypted in Project File` option t
 
 WebLogic Kubernetes Operator (WKO) has three mechanisms for storing the WebLogic domain directory for use in Kubernetes:
 
-- `Created in the container from the model in the image` – With this option, you provide a WebLogic Deploy Tooling (WDT) model of the domain and a WDT installer in an image, and the WebLogic Kubernetes Operator will create and update the domain for you.  This option is also called Model-in-Image (MII) and WKO calls it FromModel.
-
-- `Created as part of the image` – With this option, you provide a WebLogic Deploy Tooling (WDT) model of the domain and a WDT installer to the WebLogic Image Tool (WIT) while creating the image, and WIT creates the domain inside the image.  This option is also called Domain-in-Image (DII) and WKO calls it Image.  **NOTE**: WKO has deprecated this option.
+- `Created in the container from the model in the image` – With this option, you provide a WebLogic Deploy Tooling (WDT) model of the domain and a WDT installer in an auxiliary image, and the WebLogic Kubernetes Operator will create and update the domain for you.  This option is also called Model-in-Image (MII) and WKO calls it FromModel.
 
 - `Externally created in a Kubernetes persistent volume` – With this option, you must create a Kubernetes persistent volume and create the domain on that persistent volume.  This option is also called Domain-on-PV (DoPV) and WKO calls it PersistentVolume.
 
 The ToDo List application requires only WebLogic Server and fits well with the Model-in-Image mechanism, so select `Created in the container from the model in the image`.
-
-### Kubernetes Cluster Target Type
-
-This is where you must choose whether to deploy directly using a Kubernetes cluster, where you install `WebLogic Kubernetes Operator` and an Ingress controller, or to deploy to `Verrazzano`.  Because the Quick Start guide covers both tracks, choose the option that matches the track you plan to follow.
 
 ### Java Installation
 
@@ -61,5 +51,13 @@ Running the WebLogic Deploy Tooling requires an Oracle Home directory.  As such,
 ### Image Builder Tool
 
 Because you will be building an image as part of this project, you need to tell WKTUI whether you will use Docker or Podman to build your image.  You also need to provide the path to the executable that matches your selection.  Because you are running Rancher Desktop on macOS, you will select Docker and supply the Docker executable (for example, `/Users/fred.jones/.rd/bin/docker`).  Provide the answers that best fit your environment.
+
+### Target Kubernetes Cluster Architecture
+
+This section allows you to select the chip architecture used in your Kubernetes cluster. Since the default value is `Intel/AMD (linux/amd64)`, there is nothing you need to change here.
+
+### Container Image Registry Credentials
+
+This sections allows you to enter information about container image registries that you will use in the project.  For now, leave this empty and we will fill it in as we go through the guide. 
 
 Now that your project settings are mostly complete, use the `File` menu, `Save All` option to save the project before you move on to creating the model for your domain.  WKTUI will prompt you for the encryption passphrase you want to use with this project.  Choose whatever value you like; just try not to forget it!

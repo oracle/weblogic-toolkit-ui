@@ -5,44 +5,74 @@ draft: false
 weight: 5
 ---
 
-The WebLogic Deploy Tooling project provides a set of single-purpose tools for performing lifecycle operations of WebLogic Server domains.  These tools work off a model of the domain.  The model contains three types of files:
+The WebLogic Deploy Tooling project provides a set of single-purpose tools for performing lifecycle operations of WebLogic
+Server domains.  These tools work off a model of the domain.  The model contains three types of files:
 
 - Model file – A YAML description of the domain that is aligned with WebLogic Scripting Tool (WLST) offline folders and attributes.
 - Variables file – An optional Java properties file that contains key/value pairs where the key matches with a token placed in the model file.
-- Archive file – An optional ZIP file that contains any file artifacts that need to exist in the domain, for example, a WAR file that contains the binaries for a Web application.
+- Archive file – An optional ZIP file that contains any file artifacts that need to exist in the domain, for example, a 
+  WAR file that contains the binaries for a Web application.
 
 For more detailed WDT information, see the WebLogic Deploy Tooling [documentation](https://oracle.github.io/weblogic-deploy-tooling/concepts/model/).
 
-WKTUI provides tooling to make it easy for you to create and edit a WDT model.   This image shows the `Model` page, `Design View` tab that allows visual editing of a model using WebLogic Remote Console screens.  
+WKTUI provides tooling to make it easy for you to create and edit a WDT model.   This image shows the `Model` page, 
+`Design View` tab that allows visual editing of a model.  
 
 {{< img "Model Design View" "images/model-design-view.png" >}}
 
-The following image shows the `Model` page, `Code View` tab that lets you directly edit each of the three different file types that make up the model.  In the center of the screen, you'll find the YAML editor for the model file.  On the right, you'll find the variables file editor and the archive file editor. At this point, all the sections are blank.
+The following image shows the `Model` page, `Code View` tab that lets you directly edit each of the three different file
+types that make up the model.  In the center of the screen, you'll find the YAML editor for the model file.  On the right,
+you'll find the variables file editor and the archive file editor. At this point, all the sections are blank.
 
 {{< img "Model Code View" "images/model-code-view.png" >}}
 
-WKTUI also supports discovering an existing domain to extract the model for that domain.  It accomplishes this by using the WDT [Discover Domain](https://oracle.github.io/weblogic-deploy-tooling/userguide/tools/discover/) tool.  To use this functionality, you use the `File` menu, `Add Model` submenu.  The two menu items are:
+WKTUI also supports discovering an existing domain to extract the model for that domain.  It accomplishes this by using
+the WDT [Discover Domain](https://oracle.github.io/weblogic-deploy-tooling/userguide/tools/discover/) tool.  To use this functionality, you use the `File` menu, `Add Model` submenu.  The two 
+menu items are:
 
-- `Discover Model (offline)` – With this option, WDT reads the domain directory from the local file system to extract the model files.
-- `Discover Model (online)` – With this option, WDT connects to the domain’s running Administration Server to extract the model files.  To collect all of the archive file contents automatically, the domain must be running on the local machine so that WDT has access to the domain’s file system.  
+- `Discover Model (offline)` – With this option, WDT reads the domain directory from the local file system to extract 
+  the model files.
+- `Discover Model (online)` – With this option, WDT connects to the domain’s running Administration Server to extract
+  the model files.  To collect all of the archive file contents automatically, the domain must be running on the local
+  machine so that WDT has access to the domain’s file system.  
 
-To collect the model from a domain running on another machine, you can use the Remote Discovery option.  With this option, at the end of the Discover Domain (online) action, WDT will tell you which files you need to collect and add to the archive file.
+To collect the model from a domain running on another machine, you can use the Remote Discovery option.  With this option,
+at the end of the Discover Domain (online) action, WDT will tell you which files you need to collect and add to the archive file.
 
-Because the ToDo List application has minimal requirements from the domain, you will create the model by hand.  If you would prefer to create a local domain and use the discover model functionality, see [Create ToDo List Domain]({{< relref "/setup/quickstart/qs-advanced#create-the-local-todo-list-domain" >}}) in the Advanced section.
+Because the ToDo List application has minimal requirements from the domain, you will create the model by hand.  If you
+would prefer to create a local domain and use the discover model functionality, see 
+[Create ToDo List Domain]({{< relref "/setup/quickstart/qs-advanced#create-the-local-todo-list-domain" >}}) in the Advanced section.
 
 ### Create the ToDo List Domain
 
-Start on the Model Design View tab, which will default to the **Domain** element, `General` tab. Set the `Name` field to `todolist_domain` and enable `Production Mode`, as shown in the following image.
+Start on the Model Design View tab, which will default to the **Domain Info** section top-level page. Set the 
+`Admin User Name` and `Admin Password` fields to the user name and password that you want for your WebLogic domain. Also,
+select the `Server Start Mode` value of `Production Mode` to simplify things for this guide.
+
+{{< img "Domain Settings" "images/domain-info-settings.png" >}}
+
+Next, click on the **Topology** section in the navigation bar to go to the domain settings.  Enter `todolist_domain` in 
+the `Name` field.  There is no need to turn on `Production Mode Enabled` since you already took care of that on the 
+**Domain Info** page.
 
 {{< img "Domain Settings" "images/domain-settings.png" >}}
 
-Next, you need to create a server template that you will use with your dynamic cluster.  Select the **Server Templates** element, add a new server template with the name `todo-srv-template`, and then click **Create**.  After you create the template, enable `Listen Port Enabled` so that the screen looks like the following image.  
+Next, you need to create a server template that you will use with your dynamic cluster.  Select the **Server Templates**
+element, add a new server template using the **+** icon in the table header, specify the name as `todo-srv-template`, 
+and then click **OK**.  After you create the template, select the link in the table enable `Listen Port Enabled` so that
+the screen looks like the following image.  
 
-{{< img "Server Template" "images/server-template.png" >}}
+{{< img "Server Template" "images/server-template-1.png" >}}
 
-Next, select the three dots to the right of the `Cluster` field, drop-down menu, and select the `Create New Cluster` menu item.  Create a new cluster with the name `mycluster`. Then, in the drop-down menu, select it as the Cluster attribute of the server template.
+Next, you will need to create the dynamic cluster.  Select the **Clusters** item in the navigation bar and create a new 
+cluster named `mycluster`. Before moving on to configure the new cluster, return to the Server Template `todo-srv-template`
+page and set the `Cluster` field using the dropdown menu to `mycluster`.
 
-Navigate to the new cluster, `Clusters` > `mycluster`, and select the `Dynamic` tab.  Set the fields to the values specified in the following table.
+Navigate to the new cluster, `Clusters` > `mycluster`, and select the **Dynamic Servers** tab.  Set the fields to the 
+values specified in the following table. A couple of things to note:
+
+- The `Max Dynamic Cluster Size` is in the **WLDF Elasticity Framework Settings** expandable setion at the bottom of the page.
+- 
 
 | Field Name | Value |
 | --- | --- |

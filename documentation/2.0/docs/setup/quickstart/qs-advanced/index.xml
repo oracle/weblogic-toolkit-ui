@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Advanced on WebLogic Kubernetes Toolkit UI</title>
+    <link>http://localhost:1313/weblogic-toolkit-ui/setup/quickstart/qs-advanced/</link>
+    <description>Recent content in Advanced on WebLogic Kubernetes Toolkit UI</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 22 Feb 2019 15:44:42 -0500</lastBuildDate>
+    <atom:link href="http://localhost:1313/weblogic-toolkit-ui/setup/quickstart/qs-advanced/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Offline Discover</title>
+      <link>http://localhost:1313/weblogic-toolkit-ui/setup/quickstart/qs-advanced/offline-discover/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      <guid>http://localhost:1313/weblogic-toolkit-ui/setup/quickstart/qs-advanced/offline-discover/</guid>
+      <description>&lt;p&gt;In WKTUI, go to the &lt;code&gt;Model&lt;/code&gt; page and select the &lt;code&gt;Code View&lt;/code&gt; tab.  Select the &lt;code&gt;File&lt;/code&gt; &amp;gt; &lt;code&gt;Add Model&lt;/code&gt; &amp;gt; &lt;code&gt;Discover Model (offline)&lt;/code&gt;&#xA;menu item.  The following dialog box appears.  Enter the path to the &lt;code&gt;$WKTUI_QS_HOME/todolist_domain&lt;/code&gt; directory as the&#xA;&lt;code&gt;Domain Home&lt;/code&gt;, as shown in the following image.&lt;/p&gt;&#xA;&lt;img src=&#34;http://localhost:1313/weblogic-toolkit-ui/images/a2-offline-discovery.png&#34; alt=&#34;Offline Discovery&#34;&gt;&#xA;&lt;p&gt;To start the discovery process, click &lt;strong&gt;OK&lt;/strong&gt;.  After it completes, make the following required model changes:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Fill in the credentials using the values provided when you ran the &lt;code&gt;startMySQL&lt;/code&gt; and &lt;code&gt;createToDoListDomain&lt;/code&gt; scripts.&lt;/li&gt;&#xA;&lt;li&gt;Change &lt;code&gt;localhost&lt;/code&gt; in the JDBC URL on line 34 to &lt;code&gt;mysql&lt;/code&gt;.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;Because a server template’s &lt;code&gt;ListenPortEnabled&lt;/code&gt; value defaults to &lt;code&gt;true&lt;/code&gt;, this attribute was omitted from the discovered model.&#xA;To make your model look the same as the hand-built one, add the &lt;code&gt;ListenPortEnabled&lt;/code&gt; attribute with a value of &lt;code&gt;true&lt;/code&gt; to the&#xA;server template, as shown in the following image.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Online Remote Discover</title>
+      <link>http://localhost:1313/weblogic-toolkit-ui/setup/quickstart/qs-advanced/online-remote-discover/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      <guid>http://localhost:1313/weblogic-toolkit-ui/setup/quickstart/qs-advanced/online-remote-discover/</guid>
+      <description>&lt;p&gt;In WKTUI, go to the &lt;code&gt;Model&lt;/code&gt; page and select the &lt;code&gt;Code View&lt;/code&gt; tab.  Select the &lt;code&gt;File&lt;/code&gt; &amp;gt; &lt;code&gt;Add Model&lt;/code&gt; &amp;gt; &lt;code&gt;Discover Model (online)&lt;/code&gt;&#xA;menu item.  The following dialog box appears.  Enter the information shown in the following image, including the Domain Home&#xA;path &lt;code&gt;$WKTUI_QS_HOME/todolist_domain&lt;/code&gt; directory.  Make sure to provide the WebLogic user name and password specified when&#xA;you ran the &lt;code&gt;createToDoListDomain&lt;/code&gt; script.&lt;/p&gt;&#xA;&lt;img src=&#34;http://localhost:1313/weblogic-toolkit-ui/images/a4-online-discovery.png&#34; alt=&#34;Online Discovery&#34;&gt;&#xA;&lt;p&gt;This path is used to present the results of what we need to do, as shown in the following image.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

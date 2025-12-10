@@ -12,6 +12,23 @@ To install the WKTUI application:
 
 Each release has many assets. For a detailed description of them, see [Install WKT UI]({{< relref "/setup/install.md" >}}).
 
+### Important Note for macOS Users
+
+Newer Mac machines use Apple Silicon CPUs, which are a type of ARM CPUs.  This guide uses the OCI Oracle Kubernetes Engine (OKE)
+for deployment of the WebLogic Server domain.  By default, OKE nodes are provisioned using AMD (Intel-compatible) CPUs.
+This will require using a new feature in WKTUI 2.0 that supports cross-architecture images.  Rancher Desktop (and most
+other Docker providers) rely on QEMU (Quick Emulator) to support cross-architecture capabilities.  As of the writing of
+this guide, Rancher Desktop with QEMU cross-architecture builds are not as reliable as we would like.  Our advice is to
+open the Rancher Desktop `Preferences` window, navigate to `Virtual Machine` -> `Emulation`, and change the 
+`Virtual Machine Type` from `QEMU` to `VZ`.  The author also checked the `VZ Option` to `Enable Rosetta support`, though
+this is probably not required.  This will provide a more reliable cross-architecture container image building environment.
+
+{{< img "Rancher Desktop Virtual Machine Emulation" "images/rancher-desktop-emulation.png" >}}
+
+If you choose not to do this, the image builds may occasionally hang and have to be killed.  This is a symptom of the
+reliability issue that we have seen with QEMU.  If you run into this issue, you may want to reconsider the change suggested
+in the previous paragraph.
+
 ### WKTUI Startup
 
 WKTUI requires Internet connectivity, not only for proper UI rendering, but also for REST APIs calls that it makes to GitHub for detecting and downloading updates, when they are available, and for determining the available versions of related software.  As such, WKTUI checks for Internet connectivity at application startup.  If WKTUI fails its Internet connectivity check, it will display the Network Configuration dialog.  
@@ -39,19 +56,6 @@ Each release of the WKTUI application bundles the latest releases of these tools
 
 {{< img "Tools Update" "images/wkt-tools-update.png" >}}
 
-WKTUI integrates with the WebLogic Remote Console to provide visual editing of the WDT model of the WebLogic Server domain.
-
-- To install the WebLogic Remote Console, go to the [GitHub project page](https://github.com/oracle/weblogic-remote-console), download, and install the latest release compatible with WKTUI, as specified on the `Model` page, shown in the following image.  
-- After it's installed, you'll need to configure WKTUI to locate the WebLogic Remote Console installation.  
-
-Start the WKTUI application and go to the `Model` page, shown in the following image.
-
-{{< img "WRC Integration" "images/wrc-integration.png" >}}
-
-As you can see, the path to the `WebLogic Remote Console Install Location` is already populated. Depending on your platform, this may or may not be the case.  Make sure that the location is correct and then click **Start WebLogic Remote Console**.  If the versions of the applications are not compatible, WKTUI will display a dialog box with the compatible version requirements.  Otherwise, the page will be refreshed with a screen that provides visual editing of the WDT model, as shown in the following image.
-
-{{< img "Model Design View" "images/model-design-view.png" >}}
-
 ### User Preferences
 
 WKTUI supports user preferences; that is, preferences that are specific to a user on a particular machine.  To open the User Preferences dialog on Windows or Linux, use the `File` > `Preferences` menu item.  On macOS, use the `WebLogic Kubernetes Toolkit UI` > `Settings` menu item.  
@@ -61,16 +65,15 @@ WKTUI supports user preferences; that is, preferences that are specific to a use
 Using this dialog, you have access to view and edit settings in the following areas:
 
 - `Proxy Configuration` – Change the proxy and no proxy settings for the network.
-- `WebLogic Remote Console Configuration` – Change the WebLogic Remote Console installation directory.
+- `GitHub API credential` - Specify a GitHub token (with no specific permissions required) that will be used to make GitHub requests and bypass the GitHub anonymous API request quota. 
 - `Logging Configuration` – Change the logging level and log directory location.
 - `Startup Internet Connectivity Test Configuration` – Change the timeout on the Internet connection check.  This is the same as the Request Timeout Seconds field.
 - `WebLogic Kubernetes Toolkit UI Introduction Configuration` – Change whether the introduction shows at application startup or not.
 
 ### Explore WKTUI
 
-Now that the WKTUI application is installed and configured, it is time to explore the functionality of the WKTUI application.  To make this adventure more hands-on, you will lift and shift a ToDo List application running in an on-premises environment and move it to Kubernetes.  The initial quick start documents cover both tracks, then the flow splits into the following two tracks:
+Now that the WKTUI application is installed and configured, it is time to explore the functionality of the WKTUI application.
+To make this adventure more hands-on, you will lift and shift a ToDo List application running in an on-premises environment
+and move it to Kubernetes.  The initial quick start documents cover both tracks.
 
-- WebLogic Kubernetes Operator
-- Verrazzano
-
-At the end of either track, the ToDo List application will be running in a Kubernetes environment.
+At the end, the ToDo List application will be running in a Kubernetes environment.

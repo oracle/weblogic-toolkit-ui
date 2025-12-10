@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Verrazzano on WebLogic Kubernetes Toolkit UI</title>
+    <link>http://localhost:1313/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/</link>
+    <description>Recent content in Verrazzano on WebLogic Kubernetes Toolkit UI</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 22 Feb 2019 15:44:42 -0500</lastBuildDate>
+    <atom:link href="http://localhost:1313/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Configure Kubernetes Cluster Connectivity</title>
+      <link>http://localhost:1313/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-client-config/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      <guid>http://localhost:1313/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-client-config/</guid>
+      <description>&lt;p&gt;First, you need to configure your Kubernetes Client (&lt;code&gt;kubectl&lt;/code&gt;) to connect and authenticate to your Kubernetes cluster.&lt;/p&gt;&#xA;&lt;p&gt;Go to the &lt;code&gt;Verrazzano&lt;/code&gt; &amp;gt; &lt;code&gt;Client Configuration&lt;/code&gt; page, as shown in the following image.&lt;/p&gt;&#xA;&lt;img src=&#34;http://localhost:1313/weblogic-toolkit-ui/images/vz-kubernetes-client-connectivity.png&#34; alt=&#34;VZ Kubernetes Client Connectivity&#34;&gt;&#xA;&lt;p&gt;By selecting the appropriate &lt;code&gt;Kubernetes Cluster Type&lt;/code&gt;, the instructions panel will display the steps needed to properly configure &lt;code&gt;kubectl&lt;/code&gt;.  Please select your &lt;code&gt;Kubernetes Cluster Type&lt;/code&gt; and follow the instructions (including the linked instructions) until you can successfully connect using &lt;code&gt;kubectl&lt;/code&gt; from the command line.  (Because these steps are generally well-documented and well-tested, we will not repeat them here.)  For those running on macOS, please remember to do any macOS-specific step, which is only visible when the WKTUI application is running on macOS.  For example, Step 4 in the preceding image.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Install Verrazzano</title>
+      <link>http://localhost:1313/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-install/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      <guid>http://localhost:1313/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-install/</guid>
+      <description>&lt;p&gt;To install Verrazzano, go to the &lt;code&gt;Verrazzano&lt;/code&gt; &amp;gt; &lt;code&gt;Installation&lt;/code&gt; page.  Set the Release Version field to the newest version listed, set the other fields to match those in the following image, and click &lt;strong&gt;Install Verrazzano&lt;/strong&gt;.&lt;/p&gt;&#xA;&lt;img src=&#34;http://localhost:1313/weblogic-toolkit-ui/images/verrazzano-install.png&#34; alt=&#34;Verrazzano Install&#34;&gt;&#xA;&lt;p&gt;Verrazzano installation takes some time to complete, typically 15 to 30 minutes.  Use &lt;strong&gt;Check Verrazzano Install Status&lt;/strong&gt; to determine when Verrazzano installation is complete.  After it&amp;rsquo;s complete, you can move on to the next section.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Deploy the Verrazzano Component for the WebLogic Domain</title>
+      <link>http://localhost:1313/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-component/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      <guid>http://localhost:1313/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-component/</guid>
+      <description>&lt;p&gt;Verrazzano installation includes the WebLogic Kubernetes Operator.  To inform the operator about a new WebLogic or FMW domain, you need to create a Verrazzano component that includes an operator Domain resource object in Kubernetes.  Starting in Verrazzano 1.5.0, the Verrazzano component also needs an operator Cluster resource object for every cluster in the domain.  This separation is required to work with the Kubernetes Horizontal Pod Autoscaler (HPA) to allow it to automatically scale the clusters based on load (but only up to the maximum size of the WebLogic cluster). For more information, see this WebLogic Kubernetes Operator &lt;a href=&#34;https://oracle.github.io/weblogic-kubernetes-operator/managing-domains/domain-lifecycle/scaling/&#34;&gt;Scaling&lt;/a&gt; documentation.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Deploy the Verrazzano Application</title>
+      <link>http://localhost:1313/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-application/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      <guid>http://localhost:1313/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-application/</guid>
+      <description>&lt;p&gt;A Verrazzano application is a list of components, each with zero or more traits attached.  Go to the &lt;code&gt;Verrazzano&lt;/code&gt; &amp;gt; &lt;code&gt;Application&lt;/code&gt; page.  Add all five components and fill out the remaining fields, as shown in the following figure.&lt;/p&gt;&#xA;&lt;img src=&#34;http://localhost:1313/weblogic-toolkit-ui/images/verrazzano-application.png&#34; alt=&#34;Verrazzano Application&#34;&gt;&#xA;&lt;p&gt;Now, expand the &lt;code&gt;todolist-domain&lt;/code&gt; component, enable &lt;code&gt;Enable Ingress Trait&lt;/code&gt;, and click the plus sign on the &lt;code&gt;Ingress Rules&lt;/code&gt; table.  Fill in the resulting form with the data shown in the following image.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Access the ToDo List application</title>
+      <link>http://localhost:1313/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-access-app/</link>
+      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
+      <guid>http://localhost:1313/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-access-app/</guid>
+      <description>&lt;p&gt;After the application is deployed and the WebLogic Domain is up and running, click &lt;strong&gt;Update URLs&lt;/strong&gt; to update the URL with the actual hostname, which will also activate the link, as shown in the following image.&lt;/p&gt;&#xA;&lt;img src=&#34;http://localhost:1313/weblogic-toolkit-ui/images/ingress-trait-url-link.png&#34; alt=&#34;Ingress Trait URL Link&#34;&gt;&#xA;&lt;p&gt;Click on the link to go to your application, as shown in in the following image.  Note that because your installation is using self-signed certificates, the browser will likely warn you that going to the application is unsafe.  This is typical for an example environment. Now, you can use the ToDo list application.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
