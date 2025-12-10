@@ -443,6 +443,10 @@
       },
       "ServerNameStartingIndex": {
         "validators": [ "range(0,2147480000)" ]
+      },
+      "ServerTemplate": {
+        "editorType": "combo",
+        "optionsMethod": "getServerTemplateOptions"
       }
     },
     "sections": [
