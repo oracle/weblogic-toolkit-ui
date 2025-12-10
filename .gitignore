@@ -16,6 +16,9 @@
 **/*.iml
 .idea
 
+# docs directory created by running Huge locally
+documentation/2.0/docs
+
 # Quickstart Maven target directory except for WAR file
 samples/quickstart/app/target/classes
 samples/quickstart/app/target/generated-sources
