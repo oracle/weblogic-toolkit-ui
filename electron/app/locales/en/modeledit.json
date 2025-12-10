@@ -4102,7 +4102,7 @@
   "a-MaxConsecutiveCharacters-help": "Specifies the maximum number of repeating consecutive characters that is allowed in the password. A value of 0 means no restriction. For example, with a value of 2, user can not create a password such as \"baaag\". Valid value for this attribute must be greater than or equal to 0.",
 
   "a-MaxDynamicClusterSize-label": "Max Dynamic Cluster Size",
-  "f-CXluster_DynamicServers-a-MaxDynamicClusterSize-help": "Specifies the upper bound on the DynamicClusterSize that the Elasticity Framework is allowed to assign to DynamicClusterSize.",
+  "f-Cluster_DynamicServers-a-MaxDynamicClusterSize-help": "Specifies the upper bound on the DynamicClusterSize that the Elasticity Framework is allowed to assign to DynamicClusterSize. The default value is 8.",
 
   "a-MaxEncryptBits-label": "Max Encrypt Bits",
   "f-WTCServer_WTCLocalTuxDom-a-MaxEncryptBits-help": "The maximum encryption key length (in bits) this local Tuxedo access point uses when establishing a session connection. A value of 0 indicates no encryption is used.",

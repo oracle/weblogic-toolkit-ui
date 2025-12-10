@@ -133,6 +133,15 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
         return options;
       };
 
+      this.getServerTemplateOptions = () => {
+        const options = [];
+        const serverTemplateNames = getInstanceNames(['topology', 'ServerTemplate']);
+        serverTemplateNames.forEach(serverTemplateName => {
+          options.push({ value: serverTemplateName, label: serverTemplateName });
+        });
+        return options;
+      };
+
       this.getClusterOptions = () => {
         const options = [];
         const clusterNames = getInstanceNames(['topology', 'Cluster']);
