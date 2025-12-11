@@ -1,14 +1,13 @@
 /**
  * @license
- * Copyright (c) 2023, Oracle and/or its affiliates.
+ * Copyright (c) 2023, 2025, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 define(['models/wkt-project', 'accUtils', 'knockout', 'utils/i18n', 'ojs/ojarraytreedataprovider',
   'ojs/ojflattenedtreedataproviderview', 'ojs/ojkeyset', 'utils/dialog-helper', 'utils/view-helper',
-  'utils/aux-image-helper',
-  'ojs/ojinputtext', 'ojs/ojbutton', 'ojs/ojtable', 'ojs/ojrowexpander', 'wdt-model-designer/loader'],
-function (project, accUtils, ko, i18n,
-  ArrayTreeDataProvider, FlattenedTreeDataProviderView, KeySet, dialogHelper, viewHelper, auxImageHelper) {
+  'utils/aux-image-helper', 'ojs/ojinputtext', 'ojs/ojbutton', 'ojs/ojtable', 'ojs/ojrowexpander'],
+function (project, accUtils, ko, i18n,  ArrayTreeDataProvider, FlattenedTreeDataProviderView, KeySet,
+  dialogHelper, viewHelper, auxImageHelper) {
   function SecretsTableViewModel() {
 
     this.connected = () => {
