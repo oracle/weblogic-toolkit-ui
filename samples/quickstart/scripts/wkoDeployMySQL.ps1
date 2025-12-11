@@ -181,6 +181,10 @@ spec:
                   volumeMounts:
                       - name: init-sql
                         mountPath: /docker-entrypoint-initdb.d/
+                  securityContext:
+                      allowPrivilegeEscalation: false
+                      runAsNonRoot: true
+                      runAsUser: 27
                   env:
                       - name: MYSQL_ROOT_PASSWORD
                         valueFrom:

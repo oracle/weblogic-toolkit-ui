@@ -49,7 +49,7 @@ $env:WKTUI_HOME = "c:\Program Files\WebLogic Kubernetes Toolkit UI"
 $env:ORCL_SSO_USER = ''
 
 #
-# Set to the password of your Oracle SSO account.  This is
+# Set the password to your Auth Token for Oracle Container Registry.  This is
 # used to pull images from https://container-registry.oracle.com.
 #
 # Feel free to leave this variable empty.  The scripts that use

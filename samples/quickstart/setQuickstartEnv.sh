@@ -66,7 +66,7 @@ ORCL_SSO_USER=''
 export ORCL_SSO_USER
 
 #
-# Set to the password of your Oracle SSO account.  This is
+# SSet the password to your Auth Token for Oracle Container Registry.  This is
 # used to pull images from https://container-registry.oracle.com.
 #
 # Feel free to leave this variable empty.  The scripts that use

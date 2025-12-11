@@ -6,9 +6,14 @@ weight: 4
 description: "Install and configure an ingress controller."
 ---
 
-While the domain is up and running, it is only accessible from inside the Kubernetes cluster.  Before you can expose your application, you need to install an ingress controller.  WKTUI can install the Traefik or NGINX ingress controllers.  In this exercise, you will use Traefik.  
+While the domain is up and running, it is only accessible from inside the Kubernetes cluster.  Before you can expose 
+your application, you need to install an ingress controller.  WKTUI can install the Traefik or NGINX ingress 
+controllers.  In this exercise, you will use Traefik.  
 
-Go to the `Kubernetes` > `Ingress Controller` page.  Even though the default settings should be sufficient, you will create an image pull secret for Docker Hub, as shown in the following image, to make sure that your cluster doesn’t encounter an error due to Docker Hub rate limiting of anonymous pull requests.  When ready, click **Install Ingress Controller**.  
+Go to the `Kubernetes` > `Ingress Controller` page.  Even though the default settings should be sufficient, you will 
+create an image pull secret for Docker Hub, as shown in the following image, to make sure that your cluster doesn’t 
+encounter an error due to Docker Hub rate limiting of anonymous pull requests.  When ready, click
+**Install Ingress Controller**.  
 
 {{< img "Ingress Controller" "images/ingress-controller.png" >}}
 
