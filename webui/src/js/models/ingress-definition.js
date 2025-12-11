@@ -31,10 +31,7 @@ define(['knockout', 'utils/observable-properties', 'utils/validation-helper'],
         this.dockerRegSecretName = props.createProperty('dockerhub');
         this.dockerRegSecretName.addValidator(...validationHelper.getK8sNameValidators());
 
-        this.dockerRegSecretUserId = props.createProperty('').asCredential();
-        this.dockerRegSecretUserPwd = props.createProperty('').asCredential();
-        this.dockerRegSecretUserEmail = props.createProperty('');
-        this.dockerRegSecretUserEmail.addValidator(...validationHelper.getEmailAddressValidators());
+        this.dockerRegImageCredentialReference = props.createProperty('');
 
         this.createDockerRegSecret = props.createProperty(false);
         this.specifyDockerRegSecret = props.createProperty(false);

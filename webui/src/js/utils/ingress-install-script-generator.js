@@ -59,7 +59,11 @@ define(['models/wkt-project', 'utils/script-generator-base', 'utils/helm-helper'
         this.adapter.addVariableDefinition('DOCKER_HUB_SECRET_NAME', this.project.ingress.dockerRegSecretName.value);
         this.adapter.addVariableDefinition('DOCKER_HUB_USER', this.credentialMask);
         this.adapter.addVariableDefinition('DOCKER_HUB_PASS', this.credentialMask);
-        this.adapter.addVariableDefinition('DOCKER_HUB_EMAIL', this.project.ingress.dockerRegSecretUserEmail.value);
+        const dockerRegImageCredentialReference =
+          this.getImageRegistryCredential(this.project.ingress.dockerRegImageCredentialReference.value);
+        const email =
+          !!dockerRegImageCredentialReference ? (dockerRegImageCredentialReference.email || '') : '';
+        this.adapter.addVariableDefinition('DOCKER_HUB_EMAIL', email);
         this.adapter.addEmptyLine();
 
         comment = [ 'If not using an external load balancer, the ingress controller service type to use (e.g., NodePort)' ];

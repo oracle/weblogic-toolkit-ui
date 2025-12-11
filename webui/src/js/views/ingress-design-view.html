@@ -82,26 +82,17 @@
           </oj-bind-if>
           <div>
             <oj-bind-if test="[[createDockerHubSecret() === true]]">
-              <oj-input-text label-hint="[[labelMapper('ingress-docker-reg-secret-useremail')]]"
-                             value="{{project.ingress.dockerRegSecretUserEmail.observable}}"
-                             help.instruction="[[labelMapper('ingress-docker-reg-secret-useremail-help')]]">
-              </oj-input-text>
-            </oj-bind-if>
-
-            <oj-bind-if test="[[createDockerHubSecret() === true]]">
-              <oj-input-password label-hint="[[labelMapper('ingress-docker-reg-secret-userid')]]"
-                                 value="{{project.ingress.dockerRegSecretUserId.observable}}"
-                                 mask-icon="visible"
-                                 help.instruction="[[labelMapper('ingress-docker-reg-secret-userid-help')]]">
-              </oj-input-password>
-            </oj-bind-if>
-
-            <oj-bind-if test="[[createDockerHubSecret() === true]]">
-              <oj-input-password label-hint="[[labelMapper('ingress-docker-reg-secret-userpwd')]]"
-                                 value="{{project.ingress.dockerRegSecretUserPwd.observable}}"
-                                 mask-icon="visible"
-                                 help.instruction="[[labelMapper('ingress-docker-reg-secret-userpwd-help')]]">
-              </oj-input-password>
+              <oj-select-single label-hint="[[labelMapper('image-registry-pull-credentials-label')]]"
+                                value="{{project.ingress.dockerRegImageCredentialReference.observable}}"
+                                data="[[imageRegistriesCredentialsDP]]"
+                                item-text="[[getImageRegistriesCredentialsItemText]]"
+                                help.instruction="[[labelMapper('image-registry-pull-credentials-help')]]">
+              </oj-select-single>
+              <oj-button class="wkt-button-below"
+                         label="[[imageLabelMapper('image-registry-add-credentials')]]"
+                         chroming="callToAction"
+                         on-oj-action="[[editImageRegistryCredentials]]">
+              </oj-button>
             </oj-bind-if>
           </div>
         </oj-form-layout>
