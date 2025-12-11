@@ -136,11 +136,13 @@ function(IngressActionsBase, project, wktConsole, k8sHelper, i18n, dialogHelper,
           if (ingressControllerProvider === 'traefik' || ingressControllerProvider === 'voyager' ) {
             // create image pull secret for pulling Traefik or Voyager images.
             if (this.project.ingress.createDockerRegSecret.value === true && secretName) {
+              const credentials =
+                this.getImageRegistryCredential(this.project.ingress.dockerRegImageCredentialReference.value);
               const secretData = {
-                server: 'docker.io',
-                username: this.project.ingress.dockerRegSecretUserId.value,
-                email: this.project.ingress.dockerRegSecretUserEmail.value,
-                password: this.project.ingress.dockerRegSecretUserPwd.value
+                server: credentials.address || 'docker.io',
+                username: credentials.username,
+                email: credentials.email,
+                password: credentials.password
               };
               const secretStatus = await this.createPullSecret(kubectlExe, kubectlOptions, ingressControllerNamespace,
                 secretName, secretData, errTitle, errPrefix);
@@ -218,12 +220,22 @@ function(IngressActionsBase, project, wktConsole, k8sHelper, i18n, dialogHelper,
               this.project.ingress.dockerRegSecretName.validate(true), ingressFormConfig);
 
             if (this.project.ingress.createDockerRegSecret.value === true) {
-              validationObject.addField('ingress-design-ingress-docker-reg-secret-useremail',
-                this.project.ingress.dockerRegSecretUserEmail.validate(true), ingressFormConfig);
-              validationObject.addField('ingress-design-ingress-docker-reg-secret-userid',
-                validationHelper.validateRequiredField(this.project.ingress.dockerRegSecretUserId.value), ingressFormConfig);
-              validationObject.addField('ingress-design-ingress-docker-reg-secret-userpwd',
-                validationHelper.validateRequiredField(this.project.ingress.dockerRegSecretUserPwd.value), ingressFormConfig);
+              validationObject.addField('ingress-design-image-registry-pull-credentials-label',
+                validationHelper.validateRequiredField(this.project.ingress.dockerRegImageCredentialReference.value),
+                ingressFormConfig);
+
+              const credentials =
+                this.getImageRegistryCredential(this.project.ingress.dockerRegImageCredentialReference.value);
+              if (credentials) {
+                const projectSettingsFormConfig = validationObject.getDefaultConfigObject();
+                projectSettingsFormConfig.formName = 'project-settings-form-name';
+                validationObject.addField('project-settings-container-image-registries-credentials-email-heading',
+                  validationHelper.validateRequiredField(credentials.email), projectSettingsFormConfig);
+                validationObject.addField('project-settings-container-image-registries-credentials-username-heading',
+                  validationHelper.validateRequiredField(credentials.username), projectSettingsFormConfig);
+                validationObject.addField('project-settings-container-image-registries-credentials-password-heading',
+                  validationHelper.validateRequiredField(credentials.password), projectSettingsFormConfig);
+              }
             }
           }
         }

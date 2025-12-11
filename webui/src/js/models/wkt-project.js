@@ -256,6 +256,14 @@ function (ko, wdtConstructor, imageConstructor, kubectlConstructor, domainConstr
           'auxImageRegistryPullCredentialsReference', 'auxImageTag',
           'image', 'auxImageRegistryPullEmail');
       }
+      if ('ingress' in wktProjectJson) {
+        // This use case is using the default traefik image from Docker Hub so no need for an address...
+        //
+        this._processNewPayloadEntry(containerImageRegistriesCredentials, wktProjectJson, 'ingress',
+          'dockerRegSecretUserId', 'dockerRegSecretUserPwd',
+          'dockerRegImageCredentialReference', undefined, undefined,
+          'dockerRegSecretUserEmail');
+      }
 
       // If there are any new entries, add the section to the project settings JSON.
       if (Object.keys(containerImageRegistriesCredentials).length > 0) {
@@ -265,6 +273,21 @@ function (ko, wdtConstructor, imageConstructor, kubectlConstructor, domainConstr
         wktProjectJson['settings']['containerImageRegistriesCredentials'] = containerImageRegistriesCredentials;
       }
 
+      // delete old email address fields for pull secrets
+      //
+      if ('k8sDomain' in wktProjectJson) {
+        if ('imageRegistryPullEmail' in wktProjectJson['k8sDomain']) {
+          delete wktProjectJson['k8sDomain']['imageRegistryPullEmail'];
+        }
+        if ('auxImageRegistryPullEmail' in wktProjectJson['k8sDomain']) {
+          delete wktProjectJson['k8sDomain']['auxImageRegistryPullEmail'];
+        }
+      }
+      if ('ingress' in wktProjectJson) {
+        if ('dockerRegSecretUserEmail' in wktProjectJson['ingress']) {
+          delete wktProjectJson['ingress']['dockerRegSecretUserEmail'];
+        }
+      }
 
       // Now, update the credentialPaths array to remove references to the old fields.
       // The new fields will be added during save...
@@ -313,6 +336,11 @@ function (ko, wdtConstructor, imageConstructor, kubectlConstructor, domainConstr
               case 'k8sDomain.auxImageRegistryPullPassword':
                 pathsToDelete.push('k8sDomain.auxImageRegistryPullPassword');
                 break;
+              case 'ingress.dockerRegSecretUserId':
+                pathsToDelete.push('ingress.dockerRegSecretUserId');
+                break;
+              case 'ingress.dockerRegSecretUserPwd':
+                pathsToDelete.push('ingress.dockerRegSecretUserPwd');
             }
           }
           if (pathsToDelete.length > 0) {

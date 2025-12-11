@@ -34,6 +34,10 @@ function(i18n, accUtils, ko, ArrayDataProvider, BufferingDataProvider, project, 
       return i18n.t(key);
     };
 
+    this.imageLabelMapper = (labelId, payload) => {
+      return i18n.t(`image-design-${labelId}`, payload);
+    };
+
     this.anyLabelMapper = (labelId, arg) => {
       return i18n.t(labelId, arg);
     };
@@ -62,6 +66,12 @@ function(i18n, accUtils, ko, ArrayDataProvider, BufferingDataProvider, project, 
 
     this.createDockerHubSecret = () => {
       return project.ingress.specifyDockerRegSecret.value && project.ingress.createDockerRegSecret.value;
+    };
+
+    this.imageRegistriesCredentialsDP = new BufferingDataProvider(new ArrayDataProvider(
+      this.project.settings.containerImageRegistriesCredentials.observable, { keyAttributes: 'uid' }));
+    this.getImageRegistriesCredentialsItemText = (itemContext) => {
+      return itemContext.data.name;
     };
 
     this.voyagerProviders = [
@@ -262,6 +272,10 @@ function(i18n, accUtils, ko, ArrayDataProvider, BufferingDataProvider, project, 
 
     this.getEnabledText = (value) => {
       return this.anyLabelMapper(value ? 'dialog-button-yes' : 'dialog-button-no');
+    };
+
+    this.editImageRegistryCredentials = () => {
+      dialogHelper.openDialog('registry-credentials-dialog', {});
     };
   }
 
