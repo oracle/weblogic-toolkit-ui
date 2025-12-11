@@ -6,13 +6,15 @@ pre = "<b> </b>"
 description = "Use the Quick Start guide to exercise WKT UI functionality and deploy a sample application."
 +++
 
-This Quick Start guide provides a comprehensive tutorial designed to step you through WebLogic Kubernetes Toolkit UI (WKTUI)
-functionality and familiarize you with its capabilities. WKTUI is a desktop application that helps you create and deploy WebLogic
-domains into Kubernetes. Using this guide, you will deploy a sample WebLogic-based application to a Kubernetes cluster.
+This Quick Start guide provides a comprehensive tutorial designed to step you through WebLogic Kubernetes Toolkit UI 
+(WKTUI) functionality and familiarize you with its capabilities. WKTUI is a desktop application that helps you create
+and deploy WebLogic domains into Kubernetes. Using this guide, you will deploy a sample WebLogic-based application to a
+Kubernetes cluster.
 
-Note that this walk-through is for demonstration purposes _only_, not for use in production. These instructions assume that you are already familiar with Kubernetes.
-For this exercise, you’ll need a Kubernetes cluster. If you need help setting one up, see these instructions for setting up an [Oracle Cloud Infrastructure
-Container Engine for Kubernetes (OKE) cluster](https://docs.oracle.com/en-us/iaas/Content/ContEng/Concepts/contengoverview.htm).
+Note that this walk-through is for demonstration purposes _only_, not for use in production. These instructions assume
+that you are already familiar with Kubernetes. For this exercise, you’ll need a Kubernetes cluster. If you need help
+setting one up, see these instructions for setting up an
+[Oracle Cloud Infrastructure Container Engine for Kubernetes (OKE) cluster](https://docs.oracle.com/en-us/iaas/Content/ContEng/Concepts/contengoverview.htm).
 
 The Quick Start guide is divided into the following sections:
 
@@ -22,7 +24,7 @@ The Quick Start guide is divided into the following sections:
 - [Select the Project Settings]({{< relref "/setup/quickstart/project-settings.md" >}})
 - [Create the WebLogic Deploy Tooling model]({{< relref "/setup/quickstart/create-wdt-model.md" >}})
 - [Create images with the WebLogic Image Tool]({{< relref "/setup/quickstart/create-images-with-wit.md" >}})
-- [WebLogic Kubernetes Operator (WKO)]({{< relref "/setup/quickstart/qs-kubernetes/" >}}) Track: follow these steps if you are interested in using a Kubernetes cluster without Verrazzano.
+- [WebLogic Kubernetes Operator (WKO)]({{< relref "/setup/quickstart/qs-kubernetes/" >}})
   - [Configure Kubernetes Cluster Connectivity]({{< relref "/setup/quickstart/qs-kubernetes/k8s-client-config.md" >}})
   - [Install the WebLogic Kubernetes Operator]({{< relref "/setup/quickstart/qs-kubernetes/k8s-wko.md" >}})
   - [Deploy the Domain]({{< relref "/setup/quickstart/qs-kubernetes/k8s-weblogic-domain.md" >}})

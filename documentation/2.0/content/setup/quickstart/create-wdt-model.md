@@ -5,15 +5,18 @@ draft: false
 weight: 5
 ---
 
-The WebLogic Deploy Tooling project provides a set of single-purpose tools for performing lifecycle operations of WebLogic
-Server domains.  These tools work off a model of the domain.  The model contains three types of files:
+The WebLogic Deploy Tooling project provides a set of single-purpose tools for performing lifecycle operations of
+WebLogic Server domains.  These tools work off a model of the domain.  The model contains three types of files:
 
-- Model file – A YAML description of the domain that is aligned with WebLogic Scripting Tool (WLST) offline folders and attributes.
-- Variables file – An optional Java properties file that contains key/value pairs where the key matches with a token placed in the model file.
+- Model file – A YAML description of the domain that is aligned with WebLogic Scripting Tool (WLST) offline folders and
+  attributes.
+- Variables file – An optional Java properties file that contains key/value pairs where the key matches with a token
+  placed in the model file.
 - Archive file – An optional ZIP file that contains any file artifacts that need to exist in the domain, for example, a 
   WAR file that contains the binaries for a Web application.
 
-For more detailed WDT information, see the WebLogic Deploy Tooling [documentation](https://oracle.github.io/weblogic-deploy-tooling/concepts/model/).
+For more detailed WDT information, see the WebLogic Deploy Tooling
+[documentation](https://oracle.github.io/weblogic-deploy-tooling/concepts/model/).
 
 WKTUI provides tooling to make it easy for you to create and edit a WDT model.   This image shows the `Model` page, 
 `Design View` tab that allows visual editing of a model.  
@@ -27,7 +30,8 @@ you'll find the variables file editor and the archive file editor. At this point
 {{< img "Model Code View" "images/model-code-view.png" >}}
 
 WKTUI also supports discovering an existing domain to extract the model for that domain.  It accomplishes this by using
-the WDT [Discover Domain](https://oracle.github.io/weblogic-deploy-tooling/userguide/tools/discover/) tool.  To use this functionality, you use the `File` menu, `Add Model` submenu.  The two 
+the WDT [Discover Domain](https://oracle.github.io/weblogic-deploy-tooling/userguide/tools/discover/) tool.  To use this
+functionality, you use the `File` menu, `Add Model` submenu.  The two 
 menu items are:
 
 - `Discover Model (offline)` – With this option, WDT reads the domain directory from the local file system to extract 
@@ -37,11 +41,13 @@ menu items are:
   machine so that WDT has access to the domain’s file system.  
 
 To collect the model from a domain running on another machine, you can use the Remote Discovery option.  With this option,
-at the end of the Discover Domain (online) action, WDT will tell you which files you need to collect and add to the archive file.
+at the end of the Discover Domain (online) action, WDT will tell you which files you need to collect and add to the 
+archive file.
 
 Because the ToDo List application has minimal requirements from the domain, you will create the model by hand.  If you
 would prefer to create a local domain and use the discover model functionality, see 
-[Create ToDo List Domain]({{< relref "/setup/quickstart/qs-advanced#create-the-local-todo-list-domain" >}}) in the Advanced section.
+[Create ToDo List Domain]({{< relref "/setup/quickstart/qs-advanced#create-the-local-todo-list-domain" >}}) in the 
+Advanced section.
 
 ### Create the ToDo List Domain
 
@@ -68,70 +74,87 @@ Next, you will need to create the dynamic cluster.  Select the **Clusters** item
 cluster named `mycluster`. Before moving on to configure the new cluster, return to the Server Template `todo-srv-template`
 page and set the `Cluster` field using the dropdown menu to `mycluster`.
 
-Navigate to the new cluster, `Clusters` > `mycluster`, and select the **Dynamic Servers** tab.  Set the fields to the 
+Navigate to the new cluster, `Clustepartirs` > `mycluster`, and select the **Dynamic Servers** tab.  Set the fields to the 
 values specified in the following table. A couple of things to note:
 
 - The `Max Dynamic Cluster Size` is in the **WLDF Elasticity Framework Settings** expandable setion at the bottom of the page.
-- 
+- Although the `Enabled Calculated Listen Ports` field is already in the `false` position (because it is not in the model
+  yet), the default value is `true`.  As such, you must turn the switch on to add it to the model and then off so that
+  the model value is set to `false`. You might wonder how to remove it from the model if you added it by mistake.  Simply
+  use the three dot menu (also known as the kebab menu) to the right of the control and select the 
+  `Remove the field from the model` radio button and select **OK**.
 
-| Field Name | Value |
-| --- | --- |
-| `Server Template` |  `todo-srv-template` |
-| `Server Name Prefix` |  `ToDoServer-` |
-| `Dynamic Cluster Size` |  `10` |
-| `Max Dynamic Cluster Size` | `10` |
-| `Enable Calculated Listen Ports` | `Off` |
+| Field Name                       | Value                                                        |
+|----------------------------------|--------------------------------------------------------------|
+| `Server Template`                | `todo-srv-template`                                          |
+| `Server Name Prefix`             | `ToDoServer-`                                                |
+| `Dynamic Cluster Size`           | `10`                                                         |
+| `Max Dynamic Cluster Size`       | `10`                                                         |
+| `Enable Calculated Listen Ports` | `Off`                                                        |
 
 ### Create a Data Source
 
-The next step is to create a data source to communicate with the MySQL database.  Before doing that, switch to the `Code View` tab to see what the WDT model looks like so far.
+The next step is to create a data source to communicate with the MySQL database.  Before doing that, switch to the 
+`Code View` tab to see what the WDT model looks like so far.
 
 {{< img "Partial Model Code View" "images/partial-model-code-view.png" >}}
 
-As you can see in the preceding image, the settings you entered are represented in the YAML Editor.  Notice that the model
-editor inserted the fields for the domain’s administrative user name and password, and set the values to tokens of the
-form `@@PROP:<property-name>@@`.  These tokens reference variables; you can see that the variable names were added to the
-Variables Editor.  Go ahead and fill in the values you want to use; for example, `weblogic` for the user name and a strong
-password value for the password.  Now, switch back to the `Design View` tab.
+As you can see in the preceding image, the settings you entered are represented in the YAML Editor. Now, switch back to
+the `Design View` tab.
 
-Go to the `Services` > `Data Sources` area, add a new Data Source using the values in the following table, and then click **Create**.
-Note that you can choose any database user name and password below.  Just make sure that you use these same credentials when deploying the MySQL database later. 
+Go to the **Resources** > **Data Sources** section, add a new Data Source using the values in the following table, 
+and then click **Create**. Note that you can choose any database user name and password below.  Just make sure that you
+use these same credentials when deploying the MySQL database later. 
 
-| Field Name | Value                                                            |
-| --- |------------------------------------------------------------------|
-| `Name` | `myDataSource`                                                   |
-| `JNDI Names` | `jdbc/ToDoDB`                                                    |
-| `Targets` | `mycluster` (move to `Chosen` column)                            |
-| `Datasource Type` | `Generic Data Source`                                            |
-| `Database Type` | `MySQL`                                                          |
-| `Database Driver` | `MySQL’s Driver (Type 4) Versions: using com.mysql.cj.jdbc.Driver` |
-| `Global Transactions Protocol` | `OnePhaseCommit`                                                 |
-| `Database Name` | `tododb`                                                         |
-| `Host Name` | `mysql`                                                          |
-| `Port` | `3306`                                                           |
-| `Database User Name` | Choose a database user name                                      |
-| `Password` | Choose a database password for the database user               |
+| Field Name                     | Value                                                                  |
+|--------------------------------|------------------------------------------------------------------------|
+| `Name`                         | `myDataSource`                                                         |
+| `Datasource Type`              | `Generic Data Source`                                                  |
+| `Targets`                      | `mycluster`                                                            |
+| `Driver Name`                  | `com.mysql.cj.jdbc.Driver`                                             |
+| `URL`                          | `jdbc:mysql://mysql:3306/tododb`                                       |
+| `Password`                     | Choose a database password for the database user                       |
+| `Database User Name`           | Create Property named `user` with the database user name as its value  |
+| `Global Transactions Protocol` | `OnePhaseCommit`                                                       |
+| `JNDI Names`                   | `jdbc/ToDoDB`                                                          |
 
-After the `myDataSource` Data Source is created, go to the `Connection Pool` > `Advanced` tab and make the following changes:
+After the `myDataSource` Data Source is created, go to the **JDBC Connection Pool Parameter** > **Connection Testing**
+tab and make the following changes:
 1.	Enable `Test Connection On Reserve`.
 2.	Set the Test Table Name to `ToDos`.
 
+Now, you need to add the application.  Go to **Deployments** > **Applications** section, add a new application using the
+values in the following table, and then click **Create**.  You must replace the `$QS_HOME` value in the table with the
+path where you stored the Quick Start directory when downloading the code.   
 
-Now, you need to add the application.  Go to `Deployments` > `App Deployments`, add a new application using the values in the following table, and then click **Create**.  You must replace the `$QS_HOME` value in the table with the path where you stored the Quick Start directory when downloading the code.   Note that after the actual file system location is entered, the value will change to reflect its path in the archive file (`wlsdeploy/applications/todo.war`).
+When selecting the application to use, make sure to select the proper application based on the target WebLogic Server
+version you intend to use.  Choose based on the following
 
-| Field Name | Value |
-| --- | --- |
-| `Name` |  `todo` |
-| `Targets` |  `mycluster` (move to `Chosen` column) |
-| `Add Source to Archive` |  `ON` |
-| `Source` | `$QS_HOME/app/target/todo.war` |
+- `$QS_HOME/app/target/todo.war`: Choose this todo.war file for WebLogic Server versions 12.2.1.4 through 14.1.2.0
+- `$QS_HOME/app-jakarta/target/todo.war`: Choose this todo.war for WebLogic Server version 15.1.1.0 or newer
 
-Even though the model is complete enough to create a local domain, you still need to add a few fields so that the WebLogic Kubernetes Operator can use the model.  Switch back to the `Code View` tab.  You will edit the model directly this time.  Make the topology section of the model look like the following.
+When selecting the Source Path using the file chooser, make sure to choose the `Add this file to the archive file` option
+on the `Source Path Location` dialog that follows the file chooser.  Note that after doing this, the `Source Path` value
+will change to reflect its path in the archive file (`wlsdeploy/applications/todo.war`).
+
+| Field Name    | Value                                                                     |
+|---------------|---------------------------------------------------------------------------|
+| `Name`        | `todo`                                                                    |
+| `Source Path` | `$QS_HOME/app/target/todo.war` or `$QS_HOME/app-jakarta/target/todo.war`  |
+| `Targets`     | `mycluster`                                                               |
+
+Even though the model is complete enough to create a local domain, you still need to add a few things so that the 
+WebLogic Kubernetes Operator can use the model.
+
+1. Create a new Server called `AdminServer` without changing any of its attributes.
+2. One the **Topology** page, set the `Admin Server Name` field to `AdminServer`.
+
+Once you have done this, switch back to the `Code View` tab and your topology section of the model should look like
+the following.  Do not worry if the fields or sections are in different orders.
 
 ```
 topology:
     Name: todolist_domain
-    ProductionModeEnabled: true
     AdminServerName: AdminServer
     Server:
         AdminServer:
@@ -143,7 +166,6 @@ topology:
                 DynamicClusterSize: 10
                 MaxDynamicClusterSize: 10
                 CalculatedListenPorts: false
-                MinDynamicClusterSize: 0
     ServerTemplate:
         'todo-srv-template':
             ListenPortEnabled: true
@@ -151,17 +173,26 @@ topology:
 ```
 ### Validate and Prepare the Model
 
-The domain model is now complete.  Go ahead and validate the model by clicking **Validate Model** or using the `Go` menu, `Validate Model Files` menu item.  Doing this will invoke the WDT Validate Model Tool and the Console window at the bottom of the screen will display the output of the tool, as shown in the following image. You can close the Console Window at any time.
+The domain model is now complete.  Go ahead and validate the model by clicking **Validate Model** or using the `Go` menu,
+`Validate Model Files` menu item.  Doing this will invoke the WDT Validate Model Tool and the Console window at the
+bottom of the screen will display the output of the tool, as shown in the following image. You can close the Console
+Window at any time.
 
 {{< img "Validate Model Code View" "images/validate-model-code-view.png" >}}
 
-When deploying a domain in Kubernetes, you need to prepare it for that environment.  The WDT Prepare Model Tool gives you what you need to accomplish that.  WKTUI has a special integration with Prepare Model in that not only does it adjust the model for the Kubernetes environment, but also it returns data extracted from the model that WKTUI needs.  For example, Prepare Model returns the list of WebLogic clusters and non-clustered managed servers that other parts of the application use to tailor the environment for this domain.  Click **Prepare Model** to invoke the WDT Prepare Model Tool.
+When deploying a domain in Kubernetes, you need to prepare it for that environment.  The WDT Prepare Model Tool gives
+you what you need to accomplish that.  WKTUI has a special integration with Prepare Model in that not only does it
+adjust the model for the Kubernetes environment, but also it returns data extracted from the model that WKTUI needs.
+For example, Prepare Model returns the list of WebLogic clusters and non-clustered managed servers that other parts of
+the application use to tailor the environment for this domain.  Click **Prepare Model** to invoke the WDT Prepare Model
+Tool.
 
 Because you chose to use Model-in-Image for the Quick Start exercise, Prepare Model made several changes to your model.
 
 - Replaced credentials with tokens that reference Kubernetes Secrets.
 - Replaced fields like the `Data Source URL` with a token that references a variable.
 
-The following image shows the completed model that is ready to put in an image, so save the project before you move to the next section.
+The following image shows the completed model that is ready to put in an image, so save the project before you move to
+the next section.
 
 {{< img "Prepare Model Code View" "images/prepare-model-code-view.png" >}}
