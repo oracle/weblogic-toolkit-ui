@@ -33,11 +33,11 @@ fi
 
 if [ -z "${ORCL_SSO_PASS}" ]; then
   stty -echo
-  printf "Please enter your Oracle SSO account password: "
+  printf "Please enter your Oracle SSO account Auth Token for the Oracle Container Registry: "
   read -r ORCL_SSO_USER
   stty echo
   if [ -z "${ORCL_SSO_PASS}" ]; then
-    echo "No Oracle SSO account password provided...exiting" >&2
+    echo "No Oracle SSO account Auth Token for the Oracle Container Registry provided...exiting" >&2
     exit 1
   fi
   echo ""
@@ -90,7 +90,7 @@ if ! "${IMAGE_BUILDER_EXE}" run \
     -e "MYSQL_PASSWORD=${MYSQL_USER_PASS}" \
     -e MYSQL_DATABASE=tododb \
     --mount type=bind,src="${WKTUI_QS_HOME}/sql/",dst=/docker-entrypoint-initdb.d/ \
-    -d container-registry.oracle.com/mysql/community-server:8.0.32; then
+    -d container-registry.oracle.com/mysql/community-server:8.4.7${MYSQL_ARCH_TAG_SUFFIX}; then
   echo "Failed to start MySQL database container...exiting" >&2
   exit 1
 fi

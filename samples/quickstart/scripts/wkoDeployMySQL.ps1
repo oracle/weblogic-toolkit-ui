@@ -175,7 +175,7 @@ spec:
         spec:
             containers:
                 - name: todolist-mysql
-                  image: container-registry.oracle.com/mysql/community-server:8.0.32
+                  image: container-registry.oracle.com/mysql/community-server:8.4.7
                   ports:
                       - containerPort: 3306
                   volumeMounts:

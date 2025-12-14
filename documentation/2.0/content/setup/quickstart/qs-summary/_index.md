@@ -11,9 +11,9 @@ By following the steps in this Quick Start guide, you:
 and the Code View for viewing and editing model-related files.
 - Pulled a prebuilt (primary) image from the Oracle Container Registry and then manually created an auxiliary image.
 - Deployed a MySQL database.
-- Depending on the track you followed:
-  - Installed the WebLogic Kubernetes Operator to deploy your domain, then installed and configured an ingress controller to expose the sample application and provide its access in a browser window.
-  - Otherwise, installed Verrazzano to define and deploy the sample application, and also employed an ingress controller to access the application in a browser window.
+- Installed the WebLogic Kubernetes Operator to deploy your domain, then installed and configured an ingress controller
+  to expose the sample application and provide its access in a browser window.
 - Optionally, used the instructions in the Advanced section to discover the domain model offline or online remotely.
 
-In summary, you used comprehensive WKTUI functionality to take an on-premises, sample WebLogic domain and deploy it in Kubernetes.
+In summary, you used comprehensive WKTUI functionality to take an on-premises, sample WebLogic domain and deploy it in
+Kubernetes.

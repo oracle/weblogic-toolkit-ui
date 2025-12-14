@@ -156,8 +156,8 @@ for a particular model location. This action is available by using the `Validate
 
 #### Prepare Model
 `Prepare Model` invokes the WDT [Prepare Model Tool](https://oracle.github.io/weblogic-deploy-tooling/userguide/tools/prepare/)
-to modify the model to work in a Kubernetes cluster with WebLogic Kubernetes Operator or Verrazzano installed.  This
-action is available by using the `Prepare Model` button on the `Model` and `Kubernetes WebLogic Domain` pages and by selecting
+to modify the model to work in a Kubernetes cluster with WebLogic Kubernetes Operator installed.  This action is 
+available by using the `Prepare Model` button on the `Model` and `Kubernetes WebLogic Domain` pages and by selecting
 `Go` > `Prepare Model for Kubernetes`.  It is also possible to run `Prepare Model` during the `Create
 Image` action, though typically it is best to run `Prepare Model` explicitly, prior to moving to the `Image` section.
 

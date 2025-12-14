@@ -5,7 +5,8 @@ weight =7
 pre = "<b> </b>"
 +++
 
-These Quick Start guide sections are for users interested in using a Kubernetes cluster without Verrazzano.  Anyone using OpenShift should following this track.
+These Quick Start guide sections are for users interested in using a Kubernetes cluster.  Anyone using OpenShift should
+follow this track.
 
 1. [Configure]({{< relref "/setup/quickstart/qs-kubernetes/k8s-client-config.md" >}}) your Kubernetes client (`kubectl`)
    to connect to the Kubernetes cluster.

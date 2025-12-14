@@ -22,8 +22,13 @@ topology:
                 MinDynamicClusterSize: 0
     ServerTemplate:
         'todo-srv-template':
+            ListenAddress: 127.0.0.1
             ListenPortEnabled: true
+            ListenPort: 8100
             Cluster: mycluster
+    SecurityConfiguration:
+        SecureMode:
+            SecureModeEnabled: false
 resources:
     JDBCSystemResource:
         myDataSource:

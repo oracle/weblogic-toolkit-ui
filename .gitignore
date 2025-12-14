@@ -25,9 +25,16 @@ samples/quickstart/app/target/generated-sources
 samples/quickstart/app/target/maven-archiver
 samples/quickstart/app/target/maven-status
 samples/quickstart/app/target/todo
+# Quickstart Maven target directory except for WAR file
+samples/quickstart/app-jakarta/target/classes
+samples/quickstart/app-jakarta/target/generated-sources
+samples/quickstart/app-jakarta/target/maven-archiver
+samples/quickstart/app-jakarta/target/maven-status
+samples/quickstart/app-jakarta/target/todo
 # Quickstart local domain directory
 samples/quickstart/todolist_domain
 # Quickstart local domain generated variables file
+samples/quickstart/scripts/local-domain/archive.zip
 samples/quickstart/scripts/local-domain/variables.properties
 # Quickstart developer env file
 samples/quickstart/setQuickstartDevEnv.sh

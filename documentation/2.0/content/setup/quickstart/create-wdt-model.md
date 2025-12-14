@@ -65,8 +65,8 @@ the `Name` field.  There is no need to turn on `Production Mode Enabled` since y
 
 Next, you need to create a server template that you will use with your dynamic cluster.  Select the **Server Templates**
 element, add a new server template using the **+** icon in the table header, specify the name as `todo-srv-template`, 
-and then click **OK**.  After you create the template, select the link in the table enable `Listen Port Enabled` so that
-the screen looks like the following image.  
+and then click **OK**.  After you create the template, select the link in the table, enable `Listen Port Enabled` and
+set the `Listen Port` to `8100` so that the screen looks like the following image.  
 
 {{< img "Server Template" "images/server-template-1.png" >}}
 
@@ -74,7 +74,7 @@ Next, you will need to create the dynamic cluster.  Select the **Clusters** item
 cluster named `mycluster`. Before moving on to configure the new cluster, return to the Server Template `todo-srv-template`
 page and set the `Cluster` field using the dropdown menu to `mycluster`.
 
-Navigate to the new cluster, `Clustepartirs` > `mycluster`, and select the **Dynamic Servers** tab.  Set the fields to the 
+Navigate to the new cluster, **Cluster** > **mycluster**, and select the **Dynamic Servers** tab.  Set the fields to the 
 values specified in the following table. A couple of things to note:
 
 - The `Max Dynamic Cluster Size` is in the **WLDF Elasticity Framework Settings** expandable setion at the bottom of the page.
@@ -128,10 +128,14 @@ values in the following table, and then click **Create**.  You must replace the 
 path where you stored the Quick Start directory when downloading the code.   
 
 When selecting the application to use, make sure to select the proper application based on the target WebLogic Server
-version you intend to use.  Choose based on the following
+version you intend to use.  Choose based on the following:
 
-- `$QS_HOME/app/target/todo.war`: Choose this todo.war file for WebLogic Server versions 12.2.1.4 through 14.1.2.0
+- `$QS_HOME/app/target/todo.war`: Choose this todo.war file for WebLogic Server versions 14.1.1.0 or 14.1.2.0
 - `$QS_HOME/app-jakarta/target/todo.war`: Choose this todo.war for WebLogic Server version 15.1.1.0 or newer
+
+Note that while the sample application can run on WebLogic Server 12.2.1.4, you will need to change the
+`$QS_HOME/app/src/main/webapp/WEB-INF/web.xml` deployment descriptor to point to the Java EE 7 Web Application 3.1
+specification and rebuild the binary by running `mvn clean package` in the `$QS_HOME/app` directory.
 
 When selecting the Source Path using the file chooser, make sure to choose the `Add this file to the archive file` option
 on the `Source Path Location` dialog that follows the file chooser.  Note that after doing this, the `Source Path` value
@@ -161,14 +165,15 @@ topology:
     Cluster:
         mycluster:
             DynamicServers:
-                ServerTemplate: 'todo-srv-template'
-                ServerNamePrefix: 'ToDoServer-'
+                ServerTemplate: todo-srv-template
+                ServerNamePrefix: ToDoServer-
                 DynamicClusterSize: 10
                 MaxDynamicClusterSize: 10
                 CalculatedListenPorts: false
     ServerTemplate:
         'todo-srv-template':
             ListenPortEnabled: true
+            ListenPort: 8100
             Cluster: mycluster
 ```
 ### Validate and Prepare the Model

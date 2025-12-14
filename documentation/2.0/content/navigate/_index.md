@@ -13,8 +13,7 @@ Make sure you have read [About the WKT UI Application]({{< relref "/concepts/" >
 
 To help you understand how to use the WKT UI, we will step you through it, section by section,
 describing the important decisions to make and fields to populate.  The sections are listed in
-the left side navigation pane.  Depending on the `Kubernetes Environment Target Type` field
-on the `Project Settings` page, you will see either the `Kubernetes` or `Verrazzano` section.  
+the left side navigation pane.  
 
 The UI sections are:
 
@@ -26,12 +25,6 @@ The UI sections are:
   - [WebLogic Operator]({{< relref "/navigate/kubernetes/k8s-wko.md" >}})
   - [WebLogic Domain]({{< relref "/navigate/kubernetes/k8s-weblogic-domain.md" >}})
   - [Ingress Controller]({{< relref "/navigate/kubernetes/k8s-ingress-controller.md" >}})
-- Verrazzano
-  - [Client Configuration]({{< relref "/navigate/verrazzano/vz-client-config.md" >}})
-  - [Installation]({{< relref "/navigate/verrazzano/vz-install.md" >}})
-  - [Component]({{< relref "/navigate/verrazzano/vz-component.md" >}})
-  - [Application]({{< relref "/navigate/verrazzano/vz-application.md" >}})  
-
 
 At the bottom of the page, the collapsed `Console` panel automatically appears and displays the `stdout` and `stderr`
 streams when running certain actions, such as `Prepare Model`.
