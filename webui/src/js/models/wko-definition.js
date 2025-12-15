@@ -28,12 +28,8 @@ define(['utils/observable-properties', 'utils/validation-helper'],
         this.operatorImagePullSecretName.addValidator(...validationHelper.getK8sNameValidators());
 
         this.operatorImagePullUseExistingSecret = props.createProperty(true);
+        this.operatorImagePullCredentialsReference = props.createProperty();
 
-        this.operatorImagePullRegistryEmailAddress = props.createProperty();
-        this.operatorImagePullRegistryEmailAddress.addValidator(...validationHelper.getEmailAddressValidators());
-
-        this.operatorImagePullRegistryUsername = props.createProperty().asCredential();
-        this.operatorImagePullRegistryPassword = props.createProperty().asCredential();
         this.operatorDomainNamespaceSelectionStrategy = props.createProperty('LabelSelector');
         // Note that this is only relevant if the strategy is set to 'LabelSelector'
         this.operatorDomainNamespaceSelector = props.createProperty('weblogic-operator=enabled');
@@ -81,20 +77,6 @@ define(['utils/observable-properties', 'utils/validation-helper'],
         this.helmTimeoutMinutes = props.createProperty(5);
 
         this.installedVersion = props.createProperty();
-
-        // internal fields that should not be read or written to the project file.
-        this.internal = {
-          operatorImagePullRegistryAddress: props.createProperty()
-        };
-
-        // operatorImagePullRegistryAddress is always derived from operatorImage
-        this.operatorImage.observable.subscribe(value => {
-          let host;
-          if (value && value.length > 0) {
-            host = window.api.k8s.getRegistryAddressFromImageTag(value);
-          }
-          this.internal.operatorImagePullRegistryAddress.observable(host);
-        });
 
         this.readFrom = function (json) {
           props.createGroup(name, this).readFrom(json);
