@@ -246,6 +246,12 @@ function (ko, wdtConstructor, imageConstructor, kubectlConstructor, domainConstr
           'auxDefaultBaseImagePullUsername', 'auxDefaultBaseImagePullPassword',
           'auxDefaultBaseImagePullCredentialsReference');
       }
+      if ('wko' in wktProjectJson){
+        this._processNewPayloadEntry(containerImageRegistriesCredentials, wktProjectJson, 'wko',
+          'operatorImagePullRegistryUsername', 'operatorImagePullRegistryPassword',
+          'operatorImagePullCredentialsReference', undefined, undefined,
+          'operatorImagePullRegistryEmailAddress');
+      }
       if ('k8sDomain' in wktProjectJson) {
         this._processNewPayloadEntry(containerImageRegistriesCredentials, wktProjectJson, 'k8sDomain',
           'imageRegistryPullUser', 'imageRegistryPullPassword',
@@ -275,6 +281,11 @@ function (ko, wdtConstructor, imageConstructor, kubectlConstructor, domainConstr
 
       // delete old email address fields for pull secrets
       //
+      if ('wko' in wktProjectJson) {
+        if ('operatorImagePullRegistryEmailAddress' in wktProjectJson['wko']) {
+          delete wktProjectJson['wko']['operatorImagePullRegistryEmailAddress'];
+        }
+      }
       if ('k8sDomain' in wktProjectJson) {
         if ('imageRegistryPullEmail' in wktProjectJson['k8sDomain']) {
           delete wktProjectJson['k8sDomain']['imageRegistryPullEmail'];
@@ -323,6 +334,12 @@ function (ko, wdtConstructor, imageConstructor, kubectlConstructor, domainConstr
                 break;
               case 'image.auxBaseImagePullUsername':
                 pathsToDelete.push('image.auxBaseImagePullUsername');
+                break;
+              case 'wko.operatorImagePullRegistryUsername':
+                pathsToDelete.push('wko.operatorImagePullRegistryUsername');
+                break;
+              case 'wko.operatorImagePullRegistryPassword':
+                pathsToDelete.push('wko.operatorImagePullRegistryPassword');
                 break;
               case 'k8sDomain.imageRegistryPullUser':
                 pathsToDelete.push('k8sDomain.imageRegistryPullUser');

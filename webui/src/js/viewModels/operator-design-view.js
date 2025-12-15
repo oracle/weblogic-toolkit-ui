@@ -4,12 +4,12 @@
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 define(['utils/i18n', 'accUtils', 'knockout', 'ojs/ojcorerouter', 'ojs/ojmodulerouter-adapter', 'ojs/ojarraydataprovider',
-  'ojs/ojarraytreedataprovider', 'ojs/ojbufferingdataprovider', 'models/wkt-project', 'ojs/ojconverter-number', 'utils/view-helper',
-  'utils/common-utilities', 'ojs/ojtreeview', 'ojs/ojformlayout', 'ojs/ojinputtext', 'ojs/ojcollapsible',
-  'ojs/ojselectsingle', 'ojs/ojswitch', 'ojs/ojinputnumber'
+  'ojs/ojarraytreedataprovider', 'ojs/ojbufferingdataprovider', 'models/wkt-project', 'ojs/ojconverter-number',
+  'utils/view-helper', 'utils/common-utilities', 'utils/dialog-helper', 'ojs/ojtreeview', 'ojs/ojformlayout',
+  'ojs/ojinputtext', 'ojs/ojcollapsible', 'ojs/ojselectsingle', 'ojs/ojswitch', 'ojs/ojinputnumber'
 ],
 function (i18n, accUtils, ko, CoreRouter, ModuleRouterAdapter, ArrayDataProvider, ArrayTreeDataProvider,
-  BufferingDataProvider, project, ojConverterNumber, viewHelper, utils) {
+  BufferingDataProvider, project, ojConverterNumber, viewHelper, utils, dialogHelper) {
   function OperatorDesignViewModel() {
 
     let subscriptions = [];
@@ -43,6 +43,10 @@ function (i18n, accUtils, ko, CoreRouter, ModuleRouterAdapter, ArrayDataProvider
       return i18n.t(key);
     };
 
+    this.imageLabelMapper = (labelId, arg) => {
+      return i18n.t(`image-design-${labelId}`, arg);
+    };
+
     this.project = project;
     this.integerConverter = new ojConverterNumber.IntlNumberConverter({
       style: 'decimal',
@@ -56,6 +60,12 @@ function (i18n, accUtils, ko, CoreRouter, ModuleRouterAdapter, ArrayDataProvider
       maximumFractionDigits: 0,
       useGrouping: false
     });
+
+    this.imageRegistriesCredentialsDP = new BufferingDataProvider(new ArrayDataProvider(
+      this.project.settings.containerImageRegistriesCredentials.observable, { keyAttributes: 'uid' }));
+    this.getImageRegistriesCredentialsItemText = (itemContext) => {
+      return itemContext.data.name;
+    };
 
     this.imagePullPolicies = [
       {key: 'IfNotPresent', label: this.labelMapper('image-pull-if-not-present-label')},
@@ -135,6 +145,10 @@ function (i18n, accUtils, ko, CoreRouter, ModuleRouterAdapter, ArrayDataProvider
         return { ...versionObject, label };
       }));
     });
+
+    this.editImageRegistryCredentials = () => {
+      dialogHelper.openDialog('registry-credentials-dialog', {});
+    };
   }
 
   /*
