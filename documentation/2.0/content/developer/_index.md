@@ -31,7 +31,8 @@ The WebLogic Kubernetes Toolkit UI is a desktop application designed to help Web
    is, by default, case-insensitive!**
 
 5. Clone the git repository on GitHub at [https://github.com/oracle/weblogic-toolkit-ui](https://github.com/oracle/weblogic-toolkit-ui).
-6. Open a command line in the `weblogic-toolkit-ui` directory and run `npm install` to download and install the JavaScript dependencies required by the project.
+6. Open a command line in the `weblogic-toolkit-ui` directory and run `npm install` to download and install the
+   JavaScript dependencies required by the project.
 7. Open a command line in the `weblogic-toolkit-ui/electron` directory and run `npm run install-tools`.
 8. Open a command line in the `weblogic-toolkit-ui/webui` directory and run `npm start`.
 9. After the server from the previous step is fully running, open a command line in the `weblogic-toolkit-ui/electron` directory and run `npm start`.
