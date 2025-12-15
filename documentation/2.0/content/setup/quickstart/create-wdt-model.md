@@ -18,7 +18,7 @@ WebLogic Server domains.  These tools work off a model of the domain.  The model
 For more detailed WDT information, see the WebLogic Deploy Tooling
 [documentation](https://oracle.github.io/weblogic-deploy-tooling/concepts/model/).
 
-WKTUI provides tooling to make it easy for you to create and edit a WDT model.   This image shows the `Model` page, 
+WKT UI provides tooling to make it easy for you to create and edit a WDT model.   This image shows the `Model` page, 
 `Design View` tab that allows visual editing of a model.  
 
 {{< img "Model Design View" "images/model-design-view.png" >}}
@@ -29,7 +29,7 @@ you'll find the variables file editor and the archive file editor. At this point
 
 {{< img "Model Code View" "images/model-code-view.png" >}}
 
-WKTUI also supports discovering an existing domain to extract the model for that domain.  It accomplishes this by using
+WKT UI also supports discovering an existing domain to extract the model for that domain.  It accomplishes this by using
 the WDT [Discover Domain](https://oracle.github.io/weblogic-deploy-tooling/userguide/tools/discover/) tool.  To use this
 functionality, you use the `File` menu, `Add Model` submenu.  The two 
 menu items are:
@@ -186,8 +186,8 @@ Window at any time.
 {{< img "Validate Model Code View" "images/validate-model-code-view.png" >}}
 
 When deploying a domain in Kubernetes, you need to prepare it for that environment.  The WDT Prepare Model Tool gives
-you what you need to accomplish that.  WKTUI has a special integration with Prepare Model in that not only does it
-adjust the model for the Kubernetes environment, but also it returns data extracted from the model that WKTUI needs.
+you what you need to accomplish that.  WKT UI has a special integration with Prepare Model in that not only does it
+adjust the model for the Kubernetes environment, but also it returns data extracted from the model that WKT UI needs.
 For example, Prepare Model returns the list of WebLogic clusters and non-clustered managed servers that other parts of
 the application use to tailor the environment for this domain.  Click **Prepare Model** to invoke the WDT Prepare Model
 Tool.

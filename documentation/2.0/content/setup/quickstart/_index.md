@@ -7,7 +7,7 @@ description = "Use the Quick Start guide to exercise WKT UI functionality and de
 +++
 
 This Quick Start guide provides a comprehensive tutorial designed to step you through WebLogic Kubernetes Toolkit UI 
-(WKTUI) functionality and familiarize you with its capabilities. WKTUI is a desktop application that helps you create
+(WKT UI) functionality and familiarize you with its capabilities. WKT UI is a desktop application that helps you create
 and deploy WebLogic domains into Kubernetes. Using this guide, you will deploy a sample WebLogic-based application to a
 Kubernetes cluster.
 
@@ -20,7 +20,7 @@ The Quick Start guide is divided into the following sections:
 
 - [Prerequisites]({{< relref "/setup/quickstart/prereqs.md" >}})
 - [Get the ToDo List sample application]({{< relref "/setup/quickstart/get-todo-app.md" >}})
-- [Set up the WKTUI application]({{< relref "/setup/quickstart/set-up-wktui-app.md" >}})
+- [Set up the WKT UI application]({{< relref "/setup/quickstart/set-up-wktui-app.md" >}})
 - [Select the Project Settings]({{< relref "/setup/quickstart/project-settings.md" >}})
 - [Create the WebLogic Deploy Tooling model]({{< relref "/setup/quickstart/create-wdt-model.md" >}})
 - [Create images with the WebLogic Image Tool]({{< relref "/setup/quickstart/create-images-with-wit.md" >}})

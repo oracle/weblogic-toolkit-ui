@@ -6,8 +6,8 @@ weight: 1
 description: "Add Model Using Discover Model (Offline)"
 ---
 
-In WKTUI, go to the `Model` page and select the `Code View` tab.  Select the `File` > `Add Model` > `Discover Model (offline)`
-menu item.  The following dialog box appears.  Enter the path to the `$WKTUI_QS_HOME/todolist_domain` directory as the
+In WKT UI, go to the `Model` page and select the `Code View` tab.  Select the `File` > `Add Model` > `Discover Model (offline)`
+menu item.  The following dialog box appears.  Enter the path to the `$WKT UI_QS_HOME/todolist_domain` directory as the
 `Domain Home`, as shown in the following image.
 
 {{< img "Offline Discovery" "images/a2-offline-discovery.png" >}}

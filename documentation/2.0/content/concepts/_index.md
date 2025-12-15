@@ -14,7 +14,11 @@ pre = "<b> </b>"
     - [Environment Variables](#environment-variables)
     - [User Preferences](#user-preferences)
         - [Proxy Configuration](#proxy-configuration)
+        - [GitHub API Credentials](#github-api-credentials)
+        - [Linux Disable Hardware Acceleration](#linux-disable-hardware-acceleration)
+        - [AppImage WKT Tools Configuration](#appimage-wkt-tools-configuration)
         - [Logging Configuration](#logging-configuration)
+        - [Startup Internet Connectivity Test Configuration](#startup-internet-connectivity-test-configuration)
         - [WebLogic Kubernetes Toolkit UI Introduction Configuration](#weblogic-kubernetes-toolkit-ui-introduction-configuration)
     - [External Applications](#external-applications)
     - [Bundled WKT Applications](#bundled-wkt-applications)
@@ -87,8 +91,12 @@ The `Preferences` menu lets you configure settings that affect the behavior of t
 across all instances of the application on the machine.  These user-visible settings include the following categories:
 
 - [Proxy Configuration](#proxy-configuration)
+- [GitHub API Credentials](#github-api-credentials)
+- [Linux Disable Hardware Acceleration](#linux-disable-hardware-acceleration)
+- [AppImage WKT Tools Configuration](#appimage-wkt-tools-configuration)
 - [Logging Configuration](#logging-configuration)
-- WebLogic Kubernetes Toolkit UI [Introduction Configuration](#weblogic-kubernetes-toolkit-ui-introduction-configuration)
+- [Startup Internet Connectivity Test Configuration](#startup-internet-connectivity-test-configuration)
+- [WebLogic Kubernetes Toolkit UI Introduction Configuration](#weblogic-kubernetes-toolkit-ui-introduction-configuration)
 
 Settings are also used to store internally used values that impact the appearance of the application.  For example, the
 Window size is stored so that the application will open the window with your last known window size.  The list of
@@ -113,6 +121,25 @@ following fields, as needed:
   For example, a value of `.us.mycompany.com,.emea.mycompany.com,.apac.mycompany.com` will skip the proxy for any
   DNS name that ends in one of the three domain names.
 
+##### GitHub API Credentials
+
+GitHub rate limits anonymous API requests, which can negatively impact WKT UI functionality.  By simply creating a
+personal access token on your GitHub account and providing the token value in the `GitHub Token` field, WKT UI will
+use this token for all API calls, thus bypassing the anonymous API rate limits.  Note that this token does not require
+any permissions on your own projects, it is simply attached to the API requests so that GitHub knows who is making them.
+
+##### Linux Disable Hardware Acceleration
+
+This section is only visible when running WKT UI on Linux. The `Disable Hardware Acceleration` switch allows you to
+tell Electron's embedded Chromium browser to disable hardware acceleration, in case hardware acceleration is causing
+problems.
+
+##### AppImage WKT Tools Configuration
+
+This section is only visible when running the Linux AppImage executable.  Since WKT UI cannot update the executable,
+the `WKT Tools External Staging Directory` allows you to specify a location where updated versions of the embedded WKT
+tools should be stored. This directory must be writable by the user running WKT UI.
+
 ##### Logging Configuration
 
 Using this section, you can configure the logging output level and control the log file directory.  The defaults are:
@@ -121,6 +148,14 @@ Using this section, you can configure the logging output level and control the l
   will be discarded if the level is set to `Info`.  The default value is `Info`.
 - `Log File Directory` - The directory to which log files are written.  The default is the user's temporary directory, as
   defined by the operating system.
+
+##### Startup Internet Connectivity Test Configuration
+
+WKT UI depends on Internet access for its functionality and, as such, tests connectivity to `https://github.com` on
+startup.  The `Request Timeout Seconds` default value of 5 seconds should generally be enough but you can increase or
+decrease the value using this parameter.  Oracle recommends that you not decrease this value below 5 seconds, since that
+may increase the number of false positive error screens that you see when starting the application and the Internet
+connectivity test times out.
 
 ##### WebLogic Kubernetes Toolkit UI Introduction Configuration
 
@@ -150,5 +185,5 @@ configure these external applications properly on the local machine on which the
 - WIT - Used to create a new image for your WebLogic Server domain.  It is also used to inspect any
   custom base image that you might specify be used for creating the new image.
 
-Use `Help` > `Check For Updates` periodically to make sure you are using the latest versions of these
+Use `Help` > `Check For WKT Tools Updates` periodically to make sure you are using the latest versions of these
 bundled tools.

@@ -5,10 +5,10 @@ draft: false
 weight: 6
 ---
 
-WKTUI uses the WebLogic Image Tool (WIT) to build container images.  Each Oracle Fusion Middleware (FMW) Domain Target 
+WKT UI uses the WebLogic Image Tool (WIT) to build container images.  Each Oracle Fusion Middleware (FMW) Domain Target 
 Location option has its own image requirements.
 
-- Model-in-Image – This approach puts Java and FMW into one image, which WKTUI calls the primary image, and WDT and the
+- Model-in-Image – This approach puts Java and FMW into one image, which WKT UI calls the primary image, and WDT and the
   WDT model files into a separate image, known as the auxiliary image.  In this document, we refer to this as MII with
   Auxiliary Image.
 - Domain-on-PV – DoPV uses a single image with Java and FMW in it.  The domain is created on the persistent volume by
@@ -65,9 +65,9 @@ category, as shown in the following image.
 
 {{< img "OCIR Location" "images/ocir-location.png" >}}
 
-In the registry of your choosing, create a new private repository called `wktui-qs/todolist-aux`.  Note the URL needed
+In the registry of your choosing, create a new private repository called `WKT UI-qs/todolist-aux`.  Note the URL needed
 to access the new repository.  For the OCIR repository, the URL is of the form 
-`<region-abbreviation>.ocir.io/<tenancy-name>/wktui-qs/todolist-aux`, where region-abbreviation is something like `phx`
+`<region-abbreviation>.ocir.io/<tenancy-name>/WKT UI-qs/todolist-aux`, where region-abbreviation is something like `phx`
 (for the Phoenix region) and tenancy name is the name of the tenancy used to log in to `https://cloud.oracle.com`. For 
 a listing of every available region, refer to this [table](https://docs.oracle.com/en-us/iaas/Content/Registry/Concepts/registryprerequisites.htm#Availab).
 
@@ -81,7 +81,7 @@ provider being selected.
 
 {{< img "OCI Create Auth Token" "images/oci-create-auth-token.png" >}}
 
-Now that your Image Registry is ready, you simply fill out the `Auxiliary Image` tab in WKTUI.  There are a couple of
+Now that your Image Registry is ready, you simply fill out the `Auxiliary Image` tab in WKT UI.  There are a couple of
 things to note before you fill out the form.
 
 - Most image registries require authentication to push an image.  If you are using OCIR, the container image registry
@@ -89,7 +89,7 @@ things to note before you fill out the form.
    - Username: Must be of the form `<tenancy-name>/[auth-provider-name/]<username>`.  The `auth-provider-name/` portion
                is only required when not using the default provider to authenticate to `cloud.oracle.com`.
    - Password: Must be the value an Auth Token associated with the user’s account.
-- By default, WIT (and therefore WKTUI) use BusyBox as the base image for an auxiliary image.  Because BusyBox typically
+- By default, WIT (and therefore WKT UI) use BusyBox as the base image for an auxiliary image.  Because BusyBox typically
   comes from Docker Hub and Docker Hub has implemented anonymous pull request throttling, it is a good idea to enter a
   valid Docker Hub Username and Docker Hub Password to minimize the change of throttling-related errors while building
   the image. 
@@ -113,7 +113,7 @@ then leave it set to the default unless otherwise required for your environment.
 
 | Field Name                                                  | Value                                                                                            |
 |-------------------------------------------------------------|--------------------------------------------------------------------------------------------------|
-| `Auxiliary Image Tag`                                       | `<image-repository-url>:1.0`; for example, `phx.ocir.io/mytenancy/wktui-qs/todolist-aux:1.0`     |
+| `Auxiliary Image Tag`                                       | `<image-repository-url>:1.0`; for example, `phx.ocir.io/mytenancy/WKT UI-qs/todolist-aux:1.0`     |
 | `Specify Auxiliary Image Push Credentials`                  | `ON`                                                                                             |
 | `Auxiliary Image Registry Push Credentials`                 | Select the name of the entry created previously; for example, `OCIR`                             |
 | `Auxiliary Image Registry Push Password`                    | `<auth-token-value>`; for example, `z+M3C2UqRraHG73Z+.X8`                                        |

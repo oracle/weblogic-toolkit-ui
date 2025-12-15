@@ -8,6 +8,7 @@ weight: 1
 The first stop for every new project is `Project Settings`.  In this section, you make decisions and provide
 input for the project on:
 
+- [macOS Path and Environment Variables](#macos-path-and-environment-variables)
 - [Credential Storage](#choosing-a-credential-storage-scheme)
 - [Domain Location](#choosing-a-domain-location)
 - [JDK and WebLogic Server Installation Directories](#choosing-the-java-and-oracle-installation-directories)
@@ -15,12 +16,14 @@ input for the project on:
 - [Target Kubernetes Cluster Architecture](#choosing-the-target-kubernetes-cluster-architecture)
 - [Container Image Registry Credentials](#container-image-registry-credentials)
 
-When running the WKT UI application on Windows or Linux, the application inherits its environment from the user. For example,
-adding a directory to the PATH used by the application is just a matter of changing your
+When running the WKT UI application on Windows or Linux, the application inherits its environment from the user. For
+example, adding a directory to the PATH used by the application is just a matter of changing your
 PATH environment variable and restarting the application. On macOS, things are a bit more complicated.
 
-When running the application on macOS, the application inherits the environment of a daemon process called `launchd` instead
-of your environment.  By default, the `launchd` environment contains only a few core directories on the `PATH`
+#### macOS Path and Environment Variables
+
+When running the application on macOS, the application inherits the environment of a daemon process called `launchd`
+instead of your environment.  By default, the `launchd` environment contains only a few core directories on the `PATH`
 (that is, `/usr/bin`, `/bin`, `/usr/sbin`, and `/sbin`).  This will, for example, cause `kubectl` invocations requiring
 access to one of the cloud providers' command-line tooling to fail if the tool is not found in one of those locations.
 While it is possible for an administrative user to change the environment that `launchd` uses to address this issue, the
@@ -42,10 +45,11 @@ The default choice to store credentials, `Store Encrypted in Project File`, uses
 into the application that allows the credentials to be stored inline in the WKT Project file.  The algorithms and
 techniques used follow the current industry standards and recommendations; however, because this project is open source,
 you can look at the details, if you are interested.  The only downside to this approach is that, because the passphrase
-itself is never stored, you must share the passphrase with any other users that should be able to use the WKT Project file.
+itself is never stored, you must share the passphrase with any other users that should be able to use the WKT Project
+file.
 
-The other choice, `Not Stored`, is to not store the credentials at all. While this is a viable option, it also means that
-whenever you need to run any of the actions that require credentials, you will need to re-enter the value of every
+The other choice, `Not Stored`, is to not store the credentials at all. While this is a viable option, it also means
+that whenever you need to run any of the actions that require credentials, you will need to re-enter the value of every
 credential in the project.
 
 #### Choosing a Domain Location
@@ -61,7 +65,8 @@ the running container using the "Primary Image" on-the-fly.  While this process 
 startup, it also makes it easier to maintain the images.  For example, you can have a common WebLogic Server image that
 is updated periodically to pick up the latest Patch Set Updates (PSUs).  Then, you use that new primary image with the
 existing (or new) auxiliary image to provide the WebLogic Deploy Tooling and your domain model files.  By separating
-these images, it makes updating existing domains with new FMW software patches and updating domain model files decoupled. 
+these images, it makes updating existing domains with new FMW software patches and updating domain model files
+decoupled. 
 
 - `Externally created in a Kubernetes persistent volume` - This selection stores the domain in a Kubernetes persistent
 volume; this is known as "Domain in PV". This closely approximates the traditional way of maintaining a domain where the
@@ -79,9 +84,9 @@ installation directories.
 
 #### Choosing the Image Build Tool
 To build new images, inspect images, and interact with image repositories, the WKT UI application uses an image build
-tool, which defaults to `docker`.  The image build tool must be installed locally, as mentioned in the [Prerequisites]({{< relref "/setup/prerequisites.md" >}}).
-While `docker` is currently the most popular tool, many vendors (for example, Oracle, IBM RedHat, Google) are moving to
-use `podman` by default.
+tool, which defaults to `docker`.  The image build tool must be installed locally, as mentioned in the
+[Prerequisites]({{< relref "/setup/prerequisites.md" >}}). While `docker` is currently the most popular tool, many
+vendors (for example, Oracle, IBM RedHat, Google) are moving to use `podman` by default.
 
 #### Choosing the Target Kubernetes Cluster Architecture
 Prior to WKT UI 2.0, WKT UI assumed that the architecture for the Kubernetes cluster to which you want to deploy matched

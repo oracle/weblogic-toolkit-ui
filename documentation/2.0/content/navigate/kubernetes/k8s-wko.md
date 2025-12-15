@@ -37,24 +37,26 @@ provide values for the following three fields:
 - `Kubernetes Service Account` - The Kubernetes service account for the operator to use when making Kubernetes API
   requests.
 - `Helm Release Name to Use for Operator Installation` - The Helm release name to use to identify this installation.
+- `WebLogic Kubernetes Operator Version to Install` - The version of the WebLogic Kubernetes Operator to install.
 
 {{% notice note %}}
-The WKT UI application overrides a few default values in the operator Helm Chart.  Read the details of the parameters descriptions in
-[Kubernetes Namespace Selection Strategy](#kubernetes-namespace-selection-strategy).  These panes and their fields are made visible by expanding the
-`Advanced` portion of the page.
+The WKT UI application overrides a few default values in the operator Helm Chart.  Read the details of the parameters
+descriptions in [Kubernetes Namespace Selection Strategy](#kubernetes-namespace-selection-strategy).  These panes and their fields are made visible by
+expanding the `Advanced` portion of the page.
 {{% /notice %}}
 
 #### WebLogic Kubernetes Operator Image
-By default, the operator's `Image Tag to Use` field is set to the image tag corresponding to the latest operator
-release version on the GitHub Container Registry.  The `Image Pull Policy` field configures the operator deployment in
-Kubernetes to tell it when to pull the image from the specified registry:
+By default, the operator's `Image Tag to Use` field is empty, so the installation will use the image tag from the 
+specified WebLogic Kubernetes Operator version's Helm chart.  The `Image Pull Policy` field configures the operator
+deployment in Kubernetes to tell it when to pull the image from the specified registry:
 
 - `If Not Present` (default) - Only pull the image if it is not already present on the Kubernetes node.
 - `Always` - Pull the image every time the image is needed to start a container.
-- `Never` - Never pull the image; this will result in an error if the image is not already present on the Kubernetes node.
+- `Never` - Never pull the image; this will result in an error if the image is not already present on the Kubernetes
+  node.
 
-Because the GitHub Container Registry does not require image pull authentication to pull the official WebLogic Kubernetes
-Operator image, `Image Pull Requires Authentication` is disabled by default.  If a custom
+Because the GitHub Container Registry does not require image pull authentication to pull the official WebLogic 
+Kubernetes Operator image, `Image Pull Requires Authentication` is disabled by default.  If a custom
 operator image is being used from a container image registry that requires pull authentication, then enable the option
 and complete the appropriate fields described in the [Image Pull Secret](#image-pull-secret)
 pane that follows.

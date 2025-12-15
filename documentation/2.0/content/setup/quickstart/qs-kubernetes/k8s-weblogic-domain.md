@@ -12,7 +12,7 @@ This separation is required to work with the Kubernetes Horizontal Pod Autoscale
 scale clusters based on load (but only up to the maximum size of the WebLogic cluster). For more information, see this
 WebLogic Kubernetes Operator [Scaling](https://oracle.github.io/weblogic-kubernetes-operator/managing-domains/domain-lifecycle/scaling/) documentation.
 
-WKTUI generated the required operator resource objects for your domain because of the project settings.  Go to the
+WKT UI generated the required operator resource objects for your domain because of the project settings.  Go to the
 **Kubernetes** > **WebLogic Domain** page. Before continuing, there are a few things to understand:
 
 1. We are using the [Oracle Container Registry](https://container-registry.oracle.com/) (OCR) to pull the primary image.

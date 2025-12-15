@@ -6,9 +6,9 @@ weight: 2
 description: "Add Model Using Remote Online Discovery"
 ---
 
-In WKTUI, go to the `Model` page and select the `Code View` tab.  Select the `File` > `Add Model` > `Discover Model (online)`
+In WKT UI, go to the `Model` page and select the `Code View` tab.  Select the `File` > `Add Model` > `Discover Model (online)`
 menu item.  The following dialog box appears.  Enter the information shown in the following image, including the Domain Home
-path `$WKTUI_QS_HOME/todolist_domain` directory.  Make sure to provide the WebLogic user name and password specified when
+path `$WKT UI_QS_HOME/todolist_domain` directory.  Make sure to provide the WebLogic user name and password specified when
 you ran the `createToDoListDomain` script. Note that when running `Discover Model (online)` from a remote machine, SSH
 is the preferred mechanism, since this allows a full model of the remote domain to be discovered.  For simplicity and
 because we only need the `todo.war` binary that we already have locally, use the `Do not collect artifacts` option.
@@ -37,8 +37,8 @@ the missing variable values, and add the application to the archive file. Please
    scripts.
 
 Now, click the Plus Sign in the archive editor.  Choose the `Archive Entry Type`, `Application`, and set the 
-`Application Archive File` to the file at `$WKTUI_QS_HOME/app/target/todo.war` (when running with WebLogic Server 14.1.1
-or 14.1.2) or `$WKTUI_QS_HOME/app-jakarta/target/todo.war` (when running with WebLogic Server 15.1.1), as shown in the
+`Application Archive File` to the file at `$WKT UI_QS_HOME/app/target/todo.war` (when running with WebLogic Server 14.1.1
+or 14.1.2) or `$WKT UI_QS_HOME/app-jakarta/target/todo.war` (when running with WebLogic Server 15.1.1), as shown in the
 following image, and then click **OK**.
 
 {{< img "Add to Archive" "images/a7-add-to-archive.png" >}}

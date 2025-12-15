@@ -17,7 +17,7 @@ configure `kubectl`.  Select your `Kubernetes Cluster Type` and follow the instr
 instructions) until you can successfully connect using `kubectl` from the command line.  (Because these steps are
 generally well-documented and well-tested, we will not repeat them here.)  
 
-For those running on macOS, please remember to do any macOS-specific step, which is only visible when the WKTUI
+For those running on macOS, please remember to do any macOS-specific step, which is only visible when the WKT UI
 application is running on macOS.  For example, you will need to add the directory where your Docker/Podman executable
 is installed to the **Project Settings** `Extra Path Directories` list.  If you happen to use `Homebrew` to install
 `kubectl` or `helm`, you will need to put the `bin` directory in this list as well, as shown in the following image.

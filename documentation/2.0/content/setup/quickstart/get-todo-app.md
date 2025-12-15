@@ -9,6 +9,6 @@ maintain its state. To get the application and supporting files, use one of the 
 
 - Download the [`quickstart.zip`](https://github.com/oracle/weblogic-toolkit-ui/releases/latest/downloads/quickstart.zip) 
   or [`quickstart.tar.gz`](https://github.com/oracle/weblogic-toolkit-ui/releases/latest/downloads/quickstart.tar.gz) file
-  from the latest WKTUI 2.x.y release on [GitHub](https://github.com/oracle/weblogic-toolkit-ui/releases/latest/).
+  from the latest WKT UI 2.x.y release on [GitHub](https://github.com/oracle/weblogic-toolkit-ui/releases/latest/).
 
-- Clone the [WKTUI GitHub repository](https://github.com/oracle/weblogic-toolkit-ui) and refer to the `samples/quickstart` subdirectory.
+- Clone the [WKT UI GitHub repository](https://github.com/oracle/weblogic-toolkit-ui) and refer to the `samples/quickstart` subdirectory.

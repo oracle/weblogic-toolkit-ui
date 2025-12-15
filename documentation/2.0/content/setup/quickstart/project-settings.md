@@ -4,9 +4,9 @@ date: 2019-02-22T15:44:42-05:00
 draft: false
 weight: 4
 ---
-1. Start WKTUI.  
+1. Start WKT UI.  
 
-   WKTUI uses the concept of a project that is like a project in an Integrated Development Environment (IDE).  You will create a new project.  
+   WKT UI uses the concept of a project that is like a project in an Integrated Development Environment (IDE).  You will create a new project.  
 
 2. Using the `File` menu, select `New Project`, choose a directory, and enter the file name `todo-list.wktproj`.  
 
@@ -18,13 +18,13 @@ weight: 4
 
 #### Extra Environment Settings (macOS only)
 
-Unlike Windows or Linux, applications on macOS that are started from the Finder, Dock, or Launchpad, do not inherit the user’s environment. To see the environment that WKTUI inherits from the operating system, select `Show System Path` and `Show System Environment`.  For now, you will not add any extra environment settings. Instead, you will return to add these if you encounter an error that requires them.
+Unlike Windows or Linux, applications on macOS that are started from the Finder, Dock, or Launchpad, do not inherit the user’s environment. To see the environment that WKT UI inherits from the operating system, select `Show System Path` and `Show System Environment`.  For now, you will not add any extra environment settings. Instead, you will return to add these if you encounter an error that requires them.
 
 ### Storing the Project Credentials
 
-WKTUI realizes that different organizations and different projects have different security standards for storing credentials.  As such, you have two options in WKTUI for how to store a project’s credentials:
+WKT UI realizes that different organizations and different projects have different security standards for storing credentials.  As such, you have two options in WKT UI for how to store a project’s credentials:
 
-- `Store Encrypted in Project File` – This option lets you store the credentials directly in the project file.  WKTUI encrypts each credential field using a passphrase that you provide and modern AES 256 bit encryption algorithms and techniques.  On opening the project, WKTUI will prompt you for the encryption passphrase to use to decrypt the credential fields loaded into memory.  If you remember the encryption passphrase, you can easily move the project files from machine to machine without losing the project credentials.
+- `Store Encrypted in Project File` – This option lets you store the credentials directly in the project file.  WKT UI encrypts each credential field using a passphrase that you provide and modern AES 256 bit encryption algorithms and techniques.  On opening the project, WKT UI will prompt you for the encryption passphrase to use to decrypt the credential fields loaded into memory.  If you remember the encryption passphrase, you can easily move the project files from machine to machine without losing the project credentials.
 
 - `None` – This option is the most secure in that the credentials are never stored.   Of course, this means that you must re-enter the credentials every time you open the project.
 
@@ -42,15 +42,15 @@ The ToDo List application requires only WebLogic Server and fits well with the M
 
 ### Java Installation
 
-You need to tell WKTUI which Java installation to use when running actions that require the WebLogic Deploy Tooling or WebLogic Image Tool.  For this project, choose the Java Home directory for your Oracle JDK 11 directory.
+You need to tell WKT UI which Java installation to use when running actions that require the WebLogic Deploy Tooling or WebLogic Image Tool.  For this project, choose the Java Home directory for your Oracle JDK 11 directory.
 
 ### Oracle Fusion Middleware Installation
 
-Running the WebLogic Deploy Tooling requires an Oracle Home directory.  As such, you must tell WKTUI which Oracle Home directory contains the Oracle Fusion Middleware software you plan to use.  Because this project uses WebLogic Server (WLS) 14.1.1, set this field to the directory containing your WLS 14.1.1 installation.
+Running the WebLogic Deploy Tooling requires an Oracle Home directory.  As such, you must tell WKT UI which Oracle Home directory contains the Oracle Fusion Middleware software you plan to use.  Because this project uses WebLogic Server (WLS) 14.1.1, set this field to the directory containing your WLS 14.1.1 installation.
 
 ### Image Builder Tool
 
-Because you will be building an image as part of this project, you need to tell WKTUI whether you will use Docker or Podman to build your image.  You also need to provide the path to the executable that matches your selection.  Because you are running Rancher Desktop on macOS, you will select Docker and supply the Docker executable (for example, `/Users/fred.jones/.rd/bin/docker`).  Provide the answers that best fit your environment.
+Because you will be building an image as part of this project, you need to tell WKT UI whether you will use Docker or Podman to build your image.  You also need to provide the path to the executable that matches your selection.  Because you are running Rancher Desktop on macOS, you will select Docker and supply the Docker executable (for example, `/Users/fred.jones/.rd/bin/docker`).  Provide the answers that best fit your environment.
 
 ### Target Kubernetes Cluster Architecture
 
@@ -60,4 +60,4 @@ This section allows you to select the chip architecture used in your Kubernetes 
 
 This sections allows you to enter information about container image registries that you will use in the project.  For now, leave this empty and we will fill it in as we go through the guide. 
 
-Now that your project settings are mostly complete, use the `File` menu, `Save All` option to save the project before you move on to creating the model for your domain.  WKTUI will prompt you for the encryption passphrase you want to use with this project.  Choose whatever value you like; just try not to forget it!
+Now that your project settings are mostly complete, use the `File` menu, `Save All` option to save the project before you move on to creating the model for your domain.  WKT UI will prompt you for the encryption passphrase you want to use with this project.  Choose whatever value you like; just try not to forget it!

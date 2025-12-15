@@ -16,7 +16,7 @@ To install the operator, go to the `Kubernetes` > `WebLogic Operator` page, veri
 **Install Operator**.  For these exercises, you'll use the default values, as shown in the following image.
 
 **WARNING**: Because WebLogic Kubernetes Operator installs Kubernetes Custom Resource Definitions and Kubernetes Web 
-Hooks, the Kubernetes user will need cluster admin privileges run the installation directly from the WKTUI application.
+Hooks, the Kubernetes user will need cluster admin privileges run the installation directly from the WKT UI application.
 If your account does not have sufficient privileges, please consult the WebLogic Kubernetes Operator
 [documentation](https://oracle.github.io/weblogic-kubernetes-operator/managing-operators/preparation/#how-to-manually-install-the-d[…]ustom-resource-definitions-crd)
 for more details.
