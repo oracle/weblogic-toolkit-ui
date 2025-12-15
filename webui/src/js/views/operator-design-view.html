@@ -66,34 +66,16 @@
                          help.instruction="[[labelMapper('image-pull-secret-name-help')]]">
           </oj-input-text>
           <oj-bind-if test="[[project.wko.operatorImagePullUseExistingSecret.observable() === false]]">
-            <oj-input-text class="wkt-can-readonly-field"
-                           id="wko-image-registry-address"
-                           label-hint="[[labelMapper('image-registry-address-label')]]"
-                           value="{{project.wko.internal.operatorImagePullRegistryAddress.observable}}"
-                           readonly="true"
-                           help.instruction="[[labelMapper('image-registry-address-help')]]">
-            </oj-input-text>
-          </oj-bind-if>
-          <oj-bind-if test="[[project.wko.operatorImagePullUseExistingSecret.observable() === false]]">
-            <oj-input-text label-hint="[[labelMapper('image-registry-email-label')]]"
-                           value="{{project.wko.operatorImagePullRegistryEmailAddress.observable}}"
-                           validators="[[project.wko.operatorImagePullRegistryEmailAddress.validators()]]"
-                           help.instruction="[[labelMapper('image-registry-email-help')]]">
-            </oj-input-text>
-          </oj-bind-if>
-          <oj-bind-if test="[[project.wko.operatorImagePullUseExistingSecret.observable() === false]]">
-            <oj-input-password label-hint="[[labelMapper('image-registry-username-label')]]"
-                               value="{{project.wko.operatorImagePullRegistryUsername.observable}}"
-                               mask-icon="visible"
-                               help.instruction="[[labelMapper('image-registry-username-help')]]">
-            </oj-input-password>
-          </oj-bind-if>
-          <oj-bind-if test="[[project.wko.operatorImagePullUseExistingSecret.observable() === false]]">
-            <oj-input-password label-hint="[[labelMapper('image-registry-password-label')]]"
-                               value="{{project.wko.operatorImagePullRegistryPassword.observable}}"
-                               mask-icon="visible"
-                               help.instruction="[[labelMapper('image-registry-password-help')]]">
-            </oj-input-password>
+            <oj-select-single label-hint="[[labelMapper('image-registry-pull-credentials-label')]]"
+                              value="{{project.wko.operatorImagePullCredentialsReference.observable}}"
+                              data="[[imageRegistriesCredentialsDP]]"
+                              item-text="[[getImageRegistriesCredentialsItemText]]"
+                              help.instruction="[[labelMapper('image-registry-pull-credentials-help')]]">
+            </oj-select-single>
+            <oj-button label="[[imageLabelMapper('image-registry-add-credentials')]]"
+                       chroming="callToAction"
+                       on-oj-action="[[editImageRegistryCredentials]]">
+            </oj-button>
           </oj-bind-if>
         </oj-form-layout>
       </div>

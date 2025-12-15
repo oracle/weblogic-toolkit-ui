@@ -308,12 +308,22 @@ function(WktActionsBase, project, wktConsole, i18n, projectIo, dialogHelper, val
         validationObject.addField('wko-design-image-pull-secret-title',
           this.project.wko.operatorImagePullSecretName.validate(true), wkoFormConfig);
         if (!this.project.wko.operatorImagePullUseExistingSecret.value) {
-          validationObject.addField('wko-design-image-registry-username-label',
-            validationHelper.validateRequiredField(this.project.wko.operatorImagePullRegistryUsername.value), wkoFormConfig);
-          validationObject.addField('wko-design-image-registry-email-label',
-            validationHelper.validateRequiredField(this.project.wko.operatorImagePullRegistryEmailAddress.value), wkoFormConfig);
-          validationObject.addField('wko-design-image-registry-password-label',
-            validationHelper.validateRequiredField(this.project.wko.operatorImagePullRegistryPassword.value), wkoFormConfig);
+          validationObject.addField('wko-design-image-registry-pull-credentials-label',
+            validationHelper.validateRequiredField(this.project.wko.operatorImagePullCredentialsReference.value),
+            wkoFormConfig);
+
+          const credentials =
+            this.getImageRegistryCredential(this.project.wko.operatorImagePullCredentialsReference.value);
+          if (credentials) {
+            const projectSettingsFormConfig = validationObject.getDefaultConfigObject();
+            projectSettingsFormConfig.formName = 'project-settings-form-name';
+            validationObject.addField('project-settings-container-image-registries-credentials-email-heading',
+              validationHelper.validateRequiredField(credentials.email), projectSettingsFormConfig);
+            validationObject.addField('project-settings-container-image-registries-credentials-username-heading',
+              validationHelper.validateRequiredField(credentials.username), projectSettingsFormConfig);
+            validationObject.addField('project-settings-container-image-registries-credentials-password-heading',
+              validationHelper.validateRequiredField(credentials.password), projectSettingsFormConfig);
+          }
         }
       }
 

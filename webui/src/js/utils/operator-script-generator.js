@@ -45,12 +45,17 @@ define(['models/wkt-project', 'utils/script-generator-base', 'utils/helm-helper'
         this.adapter.addEmptyLine();
 
         comment = [ 'This field must be set to match the registry address in the WKO_IMAGE_TAG value.' ];
-        this.adapter.addVariableDefinition('WKO_PULL_HOST',
-          this.project.wko.internal.operatorImagePullRegistryAddress.value, comment);
-        this.adapter.addVariableDefinition('WKO_PULL_USER', this.project.wko.operatorImagePullRegistryUsername.value);
-        this.adapter.addVariableDefinition('WKO_PULL_PASS', this.project.wko.operatorImagePullRegistryPassword.value);
-        this.adapter.addVariableDefinition('WKO_PULL_EMAIL',
-          this.project.wko.operatorImagePullRegistryEmailAddress.value);
+
+        const operatorImageRegistryCredentialReference =
+          this.getImageRegistryCredential(this.project.wko.operatorImagePullCredentialsReference.value);
+        const address =
+          !!operatorImageRegistryCredentialReference ? (operatorImageRegistryCredentialReference.address || '') : '';
+        const email =
+          !!operatorImageRegistryCredentialReference ? (operatorImageRegistryCredentialReference.email || '') : '';
+        this.adapter.addVariableDefinition('WKO_PULL_HOST', address);
+        this.adapter.addVariableDefinition('WKO_PULL_USER', this.credentialMask);
+        this.adapter.addVariableDefinition('WKO_PULL_PASS', this.credentialMask);
+        this.adapter.addVariableDefinition('WKO_PULL_EMAIL', email);
         this.adapter.addEmptyLine();
 
         comment = [
