@@ -298,6 +298,11 @@ function (ko, jsYaml, project, utils,
       return this.getObservableValue(attribute, modelValue);
     };
 
+    // rarely a delimiter other than comma in model
+    this.getSplitDelimiter = (attribute => {
+      return attribute.delimiter || ',';
+    });
+
     this.getObservableValue = (attribute, modelValue) => {
       if(modelValue == null) {
         return modelValue;
@@ -313,9 +318,23 @@ function (ko, jsYaml, project, utils,
         return (FALSE_VALUES.includes(testValue)) ? false : modelValue;
       }
 
+      // the model may have string representation x=y,a=b
+      if(editorType === 'dict' && typeof modelValue !== 'object') {
+        const textValue = modelValue.toString();
+        const assignments = textValue.split(this.getSplitDelimiter(attribute));
+        modelValue = {};
+        assignments.forEach(assignment => {
+          const parts = assignment.split('=');
+          if(parts.length === 2) {
+            modelValue[parts[0].trim()] = parts[1].trim();
+          }
+        });
+      }
+
+      // the model may have string representation x,y,z
       if(LIST_EDITOR_TYPES.includes(editorType) && !Array.isArray(modelValue)) {
         const textValue = modelValue.toString();
-        const elements = textValue.split(',');
+        const elements = textValue.split(this.getSplitDelimiter(attribute));
         modelValue = elements.map(item => item.toString().trim());
         // continue for selectMulti check
       }
@@ -708,7 +727,7 @@ function (ko, jsYaml, project, utils,
         editorType = 'boolean';
       }
 
-      if('properties' === editorType) {
+      if(('properties' === editorType) || editorType.startsWith('delimited_map')) {
         editorType = 'dict';
       }
 

@@ -17,6 +17,7 @@ function(accUtils, ko, DialogHelper, ArrayDataProvider,
     const MODEL_PATH = args.modelPath;
     const ATTRIBUTE = args.attribute;
     const ATTRIBUTE_MAP = args.attributeMap;
+    const READ_ONLY = args.readOnlyObservable;
 
     const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
 
@@ -24,6 +25,7 @@ function(accUtils, ko, DialogHelper, ArrayDataProvider,
     this.observable = ATTRIBUTE.observable;
     this.disabled = MetaHandlers.getDisabledHandler(ATTRIBUTE, ATTRIBUTE_MAP);
     this.extraClass = ko.computed(() => this.disabled() ? 'wkt-model-edit-table-disabled' : null);
+    this.hideControls = ko.computed(() => this.disabled() || READ_ONLY());
     this.reorderable = ATTRIBUTE.reorderable;
 
     this.ariaLabel = MessageHelper.getAttributeLabel(ATTRIBUTE, ALIAS_PATH);
@@ -85,17 +87,24 @@ function(accUtils, ko, DialogHelper, ArrayDataProvider,
       const newItems = [];
       const value = ModelEditHelper.getDerivedValue(this.observable());
       if(value != null) {
-        let elements;
+        let names;
         if (Array.isArray(value)) {
-          elements = value;
+          names = value;
         } else {
           const text = String(value);
-          elements = text.split(',');
+          names = text.split(ModelEditHelper.getSplitDelimiter(ATTRIBUTE));
         }
 
-        elements.forEach(element => {
+        // try to match UIDs from existing list,
+        // to reduce animation in list control, especially with reorder
+        const oldItems = [...this.observableItems()];
+
+        names.forEach(element => {
+          const oldItem = oldItems.find(item => item.name === element);
+          const uid = oldItem ? oldItem.uid : utils.getShortUuid();
+          oldItems.splice(oldItems.indexOf(oldItem), 1);  // in case of duplicate names
           newItems.push({
-            uid: utils.getShortUuid(),
+            uid,
             name: element
           });
         });

@@ -142,7 +142,8 @@ function(accUtils, ko, WktLogger, DialogHelper, ArrayDataProvider, ModuleElement
         params: {
           attribute: ATTRIBUTE,
           attributeMap: ATTRIBUTE_MAP,
-          modelPath: MODEL_PATH
+          modelPath: MODEL_PATH,
+          readOnlyObservable: this.readOnly
         }
       });
     };

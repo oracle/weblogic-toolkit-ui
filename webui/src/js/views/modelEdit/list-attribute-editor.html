@@ -24,7 +24,7 @@
                          chroming="borderless"
                          size="sm"
                          label="[[moveUpLabel]]"
-                         disabled="[[!canMoveUp(row.data)]]"
+                         disabled="[[!canMoveUp(row.data) || hideControls()]]"
                          on-oj-action="[[moveUp]]">
               <span slot="endIcon" class="oj-ux-ico-chevron-up"></span>
             </oj-c-button>
@@ -32,7 +32,7 @@
                          chroming="borderless"
                          size="sm"
                          label="[[moveDownLabel]]"
-                         disabled="[[!canMoveDown(row.data)]]"
+                         disabled="[[!canMoveDown(row.data) || hideControls()]]"
                          on-oj-action="[[moveDown]]">
               <span slot="endIcon" class="oj-ux-ico-chevron-down"></span>
             </oj-c-button>
@@ -45,7 +45,7 @@
           label="[[deleteLabel]]"
           chroming="borderless"
           on-oj-action="[[deleteItem]]"
-          disabled="[[disabled]]"
+          disabled="[[hideControls]]"
         >
           <span slot="endIcon" class="oj-ux-ico-trash"></span>
         </oj-c-button>
@@ -58,7 +58,7 @@
       label="[[addLabel]]"
       chroming="borderless"
       on-oj-action="[[addItem]]"
-      disabled="[[disabled]]"
+      disabled="[[hideControls]]"
     >
       <span slot="endIcon" class="oj-ux-ico-plus"></span>
     </oj-c-button>

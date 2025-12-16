@@ -17,6 +17,7 @@ function(accUtils, ko, DialogHelper, ArrayDataProvider,
     const MODEL_PATH = args.modelPath;
     const ATTRIBUTE = args.attribute;
     const ATTRIBUTE_MAP = args.attributeMap;
+    const READ_ONLY = args.readOnlyObservable;
 
     const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
 
@@ -24,6 +25,7 @@ function(accUtils, ko, DialogHelper, ArrayDataProvider,
     this.observable = ATTRIBUTE.observable;
     this.disabled = MetaHandlers.getDisabledHandler(ATTRIBUTE, ATTRIBUTE_MAP);
     this.extraClass = ko.computed(() => this.disabled() ? 'wkt-model-edit-table-disabled' : null);
+    this.hideControls = ko.computed(() => this.disabled() || READ_ONLY());
 
     this.ariaLabel = MessageHelper.getAttributeLabel(ATTRIBUTE, ALIAS_PATH);
     this.title = MessageHelper.getAttributeLabel(ATTRIBUTE, ALIAS_PATH);
