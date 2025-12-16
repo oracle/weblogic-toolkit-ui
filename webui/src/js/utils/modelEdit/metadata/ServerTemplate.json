@@ -23,8 +23,6 @@
         "validators": [ "port" ]
       },
       "CandidateMachine": {
-        "editorType": "combo",
-        "optionsMethod": "getMachineOptions",
         "reorderable": true
       },
       "Cluster": {
@@ -2915,6 +2913,9 @@
   },
   "ServerTemplate/ServerStart": {
     "attributeDetails": {
+      "Arguments": {
+        "delimiter": " "
+      },
       "ClassPath": {
         "archiveTypes": ["classpathLibrary"]
       },
