@@ -40,7 +40,7 @@ within the Kubernetes namespace where it will be created, which is controlled by
 The default value of the `Domain UID` field is based on the WebLogic domain's name, as defined by the WDT model:  
 
 - When using either "Model in Image" or "Domain in Image"
-[domain location]({{< relref "/navigate/project-settings#choosing-a-domain-location" >}}),
+[domain location]({{% relref "/navigate/project-settings#choosing-a-domain-location" %}}),
 the `Domain Home Path` field is read-only and its value is set using the `Domain Home Directory` field under `Advanced`.  
 - When using "Domain in PV", this field must be set to the fully
 qualified path to the domain home directory in the persistent volume.  For example, if the persistent volume mount
@@ -92,10 +92,10 @@ The following sections describe the other panes that support configuring the gen
 #### Primary Image to Use for the Domain
 This pane focuses on the container primary image to use to run the WebLogic Server domain in a container. If you select
 `Create a New Primary Image`, then click `Go To Create Primary Image Page` to configure the image. For detailed 
-information, see the [Image]({{< relref "/navigate/image.md" >}}) section.
+information, see the [Image]({{% relref "/navigate/image.md" %}}) section.
 
 - When using either "Model in Image" or "Domain in Image" 
-  [domain location]({{< relref "/navigate/project-settings#choosing-a-domain-location" >}}), the `Primary Image Tag`
+  [domain location]({{% relref "/navigate/project-settings#choosing-a-domain-location" %}}), the `Primary Image Tag`
   field is read-only; its value is set using the `Image Tag` field in the `Image` section.  
 - In the case of "Domain in PV", the `Image Tag` field is not read-only and _is_
 the place to specify the image to use to run the WebLogic domain's containers.  
@@ -121,7 +121,7 @@ name in the `Image Pull Secret Name` field.  When creating a new secret, specify
 Under `Auxiliary Image Configuration`, use the radio buttons to specify whether or not to use an Auxiliary Image (an
 existing one) or create a new one (the default). If you select `Create a New Auxiliary Image`, then click 
 `Go To Create Auxiliary Image Page` to configure the image. For detailed information, see the 
-[Image]({{< relref "/navigate/image.md" >}}) section.
+[Image]({{% relref "/navigate/image.md" %}}) section.
 
 For "Model in Image" domains only, this pane focuses on the container auxiliary image to use for the domain.
 - The `Auxiliary Image Tag` field is read-only; its value is set using the
@@ -252,7 +252,7 @@ the script itself.  This change is left as an exercise for you because different
 existing standards for securely handling such credentials.
 
 ### Prepare Model
-`Prepare Model` is the same as was previously described in the [`Model`]({{< relref "/navigate/model#prepare-model" >}})
+`Prepare Model` is the same as was previously described in the [`Model`]({{% relref "/navigate/model#prepare-model" %}})
 section.  It is only surfaced here because the `Clusters` pane of the `Design View` is populated only when 
 `Prepare Model` is run.
 

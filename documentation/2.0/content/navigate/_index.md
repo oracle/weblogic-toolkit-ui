@@ -6,7 +6,7 @@ pre: "<b> </b>"
 
 ### Before you begin
 
-Make sure you have read [About the WKT UI Application]({{< relref "/concepts/" >}}).
+Make sure you have read [About the WKT UI Application]({{% relref "/concepts/" %}}).
 
 ### About the UI
 
@@ -16,14 +16,14 @@ the left side navigation pane.
 
 The UI sections are:
 
-- [Project Settings]({{< relref "/navigate/project-settings.md" >}})
-- [Model]({{< relref "/navigate/model.md" >}})
-- [Image]({{< relref "/navigate/image.md" >}})
+- [Project Settings]({{% relref "/navigate/project-settings.md" %}})
+- [Model]({{% relref "/navigate/model.md" %}})
+- [Image]({{% relref "/navigate/image.md" %}})
 - Kubernetes
-  - [Client Configuration]({{< relref "/navigate/kubernetes/k8s-client-config.md" >}})
-  - [WebLogic Operator]({{< relref "/navigate/kubernetes/k8s-wko.md" >}})
-  - [WebLogic Domain]({{< relref "/navigate/kubernetes/k8s-weblogic-domain.md" >}})
-  - [Ingress Controller]({{< relref "/navigate/kubernetes/k8s-ingress-controller.md" >}})
+  - [Client Configuration]({{% relref "/navigate/kubernetes/k8s-client-config.md" %}})
+  - [WebLogic Operator]({{% relref "/navigate/kubernetes/k8s-wko.md" %}})
+  - [WebLogic Domain]({{% relref "/navigate/kubernetes/k8s-weblogic-domain.md" %}})
+  - [Ingress Controller]({{% relref "/navigate/kubernetes/k8s-ingress-controller.md" %}})
 
 At the bottom of the page, the collapsed `Console` panel automatically appears and displays the `stdout` and `stderr`
 streams when running certain actions, such as `Prepare Model`.

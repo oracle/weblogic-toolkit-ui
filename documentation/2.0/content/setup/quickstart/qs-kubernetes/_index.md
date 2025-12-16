@@ -8,10 +8,10 @@ pre: "<b> </b>"
 These Quick Start guide sections are for users interested in using a Kubernetes cluster.  Anyone using OpenShift should
 follow this track.
 
-1. [Configure]({{< relref "/setup/quickstart/qs-kubernetes/k8s-client-config.md" >}}) your Kubernetes client (`kubectl`)
+1. [Configure]({{% relref "/setup/quickstart/qs-kubernetes/k8s-client-config.md" %}}) your Kubernetes client (`kubectl`)
    to connect to the Kubernetes cluster.
-2. [Install WebLogic Kubernetes Operator]({{< relref "/setup/quickstart/qs-kubernetes/k8s-wko.md" >}}).
-3. [Deploy the Domain]({{< relref "/setup/quickstart/qs-kubernetes/k8s-weblogic-domain.md" >}}).
-4. [Install and Configure the Ingress Controller]({{< relref "/setup/quickstart/qs-kubernetes/k8s-ingress-controller.md" >}})
+2. [Install WebLogic Kubernetes Operator]({{% relref "/setup/quickstart/qs-kubernetes/k8s-wko.md" %}}).
+3. [Deploy the Domain]({{% relref "/setup/quickstart/qs-kubernetes/k8s-weblogic-domain.md" %}}).
+4. [Install and Configure the Ingress Controller]({{% relref "/setup/quickstart/qs-kubernetes/k8s-ingress-controller.md" %}})
    and add ingress routes to allow access to the WebLogic domain from outside the Kubernetes cluster.
-5. [Access the ToDo List application]({{< relref "/setup/quickstart/qs-kubernetes/k8s-access-app.md" >}}).
+5. [Access the ToDo List application]({{% relref "/setup/quickstart/qs-kubernetes/k8s-access-app.md" %}}).

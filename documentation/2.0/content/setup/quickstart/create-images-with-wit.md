@@ -36,7 +36,7 @@ Image for the ToDo List domain.
 
 Go to the `Image` page, shown in the following image.  
 
-{{< img "Image Page" "images/image-page.png" >}}
+{{% img "Image Page" "images/image-page.png" %}}
 
 You could build your own primary image by enabling `Create New Primary Image`, which is off by default.  To do this,
 you would need to download the Linux JDK and WebLogic Server installer versions you plan to use, fill out the form, and
@@ -49,12 +49,12 @@ For those without Oracle Support credentials, make sure that you have accepted t
 For those with Oracle Support credentials, it is highly recommended to use the `weblogic_cpu` repository at the bottom
 of the page instead.
 
-{{< img "OCR" "images/ocr.png" >}}
+{{% img "OCR" "images/ocr.png" %}}
 
 For this exercise, you will create a new auxiliary image.  This is the default setting and the `Auxiliary Image` tab is
 active.  Select the `Auxiliary Image` tab, as shown in the following image.  
 
-{{< img "Aux Image Tab" "images/aux-image-tab.png" >}}
+{{% img "Aux Image Tab" "images/aux-image-tab.png" %}}
 
 The first thing you need to decide is what image registry to use for the auxiliary image.  For this exercise, you will
 use the Container Registry from the Oracle Cloud (OCIR) but feel free to substitute another image registry.  We will
@@ -63,7 +63,7 @@ try to point out where your image registry selection impacts the rest of the exa
 After logging in to your Oracle Cloud account, select to the Container Registry option under the **Developer Services**
 category, as shown in the following image.  
 
-{{< img "OCIR Location" "images/ocir-location.png" >}}
+{{% img "OCIR Location" "images/ocir-location.png" %}}
 
 In the registry of your choosing, create a new private repository called `WKT UI-qs/todolist-aux`.  Note the URL needed
 to access the new repository.  For the OCIR repository, the URL is of the form 
@@ -79,7 +79,7 @@ token, because this is the _only_ opportunity you will have to see it in clear t
 **Note**: The exact location of the Auth Tokens link may vary depending on your account type and the authentication
 provider being selected.
 
-{{< img "OCI Create Auth Token" "images/oci-create-auth-token.png" >}}
+{{% img "OCI Create Auth Token" "images/oci-create-auth-token.png" %}}
 
 Now that your Image Registry is ready, you simply fill out the `Auxiliary Image` tab in WKT UI.  There are a couple of
 things to note before you fill out the form.
@@ -103,7 +103,7 @@ is, since this name will show up in the dropdown list once it is created.  Altho
 pushing images, it is used when creating a Kubernetes pull secret so to save time, make sure you enter it now.  See
 an example of adding an image registry credential in the following image.
 
-{{< img "Add OCIR Image Registry Credential" "images/add-ocir-image-registry-credential.png" >}}
+{{% img "Add OCIR Image Registry Credential" "images/add-ocir-image-registry-credential.png" %}}
 
 Note that this table is also available at the bottom of the **Project Settings** page so feel free to add it in
 either location.
@@ -132,7 +132,7 @@ twice prior to running WIT’s `createAuxImage` command:
 
 The following image shows the application after successfully creating the auxiliary image.
 
-{{< img "Create AUX Image" "images/create-aux-image.png" >}}
+{{% img "Create AUX Image" "images/create-aux-image.png" %}}
 
 Now, you are ready to push the auxiliary image to the image registry.  If running on macOS, you need to make sure that
 your Docker (or Podman) executable directory (for example, `$HOME/.rd/bin`, if using Rancher Desktop) is added to the

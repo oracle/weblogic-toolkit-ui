@@ -30,7 +30,7 @@ without installation on a compatible Linux machine.  For more information, see h
 
 **NOTE**: On Linux, to get _all_ the dependencies and have them installed in the correct order, you need to use the
 package manager to install the `rpm` or `deb` file. First, be sure to review the Linux prerequisites 
-[here]({{< relref "/setup/prerequisites.md" >}}).
+[here]({{% relref "/setup/prerequisites.md" %}}).
 
 - For RPM-based systems, use either `yum` or `dnf`; for example:
     ```

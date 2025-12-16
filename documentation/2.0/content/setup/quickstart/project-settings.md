@@ -14,7 +14,7 @@ weight: 4
 
     **Note**: If you are _not_  running on macOS, you will not see this top-most panel: For macOS, do you need to add directories to the PATH or define other environment variables for Docker/Podman or Kubernetes?
 
-    {{< img "Project Settings" "images/project-settings.png" >}}
+    {{% img "Project Settings" "images/project-settings.png" %}}
 
 #### Extra Environment Settings (macOS only)
 

@@ -6,12 +6,12 @@ weight: 3
 ---
 To install the WKT UI application:
 
-- Make sure to check the NOTE in the WKT UI [Prerequisites]({{< relref "/setup/prerequisites.md" >}}) for your OS
+- Make sure to check the NOTE in the WKT UI [Prerequisites]({{% relref "/setup/prerequisites.md" %}}) for your OS
   compatibility with regard to [Electron](https://www.npmjs.com/package/electron) support.
 - Go to the GitHub project [Releases page](https://github.com/oracle/weblogic-toolkit-ui/releases) and download the latest release.
 - Run the appropriate installer for your operating system.
 
-Each release has many assets. For a detailed description of them, see [Install WKT UI]({{< relref "/setup/install.md" >}}).
+Each release has many assets. For a detailed description of them, see [Install WKT UI]({{% relref "/setup/install.md" %}}).
 
 ### Important Note for macOS Users
 
@@ -24,7 +24,7 @@ open the Rancher Desktop `Preferences` window, navigate to `Virtual Machine` -> 
 `Virtual Machine Type` from `QEMU` to `VZ`.  The author also checked the `VZ Option` to `Enable Rosetta support`, though
 this is probably not required.  This will provide a more reliable cross-architecture container image building environment.
 
-{{< img "Rancher Desktop Virtual Machine Emulation" "images/rancher-desktop-emulation.png" >}}
+{{% img "Rancher Desktop Virtual Machine Emulation" "images/rancher-desktop-emulation.png" %}}
 
 If you choose not to do this, the image builds may occasionally hang and have to be killed.  This is a symptom of the
 reliability issue that we have seen with QEMU.  If you run into this issue, you may want to reconsider the change suggested
@@ -37,7 +37,7 @@ GitHub for detecting and downloading updates, when they are available, and for d
 related software.  As such, WKT UI checks for Internet connectivity at application startup.  If WKT UI fails its Internet
 connectivity check, it will display the Network Configuration dialog.  
 
-{{< img "Network Configuration" "images/network-configuration.png" >}}
+{{% img "Network Configuration" "images/network-configuration.png" %}}
 
 Enter, correct, or remove your proxy information, as appropriate to connect to the Internet and then click
 **Try Connection**.  After the connection is successful, **Restart Application** will activate; clicking it will save 
@@ -49,7 +49,7 @@ WKT UI has a built-in, auto-update functionality.  Each time the application sta
 newer version of the application is available.  When a newer version is available, this dialog box appears giving the 
 options of installing the update now, installing the update upon exiting the application, and ignoring the update.    
 
-{{< img "Auto Update" "images/auto-update.png" >}}
+{{% img "Auto Update" "images/auto-update.png" %}}
 
 If the update is not installed, the application will prompt you again the next time it starts. At any time, you can 
 check for application updates by using the `Help` > `Check for WKT UI Updates` menu item.  Note that this auto-update 
@@ -67,7 +67,7 @@ versions between WKT UI releases by using the `Help` > `Check for WKT Tools Upda
 both tools is available, a dialog box, like the following one, will be displayed. Click **Update Tool(s)**  to update 
 the bundled tools.
 
-{{< img "Tools Update" "images/wkt-tools-update.png" >}}
+{{% img "Tools Update" "images/wkt-tools-update.png" %}}
 
 ### User Preferences
 
@@ -75,7 +75,7 @@ WKT UI supports user preferences; that is, preferences that are specific to a us
 User Preferences dialog on Windows or Linux, use the `File` > `Preferences` menu item.  On macOS, use the 
 `WebLogic Kubernetes Toolkit UI` > `Settings` menu item.  
 
-{{< img "User Preferences" "images/user-preferences.png" >}}
+{{% img "User Preferences" "images/user-preferences.png" %}}
 
 Using this dialog, you have access to view and edit settings in the following areas:
 

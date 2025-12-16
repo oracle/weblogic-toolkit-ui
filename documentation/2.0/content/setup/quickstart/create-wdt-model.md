@@ -21,13 +21,13 @@ For more detailed WDT information, see the WebLogic Deploy Tooling
 WKT UI provides tooling to make it easy for you to create and edit a WDT model.   This image shows the `Model` page, 
 `Design View` tab that allows visual editing of a model.  
 
-{{< img "Model Design View" "images/model-design-view.png" >}}
+{{% img "Model Design View" "images/model-design-view.png" %}}
 
 The following image shows the `Model` page, `Code View` tab that lets you directly edit each of the three different file
 types that make up the model.  In the center of the screen, you'll find the YAML editor for the model file.  On the right,
 you'll find the variables file editor and the archive file editor. At this point, all the sections are blank.
 
-{{< img "Model Code View" "images/model-code-view.png" >}}
+{{% img "Model Code View" "images/model-code-view.png" %}}
 
 WKT UI also supports discovering an existing domain to extract the model for that domain.  It accomplishes this by using
 the WDT [Discover Domain](https://oracle.github.io/weblogic-deploy-tooling/userguide/tools/discover/) tool.  To use this
@@ -46,7 +46,7 @@ archive file.
 
 Because the ToDo List application has minimal requirements from the domain, you will create the model by hand.  If you
 would prefer to create a local domain and use the discover model functionality, see 
-[Create ToDo List Domain]({{< relref "/setup/quickstart/qs-advanced#create-the-local-todo-list-domain" >}}) in the 
+[Create ToDo List Domain]({{% relref "/setup/quickstart/qs-advanced#create-the-local-todo-list-domain" %}}) in the 
 Advanced section.
 
 ### Create the ToDo List Domain
@@ -55,20 +55,20 @@ Start on the Model Design View tab, which will default to the **Domain Info** se
 `Admin User Name` and `Admin Password` fields to the user name and password that you want for your WebLogic domain. Also,
 select the `Server Start Mode` value of `Production Mode` to simplify things for this guide.
 
-{{< img "Domain Settings" "images/domain-info-settings.png" >}}
+{{% img "Domain Settings" "images/domain-info-settings.png" %}}
 
 Next, click on the **Topology** section in the navigation bar to go to the domain settings.  Enter `todolist_domain` in 
 the `Name` field.  There is no need to turn on `Production Mode Enabled` since you already took care of that on the 
 **Domain Info** page.
 
-{{< img "Domain Settings" "images/domain-settings.png" >}}
+{{% img "Domain Settings" "images/domain-settings.png" %}}
 
 Next, you need to create a server template that you will use with your dynamic cluster.  Select the **Server Templates**
 element, add a new server template using the **+** icon in the table header, specify the name as `todo-srv-template`, 
 and then click **OK**.  After you create the template, select the link in the table, enable `Listen Port Enabled` and
 set the `Listen Port` to `8100` so that the screen looks like the following image.  
 
-{{< img "Server Template" "images/server-template-1.png" >}}
+{{% img "Server Template" "images/server-template-1.png" %}}
 
 Next, you will need to create the dynamic cluster.  Select the **Clusters** item in the navigation bar and create a new 
 cluster named `mycluster`. Before moving on to configure the new cluster, return to the Server Template `todo-srv-template`
@@ -97,7 +97,7 @@ values specified in the following table. A couple of things to note:
 The next step is to create a data source to communicate with the MySQL database.  Before doing that, switch to the 
 `Code View` tab to see what the WDT model looks like so far.
 
-{{< img "Partial Model Code View" "images/partial-model-code-view.png" >}}
+{{% img "Partial Model Code View" "images/partial-model-code-view.png" %}}
 
 As you can see in the preceding image, the settings you entered are represented in the YAML Editor. Now, switch back to
 the `Design View` tab.
@@ -183,7 +183,7 @@ The domain model is now complete.  Go ahead and validate the model by clicking *
 bottom of the screen will display the output of the tool, as shown in the following image. You can close the Console
 Window at any time.
 
-{{< img "Validate Model Code View" "images/validate-model-code-view.png" >}}
+{{% img "Validate Model Code View" "images/validate-model-code-view.png" %}}
 
 When deploying a domain in Kubernetes, you need to prepare it for that environment.  The WDT Prepare Model Tool gives
 you what you need to accomplish that.  WKT UI has a special integration with Prepare Model in that not only does it
@@ -200,4 +200,4 @@ Because you chose to use Model-in-Image for the Quick Start exercise, Prepare Mo
 The following image shows the completed model that is ready to put in an image, so save the project before you move to
 the next section.
 
-{{< img "Prepare Model Code View" "images/prepare-model-code-view.png" >}}
+{{% img "Prepare Model Code View" "images/prepare-model-code-view.png" %}}

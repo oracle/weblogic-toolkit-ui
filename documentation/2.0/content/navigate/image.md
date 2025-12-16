@@ -28,14 +28,14 @@ running the WebLogic domain.
 Use the `Design View` page to specify whether to create a new or use an existing (the default) `Primary Image` and
 whether to create a new, or use an existing, `Auxiliary Image`.
 **Note** that auxiliary images required for the "Model in Image"
-[domain location]({{< relref "/navigate/project-settings#choosing-a-domain-location" >}}) _only_.
+[domain location]({{% relref "/navigate/project-settings#choosing-a-domain-location" %}}) _only_.
 
 - **Primary Image** - The image containing the Oracle Fusion Middleware software. It is used as the basis of all
   containers that run WebLogic Servers for the domain.
 - **Auxiliary Image** - The image that supplies the WebLogic Deploy Tooling software and the model files. At runtime, 
   the auxiliary image's content is merged with the primary image's content.
 
-{{< himg "Primary image diagram" "images/primary-image.png" "Auxiliary image diagram" "images/auxiliary-image.png" >}}
+{{% himg "Primary image diagram" "images/primary-image.png" "Auxiliary image diagram" "images/auxiliary-image.png" %}}
 
 The primary image is the one used for running the domain and the auxiliary image contains the data that defines the
 domain. One primary image can be reused for hundreds of domains whereas an auxiliary image is domain-specific. The
@@ -123,7 +123,7 @@ latest capabilities, many of which are exposed by this application.  As such, us
 recommended.
 
 {{% notice note %}} For "Model in Image" or "Domain on PV" 
-[domain locations]({{< relref "/navigate/project-settings#choosing-a-domain-location" >}}), when building your auxiliary
+[domain locations]({{% relref "/navigate/project-settings#choosing-a-domain-location" %}}), when building your auxiliary
 (or domain initialization) image, Oracle strongly recommends using
 [WDT 4.4.0 or newer](https://github.com/oracle/weblogic-deploy-tooling/releases).
 {{% /notice %}}
@@ -158,7 +158,7 @@ should be a last resort._
 
 #### WebLogic Deploy Tooling Configuration
 This pane applies only to auxiliary (or domain creation) images using either the "Model in Image" or "Domain on PV"
-[domain locations]({{< relref "/navigate/project-settings#choosing-a-domain-location" >}}).
+[domain locations]({{% relref "/navigate/project-settings#choosing-a-domain-location" %}}).
 
 For "Model in Image" and "Domain on PV", the `Model Home Directory` field specifies the directory where the WDT model
 files are stored in the image and `WDT Home Directory` specifies the WDT home directory inside the image. Typically,
@@ -196,7 +196,7 @@ additional files to be present in the build context directory, then provide the 
 ### Code View
 For the `Primary Image`, the `Code View` displays a shell script that you can use as a starting point for automating the
 image creation process. For the "Model in Image" 
-[domain location]({{< relref "/navigate/project-settings#choosing-a-domain-location" >}}), there is a similar 
+[domain location]({{% relref "/navigate/project-settings#choosing-a-domain-location" %}}), there is a similar 
 `Code View` page for the `Auxiliary Image`. Each page shows the script for creating and pushing its image.
 
 If it is not already selected, then use the `Script Language` drop-down menu to choose the desired scripting language.

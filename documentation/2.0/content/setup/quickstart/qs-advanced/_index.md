@@ -66,4 +66,4 @@ Derek’s ToDo List with five items, as shown in the following image.
 
 {{< img "ToDo List App" "images/a1-todo-list-app.png" >}}
 
-{{% children style="h4" description="true" %}}
+{{% children type="list" description="true" %}}

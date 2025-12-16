@@ -10,7 +10,7 @@ In WKT UI, go to the `Model` page and select the `Code View` tab.  Select the `F
 menu item.  The following dialog box appears.  Enter the path to the `$WKT UI_QS_HOME/todolist_domain` directory as the
 `Domain Home`, as shown in the following image.
 
-{{< img "Offline Discovery" "images/a2-offline-discovery.png" >}}
+{{% img "Offline Discovery" "images/a2-offline-discovery.png" %}}
 
 To start the discovery process, click **OK**.  After it completes, make the following required model changes:
 
@@ -25,11 +25,11 @@ To make your model look the same as the hand-built one, add the `ListenPortEnabl
 server template, as shown in the following image. While you are at it, add the `AdminServerName` attribute with a value of
 `AdminServer`. This field helps the WebLogic Kubernetes Operator know the name of the WebLogic domain's Admin Server.
 
-{{< img "Offline Discovered Model" "images/a3-offline-discovered-model.png" >}}
+{{% img "Offline Discovered Model" "images/a3-offline-discovered-model.png" %}}
 
 At this point, the model is roughly equivalent to the hand-built one shown in the
-[Validate Model Code View]({{< relref "/setup/quickstart/create-wdt-model#validate-and-prepare-the-model" >}}).  After you
+[Validate Model Code View]({{% relref "/setup/quickstart/create-wdt-model#validate-and-prepare-the-model" %}}).  After you
 prepare the model, all the minor differences will go away.  
 
 You can stop any running WebLogic Servers in the local domain, and stop and remove the `mysql` container.  To continue, 
-return to [Validate and Prepare the Model]({{< relref "/setup/quickstart/create-wdt-model#validate-and-prepare-the-model" >}}).
+return to [Validate and Prepare the Model]({{% relref "/setup/quickstart/create-wdt-model#validate-and-prepare-the-model" %}}).

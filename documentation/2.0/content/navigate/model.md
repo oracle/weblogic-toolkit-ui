@@ -164,7 +164,7 @@ For more information, see the WDT [model tokens](https://oracle.github.io/weblog
 In replacing credential values, `Prepare Model` will convert credentials to secret tokens for all credential fields.  
 You must be sure to provide values for all secret reference fields using the `WebLogic Domain` section's `Secrets` pane
 so that the required secrets get populated correctly during domain deployment.  For more information, see 
-[WebLogic Domain]({{< relref "/navigate/kubernetes/k8s-weblogic-domain.md" >}}).
+[WebLogic Domain]({{% relref "/navigate/kubernetes/k8s-weblogic-domain.md" %}}).
 
 {{% notice note %}}
 The application tries to preserve any values from the model and variable files that `Prepare Model` replaces

@@ -81,7 +81,7 @@ examples are:
 On Windows and Linux platforms, this tends to be the user's environment that they have configured to be used when
 they log in. On macOS, native applications do not inherit the user's login environment.  Instead, the application
 inherits the environment configured by the `launchd` daemon process.  If you are running on macOS, then you should keep this in mind
-when the application doesn't behave as you expect. For more information, see [Project Settings]({{< relref "/navigate/project-settings.md" >}}).
+when the application doesn't behave as you expect. For more information, see [Project Settings]({{% relref "/navigate/project-settings.md" %}}).
 {{% /notice %}}
 
 #### User Preferences
