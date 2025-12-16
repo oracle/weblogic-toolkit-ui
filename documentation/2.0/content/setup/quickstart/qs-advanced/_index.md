@@ -1,10 +1,10 @@
-+++
-title = "Advanced"
-date = 2019-02-22T15:27:38-05:00
-weight = 10
-pre = "<b> </b>"
-description = "Use the these sections to walk-through examples of offline discovery and online remote discovery."
-+++
+---
+title: "Advanced"
+date: 2019-02-22T15:27:38-05:00
+weight: 10
+pre: "<b> </b>"
+description: "Use the these sections to walk-through examples of offline discovery and online remote discovery."
+---
 
 As mentioned previously, WKT UI lets you add a model to the project by discovering the model from an existing domain.  To
 do this, WKT UI uses the WDT [Discover Domain Tool](https://oracle.github.io/weblogic-deploy-tooling/userguide/tools/discover/).  

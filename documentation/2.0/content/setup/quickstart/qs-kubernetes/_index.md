@@ -1,9 +1,9 @@
-+++
-title = "WebLogic Kubernetes Operator"
-date = 2019-02-22T15:27:38-05:00
-weight =7
-pre = "<b> </b>"
-+++
+---
+title: "WebLogic Kubernetes Operator"
+date: 2019-02-22T15:27:38-05:00
+weight: 7
+pre: "<b> </b>"
+---
 
 These Quick Start guide sections are for users interested in using a Kubernetes cluster.  Anyone using OpenShift should
 follow this track.

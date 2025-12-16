@@ -1,9 +1,8 @@
-+++
-title = "About the WKT UI Application"
-date = 2019-02-22T15:27:38-05:00
-weight = 1
-pre = "<b> </b>"
-+++
+---
+title: "About the WKT UI Application"
+weight: 1
+pre: "<b> </b>"
+---
 
 
 

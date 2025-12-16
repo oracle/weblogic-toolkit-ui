@@ -6,7 +6,7 @@ languageCode = 'en-us'
 title = 'WebLogic Kubernetes Toolkit UI'
 
 # Change the default theme to be use when building the site with Hugo
-theme = 'learn'
+theme = 'relearn'
 
 publishDir = "docs"
 
@@ -15,6 +15,8 @@ publishDir = "docs"
   home = [ "HTML", "RSS", "JSON"]
 
 [params]
+  hideAuthorDate = true
   # disable the copy to clipboard links
   disableInlineCopyToClipBoard = true
+  themeVariant = "learn"
   custom_css = [ "css/theme-wktui.css" ]

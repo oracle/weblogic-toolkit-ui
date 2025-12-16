@@ -1,9 +1,8 @@
-+++
-title = "Developer Guide"
-date = 2019-02-22T15:27:38-05:00
-weight = 4
-pre = "<b> </b>"
-+++
+---
+title: "Developer Guide"
+weight: 4
+pre: "<b> </b>"
+---
 
 The WebLogic Kubernetes Toolkit UI is a desktop application designed to help WebLogic users move their applications to run in a Kubernetes environment.
 

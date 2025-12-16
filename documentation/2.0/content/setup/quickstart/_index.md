@@ -1,10 +1,10 @@
-+++
-title = "Quick Start Guide"
-date = 2019-02-22T15:27:38-05:00
-weight = 4
-pre = "<b> </b>"
-description = "Use the Quick Start guide to exercise WKT UI functionality and deploy a sample application."
-+++
+---
+title: "Quick Start Guide"
+date: 2019-02-22T15:27:38-05:00
+weight: 4
+pre: "<b> </b>"
+description: "Use the Quick Start guide to exercise WKT UI functionality and deploy a sample application."
+---
 
 This Quick Start guide provides a comprehensive tutorial designed to step you through WebLogic Kubernetes Toolkit UI 
 (WKT UI) functionality and familiarize you with its capabilities. WKT UI is a desktop application that helps you create

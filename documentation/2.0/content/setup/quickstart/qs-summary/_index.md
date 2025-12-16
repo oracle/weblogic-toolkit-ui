@@ -1,9 +1,9 @@
-+++
-title = "Summary"
-date = 2019-02-22T15:27:38-05:00
-weight = 9
-pre = "<b> </b>"
-+++
+---
+title: "Summary"
+date: 2019-02-22T15:27:38-05:00
+weight: 9
+pre: "<b> </b>"
+---
 
 By following the steps in this Quick Start guide, you:
 - Configured WKT UI and set up a new project.

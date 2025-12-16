@@ -1,3 +1,9 @@
+---
+weight: 1
+pre: "<b> </b>"
+hideHeader: true
+---
+
 ## WebLogic Kubernetes Toolkit UI Documentation
 
 The WebLogic Kubernetes Toolkit (WKT) is a collection of open source tools that help you provision WebLogic-based
