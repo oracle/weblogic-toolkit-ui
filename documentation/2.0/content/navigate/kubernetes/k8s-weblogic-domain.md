@@ -3,7 +3,7 @@ title: "WebLogic Domain"
 date: 2019-02-22T15:44:42-05:00
 draft: false
 weight: 3
-description: "Create and deploy the Kubernetes custom resource for the WebLogic domain."
+description: "Deploy the WebLogic domain's Domain and Cluster resources used by WebLogic Kubernetes Operator."
 ---
 
 ### Contents

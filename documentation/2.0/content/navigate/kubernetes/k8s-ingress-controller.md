@@ -3,7 +3,7 @@ title: "Ingress Controller"
 date: 2019-02-22T15:44:42-05:00
 draft: false
 weight: 4
-description: "Install and configure an ingress controller."
+description: "Install an ingress controller, if needed, and add ingress routes to allow access to the WebLogic domain from outside the Kubernetes cluster."
 ---
 
 ### Contents
