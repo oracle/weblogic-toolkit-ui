@@ -130,6 +130,7 @@ function(accUtils, ko, DialogHelper, ArrayDataProvider,
     this.addItem = () => {
       const options = {
         attribute: ATTRIBUTE,
+        attributeMap: ATTRIBUTE_MAP,
         modelPath: MODEL_PATH,
         observableItems: this.observableItems
       };
