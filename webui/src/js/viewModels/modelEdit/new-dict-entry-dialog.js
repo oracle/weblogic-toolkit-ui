@@ -21,9 +21,6 @@ function(accUtils, ko, ModelEditHelper, MessageHelper, MetaOptions, AliasHelper,
     const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
     const DIALOG_SELECTOR = '#newDictEntryDialog';
 
-    this.entryKey = ko.observable();
-    this.entryValue = ko.observable();
-
     const subscriptions = [];
 
     this.connected = () => {
@@ -60,23 +57,33 @@ function(accUtils, ko, ModelEditHelper, MessageHelper, MetaOptions, AliasHelper,
       return options;
     }
 
-    this.keyLabel = MessageHelper.getKeyLabel(ATTRIBUTE, ALIAS_PATH);
-    this.keyHelp = MessageHelper.getKeyHelp(ATTRIBUTE, ALIAS_PATH);
 
+    this.entryKey = ko.observable();
     const keyAdd = ATTRIBUTE.keyAdd || {};
     const keyOptions = getOptions(keyAdd);
 
-    this.keyEditorType = getEditorType(keyAdd);
-    this.keyOptionsProvider = new ArrayDataProvider(keyOptions, { keyAttributes: 'value' });
-
-    this.valueLabel = MessageHelper.getValueLabel(ATTRIBUTE, ALIAS_PATH);
-    this.valueHelp = MessageHelper.getValueHelp(ATTRIBUTE, ALIAS_PATH);
-
+    this.entryValue = ko.observable();
     const valueAdd = ATTRIBUTE.valueAdd || {};
-    this.valueEditorType = getEditorType(valueAdd);
-
     const valueOptions = getOptions(valueAdd);
-    this.valueOptionsProvider = new ArrayDataProvider(valueOptions, { keyAttributes: 'value' });
+
+    this.fields = [
+      {
+        editorType: getEditorType(keyAdd),
+        observable: this.entryKey,
+        label: MessageHelper.getKeyLabel(ATTRIBUTE, ALIAS_PATH),
+        help: MessageHelper.getKeyHelp(ATTRIBUTE, ALIAS_PATH),
+        optionsProvider: new ArrayDataProvider(keyOptions, { keyAttributes: 'value' }),
+        validators: []
+      },
+      {
+        editorType: getEditorType(valueAdd),
+        observable: this.entryValue,
+        label: MessageHelper.getValueLabel(ATTRIBUTE, ALIAS_PATH),
+        help: MessageHelper.getValueHelp(ATTRIBUTE, ALIAS_PATH),
+        optionsProvider: new ArrayDataProvider(valueOptions, { keyAttributes: 'value' }),
+        validators: []
+      }
+    ];
 
     this.t = (labelId, arg) => {
       return MessageHelper.t(labelId, arg);

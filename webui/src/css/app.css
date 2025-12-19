@@ -1026,6 +1026,10 @@ h6.wkt-under-breadcrumb {
   height: auto;
 }
 
+.wkt-model-edit-dialog-panel {
+  padding-top: 1.5em;
+}
+
 .wkt-model-edit-attribute-stacked {
   margin-top: 1em;
 }
