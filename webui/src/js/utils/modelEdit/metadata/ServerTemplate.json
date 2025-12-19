@@ -23,7 +23,11 @@
         "validators": [ "port" ]
       },
       "CandidateMachine": {
-        "reorderable": true
+        "reorderable": true,
+        "itemAdd": {
+          "editorType": "combo",
+          "optionsMethod": "getMachineOptions"
+        }
       },
       "Cluster": {
         "editorType": "combo",

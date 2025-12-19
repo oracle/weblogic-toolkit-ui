@@ -9,23 +9,79 @@
   <div slot="body">
     <oj-validation-group id="modelNewEntryTracker">
       <div class="oj-panel">
-        <oj-c-input-text
-          class="wkt-model-edit-attribute-stacked"
-          label-hint="[[nameLabel]]"
-          help.instruction="[[nameHelp]]"
-          value="{{entryName}}"
-          required="true"
-          validators="[[nameValidators]]"
-        >
-        </oj-c-input-text>
-        <oj-c-input-text
-          class="wkt-model-edit-attribute-stacked"
-          label-hint="[[valueLabel]]"
-          help.instruction="[[valueHelp]]"
-          value="{{entryValue}}"
-          required="true"
-        >
-        </oj-c-input-text>
+        <oj-c-form-layout class="wkt-model-edit-attribute-form" max-columns="1">
+
+          <oj-bind-if test="[[keyEditorType === 'string']]">
+            <oj-c-input-text
+              class="wkt-model-edit-attribute-stacked"
+              label-hint="[[keyLabel]]"
+              help.instruction="[[keyHelp]]"
+              value="{{entryKey}}"
+              required="true"
+              validators="[[keyValidators]]"
+            >
+            </oj-c-input-text>
+          </oj-bind-if>
+
+          <oj-bind-if test="[[keyEditorType === 'select']]">
+            <oj-c-select-single
+              class="wkt-model-edit-attribute-stacked"
+              item-text="label"
+              label-hint="[[keyLabel]]"
+              help.instruction="[[keyHelp]]"
+              value="{{entryKey}}"
+              data="[[keyOptionsProvider]]"
+              required="true"
+            >
+            </oj-c-select-single>
+          </oj-bind-if>
+
+          <oj-bind-if test="[[keyEditorType === 'combo']]">
+            <oj-combobox-one
+              class="wkt-model-edit-attribute-stacked"
+              label-hint="[[keyLabel]]"
+              help.instruction="[[keyHelp]]"
+              value="{{entryKey}}"
+              options="[[keyOptionsProvider]]"
+              required="true"
+            >
+            </oj-combobox-one>
+          </oj-bind-if>
+
+          <oj-bind-if test="[[valueEditorType === 'string']]">
+            <oj-c-input-text
+              label-hint="[[valueLabel]]"
+              help.instruction="[[valueHelp]]"
+              value="{{entryValue}}"
+              required="true"
+            >
+            </oj-c-input-text>
+          </oj-bind-if>
+
+          <oj-bind-if test="[[valueEditorType === 'select']]">
+            <oj-c-select-single
+              item-text="label"
+              label-hint="[[valueLabel]]"
+              help.instruction="[[valueHelp]]"
+              value="{{entryValue}}"
+              data="[[valueOptionsProvider]]"
+              required="true"
+            >
+            </oj-c-select-single>
+          </oj-bind-if>
+
+          <oj-bind-if test="[[valueEditorType === 'combo']]">
+            <oj-combobox-one
+              label-hint="[[valueLabel]]"
+              help.instruction="[[valueHelp]]"
+              value="{{entryValue}}"
+              options="[[valueOptionsProvider]]"
+              required="true"
+            >
+            </oj-combobox-one>
+          </oj-bind-if>
+
+        </oj-c-form-layout>
       </div>
     </oj-validation-group>
   </div>

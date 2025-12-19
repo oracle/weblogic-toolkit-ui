@@ -9,25 +9,50 @@
   <div slot="body">
     <oj-validation-group id="modelNewEntryTracker">
       <div class="oj-panel">
-        <oj-c-input-text
-          class="wkt-model-edit-attribute-stacked"
-          label-hint="[[nameLabel]]"
-          help.instruction="[[nameHelp]]"
-          value="{{elementName}}"
-          required="true"
-          validators="[[nameValidators]]"
-        >
-          <oj-bind-if test="[[isFile]]">
-            <oj-c-button
-              slot="end"
-              label="[[fileLabel]]"
-              display="icons"
-              chroming="borderless"
-              on-oj-action="[[selectFile]]">
-              <span slot="endIcon" class="oj-ux-ico-folder" role="img"></span>
-            </oj-c-button>
-          </oj-bind-if>
-        </oj-c-input-text>
+        <oj-bind-if test="[[editorType === 'string']]">
+          <oj-c-input-text
+            class="wkt-model-edit-attribute-stacked"
+            label-hint="[[nameLabel]]"
+            help.instruction="[[nameHelp]]"
+            value="{{elementName}}"
+            required="true"
+            validators="[[nameValidators]]"
+          >
+            <oj-bind-if test="[[isFile]]">
+              <oj-c-button
+                slot="end"
+                label="[[fileLabel]]"
+                display="icons"
+                chroming="borderless"
+                on-oj-action="[[selectFile]]">
+                <span slot="endIcon" class="oj-ux-ico-folder" role="img"></span>
+              </oj-c-button>
+            </oj-bind-if>
+          </oj-c-input-text>
+        </oj-bind-if>
+
+        <oj-bind-if test="[[editorType === 'select']]">
+          <oj-c-select-single
+            item-text="label"
+            label-hint="[[nameLabel]]"
+            help.instruction="[[nameHelp]]"
+            value="{{elementName}}"
+            data="[[optionsProvider]]"
+            required="true"
+          >
+          </oj-c-select-single>
+        </oj-bind-if>
+
+        <oj-bind-if test="[[editorType === 'combo']]">
+          <oj-combobox-one
+            label-hint="[[nameLabel]]"
+            help.instruction="[[nameHelp]]"
+            value="{{elementName}}"
+            options="[[optionsProvider]]"
+            required="true"
+          >
+          </oj-combobox-one>
+        </oj-bind-if>
       </div>
     </oj-validation-group>
   </div>
