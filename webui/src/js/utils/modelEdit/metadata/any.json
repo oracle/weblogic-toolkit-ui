@@ -4,6 +4,10 @@
       "BufferSizeKb": {
         "validators": [ "range(0,)" ]
       },
+      "ConstrainedCandidateServer": {
+        "editorType": "comboMulti",
+        "optionsMethod": "getServersInClusterOptions"
+      },
       "DeploymentOrder": {
         "validators": [ "range(0,)" ]
       },
@@ -28,8 +32,40 @@
           { "value": "CustomIdentityAndCommandLineTrust", "labelKey":  "options-custom-identity-and-command-line-trust-label" }
         ]
       },
+      "LoggerSeverityProperties": {
+        "valueAdd": {
+          "editorType": "select",
+          "options": [
+            { "value": "Emergency", "labelKey": "options-emergency-label" },
+            { "value": "Alert", "labelKey": "options-alert-label" },
+            { "value": "Critical", "labelKey": "options-critical-label" },
+            { "value": "Error", "labelKey": "options-error-label" },
+            { "value": "Warning", "labelKey": "options-warning-label" },
+            { "value": "Notice", "labelKey": "options-notice-label" },
+            { "value": "Info", "labelKey": "options-info-label" },
+            { "value": "Debug", "labelKey": "options-debug-label" },
+            { "value": "Trace", "labelKey": "options-trace-label" }
+          ]
+        }
+      },
       "Notes": {
         "editorType": "textArea"
+      },
+      "PlatformLoggerLevels": {
+        "valueAdd": {
+          "editorType": "select",
+          "options": [
+            { "value": "OFF", "labelKey": "options-off-label" },
+            { "value": "SEVERE", "labelKey": "options-severe-label" },
+            { "value": "WARNING", "labelKey": "options-warning-label" },
+            { "value": "INFO", "labelKey": "options-info-label" },
+            { "value": "CONFIG", "labelKey": "options-config-label" },
+            { "value": "FINE", "labelKey": "options-fine-label" },
+            { "value": "FINER", "labelKey": "options-finer-label" },
+            { "value": "FINEST", "labelKey": "options-finest-label" },
+            { "value": "ALL", "labelKey": "options-all-label" }
+          ]
+        }
       },
       "RotationType": {
         "options": [
@@ -50,6 +86,10 @@
       "Target": {
         "editorType": "comboMulti",
         "optionsMethod": "targetOptions"
+      },
+      "UserPreferredServer": {
+        "editorType": "combo",
+        "optionsMethod": "getServersInClusterOptions"
       },
       "VirtualThreadEnableOption": {
         "options": [

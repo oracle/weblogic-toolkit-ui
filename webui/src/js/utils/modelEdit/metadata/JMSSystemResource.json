@@ -12,6 +12,13 @@
           { "value": "always", "labelKey": "options-always-label" }
         ]
       },
+      "ConsumptionPausedAtStartup": {
+        "optionsMatch": "lower",
+        "options": [
+          { "value": "true", "labelKey": "options-true-label" },
+          { "value": "false", "labelKey": "options-false-label" }
+        ]
+      },
       "DefaultUnitOfOrder": {
         "options": [
           { "value": "System-generated", "labelKey": "options-system-generated-label" },
@@ -41,10 +48,24 @@
         ],
         "reorderable": true
       },
+      "InsertionPausedAtStartup": {
+        "optionsMatch": "lower",
+        "options": [
+          { "value": "true", "labelKey": "options-true-label" },
+          { "value": "false", "labelKey": "options-false-label" }
+        ]
+      },
       "LoadBalancingPolicy": {
         "options": [
           { "value": "Round-Robin", "labelKey": "options-round-robin-label" },
           { "value": "Random", "labelKey": "options-random-label" }
+        ]
+      },
+      "ProductionPausedAtStartup": {
+        "optionsMatch": "lower",
+        "options": [
+          { "value": "true", "labelKey": "options-true-label" },
+          { "value": "false", "labelKey": "options-false-label" }
         ]
       },
       "Quota": {

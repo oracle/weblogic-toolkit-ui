@@ -1126,7 +1126,9 @@
         ]
       },
       "DigestDataSourceName": {
-        "disabled": "defaultIdentityAsserterDigestReplayDetectionFields"
+        "disabled": "defaultIdentityAsserterDigestReplayDetectionFields",
+        "editorType": "combo",
+        "optionsMethod": "getDataSourceOptions"
       },
       "DigestExpirationTimePeriod": {
         "disabled": "defaultIdentityAsserterDigestReplayDetectionFields",
@@ -2036,6 +2038,9 @@
     "attributeDetails": {
       "AccessTokenTimeoutWindow": {
         "validators": [ "range(0,)" ]
+      },
+      "BasePath": {
+        "usesPath": "false"
       },
       "CacheSize": {
         "validators": [ "range(0,)" ]

@@ -401,6 +401,11 @@
   "options-prepend-label": "Prepend",
   "options-replace-label": "Replace",
   "options-imported-tpusr-file-label": "Imported TPUSER File",
+  "options-severe-label": "Severe",
+  "options-config-label": "Config",
+  "options-fine-label": "Fine",
+  "options-finer-label": "Finer",
+  "options-finest-label": "Finest",
 
   "direction-jms-queue-to-tuxedo-queue-label": "JMS Queue to Tuxedo Queue",
   "direction-tuxedo-queue-to-jms-queue-label": "Tuxedo Queue to JMS Queue",
@@ -543,7 +548,7 @@
   "a-AcknowledgementInterval-help": "The maximum time a pending acknowledgement (set after the destination accepts a message) can wait before being delivered back to the RM source. String value in \"Duration\" format. Defaults to \"P0DT0.2S\" (200 milliseconds). Set at sequence creation time, and cannot be reset.",
 
   "a-AclPolicy-label": "ACL Policy",
-  "f-WTCServer_WTCRemoteTuxDom-a-AclPolicy-help": "The inbound access control list (ACL) policy toward requests from a remote Tuxedo access point.  The allowed values are Local or Global. Local causes the local Tuxedo access point modifies the identity of service requests received from a given remote Tuxedo access point to the principal name specified in the local principal name for a given remote Tuxedo access point. Global causes tocal Tuxedo access point passes the service request with no change in identity. Note that if Interoperate is set to Yes, the AclPolicy is ignored.",
+  "f-WTCServer_WTCRemoteTuxDom-a-AclPolicy-help": "The inbound access control list (ACL) policy toward requests from a remote Tuxedo access point.  The allowed values are Local or Global. Local causes the local Tuxedo access point modifies the identity of service requests received from a given remote Tuxedo access point to the principal name specified in the local principal name for a given remote Tuxedo access point. Global causes the local Tuxedo access point to pass the service request with no change in identity. Note that if Interoperate is set to Yes, the AclPolicy is ignored.",
 
   "a-AcsRequiresSsl-label": "ACS Requires SSL",
 
@@ -1045,6 +1050,8 @@
   "a-CallbackQueueMdbRunAsPrincipalName-help": "For use only with the JAX-RPC stack. For JAX-WS, use WebServiceBufferingMBean instead.",
 
   "a-CandidateMachine-label": "Candidate Machines",
+  "a-CandidateMachine-itemLabel": "CandidateMachine",
+  "a-CandidateMachine-itemHelp": "Specify a candidate machine to add to the list.",
   "a-CandidateMachine-help": "Limits the list of candidate machines that the cluster specifies. (Requires you to enable this server for automatic migration and to configure the cluster with a set of candidate machines.) If this server fails and if it is enabled for automatic migration, Node Manager automatically restarts it. By default, Node Manager restarts the server on any of the candidate machines that the cluster specifies (in order of preference that you configured in the cluster). To change the default, you use this server's list of candidate machines to create a subset of the cluster-wide candidates. You can also change the order of preference.",
 
   "a-CandidateMachinesForMigratableServer-label": "Candidate Machines for Migratable Server",
@@ -4338,7 +4345,7 @@
   "f-JMSSystemResource_JmsResource_Template-a-MessagingPerformancePreference-help": "Controls how long destinations that use this template are willing to wait to create full batches of available messages (if at all) for delivery to consumers. At the minimum value, batching is disabled; at the default value, less-than-full batches will not wait and are delivered immediately with currently available messages; tuning higher than the default value controls the maximum wait time for additional messages before less-than-full batches are delivered to consumers. The maximum message count of a full batch is controlled by the JMS connection factory's MessagesMaximum setting.",
 
   "a-MessagingQueue-label": "Messaging Queue",
-  "a-MessagingQueue-help": "or use only with the JAX-RPC stack. For JAX-WS, use WebServiceBufferingMBean instead. The default value is \"weblogic.wsee.DefaultQueue\".",
+  "a-MessagingQueue-help": "For use only with the JAX-RPC stack. For JAX-WS, use WebServiceBufferingMBean instead. The default value is \"weblogic.wsee.DefaultQueue\".",
 
   "a-MessagingQueueMdbRunAsPrincipalName-label": "Messaging Queue MDB Run As Principal Name",
   "a-MessagingQueueMdbRunAsPrincipalName-help": "For use only with the JAX-RPC stack. For JAX-WS, use WebServiceBufferingMBean instead.",
@@ -5873,7 +5880,7 @@
   "a-Servers-help": "Specifies the list of servers to which the ODL logging.xml is written",
 
   "a-ServiceActivationRequestResponseTimeout-label": "Service Activation Request Response Timeout",
-  "f-Cluster-a-ServiceActivationRequestResponseTimeout-help": "Specifies the maximum time, in milliseconds seconds, for services to wait for response from cluster members.",
+  "f-Cluster-a-ServiceActivationRequestResponseTimeout-help": "Specifies the maximum time, in milliseconds, for services to wait for response from cluster members.",
 
   "a-ServiceAgeThresholdSeconds-label": "Service Age Threshold Seconds",
   "f-Cluster-a-ServiceAgeThresholdSeconds-help": "Defines the number of seconds by which the age of two conflicting services must differ before one is considered older than the other. The default value is 180.",

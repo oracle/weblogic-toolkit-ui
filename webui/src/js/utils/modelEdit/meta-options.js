@@ -36,6 +36,33 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
         return options;
       };
 
+      this.getServerGroupTargetOptions = () => {
+        const options = [...this.getServerOptions()];
+
+        const clustersModelPath = ['topology', 'Cluster'];
+        const clusterNames = getInstanceNames(clustersModelPath);
+        clusterNames.forEach(clusterName => {
+          const dynamicServersFolder = ModelEditHelper.getFolder([...clustersModelPath, clusterName, 'DynamicServers']);
+          if (!dynamicServersFolder || !dynamicServersFolder['ServerTemplate']) {
+            options.push({ value: clusterName, label: clusterName });
+          }
+        });
+        return options;
+      };
+
+      this.dynamicClusterServerGroupTargetOptions = () => {
+        const options = [];
+        const modelPath = ['topology', 'Cluster'];
+        const clusterNames = getInstanceNames(modelPath);
+        clusterNames.forEach(clusterName => {
+          const dynamicServersFolder = ModelEditHelper.getFolder([...modelPath, clusterName, 'DynamicServers']);
+          if (!!dynamicServersFolder && 'ServerTemplate' in dynamicServersFolder && !!dynamicServersFolder['ServerTemplate']) {
+            options.push({ value: clusterName, label: clusterName });
+          }
+        });
+        return options;
+      };
+
       this.getDefaultRealmOptions = () => {
         const defaultRealmName = 'myrealm';
         const options = [
@@ -119,6 +146,26 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
         return options;
       };
 
+      this.getDataSourceForMultiDataSourceOptions = (attribute) => {
+        const options = [];
+        const thisDataSourceName = attribute.path[2];
+        console.log(`thisDataSourceName: ${thisDataSourceName}`);
+        const dataSourceNames = getInstanceNames(['resources', 'JDBCSystemResource']);
+        dataSourceNames.forEach(dataSourceName => {
+          console.log(`dataSourceName: ${dataSourceName}`);
+          if (dataSourceName !== thisDataSourceName) {
+            const thisJdbcResourceFolder =
+              ModelEditHelper.getFolder(['resources', 'JDBCSystemResource', dataSourceName, 'JdbcResource']);
+            const dataSourceType = thisJdbcResourceFolder['DatasourceType'];
+            if (!dataSourceType || dataSourceType.toUpperCase() === 'GENERIC') {
+              console.log(`adding dataSourceName ${dataSourceName} to the list of data sources`);
+              options.push({ value: dataSourceName, label: dataSourceName });
+            }
+          }
+        });
+        return options;
+      };
+
       this.getServerOptions = () => {
         const adminServerName = getAdminServerName();
         const options = [
@@ -156,7 +203,7 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
         const options = [
           { value: defaultCoherenceClusterName, label: defaultCoherenceClusterName }
         ];
-        const coherenceClusterNames = getInstanceNames(['topology', 'CoherenceClusterSystemResource']);
+        const coherenceClusterNames = getInstanceNames(['resources', 'CoherenceClusterSystemResource']);
         coherenceClusterNames.forEach(clusterName => {
           if (clusterName !== defaultCoherenceClusterName) {
             options.push({ value: clusterName, label: clusterName });

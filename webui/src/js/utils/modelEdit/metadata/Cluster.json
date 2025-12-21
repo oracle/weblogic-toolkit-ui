@@ -27,6 +27,12 @@
           { "value": "Always", "labelKey": "options-always-label" }
         ]
       },
+      "CandidateMachinesForMigratableServer": {
+        "itemAdd": {
+          "editorType": "combo",
+          "optionsMethod": "getMachineOptions"
+        }
+      },
       "ClusterBroadcastChannel": {
         "disabled": "clusterMessagingUnicastFields"
       },
@@ -42,6 +48,10 @@
           { "value": "wan", "labelKey": "options-wan-label" },
           { "value": "none", "labelKey": "options-none-label" }
         ]
+      },
+      "CoherenceClusterSystemResource": {
+        "editorType": "combo",
+        "optionsMethod": "getCoherenceClusterSystemResourceOptions"
       },
       "ConsensusParticipants": {
         "disabled": "clusterMigrationBasisConsensusFields"
