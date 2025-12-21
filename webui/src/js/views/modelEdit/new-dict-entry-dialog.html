@@ -8,24 +8,74 @@
   </div>
   <div slot="body">
     <oj-validation-group id="modelNewEntryTracker">
-      <div class="oj-panel">
-        <oj-c-input-text
-          class="wkt-model-edit-attribute-stacked"
-          label-hint="[[nameLabel]]"
-          help.instruction="[[nameHelp]]"
-          value="{{entryName}}"
-          required="true"
-          validators="[[nameValidators]]"
-        >
-        </oj-c-input-text>
-        <oj-c-input-text
-          class="wkt-model-edit-attribute-stacked"
-          label-hint="[[valueLabel]]"
-          help.instruction="[[valueHelp]]"
-          value="{{entryValue}}"
-          required="true"
-        >
-        </oj-c-input-text>
+      <div class="oj-panel wkt-model-edit-dialog-panel">
+        <oj-c-form-layout class="wkt-model-edit-attribute-form" max-columns="1">
+
+          <oj-bind-for-each data="[[fields]]">
+            <template data-oj-as="field">
+
+              <oj-bind-if test="[[field.data.editorType === 'string']]">
+                <oj-c-input-text
+                  label-hint="[[field.data.label]]"
+                  help.instruction="[[field.data.help]]"
+                  value="{{field.data.observable}}"
+                  required="true"
+                  validators="[[field.data.validators]]"
+                >
+                </oj-c-input-text>
+              </oj-bind-if>
+
+              <oj-bind-if test="[[field.data.editorType === 'select']]">
+                <oj-c-select-single
+                  item-text="label"
+                  label-hint="[[field.data.label]]"
+                  help.instruction="[[field.data.help]]"
+                  value="{{field.data.observable}}"
+                  data="[[field.data.optionsProvider]]"
+                  required="true"
+                >
+                </oj-c-select-single>
+              </oj-bind-if>
+
+              <oj-bind-if test="[[field.data.editorType === 'selectMulti']]">
+                <!-- oj-c-select-multiple broken: Jira JET-76802 -->
+                <!-- oj-c-select-multiple uses data="..." instead of options="..." -->
+                <oj-select-many
+                  item-text="label"
+                  label-hint="[[field.data.label]]"
+                  help.instruction="[[field.data.help]]"
+                  value="{{field.data.observable}}"
+                  options="[[field.data.optionsProvider]]"
+                  required="true"
+                >
+                </oj-select-many>
+              </oj-bind-if>
+
+              <oj-bind-if test="[[field.data.editorType === 'combo']]">
+                <oj-combobox-one
+                  label-hint="[[field.data.label]]"
+                  help.instruction="[[field.data.help]]"
+                  value="{{field.data.observable}}"
+                  options="[[field.data.optionsProvider]]"
+                  required="true"
+                >
+                </oj-combobox-one>
+              </oj-bind-if>
+
+              <oj-bind-if test="[[field.data.editorType === 'comboMulti']]">
+                <oj-combobox-many
+                  label-hint="[[field.data.label]]"
+                  help.instruction="[[field.data.help]]"
+                  value="{{field.data.observable}}"
+                  options="[[field.data.optionsProvider]]"
+                  required="true"
+                >
+                </oj-combobox-many>
+              </oj-bind-if>
+
+            </template>
+          </oj-bind-for-each>
+        </oj-c-form-layout>
       </div>
     </oj-validation-group>
   </div>

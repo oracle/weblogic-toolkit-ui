@@ -4,6 +4,7 @@
 
 # Hugo-related files
 **/.hugo_build.lock
+documentation/**/docs
 
 # Dependency directories
 **/node_modules/

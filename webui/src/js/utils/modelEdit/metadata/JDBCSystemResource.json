@@ -257,7 +257,11 @@
         ]
       },
       "DataSourceList": {
-        "reorderable": true
+        "reorderable": true,
+        "itemAdd": {
+          "editorType": "combo",
+          "optionsMethod": "getDataSourceForMultiDataSourceOptions"
+        }
       },
       "GlobalTransactionsProtocol": {
         "options": [
