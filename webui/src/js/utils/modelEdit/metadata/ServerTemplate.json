@@ -3208,6 +3208,10 @@
       "CreateTableDDLFile": {
         "fileOptions": [ { "type": "file" } ]
       },
+      "DataSource": {
+        "editorType": "combo",
+        "optionsMethod": "getDataSourceOptions"
+      },
       "DeletesPerBatchMaximum": {
         "validators": [ "range(1,100)" ]
       },

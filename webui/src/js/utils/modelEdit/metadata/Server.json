@@ -195,6 +195,10 @@
       "ServerLifeCycleTimeoutVal": {
         "validators": [ "range(0,)" ]
       },
+      "ServerTemplate": {
+        "editorType": "combo",
+        "optionsMethod": "getServerTemplateOptions"
+      },
       "SitConfigPollingInterval": {
         "validators": [ "range(1,65534)" ]
       },
@@ -1147,10 +1151,6 @@
       "Cluster": {
         "editorType": "combo",
         "optionsMethod": "getClusterOptions"
-      },
-      "ConstrainedCandidateServer": {
-        "editorType": "comboMulti",
-        "optionsMethod": "getServersInClusterOptions"
       },
       "MigrationPolicy": {
         "options": [
@@ -3210,6 +3210,10 @@
       },
       "CreateTableDDLFile": {
         "fileOptions": [ { "type": "file" } ]
+      },
+      "DataSource": {
+        "editorType": "combo",
+        "optionsMethod": "getDataSourceOptions"
       },
       "DeletesPerBatchMaximum": {
         "validators": [ "range(1,100)" ]

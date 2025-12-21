@@ -20,8 +20,24 @@
       "BytesThresholdLow": {
         "validators": [ "range(-1,)" ]
       },
+      "ConsumptionPausedAtStartup": {
+        "optionsMatch": "lower",
+        "options": [
+          { "value": "default", "labelKey": "options-default-label" },
+          { "value": "true", "labelKey": "options-true-label" },
+          { "value": "false", "labelKey": "options-false-label" }
+        ]
+      },
       "ExpirationScanInterval": {
         "validators": [ "range(0,)" ]
+      },
+      "InsertionPausedAtStartup": {
+        "optionsMatch": "lower",
+        "options": [
+          { "value": "default", "labelKey": "options-default-label" },
+          { "value": "true", "labelKey": "options-true-label" },
+          { "value": "false", "labelKey": "options-false-label" }
+        ]
       },
       "MaximumMessageSize": {
         "validators": [ "range(0,)" ]
@@ -67,6 +83,14 @@
       "PersistentStore": {
         "editorType": "combo",
         "optionsMethod": "getPersistentStoreOptions"
+      },
+      "ProductionPausedAtStartup": {
+        "optionsMatch": "lower",
+        "options": [
+          { "value": "default", "labelKey": "options-default-label" },
+          { "value": "true", "labelKey": "options-true-label" },
+          { "value": "false", "labelKey": "options-false-label" }
+        ]
       },
       "TemporaryTemplateName": {
         "disabled": "jmsServerHostingTemporaryDestinationsFields",
