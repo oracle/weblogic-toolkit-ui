@@ -3647,6 +3647,11 @@
   "f-WTCServer_WTCtBridgeGlobal-a-JmsFactory-help": "The name of the JMS connection factory; for example, weblogic.jndi.ConnectionFactory.  The default value is weblogic.jms.XAConnectionFactory.",
 
   "a-JmsToTuxPriorityMap-label": "JMS To Tuxedo Priority Map",
+  "a-JmsToTuxPriorityMap-entryLabel": "JMS To Tuxedo Priority Entry",
+  "a-JmsToTuxPriorityMap-keyLabel": "JMS Priority",
+  "a-JmsToTuxPriorityMap-keyHelp": "The JMS priority value or range that you want to map.",
+  "a-JmsToTuxPriorityMap-valueLabel": "Tuxedo Priority",
+  "a-JmsToTuxPriorityMap-valueHelp": "The Tuxedo priority to which the JMS priority should be mapped.",
   "a-JmsToTuxPriorityMap-help": "The mapping of priorities from JMS to Tuxedo. The default JMS To Tux Priority Map is: 0:1 | 1:12 | 2:23 | 3:34 | 4:45 |5:56 | 6:67 | 7:78 | 8:89 | 9:100.",
 
   "a-JndiFactory-label": "JNDI Initial Context Factory Class Name",
@@ -6583,6 +6588,11 @@
   "a-TuxFactory-help": "The name of the Tuxedo connection factory. The default value is tuxedo.services.TuxedoConnection.",
 
   "a-TuxToJmsPriorityMap-label": "Tuxedo To JMS Priority Map",
+  "a-TuxToJmsPriorityMap-entryLabel": "Tuxedo to JMS Priority Entry",
+  "a-TuxToJmsPriorityMap-keyLabel": "Tuxedo Priority",
+  "a-TuxToJmsPriorityMap-keyHelp": "The Tuxedo priority value or range that you want to map.",
+  "a-TuxToJmsPriorityMap-valueLabel": "JMS Priority",
+  "a-TuxToJmsPriorityMap-valueHelp": "The JMS priority to which the Tuxedo priority should be mapped.",
   "a-TuxToJmsPriorityMap-help": "The mapping of priorities to map from Tuxedo to JMS. The default JMS To Tux Priority Map is: 1-10:0 | 11-20:1 | 21-30:2 | 31-40:3| 41-50:4| 51-60:5 | 61-70:6 | 71-80:7 | 81-90:8 | 91-100:9.",
 
   "a-TuxedoGidKw-label": "Tuxedo Group ID Keyword",

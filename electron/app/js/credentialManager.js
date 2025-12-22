@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const CredentialEncryptor = require('./credentialEncryptor');
@@ -26,7 +26,7 @@ class CredentialManager {
   async storeCredentials(project) {
     let projectToStore = project;
     if (project && 'credentialPaths' in project && project['credentialPaths'] && project['credentialPaths'].length > 0) {
-      // Make a copy of the project prior to modification because the updated project is used to write to the file
+      // Make a copy of the project prior to modification because the updated project is used to write to the
       // file the original in-memory copy is set back to the UI (complete with clear text credentials).
       //
       const logger = getLogger();
