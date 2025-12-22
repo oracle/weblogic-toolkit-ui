@@ -2974,6 +2974,8 @@
   "a-FannedOutRequestMaxWaitMillis-help": "Determines how long the Management Services Web application will wait, in milliseconds, when it fans out an idempotent REST request from the admin server to all the managed servers. If zero, then it will choose an appropriate timeout. A request can override this value by specifying the requestMaxWaitMillis query parameter.",
 
   "a-FatalErrorCodes-label": "Fatal Error Codes",
+  "a-FatalErrorCodes-itemLabel": "Fatal Error Code",
+  "a-FatalErrorCodes-itemHelp": "Specify an error code to be treated as a fatal error.",
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-FatalErrorCodes-help": "Specifies a comma-separated list of error codes that are treated as fatal errors. These errors include deployment errors that cause a server to fail to boot and connection errors that prevent a connection from being put back in the connection pool. This optional attribute is used to define fatal error codes, that when specified as the exception code within a SQLException (retrieved by sqlException.getErrorCode()), indicate that a fatal error has occurred and the connection is no longer usable",
 
   "a-FederationName-label": "Federation Name",
