@@ -72,9 +72,9 @@ function(accUtils, ko, ModelEditHelper, MessageHelper, AliasHelper, FileSelectHe
       }
     }];
 
-    this.canChooseFile = FileSelectHelper.canChooseFile(ATTRIBUTE);
+    this.canChooseFile = ATTRIBUTE.usesPath && FileSelectHelper.canChooseFile(ATTRIBUTE);
 
-    this.canChooseDirectory = FileSelectHelper.canChooseDirectory(ATTRIBUTE);
+    this.canChooseDirectory = ATTRIBUTE.usesPath && FileSelectHelper.canChooseDirectory(ATTRIBUTE);
 
     this.chooseDirectory = async() => {
       return this.choosePath(true);
