@@ -9,12 +9,14 @@
   <div slot="body">
     <oj-validation-group id="modelEditAttributeTracker">
       <div class="oj-panel">
+
         <oj-c-radioset
           id="radiosetId"
           label-hint="[[labelMapper('label')]]"
           label-edge="inside"
           options="[[editOptions]]"
-          value="{{editOption}}">
+          value="{{editOption}}"
+        >
         </oj-c-radioset>
 
         <oj-bind-if test="[[variableOptionSelected]]">
@@ -49,6 +51,24 @@
           >
           </oj-c-input-text>
         </oj-bind-if>
+
+        <oj-bind-if test="[[enterSegregateName]]">
+          <oj-c-input-text
+            class="wkt-model-edit-attribute-stacked"
+            label-hint="[[archiveSegregateLabel]]"
+            help.instruction="[[archiveSegregateHelp]]"
+            value="{{archiveSegregateName}}"
+            required="true"
+          >
+          </oj-c-input-text>
+        </oj-bind-if>
+
+        <oj-bind-if test="[[hasErrorMessages]]">
+          <div class="wkt-model-edit-attribute-stacked">
+            <oj-c-message-banner data="[[errorMessageProvider]]" type="page"></oj-c-message-banner>
+          </div>
+        </oj-bind-if>
+
       </div>
 
     </oj-validation-group>
