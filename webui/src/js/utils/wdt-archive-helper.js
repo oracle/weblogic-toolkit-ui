@@ -74,10 +74,12 @@ define(['knockout', 'models/wkt-project', 'utils/wkt-logger'],
       };
 
       this.removeFromArchive = (archivePath, deleteEmptyParents = false) => {
+        let result = false;
         if (archivePath) {
-          this._removeFromArchiveModel(archivePath, this.project.wdtModel.archiveRoots, deleteEmptyParents);
+          result = this._removeFromArchiveModel(archivePath, this.project.wdtModel.archiveRoots, deleteEmptyParents);
           this._removeArchiveUpdate(archivePath);
         }
+        return result;
       };
 
       // add an archive update that will be applied to the file on the next save.

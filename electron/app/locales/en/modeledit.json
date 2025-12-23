@@ -444,10 +444,12 @@
 
   "attribute-dialog-title": "Options for {{attribute}}",
   "attribute-dialog-label": "Choose an option",
+  "attribute-dialog-option-addToArchive": "Add entry to archive",
   "attribute-dialog-option-edit": "Edit the field normally",
   "attribute-dialog-option-remove": "Remove the field from the model",
   "attribute-dialog-option-variable": "Use an existing variable token",
   "attribute-dialog-option-newVariable": "Use a new variable token",
+  "attribute-dialog-option-removeFromArchive": "Remove entry from archive",
   "attribute-dialog-variable-choice-label": "Existing Variable",
   "attribute-dialog-variable-choice-help": "Choose a variable for field",
   "attribute-dialog-variable-name-label": "Variable Name",
@@ -455,6 +457,8 @@
   "attribute-dialog-variable-name-error": "Variable names may only contain letters, numbers, and these characters: .-_",
   "attribute-dialog-variable-value-label": "Variable Value",
   "attribute-dialog-variable-value-help": "Value of variable for field",
+  "attribute-dialog-archive-file-not-present": "File not found: {{path}}",
+  "attribute-dialog-archive-path-not-present": "Path not found in archive: {{path}}",
 
   "attribute-editor-from-secret": "From secret \"{{secret}}\"",
   "attribute-editor-from-variable": "From variable \"{{variable}}\"",
