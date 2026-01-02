@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -17,6 +17,13 @@ define(['utils/observable-properties', 'utils/wkt-logger'],
 
         this.targetDomainLocation = props.createProperty('mii');
         this.wdtTargetType = props.createProperty('wko');
+        this.wdtArchivePluginType = props.createProperty('jszip');
+
+        // Need to do this to prevent persisting the default TMPDIR value on macOS...
+        //
+        this.zipjsTmpDir = window.api.process.isMac() ?
+          props.createProperty(window.api.process.getTmpDir()) :
+          props.createProperty();
 
         this.javaHome = props.createProperty(window.api.ipc.invoke('get-java-home'));
         this.oracleHome = props.createProperty(window.api.ipc.invoke('get-oracle-home'));

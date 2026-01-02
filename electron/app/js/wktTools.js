@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const { dialog } = require('electron');
@@ -47,6 +47,10 @@ function getDiscoverDomainShellScript() {
 
 function getImagetoolShellScript() {
   return path.join(getWitDirectory(), 'bin', 'imagetool' + scriptExtension);
+}
+
+function getArchiveHelperShellScript() {
+  return path.join(getWdtDirectory(), 'bin', 'archiveHelper' + scriptExtension);
 }
 
 function getPrepareModelShellScript() {
@@ -364,6 +368,7 @@ function getToolsUpdateSuccessfulText(releaseNames) {
 module.exports = {
   checkForUpdates,
   downloadLatestWdtInstaller,
+  getArchiveHelperShellScript,
   getDiscoverDomainShellScript,
   getImagetoolShellScript,
   getPrepareModelShellScript,

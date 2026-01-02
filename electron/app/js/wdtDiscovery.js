@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const path = require('path');
@@ -161,7 +161,7 @@ async function _runDiscover(targetWindow, discoverConfig, online) {
     let relativeArchiveFile = discoverConfig['archiveFile'];
 
     results.modelFileContent = await project.getModelFileContent(targetWindow, [relativeModelFile], [relativePropertiesFile],
-      [relativeArchiveFile]);
+      [relativeArchiveFile], discoverConfig.wdtArchivePluginType, discoverConfig.javaHome);
 
     if(isRemote) {
       const resultsText = await readFile(resultsFile, {encoding: 'utf8'});

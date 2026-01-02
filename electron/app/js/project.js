@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const {app, dialog} = require('electron');
@@ -58,6 +58,8 @@ const openProjects = new Map();
 //        + returns whether the save was successful and the model file contents
 //    - On receiving the response to the save-project invocation, the renderer ends the flow
 //
+
+/* global process */
 
 // Public methods
 //
@@ -209,7 +211,8 @@ function startSaveProjectAs(targetWindow) {
 
 // save the specified project and model contents to the project file.
 // usually invoked by the save-project IPC invocation.
-async function saveProject(targetWindow, projectFile, projectContents, externalFileContents, isNewFile, showErrors = true) {
+async function saveProject(targetWindow, projectFile, projectContents, externalFileContents, isNewFile,
+  showErrors = true, projectContext) {
   // the result will contain only sections that were updated due to save, such as model.archiveFiles
   const saveResult = {
     isProjectFileSaved: false,
@@ -237,8 +240,13 @@ async function saveProject(targetWindow, projectFile, projectContents, externalF
       app.addRecentDocument(projectFile);
     }
 
+    const wdtArchivePluginType = projectContext['wdtArchivePluginType'] || 'jszip';
+    const javaHome = projectContext['javaHome'] || process.env.JAVA_HOME;
+    const macZipjsTmpDir = projectContext['macZipjsTmpDir'] || undefined;
+
     try {
-      saveResult['model'] = await _saveExternalFileContents(_getProjectDirectory(targetWindow), externalFileContents);
+      saveResult['model'] = await _saveExternalFileContents(targetWindow, _getProjectDirectory(targetWindow),
+        externalFileContents, { wdtArchivePluginType, javaHome, macZipjsTmpDir });
       saveResult.areModelFilesSaved = true;
     } catch (err) {
       const message = i18n.t('project-save-model-files-error-message', { error: errorUtils.getErrorMessage(err) });
@@ -276,7 +284,8 @@ async function closeProject(targetWindow, keepWindow) {
 }
 
 // build a map with model files and their contents to pass to the web app.
-async function getModelFileContent(targetWindow, modelFiles, propertyFiles, archiveFiles) {
+async function getModelFileContent(targetWindow, modelFiles, propertyFiles, archiveFiles, modelArchivePluginType,
+  javaHome) {
   let projectFile = _getProjectFilePath(targetWindow);
   let projectDir = path.dirname(projectFile);
 
@@ -299,7 +308,8 @@ async function getModelFileContent(targetWindow, modelFiles, propertyFiles, arch
   if (archiveFiles && archiveFiles.length > 0) {
     const existingArchiveFiles = await getExistingProjectModelFiles(projectDir, archiveFiles);
     if (existingArchiveFiles.length > 0) {
-      modelFileResults['archives'] = await modelArchive.getContentsOfArchiveFiles(projectDir, existingArchiveFiles);
+      modelFileResults['archives'] = await modelArchive.getContentsOfArchiveFiles(targetWindow, projectDir,
+        existingArchiveFiles, modelArchivePluginType, javaHome);
     }
   }
   return modelFileResults;
@@ -522,7 +532,7 @@ async function _saveProjectFile(targetWindow, projectFile, projectContents) {
   });
 }
 
-async function _saveExternalFileContents(projectDirectory, externalFileContents) {
+async function _saveExternalFileContents(currentWindow, projectDirectory, externalFileContents, options) {
   if (!externalFileContents) {
     return;
   }
@@ -540,8 +550,10 @@ async function _saveExternalFileContents(projectDirectory, externalFileContents)
     await modelProperties.saveContentsOfPropertiesFiles(projectDirectory, properties);
   }
   if ('archiveUpdates' in externalFileContents) {
+    const { wdtArchivePluginType, javaHome, macZipjsTmpDir } = options;
     const archiveUpdates = externalFileContents['archiveUpdates'];
-    saveResult['archives'] = await modelArchive.saveContentsOfArchiveFiles(projectDirectory, archiveUpdates);
+    saveResult['archives'] = await modelArchive.saveContentsOfArchiveFiles(currentWindow, projectDirectory,
+      archiveUpdates, wdtArchivePluginType, javaHome, macZipjsTmpDir);
   }
   return saveResult;
 }
@@ -582,9 +594,8 @@ async function _createOrReplace(targetWindow, isDirty) {
 
 async function _sendProjectOpened(targetWindow, file, jsonContents) {
   let modelFilesContentJson = {};
+  const projDir = _getProjectDirectory(targetWindow);
   if (jsonContents.model) {
-    const projDir = _getProjectDirectory(targetWindow);
-
     if (jsonContents.model.modelFiles && jsonContents.model.modelFiles.length > 0) {
       modelFilesContentJson['models'] = await modelYaml.getContentsOfModelFiles(projDir, jsonContents.model.modelFiles);
     } else {
@@ -599,8 +610,20 @@ async function _sendProjectOpened(targetWindow, file, jsonContents) {
     }
 
     if (jsonContents.model.archiveFiles && jsonContents.model.archiveFiles.length > 0) {
-      modelFilesContentJson['archives'] =
-        await modelArchive.getContentsOfArchiveFiles(projDir, jsonContents.model.archiveFiles);
+      let archiveModelPluginType = 'jszip';
+      if ('settings' in jsonContents && 'wdtArchivePluginType' in jsonContents.settings) {
+        getLogger().debug(`Detected wdtArchivePluginType: ${jsonContents.settings.wdtArchivePluginType}`);
+        archiveModelPluginType = jsonContents.settings.wdtArchivePluginType || 'jszip';
+      }
+      let javaHome = process.env.JAVA_HOME;
+      if (archiveModelPluginType === 'java') {
+        if (jsonContents && jsonContents['settings'] && jsonContents['settings']['javaHome']) {
+          javaHome = jsonContents['settings']['javaHome'];
+        }
+      }
+
+      modelFilesContentJson['archives'] = await modelArchive.getContentsOfArchiveFiles(targetWindow, projDir,
+        jsonContents.model.archiveFiles, archiveModelPluginType, javaHome);
     } else {
       delete jsonContents.model.archiveFiles;
     }
@@ -642,7 +665,7 @@ async function _chooseProjectSaveFile(targetWindow, titleKey = 'dialog-choosePro
   return getProjectFileName(saveResponse.filePath);
 }
 
-async function chooseArchiveFile(targetWindow) {
+async function chooseArchiveFile(targetWindow, modelArchivePluginType, javaHome) {
   const title = i18n.t('dialog-chooseArchiveFile');
   const wktWindow = require('./wktWindow');
   let filePath = await wktWindow.chooseFromFileSystem(targetWindow, {
@@ -660,7 +683,7 @@ async function chooseArchiveFile(targetWindow) {
   if(filePath) {
     archivePath = await checkAddModelFile(targetWindow, filePath);
     if(archivePath) {
-      content = await getModelFileContent(targetWindow, null, null, [archivePath]);
+      content = await getModelFileContent(targetWindow, null, null, [archivePath], modelArchivePluginType, javaHome);
     }
   }
 
