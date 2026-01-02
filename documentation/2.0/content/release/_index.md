@@ -18,6 +18,7 @@ pre: "<b> </b>"
 #### Other Changes
 - Removed support for Verrazzano.
 - Removed auto-update restrictions on Linux RPM and DEB installers, leveraging a beta feature in Electron Updater.
+- #292 - Removed support for the deprecated keytar module that allowed storing credentials in the OS credential store.
 - #307 - Removed support for Domain-in-Image and Model-in-Image without an Auxiliary Image.
 - #323 - Added support for AppImage to store WDT and WIT tool updates in an external directory.
 - #331 - Added user preferences option to disable Linux hardware acceleration in Chromium.
