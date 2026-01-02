@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const { app, BrowserWindow, dialog, ipcMain, shell } = require('electron');
@@ -474,8 +474,8 @@ class Main {
       });
     });
 
-    ipcMain.handle('choose-archive-file', async (event) => {
-      return project.chooseArchiveFile(event.sender.getOwnerBrowserWindow());
+    ipcMain.handle('choose-archive-file', async (event, modelArchivePluginType, javaHome) => {
+      return project.chooseArchiveFile(event.sender.getOwnerBrowserWindow(), modelArchivePluginType, javaHome);
     });
 
     ipcMain.handle('choose-attribute-file', async (event, fileOption, currentValue) => {
@@ -653,8 +653,9 @@ class Main {
     });
 
     ipcMain.handle('save-project',async (event, projectFile, projectContents,
-      externalFileContents, isNewFile, displayElectronSideErrors = true) => {
-      return project.saveProject(event.sender.getOwnerBrowserWindow(), projectFile, projectContents, externalFileContents, isNewFile, displayElectronSideErrors);
+      externalFileContents, isNewFile, displayElectronSideErrors = true, projectContext = {}) => {
+      return project.saveProject(event.sender.getOwnerBrowserWindow(), projectFile, projectContents,
+        externalFileContents, isNewFile, displayElectronSideErrors, projectContext);
     });
 
     ipcMain.handle('close-project', async (event, keepWindow) => {

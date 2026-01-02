@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const { constants } = require('fs');
@@ -329,6 +329,24 @@ async function canWriteInDirectory(filePath) {
   });
 }
 
+function getTemporaryFileName(baseFileNameWithExtension, defaultExtension = '.zip') {
+  let fileExtension = path.extname(baseFileNameWithExtension);
+  if (fileExtension.length < 2) {
+    fileExtension = defaultExtension;
+  }
+
+  const fileBaseName = path.basename(baseFileNameWithExtension, fileExtension);
+
+  let randomString = '';
+  const randomStringLength = 8;
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const charactersLength = characters.length;
+  for (let i = 0; i < randomStringLength; i++) {
+    randomString += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return `${fileBaseName}-${randomString}${fileExtension}`;
+}
+
 async function _getFilesRecursivelyFromDirectory(directory, fileList) {
   const i18n = require('./i18next.config');
 
@@ -377,6 +395,7 @@ module.exports = {
   getExecutableFilePath,
   getFilesRecursivelyFromDirectory,
   getRelativePath,
+  getTemporaryFileName,
   isDirectory,
   isFile,
   isRootDirectory,

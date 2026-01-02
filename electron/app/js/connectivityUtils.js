@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -34,8 +34,10 @@ async function testInternetConnectivity(httpsProxyUrl, connectivityTimeout = 500
     let timeout = false;
     logger.debug('Starting Internet connectivity test request to %s with a timeout of %s ms', homepage, connectivityTimeout);
     const httpsRequest = https.request(homepage, options, (res) => {
-      logger.debug('Internet connectivity test request to %s returned HTTP status code %s', homepage, res.statusCode);
-      resolve(res.statusCode === 200);
+      const status = res.statusCode;
+      logger.debug('Internet connectivity test request to %s returned HTTP status code %s', homepage, status);
+      httpsRequest.destroy();
+      resolve(status === 200);
     });
     httpsRequest.on('timeout', () => {
       logger.error('Internet connectivity test timed out after %s ms', connectivityTimeout);
@@ -46,6 +48,7 @@ async function testInternetConnectivity(httpsProxyUrl, connectivityTimeout = 500
       if (!timeout) {
         logger.error('Internet connectivity test failed: %s', errorUtils.getErrorMessage(err));
       }
+      httpsRequest.destroy();
       resolve(false);
     });
     httpsRequest.end();

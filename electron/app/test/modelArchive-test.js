@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  * @ignore
  */
@@ -47,12 +47,12 @@ describe('Model Archive tests', function () {
   });
 
   it('get archive contents null archive list returns null', () => {
-    const promise = modelArchive.getContentsOfArchiveFiles(__dirname, null);
+    const promise = modelArchive.getContentsOfArchiveFiles(null, __dirname, null);
     return expect(promise).to.eventually.be.null;
   });
 
   it('get archive contents empty archive list returns null', () => {
-    const promise = modelArchive.getContentsOfArchiveFiles(__dirname, [ ]);
+    const promise = modelArchive.getContentsOfArchiveFiles(null, __dirname, [ ]);
     return expect(promise).to.eventually.be.null;
   });
 
@@ -66,7 +66,7 @@ describe('Model Archive tests', function () {
       }
     };
 
-    const promise = modelArchive.getContentsOfArchiveFiles(__dirname, [ workingArchiveFile ]);
+    const promise = modelArchive.getContentsOfArchiveFiles(null, __dirname, [ workingArchiveFile ]);
     return expect(promise).to.eventually.deep.equal(expected);
   });
 
@@ -80,7 +80,7 @@ describe('Model Archive tests', function () {
       }
     };
 
-    const promise = modelArchive.getContentsOfArchiveFiles(__dirname, [ readOnlyRelativePath ]);
+    const promise = modelArchive.getContentsOfArchiveFiles(null, __dirname, [ readOnlyRelativePath ]);
     return expect(promise).to.eventually.deep.equal(expected);
   });
 
@@ -99,7 +99,7 @@ describe('Model Archive tests', function () {
       }
     };
 
-    const promise = modelArchive.saveContentsOfArchiveFiles(__dirname, archiveUpdates);
+    const promise = modelArchive.saveContentsOfArchiveFiles(null, __dirname, archiveUpdates);
     return expect(promise).to.eventually.deep.equal(expected);
   });
 
@@ -109,7 +109,7 @@ describe('Model Archive tests', function () {
       { op: 'add', path: 'wlsdeploy/libraries/foo.jar' }
     ];
 
-    const promise = modelArchive.saveContentsOfArchiveFiles(__dirname, archiveUpdates);
+    const promise = modelArchive.saveContentsOfArchiveFiles(null, __dirname, archiveUpdates);
     return expect(promise).to.eventually.be.rejected;
   });
 
@@ -119,7 +119,7 @@ describe('Model Archive tests', function () {
       { op: 'add', path: 'wlsdeploy/libraries/foo.jar', filePath: null }
     ];
 
-    const promise = modelArchive.saveContentsOfArchiveFiles(__dirname, archiveUpdates);
+    const promise = modelArchive.saveContentsOfArchiveFiles(null, __dirname, archiveUpdates);
     return expect(promise).to.eventually.be.rejected;
   });
 
@@ -129,7 +129,7 @@ describe('Model Archive tests', function () {
       { op: 'add', path: 'wlsdeploy/libraries/foo.jar', filePath: '' }
     ];
 
-    const promise = modelArchive.saveContentsOfArchiveFiles(__dirname, archiveUpdates);
+    const promise = modelArchive.saveContentsOfArchiveFiles(null, __dirname, archiveUpdates);
     return expect(promise).to.eventually.be.rejected;
   });
 
@@ -139,7 +139,7 @@ describe('Model Archive tests', function () {
       { op: 'add', path: 'wlsdeploy/libraries/foo.jar', filePath: path.join('foo', 'bar', 'my', 'app.ear') }
     ];
 
-    const promise = modelArchive.saveContentsOfArchiveFiles(__dirname, archiveUpdates);
+    const promise = modelArchive.saveContentsOfArchiveFiles(null, __dirname, archiveUpdates);
     return expect(promise).to.eventually.be.rejected;
   });
 
@@ -164,7 +164,7 @@ describe('Model Archive tests', function () {
       }
     };
 
-    const promise = modelArchive.saveContentsOfArchiveFiles(__dirname, archiveUpdates);
+    const promise = modelArchive.saveContentsOfArchiveFiles(null, __dirname, archiveUpdates);
     return expect(promise).to.eventually.deep.equal(expected);
   });
 
@@ -184,7 +184,7 @@ describe('Model Archive tests', function () {
       }
     };
 
-    const promise = modelArchive.saveContentsOfArchiveFiles(__dirname, archiveUpdates);
+    const promise = modelArchive.saveContentsOfArchiveFiles(null, __dirname, archiveUpdates);
     return expect(promise).to.eventually.deep.equal(expected);
   });
 
@@ -207,7 +207,7 @@ describe('Model Archive tests', function () {
       }
     };
 
-    const promise = modelArchive.saveContentsOfArchiveFiles(__dirname, archiveUpdates);
+    const promise = modelArchive.saveContentsOfArchiveFiles(null, __dirname, archiveUpdates);
     return expect(promise).to.eventually.deep.equal(expected);
   });
 
@@ -227,7 +227,7 @@ describe('Model Archive tests', function () {
       }
     };
 
-    const promise = modelArchive.saveContentsOfArchiveFiles(__dirname, archiveUpdates);
+    const promise = modelArchive.saveContentsOfArchiveFiles(null, __dirname, archiveUpdates);
     return expect(promise).to.eventually.deep.equal(expected);
   });
 
@@ -256,7 +256,7 @@ describe('Model Archive tests', function () {
       }
     };
 
-    const promise = modelArchive.saveContentsOfArchiveFiles(__dirname, archiveUpdates);
+    const promise = modelArchive.saveContentsOfArchiveFiles(null, __dirname, archiveUpdates);
     return expect(promise).to.eventually.deep.equal(expected);
   });
 
@@ -293,7 +293,7 @@ describe('Model Archive tests', function () {
       }
     };
 
-    const promise = modelArchive.saveContentsOfArchiveFiles(__dirname, archiveUpdates);
+    const promise = modelArchive.saveContentsOfArchiveFiles(null, __dirname, archiveUpdates);
     return expect(promise).to.eventually.deep.equal(expected);
   });
 
@@ -313,7 +313,7 @@ describe('Model Archive tests', function () {
       }
     };
 
-    const promise = modelArchive.saveContentsOfArchiveFiles(__dirname, archiveUpdates);
+    const promise = modelArchive.saveContentsOfArchiveFiles(null, __dirname, archiveUpdates);
     return expect(promise).to.eventually.deep.equal(expected);
   });
 });
