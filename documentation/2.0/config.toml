@@ -16,9 +16,14 @@ publishDir = "docs"
 
 [markup]
   defaultMarkdownHandler = 'goldmark'
-  [markup.goldmark]
-    [markup.goldmark.renderer]
-      unsafe = true
+[markup.goldmark]
+  [markup.goldmark.extensions]
+    footnote = true
+    [markup.goldmark.extensions.extras]
+      [markup.goldmark.extensions.extras.superscript]
+        enable = true
+  [markup.goldmark.renderer]
+    unsafe = true
 
 [params]
   hideAuthorDate = true

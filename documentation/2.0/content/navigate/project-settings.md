@@ -10,6 +10,7 @@ input for the project on:
 - [macOS Path and Environment Variables](#macos-path-and-environment-variables)
 - [Credential Storage](#choosing-a-credential-storage-scheme)
 - [Domain Location](#choosing-a-domain-location)
+- [Model Archive Zip File Handling](#choosing-the-model-archive-plug-in-for-zip-file-handling)
 - [JDK and WebLogic Server Installation Directories](#choosing-the-java-and-oracle-installation-directories)
 - [Image Build Tool Type and Executable Location](#choosing-the-image-build-tool)
 - [Target Kubernetes Cluster Architecture](#choosing-the-target-kubernetes-cluster-architecture)
@@ -74,6 +75,32 @@ products you are using, this may be your only supported choice for running the d
 application currently doesn't do anything to help you create the persistent volume, the necessary persistent volume
 claim, or the domain.  After those things exist, the application will allow you to use them to deploy new domains stored
 in a persistent volume.
+
+#### Choosing the Model Archive Plug-in for Zip File Handling
+When working with a WebLogic Deploy Tooling model archive file, you have the following options from which to choose:
+
+- `JavaScript JSZip Library` - Prior to the 2.0.0 release, this was the only option, and is still the default selection.
+While it still works well and supports in-place modification of the zip file, it cannot handle zip files of 2 GB or larger.
+
+- `JavaScript zip.js Library` - Introduced in release 2.0.0, zip.js is able to work with zip files larger than 2 GB.
+However, it does not support in-place modification of the zip file so it requires extra storage in the temporary
+directory to create the updated zip file prior to overwriting the old one.[^1]
+
+- `WebLogic Deploy Tooling Archive Helper Tool` - Introduced in release 2.0.0, the WDT Archive Helper Tool is able to
+both work with zip files larger than 2 GB and perform in-place editing of the zip file.  Since this tool is part of
+WDT, it requires supplying a valid `Java Home` to support its operation.
+
+<!--
+The section below is a footnote that appears at the bottom of the page.
+-->
+[^1]: By default, the temporary directory is created under the operating system's temporary directory. For Windows and
+    Linux, you can change the location of the operating system's temporary directory being used by setting the `TMPDIR`
+    environment variable prior to starting the application. <br/>
+    <br/>
+    Since macOS applications do not inherit the user's environment, you have the option of setting the 
+    `TMPDIR for zip.js Library` field to control where the application creates these temporary updated zip files. Note
+    that the option to specify the `TMPDIR for zip.js Library` field will only be visible when running the application
+    on macOS and selecting the `JavaScript zip.js Library` option.
 
 #### Choosing the Java and Oracle Installation Directories
 The application uses these directories when invoking the WebLogic Deploy Tooling and WebLogic Image Tool; it does not
