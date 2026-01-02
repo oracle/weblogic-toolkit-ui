@@ -6,6 +6,11 @@
       "DeploymentOrder": {},
       "Target": {}
     },
+    "attributeDetails": {
+      "Arguments": {
+        "delimiter": ","
+      }
+    },
     "sections": [
       {
         "type": "attributes",

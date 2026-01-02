@@ -444,10 +444,12 @@
 
   "attribute-dialog-title": "Options for {{attribute}}",
   "attribute-dialog-label": "Choose an option",
+  "attribute-dialog-option-addToArchive": "Add entry to archive",
   "attribute-dialog-option-edit": "Edit the field normally",
   "attribute-dialog-option-remove": "Remove the field from the model",
   "attribute-dialog-option-variable": "Use an existing variable token",
   "attribute-dialog-option-newVariable": "Use a new variable token",
+  "attribute-dialog-option-removeFromArchive": "Remove entry from archive",
   "attribute-dialog-variable-choice-label": "Existing Variable",
   "attribute-dialog-variable-choice-help": "Choose a variable for field",
   "attribute-dialog-variable-name-label": "Variable Name",
@@ -455,6 +457,8 @@
   "attribute-dialog-variable-name-error": "Variable names may only contain letters, numbers, and these characters: .-_",
   "attribute-dialog-variable-value-label": "Variable Value",
   "attribute-dialog-variable-value-help": "Value of variable for field",
+  "attribute-dialog-archive-file-not-present": "File not found: {{path}}",
+  "attribute-dialog-archive-path-not-present": "Path not found in archive: {{path}}",
 
   "attribute-editor-from-secret": "From secret \"{{secret}}\"",
   "attribute-editor-from-variable": "From variable \"{{variable}}\"",
@@ -2974,6 +2978,8 @@
   "a-FannedOutRequestMaxWaitMillis-help": "Determines how long the Management Services Web application will wait, in milliseconds, when it fans out an idempotent REST request from the admin server to all the managed servers. If zero, then it will choose an appropriate timeout. A request can override this value by specifying the requestMaxWaitMillis query parameter.",
 
   "a-FatalErrorCodes-label": "Fatal Error Codes",
+  "a-FatalErrorCodes-itemLabel": "Fatal Error Code",
+  "a-FatalErrorCodes-itemHelp": "Specify an error code to be treated as a fatal error.",
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-FatalErrorCodes-help": "Specifies a comma-separated list of error codes that are treated as fatal errors. These errors include deployment errors that cause a server to fail to boot and connection errors that prevent a connection from being put back in the connection pool. This optional attribute is used to define fatal error codes, that when specified as the exception code within a SQLException (retrieved by sqlException.getErrorCode()), indicate that a fatal error has occurred and the connection is no longer usable",
 
   "a-FederationName-label": "Federation Name",
@@ -3647,6 +3653,11 @@
   "f-WTCServer_WTCtBridgeGlobal-a-JmsFactory-help": "The name of the JMS connection factory; for example, weblogic.jndi.ConnectionFactory.  The default value is weblogic.jms.XAConnectionFactory.",
 
   "a-JmsToTuxPriorityMap-label": "JMS To Tuxedo Priority Map",
+  "a-JmsToTuxPriorityMap-entryLabel": "JMS To Tuxedo Priority Entry",
+  "a-JmsToTuxPriorityMap-keyLabel": "JMS Priority",
+  "a-JmsToTuxPriorityMap-keyHelp": "The JMS priority value or range that you want to map.",
+  "a-JmsToTuxPriorityMap-valueLabel": "Tuxedo Priority",
+  "a-JmsToTuxPriorityMap-valueHelp": "The Tuxedo priority to which the JMS priority should be mapped.",
   "a-JmsToTuxPriorityMap-help": "The mapping of priorities from JMS to Tuxedo. The default JMS To Tux Priority Map is: 0:1 | 1:12 | 2:23 | 3:34 | 4:45 |5:56 | 6:67 | 7:78 | 8:89 | 9:100.",
 
   "a-JndiFactory-label": "JNDI Initial Context Factory Class Name",
@@ -6583,6 +6594,11 @@
   "a-TuxFactory-help": "The name of the Tuxedo connection factory. The default value is tuxedo.services.TuxedoConnection.",
 
   "a-TuxToJmsPriorityMap-label": "Tuxedo To JMS Priority Map",
+  "a-TuxToJmsPriorityMap-entryLabel": "Tuxedo to JMS Priority Entry",
+  "a-TuxToJmsPriorityMap-keyLabel": "Tuxedo Priority",
+  "a-TuxToJmsPriorityMap-keyHelp": "The Tuxedo priority value or range that you want to map.",
+  "a-TuxToJmsPriorityMap-valueLabel": "JMS Priority",
+  "a-TuxToJmsPriorityMap-valueHelp": "The JMS priority to which the Tuxedo priority should be mapped.",
   "a-TuxToJmsPriorityMap-help": "The mapping of priorities to map from Tuxedo to JMS. The default JMS To Tux Priority Map is: 1-10:0 | 11-20:1 | 21-30:2 | 31-40:3| 41-50:4| 51-60:5 | 61-70:6 | 71-80:7 | 81-90:8 | 91-100:9.",
 
   "a-TuxedoGidKw-label": "Tuxedo Group ID Keyword",

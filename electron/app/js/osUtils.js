@@ -1,12 +1,13 @@
 /**
  * @license
- * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 // Be careful what you put in terms of require statements in this file
 // since it is used during bootstrapping of the app.
 //
-const path = require('path');
+const os = require('node:os');
+const path = require('node:path');
 
 /* global process */
 function isWindows() {
@@ -73,11 +74,15 @@ function removeProtectedEnvironmentVariables(extraEnvironmentVariablesObject) {
   return envCopy;
 }
 
+function getTmpDir() {
+  return os.tmpdir();
+}
 
 module.exports = {
   getArgv,
   getEnvironmentVariables,
   getPathDirectories,
+  getTmpDir,
   isLinux,
   isLinuxAppImage,
   isMac,

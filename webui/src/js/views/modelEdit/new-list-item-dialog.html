@@ -18,13 +18,23 @@
             required="true"
             validators="[[nameValidators]]"
           >
-            <oj-bind-if test="[[isFile]]">
+            <oj-bind-if test="[[canChooseFile]]">
               <oj-c-button
                 slot="end"
                 label="[[fileLabel]]"
                 display="icons"
                 chroming="borderless"
-                on-oj-action="[[selectFile]]">
+                on-oj-action="[[chooseFile]]">
+                <span slot="endIcon" class="oj-ux-ico-file-text" role="img"></span>
+              </oj-c-button>
+            </oj-bind-if>
+            <oj-bind-if test="[[canChooseDirectory]]">
+              <oj-c-button
+                slot="end"
+                label="[[directoryLabel]]"
+                display="icons"
+                chroming="borderless"
+                on-oj-action="[[chooseDirectory]]">
                 <span slot="endIcon" class="oj-ux-ico-folder" role="img"></span>
               </oj-c-button>
             </oj-bind-if>

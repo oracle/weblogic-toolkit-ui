@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -69,8 +69,9 @@ define(['knockout', 'models/wkt-project', 'utils/i18n'],
 
         let projectContents = project.getProjectContents();
         let modelContents = project.wdtModel.getModelContents();
+        const projectContext = getProjectContext();
         const saveResult = await window.api.ipc.invoke('save-project', projectFile, projectContents,
-          modelContents, isNewFile, displayElectronSideErrors);
+          modelContents, isNewFile, displayElectronSideErrors, projectContext);
 
         if (saveResult['isProjectFileSaved']) {
           project.setProjectFileName(projectFile);
@@ -117,7 +118,7 @@ define(['knockout', 'models/wkt-project', 'utils/i18n'],
         // clear the project data
         project.setFromJson({}, {});
 
-        // clear the any dirty flags
+        // clear the dirty flags
         project.setNotDirty();
 
         await window.api.ipc.invoke('close-project', keepWindow);
@@ -195,7 +196,8 @@ define(['knockout', 'models/wkt-project', 'utils/i18n'],
         }
 
         if(selectFile) {
-          const result = await window.api.ipc.invoke('choose-archive-file');
+          const result =  await window.api.ipc.invoke('choose-archive-file',
+            project.settings.wdtArchivePluginType.value(), project.settings.javaHome.value());
           if(result['content']) {
             project.wdtModel.setSpecifiedModelFiles(result['content']);
             added = true;
@@ -205,6 +207,17 @@ define(['knockout', 'models/wkt-project', 'utils/i18n'],
         return {added: added};
       };
 
+      function getProjectContext() {
+        const macZipjsTmpDir = project.settings.zipjsTmpDir.observable();
+        const context = {
+          wdtArchivePluginType: project.settings.wdtArchivePluginType.observable(),
+          javaHome: project.settings.javaHome.observable(),
+        };
+        if (macZipjsTmpDir) {
+          context.macZipjsTmpDir = macZipjsTmpDir;
+        }
+        return context;
+      }
     }
 
     return new ProjectIo();

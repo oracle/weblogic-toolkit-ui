@@ -59,8 +59,8 @@ function(accUtils, ko, ModelEditHelper, MessageHelper, AliasHelper, FileSelectHe
     ModelEditHelper.updateOptionLabels(options);
     this.optionsProvider = new ArrayDataProvider(options, { keyAttributes: 'value' });
 
-    this.isFile = ATTRIBUTE.usesPath;
-    this.fileLabel = MessageHelper.t('attribute-editor-select');
+    this.fileLabel = MessageHelper.t('attribute-editor-select-file');
+    this.directoryLabel = MessageHelper.t('attribute-editor-select-directory');
 
     this.t = (labelId, arg) => {
       return MessageHelper.t(labelId, arg);
@@ -72,10 +72,27 @@ function(accUtils, ko, ModelEditHelper, MessageHelper, AliasHelper, FileSelectHe
       }
     }];
 
-    this.selectFile = async() => {
+    this.canChooseFile = ATTRIBUTE.usesPath && FileSelectHelper.canChooseFile(ATTRIBUTE);
+
+    this.canChooseDirectory = ATTRIBUTE.usesPath && FileSelectHelper.canChooseDirectory(ATTRIBUTE);
+
+    this.chooseDirectory = async() => {
+      return this.choosePath(true);
+    };
+
+    this.chooseFile = async() => {
+      return this.choosePath(false);
+    };
+
+    this.choosePath = async(isDirectory) => {
       this.dialogContainer.close();
 
-      const path = await FileSelectHelper.selectFile(ATTRIBUTE, null);
+      let path;
+      if(isDirectory) {
+        path = await FileSelectHelper.chooseDirectory(ATTRIBUTE, null);
+      } else {
+        path = await FileSelectHelper.chooseFile(ATTRIBUTE, null);
+      }
 
       if(path) {
         this.elementName(path);

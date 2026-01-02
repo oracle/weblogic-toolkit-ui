@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
@@ -9,17 +9,32 @@ define(['accUtils', 'knockout', 'utils/i18n', 'models/wkt-project', 'ojs/ojarray
   'ojs/ojbufferingdataprovider', 'ojs/ojmodule-element-utils', 'utils/common-utilities', 'utils/dialog-helper',
   'utils/view-helper', 'utils/aux-image-helper', 'utils/wkt-logger', 'utils/url-catalog', 'ojs/ojinputtext',
   'ojs/ojlabel', 'ojs/ojbutton', 'oj-c/form-layout', 'oj-c/radioset', 'ojs/ojswitch', 'oj-c/select-single',
-  'ojs/ojtable' ],
+  'ojs/ojtable', 'oj-c/rich-radioset' ],
 function(accUtils, ko, i18n, project, ArrayDataProvider,
   BufferingDataProvider, ModuleElementUtils, utils, dialogHelper, viewHelper, auxImageHelper) {
 
   function ProjectSettingsViewModel() {
 
+    const subscriptions = [];
+    this.project = project;
+
     this.connected = () => {
       accUtils.announce('Project settings page loaded.', 'assertive');
+
+      subscriptions.push(this.project.settings.wdtArchivePluginType.observable.subscribe((newValue) => {
+        this.computeWDTArchivePluginTypeValidationMessage(newValue, undefined);
+      }));
+
+      subscriptions.push(this.project.settings.javaHome.observable.subscribe((newValue) => {
+        this.computeWDTArchivePluginTypeValidationMessage(undefined, newValue);
+      }));
     };
 
-    this.project = project;
+    this.disconnected = () => {
+      subscriptions.forEach((subscription) => {
+        subscription.dispose();
+      });
+    };
 
     this.labelMapper = (labelId) => {
       return i18n.t(`project-settings-${labelId}`);
@@ -158,6 +173,48 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
       { id: 'pvOption', value: 'pv', label: this.labelMapper('domain-location-pv-label') },
     ];
     this.targetDomainLocationDP = new ArrayDataProvider(this.targetDomainLocations, { keyAttributes: 'value' });
+
+    this.wdtArchivePluginTypes = [
+      {
+        value: 'jszip',
+        label: this.labelMapper('wdt-archive-plugin-type-jszip-label'),
+        secondaryText: this.labelMapper('wdt-archive-plugin-type-jszip-secondary-label')
+      },
+      {
+        value: 'zipjs',
+        label: this.labelMapper('wdt-archive-plugin-type-zipjs-label'),
+        secondaryText: this.labelMapper('wdt-archive-plugin-type-zipjs-secondary-label')
+      },
+      {
+        value: 'java',
+        label: this.labelMapper('wdt-archive-plugin-type-java-label'),
+        secondaryText: this.labelMapper('wdt-archive-plugin-type-java-secondary-label')
+      },
+    ];
+
+    const wdtArchivePluginTypeValidValue = { detail: '', severity: 'none'};
+    const wdtArchivePluginTypeValidationErrorMessage =
+      this.labelMapper('wdt-archive-plugin-type-validation-error-message');
+    const wdtArchivePluginTypeInvalidValue =
+      { detail: wdtArchivePluginTypeValidationErrorMessage, severity: 'error'};
+    this.wdtArchivePluginTypeValidationMessage = ko.observableArray([wdtArchivePluginTypeValidValue]);
+
+    this.computeWDTArchivePluginTypeValidationMessage = (newPluginTypeValue, newJavaHomeValue) => {
+      const pluginType =
+        !newPluginTypeValue ? this.project.settings.wdtArchivePluginType.observable() : newPluginTypeValue;
+      const javaHome = !newJavaHomeValue ? this.project.settings.javaHome.observable() : newJavaHomeValue;
+
+      const validIdx = this.wdtArchivePluginTypeValidationMessage.indexOf(wdtArchivePluginTypeValidValue);
+      if (pluginType === 'java' && !javaHome && validIdx >= 0) {
+        this.wdtArchivePluginTypeValidationMessage.replace(wdtArchivePluginTypeValidValue, wdtArchivePluginTypeInvalidValue);
+      } else if (validIdx < 0) {
+        this.wdtArchivePluginTypeValidationMessage.replace(wdtArchivePluginTypeInvalidValue, wdtArchivePluginTypeValidValue);
+      }
+    };
+
+    this.pluginSelectionValidation = ko.computed(() => {
+      return this.wdtArchivePluginTypeValidationMessage();
+    });
 
     this.getTargetDomainLocationMessage = () => {
       const key = this.project.settings.targetDomainLocation.observable();

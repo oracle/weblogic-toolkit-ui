@@ -54,8 +54,22 @@
     ]
   },
   "SystemComponent/SystemComponentStart": {
-    "Arguments": {
-      "delimiter": " "
+    "attributeDetails": {
+      "Arguments": {
+        "delimiter": " "
+      },
+      "ClassPath": {
+        "archiveTypes": ["classpathLibrary"]
+      },
+      "JavaHome": {
+        "fileOptions": [{"type": "dir"}]
+      },
+      "MwHome": {
+        "fileOptions": [{"type": "dir"}]
+      },
+      "RootDirectory": {
+        "fileOptions": [{"type": "dir"}]
+      }
     },
     "sections": [
       {
