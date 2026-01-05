@@ -163,16 +163,32 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
     };
 
     this.credentialStorePolicies = [
-      { key: 'passphrase', label: this.labelMapper('credential-store-passphrase-label') },
-      { key: 'none', label: this.labelMapper('credential-store-none-label') },
+      {
+        value: 'passphrase',
+        label: this.labelMapper('credential-store-passphrase-label'),
+        secondaryText: this.labelMapper('credential-store-passphrase-secondary-label')
+      },
+      {
+        value: 'none',
+        label: this.labelMapper('credential-store-none-label'),
+        secondaryText: this.labelMapper('credential-store-none-secondary-label')
+      },
     ];
-    this.credentialStorePoliciesDP = new ArrayDataProvider(this.credentialStorePolicies, { keyAttributes: 'key' });
 
     this.targetDomainLocations = [
-      { id: 'miiOption', value: 'mii', label: this.labelMapper('domain-location-mii-label') },
-      { id: 'pvOption', value: 'pv', label: this.labelMapper('domain-location-pv-label') },
+      {
+        id: 'miiOption',
+        value: 'mii',
+        label: this.labelMapper('domain-location-mii-label'),
+        secondaryText: this.labelMapper('domain-location-mii-secondary-label')
+      },
+      {
+        id: 'pvOption',
+        value: 'pv',
+        label: this.labelMapper('domain-location-pv-label'),
+        secondaryText: this.labelMapper('domain-location-pv-secondary-label'),
+      },
     ];
-    this.targetDomainLocationDP = new ArrayDataProvider(this.targetDomainLocations, { keyAttributes: 'value' });
 
     this.wdtArchivePluginTypes = [
       {
@@ -215,11 +231,6 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
     this.pluginSelectionValidation = ko.computed(() => {
       return this.wdtArchivePluginTypeValidationMessage();
     });
-
-    this.getTargetDomainLocationMessage = () => {
-      const key = this.project.settings.targetDomainLocation.observable();
-      return this.labelMapper(`domain-location-${key}-message`);
-    };
 
     this.targetDomainLocationIsPV = () => {
       return this.project.settings.targetDomainLocation.observable() === 'pv';
