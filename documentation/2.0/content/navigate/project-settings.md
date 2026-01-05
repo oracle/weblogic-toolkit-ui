@@ -34,7 +34,7 @@ environment variables as needed. Note that this extra environment configuration 
 Docker/Podman, kubectl, and Helm. This section is visible only when running the application on macOS.
 
 
-#### Choosing a Credential Storage Scheme
+#### Choosing a Credential Store Policy
 The WKT UI application can securely store credentials for your project or not store them at all.  The two choices
 are:
 
@@ -57,7 +57,7 @@ When getting started with a new WKT Project, one of the first things to consider
 Domains can reside in a container, in an image, or in a persistent volume.  Your choice will expose and hide different
 fields across most sections of the UI.  The following describe the implications of the three locations:
 
-- `Created in the container from the model in the image`  - The newest and most popular location for a domain is in the 
+- `Model-in-Image with Auxiliary Image`  - The newest and most popular location for a domain is in the 
 container.  This is known as "Model in Image" but also referred to as a "From Model" in the underlying WKT tooling.  
 In this case, the set of model-related files are added to an image, known as the "Auxiliary Image."  When the WebLogic
 Kubernetes Operator domain object is deployed, its inspector process runs and creates the WebLogic Server domain inside
@@ -68,13 +68,12 @@ existing (or new) auxiliary image to provide the WebLogic Deploy Tooling and you
 these images, it makes updating existing domains with new FMW software patches and updating domain model files
 decoupled. 
 
-- `Externally created in a Kubernetes persistent volume` - This selection stores the domain in a Kubernetes persistent
-volume; this is known as "Domain in PV". This closely approximates the traditional way of maintaining a domain where the
-domain is created on disk and then used and maintained for as long as necessary. Depending on which Fusion Middleware
-products you are using, this may be your only supported choice for running the domain in Kubernetes.  The WKT UI 
-application currently doesn't do anything to help you create the persistent volume, the necessary persistent volume
-claim, or the domain.  After those things exist, the application will allow you to use them to deploy new domains stored
-in a persistent volume.
+- `Domain on Persistent Volume` - This selection stores the domain in a Kubernetes persistent volume. This closely
+approximates the traditional way of maintaining a domain where the domain is created on disk and then used and
+maintained for as long as necessary. Depending on which Fusion Middleware products you are using, this may be your only
+supported choice for running the domain in Kubernetes.  The WKT UI application currently doesn't do anything to help you
+create the persistent volume, the necessary persistent volume claim, or the domain.  After those things exist, the 
+application will allow you to use them to deploy new domains stored in a persistent volume.
 
 #### Choosing the Model Archive Plug-in for Zip File Handling
 When working with a WebLogic Deploy Tooling model archive file, you have the following options from which to choose:
