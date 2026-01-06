@@ -1682,7 +1682,8 @@
   "save-all-catch-all-error-message": "Failed to save all: {{error}}",
   "save-as-failed-title": "Save As Failed",
   "save-as-catch-all-error-message": "Failed to save as: {{error}}",
-  "save-in-progress-message": "Saving project with archive changes",
+  "save-in-progress-message": "Saving project",
+  "save-in-progress-with-archive-message": "Saving project with archive changes",
 
   "network-page-title": "Network Configuration",
   "network-page-proceed": "Connection was established. Click Restart Application to save these settings and restart the application.",
