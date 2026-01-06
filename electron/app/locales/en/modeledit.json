@@ -6747,7 +6747,7 @@
 
   "a-UseNonSecureAddressesForDomain-label": "Use Non-Secure Addresses For Domains",
   "a-UseNonSecureAddressesForDomain-itemLabel": "Domain",
-  "a-UseNonSecureAddressesForDomain-itemHelp": "Select a domain to the list of domains for which non-secure protocols.",
+  "a-UseNonSecureAddressesForDomain-itemHelp": "Select a domain to the list of domains for which non-secure protocols should be used.",
   "a-UseNonSecureAddressesForDomain-help": "Specifies the domains for which non-secure protocols should be used for internal JTA communication if the servers in the domains are configured to use network channels.",
 
   "a-UseParentHandlers-label": "Use Parent Handlers",
