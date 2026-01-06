@@ -10,13 +10,13 @@
  * Returns a singleton.
  */
 
-define(['knockout', 'models/wkt-project', 'utils/i18n'],
-  function (ko, project, i18n) {
+define(['knockout', 'models/wkt-project', 'utils/i18n', 'utils/dialog-helper'],
+  function (ko, project, i18n, DialogHelper) {
     function ProjectIo() {
 
       // verify that a project file is assigned to this project, choosing if necessary.
       // save the project contents to the specified file.
-      this.saveProject = async(forceSave = false, displayElectronSideErrors = true) => {
+      this.saveProject = async(forceSave = false, displayElectronSideErrors = true, useBusyDialog = false) => {
         const projectNotSaved = !project.getProjectFileName();
 
         if(forceSave || project.isDirty() || projectNotSaved) {
@@ -27,7 +27,20 @@ define(['knockout', 'models/wkt-project', 'utils/i18n'],
             return {saved: false, reason: i18n.t('project-io-user-cancelled-save-message')};
           }
 
-          return saveToFile(projectFile, projectName, projectUuid, isNewFile, displayElectronSideErrors);
+          const showBusyDialog = useBusyDialog && project.wdtModel.archiveUpdates.length;
+          if(showBusyDialog) {
+            const busyDialogMessage = i18n.t('save-in-progress-message');
+            DialogHelper.openBusyDialog(busyDialogMessage, 'bar');
+          }
+
+          const result = await saveToFile(projectFile, projectName, projectUuid, isNewFile, displayElectronSideErrors);
+
+          if(showBusyDialog) {
+            await delay(100);  // ensure dialog had time to open if save is too fast
+            DialogHelper.closeBusyDialog();
+          }
+
+          return result;
         }
 
         return {saved: true};
@@ -50,8 +63,25 @@ define(['knockout', 'models/wkt-project', 'utils/i18n'],
         // this will cause the model files to be written with new names
         project.wdtModel.clearModelFileNames();
 
-        return saveToFile(projectFile, projectName, projectUuid, isNewFile);
+        const showBusyDialog = project.wdtModel.archiveUpdates.length;
+        if(showBusyDialog) {
+          const busyDialogMessage = i18n.t('save-in-progress-message');
+          DialogHelper.openBusyDialog(busyDialogMessage, 'bar');
+        }
+
+        const result = await saveToFile(projectFile, projectName, projectUuid, isNewFile);
+
+        if(showBusyDialog) {
+          await delay(100);  // ensure dialog had time to open if save is too fast
+          DialogHelper.closeBusyDialog();
+        }
+
+        return result;
       };
+
+      function delay(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      }
 
       // save the project to the specified project file with name and UUID.
       // if project file is null, do not save.
