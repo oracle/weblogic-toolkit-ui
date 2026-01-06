@@ -29,7 +29,7 @@ define(['knockout', 'models/wkt-project', 'utils/i18n', 'utils/dialog-helper'],
 
           const showBusyDialog = useBusyDialog && project.wdtModel.archiveUpdates.length;
           if(showBusyDialog) {
-            const busyDialogMessage = i18n.t('save-in-progress-message');
+            const busyDialogMessage = i18n.t('save-in-progress-with-archive-message');
             DialogHelper.openBusyDialog(busyDialogMessage, 'bar');
           }
 
@@ -63,18 +63,13 @@ define(['knockout', 'models/wkt-project', 'utils/i18n', 'utils/dialog-helper'],
         // this will cause the model files to be written with new names
         project.wdtModel.clearModelFileNames();
 
-        const showBusyDialog = project.wdtModel.archiveUpdates.length;
-        if(showBusyDialog) {
-          const busyDialogMessage = i18n.t('save-in-progress-message');
-          DialogHelper.openBusyDialog(busyDialogMessage, 'bar');
-        }
+        const busyDialogMessage = i18n.t('save-in-progress-message');
+        DialogHelper.openBusyDialog(busyDialogMessage, 'bar');
 
         const result = await saveToFile(projectFile, projectName, projectUuid, isNewFile);
 
-        if(showBusyDialog) {
-          await delay(100);  // ensure dialog had time to open if save is too fast
-          DialogHelper.closeBusyDialog();
-        }
+        await delay(100);  // ensure dialog had time to open if save is too fast
+        DialogHelper.closeBusyDialog();
 
         return result;
       };
