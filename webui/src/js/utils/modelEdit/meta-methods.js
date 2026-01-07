@@ -55,6 +55,10 @@ function (ko, WktLogger, DialogHelper, ArchiveHelper, ModelEditHelper, Navigatio
 
       NavigationHelper.openNavigation(modelPath);  // open parent
     };
+
+    this.newEnableDebugScopeFolderContent = () => {
+      return { Enabled: true };
+    };
   }
 
   // return a singleton instance
