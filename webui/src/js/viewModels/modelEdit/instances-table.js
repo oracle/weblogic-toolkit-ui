@@ -162,6 +162,7 @@ function(accUtils, ko, InstanceHelper, ModelEditHelper, MessageHelper, Navigatio
       // otherwise, prompt for a name and folder contents.
 
       const addHandler = MetaHelper.getAddHandler(ALIAS_PATH);
+      const newFolderContentHandler = MetaHelper.getNewFolderContentHandler(ALIAS_PATH);
       if(addHandler) {
         MetaMethods[addHandler](MODEL_PATH, NAME_VALIDATORS);
         return;
@@ -175,11 +176,12 @@ function(accUtils, ko, InstanceHelper, ModelEditHelper, MessageHelper, Navigatio
         .then(result => {
           const newName = result.instanceName;
           if (newName) {
-            ModelEditHelper.addFolder(MODEL_PATH, newName);
+            const content = newFolderContentHandler ? MetaMethods[newFolderContentHandler]() : undefined;
+            ModelEditHelper.addFolder(MODEL_PATH, newName, content);
 
             if(this.useTypeFolder && result.providerType) {
               const instancePath = [...MODEL_PATH, newName];
-              ModelEditHelper.addFolder(instancePath, result.providerType);
+              ModelEditHelper.addFolder(instancePath, result.providerType, content);
             }
 
             NavigationHelper.openNavigation(MODEL_PATH);  // open parent
