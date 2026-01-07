@@ -1684,6 +1684,9 @@
   "save-as-catch-all-error-message": "Failed to save as: {{error}}",
   "save-in-progress-message": "Saving project",
   "save-in-progress-with-archive-message": "Saving project with archive changes",
+  "save-no-java-home-for-archive-helper": "Java installation directory must be set when using the WDT Archive Helper Tool plugin",
+  "save-failed-title": "Save Project",
+  "save-failed-message": "Failed to save project: {{error}}",
 
   "network-page-title": "Network Configuration",
   "network-page-proceed": "Connection was established. Click Restart Application to save these settings and restart the application.",
