@@ -14,12 +14,23 @@ define(['knockout', 'models/wkt-project', 'utils/i18n', 'utils/dialog-helper'],
   function (ko, project, i18n, DialogHelper) {
     function ProjectIo() {
 
-      // verify that a project file is assigned to this project, choosing if necessary.
-      // save the project contents to the specified file.
-      this.saveProject = async(forceSave = false, displayElectronSideErrors = true, useBusyDialog = false) => {
+      /**
+       * Save the project, requesting a location if needed.
+       * @param forceSave if true, save regardless of state
+       * @param displayMessages if true, display dialogs for busy, errors, etc. If this call is embedded in
+       *   another sequence, no dialogs are displayed, and the caller will display the result.
+       * @returns {Promise<{saved: boolean, reason: *}>}
+       */
+      this.saveProject = async(forceSave = false, displayMessages = true) => {
         const projectNotSaved = !project.getProjectFileName();
 
         if(forceSave || project.isDirty() || projectNotSaved) {
+          const checkResult = await this.checkBeforeSave(displayMessages);
+          if(checkResult) {
+            return checkResult;
+          }
+
+          // verify that a project file is assigned to this project, choosing if necessary.
           const [projectFile, projectName, projectUuid, isNewFile] = await window.api.ipc.invoke('confirm-project-file');
 
           // if the project file is null, the user cancelled when selecting a new file.
@@ -27,13 +38,15 @@ define(['knockout', 'models/wkt-project', 'utils/i18n', 'utils/dialog-helper'],
             return {saved: false, reason: i18n.t('project-io-user-cancelled-save-message')};
           }
 
-          const showBusyDialog = useBusyDialog && project.wdtModel.archiveUpdates.length;
+          // show busy dialog if displaying messages, and archive updates are present
+          const showBusyDialog = displayMessages && project.wdtModel.archiveUpdates.length;
           if(showBusyDialog) {
             const busyDialogMessage = i18n.t('save-in-progress-with-archive-message');
             DialogHelper.openBusyDialog(busyDialogMessage, 'bar');
           }
 
-          const result = await saveToFile(projectFile, projectName, projectUuid, isNewFile, displayElectronSideErrors);
+          // save the project contents to the specified file.
+          const result = await saveToFile(projectFile, projectName, projectUuid, isNewFile, displayMessages);
 
           if(showBusyDialog) {
             await delay(100);  // ensure dialog had time to open if save is too fast
@@ -48,6 +61,11 @@ define(['knockout', 'models/wkt-project', 'utils/i18n', 'utils/dialog-helper'],
 
       // select a new project file for the project, and save the project contents to the specified file.
       this.saveProjectAs = async() => {
+        const checkResult = await this.checkBeforeSave(true);
+        if(checkResult) {
+          return checkResult;
+        }
+
         const [projectFile, projectName, projectUuid, isNewFile] = await window.api.ipc.invoke('choose-project-file');
         // if the project file is null, the user cancelled when selecting a new file.
         if(!projectFile) {
@@ -72,6 +90,26 @@ define(['knockout', 'models/wkt-project', 'utils/i18n', 'utils/dialog-helper'],
         DialogHelper.closeBusyDialog();
 
         return result;
+      };
+
+      this.checkBeforeSave = async(displayMessages) => {
+        let saved = true;
+        let errorMessage = null;
+
+        const pluginType = project.settings.wdtArchivePluginType.observable();
+        const javaHome = project.settings.javaHome.observable();
+        if (pluginType === 'java' && !javaHome) {
+          errorMessage = i18n.t('save-no-java-home-for-archive-helper');
+          saved = false;
+        }
+
+        if(displayMessages && errorMessage) {
+          const errorTitle = i18n.t('save-failed-title');
+          const qualifiedMessage = i18n.t('save-failed-message', { error: errorMessage });
+          await window.api.ipc.invoke('show-error-message', errorTitle, qualifiedMessage);
+        }
+
+        return {saved, reason: errorMessage};
       };
 
       function delay(ms) {

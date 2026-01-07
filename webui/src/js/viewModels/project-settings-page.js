@@ -15,25 +15,10 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
 
   function ProjectSettingsViewModel() {
 
-    const subscriptions = [];
     this.project = project;
 
     this.connected = () => {
       accUtils.announce('Project settings page loaded.', 'assertive');
-
-      subscriptions.push(this.project.settings.wdtArchivePluginType.observable.subscribe((newValue) => {
-        this.computeWDTArchivePluginTypeValidationMessage(newValue, undefined);
-      }));
-
-      subscriptions.push(this.project.settings.javaHome.observable.subscribe((newValue) => {
-        this.computeWDTArchivePluginTypeValidationMessage(undefined, newValue);
-      }));
-    };
-
-    this.disconnected = () => {
-      subscriptions.forEach((subscription) => {
-        subscription.dispose();
-      });
     };
 
     this.labelMapper = (labelId) => {
@@ -213,20 +198,15 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
       this.labelMapper('wdt-archive-plugin-type-validation-error-message');
     const wdtArchivePluginTypeInvalidValue =
       { detail: wdtArchivePluginTypeValidationErrorMessage, severity: 'error'};
-    this.wdtArchivePluginTypeValidationMessage = ko.observableArray([wdtArchivePluginTypeValidValue]);
 
-    this.computeWDTArchivePluginTypeValidationMessage = (newPluginTypeValue, newJavaHomeValue) => {
-      const pluginType =
-        !newPluginTypeValue ? this.project.settings.wdtArchivePluginType.observable() : newPluginTypeValue;
-      const javaHome = !newJavaHomeValue ? this.project.settings.javaHome.observable() : newJavaHomeValue;
-
-      const validIdx = this.wdtArchivePluginTypeValidationMessage.indexOf(wdtArchivePluginTypeValidValue);
-      if (pluginType === 'java' && !javaHome && validIdx >= 0) {
-        this.wdtArchivePluginTypeValidationMessage.replace(wdtArchivePluginTypeValidValue, wdtArchivePluginTypeInvalidValue);
-      } else if (validIdx < 0) {
-        this.wdtArchivePluginTypeValidationMessage.replace(wdtArchivePluginTypeInvalidValue, wdtArchivePluginTypeValidValue);
+    this.wdtArchivePluginTypeValidationMessage = ko.computed(() => {
+      const pluginType = this.project.settings.wdtArchivePluginType.observable();
+      const javaHome = this.project.settings.javaHome.observable();
+      if (pluginType === 'java' && !javaHome) {
+        return [wdtArchivePluginTypeInvalidValue];
       }
-    };
+      return [wdtArchivePluginTypeValidValue];
+    });
 
     this.pluginSelectionValidation = ko.computed(() => {
       return this.wdtArchivePluginTypeValidationMessage();
