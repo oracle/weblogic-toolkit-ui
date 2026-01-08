@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
@@ -9,17 +9,17 @@ define(['accUtils', 'knockout', 'utils/i18n', 'models/wkt-project', 'ojs/ojarray
   'ojs/ojbufferingdataprovider', 'ojs/ojmodule-element-utils', 'utils/common-utilities', 'utils/dialog-helper',
   'utils/view-helper', 'utils/aux-image-helper', 'utils/wkt-logger', 'utils/url-catalog', 'ojs/ojinputtext',
   'ojs/ojlabel', 'ojs/ojbutton', 'oj-c/form-layout', 'oj-c/radioset', 'ojs/ojswitch', 'oj-c/select-single',
-  'ojs/ojtable' ],
+  'ojs/ojtable', 'oj-c/rich-radioset' ],
 function(accUtils, ko, i18n, project, ArrayDataProvider,
   BufferingDataProvider, ModuleElementUtils, utils, dialogHelper, viewHelper, auxImageHelper) {
 
   function ProjectSettingsViewModel() {
 
+    this.project = project;
+
     this.connected = () => {
       accUtils.announce('Project settings page loaded.', 'assertive');
     };
-
-    this.project = project;
 
     this.labelMapper = (labelId) => {
       return i18n.t(`project-settings-${labelId}`);
@@ -148,21 +148,69 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
     };
 
     this.credentialStorePolicies = [
-      { key: 'passphrase', label: this.labelMapper('credential-store-passphrase-label') },
-      { key: 'none', label: this.labelMapper('credential-store-none-label') },
+      {
+        value: 'passphrase',
+        label: this.labelMapper('credential-store-passphrase-label'),
+        secondaryText: this.labelMapper('credential-store-passphrase-secondary-label')
+      },
+      {
+        value: 'none',
+        label: this.labelMapper('credential-store-none-label'),
+        secondaryText: this.labelMapper('credential-store-none-secondary-label')
+      },
     ];
-    this.credentialStorePoliciesDP = new ArrayDataProvider(this.credentialStorePolicies, { keyAttributes: 'key' });
 
     this.targetDomainLocations = [
-      { id: 'miiOption', value: 'mii', label: this.labelMapper('domain-location-mii-label') },
-      { id: 'pvOption', value: 'pv', label: this.labelMapper('domain-location-pv-label') },
+      {
+        id: 'miiOption',
+        value: 'mii',
+        label: this.labelMapper('domain-location-mii-label'),
+        secondaryText: this.labelMapper('domain-location-mii-secondary-label')
+      },
+      {
+        id: 'pvOption',
+        value: 'pv',
+        label: this.labelMapper('domain-location-pv-label'),
+        secondaryText: this.labelMapper('domain-location-pv-secondary-label'),
+      },
     ];
-    this.targetDomainLocationDP = new ArrayDataProvider(this.targetDomainLocations, { keyAttributes: 'value' });
 
-    this.getTargetDomainLocationMessage = () => {
-      const key = this.project.settings.targetDomainLocation.observable();
-      return this.labelMapper(`domain-location-${key}-message`);
-    };
+    this.wdtArchivePluginTypes = [
+      {
+        value: 'jszip',
+        label: this.labelMapper('wdt-archive-plugin-type-jszip-label'),
+        secondaryText: this.labelMapper('wdt-archive-plugin-type-jszip-secondary-label')
+      },
+      {
+        value: 'zipjs',
+        label: this.labelMapper('wdt-archive-plugin-type-zipjs-label'),
+        secondaryText: this.labelMapper('wdt-archive-plugin-type-zipjs-secondary-label')
+      },
+      {
+        value: 'java',
+        label: this.labelMapper('wdt-archive-plugin-type-java-label'),
+        secondaryText: this.labelMapper('wdt-archive-plugin-type-java-secondary-label')
+      },
+    ];
+
+    const wdtArchivePluginTypeValidValue = { detail: '', severity: 'none'};
+    const wdtArchivePluginTypeValidationErrorMessage =
+      this.labelMapper('wdt-archive-plugin-type-validation-error-message');
+    const wdtArchivePluginTypeInvalidValue =
+      { detail: wdtArchivePluginTypeValidationErrorMessage, severity: 'error'};
+
+    this.wdtArchivePluginTypeValidationMessage = ko.computed(() => {
+      const pluginType = this.project.settings.wdtArchivePluginType.observable();
+      const javaHome = this.project.settings.javaHome.observable();
+      if (pluginType === 'java' && !javaHome) {
+        return [wdtArchivePluginTypeInvalidValue];
+      }
+      return [wdtArchivePluginTypeValidValue];
+    });
+
+    this.pluginSelectionValidation = ko.computed(() => {
+      return this.wdtArchivePluginTypeValidationMessage();
+    });
 
     this.targetDomainLocationIsPV = () => {
       return this.project.settings.targetDomainLocation.observable() === 'pv';

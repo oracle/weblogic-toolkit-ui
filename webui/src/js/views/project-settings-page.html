@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2021, 2025, Oracle and/or its affiliates.
+ Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 <div class="wkt-content" id="projectSettings">
@@ -128,14 +128,12 @@
 
   <div class="oj-panel">
     <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('credential-store-policy-question')]]"></oj-bind-text></h6>
-    <oj-c-form-layout max-columns="2" direction="row">
-      <oj-c-select-single label-hint="[[labelMapper('credential-store-policy-label')]]"
-                          label-edge="inside"
+    <oj-c-form-layout full-width="true" direction="row">
+      <oj-c-rich-radioset label-hint="[[labelMapper('credential-store-policy-label')]]"
+                          options="[[credentialStorePolicies]]"
                           value="{{project.settings.credentialStorePolicy.observable}}"
-                          data="[[credentialStorePoliciesDP]]"
-                          help.instruction="[[labelMapper('credential-store-policy-help')]]"
-                          item-text="label">
-      </oj-c-select-single>
+                          help.instruction="[[labelMapper('credential-store-policy-help')]]">
+      </oj-c-rich-radioset>
     </oj-c-form-layout>
     <p><oj-bind-text value="[[labelMapper('credential-store-policy-answer-message')]]"></oj-bind-text></p>
   </div>
@@ -143,12 +141,40 @@
   <div class="oj-panel">
     <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('domain-location-question')]]"></oj-bind-text></h6>
     <oj-c-form-layout full-width="true" direction="row">
-      <oj-c-radioset label-hint="[[labelMapper('domain-location-help')]]"
-                   options="[[targetDomainLocationDP]]"
-                   value="{{project.settings.targetDomainLocation.observable}}">
-      </oj-c-radioset>
+      <oj-c-rich-radioset label-hint="[[labelMapper('domain-location-label')]]"
+                          options="[[targetDomainLocations]]"
+                          value="{{project.settings.targetDomainLocation.observable}}"
+                          help.instruction="[[labelMapper('domain-location-help')]]">
+      </oj-c-rich-radioset>
     </oj-c-form-layout>
-    <p><oj-bind-text value="[[getTargetDomainLocationMessage()]]"></oj-bind-text></p>
+    <p><oj-bind-text value="[[labelMapper('domain-location-answer')]]"></oj-bind-text></p>
+  </div>
+
+  <div class="oj-panel">
+    <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('wdt-archive-plugin-type-question')]]"></oj-bind-text></h6>
+    <oj-c-form-layout full-width="true" direction="row">
+      <oj-c-rich-radioset label-hint="[[labelMapper('wdt-archive-plugin-type-label')]]"
+                          options="[[wdtArchivePluginTypes]]"
+                          value="{{project.settings.wdtArchivePluginType.observable}}"
+                          messages-custom="[[pluginSelectionValidation]]"
+                          help.instruction="[[labelMapper('wdt-archive-plugin-type-help')]]">
+      </oj-c-rich-radioset>
+    </oj-c-form-layout>
+    <p><oj-bind-text value="[[labelMapper('wdt-archive-plugin-type-answer-message')]]"></oj-bind-text></p>
+
+    <oj-bind-if test="[[project.settings.wdtArchivePluginType.observable() === 'zipjs' && isMac()]]">
+      <p>&nbsp;</p>
+      <div class="oj-panel">
+        <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('wdt-archive-plugin-mac-zipjs-tmpdir-question')]]"></oj-bind-text></h6>
+        <oj-c-form-layout full-width="true" direction="row">
+          <oj-input-text label-hint="[[labelMapper('wdt-archive-plugin-mac-zipjs-tmpdir-label')]]"
+                         value="{{project.settings.zipjsTmpDir.observable}}"
+                         help.instruction="[[labelMapper('wdt-archive-plugin-mac-zipjs-tmpdir-help')]]">
+          </oj-input-text>
+        </oj-c-form-layout>
+        <p><oj-bind-text value="[[labelMapper('wdt-archive-plugin-mac-zipjs-tmpdir-answer-message')]]"></oj-bind-text></p>
+      </div>
+    </oj-bind-if>
   </div>
 
   <div class="oj-panel">

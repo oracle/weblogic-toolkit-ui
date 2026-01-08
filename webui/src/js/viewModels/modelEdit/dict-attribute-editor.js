@@ -74,19 +74,19 @@ function(accUtils, ko, DialogHelper, ArrayDataProvider,
         width: ViewHelper.BUTTON_COLUMN_WIDTH
       }];
 
-    this.observableItems = ko.observableArray([]);
+    this.observableEntries = ko.observableArray([]);
 
     // update the internal list observable from the attribute observable.
     // the attribute observable value should be a dictionary, variable tokens are not allowed.
     this.updateList = () => {
-      this.observableItems.removeAll();
+      this.observableEntries.removeAll();
       const map = this.observable();
       if(map != null) {
         if ((typeof map === 'object') && !Array.isArray(map)) {
           Object.keys(map).forEach(key => {
-            this.observableItems.push({
+            this.observableEntries.push({
               uid: utils.getShortUuid(),
-              name: key,
+              key,
               value: map[key]
             });
           });
@@ -97,23 +97,24 @@ function(accUtils, ko, DialogHelper, ArrayDataProvider,
     // update attribute observable from the internal list observable.
     // the attribute value is a dictionary, the internal list contains table objects.
     this.updateObservable = () => {
-      const items = {};
-      this.observableItems().forEach(item => {
-        items[item.name] = item.value;
+      const entries = {};
+      this.observableEntries().forEach(entry => {
+        entries[entry.key] = entry.value;
       });
-      this.observable(Object.keys(items).length ? items : null);
+      this.observable(Object.keys(entries).length ? entries : null);
     };
 
     // use unique ID (uid) as key in the UI only, in case name changes
     this.propertiesDataProvider = new BufferingDataProvider(new ArrayDataProvider(
-      this.observableItems, {keyAttributes: 'uid'}));
+      this.observableEntries, {keyAttributes: 'uid'}));
 
     // add a new row with an unused unique ID and new name
-    this.addItem = () => {
+    this.addEntry = () => {
       const options = {
         attribute: ATTRIBUTE,
+        attributeMap: ATTRIBUTE_MAP,
         modelPath: MODEL_PATH,
-        observableItems: this.observableItems
+        observableEntries: this.observableEntries
       };
       DialogHelper.promptDialog('modelEdit/new-dict-entry-dialog', options)
         .then(result => {
@@ -123,8 +124,8 @@ function(accUtils, ko, DialogHelper, ArrayDataProvider,
         });
     };
 
-    this.deleteItem = (event, context) => {
-      this.observableItems.remove(context.item.data);
+    this.deleteEntry = (event, context) => {
+      this.observableEntries.remove(context.item.data);
       this.updateObservable();
     };
   }

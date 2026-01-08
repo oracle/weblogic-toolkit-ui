@@ -25,7 +25,11 @@
         "validators": [ "port" ]
       },
       "CandidateMachine": {
-        "reorderable": true
+        "reorderable": true,
+        "itemAdd": {
+          "editorType": "combo",
+          "optionsMethod": "getMachineOptions"
+        }
       },
       "Cluster": {
         "editorType": "combo",
@@ -190,6 +194,10 @@
       },
       "ServerLifeCycleTimeoutVal": {
         "validators": [ "range(0,)" ]
+      },
+      "ServerTemplate": {
+        "editorType": "combo",
+        "optionsMethod": "getServerTemplateOptions"
       },
       "SitConfigPollingInterval": {
         "validators": [ "range(1,65534)" ]
@@ -1143,10 +1151,6 @@
       "Cluster": {
         "editorType": "combo",
         "optionsMethod": "getClusterOptions"
-      },
-      "ConstrainedCandidateServer": {
-        "editorType": "comboMulti",
-        "optionsMethod": "getServersInClusterOptions"
       },
       "MigrationPolicy": {
         "options": [
@@ -2450,6 +2454,7 @@
     ]
   },
   "Server/ServerDebug/DebugScope": {
+    "newFolderContentHandler": "newEnableDebugScopeFolderContent",
     "summaryAttributes": {
       "Enabled": {}
     },
@@ -3206,6 +3211,10 @@
       },
       "CreateTableDDLFile": {
         "fileOptions": [ { "type": "file" } ]
+      },
+      "DataSource": {
+        "editorType": "combo",
+        "optionsMethod": "getDataSourceOptions"
       },
       "DeletesPerBatchMaximum": {
         "validators": [ "range(1,100)" ]

@@ -5,20 +5,24 @@
  */
 'use strict';
 
-define(['accUtils', 'knockout', 'models/wkt-project',
+define(['accUtils', 'knockout',
   'utils/modelEdit/model-edit-helper', 'utils/modelEdit/message-helper', 'utils/modelEdit/alias-helper',
-  'utils/modelEdit/file-select-helper', 'utils/common-utilities', 'utils/validation-helper', 'utils/view-helper',
+  'utils/modelEdit/file-select-helper', 'utils/modelEdit/meta-options', 'utils/common-utilities',
+  'utils/view-helper', 'ojs/ojarraydataprovider',
   'oj-c/input-text', 'oj-c/button', 'ojs/ojdialog', 'ojs/ojvalidationgroup'],
-function(accUtils, ko, project,
-  ModelEditHelper, MessageHelper, AliasHelper, FileSelectHelper, utils, validationHelper, viewHelper) {
+function(accUtils, ko, ModelEditHelper, MessageHelper, AliasHelper, FileSelectHelper,
+  MetaOptions, utils, ViewHelper, ArrayDataProvider) {
+
   function NewListItemDialogModel(args) {
     const MODEL_PATH = args.modelPath;
     const ATTRIBUTE = args.attribute;
+    const ATTRIBUTE_MAP = args.attributeMap;
+    const OBSERVABLE_ITEMS = args.observableItems;
 
     const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
     const DIALOG_SELECTOR = '#newListItemDialog';
 
-    const observableItems = args.observableItems;
+    const subscriptions = [];
 
     this.elementName = ko.observable();
 
@@ -29,8 +33,14 @@ function(accUtils, ko, project,
 
       // open the dialog when the container is ready.
       // using oj-dialog initial-visibility="show" causes vertical centering issues.
-      viewHelper.componentReady(this.dialogContainer).then(() => {
+      ViewHelper.componentReady(this.dialogContainer).then(() => {
         this.dialogContainer.open();
+      });
+    };
+
+    this.disconnected = () => {
+      subscriptions.forEach(subscription => {
+        subscription.dispose();
       });
     };
 
@@ -38,8 +48,19 @@ function(accUtils, ko, project,
     this.nameLabel = MessageHelper.getItemLabel(ATTRIBUTE, ALIAS_PATH);
     this.nameHelp = MessageHelper.getItemHelp(ATTRIBUTE, ALIAS_PATH);
 
-    this.isFile = ATTRIBUTE.usesPath;
-    this.fileLabel = MessageHelper.t('attribute-editor-select');
+    const itemAdd = ATTRIBUTE.itemAdd || {};
+    this.editorType = itemAdd.editorType || 'string';
+
+    let options = itemAdd.options || [];
+    const optionsMethod = itemAdd.optionsMethod;
+    if(optionsMethod) {
+      options = MetaOptions[optionsMethod](ATTRIBUTE, ATTRIBUTE_MAP, subscriptions);
+    }
+    ModelEditHelper.updateOptionLabels(options);
+    this.optionsProvider = new ArrayDataProvider(options, { keyAttributes: 'value' });
+
+    this.fileLabel = MessageHelper.t('attribute-editor-select-file');
+    this.directoryLabel = MessageHelper.t('attribute-editor-select-directory');
 
     this.t = (labelId, arg) => {
       return MessageHelper.t(labelId, arg);
@@ -51,10 +72,27 @@ function(accUtils, ko, project,
       }
     }];
 
-    this.selectFile = async() => {
+    this.canChooseFile = ATTRIBUTE.usesPath && FileSelectHelper.canChooseFile(ATTRIBUTE);
+
+    this.canChooseDirectory = ATTRIBUTE.usesPath && FileSelectHelper.canChooseDirectory(ATTRIBUTE);
+
+    this.chooseDirectory = async() => {
+      return this.choosePath(true);
+    };
+
+    this.chooseFile = async() => {
+      return this.choosePath(false);
+    };
+
+    this.choosePath = async(isDirectory) => {
       this.dialogContainer.close();
 
-      const path = await FileSelectHelper.selectFile(ATTRIBUTE, null);
+      let path;
+      if(isDirectory) {
+        path = await FileSelectHelper.chooseDirectory(ATTRIBUTE, null);
+      } else {
+        path = await FileSelectHelper.chooseFile(ATTRIBUTE, null);
+      }
 
       if(path) {
         this.elementName(path);
@@ -63,7 +101,7 @@ function(accUtils, ko, project,
           uid: utils.getShortUuid(),
           name: this.elementName()
         };
-        observableItems.push(itemToAdd);
+        OBSERVABLE_ITEMS.push(itemToAdd);
       }
 
       const result = {
@@ -89,7 +127,7 @@ function(accUtils, ko, project,
         uid: utils.getShortUuid(),
         name: this.elementName()
       };
-      observableItems.push(itemToAdd);
+      OBSERVABLE_ITEMS.push(itemToAdd);
 
       const result = {
         changed: true
@@ -104,8 +142,5 @@ function(accUtils, ko, project,
     };
   }
 
-  /*
-   * Returns a constructor for the ViewModel.
-   */
   return NewListItemDialogModel;
 });

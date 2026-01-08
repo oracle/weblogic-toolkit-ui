@@ -19,14 +19,14 @@
   >
     <template slot="rowTemplate" data-oj-as="row">
       <tr data-bind="attr: {'data-uid': row.data.uid}">
-        <td><oj-bind-text value="[[row.data.name]]"></oj-bind-text></td>
+        <td><oj-bind-text value="[[row.data.key]]"></oj-bind-text></td>
         <td><oj-bind-text value="[[row.data.value]]"></oj-bind-text></td>
         <td>
           <oj-c-button
             display="icons"
             label="[[deleteLabel]]"
             chroming="borderless"
-            on-oj-action="[[deleteItem]]"
+            on-oj-action="[[deleteEntry]]"
             disabled="[[disabled]]"
           >
             <span slot="endIcon" class="oj-ux-ico-trash"></span>
@@ -39,7 +39,7 @@
         display="icons"
         label="[[addLabel]]"
         chroming="borderless"
-        on-oj-action="[[addItem]]"
+        on-oj-action="[[addEntry]]"
         disabled="[[disabled]]"
       >
         <span slot="endIcon" class="oj-ux-ico-plus"></span>

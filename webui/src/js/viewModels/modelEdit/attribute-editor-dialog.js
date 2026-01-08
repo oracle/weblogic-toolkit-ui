@@ -5,15 +5,13 @@
  */
 'use strict';
 
-define(['accUtils', 'knockout', 'models/wkt-project', 'ojs/ojarraydataprovider',
-  'ojs/ojbufferingdataprovider', 'utils/observable-properties', 'ojs/ojconverter-number',
+define(['accUtils', 'knockout', 'models/wkt-project', 'utils/common-utilities', 'ojs/ojarraydataprovider',
   'utils/modelEdit/model-edit-helper', 'utils/modelEdit/message-helper', 'utils/modelEdit/alias-helper',
-  'utils/validation-helper', 'utils/view-helper',
+  'utils/modelEdit/file-select-helper', 'utils/wdt-archive-helper', 'utils/view-helper',
   'ojs/ojinputtext', 'ojs/ojlabel', 'oj-c/button', 'ojs/ojdialog', 'ojs/ojformlayout', 'oj-c/radioset',
-  'ojs/ojvalidationgroup'],
-function(accUtils, ko, project, ArrayDataProvider,
-  BufferingDataProvider, props, ojConverterNumber,
-  ModelEditHelper, MessageHelper, AliasHelper, validationHelper, viewHelper) {
+  'ojs/ojvalidationgroup', 'oj-c/message-banner'],
+function(accUtils, ko, project, utils, ArrayDataProvider, ModelEditHelper,
+  MessageHelper, AliasHelper, FileSelectHelper, ArchiveHelper, ViewHelper) {
 
   function AttributeEditorDialog(args) {
     const MODEL_PATH = args.modelPath;
@@ -25,6 +23,9 @@ function(accUtils, ko, project, ArrayDataProvider,
 
     const existingSecret = ModelEditHelper.getSecretName(ATTRIBUTE.observable());
     const existingVariable = ModelEditHelper.getVariableName(ATTRIBUTE.observable());
+
+    const errorMessages = ko.observableArray();
+    this.errorMessageProvider = new ArrayDataProvider(errorMessages, { keyAttributes: 'uid' });
 
     let existingValue = ATTRIBUTE.observable();
     if(existingVariable) {
@@ -50,7 +51,7 @@ function(accUtils, ko, project, ArrayDataProvider,
 
       // open the dialog when the container is ready.
       // using oj-dialog initial-visibility="show" causes vertical centering issues.
-      viewHelper.componentReady(this.dialogContainer).then(() => {
+      ViewHelper.componentReady(this.dialogContainer).then(() => {
         this.dialogContainer.open();
       });
     };
@@ -69,6 +70,7 @@ function(accUtils, ko, project, ArrayDataProvider,
     });
 
     const existingOption = existingVariable ? 'variable' : 'edit';
+    const editorType = ModelEditHelper.getEditorType(ATTRIBUTE);
 
     this.editOption = ko.observable(existingOption);
     this.editOptions = [
@@ -77,10 +79,31 @@ function(accUtils, ko, project, ArrayDataProvider,
     ];
 
     // dictionary attributes can't be tokenized
-    if(ModelEditHelper.getEditorType(ATTRIBUTE) !== 'dict') {
+    if(editorType !== 'dict') {
       this.editOptions.push({ value: 'variable', label: this.labelMapper('option-variable') });
       this.editOptions.push({ value: 'newVariable', label: this.labelMapper('option-newVariable') });
     }
+
+    // file select types with archive type can be added/removed from archive
+    const archiveTypes = ATTRIBUTE.archiveTypes || [];
+    const archiveTypeKey = archiveTypes.length ? archiveTypes[0] : null;
+    const archiveType = archiveTypeKey ? ModelEditHelper.getArchiveType(archiveTypeKey) : {};
+    const isEmptyDirType = archiveType.subtype === 'emptyDir';
+    const isTokenized = existingVariable || existingSecret;
+    if(editorType === 'fileSelect' && archiveTypeKey && !isTokenized && !isEmptyDirType && ATTRIBUTE.observable()) {
+      const textValue = ATTRIBUTE.observable().toString();
+      const isArchivePath = textValue.startsWith('wlsdeploy/') || textValue.startsWith('config/wlsdeploy/');
+      if(isArchivePath) {
+        this.editOptions.push({value: 'removeFromArchive', label: this.labelMapper('option-removeFromArchive')});
+      } else {
+        this.editOptions.push({value: 'addToArchive', label: this.labelMapper('option-addToArchive')});
+      }
+    }
+
+    const archiveSegregateName = FileSelectHelper.getSegregateName(ATTRIBUTE);
+    this.archiveSegregateName = ko.observable(archiveSegregateName);
+    this.archiveSegregateLabel = archiveType.segregatedLabel;
+    this.archiveSegregateHelp = archiveType.segregatedHelp;
 
     this.variableOptionSelected = ko.computed(() => {
       return this.editOption() === 'variable';
@@ -90,13 +113,13 @@ function(accUtils, ko, project, ArrayDataProvider,
       return this.editOption() === 'newVariable';
     });
 
-    this.isVariableOption = (option) => {
-      return option.value === 'variable';
-    };
+    this.enterSegregateName = ko.computed(() => {
+      return this.editOption() === 'addToArchive' && !archiveSegregateName;
+    });
 
-    this.isNewVariableOption = (option) => {
-      return option.value === 'newVariable';
-    };
+    this.hasErrorMessages = ko.computed(() => {
+      return !!errorMessages().length;
+    });
 
     this.newVariableName = ko.observable();
     this.variableName = ko.observable(existingVariable);
@@ -125,7 +148,51 @@ function(accUtils, ko, project, ArrayDataProvider,
       }
     };
 
-    this.okInput = () => {
+    this.addToArchive = async() => {
+      const path = ATTRIBUTE.observable().toString();
+      const exists = await window.api.modelEdit.exists(path);
+      if(!exists) {
+        this.addErrorMessage(this.labelMapper('archive-file-not-present', { path }));
+        return;
+      }
+
+      const isDir = await window.api.modelEdit.isDirectory(path);
+      const fileType = isDir ? 'dir' : 'file';
+      const addOptions = {
+        segregatedName: this.archiveSegregateName(),
+        emptyDirName: null,
+        fileName: path,
+        fileType
+      };
+
+      const addResult = await ArchiveHelper.addToArchive(archiveTypeKey, addOptions);
+      if(addResult) {
+        ATTRIBUTE.observable(addResult);
+      }
+    };
+
+    this.removeFromArchive = () => {
+      const path = ATTRIBUTE.observable();
+      const removed = ArchiveHelper.removeFromArchive(path, true);
+      if(removed) {
+        ATTRIBUTE.observable(null);
+      } else {
+        this.addErrorMessage(this.labelMapper('archive-path-not-present', { path }));
+      }
+    };
+
+    this.addErrorMessage = message => {
+      errorMessages.push({
+        uid: utils.getShortUuid(),
+        severity: 'error',
+        summary: message,
+        closeAffordance: 'off'
+      });
+    };
+
+    this.okInput = async() => {
+      errorMessages.removeAll();
+
       let tracker = document.getElementById('modelEditAttributeTracker');
 
       if (tracker.valid !== 'valid') {
@@ -148,9 +215,19 @@ function(accUtils, ko, project, ArrayDataProvider,
           ModelEditHelper.updateVariableMap();
           ATTRIBUTE.observable(ModelEditHelper.getVariableToken(this.newVariableName()));
           break;
+        case 'removeFromArchive':
+          this.removeFromArchive();
+          break;
+        case 'addToArchive':
+          await this.addToArchive();
+          break;
         default:  // use the existing value, we may be de-tokenizing
           ATTRIBUTE.observable(ModelEditHelper.getObservableValue(ATTRIBUTE, existingValue));
           break;
+      }
+
+      if(errorMessages().length) {
+        return;
       }
 
       this.dialogContainer.close();

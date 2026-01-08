@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -92,6 +92,7 @@ function (WdtActionsBase, ko, project, wktConsole, dialogHelper, projectIO, i18n
         discoverConfig.modelFile = project.wdtModel.getDefaultModelFile();
         discoverConfig.propertiesFile = project.wdtModel.getDefaultPropertiesFile();
         discoverConfig.archiveFile = project.wdtModel.getDefaultArchiveFile();
+        discoverConfig.wdtArchivePluginType = project.settings.wdtArchivePluginType.value();
 
         wktConsole.clear();
         wktConsole.show(true);

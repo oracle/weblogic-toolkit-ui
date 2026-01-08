@@ -12,6 +12,18 @@
         "archiveTypes": ["domainLibrary"],
         "archiveOnly": true
       },
+      "DynamicClusterServerGroupTargetingLimits": {
+        "valueAdd": {
+          "editorType": "comboMulti",
+          "optionsMethod": "dynamicClusterServerGroupTargetOptions"
+        }
+      },
+      "ServerGroupTargetingLimits": {
+        "valueAdd": {
+          "editorType": "comboMulti",
+          "optionsMethod": "getServerGroupTargetOptions"
+        }
+      },
       "ServerStartMode": {
         "options": [
           { "value": "dev", "labelKey": "options-dev-mode-label" },

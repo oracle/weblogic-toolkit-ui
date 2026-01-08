@@ -16,6 +16,10 @@
       "CreateTableDDLFile": {
         "archiveTypes": ["script"]
       },
+      "DataSource": {
+        "editorType": "combo",
+        "optionsMethod": "getDataSourceOptions"
+      },
       "DeletesPerBatchMaximum": {
         "validators": [ "range(1,100)" ]
       },

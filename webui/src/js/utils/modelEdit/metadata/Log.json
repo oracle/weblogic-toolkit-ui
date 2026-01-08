@@ -27,6 +27,9 @@
       "FileMinSize": {
         "disabled": "logRotationBySizeFields"
       },
+      "FileName": {
+        "fileOptions": [ { "type": "file" } ]
+      },
       "FileTimeSpan": {
         "disabled": "logRotationByTimeFields"
       },
@@ -37,10 +40,11 @@
         "editorType": "combo",
         "optionsMethod": "getLogFilterOptions"
       },
+      "LogFileRotationDir": {
+        "fileOptions": [ { "type": "dir" } ]
+      },
       "LogFileSeverity": {
         "options": [
-          { "value": "Trace", "labelKey": "options-trace-label" },
-          { "value": "Debug", "labelKey": "options-debug-label" },
           { "value": "Info", "labelKey": "options-info-label" },
           { "value": "Warning", "labelKey": "options-warning-label" },
           { "value": "Notice", "labelKey": "options-notice-label" }

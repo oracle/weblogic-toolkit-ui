@@ -40,6 +40,10 @@
       },
       "SecondsBetweenRestarts": {
         "validators": [ "range(1,)" ]
+      },
+      "UserPreferredServer": {
+        "editorType": "combo",
+        "optionsMethod": "getServersInClusterOptions"
       }
     },
     "sections": [

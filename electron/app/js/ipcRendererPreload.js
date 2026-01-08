@@ -1,10 +1,10 @@
 /**
  * @license
- * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const { contextBridge, ipcRenderer } = require('electron');
-const path = require('path');
+const path = require('node:path');
 const uuid = require('uuid');
 
 const k8sUtils = require('./k8sUtils');
@@ -257,7 +257,8 @@ contextBridge.exposeInMainWorld(
       getVersion: () => wktApp.getApplicationVersion(),
       getArgv: (name) => osUtils.getArgv(name),
       getPathDirectories: () => osUtils.getPathDirectories(),
-      getEnvironmentVariables: () => osUtils.getEnvironmentVariables()
+      getEnvironmentVariables: () => osUtils.getEnvironmentVariables(),
+      getTmpDir: () => osUtils.getTmpDir()
     },
     'i18n': {
       t: (keys, options) => {

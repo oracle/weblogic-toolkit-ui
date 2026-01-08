@@ -43,14 +43,14 @@ function (DialogHelper, WktLogger, ModelEditHelper, AliasHelper, ArchiveHelper, 
     }
 
     this.chooseDirectory = async(attribute, currentValue) => {
-      return choosePath(attribute, 'dir', currentValue);
+      return this.choosePath(attribute, 'dir', currentValue);
     };
 
     this.chooseFile = async(attribute, currentValue) => {
-      return choosePath(attribute, 'file', currentValue);
+      return this.choosePath(attribute, 'file', currentValue);
     };
 
-    async function choosePath(attribute, matchType, currentValue) {
+    this.choosePath = async(attribute, matchType, currentValue) => {
       const aliasPath = AliasHelper.getAliasPath(attribute.path);
       const attributeLabel = MessageHelper.getAttributeLabel(attribute, aliasPath);
 
@@ -66,7 +66,7 @@ function (DialogHelper, WktLogger, ModelEditHelper, AliasHelper, ArchiveHelper, 
         }
 
         const subtype = archiveType.subtype;
-        const segregateName = getSegregateName(attribute);
+        const segregateName = this.getSegregateName(attribute);
         const segregateLabel = archiveType.segregatedLabel;
         const segregateHelp = archiveType.segregatedHelp;
 
@@ -201,7 +201,7 @@ function (DialogHelper, WktLogger, ModelEditHelper, AliasHelper, ArchiveHelper, 
     };
 
     // try to determine segregate mame
-    function getSegregateName(attribute) {
+    this.getSegregateName = attribute => {
       const segregateName = attribute.segregateName;
       if(segregateName) {
         return segregateName;
@@ -215,7 +215,7 @@ function (DialogHelper, WktLogger, ModelEditHelper, AliasHelper, ArchiveHelper, 
       }
 
       return null;
-    }
+    };
 
     // try to determine empty dir mame
     function getEmptyDirName(attribute) {

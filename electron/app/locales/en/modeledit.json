@@ -401,6 +401,11 @@
   "options-prepend-label": "Prepend",
   "options-replace-label": "Replace",
   "options-imported-tpusr-file-label": "Imported TPUSER File",
+  "options-severe-label": "Severe",
+  "options-config-label": "Config",
+  "options-fine-label": "Fine",
+  "options-finer-label": "Finer",
+  "options-finest-label": "Finest",
 
   "direction-jms-queue-to-tuxedo-queue-label": "JMS Queue to Tuxedo Queue",
   "direction-tuxedo-queue-to-jms-queue-label": "Tuxedo Queue to JMS Queue",
@@ -439,10 +444,12 @@
 
   "attribute-dialog-title": "Options for {{attribute}}",
   "attribute-dialog-label": "Choose an option",
+  "attribute-dialog-option-addToArchive": "Add entry to archive",
   "attribute-dialog-option-edit": "Edit the field normally",
   "attribute-dialog-option-remove": "Remove the field from the model",
   "attribute-dialog-option-variable": "Use an existing variable token",
   "attribute-dialog-option-newVariable": "Use a new variable token",
+  "attribute-dialog-option-removeFromArchive": "Remove entry from archive",
   "attribute-dialog-variable-choice-label": "Existing Variable",
   "attribute-dialog-variable-choice-help": "Choose a variable for field",
   "attribute-dialog-variable-name-label": "Variable Name",
@@ -450,6 +457,8 @@
   "attribute-dialog-variable-name-error": "Variable names may only contain letters, numbers, and these characters: .-_",
   "attribute-dialog-variable-value-label": "Variable Value",
   "attribute-dialog-variable-value-help": "Value of variable for field",
+  "attribute-dialog-archive-file-not-present": "File not found: {{path}}",
+  "attribute-dialog-archive-path-not-present": "Path not found in archive: {{path}}",
 
   "attribute-editor-from-secret": "From secret \"{{secret}}\"",
   "attribute-editor-from-variable": "From variable \"{{variable}}\"",
@@ -543,7 +552,7 @@
   "a-AcknowledgementInterval-help": "The maximum time a pending acknowledgement (set after the destination accepts a message) can wait before being delivered back to the RM source. String value in \"Duration\" format. Defaults to \"P0DT0.2S\" (200 milliseconds). Set at sequence creation time, and cannot be reset.",
 
   "a-AclPolicy-label": "ACL Policy",
-  "f-WTCServer_WTCRemoteTuxDom-a-AclPolicy-help": "The inbound access control list (ACL) policy toward requests from a remote Tuxedo access point.  The allowed values are Local or Global. Local causes the local Tuxedo access point modifies the identity of service requests received from a given remote Tuxedo access point to the principal name specified in the local principal name for a given remote Tuxedo access point. Global causes tocal Tuxedo access point passes the service request with no change in identity. Note that if Interoperate is set to Yes, the AclPolicy is ignored.",
+  "f-WTCServer_WTCRemoteTuxDom-a-AclPolicy-help": "The inbound access control list (ACL) policy toward requests from a remote Tuxedo access point.  The allowed values are Local or Global. Local causes the local Tuxedo access point modifies the identity of service requests received from a given remote Tuxedo access point to the principal name specified in the local principal name for a given remote Tuxedo access point. Global causes the local Tuxedo access point to pass the service request with no change in identity. Note that if Interoperate is set to Yes, the AclPolicy is ignored.",
 
   "a-AcsRequiresSsl-label": "ACS Requires SSL",
 
@@ -1045,6 +1054,8 @@
   "a-CallbackQueueMdbRunAsPrincipalName-help": "For use only with the JAX-RPC stack. For JAX-WS, use WebServiceBufferingMBean instead.",
 
   "a-CandidateMachine-label": "Candidate Machines",
+  "a-CandidateMachine-itemLabel": "CandidateMachine",
+  "a-CandidateMachine-itemHelp": "Specify a candidate machine to add to the list.",
   "a-CandidateMachine-help": "Limits the list of candidate machines that the cluster specifies. (Requires you to enable this server for automatic migration and to configure the cluster with a set of candidate machines.) If this server fails and if it is enabled for automatic migration, Node Manager automatically restarts it. By default, Node Manager restarts the server on any of the candidate machines that the cluster specifies (in order of preference that you configured in the cluster). To change the default, you use this server's list of candidate machines to create a subset of the cluster-wide candidates. You can also change the order of preference.",
 
   "a-CandidateMachinesForMigratableServer-label": "Candidate Machines for Migratable Server",
@@ -2197,7 +2208,7 @@
   "a-DebugRADeployment-label": "Debug Resource Adapter Deployment",
   "a-DebugRALifecycle-label": "Debug Resource Adapter Lifecycle",
   "a-DebugRALocalOut-label": "Debug Resource Adapter Local Out",
-  "a-DebugRAParsing-label": "Debug RAResource Adapter Parsing",
+  "a-DebugRAParsing-label": "Debug Resource Adapter Parsing",
   "a-DebugRAPoolVerbose-label": "Debug Resource Adapter Pool Verbose",
   "a-DebugRAPooling-label": "Debug RA Pooling",
   "a-DebugRASecurityCtx-label": "Debug Resource Adapter Security Ctx",
@@ -2205,7 +2216,7 @@
   "a-DebugRAWorkEvents-label": "Debug Resource Adapter Work Events",
   "a-DebugRAXAin-label": "Debug Resource Adapter XA in",
   "a-DebugRAXAout-label": "Debug Resource Adapter XA out",
-  "a-DebugRAXAwork-label": "Debug RResource AdapterA XA work",
+  "a-DebugRAXAwork-label": "Debug Resource Adapter XA work",
   "a-DebugRC4-label": "Debug RC4",
   "a-DebugRSA-label": "Debug RSA",
   "a-DebugRaClassloader-label": "Debug Resource Adapter Classloader",
@@ -2967,6 +2978,8 @@
   "a-FannedOutRequestMaxWaitMillis-help": "Determines how long the Management Services Web application will wait, in milliseconds, when it fans out an idempotent REST request from the admin server to all the managed servers. If zero, then it will choose an appropriate timeout. A request can override this value by specifying the requestMaxWaitMillis query parameter.",
 
   "a-FatalErrorCodes-label": "Fatal Error Codes",
+  "a-FatalErrorCodes-itemLabel": "Fatal Error Code",
+  "a-FatalErrorCodes-itemHelp": "Specify an error code to be treated as a fatal error.",
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-FatalErrorCodes-help": "Specifies a comma-separated list of error codes that are treated as fatal errors. These errors include deployment errors that cause a server to fail to boot and connection errors that prevent a connection from being put back in the connection pool. This optional attribute is used to define fatal error codes, that when specified as the exception code within a SQLException (retrieved by sqlException.getErrorCode()), indicate that a fatal error has occurred and the connection is no longer usable",
 
   "a-FederationName-label": "Federation Name",
@@ -3640,6 +3653,11 @@
   "f-WTCServer_WTCtBridgeGlobal-a-JmsFactory-help": "The name of the JMS connection factory; for example, weblogic.jndi.ConnectionFactory.  The default value is weblogic.jms.XAConnectionFactory.",
 
   "a-JmsToTuxPriorityMap-label": "JMS To Tuxedo Priority Map",
+  "a-JmsToTuxPriorityMap-entryLabel": "JMS To Tuxedo Priority Entry",
+  "a-JmsToTuxPriorityMap-keyLabel": "JMS Priority",
+  "a-JmsToTuxPriorityMap-keyHelp": "The JMS priority value or range that you want to map.",
+  "a-JmsToTuxPriorityMap-valueLabel": "Tuxedo Priority",
+  "a-JmsToTuxPriorityMap-valueHelp": "The Tuxedo priority to which the JMS priority should be mapped.",
   "a-JmsToTuxPriorityMap-help": "The mapping of priorities from JMS to Tuxedo. The default JMS To Tux Priority Map is: 0:1 | 1:12 | 2:23 | 3:34 | 4:45 |5:56 | 6:67 | 7:78 | 8:89 | 9:100.",
 
   "a-JndiFactory-label": "JNDI Initial Context Factory Class Name",
@@ -4338,7 +4356,7 @@
   "f-JMSSystemResource_JmsResource_Template-a-MessagingPerformancePreference-help": "Controls how long destinations that use this template are willing to wait to create full batches of available messages (if at all) for delivery to consumers. At the minimum value, batching is disabled; at the default value, less-than-full batches will not wait and are delivered immediately with currently available messages; tuning higher than the default value controls the maximum wait time for additional messages before less-than-full batches are delivered to consumers. The maximum message count of a full batch is controlled by the JMS connection factory's MessagesMaximum setting.",
 
   "a-MessagingQueue-label": "Messaging Queue",
-  "a-MessagingQueue-help": "or use only with the JAX-RPC stack. For JAX-WS, use WebServiceBufferingMBean instead. The default value is \"weblogic.wsee.DefaultQueue\".",
+  "a-MessagingQueue-help": "For use only with the JAX-RPC stack. For JAX-WS, use WebServiceBufferingMBean instead. The default value is \"weblogic.wsee.DefaultQueue\".",
 
   "a-MessagingQueueMdbRunAsPrincipalName-label": "Messaging Queue MDB Run As Principal Name",
   "a-MessagingQueueMdbRunAsPrincipalName-help": "For use only with the JAX-RPC stack. For JAX-WS, use WebServiceBufferingMBean instead.",
@@ -5873,7 +5891,7 @@
   "a-Servers-help": "Specifies the list of servers to which the ODL logging.xml is written",
 
   "a-ServiceActivationRequestResponseTimeout-label": "Service Activation Request Response Timeout",
-  "f-Cluster-a-ServiceActivationRequestResponseTimeout-help": "Specifies the maximum time, in milliseconds seconds, for services to wait for response from cluster members.",
+  "f-Cluster-a-ServiceActivationRequestResponseTimeout-help": "Specifies the maximum time, in milliseconds, for services to wait for response from cluster members.",
 
   "a-ServiceAgeThresholdSeconds-label": "Service Age Threshold Seconds",
   "f-Cluster-a-ServiceAgeThresholdSeconds-help": "Defines the number of seconds by which the age of two conflicting services must differ before one is considered older than the other. The default value is 180.",
@@ -6576,6 +6594,11 @@
   "a-TuxFactory-help": "The name of the Tuxedo connection factory. The default value is tuxedo.services.TuxedoConnection.",
 
   "a-TuxToJmsPriorityMap-label": "Tuxedo To JMS Priority Map",
+  "a-TuxToJmsPriorityMap-entryLabel": "Tuxedo to JMS Priority Entry",
+  "a-TuxToJmsPriorityMap-keyLabel": "Tuxedo Priority",
+  "a-TuxToJmsPriorityMap-keyHelp": "The Tuxedo priority value or range that you want to map.",
+  "a-TuxToJmsPriorityMap-valueLabel": "JMS Priority",
+  "a-TuxToJmsPriorityMap-valueHelp": "The JMS priority to which the Tuxedo priority should be mapped.",
   "a-TuxToJmsPriorityMap-help": "The mapping of priorities to map from Tuxedo to JMS. The default JMS To Tux Priority Map is: 1-10:0 | 11-20:1 | 21-30:2 | 31-40:3| 41-50:4| 51-60:5 | 61-70:6 | 71-80:7 | 81-90:8 | 91-100:9.",
 
   "a-TuxedoGidKw-label": "Tuxedo Group ID Keyword",
@@ -6724,7 +6747,7 @@
 
   "a-UseNonSecureAddressesForDomain-label": "Use Non-Secure Addresses For Domains",
   "a-UseNonSecureAddressesForDomain-itemLabel": "Domain",
-  "a-UseNonSecureAddressesForDomain-itemHelp": "Select a domain to the list of domains for which non-secure protocols.",
+  "a-UseNonSecureAddressesForDomain-itemHelp": "Select a domain to the list of domains for which non-secure protocols should be used.",
   "a-UseNonSecureAddressesForDomain-help": "Specifies the domains for which non-secure protocols should be used for internal JTA communication if the servers in the domains are configured to use network channels.",
 
   "a-UseParentHandlers-label": "Use Parent Handlers",
