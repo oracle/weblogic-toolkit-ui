@@ -3,7 +3,7 @@ title: "Client Configuration"
 date: 2019-02-22T15:44:42-05:00
 draft: false
 weight: 1
-description: "Client Configuration helps you get the necessary connectivity to your Kubernetes cluster."
+description: "Configure your Kubernetes client to connect to your Kubernetes cluster."
 ---
 
 
