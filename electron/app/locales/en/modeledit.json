@@ -2208,7 +2208,7 @@
   "a-DebugRADeployment-label": "Debug Resource Adapter Deployment",
   "a-DebugRALifecycle-label": "Debug Resource Adapter Lifecycle",
   "a-DebugRALocalOut-label": "Debug Resource Adapter Local Out",
-  "a-DebugRAParsing-label": "Debug RAResource Adapter Parsing",
+  "a-DebugRAParsing-label": "Debug Resource Adapter Parsing",
   "a-DebugRAPoolVerbose-label": "Debug Resource Adapter Pool Verbose",
   "a-DebugRAPooling-label": "Debug RA Pooling",
   "a-DebugRASecurityCtx-label": "Debug Resource Adapter Security Ctx",
@@ -2216,7 +2216,7 @@
   "a-DebugRAWorkEvents-label": "Debug Resource Adapter Work Events",
   "a-DebugRAXAin-label": "Debug Resource Adapter XA in",
   "a-DebugRAXAout-label": "Debug Resource Adapter XA out",
-  "a-DebugRAXAwork-label": "Debug RResource AdapterA XA work",
+  "a-DebugRAXAwork-label": "Debug Resource Adapter XA work",
   "a-DebugRC4-label": "Debug RC4",
   "a-DebugRSA-label": "Debug RSA",
   "a-DebugRaClassloader-label": "Debug Resource Adapter Classloader",
@@ -6747,7 +6747,7 @@
 
   "a-UseNonSecureAddressesForDomain-label": "Use Non-Secure Addresses For Domains",
   "a-UseNonSecureAddressesForDomain-itemLabel": "Domain",
-  "a-UseNonSecureAddressesForDomain-itemHelp": "Select a domain to the list of domains for which non-secure protocols.",
+  "a-UseNonSecureAddressesForDomain-itemHelp": "Select a domain to the list of domains for which non-secure protocols should be used.",
   "a-UseNonSecureAddressesForDomain-help": "Specifies the domains for which non-secure protocols should be used for internal JTA communication if the servers in the domains are configured to use network channels.",
 
   "a-UseParentHandlers-label": "Use Parent Handlers",

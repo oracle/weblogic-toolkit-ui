@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2024, 2025, Oracle and/or its affiliates.
+ * Copyright (c) 2024, 2026, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
@@ -118,14 +118,14 @@ function(accUtils, ko, WktLogger, DialogHelper, ArrayDataProvider, ModuleElement
     this.canChooseFile = FileSelectHelper.canChooseFile(ATTRIBUTE);
 
     this.chooseFile = async() => {
-      const selectedFile = await FileSelectHelper.chooseFile(ATTRIBUTE, ATTRIBUTE.observable());
+      const selectedFile = await FileSelectHelper.chooseFile(ATTRIBUTE, ATTRIBUTE.observable(), true);
       if(selectedFile) {  // null value indicates cancel
         this.getValueObservable()(selectedFile);
       }
     };
 
     this.chooseDirectory = async() => {
-      const selectedDir = await FileSelectHelper.chooseDirectory(ATTRIBUTE, ATTRIBUTE.observable());
+      const selectedDir = await FileSelectHelper.chooseDirectory(ATTRIBUTE, ATTRIBUTE.observable(), true);
       if(selectedDir) {  // null value indicates cancel
         this.getValueObservable()(selectedDir);
       }

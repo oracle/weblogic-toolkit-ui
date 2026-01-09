@@ -2454,6 +2454,7 @@
     ]
   },
   "Server/ServerDebug/DebugScope": {
+    "newFolderContentHandler": "newEnableDebugScopeFolderContent",
     "summaryAttributes": {
       "Enabled": {}
     },
