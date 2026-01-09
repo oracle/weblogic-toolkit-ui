@@ -44,7 +44,7 @@ function(wktProject, wktConsole, wdtDiscoverer, dialogHelper, projectIO,
 
   window.api.ipc.receive('start-save-project', () => {
     blurSelection();
-    projectIO.saveProject(true, true).catch(err => {
+    projectIO.saveProject(true).catch(err => {
       displayCatchAllError('save-all', err).then();
     });
   });

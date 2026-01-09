@@ -17,15 +17,15 @@ define(['knockout', 'models/wkt-project', 'utils/i18n', 'utils/dialog-helper'],
       /**
        * Save the project, requesting a location if needed.
        * @param forceSave if true, save regardless of state
-       * @param displayMessages if true, display dialogs for busy, errors, etc. If this call is embedded in
-       *   another sequence, no dialogs are displayed, and the caller will display the result.
+       * @param embedded if true, don't display busy and error dialogs, and the caller will display the result.
+       *   If false, display those dialogs.
        * @returns {Promise<{saved: boolean, reason: *}>}
        */
-      this.saveProject = async(forceSave = false, displayMessages = true) => {
+      this.saveProject = async(forceSave = false, embedded = false) => {
         const projectNotSaved = !project.getProjectFileName();
 
         if(forceSave || project.isDirty() || projectNotSaved) {
-          const checkResult = await this.checkBeforeSave(displayMessages);
+          const checkResult = await this.checkBeforeSave(embedded);
           if(checkResult) {
             return checkResult;
           }
@@ -38,8 +38,8 @@ define(['knockout', 'models/wkt-project', 'utils/i18n', 'utils/dialog-helper'],
             return {saved: false, reason: i18n.t('project-io-user-cancelled-save-message')};
           }
 
-          // show busy dialog if displaying messages, and archive updates are present
-          const showBusyDialog = displayMessages && project.wdtModel.archiveUpdates.length;
+          // show busy dialog if not embedded, and archive updates are present
+          const showBusyDialog = !embedded && project.wdtModel.archiveUpdates.length;
           if(showBusyDialog) {
             const busyDialogMessage = i18n.t('save-in-progress-with-archive-message');
             DialogHelper.openBusyDialog(busyDialogMessage, 'bar');
@@ -61,7 +61,7 @@ define(['knockout', 'models/wkt-project', 'utils/i18n', 'utils/dialog-helper'],
 
       // select a new project file for the project, and save the project contents to the specified file.
       this.saveProjectAs = async() => {
-        const checkResult = await this.checkBeforeSave(true);
+        const checkResult = await this.checkBeforeSave(false);
         if(checkResult) {
           return checkResult;
         }
@@ -92,7 +92,7 @@ define(['knockout', 'models/wkt-project', 'utils/i18n', 'utils/dialog-helper'],
         return result;
       };
 
-      this.checkBeforeSave = async(displayMessages) => {
+      this.checkBeforeSave = async(embedded) => {
         let errorMessage = null;
 
         const pluginType = project.settings.wdtArchivePluginType.observable();
@@ -101,7 +101,7 @@ define(['knockout', 'models/wkt-project', 'utils/i18n', 'utils/dialog-helper'],
           errorMessage = i18n.t('save-no-java-home-for-archive-helper');
         }
 
-        if(displayMessages && errorMessage) {
+        if(!embedded && errorMessage) {
           const errorTitle = i18n.t('save-failed-title');
           const qualifiedMessage = i18n.t('save-failed-message', { error: errorMessage });
           await window.api.ipc.invoke('show-error-message', errorTitle, qualifiedMessage);
