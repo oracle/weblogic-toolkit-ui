@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2025, Oracle and/or its affiliates.
+ * Copyright (c) 2025, 2026, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -42,20 +42,126 @@ function (DialogHelper, WktLogger, ModelEditHelper, AliasHelper, ArchiveHelper, 
       return !archiveTypeKeys.length && !fileOptions.length;
     }
 
-    this.chooseDirectory = async(attribute, currentValue) => {
-      return this.choosePath(attribute, 'dir', currentValue);
+    this.chooseDirectory = async(attribute, currentValue, checkArchive) => {
+      return this._choosePath(attribute, 'dir', currentValue, checkArchive);
     };
 
-    this.chooseFile = async(attribute, currentValue) => {
-      return this.choosePath(attribute, 'file', currentValue);
+    this.chooseFile = async(attribute, currentValue, checkArchive) => {
+      return this._choosePath(attribute, 'file', currentValue, checkArchive);
     };
 
-    this.choosePath = async(attribute, matchType, currentValue) => {
-      const aliasPath = AliasHelper.getAliasPath(attribute.path);
-      const attributeLabel = MessageHelper.getAttributeLabel(attribute, aliasPath);
+    /**
+     * Choose a file or directory for the specified attribute.
+     * @param attribute the attribute object
+     * @param matchType 'file' or 'dir', used to filter select options
+     * @param currentValue the value of the attribute to use for a starting path
+     * @param checkArchive if true, show options to add the path to the archive and return a revised path
+     */
+    this._choosePath = async(attribute, matchType, currentValue, checkArchive) => {
+      const selectOptions = this.getSelectOptions(attribute, matchType);
 
+      let selectOption;
+
+      // prompt for select option if more than one type is present.
+      if (selectOptions.length === 1) {
+        selectOption = selectOptions[0];
+      } else {
+        const args = {attribute, selectOptions};
+        selectOption = await DialogHelper.promptDialog('modelEdit/file-select-dialog', args);
+      }
+
+      if (!selectOption) {  // no return value indicates cancel
+        return;
+      }
+
+      // IPC call to select file or directory based on selected option
+
+      let fileChosen = null;
+      if (selectOption.type !== 'emptyDir') {
+        fileChosen = await ArchiveHelper.chooseAttributeFile(selectOption, currentValue);
+        if (!fileChosen) {  // no return value indicates cancel
+          return;
+        }
+      }
+
+      if(checkArchive) {
+        fileChosen = await this._checkArchiveUpdate(fileChosen, selectOption, attribute);
+      }
+
+      return fileChosen;
+    };
+
+    /**
+     * Show options to add the specified path to the archive, and possibly return a revised path
+     * @param path the file or directory path
+     * @param attribute the attribute object
+     */
+    this.checkArchiveUpdate = async(path, attribute) => {
+      const isDirectory = await window.api.modelEdit.isDirectory(path);
+      const matchType = isDirectory ? 'dir' : 'file';
+      const selectOptions = this.getSelectOptions(attribute, matchType);
+      if(selectOptions.length !== 1) {
+        return path;
+      }
+      const selectOption = selectOptions[0];
+
+      return await this._checkArchiveUpdate(path, selectOption, attribute);
+    };
+
+    this._checkArchiveUpdate = async (filePath, selectOption, attribute) => {
+      let addToArchive = false;
+      let segregateName = selectOption.segregateName;
+      let emptyDirName = null;
+      let fileType = null;
+
+      if(selectOption.type === 'emptyDir') {
+        addToArchive = true;
+        emptyDirName = getEmptyDirName(attribute);
+
+      } else {
+        fileType = selectOption.type;
+
+        // ask about archive if archive path present
+        if (selectOption.archiveType) {
+          if(attribute.archiveOnly) {
+            addToArchive = true;
+          } else {
+            const args = {fileChosen: filePath, attribute, selectOption};
+            const archiveResult = await DialogHelper.promptDialog('modelEdit/file-archive-dialog', args);
+            if (!archiveResult) {  // cancel
+              return;
+            }
+            addToArchive = archiveResult.addToArchive;
+            segregateName = archiveResult.segregateName;
+          }
+        }
+      }
+
+      let attributePath = filePath;
+
+      if(addToArchive) {
+        const addOptions = {
+          segregatedName: segregateName,
+          emptyDirName,
+          fileName: filePath,
+          fileType
+        };
+
+        const addResult = await ArchiveHelper.addToArchive(selectOption.archiveType, addOptions);
+
+        if(addResult) {
+          attributePath = addResult;
+        }
+      }
+
+      return attributePath;
+    };
+
+    this.getSelectOptions = (attribute, matchType) => {
       // build a list of select options based on archive and file options
       const selectOptions = [];
+      const aliasPath = AliasHelper.getAliasPath(attribute.path);
+      const attributeLabel = MessageHelper.getAttributeLabel(attribute, aliasPath);
 
       // possibly multiple archive types (app, custom?)
       const archiveTypeKeys = attribute.archiveTypes || [];
@@ -131,73 +237,7 @@ function (DialogHelper, WktLogger, ModelEditHelper, AliasHelper, ArchiveHelper, 
         selectOption.label = MessageHelper.getLabel(selectOption) || defaultLabel;
       });
 
-      let selectOption;
-
-      // prompt for select option if more than one type is present.
-      if(selectOptions.length === 1) {
-        selectOption = selectOptions[0];
-      } else {
-        const args = { attribute, selectOptions };
-        selectOption = await DialogHelper.promptDialog('modelEdit/file-select-dialog', args);
-      }
-
-      if(!selectOption) {  // no return value indicates cancel
-        return;
-      }
-
-      // IPC call to select file or directory based on selected option
-
-      let addToArchive = false;
-      let segregateName = selectOption.segregateName;
-      let emptyDirName = null;
-      let fileType = null;
-      let fileChosen = null;
-
-      if(selectOption.type === 'emptyDir') {
-        addToArchive = true;
-        emptyDirName = getEmptyDirName(attribute);
-
-      } else {
-        fileType = selectOption.type;
-        fileChosen = await ArchiveHelper.chooseAttributeFile(selectOption, currentValue);
-        if (!fileChosen) {  // no return value indicates cancel
-          return;
-        }
-
-        // ask about archive if archive path present
-        if (selectOption.archiveType) {
-          if(attribute.archiveOnly) {
-            addToArchive = true;
-          } else {
-            const args = {fileChosen, attribute, selectOption};
-            const archiveResult = await DialogHelper.promptDialog('modelEdit/file-archive-dialog', args);
-            if (!archiveResult) {  // cancel
-              return;
-            }
-            addToArchive = archiveResult.addToArchive;
-            segregateName = archiveResult.segregateName;
-          }
-        }
-      }
-
-      let attributePath = fileChosen;
-
-      if(addToArchive) {
-        const addOptions = {
-          segregatedName: segregateName,
-          emptyDirName,
-          fileName: fileChosen,
-          fileType
-        };
-
-        const addResult = await ArchiveHelper.addToArchive(selectOption.archiveType, addOptions);
-
-        if(addResult) {
-          attributePath = addResult;
-        }
-      }
-
-      return attributePath;
+      return selectOptions;
     };
 
     // try to determine segregate mame
