@@ -93,14 +93,12 @@ define(['knockout', 'models/wkt-project', 'utils/i18n', 'utils/dialog-helper'],
       };
 
       this.checkBeforeSave = async(displayMessages) => {
-        let saved = true;
         let errorMessage = null;
 
         const pluginType = project.settings.wdtArchivePluginType.observable();
         const javaHome = project.settings.javaHome.observable();
         if (pluginType === 'java' && !javaHome) {
           errorMessage = i18n.t('save-no-java-home-for-archive-helper');
-          saved = false;
         }
 
         if(displayMessages && errorMessage) {
@@ -109,7 +107,7 @@ define(['knockout', 'models/wkt-project', 'utils/i18n', 'utils/dialog-helper'],
           await window.api.ipc.invoke('show-error-message', errorTitle, qualifiedMessage);
         }
 
-        return {saved, reason: errorMessage};
+        return errorMessage ? { saved: false, reason: errorMessage } : null;
       };
 
       function delay(ms) {
