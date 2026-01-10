@@ -44,7 +44,7 @@ For this project, you will choose the `Store Encrypted in Project File` option t
 
 ### Oracle Fusion Middleware Target Domain Location
 
-WebLogic Kubernetes Operator (WKO) has three mechanisms for storing the WebLogic domain directory for use in Kubernetes:
+WebLogic Kubernetes Operator (WKO) has two mechanisms for storing the WebLogic domain directory for use in Kubernetes:
 
 - `Model-in-Image with Auxiliary Image` – With this option, you provide a WebLogic Deploy Tooling (WDT) model of the
    domain and a WDT installer in an auxiliary image, and the WebLogic Kubernetes Operator will create and update the
