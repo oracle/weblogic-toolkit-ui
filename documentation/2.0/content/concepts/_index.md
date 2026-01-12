@@ -86,7 +86,7 @@ when the application doesn't behave as you expect. For more information, see [Pr
 
 #### User Preferences
 
-The `Preferences` menu lets you configure settings that affect the behavior of the WKT UI application for the user
+The `File` > `Preferences` menu lets you configure settings that affect the behavior of the WKT UI application for the user
 across all instances of the application on the machine.  These user-visible settings include the following categories:
 
 - [Proxy Configuration](#proxy-configuration)
@@ -98,7 +98,7 @@ across all instances of the application on the machine.  These user-visible sett
 - [WebLogic Kubernetes Toolkit UI Introduction Configuration](#weblogic-kubernetes-toolkit-ui-introduction-configuration)
 
 Settings are also used to store internally used values that impact the appearance of the application.  For example, the
-Window size is stored so that the application will open the window with your last known window size.  The list of
+window size is stored so that the application will open the window with your last known window size.  The list of
 such appearance-related settings will likely grow over time.
 
 ##### Proxy Configuration
@@ -108,23 +108,24 @@ must configure the proxy server settings to allow Internet access.  Currently, t
 `github.com` to access release information and download new releases of the WKT tools and the UI itself.  This connectivity
 is used in various places to determine default values for input data (for example, the default image tag to use for installing the
 WebLogic Kubernetes Operator) and providing updated features for the WKT tools bundled with the application, as
-well as updating the WKT UI application itself when a new release becomes available.   Depending on the project configuration,
-the application may also require access to other sites, such as Docker Hub and other container registries, Helm chart
+well as updating the WKT UI application itself when a new release becomes available.   
+
+Depending on the project configuration,
+the application may also require access to other sites, such as Docker Hub (or other container registries), Helm chart
 download sites, and cloud-provider sites for authenticating to and accessing remote Kubernetes clusters.
 
-To configure the proxy environment, use the `Preferences` menu to add or update the
+To configure the proxy environment, use the `File` > `Preferences` menu to add or update the
 following fields, as needed:
 
 - `HTTPS Proxy URL` - The full URL to the proxy server (for example, http://my-proxy-server.mycompany.com:80).
-- `Bypass Proxy Hosts` - The comma-separated list of DNS or IP patterns that should not go through the proxy.
+- `Bypass Proxy Hosts` - A comma-separated list of DNS or IP patterns that should not go through the proxy.
   For example, a value of `.us.mycompany.com,.emea.mycompany.com,.apac.mycompany.com` will skip the proxy for any
   DNS name that ends in one of the three domain names.
 
 ##### GitHub API Credentials
 
-GitHub rate limits anonymous API requests, which can negatively impact WKT UI functionality.  By simply creating a
-personal access token on your GitHub account and providing the token value in the `GitHub Token` field, WKT UI will
-use this token for all API calls, thus bypassing the anonymous API rate limits.  Note that this token does not require
+GitHub rate limits anonymous API requests, which can negatively impact WKT UI functionality.  You can bypass the anonymous API rate limits by creating a personal access token on your GitHub account and then providing the token value in the `GitHub Token` field. WKT UI will
+use this token for all API calls.  Note that this token does not require
 any permissions on your own projects, it is simply attached to the API requests so that GitHub knows who is making them.
 
 ##### Linux Disable Hardware Acceleration

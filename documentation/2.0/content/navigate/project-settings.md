@@ -111,7 +111,7 @@ installation directories.
 To build new images, inspect images, and interact with image repositories, the WKT UI application uses an image build
 tool, which defaults to `docker`.  The image build tool must be installed locally, as mentioned in the
 [Prerequisites]({{% relref "/setup/prerequisites.md" %}}). While `docker` is currently the most popular tool, many
-vendors (for example, Oracle, IBM RedHat, Google) are moving to use `podman` by default.
+vendors (for example, Oracle, IBM Red Hat, Google) are moving to use `podman` by default.
 
 #### Choosing the Target Kubernetes Cluster Architecture
 Prior to WKT UI 2.0, WKT UI assumed that the architecture for the Kubernetes cluster to which you want to deploy matched

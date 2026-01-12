@@ -87,8 +87,9 @@ directory contains the Oracle Fusion Middleware software you plan to use.  Becau
 ### Image Builder Tool
 
 Because you will be building an image as part of this project, you need to tell WKT UI whether you will use Docker or 
-Podman to build your image.  You also need to provide the path to the executable that matches your selection.  Because
-you are running Rancher Desktop on macOS, you will select Docker and supply the Docker executable (for example, 
+Podman to build your image.  You also need to provide the path to the executable that matches your selection.  
+
+For example, if you are running Rancher Desktop on macOS, select Docker and supply the Docker executable (for example, 
 `/Users/fred.jones/.rd/bin/docker`).  Provide the answers that best fit your environment.
 
 ### Target Kubernetes Cluster Architecture

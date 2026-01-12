@@ -21,7 +21,7 @@ This will require using a new feature in WKT UI 2.0 that supports cross-architec
 other Docker providers) rely on QEMU (Quick Emulator) to support cross-architecture capabilities.  As of the writing of
 this guide, Rancher Desktop with QEMU cross-architecture builds are not as reliable as we would like.  Our advice is to
 open the Rancher Desktop `Preferences` window, navigate to `Virtual Machine` -> `Emulation`, and change the 
-`Virtual Machine Type` from `QEMU` to `VZ`.  The author also checked the `VZ Option` to `Enable Rosetta support`, though
+`Virtual Machine Type` from `QEMU` to `VZ`.  You can also check the `VZ Option` to `Enable Rosetta support`, though
 this is probably not required.  This will provide a more reliable cross-architecture container image building environment.
 
 {{% img "Rancher Desktop Virtual Machine Emulation" "images/rancher-desktop-emulation.png" %}}
@@ -88,15 +88,15 @@ Using this dialog, you have access to view and edit settings in the following ar
 - `WebLogic Kubernetes Toolkit UI Introduction Configuration` – Change whether the introduction shows at application
    startup or not.
 
-Note that there may be one or two extra areas when running on Linux that allow you:
+Note that there may be one or two extra areas when running on Linux:
 - `Linux Disable Hardware Acceleration` - Change whether hardware acceleration is disabled.
-- `AppImage WKT Tools Configuration` - When running from the AppImage, allow you to specify a directory to use for
+- `AppImage WKT Tools Configuration` - When running from the AppImage, allows you to specify a directory to use for
    updated WDT and WIT tool versions (since the AppImage executable cannot be updated directly).
 
 ### Explore WKT UI
 
 Now that the WKT UI application is installed and configured, it is time to explore the functionality of the WKT UI application.
 To make this adventure more hands-on, you will lift and shift a ToDo List application running in an on-premises environment
-and move it to Kubernetes.  The initial quick start documents cover both tracks.
+and move it to Kubernetes.  The quick start covers both tracks.
 
 At the end, the ToDo List application will be running in a Kubernetes environment.

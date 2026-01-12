@@ -6,7 +6,7 @@ weight: 4
 description: "Install and configure an ingress controller."
 ---
 
-While the domain is up and running, it is only accessible from inside the Kubernetes cluster.  Before you can expose 
+While the domain is now up and running, it is currently only accessible from inside the Kubernetes cluster.  Before you can expose 
 your application, you need to install an ingress controller.  WKT UI can install the Traefik or NGINX ingress 
 controllers.  In this exercise, you will use Traefik.  
 

@@ -10,7 +10,7 @@ To install the WebLogic Kubernetes Toolkit UI (WKT UI):
 
 1. Download the latest WebLogic Kubernetes Toolkit UI (WKT UI) application installers from the 
    [GitHub Releases section](https://github.com/oracle/weblogic-toolkit-ui/releases) of this repository.
-2. Simply run the appropriate installer for your operating system.
+2. Run the appropriate installer for your operating system.
 
 Each release has many assets, some of which are needed for the application’s auto-update functionality and are not
 intended to be used for installing the application.  The following table lists the installer file names and their

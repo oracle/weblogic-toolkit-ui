@@ -16,13 +16,13 @@ applications to run in Linux containers on a Kubernetes cluster.  WKT includes t
 - [WebLogic Kubernetes Operator (WKO)](https://github.com/oracle/weblogic-kubernetes-operator) - A Kubernetes operator
   that allows WebLogic domains to run natively in a Kubernetes cluster.
 
-The WKT UI provides a graphical user interface that wraps the WKT tools, Docker, Helm, and the Kubernetes client
+The WKT User Interface (WKT UI) provides a graphical user interface that wraps the WKT tools, Docker, Helm, and the Kubernetes client
 (`kubectl`) and helps guide you through the process of creating and modifying a model of your WebLogic domain, creating
 a Linux container image to use to run the domain, and setting up and deploying the software and configuration
 necessary to deploy and access the domain in your Kubernetes cluster.
 
 Be sure to check out the [Quick Start]({{% relref "/setup/quickstart/" %}}) guide for a tutorial, which will step you
-through WebLogic Kubernetes Toolkit UI (WKTUI) functionality and familiarize you with its capabilities.
+through WKT UI functionality and familiarize you with its capabilities.
 
 ### Current release
 
@@ -32,7 +32,7 @@ WebLogic Kubernetes Toolkit UI version and release information can be found [her
 For detailed user information, read the following:
 
 - [About the WKT UI Application]({{% relref "/concepts/" %}})
-- WebLogic Kubernetes Toolkit UI [Prerequisites]({{% relref "/setup/prerequisites.md" %}}) and [Installation]({{% relref "/setup/install.md" %}})
+- WKT UI [Prerequisites]({{% relref "/setup/prerequisites.md" %}}) and [Installation]({{% relref "/setup/install.md" %}})
 - [Navigate the WKT UI]({{% relref "/navigate/" %}})
     - [Model]({{% relref "/navigate/model.md" %}})
     - [Image]({{% relref "/navigate/image.md" %}})

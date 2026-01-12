@@ -13,7 +13,7 @@ Go to the `Kubernetes` > `Client Configuration` page, shown in the following ima
 {{< img "Kubernetes Client Connectivity" "images/kubernetes-client-connectivity.png" >}}
 
 By selecting the appropriate `Kubernetes Cluster Type`, the instructions panel will display the steps needed to properly
-configure `kubectl`.  Select your `Kubernetes Cluster Type` and follow the instructions (including the linked
+configure `kubectl`.  Select your `Kubernetes Cluster Type` and follow the instructions in the WKT UI application (including the linked
 instructions) until you can successfully connect using `kubectl` from the command line.  (Because these steps are
 generally well-documented and well-tested, we will not repeat them here.)  
 
@@ -24,9 +24,9 @@ is installed to the **Project Settings** `Extra Path Directories` list.  If you 
 
 {{< img "Mac Extra Path Directories" "images/mac-extra-path-directories.png" >}}
 
-After invoking `kubectl` from the command line, connects to the target Kubernetes cluster, fill out the rest of the form.
+After invoking `kubectl` from the command line, connect to the target Kubernetes cluster and fill out the rest of the form.
 It is always best to select the appropriate `Kubectl Config Context to Use` for your project.  Because you may have
 multiple `Kubernetes Client Config Files`, select the appropriate one to use first.  Then, you can use either the Chooser
 icon or the Get Current Context icon to get the appropriate context value from the specified file.  In the preceding
 image, the context is named `oke` only because you edited the configuration file to change the OKE-generated context name
-to one you could recognize.  Prior to proceeding, please run **Verify Connectivity**.
+to one you could recognize.  Prior to proceeding, run **Verify Connectivity**.

@@ -31,7 +31,7 @@ configuration.  This provides several important, operational advantages:
   latest set of recommended patches.  See https://container-registry.oracle.com for more information about the prebuilt
   images and to accept the terms and conditions for the repositories of interest.
 
-Because the ToDo List domain has no requirements that would lead us to use Domain-on-PV, ou will use MII with Auxiliary
+Because the ToDo List domain has no requirements that would lead us to use Domain-on-PV, you will use MII with Auxiliary
 Image for the ToDo List domain.
 
 Go to the `Image` page, shown in the following image.  
@@ -69,9 +69,9 @@ In the registry of your choosing, create a new private repository called `WKT UI
 to access the new repository.  For the OCIR repository, the URL is of the form 
 `<region-abbreviation>.ocir.io/<tenancy-name>/WKT UI-qs/todolist-aux`, where region-abbreviation is something like `phx`
 (for the Phoenix region) and tenancy name is the name of the tenancy used to log in to `https://cloud.oracle.com`. For 
-a listing of every available region, refer to this [table](https://docs.oracle.com/en-us/iaas/Content/Registry/Concepts/registryprerequisites.htm#Availab).
+a listing of every available region, refer to the [Availability by Region table](https://docs.oracle.com/en-us/iaas/Content/Registry/Concepts/registryprerequisites.htm#regional-availability) in the OCI documentation.
 
-To access this OCIR repository from Docker and Kubernetes, you need to use an Auth Token associated with your account
+To access this OCIR repository from Docker and Kubernetes, you need to use an Auth Token associated with your OCI account
 in place of your password.  To create an Auth Token, go to your Profile page, select the Auth Tokens option under
 Resources, and click **Generate Token**, as shown in the following image.  Make sure to retain a copy of the generated
 token, because this is the _only_ opportunity you will have to see it in clear text!
@@ -139,8 +139,9 @@ your Docker (or Podman) executable directory (for example, `$HOME/.rd/bin`, if u
 `Extra Path Directories` table on the `Project Settings` page.  Doing this allows Docker to find the executable it uses
 to interact with the macOS Keychain for storing credentials.
 
-Click **Push Auxiliary Image**.  At this point, you are ready to shift your focus to the Kubernetes cluster.  Remember,
-any change to the model files requires creating a new auxiliary image, which may require rerunning **Prepare Model** if
+Click **Push Auxiliary Image**.  At this point, you are ready to shift your focus to the Kubernetes cluster.  
+
+**NOTE**: Any changes to the model files requires creating a new auxiliary image, which may require rerunning **Prepare Model** if
 fields were added to the model’s YAML file.  We strongly recommend that you always increment the version number of the
 `Auxiliary Image Tag` field prior to creating and pushing a new image.  This will make it very clear which image is in
 use.

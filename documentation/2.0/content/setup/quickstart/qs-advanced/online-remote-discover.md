@@ -19,7 +19,7 @@ This path is used to present the results of what we need to do, as shown in the 
 
 {{% img "Online Discovery Results" "images/a5-online-discovery-results.png" %}}
 
-Note that in this sample, there are no `Domain Binaries` or `Domain Libraries` to the only thing that is needed is to
+Note that in this sample, there are no `Domain Binaries` or `Domain Libraries` so you only need to
 add the `todo.war` binary to the WDT archive file.
 
 Depending on the version of WDT you are using, online remote discovery adds some fields with their default values that

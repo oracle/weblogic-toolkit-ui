@@ -18,12 +18,11 @@ WebLogic Server domains.  These tools work off a model of the domain.  The model
 For more detailed WDT information, see the WebLogic Deploy Tooling
 [documentation](https://oracle.github.io/weblogic-deploy-tooling/concepts/model/).
 
-WKT UI provides tooling to make it easy for you to create and edit a WDT model.   This image shows the `Model` page, 
-`Design View` tab that allows visual editing of a model.  
+WKT UI provides tooling to make it easy for you to create and edit a WDT model.  This image shows the `Design View` tab of the `Model` page. It allows visual editing of a model.  
 
 {{% img "Model Design View" "images/model-design-view.png" %}}
 
-The following image shows the `Model` page, `Code View` tab that lets you directly edit each of the three different file
+The following image shows the `Code View` tab of the `Model` page. It lets you directly edit each of the three different file
 types that make up the model.  In the center of the screen, you'll find the YAML editor for the model file.  On the right,
 you'll find the variables file editor and the archive file editor. At this point, all the sections are blank.
 
@@ -31,8 +30,7 @@ you'll find the variables file editor and the archive file editor. At this point
 
 WKT UI also supports discovering an existing domain to extract the model for that domain.  It accomplishes this by using
 the WDT [Discover Domain](https://oracle.github.io/weblogic-deploy-tooling/userguide/tools/discover/) tool.  To use this
-functionality, you use the `File` menu, `Add Model` submenu.  The two 
-menu items are:
+functionality, go to `File > Add Model` and choose either:
 
 - `Discover Model (offline)` – With this option, WDT reads the domain directory from the local file system to extract 
   the model files.
@@ -40,9 +38,9 @@ menu items are:
   the model files.  To collect all of the archive file contents automatically, the domain must be running on the local
   machine so that WDT has access to the domain’s file system.  
 
-To collect the model from a domain running on another machine, you can use the Remote Discovery option.  With this option,
+If you want to collect the model from a domain running on another machine, you can use the Remote Discovery option.  With this option,
 at the end of the Discover Domain (online) action, WDT will tell you which files you need to collect and add to the 
-archive file.
+archive file. See [Online Remote Discovery]({{% relref "/setup/quickstart/qs-advanced/online-remote-discover.md" %}}).
 
 Because the ToDo List application has minimal requirements from the domain, you will create the model by hand.  If you
 would prefer to create a local domain and use the discover model functionality, see 
@@ -51,7 +49,7 @@ Advanced section.
 
 ### Create the ToDo List Domain
 
-Start on the Model Design View tab, which will default to the **Domain Info** section top-level page. Set the 
+Start on the Model - Design View tab, which will default to the **Domain Info** section top-level page. Set the 
 `Admin User Name` and `Admin Password` fields to the user name and password that you want for your WebLogic domain. Also,
 select the `Server Start Mode` value of `Production Mode` to simplify things for this guide.
 
@@ -65,7 +63,9 @@ the `Name` field.  There is no need to turn on `Production Mode Enabled` since y
 
 Next, you need to create a server template that you will use with your dynamic cluster.  Select the **Server Templates**
 element, add a new server template using the **+** icon in the table header, specify the name as `todo-srv-template`, 
-and then click **OK**.  After you create the template, select the link in the table, enable `Listen Port Enabled` and
+and then click **OK**.  
+
+After you create the template, select the link in the table, enable `Listen Port Enabled` and
 set the `Listen Port` to `8100` so that the screen looks like the following image.  
 
 {{% img "Server Template" "images/server-template-1.png" %}}
@@ -151,7 +151,7 @@ Even though the model is complete enough to create a local domain, you still nee
 WebLogic Kubernetes Operator can use the model.
 
 1. Create a new Server called `AdminServer` without changing any of its attributes.
-2. One the **Topology** page, set the `Admin Server Name` field to `AdminServer`.
+2. On the **Topology** page, set the `Admin Server Name` field to `AdminServer`.
 
 Once you have done this, switch back to the `Code View` tab and your topology section of the model should look like
 the following.  Do not worry if the fields or sections are in different orders.
@@ -189,15 +189,16 @@ When deploying a domain in Kubernetes, you need to prepare it for that environme
 you what you need to accomplish that.  WKT UI has a special integration with Prepare Model in that not only does it
 adjust the model for the Kubernetes environment, but also it returns data extracted from the model that WKT UI needs.
 For example, Prepare Model returns the list of WebLogic clusters and non-clustered managed servers that other parts of
-the application use to tailor the environment for this domain.  Click **Prepare Model** to invoke the WDT Prepare Model
-Tool.
+the application use to tailor the environment for this domain.  
 
-Because you chose to use Model-in-Image for the Quick Start exercise, Prepare Model made several changes to your model.
+Click **Prepare Model** to invoke the WDT Prepare Model
+Tool.  Because you chose to use Model-in-Image for the Quick Start exercise, Prepare Model made several changes to your model:
 
 - Replaced credentials with tokens that reference Kubernetes Secrets.
 - Replaced fields like the `Data Source URL` with a token that references a variable.
 
-The following image shows the completed model that is ready to put in an image, so save the project before you move to
-the next section.
+Make sure you save the project before you move to the next section.
+
+The following image shows the completed model that is ready to put in an image.
 
 {{% img "Prepare Model Code View" "images/prepare-model-code-view.png" %}}
