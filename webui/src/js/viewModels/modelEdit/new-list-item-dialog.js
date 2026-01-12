@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2024, 2025, Oracle and/or its affiliates.
+ * Copyright (c) 2024, 2026, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
@@ -77,41 +77,20 @@ function(accUtils, ko, ModelEditHelper, MessageHelper, AliasHelper, FileSelectHe
     this.canChooseDirectory = ATTRIBUTE.usesPath && FileSelectHelper.canChooseDirectory(ATTRIBUTE);
 
     this.chooseDirectory = async() => {
-      return this.choosePath(true);
+      const path = await FileSelectHelper.chooseDirectory(ATTRIBUTE, null, false);
+      if(path) {
+        this.elementName(path);
+      }
     };
 
     this.chooseFile = async() => {
-      return this.choosePath(false);
-    };
-
-    this.choosePath = async(isDirectory) => {
-      this.dialogContainer.close();
-
-      let path;
-      if(isDirectory) {
-        path = await FileSelectHelper.chooseDirectory(ATTRIBUTE, null);
-      } else {
-        path = await FileSelectHelper.chooseFile(ATTRIBUTE, null);
-      }
-
+      const path = await FileSelectHelper.chooseFile(ATTRIBUTE, null, false);
       if(path) {
         this.elementName(path);
-
-        const itemToAdd = {
-          uid: utils.getShortUuid(),
-          name: this.elementName()
-        };
-        OBSERVABLE_ITEMS.push(itemToAdd);
       }
-
-      const result = {
-        changed: !!path
-      };
-
-      args.setValue(result);
     };
 
-    this.okInput = () => {
+    this.okInput = async() => {
       let tracker = document.getElementById('modelNewEntryTracker');
 
       if (tracker.valid !== 'valid') {
@@ -123,9 +102,11 @@ function(accUtils, ko, ModelEditHelper, MessageHelper, AliasHelper, FileSelectHe
 
       this.dialogContainer.close();
 
+      const itemPath = await FileSelectHelper.checkArchiveUpdate(this.elementName(), ATTRIBUTE);
+
       const itemToAdd = {
         uid: utils.getShortUuid(),
-        name: this.elementName()
+        name: itemPath
       };
       OBSERVABLE_ITEMS.push(itemToAdd);
 

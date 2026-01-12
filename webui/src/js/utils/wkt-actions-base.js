@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -105,7 +105,7 @@ function(project, wktConsole, i18n, projectIo, dialogHelper,
     async saveProject(errTitle, errPrefix, shouldCloseBusyDialog = true) {
       try {
 
-        const saveResult = await projectIo.saveProject(false, false);
+        const saveResult = await projectIo.saveProject(false, true);
         if (!saveResult.saved) {
           const errKey = `${errPrefix}-project-not-saved-error-prefix`;
           const errMessage = `${i18n.t(errKey)}: ${saveResult.reason}`;
