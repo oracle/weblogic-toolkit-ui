@@ -120,7 +120,7 @@
   "auto-updater-disabled-unsupported-message": "자동 업데이터는 AppImage 실행파일에서 실행되지 않을 때 Linux에서 지원되지 않습니다.",
 
   "dialog-chooseArchiveFile": "아카이브 파일 선택",
-  "dialog-chooseExternalToolsStagingDirectory": "Choose WKT Tools External Staging Directory",
+  "dialog-chooseExternalToolsStagingDirectory": "WKT 툴 외부 스테이징 디렉토리 선택",
   "dialog-chooseModelFile": "모델 파일 선택",
   "dialog-choosePrivateKey": "프라이빗 키 파일 선택",
   "dialog-chooseProjectSaveFile": "프로젝트 저장",
@@ -350,6 +350,20 @@
   "model-archive-remove-path-failed-error-message": "아카이브 파일 {{archiveFile}}에서 아카이브 항목 {{path}} 제거를 실패함: {{error}}",
   "model-archive-add-file-path-empty-error-message": "아카이브 파일 {{archiveFile}}에 아카이브 항목 {{path}} 추가를 실패했습니다. 추가할 파일이 지정되지 않았습니다.",
   "model-archive-add-folder-failed-error-message": "아카이브 파일 {{archiveFile}}에 아카이브 폴더 {{path}} 추가를 실패함: {{error}}",
+  "model-archive-create-temp-dir-failed-error-message": "Failed to create temp directory in {{parentDirectory}}: {{error}}",
+  "model-archive-write-file-open-failed-error-message": "Failed to open archive file {{archiveFile}} for writing: {{error}}",
+  "model-archive-swap-files-failed-error-message": "Failed to replace original archive file {{originalFile}} with new archive file from {{newFile}}: {{error}}",
+  "model-archive-create-new-file-failed-error-message": "Failed to create updated archive file at {{archiveFile}}: {{error}}",
+  "model-archive-process-zip-contents-failed-error-message": "Failed to read the contents of archive file {{archiveFile}}: {{error}}",
+  "model-archive-write-file-add-failed-error-message": "Failed to write to updated archive file {{archiveFile}} while adding new content: {{error}}",
+  "model-archive-write-file-copy-failed-error-message": "Failed to write to updated archive file {{archiveFile}} while copying content from original archive file: {{error}}",
+  "model-archive-write-called-after-close-error-message": "Failed to write to updated archive File {{archiveFile}} because the file was already closed: {{error}}",
+  "model-archive-java-write-input-file-failed-error-message": "Failed to write archive file update operations to {{inputFile}}: {{error}}",
+  "model-archive-java-error-exit-code-error-message": "Archive Helper script exited with {{exitCode}}, which indicates an error.",
+  "model-archive-java-execution-failed-error-message": "Archive Helper script failed: {{error}}",
+  "model-archive-java-save-archive-file-failed-error-message": "아카이브 파일 {{archiveFile}} 저장 실패: {{error}}",
+  "model-archive-java-list-get-output-failed-error-message": "After listing the archive file {{archiveFile}}, failed to process the output file {{outputFile}} containing the file contents: {{error}}",
+  "model-archive-java-update-get-output-failed-error-message": "After updating the archive file {{archiveFile}}, failed to process the output file {{outputFile}} containing the updated file contents: {{error}}",
 
   "fs-utils-get-files-recursively-dir-empty-error-message": "디렉토리가 지정되지 않았기 때문에 디렉토리에서 재귀적으로 파일을 가져올 수 없습니다.",
   "fs-utils-get-files-recursively-dir-not-dir-error-message": "{{directoryName}} 디렉토리는 기존 디렉토리가 아니므로 디렉토리에서 재귀적으로 파일을 가져올 수 없습니다.",
@@ -393,8 +407,8 @@
 
   "wdt-archiveType-coherenceStore": "Coherence 지속성 디렉토리",
   "wdt-archiveType-coherenceStore-activeLabel": "활성",
-  "wdt-archiveType-coherenceStore-backupLabel": "Backup",
-  "wdt-archiveType-coherenceStore-eventsLabel": "Events",
+  "wdt-archiveType-coherenceStore-backupLabel": "백업",
+  "wdt-archiveType-coherenceStore-eventsLabel": "이벤트",
   "wdt-archiveType-coherenceStore-snapshotLabel": "스냅샷",
   "wdt-archiveType-coherenceStore-trashLabel": "휴지통",
   "wdt-archiveType-coherenceStore-emptyDirLabel": "Coherence 지속성 디렉토리 이름",
@@ -467,12 +481,12 @@
   "wdt-archiveType-serverSegregationLabel": "서버 이름",
   "wdt-archiveType-serverSegregationHelp": "사용할 서버의 이름을 입력합니다.",
 
-  "wdt-archiveType-serverTemplateKeystore": "Server Template Keystore",
-  "wdt-archiveType-serverTemplateKeystore-fileLabel": "Server Template Keystore File",
-  "wdt-archiveType-serverTemplateKeystore-fileHelp": "Choose the full path to the server template keystore file to add under the specific server template",
+  "wdt-archiveType-serverTemplateKeystore": "서버 템플리트 키 저장소",
+  "wdt-archiveType-serverTemplateKeystore-fileLabel": "서버 템플리트 키 저장소 파일",
+  "wdt-archiveType-serverTemplateKeystore-fileHelp": "특정 서버 템플리트 아래에 추가할 서버 템플리트 키 저장소 파일의 전체 경로를 선택합니다.",
 
   "wdt-archiveType-serverTemplateSegregationLabel": "서버 템플리트 이름",
-  "wdt-archiveType-serverTemplateSegregationHelp": "Enter the name of the server template to use",
+  "wdt-archiveType-serverTemplateSegregationHelp": "사용할 서버 템플리트의 이름을 입력합니다.",
 
   "wdt-archiveType-sharedLibrary": "공유 라이브러리",
   "wdt-archiveType-sharedLibrary-dirLabel": "전개된 공유 라이브러리 디렉토리",
@@ -530,7 +544,7 @@
   "wrc-version-verification-failed": "버전 호환성을 확인하려는 중 오류가 발생했기 때문에 WebLogic Remote Console 백엔드를 시작할 수 없음: {{error}}",
   "wrc-home-not-exist": "구성된 위치 {{rcHome}}이(가) 존재하지 않아서 WebLogic Remote Console 백엔드를 시작할 수 없습니다.",
 
-  "app-image-update-tools-failed-title": "Failed to Update WKT Tools for Linux AppImage",
-  "app-image-update-tools-external-dir-no-specified": "Unable to update WKT tools since the WKT Tools External Staging Directory was not specified in the user's settings.",
-  "app-image-update-tools-external-dir-not-exists": "Unable to update WKT tools since the WKT Tools External Staging Directory {{externalToolDirectory}} does not exist."
+  "app-image-update-tools-failed-title": "Linux AppImage용 WKT 툴 업데이트를 실패했습니다.",
+  "app-image-update-tools-external-dir-no-specified": "WKT 툴 외부 스테이징 디렉토리가 사용자 설정에 지정되지 않았으므로 WKT 툴을 업데이트할 수 없습니다.",
+  "app-image-update-tools-external-dir-not-exists": "WKT 툴 외부 스테이징 디렉토리 {{externalToolDirectory}}이(가) 존재하지 않으므로 WKT 툴을 업데이트할 수 없습니다."
 }

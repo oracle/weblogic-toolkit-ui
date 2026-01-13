@@ -78,7 +78,7 @@
   "menu-go-install-ingress": "イングレス・コントローラのインストール",
   "menu-go-install-ingress-error-title": "アクティブなプロジェクト・ウィンドウがありません",
   "menu-go-install-ingress-error-message": "アクティブなウィンドウがないため、インストールするイングレス・コントローラ構成がありません。したがって、イングレス・コントローラをインストールすることはできません。",
-  "menu-go-add-routes-ingress": "ドメインへのイングレス・ルートを更新",
+  "menu-go-add-routes-ingress": "ドメインへのイングレス・ルートの更新",
   "menu-go-add-routes-error-title": "アクティブなプロジェクト・ウィンドウがありません",
   "menu-go-add-routes-error-message": "アクティブなウィンドウがないため、追加/更新するイングレス・ルートがありません。したがって、イングレス・ルートを追加/更新することはできません。",
   "menu-go-uninstall-ingress": "イングレス・コントローラのアンインストール",
@@ -120,7 +120,7 @@
   "auto-updater-disabled-unsupported-message": "AppImage実行可能ファイルから実行されていない場合、自動アップデータはLinuxではサポートされていません。",
 
   "dialog-chooseArchiveFile": "アーカイブ・ファイルの選択",
-  "dialog-chooseExternalToolsStagingDirectory": "Choose WKT Tools External Staging Directory",
+  "dialog-chooseExternalToolsStagingDirectory": "WKTツールの外部ステージング・ディレクトリの選択",
   "dialog-chooseModelFile": "モデル・ファイルの選択",
   "dialog-choosePrivateKey": "秘密キー・ファイルの選択",
   "dialog-chooseProjectSaveFile": "プロジェクトの保存",
@@ -202,7 +202,7 @@
   "dialog-tls-certfile": "TLS証明書ファイルの選択",
 
   "dialog-chooseArchiveEntry": "アーカイブ用の{{entryType}}を選択",
-  "dialog-chooseAttributeFile": "Choose {{entryType}}",
+  "dialog-chooseAttributeFile": "{{entryType}}の選択",
   "dialog-archiveEntryFilter": "{{entryType}}",
   "dialog-getWebLogicRemoteConsoleHome": "WebLogic Remote Consoleインストールの選択",
   "dialog-getWebLogicRemoteConsoleAppImage": "WebLogic Remote Console AppImageファイルの選択",
@@ -350,6 +350,20 @@
   "model-archive-remove-path-failed-error-message": "アーカイブ・ファイル{{archiveFile}}からのアーカイブ・エントリ{{path}}の削除に失敗しました: {{error}}",
   "model-archive-add-file-path-empty-error-message": "追加するファイルが指定されていなかったため、アーカイブ・ファイル{{archiveFile}}にアーカイブ・エントリ{{path}}を追加できません",
   "model-archive-add-folder-failed-error-message": "アーカイブ・ファイル{{archiveFile}}へのアーカイブ・フォルダ{{path}}の追加に失敗しました: {{error}}",
+  "model-archive-create-temp-dir-failed-error-message": "Failed to create temp directory in {{parentDirectory}}: {{error}}",
+  "model-archive-write-file-open-failed-error-message": "Failed to open archive file {{archiveFile}} for writing: {{error}}",
+  "model-archive-swap-files-failed-error-message": "Failed to replace original archive file {{originalFile}} with new archive file from {{newFile}}: {{error}}",
+  "model-archive-create-new-file-failed-error-message": "Failed to create updated archive file at {{archiveFile}}: {{error}}",
+  "model-archive-process-zip-contents-failed-error-message": "Failed to read the contents of archive file {{archiveFile}}: {{error}}",
+  "model-archive-write-file-add-failed-error-message": "Failed to write to updated archive file {{archiveFile}} while adding new content: {{error}}",
+  "model-archive-write-file-copy-failed-error-message": "Failed to write to updated archive file {{archiveFile}} while copying content from original archive file: {{error}}",
+  "model-archive-write-called-after-close-error-message": "Failed to write to updated archive File {{archiveFile}} because the file was already closed: {{error}}",
+  "model-archive-java-write-input-file-failed-error-message": "Failed to write archive file update operations to {{inputFile}}: {{error}}",
+  "model-archive-java-error-exit-code-error-message": "Archive Helper script exited with {{exitCode}}, which indicates an error.",
+  "model-archive-java-execution-failed-error-message": "Archive Helper script failed: {{error}}",
+  "model-archive-java-save-archive-file-failed-error-message": "アーカイブ・ファイル{{archiveFile}}の保存に失敗しました: {{error}}",
+  "model-archive-java-list-get-output-failed-error-message": "After listing the archive file {{archiveFile}}, failed to process the output file {{outputFile}} containing the file contents: {{error}}",
+  "model-archive-java-update-get-output-failed-error-message": "After updating the archive file {{archiveFile}}, failed to process the output file {{outputFile}} containing the updated file contents: {{error}}",
 
   "fs-utils-get-files-recursively-dir-empty-error-message": "ディレクトリが指定されていなかったため、ディレクトリからファイルを再帰的に取得できません",
   "fs-utils-get-files-recursively-dir-not-dir-error-message": "ディレクトリ{{directoryName}}が既存ディレクトリでなかったため、ディレクトリからファイルを再帰的に取得できません",
@@ -393,8 +407,8 @@
 
   "wdt-archiveType-coherenceStore": "Coherence永続性ディレクトリ",
   "wdt-archiveType-coherenceStore-activeLabel": "アクティブ",
-  "wdt-archiveType-coherenceStore-backupLabel": "Backup",
-  "wdt-archiveType-coherenceStore-eventsLabel": "Events",
+  "wdt-archiveType-coherenceStore-backupLabel": "パックアップ",
+  "wdt-archiveType-coherenceStore-eventsLabel": "イベント",
   "wdt-archiveType-coherenceStore-snapshotLabel": "スナップショット",
   "wdt-archiveType-coherenceStore-trashLabel": "ごみ箱",
   "wdt-archiveType-coherenceStore-emptyDirLabel": "Coherence永続性ディレクトリ名",
@@ -467,12 +481,12 @@
   "wdt-archiveType-serverSegregationLabel": "サーバー名",
   "wdt-archiveType-serverSegregationHelp": "使用するサーバーの名前を入力します",
 
-  "wdt-archiveType-serverTemplateKeystore": "Server Template Keystore",
-  "wdt-archiveType-serverTemplateKeystore-fileLabel": "Server Template Keystore File",
-  "wdt-archiveType-serverTemplateKeystore-fileHelp": "Choose the full path to the server template keystore file to add under the specific server template",
+  "wdt-archiveType-serverTemplateKeystore": "サーバー・テンプレート・キーストア",
+  "wdt-archiveType-serverTemplateKeystore-fileLabel": "サーバー・テンプレート・キーストア・ファイル",
+  "wdt-archiveType-serverTemplateKeystore-fileHelp": "特定のサーバー・テンプレートの下に追加するサーバー・テンプレート・キーストア・ファイルへのフル・パスを選択します",
 
   "wdt-archiveType-serverTemplateSegregationLabel": "サーバー・テンプレート名",
-  "wdt-archiveType-serverTemplateSegregationHelp": "Enter the name of the server template to use",
+  "wdt-archiveType-serverTemplateSegregationHelp": "使用するサーバー・テンプレートの名前を入力します",
 
   "wdt-archiveType-sharedLibrary": "共有ライブラリ",
   "wdt-archiveType-sharedLibrary-dirLabel": "展開された共有ライブラリ・ディレクトリ",
@@ -530,7 +544,7 @@
   "wrc-version-verification-failed": "バージョンの互換性を判断しようとしてエラーが発生したため、WebLogic Remote Consoleバックエンドを起動できません: {{error}}",
   "wrc-home-not-exist": "構成された場所{{rcHome}}が存在しないため、WebLogic Remote Consoleバックエンドを起動できません。",
 
-  "app-image-update-tools-failed-title": "Failed to Update WKT Tools for Linux AppImage",
-  "app-image-update-tools-external-dir-no-specified": "Unable to update WKT tools since the WKT Tools External Staging Directory was not specified in the user's settings.",
-  "app-image-update-tools-external-dir-not-exists": "Unable to update WKT tools since the WKT Tools External Staging Directory {{externalToolDirectory}} does not exist."
+  "app-image-update-tools-failed-title": "Linux AppImageに対するWKTツールの更新に失敗しました",
+  "app-image-update-tools-external-dir-no-specified": "WKTツールの外部ステージング・ディレクトリがユーザーの設定に指定されていないため、WKTツールを更新できません。",
+  "app-image-update-tools-external-dir-not-exists": "WKTツールの外部ステージング・ディレクトリ{{externalToolDirectory}}が存在しないため、WKTツールを更新できません。"
 }

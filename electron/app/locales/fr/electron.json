@@ -120,7 +120,7 @@
   "auto-updater-disabled-unsupported-message": "L'outil de mise à jour automatique n'est pas pris en charge sur Linux lorsqu'il n'est pas exécuté à partir de l'exécutable AppImage.",
 
   "dialog-chooseArchiveFile": "Sélectionner un fichier d'archive",
-  "dialog-chooseExternalToolsStagingDirectory": "Choose WKT Tools External Staging Directory",
+  "dialog-chooseExternalToolsStagingDirectory": "Choisir le répertoire intermédiaire externe des outils WKT",
   "dialog-chooseModelFile": "Sélectionner un fichier de modèle",
   "dialog-choosePrivateKey": "Sélectionner un fichier de clés privées",
   "dialog-chooseProjectSaveFile": "Enregistrer le projet",
@@ -350,6 +350,20 @@
   "model-archive-remove-path-failed-error-message": "Echec de la suppression de l'entrée d'archivage {{path}} du fichier d'archivage {{archiveFile}} : {{error}}",
   "model-archive-add-file-path-empty-error-message": "Impossible d'ajouter l'entrée d'archivage {{path}} au fichier d'archive {{archiveFile}} car le fichier à ajouter n'a pas été indiqué",
   "model-archive-add-folder-failed-error-message": "Echec de l'ajout du dossier d'archivage {{path}} au fichier d'archive {{archiveFile}} : {{error}}",
+  "model-archive-create-temp-dir-failed-error-message": "Failed to create temp directory in {{parentDirectory}}: {{error}}",
+  "model-archive-write-file-open-failed-error-message": "Failed to open archive file {{archiveFile}} for writing: {{error}}",
+  "model-archive-swap-files-failed-error-message": "Failed to replace original archive file {{originalFile}} with new archive file from {{newFile}}: {{error}}",
+  "model-archive-create-new-file-failed-error-message": "Failed to create updated archive file at {{archiveFile}}: {{error}}",
+  "model-archive-process-zip-contents-failed-error-message": "Failed to read the contents of archive file {{archiveFile}}: {{error}}",
+  "model-archive-write-file-add-failed-error-message": "Failed to write to updated archive file {{archiveFile}} while adding new content: {{error}}",
+  "model-archive-write-file-copy-failed-error-message": "Failed to write to updated archive file {{archiveFile}} while copying content from original archive file: {{error}}",
+  "model-archive-write-called-after-close-error-message": "Failed to write to updated archive File {{archiveFile}} because the file was already closed: {{error}}",
+  "model-archive-java-write-input-file-failed-error-message": "Failed to write archive file update operations to {{inputFile}}: {{error}}",
+  "model-archive-java-error-exit-code-error-message": "Archive Helper script exited with {{exitCode}}, which indicates an error.",
+  "model-archive-java-execution-failed-error-message": "Archive Helper script failed: {{error}}",
+  "model-archive-java-save-archive-file-failed-error-message": "Echec de l'enregistrement du fichier d'archive {{archiveFile}} : {{error}}",
+  "model-archive-java-list-get-output-failed-error-message": "After listing the archive file {{archiveFile}}, failed to process the output file {{outputFile}} containing the file contents: {{error}}",
+  "model-archive-java-update-get-output-failed-error-message": "After updating the archive file {{archiveFile}}, failed to process the output file {{outputFile}} containing the updated file contents: {{error}}",
 
   "fs-utils-get-files-recursively-dir-empty-error-message": "Impossible d'obtenir les fichiers da façon récursive à partir d'un répertoire car celui-ci n'a pas été indiqué",
   "fs-utils-get-files-recursively-dir-not-dir-error-message": "Impossible d'obtenir les fichiers da façon récursive à partir d'un répertoire car le répertoire {{directoryName}} n'était pas un répertoire existant",
@@ -393,8 +407,8 @@
 
   "wdt-archiveType-coherenceStore": "Répertoire de persistance Coherence",
   "wdt-archiveType-coherenceStore-activeLabel": "Actif",
-  "wdt-archiveType-coherenceStore-backupLabel": "Backup",
-  "wdt-archiveType-coherenceStore-eventsLabel": "Events",
+  "wdt-archiveType-coherenceStore-backupLabel": "Sauvegarde",
+  "wdt-archiveType-coherenceStore-eventsLabel": "Evénements",
   "wdt-archiveType-coherenceStore-snapshotLabel": "Cliché",
   "wdt-archiveType-coherenceStore-trashLabel": "Corbeille",
   "wdt-archiveType-coherenceStore-emptyDirLabel": "Nom du répertoire de persistance Coherence",
@@ -467,12 +481,12 @@
   "wdt-archiveType-serverSegregationLabel": "Nom du serveur",
   "wdt-archiveType-serverSegregationHelp": "Entrer le nom du serveur à utiliser",
 
-  "wdt-archiveType-serverTemplateKeystore": "Server Template Keystore",
-  "wdt-archiveType-serverTemplateKeystore-fileLabel": "Server Template Keystore File",
-  "wdt-archiveType-serverTemplateKeystore-fileHelp": "Choose the full path to the server template keystore file to add under the specific server template",
+  "wdt-archiveType-serverTemplateKeystore": "Fichier de clés du modèle de serveur",
+  "wdt-archiveType-serverTemplateKeystore-fileLabel": "Fichier du fichier de clés du modèle de serveur",
+  "wdt-archiveType-serverTemplateKeystore-fileHelp": "Choisir le chemin complet du fichier du fichier de clés du modèle de serveur à ajouter dans le modèle de serveur spécifique",
 
   "wdt-archiveType-serverTemplateSegregationLabel": "Nom du modèle de serveur",
-  "wdt-archiveType-serverTemplateSegregationHelp": "Enter the name of the server template to use",
+  "wdt-archiveType-serverTemplateSegregationHelp": "Entrer le nom du modèle de serveur à utiliser",
 
   "wdt-archiveType-sharedLibrary": "Bibliothèque partagée",
   "wdt-archiveType-sharedLibrary-dirLabel": "Répertoire de bibliothèque partagée explosé",
@@ -530,7 +544,7 @@
   "wrc-version-verification-failed": "Impossible de démarrer le back-end de WebLogic Remote Console car une erreur est survenue lors de la tentative visant à déterminer la compatibilité de la version : {{error}}",
   "wrc-home-not-exist": "Impossible de démarrer le back-end de WebLogic Remote Console car l'emplacement configuré {{rcHome}} n'existe pas.",
 
-  "app-image-update-tools-failed-title": "Failed to Update WKT Tools for Linux AppImage",
-  "app-image-update-tools-external-dir-no-specified": "Unable to update WKT tools since the WKT Tools External Staging Directory was not specified in the user's settings.",
-  "app-image-update-tools-external-dir-not-exists": "Unable to update WKT tools since the WKT Tools External Staging Directory {{externalToolDirectory}} does not exist."
+  "app-image-update-tools-failed-title": "Echec de la mise à jour des outils WKT pour le format AppImage de Linux",
+  "app-image-update-tools-external-dir-no-specified": "Impossible de mettre à jour les outils WKT car le répertoire intermédiaire externe des outils WKT n'a pas été indiqué dans les paramètres de l'utilisateur.",
+  "app-image-update-tools-external-dir-not-exists": "Impossible de mettre à jour les outils WKT car le répertoire intermédiaire externe des outils WKT {{externalToolDirectory}} n'existe pas."
 }

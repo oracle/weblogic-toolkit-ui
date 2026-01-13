@@ -120,7 +120,7 @@
   "auto-updater-disabled-unsupported-message": "Linux 若不是從 AppImage 執行檔執行，便不支援自動更新程式。",
 
   "dialog-chooseArchiveFile": "選取封存檔",
-  "dialog-chooseExternalToolsStagingDirectory": "Choose WKT Tools External Staging Directory",
+  "dialog-chooseExternalToolsStagingDirectory": "選擇 WKT 工具外部暫存目錄",
   "dialog-chooseModelFile": "選取模型檔",
   "dialog-choosePrivateKey": "選取私密金鑰檔案",
   "dialog-chooseProjectSaveFile": "儲存專案",
@@ -350,6 +350,20 @@
   "model-archive-remove-path-failed-error-message": "無法移除封存檔 {{archiveFile}} 中的封存項目 {{path}}：{{error}}",
   "model-archive-add-file-path-empty-error-message": "未指定要新增的檔案，因此無法新增封存項目 {{path}} 至封存檔 {{archiveFile}}",
   "model-archive-add-folder-failed-error-message": "無法新增封存資料夾 {{path}} 至封存檔 {{archiveFile}}：{{error}}",
+  "model-archive-create-temp-dir-failed-error-message": "Failed to create temp directory in {{parentDirectory}}: {{error}}",
+  "model-archive-write-file-open-failed-error-message": "Failed to open archive file {{archiveFile}} for writing: {{error}}",
+  "model-archive-swap-files-failed-error-message": "Failed to replace original archive file {{originalFile}} with new archive file from {{newFile}}: {{error}}",
+  "model-archive-create-new-file-failed-error-message": "Failed to create updated archive file at {{archiveFile}}: {{error}}",
+  "model-archive-process-zip-contents-failed-error-message": "Failed to read the contents of archive file {{archiveFile}}: {{error}}",
+  "model-archive-write-file-add-failed-error-message": "Failed to write to updated archive file {{archiveFile}} while adding new content: {{error}}",
+  "model-archive-write-file-copy-failed-error-message": "Failed to write to updated archive file {{archiveFile}} while copying content from original archive file: {{error}}",
+  "model-archive-write-called-after-close-error-message": "Failed to write to updated archive File {{archiveFile}} because the file was already closed: {{error}}",
+  "model-archive-java-write-input-file-failed-error-message": "Failed to write archive file update operations to {{inputFile}}: {{error}}",
+  "model-archive-java-error-exit-code-error-message": "Archive Helper script exited with {{exitCode}}, which indicates an error.",
+  "model-archive-java-execution-failed-error-message": "Archive Helper script failed: {{error}}",
+  "model-archive-java-save-archive-file-failed-error-message": "無法儲存封存檔 {{archiveFile}}：{{error}}",
+  "model-archive-java-list-get-output-failed-error-message": "After listing the archive file {{archiveFile}}, failed to process the output file {{outputFile}} containing the file contents: {{error}}",
+  "model-archive-java-update-get-output-failed-error-message": "After updating the archive file {{archiveFile}}, failed to process the output file {{outputFile}} containing the updated file contents: {{error}}",
 
   "fs-utils-get-files-recursively-dir-empty-error-message": "未指定目錄，因此無法以遞迴方式從目錄取得檔案",
   "fs-utils-get-files-recursively-dir-not-dir-error-message": "目錄 {{directoryName}} 不是現有的目錄，因此無法以遞迴方式從目錄取得檔案",
@@ -393,8 +407,8 @@
 
   "wdt-archiveType-coherenceStore": "Coherence 保存目錄",
   "wdt-archiveType-coherenceStore-activeLabel": "作用中",
-  "wdt-archiveType-coherenceStore-backupLabel": "Backup",
-  "wdt-archiveType-coherenceStore-eventsLabel": "Events",
+  "wdt-archiveType-coherenceStore-backupLabel": "備份",
+  "wdt-archiveType-coherenceStore-eventsLabel": "事件",
   "wdt-archiveType-coherenceStore-snapshotLabel": "快照",
   "wdt-archiveType-coherenceStore-trashLabel": "資源回收",
   "wdt-archiveType-coherenceStore-emptyDirLabel": "Coherence 保存目錄名稱",
@@ -467,12 +481,12 @@
   "wdt-archiveType-serverSegregationLabel": "伺服器名稱",
   "wdt-archiveType-serverSegregationHelp": "輸入要使用的伺服器名稱",
 
-  "wdt-archiveType-serverTemplateKeystore": "Server Template Keystore",
-  "wdt-archiveType-serverTemplateKeystore-fileLabel": "Server Template Keystore File",
-  "wdt-archiveType-serverTemplateKeystore-fileHelp": "Choose the full path to the server template keystore file to add under the specific server template",
+  "wdt-archiveType-serverTemplateKeystore": "伺服器樣板金鑰存放區",
+  "wdt-archiveType-serverTemplateKeystore-fileLabel": "伺服器樣板金鑰存放區檔案",
+  "wdt-archiveType-serverTemplateKeystore-fileHelp": "選擇要新增至特定伺服器樣板之伺服器樣板金鑰存放區檔案的完整路徑",
 
   "wdt-archiveType-serverTemplateSegregationLabel": "伺服器樣板名稱",
-  "wdt-archiveType-serverTemplateSegregationHelp": "Enter the name of the server template to use",
+  "wdt-archiveType-serverTemplateSegregationHelp": "輸入要使用的伺服器樣板名稱",
 
   "wdt-archiveType-sharedLibrary": "共用程式庫",
   "wdt-archiveType-sharedLibrary-dirLabel": "展開共用程式庫目錄",
@@ -530,7 +544,7 @@
   "wrc-version-verification-failed": "嘗試判斷版本相容性時發生錯誤，因此無法啟動 WebLogic Remote Console 後端：{{error}}。",
   "wrc-home-not-exist": "設定的 {{rcHome}} 位置不存在，因此無法啟動 WebLogic Remote Console 後端。",
 
-  "app-image-update-tools-failed-title": "Failed to Update WKT Tools for Linux AppImage",
-  "app-image-update-tools-external-dir-no-specified": "Unable to update WKT tools since the WKT Tools External Staging Directory was not specified in the user's settings.",
-  "app-image-update-tools-external-dir-not-exists": "Unable to update WKT tools since the WKT Tools External Staging Directory {{externalToolDirectory}} does not exist."
+  "app-image-update-tools-failed-title": "無法更新 Linux AppImage 適用的 WKT 工具",
+  "app-image-update-tools-external-dir-no-specified": "使用者的設定值中未指定 WKT 工具外部暫存目錄，因此無法更新 WKT 工具。",
+  "app-image-update-tools-external-dir-not-exists": "WKT 工具外部暫存目錄 {{externalToolDirectory}} 不存在，因此無法更新 WKT 工具。"
 }
