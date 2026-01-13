@@ -30,7 +30,7 @@ three options to choose from:
     **Note that this depends on you having previously used SSH (outside the WKT UI application) to establish an SSH
     connection from the local machine to the machine on which the Admin Server is running.**
 
-{{< img "ToDo List App" "images/online-discover.png" >}}
+{{< img "ToDo List App" "images/a1-todo-list-app.png" >}}
 
 Because your ToDo List domain is simple, in these sections, you will see examples of both offline discovery and online
 remote discovery.  Online, non-remote, discovery is very similar process-wise to online remote discovery (except that
