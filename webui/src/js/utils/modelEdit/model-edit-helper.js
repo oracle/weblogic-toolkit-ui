@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2024, 2025, Oracle and/or its affiliates.
+ * Copyright (c) 2024, 2026, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -475,6 +475,15 @@ function (ko, jsYaml, project, utils,
         name: 'modelEdit/instances-table',
         params: {
           modelPath
+        }
+      });
+    };
+
+    this.createCredentialCellConfig = value => {
+      return ModuleElementUtils.createConfig({
+        name: 'modelEdit/credential-cell',
+        params: {
+          value
         }
       });
     };

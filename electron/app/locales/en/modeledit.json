@@ -477,6 +477,8 @@
 
   "table-name-label": "Name",
   "table-type-label": "Type",
+  "table-show-value-label": "Show Value",
+  "table-hide-value-label": "Hide Value",
 
   "rcudbinfo-connection-label": "Connection",
   "rcudbinfo-stores-label": "Stores",
