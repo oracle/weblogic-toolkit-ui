@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2024, 2025, Oracle and/or its affiliates.
+ * Copyright (c) 2024, 2026, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -125,6 +125,12 @@ define(['knockout', 'utils/wkt-logger'],
 
       this.getFolderNames = modelPath => {
         return this.getAliasValue(modelPath, 'folders');
+      };
+
+      this.getAttributeType = (modelPath, attributeKey) => {
+        const map = this.getAttributesMap(modelPath);
+        const attribute = map[attributeKey] || {};
+        return attribute['wlstType'];
       };
 
       // currently map to empty values, alias data structure for folders will probably change
