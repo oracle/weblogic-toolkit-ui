@@ -263,7 +263,8 @@ contextBridge.exposeInMainWorld(
     'i18n': {
       t: (keys, options) => {
         return i18n.t(keys, options);
-      }
+      },
+      language: i18n.language
     },
     'modelEdit': {
       exists: path => fsUtils.exists(path),
