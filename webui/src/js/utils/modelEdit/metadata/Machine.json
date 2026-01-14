@@ -1,6 +1,5 @@
 {
   "Machine": {
-    "mergeFolder": "NodeManager",
     "summaryAttributes": {
       "NodeManager/NMType": {},
       "NodeManager/ListenAddress": {},
@@ -37,50 +36,51 @@
     },
     "sections": [
       {
-        "type": "tab",
-        "labelKey": "general-tab-label",
-        "sections": [
-          {
-            "type": "attributes",
-            "attributes": [
-              "Notes"
-            ]
-          }
+        "type": "attributes",
+        "attributes": [
+          "Notes"
         ]
       },
       {
         "type": "hidden",
         "attributes": [
-          "Address",
-          "InstalledVMMAdapter",
-          "Adapter",
-          "AdapterName",
-          "AdapterVersion"
+          "Address"
+        ],
+        "folders": [
+          "NodeManager"
+        ]
+      }
+    ]
+  },
+  "Machine/NodeManager": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "NMType",
+          "DebugEnabled",
+          "ListenAddress",
+          "ListenPort",
+          "ShellCommand",
+          "NodeManagerHome",
+          "UserName",
+          "PasswordEncrypted",
+          "NMSocketCreateTimeoutInMillis",
+          "Notes"
         ]
       },
       {
-        "type": "tab",
-        "labelKey": "node-manager-tab-label",
-        "sections": [
-          {
-            "type": "attributes",
-            "attributes": [
-              "NMType",
-              "DebugEnabled",
-              "ListenAddress",
-              "ListenPort",
-              "ShellCommand",
-              "NodeManagerHome",
-              "UserName",
-              "PasswordEncrypted",
-              "NMSocketCreateTimeoutInMillis"
-            ]
-          },
-          {
-            "type": "attributesCollapsible",
-            "labelKey": "advanced-label",
-            "addRemainingAttributes": true
-          }
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "Adapter",
+          "AdapterName",
+          "AdapterVersion",
+          "InstalledVMMAdapter"
         ]
       }
     ]

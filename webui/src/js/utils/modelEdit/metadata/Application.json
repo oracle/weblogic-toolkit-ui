@@ -59,77 +59,69 @@
     },
     "sections": [
       {
-        "type": "tab",
-        "labelKey": "general-tab-label",
+        "type": "attributes",
+        "attributes": [
+          "SourcePath",
+          "ModuleType",
+          "PlanDir",
+          "PlanPath",
+          "StagingMode",
+          "PlanStagingMode",
+          "DeploymentPrincipalName",
+          "SecurityDDModel",
+          "DeploymentOrder",
+          "Notes",
+          "Target"
+        ]
+      },
+      {
+        "type": "collapsible",
+        "labelKey": "advanced-label",
         "sections": [
           {
             "type": "attributes",
+            "labelKey": "application-attributes-label",
             "attributes": [
-              "SourcePath",
-              "ModuleType",
-              "PlanDir",
-              "PlanPath",
-              "StagingMode",
-              "PlanStagingMode",
-              "DeploymentPrincipalName",
-              "SecurityDDModel",
-              "DeploymentOrder",
-              "Notes",
-              "Target"
+              "CacheInAppDirectory",
+              "ParallelDeployModules",
+              "MultiVersionApp",
+              "InstallDir",
+              "CompatibilityName"
             ]
           },
           {
-            "type": "collapsible",
-            "labelKey": "advanced-label",
-            "sections": [
-              {
-                "type": "attributes",
-                "labelKey": "application-attributes-label",
-                "attributes": [
-                  "CacheInAppDirectory",
-                  "ParallelDeployModules",
-                  "MultiVersionApp",
-                  "InstallDir",
-                  "CompatibilityName"
-                ]
-              },
-              {
-                "type": "attributes",
-                "labelKey": "alternate-descriptor-paths-label",
-                "attributes": [
-                  "AltDescriptorPath",
-                  "AltWLSDescriptorPath"
-                ]
-              },
-              {
-                "type": "attributes",
-                "labelKey": "miscellaneous-attributes-label",
-                "addRemainingAttributes": true
-              }
+            "type": "attributes",
+            "labelKey": "alternate-descriptor-paths-label",
+            "attributes": [
+              "AltDescriptorPath",
+              "AltWLSDescriptorPath"
             ]
           },
           {
-            "type": "hidden",
-            "attributes": [
-              "AltDescriptorDir",
-              "ConfiguredApplicationIdentifier",
-              "Untargeted",
-              "ValidateDDSecurityData"
-            ]
+            "type": "attributes",
+            "labelKey": "miscellaneous-attributes-label",
+            "addRemainingAttributes": true
           }
         ]
       },
       {
-        "type": "folderTab",
-        "folder": "SubDeployment"
+        "type": "hidden",
+        "attributes": [
+          "AltDescriptorDir",
+          "ConfiguredApplicationIdentifier",
+          "Untargeted",
+          "ValidateDDSecurityData"
+        ],
+        "folders": [
+          "SubDeployment"
+        ]
       }
     ]
   },
   "Application/SubDeployment": {
     "sections": [
       {
-        "type": "attributesTab",
-        "labelKey": "",
+        "type": "attributes",
         "attributes": [
           "CompatibilityName",
           "ModuleType",

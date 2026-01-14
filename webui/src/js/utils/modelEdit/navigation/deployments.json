@@ -2,13 +2,24 @@
   "path": "appDeployments",
   "children": [
     {
-      "path": "Application"
+      "path": "Application",
+      "instanceChildren": [
+        {
+          "path": "SubDeployment"
+        }
+
+      ]
     },
     {
       "path": "DbClientDataDirectory"
     },
     {
-      "path": "Library"
+      "path": "Library",
+      "instanceChildren": [
+        {
+          "path": "SubDeployment"
+        }
+      ]
     },
     {
       "path": "PluginDeployment"

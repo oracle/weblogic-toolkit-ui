@@ -5,7 +5,12 @@
       "path": "OPSSInitialization",
       "children": [
         {
-          "path": "Credential"
+          "path": "Credential",
+          "instanceChildren": [
+            {
+              "path": "TargetKey"
+            }
+          ]
         }
       ]
     },
