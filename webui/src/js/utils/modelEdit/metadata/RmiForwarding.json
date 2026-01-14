@@ -5,8 +5,7 @@
     },
     "sections": [
       {
-        "type": "attributesTab",
-        "labelKey": "general-tab-label",
+        "type": "attributes",
         "attributes": [
           "Url",
           "Notes"
@@ -18,8 +17,10 @@
         "addRemainingAttributes": true
       },
       {
-        "type": "folderTab",
-        "folder": "ConfigurationProperty"
+        "type": "hidden",
+        "folders": [
+          "ConfigurationProperty"
+        ]
       }
     ]
   },

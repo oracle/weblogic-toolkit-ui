@@ -369,7 +369,28 @@
           "VirtualThreadEnableOption"
         ],
         "folders": [
-          "FederationServices"
+          "CoherenceMemberConfig",
+          "COM",
+          "ConfigurationProperty",
+          "DataSource",
+          "DefaultFileStore",
+          "ExecuteQueue",
+          "FederationServices",
+          "HealthScore",
+          "IIOP",
+          "JTAMigratableTarget",
+          "Log",
+          "NetworkAccessPoint",
+          "OverloadProtection",
+          "RmiForwarding",
+          "ServerDebug",
+          "ServerDiagnosticConfig",
+          "ServerStart",
+          "SingleSignOnServices",
+          "SSL",
+          "TransactionLogJDBCStore",
+          "WebServer",
+          "WebService"
         ]
       },
       {
@@ -377,51 +398,37 @@
         "labelKey": "protocols-tab-label",
         "sections": [
           {
-            "type": "tab",
-            "labelKey": "general-tab-label",
-            "sections": [
-              {
-                "type": "attributes",
-                "attributes": [
-                  "CompleteMessageTimeout",
-                  "CompleteWriteTimeout",
-                  "IdleConnectionTimeout",
-                  "ConnectTimeout",
-                  "TunnelingEnabled",
-                  "TunnelingClientPingSecs",
-                  "TunnelingClientTimeoutSecs",
-                  "MaxMessageSize",
-                  "DefaultProtocol",
-                  "DefaultSecureProtocol"
-                ]
-              },
-              {
-                "type": "attributesCollapsible",
-                "labelKey": "advanced-label",
-                "attributes": [
-                  "COMEnabled",
-                  "HttpdEnabled",
-                  "HttpTraceSupportEnabled",
-                  "IIOPEnabled",
-                  "DefaultIIOPUser",
-                  "DefaultIIOPPasswordEncrypted",
-                  "TGIOPEnabled",
-                  "DefaultTGIOPUser",
-                  "DefaultTGIOPPasswordEncrypted",
-                  "BuzzEnabled",
-                  "BuzzAddress",
-                  "BuzzPort"
-                ]
-              }
+            "type": "attributes",
+            "attributes": [
+              "CompleteMessageTimeout",
+              "CompleteWriteTimeout",
+              "IdleConnectionTimeout",
+              "ConnectTimeout",
+              "TunnelingEnabled",
+              "TunnelingClientPingSecs",
+              "TunnelingClientTimeoutSecs",
+              "MaxMessageSize",
+              "DefaultProtocol",
+              "DefaultSecureProtocol"
             ]
           },
           {
-            "type": "folderTab",
-            "folder": "IIOP"
-          },
-          {
-            "type": "folderTab",
-            "folder": "COM"
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "attributes": [
+              "COMEnabled",
+              "HttpdEnabled",
+              "HttpTraceSupportEnabled",
+              "IIOPEnabled",
+              "DefaultIIOPUser",
+              "DefaultIIOPPasswordEncrypted",
+              "TGIOPEnabled",
+              "DefaultTGIOPUser",
+              "DefaultTGIOPPasswordEncrypted",
+              "BuzzEnabled",
+              "BuzzAddress",
+              "BuzzPort"
+            ]
           }
         ]
       },
@@ -440,11 +447,10 @@
       },
       {
         "type": "tab",
-        "labelKey": "security-tab-label",
+        "labelKey": "keystores-tab-label",
         "sections": [
           {
-            "type": "attributesTab",
-            "labelKey": "keystores-tab-label",
+            "type": "attributes",
             "attributes": [
               "KeyStores",
               "JavaStandardTrustKeyStorePassPhraseEncrypted",
@@ -455,18 +461,6 @@
               "CustomIdentityKeyStoreType",
               "CustomTrustKeyStoreType"
             ]
-          },
-          {
-            "type": "folderTab",
-            "folder": "SSL"
-          },
-          {
-            "type": "folderTab",
-            "folder": "ConfigurationProperty"
-          },
-          {
-            "type": "folderTab",
-            "folder": "SingleSignOnServices"
           }
         ]
       },
@@ -475,47 +469,33 @@
         "labelKey": "application-tab-label",
         "sections": [
           {
-            "type": "tab",
-            "labelKey": "general-tab-label",
-            "sections": [
-              {
-                "type": "attributes",
-                "attributes": [
-                  "StagingMode",
-                  "StagingDirectoryName",
-                  "UploadDirectoryName",
-                  "JavaCompiler",
-                  "JavaCompilerPreClassPath",
-                  "JavaCompilerPostClassPath",
-                  "ExtraRmicOptions",
-                  "ExtraEjbcOptions",
-                  "XMLRegistry",
-                  "XMLEntityCache",
-                  "ClasspathServletDisabled",
-                  "ClasspathServletSecureModeEnabled",
-                  "JMSDefaultConnectionFactoriesEnabled",
-                  "ReliableDeliveryPolicy"
-                ]
-              },
-              {
-                "type": "attributesCollapsible",
-                "labelKey": "advanced-label",
-                "attributes": [
-                  "DefaultInternalServletsDisabled",
-                  "JNDITransportableObjectFactoryList",
-                  "JmsConnectionFactoryUnmappedResRefMode",
-                  "RmiDeserializationMaxTimeLimit"
-                ]
-              }
+            "type": "attributes",
+            "attributes": [
+              "StagingMode",
+              "StagingDirectoryName",
+              "UploadDirectoryName",
+              "JavaCompiler",
+              "JavaCompilerPreClassPath",
+              "JavaCompilerPostClassPath",
+              "ExtraRmicOptions",
+              "ExtraEjbcOptions",
+              "XMLRegistry",
+              "XMLEntityCache",
+              "ClasspathServletDisabled",
+              "ClasspathServletSecureModeEnabled",
+              "JMSDefaultConnectionFactoriesEnabled",
+              "ReliableDeliveryPolicy"
             ]
           },
           {
-            "type": "folderTab",
-            "folder": "DataSource"
-          },
-          {
-            "type": "folderTab",
-            "folder": "DefaultFileStore"
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "attributes": [
+              "DefaultInternalServletsDisabled",
+              "JNDITransportableObjectFactoryList",
+              "JmsConnectionFactoryUnmappedResRefMode",
+              "RmiDeserializationMaxTimeLimit"
+            ]
           }
         ]
       },
@@ -572,14 +552,6 @@
               "AutoMigrationEnabled",
               "CandidateMachine"
             ]
-          },
-          {
-            "type": "folderTab",
-            "folder": "OverloadProtection"
-          },
-          {
-            "type": "folderTab",
-            "folder": "ServerStart"
           }
         ]
       },
@@ -588,8 +560,7 @@
         "labelKey": "transactions-tab-label",
         "sections": [
           {
-            "type": "attributesTab",
-            "labelKey": "general-tab-label",
+            "type": "attributes",
             "attributes": [
               "TransactionLogFilePrefix",
               "TransactionLogFileWritePolicy",
@@ -600,44 +571,19 @@
               "JDBCLLRTableName",
               "UseFusionForLLR"
             ]
-          },
-          {
-            "type": "folderTab",
-            "folder": "JTAMigratableTarget"
-          },
-          {
-            "type": "folderTab",
-            "folder": "DefaultFileStore"
-          },
-          {
-            "type": "folderTab",
-            "folder": "TransactionLogJDBCStore"
           }
         ]
-      },
-      {
-        "type": "folderTab",
-        "folder": "NetworkAccessPoint"
       },
       {
         "type": "tab",
         "labelKey": "diagnostics-tab-label",
         "sections": [
           {
-            "type": "attributesTab",
-            "labelKey": "general-tab-label",
+            "type": "attributes",
             "attributes": [
               "InstrumentStackTraceEnabled",
               "UseDetailedThreadName"
             ]
-          },
-          {
-            "type": "folderTab",
-            "folder": "HealthScore"
-          },
-          {
-            "type": "folderTab",
-            "folder": "ServerDiagnosticConfig"
           }
         ]
       },
@@ -646,63 +592,45 @@
         "labelKey": "tuning-title",
         "sections": [
           {
-            "type": "tab",
-            "labelKey": "general-tab-label",
-            "sections": [
-              {
-                "type": "attributes",
-                "attributes": [
-                  "NativeIOEnabled",
-                  "MuxerClass",
-                  "SocketReaders",
-                  "Use81StyleExecuteQueues",
-                  "SelfTuningThreadPoolSizeMax",
-                  "SelfTuningThreadPoolSizeMin",
-                  "ThreadPoolPercentSocketReaders",
-                  "ResolveDNSName",
-                  "ReverseDNSAllowed",
-                  "NMSocketCreateTimeoutInMillis",
-                  "UseConcurrentQueueForRequestManager",
-                  "UseEnhancedPriorityQueueForRequestManager",
-                  "UseEnhancedIncrementAdvisor"
-                ]
-              },
-              {
-                "type": "attributesCollapsible",
-                "labelKey": "advanced-label",
-                "attributes": [
-                  "AcceptBacklog",
-                  "MTUSize",
-                  "LoginTimeoutMillis",
-                  "AddWorkManagerThreadsByCpuCount",
-                  "AllowShrinkingPriorityRequestQueue",
-                  "IdlePeriodsUntilTimeout",
-                  "DGCIdlePeriodsUntilTimeout",
-                  "EagerThreadLocalCleanup",
-                  "SocketBufferSizeAsChunkSize",
-                  "GatheredWritesEnabled",
-                  "ScatteredReadsEnabled",
-                  "MaxConcurrentLongRunningRequests",
-                  "MaxConcurrentNewThreads",
-                  "MaxOpenSockCount",
-                  "PeriodLength"
-                ]
-              }
+            "type": "attributes",
+            "attributes": [
+              "NativeIOEnabled",
+              "MuxerClass",
+              "SocketReaders",
+              "Use81StyleExecuteQueues",
+              "SelfTuningThreadPoolSizeMax",
+              "SelfTuningThreadPoolSizeMin",
+              "ThreadPoolPercentSocketReaders",
+              "ResolveDNSName",
+              "ReverseDNSAllowed",
+              "NMSocketCreateTimeoutInMillis",
+              "UseConcurrentQueueForRequestManager",
+              "UseEnhancedPriorityQueueForRequestManager",
+              "UseEnhancedIncrementAdvisor"
             ]
           },
           {
-            "type": "folderTab",
-            "folder": "ExecuteQueue"
+            "type": "attributesCollapsible",
+            "labelKey": "advanced-label",
+            "attributes": [
+              "AcceptBacklog",
+              "MTUSize",
+              "LoginTimeoutMillis",
+              "AddWorkManagerThreadsByCpuCount",
+              "AllowShrinkingPriorityRequestQueue",
+              "IdlePeriodsUntilTimeout",
+              "DGCIdlePeriodsUntilTimeout",
+              "EagerThreadLocalCleanup",
+              "SocketBufferSizeAsChunkSize",
+              "GatheredWritesEnabled",
+              "ScatteredReadsEnabled",
+              "MaxConcurrentLongRunningRequests",
+              "MaxConcurrentNewThreads",
+              "MaxOpenSockCount",
+              "PeriodLength"
+            ]
           }
         ]
-      },
-      {
-        "type": "folderTab",
-        "folder": "WebServer"
-      },
-      {
-        "type": "folderTab",
-        "folder": "WebService"
       },
       {
         "type": "tab",
@@ -713,10 +641,6 @@
             "attributes": [
               "CoherenceClusterSystemResource"
             ]
-          },
-          {
-            "type": "folder",
-            "folder": "CoherenceMemberConfig"
           }
         ]
       },
@@ -725,25 +649,15 @@
         "labelKey": "logging-tab-label",
         "sections": [
           {
-            "type": "attributesTab",
-            "labelKey": "general-tab-label",
+            "type": "attributes",
             "attributes": [
               "LogCriticalRemoteExceptionsEnabled",
               "LogRemoteExceptionsEnabled",
               "PrintStackTraceInProduction",
               "MessageIdPrefixEnabled"
             ]
-          },
-          {
-            "type": "folderTab",
-            "labelKey": "log-file-settings-tab-label",
-            "folder": "Log"
           }
         ]
-      },
-      {
-        "type": "folderTab",
-        "folder": "ServerDebug"
       }
     ]
   },
@@ -863,8 +777,10 @@
         "addRemainingAttributes": true
       },
       {
-        "type": "folder",
-        "folder": "DataSourceLogFile"
+        "type": "hidden",
+        "folders": [
+          "DataSourceLogFile"
+        ]
       }
     ]
   },
@@ -1691,8 +1607,10 @@
         "addRemainingAttributes": true
       },
       {
-        "type": "folder",
-        "folder": "ServerFailureTrigger"
+        "type": "hidden",
+        "folders": [
+          "ServerFailureTrigger"
+        ]
       }
     ]
   },
@@ -1729,8 +1647,7 @@
     },
     "sections": [
       {
-        "type": "attributesTab",
-        "labelKey": "general-tab-label",
+        "type": "attributes",
         "attributes": [
           "Url",
           "Notes"
@@ -1742,8 +1659,10 @@
         "addRemainingAttributes": true
       },
       {
-        "type": "folderTab",
-        "folder": "ConfigurationProperty"
+        "type": "hidden",
+        "folders": [
+          "ConfigurationProperty"
+        ]
       }
     ]
   },
@@ -2444,9 +2363,10 @@
         ]
       },
       {
-        "type": "folderTab",
-        "labelKey": "debug-scopes-tab-label",
-        "folder": "DebugScope"
+        "type": "hidden",
+        "folders": [
+          "DebugScope"
+        ]
       }
     ]
   },
@@ -2880,11 +2800,10 @@
         "attributes": [
           "DataRetirementTestModeEnabled",
           "DiagnosticContextEnabled"
+        ],
+        "folders": [
+          "WldfBuiltinWatchConfiguration"
         ]
-      },
-      {
-        "type": "folderTab",
-        "folder": "WldfBuiltinWatchConfiguration"
       }
     ]
   },
@@ -3389,48 +3308,42 @@
     },
     "sections":[
       {
-        "type": "tab",
-        "labelKey": "general-tab-label",
-        "sections": [
-          {
-            "type": "attributes",
-            "attributes": [
-              "DefaultWebAppContextRoot",
-              "PostTimeoutSecs",
-              "MaxPostSize",
-              "MaxPostTimeSecs",
-              "KeepAliveEnabled",
-              "KeepAliveSecs",
-              "HttpsKeepAliveSecs",
-              "FrontendHost",
-              "FrontendHTTPPort",
-              "FrontendHTTPSPort",
-              "WAPEnabled",
-              "ClientIpHeader",
-              "SendServerHeaderEnabled",
-              "AcceptContextPathInGetRealPath",
-              "MaxSingleHeaderSize",
-              "MaxTotalHeadersSize",
-              "MaxRequestParameterCount",
-              "Notes"
-            ]
-          },
-          {
-            "type": "attributesCollapsible",
-            "labelKey": "advanced-label",
-            "attributes": [
-              "AuthCookieEnabled",
-              "SingleSignonDisabled",
-              "UseHeaderEncoding",
-              "UseHighestCompatibleHTTPVersion",
-              "ChunkedTransferDisabled",
-              "OverloadResponseCode",
-              "URLResource",
-              "Charsets"
-            ],
-            "addRemainingAttributes": true
-          }
+        "type": "attributes",
+        "attributes": [
+          "DefaultWebAppContextRoot",
+          "PostTimeoutSecs",
+          "MaxPostSize",
+          "MaxPostTimeSecs",
+          "KeepAliveEnabled",
+          "KeepAliveSecs",
+          "HttpsKeepAliveSecs",
+          "FrontendHost",
+          "FrontendHTTPPort",
+          "FrontendHTTPSPort",
+          "WAPEnabled",
+          "ClientIpHeader",
+          "SendServerHeaderEnabled",
+          "AcceptContextPathInGetRealPath",
+          "MaxSingleHeaderSize",
+          "MaxTotalHeadersSize",
+          "MaxRequestParameterCount",
+          "Notes"
         ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "attributes": [
+          "AuthCookieEnabled",
+          "SingleSignonDisabled",
+          "UseHeaderEncoding",
+          "UseHighestCompatibleHTTPVersion",
+          "ChunkedTransferDisabled",
+          "OverloadResponseCode",
+          "URLResource",
+          "Charsets"
+        ],
+        "addRemainingAttributes": true
       },
       {
         "type": "hidden",
@@ -3441,11 +3354,10 @@
           "WebDeployment",
           "WorkManagerForRemoteSessionFetching",
           "WriteChunkBytes"
+        ],
+        "folders": [
+          "WebServerLog"
         ]
-      },
-      {
-        "type": "folderTab",
-        "folder": "WebServerLog"
       }
     ]
   },
@@ -3528,42 +3440,29 @@
   "ServerTemplate/WebService": {
     "sections": [
       {
-        "type": "tab",
-        "labelKey": "general-tab-label",
-        "sections": [
-          {
-            "type": "attributes",
-            "attributes": [
-              "CallbackQueue",
-              "CallbackQueueMdbRunAsPrincipalName",
-              "JmsConnectionFactory",
-              "MessagingQueue",
-              "MessagingQueueMdbRunAsPrincipalName",
-              "Notes"
-            ]
-          },
-          {
-            "type": "attributesCollapsible",
-            "labelKey": "advanced-label",
-            "addRemainingAttributes": true
-          }
+        "type": "attributes",
+        "attributes": [
+          "CallbackQueue",
+          "CallbackQueueMdbRunAsPrincipalName",
+          "JmsConnectionFactory",
+          "MessagingQueue",
+          "MessagingQueueMdbRunAsPrincipalName",
+          "Notes"
         ]
       },
       {
-        "type": "folderTab",
-        "folder": "WebServiceBuffering"
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
       },
       {
-        "type": "folderTab",
-        "folder": "WebServicePersistence"
-      },
-      {
-        "type": "folderTab",
-        "folder": "WebServiceReliability"
-      },
-      {
-        "type": "folderTab",
-        "folder": "WebServiceResiliency"
+        "type": "hidden",
+        "folders": [
+          "WebServiceBuffering",
+          "WebServicePersistence",
+          "WebServiceReliability",
+          "WebServiceResiliency"
+        ]
       }
     ]
   },
@@ -3583,17 +3482,11 @@
         ]
       },
       {
-        "type": "folder",
-        "folder": "WebServiceRequestBufferingQueue"
-      },
-      {
-        "type": "folder",
-        "folder": "WebServiceResponseBufferingQueue"
-      },
-      {
-        "type": "attributesCollapsible",
-        "labelKey": "advanced-label",
-        "addRemainingAttributes": true
+        "type": "hidden",
+        "folders": [
+          "WebServiceRequestBufferingQueue",
+          "WebServiceResponseBufferingQueue"
+        ]
       }
     ]
   },
@@ -3652,12 +3545,11 @@
         "addRemainingAttributes": true
       },
       {
-        "type": "folder",
-        "folder": "WebServiceLogicalStore"
-      },
-      {
-        "type": "folder",
-        "folder": "WebServicePhysicalStore"
+        "type": "hidden",
+        "folders": [
+          "WebServiceLogicalStore",
+          "WebServicePhysicalStore"
+        ]
       }
     ]
   },

@@ -22,13 +22,18 @@
               "path": "CoherenceCache"
             },
             {
-              "path": "CoherenceService"
-            },
-            {
-              "path": "CoherenceIdentityAsserter"
+              "path": "CoherenceIdentityAsserter",
+              "children": [
+                {
+                  "path": "CoherenceInitParam"
+                }
+              ]
             },
             {
               "path": "CoherenceKeystoreParams"
+            },
+            {
+              "path": "CoherenceService"
             },
             {
               "path": "CoherenceClusterWellKnownAddress"
@@ -87,22 +92,70 @@
       "path": "JMSBridgeDestination"
     },
     {
-      "path": "JMSServer"
+      "path": "JMSServer",
+      "instanceChildren": [
+        "JmsMessageLogFile"
+      ]
     },
     {
       "path": "JMSSystemResource",
       "instanceChildren": [
         {
-          "path": "JmsResource/ConnectionFactory"
+          "path": "JmsResource/ConnectionFactory",
+          "instanceChildren": [
+            {
+              "path": "ClientParams"
+            },
+            {
+              "path": "DefaultDeliveryParams"
+            },
+            {
+              "path": "FlowControlParams"
+            },
+            {
+              "path": "LoadBalancingParams"
+            },
+            {
+              "path": "SecurityParams"
+            },
+            {
+              "path": "TransactionParams"
+            }
+          ]
         },
         {
           "path": "JmsResource/DestinationKey"
         },
         {
-          "path": "JmsResource/ForeignServer"
+          "path": "JmsResource/ForeignServer",
+          "instanceChildren": [
+            {
+              "path": "ForeignConnectionFactory"
+            },
+            {
+              "path": "ForeignDestination"
+            },
+            {
+              "path": "JNDIProperty"
+            }
+          ]
         },
         {
-          "path": "JmsResource/Queue"
+          "path": "JmsResource/Queue",
+          "instanceChildren": [
+            {
+              "path": "DeliveryFailureParams"
+            },
+            {
+              "path": "DeliveryParamsOverrides"
+            },
+            {
+              "path": "MessageLoggingParams"
+            },
+            {
+              "path": "Thresholds"
+            }
+          ]
         },
         {
           "path": "JmsResource/Quota"
@@ -111,25 +164,128 @@
           "path": "JmsResource/SAFErrorHandling"
         },
         {
-          "path": "JmsResource/SAFImportedDestinations"
+          "path": "JmsResource/SAFImportedDestinations",
+          "instanceChildren": [
+            {
+              "path": "MessageLoggingParams"
+            },
+            {
+              "path": "SAFQueue",
+              "instanceChildren": [
+                {
+                  "path": "MessageLoggingParams"
+                }
+              ]
+            },
+            {
+              "path": "SAFTopic",
+              "instanceChildren": [
+                {
+                  "path": "MessageLoggingParams"
+                }
+              ]
+            }
+          ]
         },
         {
-          "path": "JmsResource/SAFRemoteContext"
+          "path": "JmsResource/SAFRemoteContext",
+          "instanceChildren": [
+            {
+              "path": "SAFLoginContext"
+            }
+          ]
         },
         {
           "path": "SubDeployment"
         },
         {
-          "path": "JmsResource/Template"
+          "path": "JmsResource/Template",
+          "instanceChildren": [
+            {
+              "path": "DeliveryFailureParams"
+            },
+            {
+              "path": "DeliveryParamsOverrides"
+            },
+            {
+              "path": "GroupParams"
+            },
+            {
+              "path": "MessageLoggingParams"
+            },
+            {
+              "path": "Multicast"
+            },
+            {
+              "path": "Thresholds"
+            },
+            {
+              "path": "TopicSubscriptionParams"
+            }
+          ]
         },
         {
-          "path": "JmsResource/Topic"
+          "path": "JmsResource/Topic",
+          "instanceChildren": [
+            {
+              "path": "DeliveryFailureParams"
+            },
+            {
+              "path": "DeliveryParamsOverrides"
+            },
+            {
+              "path": "MessageLoggingParams"
+            },
+            {
+              "path": "Multicast"
+            },
+            {
+              "path": "Thresholds"
+            },
+            {
+              "path": "TopicSubscriptionParams"
+            }
+          ]
         },
         {
-          "path": "JmsResource/UniformDistributedQueue"
+          "path": "JmsResource/UniformDistributedQueue",
+          "instanceChildren": [
+            {
+              "path": "DeliveryFailureParams"
+            },
+            {
+              "path": "DeliveryParamsOverrides"
+            },
+            {
+              "path": "MessageLoggingParams"
+            },
+            {
+              "path": "Thresholds"
+            }
+          ]
         },
         {
-          "path": "JmsResource/UniformDistributedTopic"
+          "path": "JmsResource/UniformDistributedTopic",
+          "instanceChildren": [
+            {
+              "path": "DeliveryFailureParams"
+            },
+            {
+              "path": "DeliveryParamsOverrides"
+            },
+            {
+              "path": "MessageLoggingParams"
+            },
+            {
+              "path": "Multicast"
+            },
+            {
+              "path": "Thresholds"
+            },
+            {
+              "path": "TopicSubscriptionParams"
+            }
+          ]
         }
       ]
     },
@@ -169,7 +325,12 @@
       "path": "PathService"
     },
     {
-      "path": "SAFAgent"
+      "path": "SAFAgent",
+      "instanceChildren": [
+        {
+          "path": "JmssafMessageLogFile"
+        }
+      ]
     },
     {
       "path": "SelfTuning",
@@ -178,7 +339,12 @@
           "path": "Capacity"
         },
         {
-          "path": "ContextRequestClass"
+          "path": "ContextRequestClass",
+          "instanceChildren": [
+            {
+              "path": "ContextCase"
+            }
+          ]
         },
         {
           "path": "FairShareRequestClass"
@@ -193,7 +359,12 @@
           "path": "ResponseTimeRequestClass"
         },
         {
-          "path": "WorkManager"
+          "path": "WorkManager",
+          "instanceChildren": [
+            {
+              "path": "WorkManagerShutdownTrigger"
+            }
+          ]
         }
       ]
     },
@@ -259,7 +430,12 @@
       "path": "StartupClass"
     },
     {
-      "path": "SystemComponent"
+      "path": "SystemComponent",
+      "instanceChildren": [
+        {
+          "path": "SystemComponentStart"
+        }
+      ]
     },
     {
       "path": "WebAppContainer",
@@ -360,7 +536,12 @@
               "path": "ThreadDumpAction"
             },
             {
-              "path": "Watch"
+              "path": "Watch",
+              "instanceChildren": [
+                {
+                  "path": "Schedule"
+                }
+              ]
             }
           ]
         }

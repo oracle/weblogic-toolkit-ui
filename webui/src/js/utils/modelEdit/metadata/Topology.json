@@ -61,59 +61,53 @@
     },
     "sections": [
       {
-        "type": "tab",
-        "labelKey": "general-tab-label",
-        "sections": [
-          {
-            "type": "attributes",
-            "attributes": [
-              "Name",
-              "AdminServerName",
-              "ProductionModeEnabled",
-              "AdministrationPortEnabled",
-              "AdministrationPort",
-              "ListenPortEnabled",
-              "SSLEnabled",
-              "ServerKeyStores",
-              "JavaServiceEnabled",
-              "RemoteConsoleHelperEnabled",
-              "Notes"
-            ]
-          },
-          {
-            "type": "attributesCollapsible",
-            "labelKey": "advanced-label",
-            "attributes": [
-              "AdministrationProtocol",
-              "ConfigurationAuditType",
-              "ExalogicOptimizationsEnabled",
-              "ParallelDeployApplications",
-              "ParallelDeployApplicationModules",
-              "ClusterConstraintsEnabled",
-              "ConfigBackupEnabled",
-              "ArchiveConfigurationCount",
-              "LogFormatCompatibilityEnabled",
-              "EnableEeCompliantClassloadingForEmbeddedAdapters",
-              "ServerMigrationHistorySize",
-              "ServiceMigrationHistorySize",
-              "BatchJobsDataSourceJndiName",
-              "BatchJobsExecutorServiceName",
-              "MaxConcurrentLongRunningRequests",
-              "MaxConcurrentNewThreads",
-              "InternalAppsDeployOnDemandEnabled",
-              "ConsoleEnabled",
-              "ConsoleContextPath",
-              "ConsoleExtensionDirectory",
-              "JavaServiceConsoleEnabled",
-              "DiagnosticContextCompatibilityModeEnabled",
-              "DbPassiveMode",
-              "DbPassiveModeGracePeriodSeconds",
-              "InstalledSoftwareVersion",
-              "SiteName"
-            ],
-            "addRemainingAttributes": true
-          }
+        "type": "attributes",
+        "attributes": [
+          "Name",
+          "AdminServerName",
+          "ProductionModeEnabled",
+          "AdministrationPortEnabled",
+          "AdministrationPort",
+          "ListenPortEnabled",
+          "SSLEnabled",
+          "ServerKeyStores",
+          "JavaServiceEnabled",
+          "RemoteConsoleHelperEnabled",
+          "Notes"
         ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "attributes": [
+          "AdministrationProtocol",
+          "ConfigurationAuditType",
+          "ExalogicOptimizationsEnabled",
+          "ParallelDeployApplications",
+          "ParallelDeployApplicationModules",
+          "ClusterConstraintsEnabled",
+          "ConfigBackupEnabled",
+          "ArchiveConfigurationCount",
+          "LogFormatCompatibilityEnabled",
+          "EnableEeCompliantClassloadingForEmbeddedAdapters",
+          "ServerMigrationHistorySize",
+          "ServiceMigrationHistorySize",
+          "BatchJobsDataSourceJndiName",
+          "BatchJobsExecutorServiceName",
+          "MaxConcurrentLongRunningRequests",
+          "MaxConcurrentNewThreads",
+          "InternalAppsDeployOnDemandEnabled",
+          "ConsoleEnabled",
+          "ConsoleContextPath",
+          "ConsoleExtensionDirectory",
+          "JavaServiceConsoleEnabled",
+          "DiagnosticContextCompatibilityModeEnabled",
+          "DbPassiveMode",
+          "DbPassiveModeGracePeriodSeconds",
+          "InstalledSoftwareVersion",
+          "SiteName"
+        ],
+        "addRemainingAttributes": true
       },
       {
         "type": "hidden",
@@ -126,66 +120,6 @@
           "PartitionUriSpace",
           "VirtualThreadEnableOption"
         ]
-      },
-      {
-        "type": "folderTab",
-        "folder": "JPA"
-      },
-      {
-        "type": "folderTab",
-        "folder": "JTA"
-      },
-      {
-        "type": "folderTab",
-        "folder": "AllowList"
-      },
-      {
-        "type": "folderTab",
-        "folder": "JMX"
-      },
-      {
-        "type": "folderTab",
-        "folder": "CdiContainer"
-      },
-      {
-        "type": "folderTab",
-        "folder": "Log"
-      },
-      {
-        "type": "folderTab",
-        "folder": "LogFilter"
-      },
-      {
-        "type": "folderTab",
-        "folder": "WSReliableDeliveryPolicy"
-      },
-      {
-        "type": "folderTab",
-        "folder": "HealthScore"
-      },
-      {
-        "type": "folderTab",
-        "folder": "EmbeddedLDAP"
-      },
-      {
-        "type": "folderTab",
-        "folder": "Callout"
-      },
-      {
-        "type": "folderTab",
-        "folder": "RmiForwarding"
-      },
-      {
-        "type": "folderTab",
-        "folder": "RestfulManagementServices"
-      },
-      {
-        "type": "folderTab",
-        "folder": "RemoteConsoleHelper"
-      },
-      {
-        "type": "folderTab",
-        "folder": "AdminConsole"
       }
     ]
   }

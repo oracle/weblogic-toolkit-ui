@@ -17,34 +17,27 @@
     },
     "sections": [
       {
-        "type": "tab",
-        "labelKey": "general-tab-label",
-        "sections": [
-          {
-            "type": "attributes",
-            "attributes": [
-              "DocumentBuilderFactory",
-              "SAXParserFactory",
-              "XpathFactory",
-              "TransformerFactory",
-              "SchemaFactory",
-              "XmlEventFactory",
-              "XmlInputFactory",
-              "XmlOutputFactory",
-              "WhenToCache",
-              "HandleEntityInvalidation",
-              "Notes"
-            ]
-          }
+        "type": "attributes",
+        "attributes": [
+          "DocumentBuilderFactory",
+          "SAXParserFactory",
+          "XpathFactory",
+          "TransformerFactory",
+          "SchemaFactory",
+          "XmlEventFactory",
+          "XmlInputFactory",
+          "XmlOutputFactory",
+          "WhenToCache",
+          "HandleEntityInvalidation",
+          "Notes"
         ]
       },
       {
-        "type": "folderTab",
-        "folder": "XMLEntitySpecRegistryEntry"
-      },
-      {
-        "type": "folderTab",
-        "folder": "XMLParserSelectRegistryEntry"
+        "type": "hidden",
+        "folders": [
+          "XMLEntitySpecRegistryEntry",
+          "XMLParserSelectRegistryEntry"
+        ]
       }
     ]
   },

@@ -83,71 +83,64 @@
     },
     "sections": [
       {
-        "type": "tab",
-        "labelKey": "general-tab-label",
-        "sections": [
-          {
-            "type": "attributes",
-            "attributes": [
-              "TimeoutSeconds",
-              "AbandonTimeoutSeconds",
-              "BeforeCompletionIterationLimit",
-              "MaxTransactions",
-              "MaxUniqueNameStatistics",
-              "CheckpointIntervalSeconds",
-              "TlogWriteWhenDeterminerExistsEnabled",
-              "Determiner",
-              "MaxRetrySecondsBeforeDeterminerFail",
-              "ForgetHeuristics",
-              "TwoPhaseEnabled",
-              "ParallelXAEnabled",
-              "ParallelXADispatchPolicy",
-              "TightlyCoupledTransactionsEnabled",
-              "ClusterwideRecoveryEnabled",
-              "Notes"
-            ]
-          },
-          {
-            "type": "attributesCollapsible",
-            "labelKey": "advanced-label",
-            "attributes": [
-              "SecurityInteropMode",
-              "CompletionTimeoutSeconds",
-              "MaxXACallMillis",
-              "MaxTransactionsHealthIntervalMillis",
-              "MaxResourceUnavailableMillis",
-              "MaxResourceRequestsOnServer",
-              "WsatTransportSecurityMode",
-              "WsatIssuedTokenEnabled",
-              "MigrationCheckpointIntervalSeconds",
-              "PurgeResourceFromCheckpointIntervalSeconds",
-              "SerializeEnlistmentsGCIntervalMillis",
-              "ShutdownGracePeriod",
-              "UnregisterResourceGracePeriod",
-              "RecoverySiteName",
-              "CrossSiteRecoveryRetryInterval",
-              "CrossSiteRecoveryLeaseExpiration",
-              "CrossSiteRecoveryLeaseUpdate",
-              "UsePublicAddressesForRemoteDomain",
-              "UseNonSecureAddressesForDomain",
-              "LocalDomainSecurityEnabled",
-              "LocalDomainSecurityCacheEnabled",
-              "LocalDomainSecurityCacheTtl"
-            ],
-            "addRemainingAttributes": true
-          }
+        "type": "attributes",
+        "attributes": [
+          "TimeoutSeconds",
+          "AbandonTimeoutSeconds",
+          "BeforeCompletionIterationLimit",
+          "MaxTransactions",
+          "MaxUniqueNameStatistics",
+          "CheckpointIntervalSeconds",
+          "TlogWriteWhenDeterminerExistsEnabled",
+          "Determiner",
+          "MaxRetrySecondsBeforeDeterminerFail",
+          "ForgetHeuristics",
+          "TwoPhaseEnabled",
+          "ParallelXAEnabled",
+          "ParallelXADispatchPolicy",
+          "TightlyCoupledTransactionsEnabled",
+          "ClusterwideRecoveryEnabled",
+          "Notes"
         ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "attributes": [
+          "SecurityInteropMode",
+          "CompletionTimeoutSeconds",
+          "MaxXACallMillis",
+          "MaxTransactionsHealthIntervalMillis",
+          "MaxResourceUnavailableMillis",
+          "MaxResourceRequestsOnServer",
+          "WsatTransportSecurityMode",
+          "WsatIssuedTokenEnabled",
+          "MigrationCheckpointIntervalSeconds",
+          "PurgeResourceFromCheckpointIntervalSeconds",
+          "SerializeEnlistmentsGCIntervalMillis",
+          "ShutdownGracePeriod",
+          "UnregisterResourceGracePeriod",
+          "RecoverySiteName",
+          "CrossSiteRecoveryRetryInterval",
+          "CrossSiteRecoveryLeaseExpiration",
+          "CrossSiteRecoveryLeaseUpdate",
+          "UsePublicAddressesForRemoteDomain",
+          "UseNonSecureAddressesForDomain",
+          "LocalDomainSecurityEnabled",
+          "LocalDomainSecurityCacheEnabled",
+          "LocalDomainSecurityCacheTtl"
+        ],
+        "addRemainingAttributes": true
       },
       {
         "type": "hidden",
         "attributes": [
           "CrossDomainRecoveryRetryInterval",
           "RecoveryThresholdMillis"
+        ],
+        "folders": [
+          "JtaRemoteDomain"
         ]
-      },
-      {
-        "type": "folderTab",
-        "folder": "JtaRemoteDomain"
       }
     ]
   },

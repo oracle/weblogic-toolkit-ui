@@ -914,6 +914,18 @@ h6.wkt-panel-heading {
   padding-left: 5em !important;
 }
 
+.wkt-model-editor-nav-list .oj-navigationlist-depth-6 .oj-navigationlist-item-content {
+  padding-left: 6em !important;
+}
+
+.wkt-model-editor-nav-list .oj-navigationlist-depth-7 .oj-navigationlist-item-content {
+  padding-left: 7em !important;
+}
+
+.wkt-model-editor-nav-list .oj-navigationlist-depth-8 .oj-navigationlist-item-content {
+  padding-left: 8em !important;
+}
+
 .wkt-model-edit-section {
   margin-top: 1em;
 }
