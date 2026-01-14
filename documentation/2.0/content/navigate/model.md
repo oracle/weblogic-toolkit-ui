@@ -45,7 +45,7 @@ each of which support creating and editing the domain's WDT files. When working 
 to keep in mind:
 
 - When working with a WKT Project that has no associated WDT file for storing the data, entering data into an editor
-  will cause a new WDT file with the editor's current content to be created and associated with the project.
+  will create a new WDT file with the editor's current content and associate it with the project.
 - Changes made in the editor are buffered in memory until the WKT Project is saved.
 - Adding, deleting, or modifying data in the variable or archive editors will _not_ change the model references.  You
   will need to make sure that the model references are accurate and up to date.
@@ -141,12 +141,12 @@ button in the archive editor title bar.  _Don't forget to remove any reference t
 #### Validate Model
 `Validate Model` invokes the WDT [Validate Model Tool](https://oracle.github.io/weblogic-deploy-tooling/userguide/tools/validate/), which validates that the model and its related artifacts
 are well-formed and provides help on the valid attributes and subfolders for a particular model location. This action is
-available by using the `Validate Model` button on the `Model` page and by selecting `Go` > `Validate Model Files`.
+available by using the `Validate Model` button on the `Model` page or by selecting `Go` > `Validate Model Files`.
 
 #### Prepare Model
-`Prepare Model` invokes the WDT [Prepare Model Tool](https://oracle.github.io/weblogic-deploy-tooling/userguide/tools/prepare/) to modify the model to work in a Kubernetes cluster wit
+`Prepare Model` invokes the WDT [Prepare Model Tool](https://oracle.github.io/weblogic-deploy-tooling/userguide/tools/prepare/) to modify the model to work in a Kubernetes cluster with
 WebLogic Kubernetes Operator installed.  This action is available by using the `Prepare Model` button on the `Model` and
-`Kubernetes WebLogic Domain` pages and by selecting `Go` > `Prepare Model for Kubernetes`.  It is also possible to run
+`Kubernetes WebLogic Domain` pages or by selecting `Go` > `Prepare Model for Kubernetes`.  It is also possible to run
 `Prepare Model` during the `CreateImage` action, though typically it is best to run `Prepare Model` explicitly, prior to
 moving to the `Image` section.
 

@@ -49,7 +49,7 @@ cluster attempts to pull the image and start the container.
 - To work around this limitation, enable the `Use Docker Hub Secret` field to provide login credentials for Docker Hub.  
 - The `Docker Registry Secret Name` field specifies the name of the Kubernetes pull secret to use when pulling the image.
 To create this secret, enable `Create Docker Hub Secret` and fill in the `Docker Hub Image Registry Pull Credentials`
-field, using `Add Image Registry Credentials` button so create a new entry, as needed.
+field, using `Add Image Registry Credentials` button to create a new entry, as needed.
 - For the NGINX ingress controller, if you want to have SSL pass through the ingress route, enable 
 `Allow SSL pass through to target service`.  
 

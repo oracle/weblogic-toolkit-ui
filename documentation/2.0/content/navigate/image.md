@@ -27,6 +27,7 @@ running the WebLogic domain.
 
 Use the `Design View` page to specify whether to create a new or use an existing (the default) `Primary Image` and
 whether to create a new, or use an existing, `Auxiliary Image`.
+
 **Note** that auxiliary images required for the "Model in Image"
 [domain location]({{% relref "/navigate/project-settings#choosing-a-domain-location" %}}) _only_.
 
@@ -43,7 +44,9 @@ primary image contains the OS, JDK, and FMW software installations; the auxiliar
 single domain.
 
 If you select to create a new primary image, you'll see the following basic panes and a few advanced panes on the
-`Primary Image` Design View page.  If you select to create a new auxiliary image, you must select the `Auxiliary Image`
+`Primary Image` Design View page.  
+
+If you select to create a new auxiliary image, you must select the `Auxiliary Image`
 Design View page, to configure it. Note that _not all_ the fields described in the following sections for the 
 `Primary Image`, are relevant for an `Auxiliary Image`. The exceptions are noted.
 
@@ -201,6 +204,7 @@ image creation process. For the "Model in Image"
 
 If it is not already selected, then use the `Script Language` drop-down menu to choose the desired scripting language.
 Note that the application is providing a working sample script simply to show how the process might be automated.  
+
 Before using the script, review the script and make any changes necessary for your environment. One typical change that
 would be considered a best practice would be to change the script to accept either command-line arguments or externally
 set environment variables to specify any credentials required by the script to eliminate hard-coding the credentials in

@@ -26,10 +26,13 @@ When running the application on macOS, the application inherits the environment 
 instead of your environment.  By default, the `launchd` environment contains only a few core directories on the `PATH`
 (that is, `/usr/bin`, `/bin`, `/usr/sbin`, and `/sbin`).  This will, for example, cause `kubectl` invocations requiring
 access to one of the cloud providers' command-line tooling to fail if the tool is not found in one of those locations.
+
 While it is possible for an administrative user to change the environment that `launchd` uses to address this issue, the
 WKT UI application provides the `Extra Path Directory` table to explicitly add the directory where the cloud providers'
 command-line tooling is installed, to the `PATH` that the application uses to invoke `docker`, `podman`, `kubectl`, and
-`helm`. Also, use the `Extra Environment Variable Name/Extra Environment Variable Value` table to define extra
+`helm`. 
+
+Also, you can use the `Extra Environment Variable Name/Extra Environment Variable Value` table to define extra
 environment variables as needed. Note that this extra environment configuration is used _only_ when invoking
 Docker/Podman, kubectl, and Helm. This section is visible only when running the application on macOS.
 
@@ -43,7 +46,7 @@ are:
 
 The default choice to store credentials, `Store Encrypted in Project File`, uses a passphrase-based encryption built 
 into the application that allows the credentials to be stored inline in the WKT Project file.  The algorithms and
-techniques used follow the current industry standards and recommendations; however, because this project is open source,
+techniques used follow the current industry standards and recommendations. Since this project is open source,
 you can look at the details, if you are interested.  The only downside to this approach is that, because the passphrase
 itself is never stored, you must share the passphrase with any other users that should be able to use the WKT Project
 file.
@@ -54,14 +57,16 @@ credential in the project.
 
 #### Choosing a Domain Location
 When getting started with a new WKT Project, one of the first things to consider is where you want the domain to reside.
-Domains can reside in a container, in an image, or in a persistent volume.  Your choice will expose and hide different
-fields across most sections of the UI.  The following describe the implications of the three locations:
+Domains can reside in a container or in a persistent volume.  Your choice will expose and hide different
+fields across most sections of the UI.  The following describe the implications of the different locations:
 
-- `Model-in-Image with Auxiliary Image`  - The newest and most popular location for a domain is in the 
+- `Model-in-Image with Auxiliary Image`  - This selection stores the domain in a 
 container.  This is known as "Model in Image" but also referred to as a "From Model" in the underlying WKT tooling.  
 In this case, the set of model-related files are added to an image, known as the "Auxiliary Image."  When the WebLogic
 Kubernetes Operator domain object is deployed, its inspector process runs and creates the WebLogic Server domain inside
-the running container using the "Primary Image" on-the-fly.  While this process adds a small amount of overhead at
+the running container using the "Primary Image" on-the-fly.  
+
+    While this process adds a small amount of overhead at
 startup, it also makes it easier to maintain the images.  For example, you can have a common WebLogic Server image that
 is updated periodically to pick up the latest Patch Set Updates (PSUs).  Then, you use that new primary image with the
 existing (or new) auxiliary image to provide the WebLogic Deploy Tooling and your domain model files.  By separating
@@ -124,6 +129,6 @@ architecture of the Kubernetes cluster.
 Prior to WKT UI 2.0, WKT UI required you to enter credentials needed to pull or push an image on a case-by-case basis.
 This could result in entering the same credentials multiple times.  Starting in WKT UI 2.0, this section allows you to
 enter a named credentials for a container image registry once and select it in the locations where you need to use it.
-To simply the navigation between pages, each location that needs a credential also provides an 
+To simplify the navigation between pages, each location that needs a credential also provides an 
 `Add Image Registry Credential` button to allow you to add or edit credentials in a dialog box without having to
 navigate back to this section.

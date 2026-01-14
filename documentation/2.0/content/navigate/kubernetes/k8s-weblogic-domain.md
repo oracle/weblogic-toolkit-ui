@@ -72,8 +72,9 @@ When using "Domain in PV", three additional fields associated with the persisten
 
 The `WebLogic Kubernetes Operator Installed Version` field assumes an installed WebLogic Kubernetes Operator version
 4.0. If you use the WKT UI to install the WebLogic Kubernetes Operator, the field will be populated with the installed
-version. If not, you can get the installed operator version from the Kubernetes cluster by clicking the icon. **Note** 
-that the value of this field impacts the Domain Resource generated and used by the WKT UI. If the operator version is 
+version. If not, you can get the installed operator version from the Kubernetes cluster by clicking the icon. 
+
+**Note**: The value of the `WebLogic Kubernetes Operator Installed Version` field impacts the Domain Resource generated and used by the WKT UI. If the operator version is 
 earlier than 4.0.0, then the generated Domain Resource will be compatible with WebLogic Kubernetes Operator v3.x. 
 Otherwise, the generated Domain Resource will be usable _only_ by WebLogic Kubernetes Operator v4.0.0 and later.
 

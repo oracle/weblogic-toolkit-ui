@@ -29,7 +29,7 @@ For detailed information about the operator, see the
 [WebLogic Kubernetes Operator](https://oracle.github.io/weblogic-kubernetes-operator/) documentation.
 
 ### Design View
-`Design View` helps you specify the necessary data needed to install the WebLogic Kubernetes Operator to manage
+`Design View` helps you specify the data needed to install the WebLogic Kubernetes Operator to manage
 WebLogic domains in one or more Kubernetes namespaces.  To install the operator using the default settings, simply
 provide values for the following three fields:
 
@@ -191,7 +191,7 @@ resources from the Kubernetes cluster. In addition, you can choose whether to al
 You access these actions by using the `Uninstall Operator` button on the
 `WebLogic Operator` page or the `Go` > `Uninstall WebLogic Kubernetes Operator` menu item.
 
-Note that if you uninstall an operator, then any domains that it is managing will continue running; however,
+Note that if you uninstall an operator, then any domains that it is managing will continue running. However,
 any changes to a domain resource that was managed by the operator will not be detected or automatically handled,
 and, if you want to clean up such a domain, then you will need to manually delete all of the domain's resources (domain,
 pods, services, and such).
