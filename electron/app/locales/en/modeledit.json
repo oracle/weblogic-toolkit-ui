@@ -2830,7 +2830,7 @@
   "a-EncryptValueRequired-label": "Encrypt Value Required",
   "f-any_ConfigurationProperty-a-EncryptValueRequired-help": "Specifies whether the property should be encrypted. By default, the value of a property is not encrypted and anyone using the Administration Console can view the value of the property. If this attribute is set to true, then the value of the property on the Administration Console will be set to all asterisks.",
 
-  "a-EncryptedValueEncrypted-label": "Encrypted Value Encrypted",
+  "a-EncryptedValueEncrypted-label": "Encrypted Value",
   "f-SecurityConfiguration_CredentialSet_EncryptedProperty-a-EncryptedValueEncrypted-label": "Value",
   "f-JDBCSystemResource_JdbcResource_JDBCDriverParams_Properties-a-EncryptedValueEncrypted-help": "The value of the encrypted property value.",
   "f-SecurityConfiguration_CredentialSet_EncryptedProperty-a-EncryptedValueEncrypted-help": "The value of the property.",

@@ -54,8 +54,7 @@
     },
     "sections": [
       {
-        "type": "attributesTab",
-        "labelKey": "general-tab-label",
+        "type": "attributes",
         "attributes": [
           "DeploymentOrder",
           "Notes",
@@ -68,8 +67,10 @@
         "addRemainingAttributes": true
       },
       {
-        "type": "folderTab",
-        "folder": "ContextCase"
+        "type": "hidden",
+        "folders": [
+          "ContextCase"
+        ]
       }
     ]
   },
@@ -252,8 +253,7 @@
     },
     "sections": [
       {
-        "type": "attributesTab",
-        "labelKey": "general-tab-label",
+        "type": "attributes",
         "attributes": [
           "MinThreadsConstraint",
           "MaxThreadsConstraint",
@@ -277,12 +277,10 @@
         "type": "hidden",
         "attributes": [
           "UseVirtualThreads"
+        ],
+        "folders": [
+          "WorkManagerShutdownTrigger"
         ]
-      },
-      {
-        "type": "folderTab",
-        "labelKey": "work-manager-shutdown-trigger-tab-label",
-        "folder": "WorkManagerShutdownTrigger"
       }
     ]
   },

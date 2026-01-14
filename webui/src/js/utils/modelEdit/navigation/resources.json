@@ -33,9 +33,6 @@
               "path": "CoherenceKeystoreParams"
             },
             {
-              "path": "CoherenceService"
-            },
-            {
               "path": "CoherenceClusterWellKnownAddress"
             }
           ]
@@ -78,7 +75,12 @@
           "path": "JdbcResource/JDBCDataSourceParams"
         },
         {
-          "path": "JdbcResource/JDBCDriverParams"
+          "path": "JdbcResource/JDBCDriverParams",
+          "children": [
+            {
+              "path": "Properties"
+            }
+          ]
         },
         {
           "path": "JdbcResource/JDBCOracleParams"
@@ -94,7 +96,9 @@
     {
       "path": "JMSServer",
       "instanceChildren": [
-        "JmsMessageLogFile"
+        {
+          "path": "JmsMessageLogFile"
+        }
       ]
     },
     {

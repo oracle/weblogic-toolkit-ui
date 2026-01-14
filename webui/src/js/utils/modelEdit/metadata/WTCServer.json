@@ -5,61 +5,33 @@
     },
     "sections": [
       {
-        "type": "tab",
-        "labelKey": "general-tab-label",
-        "sections": [
-          {
-            "type": "attributes",
-            "attributes": [
-              "DeploymentOrder",
-              "Notes",
-              "Target"
-            ]
-          },
-          {
-            "type": "attributesCollapsible",
-            "labelKey": "advanced-label",
-            "addRemainingAttributes": true
-          }
+        "type": "attributes",
+        "attributes": [
+          "DeploymentOrder",
+          "Notes",
+          "Target"
         ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
       },
       {
         "type": "hidden",
         "attributes": [
           "Resources"
+        ],
+        "folders": [
+          "WTCExport",
+          "WTCImport",
+          "WTCLocalTuxDom",
+          "WTCPassword",
+          "WTCRemoteTuxDom",
+          "WTCResources",
+          "WTCtBridgeGlobal",
+          "WTCtBridgeRedirect"
         ]
-      },
-      {
-        "type": "folderTab",
-        "folder": "WTCLocalTuxDom"
-      },
-      {
-        "type": "folderTab",
-        "folder": "WTCRemoteTuxDom"
-      },
-      {
-        "type": "folderTab",
-        "folder": "WTCExport"
-      },
-      {
-        "type": "folderTab",
-        "folder": "WTCImport"
-      },
-      {
-        "type": "folderTab",
-        "folder": "WTCResources"
-      },
-      {
-        "type": "folderTab",
-        "folder": "WTCPassword"
-      },
-      {
-        "type": "folderTab",
-        "folder": "WTCtBridgeGlobal"
-      },
-      {
-        "type": "folderTab",
-        "folder": "WTCtBridgeRedirect"
       }
     ]
   },

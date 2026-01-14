@@ -72,6 +72,9 @@
             "type": "hidden",
             "attributes": [
               "MessageCompressionOptionsOverride"
+            ],
+            "folders": [
+              "JmssafMessageLogFile"
             ]
           }
         ]
@@ -94,10 +97,6 @@
           "MessagesMaximum",
           "MaximumMessageSize"
         ]
-      },
-      {
-        "type": "folderTab",
-        "folder": "JmssafMessageLogFile"
       }
     ]
   },

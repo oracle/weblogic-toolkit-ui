@@ -36,70 +36,60 @@
     },
     "sections": [
       {
-        "type": "tab",
-        "labelKey": "general-tab-label",
-        "sections": [
-          {
-            "type": "attributes",
-            "attributes": [
-              "ServletReloadCheckSecs",
-              "PostTimeoutSecs",
-              "MaxPostTimeSecs",
-              "MaxPostSize",
-              "MaxSingleHeaderSize",
-              "MaxTotalHeadersSize",
-              "MaxRequestParameterCount",
-              "XPoweredByHeaderLevel",
-              "MimeMappingFile",
-              "WeblogicPluginEnabled",
-              "WAPEnabled",
-              "AuthCookieEnabled",
-              "ReloginEnabled",
-              "AllowAllRoles",
-              "FilterDispatchedRequestsEnabled",
-              "OverloadProtectionEnabled",
-              "OptimisticSerialization",
-              "RtexprvalueJspParamName",
-              "ClientCertProxyEnabled",
-              "HttpTraceSupportEnabled",
-              "ChangeSessionIDOnAuthentication",
-              "SynchronizedSessionTimeoutEnabled",
-              "WorkContextPropagationEnabled",
-              "JSPCompilerBackwardsCompatible",
-              "ShowArchivedRealPathEnabled",
-              "RejectMaliciousPathParameters",
-              "JaxRsMonitoringDefaultBehavior",
-              "RetainOriginalURL",
-              "ServletAuthenticationFormURL",
-              "SameSiteFilterSecureChannelRequired",
-              "SameSiteFilterCookieSetting",
-              "SameSiteFilterUserAgentRegEx",
-              "P3PHeaderValue",
-              "FormAuthXFrameOptionsHeaderValue",
-              "RestrictUserManagementAccessPattern",
-              "Notes"
-            ]
-          },
-          {
-            "type": "attributesCollapsible",
-            "labelKey": "advanced-label",
-            "addRemainingAttributes": true
-          }
+        "type": "attributes",
+        "attributes": [
+          "ServletReloadCheckSecs",
+          "PostTimeoutSecs",
+          "MaxPostTimeSecs",
+          "MaxPostSize",
+          "MaxSingleHeaderSize",
+          "MaxTotalHeadersSize",
+          "MaxRequestParameterCount",
+          "XPoweredByHeaderLevel",
+          "MimeMappingFile",
+          "WeblogicPluginEnabled",
+          "WAPEnabled",
+          "AuthCookieEnabled",
+          "ReloginEnabled",
+          "AllowAllRoles",
+          "FilterDispatchedRequestsEnabled",
+          "OverloadProtectionEnabled",
+          "OptimisticSerialization",
+          "RtexprvalueJspParamName",
+          "ClientCertProxyEnabled",
+          "HttpTraceSupportEnabled",
+          "ChangeSessionIDOnAuthentication",
+          "SynchronizedSessionTimeoutEnabled",
+          "WorkContextPropagationEnabled",
+          "JSPCompilerBackwardsCompatible",
+          "ShowArchivedRealPathEnabled",
+          "RejectMaliciousPathParameters",
+          "JaxRsMonitoringDefaultBehavior",
+          "RetainOriginalURL",
+          "ServletAuthenticationFormURL",
+          "SameSiteFilterSecureChannelRequired",
+          "SameSiteFilterCookieSetting",
+          "SameSiteFilterUserAgentRegEx",
+          "P3PHeaderValue",
+          "FormAuthXFrameOptionsHeaderValue",
+          "RestrictUserManagementAccessPattern",
+          "Notes"
         ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
       },
       {
         "type": "hidden",
         "attributes": [
           "MaxRequestParamterCount"
+        ],
+        "folder": [
+          "GzipCompression",
+          "Http2Config"
         ]
-      },
-      {
-        "type": "folderTab",
-        "folder": "Http2Config"
-      },
-      {
-        "type": "folderTab",
-        "folder": "GzipCompression"
       }
     ]
   },
