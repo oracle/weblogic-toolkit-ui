@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2014, 2025, Oracle and/or its affiliates.
+ * Copyright (c) 2014, 2026, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
@@ -15,6 +15,13 @@
   requirejs.config(
     {
       baseUrl: 'js',
+
+      config: {
+        // set the ojL10n language to match i18n for Jet internal translations
+        ojL10n: {
+          locale: window.api.i18n.language,
+        },
+      },
 
       paths:
       /* DO NOT MODIFY
