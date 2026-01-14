@@ -120,7 +120,7 @@
   "auto-updater-disabled-unsupported-message": "Die automatische Aktualisierung wird auf Linux nur unterstützt, wenn die Ausführung über die ausführbare AppImage-Datei erfolgt.",
 
   "dialog-chooseArchiveFile": "Archivdatei auswählen",
-  "dialog-chooseExternalToolsStagingDirectory": "Choose WKT Tools External Staging Directory",
+  "dialog-chooseExternalToolsStagingDirectory": "Externes Staging-Verzeichnis für WKT-Tools auswählen",
   "dialog-chooseModelFile": "Modelldatei auswählen",
   "dialog-choosePrivateKey": "Private-Key-Datei auswählen",
   "dialog-chooseProjectSaveFile": "Projekt speichern",
@@ -202,7 +202,7 @@
   "dialog-tls-certfile": "TLS-Zertifikatsdatei auswählen",
 
   "dialog-chooseArchiveEntry": "{{entryType}} für Archiv auswählen",
-  "dialog-chooseAttributeFile": "Choose {{entryType}}",
+  "dialog-chooseAttributeFile": "{{entryType}} auswählen",
   "dialog-archiveEntryFilter": "{{entryType}}",
   "dialog-getWebLogicRemoteConsoleHome": "Wählen Sie die WebLogic Remote Console-Installation aus",
   "dialog-getWebLogicRemoteConsoleAppImage": "Wählen Sie die WebLogic Remote Console-AppImage-Datei aus",
@@ -350,6 +350,20 @@
   "model-archive-remove-path-failed-error-message": "Archiveintrag {{path}} konnte nicht aus Archivdatei {{archiveFile}} entfernt werden: {{error}}",
   "model-archive-add-file-path-empty-error-message": "Archiveintrag {{path}} kann nicht zur Archivdatei {{archiveFile}} hinzugefügt werden, weil die hinzuzufügende Datei nicht angegeben wurde",
   "model-archive-add-folder-failed-error-message": "Archivordner {{path}} konnte nicht zur Archivdatei {{archiveFile}} hinzugefügt werden: {{error}}",
+  "model-archive-create-temp-dir-failed-error-message": "Failed to create temp directory in {{parentDirectory}}: {{error}}",
+  "model-archive-write-file-open-failed-error-message": "Failed to open archive file {{archiveFile}} for writing: {{error}}",
+  "model-archive-swap-files-failed-error-message": "Failed to replace original archive file {{originalFile}} with new archive file from {{newFile}}: {{error}}",
+  "model-archive-create-new-file-failed-error-message": "Failed to create updated archive file at {{archiveFile}}: {{error}}",
+  "model-archive-process-zip-contents-failed-error-message": "Failed to read the contents of archive file {{archiveFile}}: {{error}}",
+  "model-archive-write-file-add-failed-error-message": "Failed to write to updated archive file {{archiveFile}} while adding new content: {{error}}",
+  "model-archive-write-file-copy-failed-error-message": "Failed to write to updated archive file {{archiveFile}} while copying content from original archive file: {{error}}",
+  "model-archive-write-called-after-close-error-message": "Failed to write to updated archive File {{archiveFile}} because the file was already closed: {{error}}",
+  "model-archive-java-write-input-file-failed-error-message": "Failed to write archive file update operations to {{inputFile}}: {{error}}",
+  "model-archive-java-error-exit-code-error-message": "Archive Helper script exited with {{exitCode}}, which indicates an error.",
+  "model-archive-java-execution-failed-error-message": "Archive Helper script failed: {{error}}",
+  "model-archive-java-save-archive-file-failed-error-message": "Archivdatei {{archiveFile}} konnte nicht gespeichert werden: {{error}}",
+  "model-archive-java-list-get-output-failed-error-message": "After listing the archive file {{archiveFile}}, failed to process the output file {{outputFile}} containing the file contents: {{error}}",
+  "model-archive-java-update-get-output-failed-error-message": "After updating the archive file {{archiveFile}}, failed to process the output file {{outputFile}} containing the updated file contents: {{error}}",
 
   "fs-utils-get-files-recursively-dir-empty-error-message": "Dateien können nicht rekursiv aus dem Verzeichnis abgerufen werden, weil das Verzeichnis nicht angegeben wurde",
   "fs-utils-get-files-recursively-dir-not-dir-error-message": "Dateien können nicht rekursiv aus dem Verzeichnis abgerufen werden, weil das Verzeichnis {{directoryName}} kein vorhandenes Verzeichnis war",
@@ -394,7 +408,7 @@
   "wdt-archiveType-coherenceStore": "Coherence-Persistenzverzeichnis",
   "wdt-archiveType-coherenceStore-activeLabel": "Aktiv",
   "wdt-archiveType-coherenceStore-backupLabel": "Backup",
-  "wdt-archiveType-coherenceStore-eventsLabel": "Events",
+  "wdt-archiveType-coherenceStore-eventsLabel": "Ereignisse",
   "wdt-archiveType-coherenceStore-snapshotLabel": "Snapshot",
   "wdt-archiveType-coherenceStore-trashLabel": "Papierkorb",
   "wdt-archiveType-coherenceStore-emptyDirLabel": "Coherence-Persistenzverzeichnisname",
@@ -467,12 +481,12 @@
   "wdt-archiveType-serverSegregationLabel": "Servername",
   "wdt-archiveType-serverSegregationHelp": "Geben Sie den Namen des zu verwendenden Servers ein",
 
-  "wdt-archiveType-serverTemplateKeystore": "Server Template Keystore",
-  "wdt-archiveType-serverTemplateKeystore-fileLabel": "Server Template Keystore File",
-  "wdt-archiveType-serverTemplateKeystore-fileHelp": "Choose the full path to the server template keystore file to add under the specific server template",
+  "wdt-archiveType-serverTemplateKeystore": "Servervorlagen-Keystore",
+  "wdt-archiveType-serverTemplateKeystore-fileLabel": "Servervorlagen-Keystore-Datei",
+  "wdt-archiveType-serverTemplateKeystore-fileHelp": "Wählen Sie den vollständigen Pfad zur Servervorlagen-Keystore-Datei aus, die unter der angegebenen Servervorlage hinzugefügt werden soll",
 
   "wdt-archiveType-serverTemplateSegregationLabel": "Servervorlagenname",
-  "wdt-archiveType-serverTemplateSegregationHelp": "Enter the name of the server template to use",
+  "wdt-archiveType-serverTemplateSegregationHelp": "Geben Sie den Namen der zu verwendenden Servervorlage ein",
 
   "wdt-archiveType-sharedLibrary": "Shared Library",
   "wdt-archiveType-sharedLibrary-dirLabel": "Entpacktes Shared-Library-Verzeichnis",
@@ -530,7 +544,7 @@
   "wrc-version-verification-failed": "Das WebLogic Remote Console-Backend kann aufgrund eines Fehlers beim Bestimmen der Versionskompatibilität nicht gestartet werden: {{error}}",
   "wrc-home-not-exist": "Das WebLogic Remote Console-Backend kann nicht gestartet werden, weil der konfigurierte Speicherort {{rcHome}} nicht vorhanden ist.",
 
-  "app-image-update-tools-failed-title": "Failed to Update WKT Tools for Linux AppImage",
-  "app-image-update-tools-external-dir-no-specified": "Unable to update WKT tools since the WKT Tools External Staging Directory was not specified in the user's settings.",
-  "app-image-update-tools-external-dir-not-exists": "Unable to update WKT tools since the WKT Tools External Staging Directory {{externalToolDirectory}} does not exist."
+  "app-image-update-tools-failed-title": "WKT-Tools für Linux-AppImage konnten nicht aktualisiert werden",
+  "app-image-update-tools-external-dir-no-specified": "WKT-Tools können nicht aktualisiert werden, da das externe Staging-Verzeichnis für WKT-Tools nicht in den Benutzereinstellungen angegeben wurde.",
+  "app-image-update-tools-external-dir-not-exists": "WKT-Tools können nicht aktualisiert werden, da das externe Staging-Verzeichnis {{externalToolDirectory}} für WKT-Tools nicht vorhanden ist."
 }

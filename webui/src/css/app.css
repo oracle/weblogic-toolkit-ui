@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 .sendOffScreen {
@@ -298,6 +298,24 @@ oj-navigation-list[id="modelDesignNav"].oj-navigationlist-vertical {
 
 .wkt-model-edit-instances-table {
   width: -webkit-fill-available;
+}
+
+.wkt-model-edit-instances-cell {
+  display: flex;
+  gap: 4px;
+}
+
+.wkt-model-edit-instances-cell button {
+  height: 21px;
+  width: 21px;
+  min-width: 21px;
+}
+
+.wkt-model-edit-instances-cell-value {
+  flex: 1 1 auto;
+  min-width: 1px;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 /* readonly-hint should override hiding on no-focus */
@@ -894,6 +912,18 @@ h6.wkt-panel-heading {
 
 .wkt-model-editor-nav-list .oj-navigationlist-depth-5 .oj-navigationlist-item-content {
   padding-left: 5em !important;
+}
+
+.wkt-model-editor-nav-list .oj-navigationlist-depth-6 .oj-navigationlist-item-content {
+  padding-left: 6em !important;
+}
+
+.wkt-model-editor-nav-list .oj-navigationlist-depth-7 .oj-navigationlist-item-content {
+  padding-left: 7em !important;
+}
+
+.wkt-model-editor-nav-list .oj-navigationlist-depth-8 .oj-navigationlist-item-content {
+  padding-left: 8em !important;
 }
 
 .wkt-model-edit-section {

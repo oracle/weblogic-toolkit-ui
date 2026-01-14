@@ -4,13 +4,15 @@
   },
   "OPSSInitialization/Credential/TargetKey": {
     "summaryAttributes": {
-      "Username": {}
+      "Username": {},
+      "Password": {}
     },
     "sections": [
       {
         "type": "attributes",
         "attributes": [
-          "Username"
+          "Username",
+          "Password"
         ],
         "addRemainingAttributes": true
       }

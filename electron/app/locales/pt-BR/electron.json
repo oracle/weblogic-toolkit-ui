@@ -120,7 +120,7 @@
   "auto-updater-disabled-unsupported-message": "Não há suporte para o Autoatualizador no Linux quando não é executado pelo aplicativo executável AppImage.",
 
   "dialog-chooseArchiveFile": "Selecionar um Arquivo Compactado",
-  "dialog-chooseExternalToolsStagingDirectory": "Choose WKT Tools External Staging Directory",
+  "dialog-chooseExternalToolsStagingDirectory": "Escolher Diretório de Preparação Externo de Ferramentas do WKT",
   "dialog-chooseModelFile": "Selecionar um Arquivo de Modelo",
   "dialog-choosePrivateKey": "Selecionar um Arquivo de Chave Privada",
   "dialog-chooseProjectSaveFile": "Salvar Projeto",
@@ -202,7 +202,7 @@
   "dialog-tls-certfile": "Selecionar arquivo de certificados TLS",
 
   "dialog-chooseArchiveEntry": "Escolher {{entryType}} para o Arquivo Compactado",
-  "dialog-chooseAttributeFile": "Choose {{entryType}}",
+  "dialog-chooseAttributeFile": "Escolher {{entryType}}",
   "dialog-archiveEntryFilter": "{{entryType}}",
   "dialog-getWebLogicRemoteConsoleHome": "Selecionar a Instalação do WebLogic Remote Console",
   "dialog-getWebLogicRemoteConsoleAppImage": "Selecionar o arquivo AppImage do WebLogic Remote Console",
@@ -350,6 +350,20 @@
   "model-archive-remove-path-failed-error-message": "Falha ao remover a entrada de arquivo compactado {{path}} do archiveFile {{archiveFile}}: {{error}}",
   "model-archive-add-file-path-empty-error-message": "Não é possível adicionar a entrada de arquivo compactado {{path}} ao arquivo compactado {{archiveFile}} porque o arquivo a ser adicionado não foi especificado",
   "model-archive-add-folder-failed-error-message": "Falha ao adicionar a pasta de arquivo compactado {{path}} ao arquivo compactado {{archiveFile}}: {{error}}",
+  "model-archive-create-temp-dir-failed-error-message": "Failed to create temp directory in {{parentDirectory}}: {{error}}",
+  "model-archive-write-file-open-failed-error-message": "Failed to open archive file {{archiveFile}} for writing: {{error}}",
+  "model-archive-swap-files-failed-error-message": "Failed to replace original archive file {{originalFile}} with new archive file from {{newFile}}: {{error}}",
+  "model-archive-create-new-file-failed-error-message": "Failed to create updated archive file at {{archiveFile}}: {{error}}",
+  "model-archive-process-zip-contents-failed-error-message": "Failed to read the contents of archive file {{archiveFile}}: {{error}}",
+  "model-archive-write-file-add-failed-error-message": "Failed to write to updated archive file {{archiveFile}} while adding new content: {{error}}",
+  "model-archive-write-file-copy-failed-error-message": "Failed to write to updated archive file {{archiveFile}} while copying content from original archive file: {{error}}",
+  "model-archive-write-called-after-close-error-message": "Failed to write to updated archive File {{archiveFile}} because the file was already closed: {{error}}",
+  "model-archive-java-write-input-file-failed-error-message": "Failed to write archive file update operations to {{inputFile}}: {{error}}",
+  "model-archive-java-error-exit-code-error-message": "Archive Helper script exited with {{exitCode}}, which indicates an error.",
+  "model-archive-java-execution-failed-error-message": "Archive Helper script failed: {{error}}",
+  "model-archive-java-save-archive-file-failed-error-message": "Falha ao salvar o arquivo compactado {{archiveFile}}: {{error}}",
+  "model-archive-java-list-get-output-failed-error-message": "After listing the archive file {{archiveFile}}, failed to process the output file {{outputFile}} containing the file contents: {{error}}",
+  "model-archive-java-update-get-output-failed-error-message": "After updating the archive file {{archiveFile}}, failed to process the output file {{outputFile}} containing the updated file contents: {{error}}",
 
   "fs-utils-get-files-recursively-dir-empty-error-message": "Não é possível obter os arquivos de forma recursiva no diretório porque o diretório não foi especificado",
   "fs-utils-get-files-recursively-dir-not-dir-error-message": "Não é possível obter os arquivos de forma recursiva no diretório porque o diretório {{directoryName}} não era um diretório existente",
@@ -393,8 +407,8 @@
 
   "wdt-archiveType-coherenceStore": "Diretório de Persistência do Coherence",
   "wdt-archiveType-coherenceStore-activeLabel": "Ativo",
-  "wdt-archiveType-coherenceStore-backupLabel": "Backup",
-  "wdt-archiveType-coherenceStore-eventsLabel": "Events",
+  "wdt-archiveType-coherenceStore-backupLabel": "Fazer backup",
+  "wdt-archiveType-coherenceStore-eventsLabel": "Eventos",
   "wdt-archiveType-coherenceStore-snapshotLabel": "Snapshot",
   "wdt-archiveType-coherenceStore-trashLabel": "Lixeira",
   "wdt-archiveType-coherenceStore-emptyDirLabel": "Nome do Diretório de Persistência do Coherence",
@@ -467,12 +481,12 @@
   "wdt-archiveType-serverSegregationLabel": "Nome do Servidor",
   "wdt-archiveType-serverSegregationHelp": "Informar o nome do servidor a ser usado",
 
-  "wdt-archiveType-serverTemplateKeystore": "Server Template Keystore",
-  "wdt-archiveType-serverTemplateKeystore-fileLabel": "Server Template Keystore File",
-  "wdt-archiveType-serverTemplateKeystore-fileHelp": "Choose the full path to the server template keystore file to add under the specific server template",
+  "wdt-archiveType-serverTemplateKeystore": "Armazenamento de Chaves do Modelo do Servidor",
+  "wdt-archiveType-serverTemplateKeystore-fileLabel": "Arquivo de Armazenamento de Chaves do Modelo do Servidor",
+  "wdt-archiveType-serverTemplateKeystore-fileHelp": "Escolha o caminho completo para o arquivo de armazenamento de chaves do modelo do servidor a ser adicionado no modelo de servidor específico",
 
   "wdt-archiveType-serverTemplateSegregationLabel": "Nome do Modelo do Servidor",
-  "wdt-archiveType-serverTemplateSegregationHelp": "Enter the name of the server template to use",
+  "wdt-archiveType-serverTemplateSegregationHelp": "Informe o nome do modelo do servidor a ser utilizado",
 
   "wdt-archiveType-sharedLibrary": "Biblioteca Compartilhada",
   "wdt-archiveType-sharedLibrary-dirLabel": "Diretório de Biblioteca Compartilhada Explodido",
@@ -530,7 +544,7 @@
   "wrc-version-verification-failed": "Não é possível iniciar o backend do WebLogic Remote Console porque ocorreu um erro ao tentar determinar a compatibilidade de versão: {{error}}",
   "wrc-home-not-exist": "Não é possível iniciar o backend do WebLogic Remote Console porque a localização {{rcHome}} configurada não existe.",
 
-  "app-image-update-tools-failed-title": "Failed to Update WKT Tools for Linux AppImage",
-  "app-image-update-tools-external-dir-no-specified": "Unable to update WKT tools since the WKT Tools External Staging Directory was not specified in the user's settings.",
-  "app-image-update-tools-external-dir-not-exists": "Unable to update WKT tools since the WKT Tools External Staging Directory {{externalToolDirectory}} does not exist."
+  "app-image-update-tools-failed-title": "Falha ao Atualizar Ferramentas WKT para Linux AppImage",
+  "app-image-update-tools-external-dir-no-specified": "Não é possível atualizar as ferramentas WKT, pois o Diretório de Teste Externo das Ferramentas WKT não foi especificado nas configurações do usuário.",
+  "app-image-update-tools-external-dir-not-exists": "Não é possível atualizar as ferramentas WKT, pois o Diretório de Teste Externo {{externalToolDirectory}} das Ferramentas WKT não existe."
 }

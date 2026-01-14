@@ -2,6 +2,18 @@
   "path": "topology",
   "children": [
     {
+      "path": "AdminConsole"
+    },
+    {
+      "path": "AllowList"
+    },
+    {
+      "path": "Callout"
+    },
+    {
+      "path": "CdiContainer"
+    },
+    {
       "path": "Cluster",
       "instanceChildren": [
         {
@@ -14,21 +26,76 @@
           "path": "DynamicServers"
         },
         {
-          "path": "JTACluster"
+          "path": "JTACluster",
+          "children": [
+            {
+              "path": "JtaRemoteDomain"
+            }
+          ]
         },
         {
-          "path": "OverloadProtection"
+          "path": "OverloadProtection",
+          "children": [
+            {
+              "path": "ServerFailureTrigger"
+            }
+          ]
         }
       ]
     },
     {
-      "path": "Machine"
+      "path": "EmbeddedLDAP"
+    },
+    {
+      "path": "HealthScore"
+    },
+    {
+      "path": "JMX"
+    },
+    {
+      "path": "JPA"
+    },
+    {
+      "path": "JTA",
+      "children": [
+        {
+          "path": "JtaRemoteDomain"
+        }
+      ]
+    },
+    {
+      "path": "Log"
+    },
+    {
+      "path": "LogFilter"
+    },
+    {
+      "path": "Machine",
+      "instanceChildren": [
+        {
+          "path": "NodeManager"
+        }
+      ]
     },
     {
       "path": "MigratableTarget"
     },
     {
       "path": "NMProperties"
+    },
+    {
+      "path": "RemoteConsoleHelper"
+    },
+    {
+      "path": "RestfulManagementServices"
+    },
+    {
+      "path": "RmiForwarding",
+      "instanceChildren": [
+        {
+          "path": "ConfigurationProperty"
+        }
+      ]
     },
     {
       "path": "SecurityConfiguration",
@@ -53,7 +120,12 @@
           ]
         },
         {
-          "path": "CredentialSet"
+          "path": "CredentialSet",
+          "instanceChildren": [
+            {
+              "path": "EncryptedProperty"
+            }
+          ]
         },
         {
           "path": "Realm",
@@ -102,7 +174,12 @@
           "path": "ConfigurationProperty"
         },
         {
-          "path": "DataSource"
+          "path": "DataSource",
+          "children": [
+            {
+              "path": "DataSourceLogFile"
+            }
+          ]
         },
         {
           "path": "DefaultFileStore"
@@ -126,16 +203,36 @@
           "path": "NetworkAccessPoint"
         },
         {
-          "path": "OverloadProtection"
+          "path": "OverloadProtection",
+          "children": [
+            {
+              "path": "ServerFailureTrigger"
+            }
+          ]
         },
         {
-          "path": "RmiForwarding"
+          "path": "RmiForwarding",
+          "instanceChildren": [
+            {
+              "path": "ConfigurationProperty"
+            }
+          ]
         },
         {
-          "path": "ServerDebug"
+          "path": "ServerDebug",
+          "children": [
+            {
+              "path": "DebugScope"
+            }
+          ]
         },
         {
-          "path": "ServerDiagnosticConfig"
+          "path": "ServerDiagnosticConfig",
+          "children": [
+            {
+              "path": "WldfBuiltinWatchConfiguration"
+            }
+          ]
         },
         {
           "path": "ServerStart"
@@ -150,10 +247,45 @@
           "path": "TransactionLogJDBCStore"
         },
         {
-          "path": "WebServer"
+          "path": "WebServer",
+          "children": [
+            {
+              "path": "WebServerLog"
+            }
+          ]
         },
         {
-          "path": "WebService"
+          "path": "WebService",
+          "children": [
+            {
+              "path": "WebServiceReliability"
+            },
+            {
+              "path": "WebServicePersistence",
+              "children": [
+                {
+                  "path": "WebServiceLogicalStore"
+                },
+                {
+                  "path": "WebServicePhysicalStore"
+                }
+              ]
+            },
+            {
+              "path": "WebServiceBuffering",
+              "children": [
+                {
+                  "path": "WebServiceRequestBufferingQueue"
+                },
+                {
+                  "path": "WebServiceResponseBufferingQueue"
+                }
+              ]
+            },
+            {
+              "path": "WebServiceResiliency"
+            }
+          ]
         }
       ]
     },
@@ -170,7 +302,12 @@
           "path": "ConfigurationProperty"
         },
         {
-          "path": "DataSource"
+          "path": "DataSource",
+          "children": [
+            {
+              "path": "DataSourceLogFile"
+            }
+          ]
         },
         {
           "path": "DefaultFileStore"
@@ -194,16 +331,36 @@
           "path": "NetworkAccessPoint"
         },
         {
-          "path": "OverloadProtection"
+          "path": "OverloadProtection",
+          "children": [
+            {
+              "path": "ServerFailureTrigger"
+            }
+          ]
         },
         {
-          "path": "RmiForwarding"
+          "path": "RmiForwarding",
+          "instanceChildren": [
+            {
+              "path": "ConfigurationProperty"
+            }
+          ]
         },
         {
-          "path": "ServerDebug"
+          "path": "ServerDebug",
+          "children": [
+            {
+              "path": "DebugScope"
+            }
+          ]
         },
         {
-          "path": "ServerDiagnosticConfig"
+          "path": "ServerDiagnosticConfig",
+          "children": [
+            {
+              "path": "WldfBuiltinWatchConfiguration"
+            }
+          ]
         },
         {
           "path": "ServerStart"
@@ -218,35 +375,98 @@
           "path": "TransactionLogJDBCStore"
         },
         {
-          "path": "WebServer"
+          "path": "WebServer",
+          "children": [
+            {
+              "path": "WebServerLog"
+            }
+          ]
         },
         {
-          "path": "WebService"
+          "path": "WebService",
+          "children": [
+            {
+              "path": "WebServiceReliability"
+            },
+            {
+              "path": "WebServicePersistence",
+              "children": [
+                {
+                  "path": "WebServiceLogicalStore"
+                },
+                {
+                  "path": "WebServicePhysicalStore"
+                }
+              ]
+            },
+            {
+              "path": "WebServiceBuffering",
+              "children": [
+                {
+                  "path": "WebServiceRequestBufferingQueue"
+                },
+                {
+                  "path": "WebServiceResponseBufferingQueue"
+                }
+              ]
+            },
+            {
+              "path": "WebServiceResiliency"
+            }
+          ]
         }
       ]
     },
     {
-      "path": "UnixMachine"
+      "path": "UnixMachine",
+      "instanceChildren": [
+        {
+          "path": "NodeManager"
+        }
+      ]
     },
     {
-      "path": "VirtualHost"
+      "path": "VirtualHost",
+      "instanceChildren": [
+        {
+          "path": "WebServerLog"
+        }
+      ]
     },
     {
       "path": "WebserviceSecurity",
       "instanceChildren": [
         {
-          "path": "WebserviceCredentialProvider"
+          "path": "WebserviceCredentialProvider",
+          "instanceChildren": [
+            {
+              "path": "ConfigurationProperty"
+            }
+          ]
         },
         {
-          "path": "WebserviceSecurityToken"
+          "path": "WebserviceSecurityToken",
+          "instanceChildren": [
+            {
+              "path": "ConfigurationProperty"
+            }
+          ]
         },
         {
           "path": "WebserviceTimestamp"
         },
         {
-          "path": "WebserviceTokenHandler"
+          "path": "WebserviceTokenHandler",
+          "instanceChildren": [
+            {
+              "path": "ConfigurationProperty"
+            }
+          ]
         }
       ]
+    },
+    {
+      "path": "WSReliableDeliveryPolicy"
     },
     {
       "path": "XMLEntityCache"

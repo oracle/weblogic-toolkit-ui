@@ -477,6 +477,8 @@
 
   "table-name-label": "Name",
   "table-type-label": "Type",
+  "table-show-value-label": "Show Value",
+  "table-hide-value-label": "Hide Value",
 
   "rcudbinfo-connection-label": "Connection",
   "rcudbinfo-stores-label": "Stores",
@@ -2318,7 +2320,7 @@
   "a-DebugValidationClassLoading-label": "Debug Validation Class Loading",
   "a-DebugVerboseRcm-label": "Debug Verbose Replication and Consistency Manager (RCM)",
   "a-DebugWANReplicationDetails-label": "Debug WAN Replication Details",
-  "a-DebugWarExtraction-label": "DebugARExtraction",
+  "a-DebugWarExtraction-label": "Debug WAR Extraction",
   "a-DebugWatchScalingActions-label": "Debug Watch Scaling Actions",
   "a-DebugWebAppDi-label": "Debug Web App Dependency Injection",
   "a-DebugWebAppIdentityAssertion-label": "Debug Web App Identity Assertion",

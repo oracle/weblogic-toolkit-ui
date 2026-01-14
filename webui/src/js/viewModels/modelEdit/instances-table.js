@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2024, 2025, Oracle and/or its affiliates.
+ * Copyright (c) 2024, 2026, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
@@ -21,6 +21,7 @@ function(accUtils, ko, InstanceHelper, ModelEditHelper, MessageHelper, Navigatio
     const NAME_VALIDATORS = args.nameValidators;
 
     const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
+    const CREDENTIAL_TYPES = ['password', 'credential'];
 
     const subscriptions = [];
 
@@ -56,38 +57,46 @@ function(accUtils, ko, InstanceHelper, ModelEditHelper, MessageHelper, Navigatio
     this.updateFromModel = () => {
       this.instances.removeAll();
       const instancesFolder = ModelEditHelper.getFolder(MODEL_PATH);
-      for (const [key, value] of Object.entries(instancesFolder)) {
+      for (const [instanceName, value] of Object.entries(instancesFolder)) {
         const instance = {
           uid: utils.getShortUuid(),
-          name: key,
+          name: instanceName,
         };
         for (const [attKey, attValue] of Object.entries(this.summaryAttributes)) {
           let attributeKey = attKey;
-          let attributePath = ALIAS_PATH;
           let modelInstanceFolder = value || {};
 
           // the attributeName may have a sub-path, such as SSL/ListenPort
+          let subpath = [];
           const parts = attributeKey.split('/');
           if(parts.length > 1) {
             parts.slice(0, parts.length - 1).forEach(part => {
               modelInstanceFolder = modelInstanceFolder[part] || {};
             });
             attributeKey = parts[parts.length - 1];
-            const partsPath = parts.slice(0, -1);
-            attributePath = [...ALIAS_PATH, ...partsPath];
+            subpath = parts.slice(0, -1);
           }
+
+          const aliasPath = [...ALIAS_PATH, ...subpath];
+          const modelPath = [...MODEL_PATH, instanceName, ...subpath];
 
           const getter = attValue.getter;
           const modelValue = getter ? getter(modelInstanceFolder) : modelInstanceFolder[attributeKey];
 
           let displayValue = ModelEditHelper.getDerivedValue(modelValue);
 
+          const attributeType = AliasHelper.getAttributeType(modelPath, attributeKey);
+          const isCredential = CREDENTIAL_TYPES.includes(attributeType);
+
           // may need to get the display label from the list of options
-          const options = MetaHelper.getAttributeOptions(attributePath, attributeKey) || [];
+          const options = MetaHelper.getAttributeOptions(aliasPath, attributeKey) || [];
           const option = options.find(option => option.value === displayValue);
           displayValue = option ? option.label : displayValue;
 
-          instance[attKey] = displayValue;
+          instance[attKey] = {
+            value: displayValue,
+            isCredential
+          };
         }
         this.instances.push(instance);
       }
@@ -200,6 +209,10 @@ function(accUtils, ko, InstanceHelper, ModelEditHelper, MessageHelper, Navigatio
         typeName = MessageHelper.getFolderLabel(typePath);
       }
       return typeName;
+    };
+
+    this.credentialCellConfig = attribute => {
+      return ModelEditHelper.createCredentialCellConfig(attribute.value);
     };
 
     this.deleteInstance = (event, context) => {
