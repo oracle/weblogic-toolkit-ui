@@ -8,10 +8,10 @@ weight: 6
 WKT UI uses the WebLogic Image Tool (WIT) to build container images.  Each Oracle Fusion Middleware (FMW) Domain Target 
 Location option has its own image requirements.
 
-- Model-in-Image – This approach puts Java and FMW into one image, which WKT UI calls the primary image, and WDT and the
+- `Model-in-Image` – This approach puts Java and FMW into one image, which WKT UI calls the primary image, and WDT and the
   WDT model files into a separate image, known as the auxiliary image.  In this document, we refer to this as MII with
   Auxiliary Image.
-- Domain-on-PV – DoPV uses a single image with Java and FMW in it.  The domain is created on the persistent volume by
+- `Domain-on-PV` – DoPV uses a single image with Java and FMW in it.  The domain is created on the persistent volume by
   external means or by using a Domain Creation Image, which is conceptually similar to an auxiliary image.  A domain
   creation image, like an auxiliary image, has a WDT installer and WDT model files to define the domain.  WebLogic
   Kubernetes Operator uses the domain creation image to create the initial domain on the persistent volume only if the
@@ -113,10 +113,9 @@ then leave it set to the default unless otherwise required for your environment.
 
 | Field Name                                                  | Value                                                                                            |
 |-------------------------------------------------------------|--------------------------------------------------------------------------------------------------|
-| `Auxiliary Image Tag`                                       | `<image-repository-url>:1.0`; for example, `phx.ocir.io/mytenancy/WKT UI-qs/todolist-aux:1.0`     |
+| `Auxiliary Image Tag`                                       | `<image-repository-url>:1.0`; for example, `phx.ocir.io/mytenancy/wktui-qs/todolist-aux:1.0`     |
 | `Specify Auxiliary Image Push Credentials`                  | `ON`                                                                                             |
 | `Auxiliary Image Registry Push Credentials`                 | Select the name of the entry created previously; for example, `OCIR`                             |
-| `Auxiliary Image Registry Push Password`                    | `<auth-token-value>`; for example, `z+M3C2UqRraHG73Z+.X8`                                        |
 | `Use Custom Base Image`                                     | `OFF`                                                                                            |
 | `Specify Docker Hub Pull Credentials`                       | Add and select an Image Registry Credential for Docker Hub (Host and Email Address can be blank) |
 | `Download and Use Latest WebLogic Deploy Tooling Installer` | `ON`                                                                                             |

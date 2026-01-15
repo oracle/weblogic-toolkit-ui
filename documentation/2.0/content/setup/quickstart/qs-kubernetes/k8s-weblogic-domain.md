@@ -44,6 +44,7 @@ Fill in the form fields, as described in the following table.
 | `Use Existing Image Pull Secret`                 | `OFF`                                                                        |
 | `Image Pull Secret Name`                         | `ocr`                                                                        |
 | `Image Registry Pull Credentials`                | Create and select a new Image Registry Credential for your OCR account.      |
+| `Auxiliary Image Pull Policy`                    | `Always` (Required if you update the image without changing the version)     |
 | `Specify Auxiliary Image Pull Credentials`       | `ON`                                                                         |
 | `Use Existing Auxiliary Image Pull Secret`       | `OFF`                                                                        |
 | `Auxiliary Image Pull Secret Name`               | `ocir`                                                                       |

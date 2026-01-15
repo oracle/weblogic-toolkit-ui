@@ -18,7 +18,8 @@ WebLogic Server domains.  These tools work off a model of the domain.  The model
 For more detailed WDT information, see the WebLogic Deploy Tooling
 [documentation](https://oracle.github.io/weblogic-deploy-tooling/concepts/model/).
 
-WKT UI provides tooling to make it easy for you to create and edit a WDT model.  This image shows the `Design View` tab of the `Model` page. It allows visual editing of a model.  
+WKT UI provides tooling to make it easy for you to create and edit a WDT model.  This image shows the `Design View` tab
+of the `Model` page. It allows visual editing of a model.  
 
 {{% img "Model Design View" "images/model-design-view.png" %}}
 
@@ -74,8 +75,8 @@ Next, you will need to create the dynamic cluster.  Select the **Clusters** item
 cluster named `mycluster`. Before moving on to configure the new cluster, return to the Server Template `todo-srv-template`
 page and set the `Cluster` field using the dropdown menu to `mycluster`.
 
-Navigate to the new cluster, **Cluster** > **mycluster**, and select the **Dynamic Servers** tab.  Set the fields to the 
-values specified in the following table. A couple of things to note:
+Navigate to the new cluster, **Cluster** > **mycluster**, and select the **Dynamic Servers** folder under **mycluster**
+in the navigation bar.  Set the fields to the values specified in the following table. A couple of things to note:
 
 - The `Max Dynamic Cluster Size` is in the **WLDF Elasticity Framework Settings** expandable setion at the bottom of the page.
 - Although the `Enabled Calculated Listen Ports` field is already in the `false` position (because it is not in the model
@@ -118,8 +119,8 @@ use these same credentials when deploying the MySQL database later.
 | `Global Transactions Protocol` | `OnePhaseCommit`                                                       |
 | `JNDI Names`                   | `jdbc/ToDoDB`                                                          |
 
-After the `myDataSource` Data Source is created, go to the **JDBC Connection Pool Parameter** > **Connection Testing**
-tab and make the following changes:
+After the `myDataSource` Data Source is created, go to the **JDBC Connection Pool Parameters** folder (underneath the
+`myDataSource` in the navigation bar) > **Connection Testing** tab and make the following changes:
 1.	Enable `Test Connection On Reserve`.
 2.	Set the Test Table Name to `ToDos`.
 
@@ -161,7 +162,12 @@ topology:
     Name: todolist_domain
     AdminServerName: AdminServer
     Server:
-        AdminServer:
+        AdminServer: {}
+    ServerTemplate:
+        todo-srv-template:
+            ListenPortEnabled: true
+            ListenPort: 8100
+            Cluster: mycluster
     Cluster:
         mycluster:
             DynamicServers:
@@ -170,11 +176,6 @@ topology:
                 DynamicClusterSize: 10
                 MaxDynamicClusterSize: 10
                 CalculatedListenPorts: false
-    ServerTemplate:
-        'todo-srv-template':
-            ListenPortEnabled: true
-            ListenPort: 8100
-            Cluster: mycluster
 ```
 ### Validate and Prepare the Model
 
