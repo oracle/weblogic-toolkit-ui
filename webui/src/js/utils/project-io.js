@@ -46,7 +46,7 @@ define(['knockout', 'models/wkt-project', 'utils/i18n', 'utils/dialog-helper'],
           }
 
           // save the project contents to the specified file.
-          const result = await saveToFile(projectFile, projectName, projectUuid, isNewFile, displayMessages);
+          const result = await saveToFile(projectFile, projectName, projectUuid, isNewFile, !embedded);
 
           if(showBusyDialog) {
             await delay(100);  // ensure dialog had time to open if save is too fast
