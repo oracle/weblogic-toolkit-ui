@@ -168,12 +168,9 @@
         ]
       },
       {
-        "type": "folderTab",
-        "folder": "JmsMessageLogFile"
-      },
-      {
         "type": "hidden",
         "folders": [
+          "JmsMessageLogFile",
           "JmsSessionPool"
         ],
         "attributes": [
