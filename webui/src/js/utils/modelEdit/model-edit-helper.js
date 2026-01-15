@@ -7,10 +7,9 @@
 
 define(['knockout', 'js-yaml', 'models/wkt-project', 'utils/common-utilities',
   'utils/wkt-logger', 'utils/modelEdit/alias-helper', 'utils/modelEdit/meta-helper', 'utils/modelEdit/message-helper',
-  'utils/modelEdit/meta-validators', 'utils/wdt-archive-helper',
-  'ojs/ojmodule-element-utils'],
+  'utils/modelEdit/meta-validators', 'utils/wdt-archive-helper'],
 function (ko, jsYaml, project, utils,
-  WktLogger, AliasHelper, MetaHelper, MessageHelper, MetaValidators, ArchiveHelper, ModuleElementUtils) {
+  WktLogger, AliasHelper, MetaHelper, MessageHelper, MetaValidators, ArchiveHelper) {
 
   function ModelEditHelper() {
     // parse, write, and maintain the model object structure.
@@ -180,15 +179,6 @@ function (ko, jsYaml, project, utils,
       this.writeModel();
     };
 
-    this.getModelCopy = () => {
-      return structuredClone(this.modelObject());
-    };
-
-    this.replaceModel = newModel=> {
-      this.modelObject(newModel);
-      this.writeModel();
-    };
-
     this.getDomainName = () => {
       const domainName = this.getValue(['topology'], 'Name');
       return domainName || 'base_domain';
@@ -336,7 +326,6 @@ function (ko, jsYaml, project, utils,
         const textValue = modelValue.toString();
         const elements = textValue.split(this.getSplitDelimiter(attribute));
         modelValue = elements.map(item => item.toString().trim());
-        // continue for selectMulti check
       }
 
       if(attribute.optionsMatch) {
@@ -352,159 +341,7 @@ function (ko, jsYaml, project, utils,
         }
       }
 
-      // Jet oj-c-select-multiple uses Set
-      // if(editorType === 'selectMulti') {
-      //   modelValue = new Set(modelValue);
-      // }
-
       return modelValue;
-    };
-
-    // *****************************************
-    // create module configurations for display
-    // *****************************************
-
-    // create a module configuration for a single attribute
-    this.createAttributeEditorConfig = (modelPath, key, attributeMap) => {
-      const attribute = attributeMap[key];
-      if(!attribute) {
-        WktLogger.error(`Attribute ${key} not found, available: ${Object.keys(attributeMap)}`);
-        return ModuleElementUtils.createConfig({ name: 'empty-view' });
-      }
-
-      return ModuleElementUtils.createConfig({
-        name: 'modelEdit/attribute-editor',
-        params: {
-          attribute,
-          modelPath,
-          attributeMap  // may be disabled by values of other attributes
-        }
-      });
-    };
-
-    // create a module config for collapsible page section
-    this.createCollapsibleSectionConfig = (modelPath, metaSection, attributeMap, folderInfo) => {
-      return ModuleElementUtils.createConfig({
-        name: 'modelEdit/collapsible-section',
-        params: {
-          metaSection,
-          modelPath,
-          attributeMap,
-          folderInfo
-        }
-      });
-    };
-
-    this.createInstancesSectionConfig = (modelPath, metaSection) => {
-      return ModuleElementUtils.createConfig({
-        name: 'modelEdit/instances-section',
-        params: {
-          modelPath,
-          metaSection
-        }
-      });
-    };
-
-    // create sections config for folder-content, collapsible, or tab
-    this.createSectionsConfig = (modelPath, metaSections, folderInfo, attributeMap, isTopSections) => {
-      return ModuleElementUtils.createConfig({
-        name: 'modelEdit/section-set',
-        params: {
-          modelPath,
-          metaSections,
-          folderInfo,
-          attributeMap,
-          isTopSections
-        }
-      });
-    };
-
-    this.createFolderLinkSectionConfig = modelPath => {
-      return ModuleElementUtils.createConfig({
-        name: 'modelEdit/folder-link-section',
-        params: {
-          modelPath
-        }
-      });
-    };
-
-    this.createFolderSectionConfig = (modelPath, metaSection) => {
-      return ModuleElementUtils.createConfig({
-        name: 'modelEdit/folder-section',
-        params: {
-          modelPath,
-          metaSection
-        }
-      });
-    };
-
-    this.createFolderContentConfig = modelPath => {
-      return ModuleElementUtils.createConfig({
-        name: 'modelEdit/folder-content',
-        params: {
-          modelPath
-        }
-      });
-    };
-
-    this.createAttributeSetConfig = (modelPath, attributes, attributeMap) => {
-      return ModuleElementUtils.createConfig({
-        name: 'modelEdit/attribute-set',
-        params: {
-          modelPath,
-          attributes,
-          attributeMap
-        }
-      });
-    };
-
-    this.createAttributesSectionConfig = (modelPath, metaSection, attributeMap, folderInfo) => {
-      return ModuleElementUtils.createConfig({
-        name: 'modelEdit/attributes-section',
-        params: {
-          modelPath,
-          metaSection,
-          attributeMap,
-          folderInfo
-        }
-      });
-    };
-
-    this.createInstancesTableConfig = modelPath => {
-      return ModuleElementUtils.createConfig({
-        name: 'modelEdit/instances-table',
-        params: {
-          modelPath
-        }
-      });
-    };
-
-    this.createCredentialCellConfig = value => {
-      return ModuleElementUtils.createConfig({
-        name: 'modelEdit/credential-cell',
-        params: {
-          value
-        }
-      });
-    };
-
-    this.createTabsConfig = (modelPath, tabs, folderInfo, attributeMap, isTopSections) => {
-      return ModuleElementUtils.createConfig({
-        name: 'modelEdit/tabs-section',
-        params: {
-          modelPath,
-          tabs,
-          folderInfo,
-          attributeMap,
-          isTopSections
-        }
-      });
-    };
-
-    this.createEmptyConfig = () => {
-      return ModuleElementUtils.createConfig({
-        name: 'empty-view'
-      });
     };
 
     // ************************************************
@@ -575,9 +412,6 @@ function (ko, jsYaml, project, utils,
 
     // the first element of a Set or array may be the token
     this.getCheckToken = value => {
-      if(value instanceof Set) {  // Jet oj-c-select-multiple uses Set, change to array
-        value = [...value];
-      }
       if(Array.isArray(value) && (value.length === 1)) {
         value = value[0];
       }
@@ -672,11 +506,6 @@ function (ko, jsYaml, project, utils,
         if(doubleValue != null) {
           return doubleValue;
         }
-      }
-
-      // Jet oj-c-select-multiple uses Set, change to array
-      if (value instanceof Set) {
-        return [...value];
       }
 
       return value;

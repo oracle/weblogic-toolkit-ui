@@ -14,11 +14,11 @@ function(accUtils, ko, ModelEditHelper, MessageHelper, AliasHelper, FileSelectHe
   MetaOptions, utils, ViewHelper, ArrayDataProvider) {
 
   function NewListItemDialogModel(args) {
-    const MODEL_PATH = args.modelPath;
     const ATTRIBUTE = args.attribute;
     const ATTRIBUTE_MAP = args.attributeMap;
     const OBSERVABLE_ITEMS = args.observableItems;
 
+    const MODEL_PATH = ATTRIBUTE.path;
     const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
     const DIALOG_SELECTOR = '#newListItemDialog';
 

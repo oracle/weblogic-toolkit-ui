@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2024, 2025, Oracle and/or its affiliates.
+ * Copyright (c) 2024, 2026, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
@@ -14,18 +14,20 @@ function(accUtils, ko, DialogHelper, ArrayDataProvider,
   BufferingDataProvider, ViewHelper, utils, MessageHelper, MetaHandlers, AliasHelper) {
 
   function DictAttributeEditor(args) {
-    const MODEL_PATH = args.modelPath;
     const ATTRIBUTE = args.attribute;
     const ATTRIBUTE_MAP = args.attributeMap;
-    const READ_ONLY = args.readOnlyObservable;
+    const READ_ONLY = args.readOnly;
+    const DISABLED = args.disabled;
 
+    const MODEL_PATH = ATTRIBUTE.path;
     const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
 
-    this.attribute = ATTRIBUTE;
+    const readOnlyObservable = ko.isObservable(READ_ONLY) ? READ_ONLY : ko.observable(READ_ONLY);
+
     this.observable = ATTRIBUTE.observable;
-    this.disabled = MetaHandlers.getDisabledHandler(ATTRIBUTE, ATTRIBUTE_MAP);
+    this.disabled = ko.isObservable(DISABLED) ? DISABLED : ko.observable(DISABLED);
     this.extraClass = ko.computed(() => this.disabled() ? 'wkt-model-edit-table-disabled' : null);
-    this.hideControls = ko.computed(() => this.disabled() || READ_ONLY());
+    this.hideControls = ko.computed(() => this.disabled() || readOnlyObservable());
 
     this.ariaLabel = MessageHelper.getAttributeLabel(ATTRIBUTE, ALIAS_PATH);
     this.title = MessageHelper.getAttributeLabel(ATTRIBUTE, ALIAS_PATH);
@@ -113,7 +115,6 @@ function(accUtils, ko, DialogHelper, ArrayDataProvider,
       const options = {
         attribute: ATTRIBUTE,
         attributeMap: ATTRIBUTE_MAP,
-        modelPath: MODEL_PATH,
         observableEntries: this.observableEntries
       };
       DialogHelper.promptDialog('modelEdit/new-dict-entry-dialog', options)

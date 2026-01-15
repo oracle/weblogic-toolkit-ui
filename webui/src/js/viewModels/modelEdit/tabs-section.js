@@ -1,17 +1,17 @@
 /**
  * @license
- * Copyright (c) 2025, Oracle and/or its affiliates.
+ * Copyright (c) 2025, 2026, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
 
 define(['accUtils', 'knockout',
-  'utils/modelEdit/model-edit-helper', 'utils/modelEdit/meta-helper', 'utils/modelEdit/message-helper',
+  'utils/modelEdit/module-helper', 'utils/modelEdit/meta-helper', 'utils/modelEdit/message-helper',
   'utils/modelEdit/alias-helper',
   'ojs/ojarraydataprovider',
   'oj-c/tab-bar'
 ],
-function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper, ArrayDataProvider) {
+function(accUtils, ko, ModuleHelper, MetaHelper, MessageHelper, AliasHelper, ArrayDataProvider) {
   function TabsSectionViewModel(args) {
     const MODEL_PATH = args.modelPath;
     const TABS = args.tabs;
@@ -120,7 +120,7 @@ function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper, 
 
     this.tabsData = new ArrayDataProvider(tabsArray, { keyAttributes: 'itemKey' });
 
-    this.tabModuleConfig = ko.observable(ModelEditHelper.createEmptyConfig());
+    this.tabModuleConfig = ko.observable(ModuleHelper.createEmptyConfig());
 
     this.selectTab = tabId => {
       const selectedTab = tabsMap[tabId];
@@ -129,22 +129,22 @@ function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper, 
       let tabConfig;
       if(tabType === 'singleFolder') {
         const folderPath = selectedTab.folderPath;
-        tabConfig = ModelEditHelper.createFolderContentConfig(folderPath);
+        tabConfig = ModuleHelper.createFolderContentConfig(folderPath);
 
       } else if(tabType === 'multiFolder') {
         const folderPath = selectedTab.folderPath;
-        tabConfig = ModelEditHelper.createInstancesSectionConfig(folderPath, {});
+        tabConfig = ModuleHelper.createInstancesSectionConfig(folderPath, {});
 
       } else if(tabType === 'attributes') {
         const fakeSection = {
           attributes: selectedTab.attributes,
           addRemainingAttributes: selectedTab.addRemainingAttributes
         };
-        tabConfig = ModelEditHelper.createAttributesSectionConfig(MODEL_PATH, fakeSection, ATTRIBUTE_MAP, FOLDER_INFO);
+        tabConfig = ModuleHelper.createAttributesSectionConfig(fakeSection, ATTRIBUTE_MAP, FOLDER_INFO);
 
       } else {
         const sections = selectedTab.sections || [];
-        tabConfig = ModelEditHelper.createSectionsConfig(MODEL_PATH, sections, FOLDER_INFO, ATTRIBUTE_MAP, false);
+        tabConfig = ModuleHelper.createSectionsConfig(MODEL_PATH, sections, FOLDER_INFO, ATTRIBUTE_MAP, false);
       }
 
       this.tabModuleConfig(tabConfig);

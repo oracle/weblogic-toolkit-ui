@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2024, 2025, Oracle and/or its affiliates.
+ Copyright (c) 2024, 2026, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 
@@ -31,11 +31,11 @@
     </oj-bind-if>
 
     <oj-bind-if test="[[editorType === 'list']]">
-      <oj-module config="[[createModuleConfig('modelEdit/list-attribute-editor')]]"></oj-module>
+      <oj-module config="[[createListEditorConfig()]]"></oj-module>
     </oj-bind-if>
 
     <oj-bind-if test="[[editorType === 'dict']]">
-      <oj-module config="[[createModuleConfig('modelEdit/dict-attribute-editor')]]"></oj-module>
+      <oj-module config="[[createDictEditorConfig()]]"></oj-module>
     </oj-bind-if>
 
     <oj-bind-if test="[[editorType === 'boolean']]">
@@ -66,18 +66,7 @@
     </oj-bind-if>
 
     <oj-bind-if test="[[editorType === 'selectMulti']]">
-      <!-- oj-c-select-multiple broken: Jira JET-76802 -->
-      <!-- oj-c-select-multiple uses data="..." instead of options="..." -->
-      <oj-select-many
-        item-text="label"
-        label-hint="[[attributeLabel]]"
-        help.instruction="[[attributeHelp]]"
-        value="{{getValueObservable()}}"
-        disabled="[[disabled]]"
-        readOnly="[[readOnly]]"
-        options="[[optionsProvider]]"
-      >
-      </oj-select-many>
+      <oj-module config="[[createSelectMultiEditorConfig()]]"></oj-module>
     </oj-bind-if>
 
     <oj-bind-if test="[[editorType === 'combo']]">
