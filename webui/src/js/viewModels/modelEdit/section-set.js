@@ -1,15 +1,15 @@
 /**
  * @license
- * Copyright (c) 2025, Oracle and/or its affiliates.
+ * Copyright (c) 2025, 2026, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
 
 define(['accUtils', 'knockout',
-  'utils/modelEdit/model-edit-helper', 'utils/modelEdit/meta-helper', 'utils/modelEdit/message-helper',
+  'utils/modelEdit/module-helper', 'utils/modelEdit/meta-helper', 'utils/modelEdit/message-helper',
   'utils/modelEdit/alias-helper'
 ],
-function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper) {
+function(accUtils, ko, ModuleHelper, MetaHelper, MessageHelper, AliasHelper) {
   function SectionSetViewModel(args) {
     // Display the sections for a model path.
     // Customizations from MetaHelper are taken into account.
@@ -37,7 +37,7 @@ function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper) 
     META_SECTIONS.forEach(section => {
       if(section.type === 'attributes') {
         if(hasAnyAttributes(section)) {
-          const moduleConfig = ModelEditHelper.createAttributesSectionConfig(MODEL_PATH, section, ATTRIBUTE_MAP, FOLDER_INFO);
+          const moduleConfig = ModuleHelper.createAttributesSectionConfig(section, ATTRIBUTE_MAP, FOLDER_INFO);
           this.sections.push({
             type: section.type,
             moduleConfig
@@ -51,9 +51,9 @@ function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper) 
         const folderPath = [...MODEL_PATH, folderNames];
         let moduleConfig;
         if(AliasHelper.isMultiplePath(folderPath)) {
-          moduleConfig = ModelEditHelper.createInstancesSectionConfig(folderPath, section);
+          moduleConfig = ModuleHelper.createInstancesSectionConfig(folderPath, section);
         } else {
-          moduleConfig = ModelEditHelper.createFolderSectionConfig(folderPath, section);
+          moduleConfig = ModuleHelper.createFolderSectionConfig(folderPath, section);
         }
         this.sections.push({
           type: section.type,
@@ -62,7 +62,7 @@ function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper) 
       }
 
       else if(section.type === 'collapsible') {
-        const collapsibleConfig = ModelEditHelper.createCollapsibleSectionConfig(MODEL_PATH, section, ATTRIBUTE_MAP, FOLDER_INFO);
+        const collapsibleConfig = ModuleHelper.createCollapsibleSectionConfig(MODEL_PATH, section, ATTRIBUTE_MAP, FOLDER_INFO);
         this.sections.push({
           type: section.type,
           moduleConfig: collapsibleConfig
@@ -82,7 +82,7 @@ function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper) 
               }
             ]
           };
-          const collapsibleConfig = ModelEditHelper.createCollapsibleSectionConfig(MODEL_PATH, fakeSection, ATTRIBUTE_MAP, FOLDER_INFO);
+          const collapsibleConfig = ModuleHelper.createCollapsibleSectionConfig(MODEL_PATH, fakeSection, ATTRIBUTE_MAP, FOLDER_INFO);
           this.sections.push({
             type: section.type,
             moduleConfig: collapsibleConfig
@@ -104,7 +104,7 @@ function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper) 
 
     if(IS_TOP_SECTIONS && !USES_TABS) {
       if (REMAINING_ATTRIBUTES.length && !REMAINING_ATTRIBUTES_ASSIGNED) {
-        const remainderConfig = ModelEditHelper.createAttributeSetConfig(MODEL_PATH, REMAINING_ATTRIBUTES, ATTRIBUTE_MAP);
+        const remainderConfig = ModuleHelper.createAttributeSetConfig(REMAINING_ATTRIBUTES, ATTRIBUTE_MAP);
         this.sections.push({
           type: 'remainder',
           moduleConfig: remainderConfig
@@ -118,9 +118,9 @@ function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper) 
 
           let moduleConfig;
           if(AliasHelper.isMultiplePath(folderPath)) {
-            moduleConfig = ModelEditHelper.createInstancesSectionConfig(folderPath, {});
+            moduleConfig = ModuleHelper.createInstancesSectionConfig(folderPath, {});
           } else {
-            moduleConfig = ModelEditHelper.createFolderSectionConfig(folderPath, {});
+            moduleConfig = ModuleHelper.createFolderSectionConfig(folderPath, {});
           }
           this.sections.push({
             type: 'folder',
@@ -131,7 +131,7 @@ function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper) 
     }
 
     if(tabs.length || (IS_TOP_SECTIONS && USES_TABS)) {
-      const tabsConfig = ModelEditHelper.createTabsConfig(MODEL_PATH, tabs, FOLDER_INFO, ATTRIBUTE_MAP, IS_TOP_SECTIONS);
+      const tabsConfig = ModuleHelper.createTabsConfig(MODEL_PATH, tabs, FOLDER_INFO, ATTRIBUTE_MAP, IS_TOP_SECTIONS);
       this.sections.push({
         type: 'tabs',
         moduleConfig: tabsConfig

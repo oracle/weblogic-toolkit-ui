@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
@@ -14,9 +14,9 @@ function(accUtils, ko, project, utils, ArrayDataProvider, ModelEditHelper,
   MessageHelper, AliasHelper, FileSelectHelper, ArchiveHelper, ViewHelper) {
 
   function AttributeEditorDialog(args) {
-    const MODEL_PATH = args.modelPath;
     const ATTRIBUTE = args.attribute;
 
+    const MODEL_PATH = ATTRIBUTE.path;
     const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
     const DIALOG_SELECTOR = '#attributeEditorDialog';
     const VARIABLE_NAME_REGEX= /^[\w.-]+$/;
@@ -32,11 +32,6 @@ function(accUtils, ko, project, utils, ArrayDataProvider, ModelEditHelper,
       existingValue = ModelEditHelper.getVariableValue(existingVariable);
     } else if(existingSecret) {
       existingValue = null;  // should we try to get this?
-    }
-
-    // Jet oj-c-select-multiple uses Set, convert to array
-    if(existingValue && existingValue instanceof Set) {
-      existingValue = [...existingValue];
     }
 
     // change list to comma-separated string to tokenize

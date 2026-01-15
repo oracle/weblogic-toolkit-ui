@@ -1,15 +1,15 @@
 /**
  * @license
- * Copyright (c) 2025, Oracle and/or its affiliates.
+ * Copyright (c) 2025, 2026, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
 
 define(['accUtils', 'knockout',
-  'utils/modelEdit/model-edit-helper', 'utils/modelEdit/message-helper',
+  'utils/modelEdit/module-helper', 'utils/modelEdit/message-helper',
   'oj-c/collapsible'
 ],
-function(accUtils, ko, ModelEditHelper, MessageHelper) {
+function(accUtils, ko, ModuleHelper, MessageHelper) {
   function CollapsibleSectionViewModel(args) {
     const MODEL_PATH = args.modelPath;
     const META_SECTION = args.metaSection;
@@ -23,7 +23,7 @@ function(accUtils, ko, ModelEditHelper, MessageHelper) {
     this.collapsibleLabel = MessageHelper.getLabel(META_SECTION);
 
     const sections = META_SECTION['sections'] || [];
-    this.sectionsModuleConfig = ModelEditHelper.createSectionsConfig(
+    this.sectionsModuleConfig = ModuleHelper.createSectionsConfig(
       MODEL_PATH, sections, FOLDER_INFO, ATTRIBUTE_MAP, false);
   }
 

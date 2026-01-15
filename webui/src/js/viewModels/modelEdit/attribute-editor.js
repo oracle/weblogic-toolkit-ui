@@ -7,13 +7,13 @@
 
 define(['accUtils', 'knockout', 'utils/wkt-logger', 'utils/dialog-helper', 'ojs/ojarraydataprovider',
   'ojs/ojmodule-element-utils', 'utils/modelEdit/meta-handlers', 'utils/modelEdit/meta-options',
-  'utils/modelEdit/meta-validators', 'utils/modelEdit/model-edit-helper', 'utils/modelEdit/message-helper',
-  'utils/modelEdit/alias-helper', 'utils/modelEdit/file-select-helper',
+  'utils/modelEdit/meta-validators', 'utils/modelEdit/model-edit-helper', 'utils/modelEdit/module-helper',
+  'utils/modelEdit/message-helper', 'utils/modelEdit/alias-helper', 'utils/modelEdit/file-select-helper',
   'oj-c/button', 'oj-c/input-text', 'oj-c/list-view', 'oj-c/input-password',
   'oj-c/select-single', 'oj-c/select-multiple', 'oj-c/text-area', 'ojs/ojselectcombobox'
 ],
 function(accUtils, ko, WktLogger, DialogHelper, ArrayDataProvider, ModuleElementUtils, MetaHandlers,
-  MetaOptions, MetaValidators, ModelEditHelper, MessageHelper, AliasHelper, FileSelectHelper ) {
+  MetaOptions, MetaValidators, ModelEditHelper, ModuleHelper, MessageHelper, AliasHelper, FileSelectHelper ) {
 
   function AttributeEditor(args) {
     const ATTRIBUTE = args.attribute;
@@ -132,20 +132,21 @@ function(accUtils, ko, WktLogger, DialogHelper, ArrayDataProvider, ModuleElement
     };
 
     this.showOptions = () => {
-      const options = { attribute: ATTRIBUTE, modelPath: MODEL_PATH };
+      const options = { attribute: ATTRIBUTE };
       DialogHelper.openDialog('modelEdit/attribute-editor-dialog', options);
     };
 
-    this.createModuleConfig = (viewName) => {
-      return ModuleElementUtils.createConfig({
-        name: viewName,
-        params: {
-          attribute: ATTRIBUTE,
-          attributeMap: ATTRIBUTE_MAP,
-          modelPath: MODEL_PATH,
-          readOnlyObservable: this.readOnly
-        }
-      });
+    this.createSelectMultiEditorConfig = () => {
+      return ModuleHelper.createSelectMultiEditorConfig(ATTRIBUTE, this.observable, this.attributeLabel, this.attributeHelp,
+        this.readOnly, this.disabled, options);
+    };
+
+    this.createListEditorConfig = () => {
+      return ModuleHelper.createListEditorConfig(ATTRIBUTE, ATTRIBUTE_MAP, this.readOnly, this.disabled);
+    };
+
+    this.createDictEditorConfig = () => {
+      return ModuleHelper.createDictEditorConfig(ATTRIBUTE, ATTRIBUTE_MAP, this.readOnly, this.disabled);
     };
   }
 
