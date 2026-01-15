@@ -11,31 +11,24 @@
     },
     "sections": [
       {
-        "type": "tab",
-        "labelKey": "general-tab-label",
-        "sections": [
-          {
-            "type": "attributes",
-            "attributes": [
-              "Servers",
-              "HandlerDefaults",
-              "AddJvmNumber"
-            ]
-          },
-          {
-            "type": "attributesCollapsible",
-            "labelKey": "advanced-label",
-            "addRemainingAttributes": true
-          }
+        "type": "attributes",
+        "attributes": [
+          "Servers",
+          "HandlerDefaults",
+          "AddJvmNumber"
         ]
       },
       {
-        "type": "folderTab",
-        "folder": "Handler"
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
       },
       {
-        "type": "folderTab",
-        "folder": "Logger"
+        "type": "hidden",
+        "folders": [
+          "Handler",
+          "Logger"
+        ]
       }
     ]
   },

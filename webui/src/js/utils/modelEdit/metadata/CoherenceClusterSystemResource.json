@@ -18,33 +18,27 @@
     },
     "sections": [
       {
-        "type": "tab",
-        "labelKey": "general-tab-label",
-        "sections": [
-          {
-            "type": "attributes",
-            "attributes": [
-              "DescriptorFileName",
-              "DeploymentOrder",
-              "Notes",
-              "Target"
-            ]
-          },
-          {
-            "type": "attributesCollapsible",
-            "labelKey": "advanced-label",
-            "attributes": [
-              "UsingCustomClusterConfigurationFile",
-              "CustomClusterConfigurationFileName",
-              "ReportGroupFile",
-              "DeploymentPrincipalName",
-              "SourcePath",
-              "ModuleType",
-              "CompatibilityName"
-            ],
-            "addRemainingAttributes": true
-          }
+        "type": "attributes",
+        "attributes": [
+          "DescriptorFileName",
+          "DeploymentOrder",
+          "Notes",
+          "Target"
         ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "attributes": [
+          "UsingCustomClusterConfigurationFile",
+          "CustomClusterConfigurationFileName",
+          "ReportGroupFile",
+          "DeploymentPrincipalName",
+          "SourcePath",
+          "ModuleType",
+          "CompatibilityName"
+        ],
+        "addRemainingAttributes": true
       },
       {
         "type": "hidden",
@@ -53,32 +47,14 @@
           "Version"
         ],
         "folders": [
+          "CoherenceCacheConfig",
+          "CoherenceResource/CoherenceAddressProvider",
+          "CoherenceResource/CoherenceClusterParams",
+          "CoherenceResource/CoherenceFederationParams",
+          "CoherenceResource/CoherenceLoggingParams",
+          "CoherenceResource/CoherencePersistenceParams",
           "SubDeployment"
         ]
-      },
-      {
-        "type": "folderTab",
-        "folder": "CoherenceResource/CoherenceClusterParams"
-      },
-      {
-        "type": "folderTab",
-        "folder": "CoherenceCacheConfig"
-      },
-      {
-        "type": "folderTab",
-        "folder": "CoherenceResource/CoherencePersistenceParams"
-      },
-      {
-        "type": "folderTab",
-        "folder": "CoherenceResource/CoherenceFederationParams"
-      },
-      {
-        "type": "folderTab",
-        "folder": "CoherenceResource/CoherenceLoggingParams"
-      },
-      {
-        "type": "folderTab",
-        "folder": "CoherenceResource/CoherenceAddressProvider"
       }
     ]
   },
@@ -126,6 +102,16 @@
       }
     }
   },
+  "CoherenceClusterSystemResource/CoherenceResource/CoherenceAddressProvider": {
+    "sections": [
+      {
+        "type": "hidden",
+        "folders": [
+          "CoherenceSocketAddress"
+        ]
+      }
+    ]
+  },
   "CoherenceClusterSystemResource/CoherenceResource/CoherenceAddressProvider/CoherenceSocketAddress": {
     "summaryAttributes": {
       "Address": {},
@@ -135,7 +121,16 @@
       "Port": {
         "validators": [ "port" ]
       }
-    }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "Address",
+          "Port"
+        ]
+      }
+    ]
   },
   "CoherenceClusterSystemResource/CoherenceResource/CoherenceClusterParams": {
     "attributeDetails": {
@@ -170,37 +165,34 @@
     },
     "sections": [
       {
-        "type": "tab",
-        "labelKey": "general-tab-label",
-        "sections": [
-          {
-            "type": "attributes",
-            "attributes": [
-              "ClusteringMode",
-              "Transport",
-              "MulticastListenAddress",
-              "ClusterListenPort",
-              "TimeToLive",
-              "SecuredProduction",
-              "IgnoreHostnameVerification"
-            ]
-          },
-          {
-            "type": "attributesCollapsible",
-            "labelKey": "advanced-label",
-            "attributes": [
-              "DiscoveryAddress",
-              "SecurityFrameworkEnabled",
-              "GlobalSocketProvider"
-            ],
-            "addRemainingAttributes": true
-          }
+        "type": "attributes",
+        "attributes": [
+          "ClusteringMode",
+          "Transport",
+          "MulticastListenAddress",
+          "ClusterListenPort",
+          "TimeToLive",
+          "SecuredProduction",
+          "IgnoreHostnameVerification"
         ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "attributes": [
+          "DiscoveryAddress",
+          "SecurityFrameworkEnabled",
+          "GlobalSocketProvider"
+        ],
+        "addRemainingAttributes": true
       },
       {
         "type": "hidden",
         "folders": [
           "CoherenceCache",
+          "CoherenceClusterWellKnownAddress",
+          "CoherenceIdentityAsserter",
+          "CoherenceKeystoreParams",
           "CoherenceService"
         ],
         "attributes": [
@@ -210,18 +202,22 @@
           "UnicastPortAutoAdjust",
           "UseVirtualThreads"
         ]
+      }
+    ]
+  },
+  "CoherenceClusterSystemResource/CoherenceResource/CoherenceClusterParams/CoherenceIdentityAsserter": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "ClassName"
+        ]
       },
       {
-        "type": "folderTab",
-        "folder": "CoherenceKeystoreParams"
-      },
-      {
-        "type": "folderTab",
-        "folder": "CoherenceClusterWellKnownAddress"
-      },
-      {
-        "type": "folderTab",
-        "folder": "CoherenceIdentityAsserter"
+        "type": "hidden",
+        "folders": [
+          "CoherenceInitParam"
+        ]
       }
     ]
   },

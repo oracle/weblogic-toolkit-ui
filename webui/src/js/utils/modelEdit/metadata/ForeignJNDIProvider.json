@@ -6,27 +6,27 @@
     },
     "sections": [
       {
-        "type": "tab",
-        "labelKey": "general-tab-label",
-        "sections": [
-          {
-            "type": "attributes",
-            "attributes": [
-              "ProviderUrl",
-              "Properties",
-              "User",
-              "PasswordEncrypted",
-              "InitialContextFactory",
-              "DeploymentOrder",
-              "Notes",
-              "Target"
-            ]
-          },
-          {
-            "type": "attributesCollapsible",
-            "labelKey": "advanced-label",
-            "addRemainingAttributes": true
-          }
+        "type": "attributes",
+        "attributes": [
+          "ProviderUrl",
+          "Properties",
+          "User",
+          "PasswordEncrypted",
+          "InitialContextFactory",
+          "DeploymentOrder",
+          "Notes",
+          "Target"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "folders": [
+          "ForeignJNDILink"
         ]
       }
     ]

@@ -23,30 +23,24 @@
     },
     "sections": [
       {
-        "type": "tab",
-        "labelKey": "general-tab-label",
-        "sections": [
-          {
-            "type": "attributes",
-            "attributes": [
-              "Description",
-              "DescriptorFileName",
-              "DeploymentOrder",
-              "Notes",
-              "Target"
-            ]
-          },
-          {
-            "type": "attributesCollapsible",
-            "labelKey": "advanced-label",
-            "attributes": [
-              "CompatibilityName",
-              "DeploymentPrincipalName",
-              "ModuleType"
-            ],
-            "addRemainingAttributes": true
-          }
+        "type": "attributes",
+        "attributes": [
+          "Description",
+          "DescriptorFileName",
+          "DeploymentOrder",
+          "Notes",
+          "Target"
         ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "attributes": [
+          "CompatibilityName",
+          "DeploymentPrincipalName",
+          "ModuleType"
+        ],
+        "addRemainingAttributes": true
       },
       {
         "type": "hidden",
@@ -55,7 +49,10 @@
           "SourcePath"
         ],
         "folders": [
-          "SubDeployment"
+          "SubDeployment",
+          "WLDFResource/Harvester",
+          "WLDFResource/Instrumentation",
+          "WLDFResource/WatchNotification"
         ]
       }
     ]
@@ -65,7 +62,22 @@
       "SamplePeriod": {
         "validators": [ "range(1000,)" ]
       }
-    }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "Enabled",
+          "SamplePeriod"
+        ]
+      },
+      {
+        "type": "hidden",
+        "folders": [
+          "HarvestedType"
+        ]
+      }
+    ]
   },
   "WLDFSystemResource/WLDFResource/Harvester/HarvestedType": {
     "summaryAttributes": {
@@ -96,6 +108,29 @@
         "type": "attributesCollapsible",
         "labelKey": "advanced-label",
         "addRemainingAttributes": true
+      }
+    ]
+  },
+  "WLDFSystemResource/WLDFResource/Instrumentation": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "Enabled"
+        ]
+      },
+      {
+        "type": "attributes",
+        "attributes": [
+          "Exclude",
+          "Include"
+        ]
+      },
+      {
+        "type": "hidden",
+        "folders": [
+          "WLDFInstrumentationMonitor"
+        ]
       }
     ]
   },
@@ -399,75 +434,35 @@
     },
     "sections": [
       {
-        "type": "tab",
-        "labelKey": "general-tab-label",
-        "sections": [
-          {
-            "type": "attributes",
-            "attributes": [
-              "Enabled",
-              "Severity",
-              "LogWatchSeverity"
-            ]
-          },
-          {
-            "type": "attributesCollapsible",
-            "labelKey": "advanced-label",
-            "addRemainingAttributes": true
-          }
+        "type": "attributes",
+        "attributes": [
+          "Enabled",
+          "Severity",
+          "LogWatchSeverity"
         ]
       },
       {
-        "type": "folderTab",
-        "folder": "SMTPNotification"
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
       },
       {
-        "type": "folderTab",
-        "folder": "SNMPNotification"
-      },
-      {
-        "type": "folderTab",
-        "folder": "JMXNotification"
-      },
-      {
-        "type": "folderTab",
-        "folder": "LogAction"
-      },
-      {
-        "type": "folderTab",
-        "folder": "ImageNotification"
-      },
-      {
-        "type": "folderTab",
-        "folder": "RestNotification"
-      },
-      {
-        "type": "folderTab",
-        "folder": "JMSNotification"
-      },
-      {
-        "type": "folderTab",
-        "folder": "ScaleDownAction"
-      },
-      {
-        "type": "folderTab",
-        "folder": "ScaleUpAction"
-      },
-      {
-        "type": "folderTab",
-        "folder": "ScriptAction"
-      },
-      {
-        "type": "folderTab",
-        "folder": "ThreadDumpAction"
-      },
-      {
-        "type": "folderTab",
-        "folder": "HeapDumpAction"
-      },
-      {
-        "type": "folderTab",
-        "folder": "Watch"
+        "type": "hidden",
+        "folders": [
+          "HeapDumpAction",
+          "ImageNotification",
+          "JMSNotification",
+          "JMXNotification",
+          "LogAction",
+          "RestNotification",
+          "ScaleDownAction",
+          "ScaleUpAction",
+          "ScriptAction",
+          "SMTPNotification",
+          "SNMPNotification",
+          "ThreadDumpAction",
+          "Watch"
+        ]
       }
     ]
   },
@@ -835,32 +830,28 @@
     },
     "sections": [
       {
-        "type": "tab",
-        "labelKey": "general-tab-label",
-        "sections": [
-          {
-            "type": "attributes",
-            "attributes": [
-              "Enabled",
-              "ExpressionLanguage",
-              "Notification",
-              "Severity",
-              "RuleType",
-              "RuleExpression",
-              "AlarmType",
-              "AlarmResetPeriod"
-            ]
-          },
-          {
-            "type": "attributesCollapsible",
-            "labelKey": "advanced-label",
-            "addRemainingAttributes": true
-          }
+        "type": "attributes",
+        "attributes": [
+          "Enabled",
+          "ExpressionLanguage",
+          "Notification",
+          "Severity",
+          "RuleType",
+          "RuleExpression",
+          "AlarmType",
+          "AlarmResetPeriod"
         ]
       },
       {
-        "type": "folderTab",
-        "folder": "Schedule"
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "folders": [
+          "Schedule"
+        ]
       }
     ]
   },
