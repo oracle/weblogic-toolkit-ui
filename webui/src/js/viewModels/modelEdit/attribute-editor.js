@@ -24,6 +24,11 @@ function(accUtils, ko, WktLogger, DialogHelper, ArrayDataProvider, ModuleElement
 
     const subscriptions = [];
 
+    this.connected = () => {
+      this.checkValue();
+      subscriptions.push(this.getValueObservable.subscribe(this.checkValue));
+    };
+
     this.disconnected = () => {
       subscriptions.forEach((subscription) => {
         subscription.dispose();
@@ -34,8 +39,8 @@ function(accUtils, ko, WktLogger, DialogHelper, ArrayDataProvider, ModuleElement
     this.observable = ATTRIBUTE.observable;
     this.editorType = ModelEditHelper.getEditorType(ATTRIBUTE);
 
-    // this.menuIconClass = 'oj-ux-ico-edit-box';
-    // this.menuIconClass = 'oj-ux-ico-three-boxes-vertical';
+    this.messages = ko.observableArray();
+
     this.menuIconClass = 'wkt-ico-three-circles-vertical';
 
     // override the defaults of "Off" / "On"
@@ -104,12 +109,7 @@ function(accUtils, ko, WktLogger, DialogHelper, ArrayDataProvider, ModuleElement
       }
     });
 
-    let options = ATTRIBUTE.options || [];
-    const optionsMethod = ATTRIBUTE.optionsMethod;
-    if(optionsMethod) {
-      options = MetaOptions[optionsMethod](ATTRIBUTE, ATTRIBUTE_MAP, subscriptions);
-    }
-    ModelEditHelper.updateOptionLabels(options);
+    const options = MetaOptions.getOptions(ATTRIBUTE, ATTRIBUTE, ATTRIBUTE_MAP, subscriptions);
     this.optionsProvider = new ArrayDataProvider(options, { keyAttributes: 'value' });
 
     this.validators = ModelEditHelper.getValidators(ATTRIBUTE);
@@ -131,8 +131,29 @@ function(accUtils, ko, WktLogger, DialogHelper, ArrayDataProvider, ModuleElement
       }
     };
 
+    this.checkValue = () => {
+      this.messages.removeAll();
+
+      if(this.editorType === 'select') {
+        const value = this.getValueObservable()();
+        if(value) {
+          const currentOptions = ko.isObservable(options) ? options() : options;
+          const validValues = currentOptions.map(option => option.value);
+          if (!validValues.includes(value)) {
+            const message = MessageHelper.t('attribute-editor-invalid-model-value', { value });
+            this.addError(message);
+          }
+        }
+      }
+    };
+
+    this.addError = messageText => {
+      const message = { summary: '', detail: messageText, severity: 'error' };
+      this.messages.push(message);
+    };
+
     this.showOptions = () => {
-      const options = { attribute: ATTRIBUTE };
+      const options = { attribute: ATTRIBUTE, attributeMap: ATTRIBUTE_MAP };
       DialogHelper.openDialog('modelEdit/attribute-editor-dialog', options);
     };
 

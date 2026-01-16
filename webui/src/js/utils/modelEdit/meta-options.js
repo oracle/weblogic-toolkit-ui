@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2025, Oracle and/or its affiliates.
+ * Copyright (c) 2025, 2026, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -10,6 +10,23 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
     function MetaOptions() {
       const TARGET_FOLDERS = ['Cluster', 'Server', 'MigratableTarget'];
       const JMS_TARGET_FOLDERS = ['JMSServer', 'SAFAgent'];
+
+      /**
+       * Get the options list (possibly an observableArray)
+       * @param details the object containing options/optionsMap
+       * @param attribute the attribute
+       * @param attributeMap the attribute map
+       * @param subscriptions the subscriptions
+       */
+      this.getOptions = (details, attribute, attributeMap, subscriptions) => {
+        let options = details.options || [];
+        const optionsMethod = details.optionsMethod;
+        if(optionsMethod) {
+          options = this[optionsMethod](attribute, attributeMap, subscriptions);
+        }
+        ModelEditHelper.updateOptionLabels(options);
+        return options;
+      };
 
       this.targetOptions = () => {
         const adminServerName = getAdminServerName();

@@ -51,12 +51,7 @@ function(accUtils, ko, ModelEditHelper, MessageHelper, AliasHelper, FileSelectHe
     const itemAdd = ATTRIBUTE.itemAdd || {};
     this.editorType = itemAdd.editorType || 'string';
 
-    let options = itemAdd.options || [];
-    const optionsMethod = itemAdd.optionsMethod;
-    if(optionsMethod) {
-      options = MetaOptions[optionsMethod](ATTRIBUTE, ATTRIBUTE_MAP, subscriptions);
-    }
-    ModelEditHelper.updateOptionLabels(options);
+    const options = MetaOptions.getOptions(itemAdd, ATTRIBUTE, ATTRIBUTE_MAP, subscriptions);
     this.optionsProvider = new ArrayDataProvider(options, { keyAttributes: 'value' });
 
     this.fileLabel = MessageHelper.t('attribute-editor-select-file');

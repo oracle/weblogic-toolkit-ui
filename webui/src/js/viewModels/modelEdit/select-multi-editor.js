@@ -5,10 +5,11 @@
  */
 'use strict';
 
-define(['accUtils', 'knockout', 'utils/wkt-logger', 'utils/modelEdit/model-edit-helper', 'ojs/ojarraydataprovider',
+define(['accUtils', 'knockout', 'utils/modelEdit/model-edit-helper', 'utils/modelEdit/message-helper',
+  'ojs/ojarraydataprovider',
   'oj-c/select-multiple'
 ],
-function(accUtils, ko, WktLogger, ModelEditHelper, ArrayDataProvider) {
+function(accUtils, ko, ModelEditHelper, MessageHelper, ArrayDataProvider) {
 
   /**
    * Create a wrapper for oj-c-select-multiple to convert between Set and list,
@@ -24,7 +25,7 @@ function(accUtils, ko, WktLogger, ModelEditHelper, ArrayDataProvider) {
     this.help = args.help;
 
     this.optionsProvider = new ArrayDataProvider(OPTIONS, { keyAttributes: 'value' });
-
+    this.messages = ko.observableArray();
     this.controlObservable = ko.observable();  // read/write to Jet control
 
     const subscriptions = [];
@@ -44,16 +45,16 @@ function(accUtils, ko, WktLogger, ModelEditHelper, ArrayDataProvider) {
     let changing = false;  // prevent circular updates
 
     this.modelChanged = () => {
+      // value may be from a token, which may be a delimited string
+      let value = ModelEditHelper.getDerivedValue(MODEL_OBSERVABLE());
+      value = ModelEditHelper.getObservableValue(ATTRIBUTE, value);
+
+      // filter even if changing, to update messages
+      const modelList = this.filterList(value);
+
       if(!changing) {
         changing = true;
-
-        // value may be from a token, which may be a delimited string
-        let value = ModelEditHelper.getDerivedValue(MODEL_OBSERVABLE());
-        value = ModelEditHelper.getObservableValue(ATTRIBUTE, value);
-
-        const modelList = this.filterList(value);
         this.controlObservable(modelList ? new Set(modelList) : null);
-
         changing = false;
       }
     };
@@ -73,6 +74,8 @@ function(accUtils, ko, WktLogger, ModelEditHelper, ArrayDataProvider) {
     };
 
     this.filterList = list => {
+      this.messages.removeAll();
+
       if(!list) {
         return list;
       }
@@ -85,10 +88,16 @@ function(accUtils, ko, WktLogger, ModelEditHelper, ArrayDataProvider) {
         if(validValues.includes(value)) {
           newList.push(value);
         } else {
-          WktLogger.warn(`Not a valid option for ${this.label}: ` + value);
+          const message = MessageHelper.t('attribute-editor-invalid-model-value', { value });
+          this.addError(message);
         }
       }
       return newList;
+    };
+
+    this.addError = messageText => {
+      const message = { summary: '', detail: messageText, severity: 'error' };
+      this.messages.push(message);
     };
   }
 
