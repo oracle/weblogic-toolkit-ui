@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2024, 2025, Oracle and/or its affiliates.
+ * Copyright (c) 2024, 2026, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
@@ -76,12 +76,7 @@ function(accUtils, ko, project,
     const defaultEditorType = hasOptions ? 'select' : 'string';
     this.editorType = nameDetails.editorType || defaultEditorType;
 
-    let options = nameDetails.options || [];
-    const optionsMethod = nameDetails.optionsMethod;
-    if(optionsMethod) {
-      options = MetaOptions[optionsMethod]({}, {}, subscriptions);
-    }
-    ModelEditHelper.updateOptionLabels(options);
+    const options = MetaOptions.getOptions(nameDetails, {}, {}, subscriptions);
     this.optionsProvider = new ArrayDataProvider(options, { keyAttributes: 'value' });
 
     const initialName = options.length ? null : newInstanceName;  // don't use generated name for select

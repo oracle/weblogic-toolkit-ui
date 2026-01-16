@@ -48,15 +48,8 @@ function(accUtils, ko, ModelEditHelper, MessageHelper, MetaOptions, AliasHelper,
     }
 
     function getOptions(details) {
-      let options = details.options || [];
-      const optionsMethod = details.optionsMethod;
-      if(optionsMethod) {
-        options = MetaOptions[optionsMethod](ATTRIBUTE, ATTRIBUTE_MAP, subscriptions);
-      }
-      ModelEditHelper.updateOptionLabels(options);
-      return options;
+      return MetaOptions.getOptions(details, ATTRIBUTE, ATTRIBUTE_MAP, subscriptions);
     }
-
 
     this.entryKey = ko.observable();
     const keyAdd = ATTRIBUTE.keyAdd || {};
