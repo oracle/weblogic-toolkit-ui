@@ -1,22 +1,24 @@
 /**
  * @license
- * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
 
 define(['accUtils', 'knockout', 'models/wkt-project', 'utils/common-utilities', 'ojs/ojarraydataprovider',
   'utils/modelEdit/model-edit-helper', 'utils/modelEdit/message-helper', 'utils/modelEdit/alias-helper',
-  'utils/modelEdit/file-select-helper', 'utils/wdt-archive-helper', 'utils/view-helper',
+  'utils/modelEdit/file-select-helper', 'utils/wdt-archive-helper', 'utils/modelEdit/meta-options',
+  'utils/view-helper',
   'ojs/ojinputtext', 'ojs/ojlabel', 'oj-c/button', 'ojs/ojdialog', 'ojs/ojformlayout', 'oj-c/radioset',
   'ojs/ojvalidationgroup', 'oj-c/message-banner'],
 function(accUtils, ko, project, utils, ArrayDataProvider, ModelEditHelper,
-  MessageHelper, AliasHelper, FileSelectHelper, ArchiveHelper, ViewHelper) {
+  MessageHelper, AliasHelper, FileSelectHelper, ArchiveHelper, MetaOptions, ViewHelper) {
 
   function AttributeEditorDialog(args) {
-    const MODEL_PATH = args.modelPath;
     const ATTRIBUTE = args.attribute;
+    const ATTRIBUTE_MAP = args.attributeMap;
 
+    const MODEL_PATH = ATTRIBUTE.path;
     const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
     const DIALOG_SELECTOR = '#attributeEditorDialog';
     const VARIABLE_NAME_REGEX= /^[\w.-]+$/;
@@ -34,15 +36,12 @@ function(accUtils, ko, project, utils, ArrayDataProvider, ModelEditHelper,
       existingValue = null;  // should we try to get this?
     }
 
-    // Jet oj-c-select-multiple uses Set, convert to array
-    if(existingValue && existingValue instanceof Set) {
-      existingValue = [...existingValue];
-    }
-
     // change list to comma-separated string to tokenize
     if(existingValue && Array.isArray(existingValue)) {
       existingValue = existingValue.join(',');
     }
+
+    const subscriptions = [];
 
     this.connected = () => {
       accUtils.announce('Attribute editor dialog loaded.', 'assertive');
@@ -53,6 +52,12 @@ function(accUtils, ko, project, utils, ArrayDataProvider, ModelEditHelper,
       // using oj-dialog initial-visibility="show" causes vertical centering issues.
       ViewHelper.componentReady(this.dialogContainer).then(() => {
         this.dialogContainer.open();
+      });
+    };
+
+    this.disconnected = () => {
+      subscriptions.forEach((subscription) => {
+        subscription.dispose();
       });
     };
 
@@ -77,6 +82,10 @@ function(accUtils, ko, project, utils, ArrayDataProvider, ModelEditHelper,
       { value: 'edit', label: this.labelMapper('option-edit') },
       { value: 'remove', label: this.labelMapper('option-remove') }
     ];
+
+    if(editorType === 'selectMulti' && hasInvalidSelections()) {
+      this.editOptions.push({ value: 'removeSelections', label: this.labelMapper('option-removeSelections') });
+    }
 
     // dictionary attributes can't be tokenized
     if(editorType !== 'dict') {
@@ -181,6 +190,31 @@ function(accUtils, ko, project, utils, ArrayDataProvider, ModelEditHelper,
       }
     };
 
+    function hasInvalidSelections() {
+      const validValues = getOptionValues();
+      const values = getResolvedValue();
+      return values.some(value => !validValues.includes(value));
+    }
+
+    function removeInvalidSelections() {
+      const validValues = getOptionValues();
+      const values = getResolvedValue();
+      const newList = values.filter(value => validValues.includes(value));
+      ATTRIBUTE.observable(newList);
+    }
+
+    function getOptionValues() {
+      const metaOptions = MetaOptions.getOptions(ATTRIBUTE, ATTRIBUTE, ATTRIBUTE_MAP, subscriptions);
+      const options = ko.isObservable(metaOptions) ? metaOptions() : metaOptions;
+      return options.map(option => option.value);
+    }
+
+    function getResolvedValue() {
+      // value may be from a token, which may be a delimited string
+      const rawValue = ModelEditHelper.getDerivedValue(ATTRIBUTE.observable());
+      return ModelEditHelper.getObservableValue(ATTRIBUTE, rawValue) || [];
+    }
+
     this.addErrorMessage = message => {
       errorMessages.push({
         uid: utils.getShortUuid(),
@@ -206,6 +240,9 @@ function(accUtils, ko, project, utils, ArrayDataProvider, ModelEditHelper,
         case 'remove':
           ATTRIBUTE.observable(null);
           ModelEditHelper.deleteModelElement(ATTRIBUTE.path, ATTRIBUTE.name);
+          break;
+        case 'removeSelections':
+          removeInvalidSelections();
           break;
         case 'variable':
           ATTRIBUTE.observable(ModelEditHelper.getVariableToken(this.variableName()));

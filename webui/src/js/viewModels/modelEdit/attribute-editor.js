@@ -7,13 +7,13 @@
 
 define(['accUtils', 'knockout', 'utils/wkt-logger', 'utils/dialog-helper', 'ojs/ojarraydataprovider',
   'ojs/ojmodule-element-utils', 'utils/modelEdit/meta-handlers', 'utils/modelEdit/meta-options',
-  'utils/modelEdit/meta-validators', 'utils/modelEdit/model-edit-helper', 'utils/modelEdit/message-helper',
-  'utils/modelEdit/alias-helper', 'utils/modelEdit/file-select-helper',
+  'utils/modelEdit/meta-validators', 'utils/modelEdit/model-edit-helper', 'utils/modelEdit/module-helper',
+  'utils/modelEdit/message-helper', 'utils/modelEdit/alias-helper', 'utils/modelEdit/file-select-helper',
   'oj-c/button', 'oj-c/input-text', 'oj-c/list-view', 'oj-c/input-password',
   'oj-c/select-single', 'oj-c/select-multiple', 'oj-c/text-area', 'ojs/ojselectcombobox'
 ],
 function(accUtils, ko, WktLogger, DialogHelper, ArrayDataProvider, ModuleElementUtils, MetaHandlers,
-  MetaOptions, MetaValidators, ModelEditHelper, MessageHelper, AliasHelper, FileSelectHelper ) {
+  MetaOptions, MetaValidators, ModelEditHelper, ModuleHelper, MessageHelper, AliasHelper, FileSelectHelper ) {
 
   function AttributeEditor(args) {
     const ATTRIBUTE = args.attribute;
@@ -23,6 +23,11 @@ function(accUtils, ko, WktLogger, DialogHelper, ArrayDataProvider, ModuleElement
     const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
 
     const subscriptions = [];
+
+    this.connected = () => {
+      this.checkValue();
+      subscriptions.push(this.getValueObservable.subscribe(this.checkValue));
+    };
 
     this.disconnected = () => {
       subscriptions.forEach((subscription) => {
@@ -34,8 +39,8 @@ function(accUtils, ko, WktLogger, DialogHelper, ArrayDataProvider, ModuleElement
     this.observable = ATTRIBUTE.observable;
     this.editorType = ModelEditHelper.getEditorType(ATTRIBUTE);
 
-    // this.menuIconClass = 'oj-ux-ico-edit-box';
-    // this.menuIconClass = 'oj-ux-ico-three-boxes-vertical';
+    this.messages = ko.observableArray();
+
     this.menuIconClass = 'wkt-ico-three-circles-vertical';
 
     // override the defaults of "Off" / "On"
@@ -104,12 +109,7 @@ function(accUtils, ko, WktLogger, DialogHelper, ArrayDataProvider, ModuleElement
       }
     });
 
-    let options = ATTRIBUTE.options || [];
-    const optionsMethod = ATTRIBUTE.optionsMethod;
-    if(optionsMethod) {
-      options = MetaOptions[optionsMethod](ATTRIBUTE, ATTRIBUTE_MAP, subscriptions);
-    }
-    ModelEditHelper.updateOptionLabels(options);
+    const options = MetaOptions.getOptions(ATTRIBUTE, ATTRIBUTE, ATTRIBUTE_MAP, subscriptions);
     this.optionsProvider = new ArrayDataProvider(options, { keyAttributes: 'value' });
 
     this.validators = ModelEditHelper.getValidators(ATTRIBUTE);
@@ -131,21 +131,43 @@ function(accUtils, ko, WktLogger, DialogHelper, ArrayDataProvider, ModuleElement
       }
     };
 
+    this.checkValue = () => {
+      this.messages.removeAll();
+
+      if(this.editorType === 'select') {
+        const value = this.getValueObservable()();
+        if(value) {
+          const currentOptions = ko.isObservable(options) ? options() : options;
+          const validValues = currentOptions.map(option => option.value);
+          if (!validValues.includes(value)) {
+            const message = MessageHelper.t('attribute-editor-invalid-model-value', { value });
+            this.addError(message);
+          }
+        }
+      }
+    };
+
+    this.addError = messageText => {
+      const message = { summary: '', detail: messageText, severity: 'error' };
+      this.messages.push(message);
+    };
+
     this.showOptions = () => {
-      const options = { attribute: ATTRIBUTE, modelPath: MODEL_PATH };
+      const options = { attribute: ATTRIBUTE, attributeMap: ATTRIBUTE_MAP };
       DialogHelper.openDialog('modelEdit/attribute-editor-dialog', options);
     };
 
-    this.createModuleConfig = (viewName) => {
-      return ModuleElementUtils.createConfig({
-        name: viewName,
-        params: {
-          attribute: ATTRIBUTE,
-          attributeMap: ATTRIBUTE_MAP,
-          modelPath: MODEL_PATH,
-          readOnlyObservable: this.readOnly
-        }
-      });
+    this.createSelectMultiEditorConfig = () => {
+      return ModuleHelper.createSelectMultiEditorConfig(ATTRIBUTE, this.observable, this.attributeLabel, this.attributeHelp,
+        this.readOnly, this.disabled, options);
+    };
+
+    this.createListEditorConfig = () => {
+      return ModuleHelper.createListEditorConfig(ATTRIBUTE, ATTRIBUTE_MAP, this.readOnly, this.disabled);
+    };
+
+    this.createDictEditorConfig = () => {
+      return ModuleHelper.createDictEditorConfig(ATTRIBUTE, ATTRIBUTE_MAP, this.readOnly, this.disabled);
     };
   }
 

@@ -1,15 +1,15 @@
 /**
  * @license
- * Copyright (c) 2024, 2025, Oracle and/or its affiliates.
+ * Copyright (c) 2024, 2026, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
 
 define(['accUtils',
-  'utils/modelEdit/model-edit-helper', 'utils/modelEdit/message-helper', 'utils/modelEdit/alias-helper',
-  'utils/modelEdit/meta-helper', 'ojs/ojmodule-element-utils'
+  'utils/modelEdit/model-edit-helper', 'utils/modelEdit/module-helper', 'utils/modelEdit/message-helper',
+  'utils/modelEdit/alias-helper', 'utils/modelEdit/meta-helper', 'ojs/ojmodule-element-utils'
 ],
-function(accUtils, ModelEditHelper, MessageHelper, AliasHelper, MetaHelper, ModuleElementUtils) {
+function(accUtils, ModelEditHelper, ModuleHelper, MessageHelper, AliasHelper, MetaHelper, ModuleElementUtils) {
   function FolderPageViewModel(args) {
     const MODEL_PATH = args.modelPath;
 
@@ -51,8 +51,8 @@ function(accUtils, ModelEditHelper, MessageHelper, AliasHelper, MetaHelper, Modu
     });
 
     this.folderContentModuleConfig = contentPath ?
-      ModelEditHelper.createFolderContentConfig(contentPath) :
-      ModelEditHelper.createEmptyConfig(contentPath);
+      ModuleHelper.createFolderContentConfig(contentPath) :
+      ModuleHelper.createEmptyConfig(contentPath);
   }
 
   return FolderPageViewModel;

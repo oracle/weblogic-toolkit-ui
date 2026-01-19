@@ -450,6 +450,7 @@
   "attribute-dialog-option-variable": "Use an existing variable token",
   "attribute-dialog-option-newVariable": "Use a new variable token",
   "attribute-dialog-option-removeFromArchive": "Remove entry from archive",
+  "attribute-dialog-option-removeSelections": "Remove invalid values from the list",
   "attribute-dialog-variable-choice-label": "Existing Variable",
   "attribute-dialog-variable-choice-help": "Choose a variable for field",
   "attribute-dialog-variable-name-label": "Variable Name",
@@ -467,6 +468,7 @@
   "attribute-editor-select": "Select",
   "attribute-editor-select-directory": "Select Directory",
   "attribute-editor-select-file": "Select File",
+  "attribute-editor-invalid-model-value": "Invalid value \"{{value}}\" in the model",
 
   "invalid-integer-error": "Value must be an integer",
   "invalid-double-error": "Value must be a decimal number, such as 4 or 3.5",

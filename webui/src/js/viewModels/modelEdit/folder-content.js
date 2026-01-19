@@ -1,15 +1,15 @@
 /**
  * @license
- * Copyright (c) 2024, 2025, Oracle and/or its affiliates.
+ * Copyright (c) 2024, 2026, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
 
 define(['accUtils', 'knockout',
-  'utils/modelEdit/model-edit-helper', 'utils/modelEdit/meta-helper', 'utils/modelEdit/message-helper',
-  'utils/modelEdit/alias-helper'
+  'utils/modelEdit/model-edit-helper', 'utils/modelEdit/module-helper', 'utils/modelEdit/meta-helper',
+  'utils/modelEdit/message-helper', 'utils/modelEdit/alias-helper'
 ],
-function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper) {
+function(accUtils, ko, ModelEditHelper, ModuleHelper, MetaHelper, MessageHelper, AliasHelper) {
   function FolderContentViewModel(args) {
     // Display the attribute groups, single folders, and multiple folders for a model path.
     // Customizations from MetaHelper are taken into account.
@@ -56,7 +56,7 @@ function(accUtils, ko, ModelEditHelper, MetaHelper, MessageHelper, AliasHelper) 
       remainingFolders.splice(remainingFolders.indexOf(mergeFolder), 1);
     }
 
-    this.sectionsConfig = ModelEditHelper.createSectionsConfig(MODEL_PATH, metaSections, folderInfo, attributeMap, true);
+    this.sectionsConfig = ModuleHelper.createSectionsConfig(MODEL_PATH, metaSections, folderInfo, attributeMap, true);
 
     // get summary information about the top-level metadata sections, such as:
     // - are tabs configured or needed?

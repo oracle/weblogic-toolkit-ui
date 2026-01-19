@@ -6,13 +6,13 @@
 'use strict';
 
 define(['accUtils', 'knockout', 'utils/modelEdit/instance-helper', 'utils/modelEdit/model-edit-helper',
-  'utils/modelEdit/message-helper', 'utils/modelEdit/navigation-helper', 'utils/modelEdit/alias-helper',
-  'utils/common-utilities', 'utils/dialog-helper', 'utils/view-helper', 'utils/modelEdit/meta-helper',
-  'utils/modelEdit/meta-methods',
+  'utils/modelEdit/module-helper', 'utils/modelEdit/message-helper', 'utils/modelEdit/navigation-helper',
+  'utils/modelEdit/alias-helper', 'utils/common-utilities', 'utils/dialog-helper', 'utils/view-helper',
+  'utils/modelEdit/meta-helper', 'utils/modelEdit/meta-methods',
   'ojs/ojarraydataprovider', 'ojs/ojtable', 'oj-c/button', 'oj-c/labelled-link'
 ],
-function(accUtils, ko, InstanceHelper, ModelEditHelper, MessageHelper, NavigationHelper, AliasHelper,
-  utils, DialogHelper, ViewHelper, MetaHelper, MetaMethods, ArrayDataProvider) {
+function(accUtils, ko, InstanceHelper, ModelEditHelper, ModuleHelper, MessageHelper, NavigationHelper,
+  AliasHelper, utils, DialogHelper, ViewHelper, MetaHelper, MetaMethods, ArrayDataProvider) {
 
   function InstancesTableViewModel(args) {
     // for model folders with multiple instances (such as Server/myServer).
@@ -212,7 +212,7 @@ function(accUtils, ko, InstanceHelper, ModelEditHelper, MessageHelper, Navigatio
     };
 
     this.credentialCellConfig = attribute => {
-      return ModelEditHelper.createCredentialCellConfig(attribute.value);
+      return ModuleHelper.createCredentialCellConfig(attribute.value);
     };
 
     this.deleteInstance = (event, context) => {
