@@ -56,7 +56,7 @@ pipeline {
             failFast true
             parallel {
                 stage('Linux Build') {
-                    agent { label 'ol8' }
+                    agent { label 'ol9' }
                     options {
                         timeout(time: 300, unit: 'MINUTES')
                     }
@@ -113,11 +113,6 @@ pipeline {
                                 echo 'Copying .npmrc file to project subdirectories'
                                 sh 'cp ${WORKSPACE}/.npmrc ${WORKSPACE}/webui/.npmrc'
                                 sh 'cp ${WORKSPACE}/.npmrc ${WORKSPACE}/electron/.npmrc'
-                            }
-                        }
-                        stage('Linux Clear Electron Builder Cache') {
-                            steps {
-                                sh "rm -rf ${HOME}/.cache/electron-builder"
                             }
                         }
                         stage('Linux Install Project Dependencies') {
