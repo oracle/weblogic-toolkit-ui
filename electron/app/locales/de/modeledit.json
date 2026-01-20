@@ -444,12 +444,12 @@
 
   "attribute-dialog-title": "Optionen für {{attribute}}",
   "attribute-dialog-label": "Option wählen",
-  "attribute-dialog-option-addToArchive": "Add entry to archive",
+  "attribute-dialog-option-addToArchive": "Eintrag zu Archiv hinzufügen",
   "attribute-dialog-option-edit": "Feld normal bearbeiten",
   "attribute-dialog-option-remove": "Feld aus dem Modell entfernen",
   "attribute-dialog-option-variable": "Vorhandenes Variablentoken verwenden",
   "attribute-dialog-option-newVariable": "Neues Variablentoken verwenden",
-  "attribute-dialog-option-removeFromArchive": "Remove entry from archive",
+  "attribute-dialog-option-removeFromArchive": "Eintrag aus Archiv entfernen",
   "attribute-dialog-variable-choice-label": "Vorhandene Variable",
   "attribute-dialog-variable-choice-help": "Variable für Feld auswählen",
   "attribute-dialog-variable-name-label": "Variablenname",
@@ -457,8 +457,8 @@
   "attribute-dialog-variable-name-error": "Variablennamen dürfen nur Buchstaben, Zahlen und die folgenden Zeichen enthalten: .-_",
   "attribute-dialog-variable-value-label": "Variablenwert",
   "attribute-dialog-variable-value-help": "Variablenwert für Feld",
-  "attribute-dialog-archive-file-not-present": "File not found: {{path}}",
-  "attribute-dialog-archive-path-not-present": "Path not found in archive: {{path}}",
+  "attribute-dialog-archive-file-not-present": "Datei nicht gefunden: {{path}}",
+  "attribute-dialog-archive-path-not-present": "Pfad nicht im Archiv gefunden: {{path}}",
 
   "attribute-editor-from-secret": "Aus Secret \"{{secret}}\"",
   "attribute-editor-from-variable": "Aus Variable \"{{variable}}\"",
@@ -552,7 +552,7 @@
   "a-AcknowledgementInterval-help": "Die maximale Zeit, die eine ausstehende Bestätigung (nach dem Akzeptieren einer Nachricht durch das Ziel festgelegt) warten kann, bevor sie an die RM-Quelle zurückgesendet wird. Zeichenfolgenwert im Format \"Dauer\". Standardwert ist \"P0DT0.2S\" (200 Millisekunden). Wird zur Sequenzerstellungszeit festgelegt und kann nicht zurückgesetzt werden.",
 
   "a-AclPolicy-label": "ACL-Policy",
-  "f-WTCServer_WTCRemoteTuxDom-a-AclPolicy-help": "The inbound access control list (ACL) policy toward requests from a remote Tuxedo access point.  The allowed values are Local or Global. Local causes the local Tuxedo access point modifies the identity of service requests received from a given remote Tuxedo access point to the principal name specified in the local principal name for a given remote Tuxedo access point. Global causes the local Tuxedo access point to pass the service request with no change in identity. Note that if Interoperate is set to Yes, the AclPolicy is ignored.",
+  "f-WTCServer_WTCRemoteTuxDom-a-AclPolicy-help": "Die eingehende Access-Control-Listen-(ACL-)Policy für Anforderungen von einem Remote-Tuxedo-Zugriffspunkt. Die zulässigen Werte sind \"Lokal\" oder \"Global\". Bei \"Lokal\" ändert der lokale Tuxedo-Zugriffspunkt die Identität von Serviceanforderungen, die von einem bestimmten Remote-Tuxedo-Zugriffspunkt eingehen, in den Principal-Namen, der im lokalen Principal-Namen für einen bestimmten Remote-Tuxedo-Zugriffspunkt angegeben wurde. Bei \"Global\" übergibt der lokale Tuxedo-Zugriffspunkt die Serviceanforderung ohne Änderung der Identität. Wenn die Interoperabilität aktiviert ist, wird die AclPolicy ignoriert.",
 
   "a-AcsRequiresSsl-label": "ACS erfordert SSL",
 
@@ -1054,13 +1054,13 @@
   "a-CallbackQueueMdbRunAsPrincipalName-help": "Nur für den JAX-RPC-Stack. Verwenden Sie für JAX-WS stattdessen WebServiceBufferingMBean.",
 
   "a-CandidateMachine-label": "Kandidatenrechner",
-  "a-CandidateMachine-itemLabel": "CandidateMachine",
-  "a-CandidateMachine-itemHelp": "Specify a candidate machine to add to the list.",
+  "a-CandidateMachine-itemLabel": "Kandidatenrechner",
+  "a-CandidateMachine-itemHelp": "Geben Sie einen Kandidatenrechner an, der der Liste hinzugefügt werden soll.",
   "a-CandidateMachine-help": "Begrenzt die Liste der vom Cluster angegebenen Kandidatenrechner. (Dazu müssen Sie diesen Server für die automatische Migration aktivieren und das Cluster mit einem Set von Kandidatenrechnern konfigurieren.) Wenn dieser Server ausfällt und die automatische Migration für ihn aktiviert ist, startet Node Manager ihn automatisch neu. Standardmäßig startet Node Manager den Server auf einem beliebigen der Kandidatenrechner neu, die vom Cluster angegeben wurden (in der Prioritätsreihenfolge, die Sie im Cluster konfiguriert haben). Um den Standardwert zu ändern, verwenden Sie die Liste der Kandidatenrechner dieses Servers, um eine Teilmenge der clusterweiten Kandidaten zu erstellen. Sie können auch die Prioritätsreihenfolge ändern.",
 
   "a-CandidateMachinesForMigratableServer-label": "Kandidatenrechner für migrierbaren Server",
   "a-CandidateMachinesForMigratableServer-itemLabel": "Kandidatenrechner",
-  "a-CandidateMachinesForMigratableServer-itemHelp": "Specify a candidate machine on which a node manager can restart failed servers.",
+  "a-CandidateMachinesForMigratableServer-itemHelp": "Geben Sie einen Kandidatenrechner an, auf dem ein Node Manager ausgefallene Server neu starten kann.",
   "f-Cluster-a-CandidateMachinesForMigratableServer-help": "Gibt das Set von Rechnern (und ihre Prioritätsreihenfolge) an, auf denen Node Manager ausgefallene Server neu startet. (Hierbei müssen Sie jeden Server für die automatische Migration aktivieren.) Jeder Server kann eine Teilmenge dieser clusterweiten Kandidaten angeben, wodurch die Rechner begrenzt werden, auf denen der Server neu gestartet werden kann. Server können auch ihre eigene Prioritätsreihenfolge angeben.",
 
   "a-Capacity-label": "Kapazität",
@@ -2208,7 +2208,7 @@
   "a-DebugRADeployment-label": "Debugging von Ressourcenadapter-Deployment",
   "a-DebugRALifecycle-label": "Debugging von Ressourcenadapterlebenszyklus",
   "a-DebugRALocalOut-label": "Debugging von lokalen ausgehenden Ressourcenadapternachrichten",
-  "a-DebugRAParsing-label": "Debugging von Resourcenadapterparsing",
+  "a-DebugRAParsing-label": "Debugging von Ressourcenadapterparsing",
   "a-DebugRAPoolVerbose-label": "Debugging von Ressourcenadapterpool - Verbose",
   "a-DebugRAPooling-label": "Debugging von RA-Pooling",
   "a-DebugRASecurityCtx-label": "Debugging von Sicherheitskontext für Ressourcenadapter",
@@ -2216,7 +2216,7 @@
   "a-DebugRAWorkEvents-label": "Debugging von Arbeitsereignissen für Ressourcenadapter",
   "a-DebugRAXAin-label": "Debugging von eingehenden XA-Ressourcenadapternachrichten",
   "a-DebugRAXAout-label": "Debugging von ausgehenden XA-Ressourcenadapternachrichten",
-  "a-DebugRAXAwork-label": "Debugging von XA-Ressourcenadapterarbeit",
+  "a-DebugRAXAwork-label": "Debugging von Ressourcenadapter-XA-Arbeitsanforderungen",
   "a-DebugRC4-label": "Debugging von RC4",
   "a-DebugRSA-label": "Debugging von RSA",
   "a-DebugRaClassloader-label": "Debugging von Ressourcenadapter-Class-Loader",
@@ -2318,7 +2318,7 @@
   "a-DebugValidationClassLoading-label": "Debugging des Ladens von Klassen für die Validierung",
   "a-DebugVerboseRcm-label": "Debugging von Replication and Consistency Manager (RCM) - Verbose",
   "a-DebugWANReplicationDetails-label": "Debugging von WAN-Replikationsdetails",
-  "a-DebugWarExtraction-label": "DebugARExtraction",
+  "a-DebugWarExtraction-label": "Debugging von WAR-Extraktion",
   "a-DebugWatchScalingActions-label": "Debugging von Überwachungsskalierungsaktionen",
   "a-DebugWebAppDi-label": "Debugging von Webanwendungsabhängigkeits-Injection",
   "a-DebugWebAppIdentityAssertion-label": "Debugging von Webanwendungs-Identity-Assertion",
@@ -2978,8 +2978,8 @@
   "a-FannedOutRequestMaxWaitMillis-help": "Bestimmt, wie lange (in Millisekunden) die Management Services-Webanwendung wartet, wenn sie eine idempotente REST-Anforderung vom Admin-Server an einen Managed Server propagiert. Bei \"0\" wird ein entsprechender Timeout ausgewählt. Eine Anforderung kann diesen Wert außer Kraft setzen, indem sie den Abfrageparameter requestMaxWaitMillis angibt.",
 
   "a-FatalErrorCodes-label": "Codes für schwerwiegende Fehler",
-  "a-FatalErrorCodes-itemLabel": "Fatal Error Code",
-  "a-FatalErrorCodes-itemHelp": "Specify an error code to be treated as a fatal error.",
+  "a-FatalErrorCodes-itemLabel": "Code für schwerwiegende Fehler",
+  "a-FatalErrorCodes-itemHelp": "Geben Sie einen Fehlercode an, der als schwerwiegender Fehler behandelt werden soll.",
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-FatalErrorCodes-help": "Gibt eine durch Komma getrennte Liste mit Fehlercodes an, die als schwerwiegende Fehler behandelt werden. Diese Fehler beinhalten Deployment-Fehler, wegen derer ein Server nicht gestartet werden kann, sowie Verbindungsfehler, die verhindern, dass eine Verbindung zurück in den Verbindungspool gestellt wird. Dieses optionale Attribut wird verwendet, um schwerwiegende Fehlercodes zu definieren. Wenn diese als Ausnahmecode in einer SQLException (abgerufen durch sqlException.getErrorCode()) angegeben werden, ist ein schwerwiegender Fehler aufgetreten, und die Verbindung ist nicht mehr verwendbar.",
 
   "a-FederationName-label": "Federation-Name",
@@ -3653,11 +3653,11 @@
   "f-WTCServer_WTCtBridgeGlobal-a-JmsFactory-help": "Der Name der JMS-Connection Factory. Beispiel: weblogic.jndi.ConnectionFactory. Der Standardwert ist \"weblogic.jms.XAConnectionFactory\".",
 
   "a-JmsToTuxPriorityMap-label": "JMS-zu-Tuxedo-Prioritätszuordnung",
-  "a-JmsToTuxPriorityMap-entryLabel": "JMS To Tuxedo Priority Entry",
+  "a-JmsToTuxPriorityMap-entryLabel": "JMS-zu-Tuxedo-Prioritätseintrag",
   "a-JmsToTuxPriorityMap-keyLabel": "JMS-Priorität",
-  "a-JmsToTuxPriorityMap-keyHelp": "The JMS priority value or range that you want to map.",
-  "a-JmsToTuxPriorityMap-valueLabel": "Tuxedo Priority",
-  "a-JmsToTuxPriorityMap-valueHelp": "The Tuxedo priority to which the JMS priority should be mapped.",
+  "a-JmsToTuxPriorityMap-keyHelp": "Der JMS-Prioritätswert oder -bereich, den Sie zuordnen möchten.",
+  "a-JmsToTuxPriorityMap-valueLabel": "Tuxedo-Priorität",
+  "a-JmsToTuxPriorityMap-valueHelp": "Die Tuxedo-Priorität, der die JMS-Priorität zugeordnet werden soll.",
   "a-JmsToTuxPriorityMap-help": "Die Zuordnung von Prioritäten von JMS zu Tuxedo. Standardprioritätszuordnung von JMS zu Tuxedo: 0:1 | 1:12 | 2:23 | 3:34 | 4:45 |5:56 | 6:67 | 7:78 | 8:89 | 9:100.",
 
   "a-JndiFactory-label": "Name der JNDI-Initial Context Factory-Klasse",
@@ -4120,7 +4120,7 @@
   "a-MaxConsecutiveCharacters-help": "Gibt die maximale Anzahl wiederholter aufeinanderfolgender Zeichen an, die im Kennwort zulässig sind. Der Wert \"0\" bedeutet keine Einschränkung. Beispiel: Beim Wert \"2\" kann der Benutzer kein Kennwort wie \"baaag\" erstellen. Gültige Werte für dieses Attribut müssen größer/gleich 0 sein.",
 
   "a-MaxDynamicClusterSize-label": "Max. dynamische Clustergröße",
-  "f-Cluster_DynamicServers-a-MaxDynamicClusterSize-help": "Specifies the upper bound on the DynamicClusterSize that the Elasticity Framework is allowed to assign to DynamicClusterSize. The default value is 8.",
+  "f-Cluster_DynamicServers-a-MaxDynamicClusterSize-help": "Gibt den oberen Grenzwert für die DynamicClusterSize an, den das Elastizitätsframework DynamicClusterSize zuweisen kann. Der Standardwert ist \"8\".",
 
   "a-MaxEncryptBits-label": "Max. Verschlüsselungsbits",
   "f-WTCServer_WTCLocalTuxDom-a-MaxEncryptBits-help": "Die maximale Länge des Verschlüsselungsschlüssels (in Bit), den dieser lokale Tuxedo-Zugriffspunkt beim Aufbau einer Sessionverbindung verwendet. Ein Wert von \"0\" gibt an, dass keine Verschlüsselung verwendet wird.",
@@ -4356,7 +4356,7 @@
   "f-JMSSystemResource_JmsResource_Template-a-MessagingPerformancePreference-help": "Steuert, wie lange Ziele, die diese Vorlage verwenden, warten, um vollständige Batches von verfügbaren Nachrichten (sofern vorhanden) für die Zustellung an Consumers zu erstellen. Beim Mindestwert wird das Batching deaktiviert. Mit dem Standardwert werden nicht vollständige Batches ohne Wartezeit sofort mit den derzeit verfügbaren Nachrichten zugestellt. Ein höherer Wert als der Standardwert steuert die maximale Wartezeit für zusätzliche Nachrichten, bevor nicht vollständige Batches an Consumers zugestellt werden. Die maximale Anzahl an Nachrichten eines vollständigen Batches wird durch die Einstellung \"MessagesMaximum\" der JMS-Connection Factory gesteuert.",
 
   "a-MessagingQueue-label": "Messagingqueue",
-  "a-MessagingQueue-help": "For use only with the JAX-RPC stack. For JAX-WS, use WebServiceBufferingMBean instead. The default value is \"weblogic.wsee.DefaultQueue\".",
+  "a-MessagingQueue-help": "Nur für den JAX-RPC-Stack. Verwenden Sie für JAX-WS stattdessen WebServiceBufferingMBean. Der Standardwert ist \"weblogic.wsee.DefaultQueue\".",
 
   "a-MessagingQueueMdbRunAsPrincipalName-label": "Principal-Name für die Ausführung des Messagingqueue-MDB",
   "a-MessagingQueueMdbRunAsPrincipalName-help": "Nur für den JAX-RPC-Stack. Verwenden Sie für JAX-WS stattdessen WebServiceBufferingMBean.",
@@ -5891,7 +5891,7 @@
   "a-Servers-help": "Gibt die Liste der Server an, in die die ODL-Datei logging.xml geschrieben wird",
 
   "a-ServiceActivationRequestResponseTimeout-label": "Timeout für Antwort auf Anforderung zur Serviceaktivierung",
-  "f-Cluster-a-ServiceActivationRequestResponseTimeout-help": "Specifies the maximum time, in milliseconds, for services to wait for response from cluster members.",
+  "f-Cluster-a-ServiceActivationRequestResponseTimeout-help": "Gibt die maximale Zeitspanne in Millisekunden an, die Services auf Antwort von Cluster-Members warten.",
 
   "a-ServiceAgeThresholdSeconds-label": "Schwellenwert für Servicealter in Sekunden",
   "f-Cluster-a-ServiceAgeThresholdSeconds-help": "Gibt die Anzahl an Sekunden an, die das Alter von zwei in Konflikt stehenden Services auseinanderliegen muss, damit einer als älter gilt. Der Standardwert ist \"180\".",
@@ -6594,11 +6594,11 @@
   "a-TuxFactory-help": "Der Name der Tuxedo-Connection Factory. Der Standardwert ist \"tuxedo.services.TuxedoConnection\".",
 
   "a-TuxToJmsPriorityMap-label": "Tuxedo-zu-JMS-Prioritätszuordnung",
-  "a-TuxToJmsPriorityMap-entryLabel": "Tuxedo to JMS Priority Entry",
-  "a-TuxToJmsPriorityMap-keyLabel": "Tuxedo Priority",
-  "a-TuxToJmsPriorityMap-keyHelp": "The Tuxedo priority value or range that you want to map.",
+  "a-TuxToJmsPriorityMap-entryLabel": "Tuxedo-zu-JMS-Prioritätseintrag",
+  "a-TuxToJmsPriorityMap-keyLabel": "Tuxedo-Priorität",
+  "a-TuxToJmsPriorityMap-keyHelp": "Der Tuxedo-Prioritätswert oder -bereich, den Sie zuordnen möchten.",
   "a-TuxToJmsPriorityMap-valueLabel": "JMS-Priorität",
-  "a-TuxToJmsPriorityMap-valueHelp": "The JMS priority to which the Tuxedo priority should be mapped.",
+  "a-TuxToJmsPriorityMap-valueHelp": "Die JMS-Priorität, der die Tuxedo-Priorität zugeordnet werden soll.",
   "a-TuxToJmsPriorityMap-help": "Die Zuordnung von Prioritäten von Tuxedo zu JMS. Standardprioritätszuordnung von JMS zu Tuxedo: 1-10:0 | 11-20:1 | 21-30:2 | 31-40:3| 41-50:4| 51-60:5 | 61-70:6 | 71-80:7 | 81-90:8 | 91-100:9.",
 
   "a-TuxedoGidKw-label": "Tuxedo-Gruppen-ID-Schlüsselwort",
@@ -6747,7 +6747,7 @@
 
   "a-UseNonSecureAddressesForDomain-label": "Nicht sichere Adressen für Domains verwenden",
   "a-UseNonSecureAddressesForDomain-itemLabel": "Domain",
-  "a-UseNonSecureAddressesForDomain-itemHelp": "Wählen Sie eine Domain in der Liste der Domains aus, für die nicht sichere Protokolle verwendet werden.",
+  "a-UseNonSecureAddressesForDomain-itemHelp": "Wählen Sie eine Domain in der Liste der Domains aus, für die nicht sichere Protokolle verwendet werden sollen.",
   "a-UseNonSecureAddressesForDomain-help": "Gibt die Domains an, für die nicht sichere Protokolle für die interne JTA-Kommunikation verwendet werden sollen, wenn die Server in den Domains so konfiguriert sind, dass sie Netzwerkkanäle nutzen.",
 
   "a-UseParentHandlers-label": "Übergeordnete Handler verwenden",
