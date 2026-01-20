@@ -65,9 +65,9 @@ category, as shown in the following image.
 
 {{% img "OCIR Location" "images/ocir-location.png" %}}
 
-In the registry of your choosing, create a new private repository called `WKT UI-qs/todolist-aux`.  Note the URL needed
+In the registry of your choosing, create a new private repository called `wktui-qs/todolist-aux`.  Note the URL needed
 to access the new repository.  For the OCIR repository, the URL is of the form 
-`<region-abbreviation>.ocir.io/<tenancy-name>/WKT UI-qs/todolist-aux`, where region-abbreviation is something like `phx`
+`<region-abbreviation>.ocir.io/<tenancy-name>/wktui-qs/todolist-aux`, where region-abbreviation is something like `phx`
 (for the Phoenix region) and tenancy name is the name of the tenancy used to log in to `https://cloud.oracle.com`. For 
 a listing of every available region, refer to the [Availability by Region table](https://docs.oracle.com/en-us/iaas/Content/Registry/Concepts/registryprerequisites.htm#regional-availability) in the OCI documentation.
 
