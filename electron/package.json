@@ -64,7 +64,7 @@
   },
   "dependencies": {
     "@zip.js/zip.js": "^2.8.11",
-    "electron-updater": "^6.7.3",
+    "electron-updater": "^6.6.2",
     "extract-zip": "^2.0.1",
     "fs-extra": "^11.3.3",
     "gunzip-maybe": "^1.4.2",
