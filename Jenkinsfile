@@ -115,11 +115,6 @@ pipeline {
                                 sh 'cp ${WORKSPACE}/.npmrc ${WORKSPACE}/electron/.npmrc'
                             }
                         }
-                        stage('Linux Clear Electron Builder Cache') {
-                            steps {
-                                sh "rm -rf ${HOME}/.cache/electron-builder"
-                            }
-                        }
                         stage('Linux Install Project Dependencies') {
                             steps {
                                 sh 'cat ${WORKSPACE}/webui/.npmrc'
