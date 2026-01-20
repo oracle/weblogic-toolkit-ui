@@ -56,7 +56,7 @@ pipeline {
             failFast true
             parallel {
                 stage('Linux Build') {
-                    agent { label 'ol8' }
+                    agent { label 'ol9' }
                     options {
                         timeout(time: 300, unit: 'MINUTES')
                     }
