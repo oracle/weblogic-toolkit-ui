@@ -8,10 +8,10 @@ weight: 6
 WKT UI uses the WebLogic Image Tool (WIT) to build container images.  Each Oracle Fusion Middleware (FMW) Domain Target 
 Location option has its own image requirements.
 
-- `Model-in-Image` – This approach puts Java and FMW into one image, which WKT UI calls the primary image, and WDT and the
+- `Model-in-Image` (MII) – This approach puts Java and FMW into one image, which WKT UI calls the primary image, and WDT and the
   WDT model files into a separate image, known as the auxiliary image.  In this document, we refer to this as MII with
   Auxiliary Image.
-- `Domain-on-PV` – DoPV uses a single image with Java and FMW in it.  The domain is created on the persistent volume by
+- `Domain-on-PV` (DoPV) – This approach uses a single image with Java and FMW in it.  The domain is created on the persistent volume by
   external means or by using a Domain Creation Image, which is conceptually similar to an auxiliary image.  A domain
   creation image, like an auxiliary image, has a WDT installer and WDT model files to define the domain.  WebLogic
   Kubernetes Operator uses the domain creation image to create the initial domain on the persistent volume only if the
