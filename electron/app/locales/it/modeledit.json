@@ -444,12 +444,12 @@
 
   "attribute-dialog-title": "Opzioni per {{attribute}}",
   "attribute-dialog-label": "Scegliere un'opzione",
-  "attribute-dialog-option-addToArchive": "Add entry to archive",
+  "attribute-dialog-option-addToArchive": "Aggiungi voce all'archivio",
   "attribute-dialog-option-edit": "Modifica il campo normalmente",
   "attribute-dialog-option-remove": "Rimuovi il campo dal modello",
   "attribute-dialog-option-variable": "Usa un token variabile esistente",
   "attribute-dialog-option-newVariable": "Usa un nuovo token variabile",
-  "attribute-dialog-option-removeFromArchive": "Remove entry from archive",
+  "attribute-dialog-option-removeFromArchive": "Rimuovi voce dall'archivio",
   "attribute-dialog-variable-choice-label": "Variabile esistente",
   "attribute-dialog-variable-choice-help": "Scegliere una variabile per il campo",
   "attribute-dialog-variable-name-label": "Nome variabile",
@@ -458,7 +458,7 @@
   "attribute-dialog-variable-value-label": "Valore variabile",
   "attribute-dialog-variable-value-help": "Valore della variabile per il campo",
   "attribute-dialog-archive-file-not-present": "File non trovato: {{path}}",
-  "attribute-dialog-archive-path-not-present": "Path not found in archive: {{path}}",
+  "attribute-dialog-archive-path-not-present": "Percorso non trovato nell'archivio: {{path}}",
 
   "attribute-editor-from-secret": "Dal segreto \"{{secret}}\"",
   "attribute-editor-from-variable": "Dalla variabile \"{{variable}}\"",
@@ -504,12 +504,12 @@
   "a-AbandonTimeoutSeconds-label": "Secondi di timeout annullamento",
   "a-AbandonTimeoutSeconds-help": "Specifica il periodo di tempo massimo, in secondi, per il quale un gestore transazioni persiste nel tentativo di completare la seconda fase di una transazione di commit a due fasi. Durante la seconda fase di una transazione di commit a due fasi, il gestore transazioni continua a tentare il completamento della transazione fino a quando tutti i Resource Manager non indicano che la transazione è completata. Una volta scaduto il timer di annullamento della transazione, non verranno eseguiti ulteriori tentativi per risolvere la transazione. Se la transazione si trova nello stato preparato prima dell'annullamento, il Transaction Manager esegue il rollback della transazione per rilasciare eventuali lock applicati alla transazione annullata.",
 
-  "a-AbsoluteAltDescriptorDir-label": "AbsoluteAltDescriptorDir",
-  "a-AbsoluteAltDescriptorPath-label": "AbsoluteAltDescriptorPath",
-  "a-AbsoluteInstallDir-label": "AbsoluteInstallDir",
-  "a-AbsolutePlanDir-label": "AbsolutePlanDir",
-  "a-AbsolutePlanPath-label": "AbsolutePlanPath",
-  "a-AbsoluteSourcePath-label": "AbsoluteSourcePath",
+  "a-AbsoluteAltDescriptorDir-label": "Directory descrittore alt assoluto",
+  "a-AbsoluteAltDescriptorPath-label": "Percorso descrittore alt assoluto",
+  "a-AbsoluteInstallDir-label": "Directory di installazione assoluta",
+  "a-AbsolutePlanDir-label": "Directory piano assoluto",
+  "a-AbsolutePlanPath-label": "Percorso piano assoluto",
+  "a-AbsoluteSourcePath-label": "Percorso origine assoluto",
 
   "a-AcceptBacklog-label": "Accetta backlog",
   "a-AcceptBacklog-help": "Il numero di richieste di connessione TCP nuove e di backlog da consentire per le porte normali e SSL di questo server. Se il backlog viene impostato su 0, il server potrebbe non essere in grado di accettare connessioni in entrata su alcuni sistemi operativi. Il valore predefinito è 300.",
@@ -552,7 +552,7 @@
   "a-AcknowledgementInterval-help": "Il tempo massimo di attesa per una conferma ricezione in sospeso (impostata dopo l'accettazione del messaggio da parte della destinazione) prima che venga ritrasmessa all'origine RM. Valore di stringa in formato \"Durata\". L'impostazione predefinita è \"P0DT0.2S\" (200 millisecondi). Viene impostato alla creazione della sequenza e non può essere reimpostato.",
 
   "a-AclPolicy-label": "Criterio ACL",
-  "f-WTCServer_WTCRemoteTuxDom-a-AclPolicy-help": "The inbound access control list (ACL) policy toward requests from a remote Tuxedo access point.  The allowed values are Local or Global. Local causes the local Tuxedo access point modifies the identity of service requests received from a given remote Tuxedo access point to the principal name specified in the local principal name for a given remote Tuxedo access point. Global causes the local Tuxedo access point to pass the service request with no change in identity. Note that if Interoperate is set to Yes, the AclPolicy is ignored.",
+  "f-WTCServer_WTCRemoteTuxDom-a-AclPolicy-help": "Criterio lista di controllo dell'accesso (ACL) in entrata per le richieste di un determinato punto d'accesso Tuxedo remoto. I valori consentiti sono LOCAL o GLOBAL. LOCAL: il punto di accesso Tuxedo locale modifica l'identità delle richieste di servizio ricevute da un determinato punto di accesso Tuxedo remoto per il nome principal specificato come nome principal locale di un determinato punto di accesso Tuxedo remoto. GLOBAL comporta che il punto di accesso Tuxedo locale passi la richiesta di servizio senza alcuna modifica dell'identità. Tenere presente che, se Interoperate è impostato su Yes, AclPolicy viene ignorato.",
 
   "a-AcsRequiresSsl-label": "ACS richiede SSL",
 
@@ -1055,12 +1055,12 @@
 
   "a-CandidateMachine-label": "Computer candidati",
   "a-CandidateMachine-itemLabel": "CandidateMachine",
-  "a-CandidateMachine-itemHelp": "Specify a candidate machine to add to the list.",
+  "a-CandidateMachine-itemHelp": "Specificare un computer candidato da aggiungere alla lista.",
   "a-CandidateMachine-help": "Limita la lista dei computer candidati specificati dal cluster. (Richiede l'abilitazione del server per la migrazione automatica e la configurazione del cluster con un set di computer candidati). Se si verifica una condizione di errore sul server e il server è abilitato per la migrazione automatica, viene automaticamente riavviato da Node Manager. Per impostazione predefinita, Node Manager riavvia il server o qualsiasi computer candidato specificato dal cluster (nell'ordine di preferenza configurato nel cluster). Per modificare l'impostazione predefinita, utilizzare la lista di computer candidati di questo server per creare un set secondario di candidati a livello di cluster. Inoltre, è possibile modificare l'ordine di preferenza.",
 
   "a-CandidateMachinesForMigratableServer-label": "Computer candidati per server migrabile",
   "a-CandidateMachinesForMigratableServer-itemLabel": "Computer candidato",
-  "a-CandidateMachinesForMigratableServer-itemHelp": "Specify a candidate machine on which a node manager can restart failed servers.",
+  "a-CandidateMachinesForMigratableServer-itemHelp": "Specificare un computer candidato per cui un Node Manager può riavviare i server in condizioni di errore.",
   "f-Cluster-a-CandidateMachinesForMigratableServer-help": "Specifica il set di computer (e l'ordine di preferenza) su cui Node Manager riavvierà i server in condizioni di errore. (Richiede l'abilitazione di ciascun server per una migrazione automatica). Ogni server può specificare un subset di computer candidati a livello cluster limitando il numero di computer nei quali il server può essere riavviato. Inoltre, i server possono specificare un proprio ordine di preferenza.",
 
   "a-Capacity-label": "Capacità",
@@ -2208,7 +2208,7 @@
   "a-DebugRADeployment-label": "Debug distribuzione di Resource Adapter",
   "a-DebugRALifecycle-label": "Debug ciclo di vita di Resource Adapter",
   "a-DebugRALocalOut-label": "Debug Resource Adapter - In uscita locale",
-  "a-DebugRAParsing-label": "Debug analisi di RAResource Adapter",
+  "a-DebugRAParsing-label": "Debug analisi Resource Adapter",
   "a-DebugRAPoolVerbose-label": "Debug pool di Resource Adapter - Modalità descrittiva",
   "a-DebugRAPooling-label": "Debug pooling RA",
   "a-DebugRASecurityCtx-label": "Debug contesto di sicurezza di Resource Adapter",
@@ -2216,7 +2216,7 @@
   "a-DebugRAWorkEvents-label": "Debug eventi di lavoro di Resource Adapter",
   "a-DebugRAXAin-label": "Debug XA Resource Adapter in entrata",
   "a-DebugRAXAout-label": "Debug XA Resource Adapter in uscita",
-  "a-DebugRAXAwork-label": "Debug lavoro XA RResource AdapterA",
+  "a-DebugRAXAwork-label": "Debug lavoro XA Resource Adapter",
   "a-DebugRC4-label": "Debug RC4",
   "a-DebugRSA-label": "Debug RSA",
   "a-DebugRaClassloader-label": "Debug classloader Resource Adapter",
@@ -2318,7 +2318,7 @@
   "a-DebugValidationClassLoading-label": "Debug caricamento classe di convalida",
   "a-DebugVerboseRcm-label": "Debug RCM (Replication and Consistency Manager) modalità descrittiva",
   "a-DebugWANReplicationDetails-label": "Debug dettagli della replica WAN",
-  "a-DebugWarExtraction-label": "DebugARExtraction",
+  "a-DebugWarExtraction-label": "Debug estrazione WAR",
   "a-DebugWatchScalingActions-label": "Debug azioni scala di controllo",
   "a-DebugWebAppDi-label": "Debug inserimento dipendenze applicazione Web",
   "a-DebugWebAppIdentityAssertion-label": "Debug asserzione identità applicazione Web",
@@ -2978,8 +2978,8 @@
   "a-FannedOutRequestMaxWaitMillis-help": "Determina il periodo di tempo di attesa, in millisecondi, dell'applicazione Web dei servizi di gestione quando emette una richiesta REST idempotente dal server di amministrazione a tutti i server gestiti. Se è zero, verrà scelto un timeout appropriato dall'applicazione. Una richiesta può sostituire questo valore specificando il parametro di query requestMaxWaitMillis.",
 
   "a-FatalErrorCodes-label": "Codici errori irreversibili",
-  "a-FatalErrorCodes-itemLabel": "Fatal Error Code",
-  "a-FatalErrorCodes-itemHelp": "Specify an error code to be treated as a fatal error.",
+  "a-FatalErrorCodes-itemLabel": "Codice errore irreversibile",
+  "a-FatalErrorCodes-itemHelp": "Specificare un codice di errore da considerare come errore irreversibile.",
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-FatalErrorCodes-help": "Specifica una lista separata da virgole di codici di errore considerati errori irreversibili. Questi errori includono gli errori di distribuzione che non consentono l'avvio di un server e gli errori di connessione che impediscono il reinserimento di una connessione nel connection pool. Questo attributo facoltativo è utilizzato per definire i codici degli errori irreversibili che, se specificati come codice di eccezione in una SQLException (recuperata da sqlException.getErrorCode()), segnalano che si è verificato un errore irreversibile e che non è più possibile utilizzare la connessione.",
 
   "a-FederationName-label": "Nome federazione",
@@ -3653,11 +3653,11 @@
   "f-WTCServer_WTCtBridgeGlobal-a-JmsFactory-help": "Il nome del connection factory JMS, ad esempio weblogic.jndi.ConnectionFactory. Il valore predefinito è weblogic.jms.XAConnectionFactory.",
 
   "a-JmsToTuxPriorityMap-label": "Mappa priorità da JMS a Tuxedo",
-  "a-JmsToTuxPriorityMap-entryLabel": "JMS To Tuxedo Priority Entry",
+  "a-JmsToTuxPriorityMap-entryLabel": "Immissione priorità da JMS a Tuxedo",
   "a-JmsToTuxPriorityMap-keyLabel": "Priorità JMS",
-  "a-JmsToTuxPriorityMap-keyHelp": "The JMS priority value or range that you want to map.",
-  "a-JmsToTuxPriorityMap-valueLabel": "Tuxedo Priority",
-  "a-JmsToTuxPriorityMap-valueHelp": "The Tuxedo priority to which the JMS priority should be mapped.",
+  "a-JmsToTuxPriorityMap-keyHelp": "Valore o intervallo di priorità JMS da mappare.",
+  "a-JmsToTuxPriorityMap-valueLabel": "Priorità Tuxedo",
+  "a-JmsToTuxPriorityMap-valueHelp": "La priorità Tuxedo in base alla quale mappare la priorità JMS.",
   "a-JmsToTuxPriorityMap-help": "Mapping delle priorità da JMS a Tuxedo. Il valore predefinito per la mappa di priorità da JMS a Tuxedo è: 0:1 | 1:12 | 2:23 | 3:34 | 4:45 |5:56 | 6:67 | 7:78 | 8:89 | 9:100.",
 
   "a-JndiFactory-label": "Nome classe factory contesto iniziale JNDI",
@@ -3740,7 +3740,7 @@
   "a-KeyStoreTypes-label": "Tipi di keystore",
 
   "a-KeyStores-label": "Keystore",
-  "a-KeyStores-help": "Specifica il set di keystore di identità e sicuri che il server utilizzerà.",
+  "a-KeyStores-help": "Specifica il set di keystore di identità e sicuri che verrà utilizzato dal server.",
   "f-NMProperties-a-KeyStores-help": "Specifica la configurazione utilizzata da Node Manager per trovare i keystore di identità (chiave privata e certificato digitale) e sicuri (certificati CA sicuri).",
 
   "a-KeyStoresLocation-label": "Posizione keystore",
@@ -4120,7 +4120,7 @@
   "a-MaxConsecutiveCharacters-help": "Specifica il numero massimo di caratteri consecutivi ripetuti consentiti nella password. Un valore pari a 0 indica nessuna restrizione. Ad esempio, con il valore 2, l'utente non può creare una password come \"baaag\". Il valore valido per questo attributo deve essere maggiore o uguale a 0.",
 
   "a-MaxDynamicClusterSize-label": "Dimensione massima cluster dinamico",
-  "f-Cluster_DynamicServers-a-MaxDynamicClusterSize-help": "Specifies the upper bound on the DynamicClusterSize that the Elasticity Framework is allowed to assign to DynamicClusterSize. The default value is 8.",
+  "f-Cluster_DynamicServers-a-MaxDynamicClusterSize-help": "Specifica il limite superiore per il valore DynamicClusterSize che il framework di elasticità è autorizzato ad assegnare a DynamicClusterSize. Il valore predefinito è 8.",
 
   "a-MaxEncryptBits-label": "Numero massimo di bit di cifratura",
   "f-WTCServer_WTCLocalTuxDom-a-MaxEncryptBits-help": "La lunghezza massima, in bit, della chiave di cifratura usata da questo punto di accesso Tuxedo locale durante il tentativo di stabilire una connessione di sessione. Il valore 0 indica che la cifratura non verrà usata.",
@@ -4356,7 +4356,7 @@
   "f-JMSSystemResource_JmsResource_Template-a-MessagingPerformancePreference-help": "Determina il tempo di attesa da parte delle destinazioni prima che creino batch completi di messaggi disponibili, se presenti, da consegnare ai consumer. Con il valore minimo, la creazione di batch è disabilitata; con il valore predefinito, i batch non completi non restano in attesa e vengono consegnati immediatamente con i messaggi disponibili al momento; se si imposta un valore più alto di quello predefinito, viene stabilito il tempo massimo di attesa di altri messaggi prima che i batch non completi vengano consegnati ai consumer. Il conteggio massimo di messaggi di un batch completo è controllato dall'impostazione MessagesMaximum del connection factory JMS.",
 
   "a-MessagingQueue-label": "Coda di messaggistica",
-  "a-MessagingQueue-help": "For use only with the JAX-RPC stack. For JAX-WS, use WebServiceBufferingMBean instead. The default value is \"weblogic.wsee.DefaultQueue\".",
+  "a-MessagingQueue-help": "Da utilizzare solo con lo stack JAX-RPC. Per JAX-WS, utilizzare invece WebServiceBufferingMBean. Il valore predefinito è \"weblogic.wsee.DefaultQueue\".",
 
   "a-MessagingQueueMdbRunAsPrincipalName-label": "MDB coda di messaggistica - Esegui come nome principal",
   "a-MessagingQueueMdbRunAsPrincipalName-help": "Da utilizzare solo con lo stack JAX-RPC. Per JAX-WS, utilizzare invece WebServiceBufferingMBean.",
@@ -5846,10 +5846,10 @@
   "a-ServerKeyFileName-label": "Nome file di chiavi server",
 
   "a-ServerKeyStores-label": "Keystore server",
-  "a-ServerKeyStores-help": "Specifica il valore predefinito a livello di dominio per l'attributo KeyStores per server. Questo valore può essere sostituito a livello di server. L'attributo KeyStores del server seleziona il set di keystore identità e sicurezza che il server utilizzerà. Il valore predefinito è \"DemoIdentityAndDemoTrust\".",
+  "a-ServerKeyStores-help": "Specifica il valore predefinito a livello di dominio per l'attributo KeyStores per server. Questo valore può essere sostituito a livello di server. L'attributo KeyStores del server seleziona il set di keystore identità e sicurezza che verrà utilizzato dal server. Il valore predefinito è \"DemoIdentityAndDemoTrust\".",
 
   "a-ServerLifeCycleTimeoutVal-label": "Valore timeout ciclo di vita server",
-  "a-ServerLifeCycleTimeoutVal-help": "Il numero di secondi di attesa da parte di un'operazione di arresto forzato prima dell'attivazione del timeout e della conseguente interruzione. Se l'operazione non viene completata entro i secondi di timeout configurati, il server verrà arrestato automaticamente se lo stato in quel momento è SHUTTING_DOWN. Un valore pari a 0 significa che il periodo di attesa del completamento dell'operazione del ciclo di vita parte del server è illimitato. Il valore predefinito è 30 a meno che non sia in modalità di produzione sicura dove è 120.",
+  "a-ServerLifeCycleTimeoutVal-help": "Il numero di secondi di attesa da parte di un'operazione di arresto forzato prima dell'attivazione del timeout e della conseguente interruzione. Se l'operazione non viene completata entro i secondi di timeout configurati, il server verrà arrestato automaticamente se lo stato in quel momento è SHUTTING_DOWN. Un valore pari a 0 significa che il periodo di attesa del completamento dell'operazione del ciclo di vita da parte del server è illimitato. Il valore predefinito è 30 a meno che non sia in modalità di produzione sicura dove è 120.",
 
   "a-ServerLoggingBridgeAtRootLoggerEnabled-label": "Bridge di log del server nel logger radice abilitato",
   "a-ServerLoggingBridgeUseParentLoggersEnabled-label": "Bridge di log del server nei logger padre abilitato",
@@ -5891,7 +5891,7 @@
   "a-Servers-help": "Specifica la lista di server in cui è scritto ODL logging.xml",
 
   "a-ServiceActivationRequestResponseTimeout-label": "Timeout risposta a richiesta di attivazione servizio",
-  "f-Cluster-a-ServiceActivationRequestResponseTimeout-help": "Specifies the maximum time, in milliseconds, for services to wait for response from cluster members.",
+  "f-Cluster-a-ServiceActivationRequestResponseTimeout-help": "Specifica il tempo massimo, in millisecondi, durante il quale i servizi rimangono in attesa di una risposta dai membri del cluster.",
 
   "a-ServiceAgeThresholdSeconds-label": "Secondi soglia durata servizi",
   "f-Cluster-a-ServiceAgeThresholdSeconds-help": "Definisce il numero di secondi che deve costituire la differenza di durata di due servizi in conflitto prima che uno venga considerato meno recente dell'altro. Il valore predefinito è 180.",
@@ -6033,7 +6033,7 @@
   "a-SiteName-label": "Nome sito",
   "f-Cluster-a-SiteName-help": "Specifica il nome del sito a cui è associato questo cluster.",
   "f-any_CoherenceMemberConfig-a-SiteName-help": "Specifica il nome del sito geografico che funge da host per questo membro.",
-  "f-Topology-a-SiteName-help": "Il nome del sito cui è associato il dominio. Non più valido nella versione 12.2.1.4.",
+  "f-Topology-a-SiteName-help": "Il nome del sito a cui è associato il dominio. Non più valido nella versione 12.2.1.4.",
 
   "a-SlaveDeployer-label": "Distributore slave",
 
@@ -6097,7 +6097,7 @@
   "a-SsoLogoutUrl-label": "URL di logout SSO",
   "f-AdminConsole-a-SsoLogoutUrl-help": "Specifica l'URL di logout per la console di amministrazione in un ambiente SSO (Single Sign-On). Questa opzione è necessaria solo quando si usa la console con un provider SSO che richiede un URL di logout per poter eseguire il cleanup della condizione della propria sessione SSO. Per informazioni dettagliate sul valore dell'URL, consultare la documentazione del provider SSO.",
 
-  "a-SsoSigningKeyAlias-label": " Alias chiave di firma SSO",
+  "a-SsoSigningKeyAlias-label": "Alias chiave di firma SSO",
   "f-any_SingleSignOnServices-a-SsoSigningKeyAlias-help": "L'alias di keystore per la chiave da usare per la firma dei documenti. La chiave viene utilizzata per generare firme su tutti i documenti in uscita, quali richieste di autenticazione e risposte. Se non si specifica un alias, viene utilizzato per impostazione predefinita l'alias della chiave privata SSL configurato del server della configurazione SSL del server. Se questo valore non è impostato e l'impostazione KeyStores del server è DomainKeystores, viene restituito l'alias di firma/cifratura predefinito dei keystore dei domini.",
 
   "a-SsoSigningKeyPassPhraseEncrypted-label": "Passphrase chiave di firma SSO",
@@ -6330,7 +6330,7 @@
   "f-WTCServer_WTCtBridgeRedirect-a-TargetQspace-help": "Il nome dello spazio di coda per una posizione di destinazione.",
 
   "a-Template-label": "Modello",
-  "a-Template-help": "Il modello JMS dal quale è derivata la destinazione. Un modello JMS consente di definire più destinazioni con valori di configurazione simili. Se un modello JMS viene specificato, i parametri di destinazione impostati sui valori predefiniti erediteranno invece i valori dal modello JMS in fase di runtime. Se tuttavia un modello JMS non viene definito, i valori di configurazione per la destinazione devono essere specificati come parte della destinazione.",
+  "a-Template-help": "Il modello JMS dal quale è derivata la destinazione. Un modello JMS consente di definire più destinazioni con valori di configurazione simili. Se viene specificato un modello JMS, i parametri di destinazione impostati sui valori predefiniti erediteranno invece i valori dal modello JMS in fase di runtime. Se tuttavia un modello JMS non viene definito, i valori di configurazione per la destinazione devono essere specificati come parte della destinazione.",
 
   "a-TemplateBean-label": "Bean modello",
 
@@ -6375,7 +6375,7 @@
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-TestFrequencySeconds-help": "Il numero di secondi che un'istanza di WebLogic Server lascia trascorrere tra i tentativi di test delle connessioni inutilizzate. È necessario specificare un nome tabella di test. Le connessioni che non superano il test vengono chiuse e riaperte per ristabilire una connessione fisica valida. Se il test non riesce una seconda volta, la connessione viene chiusa. Nel contesto delle origini dati multiple, questo attributo controlla la frequenza di verifica da parte del WebLogic Server dello stato delle origini dati contrassegnate in precedenza come non integre. Quando impostata su 0, la funzione viene disabilitata.",
 
   "a-TestTableName-label": "Nome tabella di test",
-  "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-TestTableName-help": "Nome della tabella di database da utilizzare per eseguire il test delle connessioni fisiche al database. Questo nome è obbligatorio quando si specifica la frequenza di test e si abilita il test delle connessioni riservate. Il codice SQL predefinito utilizzato per il test di una connessione è select count(*) from TestTableName. La maggior parte dei database server ottimizza questa istruzione SQL per evitare una scansione di tabella, ma è comunque una buona idea impostare Nome tabella di test sul nome di una tabella contenente poche o nessuna riga. Se il nome tabella di test inizia con SQL, la parte restante della stringa che segue il token iniziale viene considerata come un'istruzione SQL e verrà utilizzata per il test delle connessioni al posto della query standard. Ad esempio: SQL BEGIN; Null; END; Per un database Oracle, è possibile ridurre il sovraccarico di test delle connessioni impostando Nome tabella di test su SQL PINGDATABASE, che utilizza il metodo pingDatabase() per eseguire il test della connessione Oracle. Per qualsiasi database JDBC 4.0, è possibile utilizzare \"SQL ISVALID\" per utilizzare il metodo isValid() sulla connessione.",
+  "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-TestTableName-help": "Nome della tabella di database da utilizzare per eseguire il test delle connessioni fisiche al database. Questo nome è obbligatorio quando si specifica la frequenza di test e si abilita il test delle connessioni riservate. Il codice SQL predefinito utilizzato per il test di una connessione è select count(*) da TestTableName. La maggior parte dei database server ottimizza questa istruzione SQL per evitare una scansione di tabella, ma è comunque una buona idea impostare Nome tabella di test sul nome di una tabella contenente poche o nessuna riga. Se il nome tabella di test inizia con SQL, la parte restante della stringa che segue il token iniziale viene considerata come un'istruzione SQL e verrà utilizzata per il test delle connessioni al posto della query standard. Ad esempio: SQL BEGIN; Null; END; Per un database Oracle, è possibile ridurre il sovraccarico di test delle connessioni impostando Nome tabella di test su SQL PINGDATABASE, che utilizza il metodo pingDatabase() per eseguire il test della connessione Oracle. Per qualsiasi database JDBC 4.0, è possibile utilizzare \"SQL ISVALID\" per utilizzare il metodo isValid() sulla connessione.",
 
   "a-TestTimeoutSeconds-label": "Timeout test (secondi)",
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-TestTimeoutSeconds-help": "Il periodo di tempo trascorso il quale si verificherà il timeout dell'istruzione di test, o del metodo isValid, attualmente in esecuzione. TestTimeout si basa sul supporto del driver JDBC. WebLogic Server passa il tempo specificato al driver JDBC usando il metodo java.sql.Statement.setQueryTimeout(). Se il driver JDBC in uso non supporta questo metodo, è possibile che restituisca un'eccezione e che il valore di timeout venga ignorato. Il valore -1 disabilita la funzione, mentre il valore 0 indica che il timeout delle istruzioni non si verificherà.",
@@ -6542,7 +6542,7 @@
   "f-CoherenceClusterSystemResource_CoherenceResource_CoherenceClusterParams-Transport-help": "Specifica il protocollo di trasporto sottostante da utilizzare per la comunicazione del cluster. L'impostazione predefinita è SSL se la modalità di produzione protetta è abilitata; altrimenti, è TMB.",
 
   "a-TransportLayerSecurityKeyAlias-label": "Alias chiave Transport Layer Security",
-  "f-any_SingleSignOnServices-a-TransportLayerSecurityKeyAlias-help": "L'alias di stringa viene utilizzata per memorizzare e recuperare la chiave privata del server, che viene utilizzata per stabilire le connessioni TLS/SSL in uscita. Se non si specifica un alias, viene utilizzato per impostazione predefinita l'alias della chiave privata SSL configurato del server della configurazione SSL del server. Se questo valore non è impostato e l'impostazione KeyStores del server è DomainKeystores, viene restituito l'alias identità client predefinito dei keystore dei domini.",
+  "f-any_SingleSignOnServices-a-TransportLayerSecurityKeyAlias-help": "L'alias di stringa usato per memorizzare e recuperare la chiave privata del server, che viene utilizzato per stabilire le connessioni TLS/SSL in uscita. Se non si specifica un alias, viene utilizzato per impostazione predefinita l'alias della chiave privata SSL configurato dal server della configurazione SSL del server. Se questo valore non è impostato e l'impostazione KeyStores del server è DomainKeystores, viene restituito l'alias identità client predefinito dei keystore dei domini.",
 
   "a-TransportLayerSecurityKeyPassPhraseEncrypted-label": "Passphrase chiave Transport Layer Security",
   "f-any_SingleSignOnServices-a-TransportLayerSecurityKeyPassPhraseEncrypted-help": "La passphrase usata per recuperare la chiave privata del server dal keystore. Se non si specifica un alias o una passphrase, l'alias della chiave privata SSL configurato del server e la passphrase della chiave privata della configurazione SSL del server vengono utilizzati come alias TLS e passphrase per impostazione predefinita.",
@@ -6573,7 +6573,7 @@
   "a-TrustedClientPrincipal-label": "Principal client sicuri",
   "a-TrustedClientPrincipal-itemLabel": "Principal client sicuro",
   "a-TrustedClientPrincipal-itemHelp": "Specificare un principal client sicuro da utilizzare nell'asserzione di identità v2 CSI. Il carattere jolly (*) può essere utilizzato per indicare che tutti i principal sono sicuri.",
-  "f-any_DefaultIdentityAsserter-a-TrustedClientPrincipal-help": "Specifica la lista dei client principal accettati come sicuri da utilizzare nell'asserzione dell'identità CSI v2. Il carattere jolly (*) può essere usato per specificare che tutti i principali sono accettati come sicuri. Se un client non è elencato come client principal accettato come sicuro, l'asserzione di identità CSIv2 non riesce e il richiamo viene rifiutato.",
+  "f-any_DefaultIdentityAsserter-a-TrustedClientPrincipal-help": "Specifica la lista dei client principal accettati come sicuri da utilizzare nell'asserzione dell'identità CSI v2. Il carattere jolly (*) può essere usato per specificare che tutti i principal sono accettati come sicuri. Se un client non è elencato come client principal accettato come sicuro, l'asserzione di identità CSIv2 non riesce e il richiamo viene rifiutato.",
 
   "a-TunnelingClientPingSecs-label": "Ping client di tunneling in secondi",
   "a-TunnelingClientPingSecs-help": "L'intervallo, in secondi, in base al quale il server dovrebbe controllare un client con tunneling HTTP per stabilire se è ancora attivo. Se si creano canali di rete per questo server, ogni canale può sostituire questa impostazione.",
@@ -6594,11 +6594,11 @@
   "a-TuxFactory-help": "Nome del connection factory Tuxedo. Il valore predefinito è tuxedo.services.TuxedoConnection.",
 
   "a-TuxToJmsPriorityMap-label": "Mappa priorità da Tuxedo a JMS",
-  "a-TuxToJmsPriorityMap-entryLabel": "Tuxedo to JMS Priority Entry",
-  "a-TuxToJmsPriorityMap-keyLabel": "Tuxedo Priority",
-  "a-TuxToJmsPriorityMap-keyHelp": "The Tuxedo priority value or range that you want to map.",
+  "a-TuxToJmsPriorityMap-entryLabel": "Immissione priorità da Tuxedo a JMS",
+  "a-TuxToJmsPriorityMap-keyLabel": "Priorità Tuxedo",
+  "a-TuxToJmsPriorityMap-keyHelp": "Valore o intervallo di priorità Tuxedo da mappare.",
   "a-TuxToJmsPriorityMap-valueLabel": "Priorità JMS",
-  "a-TuxToJmsPriorityMap-valueHelp": "The JMS priority to which the Tuxedo priority should be mapped.",
+  "a-TuxToJmsPriorityMap-valueHelp": "La priorità JMS in base alla quale mappare la priorità Tuxedo.",
   "a-TuxToJmsPriorityMap-help": "Mapping delle priorità da Tuxedo a JMS. Il valore predefinito per la mappa di priorità da JMS a Tuxedo è: 1-10:0 | 11-20:1 | 21-30:2 | 31-40:3| 41-50:4| 51-60:5 | 61-70:6 | 71-80:7 | 81-90:8 | 91-100:9.",
 
   "a-TuxedoGidKw-label": "Parola chiave ID gruppo Tuxedo",
@@ -6621,7 +6621,7 @@
   "a-TxMechanism-help": "Il meccanismo transazioni usato nei richiami IIOP. Il meccanismo predefinito è OTS (Object Transaction Service).",
 
   "a-TxnAffinityEnabled-label": "Affinità transazione abilitata",
-  "f-Cluster-a-TxnAffinityEnabled-help": "Se abilitato, le richieste di transazione di un server passano ai server nel cluster che sta già partecipando alla transazione globale.",
+  "f-Cluster-a-TxnAffinityEnabled-help": "Se abilitata, le richieste di transazione di un server passano ai server nel cluster che sta già partecipando alla transazione globale.",
 
   "a-URL-label": "URL",
   "f-JDBCSystemResource_JdbcResource_JDBCDriverParams-a-URL-help": "L'URL del database al quale connettersi. Il formato dell'URL varia in base al driver JDBC. L'URL viene passato al driver JDBC per creare le connessioni fisiche al database.",
@@ -6737,7 +6737,7 @@
   "a-UseJavaSerialization-help": "Specifica se utilizzare la serializzazione Java per il marshalling degli oggetti. L'impostazione di questa proprietà migliora le prestazioni quando si esegue il marshalling degli oggetti con grafici di oggetti molto grandi. Il valore predefinito è false.",
 
   "a-UseKSSForDemo-label": "Usa KSS per demo",
-  "f-SecurityConfiguration-a-UseKSSForDemo-help": "Determina se i keystore Identità demo e sicurezza demo devono essere ottenuti da Oracle KeyStore Service (KSS). Quando l'opzione è abilitata, Weblogic Server richiede i keystore identità demo e il keystore sicuro demo dal servizio KSS. Dopo l'installazione, tuttavia, i keystore demo KSS potrebbero essere stati modificati al punto che i certificati o le chiavi Demo appropriate non siano disponibili.",
+  "f-SecurityConfiguration-a-UseKSSForDemo-help": "Determina se i keystore Identità demo e sicurezza demo devono essere ottenuti da Oracle KeyStore Service (KSS). Quando l'opzione è abilitata, Weblogic Server richiede i keystore identità demo e il keystore sicuro demo dal servizio KSS. Dopo l'installazione, tuttavia, i keystore demo KSS potrebbero essere stati modificati al punto che i certificati o le chiavi Demo appropriati non siano disponibili.",
 
   "a-UseLocateRequest-label": "Usa richiesta di individuazione",
   "a-UseLocateRequest-help": "Specifica se le chiamate in uscita devono utilizzare LocateRequest iniziale. Il valore predefinito è false.",
@@ -6747,13 +6747,13 @@
 
   "a-UseNonSecureAddressesForDomain-label": "Usa indirizzi non sicuri per domini",
   "a-UseNonSecureAddressesForDomain-itemLabel": "Dominio",
-  "a-UseNonSecureAddressesForDomain-itemHelp": "Selezionare un dominio nella lista dei domini per i quali ci sono protocolli non sicuri.",
+  "a-UseNonSecureAddressesForDomain-itemHelp": "Selezionare un dominio nella lista dei domini per i quali occorre utilizzare protocolli non sicuri.",
   "a-UseNonSecureAddressesForDomain-help": "Specifica i domini per i quali devono essere utilizzati i protocolli non sicuri per la comunicazione JTA interna se i server nei domini sono configurati per l'utilizzo dei canali di rete.",
 
   "a-UseParentHandlers-label": "Usa handler padre",
 
   "a-UsePasswordIndirection-label": "Usa indirettezza password",
-  "f-JDBCSystemResource_JdbcResource_JDBCDriverParams-a-UsePasswordIndirection-help": "Specifica se le credenziali del database devono essere ottenute dal mapper delle credenziali mapper utilizzando la proprietà \"user\" come chiave. Quando l'impostazione è true, le credenziali vengono ottenute dal mapper delle credenziali. Quando è false, il nome utente e la password del database vengono ottenuti rispettivamente dalla proprietà \"user\" e dall'elemento Password.",
+  "f-JDBCSystemResource_JdbcResource_JDBCDriverParams-a-UsePasswordIndirection-help": "Specifica se le credenziali del database devono essere ottenute dal mapper delle credenziali utilizzando la proprietà \"user\" come chiave. Quando l'impostazione è true, le credenziali vengono ottenute dal mapper delle credenziali. Quando è false, il nome utente e la password del database vengono ottenuti rispettivamente dalla proprietà \"user\" e dall'elemento Password.",
 
   "a-UsePublicAddressesForRemoteDomain-label": "Usa indirizzi pubblici per domini remoti",
   "a-UsePublicAddressesForRemoteDomain-itemLabel": "Dominio remoto",
@@ -6774,7 +6774,7 @@
   "a-UseSampleDatabase-help": "Specifica se il dominio verrà configurato per utilizzare il database di esempio fornito con WebLogic Server.",
 
   "a-UseSerialFormatVersion2-label": "Usa formato seriale versione 2",
-  "a-UseSerialFormatVersion2-help": "Specifica se annunciare gli oggetti e RMI e gli EJB per il supporto del formato seriale RMI-IIOP versione 2 per gli oggetti con marshalling personalizzato. Il valore predefinito è false.",
+  "a-UseSerialFormatVersion2-help": "Specifica se annunciare gli oggetti e gli EJB RMI per il supporto del formato seriale RMI-IIOP versione 2 per gli oggetti con marshalling personalizzato. Il valore predefinito è false.",
 
   "a-UseServerCerts-label": "Usa certificato del server",
   "a-UseServerCerts-help": "Specifica se il client deve usare i certificati o la chiave del server come identità del client durante l'inizializzazione di una connessione in uscita con il protocollo HTTPS. Il valore predefinito è false.",
@@ -7097,7 +7097,7 @@
   "a-XaRetryIntervalSeconds-label": "Intervallo nuovo tentativo XA in secondi",
   "f-JDBCSystemResource_JdbcResource_JDBCXAParams-a-XaRetryIntervalSeconds-help": "Il numero di secondi tra i nuovi tentativi XA se XARetryDurationSeconds è impostato su un valore positivo.",
 
-  "a-XaSetTransactionTimeout-label": " Imposta timeout per transazioni XA",
+  "a-XaSetTransactionTimeout-label": "Imposta timeout per transazioni XA",
   "f-JDBCSystemResource_JdbcResource_JDBCXAParams-a-XaSetTransactionTimeout-help": "Consente a WebLogic Server di impostare un timeout delle diramazioni di transazione basato sul valore di XaTransactionTimeout. Quando questa opzione è abilitata, Transaction Manager di WebLogic Server chiama XAResource.setTransactionTimeout() prima di chiamare XAResource.start passando il valore del timeout per transazioni XA o il timeout per transazioni globali. In caso di transazioni con esecuzione prolungata che superano il valore di timeout predefinito nella risorsa XA, è possibile impostare un timeout per le diramazioni di transazione.",
 
   "a-XaTransactionTimeout-label": "Timeout transazione XA",
@@ -7151,7 +7151,7 @@
   "a-domainLibraries-itemLabel": "Libreria di domini",
 
   "a-domainLibraries-label": "Librerie dominio",
-  "a-domainLibraries-help": "Lista dei file script dal file d'archivio WDT da inserire nella directory DOMAIN_HOME/lib quando si crea un nuovo dominio.",
+  "a-domainLibraries-help": "Lista dei file dal file d'archivio WDT da inserire nella directory DOMAIN_HOME/lib quando si crea un nuovo dominio.",
 
   "a-employeenumber-label": "employeenumber",
   "a-employeetype-label": "employeetype",
@@ -7328,7 +7328,7 @@
   "f-any_CoherenceClusterWellKnownAddress-label": "Indirizzi noti",
   "f-any_CoherenceClusterWellKnownAddress-typeLabel": "Indirizzo noto",
   "f-any_CoherenceFederationParams-label": "Parametri federazione",
-  "f-any_CoherenceIdentityAsserter-label": "Strumento di asserzione identità ",
+  "f-any_CoherenceIdentityAsserter-label": "Strumento di asserzione identità",
   "f-any_CoherenceInitParam-label": "Parametri di inizializzazione",
   "f-any_CoherenceInitParam-typeLabel": "Parametro di inizializzazione",
   "f-any_CoherenceKeystoreParams-label": "Parametri keystore",
@@ -7393,11 +7393,11 @@
   "f-any_DistributedQueue-label": "Code distribuite",
   "f-any_DistributedQueue-typeLabel": "Coda distribuita",
   "f-any_DistributedQueueMember-label": "Membri coda distribuita",
-  "f-any_DistributedQueueMember-typeLabel": "Membro coda distribuita ",
+  "f-any_DistributedQueueMember-typeLabel": "Membro coda distribuita",
   "f-any_DistributedTopic-label": "Argomenti distribuiti",
   "f-any_DistributedTopic-typeLabel": "Argomento distribuito",
   "f-any_DistributedTopicMember-label": "Membri argomento distribuito",
-  "f-any_DistributedTopicMember-typeLabel": "Membro argomento distribuito ",
+  "f-any_DistributedTopicMember-typeLabel": "Membro argomento distribuito",
   "f-any_DomainInfo-a-any-help": "{{attribute}} per il dominio",
   "f-any_DomainInfo-label": "Informazioni dominio",
   "f-any_DynamicServers-label": "Server dinamici",
