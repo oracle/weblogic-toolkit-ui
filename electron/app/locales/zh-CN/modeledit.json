@@ -444,12 +444,12 @@
 
   "attribute-dialog-title": "用于 {{attribute}} 的选项",
   "attribute-dialog-label": "选择选项",
-  "attribute-dialog-option-addToArchive": "Add entry to archive",
+  "attribute-dialog-option-addToArchive": "将条目添加到档案",
   "attribute-dialog-option-edit": "正常编辑字段",
   "attribute-dialog-option-remove": "从模型中删除字段",
   "attribute-dialog-option-variable": "使用现有的变量令牌",
   "attribute-dialog-option-newVariable": "使用新的变量令牌",
-  "attribute-dialog-option-removeFromArchive": "Remove entry from archive",
+  "attribute-dialog-option-removeFromArchive": "从档案中删除条目",
   "attribute-dialog-variable-choice-label": "现有变量",
   "attribute-dialog-variable-choice-help": "为字段选择变量",
   "attribute-dialog-variable-name-label": "变量名称",
@@ -457,8 +457,8 @@
   "attribute-dialog-variable-name-error": "变量名称只能包含字母、数字和以下字符：.-_",
   "attribute-dialog-variable-value-label": "变量值",
   "attribute-dialog-variable-value-help": "字段的变量值",
-  "attribute-dialog-archive-file-not-present": "找不到文件: {{path}}",
-  "attribute-dialog-archive-path-not-present": "Path not found in archive: {{path}}",
+  "attribute-dialog-archive-file-not-present": "未找到文件：{{path}}",
+  "attribute-dialog-archive-path-not-present": "在档案中未找到路径：{{path}}",
 
   "attribute-editor-from-secret": "来自密钥 \"{{secret}}\"",
   "attribute-editor-from-variable": "来自变量 \"{{variable}}\"",
@@ -552,7 +552,7 @@
   "a-AcknowledgementInterval-help": "在传送回 RM 源之前暂挂确认可以等待的最长时间（在目的地接受消息之后设置）。“持续时间”格式的字符串值。默认为 \"P0DT0.2S\"（200 毫秒）。在序列创建时设置，并且不能重置。",
 
   "a-AclPolicy-label": "ACL 策略",
-  "f-WTCServer_WTCRemoteTuxDom-a-AclPolicy-help": "The inbound access control list (ACL) policy toward requests from a remote Tuxedo access point.  The allowed values are Local or Global. Local causes the local Tuxedo access point modifies the identity of service requests received from a given remote Tuxedo access point to the principal name specified in the local principal name for a given remote Tuxedo access point. Global causes the local Tuxedo access point to pass the service request with no change in identity. Note that if Interoperate is set to Yes, the AclPolicy is ignored.",
+  "f-WTCServer_WTCRemoteTuxDom-a-AclPolicy-help": "针对来自远程 Tuxedo 接入点的请求的入站访问控制列表 (ACL) 策略。允许的值为“本地”或“全局”。值为“本地”时，本地 Tuxedo 接入点将从给定远程 Tuxedo 接入点接收到的服务请求的身份修改为在给定远程 Tuxedo 接入点的本地主用户名称中指定的主用户名称。值为“全局”时，本地 Tuxedo 接入点将传递服务请求，而不改变请求的身份。请注意，如果“互操作”设置为“是”，将忽略 AclPolicy。",
 
   "a-AcsRequiresSsl-label": "ACS 需要 SSL",
 
@@ -1054,13 +1054,13 @@
   "a-CallbackQueueMdbRunAsPrincipalName-help": "仅用于 JAX-RPC 堆栈。对于 JAX-WS，请改用 WebServiceBufferingMBean。",
 
   "a-CandidateMachine-label": "候选计算机",
-  "a-CandidateMachine-itemLabel": "CandidateMachine",
-  "a-CandidateMachine-itemHelp": "Specify a candidate machine to add to the list.",
+  "a-CandidateMachine-itemLabel": "候选计算机",
+  "a-CandidateMachine-itemHelp": "指定要添加到列表的候选计算机。",
   "a-CandidateMachine-help": "用于限制集群所指定的候选计算机列表。（需要为此服务器启用自动迁移，并用一组候选计算机配置集群。）如果此服务器失败且已为其启用了自动迁移，节点管理器将自动重新启动它。默认情况下，节点管理器将重新启动集群指定的任一候选计算机上的服务器（按照在集群中配置的优先顺序）。要更改默认设置，可使用此服务器的候选计算机列表创建集群范围的候选计算机子集。您还可以更改优先顺序。",
 
   "a-CandidateMachinesForMigratableServer-label": "可迁移服务器的候选计算机",
   "a-CandidateMachinesForMigratableServer-itemLabel": "候选计算机",
-  "a-CandidateMachinesForMigratableServer-itemHelp": "Specify a candidate machine on which a node manager can restart failed servers.",
+  "a-CandidateMachinesForMigratableServer-itemHelp": "指定节点管理器可以在其上重新启动发生故障的服务器的候选计算机。",
   "f-Cluster-a-CandidateMachinesForMigratableServer-help": "指定节点管理器将在其上重新启动发生故障的服务器的计算机集（和优先顺序）。（需要为每个服务器启用自动迁移。）每个服务器都可以指定这些集群范围候选计算机的子集，这样就限制了可以在其上重新启动服务器的计算机。服务器还可以指定其自己的优先顺序。",
 
   "a-Capacity-label": "容量",
@@ -1550,7 +1550,7 @@
   "f-RemoteConsoleHelper-a-ContextPath-help": "在指定远程控制台帮助程序的 URL 中使用的上下文路径。",
 
   "a-ContextRequestClass-label": "上下文请求类",
-  "f-SelfTuning_WorkManager-a-ContextRequestClass-help": "ContextRequestClass 的名称，用于定义当前上下文（安全主用户、组）与要使用的请求类之间的映射。ContextRequestClass 提供了安全名称/组与请求类之间的映射。在工作调度期间，通过查看调用者的安全信息来确定确切的请求类。ContextRequestClass 本身不是请求类，它用于保存请求类的映射。",
+  "f-SelfTuning_WorkManager-a-ContextRequestClass-help": "ContextRequestClass 的名称，用于定义当前上下文（安全主用户、组）与要使用的请求类之间的映射。ContextRequestClass 提供了安全名称/组与请求类之间的映射。在工作调度期间，通过查看调用者的安全信息来确定确切的请求类。ContextRequestClass 本身不是请求类，它用于存放请求类的映射。",
 
   "a-ContinuationFramesLimit-label": "连续帧限制",
   "f-WebAppContainer_Http2Config-a-ContinuationFramesLimit-help": "每个流允许的 CONTINUATION 帧数。",
@@ -2318,7 +2318,7 @@
   "a-DebugValidationClassLoading-label": "调试验证类加载",
   "a-DebugVerboseRcm-label": "调试详细复制和一致性管理器 (RCM)",
   "a-DebugWANReplicationDetails-label": "调试 WAN 复制详细信息",
-  "a-DebugWarExtraction-label": "DebugARExtraction",
+  "a-DebugWarExtraction-label": "调试 WAR 提取",
   "a-DebugWatchScalingActions-label": "调试观察器缩放操作",
   "a-DebugWebAppDi-label": "调试 Web 应用程序相关性注入",
   "a-DebugWebAppIdentityAssertion-label": "调试 Web 应用程序身份断言",
@@ -2978,8 +2978,8 @@
   "a-FannedOutRequestMaxWaitMillis-help": "确定在管理服务 Web 应用程序将幂等 REST 请求从管理服务器扇出到所有托管服务器时，此应用程序将等待的时间长度（毫秒）。如果为零，则将选择适当的超时。请求可以通过指定 requestMaxWaitMillis 查询参数来覆盖此值。",
 
   "a-FatalErrorCodes-label": "致命错误代码",
-  "a-FatalErrorCodes-itemLabel": "Fatal Error Code",
-  "a-FatalErrorCodes-itemHelp": "Specify an error code to be treated as a fatal error.",
+  "a-FatalErrorCodes-itemLabel": "致命错误代码",
+  "a-FatalErrorCodes-itemHelp": "指定要视为致命错误的错误代码。",
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-FatalErrorCodes-help": "指定以逗号分隔的视为致命错误的错误代码列表。这些错误包括导致服务器无法引导的部署错误以及导致连接无法放回连接池的连接错误。此可选属性用于定义致命错误代码（当指定为 SQLException 中的异常错误代码（由 sqlException.getErrorCode() 检索）时，表示已发生致命错误并且连接不再可用）",
 
   "a-FederationName-label": "联合名称",
@@ -3653,11 +3653,11 @@
   "f-WTCServer_WTCtBridgeGlobal-a-JmsFactory-help": "JMS 连接工厂的名称；例如 weblogic.jndi.ConnectionFactory。默认值为 weblogic.jms.XAConnectionFactory。",
 
   "a-JmsToTuxPriorityMap-label": "JMS 到 Tuxedo 的优先级映射",
-  "a-JmsToTuxPriorityMap-entryLabel": "JMS To Tuxedo Priority Entry",
+  "a-JmsToTuxPriorityMap-entryLabel": "JMS 到 Tuxedo 的优先级条目",
   "a-JmsToTuxPriorityMap-keyLabel": "JMS 优先级",
-  "a-JmsToTuxPriorityMap-keyHelp": "The JMS priority value or range that you want to map.",
-  "a-JmsToTuxPriorityMap-valueLabel": "Tuxedo Priority",
-  "a-JmsToTuxPriorityMap-valueHelp": "The Tuxedo priority to which the JMS priority should be mapped.",
+  "a-JmsToTuxPriorityMap-keyHelp": "要映射的 JMS 优先级值或范围。",
+  "a-JmsToTuxPriorityMap-valueLabel": "Tuxedo 优先级",
+  "a-JmsToTuxPriorityMap-valueHelp": "JMS 优先级应映射到的 Tuxedo 优先级。",
   "a-JmsToTuxPriorityMap-help": "从 JMS 到 Tuxedo 的优先级映射。默认的 JMS 到 Tux 优先级映射为：0:1 | 1:12 | 2:23 | 3:34 | 4:45 |5:56 | 6:67 | 7:78 | 8:89 | 9:100。",
 
   "a-JndiFactory-label": "JNDI 初始上下文工厂类名",
@@ -3874,7 +3874,7 @@
   "f-SnmpAgentDeployment-a-LocalizedKeyCacheInvalidationInterval-help": "在 WebLogic Server 使其 SNMP 安全密钥的高速缓存失效之前过去的毫秒数。如果设置的值较高，则会存在身份证明已被删除的用户仍可访问 SNMP 数据的风险。SNMP 安全密钥是加密版本的 SNMP 代理引擎 ID 以及验证密码或隐私密码。WebLogic Server 会为您在 SNMP 身份证明映射中创建的每个条目生成一个安全密钥。WebLogic Server SNMP 代理收到 SNMPv3 请求时，会将请求中的密钥与其 WebLogic Server 密钥进行比较。如果找到匹配项，则会处理请求。SNMP 代理还会在其响应和通知中对这些密钥进行编码。（您可以在创建陷阱目的地时配置对哪些密钥进行编码。）WebLogic Server 将高速缓存密钥，而不是为每个 SNMPv3 通信重新生成密钥。为确保高速缓存包含最新的 SNMP 身份证明集，WebLogic Server 会定期使高速缓存失效。使高速缓存失效后，下次 SNMP 代理请求身份证明时，WebLogic Server 将重新生成高速缓存。请注意，对身份证明映射进行更改时不会自动更新高速缓存。而是，在使高速缓存失效后才会更新高速缓存。",
 
   "a-Location-label": "位置",
-  "a-Location-help": "对于文件存储，指定将保存与存储相关的所有文件的目录。实际文件名在内部由文件存储实施控制。对于其他类型的存储，此位置可以是 URL 或 URI，也可以是其他说明字符串。",
+  "a-Location-help": "对于文件存储，指定将存放与存储相关的所有文件的目录。实际文件名在内部由文件存储实施控制。对于其他类型的存储，此位置可以是 URL 或 URI，也可以是其他说明字符串。",
 
   "a-LocationForwardPolicy-label": "位置转发策略",
 
@@ -4120,7 +4120,7 @@
   "a-MaxConsecutiveCharacters-help": "指定密码中允许重复的最大连续字符数。值为 0 表示无限制。例如，如果值为 2，则用户无法创建 \"baaag\" 这样的密码。此属性的有效值必须大于或等于 0。",
 
   "a-MaxDynamicClusterSize-label": "最大动态集群大小",
-  "f-Cluster_DynamicServers-a-MaxDynamicClusterSize-help": "Specifies the upper bound on the DynamicClusterSize that the Elasticity Framework is allowed to assign to DynamicClusterSize. The default value is 8.",
+  "f-Cluster_DynamicServers-a-MaxDynamicClusterSize-help": "指定允许 Elasticity 框架分配给 DynamicClusterSize 的 DynamicClusterSize 上限。默认值为 8。",
 
   "a-MaxEncryptBits-label": "最大加密位数",
   "f-WTCServer_WTCLocalTuxDom-a-MaxEncryptBits-help": "建立会话连接时此本地 Tuxedo 接入点使用的最大加密密钥长度（位）。值为 0 表示不使用加密。",
@@ -4356,7 +4356,7 @@
   "f-JMSSystemResource_JmsResource_Template-a-MessagingPerformancePreference-help": "控制为了创建传送给使用者的可用消息（如果有）的完整批处理，使用此模板的目的地愿意等待的时间。使用最小值时，将禁用批处理操作；使用默认值时，不完整的批处理将不会等待并随当前可用的消息立即进行传送；调整为高于默认值时，可控制在将不完整批处理传送给使用者之前，等待其他消息的最长时间。完整批处理的最大消息计数是由 JMS 连接工厂的 MessagesMaximum（最大消息数）设置控制的。",
 
   "a-MessagingQueue-label": "消息传送队列",
-  "a-MessagingQueue-help": "For use only with the JAX-RPC stack. For JAX-WS, use WebServiceBufferingMBean instead. The default value is \"weblogic.wsee.DefaultQueue\".",
+  "a-MessagingQueue-help": "仅用于 JAX-RPC 堆栈。对于 JAX-WS，请改用 WebServiceBufferingMBean。默认值为 \"weblogic.wsee.DefaultQueue\"。",
 
   "a-MessagingQueueMdbRunAsPrincipalName-label": "消息传送队列 MDB 以主用户名称的身份运行",
   "a-MessagingQueueMdbRunAsPrincipalName-help": "仅用于 JAX-RPC 堆栈。对于 JAX-WS，请改用 WebServiceBufferingMBean。",
@@ -5891,7 +5891,7 @@
   "a-Servers-help": "指定将 ODL logging.xml 写入到的服务器列表",
 
   "a-ServiceActivationRequestResponseTimeout-label": "服务激活请求响应超时",
-  "f-Cluster-a-ServiceActivationRequestResponseTimeout-help": "Specifies the maximum time, in milliseconds, for services to wait for response from cluster members.",
+  "f-Cluster-a-ServiceActivationRequestResponseTimeout-help": "指定服务等待集群成员响应的最长时间（毫秒）。",
 
   "a-ServiceAgeThresholdSeconds-label": "服务期限阈值 (秒)",
   "f-Cluster-a-ServiceAgeThresholdSeconds-help": "定义在确定一个服务早于另一个服务时，这两个发生冲突的服务之间的期限差必须达到的秒数。默认值为 180。",
@@ -6594,11 +6594,11 @@
   "a-TuxFactory-help": "Tuxedo 连接工厂的名称。默认值为 tuxedo.services.TuxedoConnection。",
 
   "a-TuxToJmsPriorityMap-label": "Tuxedo 到 JMS 的优先级映射",
-  "a-TuxToJmsPriorityMap-entryLabel": "Tuxedo to JMS Priority Entry",
-  "a-TuxToJmsPriorityMap-keyLabel": "Tuxedo Priority",
-  "a-TuxToJmsPriorityMap-keyHelp": "The Tuxedo priority value or range that you want to map.",
+  "a-TuxToJmsPriorityMap-entryLabel": "Tuxedo 到 JMS 的优先级条目",
+  "a-TuxToJmsPriorityMap-keyLabel": "Tuxedo 优先级",
+  "a-TuxToJmsPriorityMap-keyHelp": "要映射的 Tuxedo 优先级值或范围。",
   "a-TuxToJmsPriorityMap-valueLabel": "JMS 优先级",
-  "a-TuxToJmsPriorityMap-valueHelp": "The JMS priority to which the Tuxedo priority should be mapped.",
+  "a-TuxToJmsPriorityMap-valueHelp": "Tuxedo 优先级应映射到的 JMS 优先级。",
   "a-TuxToJmsPriorityMap-help": "要从 Tuxedo 映射到 JMS 的优先级映射。默认的 JMS 到 Tux 优先级映射为：1-10:0 | 11-20:1 | 21-30:2 | 31-40:3| 41-50:4| 51-60:5 | 61-70:6 | 71-80:7 | 81-90:8 | 91-100:9。",
 
   "a-TuxedoGidKw-label": "Tuxedo 组 ID 关键字",

@@ -444,12 +444,12 @@
 
   "attribute-dialog-title": "{{attribute}}のオプション",
   "attribute-dialog-label": "オプションの選択",
-  "attribute-dialog-option-addToArchive": "Add entry to archive",
+  "attribute-dialog-option-addToArchive": "アーカイブにエントリを追加",
   "attribute-dialog-option-edit": "フィールドを通常どおり編集",
   "attribute-dialog-option-remove": "モデルからフィールドを削除",
   "attribute-dialog-option-variable": "既存の変数トークンの使用",
   "attribute-dialog-option-newVariable": "新しい変数トークンの使用",
-  "attribute-dialog-option-removeFromArchive": "Remove entry from archive",
+  "attribute-dialog-option-removeFromArchive": "アーカイブからエントリを削除",
   "attribute-dialog-variable-choice-label": "既存の変数",
   "attribute-dialog-variable-choice-help": "フィールドの変数の選択",
   "attribute-dialog-variable-name-label": "変数名",
@@ -458,7 +458,7 @@
   "attribute-dialog-variable-value-label": "変数値",
   "attribute-dialog-variable-value-help": "フィールドの変数の値",
   "attribute-dialog-archive-file-not-present": "ファイルが見つかりません: {{path}}",
-  "attribute-dialog-archive-path-not-present": "Path not found in archive: {{path}}",
+  "attribute-dialog-archive-path-not-present": "アーカイブにパスが見つかりません: {{path}}",
 
   "attribute-editor-from-secret": "シークレット\"{{secret}}\"から",
   "attribute-editor-from-variable": "変数\"{{variable}}\"から",
@@ -552,7 +552,7 @@
   "a-AcknowledgementInterval-help": "保留中の確認応答(宛先がメッセージを受信した後に設定される)をRMソースに返送するまでに待機する最大時間。\"期間\"形式の文字列値。デフォルトは\"P0DT0.2S\" (200ミリ秒)です。順序の作成時に設定され、リセットできません。",
 
   "a-AclPolicy-label": "ACLポリシー",
-  "f-WTCServer_WTCRemoteTuxDom-a-AclPolicy-help": "The inbound access control list (ACL) policy toward requests from a remote Tuxedo access point.  The allowed values are Local or Global. Local causes the local Tuxedo access point modifies the identity of service requests received from a given remote Tuxedo access point to the principal name specified in the local principal name for a given remote Tuxedo access point. Global causes the local Tuxedo access point to pass the service request with no change in identity. Note that if Interoperate is set to Yes, the AclPolicy is ignored.",
+  "f-WTCServer_WTCRemoteTuxDom-a-AclPolicy-help": "リモートTuxedoアクセス・ポイントからのリクエストに対するインバウンド・アクセス制御リスト(ACL)ポリシー。指定できる値は、ローカルまたはグローバルです。ローカルの場合、ローカルTuxedoアクセス・ポイントは、特定のリモートTuxedoアクセス・ポイントから受信したサービス・リクエストのアイデンティティを、特定のリモートTuxedoアクセス・ポイントのローカル・プリンシパル名で指定されたプリンシパル名に変更します。グローバルの場合、ローカルTuxedoアクセス・ポイントは、アイデンティティを変更せずにサービス・リクエストを渡します。相互運用が「はい」に設定されている場合、AclPolicyは無視されます。",
 
   "a-AcsRequiresSsl-label": "ACSでSSLが必要",
 
@@ -1055,12 +1055,12 @@
 
   "a-CandidateMachine-label": "候補マシン",
   "a-CandidateMachine-itemLabel": "CandidateMachine",
-  "a-CandidateMachine-itemHelp": "Specify a candidate machine to add to the list.",
+  "a-CandidateMachine-itemHelp": "リストに追加する候補マシンを指定します。",
   "a-CandidateMachine-help": "クラスタが指定する候補マシンのリストを制限します(このサーバーでは自動移行を有効にし、一連の候補マシンでクラスタを構成する必要があります)。このサーバーで障害が発生し、自動移行が有効な場合、ノード・マネージャによって自動的に再起動されます。デフォルトでは、ノード・マネージャはクラスタが指定する候補マシンのいずれか(クラスタで構成した優先順序順)でサーバーを再起動します。デフォルトを変更するには、このサーバーの候補マシンのリストを使用して、クラスタ全体の候補のサブセットを作成します。また、優先順序を変更することもできます。",
 
   "a-CandidateMachinesForMigratableServer-label": "移行可能サーバーの候補マシン",
   "a-CandidateMachinesForMigratableServer-itemLabel": "候補マシン",
-  "a-CandidateMachinesForMigratableServer-itemHelp": "Specify a candidate machine on which a node manager can restart failed servers.",
+  "a-CandidateMachinesForMigratableServer-itemHelp": "障害が発生したサーバーをノード・マネージャが再起動できる候補マシンを指定します。",
   "f-Cluster-a-CandidateMachinesForMigratableServer-help": "ノード・マネージャが障害が発生したサーバーの再起動を行うマシンのセット(および優先順序)を指定します。(各サーバーで自動移行を有効にする必要があります。)各サーバーでは、クラスタ全体の候補のサブセットを指定できます。これによりサーバーが再起動可能なマシンが制限されます。サーバーは、独自の優先順序を指定することもできます。",
 
   "a-Capacity-label": "容量",
@@ -2318,7 +2318,7 @@
   "a-DebugValidationClassLoading-label": "検証クラス・ロードのデバッグ",
   "a-DebugVerboseRcm-label": "レプリケーションおよび整合性マネージャ(RCM)の詳細デバッグ",
   "a-DebugWANReplicationDetails-label": "WANレプリケーション詳細のデバッグ",
-  "a-DebugWarExtraction-label": "DebugARExtraction",
+  "a-DebugWarExtraction-label": "WAR抽出のデバッグ",
   "a-DebugWatchScalingActions-label": "ウォッチ・スケーリング・アクションのデバッグ",
   "a-DebugWebAppDi-label": "Webアプリケーション依存関係インジェクションのデバッグ",
   "a-DebugWebAppIdentityAssertion-label": "Webアプリケーション・アイデンティティ・アサーションのデバッグ",
@@ -2978,8 +2978,8 @@
   "a-FannedOutRequestMaxWaitMillis-help": "管理サービスWebアプリケーションが多重呼出し不変RESTリクエストを管理サーバーからすべての管理対象サーバーにファンアウトする際に、それが待機する時間をミリ秒単位で決定します。ゼロの場合、適切なタイムアウトが選択されます。requestMaxWaitMillis問合せパラメータを指定することで、リクエストはこの値をオーバーライドできます。",
 
   "a-FatalErrorCodes-label": "致命的エラー・コード",
-  "a-FatalErrorCodes-itemLabel": "Fatal Error Code",
-  "a-FatalErrorCodes-itemHelp": "Specify an error code to be treated as a fatal error.",
+  "a-FatalErrorCodes-itemLabel": "致命的エラー・コード",
+  "a-FatalErrorCodes-itemHelp": "致命的エラーとして処理するエラー・コードを指定します。",
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-FatalErrorCodes-help": "致命的なエラーとして処理されるエラー・コードのカンマ区切りのリストを指定します。これらのエラーには、サーバーをブートできなくなるデプロイメント・エラーおよび接続プールに接続を戻せなくなる接続エラーが含まれます。このオプションの属性は致命的エラー・コードの定義に使用され、SQLException (sqlException.getErrorCode()によって取得)内で例外コードとして指定された場合に、致命的エラーが発生して接続が使用できなくなったことを示します",
 
   "a-FederationName-label": "フェデレーション名",
@@ -3653,11 +3653,11 @@
   "f-WTCServer_WTCtBridgeGlobal-a-JmsFactory-help": "JMS接続ファクトリの名前。たとえば、weblogic.jndi.ConnectionFactory。デフォルト値はweblogic.jms.XAConnectionFactoryです。",
 
   "a-JmsToTuxPriorityMap-label": "JMSからTuxedoの優先度マップ",
-  "a-JmsToTuxPriorityMap-entryLabel": "JMS To Tuxedo Priority Entry",
+  "a-JmsToTuxPriorityMap-entryLabel": "JMSからTuxedoの優先度エントリ",
   "a-JmsToTuxPriorityMap-keyLabel": "JMS優先度",
-  "a-JmsToTuxPriorityMap-keyHelp": "The JMS priority value or range that you want to map.",
-  "a-JmsToTuxPriorityMap-valueLabel": "Tuxedo Priority",
-  "a-JmsToTuxPriorityMap-valueHelp": "The Tuxedo priority to which the JMS priority should be mapped.",
+  "a-JmsToTuxPriorityMap-keyHelp": "マップするJMS優先度の値または範囲。",
+  "a-JmsToTuxPriorityMap-valueLabel": "Tuxedo優先度",
+  "a-JmsToTuxPriorityMap-valueHelp": "JMS優先度のマップ先のTuxedo優先度。",
   "a-JmsToTuxPriorityMap-help": "JMSからTuxedoの優先度マッピング。デフォルトのJMSからTuxの優先度マップは、0:1 | 1:12 | 2:23 | 3:34 | 4:45 |5:56 | 6:67 | 7:78 | 8:89 | 9:100です。",
 
   "a-JndiFactory-label": "JNDI初期コンテキスト・ファクトリ・クラス名",
@@ -4120,7 +4120,7 @@
   "a-MaxConsecutiveCharacters-help": "パスワードに使用できる、連続する同一文字の最大数を指定します。値0では制限がありません。たとえば、値が2の場合、ユーザーは「baaag」のようなパスワードを作成できません。この属性の有効な値は、0以上です。",
 
   "a-MaxDynamicClusterSize-label": "動的クラスタ最大サイズ",
-  "f-Cluster_DynamicServers-a-MaxDynamicClusterSize-help": "Specifies the upper bound on the DynamicClusterSize that the Elasticity Framework is allowed to assign to DynamicClusterSize. The default value is 8.",
+  "f-Cluster_DynamicServers-a-MaxDynamicClusterSize-help": "拡張度フレームワークがDynamicClusterSizeに割り当てることのできるDynamicClusterSizeに対する上限を指定します。デフォルト値は8です。",
 
   "a-MaxEncryptBits-label": "最大暗号化ビット",
   "f-WTCServer_WTCLocalTuxDom-a-MaxEncryptBits-help": "このローカルTuxedoアクセス・ポイントが、セッション接続を確立する際に使用する最大の暗号化キー長(ビット単位)。値が0の場合、暗号化は使用されません。",
@@ -4356,7 +4356,7 @@
   "f-JMSSystemResource_JmsResource_Template-a-MessagingPerformancePreference-help": "宛先が、コンシューマに配信する消費可能なメッセージ(存在する場合)の完全なバッチを作成するまでに待機できる期間の長さを制御します。最小値の場合、バッチ処理は無効化されます。デフォルト値の場合、完全でないバッチは待機せずに、ただちに現在消費可能なメッセージによる配信が行われます。デフォルト値より大きい値にチューニングすることで、完全でないバッチがコンシューマに配信される前に、さらなるメッセージに対する最長待機時間を制御できます。完全なバッチの最大メッセージ数は、JMS接続ファクトリのMessagesMaximumの設定によって制御されます。",
 
   "a-MessagingQueue-label": "メッセージ・キュー",
-  "a-MessagingQueue-help": "For use only with the JAX-RPC stack. For JAX-WS, use WebServiceBufferingMBean instead. The default value is \"weblogic.wsee.DefaultQueue\".",
+  "a-MessagingQueue-help": "JAX-RPCスタックでの使用専用。JAX-WSの場合、かわりにWebServiceBufferingMBeanを使用します。デフォルト値はweblogic.wsee.DefaultQueueです。",
 
   "a-MessagingQueueMdbRunAsPrincipalName-label": "メッセージング・キューMDB実行プリンシパル名",
   "a-MessagingQueueMdbRunAsPrincipalName-help": "JAX-RPCスタックでの使用専用。JAX-WSの場合、かわりにWebServiceBufferingMBeanを使用します。",
@@ -5891,7 +5891,7 @@
   "a-Servers-help": "ODL logging.xmlが書き込まれるサーバーのリストを指定します",
 
   "a-ServiceActivationRequestResponseTimeout-label": "サービス・アクティブ化リクエスト・レスポンス・タイムアウト",
-  "f-Cluster-a-ServiceActivationRequestResponseTimeout-help": "Specifies the maximum time, in milliseconds, for services to wait for response from cluster members.",
+  "f-Cluster-a-ServiceActivationRequestResponseTimeout-help": "サービスがクラスタ・メンバーからのレスポンスを待機する最大時間(ミリ秒)を指定します。",
 
   "a-ServiceAgeThresholdSeconds-label": "サービス期間しきい値",
   "f-Cluster-a-ServiceAgeThresholdSeconds-help": "2つの競合するサービスがある場合に、それらの一方が他方より古いと判断される基準となる存続時間の差を定義します。デフォルト値は180です。",
@@ -6594,11 +6594,11 @@
   "a-TuxFactory-help": "Tuxedo接続ファクトリの名前。デフォルト値はtuxedo.services.TuxedoConnectionです。",
 
   "a-TuxToJmsPriorityMap-label": "TuxedoからJMSの優先度マップ",
-  "a-TuxToJmsPriorityMap-entryLabel": "Tuxedo to JMS Priority Entry",
-  "a-TuxToJmsPriorityMap-keyLabel": "Tuxedo Priority",
-  "a-TuxToJmsPriorityMap-keyHelp": "The Tuxedo priority value or range that you want to map.",
+  "a-TuxToJmsPriorityMap-entryLabel": "TuxedoからJMSの優先度エントリ",
+  "a-TuxToJmsPriorityMap-keyLabel": "Tuxedo優先度",
+  "a-TuxToJmsPriorityMap-keyHelp": "マップするTuxedo優先度の値または範囲。",
   "a-TuxToJmsPriorityMap-valueLabel": "JMS優先度",
-  "a-TuxToJmsPriorityMap-valueHelp": "The JMS priority to which the Tuxedo priority should be mapped.",
+  "a-TuxToJmsPriorityMap-valueHelp": "Tuxedo優先度のマップ先のJMS優先度。",
   "a-TuxToJmsPriorityMap-help": "TuxedoからJMSにマップする優先度のマッピング。デフォルトのJMSからTuxedoへの優先度マップは、1-10:0 | 11-20:1 | 21-30:2 | 31-40:3| 41-50:4| 51-60:5 | 61-70:6 | 71-80:7 | 81-90:8 | 91-100:9です。",
 
   "a-TuxedoGidKw-label": "TuxedoグループIDキーワード",
@@ -6747,7 +6747,7 @@
 
   "a-UseNonSecureAddressesForDomain-label": "ドメインに非セキュア・アドレスを使用",
   "a-UseNonSecureAddressesForDomain-itemLabel": "ドメイン",
-  "a-UseNonSecureAddressesForDomain-itemHelp": "非セキュア・プロトコルを使用するドメインのリストにドメインを選択します。",
+  "a-UseNonSecureAddressesForDomain-itemHelp": "非セキュア・プロトコルを使用する必要があるドメインのリストにドメインを選択します。",
   "a-UseNonSecureAddressesForDomain-help": "ドメイン内のサーバーがネットワーク・チャネルを使用するよう構成されている場合に、内部JTA通信に非セキュア・プロトコルを使用する必要があるドメインを指定します。",
 
   "a-UseParentHandlers-label": "親ハンドラの使用",

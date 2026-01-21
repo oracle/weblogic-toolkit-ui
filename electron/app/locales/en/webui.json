@@ -390,7 +390,7 @@
   "image-design-fmw-installer-type-wcc-label": "Oracle WebCenter Content",
   "image-design-fmw-installer-type-wcs-label": "Oracle WebCenter Sites",
   "image-design-fmw-installer-version-label": "Oracle Fusion Middleware Version",
-  "image-design-fmw-installer-version-help": "The Oracle Fusion Middleware version to use in the WebLogic Image Tool cache.",
+  "image-design-fmw-installer-version-help": "The Oracle Fusion Middleware version to use in the WebLogic Image Tool cache. Note that if you are patching the image, it is critical that the version number is the official Oracle 5-digit version number (for example, 12.2.1.4.0, 15.1.1.0.0).",
   "image-design-wdt-installer-title": "WebLogic Deploy Tooling Installer",
   "image-design-use-wdt-installer-label": "Download and Use Latest WebLogic Deploy Tooling Installer",
   "image-design-use-wdt-installer-help": "Whether to download the latest WebLogic Deploy Tooling installer to use.",

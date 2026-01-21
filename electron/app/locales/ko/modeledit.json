@@ -401,11 +401,11 @@
   "options-prepend-label": "앞에 추가",
   "options-replace-label": "바꾸기",
   "options-imported-tpusr-file-label": "임포트된 TPUSER 파일",
-  "options-severe-label": "Severe",
-  "options-config-label": "Config",
-  "options-fine-label": "Fine",
-  "options-finer-label": "Finer",
-  "options-finest-label": "Finest",
+  "options-severe-label": "심각",
+  "options-config-label": "구성",
+  "options-fine-label": "미세",
+  "options-finer-label": "보다 미세",
+  "options-finest-label": "가장 미세",
 
   "direction-jms-queue-to-tuxedo-queue-label": "JMS 대기열 - Tuxedo 대기열",
   "direction-tuxedo-queue-to-jms-queue-label": "Tuxedo 대기열 - JMS 대기열",
@@ -444,12 +444,12 @@
 
   "attribute-dialog-title": "{{attribute}}의 옵션",
   "attribute-dialog-label": "옵션 선택",
-  "attribute-dialog-option-addToArchive": "Add entry to archive",
+  "attribute-dialog-option-addToArchive": "아카이브에 항목 추가",
   "attribute-dialog-option-edit": "일반적으로 필드 편집",
   "attribute-dialog-option-remove": "모델에서 필드 제거",
   "attribute-dialog-option-variable": "기존 변수 토큰 사용",
   "attribute-dialog-option-newVariable": "새 변수 토큰 사용",
-  "attribute-dialog-option-removeFromArchive": "Remove entry from archive",
+  "attribute-dialog-option-removeFromArchive": "아카이브에서 항목 제거",
   "attribute-dialog-variable-choice-label": "기존 변수",
   "attribute-dialog-variable-choice-help": "필드에 대한 변수 선택",
   "attribute-dialog-variable-name-label": "변수 이름",
@@ -457,8 +457,8 @@
   "attribute-dialog-variable-name-error": "변수 이름에는 문자, 숫자 및 .-_ 문자만 포함될 수 있습니다.",
   "attribute-dialog-variable-value-label": "변수 값",
   "attribute-dialog-variable-value-help": "필드에 대한 변수 값",
-  "attribute-dialog-archive-file-not-present": "File not found: {{path}}",
-  "attribute-dialog-archive-path-not-present": "Path not found in archive: {{path}}",
+  "attribute-dialog-archive-file-not-present": "파일을 찾을 수 없음: {{path}}",
+  "attribute-dialog-archive-path-not-present": "아카이브에서 경로를 찾을 수 없음: {{path}}",
 
   "attribute-editor-from-secret": "\"{{secret}}\" 암호에서",
   "attribute-editor-from-variable": "\"{{variable}}\" 변수에서",
@@ -552,7 +552,7 @@
   "a-AcknowledgementInterval-help": "보류 중인 확인(대상에서 메시지를 수락한 후 설정됨)이 다시 RM 소스로 전달되기 전에 기다릴 수 있는 최대 시간입니다. \"기간\" 형식의 문자열 값입니다. 기본값은 \"P0DT0.2S\"(200밀리초)입니다. 시퀀스 생성 시 설정하며 재설정할 수 없습니다.",
 
   "a-AclPolicy-label": "ACL 정책",
-  "f-WTCServer_WTCRemoteTuxDom-a-AclPolicy-help": "The inbound access control list (ACL) policy toward requests from a remote Tuxedo access point.  The allowed values are Local or Global. Local causes the local Tuxedo access point modifies the identity of service requests received from a given remote Tuxedo access point to the principal name specified in the local principal name for a given remote Tuxedo access point. Global causes the local Tuxedo access point to pass the service request with no change in identity. Note that if Interoperate is set to Yes, the AclPolicy is ignored.",
+  "f-WTCServer_WTCRemoteTuxDom-a-AclPolicy-help": "원격 Tuxedo 액세스 지점으로부터 들어오는 요청에 대한 인바운드 ACL(액세스 제어 목록) 정책입니다. 허용되는 값은 로컬 또는 전역입니다. 로컬을 지정하면 로컬 Tuxedo 액세스 지점이 지정된 원격 Tuxedo 액세스 지점으로부터 수신되는 서비스 요청의 ID를, 지정된 원격 Tuxedo 액세스 지점의 로컬 주체 이름에 지정된 주체 이름으로 수정합니다. 전역을 지정하면 로컬 Tuxedo 액세스 지점이 ID 변경 없이 서비스 요청을 통과합니다. 상호 운용이 예로 설정된 경우 AclPolicy는 무시됩니다.",
 
   "a-AcsRequiresSsl-label": "ACS에 SSL 필요",
 
@@ -1055,12 +1055,12 @@
 
   "a-CandidateMachine-label": "후보 시스템",
   "a-CandidateMachine-itemLabel": "CandidateMachine",
-  "a-CandidateMachine-itemHelp": "Specify a candidate machine to add to the list.",
+  "a-CandidateMachine-itemHelp": "목록에 추가할 후보 시스템을 지정합니다.",
   "a-CandidateMachine-help": "클러스터가 지정하는 후보 시스템 목록을 제한합니다. 이 서버를 자동 이전에 대해 사용으로 설정하고 일련의 후보 시스템으로 클러스터를 구성해야 합니다. 이 서버가 실패하고 자동 이전에 대해 사용으로 설정된 경우 노드 관리자가 자동으로 재시작합니다. 기본적으로 노드 관리자는 클러스터가 지정하는 후보 시스템에서 서버를 재시작합니다(클러스터에 구성된 우선 순위대로). 기본값을 변경하려면 이 서버의 후보 시스템 목록을 사용하여 클러스터 전체 후보의 하위 집합을 생성합니다. 우선 순위를 변경할 수도 있습니다.",
 
   "a-CandidateMachinesForMigratableServer-label": "이전 가능한 서버의 후보 시스템",
   "a-CandidateMachinesForMigratableServer-itemLabel": "후보 시스템",
-  "a-CandidateMachinesForMigratableServer-itemHelp": "Specify a candidate machine on which a node manager can restart failed servers.",
+  "a-CandidateMachinesForMigratableServer-itemHelp": "노드 관리자가 실패한 서버를 재시작할 수 있는 후보 시스템을 지정합니다.",
   "f-Cluster-a-CandidateMachinesForMigratableServer-help": "노드 관리자가 실패한 서버를 재시작할 일련의 시스템(및 우선 순위)을 지정합니다. 자동 이전에 대해 각 서버를 사용으로 설정해야 합니다. 각 서버는 해당 클러스터 전체 후보의 하위 집합을 지정할 수 있으며, 이에 따라 서버를 재시작할 수 있는 시스템이 제한됩니다. 서버는 고유 우선 순위를 지정할 수도 있습니다.",
 
   "a-Capacity-label": "용량",
@@ -2208,7 +2208,7 @@
   "a-DebugRADeployment-label": "리소스 어댑터 배치 디버그",
   "a-DebugRALifecycle-label": "리소스 어댑터 수명 주기 디버그",
   "a-DebugRALocalOut-label": "리소스 어댑터 로컬 출력 디버그",
-  "a-DebugRAParsing-label": "RAResource 어댑터 구문분석 디버그",
+  "a-DebugRAParsing-label": "리소스 어댑터 구문분석 디버그",
   "a-DebugRAPoolVerbose-label": "리소스 어댑터 풀 상세 정보 디버그",
   "a-DebugRAPooling-label": "RA 풀링 디버그",
   "a-DebugRASecurityCtx-label": "리소스 어댑터 보안 Ctx 디버그",
@@ -2216,7 +2216,7 @@
   "a-DebugRAWorkEvents-label": "리소스 어댑터 작업 이벤트 디버그",
   "a-DebugRAXAin-label": "리소스 어댑터 XA 입력 디버그",
   "a-DebugRAXAout-label": "리소스 어댑터 XA 출력 디버그",
-  "a-DebugRAXAwork-label": "RResource AdapterA XA 작업 디버그",
+  "a-DebugRAXAwork-label": "리소스 어댑터 XA 작업 디버그",
   "a-DebugRC4-label": "RC4 디버그",
   "a-DebugRSA-label": "RSA 디버그",
   "a-DebugRaClassloader-label": "리소스 어댑터 클래스 로더 디버그",
@@ -2318,7 +2318,7 @@
   "a-DebugValidationClassLoading-label": "검증 클래스 로딩 디버그",
   "a-DebugVerboseRcm-label": "상세 정보 RCM(Replication and Consistency Manager) 디버그",
   "a-DebugWANReplicationDetails-label": "WAN 복제 세부정보 디버그",
-  "a-DebugWarExtraction-label": "DebugARExtraction",
+  "a-DebugWarExtraction-label": "WAR 추출 디버그",
   "a-DebugWatchScalingActions-label": "감시 스케일링 작업 디버그",
   "a-DebugWebAppDi-label": "웹 앱 종속성 삽입 디버그",
   "a-DebugWebAppIdentityAssertion-label": "웹 앱 ID 검증 디버그",
@@ -2978,8 +2978,8 @@
   "a-FannedOutRequestMaxWaitMillis-help": "관리 서버에서 모든 관리되는 서버로 멱등 REST 요청을 팬아웃할 때 관리 서비스 웹 애플리케이션이 기다릴 기간(밀리초)을 결정합니다. 0인 경우 적절한 시간 초과가 선택됩니다. 요청은 requestMaxWaitMillis 질의 매개변수를 지정하여 이 값을 무효화할 수 있습니다.",
 
   "a-FatalErrorCodes-label": "치명적 오류 코드",
-  "a-FatalErrorCodes-itemLabel": "Fatal Error Code",
-  "a-FatalErrorCodes-itemHelp": "Specify an error code to be treated as a fatal error.",
+  "a-FatalErrorCodes-itemLabel": "치명적 오류 코드",
+  "a-FatalErrorCodes-itemHelp": "치명적 오류로 취급될 오류 코드를 지정합니다.",
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-FatalErrorCodes-help": "치명적인 오류로 간주되는 콤마로 구분된 오류 코드 목록을 지정합니다. 서버 부팅 실패를 일으키는 배치 오류 및 접속이 접속 풀로 돌아가지 못하도록 방해하는 접속 오류가 이러한 오류에 해당합니다. 이 선택적 속성은 치명적인 오류 코드를 정의하는 데 사용되고, SQLException(sqlException.getErrorCode()로 검색) 내에서 예외사항 코드로 지정될 때 치명적인 오류가 발생했으며 더 이상 접속을 사용할 수 없음을 나타냅니다.",
 
   "a-FederationName-label": "연합 이름",
@@ -3653,11 +3653,11 @@
   "f-WTCServer_WTCtBridgeGlobal-a-JmsFactory-help": "JMS 접속 팩토리의 이름(예: weblogic.jndi.ConnectionFactory)입니다. 기본값은 weblogic.jms.XAConnectionFactory입니다.",
 
   "a-JmsToTuxPriorityMap-label": "JMS와 Tuxedo 간의 우선순위 맵",
-  "a-JmsToTuxPriorityMap-entryLabel": "JMS To Tuxedo Priority Entry",
+  "a-JmsToTuxPriorityMap-entryLabel": "JMS와 Tuxedo 간의 우선순위 항목",
   "a-JmsToTuxPriorityMap-keyLabel": "JMS 우선순위",
-  "a-JmsToTuxPriorityMap-keyHelp": "The JMS priority value or range that you want to map.",
-  "a-JmsToTuxPriorityMap-valueLabel": "Tuxedo Priority",
-  "a-JmsToTuxPriorityMap-valueHelp": "The Tuxedo priority to which the JMS priority should be mapped.",
+  "a-JmsToTuxPriorityMap-keyHelp": "매핑할 JMS 우선순위 값 또는 범위입니다.",
+  "a-JmsToTuxPriorityMap-valueLabel": "Tuxedo 우선순위",
+  "a-JmsToTuxPriorityMap-valueHelp": "JMS 우선순위가 매핑되어야 하는 Tuxedo 우선순위입니다.",
   "a-JmsToTuxPriorityMap-help": "JMS에서 Tuxedo로의 우선순위 매핑입니다. 기본 JMS와 Tuxedo 간의 우선순위 맵은 0:1 | 1:12 | 2:23 | 3:34 | 4:45 |5:56 | 6:67 | 7:78 | 8:89 | 9:100입니다.",
 
   "a-JndiFactory-label": "JNDI 초기 컨텍스트 팩토리 클래스 이름",
@@ -4120,7 +4120,7 @@
   "a-MaxConsecutiveCharacters-help": "비밀번호에 허용되는 최대 반복 연속 문자 수를 지정합니다. 값을 0으로 지정하면 제한이 없습니다. 예를 들어, 값이 2인 경우 사용자는 \"baaag\"와 같은 비밀번호를 생성할 수 없습니다. 이 속성에 대해 적합한 값은 0보다 크거나 같아야 합니다.",
 
   "a-MaxDynamicClusterSize-label": "최대 동적 클러스터 크기",
-  "f-Cluster_DynamicServers-a-MaxDynamicClusterSize-help": "Specifies the upper bound on the DynamicClusterSize that the Elasticity Framework is allowed to assign to DynamicClusterSize. The default value is 8.",
+  "f-Cluster_DynamicServers-a-MaxDynamicClusterSize-help": "Elasticity Framework에서 DynamicClusterSize에 지정할 수 있는 DynamicClusterSize에 대한 상한 값을 지정합니다. 기본값은 8입니다.",
 
   "a-MaxEncryptBits-label": "최대 암호화 비트",
   "f-WTCServer_WTCLocalTuxDom-a-MaxEncryptBits-help": "이 로컬 Tuxedo 액세스 지점이 세션 접속을 설정할 때 사용하는 최대 암호화 키 길이(비트)입니다. 값을 0으로 지정하면 암호화가 사용되지 않습니다.",
@@ -4356,7 +4356,7 @@
   "f-JMSSystemResource_JmsResource_Template-a-MessagingPerformancePreference-help": "이 템플리트를 사용하는 대상이 소비자에게 전달할 사용 가능한 메시지의 가득 찬 일괄 처리를 생성하기 위해 기다릴 의향이 있는 기간을 제어합니다. 최소값을 지정하면 일괄 처리는 사용 안함으로 설정되고, 기본값을 지정하면 현재 사용 가능한 메시지로 일부 채워진 일괄 처리가 기다리지 않고 즉시 전달됩니다. 이 값을 기본값보다 크게 조정하면 일부 채워진 일괄 처리가 소비자에게 전달되기 전까지의 추가 메시지에 대한 최대 대기 시간이 제어됩니다. 가득 찬 일괄 처리의 최대 메시지 수는 JMS 접속 팩토리의 MessagesMaximum 설정으로 제어됩니다.",
 
   "a-MessagingQueue-label": "메시징 대기열",
-  "a-MessagingQueue-help": "For use only with the JAX-RPC stack. For JAX-WS, use WebServiceBufferingMBean instead. The default value is \"weblogic.wsee.DefaultQueue\".",
+  "a-MessagingQueue-help": "JAX-RPC 스택에만 사용됩니다. JAX-WS의 경우 대신 WebServiceBufferingMBean을 사용하십시오. 기본값은 \"weblogic.wsee.DefaultQueue\"입니다.",
 
   "a-MessagingQueueMdbRunAsPrincipalName-label": "메시징 대기열 MDB 주체 이름으로 실행",
   "a-MessagingQueueMdbRunAsPrincipalName-help": "JAX-RPC 스택에만 사용됩니다. JAX-WS의 경우 대신 WebServiceBufferingMBean을 사용하십시오.",
@@ -5891,7 +5891,7 @@
   "a-Servers-help": "ODL logging.xml이 기록되는 서버 목록을 지정합니다.",
 
   "a-ServiceActivationRequestResponseTimeout-label": "서비스 활성화 요청 응답 시간 초과",
-  "f-Cluster-a-ServiceActivationRequestResponseTimeout-help": "Specifies the maximum time, in milliseconds, for services to wait for response from cluster members.",
+  "f-Cluster-a-ServiceActivationRequestResponseTimeout-help": "서비스가 클러스터 멤버의 응답을 기다릴 최대 시간(밀리초)을 지정합니다.",
 
   "a-ServiceAgeThresholdSeconds-label": "서비스 수명 임계값(초)",
   "f-Cluster-a-ServiceAgeThresholdSeconds-help": "충돌하는 두 서비스 중 한 서비스가 다른 서비스보다 오래된 것으로 간주되기 전 차이가 있어야 할 두 서비스의 수명(초)을 정의합니다. 기본값은 180입니다.",
@@ -6594,11 +6594,11 @@
   "a-TuxFactory-help": "Tuxedo 접속 팩토리의 이름입니다. 기본값은 tuxedo.services.TuxedoConnection입니다.",
 
   "a-TuxToJmsPriorityMap-label": "Tuxedo와 JMS 간의 우선순위 맵",
-  "a-TuxToJmsPriorityMap-entryLabel": "Tuxedo to JMS Priority Entry",
-  "a-TuxToJmsPriorityMap-keyLabel": "Tuxedo Priority",
-  "a-TuxToJmsPriorityMap-keyHelp": "The Tuxedo priority value or range that you want to map.",
+  "a-TuxToJmsPriorityMap-entryLabel": "Tuxedo와 JMS 간의 우선순위 항목",
+  "a-TuxToJmsPriorityMap-keyLabel": "Tuxedo 우선순위",
+  "a-TuxToJmsPriorityMap-keyHelp": "매핑할 Tuxedo 우선순위 값 또는 범위입니다.",
   "a-TuxToJmsPriorityMap-valueLabel": "JMS 우선순위",
-  "a-TuxToJmsPriorityMap-valueHelp": "The JMS priority to which the Tuxedo priority should be mapped.",
+  "a-TuxToJmsPriorityMap-valueHelp": "Tuxedo 우선순위가 매핑되어야 하는 JMS 우선순위입니다.",
   "a-TuxToJmsPriorityMap-help": "Tuxedo에서 JMS로 매핑할 우선순위 매핑입니다. 기본 JMS와 Tuxedo 간의 우선순위 맵은 1-10:0 | 11-20:1 | 21-30:2 | 31-40:3| 41-50:4| 51-60:5 | 61-70:6 | 71-80:7 | 81-90:8 | 91-100:9입니다.",
 
   "a-TuxedoGidKw-label": "Tuxedo 그룹 ID 키워드",
@@ -6747,7 +6747,7 @@
 
   "a-UseNonSecureAddressesForDomain-label": "도메인에 비보안 주소 사용",
   "a-UseNonSecureAddressesForDomain-itemLabel": "도메인",
-  "a-UseNonSecureAddressesForDomain-itemHelp": "도메인 목록에서 비보안 프로토콜을 사용할 도메인을 선택합니다.",
+  "a-UseNonSecureAddressesForDomain-itemHelp": "도메인 목록에서 비보안 프로토콜을 사용해야 할 도메인을 선택합니다.",
   "a-UseNonSecureAddressesForDomain-help": "도메인의 서버가 네트워크 채널을 사용하도록 구성된 경우 내부 JTA 통신에 비보안 프로토콜을 사용해야 할 도메인을 지정합니다.",
 
   "a-UseParentHandlers-label": "상위 처리기 사용",
