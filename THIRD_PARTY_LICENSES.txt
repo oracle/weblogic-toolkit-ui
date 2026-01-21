@@ -99,7 +99,7 @@ Copyright (c) 2013 Brian J. Brennan
 buffer-from@1.1.2
 Copyright (c) 2016, 2018 Linus Unnebäck
 
-builder-util-runtime@9.3.1
+builder-util-runtime@9.5.1
 Copyright (c) 2015 Loopline Systems
 
 color@5.0.3
@@ -127,7 +127,7 @@ Copyright (c) 2018-2021 Josh Junon
 duplexify@3.7.1
 Copyright (c) 2014 Mathias Buus
 
-electron-updater@6.6.2
+electron-updater@6.7.3
 Copyright (c) 2015 Loopline Systems
 
 enabled@2.0.0
@@ -1503,7 +1503,7 @@ The following packages are licensed under Blue Oak Model License 1.0.0:
 chownr@2.0.0
 No Copyright
 
-tar@7.5.2
+tar@7.5.3
 Copyright (c) Isaac Z. Schlueter and Contributors
 
 
@@ -1739,7 +1739,7 @@ Copyright 2022 Romain Menke, Antonio Laguna <antonio@laguna.es>
 @develar/schema-utils@2.6.5
 Copyright JS Foundation and other contributors
 
-@electron/asar@3.2.18
+@electron/asar@3.4.1
 Copyright (c) 2014 GitHub Inc.
 
 @electron/fuses@1.8.0
@@ -1748,16 +1748,13 @@ Copyright (c) 2020 Electron Maintainers.
 @electron/get@2.0.3
 Copyright (c) Contributors to the Electron project
 
-@electron/node-gyp@10.2.0-electron.1
-Copyright (c) 2012 Nathan Rajlich <nathan@tootallnate.net>
-
 @electron/notarize@3.1.1
 Copyright 2018 Samuel Attard and contributors
 
-@electron/rebuild@3.7.0
+@electron/rebuild@4.0.1
 Copyright (c) Contributors to the Electron project
 
-@electron/universal@2.0.1
+@electron/universal@2.0.3
 No Copyright
 
 @eslint-community/eslint-utils@4.9.0
@@ -1771,9 +1768,6 @@ Copyright OpenJS Foundation and other contributors, <www.openjsf.org>
 
 @eslint/js@9.39.1
 Copyright OpenJS Foundation and other contributors, <www.openjsf.org>
-
-@gar/promisify@1.1.3
-Copyright © 2020-2022 Michael Garvin
 
 @istanbuljs/schema@0.1.3
 Copyright (c) 2019 CFWare, LLC
@@ -1807,10 +1801,6 @@ Copyright (c) Denis Malinochkin
 
 @nodelib/fs.walk@1.2.8
 Copyright (c) Denis Malinochkin
-
-@npmcli/move-file@2.0.1
-Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (https://sindresorhus.com)
-Copyright (c) npm, Inc.
 
 @sindresorhus/is@4.6.0
 Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (https://sindresorhus.com)
@@ -1907,13 +1897,6 @@ Copyright (c) 2012 Another-D-Mention Software and other contributors,
 agent-base@7.1.4
 Copyright (c) 2013 Nathan Rajlich <nathan@tootallnate.net>
 
-agentkeepalive@4.6.0
-Copyright(c) node-modules and other contributors.
-Copyright(c) 2012 - 2015 fengmk2 <fengmk2@gmail.com>
-
-aggregate-error@3.1.0
-Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
-
 ajv@6.12.6
 Copyright (c) 2015-2017 Evgeny Poberezkin
 
@@ -1929,7 +1912,7 @@ Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
 app-builder-bin@5.0.0-alpha.12
 Copyright (c) 2015 Loopline Systems
 
-app-builder-lib@26.0.12
+app-builder-lib@26.4.0
 Copyright (c) 2015 Loopline Systems
 
 append-transform@2.0.0
@@ -1993,7 +1976,7 @@ Copyright (c) 2013-2019 bl contributors
 body@5.1.0
 Copyright (c) 2012 Raynos.
 
-body-parser@2.2.0
+body-parser@2.2.2
 Copyright (c) 2014 Jonathan Ong <me@jongleberry.com>
 Copyright (c) 2014-2015 Douglas Christopher Wilson <doug@somethingdoug.com>
 
@@ -2024,10 +2007,10 @@ Copyright (c) 2013-2024 Brian J. Brennan
 buffer-from@1.1.2
 Copyright (c) 2016, 2018 Linus Unnebäck
 
-builder-util@26.0.11
+builder-util@26.3.4
 Copyright (c) 2015 Loopline Systems
 
-builder-util-runtime@9.3.1
+builder-util-runtime@9.5.1
 Copyright (c) 2015 Loopline Systems
 
 bytes@3.1.2
@@ -2079,11 +2062,8 @@ Copyright (c) 2012-2019 Paul Miller (https://paulmillr.com), Elan Shanker
 chromium-pickle-js@0.2.0
 No Copyright
 
-ci-info@3.9.0
+ci-info@4.3.1
 Copyright (c) 2016 Thomas Watson Steen
-
-clean-stack@2.2.0
-Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
 
 cli-cursor@3.1.0
 Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
@@ -2129,9 +2109,6 @@ No Copyright
 
 concat-stream@1.6.2
 Copyright (c) 2013 Max Ogden
-
-config-file-ts@0.2.8-rc1
-Copyright (c) 2020 lee mighdoll
 
 connect@3.7.0
 Copyright (c) 2010 Sencha Inc.
@@ -2190,6 +2167,10 @@ debug@4.4.1
 Copyright (c) 2014-2017 TJ Holowaychuk <tj@vision-media.ca>
 Copyright (c) 2018-2021 Josh Junon
 
+debug@4.4.3
+Copyright (c) 2014-2017 TJ Holowaychuk <tj@vision-media.ca>
+Copyright (c) 2018-2021 Josh Junon
+
 decache@4.6.0
 No Copyright
 
@@ -2240,7 +2221,7 @@ Copyright (c) 2017 Ilya Kantor
 dir-compare@4.2.0
 Copyright 2014 Liviu Grigorescu (grigoresculiviu@gmail.com)
 
-dmg-builder@26.0.12
+dmg-builder@26.4.0
 Copyright (c) 2015 Loopline Systems
 
 dmg-license@1.0.11
@@ -2255,14 +2236,14 @@ Copyright (c) 2024 ECMAScript Shims
 ee-first@1.1.1
 Copyright (c) 2014 Jonathan Ong me@jongleberry.com
 
-electron@39.2.5
+electron@39.2.7
 Copyright (c) Electron contributors
 Copyright (c) 2013-2020 GitHub Inc.
 
-electron-builder@26.0.12
+electron-builder@26.4.0
 Copyright (c) 2015 Loopline Systems
 
-electron-publish@26.0.11
+electron-publish@26.3.4
 Copyright (c) 2015 Loopline Systems
 
 emoji-regex@8.0.0
@@ -2362,6 +2343,9 @@ Copyright 2010-2021 James Coglan
 
 fd-slicer@1.1.0
 Copyright (c) 2014 Andrew Kelley
+
+fdir@6.5.0
+Copyright 2023 Abdullah Atta
 
 file-entry-cache@8.0.0
 Copyright (c) Roy Riojas & Jared Wray
@@ -2512,9 +2496,6 @@ Copyright (c) 2018 Szymon Marczak
 https-proxy-agent@7.0.6
 Copyright (c) 2013 Nathan Rajlich <nathan@tootallnate.net>
 
-humanize-ms@1.2.1
-Copyright(c) 2014 dead_horse <dead_horse@qq.com>
-
 iconv-corefoundation@1.1.7
 Copyright © 2019 argv-minus-one
 
@@ -2529,9 +2510,6 @@ Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (https://sindresorhus.com)
 
 imurmurhash@0.1.4
 Copyright (c) 2013 Gary Court, Jens Taylor
-
-indent-string@4.0.0
-Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
 
 internal-slot@1.1.0
 Copyright (c) 2019 Jordan Harband
@@ -2557,9 +2535,6 @@ Copyright (c) Feross Aboukhadijeh
 is-callable@1.2.7
 Copyright (c) 2015 Jordan Harband
 
-is-ci@3.0.1
-Copyright (c) 2016-2021 Thomas Watson Steen
-
 is-core-module@2.16.1
 Copyright (c) 2014 Dave Justice
 
@@ -2577,9 +2552,6 @@ Copyright (c) 2014-2017, Jon Schlinkert.
 
 is-interactive@1.0.0
 Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
-
-is-lambda@1.0.1
-Copyright (c) 2016-2017 Thomas Watson Steen
 
 is-negative-zero@2.0.3
 Copyright (c) 2014 Jordan Harband
@@ -2643,6 +2615,9 @@ Copyright (c) 2019 Garen J. Torikian
 
 isobject@2.1.0
 Copyright (c) 2014-2016, Jon Schlinkert.
+
+jiti@2.6.1
+Copyright (c) 2021 UnJS
 
 js-tokens@4.0.0
 Copyright (c) 2014, 2015, 2016, 2017, 2018 Simon Lydell
@@ -2784,7 +2759,7 @@ Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
 minimist@1.2.8
 No Copyright
 
-minipass-fetch@2.1.2
+minipass-fetch@4.0.1
 Copyright (c) Isaac Z. Schlueter and Contributors
 Copyright (c) 2016 David Frank
 
@@ -2792,9 +2767,6 @@ minizlib@3.1.0
 Copyright (c) 2017-2023 Isaac Z. Schlueter and Contributors
 Copyright (c) 2017-2023 Node.js contributors. All rights reserved.
 Copyright (c) 2017-2023 Joyent, Inc. and other Node contributors. All rights reserved.
-
-mkdirp@1.0.4
-Copyright James Halliday (mail@substack.net) and Isaac Z. Schlueter (i@izs.me)
 
 mocha@11.7.5
 Copyright (c) 2011-2024 OpenJS Foundation and contributors, https://openjsf.org
@@ -2816,17 +2788,12 @@ Copyright (c) 2014 Douglas Christopher Wilson
 natural-compare@1.4.0
 Copyright (c) 2012-2015 Lauri Rooden <lauri@rooden.ee>
 
-negotiator@0.6.4
-Copyright (c) 2012-2014 Federico Romero
-Copyright (c) 2012-2014 Isaac Z. Schlueter
-Copyright (c) 2014-2015 Douglas Christopher Wilson
-
 negotiator@1.0.0
 Copyright (c) 2012-2014 Federico Romero
 Copyright (c) 2012-2014 Isaac Z. Schlueter
 Copyright (c) 2014-2015 Douglas Christopher Wilson
 
-node-abi@3.85.0
+node-abi@4.26.0
 Copyright (c) 2016 Lukas Geiger
 
 node-addon-api@1.7.2
@@ -2834,6 +2801,9 @@ Copyright (c) 2017 Node.js API collaborators
 
 node-api-version@0.2.1
 No copyright
+
+node-gyp@11.5.0
+Copyright (c) 2012 Nathan Rajlich <nathan@tootallnate.net>
 
 node-preload@0.2.1
 Copyright (c) 2019 CFWare, LLC
@@ -2887,7 +2857,7 @@ Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (https://sindresorhus.com)
 p-locate@5.0.0
 Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (https://sindresorhus.com)
 
-p-map@4.0.0
+p-map@7.0.4
 Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (https://sindresorhus.com)
 
 parent-module@1.0.1
@@ -2926,6 +2896,9 @@ Copyright (c) 2018 jet
 
 pend@1.2.0
 Copyright (c) 2014 Andrew Kelley
+
+picomatch@4.0.3
+Copyright (c) 2017-present, Jon Schlinkert.
 
 picomatch@2.3.1
 Copyright (c) 2017-present, Jon Schlinkert.
@@ -3126,7 +3099,7 @@ Copyright (c) 2013-2017 Josh Glazebrook
 socks@2.8.7
 Copyright (c) 2013 Josh Glazebrook
 
-socks-proxy-agent@7.0.0
+socks-proxy-agent@8.0.5
 Copyright (c) 2013 Nathan Rajlich <nathan@tootallnate.net>
 
 source-map-support@0.5.21
@@ -3201,6 +3174,9 @@ Copyright (c) 2017 Rafael Xavier de Souza http://rafael.xavier.blog.br
 
 tiny-lr@2.0.0
 Copyright (c) 2012-2016 Mickael Daniel
+
+tinyglobby@0.2.15
+Copyright (c) 2024 Madeline Gurriarán
 
 tldts@7.0.19
 Copyright (c) 2017 Thomas Parisot, 2018 Rémi Berson
@@ -3369,7 +3345,7 @@ THE SOFTWARE.
 
 The following packages are licensed under The 2-Clause BSD License, Version 2.0:
 
-@electron/osx-sign@1.3.1
+@electron/osx-sign@1.3.3
 Copyright (c) Electron contributors
 Copyright (c) 2015-2016 Zhuo Lu, Jason Hinkle, et al.
 
@@ -3531,9 +3507,6 @@ Copyright 2016, 2017, 2019, 2021 Mark Lee and contributors
 
 text-decoder@1.2.3
 Copyright 2023 Holepunch Inc
-
-typescript@5.9.3
-Copyright (c) Microsoft Corporation. All rights reserved.
 
 typescript@5.8.3
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -3929,13 +3902,16 @@ Copyright (c) Isaac Z. Schlueter and Contributors
 @istanbuljs/load-nyc-config@1.1.0
 Copyright (c) 2019, Contributors
 
-@npmcli/fs@2.1.2
+@npmcli/agent@3.0.0
+No Copyright
+
+@npmcli/fs@4.0.0
 Copyright npm, Inc.
 
 @trysound/sax@0.2.0
 Copyright (c) Isaac Z. Schlueter and Contributors
 
-abbrev@1.1.1
+abbrev@3.0.1
 Copyright (c) Isaac Z. Schlueter and Contributors
 
 anymatch@3.1.3
@@ -3947,7 +3923,7 @@ Copyright (c) 2014-2015, Felix Boehm <me@feedic.com>
 browser-stdout@1.3.1
 Copyright 2018 kumavis
 
-cacache@16.1.3
+cacache@19.0.1
 Copyright (c) npm, Inc.
 
 cliui@8.0.1
@@ -3965,7 +3941,7 @@ Copyright (c) 2018-2020, Andrea Giammarchi, @WebReflection
 foreground-child@3.3.1
 Copyright (c) 2015-2023 Isaac Z. Schlueter and Contributors
 
-fs-minipass@2.1.0
+fs-minipass@3.0.3
 Copyright (c) Isaac Z. Schlueter and Contributors
 
 fs.realpath@1.0.0
@@ -3985,9 +3961,6 @@ Copyright (c) 2011-2022 Isaac Z. Schlueter, Ben Noordhuis, and Contributors
 
 hosted-git-info@4.1.0
 Copyright (c) 2015, Rebecca Turner
-
-infer-owner@1.0.4
-Copyright (c) npm, Inc. and Contributors
 
 inflight@1.0.6
 Copyright (c) Isaac Z. Schlueter
@@ -4010,7 +3983,7 @@ Copyright (c) Isaac Z. Schlueter and Contributors
 lru-cache@10.4.3
 Copyright (c) 2010-2023 Isaac Z. Schlueter and Contributors
 
-make-fetch-happen@10.2.1
+make-fetch-happen@14.0.3
 Copyright 2017-2022 (c) npm, Inc.
 
 minimatch@3.1.2
@@ -4019,8 +3992,8 @@ Copyright (c) Isaac Z. Schlueter and Contributors
 minipass@7.1.2
 Copyright (c) 2017-2023 npm, Inc., Isaac Z. Schlueter, and Contributors
 
-minipass-collect@1.0.2
-Copyright (c) Isaac Z. Schlueter and Contributors
+minipass-collect@2.0.1
+Copyright (c) 2019-2023 Isaac Z. Schlueter and Contributors
 
 minipass-flush@1.0.5
 Copyright (c) Isaac Z. Schlueter and Contributors
@@ -4031,7 +4004,7 @@ Copyright (c) Isaac Z. Schlueter and Contributors
 minipass-sized@1.0.3
 Copyright (c) Isaac Z. Schlueter and Contributors
 
-nopt@6.0.0
+nopt@8.1.0
 Copyright (c) Isaac Z. Schlueter and Contributors
 
 nyc@17.1.0
@@ -4046,11 +4019,8 @@ Copyright (c) 2016-2017, Mark Wubben <mark@novemberborn.net> (novemberborn.net)
 picocolors@1.1.1
 Copyright (c) 2021-2024 Oleksii Raspopov, Kostiantyn Denysov, Anton Verinov
 
-proc-log@2.0.1
+proc-log@5.0.0
 Copyright (c) GitHub, Inc.
-
-promise-inflight@1.0.1
-Copyright (c) 2017, Rebecca Turner <me@re-becca.org>
 
 release-zalgo@1.0.0
 Copyright (c) 2017, Mark Wubben <mark@novemberborn.net> (novemberborn.net)
@@ -4079,16 +4049,16 @@ Copyright (c) 2015, Contributors
 spawn-wrap@2.0.0
 Copyright (c) Isaac Z. Schlueter and Contributors
 
-ssri@9.0.1
+ssri@12.0.0
 Copyright 2021 (c) npm, Inc.
 
 test-exclude@6.0.0
 Copyright (c) 2016, Contributors
 
-unique-filename@2.0.1
+unique-filename@4.0.0
 Copyright npm, Inc
 
-unique-slug@3.0.0
+unique-slug@5.0.0
 Copyright npm, Inc
 
 which@6.0.0
@@ -4206,7 +4176,7 @@ md5@2.3.0
 Copyright © 2011-2012, Paul Vorbach.
 Copyright © 2009, Jeff Mott.
 
-qs@6.14.0
+qs@6.14.1
 Copyright (c) 2014, Nathan LaFreniere and other [contributors](https://github.com/ljharb/qs/graphs/contributors)
 
 roarr@2.15.4
@@ -4423,7 +4393,7 @@ No Copyright
 path-scurry@2.0.0
 No Copyright
 
-tar@7.5.2
+tar@7.5.3
 Copyright (c) Isaac Z. Schlueter and Contributors
 
 
@@ -4878,13 +4848,13 @@ Creative Commons may be contacted at creativecommons.org.
 
 The following packages are licensed under The Universal Permissive License (UPL), Version 1.0:
 
-@oracle/ojet-cli@19.0.0
+@oracle/ojet-cli@19.0.1
 Copyright (c) 2025 Oracle and/or its affiliates.
 
-@oracle/oraclejet-audit@19.0.0
+@oracle/oraclejet-audit@19.0.1
 Copyright (c) 2019, 2025 Oracle and/or its affiliates
 
-@oracle/oraclejet-tooling@19.0.0
+@oracle/oraclejet-tooling@19.0.1
 Copyright (c) 2025 Oracle and/or its affiliates.
 
 
