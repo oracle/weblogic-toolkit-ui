@@ -2828,7 +2828,7 @@
   "a-EncryptValueRequired-label": "Valore cifrato obbligatorio",
   "f-any_ConfigurationProperty-a-EncryptValueRequired-help": "Specifica se la proprietà deve essere cifrata. Per impostazione predefinita, il valore di una proprietà non è cifrato e tutti coloro che utilizzano la console di amministrazione possono visualizzare il valore della proprietà. Se questo attributo viene impostato su true, il valore della proprietà nella console di amministrazione verrà impostato con tutti asterischi.",
 
-  "a-EncryptedValueEncrypted-label": "Valore cifrato - Cifrato",
+  "a-EncryptedValueEncrypted-label": "Valore cifrato",
   "f-SecurityConfiguration_CredentialSet_EncryptedProperty-a-EncryptedValueEncrypted-label": "Valore",
   "f-JDBCSystemResource_JdbcResource_JDBCDriverParams_Properties-a-EncryptedValueEncrypted-help": "Il valore del valore cifrato della proprietà.",
   "f-SecurityConfiguration_CredentialSet_EncryptedProperty-a-EncryptedValueEncrypted-help": "Il valore della proprietà.",
