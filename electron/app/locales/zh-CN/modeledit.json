@@ -2828,7 +2828,7 @@
   "a-EncryptValueRequired-label": "需要加密值",
   "f-any_ConfigurationProperty-a-EncryptValueRequired-help": "指定是否应加密属性。默认情况下，不加密属性值，任何使用管理控制台的用户均可以查看属性值。如果将此属性设置为 true，则管理控制台上的属性值将设置为全部以星号显示。",
 
-  "a-EncryptedValueEncrypted-label": "加密的值加密",
+  "a-EncryptedValueEncrypted-label": "加密的值",
   "f-SecurityConfiguration_CredentialSet_EncryptedProperty-a-EncryptedValueEncrypted-label": "值",
   "f-JDBCSystemResource_JdbcResource_JDBCDriverParams_Properties-a-EncryptedValueEncrypted-help": "加密属性值的值。",
   "f-SecurityConfiguration_CredentialSet_EncryptedProperty-a-EncryptedValueEncrypted-help": "属性的值。",

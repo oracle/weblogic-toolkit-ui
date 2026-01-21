@@ -2828,7 +2828,7 @@
   "a-EncryptValueRequired-label": "Wertverschlüsselung erforderlich",
   "f-any_ConfigurationProperty-a-EncryptValueRequired-help": "Gibt an, ob die Eigenschaft verschlüsselt werden soll. Standardmäßig wird der Wert einer Eigenschaft nicht verschlüsselt, sodass er über die Administrationskonsole für jeden Benutzer sichtbar ist. Wenn dieses Attribut auf \"true\" gesetzt ist, wird der Wert der Eigenschaft in der Administrationskonsole als eine Reihe von Sternchen angezeigt.",
 
-  "a-EncryptedValueEncrypted-label": "Verschlüsselter Wert verschlüsselt",
+  "a-EncryptedValueEncrypted-label": "Verschlüsselter Wert",
   "f-SecurityConfiguration_CredentialSet_EncryptedProperty-a-EncryptedValueEncrypted-label": "Wert",
   "f-JDBCSystemResource_JdbcResource_JDBCDriverParams_Properties-a-EncryptedValueEncrypted-help": "Der Wert des verschlüsselten Eigenschaftswertes.",
   "f-SecurityConfiguration_CredentialSet_EncryptedProperty-a-EncryptedValueEncrypted-help": "Der Wert der Eigenschaft.",
