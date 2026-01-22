@@ -9,7 +9,6 @@
   "scripts": {
     "start": "electron --trace-warnings . dev",
     "install-tools": "node --trace-uncaught scripts/installTools.js",
-    "update-alias-labels": "node --trace-uncaught scripts/updateAliasLabels.js",
     "build": "npm run build:jet && npm run install-tools && npm run build:installer",
     "build:jet": "cd ../webui && npm run build:release && cd ../electron",
     "build:installer": "electron-builder -p never",

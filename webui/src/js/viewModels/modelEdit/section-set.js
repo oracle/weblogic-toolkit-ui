@@ -90,6 +90,14 @@ function(accUtils, ko, ModuleHelper, MetaHelper, MessageHelper, AliasHelper) {
         }
       }
 
+      else if(section.type === 'custom') {
+        const customConfig = ModuleHelper.createCustomSectionConfig(MODEL_PATH, section, ATTRIBUTE_MAP, FOLDER_INFO);
+        this.sections.push({
+          type: section.type,
+          moduleConfig: customConfig
+        });
+      }
+
       else if(MetaHelper.isTabSection(section.type)) {
         // don't display yet, these will always be the in last section
         tabs.push(section);

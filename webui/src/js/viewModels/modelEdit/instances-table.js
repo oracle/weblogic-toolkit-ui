@@ -62,7 +62,17 @@ function(accUtils, ko, InstanceHelper, ModelEditHelper, ModuleHelper, MessageHel
           uid: utils.getShortUuid(),
           name: instanceName,
         };
-        for (const [attKey, attValue] of Object.entries(this.summaryAttributes)) {
+
+        for (const [attKey, attOptions] of Object.entries(this.summaryAttributes)) {
+          const valueHandler = attOptions.valueHandler;
+          if(valueHandler) {
+            const modelPath = [...MODEL_PATH, instanceName];
+            const result = MetaMethods[valueHandler](attKey, modelPath);
+            instance[attKey] = result.value;
+            instance[getCredentialKey(attKey)] = result.isCredential;
+            continue;
+          }
+
           let attributeKey = attKey;
           let modelInstanceFolder = value || {};
 
@@ -80,8 +90,7 @@ function(accUtils, ko, InstanceHelper, ModelEditHelper, ModuleHelper, MessageHel
           const aliasPath = [...ALIAS_PATH, ...subpath];
           const modelPath = [...MODEL_PATH, instanceName, ...subpath];
 
-          const getter = attValue.getter;
-          const modelValue = getter ? getter(modelInstanceFolder) : modelInstanceFolder[attributeKey];
+          const modelValue = modelInstanceFolder[attributeKey];
 
           let displayValue = ModelEditHelper.getDerivedValue(modelValue);
 
@@ -93,10 +102,8 @@ function(accUtils, ko, InstanceHelper, ModelEditHelper, ModuleHelper, MessageHel
           const option = options.find(option => option.value === displayValue);
           displayValue = option ? option.label : displayValue;
 
-          instance[attKey] = {
-            value: displayValue,
-            isCredential
-          };
+          instance[attKey] = displayValue;
+          instance[getCredentialKey(attKey)] = isCredential;
         }
         this.instances.push(instance);
       }
@@ -123,7 +130,14 @@ function(accUtils, ko, InstanceHelper, ModelEditHelper, ModuleHelper, MessageHel
     }
 
     // attributePath is usually a simple name, but may be qualified, like "SSL/ListenPort"
-    for (const attributePath of Object.keys(this.summaryAttributes)) {
+    for (const [attributePath, options] of Object.entries(this.summaryAttributes)) {
+      const columnHandler = options.columnHandler;
+      if(columnHandler) {
+        const headerInfo = MetaMethods[columnHandler](attributePath, ALIAS_PATH, defaultSortable);
+        this.instancesColumnData.push(headerInfo);
+        continue;
+      }
+
       let aliasPath = [...ALIAS_PATH];
 
       const parts = attributePath.split('/');
@@ -211,8 +225,18 @@ function(accUtils, ko, InstanceHelper, ModelEditHelper, ModuleHelper, MessageHel
       return typeName;
     };
 
-    this.credentialCellConfig = attribute => {
-      return ModuleHelper.createCredentialCellConfig(attribute.value);
+    this.isCredential = (rowData, attributeKey) => {
+      const credentialKey = getCredentialKey(attributeKey);
+      return rowData[credentialKey];
+    };
+
+    // used to store an extra key in the instance to indicate credential
+    const getCredentialKey = attributeKey => {
+      return attributeKey + '.isCredential';
+    };
+
+    this.credentialCellConfig = attributeValue => {
+      return ModuleHelper.createCredentialCellConfig(attributeValue);
     };
 
     this.deleteInstance = (event, context) => {

@@ -102,6 +102,18 @@ function (ko, WktLogger, ModuleElementUtils) {
       });
     };
 
+    this.createCustomSectionConfig = (modelPath, metaSection, attributeMap, folderInfo) => {
+      return ModuleElementUtils.createConfig({
+        name: metaSection.view,
+        params: {
+          metaSection,
+          modelPath,
+          attributeMap,
+          folderInfo
+        }
+      });
+    };
+
     this.createInstancesSectionConfig = (modelPath, metaSection) => {
       return ModuleElementUtils.createConfig({
         name: 'modelEdit/instances-section',
