@@ -1,0 +1,15 @@
+<!--
+ Copyright (c) 2026, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
+ -->
+
+<oj-c-form-layout class="wkt-model-edit-attribute-form" max-columns="1" direction="row">
+  <oj-c-rich-radioset
+    label-hint="[[selectLabel]]"
+    options="[[selectOptions]]"
+    value="{{selectedOption}}"
+    help.instruction="[[selectHelp]]">
+  </oj-c-rich-radioset>
+
+  <oj-module config="[[attributeConfig]]"></oj-module>
+</oj-c-form-layout>
