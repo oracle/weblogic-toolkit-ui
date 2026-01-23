@@ -182,6 +182,9 @@ function addPatchingArgs(args, createConfig) {
     args.push('--user', createConfig.username);
     // Add extra quotes in case the password contains special characters that the shell tries to interpret
     args.push('--password', quote + createConfig.password + quote);
+    if (createConfig.opatchBugNumber) {
+      args.push('--opatchBugNumber', createConfig.opatchBugNumber);
+    }
   }
   return credentialsRequired;
 }

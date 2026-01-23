@@ -52,6 +52,7 @@ define(['knockout', 'utils/observable-properties', 'utils/validation-helper'],
         this.wdtInstallerVersion = props.createProperty();
 
         this.applyOraclePatches = props.createProperty(true);
+        this.opatchBugNumber = props.createProperty();
         this.oracleSupportUserName = props.createProperty().asCredential();
         this.oracleSupportPassword = props.createProperty().asCredential();
         this.oraclePatchOptions = props.createProperty('recommended');
