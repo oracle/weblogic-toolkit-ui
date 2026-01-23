@@ -9,7 +9,6 @@
   "scripts": {
     "start": "electron --trace-warnings . dev",
     "install-tools": "node --trace-uncaught scripts/installTools.js",
-    "update-alias-labels": "node --trace-uncaught scripts/updateAliasLabels.js",
     "build": "npm run build:jet && npm run install-tools && npm run build:installer",
     "build:jet": "cd ../webui && npm run build:release && cd ../electron",
     "build:installer": "electron-builder -p never",
@@ -169,30 +168,9 @@
       ]
     },
     "rpm": {
-      "depends": [
-        "libXScrnSaver",
-        "libsecret-devel",
-        "libxshmfence",
-        "libdrm",
-        "libgbm",
-        "alsa-lib",
-        "xauth",
-        "atk-devel"
-      ],
       "fpm": [
         "--rpm-rpmbuild-define",
         "_build_id_links none"
-      ]
-    },
-    "deb": {
-      "depends": [
-        "gconf2",
-        "gconf-service",
-        "libnotify4",
-        "libappindicator1",
-        "libxtst6",
-        "libnss3",
-        "libsecret-1-dev"
       ]
     }
   }

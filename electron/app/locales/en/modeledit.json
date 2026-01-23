@@ -469,6 +469,8 @@
   "attribute-editor-select-directory": "Select Directory",
   "attribute-editor-select-file": "Select File",
   "attribute-editor-invalid-model-value": "Invalid value \"{{value}}\" in the model",
+  "attribute-editor-property-value-type-label": "Value Type",
+  "attribute-editor-property-value-type-help": "Specify how the property value will be resolved.",
 
   "invalid-integer-error": "Value must be an integer",
   "invalid-double-error": "Value must be a decimal number, such as 4 or 3.5",

@@ -328,14 +328,30 @@
     ]
   },
   "JDBCSystemResource/JdbcResource/JDBCDriverParams/Properties": {
+    "summaryAttributes": {
+      "valueType": {
+        "columnHandler": "propertyValueTypeColumnInfo",
+        "valueHandler": "propertyValueType"
+      },
+      "value": {
+        "columnHandler": "propertyValueColumnInfo",
+        "valueHandler": "propertyValue"
+      }
+    },
     "sections": [
       {
-        "type": "attributes",
+        "type": "custom",
+        "view": "modelEdit/property-section",
         "attributes": [
           "Value",
           "EncryptedValueEncrypted",
           "SysPropValue"
         ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
       }
     ]
   },
