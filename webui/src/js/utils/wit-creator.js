@@ -310,6 +310,9 @@ function (WitActionsBase, project, wktConsole, wdtModelPreparer, i18n, projectIo
             default:
               break;
           }
+          if (this.project.image.opatchBugNumber.value) {
+            createConfig.opatchBugNumber = this.project.image.opatchBugNumber.value;
+          }
         }
       }
     }

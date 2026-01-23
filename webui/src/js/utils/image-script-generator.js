@@ -130,6 +130,7 @@ define(['models/wkt-project', 'utils/script-generator-base'],
           this.adapter.addEnvironmentVariableDefinition('ORACLE_SUPPORT_PASS', this.credentialMask);
           this.adapter.addVariableDefinition('ORACLE_PSU_PATCH_ARG', this._getOracleRecommendedPsuPatchArg());
           this.adapter.addVariableDefinition('ORACLE_PATCHES_ARG', this._getOraclePatchesArg());
+          this.adapter.addVariableDefinition('OPATCH_BUG_NUMBER', this.project.image.opatchBugNumber.value);
           this.adapter.addEmptyLine();
         }
 
@@ -202,7 +203,8 @@ define(['models/wkt-project', 'utils/script-generator-base'],
           const oraclePatchesArg = this.adapter.getVariableReference('ORACLE_PATCHES_ARG');
           const oracleSupportUser = this.adapter.getVariableReference('ORACLE_SUPPORT_USER');
           const oracleSupportPass = this.adapter.getEnvironmentVariableReference('ORACLE_SUPPORT_PASS');
-          this.adapter.addWitPatchArgsBlock('WIT_CREATE_ARGS', oraclePsuPatchArg, oraclePatchesArg, oracleSupportUser, oracleSupportPass);
+          const opatchBugNumber = this.adapter.getVariableReference('OPATCH_BUG_NUMBER');
+          this.adapter.addWitPatchArgsBlock('WIT_CREATE_ARGS', oraclePsuPatchArg, oraclePatchesArg, oracleSupportUser, oracleSupportPass, opatchBugNumber);
         }
 
         // Add any advanced args

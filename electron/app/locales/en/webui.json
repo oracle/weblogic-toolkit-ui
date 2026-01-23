@@ -402,6 +402,8 @@
   "image-design-patches-title": "Patch Oracle Home",
   "image-design-apply-patches-label": "Apply Patches",
   "image-design-apply-patches-help": "Whether to apply patches to the Oracle Home after installation.",
+  "image-design-opatch-bug-number-label": "OPatch Bug Number",
+  "image-design-opatch-bug-number-help": "The bug number to use to find the new version of OPatch. Leave this field blank unless you need to override the WebLogic Image Tool default value.",
   "image-design-support-username-label": "Oracle Support Username",
   "image-design-support-username-help": "The Oracle Support user name to use to download patches.",
   "image-design-support-password-label": "Oracle Support Password",

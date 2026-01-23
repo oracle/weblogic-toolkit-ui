@@ -137,10 +137,11 @@ define(['utils/script-adapter-base'],
         );
       }
 
-      addWitPatchArgsBlock(collectVarName, oraclePsuPatchArg, oraclePatchesArg, oracleSupportUser, oracleSupportPass) {
+      addWitPatchArgsBlock(collectVarName, oraclePsuPatchArg, oraclePatchesArg, oracleSupportUser, oracleSupportPass, opatchBugNumber) {
         this.addVariableDefinition('PATCH_ARGS', '');
         this.addNotEmptyCollectArgsBlock('PATCH_ARGS', oraclePsuPatchArg);
         this.addNotEmptyCollectArgsBlock('PATCH_ARGS', oraclePatchesArg, '--patches=');
+        this.addNotEmptyCollectArgsBlock('PATCH_ARGS', opatchBugNumber, '--opatchBugNumber=');
         this._lines.push(
           'if ("$PATCH_ARGS" -ne "") {',
           `${this.indent(1)}if (("${oracleSupportUser}" -eq "") -or ("${oracleSupportPass}" -eq "")) {`,
