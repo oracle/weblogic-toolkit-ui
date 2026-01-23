@@ -34,15 +34,15 @@ package manager to install the `rpm` or `deb` file. First, be sure to review the
 
 - For RPM-based systems, use either `yum` or `dnf`; for example:
     ```
-    sudo dnf update
-    sudo dnf -y install ./wktui_1.0.0_amd64.rpm
+    sudo dnf update -y
+    sudo dnf localinstall -y ./wktui-2.0.0.x86_64.rpm
     ```
 
 - For Debian-based systems, use:
     ```
     sudo apt update
-    sudo apt upgrade
-    sudo apt install ./wktui_1.0.0_amd64.deb
+    sudo apt upgrade -y
+    sudo apt install -y ./wktui_2.0.0_amd64.deb
     ```
 
 If the installation is on a server machine, you should `logout` from the current terminal session and use X11 forwarding
@@ -55,55 +55,79 @@ Alternatively, you can download the `AppImage` file, copy it to your local file 
 
 - Use your file manager, right click on the file, edit the properties, and change the permissions to  make it executable.
 
-If you download and run the `AppImage` file, you get the added benefits of 1.) Not requiring an installation or root 
-access and 2.) Being able to participate in the auto-update functionality, like macOS and Windows.
+If you download and run the `AppImage` file, you get the added benefits of 1.) Not requiring an installation and 
+2.) Being able to participate in the auto-update functionality, like macOS and Windows.  
 
-#### AppImage on Oracle Linux 8
+As part of the WKT UI 2.0 release, Oracle tested the installers on different flavors and versions of Linux.  All tests
+were conducted with clean OCI VMs configured to use X11 Forwarding.  The following sections discuss what had to be
+installed for each installer type on the Linux flavors and versions to get WKT UI to work properly.  If you have a Linux
+Desktop environment, the packages needed may vary slightly. 
 
-A base Oracle Linux 8 may need additional packages installed to get the AppImage executable to run successfully.  Given
-that your machine may have various packages installed, it is impossible to give the minimal list needed.  However, Oracle
-has tested with the AppImage and was able to get it working on Oracle Linux 8 by doing the following steps. Note that
-these tests were conducted using SSH tunneling of X11, which requires some extra configuration not covered in this section.
+There will likely be some errors related to OpenGL printed to the terminal window but the application will
+start and function properly.  For example, when launching the WKT UI application, if you see this:
 
-1. Install the Oracle EPEL Release Package
+```
+libGL error: No matching fbConfigs or visuals found
+libGL error: failed to load driver: swrast
+```
 
-`sudo dnf install -y oracle-epel-release-el8.x86_64`
-
-2. Install the `yum-utils` package, if not already installed
-
-`sudo dnf install -y yum-utils`
-
-3. Enable the EPEL repository.
-
-`sudo dnf config-manager --set-enabled ol8_developer_EPEL`
-
-4. Install core X11 packages.
-
-`sudo dnf install xorg-x11-server-Xorg libX11 libXrender libXtst xauth`
-
-5. Install packages for FUSE support
-
-`sudo dnf install fuse-common fuse-libs ocifs`
-
-6. Install ATK support libraries
-
-`sudo dnf install atk java-atk-wrapper at-spi2-atk gtk3 libXt`
-
-7. Install Mesa-related libraries
-
-`sudo dnf install mesa-libgbm alsa-lib mesa-dri-drivers`
-
-#### Helpful Hints
-
-- When launching the WKT UI application, if you see this:
-    ```
-    libGL error: No matching fbConfigs or visuals found
-    libGL error: failed to load driver: swrast
-    ```
-    This is harmless and can be removed by setting the environment variable:
+This is harmless and setting the environment variable should eliminate this error:
 
     `export LIBGL_ALWAYS_INDIRECT=1`
 
+The steps we followed (after setting up X11Forwarding) for each Linux flavor and version tested were as follows.
+Note that we were unable to get the AppImage to run properly on Ubuntu 22.04.
+
+#### RPM Installer on Oracle Linux 8 and Oracle Linux 9
+
+```
+sudo dnf update -y
+sudo dnf localinstall -y ./wktui-2.0.0.x86_64.rpm
+sudo dnf install -y alsa-lib mesa-dri-drivers
+wktui
+```
+
+#### DEB Installer on Ubuntu 22.04
+
+```
+sudo apt update
+sudo apt upgrade -y
+sudo reboot
+sudo apt install -y ./wktui_2.0.0_amd64.deb
+sudo apt install -y libgbm1 libasound2
+wktui 
+```
+
+#### DEB Installer on Ubuntu 24.04
+
+```
+sudo apt update
+sudo apt upgrade -y
+sudo reboot
+sudo apt install -y ./wktui_2.0.0_amd64.deb
+sudo apt install -y libgbm1 libasound2t64
+wktui 
+```
+
+#### AppImage on Oracle Linux 8 and Oracle Linux 9
+
+```
+sudo dnf update -y
+sudo dnf install -y fuse-common fuse-libs ocifs atk at-spi2-atk gtk3 libXt mesa-libgbm alsa-lib mesa-dri-drivers
+chmod +x ./WebLogic\ Kubernetes\ Toolkit\ UI-2.0.0.AppImage
+./WebLogic\ Kubernetes\ Toolkit\ UI-2.0.0.AppImage
+```
+
+#### AppImage on Ubuntu 24.04
+
+```
+sudo apt update
+sudo apt upgrade -y
+sudo reboot
+sudo apt install -y libatk1.0-0 libatk-bridge2.0-0 libcups2 libcairo2 libgtk-3-0 libgbm1 libasound2t64 libfuse2t64
+chmod +x ./WebLogic\ Kubernetes\ Toolkit\ UI-2.0.0.AppImage
+./WebLogic\ Kubernetes\ Toolkit\ UI-2.0.0.AppImage --no-sandbox
+```
 
 ### Application Startup
 
