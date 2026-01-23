@@ -233,6 +233,16 @@
                                     help.instruction="[[labelMapper('patches-help')]]">
                       </oj-text-area>
                     </oj-c-form-layout>
+                    <oj-c-form-layout max-columns="2" direction="row">
+                      <div>
+                        <oj-bind-if test="[[project.image.applyOraclePatches.observable() === true]]">
+                          <oj-input-text label-hint="[[labelMapper('opatch-bug-number-label')]]"
+                                         value="{{project.image.opatchBugNumber.observable}}"
+                                         help.instruction="[[labelMapper('opatch-bug-number-help')]]">
+                          </oj-input-text>
+                        </oj-bind-if>
+                      </div>
+                    </oj-c-form-layout>
                   </oj-bind-if>
                 </div>
               </oj-bind-if>
