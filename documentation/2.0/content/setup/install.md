@@ -76,7 +76,6 @@ This is harmless and setting the environment variable should eliminate this erro
     `export LIBGL_ALWAYS_INDIRECT=1`
 
 The steps we followed (after setting up X11Forwarding) for each Linux flavor and version tested were as follows.
-Note that we were unable to get the AppImage to run properly on Ubuntu 22.04.
 
 #### RPM Installer on Oracle Linux 8 and Oracle Linux 9
 
@@ -91,10 +90,10 @@ wktui
 
 ```
 sudo apt update
+sudo apt install -y libgbm1 libasound2
+sudo apt install -y ./wktui_2.0.0_amd64.deb
 sudo apt upgrade -y
 sudo reboot
-sudo apt install -y ./wktui_2.0.0_amd64.deb
-sudo apt install -y libgbm1 libasound2
 wktui 
 ```
 
@@ -102,10 +101,10 @@ wktui
 
 ```
 sudo apt update
-sudo apt upgrade -y
-sudo reboot
-sudo apt install -y ./wktui_2.0.0_amd64.deb
 sudo apt install -y libgbm1 libasound2t64
+sudo apt install -y ./wktui_2.0.0_amd64.deb
+sudo apt upgrade -y
+sudo reboot now
 wktui 
 ```
 
@@ -118,13 +117,28 @@ chmod +x ./WebLogic\ Kubernetes\ Toolkit\ UI-2.0.0.AppImage
 ./WebLogic\ Kubernetes\ Toolkit\ UI-2.0.0.AppImage
 ```
 
+#### AppImage on Ubuntu 22.04
+
+```
+sudo apt update
+sudo apt install -y libatk1.0-0 libatk-bridge2.0-0 libgtk-3-0 libgdk-pixbuf-2.0-0 libcairo2 libpango-1.0-0 \
+ libpangocairo-1.0-0 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libgbm1 libnss3 libcups2 libdbus-1-3 \
+ libx11-xcb1 libxcb1 libxext6 libxrender1 libxtst6 libasound2 libfuse2
+sudo apt upgrade -y
+sudo reboot now
+chmod +x ./WebLogic\ Kubernetes\ Toolkit\ UI-2.0.0.AppImage
+./WebLogic\ Kubernetes\ Toolkit\ UI-2.0.0.AppImage
+```
+
 #### AppImage on Ubuntu 24.04
 
 ```
 sudo apt update
+sudo apt install -y libatk1.0-0 libatk-bridge2.0-0 libgtk-3-0 libgdk-pixbuf-2.0-0 libcairo2 libpango-1.0-0 \
+ libpangocairo-1.0-0 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libgbm1 libnss3 libcups2 libdbus-1-3 \
+ libx11-xcb1 libxcb1 libxext6 libxrender1 libxtst6 libasound2t64 libfuse2t64
 sudo apt upgrade -y
-sudo reboot
-sudo apt install -y libatk1.0-0 libatk-bridge2.0-0 libcups2 libcairo2 libgtk-3-0 libgbm1 libasound2t64 libfuse2t64
+sudo reboot now
 chmod +x ./WebLogic\ Kubernetes\ Toolkit\ UI-2.0.0.AppImage
 ./WebLogic\ Kubernetes\ Toolkit\ UI-2.0.0.AppImage --no-sandbox
 ```
