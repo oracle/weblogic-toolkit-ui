@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const path = require('path');
@@ -152,12 +152,14 @@ function getDockerEnv(httpsProxyUrl, bypassProxyHosts, imageBuilderOptions) {
   }
 
   let env = {
-    DOCKER_BUILDKIT: '0',
     // podman relies on the PATH including other executables (e.g., newuidmap)...
     PATH: parentPath
   };
 
   // Docker-specific environment variables that should be passed on
+  if (process.env.DOCKER_BUILDKIT) {
+    env['DOCKER_BUILDKIT'] = process.env.DOCKER_BUILDKIT;
+  }
   if (process.env.DOCKER_HOST) {
     env['DOCKER_HOST'] = process.env.DOCKER_HOST;
   }
