@@ -1,6 +1,6 @@
 {
   "private": true,
-  "copyright": "Copyright (c) 2021, 2025, Oracle and/or its affiliates.",
+  "copyright": "Copyright (c) 2021, 2026, Oracle and/or its affiliates.",
   "scripts": {
     "test": "mocha --timeout 10000 --reporter spec src/test/*-test.js",
     "coverage": "nyc --reporter=lcov --reporter=text-summary npm run test",
