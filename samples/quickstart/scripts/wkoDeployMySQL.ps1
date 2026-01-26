@@ -175,12 +175,16 @@ spec:
         spec:
             containers:
                 - name: todolist-mysql
-                  image: container-registry.oracle.com/mysql/community-server:8.0.32
+                  image: container-registry.oracle.com/mysql/community-server:8.4.7
                   ports:
                       - containerPort: 3306
                   volumeMounts:
                       - name: init-sql
                         mountPath: /docker-entrypoint-initdb.d/
+                  securityContext:
+                      allowPrivilegeEscalation: false
+                      runAsNonRoot: true
+                      runAsUser: 27
                   env:
                       - name: MYSQL_ROOT_PASSWORD
                         valueFrom:

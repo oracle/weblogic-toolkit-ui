@@ -35,6 +35,16 @@ ORACLE_HOME=""
 export ORACLE_HOME
 
 #
+# Set to the application that is appropriate for the version of
+# WebLogic Server in the ORACLE_HOME location specified.
+#
+#    - app/target/todo.war - if using WebLogic Server 14.1.2 or older
+#    - app-jakarta/target/todo.war - if using WebLogic Server 15.1.1 or newer
+#
+WKTUI_QS_APP="app/target/todo.war"
+export WKTUI_QS_APP
+
+#
 # Set to directory where WKTUI is installed.
 #
 # On macOS, this will typically be:
@@ -66,7 +76,7 @@ ORCL_SSO_USER=''
 export ORCL_SSO_USER
 
 #
-# Set to the password of your Oracle SSO account.  This is
+# SSet the password to your Auth Token for Oracle Container Registry.  This is
 # used to pull images from https://container-registry.oracle.com.
 #
 # Feel free to leave this variable empty.  The scripts that use
@@ -138,6 +148,13 @@ WKTUI_QS_HOME="$( cd "$( dirname "$0" )" && pwd )"; export WKTUI_QS_HOME
 platform=$(uname)
 if [ "${platform}" = "Darwin" ]; then
   WLSDEPLOY_HOME="${WKTUI_HOME}/Contents/tools/weblogic-deploy"
+  architecture=$(uname -m)
+  if [ "${architecture}" = "arm64" ]; then
+    MYSQL_ARCH_TAG_SUFFIX="-aarch64"
+  else
+    MYSQL_ARCH_TAG_SUFFIX=""
+  fi
+  export MYSQL_ARCH_TAG_SUFFIX
 else
   WLSDEPLOY_HOME="${WKTUI_HOME}/tools/weblogic-deploy"
 fi

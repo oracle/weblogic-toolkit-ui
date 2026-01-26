@@ -26,9 +26,9 @@ if (-not $env:ORCL_SSO_USER) {
 }
 
 if (-not $env:ORCL_SSO_PASS) {
-    $ORCL_SSO_PASS = Read-Host "Please enter your Oracle SSO account password: " -AsSecureString
+    $ORCL_SSO_PASS = Read-Host "Please enter your Oracle SSO account Auth Token for the Oracle Container Registry: " -AsSecureString
     if (-not $ORCL_SSO_PASS) {
-        Write-Error "No Oracle SSO account password provided...exiting"
+        Write-Error "No Oracle SSO account Auth Token for the Oracle Container Registry provided...exiting"
         exit 1
     }
     $env:ORCL_SSO_PASS = [Runtime.InteropServices.Marshal]::PtrToStringAuto(
@@ -76,7 +76,7 @@ $argList = "run --name=mysql -p 3306:3306 -e `"MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_
     + "-e `"MYSQL_USER=${MYSQL_USER}`" -e `"MYSQL_PASSWORD=${MYSQL_USER_PASS}`" " `
     + "-e MYSQL_DATABASE=tododb " `
     + "--mount type=bind,src=`"${env:WKTUI_QS_HOME}\sql\\`",dst=/docker-entrypoint-initdb.d/ " `
-    + "-d container-registry.oracle.com/mysql/community-server:8.0.32"
+    + "-d container-registry.oracle.com/mysql/community-server:8.4.7"
 
 $proc = Start-Process -NoNewWindow -FilePath "$env:IMAGE_BUILDER_EXE" -ArgumentList "$argList" -PassThru
 Wait-Process -InputObject $proc

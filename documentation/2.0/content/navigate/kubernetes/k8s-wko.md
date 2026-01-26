@@ -29,7 +29,7 @@ For detailed information about the operator, see the
 [WebLogic Kubernetes Operator](https://oracle.github.io/weblogic-kubernetes-operator/) documentation.
 
 ### Design View
-`Design View` helps you specify the necessary data needed to install the WebLogic Kubernetes Operator to manage
+`Design View` helps you specify the data needed to install the WebLogic Kubernetes Operator to manage
 WebLogic domains in one or more Kubernetes namespaces.  To install the operator using the default settings, simply
 provide values for the following three fields:
 
@@ -37,24 +37,26 @@ provide values for the following three fields:
 - `Kubernetes Service Account` - The Kubernetes service account for the operator to use when making Kubernetes API
   requests.
 - `Helm Release Name to Use for Operator Installation` - The Helm release name to use to identify this installation.
+- `WebLogic Kubernetes Operator Version to Install` - The version of the WebLogic Kubernetes Operator to install.
 
 {{% notice note %}}
-The WKT UI application overrides a few default values in the operator Helm Chart.  Read the details of the parameters descriptions in
-[Kubernetes Namespace Selection Strategy](#kubernetes-namespace-selection-strategy).  These panes and their fields are made visible by expanding the
-`Advanced` portion of the page.
+The WKT UI application overrides a few default values in the operator Helm Chart.  Read the details of the parameters
+descriptions in [Kubernetes Namespace Selection Strategy](#kubernetes-namespace-selection-strategy).  These panes and their fields are made visible by
+expanding the `Advanced` portion of the page.
 {{% /notice %}}
 
 #### WebLogic Kubernetes Operator Image
-By default, the operator's `Image Tag to Use` field is set to the image tag corresponding to the latest operator
-release version on the GitHub Container Registry.  The `Image Pull Policy` field configures the operator deployment in
-Kubernetes to tell it when to pull the image from the specified registry:
+By default, the operator's `Image Tag to Use` field is empty, so the installation will use the image tag from the 
+specified WebLogic Kubernetes Operator version's Helm chart.  The `Image Pull Policy` field configures the operator
+deployment in Kubernetes to tell it when to pull the image from the specified registry:
 
 - `If Not Present` (default) - Only pull the image if it is not already present on the Kubernetes node.
 - `Always` - Pull the image every time the image is needed to start a container.
-- `Never` - Never pull the image; this will result in an error if the image is not already present on the Kubernetes node.
+- `Never` - Never pull the image; this will result in an error if the image is not already present on the Kubernetes
+  node.
 
-Because the GitHub Container Registry does not require image pull authentication to pull the official WebLogic Kubernetes
-Operator image, `Image Pull Requires Authentication` is disabled by default.  If a custom
+Because the GitHub Container Registry does not require image pull authentication to pull the official WebLogic 
+Kubernetes Operator image, `Image Pull Requires Authentication` is disabled by default.  If a custom
 operator image is being used from a container image registry that requires pull authentication, then enable the option
 and complete the appropriate fields described in the [Image Pull Secret](#image-pull-secret)
 pane that follows.
@@ -63,16 +65,8 @@ pane that follows.
 This pane is hidden unless the `Image Pull Requires Authentication` from the WebLogic Kubernetes Operator Image pane
 is enabled.  To allow Kubernetes to pull the custom operator image requiring pull authentication, use the
 `Kubernetes Image Pull Secret Name` field to provide the name of the Kubernetes secret to use for the credentials.  To
-have the application create this secret, disable `Use Existing Secret` and provide the values for the following
-fields:
-
-- `Image Pull Secret Email Address` - The email address of the user.
-- `Image Pull Secret Username` - The user name to use when authenticating to the container image registry.
-- `Image Pull Secret Password` - The user's password to use when authenticating to the container image registry.
-
-The read-only `Image Registry Address` field is parsed from the `Image Tag to Use` field.  If the
-`Image Registry Address` field is empty, then the application will assume that Docker Hub is the target container image
-registry to use when creating the pull secret.
+have the application create this secret, disable `Use Existing Secret` and provide the value for the
+`Operator Image Registry Credentials` field.
 
 #### Kubernetes Namespace Selection Strategy
 The operator needs to know which WebLogic domains in the Kubernetes cluster that it will manage.  It does this at the
@@ -86,8 +80,8 @@ the desired namespace selection strategy from one of the supported values:
     by this operator.
 - `Dedicated` - Only the Kubernetes namespace where the operator is installed will be managed by this operator.
 
-_**Note** that the operator Helm chart default is `List` but the application overrides this to specify `Label Selector` as
-the default value._
+_**Note** that the operator Helm chart default prior to the 4.0.0 release was `List` but the application overrode it
+to specify `Label Selector` as the default value._
 
 Each namespace selection strategy takes different input values; the form fields will change based on the strategy
 selected:
@@ -108,9 +102,9 @@ such, specifying an empty list will not prevent your WebLogic domain from being 
 #### WebLogic Kubernetes Operator Role Bindings
 When installing the operator, the operator Helm chart default is to create a Kubernetes Role and a Kubernetes RoleBinding
 in each Kubernetes namespace being managed by the operator.  By enabling `Enable Cluster Role Binding`, the
-operator installation will create a Kubernetes ClusterRole and ClusterRoleBinding that the operator will use for all managed
-namespaces.  This ClusterRole and ClusterRoleBinding will be shared across all operator installations in the Kubernetes
-cluster (assuming that those installations also enable cluster role binding).
+operator installation will create a Kubernetes ClusterRole and ClusterRoleBinding that the operator will use for all
+managed namespaces.  This ClusterRole and ClusterRoleBinding will be shared across all operator installations in the
+Kubernetes cluster (assuming that those installations also enable cluster role binding).
 
 Using the default namespace-specific roles and role bindings, the administrator follows the Principle of Least
 Privilege to guarantee that the operator cannot perform any actions on other, non-managed namespaces.  The implication
@@ -120,8 +114,8 @@ for the operator to manage the namespace.  Rerunning the operator Helm chart wit
 new namespaces will cause the Helm chart to create the necessary Role and RoleBinding objects in each namespace,
 as needed.
 
-If the operator is using the ClusterRole and ClusterRoleBinding, then the new namespaces will be automatically picked up by
-the operator when using either the `Label Selector` or `Regular Expression` namespace selection strategy without any
+If the operator is using the ClusterRole and ClusterRoleBinding, then the new namespaces will be automatically picked up
+by the operator when using either the `Label Selector` or `Regular Expression` namespace selection strategy without any
 need to rerun the operator Helm chart.
 
 As previously mentioned, the WKT UI application automatically reruns the operator Helm chart when deploying new WebLogic
@@ -135,8 +129,8 @@ exposed, enable `Expose REST API Externally`, set the desired HTTPS port using t
 [Rest API](https://oracle.github.io/weblogic-kubernetes-operator/userguide/managing-operators/the-rest-api/) documentation.
 
 #### Third Party Integrations
-To enable integration with the Elasticsearch, Logstash, and Kibana (ELK) stack, enable `ELK Integration Enabled` and provide values for the
-following fields.
+To enable integration with the Elasticsearch, Logstash, and Kibana (ELK) stack, enable `ELK Integration Enabled` and 
+provide values for the following fields.
 
 - `Logstash Image Tag to Use` - The container image of `logstash` to use.
 - `Elasticsearch Host Name` - The DNS name of IP address of the Elasticsearch server.
@@ -154,11 +148,11 @@ maximum number of retained log files.  For more information, see
 in the WebLogic Kubernetes Operator documentation.
 
 ### Code View
-The `WebLogic Operator` page's `Code View` displays a shell script that you can use as a starting point for automating the
-operator installation process.  
+The `WebLogic Operator` page's `Code View` displays a shell script that you can use as a starting point for automating
+the operator installation process.  
 
-If it is not already selected, then use the `Script Language` drop-down menu to choose the desired scripting language.  Note
-that the application is providing a working sample script to show how the process might be automated.  Before
+If it is not already selected, then use the `Script Language` drop-down menu to choose the desired scripting language.
+Note that the application is providing a working sample script to show how the process might be automated.  Before
 using the script, review the script and make any changes necessary for your environment. One typical change that
 would be considered a best practice would be to change the script to accept either command-line arguments or externally
 set environment variables to specify any credentials required by the script to eliminate hard-coding the credentials in
@@ -197,6 +191,7 @@ resources from the Kubernetes cluster. In addition, you can choose whether to al
 You access these actions by using the `Uninstall Operator` button on the
 `WebLogic Operator` page or the `Go` > `Uninstall WebLogic Kubernetes Operator` menu item.
 
-Note that if you uninstall an operator, then any domains that it is managing will continue running; however,
+Note that if you uninstall an operator, then any domains that it is managing will continue running. However,
 any changes to a domain resource that was managed by the operator will not be detected or automatically handled,
-and, if you want to clean up such a domain, then you will need to manually delete all of the domain's resources (domain, pods, services, and such).
+and, if you want to clean up such a domain, then you will need to manually delete all of the domain's resources (domain,
+pods, services, and such).

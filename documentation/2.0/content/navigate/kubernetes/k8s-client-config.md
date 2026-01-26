@@ -3,7 +3,7 @@ title: "Client Configuration"
 date: 2019-02-22T15:44:42-05:00
 draft: false
 weight: 1
-description: "Client Configuration helps you get the necessary connectivity to your Kubernetes cluster."
+description: "Configure your Kubernetes client to connect to your Kubernetes cluster."
 ---
 
 
@@ -19,11 +19,13 @@ description: "Client Configuration helps you get the necessary connectivity to y
 cluster.  Use the `Kubernetes Cluster Type` field to select the target Kubernetes cluster type to show instructions for
 configuring `kubectl` to successfully connect to the cluster.
 
-- The `Kubectl Executable to Use` field tells the WKT UI application where to find the correct version of `kubectl` to use.
+- The `Kubectl Executable to Use` field tells the WKT UI application where to find the correct version of `kubectl`
+to use.
 - By using the `Kubernetes Client Config File(s)` field, you can specify a different Kubernetes client configuration
 file instead of, or in addition to, the default `.kube/config` file from your home directory.  
-- For environments where the client is configured to connect to multiple clusters, use the `Kubernetes Config Context to Use` field to
-specify the configuration file's context associated with the cluster to which you want to connect.  
+- For environments where the client is configured to connect to multiple clusters, use the
+`Kubernetes Config Context to Use` field to specify the configuration file's context associated with the cluster to
+which you want to connect.  
 - The `Helm Executable to Use` field tells the application where to find Helm, which is used to install the WebLogic
 Kubernetes Operator and ingress controllers.  For more information
 about Helm, see the [Helm](https://helm.sh/) documentation.

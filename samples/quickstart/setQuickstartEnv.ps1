@@ -31,6 +31,15 @@ $env:M2_HOME = ""
 $env:ORACLE_HOME = ""
 
 #
+# Set to the application that is appropriate for the version of
+# WebLogic Server in the ORACLE_HOME location specified.
+#
+#    - app\target\todo.war - if using WebLogic Server 14.1.2 or older
+#    - app-jakarta\target\todo.war - if using WebLogic Server 15.1.1 or newer
+#
+$env:WKTUI_QS_APP = "app\target\todo.war"
+
+#
 # Set to directory where WKTUI is installed.
 #
 # On Windows, this will typically be:
@@ -49,7 +58,7 @@ $env:WKTUI_HOME = "c:\Program Files\WebLogic Kubernetes Toolkit UI"
 $env:ORCL_SSO_USER = ''
 
 #
-# Set to the password of your Oracle SSO account.  This is
+# Set the password to your Auth Token for Oracle Container Registry.  This is
 # used to pull images from https://container-registry.oracle.com.
 #
 # Feel free to leave this variable empty.  The scripts that use
@@ -112,4 +121,5 @@ $env:IMAGE_BUILDER_EXE = "docker"
 if (-not $env:WKTUI_QS_HOME) {
     $env:WKTUI_QS_HOME = (get-item $PSScriptRoot).FullName
 }
+
 $env:WLSDEPLOY_HOME = Join-Path -Path "$env:WKTUI_HOME" -ChildPath "\tools\weblogic-deploy"
