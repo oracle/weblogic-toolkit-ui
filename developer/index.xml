@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Developer Guide on WebLogic Kubernetes Toolkit UI</title>
-    <link>https://oracle.github.io/weblogic-toolkit-ui/developer/</link>
-    <description>Recent content in Developer Guide on WebLogic Kubernetes Toolkit UI</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <title>Developer Guide :: WebLogic Kubernetes Toolkit UI</title>
+    <link>https://oracle.github.io/weblogic-toolkit-ui/developer/index.html</link>
+    <description>The WebLogic Kubernetes Toolkit UI is a desktop application designed to help WebLogic users move their applications to run in a Kubernetes environment.&#xA;Setting up your development environment Download and install the latest LTS version of node.js from https://nodejs.org/en/download/ .&#xA;If you rely on a proxy server to reach the Internet, set these five environment variables to configure the proxy correctly:</description>
+    <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 22 Feb 2019 15:27:38 -0500</lastBuildDate><atom:link href="https://oracle.github.io/weblogic-toolkit-ui/developer/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://oracle.github.io/weblogic-toolkit-ui/developer/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

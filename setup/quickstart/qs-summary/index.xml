@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Summary on WebLogic Kubernetes Toolkit UI</title>
-    <link>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-summary/</link>
-    <description>Recent content in Summary on WebLogic Kubernetes Toolkit UI</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <title>Summary :: WebLogic Kubernetes Toolkit UI</title>
+    <link>https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-summary/index.html</link>
+    <description>By following the steps in this Quick Start guide, you:&#xA;Configured WKT UI and set up a new project. Manually created and edited a WDT model of a WebLogic domain using the Design View for visual editing of the model and the Code View for viewing and editing model-related files. Pulled a prebuilt (primary) image from the Oracle Container Registry and then manually created an auxiliary image. Deployed a MySQL database. Installed the WebLogic Kubernetes Operator to deploy your domain, then installed and configured an ingress controller to expose the sample application and provide its access in a browser window. Optionally, used the instructions in the Advanced section to discover the domain model offline or online remotely. In summary, you used comprehensive WKT UI functionality to take an on-premises, sample WebLogic domain and deploy it in Kubernetes.</description>
+    <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 22 Feb 2019 15:27:38 -0500</lastBuildDate><atom:link href="https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-summary/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate></lastBuildDate>
+    <atom:link href="https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/qs-summary/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

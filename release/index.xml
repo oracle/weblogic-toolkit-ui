@@ -1,172 +1,131 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Release Notes on WebLogic Kubernetes Toolkit UI</title>
-    <link>https://oracle.github.io/weblogic-toolkit-ui/release/</link>
-    <description>Recent content in Release Notes on WebLogic Kubernetes Toolkit UI</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <title>Release Notes :: WebLogic Kubernetes Toolkit UI</title>
+    <link>https://oracle.github.io/weblogic-toolkit-ui/release/index.html</link>
+    <description>Changes in Release 2.0.0 Major New Features Other Changes Bugs Fixes Known Issues Major New Features Replaced the WebLogic Remote Console integration with a new, integrated WDT model editor. #308, #323 - Added support for cross-architecture container images. #326 - Centralized container image registry credentials to eliminate the need to re-enter the same credentials multiple times. Other Changes Removed support for Verrazzano. Removed auto-update restrictions on Linux RPM and DEB installers, leveraging a beta feature in Electron Updater. #292 - Removed support for the deprecated keytar module that allowed storing credentials in the OS credential store. #307 - Removed support for Domain-in-Image and Model-in-Image without an Auxiliary Image. #323 - Added support for AppImage to store WDT and WIT tool updates in an external directory. #331 - Added user preferences option to disable Linux hardware acceleration in Chromium. #337 - Added support for overriding the default WKO Kubernetes CPU and memory requests and limits. #339 - Added user preferences option to provide a GitHub API token to bypass anonymous GitHub API rate limits. #458 - Added project settings options for model archive zip file handling to allow using archive files larger than 2 GB. #480 - Adding an OPatch Bug Number field to support the WebLogic Image Tool’s --opatchBugNumber argument when creating a primary image, if needed. The new, embedded WebLogic Image Tool 1.16.3 makes it unlikely the user will need to use it. #481 - Removing the default value for the DOCKER_BUILDKIT environment variable and allowing it to be passed from the user’s environment, if needed. Bug Fixes #334 - Updated Ingress route support to work with current versions of the supported ingress controllers. #429 - Added support for ServerTemplate-defined keystores to the Archive Editor. #442 - Removed RPM installer dependency on java-atk-wrapper to support Oracle Linux 9.0+. Known Issues None</description>
+    <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 03 Nov 2022 12:48:00 -0500</lastBuildDate><atom:link href="https://oracle.github.io/weblogic-toolkit-ui/release/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 24 Jul 2024 14:09:00 -0500</lastBuildDate>
+    <atom:link href="https://oracle.github.io/weblogic-toolkit-ui/release/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Release 1.6.3</title>
-      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.6.3/</link>
-      <pubDate>Thu, 03 Nov 2022 12:48:00 -0500</pubDate>
-      
-      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.6.3/</guid>
-      <description>Changes in Release 1.6.3  Major New Features Other Changes Bugs Fixes Known Issues  Major New Features None
-Other Changes  #294 - Updated Model Design View to use WebLogic Remote Console 2.4.8  Bug Fixes None
-Known Issues  On Linux, the open and save dialogs open behind the main application window. This is due to Electron bug 32857. When deploying a Verrazzano application, the Get Application Status button only checks the status of the project&amp;rsquo;s Verrazzano component containing the WebLogic domain specification.</description>
+      <title>Release 1.7.2</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.7.2/index.html</link>
+      <pubDate>Wed, 24 Jul 2024 14:09:00 -0500</pubDate>
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.7.2/index.html</guid>
+      <description>Changes in Release 1.7.2 Major New Features Other Changes Bugs Fixes Known Issues Major New Features None&#xA;Other Changes #299 - Added support for WDT online discovery features that allow the user to discover passwords, security provider data, and the OPSS domain encryption key wallet. Bug Fixes #298 - Fixed an issue that was causing the Prepare Model action to fail. Known Issues On Mac, the embedded version of WDT 4.1.0 does not include the jansi-2.4.1 JAR file that WDT’s interactive Model Help tool requires due to an Apple requirement to sign the native code inside this third-party JAR file. User’s can either install their own version of WDT or copy the jar file from another install if they really need to use it from the embedded location. On Linux, the open and save dialogs open behind the main application window. This is due to Electron bug 32857 . When deploying a Verrazzano application, the Get Application Status button only checks the status of the project’s Verrazzano component containing the WebLogic domain specification. Verrazzano installation does not support a multicluster installation. Verrazzano Application components Ingress Trait Rules table’s URL column does not properly account for multicluster applications. The Update URL button will only get information from the admin (i.e., local) cluster.</description>
     </item>
-    
-    <item>
-      <title>Release 1.7.0</title>
-      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.7.0/</link>
-      <pubDate>Thu, 03 Nov 2022 12:48:00 -0500</pubDate>
-      
-      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.7.0/</guid>
-      <description>Changes in Release 1.7.0  Major New Features Other Changes Bugs Fixes Known Issues  Major New Features None
-Other Changes  #294 - Updated application to be compatible with WebLogic Deploy Tooling 4.x.  Bug Fixes None
-Known Issues  On Mac, the embedded version of WDT 4.1.0 does not include the jansi-2.4.1 JAR file that WDT&amp;rsquo;s interactive Model Help tool requires due to an Apple requirement to sign the native code inside this third-party JAR file.</description>
-    </item>
-    
     <item>
       <title>Release 1.7.1</title>
-      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.7.1/</link>
-      <pubDate>Thu, 03 Nov 2022 12:48:00 -0500</pubDate>
-      
-      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.7.1/</guid>
-      <description>Changes in Release 1.7.1  Major New Features Other Changes Bugs Fixes Known Issues  Major New Features None
-Other Changes  #297 - Removed the default value for the WebLogic Kubernetes Operator image tag so that the default image specified by the Helm chart is used.  Bug Fixes  #296 - Changed the API Group for traefik to be compatible with Traefik 3.0  Known Issues  On Mac, the embedded version of WDT 4.</description>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.7.1/index.html</link>
+      <pubDate>Fri, 28 Jun 2024 12:06:00 -0500</pubDate>
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.7.1/index.html</guid>
+      <description>Changes in Release 1.7.1 Major New Features Other Changes Bugs Fixes Known Issues Major New Features None&#xA;Other Changes #297 - Removed the default value for the WebLogic Kubernetes Operator image tag so that the default image specified by the Helm chart is used. Bug Fixes #296 - Changed the API Group for traefik to be compatible with Traefik 3.0 Known Issues On Mac, the embedded version of WDT 4.1.0 does not include the jansi-2.4.1 JAR file that WDT’s interactive Model Help tool requires due to an Apple requirement to sign the native code inside this third-party JAR file. User’s can either install their own version of WDT or copy the jar file from another install if they really need to use it from the embedded location. On Linux, the open and save dialogs open behind the main application window. This is due to Electron bug 32857 . When deploying a Verrazzano application, the Get Application Status button only checks the status of the project’s Verrazzano component containing the WebLogic domain specification. Verrazzano installation does not support a multicluster installation. Verrazzano Application components Ingress Trait Rules table’s URL column does not properly account for multicluster applications. The Update URL button will only get information from the admin (i.e., local) cluster.</description>
     </item>
-    
+    <item>
+      <title>Release 1.7.0</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.7.0/index.html</link>
+      <pubDate>Fri, 19 Apr 2024 15:47:00 -0500</pubDate>
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.7.0/index.html</guid>
+      <description>Changes in Release 1.7.0 Major New Features Other Changes Bugs Fixes Known Issues Major New Features None&#xA;Other Changes #294 - Updated application to be compatible with WebLogic Deploy Tooling 4.x. Bug Fixes None</description>
+    </item>
+    <item>
+      <title>Release 1.6.3</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.6.3/index.html</link>
+      <pubDate>Tue, 19 Mar 2024 16:53:00 -0500</pubDate>
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.6.3/index.html</guid>
+      <description>Changes in Release 1.6.3 Major New Features Other Changes Bugs Fixes Known Issues Major New Features None&#xA;Other Changes #294 - Updated Model Design View to use WebLogic Remote Console 2.4.8 Bug Fixes None</description>
+    </item>
     <item>
       <title>Release 1.6.2</title>
-      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.6.2/</link>
-      <pubDate>Thu, 03 Nov 2022 12:48:00 -0500</pubDate>
-      
-      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.6.2/</guid>
-      <description>Changes in Release 1.6.2  Major New Features Other Changes Bugs Fixes Known Issues  Major New Features None
-Other Changes  #287 - Added support for WebLogic Kubernetes Operator domain specification&amp;rsquo;s precreateService setting.  Bug Fixes  #286 - Fixed an issue related to SSL termination and pass through Ingress resource generation.  Known Issues  On Linux, the open and save dialogs open behind the main application window. This is due to Electron bug 32857.</description>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.6.2/index.html</link>
+      <pubDate>Mon, 26 Feb 2024 16:12:00 -0500</pubDate>
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.6.2/index.html</guid>
+      <description>Changes in Release 1.6.2 Major New Features Other Changes Bugs Fixes Known Issues Major New Features None&#xA;Other Changes #287 - Added support for WebLogic Kubernetes Operator domain specification’s precreateService setting. Bug Fixes #286 - Fixed an issue related to SSL termination and pass through Ingress resource generation. Known Issues On Linux, the open and save dialogs open behind the main application window. This is due to Electron bug 32857 . When deploying a Verrazzano application, the Get Application Status button only checks the status of the project’s Verrazzano component containing the WebLogic domain specification. Verrazzano installation does not support a multicluster installation. Verrazzano Application components Ingress Trait Rules table’s URL column does not properly account for multicluster applications. The Update URL button will only get information from the admin (i.e., local) cluster.</description>
     </item>
-    
     <item>
       <title>Release 1.6.1</title>
-      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.6.1/</link>
-      <pubDate>Thu, 03 Nov 2022 12:48:00 -0500</pubDate>
-      
-      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.6.1/</guid>
-      <description>Changes in Release 1.6.1  Major New Features Other Changes Bugs Fixes Known Issues  Major New Features None
-Other Changes None
-Bug Fixes  #281 - Fixed issue with Ingress Controller shell script not using elif. #282 - Fixed issue with busy dialog referencing &amp;ldquo;auxiliary image&amp;rdquo; while building a domain creation image. #283 - Fixed a typo in the Verrazzano application page in its reference to the Manual Scaler trait.</description>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.6.1/index.html</link>
+      <pubDate>Wed, 20 Sep 2023 16:45:00 -0500</pubDate>
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.6.1/index.html</guid>
+      <description>Changes in Release 1.6.1 Major New Features Other Changes Bugs Fixes Known Issues Major New Features None&#xA;Other Changes None&#xA;Bug Fixes #281 - Fixed issue with Ingress Controller shell script not using elif. #282 - Fixed issue with busy dialog referencing “auxiliary image” while building a domain creation image. #283 - Fixed a typo in the Verrazzano application page in its reference to the Manual Scaler trait. #285 - Fixed issues with the Domain shell script when using JRF domains on a persistent volume. Known Issues On Linux, the open and save dialogs open behind the main application window. This is due to Electron bug 32857 . When deploying a Verrazzano application, the Get Application Status button only checks the status of the project’s Verrazzano component containing the WebLogic domain specification. Verrazzano installation does not support a multicluster installation. Verrazzano Application components Ingress Trait Rules table’s URL column does not properly account for multicluster applications. The Update URL button will only get information from the admin (i.e., local) cluster.</description>
     </item>
-    
-    <item>
-      <title>Release 1.5.3</title>
-      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.5.3/</link>
-      <pubDate>Thu, 03 Nov 2022 12:48:00 -0500</pubDate>
-      
-      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.5.3/</guid>
-      <description>Changes in Release 1.5.3  Major New Features Other Changes Bugs Fixes Known Issues  Major New Features None
-Other Changes  #242 - Added initial (very minimal) internationalization support bundles. #245 - Added an Ingress Controller Service Type field that can be used when installing an ingress controller to a Kubernetes cluster without a load balancer.  Bug Fixes  #241 - Fixed a bug with the WebLogic Image Tool&amp;rsquo;s --wdtHome argument when it ended with weblogic-deploy.</description>
-    </item>
-    
     <item>
       <title>Release 1.6.0</title>
-      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.6.0/</link>
-      <pubDate>Thu, 03 Nov 2022 12:48:00 -0500</pubDate>
-      
-      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.6.0/</guid>
-      <description>Changes in Release 1.6.0  Major New Features Other Changes Bugs Fixes Known Issues  This release has major usability changes to clearly delineate the following use cases:
- A project that contains a WDT model A project that does not have a model but uses an &amp;ldquo;external image&amp;rdquo; that contains a model A project with no model  When actions are not relevant to the use case, action buttons and Go menu items are hidden.</description>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.6.0/index.html</link>
+      <pubDate>Tue, 25 Jul 2023 18:38:00 -0500</pubDate>
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.6.0/index.html</guid>
+      <description>Changes in Release 1.6.0 Major New Features Other Changes Bugs Fixes Known Issues This release has major usability changes to clearly delineate the following use cases:&#xA;A project that contains a WDT model A project that does not have a model but uses an “external image” that contains a model A project with no model When actions are not relevant to the use case, action buttons and Go menu items are hidden. When the project does not contain a model, the Model page is disabled. When the project is using an external image that contains a model, the user is allowed to specify the clusters, variable overrides, and secrets from this external model.</description>
     </item>
-    
+    <item>
+      <title>Release 1.5.3</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.5.3/index.html</link>
+      <pubDate>Wed, 31 May 2023 11:16:00 -0500</pubDate>
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.5.3/index.html</guid>
+      <description>Changes in Release 1.5.3 Major New Features Other Changes Bugs Fixes Known Issues Major New Features None&#xA;Other Changes #242 - Added initial (very minimal) internationalization support bundles. #245 - Added an Ingress Controller Service Type field that can be used when installing an ingress controller to a Kubernetes cluster without a load balancer. Bug Fixes #241 - Fixed a bug with the WebLogic Image Tool’s --wdtHome argument when it ended with weblogic-deploy. #246 - Worked around a WebLogic Kubernetes Operator issue where the javaLoggingFileSizeLimit value was not working due to Helm issue 1707 . #247 - Fixed issue with Open Project when storing the credentials in the project and entering the wrong passphrase that was causing the UI to not allow re-opening the project. Known Issues In the Model Design View when creating an App Deployment or Shared Library, changing the Source field back to an empty value results in a bogus error message about not removing the deployment from the archive file. This error is harmless so simply dismiss the error dialog and continue. On Linux, the open and save dialogs open behind the main application window. This is due to Electron bug 32857 . When deploying a Verrazzano application, the Get Application Status button only checks the status of the project’s Verrazzano component containing the WebLogic domain specification. Verrazzano installation does not support a multicluster installation.</description>
+    </item>
     <item>
       <title>Release 1.5.2</title>
-      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.5.2/</link>
-      <pubDate>Thu, 03 Nov 2022 12:48:00 -0500</pubDate>
-      
-      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.5.2/</guid>
-      <description>Changes in Release 1.5.2  Major New Features Other Changes Bugs Fixes Known Issues  Major New Features None
-Other Changes None
-Bug Fixes  #232 - Fixed an issue in the Verrazzano Application page where the component&amp;rsquo;s Ingress Trait Rule destination names were not properly converted to legal Kubernetes names so that they would match the generated service names when the domain, cluster, or server names combinations had more than one disallowed characters in them.</description>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.5.2/index.html</link>
+      <pubDate>Tue, 28 Mar 2023 09:13:00 -0500</pubDate>
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.5.2/index.html</guid>
+      <description>Changes in Release 1.5.2 Major New Features Other Changes Bugs Fixes Known Issues Major New Features None&#xA;Other Changes None&#xA;Bug Fixes #232 - Fixed an issue in the Verrazzano Application page where the component’s Ingress Trait Rule destination names were not properly converted to legal Kubernetes names so that they would match the generated service names when the domain, cluster, or server names combinations had more than one disallowed characters in them. Known Issues In the Model Design View, changing the Source Path and Plan Path fields for existing App Deployments and Shared Libraries is broken in this release. To work around it, either remove and recreate the deployment or use the Model Code View’s Model Editor and Archive Editor to make the appropriate changes. In Model Design View, the Plan/Plan Path fields for App Deployments mistakenly allow you to select a directory. This is not valid and will result in an error. Please make sure to select a file for any deployment plan. On Linux, the open and save dialogs open behind the main application window. This is due to Electron bug 32857 . When deploying a Verrazzano application, the Get Application Status button only checks the status of the project’s Verrazzano component containing the WebLogic domain specification. Verrazzano installation does not support a multicluster installation.</description>
     </item>
-    
     <item>
       <title>Release 1.5.1</title>
-      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.5.1/</link>
-      <pubDate>Thu, 03 Nov 2022 12:48:00 -0500</pubDate>
-      
-      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.5.1/</guid>
-      <description>Changes in Release 1.5.1  Major New Features Other Changes Bugs Fixes Known Issues  Major New Features None
-Other Changes None
-Bug Fixes  #229 - Fixed issue in Domain resource generation on Windows inserting a path with Windows separators  Known Issues  In the Model Design View, changing the Source Path and Plan Path fields for existing App Deployments and Shared Libraries is broken in this release. To work around it, either remove and recreate the deployment or use the Model Code View&amp;rsquo;s Model Editor and Archive Editor to make the appropriate changes.</description>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.5.1/index.html</link>
+      <pubDate>Mon, 27 Mar 2023 10:31:00 -0500</pubDate>
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.5.1/index.html</guid>
+      <description>Changes in Release 1.5.1 Major New Features Other Changes Bugs Fixes Known Issues Major New Features None&#xA;Other Changes None&#xA;Bug Fixes #229 - Fixed issue in Domain resource generation on Windows inserting a path with Windows separators Known Issues In the Model Design View, changing the Source Path and Plan Path fields for existing App Deployments and Shared Libraries is broken in this release. To work around it, either remove and recreate the deployment or use the Model Code View’s Model Editor and Archive Editor to make the appropriate changes. In Model Design View, the Plan/Plan Path fields for App Deployments mistakenly allow you to select a directory. This is not valid and will result in an error. Please make sure to select a file for any deployment plan. On Linux, the open and save dialogs open behind the main application window. This is due to Electron bug 32857 . When deploying a Verrazzano application, the Get Application Status button only checks the status of the project’s Verrazzano component containing the WebLogic domain specification. Verrazzano installation does not support a multicluster installation.</description>
     </item>
-    
     <item>
       <title>Release 1.5.0</title>
-      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.5.0/</link>
-      <pubDate>Thu, 03 Nov 2022 12:48:00 -0500</pubDate>
-      
-      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.5.0/</guid>
-      <description>Changes in Release 1.5.0  Major New Features Other Changes Bugs Fixes Known Issues  Major New Features None
-Other Changes  #202 - Added support for Verrazzano 1.5.0+ (which uses WebLogic Kubernetes Operator 4.0.0+). #204 - Updated the Archive Editor to align with WebLogic Deploy Tooling 3.0.0+ changes to the archive format. #205 - Added support for installing the optional Verrazzano component Argo CD with Verrazzano 1.5.0+. #205 - Added support to configure Kubernetes connectivity data for Verrazzano managed clusters.</description>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.5.0/index.html</link>
+      <pubDate>Fri, 24 Mar 2023 18:18:00 -0500</pubDate>
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.5.0/index.html</guid>
+      <description>Changes in Release 1.5.0 Major New Features Other Changes Bugs Fixes Known Issues Major New Features None&#xA;Other Changes #202 - Added support for Verrazzano 1.5.0+ (which uses WebLogic Kubernetes Operator 4.0.0+). #204 - Updated the Archive Editor to align with WebLogic Deploy Tooling 3.0.0+ changes to the archive format. #205 - Added support for installing the optional Verrazzano component Argo CD with Verrazzano 1.5.0+. #205 - Added support to configure Kubernetes connectivity data for Verrazzano managed clusters. #210 - Added support for Verrazzano Get Application Status action to check the status on the correct cluster using a multi-cluster application targeted to one or more managed clusters. #213 - Improved Verrazzano Ingress Trait rule editor to allow the user to choose the Destination Host by WebLogic cluster or non-clustered server name. #215 - Added a Update URLs button to the Verrazzano application’s Ingress Trait that populates the Ingress Rules table with a URL once the application deployment is complete. #221 - Streamlined the WKO Ingress Routes table to conserve space. #223 - Added Proxy URL validation to the network connection and User Preferences dialogs to make sure the user enters a URL and not just a host:port combination. Bug Fixes #201 - Fixed a bug where the project file was not being cleaned up properly when a cluster was removed and Prepare Model was run again. #205 - Fixed a bug that caused the Verrazzano Get Application Status call to fail. #211 - Fixed a bug with sorting the Ingress Rule’s Route Annotations table’s columns. #214 - Fixed a bug where the Verrazzano Check Verrazzano Install Status action was reporting installation is still in progress after a successful upgrade. #216 - Improved the behavior of the Model Code View sliders when the window is resized. #217 - Fixed a bug where the kubectl version output was reporting an incorrect server version number with newer versions of Kubernetes. #219 - Fixed a bug with Verrazzano 1.4.0+ installation where the wrong Verrazzano Platform Operator file name was being used. #220 - Cleaned up the table formatting/behavior across the application. #222 - Fixed a bug with container image tag validation that was causing regular expression catastrophic backtracking, leading to slow validation responses. Known Issues In the Model Design View, changing the Source Path and Plan Path fields for existing App Deployments and Shared Libraries is broken in this release. To work around it, either remove and recreate the deployment or use the Model Code View’s Model Editor and Archive Editor to make the appropriate changes. In Model Design View, the Plan/Plan Path fields for App Deployments mistakenly allow you to select a directory. This is not valid and will result in an error. Please make sure to select a file for any deployment plan. On Linux, the open and save dialogs open behind the main application window. This is due to Electron bug 32857 . When deploying a Verrazzano application, the Get Application Status button only checks the status of the project’s Verrazzano component containing the WebLogic domain specification. Verrazzano installation does not support a multicluster installation.</description>
     </item>
-    
     <item>
       <title>Release 1.4.1</title>
-      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.4.1/</link>
-      <pubDate>Thu, 03 Nov 2022 12:48:00 -0500</pubDate>
-      
-      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.4.1/</guid>
-      <description>Changes in Release 1.4.1  Major New Features Other Changes Bugs Fixes Known Issues  Major New Features None
-Other Changes  #192: Add the ability to install and work with older versions of operator using the latest published Helm chart.  Bug Fixes  Resolved issue Discover Model issue introduced in 1.4.0 by picking up the fix in WebLogic Deploy Tooling 2.4.1. Resolved issue with Deploy Domain failing due to a WebLogic Kubernetes Operator error from the new conversion/validating webhook (fix in a new published version of the WebLogic Kubernetes Operator 4.</description>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.4.1/index.html</link>
+      <pubDate>Fri, 04 Nov 2022 01:20:00 -0500</pubDate>
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.4.1/index.html</guid>
+      <description>Changes in Release 1.4.1 Major New Features Other Changes Bugs Fixes Known Issues Major New Features None&#xA;Other Changes #192: Add the ability to install and work with older versions of operator using the latest published Helm chart. Bug Fixes Resolved issue Discover Model issue introduced in 1.4.0 by picking up the fix in WebLogic Deploy Tooling 2.4.1. Resolved issue with Deploy Domain failing due to a WebLogic Kubernetes Operator error from the new conversion/validating webhook (fix in a new published version of the WebLogic Kubernetes Operator 4.0.0 Helm chart). #190: Resolved a macOS-specific issue in check to see if the WebLogic Kubernetes Operator is already installed. #191: Resolved WebLogic Kubernetes Operator 4.0 issues with the Domain Resource spec generation. #191: Resolved an issue with WebLogic Kubernetes Operator 3.x where the wdtInstallHome was named incorrectly under one condition. #191: Resolved a gap in the functionality for WDT and Model locations in the Domain Resource spec when using images instead of creating them. Known Issues On Linux, the open and save dialogs open behind the main application window. This is due to Electron bug 32857 . When deploying a Verrazzano application, the Get Application Status button only checks the status of the project’s Verrazzano component containing the WebLogic domain specification. WKTUI does not currently show the Verrazzano URL needed to access the application. The URL will always be of the form https://&lt;gateway-hostname&gt;/&lt;app-path&gt;, where the gateway-hostname is the name created by Verrazzano in the Gateway object. To get the name of the generated gateway object, run kubectl get gateway -n &lt;namespace&gt; --template &#39;{{range .items}}{{.metadata.name}}{{&#34;\n&#34;}}{{end}}&#39;. Next, run kubectl get gateway &lt;gateway-name&gt; -n &lt;namespace&gt; -o yaml and review the hosts entry of the .spec.servers section to find the DNS name that corresponds to the gateway-hostname to use in the URL.</description>
     </item>
-    
     <item>
       <title>Release 1.4.0</title>
-      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.4.0/</link>
-      <pubDate>Sun, 30 Jan 2022 12:48:00 -0500</pubDate>
-      
-      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.4.0/</guid>
-      <description>Changes in Release 1.4.0  Major New Features Other Changes Bugs Fixes Known Issues  Major New Features  #173: Added support for WebLogic Kubernetes Operator 4.0. While it is now the default, versions 3.3+ are still supported.  Other Changes  #175: Added Zoom In, Zoom Out, and Actual Size menu options to the Window menu. #178: Integrated the Prepare Model action with the changes in WebLogic Deploy Tooling 2.</description>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.4.0/index.html</link>
+      <pubDate>Wed, 02 Nov 2022 17:42:00 -0500</pubDate>
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.4.0/index.html</guid>
+      <description>Changes in Release 1.4.0 Major New Features Other Changes Bugs Fixes Known Issues Major New Features #173: Added support for WebLogic Kubernetes Operator 4.0. While it is now the default, versions 3.3+ are still supported. Other Changes #175: Added Zoom In, Zoom Out, and Actual Size menu options to the Window menu. #178: Integrated the Prepare Model action with the changes in WebLogic Deploy Tooling 2.4.0. #179: Updated the WebLogic Remote Console integration to support version 2.4.1 (2.4.0 also supported). #188: Added file download functionality to all Code View pages Bug Fixes #171: Improved workaround for the issue limiting the ability to select text from the Code View scripts (WKTUI-375). #172: Resolved issue when using Domain-in-Image that was causing the domain to not be created. #174: Resolved an issue where the Install Ingress Controller action was always passing the image pull secret–even when the user indicated not to use one. #176: Resolved an issue where the Update Ingress Routes action was always passing the SSL pass-through argument–even when the user did not request it. #182: Resolved Verrazzano 1.4.0+ installation issue caused by a change in the published operator file name. #186: Resolved Verrazzano-related issue where Ingress Trait rules were not including the hosts or destination-related fields. #187: Resolved an issue where the operator domain variable override config map was not being created properly. #187: Resolved an issue with the apiVersion of the Verrazzano component- and application-related being incorrect. #189: Resolved a rendering issue on the Ingress Controller Code View page when switching tabs. Known Issues On Linux, the open and save dialogs open behind the main application window. This is due to Electron bug 32857 . When deploying a Verrazzano application, the Get Application Status button only checks the status of the project’s Verrazzano component containing the WebLogic domain specification. WKTUI does not currently show the Verrazzano URL needed to access the application. The URL will always be of the form https://&lt;gateway-hostname&gt;/&lt;app-path&gt;, where the gateway-hostname is the name created by Verrazzano in the Gateway object. To get the name of the generated gateway object, run kubectl get gateway -n &lt;namespace&gt; --template &#39;{{range .items}}{{.metadata.name}}{{&#34;\n&#34;}}{{end}}&#39;. Next, run kubectl get gateway &lt;gateway-name&gt; -n &lt;namespace&gt; -o yaml and review the hosts entry of the .spec.servers section to find the DNS name that corresponds to the gateway-hostname to use in the URL.</description>
     </item>
-    
     <item>
       <title>Release 1.3.0</title>
-      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.3.0/</link>
-      <pubDate>Sun, 30 Jan 2022 12:48:00 -0500</pubDate>
-      
-      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.3.0/</guid>
-      <description>Changes in Release 1.3.0  Major New Features Other Changes Bugs Fixes Known Issues  Major New Features  Support for creating and deploying the Verrazzano component for the WebLogic domain, and an application that references it.  Other Changes  Updated the WebLogic Remote Console integration to support version 2.4.0. Added support for specifying node selectors when installing the WebLogic Kubernetes Operator and deploying the WebLogic domain, either directly or as a Verrazzano component.</description>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.3.0/index.html</link>
+      <pubDate>Thu, 29 Sep 2022 10:59:00 -0500</pubDate>
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.3.0/index.html</guid>
+      <description>Changes in Release 1.3.0 Major New Features Other Changes Bugs Fixes Known Issues Major New Features Support for creating and deploying the Verrazzano component for the WebLogic domain, and an application that references it. Other Changes Updated the WebLogic Remote Console integration to support version 2.4.0. Added support for specifying node selectors when installing the WebLogic Kubernetes Operator and deploying the WebLogic domain, either directly or as a Verrazzano component. Added support for the user specifying the Helm timeout value when helm is used (i.e., Installing/updating WebLogic Kubernetes Operator and installing the Ingress Controller). Added tooltips across all icon buttons to describe what they do. Added an anti-affinity specification to the generated WebLogic domain resource, as recommended by the WebLogic Kubernetes Operator docs. Bug Fixes Fixed an issue introduced by newer WDT versions that was forcing the domain cluster size to only allow replicas to be set to 0 (WKTUI-365). #164: Fixed the link in the Introduction dialog to open in the user’s browser instead of inside the app. #167: Improved the validation logic and error messages around having an empty model. #170: Worked around an issue that was limiting the ability to select text from the Code View scripts (WKTUI-375). Known Issues On Linux, the open and save dialogs open behind the main application window. This is due to Electron bug 32857 . When deploying a Verrazzano application, the Get Application Status button only checks the status of the project’s Verrazzano component containing the WebLogic domain specification. Due to the workaround for WKTUI-375, users are not able to tab to the script area of the Code View pages.</description>
     </item>
-    
     <item>
       <title>Release 1.2.0</title>
-      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.2.0/</link>
-      <pubDate>Sun, 30 Jan 2022 12:48:00 -0500</pubDate>
-      
-      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.2.0/</guid>
-      <description>Changes in Release 1.2.0  Major New Features Other Changes Bugs Fixes  Major New Features  Model Design View added via integration with the WebLogic Remote Console 2.3.0. Users must download and install the WebLogic Remote Console version 2.3.x.  Other Changes  Added a new installer for macOS ARM. #141: Added support for WDT online remote discovery.  Bug Fixes  #107: Resolved an issue where the Save As functionality was not handling the archive file properly if there were no pending updates to the archive file (Jira WKTUI-322).</description>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.2.0/index.html</link>
+      <pubDate>Fri, 15 Jul 2022 14:06:00 -0500</pubDate>
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.2.0/index.html</guid>
+      <description>Changes in Release 1.2.0 Major New Features Other Changes Bugs Fixes Major New Features Model Design View added via integration with the WebLogic Remote Console 2.3.0 . Users must download and install the WebLogic Remote Console version 2.3.x. Other Changes Added a new installer for macOS ARM. #141: Added support for WDT online remote discovery. Bug Fixes #107: Resolved an issue where the Save As functionality was not handling the archive file properly if there were no pending updates to the archive file (Jira WKTUI-322). Added missing service account argument for WebLogic Kubernetes Operator installation shell scripts (Jira WKTUI-337). #123: Changed Domain status message when domain status is available (Jira WKTUI-345). #127: Corrected an issue that was causing unsaved changes with no project to be lost when opening a new or existing project. #129: Fixed an issue where the wrong window was getting its title changed when opening a new project. #130: Fixed an issue where the window title was set incorrectly for a new or existing project. #131: Tightened up the logic for saving a project to get predictable results when encountering write permission errors. Fixed busy dialog messages used during WebLogic Kubernetes Operator installation and update. #136: Corrected app.addRecentDocument() handling so that the file always exists on disk prior to the call being made. #147: Corrected an issue with the PATH environment variable that was causing WebLogic Image Tool-related issues on Linux with Podman.</description>
     </item>
-    
     <item>
       <title>Release 1.1.1</title>
-      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.1.1/</link>
-      <pubDate>Sun, 30 Jan 2022 12:48:00 -0500</pubDate>
-      
-      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.1.1/</guid>
-      <description>Changes in Release 1.1.1  Major New Features Other Changes Bugs Fixes Known Issues  Major New Features No new features.
-Other Changes  Revamped the Ingress Route editing mechanism:  Added busy dialog while fetching existing service data from the domain&amp;rsquo;s Kubernetes namespace prior to opening the route edit dialog. Added placeholders to the Target Service and Target Port fields to clarify the current state of these fields when no value is selected.</description>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.1.1/index.html</link>
+      <pubDate>Tue, 22 Feb 2022 21:53:00 -0500</pubDate>
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.1.1/index.html</guid>
+      <description>Changes in Release 1.1.1 Major New Features Other Changes Bugs Fixes Known Issues Major New Features No new features.&#xA;Other Changes Revamped the Ingress Route editing mechanism: Added busy dialog while fetching existing service data from the domain’s Kubernetes namespace prior to opening the route edit dialog. Added placeholders to the Target Service and Target Port fields to clarify the current state of these fields when no value is selected. Added logic to reset the Target Port field selection when the Target Service field changes and the selected port is not valid for the new service selected. Reworked the Image page and related fields on the Domain page to improve usability. With these changes, a user not needing to create new images can bypass the Image page completely. Converted Use Auxiliary Image and Create New Auxiliary Image switches to radio buttons to make the three options more clear. Moved the Image Tag and Image Registry Address fields from the Image page tabs to the Domain page when not creating a new image. Replicated the Create New Primary Image and Auxiliary Image Configuration controls from the Image page to the Domain page. Added navigation buttons on the Domain page to direct the user to go back to the Image page when creating a new image. Bundled WebLogic Deploy Tooling 2.1.0. See WDT release notes for details. Reworked Model actions to work better for Domain in Image and Domain in PV use cases. Enhanced Prepare Model action to use the new target types added in WebLogic Deploy Tooling 2.1.0 so that Prepare Model works properly for Model in Image, Domain in Image, and Domain in PV use cases. Removed Domain in PV check that was previously preventing both Validate Model and Prepare Model actions from being used. Enhanced Domain page Cluster table to be editable when using Domain in PV to support use cases where the project has or doesn’t have a model. Converted all aria-label fields to use the i18n resource bundle. Removed webui unit tests from the installers. Bug Fixes Resolved issue with “Save As” when saving project file in a different directory. Resolved issue with “Save As” where the project was losing an entry for the archive file if no pending changes exist. Resolved issue where project file to window mapping was causing unnecessary reassigning of the credential manager. Added additional RPM installer dependencies to try to resolve installation issues when on a Linux VM not being used as a desktop machine. Added a native macOS ICNS icon to resolve mangled icon on macOS. Resolved issue with existing ingress route detection to eliminate overwrite warnings when route does not exist. Known Issues When running the WKT UI application on Windows, the image builder tool (Docker or Podman) also must be directly executable in Windows. For example, there is currently no support for running the WKT UI application in Windows and running Podman under the Windows Subsystem for Linux (WSL2). However, running Docker Desktop for Windows with a WSL2 backend is fully supported because the docker command is executable directly in Windows (without having to call WSL2). If you need to use Podman on Windows, then refer to the Podman blog entries at https://podman.io/blogs/2021/09/06/podman-on-macs.html and https://podman.io/blogs/2020/09/02/running_windows_or_mac.html for more information about downloading, installing, and configuring the Windows Remote Client.</description>
     </item>
-    
     <item>
       <title>Release 1.1.0</title>
-      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.1.0/</link>
-      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
-      
-      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.1.0/</guid>
-      <description>Changes in Release 1.1.0  Major New Features Other Changes Bugs Fixes Known Issues  Major New Features  Updated macOS environment control to specify extra environment settings to pass down to Docker/Podman, kubectl, and Helm invocations. Bundling WebLogic Deploy Tooling 2.0.0. See WDT release notes for details. New Validate Model action that leverages WDT 2.0 changes to validate the model files and reports any validation errors it finds. Updated Prepare Model action that leverages WDT 2.</description>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.1.0/index.html</link>
+      <pubDate>Sun, 30 Jan 2022 12:08:00 -0500</pubDate>
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/release/release-1.1.0/index.html</guid>
+      <description>Install the WKT UI application and check for updates.</description>
     </item>
-    
   </channel>
 </rss>

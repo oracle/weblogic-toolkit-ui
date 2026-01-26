@@ -1,41 +1,40 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Navigate the UI on WebLogic Kubernetes Toolkit UI</title>
-    <link>https://oracle.github.io/weblogic-toolkit-ui/navigate/</link>
-    <description>Recent content in Navigate the UI on WebLogic Kubernetes Toolkit UI</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <title>Navigate the UI :: WebLogic Kubernetes Toolkit UI</title>
+    <link>https://oracle.github.io/weblogic-toolkit-ui/navigate/index.html</link>
+    <description>Before you begin Make sure you have read About the WKT UI Application .&#xA;About the UI To help you understand how to use the WKT UI, we will step you through it, section by section, describing the important decisions to make and fields to populate. The sections are listed in the left side navigation pane.</description>
+    <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 22 Feb 2019 15:27:38 -0500</lastBuildDate><atom:link href="https://oracle.github.io/weblogic-toolkit-ui/navigate/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 22 Feb 2019 15:27:38 -0500</lastBuildDate>
+    <atom:link href="https://oracle.github.io/weblogic-toolkit-ui/navigate/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Project Settings</title>
-      <link>https://oracle.github.io/weblogic-toolkit-ui/navigate/project-settings/</link>
-      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
-      
-      <guid>https://oracle.github.io/weblogic-toolkit-ui/navigate/project-settings/</guid>
-      <description>The first stop for every new project is Project Settings. In this section, you make decisions and provide input for the project on:
- Credential Storage Domain Location Kubernetes Environment Target Type JDK and WebLogic Server Installation Directories Image Build Tool Type and Executable Location  When running the WKT UI application on Windows or Linux, the application inherits its environment from the user. For example, adding a directory to the PATH used by the application is just a matter of changing your PATH environment variable and restarting the application.</description>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/navigate/project-settings/index.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/navigate/project-settings/index.html</guid>
+      <description>The first stop for every new project is Project Settings. In this section, you make decisions and provide input for the project on:&#xA;macOS Path and Environment Variables Credential Storage Domain Location Model Archive Zip File Handling JDK and WebLogic Server Installation Directories Image Build Tool Type and Executable Location Target Kubernetes Cluster Architecture Container Image Registry Credentials When running the WKT UI application on Windows or Linux, the application inherits its environment from the user. For example, adding a directory to the PATH used by the application is just a matter of changing your PATH environment variable and restarting the application. On macOS, things are a bit more complicated.</description>
     </item>
-    
     <item>
       <title>Model</title>
-      <link>https://oracle.github.io/weblogic-toolkit-ui/navigate/model/</link>
-      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
-      
-      <guid>https://oracle.github.io/weblogic-toolkit-ui/navigate/model/</guid>
-      <description>Contents  Model Design View Code View  Model Editor Variables Editor Archive Editor   Validate Model Prepare Model  Model The Model section helps you work with WebLogic Deploy Tooling models for a WebLogic domain. A WebLogic Deploy Tooling model for a domain can include the following file types:
- Model file - A declarative definition of the domain configuration. Variable file - A property file that maps names to values.</description>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/navigate/model/index.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/navigate/model/index.html</guid>
+      <description>Contents Model Design View Code View Model Editor Variables Editor Archive Editor Validate Model Prepare Model Model The Model section helps you work with WebLogic Deploy Tooling models for a WebLogic domain. A WebLogic Deploy Tooling model for a domain can include the following file types:</description>
     </item>
-    
     <item>
       <title>Image</title>
-      <link>https://oracle.github.io/weblogic-toolkit-ui/navigate/image/</link>
-      <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
-      
-      <guid>https://oracle.github.io/weblogic-toolkit-ui/navigate/image/</guid>
-      <description>Contents  Image Design View  Target Image Name and Registry Credentials Base Image to Use Installers for Building the Image Patch Oracle Home WebLogic Deploy Tooling Configuration Image Build Configuration   Code View Create Images Push Images  Image The Image section helps you build container images for deploying WebLogic-based applications in a Kubernetes environment using the WebLogic Image Tool.
-Design View Design View helps you specify the necessary data needed to run the WebLogic Image Tool to build an image for running the WebLogic domain.</description>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/navigate/image/index.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/navigate/image/index.html</guid>
+      <description>Contents Image Design View Target Image Name and Registry Credentials Base Image to Use Installers for Building the Image Patch Oracle Home WebLogic Deploy Tooling Configuration Image Build Configuration Code View Create Images Push Images Image The Image section helps you build container images for deploying WebLogic-based applications in a Kubernetes environment using the WebLogic Image Tool .</description>
     </item>
-    
+    <item>
+      <title>Kubernetes</title>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/index.html</link>
+      <pubDate>Fri, 22 Feb 2019 15:27:38 -0500</pubDate>
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/index.html</guid>
+      <description>The Kubernetes section and its four subsections support deploying a WebLogic-based application to a Kubernetes cluster where the WebLogic domain will be managed by the WebLogic Kubernetes Operator. It includes the following sections to help you.&#xA;Client ConfigurationConfigure your Kubernetes client to connect to your Kubernetes cluster.&#xA;WebLogic Kubernetes OperatorInstall the WebLogic Kubernetes Operator in the target Kubernetes cluster.&#xA;WebLogic DomainDeploy the WebLogic domain&#39;s Domain and Cluster resources used by WebLogic Kubernetes Operator.</description>
+    </item>
   </channel>
 </rss>

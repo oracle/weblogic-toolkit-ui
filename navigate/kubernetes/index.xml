@@ -1,48 +1,40 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Kubernetes on WebLogic Kubernetes Toolkit UI</title>
-    <link>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/</link>
-    <description>Recent content in Kubernetes on WebLogic Kubernetes Toolkit UI</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <title>Kubernetes :: WebLogic Kubernetes Toolkit UI</title>
+    <link>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/index.html</link>
+    <description>The Kubernetes section and its four subsections support deploying a WebLogic-based application to a Kubernetes cluster where the WebLogic domain will be managed by the WebLogic Kubernetes Operator. It includes the following sections to help you.&#xA;Client ConfigurationConfigure your Kubernetes client to connect to your Kubernetes cluster.&#xA;WebLogic Kubernetes OperatorInstall the WebLogic Kubernetes Operator in the target Kubernetes cluster.&#xA;WebLogic DomainDeploy the WebLogic domain&#39;s Domain and Cluster resources used by WebLogic Kubernetes Operator.</description>
+    <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 22 Feb 2019 15:27:38 -0500</lastBuildDate><atom:link href="https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 22 Feb 2019 15:44:42 -0500</lastBuildDate>
+    <atom:link href="https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Client Configuration</title>
-      <link>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/k8s-client-config/</link>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/k8s-client-config/index.html</link>
       <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
-      
-      <guid>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/k8s-client-config/</guid>
-      <description>Contents  Client Configuration  Authentication with Managed Kubernetes Clusters Verify Connectivity    Client Configuration Client Configuration helps you get the necessary connectivity to your Kubernetes cluster. Use the Kubernetes Cluster Type field to select the target Kubernetes cluster type to show instructions for configuring kubectl to successfully connect to the cluster.
- The Kubectl Executable to Use field tells the WKT UI application where to find the correct version of kubectl to use.</description>
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/k8s-client-config/index.html</guid>
+      <description>Configure your Kubernetes client to connect to your Kubernetes cluster.</description>
     </item>
-    
     <item>
       <title>WebLogic Kubernetes Operator</title>
-      <link>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/k8s-wko/</link>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/k8s-wko/index.html</link>
       <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
-      
-      <guid>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/k8s-wko/</guid>
-      <description>Contents  WebLogic Kubernetes Operator Design View  WebLogic Kubernetes Operator Image Image Pull Secret Kubernetes Namespace Selection Strategy WebLogic Kubernetes Operator Role Bindings External REST API Access Third Party Integrations Java Logging   Code View Install Operator Update Operator Uninstall Operator  WebLogic Kubernetes Operator This section provides support for installing the WebLogic Kubernetes Operator (the &amp;ldquo;operator&amp;rdquo;) in the target Kubernetes cluster. For detailed information about the operator, see the WebLogic Kubernetes Operator documentation.</description>
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/k8s-wko/index.html</guid>
+      <description>Install the WebLogic Kubernetes Operator in the target Kubernetes cluster.</description>
     </item>
-    
     <item>
       <title>WebLogic Domain</title>
-      <link>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/k8s-weblogic-domain/</link>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/k8s-weblogic-domain/index.html</link>
       <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
-      
-      <guid>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/k8s-weblogic-domain/</guid>
-      <description>Contents  WebLogic Domain Design View  Primary Image to Use for the Domain Auxiliary Image to Use for the Domain Clusters Model Variables Overrides Secrets Runtime Encryption Secret WebLogic Kubernetes Operator Introspection Configuration Domain-Wide Server Settings Domain-Wide Node Selector   Code View Prepare Model Deploy Domain Get Domain Status Undeploy Domain  WebLogic Domain The WebLogic Domain section provides support for creating and deploying the Kubernetes custom resource for the WebLogic domain as defined by the WebLogic Kubernetes Operator.</description>
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/k8s-weblogic-domain/index.html</guid>
+      <description>Deploy the WebLogic domain&#39;s Domain and Cluster resources used by WebLogic Kubernetes Operator.</description>
     </item>
-    
     <item>
       <title>Ingress Controller</title>
-      <link>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/k8s-ingress-controller/</link>
+      <link>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/k8s-ingress-controller/index.html</link>
       <pubDate>Fri, 22 Feb 2019 15:44:42 -0500</pubDate>
-      
-      <guid>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/k8s-ingress-controller/</guid>
-      <description>Contents  Ingress Controller Design View  Ingress Controller Configuration TLS Secret for Ingress Routes Ingress Routes Configuration   Code View Install Ingress Controller Update Ingress Routes Uninstall Ingress Controller  Ingress Controller This section supports two distinct functions related to an ingress controller. First, it supports installing an ingress controller to a Kubernetes cluster. Second, it supports adding the necessary routes to an ingress controller to make a deployed WebLogic domain&amp;rsquo;s endpoints accessible.</description>
+      <guid>https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/k8s-ingress-controller/index.html</guid>
+      <description>Install an ingress controller, if needed, and add ingress routes to allow access to the WebLogic domain from outside the Kubernetes cluster.</description>
     </item>
-    
   </channel>
 </rss>

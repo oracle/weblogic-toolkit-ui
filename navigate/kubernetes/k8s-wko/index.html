@@ -1,1546 +1,118 @@
 <!DOCTYPE html>
-<html lang="en" class="js csstransforms3d">
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.88.1" />
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="generator" content="Hugo 0.152.2">
+    <meta name="generator" content="Relearn 8.3.0">
     <meta name="description" content="Install the WebLogic Kubernetes Operator in the target Kubernetes cluster.">
-
-
-    <link rel="icon" href="/weblogic-toolkit-ui/images/favicon.png" type="image/png">
-
+    <meta name="author" content="">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="WebLogic Kubernetes Operator :: WebLogic Kubernetes Toolkit UI">
+    <meta name="twitter:description" content="Install the WebLogic Kubernetes Operator in the target Kubernetes cluster.">
+    <meta property="og:url" content="https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/k8s-wko/index.html">
+    <meta property="og:site_name" content="WebLogic Kubernetes Toolkit UI">
+    <meta property="og:title" content="WebLogic Kubernetes Operator :: WebLogic Kubernetes Toolkit UI">
+    <meta property="og:description" content="Install the WebLogic Kubernetes Operator in the target Kubernetes cluster.">
+    <meta property="og:locale" content="en_us">
+    <meta property="og:type" content="article">
+    <meta property="article:section" content="Navigate the UI">
+    <meta property="article:published_time" content="2019-02-22T15:44:42-05:00">
+    <meta property="article:modified_time" content="2019-02-22T15:44:42-05:00">
+    <meta itemprop="name" content="WebLogic Kubernetes Operator :: WebLogic Kubernetes Toolkit UI">
+    <meta itemprop="description" content="Install the WebLogic Kubernetes Operator in the target Kubernetes cluster.">
+    <meta itemprop="datePublished" content="2019-02-22T15:44:42-05:00">
+    <meta itemprop="dateModified" content="2019-02-22T15:44:42-05:00">
+    <meta itemprop="wordCount" content="1780">
     <title>WebLogic Kubernetes Operator :: WebLogic Kubernetes Toolkit UI</title>
-
-    
-    <link href="/weblogic-toolkit-ui/css/nucleus.css?1769399741" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/fontawesome-all.min.css?1769399741" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/hybrid.css?1769399741" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/featherlight.min.css?1769399741" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/perfect-scrollbar.min.css?1769399741" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/auto-complete.css?1769399741" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/atom-one-dark-reasonable.css?1769399741" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/theme.css?1769399741" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/tabs.css?1769399741" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/hugo-theme.css?1769399741" rel="stylesheet">
-    
-    <link href="/weblogic-toolkit-ui/css/theme-wktui.css?1769399741" rel="stylesheet">
-
-    <script src="/weblogic-toolkit-ui/js/jquery-3.3.1.min.js?1769399741"></script>
-
-    <style>
-      :root #header + #content > #left > #rlblock_left{
-          display:none !important;
-      }
-      
-        :not(pre) > code + span.copy-to-clipboard {
-            display: none;
+    <link href="/weblogic-toolkit-ui/images/logo.png?1769457254" rel="icon" type="image/png">
+    <link href="/weblogic-toolkit-ui/css/auto-complete/auto-complete.min.css?1769457254" rel="stylesheet">
+    <script src="/weblogic-toolkit-ui/js/auto-complete/auto-complete.min.js?1769457254" defer></script>
+    <script src="/weblogic-toolkit-ui/js/search-lunr.min.js?1769457254" defer></script>
+    <script src="/weblogic-toolkit-ui/js/search.min.js?1769457254" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.index_js_url="/weblogic-toolkit-ui/searchindex.en.js?1769457254";
+    </script>
+    <script src="/weblogic-toolkit-ui/js/lunr/lunr.min.js?1769457254" defer></script>
+    <script src="/weblogic-toolkit-ui/js/lunr/lunr.stemmer.support.min.js?1769457254" defer></script>
+    <script src="/weblogic-toolkit-ui/js/lunr/lunr.multi.min.js?1769457254" defer></script>
+    <script src="/weblogic-toolkit-ui/js/lunr/lunr.en.min.js?1769457254" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.contentLangs=['en'];
+    </script>
+    <link href="/weblogic-toolkit-ui/fonts/fontawesome/css/fontawesome-all.min.css?1769457254" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/weblogic-toolkit-ui/fonts/fontawesome/css/fontawesome-all.min.css?1769457254" rel="stylesheet"></noscript>
+    <link href="/weblogic-toolkit-ui/css/perfect-scrollbar/perfect-scrollbar.min.css?1769457254" rel="stylesheet">
+    <link href="/weblogic-toolkit-ui/css/theme.min.css?1769457254" rel="stylesheet">
+    <link href="/weblogic-toolkit-ui/css/format-html.min.css?1769457254" rel="stylesheet" id="R-format-style">
+    <script>
+      window.relearn = window.relearn || {};
+      // configuration
+      window.relearn.min = `.min`;
+      window.relearn.path='\/navigate\/kubernetes\/k8s-wko\/index.html';
+      window.relearn.relBasePath='..\/..\/..';
+      window.relearn.relBaseUri='..\/..\/..\/..';
+      window.relearn.absBaseUri='https:\/\/oracle.github.io\/weblogic-toolkit-ui';
+      window.relearn.disableInlineCopyToClipboard=true;
+      window.relearn.enableBlockCodeWrap=true;
+      // legal
+      window.relearn.getItem = (s,n) => {return s.getItem(n)};
+      window.relearn.setItem = (s,n,v) => {return s.setItem(n,v)};
+      window.relearn.removeItem = (s,n) => {return s.removeItem(n)};
+      // translations
+      window.T_Copy_to_clipboard = `Copy text to clipboard`;
+      window.T_Copied_to_clipboard = `Text copied to clipboard!`;
+      window.T_Link_copied_to_clipboard = `Link copied to clipboard!`;
+      window.T_Reset_view = `Reset view`;
+      window.T_View_reset = `View reset!`;
+      window.T_No_results_found = `No results found for "{0}"`;
+      window.T_N_results_found = `{1} results found for "{0}"`;
+      window.T_Browser_unsupported_feature = `This browser doesn't support this feature`;
+      // variant stuff
+      window.relearn.themevariants = [ 'learn' ];
+      window.relearn.customvariantname = "my-custom-variant";
+      window.relearn.changeVariant = function(variant) {
+        var oldVariant = document.documentElement.dataset.rThemeVariant;
+        window.relearn.setItem(window.localStorage, window.relearn.absBaseUri + "/variant", variant);
+        document.documentElement.dataset.rThemeVariant = variant;
+        if (oldVariant != variant) {
+          document.dispatchEvent( new CustomEvent('themeVariantLoaded', { detail: { variant, oldVariant } }) );
+          window.relearn.markVariant();
         }
-      
-    </style>
-    
+      }
+      window.relearn.markVariant = function() {
+        var variant = window.relearn.getItem(window.localStorage, window.relearn.absBaseUri + "/variant");
+        document.querySelectorAll(".R-variantswitcher select").forEach((select) => {select.value = variant;});
+      }
+      window.relearn.initVariant = function() {
+        var variant = window.relearn.getItem(window.localStorage, window.relearn.absBaseUri + "/variant") ?? "";
+        if( variant == window.relearn.customvariantname ){
+        }else if( !variant || !window.relearn.themevariants.includes(variant) ){
+          variant = window.relearn.themevariants[0];
+          window.relearn.setItem(window.localStorage, window.relearn.absBaseUri + "/variant", variant);
+        }
+        document.documentElement.dataset.rThemeVariant = variant;
+      }
+      window.relearn.initVariant();
+      window.relearn.markVariant();
+    </script>
   </head>
-  <body class="" data-url="/weblogic-toolkit-ui/navigate/kubernetes/k8s-wko/">
-    <nav id="sidebar" class="">
-
-
-
-  <div id="header-wrapper">
-    <div id="header">
-      <a id="logo" href="https://oracle.github.io/weblogic-toolkit-ui">
-  <img src="https://oracle.github.io/weblogic-toolkit-ui/images/logo.png" height="90"><br/>
-  WebLogic Kubernetes Toolkit UI
-</a>
-
-    </div>
-    
-        <div class="searchbox">
-    <label for="search-by"><i class="fas fa-search"></i></label>
-    <input data-search-input id="search-by" type="search" placeholder="Search...">
-    <span data-search-clear=""><i class="fas fa-times"></i></span>
-</div>
-
-<script type="text/javascript" src="/weblogic-toolkit-ui/js/lunr.min.js?1769399741"></script>
-<script type="text/javascript" src="/weblogic-toolkit-ui/js/auto-complete.js?1769399741"></script>
-<script type="text/javascript">
-    
-        var baseurl = "https:\/\/oracle.github.io\/weblogic-toolkit-ui";
-    
-</script>
-<script type="text/javascript" src="/weblogic-toolkit-ui/js/search.js?1769399741"></script>
-
-    
-  </div>
-  
-    <section id="homelinks">
-      <ul>
-        <li>
-            <a class="padding" href='https://oracle.github.io/weblogic-toolkit-ui'><i class='fas fa-home'></i> Home</a>
-        </li>
-      </ul>
-    </section>
-  
-
-    <div class="highlightable">
-    <ul class="topics">
-
-        
-          
-          
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/weblogic-toolkit-ui/concepts/" title="About the WKT UI Application" class="dd-item
-        
-        
-        
-        ">
-      <a href="/weblogic-toolkit-ui/concepts/">
-          <b> </b>About the WKT UI Application
-          
-      </a>
-      
-      
-    </li>
-  
- 
-
-          
-          
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/weblogic-toolkit-ui/setup/" title="Get Started" class="dd-item
-        
-        
-        
-        ">
-      <a href="/weblogic-toolkit-ui/setup/">
-          <b> </b>Get Started
-          
-      </a>
-      
-      
-        <ul>
-          
-          
-            
-          
-          
-
-        
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/prerequisites/" title="Prerequisites" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/prerequisites/">
-        Prerequisites
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/install/" title="Install WKT UI" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/install/">
-        Install WKT UI
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/" title="Quick Start Guide" class="dd-item
-        
-        
-        
-        ">
-      <a href="/weblogic-toolkit-ui/setup/quickstart/">
-          <b> </b>Quick Start Guide
-          
-      </a>
-      
-      
-        <ul>
-          
-          
-            
-          
-          
-
-        
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/prereqs/" title="Prerequisites" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/prereqs/">
-        Prerequisites
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/get-todo-app/" title="Get the ToDo List sample application" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/get-todo-app/">
-        Get the ToDo List sample application
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/set-up-wktui-app/" title="Set up the WKTUI application" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/set-up-wktui-app/">
-        Set up the WKTUI application
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/project-settings/" title="Select the Project Settings" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/project-settings/">
-        Select the Project Settings
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/create-wdt-model/" title="Create the WebLogic Deploy Tooling model" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/create-wdt-model/">
-        Create the WebLogic Deploy Tooling model
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/create-images-with-wit/" title="Create images with the WebLogic Image Tool" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/create-images-with-wit/">
-        Create images with the WebLogic Image Tool
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/" title="WebLogic Kubernetes Operator" class="dd-item
-        
-        
-        
-        ">
-      <a href="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/">
-          <b> </b>WebLogic Kubernetes Operator
-          
-      </a>
-      
-      
-        <ul>
-          
-          
-          
-
-        
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-client-config/" title="Configure Kubernetes Cluster Connectivity" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-client-config/">
-        Configure Kubernetes Cluster Connectivity
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-wko/" title="Install the WebLogic Kubernetes Operator" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-wko/">
-        Install the WebLogic Kubernetes Operator
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-weblogic-domain/" title="Deploy the Domain" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-weblogic-domain/">
-        Deploy the Domain
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-ingress-controller/" title="Install and Configure the Ingress Controller" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-ingress-controller/">
-        Install and Configure the Ingress Controller
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-access-app/" title="Access the ToDo List application" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-access-app/">
-        Access the ToDo List application
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-        
-        </ul>
-      
-    </li>
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/" title="Verrazzano" class="dd-item
-        
-        
-        
-        ">
-      <a href="/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/">
-          <b> </b>Verrazzano
-          
-      </a>
-      
-      
-        <ul>
-          
-          
-          
-
-        
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-client-config/" title="Configure Kubernetes Cluster Connectivity" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-client-config/">
-        Configure Kubernetes Cluster Connectivity
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-install/" title="Install Verrazzano" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-install/">
-        Install Verrazzano
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-component/" title="Deploy the Verrazzano Component for the WebLogic Domain" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-component/">
-        Deploy the Verrazzano Component for the WebLogic Domain
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-application/" title="Deploy the Verrazzano Application" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-application/">
-        Deploy the Verrazzano Application
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-access-app/" title="Access the ToDo List application" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-access-app/">
-        Access the ToDo List application
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-        
-        </ul>
-      
-    </li>
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-summary/" title="Summary" class="dd-item
-        
-        
-        
-        ">
-      <a href="/weblogic-toolkit-ui/setup/quickstart/qs-summary/">
-          <b> </b>Summary
-          
-      </a>
-      
-      
-    </li>
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-advanced/" title="Advanced" class="dd-item
-        
-        
-        
-        ">
-      <a href="/weblogic-toolkit-ui/setup/quickstart/qs-advanced/">
-          <b> </b>Advanced
-          
-      </a>
-      
-      
-        <ul>
-          
-          
-          
-
-        
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-advanced/offline-discover/" title="Offline Discover" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/qs-advanced/offline-discover/">
-        Offline Discover
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-advanced/online-remote-discover/" title="Online Remote Discover" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/qs-advanced/online-remote-discover/">
-        Online Remote Discover
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-        
-        </ul>
-      
-    </li>
-  
- 
-
-            
-          
-        
-        </ul>
-      
-    </li>
-  
- 
-
-            
-          
-        
-        </ul>
-      
-    </li>
-  
- 
-
-          
-          
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/weblogic-toolkit-ui/navigate/" title="Navigate the UI" class="dd-item
-        parent
-        
-        
-        ">
-      <a href="/weblogic-toolkit-ui/navigate/">
-          <b> </b>Navigate the UI
-          
-      </a>
-      
-      
-        <ul>
-          
-          
-            
-          
-          
-
-        
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/navigate/project-settings/" title="Project Settings" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/navigate/project-settings/">
-        Project Settings
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/navigate/model/" title="Model" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/navigate/model/">
-        Model
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/navigate/image/" title="Image" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/navigate/image/">
-        Image
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/weblogic-toolkit-ui/navigate/kubernetes/" title="Kubernetes" class="dd-item
-        parent
-        
-        
-        ">
-      <a href="/weblogic-toolkit-ui/navigate/kubernetes/">
-          <b> </b>Kubernetes
-          
-      </a>
-      
-      
-        <ul>
-          
-          
-          
-
-        
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/navigate/kubernetes/k8s-client-config/" title="Client Configuration" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/navigate/kubernetes/k8s-client-config/">
-        Client Configuration
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/navigate/kubernetes/k8s-wko/" title="WebLogic Kubernetes Operator" class="dd-item active">
-        <a href="/weblogic-toolkit-ui/navigate/kubernetes/k8s-wko/">
-        WebLogic Kubernetes Operator
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/navigate/kubernetes/k8s-weblogic-domain/" title="WebLogic Domain" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/navigate/kubernetes/k8s-weblogic-domain/">
-        WebLogic Domain
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/navigate/kubernetes/k8s-ingress-controller/" title="Ingress Controller" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/navigate/kubernetes/k8s-ingress-controller/">
-        Ingress Controller
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-        
-        </ul>
-      
-    </li>
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/weblogic-toolkit-ui/navigate/verrazzano/" title="Verrazzano" class="dd-item
-        
-        
-        
-        ">
-      <a href="/weblogic-toolkit-ui/navigate/verrazzano/">
-          <b> </b>Verrazzano
-          
-      </a>
-      
-      
-        <ul>
-          
-          
-          
-
-        
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/navigate/verrazzano/vz-client-config/" title="Client Configuration" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/navigate/verrazzano/vz-client-config/">
-        Client Configuration
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/navigate/verrazzano/vz-install/" title="Installation" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/navigate/verrazzano/vz-install/">
-        Installation
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/navigate/verrazzano/vz-component/" title="Component" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/navigate/verrazzano/vz-component/">
-        Component
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/navigate/verrazzano/vz-application/" title="Application" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/navigate/verrazzano/vz-application/">
-        Application
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-        
-        </ul>
-      
-    </li>
-  
- 
-
-            
-          
-        
-        </ul>
-      
-    </li>
-  
- 
-
-          
-          
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/weblogic-toolkit-ui/developer/" title="Developer Guide" class="dd-item
-        
-        
-        
-        ">
-      <a href="/weblogic-toolkit-ui/developer/">
-          <b> </b>Developer Guide
-          
-      </a>
-      
-      
-    </li>
-  
- 
-
-          
-          
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/weblogic-toolkit-ui/release/" title="Release Notes" class="dd-item
-        
-        
-        
-        ">
-      <a href="/weblogic-toolkit-ui/release/">
-          <b> </b>Release Notes
-          
-      </a>
-      
-      
-        <ul>
-          
-          
-          
-
-        
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.6.3/" title="Release 1.6.3" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.6.3/">
-        <b> </b>Release 1.6.3
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.7.0/" title="Release 1.7.0" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.7.0/">
-        <b> </b>Release 1.7.0
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.7.1/" title="Release 1.7.1" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.7.1/">
-        <b> </b>Release 1.7.1
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.6.2/" title="Release 1.6.2" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.6.2/">
-        <b> </b>Release 1.6.2
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.6.1/" title="Release 1.6.1" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.6.1/">
-        <b> </b>Release 1.6.1
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.5.3/" title="Release 1.5.3" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.5.3/">
-        <b> </b>Release 1.5.3
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.6.0/" title="Release 1.6.0" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.6.0/">
-        <b> </b>Release 1.6.0
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.5.2/" title="Release 1.5.2" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.5.2/">
-        <b> </b>Release 1.5.2
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.5.1/" title="Release 1.5.1" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.5.1/">
-        <b> </b>Release 1.5.1
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.5.0/" title="Release 1.5.0" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.5.0/">
-        <b> </b>Release 1.5.0
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.4.1/" title="Release 1.4.1" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.4.1/">
-        <b> </b>Release 1.4.1
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.4.0/" title="Release 1.4.0" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.4.0/">
-        <b> </b>Release 1.4.0
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.3.0/" title="Release 1.3.0" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.3.0/">
-        <b> </b>Release 1.3.0
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.2.0/" title="Release 1.2.0" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.2.0/">
-        <b> </b>Release 1.2.0
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.1.1/" title="Release 1.1.1" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.1.1/">
-        <b> </b>Release 1.1.1
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.1.0/" title="Release 1.1.0" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.1.0/">
-        Release 1.1.0
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-        
-        </ul>
-      
-    </li>
-  
- 
-
-          
-        
-    </ul>
-
-    
-    
-
-    
-    <section id="footer">
-      <p>Created with <i class="fas fa-heart"></i> from <a href="https://www.oracle.com">Oracle</a></p>
-<p>&nbsp</p>
-<p><a href="https://github.com/oracle/weblogic-toolkit-ui"><i class="fab fa-github"></i> GitHub repo</a></p>
-<p><a href="https://join.slack.com/t/oracle-weblogic/shared_invite/zt-1ni1gtjv6-PGC6CQ4uIte3KBdm_67~aQ"><i class="fab fa-slack"></i> Public Slack #weblogic</a></p>
-
-    </section>
-  </div>
-</nav>
-
-
-
-
-        <section id="body">
-        <div id="overlay"></div>
-        <div class="padding highlightable">
-              
-              <div>
-                <div id="top-bar">
-                
-                
-                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                    <span id="sidebar-toggle-span">
-                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
-                          <i class="fas fa-bars"></i>
-                        </a>
-                    </span>
-                  
-                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
-                  
-                  <span class="links">
-                 
-                 
-                    
-          
-          
-            
-            
-          
-          
-            
-            
-          
-          
-            
-            
-          
-          
-            <a href='/weblogic-toolkit-ui/'></a> > <a href='/weblogic-toolkit-ui/navigate/'>Navigate the UI</a> > <a href='/weblogic-toolkit-ui/navigate/kubernetes/'>Kubernetes</a> > WebLogic Kubernetes Operator
-          
-        
-          
-        
-          
-        
-          
-        
-                 
-                  </span>
-                </div>
-                
-                    <div class="progress">
-    <div class="wrapper">
-<nav id="TableOfContents">
+  <body class="mobile-support html" data-url="/weblogic-toolkit-ui/navigate/kubernetes/k8s-wko/index.html">
+    <div id="R-body" class="default-animation">
+      <div id="R-body-overlay"></div>
+      <nav id="R-topbar">
+        <div class="topbar-wrapper">
+          <div class="topbar-sidebar-divider"></div>
+          <div class="topbar-area topbar-area-start" data-area="start">
+            <div class="topbar-button topbar-button-sidebar" data-content-empty="disable" data-width-s="show" data-width-m="hide" data-width-l="hide">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleNav()" type="button" title="Menu (CTRL&#43;ALT&#43;n)"><i class="fa-fw fas fa-bars"></i></button></span>
+            </div>
+            <div class="topbar-button topbar-button-toc" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Table of Contents (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-list-alt"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+<nav class="TableOfContents">
   <ul>
     <li>
       <ul>
@@ -1555,53 +127,169 @@
     </li>
   </ul>
 </nav>
-    </div>
-</div>
-
-                
+                </div>
               </div>
             </div>
-            
-        <div id="head-tags">
-        
+          </div>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/weblogic-toolkit-ui/index.html"><span itemprop="name">WebLogic Kubernetes Toolkit UI</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/weblogic-toolkit-ui/navigate/index.html"><span itemprop="name">Navigate the UI</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/weblogic-toolkit-ui/navigate/kubernetes/index.html"><span itemprop="name">Kubernetes</span></a><meta itemprop="position" content="3">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">WebLogic Kubernetes Operator</span><meta itemprop="position" content="4"></li>
+          </ol>
+          <div class="topbar-area topbar-area-end" data-area="end">
+            <div class="topbar-button topbar-button-prev" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/weblogic-toolkit-ui/navigate/kubernetes/k8s-client-config/index.html" title="Client Configuration (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-next" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/weblogic-toolkit-ui/navigate/kubernetes/k8s-weblogic-domain/index.html" title="WebLogic Domain (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-more" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="More"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+                  <div class="topbar-area topbar-area-more" data-area="more">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        
-        <div id="body-inner">
-          
-            <h1>
-              
-              WebLogic Kubernetes Operator
-            </h1>
-          
-
-        
+      </nav>
+      <div id="R-main-overlay"></div>
+      <main id="R-body-inner" class="highlightable navigate" tabindex="-1">
+        <div class="flex-block-wrapper">
+<article class="default">
+  <header class="headline">
+  </header>
 
 
-<h3 id="contents">Contents</h3>
+
+<h1 id="weblogic-kubernetes-operator">WebLogic Kubernetes Operator</h1>
+
+
+
+<h3 id="contents">Contents<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <ul>
-<li><a href="#weblogic-kubernetes-operator">WebLogic Kubernetes Operator</a></li>
-<li><a href="#design-view">Design View</a>
+<li>
+
+<a href="#weblogic-kubernetes-operator"
+   
+   >
+WebLogic Kubernetes Operator
+</a>
+</li>
+<li>
+
+<a href="#design-view"
+   
+   >
+Design View
+</a>
+
 <ul>
-<li><a href="#weblogic-kubernetes-operator-image">WebLogic Kubernetes Operator Image</a></li>
-<li><a href="#image-pull-secret">Image Pull Secret</a></li>
-<li><a href="#kubernetes-namespace-selection-strategy">Kubernetes Namespace Selection Strategy</a></li>
-<li><a href="#weblogic-kubernetes-operator-role-bindings">WebLogic Kubernetes Operator Role Bindings</a></li>
-<li><a href="#external-rest-api-access">External REST API Access</a></li>
-<li><a href="#third-party-integrations">Third Party Integrations</a></li>
-<li><a href="#java-logging">Java Logging</a></li>
+<li>
+
+<a href="#weblogic-kubernetes-operator-image"
+   
+   >
+WebLogic Kubernetes Operator Image
+</a>
+</li>
+<li>
+
+<a href="#image-pull-secret"
+   
+   >
+Image Pull Secret
+</a>
+</li>
+<li>
+
+<a href="#kubernetes-namespace-selection-strategy"
+   
+   >
+Kubernetes Namespace Selection Strategy
+</a>
+</li>
+<li>
+
+<a href="#weblogic-kubernetes-operator-role-bindings"
+   
+   >
+WebLogic Kubernetes Operator Role Bindings
+</a>
+</li>
+<li>
+
+<a href="#external-rest-api-access"
+   
+   >
+External REST API Access
+</a>
+</li>
+<li>
+
+<a href="#third-party-integrations"
+   
+   >
+Third Party Integrations
+</a>
+</li>
+<li>
+
+<a href="#java-logging"
+   
+   >
+Java Logging
+</a>
+</li>
 </ul>
 </li>
-<li><a href="#code-view">Code View</a></li>
-<li><a href="#install-operator">Install Operator</a></li>
-<li><a href="#update-operator">Update Operator</a></li>
-<li><a href="#uninstall-operator">Uninstall Operator</a></li>
+<li>
+
+<a href="#code-view"
+   
+   >
+Code View
+</a>
+</li>
+<li>
+
+<a href="#install-operator"
+   
+   >
+Install Operator
+</a>
+</li>
+<li>
+
+<a href="#update-operator"
+   
+   >
+Update Operator
+</a>
+</li>
+<li>
+
+<a href="#uninstall-operator"
+   
+   >
+Uninstall Operator
+</a>
+</li>
 </ul>
-<h3 id="weblogic-kubernetes-operator">WebLogic Kubernetes Operator</h3>
+<h3 id="weblogic-kubernetes-operator">WebLogic Kubernetes Operator<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p>This section provides support for installing the WebLogic Kubernetes Operator (the &ldquo;operator&rdquo;) in the target Kubernetes cluster.
 For detailed information about the operator, see the
-<a href="https://oracle.github.io/weblogic-kubernetes-operator/">WebLogic Kubernetes Operator</a> documentation.</p>
-<h3 id="design-view">Design View</h3>
-<p><code>Design View</code> helps you specify the necessary data needed to install the WebLogic Kubernetes Operator to manage
+
+
+<a href="https://oracle.github.io/weblogic-kubernetes-operator/"
+   
+   
+target="_blank" rel="noopener noreferrer"
+>
+WebLogic Kubernetes Operator
+</a>
+ documentation.</p>
+<h3 id="design-view">Design View<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p><code>Design View</code> helps you specify the data needed to install the WebLogic Kubernetes Operator to manage
 WebLogic domains in one or more Kubernetes namespaces.  To install the operator using the default settings, simply
 provide values for the following three fields:</p>
 <ul>
@@ -1609,42 +297,56 @@ provide values for the following three fields:</p>
 <li><code>Kubernetes Service Account</code> - The Kubernetes service account for the operator to use when making Kubernetes API
 requests.</li>
 <li><code>Helm Release Name to Use for Operator Installation</code> - The Helm release name to use to identify this installation.</li>
+<li><code>WebLogic Kubernetes Operator Version to Install</code> - The version of the WebLogic Kubernetes Operator to install.</li>
 </ul>
 
-<div class="notices note" ><p>The WKT UI application overrides a few default values in the operator Helm Chart.  Read the details of the parameters descriptions in
-<a href="#kubernetes-namespace-selection-strategy">Kubernetes Namespace Selection Strategy</a>.  These panes and their fields are made visible by expanding the
-<code>Advanced</code> portion of the page.</p>
-</div>
+<details open class="box cstyle notices note">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-exclamation-circle"></i> 
+    Note
+  </summary>
+  <div class="box-content">
+<p>The WKT UI application overrides a few default values in the operator Helm Chart.  Read the details of the parameters
+descriptions in 
 
-<h4 id="weblogic-kubernetes-operator-image">WebLogic Kubernetes Operator Image</h4>
-<p>By default, the operator&rsquo;s <code>Image Tag to Use</code> field is set to the image tag corresponding to the latest operator
-release version on the GitHub Container Registry.  The <code>Image Pull Policy</code> field configures the operator deployment in
-Kubernetes to tell it when to pull the image from the specified registry:</p>
+<a href="#kubernetes-namespace-selection-strategy"
+   
+   >
+Kubernetes Namespace Selection Strategy
+</a>
+.  These panes and their fields are made visible by
+expanding the <code>Advanced</code> portion of the page.</p>
+  </div>
+</details>
+<h4 id="weblogic-kubernetes-operator-image">WebLogic Kubernetes Operator Image<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h4>
+<p>By default, the operator&rsquo;s <code>Image Tag to Use</code> field is empty, so the installation will use the image tag from the
+specified WebLogic Kubernetes Operator version&rsquo;s Helm chart.  The <code>Image Pull Policy</code> field configures the operator
+deployment in Kubernetes to tell it when to pull the image from the specified registry:</p>
 <ul>
 <li><code>If Not Present</code> (default) - Only pull the image if it is not already present on the Kubernetes node.</li>
 <li><code>Always</code> - Pull the image every time the image is needed to start a container.</li>
-<li><code>Never</code> - Never pull the image; this will result in an error if the image is not already present on the Kubernetes node.</li>
+<li><code>Never</code> - Never pull the image; this will result in an error if the image is not already present on the Kubernetes
+node.</li>
 </ul>
-<p>Because the GitHub Container Registry does not require image pull authentication to pull the official WebLogic Kubernetes
-Operator image, <code>Image Pull Requires Authentication</code> is disabled by default.  If a custom
+<p>Because the GitHub Container Registry does not require image pull authentication to pull the official WebLogic
+Kubernetes Operator image, <code>Image Pull Requires Authentication</code> is disabled by default.  If a custom
 operator image is being used from a container image registry that requires pull authentication, then enable the option
-and complete the appropriate fields described in the <a href="#image-pull-secret">Image Pull Secret</a>
+and complete the appropriate fields described in the 
+
+<a href="#image-pull-secret"
+   
+   >
+Image Pull Secret
+</a>
+
 pane that follows.</p>
-<h4 id="image-pull-secret">Image Pull Secret</h4>
+<h4 id="image-pull-secret">Image Pull Secret<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h4>
 <p>This pane is hidden unless the <code>Image Pull Requires Authentication</code> from the WebLogic Kubernetes Operator Image pane
 is enabled.  To allow Kubernetes to pull the custom operator image requiring pull authentication, use the
 <code>Kubernetes Image Pull Secret Name</code> field to provide the name of the Kubernetes secret to use for the credentials.  To
-have the application create this secret, disable <code>Use Existing Secret</code> and provide the values for the following
-fields:</p>
-<ul>
-<li><code>Image Pull Secret Email Address</code> - The email address of the user.</li>
-<li><code>Image Pull Secret Username</code> - The user name to use when authenticating to the container image registry.</li>
-<li><code>Image Pull Secret Password</code> - The user&rsquo;s password to use when authenticating to the container image registry.</li>
-</ul>
-<p>The read-only <code>Image Registry Address</code> field is parsed from the <code>Image Tag to Use</code> field.  If the
-<code>Image Registry Address</code> field is empty, then the application will assume that Docker Hub is the target container image
-registry to use when creating the pull secret.</p>
-<h4 id="kubernetes-namespace-selection-strategy">Kubernetes Namespace Selection Strategy</h4>
+have the application create this secret, disable <code>Use Existing Secret</code> and provide the value for the
+<code>Operator Image Registry Credentials</code> field.</p>
+<h4 id="kubernetes-namespace-selection-strategy">Kubernetes Namespace Selection Strategy<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h4>
 <p>The operator needs to know which WebLogic domains in the Kubernetes cluster that it will manage.  It does this at the
 Kubernetes namespace level, so any WebLogic domain in a Kubernetes namespace the operator is configured to manage, will
 be managed by the operator instance being installed.  Use the <code>Kubernetes Namespace Selection Strategy</code> field to choose
@@ -1656,8 +358,8 @@ the desired namespace selection strategy from one of the supported values:</p>
 by this operator.</li>
 <li><code>Dedicated</code> - Only the Kubernetes namespace where the operator is installed will be managed by this operator.</li>
 </ul>
-<p><em><strong>Note</strong> that the operator Helm chart default is <code>List</code> but the application overrides this to specify <code>Label Selector</code> as
-the default value.</em></p>
+<p><em><strong>Note</strong> that the operator Helm chart default prior to the 4.0.0 release was <code>List</code> but the application overrode it
+to specify <code>Label Selector</code> as the default value.</em></p>
 <p>Each namespace selection strategy takes different input values; the form fields will change based on the strategy
 selected:</p>
 <ul>
@@ -1677,12 +379,12 @@ such, specifying an empty list will not prevent your WebLogic domain from being 
 </li>
 <li><code>Dedicated</code> is self-defining so no additional fields are necessary.</li>
 </ul>
-<h4 id="weblogic-kubernetes-operator-role-bindings">WebLogic Kubernetes Operator Role Bindings</h4>
+<h4 id="weblogic-kubernetes-operator-role-bindings">WebLogic Kubernetes Operator Role Bindings<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h4>
 <p>When installing the operator, the operator Helm chart default is to create a Kubernetes Role and a Kubernetes RoleBinding
 in each Kubernetes namespace being managed by the operator.  By enabling <code>Enable Cluster Role Binding</code>, the
-operator installation will create a Kubernetes ClusterRole and ClusterRoleBinding that the operator will use for all managed
-namespaces.  This ClusterRole and ClusterRoleBinding will be shared across all operator installations in the Kubernetes
-cluster (assuming that those installations also enable cluster role binding).</p>
+operator installation will create a Kubernetes ClusterRole and ClusterRoleBinding that the operator will use for all
+managed namespaces.  This ClusterRole and ClusterRoleBinding will be shared across all operator installations in the
+Kubernetes cluster (assuming that those installations also enable cluster role binding).</p>
 <p>Using the default namespace-specific roles and role bindings, the administrator follows the Principle of Least
 Privilege to guarantee that the operator cannot perform any actions on other, non-managed namespaces.  The implication
 of this configuration is that because the operator service account does not have permission to create roles and role
@@ -1690,45 +392,72 @@ bindings, any new namespace added for the operator to manage does not have the n
 for the operator to manage the namespace.  Rerunning the operator Helm chart with the operator configured to manage the
 new namespaces will cause the Helm chart to create the necessary Role and RoleBinding objects in each namespace,
 as needed.</p>
-<p>If the operator is using the ClusterRole and ClusterRoleBinding, then the new namespaces will be automatically picked up by
-the operator when using either the <code>Label Selector</code> or <code>Regular Expression</code> namespace selection strategy without any
+<p>If the operator is using the ClusterRole and ClusterRoleBinding, then the new namespaces will be automatically picked up
+by the operator when using either the <code>Label Selector</code> or <code>Regular Expression</code> namespace selection strategy without any
 need to rerun the operator Helm chart.</p>
 <p>As previously mentioned, the WKT UI application automatically reruns the operator Helm chart when deploying new WebLogic
 domains to ensure that the new domain&rsquo;s namespace is being managed by the operator.</p>
-<h4 id="external-rest-api-access">External REST API Access</h4>
+<h4 id="external-rest-api-access">External REST API Access<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h4>
 <p>By default, the operator&rsquo;s REST API is not exposed outside the Kubernetes cluster.  To enable the REST API to be
 exposed, enable <code>Expose REST API Externally</code>, set the desired HTTPS port using the
 <code>External REST API HTTPS Port</code> field, and name of the Kubernetes TLS secret to use in the
 <code>External REST API Identity Secret Name</code> field.  For more information, see the WebLogic Kubernetes Operator
-<a href="https://oracle.github.io/weblogic-kubernetes-operator/userguide/managing-operators/the-rest-api/">Rest API</a> documentation.</p>
-<h4 id="third-party-integrations">Third Party Integrations</h4>
-<p>To enable integration with the Elasticsearch, Logstash, and Kibana (ELK) stack, enable <code>ELK Integration Enabled</code> and provide values for the
-following fields.</p>
+
+
+<a href="https://oracle.github.io/weblogic-kubernetes-operator/userguide/managing-operators/the-rest-api/"
+   
+   
+target="_blank" rel="noopener noreferrer"
+>
+Rest API
+</a>
+ documentation.</p>
+<h4 id="third-party-integrations">Third Party Integrations<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h4>
+<p>To enable integration with the Elasticsearch, Logstash, and Kibana (ELK) stack, enable <code>ELK Integration Enabled</code> and
+provide values for the following fields.</p>
 <ul>
 <li><code>Logstash Image Tag to Use</code> - The container image of <code>logstash</code> to use.</li>
 <li><code>Elasticsearch Host Name</code> - The DNS name of IP address of the Elasticsearch server.</li>
 <li><code>Elasticsearch Port</code> - The port number for the Elasticsearch server.</li>
 </ul>
-<p>For more information, see <a href="https://oracle.github.io/weblogic-kubernetes-operator/userguide/managing-operators/#optional-elastic-stack-elasticsearch-logstash-and-kibana-integration">Elastic Stack integration</a>
+<p>For more information, see 
+
+<a href="https://oracle.github.io/weblogic-kubernetes-operator/userguide/managing-operators/#optional-elastic-stack-elasticsearch-logstash-and-kibana-integration"
+   
+   
+target="_blank" rel="noopener noreferrer"
+>
+Elastic Stack integration
+</a>
+
 in the WebLogic Kubernetes Operator documentation.</p>
-<h4 id="java-logging">Java Logging</h4>
+<h4 id="java-logging">Java Logging<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h4>
 <p>This pane lets you override the operator&rsquo;s Java logging configuration, which can be useful when debugging issues
 with the operator.  Use the <code>Logging Level</code> field to customize the minimum log level written to the log file.  The
 <code>Log File Size Limit</code> field sets the maximum size of a single operator log file while the <code>Log File Count</code> limits the
 maximum number of retained log files.  For more information, see
-<a href="https://oracle.github.io/weblogic-kubernetes-operator/userguide/managing-operators/using-helm/#operator-helm-configuration-values">Operator Helm configuration values</a>
+
+
+<a href="https://oracle.github.io/weblogic-kubernetes-operator/userguide/managing-operators/using-helm/#operator-helm-configuration-values"
+   
+   
+target="_blank" rel="noopener noreferrer"
+>
+Operator Helm configuration values
+</a>
+
 in the WebLogic Kubernetes Operator documentation.</p>
-<h3 id="code-view">Code View</h3>
-<p>The <code>WebLogic Operator</code> page&rsquo;s <code>Code View</code> displays a shell script that you can use as a starting point for automating the
-operator installation process.</p>
-<p>If it is not already selected, then use the <code>Script Language</code> drop-down menu to choose the desired scripting language.  Note
-that the application is providing a working sample script to show how the process might be automated.  Before
+<h3 id="code-view">Code View<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>The <code>WebLogic Operator</code> page&rsquo;s <code>Code View</code> displays a shell script that you can use as a starting point for automating
+the operator installation process.</p>
+<p>If it is not already selected, then use the <code>Script Language</code> drop-down menu to choose the desired scripting language.
+Note that the application is providing a working sample script to show how the process might be automated.  Before
 using the script, review the script and make any changes necessary for your environment. One typical change that
 would be considered a best practice would be to change the script to accept either command-line arguments or externally
 set environment variables to specify any credentials required by the script to eliminate hard-coding the credentials in
 the script itself.  This change is left as an exercise for you because different environments typically will have
 existing standards for securely handling such credentials.</p>
-<h3 id="install-operator">Install Operator</h3>
+<h3 id="install-operator">Install Operator<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p><code>Install Operator</code> installs the WebLogic Kubernetes Operator in the target Kubernetes cluster.
 You access this action by using the <code>Install Operator</code> button on the
 <code>WebLogic Operator</code> page or the <code>Go</code> &gt; <code>Install WebLogic Kubernetes Operator</code> menu item.</p>
@@ -1742,1060 +471,110 @@ You access this action by using the <code>Install Operator</code> button on the
 <li>Adds the latest operator Helm chart to the local Helm repository.</li>
 <li>Runs Helm to install the operator using the specified configuration.</li>
 </ol>
-<h3 id="update-operator">Update Operator</h3>
+<h3 id="update-operator">Update Operator<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p><code>Update Operator</code> updates the settings on a running WebLogic Kubernetes Operator by using the <code>helm upgrade</code> command.
 You access this action by using the <code>Update Operator</code> button on the
 <code>WebLogic Operator</code> page or the <code>Go</code> &gt; <code>Update WebLogic Kubernetes Operator</code> menu item.</p>
 <p><code>Update Operator</code> applies all the changes to the operator that you have specified on the page. For example,
 you can change the operator image version, the domain namespace selection strategy, Java logging level,
 or the value of any field in the WebLogic Kubernetes Operator section.</p>
-<h3 id="uninstall-operator">Uninstall Operator</h3>
+<h3 id="uninstall-operator">Uninstall Operator<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p><code>Uninstall Operator</code> uses the <code>helm uninstall</code> command to remove the WebLogic Kubernetes Operator and its associated
 resources from the Kubernetes cluster. In addition, you can choose whether to also delete the corresponding namespace.
 You access these actions by using the <code>Uninstall Operator</code> button on the
 <code>WebLogic Operator</code> page or the <code>Go</code> &gt; <code>Uninstall WebLogic Kubernetes Operator</code> menu item.</p>
-<p>Note that if you uninstall an operator, then any domains that it is managing will continue running; however,
+<p>Note that if you uninstall an operator, then any domains that it is managing will continue running. However,
 any changes to a domain resource that was managed by the operator will not be detected or automatically handled,
-and, if you want to clean up such a domain, then you will need to manually delete all of the domain&rsquo;s resources (domain, pods, services, and such).</p>
+and, if you want to clean up such a domain, then you will need to manually delete all of the domain&rsquo;s resources (domain,
+pods, services, and such).</p>
 
-
-<footer class="footline">
-	
-</footer>
-
-        
+  <footer class="footline">
+  </footer>
+</article>
         </div>
-        
+      </main>
+    </div>
+    <aside id="R-sidebar" class="default-animation">
+      <div id="R-header-topbar" class="default-animation"></div>
+      <div id="R-header-wrapper" class="default-animation">
+        <div id="R-header" class="default-animation">
 
+<a id="logo" href="https://oracle.github.io/weblogic-toolkit-ui/">
+  <img src="https://oracle.github.io/weblogic-toolkit-ui//images/logo.png" height="90"><br/>
+  WebLogic Kubernetes Toolkit UI
+</a>
+
+        </div>
+        <search><form action="/weblogic-toolkit-ui/search/index.html" method="get">
+          <div class="searchbox default-animation">
+            <button class="search-detail" type="submit" title="Search (CTRL+ALT+f)"><i class="fas fa-search"></i></button>
+            <label class="a11y-only" for="R-search-by">Search</label>
+            <input data-search-input id="R-search-by" name="search-by" class="search-by" type="search" placeholder="Search...">
+            <button class="search-clear" type="button" data-search-clear="" title="Clear search"><i class="fas fa-times" title="Clear search"></i></button>
+          </div>
+        </form></search>
       </div>
-
-    <div id="navigation">
-        
-        
-
-        
-            
-            
-                
-                    
-                    
-                
-                
-
-                    
-                    
-                        
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                        
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                        
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                    
-                
-                
-
-                    
-                    
-                        
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-            
-        
-
-        
-
-
-	 
-	 
-		
-			<a class="nav nav-prev" href="/weblogic-toolkit-ui/navigate/kubernetes/k8s-client-config/" title="Client Configuration"> <i class="fa fa-chevron-left"></i></a>
-		
-		
-			<a class="nav nav-next" href="/weblogic-toolkit-ui/navigate/kubernetes/k8s-weblogic-domain/" title="WebLogic Domain" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
-		
-	
-    </div>
-
-    </section>
-
-    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
-      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
-    </div>
-    <script src="/weblogic-toolkit-ui/js/clipboard.min.js?1769399741"></script>
-    <script src="/weblogic-toolkit-ui/js/perfect-scrollbar.min.js?1769399741"></script>
-    <script src="/weblogic-toolkit-ui/js/perfect-scrollbar.jquery.min.js?1769399741"></script>
-    <script src="/weblogic-toolkit-ui/js/jquery.sticky.js?1769399741"></script>
-    <script src="/weblogic-toolkit-ui/js/featherlight.min.js?1769399741"></script>
-    <script src="/weblogic-toolkit-ui/js/highlight.pack.js?1769399741"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/weblogic-toolkit-ui/js/modernizr.custom-3.6.0.js?1769399741"></script>
-    <script src="/weblogic-toolkit-ui/js/learn.js?1769399741"></script>
-    <script src="/weblogic-toolkit-ui/js/hugo-learn.js?1769399741"></script>
-    
-        
-            <script src="/weblogic-toolkit-ui/mermaid/mermaid.js?1769399741"></script>
-        
-        <script>
-            mermaid.initialize({ startOnLoad: true });
-        </script>
-    
-    
-
+      <div id="R-homelinks" class="default-animation homelinks">
+        <div class="R-menu-divider default-animation">
+          <hr class="padding">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-homelinks">
+          <ul class="space collapsible-menu">
+            <li class="" data-nav-url="/weblogic-toolkit-ui/index.html"><a class="padding" href="/weblogic-toolkit-ui/index.html"><i class="fa-fw fas fa-home"></i> Home</a></li>
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-headercontrols">
+          <ul class="">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding">
+        </div>
+      </div>
+      <div id="R-content-wrapper" class="highlightable">
+        <div class="R-sidebarmenu R-shortcutmenu-main">
+          <ul class="enlarge morespace collapsible-menu">
+            <li class="" data-nav-url="/weblogic-toolkit-ui/concepts/index.html"><a class="padding" href="/weblogic-toolkit-ui/concepts/index.html"><b> </b>About the WKT UI Application</a></li>
+            <li class="" data-nav-url="/weblogic-toolkit-ui/setup/index.html"><a class="padding" href="/weblogic-toolkit-ui/setup/index.html"><b> </b>Get Started</a><ul id="R-subsections-8e7001ce8f309164630b1295cd92dc36" class="collapsible-menu"></ul></li>
+            <li class="parent " data-nav-url="/weblogic-toolkit-ui/navigate/index.html"><a class="padding" href="/weblogic-toolkit-ui/navigate/index.html"><b> </b>Navigate the UI</a><ul id="R-subsections-87ab2e1bf80095f6190ff210454fc27d" class="collapsible-menu">
+            <li class="" data-nav-url="/weblogic-toolkit-ui/navigate/project-settings/index.html"><a class="padding" href="/weblogic-toolkit-ui/navigate/project-settings/index.html">Project Settings</a></li>
+            <li class="" data-nav-url="/weblogic-toolkit-ui/navigate/model/index.html"><a class="padding" href="/weblogic-toolkit-ui/navigate/model/index.html">Model</a></li>
+            <li class="" data-nav-url="/weblogic-toolkit-ui/navigate/image/index.html"><a class="padding" href="/weblogic-toolkit-ui/navigate/image/index.html">Image</a></li>
+            <li class="parent alwaysopen " data-nav-url="/weblogic-toolkit-ui/navigate/kubernetes/index.html"><a class="padding" href="/weblogic-toolkit-ui/navigate/kubernetes/index.html"><b> </b>Kubernetes</a><ul id="R-subsections-e425486342fbf2f6a6c1f20472ef34b4" class="collapsible-menu">
+            <li class="" data-nav-url="/weblogic-toolkit-ui/navigate/kubernetes/k8s-client-config/index.html"><a class="padding" href="/weblogic-toolkit-ui/navigate/kubernetes/k8s-client-config/index.html">Client Configuration</a></li>
+            <li class="active " data-nav-url="/weblogic-toolkit-ui/navigate/kubernetes/k8s-wko/index.html"><a class="padding" href="/weblogic-toolkit-ui/navigate/kubernetes/k8s-wko/index.html">WebLogic Kubernetes Operator</a></li>
+            <li class="" data-nav-url="/weblogic-toolkit-ui/navigate/kubernetes/k8s-weblogic-domain/index.html"><a class="padding" href="/weblogic-toolkit-ui/navigate/kubernetes/k8s-weblogic-domain/index.html">WebLogic Domain</a></li>
+            <li class="" data-nav-url="/weblogic-toolkit-ui/navigate/kubernetes/k8s-ingress-controller/index.html"><a class="padding" href="/weblogic-toolkit-ui/navigate/kubernetes/k8s-ingress-controller/index.html">Ingress Controller</a></li></ul></li></ul></li>
+            <li class="" data-nav-url="/weblogic-toolkit-ui/developer/index.html"><a class="padding" href="/weblogic-toolkit-ui/developer/index.html"><b> </b>Developer Guide</a></li>
+            <li class="" data-nav-url="/weblogic-toolkit-ui/release/index.html"><a class="padding" href="/weblogic-toolkit-ui/release/index.html"><b> </b>Release Notes</a><ul id="R-subsections-708032c5b8904dd637c09e0f5f530a6a" class="collapsible-menu"></ul></li>
+          </ul>
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-shortcuts">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div id="R-footer-margin"></div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-footercontrols">
+          <ul class="">
+          </ul>
+        </div>
+<div id="R-footer">
+
+<p>Created with <i class="fas fa-heart"></i> from <a href="https://www.oracle.com">Oracle</a></p>
+<p>&nbsp</p>
+<p><a href="https://github.com/oracle/weblogic-toolkit-ui"><i class="fab fa-github"></i> GitHub repo</a></p>
+<p><a href="https://join.slack.com/t/oracle-weblogic/shared_invite/zt-1ni1gtjv6-PGC6CQ4uIte3KBdm_67~aQ"><i class="fab fa-slack"></i> Public Slack #weblogic</a></p>
+</div>
+      </div>
+    </aside>
+    <script src="/weblogic-toolkit-ui/js/perfect-scrollbar/perfect-scrollbar.min.js?1769457254" defer></script>
+    <script src="/weblogic-toolkit-ui/js/theme.min.js?1769457254" defer></script>
+    <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
   </body>
 </html>
-

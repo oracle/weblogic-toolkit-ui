@@ -1,2673 +1,368 @@
 <!DOCTYPE html>
-<html lang="en" class="js csstransforms3d">
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.88.1" />
-    <meta name="description" content="">
-
-
-    <link rel="icon" href="/weblogic-toolkit-ui/images/favicon.png" type="image/png">
-
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="generator" content="Hugo 0.152.2">
+    <meta name="generator" content="Relearn 8.3.0">
+    <meta name="description" content="Start WKT UI.
+WKT UI uses the concept of a project that is like a project in an Integrated Development Environment (IDE). You will create a new project.
+Using the File menu, select New Project, choose a directory, and enter the file name todo-list.wktproj.
+At this point, you will be on the Project Settings page that will look something like the one shown in the following image.
+Note: If you are not running on macOS, you will not see this top-most panel: For macOS, do you need to add directories to the PATH or define other environment variables for Docker/Podman or Kubernetes?">
+    <meta name="author" content="">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Select the Project Settings :: WebLogic Kubernetes Toolkit UI">
+    <meta name="twitter:description" content="Start WKT UI.
+WKT UI uses the concept of a project that is like a project in an Integrated Development Environment (IDE). You will create a new project.
+Using the File menu, select New Project, choose a directory, and enter the file name todo-list.wktproj.
+At this point, you will be on the Project Settings page that will look something like the one shown in the following image.
+Note: If you are not running on macOS, you will not see this top-most panel: For macOS, do you need to add directories to the PATH or define other environment variables for Docker/Podman or Kubernetes?">
+    <meta property="og:url" content="https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/project-settings/index.html">
+    <meta property="og:site_name" content="WebLogic Kubernetes Toolkit UI">
+    <meta property="og:title" content="Select the Project Settings :: WebLogic Kubernetes Toolkit UI">
+    <meta property="og:description" content="Start WKT UI.
+WKT UI uses the concept of a project that is like a project in an Integrated Development Environment (IDE). You will create a new project.
+Using the File menu, select New Project, choose a directory, and enter the file name todo-list.wktproj.
+At this point, you will be on the Project Settings page that will look something like the one shown in the following image.
+Note: If you are not running on macOS, you will not see this top-most panel: For macOS, do you need to add directories to the PATH or define other environment variables for Docker/Podman or Kubernetes?">
+    <meta property="og:locale" content="en_us">
+    <meta property="og:type" content="article">
+    <meta property="article:section" content="Get Started">
+    <meta property="article:published_time" content="2019-02-22T15:44:42-05:00">
+    <meta property="article:modified_time" content="2019-02-22T15:44:42-05:00">
+    <meta itemprop="name" content="Select the Project Settings :: WebLogic Kubernetes Toolkit UI">
+    <meta itemprop="description" content="Start WKT UI.
+WKT UI uses the concept of a project that is like a project in an Integrated Development Environment (IDE). You will create a new project.
+Using the File menu, select New Project, choose a directory, and enter the file name todo-list.wktproj.
+At this point, you will be on the Project Settings page that will look something like the one shown in the following image.
+Note: If you are not running on macOS, you will not see this top-most panel: For macOS, do you need to add directories to the PATH or define other environment variables for Docker/Podman or Kubernetes?">
+    <meta itemprop="datePublished" content="2019-02-22T15:44:42-05:00">
+    <meta itemprop="dateModified" content="2019-02-22T15:44:42-05:00">
+    <meta itemprop="wordCount" content="942">
     <title>Select the Project Settings :: WebLogic Kubernetes Toolkit UI</title>
-
-    
-    <link href="/weblogic-toolkit-ui/css/nucleus.css?1769399741" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/fontawesome-all.min.css?1769399741" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/hybrid.css?1769399741" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/featherlight.min.css?1769399741" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/perfect-scrollbar.min.css?1769399741" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/auto-complete.css?1769399741" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/atom-one-dark-reasonable.css?1769399741" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/theme.css?1769399741" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/tabs.css?1769399741" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/hugo-theme.css?1769399741" rel="stylesheet">
-    
-    <link href="/weblogic-toolkit-ui/css/theme-wktui.css?1769399741" rel="stylesheet">
-
-    <script src="/weblogic-toolkit-ui/js/jquery-3.3.1.min.js?1769399741"></script>
-
-    <style>
-      :root #header + #content > #left > #rlblock_left{
-          display:none !important;
-      }
-      
-        :not(pre) > code + span.copy-to-clipboard {
-            display: none;
+    <link href="/weblogic-toolkit-ui/images/logo.png?1769457254" rel="icon" type="image/png">
+    <link href="/weblogic-toolkit-ui/css/auto-complete/auto-complete.min.css?1769457254" rel="stylesheet">
+    <script src="/weblogic-toolkit-ui/js/auto-complete/auto-complete.min.js?1769457254" defer></script>
+    <script src="/weblogic-toolkit-ui/js/search-lunr.min.js?1769457254" defer></script>
+    <script src="/weblogic-toolkit-ui/js/search.min.js?1769457254" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.index_js_url="/weblogic-toolkit-ui/searchindex.en.js?1769457254";
+    </script>
+    <script src="/weblogic-toolkit-ui/js/lunr/lunr.min.js?1769457254" defer></script>
+    <script src="/weblogic-toolkit-ui/js/lunr/lunr.stemmer.support.min.js?1769457254" defer></script>
+    <script src="/weblogic-toolkit-ui/js/lunr/lunr.multi.min.js?1769457254" defer></script>
+    <script src="/weblogic-toolkit-ui/js/lunr/lunr.en.min.js?1769457254" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.contentLangs=['en'];
+    </script>
+    <link href="/weblogic-toolkit-ui/fonts/fontawesome/css/fontawesome-all.min.css?1769457254" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/weblogic-toolkit-ui/fonts/fontawesome/css/fontawesome-all.min.css?1769457254" rel="stylesheet"></noscript>
+    <link href="/weblogic-toolkit-ui/css/perfect-scrollbar/perfect-scrollbar.min.css?1769457254" rel="stylesheet">
+    <link href="/weblogic-toolkit-ui/css/theme.min.css?1769457254" rel="stylesheet">
+    <link href="/weblogic-toolkit-ui/css/format-html.min.css?1769457254" rel="stylesheet" id="R-format-style">
+    <script>
+      window.relearn = window.relearn || {};
+      // configuration
+      window.relearn.min = `.min`;
+      window.relearn.path='\/setup\/quickstart\/project-settings\/index.html';
+      window.relearn.relBasePath='..\/..\/..';
+      window.relearn.relBaseUri='..\/..\/..\/..';
+      window.relearn.absBaseUri='https:\/\/oracle.github.io\/weblogic-toolkit-ui';
+      window.relearn.disableInlineCopyToClipboard=true;
+      window.relearn.enableBlockCodeWrap=true;
+      // legal
+      window.relearn.getItem = (s,n) => {return s.getItem(n)};
+      window.relearn.setItem = (s,n,v) => {return s.setItem(n,v)};
+      window.relearn.removeItem = (s,n) => {return s.removeItem(n)};
+      // translations
+      window.T_Copy_to_clipboard = `Copy text to clipboard`;
+      window.T_Copied_to_clipboard = `Text copied to clipboard!`;
+      window.T_Link_copied_to_clipboard = `Link copied to clipboard!`;
+      window.T_Reset_view = `Reset view`;
+      window.T_View_reset = `View reset!`;
+      window.T_No_results_found = `No results found for "{0}"`;
+      window.T_N_results_found = `{1} results found for "{0}"`;
+      window.T_Browser_unsupported_feature = `This browser doesn't support this feature`;
+      // variant stuff
+      window.relearn.themevariants = [ 'learn' ];
+      window.relearn.customvariantname = "my-custom-variant";
+      window.relearn.changeVariant = function(variant) {
+        var oldVariant = document.documentElement.dataset.rThemeVariant;
+        window.relearn.setItem(window.localStorage, window.relearn.absBaseUri + "/variant", variant);
+        document.documentElement.dataset.rThemeVariant = variant;
+        if (oldVariant != variant) {
+          document.dispatchEvent( new CustomEvent('themeVariantLoaded', { detail: { variant, oldVariant } }) );
+          window.relearn.markVariant();
         }
-      
-    </style>
-    
+      }
+      window.relearn.markVariant = function() {
+        var variant = window.relearn.getItem(window.localStorage, window.relearn.absBaseUri + "/variant");
+        document.querySelectorAll(".R-variantswitcher select").forEach((select) => {select.value = variant;});
+      }
+      window.relearn.initVariant = function() {
+        var variant = window.relearn.getItem(window.localStorage, window.relearn.absBaseUri + "/variant") ?? "";
+        if( variant == window.relearn.customvariantname ){
+        }else if( !variant || !window.relearn.themevariants.includes(variant) ){
+          variant = window.relearn.themevariants[0];
+          window.relearn.setItem(window.localStorage, window.relearn.absBaseUri + "/variant", variant);
+        }
+        document.documentElement.dataset.rThemeVariant = variant;
+      }
+      window.relearn.initVariant();
+      window.relearn.markVariant();
+    </script>
   </head>
-  <body class="" data-url="/weblogic-toolkit-ui/setup/quickstart/project-settings/">
-    <nav id="sidebar" class="">
-
-
-
-  <div id="header-wrapper">
-    <div id="header">
-      <a id="logo" href="https://oracle.github.io/weblogic-toolkit-ui">
-  <img src="https://oracle.github.io/weblogic-toolkit-ui/images/logo.png" height="90"><br/>
-  WebLogic Kubernetes Toolkit UI
-</a>
-
-    </div>
-    
-        <div class="searchbox">
-    <label for="search-by"><i class="fas fa-search"></i></label>
-    <input data-search-input id="search-by" type="search" placeholder="Search...">
-    <span data-search-clear=""><i class="fas fa-times"></i></span>
-</div>
-
-<script type="text/javascript" src="/weblogic-toolkit-ui/js/lunr.min.js?1769399741"></script>
-<script type="text/javascript" src="/weblogic-toolkit-ui/js/auto-complete.js?1769399741"></script>
-<script type="text/javascript">
-    
-        var baseurl = "https:\/\/oracle.github.io\/weblogic-toolkit-ui";
-    
-</script>
-<script type="text/javascript" src="/weblogic-toolkit-ui/js/search.js?1769399741"></script>
-
-    
-  </div>
-  
-    <section id="homelinks">
-      <ul>
-        <li>
-            <a class="padding" href='https://oracle.github.io/weblogic-toolkit-ui'><i class='fas fa-home'></i> Home</a>
-        </li>
-      </ul>
-    </section>
-  
-
-    <div class="highlightable">
-    <ul class="topics">
-
-        
-          
-          
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/weblogic-toolkit-ui/concepts/" title="About the WKT UI Application" class="dd-item
-        
-        
-        
-        ">
-      <a href="/weblogic-toolkit-ui/concepts/">
-          <b> </b>About the WKT UI Application
-          
-      </a>
-      
-      
-    </li>
-  
- 
-
-          
-          
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/weblogic-toolkit-ui/setup/" title="Get Started" class="dd-item
-        parent
-        
-        
-        ">
-      <a href="/weblogic-toolkit-ui/setup/">
-          <b> </b>Get Started
-          
-      </a>
-      
-      
-        <ul>
-          
-          
-            
-          
-          
-
-        
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/prerequisites/" title="Prerequisites" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/prerequisites/">
-        Prerequisites
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/install/" title="Install WKT UI" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/install/">
-        Install WKT UI
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/" title="Quick Start Guide" class="dd-item
-        parent
-        
-        
-        ">
-      <a href="/weblogic-toolkit-ui/setup/quickstart/">
-          <b> </b>Quick Start Guide
-          
-      </a>
-      
-      
-        <ul>
-          
-          
-            
-          
-          
-
-        
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/prereqs/" title="Prerequisites" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/prereqs/">
-        Prerequisites
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/get-todo-app/" title="Get the ToDo List sample application" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/get-todo-app/">
-        Get the ToDo List sample application
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/set-up-wktui-app/" title="Set up the WKTUI application" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/set-up-wktui-app/">
-        Set up the WKTUI application
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/project-settings/" title="Select the Project Settings" class="dd-item active">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/project-settings/">
-        Select the Project Settings
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/create-wdt-model/" title="Create the WebLogic Deploy Tooling model" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/create-wdt-model/">
-        Create the WebLogic Deploy Tooling model
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/create-images-with-wit/" title="Create images with the WebLogic Image Tool" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/create-images-with-wit/">
-        Create images with the WebLogic Image Tool
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/" title="WebLogic Kubernetes Operator" class="dd-item
-        
-        
-        
-        ">
-      <a href="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/">
-          <b> </b>WebLogic Kubernetes Operator
-          
-      </a>
-      
-      
-        <ul>
-          
-          
-          
-
-        
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-client-config/" title="Configure Kubernetes Cluster Connectivity" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-client-config/">
-        Configure Kubernetes Cluster Connectivity
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-wko/" title="Install the WebLogic Kubernetes Operator" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-wko/">
-        Install the WebLogic Kubernetes Operator
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-weblogic-domain/" title="Deploy the Domain" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-weblogic-domain/">
-        Deploy the Domain
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-ingress-controller/" title="Install and Configure the Ingress Controller" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-ingress-controller/">
-        Install and Configure the Ingress Controller
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-access-app/" title="Access the ToDo List application" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-access-app/">
-        Access the ToDo List application
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-        
-        </ul>
-      
-    </li>
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/" title="Verrazzano" class="dd-item
-        
-        
-        
-        ">
-      <a href="/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/">
-          <b> </b>Verrazzano
-          
-      </a>
-      
-      
-        <ul>
-          
-          
-          
-
-        
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-client-config/" title="Configure Kubernetes Cluster Connectivity" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-client-config/">
-        Configure Kubernetes Cluster Connectivity
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-install/" title="Install Verrazzano" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-install/">
-        Install Verrazzano
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-component/" title="Deploy the Verrazzano Component for the WebLogic Domain" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-component/">
-        Deploy the Verrazzano Component for the WebLogic Domain
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-application/" title="Deploy the Verrazzano Application" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-application/">
-        Deploy the Verrazzano Application
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-access-app/" title="Access the ToDo List application" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-access-app/">
-        Access the ToDo List application
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-        
-        </ul>
-      
-    </li>
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-summary/" title="Summary" class="dd-item
-        
-        
-        
-        ">
-      <a href="/weblogic-toolkit-ui/setup/quickstart/qs-summary/">
-          <b> </b>Summary
-          
-      </a>
-      
-      
-    </li>
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-advanced/" title="Advanced" class="dd-item
-        
-        
-        
-        ">
-      <a href="/weblogic-toolkit-ui/setup/quickstart/qs-advanced/">
-          <b> </b>Advanced
-          
-      </a>
-      
-      
-        <ul>
-          
-          
-          
-
-        
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-advanced/offline-discover/" title="Offline Discover" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/qs-advanced/offline-discover/">
-        Offline Discover
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-advanced/online-remote-discover/" title="Online Remote Discover" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/qs-advanced/online-remote-discover/">
-        Online Remote Discover
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-        
-        </ul>
-      
-    </li>
-  
- 
-
-            
-          
-        
-        </ul>
-      
-    </li>
-  
- 
-
-            
-          
-        
-        </ul>
-      
-    </li>
-  
- 
-
-          
-          
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/weblogic-toolkit-ui/navigate/" title="Navigate the UI" class="dd-item
-        
-        
-        
-        ">
-      <a href="/weblogic-toolkit-ui/navigate/">
-          <b> </b>Navigate the UI
-          
-      </a>
-      
-      
-        <ul>
-          
-          
-            
-          
-          
-
-        
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/navigate/project-settings/" title="Project Settings" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/navigate/project-settings/">
-        Project Settings
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/navigate/model/" title="Model" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/navigate/model/">
-        Model
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/navigate/image/" title="Image" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/navigate/image/">
-        Image
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/weblogic-toolkit-ui/navigate/kubernetes/" title="Kubernetes" class="dd-item
-        
-        
-        
-        ">
-      <a href="/weblogic-toolkit-ui/navigate/kubernetes/">
-          <b> </b>Kubernetes
-          
-      </a>
-      
-      
-        <ul>
-          
-          
-          
-
-        
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/navigate/kubernetes/k8s-client-config/" title="Client Configuration" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/navigate/kubernetes/k8s-client-config/">
-        Client Configuration
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/navigate/kubernetes/k8s-wko/" title="WebLogic Kubernetes Operator" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/navigate/kubernetes/k8s-wko/">
-        WebLogic Kubernetes Operator
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/navigate/kubernetes/k8s-weblogic-domain/" title="WebLogic Domain" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/navigate/kubernetes/k8s-weblogic-domain/">
-        WebLogic Domain
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/navigate/kubernetes/k8s-ingress-controller/" title="Ingress Controller" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/navigate/kubernetes/k8s-ingress-controller/">
-        Ingress Controller
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-        
-        </ul>
-      
-    </li>
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/weblogic-toolkit-ui/navigate/verrazzano/" title="Verrazzano" class="dd-item
-        
-        
-        
-        ">
-      <a href="/weblogic-toolkit-ui/navigate/verrazzano/">
-          <b> </b>Verrazzano
-          
-      </a>
-      
-      
-        <ul>
-          
-          
-          
-
-        
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/navigate/verrazzano/vz-client-config/" title="Client Configuration" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/navigate/verrazzano/vz-client-config/">
-        Client Configuration
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/navigate/verrazzano/vz-install/" title="Installation" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/navigate/verrazzano/vz-install/">
-        Installation
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/navigate/verrazzano/vz-component/" title="Component" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/navigate/verrazzano/vz-component/">
-        Component
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/navigate/verrazzano/vz-application/" title="Application" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/navigate/verrazzano/vz-application/">
-        Application
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-        
-        </ul>
-      
-    </li>
-  
- 
-
-            
-          
-        
-        </ul>
-      
-    </li>
-  
- 
-
-          
-          
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/weblogic-toolkit-ui/developer/" title="Developer Guide" class="dd-item
-        
-        
-        
-        ">
-      <a href="/weblogic-toolkit-ui/developer/">
-          <b> </b>Developer Guide
-          
-      </a>
-      
-      
-    </li>
-  
- 
-
-          
-          
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/weblogic-toolkit-ui/release/" title="Release Notes" class="dd-item
-        
-        
-        
-        ">
-      <a href="/weblogic-toolkit-ui/release/">
-          <b> </b>Release Notes
-          
-      </a>
-      
-      
-        <ul>
-          
-          
-          
-
-        
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.6.3/" title="Release 1.6.3" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.6.3/">
-        <b> </b>Release 1.6.3
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.7.0/" title="Release 1.7.0" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.7.0/">
-        <b> </b>Release 1.7.0
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.7.1/" title="Release 1.7.1" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.7.1/">
-        <b> </b>Release 1.7.1
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.6.2/" title="Release 1.6.2" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.6.2/">
-        <b> </b>Release 1.6.2
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.6.1/" title="Release 1.6.1" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.6.1/">
-        <b> </b>Release 1.6.1
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.5.3/" title="Release 1.5.3" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.5.3/">
-        <b> </b>Release 1.5.3
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.6.0/" title="Release 1.6.0" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.6.0/">
-        <b> </b>Release 1.6.0
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.5.2/" title="Release 1.5.2" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.5.2/">
-        <b> </b>Release 1.5.2
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.5.1/" title="Release 1.5.1" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.5.1/">
-        <b> </b>Release 1.5.1
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.5.0/" title="Release 1.5.0" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.5.0/">
-        <b> </b>Release 1.5.0
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.4.1/" title="Release 1.4.1" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.4.1/">
-        <b> </b>Release 1.4.1
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.4.0/" title="Release 1.4.0" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.4.0/">
-        <b> </b>Release 1.4.0
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.3.0/" title="Release 1.3.0" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.3.0/">
-        <b> </b>Release 1.3.0
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.2.0/" title="Release 1.2.0" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.2.0/">
-        <b> </b>Release 1.2.0
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.1.1/" title="Release 1.1.1" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.1.1/">
-        <b> </b>Release 1.1.1
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.1.0/" title="Release 1.1.0" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.1.0/">
-        Release 1.1.0
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-        
-        </ul>
-      
-    </li>
-  
- 
-
-          
-        
-    </ul>
-
-    
-    
-
-    
-    <section id="footer">
-      <p>Created with <i class="fas fa-heart"></i> from <a href="https://www.oracle.com">Oracle</a></p>
-<p>&nbsp</p>
-<p><a href="https://github.com/oracle/weblogic-toolkit-ui"><i class="fab fa-github"></i> GitHub repo</a></p>
-<p><a href="https://join.slack.com/t/oracle-weblogic/shared_invite/zt-1ni1gtjv6-PGC6CQ4uIte3KBdm_67~aQ"><i class="fab fa-slack"></i> Public Slack #weblogic</a></p>
-
-    </section>
-  </div>
-</nav>
-
-
-
-
-        <section id="body">
-        <div id="overlay"></div>
-        <div class="padding highlightable">
-              
-              <div>
-                <div id="top-bar">
-                
-                
-                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                    <span id="sidebar-toggle-span">
-                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
-                          <i class="fas fa-bars"></i>
-                        </a>
-                    </span>
-                  
-                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
-                  
-                  <span class="links">
-                 
-                 
-                    
-          
-          
-            
-            
-          
-          
-            
-            
-          
-          
-            
-            
-          
-          
-            <a href='/weblogic-toolkit-ui/'></a> > <a href='/weblogic-toolkit-ui/setup/'>Get Started</a> > <a href='/weblogic-toolkit-ui/setup/quickstart/'>Quick Start Guide</a> > Select the Project Settings
-          
-        
-          
-        
-          
-        
-          
-        
-                 
-                  </span>
-                </div>
-                
-                    <div class="progress">
-    <div class="wrapper">
-<nav id="TableOfContents">
+  <body class="mobile-support html" data-url="/weblogic-toolkit-ui/setup/quickstart/project-settings/index.html">
+    <div id="R-body" class="default-animation">
+      <div id="R-body-overlay"></div>
+      <nav id="R-topbar">
+        <div class="topbar-wrapper">
+          <div class="topbar-sidebar-divider"></div>
+          <div class="topbar-area topbar-area-start" data-area="start">
+            <div class="topbar-button topbar-button-sidebar" data-content-empty="disable" data-width-s="show" data-width-m="hide" data-width-l="hide">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleNav()" type="button" title="Menu (CTRL&#43;ALT&#43;n)"><i class="fa-fw fas fa-bars"></i></button></span>
+            </div>
+            <div class="topbar-button topbar-button-toc" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Table of Contents (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-list-alt"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+<nav class="TableOfContents">
   <ul>
     <li>
       <ul>
         <li></li>
-        <li><a href="#storing-the-project-credentials">Storing the Project Credentials</a></li>
-        <li><a href="#oracle-fusion-middleware-domain-target-location">Oracle Fusion Middleware Domain Target Location</a></li>
-        <li><a href="#kubernetes-cluster-target-type">Kubernetes Cluster Target Type</a></li>
+        <li><a href="#credential-store-policy">Credential Store Policy</a></li>
+        <li><a href="#oracle-fusion-middleware-target-domain-location">Oracle Fusion Middleware Target Domain Location</a></li>
+        <li><a href="#weblogic-deploy-tooling-archive-plug-in">WebLogic Deploy Tooling Archive Plug-in</a></li>
         <li><a href="#java-installation">Java Installation</a></li>
         <li><a href="#oracle-fusion-middleware-installation">Oracle Fusion Middleware Installation</a></li>
         <li><a href="#image-builder-tool">Image Builder Tool</a></li>
+        <li><a href="#target-kubernetes-cluster-architecture">Target Kubernetes Cluster Architecture</a></li>
+        <li><a href="#container-image-registry-credentials">Container Image Registry Credentials</a></li>
       </ul>
     </li>
   </ul>
 </nav>
-    </div>
-</div>
-
-                
+                </div>
               </div>
             </div>
-            
-        <div id="head-tags">
-        
+          </div>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/weblogic-toolkit-ui/index.html"><span itemprop="name">WebLogic Kubernetes Toolkit UI</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/weblogic-toolkit-ui/setup/index.html"><span itemprop="name">Get Started</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/weblogic-toolkit-ui/setup/quickstart/index.html"><span itemprop="name">Quick Start Guide</span></a><meta itemprop="position" content="3">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">Select the Project Settings</span><meta itemprop="position" content="4"></li>
+          </ol>
+          <div class="topbar-area topbar-area-end" data-area="end">
+            <div class="topbar-button topbar-button-prev" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/weblogic-toolkit-ui/setup/quickstart/set-up-wktui-app/index.html" title="Set up the WKT UI application (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-next" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/weblogic-toolkit-ui/setup/quickstart/create-wdt-model/index.html" title="Create the WebLogic Deploy Tooling model (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-more" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="More"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+                  <div class="topbar-area topbar-area-more" data-area="more">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        
-        <div id="body-inner">
-          
-            <h1>
-              
-              Select the Project Settings
-            </h1>
-          
+      </nav>
+      <div id="R-main-overlay"></div>
+      <main id="R-body-inner" class="highlightable setup" tabindex="-1">
+        <div class="flex-block-wrapper">
+<article class="default">
+  <header class="headline">
+  </header>
 
-        
+
+
+<h1 id="select-the-project-settings">Select the Project Settings</h1>
+
 
 
 <ol>
 <li>
-<p>Start WKTUI.</p>
-<p>WKTUI uses the concept of a project that is like a project in an Integrated Development Environment (IDE).  You will create a new project.</p>
+<p>Start WKT UI.</p>
+<p>WKT UI uses the concept of a project that is like a project in an Integrated Development Environment (IDE).  You will
+create a new project.</p>
 </li>
 <li>
 <p>Using the <code>File</code> menu, select <code>New Project</code>, choose a directory, and enter the file name <code>todo-list.wktproj</code>.</p>
-<p>At this point, you will be on the <code>Project Settings</code> page that will look something like the one shown in the following image.</p>
-<p><strong>Note</strong>: If you are <em>not</em>  running on macOS, you will not see this top-most panel: For macOS, do you need to add directories to the PATH or define other environment variables for Docker/Podman or Kubernetes?</p>
-<img src="https://oracle.github.io/weblogic-toolkit-ui/images/project-settings.png" alt="Project Settings">
+<p>At this point, you will be on the <code>Project Settings</code> page that will look something like the one shown in the
+following image.</p>
+<p><strong>Note</strong>: If you are <em>not</em>  running on macOS, you will not see this top-most panel: For macOS, do you need to add
+directories to the PATH or define other environment variables for Docker/Podman or Kubernetes?</p>
+ <img src="https://oracle.github.io/weblogic-toolkit-ui/images/project-settings.png" alt="Project Settings">
 </li>
 </ol>
-<h4 id="extra-environment-settings-macos-only">Extra Environment Settings (macOS only)</h4>
-<p>Unlike Windows or Linux, applications on macOS that are started from the Finder, Dock, or Launchpad, do not inherit the user’s environment. To see the environment that WKTUI inherits from the operating system, select <code>Show System Path</code> and <code>Show System Environment</code>.  For now, you will not add any extra environment settings. Instead, you will return to add these if you encounter an error that requires them.</p>
-<h3 id="storing-the-project-credentials">Storing the Project Credentials</h3>
-<p>WKTUI realizes that different organizations and different projects have different security standards for storing credentials.  As such, you have three options in WKTUI for how to store a project’s credentials:</p>
+<h4 id="extra-environment-settings-macos-only">Extra Environment Settings (macOS only)<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h4>
+<p>Unlike Windows or Linux, applications on macOS that are started from the Finder, Dock, or Launchpad, do not inherit the
+user’s environment. To see the environment that WKT UI inherits from the operating system, select <code>Show System Path</code> and
+<code>Show System Environment</code>.  For now, you will not add any extra environment settings. Instead, you will return to add
+these if you encounter an error that requires them.</p>
+<h3 id="credential-store-policy">Credential Store Policy<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>WKT UI realizes that different organizations and different projects have different security standards for storing
+credentials.  As such, you have two options in WKT UI for how to store a project’s credentials:</p>
 <ul>
 <li>
-<p><code>Store in the Native OS Credential Store</code> – This option lets you store each credential field in a separate field in the operating system’s credential store (for example, Windows Credential Manager, macOS Keychain).  When using this option, the project file stores only an indicator for each field stored in the credential store.  When the project is opened, WKTUI tries to load each credential from the credential store into memory.  When the project is saved, WKTUI writes each credential field with a value to the credential store and updates the markers in the project file.  With this option, you have a secure means of storing your credentials on the local machine.  If you try to open the project on a new machine, the credentials will not be found so you will need to re-enter them.</p>
-<p><strong>NOTE</strong>: When opening a project in a new version of WKTUI, the operating system will likely prompt you for your login password to allow the application to access the credential in the credential store.  The tedious part is that the prompt is per credential, so if you have 15 credential fields, you will be prompted by the operating system to enter your password 15 times.</p>
+<p><code>Store Encrypted in Project File</code> – This option lets you store the credentials directly in the project file.  WKT UI
+encrypts each credential field using a passphrase that you provide and modern AES 256 bit encryption algorithms and
+techniques.  On opening the project, WKT UI will prompt you for the encryption passphrase to use to decrypt the
+credential fields loaded into memory.  If you remember the encryption passphrase, you can easily move the project
+files from machine to machine without losing the project credentials.</p>
 </li>
 <li>
-<p><code>Store Encrypted in Project File</code> – This option lets you store the credentials directly in the project file.  WKTUI encrypts each credential field using a passphrase that you provide and modern AES 256 bit encryption algorithms and techniques.  On opening the project, WKTUI will prompt you for the encryption passphrase to use to decrypt the credential fields loaded into memory.  If you remember the encryption passphrase, you can easily move the project files from machine to machine without losing the project credentials.</p>
-</li>
-<li>
-<p><code>None</code> – This option is the most secure in that the credentials are never stored.   Of course, this means that you must re-enter the credentials every time you open the project.</p>
+<p><code>Not Stored</code> – This option is the most secure in that the credentials are never stored.   Of course, this means that
+you must re-enter the credentials every time you open the project.</p>
 </li>
 </ul>
-<p>For this project, you will choose the <code>Store Encrypted in Project File</code> option to make it easier on readers running on Linux.</p>
-<h3 id="oracle-fusion-middleware-domain-target-location">Oracle Fusion Middleware Domain Target Location</h3>
-<p>WebLogic Kubernetes Operator (WKO) has three mechanisms for storing the WebLogic domain directory for use in Kubernetes:</p>
+<p>For this project, you will choose the <code>Store Encrypted in Project File</code> option to make it easier.</p>
+<h3 id="oracle-fusion-middleware-target-domain-location">Oracle Fusion Middleware Target Domain Location<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>WebLogic Kubernetes Operator (WKO) has two mechanisms for storing the WebLogic domain directory for use in Kubernetes:</p>
 <ul>
 <li>
-<p><code>Created in the container from the model in the image</code> – With this option, you provide a WebLogic Deploy Tooling (WDT) model of the domain and a WDT installer in an image, and the WebLogic Kubernetes Operator will create and update the domain for you.  This option is also called Model-in-Image (MII) and WKO calls it FromModel.</p>
+<p><code>Model-in-Image with Auxiliary Image</code> – With this option, you provide a WebLogic Deploy Tooling (WDT) model of the
+domain and a WDT installer in an auxiliary image, and the WebLogic Kubernetes Operator will create and update the
+domain for you.  This option is also called Model-in-Image (MII) and WKO calls it FromModel.</p>
 </li>
 <li>
-<p><code>Created as part of the image</code> – With this option, you provide a WebLogic Deploy Tooling (WDT) model of the domain and a WDT installer to the WebLogic Image Tool (WIT) while creating the image, and WIT creates the domain inside the image.  This option is also called Domain-in-Image (DII) and WKO calls it Image.  <strong>NOTE</strong>: WKO has deprecated this option.</p>
-</li>
-<li>
-<p><code>Externally created in a Kubernetes persistent volume</code> – With this option, you must create a Kubernetes persistent volume and create the domain on that persistent volume.  This option is also called Domain-on-PV (DoPV) and WKO calls it PersistentVolume.</p>
+<p><code>Domain on Persistent Volume</code> – With this option, you must create a Kubernetes persistent volume and create the domain
+on that persistent volume.  This option is also called Domain-on-PV (DoPV) and WKO calls it PersistentVolume.</p>
 </li>
 </ul>
-<p>The ToDo List application requires only WebLogic Server and fits well with the Model-in-Image mechanism, so select <code>Created in the container from the model in the image</code>.</p>
-<h3 id="kubernetes-cluster-target-type">Kubernetes Cluster Target Type</h3>
-<p>This is where you must choose whether to deploy directly using a Kubernetes cluster, where you install <code>WebLogic Kubernetes Operator</code> and an Ingress controller, or to deploy to <code>Verrazzano</code>.  Because the Quick Start guide covers both tracks, choose the option that matches the track you plan to follow.</p>
-<h3 id="java-installation">Java Installation</h3>
-<p>You need to tell WKTUI which Java installation to use when running actions that require the WebLogic Deploy Tooling or WebLogic Image Tool.  For this project, choose the Java Home directory for your Oracle JDK 11 directory.</p>
-<h3 id="oracle-fusion-middleware-installation">Oracle Fusion Middleware Installation</h3>
-<p>Running the WebLogic Deploy Tooling requires an Oracle Home directory.  As such, you must tell WKTUI which Oracle Home directory contains the Oracle Fusion Middleware software you plan to use.  Because this project uses WebLogic Server (WLS) 14.1.1, set this field to the directory containing your WLS 14.1.1 installation.</p>
-<h3 id="image-builder-tool">Image Builder Tool</h3>
-<p>Because you will be building an image as part of this project, you need to tell WKTUI whether you will use Docker or Podman to build your image.  You also need to provide the path to the executable that matches your selection.  Because you are running Rancher Desktop on macOS, you will select Docker and supply the Docker executable (for example, <code>/Users/fred.jones/.rd/bin/docker</code>).  Provide the answers that best fit your environment.</p>
-<p>Now that your project settings are mostly complete, use the <code>File</code> menu, <code>Save All</code> option to save the project before you move on to creating the model for your domain.  WKTUI will prompt you for the encryption passphrase you want to use with this project.  Choose whatever value you like; just try not to forget it!</p>
+<p>The ToDo List application requires only WebLogic Server and fits well with the Model-in-Image mechanism, so select
+<code>Model-in-Image with Auxiliary Image</code>.</p>
+<h3 id="weblogic-deploy-tooling-archive-plug-in">WebLogic Deploy Tooling Archive Plug-in<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>The application has 3 different plug-ins for handling the WebLogic Deployment Tooling model archive file with differing
+trade-offs.</p>
+<ul>
+<li><code>JavaScript JSZip Library</code> - This is the original JavaScript module used to handling the archive file.  It has a
+limitation of only working with archive files smaller than 2 GB.</li>
+<li><code>JavaScript zip.js Library</code> - Added in 2.0.0, this JavaScript module eliminates the <code>JSZip</code> 2 GB limitation, but it
+does not support in-place editing.  As such, it requires extra disk place to temporarily hold the updated archive
+file before it is moved to overwrite the original archive file.</li>
+<li><code>WebLogic Deploy Tooling Archive Helper Tool</code> - Added in 2.0.0, this option uses the <code>WDT Archive Helper Tool</code> to
+handle the large file, which eliminates both the <code>JSZip</code> 2 GB and <code>zip.js</code> lack of in-place editing support. However,
+it does require a valid <code>Java Home</code> location to be provided.</li>
+</ul>
+<p>Since the ToDo List application and domain has a very small archive file, leave the default selection of
+<code>JavaScript JSZip Library</code>.</p>
+<h3 id="java-installation">Java Installation<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>You need to tell WKT UI which Java installation to use when running actions that require the WebLogic Deploy Tooling or
+WebLogic Image Tool.  For this project, choose the Java Home directory for your Oracle JDK 11 directory.</p>
+<h3 id="oracle-fusion-middleware-installation">Oracle Fusion Middleware Installation<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>Running the WebLogic Deploy Tooling requires an Oracle Home directory.  As such, you must tell WKT UI which Oracle Home
+directory contains the Oracle Fusion Middleware software you plan to use.  Because this project uses WebLogic Server
+(WLS) 14.1.x or 15.1.x, set this field to the directory containing your desired WLS installation.</p>
+<h3 id="image-builder-tool">Image Builder Tool<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>Because you will be building an image as part of this project, you need to tell WKT UI whether you will use Docker or
+Podman to build your image.  You also need to provide the path to the executable that matches your selection.</p>
+<p>For example, if you are running Rancher Desktop on macOS, select Docker and supply the Docker executable (for example,
+<code>/Users/fred.jones/.rd/bin/docker</code>).  Provide the answers that best fit your environment.</p>
+<h3 id="target-kubernetes-cluster-architecture">Target Kubernetes Cluster Architecture<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>This section allows you to select the chip architecture used in your Kubernetes cluster. Since the default value is
+<code>Intel/AMD (linux/amd64)</code>, there is nothing you need to change here.</p>
+<h3 id="container-image-registry-credentials">Container Image Registry Credentials<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>This sections allows you to enter information about container image registries that you will use in the project.  For
+now, leave this empty and we will fill it in as we go through the guide.</p>
+<p>Now that your project settings are mostly complete, use the <code>File</code> menu, <code>Save All</code> option to save the project before
+you move on to creating the model for your domain.  WKT UI will prompt you for the encryption passphrase you want to
+use with this project.  Choose whatever value you like; just try not to forget it!</p>
 
-
-<footer class="footline">
-	
-</footer>
-
-        
+  <footer class="footline">
+  </footer>
+</article>
         </div>
-        
+      </main>
+    </div>
+    <aside id="R-sidebar" class="default-animation">
+      <div id="R-header-topbar" class="default-animation"></div>
+      <div id="R-header-wrapper" class="default-animation">
+        <div id="R-header" class="default-animation">
 
+<a id="logo" href="https://oracle.github.io/weblogic-toolkit-ui/">
+  <img src="https://oracle.github.io/weblogic-toolkit-ui//images/logo.png" height="90"><br/>
+  WebLogic Kubernetes Toolkit UI
+</a>
+
+        </div>
+        <search><form action="/weblogic-toolkit-ui/search/index.html" method="get">
+          <div class="searchbox default-animation">
+            <button class="search-detail" type="submit" title="Search (CTRL+ALT+f)"><i class="fas fa-search"></i></button>
+            <label class="a11y-only" for="R-search-by">Search</label>
+            <input data-search-input id="R-search-by" name="search-by" class="search-by" type="search" placeholder="Search...">
+            <button class="search-clear" type="button" data-search-clear="" title="Clear search"><i class="fas fa-times" title="Clear search"></i></button>
+          </div>
+        </form></search>
       </div>
-
-    <div id="navigation">
-        
-        
-
-        
-            
-            
-                
-                    
-                    
-                
-                
-
-                    
-                    
-                        
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                    
-                
-                
-
-                    
-                    
-                        
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                    
-                
-                
-
-                    
-                    
-                        
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                        
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-            
-        
-
-        
-
-
-	 
-	 
-		
-			<a class="nav nav-prev" href="/weblogic-toolkit-ui/setup/quickstart/set-up-wktui-app/" title="Set up the WKTUI application"> <i class="fa fa-chevron-left"></i></a>
-		
-		
-			<a class="nav nav-next" href="/weblogic-toolkit-ui/setup/quickstart/create-wdt-model/" title="Create the WebLogic Deploy Tooling model" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
-		
-	
-    </div>
-
-    </section>
-
-    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
-      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
-    </div>
-    <script src="/weblogic-toolkit-ui/js/clipboard.min.js?1769399741"></script>
-    <script src="/weblogic-toolkit-ui/js/perfect-scrollbar.min.js?1769399741"></script>
-    <script src="/weblogic-toolkit-ui/js/perfect-scrollbar.jquery.min.js?1769399741"></script>
-    <script src="/weblogic-toolkit-ui/js/jquery.sticky.js?1769399741"></script>
-    <script src="/weblogic-toolkit-ui/js/featherlight.min.js?1769399741"></script>
-    <script src="/weblogic-toolkit-ui/js/highlight.pack.js?1769399741"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/weblogic-toolkit-ui/js/modernizr.custom-3.6.0.js?1769399741"></script>
-    <script src="/weblogic-toolkit-ui/js/learn.js?1769399741"></script>
-    <script src="/weblogic-toolkit-ui/js/hugo-learn.js?1769399741"></script>
-    
-        
-            <script src="/weblogic-toolkit-ui/mermaid/mermaid.js?1769399741"></script>
-        
-        <script>
-            mermaid.initialize({ startOnLoad: true });
-        </script>
-    
-    
-
+      <div id="R-homelinks" class="default-animation homelinks">
+        <div class="R-menu-divider default-animation">
+          <hr class="padding">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-homelinks">
+          <ul class="space collapsible-menu">
+            <li class="" data-nav-url="/weblogic-toolkit-ui/index.html"><a class="padding" href="/weblogic-toolkit-ui/index.html"><i class="fa-fw fas fa-home"></i> Home</a></li>
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-headercontrols">
+          <ul class="">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding">
+        </div>
+      </div>
+      <div id="R-content-wrapper" class="highlightable">
+        <div class="R-sidebarmenu R-shortcutmenu-main">
+          <ul class="enlarge morespace collapsible-menu">
+            <li class="" data-nav-url="/weblogic-toolkit-ui/concepts/index.html"><a class="padding" href="/weblogic-toolkit-ui/concepts/index.html"><b> </b>About the WKT UI Application</a></li>
+            <li class="parent " data-nav-url="/weblogic-toolkit-ui/setup/index.html"><a class="padding" href="/weblogic-toolkit-ui/setup/index.html"><b> </b>Get Started</a><ul id="R-subsections-8e7001ce8f309164630b1295cd92dc36" class="collapsible-menu">
+            <li class="" data-nav-url="/weblogic-toolkit-ui/setup/prerequisites/index.html"><a class="padding" href="/weblogic-toolkit-ui/setup/prerequisites/index.html">Prerequisites</a></li>
+            <li class="" data-nav-url="/weblogic-toolkit-ui/setup/install/index.html"><a class="padding" href="/weblogic-toolkit-ui/setup/install/index.html">Install WKT UI</a></li>
+            <li class="parent alwaysopen " data-nav-url="/weblogic-toolkit-ui/setup/quickstart/index.html"><a class="padding" href="/weblogic-toolkit-ui/setup/quickstart/index.html"><b> </b>Quick Start Guide</a><ul id="R-subsections-f067154f92e66ec2444a9541b538a082" class="collapsible-menu">
+            <li class="" data-nav-url="/weblogic-toolkit-ui/setup/quickstart/prereqs/index.html"><a class="padding" href="/weblogic-toolkit-ui/setup/quickstart/prereqs/index.html">Prerequisites</a></li>
+            <li class="" data-nav-url="/weblogic-toolkit-ui/setup/quickstart/get-todo-app/index.html"><a class="padding" href="/weblogic-toolkit-ui/setup/quickstart/get-todo-app/index.html">Get the ToDo List sample application</a></li>
+            <li class="" data-nav-url="/weblogic-toolkit-ui/setup/quickstart/set-up-wktui-app/index.html"><a class="padding" href="/weblogic-toolkit-ui/setup/quickstart/set-up-wktui-app/index.html">Set up the WKT UI application</a></li>
+            <li class="active " data-nav-url="/weblogic-toolkit-ui/setup/quickstart/project-settings/index.html"><a class="padding" href="/weblogic-toolkit-ui/setup/quickstart/project-settings/index.html">Select the Project Settings</a></li>
+            <li class="" data-nav-url="/weblogic-toolkit-ui/setup/quickstart/create-wdt-model/index.html"><a class="padding" href="/weblogic-toolkit-ui/setup/quickstart/create-wdt-model/index.html">Create the WebLogic Deploy Tooling model</a></li>
+            <li class="" data-nav-url="/weblogic-toolkit-ui/setup/quickstart/create-images-with-wit/index.html"><a class="padding" href="/weblogic-toolkit-ui/setup/quickstart/create-images-with-wit/index.html">Create images with the WebLogic Image Tool</a></li>
+            <li class="alwaysopen " data-nav-url="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/index.html"><a class="padding" href="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/index.html"><b> </b>WebLogic Kubernetes Operator</a><ul id="R-subsections-f0010b18167c697094d50bacbb942637" class="collapsible-menu"></ul></li>
+            <li class="" data-nav-url="/weblogic-toolkit-ui/setup/quickstart/qs-summary/index.html"><a class="padding" href="/weblogic-toolkit-ui/setup/quickstart/qs-summary/index.html"><b> </b>Summary</a></li>
+            <li class="alwaysopen " data-nav-url="/weblogic-toolkit-ui/setup/quickstart/qs-advanced/index.html"><a class="padding" href="/weblogic-toolkit-ui/setup/quickstart/qs-advanced/index.html"><b> </b>Advanced</a><ul id="R-subsections-5b6b48a6d71ebf0b03073bf308889934" class="collapsible-menu"></ul></li></ul></li></ul></li>
+            <li class="" data-nav-url="/weblogic-toolkit-ui/navigate/index.html"><a class="padding" href="/weblogic-toolkit-ui/navigate/index.html"><b> </b>Navigate the UI</a><ul id="R-subsections-87ab2e1bf80095f6190ff210454fc27d" class="collapsible-menu"></ul></li>
+            <li class="" data-nav-url="/weblogic-toolkit-ui/developer/index.html"><a class="padding" href="/weblogic-toolkit-ui/developer/index.html"><b> </b>Developer Guide</a></li>
+            <li class="" data-nav-url="/weblogic-toolkit-ui/release/index.html"><a class="padding" href="/weblogic-toolkit-ui/release/index.html"><b> </b>Release Notes</a><ul id="R-subsections-708032c5b8904dd637c09e0f5f530a6a" class="collapsible-menu"></ul></li>
+          </ul>
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-shortcuts">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div id="R-footer-margin"></div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-footercontrols">
+          <ul class="">
+          </ul>
+        </div>
+<div id="R-footer">
+
+<p>Created with <i class="fas fa-heart"></i> from <a href="https://www.oracle.com">Oracle</a></p>
+<p>&nbsp</p>
+<p><a href="https://github.com/oracle/weblogic-toolkit-ui"><i class="fab fa-github"></i> GitHub repo</a></p>
+<p><a href="https://join.slack.com/t/oracle-weblogic/shared_invite/zt-1ni1gtjv6-PGC6CQ4uIte3KBdm_67~aQ"><i class="fab fa-slack"></i> Public Slack #weblogic</a></p>
+</div>
+      </div>
+    </aside>
+    <script src="/weblogic-toolkit-ui/js/perfect-scrollbar/perfect-scrollbar.min.js?1769457254" defer></script>
+    <script src="/weblogic-toolkit-ui/js/theme.min.js?1769457254" defer></script>
+    <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
   </body>
 </html>
-

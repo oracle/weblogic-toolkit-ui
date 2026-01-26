@@ -1,2705 +1,426 @@
 <!DOCTYPE html>
-<html lang="en" class="js csstransforms3d">
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.88.1" />
-    <meta name="description" content="">
-
-
-    <link rel="icon" href="/weblogic-toolkit-ui/images/favicon.png" type="image/png">
-
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="generator" content="Hugo 0.152.2">
+    <meta name="generator" content="Relearn 8.3.0">
+    <meta name="description" content="WKT UI uses the WebLogic Image Tool (WIT) to build container images. Each Oracle Fusion Middleware (FMW) Domain Target Location option has its own image requirements.
+Model-in-Image (MII) – This approach puts Java and WebLogic Server into one image, which WKT UI calls the primary image, and WDT and the WDT model files into a separate image, known as the auxiliary image. In this document, we refer to this as MII with Auxiliary Image. Since WKT UI 2.0.0 removed support for MII without the use of an Auxiliary Image, all references to Model-in-Image or MII are meant to reference Model-in-Image with Auxiliary Image. Domain-on-PV (DoPV) – This approach uses a single image with Java and FMW in it. The domain is created on the persistent volume by external means or by using a Domain Creation Image, which is conceptually similar to an auxiliary image. A domain creation image, like an auxiliary image, has a WDT installer and WDT model files to define the domain. WebLogic Kubernetes Operator uses the domain creation image to create the initial domain on the persistent volume only if the domain directory does not already exist. Once the domain is created, all configuration changes are managed by the domain administrator, similar to how on premises domains are managed. The only difference is that server lifecycle is managed by WebLogic Kubernetes Operator and Kubernetes. Both MII with Auxiliary Image and Domain-on-PV have an image containing only software (Java and WebLogic Server/FMW) with no configuration. This provides several important, operational advantages:">
+    <meta name="author" content="">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Create images with the WebLogic Image Tool :: WebLogic Kubernetes Toolkit UI">
+    <meta name="twitter:description" content="WKT UI uses the WebLogic Image Tool (WIT) to build container images. Each Oracle Fusion Middleware (FMW) Domain Target Location option has its own image requirements.
+Model-in-Image (MII) – This approach puts Java and WebLogic Server into one image, which WKT UI calls the primary image, and WDT and the WDT model files into a separate image, known as the auxiliary image. In this document, we refer to this as MII with Auxiliary Image. Since WKT UI 2.0.0 removed support for MII without the use of an Auxiliary Image, all references to Model-in-Image or MII are meant to reference Model-in-Image with Auxiliary Image. Domain-on-PV (DoPV) – This approach uses a single image with Java and FMW in it. The domain is created on the persistent volume by external means or by using a Domain Creation Image, which is conceptually similar to an auxiliary image. A domain creation image, like an auxiliary image, has a WDT installer and WDT model files to define the domain. WebLogic Kubernetes Operator uses the domain creation image to create the initial domain on the persistent volume only if the domain directory does not already exist. Once the domain is created, all configuration changes are managed by the domain administrator, similar to how on premises domains are managed. The only difference is that server lifecycle is managed by WebLogic Kubernetes Operator and Kubernetes. Both MII with Auxiliary Image and Domain-on-PV have an image containing only software (Java and WebLogic Server/FMW) with no configuration. This provides several important, operational advantages:">
+    <meta property="og:url" content="https://oracle.github.io/weblogic-toolkit-ui/setup/quickstart/create-images-with-wit/index.html">
+    <meta property="og:site_name" content="WebLogic Kubernetes Toolkit UI">
+    <meta property="og:title" content="Create images with the WebLogic Image Tool :: WebLogic Kubernetes Toolkit UI">
+    <meta property="og:description" content="WKT UI uses the WebLogic Image Tool (WIT) to build container images. Each Oracle Fusion Middleware (FMW) Domain Target Location option has its own image requirements.
+Model-in-Image (MII) – This approach puts Java and WebLogic Server into one image, which WKT UI calls the primary image, and WDT and the WDT model files into a separate image, known as the auxiliary image. In this document, we refer to this as MII with Auxiliary Image. Since WKT UI 2.0.0 removed support for MII without the use of an Auxiliary Image, all references to Model-in-Image or MII are meant to reference Model-in-Image with Auxiliary Image. Domain-on-PV (DoPV) – This approach uses a single image with Java and FMW in it. The domain is created on the persistent volume by external means or by using a Domain Creation Image, which is conceptually similar to an auxiliary image. A domain creation image, like an auxiliary image, has a WDT installer and WDT model files to define the domain. WebLogic Kubernetes Operator uses the domain creation image to create the initial domain on the persistent volume only if the domain directory does not already exist. Once the domain is created, all configuration changes are managed by the domain administrator, similar to how on premises domains are managed. The only difference is that server lifecycle is managed by WebLogic Kubernetes Operator and Kubernetes. Both MII with Auxiliary Image and Domain-on-PV have an image containing only software (Java and WebLogic Server/FMW) with no configuration. This provides several important, operational advantages:">
+    <meta property="og:locale" content="en_us">
+    <meta property="og:type" content="article">
+    <meta property="article:section" content="Get Started">
+    <meta property="article:published_time" content="2019-02-22T15:44:42-05:00">
+    <meta property="article:modified_time" content="2019-02-22T15:44:42-05:00">
+    <meta itemprop="name" content="Create images with the WebLogic Image Tool :: WebLogic Kubernetes Toolkit UI">
+    <meta itemprop="description" content="WKT UI uses the WebLogic Image Tool (WIT) to build container images. Each Oracle Fusion Middleware (FMW) Domain Target Location option has its own image requirements.
+Model-in-Image (MII) – This approach puts Java and WebLogic Server into one image, which WKT UI calls the primary image, and WDT and the WDT model files into a separate image, known as the auxiliary image. In this document, we refer to this as MII with Auxiliary Image. Since WKT UI 2.0.0 removed support for MII without the use of an Auxiliary Image, all references to Model-in-Image or MII are meant to reference Model-in-Image with Auxiliary Image. Domain-on-PV (DoPV) – This approach uses a single image with Java and FMW in it. The domain is created on the persistent volume by external means or by using a Domain Creation Image, which is conceptually similar to an auxiliary image. A domain creation image, like an auxiliary image, has a WDT installer and WDT model files to define the domain. WebLogic Kubernetes Operator uses the domain creation image to create the initial domain on the persistent volume only if the domain directory does not already exist. Once the domain is created, all configuration changes are managed by the domain administrator, similar to how on premises domains are managed. The only difference is that server lifecycle is managed by WebLogic Kubernetes Operator and Kubernetes. Both MII with Auxiliary Image and Domain-on-PV have an image containing only software (Java and WebLogic Server/FMW) with no configuration. This provides several important, operational advantages:">
+    <meta itemprop="datePublished" content="2019-02-22T15:44:42-05:00">
+    <meta itemprop="dateModified" content="2019-02-22T15:44:42-05:00">
+    <meta itemprop="wordCount" content="1539">
     <title>Create images with the WebLogic Image Tool :: WebLogic Kubernetes Toolkit UI</title>
-
-    
-    <link href="/weblogic-toolkit-ui/css/nucleus.css?1769399741" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/fontawesome-all.min.css?1769399741" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/hybrid.css?1769399741" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/featherlight.min.css?1769399741" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/perfect-scrollbar.min.css?1769399741" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/auto-complete.css?1769399741" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/atom-one-dark-reasonable.css?1769399741" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/theme.css?1769399741" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/tabs.css?1769399741" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/hugo-theme.css?1769399741" rel="stylesheet">
-    
-    <link href="/weblogic-toolkit-ui/css/theme-wktui.css?1769399741" rel="stylesheet">
-
-    <script src="/weblogic-toolkit-ui/js/jquery-3.3.1.min.js?1769399741"></script>
-
-    <style>
-      :root #header + #content > #left > #rlblock_left{
-          display:none !important;
-      }
-      
-        :not(pre) > code + span.copy-to-clipboard {
-            display: none;
+    <link href="/weblogic-toolkit-ui/images/logo.png?1769457254" rel="icon" type="image/png">
+    <link href="/weblogic-toolkit-ui/css/auto-complete/auto-complete.min.css?1769457254" rel="stylesheet">
+    <script src="/weblogic-toolkit-ui/js/auto-complete/auto-complete.min.js?1769457254" defer></script>
+    <script src="/weblogic-toolkit-ui/js/search-lunr.min.js?1769457254" defer></script>
+    <script src="/weblogic-toolkit-ui/js/search.min.js?1769457254" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.index_js_url="/weblogic-toolkit-ui/searchindex.en.js?1769457254";
+    </script>
+    <script src="/weblogic-toolkit-ui/js/lunr/lunr.min.js?1769457254" defer></script>
+    <script src="/weblogic-toolkit-ui/js/lunr/lunr.stemmer.support.min.js?1769457254" defer></script>
+    <script src="/weblogic-toolkit-ui/js/lunr/lunr.multi.min.js?1769457254" defer></script>
+    <script src="/weblogic-toolkit-ui/js/lunr/lunr.en.min.js?1769457254" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.contentLangs=['en'];
+    </script>
+    <link href="/weblogic-toolkit-ui/fonts/fontawesome/css/fontawesome-all.min.css?1769457254" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/weblogic-toolkit-ui/fonts/fontawesome/css/fontawesome-all.min.css?1769457254" rel="stylesheet"></noscript>
+    <link href="/weblogic-toolkit-ui/css/perfect-scrollbar/perfect-scrollbar.min.css?1769457254" rel="stylesheet">
+    <link href="/weblogic-toolkit-ui/css/theme.min.css?1769457254" rel="stylesheet">
+    <link href="/weblogic-toolkit-ui/css/format-html.min.css?1769457254" rel="stylesheet" id="R-format-style">
+    <script>
+      window.relearn = window.relearn || {};
+      // configuration
+      window.relearn.min = `.min`;
+      window.relearn.path='\/setup\/quickstart\/create-images-with-wit\/index.html';
+      window.relearn.relBasePath='..\/..\/..';
+      window.relearn.relBaseUri='..\/..\/..\/..';
+      window.relearn.absBaseUri='https:\/\/oracle.github.io\/weblogic-toolkit-ui';
+      window.relearn.disableInlineCopyToClipboard=true;
+      window.relearn.enableBlockCodeWrap=true;
+      // legal
+      window.relearn.getItem = (s,n) => {return s.getItem(n)};
+      window.relearn.setItem = (s,n,v) => {return s.setItem(n,v)};
+      window.relearn.removeItem = (s,n) => {return s.removeItem(n)};
+      // translations
+      window.T_Copy_to_clipboard = `Copy text to clipboard`;
+      window.T_Copied_to_clipboard = `Text copied to clipboard!`;
+      window.T_Link_copied_to_clipboard = `Link copied to clipboard!`;
+      window.T_Reset_view = `Reset view`;
+      window.T_View_reset = `View reset!`;
+      window.T_No_results_found = `No results found for "{0}"`;
+      window.T_N_results_found = `{1} results found for "{0}"`;
+      window.T_Browser_unsupported_feature = `This browser doesn't support this feature`;
+      // variant stuff
+      window.relearn.themevariants = [ 'learn' ];
+      window.relearn.customvariantname = "my-custom-variant";
+      window.relearn.changeVariant = function(variant) {
+        var oldVariant = document.documentElement.dataset.rThemeVariant;
+        window.relearn.setItem(window.localStorage, window.relearn.absBaseUri + "/variant", variant);
+        document.documentElement.dataset.rThemeVariant = variant;
+        if (oldVariant != variant) {
+          document.dispatchEvent( new CustomEvent('themeVariantLoaded', { detail: { variant, oldVariant } }) );
+          window.relearn.markVariant();
         }
-      
-    </style>
-    
+      }
+      window.relearn.markVariant = function() {
+        var variant = window.relearn.getItem(window.localStorage, window.relearn.absBaseUri + "/variant");
+        document.querySelectorAll(".R-variantswitcher select").forEach((select) => {select.value = variant;});
+      }
+      window.relearn.initVariant = function() {
+        var variant = window.relearn.getItem(window.localStorage, window.relearn.absBaseUri + "/variant") ?? "";
+        if( variant == window.relearn.customvariantname ){
+        }else if( !variant || !window.relearn.themevariants.includes(variant) ){
+          variant = window.relearn.themevariants[0];
+          window.relearn.setItem(window.localStorage, window.relearn.absBaseUri + "/variant", variant);
+        }
+        document.documentElement.dataset.rThemeVariant = variant;
+      }
+      window.relearn.initVariant();
+      window.relearn.markVariant();
+    </script>
   </head>
-  <body class="" data-url="/weblogic-toolkit-ui/setup/quickstart/create-images-with-wit/">
-    <nav id="sidebar" class="">
-
-
-
-  <div id="header-wrapper">
-    <div id="header">
-      <a id="logo" href="https://oracle.github.io/weblogic-toolkit-ui">
-  <img src="https://oracle.github.io/weblogic-toolkit-ui/images/logo.png" height="90"><br/>
-  WebLogic Kubernetes Toolkit UI
-</a>
-
-    </div>
-    
-        <div class="searchbox">
-    <label for="search-by"><i class="fas fa-search"></i></label>
-    <input data-search-input id="search-by" type="search" placeholder="Search...">
-    <span data-search-clear=""><i class="fas fa-times"></i></span>
-</div>
-
-<script type="text/javascript" src="/weblogic-toolkit-ui/js/lunr.min.js?1769399741"></script>
-<script type="text/javascript" src="/weblogic-toolkit-ui/js/auto-complete.js?1769399741"></script>
-<script type="text/javascript">
-    
-        var baseurl = "https:\/\/oracle.github.io\/weblogic-toolkit-ui";
-    
-</script>
-<script type="text/javascript" src="/weblogic-toolkit-ui/js/search.js?1769399741"></script>
-
-    
-  </div>
-  
-    <section id="homelinks">
-      <ul>
-        <li>
-            <a class="padding" href='https://oracle.github.io/weblogic-toolkit-ui'><i class='fas fa-home'></i> Home</a>
-        </li>
-      </ul>
-    </section>
-  
-
-    <div class="highlightable">
-    <ul class="topics">
-
-        
-          
-          
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/weblogic-toolkit-ui/concepts/" title="About the WKT UI Application" class="dd-item
-        
-        
-        
-        ">
-      <a href="/weblogic-toolkit-ui/concepts/">
-          <b> </b>About the WKT UI Application
-          
-      </a>
-      
-      
-    </li>
-  
- 
-
-          
-          
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/weblogic-toolkit-ui/setup/" title="Get Started" class="dd-item
-        parent
-        
-        
-        ">
-      <a href="/weblogic-toolkit-ui/setup/">
-          <b> </b>Get Started
-          
-      </a>
-      
-      
-        <ul>
-          
-          
-            
-          
-          
-
-        
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/prerequisites/" title="Prerequisites" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/prerequisites/">
-        Prerequisites
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/install/" title="Install WKT UI" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/install/">
-        Install WKT UI
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/" title="Quick Start Guide" class="dd-item
-        parent
-        
-        
-        ">
-      <a href="/weblogic-toolkit-ui/setup/quickstart/">
-          <b> </b>Quick Start Guide
-          
-      </a>
-      
-      
-        <ul>
-          
-          
-            
-          
-          
-
-        
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/prereqs/" title="Prerequisites" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/prereqs/">
-        Prerequisites
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/get-todo-app/" title="Get the ToDo List sample application" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/get-todo-app/">
-        Get the ToDo List sample application
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/set-up-wktui-app/" title="Set up the WKTUI application" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/set-up-wktui-app/">
-        Set up the WKTUI application
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/project-settings/" title="Select the Project Settings" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/project-settings/">
-        Select the Project Settings
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/create-wdt-model/" title="Create the WebLogic Deploy Tooling model" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/create-wdt-model/">
-        Create the WebLogic Deploy Tooling model
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/create-images-with-wit/" title="Create images with the WebLogic Image Tool" class="dd-item active">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/create-images-with-wit/">
-        Create images with the WebLogic Image Tool
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/" title="WebLogic Kubernetes Operator" class="dd-item
-        
-        
-        
-        ">
-      <a href="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/">
-          <b> </b>WebLogic Kubernetes Operator
-          
-      </a>
-      
-      
-        <ul>
-          
-          
-          
-
-        
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-client-config/" title="Configure Kubernetes Cluster Connectivity" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-client-config/">
-        Configure Kubernetes Cluster Connectivity
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-wko/" title="Install the WebLogic Kubernetes Operator" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-wko/">
-        Install the WebLogic Kubernetes Operator
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-weblogic-domain/" title="Deploy the Domain" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-weblogic-domain/">
-        Deploy the Domain
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-ingress-controller/" title="Install and Configure the Ingress Controller" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-ingress-controller/">
-        Install and Configure the Ingress Controller
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-access-app/" title="Access the ToDo List application" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/k8s-access-app/">
-        Access the ToDo List application
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-        
-        </ul>
-      
-    </li>
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/" title="Verrazzano" class="dd-item
-        
-        
-        
-        ">
-      <a href="/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/">
-          <b> </b>Verrazzano
-          
-      </a>
-      
-      
-        <ul>
-          
-          
-          
-
-        
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-client-config/" title="Configure Kubernetes Cluster Connectivity" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-client-config/">
-        Configure Kubernetes Cluster Connectivity
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-install/" title="Install Verrazzano" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-install/">
-        Install Verrazzano
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-component/" title="Deploy the Verrazzano Component for the WebLogic Domain" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-component/">
-        Deploy the Verrazzano Component for the WebLogic Domain
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-application/" title="Deploy the Verrazzano Application" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-application/">
-        Deploy the Verrazzano Application
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-access-app/" title="Access the ToDo List application" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/qs-verrazzano/vz-access-app/">
-        Access the ToDo List application
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-        
-        </ul>
-      
-    </li>
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-summary/" title="Summary" class="dd-item
-        
-        
-        
-        ">
-      <a href="/weblogic-toolkit-ui/setup/quickstart/qs-summary/">
-          <b> </b>Summary
-          
-      </a>
-      
-      
-    </li>
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-advanced/" title="Advanced" class="dd-item
-        
-        
-        
-        ">
-      <a href="/weblogic-toolkit-ui/setup/quickstart/qs-advanced/">
-          <b> </b>Advanced
-          
-      </a>
-      
-      
-        <ul>
-          
-          
-          
-
-        
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-advanced/offline-discover/" title="Offline Discover" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/qs-advanced/offline-discover/">
-        Offline Discover
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/setup/quickstart/qs-advanced/online-remote-discover/" title="Online Remote Discover" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/setup/quickstart/qs-advanced/online-remote-discover/">
-        Online Remote Discover
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-        
-        </ul>
-      
-    </li>
-  
- 
-
-            
-          
-        
-        </ul>
-      
-    </li>
-  
- 
-
-            
-          
-        
-        </ul>
-      
-    </li>
-  
- 
-
-          
-          
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/weblogic-toolkit-ui/navigate/" title="Navigate the UI" class="dd-item
-        
-        
-        
-        ">
-      <a href="/weblogic-toolkit-ui/navigate/">
-          <b> </b>Navigate the UI
-          
-      </a>
-      
-      
-        <ul>
-          
-          
-            
-          
-          
-
-        
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/navigate/project-settings/" title="Project Settings" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/navigate/project-settings/">
-        Project Settings
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/navigate/model/" title="Model" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/navigate/model/">
-        Model
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/navigate/image/" title="Image" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/navigate/image/">
-        Image
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/weblogic-toolkit-ui/navigate/kubernetes/" title="Kubernetes" class="dd-item
-        
-        
-        
-        ">
-      <a href="/weblogic-toolkit-ui/navigate/kubernetes/">
-          <b> </b>Kubernetes
-          
-      </a>
-      
-      
-        <ul>
-          
-          
-          
-
-        
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/navigate/kubernetes/k8s-client-config/" title="Client Configuration" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/navigate/kubernetes/k8s-client-config/">
-        Client Configuration
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/navigate/kubernetes/k8s-wko/" title="WebLogic Kubernetes Operator" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/navigate/kubernetes/k8s-wko/">
-        WebLogic Kubernetes Operator
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/navigate/kubernetes/k8s-weblogic-domain/" title="WebLogic Domain" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/navigate/kubernetes/k8s-weblogic-domain/">
-        WebLogic Domain
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/navigate/kubernetes/k8s-ingress-controller/" title="Ingress Controller" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/navigate/kubernetes/k8s-ingress-controller/">
-        Ingress Controller
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-        
-        </ul>
-      
-    </li>
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/weblogic-toolkit-ui/navigate/verrazzano/" title="Verrazzano" class="dd-item
-        
-        
-        
-        ">
-      <a href="/weblogic-toolkit-ui/navigate/verrazzano/">
-          <b> </b>Verrazzano
-          
-      </a>
-      
-      
-        <ul>
-          
-          
-          
-
-        
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/navigate/verrazzano/vz-client-config/" title="Client Configuration" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/navigate/verrazzano/vz-client-config/">
-        Client Configuration
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/navigate/verrazzano/vz-install/" title="Installation" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/navigate/verrazzano/vz-install/">
-        Installation
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/navigate/verrazzano/vz-component/" title="Component" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/navigate/verrazzano/vz-component/">
-        Component
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/navigate/verrazzano/vz-application/" title="Application" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/navigate/verrazzano/vz-application/">
-        Application
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-        
-        </ul>
-      
-    </li>
-  
- 
-
-            
-          
-        
-        </ul>
-      
-    </li>
-  
- 
-
-          
-          
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/weblogic-toolkit-ui/developer/" title="Developer Guide" class="dd-item
-        
-        
-        
-        ">
-      <a href="/weblogic-toolkit-ui/developer/">
-          <b> </b>Developer Guide
-          
-      </a>
-      
-      
-    </li>
-  
- 
-
-          
-          
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/weblogic-toolkit-ui/release/" title="Release Notes" class="dd-item
-        
-        
-        
-        ">
-      <a href="/weblogic-toolkit-ui/release/">
-          <b> </b>Release Notes
-          
-      </a>
-      
-      
-        <ul>
-          
-          
-          
-
-        
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.6.3/" title="Release 1.6.3" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.6.3/">
-        <b> </b>Release 1.6.3
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.7.0/" title="Release 1.7.0" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.7.0/">
-        <b> </b>Release 1.7.0
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.7.1/" title="Release 1.7.1" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.7.1/">
-        <b> </b>Release 1.7.1
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.6.2/" title="Release 1.6.2" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.6.2/">
-        <b> </b>Release 1.6.2
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.6.1/" title="Release 1.6.1" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.6.1/">
-        <b> </b>Release 1.6.1
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.5.3/" title="Release 1.5.3" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.5.3/">
-        <b> </b>Release 1.5.3
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.6.0/" title="Release 1.6.0" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.6.0/">
-        <b> </b>Release 1.6.0
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.5.2/" title="Release 1.5.2" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.5.2/">
-        <b> </b>Release 1.5.2
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.5.1/" title="Release 1.5.1" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.5.1/">
-        <b> </b>Release 1.5.1
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.5.0/" title="Release 1.5.0" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.5.0/">
-        <b> </b>Release 1.5.0
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.4.1/" title="Release 1.4.1" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.4.1/">
-        <b> </b>Release 1.4.1
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.4.0/" title="Release 1.4.0" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.4.0/">
-        <b> </b>Release 1.4.0
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.3.0/" title="Release 1.3.0" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.3.0/">
-        <b> </b>Release 1.3.0
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.2.0/" title="Release 1.2.0" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.2.0/">
-        <b> </b>Release 1.2.0
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.1.1/" title="Release 1.1.1" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.1.1/">
-        <b> </b>Release 1.1.1
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/weblogic-toolkit-ui/release/release-1.1.0/" title="Release 1.1.0" class="dd-item ">
-        <a href="/weblogic-toolkit-ui/release/release-1.1.0/">
-        Release 1.1.0
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-        
-        </ul>
-      
-    </li>
-  
- 
-
-          
-        
-    </ul>
-
-    
-    
-
-    
-    <section id="footer">
-      <p>Created with <i class="fas fa-heart"></i> from <a href="https://www.oracle.com">Oracle</a></p>
-<p>&nbsp</p>
-<p><a href="https://github.com/oracle/weblogic-toolkit-ui"><i class="fab fa-github"></i> GitHub repo</a></p>
-<p><a href="https://join.slack.com/t/oracle-weblogic/shared_invite/zt-1ni1gtjv6-PGC6CQ4uIte3KBdm_67~aQ"><i class="fab fa-slack"></i> Public Slack #weblogic</a></p>
-
-    </section>
-  </div>
-</nav>
-
-
-
-
-        <section id="body">
-        <div id="overlay"></div>
-        <div class="padding highlightable">
-              
-              <div>
-                <div id="top-bar">
-                
-                
-                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                    <span id="sidebar-toggle-span">
-                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
-                          <i class="fas fa-bars"></i>
-                        </a>
-                    </span>
-                  
-                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
-                  
-                  <span class="links">
-                 
-                 
-                    
-          
-          
-            
-            
-          
-          
-            
-            
-          
-          
-            
-            
-          
-          
-            <a href='/weblogic-toolkit-ui/'></a> > <a href='/weblogic-toolkit-ui/setup/'>Get Started</a> > <a href='/weblogic-toolkit-ui/setup/quickstart/'>Quick Start Guide</a> > Create images with the WebLogic Image Tool
-          
-        
-          
-        
-          
-        
-          
-        
-                 
-                  </span>
+  <body class="mobile-support html" data-url="/weblogic-toolkit-ui/setup/quickstart/create-images-with-wit/index.html">
+    <div id="R-body" class="default-animation">
+      <div id="R-body-overlay"></div>
+      <nav id="R-topbar">
+        <div class="topbar-wrapper">
+          <div class="topbar-sidebar-divider"></div>
+          <div class="topbar-area topbar-area-start" data-area="start">
+            <div class="topbar-button topbar-button-sidebar" data-content-empty="disable" data-width-s="show" data-width-m="hide" data-width-l="hide">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleNav()" type="button" title="Menu (CTRL&#43;ALT&#43;n)"><i class="fa-fw fas fa-bars"></i></button></span>
+            </div>
+            <div class="topbar-button topbar-button-toc" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Table of Contents (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-list-alt"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper"> 
                 </div>
-                
-                    <div class="progress">
-    <div class="wrapper">
-<nav id="TableOfContents"></nav>
-    </div>
-</div>
-
-                
               </div>
             </div>
-            
-        <div id="head-tags">
-        
+          </div>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/weblogic-toolkit-ui/index.html"><span itemprop="name">WebLogic Kubernetes Toolkit UI</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/weblogic-toolkit-ui/setup/index.html"><span itemprop="name">Get Started</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/weblogic-toolkit-ui/setup/quickstart/index.html"><span itemprop="name">Quick Start Guide</span></a><meta itemprop="position" content="3">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">Create images with the WebLogic Image Tool</span><meta itemprop="position" content="4"></li>
+          </ol>
+          <div class="topbar-area topbar-area-end" data-area="end">
+            <div class="topbar-button topbar-button-prev" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/weblogic-toolkit-ui/setup/quickstart/create-wdt-model/index.html" title="Create the WebLogic Deploy Tooling model (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-next" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/index.html" title="WebLogic Kubernetes Operator (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-more" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="More"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+                  <div class="topbar-area topbar-area-more" data-area="more">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        
-        <div id="body-inner">
-          
-            <h1>
-              
-              Create images with the WebLogic Image Tool
-            </h1>
-          
-
-        
+      </nav>
+      <div id="R-main-overlay"></div>
+      <main id="R-body-inner" class="highlightable setup" tabindex="-1">
+        <div class="flex-block-wrapper">
+<article class="default">
+  <header class="headline">
+  </header>
 
 
-<p>WKTUI uses the WebLogic Image Tool (WIT) to build container images.  Each Oracle Fusion Middleware (FMW) Domain Target Location option has its own image requirements.</p>
+
+<h1 id="create-images-with-the-weblogic-image-tool">Create images with the WebLogic Image Tool</h1>
+
+
+
+<p>WKT UI uses the WebLogic Image Tool (WIT) to build container images.  Each Oracle Fusion Middleware (FMW) Domain Target
+Location option has its own image requirements.</p>
 <ul>
-<li>Model-in-Image – MII has two approaches:
+<li><code>Model-in-Image</code> (MII) – This approach puts Java and WebLogic Server into one image, which WKT UI calls the primary
+image, and WDT and the WDT model files into a separate image, known as the auxiliary image.  In this document, we
+refer to this as MII with Auxiliary Image. Since WKT UI 2.0.0 removed support for MII without the use of an Auxiliary
+Image, all references to Model-in-Image or MII are meant to reference Model-in-Image with Auxiliary Image.</li>
+<li><code>Domain-on-PV</code> (DoPV) – This approach uses a single image with Java and FMW in it.  The domain is created on the persistent volume by
+external means or by using a Domain Creation Image, which is conceptually similar to an auxiliary image.  A domain
+creation image, like an auxiliary image, has a WDT installer and WDT model files to define the domain.  WebLogic
+Kubernetes Operator uses the domain creation image to create the initial domain on the persistent volume only if the
+domain directory does not already exist.  Once the domain is created, all configuration changes are managed by the
+domain administrator, similar to how on premises domains are managed.  The only difference is that server lifecycle
+is managed by WebLogic Kubernetes Operator and Kubernetes.</li>
+</ul>
+<p>Both MII with Auxiliary Image and Domain-on-PV have an image containing only software (Java and WebLogic Server/FMW)
+with no configuration.  This provides several important, operational advantages:</p>
 <ul>
-<li>Single Image – This approach uses a single image with Java, FMW, WDT, and the WDT model files all built into a single image.  In WKTUI, we use the <code>Primary Image</code> tab to build such an image.</li>
-<li>Dual Images – This approach puts Java and FMW into one image, which WKTUI calls the primary image, and WDT and the WDT model files into a separate image, known as the auxiliary image.  In this document, we refer to this as MII with Auxiliary Image.</li>
+<li>Multiple domains can share the same software-only image since no domain-specific configuration is included.  Updating
+hundreds of domains that all share the same image is as simple as updating the WebLogic Kubernetes Operator Domain
+custom resource specification to change the image.  WKO will detect this change and perform a rolling update of the
+domain, starting with the Administration Server.</li>
+<li>The Oracle Container Registry (OCR) distributes prebuilt images that you can use directly, after you log in and accept
+the terms and conditions.  Oracle customers with an active support contract can access prebuilt images with the
+latest set of recommended patches.  See 
+
+<a href="https://container-registry.oracle.com"
+   
+   
+target="_blank" rel="noopener noreferrer"
+>
+https://container-registry.oracle.com
+</a>
+ for more information about the prebuilt
+images and to accept the terms and conditions for the repositories of interest.</li>
 </ul>
-</li>
-<li>Domain-in-Image – DII uses a single image approach but uses WDT and the WDT model files to create the domain inside the image.</li>
-<li>Domain-on-PV – DoPV uses a single image with Java and FMW in it.  The domain is created on the persistent volume by external means.</li>
-</ul>
-<p>Both MII with Auxiliary Image and Domain-on-PV have an image containing only software (Java and FMW) with no configuration.  This provides several important, operational advantages:</p>
-<ul>
-<li>Multiple domains can share the same software-only image since no domain-specific configuration is included.  Updating hundreds of domains that all share the same image is as simple as updating the WebLogic Kubernetes Operator Domain custom resource specification to change the image.  WKO will detect this change and perform a rolling update of the domain, starting with the Administration Server.</li>
-<li>The Oracle Container Registry (OCR) distributes prebuilt images that you can use directly, after you log in and accept the terms and conditions.  Oracle customers with an active support contract can access prebuilt images with the latest set of recommended patches.  See <a href="https://container-registry.oracle.com">https://container-registry.oracle.com</a> for more information about the prebuilt images and to accept the terms and conditions for the repositories of interest.</li>
-</ul>
-<p>With DII and MII (without an auxiliary image), you would need to build new images for every domain to roll out a security fix across our entire set of domains.  For those with large numbers of domains, this becomes a heavy burden, leading to less secure environments.  To take advantage of these operational advantages, you will use MII with Auxiliary Image for the ToDo List domain.</p>
+<p>Because the ToDo List domain has no requirements that would lead us to use Domain-on-PV, you will use MII with Auxiliary
+Image for the ToDo List domain.</p>
 <p>Go to the <code>Image</code> page, shown in the following image.</p>
 <img src="https://oracle.github.io/weblogic-toolkit-ui/images/image-page.png" alt="Image Page">
-<p>You could build your own primary image by enabling <code>Create New Primary Image</code>, which is off by default.  To do this, you would need to download the Java 11 JDK and WebLogic Server 14.1.1 installers, fill out the form, and run <code>Create Primary Image</code>.  Then, you would need to create an image repository in an image registry somewhere and push the newly created image there.  When Oracle releases the next set of patches, you would have to do it again.</p>
-<p>Fortunately, you can simply use the prebuilt images in OCR.  Log into <a href="https://container-registry.oracle.com">OCR</a> and select the <strong>Middleware</strong> category.  For those without Oracle Support credentials, make sure that you have accepted the terms and conditions for the <code>weblogic</code> repository.  In the following image, note the green checkmark at the end of the <code>weblogic</code> repository row.  For those with Oracle Support credentials, it is highly recommended to use the <code>weblogic_cpu</code> repository at the bottom of the page instead.</p>
+<p>You could build your own primary image by enabling <code>Create New Primary Image</code>, which is off by default.  To do this,
+you would need to download the Linux JDK and WebLogic Server installer versions you plan to use, fill out the form, and
+run <code>Create Primary Image</code>.  Then, you would need to create an image repository in an image registry somewhere and push
+the newly created image there.  When Oracle releases the next set of patches, you would have to do it again.</p>
+<p>Fortunately, you can simply use the prebuilt images in OCR.  Log into 
+
+<a href="https://container-registry.oracle.com"
+   
+   
+target="_blank" rel="noopener noreferrer"
+>
+OCR
+</a>
+ and select the <strong>Middleware</strong> category.
+For those without Oracle Support credentials, make sure that you have accepted the terms and conditions for the
+<code>weblogic</code> repository.  In the following image, note the green checkmark at the end of the <code>weblogic</code> repository row.
+For those with Oracle Support credentials, it is highly recommended to use the <code>weblogic_cpu</code> repository at the bottom
+of the page instead.</p>
 <img src="https://oracle.github.io/weblogic-toolkit-ui/images/ocr.png" alt="OCR">
-<p>For this exercise, you will create a new auxiliary image.  This is the default setting and the <code>Auxiliary Image</code> tab is active.  Select the <code>Auxiliary Image</code> tab, as shown in the following image.</p>
+<p>For this exercise, you will create a new auxiliary image.  This is the default setting and the <code>Auxiliary Image</code> tab is
+active.  Select the <code>Auxiliary Image</code> tab, as shown in the following image.</p>
 <img src="https://oracle.github.io/weblogic-toolkit-ui/images/aux-image-tab.png" alt="Aux Image Tab">
-<p>The first thing you need to decide is what image registry to use for the auxiliary image.  For this exercise, you will use the Container Registry from the Oracle Cloud (OCIR) but feel free to substitute another image registry.  We will try to point out where your image registry selection impacts the rest of the example.</p>
-<p>After logging in to your Oracle Cloud account, select to the Container Registry option under the <strong>Developer Services</strong> category, as shown in the following image.</p>
+<p>The first thing you need to decide is what image registry to use for the auxiliary image.  For this exercise, you will
+use the Container Registry from the Oracle Cloud (OCIR) but feel free to substitute another image registry.  We will
+try to point out where your image registry selection impacts the rest of the example.</p>
+<p>After logging in to your Oracle Cloud account, select to the Container Registry option under the <strong>Developer Services</strong>
+category, as shown in the following image.</p>
 <img src="https://oracle.github.io/weblogic-toolkit-ui/images/ocir-location.png" alt="OCIR Location">
-<p>In the registry of your choosing, create a new private repository called <code>wktui-qs/todolist-aux</code>.  Note the URL needed to access the new repository.  For the OCIR repository, the URL is of the form <code>&lt;region-abbreviation&gt;.ocir.io/&lt;tenancy-name&gt;/wktui-qs/todolist-aux</code>, where region-abbreviation is something like <code>phx</code> (for the Phoenix region) and tenancy name is the name of the tenancy used to log in to <code>https://cloud.oracle.com</code>. For a listing of every available region, refer to this <a href="https://docs.oracle.com/en-us/iaas/Content/Registry/Concepts/registryprerequisites.htm#Availab">table</a>.</p>
-<p>To access this OCIR repository from Docker and Kubernetes, you need to use an Auth Token associated with your account in place of your password.  To create an Auth Token, go to your User settings, select the Auth Tokens option under Resources, and click <strong>Generate Token</strong>, as shown in the following image.  Make sure to retain a copy of the generated token, because this is the <em>only</em> opportunity you will have to see it in clear text!</p>
+<p>In the registry of your choosing, create a new private repository called <code>wktui-qs/todolist-aux</code>.  Note the URL needed
+to access the new repository.  For the OCIR repository, the URL is of the form
+<code>&lt;region-abbreviation&gt;.ocir.io/&lt;tenancy-name&gt;/wktui-qs/todolist-aux</code>, where region-abbreviation is something like <code>phx</code>
+(for the Phoenix region) and tenancy name is the name of the tenancy used to log in to <code>https://cloud.oracle.com</code>. For
+a listing of every available region, refer to the 
+
+<a href="https://docs.oracle.com/en-us/iaas/Content/Registry/Concepts/registryprerequisites.htm#regional-availability"
+   
+   
+target="_blank" rel="noopener noreferrer"
+>
+Availability by Region table
+</a>
+ in the OCI documentation.</p>
+<p>To access this OCIR repository from Docker and Kubernetes, you need to use an Auth Token associated with your OCI account
+in place of your password.  To create an Auth Token, go to your Profile page, select the Auth Tokens option under
+Resources, and click <strong>Generate Token</strong>, as shown in the following image.  Make sure to retain a copy of the generated
+token, because this is the <em>only</em> opportunity you will have to see it in clear text!</p>
+<p><strong>Note</strong>: The exact location of the Auth Tokens link may vary depending on your account type and the authentication
+provider being selected.</p>
 <img src="https://oracle.github.io/weblogic-toolkit-ui/images/oci-create-auth-token.png" alt="OCI Create Auth Token">
-<p>Now that your Image Registry is ready, you simply fill out the <code>Auxiliary Image</code> tab in WKTUI.  There are a couple of things to note before you fill out the form.</p>
+<p>Now that your Image Registry is ready, you simply fill out the <code>Auxiliary Image</code> tab in WKT UI.  There are a couple of
+things to note before you fill out the form.</p>
 <ul>
-<li>Most image registries require authentication to push an image.  If you are using OCIR, the Auxiliary Image Registry Push Username and Auxiliary Image Registry Push Password must do the following:
+<li>Most image registries require authentication to push an image.  If you are using OCIR, the container image registry
+<code>User Name</code> and <code>Password</code> fields must do the following:
 <ul>
-<li>Username: Must be of the form <code>&lt;tenancy-name&gt;/&lt;username&gt;</code>.</li>
+<li>Username: Must be of the form <code>&lt;tenancy-name&gt;/[auth-provider-name/]&lt;username&gt;</code>.  The <code>auth-provider-name/</code> portion
+is only required when not using the default provider to authenticate to <code>cloud.oracle.com</code>.</li>
 <li>Password: Must be the value an Auth Token associated with the user’s account.</li>
 </ul>
 </li>
-<li>By default, WIT (and therefore WKTUI) use BusyBox as the base image for an auxiliary image.  Because BusyBox typically comes from Docker Hub and Docker Hub has implemented anonymous pull request throttling, it is a good idea to enter a valid Docker Hub Username and Docker Hub Password to minimize the change of throttling-related errors while building the image.</li>
+<li>By default, WIT (and therefore WKT UI) use BusyBox as the base image for an auxiliary image.  Because BusyBox typically
+comes from Docker Hub and Docker Hub has implemented anonymous pull request throttling, it is a good idea to enter a
+valid Docker Hub Username and Docker Hub Password to minimize the change of throttling-related errors while building
+the image.</li>
 <li>You can change the base image simply by enabling <code>Use Custom Base Image</code> and filling out the form.</li>
-<li>If your target platform is OpenShift, enable <code>Make Image Compatible with OpenShift</code> in the <strong>Advanced</strong> section of the page.</li>
+<li>If your target platform is OpenShift, enable <code>Make Image Compatible with OpenShift</code> in the <strong>Advanced</strong> section of
+the page.</li>
 </ul>
-<p>With these things in mind, fill out the form using the data in the following table.  If a field’s value is not provided, then leave it set to the default unless otherwise required for your environment.</p>
+<p>The first thing you will want to do is to press the <strong>Add Image Registry Credentials</strong> button directly below the
+<code>Auxiliary Image Registry Push Credentials</code> field.  Give the new entry a name that will help you remember what the entry
+is, since this name will show up in the dropdown list once it is created.  Although the <code>Email Address</code> is not used for
+pushing images, it is used when creating a Kubernetes pull secret so to save time, make sure you enter it now.  See
+an example of adding an image registry credential in the following image.</p>
+<img src="https://oracle.github.io/weblogic-toolkit-ui/images/add-ocir-image-registry-credential.png" alt="Add OCIR Image Registry Credential">
+<p>Note that this table is also available at the bottom of the <strong>Project Settings</strong> page so feel free to add it in
+either location.</p>
+<p>With these things in mind, fill out the form using the data in the following table.  If a field’s value is not provided,
+then leave it set to the default unless otherwise required for your environment.</p>
 <table>
-<thead>
-<tr>
-<th>Field Name</th>
-<th>Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>Auxiliary Image Tag</code></td>
-<td><code>&lt;image-repository-url&gt;:1.0</code>; for example, <code>phx.ocir.io/mytenancy/wktui-qs/todolist-aux:1.0</code></td>
-</tr>
-<tr>
-<td><code>Specify Auxiliary Image Push Credentials</code></td>
-<td><code>ON</code></td>
-</tr>
-<tr>
-<td><code>Auxiliary Image Registry Push Username</code></td>
-<td><code>&lt;tenancy&gt;/&lt;username&gt;</code>; for example, <code>mytenancy/fred.jones@mycompany.com</code></td>
-</tr>
-<tr>
-<td><code>Auxiliary Image Registry Push Password</code></td>
-<td><code>&lt;auth-token-value&gt;</code>; for example, <code>z+M3C2UqRraHG73Z+.X8</code></td>
-</tr>
-<tr>
-<td><code>Use Custom Base Image</code></td>
-<td><code>OFF</code></td>
-</tr>
-<tr>
-<td><code>Docker Hub Username</code></td>
-<td>Your Docker Hub account user name</td>
-</tr>
-<tr>
-<td><code>Docker Hub Password</code></td>
-<td>Your Docker Hub account password</td>
-</tr>
-<tr>
-<td><code>Download and Use Latest WebLogic Deploy Tooling Installer</code></td>
-<td><code>ON</code></td>
-</tr>
-<tr>
-<td><code>Make Image Compatible with Open Shift</code></td>
-<td><code>OFF</code> (unless required for your environment))</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Field Name</th>
+          <th>Value</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>Auxiliary Image Tag</code></td>
+          <td><code>&lt;image-repository-url&gt;:1.0</code>; for example, <code>phx.ocir.io/mytenancy/wktui-qs/todolist-aux:1.0</code></td>
+      </tr>
+      <tr>
+          <td><code>Specify Auxiliary Image Push Credentials</code></td>
+          <td><code>ON</code></td>
+      </tr>
+      <tr>
+          <td><code>Auxiliary Image Registry Push Credentials</code></td>
+          <td>Select the name of the entry created previously; for example, <code>OCIR</code></td>
+      </tr>
+      <tr>
+          <td><code>Use Custom Base Image</code></td>
+          <td><code>OFF</code></td>
+      </tr>
+      <tr>
+          <td><code>Specify Docker Hub Pull Credentials</code></td>
+          <td>Add and select an Image Registry Credential for Docker Hub (Host and Email Address can be blank)</td>
+      </tr>
+      <tr>
+          <td><code>Download and Use Latest WebLogic Deploy Tooling Installer</code></td>
+          <td><code>ON</code></td>
+      </tr>
+      <tr>
+          <td><code>Make Image Compatible with Open Shift</code></td>
+          <td><code>OFF</code> (unless required for your environment)</td>
+      </tr>
+  </tbody>
 </table>
-<p>After you complete the form, you are ready to create the auxiliary image.  Click <strong>Create Auxiliary Image</strong>  to have the application invoke WIT with the specified set of arguments to build the auxiliary image.  The application prompts you twice prior to running WIT’s <code>createAuxImage</code> command:</p>
+<p>After you complete the form, you are ready to create the auxiliary image.  Click <strong>Create Auxiliary Image</strong>  to have the
+application invoke WIT with the specified set of arguments to build the auxiliary image.  The application prompts you
+twice prior to running WIT’s <code>createAuxImage</code> command:</p>
 <ul>
-<li>You always should run <strong>Prepare Model</strong> prior to creating the auxiliary image.  Because you have already done that, select <code>No</code> to continue without running Prepare Model.</li>
+<li>You always should run <strong>Prepare Model</strong> prior to creating the auxiliary image.  Because you have already done that,
+select <code>No</code> to continue without running Prepare Model.</li>
 <li>You need to choose the location to store the downloaded WDT installer.  Choose the location and Click <strong>Select</strong>.</li>
 </ul>
 <p>The following image shows the application after successfully creating the auxiliary image.</p>
 <img src="https://oracle.github.io/weblogic-toolkit-ui/images/create-aux-image.png" alt="Create AUX Image">
-<p>Now, you are ready to push the auxiliary image to the image registry.  If running on macOS, you need to make sure that your Docker (or Podman) executable directory (for example, <code>$HOME/.rd/bin</code>, if using Rancher Desktop) is added to the <code>Extra Path Directories</code> table on the <code>Project Settings</code> page.  Doing this allows Docker to find the executable it uses to interact with the macOS Keychain for storing credentials.</p>
-<p>Click <strong>Push Auxiliary Image</strong>.  At this point, you are ready to shift your focus to the Kubernetes cluster.  Remember, any change to the model files requires creating a new auxiliary image, which may require rerunning <strong>Prepare Model</strong> if fields were added to the model’s YAML file.  We strongly recommend that you always increment the version number of the <code>Auxiliary Image Tag</code> field prior to creating and pushing a new image.  This will make it very clear which image is in use.</p>
+<p>Now, you are ready to push the auxiliary image to the image registry.  If running on macOS, you need to make sure that
+your Docker (or Podman) executable directory (for example, <code>$HOME/.rd/bin</code>, if using Rancher Desktop) is added to the
+<code>Extra Path Directories</code> table on the <code>Project Settings</code> page.  Doing this allows Docker to find the executable it uses
+to interact with the macOS Keychain for storing credentials.</p>
+<p>Click <strong>Push Auxiliary Image</strong>.  At this point, you are ready to shift your focus to the Kubernetes cluster.</p>
+<p><strong>NOTE</strong>: Any changes to the model files requires creating a new auxiliary image, which may require rerunning <strong>Prepare Model</strong> if
+fields were added to the model’s YAML file.  We strongly recommend that you always increment the version number of the
+<code>Auxiliary Image Tag</code> field prior to creating and pushing a new image.  This will make it very clear which image is in
+use.</p>
 
-
-<footer class="footline">
-	
-</footer>
-
-        
+  <footer class="footline">
+  </footer>
+</article>
         </div>
-        
+      </main>
+    </div>
+    <aside id="R-sidebar" class="default-animation">
+      <div id="R-header-topbar" class="default-animation"></div>
+      <div id="R-header-wrapper" class="default-animation">
+        <div id="R-header" class="default-animation">
 
+<a id="logo" href="https://oracle.github.io/weblogic-toolkit-ui/">
+  <img src="https://oracle.github.io/weblogic-toolkit-ui//images/logo.png" height="90"><br/>
+  WebLogic Kubernetes Toolkit UI
+</a>
+
+        </div>
+        <search><form action="/weblogic-toolkit-ui/search/index.html" method="get">
+          <div class="searchbox default-animation">
+            <button class="search-detail" type="submit" title="Search (CTRL+ALT+f)"><i class="fas fa-search"></i></button>
+            <label class="a11y-only" for="R-search-by">Search</label>
+            <input data-search-input id="R-search-by" name="search-by" class="search-by" type="search" placeholder="Search...">
+            <button class="search-clear" type="button" data-search-clear="" title="Clear search"><i class="fas fa-times" title="Clear search"></i></button>
+          </div>
+        </form></search>
       </div>
-
-    <div id="navigation">
-        
-        
-
-        
-            
-            
-                
-                    
-                    
-                
-                
-
-                    
-                    
-                        
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                    
-                
-                
-
-                    
-                    
-                        
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                    
-                
-                
-
-                    
-                    
-                        
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                        
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-            
-        
-
-        
-
-
-	 
-	 
-		
-			<a class="nav nav-prev" href="/weblogic-toolkit-ui/setup/quickstart/create-wdt-model/" title="Create the WebLogic Deploy Tooling model"> <i class="fa fa-chevron-left"></i></a>
-		
-		
-			<a class="nav nav-next" href="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/" title="WebLogic Kubernetes Operator" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
-		
-	
-    </div>
-
-    </section>
-
-    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
-      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
-    </div>
-    <script src="/weblogic-toolkit-ui/js/clipboard.min.js?1769399741"></script>
-    <script src="/weblogic-toolkit-ui/js/perfect-scrollbar.min.js?1769399741"></script>
-    <script src="/weblogic-toolkit-ui/js/perfect-scrollbar.jquery.min.js?1769399741"></script>
-    <script src="/weblogic-toolkit-ui/js/jquery.sticky.js?1769399741"></script>
-    <script src="/weblogic-toolkit-ui/js/featherlight.min.js?1769399741"></script>
-    <script src="/weblogic-toolkit-ui/js/highlight.pack.js?1769399741"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/weblogic-toolkit-ui/js/modernizr.custom-3.6.0.js?1769399741"></script>
-    <script src="/weblogic-toolkit-ui/js/learn.js?1769399741"></script>
-    <script src="/weblogic-toolkit-ui/js/hugo-learn.js?1769399741"></script>
-    
-        
-            <script src="/weblogic-toolkit-ui/mermaid/mermaid.js?1769399741"></script>
-        
-        <script>
-            mermaid.initialize({ startOnLoad: true });
-        </script>
-    
-    
-
+      <div id="R-homelinks" class="default-animation homelinks">
+        <div class="R-menu-divider default-animation">
+          <hr class="padding">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-homelinks">
+          <ul class="space collapsible-menu">
+            <li class="" data-nav-url="/weblogic-toolkit-ui/index.html"><a class="padding" href="/weblogic-toolkit-ui/index.html"><i class="fa-fw fas fa-home"></i> Home</a></li>
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-headercontrols">
+          <ul class="">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding">
+        </div>
+      </div>
+      <div id="R-content-wrapper" class="highlightable">
+        <div class="R-sidebarmenu R-shortcutmenu-main">
+          <ul class="enlarge morespace collapsible-menu">
+            <li class="" data-nav-url="/weblogic-toolkit-ui/concepts/index.html"><a class="padding" href="/weblogic-toolkit-ui/concepts/index.html"><b> </b>About the WKT UI Application</a></li>
+            <li class="parent " data-nav-url="/weblogic-toolkit-ui/setup/index.html"><a class="padding" href="/weblogic-toolkit-ui/setup/index.html"><b> </b>Get Started</a><ul id="R-subsections-8e7001ce8f309164630b1295cd92dc36" class="collapsible-menu">
+            <li class="" data-nav-url="/weblogic-toolkit-ui/setup/prerequisites/index.html"><a class="padding" href="/weblogic-toolkit-ui/setup/prerequisites/index.html">Prerequisites</a></li>
+            <li class="" data-nav-url="/weblogic-toolkit-ui/setup/install/index.html"><a class="padding" href="/weblogic-toolkit-ui/setup/install/index.html">Install WKT UI</a></li>
+            <li class="parent alwaysopen " data-nav-url="/weblogic-toolkit-ui/setup/quickstart/index.html"><a class="padding" href="/weblogic-toolkit-ui/setup/quickstart/index.html"><b> </b>Quick Start Guide</a><ul id="R-subsections-f067154f92e66ec2444a9541b538a082" class="collapsible-menu">
+            <li class="" data-nav-url="/weblogic-toolkit-ui/setup/quickstart/prereqs/index.html"><a class="padding" href="/weblogic-toolkit-ui/setup/quickstart/prereqs/index.html">Prerequisites</a></li>
+            <li class="" data-nav-url="/weblogic-toolkit-ui/setup/quickstart/get-todo-app/index.html"><a class="padding" href="/weblogic-toolkit-ui/setup/quickstart/get-todo-app/index.html">Get the ToDo List sample application</a></li>
+            <li class="" data-nav-url="/weblogic-toolkit-ui/setup/quickstart/set-up-wktui-app/index.html"><a class="padding" href="/weblogic-toolkit-ui/setup/quickstart/set-up-wktui-app/index.html">Set up the WKT UI application</a></li>
+            <li class="" data-nav-url="/weblogic-toolkit-ui/setup/quickstart/project-settings/index.html"><a class="padding" href="/weblogic-toolkit-ui/setup/quickstart/project-settings/index.html">Select the Project Settings</a></li>
+            <li class="" data-nav-url="/weblogic-toolkit-ui/setup/quickstart/create-wdt-model/index.html"><a class="padding" href="/weblogic-toolkit-ui/setup/quickstart/create-wdt-model/index.html">Create the WebLogic Deploy Tooling model</a></li>
+            <li class="active " data-nav-url="/weblogic-toolkit-ui/setup/quickstart/create-images-with-wit/index.html"><a class="padding" href="/weblogic-toolkit-ui/setup/quickstart/create-images-with-wit/index.html">Create images with the WebLogic Image Tool</a></li>
+            <li class="alwaysopen " data-nav-url="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/index.html"><a class="padding" href="/weblogic-toolkit-ui/setup/quickstart/qs-kubernetes/index.html"><b> </b>WebLogic Kubernetes Operator</a><ul id="R-subsections-f0010b18167c697094d50bacbb942637" class="collapsible-menu"></ul></li>
+            <li class="" data-nav-url="/weblogic-toolkit-ui/setup/quickstart/qs-summary/index.html"><a class="padding" href="/weblogic-toolkit-ui/setup/quickstart/qs-summary/index.html"><b> </b>Summary</a></li>
+            <li class="alwaysopen " data-nav-url="/weblogic-toolkit-ui/setup/quickstart/qs-advanced/index.html"><a class="padding" href="/weblogic-toolkit-ui/setup/quickstart/qs-advanced/index.html"><b> </b>Advanced</a><ul id="R-subsections-5b6b48a6d71ebf0b03073bf308889934" class="collapsible-menu"></ul></li></ul></li></ul></li>
+            <li class="" data-nav-url="/weblogic-toolkit-ui/navigate/index.html"><a class="padding" href="/weblogic-toolkit-ui/navigate/index.html"><b> </b>Navigate the UI</a><ul id="R-subsections-87ab2e1bf80095f6190ff210454fc27d" class="collapsible-menu"></ul></li>
+            <li class="" data-nav-url="/weblogic-toolkit-ui/developer/index.html"><a class="padding" href="/weblogic-toolkit-ui/developer/index.html"><b> </b>Developer Guide</a></li>
+            <li class="" data-nav-url="/weblogic-toolkit-ui/release/index.html"><a class="padding" href="/weblogic-toolkit-ui/release/index.html"><b> </b>Release Notes</a><ul id="R-subsections-708032c5b8904dd637c09e0f5f530a6a" class="collapsible-menu"></ul></li>
+          </ul>
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-shortcuts">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div id="R-footer-margin"></div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-footercontrols">
+          <ul class="">
+          </ul>
+        </div>
+<div id="R-footer">
+
+<p>Created with <i class="fas fa-heart"></i> from <a href="https://www.oracle.com">Oracle</a></p>
+<p>&nbsp</p>
+<p><a href="https://github.com/oracle/weblogic-toolkit-ui"><i class="fab fa-github"></i> GitHub repo</a></p>
+<p><a href="https://join.slack.com/t/oracle-weblogic/shared_invite/zt-1ni1gtjv6-PGC6CQ4uIte3KBdm_67~aQ"><i class="fab fa-slack"></i> Public Slack #weblogic</a></p>
+</div>
+      </div>
+    </aside>
+    <script src="/weblogic-toolkit-ui/js/perfect-scrollbar/perfect-scrollbar.min.js?1769457254" defer></script>
+    <script src="/weblogic-toolkit-ui/js/theme.min.js?1769457254" defer></script>
+    <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
   </body>
 </html>
-
