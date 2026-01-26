@@ -1,9 +1,9 @@
-+++
-title = "Release 1.6.0"
-date = 2022-11-03T12:48:00-05:00
-weight = 90
-pre = "<b> </b>"
-+++
+---
+title: "Release 1.6.0"
+date: 2023-07-25T18:38:00-05:00
+weight: 89
+pre: "<b> </b>"
+---
 
 ### Changes in Release 1.6.0
 - [Major New Features](#major-new-features)

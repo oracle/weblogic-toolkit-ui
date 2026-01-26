@@ -1,9 +1,8 @@
-+++
-title = "About the WKT UI Application"
-date = 2019-02-22T15:27:38-05:00
-weight = 1
-pre = "<b> </b>"
-+++
+---
+title: "About the WKT UI Application"
+weight: 1
+pre: "<b> </b>"
+---
 
 
 
@@ -14,7 +13,11 @@ pre = "<b> </b>"
     - [Environment Variables](#environment-variables)
     - [User Preferences](#user-preferences)
         - [Proxy Configuration](#proxy-configuration)
+        - [GitHub API Credentials](#github-api-credentials)
+        - [Linux Disable Hardware Acceleration](#linux-disable-hardware-acceleration)
+        - [AppImage WKT Tools Configuration](#appimage-wkt-tools-configuration)
         - [Logging Configuration](#logging-configuration)
+        - [Startup Internet Connectivity Test Configuration](#startup-internet-connectivity-test-configuration)
         - [WebLogic Kubernetes Toolkit UI Introduction Configuration](#weblogic-kubernetes-toolkit-ui-introduction-configuration)
     - [External Applications](#external-applications)
     - [Bundled WKT Applications](#bundled-wkt-applications)
@@ -78,20 +81,24 @@ examples are:
 On Windows and Linux platforms, this tends to be the user's environment that they have configured to be used when
 they log in. On macOS, native applications do not inherit the user's login environment.  Instead, the application
 inherits the environment configured by the `launchd` daemon process.  If you are running on macOS, then you should keep this in mind
-when the application doesn't behave as you expect. For more information, see [Project Settings]({{< relref "/navigate/project-settings.md" >}}).
+when the application doesn't behave as you expect. For more information, see [Project Settings]({{% relref "/navigate/project-settings.md" %}}).
 {{% /notice %}}
 
 #### User Preferences
 
-The `Preferences` menu lets you configure settings that affect the behavior of the WKT UI application for the user
+The `File` > `Preferences` menu lets you configure settings that affect the behavior of the WKT UI application for the user
 across all instances of the application on the machine.  These user-visible settings include the following categories:
 
 - [Proxy Configuration](#proxy-configuration)
+- [GitHub API Credentials](#github-api-credentials)
+- [Linux Disable Hardware Acceleration](#linux-disable-hardware-acceleration)
+- [AppImage WKT Tools Configuration](#appimage-wkt-tools-configuration)
 - [Logging Configuration](#logging-configuration)
-- WebLogic Kubernetes Toolkit UI [Introduction Configuration](#weblogic-kubernetes-toolkit-ui-introduction-configuration)
+- [Startup Internet Connectivity Test Configuration](#startup-internet-connectivity-test-configuration)
+- [WebLogic Kubernetes Toolkit UI Introduction Configuration](#weblogic-kubernetes-toolkit-ui-introduction-configuration)
 
 Settings are also used to store internally used values that impact the appearance of the application.  For example, the
-Window size is stored so that the application will open the window with your last known window size.  The list of
+window size is stored so that the application will open the window with your last known window size.  The list of
 such appearance-related settings will likely grow over time.
 
 ##### Proxy Configuration
@@ -101,17 +108,37 @@ must configure the proxy server settings to allow Internet access.  Currently, t
 `github.com` to access release information and download new releases of the WKT tools and the UI itself.  This connectivity
 is used in various places to determine default values for input data (for example, the default image tag to use for installing the
 WebLogic Kubernetes Operator) and providing updated features for the WKT tools bundled with the application, as
-well as updating the WKT UI application itself when a new release becomes available.   Depending on the project configuration,
-the application may also require access to other sites, such as Docker Hub and other container registries, Helm chart
+well as updating the WKT UI application itself when a new release becomes available.   
+
+Depending on the project configuration,
+the application may also require access to other sites, such as Docker Hub (or other container registries), Helm chart
 download sites, and cloud-provider sites for authenticating to and accessing remote Kubernetes clusters.
 
-To configure the proxy environment, use the `Preferences` menu to add or update the
+To configure the proxy environment, use the `File` > `Preferences` menu to add or update the
 following fields, as needed:
 
 - `HTTPS Proxy URL` - The full URL to the proxy server (for example, http://my-proxy-server.mycompany.com:80).
-- `Bypass Proxy Hosts` - The comma-separated list of DNS or IP patterns that should not go through the proxy.
+- `Bypass Proxy Hosts` - A comma-separated list of DNS or IP patterns that should not go through the proxy.
   For example, a value of `.us.mycompany.com,.emea.mycompany.com,.apac.mycompany.com` will skip the proxy for any
   DNS name that ends in one of the three domain names.
+
+##### GitHub API Credentials
+
+GitHub rate limits anonymous API requests, which can negatively impact WKT UI functionality.  You can bypass the anonymous API rate limits by creating a personal access token on your GitHub account and then providing the token value in the `GitHub Token` field. WKT UI will
+use this token for all API calls.  Note that this token does not require
+any permissions on your own projects, it is simply attached to the API requests so that GitHub knows who is making them.
+
+##### Linux Disable Hardware Acceleration
+
+This section is only visible when running WKT UI on Linux. The `Disable Hardware Acceleration` switch allows you to
+tell Electron's embedded Chromium browser to disable hardware acceleration, in case hardware acceleration is causing
+problems.
+
+##### AppImage WKT Tools Configuration
+
+This section is only visible when running the Linux AppImage executable.  Since WKT UI cannot update the executable,
+the `WKT Tools External Staging Directory` allows you to specify a location where updated versions of the embedded WKT
+tools should be stored. This directory must be writable by the user running WKT UI.
 
 ##### Logging Configuration
 
@@ -121,6 +148,14 @@ Using this section, you can configure the logging output level and control the l
   will be discarded if the level is set to `Info`.  The default value is `Info`.
 - `Log File Directory` - The directory to which log files are written.  The default is the user's temporary directory, as
   defined by the operating system.
+
+##### Startup Internet Connectivity Test Configuration
+
+WKT UI depends on Internet access for its functionality and, as such, tests connectivity to `https://github.com` on
+startup.  The `Request Timeout Seconds` default value of 5 seconds should generally be enough but you can increase or
+decrease the value using this parameter.  Oracle recommends that you not decrease this value below 5 seconds, since that
+may increase the number of false positive error screens that you see when starting the application and the Internet
+connectivity test times out.
 
 ##### WebLogic Kubernetes Toolkit UI Introduction Configuration
 
@@ -150,5 +185,5 @@ configure these external applications properly on the local machine on which the
 - WIT - Used to create a new image for your WebLogic Server domain.  It is also used to inspect any
   custom base image that you might specify be used for creating the new image.
 
-Use `Help` > `Check For Updates` periodically to make sure you are using the latest versions of these
+Use `Help` > `Check For WKT Tools Updates` periodically to make sure you are using the latest versions of these
 bundled tools.
