@@ -1,0 +1,10 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directories:
+      - "/electron/**"
+      - "/webui/**"
+    schedule:
+      interval: daily
+    exclude-paths:
+      - "/documentation/**"
