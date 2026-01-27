@@ -26,9 +26,9 @@ pre: "<b> </b>"
 - #337 - Added support for overriding the default WKO Kubernetes CPU and memory requests and limits. 
 - #339 - Added user preferences option to provide a GitHub API token to bypass anonymous GitHub API rate limits.
 - #458 - Added project settings options for model archive zip file handling to allow using archive files larger than 2 GB.
-- #480 - Adding an `OPatch Bug Number` field to support the WebLogic Image Tool's `--opatchBugNumber` argument when creating
+- #480 - Added an `OPatch Bug Number` field to support the WebLogic Image Tool's `--opatchBugNumber` argument when creating
   a primary image, if needed. The new, embedded WebLogic Image Tool 1.16.3 makes it unlikely the user will need to use it.
-- #481 - Removing the default value for the `DOCKER_BUILDKIT` environment variable and allowing it to be passed from
+- #481 - Removed the default value for the `DOCKER_BUILDKIT` environment variable and allowing it to be passed from
   the user's environment, if needed.
 
 #### Bug Fixes
