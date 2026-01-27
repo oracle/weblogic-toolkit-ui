@@ -355,7 +355,6 @@
           "SocketReaderTimeoutMaxMillis",
           "SocketReaderTimeoutMinMillis",
           "StuckThreadMaxTime",
-          "SupportedProtocol",
           "SystemThreadPoolSize",
           "T3ClientAbbrevTableSize",
           "T3ServerAbbrevTableSize",
@@ -363,7 +362,6 @@
           "TimedOutRefIsolationTime",
           "TracingEnabled",
           "UseIIOPLocateRequest",
-          "ValidProtocols",
           "VerboseEJBDeploymentEnabled",
           "VirtualMachineName",
           "VirtualThreadEnableOption"
@@ -741,12 +739,6 @@
         "type": "attributesCollapsible",
         "labelKey": "advanced-label",
         "addRemainingAttributes": true
-      },
-      {
-        "type": "hidden",
-        "attributes": [
-          "EncryptedValueEncrypted"
-        ]
       }
     ]
   },
@@ -1684,12 +1676,6 @@
         "type": "attributesCollapsible",
         "labelKey": "advanced-label",
         "addRemainingAttributes": true
-      },
-      {
-        "type": "hidden",
-        "attributes": [
-          "EncryptedValueEncrypted"
-        ]
       }
     ]
   },
@@ -3231,7 +3217,6 @@
             "attributes": [
               "ConnectionPool",
               "DeploymentOrder",
-              "MaxRetrySecondsBeforeTxRollback",
               "Target"
             ]
           }

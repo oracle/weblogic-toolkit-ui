@@ -130,7 +130,6 @@
       {
         "type": "hidden",
         "attributes": [
-          "PartitionName",
           "SourcePath",
           "Version"
         ],
