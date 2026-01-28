@@ -23,29 +23,29 @@
     <meta itemprop="description" content="Install the WKT UI application and check for updates.">
     <meta itemprop="datePublished" content="2019-02-22T15:44:42-05:00">
     <meta itemprop="dateModified" content="2019-02-22T15:44:42-05:00">
-    <meta itemprop="wordCount" content="858">
+    <meta itemprop="wordCount" content="896">
     <title>Install WKT UI :: WebLogic Kubernetes Toolkit UI</title>
-    <link href="/weblogic-toolkit-ui/images/logo.png?1769572257" rel="icon" type="image/png">
-    <link href="/weblogic-toolkit-ui/css/auto-complete/auto-complete.min.css?1769572257" rel="stylesheet">
-    <script src="/weblogic-toolkit-ui/js/auto-complete/auto-complete.min.js?1769572257" defer></script>
-    <script src="/weblogic-toolkit-ui/js/search-lunr.min.js?1769572257" defer></script>
-    <script src="/weblogic-toolkit-ui/js/search.min.js?1769572257" defer></script>
+    <link href="/weblogic-toolkit-ui/images/logo.png?1769618117" rel="icon" type="image/png">
+    <link href="/weblogic-toolkit-ui/css/auto-complete/auto-complete.min.css?1769618117" rel="stylesheet">
+    <script src="/weblogic-toolkit-ui/js/auto-complete/auto-complete.min.js?1769618117" defer></script>
+    <script src="/weblogic-toolkit-ui/js/search-lunr.min.js?1769618117" defer></script>
+    <script src="/weblogic-toolkit-ui/js/search.min.js?1769618117" defer></script>
     <script>
       window.relearn = window.relearn || {};
-      window.relearn.index_js_url="/weblogic-toolkit-ui/searchindex.en.js?1769572257";
+      window.relearn.index_js_url="/weblogic-toolkit-ui/searchindex.en.js?1769618117";
     </script>
-    <script src="/weblogic-toolkit-ui/js/lunr/lunr.min.js?1769572257" defer></script>
-    <script src="/weblogic-toolkit-ui/js/lunr/lunr.stemmer.support.min.js?1769572257" defer></script>
-    <script src="/weblogic-toolkit-ui/js/lunr/lunr.multi.min.js?1769572257" defer></script>
-    <script src="/weblogic-toolkit-ui/js/lunr/lunr.en.min.js?1769572257" defer></script>
+    <script src="/weblogic-toolkit-ui/js/lunr/lunr.min.js?1769618117" defer></script>
+    <script src="/weblogic-toolkit-ui/js/lunr/lunr.stemmer.support.min.js?1769618117" defer></script>
+    <script src="/weblogic-toolkit-ui/js/lunr/lunr.multi.min.js?1769618117" defer></script>
+    <script src="/weblogic-toolkit-ui/js/lunr/lunr.en.min.js?1769618117" defer></script>
     <script>
       window.relearn = window.relearn || {};
       window.relearn.contentLangs=['en'];
     </script>
-    <link href="/weblogic-toolkit-ui/fonts/fontawesome/css/fontawesome-all.min.css?1769572257" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/weblogic-toolkit-ui/fonts/fontawesome/css/fontawesome-all.min.css?1769572257" rel="stylesheet"></noscript>
-    <link href="/weblogic-toolkit-ui/css/perfect-scrollbar/perfect-scrollbar.min.css?1769572257" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/theme.min.css?1769572257" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/format-html.min.css?1769572257" rel="stylesheet" id="R-format-style">
+    <link href="/weblogic-toolkit-ui/fonts/fontawesome/css/fontawesome-all.min.css?1769618117" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/weblogic-toolkit-ui/fonts/fontawesome/css/fontawesome-all.min.css?1769618117" rel="stylesheet"></noscript>
+    <link href="/weblogic-toolkit-ui/css/perfect-scrollbar/perfect-scrollbar.min.css?1769618117" rel="stylesheet">
+    <link href="/weblogic-toolkit-ui/css/theme.min.css?1769618117" rel="stylesheet">
+    <link href="/weblogic-toolkit-ui/css/format-html.min.css?1769618117" rel="stylesheet" id="R-format-style">
     <script>
       window.relearn = window.relearn || {};
       // configuration
@@ -272,6 +272,20 @@ libGL error: failed to load driver: swrast</code></pre></div>
 <p>This is harmless and setting the environment variable should eliminate this error:</p>
 <pre><code>`export LIBGL_ALWAYS_INDIRECT=1`
 </code></pre>
+<p>With WKT UI 2.0.0, the Electron version in use made a change to default their applications to run as a native Wayland
+app.  If you have trouble running the application, using the flag <code>--ozone-platform=x11</code> allows you to tell Electron to
+change back to using the previous default. See the
+
+
+<a href="https://www.electronjs.org/docs/latest/breaking-changes#removed-electron_ozone_platform_hint-environment-variable"
+   
+   
+target="_blank" rel="noopener noreferrer"
+>
+Electron Breaking Changes
+</a>
+
+documentation for more information.</p>
 <p>The steps we followed (after setting up X11 Forwarding) for each Linux flavor and version tested were as follows.</p>
 <h4 id="rpm-installer-on-oracle-linux-8-and-oracle-linux-9">RPM Installer on Oracle Linux 8 and Oracle Linux 9<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h4>
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>sudo dnf update -y
@@ -295,8 +309,8 @@ wktui </code></pre></div>
 <h4 id="appimage-on-oracle-linux-8-and-oracle-linux-9">AppImage on Oracle Linux 8 and Oracle Linux 9<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h4>
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>sudo dnf update -y
 sudo dnf install -y fuse-common fuse-libs ocifs atk at-spi2-atk gtk3 libXt mesa-libgbm alsa-lib mesa-dri-drivers
-chmod +x ./WebLogic\ Kubernetes\ Toolkit\ UI-2.0.0.AppImage
-./WebLogic\ Kubernetes\ Toolkit\ UI-2.0.0.AppImage</code></pre></div>
+chmod +x .WebLogic-Kubernetes-Toolkit-UI-2.0.0.AppImage
+./WebLogic-Kubernetes-Toolkit-UI-2.0.0.AppImage</code></pre></div>
 <h4 id="appimage-on-ubuntu-2204">AppImage on Ubuntu 22.04<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h4>
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>sudo apt update
 sudo apt install -y libatk1.0-0 libatk-bridge2.0-0 libgtk-3-0 libgdk-pixbuf-2.0-0 libcairo2 libpango-1.0-0 \
@@ -304,8 +318,8 @@ sudo apt install -y libatk1.0-0 libatk-bridge2.0-0 libgtk-3-0 libgdk-pixbuf-2.0-
  libx11-xcb1 libxcb1 libxext6 libxrender1 libxtst6 libasound2 libfuse2
 sudo apt upgrade -y
 sudo reboot now
-chmod +x ./WebLogic\ Kubernetes\ Toolkit\ UI-2.0.0.AppImage
-./WebLogic\ Kubernetes\ Toolkit\ UI-2.0.0.AppImage</code></pre></div>
+chmod +x ./WebLogic-Kubernetes-Toolkit-UI-2.0.0.AppImage
+./WebLogic-Kubernetes-Toolkit-UI-2.0.0.AppImage</code></pre></div>
 <h4 id="appimage-on-ubuntu-2404">AppImage on Ubuntu 24.04<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h4>
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>sudo apt update
 sudo apt install -y libatk1.0-0 libatk-bridge2.0-0 libgtk-3-0 libgdk-pixbuf-2.0-0 libcairo2 libpango-1.0-0 \
@@ -313,8 +327,8 @@ sudo apt install -y libatk1.0-0 libatk-bridge2.0-0 libgtk-3-0 libgdk-pixbuf-2.0-
  libx11-xcb1 libxcb1 libxext6 libxrender1 libxtst6 libasound2t64 libfuse2t64
 sudo apt upgrade -y
 sudo reboot now
-chmod +x ./WebLogic\ Kubernetes\ Toolkit\ UI-2.0.0.AppImage
-./WebLogic\ Kubernetes\ Toolkit\ UI-2.0.0.AppImage --no-sandbox</code></pre></div>
+chmod +x ./WebLogic-Kubernetes-Toolkit-UI-2.0.0.AppImage
+./WebLogic-Kubernetes-Toolkit-UI-2.0.0.AppImage --no-sandbox</code></pre></div>
 <h3 id="application-startup">Application Startup<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p>Application startup detects Internet connectivity to GitHub. If it fails to connect, a <code>Network Configuration</code> dialog
 appears in which you can set or modify your proxy settings, test your changes, and then restart the application.</p>
@@ -416,8 +430,8 @@ peruse it at any time using <code>Help &gt; Show Introduction</code>.</p>
 </div>
       </div>
     </aside>
-    <script src="/weblogic-toolkit-ui/js/perfect-scrollbar/perfect-scrollbar.min.js?1769572257" defer></script>
-    <script src="/weblogic-toolkit-ui/js/theme.min.js?1769572257" defer></script>
+    <script src="/weblogic-toolkit-ui/js/perfect-scrollbar/perfect-scrollbar.min.js?1769618117" defer></script>
+    <script src="/weblogic-toolkit-ui/js/theme.min.js?1769618117" defer></script>
     <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
   </body>
 </html>
