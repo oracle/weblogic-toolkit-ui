@@ -101,7 +101,6 @@
             "type": "attributes",
             "labelKey": "connection-filter-title",
             "attributes": [
-              "ConnectionLoggerEnabled",
               "CompatibilityConnectionFiltersEnabled",
               "ConnectionFilter",
               "ConnectionFilterRule",

@@ -1726,7 +1726,6 @@
           "BugReportServiceWsdlUrl",
           "DebugIiopRepalcer",
           "DebugJMSAME",
-          "DebugJMSAME",
           "DebugJMSDurableSubscribers",
           "DebugJTATransactionName",
           "DebugMBeanCic",
