@@ -75,6 +75,12 @@ This is harmless and setting the environment variable should eliminate this erro
 
     `export LIBGL_ALWAYS_INDIRECT=1`
 
+With WKT UI 2.0.0, the Electron version in use made a change to default their applications to run as a native Wayland
+app.  If you have trouble running the application, using the flag `--ozone-platform=x11` allows you to tell Electron to
+change back to using the previous default. See the 
+[Electron Breaking Changes](https://www.electronjs.org/docs/latest/breaking-changes#removed-electron_ozone_platform_hint-environment-variable) 
+documentation for more information.
+
 The steps we followed (after setting up X11 Forwarding) for each Linux flavor and version tested were as follows.
 
 #### RPM Installer on Oracle Linux 8 and Oracle Linux 9
@@ -113,8 +119,8 @@ wktui
 ```
 sudo dnf update -y
 sudo dnf install -y fuse-common fuse-libs ocifs atk at-spi2-atk gtk3 libXt mesa-libgbm alsa-lib mesa-dri-drivers
-chmod +x ./WebLogic\ Kubernetes\ Toolkit\ UI-2.0.0.AppImage
-./WebLogic\ Kubernetes\ Toolkit\ UI-2.0.0.AppImage
+chmod +x .WebLogic-Kubernetes-Toolkit-UI-2.0.0.AppImage
+./WebLogic-Kubernetes-Toolkit-UI-2.0.0.AppImage
 ```
 
 #### AppImage on Ubuntu 22.04
@@ -126,8 +132,8 @@ sudo apt install -y libatk1.0-0 libatk-bridge2.0-0 libgtk-3-0 libgdk-pixbuf-2.0-
  libx11-xcb1 libxcb1 libxext6 libxrender1 libxtst6 libasound2 libfuse2
 sudo apt upgrade -y
 sudo reboot now
-chmod +x ./WebLogic\ Kubernetes\ Toolkit\ UI-2.0.0.AppImage
-./WebLogic\ Kubernetes\ Toolkit\ UI-2.0.0.AppImage
+chmod +x ./WebLogic-Kubernetes-Toolkit-UI-2.0.0.AppImage
+./WebLogic-Kubernetes-Toolkit-UI-2.0.0.AppImage
 ```
 
 #### AppImage on Ubuntu 24.04
@@ -139,8 +145,8 @@ sudo apt install -y libatk1.0-0 libatk-bridge2.0-0 libgtk-3-0 libgdk-pixbuf-2.0-
  libx11-xcb1 libxcb1 libxext6 libxrender1 libxtst6 libasound2t64 libfuse2t64
 sudo apt upgrade -y
 sudo reboot now
-chmod +x ./WebLogic\ Kubernetes\ Toolkit\ UI-2.0.0.AppImage
-./WebLogic\ Kubernetes\ Toolkit\ UI-2.0.0.AppImage --no-sandbox
+chmod +x ./WebLogic-Kubernetes-Toolkit-UI-2.0.0.AppImage
+./WebLogic-Kubernetes-Toolkit-UI-2.0.0.AppImage --no-sandbox
 ```
 
 ### Application Startup
