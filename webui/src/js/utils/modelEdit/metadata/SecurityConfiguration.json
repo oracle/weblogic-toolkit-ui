@@ -2136,8 +2136,7 @@
           "SyncFilterOnlyClientCertRequests",
           "SyncFilterMatchCase",
           "SyncFilterPreferHeader",
-          "SyncFilterUserHeaderName",
-          "TenantHeaderName"
+          "SyncFilterUserHeaderName"
         ]
       },
       {

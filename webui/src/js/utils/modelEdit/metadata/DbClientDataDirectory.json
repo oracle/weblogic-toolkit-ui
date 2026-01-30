@@ -51,8 +51,6 @@
           "PlanPath",
           "PlanStagingMode",
           "SecurityDDModel",
-          "SourcePath",
-          "StagingMode",
           "Target",
           "Untargeted",
           "ValidateDDSecurityData"
