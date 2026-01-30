@@ -1928,9 +1928,6 @@
           "DebugNio",
           "DebugNodeManagerRuntime",
           "DebugParameters",
-          "DebugRAWork",
-          "DebugRAWorkEvents",
-          "DebugRAXAwork",
           "DebugRedefAttach",
           "DebugReplication",
           "DebugReplicationDetails",
@@ -2934,7 +2931,6 @@
               "ArtifactTimeout",
               "SsoSigningKeyAlias",
               "SsoSigningKeyPassPhraseEncrypted",
-              "AllowedTargetHost",
               "PostOneUseCheckEnabled",
               "Notes"
             ]
@@ -2964,7 +2960,6 @@
           "IdentityProviderPostBindingEnabled",
           "IdentityProviderRedirectBindingEnabled",
           "IdentityProviderArtifactBindingEnabled",
-          "ReplicatedCacheEnabled",
           "AssertionEncryptionEnabled",
           "KeyEncryptionAlgorithm",
           "DataEncryptionAlgorithm"
