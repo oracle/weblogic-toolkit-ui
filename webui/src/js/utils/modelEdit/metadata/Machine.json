@@ -79,8 +79,7 @@
         "attributes": [
           "Adapter",
           "AdapterName",
-          "AdapterVersion",
-          "InstalledVMMAdapter"
+          "AdapterVersion"
         ]
       }
     ]

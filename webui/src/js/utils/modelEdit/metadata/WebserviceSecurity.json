@@ -96,12 +96,6 @@
         "type": "attributesCollapsible",
         "labelKey": "advanced-label",
         "addRemainingAttributes": true
-      },
-      {
-        "type": "hidden",
-        "attributes": [
-          "EncryptedValueEncrypted"
-        ]
       }
     ]
   },
@@ -150,12 +144,6 @@
         "type": "attributesCollapsible",
         "labelKey": "advanced-label",
         "addRemainingAttributes": true
-      },
-      {
-        "type": "hidden",
-        "attributes": [
-          "EncryptedValueEncrypted"
-        ]
       }
     ]
   },
@@ -249,12 +237,6 @@
         "type": "attributesCollapsible",
         "labelKey": "advanced-label",
         "addRemainingAttributes": true
-      },
-      {
-        "type": "hidden",
-        "attributes": [
-          "EncryptedValueEncrypted"
-        ]
       }
     ]
   }

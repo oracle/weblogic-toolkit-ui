@@ -101,7 +101,6 @@
             "type": "attributes",
             "labelKey": "connection-filter-title",
             "attributes": [
-              "ConnectionLoggerEnabled",
               "CompatibilityConnectionFiltersEnabled",
               "ConnectionFilter",
               "ConnectionFilterRule",
@@ -2137,8 +2136,7 @@
           "SyncFilterOnlyClientCertRequests",
           "SyncFilterMatchCase",
           "SyncFilterPreferHeader",
-          "SyncFilterUserHeaderName",
-          "TenantHeaderName"
+          "SyncFilterUserHeaderName"
         ]
       },
       {
@@ -3398,12 +3396,6 @@
         "type": "attributesCollapsible",
         "labelKey": "advanced-label",
         "addRemainingAttributes": true
-      },
-      {
-        "type": "hidden",
-        "attributes": [
-          "CompatibilityObjectName"
-        ]
       }
     ]
   },
