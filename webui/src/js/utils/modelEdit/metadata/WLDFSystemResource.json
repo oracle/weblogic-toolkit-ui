@@ -45,7 +45,6 @@
       {
         "type": "hidden",
         "attributes": [
-          "PartitionName",
           "SourcePath"
         ],
         "folders": [

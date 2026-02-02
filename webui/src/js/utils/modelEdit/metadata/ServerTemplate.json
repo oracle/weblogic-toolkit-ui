@@ -355,7 +355,6 @@
           "SocketReaderTimeoutMaxMillis",
           "SocketReaderTimeoutMinMillis",
           "StuckThreadMaxTime",
-          "SupportedProtocol",
           "SystemThreadPoolSize",
           "T3ClientAbbrevTableSize",
           "T3ServerAbbrevTableSize",
@@ -363,7 +362,6 @@
           "TimedOutRefIsolationTime",
           "TracingEnabled",
           "UseIIOPLocateRequest",
-          "ValidProtocols",
           "VerboseEJBDeploymentEnabled",
           "VirtualMachineName",
           "VirtualThreadEnableOption"
@@ -741,12 +739,6 @@
         "type": "attributesCollapsible",
         "labelKey": "advanced-label",
         "addRemainingAttributes": true
-      },
-      {
-        "type": "hidden",
-        "attributes": [
-          "EncryptedValueEncrypted"
-        ]
       }
     ]
   },
@@ -1684,12 +1676,6 @@
         "type": "attributesCollapsible",
         "labelKey": "advanced-label",
         "addRemainingAttributes": true
-      },
-      {
-        "type": "hidden",
-        "attributes": [
-          "EncryptedValueEncrypted"
-        ]
       }
     ]
   },
@@ -1736,7 +1722,6 @@
         "attributes": [
           "BugReportServiceWsdlUrl",
           "DebugIiopRepalcer",
-          "DebugJMSAME",
           "DebugJMSAME",
           "DebugJMSDurableSubscribers",
           "DebugJTATransactionName",
@@ -1943,9 +1928,6 @@
           "DebugNio",
           "DebugNodeManagerRuntime",
           "DebugParameters",
-          "DebugRAWork",
-          "DebugRAWorkEvents",
-          "DebugRAXAwork",
           "DebugRedefAttach",
           "DebugReplication",
           "DebugReplicationDetails",
@@ -2214,7 +2196,6 @@
           "DebugJpaQuery",
           "DebugJpaRuntime",
           "DebugJpaTool",
-          "DebugJTAJDBC",
           "DebugKodoWeblogic",
           "DebugPersistentStoreManager",
           "DebugStore",
@@ -2950,7 +2931,6 @@
               "ArtifactTimeout",
               "SsoSigningKeyAlias",
               "SsoSigningKeyPassPhraseEncrypted",
-              "AllowedTargetHost",
               "PostOneUseCheckEnabled",
               "Notes"
             ]
@@ -2980,7 +2960,6 @@
           "IdentityProviderPostBindingEnabled",
           "IdentityProviderRedirectBindingEnabled",
           "IdentityProviderArtifactBindingEnabled",
-          "ReplicatedCacheEnabled",
           "AssertionEncryptionEnabled",
           "KeyEncryptionAlgorithm",
           "DataEncryptionAlgorithm"
@@ -3231,7 +3210,6 @@
             "attributes": [
               "ConnectionPool",
               "DeploymentOrder",
-              "MaxRetrySecondsBeforeTxRollback",
               "Target"
             ]
           }

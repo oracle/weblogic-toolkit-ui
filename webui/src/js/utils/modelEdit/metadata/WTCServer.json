@@ -19,9 +19,6 @@
       },
       {
         "type": "hidden",
-        "attributes": [
-          "Resources"
-        ],
         "folders": [
           "WTCExport",
           "WTCImport",
