@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2024, 2025, Oracle and/or its affiliates.
+ * Copyright (c) 2024, 2026, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -11,11 +11,17 @@ define(['utils/modelEdit/message-helper', 'utils/modelEdit/alias-helper', 'utils
 function (MessageHelper, AliasHelper, MetaHelper,
   ModelEditHelper) {
 
+  const DEFAULT_REALM_NAME = 'myrealm';
+
   function InstanceHelper() {
     const INSTANCE_NAME_REGEX= /^[\w.!-]+$/;  // TODO: refine this
 
     // modelPath should end with type name, like /topology/Server
     this.getNewInstanceName = (modelPath, model) => {
+      const aliasPath = AliasHelper.getAliasPath(modelPath);
+      const newNameHandler = MetaHelper.getNewFolderNameHandler(aliasPath);
+      const newNameMethod = newNameHandler ? this[newNameHandler] : getInstanceName;
+
       let typeName = MessageHelper.getFolderTypeLabel(modelPath);
       if (typeName) {
         typeName = typeName.replace(/ /g, '').replace(/-/g, '');
@@ -25,10 +31,10 @@ function (MessageHelper, AliasHelper, MetaHelper,
       const modelFolder = ModelEditHelper.getFolder(modelPath, model);
       const instanceKeys = Object.keys(modelFolder);
       let i = 1;
-      let modelName = getInstanceName(typeName, i);
+      let modelName = newNameMethod(typeName, i);
       while(instanceKeys.includes(modelName)) {
         i++;
-        modelName = getInstanceName(typeName, i);
+        modelName = newNameMethod(typeName, i);
       }
       return modelName;
     };
@@ -74,6 +80,14 @@ function (MessageHelper, AliasHelper, MetaHelper,
     function getInstanceName(typeName, i) {
       return `${typeName}-${i}`;
     }
+
+    // *************************
+    // custom type name methods
+    // *************************
+
+    this.getRealmName = (typeName, i) => {
+      return (i === 1) ? DEFAULT_REALM_NAME : getInstanceName(typeName, i);
+    };
   }
 
   // return a singleton instance
