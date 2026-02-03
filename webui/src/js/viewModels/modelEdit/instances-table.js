@@ -7,18 +7,17 @@
 
 define(['accUtils', 'knockout', 'utils/modelEdit/instance-helper', 'utils/modelEdit/model-edit-helper',
   'utils/modelEdit/module-helper', 'utils/modelEdit/message-helper', 'utils/modelEdit/navigation-helper',
-  'utils/modelEdit/alias-helper', 'utils/common-utilities', 'utils/dialog-helper', 'utils/view-helper',
+  'utils/modelEdit/alias-helper', 'utils/common-utilities', 'utils/view-helper',
   'utils/modelEdit/meta-helper', 'utils/modelEdit/meta-methods',
   'ojs/ojarraydataprovider', 'ojs/ojtable', 'oj-c/button', 'oj-c/labelled-link'
 ],
 function(accUtils, ko, InstanceHelper, ModelEditHelper, ModuleHelper, MessageHelper, NavigationHelper,
-  AliasHelper, utils, DialogHelper, ViewHelper, MetaHelper, MetaMethods, ArrayDataProvider) {
+  AliasHelper, utils, ViewHelper, MetaHelper, MetaMethods, ArrayDataProvider) {
 
   function InstancesTableViewModel(args) {
     // for model folders with multiple instances (such as Server/myServer).
 
     const MODEL_PATH = args.modelPath;
-    const NAME_VALIDATORS = args.nameValidators;
 
     const ALIAS_PATH = AliasHelper.getAliasPath(MODEL_PATH);
     const CREDENTIAL_TYPES = ['password', 'credential'];
@@ -181,35 +180,7 @@ function(accUtils, ko, InstanceHelper, ModelEditHelper, ModuleHelper, MessageHel
       { keyAttributes: 'uid', sortComparators: instanceComparators });
 
     this.addInstance = () => {
-      // if instances of this type already exist, prompt for a new name.
-      // otherwise, prompt for a name and folder contents.
-
-      const addHandler = MetaHelper.getAddHandler(ALIAS_PATH);
-      const newFolderContentHandler = MetaHelper.getNewFolderContentHandler(ALIAS_PATH);
-      if(addHandler) {
-        MetaMethods[addHandler](MODEL_PATH, NAME_VALIDATORS);
-        return;
-      }
-
-      const options = {
-        modelPath: MODEL_PATH,
-        nameValidators: NAME_VALIDATORS
-      };
-      DialogHelper.promptDialog('modelEdit/new-instance-dialog', options)
-        .then(result => {
-          const newName = result.instanceName;
-          if (newName) {
-            const content = newFolderContentHandler ? MetaMethods[newFolderContentHandler]() : undefined;
-            ModelEditHelper.addFolder(MODEL_PATH, newName, content);
-
-            if(this.useTypeFolder && result.providerType) {
-              const instancePath = [...MODEL_PATH, newName];
-              ModelEditHelper.addFolder(instancePath, result.providerType, content);
-            }
-
-            NavigationHelper.openNavigation(MODEL_PATH);  // open parent
-          }
-        });
+      InstanceHelper.addInstance(MODEL_PATH);
     };
 
     this.providerType = rowData => {
