@@ -56,9 +56,22 @@
   text-align: center;
 }
 
-oj-navigation-list[id="modelDesignNav"].oj-navigationlist-vertical {
-  --oj-navigation-list-item-min-height: 1.75rem;
-  margin: 8px 0 6px 0;
+#modelDesignNav {
+  overflow: visible;
+  margin: 6px 0 6px 0;
+}
+
+#modelDesignNav .oj-treeview-spacer {  /* change vertical height of menu items */
+  height: 30px;
+}
+
+#navContextMenu {  /* reduce padding on context menu */
+  padding: 0;
+}
+
+#navContextMenu .oj-menu-item > a {  /* reduce spacing on context menu items */
+  min-height: 10px;
+  padding: 0.5rem 0.5rem;
 }
 
 .oj-navigationlist-depth-1 .oj-navigationlist-item-content {
