@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2024, 2025, Oracle and/or its affiliates.
+ * Copyright (c) 2024, 2026, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -8,7 +8,8 @@
 define(['knockout', 'models/wkt-project', 'utils/modelEdit/navigation/all-navigation',
   'utils/modelEdit/model-edit-helper', 'utils/modelEdit/alias-helper', 'utils/modelEdit/meta-helper',
   'utils/modelEdit/message-helper', 'ojs/ojarraytreedataprovider'],
-function (ko, WktProject, allNavigation, ModelEditHelper, AliasHelper, MetaHelper, MessageHelper, ArrayTreeDataProvider) {
+function (ko, WktProject, allNavigation, ModelEditHelper, AliasHelper, MetaHelper, MessageHelper,
+  ArrayTreeDataProvider) {
 
   function NavigationHelper() {
     // maintain and update the navigation state
@@ -21,7 +22,7 @@ function (ko, WktProject, allNavigation, ModelEditHelper, AliasHelper, MetaHelpe
     let initialized = false;
 
     this.navDataProvider = new ArrayTreeDataProvider(navObservable, { keyAttributes: 'id' });
-    this.menuKey = ko.observable().extend({ notify: 'always' });  // a string with navigation menu key
+    this.menuKeys = ko.observable().extend({notify: 'always'});  // a keySet with navigation menu keys
     this.menuExpanded = ko.observable();   // a keySet with all the expanded menu nodes
     this.viewInfo = ko.observable();  // the content path of the selected item (may not be a nav item)
 
@@ -38,12 +39,12 @@ function (ko, WktProject, allNavigation, ModelEditHelper, AliasHelper, MetaHelpe
       });
 
       this.menuItemSelected();
-      this.menuKey.subscribe(this.menuItemSelected);
+      this.menuKeys.subscribe(this.menuItemSelected);
 
       this.updateFromModel();
       ModelEditHelper.modelObject.subscribe(this.updateFromModel);
 
-      if(!this.menuKey()) {  // if no previous selection, select first nav entry
+      if(!this.menuKeys()) {  // if no previous selection, select first nav entry
         this.selectDefault();
       }
 
@@ -67,8 +68,10 @@ function (ko, WktProject, allNavigation, ModelEditHelper, AliasHelper, MetaHelpe
 
     // set the content path when menu selection changes
     this.menuItemSelected = () => {
-      const menuKey = this.menuKey();
-      if(menuKey) {
+      const menuKeys = this.menuKeys();  // KeySetImpl
+      const values = menuKeys ? [...menuKeys.values()] : [];
+      const menuKey = values.length ? values[0] : null;
+      if (menuKey) {
         this.navDataProvider.fetchByKeys({keys: [menuKey]})
           .then(result => {
             const keyResult = result.results.get(menuKey);
@@ -114,7 +117,7 @@ function (ko, WktProject, allNavigation, ModelEditHelper, AliasHelper, MetaHelpe
 
       const navigationKey = navigationPath.join('/');
       overrideContentPath = contentPath;  // override what the nav would select
-      this.menuKey(navigationKey);
+      this.menuKeys([navigationKey]);
     };
 
     this.openNavigation = async(modelPath) => {
@@ -242,6 +245,26 @@ function (ko, WktProject, allNavigation, ModelEditHelper, AliasHelper, MetaHelpe
       folderList.sort(function(a, b) {
         return (a.sortIndex < b.sortIndex) ? -1 : ((a.sortIndex > b.sortIndex) ? 1 : 0);
       });
+    };
+
+    this.getModelPath = key => {
+      return this.findModelPath(key, allNavigation);
+    };
+
+    this.findModelPath = (key, navList) => {
+      navList = ko.isObservable(navList) ? navList() : navList;
+      for(const navEntry of navList) {
+        if(navEntry.id === key) {
+          return navEntry.modelPath;
+        }
+        if(navEntry.children) {
+          const childPath = this.findModelPath(key, navEntry.children);
+          if(childPath) {
+            return childPath;
+          }
+        }
+      }
+      return null;
     };
   }
 

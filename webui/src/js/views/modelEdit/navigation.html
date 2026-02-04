@@ -1,24 +1,38 @@
 <!--
- Copyright (c) 2024, 2025, Oracle and/or its affiliates.
+ Copyright (c) 2024, 2026, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 
-<script type="text/html" id="editNavTemplate">
-  <li :class="[[{'oj-disabled' : $data.disabled}]]">
-    <a href="#">
-      <span :class="[['oj-navigationlist-item-icon ' + $data.icon]]"></span>
-      <oj-bind-text value="[[$data.label]]"> </oj-bind-text>
-    </a>
-  </li>
-</script>
+<oj-tree-view
+  id="modelDesignNav"
+  :aria-label="[[t('nav-aria-label')]]"
+  class="wkt-model-editor-nav-list"
+  data="[[navDataProvider]]"
+  drill-mode="collapsible"
+  expanded="{{menuExpanded}}"
+  item.selectable="[[isSelectable]]"
+  selection="{{menuKeys}}"
+  selection-mode="single"
+>
+  <template slot="itemTemplate" data-oj-as="row">
+    <span :class="[['oj-treeview-icon ' + row.data.icon]]"></span>
+    <span class="oj-treeview-item-text">
+      <oj-bind-text value="[[row.data.label]]"></oj-bind-text>
+    </span>
+  </template>
 
-<oj-navigation-list id="modelDesignNav"
-                    :aria-label="[[t('nav-aria-label')]]"
-                    class="wkt-model-editor-nav-list"
-                    data="[[navDataProvider]]"
-                    drill-mode="collapsible"
-                    expanded="{{menuExpanded}}"
-                    item.renderer="[[KnockoutTemplateUtils.getRenderer('editNavTemplate', true)]]"
-                    item.selectable="[[isSelectable]]"
-                    selection="{{menuKey}}">
-</oj-navigation-list>
+  <oj-menu id="navContextMenu" slot="contextMenu" aria-label="navAction" on-oj-menu-action="[[menuAction]]" on-oj-before-open="[[beforeMenu]]">
+    <oj-bind-for-each data="[[menuItems]]">
+      <template>
+        <oj-option
+          :id="[[$current.data.id]]"
+          disabled="[[$current.data.disabled]]"
+          value="[[$current.data.value]]">
+          <span>
+            <oj-bind-text value="[[$current.data.label]]"></oj-bind-text>
+          </span>
+        </oj-option>
+      </template>
+    </oj-bind-for-each>
+  </oj-menu>
+</oj-tree-view>

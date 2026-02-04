@@ -98,6 +98,11 @@ define(['utils/modelEdit/metadata/all-metadata'],
         return metadata['newFolderContentHandler'];
       };
 
+      this.getNewFolderNameHandler = aliasPath => {
+        const metadata = this.getMetadata(aliasPath);
+        return metadata['newFolderNameHandler'];
+      };
+
       this.getNameValidators = (/*aliasPath*/) => {
         return [];  // TODO: implement this when needed
       };

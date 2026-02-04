@@ -574,6 +574,7 @@
     ]
   },
   "SecurityConfiguration/Realm": {
+    "newFolderNameHandler": "getRealmName",
     "attributeDetails": {
       "AuthMethods": {
         "reorderable": true
@@ -3298,13 +3299,19 @@
           "ConnectionURL",
           "Username",
           "PasswordEncrypted",
-          "ConnectionProperties",
+          "ConnectionProperties"
+        ]
+      },
+      {
+        "type": "attributes",
+        "labelKey": "rdbms-security-store-notifications-title",
+        "attributes": [
           "JMSTopicConnectionFactory",
           "JMSTopic",
           "JNDIUsername",
           "JNDIPasswordEncrypted",
-          "JMSExceptionReconnectAttempts",
-          "NotificationProperties"
+          "NotificationProperties",
+          "JMSExceptionReconnectAttempts"
         ]
       },
       {

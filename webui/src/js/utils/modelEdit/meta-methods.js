@@ -16,10 +16,9 @@ function (ko, WktLogger, DialogHelper, ArchiveHelper, ModelEditHelper, AliasHelp
     const PROPERTY_ATTRIBUTE_NAMES = ['Value', ENCRYPTED_VALUE_ATTRIBUTE, 'SysPropValue'];
 
     // ask about adding Application Installation Directory (structured) app
-    this.addApplication = async (modelPath, nameValidators) => {
+    this.addApplication = async (modelPath) => {
       const options = {
-        modelPath,
-        nameValidators
+        modelPath
       };
 
       const newResult = await DialogHelper.promptDialog('modelEdit/new-app-dialog', options);
