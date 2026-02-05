@@ -13,7 +13,6 @@ const path = require('path');
 
 // TODO: translate folder names
 // TODO: translate attribute names
-// TODO: security provider types navigation
 
 const NAMESPACE = 'modeledit';  // for i18n
 
@@ -77,6 +76,8 @@ async function generateDocuments() {
   // create output directory for document and debug files
   fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 
+  addError('\nBuilding document map...');
+
   // *************************************************************
   // read alias files and create a document map organized by path
   // *************************************************************
@@ -107,10 +108,15 @@ async function generateDocuments() {
       };
     }
 
+    const usesTypeFolders = pathInfo['usesTypeFolders'];
+    const typeFolderNames = usesTypeFolders ? pathInfo['folders'] : [];
+
     docPathMap[path] = {
       locations: [],
       attributes: attributeInfo,
-      isMultiple: pathInfo['isMultiple']
+      isMultiple: pathInfo['isMultiple'],
+      usesTypeFolders,
+      typeFolderNames
     };
   }
 
@@ -189,9 +195,7 @@ async function generateDocuments() {
           if(!locations.length) {
             if(remainingClickPath) {
               addError('Assign to remaining attributes location: ' + path + ' / ' + attKey);
-              locations.push({
-                select: remainingClickPath
-              });
+              locations.push(remainingClickPath);
             }
           }
         }
@@ -236,11 +240,13 @@ function updateFromNavFolder(docPathMap, navFolder, parentPath, isTopLevel) {
   // may need translation to alias path
   aliasPath = ALIAS_PATH_MAP[aliasPath] || aliasPath;
 
-  const pathInfo = docPathMap[aliasPath];
-  if(pathInfo) {
-    pathInfo['locations'].push({
-      navigation: navPath
-    });
+  const docPathInfo = docPathMap[aliasPath];
+  if(docPathInfo) {
+    docPathInfo['locations'].push(navPath);
+
+    if(docPathInfo['usesTypeFolders']) {
+      addTypeLocations(docPathMap, aliasPath, navPath);
+    }
 
   } else if(!NO_ALIAS_PATHS.includes(aliasPath)) {
     addError('No alias path found for nav path: ' + aliasPath);
@@ -255,6 +261,16 @@ function updateFromNavFolder(docPathMap, navFolder, parentPath, isTopLevel) {
   for(const instanceChild of instanceChildren) {
     updateFromNavFolder(docPathMap, instanceChild, navPath, false);
   }
+}
+
+function addTypeLocations(docPathMap, aliasPath, navPath) {
+  const docPathInfo = docPathMap[aliasPath];
+  const typeNames = docPathInfo['typeFolderNames'];
+  typeNames.forEach(typeName => {
+    const typePath = aliasPath + '/' + typeName;
+    const typeInfo = docPathMap[typePath];
+    typeInfo['locations'].push(navPath + ':' + typeName);
+  });
 }
 
 /**
@@ -285,9 +301,7 @@ function updateFromMetadataSections(docPathMap, docAttributes, path, sections, c
         continue;
       }
 
-      docAttribute['locations'].push({
-        select: newClickPath
-      });
+      docAttribute['locations'].push(newClickPath);
     }
 
     const addRemaining = section['addRemainingAttributes'];
@@ -362,6 +376,7 @@ function filterAliasInfo(aliasInfo) {
  */
 function checkDocPathMap(docPathMap) {
   addError('\nChecking document...');
+
   for(const [path, pathInfo] of Object.entries(docPathMap)) {
     const locations = pathInfo['locations'];
     if(!locations.length) {
@@ -381,7 +396,8 @@ function checkDocPathMap(docPathMap) {
       }
 
       // it's ok for attribute to have no locations.
-      // folder may not in metadata, or folder may not have sections
+      // folder may not be in metadata, or folder may not have sections.
+      // in those cases, all attributes appear in the main section of the page.
     }
   }
 }
@@ -397,6 +413,10 @@ function writeDocument(docPathMap) {
   const writeStream = fs.createWriteStream(outputFile, {});
 
   for(const [path, docInfo] of Object.entries(docPathMap)) {
+    if(docInfo['usesTypeFolders']) {  // don't include provider categories without type folder
+      continue;
+    }
+
     writeLine('\n### ' + path, writeStream);
 
     const locations = docInfo['locations'];
@@ -404,43 +424,59 @@ function writeDocument(docPathMap) {
       writeLine('  No navigation path\n', writeStream);
     }
 
-    let first = true;
+    let firstLocation = true;
     locations.forEach(location => {
-      if (!first) {
+      if (!firstLocation) {
         writeLine('\n  or', writeStream);
       }
-      const navigation = location['navigation'];
-      if (navigation) {
-        let navigationText = '';
-        let navigationPath = '';
-        const folders = navigation.split('/');
-        for(const folder of folders) {
-          let isMultiple = false;
-          if(navigationText.length) {
-            if(navigationPath.length) {
-              navigationPath += '/';
-            }
-            navigationPath += folder;
 
-            // look up this subpath in doc to check for merge folder
-            const navDocInfo = docPathMap[navigationPath];
-            if(navDocInfo['isMergeFolder']) {
-              continue;
-            }
+      let locationText = '';
+      let locationPath = '';
+      let firstFolder = true;
 
-            isMultiple = navDocInfo['isMultiple'];
-            navigationText += ' => ';
+      const folders = location.split('/');
+      for(const folderText of folders) {
+        const parts = folderText.split(':');  // may have a type folder
+        const folder = parts[0];
+        const instanceType = (parts.length > 1) ? parts[1] : null;
+
+        if(locationPath.length) {
+          locationPath += '/';
+        }
+        locationPath += folder;
+        locationPath = ALIAS_PATH_MAP[locationPath] || locationPath;
+
+        let isMultiple = false;
+
+        if(!NO_ALIAS_PATHS.includes(locationPath)) {
+          const locationInfo = docPathMap[locationPath];
+          if(locationInfo['isMergeFolder']) {  // don't add merge folder to navText
+            continue;
           }
-          navigationText += folder;
-          if(isMultiple) {
-            navigationText += ' => {name}';
-          }
+
+          isMultiple = locationInfo['isMultiple'];
         }
 
-        writeLine('Navigate to: ' + navigationText, writeStream);
-        writeLine('', writeStream);
+        if(locationText.length) {
+          locationText += ' => ';
+        }
+        locationText += folder;
+
+        if(isMultiple) {
+          const instanceText = instanceType ? ('instance of type ' + instanceType) : 'instance';
+          locationText += ' => (' + instanceText + ')';
+        }
+
+        if(firstFolder) {  // skip top-level path and restart with next folder
+          locationPath = '';
+        }
+        firstFolder = false;
       }
-      first = false;
+
+      writeLine('Navigate to: ' + locationText, writeStream);
+      writeLine('', writeStream);
+
+      firstLocation = false;
     });
 
     const attributes = docInfo['attributes'];
@@ -455,8 +491,7 @@ function writeDocument(docPathMap) {
         let locationHidden = false;  // finding any hidden step will discard this attribute
         const attLocations = attInfo['locations'];
         for (const attLocation of attLocations) {
-          const select = attLocation['select'];
-          const steps = select.split('|').map(item => item.trim());
+          const steps = attLocation.split('|').map(item => item.trim());
           for(const step of steps) {
             const parts = step.split(':');
             const clickType = parts[0];
@@ -495,8 +530,7 @@ function writeDocument(docPathMap) {
  * @param verbose if true, include hidden sections and text for empty location
  */
 function getClickText(attLocation, verbose) {
-  const select = attLocation['select'];
-  const steps = select.split('|').map(item => item.trim());
+  const steps = attLocation.split('|').map(item => item.trim());
 
   let stepsText = '';
   for(const step of steps) {
