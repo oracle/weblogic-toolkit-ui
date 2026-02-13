@@ -1,13 +1,13 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
 
 define(['accUtils', 'knockout', 'js-yaml', 'utils/i18n', 'models/wkt-project', 'utils/view-helper', 'ojs/ojinputtext',
   'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojdialog', 'ojs/ojformlayout', 'ojs/ojvalidationgroup'],
-function(accUtils, ko, jsyaml, i18n, project, viewHelper) {
+function(accUtils, ko, jsyaml, i18n, project, ViewHelper) {
   function DomainStatusDialogModel(args) {
     const DIALOG_SELECTOR = '#domainStatusDialog';
 
@@ -24,10 +24,12 @@ function(accUtils, ko, jsyaml, i18n, project, viewHelper) {
 
       // open the dialog after the current thread, which is loading this view model.
       // using oj-dialog initial-visibility="show" causes vertical centering issues.
-      viewHelper.componentReady(this.dialogContainer).then(() => {
+      ViewHelper.componentReady(this.dialogContainer).then(() => {
         this.dialogContainer.open();
       });
     };
+
+    this.themeClasses = ViewHelper.themeClasses;
 
     this.labelMapper = (labelId) => {
       return i18n.t(`domain-design-${labelId}`);

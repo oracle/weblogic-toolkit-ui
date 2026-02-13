@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2023, Oracle and/or its affiliates.
+ * Copyright (c) 2023, 2026, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
@@ -9,7 +9,7 @@ define(['accUtils', 'knockout', 'utils/i18n', 'models/wkt-project', 'ojs/ojarray
   'ojs/ojbufferingdataprovider', 'utils/view-helper', 'utils/common-utilities', 'ojs/ojinputtext', 'ojs/ojlabel',
   'ojs/ojbutton', 'ojs/ojdialog', 'ojs/ojformlayout', 'ojs/ojvalidationgroup'],
 function(accUtils, ko, i18n, project, ArrayDataProvider,
-  BufferingDataProvider, viewHelper, utils) {
+  BufferingDataProvider, ViewHelper, utils) {
   function SecretEditDialogModel(args) {
     const DIALOG_SELECTOR = '#secretEditDialog';
 
@@ -20,10 +20,12 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
 
       // open the dialog when the container is ready.
       // using oj-dialog initial-visibility="show" causes vertical centering issues.
-      viewHelper.componentReady(this.dialogContainer).then(() => {
+      ViewHelper.componentReady(this.dialogContainer).then(() => {
         this.dialogContainer.open();
       });
     };
+
+    this.themeClasses = ViewHelper.themeClasses;
 
     this.i18n = i18n;
     this.project = project;
@@ -50,7 +52,7 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
       headerTemplate: 'headerAddTemplate',
       template: 'actionTemplate',
       sortable: 'disabled',
-      width: viewHelper.BUTTON_COLUMN_WIDTH
+      width: ViewHelper.BUTTON_COLUMN_WIDTH
     }];
 
     this.handleAddKey = () => {
@@ -86,7 +88,7 @@ function(accUtils, ko, i18n, project, ArrayDataProvider,
       this.labelMapper('secret-dialog-edit-title', {name: this.originalSecret.name}) :
       this.labelMapper('secret-dialog-add-title');
 
-    const sortComparators = viewHelper.getSortComparators(this.keyColumns);
+    const sortComparators = ViewHelper.getSortComparators(this.keyColumns);
 
     this.secretKeysTableData = new BufferingDataProvider(new ArrayDataProvider(
       this.keys, {keyAttributes: 'uid', sortComparators: sortComparators}));

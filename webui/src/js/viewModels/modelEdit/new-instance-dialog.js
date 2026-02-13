@@ -35,6 +35,8 @@ function(accUtils, ko, project,
       });
     };
 
+    this.themeClasses = ViewHelper.themeClasses;
+
     this.useTypeFolder = AliasHelper.usesTypeFolders(MODEL_PATH);
 
     this.providerTypeLabel = MessageHelper.getProviderTypeLabel(ALIAS_PATH, providerGroupLabel);

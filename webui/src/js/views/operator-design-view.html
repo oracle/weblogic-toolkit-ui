@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2021, 2025, Oracle and/or its affiliates.
+ Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('title')]]"></oj-bind-text></h6>
@@ -20,12 +20,13 @@
                    validators="[[project.wko.wkoDeployName.validators()]]"
                    help.instruction="[[labelMapper('wko-deploy-name-help')]]">
     </oj-input-text>
-    <oj-select-single label-hint="[[labelMapper('version-label')]]"
+    <oj-c-select-single label-hint="[[labelMapper('version-label')]]"
                       required
                       value="{{project.wko.versionTag.observable}}"
                       data="{{wkoVersionTags}}"
+                      item-text="label"
                       help.instruction="[[labelMapper('version-help')]]">
-    </oj-select-single>
+    </oj-c-select-single>
   </oj-form-layout>
 </div>
 
@@ -39,11 +40,12 @@
                      validators="[[project.wko.operatorImage.validators()]]"
                      help.instruction="[[labelMapper('image-tag-help')]]">
       </oj-input-text>
-      <oj-select-single label-hint="[[labelMapper('image-pull-policy-label')]]"
+      <oj-c-select-single label-hint="[[labelMapper('image-pull-policy-label')]]"
                         data="{{imagePullPoliciesDP}}"
                         value="{{project.wko.operatorImagePullPolicy.observable}}"
+                        item-text="label"
                         help.instruction="[[labelMapper('image-pull-policy-help')]]">
-      </oj-select-single>
+      </oj-c-select-single>
       <oj-switch label-hint="[[labelMapper('image-pull-requires-authentication-label')]]"
                  value="{{project.wko.operatorImagePullRequiresAuthentication.observable}}"
                  help.instruction="[[labelMapper('image-pull-requires-authentication-help')]]">
@@ -66,12 +68,12 @@
                          help.instruction="[[labelMapper('image-pull-secret-name-help')]]">
           </oj-input-text>
           <oj-bind-if test="[[project.wko.operatorImagePullUseExistingSecret.observable() === false]]">
-            <oj-select-single label-hint="[[labelMapper('image-registry-pull-credentials-label')]]"
+            <oj-c-select-single label-hint="[[labelMapper('image-registry-pull-credentials-label')]]"
                               value="{{project.wko.operatorImagePullCredentialsReference.observable}}"
                               data="[[imageRegistriesCredentialsDP]]"
                               item-text="[[getImageRegistriesCredentialsItemText]]"
                               help.instruction="[[labelMapper('image-registry-pull-credentials-help')]]">
-            </oj-select-single>
+            </oj-c-select-single>
             <oj-button label="[[imageLabelMapper('image-registry-add-credentials')]]"
                        chroming="callToAction"
                        on-oj-action="[[editImageRegistryCredentials]]">
@@ -85,12 +87,13 @@
   <div class="oj-panel">
     <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('k8s-namespace-selection-strategy-title')]]"></oj-bind-text></h6>
     <oj-form-layout max-columns="2" direction="row">
-      <oj-select-single id="domain-namespace-selection-strategy"
+      <oj-c-select-single id="domain-namespace-selection-strategy"
                         label-hint="[[labelMapper('k8s-namespace-selection-strategy-label')]]"
                         data="{{domainNamespaceSelectionStrategiesDP}}"
                         value="{{project.wko.operatorDomainNamespaceSelectionStrategy.observable}}"
+                        item-text="label"
                         help.instruction="[[labelMapper('k8s-namespace-selection-strategy-help')]]">
-      </oj-select-single>
+      </oj-c-select-single>
       <div>
         <oj-bind-if test="[[project.wko.operatorDomainNamespaceSelectionStrategy.observable() === 'List']]">
           <oj-text-area id="domain-namespaces-list"
@@ -209,11 +212,12 @@
   <div class="oj-panel">
     <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('logging-title')]]"></oj-bind-text></h6>
     <oj-form-layout max-columns="2" direction="column">
-      <oj-select-single label-hint="[[labelMapper('logging-level-label')]]"
+      <oj-c-select-single label-hint="[[labelMapper('logging-level-label')]]"
                         value="{{project.wko.javaLoggingLevel.observable}}"
                         data="{{logLevelsDP}}"
+                        item-text="label"
                         help.instruction="[[labelMapper('logging-level-help')]]">
-      </oj-select-single>
+      </oj-c-select-single>
       <oj-input-number label-hint="[[labelMapper('logging-file-size-limit-label')]]"
                        converter="[[integerConverter]]"
                        value="{{project.wko.javaLoggingFileSizeLimit.observable}}"
@@ -230,7 +234,7 @@
   <div class="oj-panel">
     <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('node-selector-title')]]"></oj-bind-text></h6>
     <oj-table id="node-selector-table"
-              class="wkt-domain-node-selectors-table"
+              class="wkt-table"
               :aria-label="[[labelMapper('node-selector-table-aria-label')]]"
               data="[[nodeSelectorDP]]"
               display="grid"

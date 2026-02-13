@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 <div class="wkt-nested-tab-frame">
@@ -20,12 +20,13 @@
                value="{{selectedSubview}}">
     <div slot="script" class="oj-panel wkt-code-view-platform-frame">
       <oj-form-layout max-columns="2" direction="row">
-        <oj-select-single label-hint="[[shellLabelMapper('selector-label')]]"
-                          on-value-changed="[[shellScriptTypeSelectValueChangedHandler]]"
-                          value="{{shellScriptType}}"
-                          data="{{shellScriptTypesDP}}"
-                          help.instruction="[[shellLabelMapper('selector-help')]]">
-        </oj-select-single>
+        <oj-c-select-single label-hint="[[shellLabelMapper('selector-label')]]"
+                            on-value-changed="[[shellScriptTypeSelectValueChangedHandler]]"
+                            value="{{shellScriptType}}"
+                            data="{{shellScriptTypesDP}}"
+                            item-text="label"
+                            help.instruction="[[shellLabelMapper('selector-help')]]">
+        </oj-c-select-single>
         <oj-button chroming="callToAction" on-oj-action="[[downloadInstaller]]">
           <span><oj-bind-text value="[[shellLabelMapper('button-download')]]"></oj-bind-text></span>
         </oj-button>

@@ -4,8 +4,8 @@
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 define(['accUtils', 'knockout', 'utils/i18n', 'models/wkt-project', 'utils/aux-image-helper',
-  'utils/image-script-generator', 'ojs/ojarraydataprovider', 'ojs/ojinputtext', 'ojs/ojformlayout',
-  'ojs/ojselectsingle'],
+  'utils/image-script-generator', 'ojs/ojarraydataprovider', 'ojs/ojinputtext', 'ojs/ojformlayout', 'ojs/ojselectsingle',
+  'oj-c/select-single'],
 function(accUtils, ko, i18n, project, auxImageHelper, ImageScriptGenerator, ArrayDataProvider) {
   function ImageCodeViewModel() {
 

@@ -6,7 +6,7 @@
 define(['accUtils', 'knockout', 'models/wkt-project', 'utils/k8s-domain-script-generator',
   'utils/k8s-domain-configmap-generator', 'utils/k8s-domain-resource-generator', 'utils/i18n',
   'ojs/ojarraydataprovider', 'utils/aux-image-helper', 'utils/wkt-logger', 'ojs/ojinputtext', 'ojs/ojnavigationlist',
-  'ojs/ojswitcher', 'ojs/ojknockout'],
+  'ojs/ojswitcher', 'ojs/ojknockout', 'ojs/ojselectsingle', 'oj-c/select-single'],
 function (accUtils, ko, project, K8sDomainScriptGenerator, K8sDomainConfigMapGenerator, K8sDomainResourceGenerator,
   i18n, ArrayDataProvider, auxImageHelper, wktLogger) {
   function DomainCodeViewModel () {

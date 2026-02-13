@@ -1,8 +1,8 @@
 <!--
- Copyright (c) 2021, 2025, Oracle and/or its affiliates.
+ Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
-<oj-dialog id="userSettingsDialog" class="wkt-user-settings-dialog" initial-visibility="show">
+<oj-dialog id="userSettingsDialog" class="wkt-user-settings-dialog" :class="[[themeClasses]]" initial-visibility="show">
   <div slot="header">
     <span class="oj-dialog-title"><oj-bind-text value="[[labelMapper('title')]]"></oj-bind-text></span>
   </div>
@@ -30,6 +30,18 @@
                            mask-icon="visible"
                            help.instruction="[[labelMapper('github-auth-token-help')]]">
         </oj-input-password>
+      </oj-form-layout>
+    </div>
+
+    <div class="oj-panel">
+      <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('appearance-mode-title')]]"></oj-bind-text></h6>
+      <oj-form-layout max-columns="1" direction="row">
+        <oj-c-select-single label-hint="[[labelMapper('appearance-mode-label')]]"
+                            value="{{appearanceMode}}"
+                            data="[[appearanceModesDP]]"
+                            item-text="label"
+                            help.instruction="[[labelMapper('appearance-mode-help')]]">
+        </oj-c-select-single>
       </oj-form-layout>
     </div>
 
@@ -65,17 +77,19 @@
       <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('logging-section-title')]]"></oj-bind-text></h6>
       <oj-form-layout max-columns="1" direction="row">
         <oj-bind-if test="[[isDevMode() === true]]">
-          <oj-select-single label-hint="[[labelMapper('console-level-label')]]"
-                            value="{{consoleLogLevel}}"
-                            data="[[logLevelsDP]]"
-                            help.instruction="[[labelMapper('console-level-help')]]">
-          </oj-select-single>
+          <oj-c-select-single label-hint="[[labelMapper('console-level-label')]]"
+                              value="{{consoleLogLevel}}"
+                              data="[[logLevelsDP]]"
+                              item-text="label"
+                              help.instruction="[[labelMapper('console-level-help')]]">
+          </oj-c-select-single>
         </oj-bind-if>
-        <oj-select-single label-hint="[[labelMapper('file-level-label')]]"
-                          value="{{fileLogLevel}}"
-                          data="[[logLevelsDP]]"
-                          help.instruction="[[labelMapper('file-level-help')]]">
-        </oj-select-single>
+        <oj-c-select-single label-hint="[[labelMapper('file-level-label')]]"
+                            value="{{fileLogLevel}}"
+                            data="[[logLevelsDP]]"
+                            item-text="label"
+                            help.instruction="[[labelMapper('file-level-help')]]">
+        </oj-c-select-single>
         <oj-input-text label-hint="[[labelMapper('file-dir-label')]]"
                        value="{{fileLogDir}}"
                        help.instruction="[[labelMapper('file-dir-help')]]">

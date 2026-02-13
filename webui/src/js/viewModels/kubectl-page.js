@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
@@ -8,7 +8,7 @@
 define(['accUtils', 'knockout', 'models/wkt-project', 'utils/i18n', 'ojs/ojarraydataprovider',
   'ojs/ojbufferingdataprovider', 'utils/url-catalog', 'utils/k8s-helper', 'utils/common-utilities',
   'utils/dialog-helper', 'utils/view-helper', 'utils/wkt-logger', 'ojs/ojformlayout', 'ojs/ojinputtext',
-  'ojs/ojselectsingle', 'ojs/ojtable'],
+  'ojs/ojselectsingle', 'ojs/ojtable', 'oj-c/select-single'],
 function(accUtils, ko, project, i18n, ArrayDataProvider, BufferingDataProvider, urlCatalog, k8sHelper, utils,
   dialogHelper, viewHelper, wktLogger) {
   function KubectlViewModel() {
@@ -90,6 +90,7 @@ function(accUtils, ko, project, i18n, ArrayDataProvider, BufferingDataProvider, 
     async function getContext(kubectlExe, options, kubeContext) {
       const results = await window.api.ipc.invoke('kubectl-get-contexts', kubectlExe, options);
       if (results.isSuccess) {
+        // Hack to prevent oj-c-select-single from throwing errors when the field's value is empty.
         const availableKubectlContextNames = [];
         results.contexts.forEach(entry => {
           availableKubectlContextNames.push({

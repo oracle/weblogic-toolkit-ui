@@ -1,14 +1,13 @@
 /**
  * @license
- * Copyright (c) 2025, Oracle and/or its affiliates.
+ * Copyright (c) 2025, 2026, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
 
 define(['accUtils', 'knockout', 'models/wkt-project', 'utils/modelEdit/message-helper', 'utils/view-helper',
   'oj-c/button', 'ojs/ojdialog'],
-function(accUtils, ko, project,
-  MessageHelper, viewHelper) {
+function(accUtils, ko, project, MessageHelper, ViewHelper) {
 
   function DeleteInstanceDialogModel(args) {
     const DIALOG_SELECTOR = '#deleteInstanceDialog';
@@ -27,10 +26,12 @@ function(accUtils, ko, project,
 
       // open the dialog when the container is ready.
       // using oj-dialog initial-visibility="show" causes vertical centering issues.
-      viewHelper.componentReady(this.dialogContainer).then(() => {
+      ViewHelper.componentReady(this.dialogContainer).then(() => {
         this.dialogContainer.open();
       });
     };
+
+    this.themeClasses = ViewHelper.themeClasses;
 
     this.t = (labelId, arg) => {
       return MessageHelper.t(labelId, arg);

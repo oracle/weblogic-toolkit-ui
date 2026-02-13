@@ -1,13 +1,13 @@
 /**
  * @license
- * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 
 define(['utils/i18n', 'accUtils', 'knockout', 'ojs/ojarraydataprovider', 'ojs/ojbufferingdataprovider',
   'models/wkt-project', 'utils/dialog-helper', 'utils/common-utilities', 'utils/ingress-routes-updater',
   'utils/view-helper', 'utils/k8s-helper', 'ojs/ojtreeview', 'ojs/ojformlayout', 'ojs/ojinputtext',
-  'ojs/ojcollapsible', 'ojs/ojselectsingle', 'ojs/ojswitch', 'ojs/ojtable', 'ojs/ojcheckboxset'
+  'ojs/ojcollapsible', 'ojs/ojselectsingle', 'ojs/ojswitch', 'ojs/ojtable', 'ojs/ojcheckboxset', 'oj-c/select-single'
 ],
 function(i18n, accUtils, ko, ArrayDataProvider, BufferingDataProvider, project, dialogHelper, utils,
   ingressRouteUpdater, viewHelper, k8sHelper) {

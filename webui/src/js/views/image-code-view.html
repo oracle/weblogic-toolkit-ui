@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2021, 2023, Oracle and/or its affiliates.
+ Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 <div class="wkt-nested-tab-frame">
@@ -19,12 +19,13 @@
                value="{{tabsStatus}}">
     <div slot="enabled" class="oj-panel wkt-code-view-platform-frame">
       <oj-form-layout max-columns="2" direction="row">
-        <oj-select-single label-hint="Script Language"
-                          on-value-changed="[[codeViewScriptLanguageSelectValueChangedHandler]]"
-                          value="{{codeViewScriptLanguage}}"
-                          data="[[codeViewScriptLanguagesDP]]"
-                          help.instruction="The scripting language to show.">
-        </oj-select-single>
+        <oj-c-select-single label-hint="Script Language"
+                            on-value-changed="[[codeViewScriptLanguageSelectValueChangedHandler]]"
+                            value="{{codeViewScriptLanguage}}"
+                            data="[[codeViewScriptLanguagesDP]]"
+                            item-text="label"
+                            help.instruction="The scripting language to show.">
+        </oj-c-select-single>
         <oj-button chroming="callToAction" on-oj-action="[[downloadScript]]">
           <span><oj-bind-text value="[[shellLabelMapper('button-download')]]"></oj-bind-text></span>
         </oj-button>

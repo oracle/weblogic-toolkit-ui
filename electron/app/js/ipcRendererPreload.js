@@ -103,6 +103,7 @@ contextBridge.exposeInMainWorld(
           'get-bypass-proxy-hosts',
           'get-divider-locations',
           'get-navigation-collapsed',
+          'get-appearance-mode',
           'get-additional-image-build-commands-file',
           'get-additional-image-build-files',
           'get-java-home',

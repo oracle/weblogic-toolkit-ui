@@ -1,8 +1,8 @@
 <!--
- Copyright (c) 2021, 2025, Oracle and/or its affiliates.
+ Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
-<oj-dialog id="attributeEditorDialog" class="wkt-model-edit-attribute-dialog" initial-visibility="hide">
+<oj-dialog id="attributeEditorDialog" class="wkt-model-edit-attribute-dialog" :class="[[themeClasses]]" initial-visibility="hide">
   <div slot="header">
     <span id="dialog-title-id" class="oj-dialog-title"><oj-bind-text value="[[getTitle()]]"></oj-bind-text></span>
   </div>
@@ -20,15 +20,16 @@
         </oj-c-radioset>
 
         <oj-bind-if test="[[variableOptionSelected]]">
-          <oj-select-single
+          <oj-c-select-single
             class="wkt-model-edit-attribute-stacked"
             label-hint="[[labelMapper('variable-choice-label')]]"
             help.instruction="[[labelMapper('variable-choice-help')]]"
             value="{{variableName}}"
             data="[[variablesProvider]]"
+            item-text="label"
             required="true"
           >
-          </oj-select-single>
+          </oj-c-select-single>
         </oj-bind-if>
 
         <oj-bind-if test="[[newVariableOptionSelected]]">

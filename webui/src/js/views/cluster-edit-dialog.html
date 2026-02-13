@@ -1,8 +1,8 @@
 <!--
- Copyright (c) 2021, 2023, Oracle and/or its affiliates.
+ Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
-<oj-dialog id="clusterEditDialog" class="wkt-cluster-edit-dialog" initial-visibility="hide">
+<oj-dialog id="clusterEditDialog" class="wkt-cluster-edit-dialog" :class="[[themeClasses]]" initial-visibility="hide">
   <div slot="header">
     <span id="dialog-title-id" class="oj-dialog-title"><oj-bind-text value="[[labelMapper('dialog-title')]]"></oj-bind-text></span>
   </div>

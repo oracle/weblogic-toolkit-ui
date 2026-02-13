@@ -1,21 +1,23 @@
 /**
  * @license
- * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
 
-define(['accUtils', 'knockout', 'utils/observable-properties', 'utils/i18n', 'ojs/ojarraydataprovider',
-  'models/wkt-project', 'utils/validation-helper', 'utils/wkt-logger', 'ojs/ojknockout', 'ojs/ojinputtext',
-  'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojdialog', 'ojs/ojformlayout', 'ojs/ojswitch', 'ojs/ojselectsingle',
-  'ojs/ojvalidationgroup', 'ojs/ojinputnumber', 'ojs/ojknockout'],
-function(accUtils, ko, utils, i18n, ArrayDataProvider, project, validationHelper, wktLogger) {
+define(['accUtils', 'knockout', 'utils/observable-properties', 'utils/i18n', 'utils/view-helper',
+  'ojs/ojarraydataprovider', 'models/wkt-project', 'utils/validation-helper', 'utils/wkt-logger', 'ojs/ojknockout',
+  'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojdialog', 'ojs/ojformlayout', 'ojs/ojswitch',
+  'ojs/ojselectsingle', 'ojs/ojvalidationgroup', 'ojs/ojinputnumber', 'ojs/ojknockout', 'oj-c/select-single'],
+function(accUtils, ko, utils, i18n, ViewHelper, ArrayDataProvider, project, validationHelper, wktLogger) {
   function UserSettingsDialogModel(payload) {
 
     this.connected = () => {
       accUtils.announce('Discover dialog loaded.', 'assertive');
       this.loadUserSettings();
     };
+
+    this.themeClasses = ViewHelper.themeClasses;
 
     this.i18n = i18n;
 
@@ -64,6 +66,14 @@ function(accUtils, ko, utils, i18n, ArrayDataProvider, project, validationHelper
     this.internalConnectivityTestTimeoutMilliseconds = ko.observable(payload.defaults.connectivityTestTimeoutMilliseconds);
     this.skipQuickstart = ko.observable(false);
     this.disableLinuxHardwareAcceleration = ko.observable(false);
+
+    this.appearanceModes = [
+      { key: 'system', label: i18n.t('user-settings-dialog-appearance-mode-system') },
+      { key: 'light', label: i18n.t('user-settings-dialog-appearance-mode-light') },
+      { key: 'dark', label: i18n.t('user-settings-dialog-appearance-mode-dark') },
+    ];
+    this.appearanceModesDP = new ArrayDataProvider(this.appearanceModes, { keyAttributes: 'key' });
+    this.appearanceMode = ko.observable(payload.defaults.appearanceMode);
 
     this.loadUserSettings = () => {
       if ('proxy' in this.userSettings) {
@@ -118,6 +128,10 @@ function(accUtils, ko, utils, i18n, ArrayDataProvider, project, validationHelper
       if ('skipQuickstartAtStartup' in this.userSettings) {
         this.skipQuickstart(this.userSettings.skipQuickstartAtStartup);
       }
+
+      if ('appearanceMode' in this.userSettings) {
+        this.appearanceMode(this.userSettings.appearanceMode);
+      }
     };
 
     this.chooseExternalToolsStagingDirectory = async () => {
@@ -132,6 +146,7 @@ function(accUtils, ko, utils, i18n, ArrayDataProvider, project, validationHelper
     this.storeUserSettings = () => {
       project.setHttpsProxyUrl(this.proxyUrl());
       project.setBypassProxyHosts(this.bypassProxyHosts());
+      ViewHelper.setAppearanceMode(this.appearanceMode());
       this._storeSetting('gitHubAuthToken', this.gitHubAuthToken);
       this._storeSetting('tools.wktToolsExternalStagingDirectory', this.wktToolsExternalStagingDirectory);
       this._storeSetting('linux.disableLinuxHardwareAcceleration', this.disableLinuxHardwareAcceleration);
@@ -146,6 +161,8 @@ function(accUtils, ko, utils, i18n, ArrayDataProvider, project, validationHelper
           this.internalConnectivityTestTimeoutMilliseconds, payload.defaults.connectivityTestTimeoutMilliseconds);
       }
       this._storeSetting('skipQuickstartAtStartup', this.skipQuickstart, false);
+      wktLogger.info('payload.defaults.appearanceMode = ' + payload.defaults.appearanceMode);
+      this._storeSetting('appearanceMode', this.appearanceMode, payload.defaults.appearanceMode);
     };
 
     this._storeSetting = (key, observable, defaultValue) => {

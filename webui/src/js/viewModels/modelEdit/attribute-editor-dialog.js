@@ -10,7 +10,7 @@ define(['accUtils', 'knockout', 'models/wkt-project', 'utils/common-utilities', 
   'utils/modelEdit/file-select-helper', 'utils/wdt-archive-helper', 'utils/modelEdit/meta-options',
   'utils/view-helper',
   'ojs/ojinputtext', 'ojs/ojlabel', 'oj-c/button', 'ojs/ojdialog', 'ojs/ojformlayout', 'oj-c/radioset',
-  'ojs/ojvalidationgroup', 'oj-c/message-banner'],
+  'ojs/ojvalidationgroup', 'oj-c/message-banner', 'oj-c/select-single'],
 function(accUtils, ko, project, utils, ArrayDataProvider, ModelEditHelper,
   MessageHelper, AliasHelper, FileSelectHelper, ArchiveHelper, MetaOptions, ViewHelper) {
 
@@ -60,6 +60,8 @@ function(accUtils, ko, project, utils, ArrayDataProvider, ModelEditHelper,
         subscription.dispose();
       });
     };
+
+    this.themeClasses = ViewHelper.themeClasses;
 
     this.t = (labelId, arg) => {
       return MessageHelper.t(labelId, arg);

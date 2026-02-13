@@ -1,12 +1,12 @@
 /**
  * @license
- * Copyright (c) 2014, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2014, 2026, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 
 define(['knockout', 'ojs/ojcontext', 'ojs/ojresponsiveutils', 'ojs/ojresponsiveknockoututils',
-  'ojs/ojmodule-element-utils', 'ojs/ojmodule-element', 'ojs/ojknockout'],
-function(ko, Context, ResponsiveUtils, ResponsiveKnockoutUtils, ModuleElementUtils) {
+  'ojs/ojmodule-element-utils', 'utils/view-helper','ojs/ojmodule-element', 'ojs/ojknockout'],
+function(ko, Context, ResponsiveUtils, ResponsiveKnockoutUtils, ModuleElementUtils, ViewHelper) {
 
   function ControllerViewModel() {
 
@@ -46,6 +46,8 @@ function(ko, Context, ResponsiveUtils, ResponsiveKnockoutUtils, ModuleElementUti
       name: mainModule,
       params: {}
     });
+
+    this.themeClasses = ViewHelper.themeClasses;
   }
 
   // release the application bootstrap busy state

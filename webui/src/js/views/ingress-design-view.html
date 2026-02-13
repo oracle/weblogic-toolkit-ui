@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2021, 2025, Oracle and/or its affiliates.
+ Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('title')]]"></oj-bind-text></h6>
@@ -9,11 +9,12 @@
       <oj-bind-text value="[[labelMapper('ingress-specification-title')]]"></oj-bind-text>
     </h6>
     <oj-form-layout max-columns="2" direction="row">
-      <oj-select-single label-hint="[[labelMapper('ingress-provider-label')]]"
+      <oj-c-select-single label-hint="[[labelMapper('ingress-provider-label')]]"
                         value="{{project.ingress.ingressControllerProvider.observable}}"
                         data="{{ingressProviderDP}}"
+                        item-text="label"
                         help.instruction="[[labelMapper('ingress-provider-help')]]">
-      </oj-select-single>
+      </oj-c-select-single>
       <oj-input-text label-hint="[[labelMapper('ingress-namespace-label')]]"
                      value="{{project.ingress.ingressControllerNamespace.observable}}"
                      validators="[[project.ingress.validators.k8sNameValidator]]"
@@ -32,11 +33,12 @@
                        validators="[[project.ingress.validators.k8sNameValidator]]"
                        help.instruction="[[labelMapper('ingress-name-help')]]">
         </oj-input-text>
-        <oj-select-single label-hint="[[labelMapper('ingress-service-type-label')]]"
+        <oj-c-select-single label-hint="[[labelMapper('ingress-service-type-label')]]"
                           value="{{project.ingress.ingressServiceType.observable}}"
                           data="{{ingressServiceTypeDP}}"
+                          item-text="label"
                           help.instruction="[[labelMapper('ingress-service-type-help')]]">
-        </oj-select-single>
+        </oj-c-select-single>
         <oj-input-number label-hint="[[labelMapper('helm-timeout-label')]]"
                          value="{{project.ingress.helmTimeoutMinutes.observable}}"
                          min="1"
@@ -44,11 +46,12 @@
                          help.instruction="[[labelMapper('helm-timeout-help')]]">
         </oj-input-number>
         <oj-bind-if test="[[isVoyager() === true]]">
-          <oj-select-single label-hint="[[labelMapper('voyager-provider-label')]]"
+          <oj-c-select-single label-hint="[[labelMapper('voyager-provider-label')]]"
                             value="{{project.ingress.voyagerProvider.observable}}"
                             data="{{voyagerProvidersDP}}"
+                            item-text="label"
                             help.instruction="[[labelMapper('voyager-provider-help')]]">
-          </oj-select-single>
+          </oj-c-select-single>
         </oj-bind-if>
         <oj-bind-if test="[[isNginx() === true]]">
           <oj-switch label-hint="[[labelMapper('nginx-allow-passthrough-label')]]"
@@ -82,12 +85,12 @@
           </oj-bind-if>
           <div>
             <oj-bind-if test="[[createDockerHubSecret() === true]]">
-              <oj-select-single label-hint="[[labelMapper('image-registry-pull-credentials-label')]]"
+              <oj-c-select-single label-hint="[[labelMapper('image-registry-pull-credentials-label')]]"
                                 value="{{project.ingress.dockerRegImageCredentialReference.observable}}"
                                 data="[[imageRegistriesCredentialsDP]]"
                                 item-text="[[getImageRegistriesCredentialsItemText]]"
                                 help.instruction="[[labelMapper('image-registry-pull-credentials-help')]]">
-              </oj-select-single>
+              </oj-c-select-single>
               <oj-button class="wkt-button-below"
                          label="[[imageLabelMapper('image-registry-add-credentials')]]"
                          chroming="callToAction"
@@ -180,7 +183,7 @@
       <oj-bind-text value="[[labelMapper('ingress-routes-title')]]"></oj-bind-text>
     </h6>
     <oj-table id="routes-table"
-              class="wkt-model-properties-table"
+              class="wkt-table"
               :aria-label="[[labelMapper('routes-table-aria-label')]]"
               data="[[routesDataProvider]]"
               display="grid"

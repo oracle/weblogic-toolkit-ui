@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2024, 2025, Oracle and/or its affiliates.
+ * Copyright (c) 2024, 2026, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
@@ -10,7 +10,7 @@ define(['accUtils', 'knockout', 'models/wkt-project', 'utils/modelEdit/instance-
   'utils/validation-helper', 'utils/view-helper',
   'oj-c/input-text', 'oj-c/button', 'ojs/ojdialog', 'ojs/ojvalidationgroup'],
 function(accUtils, ko, project,
-  InstanceHelper, ModelEditHelper, MessageHelper, AliasHelper, validationHelper, viewHelper) {
+  InstanceHelper, ModelEditHelper, MessageHelper, AliasHelper, validationHelper, ViewHelper) {
 
   function RenameInstanceDialogModel(args) {
     const DIALOG_SELECTOR = '#renameInstanceDialog';
@@ -32,10 +32,12 @@ function(accUtils, ko, project,
 
       // open the dialog when the container is ready.
       // using oj-dialog initial-visibility="show" causes vertical centering issues.
-      viewHelper.componentReady(this.dialogContainer).then(() => {
+      ViewHelper.componentReady(this.dialogContainer).then(() => {
         this.dialogContainer.open();
       });
     };
+
+    this.themeClasses = ViewHelper.themeClasses;
 
     this.nameValidators = InstanceHelper.getNameValidators(MODEL_PATH);
 

@@ -1,8 +1,8 @@
 <!--
- Copyright (c) 2023, Oracle and/or its affiliates.
+ Copyright (c) 2023, 2026, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
-<oj-dialog id="chooseKubectlContextDialog" class="wkt-add-to-archive-dialog" initial-visibility="hide">
+<oj-dialog id="chooseKubectlContextDialog" class="wkt-add-to-archive-dialog" :class="[[themeClasses]]" initial-visibility="hide">
   <div slot="header">
     <span id="dialog-title-id" class="oj-dialog-title">
       <oj-bind-text value="[[labelMapper('dialog-title')]]"></oj-bind-text>
@@ -11,11 +11,12 @@
   <div slot="body">
     <div class="oj-panel">
       <oj-form-layout max-columns="1" direction="row">
-        <oj-select-single label-hint="[[labelMapper('name-label')]]"
-                          value="{{selectedKubectlContextName}}"
-                          data="{{availableKubectlContextNamesDP}}"
-                          help.instruction="[[labelMapper('name-help')]]">
-        </oj-select-single>
+        <oj-c-select-single label-hint="[[labelMapper('name-label')]]"
+                            value="{{selectedKubectlContextName}}"
+                            data="[[availableKubectlContextNamesDP]]"
+                            item-text="label"
+                            help.instruction="[[labelMapper('name-help')]]">
+        </oj-c-select-single>
       </oj-form-layout>
     </div>
   </div>

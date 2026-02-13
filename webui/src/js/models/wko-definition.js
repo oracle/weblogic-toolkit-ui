@@ -1,12 +1,12 @@
 /**
  * @license
- * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
 
-define(['utils/observable-properties', 'utils/validation-helper'],
-  function (props, validationHelper) {
+define(['knockout', 'utils/observable-properties', 'utils/validation-helper'],
+  function (ko, props, validationHelper) {
 
     return function (name) {
       function WkoModel() {
@@ -93,6 +93,18 @@ define(['utils/observable-properties', 'utils/validation-helper'],
         this.setNotChanged = () => {
           props.createGroup(name, this).setNotChanged();
         };
+
+        // load versions in advance so they will be ready as select options.
+        // this will not be persisted - it's not an observable-property.
+        this.wkoVersions = ko.observableArray();
+        window.api.ipc.invoke('get-wko-release-versions').then(versions => {
+          // Sort in descending order by version number.
+          versions.sort((a, b) => window.api.utils.compareVersions(a.version, b.version)).reverse();
+          this.wkoVersions.push(...versions.map(versionObject => {
+            const label = versionObject.version;
+            return { ...versionObject, label };
+          }));
+        });
       }
 
       return new WkoModel();

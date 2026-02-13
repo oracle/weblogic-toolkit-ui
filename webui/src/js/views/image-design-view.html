@@ -62,12 +62,12 @@
             </oj-switch>
             <div>
               <oj-bind-if test="[[imageRegistryPushRequiresAuthentication() === true]]">
-                <oj-select-single label-hint="[[labelMapper('image-registry-push-credentials-label')]]"
+                <oj-c-select-single label-hint="[[labelMapper('image-registry-push-credentials-label')]]"
                                   value="{{project.image.imageRegistryPushCredentialsReference.observable}}"
                                   data="[[imageRegistriesCredentialsDP]]"
                                   item-text="[[getImageRegistriesCredentialsItemText]]"
                                   help.instruction="[[labelMapper('image-registry-push-credentials-help')]]">
-                </oj-select-single>
+                </oj-c-select-single>
                 <oj-button
                   class="wkt-button-below"
                   label="[[labelMapper('image-registry-add-credentials')]]"
@@ -113,12 +113,12 @@
             <div>
               <oj-bind-if test="[[project.image.useCustomBaseImage.observable() === true &&
                                   project.image.baseImagePullRequiresAuthentication.observable() == true]]">
-                <oj-select-single label-hint="[[labelMapper('base-image-registry-pull-credentials-label')]]"
+                <oj-c-select-single label-hint="[[labelMapper('base-image-registry-pull-credentials-label')]]"
                                   value="{{project.image.baseImagePullCredentialsReference.observable}}"
                                   data="[[imageRegistriesCredentialsDP]]"
                                   item-text="[[getImageRegistriesCredentialsItemText]]"
                                   help.instruction="[[labelMapper('base-image-registry-pull-credentials-help')]]">
-                </oj-select-single>
+                </oj-c-select-single>
                 <oj-button
                         class="wkt-button-below"
                         label="[[labelMapper('image-registry-add-credentials')]]"
@@ -168,11 +168,12 @@
                 <div class="oj-panel">
                   <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('fmw-installer-title')]]"></oj-bind-text></h6>
                   <oj-c-form-layout max-columns="1" direction="row">
-                    <oj-select-single label-hint="[[labelMapper('fmw-installer-type-label')]]"
+                    <oj-c-select-single label-hint="[[labelMapper('fmw-installer-type-label')]]"
                                       value="{{project.image.oracleInstallerType.observable}}"
                                       data="{{oracleInstallerTypesDP}}"
+                                      item-text="label"
                                       help.instruction="[[labelMapper('fmw-installer-type-help')]]">
-                    </oj-select-single>
+                    </oj-c-select-single>
                   </oj-c-form-layout>
                   <oj-c-form-layout max-columns="2" direction="row">
                     <oj-input-text label-hint="[[labelMapper('fmw-installer-label')]]"
@@ -344,12 +345,12 @@
           </oj-switch>
           <div>
             <oj-bind-if test="[[auxImageRegistryPushRequiresAuthentication() === true]]">
-              <oj-select-single label-hint="[[labelMapper('aux-image-registry-push-credentials-label')]]"
+              <oj-c-select-single label-hint="[[labelMapper('aux-image-registry-push-credentials-label')]]"
                                 value="{{project.image.auxImageRegistryPushCredentialsReference.observable}}"
                                 data="[[imageRegistriesCredentialsDP]]"
                                 item-text="[[getImageRegistriesCredentialsItemText]]"
                                 help.instruction="[[labelMapper('aux-image-registry-push-credentials-help')]]">
-              </oj-select-single>
+              </oj-c-select-single>
               <oj-button
                       class="wkt-button-below"
                       label="[[labelMapper('image-registry-add-credentials')]]"
@@ -394,12 +395,12 @@
             </oj-switch>
             <div>
               <oj-bind-if test="[[project.image.auxDefaultBaseImagePullRequiresAuthentication.observable() == true]]">
-                <oj-select-single label-hint="[[labelMapper('aux-default-base-image-pull-credentials-label')]]"
+                <oj-c-select-single label-hint="[[labelMapper('aux-default-base-image-pull-credentials-label')]]"
                                   value="{{project.image.auxDefaultBaseImagePullCredentialsReference.observable}}"
                                   data="[[imageRegistriesCredentialsDP]]"
                                   item-text="[[getImageRegistriesCredentialsItemText]]"
                                   help.instruction="[[labelMapper('aux-default-base-image-pull-credentials-help')]]">
-                </oj-select-single>
+                </oj-c-select-single>
                 <oj-button
                         class="wkt-button-below"
                         label="[[labelMapper('image-registry-add-credentials')]]"
@@ -419,12 +420,12 @@
             </oj-switch>
             <div>
               <oj-bind-if test="[[project.image.auxBaseImagePullRequiresAuthentication.observable() == true]]">
-                <oj-select-single label-hint="[[labelMapper('aux-base-image-pull-credentials-label')]]"
+                <oj-c-select-single label-hint="[[labelMapper('aux-base-image-pull-credentials-label')]]"
                                   value="{{project.image.auxBaseImagePullCredentialsReference.observable}}"
                                   data="[[imageRegistriesCredentialsDP]]"
                                   item-text="[[getImageRegistriesCredentialsItemText]]"
                                   help.instruction="[[labelMapper('aux-base-image-pull-credentials-help')]]">
-                </oj-select-single>
+                </oj-c-select-single>
                 <oj-button
                         class="wkt-button-below"
                         label="[[labelMapper('image-registry-add-credentials')]]"

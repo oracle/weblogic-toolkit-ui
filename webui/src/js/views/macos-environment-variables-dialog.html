@@ -1,8 +1,8 @@
 <!--
- Copyright (c) 2022, Oracle and/or its affiliates.
+ Copyright (c) 2022, 2026, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
-<oj-dialog id="wktMacosEnvironmentVariablesDialog" class="wkt-macos-env-variables-dialog wkt-fixed-body-dialog" initial-visibility="hide">
+<oj-dialog id="wktMacosEnvironmentVariablesDialog" class="wkt-macos-env-variables-dialog wkt-fixed-body-dialog" :class="[[themeClasses]]" initial-visibility="hide">
   <div slot="header">
     <span class="oj-dialog-title"><oj-bind-text value="[[labelMapper('title')]]"></oj-bind-text></span>
   </div>
@@ -10,7 +10,7 @@
   <div slot="body">
     <div class="oj-panel wkt-notop wkt-full-height">
       <oj-table id="macos-environment-variables-table"
-                class="wkt-env-vars-table"
+                class="wkt-table"
                 :aria-label="[[labelMapper('table-aria-label')]]"
                 data="[[environmentVariablesDataProvider]]"
                 display="grid"
