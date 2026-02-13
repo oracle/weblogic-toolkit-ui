@@ -196,9 +196,9 @@ describe('wkt-project', function () {
     });
 
     it('has default values for the image data', function () {
-      expect(project.image.baseImage.value).to.equal('');
-      expect(project.image.jdkInstaller.value).to.equal('');
-      expect(project.image.oracleInstaller.value).to.equal('');
+      expect(project.image.baseImage.value).to.equal(null);
+      expect(project.image.jdkInstaller.value).to.equal(null);
+      expect(project.image.oracleInstaller.value).to.equal(null);
       expect(project.image.oraclePatchesToApply.value).to.have.members([]);
     });
 
@@ -226,7 +226,7 @@ describe('wkt-project', function () {
 
       project.setFromJson({image: {jdkInstaller: 'something'}}, {});
 
-      expect(project.image.baseImage.observable()).to.equal('');
+      expect(project.image.baseImage.observable()).to.equal(null);
     });
 
     it('serializes the specified image data', function () {
@@ -279,7 +279,7 @@ describe('wkt-project', function () {
       expect(project.kubectl.k8sFlavor.value).to.equal('OKE');
       expect(project.kubectl.kubeConfig.value).to.eql(['fake-kube-config']);
       expect(project.kubectl.executableFilePath.value).to.equal('/fake/kubectl');
-      expect(project.kubectl.kubeConfigContextToUse.value).to.equal('');
+      expect(project.kubectl.kubeConfigContextToUse.value).to.equal(null);
       expect(project.kubectl.helmExecutableFilePath.observable()).to.equal('/helm/file');
     });
 

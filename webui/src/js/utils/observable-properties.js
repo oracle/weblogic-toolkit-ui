@@ -178,7 +178,7 @@ define(['knockout', 'utils/common-utilities', 'utils/validation-helper', 'utils/
           });
         } else {
           this._default = getInitialValue(initialValue);
-          this._observable = ko.observable(initialValue);
+          this._observable = ko.observable(this._default);
         }
       }
 
@@ -282,11 +282,14 @@ define(['knockout', 'utils/common-utilities', 'utils/validation-helper', 'utils/
 
       // returns true if this property is changed from its default value.
       hasValue() {
-        // note: loose equality (== null, != null) includes undefined
-        const currentValue = this._observable == null ? undefined : this.observable();
-        return this._default !== null
+        const currentValue = this.nullOrUndefined(this._observable) ? undefined : this.observable();
+        return !this.nullOrUndefined(this._default)
           ? this.getDefaultValue() !== currentValue
-          : currentValue != null && currentValue !== '';
+          : !this.nullOrUndefined(currentValue) && currentValue !== '';
+      }
+
+      nullOrUndefined(value) {
+        return value === null || value === undefined;
       }
     }
 
