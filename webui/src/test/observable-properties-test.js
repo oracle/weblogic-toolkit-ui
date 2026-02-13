@@ -50,7 +50,7 @@ describe('observable-properties-support', function () {
     it('initial value matches empty string', function () {
       const property = utils.createProperty();
 
-      expect(property.observable()).to.equal('');
+      expect(property.observable()).to.equal(null);
     });
 
     it('reports not being promise-based', function() {
@@ -96,7 +96,7 @@ describe('observable-properties-support', function () {
 
       property.clear();
 
-      expect(property.observable()).to.equal('');
+      expect(property.observable()).to.equal(null);
       expect(property.hasValue()).to.equal(false);
     });
 
@@ -118,7 +118,7 @@ describe('observable-properties-support', function () {
     it('returns unset string values as empty strings', function () {
       const property = utils.createProperty();
 
-      expect(property.value).to.equal('');
+      expect(property.value).to.equal(null);
     });
 
     it('returns string values trimmed', function () {
@@ -260,11 +260,11 @@ describe('observable-properties-support', function () {
       expect(property.observable()).to.equal('zork');
     });
 
-    it('converts null default to empty string', function() {
+    it('maintains null from default function', function() {
       const nullInitializer = function() { return null; };
       const property = utils.createProperty(nullInitializer());
 
-      expect(property.observable()).to.equal('');
+      expect(property.observable()).to.equal(null);
     });
 
     it('value can be set', function () {
