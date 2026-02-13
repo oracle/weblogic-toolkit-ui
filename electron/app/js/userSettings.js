@@ -1,9 +1,9 @@
 /**
  * @license
- * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
-const { app } = require('electron');
+const { app, nativeTheme } = require('electron');
 const fs = require('fs');
 const path = require('path');
 const uuid = require('uuid');
@@ -20,7 +20,8 @@ const userSettableFieldNames = [
   'tools',
   'logging',
   'skipQuickstartAtStartup',
-  'connectivityTestTimeoutMilliseconds'
+  'connectivityTestTimeoutMilliseconds',
+  'appearanceMode'
 ];
 
 const appPrivateFieldNames = [
@@ -74,7 +75,8 @@ let _userSettingsFileName;
 //     "navCollapsed": true
 //   },
 //   "skipQuickstartAtStartup": true,
-//   "connectivityTestTimeoutMilliseconds": 10000
+//   "connectivityTestTimeoutMilliseconds": 10000,
+//   "appearanceMode": <"light"|"dark"|"system">
 // }
 //
 let _userSettingsObject;
@@ -107,6 +109,18 @@ function applyUserSettingsFromRemote(remoteUserSettingsJson) {
   _userSettingsObject = remoteUserSettingsObject;
   saveUserSettings();
   wktLogger.debug('user settings saved...restart the application to pick up logger settings changes');
+
+  updateTheme();
+}
+
+function updateTheme() {
+  const settingsObject = _userSettingsObject || {};
+  nativeTheme.themeSource = settingsObject['appearanceMode'] || getDefaultAppearanceMode();
+}
+
+// initial background color to avoid flash on window open
+function getInitialBackgroundColor() {
+  return nativeTheme.shouldUseDarkColors ? '#312D2A' : 'white';
 }
 
 function getGithubAuthToken() {
@@ -255,6 +269,30 @@ function setConnectivityTestTimeout(value) {
     }
   } else {
     settings['connectivityTestTimeoutMilliseconds'] = Number(value);
+  }
+}
+
+function getAppearanceMode() {
+  const settings = _getUserSettings();
+  if ('appearanceMode' in settings) {
+    return settings['appearanceMode'];
+  } else {
+    return getDefaultAppearanceMode();
+  }
+}
+
+function getDefaultAppearanceMode() {
+  return 'system';
+}
+
+function setAppearanceMode(value) {
+  const settings = _getUserSettings();
+  if (value === undefined || value === null || value === getDefaultAppearanceMode()) {
+    if ('appearanceMode' in settings) {
+      delete settings['appearanceMode'];
+    }
+  } else {
+    settings['appearanceMode'] = value;
   }
 }
 
@@ -487,6 +525,9 @@ function _updateSettings(settings) {
   if (settings['developer']) {
     delete settings['developer'];
   }
+  if (!settings['appearanceMode']) {
+    settings['appearanceMode'] = getDefaultAppearanceMode();
+  }
   return settings;
 }
 
@@ -508,6 +549,9 @@ function _encryptGitHubToken(userSettingsObject) {
 
 module.exports = {
   applyUserSettingsFromRemote,
+  getAppearanceMode,
+  getDefaultAppearanceMode,
+  setAppearanceMode,
   getDividerLocations,
   getHttpsProxyUrl,
   getNavigationCollapsed,
@@ -530,5 +574,7 @@ module.exports = {
   setWktToolsExternalStagingDirectory,
   getLinuxDisableHardwareAcceleration,
   setLinuxDisableHardwareAcceleration,
-  getGithubAuthToken
+  getGithubAuthToken,
+  updateTheme,
+  getInitialBackgroundColor
 };

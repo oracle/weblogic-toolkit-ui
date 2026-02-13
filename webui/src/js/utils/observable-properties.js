@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -132,23 +132,33 @@ define(['knockout', 'utils/common-utilities', 'utils/validation-helper', 'utils/
        */
       constructor(defaultValue, ...source) {
         super();
+
+        // original default, possibly a function or Promise, doesn't change.
+        // Promise example: props.createProperty(window.api.ipc.invoke('get-oracle-home'))
         this._defaultValue = defaultValue;
-        this._source = source;
+
+        // final default value, possibly a function.
+        // possibly delayed if _defaultValue is a Promise.
+        // undefined if never set, null if intentionally set to null or undefined.
+        this._default = undefined;
+
+        this._source = source;  // first element may be an observable default
         this._pattern = null;
-        this._default = null;
         this._credential = false;
         this._observable = null;
         this._validators = [];
       }
 
+      // if _defaultValue was a Promise, set the default and update the observable.
       // sets the default value for the property, and optionally sets the current value.
       resolvePromise(initialValue) {
-        this._default = initialValue;
+        this._default = getInitialValue(initialValue);
         if (typeof this._observable() === 'undefined') {
           this._observable(initialValue);
         }
       }
 
+      // used to ensure that object group is ready for persistence.
       getPromise() {
         try {
           return (typeof this._defaultValue === 'function' && this.isPromise(this._defaultValue())) ? this._defaultValue() : null;
@@ -161,23 +171,27 @@ define(['knockout', 'utils/common-utilities', 'utils/validation-helper', 'utils/
       initializeDefaultValue(initialValue) {
         if (this.isPromise(initialValue)) {
           this._observable = ko.observable(undefined);
-          initialValue.then(result => this.resolvePromise(result)).catch(() => this.resolvePromise(''));
+          initialValue.then(result => {
+            this.resolvePromise(result);
+          }).catch(() => {
+            this.resolvePromise(undefined);
+          });
         } else {
-          this._default = initialValue;
-          this._observable = ko.observable(this._default);
+          this._default = getInitialValue(initialValue);
+          this._observable = ko.observable(initialValue);
         }
       }
 
       // initializes the observable for this property,
       initializeObservable() {
-        if (this._default != null) {
+        if (typeof this._default !== 'undefined') {
           this._observable = ko.observable(this._default);
         } else if (this.isComputedDefault(this)) {
           const computedScalarObservable = new ComputedScalarObservable(this._defaultValue, ...this._source);
           this._default = computedScalarObservable.getDefaultFunction();
           this._observable = computedScalarObservable.createObservable();
         } else {
-          this.initializeDefaultValue(getInitialValue(this._defaultValue));
+          this.initializeDefaultValue(this._defaultValue);
         }
       }
 
@@ -268,9 +282,11 @@ define(['knockout', 'utils/common-utilities', 'utils/validation-helper', 'utils/
 
       // returns true if this property is changed from its default value.
       hasValue() {
+        // note: loose equality (== null, != null) includes undefined
+        const currentValue = this._observable == null ? undefined : this.observable();
         return this._default !== null
-          ? this.getDefaultValue() !== this.observable()
-          : this._observable != null && typeof this._observable() !== 'undefined';
+          ? this.getDefaultValue() !== currentValue
+          : currentValue != null && currentValue !== '';
       }
     }
 
@@ -682,10 +698,10 @@ define(['knockout', 'utils/common-utilities', 'utils/validation-helper', 'utils/
       switch (typeof initializer) {
         case 'function':
           return initializer();
-        case 'undefined':
-          return '';
+        case 'undefined':  // set default to null to indicate _default is resolved
+          return null;
         default:
-          return initializer === null ? '' : initializer;
+          return initializer;
       }
     }
 

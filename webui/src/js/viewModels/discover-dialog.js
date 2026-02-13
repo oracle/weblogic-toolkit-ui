@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
@@ -9,7 +9,7 @@ define(['accUtils', 'knockout', 'utils/i18n', 'utils/view-helper', 'ojs/ojarrayd
   'utils/wdt-discoverer', 'utils/wkt-logger', 'ojs/ojknockout', 'oj-c/input-text', 'oj-c/input-password', 'ojs/ojlabel',
   'oj-c/button', 'ojs/ojdialog', 'oj-c/form-layout', 'oj-c/select-single', 'ojs/ojvalidationgroup', 'ojs/ojswitch',
   'oj-c/radioset', 'oj-c/checkboxset', 'oj-c/checkbox', 'oj-c/input-password'],
-function(accUtils, ko, i18n, viewHelper, ArrayDataProvider, project, wdtDiscoverer) {
+function(accUtils, ko, i18n, ViewHelper, ArrayDataProvider, project, wdtDiscoverer) {
   function DiscoverDialogModel(config) {
     const DIALOG_SELECTOR = '#discoverDialog';
 
@@ -39,7 +39,7 @@ function(accUtils, ko, i18n, viewHelper, ArrayDataProvider, project, wdtDiscover
 
       // open the dialog when the container is ready.
       // using oj-dialog initial-visibility="show" causes vertical centering issues.
-      viewHelper.componentReady(this.dialogContainer).then(() => {
+      ViewHelper.componentReady(this.dialogContainer).then(() => {
         this.dialogContainer.open();
       });
     };
@@ -49,6 +49,8 @@ function(accUtils, ko, i18n, viewHelper, ArrayDataProvider, project, wdtDiscover
         subscription.dispose();
       });
     };
+
+    this.themeClasses = ViewHelper.themeClasses;
 
     this.labelMapper = (labelId, arg) => {
       if (arg) {

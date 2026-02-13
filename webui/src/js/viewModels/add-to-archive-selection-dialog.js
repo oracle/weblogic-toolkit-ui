@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
@@ -8,8 +8,8 @@
 define(['accUtils', 'knockout', 'utils/i18n', 'models/wkt-project', 'utils/dialog-helper', 'utils/wdt-archive-helper',
   'utils/view-helper', 'ojs/ojarraydataprovider', 'utils/wkt-logger', 'ojs/ojknockout', 'ojs/ojinputtext',
   'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojdialog', 'ojs/ojformlayout', 'ojs/ojselectsingle', 'ojs/ojvalidationgroup',
-  'ojs/ojradioset'],
-function(accUtils, ko, i18n, project, dialogHelper, archiveHelper, viewHelper, ArrayDataProvider, wktLogger) {
+  'ojs/ojradioset', 'oj-c/select-single'],
+function(accUtils, ko, i18n, project, dialogHelper, archiveHelper, ViewHelper, ArrayDataProvider, wktLogger) {
 
   const jqueryDialogName = '#addToArchiveSelectionDialog';
 
@@ -29,7 +29,7 @@ function(accUtils, ko, i18n, project, dialogHelper, archiveHelper, viewHelper, A
 
       // open the dialog when the container is ready.
       // using oj-dialog initial-visibility="show" causes vertical centering issues.
-      viewHelper.componentReady(this.dialogContainer).then(() => {
+      ViewHelper.componentReady(this.dialogContainer).then(() => {
         $(jqueryDialogName)[0].open();
       });
     };
@@ -39,6 +39,8 @@ function(accUtils, ko, i18n, project, dialogHelper, archiveHelper, viewHelper, A
         subscription.dispose();
       });
     };
+
+    this.themeClasses = ViewHelper.themeClasses;
 
     this.labelMapper = (labelId, arg) => {
       if (arg) {

@@ -236,6 +236,12 @@
   "user-settings-dialog-quickstart-section-title": "WebLogic Kubernetes Toolkit UI Introduction Configuration",
   "user-settings-dialog-quickstart-skip-label": "Skip Showing Introduction at Startup",
   "user-settings-dialog-quickstart-skip-help": "Whether or not to skip showing the WebLogic Kubernetes Toolkit UI Introduction at application startup.",
+  "user-settings-dialog-appearance-mode-title": "Appearance",
+  "user-settings-dialog-appearance-mode-label": "Appearance Mode",
+  "user-settings-dialog-appearance-mode-help": "The WKT UI appearance mode to use.",
+  "user-settings-dialog-appearance-mode-dark": "Dark Mode",
+  "user-settings-dialog-appearance-mode-light": "Light Mode",
+  "user-settings-dialog-appearance-mode-system": "Use OS Mode",
 
   "dialog-passphrase-prompt-title": "Credential Encryption Passphrase",
   "dialog-passphrase-prompt-label": "Please enter the passphrase to use to encrypt the project credential.",

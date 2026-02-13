@@ -1,12 +1,12 @@
 /**
  * @license
- * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 define(['utils/i18n', 'accUtils', 'knockout', 'ojs/ojcorerouter', 'ojs/ojmodulerouter-adapter', 'ojs/ojarraydataprovider',
   'ojs/ojarraytreedataprovider', 'ojs/ojbufferingdataprovider', 'models/wkt-project', 'ojs/ojconverter-number',
   'utils/view-helper', 'utils/common-utilities', 'utils/dialog-helper', 'ojs/ojtreeview', 'ojs/ojformlayout',
-  'ojs/ojinputtext', 'ojs/ojcollapsible', 'ojs/ojselectsingle', 'ojs/ojswitch', 'ojs/ojinputnumber'
+  'ojs/ojinputtext', 'ojs/ojcollapsible', 'ojs/ojselectsingle', 'ojs/ojswitch', 'ojs/ojinputnumber', 'oj-c/select-single'
 ],
 function (i18n, accUtils, ko, CoreRouter, ModuleRouterAdapter, ArrayDataProvider, ArrayTreeDataProvider,
   BufferingDataProvider, project, ojConverterNumber, viewHelper, utils, dialogHelper) {
@@ -134,17 +134,8 @@ function (i18n, accUtils, ko, CoreRouter, ModuleRouterAdapter, ArrayDataProvider
       this.project.wko.nodeSelector.addNewItem(labelToAdd);
     };
 
-    this.wkoVersions = ko.observableArray();
+    this.wkoVersions = project.wko.wkoVersions;
     this.wkoVersionTags = new ArrayDataProvider(this.wkoVersions, {keyAttributes: 'version'});
-    window.api.ipc.invoke('get-wko-release-versions').then(versions => {
-      // Sort in descending order by version number.
-      //
-      versions.sort((a, b) => window.api.utils.compareVersions(a.version, b.version)).reverse();
-      this.wkoVersions.push(...versions.map(versionObject => {
-        const label = versionObject.version;
-        return { ...versionObject, label };
-      }));
-    });
 
     this.editImageRegistryCredentials = () => {
       dialogHelper.openDialog('registry-credentials-dialog', {});

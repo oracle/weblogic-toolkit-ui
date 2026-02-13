@@ -1,11 +1,11 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 define(['accUtils', 'knockout','utils/i18n', 'models/wkt-project', 'utils/ingress-install-script-generator',
   'utils/ingress-routes-script-generator', 'utils/ingress-resource-generator', 'ojs/ojarraydataprovider',
-  'ojs/ojinputtext', 'ojs/ojnavigationlist', 'ojs/ojswitcher', 'ojs/ojknockout'],
+  'ojs/ojinputtext', 'ojs/ojnavigationlist', 'ojs/ojswitcher', 'ojs/ojknockout', 'oj-c/select-single'],
 function(accUtils, ko, i18n, project, IngressInstallScriptGenerator, IngressRoutesScriptGenerator,
   IngressResourceGenerator, ArrayDataProvider) {
   function IngressCodeViewModel() {

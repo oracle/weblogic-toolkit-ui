@@ -1,12 +1,12 @@
 /**
  * @license
- * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
 
-define(['ojs/ojcontext'],
-  function(ojContext) {
+define(['knockout', 'ojs/ojcontext'],
+  function(ko, ojContext) {
     function ViewHelper() {
 
       // width of button column in WKT tables.
@@ -31,6 +31,17 @@ define(['ojs/ojcontext'],
           }
         }
       });
+
+      this.appearanceMode = ko.observable();  // from user settings
+
+      // load these once, when ScreenUtils is initialized, not on each invocation
+      window.api.ipc.invoke('get-appearance-mode').then(mode => {
+        this.appearanceMode(mode);
+      });
+
+      this.setAppearanceMode = mode => {
+        this.appearanceMode(mode);
+      };
 
       function updateField(field) {
         const readOnly = field.getProperty('readonly');
@@ -135,6 +146,36 @@ define(['ojs/ojcontext'],
       this.removeEventListenerFromRootElement = (eventType, listener, options) => {
         this.getEventRootElement().removeEventListener(eventType, listener, options);
       };
+
+      // ******************
+      // dark mode support
+      // ******************
+
+      const updateTheme = () => {
+        const assignedMode = this.appearanceMode();
+        let isDarkMode;
+        if(assignedMode === 'dark') {
+          isDarkMode = true;
+        } else if(assignedMode === 'light') {
+          isDarkMode = false;
+        } else {
+          isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        }
+        this.isDarkMode(isDarkMode);
+      };
+
+      this.isDarkMode = ko.observable();
+      this.themeClasses = ko.computed(() => {
+        return this.isDarkMode() ? 'oj-bg-neutral-170 oj-color-invert oj-c-colorscheme-dependent' : '';
+      });
+
+      updateTheme();
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+        updateTheme();
+      });
+      this.appearanceMode.subscribe(() => {
+        updateTheme();
+      });
     }
 
     return new ViewHelper();

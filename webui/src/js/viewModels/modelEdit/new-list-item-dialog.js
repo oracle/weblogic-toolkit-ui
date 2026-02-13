@@ -44,6 +44,8 @@ function(accUtils, ko, ModelEditHelper, MessageHelper, AliasHelper, FileSelectHe
       });
     };
 
+    this.themeClasses = ViewHelper.themeClasses;
+
     this.title = MessageHelper.getAddItemLabel(ATTRIBUTE, ALIAS_PATH, true);
     this.nameLabel = MessageHelper.getItemLabel(ATTRIBUTE, ALIAS_PATH);
     this.nameHelp = MessageHelper.getItemHelp(ATTRIBUTE, ALIAS_PATH);

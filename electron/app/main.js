@@ -138,6 +138,9 @@ class Main {
 
     app.on('ready', () => {
       this._logger.debug('Received ready event');
+
+      userSettings.updateTheme();
+
       this.checkSetup().then(setupOk => {
         if(setupOk) {
           // this may have been set in open-file event
@@ -322,6 +325,10 @@ class Main {
 
     ipcMain.handle('get-navigation-collapsed', () => {
       return userSettings.getNavigationCollapsed();
+    });
+
+    ipcMain.handle('get-appearance-mode', () => {
+      return userSettings.getAppearanceMode();
     });
 
     ipcMain.handle('open-external-link', async (event, link) => {

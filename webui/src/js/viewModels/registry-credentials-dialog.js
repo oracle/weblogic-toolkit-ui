@@ -1,13 +1,13 @@
 /**
  * @license
- * Copyright (c) 2025, Oracle and/or its affiliates.
+ * Copyright (c) 2025, 2026, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
 
 define(['accUtils', 'knockout', 'utils/i18n', 'utils/view-helper', 'ojs/ojmodule-element-utils',
   'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojdialog', 'ojs/ojformlayout' ],
-function(accUtils, ko, i18n, viewHelper, ModuleElementUtils) {
+function(accUtils, ko, i18n, ViewHelper, ModuleElementUtils) {
   function RegistryCredentialsDialogModel() {
     const DIALOG_SELECTOR = '#wktRegistryCredentialsDialog';
 
@@ -18,10 +18,12 @@ function(accUtils, ko, i18n, viewHelper, ModuleElementUtils) {
 
       // open the dialog when the container is ready.
       // using oj-dialog initial-visibility="show" causes vertical centering issues.
-      viewHelper.componentReady(this.dialogContainer).then(() => {
+      ViewHelper.componentReady(this.dialogContainer).then(() => {
         this.dialogContainer.open();
       });
     };
+
+    this.themeClasses = ViewHelper.themeClasses;
 
     this.labelMapper = (labelId, payload) => {
       return i18n.t(`registry-credentials-dialog-${labelId}`, payload);

@@ -10,7 +10,7 @@
       <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('mac-environment-question')]]"></oj-bind-text></h6>
       <div class="wkt-table-button-grid">
         <oj-table id="extra-path-directories-table"
-                  class="wkt-paths-table"
+                  class="wkt-table"
                   :aria-label="[[labelMapper('mac-path-table-aria-label')]]"
                   data="[[extraPathDirectoriesDataProvider]]"
                   display="grid"
@@ -70,7 +70,7 @@
         </oj-button>
 
         <oj-table id="extra-environment-variables-table"
-                  class="wkt-env-vars-table"
+                  class="wkt-table"
                   :aria-label="[[labelMapper('mac-env-var-table-aria-label')]]"
                   data="[[extraEnvironmentVariablesDataProvider]]"
                   display="grid"
@@ -212,11 +212,12 @@
   <div class="oj-panel">
     <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('build-tool-type-question')]]"></oj-bind-text></h6>
     <oj-c-form-layout max-columns="2" direction="row">
-      <oj-select-single label-hint="[[labelMapper('build-tool-type-label')]]"
+      <oj-c-select-single label-hint="[[labelMapper('build-tool-type-label')]]"
                         value="{{project.settings.builderType.observable}}"
-                        data="{{builderTypesDP}}"
+                        data="[[builderTypesDP]]"
+                        item-text="label"
                         help.instruction="[[labelMapper('build-tool-type-help')]]">
-      </oj-select-single>
+      </oj-c-select-single>
       <oj-input-text label-hint="[[getBuilderExecutableFilePathLabel()]]"
                      value="{{project.settings.builderExecutableFilePath.observable}}"
                      help.instruction="[[labelMapper('build-tool-help')]]">

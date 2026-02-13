@@ -1,13 +1,13 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
 
 define(['accUtils', 'knockout', 'utils/i18n', 'utils/view-helper',
   'ojs/ojformlayout', 'ojs/ojbutton', 'ojs/ojinputtext'],
-function(accUtils, ko, i18n, viewHelper) {
+function(accUtils, ko, i18n, ViewHelper) {
   function AppUpdateDialogModel(updateInfo) {
     const DIALOG_SELECTOR = '#wktAppUpdateDialog';
 
@@ -18,12 +18,14 @@ function(accUtils, ko, i18n, viewHelper) {
 
       // open the dialog when the container is ready.
       // using oj-dialog initial-visibility="show" causes vertical centering issues.
-      viewHelper.componentReady(this.dialogContainer).then(() => {
+      ViewHelper.componentReady(this.dialogContainer).then(() => {
         this.dialogContainer.open();
       });
 
       this.dialogContainer.addEventListener('click', this.clickHandler);
     };
+
+    this.themeClasses = ViewHelper.themeClasses;
 
     this.labelMapper = (labelId, args) => {
       return i18n.t(`app-update-${labelId}`, args);

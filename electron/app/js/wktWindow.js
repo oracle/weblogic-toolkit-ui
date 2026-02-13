@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const { app, BrowserWindow, dialog, Menu, shell } = require('electron');
@@ -15,6 +15,7 @@ const osUtils = require('./osUtils');
 const { getLogger, getDefaultLogDirectory } = require('./wktLogging');
 const { showAboutDialog } = require('./promptUtils');
 const { checkForUpdates } = require('./appUpdater');
+const { getInitialBackgroundColor } = require('./userSettings');
 
 const appDir = path.normalize(path.join(__dirname, '..'));
 
@@ -630,7 +631,8 @@ class WktAppMenu {
                   defaults: {
                     logDir: getDefaultLogDirectory(_wktMode),
                     level: 'info',
-                    connectivityTestTimeoutMilliseconds: userSettings.getDefaultConnectivityTestTimeout()
+                    connectivityTestTimeoutMilliseconds: userSettings.getDefaultConnectivityTestTimeout(),
+                    appearanceMode: userSettings.getDefaultAppearanceMode(),
                   },
                   isDevMode: _wktMode.isDevelopmentMode(),
                 };
@@ -758,7 +760,8 @@ class WktAppMenu {
             id: 'exit',
             label: i18n.t('menu-file-exit'),
             accelerator: 'Alt+X',
-            async click() { await executeAppQuit(); }          }
+            async click() { await executeAppQuit(); }
+          }
         );
       }
 
@@ -811,12 +814,16 @@ async function createWindow() {
     height = windowSize['height'];
   }
 
+  // avoid flash on window open
+  const backgroundColor = getInitialBackgroundColor();
+
   let newWindow = new BrowserWindow({
     x,
     y,
     show: false,
     width: width,
     height: height,
+    backgroundColor,
     'webPreferences': {
       nodeIntegration: false,
       contextIsolation: true,
@@ -896,12 +903,16 @@ function createNetworkWindow() {
   const additionalArguments = _getAdditionalArguments();
   additionalArguments.push('--mainModule=network-page');
 
+  // avoid flash on window open
+  const backgroundColor = getInitialBackgroundColor();
+
   let newWindow = new BrowserWindow({
     show: false,
     width: width,
     height: height,
     menuBarVisible: false,
     useContentSize: true,
+    backgroundColor,
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,

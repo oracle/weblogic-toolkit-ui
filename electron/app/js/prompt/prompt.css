@@ -1,12 +1,43 @@
 /*
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background: rgb(49, 45, 42);  /* oj-bg-neutral-170 */;
+        color: white;
+    }
+
+    #data {
+        background-color: rgb(22, 21, 19) !important;
+        border-color: rgba(255, 255, 255, 0.5) !important;
+        color: white;
+    }
+
+    #ok, #cancel {
+        background-color: rgb(49, 45, 42);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.5) !important;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    body {
+        background: white;
+        color: rgb(22, 21, 19);
+    }
+
+    #ok, #cancel {
+        background: white;
+        color: rgb(22, 21, 19);
+        border: 1px solid rgba(22, 21, 19) !important;
+    }
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif;
     line-height: 1.5em;
-    color: #333;
-    background-color: #fff;
     padding: 0;
     margin: 0;
 }
@@ -87,14 +118,4 @@ select#data {
     font-size: .8em;
     line-height: 1em;
     padding: .6em 1em
-}
-
-#ok {
-    background-color: #3879D9;
-    color: white;
-}
-
-#cancel {
-    background-color: #DDD;
-    color: black;
 }

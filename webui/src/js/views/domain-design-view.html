@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2021, 2025, Oracle and/or its affiliates.
+ Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('title')]]"></oj-bind-text></h6>
@@ -42,20 +42,22 @@
                        help.instruction="[[labelMapper('wls-credential-password-help')]]">
     </oj-input-password>
     <oj-bind-if test="[[isDomainInImage() === true]]">
-      <oj-select-single class="wkt-can-readonly-field"
-                        label-hint="[[labelMapper('domain-type-label')]]"
-                        value="{{project.k8sDomain.domainType.observable}}"
-                        data="{{wdtDomainTypesDP}}"
-                        readonly="true"
-                        help.instruction="[[labelMapper('domain-type-readonly-help')]]">
-      </oj-select-single>
+      <oj-c-select-single class="wkt-can-readonly-field"
+                          label-hint="[[labelMapper('domain-type-label')]]"
+                          value="{{project.k8sDomain.domainType.observable}}"
+                          data="{{wdtDomainTypesDP}}"
+                          readonly="true"
+                          item-text="label"
+                          help.instruction="[[labelMapper('domain-type-readonly-help')]]">
+      </oj-c-select-single>
     </oj-bind-if>
     <oj-bind-if test="[[isModelInImage() === true]]">
-      <oj-select-single label-hint="[[labelMapper('domain-type-label')]]"
-                        value="{{project.k8sDomain.domainType.observable}}"
-                        data="{{wdtDomainTypesDP}}"
-                        help.instruction="[[labelMapper('domain-type-help')]]">
-      </oj-select-single>
+      <oj-c-select-single label-hint="[[labelMapper('domain-type-label')]]"
+                          value="{{project.k8sDomain.domainType.observable}}"
+                          data="{{wdtDomainTypesDP}}"
+                          item-text="label"
+                          help.instruction="[[labelMapper('domain-type-help')]]">
+      </oj-c-select-single>
     </oj-bind-if>
     <oj-input-text label-hint="[[labelMapper('wko-installed-version-label')]]"
                    value="{{project.wko.installedVersion.observable}}"
@@ -138,11 +140,12 @@
                    readonly="true"
                    help.instruction="[[labelMapper('image-registry-address-help')]]">
     </oj-input-text>
-    <oj-select-single label-hint="[[labelMapper('image-pull-policy-label')]]"
-                      value="{{project.k8sDomain.imagePullPolicy.observable}}"
-                      data="{{imagePullPoliciesDP}}"
-                      help.instruction="[[labelMapper('image-pull-policy-help')]]">
-    </oj-select-single>
+    <oj-c-select-single label-hint="[[labelMapper('image-pull-policy-label')]]"
+                        value="{{project.k8sDomain.imagePullPolicy.observable}}"
+                        data="{{imagePullPoliciesDP}}"
+                        item-text="label"
+                        help.instruction="[[labelMapper('image-pull-policy-help')]]">
+    </oj-c-select-single>
   </oj-form-layout>
 
   <oj-bind-if test="[[showPrimaryImageHomeFields]]">
@@ -187,12 +190,12 @@
         </oj-input-text>
       </oj-bind-if>
       <oj-bind-if test="[[project.k8sDomain.imageRegistryUseExistingPullSecret.observable() === false]]">
-        <oj-select-single label-hint="[[labelMapper('image-registry-pull-credentials-label')]]"
-                          value="{{project.k8sDomain.imageRegistryPullCredentialsReference.observable}}"
-                          data="[[imageRegistriesCredentialsDP]]"
-                          item-text="[[getImageRegistriesCredentialsItemText]]"
-                          help.instruction="[[labelMapper('image-registry-pull-credentials-help')]]">
-        </oj-select-single>
+        <oj-c-select-single label-hint="[[labelMapper('image-registry-pull-credentials-label')]]"
+                            value="{{project.k8sDomain.imageRegistryPullCredentialsReference.observable}}"
+                            data="[[imageRegistriesCredentialsDP]]"
+                            item-text="[[getImageRegistriesCredentialsItemText]]"
+                            help.instruction="[[labelMapper('image-registry-pull-credentials-help')]]">
+        </oj-c-select-single>
         <oj-button
                 class="wkt-button-below"
                 label="[[imageLabelMapper('image-registry-add-credentials')]]"
@@ -254,11 +257,12 @@
                        readonly="true"
                        help.instruction="[[miiPvLabelMapper('aux-image-registry-address-help')]]">
         </oj-input-text>
-        <oj-select-single label-hint="[[miiPvLabelMapper('aux-image-pull-policy-label')]]"
-                          value="{{project.k8sDomain.auxImagePullPolicy.observable}}"
-                          data="{{imagePullPoliciesDP}}"
-                          help.instruction="[[miiPvLabelMapper('aux-image-pull-policy-help')]]">
-        </oj-select-single>
+        <oj-c-select-single label-hint="[[miiPvLabelMapper('aux-image-pull-policy-label')]]"
+                            value="{{project.k8sDomain.auxImagePullPolicy.observable}}"
+                            data="{{imagePullPoliciesDP}}"
+                            item-text="label"
+                            help.instruction="[[miiPvLabelMapper('aux-image-pull-policy-help')]]">
+        </oj-c-select-single>
       </oj-form-layout>
 
       <oj-bind-if test="[[showAuxImageSourceFields]]">
@@ -303,12 +307,12 @@
             </oj-input-text>
           </oj-bind-if>
           <oj-bind-if test="[[project.k8sDomain.auxImageRegistryUseExistingPullSecret.observable() === false]]">
-            <oj-select-single label-hint="[[miiPvLabelMapper('aux-image-registry-pull-credentials-label')]]"
-                              value="{{project.k8sDomain.auxImageRegistryPullCredentialsReference.observable}}"
-                              data="[[imageRegistriesCredentialsDP]]"
-                              item-text="[[getImageRegistriesCredentialsItemText]]"
-                              help.instruction="[[miiPvLabelMapper('aux-image-registry-pull-credentials-help')]]">
-            </oj-select-single>
+            <oj-c-select-single label-hint="[[miiPvLabelMapper('aux-image-registry-pull-credentials-label')]]"
+                                value="{{project.k8sDomain.auxImageRegistryPullCredentialsReference.observable}}"
+                                data="[[imageRegistriesCredentialsDP]]"
+                                item-text="[[getImageRegistriesCredentialsItemText]]"
+                                help.instruction="[[miiPvLabelMapper('aux-image-registry-pull-credentials-help')]]">
+            </oj-c-select-single>
             <oj-button
                     class="wkt-button-below"
                     label="[[imageLabelMapper('image-registry-add-credentials')]]"
@@ -426,16 +430,18 @@
                                validators="[[project.k8sDomain.pvCapacity.validators()]]"
                                help.instruction="[[labelMapper('domain-creation-image-pv-capacity-help')]]">
                 </oj-input-text>
-                <oj-select-single label-hint="[[labelMapper('domain-creation-image-pv-reclaim-policy-label')]]"
-                                  value="{{project.k8sDomain.pvReclaimPolicy.observable}}"
-                                  data="{{pvReclaimPolicyDP}}"
-                                  help.instruction="[[labelMapper('domain-creation-image-pv-reclaim-policy-help')]]">
-                </oj-select-single>
-                <oj-select-single label-hint="[[labelMapper('domain-creation-image-pv-type-label')]]"
-                                  value="{{project.k8sDomain.pvType.observable}}"
-                                  data="{{pvTypesDP}}"
-                                  help.instruction="[[labelMapper('domain-creation-image-pv-type-help')]]">
-                </oj-select-single>
+                <oj-c-select-single label-hint="[[labelMapper('domain-creation-image-pv-reclaim-policy-label')]]"
+                                    value="{{project.k8sDomain.pvReclaimPolicy.observable}}"
+                                    data="{{pvReclaimPolicyDP}}"
+                                    item-text="label"
+                                    help.instruction="[[labelMapper('domain-creation-image-pv-reclaim-policy-help')]]">
+                </oj-c-select-single>
+                <oj-c-select-single label-hint="[[labelMapper('domain-creation-image-pv-type-label')]]"
+                                    value="{{project.k8sDomain.pvType.observable}}"
+                                    data="{{pvTypesDP}}"
+                                    item-text="label"
+                                    help.instruction="[[labelMapper('domain-creation-image-pv-type-help')]]">
+                </oj-c-select-single>
                 <oj-bind-if test="[[project.k8sDomain.pvcUseDefaultStorageClass.observable() === false]]">
                   <oj-input-text class="wkt-can-readonly-field"
                                  label-hint="[[labelMapper('domain-creation-image-pv-storage-class-label')]]"
@@ -480,7 +486,7 @@
     <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('clusters-title')]]"></oj-bind-text></h6>
   </div>
   <oj-table id="clusters-table"
-            class="wkt-domain-clusters-table"
+            class="wkt-table"
             :aria-label="[[labelMapper('clusters-table-aria-label')]]"
             data="[[clustersDP]]"
             display="grid"
@@ -548,7 +554,7 @@
     </oj-bind-if>
 
     <oj-table id="properties-table"
-              class="wkt-domain-properties-table"
+              class="wkt-table"
               :aria-label="[[labelMapper('configmap-table-aria-label')]]"
               data="{{configMapDP}}"
               display="grid"
@@ -592,7 +598,7 @@
     </oj-bind-if>
 
     <oj-table id="external-properties-table"
-              class="wkt-domain-properties-table"
+              class="wkt-table"
               :aria-label="[[labelMapper('configmap-table-aria-label')]]"
               data="{{externalPropertiesConfigMapDP}}"
               display="grid"
@@ -765,7 +771,7 @@
       </oj-switch>
     </oj-form-layout>
     <oj-table id="server-pod-env-vars-table"
-              class="wkt-domain-secrets-table"
+              class="wkt-table"
               :aria-label="[[labelMapper('domain-env-var-table-aria-label')]]"
               data="[[environmentVariablesDP]]"
               display="grid"
@@ -813,7 +819,7 @@
   <div class="oj-panel">
     <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('domain-node-selector-title')]]"></oj-bind-text></h6>
     <oj-table id="domain-node-selector-table"
-              class="wkt-domain-node-selectors-table"
+              class="wkt-table"
               :aria-label="[[labelMapper('domain-node-selector-table-aria-label')]]"
               data="[[domainNodeSelectorDP]]"
               display="grid"

@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2023, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
@@ -9,7 +9,7 @@ define(['accUtils', 'knockout', 'utils/i18n', 'models/wkt-project',  'utils/view
   'ojs/ojbufferingdataprovider', 'utils/observable-properties', 'utils/common-utilities', 'ojs/ojconverter-number',
   'utils/wkt-logger', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojdialog', 'ojs/ojformlayout',
   'ojs/ojvalidationgroup', 'ojs/ojselectcombobox'],
-function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDataProvider, props, utils,
+function(accUtils, ko, i18n, project, ViewHelper, ArrayDataProvider, BufferingDataProvider, props, utils,
   ojConverterNumber) {
   function RouteEditDialogModel(args) {
     const DIALOG_SELECTOR = '#routeEditDialog';
@@ -32,6 +32,8 @@ function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDa
         $(DIALOG_SELECTOR)[0].open();
       }, 1);
     };
+
+    this.themeClasses = ViewHelper.themeClasses;
 
     this.labelMapper = (labelId) => {
       return i18n.t(`ingress-design-ingress-${labelId}`);
@@ -119,7 +121,7 @@ function(accUtils, ko, i18n, project, viewHelper, ArrayDataProvider, BufferingDa
       });
     }
 
-    const annotationComparators = viewHelper.getSortComparators(this.annotationColumns);
+    const annotationComparators = ViewHelper.getSortComparators(this.annotationColumns);
 
     this.annotationsProvider = new BufferingDataProvider(new ArrayDataProvider(
       this.annotations.observable, {keyAttributes: 'uid', sortComparators: annotationComparators}));

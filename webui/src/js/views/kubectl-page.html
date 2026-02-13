@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2021, 2024, Oracle and/or its affiliates.
+ Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 <div class="wkt-content-layout">
@@ -19,12 +19,13 @@
     <div class="oj-panel wkt-notop">
       <h6 class="wkt-subheading"><oj-bind-text value="[[labelMapper('instructions-heading')]]"></oj-bind-text></h6>
       <oj-form-layout max-columns="2" direction="row">
-        <oj-select-single id="k8sFlavor"
+        <oj-c-select-single id="k8sFlavor"
                           label-hint="[[labelMapper('k8s-flavor-label')]]"
                           data="{{k8sFlavorDP}}"
                           value="{{project.kubectl.k8sFlavor.observable}}"
+                          item-text="label"
                           help.instruction="[[labelMapper('k8s-flavor-help')]]">
-        </oj-select-single>
+        </oj-c-select-single>
       </oj-form-layout>
       <div class="oj-flex">
         <div id="kubectlInstructions" class="oj-panel k8s-kubectl-instructions wkt-link-container">

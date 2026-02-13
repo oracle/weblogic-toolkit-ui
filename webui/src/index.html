@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
- Copyright (c) 2014, 2025, Oracle and/or its affiliates.
+ Copyright (c) 2014, 2026, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 <html lang="en-us">
@@ -25,7 +25,11 @@
   </head>
   <body class="oj-web-applayout-body">
 
-    <div id="globalBody" class="oj-offcanvas-outer-wrapper oj-offcanvas-page">
+    <div
+      id="globalBody"
+      class="oj-offcanvas-outer-wrapper oj-offcanvas-page"
+      :class="[[themeClasses]]"
+    >
 
       <div id="announce" tabindex="-1" class="sendOffScreen" :aria-live="[[manner]]" aria-atomic="true">
         <p id="ariaLiveMessage"><oj-bind-text value="[[message]]"></oj-bind-text></p>

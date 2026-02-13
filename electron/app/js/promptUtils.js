@@ -1,10 +1,11 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const path = require('path');
 const { BrowserWindow, ipcMain } = require('electron');
+const { getInitialBackgroundColor } = require('./userSettings');
 
 /* global __dirname */
 
@@ -15,6 +16,9 @@ async function getCredentialPassphrase(parentWindow) {
   const WIDTH = 550;
   const HEIGHT = 146; // renderer will send IPC to adjust this
   const MIN_HEIGHT = 120;  // needs to be smaller than content height
+
+  // avoid flash on window open
+  const backgroundColor = getInitialBackgroundColor();
 
   return new Promise((resolve, reject) => {
 
@@ -34,6 +38,7 @@ async function getCredentialPassphrase(parentWindow) {
       modal: Boolean(parentWindow),
       autoHideMenuBar: true,
       menuBarVisible: false,
+      backgroundColor,
       webPreferences: {
         nodeIntegration: false,
         contextIsolation: true,
@@ -117,6 +122,9 @@ async function showAboutDialog(wktApp, parentWindow) {
   const HEIGHT = 186; // renderer will send IPC to adjust this
   const MIN_HEIGHT = 120;  // needs to be smaller than content height
 
+  // avoid flash on window open
+  const backgroundColor = getInitialBackgroundColor();
+
   return new Promise((resolve, reject) => {
     let promptWindow = new BrowserWindow({
       width: WIDTH,
@@ -131,6 +139,7 @@ async function showAboutDialog(wktApp, parentWindow) {
       skipTaskbar: true,
       alwaysOnTop: false,
       useContentSize: true,
+      backgroundColor,
       webPreferences: {
         nodeIntegration: false,
         contextIsolation: true,

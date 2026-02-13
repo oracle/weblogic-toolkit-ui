@@ -1,10 +1,10 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 define(['utils/i18n', 'accUtils', 'knockout', 'models/wkt-project', 'utils/operator-script-generator', 'ojs/ojarraydataprovider',
-  'ojs/ojformlayout', 'ojs/ojinputtext', 'ojs/ojselectsingle'],
+  'ojs/ojformlayout', 'ojs/ojinputtext', 'ojs/ojselectsingle', 'oj-c/select-single'],
 function(i18n, accUtils, ko, project, OperatorScriptGenerator, ArrayDataProvider) {
   function OperatorCodeViewModel() {
 

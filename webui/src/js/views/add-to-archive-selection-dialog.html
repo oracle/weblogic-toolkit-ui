@@ -1,8 +1,8 @@
 <!--
- Copyright (c) 2021, 2023, Oracle and/or its affiliates.
+ Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
-<oj-dialog id="addToArchiveSelectionDialog" class="wkt-add-to-archive-dialog" initial-visibility="hide">
+<oj-dialog id="addToArchiveSelectionDialog" class="wkt-add-to-archive-dialog" :class="[[themeClasses]]" initial-visibility="hide">
   <div slot="header">
     <span id="dialog-title-id" class="oj-dialog-title"><oj-bind-text value="[[labelMapper('title')]]"></oj-bind-text></span>
   </div>
@@ -10,12 +10,13 @@
     <oj-validation-group id="tracker">
     <div class="oj-panel">
       <oj-form-layout max-columns="1" direction="row">
-        <oj-select-single label-hint="[[labelMapper('entry-type-label')]]"
-                          data="{{archiveEntryTypesProvider}}"
-                          value="{{archiveEntryType}}"
-                          help.instruction="[[labelMapper('entry-type-help')]]"
-                          required="true">
-        </oj-select-single>
+        <oj-c-select-single label-hint="[[labelMapper('entry-type-label')]]"
+                            data="{{archiveEntryTypesProvider}}"
+                            value="{{archiveEntryType}}"
+                            item-text="label"
+                            help.instruction="[[labelMapper('entry-type-help')]]"
+                            required="true">
+        </oj-c-select-single>
 
         <oj-bind-if test="[[showSegregatedNameField() === true]]">
           <oj-input-text label-hint="{{segregatedLabel}}"
@@ -70,12 +71,13 @@
 
         <oj-bind-if test="[[showEmptyDirField() === true]]">
           <oj-bind-if test="[[emptyDirIsSelect() === true]]">
-            <oj-select-single label-hint="{{emptyDirLabel}}"
-                              data="{{coherencePersistenceDirectoryTypesDP}}"
-                              value="{{emptyDirValue}}"
-                              help.instruction="{{emptyDirHelp}}"
-                              required="true">
-            </oj-select-single>
+            <oj-c-select-single label-hint="{{emptyDirLabel}}"
+                                data="{{coherencePersistenceDirectoryTypesDP}}"
+                                value="{{emptyDirValue}}"
+                                item-text="label"
+                                help.instruction="{{emptyDirHelp}}"
+                                required="true">
+            </oj-c-select-single>
           </oj-bind-if>
           <oj-bind-if test="[[emptyDirIsSelect() === false]]">
             <oj-input-text label-hint="{{emptyDirLabel}}"

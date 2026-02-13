@@ -41,6 +41,8 @@ function(accUtils, ko, ModelEditHelper, MessageHelper, MetaOptions, AliasHelper,
       });
     };
 
+    this.themeClasses = ViewHelper.themeClasses;
+
     function getEditorType(details) {
       const hasOptions = ('options' in details) || ('optionsMethod' in details);
       const defaultEditorType = hasOptions ? 'select' : 'string';

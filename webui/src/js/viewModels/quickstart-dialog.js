@@ -1,14 +1,14 @@
 /**
  * @license
- * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
 
-define(['accUtils', 'knockout', 'utils/i18n', 'ojs/ojcontext', 'ojs/ojmodule-element-utils', 'utils/wkt-logger',
-  'ojs/ojpagingcontrol', 'ojs/ojmodule-element', 'ojs/ojfilmstrip', 'ojs/ojformlayout', 'ojs/ojbutton',
-  'ojs/ojinputtext', 'ojs/ojcheckboxset', 'ojs/ojdefer'],
-function(accUtils, ko, i18n, Context, moduleElementUtils, wktLogger) {
+define(['accUtils', 'knockout', 'utils/i18n', 'utils/view-helper', 'ojs/ojcontext', 'ojs/ojmodule-element-utils',
+  'utils/wkt-logger', 'ojs/ojpagingcontrol', 'ojs/ojmodule-element', 'ojs/ojfilmstrip', 'ojs/ojformlayout',
+  'ojs/ojbutton', 'ojs/ojinputtext', 'ojs/ojcheckboxset', 'ojs/ojdefer'],
+function(accUtils, ko, i18n, ViewHelper, Context, moduleElementUtils, wktLogger) {
   function QuickStartDialogModel() {
 
     const QUICKSTART_PAGE_COUNT = 10;
@@ -22,6 +22,8 @@ function(accUtils, ko, i18n, Context, moduleElementUtils, wktLogger) {
     this.connected = () => {
       accUtils.announce('Discover dialog loaded.', 'assertive');
     };
+
+    this.themeClasses = ViewHelper.themeClasses;
 
     this.transitionCompleted = () => {
       const filmStrip = document.getElementById('wktQuickStartFilmStrip');
@@ -37,6 +39,8 @@ function(accUtils, ko, i18n, Context, moduleElementUtils, wktLogger) {
         }
       }).catch(err => wktLogger.error('whenReady promise was rejected: %s', err));
     };
+
+    this.themeClasses = ViewHelper.themeClasses;
 
     this.labelMapper = (labelId) => {
       return i18n.t(`quickstart-dialog-${labelId}`);

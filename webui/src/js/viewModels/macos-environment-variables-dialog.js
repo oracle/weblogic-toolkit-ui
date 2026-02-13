@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2022, 2023, Oracle and/or its affiliates.
+ * Copyright (c) 2022, 2026, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
@@ -8,7 +8,7 @@
 define(['accUtils', 'knockout', 'utils/i18n', 'utils/view-helper', 'ojs/ojarraydataprovider',
   'ojs/ojlistdataproviderview', 'ojs/ojknockout', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojdialog',
   'ojs/ojformlayout' ],
-function(accUtils, ko, i18n, viewHelper, ArrayDataProvider, ListDataProviderView) {
+function(accUtils, ko, i18n, ViewHelper, ArrayDataProvider, ListDataProviderView) {
   function PathDirectoriesDialogModel(config) {
     const DIALOG_SELECTOR = '#wktMacosEnvironmentVariablesDialog';
 
@@ -19,10 +19,12 @@ function(accUtils, ko, i18n, viewHelper, ArrayDataProvider, ListDataProviderView
 
       // open the dialog when the container is ready.
       // using oj-dialog initial-visibility="show" causes vertical centering issues.
-      viewHelper.componentReady(this.dialogContainer).then(() => {
+      ViewHelper.componentReady(this.dialogContainer).then(() => {
         this.dialogContainer.open();
       });
     };
+
+    this.themeClasses = ViewHelper.themeClasses;
 
     this.labelMapper = (labelId, payload) => {
       return i18n.t(`macos-environment-variables-dialog-${labelId}`, payload);

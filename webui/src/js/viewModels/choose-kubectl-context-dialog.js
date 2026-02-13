@@ -1,20 +1,22 @@
 /**
  * @license
- * Copyright (c) 2023, Oracle and/or its affiliates.
+ * Copyright (c) 2023, 2026, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
 
 define(['accUtils', 'knockout', 'utils/i18n', 'utils/observable-properties', 'utils/validation-helper',
-  'ojs/ojarraydataprovider', 'utils/wkt-logger', 'ojs/ojselectcombobox', 'ojs/ojinputtext', 'ojs/ojlabel',
-  'ojs/ojbutton', 'ojs/ojdialog', 'ojs/ojformlayout', 'ojs/ojvalidationgroup'],
-function(accUtils, ko, i18n, props, validationHelper, ArrayDataProvider) {
+  'utils/view-helper', 'ojs/ojarraydataprovider', 'utils/wkt-logger', 'ojs/ojselectcombobox', 'ojs/ojinputtext',
+  'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojdialog', 'ojs/ojformlayout', 'ojs/ojvalidationgroup', 'oj-c/select-single'],
+function(accUtils, ko, i18n, props, validationHelper, ViewHelper, ArrayDataProvider) {
   function ChooseKubectlContextDialogModel(args) {
     const DIALOG_SELECTOR = '#chooseKubectlContextDialog';
 
+    const INITIAL_CONTEXT = args.selectedKubectlContextName;
+
     this.i18n = i18n;
     this.availableKubectlContextNames = args.availableKubectlContextNames;
-    this.selectedKubectlContextName = ko.observable(args.selectedKubectlContextName);
+    this.selectedKubectlContextName = ko.observable(INITIAL_CONTEXT);
     this.availableKubectlContextNamesDP =
       new ArrayDataProvider(this.availableKubectlContextNames, { keyAttributes: 'name' });
 
@@ -26,6 +28,8 @@ function(accUtils, ko, i18n, props, validationHelper, ArrayDataProvider) {
         $(DIALOG_SELECTOR)[0].open();
       }, 1);
     };
+
+    this.themeClasses = ViewHelper.themeClasses;
 
     this.labelMapper = (labelId) => {
       return i18n.t(`kubectl-choose-context-${labelId}`);

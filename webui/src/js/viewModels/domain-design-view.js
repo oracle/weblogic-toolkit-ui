@@ -9,7 +9,7 @@ define(['models/wkt-project', 'accUtils', 'utils/common-utilities', 'knockout', 
   'ojs/ojmodule-element-utils', 'ojs/ojmodule',
   'utils/wkt-logger', 'ojs/ojmessaging', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojformlayout',
   'ojs/ojcollapsible', 'ojs/ojselectsingle', 'ojs/ojlistview', 'ojs/ojtable', 'ojs/ojswitch', 'ojs/ojinputnumber',
-  'ojs/ojradioset', 'ojs/ojselectcombobox'],
+  'ojs/ojradioset', 'ojs/ojselectcombobox', 'oj-c/select-single'],
 function (project, accUtils, utils, ko, i18n, screenUtils, BufferingDataProvider, ArrayDataProvider,
   ojConverterNumber, dialogHelper, viewHelper, wkoInstalledVersionChecker, witInspector, auxImageHelper,
   ModuleElementUtils) {

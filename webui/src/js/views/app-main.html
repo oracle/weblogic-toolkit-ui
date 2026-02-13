@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2021, 2023, Oracle and/or its affiliates.
+ Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 
@@ -15,9 +15,9 @@
 
 <div id="pageContent" class="oj-web-applayout-page">
   <div id="wkt-container" class="oj-sm-flex-wrap-nowrap oj-flex">
-    <div id="navlistcontainer" class="oj-bg-neutral-170 oj-color-invert" :class="[[{collapsed : navCollapsed}]]">
+    <div id="navlistcontainer" class="oj-color-invert" :class="[[{collapsed : navCollapsed}]]">
       <oj-navigation-list :aria-label="[[labelMapper('aria-label')]]"
-                          class="oj-bg-neutral-170 oj-color-invert wkt-navigation-list"
+                          class="oj-color-invert wkt-navigation-list"
                           data="[[navDataProvider]]"
                           display="[[navDisplay]]"
                           drill-mode="[[navDrillMode]]"
