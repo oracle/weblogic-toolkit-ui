@@ -38,6 +38,7 @@
   "configuration-properties-title": "構成プロパティ",
   "node-manager-coherence-start-scripts-title": "Coherence起動スクリプト設定",
   "wldf-elasticity-framework-settings-label": "WLDF拡張度フレームワーク設定",
+  "rdbms-security-store-notifications-title": "JMS通知",
 
   "general-tab-label": "一般",
   "attributes-tab-label": "属性",
@@ -450,6 +451,7 @@
   "attribute-dialog-option-variable": "既存の変数トークンの使用",
   "attribute-dialog-option-newVariable": "新しい変数トークンの使用",
   "attribute-dialog-option-removeFromArchive": "アーカイブからエントリを削除",
+  "attribute-dialog-option-removeSelections": "リストから無効な値を削除",
   "attribute-dialog-variable-choice-label": "既存の変数",
   "attribute-dialog-variable-choice-help": "フィールドの変数の選択",
   "attribute-dialog-variable-name-label": "変数名",
@@ -467,6 +469,9 @@
   "attribute-editor-select": "選択",
   "attribute-editor-select-directory": "ディレクトリの選択",
   "attribute-editor-select-file": "ファイルの選択",
+  "attribute-editor-invalid-model-value": "モデル内の無効な値\"{{value}}\"",
+  "attribute-editor-property-value-type-label": "値タイプ",
+  "attribute-editor-property-value-type-help": "プロパティ値の解決方法を指定します。",
 
   "invalid-integer-error": "値は整数である必要があります",
   "invalid-double-error": "値は4または3.5などの10進数である必要があります",
@@ -477,6 +482,8 @@
 
   "table-name-label": "名前",
   "table-type-label": "タイプ",
+  "table-show-value-label": "値の表示",
+  "table-hide-value-label": "値の非表示",
 
   "rcudbinfo-connection-label": "接続",
   "rcudbinfo-stores-label": "ストア",
@@ -1480,6 +1487,12 @@
   "f-any_OracleVirtualDirectoryAuthenticator-a-ConnectionPoolSize-help": "LDAP接続プール・サイズを指定します。デフォルト値は6です。",
 
   "a-ConnectionProperties-label": "接続プロパティ",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionProperties-help": "JDBC接続プールの構成のためにドライバに渡すJDBCドライバ固有の接続パラメータ。",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionProperties-entryLabel": "JDBC接続プロパティ",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionProperties-keyLabel": "JDBCプロパティ名",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionProperties-keyHelp": "追加するJDBCドライバ固有の接続プロパティの名前。",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionProperties-valueLabel": "JDBCプロパティ値",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionProperties-valueHelp": "追加されるJDBCドライバ固有の接続プロパティの値。",
 
   "a-ConnectionReserveTimeoutSeconds-label": "接続予約タイムアウト",
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-ConnectionReserveTimeoutSeconds-help": "接続プールから接続を予約する呼出しがタイムアウトになるまでの秒数。0に設定すると、呼出しはタイムアウトしません。-1に設定すると、呼出しは即時にタイムアウトします。",
@@ -1498,6 +1511,7 @@
   "a-ConnectionURL-label": "接続URL",
   "f-JMSBridgeDestination-a-ConnectionURL-help": "このJMSブリッジ宛先の接続URL。",
   "f-JMSSystemResource_JmsResource_ForeignServer-a-ConnectionURL-help": "WebLogic ServerがJNDIプロバイダへの接続に使用するURL。このURLの構文は、使用しているJNDIプロバイダによって異なります。WebLogic JMSの場合、同じクラスタ内のWebLogic JMSオブジェクトを参照している場合は、このフィールドを空白のままにします。この値は、標準のJNDIプロパティjava.naming.provider.urlに対応します。ノート: この値を指定しない場合、この接続ファクトリがデプロイされているWebLogic Serverインスタンス内のJNDIサーバー上でルックアップが実行されます。",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionURL-help": "URLは、物理データベース接続を作成するためにJDBCドライバに渡されます。",
 
   "a-ConsensusParticipants-label": "コンセンサス参加者",
   "f-Cluster-a-ConsensusParticipants-help": "コンセンサスを決定する際のクラスタ参加者の数を制御します。",
@@ -2702,6 +2716,7 @@
 
   "a-DriverName-label": "ドライバ名",
   "f-JDBCSystemResource_JdbcResource_JDBCDriverParams-a-DriverName-help": "データ・ソースの接続プールでの物理データベース接続の作成に使用するJDBCドライバ・クラスの完全パッケージ名。",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-DriverName-help": "接続プールでの物理データベース接続の作成に使用するJDBCドライバ・クラスの完全パッケージ名。このドライバ・クラスは、デプロイ先のいずれかのサーバーのクラスパスに含まれる必要があります。java.sql.Driverインタフェースを実装するクラスの名前である必要があります。",
 
   "a-DurabilityEnabled-label": "恒久性の有効化",
   "f-MessagingBridge-a-DurabilityEnabled-help": "メッセージング・ブリッジで恒久メッセージが許可されるかどうかを指定します。ソース宛先がJMSトピックの場合にこれが有効化されていると、失敗のイベント時にメッセージが失われないように、メッセージング・ブリッジ・インスタンスで恒久サブスクリプションが使用されます。ソース宛先がJMSキューの場合、DurabilityEnabledは無視されます。",
@@ -3556,13 +3571,18 @@
   "a-JMSDefaultConnectionFactoriesEnabled-help": "このサーバーがJMSデフォルト接続ファクトリを使用するかどうかを指定します。デフォルト値はtrueです。",
 
   "a-JMSExceptionReconnectAttempts-label": "JMS例外の再接続試行",
+  "a-JMSExceptionReconnectAttempts-help": "JMSシステムでKodoに重大な接続エラーが通知された場合に再接続を試行する回数。デフォルト値は0です。エラーは、デフォルトではログに記録されますが無視されます。0未満の値を指定することはできません。",
 
   "a-JMSServer-label": "JMSサーバー",
   "f-WSReliableDeliveryPolicy-a-JMSServer-help": "送信する信頼性のあるメッセージを保持するためにWebLogic Server (ロールは送信者)によって使用されるJMSサーバー、または送信者から送信された信頼性のあるメッセージの履歴を保持するために受信者のWebLogic Serverによって使用されるJMSサーバー。",
 
   "a-JMSThreadPoolSize-label": "JMSスレッド・プール・サイズ",
+
   "a-JMSTopic-label": "JMSトピック",
+  "a-JMSTopic-help": "Kodoリモート・コミット・プロバイダが、通知のパブリッシュ、および他のJVMから送られた通知のサブスクライブに使用するJMSトピック。",
+
   "a-JMSTopicConnectionFactory-label": "JMSトピックの接続ファクトリ",
+  "a-JMSTopicConnectionFactory-help": "JMSトピックの検索に使用するTopicConnectionFactoryインスタンスのJNDI名。",
 
   "a-JNDIName-label": "JNDI名",
   "f-any_CoherenceCacheConfig-a-JNDIName-help": "このCoherenceCacheConfigMBeanのJNDI名。",
@@ -3577,7 +3597,8 @@
   "f-JMSSystemResource_JmsResource_UniformDistributedTopic-a-JNDIName-help": "このJMS共通分散トピックのJNDI名。クラスタ化されたJNDIネームスペース内で接続ファクトリをルックアップするのに使用するグローバルJNDI名。クラスタ環境では、この名前はクラスタ全体に伝播されます。JNDI名をローカル・サーバーにのみバインドし、クラスタの残りの部分に伝播しないようにするには、ローカルJNDI名の設定を使用します。指定しない場合、クラスタ化されたJNDIネームスペースに接続ファクトリがバインドされません。",
   "f-MailSession-a-JNDIName-help": "このJavaMailセッションのJNDI名。",
 
-  "a-JNDIPasswordEncrypted-label": "JNDIパスワードの暗号化",
+  "a-JNDIPasswordEncrypted-label": "JNDIパスワード",
+  "a-JNDIPasswordEncrypted-help": "Kodo通知用にJNDIUsername属性に定義されているユーザーを認証するためのパスワード。",
 
   "a-JNDIPrefix-label": "JNDIの接頭辞",
   "a-JNDIPrefix-help": "リモート宛先のローカルJNDI名の先頭に付ける文字列を指定します。",
@@ -3591,6 +3612,8 @@
   "a-JNDITransportableObjectFactoryList-help": "トランスポータブル・オブジェクトを作成するファクトリのリストを指定します。",
 
   "a-JNDIUsername-label": "JNDIユーザー名",
+  "a-JNDIUsername-help": "Kodo通知に使用されるJNDIユーザー名。",
+
   "a-JRMPEnabled-label": "JRMPの有効化",
 
   "a-JSPCompilerBackwardsCompatible-label": "JSPコンパイラの下位互換性",
@@ -4617,6 +4640,12 @@
   "f-WLDFSystemResource_WLDFResource_WatchNotification_Watch-a-Notification-help": "このポリシーのアクションが有効になりました。",
 
   "a-NotificationProperties-label": "通知プロパティ",
+  "a-NotificationProperties-entryLabel": "通知JNDIプロパティ",
+  "a-NotificationProperties-help": "構築時にJNDI InitialContextに渡すキーと値からなるプロパティのリスト。",
+  "a-NotificationProperties-keyLabel": "JNDIプロパティ名",
+  "a-NotificationProperties-keyHelp": "JNDI InitialContextコンストラクタに渡すJNDIプロパティ名。",
+  "a-NotificationProperties-valueLabel": "JNDIプロパティ値",
+  "a-NotificationProperties-valueHelp": "指定したJNDIプロパティのJNDIプロパティ値。",
 
   "a-NotificationType-label": "通知タイプ",
   "f-WLDFSystemResource_WLDFResource_WatchNotification_JMXNotification-a-NotificationType-help": "結果のJMX通知に割り当てられたJMX通知タイプ。",
@@ -4871,6 +4900,7 @@
   "f-JMSSystemResource_JmsResource_SAFRemoteContext_SAFLoginContext-a-PasswordEncrypted-help": "リモートURLへのログインに使用されるユーザー名のパスワード。",
   "f-ForeignJNDIProvider-a-PasswordEncrypted-help": "リモート・サーバーのユーザー・パスワード。",
   "f-any_NodeManager-a-PasswordEncrypted-help": "ノード・マネージャ・クライアントが基になるサービスへの接続に使用するパスワードを指定します。このノード・マネージャ・クライアントの操作はこのサービスに委任されます。",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-PasswordEncrypted-help": "データストアへの接続において、Username属性に指定されているユーザーのパスワード。",
 
   "a-PasswordStyle-label": "パスワードのスタイル",
   "a-PasswordStyle-help": "作成されたユーザーのパスワードを格納する場合や、「パスワードのスタイルを保持」が無効になっているときにユーザーのパスワードを変更する場合に、使用されるパスワードのスタイルを指定します。",
@@ -6846,6 +6876,7 @@
   "f-SelfTuning_ContextRequestClass_ContextCase-a-UserName-help": "RequestClassNameで指定された名前を使用して、リクエスト・クラスによってリクエストが処理されるユーザーの名前。",
   "f-JoltConnectionPool-a-UserName-help": "アプリケーションが、このJolt接続プールに接続するために指定するユーザー名。セキュリティ・コンテキストが有効化されている場合は、認可されたTuxedoユーザーの名前にする必要があります(Tuxedoの認証レベルがUSER_AUTHの場合に、Tuxedoユーザー名を指定する必要があります)。",
   "f-any_NodeManager-a-UserName-help": "基になるサービスへの接続に使用するノード・マネージャ・クライアント・ユーザー名を指定します。このクライアントの操作はこのサービスに委任されます。",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-Username-help": "データストアへの接続時に使用するユーザー名。",
 
   "a-UserNameAttribute-label": "ユーザー名属性",
   "a-UserNameAttribute-help": "ユーザーの名前を指定するLDAPユーザー・オブジェクトの属性を指定します。デフォルト値は\"cn\"です。Active Directoryでは、通常、cnはユーザーの名と姓を組み合せた文字列を格納し、sAMAccountNameはユーザーのログイン名を格納します。したがって、Active Directory LDAP認証プロバイダを使用する前に、このプロパティに\"sAMAccountName\"を設定することをお薦めします。デフォルト値が\"sAMAccountName\"ではなく\"cn\"であるのは、下位互換性のためです。",

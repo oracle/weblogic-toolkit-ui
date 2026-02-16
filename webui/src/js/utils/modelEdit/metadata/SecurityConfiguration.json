@@ -623,7 +623,8 @@
           "EnableWebLogicPrincipalValidatorCache",
           "MaxWebLogicPrincipalsInCache",
           "RetireTimeoutSeconds",
-          "AuthMethods"
+          "AuthMethods",
+          "WebLogicJwtVirtualUserEnabled"
         ]
       },
       {
@@ -982,7 +983,8 @@
         "labelKey": "advanced-label",
         "attributes": [
           "IdentityDomain",
-          "PlaintextPasswordsEnabled"
+          "PlaintextPasswordsEnabled",
+          "LegacyArgon2FallbackEnabled"
         ],
         "addRemainingAttributes": true
       },
@@ -2734,7 +2736,8 @@
             "labelKey": "advanced-label",
             "attributes": [
               "IdentityDomain",
-              "PlaintextPasswordsEnabled"
+              "PlaintextPasswordsEnabled",
+              "LegacyArgon2FallbackEnabled"
             ],
             "addRemainingAttributes": true
           }
@@ -2904,7 +2907,8 @@
               "PlaintextPasswordsEnabled",
               "PasswordStyle",
               "PasswordStyleRetained",
-              "PasswordAlgorithm"
+              "PasswordAlgorithm",
+              "LegacyArgon2FallbackEnabled"
             ],
             "addRemainingAttributes": true
           }

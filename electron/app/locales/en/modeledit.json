@@ -39,6 +39,7 @@
   "node-manager-coherence-start-scripts-title": "Coherence Start Script Settings",
   "wldf-elasticity-framework-settings-label": "WLDF Elasticity Framework Settings",
   "rdbms-security-store-notifications-title": "JMS Notifications",
+  "node-manager-process-logging-title": "Coherence and System Component Log Rotation Settings",
 
   "general-tab-label": "General",
   "attributes-tab-label": "Attributes",
@@ -108,6 +109,8 @@
   "saml-20-general-tab-label": "SAML 2.0 General",
   "saml-20-identity-provider-tab-label": "SAML 2.0 Identity Provider",
   "saml-20-service-provider-tab-label": "SAML 2.0 Service Provider",
+  "node-manager-coherence-tab-label": "Coherence Settings",
+  "node-manager-weblogic-tab-label": "WebLogic Server Settings",
 
   "security-model-advanced-label": "Advanced",
   "security-model-custom-roles-label": "Custom Roles",
@@ -407,6 +410,8 @@
   "options-fine-label": "Fine",
   "options-finer-label": "Finer",
   "options-finest-label": "Finest",
+  "options-size-label": "Size",
+  "options-time-label": "Time",
 
   "direction-jms-queue-to-tuxedo-queue-label": "JMS Queue to Tuxedo Queue",
   "direction-tuxedo-queue-to-jms-queue-label": "Tuxedo Queue to JMS Queue",
@@ -1773,8 +1778,11 @@
   "a-CustomTrustKeyStoreFileName-label": "Custom Trust Keystore File Name",
   "a-CustomTrustKeyStoreFileName-help": "Specifies the source of the trust keystore. For a JKS or PKCS12 keystore, the source is the path and file name, which must be resolvable from directory in which the server was booted. For an Oracle KeyStore Service (KSS) keystore, the source is the KSS URI, which takes the form of kss://system/keystorename where keystorename is the name of the keystore registered in KSS.",
 
-  "a-CustomTrustKeyStorePassPhraseEncrypted-label": "Custom Trust Keystore Passphrase",
+  "a-CustomTrustKeyStorePassPhrase-label": "Custom Trust Keystore Passphrase",
   "a-CustomTrustKeyStorePassPhrase-help": "Sets the custom trust keystore's passphrase. If empty or null, then the keystore will be opened without a passphrase.",
+
+  "a-CustomTrustKeyStorePassPhraseEncrypted-label": "Custom Trust Keystore Passphrase",
+  "a-CustomTrustKeyStorePassPhraseEncrypted-help": "Sets the custom trust keystore's passphrase. If empty or null, then the keystore will be opened without a passphrase.",
 
   "a-CustomTrustKeyStoreType-label": "Custom Trust Keystore Type",
   "a-CustomTrustKeyStoreType-help": "The type of the keystore. Generally, this is JKS or PKCS12. If using the Oracle KeyStore Service, this is KSS.",
@@ -2909,6 +2917,11 @@
   "f-WLDFSystemResource_WLDFResource_Instrumentation_WLDFInstrumentationMonitor-a-Exclude-help": "Pattern expressions for classes that will be excluded for this instrumentation monitor. If specified, classes matching given patterns will not be instrumented with this monitor.",
   "f-WLDFSystemResource_WLDFResource_Instrumentation-a-Exclude-help": "Pattern expressions for classes that will be excluded from this instrumentation scope. If specified, classes matching given patterns will not be instrumented.",
 
+  "a-ExcludeClusterMembers-label": "Exclude Cluster Members",
+  "a-ExcludeClusterMembers-itemLabel": "Exclude Cluster Member",
+  "a-ExcludeClusterMembers-itemHelp": "Specify the server name to exclude.",
+  "a-ExcludeClusterMembers-help": "Specifies the list of servers to be excluded from dynamic server list.",
+
   "a-ExcludedCiphersuite-label": "Excluded Cipher Suites",
   "a-ExcludedCiphersuite-itemLabel": "Excluded Cipher Suite",
   "a-ExcludedCiphersuite-itemHelp": "Specifies an excluded cipher suite to add to the list.",
@@ -3544,6 +3557,9 @@
   "a-IsDefaultAdmin-label": "Is Default Admin",
   "a-IsolatePartitionThreadLocals-label": "Isolate Partition Thread Locals",
 
+  "a-IsLogLockingEnabled-label": "Is Log Locking Enabled",
+  "a-IsLogLockingEnabled-help": "Whether log locking is enabled.  The default value is true.",
+
   "a-Issuer-label": "Issuer",
   "a-Issuer-help": "Specifies an override for the token issuer value used during validation. The issuer is normally obtained from the Oracle Identity Cloud Service Discovery Metadata. When configured, the issuer value is used for all tenants.",
 
@@ -3788,6 +3804,9 @@
 
   "a-LeaderHeartbeatPeriod-label": "Leader Heartbeat Period",
   "f-Cluster_DatabaseLessLeasingBasis-a-LeaderHeartbeatPeriod-help": "Sets the LeaderHeartbeatPeriod value, in seconds. The cluster leader heartbeats a special leader heartbeat every period seconds to publish group view version and other cluster information. Members look at this heartbeat and perform any sync up operations if required. The default value is 10.",
+
+  "a-LegacyArgon2FallbackEnabled-label": "Legacy Argon2 Fallback Enabled",
+  "a-LegacyArgon2FallbackEnabled-help": "Whether to attempt password validation using a legacy Argon2 algorithm if a password is not validated using the standard algorithm.",
 
   "a-Level-label": "Level",
 
@@ -5136,6 +5155,9 @@
   "a-ProfileType-label": "Profile Type",
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-ProfileType-help": "Specifies the type of profile data to be collected for the JDBC subsystem. To enable a multiple profiling options, the value should be set to the sum of each option's numeric value. For example, to enable the Connection Usage, Connection Leak and Connection Unwrap Usage options the value would be set to 261 (1 + 4 + 256) or 0x105 (0x001 + 0x004 + 0x100).",
 
+  "a-ProgressTrackerInitialDataTimeout-label": "Progress Tracker Initial Data Timeout",
+  "a-ProgressTrackerInitialDataTimeout-help": "The timeout after which the progress tracker times out waiting for data.",
+
   "a-PropagateCauseForLoginException-label": "Propagate Cause For Login Exception",
   "a-PropagateCauseForLoginException-help": "Specifies whether to propagate the cause of the LoginException.",
 
@@ -5480,6 +5502,9 @@
 
   "a-ResponseTimeout-label": "Response Timeout",
 
+  "a-RestEnabled-label": "REST Enabled",
+  "a-RestEnabled-help": "Whether REST should be enabled.",
+
   "a-RestInvocationMethodType-label": "REST Invocation Method Type",
   "f-WLDFSystemResource_WLDFResource_WatchNotification_RestNotification-a-RestInvocationMethodType-help": "The REST method for invoking the endpoint.",
 
@@ -5759,6 +5784,9 @@
 
   "a-Scope-label": "Scope",
   "a-ScriptExecutorCommand-label": "Script Executor Command",
+
+  "a-ScriptTimeout-label": "Script Timeout",
+  "a-ScriptTimeout-help": "The timeout to use when waiting scripts to execute.",
 
   "a-SdpEnabled-label": "Socket Direct Protocol (SDP) Enabled",
   "f-any_NetworkAccessPoint-a-SDPEnabled-help": "Enables Socket Direct Protocol (SDP) on this channel. Enable this attribute when configuring session replication enhancements for Managed Servers in a WebLogic cluster for Oracle Exalogic. SDP is removed from JDK11. Deprecated in 14.1.1.",
@@ -6945,6 +6973,9 @@
   "a-VerboseLoggingEnabled-label": "Verbose Logging Enabled",
   "f-any_COM-a-VerboseLoggingEnabled-help": "Specifies whether verbose logging is enabled.",
 
+  "a-VerboseStuckThreadName-label": "Verbose Stuck Thread Name",
+  "a-VerboseStuckThreadName-help": "Indicates whether to include additional details such as time thread is marked as stuck and work request start time in the names of stuck threads.",
+
   "a-Version-label": "Version",
   "a-VersionIdentifier-label": "Version Identifier",
 
@@ -7049,6 +7080,9 @@
 
   "a-WebModule-label": "Web Module",
   "a-WebRjvmSupport-label": "Web RJVM Support",
+
+  "a-WebLogicJwtVirtualUserEnabled-label": "WebLogic JWT Virtual User Enabled",
+  "a-WebLogicJwtVirtualUserEnabled-help": "Determines whether the WebLogic JWT token is enabled for virtual user support. When enabled, the WebLogic JWT token will contain user and group information.",
 
   "a-WeblogicPluginEnabled-label": "WebLogic Plug-in Enabled",
   "a-WeblogicPluginEnabled-help": "Specifies whether this server uses the proprietary WL-Proxy-Client-IP header. Set this attribute to true to specify that this server instance uses the proprietary WL-Proxy-Client-IP header, which is recommended if the server instance will receive requests from a proxy plug-in. If the server instance is a member of a cluster that will receive proxied requests, enable the WebLogic plug-in at the cluster level. For servers that are members of a cluster, the setting at the cluster level overrides the server's setting. When the WebLogic plug-in is enabled at the cluster level, a call to getRemoteAddr will return the address of the browser client from the proprietary WL-Proxy-Client-IP header instead of the Web server.",
@@ -7166,6 +7200,14 @@
   "a-coherence_StartScriptName-label": "Coherence Start Script Name",
   "f-NMProperties-a-coherence_StartScriptName-help": "The name of the script to be executed to start the server.",
 
+  "a-coherence_startup_Arguments-label": "Coherence Startup Arguments",
+  "a-coherence_startup_Arguments-itemLabel": "Coherence Startup Argument",
+  "a-coherence_startup_Arguments-itemHelp": "Specify the Coherence Startup Argument to add.",
+  "a-coherence_startup_Arguments-help": "Coherence Startup Arguments",
+
+  "a-coherence_startup_MW_HOME-label": "Coherence Startup Middleware Home",
+  "a-coherence_startup_MW_HOME-help": "The middleware home to use to start the Coherence server.",
+
   "a-compInfoXMLLocation-label": "Component Info XML Location",
   "a-compInfoXMLLocation-help": "The full path to the location of the ComponentInfo.xml file. The default location is ORACLE_HOME/oracle_common/rcu/config.",
 
@@ -7225,6 +7267,28 @@
   "a-pager-label": "pager",
   "a-postaladdress-label": "postaladdress",
   "a-postofficebox-label": "postofficebox",
+
+  "a-process_FileSizeKB-label": "Process File Size KB",
+  "a-process_FileSizeKB-help": "The maximum log file size in kilobytes for the process when rotating by size.",
+
+  "a-process_FileTimeSpan-label": "Process File Time Span",
+  "a-process_FileTimeSpan-help": "The interval (in hours) at which the process saves old log messages to another file. The default value is 24.",
+
+  "a-process_FileTimeSpanFactor-label": "Process File Time Span Factor",
+  "a-process_FileTimeSpanFactor-help": "This factor is defined so that log rotation can be tested at a different frequency. The default value is 3600000.",
+
+  "a-process_NumberOfFilesLimited-label": "Process Number of Files Limited",
+  "a-process_NumberOfFilesLimited-help": "Indicates whether to limit the number of log files that this process instance creates to store old messages. After the process reaches this limit, it deletes the oldest log file and creates a new log file with the latest suffix. If you do not enable this option, the process creates new files indefinitely and you must clean up these files as you require. The default value is true.",
+
+  "a-process_RotatedFileCount-label": "Process Rotated File Count",
+  "a-process_RotatedFileCount-help": "When the number of files are limited, this parameter specifies the maximum number of rotated files to retain.",
+
+  "a-process_RotationTimeStart-label": "Process Rotation Time Start",
+  "a-process_RotationTimeStart-help": "Determines the start time (hour and minute) for a time-based rotation sequence. At the time that this value specifies, the process renames the current log file.",
+
+  "a-process_RotationType-label": "Process Rotation Type",
+  "a-process_RotationType-help": "Specifies the criteria for moving old log records to a separate file. The default value is by size.",
+
   "a-preferredlanguage-label": "preferredlanguage",
   "a-rcu_admin_password-label": "Database Admin Password",
   "a-rcu_admin_password-help": "The database administrative user's password needed to create the RCU schemas. This value is requires if you want WDT to create the RCU schemas for you.",
@@ -7288,6 +7352,36 @@
 
   "a-weblogic_UseMACBroadcast-label": "WebLogic Use MAC Broadcast",
   "f-NMProperties-a-weblogic_UseMACBroadcast-help": "Specifies whether or not to use a node's MAC address when sending ARP packets, that is, whether or not to use the -b flag in the arping command. When Node Manager binds IP addresses for automatic server migration, it also uses the arping command to attempt to notify nodes in the network that the machine is now using the virtual IP address. When weblogic.UseMACBroadcast=true, Node Manager uses the arping command with the -b flag.",
+
+  "a-weblogic_startup_Arguments-label": "WebLogic Startup Arguments",
+  "a-weblogic_startup_Arguments-itemLabel": "WebLogic Startup Argument",
+  "a-weblogic_startup_Arguments-itemHelp": "Provide the WebLogic startup argument to add.",
+  "a-weblogic_startup_Arguments-help": "The arguments to use when starting WebLogic Server instances.",
+
+  "a-weblogic_startup_Arguments_prepend-label": "WebLogic Startup Arguments Prepend",
+  "a-weblogic_startup_Arguments_prepend-itemLabel": "WebLogic Startup Argument to Prepend",
+  "a-weblogic_startup_Arguments_prepend-itemHelp": "Provide the WebLogic startup argument to add.",
+  "a-weblogic_startup_Arguments_prepend-help": "The arguments to prepend to the list of arguments used to start WebLogic Server instances.",
+
+  "a-weblogic_startup_ClassPath-label": "WebLogic Startup ClassPath",
+  "a-weblogic_startup_ClassPath-itemLabel": "WebLogic Startup ClassPath Entry",
+  "a-weblogic_startup_ClassPath-itemHelp": "Provide the entry to add to the WebLogic startup classpath.",
+  "a-weblogic_startup_ClassPath-help": "The Java CLASSPATH to use when starting WebLogic Server instances.",
+
+  "a-weblogic_startup_JavaVendor-label": "WebLogic Startup Java Vendor",
+  "a-weblogic_startup_JavaVendor-help": "The Java vendor type to use when starting WebLogic Server instances.",
+
+  "a-weblogic_startup_MW_Home-label": "WebLogic Startup Middleware Home",
+  "a-weblogic_startup_MW_Home-help": "The middleware home (MW_HOME) to use when starting WebLogic Server instances.",
+
+  "a-weblogic_startup_SecurityPolicyFile-label": "WebLogic Startup Security Policy File",
+  "a-weblogic_startup_SecurityPolicyFile-help": "The security policy file to use when starting WebLogic Server instances.",
+
+  "a-weblogic_startup_serverGID-label": "WebLogic Startup Server Group ID",
+  "a-weblogic_startup_serverGID-help": "The operating system group ID (GID) to use to start WebLogic Server instances.",
+
+  "a-weblogic_startup_serverUID-label": "WebLogic Startup Server User ID",
+  "a-weblogic_startup_serverUID-help": "The operating system user ID (UID) to use to start WebLogic Server instances.",
 
   "f-any-nameHelp": "Name of {{folderType}}",
   "f-any-nameLabel": "{{folderType}} Name",
@@ -7784,6 +7878,7 @@
   "f-any_WatchNotification-label": "Watch Notification",
   "f-any_WebAppContainer-label": "Web App Container",
   "f-any_WebLogicCertPathProvider-label": "WebLogic Cert Path Provider",
+  "f-any_WeblogicPluginRouting-label": "WebLogic Plug-in Routing",
   "f-any_WebServer-label": "Web Server",
   "f-any_WebServerLog-label": "Web Server Log",
   "f-any_WebService-label": "Web Service",

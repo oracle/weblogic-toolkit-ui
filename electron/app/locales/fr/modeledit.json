@@ -38,6 +38,7 @@
   "configuration-properties-title": "Propriétés de configuration",
   "node-manager-coherence-start-scripts-title": "Paramètres de script de démarrage Coherence",
   "wldf-elasticity-framework-settings-label": "Paramètres de structure d'élasticité WLDF",
+  "rdbms-security-store-notifications-title": "Notifications JMS",
 
   "general-tab-label": "Général",
   "attributes-tab-label": "Attributs",
@@ -450,6 +451,7 @@
   "attribute-dialog-option-variable": "Utiliser un jeton de variable existant",
   "attribute-dialog-option-newVariable": "Utiliser un nouveau jeton de variable",
   "attribute-dialog-option-removeFromArchive": "Enlever l'entrée de l'archive",
+  "attribute-dialog-option-removeSelections": "Enlever les valeurs non valides de la liste",
   "attribute-dialog-variable-choice-label": "Variable existante",
   "attribute-dialog-variable-choice-help": "Choisir une variable pour le champ",
   "attribute-dialog-variable-name-label": "Nom de la variable",
@@ -467,6 +469,9 @@
   "attribute-editor-select": "Sélectionner",
   "attribute-editor-select-directory": "Sélectionner un répertoire",
   "attribute-editor-select-file": "Sélectionner un fichier",
+  "attribute-editor-invalid-model-value": "Valeur \"{{value}}\" non valide dans le modèle",
+  "attribute-editor-property-value-type-label": "Type de valeur",
+  "attribute-editor-property-value-type-help": "Indiquez comment la valeur de propriété sera résolue.",
 
   "invalid-integer-error": "La valeur doit être un entier",
   "invalid-double-error": "La valeur doit être un nombre décimal, par exemple 4 ou 3,5",
@@ -477,6 +482,8 @@
 
   "table-name-label": "Nom",
   "table-type-label": "Type",
+  "table-show-value-label": "Afficher la valeur",
+  "table-hide-value-label": "Masquer la valeur",
 
   "rcudbinfo-connection-label": "Connexion",
   "rcudbinfo-stores-label": "Emplacements de stockage",
@@ -1480,6 +1487,12 @@
   "f-any_OracleVirtualDirectoryAuthenticator-a-ConnectionPoolSize-help": "Indique la taille du pool de connexions LDAP. La valeur par défaut est 6.",
 
   "a-ConnectionProperties-label": "Propriétés de connexion",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionProperties-help": "Paramètres de connexion propres au pilote JDBC à transmettre au pilote pour la configuration du pool de connexions JDBC.",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionProperties-entryLabel": "Propriété de connexion JDBC",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionProperties-keyLabel": "Nom de propriété JDBC",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionProperties-keyHelp": "Nom de la propriété de connexion propre au pilote JDBC à ajouter.",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionProperties-valueLabel": "Valeur de propriété JDBC",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionProperties-valueHelp": "Valeur de la propriété de connexion propre au pilote JDBC ajoutée.",
 
   "a-ConnectionReserveTimeoutSeconds-label": "Délai d'expiration de réservation de connexion (secondes)",
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-ConnectionReserveTimeoutSeconds-help": "Nombre de secondes après lequel un appel visant à réserver une connexion dans le pool de connexions expire. Lorsque la valeur est définie sur 0, les appels n'expirent jamais. Lorsqu'elle est définie sur -1, les appels expirent immédiatement.",
@@ -1498,6 +1511,7 @@
   "a-ConnectionURL-label": "URL de connexion",
   "f-JMSBridgeDestination-a-ConnectionURL-help": "URL de connexion de cette destination de pont JMS.",
   "f-JMSSystemResource_JmsResource_ForeignServer-a-ConnectionURL-help": "URL que WebLogic Server utilisera pour contacter le fournisseur JNDI. La syntaxe de cette URL dépend du fournisseur JNDI utilisé. Avec WebLogic JMS, laissez ce champ vide si vous référencez des objets WebLogic JMS du même cluster. Cette valeur correspond à la propriété JNDI standard, java.naming.provider.url. Remarque : si cette valeur n'est pas indiquée, des recherches seront effectuées sur le serveur JNDI dans l'instance WebLogic Server où cette fabrique de connexions est déployée.",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionURL-help": "L'URL est transmise au pilote JDBC pour créer les connexions de base de données physiques.",
 
   "a-ConsensusParticipants-label": "Participants au consensus",
   "f-Cluster-a-ConsensusParticipants-help": "Contrôle le nombre de participants de cluster pour déterminer le consensus.",
@@ -2702,6 +2716,7 @@
 
   "a-DriverName-label": "Nom de pilote",
   "f-JDBCSystemResource_JdbcResource_JDBCDriverParams-a-DriverName-help": "Nom de package complet de la classe de pilote JDBC permettant de créer les connexions de base de données physiques dans le pool de connexions de la source de données.",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-DriverName-help": "Nom de package complet de la classe de pilote JDBC permettant de créer les connexions de base de données physiques dans le pool de connexions. Cette classe de pilote doit figurer dans la variable d'environnement classpath de tout serveur vers lequel elle est déployée. Il doit s'agir du nom d'une classe qui implémente l'interface java.sql.Driver.",
 
   "a-DurabilityEnabled-label": "Durabilité activée",
   "f-MessagingBridge-a-DurabilityEnabled-help": "Indique si le pont de messagerie autorise les messages durables. Lorsque cette fonction est activée et que la destination source est une rubrique JMS, une instance de pont de messagerie utilise un abonnement durable pour garantir qu'aucun message n'est perdu en cas d'échec. DurabilityEnabled est ignoré si la destination source est une file d'attente JMS.",
@@ -3556,13 +3571,18 @@
   "a-JMSDefaultConnectionFactoriesEnabled-help": "Indique si le serveur utilise les fabriques de connexions JMS par défaut. La valeur par défaut est True.",
 
   "a-JMSExceptionReconnectAttempts-label": "Tentatives de reconnexion en cas d'exception JMS",
+  "a-JMSExceptionReconnectAttempts-help": "Nombre de tentatives de reconnexion si le système JMS informe Kodo d'une erreur de connexion grave. La valeur par défaut est 0. En outre, par défaut, l'erreur est journalisée mais ignorée. Cette valeur ne peut pas être inférieure à 0.",
 
   "a-JMSServer-label": "Serveur JMS",
   "f-WSReliableDeliveryPolicy-a-JMSServer-help": "Serveur JMS utilisé par WebLogic Server, dans son rôle d'expéditeur, pour rendre persistants les messages fiables qu'il envoie, ou serveur JMS utilisé par le destinataire WebLogic Server pour rendre persistant l'historique d'un message fiable envoyé par un expéditeur.",
 
   "a-JMSThreadPoolSize-label": "Taille du pool de threads JMS",
+
   "a-JMSTopic-label": "Rubrique JMS",
+  "a-JMSTopic-help": "Rubrique JMS dans laquelle le fournisseur de validation distant Kodo doit publier les notifications et s'abonner à celles envoyées à partir d'autres Java Virtual Machines (JVM).",
+
   "a-JMSTopicConnectionFactory-label": "Fabrique de connexions de rubrique JMS",
+  "a-JMSTopicConnectionFactory-help": "Nom JNDI d'une instance TopicConnectionFactory à employer pour rechercher des rubriques JMS.",
 
   "a-JNDIName-label": "Nom JNDI",
   "f-any_CoherenceCacheConfig-a-JNDIName-help": "Nom JNDI pour CoherenceCacheConfigMBean.",
@@ -3577,7 +3597,8 @@
   "f-JMSSystemResource_JmsResource_UniformDistributedTopic-a-JNDIName-help": "Nom JNDI de la rubrique distribuée uniforme JMS. Nom JNDI global permettant de rechercher une fabrique de connexions dans un espace de noms JNDI inclus dans un cluster. Dans un environnement inclus dans un cluster, ce nom est propagé à l'ensemble du cluster. Si vous souhaitez que le nom JNDI ne soit lié qu'au serveur local sans être propagé au reste du cluster, utilisez le paramètre Nom JNDI local. Sinon, la fabrique de connexions n'est pas liée à un espace de noms JNDI inclus dans un cluster.",
   "f-MailSession-a-JNDIName-help": "Nom JNDI de la session JavaMail.",
 
-  "a-JNDIPasswordEncrypted-label": "Mot de passe JNDI crypté",
+  "a-JNDIPasswordEncrypted-label": "Mot de passe JNDI",
+  "a-JNDIPasswordEncrypted-help": "Mot de passe permettant d'authentifier l'utilisateur défini dans l'attribut JNDIUsername pour la notification Kodo.",
 
   "a-JNDIPrefix-label": "Préfixe JNDI",
   "a-JNDIPrefix-help": "Indique la chaîne qui servira de préfixe au nom JNDI local d'une destination distante.",
@@ -3591,6 +3612,8 @@
   "a-JNDITransportableObjectFactoryList-help": "Indique la liste des fabriques qui créent des objets transportables.",
 
   "a-JNDIUsername-label": "Nom utilisateur JNDI",
+  "a-JNDIUsername-help": "Nom utilisateur JNDI employé à des fins de notification Kodo.",
+
   "a-JRMPEnabled-label": "JRMP activé",
 
   "a-JSPCompilerBackwardsCompatible-label": "Compilateur JSP à compatibilité amont",
@@ -4617,6 +4640,12 @@
   "f-WLDFSystemResource_WLDFResource_WatchNotification_Watch-a-Notification-help": "Actions activées pour cette stratégie.",
 
   "a-NotificationProperties-label": "Propriétés de notification",
+  "a-NotificationProperties-entryLabel": "Propriété JNDI de notification",
+  "a-NotificationProperties-help": "Liste de propriétés clé/valeur à transmettre au contexte InitialContext JNDI lors de la construction.",
+  "a-NotificationProperties-keyLabel": "Nom de propriété JNDI",
+  "a-NotificationProperties-keyHelp": "Nom de propriété JNDI à transmettre au constructeur InitialContext JNDI.",
+  "a-NotificationProperties-valueLabel": "Valeur de propriété JNDI",
+  "a-NotificationProperties-valueHelp": "Valeur de propriété JNDI pour la propriété JNDI nommée.",
 
   "a-NotificationType-label": "Type de notification",
   "f-WLDFSystemResource_WLDFResource_WatchNotification_JMXNotification-a-NotificationType-help": "Type de notification JMX affecté à la notification JMX obtenue.",
@@ -4871,6 +4900,7 @@
   "f-JMSSystemResource_JmsResource_SAFRemoteContext_SAFLoginContext-a-PasswordEncrypted-help": "Mot de passe correspondant au nom utilisateur employé pour se connecter à l'URL distante.",
   "f-ForeignJNDIProvider-a-PasswordEncrypted-help": "Mot de passe de l'utilisateur du serveur distant.",
   "f-any_NodeManager-a-PasswordEncrypted-help": "Indique le mot de passe utilisé par un client du gestionnaire de noeuds pour se connecter au service sous-jacent auquel le client du gestionnaire de noeuds délègue les opérations.",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-PasswordEncrypted-help": "Mot de passe de l'utilisateur indiqué dans l'attribut Username pour la connexion à la banque de données.",
 
   "a-PasswordStyle-label": "Type de mot de passe",
   "a-PasswordStyle-help": "Indique le type de mot de passe employé lors du stockage des mots de passe pour les utilisateurs créés, afin de modifier le mot de passe de l'utilisateur si l'option Type de mot de passe conservé est désactivée.",
@@ -6846,6 +6876,7 @@
   "f-SelfTuning_ContextRequestClass_ContextCase-a-UserName-help": "Nom de l'utilisateur dont les demandes doivent être traitées par la classe de demande dont le nom est indiqué dans RequestClassName.",
   "f-JoltConnectionPool-a-UserName-help": "Nom utilisateur indiqué par les applications pour se connecter à ce pool de connexions Jolt. Si le contexte de sécurité est activé, ce nom doit être celui d'un utilisateur Tuxedo autorisé. (Vous devez indiquer un nom utilisateur Tuxedo si le niveau d'authentification Tuxedo est USER_AUTH.)",
   "f-any_NodeManager-a-UserName-help": "Indique le nom utilisateur du client du gestionnaire de noeuds utilisé pour se connecter au service sous-jacent auquel le client délègue les opérations.",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-Username-help": "Nom utilisateur à employer lors de la connexion à la banque de données.",
 
   "a-UserNameAttribute-label": "Attribut de nom utilisateur",
   "a-UserNameAttribute-help": "Indique l'attribut de l'objet utilisateur LDAP qui spécifie le nom de l'utilisateur. La valeur par défaut est \"cn\". Dans Active Directory, généralement, cn stocke une chaîne constituée du prénom et du nom de l'utilisateur, et sAMAccountName stocke le nom de connexion de l'utilisateur. Il est donc recommandé de définir \"sAMAccountName\" sur cette propriété avant d'utiliser le fournisseur d'authentification LDAP Active Directory. La valeur par défaut est \"cn\", et non \"sAMAccountName\", pour des raisons de compatibilité amont.",

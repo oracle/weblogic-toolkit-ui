@@ -38,6 +38,7 @@
   "configuration-properties-title": "구성 속성",
   "node-manager-coherence-start-scripts-title": "Coherence 시작 스크립트 설정",
   "wldf-elasticity-framework-settings-label": "WLDF Elasticity Framework 설정",
+  "rdbms-security-store-notifications-title": "JMS 통지",
 
   "general-tab-label": "일반",
   "attributes-tab-label": "속성",
@@ -450,6 +451,7 @@
   "attribute-dialog-option-variable": "기존 변수 토큰 사용",
   "attribute-dialog-option-newVariable": "새 변수 토큰 사용",
   "attribute-dialog-option-removeFromArchive": "아카이브에서 항목 제거",
+  "attribute-dialog-option-removeSelections": "목록에서 부적합한 값 제거",
   "attribute-dialog-variable-choice-label": "기존 변수",
   "attribute-dialog-variable-choice-help": "필드에 대한 변수 선택",
   "attribute-dialog-variable-name-label": "변수 이름",
@@ -467,6 +469,9 @@
   "attribute-editor-select": "선택",
   "attribute-editor-select-directory": "디렉토리 선택",
   "attribute-editor-select-file": "파일 선택",
+  "attribute-editor-invalid-model-value": "모델에서 부적합한 값 \"{{value}}\"",
+  "attribute-editor-property-value-type-label": "값 유형",
+  "attribute-editor-property-value-type-help": "속성 값을 분석할 방법을 지정합니다.",
 
   "invalid-integer-error": "값은 정수여야 합니다",
   "invalid-double-error": "값은 4 또는 3.5와 같은 십진수여야 합니다.",
@@ -477,6 +482,8 @@
 
   "table-name-label": "이름",
   "table-type-label": "유형",
+  "table-show-value-label": "값 표시",
+  "table-hide-value-label": "값 숨기기",
 
   "rcudbinfo-connection-label": "접속",
   "rcudbinfo-stores-label": "저장소",
@@ -1480,6 +1487,12 @@
   "f-any_OracleVirtualDirectoryAuthenticator-a-ConnectionPoolSize-help": "LDAP 접속 풀 크기를 지정합니다. 기본값은 6입니다.",
 
   "a-ConnectionProperties-label": "접속 속성",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionProperties-help": "JDBC 접속 풀 구성을 위해 드라이버에 전달할 JDBC 드라이버별 접속 매개변수입니다.",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionProperties-entryLabel": "JDBC 접속 속성",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionProperties-keyLabel": "JDBC 속성 이름",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionProperties-keyHelp": "추가할 JDBC 드라이버별 접속 속성의 이름입니다.",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionProperties-valueLabel": "JDBC 속성 값",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionProperties-valueHelp": "추가하려는 JDBC 드라이버별 접속 속성의 값입니다.",
 
   "a-ConnectionReserveTimeoutSeconds-label": "접속 예약 시간 초과(초)",
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-ConnectionReserveTimeoutSeconds-help": "접속 풀에서 접속을 예약하기 위한 호출이 시간 초과되는 시간(초)입니다. 0으로 설정하면 호출이 시간 초과되지 않습니다. -1로 설정하면 호출이 즉시 시간 초과됩니다.",
@@ -1498,6 +1511,7 @@
   "a-ConnectionURL-label": "접속 URL",
   "f-JMSBridgeDestination-a-ConnectionURL-help": "이 JMS 브리지 대상의 접속 URL입니다.",
   "f-JMSSystemResource_JmsResource_ForeignServer-a-ConnectionURL-help": "WebLogic Server가 JNDI 제공자에 연결할 때 사용하는 URL입니다. 이 URL 구문은 사용하는 JNDI 제공자에 따라 달라집니다. WebLogic JMS에서 동일한 클러스터 내의 WebLogic JMS 객체를 참조하는 경우 이 필드를 비워 두십시오. 이 값은 표준 JNDI 속성 java.naming.provider.url에 해당합니다. 참고: 이 값을 지정하지 않을 경우 해당 접속 팩토리가 배치된 WebLogic Server 인스턴스 내 JNDI 서버에서 조회가 수행됩니다.",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionURL-help": "이 URL은 물리적 데이터베이스 접속을 생성하기 위해 JDBC 드라이버에 전달됩니다.",
 
   "a-ConsensusParticipants-label": "합의 참가자",
   "f-Cluster-a-ConsensusParticipants-help": "합의를 결정하는 클러스터 참가자 수를 제어합니다.",
@@ -2702,6 +2716,7 @@
 
   "a-DriverName-label": "드라이버 이름",
   "f-JDBCSystemResource_JdbcResource_JDBCDriverParams-a-DriverName-help": "데이터 소스의 접속 풀에서 실제 데이터베이스 접속을 생성하는 데 사용되는 JDBC 드라이버 클래스의 전체 패키지 이름입니다.",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-DriverName-help": "접속 풀에 물리적 데이터베이스 접속을 생성하는 데 사용된 JDBC 드라이버 클래스의 전체 패키지 이름입니다. 이 드라이버 클래스는 배치된 모든 서버의 클래스 경로에 있어야 합니다. java.sql.Driver 인터페이스를 구현하는 클래스 이름이어야 합니다.",
 
   "a-DurabilityEnabled-label": "영속성 사용",
   "f-MessagingBridge-a-DurabilityEnabled-help": "메시징 브리지에서 영속 메시지를 허용할지 여부를 지정합니다. 사용으로 설정되면 소스 브리지 대상이 JMS 토픽인 경우 메시징 브리지 인스턴스에서 영속 구독을 사용하여 장애가 발생해도 메시지가 손실되지 않도록 합니다. 소스 브리지 대상이 JMS 대기열인 경우 DurabilityEnabled가 무시됩니다.",
@@ -3556,13 +3571,18 @@
   "a-JMSDefaultConnectionFactoriesEnabled-help": "이 서버가 JMS 기본 접속 팩토리를 사용하는지 여부를 지정합니다. 기본값은 true입니다.",
 
   "a-JMSExceptionReconnectAttempts-label": "JMS 예외사항 재접속 시도",
+  "a-JMSExceptionReconnectAttempts-help": "JMS 시스템에서 Kodo에 심각한 접속 오류가 있음을 알리는 경우 재접속을 시도할 횟수입니다. 기본값은 0이며 기본적으로 오류는 기록되지만 무시됩니다. 이 값은 0보다 작을 수 없습니다.",
 
   "a-JMSServer-label": "JMS 서버",
   "f-WSReliableDeliveryPolicy-a-JMSServer-help": "WebLogic Server가 전송한 신뢰할 수 있는 메시지를 지속하기 위해 해당 롤에서 발신자로 사용하는 JMS 서버 또는 수신자 WebLogic Server가 발신자에 의해 전송된 신뢰할 수 있는 메시지의 내역을 지속하기 위해 사용하는 JMS 서버입니다.",
 
   "a-JMSThreadPoolSize-label": "JMS 스레드 풀 크기",
+
   "a-JMSTopic-label": "JMS 토픽",
+  "a-JMSTopic-help": "Kodo 원격 커밋 제공자가 통지를 게시하고 다른 JVM에서 보낸 통지에 가입해야 하는 JMS 토픽입니다.",
+
   "a-JMSTopicConnectionFactory-label": "JMS 토픽 접속 팩토리",
+  "a-JMSTopicConnectionFactory-help": "JMS 토픽을 찾을 때 사용할 TopicConnectionFactory 인스턴스의 JNDI 이름입니다.",
 
   "a-JNDIName-label": "JNDI 이름",
   "f-any_CoherenceCacheConfig-a-JNDIName-help": "이 CoherenceCacheConfigMBean의 JNDI 이름입니다.",
@@ -3577,7 +3597,8 @@
   "f-JMSSystemResource_JmsResource_UniformDistributedTopic-a-JNDIName-help": "이 JMS 균일한 분배 토픽의 JNDI 이름입니다. 클러스터화된 JNDI 네임스페이스 내에서 접속 팩토리를 조회하는 데 사용되는 전역 JNDI 이름입니다. 클러스터화된 환경에서는 이 이름이 전체 클러스터로 전달됩니다. JNDI 이름을 로컬 서버에서만 바인드하고 나머지 클러스터로 전달하지 않으려면 로컬 JNDI 이름 설정을 사용합니다. 지정되지 않은 경우 접속 팩토리가 클러스터화된 JNDI 네임스페이스에 바인드되지 않습니다.",
   "f-MailSession-a-JNDIName-help": "이 JavaMail 세션에 대한 JNDI 이름입니다.",
 
-  "a-JNDIPasswordEncrypted-label": "JNDI 비밀번호 암호화됨",
+  "a-JNDIPasswordEncrypted-label": "JNDI 비밀번호",
+  "a-JNDIPasswordEncrypted-help": "Kodo 통지에 대해 JNDIUsername 속성에 정의된 사용자를 인증할 비밀번호입니다.",
 
   "a-JNDIPrefix-label": "JNDI 접두어",
   "a-JNDIPrefix-help": "원격 대상의 로컬 JNDI 이름을 접두어로 사용할 문자열을 지정합니다.",
@@ -3591,6 +3612,8 @@
   "a-JNDITransportableObjectFactoryList-help": "전송 가능 객체를 생성하는 팩토리 목록을 지정합니다.",
 
   "a-JNDIUsername-label": "JNDI 사용자 이름",
+  "a-JNDIUsername-help": "Kodo 통지에 사용된 JNDI 사용자 이름입니다.",
+
   "a-JRMPEnabled-label": "JRMP 사용",
 
   "a-JSPCompilerBackwardsCompatible-label": "이전 버전과 호환되는 JSP 컴파일러",
@@ -4617,6 +4640,12 @@
   "f-WLDFSystemResource_WLDFResource_WatchNotification_Watch-a-Notification-help": "이 정책에 대해 사용으로 설정된 작업입니다.",
 
   "a-NotificationProperties-label": "통지 속성",
+  "a-NotificationProperties-entryLabel": "통지 JNDI 속성",
+  "a-NotificationProperties-help": "생성 시 JNDI InitialContext에 전달할 키-값 속성 목록입니다.",
+  "a-NotificationProperties-keyLabel": "JNDI 속성 이름",
+  "a-NotificationProperties-keyHelp": "JNDI InitialContext 생성자로 전달할 JNDI 속성 이름입니다.",
+  "a-NotificationProperties-valueLabel": "JNDI 속성 값",
+  "a-NotificationProperties-valueHelp": "명명된 JNDI 속성에 대한 JNDI 속성 값입니다.",
 
   "a-NotificationType-label": "통지 유형",
   "f-WLDFSystemResource_WLDFResource_WatchNotification_JMXNotification-a-NotificationType-help": "결과 JMX 통지에 지정된 JMX 통지 유형입니다.",
@@ -4871,6 +4900,7 @@
   "f-JMSSystemResource_JmsResource_SAFRemoteContext_SAFLoginContext-a-PasswordEncrypted-help": "원격 URL에 로그인하는 데 사용할 사용자 이름의 비밀번호입니다.",
   "f-ForeignJNDIProvider-a-PasswordEncrypted-help": "원격 서버의 사용자 비밀번호입니다.",
   "f-any_NodeManager-a-PasswordEncrypted-help": "노드 관리자 클라이언트가 작업을 위임하는 기본 서비스에 접속하기 위해 노드 관리자 클라이언트가 사용하는 비밀번호를 지정합니다.",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-PasswordEncrypted-help": "데이터 저장소에 접속할 때 Username 속성에 지정된 사용자의 비밀번호입니다.",
 
   "a-PasswordStyle-label": "비밀번호 스타일",
   "a-PasswordStyle-help": "생성된 사용자의 비밀번호를 저장할 때 사용되며, [비밀번호 스타일 유지됨]이 사용 안함으로 설정된 경우 사용자의 비밀번호를 변경할 때 사용되는 비밀번호 스타일을 지정합니다.",
@@ -6846,6 +6876,7 @@
   "f-SelfTuning_ContextRequestClass_ContextCase-a-UserName-help": "RequestClassName에 지정된 이름을 사용하여 요청 클래스에서 처리해야 하는 요청의 사용자 이름입니다.",
   "f-JoltConnectionPool-a-UserName-help": "애플리케이션에서 이 Jolt 접속 풀에 접속하기 위해 지정하는 사용자 이름입니다. [보안 컨텍스트]가 사용으로 설정되어 있는 경우 이 이름은 권한 있는 Tuxedo 사용자의 이름이어야 합니다. Tuxedo 인증 레벨이 USER_AUTH인 경우 Tuxedo 사용자 이름을 지정해야 합니다.",
   "f-any_NodeManager-a-UserName-help": "클라이언트가 작업을 위임할 기본 서비스 접속에 사용되는 노드 관리자 클라이언트 사용자 이름을 지정합니다.",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-Username-help": "데이터 저장소에 접속할 때 사용할 사용자 이름입니다.",
 
   "a-UserNameAttribute-label": "사용자 이름 속성",
   "a-UserNameAttribute-help": "사용자의 이름을 지정하는 LDAP 사용자 객체의 속성을 지정합니다. 기본값은 \"cn\"입니다. Active Directory에서 일반적으로 cn은 사용자 이름과 성의 조합인 문자열을 저장하고, sAMAccountName은 사용자의 로그인 이름을 저장합니다. 따라서 Active Directory LDAP 인증 제공자를 사용하기 전에 \"sAMAccountName\"을 이 속성으로 설정하는 것이 좋습니다. 이전 버전과의 호환성을 위해 기본값은 \"sAMAccountName\" 대신 \"cn\"입니다.",

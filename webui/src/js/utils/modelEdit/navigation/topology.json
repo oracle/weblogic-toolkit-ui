@@ -40,6 +40,9 @@
               "path": "ServerFailureTrigger"
             }
           ]
+        },
+        {
+          "path": "WeblogicPluginRouting"
         }
       ]
     },
