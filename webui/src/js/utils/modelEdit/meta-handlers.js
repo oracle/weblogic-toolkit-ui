@@ -223,6 +223,14 @@ define(['knockout', 'utils/wkt-logger', 'utils/modelEdit/model-edit-helper'],
         });
       };
 
+      this.nodeManagerCustomTrustFields = attributeMap => {
+        const keystoresType = attributeMap['KeyStores'];
+        return ko.computed(() => {
+          const type = ModelEditHelper.getDerivedValue(keystoresType.observable());
+          return type !== 'CustomIdentityAndCustomTrust';
+        });
+      };
+
       this.nodeManagerDomainKeystoresFields = attributeMap => {
         const keystoresType = attributeMap['KeyStores'];
         return ko.computed(() => {
@@ -241,6 +249,22 @@ define(['knockout', 'utils/wkt-logger', 'utils/modelEdit/model-edit-helper'],
 
       this.nodeManagerWebLogicStopScriptFields = attributeMap => {
         return this._disableFieldsUsingBooleanAttribute(attributeMap, 'weblogic.StopScriptEnabled');
+      };
+
+      this.nodeManagerProcessRotationBySizeFields = attributeMap => {
+        const rotationType = attributeMap['process.RotationType'];
+        return ko.computed(() => {
+          const type = ModelEditHelper.getDerivedValue(rotationType.observable());
+          return type !== undefined && type !== 'SIZE';
+        });
+      };
+
+      this.nodeManagerProcessRotationByTimeFields = attributeMap => {
+        const rotationType = attributeMap['process.RotationType'];
+        return ko.computed(() => {
+          const type = ModelEditHelper.getDerivedValue(rotationType.observable());
+          return type !== 'TIME';
+        });
       };
 
       this.defaultAuditorRotateBySizeFields = attributeMap => {

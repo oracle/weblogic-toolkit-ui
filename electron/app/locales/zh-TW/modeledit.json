@@ -38,6 +38,7 @@
   "configuration-properties-title": "組態特性",
   "node-manager-coherence-start-scripts-title": "Coherence 啟動命令碼設定值",
   "wldf-elasticity-framework-settings-label": "WLDF 彈性架構設定值",
+  "rdbms-security-store-notifications-title": "JMS 通知",
 
   "general-tab-label": "一般",
   "attributes-tab-label": "屬性",
@@ -450,6 +451,7 @@
   "attribute-dialog-option-variable": "使用現有的變數替代字",
   "attribute-dialog-option-newVariable": "使用新的變數替代字",
   "attribute-dialog-option-removeFromArchive": "從封存檔中移除項目",
+  "attribute-dialog-option-removeSelections": "從清單中移除無效值",
   "attribute-dialog-variable-choice-label": "現有變數",
   "attribute-dialog-variable-choice-help": "選擇欄位的變數",
   "attribute-dialog-variable-name-label": "變數名稱",
@@ -467,6 +469,9 @@
   "attribute-editor-select": "選取",
   "attribute-editor-select-directory": "選取目錄",
   "attribute-editor-select-file": "選取檔案",
+  "attribute-editor-invalid-model-value": "模型中的 \"{{value}}\" 值無效",
+  "attribute-editor-property-value-type-label": "值類型",
+  "attribute-editor-property-value-type-help": "指定如何解析特性值。",
 
   "invalid-integer-error": "值必須是整數",
   "invalid-double-error": "值必須是十進位數數字，例如 4 或 3.5",
@@ -477,6 +482,8 @@
 
   "table-name-label": "名稱",
   "table-type-label": "類型",
+  "table-show-value-label": "顯示值",
+  "table-hide-value-label": "隱藏值",
 
   "rcudbinfo-connection-label": "連線",
   "rcudbinfo-stores-label": "存放區",
@@ -1480,6 +1487,12 @@
   "f-any_OracleVirtualDirectoryAuthenticator-a-ConnectionPoolSize-help": "指定 LDAP 連線集區大小。預設值為 6。",
 
   "a-ConnectionProperties-label": "連線特性",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionProperties-help": "要傳遞給驅動程式以設定 JDBC 連線集區的 JDBC 驅動程式特定連線參數。",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionProperties-entryLabel": "JDBC 連線特性",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionProperties-keyLabel": "JDBC 特性名稱",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionProperties-keyHelp": "要新增的 JDBC 驅動程式特定連線特性名稱。",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionProperties-valueLabel": "JDBC 特性值",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionProperties-valueHelp": "正在新增之 JDBC 驅動程式特定連線特性的值。",
 
   "a-ConnectionReserveTimeoutSeconds-label": "連線保留逾時 (秒)",
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-ConnectionReserveTimeoutSeconds-help": "保留連線集區中連線的呼叫經過多少秒後即視為逾時。若設為 0，呼叫永遠不會逾時。若設為 -1，呼叫將立即被視為逾時。",
@@ -1498,6 +1511,7 @@
   "a-ConnectionURL-label": "連線 URL",
   "f-JMSBridgeDestination-a-ConnectionURL-help": "此 JMS 橋接器目標的連線 URL。",
   "f-JMSSystemResource_JmsResource_ForeignServer-a-ConnectionURL-help": "WebLogic 伺服器將用於連線 JNDI 提供者的 URL。此 URL 的語法取決於使用中的 JNDI 提供者。對於 WebLogic JMS，如果您參照的是同一個叢集內的 WebLogic JMS 物件，請將此欄位留白。這個值相對應至標準 JNDI 特性 java.naming.provider.url。注意：若未指定此值，將會對 WebLogic 伺服器執行處理內部署此連線處理站的 JNDI 伺服器執行查尋。",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionURL-help": "將 URL 傳送至 JDBC 驅動程式來建立實體資料庫連線。",
 
   "a-ConsensusParticipants-label": "共識參與者",
   "f-Cluster-a-ConsensusParticipants-help": "控制決定共識的叢集參與者數目。",
@@ -2702,6 +2716,7 @@
 
   "a-DriverName-label": "驅動程式名稱",
   "f-JDBCSystemResource_JdbcResource_JDBCDriverParams-a-DriverName-help": "JDBC 驅動程式類別的完整套裝程式名稱，用於在資料來源的連線集區中建立實體資料庫連線。",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-DriverName-help": "用於在連線集區中建立實體資料庫連線之 JDBC 驅動程式類別的完整套裝程式名稱。請注意，此驅動程式類別必須位於要部署之所有伺服器的類別路徑中。它必須是實行 java.sql.Driver 介面的類別名稱。",
 
   "a-DurabilityEnabled-label": "啟用持久性",
   "f-MessagingBridge-a-DurabilityEnabled-help": "指定訊息橋接器是否允許持久訊息。如果啟用且來源目標是 JMS 主題，訊息橋接器執行處理便會使用持久訂閱，以確保發生故障時不會遺失任何訊息。來源目標如果是 JMS 佇列，會忽略 DurabilityEnabled。",
@@ -2828,7 +2843,7 @@
   "a-EncryptValueRequired-label": "需將值加密",
   "f-any_ConfigurationProperty-a-EncryptValueRequired-help": "指定是否應將特性加密。依照預設，特性值不會加密，所有使用「管理主控台」的使用者都可以檢視特性的值。此屬性若設為 true，管理主控台上的特性值將被設為全星號。",
 
-  "a-EncryptedValueEncrypted-label": "加密已加密值",
+  "a-EncryptedValueEncrypted-label": "加密的值",
   "f-SecurityConfiguration_CredentialSet_EncryptedProperty-a-EncryptedValueEncrypted-label": "值",
   "f-JDBCSystemResource_JdbcResource_JDBCDriverParams_Properties-a-EncryptedValueEncrypted-help": "已加密特性值的值。",
   "f-SecurityConfiguration_CredentialSet_EncryptedProperty-a-EncryptedValueEncrypted-help": "特性的值。",
@@ -3556,13 +3571,18 @@
   "a-JMSDefaultConnectionFactoriesEnabled-help": "指定此伺服器是否使用 JMS 預設連線處理站。預設值為 true。",
 
   "a-JMSExceptionReconnectAttempts-label": "JMS 異常狀況重新連線嘗試",
+  "a-JMSExceptionReconnectAttempts-help": "JMS 系統通知 Kodo 發生嚴重連線錯誤時，嘗試重新連線的次數。預設值是 0，且預設會記錄錯誤，但予以忽略。值不可以小於 0。",
 
   "a-JMSServer-label": "JMS 伺服器",
   "f-WSReliableDeliveryPolicy-a-JMSServer-help": "WebLogic 伺服器為傳送方角色時所使用的 JMS 伺服器，用以保存它所傳送的可靠訊息；或接收方 WebLogic 伺服器所使用的 JMS 伺服器，用以保存傳送方所傳送之可靠訊息的歷史記錄。",
 
   "a-JMSThreadPoolSize-label": "JMS 繫線集區大小",
+
   "a-JMSTopic-label": "JMS 主題",
+  "a-JMSTopic-help": "JMS 主題，Kodo 遠端確認提供者應該對其發布通知，並訂閱其他 JVM 傳送的通知。",
+
   "a-JMSTopicConnectionFactory-label": "JMS 主題連線處理站",
+  "a-JMSTopicConnectionFactory-help": "用於尋找 JMS 主題之 TopicConnectionFactory 執行處理的 JNDI 名稱。",
 
   "a-JNDIName-label": "JNDI 名稱",
   "f-any_CoherenceCacheConfig-a-JNDIName-help": "此 CoherenceCacheConfigMBean 的 JNDI 名稱。",
@@ -3577,7 +3597,8 @@
   "f-JMSSystemResource_JmsResource_UniformDistributedTopic-a-JNDIName-help": "此 JMS 統一分散式主題的 JNDI 名稱。用於在叢集 JNDI 命名空間內查尋連線處理站的全域 JNDI 名稱。在叢集環境中，此名稱會傳播到整個叢集。如果只想在本機伺服器上連結 JNDI 名稱，不傳播到叢集的其餘部分，請使用「本機 JNDI 名稱」設定。若未指定，連線處理站就不會連結到叢集 JNDI 命名空間中。",
   "f-MailSession-a-JNDIName-help": "此 JavaMail 階段作業的 JNDI 名稱。",
 
-  "a-JNDIPasswordEncrypted-label": "已加密 JNDI 密碼",
+  "a-JNDIPasswordEncrypted-label": "JNDI 密碼",
+  "a-JNDIPasswordEncrypted-help": "用於認證 JNDIUsername 屬性中針對 Kodo 通知所定義之使用者的密碼。",
 
   "a-JNDIPrefix-label": "JNDI 前置碼",
   "a-JNDIPrefix-help": "指定會將遠端目標的本機 JNDI 名稱設為前置碼的字串。",
@@ -3591,6 +3612,8 @@
   "a-JNDITransportableObjectFactoryList-help": "指定建立可傳輸物件的處理站清單。",
 
   "a-JNDIUsername-label": "JNDI 使用者名稱",
+  "a-JNDIUsername-help": "用於 Kodo 通知的 JNDI 使用者名稱。",
+
   "a-JRMPEnabled-label": "啟用 JRMP",
 
   "a-JSPCompilerBackwardsCompatible-label": "JSP 編譯器回溯相容",
@@ -4617,6 +4640,12 @@
   "f-WLDFSystemResource_WLDFResource_WatchNotification_Watch-a-Notification-help": "為此原則啟用的動作。",
 
   "a-NotificationProperties-label": "通知特性",
+  "a-NotificationProperties-entryLabel": "通知 JNDI 特性",
+  "a-NotificationProperties-help": "建構時要傳遞給 JNDI InitialContext 的索引鍵值特性清單。",
+  "a-NotificationProperties-keyLabel": "JNDI 特性名稱",
+  "a-NotificationProperties-keyHelp": "要傳遞給 JNDI InitialContext 建構子的 JNDI 特性名稱。",
+  "a-NotificationProperties-valueLabel": "JNDI 特性值",
+  "a-NotificationProperties-valueHelp": "具名 JNDI 特性的 JNDI 特性值。",
 
   "a-NotificationType-label": "通知類型",
   "f-WLDFSystemResource_WLDFResource_WatchNotification_JMXNotification-a-NotificationType-help": "指定給產生之 JMX 通知的 JMX 通知類型。",
@@ -4871,6 +4900,7 @@
   "f-JMSSystemResource_JmsResource_SAFRemoteContext_SAFLoginContext-a-PasswordEncrypted-help": "用於登入遠端 URL 之使用者名稱的密碼。",
   "f-ForeignJNDIProvider-a-PasswordEncrypted-help": "遠端伺服器的使用者密碼。",
   "f-any_NodeManager-a-PasswordEncrypted-help": "指定「節點管理程式」密碼，用來連線至由「節點管理程式」從屬端委派作業的基礎服務。",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-PasswordEncrypted-help": "用於連接資料存放區之 Username 屬性中指定的使用者密碼。",
 
   "a-PasswordStyle-label": "密碼樣式",
   "a-PasswordStyle-help": "當儲存為使用者建立的密碼時使用的密碼樣式，或在停用「密碼樣式已保留」的狀況下變更使用者密碼時，所使用的密碼樣式。",
@@ -6846,6 +6876,7 @@
   "f-SelfTuning_ContextRequestClass_ContextCase-a-UserName-help": "要求由名稱指定於 RequestClassName 的要求類別處理的使用者名稱。",
   "f-JoltConnectionPool-a-UserName-help": "應用程式指定以連線到此 Jolt 連線集區的使用者名稱。如果啟用安全相關資訊環境，則此名稱必須是已授權 Tuxedo 使用者的名稱 (如果 Tuxedo 認證層級是 USER_AUTH，則必須指定 Tuxedo 使用者名稱)。",
   "f-any_NodeManager-a-UserName-help": "指定「節點管理程式」從屬端使用者名稱用來連線至由從屬端委派作業的基礎服務。",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-Username-help": "連接至資料存放區時使用的使用者名稱。",
 
   "a-UserNameAttribute-label": "使用者名稱屬性",
   "a-UserNameAttribute-help": "指定用於指定使用者名稱的 LDAP 使用者物件屬性。預設值為 \"cn\"。在 Active Directory 中，cn 通常儲存一個由使用者名字與姓氏組成的字串，sAMAccountName 則儲存使用者的登入名稱。因此，建議您在使用 Active Directory LDAP 認證提供者之前，先將 \"sAMAccountName\" 設為此特性。為了提供回溯相容性，預設值是 \"cn\"，而不是 \"sAMAccountName\"。",

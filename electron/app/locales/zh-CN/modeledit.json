@@ -38,6 +38,7 @@
   "configuration-properties-title": "配置属性",
   "node-manager-coherence-start-scripts-title": "Coherence 启动脚本设置",
   "wldf-elasticity-framework-settings-label": "WLDF Elasticity 框架设置",
+  "rdbms-security-store-notifications-title": "JMS 通知",
 
   "general-tab-label": "一般信息",
   "attributes-tab-label": "属性",
@@ -450,6 +451,7 @@
   "attribute-dialog-option-variable": "使用现有的变量令牌",
   "attribute-dialog-option-newVariable": "使用新的变量令牌",
   "attribute-dialog-option-removeFromArchive": "从档案中删除条目",
+  "attribute-dialog-option-removeSelections": "从列表中删除无效值",
   "attribute-dialog-variable-choice-label": "现有变量",
   "attribute-dialog-variable-choice-help": "为字段选择变量",
   "attribute-dialog-variable-name-label": "变量名称",
@@ -467,6 +469,9 @@
   "attribute-editor-select": "选择",
   "attribute-editor-select-directory": "选择目录",
   "attribute-editor-select-file": "选择文件",
+  "attribute-editor-invalid-model-value": "模型中的值 \"{{value}}\" 无效",
+  "attribute-editor-property-value-type-label": "值类型",
+  "attribute-editor-property-value-type-help": "指定如何解析属性值。",
 
   "invalid-integer-error": "值必须为整数",
   "invalid-double-error": "值必须为小数，例如 4 或 3.5",
@@ -477,6 +482,8 @@
 
   "table-name-label": "名称",
   "table-type-label": "类型",
+  "table-show-value-label": "显示值",
+  "table-hide-value-label": "隐藏值",
 
   "rcudbinfo-connection-label": "连接",
   "rcudbinfo-stores-label": "存储",
@@ -1480,6 +1487,12 @@
   "f-any_OracleVirtualDirectoryAuthenticator-a-ConnectionPoolSize-help": "指定 LDAP 连接池大小。默认值为 6。",
 
   "a-ConnectionProperties-label": "连接属性",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionProperties-help": "要传递到驱动程序的特定于 JDBC 驱动程序的连接参数，用于配置 JDBC 连接池。",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionProperties-entryLabel": "JDBC 连接属性",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionProperties-keyLabel": "JDBC 属性名称",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionProperties-keyHelp": "要添加的特定于 JDBC 驱动程序的连接属性的名称。",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionProperties-valueLabel": "JDBC 属性值",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionProperties-valueHelp": "要添加的特定于 JDBC 驱动程序的连接属性的值。",
 
   "a-ConnectionReserveTimeoutSeconds-label": "连接保留超时（秒）",
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-ConnectionReserveTimeoutSeconds-help": "用于保留连接池中连接的调用超时之前经过的秒数。设置为 0 时，调用永远不会超时。设置为 -1 时，调用会立即超时。",
@@ -1498,6 +1511,7 @@
   "a-ConnectionURL-label": "连接 URL",
   "f-JMSBridgeDestination-a-ConnectionURL-help": "此 JMS 桥接程序目的地的连接 URL。",
   "f-JMSSystemResource_JmsResource_ForeignServer-a-ConnectionURL-help": "WebLogic Server 用来访问 JNDI 提供程序的 URL。此 URL 的语法取决于使用的 JNDI 提供程序。对于 WebLogic JMS，如果引用同一集群中的 WebLogic JMS 对象，请将此字段留空。此值与标准的 JNDI 属性 java.naming.provider.url 对应。注：如果未指定此值，将在部署此连接工厂的 WebLogic Server 实例内的 JNDI 服务器上执行查找。",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionURL-help": "URL 将传递到 JDBC 驱动程序以创建物理数据库连接。",
 
   "a-ConsensusParticipants-label": "共识参与者",
   "f-Cluster-a-ConsensusParticipants-help": "控制确定共识的集群参与者的数量。",
@@ -2702,6 +2716,7 @@
 
   "a-DriverName-label": "驱动程序名称",
   "f-JDBCSystemResource_JdbcResource_JDBCDriverParams-a-DriverName-help": "用于在数据源的连接池中创建物理数据库连接的 JDBC 驱动程序类的完整程序包名。",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-DriverName-help": "用于在连接池中创建物理数据库连接的 JDBC 驱动程序类的完整程序包名。请注意，此驱动程序类必须位于将其部署到的任何服务器的类路径中。它必须是实施 java.sql.Driver 接口的类的名称。",
 
   "a-DurabilityEnabled-label": "启用持久性",
   "f-MessagingBridge-a-DurabilityEnabled-help": "指定消息传送桥接程序是否允许持久消息。如果启用且源目的地是 JMS 主题，消息传送桥接程序实例将使用持久订阅，以确保发生故障时不会丢失任何消息。如果源目的地是 JMS 队列，则忽略 DurabilityEnabled。",
@@ -3556,13 +3571,18 @@
   "a-JMSDefaultConnectionFactoriesEnabled-help": "指定此服务器是否使用 JMS 默认连接工厂。默认值为 true。",
 
   "a-JMSExceptionReconnectAttempts-label": "JMS 异常错误重新连接尝试",
+  "a-JMSExceptionReconnectAttempts-help": "JMS 系统通知 Kodo 发生严重连接错误时，尝试重新连接的次数。默认值为 0，默认情况下错误会记录在日志中但将被忽略。该值不能小于 0。",
 
   "a-JMSServer-label": "JMS 服务器",
   "f-WSReliableDeliveryPolicy-a-JMSServer-help": "角色为发送方的 WebLogic Server 用于持久保留其发送的可靠消息的 JMS 服务器，或接收方 WebLogic Server 用于持久保留发送方发送的可靠消息的历史记录的 JMS 服务器。",
 
   "a-JMSThreadPoolSize-label": "JMS 线程池大小",
+
   "a-JMSTopic-label": "JMS 主题",
+  "a-JMSTopic-help": "JMS 主题，Kodo 远程提交提供程序应该对其发布通知，并订阅从其他 JVM 发送的通知。",
+
   "a-JMSTopicConnectionFactory-label": "JMS 主题连接工厂",
+  "a-JMSTopicConnectionFactory-help": "用于查找 JMS 主题的 TopicConnectionFactory 实例的 JNDI 名称。",
 
   "a-JNDIName-label": "JNDI 名称",
   "f-any_CoherenceCacheConfig-a-JNDIName-help": "此 CoherenceCacheConfigMBean 的 JNDI 名称。",
@@ -3577,7 +3597,8 @@
   "f-JMSSystemResource_JmsResource_UniformDistributedTopic-a-JNDIName-help": "此 JMS 统一分布式主题的 JNDI 名称。用于在集群 JNDI 名称空间中查找连接工厂的全局 JNDI 名称。在集群环境中，此名称会传播到整个集群。如果您希望仅在本地服务器上绑定 JNDI 名称，而不将其传播到集群的其余部分，则使用“本地 JNDI 名称”设置。如果未指定此项，则连接工厂不会绑定到集群 JNDI 名称空间。",
   "f-MailSession-a-JNDIName-help": "此 JavaMail 会话的 JNDI 名称。",
 
-  "a-JNDIPasswordEncrypted-label": "JNDI 密码加密",
+  "a-JNDIPasswordEncrypted-label": "JNDI 密码",
+  "a-JNDIPasswordEncrypted-help": "用于对 JNDIUsername 属性中为 Kodo 通知定义的用户进行验证的密码。",
 
   "a-JNDIPrefix-label": "JNDI 前缀",
   "a-JNDIPrefix-help": "指定要加在远程目的地的本地 JNDI 名称前面的字符串。",
@@ -3591,6 +3612,8 @@
   "a-JNDITransportableObjectFactoryList-help": "指定用于创建可传输对象的工厂列表。",
 
   "a-JNDIUsername-label": "JNDI 用户名",
+  "a-JNDIUsername-help": "用于 Kodo 通知的 JNDI 用户名。",
+
   "a-JRMPEnabled-label": "启用 JRMP",
 
   "a-JSPCompilerBackwardsCompatible-label": "JSP 编译器向后兼容",
@@ -4617,6 +4640,12 @@
   "f-WLDFSystemResource_WLDFResource_WatchNotification_Watch-a-Notification-help": "为此策略启用的操作。",
 
   "a-NotificationProperties-label": "通知属性",
+  "a-NotificationProperties-entryLabel": "通知 JNDI 属性",
+  "a-NotificationProperties-help": "构造时要传递到 JNDI initialContext 的键-值属性列表。",
+  "a-NotificationProperties-keyLabel": "JNDI 属性名称",
+  "a-NotificationProperties-keyHelp": "要传递到 JNDI InitialContext 构造器的 JNDI 属性名称。",
+  "a-NotificationProperties-valueLabel": "JNDI 属性值",
+  "a-NotificationProperties-valueHelp": "指定的 JNDI 属性的 JNDI 属性值。",
 
   "a-NotificationType-label": "通知类型",
   "f-WLDFSystemResource_WLDFResource_WatchNotification_JMXNotification-a-NotificationType-help": "分配给生成的 JMX 通知的 JMX 通知类型。",
@@ -4871,6 +4900,7 @@
   "f-JMSSystemResource_JmsResource_SAFRemoteContext_SAFLoginContext-a-PasswordEncrypted-help": "用于登录到远程 URL 的用户名的密码。",
   "f-ForeignJNDIProvider-a-PasswordEncrypted-help": "远程服务器的用户密码。",
   "f-any_NodeManager-a-PasswordEncrypted-help": "指定在连接到节点管理器客户端将操作委派给的基础服务时节点管理器客户端所使用的密码。",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-PasswordEncrypted-help": "用于连接数据存储的用户名属性中指定的用户密码。",
 
   "a-PasswordStyle-label": "密码样式",
   "a-PasswordStyle-help": "指定为创建的用户存储密码时使用的密码样式，以及如果禁用“保留密码样式”而更改用户密码时使用的密码样式。",
@@ -6846,6 +6876,7 @@
   "f-SelfTuning_ContextRequestClass_ContextCase-a-UserName-help": "其请求将由请求类（具有在 RequestClassName 中指定的名称）处理的用户的名称。",
   "f-JoltConnectionPool-a-UserName-help": "应用程序指定的与此 Jolt 连接池连接时使用的用户名。如果启用了“安全上下文”，则此名称必须是授权的 Tuxedo 用户的名称。（如果 Tuxedo 验证级别为 USER_AUTH，则需要指定 Tuxedo 用户名。）",
   "f-any_NodeManager-a-UserName-help": "指定在连接到客户端向其委派操作的基础服务时使用的节点管理器客户端用户名。",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-Username-help": "连接到数据存储时使用的用户名。",
 
   "a-UserNameAttribute-label": "用户名属性",
   "a-UserNameAttribute-help": "指定 LDAP 用户对象的属性，用于指定用户的名称。默认值为 \"cn\"。在 Active Directory 中，通常情况下，cn 存储用户的名字和姓氏组合而成的字符串，sAMAccountName 存储用户的登录名。因此，建议在使用 Active Directory LDAP 验证提供程序之前，将 \"sAMAccountName\" 设置为此属性。默认值为 \"cn\" 而不是 \"sAMAccountName\"，这是为了向后兼容。",

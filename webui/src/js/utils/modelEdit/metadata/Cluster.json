@@ -225,7 +225,8 @@
           "DatabaseLessLeasingBasis",
           "DynamicServers",
           "JTACluster",
-          "OverloadProtection"
+          "OverloadProtection",
+          "WeblogicClusterRouting"
         ]
       },
       {
@@ -700,8 +701,35 @@
           "MaxStuckThreadTime",
           "HeapDumpingOnMaxStuckThread",
           "HeapDumpingOnDeadlock",
+          "VerboseStuckThreadName",
           "Notes"
-        ],
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  },
+  "Cluster/WeblogicPluginRouting": {
+    "attributeDetails": {
+      "ExcludeClusterMembers": {
+        "editorType": "comboMulti",
+        "optionsMethod": "getAllServersInClusterOptions"
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "ExcludeClusterMembers",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
         "addRemainingAttributes": true
       }
     ]

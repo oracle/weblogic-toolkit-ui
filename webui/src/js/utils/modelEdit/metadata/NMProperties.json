@@ -25,6 +25,21 @@
       "CustomIdentityPrivateKeyPassPhrase": {
         "disabled": "nodeManagerCustomIdentityFields"
       },
+      "CustomTrustKeyStoreFileName": {
+        "disabled": "nodeManagerCustomTrustFields",
+        "fileOptions": [ { "type": "file" }]
+      },
+      "CustomTrustKeyStorePassPhrase":  {
+        "disabled": "nodeManagerCustomTrustFields"
+      },
+      "CustomTrustKeyStoreType": {
+        "disabled": "nodeManagerCustomTrustFields",
+        "optionsMatch": "upper",
+        "options": [
+          { "value": "PKCS12", "label": "PKCS12" },
+          { "value": "JKS", "label": "JKS" }
+        ]
+      },
       "DomainKeystoresDomain": {
         "disabled": "nodeManagerDomainKeystoresFields"
       },
@@ -64,6 +79,25 @@
       "ProcessDestroyTimeout": {
         "validators": [ "range(0,)" ]
       },
+      "process.FileSizeKB": {
+        "disabled": "nodeManagerProcessRotationBySizeFields"
+      },
+      "process.FileTimeSpan": {
+        "disabled": "nodeManagerProcessRotationByTimeFields"
+      },
+      "process.FileTimeSpanFactor": {
+        "disabled": "nodeManagerProcessRotationByTimeFields"
+      },
+      "process.RotationTimeStart": {
+        "disabled": "nodeManagerProcessRotationByTimeFields"
+      },
+      "process.RotationType": {
+        "options": [
+          { "value": "NONE", "labelKey": "options-none-label" },
+          { "value": "SIZE", "labelKey": "options-size-label" },
+          { "value": "TIME", "labelKey": "options-time-label" }
+        ]
+      },
       "StateCheckInterval": {
         "validators": [ "range(0,)" ]
       },
@@ -75,6 +109,18 @@
       },
       "weblogic.StopScriptName": {
         "disabled": "nodeManagerWebLogicStopScriptFields"
+      },
+      "weblogic.startup.Arguments": {
+        "usesPath": false
+      },
+      "weblogic.startup.Arguments.prepend": {
+        "usesPath": false
+      },
+      "weblogic.startup.MW_Home": {
+        "fileOptions": [ { "type": "dir" } ]
+      },
+      "weblogic.startup.SecurityPolicyFile": {
+        "fileOptions": [ { "type": "file" } ]
       },
       "WebLogicHome": {
         "fileOptions": [ { "type": "dir" } ]
@@ -107,9 +153,7 @@
               "DomainsFile",
               "DomainsDirRemoteSharingEnabled",
               "CrashRecoveryEnabled",
-              "QuitEnabled",
-              "ProcessDestroyTimeout"
-            ],
+              "QuitEnabled"            ],
             "addRemainingAttributes": true
           }
         ]
@@ -125,6 +169,38 @@
           "KeyFile",
           "KeyPassword",
           "PropertiesVersion"
+        ]
+      },
+      {
+        "comment": "These were all added in the next WLS release and are being backported for the April PSUs.",
+        "type": "hidden",
+        "attributes": [
+          "ProcessDestroyTimeout",
+          "CustomTrustKeyStoreFileName",
+          "CustomTrustKeyStorePassPhrase",
+          "CustomTrustKeyStoreType",
+          "IsLogLockingEnabled",
+          "ProgressTrackerInitialDataTimeout",
+          "RestEnabled",
+          "RotateLogOnStartup",
+          "ScriptTimeout",
+          "coherence.startup.Arguments",
+          "coherence.startup.MW_HOME",
+          "process.FileSizeKB",
+          "process.FileTimeSpan",
+          "process.FileTimeSpanFactor",
+          "process.NumberOfFilesLimited",
+          "process.RotatedFileCount",
+          "process.RotationTimeStart",
+          "process.RotationType",
+          "weblogic.startup.Arguments",
+          "weblogic.startup.Arguments.prepend",
+          "weblogic.startup.ClassPath",
+          "weblogic.startup.JavaVendor",
+          "weblogic.startup.MW_Home",
+          "weblogic.startup.SecurityPolicyFile",
+          "weblogic.startup.serverGID",
+          "weblogic.startup.serverUID"
         ]
       },
       {

@@ -38,6 +38,7 @@
   "configuration-properties-title": "Konfigurationseigenschaften",
   "node-manager-coherence-start-scripts-title": "Coherence-Startskripteinstellungen",
   "wldf-elasticity-framework-settings-label": "Einstellungen für WLDF-Elastizitätsframework",
+  "rdbms-security-store-notifications-title": "JMS-Benachrichtigungen",
 
   "general-tab-label": "Allgemein",
   "attributes-tab-label": "Attribute",
@@ -321,7 +322,7 @@
   "options-x509-token-profile-label": "X.509-Tokenprofil",
   "options-saml-token-profile-label": "SAML-Tokenprofil",
   "options-domain-keystores-label": "Domain-Keystores",
-  "options-demo-identity-and-demo-trust-label": "Demo-Identity und Demo-Trust",
+  "options-demo-identity-and-demo-trust-label": "Demo Identity und Demo Trust",
   "options-custom-identity-and-java-standard-trust-label": "Benutzerdefinierte Identity und Java-Standard-Trust",
   "options-custom-identity-and-custom-trust-label": "Benutzerdefinierte Identity und Trust",
   "options-custom-identity-and-command-line-trust-label": "Benutzerdefinierte Identity und Befehlszeilen-Trust",
@@ -450,6 +451,7 @@
   "attribute-dialog-option-variable": "Vorhandenes Variablentoken verwenden",
   "attribute-dialog-option-newVariable": "Neues Variablentoken verwenden",
   "attribute-dialog-option-removeFromArchive": "Eintrag aus Archiv entfernen",
+  "attribute-dialog-option-removeSelections": "Ungültige Werte aus der Liste entfernen",
   "attribute-dialog-variable-choice-label": "Vorhandene Variable",
   "attribute-dialog-variable-choice-help": "Variable für Feld auswählen",
   "attribute-dialog-variable-name-label": "Variablenname",
@@ -467,6 +469,9 @@
   "attribute-editor-select": "Auswählen",
   "attribute-editor-select-directory": "Verzeichnis auswählen",
   "attribute-editor-select-file": "Datei auswählen",
+  "attribute-editor-invalid-model-value": "Ungültiger Wert \"{{value}}\" im Modell",
+  "attribute-editor-property-value-type-label": "Werttyp",
+  "attribute-editor-property-value-type-help": "Geben Sie an, wie der Eigenschaftswert aufgelöst wird.",
 
   "invalid-integer-error": "Wert muss eine Ganzzahl sein",
   "invalid-double-error": "Wert muss eine Dezimalzahl sein, z.B. 4 oder 3,5",
@@ -477,6 +482,8 @@
 
   "table-name-label": "Name",
   "table-type-label": "Typ",
+  "table-show-value-label": "Wert anzeigen",
+  "table-hide-value-label": "Wert ausblenden",
 
   "rcudbinfo-connection-label": "Verbindung",
   "rcudbinfo-stores-label": "Speicher",
@@ -1480,6 +1487,12 @@
   "f-any_OracleVirtualDirectoryAuthenticator-a-ConnectionPoolSize-help": "Gibt die Größe des LDAP-Verbindungspools an. Der Standardwert ist \"6\".",
 
   "a-ConnectionProperties-label": "Verbindungseigenschaften",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionProperties-help": "Die JDBC-treiberspezifischen Verbindungsparameter, die zur Konfiguration des JDBC-Verbindungspools an den Treiber übergeben werden.",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionProperties-entryLabel": "JDBC-Verbindungseigenschaft",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionProperties-keyLabel": "JDBC-Eigenschaftsname",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionProperties-keyHelp": "Der Name der hinzuzufügenden JDBC-treiberspezifischen Verbindungseigenschaft.",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionProperties-valueLabel": "JDBC-Eigenschaftswert",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionProperties-valueHelp": "Der Wert für die JDBC-treiberspezifische Verbindungseigenschaft, die hinzugefügt wird.",
 
   "a-ConnectionReserveTimeoutSeconds-label": "Verbindungsreservierungstimeout (Sekunden)",
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-ConnectionReserveTimeoutSeconds-help": "Die Zeitspanne in Sekunden, nach der ein Aufruf zum Reservieren einer Verbindung aus dem Verbindungspool wegen Timeout abgebrochen wird. Bei \"0\" gibt es keinen Timeout. Bei \"-1\" wird ein Aufruf sofort wegen Timeout abgebrochen.",
@@ -1498,6 +1511,7 @@
   "a-ConnectionURL-label": "Verbindungs-URL",
   "f-JMSBridgeDestination-a-ConnectionURL-help": "Die Verbindungs-URL für dieses JMS-Bridgeziel.",
   "f-JMSSystemResource_JmsResource_ForeignServer-a-ConnectionURL-help": "Die URL, mit der WebLogic Server den JNDI-Provider kontaktiert. Die Syntax dieser URL hängt davon ab, welcher JNDI-Provider verwendet wird. Lassen Sie dieses Feld für WebLogic JMS leer, wenn Sie WebLogic JMS-Objekte innerhalb desselben Clusters referenzieren. Dieser Wert entspricht der JNDI-Standardeigenschaft java.naming.provider.url. Hinweis: Wenn dieser Wert nicht angegeben ist, werden Lookups auf dem JNDI-Server in der WebLogic Server-Instanz ausgeführt, in der diese Connection Factory bereitgestellt wurde.",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionURL-help": "Die URL wird an den JDBC-Treiber übergeben, um die physischen Datenbankverbindungen herzustellen.",
 
   "a-ConsensusParticipants-label": "Konsensteilnehmer",
   "f-Cluster-a-ConsensusParticipants-help": "Steuert die Anzahl der Clusterteilnehmer bei der Bestimmung des Konsenses.",
@@ -2702,6 +2716,7 @@
 
   "a-DriverName-label": "Treibername",
   "f-JDBCSystemResource_JdbcResource_JDBCDriverParams-a-DriverName-help": "Der vollständige Packagename der JDBC-Treiberklasse, die für das Erstellen der physischen Datenbankverbindungen im Verbindungspool in der Datenquelle verwendet wird.",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-DriverName-help": "Der vollständige Packagename der JDBC-Treiberklasse, mit der die physischen Datenbankverbindungen im Verbindungspool erstellt werden. Beachten Sie, dass diese Treiberklasse im Classpath jedes Servers vorhanden sein muss, auf dem sie bereitgestellt wird. Das muss der Name einer Klasse sein, die die java.sql.Driver-Schnittstelle implementiert.",
 
   "a-DurabilityEnabled-label": "Dauerhaftigkeit aktiviert",
   "f-MessagingBridge-a-DurabilityEnabled-help": "Gibt an, ob die Messaging Bridge dauerhafte Nachrichten zulässt. Wenn diese Option aktiviert ist und das Quellziel ein JMS-Topic ist, verwendet eine Messaging-Bridge-Instanz ein dauerhaftes Abonnement, um sicherzustellen, dass bei einem Fehler keine Nachrichten verloren gehen. DurabilityEnabled wird ignoriert, wenn das Quellziel eine JMS-Queue ist.",
@@ -3556,13 +3571,18 @@
   "a-JMSDefaultConnectionFactoriesEnabled-help": "Gibt an, ob dieser Server standardmäßige JMS-Connection Factorys verwendet. Der Standardwert ist \"true\".",
 
   "a-JMSExceptionReconnectAttempts-label": "JMS-Neuverbindungsversuche bei Ausnahme",
+  "a-JMSExceptionReconnectAttempts-help": "Die Anzahl an Neuverbindungsversuchen, wenn das JMS-System Kodo über einen schwerwiegenden Verbindungsfehler benachrichtigt. Der Standardwert ist \"0\", und der Fehler wird standardmäßig geloggt, aber ignoriert. Der Wert darf nicht kleiner als 0 sein.",
 
   "a-JMSServer-label": "JMS-Server",
   "f-WSReliableDeliveryPolicy-a-JMSServer-help": "Der JMS-Server, der von WebLogic Server in seiner Rolle als Absender verwendet wird, um die gesendeten zuverlässigen Nachrichten zu persistieren, oder der JMS-Server, der vom WebLogic Server-Empfänger verwendet wird, um die Historie einer von einem Absender gesendeten zuverlässigen Nachricht zu persistieren.",
 
   "a-JMSThreadPoolSize-label": "JMS-Threadpoolgröße",
+
   "a-JMSTopic-label": "JMS-Topic",
+  "a-JMSTopic-help": "Das JMS-Topic, für das der Kodo-Remote-Commit-Provider Benachrichtigungen veröffentlichen und von anderen JVMs gesendete Benachrichtigungen abonnieren soll.",
+
   "a-JMSTopicConnectionFactory-label": "JMS-Topic Connection Factory",
+  "a-JMSTopicConnectionFactory-help": "Der JNDI-Name einer TopicConnectionFactory-Instanz, die für die Suche nach JMS-Topics verwendet werden soll.",
 
   "a-JNDIName-label": "JNDI-Name",
   "f-any_CoherenceCacheConfig-a-JNDIName-help": "Der JNDI-Name für dieses CoherenceCacheConfigMBean.",
@@ -3577,7 +3597,8 @@
   "f-JMSSystemResource_JmsResource_UniformDistributedTopic-a-JNDIName-help": "Der JNDI-Name für dieses einheitlich verteilte JMS-Topic. Der globale JNDI-Name, mit dem eine Connection Factory in einem geclusterten JNDI-Namespace gesucht wird. In einer geclusterten Umgebung wird dieser Name an das gesamte Cluster propagiert. Wenn der JNDI-Name nur an den lokalen Server gebunden und nicht an den Rest des Clusters propagiert werden soll, verwenden Sie die Einstellung \"Lokaler JNDI-Name\". Wenn Sie das Attribut nicht angeben, ist die Connection Factory nicht an einen geclusterten JNDI-Namespace gebunden.",
   "f-MailSession-a-JNDIName-help": "Der JNDI-Name für diese JavaMail-Session.",
 
-  "a-JNDIPasswordEncrypted-label": "JNDI-Kennwort verschlüsselt",
+  "a-JNDIPasswordEncrypted-label": "JNDI-Kennwort",
+  "a-JNDIPasswordEncrypted-help": "Das Kennwort für die Authentifizierung des Benutzers, der im JNDIUsername-Attribut für die Kodo-Benachrichtigung definiert ist.",
 
   "a-JNDIPrefix-label": "JNDI-Präfix",
   "a-JNDIPrefix-help": "Gibt die Zeichenfolge an, die dem JNDI-Namen eines Remoteziels vorangestellt wird.",
@@ -3591,6 +3612,8 @@
   "a-JNDITransportableObjectFactoryList-help": "Gibt die Liste der Factorys an, die transportierbare Objekte erstellen.",
 
   "a-JNDIUsername-label": "JNDI-Benutzername",
+  "a-JNDIUsername-help": "Der JNDI-Benutzername, der für die Kodo-Benachrichtigung verwendet wird.",
+
   "a-JRMPEnabled-label": "JRMP aktiviert",
 
   "a-JSPCompilerBackwardsCompatible-label": "JSP-Compiler rückwärts kompatibel",
@@ -4617,6 +4640,12 @@
   "f-WLDFSystemResource_WLDFResource_WatchNotification_Watch-a-Notification-help": "Die für diese Policy aktivierten Aktionen.",
 
   "a-NotificationProperties-label": "Benachrichtigungseigenschaften",
+  "a-NotificationProperties-entryLabel": "JNDI-Benachrichtigungseigenschaft",
+  "a-NotificationProperties-help": "Die Liste von Schlüssel/Wert-Eigenschaften, die bei der Erstellung an den JNDI-InitialContext übergeben werden soll.",
+  "a-NotificationProperties-keyLabel": "JNDI-Eigenschaftsname",
+  "a-NotificationProperties-keyHelp": "Der JNDI-Eigenschaftsname, der an den JNDI-InitialContext-Konstruktor übergeben werden soll.",
+  "a-NotificationProperties-valueLabel": "JNDI-Eigenschaftswert",
+  "a-NotificationProperties-valueHelp": "Der JNDI-Eigenschaftswert für die benannte JNDI-Eigenschaft.",
 
   "a-NotificationType-label": "Benachrichtigungstyp",
   "f-WLDFSystemResource_WLDFResource_WatchNotification_JMXNotification-a-NotificationType-help": "Der JMX-Benachrichtigungstyp, der der resultierenden JMX-Benachrichtigung zugewiesen ist.",
@@ -4871,6 +4900,7 @@
   "f-JMSSystemResource_JmsResource_SAFRemoteContext_SAFLoginContext-a-PasswordEncrypted-help": "Das Kennwort für den Benutzernamen, mit dem die Anmeldung bei der Remote-URL erfolgt.",
   "f-ForeignJNDIProvider-a-PasswordEncrypted-help": "Das Benutzerkennwort des Remoteservers.",
   "f-any_NodeManager-a-PasswordEncrypted-help": "Das Kennwort, das ein Node Manager-Client zum Aufbau einer Verbindung zum zugrunde liegenden Service verwendet, an den der Node Manager-Client Vorgänge delegiert.",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-PasswordEncrypted-help": "Das Kennwort für den Benutzer, der im Username-Attribut für die Verbindung mit dem Datenspeicher angegeben wurde.",
 
   "a-PasswordStyle-label": "Kennwortformat",
   "a-PasswordStyle-help": "Gibt das Kennwortformat an, das beim Speichern von Kennwörtern für erstellte Benutzer und zum Ändern des Kennworts eines Benutzers verwendet wird, wenn \"Kennwortformat beibehalten\" deaktiviert ist.",
@@ -6737,7 +6767,7 @@
   "a-UseJavaSerialization-help": "Geben Sie an, ob die Java-Serialisierung für das Marshalling von Objekten verwendet werden soll. Das Festlegen dieser Eigenschaft verbessert die Performance beim Marshalling von Objekten mit sehr großen Objektdiagrammen. Der Standardwert ist \"false\".",
 
   "a-UseKSSForDemo-label": "KSS für Demo verwenden",
-  "f-SecurityConfiguration-a-UseKSSForDemo-help": "Bestimmt, ob die Demo-Identity- und Demo-Trust-Keystores aus dem Oracle-KeyStore-Service (KSS) abgerufen werden sollen. Wenn diese Option aktiviert ist, fordert WebLogic Server die Demo-Identity- und Demo-Trust-Keystores von KSS an. Nach der Installation können die KSS-Demo-Keystores jedoch möglicherweise so manipuliert werden, dass keine entsprechenden Demozertifikate oder -schlüssel verfügbar sind.",
+  "f-SecurityConfiguration-a-UseKSSForDemo-help": "Bestimmt, ob die Keystores Demo Identity und Demo Trust aus dem Oracle-KeyStore-Service (KSS) abgerufen werden sollen. Wenn diese Option aktiviert ist, fordert WebLogic Server die Keystores Demo Identity und Demo Trust von KSS an. Nach der Installation können die KSS-Demo-Keystores jedoch möglicherweise so manipuliert werden, dass keine entsprechenden Demozertifikate oder -schlüssel verfügbar sind.",
 
   "a-UseLocateRequest-label": "Locate-Anforderung verwenden",
   "a-UseLocateRequest-help": "Geben Sie an, ob ausgehende Aufrufe eine anfängliche LocateRequest verwenden sollen. Der Standardwert ist \"false\".",
@@ -6846,6 +6876,7 @@
   "f-SelfTuning_ContextRequestClass_ContextCase-a-UserName-help": "Der Name des Benutzers, dessen Anforderungen von der Anforderungsklasse mit dem in RequestClassName angegebenen Namen verarbeitet werden sollen.",
   "f-JoltConnectionPool-a-UserName-help": "Ein Benutzername, den Anwendungen für die Verbindung mit diesem Jolt-Verbindungspool angeben. Wenn der Sicherheitskontext aktiviert ist, muss dieser Name der Name eines autorisierten Tuxedo-Benutzers sein. (Die Angabe eines Tuxedo-Benutzernamens ist erforderlich, wenn die Tuxedo-Authentifizierungsebene USER_AUTH ist.)",
   "f-any_NodeManager-a-UserName-help": "Gibt den Benutzernamen des Node Manager-Clients an, mit dem eine Verbindung zum zugrunde liegenden Service hergestellt wird, an den der Client Vorgänge delegiert.",
+  "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-Username-help": "Der Benutzername, der bei der Verbindung mit dem Datenspeicher verwendet werden soll.",
 
   "a-UserNameAttribute-label": "Benutzernamensattribut",
   "a-UserNameAttribute-help": "Gibt das Attribut des LDAP-Benutzerobjekts an, das den Namen des Benutzers angibt. Der Standardwert ist \"cn\". In Active Directory speichert \"cn\" im Allgemeinen eine Zeichenfolge mit einer Kombination aus Vor- und Nachname des Benutzers, und \"sAMAccountName\" speichert den Anmeldenamen des Benutzers. Daher wird empfohlen, vor Verwendung des Active Directory-LDAP-Authentifizierungsproviders \"sAMAccountName\" für diese Eigenschaft festzulegen. Aus Gründen der Abwärtskompatibilität ist der Standardwert \"cn\" anstelle von \"sAMAccountName\".",

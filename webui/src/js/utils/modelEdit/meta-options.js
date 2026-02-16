@@ -253,6 +253,13 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
         return optionsArray;
       };
 
+      this.getAllServersInClusterOptions = (attribute) => {
+        const clusterName = attribute.path[2];
+        const staticServerNames = getClusterServerOptions(clusterName);
+        const dynamicServerNames = getClusterDynamicServersOptions(clusterName);
+        return [...staticServerNames, ...dynamicServerNames];
+      };
+
       this.getMachineOptions = () => {
         const options = [];
         const machineNames = getInstanceNames(['topology', 'Machine']);
@@ -576,6 +583,23 @@ define(['knockout', 'utils/modelEdit/model-edit-helper'],
           });
         }
         return serverOptions;
+      }
+
+      function getClusterDynamicServersOptions(clusterName) {
+        const dynamicServerOptions = [];
+        if (clusterName) {
+          const dynamicServers = ModelEditHelper.getFolder(['topology', 'Cluster', clusterName, 'DynamicServers']);
+          if (dynamicServers && 'DynamicClusterSize' in dynamicServers) {
+            const serverNamePrefix = dynamicServers['ServerNamePrefix'] || `${clusterName}-`;
+            const dynamicClusterSize = dynamicServers['DynamicClusterSize'] || `${clusterName}-`;
+            const startingIndex = dynamicServers['ServerNameStartingIndex'] || 1;
+            for (let idx = startingIndex; idx < (dynamicClusterSize + startingIndex); idx++) {
+              const serverName = `${serverNamePrefix}${idx}`;
+              dynamicServerOptions.push({value: serverName, label: serverName});
+            }
+          }
+        }
+        return dynamicServerOptions;
       }
     }
 
