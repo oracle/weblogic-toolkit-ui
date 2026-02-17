@@ -24,4 +24,6 @@ None
 - #485 - Added customizations to fields on the `RDBMS Security Store` page. 
 
 #### Known Issues
-None
+- When using an RPM or DEB installation, the Auto Update dialog appears but the `Update Now` and `Update On Exit` buttons
+  do not work unless the user has handled the authentication problem. For example, starting the application using 
+  `sudo wktui --no-sandbox` or using an authentication agent like `polkit` allows the updates to function properly.
