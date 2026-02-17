@@ -14,6 +14,7 @@ pre: "<b> </b>"
     - [User Preferences](#user-preferences)
         - [Proxy Configuration](#proxy-configuration)
         - [GitHub API Credentials](#github-api-credentials)
+        - [Appearance](#appearance)
         - [Linux Disable Hardware Acceleration](#linux-disable-hardware-acceleration)
         - [AppImage WKT Tools Configuration](#appimage-wkt-tools-configuration)
         - [Logging Configuration](#logging-configuration)
@@ -91,6 +92,7 @@ across all instances of the application on the machine.  These user-visible sett
 
 - [Proxy Configuration](#proxy-configuration)
 - [GitHub API Credentials](#github-api-credentials)
+- [Appearance](#appearance)
 - [Linux Disable Hardware Acceleration](#linux-disable-hardware-acceleration)
 - [AppImage WKT Tools Configuration](#appimage-wkt-tools-configuration)
 - [Logging Configuration](#logging-configuration)
@@ -127,6 +129,15 @@ following fields, as needed:
 GitHub rate limits anonymous API requests, which can negatively impact WKT UI functionality.  You can bypass the anonymous API rate limits by creating a personal access token on your GitHub account and then providing the token value in the `GitHub Token` field. WKT UI will
 use this token for all API calls.  Note that this token does not require
 any permissions on your own projects, it is simply attached to the API requests so that GitHub knows who is making them.
+
+##### Appearance
+
+The `Appearance Mode` settings allows the user to control the appearance of the application with regards to light or
+dark mode.  The settings available are:
+
+- `Use OS Mode` (default) - the application's appearance to use the operating system settings to determine the appearance.
+- `Light Mode` - the application appearance is always in light mode, regardless of the operating system settings.
+- `Dark Mode` - the application appearance is always in dark mode, regardless of the operating system settings.
 
 ##### Linux Disable Hardware Acceleration
 

@@ -25,6 +25,11 @@ purpose.
 | wktui-2.0.0.x86_64.rpm                         | Linux RPM package installer.           |
 | wktui_2.0.0_amd64.deb                          | Linux DEB package installer.           |
 
+**NOTE**: The WKT UI application is built using the Electron framework and as such, we support only the platforms and
+versions supported by [Electron](https://github.com/electron/electron?tab=readme-ov-file#platform-support).  For example,
+because of the Electron requirement for Fedora 32 or newer, we support _only_ versions 8.0 and higher of Oracle Linux,
+RedHat Linux, and CentOS Linux.
+
 The Linux AppImage package is not an installer. It is a portable packaging of the application that can run directly
 without installation on a compatible Linux machine.  For more information, see https://appimage.org/.
 
