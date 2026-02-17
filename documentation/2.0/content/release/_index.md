@@ -21,7 +21,7 @@ None
 
 #### Bug Fixes
 - #484 - Added missing `RDBMS Security Store` and `User Lockout Manager` navigation entries to Model Design View.
-- #485 - Added customizations fields on the `RDBMS Security Store` page. 
+- #485 - Added customizations to fields on the `RDBMS Security Store` page. 
 
 #### Known Issues
 None
