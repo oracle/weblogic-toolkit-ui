@@ -5,10 +5,10 @@
  */
 'use strict';
 
-define(['knockout', 'models/wkt-project', 'utils/modelEdit/navigation/all-navigation',
+define(['knockout', 'utils/wkt-logger', 'models/wkt-project', 'utils/modelEdit/navigation/all-navigation',
   'utils/modelEdit/model-edit-helper', 'utils/modelEdit/alias-helper', 'utils/modelEdit/meta-helper',
   'utils/modelEdit/message-helper', 'ojs/ojarraytreedataprovider'],
-function (ko, WktProject, allNavigation, ModelEditHelper, AliasHelper, MetaHelper, MessageHelper,
+function (ko, WktLogger, WktProject, allNavigation, ModelEditHelper, AliasHelper, MetaHelper, MessageHelper,
   ArrayTreeDataProvider) {
 
   function NavigationHelper() {
@@ -136,29 +136,44 @@ function (ko, WktProject, allNavigation, ModelEditHelper, AliasHelper, MetaHelpe
     // initialize the static parts of the navigation.
     // if model path is specified, assign IDs, labels, icons, child arrays/observables, etc.
     this.initializeNavList = (navList, parentPath) => {
+      const invalidEntries = [];
+
       navList.forEach(navEntry => {
         navEntry.label = navEntry.name ? MessageHelper.t(navEntry.name) : null;
 
         if (navEntry.path) {
           const relativePath = navEntry.path.split('/');
           navEntry.modelPath = [...parentPath, ...relativePath];
-          const aliasPath = AliasHelper.getAliasPath(navEntry.modelPath);
-          navEntry.id = navEntry.id || navEntry.modelPath.join('/');
-          navEntry.label = navEntry.label || MessageHelper.getFolderLabel(aliasPath);
-          navEntry.noSelect = navEntry.noSelect || MetaHelper.hasNoSelect(aliasPath);
 
-          let defaultIcon = SINGLE_ICON;
-          if(AliasHelper.isMultiplePath(navEntry.modelPath)) {
-            defaultIcon = MULTIPLE_ICON;
-            navEntry.children = navEntry.children || ko.observableArray();
+          try {
+            const aliasPath = AliasHelper.getAliasPath(navEntry.modelPath);
+            navEntry.id = navEntry.id || navEntry.modelPath.join('/');
+            navEntry.label = navEntry.label || MessageHelper.getFolderLabel(aliasPath);
+            navEntry.noSelect = navEntry.noSelect || MetaHelper.hasNoSelect(aliasPath);
+
+            let defaultIcon = SINGLE_ICON;
+            if(AliasHelper.isMultiplePath(navEntry.modelPath)) {
+              defaultIcon = MULTIPLE_ICON;
+              navEntry.children = navEntry.children || ko.observableArray();
+            }
+
+            navEntry.icon = navEntry.icon || defaultIcon;
+
+          } catch(error) {
+            // this can happen with WDT version mismatch
+            WktLogger.error('Error initializing nav entry: ' + error);
+            invalidEntries.push(navEntry);
           }
-
-          navEntry.icon = navEntry.icon || defaultIcon;
         }
 
         if(Array.isArray(navEntry.children)) {
           this.initializeNavList(navEntry.children, navEntry.modelPath);
         }
+      });
+
+      invalidEntries.forEach(entry => {
+        const index = navList.indexOf(entry);
+        navList.splice(index, 1);
       });
     };
 
