@@ -41,7 +41,7 @@
       <link>https://oracle.github.io/weblogic-toolkit-ui/release/index.html</link>
       <pubDate>Wed, 24 Jul 2024 14:09:00 -0500</pubDate>
       <guid>https://oracle.github.io/weblogic-toolkit-ui/release/index.html</guid>
-      <description>Changes in Release 2.0.1 Major New Features Other Changes Bugs Fixes Known Issues Major New Features None&#xA;Other Changes #486 - Changed first security realm suggested name to myrealm. #487 - Changed Model Design View navigation to provide context menu options for adding and deleting model folder instances. #488 - Added support for dark mode and controlling it via the user preferences dialog. #490 - Updated translation message bundles. Bug Fixes #484 - Added missing RDBMS Security Store and User Lockout Manager navigation entries to Model Design View. #485 - Added customizations fields on the RDBMS Security Store page. Known Issues None</description>
+      <description>Changes in Release 2.0.1 Major New Features Other Changes Bugs Fixes Known Issues Major New Features None&#xA;Other Changes #486 - Changed first security realm suggested name to myrealm. #487 - Changed Model Design View navigation to provide context menu options for adding and deleting model folder instances. #488 - Added support for dark mode and controlling it via the user preferences dialog. #490 - Updated translation message bundles. Bug Fixes #484 - Added missing RDBMS Security Store and User Lockout Manager navigation entries to Model Design View. #485 - Added customizations to fields on the RDBMS Security Store page. Known Issues None</description>
     </item>
   </channel>
 </rss>
