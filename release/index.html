@@ -5,45 +5,49 @@
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <meta name="generator" content="Hugo 0.152.2">
     <meta name="generator" content="Relearn 8.3.0">
-    <meta name="description" content="Changes in Release 2.0.0 Major New Features Other Changes Bugs Fixes Known Issues Major New Features Replaced the WebLogic Remote Console integration with a new, integrated WDT model editor. #308, #323 - Added support for cross-architecture container images. #326 - Centralized container image registry credentials to eliminate the need to re-enter the same credentials multiple times. Other Changes Removed support for Verrazzano. Removed auto-update restrictions on Linux RPM and DEB installers, leveraging a beta feature in Electron Updater. #292 - Removed support for the deprecated keytar module that allowed storing credentials in the OS credential store. #307 - Removed support for Domain-in-Image and Model-in-Image without an Auxiliary Image. #323 - Added support for AppImage to store WDT and WIT tool updates in an external directory. #331 - Added user preferences option to disable Linux hardware acceleration in Chromium. #337 - Added support for overriding the default WKO Kubernetes CPU and memory requests and limits. #339 - Added user preferences option to provide a GitHub API token to bypass anonymous GitHub API rate limits. #458 - Added project settings options for model archive zip file handling to allow using archive files larger than 2 GB. #480 - Added an OPatch Bug Number field to support the WebLogic Image Tool’s --opatchBugNumber argument when creating a primary image, if needed. The new, embedded WebLogic Image Tool 1.16.3 makes it unlikely the user will need to use it. #481 - Removed the default value for the DOCKER_BUILDKIT environment variable and allowing it to be passed from the user’s environment, if needed. Bug Fixes #334 - Updated Ingress route support to work with current versions of the supported ingress controllers. #429 - Added support for ServerTemplate-defined keystores to the Archive Editor. #442 - Removed RPM installer dependency on java-atk-wrapper to support Oracle Linux 9.0&#43;. Known Issues None">
+    <meta name="description" content="Changes in Release 2.0.1 Major New Features Other Changes Bugs Fixes Known Issues Major New Features None
+Other Changes #486 - Changed first security realm suggested name to myrealm. #487 - Changed Model Design View navigation to provide context menu options for adding and deleting model folder instances. #488 - Added support for dark mode and controlling it via the user preferences dialog. #490 - Updated translation message bundles. Bug Fixes #484 - Added missing RDBMS Security Store and User Lockout Manager navigation entries to Model Design View. #485 - Added customizations fields on the RDBMS Security Store page. Known Issues None">
     <meta name="author" content="">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Release Notes :: WebLogic Kubernetes Toolkit UI">
-    <meta name="twitter:description" content="Changes in Release 2.0.0 Major New Features Other Changes Bugs Fixes Known Issues Major New Features Replaced the WebLogic Remote Console integration with a new, integrated WDT model editor. #308, #323 - Added support for cross-architecture container images. #326 - Centralized container image registry credentials to eliminate the need to re-enter the same credentials multiple times. Other Changes Removed support for Verrazzano. Removed auto-update restrictions on Linux RPM and DEB installers, leveraging a beta feature in Electron Updater. #292 - Removed support for the deprecated keytar module that allowed storing credentials in the OS credential store. #307 - Removed support for Domain-in-Image and Model-in-Image without an Auxiliary Image. #323 - Added support for AppImage to store WDT and WIT tool updates in an external directory. #331 - Added user preferences option to disable Linux hardware acceleration in Chromium. #337 - Added support for overriding the default WKO Kubernetes CPU and memory requests and limits. #339 - Added user preferences option to provide a GitHub API token to bypass anonymous GitHub API rate limits. #458 - Added project settings options for model archive zip file handling to allow using archive files larger than 2 GB. #480 - Added an OPatch Bug Number field to support the WebLogic Image Tool’s --opatchBugNumber argument when creating a primary image, if needed. The new, embedded WebLogic Image Tool 1.16.3 makes it unlikely the user will need to use it. #481 - Removed the default value for the DOCKER_BUILDKIT environment variable and allowing it to be passed from the user’s environment, if needed. Bug Fixes #334 - Updated Ingress route support to work with current versions of the supported ingress controllers. #429 - Added support for ServerTemplate-defined keystores to the Archive Editor. #442 - Removed RPM installer dependency on java-atk-wrapper to support Oracle Linux 9.0&#43;. Known Issues None">
+    <meta name="twitter:description" content="Changes in Release 2.0.1 Major New Features Other Changes Bugs Fixes Known Issues Major New Features None
+Other Changes #486 - Changed first security realm suggested name to myrealm. #487 - Changed Model Design View navigation to provide context menu options for adding and deleting model folder instances. #488 - Added support for dark mode and controlling it via the user preferences dialog. #490 - Updated translation message bundles. Bug Fixes #484 - Added missing RDBMS Security Store and User Lockout Manager navigation entries to Model Design View. #485 - Added customizations fields on the RDBMS Security Store page. Known Issues None">
     <meta property="og:url" content="https://oracle.github.io/weblogic-toolkit-ui/release/index.html">
     <meta property="og:site_name" content="WebLogic Kubernetes Toolkit UI">
     <meta property="og:title" content="Release Notes :: WebLogic Kubernetes Toolkit UI">
-    <meta property="og:description" content="Changes in Release 2.0.0 Major New Features Other Changes Bugs Fixes Known Issues Major New Features Replaced the WebLogic Remote Console integration with a new, integrated WDT model editor. #308, #323 - Added support for cross-architecture container images. #326 - Centralized container image registry credentials to eliminate the need to re-enter the same credentials multiple times. Other Changes Removed support for Verrazzano. Removed auto-update restrictions on Linux RPM and DEB installers, leveraging a beta feature in Electron Updater. #292 - Removed support for the deprecated keytar module that allowed storing credentials in the OS credential store. #307 - Removed support for Domain-in-Image and Model-in-Image without an Auxiliary Image. #323 - Added support for AppImage to store WDT and WIT tool updates in an external directory. #331 - Added user preferences option to disable Linux hardware acceleration in Chromium. #337 - Added support for overriding the default WKO Kubernetes CPU and memory requests and limits. #339 - Added user preferences option to provide a GitHub API token to bypass anonymous GitHub API rate limits. #458 - Added project settings options for model archive zip file handling to allow using archive files larger than 2 GB. #480 - Added an OPatch Bug Number field to support the WebLogic Image Tool’s --opatchBugNumber argument when creating a primary image, if needed. The new, embedded WebLogic Image Tool 1.16.3 makes it unlikely the user will need to use it. #481 - Removed the default value for the DOCKER_BUILDKIT environment variable and allowing it to be passed from the user’s environment, if needed. Bug Fixes #334 - Updated Ingress route support to work with current versions of the supported ingress controllers. #429 - Added support for ServerTemplate-defined keystores to the Archive Editor. #442 - Removed RPM installer dependency on java-atk-wrapper to support Oracle Linux 9.0&#43;. Known Issues None">
+    <meta property="og:description" content="Changes in Release 2.0.1 Major New Features Other Changes Bugs Fixes Known Issues Major New Features None
+Other Changes #486 - Changed first security realm suggested name to myrealm. #487 - Changed Model Design View navigation to provide context menu options for adding and deleting model folder instances. #488 - Added support for dark mode and controlling it via the user preferences dialog. #490 - Updated translation message bundles. Bug Fixes #484 - Added missing RDBMS Security Store and User Lockout Manager navigation entries to Model Design View. #485 - Added customizations fields on the RDBMS Security Store page. Known Issues None">
     <meta property="og:locale" content="en_us">
     <meta property="og:type" content="website">
     <meta itemprop="name" content="Release Notes :: WebLogic Kubernetes Toolkit UI">
-    <meta itemprop="description" content="Changes in Release 2.0.0 Major New Features Other Changes Bugs Fixes Known Issues Major New Features Replaced the WebLogic Remote Console integration with a new, integrated WDT model editor. #308, #323 - Added support for cross-architecture container images. #326 - Centralized container image registry credentials to eliminate the need to re-enter the same credentials multiple times. Other Changes Removed support for Verrazzano. Removed auto-update restrictions on Linux RPM and DEB installers, leveraging a beta feature in Electron Updater. #292 - Removed support for the deprecated keytar module that allowed storing credentials in the OS credential store. #307 - Removed support for Domain-in-Image and Model-in-Image without an Auxiliary Image. #323 - Added support for AppImage to store WDT and WIT tool updates in an external directory. #331 - Added user preferences option to disable Linux hardware acceleration in Chromium. #337 - Added support for overriding the default WKO Kubernetes CPU and memory requests and limits. #339 - Added user preferences option to provide a GitHub API token to bypass anonymous GitHub API rate limits. #458 - Added project settings options for model archive zip file handling to allow using archive files larger than 2 GB. #480 - Added an OPatch Bug Number field to support the WebLogic Image Tool’s --opatchBugNumber argument when creating a primary image, if needed. The new, embedded WebLogic Image Tool 1.16.3 makes it unlikely the user will need to use it. #481 - Removed the default value for the DOCKER_BUILDKIT environment variable and allowing it to be passed from the user’s environment, if needed. Bug Fixes #334 - Updated Ingress route support to work with current versions of the supported ingress controllers. #429 - Added support for ServerTemplate-defined keystores to the Archive Editor. #442 - Removed RPM installer dependency on java-atk-wrapper to support Oracle Linux 9.0&#43;. Known Issues None">
+    <meta itemprop="description" content="Changes in Release 2.0.1 Major New Features Other Changes Bugs Fixes Known Issues Major New Features None
+Other Changes #486 - Changed first security realm suggested name to myrealm. #487 - Changed Model Design View navigation to provide context menu options for adding and deleting model folder instances. #488 - Added support for dark mode and controlling it via the user preferences dialog. #490 - Updated translation message bundles. Bug Fixes #484 - Added missing RDBMS Security Store and User Lockout Manager navigation entries to Model Design View. #485 - Added customizations fields on the RDBMS Security Store page. Known Issues None">
     <meta itemprop="datePublished" content="2024-07-24T14:09:00-05:00">
     <meta itemprop="dateModified" content="2024-07-24T14:09:00-05:00">
-    <meta itemprop="wordCount" content="302">
+    <meta itemprop="wordCount" content="102">
     <title>Release Notes :: WebLogic Kubernetes Toolkit UI</title>
     <link href="/weblogic-toolkit-ui/release/index.xml" rel="alternate" type="application/rss+xml" title="Release Notes :: WebLogic Kubernetes Toolkit UI">
-    <link href="/weblogic-toolkit-ui/images/logo.png?1771301021" rel="icon" type="image/png">
-    <link href="/weblogic-toolkit-ui/css/auto-complete/auto-complete.min.css?1771301021" rel="stylesheet">
-    <script src="/weblogic-toolkit-ui/js/auto-complete/auto-complete.min.js?1771301021" defer></script>
-    <script src="/weblogic-toolkit-ui/js/search-lunr.min.js?1771301021" defer></script>
-    <script src="/weblogic-toolkit-ui/js/search.min.js?1771301021" defer></script>
+    <link href="/weblogic-toolkit-ui/images/logo.png?1771359911" rel="icon" type="image/png">
+    <link href="/weblogic-toolkit-ui/css/auto-complete/auto-complete.min.css?1771359911" rel="stylesheet">
+    <script src="/weblogic-toolkit-ui/js/auto-complete/auto-complete.min.js?1771359911" defer></script>
+    <script src="/weblogic-toolkit-ui/js/search-lunr.min.js?1771359911" defer></script>
+    <script src="/weblogic-toolkit-ui/js/search.min.js?1771359911" defer></script>
     <script>
       window.relearn = window.relearn || {};
-      window.relearn.index_js_url="/weblogic-toolkit-ui/searchindex.en.js?1771301021";
+      window.relearn.index_js_url="/weblogic-toolkit-ui/searchindex.en.js?1771359911";
     </script>
-    <script src="/weblogic-toolkit-ui/js/lunr/lunr.min.js?1771301021" defer></script>
-    <script src="/weblogic-toolkit-ui/js/lunr/lunr.stemmer.support.min.js?1771301021" defer></script>
-    <script src="/weblogic-toolkit-ui/js/lunr/lunr.multi.min.js?1771301021" defer></script>
-    <script src="/weblogic-toolkit-ui/js/lunr/lunr.en.min.js?1771301021" defer></script>
+    <script src="/weblogic-toolkit-ui/js/lunr/lunr.min.js?1771359911" defer></script>
+    <script src="/weblogic-toolkit-ui/js/lunr/lunr.stemmer.support.min.js?1771359911" defer></script>
+    <script src="/weblogic-toolkit-ui/js/lunr/lunr.multi.min.js?1771359911" defer></script>
+    <script src="/weblogic-toolkit-ui/js/lunr/lunr.en.min.js?1771359911" defer></script>
     <script>
       window.relearn = window.relearn || {};
       window.relearn.contentLangs=['en'];
     </script>
-    <link href="/weblogic-toolkit-ui/fonts/fontawesome/css/fontawesome-all.min.css?1771301021" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/weblogic-toolkit-ui/fonts/fontawesome/css/fontawesome-all.min.css?1771301021" rel="stylesheet"></noscript>
-    <link href="/weblogic-toolkit-ui/css/perfect-scrollbar/perfect-scrollbar.min.css?1771301021" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/theme.min.css?1771301021" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/format-html.min.css?1771301021" rel="stylesheet" id="R-format-style">
+    <link href="/weblogic-toolkit-ui/fonts/fontawesome/css/fontawesome-all.min.css?1771359911" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/weblogic-toolkit-ui/fonts/fontawesome/css/fontawesome-all.min.css?1771359911" rel="stylesheet"></noscript>
+    <link href="/weblogic-toolkit-ui/css/perfect-scrollbar/perfect-scrollbar.min.css?1771359911" rel="stylesheet">
+    <link href="/weblogic-toolkit-ui/css/theme.min.css?1771359911" rel="stylesheet">
+    <link href="/weblogic-toolkit-ui/css/format-html.min.css?1771359911" rel="stylesheet" id="R-format-style">
     <script>
       window.relearn = window.relearn || {};
       // configuration
@@ -114,7 +118,7 @@
   <ul>
     <li>
       <ul>
-        <li><a href="#changes-in-release-200">Changes in Release 2.0.0</a></li>
+        <li><a href="#changes-in-release-201">Changes in Release 2.0.1</a></li>
       </ul>
     </li>
   </ul>
@@ -130,7 +134,7 @@
 <span class="btn cstyle button link noborder notitle interactive"><a href="/weblogic-toolkit-ui/developer/index.html" title="Developer Guide (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
             </div>
             <div class="topbar-button topbar-button-next" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
-<span class="btn cstyle button link noborder notitle interactive"><a href="/weblogic-toolkit-ui/release/release-1.7.2/index.html" title="Release 1.7.2 (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+<span class="btn cstyle button link noborder notitle interactive"><a href="/weblogic-toolkit-ui/release/release-2.0.0/index.html" title="Release Notes (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
             </div>
             <div class="topbar-button topbar-button-more" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
 <span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="More"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
@@ -157,7 +161,7 @@
 
 
 
-<h3 id="changes-in-release-200">Changes in Release 2.0.0<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<h3 id="changes-in-release-201">Changes in Release 2.0.1<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <ul>
 <li>
 
@@ -193,33 +197,18 @@ Known Issues
 </li>
 </ul>
 <h4 id="major-new-features">Major New Features<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h4>
-<ul>
-<li>Replaced the WebLogic Remote Console integration with a new, integrated WDT model editor.</li>
-<li>#308, #323 - Added support for cross-architecture container images.</li>
-<li>#326 - Centralized container image registry credentials to eliminate the need to re-enter the same credentials
-multiple times.</li>
-</ul>
+<p>None</p>
 <h4 id="other-changes">Other Changes<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h4>
 <ul>
-<li>Removed support for Verrazzano.</li>
-<li>Removed auto-update restrictions on Linux RPM and DEB installers, leveraging a beta feature in Electron Updater.</li>
-<li>#292 - Removed support for the deprecated keytar module that allowed storing credentials in the OS credential store.</li>
-<li>#307 - Removed support for Domain-in-Image and Model-in-Image without an Auxiliary Image.</li>
-<li>#323 - Added support for AppImage to store WDT and WIT tool updates in an external directory.</li>
-<li>#331 - Added user preferences option to disable Linux hardware acceleration in Chromium.</li>
-<li>#337 - Added support for overriding the default WKO Kubernetes CPU and memory requests and limits.</li>
-<li>#339 - Added user preferences option to provide a GitHub API token to bypass anonymous GitHub API rate limits.</li>
-<li>#458 - Added project settings options for model archive zip file handling to allow using archive files larger than 2 GB.</li>
-<li>#480 - Added an <code>OPatch Bug Number</code> field to support the WebLogic Image Tool&rsquo;s <code>--opatchBugNumber</code> argument when creating
-a primary image, if needed. The new, embedded WebLogic Image Tool 1.16.3 makes it unlikely the user will need to use it.</li>
-<li>#481 - Removed the default value for the <code>DOCKER_BUILDKIT</code> environment variable and allowing it to be passed from
-the user&rsquo;s environment, if needed.</li>
+<li>#486 - Changed first security realm suggested name to <code>myrealm</code>.</li>
+<li>#487 - Changed Model Design View navigation to provide context menu options for adding and deleting model folder instances.</li>
+<li>#488 - Added support for dark mode and controlling it via the user preferences dialog.</li>
+<li>#490 - Updated translation message bundles.</li>
 </ul>
 <h4 id="bug-fixes">Bug Fixes<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h4>
 <ul>
-<li>#334 - Updated Ingress route support to work with current versions of the supported ingress controllers.</li>
-<li>#429 - Added support for ServerTemplate-defined keystores to the Archive Editor.</li>
-<li>#442 - Removed RPM installer dependency on <code>java-atk-wrapper</code> to support Oracle Linux 9.0+.</li>
+<li>#484 - Added missing <code>RDBMS Security Store</code> and <code>User Lockout Manager</code> navigation entries to Model Design View.</li>
+<li>#485 - Added customizations fields on the <code>RDBMS Security Store</code> page.</li>
 </ul>
 <h4 id="known-issues">Known Issues<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h4>
 <p>None</p>
@@ -278,6 +267,7 @@ the user&rsquo;s environment, if needed.</li>
             <li class="" data-nav-url="/weblogic-toolkit-ui/navigate/index.html"><a class="padding" href="/weblogic-toolkit-ui/navigate/index.html"><b> </b>Navigate the UI</a><ul id="R-subsections-87ab2e1bf80095f6190ff210454fc27d" class="collapsible-menu"></ul></li>
             <li class="" data-nav-url="/weblogic-toolkit-ui/developer/index.html"><a class="padding" href="/weblogic-toolkit-ui/developer/index.html"><b> </b>Developer Guide</a></li>
             <li class="active parent " data-nav-url="/weblogic-toolkit-ui/release/index.html"><a class="padding" href="/weblogic-toolkit-ui/release/index.html"><b> </b>Release Notes</a><ul id="R-subsections-708032c5b8904dd637c09e0f5f530a6a" class="collapsible-menu">
+            <li class="" data-nav-url="/weblogic-toolkit-ui/release/release-2.0.0/index.html"><a class="padding" href="/weblogic-toolkit-ui/release/release-2.0.0/index.html"><b> </b>Release Notes</a></li>
             <li class="" data-nav-url="/weblogic-toolkit-ui/release/release-1.7.2/index.html"><a class="padding" href="/weblogic-toolkit-ui/release/release-1.7.2/index.html"><b> </b>Release 1.7.2</a></li>
             <li class="" data-nav-url="/weblogic-toolkit-ui/release/release-1.7.1/index.html"><a class="padding" href="/weblogic-toolkit-ui/release/release-1.7.1/index.html"><b> </b>Release 1.7.1</a></li>
             <li class="" data-nav-url="/weblogic-toolkit-ui/release/release-1.7.0/index.html"><a class="padding" href="/weblogic-toolkit-ui/release/release-1.7.0/index.html"><b> </b>Release 1.7.0</a></li>
@@ -318,8 +308,8 @@ the user&rsquo;s environment, if needed.</li>
 </div>
       </div>
     </aside>
-    <script src="/weblogic-toolkit-ui/js/perfect-scrollbar/perfect-scrollbar.min.js?1771301021" defer></script>
-    <script src="/weblogic-toolkit-ui/js/theme.min.js?1771301021" defer></script>
+    <script src="/weblogic-toolkit-ui/js/perfect-scrollbar/perfect-scrollbar.min.js?1771359911" defer></script>
+    <script src="/weblogic-toolkit-ui/js/theme.min.js?1771359911" defer></script>
     <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
   </body>
 </html>

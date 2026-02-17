@@ -3,7 +3,7 @@
   <channel>
     <title>About the WKT UI Application :: WebLogic Kubernetes Toolkit UI</title>
     <link>https://oracle.github.io/weblogic-toolkit-ui/concepts/index.html</link>
-    <description>Contents WKT Project File Settings Outside the WKT Project File Environment Variables User Preferences Proxy Configuration GitHub API Credentials Linux Disable Hardware Acceleration AppImage WKT Tools Configuration Logging Configuration Startup Internet Connectivity Test Configuration WebLogic Kubernetes Toolkit UI Introduction Configuration External Applications Bundled WKT Applications Before giving you the whirlwind tour of the WKT UI application, it is important to know that the application is a native, desktop application. It uses native operating system features, such as:</description>
+    <description>Contents WKT Project File Settings Outside the WKT Project File Environment Variables User Preferences Proxy Configuration GitHub API Credentials Appearance Linux Disable Hardware Acceleration AppImage WKT Tools Configuration Logging Configuration Startup Internet Connectivity Test Configuration WebLogic Kubernetes Toolkit UI Introduction Configuration External Applications Bundled WKT Applications Before giving you the whirlwind tour of the WKT UI application, it is important to know that the application is a native, desktop application. It uses native operating system features, such as:</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <atom:link href="https://oracle.github.io/weblogic-toolkit-ui/concepts/index.xml" rel="self" type="application/rss+xml" />
