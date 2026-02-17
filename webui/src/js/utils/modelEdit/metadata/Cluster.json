@@ -226,7 +226,8 @@
           "DynamicServers",
           "JTACluster",
           "OverloadProtection",
-          "WeblogicClusterRouting"
+          "WeblogicClusterRouting",
+          "WeblogicPluginRouting"
         ]
       },
       {

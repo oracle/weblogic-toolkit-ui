@@ -64,7 +64,7 @@ define(['knockout', 'utils/wkt-logger'],
               aliasPath.push(dir);
               const aliasNode = this.getAliasNode(aliasPath);
               if (!aliasNode) {
-                WktLogger.error(`getAliasPath: Alias folder path ${dir} not found for path ${modelPath}`);
+                throw new Error(`getAliasPath: Alias folder path ${dir} not found for path ${modelPath}`);
               }
               nameNext = aliasNode['isMultiple'];
             } else {
