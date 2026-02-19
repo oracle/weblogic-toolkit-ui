@@ -92,11 +92,20 @@ function (ko, WktLogger, WktProject, allNavigation, ModelEditHelper, AliasHelper
               const usesTypeFolders = aliasNode.usesTypeFolders;
               if(!usesTypeFolders) {  // type folders don't appear in nav
                 const aliasFolders = aliasNode.folders;
-                const isMultiple = aliasNode.isMultiple;
-                const mergeFolder = MetaHelper.getMergeFolder(aliasPath);
 
+                // check the specific child list
+                const isMultiple = aliasNode.isMultiple;
+                if(isMultiple) {
+                  navEntry.instanceChildren = navEntry.instanceChildren || [];
+                  navSubfolders = navEntry.instanceChildren;
+                } else {
+                  navEntry.children = navEntry.children || [];
+                  navSubfolders = navEntry.children;
+                }
+
+                // folder with merge folders have nav paths like JmsResource/ConnectionFactory
+                const mergeFolder = MetaHelper.getMergeFolder(aliasPath);
                 if(mergeFolder) {
-                  // merge folders have nav paths like JmsResource/ConnectionFactory
                   const mergeAliasPath = [...aliasPath, mergeFolder];
                   const mergeAliasNode = AliasHelper.getAliasNode(mergeAliasPath);
                   const mergeAliasFolders = mergeAliasNode.folders;
@@ -112,15 +121,6 @@ function (ko, WktLogger, WktProject, allNavigation, ModelEditHelper, AliasHelper
                 aliasFolders.forEach(aliasFolder => {
                   if (!navSubpaths.includes(aliasFolder) && (aliasFolder !== mergeFolder)) {
                     WktLogger.warn('Adding navigation entry for: ' + aliasPath.join('/') + '/' + aliasFolder);
-
-                    // carefully add any alias-only entries to the correct child folder
-                    if(isMultiple) {
-                      navEntry.instanceChildren = navEntry.instanceChildren || [];
-                      navSubfolders = navEntry.instanceChildren;
-                    } else {
-                      navEntry.children = navEntry.children || [];
-                      navSubfolders = navEntry.children;
-                    }
 
                     navSubfolders.push({
                       path: aliasFolder
