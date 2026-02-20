@@ -16,19 +16,6 @@
         "type": "attributesCollapsible",
         "labelKey": "advanced-label",
         "addRemainingAttributes": true
-      },
-      {
-        "type": "hidden",
-        "folders": [
-          "WTCExport",
-          "WTCImport",
-          "WTCLocalTuxDom",
-          "WTCPassword",
-          "WTCRemoteTuxDom",
-          "WTCResources",
-          "WTCtBridgeGlobal",
-          "WTCtBridgeRedirect"
-        ]
       }
     ]
   },

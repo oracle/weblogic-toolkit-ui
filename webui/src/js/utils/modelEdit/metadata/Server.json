@@ -372,30 +372,6 @@
           "VerboseEJBDeploymentEnabled",
           "VirtualMachineName",
           "VirtualThreadEnableOption"
-        ],
-        "folders": [
-          "CoherenceMemberConfig",
-          "COM",
-          "ConfigurationProperty",
-          "DataSource",
-          "DefaultFileStore",
-          "ExecuteQueue",
-          "FederationServices",
-          "HealthScore",
-          "IIOP",
-          "JTAMigratableTarget",
-          "Log",
-          "NetworkAccessPoint",
-          "OverloadProtection",
-          "RmiForwarding",
-          "ServerDebug",
-          "ServerDiagnosticConfig",
-          "ServerStart",
-          "SingleSignOnServices",
-          "SSL",
-          "TransactionLogJDBCStore",
-          "WebServer",
-          "WebService"
         ]
       },
       {
@@ -776,10 +752,7 @@
         "addRemainingAttributes": true
       },
       {
-        "type": "hidden",
-        "folders": [
-          "DataSourceLogFile"
-        ]
+        "type": "hidden"
       }
     ]
   },
@@ -1600,12 +1573,6 @@
         "type": "attributesCollapsible",
         "labelKey": "advanced-label",
         "addRemainingAttributes": true
-      },
-      {
-        "type": "hidden",
-        "folders": [
-          "ServerFailureTrigger"
-        ]
       }
     ]
   },
@@ -1653,12 +1620,6 @@
         "type": "attributesCollapsible",
         "labelKey": "advanced-label",
         "addRemainingAttributes": true
-      },
-      {
-        "type": "hidden",
-        "folders": [
-          "ConfigurationProperty"
-        ]
       }
     ]
   },
@@ -2346,12 +2307,6 @@
             "addRemainingAttributes": true
           }
         ]
-      },
-      {
-        "type": "hidden",
-        "folders": [
-          "DebugScope"
-        ]
       }
     ]
   },
@@ -2785,9 +2740,6 @@
         "attributes": [
           "DataRetirementTestModeEnabled",
           "DiagnosticContextEnabled"
-        ],
-        "folders": [
-          "WldfBuiltinWatchConfiguration"
         ]
       }
     ]
@@ -3337,9 +3289,6 @@
           "WebDeployment",
           "WorkManagerForRemoteSessionFetching",
           "WriteChunkBytes"
-        ],
-        "folders": [
-          "WebServerLog"
         ]
       }
     ]
@@ -3437,15 +3386,6 @@
         "type": "attributesCollapsible",
         "labelKey": "advanced-label",
         "addRemainingAttributes": true
-      },
-      {
-        "type": "hidden",
-        "folders": [
-          "WebServiceBuffering",
-          "WebServicePersistence",
-          "WebServiceReliability",
-          "WebServiceResiliency"
-        ]
       }
     ]
   },
@@ -3468,13 +3408,6 @@
         "type": "attributesCollapsible",
         "labelKey": "advanced-label",
         "addRemainingAttributes": true
-      },
-      {
-        "type": "hidden",
-        "folders": [
-          "WebServiceRequestBufferingQueue",
-          "WebServiceResponseBufferingQueue"
-        ]
       }
     ]
   },
@@ -3531,13 +3464,6 @@
           "Notes"
         ],
         "addRemainingAttributes": true
-      },
-      {
-        "type": "hidden",
-        "folders": [
-          "WebServiceLogicalStore",
-          "WebServicePhysicalStore"
-        ]
       }
     ]
   },

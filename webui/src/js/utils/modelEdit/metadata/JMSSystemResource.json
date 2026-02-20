@@ -132,23 +132,6 @@
         "attributes": [
           "SourcePath",
           "Version"
-        ],
-        "folders": [
-          "JmsResource/ConnectionFactory",
-          "JmsResource/DestinationKey",
-          "JmsResource/DistributedQueue",
-          "JmsResource/DistributedTopic",
-          "JmsResource/ForeignServer",
-          "JmsResource/Queue",
-          "JmsResource/Quota",
-          "JmsResource/SAFErrorHandling",
-          "JmsResource/SAFImportedDestinations",
-          "JmsResource/SAFRemoteContext",
-          "JmsResource/Template",
-          "JmsResource/Topic",
-          "JmsResource/UniformDistributedQueue",
-          "JmsResource/UniformDistributedTopic",
-          "SubDeployment"
         ]
       }
     ]
@@ -208,17 +191,6 @@
         "type": "attributesCollapsible",
         "labelKey": "advanced-label",
         "addRemainingAttributes": true
-      },
-      {
-        "type": "hidden",
-        "folders": [
-          "ClientParams",
-          "DefaultDeliveryParams",
-          "FlowControlParams",
-          "LoadBalancingParams",
-          "SecurityParams",
-          "TransactionParams"
-        ]
       }
     ]
   },
@@ -549,14 +521,6 @@
         "type": "attributesCollapsible",
         "labelKey": "advanced-label",
         "addRemainingAttributes": true
-      },
-      {
-        "type": "hidden",
-        "folders": [
-          "ForeignConnectionFactory",
-          "ForeignDestination",
-          "JNDIProperty"
-        ]
       }
     ]
   },
@@ -690,12 +654,6 @@
           "ForwardDelay",
           "ResetDeliveryCountOnForward",
           "UnitOfOrderRouting"
-        ],
-        "folders": [
-          "DeliveryFailureParams",
-          "DeliveryParamsOverrides",
-          "MessageLoggingParams",
-          "Thresholds"
         ]
       }
     ]
@@ -910,14 +868,6 @@
         "type": "attributesCollapsible",
         "labelKey": "advanced-label",
         "addRemainingAttributes": true
-      },
-      {
-        "type": "hidden",
-        "folders": [
-          "MessageLoggingParams",
-          "SAFQueue",
-          "SAFTopic"
-        ]
       }
     ]
   },
@@ -965,12 +915,6 @@
         "type": "attributesCollapsible",
         "labelKey": "advanced-label",
         "addRemainingAttributes": true
-      },
-      {
-        "type": "hidden",
-        "folders": [
-          "MessageLoggingParams"
-        ]
       }
     ]
   },
@@ -1018,12 +962,6 @@
         "type": "attributesCollapsible",
         "labelKey": "advanced-label",
         "addRemainingAttributes": true
-      },
-      {
-        "type": "hidden",
-        "folders": [
-          "MessageLoggingParams"
-        ]
       }
     ]
   },
@@ -1049,12 +987,6 @@
         "type": "attributesCollapsible",
         "labelKey": "advanced-label",
         "addRemainingAttributes": true
-      },
-      {
-        "type": "hidden",
-        "folders": [
-          "SAFLoginContext"
-        ]
       }
     ]
   },
@@ -1119,18 +1051,6 @@
         "type": "attributesCollapsible",
         "labelKey": "advanced-label",
         "addRemainingAttributes": true
-      },
-      {
-        "type": "hidden",
-        "folders": [
-          "DeliveryFailureParams",
-          "DeliveryParamsOverrides",
-          "GroupParams",
-          "MessageLoggingParams",
-          "Multicast",
-          "Thresholds",
-          "TopicSubscriptionParams"
-        ]
       }
     ]
   },
@@ -1306,14 +1226,6 @@
           "ForwardingPolicy",
           "LoadBalancingPolicy",
           "UnitOfOrderRouting"
-        ],
-        "folders": [
-          "DeliveryFailureParams",
-          "DeliveryParamsOverrides",
-          "MessageLoggingParams",
-          "Multicast",
-          "Thresholds",
-          "TopicSubscriptionParams"
         ]
       }
     ]
@@ -1484,15 +1396,6 @@
           "ProductionPausedAtStartup"
         ],
         "addRemainingAttributes": true
-      },
-      {
-        "type": "hidden",
-        "folders": [
-          "DeliveryFailureParams",
-          "DeliveryParamsOverrides",
-          "MessageLoggingParams",
-          "Thresholds"
-        ]
       }
     ]
   },
@@ -1655,17 +1558,6 @@
           "ProductionPausedAtStartup"
         ],
         "addRemainingAttributes": true
-      },
-      {
-        "type": "hidden",
-        "folders": [
-          "DeliveryFailureParams",
-          "DeliveryParamsOverrides",
-          "MessageLoggingParams",
-          "Multicast",
-          "Thresholds",
-          "TopicSubscriptionParams"
-        ]
       }
     ]
   },

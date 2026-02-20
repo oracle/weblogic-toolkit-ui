@@ -72,9 +72,6 @@
             "type": "hidden",
             "attributes": [
               "MessageCompressionOptionsOverride"
-            ],
-            "folders": [
-              "JmssafMessageLogFile"
             ]
           }
         ]

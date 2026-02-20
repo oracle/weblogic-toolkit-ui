@@ -22,13 +22,6 @@
         "type": "attributesCollapsible",
         "labelKey": "advanced-label",
         "addRemainingAttributes": true
-      },
-      {
-        "type": "hidden",
-        "folders": [
-          "Handler",
-          "Logger"
-        ]
       }
     ]
   },

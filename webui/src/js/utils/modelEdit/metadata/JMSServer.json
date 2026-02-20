@@ -169,10 +169,6 @@
       },
       {
         "type": "hidden",
-        "folders": [
-          "JmsMessageLogFile",
-          "JmsSessionPool"
-        ],
         "attributes": [
           "BytesPagingEnabled",
           "MessageCompressionOptionsOverride",

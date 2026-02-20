@@ -31,13 +31,6 @@
           "HandleEntityInvalidation",
           "Notes"
         ]
-      },
-      {
-        "type": "hidden",
-        "folders": [
-          "XMLEntitySpecRegistryEntry",
-          "XMLParserSelectRegistryEntry"
-        ]
       }
     ]
   },

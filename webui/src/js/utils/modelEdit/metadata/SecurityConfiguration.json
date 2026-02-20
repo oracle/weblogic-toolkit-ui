@@ -164,13 +164,6 @@
           "DefaultRealmInternal",
           "CredentialGenerated",
           "RealmBootStrapVersion"
-        ],
-        "folders": [
-          "CertificateManagement",
-          "CertRevoc",
-          "CredentialSet",
-          "Realm",
-          "SecureMode"
         ]
       }
     ]
@@ -272,12 +265,6 @@
         "type": "attributesCollapsible",
         "labelKey": "advanced-label",
         "addRemainingAttributes": true
-      },
-      {
-        "type": "hidden",
-        "folders": [
-          "CertRevocCa"
-        ]
       }
     ]
   },
@@ -459,13 +446,6 @@
         "type": "attributesCollapsible",
         "labelKey": "advanced-label",
         "addRemainingAttributes": true
-      },
-      {
-        "type": "hidden",
-        "folders": [
-          "CertificateIssuerPlugin",
-          "ConfigurationProperty"
-        ]
       }
     ]
   },
@@ -545,12 +525,6 @@
         "type": "attributesCollapsible",
         "labelKey": "advanced-label",
         "addRemainingAttributes": true
-      },
-      {
-        "type": "hidden",
-        "folders": [
-          "EncryptedProperty"
-        ]
       }
     ]
   },
@@ -642,18 +616,6 @@
           "DeployRoleIgnored",
           "FullyDelegateAuthorization",
           "ValidateDDSecurityData"
-        ],
-        "folders": [
-          "Adjudicator",
-          "Auditor",
-          "AuthenticationProvider",
-          "Authorizer",
-          "CertPathProvider",
-          "CredentialMapper",
-          "PasswordValidator",
-          "RDBMSSecurityStore",
-          "RoleMapper",
-          "UserLockoutManager"
         ]
       }
     ]

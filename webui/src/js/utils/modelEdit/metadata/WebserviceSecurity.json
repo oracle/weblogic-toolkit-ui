@@ -39,15 +39,6 @@
         "type": "attributesCollapsible",
         "labelKey": "advanced-label",
         "addRemainingAttributes": true
-      },
-      {
-        "type": "hidden",
-        "folders": [
-          "WebserviceCredentialProvider",
-          "WebserviceSecurityToken",
-          "WebserviceTimestamp",
-          "WebserviceTokenHandler"
-        ]
       }
     ]
   },
@@ -69,12 +60,6 @@
         "type": "attributesCollapsible",
         "labelKey": "advanced-label",
         "addRemainingAttributes": true
-      },
-      {
-        "type": "hidden",
-        "folders": [
-          "ConfigurationProperty"
-        ]
       }
     ]
   },
@@ -117,12 +102,6 @@
         "type": "attributesCollapsible",
         "labelKey": "advanced-label",
         "addRemainingAttributes": true
-      },
-      {
-        "type": "hidden",
-        "folders": [
-          "ConfigurationProperty"
-        ]
       }
     ]
   },
@@ -212,10 +191,7 @@
         "addRemainingAttributes": true
       },
       {
-        "type": "hidden",
-        "folders": [
-          "ConfigurationProperty"
-        ]
+        "type": "hidden"
       }
     ]
   },
