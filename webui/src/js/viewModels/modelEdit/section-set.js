@@ -24,8 +24,6 @@ function(accUtils, ko, ModuleHelper, MetaHelper, MessageHelper, AliasHelper) {
     const USES_TABS = FOLDER_INFO.usesTabs;
     const REMAINING_ATTRIBUTES = FOLDER_INFO.remainingAttributes;
     const REMAINING_ATTRIBUTES_ASSIGNED = FOLDER_INFO.remainingAttributesAssigned;
-    const REMAINING_FOLDERS = FOLDER_INFO.remainingFolders;
-    const REMAINING_FOLDERS_ASSIGNED = FOLDER_INFO.remainingFoldersAssigned;
 
     this.connected = () => {
       accUtils.announce('Folder Sections loaded.', 'assertive');
@@ -116,24 +114,6 @@ function(accUtils, ko, ModuleHelper, MetaHelper, MessageHelper, AliasHelper) {
         this.sections.push({
           type: 'remainder',
           moduleConfig: remainderConfig
-        });
-      }
-
-      // this probably means there was one sub-folder, and no tabs specified
-      if (REMAINING_FOLDERS.length && !REMAINING_FOLDERS_ASSIGNED) {
-        REMAINING_FOLDERS.forEach(folder => {
-          const folderPath = [...MODEL_PATH, folder];
-
-          let moduleConfig;
-          if(AliasHelper.isMultiplePath(folderPath)) {
-            moduleConfig = ModuleHelper.createInstancesSectionConfig(folderPath, {});
-          } else {
-            moduleConfig = ModuleHelper.createFolderSectionConfig(folderPath, {});
-          }
-          this.sections.push({
-            type: 'folder',
-            moduleConfig
-          });
         });
       }
     }
