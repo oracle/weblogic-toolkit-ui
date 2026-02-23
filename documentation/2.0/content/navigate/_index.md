@@ -17,7 +17,7 @@ the left side navigation pane.
 The UI sections are:
 
 - [Project Settings]({{% relref "/navigate/project-settings.md" %}})
-- [Model]({{% relref "/navigate/model.md" %}})
+- [Model]({{% relref "/navigate/model/index.md" %}})
 - [Image]({{% relref "/navigate/image.md" %}})
 - Kubernetes
   - [Client Configuration]({{% relref "/navigate/kubernetes/k8s-client-config.md" %}})

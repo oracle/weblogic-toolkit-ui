@@ -34,7 +34,7 @@ For detailed user information, read the following:
 - [About the WKT UI Application]({{% relref "/concepts/" %}})
 - WKT UI [Prerequisites]({{% relref "/setup/prerequisites.md" %}}) and [Installation]({{% relref "/setup/install.md" %}})
 - [Navigate the WKT UI]({{% relref "/navigate/" %}})
-    - [Model]({{% relref "/navigate/model.md" %}})
+    - [Model]({{% relref "/navigate/model/index.md" %}})
     - [Image]({{% relref "/navigate/image.md" %}})
     - [Kubernetes]({{% relref "/navigate/kubernetes/" %}})
 
