@@ -39,6 +39,8 @@ show up in both the model and the variables editor on the `Code View` page. Like
 supply the path to the EAR, WAR, or JAR file (or directory); that path will be put in the archive editor on the
 `Code View` page.
 
+The [Model Design View Map](document) lists the MBean folders and attributes that are available in WDT, and where they can be found in the Model Design View navigation
+
 ### Code View
 Using an IDE-like layout, the `Code View` provides editor panes for editing the model, variables, and archive files,
 each of which support creating and editing the domain's WDT files. When working with an editor, there are several things
