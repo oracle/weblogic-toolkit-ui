@@ -3,9 +3,9 @@ title: "Model Design View Map"
 weight: 1
 draft: false
 ---
-This page list MBean folders and attributes that are available in WDT, and where they can be found in the Model Design View navigation.
+This page shows where to find the WDT folders and attributes in the Model Design View editor.
 
-### Index
+### WDT Folder Hierarchy
 - [AdminConsole](#adminconsole)
 - [AllowList](#allowlist)
 - [Application](#application)
