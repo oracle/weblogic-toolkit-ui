@@ -110,9 +110,6 @@
           "AltDescriptorDir",
           "ConfiguredApplicationIdentifier",
           "Untargeted"
-        ],
-        "folders": [
-          "SubDeployment"
         ]
       }
     ]

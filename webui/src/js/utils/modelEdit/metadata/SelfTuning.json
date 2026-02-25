@@ -8,15 +8,6 @@
           "PartitionFairShare",
           "Notes"
         ],
-        "folders": [
-          "Capacity",
-          "ContextRequestClass",
-          "FairShareRequestClass",
-          "MaxThreadsConstraint",
-          "MinThreadsConstraint",
-          "ResponseTimeRequestClass",
-          "WorkManager"
-        ],
         "addRemainingAttributes": true
       }
     ]
@@ -65,12 +56,6 @@
         "type": "attributesCollapsible",
         "labelKey": "advanced-label",
         "addRemainingAttributes": true
-      },
-      {
-        "type": "hidden",
-        "folders": [
-          "ContextCase"
-        ]
       }
     ]
   },
@@ -277,9 +262,6 @@
         "type": "hidden",
         "attributes": [
           "UseVirtualThreads"
-        ],
-        "folders": [
-          "WorkManagerShutdownTrigger"
         ]
       }
     ]

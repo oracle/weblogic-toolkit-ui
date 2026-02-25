@@ -41,14 +41,6 @@
             "attributes": [
               "SourcePath",
               "Version"
-            ],
-            "folders": [
-              "JdbcResource/JDBCConnectionPoolParams",
-              "JdbcResource/JDBCDataSourceParams",
-              "JdbcResource/JDBCDriverParams",
-              "JdbcResource/JDBCOracleParams",
-              "JdbcResource/JDBCXAParams",
-              "SubDeployment"
             ]
           }
         ]
@@ -318,12 +310,6 @@
         "type": "attributesCollapsible",
         "labelKey": "advanced-label",
         "addRemainingAttributes": true
-      },
-      {
-        "type": "hidden",
-        "folders": [
-          "Properties"
-        ]
       }
     ]
   },

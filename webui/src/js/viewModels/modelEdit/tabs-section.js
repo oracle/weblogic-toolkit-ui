@@ -21,8 +21,6 @@ function(accUtils, ko, ModuleHelper, MetaHelper, MessageHelper, AliasHelper, Arr
 
     const REMAINING_ATTRIBUTES = FOLDER_INFO.remainingAttributes;
     const REMAINING_ATTRIBUTES_ASSIGNED = FOLDER_INFO.remainingAttributesAssigned;
-    const REMAINING_FOLDERS = FOLDER_INFO.remainingFolders;
-    const REMAINING_FOLDERS_ASSIGNED = FOLDER_INFO.remainingFoldersAssigned;
 
     const subscriptions = [];
 
@@ -93,27 +91,6 @@ function(accUtils, ko, ModuleHelper, MetaHelper, MessageHelper, AliasHelper, Arr
       tabsArray.push(tabEntry);
       tabsMap[itemKey] = tabEntry;
     });
-
-    // add remaining folders as tabs
-    if(IS_TOP_SECTIONS && !REMAINING_FOLDERS_ASSIGNED && REMAINING_FOLDERS.length) {
-      REMAINING_FOLDERS.forEach(folderName => {
-        const itemKey = 'tab-' + lastId++;
-        const folderNames = folderName.split('/');
-        const folderPath = [...MODEL_PATH, ...folderNames];
-        const aliasPath = AliasHelper.getAliasPath(folderPath);
-        const tabType = AliasHelper.isMultiplePath(folderPath) ? 'multiFolder' : 'singleFolder';
-        const label = MessageHelper.getFolderLabel(aliasPath);
-
-        const tabEntry = {
-          itemKey,
-          label,
-          tabType,
-          folderPath
-        };
-        tabsArray.push(tabEntry);
-        tabsMap[itemKey] = tabEntry;
-      });
-    }
 
     const firstTabKey = tabsArray.length ? tabsArray[0].itemKey : null;
     this.selectedTab = ko.observable(firstTabKey);

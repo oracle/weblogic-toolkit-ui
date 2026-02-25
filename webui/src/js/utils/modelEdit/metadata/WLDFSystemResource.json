@@ -46,12 +46,6 @@
         "type": "hidden",
         "attributes": [
           "SourcePath"
-        ],
-        "folders": [
-          "SubDeployment",
-          "WLDFResource/Harvester",
-          "WLDFResource/Instrumentation",
-          "WLDFResource/WatchNotification"
         ]
       }
     ]
@@ -68,12 +62,6 @@
         "attributes": [
           "Enabled",
           "SamplePeriod"
-        ]
-      },
-      {
-        "type": "hidden",
-        "folders": [
-          "HarvestedType"
         ]
       }
     ]
@@ -123,12 +111,6 @@
         "attributes": [
           "Exclude",
           "Include"
-        ]
-      },
-      {
-        "type": "hidden",
-        "folders": [
-          "WLDFInstrumentationMonitor"
         ]
       }
     ]
@@ -444,24 +426,6 @@
         "type": "attributesCollapsible",
         "labelKey": "advanced-label",
         "addRemainingAttributes": true
-      },
-      {
-        "type": "hidden",
-        "folders": [
-          "HeapDumpAction",
-          "ImageNotification",
-          "JMSNotification",
-          "JMXNotification",
-          "LogAction",
-          "RestNotification",
-          "ScaleDownAction",
-          "ScaleUpAction",
-          "ScriptAction",
-          "SMTPNotification",
-          "SNMPNotification",
-          "ThreadDumpAction",
-          "Watch"
-        ]
       }
     ]
   },
@@ -845,12 +809,6 @@
         "type": "attributesCollapsible",
         "labelKey": "advanced-label",
         "addRemainingAttributes": true
-      },
-      {
-        "type": "hidden",
-        "folders": [
-          "Schedule"
-        ]
       }
     ]
   },

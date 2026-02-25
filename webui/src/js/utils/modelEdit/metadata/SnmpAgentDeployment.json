@@ -86,15 +86,6 @@
           "MibDataRefreshInterval",
           "ServerStatusCheckIntervalFactor",
           "UserDefinedMib"
-        ],
-        "folders": [
-          "SNMPAttributeChange",
-          "SNMPCounterMonitor",
-          "SNMPGaugeMonitor",
-          "SNMPLogFilter",
-          "SNMPProxy",
-          "SNMPStringMonitor",
-          "SNMPTrapDestination"
         ]
       }
     ]

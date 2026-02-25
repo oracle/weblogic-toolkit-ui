@@ -219,15 +219,6 @@
         "type": "hidden",
         "attributes": [
           "ProxyServer"
-        ],
-        "folders": [
-          "CoherenceTier",
-          "DatabaseLessLeasingBasis",
-          "DynamicServers",
-          "JTACluster",
-          "OverloadProtection",
-          "WeblogicClusterRouting",
-          "WeblogicPluginRouting"
         ]
       },
       {
@@ -620,9 +611,6 @@
         "attributes": [
           "CrossDomainRecoveryRetryInterval",
           "RecoveryThresholdMillis"
-        ],
-        "folders": [
-          "JtaRemoteDomain"
         ]
       }
     ]
