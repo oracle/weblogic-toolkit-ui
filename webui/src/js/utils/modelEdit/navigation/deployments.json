@@ -11,7 +11,10 @@
       ]
     },
     {
-      "path": "DbClientDataDirectory"
+      "path": "DbClientDataDirectory",
+      "hidden": [
+        "SubDeployment"
+      ]
     },
     {
       "path": "Library",
@@ -22,7 +25,10 @@
       ]
     },
     {
-      "path": "PluginDeployment"
+      "path": "PluginDeployment",
+      "hidden": [
+        "SubDeployment"
+      ]
     }
   ]
 }

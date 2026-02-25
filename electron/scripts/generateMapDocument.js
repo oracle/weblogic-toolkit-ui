@@ -12,11 +12,11 @@ const path = require('path');
 /* global __dirname */
 
 const DOCUMENTATION_VERSION = '2.0';
-const TITLE = 'Model Design View Map';
 const NAMESPACE = 'modeledit';  // for i18n
 
-const INTRO_TEXT = 'This page list MBean folders and attributes that are available in WDT, ' +
-  'and where they can be found in the Model Design View navigation.';
+const TITLE = 'Model Design View Map';
+const INDEX_TITLE = 'WDT Folder Hierarchy';
+const INTRO_TEXT = 'This page shows where to find the WDT folders and attributes in the Model Design View editor.';
 
 // nav paths that don't match alias paths
 const ALIAS_PATH_MAP = {
@@ -56,8 +56,8 @@ const DOCUMENT_FILE = path.join(DOCUMENT_DIR, 'model-map.md');
 
 const ERROR_LIST = [];
 
-// paths intentionally omitted from the UI.
-const SKIP_PATHS = [
+// top-level paths intentionally omitted from the UI.
+const OMITTED_ROOT_FOLDERS = [
   'CustomResource',
   'OptionalFeatureDeployment',
   'Partition',
@@ -68,18 +68,6 @@ const SKIP_PATHS = [
   'ResourceManager',
   'Security',
   'VirtualTarget',
-
-  // TODO: non-top-level folders could be derived if hidden logic was usable
-  'CoherenceClusterSystemResource/SubDeployment',
-  'DbClientDataDirectory/SubDeployment',
-  'JDBCSystemResource/SubDeployment',
-  'JMSServer/JmsSessionPool',
-  'JMSSystemResource/JmsResource/DistributedQueue',
-  'JMSSystemResource/JmsResource/DistributedTopic',
-  'PluginDeployment/SubDeployment',
-  'Server/FederationServices',
-  'ServerTemplate/FederationServices',
-  'WLDFSystemResource/SubDeployment'
 ];
 
 async function generateMapDocument() {
@@ -96,10 +84,9 @@ async function generateMapDocument() {
   const wdtLibraryJar = path.normalize(path.join(__dirname, '..', '..', 'tools', 'weblogic-deploy', 'lib',
     'weblogic-deploy-core.jar'));
 
+  // sort the paths in the alias map
   const aliasInfo = await modelEditUtils.getAliasInfo(wdtLibraryJar);
-  filterAliasInfo(aliasInfo);
 
-  // sort the path map in the aliases
   const aliasPathMap = Object.keys(aliasInfo.paths)
     .sort() // Sorts keys alphabetically by default
     .reduce((obj, key) => {
@@ -135,15 +122,29 @@ async function generateMapDocument() {
   // update the document from the nav files
   // ***************************************
 
+  const hiddenPaths = [];
   const navDataPath = path.normalize(path.join(DATA_PATH, 'navigation'));
   const navFiles = fs.readdirSync(navDataPath);
   for(const file of navFiles) {
     if(file.endsWith('.json')) {
       const filePath = path.join(navDataPath, file);
       const data = fs.readFileSync(filePath, 'utf8');
-      const navMap = JSON.parse(data);
+      const rootNavFolder = JSON.parse(data);
 
-      updateFromNavFolder(docPathMap, navMap, null, true);
+      updateFromNavFolder(docPathMap, rootNavFolder, null, true, hiddenPaths);
+    }
+  }
+
+  // ******************************
+  // remove omitted document paths
+  // ******************************
+
+  const omittedPaths = [...OMITTED_ROOT_FOLDERS, ...hiddenPaths];
+  for(const path of Object.keys(docPathMap)) {
+    for(const skipPath of omittedPaths) {
+      if (path === skipPath || path.startsWith(skipPath + '/')) {
+        delete docPathMap[path];
+      }
     }
   }
 
@@ -234,8 +235,9 @@ async function generateMapDocument() {
  * @param navFolder the navigation folder to be examined
  * @param parentPath the navigation path to this folder
  * @param isTopLevel true if this is a top-level navigation folder, such as Topology
+ * @param hiddenPaths a list of hidden paths to be updated
  */
-function updateFromNavFolder(docPathMap, navFolder, parentPath, isTopLevel) {
+function updateFromNavFolder(docPathMap, navFolder, parentPath, isTopLevel, hiddenPaths) {
   let navPath = navFolder['path'];
   if(parentPath) {
     navPath = parentPath + '/' + navFolder['path'];
@@ -251,6 +253,12 @@ function updateFromNavFolder(docPathMap, navFolder, parentPath, isTopLevel) {
   // may need translation to alias path
   aliasPath = ALIAS_PATH_MAP[aliasPath] || aliasPath;
 
+  const hidden = navFolder['hidden'] || [];
+  hidden.forEach(eachHidden => {
+    const hiddenPath = aliasPath + '/' + eachHidden;
+    hiddenPaths.push(hiddenPath);
+  });
+
   const docPathInfo = docPathMap[aliasPath];
   if(docPathInfo) {
     docPathInfo['locations'].push(navPath);
@@ -265,12 +273,12 @@ function updateFromNavFolder(docPathMap, navFolder, parentPath, isTopLevel) {
 
   const children = navFolder['children'] || [];
   for(const child of children) {
-    updateFromNavFolder(docPathMap, child, navPath, false);
+    updateFromNavFolder(docPathMap, child, navPath, false, hiddenPaths);
   }
 
   const instanceChildren = navFolder['instanceChildren'] || [];
   for(const instanceChild of instanceChildren) {
-    updateFromNavFolder(docPathMap, instanceChild, navPath, false);
+    updateFromNavFolder(docPathMap, instanceChild, navPath, false, hiddenPaths);
   }
 }
 
@@ -366,17 +374,6 @@ function checkSummaryAttributes(path, metadataMap, docPathMap) {
 
     if(!checkKeys.includes(checkKey)) {
       addError('Bad summary attribute: ' + path + ' | ' + key);
-    }
-  }
-}
-
-function filterAliasInfo(aliasInfo) {
-  const paths = aliasInfo['paths'];
-  for(const path of Object.keys(paths)) {
-    for(const skipPath of SKIP_PATHS) {
-      if (path === skipPath || path.startsWith(skipPath + '/')) {
-        delete paths[path];
-      }
     }
   }
 }
@@ -552,7 +549,7 @@ function writeDocument(docPathMap) {
 }
 
 function writeIndex(docPathMap, writeStream) {
-  writeLine('### Index', writeStream);
+  writeLine(`### ${INDEX_TITLE}`, writeStream);
 
   const root = {
     label: 'root',

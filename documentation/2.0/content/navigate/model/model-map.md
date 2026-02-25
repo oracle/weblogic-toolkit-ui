@@ -7271,10 +7271,10 @@ Navigate to: Topology => XML Registries => (instance)
 |Schema Factory | SchemaFactory |  |
 |Transformer Factory | TransformerFactory |  |
 |When To Cache | WhenToCache |  |
-|Xml Event Factory | XmlEventFactory |  |
-|Xml Input Factory | XmlInputFactory |  |
-|Xml Output Factory | XmlOutputFactory |  |
-|Xpath Factory | XpathFactory |  |
+|XML Event Factory | XmlEventFactory |  |
+|XML Input Factory | XmlInputFactory |  |
+|XML Output Factory | XmlOutputFactory |  |
+|XPath Factory | XpathFactory |  |
 
 ### XMLRegistry / XMLEntitySpecRegistryEntry
 Navigate to: Topology => XML Registries => (instance) => XML Entity Spec Registry Entries => (instance)

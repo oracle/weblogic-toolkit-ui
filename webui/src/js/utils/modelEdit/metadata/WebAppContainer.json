@@ -85,10 +85,6 @@
         "type": "hidden",
         "attributes": [
           "MaxRequestParamterCount"
-        ],
-        "folder": [
-          "GzipCompression",
-          "Http2Config"
         ]
       }
     ]

@@ -7175,16 +7175,16 @@
   "a-XacmlStatus-label": "XACML Status",
   "a-XacmlStatus-help": "The status of the policy. This is an advanced-usage field that should never be specified unless you know what you are doing. The default value is 3.",
 
-  "a-XmlEventFactory-label": "Xml Event Factory",
+  "a-XmlEventFactory-label": "XML Event Factory",
   "f-XMLRegistry-a-XmlEventFactory-help": "The fully qualified name of the class that implements the XMLEventFactory interface. The javax.xml.stream.XMLEventFactory factory API enables applications deployed to WebLogic Server to configure and obtain a XMLEvent object used to parse or build XML streams.",
 
-  "a-XmlInputFactory-label": "Xml Input Factory",
+  "a-XmlInputFactory-label": "XML Input Factory",
   "f-XMLRegistry-a-XmlInputFactory-help": "The fully qualified name of the class that implements the XMLInputFactory interface. The javax.xml.stream.XMLInputFactory factory API enables applications deployed to WebLogic Server to configure and obtain a XMLEventReader/XMLStreamReader object used to read XML streams.",
 
-  "a-XmlOutputFactory-label": "Xml Output Factory",
+  "a-XmlOutputFactory-label": "XML Output Factory",
   "f-XMLRegistry-a-XmlOutputFactory-help": "The fully qualified name of the class that implements the XMLOutputFactory interface. The javax.xml.stream.XMLOutputFactory factory API enables applications deployed to WebLogic Server to configure and obtain a XMLEventWriter/XMLStreamWriter object used to write XML streams.",
 
-  "a-XpathFactory-label": "Xpath Factory",
+  "a-XpathFactory-label": "XPath Factory",
   "f-XMLRegistry-a-XpathFactory-help": "The fully qualified name of the class that implements the XPathFactory interface. The javax.xml.xpath.XPathFactory factory API enables applications deployed to WebLogic Server to configure and obtain a XPath object used to search XML elements.",
 
   "a-Year-label": "Year",

@@ -296,6 +296,9 @@
             }
           ]
         }
+      ],
+      "hidden": [
+        "FederationServices"
       ]
     },
     {
@@ -424,6 +427,9 @@
             }
           ]
         }
+      ],
+      "hidden": [
+        "FederationServices"
       ]
     },
     {

@@ -137,9 +137,6 @@
         "attributes": [
           "CrossDomainRecoveryRetryInterval",
           "RecoveryThresholdMillis"
-        ],
-        "folders": [
-          "JtaRemoteDomain"
         ]
       }
     ]

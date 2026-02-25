@@ -32,6 +32,8 @@ function (ko, WktLogger, WktProject, allNavigation, ModelEditHelper, AliasHelper
         return;
       }
 
+      this.updateNavigationData(allNavigation, [], true);
+
       this.initializeNavList(allNavigation, []);
 
       allNavigation.forEach(navEntry => {
@@ -60,6 +62,86 @@ function (ko, WktLogger, WktProject, allNavigation, ModelEditHelper, AliasHelper
     ModelEditHelper.dataLoaded.subscribe(() => {
       this.initialize();
     });
+
+    /**
+     * Adjust the static navigation list from the JSON files.
+     * Add any missing alias folders to the initial nav structure (possible with newer WDT version).
+     * Remove any nav entries with a path not in aliases (possible with WDT version mismatch).
+     * @param navList a navigation list
+     * @param parentPath that parent path for the list (used for alias lookup)
+     * @param isTopLevel true if nav list is top level (no alias child folders list)
+     */
+    this.updateNavigationData = (navList, parentPath, isTopLevel) => {
+      const invalidEntries = [];
+
+      let nextParentPath = parentPath;
+      navList.forEach(navEntry => {
+        let navSubfolders = navEntry.children || navEntry.instanceChildren || [];
+        const navPath = navEntry.path;
+        if(navPath) {
+          const aliasPath = [...parentPath, navPath];
+
+          if(!isTopLevel) {
+            const aliasNode = AliasHelper.getAliasNode(aliasPath);
+
+            if(!aliasNode) {
+              WktLogger.warn('Removing navigation entry with no alias: ' + aliasPath.join('/'));
+              invalidEntries.push(navEntry);  // remove after looping
+
+            } else {
+              const usesTypeFolders = aliasNode.usesTypeFolders;
+              if(!usesTypeFolders) {  // type folders don't appear in nav
+                const aliasFolders = aliasNode.folders;
+
+                // check the specific child list
+                const isMultiple = aliasNode.isMultiple;
+                if(isMultiple) {
+                  navEntry.instanceChildren = navEntry.instanceChildren || [];
+                  navSubfolders = navEntry.instanceChildren;
+                } else {
+                  navEntry.children = navEntry.children || [];
+                  navSubfolders = navEntry.children;
+                }
+
+                // folder with merge folders have nav paths like JmsResource/ConnectionFactory
+                const mergeFolder = MetaHelper.getMergeFolder(aliasPath);
+                if(mergeFolder) {
+                  const mergeAliasPath = [...aliasPath, mergeFolder];
+                  const mergeAliasNode = AliasHelper.getAliasNode(mergeAliasPath);
+                  const mergeAliasFolders = mergeAliasNode.folders;
+                  mergeAliasFolders.forEach(mergeAliasFolder => {
+                    aliasFolders.push(mergeFolder + '/' + mergeAliasFolder);
+                  });
+                }
+
+                // each alias folder must have a nav folder, unless hidden
+                const navSubpaths = navSubfolders.map(folder => folder.path);
+                const hiddenNames = navEntry.hidden || [];
+                navSubpaths.push(...hiddenNames);
+                aliasFolders.forEach(aliasFolder => {
+                  if (!navSubpaths.includes(aliasFolder) && (aliasFolder !== mergeFolder)) {
+                    WktLogger.warn('Adding navigation entry for: ' + aliasPath.join('/') + '/' + aliasFolder);
+
+                    navSubfolders.push({
+                      path: aliasFolder
+                    });
+                  }
+                });
+              }
+            }
+          }
+
+          nextParentPath = isTopLevel ? parentPath : aliasPath;  // don't append path for topology, resources, etc.
+        }
+
+        this.updateNavigationData(navSubfolders, nextParentPath, false);
+      });
+
+      invalidEntries.forEach(entry => {
+        const index = navList.indexOf(entry);
+        navList.splice(index, 1);
+      });
+    };
 
     this.selectDefault = () => {
       const firstNavEntry = allNavigation[0];

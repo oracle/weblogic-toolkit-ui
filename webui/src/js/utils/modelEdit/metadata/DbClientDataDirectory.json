@@ -31,9 +31,6 @@
       },
       {
         "type": "hidden",
-        "folders": [
-          "SubDeployment"
-        ],
         "attributes": [
           "AltDescriptorDir",
           "AltDescriptorPath",

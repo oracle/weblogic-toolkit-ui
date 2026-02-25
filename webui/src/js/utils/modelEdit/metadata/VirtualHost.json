@@ -89,9 +89,6 @@
           "WebDeployment",
           "WorkManagerForRemoteSessionFetching",
           "WriteChunkBytes"
-        ],
-        "folders": [
-          "WebServerLog"
         ]
       }
     ]

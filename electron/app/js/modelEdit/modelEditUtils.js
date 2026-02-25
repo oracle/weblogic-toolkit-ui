@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2024, 2025, Oracle and/or its affiliates.
+ * Copyright (c) 2024, 2026, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -16,7 +16,7 @@ const wdtArchive = require('../wdtArchive');
 const acronyms = [
   'ACL', 'ACS', 'CCDI', 'CORS', 'CPU', 'CRL', 'DB', 'DDL', 'EJB', 'HTTP', 'ID', 'JDBC', 'JMS', 'JNDI',
   'JPA', 'JTA', 'KSS', 'MDB', 'PC', 'RJVM', 'RMIT', 'SAML', 'SNMP', 'SRM', 'SSL', 'SSO', 'TLOG', 'TTL', 'TXN',
-  'URI', 'URL', 'WLDF', 'WSAT', 'XA', 'XACML',
+  'URI', 'URL', 'WLDF', 'WSAT', 'XA', 'XACML', 'XML',
   'Coherence', 'WebLogic'
 ];
 

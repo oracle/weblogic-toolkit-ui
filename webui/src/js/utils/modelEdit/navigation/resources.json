@@ -49,6 +49,9 @@
         {
           "path": "CoherenceResource/CoherencePersistenceParams"
         }
+      ],
+      "hidden": [
+        "SubDeployment"
       ]
     },
     {
@@ -91,6 +94,9 @@
         {
           "path": "JdbcResource/JDBCXAParams"
         }
+      ],
+      "hidden": [
+        "SubDeployment"
       ]
     },
     {
@@ -102,6 +108,9 @@
         {
           "path": "JmsMessageLogFile"
         }
+      ],
+      "hidden": [
+        "JmsSessionPool"
       ]
     },
     {
@@ -294,6 +303,10 @@
             }
           ]
         }
+      ],
+      "hidden": [
+        "JmsResource/DistributedQueue",
+        "JmsResource/DistributedTopic"
       ]
     },
     {
@@ -552,6 +565,9 @@
             }
           ]
         }
+      ],
+      "hidden": [
+        "SubDeployment"
       ]
     }
   ]

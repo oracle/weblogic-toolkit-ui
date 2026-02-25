@@ -45,9 +45,6 @@
         "type": "hidden",
         "attributes": [
           "Address"
-        ],
-        "folders": [
-          "NodeManager"
         ]
       }
     ]
