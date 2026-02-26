@@ -683,7 +683,7 @@ function(project, K8sDomainConfigMapGenerator, jsYaml, i18n, auxImageHelper) {
   }
 
   function _getClusterName(domainUid, clusterName) {
-    return `${domainUid}-${clusterName.replaceAll('_', '-')}`;
+    return `${domainUid}-${clusterName.replaceAll('_', '-')}`.toLowerCase();
   }
 
   return K8sDomainV9ResourceGenerator;
