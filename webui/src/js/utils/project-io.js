@@ -258,7 +258,7 @@ define(['knockout', 'models/wkt-project', 'utils/i18n', 'utils/dialog-helper'],
 
         if(selectFile) {
           const result =  await window.api.ipc.invoke('choose-archive-file',
-            project.settings.wdtArchivePluginType.value(), project.settings.javaHome.value());
+            project.settings.wdtArchivePluginType.value, project.settings.javaHome.value);
           if(result['content']) {
             project.wdtModel.setSpecifiedModelFiles(result['content']);
             added = true;

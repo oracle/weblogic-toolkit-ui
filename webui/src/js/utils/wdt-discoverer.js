@@ -92,7 +92,7 @@ function (WdtActionsBase, ko, project, wktConsole, dialogHelper, projectIO, i18n
         discoverConfig.modelFile = project.wdtModel.getDefaultModelFile();
         discoverConfig.propertiesFile = project.wdtModel.getDefaultPropertiesFile();
         discoverConfig.archiveFile = project.wdtModel.getDefaultArchiveFile();
-        discoverConfig.wdtArchivePluginType = project.settings.wdtArchivePluginType.value();
+        discoverConfig.wdtArchivePluginType = project.settings.wdtArchivePluginType.value;
 
         wktConsole.clear();
         wktConsole.show(true);
