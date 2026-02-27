@@ -93,16 +93,6 @@ function (ko, WktLogger, WktProject, allNavigation, ModelEditHelper, AliasHelper
               if(!usesTypeFolders) {  // type folders don't appear in nav
                 const aliasFolders = aliasNode.folders;
 
-                // check the specific child list
-                const isMultiple = aliasNode.isMultiple;
-                if(isMultiple) {
-                  navEntry.instanceChildren = navEntry.instanceChildren || [];
-                  navSubfolders = navEntry.instanceChildren;
-                } else {
-                  navEntry.children = navEntry.children || [];
-                  navSubfolders = navEntry.children;
-                }
-
                 // folder with merge folders have nav paths like JmsResource/ConnectionFactory
                 const mergeFolder = MetaHelper.getMergeFolder(aliasPath);
                 if(mergeFolder) {
@@ -114,13 +104,23 @@ function (ko, WktLogger, WktProject, allNavigation, ModelEditHelper, AliasHelper
                   });
                 }
 
-                // each alias folder must have a nav folder, unless hidden
+                // add subfolders to the nav for missing alias folders, unless hidden
+
+                const isMultiple = aliasNode.isMultiple;  // check the specific child list
+                const childrenKey = isMultiple ? 'instanceChildren' : 'children';
+                navSubfolders = navEntry[childrenKey] || [];
+
                 const navSubpaths = navSubfolders.map(folder => folder.path);
                 const hiddenNames = navEntry.hidden || [];
                 navSubpaths.push(...hiddenNames);
+
                 aliasFolders.forEach(aliasFolder => {
                   if (!navSubpaths.includes(aliasFolder) && (aliasFolder !== mergeFolder)) {
                     WktLogger.warn('Adding navigation entry for: ' + aliasPath.join('/') + '/' + aliasFolder);
+
+                    // create and assign empty list if not present
+                    navEntry[childrenKey] = navEntry[childrenKey] || [];
+                    navSubfolders = navEntry[childrenKey];
 
                     navSubfolders.push({
                       path: aliasFolder
@@ -332,16 +332,26 @@ function (ko, WktLogger, WktProject, allNavigation, ModelEditHelper, AliasHelper
         }
       });
 
-      // give every folderList element a sortIndex
+      // give every folderList element a sortIndex from model.
+      // set needSort if any folders are not in model order.
+      let folderIndex = 0;
+      let needSort = false;
       folderList().forEach(folder => {
         folder.sortIndex = modelKeys.indexOf(folder.name);
+        if(folder.sortIndex !== folderIndex) {
+          needSort = true;
+        }
+        folderIndex++;
       });
 
       // sort by model order.
-      // also needed to prevent duplicate entries from displaying
-      folderList.sort(function(a, b) {
-        return (a.sortIndex < b.sortIndex) ? -1 : ((a.sortIndex > b.sortIndex) ? 1 : 0);
-      });
+      // previously  needed to prevent duplicate entries in display.
+      // too much sorting was causing nav tree to scroll to top.
+      if(needSort) {
+        folderList.sort(function(a, b) {
+          return (a.sortIndex < b.sortIndex) ? -1 : ((a.sortIndex > b.sortIndex) ? 1 : 0);
+        });
+      }
     };
 
     this.getModelPath = key => {
