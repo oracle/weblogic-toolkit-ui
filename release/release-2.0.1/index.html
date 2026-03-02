@@ -5,30 +5,26 @@
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <meta name="generator" content="Hugo 0.152.2">
     <meta name="generator" content="Relearn 8.3.0">
-    <meta name="description" content="Changes in Release 1.5.3 Major New Features Other Changes Bugs Fixes Known Issues Major New Features None
-Other Changes #242 - Added initial (very minimal) internationalization support bundles. #245 - Added an Ingress Controller Service Type field that can be used when installing an ingress controller to a Kubernetes cluster without a load balancer. Bug Fixes #241 - Fixed a bug with the WebLogic Image Tool’s --wdtHome argument when it ended with weblogic-deploy. #246 - Worked around a WebLogic Kubernetes Operator issue where the javaLoggingFileSizeLimit value was not working due to Helm issue 1707 . #247 - Fixed issue with Open Project when storing the credentials in the project and entering the wrong passphrase that was causing the UI to not allow re-opening the project. Known Issues In the Model Design View when creating an App Deployment or Shared Library, changing the Source field back to an empty value results in a bogus error message about not removing the deployment from the archive file. This error is harmless so simply dismiss the error dialog and continue. On Linux, the open and save dialogs open behind the main application window. This is due to Electron bug 32857 . When deploying a Verrazzano application, the Get Application Status button only checks the status of the project’s Verrazzano component containing the WebLogic domain specification. Verrazzano installation does not support a multicluster installation.">
+    <meta name="description" content="Changes in Release 2.0.1 Major New Features Other Changes Bugs Fixes Known Issues Major New Features None
+Other Changes #486 - Changed first security realm suggested name to myrealm. #487 - Changed Model Design View navigation to provide context menu options for adding and deleting model folder instances. #488 - Added support for dark mode and controlling it via the user preferences dialog. #490 - Updated translation message bundles. Bug Fixes #484 - Added missing RDBMS Security Store and User Lockout Manager navigation entries to Model Design View. #485 - Added customizations to fields on the RDBMS Security Store page. Known Issues When using an RPM or DEB installation, the Auto Update dialog appears but the Update Now and Update On Exit buttons do not work unless the user has handled the authentication problem. For example, starting the application using sudo wktui --no-sandbox or using an authentication agent like polkit allows the updates to function properly.">
     <meta name="author" content="">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Release 1.5.3 :: WebLogic Kubernetes Toolkit UI">
-    <meta name="twitter:description" content="Changes in Release 1.5.3 Major New Features Other Changes Bugs Fixes Known Issues Major New Features None
-Other Changes #242 - Added initial (very minimal) internationalization support bundles. #245 - Added an Ingress Controller Service Type field that can be used when installing an ingress controller to a Kubernetes cluster without a load balancer. Bug Fixes #241 - Fixed a bug with the WebLogic Image Tool’s --wdtHome argument when it ended with weblogic-deploy. #246 - Worked around a WebLogic Kubernetes Operator issue where the javaLoggingFileSizeLimit value was not working due to Helm issue 1707 . #247 - Fixed issue with Open Project when storing the credentials in the project and entering the wrong passphrase that was causing the UI to not allow re-opening the project. Known Issues In the Model Design View when creating an App Deployment or Shared Library, changing the Source field back to an empty value results in a bogus error message about not removing the deployment from the archive file. This error is harmless so simply dismiss the error dialog and continue. On Linux, the open and save dialogs open behind the main application window. This is due to Electron bug 32857 . When deploying a Verrazzano application, the Get Application Status button only checks the status of the project’s Verrazzano component containing the WebLogic domain specification. Verrazzano installation does not support a multicluster installation.">
-    <meta property="og:url" content="https://oracle.github.io/weblogic-toolkit-ui/release/release-1.5.3/index.html">
+    <meta name="twitter:title" content="Release 2.0.1 :: WebLogic Kubernetes Toolkit UI">
+    <meta name="twitter:description" content="Changes in Release 2.0.1 Major New Features Other Changes Bugs Fixes Known Issues Major New Features None
+Other Changes #486 - Changed first security realm suggested name to myrealm. #487 - Changed Model Design View navigation to provide context menu options for adding and deleting model folder instances. #488 - Added support for dark mode and controlling it via the user preferences dialog. #490 - Updated translation message bundles. Bug Fixes #484 - Added missing RDBMS Security Store and User Lockout Manager navigation entries to Model Design View. #485 - Added customizations to fields on the RDBMS Security Store page. Known Issues When using an RPM or DEB installation, the Auto Update dialog appears but the Update Now and Update On Exit buttons do not work unless the user has handled the authentication problem. For example, starting the application using sudo wktui --no-sandbox or using an authentication agent like polkit allows the updates to function properly.">
+    <meta property="og:url" content="https://oracle.github.io/weblogic-toolkit-ui/release/release-2.0.1/index.html">
     <meta property="og:site_name" content="WebLogic Kubernetes Toolkit UI">
-    <meta property="og:title" content="Release 1.5.3 :: WebLogic Kubernetes Toolkit UI">
-    <meta property="og:description" content="Changes in Release 1.5.3 Major New Features Other Changes Bugs Fixes Known Issues Major New Features None
-Other Changes #242 - Added initial (very minimal) internationalization support bundles. #245 - Added an Ingress Controller Service Type field that can be used when installing an ingress controller to a Kubernetes cluster without a load balancer. Bug Fixes #241 - Fixed a bug with the WebLogic Image Tool’s --wdtHome argument when it ended with weblogic-deploy. #246 - Worked around a WebLogic Kubernetes Operator issue where the javaLoggingFileSizeLimit value was not working due to Helm issue 1707 . #247 - Fixed issue with Open Project when storing the credentials in the project and entering the wrong passphrase that was causing the UI to not allow re-opening the project. Known Issues In the Model Design View when creating an App Deployment or Shared Library, changing the Source field back to an empty value results in a bogus error message about not removing the deployment from the archive file. This error is harmless so simply dismiss the error dialog and continue. On Linux, the open and save dialogs open behind the main application window. This is due to Electron bug 32857 . When deploying a Verrazzano application, the Get Application Status button only checks the status of the project’s Verrazzano component containing the WebLogic domain specification. Verrazzano installation does not support a multicluster installation.">
+    <meta property="og:title" content="Release 2.0.1 :: WebLogic Kubernetes Toolkit UI">
+    <meta property="og:description" content="Changes in Release 2.0.1 Major New Features Other Changes Bugs Fixes Known Issues Major New Features None
+Other Changes #486 - Changed first security realm suggested name to myrealm. #487 - Changed Model Design View navigation to provide context menu options for adding and deleting model folder instances. #488 - Added support for dark mode and controlling it via the user preferences dialog. #490 - Updated translation message bundles. Bug Fixes #484 - Added missing RDBMS Security Store and User Lockout Manager navigation entries to Model Design View. #485 - Added customizations to fields on the RDBMS Security Store page. Known Issues When using an RPM or DEB installation, the Auto Update dialog appears but the Update Now and Update On Exit buttons do not work unless the user has handled the authentication problem. For example, starting the application using sudo wktui --no-sandbox or using an authentication agent like polkit allows the updates to function properly.">
     <meta property="og:locale" content="en_us">
     <meta property="og:type" content="article">
     <meta property="article:section" content="Release Notes">
-    <meta property="article:published_time" content="2023-05-31T11:16:00-05:00">
-    <meta property="article:modified_time" content="2023-05-31T11:16:00-05:00">
-    <meta itemprop="name" content="Release 1.5.3 :: WebLogic Kubernetes Toolkit UI">
-    <meta itemprop="description" content="Changes in Release 1.5.3 Major New Features Other Changes Bugs Fixes Known Issues Major New Features None
-Other Changes #242 - Added initial (very minimal) internationalization support bundles. #245 - Added an Ingress Controller Service Type field that can be used when installing an ingress controller to a Kubernetes cluster without a load balancer. Bug Fixes #241 - Fixed a bug with the WebLogic Image Tool’s --wdtHome argument when it ended with weblogic-deploy. #246 - Worked around a WebLogic Kubernetes Operator issue where the javaLoggingFileSizeLimit value was not working due to Helm issue 1707 . #247 - Fixed issue with Open Project when storing the credentials in the project and entering the wrong passphrase that was causing the UI to not allow re-opening the project. Known Issues In the Model Design View when creating an App Deployment or Shared Library, changing the Source field back to an empty value results in a bogus error message about not removing the deployment from the archive file. This error is harmless so simply dismiss the error dialog and continue. On Linux, the open and save dialogs open behind the main application window. This is due to Electron bug 32857 . When deploying a Verrazzano application, the Get Application Status button only checks the status of the project’s Verrazzano component containing the WebLogic domain specification. Verrazzano installation does not support a multicluster installation.">
-    <meta itemprop="datePublished" content="2023-05-31T11:16:00-05:00">
-    <meta itemprop="dateModified" content="2023-05-31T11:16:00-05:00">
-    <meta itemprop="wordCount" content="229">
-    <title>Release 1.5.3 :: WebLogic Kubernetes Toolkit UI</title>
+    <meta itemprop="name" content="Release 2.0.1 :: WebLogic Kubernetes Toolkit UI">
+    <meta itemprop="description" content="Changes in Release 2.0.1 Major New Features Other Changes Bugs Fixes Known Issues Major New Features None
+Other Changes #486 - Changed first security realm suggested name to myrealm. #487 - Changed Model Design View navigation to provide context menu options for adding and deleting model folder instances. #488 - Added support for dark mode and controlling it via the user preferences dialog. #490 - Updated translation message bundles. Bug Fixes #484 - Added missing RDBMS Security Store and User Lockout Manager navigation entries to Model Design View. #485 - Added customizations to fields on the RDBMS Security Store page. Known Issues When using an RPM or DEB installation, the Auto Update dialog appears but the Update Now and Update On Exit buttons do not work unless the user has handled the authentication problem. For example, starting the application using sudo wktui --no-sandbox or using an authentication agent like polkit allows the updates to function properly.">
+    <meta itemprop="wordCount" content="156">
+    <title>Release 2.0.1 :: WebLogic Kubernetes Toolkit UI</title>
     <link href="/weblogic-toolkit-ui/images/logo.png?1772476516" rel="icon" type="image/png">
     <link href="/weblogic-toolkit-ui/css/auto-complete/auto-complete.min.css?1772476516" rel="stylesheet">
     <script src="/weblogic-toolkit-ui/js/auto-complete/auto-complete.min.js?1772476516" defer></script>
@@ -54,7 +50,7 @@ Other Changes #242 - Added initial (very minimal) internationalization support b
       window.relearn = window.relearn || {};
       // configuration
       window.relearn.min = `.min`;
-      window.relearn.path='\/release\/release-1.5.3\/index.html';
+      window.relearn.path='\/release\/release-2.0.1\/index.html';
       window.relearn.relBasePath='..\/..';
       window.relearn.relBaseUri='..\/..\/..';
       window.relearn.absBaseUri='https:\/\/oracle.github.io\/weblogic-toolkit-ui';
@@ -102,7 +98,7 @@ Other Changes #242 - Added initial (very minimal) internationalization support b
       window.relearn.markVariant();
     </script>
   </head>
-  <body class="mobile-support html" data-url="/weblogic-toolkit-ui/release/release-1.5.3/index.html">
+  <body class="mobile-support html" data-url="/weblogic-toolkit-ui/release/release-2.0.1/index.html">
     <div id="R-body" class="default-animation">
       <div id="R-body-overlay"></div>
       <nav id="R-topbar">
@@ -120,7 +116,7 @@ Other Changes #242 - Added initial (very minimal) internationalization support b
   <ul>
     <li>
       <ul>
-        <li><a href="#changes-in-release-153">Changes in Release 1.5.3</a></li>
+        <li><a href="#changes-in-release-201">Changes in Release 2.0.1</a></li>
       </ul>
     </li>
   </ul>
@@ -129,14 +125,14 @@ Other Changes #242 - Added initial (very minimal) internationalization support b
               </div>
             </div>
           </div>
-          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/weblogic-toolkit-ui/index.html"><span itemprop="name">WebLogic Kubernetes Toolkit UI</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/weblogic-toolkit-ui/release/index.html"><span itemprop="name">Release Notes</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">Release 1.5.3</span><meta itemprop="position" content="3"></li>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/weblogic-toolkit-ui/index.html"><span itemprop="name">WebLogic Kubernetes Toolkit UI</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/weblogic-toolkit-ui/release/index.html"><span itemprop="name">Release Notes</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">Release 2.0.1</span><meta itemprop="position" content="3"></li>
           </ol>
           <div class="topbar-area topbar-area-end" data-area="end">
             <div class="topbar-button topbar-button-prev" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
-<span class="btn cstyle button link noborder notitle interactive"><a href="/weblogic-toolkit-ui/release/release-1.6.0/index.html" title="Release 1.6.0 (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+<span class="btn cstyle button link noborder notitle interactive"><a href="/weblogic-toolkit-ui/release/index.html" title="Release Notes (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
             </div>
             <div class="topbar-button topbar-button-next" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
-<span class="btn cstyle button link noborder notitle interactive"><a href="/weblogic-toolkit-ui/release/release-1.5.2/index.html" title="Release 1.5.2 (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+<span class="btn cstyle button link noborder notitle interactive"><a href="/weblogic-toolkit-ui/release/release-2.0.0/index.html" title="Release Notes (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
             </div>
             <div class="topbar-button topbar-button-more" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
 <span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="More"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
@@ -159,11 +155,11 @@ Other Changes #242 - Added initial (very minimal) internationalization support b
 
 
 
-<h1 id="release-153">Release 1.5.3</h1>
+<h1 id="release-201">Release 2.0.1</h1>
 
 
 
-<h3 id="changes-in-release-153">Changes in Release 1.5.3<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<h3 id="changes-in-release-201">Changes in Release 2.0.1<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <ul>
 <li>
 
@@ -202,46 +198,21 @@ Known Issues
 <p>None</p>
 <h4 id="other-changes">Other Changes<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h4>
 <ul>
-<li>#242 - Added initial (very minimal) internationalization support bundles.</li>
-<li>#245 - Added an Ingress Controller Service Type field that can be used when installing an ingress controller to
-a Kubernetes cluster without a load balancer.</li>
+<li>#486 - Changed first security realm suggested name to <code>myrealm</code>.</li>
+<li>#487 - Changed Model Design View navigation to provide context menu options for adding and deleting model folder instances.</li>
+<li>#488 - Added support for dark mode and controlling it via the user preferences dialog.</li>
+<li>#490 - Updated translation message bundles.</li>
 </ul>
 <h4 id="bug-fixes">Bug Fixes<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h4>
 <ul>
-<li>#241 - Fixed a bug with the WebLogic Image Tool&rsquo;s <code>--wdtHome</code> argument when it ended with <code>weblogic-deploy</code>.</li>
-<li>#246 - Worked around a WebLogic Kubernetes Operator issue where the <code>javaLoggingFileSizeLimit</code> value was not working
-due to 
-
-<a href="https://github.com/helm/helm/issues/1707"
-   
-   
-target="_blank" rel="noopener noreferrer"
->
-Helm issue 1707
-</a>
-.</li>
-<li>#247 - Fixed issue with Open Project when storing the credentials in the project and entering the wrong passphrase
-that was causing the UI to not allow re-opening the project.</li>
+<li>#484 - Added missing <code>RDBMS Security Store</code> and <code>User Lockout Manager</code> navigation entries to Model Design View.</li>
+<li>#485 - Added customizations to fields on the <code>RDBMS Security Store</code> page.</li>
 </ul>
 <h4 id="known-issues">Known Issues<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h4>
 <ul>
-<li>In the Model Design View when creating an App Deployment or Shared Library, changing the <code>Source</code> field back to an empty value
-results in a bogus error message about not removing the deployment from the archive file.  This error is harmless so simply
-dismiss the error dialog and continue.</li>
-<li>On Linux, the open and save dialogs open behind the main application window.  This is due to
-
-
-<a href="https://github.com/electron/electron/issues/32857"
-   
-   
-target="_blank" rel="noopener noreferrer"
->
-Electron bug 32857
-</a>
-.</li>
-<li>When deploying a Verrazzano application, the <code>Get Application Status</code> button only checks the status of the project&rsquo;s
-Verrazzano component containing the WebLogic domain specification.</li>
-<li>Verrazzano installation does not support a multicluster installation.</li>
+<li>When using an RPM or DEB installation, the Auto Update dialog appears but the <code>Update Now</code> and <code>Update On Exit</code> buttons
+do not work unless the user has handled the authentication problem. For example, starting the application using
+<code>sudo wktui --no-sandbox</code> or using an authentication agent like <code>polkit</code> allows the updates to function properly.</li>
 </ul>
 
   <footer class="footline">
@@ -298,7 +269,7 @@ Verrazzano component containing the WebLogic domain specification.</li>
             <li class="" data-nav-url="/weblogic-toolkit-ui/navigate/index.html"><a class="padding" href="/weblogic-toolkit-ui/navigate/index.html"><b> </b>Navigate the UI</a><ul id="R-subsections-87ab2e1bf80095f6190ff210454fc27d" class="collapsible-menu"></ul></li>
             <li class="" data-nav-url="/weblogic-toolkit-ui/developer/index.html"><a class="padding" href="/weblogic-toolkit-ui/developer/index.html"><b> </b>Developer Guide</a></li>
             <li class="parent " data-nav-url="/weblogic-toolkit-ui/release/index.html"><a class="padding" href="/weblogic-toolkit-ui/release/index.html"><b> </b>Release Notes</a><ul id="R-subsections-708032c5b8904dd637c09e0f5f530a6a" class="collapsible-menu">
-            <li class="" data-nav-url="/weblogic-toolkit-ui/release/release-2.0.1/index.html"><a class="padding" href="/weblogic-toolkit-ui/release/release-2.0.1/index.html"><b> </b>Release 2.0.1</a></li>
+            <li class="active " data-nav-url="/weblogic-toolkit-ui/release/release-2.0.1/index.html"><a class="padding" href="/weblogic-toolkit-ui/release/release-2.0.1/index.html"><b> </b>Release 2.0.1</a></li>
             <li class="" data-nav-url="/weblogic-toolkit-ui/release/release-2.0.0/index.html"><a class="padding" href="/weblogic-toolkit-ui/release/release-2.0.0/index.html"><b> </b>Release Notes</a></li>
             <li class="" data-nav-url="/weblogic-toolkit-ui/release/release-1.7.2/index.html"><a class="padding" href="/weblogic-toolkit-ui/release/release-1.7.2/index.html"><b> </b>Release 1.7.2</a></li>
             <li class="" data-nav-url="/weblogic-toolkit-ui/release/release-1.7.1/index.html"><a class="padding" href="/weblogic-toolkit-ui/release/release-1.7.1/index.html"><b> </b>Release 1.7.1</a></li>
@@ -307,7 +278,7 @@ Verrazzano component containing the WebLogic domain specification.</li>
             <li class="" data-nav-url="/weblogic-toolkit-ui/release/release-1.6.2/index.html"><a class="padding" href="/weblogic-toolkit-ui/release/release-1.6.2/index.html"><b> </b>Release 1.6.2</a></li>
             <li class="" data-nav-url="/weblogic-toolkit-ui/release/release-1.6.1/index.html"><a class="padding" href="/weblogic-toolkit-ui/release/release-1.6.1/index.html"><b> </b>Release 1.6.1</a></li>
             <li class="" data-nav-url="/weblogic-toolkit-ui/release/release-1.6.0/index.html"><a class="padding" href="/weblogic-toolkit-ui/release/release-1.6.0/index.html"><b> </b>Release 1.6.0</a></li>
-            <li class="active " data-nav-url="/weblogic-toolkit-ui/release/release-1.5.3/index.html"><a class="padding" href="/weblogic-toolkit-ui/release/release-1.5.3/index.html"><b> </b>Release 1.5.3</a></li>
+            <li class="" data-nav-url="/weblogic-toolkit-ui/release/release-1.5.3/index.html"><a class="padding" href="/weblogic-toolkit-ui/release/release-1.5.3/index.html"><b> </b>Release 1.5.3</a></li>
             <li class="" data-nav-url="/weblogic-toolkit-ui/release/release-1.5.2/index.html"><a class="padding" href="/weblogic-toolkit-ui/release/release-1.5.2/index.html"><b> </b>Release 1.5.2</a></li>
             <li class="" data-nav-url="/weblogic-toolkit-ui/release/release-1.5.1/index.html"><a class="padding" href="/weblogic-toolkit-ui/release/release-1.5.1/index.html"><b> </b>Release 1.5.1</a></li>
             <li class="" data-nav-url="/weblogic-toolkit-ui/release/release-1.5.0/index.html"><a class="padding" href="/weblogic-toolkit-ui/release/release-1.5.0/index.html"><b> </b>Release 1.5.0</a></li>
