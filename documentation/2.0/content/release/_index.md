@@ -1,10 +1,10 @@
 ---
 title: "Release Notes"
-weight: 81
+weight: 80
 pre: "<b> </b>"
 ---
 
-### Changes in Release 2.0.1
+### Changes in Release 2.0.2
 - [Major New Features](#major-new-features)
 - [Other Changes](#other-changes)
 - [Bugs Fixes](#bug-fixes)
@@ -14,14 +14,12 @@ pre: "<b> </b>"
 None
 
 #### Other Changes
-- #486 - Changed first security realm suggested name to `myrealm`.
-- #487 - Changed Model Design View navigation to provide context menu options for adding and deleting model folder instances.
-- #488 - Added support for dark mode and controlling it via the user preferences dialog.
-- #490 - Updated translation message bundles.
+None
 
 #### Bug Fixes
-- #484 - Added missing `RDBMS Security Store` and `User Lockout Manager` navigation entries to Model Design View.
-- #485 - Added customizations to fields on the `RDBMS Security Store` page. 
+- #494 - Fixed issue causing the Discover Domain to fail.
+- #495 - Fixed issue with the WKO Cluster domain spec name that was allowing capital letters in the Kubernetes name.
+- #496 - Fixed excessive navigation bar scrolling in the Model Design View when editing fields.
 
 #### Known Issues
 - When using an RPM or DEB installation, the Auto Update dialog appears but the `Update Now` and `Update On Exit` buttons
