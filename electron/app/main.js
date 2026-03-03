@@ -992,7 +992,7 @@ class Main {
     ipcMain.handle('get-wko-release-versions', async (event, minimumVersion = '3.3.0') => {
       const ghApiWkoBaseUrl = 'https://api.github.com/repos/oracle/weblogic-kubernetes-operator';
 
-      return new Promise(resolve => {
+      return new Promise((resolve, reject) => {
         githubUtils.getReleaseVersions('WebLogic Kubernetes Operator', ghApiWkoBaseUrl).then(results => {
           const mappedResults = [];
           results.forEach(result => {
@@ -1003,6 +1003,8 @@ class Main {
             }
           });
           resolve(mappedResults);
+        }).catch(err => {
+          reject(err);
         });
       });
     });
