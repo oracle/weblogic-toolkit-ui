@@ -245,6 +245,7 @@
 
   "dialog-passphrase-prompt-title": "Credential Encryption Passphrase",
   "dialog-passphrase-prompt-label": "Please enter the passphrase to use to encrypt the project credential.",
+  "dialog-passphrase-prompt-forgot-passphrase": "Forgot passphrase?",
 
   "dialog-about-version": "Version {{version}} ({{buildVersion}})",
 

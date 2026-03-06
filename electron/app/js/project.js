@@ -19,6 +19,7 @@ const { sendToWindow } = require('./windowUtils');
 const i18n = require('./i18next.config');
 const { EncryptedCredentialManager, CredentialNoStoreManager } = require('./credentialManager');
 const errorUtils = require('./errorUtils');
+const {getJsonPathReference} = require('./jsonPath');
 
 const projectFileTypeKey = 'dialog-wktFileType';
 const projectFileExtension = 'wktproj';
@@ -229,7 +230,7 @@ async function saveProject(targetWindow, projectFile, projectContents, externalF
     }
     getLogger().error('Failed to save project file %s: %s', projectFile, err);
     // revert the project assignment to the window
-    _revertAssignProjectFile(assignProjectFileData);
+    _revertAssignProjectFile(targetWindow, assignProjectFileData);
     saveResult.reason = i18n.t('dialog-saveProjectFileErrorMessage', { projectFileName: projectFile, err: err });
   }
 
@@ -465,24 +466,32 @@ async function _openProjectFile(targetWindow, projectFileName) {
         // store the credential manager.
         //
         _addOpenProject(targetWindow, projectFileName, false);
-        _createCredentialManager(targetWindow, jsonContent).then(credentialManager => {
-          credentialManager.loadCredentials(jsonContent).then(projectContent => {
-            _sendProjectOpened(targetWindow, projectFileName, projectContent).then(() => {
-              const wktWindow = require('./wktWindow');
-              wktWindow.setTitleFileName(targetWindow, projectFileName, false);
-              targetWindow.setRepresentedFilename(projectFileName);
-              getLogger().debug('_openProjectFile adding %s to recent documents', projectFileName);
-              app.addRecentDocument(projectFileName);
+        _createCredentialManager(targetWindow, jsonContent, true).then(async credentialManager => {
+          let projectContent;
+          if(credentialManager === null) {  // forgot password, reset by clearing credentials
+            projectContent = _clear_credentials(jsonContent);
+          } else {  // load the project and resolve credentials
+            try {
+              projectContent = await credentialManager.loadCredentials(jsonContent);
+            } catch(err) {
+              _show_load_credentials_error(projectFileName, err);
+              openProjects.delete(targetWindow);
               resolve();
-            }).catch(err => {
-              dialog.showErrorBox(i18n.t('dialog-openProjectFileSendToWindowErrorTitleErrorTitle'),
-                i18n.t('dialog-openProjectFileSendToWindowErrorMessage', { projectFileName, err }));
-              closeProject(targetWindow, true);
-              resolve();
-            });
+              return;
+            }
+          }
+
+          _sendProjectOpened(targetWindow, projectFileName, projectContent).then(() => {
+            const wktWindow = require('./wktWindow');
+            wktWindow.setTitleFileName(targetWindow, projectFileName, false);
+            targetWindow.setRepresentedFilename(projectFileName);
+            getLogger().debug('_openProjectFile adding %s to recent documents', projectFileName);
+            app.addRecentDocument(projectFileName);
+            resolve();
           }).catch(err => {
-            _show_load_credentials_error(projectFileName, err);
-            openProjects.delete(targetWindow);
+            dialog.showErrorBox(i18n.t('dialog-openProjectFileSendToWindowErrorTitleErrorTitle'),
+              i18n.t('dialog-openProjectFileSendToWindowErrorMessage', {projectFileName, err}));
+            closeProject(targetWindow, true);
             resolve();
           });
         }).catch(err => {
@@ -894,13 +903,15 @@ function _revertAssignProjectFile(targetWindow, assignProjectFileData) {
   }
 }
 
-async function _createCredentialManager(targetWindow, projectFileJsonContent) {
+async function _createCredentialManager(targetWindow, projectFileJsonContent, allowReset) {
   let credentialStorePolicy = _getProjectCredentialStorePolicy(projectFileJsonContent);
   return new Promise((resolve, reject) => {
     if (credentialStorePolicy === 'passphrase') {
-      getCredentialPassphrase(targetWindow)
+      getCredentialPassphrase(targetWindow, allowReset)
         .then(passphrase => {
-          if (passphrase) {
+          if(passphrase === -1) {  // user forgot passphrase
+            resolve(null);
+          } else if (passphrase) {
             const credentialManager = new EncryptedCredentialManager(passphrase);
             _setCredentialManager(targetWindow, credentialManager);
             resolve(credentialManager);
@@ -923,7 +934,7 @@ async function _getCredentialManagerForSavingProject(targetWindow, projectConten
 
   if (!windowCredentialManager || windowCredentialManager.credentialStoreType !== currentProjectCredentialStorePolicy) {
     try {
-      await _createCredentialManager(targetWindow, projectContents);
+      await _createCredentialManager(targetWindow, projectContents, false);
     } catch (err) {
       return Promise.reject(err);
     }
@@ -1029,6 +1040,22 @@ function downloadFile(targetWindow, lines, fileType, format, formatName) {
         });
     }
   });
+}
+
+/**
+ * For the case where user forgot password, clear existing credentials from the project JSON.
+ * @param projectJson the project JSON content
+ */
+function _clear_credentials(projectJson) {
+  projectJson = projectJson || {};
+  const credentialPaths = projectJson['credentialPaths'] || [];
+  credentialPaths.forEach(credentialPath => {
+    let refObj = getJsonPathReference(credentialPath, projectJson);
+    if(refObj.reference) {
+      delete refObj.reference[refObj.field];
+    }
+  });
+  return projectJson;
 }
 
 function _show_load_credentials_error(projectFileName, err) {
