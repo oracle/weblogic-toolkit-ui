@@ -503,6 +503,9 @@ define(['utils/script-adapter-base'],
         if (typeof arg === 'string') {
           value = arg.replaceAll('"', '\\"');
         }
+        if(arg === null || arg === undefined) {  // property.value not set
+          value = '';
+        }
         return value;
       }
     }

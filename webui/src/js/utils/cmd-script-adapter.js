@@ -62,6 +62,9 @@ define(['utils/script-adapter-base'],
         if (comment) {
           this.addComment(comment);
         }
+        if(value === null || value === undefined) {  // property.value not set
+          value = '';
+        }
         this._lines.push(`SET "${name}=${value}"`);
       }
 
