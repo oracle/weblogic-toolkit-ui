@@ -513,11 +513,10 @@ define(['utils/script-adapter-base'],
 
       _quoteArg(arg) {
         let value = arg;
-        if (typeof arg === 'string') {
-          value = arg.replaceAll('"', '""');
-        }
         if(arg === null || arg === undefined) {  // property.value not set
           value = '';
+        } else if (typeof arg === 'string') {
+          value = arg.replaceAll('"', '""');
         }
         return value;
       }
