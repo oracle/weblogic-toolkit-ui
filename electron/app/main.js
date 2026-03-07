@@ -61,6 +61,7 @@ class Main {
     this._appUpdatePromise = null;
     initializeAutoUpdater(this._logger, this._isJetDevMode);
     this._forceQuit = false;
+    this._wkoReleaseVersions = null;
   }
 
   runApp(argv) {
@@ -990,10 +991,17 @@ class Main {
     });
 
     ipcMain.handle('get-wko-release-versions', async (event, minimumVersion = '3.3.0') => {
+      // GitHub doesn't seem to like multiple requests to the underlying API
+      // and rejects them for an unspecified reason.  As such, we cache the result.
+      //
+      if (this._wkoReleaseVersions) {
+        return Promise.resolve(this._wkoReleaseVersions);
+      }
       const ghApiWkoBaseUrl = 'https://api.github.com/repos/oracle/weblogic-kubernetes-operator';
+      const ghAuthToken = userSettings.getGithubAuthToken();
 
-      return new Promise(resolve => {
-        githubUtils.getReleaseVersions('WebLogic Kubernetes Operator', ghApiWkoBaseUrl).then(results => {
+      return new Promise((resolve) => {
+        githubUtils.getReleaseVersions('WebLogic Kubernetes Operator', ghApiWkoBaseUrl, undefined, ghAuthToken).then(results => {
           const mappedResults = [];
           results.forEach(result => {
             const version = result.tag.slice(1);
@@ -1002,6 +1010,7 @@ class Main {
               mappedResults.push({ ...result, version });
             }
           });
+          this._wkoReleaseVersions = mappedResults;
           resolve(mappedResults);
         });
       });

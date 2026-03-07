@@ -32,7 +32,7 @@ async function getReleaseVersions(name, baseUrl, options = undefined, authToken 
           };
         });
         resolve(results);
-      });
+      }).catch(err => reject(new Error(`Failed to convert release versions for ${name} from ${releasesUrl} to json: ${err}`)));
     }).catch(err => reject(new Error(`Failed to get release versions for ${name} from ${releasesUrl}: ${err}`)));
   });
 }
