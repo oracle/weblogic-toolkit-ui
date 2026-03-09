@@ -1000,7 +1000,7 @@ class Main {
       const ghApiWkoBaseUrl = 'https://api.github.com/repos/oracle/weblogic-kubernetes-operator';
       const ghAuthToken = userSettings.getGithubAuthToken();
 
-      return new Promise((resolve) => {
+      return new Promise((resolve, reject) => {
         githubUtils.getReleaseVersions('WebLogic Kubernetes Operator', ghApiWkoBaseUrl, undefined, ghAuthToken).then(results => {
           const mappedResults = [];
           results.forEach(result => {
@@ -1012,6 +1012,8 @@ class Main {
           });
           this._wkoReleaseVersions = mappedResults;
           resolve(mappedResults);
+        }).catch(err => {
+          reject(err);
         });
       });
     });

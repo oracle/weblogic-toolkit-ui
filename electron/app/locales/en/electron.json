@@ -151,7 +151,7 @@
   "dialog-openProjectFileLoadCredentialsErrorTitle": "Failed to Load Project Credentials",
   "dialog-openProjectFileLoadCredentialsErrorMessage": "Unable to load credentials for project file {{projectFileName}} due to an error: {{err}}",
   "dialog-openProjectFileCredentialManagerErrorTitle": "Failed to Create Credential Manager",
-  "dialog-openProjectFileCredentialManagerErrorMessage": "Unable to create credential manager for project file {{projectFileName}} due to an error: {{error}}",
+  "dialog-openProjectFileCredentialManagerErrorMessage": "Unable to create credential manager for project file {{projectFileName}} due to an error: {{err}}",
   "dialog-openProjectFileSendToWindowErrorTitleErrorTitle": "Failed to Open Project",
   "dialog-openProjectFileSendToWindowErrorMessage": "Unable to open project file {{projectFileName}} due to an error initializing the project window: {{err}}",
   "dialog-createNewProjectTitle": "Create WebLogic Kubernetes Toolkit Project",
@@ -206,6 +206,9 @@
   "dialog-archiveEntryFilter": "{{entryType}}",
   "dialog-getWebLogicRemoteConsoleHome": "Select the WebLogic Remote Console Installation",
   "dialog-getWebLogicRemoteConsoleAppImage": "Select the WebLogic Remote Console AppImage file",
+
+  "dialog-forgotPasswordQuestion": "Clear all credential fields in project?",
+  "dialog-forgotPasswordDetail": "This option will allow you to open the project without the passphrase, but will clear all the credentials fields.",
 
   "title-edited": "edited",
 

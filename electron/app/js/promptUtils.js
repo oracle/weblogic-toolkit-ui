@@ -4,12 +4,13 @@
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const path = require('path');
-const { BrowserWindow, ipcMain } = require('electron');
+const { BrowserWindow, dialog, ipcMain } = require('electron');
 const { getInitialBackgroundColor } = require('./userSettings');
+const i18n = require('./i18next.config');
 
 /* global __dirname */
 
-async function getCredentialPassphrase(parentWindow) {
+async function getCredentialPassphrase(parentWindow, allowReset) {
   const pageFile = path.join(__dirname, 'prompt', 'credential-passphrase.html');
   const preloadFile = path.join(__dirname, 'prompt', 'preload.js');
 
@@ -19,6 +20,9 @@ async function getCredentialPassphrase(parentWindow) {
 
   // avoid flash on window open
   const backgroundColor = getInitialBackgroundColor();
+
+  const additionalArguments = [];
+  additionalArguments.push('--allowReset=' + (allowReset ? 'true' : 'false'));
 
   return new Promise((resolve, reject) => {
 
@@ -45,7 +49,8 @@ async function getCredentialPassphrase(parentWindow) {
         sandbox: false,
         enableRemoteModule: false,
         webviewTag: false,
-        preload: preloadFile
+        preload: preloadFile,
+        additionalArguments
       },
     });
 
@@ -84,6 +89,10 @@ async function getCredentialPassphrase(parentWindow) {
       cleanup();
     };
 
+    const forgotListener = event => {
+      event.returnValue = confirmResetPassphrase();
+    };
+
     const unresponsiveListener = () => {
       reject(new Error('Window was unresponsive'));
       cleanup();
@@ -99,6 +108,7 @@ async function getCredentialPassphrase(parentWindow) {
     ipcMain.on('prompt-post-data:' + id, postDataListener);
     ipcMain.on('prompt-error:' + id, errorListener);
     ipcMain.on('prompt-size:' + id, sizeListener);
+    ipcMain.on('prompt-forgot:' + id, forgotListener);
     promptWindow.on('unresponsive', unresponsiveListener);
 
     promptWindow.on('closed', () => {
@@ -213,6 +223,21 @@ async function showAboutDialog(wktApp, parentWindow) {
 
     promptWindow.loadFile(pageFile,{hash: id}).then();
   });
+}
+
+function confirmResetPassphrase(parentWindow) {
+  const options = {
+    type: 'warning',
+    buttons: [i18n.t('button-ok'), i18n.t('button-cancel')],
+    defaultId: 0, // Default focused button
+    title: i18n.t('menu-file-openProject'),
+    message: i18n.t('dialog-forgotPasswordQuestion'),
+    detail: i18n.t('dialog-forgotPasswordDetail'),
+    cancelId: 1, // Button to use when Esc is pressed
+  };
+
+  const response = dialog.showMessageBoxSync(parentWindow, options);
+  return (response === 0);
 }
 
 module.exports = {

@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const { contextBridge, ipcRenderer } = require('electron');
@@ -9,6 +9,8 @@ const osUtils = require('../osUtils');
 
 const language = osUtils.getArgv('--lang');
 const i18nReady = i18n.changeLanguage(language);
+
+const allowResetText = osUtils.getArgv('--allowReset');
 
 contextBridge.exposeInMainWorld(
   'api',
@@ -23,6 +25,9 @@ contextBridge.exposeInMainWorld(
       t: (keys, options) => {
         return i18n.t(keys, options);
       }
+    },
+    credentialPassphrase: {
+      allowReset: allowResetText === 'true'
     }
   }
 );
