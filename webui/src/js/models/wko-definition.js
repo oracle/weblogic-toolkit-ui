@@ -101,8 +101,8 @@ define(['knockout', 'utils/observable-properties', 'utils/validation-helper'],
           // Sort in descending order by version number.
           versions.sort((a, b) => window.api.utils.compareVersions(a.version, b.version)).reverse();
           this.wkoVersions.push(...versions.map(versionObject => {
-            const label = versionObject.version;
-            return { ...versionObject, label };
+            versionObject.label = versionObject.version;
+            return versionObject;
           }));
         });
       }
