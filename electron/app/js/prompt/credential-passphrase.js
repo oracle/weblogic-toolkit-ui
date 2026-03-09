@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 let promptId = null;
@@ -24,6 +24,14 @@ function promptSubmit() {
   window.api.ipc.sendSync('prompt-post-data:' + promptId, data);
 }
 
+function promptForgotPassphrase() {
+  const confirm = window.api.ipc.sendSync('prompt-forgot:' + promptId);
+  if(confirm) {
+    window.api.ipc.sendSync('prompt-post-data:' + promptId, -1);
+  }
+  return false;  // don't follow href link
+}
+
 function promptRegister() {
   promptId = document.location.hash.replace('#', '');
 
@@ -35,6 +43,10 @@ function promptRegister() {
 
   document.querySelector('#form').addEventListener('submit', promptSubmit);
   document.querySelector('#cancel').addEventListener('click', promptCancel);
+  document.querySelector('#forgot').addEventListener('click', promptForgotPassphrase);
+
+  // hide the "forgot passphrase" link if not applicable
+  document.querySelector('#forgot').hidden = !window.api.credentialPassphrase.allowReset;
 
   const dataElement = document.querySelector('#data');
   dataElement.value = promptOptions.value ? promptOptions.value : '';
@@ -60,6 +72,7 @@ function promptRegister() {
     document.querySelector('#cancel').textContent = window.api.i18n.t('dialog-button-cancel');
     document.querySelector('#label').textContent = window.api.i18n.t('dialog-passphrase-prompt-label');
     document.querySelector('#title').textContent = window.api.i18n.t('dialog-passphrase-prompt-title');
+    document.querySelector('#forgot').textContent = window.api.i18n.t('dialog-passphrase-prompt-forgot-passphrase');
 
     const height = document.querySelector('body').offsetHeight;
     window.api.ipc.sendSync('prompt-size:' + promptId, height);

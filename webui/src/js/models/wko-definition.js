@@ -104,6 +104,8 @@ define(['knockout', 'utils/observable-properties', 'utils/validation-helper'],
             versionObject.label = versionObject.version;
             return versionObject;
           }));
+        }).catch(err => {
+          console.log('Get WKO versions failed: ' + err);
         });
       }
 
