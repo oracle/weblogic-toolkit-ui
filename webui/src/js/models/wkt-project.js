@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -74,6 +74,12 @@ function (ko, wdtConstructor, imageConstructor, kubectlConstructor, domainConstr
       this.imageToolScript(script);
     });
     this.getImageToolScript = () => this.imageToolScript();
+
+    // some initializations need to happen after window is established,
+    // https requests seem to require this when project file is opened in new window.
+    this.initialize = () => {
+      this.wko.initialize();
+    };
 
     // notify views when a new project is loaded
     this.postOpen = ko.observable();

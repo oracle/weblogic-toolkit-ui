@@ -18,7 +18,7 @@ define(['knockout', 'utils/observable-properties', 'utils/validation-helper'],
         this.k8sServiceAccount = props.createProperty('weblogic-operator-sa');
         this.k8sServiceAccount.addValidator(...validationHelper.getK8sNameValidators());
 
-        this.versionTag = props.createProperty(window.api.ipc.invoke('get-latest-wko-version-number'));
+        this.versionTag = props.createProperty(null);  // default reset in this.initialize()
         this.operatorImage = props.createProperty();
         const operatorImageValidators = validationHelper.getImageTagValidators();
         this.operatorImage.addValidator(...operatorImageValidators);
@@ -97,16 +97,23 @@ define(['knockout', 'utils/observable-properties', 'utils/validation-helper'],
         // load versions in advance so they will be ready as select options.
         // this will not be persisted - it's not an observable-property.
         this.wkoVersions = ko.observableArray();
-        window.api.ipc.invoke('get-wko-release-versions').then(versions => {
-          // Sort in descending order by version number.
-          versions.sort((a, b) => window.api.utils.compareVersions(a.version, b.version)).reverse();
-          this.wkoVersions.push(...versions.map(versionObject => {
-            versionObject.label = versionObject.version;
-            return versionObject;
-          }));
-        }).catch(err => {
-          console.log('Get WKO versions failed: ' + err);
-        });
+
+        // some initializations need to happen after window is established,
+        // https requests seem to require this when project file opened in new window.
+        this.initialize = () => {
+          window.api.ipc.invoke('get-latest-wko-version-number').then(version => {
+            this.versionTag.initializeDefaultValue(version);
+          }).catch(err => console.log('Get latest WKO version failed: ' + err));
+
+          window.api.ipc.invoke('get-wko-release-versions').then(versions => {
+            // Sort in descending order by version number.
+            versions.sort((a, b) => window.api.utils.compareVersions(a.version, b.version)).reverse();
+            this.wkoVersions.push(...versions.map(versionObject => {
+              versionObject.label = versionObject.version;
+              return versionObject;
+            }));
+          }).catch(err => console.log('Get WKO release versions failed: ' + err));
+        };
       }
 
       return new WkoModel();
