@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 'use strict';
@@ -30,6 +30,9 @@ function(accUtils, ko, i18n, project, wktConsole,
       // listen for components that need special handling
       viewHelper.listenForComponents('wktMainPane');
       viewHelper.listenForComponents('mainDialogModule');
+
+      // some project fields need to be initialized after window is established
+      project.initialize();
     };
 
     this.labelMapper = (labelId) => {
