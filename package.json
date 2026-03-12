@@ -9,5 +9,5 @@
     "eslint": "cd electron && npm run eslint && cd ../webui && npm run eslint && cd ..",
     "precommit": "npm run test && npm run eslint"
   },
-  "version": "0.0.1"
+  "version": "0.0.0"
 }
