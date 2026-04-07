@@ -22,7 +22,7 @@
     "@eslint/js": "^9.39.1",
     "@oracle/ojet-cli": "~19.0.0",
     "@oracle/oraclejet-audit": "~19.0.0",
-    "@oracle/oraclejet-tooling": "~19.0.0",
+    "@oracle/oraclejet-tooling": "~19.0.2",
     "chai": "^4.5.0",
     "chai-as-promised": "^7.1.2",
     "eslint": "^9.39.1",
