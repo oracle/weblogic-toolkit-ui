@@ -70,7 +70,7 @@
     "gunzip-maybe": "^1.4.2",
     "https-proxy-agent": "^7.0.6",
     "i18next": "^25.7.1",
-    "i18next-fs-backend": "^2.6.1",
+    "i18next-fs-backend": "^2.6.4",
     "js-yaml": "^4.1.1",
     "jszip": "^3.10.1",
     "node-fetch": "^2.7.0",
