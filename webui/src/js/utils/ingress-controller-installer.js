@@ -257,7 +257,12 @@ function(IngressActionsBase, project, wktConsole, k8sHelper, i18n, dialogHelper,
       if (ingressControllerProvider === 'traefik' && secretName) {
         helmChartData['deployment.imagePullSecrets[0].name'] = secretName;
       }
-      if (ingressControllerProvider === 'traefik' || ingressControllerProvider === 'nginx') {
+      if (ingressControllerProvider === 'traefik') {
+        helmChartData['providers.kubernetesCRD.namespaces'] =
+          `{${ingressControllerNamespace},${this.project.k8sDomain.kubernetesNamespace.value}}`;
+        helmChartData['providers.kubernetesIngress.namespaces'] =
+          `{${ingressControllerNamespace},${this.project.k8sDomain.kubernetesNamespace.value}}`;
+      } else if (ingressControllerProvider === 'nginx') {
         helmChartData['kubernetes.namespaces'] =
           `{${ingressControllerNamespace},${this.project.k8sDomain.kubernetesNamespace.value}}`;
       }
