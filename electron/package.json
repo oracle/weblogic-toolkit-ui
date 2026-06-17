@@ -75,7 +75,7 @@
     "jszip": "^3.10.1",
     "node-fetch": "^2.7.0",
     "tar": "^7.5.2",
-    "uuid": "^13.0.0",
+    "uuid": "^14.0.0",
     "which": "^6.0.0",
     "winston": "^3.18.3",
     "winston-daily-rotate-file": "^5.0.0"
