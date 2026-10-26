@@ -679,7 +679,7 @@
   "f-JMSSystemResource_JmsResource_ConnectionFactory_ClientParams-a-AllowCloseInOnMessage-help": "Specifies whether a connection factory creates message consumers that allow a close() or stop() method to be issued within its onMessage() method call.",
 
   "a-AllowListRecordingEnabled-label": "Allow List Recording Enabled",
-  "a-AllowListRecordingEnabled-help": "Specifies whether the domain will run with recording enabled to record allowlists.",
+  "a-AllowListRecordingEnabled-help": "Specifies whether the domain will run with recording enabled to record allow lists.",
 
   "a-AllowListViolationAction-label": "Allow List Violation Action",
   "a-AllowListViolationAction-help": "Defines the AllowListViolationAction of all servers in a domain.",
@@ -3343,6 +3343,11 @@
   "a-IIOPLocationForwardPolicy-label": "IIOP Location Forward Policy",
   "a-IIOPTxMechanism-label": "IIOP Tx Mechanism",
 
+  "a-IIOPTypedReadResolveProxyValidationEnabled-label": "IIOP-Typed Read Resolve Proxy Validation Enabled",
+  "a-IIOPTypedReadResolveProxyValidationEnabled-help": "Specifies whether WebLogic Server verifies that the class carried in an IIOP message is compatible with the expected Java type.",
+  "a-IIOPUnauthenticatedServiceContextValueTypeFilteringEnabled-label": "IIOP Unauthenticated Service Context Value Type Filtering Enabled",
+  "a-IIOPUnauthenticatedServiceContextValueTypeFilteringEnabled-help": "Specifies whether WebLogic Server applies its unauthenticated deserialization allowlist while reading those value types from incoming IIOP request service contexts.",
+
   "a-IdentityAndTrustLocations-label": "Identity And Trust Locations",
   "f-any_SSL-a-IdentityAndTrustLocations-help": "Indicates where SSL should find the server's identity (certificate and private key) as well as the server's trust (trusted CAs). The default value is \"KeyStores\".",
 
@@ -3699,10 +3704,32 @@
   "a-JmsToTuxPriorityMap-valueHelp": "The Tuxedo priority to which the JMS priority should be mapped.",
   "a-JmsToTuxPriorityMap-help": "The mapping of priorities from JMS to Tuxedo. The default JMS To Tux Priority Map is: 0:1 | 1:12 | 2:23 | 3:34 | 4:45 |5:56 | 6:67 | 7:78 | 8:89 | 9:100.",
 
+  "a-JndiAdditionalFactoriesAllowListsEnabled-label": "JNDI Additional Factories Allow Lists Enabled",
+  "a-JndiAdditionalFactoriesAllowListsEnabled-help": "Specifies whether WebLogic Server limits these server-side JNDI factories to built-in factories and factories explicitly listed in two related SecurityConfiguration` attributes.",
+  "a-JndiAdditionalInitialContextFactoriesAllowed-label": "JNDI Additional Initial Context Factories Allowed",
+  "a-JndiAdditionalInitialContextFactoriesAllowed-itemLabel": "JNDI Additional Initial Context Factory Allowed",
+  "a-JndiAdditionalInitialContextFactoriesAllowed-itemHelp": "Specifies a fully-qualified class names of an InitialContextFactory implementation for use in the server.",
+  "a-JndiAdditionalInitialContextFactoriesAllowed-help": "Specifies a list of the fully-qualified class names of InitialContextFactory implementations that can be used in the server.",
+  "a-JndiAdditionalReferenceFactoriesAllowed-label": "JNDI Additional Reference Factories Allowed",
+  "a-JndiAdditionalReferenceFactoriesAllowed-itemLabel": "JNDI Additional Reference Factory Allowed",
+  "a-JndiAdditionalReferenceFactoriesAllowed-itemHelp": "Specifies an additional JNDI Reference factory class name that is allowed for server-side reference materialization.",
+  "a-JndiAdditionalReferenceFactoriesAllowed-help": "Specifies a list of additional JNDI Reference factory class names that are allowed for server-side reference materialization.",
+
+  "a-JndiBindingAuthorizationPolicyEnabled-label": "JNDI Binding Authorization Policy Enabled",
+  "a-JndiBindingAuthorizationPolicyEnabled-help": "Specifies whether a WebLogic Server administrative-role is required for operations that change server-side JNDI bindings.",
+
   "a-JndiFactory-label": "JNDI Initial Context Factory Class Name",
   "f-WTCServer_WTCtBridgeGlobal-a-JndiFactory-help": "The name of the JNDI lookup factory. The default value is weblogic.jndi.WLInitialContextFactory.",
 
   "a-JndiPropertiesCredentialEncrypted-label": "JNDI Properties Credential Encrypted",
+
+  "a-JndiOutboundConnectionsAllowed-label": "JNDI Outbound Connections Allowed",
+  "a-JndiOutboundConnectionsAllowed-itemLabel": "JNDI Outbound Connection Allowed",
+  "a-JndiOutboundConnectionsAllowed-itemHelp": "Specifies a JNDI outbound connection entry that is allowed for server-side JNDI lookup inputs.",
+  "a-JndiOutboundConnectionsAllowed-help": "Specifies a list of JNDI outbound connection entries that are allowed for server-side JNDI lookup inputs.",
+
+  "a-JndiOutboundConnectionsAllowListEnabled-label": "JNDI Outbound Connections Allow List Enabled",
+  "a-JndiOutboundConnectionsAllowListEnabled-help": "Specifies whether WebLogic Server limits outbound JNDI connections to the destinations listed in the SecurityConfiguration JNDIOutboundConnectionsAllowed attribute.",
 
   "a-JobSchedulerTableName-label": "Job Scheduler Table Name",
   "f-Cluster-a-JobSchedulerTableName-help": "Specifies the table name to use for storing timers active with the job scheduler.",
@@ -3804,6 +3831,9 @@
 
   "a-LeaderHeartbeatPeriod-label": "Leader Heartbeat Period",
   "f-Cluster_DatabaseLessLeasingBasis-a-LeaderHeartbeatPeriod-help": "Sets the LeaderHeartbeatPeriod value, in seconds. The cluster leader heartbeats a special leader heartbeat every period seconds to publish group view version and other cluster information. Members look at this heartbeat and perform any sync up operations if required. The default value is 10.",
+
+  "a-LegacyEmptyBeansXmlDiscovery-label": "Legacy Empty Beans XML Discovery",
+  "a-LegacyEmptyBeansXmlDiscovery-help": "Specifies whether a qualifying empty beans.xml descriptor uses the legacy CDI bean discovery mode for this application.",
 
   "a-LegacyArgon2FallbackEnabled-label": "Legacy Argon2 Fallback Enabled",
   "a-LegacyArgon2FallbackEnabled-help": "Whether to attempt password validation using a legacy Argon2 algorithm if a password is not validated using the standard algorithm.",
@@ -5652,6 +5682,10 @@
   "f-XMLRegistry-a-SAXParserFactory-help": "The fully qualified name of the class that implements the SAXParserFactory interface. The javax.xml.parsers.SAXParserFactory factory API enables applications deployed to WebLogic Server to configure and obtain a SAX-based XML parser to parse XML documents.",
   "f-any_XMLParserSelectRegistryEntry-a-SAXParserFactory-help": "Specifies the fully qualified name of the class that implements the SAXParserFactory API. When WebLogic Server begins to parse an XML document identified by either the public ID, system ID, or root element specified in this entry, and the applications specifies it wants a SAX parser, then WebLogic Server uses this implementation class when using the javax.xml.parsers.SAXParserFactory to obtain the SAX parser.",
 
+  "f-BatchConfig-a-SchemaName-label": "Schema Name",
+  "f-BatchConfig-a-SchemaName-help": "Sets the schema name where the JobRepository tables have been created. Note that if the JobRepository data source is shared by applications, then this schema name must be the same name that the application expects.",
+  "f-BatchConfig-label": "Batch Config",
+
   "a-SNMPPort-label": "SNMP Port",
   "a-SNMPPort-help": "The port on which you want this SNMP agent to listen for incoming requests from SNMP managers that use the UDP protocol. SNMP managers can use this port to ping the SNMP agent and request the status of specific attributes. If you target this SNMP agent to multiple server instances, and if two or more servers are running on the same computer, WebLogic Server will automatically increment this UDP port value by 1 for each agent. WebLogic Server never assigns port 162 because it is the default port that an agent uses to send notifications. In addition, if any port is already in use, WebLogic Server skips the port and assigns the next available port.",
 
@@ -5875,6 +5909,9 @@
 
   "a-SerializeEnlistmentsGCIntervalMillis-label": "Serialize Enlistments GC Interval Milliseconds",
   "a-SerializeEnlistmentsGCIntervalMillis-help": "The time interval, in milliseconds, at which internal objects used to serialize resource enlistment are cleaned up.",
+
+  "a-SerializedWorkContextMaximumSize-label": "Serialized Work Context Maximum Size",
+  "a-SerializedWorkContextMaximumSize-help": "Limits the size of a single Work Context.  WorkContext is a small piece of metadata that WebLogic Server can attach to a request or message and propagate to another component.  Setting the value to a non-negative value also causes WebLogic Server to apply its stricter unauthenticated-input object filter when the deferred object inside the work context is deserialized. This can occur after the outer work context is initially received.",
 
   "a-Server-label": "Server",
   "a-ServerAffinityEnabled-label": "Server Affinity Enabled",
@@ -6149,6 +6186,7 @@
   "a-SslEnabled-help": "Specifies whether the TLS/SSL protocol is used when connecting to the Oracle Identity Cloud Service.",
 
   "a-SslProtocolVersion-label": "SSL Protocol Version",
+
   "f-WTCServer_WTCLocalTuxDom-a-SslProtocolVersion-help": "The protocol version of the SSL connection this local access point uses when establishing a SSL connection.",
   "f-WTCServer_WTCRemoteTuxDom-a-SslProtocolVersion-help": "The protocol version of the SSL connection this remote access point uses when establishing a SSL connection with specific local access point.",
 
@@ -6245,6 +6283,9 @@
 
   "a-StrictOwnershipCheck-label": "Strict Ownership Check",
   "a-StrictOwnershipCheck-help": "Whether continue to boot if cannot find the current owner of TRS to do failback. This attribute is only meaningful for servers in cluster. If true, the server will fail to boot under this situation. If false, which is the default value, the server will continue to boot without trying to do failback.",
+
+  "a-StrictReplicationAuthorizationEnabled-label": "Strict Replication Authorization Enabled",
+  "a-StrictReplicationAuthorizationEnabled-help": "Is a rollout control for a change to the WebLogic Server cluster replication protocol. In PSU patch streams, it allows customers to finish patching and restarting every server in the domain before activating the updated cluster replication protocol. ",
 
   "a-StringToCompare-label": "String To Compare",
   "f-any_SNMPStringMonitor-a-StringToCompare-help": "The string against which the value of the monitored attribute will be compared. A notification is generated when the criteria specified by Notify Match or Notify Differ is satisfied.",
@@ -6359,6 +6400,10 @@
   "a-SystemThreadPoolSize-label": "System Thread Pool Size",
   "a-T3ClientAbbrevTableSize-label": "T3 Client Abbrev Table Size",
   "a-T3HttpUpgradeHandler-label": "T3 HTTP Upgrade Handler",
+
+  "a-T3RouteOnlyToTrustedServersEnabled-label": "T3 Route Only To Trusted Servers Enabled",
+  "a-T3RouteOnlyToTrustedServersEnabled-help": "Specifies whether the intermediate server may create a new route only to a destination that it already knows or that has been identified through local WebLogic Server configuration.",
+
   "a-T3ServerAbbrevTableSize-label": "T3 Server Abbrev Table Size",
 
   "a-TGIOPEnabled-label": "TGIOP Enabled",
@@ -6960,6 +7005,9 @@
   "a-ValidateDDSecurityData-label": "Validate DD Security Data",
   "a-ValidateDDSecurityData-help": "Whether to validate the deployment descriptor security data.  Not used in modern versions of WebLogic Server.",
 
+  "a-ValidatePersistenceXmlSchema-label": "Validate Persistence XML Schema",
+  "a-ValidatePersistenceXmlSchema-help": "Specifies whether META-INF/persistence.xml descriptors are validated against their Jakarta Persistence XML Schema during deployment.",
+
   "a-ValidityPeriod-label": "Validity Period",
   "f-WebserviceSecurity_WebserviceTimestamp-a-ValidityPeriod-help": "Represents the length of time the sender wants the outbound message to be valid. When the ValidityPeriod is positive, the TimestampHandler inserts an Expires element into the Timestamp header. The ValidityPeriod is expressed in seconds: the Expires time will be that many seconds ahead of the Timestamp's Created time.",
 
@@ -7007,6 +7055,9 @@
   "a-WAPEnabled-help": "Indicates whether the session ID should include JVM information. (Checking this box may be necessary when using URL rewriting with WAP devices that limit the size of the URL to 128 characters, and may also affect the use of replicated sessions in a cluster.) When this box is selected, the default size of the URL will be set at 52 characters, and it will not contain any special characters. The default value is false.",
 
   "a-WLDFBuiltinSystemResourceDescriptorBean-label": "WLDF Builtin System Resource Descriptor Bean",
+
+  "a-WLDFScriptActionPathRestrictionEnabled-label": "WLDF Script Action Path Restriction Enabled",
+  "a-WLDFScriptActionPathRestrictionEnabled-help": "Specifies where the executable specified by a WLDF script action may be located.  When enabled, the script must be located in $DOMAIN_HOME/bin/scripts.",
 
   "a-WaitForAllSessionsDuringShutdown-label": "Wait For All Sessions During Shutdown",
   "f-Cluster_DynamicServers-a-WaitForAllSessionsDuringShutdown-help": "Indicates if the Elasticity Framework should wait for all (persisted and non-persisted) HTTP sessions during inflight work handling while shutting down servers.",
@@ -7078,6 +7129,11 @@
   "a-WebLogicHome-label": "WebLogic Home",
   "f-NMProperties-a-WebLogicHome-help": "Root directory of the Oracle WebLogic Server installation. This is used as the default value of -Dweblogic.RootDirectory for a Managed Server that does not have a root directory configured in its Remote Start page. If not specified in either place, Node Manager starts the Managed Server in the directory where Node Manager runs.",
 
+  "a-WeblogicPluginAllowedProxyHost-label": "Weblogic Plugin Allowed Proxy Hosts",
+  "a-WeblogicPluginAllowedProxyHost-itemLabel": "Weblogic Plugin Allowed Proxy Host",
+  "a-WeblogicPluginAllowedProxyHost-itemHelp": "Specifies a host names or IP address to add to the list from which WebLogic Server accepts proprietary WL-Proxy-* headers.",
+  "a-WeblogicPluginAllowedProxyHost-help": "Specifies the host names or IP addresses from which WebLogic Server accepts proprietary WL-Proxy-* headers when WebLogic proxy plug-in header processing is enabled.",
+
   "a-WebModule-label": "Web Module",
   "a-WebRjvmSupport-label": "Web RJVM Support",
 
@@ -7109,6 +7165,9 @@
 
   "a-WlsErrorDestination-label": "WLS Error Destination",
   "f-WTCServer_WTCtBridgeGlobal-a-WlsErrorDestination-help": "The name of the location used to store WebLogic Server JMS messages when a message cannot be redirected. If not specified, all messages not redirected are lost. If the message cannot be placed into WlsErrorDestination for any reason, an error is logged and the message is lost.",
+
+  "a-WorkContextClassValidationEnabled-label": "Work Context Class Validation Enabled",
+  "a-WorkContextClassValidationEnabled-help": "Specifies which WorkContext implementation classes WebLogic Server will construct when it receives WorkArea data.",
 
   "a-WorkContextPropagationEnabled-label": "Work Context Propagation Enabled",
   "f-WebAppContainer-a-WorkContextPropagationEnabled-help": "Indicates whether or not WorkContextPropagation is enabled. By default, it is turned on. There is a little overhead involved in propagating WorkContexts. Therefore, if you don't want WorkContext propagation, turn this value off in production environments.",
@@ -7535,6 +7594,7 @@
   "f-any_FairShareConstraint-label": "Fair Share Constraint",
   "f-any_FairShareRequestClass-label": "Fair Share Request Classes",
   "f-any_FairShareRequestClass-typeLabel": "Fair Share Request Class",
+  "f-any_FeatureCompatibility-label": "Feature Compatibility",
   "f-any_FederationServices-label": "Federation Services",
   "f-any_FileOpen-label": "File Open",
   "f-any_FileStore-label": "File Stores",
@@ -7605,6 +7665,11 @@
   "f-any_JdbcPropertyOverride-label": "JDBC Property Overrides",
   "f-any_JdbcPropertyOverride-typeLabel": "JDBC Property Override",
   "f-any_JdbcResource-label": "JDBC Resource",
+  "f-any_JdbcResource/JDBCConnectionPoolParams-label": "JDBC Connection Pool Parameters",
+  "f-any_JdbcResource/JDBCDataSourceParams-label": "JDBC Data Source Parameters",
+  "f-any_JdbcResource/JDBCDriverParams-label": "JDBC Driver Parameters",
+  "f-any_JdbcResource/JDBCOracleParams-label": "JDBC Oracle Parameters",
+  "f-any_JdbcResource/JDBCXAParams-label": "JDBC XA Parameters",
   "f-any_JdbcSystemResourceOverride-label": "JDBC System Resource Overrides",
   "f-any_JdbcSystemResourceOverride-typeLabel": "JDBC System Resource Override",
   "f-any_JmsConnectionConsumer-label": "JMS Connection Consumers",
@@ -7917,5 +7982,102 @@
   "f-any_XMLRegistry-typeLabel": "XML Registry",
   "f-any_Deployments-label": "Deployments",
   "f-any_Resources-label": "Resources",
-  "f-any_weblogic.security.providers.authentication.OracleIdentityCloudIntegrator-label": "Oracle Identity Cloud Integrator"
+  "f-any_weblogic.security.providers.authentication.OracleIdentityCloudIntegrator-label": "Oracle Identity Cloud Integrator",
+
+  "a-CertificateAuthorityKeyProfile-label": "Certificate Authority Key Profile",
+  "a-CertificateAuthoritySignatureAlgorithm-label": "Certificate Authority Signature Algorithm",
+  "a-CertificateCheckTime-label": "Certificate Check Time",
+  "a-CertificateCheckTimeMaximumOffset-label": "Certificate Check Time Maximum Offset",
+  "a-CertificateKeyProfile-label": "Certificate Key Profile",
+  "a-CrossDomainT3SConnectionTrustValidationEnabled-label": "Cross Domain T3S Connection Trust Validation Enabled",
+  "a-CrossDomainT3SConnectionTrustValidationEnabled-help": "Specifies whether a reverse cross-domain lookup must establish a new T3S connection and pass a fresh SSL trust check instead of reusing an existing connection. Changes take effect after the server is restarted.",
+  "a-DomainKeystoresAdminUrl-label": "Domain Keystores Admin URL",
+  "a-DomainKeystoresMachineName-label": "Domain Keystores Machine Name",
+  "a-ExpiredCertificateAuthorityRetentionDays-label": "Expired Certificate Authority Retention Days",
+  "a-IiopStrictRemoteBusinessInterfaceValidationEnabled-label": "IIOP Strict Remote Business Interface Validation Enabled",
+  "a-IiopStrictRemoteBusinessInterfaceValidationEnabled-help": "Specifies whether IIOP client stub generation rejects business interfaces that are not recognized as remote interfaces. When disabled, a legacy IIOP client may use a locally visible plain business interface only when the interoperable object reference (IOR) has no codebase.",
+  "a-JaxwsRejectUnknownSeiOperationsEnabled-label": "JAX-WS Reject Unknown SEI Operations Enabled",
+  "a-JaxwsRejectUnknownSeiOperationsEnabled-help": "Specifies whether JAX-WS endpoints using a service endpoint interface (SEI) reject SOAP requests whose operation does not match an SEI method. When enabled, unknown operations receive a SOAP fault before further processing, including WorkContext processing. When disabled, those requests follow the legacy processing path without method-level authorization for the unknown operation.",
+  "a-JmsDotNetClientEnabled-label": "JMS Dot Net Client Enabled",
+  "a-KeystoreFileLockTimeout-label": "Keystore File Lock Timeout",
+  "a-KeystoreFileLockingEnabled-label": "Keystore File Locking Enabled",
+  "a-KeystoreFileWatchingEnabled-label": "Keystore File Watching Enabled",
+  "a-MaxHeaderCount-label": "Max Header Count",
+  "a-MaxQueued-label": "Max Queued",
+  "a-MaximumUnitOfWorkMessages-label": "Maximum Unit Of Work Messages",
+  "a-RestrictContentBasedOnRoles-label": "Restrict Content Based On Roles",
+  "a-SAML2StrictArtifactResolutionEnabled-label": "SAML2 Strict Artifact Resolution Enabled",
+  "a-SAML2StrictArtifactResolutionEnabled-help": "Specifies whether SAML 2.0 artifact resolution authenticates the intended recipient before retrieving and consuming an artifact. When enabled, the request issuer must match an enabled partner and provide a verified signature or a TLS client certificate matching that partner; shared Basic authentication alone is insufficient. When disabled, legacy behavior permits artifact retrieval before authentication.",
+  "a-SpringJtaDeserializationJndiLookupDisabled-label": "Spring JTA Deserialization JNDI Lookup Disabled",
+  "a-SpringJtaDeserializationJndiLookupDisabled-help": "Specifies whether Spring JtaTransactionManager is prevented from resolving serialized JNDI names when it is deserialized. When enabled, transient JTA handles are not restored through those lookups. JTA lookup during normal bean initialization is unaffected. When disabled, serialized JNDI names are resolved as in legacy behavior.",
+  "a-StrictClusterCompatibilityEnabled-label": "Strict Cluster Compatibility Enabled",
+  "a-StrictClusterCompatibilityEnabled-help": "Specifies whether cluster security features use the strict replicated session wire format and strict validation of dynamic-proxy interfaces in replicated session attributes. In PSU versions that support this setting, disabling it preserves legacy behavior during rolling patching; re-enable it after all participating servers are patched. In WebLogic Server 26.1 and later, strict handling is always enabled and this attribute cannot be configured.",
+  "a-SubjectNamePolicy-label": "Subject Name Policy",
+  "a-T3LegacyCrossDomainCredentialJVMIDReplayProtectionEnabled-label": "T3 Legacy Cross Domain Credential JVMID Replay Protection Enabled",
+  "a-T3LegacyCrossDomainCredentialJVMIDReplayProtectionEnabled-help": "Specifies whether T3 server identity processing prevents replay of a JVM identity (JVMID) signed with legacy cross-domain credentials from granting trusted-server status to a newly identified inbound connection. When disabled, legacy global-domain-trust behavior is preserved.",
+  "a-WarnOnDisabledCrossDomainT3SConnectionTrustValidation-label": "Warn On Disabled Cross Domain T3S Connection Trust Validation",
+  "a-WarnOnDisabledIiopStrictRemoteBusinessInterfaceValidation-label": "Warn On Disabled IIOP Strict Remote Business Interface Validation",
+  "a-WarnOnDisabledIiopTypedReadResolveProxyValidation-label": "Warn On Disabled IIOP Typed Read Resolve Proxy Validation",
+  "a-WarnOnDisabledIiopUnauthenticatedServiceContextValueTypeFiltering-label": "Warn On Disabled IIOP Unauthenticated Service Context Value Type Filtering",
+  "a-WarnOnDisabledJaxwsRejectUnknownSeiOperations-label": "Warn On Disabled JAX-WS Reject Unknown SEI Operations",
+  "a-WarnOnDisabledJndiAdditionalFactoriesAllowLists-label": "Warn On Disabled JNDI Additional Factories Allow Lists",
+  "a-WarnOnDisabledJndiBindingAuthorizationPolicy-label": "Warn On Disabled JNDI Binding Authorization Policy",
+  "a-WarnOnDisabledJndiOutboundConnectionsAllowList-label": "Warn On Disabled JNDI Outbound Connections Allow List",
+  "a-WarnOnDisabledSAML2StrictArtifactResolution-label": "Warn On Disabled SAML2 Strict Artifact Resolution",
+  "a-WarnOnDisabledSerializedWorkContextMaximumSize-label": "Warn On Disabled Serialized Work Context Maximum Size",
+  "a-WarnOnDisabledSpringJtaDeserializationJndiLookupDisabled-label": "Warn On Disabled Spring JTA Deserialization JNDI Lookup Disabled",
+  "a-WarnOnDisabledT3LegacyCrossDomainCredentialJVMIDReplayProtection-label": "Warn On Disabled T3 Legacy Cross Domain Credential JVMID Replay Protection",
+  "a-WarnOnDisabledT3RouteOnlyToTrustedServers-label": "Warn On Disabled T3 Route Only To Trusted Servers",
+  "a-WarnOnDisabledWlProxyClientCertificateChainValidation-label": "Warn On Disabled WL Proxy Client Certificate Chain Validation",
+  "a-WarnOnDisabledWldfScriptActionPathRestriction-label": "Warn On Disabled WLDF Script Action Path Restriction",
+  "a-WarnOnDisabledWorkContextClassValidation-label": "Warn On Disabled Work Context Class Validation",
+  "a-WarnOnDisabledWorkContextInputMaximumAsciiFieldSize-label": "Warn On Disabled Work Context Input Maximum ASCII Field Size",
+  "a-WarnOnDisabledWsatIgnoreUnknownReplayCompletion-label": "Warn On Disabled WSAT Ignore Unknown Replay Completion",
+  "a-WarnOnDisabledWsatRegistrationSecret-label": "Warn On Disabled WSAT Registration Secret",
+  "a-WlProxyClientCertificateChainValidationEnabled-label": "WL Proxy Client Certificate Chain Validation Enabled",
+  "a-WlProxyClientCertificateChainValidationEnabled-help": "Specifies whether certificate chains supplied in the WL-Proxy-Client-Cert HTTP header are validated against the configured WebLogic Server client certificate trust anchors before use for X.509 identity assertion. When enabled, invalid, untrusted, expired, malformed, or otherwise unverifiable certificates are rejected. When disabled, legacy proxy client certificate behavior is preserved.",
+  "a-WorkContextInputMaximumAsciiFieldSize-label": "Work Context Input Maximum ASCII Field Size",
+  "a-WorkContextInputMaximumAsciiFieldSize-help": "Specifies the maximum size, in bytes, of an ASCII field in the WorkArea binary encoding that uses a four-byte signed length. A value of -1 disables this limit; zero permits only zero-length fields. This limit does not apply to transport-specific WorkContext encodings such as T3 and IIOP, which use separate decoding paths.",
+  "a-WsatIgnoreUnknownReplayCompletionEnabled-label": "WSAT Ignore Unknown Replay Completion Enabled",
+  "a-WsatIgnoreUnknownReplayCompletionEnabled-help": "Specifies whether WS-AT replay completion requests with no matching local transaction are ignored. When disabled, legacy behavior rolls back a recovery resource created from the caller-supplied ReplyTo endpoint.",
+  "a-WsatRegistrationSecretEnabled-label": "WSAT Registration Secret Enabled",
+  "a-WsatRegistrationSecretEnabled-help": "Specifies whether WebLogic Server includes a per-transaction registration secret in generated WS-AT coordination contexts and requires unauthenticated registration requests to return the matching secret before enlisting a participant. When disabled, legacy WS-AT interoperability behavior is preserved.",
+
+  "a-CertificateAuthorityKeyProfile-help": "Specifies the key profile used when a Domain or Machine Certificate Authority is next generated or rolled over. Changing this value does not replace existing Certificate Authority keys or force regeneration.",
+  "a-CertificateAuthoritySignatureAlgorithm-help": "Specifies the signature algorithm a newly generated Certificate Authority uses for its own certificate and the leaf certificates it issues. An existing Certificate Authority retains its current signing algorithm until regeneration or rollover.",
+  "a-CertificateCheckTime-help": "Specifies the local server time for certificate checks in H:mm format, with an hour from 0 through 23 and a two-digit minute. The first check occurs at that time after the configured Certificate Check Interval, and subsequent checks follow the same calendar-day interval. If unset, fixed-rate scheduling is used.",
+  "a-CertificateCheckTimeMaximumOffset-help": "Specifies the maximum random delay, in seconds, added to Certificate Check Time. One offset between zero and this value is selected when the schedule is established and reused for that scheduling lifecycle. Zero disables the offset; the maximum is 86399 seconds.",
+  "a-CertificateKeyProfile-help": "Specifies the key profile used when a leaf certificate is next generated or renewed. Changing this value does not alter existing certificates or force regeneration.",
+  "a-DomainKeystoresAdminUrl-help": "Specifies the absolute HTTPS URL of the Administration Server that Node Manager contacts for the domain Certificate Management service. This property is required when KeyStores is DomainKeystores.",
+  "a-DomainKeystoresMachineName-help": "Specifies the domain Machine name used to identify Node Manager to the Certificate Management service. This property is required when KeyStores is DomainKeystores.",
+  "a-ExpiredCertificateAuthorityRetentionDays-help": "Specifies how many days an expired Certificate Authority remains trusted in the Administration Server's domain-trust or provisioned-trust source store before automatic cleanup removes it. Zero disables automatic cleanup, but does not prevent administrator-initiated cleanup.",
+  "a-JmsDotNetClientEnabled-help": "Specifies whether the WebLogic JMS Client for Microsoft .NET endpoint is enabled. A server restart is required for changes to take effect.",
+  "a-KeystoreFileLockTimeout-help": "Specifies the maximum time, in milliseconds, a process waits to acquire a cross-process lock on a shared Certificate Management keystore file. The value must be positive. Changes require a restart of the affected server or Node Manager process. The weblogic.keystore.filelock.timeout system property takes precedence when specified.",
+  "a-KeystoreFileLockingEnabled-help": "Specifies whether cross-process file locks are used when accessing shared Certificate Management keystores. If disabled, locking must be disabled consistently in every process accessing the same machine keystores. Changes require a restart of the affected server or Node Manager process. The weblogic.keystore.filelock.enabled system property takes precedence when specified.",
+  "a-MaxHeaderCount-help": "Specifies the maximum number of decoded HTTP/2 fields accepted in one header list, counting pseudo-headers, repeated fields, and each separately encoded Cookie field. Initial headers and trailers have separate limits. This is a local inbound limit, not an HTTP/2 SETTINGS parameter, and changes apply to newly established connections.",
+  "a-MaxQueued-help": "Specifies how many asynchronous tasks may wait when an annotation-configured executor reaches its maxAsync running-task limit. A negative value permits an unbounded queue; zero disables queueing and rejects further submissions at that limit; a positive value bounds the number of waiting tasks.",
+  "a-MaximumUnitOfWorkMessages-help": "Specifies the maximum number of messages in a JMS unit of work (UOW). A message whose UOW sequence number exceeds this limit is rejected. This setting is effective only when Unit Of Work Handling Policy is Single Message Delivery. Changes apply to subsequent UOW messages; an already accepted UOW end message continues to define that UOW's permitted sequence range.",
+  "a-RestrictContentBasedOnRoles-help": "Specifies whether the hosted Remote Console restricts pages and actions according to the current user's WebLogic Server role. When disabled, all content is displayed, but WebLogic Server still enforces authorization. Content restrictions use the default security policies and may not reflect custom policy changes.",
+  "a-SubjectNamePolicy-help": "Specifies which host names and literal IP addresses the Domain Certificates Issuer permits in certificate subjects. CONFIGURED_ONLY permits configured server listen addresses, network-channel listen addresses, targeted virtual-host names, and the configured Node Manager listen address for machine certificates. CONFIGURED_PLUS_HOST also permits the authenticated request host name and address. CONFIGURED_PLUS_ANY permits any requested identity for legacy compatibility. Localhost and numeric loopback addresses are permitted in every mode.",
+  "a-WarnOnDisabledCrossDomainT3SConnectionTrustValidation-help": "Specifies whether to issue a warning when FeatureCompatibility.CrossDomainT3SConnectionTrustValidationEnabled is false. This controls warnings only and does not change the feature setting.",
+  "a-WarnOnDisabledIiopStrictRemoteBusinessInterfaceValidation-help": "Specifies whether to issue a warning when FeatureCompatibility.IiopStrictRemoteBusinessInterfaceValidationEnabled is false. This controls warnings only and does not change the feature setting.",
+  "a-WarnOnDisabledIiopTypedReadResolveProxyValidation-help": "Specifies whether to issue a warning when FeatureCompatibility.IIOPTypedReadResolveProxyValidationEnabled is false. This controls warnings only and does not change the feature setting.",
+  "a-WarnOnDisabledIiopUnauthenticatedServiceContextValueTypeFiltering-help": "Specifies whether to issue a warning when FeatureCompatibility.IIOPUnauthenticatedServiceContextValueTypeFilteringEnabled is false. This controls warnings only and does not change the feature setting.",
+  "a-WarnOnDisabledJaxwsRejectUnknownSeiOperations-help": "Specifies whether to issue a warning when FeatureCompatibility.JaxwsRejectUnknownSeiOperationsEnabled is false. This controls warnings only and does not change the feature setting.",
+  "a-WarnOnDisabledJndiAdditionalFactoriesAllowLists-help": "Specifies whether to issue a warning when FeatureCompatibility.JndiAdditionalFactoriesAllowListsEnabled is false. This controls warnings only and does not change the feature setting.",
+  "a-WarnOnDisabledJndiBindingAuthorizationPolicy-help": "Specifies whether to issue a warning when FeatureCompatibility.JndiBindingAuthorizationPolicyEnabled is false. This controls warnings only and does not change the feature setting.",
+  "a-WarnOnDisabledJndiOutboundConnectionsAllowList-help": "Specifies whether to issue a warning when FeatureCompatibility.JndiOutboundConnectionsAllowListEnabled is false. This controls warnings only and does not change the feature setting.",
+  "a-WarnOnDisabledSAML2StrictArtifactResolution-help": "Specifies whether to issue a warning when FeatureCompatibility.SAML2StrictArtifactResolutionEnabled is false. This controls warnings only and does not change the feature setting.",
+  "a-WarnOnDisabledSerializedWorkContextMaximumSize-help": "Specifies whether to issue a warning when FeatureCompatibility.SerializedWorkContextMaximumSize is zero or negative. This controls warnings only and does not change the configured byte limit.",
+  "a-WarnOnDisabledSpringJtaDeserializationJndiLookupDisabled-help": "Specifies whether to issue a warning when FeatureCompatibility.SpringJtaDeserializationJndiLookupDisabled is false. This controls warnings only and does not change the feature setting.",
+  "a-WarnOnDisabledT3LegacyCrossDomainCredentialJVMIDReplayProtection-help": "Specifies whether to issue a warning when FeatureCompatibility.T3LegacyCrossDomainCredentialJVMIDReplayProtectionEnabled is false. This controls warnings only and does not change the feature setting.",
+  "a-WarnOnDisabledT3RouteOnlyToTrustedServers-help": "Specifies whether to issue a warning when FeatureCompatibility.T3RouteOnlyToTrustedServersEnabled is false. This controls warnings only and does not change the feature setting.",
+  "a-WarnOnDisabledWlProxyClientCertificateChainValidation-help": "Specifies whether to issue a warning when FeatureCompatibility.WlProxyClientCertificateChainValidationEnabled is false. This controls warnings only and does not change the feature setting.",
+  "a-WarnOnDisabledWldfScriptActionPathRestriction-help": "Specifies whether to issue a warning when FeatureCompatibility.WLDFScriptActionPathRestrictionEnabled is false. This controls warnings only and does not change the feature setting.",
+  "a-WarnOnDisabledWorkContextClassValidation-help": "Specifies whether to issue a warning when FeatureCompatibility.WorkContextClassValidationEnabled is false. This controls warnings only and does not change the feature setting.",
+  "a-WarnOnDisabledWorkContextInputMaximumAsciiFieldSize-help": "Specifies whether to issue a warning when FeatureCompatibility.WorkContextInputMaximumAsciiFieldSize is zero or negative. This controls warnings only and does not change the configured byte limit.",
+  "a-WarnOnDisabledWsatIgnoreUnknownReplayCompletion-help": "Specifies whether to issue a warning when FeatureCompatibility.WsatIgnoreUnknownReplayCompletionEnabled is false. This controls warnings only and does not change the feature setting.",
+  "a-WarnOnDisabledWsatRegistrationSecret-help": "Specifies whether to issue a warning when FeatureCompatibility.WsatRegistrationSecretEnabled is false. This controls warnings only and does not change the feature setting.",
+  "f-NMProperties-a-KeystoreFileWatchingEnabled-help": "Specifies whether Node Manager watches Certificate Management keystore files and polls for managed-identity revisions. When enabled, identity replacement or removal causes Node Manager to restart so it does not retain a removed listener credential. Automatic restart requires Node Manager to be started with restart support. Disabling this property disables both watching and revision polling. Changes require a Node Manager restart. The weblogic.keystore.filewatch.enabled system property takes precedence when specified.",
+  "f-SecurityConfiguration_CertificateManagement-a-KeystoreFileWatchingEnabled-help": "Specifies whether WebLogic Server watches Certificate Management keystore files for changes made by another process. Changes require a server restart. The weblogic.keystore.filewatch.enabled system property takes precedence when specified."
 }

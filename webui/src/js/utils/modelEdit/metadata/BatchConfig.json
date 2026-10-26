@@ -1,0 +1,19 @@
+{
+  "BatchConfig": {
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "SchemaName",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+
+  }
+}

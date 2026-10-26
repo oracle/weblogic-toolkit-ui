@@ -1,0 +1,32 @@
+{
+  "FeatureCompatibility": {
+    "attributeDetails": {
+      "SerializedWorkContextMaximumSize": {
+        "validators": [ "range(-1,)" ]
+      }
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "IIOPTypedReadResolveProxyValidationEnabled",
+          "IIOPUnauthenticatedServiceContextValueTypeFilteringEnabled",
+          "JndiAdditionalFactoriesAllowListsEnabled",
+          "JndiBindingAuthorizationPolicyEnabled",
+          "JndiOutboundConnectionsAllowListEnabled",
+          "SerializedWorkContextMaximumSize",
+          "StrictReplicationAuthorizationEnabled",
+          "T3RouteOnlyToTrustedServersEnabled",
+          "WorkContextClassValidationEnabled",
+          "WLDFScriptActionPathRestrictionEnabled",
+          "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  }
+}
