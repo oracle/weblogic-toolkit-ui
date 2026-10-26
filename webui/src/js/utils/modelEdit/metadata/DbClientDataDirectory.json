@@ -41,6 +41,7 @@
           "DeploymentOrder",
           "DeploymentPrincipalName",
           "InstallDir",
+          "LegacyEmptyBeansXmlDiscovery",
           "ModuleType",
           "MultiVersionApp",
           "ParallelDeployModules",
@@ -50,7 +51,8 @@
           "SecurityDDModel",
           "Target",
           "Untargeted",
-          "ValidateDDSecurityData"
+          "ValidateDDSecurityData",
+          "ValidatePersistenceXmlSchema"
         ]
       }
     ]

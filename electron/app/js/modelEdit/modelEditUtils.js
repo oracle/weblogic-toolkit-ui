@@ -5,7 +5,7 @@
  */
 'use strict';
 
-// This module is shared by scripts / updateAliasLabels.js, so it should not be
+// This module is shared by scripts/appendAliasLabels.js, so it should not be
 // dependent on Node.js initialization (don't require i18next, wktTools, etc.).
 const fsPromises = require('fs/promises');
 const JSZip = require('jszip');
@@ -14,8 +14,8 @@ const path = require('path');
 const wdtArchive = require('../wdtArchive');
 
 const acronyms = [
-  'ACL', 'ACS', 'CCDI', 'CORS', 'CPU', 'CRL', 'DB', 'DDL', 'EJB', 'HTTP', 'ID', 'JDBC', 'JMS', 'JNDI',
-  'JPA', 'JTA', 'KSS', 'MDB', 'PC', 'RJVM', 'RMIT', 'SAML', 'SNMP', 'SRM', 'SSL', 'SSO', 'TLOG', 'TTL', 'TXN',
+  'ACL', 'ACS', 'ASCII', 'CCDI', 'CORS', 'CPU', 'CRL', 'DB', 'DDL', 'EJB', 'HTTP', 'ID', 'IIOP', 'JDBC', 'JMS', 'JNDI',
+  'JPA', 'JTA', 'KSS', 'MDB', 'PC', 'RJVM', 'RMIT', 'SAML', 'SEI', 'SNMP', 'SRM', 'SSL', 'SSO', 'TLOG', 'TTL', 'TXN',
   'URI', 'URL', 'WLDF', 'WSAT', 'XA', 'XACML', 'XML',
   'Coherence', 'WebLogic'
 ];
@@ -118,7 +118,7 @@ function addPaths(aliasFolder, path, pathMap) {
   };
 }
 
-// this method is used by webui MessageHelper, and by updateAliasLabels tool
+// this method is used by webui MessageHelper, and by the appendAliasLabels tool
 function getReadableLabel(aliasName) {
   // aliasName = aliasName.replaceAll('.', ' ');
 
@@ -153,6 +153,7 @@ function getReadableLabel(aliasName) {
 
   result = result.replace(/\bweb logic\b/gi, 'WebLogic');
   result = result.replace(/\bm bean\b/gi, 'MBean');
+  result = result.replace(/\bjaxws\b/gi, 'JAX-WS');
 
   return result;
 }

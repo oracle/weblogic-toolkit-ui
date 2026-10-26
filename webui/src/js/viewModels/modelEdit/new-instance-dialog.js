@@ -24,9 +24,6 @@ function(accUtils, ko, project,
     const newInstanceName = InstanceHelper.getNewInstanceName(MODEL_PATH);
     const newInstancePath = [...MODEL_PATH, newInstanceName];
 
-    const providerGroupLabel = MessageHelper.getFolderTypeLabel(MODEL_PATH);
-    const typeFolderNames = AliasHelper.getFolderNames(MODEL_PATH);
-
     const subscriptions = [];
 
     this.disconnected = () => {
@@ -39,17 +36,21 @@ function(accUtils, ko, project,
 
     this.useTypeFolder = AliasHelper.usesTypeFolders(MODEL_PATH);
 
-    this.providerTypeLabel = MessageHelper.getProviderTypeLabel(ALIAS_PATH, providerGroupLabel);
-    this.providerTypeHelp = MessageHelper.getProviderTypeHelp(ALIAS_PATH, providerGroupLabel);
     this.providerType = ko.observable();
     this.providerTypeOptions = [];
-    typeFolderNames.forEach(typeName => {
-      const typePath = [...ALIAS_PATH, typeName];
-      this.providerTypeOptions.push({
-        value: typeName,
-        label: MessageHelper.getFolderLabel(typePath)
+    if (this.useTypeFolder) {
+      const providerGroupLabel = MessageHelper.getFolderTypeLabel(ALIAS_PATH);
+      this.providerTypeLabel = MessageHelper.getProviderTypeLabel(ALIAS_PATH, providerGroupLabel);
+      this.providerTypeHelp = MessageHelper.getProviderTypeHelp(ALIAS_PATH, providerGroupLabel);
+      const typeFolderNames = AliasHelper.getFolderNames(MODEL_PATH);
+      typeFolderNames.forEach(typeName => {
+        const typePath = [...ALIAS_PATH, typeName];
+        this.providerTypeOptions.push({
+          value: typeName,
+          label: MessageHelper.getFolderLabel(typePath)
+        });
       });
-    });
+    }
 
     this.title = MessageHelper.getAddInstanceMessage(ALIAS_PATH);
     this.nameLabel = MessageHelper.getInstanceNameLabel(ALIAS_PATH);

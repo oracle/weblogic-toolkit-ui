@@ -91,7 +91,8 @@ function (ko, WktLogger, WktProject, allNavigation, ModelEditHelper, AliasHelper
             } else {
               const usesTypeFolders = aliasNode.usesTypeFolders;
               if(!usesTypeFolders) {  // type folders don't appear in nav
-                const aliasFolders = aliasNode.folders;
+                // Navigation adds merged paths; keep the shared WDT aliases unchanged.
+                const aliasFolders = [...aliasNode.folders];
 
                 // folder with merge folders have nav paths like JmsResource/ConnectionFactory
                 const mergeFolder = MetaHelper.getMergeFolder(aliasPath);
