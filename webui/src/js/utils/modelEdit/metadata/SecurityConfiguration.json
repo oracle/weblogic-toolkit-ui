@@ -84,7 +84,8 @@
             "attributes": [
               "RemoteAnonymousRmit3Enabled",
               "RemoteAnonymousRmiiiopEnabled",
-              "RemoteAnonymousJndiEnabled"
+              "RemoteAnonymousJndiEnabled",
+              "JmsDotNetClientEnabled"
             ]
           },
           {
@@ -390,11 +391,30 @@
       "CertificateCheckInterval": {
         "validators": [ "range(1,7)" ]
       },
+      "CertificateCheckTime": {
+        "validators": [ "timeOfDay" ]
+      },
+      "CertificateCheckTimeMaximumOffset": {
+        "validators": [ "range(0,86399)" ]
+      },
       "CertificateRefreshWindow": {
         "validators": [ "range(5,30)" ]
       },
       "CertificateValidityPeriod": {
         "validators": [ "range(15,365)" ]
+      },
+      "ExpiredCertificateAuthorityRetentionDays": {
+        "validators": [ "range(0,365)" ]
+      },
+      "KeystoreFileLockTimeout": {
+        "validators": [ "range(1,2147483647)" ]
+      },
+      "SubjectNamePolicy": {
+        "options": [
+          { "value": "CONFIGURED_ONLY", "labelKey": "options-configured-only-label" },
+          { "value": "CONFIGURED_PLUS_HOST", "labelKey": "options-configured-plus-host-label" },
+          { "value": "CONFIGURED_PLUS_ANY", "labelKey": "options-configured-plus-any-label" }
+        ]
       },
       "SubjectAlternativeNames": {
         "editorType": "selectMulti",
@@ -433,11 +453,18 @@
           "ProvisionedCertificatesIssuerEnabled",
           "JavaStandardTrustEnabled",
           "SubjectCommonName",
+          "SubjectNamePolicy",
           "SubjectAlternativeNames",
           "CertificateValidityPeriod",
+          "CertificateKeyProfile",
           "CertificateAuthorityValidityPeriod",
+          "CertificateAuthorityKeyProfile",
+          "CertificateAuthoritySignatureAlgorithm",
           "CertificateCheckInterval",
+          "CertificateCheckTime",
+          "CertificateCheckTimeMaximumOffset",
           "CertificateRefreshWindow",
+          "ExpiredCertificateAuthorityRetentionDays",
           "IncludeRootCertificateInChain",
           "Notes"
         ]
@@ -3392,6 +3419,31 @@
           "WarnOnUserLockout",
           "WarnOnUsernamePasswords",
           "Notes"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "feature-compatibility-warnings-title",
+        "attributes": [
+          "WarnOnDisabledCrossDomainT3SConnectionTrustValidation",
+          "WarnOnDisabledIiopStrictRemoteBusinessInterfaceValidation",
+          "WarnOnDisabledIiopTypedReadResolveProxyValidation",
+          "WarnOnDisabledIiopUnauthenticatedServiceContextValueTypeFiltering",
+          "WarnOnDisabledJaxwsRejectUnknownSeiOperations",
+          "WarnOnDisabledJndiAdditionalFactoriesAllowLists",
+          "WarnOnDisabledJndiBindingAuthorizationPolicy",
+          "WarnOnDisabledJndiOutboundConnectionsAllowList",
+          "WarnOnDisabledSAML2StrictArtifactResolution",
+          "WarnOnDisabledSerializedWorkContextMaximumSize",
+          "WarnOnDisabledSpringJtaDeserializationJndiLookupDisabled",
+          "WarnOnDisabledT3LegacyCrossDomainCredentialJVMIDReplayProtection",
+          "WarnOnDisabledT3RouteOnlyToTrustedServers",
+          "WarnOnDisabledWlProxyClientCertificateChainValidation",
+          "WarnOnDisabledWldfScriptActionPathRestriction",
+          "WarnOnDisabledWorkContextClassValidation",
+          "WarnOnDisabledWorkContextInputMaximumAsciiFieldSize",
+          "WarnOnDisabledWsatIgnoreUnknownReplayCompletion",
+          "WarnOnDisabledWsatRegistrationSecret"
         ]
       },
       {

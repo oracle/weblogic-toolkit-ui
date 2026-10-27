@@ -3,22 +3,35 @@
     "attributeDetails": {
       "SerializedWorkContextMaximumSize": {
         "validators": [ "range(-1,)" ]
+      },
+      "WorkContextInputMaximumAsciiFieldSize": {
+        "validators": [ "range(-1,)" ]
       }
     },
     "sections": [
       {
         "type": "attributes",
         "attributes": [
+          "CrossDomainT3SConnectionTrustValidationEnabled",
+          "IiopStrictRemoteBusinessInterfaceValidationEnabled",
           "IIOPTypedReadResolveProxyValidationEnabled",
           "IIOPUnauthenticatedServiceContextValueTypeFilteringEnabled",
+          "JaxwsRejectUnknownSeiOperationsEnabled",
           "JndiAdditionalFactoriesAllowListsEnabled",
           "JndiBindingAuthorizationPolicyEnabled",
           "JndiOutboundConnectionsAllowListEnabled",
+          "SAML2StrictArtifactResolutionEnabled",
           "SerializedWorkContextMaximumSize",
+          "SpringJtaDeserializationJndiLookupDisabled",
           "StrictReplicationAuthorizationEnabled",
+          "T3LegacyCrossDomainCredentialJVMIDReplayProtectionEnabled",
           "T3RouteOnlyToTrustedServersEnabled",
+          "WlProxyClientCertificateChainValidationEnabled",
           "WorkContextClassValidationEnabled",
+          "WorkContextInputMaximumAsciiFieldSize",
           "WLDFScriptActionPathRestrictionEnabled",
+          "WsatIgnoreUnknownReplayCompletionEnabled",
+          "WsatRegistrationSecretEnabled",
           "Notes"
         ]
       },

@@ -135,6 +135,9 @@
       "MaxHeaderListSize": {
         "validators": [ "range(0,)" ]
       },
+      "MaxHeaderCount": {
+        "validators": [ "range(1,32767)" ]
+      },
       "MaxStreamResets": {
         "validators": [ "range(0,)" ]
       }
@@ -147,6 +150,7 @@
           "MaxFrameSize",
           "MaxStreamResets",
           "MaxHeaderListSize",
+          "MaxHeaderCount",
           "InitialWindowSize",
           "ContinuationFramesLimit",
           "HeaderTableSize",

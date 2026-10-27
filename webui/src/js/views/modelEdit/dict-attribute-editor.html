@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2024, 2025, Oracle and/or its affiliates.
+ Copyright (c) 2024, 2026, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 
@@ -20,7 +20,14 @@
     <template slot="rowTemplate" data-oj-as="row">
       <tr data-bind="attr: {'data-uid': row.data.uid}">
         <td><oj-bind-text value="[[row.data.key]]"></oj-bind-text></td>
-        <td><oj-bind-text value="[[row.data.value]]"></oj-bind-text></td>
+        <td>
+          <oj-bind-if test="[[isCredential(row.data)]]">
+            <oj-module config="[[credentialCellConfig(row.data.value)]]"></oj-module>
+          </oj-bind-if>
+          <oj-bind-if test="[[!isCredential(row.data)]]">
+            <oj-bind-text value="[[row.data.value]]"></oj-bind-text>
+          </oj-bind-if>
+        </td>
         <td>
           <oj-c-button
             display="icons"

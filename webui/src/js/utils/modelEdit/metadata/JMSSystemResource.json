@@ -499,8 +499,8 @@
     },
     "attributeDetails": {
       "ConnectionURL": {
-        "comment": "The use of file URLs here is rare so disabling this for now.",
-        "usesPath": false,
+        "usesPath": true,
+        "fileUrl": true,
         "archiveTypes": ["jmsForeignServerBinding"],
         "segregateFolder": "ForeignServer"
       }
@@ -580,7 +580,14 @@
   "JMSSystemResource/JmsResource/ForeignServer/JNDIProperty": {
     "summaryAttributes": {
       "Key": {},
-      "Value": {}
+      "Value": {
+        "valueHandler": "foreignJndiPropertyValue"
+      }
+    },
+    "attributeDetails": {
+      "Value": {
+        "encryptedPropertyValue": true
+      }
     },
     "sections": [
       {
@@ -637,6 +644,7 @@
           "AttachSender",
           "LoadBalancingPolicy",
           "UnitOfWorkHandlingPolicy",
+          "MaximumUnitOfWorkMessages",
           "IncompleteWorkExpirationTime",
           "SafExportPolicy",
           "MaximumMessageSize",
@@ -1037,6 +1045,7 @@
           "DefaultUnitOfOrder",
           "AttachSender",
           "UnitOfWorkHandlingPolicy",
+          "MaximumUnitOfWorkMessages",
           "IncompleteWorkExpirationTime",
           "SafExportPolicy",
           "MaximumMessageSize",
@@ -1209,6 +1218,7 @@
           "DefaultUnitOfOrder",
           "AttachSender",
           "UnitOfWorkHandlingPolicy",
+          "MaximumUnitOfWorkMessages",
           "IncompleteWorkExpirationTime",
           "SafExportPolicy",
           "MaximumMessageSize",
@@ -1384,6 +1394,7 @@
           "AttachSender",
           "LoadBalancingPolicy",
           "UnitOfWorkHandlingPolicy",
+          "MaximumUnitOfWorkMessages",
           "IncompleteWorkExpirationTime",
           "SafExportPolicy",
           "MaximumMessageSize",
@@ -1547,6 +1558,7 @@
           "AttachSender",
           "LoadBalancingPolicy",
           "UnitOfWorkHandlingPolicy",
+          "MaximumUnitOfWorkMessages",
           "IncompleteWorkExpirationTime",
           "SafExportPolicy",
           "MaximumMessageSize",

@@ -37,7 +37,8 @@ function(accUtils, ko, WktLogger, DialogHelper, ArrayDataProvider, ModuleElement
 
     this.attribute = ATTRIBUTE;
     this.observable = ATTRIBUTE.observable;
-    this.editorType = ModelEditHelper.getEditorType(ATTRIBUTE);
+    this.editorType = ko.computed(() => ModelEditHelper.getEditorType(ATTRIBUTE, ATTRIBUTE_MAP));
+    subscriptions.push(this.editorType);
 
     this.messages = ko.observableArray();
 
@@ -58,7 +59,7 @@ function(accUtils, ko, WktLogger, DialogHelper, ArrayDataProvider, ModuleElement
     this.attributeHelp = MessageHelper.getAttributeHelp(ATTRIBUTE, ALIAS_PATH);
 
     this.isTextEditorType = () => {
-      return ['string', 'integer', 'double', 'long'].includes(this.editorType);
+      return ['string', 'integer', 'double', 'long'].includes(this.editorType());
     };
 
     this.variableName = ko.computed(() => {
@@ -134,7 +135,7 @@ function(accUtils, ko, WktLogger, DialogHelper, ArrayDataProvider, ModuleElement
     this.checkValue = () => {
       this.messages.removeAll();
 
-      if(this.editorType === 'select') {
+      if(this.editorType() === 'select') {
         const value = this.getValueObservable()();
         if(value) {
           const currentOptions = ko.isObservable(options) ? options() : options;

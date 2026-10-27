@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2025, Oracle and/or its affiliates.
+ * Copyright (c) 2025, 2026, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -14,6 +14,8 @@ define(['knockout', 'utils/wkt-logger', 'utils/modelEdit/message-helper'],
 
       const INTEGER_REGEX = /^(-?[0-9]*)$/;
       const DOUBLE_REGEX = /^(-?[0-9]+(?:\.[0-9]*)?)$/;
+      // Match the complete value, including rejecting a trailing newline (unlike JavaScript's $ anchor).
+      const TIME_OF_DAY_REGEX = /^(?:[01]?[0-9]|2[0-3]):[0-5][0-9](?![\s\S])/;
 
       // java min and max seem to be the limits in WebLogic docs
       const MIN_INT = -2147483648;
@@ -56,6 +58,16 @@ define(['knockout', 'utils/wkt-logger', 'utils/modelEdit/message-helper'],
           validate: value => {
             checkIntegerText(value);
             validateRange(value, MIN_PORT, MAX_PORT);
+          }
+        };
+      };
+
+      this.timeOfDay = () => {
+        return {
+          validate: value => {
+            if (value != null && (typeof value !== 'string' || !TIME_OF_DAY_REGEX.test(value))) {
+              throw new Error(MessageHelper.t('invalid-time-of-day-error'));
+            }
           }
         };
       };

@@ -6,7 +6,7 @@
 <div class="wkt-model-edit-attribute-container">
   <div class="wkt-model-edit-attribute-container-main">
 
-    <oj-bind-if test="[[editorType === 'credential']]">
+    <oj-bind-if test="[[editorType() === 'credential']]">
       <oj-c-input-password
         label-hint="[[attributeLabel]]"
         help.instruction="[[attributeHelp]]"
@@ -30,15 +30,15 @@
       </oj-c-input-text>
     </oj-bind-if>
 
-    <oj-bind-if test="[[editorType === 'list']]">
+    <oj-bind-if test="[[editorType() === 'list']]">
       <oj-module config="[[createListEditorConfig()]]"></oj-module>
     </oj-bind-if>
 
-    <oj-bind-if test="[[editorType === 'dict']]">
+    <oj-bind-if test="[[editorType() === 'dict']]">
       <oj-module config="[[createDictEditorConfig()]]"></oj-module>
     </oj-bind-if>
 
-    <oj-bind-if test="[[editorType === 'boolean']]">
+    <oj-bind-if test="[[editorType() === 'boolean']]">
       <div class="wkt-model-edit-boolean-box" :class="[[extraClass]]">
         <oj-switch
           label-hint="[[attributeLabel]]"
@@ -52,7 +52,7 @@
       </div>
     </oj-bind-if>
 
-    <oj-bind-if test="[[editorType === 'select']]">
+    <oj-bind-if test="[[editorType() === 'select']]">
       <oj-c-select-single
         item-text="label"
         label-hint="[[attributeLabel]]"
@@ -66,11 +66,11 @@
       </oj-c-select-single>
     </oj-bind-if>
 
-    <oj-bind-if test="[[editorType === 'selectMulti']]">
+    <oj-bind-if test="[[editorType() === 'selectMulti']]">
       <oj-module config="[[createSelectMultiEditorConfig()]]"></oj-module>
     </oj-bind-if>
 
-    <oj-bind-if test="[[editorType === 'combo']]">
+    <oj-bind-if test="[[editorType() === 'combo']]">
       <oj-combobox-one
         label-hint="[[attributeLabel]]"
         help.instruction="[[attributeHelp]]"
@@ -82,7 +82,7 @@
       </oj-combobox-one>
     </oj-bind-if>
 
-    <oj-bind-if test="[[editorType === 'comboMulti']]">
+    <oj-bind-if test="[[editorType() === 'comboMulti']]">
       <oj-combobox-many
         label-hint="[[attributeLabel]]"
         help.instruction="[[attributeHelp]]"
@@ -94,7 +94,7 @@
       </oj-combobox-many>
     </oj-bind-if>
 
-    <oj-bind-if test="[[editorType === 'fileSelect']]">
+    <oj-bind-if test="[[editorType() === 'fileSelect']]">
       <oj-c-input-text
         label-hint="[[attributeLabel]]"
         help.instruction="[[attributeHelp]]"
@@ -127,7 +127,7 @@
       </oj-c-input-text>
     </oj-bind-if>
 
-    <oj-bind-if test="[[editorType === 'textArea']]">
+    <oj-bind-if test="[[editorType() === 'textArea']]">
       <oj-c-text-area
         label-hint="[[attributeLabel]]"
         help.instruction="[[attributeHelp]]"
@@ -139,7 +139,7 @@
       </oj-c-text-area>
     </oj-bind-if>
 
-    <oj-bind-if test="[[editorType === 'unknown']]">
+    <oj-bind-if test="[[editorType() === 'unknown']]">
       <oj-c-input-text
         label-hint="[[attributeLabel + ' (' + attribute.type + ' ???)']]"
         help.instruction="[[attributeHelp]]"

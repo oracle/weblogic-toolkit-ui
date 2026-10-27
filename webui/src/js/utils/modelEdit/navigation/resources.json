@@ -328,6 +328,18 @@
       "path": "MessagingBridge"
     },
     {
+      "path": "NoSqlSystemResource",
+      "instanceChildren": [
+        {
+          "path": "NoSqlResource/Properties/Property"
+        }
+      ],
+      "hidden": [
+        "NoSqlResource/Properties",
+        "SubDeployment"
+      ]
+    },
+    {
       "path": "ODLConfiguration",
       "instanceChildren": [
         {

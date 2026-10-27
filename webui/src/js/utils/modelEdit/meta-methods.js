@@ -86,6 +86,14 @@ function (ko, WktLogger, DialogHelper, ArchiveHelper, ModelEditHelper, AliasHelp
       };
     };
 
+    this.foreignJndiPropertyValue = (attributeKey, modelPath) => {
+      return {
+        value: ModelEditHelper.getDerivedValue(ModelEditHelper.getValue(modelPath, attributeKey)),
+        isCredential: ModelEditHelper.isEncryptedPropertyName(
+          ModelEditHelper.getForeignJndiPropertyKey(modelPath))
+      };
+    };
+
     this.propertyValue = (attributeKey, modelPath) => {
       let value  = null;
       let isCredential = false;

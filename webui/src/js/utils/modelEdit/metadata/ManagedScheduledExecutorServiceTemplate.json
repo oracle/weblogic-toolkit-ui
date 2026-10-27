@@ -18,6 +18,7 @@
         "attributes": [
           "DispatchPolicy",
           "MaxConcurrentLongRunningRequests",
+          "MaxQueued",
           "LongRunningPriority",
           "DeploymentOrder",
           "Notes",

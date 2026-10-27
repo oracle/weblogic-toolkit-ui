@@ -8,10 +8,11 @@
 define(['accUtils', 'knockout', 'utils/dialog-helper','ojs/ojarraydataprovider',
   'ojs/ojbufferingdataprovider', 'utils/view-helper', 'utils/common-utilities', 'utils/modelEdit/message-helper',
   'utils/modelEdit/meta-handlers', 'utils/modelEdit/alias-helper',
+  'utils/modelEdit/model-edit-helper', 'utils/modelEdit/module-helper',
   'oj-c/button', 'oj-c/input-text', 'oj-c/list-view', 'oj-c/input-password'
 ],
 function(accUtils, ko, DialogHelper, ArrayDataProvider,
-  BufferingDataProvider, ViewHelper, utils, MessageHelper, MetaHandlers, AliasHelper) {
+  BufferingDataProvider, ViewHelper, utils, MessageHelper, MetaHandlers, AliasHelper, ModelEditHelper, ModuleHelper) {
 
   function DictAttributeEditor(args) {
     const ATTRIBUTE = args.attribute;
@@ -77,6 +78,9 @@ function(accUtils, ko, DialogHelper, ArrayDataProvider,
       }];
 
     this.observableEntries = ko.observableArray([]);
+
+    this.isCredential = entry => ATTRIBUTE.encryptedPropertyValues && ModelEditHelper.isEncryptedPropertyName(entry.key);
+    this.credentialCellConfig = value => ModuleHelper.createCredentialCellConfig(value);
 
     // update the internal list observable from the attribute observable.
     // the attribute observable value should be a dictionary, variable tokens are not allowed.
