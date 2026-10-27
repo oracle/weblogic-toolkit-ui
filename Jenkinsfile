@@ -3,7 +3,7 @@
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 pipeline {
-    agent { label 'ol8' }
+    agent { label 'linux-ol8' }
     options {
         timeout(time: 480, unit: 'MINUTES')
     }
@@ -56,7 +56,7 @@ pipeline {
             failFast true
             parallel {
                 stage('Linux Build') {
-                    agent { label 'ol9' }
+                    agent { label 'linux-ol9' }
                     options {
                         timeout(time: 300, unit: 'MINUTES')
                     }
