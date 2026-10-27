@@ -51,6 +51,9 @@
       "Notes": {
         "editorType": "textArea"
       },
+      "MaximumUnitOfWorkMessages": {
+        "validators": [ "range(1,4096)" ]
+      },
       "PlatformLoggerLevels": {
         "valueAdd": {
           "editorType": "select",

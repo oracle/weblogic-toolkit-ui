@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 
@@ -133,12 +133,13 @@ function getEntryTypes() {
     },
     'jmsForeignServerBinding': {
       name: i18n.t('wdt-archiveType-jmsForeignServerBinding'),
-      subtype: 'file',
+      subtype: 'either',
       segregatedLabel: i18n.t('wdt-archiveType-jmsForeignServerSegregationLabel'),
       segregatedHelp: i18n.t('wdt-archiveType-jmsForeignServerSegregationHelp'),
-      extensions: ['properties'],
       fileLabel: i18n.t('wdt-archiveType-jmsForeignServerBinding-fileLabel'),
       fileHelp: i18n.t('wdt-archiveType-jmsForeignServerBinding-fileHelp'),
+      dirLabel: i18n.t('wdt-archiveType-jmsForeignServerBinding-dirLabel'),
+      dirHelp: i18n.t('wdt-archiveType-jmsForeignServerBinding-dirHelp'),
       pathPrefix: 'config/wlsdeploy/jms/foreignServer/'
     },
     'mimeMapping': {
@@ -386,6 +387,7 @@ async function _validateArchiveEntryData(targetWindow, entryType, typeDetail, en
         break;
 
       case 'databaseWallet':
+      case 'jmsForeignServerBinding':
         if (!_validateRequiredString(targetWindow, entryType, typeDetail.segregatedLabel, entryData.segregatedName)) {
           resolve(false);
         } else {
@@ -396,7 +398,6 @@ async function _validateArchiveEntryData(targetWindow, entryType, typeDetail, en
         break;
 
       case 'coherenceConfig':
-      case 'jmsForeignServerBinding':
       case 'serverKeystore':
       case 'serverTemplateKeystore':
         if (!_validateRequiredString(targetWindow, entryType, typeDetail.segregatedLabel, entryData.segregatedName)) {

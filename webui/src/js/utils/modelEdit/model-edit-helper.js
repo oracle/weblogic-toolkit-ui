@@ -547,7 +547,23 @@ function (ko, jsYaml, project, utils,
       return validators;
     };
 
-    function getEditorType(attribute) {
+    // Foreign JNDI properties use a case-sensitive name suffix rather than a password alias type.
+    function isEncryptedPropertyName(name) {
+      return typeof name === 'string' && name.endsWith('.encrypted');
+    }
+
+    this.isEncryptedPropertyName = isEncryptedPropertyName;
+
+    const getPropertyKey = (modelPath, attributeMap) => {
+      const keyAttribute = attributeMap?.Key;
+      const key = keyAttribute ? keyAttribute.observable() : this.getValue(modelPath, 'Key');
+      // WDT uses the instance name as Key when no explicit Key is supplied.
+      return this.getDerivedValue(key == null ? modelPath.slice(-1)[0] : key);
+    };
+
+    this.getForeignJndiPropertyKey = getPropertyKey;
+
+    function getEditorType(attribute, attributeMap) {
       let editorType = getOfflineValue(attribute.type);
       let usesPath = getOfflineValue(attribute.usesPath);
       usesPath = usesPath === true || usesPath === 'true';
@@ -580,6 +596,10 @@ function (ko, jsYaml, project, utils,
       const typeOverride = attribute['editorType'];
       if(typeOverride) {
         editorType = typeOverride;
+      }
+
+      if(attribute.encryptedPropertyValue && isEncryptedPropertyName(getPropertyKey(attribute.path, attributeMap))) {
+        editorType = 'credential';
       }
 
       if(!EDITOR_TYPES.includes(editorType)) {

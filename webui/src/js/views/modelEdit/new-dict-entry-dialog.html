@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2024, 2025, Oracle and/or its affiliates.
+ Copyright (c) 2024, 2026, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0 as shown at https://oss.oracle.com/licenses/upl/
  -->
 <oj-dialog id="newDictEntryDialog" class="wkt-model-edit-attribute-dialog" :class="[[themeClasses]]" initial-visibility="hide">
@@ -14,7 +14,17 @@
           <oj-bind-for-each data="[[fields]]">
             <template data-oj-as="field">
 
-              <oj-bind-if test="[[field.data.editorType === 'string']]">
+              <oj-bind-if test="[[field.data.editorType() === 'credential']]">
+                <oj-c-input-password
+                  label-hint="[[field.data.label]]"
+                  help.instruction="[[field.data.help]]"
+                  value="{{field.data.observable}}"
+                  required="true"
+                >
+                </oj-c-input-password>
+              </oj-bind-if>
+
+              <oj-bind-if test="[[field.data.editorType() === 'string']]">
                 <oj-c-input-text
                   label-hint="[[field.data.label]]"
                   help.instruction="[[field.data.help]]"
@@ -25,7 +35,7 @@
                 </oj-c-input-text>
               </oj-bind-if>
 
-              <oj-bind-if test="[[field.data.editorType === 'select']]">
+              <oj-bind-if test="[[field.data.editorType() === 'select']]">
                 <oj-c-select-single
                   item-text="label"
                   label-hint="[[field.data.label]]"
@@ -37,7 +47,7 @@
                 </oj-c-select-single>
               </oj-bind-if>
 
-              <oj-bind-if test="[[field.data.editorType === 'selectMulti']]">
+              <oj-bind-if test="[[field.data.editorType() === 'selectMulti']]">
                 <!-- oj-c-select-multiple broken: Jira JET-76802 -->
                 <!-- oj-c-select-multiple uses data="..." instead of options="..." -->
                 <oj-select-many
@@ -51,7 +61,7 @@
                 </oj-select-many>
               </oj-bind-if>
 
-              <oj-bind-if test="[[field.data.editorType === 'combo']]">
+              <oj-bind-if test="[[field.data.editorType() === 'combo']]">
                 <oj-combobox-one
                   label-hint="[[field.data.label]]"
                   help.instruction="[[field.data.help]]"
@@ -62,7 +72,7 @@
                 </oj-combobox-one>
               </oj-bind-if>
 
-              <oj-bind-if test="[[field.data.editorType === 'comboMulti']]">
+              <oj-bind-if test="[[field.data.editorType() === 'comboMulti']]">
                 <oj-combobox-many
                   label-hint="[[field.data.label]]"
                   help.instruction="[[field.data.help]]"

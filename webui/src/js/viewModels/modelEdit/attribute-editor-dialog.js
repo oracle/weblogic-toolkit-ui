@@ -160,7 +160,15 @@ function(accUtils, ko, project, utils, ArrayDataProvider, ModelEditHelper,
     };
 
     this.addToArchive = async() => {
-      const path = ATTRIBUTE.observable().toString();
+      let path = ATTRIBUTE.observable().toString();
+      if(ATTRIBUTE.fileUrl && /^file:/i.test(path)) {
+        try {
+          path = window.api.path.fromFileURL(path);
+        } catch {
+          this.addErrorMessage(this.labelMapper('archive-file-not-present', { path }));
+          return;
+        }
+      }
       const exists = await window.api.modelEdit.exists(path);
       if(!exists) {
         this.addErrorMessage(this.labelMapper('archive-file-not-present', { path }));

@@ -481,6 +481,7 @@
   "invalid-integer-error": "Value must be an integer",
   "invalid-double-error": "Value must be a decimal number, such as 4 or 3.5",
   "invalid-range-error": "Value must be in the range {{min}} to {{max}}",
+  "invalid-time-of-day-error": "Enter a time in H:mm format with an hour from 0 to 23 and a two-digit minute from 00 to 59, such as 9:30 or 09:30.",
 
   "instance-name-error": "Name may only contain letters, numbers, and these characters: .-_!",
   "instance-name-in-use-error": "This name is already in use",
@@ -1515,7 +1516,7 @@
 
   "a-ConnectionURL-label": "Connection URL",
   "f-JMSBridgeDestination-a-ConnectionURL-help": "The connection URL for this JMS bridge destination.",
-  "f-JMSSystemResource_JmsResource_ForeignServer-a-ConnectionURL-help": "The URL that WebLogic Server will use to contact the JNDI provider. The syntax of this URL depends on which JNDI provider is being used. For WebLogic JMS, leave this field blank if you are referencing WebLogic JMS objects within the same cluster. This value corresponds to the standard JNDI property, java.naming.provider.url. Note: If this value is not specified, look-ups will be performed on the JNDI server within the WebLogic Server instance where this connection factory is deployed.",
+  "f-JMSSystemResource_JmsResource_ForeignServer-a-ConnectionURL-help": "The URL that WebLogic Server will use to contact the JNDI provider. The syntax depends on the provider and corresponds to java.naming.provider.url. For file-based providers, select a binding file or directory and optionally add it to the WDT archive. For WebLogic JMS, leave this field blank when referencing objects within the same cluster. If unspecified, lookups use the JNDI server within the WebLogic Server instance where this foreign server is deployed.",
   "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionURL-help": "The URL is passed to the JDBC driver to create the physical database connections.",
 
   "a-ConsensusParticipants-label": "Consensus Participants",
@@ -5197,7 +5198,7 @@
   "a-Properties-keyHelp": "Specifies the property name.",
   "a-Properties-valueLabel": "Property Value",
   "a-Properties-valueHelp": "Specifies the property value.",
-  "f-ForeignJNDIProvider-a-Properties-help": "Any additional properties that must be set for the JNDI provider. These properties will be passed directly to the constructor for the JNDI provider's InitialContext class.",
+  "f-ForeignJNDIProvider-a-Properties-help": "Any additional properties that must be set for the JNDI provider. These properties will be passed directly to the constructor for the JNDI provider's InitialContext class. Starting with WebLogic Server 26.1, values whose property names end in .encrypted (case-sensitive) are treated as credentials by WDT and encrypted by WebLogic Server in config.xml.",
   "f-MailSession-a-Properties-help": "The configuration options and user authentication data that this JavaMail session uses to interact with the email server. Each property that you specify overrides the default property value as defined by the JavaMail API Design Specification. Include only the properties defined by the JavaMail API Design Specification. If you do not specify any properties, this mail session will use the JavaMail default property values.",
   "f-WLDFSystemResource_WLDFResource_Instrumentation_WLDFInstrumentationMonitor-a-Properties-itemLabel": "Property",
   "f-WLDFSystemResource_WLDFResource_Instrumentation_WLDFInstrumentationMonitor-a-Properties-itemHelp": "Specify a property name=value pair for this monitor.",
@@ -7013,7 +7014,7 @@
 
   "a-Value-label": "Value",
   "f-JDBCSystemResource_JdbcResource_JDBCDriverParams_Properties-a-Value-help": "The value of the JDBC driver property.",
-  "f-JMSSystemResource_JmsResource_ForeignServer_JNDIProperty-a-Value-help": "The value of the JNDI property.",
+  "f-JMSSystemResource_JmsResource_ForeignServer_JNDIProperty-a-Value-help": "The value of the JNDI property. Starting with WebLogic Server 26.1, WebLogic Server encrypts this value in the JMS descriptor when Key ends in .encrypted (case-sensitive). When Key is unset, WDT uses the property instance name as the key.",
   "f-any_ConfigurationProperty-a-Value-help": "Specifies the value of the property.",
 
   "a-VerboseEJBDeploymentEnabled-label": "Verbose EJB Deployment Enabled",
@@ -8079,5 +8080,30 @@
   "a-WarnOnDisabledWsatIgnoreUnknownReplayCompletion-help": "Specifies whether to issue a warning when FeatureCompatibility.WsatIgnoreUnknownReplayCompletionEnabled is false. This controls warnings only and does not change the feature setting.",
   "a-WarnOnDisabledWsatRegistrationSecret-help": "Specifies whether to issue a warning when FeatureCompatibility.WsatRegistrationSecretEnabled is false. This controls warnings only and does not change the feature setting.",
   "f-NMProperties-a-KeystoreFileWatchingEnabled-help": "Specifies whether Node Manager watches Certificate Management keystore files and polls for managed-identity revisions. When enabled, identity replacement or removal causes Node Manager to restart so it does not retain a removed listener credential. Automatic restart requires Node Manager to be started with restart support. Disabling this property disables both watching and revision polling. Changes require a Node Manager restart. The weblogic.keystore.filewatch.enabled system property takes precedence when specified.",
-  "f-SecurityConfiguration_CertificateManagement-a-KeystoreFileWatchingEnabled-help": "Specifies whether WebLogic Server watches Certificate Management keystore files for changes made by another process. Changes require a server restart. The weblogic.keystore.filewatch.enabled system property takes precedence when specified."
+  "f-SecurityConfiguration_CertificateManagement-a-KeystoreFileWatchingEnabled-help": "Specifies whether WebLogic Server watches Certificate Management keystore files for changes made by another process. Changes require a server restart. The weblogic.keystore.filewatch.enabled system property takes precedence when specified.",
+
+  "feature-compatibility-warnings-title": "Feature Compatibility Warnings",
+  "options-configured-only-label": "Configured Names Only",
+  "options-configured-plus-host-label": "Configured Names and Authenticated Host",
+  "options-configured-plus-any-label": "Any Requested Name (Legacy Compatibility)",
+
+  "a-DatabaseType-label": "Database Type",
+  "a-DefaultResource-label": "Default Resource",
+  "a-ProviderName-label": "Provider Name",
+  "f-any_NoSqlResource-label": "NoSQL Resource",
+  "f-any_NoSqlSystemResource-label": "NoSQL System Resources",
+  "f-any_NoSqlSystemResource-typeLabel": "NoSQL System Resource",
+  "f-NoSqlSystemResource_NoSqlResource_Properties_Property-label": "Properties",
+  "f-NoSqlSystemResource_NoSqlResource_Properties_Property-typeLabel": "Property",
+  "options-oracle-nosql-label": "Oracle NoSQL",
+  "options-document-label": "Document",
+  "options-key-value-label": "Key-Value",
+  "options-column-label": "Column",
+  "options-graph-label": "Graph",
+  "f-NoSqlSystemResource_NoSqlResource-a-ProviderName-help": "The NoSQL provider used by this resource. The supported provider name is oracle-nosql. Changes affecting provider compatibility require affected applications to be fully redeployed; a stop/start does not clear invalidation.",
+  "f-NoSqlSystemResource_NoSqlResource-a-DatabaseType-help": "The provider-neutral Jakarta Data database type. The default is DOCUMENT. Legal values are DOCUMENT, KEY_VALUE, COLUMN, and GRAPH, but the selected provider must support the type. The built-in oracle-nosql provider currently supports DOCUMENT. WebLogic Server validates the provider and database-type combination when the resource is targeted.",
+  "f-NoSqlSystemResource_NoSqlResource-a-DefaultResource-help": "Specifies whether this resource is eligible for default selection when a Jakarta NoSQL-backed repository omits dataStore. Default selection requires exactly one valid, locally targeted resource explicitly bound to the application and marked as a default. This setting does not establish an application binding or grant authorization.",
+  "f-NoSqlSystemResource_NoSqlResource-a-JNDIName-help": "The JNDI name assigned to this NoSQL resource.",
+  "f-NoSqlSystemResource_NoSqlResource_Properties_Property-a-Value-help": "The plain-text value of this provider-specific NoSQL property. Use Encrypted Value for a credential or other sensitive value.",
+  "f-NoSqlSystemResource_NoSqlResource_Properties_Property-a-EncryptedValueEncrypted-help": "The sensitive value of this provider-specific NoSQL property. WebLogic Server stores the value encrypted in the NoSQL resource descriptor. WDT handles this field as a password."
 }

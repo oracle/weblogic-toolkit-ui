@@ -1,0 +1,85 @@
+{
+  "NoSqlSystemResource": {
+    "mergeFolder": "NoSqlResource",
+    "summaryAttributes": {
+      "NoSqlResource/ProviderName": {},
+      "NoSqlResource/DatabaseType": {},
+      "NoSqlResource/JNDIName": {},
+      "Target": {}
+    },
+    "sections": [
+      {
+        "type": "attributes",
+        "attributes": [
+          "ProviderName",
+          "DatabaseType",
+          "JNDIName",
+          "DefaultResource",
+          "DeploymentOrder",
+          "Notes",
+          "Target"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "attributes": [
+          "CompatibilityName",
+          "DeploymentPrincipalName",
+          "ModuleType"
+        ],
+        "addRemainingAttributes": true
+      },
+      {
+        "type": "hidden",
+        "attributes": [
+          "SourcePath"
+        ]
+      }
+    ]
+  },
+  "NoSqlSystemResource/NoSqlResource": {
+    "attributeDetails": {
+      "ProviderName": {
+        "options": [
+          { "value": "oracle-nosql", "labelKey": "options-oracle-nosql-label" }
+        ]
+      },
+      "DatabaseType": {
+        "options": [
+          { "value": "DOCUMENT", "labelKey": "options-document-label" },
+          { "value": "KEY_VALUE", "labelKey": "options-key-value-label" },
+          { "value": "COLUMN", "labelKey": "options-column-label" },
+          { "value": "GRAPH", "labelKey": "options-graph-label" }
+        ]
+      }
+    }
+  },
+  "NoSqlSystemResource/NoSqlResource/Properties/Property": {
+    "summaryAttributes": {
+      "valueType": {
+        "columnHandler": "propertyValueTypeColumnInfo",
+        "valueHandler": "propertyValueType"
+      },
+      "value": {
+        "columnHandler": "propertyValueColumnInfo",
+        "valueHandler": "propertyValue"
+      }
+    },
+    "sections": [
+      {
+        "type": "custom",
+        "view": "modelEdit/property-section",
+        "attributes": [
+          "Value",
+          "EncryptedValueEncrypted"
+        ]
+      },
+      {
+        "type": "attributesCollapsible",
+        "labelKey": "advanced-label",
+        "addRemainingAttributes": true
+      }
+    ]
+  }
+}

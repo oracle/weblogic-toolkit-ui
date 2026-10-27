@@ -454,6 +454,8 @@
   "wdt-archiveType-jmsForeignServerBinding": "JMS Foreign Server Binding",
   "wdt-archiveType-jmsForeignServerBinding-fileLabel": "JMS Foreign Server Binding File",
   "wdt-archiveType-jmsForeignServerBinding-fileHelp": "Choose the full path to the JMS Foreign Server binding file",
+  "wdt-archiveType-jmsForeignServerBinding-dirLabel": "JMS Foreign Server Binding Directory",
+  "wdt-archiveType-jmsForeignServerBinding-dirHelp": "Choose the directory containing the JMS Foreign Server bindings",
 
   "wdt-archiveType-mimeMapping": "MIME Mapping File",
   "wdt-archiveType-mimeMapping-fileLabel": "MIME Mapping File",

@@ -8,7 +8,7 @@
 define(['accUtils', 'knockout',
   'utils/modelEdit/model-edit-helper', 'utils/modelEdit/message-helper', 'utils/modelEdit/meta-options',
   'utils/modelEdit/alias-helper', 'utils/common-utilities', 'utils/view-helper', 'ojs/ojarraydataprovider',
-  'oj-c/input-text', 'oj-c/button', 'ojs/ojdialog', 'ojs/ojvalidationgroup'],
+  'oj-c/input-text', 'oj-c/input-password', 'oj-c/button', 'ojs/ojdialog', 'ojs/ojvalidationgroup'],
 function(accUtils, ko, ModelEditHelper, MessageHelper, MetaOptions, AliasHelper, utils,
   ViewHelper, ArrayDataProvider) {
 
@@ -61,9 +61,15 @@ function(accUtils, ko, ModelEditHelper, MessageHelper, MetaOptions, AliasHelper,
     const valueAdd = ATTRIBUTE.valueAdd || {};
     const valueOptions = getOptions(valueAdd);
 
+    const valueEditorType = ko.computed(() => {
+      return ATTRIBUTE.encryptedPropertyValues && ModelEditHelper.isEncryptedPropertyName(this.entryKey()) ?
+        'credential' : getEditorType(valueAdd);
+    });
+    subscriptions.push(valueEditorType);
+
     this.fields = [
       {
-        editorType: getEditorType(keyAdd),
+        editorType: ko.observable(getEditorType(keyAdd)),
         observable: this.entryKey,
         label: MessageHelper.getKeyLabel(ATTRIBUTE, ALIAS_PATH),
         help: MessageHelper.getKeyHelp(ATTRIBUTE, ALIAS_PATH),
@@ -71,7 +77,7 @@ function(accUtils, ko, ModelEditHelper, MessageHelper, MetaOptions, AliasHelper,
         validators: []
       },
       {
-        editorType: getEditorType(valueAdd),
+        editorType: valueEditorType,
         observable: this.entryValue,
         label: MessageHelper.getValueLabel(ATTRIBUTE, ALIAS_PATH),
         help: MessageHelper.getValueHelp(ATTRIBUTE, ALIAS_PATH),

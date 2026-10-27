@@ -45,6 +45,8 @@
       },
       "LogFileSeverity": {
         "options": [
+          { "value": "Trace", "labelKey": "options-trace-label" },
+          { "value": "Debug", "labelKey": "options-debug-label" },
           { "value": "Info", "labelKey": "options-info-label" },
           { "value": "Warning", "labelKey": "options-warning-label" },
           { "value": "Notice", "labelKey": "options-notice-label" }

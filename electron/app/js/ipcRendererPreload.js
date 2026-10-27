@@ -5,6 +5,7 @@
  */
 const { contextBridge, ipcRenderer } = require('electron');
 const path = require('node:path');
+const { fileURLToPath, pathToFileURL } = require('node:url');
 const uuid = require('uuid');
 
 const k8sUtils = require('./k8sUtils');
@@ -228,6 +229,8 @@ contextBridge.exposeInMainWorld(
       }
     },
     path: {
+      fromFileURL: fileUrl => fileURLToPath(fileUrl),
+      toFileURL: filePath => pathToFileURL(filePath).href,
       basename: (filePath, ext) => path.basename(filePath, ext),
       dirname: (filePath) => path.dirname(filePath),
       exists: (filePath) => path.exists(filePath),

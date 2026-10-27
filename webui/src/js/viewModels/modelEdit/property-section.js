@@ -12,7 +12,7 @@ define(['accUtils', 'knockout', 'utils/modelEdit/model-edit-helper', 'utils/mode
 function(accUtils, ko, ModelEditHelper, ModuleHelper, AliasHelper, MessageHelper) {
 
   /**
-   * Custom view for JDBC Driver Params / Properties
+   * Custom view for properties with a choice of plain or encrypted values.
    */
   function PropertySection(args) {
     const META_SECTION = args.metaSection;

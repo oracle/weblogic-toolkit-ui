@@ -43,6 +43,12 @@
       "DomainKeystoresDomain": {
         "disabled": "nodeManagerDomainKeystoresFields"
       },
+      "DomainKeystoresAdminUrl": {
+        "disabled": "nodeManagerDomainKeystoresFields"
+      },
+      "DomainKeystoresMachineName": {
+        "disabled": "nodeManagerDomainKeystoresFields"
+      },
       "DomainsFile": {
         "disabled": "nodeManagerDomainsFileFields",
         "fileOptions": [ { "type": "file", "extensions": ["domains"] } ]
@@ -60,6 +66,23 @@
       },
       "ListenBacklog": {
         "validators": [ "range(0,)" ]
+      },
+      "KeystoreFileLockTimeout": {
+        "validators": [ "range(1,2147483647)" ]
+      },
+      "KeystoreFileLockingEnabled": {
+        "optionsMatch": "lower",
+        "options": [
+          { "value": "true", "label": "true" },
+          { "value": "false", "label": "false" }
+        ]
+      },
+      "KeystoreFileWatchingEnabled": {
+        "optionsMatch": "lower",
+        "options": [
+          { "value": "true", "label": "true" },
+          { "value": "false", "label": "false" }
+        ]
       },
       "ListenPort": {
         "validators": [ "port" ]
@@ -236,6 +259,11 @@
               "KeyStores",
               "UseKSSForDemo",
               "DomainKeystoresDomain",
+              "DomainKeystoresAdminUrl",
+              "DomainKeystoresMachineName",
+              "KeystoreFileWatchingEnabled",
+              "KeystoreFileLockingEnabled",
+              "KeystoreFileLockTimeout",
               "JavaStandardTrustKeyStorePassPhrase",
               "CustomIdentityAlias",
               "CustomIdentityKeyStoreFileName",

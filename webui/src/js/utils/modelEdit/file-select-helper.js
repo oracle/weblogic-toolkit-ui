@@ -78,7 +78,7 @@ function (DialogHelper, WktLogger, ModelEditHelper, AliasHelper, ArchiveHelper, 
 
       let fileChosen = null;
       if (selectOption.type !== 'emptyDir') {
-        fileChosen = await ArchiveHelper.chooseAttributeFile(selectOption, currentValue);
+        fileChosen = await ArchiveHelper.chooseAttributeFile(selectOption, getChooserPath(currentValue, attribute));
         if (!fileChosen) {  // no return value indicates cancel
           return;
         }
@@ -86,6 +86,8 @@ function (DialogHelper, WktLogger, ModelEditHelper, AliasHelper, ArchiveHelper, 
 
       if(checkArchive) {
         fileChosen = await this._checkArchiveUpdate(fileChosen, selectOption, attribute);
+      } else if (attribute.fileUrl) {
+        fileChosen = toFileUrl(fileChosen, matchType);
       }
 
       return fileChosen;
@@ -97,6 +99,19 @@ function (DialogHelper, WktLogger, ModelEditHelper, AliasHelper, ArchiveHelper, 
      * @param attribute the attribute object
      */
     this.checkArchiveUpdate = async(path, attribute) => {
+      if (attribute.fileUrl && /^file:/i.test(path) && !/^file:\//i.test(path)) {
+        return path;  // Preserve relative archive references from WDT discovery.
+      }
+      if (attribute.fileUrl && /^file:/i.test(path)) {
+        try {
+          path = window.api.path.fromFileURL(path);
+        } catch {
+          return path;  // A file URL for another host may not be a local filesystem path.
+        }
+      } else if (attribute.fileUrl && /^[a-z][a-z\d+.-]*:/i.test(path) &&
+        !window.api.path.isAbsolute(path)) {
+        return path;  // Leave non-file provider URLs unchanged.
+      }
       const isDirectory = await window.api.modelEdit.isDirectory(path);
       const matchType = isDirectory ? 'dir' : 'file';
       const selectOptions = this.getSelectOptions(attribute, matchType);
@@ -154,8 +169,29 @@ function (DialogHelper, WktLogger, ModelEditHelper, AliasHelper, ArchiveHelper, 
         }
       }
 
-      return attributePath;
+      // WDT expands archived paths into file URLs when deploying a foreign server.
+      return attribute.fileUrl && !addToArchive ? toFileUrl(attributePath, fileType) : attributePath;
     };
+
+    function toFileUrl(filePath, fileType) {
+      const fileUrl = window.api.path.toFileURL(filePath);
+      return fileType === 'dir' && !fileUrl.endsWith('/') ? fileUrl + '/' : fileUrl;
+    }
+
+    function getChooserPath(value, attribute) {
+      if (!attribute.fileUrl || !value) {
+        return value;
+      }
+      if (/^file:\//i.test(value)) {
+        try {
+          return window.api.path.fromFileURL(value);
+        } catch {
+          return undefined;
+        }
+      }
+      // Archive references and remote URLs are not local starting directories.
+      return window.api.path.isAbsolute(value) ? value : undefined;
+    }
 
     this.getSelectOptions = (attribute, matchType) => {
       // build a list of select options based on archive and file options
