@@ -5,7 +5,7 @@
  */
 'use strict';
 
-define(['knockout', 'js-yaml', 'models/wkt-project', 'utils/common-utilities',
+define(['knockout', 'utils/yaml-helper', 'models/wkt-project', 'utils/common-utilities',
   'utils/wkt-logger', 'utils/modelEdit/alias-helper', 'utils/modelEdit/meta-helper', 'utils/modelEdit/message-helper',
   'utils/modelEdit/meta-validators', 'utils/wdt-archive-helper'],
 function (ko, jsYaml, project, utils,

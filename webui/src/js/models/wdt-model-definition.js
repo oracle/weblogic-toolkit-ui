@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
@@ -11,7 +11,7 @@
  * Returns a constructor for the object.
  */
 const ADMIN_SECRET_INTERNAL_NAME = '__weblogic-credentials__';
-define(['knockout', 'utils/common-utilities', 'utils/observable-properties', 'js-yaml', 'utils/validation-helper', 'utils/wkt-logger'],
+define(['knockout', 'utils/common-utilities', 'utils/observable-properties', 'utils/yaml-helper', 'utils/validation-helper', 'utils/wkt-logger'],
   function (ko, utils, props, jsYaml, validationHelper, wktLogger) {
     /**
      * The object constructor.
