@@ -399,14 +399,14 @@
 
     "js-yaml": {
       "cdn": "3rdparty",
-      "cwd": "node_modules/js-yaml/dist",
+      "cwd": "node_modules/js-yaml/dist/browser",
       "debug": {
-        "src":  ["js-yaml.js"],
+        "src": "js-yaml.umd.min.js",
         "path": "libs/js-yaml/js-yaml.js",
         "cdnPath": "js-yaml/dist"
       },
       "release": {
-        "src":  ["js-yaml.js"],
+        "src": "js-yaml.umd.min.js",
         "path": "libs/js-yaml/js-yaml.js",
         "cdnPath": "js-yaml/dist"
       }
