@@ -407,8 +407,8 @@ pipeline {
                         }
                         stage('Windows Run Unit Tests') {
                             steps {
-                                bat 'cd "%WORKSPACE%\\electron" & set "PATH=%windows_node_dir%;%PATH%" & "%windows_npm_exe%" test & cd "%WORKSPACE%"'
-                                bat 'cd "%WORKSPACE%\\webui" & set "PATH=%windows_node_dir%;%PATH%" & "%windows_npm_exe%" test & cd "%WORKSPACE%"'
+                                bat 'cd /d "%WORKSPACE%\\electron" && set "PATH=%windows_node_dir%;%PATH%" && call "%windows_npm_exe%" test'
+                                bat 'cd /d "%WORKSPACE%\\webui" && set "PATH=%windows_node_dir%;%PATH%" && call "%windows_npm_exe%" test'
                             }
                         }
                         stage('Windows Build Installers') {
