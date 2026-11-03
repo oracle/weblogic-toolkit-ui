@@ -17,9 +17,14 @@ const { describe, it } = require('mocha');
 /* global __dirname */
 function loadModule(relativePath, dependencies) {
   let result;
-  vm.runInNewContext(fs.readFileSync(path.join(__dirname, '../js', relativePath), 'utf8'), {
-    define(names, factory) { result = factory(...names.map(name => dependencies[name])); }
-  });
+  const filename = path.join(__dirname, '../js', relativePath);
+  // Keep model objects in the same realm as js-yaml's plain-object checks.
+  vm.compileFunction(fs.readFileSync(filename, 'utf8'), [], {
+    filename,
+    contextExtensions: [{
+      define(names, factory) { result = factory(...names.map(name => dependencies[name])); }
+    }]
+  })();
   return result;
 }
 
@@ -44,7 +49,7 @@ describe('26.1 model editing', () => {
   const project = { wdtModel: { modelContent: ko.observable('{}'), modelContentChanged: ko.observable() } };
   const modelHelper = loadModule('utils/modelEdit/model-edit-helper.js', {
     knockout: ko,
-    'js-yaml': yaml,
+    'utils/yaml-helper': loadModule('utils/yaml-helper.js', { 'js-yaml': yaml }),
     'models/wkt-project': project,
     'utils/wkt-logger': { error: message => { throw new Error(message); } },
     'utils/modelEdit/alias-helper': { aliasDataLoaded: () => false },

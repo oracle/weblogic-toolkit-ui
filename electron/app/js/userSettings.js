@@ -392,7 +392,7 @@ function _getUserSettings() {
     fileExists = fs.existsSync(userSettingsFileName);
   } catch (err) {
     throw new Error(i18n.t('user-settings-file-exists-checked-failed-error-message',
-      { userSettingsFile: userSettingsFileName, error: getErrorMessage(err) }));
+      { userSettingsFile: userSettingsFileName, error: getErrorMessage(err) }), { cause: err });
   }
 
   if (fileExists) {
@@ -400,7 +400,7 @@ function _getUserSettings() {
     try {
       userSettingsFileContent = fs.readFileSync(userSettingsFileName, { encoding: 'utf8' });
     } catch (err) {
-      throw new Error(`Failed to read file ${userSettingsFileName}: ${err}`);
+      throw new Error(`Failed to read file ${userSettingsFileName}: ${err}`, { cause: err });
     }
 
     if (userSettingsFileContent && userSettingsFileContent.length > 0) {
@@ -412,7 +412,7 @@ function _getUserSettings() {
         _userSettingsObject = _updateSettings(userSettingsObject);
         _decryptGitHubToken(_userSettingsObject);
       } catch (err) {
-        throw new Error(`Failed to parse ${userSettingsFileName}: ${err}`);
+        throw new Error(`Failed to parse ${userSettingsFileName}: ${err}`, { cause: err });
       }
     } else {
       _userSettingsObject = { uuid: uuid.v4() };
@@ -465,7 +465,7 @@ function saveUserSettings() {
     dirExists = fs.existsSync(userSettingsDirectory);
   } catch (err) {
     throw new Error(i18n.t('user-settings-check-directory-failed-error-message',
-      { userSettingsDirectory: userSettingsDirectory, error: getErrorMessage(err) }));
+      { userSettingsDirectory: userSettingsDirectory, error: getErrorMessage(err) }), { cause: err });
   }
 
   if (!dirExists) {
@@ -475,7 +475,7 @@ function saveUserSettings() {
       });
     } catch (err) {
       throw new Error(i18n.t('user-settings-make-directory-failed-error-message',
-        { userSettingsDirectory: userSettingsDirectory, error: getErrorMessage(err) }));
+        { userSettingsDirectory: userSettingsDirectory, error: getErrorMessage(err) }), { cause: err });
     }
   }
 
@@ -484,7 +484,7 @@ function saveUserSettings() {
     fs.writeFileSync(userSettingsFileName, userSettingsJson, { encoding: 'utf8' });
   } catch (err) {
     throw new Error(i18n.t('user-settings-file-save-failed-error-message',
-      { userSettingsFile: userSettingsFileName, error: getErrorMessage(err) }));
+      { userSettingsFile: userSettingsFileName, error: getErrorMessage(err) }), { cause: err });
   }
 }
 
@@ -495,7 +495,8 @@ function _constructFilteredCopy(settings) {
   try {
     objCopy = JSON.parse(JSON.stringify(settings));
   } catch (err) {
-    throw new Error(i18n.t('user-settings-deep-copy-failed-error-message', { error: getErrorMessage(err) }));
+    throw new Error(i18n.t('user-settings-deep-copy-failed-error-message',
+      { error: getErrorMessage(err) }), { cause: err });
   }
 
   for (const privateField of appPrivateFieldNames) {

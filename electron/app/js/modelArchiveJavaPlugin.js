@@ -148,7 +148,7 @@ class WdtArchiveHelperPlugin extends ModelArchivePlugin {
       return Promise.reject(new Error(i18n.t('model-archive-java-execution-failed-error-message', { error: getErrorMessage(err) })));
     }
 
-    let results = undefined;
+    let results;
     try {
       results = await this._getOutputFileResults(outputFile);
     } catch (err) {

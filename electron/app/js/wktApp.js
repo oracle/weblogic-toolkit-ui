@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const { homepage, productName, version, copyright } = require('../../package.json');
@@ -61,7 +61,8 @@ class WktApp {
     try {
       exists = fs.existsSync(versionFilePath);
     } catch (err) {
-      throw new Error(`Failed to determine if the version file ${versionFilePath} exists: ${errorUtils.getErrorMessage(err)}`);
+      throw new Error(`Failed to determine if the version file ${versionFilePath} exists: ${errorUtils.getErrorMessage(err)}`,
+        { cause: err });
     }
     if (!exists) {
       throw new Error(`Version file ${versionFilePath} does not exist!`);
@@ -71,7 +72,7 @@ class WktApp {
     try {
       contents = fs.readFileSync(versionFilePath, 'utf8');
     } catch (err) {
-      throw new Error(`Failed to read version file ${versionFilePath}: ${errorUtils.getErrorMessage(err)}`);
+      throw new Error(`Failed to read version file ${versionFilePath}: ${errorUtils.getErrorMessage(err)}`, { cause: err });
     }
 
     let buildVersion;

@@ -151,7 +151,7 @@ class JSZipPlugin extends ModelArchivePlugin {
   }
 
   async _addDirectoryToArchiveFile(archiveFile, zip, zipPath, dirPath) {
-    let fileList = [];
+    let fileList;
     try {
       fileList = await fsUtils.getFilesRecursivelyFromDirectory(dirPath);
     } catch (err) {

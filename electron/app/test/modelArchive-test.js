@@ -10,7 +10,7 @@ const proxyquire = require('proxyquire');
 const chai = require('chai');
 const { after, before, describe, it } = require('mocha');
 const expect = require('chai').expect;
-const chaiAsPromised = require('chai-as-promised');
+const chaiAsPromised = require('chai-as-promised').default;
 chai.use(chaiAsPromised);
 
 const os = require('os');
