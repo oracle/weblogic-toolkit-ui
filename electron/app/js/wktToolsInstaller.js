@@ -1,23 +1,19 @@
 /**
  * @license
- * Copyright (c) 2021, 2025, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 'use strict';
 
-// Node.js now has a built-in fetch implementation but it does not appear to
-// support proxies so let's stick with node-fetch for now...
-//
-// eslint-disable-next-line no-redeclare
-const fetch = require('node-fetch');
 const fs = require('fs');
 const fsPromises = require('fs/promises');
+const { pipeline } = require('stream/promises');
 const path = require('path');
 const extract = require('extract-zip');
 const tar = require('tar');
 const gunzip = require('gunzip-maybe');
 
-const { getFetchOptions, getLatestReleaseObject, getProxyAgent } = require('./githubUtils');
+const { fetchGitHub, getLatestReleaseObject } = require('./githubUtils');
 const fsUtils = require('./fsUtils');
 const osUtils = require('./osUtils');
 
@@ -242,14 +238,8 @@ async function installTool(ghReleaseObj, outputPath, directoryToDelete, options,
 }
 
 async function downloadArchiveFile(fileUrl, outputFile, options, authToken = undefined) {
-  const proxyAgent = await getProxyAgent(options);
-  return new Promise(resolve => {
-    fetch(fileUrl, getFetchOptions(proxyAgent, authToken)).then(res => {
-      const out = fs.createWriteStream(outputFile);
-      out.addListener('close', () => resolve());
-      res.body.pipe(out);
-    });
-  });
+  const res = await fetchGitHub(fileUrl, options, authToken);
+  await pipeline(res.body, fs.createWriteStream(outputFile));
 }
 
 async function openZipFile(zipFile, outputDir) {
@@ -259,17 +249,7 @@ async function openZipFile(zipFile, outputDir) {
 }
 
 async function openTarGzFile(tarGzFile, outputDir) {
-  return new Promise((resolve, reject) => {
-    const tarGzStream = fs.createReadStream(tarGzFile);
-    tarGzStream.addListener('close', () => {
-      resolve();
-    });
-    try {
-      tarGzStream.pipe(gunzip()).pipe(tar.x({cwd: outputDir}));
-    } catch (err) {
-      reject(err);
-    }
-  });
+  await pipeline(fs.createReadStream(tarGzFile), gunzip(), tar.x({cwd: outputDir, strict: true}));
 }
 
 function getInstallFunction(releaseName) {

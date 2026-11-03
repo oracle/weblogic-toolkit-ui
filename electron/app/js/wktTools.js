@@ -184,86 +184,93 @@ async function downloadLatestWdtInstaller(outputDirectory) {
 
 async function checkForUpdates(targetWindow) {
   const logger = getLogger();
-  const result = [];
+  try {
+    const result = [];
 
-  const wdtInstalledReleaseName = await getInstalledWdtReleaseName();
-  const witInstalledReleaseName = await getInstalledWitReleaseName();
-  if (!wdtInstalledReleaseName && !witInstalledReleaseName) {
-    return Promise.resolve(result);
-  }
-
-  const options = await getProxyOptionsFromPreferences();
-  const authToken = getGithubAuthToken();
-
-  let wdtLatestReleaseName;
-  if (wdtInstalledReleaseName) {
-    wdtLatestReleaseName = await getWdtLatestReleaseName(options, authToken);
-    if (wdtLatestReleaseName && wdtLatestReleaseName !== wdtInstalledReleaseName) {
-      result.push(wdtLatestReleaseName);
+    const wdtInstalledReleaseName = await getInstalledWdtReleaseName();
+    const witInstalledReleaseName = await getInstalledWitReleaseName();
+    if (!wdtInstalledReleaseName && !witInstalledReleaseName) {
+      return Promise.resolve(result);
     }
-  } else {
-    logger.debug('WebLogic Deploy Tooling is not installed so no need to check for updates');
-  }
 
-  let witLatestReleaseName;
-  if (witInstalledReleaseName) {
-    witLatestReleaseName = await getWitLatestReleaseName(options, authToken);
-    if (witLatestReleaseName && witLatestReleaseName !== witInstalledReleaseName) {
-      result.push(witLatestReleaseName);
+    const options = await getProxyOptionsFromPreferences();
+    const authToken = getGithubAuthToken();
+
+    let wdtLatestReleaseName;
+    if (wdtInstalledReleaseName) {
+      wdtLatestReleaseName = await getWdtLatestReleaseName(options, authToken);
+      if (wdtLatestReleaseName && wdtLatestReleaseName !== wdtInstalledReleaseName) {
+        result.push(wdtLatestReleaseName);
+      }
+    } else {
+      logger.debug('WebLogic Deploy Tooling is not installed so no need to check for updates');
     }
-  } else {
-    logger.debug('WebLogic Image Tool is not installed so no need to check for updates');
-  }
 
-  if (result.length !== 0) {
-    logger.debug(`Updates available are ${result}`);
-    const buttonResponse = await dialog.showMessageBox(targetWindow, {
-      type: 'question',
-      detail: getToolsUpdateQuestionText(result),
-      buttons: [
-        i18n.t('button-updateTools'),
-        i18n.t('button-cancel')
-      ],
-      defaultId: 0,
-      cancelId: 1
-    });
+    let witLatestReleaseName;
+    if (witInstalledReleaseName) {
+      witLatestReleaseName = await getWitLatestReleaseName(options, authToken);
+      if (witLatestReleaseName && witLatestReleaseName !== witInstalledReleaseName) {
+        result.push(witLatestReleaseName);
+      }
+    } else {
+      logger.debug('WebLogic Image Tool is not installed so no need to check for updates');
+    }
 
-    if (buttonResponse.response === 0) {
-      if (isLinuxAppImage()) {
-        const externalToolDirectory = getWktToolsExternalStagingDirectory();
-        let errorMessage;
-        if (!externalToolDirectory) {
-          errorMessage = i18n.t('app-image-update-tools-external-dir-no-specified');
-        } else if (!existsSync(externalToolDirectory)) {
-          errorMessage = i18n.t('app-image-update-tools-external-dir-not-exists',
-            {externalToolDirectory: externalToolDirectory});
-        }
+    if (result.length !== 0) {
+      logger.debug(`Updates available are ${result}`);
+      const buttonResponse = await dialog.showMessageBox(targetWindow, {
+        type: 'question',
+        detail: getToolsUpdateQuestionText(result),
+        buttons: [
+          i18n.t('button-updateTools'),
+          i18n.t('button-cancel')
+        ],
+        defaultId: 0,
+        cancelId: 1
+      });
 
-        if (errorMessage) {
-          await dialog.showErrorBox(i18n.t('app-image-update-tools-failed-title'), errorMessage);
+      if (buttonResponse.response === 0) {
+        if (isLinuxAppImage()) {
+          const externalToolDirectory = getWktToolsExternalStagingDirectory();
+          let errorMessage;
+          if (!externalToolDirectory) {
+            errorMessage = i18n.t('app-image-update-tools-external-dir-no-specified');
+          } else if (!existsSync(externalToolDirectory)) {
+            errorMessage = i18n.t('app-image-update-tools-external-dir-not-exists',
+              {externalToolDirectory: externalToolDirectory});
+          }
+
+          if (errorMessage) {
+            await dialog.showErrorBox(i18n.t('app-image-update-tools-failed-title'), errorMessage);
+          } else {
+            await updateTools(result, externalToolDirectory, options, authToken);
+            await dialog.showMessageBox(targetWindow, {
+              type: 'info',
+              detail: getToolsUpdateSuccessfulText(result),
+              buttons: [ i18n.t('button-ok') ]
+            });
+          }
         } else {
-          await updateTools(result, externalToolDirectory, options, authToken);
+          await updateTools(result, getToolsDirectory(), options, authToken);
           await dialog.showMessageBox(targetWindow, {
             type: 'info',
             detail: getToolsUpdateSuccessfulText(result),
             buttons: [ i18n.t('button-ok') ]
           });
         }
-      } else {
-        await updateTools(result, getToolsDirectory(), options, authToken);
-        await dialog.showMessageBox(targetWindow, {
-          type: 'info',
-          detail: getToolsUpdateSuccessfulText(result),
-          buttons: [ i18n.t('button-ok') ]
-        });
       }
+    } else {
+      await dialog.showMessageBox(targetWindow, {
+        type: 'info',
+        detail: i18n.t('dialog-noToolsUpdateMessage'),
+        buttons: [ i18n.t('button-ok') ]
+      });
     }
-  } else {
-    await dialog.showMessageBox(targetWindow, {
-      type: 'info',
-      detail: i18n.t('dialog-noToolsUpdateMessage'),
-      buttons: [ i18n.t('button-ok') ]
-    });
+  } catch (err) {
+    const errorMessage = getErrorMessage(err);
+    logger.error(errorMessage);
+    dialog.showErrorBox(i18n.t('dialog-updateToolsFailedTitle'),
+      i18n.t('dialog-updateToolsFailedMessage', { error: errorMessage }));
   }
 }
 

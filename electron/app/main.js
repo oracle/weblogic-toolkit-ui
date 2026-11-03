@@ -12,6 +12,7 @@ const WktApp = require('./js/wktApp');
 // The i18n package is required here to ensure it is initialized before the logging system.
 const i18n = require('./js/i18next.config');
 const { initializeLoggingSystem, logRendererMessage } = require('./js/wktLogging');
+const { setGitHubLogger } = require('./js/githubUtils');
 const userSettings = require('./js/userSettings');
 const { chooseFromFileSystem, createNetworkWindow, createWindow, initialize, setWindowAttribute,
   showErrorMessage, promptUserForOkOrCancelAnswer, promptUserForYesOrNoAnswer, promptUserForYesNoOrCancelAnswer } =
@@ -55,6 +56,7 @@ class Main {
     this._initialProjectFile = null;
     this._tempDir = app.getPath('temp');
     this._logger = initializeLoggingSystem(this._wktMode, this._wktApp, this._tempDir);
+    setGitHubLogger(this._logger);
     wktTools.initialize(this._wktMode);
     initialize(this._isJetDevMode, this._wktApp, this._wktMode);    // wktWindow.js
     this._startupDialogsShownAlready = false;

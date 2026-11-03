@@ -171,6 +171,8 @@
   "dialog-updateOneToolQuestionMessage": "Update to {{toolName1}}?",
   "dialog-updateTwoToolsSuccessMessage": "Installation updated to {{toolName1}} and {{toolName2}}.",
   "dialog-updateOneToolSuccessMessage": "Installation updated to {{toolName1}}.",
+  "dialog-updateToolsFailedTitle": "Failed to Update WKT Tools",
+  "dialog-updateToolsFailedMessage": "Failed to update WKT tools: {{error}}",
   "dialog-preference-save-success-title": "Preferences Saved",
   "dialog-preference-save-success-message": "Preferences were saved successfully",
   "dialog-preference-save-error-title": "Preferences Save Failed",
