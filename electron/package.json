@@ -83,6 +83,7 @@
   "build": {
     "appId": "com.oracle.weblogic.wktui",
     "asar": true,
+    "beforePack": "./build/verifyTools.js",
     "afterSign": "./build/notarize.js",
     "files": [
       "!app/web/test",
