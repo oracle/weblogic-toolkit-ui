@@ -68,6 +68,8 @@
           "CredentialEncrypted",
           "NodeManagerUsername",
           "NodeManagerPasswordEncrypted",
+          "IIOPEnabled",
+          "JmsDotNetClientEnabled",
           "IdentityDomainDefaultEnabled",
           "IdentityDomainAwareProvidersRequired",
           "ExcludedDomainName",
@@ -84,8 +86,7 @@
             "attributes": [
               "RemoteAnonymousRmit3Enabled",
               "RemoteAnonymousRmiiiopEnabled",
-              "RemoteAnonymousJndiEnabled",
-              "JmsDotNetClientEnabled"
+              "RemoteAnonymousJndiEnabled"
             ]
           },
           {
