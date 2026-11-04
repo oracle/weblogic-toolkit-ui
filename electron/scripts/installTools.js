@@ -13,11 +13,12 @@ const { verifyTools } = require('../build/verifyTools');
 async function installTools() {
   const toolsPath = path.normalize(path.join(__dirname, '..', '..', 'tools'));
   const proxy = process.env.WKTUI_DEV_PROXY;
+  const authToken = process.env.WKTUI_GITHUB_TOKEN?.trim() || undefined;
   console.log(`Installing tools to ${toolsPath} for packaging with installer`);
 
-  await installer.installWdtRelease(toolsPath, { httpsProxyUrl: proxy });
+  await installer.installWdtRelease(toolsPath, { httpsProxyUrl: proxy }, authToken);
   console.log('WebLogic Deploy Tooling installed');
-  await installer.installWitRelease(toolsPath, { httpsProxyUrl: proxy });
+  await installer.installWitRelease(toolsPath, { httpsProxyUrl: proxy }, authToken);
   console.log('WebLogic Image Tool installed');
   await verifyTools(toolsPath, process.platform);
 }
