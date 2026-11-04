@@ -8,6 +8,7 @@
 
 const assert = require('node:assert/strict');
 const path = require('node:path');
+const process = require('node:process');
 const { describe, it } = require('mocha');
 const proxyquire = require('proxyquire').noCallThru();
 const { getErrorMessage } = require('../js/errorUtils');
@@ -119,17 +120,27 @@ describe('Help menu WKT tools updates', () => {
       assert.deepEqual(result.updates, [[[latestWdt, latestWit], directory, proxyOptions, authToken]]);
     });
 
-    it(`updates the expected directory with user proxy and authentication for a ${platform}`, async () => {
-      const result = createTools({ linuxAppImage, externalDirectory: stagingDirectory });
+    it(`uses Preferences authentication despite a build token when updating a ${platform}`, async () => {
+      const previousBuildToken = process.env.WKTUI_GITHUB_TOKEN;
+      process.env.WKTUI_GITHUB_TOKEN = 'dummy-build-token';
+      try {
+        const result = createTools({ linuxAppImage, externalDirectory: stagingDirectory });
 
-      await result.tools.checkForUpdates(targetWindow);
+        await result.tools.checkForUpdates(targetWindow);
 
-      assert.deepEqual(result.lookups, [[proxyOptions, authToken], [proxyOptions, authToken]]);
-      assert.deepEqual(result.updates, [[[latestWdt, latestWit], directory, proxyOptions, authToken]]);
-      assert.deepEqual(result.messages.map(message => message.type), ['question', 'info']);
-      assert.equal(result.messages[1].detail, 'dialog-updateTwoToolsSuccessMessage');
-      assert.deepEqual(result.errors, []);
-      assert.deepEqual(result.errorLogs, []);
+        assert.deepEqual(result.lookups, [[proxyOptions, authToken], [proxyOptions, authToken]]);
+        assert.deepEqual(result.updates, [[[latestWdt, latestWit], directory, proxyOptions, authToken]]);
+        assert.deepEqual(result.messages.map(message => message.type), ['question', 'info']);
+        assert.equal(result.messages[1].detail, 'dialog-updateTwoToolsSuccessMessage');
+        assert.deepEqual(result.errors, []);
+        assert.deepEqual(result.errorLogs, []);
+      } finally {
+        if (previousBuildToken === undefined) {
+          delete process.env.WKTUI_GITHUB_TOKEN;
+        } else {
+          process.env.WKTUI_GITHUB_TOKEN = previousBuildToken;
+        }
+      }
     });
   }
 

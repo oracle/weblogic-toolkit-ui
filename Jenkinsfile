@@ -25,6 +25,7 @@ pipeline {
         version_number = VersionNumber([versionNumberString: '-${BUILD_YEAR}${BUILD_MONTH,XX}${BUILD_DAY,XX}${BUILDS_TODAY_Z,XX}', versionPrefix: "${version_prefix}"])
         git_url = "${env.GIT_URL}"
         git_creds = "wktui-orahub-creds"
+        github_token_creds = 'd084c6ed-931f-49bd-bd5d-dbd365f2d326'
 
         downstream_job_name = "wktui-sign"
         TAG_NAME = sh(returnStdout: true, script: '/usr/bin/git describe --abbrev=0 --tags').trim()
@@ -125,7 +126,9 @@ pipeline {
                         }
                         stage('Linux Install Tools Dependencies') {
                             steps {
-                                sh 'cd ${WORKSPACE}/electron; PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} run install-tools; cd ${WORKSPACE}'
+                                withCredentials([string(credentialsId: env.github_token_creds, variable: 'WKTUI_GITHUB_TOKEN')]) {
+                                    sh 'cd ${WORKSPACE}/electron; PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} run install-tools; cd ${WORKSPACE}'
+                                }
                             }
                         }
                         stage('Install SonarScanner') {
@@ -199,7 +202,11 @@ pipeline {
                         }
                         stage('Linux Build Installers') {
                             steps {
-                                sh 'cd ${WORKSPACE}/electron; PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} run build; cd ${WORKSPACE}'
+                                sh 'cd ${WORKSPACE}/electron; PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} run build:jet; cd ${WORKSPACE}'
+                                withCredentials([string(credentialsId: env.github_token_creds, variable: 'WKTUI_GITHUB_TOKEN')]) {
+                                    sh 'cd ${WORKSPACE}/electron; PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} run install-tools; cd ${WORKSPACE}'
+                                }
+                                sh 'cd ${WORKSPACE}/electron; PATH="${linux_node_dir}/bin:$PATH" ${linux_npm_exe} run build:installer; cd ${WORKSPACE}'
                                 archiveArtifacts "dist/wktui*.*"
                                 archiveArtifacts "dist/*.AppImage"
                                 archiveArtifacts "dist/latest-linux.yml"
@@ -273,7 +280,9 @@ pipeline {
                         }
                         stage('MacOS Install Tools Dependencies') {
                             steps {
-                                sh 'cd ${WORKSPACE}/electron; PATH="${mac_node_dir}/bin:$PATH" ${mac_npm_exe} run install-tools; cd ${WORKSPACE}'
+                                withCredentials([string(credentialsId: env.github_token_creds, variable: 'WKTUI_GITHUB_TOKEN')]) {
+                                    sh 'cd ${WORKSPACE}/electron; PATH="${mac_node_dir}/bin:$PATH" ${mac_npm_exe} run install-tools; cd ${WORKSPACE}'
+                                }
                             }
                         }
                         stage('MacOS Run Unit Tests') {
@@ -315,7 +324,15 @@ pipeline {
                                 sh '''
                                     cd "${WORKSPACE}/electron"
                                     PATH="${mac_node_dir}/bin:$PATH" HTTPS_PROXY=${WKTUI_PROXY} CSC_IDENTITY_AUTO_DISCOVERY=false ${mac_npm_exe} run build:jet
-                                    PATH="${mac_node_dir}/bin:$PATH" HTTPS_PROXY=${WKTUI_PROXY} CSC_IDENTITY_AUTO_DISCOVERY=false ${mac_npm_exe} run install-tools
+                                '''
+                                withCredentials([string(credentialsId: env.github_token_creds, variable: 'WKTUI_GITHUB_TOKEN')]) {
+                                    sh '''
+                                        cd "${WORKSPACE}/electron"
+                                        PATH="${mac_node_dir}/bin:$PATH" HTTPS_PROXY=${WKTUI_PROXY} CSC_IDENTITY_AUTO_DISCOVERY=false ${mac_npm_exe} run install-tools
+                                    '''
+                                }
+                                sh '''
+                                    cd "${WORKSPACE}/electron"
                                     rm -f "${WORKSPACE}/tools/weblogic-deploy/lib/jansi-2.4.1.jar"
                                     PATH="${mac_node_dir}/bin:$PATH" HTTPS_PROXY=${WKTUI_PROXY} CSC_IDENTITY_AUTO_DISCOVERY=false ${mac_npm_exe} run build:installer -- --mac --x64 --arm64
                                     cd "${WORKSPACE}"
@@ -402,7 +419,9 @@ pipeline {
                         }
                         stage('Windows Install Tools Dependencies') {
                             steps {
-                                bat 'cd /d "%WORKSPACE%\\electron" && set "PATH=%windows_node_dir%;%PATH%" && call "%windows_npm_exe%" run install-tools'
+                                withCredentials([string(credentialsId: env.github_token_creds, variable: 'WKTUI_GITHUB_TOKEN')]) {
+                                    bat 'cd /d "%WORKSPACE%\\electron" && set "PATH=%windows_node_dir%;%PATH%" && call "%windows_npm_exe%" run install-tools'
+                                }
                             }
                         }
                         stage('Windows Run Unit Tests') {
@@ -413,7 +432,11 @@ pipeline {
                         }
                         stage('Windows Build Installers') {
                             steps {
-                                bat 'cd /d "%WORKSPACE%\\electron" && set "PATH=%windows_node_dir%;%PATH%" && set "HTTPS_PROXY=%WKTUI_PROXY%" && call "%windows_npm_exe%" run build'
+                                bat 'cd /d "%WORKSPACE%\\electron" && set "PATH=%windows_node_dir%;%PATH%" && set "HTTPS_PROXY=%WKTUI_PROXY%" && call "%windows_npm_exe%" run build:jet'
+                                withCredentials([string(credentialsId: env.github_token_creds, variable: 'WKTUI_GITHUB_TOKEN')]) {
+                                    bat 'cd /d "%WORKSPACE%\\electron" && set "PATH=%windows_node_dir%;%PATH%" && set "HTTPS_PROXY=%WKTUI_PROXY%" && call "%windows_npm_exe%" run install-tools'
+                                }
+                                bat 'cd /d "%WORKSPACE%\\electron" && set "PATH=%windows_node_dir%;%PATH%" && set "HTTPS_PROXY=%WKTUI_PROXY%" && call "%windows_npm_exe%" run build:installer'
                                 // bat 'cd "%WORKSPACE%\\webui" & set "PATH=%windows_node_dir%;%PATH%" & set "HTTPS_PROXY=%WKTUI_PROXY%" & "node_modules\\.bin\\ojet" build web --release & cd "%WORKSPACE%"'
                                 // bat 'cd "%WORKSPACE%\\electron" & set "PATH=%windows_node_dir%;%PATH%" & set "HTTPS_PROXY=%WKTUI_PROXY%" & "%windows_node_exe%" scripts/installTools.js & cd "%WORKSPACE%"'
                                 // bat 'cd "%WORKSPACE%\\electron" & set "PATH=%windows_node_dir%;%PATH%" & set "HTTPS_PROXY=%WKTUI_PROXY%" & "node_modules\\.bin\\electron-builder" -p never & cd "%WORKSPACE%"'

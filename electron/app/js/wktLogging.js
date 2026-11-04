@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2021, 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 const path = require('path');
@@ -104,7 +104,8 @@ function writeInitialLogEntries(baseLogger, wktApp, transports) {
   baseLogger.info(`command-line arguments: ${process.argv.join()}`);
   baseLogger.info('environment:');
   for (const key of Object.keys(process.env)) {
-    baseLogger.info('%s = %s', key, process.env[key]);
+    const value = key.toUpperCase() === 'WKTUI_GITHUB_TOKEN' ? '[REDACTED]' : process.env[key];
+    baseLogger.info('%s = %s', key, value);
   }
   baseLogger.info(`${packageJson.productName} logging system initialized with logging level ${_getLevelMessage(baseLogger.level)}`);
   for (let transport of transports) {

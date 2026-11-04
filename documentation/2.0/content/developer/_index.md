@@ -36,6 +36,17 @@ The WebLogic Kubernetes Toolkit UI is a desktop application designed to help Web
 8. Open a command line in the `weblogic-toolkit-ui/webui` directory and run `npm start`.
 9. After the server from the previous step is fully running, open a command line in the `weblogic-toolkit-ui/electron` directory and run `npm start`.
 
+### Authenticating tool downloads
+
+Set the optional `WKTUI_GITHUB_TOKEN` environment variable to a GitHub personal access token before running
+`npm run install-tools` or `npm run build` to authenticate WDT and WIT downloads. Without it, developer
+installations use unauthenticated GitHub requests. The application's **Help > Update WKT Tools** command
+continues to use the GitHub API Key saved in Preferences.
+
+For Jenkins, set `github_token_creds` in the Jenkinsfile to the ID of a **Secret text** credential accessible to the build job.
+The pipeline binds it to `WKTUI_GITHUB_TOKEN` only during tool installation, including the installation before
+packaging on Linux, macOS, and Windows. The token is not written to application preferences or packaged files.
+
 ### Building a Windows or macOS installer
 0. Set up your development environment and verify that the application is working properly from it.
 1. Open a command line in the `weblogic-toolkit-ui/electron` directory and run `npm run build`.

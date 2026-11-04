@@ -7,6 +7,7 @@
 'use strict';
 
 const assert = require('node:assert/strict');
+const process = require('node:process');
 const { describe, it } = require('mocha');
 const { Response: FetchResponse } = require('node-fetch');
 const proxyquire = require('proxyquire').noCallThru();
@@ -61,6 +62,30 @@ describe('GitHub release requests', () => {
     await utils.getLatestReleaseObject(toolName, baseUrl);
     assert.equal(requestOptions.agent.url, 'https://runtime-proxy.example:443');
     assert.equal(requestOptions.headers, undefined);
+  });
+
+  it('uses only the explicit authentication token even when a build token is present', async () => {
+    const previousBuildToken = process.env.WKTUI_GITHUB_TOKEN;
+    process.env.WKTUI_GITHUB_TOKEN = 'dummy-build-token';
+    try {
+      const requests = [];
+      const utils = createUtils(async (url, options) => {
+        requests.push(options);
+        return jsonResponse(release);
+      });
+
+      await utils.getLatestReleaseObject(toolName, baseUrl, {}, 'dummy-preferences-token');
+      await utils.getLatestReleaseObject(toolName, baseUrl, {});
+
+      assert.deepEqual(requests[0].headers, { Authorization: 'Bearer dummy-preferences-token' });
+      assert.equal(requests[1].headers, undefined);
+    } finally {
+      if (previousBuildToken === undefined) {
+        delete process.env.WKTUI_GITHUB_TOKEN;
+      } else {
+        process.env.WKTUI_GITHUB_TOKEN = previousBuildToken;
+      }
+    }
   });
 
   it('returns the requested tagged release', async () => {
