@@ -5,8 +5,19 @@
  */
 'use strict';
 
-// The UserAgent is used to detect IE11. Only IE11 requires ES5.
 (function () {
+  // JET's postMessage scheduler rejects Electron's file:// message origins.
+  // Install a timer fallback before JET loads so its BusyContext can settle.
+  if (window.location.protocol === 'file:' && !window.setImmediate) {
+    window.setImmediate = (callback, ...args) => {
+      if (typeof callback !== 'function') {
+        throw new TypeError('setImmediate requires a function');
+      }
+      return window.setTimeout(callback, 0, ...args);
+    };
+    window.clearImmediate = handle => window.clearTimeout(handle);
+  }
+
   // The "oj_whenReady" global variable enables a strategy that the busy context whenReady,
   // will implicitly add a busy state, until the application calls applicationBootstrapComplete
   // on the busy state context.
@@ -30,11 +41,12 @@
       */
       // injector:mainReleasePaths
       {
-        'ojL10n': 'libs/oj/19.0.0/ojL10n',
-        'ojtranslations': 'libs/oj/19.0.0/resources',
-        'knockout': 'libs/knockout/knockout-3.5.1.debug',
-        'jquery': 'libs/jquery/jquery-3.7.1',
-        'jqueryui-amd': 'libs/jquery/jqueryui-amd-1.14.1',
+        'ojs': 'libs/oj/21.0.0/debug',
+        'ojL10n': 'libs/oj/21.0.0/ojL10n',
+        'ojtranslations': 'libs/oj/21.0.0/resources',
+        'knockout': 'libs/knockout/knockout-3.5.3.debug',
+        'jquery': 'libs/jquery/jquery-4.0.0',
+        'jqueryui-amd': 'libs/jquery/jqueryui-amd-1.14.2',
         'text': 'libs/require/text',
         'hammerjs': 'libs/hammer/hammer-2.0.8',
         'signals': 'libs/js-signals/signals',
@@ -47,9 +59,7 @@
         'preact/hooks': 'libs/preact/hooks/dist/hooks.umd',
         'preact/compat': 'libs/preact/compat/dist/compat.umd',
         'preact/jsx-runtime': 'libs/preact/jsx-runtime/dist/jsxRuntime.umd',
-        'proj4': 'libs/proj4js/dist/proj4-src',
         'touchr': 'libs/touchr/touchr',
-        'chai': 'libs/chai/chai-4.5.0',
         'ace': 'libs/ace/ace'
       }
       // endinjector
