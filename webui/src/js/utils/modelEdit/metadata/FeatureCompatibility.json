@@ -23,6 +23,7 @@
           "SAML2StrictArtifactResolutionEnabled",
           "SerializedWorkContextMaximumSize",
           "SpringJtaDeserializationJndiLookupDisabled",
+          "StrictClusterCompatibilityEnabled",
           "StrictReplicationAuthorizationEnabled",
           "T3LegacyCrossDomainCredentialJVMIDReplayProtectionEnabled",
           "T3RouteOnlyToTrustedServersEnabled",

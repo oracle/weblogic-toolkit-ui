@@ -42,7 +42,13 @@
     "attributeDetails": {
       "ProviderName": {
         "options": [
-          { "value": "oracle-nosql", "labelKey": "options-oracle-nosql-label" }
+          { "value": "oracle-nosql", "labelKey": "options-oracle-nosql-label" },
+          { "value": "mongodb", "labelKey": "options-mongodb-label" },
+          { "value": "elasticsearch", "labelKey": "options-elasticsearch-label" },
+          { "value": "dynamodb", "labelKey": "options-dynamodb-label" },
+          { "value": "solr", "labelKey": "options-solr-label" },
+          { "value": "couchbase", "labelKey": "options-couchbase-label" },
+          { "value": "couchdb", "labelKey": "options-couchdb-label" }
         ]
       },
       "DatabaseType": {

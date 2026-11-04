@@ -161,12 +161,18 @@ describe('NoSQL system resource editing', () => {
     folder.disconnected();
   });
 
-  it('offers the documented database types and provider', () => {
+  it('offers the documented database types and providers with translated labels', () => {
     const aliasPath = ['NoSqlSystemResource', 'NoSqlResource'];
     expect(metaHelper.getAttributeOptions(aliasPath, 'DatabaseType').map(option => option.value))
       .to.deep.equal(['DOCUMENT', 'KEY_VALUE', 'COLUMN', 'GRAPH']);
-    expect(metaHelper.getAttributeOptions(aliasPath, 'ProviderName').map(option => option.value))
-      .to.deep.equal(['oracle-nosql']);
+    const providers = metaHelper.getAttributeOptions(aliasPath, 'ProviderName');
+    // Keep Oracle first, then use the November 2026 DB-Engines popularity order.
+    expect(providers.map(option => option.value))
+      .to.deep.equal(['oracle-nosql', 'mongodb', 'elasticsearch', 'dynamodb', 'solr', 'couchbase', 'couchdb']);
+    const bundle = JSON.parse(fs.readFileSync(path.join(__dirname,
+      '../../../electron/app/locales/en/modeledit.json'), 'utf8'));
+    expect(providers.map(option => bundle[option.labelKey]))
+      .to.deep.equal(['Oracle NoSQL Database', 'MongoDB', 'Elasticsearch', 'Amazon DynamoDB', 'Apache Solr', 'Couchbase', 'Apache CouchDB']);
   });
 
   it('reuses the property value selector and masks encrypted values in summaries', () => {
