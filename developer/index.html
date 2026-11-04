@@ -26,30 +26,30 @@ If you rely on a proxy server to reach the Internet, set these five environment 
     <meta itemprop="description" content="The WebLogic Kubernetes Toolkit UI is a desktop application designed to help WebLogic users move their applications to run in a Kubernetes environment.
 Setting up your development environment Download and install the latest LTS version of node.js from https://nodejs.org/en/download/ .
 If you rely on a proxy server to reach the Internet, set these five environment variables to configure the proxy correctly:">
-    <meta itemprop="wordCount" content="313">
+    <meta itemprop="wordCount" content="420">
     <title>Developer Guide :: WebLogic Kubernetes Toolkit UI</title>
     <link href="/weblogic-toolkit-ui/developer/index.xml" rel="alternate" type="application/rss+xml" title="Developer Guide :: WebLogic Kubernetes Toolkit UI">
-    <link href="/weblogic-toolkit-ui/images/logo.png?1793762467" rel="icon" type="image/png">
-    <link href="/weblogic-toolkit-ui/css/auto-complete/auto-complete.min.css?1793762467" rel="stylesheet">
-    <script src="/weblogic-toolkit-ui/js/auto-complete/auto-complete.min.js?1793762467" defer></script>
-    <script src="/weblogic-toolkit-ui/js/search-lunr.min.js?1793762467" defer></script>
-    <script src="/weblogic-toolkit-ui/js/search.min.js?1793762467" defer></script>
+    <link href="/weblogic-toolkit-ui/images/logo.png?1793796879" rel="icon" type="image/png">
+    <link href="/weblogic-toolkit-ui/css/auto-complete/auto-complete.min.css?1793796879" rel="stylesheet">
+    <script src="/weblogic-toolkit-ui/js/auto-complete/auto-complete.min.js?1793796879" defer></script>
+    <script src="/weblogic-toolkit-ui/js/search-lunr.min.js?1793796879" defer></script>
+    <script src="/weblogic-toolkit-ui/js/search.min.js?1793796879" defer></script>
     <script>
       window.relearn = window.relearn || {};
-      window.relearn.index_js_url="/weblogic-toolkit-ui/searchindex.en.js?1793762467";
+      window.relearn.index_js_url="/weblogic-toolkit-ui/searchindex.en.js?1793796879";
     </script>
-    <script src="/weblogic-toolkit-ui/js/lunr/lunr.min.js?1793762467" defer></script>
-    <script src="/weblogic-toolkit-ui/js/lunr/lunr.stemmer.support.min.js?1793762467" defer></script>
-    <script src="/weblogic-toolkit-ui/js/lunr/lunr.multi.min.js?1793762467" defer></script>
-    <script src="/weblogic-toolkit-ui/js/lunr/lunr.en.min.js?1793762467" defer></script>
+    <script src="/weblogic-toolkit-ui/js/lunr/lunr.min.js?1793796879" defer></script>
+    <script src="/weblogic-toolkit-ui/js/lunr/lunr.stemmer.support.min.js?1793796879" defer></script>
+    <script src="/weblogic-toolkit-ui/js/lunr/lunr.multi.min.js?1793796879" defer></script>
+    <script src="/weblogic-toolkit-ui/js/lunr/lunr.en.min.js?1793796879" defer></script>
     <script>
       window.relearn = window.relearn || {};
       window.relearn.contentLangs=['en'];
     </script>
-    <link href="/weblogic-toolkit-ui/fonts/fontawesome/css/fontawesome-all.min.css?1793762467" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/weblogic-toolkit-ui/fonts/fontawesome/css/fontawesome-all.min.css?1793762467" rel="stylesheet"></noscript>
-    <link href="/weblogic-toolkit-ui/css/perfect-scrollbar/perfect-scrollbar.min.css?1793762467" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/theme.min.css?1793762467" rel="stylesheet">
-    <link href="/weblogic-toolkit-ui/css/format-html.min.css?1793762467" rel="stylesheet" id="R-format-style">
+    <link href="/weblogic-toolkit-ui/fonts/fontawesome/css/fontawesome-all.min.css?1793796879" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/weblogic-toolkit-ui/fonts/fontawesome/css/fontawesome-all.min.css?1793796879" rel="stylesheet"></noscript>
+    <link href="/weblogic-toolkit-ui/css/perfect-scrollbar/perfect-scrollbar.min.css?1793796879" rel="stylesheet">
+    <link href="/weblogic-toolkit-ui/css/theme.min.css?1793796879" rel="stylesheet">
+    <link href="/weblogic-toolkit-ui/css/format-html.min.css?1793796879" rel="stylesheet" id="R-format-style">
     <script>
       window.relearn = window.relearn || {};
       // configuration
@@ -121,6 +121,7 @@ If you rely on a proxy server to reach the Internet, set these five environment 
     <li>
       <ul>
         <li><a href="#setting-up-your-development-environment">Setting up your development environment</a></li>
+        <li><a href="#authenticating-tool-downloads">Authenticating tool downloads</a></li>
         <li><a href="#building-a-windows-or-macos-installer">Building a Windows or macOS installer</a></li>
         <li><a href="#building-a-linux-installer">Building a Linux installer</a></li>
       </ul>
@@ -226,6 +227,14 @@ JavaScript dependencies required by the project.</p>
 <p>After the server from the previous step is fully running, open a command line in the <code>weblogic-toolkit-ui/electron</code> directory and run <code>npm start</code>.</p>
 </li>
 </ol>
+<h3 id="authenticating-tool-downloads">Authenticating tool downloads<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>Set the optional <code>WKTUI_GITHUB_TOKEN</code> environment variable to a GitHub personal access token before running
+<code>npm run install-tools</code> or <code>npm run build</code> to authenticate WDT and WIT downloads. Without it, developer
+installations use unauthenticated GitHub requests. The application&rsquo;s <strong>Help &gt; Update WKT Tools</strong> command
+continues to use the GitHub API Key saved in Preferences.</p>
+<p>For Jenkins, set <code>github_token_creds</code> in the Jenkinsfile to the ID of a <strong>Secret text</strong> credential accessible to the build job.
+The pipeline binds it to <code>WKTUI_GITHUB_TOKEN</code> only during tool installation, including the installation before
+packaging on Linux, macOS, and Windows. The token is not written to application preferences or packaged files.</p>
 <h3 id="building-a-windows-or-macos-installer">Building a Windows or macOS installer<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <ol start="0">
 <li>Set up your development environment and verify that the application is working properly from it.</li>
@@ -317,8 +326,8 @@ JavaScript dependencies required by the project.</p>
 </div>
       </div>
     </aside>
-    <script src="/weblogic-toolkit-ui/js/perfect-scrollbar/perfect-scrollbar.min.js?1793762467" defer></script>
-    <script src="/weblogic-toolkit-ui/js/theme.min.js?1793762467" defer></script>
+    <script src="/weblogic-toolkit-ui/js/perfect-scrollbar/perfect-scrollbar.min.js?1793796879" defer></script>
+    <script src="/weblogic-toolkit-ui/js/theme.min.js?1793796879" defer></script>
     <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
   </body>
 </html>
