@@ -4,12 +4,12 @@
 
   "cdns": {
     "jet": {
-      "prefix": "https://static.oracle.com/cdn/jet/19.0.0/default/js",
-      "css": "https://static.oracle.com/cdn/jet/19.0.0/default/css",
-      "csspreact": "https://static.oracle.com/cdn/jet/19.0.0/3rdparty/oraclejet-preact/amd",
+      "prefix": "https://static.oracle.com/cdn/jet/21.0.0/default/js",
+      "css": "https://static.oracle.com/cdn/jet/21.0.0/default/css",
+      "csspreact": "https://static.oracle.com/cdn/jet/21.0.0/3rdparty/oraclejet-preact/amd",
       "config": "bundles-config.js"
     },
-    "3rdparty": "https://static.oracle.com/cdn/jet/19.0.0/3rdparty"
+    "3rdparty": "https://static.oracle.com/cdn/jet/21.0.0/3rdparty"
   },
 
   "libs": {
@@ -20,12 +20,12 @@
       "debug": {
         "src": "knockout-latest.debug.js",
         "path": "libs/knockout/knockout-#{version}.debug.js",
-        "cdnPath": "knockout/knockout-3.5.1.debug"
+        "cdnPath": "knockout/knockout-3.5.3.debug"
       },
       "release": {
         "src": "knockout-latest.js",
         "path": "libs/knockout/knockout-#{version}.js",
-        "cdnPath": "knockout/knockout-3.5.1"
+        "cdnPath": "knockout/knockout-3.5.3"
       }
     },
 
@@ -35,12 +35,12 @@
       "debug": {
         "src": "jquery.js",
         "path": "libs/jquery/jquery-#{version}.js",
-        "cdnPath": "jquery/jquery-3.7.1"
+        "cdnPath": "jquery/jquery-4.0.0"
       },
       "release": {
         "src": "jquery.min.js",
         "path": "libs/jquery/jquery-#{version}.min.js",
-        "cdnPath": "jquery/jquery-3.7.1.min"
+        "cdnPath": "jquery/jquery-4.0.0.min"
       }
     },
 
@@ -50,12 +50,12 @@
       "debug": {
         "src": ["*.js", "widgets/draggable.js", "widgets/mouse.js", "widgets/sortable.js", "vendor/jquery-color/jquery.color.js"],
         "path": "libs/jquery/jqueryui-amd-#{version}",
-        "cdnPath": "jquery/jqueryui-amd-1.14.1"
+        "cdnPath": "jquery/jqueryui-amd-1.14.2"
       },
       "release": {
         "src": ["*.js", "widgets/draggable.js", "widgets/mouse.js", "widgets/sortable.js", "vendor/jquery-color/jquery.color.js"],
         "path": "libs/jquery/jqueryui-amd-#{version}.min",
-        "cdnPath": "jquery/jqueryui-amd-1.14.1.min"
+        "cdnPath": "jquery/jqueryui-amd-1.14.2.min"
       }
     },
 
@@ -99,7 +99,7 @@
         "cdnPath": ""
       },
       "release": {
-        "src": ["min*/**"],
+        "src": ["min*/**", "!**/*.map"],
         "path": "libs/oj/#{version}",
 		"pathSuffix": "/min'",
         "cdnPath": ""
@@ -145,7 +145,7 @@
         "cdnPath": "oraclejet-preact/amd"
       },
       "release": {
-        "src":  ["**"],
+        "src":  ["**", "!**/*.map", "!**/*.d.ts"],
         "path": "libs/oraclejet-preact/amd",
         "cdnPath": "oraclejet-preact/amd"
       }
@@ -160,26 +160,9 @@
         "cdnPath": "../../packs/oj-c/#{version}/min"
       },
       "release": {
-        "src":  ["**"],
+        "src":  ["**", "!**/__webdriver__/**", "!**/*.map", "!**/*.d.ts"],
         "path": "libs/packs/oj-c/min",
         "cdnPath": "../../packs/oj-c/#{version}/min"
-      }
-    },
-
-    "persist": {
-      "cdn": "3rdparty",
-      "cwd": "node_modules/@oracle/oraclejet/dist/js/libs/persist",
-      "debug": {
-        "cwd": "debug",
-        "src": ["**"],
-        "path": "libs/persist/debug",
-        "cdnPath": "persist/debug"
-      },
-      "release": {
-        "cwd": "min",
-        "src": ["**"],
-        "path": "libs/persist/min",
-        "cdnPath": "persist/min"
       }
     },
 
@@ -237,7 +220,7 @@
         "cdnPath": "preact/dist/preact.umd"
       },
       "release": {
-        "src":  ["preact.umd.js", "preact.umd.js.map"],
+        "src":  ["preact.umd.js"],
         "path": "libs/preact/dist/preact.umd.js",
         "cdnPath": "preact/dist/preact.umd"
       }
@@ -252,7 +235,7 @@
         "cdnPath": "preact/hooks/dist/hooks.umd"
       },
       "release": {
-        "src":  ["hooks.umd.js", "hooks.umd.js.map"],
+        "src":  ["hooks.umd.js"],
         "path": "libs/preact/hooks/dist/hooks.umd.js",
         "cdnPath": "preact/hooks/dist/hooks.umd"
       }
@@ -267,7 +250,7 @@
         "cdnPath": "preact/compat/dist/compat.umd"
       },
       "release": {
-        "src":  ["compat.umd.js", "compat.umd.js.map"],
+        "src":  ["compat.umd.js"],
         "path": "libs/preact/compat/dist/compat.umd.js",
         "cdnPath": "preact/compat/dist/compat.umd"
       },
@@ -282,7 +265,7 @@
         "cdnPath": "preact/jsx-runtime/dist/jsxRuntime.umd"
       },
       "release": {
-        "src":  ["jsxRuntime.umd.js", "jsxRuntime.umd.js.map"],
+        "src":  ["jsxRuntime.umd.js"],
         "path": "libs/preact/jsx-runtime/dist/jsxRuntime.umd.js",
         "cdnPath": "preact/jsx-runtime/dist/jsxRuntime.umd"
       }
@@ -297,7 +280,7 @@
         "cdnPath": "preact/debug/dist/debug.umd"
       },
       "release": {
-        "src": ["debug.umd.js", "debug.umd.js.map"],
+        "src": [],
         "path": "libs/preact/debug/dist/debug.umd.js",
         "cdnPath": "preact/debug/dist/debug.umd"
       }
@@ -312,24 +295,9 @@
         "cdnPath": "preact/devtools/dist/devtools.umd"
       },
       "release": {
-        "src": ["devtools.umd.js", "devtools.umd.js.map"],
+        "src": [],
         "path": "libs/preact/devtools/dist/devtools.umd.js",
         "cdnPath": "preact/devtools/dist/devtools.umd"
-      }
-    },
-
-    "proj4": {
-      "cdn": "3rdparty",
-      "cwd": "node_modules/proj4/dist",
-      "debug": {
-        "src":  "proj4-src.js",
-        "path": "libs/proj4js/dist/proj4-src.js",
-        "cdnPath": "proj4js/dist/proj4"
-      },
-      "release": {
-        "src": "proj4",
-        "path": "libs/proj4js/dist/proj4.js",
-        "cdnPath": "proj4js/dist/proj4"
       }
     },
 
@@ -382,21 +350,6 @@
       }
     },
 
-    "chai": {
-      "cdn": "3rdparty",
-      "cwd": "node_modules/chai/",
-      "debug": {
-        "src": "chai.js",
-        "path": "libs/chai/chai.js",
-        "cdnPath": "chai/chai-4.5.0"
-      },
-      "release": {
-        "src": "chai.js",
-        "path": "libs/chai/chai.js",
-        "cdnPath": "chai/chai-4.5.0.min"
-      }
-    },
-
     "js-yaml": {
       "cdn": "3rdparty",
       "cwd": "node_modules/js-yaml/dist/browser",
@@ -421,7 +374,7 @@
         "cdnPath": ""
       },
       "release": {
-        "src":  ["**"],
+        "src":  ["**", "!**/*.map"],
         "path": "libs/ace/ace.js",
         "cdnPath": ""
       }

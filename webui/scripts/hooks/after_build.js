@@ -1,90 +1,70 @@
 /**
-  Copyright (c) 2015, 2025, Oracle and/or its affiliates.
+  Copyright (c) 2015, 2026, Oracle and/or its affiliates.
   Licensed under The Universal Permissive License (UPL), Version 1.0
   as shown at https://oss.oracle.com/licenses/upl/
 
 */
 'use strict';
 
-const { existsSync, rmSync } = require('fs');
-const fsPromises = require('fs/promises');
-const { rename, mkdir, readdir } = require('fs/promises');
+const { lstat, mkdir, mkdtemp, rename, rm } = require('fs/promises');
 const path = require('path');
 
-const purgeLocations = [
-  path.normalize(path.join(__dirname, '..', '..', 'web', 'test'))
-];
+/* global __dirname */
+const sourceDirectory = path.resolve(__dirname, '..', '..', 'web');
+const targetDirectory = path.resolve(__dirname, '..', '..', '..', 'electron', 'app', 'web');
 
-const webuiJsonDirectory = path.normalize(path.join(__dirname, '..', '..', 'web'));
-const webuiJsonFile = path.join(webuiJsonDirectory, 'webui.json');
+module.exports = async function (configObj) {
+  console.log('Running after_build hook.');
+  console.log('Purging unnecessary files created by the build...');
+  await rm(path.join(sourceDirectory, 'test'), { force: true, recursive: true });
 
-const sourceDirectories = [
-  path.normalize(path.join(__dirname, '..', '..', 'web'))
-  // path.normalize(path.join(__dirname, '..', '..', 'staged-themes'))
-];
-const targetDirectory = path.normalize(path.join(__dirname, '..', '..', '..', 'electron', 'app'));
+  if (configObj.buildType === 'release') {
+    console.log('Consolidating files for building the release');
+    await replaceDirectory(sourceDirectory, targetDirectory);
+  }
 
-module.exports = function (configObj) {
-  return new Promise(async (resolve) => {
-  	console.log("Running after_build hook.");
-    console.log('Purging unnecessary files created by the build...');
-    for (const purgeLocation of purgeLocations) {
-      if (existsSync(purgeLocation)) {
-        rmSync(purgeLocation, { force: true, recursive: true });
-      }
-    }
-
-  	if (configObj.buildType === 'release') {
-  	  console.log('Consolidating files for building the release');
-  	  for (const sourceDirectory of sourceDirectories) {
-  	    if (existsSync(sourceDirectory)) {
-          console.log(`Copying ${sourceDirectory} to ${targetDirectory}`)
-          await copyDirectoryRecursively(sourceDirectory, targetDirectory);
-        }
-      }
-    }
-    resolve(configObj);
-  });
+  return configObj;
 };
 
-async function copyDirectoryRecursively(source, target) {
-  let files = []
-
-  let _targetDirectory = path.join(target, path.basename(source));
-  if (!existsSync(_targetDirectory)) {
-    await mkdir(_targetDirectory);
+async function replaceDirectory(source, target) {
+  if (!(await lstat(source)).isDirectory()) {
+    throw new Error(`Build output is not a directory: ${source}`);
   }
 
-  if (await isDirectory(source)) {
-    files = await readdir(source);
-    for (const file of files) {
-      const currentSource = path.join(source, file);
-      if (await isDirectory(currentSource)) {
-        await copyDirectoryRecursively(currentSource, _targetDirectory);
-      } else {
-        await moveFileToDirectory(currentSource, _targetDirectory);
+  // Keep the previous output outside the Electron package while publishing the new tree.
+  const backupDirectory = await mkdtemp(path.join(path.dirname(source), '.web-previous-'));
+  const backup = path.join(backupDirectory, 'web');
+  let hasPreviousOutput = false;
+  let preserveBackup = false;
+
+  try {
+    await mkdir(path.dirname(target), { recursive: true });
+    try {
+      await rename(target, backup);
+      hasPreviousOutput = true;
+    } catch (error) {
+      if (error.code !== 'ENOENT') {
+        throw error;
       }
     }
-  } else {
-    console.log(`Source ${source} was not a directory`);
-  }
-}
 
-async function moveFileToDirectory(source, target) {
-  let targetFile = target;
-  if (await isDirectory(target)) {
-    targetFile = path.join(target, path.basename(source));
-  }
-  await rename(source, targetFile);
-}
-
-async function isDirectory(testPath) {
-  const result = await fsPromises.lstat(testPath).catch(err => {
-    if (err.code === 'ENOENT') {
-      return false;
+    try {
+      await rename(source, target);
+    } catch (error) {
+      if (hasPreviousOutput) {
+        try {
+          await rename(backup, target);
+        } catch (restoreError) {
+          preserveBackup = true;
+          throw new AggregateError([error, restoreError],
+            `Could not publish the build or restore the previous output, preserved at ${backup}`);
+        }
+      }
+      throw error;
     }
-    throw err;
-  });
-
-  return !result ? result: result.isDirectory();
+  } finally {
+    if (!preserveBackup) {
+      await rm(backupDirectory, { force: true, recursive: true });
+    }
+  }
 }

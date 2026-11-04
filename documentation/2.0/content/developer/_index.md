@@ -47,6 +47,24 @@ For Jenkins, set `github_token_creds` in the Jenkinsfile to the ID of a **Secret
 The pipeline binds it to `WKTUI_GITHUB_TOKEN` only during tool installation, including the installation before
 packaging on Linux, macOS, and Windows. The token is not written to application preferences or packaged files.
 
+### Updating Oracle JET
+
+Use the [Oracle JET migration guide](https://docs.oracle.com/en/middleware/developer-tools/jet/21/develop/oracle-jet-app-migration-current-release.html)
+and the target release's JavaScript MVVM `navdrawer` template as references. Create the reference application
+from a temporary directory outside this checkout. Compare its package, configuration, library mapping,
+bootstrap, and hook files, then incorporate the required changes into the existing WKTUI files. Preserve
+the Electron locale initialization, custom library mappings, application styling, and release-build hook.
+
+Keep `oraclejafconfig.json` aligned with the target JET release and run `npm run jet-audit` from `webui/`.
+Compare audit findings with the previous release; existing findings do not establish an upgrade regression.
+Run the unit tests and lint, build both development and release assets, and verify the running Electron UI.
+
+Keep build and audit tools in `webui/package.json`'s `devDependencies`. The CLI supplies its matching
+`oraclejet-tooling` dependency. Installer web assets are selected by `webui/src/js/path_mapping.json`;
+release mappings exclude development source maps, type declarations, WebDriver adapters, and Preact
+debugging tools. The release hook replaces the complete `electron/app/web` tree so obsolete libraries
+cannot survive from an earlier build.
+
 ### Building a Windows or macOS installer
 0. Set up your development environment and verify that the application is working properly from it.
 1. Open a command line in the `weblogic-toolkit-ui/electron` directory and run `npm run build`.
