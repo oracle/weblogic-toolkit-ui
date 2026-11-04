@@ -208,45 +208,39 @@ class WktAppMenu {
         submenu: [
           {
             id: 'undo',
-            enabled: !this._hasOpenDialog,
             label: i18n.t('menu-edit-undo'),
             accelerator: 'CommandOrControl+Z',
             role: 'undo'
           },
           {
             id: 'redo',
-            enabled: !this._hasOpenDialog,
             label: i18n.t('menu-edit-redo'),
             accelerator: 'Shift+CommandOrControl+Z',
-            role: 'undo'
+            role: 'redo'
           },
           {
             type: 'separator'
           },
           {
             id: 'cut',
-            enabled: !this._hasOpenDialog,
             label: i18n.t('menu-edit-cut'),
             accelerator: 'CommandOrControl+X',
             role: 'cut'
           },
           {
             id: 'copy',
-            enabled: !this._hasOpenDialog,
             label: i18n.t('menu-edit-copy'),
             accelerator: 'CommandOrControl+C',
             role: 'copy'
           },
           {
             id: 'paste',
-            enabled: !this._hasOpenDialog,
             label: i18n.t('menu-edit-paste'),
             accelerator: 'CommandOrControl+V',
             role: 'paste'
           },
           {
             id: 'selectAll',
-            enabled: !this._hasOpenDialog,
             label: i18n.t('menu-edit-selectAll'),
             accelerator: 'CommandOrControl+A',
             role: 'selectall'
@@ -1073,14 +1067,16 @@ function createApplicationMenu(newWindow) {
   const appMenuTemplate = new WktAppMenu(newWindow).appMenuTemplate;
   let menu = Menu.buildFromTemplate(appMenuTemplate);
 
-  // blur the focused item in the renderer when a top-level menu item is opened.
-  // if the focused item is a Jet control, this will cause its value to be set.
+  // Blur the focused item when an action menu opens to commit its Jet control value.
+  // Edit commands need the focused control and its selection to remain intact.
   for(let key in menu.items) {
     let item = menu.items[key];
-    item.submenu.on('menu-will-show', () => {
-      getLogger().debug('got menu-will-show event');
-      sendToWindow(newWindow, 'blur-focused-item');
-    });
+    if (item.id !== 'edit') {
+      item.submenu.on('menu-will-show', () => {
+        getLogger().debug('got menu-will-show event');
+        sendToWindow(newWindow, 'blur-focused-item');
+      });
+    }
   }
 
   return Menu.setApplicationMenu(menu);
