@@ -104,13 +104,31 @@
   height: 30px;
 }
 
-#navContextMenu {  /* reduce padding on context menu */
+.wkt-tree-context-menu {  /* reduce padding on tree context menus */
   padding: 0;
 }
 
-#navContextMenu .oj-menu-item > a {  /* reduce spacing on context menu items */
+.wkt-tree-context-menu .oj-menu-item > a {  /* reduce spacing on context menu items */
   min-height: 10px;
   padding: 0.5rem 0.5rem;
+}
+
+/* JET reparents open menus outside the themed application container. */
+.wkt-tree-context-menu.oj-color-invert {
+  --oj-menu-item-text-color: var(--wkt-dark-text);
+  --oj-menu-icon-color: var(--wkt-dark-text);
+  --oj-popup-border-color: var(--wkt-dark-border);
+}
+
+/* Legacy combobox/select pickers move outside both the app and dialog theme roots. */
+body:has(#globalBody.oj-color-invert) .oj-listbox-drop {
+  --oj-popup-bg-color: var(--wkt-dark-background-1);
+  --oj-popup-border-color: var(--wkt-dark-border);
+  --oj-core-text-color-primary: var(--wkt-dark-text);
+  --oj-core-text-color-secondary: var(--wkt-dark-model-edit-label-text-color);
+  --oj-core-text-color-disabled: rgba(255, 255, 255, 0.3);
+  --oj-core-bg-color-hover: rgba(255, 255, 255, 0.08);
+  color: var(--wkt-dark-text);
 }
 
 .oj-navigationlist-depth-1 .oj-navigationlist-item-content {

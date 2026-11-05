@@ -21,7 +21,7 @@
     </span>
   </template>
 
-  <oj-menu id="navContextMenu" slot="contextMenu" aria-label="navAction" on-oj-menu-action="[[menuAction]]" on-oj-before-open="[[beforeMenu]]">
+  <oj-menu id="navContextMenu" slot="contextMenu" class="wkt-tree-context-menu" :class="[[themeClasses]]" aria-label="navAction" on-oj-menu-action="[[menuAction]]" on-oj-before-open="[[beforeMenu]]">
     <oj-bind-for-each data="[[menuItems]]">
       <template>
         <oj-option

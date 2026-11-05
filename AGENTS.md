@@ -54,6 +54,10 @@ Follow [CONTRIBUTING.md](CONTRIBUTING.md) for contribution and sign-off requirem
 
 ## Attribute controls and credentials
 
+- JET reparents open menus and dialogs outside the application's themed container. Bind
+  `ViewHelper.themeClasses` directly to popup roots declared in views. Generated legacy
+  combobox/select pickers need shared styles that follow the app's appearance even when
+  the picker is outside the themed container.
 - Translate documented formats, ranges, and enumerations into validators or appropriate
   controls where practical, preserving the ability to leave optional settings unset.
 - Do not disable a field based solely on a local setting when a template can supply the
