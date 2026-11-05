@@ -1886,5 +1886,7 @@
   "wkt-project-verrazzano-removal-warning": "WKTUI 2.0 has removed support for Verrazzano so the project has been converted to remove all Verrazzano-related fields.",
   "wkt-project-keytar-removal-warning": "WKTUI 2.0 has removed support for the native credential store due to the deprecation of the keytar JavaScript library so the project has been updated to use the credential manager that stores encrypted credentials in the project file.",
   "wkt-project-dii-removal warning": "WKTUI 2.0 has removed support for Domain in Image so the project has been converted to use Model in Image with an Auxiliary Image",
-  "registry-credentials-dialog-title": "Container Image Registry Credentials"
+  "registry-credentials-dialog-title": "Container Image Registry Credentials",
+
+  "model-archive-context-menu-aria-label": "Archive Entry Actions"
 }

@@ -7,16 +7,17 @@
 
 define(['accUtils', 'knockout', 'utils/modelEdit/navigation-helper', 'utils/modelEdit/alias-helper',
   'utils/modelEdit/message-helper', 'utils/modelEdit/model-edit-helper', 'utils/modelEdit/instance-helper',
-  'utils/wkt-logger', 'ojs/ojknockouttemplateutils', 'ojs/ojmenu',
+  'utils/wkt-logger', 'utils/view-helper', 'ojs/ojknockouttemplateutils', 'ojs/ojmenu',
   'ojs/ojoption', 'ojs/ojdefer', 'ojs/ojtreeview'],
 function(accUtils, ko, NavigationHelper, AliasHelper, MessageHelper, ModelEditHelper, InstanceHelper,
-  wktLogger, KnockoutTemplateUtils) {
+  wktLogger, ViewHelper, KnockoutTemplateUtils) {
 
   function NavigationViewModel() {
     const NAV_SELECTOR = '#modelDesignNav';
     const CONTEXT_MENU_SELECTOR = '#navContextMenu';
 
     this.KnockoutTemplateUtils = KnockoutTemplateUtils;
+    this.themeClasses = ViewHelper.themeClasses;
 
     this.navDataProvider = NavigationHelper.navDataProvider;
     this.menuExpanded = NavigationHelper.menuExpanded;
