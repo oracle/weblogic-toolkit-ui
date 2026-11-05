@@ -17,7 +17,8 @@ const { describe, it } = require('mocha');
 const foreignServer = require('../js/utils/modelEdit/metadata/JMSSystemResource.json')
   ['JMSSystemResource/JmsResource/ForeignServer'];
 
-function createHelper({ selectedPath = '/tmp/my bindings', addToArchive = false, fromFileUrl = fileURLToPath } = {}) {
+function createHelper({ selectedPath = '/tmp/my bindings', addToArchive = false, windows = false,
+  fromFileUrl = value => fileURLToPath(value, { windows }) } = {}) {
   let helper;
   const calls = [];
   const type = { subtype: 'either', fileLabel: 'Binding file', dirLabel: 'Binding directory' };
@@ -51,8 +52,8 @@ function createHelper({ selectedPath = '/tmp/my bindings', addToArchive = false,
     define(names, factory) { helper = factory(...names.map(name => dependencies[name])); },
     window: { api: { path: {
       fromFileURL: fromFileUrl,
-      toFileURL: value => pathToFileURL(value).href,
-      isAbsolute: path.isAbsolute
+      toFileURL: value => pathToFileURL(value, { windows }).href,
+      isAbsolute: (windows ? path.win32 : path.posix).isAbsolute
     } } }
   });
   return { helper, attribute, calls };
@@ -67,17 +68,26 @@ describe('Foreign server connection URL selection', () => {
     expect(helper.getSelectOptions(attribute, 'dir')[0].label).to.equal('Binding directory');
   });
 
-  it('returns a properly escaped local directory URL when archiving is declined', async() => {
-    const { helper, attribute, calls } = createHelper();
-    const result = await helper.chooseDirectory(attribute, 'file:///tmp/old%20bindings/', true);
-    expect(result).to.equal('file:///tmp/my%20bindings/');
-    expect(calls[0].current).to.equal('/tmp/old bindings/');
-  });
+  // Exercise both path formats on every host, including the Windows drive letter and separators.
+  for (const fixture of [
+    { platform: 'POSIX', windows: false, directory: '/tmp/my bindings',
+      oldDirectory: '/tmp/old bindings/', urlRoot: 'file:///tmp' },
+    { platform: 'Windows', windows: true, directory: 'C:\\tmp\\my bindings',
+      oldDirectory: 'C:\\tmp\\old bindings\\', urlRoot: 'file:///C:/tmp' }
+  ]) {
+    it(`returns a properly escaped ${fixture.platform} directory URL when archiving is declined`, async() => {
+      const { helper, attribute, calls } = createHelper({ selectedPath: fixture.directory, windows: fixture.windows });
+      const result = await helper.chooseDirectory(attribute, `${fixture.urlRoot}/old%20bindings/`, true);
+      expect(result).to.equal(`${fixture.urlRoot}/my%20bindings/`);
+      expect(calls[0].current).to.equal(fixture.oldDirectory);
+    });
 
-  it('returns a file URL for a local file without changing its filename', async() => {
-    const { helper, attribute } = createHelper({ selectedPath: '/tmp/my bindings.properties' });
-    expect(await helper.chooseFile(attribute, null, true)).to.equal('file:///tmp/my%20bindings.properties');
-  });
+    it(`returns a ${fixture.platform} file URL without changing its filename`, async() => {
+      const { helper, attribute } = createHelper({ selectedPath: `${fixture.directory}.properties`,
+        windows: fixture.windows });
+      expect(await helper.chooseFile(attribute, null, true)).to.equal(`${fixture.urlRoot}/my%20bindings.properties`);
+    });
+  }
 
   it('retains an archived directory reference for WDT and passes the selected type', async() => {
     const { helper, attribute, calls } = createHelper({ addToArchive: true });
