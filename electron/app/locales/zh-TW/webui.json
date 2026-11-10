@@ -236,9 +236,16 @@
   "user-settings-dialog-quickstart-section-title": "WebLogic Kubernetes Toolkit UI 簡介組態",
   "user-settings-dialog-quickstart-skip-label": "啟動時略過顯示簡介",
   "user-settings-dialog-quickstart-skip-help": "應用程式啟動時是不是要略過顯示 WebLogic Kubernetes Toolkit UI 簡介。",
+  "user-settings-dialog-appearance-mode-title": "外觀",
+  "user-settings-dialog-appearance-mode-label": "外觀模式",
+  "user-settings-dialog-appearance-mode-help": "要使用的 WKT UI 外觀模式。",
+  "user-settings-dialog-appearance-mode-dark": "深色模式",
+  "user-settings-dialog-appearance-mode-light": "淺色模式",
+  "user-settings-dialog-appearance-mode-system": "使用作業系統模式",
 
   "dialog-passphrase-prompt-title": "證明資料加密密碼詞組",
   "dialog-passphrase-prompt-label": "請輸入用於加密專案證明資料的密碼詞組。",
+  "dialog-passphrase-prompt-forgot-passphrase": "忘記密碼詞組？",
 
   "dialog-about-version": "版本：{{version}} ({{buildVersion}})",
 
@@ -1879,5 +1886,7 @@
   "wkt-project-verrazzano-removal-warning": "WKTUI 2.0 已移除對 Verrazzano 的支援，因此已將專案轉換為移除所有 Verrazzano 相關欄位。",
   "wkt-project-keytar-removal-warning": "由於已不再使用 keytar JavaScript 程式庫，WKTUI 2.0 已移除對原生證明資料存放區的支援，因此專案已更新為使用證明資料管理程式，將加密的證明資料儲存在專案檔案中。",
   "wkt-project-dii-removal warning": "WKTUI 2.0 已移除對映像檔中網域的支援，因此已將專案轉換為使用含有輔助映像檔的「映像檔中的模型」",
-  "registry-credentials-dialog-title": "容器映像檔登錄檔證明資料"
+  "registry-credentials-dialog-title": "容器映像檔登錄檔證明資料",
+
+  "model-archive-context-menu-aria-label": "封存項目動作"
 }

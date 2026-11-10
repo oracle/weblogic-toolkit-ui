@@ -39,6 +39,7 @@
   "node-manager-coherence-start-scripts-title": "Coherence起動スクリプト設定",
   "wldf-elasticity-framework-settings-label": "WLDF拡張度フレームワーク設定",
   "rdbms-security-store-notifications-title": "JMS通知",
+  "node-manager-process-logging-title": "Coherenceおよびシステム・コンポーネント・ログ・ローテーション設定",
 
   "general-tab-label": "一般",
   "attributes-tab-label": "属性",
@@ -108,6 +109,8 @@
   "saml-20-general-tab-label": "SAML 2.0全般",
   "saml-20-identity-provider-tab-label": "SAML 2.0アイデンティティ・プロバイダ",
   "saml-20-service-provider-tab-label": "SAML 2.0サービス・プロバイダ",
+  "node-manager-coherence-tab-label": "Coherence設定",
+  "node-manager-weblogic-tab-label": "WebLogic Server設定",
 
   "security-model-advanced-label": "拡張",
   "security-model-custom-roles-label": "カスタム・ロール",
@@ -407,6 +410,8 @@
   "options-fine-label": "Fine",
   "options-finer-label": "Finer",
   "options-finest-label": "Finest",
+  "options-size-label": "サイズ",
+  "options-time-label": "時間",
 
   "direction-jms-queue-to-tuxedo-queue-label": "JMSキューからTuxedoキューへ",
   "direction-tuxedo-queue-to-jms-queue-label": "TuxedoキューからJMSキューへ",
@@ -476,6 +481,7 @@
   "invalid-integer-error": "値は整数である必要があります",
   "invalid-double-error": "値は4または3.5などの10進数である必要があります",
   "invalid-range-error": "値は{{min}}から{{max}}の範囲内である必要があります",
+  "invalid-time-of-day-error": "9:30または09:30など、時が0から23、分が00から59の2桁であるH:mm形式の時刻を入力します。",
 
   "instance-name-error": "名前には文字、数字および次の文字のみを含めることができます: .-_!",
   "instance-name-in-use-error": "この名前はすでに使用されています",
@@ -674,7 +680,7 @@
   "f-JMSSystemResource_JmsResource_ConnectionFactory_ClientParams-a-AllowCloseInOnMessage-help": "close()またはstop()メソッドをonMessage()メソッドの呼出し内で発行できるようにするメッセージ・コンシューマを、接続ファクトリで作成するかどうかを指定します。",
 
   "a-AllowListRecordingEnabled-label": "許可リストの記録有効",
-  "a-AllowListRecordingEnabled-help": "許可リストを記録するために記録を有効にしてドメインを実行するかどうかを指定します。",
+  "a-AllowListRecordingEnabled-help": "ドメインが許可リストの記録を有効にして実行されるかどうかを指定します。",
 
   "a-AllowListViolationAction-label": "許可リスト違反アクション",
   "a-AllowListViolationAction-help": "ドメイン内のすべてのサーバーのAllowListViolationActionを定義します。",
@@ -1510,7 +1516,7 @@
 
   "a-ConnectionURL-label": "接続URL",
   "f-JMSBridgeDestination-a-ConnectionURL-help": "このJMSブリッジ宛先の接続URL。",
-  "f-JMSSystemResource_JmsResource_ForeignServer-a-ConnectionURL-help": "WebLogic ServerがJNDIプロバイダへの接続に使用するURL。このURLの構文は、使用しているJNDIプロバイダによって異なります。WebLogic JMSの場合、同じクラスタ内のWebLogic JMSオブジェクトを参照している場合は、このフィールドを空白のままにします。この値は、標準のJNDIプロパティjava.naming.provider.urlに対応します。ノート: この値を指定しない場合、この接続ファクトリがデプロイされているWebLogic Serverインスタンス内のJNDIサーバー上でルックアップが実行されます。",
+  "f-JMSSystemResource_JmsResource_ForeignServer-a-ConnectionURL-help": "WebLogic ServerがJNDIプロバイダへの接続に使用するURL。構文はプロバイダに依存し、java.naming.provider.urlに対応します。ファイルベース・プロバイダの場合は、バインディング・ファイルまたはディレクトリを選択し、必要に応じてWDTアーカイブに追加します。WebLogic JMSの場合、同じクラスタ内のオブジェクトを参照する際は、このフィールドを空白のままにします。指定しない場合、ルックアップでは、この外部サーバーがデプロイされているWebLogic Serverインスタンス内のJNDIサーバーが使用されます。",
   "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionURL-help": "URLは、物理データベース接続を作成するためにJDBCドライバに渡されます。",
 
   "a-ConsensusParticipants-label": "コンセンサス参加者",
@@ -1773,8 +1779,11 @@
   "a-CustomTrustKeyStoreFileName-label": "カスタム信頼キーストア・ファイル名",
   "a-CustomTrustKeyStoreFileName-help": "信頼キーストアのソースを指定します。JKSまたはPKCS12キーストアの場合、ソースはパスとファイル名で、サーバーが起動されたディレクトリから解決可能である必要があります。Oracleキーストア・サービス(KSS)キーストアの場合、ソースはKSS URIで、kss://system/keystorenameの形式をとります。ここで、keystorenameはKSSに登録されているキーストアの名前です。",
 
-  "a-CustomTrustKeyStorePassPhraseEncrypted-label": "カスタム信頼キーストアのパスフレーズ",
+  "a-CustomTrustKeyStorePassPhrase-label": "カスタム信頼キーストアのパスフレーズ",
   "a-CustomTrustKeyStorePassPhrase-help": "カスタム信頼キーストアのパスフレーズを設定します。空またはnullの場合、キーストアはパスフレーズなしで開かれます。",
+
+  "a-CustomTrustKeyStorePassPhraseEncrypted-label": "カスタム信頼キーストアのパスフレーズ",
+  "a-CustomTrustKeyStorePassPhraseEncrypted-help": "カスタム信頼キーストアのパスフレーズを設定します。空またはnullの場合、キーストアはパスフレーズなしで開かれます。",
 
   "a-CustomTrustKeyStoreType-label": "カスタム信頼キーストアのタイプ",
   "a-CustomTrustKeyStoreType-help": "キーストアのタイプ。通常、これはJKSまたはPKCS12です。Oracleキーストア・サービスを使用している場合、これはKSSです。",
@@ -2909,6 +2918,11 @@
   "f-WLDFSystemResource_WLDFResource_Instrumentation_WLDFInstrumentationMonitor-a-Exclude-help": "このインストゥルメンテーション・モニターから除外されるクラスのパターン式。指定した場合、指定したパターンに一致するクラスはこのモニターで計測されません。",
   "f-WLDFSystemResource_WLDFResource_Instrumentation-a-Exclude-help": "このインストゥルメンテーション・スコープから除外されるクラスのパターン式。指定した場合、指定したパターンに一致するクラスは計測されません。",
 
+  "a-ExcludeClusterMembers-label": "除外するクラスタ・メンバー",
+  "a-ExcludeClusterMembers-itemLabel": "除外するクラスタ・メンバー",
+  "a-ExcludeClusterMembers-itemHelp": "除外するサーバー名を指定します。",
+  "a-ExcludeClusterMembers-help": "動的サーバー・リストから除外されるサーバーのリストを指定します。",
+
   "a-ExcludedCiphersuite-label": "除外する暗号スイート",
   "a-ExcludedCiphersuite-itemLabel": "除外する暗号スイート",
   "a-ExcludedCiphersuite-itemHelp": "除外する暗号スイートを指定してリストに追加します。",
@@ -3325,10 +3339,16 @@
   "a-IIOPConnectionPools-label": "IIOP接続プール",
 
   "a-IIOPEnabled-label": "IIOPの有効化",
-  "a-IIOPEnabled-help": "このサーバーで、IIOPサポートを通常(非SSL)ポートとSSLポートの双方について有効化するかどうかを指定します。デフォルト値はtrueです。",
+  "f-SecurityConfiguration-a-IIOPEnabled-help": "このドメイン内のすべてのサーバーでIIOPサポートを有効化するかどうかを指定します。デフォルト値はfalseです。",
+  "a-IIOPEnabled-help": "このサーバーで、IIOPサポートを通常(非SSL)ポートとSSLポートの両方で有効化するかどうかを指定します。デフォルト値はfalseです。",
 
   "a-IIOPLocationForwardPolicy-label": "IIOPの場所の転送ポリシー",
   "a-IIOPTxMechanism-label": "IIOPトランザクション・メカニズム",
+
+  "a-IIOPTypedReadResolveProxyValidationEnabled-label": "IIOP型指定Read Resolveプロキシ検証の有効化",
+  "a-IIOPTypedReadResolveProxyValidationEnabled-help": "WebLogic ServerがIIOPメッセージに含まれるクラスについて、予期されるJava型との互換性を検証するかどうかを指定します。",
+  "a-IIOPUnauthenticatedServiceContextValueTypeFilteringEnabled-label": "IIOP未認証サービス・コンテキスト値タイプ・フィルタリングの有効化",
+  "a-IIOPUnauthenticatedServiceContextValueTypeFilteringEnabled-help": "WebLogic Serverが、受信IIOPリクエスト・サービス・コンテキストからそれらの値タイプを読み取る際に、未認証デシリアライズ許可リストを適用するかどうかを指定します。",
 
   "a-IdentityAndTrustLocations-label": "アイデンティティと信頼の場所",
   "f-any_SSL-a-IdentityAndTrustLocations-help": "SSLが、サーバーのアイデンティティ(証明書および秘密キー)とサーバーの信頼(信頼性のあるCA)を検出する場所を示します。デフォルト値は\"KeyStores\"です。",
@@ -3544,6 +3564,9 @@
   "a-IsDefaultAdmin-label": "デフォルト管理",
   "a-IsolatePartitionThreadLocals-label": "パーティション・スレッド・ローカルの分離",
 
+  "a-IsLogLockingEnabled-label": "ログ・ロックの有効化",
+  "a-IsLogLockingEnabled-help": "ログ・ロックが有効かどうか。デフォルト値はtrueです。",
+
   "a-Issuer-label": "発行者",
   "a-Issuer-help": "検証中に使用されるトークン発行者の値のオーバーライドを指定します。通常、発行者はOracle Identity Cloud Service検出メタデータから取得されます。構成すると、発行者の値はすべてのテナントに使用されます。",
 
@@ -3683,10 +3706,32 @@
   "a-JmsToTuxPriorityMap-valueHelp": "JMS優先度のマップ先のTuxedo優先度。",
   "a-JmsToTuxPriorityMap-help": "JMSからTuxedoの優先度マッピング。デフォルトのJMSからTuxの優先度マップは、0:1 | 1:12 | 2:23 | 3:34 | 4:45 |5:56 | 6:67 | 7:78 | 8:89 | 9:100です。",
 
+  "a-JndiAdditionalFactoriesAllowListsEnabled-label": "JNDI追加ファクトリ許可リスト有効",
+  "a-JndiAdditionalFactoriesAllowListsEnabled-help": "WebLogicサーバーが、これらのサーバー側のJNDIファクトリを、組込みファクトリおよび関連する2つのSecurityConfiguration属性に明示的にリストされているファクトリに制限するかどうかを指定します。",
+  "a-JndiAdditionalInitialContextFactoriesAllowed-label": "JNDI追加初期コンテキスト・ファクトリ許可",
+  "a-JndiAdditionalInitialContextFactoriesAllowed-itemLabel": "JNDI追加初期コンテキスト・ファクトリ許可",
+  "a-JndiAdditionalInitialContextFactoriesAllowed-itemHelp": "サーバーで使用するInitialContextFactory実装の完全修飾クラス名を指定します。",
+  "a-JndiAdditionalInitialContextFactoriesAllowed-help": "サーバーで使用できるInitialContextFactory実装の完全修飾クラス名のリストを指定します。",
+  "a-JndiAdditionalReferenceFactoriesAllowed-label": "JNDI追加参照ファクトリ許可",
+  "a-JndiAdditionalReferenceFactoriesAllowed-itemLabel": "JNDI追加参照ファクトリ許可",
+  "a-JndiAdditionalReferenceFactoriesAllowed-itemHelp": "サーバー側の参照マテリアライズに許可される追加のJNDI参照ファクトリ・クラス名を指定します。",
+  "a-JndiAdditionalReferenceFactoriesAllowed-help": "サーバー側の参照マテリアライズに許可される追加のJNDI参照ファクトリ・クラス名のリストを指定します。",
+
+  "a-JndiBindingAuthorizationPolicyEnabled-label": "JNDIバインディング認可ポリシー有効",
+  "a-JndiBindingAuthorizationPolicyEnabled-help": "サーバー側のJNDIバインディングを変更する操作にWebLogicサーバー管理ロールが必要かどうかを指定します。",
+
   "a-JndiFactory-label": "JNDI初期コンテキスト・ファクトリ・クラス名",
   "f-WTCServer_WTCtBridgeGlobal-a-JndiFactory-help": "JNDIルックアップ・ファクトリの名前。デフォルト値はweblogic.jndi.WLInitialContextFactoryです。",
 
   "a-JndiPropertiesCredentialEncrypted-label": "JNDIプロパティ資格証明の暗号化",
+
+  "a-JndiOutboundConnectionsAllowed-label": "許可されるJNDIアウトバウンド接続",
+  "a-JndiOutboundConnectionsAllowed-itemLabel": "許可されるJNDIアウトバウンド接続",
+  "a-JndiOutboundConnectionsAllowed-itemHelp": "サーバー側のJNDIルックアップ入力に許可されるJNDIアウトバウンド接続エントリを指定します。",
+  "a-JndiOutboundConnectionsAllowed-help": "サーバー側のJNDIルックアップ入力に許可されるJNDIアウトバウンド接続エントリのリストを指定します。",
+
+  "a-JndiOutboundConnectionsAllowListEnabled-label": "JNDIアウトバウンド接続許可リストの有効化",
+  "a-JndiOutboundConnectionsAllowListEnabled-help": "WebLogic ServerがJNDIアウトバウンド接続をSecurityConfigurationのJNDIOutboundConnectionsAllowed属性にリストされている宛先に制限するかどうかを指定します。",
 
   "a-JobSchedulerTableName-label": "ジョブ・スケジューラ表名",
   "f-Cluster-a-JobSchedulerTableName-help": "ジョブ・スケジューラでアクティブとなっているタイマーの格納に使用する表名を指定します。",
@@ -3788,6 +3833,12 @@
 
   "a-LeaderHeartbeatPeriod-label": "リーダー・ハートビート期間",
   "f-Cluster_DatabaseLessLeasingBasis-a-LeaderHeartbeatPeriod-help": "LeaderHeartbeatPeriod値(秒)を設定します。クラスタ・リーダーは、各期間の秒数経過ごとに、グループ・ビューのバージョンなどのクラスタ情報を公開するため、特別なリーダー・ハートビートを発行します。メンバーは、このハートビートを確認し、必要に応じて任意の同期処理を実行します。デフォルト値は10です。",
+
+  "a-LegacyEmptyBeansXmlDiscovery-label": "空のbeans.xmlのレガシー検出",
+  "a-LegacyEmptyBeansXmlDiscovery-help": "条件を満たす空のbeans.xml記述子が、このアプリケーションでレガシーCDI Bean検出モードを使用するかどうかを指定します。",
+
+  "a-LegacyArgon2FallbackEnabled-label": "レガシーArgon2フォールバック有効",
+  "a-LegacyArgon2FallbackEnabled-help": "標準アルゴリズムを使用してパスワードを検証できない場合に、レガシーArgon2アルゴリズムを使用してパスワード検証を試行するかどうか。",
 
   "a-Level-label": "レベル",
 
@@ -5136,6 +5187,9 @@
   "a-ProfileType-label": "プロファイル・タイプ",
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-ProfileType-help": "JDBCサブシステムについて収集されるプロファイル・データのタイプを指定します。複数のプロファイリング・オプションを有効にするには、値を各オプションの数値の合計に設定する必要があります。たとえば、「接続使用状況」、「接続リーク」および「接続アンラップの使用状況」のオプションを有効にするには、値を261 (1 + 4 + 256)または0x105 (0x001 + 0x004 + 0x100)に設定します。",
 
+  "a-ProgressTrackerInitialDataTimeout-label": "進捗トラッカ初期データ・タイムアウト",
+  "a-ProgressTrackerInitialDataTimeout-help": "進捗トラッカがデータの待機中にタイムアウトするまでの時間。",
+
   "a-PropagateCauseForLoginException-label": "ログイン例外の原因を伝播",
   "a-PropagateCauseForLoginException-help": "ログイン例外の原因を伝播するかどうかを指定します。",
 
@@ -5145,7 +5199,7 @@
   "a-Properties-keyHelp": "プロパティ名を指定します。",
   "a-Properties-valueLabel": "プロパティ値",
   "a-Properties-valueHelp": "プロパティ値を指定します。",
-  "f-ForeignJNDIProvider-a-Properties-help": "JNDIプロバイダに設定する必要のある追加のプロパティ。これらのプロパティは直接JNDIプロバイダのInitialContextクラスのコンストラクタに渡されます。",
+  "f-ForeignJNDIProvider-a-Properties-help": "JNDIプロバイダに対して設定する必要がある追加プロパティ。これらのプロパティは、JNDIプロバイダのInitialContextクラスのコンストラクタに直接渡されます。WebLogic Server 26.1以降、プロパティ名が.encrypted (大/小文字を区別)で終わるプロパティの値は、WDTによって資格証明として扱われ、WebLogic Serverによりconfig.xml内で暗号化されます。",
   "f-MailSession-a-Properties-help": "このJavaMailセッションが電子メール・サーバーとのやり取りに使用する構成オプションおよびユーザー認証データ。指定した各プロパティは、JavaMail API Design Specificationで定義されているデフォルトのプロパティ値をオーバーライドします。JavaMail API Design Specificationで定義されたプロパティのみを含めます。何もプロパティを指定しない場合、このメール・セッションではJavaMailのデフォルトのプロパティ値が使用されます。",
   "f-WLDFSystemResource_WLDFResource_Instrumentation_WLDFInstrumentationMonitor-a-Properties-itemLabel": "プロパティ",
   "f-WLDFSystemResource_WLDFResource_Instrumentation_WLDFInstrumentationMonitor-a-Properties-itemHelp": "このモニターのプロパティのーname=valueペアを指定します。",
@@ -5480,6 +5534,9 @@
 
   "a-ResponseTimeout-label": "レスポンス・タイムアウト",
 
+  "a-RestEnabled-label": "RESTの有効化",
+  "a-RestEnabled-help": "RESTを有効化するかどうか。",
+
   "a-RestInvocationMethodType-label": "REST呼出しメソッド・タイプ",
   "f-WLDFSystemResource_WLDFResource_WatchNotification_RestNotification-a-RestInvocationMethodType-help": "エンドポイントを起動するRESTメソッド。",
 
@@ -5627,6 +5684,10 @@
   "f-XMLRegistry-a-SAXParserFactory-help": "SAXParserFactoryインタフェースを実装するクラスの完全修飾名。javax.xml.parsers.SAXParserFactoryファクトリAPIを使用すると、WebLogic Serverにデプロイされているアプリケーションで、XMLドキュメントを解析するSAXベースのXMLパーサーを構成および取得できます。",
   "f-any_XMLParserSelectRegistryEntry-a-SAXParserFactory-help": "SAXParserFactory APIを実装するクラスの完全修飾名を指定します。このエントリで指定されているパブリックID、システムID、またはルート要素によって識別されたXMLドキュメントが、アプリケーションによってSAXパーサーが必要と指定されている場合、WebLogic Serverは、そのドキュメントの解析を開始する際、javax.xml.parsers.SAXParserFactoryを使用してSAXパーサーを取得するときに、この実装クラスを使用します。",
 
+  "f-BatchConfig-a-SchemaName-label": "スキーマ名",
+  "f-BatchConfig-a-SchemaName-help": "JobRepository表が作成されているスキーマ名を設定します。JobRepositoryデータ・ソースがアプリケーション間で共有されている場合、このスキーマ名はアプリケーションが想定する名前と同じである必要があります。",
+  "f-BatchConfig-label": "バッチ構成",
+
   "a-SNMPPort-label": "SNMPポート",
   "a-SNMPPort-help": "UDPプロトコルを使用するSNMPマネージャからの受信リクエストをリスニングするためにこのSNMPエージェントが使用するポート。SNMPマネージャは、このポートを使用してSNMPエージェントにpingを実行し、特定の属性のステータスをリクエストできます。このSNMPエージェントを複数のサーバー・インスタンスにターゲット指定し、複数のサーバーが同じコンピュータ上で動作している場合、WebLogic Serverは自動的に、このUDPポートの値をエージェントごとに1ずつ増やします。ポート162はエージェントが通知の送信に使用するデフォルト・ポートであるため、WebLogic Serverがこのポートを割り当てることはありません。また、すでに使用されているポートがある場合、WebLogic Serverはそのポートをスキップし、次に使用可能なポートを割り当てます。",
 
@@ -5760,6 +5821,9 @@
   "a-Scope-label": "スコープ",
   "a-ScriptExecutorCommand-label": "スクリプト・エグゼキュータ・コマンド",
 
+  "a-ScriptTimeout-label": "スクリプト・タイムアウト",
+  "a-ScriptTimeout-help": "スクリプトの実行を待機するときに使用するタイムアウト。",
+
   "a-SdpEnabled-label": "ソケット・ダイレクト・プロトコル(SDP)の有効化",
   "f-any_NetworkAccessPoint-a-SDPEnabled-help": "ソケット・ダイレクト・プロトコル(SDP)をこのチャネルで有効にします。Oracle Exalogic用のWebLogicクラスタ内の管理対象サーバーに対してセッション・レプリケーション拡張機能を構成する場合は、この属性を有効にします。SDPはJDK11から削除されました。14.1.1で非推奨になりました。",
 
@@ -5847,6 +5911,9 @@
 
   "a-SerializeEnlistmentsGCIntervalMillis-label": "登録のシリアライズのGC間隔(ミリ秒)",
   "a-SerializeEnlistmentsGCIntervalMillis-help": "リソース登録のシリアライズに使用される内部オブジェクトがクリーン・アップされる時間間隔(ミリ秒)。",
+
+  "a-SerializedWorkContextMaximumSize-label": "シリアライズ済ワーク・コンテキストの最大サイズ",
+  "a-SerializedWorkContextMaximumSize-help": "単一のワーク・コンテキストのサイズを制限します。WorkContextは、WebLogic Serverがリクエストまたはメッセージにアタッチして別のコンポーネントに伝播できる小さなメタデータです。値を負でない値に設定すると、ワーク・コンテキスト内の遅延オブジェクトがデシリアライズされるときに、WebLogic Serverのより厳密な未認証入力オブジェクト・フィルタも適用されます。これは、外側のワーク・コンテキストが最初に受信された後に発生する可能性があります。",
 
   "a-Server-label": "サーバー",
   "a-ServerAffinityEnabled-label": "サーバー・アフィニティの有効化",
@@ -6121,6 +6188,7 @@
   "a-SslEnabled-help": "Oracle Identity Cloud Serviceに接続するときにTLS/SSLプロトコルを使用するかどうかを指定します。",
 
   "a-SslProtocolVersion-label": "SSLプロトコル・バージョン",
+
   "f-WTCServer_WTCLocalTuxDom-a-SslProtocolVersion-help": "SSL接続を確立する際にこのローカル・アクセス・ポイントが使用するSSL接続のプロトコル・バージョン。",
   "f-WTCServer_WTCRemoteTuxDom-a-SslProtocolVersion-help": "特定のローカル・アクセス・ポイントとのSSL接続を確立するときに、このリモート・アクセス・ポイントが使用するSSL接続のプロトコル・バージョン。",
 
@@ -6217,6 +6285,9 @@
 
   "a-StrictOwnershipCheck-label": "厳密な所有権チェック",
   "a-StrictOwnershipCheck-help": "フェイルバックを行うTRSの現在のオーナーが見つからない場合、起動を続行するかどうか。この属性はクラスタ内のサーバーにとってのみ意味があります。trueの場合、この状況ではサーバーが起動に失敗します。false (デフォルト値)の場合、サーバーはフェイルバックを試行せずにブートを続けます。",
+
+  "a-StrictReplicationAuthorizationEnabled-label": "厳密なレプリケーション認可の有効化",
+  "a-StrictReplicationAuthorizationEnabled-help": "WebLogic Serverクラスタ・レプリケーション・プロトコルへの変更のロールアウト制御です。PSUパッチ・ストリームでは、更新されたクラスタ・レプリケーション・プロトコルをアクティブ化する前に、ドメイン内のすべてのサーバーへのパッチ適用と再起動を完了できます。",
 
   "a-StringToCompare-label": "比較する文字列",
   "f-any_SNMPStringMonitor-a-StringToCompare-help": "監視された属性の値の比較対象となる文字列。「一致する場合に通知」または「異なる場合に通知」で指定した条件に合致した場合に、通知が生成されます。",
@@ -6331,6 +6402,10 @@
   "a-SystemThreadPoolSize-label": "システム・スレッド・プール・サイズ",
   "a-T3ClientAbbrevTableSize-label": "T3クライアントの略称表サイズ",
   "a-T3HttpUpgradeHandler-label": "T3 HTTPアップグレード・ハンドラ",
+
+  "a-T3RouteOnlyToTrustedServersEnabled-label": "T3の信頼できるサーバーへのルートのみ有効",
+  "a-T3RouteOnlyToTrustedServersEnabled-help": "中間サーバーが、すでに認識している宛先、またはローカルWebLogic Server構成によって識別された宛先にのみ新規ルートを作成できるかどうかを指定します。",
+
   "a-T3ServerAbbrevTableSize-label": "T3サーバーの略称表サイズ",
 
   "a-TGIOPEnabled-label": "TGIOP有効",
@@ -6932,18 +7007,24 @@
   "a-ValidateDDSecurityData-label": "DDセキュリティ・データの検証",
   "a-ValidateDDSecurityData-help": "デプロイメント・ディスクリプタのセキュリティ・データを検証するかどうか。最新バージョンのWebLogic Serverでは使用されません。",
 
+  "a-ValidatePersistenceXmlSchema-label": "永続性XMLスキーマの検証",
+  "a-ValidatePersistenceXmlSchema-help": "デプロイメント時にMETA-INF/persistence.xmlディスクリプタをJakarta Persistence XMLスキーマに対して検証するかどうかを指定します。",
+
   "a-ValidityPeriod-label": "有効期間",
   "f-WebserviceSecurity_WebserviceTimestamp-a-ValidityPeriod-help": "送信側でアウトバウンド・メッセージが有効であることを要求する時間の長さを表します。ValidityPeriodが正の値の場合、TimestampHandlerではExpires要素をタイムスタンプ・ヘッダーに挿入します。ValidityPeriodは秒単位で表されます。この有効期限はタイムスタンプの作成時間より何秒も先になります。",
 
   "a-Value-label": "値",
   "f-JDBCSystemResource_JdbcResource_JDBCDriverParams_Properties-a-Value-help": "JDBCドライバ・プロパティの値。",
-  "f-JMSSystemResource_JmsResource_ForeignServer_JNDIProperty-a-Value-help": "JNDIプロパティの値。",
+  "f-JMSSystemResource_JmsResource_ForeignServer_JNDIProperty-a-Value-help": "JNDIプロパティの値。WebLogic Server 26.1以降では、Keyが.encrypted (大/小文字を区別)で終わる場合、WebLogic ServerではJMSディスクリプタ内のこの値を暗号化します。Keyが設定されていない場合、WDTではプロパティ・インスタンス名をキーとして使用します。",
   "f-any_ConfigurationProperty-a-Value-help": "プロパティの値を指定します。",
 
   "a-VerboseEJBDeploymentEnabled-label": "冗長EJBデプロイメント有効",
 
   "a-VerboseLoggingEnabled-label": "冗長ロギングの有効化",
   "f-any_COM-a-VerboseLoggingEnabled-help": "冗長なロギングを有効にするかどうかを指定します。",
+
+  "a-VerboseStuckThreadName-label": "冗長スタック・スレッド名",
+  "a-VerboseStuckThreadName-help": "スレッドがスタックとしてマークされた時間や作業リクエストの開始時間などの追加詳細を、スタック・スレッドの名前に含めるかどうかを示します。",
 
   "a-Version-label": "バージョン",
   "a-VersionIdentifier-label": "バージョン識別子",
@@ -6976,6 +7057,9 @@
   "a-WAPEnabled-help": "セッションIDにJVM情報を含めるかどうかを示します(URLのサイズを128文字に制限するWAPデバイスでURLの書換えを行う場合は、このボックスをオンにしなければならない場合があります。また、これによりクラスタにおけるレプリケートされたセッションの使用に影響が及ぶ場合もあります)。このボックスを選択すると、URLのデフォルト・サイズは52文字に設定されます。また、特殊文字はURLに含まれなくなります。デフォルト値はfalseです。",
 
   "a-WLDFBuiltinSystemResourceDescriptorBean-label": "WLDF組込みシステム・リソース・ディスクリプタBean",
+
+  "a-WLDFScriptActionPathRestrictionEnabled-label": "WLDFスクリプト・アクション・パス制限有効",
+  "a-WLDFScriptActionPathRestrictionEnabled-help": "WLDFスクリプト・アクションで指定された実行可能ファイルを配置できる場所を指定します。有効化されている場合、スクリプトは$DOMAIN_HOME/bin/scriptsに配置されている必要があります。",
 
   "a-WaitForAllSessionsDuringShutdown-label": "停止時にすべてのセッションを待機",
   "f-Cluster_DynamicServers-a-WaitForAllSessionsDuringShutdown-help": "サーバーのシャットダウン中に、処理中の作業取扱いにおけるすべてのHTTPセッション(永続および非永続)を拡張度フレームワークが待機するかどうかを指定します。",
@@ -7047,8 +7131,16 @@
   "a-WebLogicHome-label": "WebLogicホーム",
   "f-NMProperties-a-WebLogicHome-help": "Oracle WebLogic Serverがインストールされるルート・ディレクトリ。「リモート起動」ページにルート・ディレクトリが構成されていない管理対象サーバーで-Dweblogic.RootDirectoryのデフォルト値として使用されます。どちらの場所でも指定されていない場合、ノード・マネージャは、ノード・マネージャが実行されているディレクトリで管理対象サーバーを起動します。",
 
+  "a-WeblogicPluginAllowedProxyHost-label": "WebLogicプラグインの許可プロキシ・ホスト",
+  "a-WeblogicPluginAllowedProxyHost-itemLabel": "WebLogicプラグインの許可プロキシ・ホスト",
+  "a-WeblogicPluginAllowedProxyHost-itemHelp": "WebLogic Serverが独自のWL-Proxy-*ヘッダーを受け入れるリストに追加するホスト名またはIPアドレスを指定します。",
+  "a-WeblogicPluginAllowedProxyHost-help": "WebLogicプロキシ・プラグイン・ヘッダー処理が有効な場合に、WebLogic Serverが独自のWL-Proxy-*ヘッダーを受け入れるホスト名またはIPアドレスを指定します。",
+
   "a-WebModule-label": "Webモジュール",
   "a-WebRjvmSupport-label": "Web RJVMサポート",
+
+  "a-WebLogicJwtVirtualUserEnabled-label": "WebLogic JWT仮想ユーザーの有効化",
+  "a-WebLogicJwtVirtualUserEnabled-help": "WebLogic JWTトークンを仮想ユーザー・サポートに対して有効化するかどうかを指定します。有効な場合、WebLogic JWTトークンにはユーザー情報およびグループ情報が含まれます。",
 
   "a-WeblogicPluginEnabled-label": "WebLogicプラグインの有効化",
   "a-WeblogicPluginEnabled-help": "このサーバーで独自のWL-Proxy-Client-IPヘッダーを使用するかどうかを指定します。このサーバー・インスタンスで独自のWL-Proxy-Client-IPヘッダーを使用する場合(サーバー・インスタンスがプロキシ・プラグインからリクエストを受信する場合にお薦めします)は、この属性をtrueに設定します。サーバー・インスタンスが、プロキシされたリクエストを受信するクラスタのメンバーである場合は、WebLogicプラグインをクラスタ・レベルで有効化します。クラスタのメンバーであるサーバーでは、クラスタ・レベルの設定がサーバーの設定をオーバーライドします。Weblogicプラグインがクラスタ・レベルで有効な場合にgetRemoteAddrを呼び出すと、Webサーバーではなく、独自のWL-Proxy-Client-IPヘッダーからブラウザ・クライアントのアドレスが戻されます。",
@@ -7075,6 +7167,9 @@
 
   "a-WlsErrorDestination-label": "WLSエラー宛先",
   "f-WTCServer_WTCtBridgeGlobal-a-WlsErrorDestination-help": "メッセージをリダイレクトできない場合、WebLogic Server JMSメッセージを格納するために使用される場所の名前。指定しない場合、リダイレクトされないすべてのメッセージは失われます。なんらかの理由によりWlsErrorDestinationにメッセージを配置できない場合、エラー・ログが記録され、メッセージは失われます。",
+
+  "a-WorkContextClassValidationEnabled-label": "ワーク・コンテキスト・クラス検証の有効化",
+  "a-WorkContextClassValidationEnabled-help": "WebLogic ServerがWorkAreaデータを受信したときに構築するWorkContext実装クラスを指定します。",
 
   "a-WorkContextPropagationEnabled-label": "ワーク・コンテキストの伝播を有効化",
   "f-WebAppContainer-a-WorkContextPropagationEnabled-help": "ワーク・コンテキストの伝播が有効化されているかどうかを示します。これはデフォルトでオンになっています。ワーク・コンテキストの伝播には、若干のオーバーヘッドを伴います。したがって、ワーク・コンテキストを伝播する必要がなければ、本番環境ではこの値をオフにします。",
@@ -7141,13 +7236,13 @@
   "a-XacmlStatus-label": "XACMLステータス",
   "a-XacmlStatus-help": "ポリシーのステータス。これは高度な使用方法のフィールドであり、使用方法を理解していないかぎり指定しないでください。デフォルト値は3です。",
 
-  "a-XmlEventFactory-label": "Xmlイベント・ファクトリ",
+  "a-XmlEventFactory-label": "XMLイベント・ファクトリ",
   "f-XMLRegistry-a-XmlEventFactory-help": "XMLEventFactoryインタフェースを実装するクラスの完全修飾名。javax.xml.stream.XMLEventFactoryファクトリAPIを使用すると、WebLogic Serverにデプロイされているアプリケーションで、XMLストリームの解析または構築に使用するXMLEventオブジェクトを構成および取得できます。",
 
-  "a-XmlInputFactory-label": "Xml入力ファクトリ",
+  "a-XmlInputFactory-label": "XML入力ファクトリ",
   "f-XMLRegistry-a-XmlInputFactory-help": "XMLInputFactoryインタフェースを実装するクラスの完全修飾名。javax.xml.stream.XMLInputFactoryファクトリAPIを使用すると、WebLogic Serverにデプロイされているアプリケーションで、XMLストリームの読取りに使用するXMLEventReader/XMLStreamReaderオブジェクトを構成および取得できます。",
 
-  "a-XmlOutputFactory-label": "Xml出力ファクトリ",
+  "a-XmlOutputFactory-label": "XML出力ファクトリ",
   "f-XMLRegistry-a-XmlOutputFactory-help": "XMLOutputFactoryインタフェースを実装するクラスの完全修飾名。javax.xml.stream.XMLOutputFactoryファクトリAPIを使用すると、WebLogic Serverにデプロイされているアプリケーションで、XMLストリームの書込みに使用するXMLEventWriter/XMLStreamWriterオブジェクトを構成および取得できます。",
 
   "a-XpathFactory-label": "XPathファクトリ",
@@ -7165,6 +7260,14 @@
 
   "a-coherence_StartScriptName-label": "Coherence起動スクリプト名",
   "f-NMProperties-a-coherence_StartScriptName-help": "サーバーを起動するために実行されるスクリプトの名前。",
+
+  "a-coherence_startup_Arguments-label": "Coherence起動引数",
+  "a-coherence_startup_Arguments-itemLabel": "Coherence起動引数",
+  "a-coherence_startup_Arguments-itemHelp": "追加するCoherence起動引数を指定します。",
+  "a-coherence_startup_Arguments-help": "Coherence起動引数",
+
+  "a-coherence_startup_MW_HOME-label": "Coherence起動用ミドルウェア・ホーム",
+  "a-coherence_startup_MW_HOME-help": "Coherenceサーバーを起動するために使用するミドルウェア・ホーム。",
 
   "a-compInfoXMLLocation-label": "コンポーネント情報XMLの場所",
   "a-compInfoXMLLocation-help": "ComponentInfo.xmlファイルの場所への完全パス。デフォルトの場所はORACLE_HOME/oracle_common/rcu/configです。",
@@ -7225,6 +7328,28 @@
   "a-pager-label": "ページャ",
   "a-postaladdress-label": "postaladdress",
   "a-postofficebox-label": "postofficebox",
+
+  "a-process_FileSizeKB-label": "プロセス・ファイル・サイズ(KB)",
+  "a-process_FileSizeKB-help": "サイズでローテーションする場合のプロセスの最大ログ・ファイル・サイズ(KB)。",
+
+  "a-process_FileTimeSpan-label": "プロセス・ファイル時間間隔",
+  "a-process_FileTimeSpan-help": "プロセスが古いログ・メッセージを別のファイルに保存する間隔(時間単位)。デフォルト値は24です。",
+
+  "a-process_FileTimeSpanFactor-label": "プロセス・ファイル時間間隔係数",
+  "a-process_FileTimeSpanFactor-help": "この係数は、ログ・ローテーションを異なる頻度でテストできるように定義されます。デフォルト値は3600000です。",
+
+  "a-process_NumberOfFilesLimited-label": "プロセス・ファイル数制限",
+  "a-process_NumberOfFilesLimited-help": "古いメッセージを保存するためにこのプロセス・インスタンスが作成するログ・ファイルの数を制限するかどうかを示します。この制限に達すると、プロセスは最も古いログ・ファイルを削除し、最新の接尾辞が付いた新しいログ・ファイルを作成します。このオプションを有効にしない場合、プロセスは新規ファイルを無期限に作成するため、必要に応じてこれらのファイルをクリーン・アップする必要があります。デフォルト値はtrueです。",
+
+  "a-process_RotatedFileCount-label": "プロセス・ローテーション済ファイル数",
+  "a-process_RotatedFileCount-help": "ファイル数が制限されている場合、このパラメータは、保持するローテーション済ファイルの最大数を指定します。",
+
+  "a-process_RotationTimeStart-label": "プロセス・ローテーション開始時刻",
+  "a-process_RotationTimeStart-help": "時間ベースのローテーション・シーケンスの開始時刻(時および分)を決定します。この値で指定された時刻に、プロセスは現在のログ・ファイルの名前を変更します。",
+
+  "a-process_RotationType-label": "プロセス・ローテーション・タイプ",
+  "a-process_RotationType-help": "古いログ・レコードを別のファイルに移動する基準を指定します。デフォルト値は「サイズによる」です。",
+
   "a-preferredlanguage-label": "preferredlanguage",
   "a-rcu_admin_password-label": "データベース管理パスワード",
   "a-rcu_admin_password-help": "RCUスキーマの作成に必要なデータベース管理ユーザーのパスワード。この値は、WDTでRCUスキーマを作成する場合に必要です。",
@@ -7288,6 +7413,36 @@
 
   "a-weblogic_UseMACBroadcast-label": "WebLogicがMACブロードキャストを使用",
   "f-NMProperties-a-weblogic_UseMACBroadcast-help": "ARPパケットの送信時にノードのMACアドレスを使用するかどうか、すなわち、arpingコマンドで-bフラグを使用するかどうかを指定します。ノード・マネージャが自動サーバー移行のためにIPアドレスをバインドするとき、arpingコマンドも使用して、マシンが仮想IPアドレスを使用することをネットワーク内のノードに通知しようとします。weblogic.UseMACBroadcast=trueの場合、ノード・マネージャは-bフラグを指定したarpingコマンドを使用します。",
+
+  "a-weblogic_startup_Arguments-label": "WebLogic起動引数",
+  "a-weblogic_startup_Arguments-itemLabel": "WebLogic起動引数",
+  "a-weblogic_startup_Arguments-itemHelp": "追加するWebLogic起動引数を指定します。",
+  "a-weblogic_startup_Arguments-help": "WebLogic Serverインスタンスの起動時に使用する引数。",
+
+  "a-weblogic_startup_Arguments_prepend-label": "WebLogic起動引数の先頭付加",
+  "a-weblogic_startup_Arguments_prepend-itemLabel": "先頭に付加するWebLogic起動引数",
+  "a-weblogic_startup_Arguments_prepend-itemHelp": "追加するWebLogic起動引数を指定します。",
+  "a-weblogic_startup_Arguments_prepend-help": "WebLogic Serverインスタンスの起動に使用する引数のリストの先頭に付加する引数。",
+
+  "a-weblogic_startup_ClassPath-label": "WebLogic起動ClassPath",
+  "a-weblogic_startup_ClassPath-itemLabel": "WebLogic起動ClassPathエントリ",
+  "a-weblogic_startup_ClassPath-itemHelp": "WebLogic起動ClassPathに追加するエントリを指定します。",
+  "a-weblogic_startup_ClassPath-help": "WebLogic Serverインスタンスの起動時に使用するJava CLASSPATH。",
+
+  "a-weblogic_startup_JavaVendor-label": "WebLogic起動Javaベンダー",
+  "a-weblogic_startup_JavaVendor-help": "WebLogic Serverインスタンスの起動時に使用するJavaベンダー・タイプ。",
+
+  "a-weblogic_startup_MW_Home-label": "WebLogic起動ミドルウェア・ホーム",
+  "a-weblogic_startup_MW_Home-help": "WebLogic Serverインスタンスの起動時に使用するミドルウェア・ホーム(MW_HOME)。",
+
+  "a-weblogic_startup_SecurityPolicyFile-label": "WebLogic起動セキュリティ・ポリシー・ファイル",
+  "a-weblogic_startup_SecurityPolicyFile-help": "WebLogic Serverインスタンスの起動時に使用するセキュリティ・ポリシー・ファイル。",
+
+  "a-weblogic_startup_serverGID-label": "WebLogic起動サーバー・グループID",
+  "a-weblogic_startup_serverGID-help": "WebLogic Serverインスタンスの起動に使用するオペレーティング・システム・グループID(GID)。",
+
+  "a-weblogic_startup_serverUID-label": "WebLogic起動サーバー・ユーザーID",
+  "a-weblogic_startup_serverUID-help": "WebLogic Serverインスタンスの起動に使用するオペレーティング・システム・ユーザーID(UID)。",
 
   "f-any-nameHelp": "{{folderType}}の名前",
   "f-any-nameLabel": "{{folderType}}名",
@@ -7441,6 +7596,7 @@
   "f-any_FairShareConstraint-label": "フェア・シェア制約",
   "f-any_FairShareRequestClass-label": "フェア・シェア・リクエスト・クラス",
   "f-any_FairShareRequestClass-typeLabel": "フェア・シェア・リクエスト・クラス",
+  "f-any_FeatureCompatibility-label": "機能の互換性",
   "f-any_FederationServices-label": "フェデレーション・サービス",
   "f-any_FileOpen-label": "ファイルを開く",
   "f-any_FileStore-label": "ファイル・ストア",
@@ -7511,6 +7667,11 @@
   "f-any_JdbcPropertyOverride-label": "JDBCプロパティ・オーバーライド",
   "f-any_JdbcPropertyOverride-typeLabel": "JDBCプロパティ・オーバーライド",
   "f-any_JdbcResource-label": "JDBCリソース",
+  "f-any_JdbcResource/JDBCConnectionPoolParams-label": "JDBC接続プール・パラメータ",
+  "f-any_JdbcResource/JDBCDataSourceParams-label": "JDBCデータ・ソース・パラメータ",
+  "f-any_JdbcResource/JDBCDriverParams-label": "JDBCドライバ・パラメータ",
+  "f-any_JdbcResource/JDBCOracleParams-label": "JDBC Oracleパラメータ",
+  "f-any_JdbcResource/JDBCXAParams-label": "JDBC XAパラメータ",
   "f-any_JdbcSystemResourceOverride-label": "JDBCシステム・リソース・オーバーライド",
   "f-any_JdbcSystemResourceOverride-typeLabel": "JDBCシステム・リソース・オーバーライド",
   "f-any_JmsConnectionConsumer-label": "JMS接続コンシューマ",
@@ -7784,6 +7945,7 @@
   "f-any_WatchNotification-label": "ウォッチ通知",
   "f-any_WebAppContainer-label": "Webアプリケーション・コンテナ",
   "f-any_WebLogicCertPathProvider-label": "WebLogic証明書パス・プロバイダ",
+  "f-any_WeblogicPluginRouting-label": "WebLogicプラグイン・ルーティング",
   "f-any_WebServer-label": "Webサーバー",
   "f-any_WebServerLog-label": "Webサーバー・ログ",
   "f-any_WebService-label": "Webサービス",
@@ -7822,5 +7984,133 @@
   "f-any_XMLRegistry-typeLabel": "XMLレジストリ",
   "f-any_Deployments-label": "デプロイメント",
   "f-any_Resources-label": "リソース",
-  "f-any_weblogic.security.providers.authentication.OracleIdentityCloudIntegrator-label": "Oracle Identity Cloud Integrator"
+  "f-any_weblogic.security.providers.authentication.OracleIdentityCloudIntegrator-label": "Oracle Identity Cloud Integrator",
+
+  "a-CertificateAuthorityKeyProfile-label": "認証局キー・プロファイル",
+  "a-CertificateAuthoritySignatureAlgorithm-label": "認証局署名アルゴリズム",
+  "a-CertificateCheckTime-label": "証明書チェック時間",
+  "a-CertificateCheckTimeMaximumOffset-label": "証明書チェック時間の最大オフセット",
+  "a-CertificateKeyProfile-label": "証明書キー・プロファイル",
+  "a-CrossDomainT3SConnectionTrustValidationEnabled-label": "クロス・ドメインT3S接続信頼検証有効",
+  "a-CrossDomainT3SConnectionTrustValidationEnabled-help": "リバース・クロス・ドメイン・ルックアップで、既存の接続を再利用するかわりに、新しいT3S接続を確立し、新たなSSL信頼チェックに合格する必要があるかどうかを指定します。変更はサーバーの再起動後に有効になります。",
+  "a-DomainKeystoresAdminUrl-label": "ドメイン・キーストア管理URL",
+  "a-DomainKeystoresMachineName-label": "ドメイン・キーストア・マシン名",
+  "a-ExpiredCertificateAuthorityRetentionDays-label": "期限切れ認証局の保持日数",
+  "a-IiopStrictRemoteBusinessInterfaceValidationEnabled-label": "IIOPリモート・ビジネス・インタフェース厳密検証有効",
+  "a-IiopStrictRemoteBusinessInterfaceValidationEnabled-help": "IIOPクライアント・スタブ生成で、リモート・インタフェースとして認識されないビジネス・インタフェースを拒否するかどうかを指定します。無効にすると、相互運用可能オブジェクト参照(IOR)にコードベースがない場合にのみ、レガシーIIOPクライアントがローカルに可視のプレーン・ビジネス・インタフェースを使用できます。",
+  "a-JaxwsRejectUnknownSeiOperationsEnabled-label": "JAX-WS不明SEI操作拒否有効",
+  "a-JaxwsRejectUnknownSeiOperationsEnabled-help": "サービス・エンドポイント・インタフェース(SEI)を使用するJAX-WSエンドポイントが、操作がSEIメソッドと一致しないSOAPリクエストを拒否するかどうかを指定します。有効にすると、不明な操作には、WorkContext処理を含む後続の処理の前にSOAPフォルトが返されます。無効にすると、これらのリクエストは、不明な操作に対するメソッド・レベルの認可なしでレガシー処理パスに従います。",
+  "a-JmsDotNetClientEnabled-label": "JMS .NETクライアント有効",
+  "a-KeystoreFileLockTimeout-label": "キーストア・ファイル・ロック・タイムアウト",
+  "a-KeystoreFileLockingEnabled-label": "キーストア・ファイル・ロック有効",
+  "a-KeystoreFileWatchingEnabled-label": "キーストア・ファイル監視有効",
+  "a-MaxHeaderCount-label": "最大ヘッダー数",
+  "a-MaxQueued-label": "最大キュー数",
+  "a-MaximumUnitOfWorkMessages-label": "最大作業単位メッセージ数",
+  "a-RestrictContentBasedOnRoles-label": "ロールに基づくコンテンツの制限",
+  "a-SAML2StrictArtifactResolutionEnabled-label": "SAML2厳密アーティファクト解決有効",
+  "a-SAML2StrictArtifactResolutionEnabled-help": "アーティファクトを取得して消費する前に、SAML 2.0アーティファクト解決が目的の受信者を認証するかどうかを指定します。有効にすると、リクエスト発行者は有効なパートナと一致し、そのパートナに一致する検証済署名またはTLSクライアント証明書を提供する必要があります。共有Basic認証のみでは不十分です。無効にすると、レガシー動作では認証前のアーティファクト取得が許可されます。",
+  "a-SpringJtaDeserializationJndiLookupDisabled-label": "Spring JTAデシリアライズJNDIルックアップ無効化",
+  "a-SpringJtaDeserializationJndiLookupDisabled-help": "Spring JtaTransactionManagerがデシリアライズされたときに、シリアライズされたJNDI名の解決を禁止するかどうかを指定します。有効にすると、一時JTAハンドルはこれらのルックアップを介してリストアされません。通常のBean初期化中のJTAルックアップは影響を受けません。無効にすると、シリアライズされたJNDI名はレガシー動作と同様に解決されます。",
+  "a-StrictClusterCompatibilityEnabled-label": "厳密なクラスタ互換性有効",
+  "a-StrictClusterCompatibilityEnabled-help": "クラスタ・セキュリティ機能で、レプリケートされたセッション・ワイヤ形式と、レプリケートされたセッション属性の動的プロキシ・インタフェースの厳密な検証を使用するかどうかを指定します。この設定をサポートするPSUバージョンでは、この設定を無効にすると、ローリング・パッチ適用中のレガシー動作が維持されます。参加しているすべてのサーバーにパッチを適用した後、再度有効にしてください。WebLogic Server 26.1以降では、厳密な処理が常に有効になっており、この属性は構成できません。",
+  "a-SubjectNamePolicy-label": "サブジェクト名ポリシー",
+  "a-T3LegacyCrossDomainCredentialJVMIDReplayProtectionEnabled-label": "T3レガシー・クロス・ドメイン資格証明JVMIDリプレイ保護有効",
+  "a-T3LegacyCrossDomainCredentialJVMIDReplayProtectionEnabled-help": "T3サーバー・アイデンティティ処理で、レガシー・クロス・ドメイン資格証明で署名されたJVMアイデンティティ(JVMID)のリプレイが、新しく識別されたインバウンド接続にトラステッド・サーバー・ステータスを付与することを防止するかどうかを指定します。無効にすると、従来のグローバル・ドメイン・トラストの動作が保持されます。",
+  "a-WarnOnDisabledCrossDomainT3SConnectionTrustValidation-label": "クロス・ドメインT3S接続信頼検証が無効な場合に警告",
+  "a-WarnOnDisabledIiopStrictRemoteBusinessInterfaceValidation-label": "IIOPの厳密なリモート・ビジネス・インタフェース検証が無効な場合に警告",
+  "a-WarnOnDisabledIiopTypedReadResolveProxyValidation-label": "IIOP型付き読取り解決プロキシ検証が無効な場合に警告",
+  "a-WarnOnDisabledIiopUnauthenticatedServiceContextValueTypeFiltering-label": "IIOP未認証サービス・コンテキスト値タイプ・フィルタリングが無効な場合に警告",
+  "a-WarnOnDisabledJaxwsRejectUnknownSeiOperations-label": "JAX-WSの不明なSEI操作の拒否が無効な場合に警告",
+  "a-WarnOnDisabledJndiAdditionalFactoriesAllowLists-label": "JNDI追加ファクトリ許可リストが無効な場合に警告",
+  "a-WarnOnDisabledJndiBindingAuthorizationPolicy-label": "JNDIバインディング認可ポリシーが無効な場合に警告",
+  "a-WarnOnDisabledJndiOutboundConnectionsAllowList-label": "JNDIアウトバウンド接続許可リストが無効な場合に警告",
+  "a-WarnOnDisabledSAML2StrictArtifactResolution-label": "SAML2厳密アーティファクト解決が無効な場合に警告",
+  "a-WarnOnDisabledSerializedWorkContextMaximumSize-label": "シリアライズ済ワーク・コンテキスト最大サイズが無効な場合に警告",
+  "a-WarnOnDisabledSpringJtaDeserializationJndiLookupDisabled-label": "Spring JTAデシリアライズJNDIルックアップ無効化が無効な場合に警告",
+  "a-WarnOnDisabledT3LegacyCrossDomainCredentialJVMIDReplayProtection-label": "T3レガシー・クロス・ドメイン資格証明JVMIDリプレイ保護が無効な場合に警告",
+  "a-WarnOnDisabledT3RouteOnlyToTrustedServers-label": "T3のトラステッド・サーバーのみへのルーティングが無効な場合に警告",
+  "a-WarnOnDisabledWlProxyClientCertificateChainValidation-label": "WLプロキシ・クライアント証明書チェーン検証が無効な場合に警告",
+  "a-WarnOnDisabledWldfScriptActionPathRestriction-label": "WLDFスクリプト・アクション・パス制限が無効な場合に警告",
+  "a-WarnOnDisabledWorkContextClassValidation-label": "ワーク・コンテキスト・クラス検証が無効な場合に警告",
+  "a-WarnOnDisabledWorkContextInputMaximumAsciiFieldSize-label": "ワーク・コンテキスト入力最大ASCIIフィールド・サイズが無効な場合に警告",
+  "a-WarnOnDisabledWsatIgnoreUnknownReplayCompletion-label": "WSATの不明なリプレイ完了の無視が無効な場合に警告",
+  "a-WarnOnDisabledWsatRegistrationSecret-label": "WSAT登録シークレットが無効な場合に警告",
+  "a-WlProxyClientCertificateChainValidationEnabled-label": "WLプロキシ・クライアント証明書チェーン検証有効",
+  "a-WlProxyClientCertificateChainValidationEnabled-help": "X.509アイデンティティ・アサーションに使用する前に、WL-Proxy-Client-Cert HTTPヘッダーで指定された証明書チェーンを構成済のWebLogic Serverクライアント証明書トラスト・アンカーに対して検証するかどうかを指定します。有効にすると、無効な、信頼されていない、期限切れ、形式が不正な、またはその他の理由で検証不能な証明書は拒否されます。無効にすると、レガシー・プロキシ・クライアント証明書の動作が維持されます。",
+  "a-WorkContextInputMaximumAsciiFieldSize-label": "ワーク・コンテキスト入力最大ASCIIフィールド・サイズ",
+  "a-WorkContextInputMaximumAsciiFieldSize-help": "4バイトの符号付き長を使用するWorkAreaバイナリ・エンコーディングのASCIIフィールドの最大サイズをバイト単位で指定します。値が-1の場合、この制限は無効になります。0の場合、長さゼロのフィールドのみが許可されます。この制限は、個別のデコード・パスを使用するT3やIIOPなどのトランスポート固有のWorkContextエンコーディングには適用されません。",
+  "a-WsatIgnoreUnknownReplayCompletionEnabled-label": "WSAT不明リプレイ完了無視の有効化",
+  "a-WsatIgnoreUnknownReplayCompletionEnabled-help": "一致するローカル・トランザクションがないWS-ATリプレイ完了リクエストを無視するかどうかを指定します。無効にすると、レガシー動作では、呼出し側指定のReplyToエンドポイントから作成されたリカバリ・リソースがロールバックされます。",
+  "a-WsatRegistrationSecretEnabled-label": "WSAT登録シークレットの有効化",
+  "a-WsatRegistrationSecretEnabled-help": "WebLogic Serverで、生成されたWS-ATコーディネーション・コンテキストにトランザクションごとの登録シークレットを含めるかどうか、および未認証の登録リクエストに対して、参加者を登録する前に一致するシークレットを返すことを要求するかどうかを指定します。無効にすると、従来のWS-AT相互運用性動作が維持されます。",
+
+  "a-CertificateAuthorityKeyProfile-help": "ドメインまたはマシンの認証局が次に生成またはロールオーバーされるときに使用されるキー・プロファイルを指定します。この値を変更しても、既存の認証局キーは置換されず、再生成も強制されません。",
+  "a-CertificateAuthoritySignatureAlgorithm-help": "新しく生成された認証局が自身の証明書および発行するリーフ証明書に使用する署名アルゴリズムを指定します。既存の認証局は、再生成またはロールオーバーまで、現在の署名アルゴリズムを保持します。",
+  "a-CertificateCheckTime-help": "証明書チェックのローカル・サーバー時刻をH:mm形式で指定します。時は0から23、分は2桁で指定します。最初のチェックは、構成済の証明書チェック間隔の経過後、その時刻に実行され、以降のチェックは同じ暦日間隔に従います。未設定の場合、固定レート・スケジューリングが使用されます。",
+  "a-CertificateCheckTimeMaximumOffset-help": "証明書チェック時刻に追加される最大ランダム遅延を秒単位で指定します。0からこの値までのオフセットが1つ、スケジュール確立時に選択され、そのスケジュール・ライフサイクルで再使用されます。0を指定するとオフセットは無効になります。最大値は86399秒です。",
+  "a-CertificateKeyProfile-help": "リーフ証明書が次に生成または更新されるときに使用されるキー・プロファイルを指定します。この値を変更しても、既存の証明書は変更されず、再生成も強制されません。",
+  "a-DomainKeystoresAdminUrl-help": "ノード・マネージャがドメイン証明書管理サービスのために接続する管理サーバーの絶対HTTPS URLを指定します。このプロパティは、KeyStoresがDomainKeystoresの場合に必要です。",
+  "a-DomainKeystoresMachineName-help": "証明書管理サービスに対してノード・マネージャを識別するために使用されるドメイン・マシン名を指定します。このプロパティは、KeyStoresがDomainKeystoresの場合に必要です。",
+  "a-ExpiredCertificateAuthorityRetentionDays-help": "自動クリーンアップによって削除されるまでに、期限切れの認証局が管理サーバーのdomain-trustまたはprovisioned-trustソース・ストアで信頼されたままになる日数を指定します。0を指定すると、自動クリーンアップは無効になりますが、管理者が開始するクリーンアップは防止されません。",
+  "a-JmsDotNetClientEnabled-help": "WebLogic JMS Client for Microsoft .NETエンドポイントを有効にするかどうかを指定します。変更を有効にするには、サーバーの再起動が必要です。デフォルト値はfalseです。",
+  "a-KeystoreFileLockTimeout-help": "共有証明書管理キーストア・ファイルでのプロセス間ロックの取得をプロセスが待機する最大時間をミリ秒単位で指定します。値は正の値である必要があります。変更を有効にするには、影響を受けるサーバーまたはノード・マネージャ・プロセスの再起動が必要です。weblogic.keystore.filelock.timeoutシステム・プロパティが指定されている場合は、これが優先されます。",
+  "a-KeystoreFileLockingEnabled-help": "共有証明書管理キーストアへのアクセス時にプロセス間ファイル・ロックを使用するかどうかを指定します。無効にすると、同じマシン・キーストアにアクセスするすべてのプロセスで、ロックを一貫して無効にする必要があります。変更を有効にするには、影響を受けるサーバーまたはノード・マネージャ・プロセスの再起動が必要です。weblogic.keystore.filelock.enabledシステム・プロパティが指定されている場合は、これが優先されます。",
+  "a-MaxHeaderCount-help": "1つのヘッダー・リストで受け入れられるデコード済HTTP/2フィールドの最大数を指定します。この数には、疑似ヘッダー、繰返しフィールド、および個別にエンコードされた各Cookieフィールドが含まれます。初期ヘッダーとトレーラには個別の制限があります。これはHTTP/2 SETTINGSパラメータではなくローカル・インバウンド制限であり、変更は新しく確立された接続に適用されます。",
+  "a-MaxQueued-help": "アノテーション構成済エグゼキュータがmaxAsyncの実行中タスク制限に達したときに待機できる非同期タスクの数を指定します。負の値を指定すると、無制限のキューが許可されます。0を指定すると、キューイングが無効になり、その制限で以降のサブミットが拒否されます。正の値を指定すると、待機中のタスク数が制限されます。",
+  "a-MaximumUnitOfWorkMessages-help": "JMS作業単位(UOW)の最大メッセージ数を指定します。UOWシーケンス番号がこの制限を超えるメッセージは拒否されます。この設定は、作業単位処理ポリシーが単一メッセージ配信の場合にのみ有効です。変更は後続のUOWメッセージに適用されます。すでに受け入れられているUOW終了メッセージは、そのUOWの許容シーケンス範囲を引き続き定義します。",
+  "a-RestrictContentBasedOnRoles-help": "ホストされるリモート・コンソールが、現在のユーザーのWebLogic Serverロールに従ってページおよびアクションを制限するかどうかを指定します。無効にすると、すべてのコンテンツが表示されますが、WebLogic Serverは引き続き認可を適用します。コンテンツ制限にはデフォルトのセキュリティ・ポリシーが使用され、カスタム・ポリシーの変更が反映されない場合があります。",
+  "a-SubjectNamePolicy-help": "ドメイン証明書発行者が証明書サブジェクトで許可するホスト名およびリテラルIPアドレスを指定します。CONFIGURED_ONLYは、構成済のサーバー・リスニング・アドレス、ネットワーク・チャネル・リスニング・アドレス、ターゲット指定された仮想ホスト名、およびマシン証明書用に構成されたノード・マネージャ・リスニング・アドレスを許可します。CONFIGURED_PLUS_HOSTは、認証済リクエストのホスト名およびアドレスも許可します。CONFIGURED_PLUS_ANYは、レガシー互換性のため、リクエストされた任意のアイデンティティを許可します。localhostおよび数値ループバック・アドレスは、すべてのモードで許可されます。",
+  "a-WarnOnDisabledCrossDomainT3SConnectionTrustValidation-help": "FeatureCompatibility.CrossDomainT3SConnectionTrustValidationEnabledがfalseの場合に警告を発行するかどうかを指定します。これは警告のみを制御し、機能設定を変更しません。",
+  "a-WarnOnDisabledIiopStrictRemoteBusinessInterfaceValidation-help": "FeatureCompatibility.IiopStrictRemoteBusinessInterfaceValidationEnabledがfalseの場合に警告を発行するかどうかを指定します。これは警告のみを制御し、機能設定を変更しません。",
+  "a-WarnOnDisabledIiopTypedReadResolveProxyValidation-help": "FeatureCompatibility.IIOPTypedReadResolveProxyValidationEnabledがfalseの場合に警告を発行するかどうかを指定します。これは警告のみを制御し、機能設定を変更しません。",
+  "a-WarnOnDisabledIiopUnauthenticatedServiceContextValueTypeFiltering-help": "FeatureCompatibility.IIOPUnauthenticatedServiceContextValueTypeFilteringEnabledがfalseの場合に警告を発行するかどうかを指定します。これは警告のみを制御し、機能設定を変更しません。",
+  "a-WarnOnDisabledJaxwsRejectUnknownSeiOperations-help": "FeatureCompatibility.JaxwsRejectUnknownSeiOperationsEnabledがfalseの場合に警告を発行するかどうかを指定します。これは警告のみを制御し、機能設定を変更しません。",
+  "a-WarnOnDisabledJndiAdditionalFactoriesAllowLists-help": "FeatureCompatibility.JndiAdditionalFactoriesAllowListsEnabledがfalseの場合に警告を発行するかどうかを指定します。これは警告のみを制御し、機能設定を変更しません。",
+  "a-WarnOnDisabledJndiBindingAuthorizationPolicy-help": "FeatureCompatibility.JndiBindingAuthorizationPolicyEnabledがfalseの場合に警告を発行するかどうかを指定します。これは警告のみを制御し、機能設定を変更しません。",
+  "a-WarnOnDisabledJndiOutboundConnectionsAllowList-help": "FeatureCompatibility.JndiOutboundConnectionsAllowListEnabledがfalseの場合に警告を発行するかどうかを指定します。これは警告のみを制御し、機能設定を変更しません。",
+  "a-WarnOnDisabledSAML2StrictArtifactResolution-help": "FeatureCompatibility.SAML2StrictArtifactResolutionEnabledがfalseの場合に警告を発行するかどうかを指定します。これは警告のみを制御し、機能設定を変更しません。",
+  "a-WarnOnDisabledSerializedWorkContextMaximumSize-help": "FeatureCompatibility.SerializedWorkContextMaximumSizeが0以下の場合に警告を発行するかどうかを指定します。これは警告のみを制御し、構成済のバイト制限を変更しません。",
+  "a-WarnOnDisabledSpringJtaDeserializationJndiLookupDisabled-help": "FeatureCompatibility.SpringJtaDeserializationJndiLookupDisabledがfalseの場合に警告を発行するかどうかを指定します。これは警告のみを制御し、機能設定を変更しません。",
+  "a-WarnOnDisabledT3LegacyCrossDomainCredentialJVMIDReplayProtection-help": "FeatureCompatibility.T3LegacyCrossDomainCredentialJVMIDReplayProtectionEnabledがfalseの場合に警告を発行するかどうかを指定します。これは警告のみを制御し、機能設定を変更しません。",
+  "a-WarnOnDisabledT3RouteOnlyToTrustedServers-help": "FeatureCompatibility.T3RouteOnlyToTrustedServersEnabledがfalseの場合に警告を発行するかどうかを指定します。これは警告のみを制御し、機能設定を変更しません。",
+  "a-WarnOnDisabledWlProxyClientCertificateChainValidation-help": "FeatureCompatibility.WlProxyClientCertificateChainValidationEnabledがfalseの場合に警告を発行するかどうかを指定します。これは警告のみを制御し、機能設定を変更しません。",
+  "a-WarnOnDisabledWldfScriptActionPathRestriction-help": "FeatureCompatibility.WLDFScriptActionPathRestrictionEnabledがfalseの場合に警告を発行するかどうかを指定します。これは警告のみを制御し、機能設定を変更しません。",
+  "a-WarnOnDisabledWorkContextClassValidation-help": "FeatureCompatibility.WorkContextClassValidationEnabledがfalseの場合に警告を発行するかどうかを指定します。これは警告のみを制御し、機能設定は変更しません。",
+  "a-WarnOnDisabledWorkContextInputMaximumAsciiFieldSize-help": "FeatureCompatibility.WorkContextInputMaximumAsciiFieldSizeが0以下の場合に警告を発行するかどうかを指定します。これは警告のみを制御し、構成済のバイト制限は変更しません。",
+  "a-WarnOnDisabledWsatIgnoreUnknownReplayCompletion-help": "FeatureCompatibility.WsatIgnoreUnknownReplayCompletionEnabledがfalseの場合に警告を発行するかどうかを指定します。これは警告のみを制御し、機能設定は変更しません。",
+  "a-WarnOnDisabledWsatRegistrationSecret-help": "FeatureCompatibility.WsatRegistrationSecretEnabledがfalseの場合に警告を発行するかどうかを指定します。これは警告のみを制御し、機能設定は変更しません。",
+  "f-NMProperties-a-KeystoreFileWatchingEnabled-help": "ノード・マネージャが証明書管理キーストア・ファイルを監視し、管理対象アイデンティティ・リビジョンをポーリングするかどうかを指定します。有効にすると、アイデンティティの置換または削除によってノード・マネージャが再起動されるため、削除されたリスナー資格証明は保持されません。自動再起動では、ノード・マネージャが再起動サポート付きで起動されている必要があります。このプロパティを無効にすると、監視とリビジョン・ポーリングの両方が無効になります。変更にはノード・マネージャの再起動が必要です。weblogic.keystore.filewatch.enabledシステム・プロパティは、指定されている場合に優先されます。",
+  "f-SecurityConfiguration_CertificateManagement-a-KeystoreFileWatchingEnabled-help": "WebLogic Serverが、別のプロセスによって行われた変更を検出するために証明書管理キーストア・ファイルを監視するかどうかを指定します。変更にはサーバーの再起動が必要です。weblogic.keystore.filewatch.enabledシステム・プロパティは、指定されている場合に優先されます。",
+
+  "feature-compatibility-warnings-title": "機能互換性警告",
+  "options-configured-only-label": "構成済の名前のみ",
+  "options-configured-plus-host-label": "構成済の名前および認証済ホスト",
+  "options-configured-plus-any-label": "任意の要求名(レガシー互換性)",
+
+  "a-DatabaseType-label": "データベース・タイプ",
+  "a-DefaultResource-label": "デフォルト・リソース",
+  "a-ProviderName-label": "プロバイダ名",
+  "f-any_NoSqlResource-label": "NoSQLリソース",
+  "f-any_NoSqlSystemResource-label": "NoSQLシステム・リソース",
+  "f-any_NoSqlSystemResource-typeLabel": "NoSQLシステム・リソース",
+  "f-NoSqlSystemResource_NoSqlResource_Properties_Property-label": "プロパティ",
+  "f-NoSqlSystemResource_NoSqlResource_Properties_Property-typeLabel": "プロパティ",
+  "options-oracle-nosql-label": "Oracle NoSQL Database",
+  "options-mongodb-label": "MongoDB",
+  "options-solr-label": "Apache Solr",
+  "options-couchdb-label": "Apache CouchDB",
+  "options-dynamodb-label": "Amazon DynamoDB",
+  "options-elasticsearch-label": "Elasticsearch",
+  "options-couchbase-label": "Couchbase",
+  "options-document-label": "ドキュメント",
+  "options-key-value-label": "キー・バリュー",
+  "options-column-label": "カラム",
+  "options-graph-label": "グラフ",
+  "f-NoSqlSystemResource_NoSqlResource-a-ProviderName-help": "このリソースで使用されるNoSQLプロバイダ。サポートされるプロバイダ名は、oracle-nosql、mongodb、solr、couchdb、dynamodb、elasticsearchおよびcouchbaseです。プロバイダ互換性に影響する変更では、影響を受けるアプリケーションを完全に再デプロイする必要があります。停止/起動では無効化はクリアされません。",
+  "f-NoSqlSystemResource_NoSqlResource-a-DatabaseType-help": "プロバイダに依存しないJakarta Dataデータベース・タイプ。デフォルトはDOCUMENTです。有効な値はDOCUMENT、KEY_VALUE、COLUMNおよびGRAPHですが、選択したプロバイダでそのタイプがサポートされている必要があります。組込みのoracle-nosqlプロバイダは現在、DOCUMENTをサポートしています。WebLogic Serverは、リソースのターゲット指定時にプロバイダとデータベース・タイプの組合せを検証します。",
+  "f-NoSqlSystemResource_NoSqlResource-a-DefaultResource-help": "Jakarta NoSQLをバックエンドとするリポジトリでdataStoreが省略された場合に、このリソースをデフォルト選択の対象にできるかどうかを指定します。デフォルト選択には、アプリケーションに明示的にバインドされ、デフォルトとしてマークされた、有効でローカルにターゲット指定されたリソースが1つのみ必要です。この設定では、アプリケーション・バインディングの確立や認可の付与は行われません。",
+  "f-NoSqlSystemResource_NoSqlResource-a-JNDIName-help": "このNoSQLリソースに割り当てられたJNDI名。",
+  "f-NoSqlSystemResource_NoSqlResource_Properties_Property-a-Value-help": "このプロバイダ固有のNoSQLプロパティのプレーン・テキスト値。資格証明またはその他の機密値には暗号化値を使用します。",
+  "f-NoSqlSystemResource_NoSqlResource_Properties_Property-a-EncryptedValueEncrypted-help": "このプロバイダ固有のNoSQLプロパティの機密値。WebLogic Serverは、値を暗号化してNoSQLリソース記述子に格納します。WDTでは、このフィールドをパスワードとして処理します。"
 }

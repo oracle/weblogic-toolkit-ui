@@ -236,9 +236,16 @@
   "user-settings-dialog-quickstart-section-title": "WebLogic Kubernetes Toolkit UI 소개 구성",
   "user-settings-dialog-quickstart-skip-label": "시작 시 소개 표시 건너뛰기",
   "user-settings-dialog-quickstart-skip-help": "애플리케이션 시작 시 WebLogic Kubernetes Toolkit UI 소개 표시를 건너뛸지 여부입니다.",
+  "user-settings-dialog-appearance-mode-title": "모양",
+  "user-settings-dialog-appearance-mode-label": "모양 모드",
+  "user-settings-dialog-appearance-mode-help": "사용할 WKT UI 모양 모드입니다.",
+  "user-settings-dialog-appearance-mode-dark": "어둡게 모드",
+  "user-settings-dialog-appearance-mode-light": "밝게 모드",
+  "user-settings-dialog-appearance-mode-system": "OS 모드 사용",
 
   "dialog-passphrase-prompt-title": "인증서 암호화 문장암호",
   "dialog-passphrase-prompt-label": "프로젝트 인증서를 암호화하는 데 사용할 문장암호를 입력하십시오.",
+  "dialog-passphrase-prompt-forgot-passphrase": "문장암호를 잊으셨습니까?",
 
   "dialog-about-version": "버전 {{version}} ({{buildVersion}})",
 
@@ -1879,5 +1886,7 @@
   "wkt-project-verrazzano-removal-warning": "WKTUI 2.0은 Verrazzano에 대한 지원을 제거하여 프로젝트가 모든 Verrazzano 관련 필드를 제거하도록 변환되었습니다.",
   "wkt-project-keytar-removal-warning": "WKTUI 2.0은 keytar JavaScript 라이브러리의 사용 중단으로 인해 고유 인증서 저장소에 대한 지원을 제거하여 프로젝트가 프로젝트 파일에 암호화된 인증서를 저장하는 인증서 관리자를 사용하도록 업데이트되었습니다.",
   "wkt-project-dii-removal warning": "WKTUI 2.0은 이미지 내 도메인에 대한 지원을 제거하여 프로젝트가 보조 이미지와 함께 이미지 내 모델을 사용하도록 변환되었습니다.",
-  "registry-credentials-dialog-title": "컨테이너 이미지 레지스트리 인증서"
+  "registry-credentials-dialog-title": "컨테이너 이미지 레지스트리 인증서",
+
+  "model-archive-context-menu-aria-label": "아카이브 항목 작업"
 }

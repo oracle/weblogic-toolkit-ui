@@ -151,7 +151,7 @@
   "dialog-openProjectFileLoadCredentialsErrorTitle": "Projektzugangsdaten konnten nicht geladen werden",
   "dialog-openProjectFileLoadCredentialsErrorMessage": "Die Zugangsdaten für die Projektdatei {{projectFileName}} können aufgrund eines Fehlers nicht geladen werden: {{err}}",
   "dialog-openProjectFileCredentialManagerErrorTitle": "Zugangsdatenmanager konnte nicht erstellt werden",
-  "dialog-openProjectFileCredentialManagerErrorMessage": "Der Zugangsdatenmanager für die Projektdatei {{projectFileName}} kann aufgrund eines Fehlers nicht erstellt werden: {{error}}",
+  "dialog-openProjectFileCredentialManagerErrorMessage": "Der Zugangsdatenmanager für die Projektdatei {{projectFileName}} kann aufgrund eines Fehlers nicht erstellt werden: {{err}}",
   "dialog-openProjectFileSendToWindowErrorTitleErrorTitle": "Projekt konnte nicht geöffnet werden",
   "dialog-openProjectFileSendToWindowErrorMessage": "Die Projektdatei {{projectFileName}} kann aufgrund eines Fehlers beim Initialisieren des Projektfensters nicht geöffnet werden: {{err}}",
   "dialog-createNewProjectTitle": "WebLogic Kubernetes Toolkit-Projekt erstellen",
@@ -171,6 +171,8 @@
   "dialog-updateOneToolQuestionMessage": "Auf {{toolName1}} aktualisieren?",
   "dialog-updateTwoToolsSuccessMessage": "Installation auf {{toolName1}} und {{toolName2}} aktualisiert.",
   "dialog-updateOneToolSuccessMessage": "Installation auf {{toolName1}} aktualisiert.",
+  "dialog-updateToolsFailedTitle": "WKT-Tools konnten nicht aktualisiert werden",
+  "dialog-updateToolsFailedMessage": "WKT-Tools konnten nicht aktualisiert werden: {{error}}",
   "dialog-preference-save-success-title": "Voreinstellungen gespeichert",
   "dialog-preference-save-success-message": "Die Voreinstellungen wurden erfolgreich gespeichert",
   "dialog-preference-save-error-title": "Voreinstellungen konnten nicht gespeichert werden",
@@ -206,6 +208,9 @@
   "dialog-archiveEntryFilter": "{{entryType}}",
   "dialog-getWebLogicRemoteConsoleHome": "Wählen Sie die WebLogic Remote Console-Installation aus",
   "dialog-getWebLogicRemoteConsoleAppImage": "Wählen Sie die WebLogic Remote Console-AppImage-Datei aus",
+
+  "dialog-forgotPasswordQuestion": "Alle Zugangsdatenfelder im Projekt löschen?",
+  "dialog-forgotPasswordDetail": "Mit dieser Option können Sie das Projekt ohne Passphrase öffnen, es werden jedoch alle Zugangsdatenfelder gelöscht.",
 
   "title-edited": "bearbeitet",
 
@@ -451,6 +456,8 @@
   "wdt-archiveType-jmsForeignServerBinding": "JMS-Fremdserver-Binding",
   "wdt-archiveType-jmsForeignServerBinding-fileLabel": "JMS-Fremdserver-Binding-Datei",
   "wdt-archiveType-jmsForeignServerBinding-fileHelp": "Wählen Sie den vollständigen Pfad zur JMS-Fremdserver-Binding-Datei aus",
+  "wdt-archiveType-jmsForeignServerBinding-dirLabel": "JMS-Fremdserver-Binding-Verzeichnis",
+  "wdt-archiveType-jmsForeignServerBinding-dirHelp": "Wählen Sie das Verzeichnis mit den JMS-Fremdserver-Bindings aus",
 
   "wdt-archiveType-mimeMapping": "MIME-Zuordnungsdatei",
   "wdt-archiveType-mimeMapping-fileLabel": "MIME-Zuordnungsdatei",

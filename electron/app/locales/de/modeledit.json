@@ -39,6 +39,7 @@
   "node-manager-coherence-start-scripts-title": "Coherence-Startskripteinstellungen",
   "wldf-elasticity-framework-settings-label": "Einstellungen für WLDF-Elastizitätsframework",
   "rdbms-security-store-notifications-title": "JMS-Benachrichtigungen",
+  "node-manager-process-logging-title": "Logrotationseinstellungen für Coherence und Systemkomponenten",
 
   "general-tab-label": "Allgemein",
   "attributes-tab-label": "Attribute",
@@ -108,6 +109,8 @@
   "saml-20-general-tab-label": "SAML 2.0 Allgemein",
   "saml-20-identity-provider-tab-label": "SAML 2.0-Identitätsprovider",
   "saml-20-service-provider-tab-label": "SAML 2.0-Serviceprovider",
+  "node-manager-coherence-tab-label": "Coherence-Einstellungen",
+  "node-manager-weblogic-tab-label": "WebLogic Server-Einstellungen",
 
   "security-model-advanced-label": "Erweitert",
   "security-model-custom-roles-label": "Benutzerdefinierte Rollen",
@@ -407,6 +410,8 @@
   "options-fine-label": "Fine",
   "options-finer-label": "Finer",
   "options-finest-label": "Finest",
+  "options-size-label": "Größe",
+  "options-time-label": "Zeit",
 
   "direction-jms-queue-to-tuxedo-queue-label": "JMS-Queue zu Tuxedo-Queue",
   "direction-tuxedo-queue-to-jms-queue-label": "Tuxedo-Queue zu JMS-Queue",
@@ -476,6 +481,7 @@
   "invalid-integer-error": "Wert muss eine Ganzzahl sein",
   "invalid-double-error": "Wert muss eine Dezimalzahl sein, z.B. 4 oder 3,5",
   "invalid-range-error": "Wert muss zwischen {{min}} und {{max}} liegen",
+  "invalid-time-of-day-error": "Geben Sie eine Uhrzeit im Format H:mm mit einer Stundenangabe von 0 bis 23 und einer zweistelligen Minutenangabe von 00 bis 59 ein, z.B. 9:30 oder 09:30.",
 
   "instance-name-error": "Namen dürfen nur Buchstaben, Zahlen und die folgenden Zeichen enthalten: .-_!",
   "instance-name-in-use-error": "Dieser Name wird bereits verwendet",
@@ -559,7 +565,7 @@
   "a-AcknowledgementInterval-help": "Die maximale Zeit, die eine ausstehende Bestätigung (nach dem Akzeptieren einer Nachricht durch das Ziel festgelegt) warten kann, bevor sie an die RM-Quelle zurückgesendet wird. Zeichenfolgenwert im Format \"Dauer\". Standardwert ist \"P0DT0.2S\" (200 Millisekunden). Wird zur Sequenzerstellungszeit festgelegt und kann nicht zurückgesetzt werden.",
 
   "a-AclPolicy-label": "ACL-Policy",
-  "f-WTCServer_WTCRemoteTuxDom-a-AclPolicy-help": "Die eingehende Access-Control-Listen-(ACL-)Policy für Anforderungen von einem Remote-Tuxedo-Zugriffspunkt. Die zulässigen Werte sind \"Lokal\" oder \"Global\". Bei \"Lokal\" ändert der lokale Tuxedo-Zugriffspunkt die Identität von Serviceanforderungen, die von einem bestimmten Remote-Tuxedo-Zugriffspunkt eingehen, in den Principal-Namen, der im lokalen Principal-Namen für einen bestimmten Remote-Tuxedo-Zugriffspunkt angegeben wurde. Bei \"Global\" übergibt der lokale Tuxedo-Zugriffspunkt die Serviceanforderung ohne Änderung der Identität. Wenn die Interoperabilität aktiviert ist, wird die AclPolicy ignoriert.",
+  "f-WTCServer_WTCRemoteTuxDom-a-AclPolicy-help": "Die eingehende Access Control-Listen-(ACL-)Policy für Anforderungen von einem Remote-Tuxedo-Zugriffspunkt. Die zulässigen Werte sind \"Lokal\" oder \"Global\". Bei \"Lokal\" ändert der lokale Tuxedo-Zugriffspunkt die Identität von Serviceanforderungen, die von einem bestimmten Remote-Tuxedo-Zugriffspunkt eingehen, in den Principal-Namen, der im lokalen Principal-Namen für einen bestimmten Remote-Tuxedo-Zugriffspunkt angegeben wurde. Bei \"Global\" übergibt der lokale Tuxedo-Zugriffspunkt die Serviceanforderung ohne Änderung der Identität. Wenn die Interoperabilität aktiviert ist, wird die AclPolicy ignoriert.",
 
   "a-AcsRequiresSsl-label": "ACS erfordert SSL",
 
@@ -674,7 +680,7 @@
   "f-JMSSystemResource_JmsResource_ConnectionFactory_ClientParams-a-AllowCloseInOnMessage-help": "Gibt an, ob eine Connection Factory Nachrichten-Consumers erstellt, die die Ausgabe einer close()- oder stop()-Methode innerhalb des onMessage()-Methodenaufrufs zulassen.",
 
   "a-AllowListRecordingEnabled-label": "Aufzeichnung von Ausnahmelisten aktiviert",
-  "a-AllowListRecordingEnabled-help": "Gibt an, ob die Domain mit aktivierter Aufzeichnung zur Aufzeichnung von Ausnahmelisten ausgeführt wird.",
+  "a-AllowListRecordingEnabled-help": "Gibt an, ob die Domain mit aktivierter Aufzeichnung ausgeführt wird, um Ausnahmelisten aufzuzeichnen.",
 
   "a-AllowListViolationAction-label": "Maßnahme bei Verletzung für Ausnahmeliste",
   "a-AllowListViolationAction-help": "Definiert die AllowListViolationAction aller Server in einer Domain.",
@@ -1510,7 +1516,7 @@
 
   "a-ConnectionURL-label": "Verbindungs-URL",
   "f-JMSBridgeDestination-a-ConnectionURL-help": "Die Verbindungs-URL für dieses JMS-Bridgeziel.",
-  "f-JMSSystemResource_JmsResource_ForeignServer-a-ConnectionURL-help": "Die URL, mit der WebLogic Server den JNDI-Provider kontaktiert. Die Syntax dieser URL hängt davon ab, welcher JNDI-Provider verwendet wird. Lassen Sie dieses Feld für WebLogic JMS leer, wenn Sie WebLogic JMS-Objekte innerhalb desselben Clusters referenzieren. Dieser Wert entspricht der JNDI-Standardeigenschaft java.naming.provider.url. Hinweis: Wenn dieser Wert nicht angegeben ist, werden Lookups auf dem JNDI-Server in der WebLogic Server-Instanz ausgeführt, in der diese Connection Factory bereitgestellt wurde.",
+  "f-JMSSystemResource_JmsResource_ForeignServer-a-ConnectionURL-help": "Die URL, mit der WebLogic Server den JNDI-Provider kontaktiert. Die Syntax hängt vom Provider ab und entspricht java.naming.provider.url. Wählen Sie für dateibasierte Provider eine Binding-Datei oder ein Binding-Verzeichnis aus, und fügen Sie die Datei bzw. das Verzeichnis optional dem WDT-Archiv hinzu. Lassen Sie bei WebLogic JMS dieses Feld leer, wenn Sie auf Objekte im selben Cluster verweisen. Falls nicht angegeben, verwenden Lookups den JNDI-Server in der WebLogic Server-Instanz, in der dieser Fremdserver bereitgestellt ist.",
   "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionURL-help": "Die URL wird an den JDBC-Treiber übergeben, um die physischen Datenbankverbindungen herzustellen.",
 
   "a-ConsensusParticipants-label": "Konsensteilnehmer",
@@ -1656,7 +1662,7 @@
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-CredentialMappingEnabled-help": "Aktiviert \"Client-ID für Verbindung festlegen\" für die Datenquelle. Wenn eine Anwendung eine Datenbankverbindung anfordert, legt WebLogic Server eine Lightweight-Client-ID für die Datenbankverbindung fest. Standardmäßig wird die Zugangsdatenzuordnung verwendet, um WebLogic Server-Benutzer-IDs Datenbankbenutzer-IDs zuzuordnen. Wenn \"use-database-credentials\" jedoch auf \"true\" gesetzt ist, wird die Zugangsdatenzuordnung nicht ausgeführt, und die ID wird direkt als Datenbankbenutzer-ID verwendet. Die Funktion wird derzeit für IBM DB2-Treiber und Oracle Thin-Treiber unterstützt. Die Unterstützung für dieses Feature wird in einem zukünftigen Oracle Thin-Treiberrelease eingestellt. Oracle empfiehlt die Verwendung der Proxyauthentifizierung anstelle dieses Features.",
 
   "a-CredentialPolicy-label": "Zugangsdaten-Policy",
-  "f-WTCServer_WTCRemoteTuxDom-a-CredentialPolicy-help": "Die ausgehende Access-Control-Listen-(ACL-)Policy für Anforderungen an einen Remote-Tuxedo-Zugriffspunkt. Bei \"Lokal\" steuert der Remote-Tuxedo-Zugriffspunkt die Identität von Serviceanforderungen, die vom lokalen Tuxedo-Zugriffspunkt empfangen werden, und zwar als Principal-Namen, der im lokalen Principal-Namen für diesen Remote-Tuxedo-Zugriffspunkt angegeben wurde. Bei \"GLOBAL\" übergibt der Remote-Tuxedo-Zugriffspunkt die Serviceanforderung ohne Änderung. Wenn die Interoperabilität aktiviert ist, wird CredentialPolicy ignoriert.",
+  "f-WTCServer_WTCRemoteTuxDom-a-CredentialPolicy-help": "Die ausgehende Access Control-Listen-(ACL-)Policy für Anforderungen an einen Remote-Tuxedo-Zugriffspunkt. Bei \"Lokal\" steuert der Remote-Tuxedo-Zugriffspunkt die Identität von Serviceanforderungen, die vom lokalen Tuxedo-Zugriffspunkt empfangen werden, und zwar als Principal-Namen, der im lokalen Principal-Namen für diesen Remote-Tuxedo-Zugriffspunkt angegeben wurde. Bei \"GLOBAL\" übergibt der Remote-Tuxedo-Zugriffspunkt die Serviceanforderung ohne Änderung. Wenn die Interoperabilität aktiviert ist, wird CredentialPolicy ignoriert.",
 
   "a-CredentialSet-label": "Zugangsdatenset",
   "f-any_CertificateIssuerPlugin-a-CredentialSet-help": "Das Zugangsdatenset für diese Plug-in-Konfiguration.",
@@ -1773,8 +1779,11 @@
   "a-CustomTrustKeyStoreFileName-label": "Dateiname des benutzerdefinierten Trust Keystore",
   "a-CustomTrustKeyStoreFileName-help": "Gibt die Quelle des Trust Keystore an. Bei einem JKS- oder PKCS12-Keystore ist die Quelle der Pfad und der Dateiname, die aus dem Verzeichnis, in dem der Server gestartet wurde, auflösbar sein müssen. Bei einem Oracle-KeyStore-Service-(KSS-)Keystore ist die Quelle die KSS-URI. Sie hat das Format kss://system/keystorename, wobei \"keystorename\" der Name des in KSS registrierten Keystore ist.",
 
-  "a-CustomTrustKeyStorePassPhraseEncrypted-label": "Benutzerdefinierte Trust Keystore Passphrase",
+  "a-CustomTrustKeyStorePassPhrase-label": "Benutzerdefinierte Trust Keystore Passphrase",
   "a-CustomTrustKeyStorePassPhrase-help": "Legt die Passphrase des benutzerdefinierten Trust Keystore fest. Wenn diese leer oder \"null\" ist, wird der Keystore ohne Passphrase geöffnet.",
+
+  "a-CustomTrustKeyStorePassPhraseEncrypted-label": "Benutzerdefinierte Trust Keystore Passphrase",
+  "a-CustomTrustKeyStorePassPhraseEncrypted-help": "Legt die Passphrase des benutzerdefinierten Trust Keystore fest. Wenn diese leer oder \"null\" ist, wird der Keystore ohne Passphrase geöffnet.",
 
   "a-CustomTrustKeyStoreType-label": "Benutzerdefinierter Trust Keystore-Typ",
   "a-CustomTrustKeyStoreType-help": "Der Typ des Keystore (im Allgemeinen JKS oder PKCS12). Wenn Sie den Oracle-KeyStore-Service verwenden, ist der Typ \"KSS\".",
@@ -2909,6 +2918,11 @@
   "f-WLDFSystemResource_WLDFResource_Instrumentation_WLDFInstrumentationMonitor-a-Exclude-help": "Musterausdrücke für Klassen, die für diesen Instrumentierungsmonitor ausgeschlossen werden. Bei Angabe werden Klassen, die den angegebenen Mustern entsprechen, nicht mit diesem Monitor instrumentiert.",
   "f-WLDFSystemResource_WLDFResource_Instrumentation-a-Exclude-help": "Musterausdrücke für Klassen, die aus diesem Instrumentierungsgeltungsbereich ausgeschlossen werden. Bei Angabe werden Klassen, die den angegebenen Mustern entsprechen, nicht instrumentiert.",
 
+  "a-ExcludeClusterMembers-label": "Ausgeschlossene Clustermitglieder",
+  "a-ExcludeClusterMembers-itemLabel": "Ausgeschlossenes Clustermitglied",
+  "a-ExcludeClusterMembers-itemHelp": "Geben Sie den auszuschließenden Servernamen an.",
+  "a-ExcludeClusterMembers-help": "Gibt die Liste der Server an, die aus der dynamischen Serverliste ausgeschlossen werden sollen.",
+
   "a-ExcludedCiphersuite-label": "Ausgeschlossene Cipher Suites",
   "a-ExcludedCiphersuite-itemLabel": "Ausgeschlossene Cipher Suite",
   "a-ExcludedCiphersuite-itemHelp": "Gibt eine ausgeschlossene Cipher Suite an, die der Liste hinzugefügt werden soll.",
@@ -3325,10 +3339,16 @@
   "a-IIOPConnectionPools-label": "IIOP-Verbindungspools",
 
   "a-IIOPEnabled-label": "IIOP aktiviert",
-  "a-IIOPEnabled-help": "Gibt an, ob dieser Server IIOP für normale (nicht SSL) und SSL-Ports unterstützt. Der Standardwert ist \"true\".",
+  "f-SecurityConfiguration-a-IIOPEnabled-help": "Gibt an, ob die IIOP-Unterstützung für alle Server in dieser Domain aktiviert werden soll. Der Standardwert ist \"false\".",
+  "a-IIOPEnabled-help": "Gibt an, ob auf diesem Server die IIOP-Unterstützung sowohl auf dem normalen (Nicht-SSL-)Port als auch auf dem SSL-Port aktiviert ist. Der Standardwert ist \"false\".",
 
   "a-IIOPLocationForwardPolicy-label": "IIOP-Speicherortweiterleitungs-Policy",
   "a-IIOPTxMechanism-label": "IIOP-Transaktionsmechanismus",
+
+  "a-IIOPTypedReadResolveProxyValidationEnabled-label": "IIOP-Typed-Read-Resolve-Proxyvalidierung aktiviert",
+  "a-IIOPTypedReadResolveProxyValidationEnabled-help": "Gibt an, ob WebLogic Server verifiziert, dass die in einer IIOP-Nachricht enthaltene Klasse mit dem erwarteten Java-Typ kompatibel ist.",
+  "a-IIOPUnauthenticatedServiceContextValueTypeFilteringEnabled-label": "IIOP-Filterung von Wertetypen für nicht authentifizierte Servicekontexte aktiviert",
+  "a-IIOPUnauthenticatedServiceContextValueTypeFilteringEnabled-help": "Gibt an, ob WebLogic Server seine Zulassungsliste für nicht authentifizierte Deserialisierung beim Lesen dieser Wertetypen aus eingehenden IIOP-Anforderungsservicekontexten anwendet.",
 
   "a-IdentityAndTrustLocations-label": "Identitäts- und Trustspeicherorte",
   "f-any_SSL-a-IdentityAndTrustLocations-help": "Gibt an, wo SSL nach der Identität des Servers (Zertifikat und Private Key) und der Servertrust (vertrauenswürdige CAs) suchen soll. Der Standardwert ist \"Keystores\".",
@@ -3544,6 +3564,9 @@
   "a-IsDefaultAdmin-label": "Ist Standard-Admin",
   "a-IsolatePartitionThreadLocals-label": "Lokale Partitionsthreads isolieren",
 
+  "a-IsLogLockingEnabled-label": "Ist Logsperre aktiviert",
+  "a-IsLogLockingEnabled-help": "Gibt an, ob die Logsperre aktiviert ist. Der Standardwert ist \"true\".",
+
   "a-Issuer-label": "Aussteller",
   "a-Issuer-help": "Gibt einen Override für den bei der Validierung verwendeten Wert des Tokenausstellers. Der Aussteller wird in der Regel von den Discovery-Metadaten von Oracle Identity Cloud Service abgerufen. Wenn der Ausstellerwert konfiguriert ist, wird er für alle Mandanten verwendet.",
 
@@ -3683,10 +3706,32 @@
   "a-JmsToTuxPriorityMap-valueHelp": "Die Tuxedo-Priorität, der die JMS-Priorität zugeordnet werden soll.",
   "a-JmsToTuxPriorityMap-help": "Die Zuordnung von Prioritäten von JMS zu Tuxedo. Standardprioritätszuordnung von JMS zu Tuxedo: 0:1 | 1:12 | 2:23 | 3:34 | 4:45 |5:56 | 6:67 | 7:78 | 8:89 | 9:100.",
 
+  "a-JndiAdditionalFactoriesAllowListsEnabled-label": "Zulassungslisten für zusätzliche JNDI-Factorys aktiviert",
+  "a-JndiAdditionalFactoriesAllowListsEnabled-help": "Gibt an, ob WebLogic Server diese serverseitigen JNDI-Factorys auf integrierte Factorys und Factorys beschränkt, die explizit in zwei zugehörigen SecurityConfiguration-Attributen aufgeführt sind.",
+  "a-JndiAdditionalInitialContextFactoriesAllowed-label": "Zulässige zusätzliche JNDI-Initial Context Factorys",
+  "a-JndiAdditionalInitialContextFactoriesAllowed-itemLabel": "Zulässige zusätzliche JNDI-Initial Context Factory",
+  "a-JndiAdditionalInitialContextFactoriesAllowed-itemHelp": "Gibt einen vollqualifizierten Klassennamen einer InitialContextFactory-Implementierung zur Verwendung auf dem Server an.",
+  "a-JndiAdditionalInitialContextFactoriesAllowed-help": "Gibt eine Liste der vollqualifizierten Klassennamen von InitialContextFactory-Implementierungen an, die auf dem Server verwendet werden können.",
+  "a-JndiAdditionalReferenceFactoriesAllowed-label": "Zulässige zusätzliche JNDI-Referenz-Factorys",
+  "a-JndiAdditionalReferenceFactoriesAllowed-itemLabel": "Zulässige zusätzliche JNDI-Referenz-Factory",
+  "a-JndiAdditionalReferenceFactoriesAllowed-itemHelp": "Gibt einen zusätzlichen JNDI-Referenz-Factory-Klassennamen an, der für die serverseitige Referenzmaterialisierung zulässig ist.",
+  "a-JndiAdditionalReferenceFactoriesAllowed-help": "Gibt eine Liste zusätzlicher JNDI-Referenz-Factory-Klassennamen an, die für die serverseitige Referenzmaterialisierung zulässig sind.",
+
+  "a-JndiBindingAuthorizationPolicyEnabled-label": "JNDI-Binding-Autorisierungs-Policy aktiviert",
+  "a-JndiBindingAuthorizationPolicyEnabled-help": "Gibt an, ob eine WebLogic Server-Administrationsrolle für Vorgänge erforderlich ist, die serverseitige JNDI-Bindings ändern.",
+
   "a-JndiFactory-label": "Name der JNDI-Initial Context Factory-Klasse",
   "f-WTCServer_WTCtBridgeGlobal-a-JndiFactory-help": "Der Name der JNDI-Lookup Factory. Der Standardwert ist \"weblogic.jndi.WLInitialContextFactory\".",
 
   "a-JndiPropertiesCredentialEncrypted-label": "Zugangsdaten für JNDI-Eigenschaften verschlüsselt",
+
+  "a-JndiOutboundConnectionsAllowed-label": "Zulässige ausgehende JNDI-Verbindungen",
+  "a-JndiOutboundConnectionsAllowed-itemLabel": "Zulässige ausgehende JNDI-Verbindung",
+  "a-JndiOutboundConnectionsAllowed-itemHelp": "Gibt einen Eintrag für eine ausgehende JNDI-Verbindung an, der für serverseitige JNDI-Lookup-Eingaben zulässig ist.",
+  "a-JndiOutboundConnectionsAllowed-help": "Gibt eine Liste von Einträgen für ausgehende JNDI-Verbindungen an, die für serverseitige JNDI-Lookup-Eingaben zulässig sind.",
+
+  "a-JndiOutboundConnectionsAllowListEnabled-label": "Zulassungsliste für ausgehende JNDI-Verbindungen aktiviert",
+  "a-JndiOutboundConnectionsAllowListEnabled-help": "Gibt an, ob WebLogic Server ausgehende JNDI-Verbindungen auf die Ziele begrenzt, die im SecurityConfiguration-Attribut JNDIOutboundConnectionsAllowed aufgeführt sind.",
 
   "a-JobSchedulerTableName-label": "Job Scheduler-Tabellenname",
   "f-Cluster-a-JobSchedulerTableName-help": "Gibt den Tabellennamen zum Speichern von Timern an, die mit dem Job Scheduler aktiv sind.",
@@ -3788,6 +3833,12 @@
 
   "a-LeaderHeartbeatPeriod-label": "Leader Heartbeat-Zeitraum",
   "f-Cluster_DatabaseLessLeasingBasis-a-LeaderHeartbeatPeriod-help": "Legt den LeaderHeartbeatPeriod-Wert in Sekunden fest. Der Clusterleader führt in einem bestimmten Intervall einen speziellen Leader-Heartbeat aus, um die Gruppenansichtsversion und andere Clusterinformationen zu veröffentlichen. Members prüfen diesen Heartbeat und führen die gegebenenfalls erforderlichen Synchronisierungsvorgänge aus. Der Standardwert ist \"10\".",
+
+  "a-LegacyEmptyBeansXmlDiscovery-label": "Legacy-Erkennung für leere beans.xml",
+  "a-LegacyEmptyBeansXmlDiscovery-help": "Gibt an, ob ein infrage kommender leerer beans.xml-Deskriptor den Legacy-CDI-Bean-Erkennungsmodus für diese Anwendung verwendet.",
+
+  "a-LegacyArgon2FallbackEnabled-label": "Legacy-Argon2-Fallback aktiviert",
+  "a-LegacyArgon2FallbackEnabled-help": "Gibt an, ob die Kennwortvalidierung mit einem Legacy-Argon2-Algorithmus versucht werden soll, wenn ein Kennwort nicht mit dem Standardalgorithmus validiert wird.",
 
   "a-Level-label": "Ebene",
 
@@ -4083,7 +4134,7 @@
   "a-MailSessionJndiName-label": "JNDI-Name der Mailsession",
   "f-WLDFSystemResource_WLDFResource_WatchNotification_SMTPNotification-a-MailSessionJndiName-help": "Der JNDI-Name der Mailsession. Dieser Name muss mit dem Attribut im entsprechenden MailSessionMBean übereinstimmen.",
 
-  "a-ManagedServerIndependenceEnabled-label": "Managed Server-Unabhängigkeit aktiviert",
+  "a-ManagedServerIndependenceEnabled-label": "Managed-Server-Unabhängigkeit aktiviert",
   "a-ManagedServerIndependenceEnabled-help": "Gibt an, ob dieser Managed Server gestartet werden kann, wenn der Administrationsserver nicht verfügbar ist. Der Standardwert ist \"true\".",
 
   "a-ManagedServerNotificationsEnabled-label": "Managed-Server-Benachrichtigungen aktiviert",
@@ -4731,10 +4782,10 @@
   "a-OneWayRmiForReplicationEnabled-label": "Unidirektionaler RMI für Replikation aktiviert",
   "f-Cluster-a-OneWayRmiForReplicationEnabled-help": "Gibt an, ob der unidirektionale RMI für die Replikation verwendet wird. Beim unidirektionalen RMI müssen auch die Replikationsports auf jedem Server im Cluster konfiguriert werden.",
 
-  "a-OneWaySendMode-label": "Einseitiger Sendemodus",
+  "a-OneWaySendMode-label": "Unidirektionaler Sendemodus",
   "a-OneWaySendMode-help": "Gibt an, ob die mit dieser Connection Factory erstellten Nachrichten-Producer unidirektionale Sendevorgänge von Nachrichten vornehmen können, um die Performance des typischen nicht persistenten, nicht transaktionalen Messagings zu verbessern. Wenn diese Option aktiviert ist, können die zugehörigen Queueabsender und/oder Topic Publishers Nachrichten senden, ohne intern auf eine Antwort vom Host-JMS-Server des Ziels warten zu müssen.",
 
-  "a-OneWaySendWindowSize-label": "Fenstergröße für einseitiges Senden",
+  "a-OneWaySendWindowSize-label": "Fenstergröße für unidirektionales Senden",
   "a-OneWaySendWindowSize-help": "Gibt die maximale Anzahl gesendeter Nachrichten pro Fenster an, wenn der unidirektionale Sendemodus so eingestellt ist, dass Queueabsender und/oder Topic Publisher unidirektionale Sendevorgänge vornehmen können. Die Fenstergröße bestimmt, wann eine bidirektionale Nachricht erforderlich ist, um den Producer zu regulieren, bevor er weitere unidirektionale Sendevorgänge durchführen kann. Um von einer unidirektionalen Performance zu profitieren, muss der Standardwert für die Fenstergröße für unidirektionales Senden höher konfiguriert werden. Außerdem muss das unidirektionale Senden aktiviert werden. Nach jeder durch OneWaySendWindowSize - 1 berechneten Anzahl an Nachrichten wird das bidirektionale anstelle des unidirektionalen Sendens verwendet. Daher sind alle Nachrichten eigentlich bidirektional, wenn OneWaySendWindowSize = 1.",
 
   "a-OnlyUserTokenClaimsEnabled-label": "Nur Benutzertokenclaims aktiviert",
@@ -5136,6 +5187,9 @@
   "a-ProfileType-label": "Profiltyp",
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-ProfileType-help": "Gibt den Typ der Profildaten an, die für das JDBC-Subsystem erfasst werden sollen. Um mehrere Profilingoptionen zu aktivieren, muss der Wert auf die Summe der numerischen Werte der einzelnen Optionen gesetzt werden. Beispiel: Um die Optionen für Verbindungsverwendung, Verbindungsleck und Verwendung von Verbindungs-Unwrapping zu aktivieren, wird der Wert auf \"261\" (1 + 4 + 256) oder \"0x105\" (0x001 + 0x004 + 0x100) gesetzt.",
 
+  "a-ProgressTrackerInitialDataTimeout-label": "Timeout für Anfangsdaten des Fortschritts-Trackers",
+  "a-ProgressTrackerInitialDataTimeout-help": "Der Timeout, nach dessen Ablauf der Fortschritts-Tracker beim Warten auf Daten ein Timeout auslöst.",
+
   "a-PropagateCauseForLoginException-label": "Ursache für Ausnahme bei Anmeldung propagieren",
   "a-PropagateCauseForLoginException-help": "Gibt an, ob die Ursache der LoginException propagiert werden soll.",
 
@@ -5145,7 +5199,7 @@
   "a-Properties-keyHelp": "Gibt den Namen der Eigenschaft an.",
   "a-Properties-valueLabel": "Eigenschaftswert",
   "a-Properties-valueHelp": "Gibt den Wert der Eigenschaft an.",
-  "f-ForeignJNDIProvider-a-Properties-help": "Alle zusätzlichen Eigenschaften, die für den JNDI-Provider festgelegt werden müssen. Diese Eigenschaften werden direkt an den Konstruktor für die InitialContext-Klasse des JNDI-Providers übergeben.",
+  "f-ForeignJNDIProvider-a-Properties-help": "Alle zusätzlichen Eigenschaften, die für den JNDI-Provider festgelegt werden müssen. Diese Eigenschaften werden direkt an den Konstruktor der InitialContext-Klasse des JNDI-Providers übergeben. Ab WebLogic Server 26.1 werden Werte, deren Eigenschaftsnamen mit .encrypted (Groß-/Kleinschreibung beachten) enden, von WDT als Zugangsdaten behandelt und von WebLogic Server in config.xml verschlüsselt.",
   "f-MailSession-a-Properties-help": "Die Konfigurationsoptionen und Benutzerauthentifizierungsdaten, die diese JavaMail-Session für die Interaktion mit dem E-Mail-Server verwendet. Jede von Ihnen angegebene Eigenschaft setzt den Standardeigenschaftswert gemäß der JavaMail-API-Designspezifikation außer Kraft. Nehmen Sie nur die Eigenschaften auf, die von der JavaMail-API-Designspezifikation definiert wurden. Wenn Sie keine Eigenschaften angeben, verwendet diese Mailsession die JavaMail-Standardeigenschaftswerte.",
   "f-WLDFSystemResource_WLDFResource_Instrumentation_WLDFInstrumentationMonitor-a-Properties-itemLabel": "Eigenschaft",
   "f-WLDFSystemResource_WLDFResource_Instrumentation_WLDFInstrumentationMonitor-a-Properties-itemHelp": "Geben Sie ein Eigenschaftsname/Wert-Paar für diesen Monitor an.",
@@ -5480,6 +5534,9 @@
 
   "a-ResponseTimeout-label": "Antworttimeout",
 
+  "a-RestEnabled-label": "REST aktiviert",
+  "a-RestEnabled-help": "Gibt an, ob REST aktiviert werden soll.",
+
   "a-RestInvocationMethodType-label": "REST-Aufrufmethodentyp",
   "f-WLDFSystemResource_WLDFResource_WatchNotification_RestNotification-a-RestInvocationMethodType-help": "Die REST-Methode für den Aufruf des Endpunkts.",
 
@@ -5627,6 +5684,10 @@
   "f-XMLRegistry-a-SAXParserFactory-help": "Der vollqualifizierte Name der Klasse, die die SAXParserFactory-Schnittstelle implementiert. Mit der Factory-API javax.xml.parsers.SAXParserFactory können Anwendungen, die in WebLogic Server bereitgestellt sind, einen SAX-basierten XML-Parser zum Parsen von XML-Dokumenten konfigurieren und abrufen.",
   "f-any_XMLParserSelectRegistryEntry-a-SAXParserFactory-help": "Gibt den vollqualifizierten Namen der Klasse an, die die SAXParserFactory-API implementiert. Wenn WebLogic Server beginnt, ein XML-Dokument zu parsen, das anhand der öffentlichen ID, der System-ID oder des Root-Elements in diesem Eintrag identifiziert wird, und die Anwendung angibt, dass ein SAX-Parser verwendet werden soll, verwendet WebLogic Server diese Implementierungsklasse bei Nutzung der javax.xml.parsers.SAXParserFactory, um den SAX-Parser abzurufen.",
 
+  "f-BatchConfig-a-SchemaName-label": "Schemaname",
+  "f-BatchConfig-a-SchemaName-help": "Legt den Schemanamen fest, unter dem die JobRepository-Tabellen erstellt wurden. Beachten Sie, dass dieser Schemaname dem Namen entsprechen muss, den die Anwendung erwartet, wenn die JobRepository-Datenquelle von Anwendungen gemeinsam verwendet wird.",
+  "f-BatchConfig-label": "Batchkonfiguration",
+
   "a-SNMPPort-label": "SNMP-Port",
   "a-SNMPPort-help": "Der Port, an dem dieser SNMP-Agent auf eingehende Anforderungen von SNMP-Managern horchen soll, die das UDP-Protokoll verwenden. SNMP-Manager können über diesen Port den SNMP-Agent pingen und den Status bestimmter Attribute anfordern. Wenn Sie diesen SNMP-Agent auf mehrere Serverinstanzen ausrichten und zwei oder mehr Server auf demselben Rechner ausgeführt werden, erhöht WebLogic Server diesen UDP-Portwert für jeden Agent automatisch um 1. WebLogic Server weist Port 162 nie zu, da er der Standardport ist, mit dem ein Agent Benachrichtigungen sendet. Wenn ein Port bereits verwendet wird, überspringt WebLogic Server den Port und weist den nächsten verfügbaren Port zu.",
 
@@ -5760,6 +5821,9 @@
   "a-Scope-label": "Geltungsbereich",
   "a-ScriptExecutorCommand-label": "Skript-Executor-Befehl",
 
+  "a-ScriptTimeout-label": "Skripttimeout",
+  "a-ScriptTimeout-help": "Das Timeout, das beim Warten auf die Ausführung von Skripten verwendet wird.",
+
   "a-SdpEnabled-label": "Socket Direct Protocol (SDP) aktiviert",
   "f-any_NetworkAccessPoint-a-SDPEnabled-help": "Aktiviert Socket Direct Protocol (SDP) auf diesem Kanal. Aktivieren Sie dieses Attribut bei der Konfiguration von Verbesserungen der Sessionreplikation für Managed Servers in einem WebLogic-Cluster für Oracle Exalogic. SDP wurde aus JDK11 entfernt. In 14.1.1 veraltet.",
 
@@ -5847,6 +5911,9 @@
 
   "a-SerializeEnlistmentsGCIntervalMillis-label": "GC-Intervall für Serialisierung von Eintragungen in Millisekunden",
   "a-SerializeEnlistmentsGCIntervalMillis-help": "Das Zeitintervall in Millisekunden, in dem interne Objekte, die zum Serialisieren der Ressourceneintragung verwendet werden, bereinigt werden.",
+
+  "a-SerializedWorkContextMaximumSize-label": "Max. Größe von serialisiertem Arbeitskontext",
+  "a-SerializedWorkContextMaximumSize-help": "Beschränkt die Größe eines einzelnen Arbeitskontexts. WorkContext ist ein kleiner Teil von Metadaten, den WebLogic Server an eine Anforderung oder Nachricht anhängen und an eine andere Komponente propagieren kann. Wenn Sie den Wert auf einen nicht negativen Wert setzen, wendet WebLogic Server auch den strengeren Objektfilter für nicht authentifizierte Eingaben an, wenn das verzögerte Objekt im Arbeitskontext deserialisiert wird. Dies kann auftreten, nachdem der äußere Arbeitskontext anfänglich empfangen wurde.",
 
   "a-Server-label": "Server",
   "a-ServerAffinityEnabled-label": "Serveraffinität aktiviert",
@@ -6121,6 +6188,7 @@
   "a-SslEnabled-help": "Gibt an, ob das TLS/SSL-Protokoll bei der Verbindung zu Oracle Identity Cloud Service verwendet wird.",
 
   "a-SslProtocolVersion-label": "SSL-Protokollversion",
+
   "f-WTCServer_WTCLocalTuxDom-a-SslProtocolVersion-help": "Die Protokollversion der SSL-Verbindung, die dieser lokale Zugriffspunkt beim Herstellen einer SSL-Verbindung verwendet.",
   "f-WTCServer_WTCRemoteTuxDom-a-SslProtocolVersion-help": "Die Protokollversion der SSL-Verbindung, die dieser Remotezugriffspunkt beim Herstellen einer SSL-Verbindung mit einem bestimmten lokalen Zugriffspunkt verwendet.",
 
@@ -6217,6 +6285,9 @@
 
   "a-StrictOwnershipCheck-label": "Strenge Eigentümerprüfung",
   "a-StrictOwnershipCheck-help": "Gibt an, ob der Start fortgesetzt werden soll, wenn der aktuelle Eigentümer von TRS für das Failback nicht gefunden werden kann. Dieses Attribut ist nur für Server in einem Cluster relevant. Bei \"true\" kann der Server in dieser Situation nicht gestartet werden. Bei \"false\" (Standardwert) wird der Serverstart ohne Failback fortgesetzt.",
+
+  "a-StrictReplicationAuthorizationEnabled-label": "Strenge Replikationsautorisierung aktiviert",
+  "a-StrictReplicationAuthorizationEnabled-help": "Ist ein Rollout-Steuerelement für eine Änderung am Replikationsprotokoll des WebLogic Server-Clusters. In PSU-Patchstreams können Kunden das Patching abschließen und jeden Server in der Domain neu starten, bevor das aktualisierte Clusterreplikationsprotokoll aktiviert wird.",
 
   "a-StringToCompare-label": "Zu vergleichende Zeichenfolge",
   "f-any_SNMPStringMonitor-a-StringToCompare-help": "Die Zeichenfolge, mit der der Wert des überwachten Attributs verglichen wird. Eine Benachrichtigung wird generiert, wenn die von \"Benachrichtigung bei Übereinstimmung\" oder \"Benachrichtigung bei Differenz\" angegebenen Kriterien erfüllt sind.",
@@ -6331,6 +6402,10 @@
   "a-SystemThreadPoolSize-label": "Größe des Systemthreadpools",
   "a-T3ClientAbbrevTableSize-label": "Größe der T3-Clientabkürzungstabelle",
   "a-T3HttpUpgradeHandler-label": "T3-HTTP-Upgrade-Handler",
+
+  "a-T3RouteOnlyToTrustedServersEnabled-label": "T3-Route nur zu vertrauenswürdigen Servern aktiviert",
+  "a-T3RouteOnlyToTrustedServersEnabled-help": "Gibt an, ob der Zwischenserver eine neue Route nur zu einem Ziel erstellen darf, das ihm bereits bekannt ist oder das über die lokale WebLogic Server-Konfiguration identifiziert wurde.",
+
   "a-T3ServerAbbrevTableSize-label": "Größe der T3-Serverabkürzungstabelle",
 
   "a-TGIOPEnabled-label": "TGIOP aktiviert",
@@ -6780,7 +6855,7 @@
   "a-UseNonSecureAddressesForDomain-itemHelp": "Wählen Sie eine Domain in der Liste der Domains aus, für die nicht sichere Protokolle verwendet werden sollen.",
   "a-UseNonSecureAddressesForDomain-help": "Gibt die Domains an, für die nicht sichere Protokolle für die interne JTA-Kommunikation verwendet werden sollen, wenn die Server in den Domains so konfiguriert sind, dass sie Netzwerkkanäle nutzen.",
 
-  "a-UseParentHandlers-label": "Übergeordnete Handler verwenden",
+  "a-UseParentHandlers-label": "Übergeordnete Handlers verwenden",
 
   "a-UsePasswordIndirection-label": "Kennwortdereferenzierung verwenden",
   "f-JDBCSystemResource_JdbcResource_JDBCDriverParams-a-UsePasswordIndirection-help": "Gibt an, ob die Datenbankzugangsdaten mit der Eigenschaft \"user\" als Schlüssel aus dem Zugangsdaten-Mapper abgerufen werden sollen. Bei \"true\" werden die Zugangsdaten aus dem Zugangsdaten-Mapper abgerufen. Bei \"false\" werden der Name und das Kennwort des Datenbankbenutzers aus der Eigenschaft \"user\" bzw. dem Kennwortelement abgerufen.",
@@ -6932,18 +7007,24 @@
   "a-ValidateDDSecurityData-label": "DD-Sicherheitsdaten validieren",
   "a-ValidateDDSecurityData-help": "Gibt an, ob die Sicherheitsdaten des Deployment-Deskriptors validiert werden sollen. Wird in modernen Versionen von WebLogic Server nicht verwendet.",
 
+  "a-ValidatePersistenceXmlSchema-label": "Persistence-XML-Schema validieren",
+  "a-ValidatePersistenceXmlSchema-help": "Gibt an, ob META-INF/persistence.xml-Deskriptoren beim Deployment anhand des Jakarta Persistence-XML-Schemas validiert werden sollen.",
+
   "a-ValidityPeriod-label": "Gültigkeitszeitraum",
   "f-WebserviceSecurity_WebserviceTimestamp-a-ValidityPeriod-help": "Gibt an, wie lange die ausgehende Nachricht laut Absender gültig sein soll. Wenn die ValidityPeriod eine positive Zahl ist, fügt der TimestampHandler ein Expires-Element in den Zeitstempelheader ein. Die ValidityPeriod wird in Sekunden ausgedrückt: Die Ablaufzeit liegt so viele Sekunden wie angegeben vor der Erstellungszeit des Zeitstempels.",
 
   "a-Value-label": "Wert",
   "f-JDBCSystemResource_JdbcResource_JDBCDriverParams_Properties-a-Value-help": "Der Wert der JDBC-Treibereigenschaft.",
-  "f-JMSSystemResource_JmsResource_ForeignServer_JNDIProperty-a-Value-help": "Der Wert der JNDI-Eigenschaft.",
+  "f-JMSSystemResource_JmsResource_ForeignServer_JNDIProperty-a-Value-help": "Der Wert der JNDI-Eigenschaft. Ab WebLogic Server 26.1 verschlüsselt WebLogic Server diesen Wert im JMS-Deskriptor, wenn Key auf .encrypted endet (Groß-/Kleinschreibung beachten). Wenn Key nicht festgelegt ist, verwendet WDT den Namen der Eigenschaftsinstanz als Schlüssel.",
   "f-any_ConfigurationProperty-a-Value-help": "Gibt den Wert der Eigenschaft an.",
 
   "a-VerboseEJBDeploymentEnabled-label": "Verbose-EJB-Deployment aktiviert",
 
   "a-VerboseLoggingEnabled-label": "Verbose-Logging aktiviert",
   "f-any_COM-a-VerboseLoggingEnabled-help": "Gibt an, ob Verbose-Logging aktiviert ist.",
+
+  "a-VerboseStuckThreadName-label": "Verbose-Name für hängende Threads",
+  "a-VerboseStuckThreadName-help": "Gibt an, ob zusätzliche Details wie der Zeitpunkt, zu dem ein Thread als hängend markiert wird, und die Startzeit der Arbeitsanforderung in die Namen hängender Threads aufgenommen werden sollen.",
 
   "a-Version-label": "Version",
   "a-VersionIdentifier-label": "Versions-ID",
@@ -6976,6 +7057,9 @@
   "a-WAPEnabled-help": "Gibt an, ob die Session-ID JVM-Daten enthalten soll. (Möglicherweise müssen Sie dieses Kontrollkästchen aktivieren, wenn URL-Neuschreiben mit WAP-Geräten verwendet wird, bei denen die Länge der URL auf 128 Zeichen begrenzt ist. Das kann auch die Verwendung replizierter Sessions in einem Cluster beeinflussen.) Wenn dieses Kontrollkästchen aktiviert ist, werden 52 Zeichen als Standardgröße der URL festgelegt, und sie enthält dann keine Sonderzeichen. Der Standardwert ist \"false\".",
 
   "a-WLDFBuiltinSystemResourceDescriptorBean-label": "Deskriptor-Bean für integrierte WLDF-Systemressource",
+
+  "a-WLDFScriptActionPathRestrictionEnabled-label": "Pfadbeschränkung für WLDF-Skriptaktion aktiviert",
+  "a-WLDFScriptActionPathRestrictionEnabled-help": "Gibt an, wo sich die von einer WLDF-Skriptaktion angegebene ausführbare Datei befinden darf. Wenn diese Option aktiviert ist, muss sich das Skript in $DOMAIN_HOME/bin/scripts befinden.",
 
   "a-WaitForAllSessionsDuringShutdown-label": "Beim Herunterfahren auf alle Sessions warten",
   "f-Cluster_DynamicServers-a-WaitForAllSessionsDuringShutdown-help": "Gibt an, ob das Elastizitätsframework auf alle (persistenten oder nicht persistenten) HTTP-Sessions während des Handlings aktiver Arbeit beim Herunterfahren von Servern warten soll.",
@@ -7047,8 +7131,16 @@
   "a-WebLogicHome-label": "WebLogic-Home",
   "f-NMProperties-a-WebLogicHome-help": "Root-Verzeichnis der Oracle WebLogic Server-Installation. Dieser Wert wird als Standardwert von -Dweblogic.RootDirectory für einen Managed Server verwendet, für den auf der Remotestartseite kein Root-Verzeichnis konfiguriert ist. Wenn das Verzeichnis an keiner Stelle angegeben ist, startet Node Manager den Managed Server in dem Verzeichnis, in dem Node Manager ausgeführt wird.",
 
+  "a-WeblogicPluginAllowedProxyHost-label": "Zulässige Proxyhosts für WebLogic-Plug-in",
+  "a-WeblogicPluginAllowedProxyHost-itemLabel": "Zulässiger Proxyhost für WebLogic-Plug-in",
+  "a-WeblogicPluginAllowedProxyHost-itemHelp": "Gibt einen Hostnamen oder eine IP-Adresse an, von dem bzw. der WebLogic Server proprietäre WL-Proxy-*-Header akzeptiert und der bzw. die der Liste hinzugefügt werden soll.",
+  "a-WeblogicPluginAllowedProxyHost-help": "Gibt die Hostnamen oder IP-Adressen an, von denen WebLogic Server proprietäre WL-Proxy-*-Header akzeptiert, wenn die Headerverarbeitung des WebLogic-Proxy-Plug-ins aktiviert ist.",
+
   "a-WebModule-label": "Webmodul",
   "a-WebRjvmSupport-label": "Web-RJVM-Unterstützung",
+
+  "a-WebLogicJwtVirtualUserEnabled-label": "WebLogic-JWT-Unterstützung für virtuelle Benutzer aktiviert",
+  "a-WebLogicJwtVirtualUserEnabled-help": "Legt fest, ob das WebLogic-JWT-Token für die Unterstützung virtueller Benutzer aktiviert ist. Wenn diese Option aktiviert ist, enthält das WebLogic-JWT-Token Benutzer- und Gruppeninformationen.",
 
   "a-WeblogicPluginEnabled-label": "WebLogic-Plug-in aktiviert",
   "a-WeblogicPluginEnabled-help": "Gibt an, ob dieser Server den proprietären WL-Proxy-Client-IP-Header verwendet. Setzen Sie dieses Attribut auf \"true\", um anzugeben, dass diese Serverinstanz den proprietären WL-Proxy-Client-IP-Header verwendet. Das wird empfohlen, wenn die Serverinstanz Anforderungen von einem Proxy-Plug-in empfängt. Wenn die Serverinstanz ein Member eines Clusters ist, das Proxyanforderungen empfängt, aktivieren Sie das WebLogic-Plug-in auf Clusterebene. Bei Servern, die Members eines Clusters sind, setzt die Einstellung auf Clusterebene die Servereinstellung außer Kraft. Wenn das WebLogic-Plug-in auf Clusterebene aktiviert ist, gibt ein Aufruf von getRemoteAddr die Adresse des Browserclients aus dem proprietären WL-Proxy-Client-IP-Header anstelle des Webservers zurück.",
@@ -7075,6 +7167,9 @@
 
   "a-WlsErrorDestination-label": "WLS-Fehlerziel",
   "f-WTCServer_WTCtBridgeGlobal-a-WlsErrorDestination-help": "Der Name des Speicherorts, in dem JMS-Nachrichten von WebLogic Server gespeichert werden, wenn eine Nachricht nicht umgeleitet werden kann. Wenn dieses Attribut nicht angegeben ist, gehen alle nicht umgeleiteten Nachrichten verloren. Wenn die Nachricht aus irgendeinem Grund nicht in WlsErrorDestination platziert werden kann, wird ein Fehler geloggt, und die Nachricht geht verloren.",
+
+  "a-WorkContextClassValidationEnabled-label": "Arbeitskontextklassenvalidierung aktiviert",
+  "a-WorkContextClassValidationEnabled-help": "Gibt an, welche WorkContext-Implementierungsklassen WebLogic Server erstellt, wenn er WorkArea-Daten empfängt.",
 
   "a-WorkContextPropagationEnabled-label": "Arbeitskontextpropagierung aktiviert",
   "f-WebAppContainer-a-WorkContextPropagationEnabled-help": "Gibt an, ob \"WorkContextPropagation\" aktiviert ist. Standardmäßig ist dieses Attribut aktiviert. Bei der Propagierung von WorkContexts entsteht etwas Overhead. Wenn die WorkContext-Propagierung für Sie nicht von Bedeutung ist, deaktivieren Sie diesen Wert in Produktionsumgebungen.",
@@ -7166,6 +7261,14 @@
   "a-coherence_StartScriptName-label": "Coherence-Startskriptname",
   "f-NMProperties-a-coherence_StartScriptName-help": "Der Name des Skripts, das zum Starten des Servers ausgeführt werden soll.",
 
+  "a-coherence_startup_Arguments-label": "Coherence-Startargumente",
+  "a-coherence_startup_Arguments-itemLabel": "Coherence-Startargument",
+  "a-coherence_startup_Arguments-itemHelp": "Geben Sie das hinzuzufügende Coherence-Startargument an.",
+  "a-coherence_startup_Arguments-help": "Coherence-Startargumente",
+
+  "a-coherence_startup_MW_HOME-label": "Middleware Home für Coherence-Start",
+  "a-coherence_startup_MW_HOME-help": "Das Middleware Home, das zum Starten des Coherence-Servers verwendet werden soll.",
+
   "a-compInfoXMLLocation-label": "Speicherort für XML mit Komponenteninformationen",
   "a-compInfoXMLLocation-help": "Der vollständige Pfad zum Speicherort der Datei ComponentInfo.xml. Der Standardspeicherort ist ORACLE_HOME/oracle_common/rcu/config.",
 
@@ -7225,6 +7328,28 @@
   "a-pager-label": "Pager",
   "a-postaladdress-label": "Anschrift",
   "a-postofficebox-label": "Postfach",
+
+  "a-process_FileSizeKB-label": "Prozessdateigröße (KB)",
+  "a-process_FileSizeKB-help": "Die maximale Logdateigröße in Kilobyte für den Prozess bei der Rotation nach Größe.",
+
+  "a-process_FileTimeSpan-label": "Prozessdatei-Zeitspanne",
+  "a-process_FileTimeSpan-help": "Das Intervall (in Stunden), in dem der Prozess alte Logmeldungen in einer anderen Datei speichert. Der Standardwert ist \"24\".",
+
+  "a-process_FileTimeSpanFactor-label": "Prozessdatei-Zeitspannenfaktor",
+  "a-process_FileTimeSpanFactor-help": "Dieser Faktor wird definiert, damit die Logrotation mit einer anderen Häufigkeit getestet werden kann. Der Standardwert ist \"3600000\".",
+
+  "a-process_NumberOfFilesLimited-label": "Anzahl der Prozessdateien begrenzt",
+  "a-process_NumberOfFilesLimited-help": "Gibt an, ob die Anzahl von Logdateien begrenzt werden soll, die diese Prozessinstanz zum Speichern alter Nachrichten erstellt. Wenn der Prozess diesen Grenzwert erreicht, löscht er die älteste Logdatei und erstellt eine neue Logdatei mit dem neuesten Suffix. Wenn Sie diese Option nicht aktivieren, erstellt der Prozess unbegrenzt neue Dateien, und Sie müssen diese Dateien bei Bedarf bereinigen. Der Standardwert ist \"true\".",
+
+  "a-process_RotatedFileCount-label": "Anzahl rotierter Prozessdateien",
+  "a-process_RotatedFileCount-help": "Wenn die Anzahl der Dateien begrenzt ist, gibt dieser Parameter die maximale Anzahl von rotierten Dateien an, die beibehalten werden sollen.",
+
+  "a-process_RotationTimeStart-label": "Startzeit für Prozessrotation",
+  "a-process_RotationTimeStart-help": "Legt die Startzeit (Stunde und Minute) für eine zeitbasierte Rotationssequenz fest. Zu dem durch diesen Wert angegebenen Zeitpunkt benennt der Prozess die aktuelle Logdatei um.",
+
+  "a-process_RotationType-label": "Prozessrotationstyp",
+  "a-process_RotationType-help": "Gibt die Kriterien für das Verschieben alter Logdatensätze in eine separate Datei an. Der Standardwert ist \"bySize\".",
+
   "a-preferredlanguage-label": "Bevorzugte Sprache",
   "a-rcu_admin_password-label": "Datenbank-Admin-Kennwort",
   "a-rcu_admin_password-help": "Das Kennwort des administrativen Datenbankbenutzers, das zum Erstellen der RCU-Schemas erforderlich ist. Dieser Wert ist erforderlich, wenn WDT die RCU-Schemas für Sie erstellen soll.",
@@ -7288,6 +7413,36 @@
 
   "a-weblogic_UseMACBroadcast-label": "WebLogic - MAC-Broadcast verwenden",
   "f-NMProperties-a-weblogic_UseMACBroadcast-help": "Gibt an, ob die MAC-Adresse eines Knotens beim Senden von ARP-Paketen verwendet werden soll, d.h., ob das Kennzeichen \"-b\" im arping-Befehl verwendet werden soll. Wenn Node Manager IP-Adressen für die automatische Servermigration bindet, wird auch der arping-Befehl verwendet, um Knoten im Netzwerk zu benachrichtigen, dass der Rechner jetzt die virtuelle IP-Adresse verwendet. Bei weblogic.UseMACBroadcast=true verwendet Node Manager den arping-Befehl mit dem Kennzeichen \"-b\".",
+
+  "a-weblogic_startup_Arguments-label": "WebLogic-Startargumente",
+  "a-weblogic_startup_Arguments-itemLabel": "WebLogic-Startargument",
+  "a-weblogic_startup_Arguments-itemHelp": "Geben Sie das hinzuzufügende WebLogic-Startargument an.",
+  "a-weblogic_startup_Arguments-help": "Die Argumente, die beim Starten von WebLogic Server-Instanzen verwendet werden sollen.",
+
+  "a-weblogic_startup_Arguments_prepend-label": "WebLogic-Startargumente voranstellen",
+  "a-weblogic_startup_Arguments_prepend-itemLabel": "WebLogic-Startargument zum Voranstellen",
+  "a-weblogic_startup_Arguments_prepend-itemHelp": "Geben Sie das hinzuzufügende WebLogic-Startargument an.",
+  "a-weblogic_startup_Arguments_prepend-help": "Die Argumente, die der Liste der Argumente vorangestellt werden sollen, die zum Starten von WebLogic Server-Instanzen verwendet werden.",
+
+  "a-weblogic_startup_ClassPath-label": "WebLogic-Start-ClassPath",
+  "a-weblogic_startup_ClassPath-itemLabel": "WebLogic-Start-ClassPath-Eintrag",
+  "a-weblogic_startup_ClassPath-itemHelp": "Geben Sie den Eintrag an, der dem WebLogic-Start-ClassPath hinzugefügt werden soll.",
+  "a-weblogic_startup_ClassPath-help": "Der Java-CLASSPATH, der beim Starten von WebLogic Server-Instanzen verwendet werden soll.",
+
+  "a-weblogic_startup_JavaVendor-label": "WebLogic-Java-Hersteller beim Start",
+  "a-weblogic_startup_JavaVendor-help": "Der Java-Herstellertyp, der beim Starten von WebLogic Server-Instanzen verwendet werden soll.",
+
+  "a-weblogic_startup_MW_Home-label": "Middleware-Home für WebLogic-Start",
+  "a-weblogic_startup_MW_Home-help": "Das Middleware-Home (MW_HOME), das beim Starten von WebLogic Server-Instanzen verwendet werden soll.",
+
+  "a-weblogic_startup_SecurityPolicyFile-label": "Sicherheits-Policy-Datei für WebLogic-Start",
+  "a-weblogic_startup_SecurityPolicyFile-help": "Die Sicherheits-Policy-Datei, die beim Starten von WebLogic Server-Instanzen verwendet werden soll.",
+
+  "a-weblogic_startup_serverGID-label": "Servergruppen-ID für WebLogic-Start",
+  "a-weblogic_startup_serverGID-help": "Die Betriebssystemgruppen-ID (GID), die zum Starten von WebLogic Server-Instanzen verwendet werden soll.",
+
+  "a-weblogic_startup_serverUID-label": "Serverbenutzer-ID für WebLogic-Start",
+  "a-weblogic_startup_serverUID-help": "Die Betriebssystembenutzer-ID (UID), die zum Starten von WebLogic Server-Instanzen verwendet werden soll.",
 
   "f-any-nameHelp": "Name von {{folderType}}",
   "f-any-nameLabel": "Name von {{folderType}}",
@@ -7441,6 +7596,7 @@
   "f-any_FairShareConstraint-label": "Fair Share Constraint",
   "f-any_FairShareRequestClass-label": "Fair-Share-Anforderungsklassen",
   "f-any_FairShareRequestClass-typeLabel": "Fair Share-Anforderungsklasse",
+  "f-any_FeatureCompatibility-label": "Featurekompatibilität",
   "f-any_FederationServices-label": "Federation Services",
   "f-any_FileOpen-label": "Datei öffnen",
   "f-any_FileStore-label": "Dateispeicher",
@@ -7511,6 +7667,11 @@
   "f-any_JdbcPropertyOverride-label": "JDBC-Eigenschafts-Overrides",
   "f-any_JdbcPropertyOverride-typeLabel": "JDBC-Eigenschafts-Override",
   "f-any_JdbcResource-label": "JDBC-Ressource",
+  "f-any_JdbcResource/JDBCConnectionPoolParams-label": "JDBC-Verbindungspoolparameter",
+  "f-any_JdbcResource/JDBCDataSourceParams-label": "JDBC-Datenquellenparameter",
+  "f-any_JdbcResource/JDBCDriverParams-label": "JDBC-Treiberparameter",
+  "f-any_JdbcResource/JDBCOracleParams-label": "JDBC-Oracle-Parameter",
+  "f-any_JdbcResource/JDBCXAParams-label": "JDBC-XA-Parameter",
   "f-any_JdbcSystemResourceOverride-label": "JDBC-Systemressourcen-Overrides",
   "f-any_JdbcSystemResourceOverride-typeLabel": "JDBC-Systemressourcen-Override",
   "f-any_JmsConnectionConsumer-label": "JMS-Verbindungs-Consumer",
@@ -7784,6 +7945,7 @@
   "f-any_WatchNotification-label": "Überwachungsbenachrichtigung",
   "f-any_WebAppContainer-label": "Webanwendungscontainer",
   "f-any_WebLogicCertPathProvider-label": "WebLogic-Zertifizierungspfadprovider",
+  "f-any_WeblogicPluginRouting-label": "WebLogic-Plug-in-Routing",
   "f-any_WebServer-label": "Webserver",
   "f-any_WebServerLog-label": "Webserverlog",
   "f-any_WebService-label": "Webservice",
@@ -7804,7 +7966,7 @@
   "f-any_WebserviceSecurityToken-label": "Webservice-Sicherheitstoken",
   "f-any_WebserviceSecurityToken-typeLabel": "Webservice-Sicherheitstoken",
   "f-any_WebserviceTimestamp-label": "Webservice-Zeitstempel",
-  "f-any_WebserviceTokenHandler-label": "Webservicetoken-Handler",
+  "f-any_WebserviceTokenHandler-label": "Webservicetoken-Handlers",
   "f-any_WebserviceTokenHandler-typeLabel": "Webservicetoken-Handler",
   "f-any_WldfBuiltinWatchConfiguration-label": "Konfiguration für integrierte WLDF-Überwachung",
   "f-any_WorkManager-label": "Work Manager",
@@ -7822,5 +7984,133 @@
   "f-any_XMLRegistry-typeLabel": "XML-Registry",
   "f-any_Deployments-label": "Deployments",
   "f-any_Resources-label": "Ressourcen",
-  "f-any_weblogic.security.providers.authentication.OracleIdentityCloudIntegrator-label": "Oracle Identity Cloud-Integrator"
+  "f-any_weblogic.security.providers.authentication.OracleIdentityCloudIntegrator-label": "Oracle Identity Cloud-Integrator",
+
+  "a-CertificateAuthorityKeyProfile-label": "Zertifizierungsstellen-Schlüsselprofil",
+  "a-CertificateAuthoritySignatureAlgorithm-label": "Zertifizierungsstellen-Signaturalgorithmus",
+  "a-CertificateCheckTime-label": "Zertifikatsprüfzeit",
+  "a-CertificateCheckTimeMaximumOffset-label": "Maximaler Offset der Zertifikatsprüfzeit",
+  "a-CertificateKeyProfile-label": "Zertifikats-Schlüsselprofil",
+  "a-CrossDomainT3SConnectionTrustValidationEnabled-label": "Domainübergreifende Trust-Validierung für T3S-Verbindungen aktiviert",
+  "a-CrossDomainT3SConnectionTrustValidationEnabled-help": "Gibt an, ob ein umgekehrter domainübergreifender Lookup eine neue T3S-Verbindung herstellen und eine neue SSL-Trust-Prüfung bestehen muss, anstatt eine vorhandene Verbindung wiederzuverwenden. Änderungen werden nach dem Neustart des Servers wirksam.",
+  "a-DomainKeystoresAdminUrl-label": "Domain-Keystores-Admin-URL",
+  "a-DomainKeystoresMachineName-label": "Domain-Keystores-Maschinenname",
+  "a-ExpiredCertificateAuthorityRetentionDays-label": "Aufbewahrungstage für abgelaufene Zertifizierungsstellen",
+  "a-IiopStrictRemoteBusinessInterfaceValidationEnabled-label": "Strenge IIOP-Validierung der Remote-Geschäftsschnittstelle aktiviert",
+  "a-IiopStrictRemoteBusinessInterfaceValidationEnabled-help": "Gibt an, ob die IIOP-Client-Stub-Generierung Geschäftsschnittstellen ablehnt, die nicht als Remote-Schnittstellen erkannt werden. Wenn deaktiviert, kann ein Legacy-IIOP-Client eine lokal sichtbare einfache Geschäftsschnittstelle nur verwenden, wenn die interoperable Objektreferenz (IOR) keine Codebase aufweist.",
+  "a-JaxwsRejectUnknownSeiOperationsEnabled-label": "JAX-WS-Ablehnung unbekannter SEI-Vorgänge aktiviert",
+  "a-JaxwsRejectUnknownSeiOperationsEnabled-help": "Gibt an, ob JAX-WS-Endpunkte, die eine Serviceendpunktschnittstelle (SEI) verwenden, SOAP-Anforderungen ablehnen, deren Vorgang keiner SEI-Methode entspricht. Wenn aktiviert, erhalten unbekannte Vorgänge vor der weiteren Verarbeitung, einschließlich WorkContext-Verarbeitung, einen SOAP-Fault. Wenn deaktiviert, folgen diese Anforderungen dem Legacy-Verarbeitungspfad ohne Autorisierung auf Methodenebene für den unbekannten Vorgang.",
+  "a-JmsDotNetClientEnabled-label": "JMS-.NET-Client aktiviert",
+  "a-KeystoreFileLockTimeout-label": "Timeout für Keystore-Dateisperre",
+  "a-KeystoreFileLockingEnabled-label": "Keystore-Dateisperre aktiviert",
+  "a-KeystoreFileWatchingEnabled-label": "Keystore-Dateiüberwachung aktiviert",
+  "a-MaxHeaderCount-label": "Max. Headeranzahl",
+  "a-MaxQueued-label": "Max. in Queue",
+  "a-MaximumUnitOfWorkMessages-label": "Maximale Anzahl Unit-of-Work-Nachrichten",
+  "a-RestrictContentBasedOnRoles-label": "Inhalt nach Rollen einschränken",
+  "a-SAML2StrictArtifactResolutionEnabled-label": "Strenge SAML2-Artefaktauflösung aktiviert",
+  "a-SAML2StrictArtifactResolutionEnabled-help": "Gibt an, ob die SAML 2.0-Artefaktauflösung den vorgesehenen Empfänger authentifiziert, bevor ein Artefakt abgerufen und verarbeitet wird. Wenn diese Option aktiviert ist, muss der Anforderungsaussteller mit einem aktivierten Partner übereinstimmen und eine verifizierte Signatur oder ein TLS-Clientzertifikat bereitstellen, das diesem Partner entspricht. Gemeinsam genutzte Basic-Authentifizierung allein reicht nicht aus. Wenn diese Option deaktiviert ist, lässt das Legacy-Verhalten den Artefaktabruf vor der Authentifizierung zu.",
+  "a-SpringJtaDeserializationJndiLookupDisabled-label": "JNDI-Lookup für Spring-JTA-Deserialisierung deaktiviert",
+  "a-SpringJtaDeserializationJndiLookupDisabled-help": "Gibt an, ob verhindert wird, dass Spring JtaTransactionManager bei seiner Deserialisierung serialisierte JNDI-Namen auflöst. Wenn diese Option aktiviert ist, werden transiente JTA-Handles nicht über diese Lookups wiederhergestellt. Der JTA-Lookup während der normalen Bean-Initialisierung ist nicht betroffen. Wenn diese Option deaktiviert ist, werden serialisierte JNDI-Namen wie im Legacy-Verhalten aufgelöst.",
+  "a-StrictClusterCompatibilityEnabled-label": "Strikte Clusterkompatibilität aktiviert",
+  "a-StrictClusterCompatibilityEnabled-help": "Gibt an, ob Cluster-Sicherheitsfunktionen das strikte Wire-Format für replizierte Sessions und die strikte Validierung von Dynamic-Proxy-Schnittstellen in replizierten Sessionattributen verwenden. In PSU-Versionen, die diese Einstellung unterstützen, wird durch Deaktivieren das Legacy-Verhalten beim Rolling-Patching beibehalten. Aktivieren Sie die Einstellung erneut, nachdem alle teilnehmenden Server gepatcht wurden. In WebLogic Server 26.1 und höher ist die strikte Verarbeitung immer aktiviert, und dieses Attribut kann nicht konfiguriert werden.",
+  "a-SubjectNamePolicy-label": "Policy für Subject-Namen",
+  "a-T3LegacyCrossDomainCredentialJVMIDReplayProtectionEnabled-label": "T3-JVMID-Replay-Schutz für domänenübergreifende Legacy-Zugangsdaten aktiviert",
+  "a-T3LegacyCrossDomainCredentialJVMIDReplayProtectionEnabled-help": "Gibt an, ob die Verarbeitung der T3-Serveridentität verhindert, dass durch die erneute Verwendung einer JVM-Identität (JVMID), die mit domänenübergreifenden Legacy-Zugangsdaten signiert ist, einer neu identifizierten eingehenden Verbindung der Trusted-Server-Status erteilt wird. Bei Deaktivierung wird das Legacy-Verhalten für global-domain-trust beibehalten.",
+  "a-WarnOnDisabledCrossDomainT3SConnectionTrustValidation-label": "Warnung bei deaktivierter Vertrauensvalidierung für domänenübergreifende T3S-Verbindungen",
+  "a-WarnOnDisabledIiopStrictRemoteBusinessInterfaceValidation-label": "Warnung bei deaktivierter strikter IIOP-Validierung von Remote-Business-Schnittstellen",
+  "a-WarnOnDisabledIiopTypedReadResolveProxyValidation-label": "Warnung bei deaktivierter IIOP-Validierung typisierter Read-Resolve-Proxys",
+  "a-WarnOnDisabledIiopUnauthenticatedServiceContextValueTypeFiltering-label": "Warnung bei deaktivierter IIOP-Filterung von Werttypen für nicht authentifizierten Servicekontext",
+  "a-WarnOnDisabledJaxwsRejectUnknownSeiOperations-label": "Warnung bei deaktivierter JAX-WS-Ablehnung unbekannter SEI-Vorgänge",
+  "a-WarnOnDisabledJndiAdditionalFactoriesAllowLists-label": "Warnung bei deaktivierten Zulassungslisten für zusätzliche JNDI-Factorys",
+  "a-WarnOnDisabledJndiBindingAuthorizationPolicy-label": "Warnung bei deaktivierter JNDI-Binding-Autorisierungs-Policy",
+  "a-WarnOnDisabledJndiOutboundConnectionsAllowList-label": "Warnung bei deaktivierter Zulassungsliste für ausgehende JNDI-Verbindungen",
+  "a-WarnOnDisabledSAML2StrictArtifactResolution-label": "Warnung bei deaktivierter strikter SAML2-Artefaktauflösung",
+  "a-WarnOnDisabledSerializedWorkContextMaximumSize-label": "Warnung bei deaktivierter Maximalgröße für serialisierten Arbeitskontext",
+  "a-WarnOnDisabledSpringJtaDeserializationJndiLookupDisabled-label": "Warnung bei deaktivierter Einstellung „JNDI-Lookup für Spring-JTA-Deserialisierung deaktiviert“",
+  "a-WarnOnDisabledT3LegacyCrossDomainCredentialJVMIDReplayProtection-label": "Warnung bei deaktiviertem T3-JVMID-Replay-Schutz für domänenübergreifende Legacy-Zugangsdaten",
+  "a-WarnOnDisabledT3RouteOnlyToTrustedServers-label": "Warnung bei deaktivierter T3-Weiterleitung nur an vertrauenswürdige Server",
+  "a-WarnOnDisabledWlProxyClientCertificateChainValidation-label": "Warnung bei deaktivierter Validierung der WL-Proxyclient-Zertifikatskette",
+  "a-WarnOnDisabledWldfScriptActionPathRestriction-label": "Warnung bei deaktivierter Pfadbeschränkung für WLDF-Skriptaktionen",
+  "a-WarnOnDisabledWorkContextClassValidation-label": "Warnung bei deaktivierter Validierung der Arbeitskontextklasse",
+  "a-WarnOnDisabledWorkContextInputMaximumAsciiFieldSize-label": "Warnung bei deaktivierter maximaler ASCII-Feldgröße für Arbeitskontexteingabe",
+  "a-WarnOnDisabledWsatIgnoreUnknownReplayCompletion-label": "Warnung bei deaktiviertem Ignorieren unbekannter WSAT-Replay-Abschlüsse",
+  "a-WarnOnDisabledWsatRegistrationSecret-label": "Warnung bei deaktiviertem WSAT-Registrierungs-Secret",
+  "a-WlProxyClientCertificateChainValidationEnabled-label": "Validierung der WL-Proxyclient-Zertifikatskette aktiviert",
+  "a-WlProxyClientCertificateChainValidationEnabled-help": "Gibt an, ob im HTTP-Header WL-Proxy-Client-Cert bereitgestellte Zertifikatsketten vor der Verwendung für die X.509-Identity Assertion anhand der konfigurierten Vertrauensanker für WebLogic Server-Clientzertifikate validiert werden. Wenn diese Option aktiviert ist, werden ungültige, nicht vertrauenswürdige, abgelaufene, fehlerhaft formatierte oder anderweitig nicht verifizierbare Zertifikate abgelehnt. Wenn diese Option deaktiviert ist, wird das Legacy-Verhalten für Proxyclientzertifikate beibehalten.",
+  "a-WorkContextInputMaximumAsciiFieldSize-label": "Maximale ASCII-Feldgröße für Arbeitskontexteingabe",
+  "a-WorkContextInputMaximumAsciiFieldSize-help": "Gibt die maximale Größe eines ASCII-Feldes in Byte in der WorkArea-Binärcodierung an, die eine vorzeichenbehaftete 4-Byte-Länge verwendet. Ein Wert von -1 deaktiviert diesen Grenzwert; Null erlaubt nur Felder mit Nulllänge. Dieser Grenzwert gilt nicht für transportspezifische WorkContext-Codierungen wie T3 und IIOP, die separate Decodierungspfade verwenden.",
+  "a-WsatIgnoreUnknownReplayCompletionEnabled-label": "WSAT: Ignorieren unbekannter Replay-Completion-Anforderungen aktiviert",
+  "a-WsatIgnoreUnknownReplayCompletionEnabled-help": "Gibt an, ob WS-AT-Replay-Completion-Anforderungen ohne übereinstimmende lokale Transaktion ignoriert werden. Wenn deaktiviert, führt das Legacy-Verhalten einen Rollback für eine Recovery-Ressource durch, die aus dem vom Aufrufer angegebenen ReplyTo-Endpunkt erstellt wurde.",
+  "a-WsatRegistrationSecretEnabled-label": "WSAT-Registrierungs-Secret aktiviert",
+  "a-WsatRegistrationSecretEnabled-help": "Gibt an, ob WebLogic Server ein Registrierungs-Secret pro Transaktion in generierte WS-AT-Koordinationskontexte einschließt und bei nicht authentifizierten Registrierungsanforderungen die Rückgabe des übereinstimmenden Secrets verlangt, bevor ein Teilnehmer aufgenommen wird. Wenn deaktiviert, wird das Legacy-Interoperabilitätsverhalten von WS-AT beibehalten.",
+
+  "a-CertificateAuthorityKeyProfile-help": "Gibt das Schlüsselprofil an, das verwendet wird, wenn eine Domain Certificate Authority oder Machine Certificate Authority das nächste Mal generiert oder einem Rollover unterzogen wird. Wenn Sie diesen Wert ändern, werden vorhandene Certificate-Authority-Schlüssel nicht ersetzt, und die Neugenerierung wird nicht erzwungen.",
+  "a-CertificateAuthoritySignatureAlgorithm-help": "Gibt den Signaturalgorithmus an, den eine neu generierte Certificate Authority für ihr eigenes Zertifikat und die von ihr ausgestellten Leaf-Zertifikate verwendet. Eine vorhandene Certificate Authority behält ihren aktuellen Signaturalgorithmus bis zur Neugenerierung oder zum Rollover bei.",
+  "a-CertificateCheckTime-help": "Gibt die lokale Serverzeit für Zertifikatsprüfungen im Format H:mm an, mit einer Stunde von 0 bis 23 und einer zweistelligen Minutenangabe. Die erste Prüfung erfolgt zu diesem Zeitpunkt nach dem konfigurierten Zertifikatsprüfungsintervall, und nachfolgende Prüfungen folgen demselben Kalendertagintervall. Wenn nicht festgelegt, wird die Zeitplanung mit fester Rate verwendet.",
+  "a-CertificateCheckTimeMaximumOffset-help": "Gibt die maximale zufällige Verzögerung in Sekunden an, die der Zertifikatsprüfungszeit hinzugefügt wird. Ein Offset zwischen 0 und diesem Wert wird beim Erstellen des Zeitplans ausgewählt und für diesen Planungslebenszyklus wiederverwendet. Null deaktiviert den Offset; der Höchstwert beträgt 86399 Sekunden.",
+  "a-CertificateKeyProfile-help": "Gibt das Schlüsselprofil an, das verwendet wird, wenn ein Leaf-Zertifikat das nächste Mal generiert oder erneuert wird. Wenn Sie diesen Wert ändern, werden vorhandene Zertifikate nicht geändert, und die Neugenerierung wird nicht erzwungen.",
+  "a-DomainKeystoresAdminUrl-help": "Gibt die absolute HTTPS-URL des Administrationsservers an, den Node Manager für den Certificate Management-Service der Domain kontaktiert. Diese Eigenschaft ist erforderlich, wenn KeyStores den Wert DomainKeystores hat.",
+  "a-DomainKeystoresMachineName-help": "Gibt den Domain-Machine-Namen an, mit dem Node Manager beim Certificate Management-Service identifiziert wird. Diese Eigenschaft ist erforderlich, wenn KeyStores den Wert DomainKeystores hat.",
+  "a-ExpiredCertificateAuthorityRetentionDays-help": "Gibt an, wie viele Tage eine abgelaufene Certificate Authority im Domain-Trust- oder Provisioned-Trust-Quellspeicher des Administrationsservers vertrauenswürdig bleibt, bevor sie von der automatischen Bereinigung entfernt wird. Null deaktiviert die automatische Bereinigung, verhindert jedoch nicht eine vom Administrator initiierte Bereinigung.",
+  "a-JmsDotNetClientEnabled-help": "Gibt an, ob der Endpunkt des WebLogic JMS-Clients für Microsoft .NET aktiviert ist. Ein Serverneustart ist erforderlich, damit die Änderungen wirksam werden. Der Standardwert ist false.",
+  "a-KeystoreFileLockTimeout-help": "Gibt die maximale Zeit in Millisekunden an, die ein Prozess wartet, um eine prozessübergreifende Sperre für eine freigegebene Certificate Management-Keystore-Datei zu erhalten. Der Wert muss positiv sein. Änderungen erfordern einen Neustart des betroffenen Server- oder Node Manager-Prozesses. Die Systemeigenschaft weblogic.keystore.filelock.timeout hat Vorrang, wenn angegeben.",
+  "a-KeystoreFileLockingEnabled-help": "Gibt an, ob beim Zugriff auf freigegebene Certificate Management-Keystores prozessübergreifende Dateisperren verwendet werden. Wenn deaktiviert, muss die Sperrung in jedem Prozess, der auf dieselben Machine-Keystores zugreift, konsistent deaktiviert sein. Änderungen erfordern einen Neustart des betroffenen Server- oder Node Manager-Prozesses. Die Systemeigenschaft weblogic.keystore.filelock.enabled hat Vorrang, wenn angegeben.",
+  "a-MaxHeaderCount-help": "Gibt die maximale Anzahl decodierter HTTP/2-Felder an, die in einer Headerliste akzeptiert werden, wobei Pseudo-Header, wiederholte Felder und jedes separat codierte Cookie-Feld gezählt werden. Initiale Header und Trailer haben separate Grenzwerte. Dies ist ein lokaler Grenzwert für eingehende Verbindungen, kein HTTP/2-SETTINGS-Parameter; Änderungen gelten für neu hergestellte Verbindungen.",
+  "a-MaxQueued-help": "Gibt an, wie viele asynchrone Aufgaben warten dürfen, wenn ein per Annotation konfigurierter Executor seinen maxAsync-Grenzwert für laufende Aufgaben erreicht. Ein negativer Wert erlaubt eine unbegrenzte Warteschlange; Null deaktiviert die Warteschlangenbildung und lehnt weitere Übermittlungen bei diesem Grenzwert ab; ein positiver Wert begrenzt die Anzahl wartender Aufgaben.",
+  "a-MaximumUnitOfWorkMessages-help": "Gibt die maximale Anzahl von Nachrichten in einer JMS-Arbeitseinheit (UOW) an. Eine Nachricht, deren UOW-Folgenummer diesen Grenzwert überschreitet, wird abgelehnt. Diese Einstellung ist nur wirksam, wenn die Policy für die Verarbeitung von Arbeitseinheiten auf \"Einzelnachrichtenzustellung\" gesetzt ist. Änderungen gelten für nachfolgende UOW-Nachrichten; eine bereits akzeptierte UOW-Endnachricht definiert weiterhin den zulässigen Folgenummernbereich dieser UOW.",
+  "a-RestrictContentBasedOnRoles-help": "Gibt an, ob die gehostete Remote Console Seiten und Aktionen entsprechend der WebLogic Server-Rolle des aktuellen Benutzers einschränkt. Wenn diese Option deaktiviert ist, werden alle Inhalte angezeigt, WebLogic Server erzwingt jedoch weiterhin die Autorisierung. Inhaltseinschränkungen verwenden die Standardsicherheits-Policys und spiegeln benutzerdefinierte Policy-Änderungen möglicherweise nicht wider.",
+  "a-SubjectNamePolicy-help": "Gibt an, welche Hostnamen und literalen IP-Adressen der Domainzertifikatsaussteller in Zertifikatssubjekten zulässt. CONFIGURED_ONLY lässt konfigurierte Server-Listen-Adressen, Listen-Adressen von Netzwerkkanälen, Namen von als Ziel festgelegten virtuellen Hosts und die konfigurierte Node Manager-Listen-Adresse für Maschinenzertifikate zu. CONFIGURED_PLUS_HOST lässt auch den Hostnamen und die Adresse der authentifizierten Anforderung zu. CONFIGURED_PLUS_ANY lässt aus Legacy-Kompatibilitätsgründen jede angeforderte Identität zu. localhost und numerische Loopback-Adressen sind in jedem Modus zulässig.",
+  "a-WarnOnDisabledCrossDomainT3SConnectionTrustValidation-help": "Gibt an, ob eine Warnung ausgegeben werden soll, wenn FeatureCompatibility.CrossDomainT3SConnectionTrustValidationEnabled den Wert false hat. Dies steuert nur Warnungen und ändert die Funktionseinstellung nicht.",
+  "a-WarnOnDisabledIiopStrictRemoteBusinessInterfaceValidation-help": "Gibt an, ob eine Warnung ausgegeben werden soll, wenn FeatureCompatibility.IiopStrictRemoteBusinessInterfaceValidationEnabled den Wert false hat. Dies steuert nur Warnungen und ändert die Funktionseinstellung nicht.",
+  "a-WarnOnDisabledIiopTypedReadResolveProxyValidation-help": "Gibt an, ob eine Warnung ausgegeben werden soll, wenn FeatureCompatibility.IIOPTypedReadResolveProxyValidationEnabled den Wert false hat. Dies steuert nur Warnungen und ändert die Funktionseinstellung nicht.",
+  "a-WarnOnDisabledIiopUnauthenticatedServiceContextValueTypeFiltering-help": "Gibt an, ob eine Warnung ausgegeben werden soll, wenn FeatureCompatibility.IIOPUnauthenticatedServiceContextValueTypeFilteringEnabled den Wert false hat. Dies steuert nur Warnungen und ändert die Funktionseinstellung nicht.",
+  "a-WarnOnDisabledJaxwsRejectUnknownSeiOperations-help": "Gibt an, ob eine Warnung ausgegeben werden soll, wenn FeatureCompatibility.JaxwsRejectUnknownSeiOperationsEnabled den Wert false hat. Dies steuert nur Warnungen und ändert die Funktionseinstellung nicht.",
+  "a-WarnOnDisabledJndiAdditionalFactoriesAllowLists-help": "Gibt an, ob eine Warnung ausgegeben werden soll, wenn FeatureCompatibility.JndiAdditionalFactoriesAllowListsEnabled den Wert false hat. Dies steuert nur Warnungen und ändert die Funktionseinstellung nicht.",
+  "a-WarnOnDisabledJndiBindingAuthorizationPolicy-help": "Gibt an, ob eine Warnung ausgegeben werden soll, wenn FeatureCompatibility.JndiBindingAuthorizationPolicyEnabled den Wert false hat. Dies steuert nur Warnungen und ändert die Funktionseinstellung nicht.",
+  "a-WarnOnDisabledJndiOutboundConnectionsAllowList-help": "Gibt an, ob eine Warnung ausgegeben werden soll, wenn FeatureCompatibility.JndiOutboundConnectionsAllowListEnabled den Wert false hat. Dies steuert nur Warnungen und ändert die Funktionseinstellung nicht.",
+  "a-WarnOnDisabledSAML2StrictArtifactResolution-help": "Gibt an, ob eine Warnung ausgegeben werden soll, wenn FeatureCompatibility.SAML2StrictArtifactResolutionEnabled den Wert false hat. Dies steuert nur Warnungen und ändert die Funktionseinstellung nicht.",
+  "a-WarnOnDisabledSerializedWorkContextMaximumSize-help": "Gibt an, ob eine Warnung ausgegeben werden soll, wenn FeatureCompatibility.SerializedWorkContextMaximumSize 0 oder negativ ist. Dies steuert nur Warnungen und ändert den konfigurierten Grenzwert in Byte nicht.",
+  "a-WarnOnDisabledSpringJtaDeserializationJndiLookupDisabled-help": "Gibt an, ob eine Warnung ausgegeben werden soll, wenn FeatureCompatibility.SpringJtaDeserializationJndiLookupDisabled den Wert false hat. Dies steuert nur Warnungen und ändert die Funktionseinstellung nicht.",
+  "a-WarnOnDisabledT3LegacyCrossDomainCredentialJVMIDReplayProtection-help": "Gibt an, ob eine Warnung ausgegeben werden soll, wenn FeatureCompatibility.T3LegacyCrossDomainCredentialJVMIDReplayProtectionEnabled den Wert false hat. Dies steuert nur Warnungen und ändert die Funktionseinstellung nicht.",
+  "a-WarnOnDisabledT3RouteOnlyToTrustedServers-help": "Gibt an, ob eine Warnung ausgegeben werden soll, wenn FeatureCompatibility.T3RouteOnlyToTrustedServersEnabled den Wert false hat. Dies steuert nur Warnungen und ändert die Funktionseinstellung nicht.",
+  "a-WarnOnDisabledWlProxyClientCertificateChainValidation-help": "Gibt an, ob eine Warnung ausgegeben werden soll, wenn FeatureCompatibility.WlProxyClientCertificateChainValidationEnabled den Wert false hat. Dies steuert nur Warnungen und ändert die Funktionseinstellung nicht.",
+  "a-WarnOnDisabledWldfScriptActionPathRestriction-help": "Gibt an, ob eine Warnung ausgegeben werden soll, wenn FeatureCompatibility.WLDFScriptActionPathRestrictionEnabled den Wert false hat. Dies steuert nur Warnungen und ändert die Funktionseinstellung nicht.",
+  "a-WarnOnDisabledWorkContextClassValidation-help": "Gibt an, ob eine Warnung ausgegeben werden soll, wenn FeatureCompatibility.WorkContextClassValidationEnabled false ist. Damit werden nur Warnungen gesteuert; die Featureeinstellung wird nicht geändert.",
+  "a-WarnOnDisabledWorkContextInputMaximumAsciiFieldSize-help": "Gibt an, ob eine Warnung ausgegeben werden soll, wenn FeatureCompatibility.WorkContextInputMaximumAsciiFieldSize null oder negativ ist. Damit werden nur Warnungen gesteuert; der konfigurierte Bytegrenzwert wird nicht geändert.",
+  "a-WarnOnDisabledWsatIgnoreUnknownReplayCompletion-help": "Gibt an, ob eine Warnung ausgegeben werden soll, wenn FeatureCompatibility.WsatIgnoreUnknownReplayCompletionEnabled false ist. Damit werden nur Warnungen gesteuert; die Featureeinstellung wird nicht geändert.",
+  "a-WarnOnDisabledWsatRegistrationSecret-help": "Gibt an, ob eine Warnung ausgegeben werden soll, wenn FeatureCompatibility.WsatRegistrationSecretEnabled false ist. Damit werden nur Warnungen gesteuert; die Featureeinstellung wird nicht geändert.",
+  "f-NMProperties-a-KeystoreFileWatchingEnabled-help": "Gibt an, ob Node Manager Certificate Management-Keystore-Dateien überwacht und nach Revisionen verwalteter Identitäten abfragt. Wenn aktiviert, führt das Ersetzen oder Entfernen einer Identität zu einem Neustart von Node Manager, damit keine entfernten Listener-Zugangsdaten beibehalten werden. Für den automatischen Neustart muss Node Manager mit Neustartunterstützung gestartet werden. Durch Deaktivieren dieser Eigenschaft werden sowohl die Dateiüberwachung als auch das Revisions-Polling deaktiviert. Änderungen erfordern einen Neustart von Node Manager. Die Systemeigenschaft weblogic.keystore.filewatch.enabled hat Vorrang, wenn sie angegeben ist.",
+  "f-SecurityConfiguration_CertificateManagement-a-KeystoreFileWatchingEnabled-help": "Gibt an, ob WebLogic Server Certificate Management-Keystore-Dateien auf Änderungen durch einen anderen Prozess überwacht. Änderungen erfordern einen Serverneustart. Die Systemeigenschaft weblogic.keystore.filewatch.enabled hat Vorrang, wenn sie angegeben ist.",
+
+  "feature-compatibility-warnings-title": "Warnungen zur Featurekompatibilität",
+  "options-configured-only-label": "Nur konfigurierte Namen",
+  "options-configured-plus-host-label": "Konfigurierte Namen und authentifizierter Host",
+  "options-configured-plus-any-label": "Beliebiger angeforderter Name (Legacy-Kompatibilität)",
+
+  "a-DatabaseType-label": "Datenbanktyp",
+  "a-DefaultResource-label": "Standardressource",
+  "a-ProviderName-label": "Providername",
+  "f-any_NoSqlResource-label": "NoSQL-Ressource",
+  "f-any_NoSqlSystemResource-label": "NoSQL-Systemressourcen",
+  "f-any_NoSqlSystemResource-typeLabel": "NoSQL-Systemressource",
+  "f-NoSqlSystemResource_NoSqlResource_Properties_Property-label": "Eigenschaften",
+  "f-NoSqlSystemResource_NoSqlResource_Properties_Property-typeLabel": "Eigenschaft",
+  "options-oracle-nosql-label": "Oracle NoSQL Database",
+  "options-mongodb-label": "MongoDB",
+  "options-solr-label": "Apache Solr",
+  "options-couchdb-label": "Apache CouchDB",
+  "options-dynamodb-label": "Amazon DynamoDB",
+  "options-elasticsearch-label": "Elasticsearch",
+  "options-couchbase-label": "Couchbase",
+  "options-document-label": "Dokument",
+  "options-key-value-label": "Schlüssel-Wert",
+  "options-column-label": "Spalte",
+  "options-graph-label": "Graph",
+  "f-NoSqlSystemResource_NoSqlResource-a-ProviderName-help": "Der von dieser Ressource verwendete NoSQL-Provider. Unterstützte Providernamen sind oracle-nosql, mongodb, solr, couchdb, dynamodb, elasticsearch und couchbase. Änderungen, die sich auf die Providerkompatibilität auswirken, erfordern eine vollständige erneute Bereitstellung der betroffenen Anwendungen; durch Stoppen/Starten wird die Invalidierung nicht aufgehoben.",
+  "f-NoSqlSystemResource_NoSqlResource-a-DatabaseType-help": "Der providerneutrale Jakarta Data-Datenbanktyp. Der Standardwert ist DOCUMENT. Zulässige Werte sind DOCUMENT, KEY_VALUE, COLUMN und GRAPH; der ausgewählte Provider muss den Typ jedoch unterstützen. Der integrierte oracle-nosql-Provider unterstützt derzeit DOCUMENT. WebLogic Server validiert die Kombination aus Provider und Datenbanktyp, wenn die Ressource einem Ziel zugewiesen wird.",
+  "f-NoSqlSystemResource_NoSqlResource-a-DefaultResource-help": "Gibt an, ob diese Ressource für die Standardauswahl infrage kommt, wenn ein Jakarta NoSQL-gestütztes Repository dataStore nicht angibt. Für die Standardauswahl ist genau eine gültige, lokal als Ziel zugewiesene Ressource erforderlich, die explizit an die Anwendung gebunden und als Standard markiert ist. Mit dieser Einstellung wird weder eine Anwendungsbindung hergestellt noch eine Berechtigung erteilt.",
+  "f-NoSqlSystemResource_NoSqlResource-a-JNDIName-help": "Der JNDI-Name, der dieser NoSQL-Ressource zugewiesen ist.",
+  "f-NoSqlSystemResource_NoSqlResource_Properties_Property-a-Value-help": "Der Klartextwert dieser providerspezifischen NoSQL-Eigenschaft. Verwenden Sie \"Verschlüsselter Wert\" für Zugangsdaten oder andere vertrauliche Werte.",
+  "f-NoSqlSystemResource_NoSqlResource_Properties_Property-a-EncryptedValueEncrypted-help": "Der vertrauliche Wert dieser providerspezifischen NoSQL-Eigenschaft. WebLogic Server speichert den Wert verschlüsselt im NoSQL-Ressourcendeskriptor. WDT behandelt dieses Feld als Kennwort."
 }

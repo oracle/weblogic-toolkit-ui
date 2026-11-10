@@ -236,9 +236,16 @@
   "user-settings-dialog-quickstart-section-title": "Configuração da Introdução ao WebLogic Kubernetes Toolkit UI",
   "user-settings-dialog-quickstart-skip-label": "Ignorar Exibição da Introdução ao Inicializar",
   "user-settings-dialog-quickstart-skip-help": "Se a exibição da Introdução do WebLogic Kubernetes Toolkit UI será ou não ignorada na inicialização do aplicativo.",
+  "user-settings-dialog-appearance-mode-title": "Aparência",
+  "user-settings-dialog-appearance-mode-label": "Modo de Aparência",
+  "user-settings-dialog-appearance-mode-help": "O modo de aparência do WKT UI a ser usado.",
+  "user-settings-dialog-appearance-mode-dark": "Modo Escuro",
+  "user-settings-dialog-appearance-mode-light": "Modo Claro",
+  "user-settings-dialog-appearance-mode-system": "Usar Modo do SO",
 
   "dialog-passphrase-prompt-title": "Frase-Senha de Criptografia da Credencial",
   "dialog-passphrase-prompt-label": "Informe a frase-senha a ser usada para criptografar a credencial do projeto.",
+  "dialog-passphrase-prompt-forgot-passphrase": "Esqueceu a frase-senha?",
 
   "dialog-about-version": "Versão {{version}} ({{buildVersion}})",
 
@@ -1879,5 +1886,7 @@
   "wkt-project-verrazzano-removal-warning": "O WKTUI 2.0 removeu o suporte para o Verrazzano de modo que o projeto foi convertido para remover todos os campos relacionados ao Verrazzano.",
   "wkt-project-keytar-removal-warning": "O WKTUI 2.0 removeu o suporte para o armazenamento de credenciais nativo por causa da descontinuação da biblioteca keytar JavaScript. Portanto, o projeto foi atualizado para usar o gerenciador de credenciais que armazena credenciais criptografadas no arquivo do projeto.",
   "wkt-project-dii-removal warning": "O WKTUI 2.0 removeu o suporte para Domínio na Imagem de modo que o projeto foi convertido para usar o Modelo na Imagem com uma Imagem Auxiliar",
-  "registry-credentials-dialog-title": "Credenciais do Registro de Imagem do Contêiner"
+  "registry-credentials-dialog-title": "Credenciais do Registro de Imagem do Contêiner",
+
+  "model-archive-context-menu-aria-label": "Ações da Entrada do Arquivo"
 }

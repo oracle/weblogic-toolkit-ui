@@ -236,9 +236,16 @@
   "user-settings-dialog-quickstart-section-title": "WebLogic Kubernetes Toolkit UI 简介配置",
   "user-settings-dialog-quickstart-skip-label": "在启动时跳过显示简介",
   "user-settings-dialog-quickstart-skip-help": "是否在应用程序启动时跳过显示 WebLogic Kubernetes Toolkit UI 简介。",
+  "user-settings-dialog-appearance-mode-title": "外观",
+  "user-settings-dialog-appearance-mode-label": "外观模式",
+  "user-settings-dialog-appearance-mode-help": "要使用的 WKT UI 外观模式。",
+  "user-settings-dialog-appearance-mode-dark": "深色模式",
+  "user-settings-dialog-appearance-mode-light": "浅色模式",
+  "user-settings-dialog-appearance-mode-system": "使用操作系统模式",
 
   "dialog-passphrase-prompt-title": "身份证明加密密码短语",
   "dialog-passphrase-prompt-label": "请输入用于加密项目身份证明的密码短语。",
+  "dialog-passphrase-prompt-forgot-passphrase": "忘记密码短语？",
 
   "dialog-about-version": "版本：{{version}} ({{buildVersion}})",
 
@@ -1879,5 +1886,7 @@
   "wkt-project-verrazzano-removal-warning": "WKTUI 2.0 不再支持 Verrazzano，因此该项目已转换为删除所有与 Verrazzano 相关的字段。",
   "wkt-project-keytar-removal-warning": "由于已弃用 keytar JavaScript 库，WKTUI 2.0 不再支持本机身份证明存储，因此项目已更新为使用在项目文件中存储加密身份证明的身份证明管理器。",
   "wkt-project-dii-removal warning": "WKTUI 2.0 不再支持映像中域，因此项目已转换为使用具有辅助映像的映像中模型",
-  "registry-credentials-dialog-title": "容器映像注册表身份证明"
+  "registry-credentials-dialog-title": "容器映像注册表身份证明",
+
+  "model-archive-context-menu-aria-label": "存档条目操作"
 }

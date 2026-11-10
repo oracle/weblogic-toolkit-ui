@@ -39,6 +39,7 @@
   "node-manager-coherence-start-scripts-title": "Coherence 啟動命令碼設定值",
   "wldf-elasticity-framework-settings-label": "WLDF 彈性架構設定值",
   "rdbms-security-store-notifications-title": "JMS 通知",
+  "node-manager-process-logging-title": "Coherence 與系統元件日誌循環設定值",
 
   "general-tab-label": "一般",
   "attributes-tab-label": "屬性",
@@ -108,6 +109,8 @@
   "saml-20-general-tab-label": "SAML 2.0 一般",
   "saml-20-identity-provider-tab-label": "SAML 2.0 身分識別提供者",
   "saml-20-service-provider-tab-label": "SAML 2.0 服務提供者",
+  "node-manager-coherence-tab-label": "Coherence 設定值",
+  "node-manager-weblogic-tab-label": "WebLogic Server 設定值",
 
   "security-model-advanced-label": "進階",
   "security-model-custom-roles-label": "自訂角色",
@@ -407,6 +410,8 @@
   "options-fine-label": "Fine",
   "options-finer-label": "Finer",
   "options-finest-label": "Finest",
+  "options-size-label": "大小",
+  "options-time-label": "時間",
 
   "direction-jms-queue-to-tuxedo-queue-label": "JMS 佇列至 Tuxedo 佇列",
   "direction-tuxedo-queue-to-jms-queue-label": "Tuxedo 佇列至 JMS 佇列",
@@ -476,6 +481,7 @@
   "invalid-integer-error": "值必須是整數",
   "invalid-double-error": "值必須是十進位數數字，例如 4 或 3.5",
   "invalid-range-error": "值必須在 {{min}} 至 {{max}} 的範圍內",
+  "invalid-time-of-day-error": "以 H:mm 格式輸入時間，小時為 0 至 23，分鐘為 00 至 59 的兩位數，例如 9:30 或 09:30。",
 
   "instance-name-error": "名稱只能包含英文字母、數字以及以下字元：.-_!",
   "instance-name-in-use-error": "此名稱已在使用中",
@@ -674,7 +680,7 @@
   "f-JMSSystemResource_JmsResource_ConnectionFactory_ClientParams-a-AllowCloseInOnMessage-help": "指定連線處理站是否建立允許在其 onMessage() 方法呼叫內發出 close() 或 stop() 方法的訊息用戶。",
 
   "a-AllowListRecordingEnabled-label": "啟用允許記錄清單",
-  "a-AllowListRecordingEnabled-help": "指定此網域是否將以啟用記錄功能的方式執行，以便記錄允許清單。",
+  "a-AllowListRecordingEnabled-help": "指定網域是否將在啟用記錄功能的情況下執行，以記錄允許清單。",
 
   "a-AllowListViolationAction-label": "允許清單違規動作",
   "a-AllowListViolationAction-help": "定義網域中所有伺服器的 AllowListViolationAction。",
@@ -1510,7 +1516,7 @@
 
   "a-ConnectionURL-label": "連線 URL",
   "f-JMSBridgeDestination-a-ConnectionURL-help": "此 JMS 橋接器目標的連線 URL。",
-  "f-JMSSystemResource_JmsResource_ForeignServer-a-ConnectionURL-help": "WebLogic 伺服器將用於連線 JNDI 提供者的 URL。此 URL 的語法取決於使用中的 JNDI 提供者。對於 WebLogic JMS，如果您參照的是同一個叢集內的 WebLogic JMS 物件，請將此欄位留白。這個值相對應至標準 JNDI 特性 java.naming.provider.url。注意：若未指定此值，將會對 WebLogic 伺服器執行處理內部署此連線處理站的 JNDI 伺服器執行查尋。",
+  "f-JMSSystemResource_JmsResource_ForeignServer-a-ConnectionURL-help": "WebLogic Server 用來連線 JNDI 提供者的 URL。語法取決於提供者，且對應至 java.naming.provider.url。若為以檔案為基礎的提供者，請選取繫結檔案或目錄，並選擇性地將其新增至 WDT 封存檔。對於 WebLogic JMS，在參照相同叢集中的物件時，請將此欄位留白。若未指定，查詢會使用部署此外部伺服器的 WebLogic Server 執行處理內的 JNDI 伺服器。",
   "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionURL-help": "將 URL 傳送至 JDBC 驅動程式來建立實體資料庫連線。",
 
   "a-ConsensusParticipants-label": "共識參與者",
@@ -1773,8 +1779,11 @@
   "a-CustomTrustKeyStoreFileName-label": "自訂信任金鑰存放區檔案名稱",
   "a-CustomTrustKeyStoreFileName-help": "指定信任金鑰存放區的來源。若為 JKS 或 PKCS12 金鑰存放區，來源為路徑和檔案名稱，且必須可從啟動伺服器的目錄解析。若為 Oracle KeyStore Service (KSS) 金鑰存放區，則來源為 KSS URI，其格式為 kss://system/keystorename，其中的 keystorename 是 KSS 中註冊的金鑰存放區名稱。",
 
-  "a-CustomTrustKeyStorePassPhraseEncrypted-label": "自訂信任金鑰存放區密碼詞組",
+  "a-CustomTrustKeyStorePassPhrase-label": "自訂信任金鑰存放區密碼詞組",
   "a-CustomTrustKeyStorePassPhrase-help": "設定自訂信任金鑰存放區的密碼詞組。如果是空的或為空值，金鑰存放區無須密碼詞組即可開啟。",
+
+  "a-CustomTrustKeyStorePassPhraseEncrypted-label": "自訂信任金鑰存放區密碼詞組",
+  "a-CustomTrustKeyStorePassPhraseEncrypted-help": "設定自訂信任金鑰存放區的密碼詞組。如果是空的或為空值，金鑰存放區無須密碼詞組即可開啟。",
 
   "a-CustomTrustKeyStoreType-label": "自訂信任金鑰存放區類型",
   "a-CustomTrustKeyStoreType-help": "金鑰存放區的類型。一般而言，此為 JKS 或 PKCS12。如果使用 Oracle KeyStore Service，此為 KSS。",
@@ -2909,6 +2918,11 @@
   "f-WLDFSystemResource_WLDFResource_Instrumentation_WLDFInstrumentationMonitor-a-Exclude-help": "此儀表監督器將排除之類別的樣式表示式。如果指定，此監督器將會排除符合指定樣式的類別。",
   "f-WLDFSystemResource_WLDFResource_Instrumentation-a-Exclude-help": "此儀表作用領域將排除之類別的樣式表示式。如果指定，將會排除符合指定樣式的類別。",
 
+  "a-ExcludeClusterMembers-label": "排除叢集成員",
+  "a-ExcludeClusterMembers-itemLabel": "排除叢集成員",
+  "a-ExcludeClusterMembers-itemHelp": "指定要排除的伺服器名稱。",
+  "a-ExcludeClusterMembers-help": "指定要從動態伺服器清單排除的伺服器清單。",
+
   "a-ExcludedCiphersuite-label": "排除的密碼組",
   "a-ExcludedCiphersuite-itemLabel": "排除的密碼組",
   "a-ExcludedCiphersuite-itemHelp": "指定要新增至此清單的排除密碼組。",
@@ -3325,10 +3339,16 @@
   "a-IIOPConnectionPools-label": "IIOP 連線集區",
 
   "a-IIOPEnabled-label": "啟用 IIOP",
-  "a-IIOPEnabled-help": "指定此伺服器是否對一般 (非 SSL) 連接埠和 SSL 連接埠啟用 IIOP 支援。預設值為 true。",
+  "f-SecurityConfiguration-a-IIOPEnabled-help": "指定是否應對此網域中的所有伺服器啟用 IIOP 支援。預設值為 false。",
+  "a-IIOPEnabled-help": "指定此伺服器是否同時對一般 (非 SSL) 和 SSL 連接埠啟用 IIOP 支援。預設值為 false。",
 
   "a-IIOPLocationForwardPolicy-label": "IIOP 位置轉送原則",
   "a-IIOPTxMechanism-label": "IIOP 異動機制",
+
+  "a-IIOPTypedReadResolveProxyValidationEnabled-label": "啟用 IIOP 類型讀取解析代理驗證",
+  "a-IIOPTypedReadResolveProxyValidationEnabled-help": "指定 WebLogic 伺服器是否驗證 IIOP 訊息中所攜帶的類別是否與預期的 Java 類型相容。",
+  "a-IIOPUnauthenticatedServiceContextValueTypeFilteringEnabled-label": "啟用 IIOP 未認證服務環境定義值類型篩選",
+  "a-IIOPUnauthenticatedServiceContextValueTypeFilteringEnabled-help": "指定 WebLogic 伺服器從內送 IIOP 要求服務環境定義讀取這些值類型時，是否套用其未認證的還原序列化允許清單。",
 
   "a-IdentityAndTrustLocations-label": "識別和信任位置",
   "f-any_SSL-a-IdentityAndTrustLocations-help": "指示 SSL 應尋找伺服器之識別 (憑證和私密金鑰) 以及伺服器之信任 (信任 CA) 的位置。預設值為 \"KeyStores\"。",
@@ -3544,6 +3564,9 @@
   "a-IsDefaultAdmin-label": "是預設管理員",
   "a-IsolatePartitionThreadLocals-label": "隔離分割區繫線區域",
 
+  "a-IsLogLockingEnabled-label": "啟用日誌鎖定",
+  "a-IsLogLockingEnabled-help": "是否啟用日誌鎖定。預設值為 true。",
+
   "a-Issuer-label": "發照者",
   "a-Issuer-help": "指定進行驗證期間所使用之權杖發照者的覆寫值。發照者通常會從 Oracle Identity Cloud Service 尋找描述資料中取得。如果設定，此發照者值會用於所有租用戶。",
 
@@ -3683,10 +3706,32 @@
   "a-JmsToTuxPriorityMap-valueHelp": "JMS 優先順序應對應的 Tuxedo 優先順序。",
   "a-JmsToTuxPriorityMap-help": "JMS 到 Tuxedo 的優先順序對應。預設的「JMS 到 Tux 的優先順序對應」為：0:1 | 1:12 | 2:23 | 3:34 | 4:45 |5:56 | 6:67 | 7:78 | 8:89 | 9:100。",
 
+  "a-JndiAdditionalFactoriesAllowListsEnabled-label": "已啟用 JNDI 額外處理站允許清單",
+  "a-JndiAdditionalFactoriesAllowListsEnabled-help": "指定 WebLogic 伺服器是否將這些伺服器端 JNDI 處理站限制為內建處理站，以及明確列於兩個相關 SecurityConfiguration` 屬性中的處理站。",
+  "a-JndiAdditionalInitialContextFactoriesAllowed-label": "允許的 JNDI 額外起始相關資訊環境處理站",
+  "a-JndiAdditionalInitialContextFactoriesAllowed-itemLabel": "允許的 JNDI 額外起始相關資訊環境處理站",
+  "a-JndiAdditionalInitialContextFactoriesAllowed-itemHelp": "指定要在伺服器中使用的 InitialContextFactory 實作之完整類別名稱。",
+  "a-JndiAdditionalInitialContextFactoriesAllowed-help": "指定可在伺服器中使用的 InitialContextFactory 實作之完整類別名稱清單。",
+  "a-JndiAdditionalReferenceFactoriesAllowed-label": "允許的 JNDI 額外參照處理站",
+  "a-JndiAdditionalReferenceFactoriesAllowed-itemLabel": "允許的 JNDI 額外參照處理站",
+  "a-JndiAdditionalReferenceFactoriesAllowed-itemHelp": "指定允許用於伺服器端參照具體化的額外 JNDI 參照處理站類別名稱。",
+  "a-JndiAdditionalReferenceFactoriesAllowed-help": "指定允許用於伺服器端參照具體化的額外 JNDI 參照處理站類別名稱清單。",
+
+  "a-JndiBindingAuthorizationPolicyEnabled-label": "已啟用 JNDI 繫結授權原則",
+  "a-JndiBindingAuthorizationPolicyEnabled-help": "指定變更伺服器端 JNDI 繫結的作業是否需要 WebLogic 伺服器管理角色。",
+
   "a-JndiFactory-label": "JNDI 起始相關資訊環境處理站類別名稱",
   "f-WTCServer_WTCtBridgeGlobal-a-JndiFactory-help": "JNDI 查尋處理站的名稱。預設值為 weblogic.jndi.WLInitialContextFactory。",
 
   "a-JndiPropertiesCredentialEncrypted-label": "已加密 JNDI 特性證明資料",
+
+  "a-JndiOutboundConnectionsAllowed-label": "允許的 JNDI 外送連線",
+  "a-JndiOutboundConnectionsAllowed-itemLabel": "允許的 JNDI 外送連線",
+  "a-JndiOutboundConnectionsAllowed-itemHelp": "指定允許用於伺服器端 JNDI 查詢輸入的 JNDI 外送連線項目。",
+  "a-JndiOutboundConnectionsAllowed-help": "指定允許用於伺服器端 JNDI 查詢輸入的 JNDI 外送連線項目清單。",
+
+  "a-JndiOutboundConnectionsAllowListEnabled-label": "啟用 JNDI 外送連線允許清單",
+  "a-JndiOutboundConnectionsAllowListEnabled-help": "指定 WebLogic 伺服器是否將外送 JNDI 連線限制為 SecurityConfiguration JNDIOutboundConnectionsAllowed 屬性中列出的目的地。",
 
   "a-JobSchedulerTableName-label": "工作排程器表格名稱",
   "f-Cluster-a-JobSchedulerTableName-help": "指定用於儲存正在處理工作排程器之計時器的表格名稱。",
@@ -3788,6 +3833,12 @@
 
   "a-LeaderHeartbeatPeriod-label": "領導者活動訊號期間",
   "f-Cluster_DatabaseLessLeasingBasis-a-LeaderHeartbeatPeriod-help": "設定 LeaderHeartbeatPeriod 值 (秒)。叢集領導者會在每個固定的秒數期間發出領導者活動訊號來發布群組檢視版本和其他叢集資訊。成員可查看此活動訊號，並且視需要執行任何同步操作。預設值為 10。",
+
+  "a-LegacyEmptyBeansXmlDiscovery-label": "舊版空白 beans.xml 探索",
+  "a-LegacyEmptyBeansXmlDiscovery-help": "指定符合資格的空白 beans.xml 描述元是否針對此應用程式使用舊版 CDI Bean 探索模式。",
+
+  "a-LegacyArgon2FallbackEnabled-label": "已啟用舊版 Argon2 遞補",
+  "a-LegacyArgon2FallbackEnabled-help": "如果密碼未通過標準演算法驗證，是否嘗試使用舊版 Argon2 演算法進行密碼驗證。",
 
   "a-Level-label": "層級",
 
@@ -5136,6 +5187,9 @@
   "a-ProfileType-label": "設定檔類型",
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-ProfileType-help": "指定要針對 JDBC 子系統收集的設定檔資料類型。若要啟用多個分析選項，應將值設為每個選項之數值的總和。例如，若要啟用「連線使用狀況」、「連線流失」以及「連線解除包裝使用狀況」選項，應將值設為 261 (1 + 4 + 256) 或 0x105 (0x001 + 0x004 + 0x100)。",
 
+  "a-ProgressTrackerInitialDataTimeout-label": "進度追蹤器初始資料逾時",
+  "a-ProgressTrackerInitialDataTimeout-help": "進度追蹤器等待資料時發生逾時前的逾時值。",
+
   "a-PropagateCauseForLoginException-label": "傳播登入異常狀況的原因",
   "a-PropagateCauseForLoginException-help": "指定是否要傳播登入異常狀況的原因。",
 
@@ -5145,7 +5199,7 @@
   "a-Properties-keyHelp": "指定特性名稱。",
   "a-Properties-valueLabel": "特性值",
   "a-Properties-valueHelp": "指定特性值。",
-  "f-ForeignJNDIProvider-a-Properties-help": "必須為 JNDI 提供者設定的其他特性。這些特性將直接傳遞到 JNDI 提供者之 InitialContext 類別的建構子。",
+  "f-ForeignJNDIProvider-a-Properties-help": "必須為 JNDI 提供者設定的任何其他特性。這些特性會直接傳送給 JNDI 提供者之 InitialContext 類別的建構子。自 WebLogic Server 26.1 起，特性名稱以 .encrypted 結尾 (區分大小寫) 的值會由 WDT 視為認證資料，並由 WebLogic Server 在 config.xml 中加密。",
   "f-MailSession-a-Properties-help": "此 JavaMail 階段作業用來與電子郵件伺服器進行互動的組態選項和使用者認證資料。按照 JavaMail API 設計規範中的定義，您指定的每個特性都會覆寫預設特性值。僅包括 JavaMail API 設計規範所定義的特性。如果不指定任何特性，此郵件階段作業將使用 JavaMail 預設特性值。",
   "f-WLDFSystemResource_WLDFResource_Instrumentation_WLDFInstrumentationMonitor-a-Properties-itemLabel": "特性",
   "f-WLDFSystemResource_WLDFResource_Instrumentation_WLDFInstrumentationMonitor-a-Properties-itemHelp": "指定此監督器的「名稱=值」組特性。",
@@ -5480,6 +5534,9 @@
 
   "a-ResponseTimeout-label": "回應逾時",
 
+  "a-RestEnabled-label": "已啟用 REST",
+  "a-RestEnabled-help": "是否應啟用 REST。",
+
   "a-RestInvocationMethodType-label": "REST 呼叫方法類型",
   "f-WLDFSystemResource_WLDFResource_WatchNotification_RestNotification-a-RestInvocationMethodType-help": "用於呼叫端點的 REST 方法。",
 
@@ -5627,6 +5684,10 @@
   "f-XMLRegistry-a-SAXParserFactory-help": "實行 SAXParserFactory 介面之類別的完整名稱。javax.xml.parsers.SAXParserFactory 處理站 API 允許部署到 WebLogic 伺服器的應用程式設定並取得 SAX 型的 XML 剖析器，以剖析 XML 文件。",
   "f-any_XMLParserSelectRegistryEntry-a-SAXParserFactory-help": "指定實行 SAXParserFactory API 之類別的完整名稱。當 WebLogic 伺服器開始剖析由此項目中指定之公共 ID、系統 ID 或根元素所識別的 XML 文件，且應用程式指定此文件需要 SAX 剖析器時，WebLogic 伺服器會在使用 javax.xml.parsers.SAXParserFactory 時使用此實行類別，來取得 SAX 剖析器。",
 
+  "f-BatchConfig-a-SchemaName-label": "綱要名稱",
+  "f-BatchConfig-a-SchemaName-help": "設定已建立 JobRepository 表格的綱要名稱。請注意，如果 JobRepository 資料來源由應用程式共用，則此綱要名稱必須與應用程式預期的名稱相同。",
+  "f-BatchConfig-label": "批次組態",
+
   "a-SNMPPort-label": "SNMP 連接埠",
   "a-SNMPPort-help": "您希望此 SNMP 代理程式用來監聽來自 SNMP 管理器之內送要求的連接埠，而 SNMP 管理器使用的是 UDP 通訊協定。SNMP 管理器可以使用此連接埠來 Ping SNMP 代理程式，並要求特定屬性的狀態。如果將此 SNMP 代理程式的目標設為多個伺服器執行處理，而且在同一部電腦上執行兩個以上的伺服器，則 WebLogic 伺服器會自動將每個代理程式的這個 UDP 連接埠值遞增 1。因為連接埠 162 是代理程式用來傳送通知的預設連接埠，所以 WebLogic 伺服器絕對不會指定該連接埠。此外，如果已使用任意連接埠，則 WebLogic 伺服器會略過該連接埠，並指定下一個可用的連接埠。",
 
@@ -5760,6 +5821,9 @@
   "a-Scope-label": "領域",
   "a-ScriptExecutorCommand-label": "命令碼執行程式命令",
 
+  "a-ScriptTimeout-label": "命令檔逾時",
+  "a-ScriptTimeout-help": "等待命令檔執行時所使用的逾時值。",
+
   "a-SdpEnabled-label": "啟用通訊端直接通訊協定 (SDP)",
   "f-any_NetworkAccessPoint-a-SDPEnabled-help": "對此通道啟用「通訊端直接通訊協定 (SDP)」。為 Oracle Exalogic 之 WebLogic 叢集中的受管理伺服器設定階段作業複製增強功能時，請啟用此屬性。JDK11 已移除 SDP。14.1.1 版本中已不再使用。",
 
@@ -5847,6 +5911,9 @@
 
   "a-SerializeEnlistmentsGCIntervalMillis-label": "序列化登記項目 GC 間隔 (毫秒)",
   "a-SerializeEnlistmentsGCIntervalMillis-help": "清除用來序列化資源登記之內部物件的時間間隔 (毫秒)。",
+
+  "a-SerializedWorkContextMaximumSize-label": "序列化 Work Context 大小上限",
+  "a-SerializedWorkContextMaximumSize-help": "限制單一 Work Context 的大小。WorkContext 是一小段描述資料，WebLogic 伺服器可將其附加至要求或訊息，並傳播至其他元件。若將值設為非負值，也會使 WebLogic 伺服器在工作環境內的延遲物件還原序列化時，套用其較嚴格的未認證輸入物件篩選器。這可能會在一開始收到外部工作環境之後發生。",
 
   "a-Server-label": "伺服器",
   "a-ServerAffinityEnabled-label": "啟用伺服器相關性",
@@ -6121,6 +6188,7 @@
   "a-SslEnabled-help": "指定連線 Oracle Identity Cloud Service 時是否應當使用 TLS/SSL 通訊協定。",
 
   "a-SslProtocolVersion-label": "SSL 通訊協定版本",
+
   "f-WTCServer_WTCLocalTuxDom-a-SslProtocolVersion-help": "建立 SSL 連線時，此本機存取點使用的 SSL 連線通訊協定版本。",
   "f-WTCServer_WTCRemoteTuxDom-a-SslProtocolVersion-help": "與特定本機存取點建立 SSL 連線時，此遠端存取點使用的 SSL 連線通訊協定版本。",
 
@@ -6217,6 +6285,9 @@
 
   "a-StrictOwnershipCheck-label": "嚴格擁有權檢查",
   "a-StrictOwnershipCheck-help": "找不到 TRS 的目前擁有者進行故障回復時是否要繼續啟動。此屬性只適用於叢集中的伺服器。若為 true，在此情況下伺服器將無法啟動。若為 false (預設值)，伺服器會繼續啟動，而不會嘗試進行故障回復。",
+
+  "a-StrictReplicationAuthorizationEnabled-label": "啟用嚴格複寫授權",
+  "a-StrictReplicationAuthorizationEnabled-help": "此屬性是 WebLogic Server 叢集複寫協定變更的推出控制。在 PSU 修正程式串流中，此控制可讓客戶先完成網域中每部伺服器的修正程式套用與重新啟動，再啟用更新後的叢集複寫協定。",
 
   "a-StringToCompare-label": "要比較的字串",
   "f-any_SNMPStringMonitor-a-StringToCompare-help": "將與受監督的屬性值進行比較的字串。滿足「通知相符」或「通知不同」所指定的條件時，會產生通知。",
@@ -6331,6 +6402,10 @@
   "a-SystemThreadPoolSize-label": "系統繫線集區大小",
   "a-T3ClientAbbrevTableSize-label": "T3 從屬端縮寫表格大小",
   "a-T3HttpUpgradeHandler-label": "T3 HTTP 升級處理程式",
+
+  "a-T3RouteOnlyToTrustedServersEnabled-label": "啟用 T3 僅路由至信任的伺服器",
+  "a-T3RouteOnlyToTrustedServersEnabled-help": "指定中繼伺服器是否只能對其已知或已透過本機 WebLogic 伺服器組態識別的目的地建立新路由。",
+
   "a-T3ServerAbbrevTableSize-label": "T3 伺服器縮寫表格大小",
 
   "a-TGIOPEnabled-label": "啟用 TGIOP",
@@ -6932,18 +7007,24 @@
   "a-ValidateDDSecurityData-label": "驗證 DD 安全資料",
   "a-ValidateDDSecurityData-help": "是否要驗證部署描述元安全資料。不會用於 WebLogic 伺服器的現行版本。",
 
+  "a-ValidatePersistenceXmlSchema-label": "驗證持續性 XML 綱要",
+  "a-ValidatePersistenceXmlSchema-help": "指定是否要在部署期間根據其 Jakarta Persistence XML 綱要驗證 META-INF/persistence.xml 描述元。",
+
   "a-ValidityPeriod-label": "有效期間",
   "f-WebserviceSecurity_WebserviceTimestamp-a-ValidityPeriod-help": "代表傳送方希望外送訊息維持有效的時間長度。ValidityPeriod 若為正數值，TimestampHandler 將會在 Timestamp 標頭內插入 Expires 元素。ValidityPeriod 以秒表示：Expires 時間將是比 Timestamp 的建立時間往前該數秒的時間。",
 
   "a-Value-label": "值",
   "f-JDBCSystemResource_JdbcResource_JDBCDriverParams_Properties-a-Value-help": "JDBC 驅動程式特性的值。",
-  "f-JMSSystemResource_JmsResource_ForeignServer_JNDIProperty-a-Value-help": "JNDI 特性的值。",
+  "f-JMSSystemResource_JmsResource_ForeignServer_JNDIProperty-a-Value-help": "JNDI 特性的值。從 WebLogic Server 26.1 開始，當 Key 以 .encrypted 結尾 (區分大小寫) 時，WebLogic Server 會在 JMS 描述元中加密此值。未設定 Key 時，WDT 會使用特性執行處理名稱作為索引鍵。",
   "f-any_ConfigurationProperty-a-Value-help": "指定特性的值。",
 
   "a-VerboseEJBDeploymentEnabled-label": "啟用詳細 EJB 部署",
 
   "a-VerboseLoggingEnabled-label": "啟用詳細日誌記錄",
   "f-any_COM-a-VerboseLoggingEnabled-help": "指定是否啟用詳細日誌記錄。",
+
+  "a-VerboseStuckThreadName-label": "詳細停滯執行緒名稱",
+  "a-VerboseStuckThreadName-help": "指示是否要在停滯執行緒名稱中包含其他詳細資訊，例如執行緒標示為停滯的時間與工作要求開始時間。",
 
   "a-Version-label": "版本",
   "a-VersionIdentifier-label": "版本 ID",
@@ -6976,6 +7057,9 @@
   "a-WAPEnabled-help": "表示階段作業 ID 是否應該包括 JVM 資訊 (使用以 WAP 裝置重新撰寫的 URL 時，如果 URL 的大小受限於 128 個字元，則可能需要勾選這個方塊，也可能影響叢集中複製階段作業的使用)。選取此方塊時，URL 的預設大小將設為 52 個字元，也將不含任何特殊字元。預設值為 false。",
 
   "a-WLDFBuiltinSystemResourceDescriptorBean-label": "WLDF 內建系統資源描述元 Bean",
+
+  "a-WLDFScriptActionPathRestrictionEnabled-label": "啟用 WLDF 指令碼動作路徑限制",
+  "a-WLDFScriptActionPathRestrictionEnabled-help": "指定 WLDF 指令碼動作所指定的可執行檔可位於何處。啟用時，指令碼必須位於 $DOMAIN_HOME/bin/scripts。",
 
   "a-WaitForAllSessionsDuringShutdown-label": "關閉期間等待所有階段作業",
   "f-Cluster_DynamicServers-a-WaitForAllSessionsDuringShutdown-help": "指示在關閉伺服器時，「彈性架構」是否應等待進行中工作期間的所有 (已保存和未保存) HTTP 階段作業。",
@@ -7047,8 +7131,16 @@
   "a-WebLogicHome-label": "WebLogic 本位目錄",
   "f-NMProperties-a-WebLogicHome-help": "Oracle WebLogic Server 安裝的根目錄。這是作為「遠端啟動」頁面中未設定根目錄之受管理伺服器的預設值 -Dweblogic.RootDirectory。如果未在任一位置指定，節點管理程式會在執行節點管理程式的目錄中啟動受管理伺服器。",
 
+  "a-WeblogicPluginAllowedProxyHost-label": "WebLogic 外掛程式允許的代理主機",
+  "a-WeblogicPluginAllowedProxyHost-itemLabel": "WebLogic 外掛程式允許的代理主機",
+  "a-WeblogicPluginAllowedProxyHost-itemHelp": "指定要新增至清單的主機名稱或 IP 位址，WebLogic 伺服器會接受來自該清單的專用 WL-Proxy-* 標頭。",
+  "a-WeblogicPluginAllowedProxyHost-help": "指定啟用 WebLogic 代理主機外掛程式標頭處理時，WebLogic 伺服器接受專用 WL-Proxy-* 標頭的主機名稱或 IP 位址。",
+
   "a-WebModule-label": "Web 模組",
   "a-WebRjvmSupport-label": "Web RJVM 支援",
+
+  "a-WebLogicJwtVirtualUserEnabled-label": "啟用 WebLogic JWT 虛擬使用者",
+  "a-WebLogicJwtVirtualUserEnabled-help": "決定是否啟用 WebLogic JWT 權杖的虛擬使用者支援。啟用時，WebLogic JWT 權杖將包含使用者與群組資訊。",
 
   "a-WeblogicPluginEnabled-label": "啟用 WebLogic 外掛程式",
   "a-WeblogicPluginEnabled-help": "指定此伺服器是否使用專用 WL-Proxy-Client-IP 標頭。將此屬性設為 true，即可指定讓此伺服器執行處理使用專用 WL-Proxy-Client-IP 標頭 (伺服器執行處理如果將從代理主機外掛程式接收要求，建議做此設定)。伺服器執行處理若是將接收代理程式要求的叢集成員，請在叢集層級啟用 WebLogic 外掛程式。伺服器若為叢集成員，叢集層級的設定會覆寫伺服器的設定。若在叢集層級啟用 WebLogic 外掛程式，呼叫 getRemoteAddr 將會從專用 WL-Proxy-Client-IP 標頭 (而非 Web 伺服器) 傳回瀏覽器從屬端的位址。",
@@ -7075,6 +7167,9 @@
 
   "a-WlsErrorDestination-label": "WLS 錯誤目標",
   "f-WTCServer_WTCtBridgeGlobal-a-WlsErrorDestination-help": "無法重新導向訊息時，用來儲存 WebLogic 伺服器 JMS 訊息之位置的名稱。若未指定，會遺失未重新導向的所有訊息。若因任何原因導致無法將訊息置於 WlsErrorDestination 中，則會記錄一則錯誤，且訊息會遺失。",
+
+  "a-WorkContextClassValidationEnabled-label": "啟用工作相關資訊環境類別驗證",
+  "a-WorkContextClassValidationEnabled-help": "指定 WebLogic 伺服器接收 WorkArea 資料時，將建構哪些 WorkContext 實作類別。",
 
   "a-WorkContextPropagationEnabled-label": "啟用工作相關資訊環境傳播",
   "f-WebAppContainer-a-WorkContextPropagationEnabled-help": "表示是否啟用 WorkContextPropagation。預設為開啟狀態。傳播工作相關資訊環境會使用少許的額外資源。因此，如果您不想要傳播工作相關資訊環境，請在生產環境中關閉此值。",
@@ -7166,6 +7261,14 @@
   "a-coherence_StartScriptName-label": "Coherence 啟動命令碼名稱",
   "f-NMProperties-a-coherence_StartScriptName-help": "用來啟動伺服器所要執行的命令碼名稱。",
 
+  "a-coherence_startup_Arguments-label": "Coherence 啟動引數",
+  "a-coherence_startup_Arguments-itemLabel": "Coherence 啟動引數",
+  "a-coherence_startup_Arguments-itemHelp": "指定要新增的 Coherence 啟動引數。",
+  "a-coherence_startup_Arguments-help": "Coherence 啟動引數",
+
+  "a-coherence_startup_MW_HOME-label": "Coherence 啟動中介軟體主目錄",
+  "a-coherence_startup_MW_HOME-help": "用來啟動 Coherence 伺服器的中介軟體主目錄。",
+
   "a-compInfoXMLLocation-label": "元件資訊 XML 位置",
   "a-compInfoXMLLocation-help": "ComponentInfo.xml 檔案位置的完整路徑。預設位置為 ORACLE_HOME/oracle_common/rcu/config。",
 
@@ -7225,6 +7328,28 @@
   "a-pager-label": "呼叫器",
   "a-postaladdress-label": "地址",
   "a-postofficebox-label": "郵政信箱",
+
+  "a-process_FileSizeKB-label": "處理程序檔案大小 (KB)",
+  "a-process_FileSizeKB-help": "依大小循環時，處理程序日誌檔大小上限 (KB)。",
+
+  "a-process_FileTimeSpan-label": "處理程序檔案時間範圍",
+  "a-process_FileTimeSpan-help": "處理程序將舊日誌訊息儲存至另一個檔案的間隔 (小時)。預設值為 24。",
+
+  "a-process_FileTimeSpanFactor-label": "處理程序檔案時間範圍係數",
+  "a-process_FileTimeSpanFactor-help": "此係數旨在讓日誌循環能以不同的頻率進行測試。預設值為 3600000。",
+
+  "a-process_NumberOfFilesLimited-label": "處理程序檔案數目限制",
+  "a-process_NumberOfFilesLimited-help": "指出是否限制此處理程序執行處理為儲存舊訊息而建立的日誌檔數目。此處理程序達到此限制後，會刪除最舊的日誌檔，並以最新的字尾建立新的日誌檔。若未啟用此選項，處理程序會無限期建立新檔案，您必須視需要清除這些檔案。預設值為 true。",
+
+  "a-process_RotatedFileCount-label": "處理程序循環檔案數目",
+  "a-process_RotatedFileCount-help": "若檔案數目有限制，此參數會指定要保留的循環檔案數目上限。",
+
+  "a-process_RotationTimeStart-label": "處理程序輪替開始時間",
+  "a-process_RotationTimeStart-help": "決定以時間為基礎之輪替序列的開始時間 (小時與分鐘)。在此值指定的時間，處理程序會重新命名目前的日誌檔案。",
+
+  "a-process_RotationType-label": "處理程序輪替類型",
+  "a-process_RotationType-help": "指定將舊日誌記錄移至個別檔案的條件。預設值為依大小。",
+
   "a-preferredlanguage-label": "偏好的語言",
   "a-rcu_admin_password-label": "資料庫管理員密碼",
   "a-rcu_admin_password-help": "建立 RCU 綱要所需的資料庫管理使用者密碼。如果您要 WDT 為您建立 RCU 綱要，則需要此值。",
@@ -7288,6 +7413,36 @@
 
   "a-weblogic_UseMACBroadcast-label": "WebLogic 使用 MAC 廣播",
   "f-NMProperties-a-weblogic_UseMACBroadcast-help": "指定傳送 ARP 封包時，是否要使用節點的 MAC 位址，亦即，是否要在 arping 命令中使用 -b 旗標。當節點管理程式連結 IP 位址以進行自動伺服器移轉時，也會使用 arping 命令來嘗試通知網路中的節點，告知機器目前正在使用虛擬 IP 位址。當 weblogic.UseMACBroadcast=true 時，節點管理程式會透過 -b 旗標使用 arping 命令。",
+
+  "a-weblogic_startup_Arguments-label": "WebLogic 啟動引數",
+  "a-weblogic_startup_Arguments-itemLabel": "WebLogic 啟動引數",
+  "a-weblogic_startup_Arguments-itemHelp": "提供要新增的 WebLogic 啟動引數。",
+  "a-weblogic_startup_Arguments-help": "啟動 WebLogic Server 執行處理時所要使用的引數。",
+
+  "a-weblogic_startup_Arguments_prepend-label": "WebLogic 前置啟動引數",
+  "a-weblogic_startup_Arguments_prepend-itemLabel": "要前置的 WebLogic 啟動引數",
+  "a-weblogic_startup_Arguments_prepend-itemHelp": "提供要新增的 WebLogic 啟動引數。",
+  "a-weblogic_startup_Arguments_prepend-help": "要前置於用來啟動 WebLogic Server 執行處理之引數清單的引數。",
+
+  "a-weblogic_startup_ClassPath-label": "WebLogic 啟動類別路徑",
+  "a-weblogic_startup_ClassPath-itemLabel": "WebLogic 啟動類別路徑項目",
+  "a-weblogic_startup_ClassPath-itemHelp": "提供要新增至 WebLogic 啟動類別路徑的項目。",
+  "a-weblogic_startup_ClassPath-help": "啟動 WebLogic Server 執行處理時所要使用的 Java CLASSPATH。",
+
+  "a-weblogic_startup_JavaVendor-label": "WebLogic 啟動 Java 供應商",
+  "a-weblogic_startup_JavaVendor-help": "啟動 WebLogic Server 執行處理時要使用的 Java 廠商類型。",
+
+  "a-weblogic_startup_MW_Home-label": "WebLogic 啟動中介軟體本位目錄",
+  "a-weblogic_startup_MW_Home-help": "啟動 WebLogic Server 執行處理時要使用的中介軟體本位目錄 (MW_HOME)。",
+
+  "a-weblogic_startup_SecurityPolicyFile-label": "WebLogic 啟動安全性原則檔案",
+  "a-weblogic_startup_SecurityPolicyFile-help": "啟動 WebLogic Server 執行處理時要使用的安全性原則檔案。",
+
+  "a-weblogic_startup_serverGID-label": "WebLogic 啟動伺服器群組 ID",
+  "a-weblogic_startup_serverGID-help": "用來啟動 WebLogic Server 執行處理的作業系統群組 ID (GID)。",
+
+  "a-weblogic_startup_serverUID-label": "WebLogic 啟動伺服器使用者 ID",
+  "a-weblogic_startup_serverUID-help": "用來啟動 WebLogic Server 執行處理的作業系統使用者 ID (UID)。",
 
   "f-any-nameHelp": "{{folderType}} 的名稱",
   "f-any-nameLabel": "{{folderType}} 名稱",
@@ -7441,6 +7596,7 @@
   "f-any_FairShareConstraint-label": "公平分配限制條件",
   "f-any_FairShareRequestClass-label": "公平分配要求類別",
   "f-any_FairShareRequestClass-typeLabel": "公平分配要求類別",
+  "f-any_FeatureCompatibility-label": "功能相容性",
   "f-any_FederationServices-label": "同盟服務",
   "f-any_FileOpen-label": "檔案開啟",
   "f-any_FileStore-label": "檔案存放區",
@@ -7511,6 +7667,11 @@
   "f-any_JdbcPropertyOverride-label": "JDBC 特性覆寫",
   "f-any_JdbcPropertyOverride-typeLabel": "JDBC 特性覆寫",
   "f-any_JdbcResource-label": "JDBC 資源",
+  "f-any_JdbcResource/JDBCConnectionPoolParams-label": "JDBC 連線集區參數",
+  "f-any_JdbcResource/JDBCDataSourceParams-label": "JDBC 資料來源參數",
+  "f-any_JdbcResource/JDBCDriverParams-label": "JDBC 驅動程式參數",
+  "f-any_JdbcResource/JDBCOracleParams-label": "JDBC Oracle 參數",
+  "f-any_JdbcResource/JDBCXAParams-label": "JDBC XA 參數",
   "f-any_JdbcSystemResourceOverride-label": "JDBC 系統資源覆寫",
   "f-any_JdbcSystemResourceOverride-typeLabel": "JDBC 系統資源覆寫",
   "f-any_JmsConnectionConsumer-label": "JMS 連線用戶",
@@ -7784,6 +7945,7 @@
   "f-any_WatchNotification-label": "監看通知",
   "f-any_WebAppContainer-label": "Web App 容器",
   "f-any_WebLogicCertPathProvider-label": "WebLogic 憑證路徑提供者",
+  "f-any_WeblogicPluginRouting-label": "WebLogic 外掛程式路由",
   "f-any_WebServer-label": "Web 伺服器",
   "f-any_WebServerLog-label": "Web 伺服器日誌",
   "f-any_WebService-label": "Web 服務",
@@ -7822,5 +7984,133 @@
   "f-any_XMLRegistry-typeLabel": "XML 登錄檔",
   "f-any_Deployments-label": "部署項目",
   "f-any_Resources-label": "資源",
-  "f-any_weblogic.security.providers.authentication.OracleIdentityCloudIntegrator-label": "Oracle Identity Cloud Integrator"
+  "f-any_weblogic.security.providers.authentication.OracleIdentityCloudIntegrator-label": "Oracle Identity Cloud Integrator",
+
+  "a-CertificateAuthorityKeyProfile-label": "憑證授權機構金鑰設定檔",
+  "a-CertificateAuthoritySignatureAlgorithm-label": "憑證授權機構簽章演算法",
+  "a-CertificateCheckTime-label": "憑證檢查時間",
+  "a-CertificateCheckTimeMaximumOffset-label": "憑證檢查時間最大偏移",
+  "a-CertificateKeyProfile-label": "憑證金鑰設定檔",
+  "a-CrossDomainT3SConnectionTrustValidationEnabled-label": "已啟用跨網域 T3S 連線信任驗證",
+  "a-CrossDomainT3SConnectionTrustValidationEnabled-help": "指定反向跨網域查詢是否必須建立新的 T3S 連線，並通過新的 SSL 信任檢查，而非重複使用現有連線。變更會在伺服器重新啟動後生效。",
+  "a-DomainKeystoresAdminUrl-label": "網域金鑰存放區管理 URL",
+  "a-DomainKeystoresMachineName-label": "網域金鑰存放區機器名稱",
+  "a-ExpiredCertificateAuthorityRetentionDays-label": "過期憑證授權機構保留天數",
+  "a-IiopStrictRemoteBusinessInterfaceValidationEnabled-label": "已啟用 IIOP 嚴格遠端商業介面驗證",
+  "a-IiopStrictRemoteBusinessInterfaceValidationEnabled-help": "指定 IIOP 用戶端存根產生是否拒絕未辨識為遠端介面的商業介面。停用時，舊版 IIOP 用戶端只有在可互通物件參照 (IOR) 沒有程式碼庫時，才能使用本機可見的一般商業介面。",
+  "a-JaxwsRejectUnknownSeiOperationsEnabled-label": "已啟用 JAX-WS 拒絕未知 SEI 作業",
+  "a-JaxwsRejectUnknownSeiOperationsEnabled-help": "指定使用服務端點介面 (SEI) 的 JAX-WS 端點是否拒絕作業與 SEI 方法不符的 SOAP 要求。啟用時，未知作業會在進一步處理 (包括 WorkContext 處理) 之前傳回 SOAP 錯誤。停用時，這些要求會遵循舊版處理路徑，且不對未知作業進行方法層級授權。",
+  "a-JmsDotNetClientEnabled-label": "已啟用 JMS Dot Net 用戶端",
+  "a-KeystoreFileLockTimeout-label": "金鑰存放區檔案鎖定逾時",
+  "a-KeystoreFileLockingEnabled-label": "已啟用金鑰存放區檔案鎖定",
+  "a-KeystoreFileWatchingEnabled-label": "已啟用金鑰存放區檔案監看",
+  "a-MaxHeaderCount-label": "標頭數上限",
+  "a-MaxQueued-label": "排入佇列數上限",
+  "a-MaximumUnitOfWorkMessages-label": "工作單位訊息數上限",
+  "a-RestrictContentBasedOnRoles-label": "依據角色限制內容",
+  "a-SAML2StrictArtifactResolutionEnabled-label": "已啟用 SAML2 嚴格 Artifact 解析",
+  "a-SAML2StrictArtifactResolutionEnabled-help": "指定 SAML 2.0 Artifact 解析在擷取及取用 Artifact 前，是否先認證預期接收者。啟用時，要求發出者必須符合已啟用的夥伴，並提供已驗證的簽章或符合該夥伴的 TLS 從屬端憑證；僅使用共用 Basic 認證並不足夠。停用時，舊有行為允許在認證前擷取 Artifact。",
+  "a-SpringJtaDeserializationJndiLookupDisabled-label": "已停用 Spring JTA 還原序列化 JNDI 查詢",
+  "a-SpringJtaDeserializationJndiLookupDisabled-help": "指定在還原序列化 Spring JtaTransactionManager 時，是否防止其解析序列化的 JNDI 名稱。啟用時，不會透過這些查詢還原暫時性 JTA 控制代碼。正常 Bean 初始化期間的 JTA 查詢不受影響。停用時，會依照舊有行為解析序列化的 JNDI 名稱。",
+  "a-StrictClusterCompatibilityEnabled-label": "已啟用嚴格叢集相容性",
+  "a-StrictClusterCompatibilityEnabled-help": "指定叢集安全功能是否使用嚴格的複製階段作業網路傳輸格式，並嚴格驗證複製階段作業屬性中的動態代理介面。在支援此設定的 PSU 版本中，停用此設定可在滾動修補期間保留舊有行為；請在所有參與伺服器皆完成修補後重新啟用。在 WebLogic Server 26.1 和更新版本中，一律會啟用嚴格處理，而且無法設定此屬性。",
+  "a-SubjectNamePolicy-label": "主體名稱原則",
+  "a-T3LegacyCrossDomainCredentialJVMIDReplayProtectionEnabled-label": "已啟用 T3 舊有跨網域證明資料 JVMID 重播保護",
+  "a-T3LegacyCrossDomainCredentialJVMIDReplayProtectionEnabled-help": "指定 T3 伺服器識別處理是否防止以舊有跨網域證明資料簽署的 JVM 識別 (JVMID) 遭到重播，進而將信任伺服器狀態授予新識別的傳入連線。停用時，會保留舊有全域網域信任行為。",
+  "a-WarnOnDisabledCrossDomainT3SConnectionTrustValidation-label": "跨網域 T3S 連線信任驗證停用時發出警告",
+  "a-WarnOnDisabledIiopStrictRemoteBusinessInterfaceValidation-label": "IIOP 嚴格遠端商業介面驗證停用時發出警告",
+  "a-WarnOnDisabledIiopTypedReadResolveProxyValidation-label": "IIOP 型別化 readResolve 代理驗證停用時發出警告",
+  "a-WarnOnDisabledIiopUnauthenticatedServiceContextValueTypeFiltering-label": "IIOP 未認證服務內容值類型篩選停用時發出警告",
+  "a-WarnOnDisabledJaxwsRejectUnknownSeiOperations-label": "JAX-WS 拒絕不明 SEI 作業停用時發出警告",
+  "a-WarnOnDisabledJndiAdditionalFactoriesAllowLists-label": "JNDI 額外工廠允許清單停用時發出警告",
+  "a-WarnOnDisabledJndiBindingAuthorizationPolicy-label": "JNDI 繫結授權原則停用時發出警告",
+  "a-WarnOnDisabledJndiOutboundConnectionsAllowList-label": "JNDI 傳出連線允許清單停用時發出警告",
+  "a-WarnOnDisabledSAML2StrictArtifactResolution-label": "SAML2 嚴格 Artifact 解析停用時發出警告",
+  "a-WarnOnDisabledSerializedWorkContextMaximumSize-label": "序列化工作內容大小上限停用時發出警告",
+  "a-WarnOnDisabledSpringJtaDeserializationJndiLookupDisabled-label": "Spring JTA 還原序列化 JNDI 查詢停用設定停用時發出警告",
+  "a-WarnOnDisabledT3LegacyCrossDomainCredentialJVMIDReplayProtection-label": "T3 舊有跨網域證明資料 JVMID 重播保護停用時發出警告",
+  "a-WarnOnDisabledT3RouteOnlyToTrustedServers-label": "T3 僅路由至信任伺服器停用時發出警告",
+  "a-WarnOnDisabledWlProxyClientCertificateChainValidation-label": "WL 代理從屬端憑證鏈驗證停用時發出警告",
+  "a-WarnOnDisabledWldfScriptActionPathRestriction-label": "WLDF 指令碼動作路徑限制停用時發出警告",
+  "a-WarnOnDisabledWorkContextClassValidation-label": "工作內容類別驗證停用時發出警告",
+  "a-WarnOnDisabledWorkContextInputMaximumAsciiFieldSize-label": "工作內容輸入 ASCII 欄位大小上限停用時發出警告",
+  "a-WarnOnDisabledWsatIgnoreUnknownReplayCompletion-label": "WSAT 忽略不明重播完成停用時發出警告",
+  "a-WarnOnDisabledWsatRegistrationSecret-label": "WSAT 註冊密碼停用時發出警告",
+  "a-WlProxyClientCertificateChainValidationEnabled-label": "已啟用 WL 代理從屬端憑證鏈驗證",
+  "a-WlProxyClientCertificateChainValidationEnabled-help": "指定在用於 X.509 識別宣告前，是否根據已設定的 WebLogic Server 從屬端憑證信任錨點，驗證 WL-Proxy-Client-Cert HTTP 標頭中提供的憑證鏈。啟用時，會拒絕無效、不受信任、已過期、格式錯誤或其他無法驗證的憑證。停用時，會保留舊有的代理從屬端憑證行為。",
+  "a-WorkContextInputMaximumAsciiFieldSize-label": "工作內容輸入 ASCII 欄位大小上限",
+  "a-WorkContextInputMaximumAsciiFieldSize-help": "在使用四位元組帶正負號長度的 WorkArea 二進位編碼中，指定 ASCII 欄位的大小上限 (位元組)。值 -1 會停用此限制；0 只允許長度為零的欄位。此限制不適用於傳輸特定的 WorkContext 編碼，例如 T3 和 IIOP，這些編碼使用個別的解碼路徑。",
+  "a-WsatIgnoreUnknownReplayCompletionEnabled-label": "啟用 WSAT 忽略未知重播完成要求",
+  "a-WsatIgnoreUnknownReplayCompletionEnabled-help": "指定是否忽略沒有相符本機交易的 WS-AT 重播完成要求。停用時，舊有行為會復原從呼叫者提供的 ReplyTo 端點建立的復原資源。",
+  "a-WsatRegistrationSecretEnabled-label": "啟用 WSAT 註冊密鑰",
+  "a-WsatRegistrationSecretEnabled-help": "指定 WebLogic Server 是否在產生的 WS-AT 協調環境定義中包含每一交易的註冊密鑰，並要求未經認證的註冊要求在登記參與者之前傳回相符的密鑰。停用時，會保留舊有 WS-AT 互通性行為。",
+
+  "a-CertificateAuthorityKeyProfile-help": "指定下次產生或輪換「網域憑證授權機構」或「機器憑證授權機構」時使用的金鑰設定檔。變更此值不會取代現有的憑證授權機構金鑰或強制重新產生。",
+  "a-CertificateAuthoritySignatureAlgorithm-help": "指定新產生的「憑證授權機構」用於本身憑證及其簽發之分葉憑證的簽章演算法。現有的憑證授權機構會保留目前的簽章演算法，直到重新產生或輪換為止。",
+  "a-CertificateCheckTime-help": "以 H:mm 格式指定憑證檢查的本機伺服器時間，小時為 0 到 23，分鐘為兩位數。第一次檢查會在設定的「憑證檢查間隔」過後，於該時間進行；後續檢查會遵循相同的日曆日間隔。如果未設定，則會使用固定速率排程。",
+  "a-CertificateCheckTimeMaximumOffset-help": "指定新增至「憑證檢查時間」的隨機延遲上限 (秒)。建立排程時，會選取介於零與此值之間的一個偏移量，並在該排程生命週期重複使用。零會停用偏移量；最大值為 86399 秒。",
+  "a-CertificateKeyProfile-help": "指定下次產生或續期分葉憑證時使用的金鑰設定檔。變更此值不會變更現有憑證或強制重新產生。",
+  "a-DomainKeystoresAdminUrl-help": "指定「節點管理程式」為網域「憑證管理」服務而連線至的「管理伺服器」絕對 HTTPS URL。當 KeyStores 為 DomainKeystores 時，此特性為必要項。",
+  "a-DomainKeystoresMachineName-help": "指定網域「機器」名稱，供「憑證管理」服務用來識別「節點管理程式」。當 KeyStores 為 DomainKeystores 時，此特性為必要項。",
+  "a-ExpiredCertificateAuthorityRetentionDays-help": "指定在自動清除將其移除之前，過期的「憑證授權機構」在「管理伺服器」的網域信任或已佈建信任來源存放區中仍受信任的天數。零會停用自動清除，但不會阻止管理員起始的清除。",
+  "a-JmsDotNetClientEnabled-help": "指定是否啟用 WebLogic JMS Client for Microsoft .NET 端點。必須重新啟動伺服器，變更才會生效。預設值為 false。",
+  "a-KeystoreFileLockTimeout-help": "指定程序等待取得共用「憑證管理」金鑰存放區檔案之跨程序鎖定的時間上限 (毫秒)。值必須為正數。變更需要重新啟動受影響的伺服器或「節點管理程式」程序。若已指定 weblogic.keystore.filelock.timeout 系統特性，則該特性優先。",
+  "a-KeystoreFileLockingEnabled-help": "指定存取共用「憑證管理」金鑰存放區時，是否使用跨程序檔案鎖定。若停用，存取相同機器金鑰存放區的每個程序都必須一致停用鎖定。變更需要重新啟動受影響的伺服器或「節點管理程式」程序。若已指定 weblogic.keystore.filelock.enabled 系統特性，則該特性優先。",
+  "a-MaxHeaderCount-help": "指定一個標頭清單中接受的已解碼 HTTP/2 欄位數目上限，計入偽標頭、重複欄位，以及每個個別編碼的 Cookie 欄位。初始標頭與尾端標頭各有個別限制。這是本機傳入限制，不是 HTTP/2 SETTINGS 參數，變更會套用至新建立的連線。",
+  "a-MaxQueued-help": "指定當以註解設定的執行程式達到其 maxAsync 執行中工作限制時，可等待的非同步工作數。負值允許無界限佇列；0 會停用排入佇列，並在達到該限制時拒絕後續提交；正值會限制等待工作數。",
+  "a-MaximumUnitOfWorkMessages-help": "指定 JMS 工作單位 (UOW) 中的訊息數目上限。UOW 序號超過此限制的訊息會遭拒絕。只有當「工作單位處理原則」為「單一訊息傳遞」時，此設定才會生效。變更會套用至後續 UOW 訊息；已接受的 UOW 結束訊息仍會定義該 UOW 的允許序號範圍。",
+  "a-RestrictContentBasedOnRoles-help": "指定代管的 Remote Console 是否根據目前使用者的 WebLogic Server 角色來限制頁面和動作。停用時，會顯示所有內容，但 WebLogic Server 仍會強制執行授權。內容限制會使用預設安全原則，且可能不會反映自訂原則變更。",
+  "a-SubjectNamePolicy-help": "指定「網域憑證發行者」在憑證主體中允許的主機名稱和常值 IP 位址。CONFIGURED_ONLY 允許已設定的伺服器監聽位址、網路通道監聽位址、已設為目標的虛擬主機名稱，以及機器憑證的已設定節點管理程式監聽位址。CONFIGURED_PLUS_HOST 也允許已認證的要求主機名稱和位址。CONFIGURED_PLUS_ANY 允許任何要求的身分識別以提供舊有相容性。所有模式均允許 localhost 與數值回送位址。",
+  "a-WarnOnDisabledCrossDomainT3SConnectionTrustValidation-help": "指定是否在 FeatureCompatibility.CrossDomainT3SConnectionTrustValidationEnabled 為 false 時發出警告。這僅控制警告，不會變更功能設定。",
+  "a-WarnOnDisabledIiopStrictRemoteBusinessInterfaceValidation-help": "指定是否在 FeatureCompatibility.IiopStrictRemoteBusinessInterfaceValidationEnabled 為 false 時發出警告。這僅控制警告，不會變更功能設定。",
+  "a-WarnOnDisabledIiopTypedReadResolveProxyValidation-help": "指定是否在 FeatureCompatibility.IIOPTypedReadResolveProxyValidationEnabled 為 false 時發出警告。這僅控制警告，不會變更功能設定。",
+  "a-WarnOnDisabledIiopUnauthenticatedServiceContextValueTypeFiltering-help": "指定是否在 FeatureCompatibility.IIOPUnauthenticatedServiceContextValueTypeFilteringEnabled 為 false 時發出警告。這僅控制警告，不會變更功能設定。",
+  "a-WarnOnDisabledJaxwsRejectUnknownSeiOperations-help": "指定是否在 FeatureCompatibility.JaxwsRejectUnknownSeiOperationsEnabled 為 false 時發出警告。這僅控制警告，不會變更功能設定。",
+  "a-WarnOnDisabledJndiAdditionalFactoriesAllowLists-help": "指定是否在 FeatureCompatibility.JndiAdditionalFactoriesAllowListsEnabled 為 false 時發出警告。這僅控制警告，不會變更功能設定。",
+  "a-WarnOnDisabledJndiBindingAuthorizationPolicy-help": "指定是否在 FeatureCompatibility.JndiBindingAuthorizationPolicyEnabled 為 false 時發出警告。這僅控制警告，不會變更功能設定。",
+  "a-WarnOnDisabledJndiOutboundConnectionsAllowList-help": "指定是否在 FeatureCompatibility.JndiOutboundConnectionsAllowListEnabled 為 false 時發出警告。這僅控制警告，不會變更功能設定。",
+  "a-WarnOnDisabledSAML2StrictArtifactResolution-help": "指定是否在 FeatureCompatibility.SAML2StrictArtifactResolutionEnabled 為 false 時發出警告。這僅控制警告，不會變更功能設定。",
+  "a-WarnOnDisabledSerializedWorkContextMaximumSize-help": "指定是否在 FeatureCompatibility.SerializedWorkContextMaximumSize 為零或負數時發出警告。這僅控制警告，不會變更已設定的位元組限制。",
+  "a-WarnOnDisabledSpringJtaDeserializationJndiLookupDisabled-help": "指定是否在 FeatureCompatibility.SpringJtaDeserializationJndiLookupDisabled 為 false 時發出警告。這僅控制警告，不會變更功能設定。",
+  "a-WarnOnDisabledT3LegacyCrossDomainCredentialJVMIDReplayProtection-help": "指定是否在 FeatureCompatibility.T3LegacyCrossDomainCredentialJVMIDReplayProtectionEnabled 為 false 時發出警告。這僅控制警告，不會變更功能設定。",
+  "a-WarnOnDisabledT3RouteOnlyToTrustedServers-help": "指定是否在 FeatureCompatibility.T3RouteOnlyToTrustedServersEnabled 為 false 時發出警告。這僅控制警告，不會變更功能設定。",
+  "a-WarnOnDisabledWlProxyClientCertificateChainValidation-help": "指定是否在 FeatureCompatibility.WlProxyClientCertificateChainValidationEnabled 為 false 時發出警告。這僅控制警告，不會變更功能設定。",
+  "a-WarnOnDisabledWldfScriptActionPathRestriction-help": "指定是否在 FeatureCompatibility.WLDFScriptActionPathRestrictionEnabled 為 false 時發出警告。這僅控制警告，不會變更功能設定。",
+  "a-WarnOnDisabledWorkContextClassValidation-help": "指定當 FeatureCompatibility.WorkContextClassValidationEnabled 為 false 時，是否要發出警告。這僅控制警告，不會變更功能設定。",
+  "a-WarnOnDisabledWorkContextInputMaximumAsciiFieldSize-help": "指定當 FeatureCompatibility.WorkContextInputMaximumAsciiFieldSize 為零或負數時，是否要發出警告。這僅控制警告，不會變更設定的位元組限制。",
+  "a-WarnOnDisabledWsatIgnoreUnknownReplayCompletion-help": "指定當 FeatureCompatibility.WsatIgnoreUnknownReplayCompletionEnabled 為 false 時，是否要發出警告。這僅控制警告，不會變更功能設定。",
+  "a-WarnOnDisabledWsatRegistrationSecret-help": "指定當 FeatureCompatibility.WsatRegistrationSecretEnabled 為 false 時，是否要發出警告。這僅控制警告，不會變更功能設定。",
+  "f-NMProperties-a-KeystoreFileWatchingEnabled-help": "指定節點管理程式是否監看憑證管理金鑰儲存庫檔案，並輪詢受管理身分識別修訂版本。啟用時，身分識別遭取代或移除會導致節點管理程式重新啟動，因此不會保留已移除的監聽器證明資料。若要自動重新啟動，節點管理程式必須以重新啟動支援啟動。停用此特性會同時停用監看和修訂版本輪詢。變更需要重新啟動節點管理程式。若有指定，weblogic.keystore.filewatch.enabled 系統特性優先。",
+  "f-SecurityConfiguration_CertificateManagement-a-KeystoreFileWatchingEnabled-help": "指定 WebLogic Server 是否監看憑證管理金鑰儲存庫檔案，以偵測其他程序所做的變更。變更需要重新啟動伺服器。若有指定，weblogic.keystore.filewatch.enabled 系統特性優先。",
+
+  "feature-compatibility-warnings-title": "功能相容性警告",
+  "options-configured-only-label": "僅限已設定的名稱",
+  "options-configured-plus-host-label": "已設定的名稱和已認證的主機",
+  "options-configured-plus-any-label": "任何要求的名稱 (舊版相容性)",
+
+  "a-DatabaseType-label": "資料庫類型",
+  "a-DefaultResource-label": "預設資源",
+  "a-ProviderName-label": "提供者名稱",
+  "f-any_NoSqlResource-label": "NoSQL 資源",
+  "f-any_NoSqlSystemResource-label": "NoSQL 系統資源",
+  "f-any_NoSqlSystemResource-typeLabel": "NoSQL 系統資源",
+  "f-NoSqlSystemResource_NoSqlResource_Properties_Property-label": "特性",
+  "f-NoSqlSystemResource_NoSqlResource_Properties_Property-typeLabel": "特性",
+  "options-oracle-nosql-label": "Oracle NoSQL Database",
+  "options-mongodb-label": "MongoDB",
+  "options-solr-label": "Apache Solr",
+  "options-couchdb-label": "Apache CouchDB",
+  "options-dynamodb-label": "Amazon DynamoDB",
+  "options-elasticsearch-label": "Elasticsearch",
+  "options-couchbase-label": "Couchbase",
+  "options-document-label": "文件",
+  "options-key-value-label": "索引鍵 - 值",
+  "options-column-label": "資料欄",
+  "options-graph-label": "圖形",
+  "f-NoSqlSystemResource_NoSqlResource-a-ProviderName-help": "此資源使用的 NoSQL 提供者。支援的提供者名稱包括 oracle-nosql、mongodb、solr、couchdb、dynamodb、elasticsearch 以及 couchbase。影響提供者相容性的變更需要完整重新部署受影響的應用程式；停止 / 啟動不會清除失效狀態。",
+  "f-NoSqlSystemResource_NoSqlResource-a-DatabaseType-help": "提供者中立的 Jakarta Data 資料庫類型。預設值為 DOCUMENT。有效值為 DOCUMENT、KEY_VALUE、COLUMN 和 GRAPH，但選取的提供者必須支援此類型。內建的 oracle-nosql 提供者目前支援 DOCUMENT。WebLogic Server 會在資源指定為目標時驗證提供者與資料庫類型的組合。",
+  "f-NoSqlSystemResource_NoSqlResource-a-DefaultResource-help": "指定當以 Jakarta NoSQL 為後端的儲存區省略 dataStore 時，此資源是否符合預設選取資格。預設選取必須剛好有一個有效且以本機為目標的資源，且該資源必須明確繫結至應用程式並標示為預設值。此設定不會建立應用程式繫結或授予授權。",
+  "f-NoSqlSystemResource_NoSqlResource-a-JNDIName-help": "指派給此 NoSQL 資源的 JNDI 名稱。",
+  "f-NoSqlSystemResource_NoSqlResource_Properties_Property-a-Value-help": "此提供者專用 NoSQL 特性的純文字值。若為證明資料或其他敏感值，請使用「加密值」。",
+  "f-NoSqlSystemResource_NoSqlResource_Properties_Property-a-EncryptedValueEncrypted-help": "此提供者專用 NoSQL 特性的敏感值。WebLogic Server 會將值以加密形式儲存在 NoSQL 資源描述元中。WDT 會將此欄位當作密碼處理。"
 }
