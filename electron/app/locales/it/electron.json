@@ -151,7 +151,7 @@
   "dialog-openProjectFileLoadCredentialsErrorTitle": "Caricamento delle credenziali di progetto non riuscito",
   "dialog-openProjectFileLoadCredentialsErrorMessage": "Impossibile caricare le credenziali per il file di progetto {{projectFileName}} a causa di un errore: {{err}}",
   "dialog-openProjectFileCredentialManagerErrorTitle": "Creazione del Credential Manager non riuscita",
-  "dialog-openProjectFileCredentialManagerErrorMessage": "Impossibile creare il Credential Manager per il file di progetto {{projectFileName}} a causa di un errore: {{error}}",
+  "dialog-openProjectFileCredentialManagerErrorMessage": "Impossibile creare il Credential Manager per il file di progetto {{projectFileName}} a causa di un errore: {{err}}",
   "dialog-openProjectFileSendToWindowErrorTitleErrorTitle": "Apertura del progetto non riuscita",
   "dialog-openProjectFileSendToWindowErrorMessage": "Impossibile aprire il file di progetto {{projectFileName}} a causa di un errore durante l'inizializzazione della finestra del progetto: {{err}}",
   "dialog-createNewProjectTitle": "Crea progetto WebLogic Kubernetes Toolkit",
@@ -171,6 +171,8 @@
   "dialog-updateOneToolQuestionMessage": "Aggiornare a {{toolName1}}?",
   "dialog-updateTwoToolsSuccessMessage": "Installazione aggiornata a {{toolName1}} e {{toolName2}}.",
   "dialog-updateOneToolSuccessMessage": "Installazione aggiornata a {{toolName1}}.",
+  "dialog-updateToolsFailedTitle": "Aggiornamento degli strumenti WKT non riuscito",
+  "dialog-updateToolsFailedMessage": "Aggiornamento degli strumenti WKT non riuscito: {{error}}",
   "dialog-preference-save-success-title": "Preferenze salvate",
   "dialog-preference-save-success-message": "Salvataggio delle preferenze riuscito",
   "dialog-preference-save-error-title": "Salvataggio delle preferenze non riuscito",
@@ -206,6 +208,9 @@
   "dialog-archiveEntryFilter": "{{entryType}}",
   "dialog-getWebLogicRemoteConsoleHome": "Selezionare l'installazione di WebLogic Remote Console",
   "dialog-getWebLogicRemoteConsoleAppImage": "Selezionare il file AppImage di WebLogic Remote Console",
+
+  "dialog-forgotPasswordQuestion": "Cancellare tutti i campi delle credenziali nel progetto?",
+  "dialog-forgotPasswordDetail": "Questa opzione consentirà di aprire il progetto senza la passphrase, ma cancellerà tutti i campi delle credenziali.",
 
   "title-edited": "modificato",
 
@@ -451,6 +456,8 @@
   "wdt-archiveType-jmsForeignServerBinding": "Associazione server esterno JMS",
   "wdt-archiveType-jmsForeignServerBinding-fileLabel": "File associazione server esterno JMS",
   "wdt-archiveType-jmsForeignServerBinding-fileHelp": "Scegliere il percorso completo del file di associazione del server esterno JMS",
+  "wdt-archiveType-jmsForeignServerBinding-dirLabel": "Directory associazione server esterno JMS",
+  "wdt-archiveType-jmsForeignServerBinding-dirHelp": "Scegliere la directory contenente le associazioni del server esterno JMS",
 
   "wdt-archiveType-mimeMapping": "File di mapping MIME",
   "wdt-archiveType-mimeMapping-fileLabel": "File di mapping MIME",

@@ -236,9 +236,16 @@
   "user-settings-dialog-quickstart-section-title": "WebLogic Kubernetes Toolkit UI - Einführungskonfiguration",
   "user-settings-dialog-quickstart-skip-label": "Anzeige der Einführung beim Start überspringen",
   "user-settings-dialog-quickstart-skip-help": "Gibt an, ob die Anzeige der WebLogic Kubernetes Toolkit UI-Einführung beim Anwendungsstart übersprungen werden soll.",
+  "user-settings-dialog-appearance-mode-title": "Darstellung",
+  "user-settings-dialog-appearance-mode-label": "Darstellungsmodus",
+  "user-settings-dialog-appearance-mode-help": "Der zu verwendende WKT-UI-Darstellungsmodus.",
+  "user-settings-dialog-appearance-mode-dark": "Dunkelmodus",
+  "user-settings-dialog-appearance-mode-light": "Hellmodus",
+  "user-settings-dialog-appearance-mode-system": "BS-Modus verwenden",
 
   "dialog-passphrase-prompt-title": "Zugangsdatenverschlüsselungs-Passphrase",
   "dialog-passphrase-prompt-label": "Geben Sie die Passphrase ein, mit der die Projektzugangsdaten verschlüsselt werden sollen.",
+  "dialog-passphrase-prompt-forgot-passphrase": "Passphrase vergessen?",
 
   "dialog-about-version": "Version {{version}} ({{buildVersion}})",
 
@@ -1879,5 +1886,7 @@
   "wkt-project-verrazzano-removal-warning": "Die Unterstützung für Verrazzano wurde in WKTUI 2.0 entfernt. Daher wurde das Projekt konvertiert, um alle Verrazzano-bezogenen Felder zu entfernen.",
   "wkt-project-keytar-removal-warning": "Die Unterstützung für den nativen Zugangsdatenspeicher wurde in WKTUI 2.0 entfernt, da die JavaScript-Library keytar eingestellt wurde. Daher wurde das Projekt aktualisiert, sodass der Zugangsdatenmanager verwendet wird, der verschlüsselte Zugangsdaten in der Projektdatei speichert.",
   "wkt-project-dii-removal warning": "Die Unterstützung für \"Domain in Image\" wurde in WKTUI 2.0 entfernt, sodass das Projekt zur Verwendung von \"Modell in Image\" mit einem zusätzlichen Image konvertiert wurde",
-  "registry-credentials-dialog-title": "Zugangsdaten für Containerimage-Registry"
+  "registry-credentials-dialog-title": "Zugangsdaten für Containerimage-Registry",
+
+  "model-archive-context-menu-aria-label": "Aktionen für Archiveinträge"
 }

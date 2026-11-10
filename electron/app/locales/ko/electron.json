@@ -151,7 +151,7 @@
   "dialog-openProjectFileLoadCredentialsErrorTitle": "프로젝트 인증서 로드 실패",
   "dialog-openProjectFileLoadCredentialsErrorMessage": "오류로 인해 프로젝트 파일 {{projectFileName}}에 대한 인증서를 로드할 수 없음: {{err}}",
   "dialog-openProjectFileCredentialManagerErrorTitle": "인증서 관리자 생성 실패",
-  "dialog-openProjectFileCredentialManagerErrorMessage": "오류로 인해 프로젝트 파일 {{projectFileName}}에 대한 인증서 관리자를 생성할 수 없음: {{error}}",
+  "dialog-openProjectFileCredentialManagerErrorMessage": "오류로 인해 프로젝트 파일 {{projectFileName}}에 대한 인증서 관리자를 생성할 수 없음: {{err}}",
   "dialog-openProjectFileSendToWindowErrorTitleErrorTitle": "프로젝트 열기 실패",
   "dialog-openProjectFileSendToWindowErrorMessage": "프로젝트 창을 초기화하는 중 오류로 인해 프로젝트 파일 {{projectFileName}}을(를) 열 수 없음: {{err}}",
   "dialog-createNewProjectTitle": "WebLogic Kubernetes Toolkit 프로젝트 생성",
@@ -171,6 +171,8 @@
   "dialog-updateOneToolQuestionMessage": "{{toolName1}}(으)로 업데이트?",
   "dialog-updateTwoToolsSuccessMessage": "설치가 {{toolName1}} 및 {{toolName2}}(으)로 업데이트되었습니다.",
   "dialog-updateOneToolSuccessMessage": "설치가 {{toolName1}}(으)로 업데이트되었습니다.",
+  "dialog-updateToolsFailedTitle": "WKT 도구 업데이트 실패",
+  "dialog-updateToolsFailedMessage": "WKT 도구 업데이트 실패: {{error}}",
   "dialog-preference-save-success-title": "환경설정 저장됨",
   "dialog-preference-save-success-message": "환경설정이 성공적으로 저장되었습니다",
   "dialog-preference-save-error-title": "환경설정 저장 실패",
@@ -206,6 +208,9 @@
   "dialog-archiveEntryFilter": "{{entryType}}",
   "dialog-getWebLogicRemoteConsoleHome": "WebLogic Remote Console 설치 선택",
   "dialog-getWebLogicRemoteConsoleAppImage": "WebLogic Remote Console AppImage 파일 선택",
+
+  "dialog-forgotPasswordQuestion": "프로젝트의 모든 인증 정보 필드 지우기?",
+  "dialog-forgotPasswordDetail": "이 옵션을 사용하면 암호 문구 없이 프로젝트를 열 수 있지만 모든 인증 정보 필드가 지워집니다.",
 
   "title-edited": "편집됨",
 
@@ -451,6 +456,8 @@
   "wdt-archiveType-jmsForeignServerBinding": "JMS 외부 서버 바인딩",
   "wdt-archiveType-jmsForeignServerBinding-fileLabel": "JMS 외부 서버 바인딩 파일",
   "wdt-archiveType-jmsForeignServerBinding-fileHelp": "JMS 외부 서버 바인딩 파일의 전체 경로를 선택합니다.",
+  "wdt-archiveType-jmsForeignServerBinding-dirLabel": "JMS 외부 서버 바인딩 디렉토리",
+  "wdt-archiveType-jmsForeignServerBinding-dirHelp": "JMS 외부 서버 바인딩이 포함된 디렉토리를 선택합니다.",
 
   "wdt-archiveType-mimeMapping": "MIME 매핑 파일",
   "wdt-archiveType-mimeMapping-fileLabel": "MIME 매핑 파일",

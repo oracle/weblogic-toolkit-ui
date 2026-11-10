@@ -151,7 +151,7 @@
   "dialog-openProjectFileLoadCredentialsErrorTitle": "無法載入專案證明資料",
   "dialog-openProjectFileLoadCredentialsErrorMessage": "發生以下錯誤，因此無法載入專案檔案 {{projectFileName}} 的證明資料：{{err}}",
   "dialog-openProjectFileCredentialManagerErrorTitle": "無法建立證明資料管理程式",
-  "dialog-openProjectFileCredentialManagerErrorMessage": "發生以下錯誤，因此無法建立專案檔案 {{projectFileName}} 的證明資料管理程式：{{error}}",
+  "dialog-openProjectFileCredentialManagerErrorMessage": "發生以下錯誤，因此無法建立專案檔案 {{projectFileName}} 的證明資料管理程式：{{err}}",
   "dialog-openProjectFileSendToWindowErrorTitleErrorTitle": "無法開啟專案",
   "dialog-openProjectFileSendToWindowErrorMessage": "起始專案視窗時發生錯誤，因此無法開啟專案檔案 {{projectFileName}}：{{err}}",
   "dialog-createNewProjectTitle": "建立 WebLogic Kubernetes Toolkit 專案",
@@ -171,6 +171,8 @@
   "dialog-updateOneToolQuestionMessage": "要更新 {{toolName1}} 嗎？",
   "dialog-updateTwoToolsSuccessMessage": "已更新安裝的 {{toolName1}} 和 {{toolName2}}。",
   "dialog-updateOneToolSuccessMessage": "已更新安裝的 {{toolName1}}。",
+  "dialog-updateToolsFailedTitle": "WKT 工具更新失敗",
+  "dialog-updateToolsFailedMessage": "無法更新 WKT 工具：{{error}}",
   "dialog-preference-save-success-title": "已儲存偏好設定",
   "dialog-preference-save-success-message": "偏好設定已順利儲存",
   "dialog-preference-save-error-title": "偏好設定儲存失敗",
@@ -206,6 +208,9 @@
   "dialog-archiveEntryFilter": "{{entryType}}",
   "dialog-getWebLogicRemoteConsoleHome": "選取安裝的 WebLogic Remote Console",
   "dialog-getWebLogicRemoteConsoleAppImage": "選取 WebLogic Remote Console AppImage 檔案",
+
+  "dialog-forgotPasswordQuestion": "清除專案中的所有證明資料欄位嗎？",
+  "dialog-forgotPasswordDetail": "此選項可讓您不使用密碼片語即可開啟專案，但會清除所有證明資料欄位。",
 
   "title-edited": "已編輯",
 
@@ -451,6 +456,8 @@
   "wdt-archiveType-jmsForeignServerBinding": "JMS 外部伺服器連結",
   "wdt-archiveType-jmsForeignServerBinding-fileLabel": "JMS 外部伺服器連結檔案",
   "wdt-archiveType-jmsForeignServerBinding-fileHelp": "選擇 JMS 外部伺服器連結檔案的完整路徑",
+  "wdt-archiveType-jmsForeignServerBinding-dirLabel": "JMS 外部伺服器連結目錄",
+  "wdt-archiveType-jmsForeignServerBinding-dirHelp": "選擇包含 JMS 外部伺服器連結的目錄",
 
   "wdt-archiveType-mimeMapping": "MIME 對應檔案",
   "wdt-archiveType-mimeMapping-fileLabel": "MIME 對應檔案",

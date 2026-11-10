@@ -236,9 +236,16 @@
   "user-settings-dialog-quickstart-section-title": "Configuración de introducción de WebLogic Kubernetes Toolkit UI",
   "user-settings-dialog-quickstart-skip-label": "Omitir visualización de la introducción durante el inicio",
   "user-settings-dialog-quickstart-skip-help": "Si se va a omitir la visualización de la introducción de WebLogic Kubernetes Toolkit UI durante el inicio de la aplicación.",
+  "user-settings-dialog-appearance-mode-title": "Apariencia",
+  "user-settings-dialog-appearance-mode-label": "Modo de apariencia",
+  "user-settings-dialog-appearance-mode-help": "Modo de apariencia de WKT UI que se va a usar.",
+  "user-settings-dialog-appearance-mode-dark": "Modo oscuro",
+  "user-settings-dialog-appearance-mode-light": "Modo claro",
+  "user-settings-dialog-appearance-mode-system": "Usar modo del SO",
 
   "dialog-passphrase-prompt-title": "Frase de contraseña de cifrado de credenciales",
   "dialog-passphrase-prompt-label": "Introduzca la frase de contraseña que usar para cifrar la credencial del proyecto.",
+  "dialog-passphrase-prompt-forgot-passphrase": "¿Ha olvidado la frase de contraseña?",
 
   "dialog-about-version": "Versión {{version}} ({{buildVersion}})",
 
@@ -1879,5 +1886,7 @@
   "wkt-project-verrazzano-removal-warning": "WKTUI 2.0 ha eliminado el soporte para Verrazzano, por lo que el proyecto se ha convertido para eliminar todos los campos relacionados con Verrazzano.",
   "wkt-project-keytar-removal-warning": "WKTUI 2.0 ha eliminado el soporte para el almacén de credenciales nativo debido al desuso de la biblioteca keytar de JavaScript, por lo que el proyecto se ha actualizado para utilizar el gestor de credenciales que almacena las credenciales cifradas en el archivo de proyecto.",
   "wkt-project-dii-removal warning": "WKTUI 2.0 ha eliminado el soporte de Domain in Image, por lo que el proyecto se ha convertido para utilizar Model in Image con una imagen auxiliar",
-  "registry-credentials-dialog-title": "Credenciales de registro de imágenes de contenedor"
+  "registry-credentials-dialog-title": "Credenciales de registro de imágenes de contenedor",
+
+  "model-archive-context-menu-aria-label": "Acciones de entrada de archivo"
 }

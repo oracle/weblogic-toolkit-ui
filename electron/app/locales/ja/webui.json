@@ -236,9 +236,16 @@
   "user-settings-dialog-quickstart-section-title": "WebLogic Kubernetes Toolkit UIの概要の構成",
   "user-settings-dialog-quickstart-skip-label": "起動時の概要表示をスキップ",
   "user-settings-dialog-quickstart-skip-help": "アプリケーションの起動時にWebLogic Kubernetes Toolkit UIの概要の表示をスキップするかどうか。",
+  "user-settings-dialog-appearance-mode-title": "外観",
+  "user-settings-dialog-appearance-mode-label": "外観モード",
+  "user-settings-dialog-appearance-mode-help": "使用するWKT UIの外観モード。",
+  "user-settings-dialog-appearance-mode-dark": "ダーク・モード",
+  "user-settings-dialog-appearance-mode-light": "ライト・モード",
+  "user-settings-dialog-appearance-mode-system": "OSモードを使用",
 
   "dialog-passphrase-prompt-title": "資格証明の暗号化パスフレーズ",
   "dialog-passphrase-prompt-label": "プロジェクトの資格証明の暗号化に使用するパスフレーズを入力してください。",
+  "dialog-passphrase-prompt-forgot-passphrase": "パスフレーズをお忘れですか?",
 
   "dialog-about-version": "バージョン{{version}} ({{buildVersion}})",
 
@@ -1879,5 +1886,7 @@
   "wkt-project-verrazzano-removal-warning": "WKTUI 2.0でVerrazzanoのサポートが廃止されたため、プロジェクトは、すべてのVerrazzano関連フィールドを削除するように変換されました。",
   "wkt-project-keytar-removal-warning": "Keytar JavaScriptライブラリが非推奨になったのに伴い、WKTUI 2.0でネイティブ資格証明ストアのサポートが廃止されたため、プロジェクトは、暗号化された資格証明をプロジェクト・ファイルに保存する資格証明マネージャを使用するように更新されました。",
   "wkt-project-dii-removal warning": "WKTUI 2.0でイメージ内のドメインのサポートが廃止されたため、プロジェクトは、補助イメージでイメージ内のモデルを使用するように変換されました",
-  "registry-credentials-dialog-title": "コンテナ・イメージ・レジストリ資格証明"
+  "registry-credentials-dialog-title": "コンテナ・イメージ・レジストリ資格証明",
+
+  "model-archive-context-menu-aria-label": "アーカイブ・エントリ・アクション"
 }

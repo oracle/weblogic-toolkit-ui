@@ -39,6 +39,7 @@
   "node-manager-coherence-start-scripts-title": "Paramètres de script de démarrage Coherence",
   "wldf-elasticity-framework-settings-label": "Paramètres de structure d'élasticité WLDF",
   "rdbms-security-store-notifications-title": "Notifications JMS",
+  "node-manager-process-logging-title": "Paramètres de rotation de journal pour Coherence et les composants système",
 
   "general-tab-label": "Général",
   "attributes-tab-label": "Attributs",
@@ -108,6 +109,8 @@
   "saml-20-general-tab-label": "Généralités SAML 2.0",
   "saml-20-identity-provider-tab-label": "Fournisseur d'identités SAML 2.0",
   "saml-20-service-provider-tab-label": "Fournisseur de services SAML 2.0",
+  "node-manager-coherence-tab-label": "Paramètres de Coherence",
+  "node-manager-weblogic-tab-label": "Paramètres de WebLogic Server",
 
   "security-model-advanced-label": "Options avancées",
   "security-model-custom-roles-label": "Rôles personnalisés",
@@ -407,6 +410,8 @@
   "options-fine-label": "Fine",
   "options-finer-label": "Finer",
   "options-finest-label": "Finest",
+  "options-size-label": "Taille",
+  "options-time-label": "Heure",
 
   "direction-jms-queue-to-tuxedo-queue-label": "File d'attente JMS vers file d'attente Tuxedo",
   "direction-tuxedo-queue-to-jms-queue-label": "File d'attente Tuxedo vers file d'attente JMS",
@@ -476,6 +481,7 @@
   "invalid-integer-error": "La valeur doit être un entier",
   "invalid-double-error": "La valeur doit être un nombre décimal, par exemple 4 ou 3,5",
   "invalid-range-error": "La valeur doit être comprise entre {{min}} et {{max}}",
+  "invalid-time-of-day-error": "Saisissez une heure au format H:mm, avec une heure comprise entre 0 et 23 et une minute à deux chiffres comprise entre 00 et 59, par exemple 9:30 ou 09:30.",
 
   "instance-name-error": "Le nom ne peut contenir que des lettres, des chiffres et les caractères suivants : .-_!",
   "instance-name-in-use-error": "Ce nom est déjà utilisé",
@@ -674,7 +680,7 @@
   "f-JMSSystemResource_JmsResource_ConnectionFactory_ClientParams-a-AllowCloseInOnMessage-help": "Indique si une fabrique de connexions crée des destinataires de messages qui autorisent l'émission d'une méthode close() ou stop() dans son appel de méthode onMessage().",
 
   "a-AllowListRecordingEnabled-label": "Enregistrement de liste d'autorisation activé",
-  "a-AllowListRecordingEnabled-help": "Indique si le domaine sera exécuté avec l'enregistrement activé pour enregistrer les listes d'autorisation.",
+  "a-AllowListRecordingEnabled-help": "Indique si le domaine s'exécute avec l'enregistrement activé pour enregistrer les listes d'autorisation.",
 
   "a-AllowListViolationAction-label": "Action de violation de liste d'autorisation",
   "a-AllowListViolationAction-help": "Définit l'attribut AllowListViolationAction de tous les serveurs d'un domaine.",
@@ -1510,7 +1516,7 @@
 
   "a-ConnectionURL-label": "URL de connexion",
   "f-JMSBridgeDestination-a-ConnectionURL-help": "URL de connexion de cette destination de pont JMS.",
-  "f-JMSSystemResource_JmsResource_ForeignServer-a-ConnectionURL-help": "URL que WebLogic Server utilisera pour contacter le fournisseur JNDI. La syntaxe de cette URL dépend du fournisseur JNDI utilisé. Avec WebLogic JMS, laissez ce champ vide si vous référencez des objets WebLogic JMS du même cluster. Cette valeur correspond à la propriété JNDI standard, java.naming.provider.url. Remarque : si cette valeur n'est pas indiquée, des recherches seront effectuées sur le serveur JNDI dans l'instance WebLogic Server où cette fabrique de connexions est déployée.",
+  "f-JMSSystemResource_JmsResource_ForeignServer-a-ConnectionURL-help": "URL que WebLogic Server utilise pour contacter le fournisseur JNDI. La syntaxe dépend du fournisseur et correspond à java.naming.provider.url. Pour les fournisseurs basés sur des fichiers, sélectionnez un fichier ou un répertoire de liaison et ajoutez-le éventuellement à l'archive WDT. Pour WebLogic JMS, laissez ce champ vide lorsque vous référencez des objets au sein du même cluster. Si aucune valeur n'est indiquée, les recherches utilisent le serveur JNDI de l'instance WebLogic Server où ce serveur étranger est déployé.",
   "f-SecurityConfiguration_Realm_RDBMSSecurityStore-a-ConnectionURL-help": "L'URL est transmise au pilote JDBC pour créer les connexions de base de données physiques.",
 
   "a-ConsensusParticipants-label": "Participants au consensus",
@@ -1773,8 +1779,11 @@
   "a-CustomTrustKeyStoreFileName-label": "Nom du fichier de clés sécurisé personnalisé",
   "a-CustomTrustKeyStoreFileName-help": "Indique la source du fichier de clés sécurisé. Pour un fichier de clés JKS ou PKCS12, la source est le chemin et le nom de fichier, qui doivent pouvoir être résolus à partir du répertoire dans lequel le serveur a été démarré. Pour un fichier de clés du service de fichier de clés Oracle (KSS), la source est l'URI KSS, qui suit le format kss://system/keystorename, où keystorename est le nom du fichier de clés inscrit dans KSS.",
 
-  "a-CustomTrustKeyStorePassPhraseEncrypted-label": "Phrase de passe du fichier de clés sécurisé personnalisé",
+  "a-CustomTrustKeyStorePassPhrase-label": "Phrase de passe du fichier de clés sécurisé personnalisé",
   "a-CustomTrustKeyStorePassPhrase-help": "Définit la phrase de passe du fichier de clés sécurisé personnalisé. Si la valeur est vide ou NULL, aucune phrase de passe n'est nécessaire pour ouvrir le fichier de clés.",
+
+  "a-CustomTrustKeyStorePassPhraseEncrypted-label": "Phrase de passe du fichier de clés sécurisé personnalisé",
+  "a-CustomTrustKeyStorePassPhraseEncrypted-help": "Définit la phrase de passe du fichier de clés sécurisé personnalisé. Si la valeur est vide ou NULL, aucune phrase de passe n'est nécessaire pour ouvrir le fichier de clés.",
 
   "a-CustomTrustKeyStoreType-label": "Type de fichier de clés sécurisé personnalisé",
   "a-CustomTrustKeyStoreType-help": "Type du fichier de clés. Généralement, il s'agit de JKS ou PKCS12. Si vous utilisez le service de fichier de clés Oracle, il s'agit de KSS.",
@@ -2909,6 +2918,11 @@
   "f-WLDFSystemResource_WLDFResource_Instrumentation_WLDFInstrumentationMonitor-a-Exclude-help": "Expressions de modèle des classes qui seront exclues pour ce moniteur d'instrumentation. Si des expressions sont indiquées, les classes correspondant aux modèles donnés ne seront pas instrumentées avec ce moniteur.",
   "f-WLDFSystemResource_WLDFResource_Instrumentation-a-Exclude-help": "Expressions de modèle des classes qui seront exclues de cette portée d'instrumentation. Si des expressions sont indiquées, les classes correspondant aux modèles donnés ne seront pas instrumentées.",
 
+  "a-ExcludeClusterMembers-label": "Membres de cluster à exclure",
+  "a-ExcludeClusterMembers-itemLabel": "Membre de cluster à exclure",
+  "a-ExcludeClusterMembers-itemHelp": "Indiquez le nom du serveur à exclure.",
+  "a-ExcludeClusterMembers-help": "Indique la liste des serveurs à exclure de la liste de serveurs dynamique.",
+
   "a-ExcludedCiphersuite-label": "Mécanismes de cryptage exclus",
   "a-ExcludedCiphersuite-itemLabel": "Mécanisme de cryptage exclu",
   "a-ExcludedCiphersuite-itemHelp": "Indique un mécanisme de cryptage exclu à ajouter à la liste.",
@@ -3325,10 +3339,16 @@
   "a-IIOPConnectionPools-label": "Pools de connexions IIOP",
 
   "a-IIOPEnabled-label": "IIOP activé",
-  "a-IIOPEnabled-help": "Indique si la prise en charge du protocole IIOP est activée pour ce serveur, que ce soit pour les ports standard (non SSL) ou pour les ports SSL. La valeur par défaut est True.",
+  "f-SecurityConfiguration-a-IIOPEnabled-help": "Indique si la prise en charge du protocole IIOP doit être activée pour tous les serveurs de ce domaine. La valeur par défaut est False.",
+  "a-IIOPEnabled-help": "Indique si la prise en charge du protocole IIOP est activée pour ce serveur, pour les ports standard (non SSL) et SSL. La valeur par défaut est False.",
 
   "a-IIOPLocationForwardPolicy-label": "Règle de retransmission d'emplacement IIOP",
   "a-IIOPTxMechanism-label": "Mécanisme de transaction IIOP",
+
+  "a-IIOPTypedReadResolveProxyValidationEnabled-label": "Validation de proxy de résolution de lecture typée IIOP activée",
+  "a-IIOPTypedReadResolveProxyValidationEnabled-help": "Indique si WebLogic Server vérifie que la classe contenue dans un message IIOP est compatible avec le type Java attendu.",
+  "a-IIOPUnauthenticatedServiceContextValueTypeFilteringEnabled-label": "Filtrage des types de valeur de contexte de service IIOP non authentifié activé",
+  "a-IIOPUnauthenticatedServiceContextValueTypeFilteringEnabled-help": "Indique si WebLogic Server applique sa liste d'autorisation de désérialisation non authentifiée lors de la lecture de ces types de valeur à partir des contextes de service des demandes IIOP entrantes.",
 
   "a-IdentityAndTrustLocations-label": "Emplacements de l'identité et de la sécurisation",
   "f-any_SSL-a-IdentityAndTrustLocations-help": "Indique l'emplacement dans lequel SSL peut trouver l'identité du serveur (certificat et clé privée) ainsi que la sécurisation du serveur (autorités de certification sécurisées). La valeur par défaut est \"KeyStores\".",
@@ -3544,6 +3564,9 @@
   "a-IsDefaultAdmin-label": "Est l'administrateur par défaut",
   "a-IsolatePartitionThreadLocals-label": "Isoler les variables locales de thread de partition",
 
+  "a-IsLogLockingEnabled-label": "Verrouillage du journal activé",
+  "a-IsLogLockingEnabled-help": "Indique si le verrouillage du journal est activé. La valeur par défaut est True.",
+
   "a-Issuer-label": "Emetteur",
   "a-Issuer-help": "Indique une valeur de remplacement pour la valeur d'émetteur de jeton utilisée lors de la validation. Généralement, l'émetteur est obtenu à partir des métadonnées de repérage Oracle Identity Cloud Service. Lorsqu'elle est configurée, la valeur d'émetteur est utilisée pour tous les locataires.",
 
@@ -3683,10 +3706,32 @@
   "a-JmsToTuxPriorityMap-valueHelp": "Priorité Tuxedo avec laquelle la priorité JMS doit être mise en correspondance.",
   "a-JmsToTuxPriorityMap-help": "Correspondance des priorités de JMS vers Tuxedo. Correspondance des priorités de JMS vers Tuxedo par défaut : 0:1 | 1:12 | 2:23 | 3:34 | 4:45 |5:56 | 6:67 | 7:78 | 8:89 | 9:100.",
 
+  "a-JndiAdditionalFactoriesAllowListsEnabled-label": "Listes d'autorisation des fabriques JNDI supplémentaires activées",
+  "a-JndiAdditionalFactoriesAllowListsEnabled-help": "Indique si le serveur WebLogic limite ces fabriques JNDI côté serveur aux fabriques intégrées et aux fabriques explicitement répertoriées dans deux attributs SecurityConfiguration associés.",
+  "a-JndiAdditionalInitialContextFactoriesAllowed-label": "Fabriques de contextes initiales JNDI supplémentaires autorisées",
+  "a-JndiAdditionalInitialContextFactoriesAllowed-itemLabel": "Fabrique de contextes initiale JNDI supplémentaire autorisée",
+  "a-JndiAdditionalInitialContextFactoriesAllowed-itemHelp": "Indique un nom de classe qualifié complet d'une implémentation InitialContextFactory à utiliser sur le serveur.",
+  "a-JndiAdditionalInitialContextFactoriesAllowed-help": "Indique la liste des noms de classe qualifiés complets des implémentations InitialContextFactory pouvant être utilisées sur le serveur.",
+  "a-JndiAdditionalReferenceFactoriesAllowed-label": "Fabriques de référence JNDI supplémentaires autorisées",
+  "a-JndiAdditionalReferenceFactoriesAllowed-itemLabel": "Fabrique de référence JNDI supplémentaire autorisée",
+  "a-JndiAdditionalReferenceFactoriesAllowed-itemHelp": "Indique le nom de classe d'une fabrique de référence JNDI supplémentaire autorisée pour la matérialisation de référence côté serveur.",
+  "a-JndiAdditionalReferenceFactoriesAllowed-help": "Indique la liste des noms de classe de fabriques de référence JNDI supplémentaires autorisés pour la matérialisation de référence côté serveur.",
+
+  "a-JndiBindingAuthorizationPolicyEnabled-label": "Stratégie d'autorisation de liaison JNDI activée",
+  "a-JndiBindingAuthorizationPolicyEnabled-help": "Indique si un rôle d'administration de serveur WebLogic est requis pour les opérations qui modifient les liaisons JNDI côté serveur.",
+
   "a-JndiFactory-label": "Nom de classe de fabrique de contextes initiale JNDI",
   "f-WTCServer_WTCtBridgeGlobal-a-JndiFactory-help": "Nom de la fabrique de recherche JNDI. La valeur par défaut est weblogic.jndi.WLInitialContextFactory.",
 
   "a-JndiPropertiesCredentialEncrypted-label": "Informations d'identification des propriétés JNDI cryptées",
+
+  "a-JndiOutboundConnectionsAllowed-label": "Connexions JNDI sortantes autorisées",
+  "a-JndiOutboundConnectionsAllowed-itemLabel": "Connexion JNDI sortante autorisée",
+  "a-JndiOutboundConnectionsAllowed-itemHelp": "Indique une entrée de connexion JNDI sortante autorisée pour les entrées de recherche JNDI côté serveur.",
+  "a-JndiOutboundConnectionsAllowed-help": "Indique la liste des entrées de connexion JNDI sortante autorisées pour les entrées de recherche JNDI côté serveur.",
+
+  "a-JndiOutboundConnectionsAllowListEnabled-label": "Liste d'autorisation des connexions JNDI sortantes activée",
+  "a-JndiOutboundConnectionsAllowListEnabled-help": "Indique si WebLogic Server limite les connexions JNDI sortantes aux destinations répertoriées dans l'attribut SecurityConfiguration JNDIOutboundConnectionsAllowed.",
 
   "a-JobSchedulerTableName-label": "Nom de table du planificateur de travaux",
   "f-Cluster-a-JobSchedulerTableName-help": "Indique le nom de table à utiliser pour stocker les horloges actives avec le planificateur de travaux.",
@@ -3788,6 +3833,12 @@
 
   "a-LeaderHeartbeatPeriod-label": "Période de signal d'activité du leader",
   "f-Cluster_DatabaseLessLeasingBasis-a-LeaderHeartbeatPeriod-help": "Définit la valeur LeaderHeartbeatPeriod (en secondes). Chaque seconde, le leader du cluster envoie un signal d'activité spécifique pour publier la version de vue de groupe et d'autres informations sur le cluster. Les membres suivent ce signal d'activité et exécutent, au besoin, des opérations de synchronisation. La valeur par défaut est 10.",
+
+  "a-LegacyEmptyBeansXmlDiscovery-label": "Détection héritée des descripteurs beans.xml vides",
+  "a-LegacyEmptyBeansXmlDiscovery-help": "Indique si un descripteur beans.xml vide admissible utilise le mode de détection des beans CDI hérité pour cette application.",
+
+  "a-LegacyArgon2FallbackEnabled-label": "Repli vers l'algorithme Argon2 hérité activé",
+  "a-LegacyArgon2FallbackEnabled-help": "Indique s'il faut tenter de valider le mot de passe à l'aide d'un algorithme Argon2 hérité si le mot de passe n'est pas validé à l'aide de l'algorithme standard.",
 
   "a-Level-label": "Niveau",
 
@@ -5136,6 +5187,9 @@
   "a-ProfileType-label": "Type de profil",
   "f-JDBCSystemResource_JdbcResource_JDBCConnectionPoolParams-a-ProfileType-help": "Indique le type de données de profil à collecter pour le sous-système JDBC. Afin d'activer plusieurs options de profilage, la valeur doit être définie sur la somme de la valeur numérique de chaque option. Par exemple, pour activer les options Utilisation de la connexion, Perte de connexion et Utilisation de la désencapsulation de connexion, la valeur doit être définie sur 261 (1 + 4 + 256) ou 0x105 (0x001 + 0x004 + 0x100).",
 
+  "a-ProgressTrackerInitialDataTimeout-label": "Délai d'expiration des données initiales du suivi de progression",
+  "a-ProgressTrackerInitialDataTimeout-help": "Délai au terme duquel le suivi de progression arrive à expiration en attendant des données.",
+
   "a-PropagateCauseForLoginException-label": "Propager la cause pour une exception de connexion",
   "a-PropagateCauseForLoginException-help": "Indique si la cause de l'exception LoginException doit être propagée.",
 
@@ -5145,7 +5199,7 @@
   "a-Properties-keyHelp": "Indique le nom de propriété.",
   "a-Properties-valueLabel": "Valeur de propriété",
   "a-Properties-valueHelp": "Indique la valeur de propriété.",
-  "f-ForeignJNDIProvider-a-Properties-help": "Propriétés supplémentaires devant être définies pour le fournisseur JNDI. Elles seront directement transmises au constructeur pour la classe InitialContext du fournisseur JNDI.",
+  "f-ForeignJNDIProvider-a-Properties-help": "Propriétés supplémentaires qui doivent être définies pour le fournisseur JNDI. Ces propriétés sont transmises directement au constructeur de la classe InitialContext du fournisseur JNDI. A partir de WebLogic Server 26.1, les valeurs dont les noms de propriété se terminent par .encrypted (sensible à la casse) sont traitées comme des informations d'identification par WDT et chiffrées par WebLogic Server dans config.xml.",
   "f-MailSession-a-Properties-help": "Options de configuration et données d'authentification utilisateur employées par cette session JavaMail pour interagir avec le serveur de messagerie. Chaque propriété que vous indiquez remplace la valeur de propriété par défaut définie par la spécification de conception d'API JavaMail. Incluez uniquement les propriétés définies par cette spécification de conception. Si vous n'indiquez aucune propriété, cette session de messagerie utilise les valeurs de propriété par défaut JavaMail.",
   "f-WLDFSystemResource_WLDFResource_Instrumentation_WLDFInstrumentationMonitor-a-Properties-itemLabel": "Propriété",
   "f-WLDFSystemResource_WLDFResource_Instrumentation_WLDFInstrumentationMonitor-a-Properties-itemHelp": "Indiquez une paire nom=valeur de propriété pour ce moniteur.",
@@ -5480,6 +5534,9 @@
 
   "a-ResponseTimeout-label": "Délai d'expiration de réponse",
 
+  "a-RestEnabled-label": "REST activé",
+  "a-RestEnabled-help": "Indique si REST doit être activé.",
+
   "a-RestInvocationMethodType-label": "Type de méthode d'appel REST",
   "f-WLDFSystemResource_WLDFResource_WatchNotification_RestNotification-a-RestInvocationMethodType-help": "Méthode REST pour l'appel de l'adresse.",
 
@@ -5627,6 +5684,10 @@
   "f-XMLRegistry-a-SAXParserFactory-help": "Nom qualifié complet de la classe qui implémente l'interface SAXParserFactory. L'API de fabrique javax.xml.parsers.SAXParserFactory permet aux applications déployées sur WebLogic Server de configurer et d'obtenir un analyseur XML basé sur SAX pour analyser des documents XML.",
   "f-any_XMLParserSelectRegistryEntry-a-SAXParserFactory-help": "Indique le nom qualifié complet de la classe qui implémente l'API SAXParserFactory. Lorsque WebLogic Server commence à analyser un document XML identifié par l'ID public, l'ID système ou l'élément racine indiqué dans cette entrée et que l'application précise qu'elle veut un analyseur SAX, WebLogic Server utilise cette classe d'implémentation avec javax.xml.parsers.SAXParserFactory pour obtenir cet analyseur SAX.",
 
+  "f-BatchConfig-a-SchemaName-label": "Nom de schéma",
+  "f-BatchConfig-a-SchemaName-help": "Définit le nom de schéma dans lequel les tables JobRepository ont été créées. Notez que si la source de données JobRepository est partagée par des applications, ce nom de schéma doit être identique au nom attendu par l'application.",
+  "f-BatchConfig-label": "Configuration batch",
+
   "a-SNMPPort-label": "Port SNMP",
   "a-SNMPPort-help": "Port sur lequel vous souhaitez que cet agent SNMP écoute les demandes entrantes provenant des gestionnaires SNMP qui utilisent le protocole UDP. Les gestionnaires SNMP peuvent utiliser ce port pour envoyer la commande ping à l'agent SNMP et demander le statut d'attributs spécifiques. Si vous ciblez l'agent SNMP sur plusieurs instances de serveur et qu'au moins deux de ces serveurs sont exécutés sur le même ordinateur, WebLogic Server incrémente automatiquement la valeur de port UDP (de 1 pour chaque agent). WebLogic Server n'affecte jamais le port 162, car il s'agit du port par défaut utilisé par les agents pour envoyer des notifications. Par ailleurs, si un port est déjà utilisé, WebLogic Server l'ignore et affecte le numéro disponible suivant.",
 
@@ -5760,6 +5821,9 @@
   "a-Scope-label": "Portée",
   "a-ScriptExecutorCommand-label": "Commande d'exécuteur de script",
 
+  "a-ScriptTimeout-label": "Délai d'expiration de script",
+  "a-ScriptTimeout-help": "Délai d'expiration à utiliser lors de l'attente de l'exécution des scripts.",
+
   "a-SdpEnabled-label": "Protocole SDP (Socket Direct Protocol) activé",
   "f-any_NetworkAccessPoint-a-SDPEnabled-help": "Active le protocole SDP (Socket Direct Protocol) sur ce canal. Activez cet attribut lors de la configuration d'améliorations de la réplication de session pour les serveurs gérés dans un cluster WebLogic pour Oracle Exalogic. SDP est enlevé de JDK11. En phase d'abandon dans la version 14.1.1.",
 
@@ -5847,6 +5911,9 @@
 
   "a-SerializeEnlistmentsGCIntervalMillis-label": "Intervalle de nettoyage de la mémoire de sérialisation des engagements (millisecondes)",
   "a-SerializeEnlistmentsGCIntervalMillis-help": "Intervalle, en millisecondes, auquel les objets internes permettant de sérialiser l'engagement des ressources sont nettoyés.",
+
+  "a-SerializedWorkContextMaximumSize-label": "Taille maximale du contexte de travail sérialisé",
+  "a-SerializedWorkContextMaximumSize-help": "Limite la taille d'un contexte de travail unique. WorkContext est un petit élément de métadonnées que WebLogic Server peut joindre à une demande ou à un message et propager à un autre composant. La définition de la valeur sur une valeur non négative entraîne également l'application par WebLogic Server de son filtre d'objets d'entrée non authentifiée plus strict lorsque l'objet différé dans le contexte de travail est désérialisé. Cela peut se produire après la réception initiale du contexte de travail externe.",
 
   "a-Server-label": "Serveur",
   "a-ServerAffinityEnabled-label": "Affinité de serveur activée",
@@ -6121,6 +6188,7 @@
   "a-SslEnabled-help": "Indique si le protocole TLS/SSL est utilisé lors de la connexion à Oracle Identity Cloud Service.",
 
   "a-SslProtocolVersion-label": "Version de protocole SSL",
+
   "f-WTCServer_WTCLocalTuxDom-a-SslProtocolVersion-help": "Version de protocole de la connexion SSL utilisée par ce point d'accès local lors de l'établissement d'une connexion SSL.",
   "f-WTCServer_WTCRemoteTuxDom-a-SslProtocolVersion-help": "Version de protocole de la connexion SSL utilisée par ce point d'accès distant lors de l'établissement d'une connexion SSL avec un point d'accès local spécifique.",
 
@@ -6217,6 +6285,9 @@
 
   "a-StrictOwnershipCheck-label": "Vérification stricte de la propriété",
   "a-StrictOwnershipCheck-help": "Indique si le système doit continuer le démarrage si le propriétaire en cours de TRS est introuvable pour effectuer la restauration. Cet attribut n'est applicable qu'aux serveurs inclus dans un cluster. Si la valeur est True, le serveur ne parvient pas à démarrer dans cette situation. Si la valeur est False (valeur par défaut), le serveur continue à démarrer sans essayer de procéder à la restauration.",
+
+  "a-StrictReplicationAuthorizationEnabled-label": "Autorisation stricte de réplication activée",
+  "a-StrictReplicationAuthorizationEnabled-help": "Contrôle de déploiement d'une modification du protocole de réplication de cluster WebLogic Server. Dans les flux de patches PSU, il permet aux clients de terminer l'application des patches et le redémarrage de chaque serveur du domaine avant d'activer le protocole de réplication de cluster mis à jour.",
 
   "a-StringToCompare-label": "Chaîne à comparer",
   "f-any_SNMPStringMonitor-a-StringToCompare-help": "Chaîne à laquelle la valeur de l'attribut surveillé sera comparée. Une notification est générée lorsque les critères indiqués par Notifier la correspondance ou Notifier la différence sont satisfaits.",
@@ -6331,6 +6402,10 @@
   "a-SystemThreadPoolSize-label": "Taille de pool de threads système",
   "a-T3ClientAbbrevTableSize-label": "T3 - Client - Taille de la table d'abréviation",
   "a-T3HttpUpgradeHandler-label": "T3 - HTTP - Gestionnaire de mise à niveau",
+
+  "a-T3RouteOnlyToTrustedServersEnabled-label": "T3 - Routage uniquement vers les serveurs approuvés activé",
+  "a-T3RouteOnlyToTrustedServersEnabled-help": "Indique si le serveur intermédiaire peut créer une route uniquement vers une destination qu'il connaît déjà ou qui a été identifiée par la configuration WebLogic Server locale.",
+
   "a-T3ServerAbbrevTableSize-label": "T3 - Serveur - Taille de la table d'abréviation",
 
   "a-TGIOPEnabled-label": "TGIOP activé",
@@ -6932,18 +7007,24 @@
   "a-ValidateDDSecurityData-label": "Valider les données de sécurité DD",
   "a-ValidateDDSecurityData-help": "Indique si les données de sécurité du descripteur de déploiement doivent être validées. Non utilisé dans les versions modernes de WebLogic Server.",
 
+  "a-ValidatePersistenceXmlSchema-label": "Valider le schéma XML de persistance",
+  "a-ValidatePersistenceXmlSchema-help": "Indique si les descripteurs META-INF/persistence.xml sont validés par rapport à leur schéma XML Jakarta Persistence lors du déploiement.",
+
   "a-ValidityPeriod-label": "Période de validité",
   "f-WebserviceSecurity_WebserviceTimestamp-a-ValidityPeriod-help": "Représente la durée de validité du message sortant souhaitée par l'expéditeur. Lorsque la valeur de ValidityPeriod est positive, le gestionnaire TimestampHandler insère un élément Expires dans l'en-tête d'horodatage. La durée ValidityPeriod est exprimée en secondes ; l'heure d'expiration correspond à ce nombre de secondes après l'heure de création de l'horodatage.",
 
   "a-Value-label": "Valeur",
   "f-JDBCSystemResource_JdbcResource_JDBCDriverParams_Properties-a-Value-help": "Valeur de la propriété du pilote JDBC.",
-  "f-JMSSystemResource_JmsResource_ForeignServer_JNDIProperty-a-Value-help": "Valeur de la propriété JNDI.",
+  "f-JMSSystemResource_JmsResource_ForeignServer_JNDIProperty-a-Value-help": "Valeur de la propriété JNDI. À partir de WebLogic Server 26.1, WebLogic Server chiffre cette valeur dans le descripteur JMS lorsque Key se termine par .encrypted (sensible à la casse). Lorsque Key n'est pas défini, WDT utilise le nom de l'instance de propriété comme clé.",
   "f-any_ConfigurationProperty-a-Value-help": "Indique la valeur de la propriété.",
 
   "a-VerboseEJBDeploymentEnabled-label": "Déploiement EJB en mode verbose activé",
 
   "a-VerboseLoggingEnabled-label": "Journalisation en mode verbose activée",
   "f-any_COM-a-VerboseLoggingEnabled-help": "Indique si la journalisation en mode verbose est activée.",
+
+  "a-VerboseStuckThreadName-label": "Nom de thread bloqué en mode verbose",
+  "a-VerboseStuckThreadName-help": "Indique si des détails supplémentaires, tels que l'heure à laquelle le thread est marqué comme bloqué et l'heure de début de la demande de travail, doivent être inclus dans les noms des threads bloqués.",
 
   "a-Version-label": "Version",
   "a-VersionIdentifier-label": "Identificateur de version",
@@ -6976,6 +7057,9 @@
   "a-WAPEnabled-help": "Indique si l'ID de session doit inclure des informations sur la JVM. (Il peut être nécessaire de cocher cette case si vous utilisez la fonction de réécriture des URL avec des appareils WAP pour lesquels la taille des URL ne peut dépasser 128 caractères. Cela peut avoir une incidence sur l'utilisation des sessions répliquées dans un cluster.) Lorsque cette option est sélectionnée, la taille par défaut de l'URL est de 52 caractères et elle ne peut contenir aucun caractère spécial. La valeur par défaut est False.",
 
   "a-WLDFBuiltinSystemResourceDescriptorBean-label": "Bean de descripteur de ressource système intégrée WLDF",
+
+  "a-WLDFScriptActionPathRestrictionEnabled-label": "Restriction de chemin d'action de script WLDF activée",
+  "a-WLDFScriptActionPathRestrictionEnabled-help": "Indique où peut se trouver l'exécutable indiqué par une action de script WLDF. Lorsque cette option est activée, le script doit se trouver dans $DOMAIN_HOME/bin/scripts.",
 
   "a-WaitForAllSessionsDuringShutdown-label": "Attendre toutes les sessions lors de l'arrêt",
   "f-Cluster_DynamicServers-a-WaitForAllSessionsDuringShutdown-help": "Indique si la structure d'élasticité doit attendre toutes les sessions HTTP (persistantes et non persistantes) en cours d'exécution lors de l'arrêt des serveurs.",
@@ -7047,8 +7131,16 @@
   "a-WebLogicHome-label": "Répertoire de base WebLogic",
   "f-NMProperties-a-WebLogicHome-help": "Répertoire racine de l'installation d'Oracle WebLogic Server. Sert de valeur par défaut à -Dweblogic.RootDirectory pour un serveur géré qui n'a pas de répertoire racine configuré sur sa page de démarrage distant. Si aucune valeur n'est indiquée à aucun des deux emplacements, le gestionnaire de noeuds démarre le serveur géré dans le répertoire d'exécution du gestionnaire de noeuds.",
 
+  "a-WeblogicPluginAllowedProxyHost-label": "Hôtes proxy autorisés pour le module d'extension WebLogic",
+  "a-WeblogicPluginAllowedProxyHost-itemLabel": "Hôte proxy autorisé pour le module d'extension WebLogic",
+  "a-WeblogicPluginAllowedProxyHost-itemHelp": "Indique un nom d'hôte ou une adresse IP à ajouter à la liste des sources dont WebLogic Server accepte les en-têtes WL-Proxy-* propriétaires.",
+  "a-WeblogicPluginAllowedProxyHost-help": "Indique les noms d'hôte ou les adresses IP dont WebLogic Server accepte les en-têtes WL-Proxy-* propriétaires lorsque le traitement des en-têtes du module d'extension proxy WebLogic est activé.",
+
   "a-WebModule-label": "Module Web",
   "a-WebRjvmSupport-label": "Prise en charge de RJVM Web",
+
+  "a-WebLogicJwtVirtualUserEnabled-label": "Utilisateur virtuel JWT WebLogic activé",
+  "a-WebLogicJwtVirtualUserEnabled-help": "Détermine si le jeton JWT WebLogic est activé pour la prise en charge des utilisateurs virtuels. Lorsqu'il est activé, le jeton JWT WebLogic contient des informations sur l'utilisateur et le groupe.",
 
   "a-WeblogicPluginEnabled-label": "Module d'extension WebLogic activé",
   "a-WeblogicPluginEnabled-help": "Indique si ce serveur utilise l'en-tête WL-Proxy-Client-IP propriétaire. Définissez cet attribut sur True pour indiquer que cette instance de serveur utilise cet en-tête, ce qui est recommandé si l'instance de serveur doit recevoir des demandes d'un module d'extension proxy. Si l'instance de serveur est membre d'un cluster qui reçoit des demandes avec proxy, activez le module d'extension WebLogic au niveau du cluster. Pour les serveurs membres d'un cluster, le paramètre au niveau du cluster remplace le paramètre du serveur. Lorsque le module d'extension WebLogic est activé au niveau du cluster, un appel de la méthode getRemoteAddr renvoie l'adresse du client de navigateur à partir de l'en-tête WL-Proxy-Client-IP propriétaire, à la place du serveur Web.",
@@ -7075,6 +7167,9 @@
 
   "a-WlsErrorDestination-label": "Destination d'erreur WLS",
   "f-WTCServer_WTCtBridgeGlobal-a-WlsErrorDestination-help": "Nom de l'emplacement utilisé pour stocker les messages JMS WebLogic Server lorsqu'un message ne peut pas être réacheminé. Si aucun emplacement n'est indiqué, tous les messages non réacheminés sont perdus. S'il est impossible de placer le message dans WlsErrorDestination pour une raison quelconque, une erreur est consignée dans le journal et le message est perdu.",
+
+  "a-WorkContextClassValidationEnabled-label": "Validation des classes de contexte de travail activée",
+  "a-WorkContextClassValidationEnabled-help": "Indique les classes d'implémentation WorkContext que WebLogic Server construit lorsqu'il reçoit des données WorkArea.",
 
   "a-WorkContextPropagationEnabled-label": "Propagation des contextes de travail activée",
   "f-WebAppContainer-a-WorkContextPropagationEnabled-help": "Indique si le paramètre WorkContextPropagation est activé. Il l'est par défaut. La propagation des contextes de travail entraîne une légère surcharge. Par conséquent, si la propagation des contextes de travail n'est pas nécessaire, désactivez ce paramètre dans les environnements de production.",
@@ -7144,7 +7239,7 @@
   "a-XmlEventFactory-label": "Fabrique d'événements XML",
   "f-XMLRegistry-a-XmlEventFactory-help": "Nom qualifié complet de la classe qui implémente l'interface XMLEventFactory. L'API de fabrique javax.xml.stream.XMLEventFactory active les applications déployées sur WebLogic Server pour configurer et obtenir un objet XMLEvent permettant d'analyser ou de construire des flux XML.",
 
-  "a-XmlInputFactory-label": "Fabrique d'entrées XML",
+  "a-XmlInputFactory-label": "Fabrique d'entrées  XML",
   "f-XMLRegistry-a-XmlInputFactory-help": "Nom qualifié complet de la classe qui implémente l'interface XMLInputFactory. L'API de fabrique javax.xml.stream.XMLInputFactory active les applications déployées sur WebLogic Server pour configurer et obtenir un objet XMLEventReader/XMLStreamReader permettant de lire des flux XML.",
 
   "a-XmlOutputFactory-label": "Fabrique de sorties XML",
@@ -7165,6 +7260,14 @@
 
   "a-coherence_StartScriptName-label": "Nom du script de démarrage Coherence",
   "f-NMProperties-a-coherence_StartScriptName-help": "Nom du script à exécuter pour démarrer le serveur.",
+
+  "a-coherence_startup_Arguments-label": "Arguments de démarrage de Coherence",
+  "a-coherence_startup_Arguments-itemLabel": "Argument de démarrage de Coherence",
+  "a-coherence_startup_Arguments-itemHelp": "Indiquez l'argument de démarrage de Coherence à ajouter.",
+  "a-coherence_startup_Arguments-help": "Arguments de démarrage de Coherence",
+
+  "a-coherence_startup_MW_HOME-label": "Répertoire de base Middleware de démarrage de Coherence",
+  "a-coherence_startup_MW_HOME-help": "Répertoire de base du middleware à utiliser pour démarrer le serveur Coherence.",
 
   "a-compInfoXMLLocation-label": "Emplacement XML des informations sur le composant",
   "a-compInfoXMLLocation-help": "Chemin complet vers l'emplacement du fichier ComponentInfo.xml. L'emplacement par défaut est ORACLE_HOME/oracle_common/rcu/config.",
@@ -7225,6 +7328,28 @@
   "a-pager-label": "pager",
   "a-postaladdress-label": "postaladdress",
   "a-postofficebox-label": "postofficebox",
+
+  "a-process_FileSizeKB-label": "Taille du fichier de processus (Ko)",
+  "a-process_FileSizeKB-help": "Taille maximale du fichier journal du processus en kilo-octets lors du changement de journal en fonction de la taille.",
+
+  "a-process_FileTimeSpan-label": "Intervalle de temps du fichier de processus",
+  "a-process_FileTimeSpan-help": "Intervalle (en heures) auquel le processus enregistre les anciens messages de journal dans un autre fichier. La valeur par défaut est 24.",
+
+  "a-process_FileTimeSpanFactor-label": "Facteur d'intervalle de temps du fichier de processus",
+  "a-process_FileTimeSpanFactor-help": "Ce facteur est défini de sorte que le changement de journal puisse être testé à une fréquence différente. La valeur par défaut est 3 600 000.",
+
+  "a-process_NumberOfFilesLimited-label": "Nombre de fichiers limité pour le processus",
+  "a-process_NumberOfFilesLimited-help": "Indique si le nombre de fichiers journaux créés par cette instance de processus doit être limité pour stocker les anciens messages. Une fois cette limite atteinte, le processus supprime le fichier journal le plus ancien et crée un fichier journal avec le dernier suffixe. Si vous n'activez pas cette option, le processus crée de nouveaux fichiers indéfiniment et vous devez nettoyer ces fichiers selon vos besoins. La valeur par défaut est true.",
+
+  "a-process_RotatedFileCount-label": "Nombre de fichiers de changement de journal du processus",
+  "a-process_RotatedFileCount-help": "Lorsque le nombre de fichiers est limité, ce paramètre indique le nombre maximal de fichiers de changement de journal à conserver.",
+
+  "a-process_RotationTimeStart-label": "Heure de début de rotation du processus",
+  "a-process_RotationTimeStart-help": "Détermine l'heure de début (heure et minute) d'une séquence de rotation basée sur le temps. A l'heure indiquée par cette valeur, le processus renomme le fichier journal en cours.",
+
+  "a-process_RotationType-label": "Type de rotation du processus",
+  "a-process_RotationType-help": "Indique les critères à respecter pour déplacer les anciens enregistrements de journal vers un fichier distinct. Le critère par défaut est la taille.",
+
   "a-preferredlanguage-label": "preferredlanguage",
   "a-rcu_admin_password-label": "Mot de passe d'administrateur de base de données",
   "a-rcu_admin_password-help": "Mot de passe de l'administrateur de base de données nécessaire pour créer les schémas RCU. Cette valeur est requise si vous voulez que WDT crée les schémas RCU pour vous.",
@@ -7288,6 +7413,36 @@
 
   "a-weblogic_UseMACBroadcast-label": "Utiliser la diffusion MAC - WebLogic",
   "f-NMProperties-a-weblogic_UseMACBroadcast-help": "Indique si l'adresse MAC d'un noeud doit être utilisée lors de l'envoi de paquets ARP, c'est-à-dire si l'indicateur -b doit être utilisé dans la commande arping. Lorsque le gestionnaire de noeuds lie des adresses IP pour la migration automatique du serveur, il utilise également la commande arping afin de tenter d'informer les noeuds du réseau que l'ordinateur utilise désormais l'adresse IP virtuelle. Lorsque weblogic.UseMACBroadcast=true, le gestionnaire de noeuds utilise la commande arping avec l'indicateur -b.",
+
+  "a-weblogic_startup_Arguments-label": "Arguments de démarrage WebLogic",
+  "a-weblogic_startup_Arguments-itemLabel": "Argument de démarrage WebLogic",
+  "a-weblogic_startup_Arguments-itemHelp": "Indiquez l'argument de démarrage WebLogic à ajouter.",
+  "a-weblogic_startup_Arguments-help": "Arguments à utiliser lors du démarrage des instances de serveur WebLogic.",
+
+  "a-weblogic_startup_Arguments_prepend-label": "Arguments de démarrage WebLogic à ajouter au début",
+  "a-weblogic_startup_Arguments_prepend-itemLabel": "Argument de démarrage WebLogic à ajouter au début",
+  "a-weblogic_startup_Arguments_prepend-itemHelp": "Indiquez l'argument de démarrage WebLogic à ajouter.",
+  "a-weblogic_startup_Arguments_prepend-help": "Arguments à ajouter au début de la liste des arguments utilisés pour démarrer les instances de serveur WebLogic.",
+
+  "a-weblogic_startup_ClassPath-label": "CLASSPATH de démarrage WebLogic",
+  "a-weblogic_startup_ClassPath-itemLabel": "Entrée CLASSPATH de démarrage WebLogic",
+  "a-weblogic_startup_ClassPath-itemHelp": "Indiquez l'entrée à ajouter au CLASSPATH de démarrage WebLogic.",
+  "a-weblogic_startup_ClassPath-help": "CLASSPATH Java à utiliser lors du démarrage des instances de serveur WebLogic.",
+
+  "a-weblogic_startup_JavaVendor-label": "Fournisseur Java de démarrage WebLogic",
+  "a-weblogic_startup_JavaVendor-help": "Type de fournisseur Java à utiliser lors du démarrage des instances WebLogic Server.",
+
+  "a-weblogic_startup_MW_Home-label": "Répertoire de base du middleware pour le démarrage de WebLogic Server",
+  "a-weblogic_startup_MW_Home-help": "Répertoire de base du middleware (MW_HOME) à utiliser lors du démarrage des instances WebLogic Server.",
+
+  "a-weblogic_startup_SecurityPolicyFile-label": "Fichier de stratégie de sécurité pour le démarrage de WebLogic Server",
+  "a-weblogic_startup_SecurityPolicyFile-help": "Fichier de stratégie de sécurité à utiliser lors du démarrage des instances WebLogic Server.",
+
+  "a-weblogic_startup_serverGID-label": "ID de groupe du serveur pour le démarrage de WebLogic Server",
+  "a-weblogic_startup_serverGID-help": "ID de groupe du système d'exploitation (GID) à utiliser pour démarrer les instances WebLogic Server.",
+
+  "a-weblogic_startup_serverUID-label": "ID utilisateur du serveur pour le démarrage de WebLogic Server",
+  "a-weblogic_startup_serverUID-help": "ID utilisateur du système d'exploitation (UID) à utiliser pour démarrer les instances WebLogic Server.",
 
   "f-any-nameHelp": "Nom de {{folderType}}",
   "f-any-nameLabel": "Nom de {{folderType}}",
@@ -7441,6 +7596,7 @@
   "f-any_FairShareConstraint-label": "Contrainte de partage équitable",
   "f-any_FairShareRequestClass-label": "Classes de demande de partage équitable",
   "f-any_FairShareRequestClass-typeLabel": "Classe de demande de partage équitable",
+  "f-any_FeatureCompatibility-label": "Compatibilité des fonctionnalités",
   "f-any_FederationServices-label": "Services de fédération",
   "f-any_FileOpen-label": "Ouverture de fichier",
   "f-any_FileStore-label": "Emplacements de stockage des fichiers",
@@ -7511,6 +7667,11 @@
   "f-any_JdbcPropertyOverride-label": "Remplacements de propriété JDBC",
   "f-any_JdbcPropertyOverride-typeLabel": "Remplacement de propriété JDBC",
   "f-any_JdbcResource-label": "Ressource JDBC",
+  "f-any_JdbcResource/JDBCConnectionPoolParams-label": "Paramètres de pool de connexions JDBC",
+  "f-any_JdbcResource/JDBCDataSourceParams-label": "Paramètres de source de données JDBC",
+  "f-any_JdbcResource/JDBCDriverParams-label": "Paramètres de pilote JDBC",
+  "f-any_JdbcResource/JDBCOracleParams-label": "Paramètres Oracle JDBC",
+  "f-any_JdbcResource/JDBCXAParams-label": "Paramètres XA JDBC",
   "f-any_JdbcSystemResourceOverride-label": "Remplacements de ressource système JDBC",
   "f-any_JdbcSystemResourceOverride-typeLabel": "Remplacement de ressource système JDBC",
   "f-any_JmsConnectionConsumer-label": "Destinataires de connexion JMS",
@@ -7784,6 +7945,7 @@
   "f-any_WatchNotification-label": "Notification de surveillance",
   "f-any_WebAppContainer-label": "Conteneur d'application Web",
   "f-any_WebLogicCertPathProvider-label": "Fournisseur de chemin de certification WebLogic",
+  "f-any_WeblogicPluginRouting-label": "Routage de module d'extension WebLogic",
   "f-any_WebServer-label": "Serveur Web",
   "f-any_WebServerLog-label": "Journal de serveur Web",
   "f-any_WebService-label": "Service Web",
@@ -7822,5 +7984,133 @@
   "f-any_XMLRegistry-typeLabel": "Registre XML",
   "f-any_Deployments-label": "Déploiements",
   "f-any_Resources-label": "Ressources",
-  "f-any_weblogic.security.providers.authentication.OracleIdentityCloudIntegrator-label": "Intégrateur Oracle Identity Cloud"
+  "f-any_weblogic.security.providers.authentication.OracleIdentityCloudIntegrator-label": "Intégrateur Oracle Identity Cloud",
+
+  "a-CertificateAuthorityKeyProfile-label": "Profil de clé d'autorité de certification",
+  "a-CertificateAuthoritySignatureAlgorithm-label": "Algorithme de signature de l'autorité de certification",
+  "a-CertificateCheckTime-label": "Heure de vérification du certificat",
+  "a-CertificateCheckTimeMaximumOffset-label": "Décalage maximal de l'heure de vérification du certificat",
+  "a-CertificateKeyProfile-label": "Profil de clé de certificat",
+  "a-CrossDomainT3SConnectionTrustValidationEnabled-label": "Validation de l'approbation de la connexion T3S interdomaine activée",
+  "a-CrossDomainT3SConnectionTrustValidationEnabled-help": "Indique si une recherche inversée interdomaine doit établir une nouvelle connexion T3S et réussir une nouvelle vérification d'approbation SSL au lieu de réutiliser une connexion existante. Les modifications prennent effet après le redémarrage du serveur.",
+  "a-DomainKeystoresAdminUrl-label": "URL d'administration des fichiers de clés du domaine",
+  "a-DomainKeystoresMachineName-label": "Nom de machine des fichiers de clés du domaine",
+  "a-ExpiredCertificateAuthorityRetentionDays-label": "Jours de conservation des autorités de certification expirées",
+  "a-IiopStrictRemoteBusinessInterfaceValidationEnabled-label": "Validation stricte de l'interface métier distante IIOP activée",
+  "a-IiopStrictRemoteBusinessInterfaceValidationEnabled-help": "Indique si la génération de stubs client IIOP rejette les interfaces métier qui ne sont pas reconnues comme interfaces distantes. Lorsque cette option est désactivée, un client IIOP hérité peut utiliser une interface métier simple visible localement uniquement lorsque la référence d'objet interopérable (IOR) n'a pas de base de code.",
+  "a-JaxwsRejectUnknownSeiOperationsEnabled-label": "Rejet des opérations SEI inconnues par JAX-WS activé",
+  "a-JaxwsRejectUnknownSeiOperationsEnabled-help": "Indique si les points d'extrémité JAX-WS utilisant une interface de point d'extrémité de service (SEI) rejettent les demandes SOAP dont l'opération ne correspond pas à une méthode SEI. Lorsque cette option est activée, les opérations inconnues génèrent une erreur SOAP avant tout traitement ultérieur, y compris le traitement WorkContext. Lorsque cette option est désactivée, ces demandes suivent le chemin de traitement hérité sans autorisation au niveau méthode pour l'opération inconnue.",
+  "a-JmsDotNetClientEnabled-label": "Client JMS .NET activé",
+  "a-KeystoreFileLockTimeout-label": "Délai d'expiration du verrouillage du fichier de clés",
+  "a-KeystoreFileLockingEnabled-label": "Verrouillage du fichier de clés activé",
+  "a-KeystoreFileWatchingEnabled-label": "Surveillance du fichier de clés activée",
+  "a-MaxHeaderCount-label": "Nombre maximal d'en-têtes",
+  "a-MaxQueued-label": "Nombre maximal en file d'attente",
+  "a-MaximumUnitOfWorkMessages-label": "Nombre maximal de messages d'unité de travail",
+  "a-RestrictContentBasedOnRoles-label": "Restreindre le contenu en fonction des rôles",
+  "a-SAML2StrictArtifactResolutionEnabled-label": "Résolution stricte des artefacts SAML2 activée",
+  "a-SAML2StrictArtifactResolutionEnabled-help": "Indique si la résolution d'artefact SAML 2.0 authentifie le destinataire prévu avant de récupérer et de consommer un artefact. Lorsque cette option est activée, l'émetteur de la demande doit correspondre à un partenaire activé et fournir une signature vérifiée ou un certificat client TLS correspondant à ce partenaire ; l'authentification de base partagée seule est insuffisante. Lorsqu'elle est désactivée, le comportement hérité autorise la récupération d'artefacts avant l'authentification.",
+  "a-SpringJtaDeserializationJndiLookupDisabled-label": "Désactivation de la recherche JNDI lors de la désérialisation JTA Spring",
+  "a-SpringJtaDeserializationJndiLookupDisabled-help": "Indique si JtaTransactionManager de Spring est empêché de résoudre les noms JNDI sérialisés lorsqu'il est désérialisé. Lorsque cette option est activée, les descripteurs JTA transitoires ne sont pas restaurés via ces recherches. La recherche JTA lors de l'initialisation normale du bean n'est pas affectée. Lorsqu'elle est désactivée, les noms JNDI sérialisés sont résolus comme dans le comportement hérité.",
+  "a-StrictClusterCompatibilityEnabled-label": "Compatibilité stricte du cluster activée",
+  "a-StrictClusterCompatibilityEnabled-help": "Indique si les fonctions de sécurité du cluster utilisent le format filaire strict des sessions répliquées et la validation stricte des interfaces de proxy dynamique dans les attributs de session répliquée. Dans les versions PSU qui prennent en charge ce paramètre, sa désactivation préserve le comportement hérité lors de l'application progressive de patches ; réactivez-le une fois que tous les serveurs participants ont été mis à jour avec les patches. Dans WebLogic Server 26.1 et versions ultérieures, le traitement strict est toujours activé et cet attribut ne peut pas être configuré.",
+  "a-SubjectNamePolicy-label": "Stratégie de nom du sujet",
+  "a-T3LegacyCrossDomainCredentialJVMIDReplayProtectionEnabled-label": "Protection T3 contre la réexécution de JVMID avec informations d'identification interdomaine héritées activée",
+  "a-T3LegacyCrossDomainCredentialJVMIDReplayProtectionEnabled-help": "Indique si le traitement de l'identité du serveur T3 empêche la réexécution d'une identité JVM (JVMID) signée avec des informations d'identification interdomaine héritées d'accorder le statut de serveur approuvé à une connexion entrante nouvellement identifiée. Lorsqu'elle est désactivée, le comportement hérité de global-domain-trust est conservé.",
+  "a-WarnOnDisabledCrossDomainT3SConnectionTrustValidation-label": "Avertir si la validation de l'approbation des connexions T3S interdomaine est désactivée",
+  "a-WarnOnDisabledIiopStrictRemoteBusinessInterfaceValidation-label": "Avertir si la validation stricte de l'interface métier distante IIOP est désactivée",
+  "a-WarnOnDisabledIiopTypedReadResolveProxyValidation-label": "Avertir si la validation du proxy de résolution de lecture typée IIOP est désactivée",
+  "a-WarnOnDisabledIiopUnauthenticatedServiceContextValueTypeFiltering-label": "Avertir si le filtrage des types de valeur de contexte de service IIOP non authentifié est désactivé",
+  "a-WarnOnDisabledJaxwsRejectUnknownSeiOperations-label": "Avertir si le rejet JAX-WS des opérations SEI inconnues est désactivé",
+  "a-WarnOnDisabledJndiAdditionalFactoriesAllowLists-label": "Avertir si les listes d'autorisation de fabriques JNDI supplémentaires sont désactivées",
+  "a-WarnOnDisabledJndiBindingAuthorizationPolicy-label": "Avertir si la stratégie d'autorisation de liaison JNDI est désactivée",
+  "a-WarnOnDisabledJndiOutboundConnectionsAllowList-label": "Avertir si la liste d'autorisation des connexions sortantes JNDI est désactivée",
+  "a-WarnOnDisabledSAML2StrictArtifactResolution-label": "Avertir si la résolution stricte des artefacts SAML2 est désactivée",
+  "a-WarnOnDisabledSerializedWorkContextMaximumSize-label": "Avertir si la taille maximale du contexte de travail sérialisé est désactivée",
+  "a-WarnOnDisabledSpringJtaDeserializationJndiLookupDisabled-label": "Avertir si la désactivation de la recherche JNDI lors de la désérialisation JTA Spring est désactivée",
+  "a-WarnOnDisabledT3LegacyCrossDomainCredentialJVMIDReplayProtection-label": "Avertir si la protection T3 contre la réexécution de JVMID avec informations d'identification interdomaine héritées est désactivée",
+  "a-WarnOnDisabledT3RouteOnlyToTrustedServers-label": "Avertir si l'acheminement T3 uniquement vers des serveurs approuvés est désactivé",
+  "a-WarnOnDisabledWlProxyClientCertificateChainValidation-label": "Avertir si la validation de la chaîne de certificats client du proxy WL est désactivée",
+  "a-WarnOnDisabledWldfScriptActionPathRestriction-label": "Avertir si la restriction du chemin d'action de script WLDF est désactivée",
+  "a-WarnOnDisabledWorkContextClassValidation-label": "Avertir si la validation de la classe de contexte de travail est désactivée",
+  "a-WarnOnDisabledWorkContextInputMaximumAsciiFieldSize-label": "Avertir si la taille maximale du champ ASCII d'entrée de contexte de travail est désactivée",
+  "a-WarnOnDisabledWsatIgnoreUnknownReplayCompletion-label": "Avertir si l'option WSAT Ignorer la fin de réexécution inconnue est désactivée",
+  "a-WarnOnDisabledWsatRegistrationSecret-label": "Avertir si la clé secrète d'inscription WSAT est désactivée",
+  "a-WlProxyClientCertificateChainValidationEnabled-label": "Validation de la chaîne de certificats client du proxy WL activée",
+  "a-WlProxyClientCertificateChainValidationEnabled-help": "Indique si les chaînes de certificats fournies dans l'en-tête HTTP WL-Proxy-Client-Cert sont validées par rapport aux ancres d'approbation des certificats client WebLogic Server configurées avant d'être utilisées pour l'assertion d'identité X.509. Lorsque cette option est activée, les certificats non valides, non approuvés, expirés, malformés ou non vérifiables sont rejetés. Lorsqu'elle est désactivée, le comportement hérité des certificats client du proxy est conservé.",
+  "a-WorkContextInputMaximumAsciiFieldSize-label": "Taille maximale du champ ASCII d'entrée de contexte de travail",
+  "a-WorkContextInputMaximumAsciiFieldSize-help": "Spécifie la taille maximale, en octets, d'un champ ASCII dans le codage binaire WorkArea qui utilise une longueur signée de quatre octets. Une valeur de -1 désactive cette limite ; zéro autorise uniquement les champs de longueur nulle. Cette limite ne s'applique pas aux codages WorkContext spécifiques au transport, tels que T3 et IIOP, qui utilisent des chemins de décodage distincts.",
+  "a-WsatIgnoreUnknownReplayCompletionEnabled-label": "Ignorance de l'achèvement de réexécution inconnu WSAT activée",
+  "a-WsatIgnoreUnknownReplayCompletionEnabled-help": "Indique si les demandes d'achèvement de réexécution WS-AT sans transaction locale correspondante sont ignorées. Lorsque cette option est désactivée, le comportement hérité annule une ressource de récupération créée à partir de l'adresse ReplyTo fournie par l'appelant.",
+  "a-WsatRegistrationSecretEnabled-label": "Clé secrète d'enregistrement WSAT activée",
+  "a-WsatRegistrationSecretEnabled-help": "Indique si WebLogic Server inclut une clé secrète d'enregistrement propre à chaque transaction dans les contextes de coordination WS-AT générés et exige que les demandes d'enregistrement non authentifiées renvoient la clé secrète correspondante avant d'inscrire un participant. Lorsque cette option est désactivée, le comportement d'interopérabilité WS-AT hérité est conservé.",
+
+  "a-CertificateAuthorityKeyProfile-help": "Spécifie le profil de clé utilisé lors de la prochaine génération ou rotation d'une autorité de certification de domaine ou de machine. La modification de cette valeur ne remplace pas les clés d'autorité de certification existantes ni ne force la régénération.",
+  "a-CertificateAuthoritySignatureAlgorithm-help": "Spécifie l'algorithme de signature qu'une autorité de certification nouvellement générée utilise pour son propre certificat et les certificats feuille qu'elle émet. Une autorité de certification existante conserve son algorithme de signature actuel jusqu'à sa régénération ou sa rotation.",
+  "a-CertificateCheckTime-help": "Spécifie l'heure du serveur local pour les vérifications des certificats au format H:mm, avec une heure comprise entre 0 et 23 et des minutes sur deux chiffres. La première vérification a lieu à cette heure après l'intervalle de vérification des certificats configuré, et les vérifications suivantes suivent le même intervalle en jours calendaires. Si elle n'est pas définie, la planification à fréquence fixe est utilisée.",
+  "a-CertificateCheckTimeMaximumOffset-help": "Spécifie le délai aléatoire maximal, en secondes, ajouté à l'heure de vérification des certificats. Un décalage compris entre zéro et cette valeur est sélectionné lorsque la planification est établie et réutilisé pendant ce cycle de vie de planification. La valeur zéro désactive le décalage ; la valeur maximale est de 86399 secondes.",
+  "a-CertificateKeyProfile-help": "Spécifie le profil de clé utilisé lors de la prochaine génération ou du prochain renouvellement d'un certificat feuille. La modification de cette valeur ne modifie pas les certificats existants ni ne force la régénération.",
+  "a-DomainKeystoresAdminUrl-help": "Spécifie l'URL HTTPS absolue du serveur d'administration que le gestionnaire de noeuds contacte pour le service de gestion des certificats de domaine. Cette propriété est requise lorsque KeyStores a la valeur DomainKeystores.",
+  "a-DomainKeystoresMachineName-help": "Spécifie le nom de machine de domaine utilisé pour identifier le gestionnaire de noeuds auprès du service de gestion des certificats. Cette propriété est requise lorsque KeyStores a la valeur DomainKeystores.",
+  "a-ExpiredCertificateAuthorityRetentionDays-help": "Indique le nombre de jours pendant lesquels une autorité de certification expirée reste approuvée dans le magasin source domain-trust ou provisioned-trust du serveur d'administration avant sa suppression par le nettoyage automatique. La valeur zéro désactive le nettoyage automatique, mais n'empêche pas le nettoyage lancé par l'administrateur.",
+  "a-JmsDotNetClientEnabled-help": "Indique si le point d'extrémité du client JMS WebLogic pour Microsoft .NET est activé. Un redémarrage du serveur est requis pour que les modifications prennent effet. La valeur par défaut est false.",
+  "a-KeystoreFileLockTimeout-help": "Spécifie la durée maximale, en millisecondes, pendant laquelle un processus attend l'acquisition d'un verrou interprocessus sur un fichier de clés de gestion des certificats partagé. La valeur doit être positive. Les modifications nécessitent le redémarrage du serveur concerné ou du processus du gestionnaire de noeuds concerné. La propriété système weblogic.keystore.filelock.timeout est prioritaire lorsqu'elle est spécifiée.",
+  "a-KeystoreFileLockingEnabled-help": "Indique si des verrous de fichier interprocessus sont utilisés lors de l'accès aux magasins de clés de gestion des certificats partagés. Si cette option est désactivée, le verrouillage doit être désactivé de manière cohérente dans chaque processus accédant aux mêmes magasins de clés de machine. Les modifications nécessitent le redémarrage du serveur concerné ou du processus du gestionnaire de noeuds concerné. La propriété système weblogic.keystore.filelock.enabled est prioritaire lorsqu'elle est spécifiée.",
+  "a-MaxHeaderCount-help": "Spécifie le nombre maximal de champs HTTP/2 décodés acceptés dans une liste d'en-têtes, en comptant les pseudo-en-têtes, les champs répétés et chaque champ Cookie encodé séparément. Les en-têtes initiaux et les en-têtes de fin ont des limites distinctes. Il s'agit d'une limite entrante locale, et non d'un paramètre SETTINGS HTTP/2, et les modifications s'appliquent aux connexions nouvellement établies.",
+  "a-MaxQueued-help": "Indique le nombre de tâches asynchrones pouvant attendre lorsqu'un exécuteur configuré par annotation atteint sa limite maxAsync de tâches en cours d'exécution. Une valeur négative autorise une file d'attente non bornée ; la valeur zéro désactive la mise en file d'attente et rejette les nouvelles soumissions à cette limite ; une valeur positive limite le nombre de tâches en attente.",
+  "a-MaximumUnitOfWorkMessages-help": "Indique le nombre maximal de messages dans une unité de travail JMS (UOW). Un message dont le numéro de séquence d'UOW dépasse cette limite est rejeté. Ce paramètre n'a d'effet que lorsque la stratégie de gestion des unités de travail a la valeur Livraison de message unique. Les modifications s'appliquent aux messages d'UOW suivants ; un message de fin d'UOW déjà accepté continue de définir la plage de séquences autorisée pour cette UOW.",
+  "a-RestrictContentBasedOnRoles-help": "Indique si la console distante hébergée limite les pages et les actions en fonction du rôle WebLogic Server de l'utilisateur actuel. Lorsque ce paramètre est désactivé, tout le contenu est affiché, mais WebLogic Server continue d'appliquer l'autorisation. Les restrictions de contenu utilisent les stratégies de sécurité par défaut et peuvent ne pas refléter les modifications de stratégies personnalisées.",
+  "a-SubjectNamePolicy-help": "Spécifie les noms d'hôte et les adresses IP littérales autorisés par l'émetteur de certificats du domaine dans les sujets des certificats. CONFIGURED_ONLY autorise les adresses d'écoute de serveur configurées, les adresses d'écoute des canaux réseau, les noms d'hôte virtuel ciblés et l'adresse d'écoute configurée du gestionnaire de noeuds pour les certificats de machine. CONFIGURED_PLUS_HOST autorise également le nom d'hôte et l'adresse de la demande authentifiée. CONFIGURED_PLUS_ANY autorise toute identité demandée à des fins de compatibilité avec les versions antérieures. Le nom localhost et les adresses de bouclage numériques sont autorisés dans tous les modes.",
+  "a-WarnOnDisabledCrossDomainT3SConnectionTrustValidation-help": "Indique si un avertissement doit être émis lorsque FeatureCompatibility.CrossDomainT3SConnectionTrustValidationEnabled a la valeur false. Ce paramètre contrôle uniquement les avertissements et ne modifie pas le paramètre de la fonctionnalité.",
+  "a-WarnOnDisabledIiopStrictRemoteBusinessInterfaceValidation-help": "Indique si un avertissement doit être émis lorsque FeatureCompatibility.IiopStrictRemoteBusinessInterfaceValidationEnabled a la valeur false. Ce paramètre contrôle uniquement les avertissements et ne modifie pas le paramètre de la fonctionnalité.",
+  "a-WarnOnDisabledIiopTypedReadResolveProxyValidation-help": "Indique si un avertissement doit être émis lorsque FeatureCompatibility.IIOPTypedReadResolveProxyValidationEnabled a la valeur false. Ce paramètre contrôle uniquement les avertissements et ne modifie pas le paramètre de la fonctionnalité.",
+  "a-WarnOnDisabledIiopUnauthenticatedServiceContextValueTypeFiltering-help": "Indique si un avertissement doit être émis lorsque FeatureCompatibility.IIOPUnauthenticatedServiceContextValueTypeFilteringEnabled a la valeur false. Ce paramètre contrôle uniquement les avertissements et ne modifie pas le paramètre de la fonctionnalité.",
+  "a-WarnOnDisabledJaxwsRejectUnknownSeiOperations-help": "Indique si un avertissement doit être émis lorsque FeatureCompatibility.JaxwsRejectUnknownSeiOperationsEnabled a la valeur false. Ce paramètre contrôle uniquement les avertissements et ne modifie pas le paramètre de la fonctionnalité.",
+  "a-WarnOnDisabledJndiAdditionalFactoriesAllowLists-help": "Indique si un avertissement doit être émis lorsque FeatureCompatibility.JndiAdditionalFactoriesAllowListsEnabled a la valeur false. Ce paramètre contrôle uniquement les avertissements et ne modifie pas le paramètre de la fonctionnalité.",
+  "a-WarnOnDisabledJndiBindingAuthorizationPolicy-help": "Indique si un avertissement doit être émis lorsque FeatureCompatibility.JndiBindingAuthorizationPolicyEnabled a la valeur false. Ce paramètre contrôle uniquement les avertissements et ne modifie pas le paramètre de la fonctionnalité.",
+  "a-WarnOnDisabledJndiOutboundConnectionsAllowList-help": "Indique si un avertissement doit être émis lorsque FeatureCompatibility.JndiOutboundConnectionsAllowListEnabled a la valeur false. Ce paramètre contrôle uniquement les avertissements et ne modifie pas le paramètre de la fonctionnalité.",
+  "a-WarnOnDisabledSAML2StrictArtifactResolution-help": "Indique si un avertissement doit être émis lorsque FeatureCompatibility.SAML2StrictArtifactResolutionEnabled a la valeur false. Ce paramètre contrôle uniquement les avertissements et ne modifie pas le paramètre de la fonctionnalité.",
+  "a-WarnOnDisabledSerializedWorkContextMaximumSize-help": "Indique si un avertissement doit être émis lorsque FeatureCompatibility.SerializedWorkContextMaximumSize est égal à zéro ou négatif. Ce paramètre contrôle uniquement les avertissements et ne modifie pas la limite d'octets configurée.",
+  "a-WarnOnDisabledSpringJtaDeserializationJndiLookupDisabled-help": "Indique si un avertissement doit être émis lorsque FeatureCompatibility.SpringJtaDeserializationJndiLookupDisabled a la valeur false. Ce paramètre contrôle uniquement les avertissements et ne modifie pas le paramètre de la fonctionnalité.",
+  "a-WarnOnDisabledT3LegacyCrossDomainCredentialJVMIDReplayProtection-help": "Indique si un avertissement doit être émis lorsque FeatureCompatibility.T3LegacyCrossDomainCredentialJVMIDReplayProtectionEnabled a la valeur false. Ce paramètre contrôle uniquement les avertissements et ne modifie pas le paramètre de la fonctionnalité.",
+  "a-WarnOnDisabledT3RouteOnlyToTrustedServers-help": "Indique si un avertissement doit être émis lorsque FeatureCompatibility.T3RouteOnlyToTrustedServersEnabled a la valeur false. Ce paramètre contrôle uniquement les avertissements et ne modifie pas le paramètre de la fonctionnalité.",
+  "a-WarnOnDisabledWlProxyClientCertificateChainValidation-help": "Indique si un avertissement doit être émis lorsque FeatureCompatibility.WlProxyClientCertificateChainValidationEnabled a la valeur false. Ce paramètre contrôle uniquement les avertissements et ne modifie pas le paramètre de la fonctionnalité.",
+  "a-WarnOnDisabledWldfScriptActionPathRestriction-help": "Indique si un avertissement doit être émis lorsque FeatureCompatibility.WLDFScriptActionPathRestrictionEnabled a la valeur false. Ce paramètre contrôle uniquement les avertissements et ne modifie pas le paramètre de la fonctionnalité.",
+  "a-WarnOnDisabledWorkContextClassValidation-help": "Indique s'il faut émettre un avertissement lorsque FeatureCompatibility.WorkContextClassValidationEnabled a la valeur false. Ce paramètre contrôle uniquement les avertissements et ne modifie pas le paramètre de fonctionnalité.",
+  "a-WarnOnDisabledWorkContextInputMaximumAsciiFieldSize-help": "Indique s'il faut émettre un avertissement lorsque FeatureCompatibility.WorkContextInputMaximumAsciiFieldSize est égal à zéro ou négatif. Ce paramètre contrôle uniquement les avertissements et ne modifie pas la limite en octets configurée.",
+  "a-WarnOnDisabledWsatIgnoreUnknownReplayCompletion-help": "Indique s'il faut émettre un avertissement lorsque FeatureCompatibility.WsatIgnoreUnknownReplayCompletionEnabled a la valeur false. Ce paramètre contrôle uniquement les avertissements et ne modifie pas le paramètre de fonctionnalité.",
+  "a-WarnOnDisabledWsatRegistrationSecret-help": "Indique s'il faut émettre un avertissement lorsque FeatureCompatibility.WsatRegistrationSecretEnabled a la valeur false. Ce paramètre contrôle uniquement les avertissements et ne modifie pas le paramètre de fonctionnalité.",
+  "f-NMProperties-a-KeystoreFileWatchingEnabled-help": "Indique si le gestionnaire de noeuds surveille les fichiers de clés de gestion des certificats et interroge les révisions d'identité gérée. Lorsque cette option est activée, le remplacement ou la suppression d'identité entraîne le redémarrage du gestionnaire de noeuds afin qu'il ne conserve pas les informations d'identification de processus d'écoute supprimées. Le redémarrage automatique nécessite que le gestionnaire de noeuds soit démarré avec la prise en charge du redémarrage. La désactivation de cette propriété désactive à la fois la surveillance et l'interrogation des révisions. Les modifications nécessitent un redémarrage du gestionnaire de noeuds. La propriété système weblogic.keystore.filewatch.enabled est prioritaire lorsqu'elle est spécifiée.",
+  "f-SecurityConfiguration_CertificateManagement-a-KeystoreFileWatchingEnabled-help": "Indique si WebLogic Server surveille les modifications apportées aux fichiers de clés de gestion des certificats par un autre processus. Les modifications nécessitent un redémarrage du serveur. La propriété système weblogic.keystore.filewatch.enabled est prioritaire lorsqu'elle est spécifiée.",
+
+  "feature-compatibility-warnings-title": "Avertissements de compatibilité des fonctionnalités",
+  "options-configured-only-label": "Noms configurés uniquement",
+  "options-configured-plus-host-label": "Noms configurés et hôte authentifié",
+  "options-configured-plus-any-label": "Tout nom demandé (compatibilité héritée)",
+
+  "a-DatabaseType-label": "Type de base de données",
+  "a-DefaultResource-label": "Ressource par défaut",
+  "a-ProviderName-label": "Nom du fournisseur",
+  "f-any_NoSqlResource-label": "Ressource NoSQL",
+  "f-any_NoSqlSystemResource-label": "Ressources système NoSQL",
+  "f-any_NoSqlSystemResource-typeLabel": "Ressource système NoSQL",
+  "f-NoSqlSystemResource_NoSqlResource_Properties_Property-label": "Propriétés",
+  "f-NoSqlSystemResource_NoSqlResource_Properties_Property-typeLabel": "Propriété",
+  "options-oracle-nosql-label": "Oracle NoSQL Database",
+  "options-mongodb-label": "MongoDB",
+  "options-solr-label": "Apache Solr",
+  "options-couchdb-label": "Apache CouchDB",
+  "options-dynamodb-label": "Amazon DynamoDB",
+  "options-elasticsearch-label": "Elasticsearch",
+  "options-couchbase-label": "Couchbase",
+  "options-document-label": "Document",
+  "options-key-value-label": "Clé-valeur",
+  "options-column-label": "Colonne",
+  "options-graph-label": "Graphe",
+  "f-NoSqlSystemResource_NoSqlResource-a-ProviderName-help": "Fournisseur NoSQL utilisé par cette ressource. Les noms de fournisseurs pris en charge sont oracle-nosql, mongodb, solr, couchdb, dynamodb, elasticsearch et couchbase. Les modifications affectant la compatibilité des fournisseurs nécessitent le redéploiement complet des applications concernées ; un arrêt/démarrage n'efface pas l'invalidation.",
+  "f-NoSqlSystemResource_NoSqlResource-a-DatabaseType-help": "Type de base de données Jakarta Data indépendant du fournisseur. La valeur par défaut est DOCUMENT. Les valeurs autorisées sont DOCUMENT, KEY_VALUE, COLUMN et GRAPH, mais le fournisseur sélectionné doit prendre en charge le type. Le fournisseur oracle-nosql intégré prend actuellement en charge DOCUMENT. WebLogic Server valide la combinaison fournisseur/type de base de données lorsque la ressource est ciblée.",
+  "f-NoSqlSystemResource_NoSqlResource-a-DefaultResource-help": "Indique si cette ressource peut être sélectionnée par défaut lorsqu'un référentiel reposant sur Jakarta NoSQL omet dataStore. La sélection par défaut nécessite exactement une ressource valide, ciblée localement, explicitement liée à l'application et marquée comme ressource par défaut. Ce paramètre n'établit pas de liaison d'application et n'accorde pas d'autorisation.",
+  "f-NoSqlSystemResource_NoSqlResource-a-JNDIName-help": "Nom JNDI affecté à cette ressource NoSQL.",
+  "f-NoSqlSystemResource_NoSqlResource_Properties_Property-a-Value-help": "Valeur en texte clair de cette propriété NoSQL propre au fournisseur. Utilisez Valeur chiffrée pour des informations d'identification ou toute autre valeur sensible.",
+  "f-NoSqlSystemResource_NoSqlResource_Properties_Property-a-EncryptedValueEncrypted-help": "Valeur sensible de cette propriété NoSQL propre au fournisseur. WebLogic Server stocke la valeur sous forme chiffrée dans le descripteur de ressource NoSQL. WDT traite ce champ comme un mot de passe."
 }

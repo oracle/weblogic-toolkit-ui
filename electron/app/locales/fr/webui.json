@@ -236,9 +236,16 @@
   "user-settings-dialog-quickstart-section-title": "Configuration de la présentation de WebLogic Kubernetes Toolkit UI",
   "user-settings-dialog-quickstart-skip-label": "Ignorer la présentation au démarrage",
   "user-settings-dialog-quickstart-skip-help": "Permet d'ignorer l'affichage de la présentation de WebLogic Kubernetes Toolkit UI au démarrage de l'application.",
+  "user-settings-dialog-appearance-mode-title": "Apparence",
+  "user-settings-dialog-appearance-mode-label": "Mode d'apparence",
+  "user-settings-dialog-appearance-mode-help": "Mode d'apparence de WKT UI à utiliser.",
+  "user-settings-dialog-appearance-mode-dark": "Mode sombre",
+  "user-settings-dialog-appearance-mode-light": "Mode clair",
+  "user-settings-dialog-appearance-mode-system": "Utiliser le mode du système d'exploitation",
 
   "dialog-passphrase-prompt-title": "Phrase de passe de cryptage des informations d'identification",
   "dialog-passphrase-prompt-label": "Saisissez la phrase de passe à utiliser pour crypter les informations d'identification du projet.",
+  "dialog-passphrase-prompt-forgot-passphrase": "Phrase de passe oubliée ?",
 
   "dialog-about-version": "Version {{version}} ({{buildVersion}})",
 
@@ -1879,5 +1886,7 @@
   "wkt-project-verrazzano-removal-warning": "WKTUI 2.0 ne prend plus en charge Verrazzano. Le projet a donc été converti de sorte à enlever tous les champs relatifs à Verrazzano.",
   "wkt-project-keytar-removal-warning": "WKTUI 2.0 ne prend plus en charge la banque d'informations d'identification native en raison de l'abandon de la bibliothèque JavaScript keytar. Le projet a donc été mis à jour de sorte à utiliser le gestionnaire d'authentification qui stocke les informations d'identification cryptées dans le fichier de projet.",
   "wkt-project-dii-removal warning": "WKTUI 2.0 ne prend plus en charge le domaine dans l'image. Le projet a donc été converti de sorte à utiliser le modèle dans l'image avec une image auxiliaire",
-  "registry-credentials-dialog-title": "Informations d'identification de registre d'images de conteneur"
+  "registry-credentials-dialog-title": "Informations d'identification de registre d'images de conteneur",
+
+  "model-archive-context-menu-aria-label": "Actions sur les entrées d'archive"
 }

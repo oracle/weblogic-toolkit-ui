@@ -151,7 +151,7 @@
   "dialog-openProjectFileLoadCredentialsErrorTitle": "プロジェクト資格証明のロードに失敗しました",
   "dialog-openProjectFileLoadCredentialsErrorMessage": "エラーが発生したため、プロジェクト・ファイル{{projectFileName}}の資格証明をロードできません: {{err}}",
   "dialog-openProjectFileCredentialManagerErrorTitle": "資格証明マネージャの作成に失敗しました",
-  "dialog-openProjectFileCredentialManagerErrorMessage": "エラーが発生したため、プロジェクト・ファイル{{projectFileName}}の資格証明マネージャを作成できません: {{error}}",
+  "dialog-openProjectFileCredentialManagerErrorMessage": "エラーが発生したため、プロジェクト・ファイル{{projectFileName}}の資格証明マネージャを作成できません: {{err}}",
   "dialog-openProjectFileSendToWindowErrorTitleErrorTitle": "プロジェクトを開けませんでした",
   "dialog-openProjectFileSendToWindowErrorMessage": "プロジェクト・ウィンドウの初期化中にエラーが発生したため、プロジェクト・ファイル{{projectFileName}}を開けません: {{err}}",
   "dialog-createNewProjectTitle": "WebLogic Kubernetes Toolkitプロジェクトの作成",
@@ -171,6 +171,8 @@
   "dialog-updateOneToolQuestionMessage": "{{toolName1}}に更新しますか。",
   "dialog-updateTwoToolsSuccessMessage": "インストールは{{toolName1}}および{{toolName2}}に更新されました。",
   "dialog-updateOneToolSuccessMessage": "インストールは{{toolName1}}に更新されました。",
+  "dialog-updateToolsFailedTitle": "WKTツールの更新の失敗",
+  "dialog-updateToolsFailedMessage": "WKTツールの更新に失敗しました: {{error}}",
   "dialog-preference-save-success-title": "プリファレンスが保存されました",
   "dialog-preference-save-success-message": "プリファレンスは正常に保存されました",
   "dialog-preference-save-error-title": "プリファレンスの保存の失敗",
@@ -206,6 +208,9 @@
   "dialog-archiveEntryFilter": "{{entryType}}",
   "dialog-getWebLogicRemoteConsoleHome": "WebLogic Remote Consoleインストールの選択",
   "dialog-getWebLogicRemoteConsoleAppImage": "WebLogic Remote Console AppImageファイルの選択",
+
+  "dialog-forgotPasswordQuestion": "プロジェクト内のすべての資格証明フィールドをクリアしますか。",
+  "dialog-forgotPasswordDetail": "このオプションを使用すると、パスフレーズなしでプロジェクトを開くことができますが、すべての資格証明フィールドがクリアされます。",
 
   "title-edited": "編集済",
 
@@ -451,6 +456,8 @@
   "wdt-archiveType-jmsForeignServerBinding": "JMS外部サーバー・バインディング",
   "wdt-archiveType-jmsForeignServerBinding-fileLabel": "JMS外部サーバー・バインディング・ファイル",
   "wdt-archiveType-jmsForeignServerBinding-fileHelp": "JMS外部サーバー・バインディング・ファイルへのフル・パスを選択します",
+  "wdt-archiveType-jmsForeignServerBinding-dirLabel": "JMS外部サーバー・バインディング・ディレクトリ",
+  "wdt-archiveType-jmsForeignServerBinding-dirHelp": "JMS外部サーバー・バインディングを含むディレクトリを選択します",
 
   "wdt-archiveType-mimeMapping": "MIMEマッピング・ファイル",
   "wdt-archiveType-mimeMapping-fileLabel": "MIMEマッピング・ファイル",

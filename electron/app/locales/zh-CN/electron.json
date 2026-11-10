@@ -151,7 +151,7 @@
   "dialog-openProjectFileLoadCredentialsErrorTitle": "无法加载项目身份证明",
   "dialog-openProjectFileLoadCredentialsErrorMessage": "由于错误，无法加载项目文件 {{projectFileName}} 的身份证明：{{err}}",
   "dialog-openProjectFileCredentialManagerErrorTitle": "无法创建身份证明管理器",
-  "dialog-openProjectFileCredentialManagerErrorMessage": "由于错误，无法为项目文件 {{projectFileName}} 创建身份证明管理器：{{error}}",
+  "dialog-openProjectFileCredentialManagerErrorMessage": "由于错误，无法为项目文件 {{projectFileName}} 创建身份证明管理器：{{err}}",
   "dialog-openProjectFileSendToWindowErrorTitleErrorTitle": "无法打开项目",
   "dialog-openProjectFileSendToWindowErrorMessage": "由于初始化项目窗口时出错，无法打开项目文件 {{projectFileName}}：{{err}}",
   "dialog-createNewProjectTitle": "创建 WebLogic Kubernetes Toolkit 项目",
@@ -171,6 +171,8 @@
   "dialog-updateOneToolQuestionMessage": "更新到 {{toolName1}}？",
   "dialog-updateTwoToolsSuccessMessage": "安装已更新到 {{toolName1}} 和 {{toolName2}}。",
   "dialog-updateOneToolSuccessMessage": "安装已更新到 {{toolName1}}。",
+  "dialog-updateToolsFailedTitle": "WKT 工具更新失败",
+  "dialog-updateToolsFailedMessage": "无法更新 WKT 工具：{{error}}",
   "dialog-preference-save-success-title": "首选项已保存",
   "dialog-preference-save-success-message": "首选项已成功保存",
   "dialog-preference-save-error-title": "首选项保存失败",
@@ -206,6 +208,9 @@
   "dialog-archiveEntryFilter": "{{entryType}}",
   "dialog-getWebLogicRemoteConsoleHome": "选择 WebLogic Remote Console 安装",
   "dialog-getWebLogicRemoteConsoleAppImage": "选择 WebLogic Remote Console  AppImage 文件",
+
+  "dialog-forgotPasswordQuestion": "清除项目中的所有身份证明字段？",
+  "dialog-forgotPasswordDetail": "此选项允许您无需口令短语即可打开项目，但会清除所有身份证明字段。",
 
   "title-edited": "已编辑",
 
@@ -451,6 +456,8 @@
   "wdt-archiveType-jmsForeignServerBinding": "JMS 外部服务器绑定",
   "wdt-archiveType-jmsForeignServerBinding-fileLabel": "JMS 外部服务器绑定文件",
   "wdt-archiveType-jmsForeignServerBinding-fileHelp": "选择 JMS 外部服务器绑定文件的完整路径",
+  "wdt-archiveType-jmsForeignServerBinding-dirLabel": "JMS 外部服务器绑定目录",
+  "wdt-archiveType-jmsForeignServerBinding-dirHelp": "选择包含 JMS 外部服务器绑定的目录",
 
   "wdt-archiveType-mimeMapping": "MIME 映射文件",
   "wdt-archiveType-mimeMapping-fileLabel": "MIME 映射文件",
