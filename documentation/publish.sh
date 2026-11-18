@@ -49,7 +49,7 @@ fi
 #   - each version place can be one or more digits
 #   - each version can be of the form x.y or x.y.z
 #
-releaseDirs=($(cd "${scriptPath}" && ls -d */ | cut -d/ -f 1 | grep '^[0-9][.][0-9]$'))
+releaseDirs=($(cd "${scriptdir}" && ls -d */ | cut -d/ -f 1 | grep '^[0-9][.][0-9]$'))
 latestRelease="<unknown>"
 for i in "${releaseDirs[@]}"; do
   latestRelease=${i}
